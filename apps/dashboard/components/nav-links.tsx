@@ -21,7 +21,22 @@ const links = [
   ["/contratos", "contracts"],
   ["/atividades", "agentActivities"],
   ["/sales", "salesOs"],
+  ["/marketplace", "packMarketplace"],
 ] as const;
+
+const ONBOARDING_STORAGE_KEY = "birthhub:onboarding:v1";
+
+type OnboardingStepState = {
+  id: string;
+  done: boolean;
+};
+
+const defaultSteps: OnboardingStepState[] = [
+  { id: "create-org", done: false },
+  { id: "setup-profile", done: false },
+  { id: "install-pack", done: false },
+  { id: "invite-team", done: false },
+];
 
 export function NavLinks() {
   const pathname = usePathname();
