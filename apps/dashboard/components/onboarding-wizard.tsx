@@ -1,14 +1,16 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import {
+  DEFAULT_ONBOARDING_STEPS,
+  ONBOARDING_STORAGE_KEY,
+  onboardingProgress,
+  type OnboardingStepState,
+} from "../lib/onboarding";
 
-const STORAGE_KEY = "birthhub:onboarding:v1";
-
-type WizardStep = {
-  id: string;
+type WizardStep = OnboardingStepState & {
   title: string;
   description: string;
-  done: boolean;
 };
 
 const initialSteps: WizardStep[] = [
@@ -23,12 +25,16 @@ function loadSteps() {
     return initialSteps;
   }
 
-  const raw = window.localStorage.getItem(STORAGE_KEY);
+  const raw = window.localStorage.getItem(ONBOARDING_STORAGE_KEY);
   if (!raw) return initialSteps;
 
   try {
-    const parsed = JSON.parse(raw) as { steps?: WizardStep[] };
-    return parsed.steps?.length === initialSteps.length ? parsed.steps : initialSteps;
+    const parsed = JSON.parse(raw) as { steps?: OnboardingStepState[] };
+    if (!parsed.steps?.length) return initialSteps;
+    return initialSteps.map((step) => ({
+      ...step,
+      done: Boolean(parsed.steps?.find((saved) => saved.id === step.id)?.done),
+    }));
   } catch {
     return initialSteps;
   }
@@ -39,14 +45,12 @@ export function OnboardingWizard() {
   const currentIndex = steps.findIndex((step) => !step.done);
   const activeIndex = currentIndex === -1 ? steps.length - 1 : currentIndex;
 
-  const progress = useMemo(() => {
-    const completed = steps.filter((step) => step.done).length;
-    return Math.round((completed / steps.length) * 100);
-  }, [steps]);
+  const progress = useMemo(() => onboardingProgress(steps), [steps]);
 
   const persist = (next: WizardStep[]) => {
     setSteps(next);
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ steps: next }));
+    const storagePayload = next.map(({ id, done }) => ({ id, done }));
+    window.localStorage.setItem(ONBOARDING_STORAGE_KEY, JSON.stringify({ steps: storagePayload }));
   };
 
   const completeCurrentStep = () => {
@@ -55,7 +59,10 @@ export function OnboardingWizard() {
   };
 
   const resetWizard = () => {
-    persist(initialSteps);
+    persist(DEFAULT_ONBOARDING_STEPS.map((step) => ({
+      ...initialSteps.find((candidate) => candidate.id === step.id)!,
+      done: false,
+    })));
   };
 
   return (

@@ -5,6 +5,12 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { usePlatform } from "./platform-provider";
 import { t } from "../lib/platform-i18n";
+import {
+  DEFAULT_ONBOARDING_STEPS,
+  ONBOARDING_STORAGE_KEY,
+  pendingOnboardingSteps,
+  type OnboardingStepState,
+} from "../lib/onboarding";
 
 const links = [
   ["/", "overview"],
@@ -35,19 +41,30 @@ const defaultSteps: OnboardingStepState[] = [
 export function NavLinks() {
   const pathname = usePathname();
   const { language } = usePlatform();
-  const [pendingSteps, setPendingSteps] = useState(defaultSteps.length);
+  const [pendingSteps, setPendingSteps] = useState(DEFAULT_ONBOARDING_STEPS.length);
 
   useEffect(() => {
-    const raw = window.localStorage.getItem(ONBOARDING_STORAGE_KEY);
-    if (!raw) return;
+    const readPending = () => {
+      const raw = window.localStorage.getItem(ONBOARDING_STORAGE_KEY);
+      if (!raw) {
+        setPendingSteps(DEFAULT_ONBOARDING_STEPS.length);
+        return;
+      }
 
-    try {
-      const parsed = JSON.parse(raw) as { steps?: OnboardingStepState[] };
-      const steps = parsed.steps ?? defaultSteps;
-      setPendingSteps(steps.filter((step) => !step.done).length);
-    } catch {
-      setPendingSteps(defaultSteps.length);
-    }
+      try {
+        const parsed = JSON.parse(raw) as { steps?: OnboardingStepState[] };
+        setPendingSteps(pendingOnboardingSteps(parsed.steps ?? DEFAULT_ONBOARDING_STEPS));
+      } catch {
+        setPendingSteps(DEFAULT_ONBOARDING_STEPS.length);
+      }
+    };
+
+    readPending();
+    window.addEventListener("storage", readPending);
+
+    return () => {
+      window.removeEventListener("storage", readPending);
+    };
   }, [pathname]);
 
   return (
