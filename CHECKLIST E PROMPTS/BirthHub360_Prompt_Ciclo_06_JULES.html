@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>BirthHub360 • Prompt • Ciclo 6 • JULES</title><style>
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #1c2833;
+  --muted: #5b6b7c;
+  --line: #d7deea;
+  --accent: #27ae60;
+  --accent-dark: #145a32;
+  --soft: #d5f5e3;
+  --panel-soft: #e9f7ef;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(18, 32, 56, .08);
+  --red-bg:#ffe5e5; --red:#b30000;
+  --blue-bg:#e6f0ff; --blue:#0033cc;
+  --yellow-bg:#fff8e1; --yellow:#8a6d00;
+  --green-bg:#e6ffed; --green:#006b21;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5}
+header{position:sticky;top:0;z-index:30;background:rgba(244,247,251,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1540px;margin:0 auto;padding:20px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-main{padding:22px;background:linear-gradient(135deg,var(--panel-soft),#fff)}
+.hero-side{padding:22px}
+h1{margin:0 0 8px;font-size:30px;color:var(--accent-dark)}
+h2{margin:0 0 10px;font-size:22px} h3{margin:0 0 8px;font-size:18px} h4{margin:0 0 8px;font-size:15px}
+.muted{color:var(--muted)}
+.kpis,.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.kpi,.gov-stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.kpi strong,.gov-stat strong{display:block;font-size:22px;color:var(--accent-dark)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--accent-dark);margin-right:6px;margin-bottom:6px}
+.pill.critica{background:#fdecea;color:#a93226} .pill.alta{background:#fff4e5;color:#9c640c}
+.toolbar,.navbar,.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button,.btn{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button:hover,.btn:hover{border-color:var(--accent)}
+.section{margin-top:18px;padding:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ul{margin:8px 0 0 20px;padding:0}
+code, pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{white-space:pre-wrap;word-break:break-word;background:#0e1726;color:#eff5ff;border-radius:14px;padding:18px;overflow:auto;max-height:720px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:1600px;background:#fff}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}
+th{background:#f8fbff;position:sticky;top:0;z-index:1}
+.phase{padding:0;overflow:hidden}.phase-head{padding:16px 18px;background:var(--panel-soft);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.note{padding:14px;border-left:4px solid var(--accent);background:var(--soft);border-radius:10px}
+.status-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.legend-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:13px}
+.legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+.state-red{background:var(--red-bg)!important;color:var(--red)!important}.state-blue{background:var(--blue-bg)!important;color:var(--blue)!important}.state-yellow{background:var(--yellow-bg)!important;color:var(--yellow)!important}.state-green{background:var(--green-bg)!important;color:var(--green)!important}
+.state-badge{display:inline-block;padding:6px 8px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid rgba(0,0,0,.05)}
+.small{font-size:12px}.stack{display:flex;flex-direction:column;gap:6px}.input, textarea, select{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;background:#fff;color:var(--text)}
+textarea{min-height:64px;resize:vertical}.mini-btn{padding:6px 8px;border-radius:10px;font-size:12px}.history-box{max-height:180px;overflow:auto;background:#fafcff;border:1px solid var(--line);border-radius:10px;padding:8px}.history-entry{padding:6px 0;border-bottom:1px dashed var(--line)}.history-entry:last-child{border-bottom:0}
+.locked-row{opacity:.55;filter:saturate(.75)} .blocked-tag{display:inline-block;background:#fff1f0;color:#a61b1b;border:1px solid #f5c2c0;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:700}
+.progress{width:100%;height:12px;background:#edf3fb;border-radius:999px;overflow:hidden;border:1px solid var(--line)} .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));width:0%}
+.phase-status{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.footer-note{margin-top:12px;font-size:12px;color:var(--muted)}
+.banner{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-top:12px}.banner.warn{background:#fff8e8;border-color:#f4d58d}.banner.ok{background:#edfdf4;border-color:#b7ebc6}.banner.danger{background:#fff1f2;border-color:#f4b7be}
+.phase-closed{border:2px solid #9ad4ae;background:#f2fff6}.phase-open{border:2px solid #f0d28d;background:#fffaf0}.phase-locked{border:2px dashed #d8dfea;background:#fafcff}
+@media (max-width:1100px){.hero,.grid-2,.grid-4{grid-template-columns:1fr}}
+body.dark-theme{--bg:#0d1424;--panel:#121b2f;--text:#eef3ff;--muted:#9fb0ca;--line:#2a3958;--panel-soft:#18233b;--soft:#10233a;background:var(--bg);color:var(--text)}
+body.dark-theme .card,body.dark-theme .kpi,body.dark-theme .gov-stat,body.dark-theme .legend-item,body.dark-theme .phase-status,body.dark-theme .footer-note,body.dark-theme .banner{background:var(--panel);color:var(--text)}
+body.dark-theme input,body.dark-theme textarea,body.dark-theme select,body.dark-theme button{background:#0f1a2d;color:var(--text);border-color:var(--line)}
+body.dark-theme table{background:var(--panel)} body.dark-theme th{background:#14213a} body.dark-theme .history-box{background:#0f1a2d}
+</style></head><body><header><div class="wrap"><div class="navbar"><a class="btn" href="../BirthHub360_Dashboard_Mestre_v4.html">Dashboard Mestre</a><a class="btn" href="../checklists/BirthHub360_Ciclo_06_JULES.html">Abrir checklist do ciclo</a><button onclick="copyPrompt()">📋 Copiar prompt</button><button onclick="toggleTheme()">🌙 Tema</button></div></div></header><div class="wrap"><section class="hero"><div class="card hero-main"><span class="pill">Prompt operacional</span><span class="pill">Ciclo 6</span><span class="pill alta">Agente JULES</span><h1>Prompt de Execução • Ciclo 06 • JULES</h1><p class="muted">Arquivo de prompt para o agente ler no repositório e começar a executar o ciclo correspondente, em sincronia com o checklist.</p><div class="note">Checklist de referência: <strong>checklists/BirthHub360_Ciclo_06_JULES.html</strong></div></div><div class="card hero-side"><h3>Resumo do ciclo</h3><ul><li>Total de itens: 50</li><li>UE total: 138.5</li><li>Fases: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 6.7, 6.8, 6.9, 6.10</li><li>Validador cruzado: CODEX</li></ul></div></section><section class="card section"><h2>Prompt completo</h2><pre id="promptBox">Você é o JULES, executor principal do Ciclo 6 do BirthHub360.
+
+Leia no repositório o arquivo de checklist:
+- checklists/BirthHub360_Ciclo_06_JULES.html
+
+Papel:
+- executor dos itens JULES
+- verificador dos itens do agente CODEX
+- ninguém se autoaprova
+
+Regras de governança:
+- vermelho = item não criado
+- azul = executor criou, aguardando validação
+- amarelo = validado com melhorias; volta ao executor
+- verde = pronto para uso
+- para ir a azul: preencher evidência, touched_paths e assinatura do executor
+- para ir a amarelo/verde: assinatura do validador + observação obrigatória
+- para fechar fase: todos os itens verdes + assinaturas + branch/PR + touched_paths
+- fase posterior só inicia após fechamento formal da fase anterior
+
+Itens deste ciclo:
+- 6.1.J1 | UE 3.3 | dep: 5.10.J5 | validador: CODEX | tarefa: Escrever ADR-022: Design de workflow engine — stateless vs stateful, step types
+- 6.1.J2 | UE 3.3 | dep: 6.1.J1 | validador: CODEX | tarefa: Mapear corner cases: zero steps, step circularo, condição always-false, timeout
+- 6.1.J3 | UE 3.3 | dep: 6.1.J2 | validador: CODEX | tarefa: Criar glossário de workflow para consistência entre UI, código e documentação
+- 6.1.J4 | UE 3.3 | dep: 6.1.J3 | validador: CODEX | tarefa: Escrever análise de risco de workflow mal-formado executado em produção
+- 6.1.J5 | UE 3.3 | dep: 6.1.J4 | validador: CODEX | tarefa: Definir limites de complexidade de workflow por plano: máx de steps, branches, loops
+- 6.10.J1 | UE 2.0 | dep: 6.9.J5 | validador: CODEX | tarefa: Escrever relatório do Ciclo 6: achados, performance vs SLO, compliance, dívida
+- 6.10.J2 | UE 2.0 | dep: 6.10.J1 | validador: CODEX | tarefa: Revisar todos os templates e policies de workflow contra use cases documentados
+- 6.10.J3 | UE 2.0 | dep: 6.10.J2 | validador: CODEX | tarefa: Validar que debug UI não vaza dados de outros tenants em nenhum cenário
+- 6.10.J4 | UE 2.0 | dep: 6.10.J3 | validador: CODEX | tarefa: Revisar approval policy e confirmar que bypass é impossível sem detecção
+- 6.10.J5 | UE 2.0 | dep: 6.10.J4 | validador: CODEX | tarefa: Assinar gate: &#x27;Workflows aprovados — automação em cadeia pronta para produção&#x27;
+- 6.2.J1 | UE 3.3 | dep: 6.1.J5 | validador: CODEX | tarefa: Escrever análise de falha: comportamento de steps downstream quando upstream falha
+- 6.2.J2 | UE 3.3 | dep: 6.2.J1 | validador: CODEX | tarefa: Definir política de DLQ de runs: retenção, reprocessamento, alerta, max retries
+- 6.2.J3 | UE 3.3 | dep: 6.2.J2 | validador: CODEX | tarefa: Criar cenários de teste de caos: step travado, step que nunca resolve, OOM
+- 6.2.J4 | UE 3.3 | dep: 6.2.J3 | validador: CODEX | tarefa: Escrever análise de consistência: run pausado por 1h e retomado — estado válido?
+- 6.2.J5 | UE 3.3 | dep: 6.2.J4 | validador: CODEX | tarefa: Criar runbook de run preso em estado intermediário: diagnóstico e resolução
+- 6.3.J1 | UE 2.3 | dep: 6.2.J5 | validador: CODEX | tarefa: Escrever análise: agente em workflow pode escalar privilégios além do workflow?
+- 6.3.J2 | UE 2.3 | dep: 6.3.J1 | validador: CODEX | tarefa: Definir timeout de step de agente vs timeout de workflow inteiro e quem tem precedência
+- 6.3.J3 | UE 2.3 | dep: 6.3.J2 | validador: CODEX | tarefa: Criar exemplo documentado end-to-end: agente analisa → agente reporta → human approval
+- 6.3.J4 | UE 2.3 | dep: 6.3.J3 | validador: CODEX | tarefa: Escrever análise de custo de workflow com múltiplos agentes: estimativa pré-run
+- 6.3.J5 | UE 2.3 | dep: 6.3.J4 | validador: CODEX | tarefa: Criar critérios de aceite de AgentStep: o que Jules verifica em todo PR que adiciona agente como step
+- 6.4.J1 | UE 2.3 | dep: 6.3.J5 | validador: CODEX | tarefa: Escrever threat model de webhooks: replay, SSRF via URL de callback, spoofing
+- 6.4.J2 | UE 2.3 | dep: 6.4.J1 | validador: CODEX | tarefa: Definir política de retry de entrega de webhook: 3 tentativas, backoff, dead letter
+- 6.4.J3 | UE 2.3 | dep: 6.4.J2 | validador: CODEX | tarefa: Criar lista de provedores de webhook suportados com documentação de configuração
+- 6.4.J4 | UE 2.3 | dep: 6.4.J3 | validador: CODEX | tarefa: Escrever análise de risco de webhook recebendo dados de PII de terceiros
+- 6.4.J5 | UE 2.3 | dep: 6.4.J4 | validador: CODEX | tarefa: Criar critérios de aceite de segurança de webhook: o que Jules verifica em todo PR
+- 6.5.J1 | UE 3.3 | dep: 6.4.J5 | validador: CODEX | tarefa: Criar jornada de debugging: falha em produção → causa raiz identificada em &lt; 5 min
+- 6.5.J2 | UE 3.3 | dep: 6.5.J1 | validador: CODEX | tarefa: Testar usabilidade: alguém sem contexto consegue triagar incidente usando a UI?
+- 6.5.J3 | UE 3.3 | dep: 6.5.J2 | validador: CODEX | tarefa: Definir dados sensíveis que não devem aparecer na UI de debug de forma alguma
+- 6.5.J4 | UE 3.3 | dep: 6.5.J3 | validador: CODEX | tarefa: Criar critérios de aceite de debuggability: qual informação mínima deve estar visível
+- 6.5.J5 | UE 3.3 | dep: 6.5.J4 | validador: CODEX | tarefa: Escrever análise: dados de debug podem vazar informação de outros tenants?
+- 6.6.J1 | UE 3.3 | dep: 6.5.J5 | validador: CODEX | tarefa: Validar utilidade de cada template com caso de uso real de empresa fictícia documentado
+- 6.6.J2 | UE 3.3 | dep: 6.6.J1 | validador: CODEX | tarefa: Criar guia de customização de template: como adaptar sem perder manutenibilidade
+- 6.6.J3 | UE 3.3 | dep: 6.6.J2 | validador: CODEX | tarefa: Escrever ADR-023: Versionamento de templates sem quebrar workflows customizados existentes
+- 6.6.J4 | UE 3.3 | dep: 6.6.J3 | validador: CODEX | tarefa: Criar análise de risco de template com step de agente deprecated
+- 6.6.J5 | UE 3.3 | dep: 6.6.J4 | validador: CODEX | tarefa: Definir política de atualização de template instalado: notificar admin, não auto-atualizar
+- 6.7.J1 | UE 2.3 | dep: 6.6.J5 | validador: CODEX | tarefa: Escrever policy de approvals: quem aprova quê, prazo máximo por tipo de ação
+- 6.7.J2 | UE 2.3 | dep: 6.7.J1 | validador: CODEX | tarefa: Criar análise de risco de bypass de approval por admin ou via API direta
+- 6.7.J3 | UE 2.3 | dep: 6.7.J2 | validador: CODEX | tarefa: Definir SLA de aprovação por criticidade: email externo 24h, pagamento 4h, crítico 1h
+- 6.7.J4 | UE 2.3 | dep: 6.7.J3 | validador: CODEX | tarefa: Escrever análise de risco de phishing via link de aprovação em email
+- 6.7.J5 | UE 2.3 | dep: 6.7.J4 | validador: CODEX | tarefa: Criar critérios de aceite de approval: auditabilidade, irrefutabilidade, expiração
+- 6.8.J1 | UE 3.3 | dep: 6.7.J5 | validador: CODEX | tarefa: Criar plano de testes de carga de workflows: máx de runs paralelos por tenant por plano
+- 6.8.J2 | UE 3.3 | dep: 6.8.J1 | validador: CODEX | tarefa: Escrever análise de race condition: dois runs disputando o mesmo recurso externo
+- 6.8.J3 | UE 3.3 | dep: 6.8.J2 | validador: CODEX | tarefa: Criar critério de aceite de performance de workflow por plano com valores
+- 6.8.J4 | UE 3.3 | dep: 6.8.J3 | validador: CODEX | tarefa: Escrever análise de flaky tests de workflow: causas e como tornar determinístico
+- 6.8.J5 | UE 3.3 | dep: 6.8.J4 | validador: CODEX | tarefa: Definir frequência de rerun da e2e suite: pre-merge + nightly completo
+- 6.9.J1 | UE 2.3 | dep: 6.8.J5 | validador: CODEX | tarefa: Executar benchmark de workflows e documentar throughput máximo antes de degradação
+- 6.9.J2 | UE 2.3 | dep: 6.9.J1 | validador: CODEX | tarefa: Criar análise de gargalos: onde o engine perde mais tempo por tipo de step
+- 6.9.J3 | UE 2.3 | dep: 6.9.J2 | validador: CODEX | tarefa: Definir critérios de escalonamento horizontal do worker com thresholds claros
+- 6.9.J4 | UE 2.3 | dep: 6.9.J3 | validador: CODEX | tarefa: Escrever análise de custo de workflows: custo de infra por run por tipo de step
+- 6.9.J5 | UE 2.3 | dep: 6.9.J4 | validador: CODEX | tarefa: Criar SLO de workflows: disponibilidade do engine e latência de execução por plano
+
+Execução esperada:
+- Fase 6.1: trabalhar nos itens 6.1.J1, 6.1.J2, 6.1.J3, 6.1.J4, 6.1.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.2: trabalhar nos itens 6.2.J1, 6.2.J2, 6.2.J3, 6.2.J4, 6.2.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.3: trabalhar nos itens 6.3.J1, 6.3.J2, 6.3.J3, 6.3.J4, 6.3.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.4: trabalhar nos itens 6.4.J1, 6.4.J2, 6.4.J3, 6.4.J4, 6.4.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.5: trabalhar nos itens 6.5.J1, 6.5.J2, 6.5.J3, 6.5.J4, 6.5.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.6: trabalhar nos itens 6.6.J1, 6.6.J2, 6.6.J3, 6.6.J4, 6.6.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.7: trabalhar nos itens 6.7.J1, 6.7.J2, 6.7.J3, 6.7.J4, 6.7.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.8: trabalhar nos itens 6.8.J1, 6.8.J2, 6.8.J3, 6.8.J4, 6.8.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.9: trabalhar nos itens 6.9.J1, 6.9.J2, 6.9.J3, 6.9.J4, 6.9.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 6.10: trabalhar nos itens 6.10.J1, 6.10.J2, 6.10.J3, 6.10.J4, 6.10.J5 respeitando dependências e validação cruzada com CODEX.
+
+O que você deve fazer agora:
+1. Abrir o checklist do ciclo no repositório.
+2. Identificar a próxima ação lógica disponível.
+3. Executar o item cabível do seu agente.
+4. Registrar branch, PR (se existir), touched_paths, evidências e testes.
+5. Assinar como executor.
+6. Quando for validador, registrar observação e assinar.
+7. Informar o próximo plano lógico.
+
+Formato obrigatório de resposta:
+# JULES — CICLO 6 — EXECUÇÃO
+## 1. Itens trabalhados
+## 2. O que foi feito
+## 3. O que foi validado
+## 4. Branch / PR / touched_paths
+## 5. Evidências e testes
+## 6. Bloqueios
+## 7. Próximo plano lógico</pre></section><section class="card section"><h2>Itens do ciclo</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Tarefa</th><th>UE</th><th>Dependência</th><th>Validador</th><th>Complexidade</th></tr></thead><tbody><tr><td>6.1.J1</td><td>Escrever ADR-022: Design de workflow engine — stateless vs stateful, step types</td><td>3.3</td><td>5.10.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.1.J2</td><td>Mapear corner cases: zero steps, step circularo, condição always-false, timeout</td><td>3.3</td><td>6.1.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.1.J3</td><td>Criar glossário de workflow para consistência entre UI, código e documentação</td><td>3.3</td><td>6.1.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.1.J4</td><td>Escrever análise de risco de workflow mal-formado executado em produção</td><td>3.3</td><td>6.1.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.1.J5</td><td>Definir limites de complexidade de workflow por plano: máx de steps, branches, loops</td><td>3.3</td><td>6.1.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.10.J1</td><td>Escrever relatório do Ciclo 6: achados, performance vs SLO, compliance, dívida</td><td>2.0</td><td>6.9.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.10.J2</td><td>Revisar todos os templates e policies de workflow contra use cases documentados</td><td>2.0</td><td>6.10.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.10.J3</td><td>Validar que debug UI não vaza dados de outros tenants em nenhum cenário</td><td>2.0</td><td>6.10.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.10.J4</td><td>Revisar approval policy e confirmar que bypass é impossível sem detecção</td><td>2.0</td><td>6.10.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.10.J5</td><td>Assinar gate: &#x27;Workflows aprovados — automação em cadeia pronta para produção&#x27;</td><td>2.0</td><td>6.10.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.2.J1</td><td>Escrever análise de falha: comportamento de steps downstream quando upstream falha</td><td>3.3</td><td>6.1.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.2.J2</td><td>Definir política de DLQ de runs: retenção, reprocessamento, alerta, max retries</td><td>3.3</td><td>6.2.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.2.J3</td><td>Criar cenários de teste de caos: step travado, step que nunca resolve, OOM</td><td>3.3</td><td>6.2.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.2.J4</td><td>Escrever análise de consistência: run pausado por 1h e retomado — estado válido?</td><td>3.3</td><td>6.2.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.2.J5</td><td>Criar runbook de run preso em estado intermediário: diagnóstico e resolução</td><td>3.3</td><td>6.2.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.3.J1</td><td>Escrever análise: agente em workflow pode escalar privilégios além do workflow?</td><td>2.3</td><td>6.2.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.3.J2</td><td>Definir timeout de step de agente vs timeout de workflow inteiro e quem tem precedência</td><td>2.3</td><td>6.3.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.3.J3</td><td>Criar exemplo documentado end-to-end: agente analisa → agente reporta → human approval</td><td>2.3</td><td>6.3.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.3.J4</td><td>Escrever análise de custo de workflow com múltiplos agentes: estimativa pré-run</td><td>2.3</td><td>6.3.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.3.J5</td><td>Criar critérios de aceite de AgentStep: o que Jules verifica em todo PR que adiciona agente como step</td><td>2.3</td><td>6.3.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.4.J1</td><td>Escrever threat model de webhooks: replay, SSRF via URL de callback, spoofing</td><td>2.3</td><td>6.3.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.4.J2</td><td>Definir política de retry de entrega de webhook: 3 tentativas, backoff, dead letter</td><td>2.3</td><td>6.4.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.4.J3</td><td>Criar lista de provedores de webhook suportados com documentação de configuração</td><td>2.3</td><td>6.4.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.4.J4</td><td>Escrever análise de risco de webhook recebendo dados de PII de terceiros</td><td>2.3</td><td>6.4.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.4.J5</td><td>Criar critérios de aceite de segurança de webhook: o que Jules verifica em todo PR</td><td>2.3</td><td>6.4.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.5.J1</td><td>Criar jornada de debugging: falha em produção → causa raiz identificada em &lt; 5 min</td><td>3.3</td><td>6.4.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.5.J2</td><td>Testar usabilidade: alguém sem contexto consegue triagar incidente usando a UI?</td><td>3.3</td><td>6.5.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.5.J3</td><td>Definir dados sensíveis que não devem aparecer na UI de debug de forma alguma</td><td>3.3</td><td>6.5.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.5.J4</td><td>Criar critérios de aceite de debuggability: qual informação mínima deve estar visível</td><td>3.3</td><td>6.5.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.5.J5</td><td>Escrever análise: dados de debug podem vazar informação de outros tenants?</td><td>3.3</td><td>6.5.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.6.J1</td><td>Validar utilidade de cada template com caso de uso real de empresa fictícia documentado</td><td>3.3</td><td>6.5.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.6.J2</td><td>Criar guia de customização de template: como adaptar sem perder manutenibilidade</td><td>3.3</td><td>6.6.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.6.J3</td><td>Escrever ADR-023: Versionamento de templates sem quebrar workflows customizados existentes</td><td>3.3</td><td>6.6.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.6.J4</td><td>Criar análise de risco de template com step de agente deprecated</td><td>3.3</td><td>6.6.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.6.J5</td><td>Definir política de atualização de template instalado: notificar admin, não auto-atualizar</td><td>3.3</td><td>6.6.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.7.J1</td><td>Escrever policy de approvals: quem aprova quê, prazo máximo por tipo de ação</td><td>2.3</td><td>6.6.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.7.J2</td><td>Criar análise de risco de bypass de approval por admin ou via API direta</td><td>2.3</td><td>6.7.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.7.J3</td><td>Definir SLA de aprovação por criticidade: email externo 24h, pagamento 4h, crítico 1h</td><td>2.3</td><td>6.7.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.7.J4</td><td>Escrever análise de risco de phishing via link de aprovação em email</td><td>2.3</td><td>6.7.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.7.J5</td><td>Criar critérios de aceite de approval: auditabilidade, irrefutabilidade, expiração</td><td>2.3</td><td>6.7.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.8.J1</td><td>Criar plano de testes de carga de workflows: máx de runs paralelos por tenant por plano</td><td>3.3</td><td>6.7.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.8.J2</td><td>Escrever análise de race condition: dois runs disputando o mesmo recurso externo</td><td>3.3</td><td>6.8.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.8.J3</td><td>Criar critério de aceite de performance de workflow por plano com valores</td><td>3.3</td><td>6.8.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.8.J4</td><td>Escrever análise de flaky tests de workflow: causas e como tornar determinístico</td><td>3.3</td><td>6.8.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.8.J5</td><td>Definir frequência de rerun da e2e suite: pre-merge + nightly completo</td><td>3.3</td><td>6.8.J4</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.9.J1</td><td>Executar benchmark de workflows e documentar throughput máximo antes de degradação</td><td>2.3</td><td>6.8.J5</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.9.J2</td><td>Criar análise de gargalos: onde o engine perde mais tempo por tipo de step</td><td>2.3</td><td>6.9.J1</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.9.J3</td><td>Definir critérios de escalonamento horizontal do worker com thresholds claros</td><td>2.3</td><td>6.9.J2</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.9.J4</td><td>Escrever análise de custo de workflows: custo de infra por run por tipo de step</td><td>2.3</td><td>6.9.J3</td><td>CODEX</td><td>CRÍTICA</td></tr><tr><td>6.9.J5</td><td>Criar SLO de workflows: disponibilidade do engine e latência de execução por plano</td><td>2.3</td><td>6.9.J4</td><td>CODEX</td><td>CRÍTICA</td></tr></tbody></table></div></section></div><script>function copyPrompt(){navigator.clipboard.writeText(document.getElementById('promptBox').innerText).then(()=>alert('Prompt copiado.'));}function toggleTheme(){ const dark=document.body.classList.toggle('dark-theme'); localStorage.setItem('prompt:6:JULES:theme', dark?'dark':'light'); } if(localStorage.getItem('prompt:6:JULES:theme')==='dark') document.body.classList.add('dark-theme');</script></body></html>

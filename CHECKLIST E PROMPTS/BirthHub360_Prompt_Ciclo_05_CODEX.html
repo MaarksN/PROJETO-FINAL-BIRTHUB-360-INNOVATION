@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>BirthHub360 • Prompt • Ciclo 5 • CODEX</title><style>
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #1c2833;
+  --muted: #5b6b7c;
+  --line: #d7deea;
+  --accent: #2e86c1;
+  --accent-dark: #1b4f72;
+  --soft: #d6eaf8;
+  --panel-soft: #ebf5fb;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(18, 32, 56, .08);
+  --red-bg:#ffe5e5; --red:#b30000;
+  --blue-bg:#e6f0ff; --blue:#0033cc;
+  --yellow-bg:#fff8e1; --yellow:#8a6d00;
+  --green-bg:#e6ffed; --green:#006b21;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5}
+header{position:sticky;top:0;z-index:30;background:rgba(244,247,251,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1540px;margin:0 auto;padding:20px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-main{padding:22px;background:linear-gradient(135deg,var(--panel-soft),#fff)}
+.hero-side{padding:22px}
+h1{margin:0 0 8px;font-size:30px;color:var(--accent-dark)}
+h2{margin:0 0 10px;font-size:22px} h3{margin:0 0 8px;font-size:18px} h4{margin:0 0 8px;font-size:15px}
+.muted{color:var(--muted)}
+.kpis,.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.kpi,.gov-stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.kpi strong,.gov-stat strong{display:block;font-size:22px;color:var(--accent-dark)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--accent-dark);margin-right:6px;margin-bottom:6px}
+.pill.critica{background:#fdecea;color:#a93226} .pill.alta{background:#fff4e5;color:#9c640c}
+.toolbar,.navbar,.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button,.btn{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button:hover,.btn:hover{border-color:var(--accent)}
+.section{margin-top:18px;padding:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ul{margin:8px 0 0 20px;padding:0}
+code, pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{white-space:pre-wrap;word-break:break-word;background:#0e1726;color:#eff5ff;border-radius:14px;padding:18px;overflow:auto;max-height:720px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:1600px;background:#fff}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}
+th{background:#f8fbff;position:sticky;top:0;z-index:1}
+.phase{padding:0;overflow:hidden}.phase-head{padding:16px 18px;background:var(--panel-soft);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.note{padding:14px;border-left:4px solid var(--accent);background:var(--soft);border-radius:10px}
+.status-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.legend-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:13px}
+.legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+.state-red{background:var(--red-bg)!important;color:var(--red)!important}.state-blue{background:var(--blue-bg)!important;color:var(--blue)!important}.state-yellow{background:var(--yellow-bg)!important;color:var(--yellow)!important}.state-green{background:var(--green-bg)!important;color:var(--green)!important}
+.state-badge{display:inline-block;padding:6px 8px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid rgba(0,0,0,.05)}
+.small{font-size:12px}.stack{display:flex;flex-direction:column;gap:6px}.input, textarea, select{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;background:#fff;color:var(--text)}
+textarea{min-height:64px;resize:vertical}.mini-btn{padding:6px 8px;border-radius:10px;font-size:12px}.history-box{max-height:180px;overflow:auto;background:#fafcff;border:1px solid var(--line);border-radius:10px;padding:8px}.history-entry{padding:6px 0;border-bottom:1px dashed var(--line)}.history-entry:last-child{border-bottom:0}
+.locked-row{opacity:.55;filter:saturate(.75)} .blocked-tag{display:inline-block;background:#fff1f0;color:#a61b1b;border:1px solid #f5c2c0;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:700}
+.progress{width:100%;height:12px;background:#edf3fb;border-radius:999px;overflow:hidden;border:1px solid var(--line)} .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));width:0%}
+.phase-status{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.footer-note{margin-top:12px;font-size:12px;color:var(--muted)}
+.banner{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-top:12px}.banner.warn{background:#fff8e8;border-color:#f4d58d}.banner.ok{background:#edfdf4;border-color:#b7ebc6}.banner.danger{background:#fff1f2;border-color:#f4b7be}
+.phase-closed{border:2px solid #9ad4ae;background:#f2fff6}.phase-open{border:2px solid #f0d28d;background:#fffaf0}.phase-locked{border:2px dashed #d8dfea;background:#fafcff}
+@media (max-width:1100px){.hero,.grid-2,.grid-4{grid-template-columns:1fr}}
+body.dark-theme{--bg:#0d1424;--panel:#121b2f;--text:#eef3ff;--muted:#9fb0ca;--line:#2a3958;--panel-soft:#18233b;--soft:#10233a;background:var(--bg);color:var(--text)}
+body.dark-theme .card,body.dark-theme .kpi,body.dark-theme .gov-stat,body.dark-theme .legend-item,body.dark-theme .phase-status,body.dark-theme .footer-note,body.dark-theme .banner{background:var(--panel);color:var(--text)}
+body.dark-theme input,body.dark-theme textarea,body.dark-theme select,body.dark-theme button{background:#0f1a2d;color:var(--text);border-color:var(--line)}
+body.dark-theme table{background:var(--panel)} body.dark-theme th{background:#14213a} body.dark-theme .history-box{background:#0f1a2d}
+</style></head><body><header><div class="wrap"><div class="navbar"><a class="btn" href="../BirthHub360_Dashboard_Mestre_v4.html">Dashboard Mestre</a><a class="btn" href="../checklists/BirthHub360_Ciclo_05_CODEX.html">Abrir checklist do ciclo</a><button onclick="copyPrompt()">📋 Copiar prompt</button><button onclick="toggleTheme()">🌙 Tema</button></div></div></header><div class="wrap"><section class="hero"><div class="card hero-main"><span class="pill">Prompt operacional</span><span class="pill">Ciclo 5</span><span class="pill alta">Agente CODEX</span><h1>Prompt de Execução • Ciclo 05 • CODEX</h1><p class="muted">Arquivo de prompt para o agente ler no repositório e começar a executar o ciclo correspondente, em sincronia com o checklist.</p><div class="note">Checklist de referência: <strong>checklists/BirthHub360_Ciclo_05_CODEX.html</strong></div></div><div class="card hero-side"><h3>Resumo do ciclo</h3><ul><li>Total de itens: 50</li><li>UE total: 116.5</li><li>Fases: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 5.10</li><li>Validador cruzado: JULES</li></ul></div></section><section class="card section"><h2>Prompt completo</h2><pre id="promptBox">Você é o CODEX, executor principal do Ciclo 5 do BirthHub360.
+
+Leia no repositório o arquivo de checklist:
+- checklists/BirthHub360_Ciclo_05_CODEX.html
+
+Papel:
+- executor dos itens CODEX
+- verificador dos itens do agente JULES
+- ninguém se autoaprova
+
+Regras de governança:
+- vermelho = item não criado
+- azul = executor criou, aguardando validação
+- amarelo = validado com melhorias; volta ao executor
+- verde = pronto para uso
+- para ir a azul: preencher evidência, touched_paths e assinatura do executor
+- para ir a amarelo/verde: assinatura do validador + observação obrigatória
+- para fechar fase: todos os itens verdes + assinaturas + branch/PR + touched_paths
+- fase posterior só inicia após fechamento formal da fase anterior
+
+Itens deste ciclo:
+- 5.1.C1 | UE 2.3 | dep: 4.10.C5 | validador: JULES | tarefa: Criar packages/agent-packs/corporate-v1/ com estrutura: manifest.json prompts/ config/ tests/
+- 5.1.C2 | UE 2.3 | dep: 5.1.C1 | validador: JULES | tarefa: Implementar script de validação de todos os manifests do catálogo no CI
+- 5.1.C3 | UE 2.3 | dep: 5.1.C2 | validador: JULES | tarefa: Criar manifest JSON para CEO Agent Pack com skills e tools documentados
+- 5.1.C4 | UE 2.3 | dep: 5.1.C3 | validador: JULES | tarefa: Criar manifest JSON para CRO, CMO, CFO, CTO, COO Agent Packs
+- 5.1.C5 | UE 2.3 | dep: 5.1.C4 | validador: JULES | tarefa: Criar manifest JSON para Legal, RH, CS, Sales, Finance, Ops Agent Packs
+- 5.10.C1 | UE 2.0 | dep: 5.9.C5 | validador: JULES | tarefa: Executar smoke tests de todos os packs e apresentar 100% de sucesso como evidência
+- 5.10.C2 | UE 2.0 | dep: 5.10.C1 | validador: JULES | tarefa: Corrigir manifests inválidos ou incompletos apontados no relatório Jules
+- 5.10.C3 | UE 2.0 | dep: 5.10.C2 | validador: JULES | tarefa: Confirmar que docs geradas cobrem 100% dos agentes do catálogo sem campos vazios
+- 5.10.C4 | UE 2.0 | dep: 5.10.C3 | validador: JULES | tarefa: Garantir que dry-run de cada agente completa sem erro de runtime ou schema
+- 5.10.C5 | UE 2.0 | dep: 5.10.C4 | validador: JULES | tarefa: Executar testes de regressão de todos os packs e apresentar resultado
+- 5.2.C1 | UE 2.3 | dep: 5.1.C5 | validador: JULES | tarefa: Implementar sistema de tags em manifests: domain level persona use-case industry
+- 5.2.C2 | UE 2.3 | dep: 5.2.C1 | validador: JULES | tarefa: Criar índice de busca full-text dos manifests com ranking por relevância
+- 5.2.C3 | UE 2.3 | dep: 5.2.C2 | validador: JULES | tarefa: Criar página de Agent Marketplace com filtros por tag, domain e level
+- 5.2.C4 | UE 2.3 | dep: 5.2.C3 | validador: JULES | tarefa: Implementar sugestão de agentes baseada no perfil de uso do tenant
+- 5.2.C5 | UE 2.3 | dep: 5.2.C4 | validador: JULES | tarefa: Criar API de busca de agentes com paginação e facets de filtro
+- 5.3.C1 | UE 2.3 | dep: 5.2.C5 | validador: JULES | tarefa: Criar skill template analyzer com inputSchema análise e outputSchema com score e insights
+- 5.3.C2 | UE 2.3 | dep: 5.3.C1 | validador: JULES | tarefa: Criar skill template generator com inputSchema brief e outputSchema com artefato gerado
+- 5.3.C3 | UE 2.3 | dep: 5.3.C2 | validador: JULES | tarefa: Criar skill template monitor com inputSchema KPI e outputSchema com alertas
+- 5.3.C4 | UE 2.3 | dep: 5.3.C3 | validador: JULES | tarefa: Criar skill template orchestrator que chama outros agentes em sequência
+- 5.3.C5 | UE 2.3 | dep: 5.3.C4 | validador: JULES | tarefa: Criar skill template reporter com inputSchema métricas e outputSchema PDF/Markdown
+- 5.4.C1 | UE 2.3 | dep: 5.3.C5 | validador: JULES | tarefa: Criar packages/agents-core/src/tools/email.tool.ts com SMTP e SendGrid, retry, bounce
+- 5.4.C2 | UE 2.3 | dep: 5.4.C1 | validador: JULES | tarefa: Criar packages/agents-core/src/tools/slack.tool.ts com webhook e API com OAuth2
+- 5.4.C3 | UE 2.3 | dep: 5.4.C2 | validador: JULES | tarefa: Criar packages/agents-core/src/tools/crm.tool.ts com adapter HubSpot e Salesforce
+- 5.4.C4 | UE 2.3 | dep: 5.4.C3 | validador: JULES | tarefa: Criar packages/agents-core/src/tools/storage.tool.ts com adapter S3 e Supabase Storage
+- 5.4.C5 | UE 2.3 | dep: 5.4.C4 | validador: JULES | tarefa: Criar packages/agents-core/src/tools/calendar.tool.ts com Google Calendar e ICS
+- 5.5.C1 | UE 2.3 | dep: 5.4.C5 | validador: JULES | tarefa: Criar BudgetService: verificar e decrementar orçamento antes de cada tool call de LLM
+- 5.5.C2 | UE 2.3 | dep: 5.5.C1 | validador: JULES | tarefa: Criar modo dry-run: ExecutionMode.DRY_RUN simula sem chamar APIs externas ou LLM
+- 5.5.C3 | UE 2.3 | dep: 5.5.C2 | validador: JULES | tarefa: Criar alerta de orçamento: 80% consumido envia notificação, 100% bloqueia com mensagem clara
+- 5.5.C4 | UE 2.3 | dep: 5.5.C3 | validador: JULES | tarefa: Implementar estimativa de custo pré-execução: quanto este agente vai custar?
+- 5.5.C5 | UE 2.3 | dep: 5.5.C4 | validador: JULES | tarefa: Criar UI de orçamento por agente: configurar limite, ver consumo histórico, download CSV
+- 5.6.C1 | UE 2.6 | dep: 5.5.C5 | validador: JULES | tarefa: Criar wizard multi-step: selecionar pack → preview → configurar conectores → ativar agentes
+- 5.6.C2 | UE 2.6 | dep: 5.6.C1 | validador: JULES | tarefa: Implementar instalação atômica: ou todos os agentes do pack instalam ou nenhum
+- 5.6.C3 | UE 2.6 | dep: 5.6.C2 | validador: JULES | tarefa: Criar desinstalação de pack com limpeza de dados de configuração e audit trail
+- 5.6.C4 | UE 2.6 | dep: 5.6.C3 | validador: JULES | tarefa: Criar tela de status de pack: installed, active, degraded, failed com último erro
+- 5.6.C5 | UE 2.6 | dep: 5.6.C4 | validador: JULES | tarefa: Implementar versionamento de pack instalado com histórico de atualizações
+- 5.7.C1 | UE 2.3 | dep: 5.6.C5 | validador: JULES | tarefa: Criar hash SHA256 de todo output de execução de agente e armazenar com o log
+- 5.7.C2 | UE 2.3 | dep: 5.7.C1 | validador: JULES | tarefa: Implementar human-in-the-loop opcional por agente: pausa para aprovação antes de output
+- 5.7.C3 | UE 2.3 | dep: 5.7.C2 | validador: JULES | tarefa: Criar retention policy por tipo de output: log técnico 30d, relatório executivo 1 ano
+- 5.7.C4 | UE 2.3 | dep: 5.7.C3 | validador: JULES | tarefa: Criar tela de outputs de agente: listar, filtrar, ver detalhes, exportar PDF
+- 5.7.C5 | UE 2.3 | dep: 5.7.C4 | validador: JULES | tarefa: Implementar verificação de integridade de output: comparar hash atual com hash armazenado
+- 5.8.C1 | UE 2.3 | dep: 5.7.C5 | validador: JULES | tarefa: Criar testes de schema para 100% dos manifests do catálogo no CI
+- 5.8.C2 | UE 2.3 | dep: 5.8.C1 | validador: JULES | tarefa: Criar smoke execution em dry-run para cada agente do catálogo
+- 5.8.C3 | UE 2.3 | dep: 5.8.C2 | validador: JULES | tarefa: Criar testes de regressão por pack: nova versão não quebra execução básica
+- 5.8.C4 | UE 2.3 | dep: 5.8.C3 | validador: JULES | tarefa: Adicionar pack test suite ao CI como gate obrigatório com relatório por pack
+- 5.8.C5 | UE 2.3 | dep: 5.8.C4 | validador: JULES | tarefa: Criar mocks de conectores externos para testes sem dependência de APIs reais
+- 5.9.C1 | UE 2.6 | dep: 5.8.C5 | validador: JULES | tarefa: Gerar docs automáticas de cada agente a partir do manifest com typedoc ou custom script
+- 5.9.C2 | UE 2.6 | dep: 5.9.C1 | validador: JULES | tarefa: Criar página de Agent Marketplace com busca full-text e documentação inline
+- 5.9.C3 | UE 2.6 | dep: 5.9.C2 | validador: JULES | tarefa: Implementar changelog automático de versões por agente ao publicar nova versão
+- 5.9.C4 | UE 2.6 | dep: 5.9.C3 | validador: JULES | tarefa: Criar exemplos de output de cada agente com dados fictícios mas realistas
+- 5.9.C5 | UE 2.6 | dep: 5.9.C4 | validador: JULES | tarefa: Criar página de comparação de agentes por domínio com tabela de capabilities
+
+Execução esperada:
+- Fase 5.1: trabalhar nos itens 5.1.C1, 5.1.C2, 5.1.C3, 5.1.C4, 5.1.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.2: trabalhar nos itens 5.2.C1, 5.2.C2, 5.2.C3, 5.2.C4, 5.2.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.3: trabalhar nos itens 5.3.C1, 5.3.C2, 5.3.C3, 5.3.C4, 5.3.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.4: trabalhar nos itens 5.4.C1, 5.4.C2, 5.4.C3, 5.4.C4, 5.4.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.5: trabalhar nos itens 5.5.C1, 5.5.C2, 5.5.C3, 5.5.C4, 5.5.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.6: trabalhar nos itens 5.6.C1, 5.6.C2, 5.6.C3, 5.6.C4, 5.6.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.7: trabalhar nos itens 5.7.C1, 5.7.C2, 5.7.C3, 5.7.C4, 5.7.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.8: trabalhar nos itens 5.8.C1, 5.8.C2, 5.8.C3, 5.8.C4, 5.8.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.9: trabalhar nos itens 5.9.C1, 5.9.C2, 5.9.C3, 5.9.C4, 5.9.C5 respeitando dependências e validação cruzada com JULES.
+- Fase 5.10: trabalhar nos itens 5.10.C1, 5.10.C2, 5.10.C3, 5.10.C4, 5.10.C5 respeitando dependências e validação cruzada com JULES.
+
+O que você deve fazer agora:
+1. Abrir o checklist do ciclo no repositório.
+2. Identificar a próxima ação lógica disponível.
+3. Executar o item cabível do seu agente.
+4. Registrar branch, PR (se existir), touched_paths, evidências e testes.
+5. Assinar como executor.
+6. Quando for validador, registrar observação e assinar.
+7. Informar o próximo plano lógico.
+
+Formato obrigatório de resposta:
+# CODEX — CICLO 5 — EXECUÇÃO
+## 1. Itens trabalhados
+## 2. O que foi feito
+## 3. O que foi validado
+## 4. Branch / PR / touched_paths
+## 5. Evidências e testes
+## 6. Bloqueios
+## 7. Próximo plano lógico</pre></section><section class="card section"><h2>Itens do ciclo</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Tarefa</th><th>UE</th><th>Dependência</th><th>Validador</th><th>Complexidade</th></tr></thead><tbody><tr><td>5.1.C1</td><td>Criar packages/agent-packs/corporate-v1/ com estrutura: manifest.json prompts/ config/ tests/</td><td>2.3</td><td>4.10.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.1.C2</td><td>Implementar script de validação de todos os manifests do catálogo no CI</td><td>2.3</td><td>5.1.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.1.C3</td><td>Criar manifest JSON para CEO Agent Pack com skills e tools documentados</td><td>2.3</td><td>5.1.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.1.C4</td><td>Criar manifest JSON para CRO, CMO, CFO, CTO, COO Agent Packs</td><td>2.3</td><td>5.1.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.1.C5</td><td>Criar manifest JSON para Legal, RH, CS, Sales, Finance, Ops Agent Packs</td><td>2.3</td><td>5.1.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.10.C1</td><td>Executar smoke tests de todos os packs e apresentar 100% de sucesso como evidência</td><td>2.0</td><td>5.9.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.10.C2</td><td>Corrigir manifests inválidos ou incompletos apontados no relatório Jules</td><td>2.0</td><td>5.10.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.10.C3</td><td>Confirmar que docs geradas cobrem 100% dos agentes do catálogo sem campos vazios</td><td>2.0</td><td>5.10.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.10.C4</td><td>Garantir que dry-run de cada agente completa sem erro de runtime ou schema</td><td>2.0</td><td>5.10.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.10.C5</td><td>Executar testes de regressão de todos os packs e apresentar resultado</td><td>2.0</td><td>5.10.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.2.C1</td><td>Implementar sistema de tags em manifests: domain level persona use-case industry</td><td>2.3</td><td>5.1.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.2.C2</td><td>Criar índice de busca full-text dos manifests com ranking por relevância</td><td>2.3</td><td>5.2.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.2.C3</td><td>Criar página de Agent Marketplace com filtros por tag, domain e level</td><td>2.3</td><td>5.2.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.2.C4</td><td>Implementar sugestão de agentes baseada no perfil de uso do tenant</td><td>2.3</td><td>5.2.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.2.C5</td><td>Criar API de busca de agentes com paginação e facets de filtro</td><td>2.3</td><td>5.2.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.3.C1</td><td>Criar skill template analyzer com inputSchema análise e outputSchema com score e insights</td><td>2.3</td><td>5.2.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.3.C2</td><td>Criar skill template generator com inputSchema brief e outputSchema com artefato gerado</td><td>2.3</td><td>5.3.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.3.C3</td><td>Criar skill template monitor com inputSchema KPI e outputSchema com alertas</td><td>2.3</td><td>5.3.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.3.C4</td><td>Criar skill template orchestrator que chama outros agentes em sequência</td><td>2.3</td><td>5.3.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.3.C5</td><td>Criar skill template reporter com inputSchema métricas e outputSchema PDF/Markdown</td><td>2.3</td><td>5.3.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.4.C1</td><td>Criar packages/agents-core/src/tools/email.tool.ts com SMTP e SendGrid, retry, bounce</td><td>2.3</td><td>5.3.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.4.C2</td><td>Criar packages/agents-core/src/tools/slack.tool.ts com webhook e API com OAuth2</td><td>2.3</td><td>5.4.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.4.C3</td><td>Criar packages/agents-core/src/tools/crm.tool.ts com adapter HubSpot e Salesforce</td><td>2.3</td><td>5.4.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.4.C4</td><td>Criar packages/agents-core/src/tools/storage.tool.ts com adapter S3 e Supabase Storage</td><td>2.3</td><td>5.4.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.4.C5</td><td>Criar packages/agents-core/src/tools/calendar.tool.ts com Google Calendar e ICS</td><td>2.3</td><td>5.4.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.5.C1</td><td>Criar BudgetService: verificar e decrementar orçamento antes de cada tool call de LLM</td><td>2.3</td><td>5.4.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.5.C2</td><td>Criar modo dry-run: ExecutionMode.DRY_RUN simula sem chamar APIs externas ou LLM</td><td>2.3</td><td>5.5.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.5.C3</td><td>Criar alerta de orçamento: 80% consumido envia notificação, 100% bloqueia com mensagem clara</td><td>2.3</td><td>5.5.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.5.C4</td><td>Implementar estimativa de custo pré-execução: quanto este agente vai custar?</td><td>2.3</td><td>5.5.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.5.C5</td><td>Criar UI de orçamento por agente: configurar limite, ver consumo histórico, download CSV</td><td>2.3</td><td>5.5.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.6.C1</td><td>Criar wizard multi-step: selecionar pack → preview → configurar conectores → ativar agentes</td><td>2.6</td><td>5.5.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.6.C2</td><td>Implementar instalação atômica: ou todos os agentes do pack instalam ou nenhum</td><td>2.6</td><td>5.6.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.6.C3</td><td>Criar desinstalação de pack com limpeza de dados de configuração e audit trail</td><td>2.6</td><td>5.6.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.6.C4</td><td>Criar tela de status de pack: installed, active, degraded, failed com último erro</td><td>2.6</td><td>5.6.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.6.C5</td><td>Implementar versionamento de pack instalado com histórico de atualizações</td><td>2.6</td><td>5.6.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.7.C1</td><td>Criar hash SHA256 de todo output de execução de agente e armazenar com o log</td><td>2.3</td><td>5.6.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.7.C2</td><td>Implementar human-in-the-loop opcional por agente: pausa para aprovação antes de output</td><td>2.3</td><td>5.7.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.7.C3</td><td>Criar retention policy por tipo de output: log técnico 30d, relatório executivo 1 ano</td><td>2.3</td><td>5.7.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.7.C4</td><td>Criar tela de outputs de agente: listar, filtrar, ver detalhes, exportar PDF</td><td>2.3</td><td>5.7.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.7.C5</td><td>Implementar verificação de integridade de output: comparar hash atual com hash armazenado</td><td>2.3</td><td>5.7.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.8.C1</td><td>Criar testes de schema para 100% dos manifests do catálogo no CI</td><td>2.3</td><td>5.7.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.8.C2</td><td>Criar smoke execution em dry-run para cada agente do catálogo</td><td>2.3</td><td>5.8.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.8.C3</td><td>Criar testes de regressão por pack: nova versão não quebra execução básica</td><td>2.3</td><td>5.8.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.8.C4</td><td>Adicionar pack test suite ao CI como gate obrigatório com relatório por pack</td><td>2.3</td><td>5.8.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.8.C5</td><td>Criar mocks de conectores externos para testes sem dependência de APIs reais</td><td>2.3</td><td>5.8.C4</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.9.C1</td><td>Gerar docs automáticas de cada agente a partir do manifest com typedoc ou custom script</td><td>2.6</td><td>5.8.C5</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.9.C2</td><td>Criar página de Agent Marketplace com busca full-text e documentação inline</td><td>2.6</td><td>5.9.C1</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.9.C3</td><td>Implementar changelog automático de versões por agente ao publicar nova versão</td><td>2.6</td><td>5.9.C2</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.9.C4</td><td>Criar exemplos de output de cada agente com dados fictícios mas realistas</td><td>2.6</td><td>5.9.C3</td><td>JULES</td><td>ALTA</td></tr><tr><td>5.9.C5</td><td>Criar página de comparação de agentes por domínio com tabela de capabilities</td><td>2.6</td><td>5.9.C4</td><td>JULES</td><td>ALTA</td></tr></tbody></table></div></section></div><script>function copyPrompt(){navigator.clipboard.writeText(document.getElementById('promptBox').innerText).then(()=>alert('Prompt copiado.'));}function toggleTheme(){ const dark=document.body.classList.toggle('dark-theme'); localStorage.setItem('prompt:5:CODEX:theme', dark?'dark':'light'); } if(localStorage.getItem('prompt:5:CODEX:theme')==='dark') document.body.classList.add('dark-theme');</script></body></html>
