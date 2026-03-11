@@ -15,6 +15,7 @@ const links = [
   ["/contratos", "contracts"],
   ["/atividades", "agentActivities"],
   ["/sales", "salesOs"],
+  ["/marketplace", "packMarketplace"],
 ] as const;
 
 const ONBOARDING_STORAGE_KEY = "birthhub:onboarding:v1";
