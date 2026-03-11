@@ -8,6 +8,7 @@ import { PremiumCommandCenter } from "../components/premium-command-center";
 import { useAgentStatuses, useBillingSummary, useMetrics } from "../lib/dashboard-data";
 
 const cards = [
+  { href: "/onboarding", title: "🧭 Onboarding Wizard", description: "Complete criação da org, perfil, instalação de pack e convite do time." },
   { href: "/sales", title: "Sales OS", description: "Sistema operacional de vendas com IA (LDR, BDR, SDR, Closer)." },
   { href: "/pipeline", title: "🚀 Pipeline de Vendas", description: "Acompanhe evolução por etapa, volume e tendência." },
   { href: "/health-score", title: "💚 Health Score Board", description: "Monitore saúde de contas e risco de churn por cliente." },
