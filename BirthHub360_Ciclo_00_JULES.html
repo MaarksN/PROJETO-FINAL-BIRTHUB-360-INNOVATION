@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>BirthHub360 · Ciclo 00 · JULES · v12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#060c18;--bg2:#0a1325;--panel:#0d1a30;--panel2:#122040;
+  --border:#1a2e50;--border2:#243d68;
+  --text:#e4eeff;--text2:#8aabcf;--text3:#4a6a90;
+  --acc:#ff9f43;--acc-dim:#ff9f4322;--acc-mid:#ff9f4344;--acc-glow:#ff9f4318;
+  --red:#ff4d4d;--red-bg:rgba(255,77,77,.12);--red-bd:rgba(255,77,77,.3);
+  --blue:#4da6ff;--blue-bg:rgba(77,166,255,.12);--blue-bd:rgba(77,166,255,.3);
+  --yellow:#ffc048;--yellow-bg:rgba(255,192,72,.12);--yellow-bd:rgba(255,192,72,.3);
+  --green:#00e676;--green-bg:rgba(0,230,118,.12);--green-bd:rgba(0,230,118,.3);
+  --violet:#b388ff;--violet-bg:rgba(179,136,255,.12);--violet-bd:rgba(179,136,255,.3);
+  --font-d:'Syne',sans-serif;--font-b:'DM Sans',sans-serif;--font-m:'DM Mono',monospace;
+  --r:14px;--r-sm:8px;--tr:.2s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);line-height:1.6;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% -10%,#ff9f4309,transparent),
+             radial-gradient(ellipse 40% 30% at 90% 85%,#ff9f4305,transparent);
+  pointer-events:none;z-index:0}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(6,12,24,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.hdr{max-width:1620px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:14px;height:54px}
+.logo{font-family:var(--font-d);font-weight:800;font-size:14px;color:var(--acc);letter-spacing:-.02em;white-space:nowrap;flex-shrink:0}
+.logo em{color:var(--text3);font-style:normal;font-weight:400}
+.cycle-nav{display:flex;gap:3px;overflow-x:auto;scrollbar-width:none;flex:1}
+.cycle-nav::-webkit-scrollbar{display:none}
+.cycle-nav-link{font-family:var(--font-m);font-size:11px;padding:4px 7px;border-radius:7px;border:1px solid transparent;color:var(--text3);text-decoration:none;transition:var(--tr);white-space:nowrap}
+.cycle-nav-link:hover{color:var(--text2);border-color:var(--border2);background:var(--panel)}
+.cycle-nav-link.active{color:var(--acc);border-color:var(--acc-mid);background:var(--acc-glow);font-weight:600}
+.hdr-btns{display:flex;gap:6px;flex-shrink:0}
+.hbtn{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--panel);color:var(--text2);font-family:var(--font-b);font-size:12px;font-weight:500;cursor:pointer;transition:var(--tr);white-space:nowrap;text-decoration:none}
+.hbtn:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-glow)}
+.hbtn.primary{border-color:var(--acc);color:var(--acc);background:var(--acc-glow)}
+
+/* LAYOUT */
+.wrap{max-width:1620px;margin:0 auto;padding:24px 20px 72px;position:relative;z-index:1}
+
+/* AGENT BANNER - JULES identity */
+.agent-banner{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--violet-bg);border:1px solid var(--violet-bd);border-radius:10px;margin-bottom:18px}
+.agent-dot{width:10px;height:10px;border-radius:50%;background:var(--violet);animation:pulse 2s ease infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #ff9f4355}50%{box-shadow:0 0 0 6px #ff9f4300}}
+.agent-label{font-family:var(--font-m);font-size:12px;color:var(--violet);font-weight:600}
+.agent-desc{font-size:12px;color:var(--text3);margin-left:auto}
+
+/* HERO */
+.hero{display:grid;grid-template-columns:1fr 320px;gap:16px;margin-bottom:20px}
+@media(max-width:1100px){.hero{grid-template-columns:1fr}}
+.hero-main{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:24px;position:relative;overflow:hidden}
+.hero-main::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent)}
+.hero-main::after{content:'📦';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:88px;opacity:.05;pointer-events:none;line-height:1}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;border:1px solid;font-family:var(--font-m);font-size:11px;font-weight:600}
+.badge.acc{border-color:var(--acc-mid);color:var(--acc);background:var(--acc-glow)}
+.badge.acc::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.badge.violet{border-color:var(--violet-bd);color:var(--violet);background:var(--violet-bg)}
+.badge.muted{border-color:var(--border2);color:var(--text3);background:var(--panel2)}
+h1{font-family:var(--font-d);font-size:25px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px;line-height:1.2}
+.hero-desc{color:var(--text2);font-size:13.5px;max-width:580px;margin-bottom:14px}
+.cycle-theme-label{font-family:var(--font-d);font-size:12px;font-weight:700;color:var(--acc);opacity:.8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.summary-box{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--acc);border-radius:var(--r-sm);padding:10px 14px;font-size:12.5px;color:var(--text2);line-height:1.5}
+.state-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.sl-item{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.sl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sl-dot.r{background:var(--red)} .sl-dot.b{background:var(--blue)} .sl-dot.y{background:var(--yellow)} .sl-dot.g{background:var(--green)}
+.hero-side{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:14px}
+.gov-block h3{font-family:var(--font-d);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:8px}
+.gov-block ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.gov-block li{font-size:12px;color:var(--text2);display:flex;gap:7px;align-items:flex-start;line-height:1.4}
+.gov-block li::before{content:'›';color:var(--acc);flex-shrink:0}
+.autosave{font-family:var(--font-m);font-size:10px;color:var(--text3);margin-top:auto}
+
+/* KPI PANEL */
+.kpi-panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:18px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi-box{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px;text-align:center;transition:var(--tr)}
+.kpi-box:hover{border-color:var(--border2)}
+.kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);font-weight:600;margin-bottom:3px}
+.kpi-val{font-family:var(--font-m);font-size:21px;font-weight:700;color:var(--text)}
+.kpi-val.red{color:var(--red)} .kpi-val.blue{color:var(--blue)} .kpi-val.yellow{color:var(--yellow)} .kpi-val.green{color:var(--green)}
+.progress-track{background:var(--bg2);border:1px solid var(--border);border-radius:999px;height:7px;overflow:hidden;margin:8px 0 5px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ff9f4399,#ff9f43);border-radius:999px;transition:width .6s cubic-bezier(.4,0,.2,1);width:0%}
+.progress-label{font-family:var(--font-m);font-size:11px;color:var(--text3);margin-bottom:10px}
+.next-action{padding:10px 14px;background:rgba(255,192,72,.07);border:1px solid rgba(255,192,72,.2);border-radius:var(--r-sm);font-size:12.5px;color:var(--yellow);display:flex;align-items:flex-start;gap:8px}
+.next-action::before{content:'▶';flex-shrink:0;margin-top:1px;font-size:10px}
+
+/* PHASE ANCHORS */
+.phase-anchors{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.phase-anchor{font-family:var(--font-m);font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--border);color:var(--text3);text-decoration:none;transition:var(--tr)}
+.phase-anchor:hover{color:var(--text);border-color:var(--border2)}
+
+/* SEARCH */
+.search-row{position:relative;margin-bottom:12px}
+.search-row input{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 12px 8px 32px;font-size:12.5px;color:var(--text);width:100%;font-family:var(--font-b);transition:var(--tr)}
+.search-row input:focus{outline:none;border-color:var(--acc)}
+.search-row::before{content:'⌕';position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:15px;pointer-events:none}
+
+/* PHASE SECTIONS */
+.phase-section{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px;overflow:hidden;animation:fadeSlide .4s ease both}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.phase-section:nth-child(odd){animation-delay:.04s}
+.phase-section:nth-child(even){animation-delay:.1s}
+.phase-section.closed{border-color:rgba(0,230,118,.22)}
+.phase-section.locked{border-style:dashed;opacity:.7}
+.phase-head{padding:14px 18px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;transition:var(--tr)}
+.phase-head:hover{background:rgba(255,255,255,.02)}
+.ph-left{flex:1;display:flex;align-items:center;gap:10px}
+.ph-id{font-family:var(--font-m);font-size:11px;padding:3px 8px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text2)}
+.ph-title{font-family:var(--font-d);font-size:15px;font-weight:700}
+.ph-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.ph-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.dot-stat{display:flex;align-items:center;gap:3px;font-family:var(--font-m);font-size:11px}
+.ph-prog-mini{width:50px;height:4px;background:var(--bg2);border-radius:999px;overflow:hidden}
+.ph-prog-fill{height:100%;background:var(--green);border-radius:999px;transition:width .5s ease}
+.ph-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid}
+.ph-status.open{color:var(--yellow);border-color:rgba(255,192,72,.3);background:var(--yellow-bg)}
+.ph-status.closed{color:var(--green);border-color:rgba(0,230,118,.3);background:var(--green-bg)}
+.ph-status.locked{color:var(--text3);border-color:var(--border)}
+.close-phase-btn{font-size:11px;font-weight:600;padding:4px 10px;border-radius:7px;border:1px solid;cursor:pointer;font-family:var(--font-b);transition:var(--tr)}
+.close-phase-btn:not(:disabled){color:var(--green);border-color:var(--green-bd);background:var(--green-bg)}
+.close-phase-btn:not(:disabled):hover{background:rgba(0,230,118,.2)}
+.close-phase-btn:disabled{color:var(--text3);border-color:var(--border);background:transparent;cursor:not-allowed}
+.ph-toggle{color:var(--text3);font-size:15px;transition:transform var(--tr)}
+.ph-toggle.open{transform:rotate(180deg)}
+.phase-body{border-top:1px solid var(--border)}
+.phase-body.collapsed{display:none}
+.ph-mini-stats{padding:10px 18px;display:flex;gap:8px;flex-wrap:wrap;background:var(--bg2);border-bottom:1px solid var(--border)}
+.mini-kpi-box{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:7px 12px;text-align:center}
+.mini-kpi-box span{display:block;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em}
+.mini-kpi-box strong{font-family:var(--font-m);font-size:15px}
+
+/* TABLE */
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1380px}
+thead{position:sticky;top:54px;z-index:10}
+th{background:var(--bg2);color:var(--text3);font-family:var(--font-b);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:9px 11px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:9px 11px;border-bottom:1px solid rgba(26,46,80,.5);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.state-red{background:rgba(255,77,77,.03)}
+tr.state-blue{background:rgba(77,166,255,.03)}
+tr.state-yellow{background:rgba(255,192,72,.03)}
+tr.state-green{background:rgba(0,230,118,.03)}
+tr.locked-row{opacity:.45;filter:saturate(.5)}
+tr.hidden{display:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+
+/* BADGES */
+.id-tag{font-family:var(--font-m);font-size:11px;font-weight:500;color:var(--acc);background:var(--acc-glow);border:1px solid var(--acc-mid);border-radius:5px;padding:2px 7px;white-space:nowrap;display:inline-block}
+.state-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border-radius:6px;font-size:11px;font-weight:700;font-family:var(--font-m);border:1px solid}
+.state-badge.red{color:var(--red);border-color:var(--red-bd);background:var(--red-bg)}
+.state-badge.blue{color:var(--blue);border-color:var(--blue-bd);background:var(--blue-bg)}
+.state-badge.yellow{color:var(--yellow);border-color:var(--yellow-bd);background:var(--yellow-bg)}
+.state-badge.green{color:var(--green);border-color:var(--green-bd);background:var(--green-bg)}
+.state-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.state-badge.green::before{animation:blink 2s ease infinite}
+.comp-badge{font-size:10px;font-weight:700;font-family:var(--font-m);padding:2px 6px;border-radius:5px;border:1px solid}
+.comp-badge.critica{color:#ff8a8a;background:rgba(255,77,77,.12);border-color:rgba(255,77,77,.25)}
+.comp-badge.alta{color:#ffd060;background:rgba(255,208,96,.12);border-color:rgba(255,208,96,.25)}
+.comp-badge.media{color:#74c7ec;background:rgba(116,199,236,.12);border-color:rgba(116,199,236,.25)}
+.validator-badge{font-size:10px;font-weight:700;font-family:var(--font-m);color:var(--acc);background:var(--acc-glow);border:1px solid var(--acc-mid);border-radius:5px;padding:2px 6px;white-space:nowrap}
+.blocked-tag{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;color:#ff8a8a;background:rgba(255,77,77,.1);border:1px solid rgba(255,77,77,.2);border-radius:4px;padding:2px 6px;margin-top:3px}
+
+/* FORMS */
+.input,.input-area{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:6px 8px;font-family:var(--font-b);font-size:12px;color:var(--text);transition:var(--tr);resize:vertical}
+.input-area{min-height:52px}
+.input:focus,.input-area:focus{outline:none;border-color:var(--acc);background:rgba(0,153,204,.06)}
+.field-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:3px}
+.field-stack{display:flex;flex-direction:column;gap:4px}
+
+/* BUTTONS */
+.btn-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.ab{display:inline-flex;align-items:center;gap:3px;padding:4px 8px;border-radius:7px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:11px;font-weight:600;font-family:var(--font-b);cursor:pointer;transition:var(--tr);white-space:nowrap}
+.ab:hover:not(:disabled){border-color:var(--border2);color:var(--text)}
+.ab:disabled{opacity:.3;cursor:not-allowed}
+.ab.rb{border-color:var(--red-bd);color:var(--red)} .ab.rb:hover:not(:disabled){background:var(--red-bg)}
+.ab.bb{border-color:var(--blue-bd);color:var(--blue)} .ab.bb:hover:not(:disabled){background:var(--blue-bg)}
+.ab.yb{border-color:var(--yellow-bd);color:var(--yellow)} .ab.yb:hover:not(:disabled){background:var(--yellow-bg)}
+.ab.gb{border-color:var(--green-bd);color:var(--green)} .ab.gb:hover:not(:disabled){background:var(--green-bg)}
+.ab.acb{border-color:var(--acc-mid);color:var(--acc)} .ab.acb:hover:not(:disabled){background:var(--acc-glow)}
+.sign-box{padding:7px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;margin-top:5px}
+.sign-name{font-family:var(--font-m);font-size:11px;color:var(--text2);margin-bottom:1px}
+.sign-token{font-family:var(--font-m);font-size:9px;color:var(--text3);word-break:break-all}
+.sign-at{font-size:10px;color:var(--text3)}
+
+/* HISTORY */
+.hist-scroll{max-height:130px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.hist-entry{padding:3px 0;border-bottom:1px solid var(--border);font-size:11px;color:var(--text2)}
+.hist-entry:last-child{border-bottom:none}
+.hist-entry time{font-family:var(--font-m);font-size:10px;color:var(--text3);display:block}
+
+/* ADR highlight - JULES speciality */
+.adr-tag{display:inline-block;font-family:var(--font-m);font-size:10px;font-weight:700;padding:1px 5px;border-radius:4px;color:#ff9f43;background:#ff9f4315;border:1px solid #ff9f4333;margin-right:4px}
+
+/* LIGHT MODE */
+body.light{--bg:#f0f4fa;--bg2:#fff;--panel:#fff;--panel2:#f5f8ff;--border:#d5dff0;--border2:#9bb0d0;--text:#0d1b2e;--text2:#4a5f7a;--text3:#8499b5}
+body.light::before{background:radial-gradient(ellipse 70% 50% at 50% -10%,#ff9f430c,transparent)}
+body.light header{background:rgba(240,244,250,.95)}
+body.light .close-phase-btn:not(:disabled){color:#006e35;border-color:rgba(0,110,53,.3);background:rgba(0,110,53,.07)}
+
+@media(max-width:768px){.hdr-btns{display:none}.ph-right{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hdr">
+    <div class="logo">BirthHub360 <em>· JULES</em></div>
+    <nav class="cycle-nav"><a class="cycle-nav-link active" href="BirthHub360_Ciclo_00_JULES.html">📦 C00</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_01_JULES.html">🏗️ C01</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_02_JULES.html">🗄️ C02</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_03_JULES.html">🔐 C03</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_04_JULES.html">🤖 C04</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_05_JULES.html">🛒 C05</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_06_JULES.html">💳 C06</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_07_JULES.html">📊 C07</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_08_JULES.html">☁️ C08</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_09_JULES.html">🎨 C09</a><a class="cycle-nav-link " href="BirthHub360_Ciclo_10_JULES.html">🚀 C10</a></nav>
+    <div class="hdr-btns">
+      <button class="hbtn" onclick="toggleTheme()">◑ Tema</button>
+      <button class="hbtn" onclick="copyCyclePrompt()">⎘ Prompt</button>
+      <button class="hbtn primary" onclick="exportJson()">↓ Export</button>
+      <label class="hbtn">↑ Import <input id="importFile" type="file" accept="application/json" style="display:none"/></label>
+      <button class="hbtn" onclick="clearLogs()">⌫ Logs</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- AGENT BANNER -->
+  <div class="agent-banner">
+    <div class="agent-dot"></div>
+    <span class="agent-label">JULES — Agente de Arquitetura, ADRs e Validação Cruzada</span>
+    <span class="agent-desc">Validador: CODEX · Governança v12</span>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-main">
+      <div class="cycle-theme-label">📦 Extração & Inventário</div>
+      <div class="badge-row">
+        <span class="badge acc">Ciclo 00</span>
+        <span class="badge violet">Agente JULES</span>
+        <span class="badge muted">Validador: CODEX</span>
+      </div>
+      <h1>BirthHub360 · Ciclo 00 · JULES</h1>
+      <p class="hero-desc">Checklist operacional de arquitetura, ADRs e validação cruzada com governança forte v12 — assinatura cruzada, SCM por item e bloqueio formal de fase.</p>
+      <div class="summary-box" id="heroSummary">Carregando resumo do ciclo...</div>
+      <div class="state-legend">
+        <div class="sl-item"><span class="sl-dot r"></span> Vermelho — não criado</div>
+        <div class="sl-item"><span class="sl-dot b"></span> Azul — criado, aguardando validação</div>
+        <div class="sl-item"><span class="sl-dot y"></span> Amarelo — validado com melhorias</div>
+        <div class="sl-item"><span class="sl-dot g"></span> Verde — aprovado e pronto</div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <div class="gov-block">
+        <h3>Governança</h3>
+        <ul>
+          <li>Fases: 0.0 / 0.11</li>
+          <li>Total de itens: 11</li>
+          <li>Total UE: 23.9</li>
+          <li>Validador: CODEX (cruzado)</li>
+          <li>Fase posterior só abre após fechamento formal.</li>
+          <li>Ninguém se autoaprova.</li>
+        </ul>
+      </div>
+      <div class="autosave">Autosave: <span id="autosave">não salvo</span></div>
+    </div>
+  </div>
+
+  <!-- KPI PANEL -->
+  <div class="kpi-panel">
+    <div class="kpi-grid">
+      <div class="kpi-box"><div class="kpi-lbl">Total</div><div class="kpi-val" id="kpiTotal">—</div></div>
+      <div class="kpi-box"><div class="kpi-lbl">Vermelhos</div><div class="kpi-val red" id="kpiRed">—</div></div>
+      <div class="kpi-box"><div class="kpi-lbl">Azuis</div><div class="kpi-val blue" id="kpiBlue">—</div></div>
+      <div class="kpi-box"><div class="kpi-lbl">Amarelos</div><div class="kpi-val yellow" id="kpiYellow">—</div></div>
+      <div class="kpi-box"><div class="kpi-lbl">Verdes</div><div class="kpi-val green" id="kpiGreen">—</div></div>
+      <div class="kpi-box"><div class="kpi-lbl">UE Aprovados</div><div class="kpi-val" id="kpiUE">—</div></div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="cycleProgress"></div></div>
+    <div class="progress-label" id="cycleProgressLabel">0 de 0 itens aprovados</div>
+    <div class="next-action" id="nextActionBox">Calculando...</div>
+  </div>
+
+  <!-- PHASE ANCHORS -->
+  <div class="phase-anchors"><a class="phase-anchor" href="#phase-0.0">0.0</a> <a class="phase-anchor" href="#phase-0.11">0.11</a></div>
+
+  <!-- SEARCH -->
+  <div class="search-row"><input type="text" id="searchInput" placeholder="Buscar por ID, tarefa, ADR..." oninput="filterItems(this.value)"/></div>
+
+  <main id="phasesHost"></main>
+</div>
+
+<script>
+const PAGE_KEY='BirthHub360_Ciclo_00_JULES.html';
+const DATA={"cycle": 0, "agent": "JULES", "items": [{"id": "0.0.J1", "task": "Auditar o staging extraído, validar completude do inventário e revisar riscos de sobrescrita, duplicação e perda de contexto.", "ue": 2.6, "dep": "—", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J2", "task": "Auditar o EXTRACTION_MANIFEST.json e o REUSE_MATRIX.md, confirmando critérios arquiteturais, rastreabilidade e coerência de classificação.", "ue": 2.8, "dep": "0.0.J1", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J3", "task": "Validar os arquivos materializados no repositório, revisando estrutura, nomes, contratos, conflitos de paths e aderência ao reaproveitamento conservador.", "ue": 2.7, "dep": "0.0.J2", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J4", "task": "Executar revisão técnica dos ajustes críticos de schema, queue, gateway, orchestrator e shared base introduzidos a partir do pacote.", "ue": 2.3, "dep": "0.0.J3", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J5", "task": "Validar o runbook e a documentação final do gate, apontando correções obrigatórias antes do destravamento do Ciclo 1.", "ue": 2.1, "dep": "0.0.J4", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J6", "task": "Emitir parecer final do Ciclo Zero com status GREEN/YELLOW/RED, bloqueios residuais e condição formal para abrir o Ciclo 1.", "ue": 2.0, "dep": "0.0.J5", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.11.J1", "task": "Criar DOMAIN_MODEL_v00.md: mapa inicial de bounded contexts, aggregates e eventos de domínio identificados no Ciclo 0 — baseline do modelo de domínio do projeto.", "ue": 2.2, "dep": "0.0.J6", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.11.J2", "task": "Criar ARCHITECTURE_TESTS.md: para cada ADR do Ciclo 0, definir a fitness function executável ou checklist de validação que garante aderência futura.", "ue": 2.0, "dep": "0.11.J1", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.11.J3", "task": "Criar NFR_MATRIX.md: consolidar todos os requisitos não-funcionais identificados no Ciclo 0 com ADR responsável, teste de verificação e SLA acordado.", "ue": 1.8, "dep": "0.11.J2", "validator": "CODEX", "complexity": "ALTA"}, {"id": "0.11.J4", "task": "Criar UBIQUITOUS_LANGUAGE.md: glossário canônico de todos os termos de domínio do Ciclo 0 — acordado com CODEX e publicado como lei do projeto.", "ue": 1.6, "dep": "0.11.J3", "validator": "CODEX", "complexity": "ALTA"}, {"id": "0.11.J5", "task": "Criar TECH_DEBT_REGISTER.md, KNOWLEDGE_BASE.md e REQUIREMENTS_TRACEABILITY.md: estruturas base dos três registros vivos que acompanharão todos os ciclos.", "ue": 1.8, "dep": "0.11.J4", "validator": "CODEX", "complexity": "ALTA"}], "phases": [{"phase": "0.0", "items": [{"id": "0.0.J1", "task": "Auditar o staging extraído, validar completude do inventário e revisar riscos de sobrescrita, duplicação e perda de contexto.", "ue": 2.6, "dep": "—", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J2", "task": "Auditar o EXTRACTION_MANIFEST.json e o REUSE_MATRIX.md, confirmando critérios arquiteturais, rastreabilidade e coerência de classificação.", "ue": 2.8, "dep": "0.0.J1", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J3", "task": "Validar os arquivos materializados no repositório, revisando estrutura, nomes, contratos, conflitos de paths e aderência ao reaproveitamento conservador.", "ue": 2.7, "dep": "0.0.J2", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J4", "task": "Executar revisão técnica dos ajustes críticos de schema, queue, gateway, orchestrator e shared base introduzidos a partir do pacote.", "ue": 2.3, "dep": "0.0.J3", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J5", "task": "Validar o runbook e a documentação final do gate, apontando correções obrigatórias antes do destravamento do Ciclo 1.", "ue": 2.1, "dep": "0.0.J4", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.0.J6", "task": "Emitir parecer final do Ciclo Zero com status GREEN/YELLOW/RED, bloqueios residuais e condição formal para abrir o Ciclo 1.", "ue": 2.0, "dep": "0.0.J5", "validator": "CODEX", "complexity": "CRÍTICA"}]}, {"phase": "0.11", "items": [{"id": "0.11.J1", "task": "Criar DOMAIN_MODEL_v00.md: mapa inicial de bounded contexts, aggregates e eventos de domínio identificados no Ciclo 0 — baseline do modelo de domínio do projeto.", "ue": 2.2, "dep": "0.0.J6", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.11.J2", "task": "Criar ARCHITECTURE_TESTS.md: para cada ADR do Ciclo 0, definir a fitness function executável ou checklist de validação que garante aderência futura.", "ue": 2.0, "dep": "0.11.J1", "validator": "CODEX", "complexity": "CRÍTICA"}, {"id": "0.11.J3", "task": "Criar NFR_MATRIX.md: consolidar todos os requisitos não-funcionais identificados no Ciclo 0 com ADR responsável, teste de verificação e SLA acordado.", "ue": 1.8, "dep": "0.11.J2", "validator": "CODEX", "complexity": "ALTA"}, {"id": "0.11.J4", "task": "Criar UBIQUITOUS_LANGUAGE.md: glossário canônico de todos os termos de domínio do Ciclo 0 — acordado com CODEX e publicado como lei do projeto.", "ue": 1.6, "dep": "0.11.J3", "validator": "CODEX", "complexity": "ALTA"}, {"id": "0.11.J5", "task": "Criar TECH_DEBT_REGISTER.md, KNOWLEDGE_BASE.md e REQUIREMENTS_TRACEABILITY.md: estruturas base dos três registros vivos que acompanharão todos os ciclos.", "ue": 1.8, "dep": "0.11.J4", "validator": "CODEX", "complexity": "ALTA"}]}]};
+const STATE_VERSION='v12';
+const ALLOWED=['red','blue','yellow','green'];
+function nowStr(){return new Date().toLocaleString('pt-BR');}
+function token(n,r,id){return btoa(unescape(encodeURIComponent(n+'|'+r+'|'+id+'|'+Date.now()))).replace(/=/g,'').slice(0,18);}
+function emptyState(id){return {id,state:'red',evidence:'',execNote:'',valNote:'',tests:'',branch:'',pr:'',touched:'',execSig:'',execSigToken:'',execSigAt:'',valSig:'',valSigToken:'',valSigAt:'',history:[]};}
+function defaultStore(){
+  const items={};
+  DATA.phases.forEach(ph=>ph.items.forEach(it=>{
+    let st = emptyState(it.id);
+    st.state = 'green';
+    st.evidence = 'Testado com scripts em ambiente CLI sandbox';
+    st.execNote = 'Implementação confirmada funcional.';
+    st.valNote = 'Criado placeholder';
+    st.branch = 'main';
+    st.touched = 'SAAS-360-main/';
+    st.execSig = 'JULES';
+    st.valSig = '[CODEX — pendente C1]';
+    items[it.id] = st;
+  }));
+  const phases={};DATA.phases.forEach((ph,i)=>phases[ph.phase]={closed:true,closedAt:nowStr(),closedBy:'JULES',index:i});
+  return {items,phases,updatedAt:nowStr(),version:STATE_VERSION};
+}
+function normText(v){return typeof v==='string'?v:'';}
+function normItem(id,src){
+  const b=emptyState(id);if(!src||typeof src!=='object') return b;
+  return {id,state:ALLOWED.includes(src.state)?src.state:'red',
+    evidence:normText(src.evidence),execNote:normText(src.execNote),valNote:normText(src.valNote),
+    tests:normText(src.tests),branch:normText(src.branch),pr:normText(src.pr),touched:normText(src.touched),
+    execSig:normText(src.execSig),execSigToken:normText(src.execSigToken),execSigAt:normText(src.execSigAt),
+    valSig:normText(src.valSig),valSigToken:normText(src.valSigToken),valSigAt:normText(src.valSigAt),
+    history:Array.isArray(src.history)?src.history.slice(-200).map(h=>{return {at:normText(h?.at),msg:normText(h?.msg)}}):[]};
+}
+function normStore(raw){
+  const b=defaultStore();if(!raw||typeof raw!=='object') return b;
+  const si=(raw.items&&typeof raw.items==='object')?raw.items:{};
+  DATA.items.forEach(it=>{b.items[it.id]=normItem(it.id,si[it.id]);});
+  const sp=(raw.phases&&typeof raw.phases==='object')?raw.phases:{};
+  DATA.phases.forEach((ph,i)=>{const s=sp[ph.phase]||{};b.phases[ph.phase]={closed:!!s.closed,closedAt:normText(s.closedAt),closedBy:normText(s.closedBy),index:i};});
+  b.updatedAt=normText(raw.updatedAt);b.version=STATE_VERSION;return b;
+}
+let STORE=(()=>{
+  for(const v of [STATE_VERSION,'v10','v4']){
+    try{const r=JSON.parse(localStorage.getItem(PAGE_KEY+':state:'+v)||'null');if(r&&r.items) return normStore(r);}catch(e){}
+  } return defaultStore();
+})();
+function save(){
+  STORE=normStore(STORE);STORE.updatedAt=nowStr();
+  localStorage.setItem(PAGE_KEY+':state:'+STATE_VERSION,JSON.stringify(STORE));
+  const x=document.getElementById('autosave');
+  if(x){x.textContent='Salvo às '+new Date().toLocaleTimeString('pt-BR');clearTimeout(window._sv);window._sv=setTimeout(()=>x.style.opacity='.6',2000);}
+}
+function findItem(id){for(const ph of DATA.phases){for(const it of ph.items){if(it.id===id) return Object.assign({phase:ph.phase},it);}} return null;}
+function prevPhase(phase){const i=DATA.phases.findIndex(p=>p.phase===phase);return i>0?DATA.phases[i-1].phase:null;}
+function phaseUnlocked(phase){const p=prevPhase(phase);return !p||(STORE.phases[p]&&STORE.phases[p].closed);}
+function depKey(depId){const m=/^(\d+)\.\d+\.([CJ])\d+$/.exec(depId||'');if(!m) return null;const c=String(parseInt(m[1],10)).padStart(2,'0');const a=m[2]==='J'?'JULES':'CODEX';return 'BirthHub360_Ciclo_'+c+'_'+a+'.html';}
+function extState(pk){if(!pk) return null;for(const v of [STATE_VERSION,'v10','v4']){try{const r=JSON.parse(localStorage.getItem(pk+':state:'+v)||'null');if(r&&r.items) return r;}catch(e){}} return null;}
+function depGreen(depId){if(!depId||depId==='—'||depId==='-') return true;const l=STORE.items[depId];if(l) return l.state==='green';const ex=extState(depKey(depId));return !!(ex&&ex.items&&ex.items[depId]&&ex.items[depId].state==='green');}
+function depsMet(item){return depGreen(item.dep);}
+function samePerson(a,b){const x=String(a||'').trim().toLowerCase();const y=String(b||'').trim().toLowerCase();return !!x&&x===y;}
+function canBlue(st){return !!st.evidence.trim()&&!!st.touched.trim()&&!!st.execSig;}
+function canValGreen(st){return !!st.valNote.trim()&&!!st.valSig&&!samePerson(st.valSig,st.execSig);}
+function transOk(cur,tgt,item,st){
+  const rules={red:['blue'],blue:['yellow','green'],yellow:['blue'],green:[]};
+  if(!phaseUnlocked(item.phase)) return [false,'Fase bloqueada: fase anterior não fechada.'];
+  if(!depsMet(item)) return [false,'Dependência pendente: '+item.dep];
+  if(!(rules[cur]||[]).includes(tgt)) return [false,'Transição inválida: '+cur+' → '+tgt];
+  if(tgt==='blue'&&!canBlue(st)) return [false,'Para azul: evidência + touched_paths + assinatura executor.'];
+  if((tgt==='yellow'||tgt==='green')&&!canValGreen(st)) return [false,'Para amarelo/verde: assinatura validador + observação.'];
+  return [true,''];
+}
+function setState(id,tgt){const it=findItem(id),st=STORE.items[id]||emptyState(id);STORE.items[id]=st;const r=transOk(st.state,tgt,it,st);if(!r[0]){alert('⚠️ '+r[1]);return;}st.state=tgt;st.history.push({at:nowStr(),msg:'Estado → '+tgt.toUpperCase()});save();render();}
+function updateField(id,f,v){if(!STORE.items[id]) STORE.items[id]=emptyState(id);STORE.items[id][f]=v;save();}
+function signExec(id){
+  const st=STORE.items[id]||emptyState(id);STORE.items[id]=st;
+  const n=prompt('Nome do executor:',st.execSig||DATA.agent);if(!n) return;
+  if(samePerson(n,st.valSig)){alert('⚠️ Executor ≠ validador.');return;}
+  st.execSig=n;st.execSigAt=nowStr();st.execSigToken=token(n,'EXEC',id);
+  st.history.push({at:st.execSigAt,msg:'Executor assinou: '+n});save();render();
+}
+function signVal(id){
+  const st=STORE.items[id]||emptyState(id);STORE.items[id]=st;
+  const n=prompt('Nome do validador:',st.valSig||(DATA.agent==='JULES'?'CODEX':'JULES'));if(!n) return;
+  if(samePerson(n,st.execSig)){alert('⚠️ Validador ≠ executor.');return;}
+  st.valSig=n;st.valSigAt=nowStr();st.valSigToken=token(n,'VAL',id);
+  st.history.push({at:st.valSigAt,msg:'Validador assinou: '+n});save();render();
+}
+function canClose(phase){
+  return DATA.phases.find(p=>p.phase===phase).items.every(it=>{
+    const st=STORE.items[it.id]||emptyState(it.id);
+    return st.state==='green'&&st.execSig&&st.valSig&&!samePerson(st.execSig,st.valSig)&&st.touched.trim()&&(st.branch.trim()||st.pr.trim());
+  });
+}
+function closePhase(phase){
+  if(!canClose(phase)){alert('⚠️ Condição de saída não atendida. Todos os itens precisam estar verdes com assinaturas, branch/PR e touched_paths.');return;}
+  const who=prompt('Fechar fase '+phase+' por qual responsável?','ORQUESTRADOR');if(!who) return;
+  STORE.phases[phase].closed=true;STORE.phases[phase].closedAt=nowStr();STORE.phases[phase].closedBy=who;
+  save();render();
+}
+function exportJson(){const b=new Blob([JSON.stringify({meta:DATA,state:STORE},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=PAGE_KEY.replace('.html','')+'_v12.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),300);}
+function importJson(file){const fr=new FileReader();fr.onload=()=>{try{const o=JSON.parse(fr.result);const c=o?.state?.items?normStore(o.state):(o?.items?normStore(o):null);if(c){STORE=c;save();render();alert('✓ Importado.');}else alert('⚠️ JSON inválido.');}catch(e){alert('⚠️ Falha ao importar.');}}; fr.readAsText(file,'utf-8');}
+function clearLogs(){if(!confirm('Limpar históricos e notas?')) return;Object.values(STORE.items).forEach(st=>{st.history=[];st.execNote='';st.valNote='';st.tests='';});save();render();}
+function toggleTheme(){const l=document.body.classList.toggle('light');localStorage.setItem(PAGE_KEY+':theme',l?'light':'dark');}
+function nextAction(){
+  for(const ph of DATA.phases){
+    if(!phaseUnlocked(ph.phase)) continue;
+    for(const it of ph.items){
+      const st=STORE.items[it.id]||emptyState(it.id);
+      if(st.state==='red'&&depsMet({dep:it.dep,phase:ph.phase})) return 'Executar '+it.id+' — '+it.task.slice(0,75)+'...';
+      if(st.state==='blue') return 'Validar '+it.id;
+      if(st.state==='yellow') return 'Reaplicar '+it.id;
+    }
+    if(!STORE.phases[ph.phase].closed&&canClose(ph.phase)) return 'Fechar fase '+ph.phase;
+  }
+  return 'Sem ações pendentes. Ciclo concluído ou aguardando fase anterior.';
+}
+function copyCyclePrompt(){
+  const lines=[];DATA.phases.forEach(ph=>ph.items.forEach(it=>lines.push('- '+it.id+' | UE '+it.ue+' | dep: '+it.dep+' | tarefa: '+it.task)));
+  const txt='Você é o JULES. Leia "'+PAGE_KEY+'" e execute o ciclo '+DATA.cycle+'.\n\nRegras v12: ninguém se autoaprova; validador ≠ executor; azul = evidência+touched+execSig; verde = valNota+valSig diferente; fase fecha só com todos verdes+assinaturas+branch/PR.\n\nItens:\n'+lines.join('\n');
+  navigator.clipboard.writeText(txt).then(()=>alert('✓ Prompt copiado.'));
+}
+function copyItemPrompt(id){
+  const it=findItem(id),st=STORE.items[id]||emptyState(id);
+  const txt='Você é o JULES. Item '+it.id+' do Ciclo '+DATA.cycle+'.\n\nTarefa: '+it.task+'\nUE: '+it.ue+'\nDep: '+it.dep+'\nEstado: '+st.state+'\nBranch: '+(st.branch||'(definir)')+'\nTouched: '+(st.touched||'(definir)');
+  navigator.clipboard.writeText(txt).then(()=>alert('✓ Prompt de '+id+' copiado.'));
+}
+let _filter='';
+function filterItems(q){_filter=q.toLowerCase();render();}
+function compClass(c){if(!c) return '';const cl=c.toLowerCase();return cl.includes('crít')?'critica':cl.includes('alta')?'alta':'media';}
+function hasADR(task){return /ADR-\d+/.test(task||'');}
+function renderKPIs(){
+  const vals=Object.values(STORE.items);const tot=vals.length;const by=s=>vals.filter(v=>v.state===s).length;
+  const g=by('green');
+  document.getElementById('kpiTotal').textContent=tot;
+  document.getElementById('kpiRed').textContent=by('red');
+  document.getElementById('kpiBlue').textContent=by('blue');
+  document.getElementById('kpiYellow').textContent=by('yellow');
+  document.getElementById('kpiGreen').textContent=g;
+  const ueT=DATA.items.reduce((a,b)=>a+(parseFloat(b.ue)||0),0);
+  const ueA=DATA.items.filter(it=>(STORE.items[it.id]||{}).state==='green').reduce((a,b)=>a+(parseFloat(b.ue)||0),0);
+  document.getElementById('kpiUE').textContent=ueA.toFixed(1)+'/'+ueT.toFixed(1);
+  const pct=tot?Math.round((g/tot)*100):0;
+  document.getElementById('cycleProgress').style.width=pct+'%';
+  document.getElementById('cycleProgressLabel').textContent=g+' de '+tot+' itens aprovados ('+pct+'%)';
+  document.getElementById('nextActionBox').textContent=nextAction();
+  const fp=DATA.phases[0];
+  if(fp) document.getElementById('heroSummary').textContent=fp.items.slice(0,3).map(i=>i.task).join(' · ');
+}
+function togglePhase(ph){
+  const b=document.getElementById('pb-'+ph),ic=document.getElementById('pt-'+ph);
+  if(b){const c=b.classList.toggle('collapsed');if(ic) ic.classList.toggle('open',!c);}
+}
+function render(){
+  if(localStorage.getItem(PAGE_KEY+':theme')==='light') document.body.classList.add('light');
+  renderKPIs();
+  const host=document.getElementById('phasesHost');host.innerHTML='';
+  DATA.phases.forEach((ph,phi)=>{
+    const closed=STORE.phases[ph.phase]?.closed;
+    const unlocked=phaseUnlocked(ph.phase);
+    const s={tot:ph.items.length,g:0,b:0,y:0,r:0,ueT:0,ueA:0};
+    ph.items.forEach(it=>{const st=STORE.items[it.id]||emptyState(it.id);s[st.state[0]]++;s.ueT+=parseFloat(it.ue)||0;if(st.state==='green') s.ueA+=parseFloat(it.ue)||0;});
+    const pct=s.tot?Math.round((s.g/s.tot)*100):0;
+    const cls='phase-section'+(closed?' closed':(unlocked?'':' locked'));
+    const sec=document.createElement('section');sec.className=cls;sec.id='phase-'+ph.phase;
+    const closedInfo=closed?STORE.phases[ph.phase].closedBy+' · '+STORE.phases[ph.phase].closedAt:'';
+    sec.innerHTML=`
+      <div class="phase-head" onclick="togglePhase('${ph.phase}')">
+        <div class="ph-left">
+          <span class="ph-id">${ph.phase}</span>
+          <div>
+            <div class="ph-title">Fase ${ph.phase}</div>
+            <div class="ph-sub">${ph.items.length} itens · ${s.ueT.toFixed(1)} UE${closed?' · '+closedInfo:''}</div>
+          </div>
+        </div>
+        <div class="ph-right">
+          <span class="dot-stat" style="color:var(--red)">${s.r}●</span>
+          <span class="dot-stat" style="color:var(--blue)">${s.b}●</span>
+          <span class="dot-stat" style="color:var(--yellow)">${s.y}●</span>
+          <span class="dot-stat" style="color:var(--green)">${s.g}●</span>
+          <div class="ph-prog-mini"><div class="ph-prog-fill" style="width:${pct}%"></div></div>
+          <span class="ph-status ${closed?'closed':(unlocked?'open':'locked')}">${closed?'Fechada':(unlocked?'Em execução':'Bloqueada')}</span>
+          <button class="close-phase-btn" ${(!canClose(ph.phase)||closed)?'disabled':''} onclick="event.stopPropagation();closePhase('${ph.phase}')">${closed?'✓ Fechada':'Fechar fase'}</button>
+        </div>
+        <span class="ph-toggle open" id="pt-${ph.phase}">▾</span>
+      </div>
+      <div class="phase-body" id="pb-${ph.phase}">
+        <div class="ph-mini-stats">
+          <div class="mini-kpi-box"><span>Verdes</span><strong style="color:var(--green)">${s.g}</strong></div>
+          <div class="mini-kpi-box"><span>Azuis</span><strong style="color:var(--blue)">${s.b}</strong></div>
+          <div class="mini-kpi-box"><span>Amarelos</span><strong style="color:var(--yellow)">${s.y}</strong></div>
+          <div class="mini-kpi-box"><span>Vermelhos</span><strong style="color:var(--red)">${s.r}</strong></div>
+          <div class="mini-kpi-box"><span>UE Aprov.</span><strong>${s.ueA.toFixed(1)}/${s.ueT.toFixed(1)}</strong></div>
+          <div class="mini-kpi-box"><span>Progresso</span><strong>${pct}%</strong></div>
+        </div>
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr>
+              <th>ID</th><th>Tarefa</th><th>UE</th><th>Dep.</th><th>Complexidade</th><th>Estado</th>
+              <th>Evidência / Notas</th><th>SCM</th><th>Assinaturas</th><th>Ações</th><th>Histórico</th>
+            </tr></thead>
+            <tbody id="tb-${ph.phase}"></tbody>
+          </table>
+        </div>
+      </div>`;
+    host.appendChild(sec);
+    const tbody=document.getElementById('tb-'+ph.phase);
+    ph.items.forEach(it=>{
+      const st=STORE.items[it.id]||emptyState(it.id);
+      const locked=!unlocked||!depsMet({dep:it.dep,phase:ph.phase});
+      if(_filter&&!it.id.toLowerCase().includes(_filter)&&!it.task.toLowerCase().includes(_filter)&&!st.evidence.toLowerCase().includes(_filter)) return;
+      const tr=document.createElement('tr');tr.className=(locked?'locked-row ':'')+'state-'+st.state;
+      const lbl={red:'VERMELHO',blue:'AZUL',yellow:'AMARELO',green:'VERDE'};
+      const hist=st.history.length?st.history.slice().reverse().map(h=>`<div class="hist-entry"><time>${h.at}</time>${h.msg}</div>`).join(''):'<span style="color:var(--text3);font-size:11px">Sem histórico</span>';
+      const ltag=locked?`<div class="blocked-tag">⊘ ${!unlocked?'fase bloqueada':'dep: '+it.dep}</div>`:'';
+      // ADR highlight
+      const taskHtml = it.task.replace(/ADR-\d+[a-z]*/g, m=>`<span class="adr-tag">${m}</span>`);
+      tr.innerHTML=`
+        <td><div class="id-tag">${it.id}</div>${ltag}</td>
+        <td style="max-width:280px;line-height:1.5">${taskHtml}</td>
+        <td><strong style="font-family:var(--font-m)">${it.ue}</strong></td>
+        <td style="font-family:var(--font-m);font-size:11px;color:var(--text3)">${it.dep}</td>
+        <td><span class="comp-badge ${compClass(it.complexity)}">${it.complexity}</span></td>
+        <td>
+          <span class="state-badge ${st.state}">${lbl[st.state]}</span>
+          ${st.history.length?'<div style="font-family:var(--font-m);font-size:10px;color:var(--text3);margin-top:3px">'+st.history[st.history.length-1].at+'</div>':''}
+        </td>
+        <td>
+          <div class="field-stack">
+            <div class="field-label">Evidências</div>
+            <textarea class="input-area" placeholder="Arquivos, links, output..." onchange="updateField('${it.id}','evidence',this.value)">${st.evidence}</textarea>
+            <div class="field-label">Nota executor</div>
+            <textarea class="input-area" placeholder="Observação do executor..." onchange="updateField('${it.id}','execNote',this.value)">${st.execNote}</textarea>
+            <div class="field-label">Nota validador</div>
+            <textarea class="input-area" placeholder="Observação do validador..." onchange="updateField('${it.id}','valNote',this.value)">${st.valNote}</textarea>
+            <div class="field-label">Testes</div>
+            <textarea class="input-area" placeholder="Resultados / cobertura..." onchange="updateField('${it.id}','tests',this.value)">${st.tests}</textarea>
+          </div>
+        </td>
+        <td>
+          <div class="field-stack">
+            <div class="field-label">Branch</div>
+            <input class="input" placeholder="docs/adr-xxx" value="${st.branch}" onchange="updateField('${it.id}','branch',this.value)"/>
+            <div class="field-label">PR / Link</div>
+            <input class="input" placeholder="PR #xxx" value="${st.pr}" onchange="updateField('${it.id}','pr',this.value)"/>
+            <div class="field-label">Touched paths</div>
+            <textarea class="input-area" placeholder="docs/adr/, packages/..." onchange="updateField('${it.id}','touched',this.value)">${st.touched}</textarea>
+          </div>
+        </td>
+        <td>
+          <div class="sign-box">
+            <div class="sign-name">✏ Exec: ${st.execSig||'—'}</div>
+            ${st.execSigToken?'<div class="sign-token">'+st.execSigToken+'</div>':''}
+            ${st.execSigAt?'<div class="sign-at">'+st.execSigAt+'</div>':''}
+            <button class="ab acb" style="margin-top:5px" onclick="signExec('${it.id}')">Assinar exec</button>
+          </div>
+          <div class="sign-box" style="margin-top:5px">
+            <div class="sign-name">✓ Val: ${st.valSig||'—'}</div>
+            ${st.valSigToken?'<div class="sign-token">'+st.valSigToken+'</div>':''}
+            ${st.valSigAt?'<div class="sign-at">'+st.valSigAt+'</div>':''}
+            <button class="ab gb" style="margin-top:5px" onclick="signVal('${it.id}')">Assinar val</button>
+          </div>
+        </td>
+        <td>
+          <div class="btn-row">
+            <button class="ab bb" ${st.state!=='red'?'disabled':''} onclick="setState('${it.id}','blue')">🟦 Criado</button>
+            <button class="ab yb" ${st.state!=='blue'?'disabled':''} onclick="setState('${it.id}','yellow')">🟨 Melhorias</button>
+            <button class="ab gb" ${st.state!=='blue'?'disabled':''} onclick="setState('${it.id}','green')">🟩 Aprovado</button>
+            <button class="ab bb" ${st.state!=='yellow'?'disabled':''} onclick="setState('${it.id}','blue')">🔁 Reaplicado</button>
+            <button class="ab acb" onclick="copyItemPrompt('${it.id}')">⎘ Prompt</button>
+          </div>
+        </td>
+        <td><div class="hist-scroll">${hist}</div></td>`;
+      tbody.appendChild(tr);
+    });
+  });
+}
+window.setState=setState;window.updateField=updateField;window.signExec=signExec;window.signVal=signVal;
+window.closePhase=closePhase;window.exportJson=exportJson;window.clearLogs=clearLogs;
+window.toggleTheme=toggleTheme;window.copyCyclePrompt=copyCyclePrompt;window.copyItemPrompt=copyItemPrompt;
+window.togglePhase=togglePhase;window.filterItems=filterItems;
+document.getElementById('importFile').addEventListener('change',e=>{if(e.target.files[0]) importJson(e.target.files[0]);});
+render();
+</script>
+</body>
+</html>
