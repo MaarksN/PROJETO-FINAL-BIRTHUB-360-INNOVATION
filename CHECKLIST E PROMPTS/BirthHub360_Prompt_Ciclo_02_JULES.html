@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>BirthHub360 • Prompt • Ciclo 2 • JULES</title><style>
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #1c2833;
+  --muted: #5b6b7c;
+  --line: #d7deea;
+  --accent: #27ae60;
+  --accent-dark: #145a32;
+  --soft: #d5f5e3;
+  --panel-soft: #e9f7ef;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(18, 32, 56, .08);
+  --red-bg:#ffe5e5; --red:#b30000;
+  --blue-bg:#e6f0ff; --blue:#0033cc;
+  --yellow-bg:#fff8e1; --yellow:#8a6d00;
+  --green-bg:#e6ffed; --green:#006b21;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;line-height:1.5}
+header{position:sticky;top:0;z-index:30;background:rgba(244,247,251,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.wrap{max-width:1540px;margin:0 auto;padding:20px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-main{padding:22px;background:linear-gradient(135deg,var(--panel-soft),#fff)}
+.hero-side{padding:22px}
+h1{margin:0 0 8px;font-size:30px;color:var(--accent-dark)}
+h2{margin:0 0 10px;font-size:22px} h3{margin:0 0 8px;font-size:18px} h4{margin:0 0 8px;font-size:15px}
+.muted{color:var(--muted)}
+.kpis,.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.kpi,.gov-stat{padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.kpi strong,.gov-stat strong{display:block;font-size:22px;color:var(--accent-dark)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--soft);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--accent-dark);margin-right:6px;margin-bottom:6px}
+.pill.critica{background:#fdecea;color:#a93226} .pill.alta{background:#fff4e5;color:#9c640c}
+.toolbar,.navbar,.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button,.btn{cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+button:hover,.btn:hover{border-color:var(--accent)}
+.section{margin-top:18px;padding:18px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ul{margin:8px 0 0 20px;padding:0}
+code, pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{white-space:pre-wrap;word-break:break-word;background:#0e1726;color:#eff5ff;border-radius:14px;padding:18px;overflow:auto;max-height:720px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:1600px;background:#fff}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:14px}
+th{background:#f8fbff;position:sticky;top:0;z-index:1}
+.phase{padding:0;overflow:hidden}.phase-head{padding:16px 18px;background:var(--panel-soft);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.note{padding:14px;border-left:4px solid var(--accent);background:var(--soft);border-radius:10px}
+.status-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.legend-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:13px}
+.legend-swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+.state-red{background:var(--red-bg)!important;color:var(--red)!important}.state-blue{background:var(--blue-bg)!important;color:var(--blue)!important}.state-yellow{background:var(--yellow-bg)!important;color:var(--yellow)!important}.state-green{background:var(--green-bg)!important;color:var(--green)!important}
+.state-badge{display:inline-block;padding:6px 8px;border-radius:10px;font-size:12px;font-weight:700;border:1px solid rgba(0,0,0,.05)}
+.small{font-size:12px}.stack{display:flex;flex-direction:column;gap:6px}.input, textarea, select{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;background:#fff;color:var(--text)}
+textarea{min-height:64px;resize:vertical}.mini-btn{padding:6px 8px;border-radius:10px;font-size:12px}.history-box{max-height:180px;overflow:auto;background:#fafcff;border:1px solid var(--line);border-radius:10px;padding:8px}.history-entry{padding:6px 0;border-bottom:1px dashed var(--line)}.history-entry:last-child{border-bottom:0}
+.locked-row{opacity:.55;filter:saturate(.75)} .blocked-tag{display:inline-block;background:#fff1f0;color:#a61b1b;border:1px solid #f5c2c0;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:700}
+.progress{width:100%;height:12px;background:#edf3fb;border-radius:999px;overflow:hidden;border:1px solid var(--line)} .progress > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));width:0%}
+.phase-status{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.footer-note{margin-top:12px;font-size:12px;color:var(--muted)}
+.banner{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#fff;margin-top:12px}.banner.warn{background:#fff8e8;border-color:#f4d58d}.banner.ok{background:#edfdf4;border-color:#b7ebc6}.banner.danger{background:#fff1f2;border-color:#f4b7be}
+.phase-closed{border:2px solid #9ad4ae;background:#f2fff6}.phase-open{border:2px solid #f0d28d;background:#fffaf0}.phase-locked{border:2px dashed #d8dfea;background:#fafcff}
+@media (max-width:1100px){.hero,.grid-2,.grid-4{grid-template-columns:1fr}}
+body.dark-theme{--bg:#0d1424;--panel:#121b2f;--text:#eef3ff;--muted:#9fb0ca;--line:#2a3958;--panel-soft:#18233b;--soft:#10233a;background:var(--bg);color:var(--text)}
+body.dark-theme .card,body.dark-theme .kpi,body.dark-theme .gov-stat,body.dark-theme .legend-item,body.dark-theme .phase-status,body.dark-theme .footer-note,body.dark-theme .banner{background:var(--panel);color:var(--text)}
+body.dark-theme input,body.dark-theme textarea,body.dark-theme select,body.dark-theme button{background:#0f1a2d;color:var(--text);border-color:var(--line)}
+body.dark-theme table{background:var(--panel)} body.dark-theme th{background:#14213a} body.dark-theme .history-box{background:#0f1a2d}
+</style></head><body><header><div class="wrap"><div class="navbar"><a class="btn" href="../BirthHub360_Dashboard_Mestre_v4.html">Dashboard Mestre</a><a class="btn" href="../checklists/BirthHub360_Ciclo_02_JULES.html">Abrir checklist do ciclo</a><button onclick="copyPrompt()">📋 Copiar prompt</button><button onclick="toggleTheme()">🌙 Tema</button></div></div></header><div class="wrap"><section class="hero"><div class="card hero-main"><span class="pill">Prompt operacional</span><span class="pill">Ciclo 2</span><span class="pill alta">Agente JULES</span><h1>Prompt de Execução • Ciclo 02 • JULES</h1><p class="muted">Arquivo de prompt para o agente ler no repositório e começar a executar o ciclo correspondente, em sincronia com o checklist.</p><div class="note">Checklist de referência: <strong>checklists/BirthHub360_Ciclo_02_JULES.html</strong></div></div><div class="card hero-side"><h3>Resumo do ciclo</h3><ul><li>Total de itens: 50</li><li>UE total: 94.5</li><li>Fases: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 2.10</li><li>Validador cruzado: CODEX</li></ul></div></section><section class="card section"><h2>Prompt completo</h2><pre id="promptBox">Você é o JULES, executor principal do Ciclo 2 do BirthHub360.
+
+Leia no repositório o arquivo de checklist:
+- checklists/BirthHub360_Ciclo_02_JULES.html
+
+Papel:
+- executor dos itens JULES
+- verificador dos itens do agente CODEX
+- ninguém se autoaprova
+
+Regras de governança:
+- vermelho = item não criado
+- azul = executor criou, aguardando validação
+- amarelo = validado com melhorias; volta ao executor
+- verde = pronto para uso
+- para ir a azul: preencher evidência, touched_paths e assinatura do executor
+- para ir a amarelo/verde: assinatura do validador + observação obrigatória
+- para fechar fase: todos os itens verdes + assinaturas + branch/PR + touched_paths
+- fase posterior só inicia após fechamento formal da fase anterior
+
+Itens deste ciclo:
+- 2.1.J1 | UE 1.8 | dep: 1.10.J5 | validador: CODEX | tarefa: Escrever ADR-007: Multi-tenancy — schema compartilhado com RLS vs schema por tenant
+- 2.1.J2 | UE 1.8 | dep: 2.1.J1 | validador: CODEX | tarefa: Mapear todos os riscos de vazamento cross-tenant por camada (API, DB, cache, queue, logs)
+- 2.1.J3 | UE 1.8 | dep: 2.1.J2 | validador: CODEX | tarefa: Criar checklist de revisão de tenant isolation para aplicar em todo PR futuro
+- 2.1.J4 | UE 1.8 | dep: 2.1.J3 | validador: CODEX | tarefa: Escrever análise de risco de inferência cross-tenant via timing attack ou enumeração
+- 2.1.J5 | UE 1.8 | dep: 2.1.J4 | validador: CODEX | tarefa: Definir política de dados de tenant deletado: soft delete, purge schedule, LGPD compliance
+- 2.10.J1 | UE 1.5 | dep: 2.9.J5 | validador: CODEX | tarefa: Escrever relatório completo de Tenant Security Review com achados e severidade CVSS
+- 2.10.J2 | UE 1.5 | dep: 2.10.J1 | validador: CODEX | tarefa: Revisar todas as policies e ADRs do Ciclo 2 e confirmar alinhamento com implementação
+- 2.10.J3 | UE 1.5 | dep: 2.10.J2 | validador: CODEX | tarefa: Validar que CHECKLIST_MASTER.md reflete o repositório real e não tem wishful thinking
+- 2.10.J4 | UE 1.5 | dep: 2.10.J3 | validador: CODEX | tarefa: Conduzir revisão de RLS: verificar todas as tabelas novas têm policy aplicada
+- 2.10.J5 | UE 1.5 | dep: 2.10.J4 | validador: CODEX | tarefa: Assinar gate: &#x27;Isolamento multi-tenant aprovado — seguro para avançar ao Ciclo 3&#x27;
+- 2.2.J1 | UE 1.8 | dep: 2.1.J5 | validador: CODEX | tarefa: Analisar plano de execução das queries críticas e validar uso correto de indexes
+- 2.2.J2 | UE 1.8 | dep: 2.2.J1 | validador: CODEX | tarefa: Escrever análise de risco de query injection via parâmetros de paginação e filtro
+- 2.2.J3 | UE 1.8 | dep: 2.2.J2 | validador: CODEX | tarefa: Definir SLA de performance de banco por endpoint (p95 máximo por tipo de operação)
+- 2.2.J4 | UE 1.8 | dep: 2.2.J3 | validador: CODEX | tarefa: Criar runbook de investigação de query lenta em produção: passos e ferramentas
+- 2.2.J5 | UE 1.8 | dep: 2.2.J4 | validador: CODEX | tarefa: Escrever política de criação de indexes: quando criar, custo de escrita, aprovação
+- 2.3.J1 | UE 2.4 | dep: 2.2.J5 | validador: CODEX | tarefa: Escrever ADR-008: RLS como segunda camada — quando confiar apenas em RLS e quando não
+- 2.3.J2 | UE 2.4 | dep: 2.3.J1 | validador: CODEX | tarefa: Criar prova formal de isolamento: script que testa 15 cenários cross-tenant e documenta
+- 2.3.J3 | UE 2.4 | dep: 2.3.J2 | validador: CODEX | tarefa: Definir quais tabelas dispensam RLS com justificativa formal para cada exceção
+- 2.3.J4 | UE 2.4 | dep: 2.3.J3 | validador: CODEX | tarefa: Escrever análise de risco de bypass de RLS via super-user e conexões de migração
+- 2.3.J5 | UE 2.4 | dep: 2.3.J4 | validador: CODEX | tarefa: Criar checklist de revisão de RLS para toda migration que cria nova tabela
+- 2.4.J1 | UE 1.8 | dep: 2.3.J5 | validador: CODEX | tarefa: Escrever threat model de convites: token hijack, replay, convite aceito por usuário errado
+- 2.4.J2 | UE 1.8 | dep: 2.4.J1 | validador: CODEX | tarefa: Definir política de expiração de convites: prazo por plano e ação ao deletar org pendente
+- 2.4.J3 | UE 1.8 | dep: 2.4.J2 | validador: CODEX | tarefa: Criar critérios de aceite do fluxo de provisioning testáveis sem intervenção manual
+- 2.4.J4 | UE 1.8 | dep: 2.4.J3 | validador: CODEX | tarefa: Escrever análise de risco de enumeração de organizações via slug ou ID sequencial
+- 2.4.J5 | UE 1.8 | dep: 2.4.J4 | validador: CODEX | tarefa: Definir limites de membros por plano e o que acontece ao atingir o limite
+- 2.5.J1 | UE 1.8 | dep: 2.4.J5 | validador: CODEX | tarefa: Escrever política de auditoria: quais eventos são obrigatórios por lei (LGPD art. 37)
+- 2.5.J2 | UE 1.8 | dep: 2.5.J1 | validador: CODEX | tarefa: Analisar risco de adulteração de audit log por admin — mitigação com hash encadeado
+- 2.5.J3 | UE 1.8 | dep: 2.5.J2 | validador: CODEX | tarefa: Criar template de relatório de auditoria para responder solicitação de titular de dados
+- 2.5.J4 | UE 1.8 | dep: 2.5.J3 | validador: CODEX | tarefa: Escrever análise: auditoria de auditoria — quem pode ver os audit logs e como é logado
+- 2.5.J5 | UE 1.8 | dep: 2.5.J4 | validador: CODEX | tarefa: Definir retenção de audit log: prazo mínimo legal, custo de storage, política de purge
+- 2.6.J1 | UE 1.8 | dep: 2.5.J5 | validador: CODEX | tarefa: Definir limites por plano (Free/Starter/Pro/Enterprise) com justificativa de negócio
+- 2.6.J2 | UE 1.8 | dep: 2.6.J1 | validador: CODEX | tarefa: Criar cenários de abuso documentados: bot de scraping, DDoS via API key, bulk import
+- 2.6.J3 | UE 1.8 | dep: 2.6.J2 | validador: CODEX | tarefa: Escrever policy de upgrade forçado e degradação de serviço ao atingir quota
+- 2.6.J4 | UE 1.8 | dep: 2.6.J3 | validador: CODEX | tarefa: Definir o que conta como &#x27;uso&#x27; para cada recurso: quando incrementar o contador
+- 2.6.J5 | UE 1.8 | dep: 2.6.J4 | validador: CODEX | tarefa: Criar análise de custo de infra por nível de uso para validar preços dos planos
+- 2.7.J1 | UE 2.1 | dep: 2.6.J5 | validador: CODEX | tarefa: Definir SLO por tenant por plano: availability mínima e latência p95 garantida
+- 2.7.J2 | UE 2.1 | dep: 2.7.J1 | validador: CODEX | tarefa: Criar runbook de incidente tenant-específico: isolar impacto sem afetar outros tenants
+- 2.7.J3 | UE 2.1 | dep: 2.7.J2 | validador: CODEX | tarefa: Escrever política de comunicação de incidente para tenants afetados: prazo e canal
+- 2.7.J4 | UE 2.1 | dep: 2.7.J3 | validador: CODEX | tarefa: Definir threshold de anomalia por tenant e justificativa de cada valor
+- 2.7.J5 | UE 2.1 | dep: 2.7.J4 | validador: CODEX | tarefa: Criar análise de correlação: incidentes que afetam múltiplos tenants vs tenant único
+- 2.8.J1 | UE 1.8 | dep: 2.7.J5 | validador: CODEX | tarefa: Escrever plano de penetration test focado em cross-tenant isolation
+- 2.8.J2 | UE 1.8 | dep: 2.8.J1 | validador: CODEX | tarefa: Analisar cobertura da isolation suite e identificar gaps por domínio
+- 2.8.J3 | UE 1.8 | dep: 2.8.J2 | validador: CODEX | tarefa: Criar critério de aceite: zero falha de isolamento em qualquer cenário da suíte
+- 2.8.J4 | UE 1.8 | dep: 2.8.J3 | validador: CODEX | tarefa: Escrever análise de timing attack: operações de tenant A vazam informação sobre tenant B?
+- 2.8.J5 | UE 1.8 | dep: 2.8.J4 | validador: CODEX | tarefa: Definir processo de regressão de isolamento: quando rerun a suíte completa
+- 2.9.J1 | UE 2.1 | dep: 2.8.J5 | validador: CODEX | tarefa: Escrever ADR-009: Estratégia de migração de dados legados para modelo multi-tenant
+- 2.9.J2 | UE 2.1 | dep: 2.9.J1 | validador: CODEX | tarefa: Criar checklist de validação pós-migração: integridade, isolation, performance, audit
+- 2.9.J3 | UE 2.1 | dep: 2.9.J2 | validador: CODEX | tarefa: Definir plano de rollback de migração com RTO máximo de 15 minutos
+- 2.9.J4 | UE 2.1 | dep: 2.9.J3 | validador: CODEX | tarefa: Escrever análise de risco de migração: dados órfãos, foreign keys, RLS quebrado
+- 2.9.J5 | UE 2.1 | dep: 2.9.J4 | validador: CODEX | tarefa: Criar comunicação de migração para clientes existentes com janela de manutenção
+
+Execução esperada:
+- Fase 2.1: trabalhar nos itens 2.1.J1, 2.1.J2, 2.1.J3, 2.1.J4, 2.1.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.2: trabalhar nos itens 2.2.J1, 2.2.J2, 2.2.J3, 2.2.J4, 2.2.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.3: trabalhar nos itens 2.3.J1, 2.3.J2, 2.3.J3, 2.3.J4, 2.3.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.4: trabalhar nos itens 2.4.J1, 2.4.J2, 2.4.J3, 2.4.J4, 2.4.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.5: trabalhar nos itens 2.5.J1, 2.5.J2, 2.5.J3, 2.5.J4, 2.5.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.6: trabalhar nos itens 2.6.J1, 2.6.J2, 2.6.J3, 2.6.J4, 2.6.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.7: trabalhar nos itens 2.7.J1, 2.7.J2, 2.7.J3, 2.7.J4, 2.7.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.8: trabalhar nos itens 2.8.J1, 2.8.J2, 2.8.J3, 2.8.J4, 2.8.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.9: trabalhar nos itens 2.9.J1, 2.9.J2, 2.9.J3, 2.9.J4, 2.9.J5 respeitando dependências e validação cruzada com CODEX.
+- Fase 2.10: trabalhar nos itens 2.10.J1, 2.10.J2, 2.10.J3, 2.10.J4, 2.10.J5 respeitando dependências e validação cruzada com CODEX.
+
+O que você deve fazer agora:
+1. Abrir o checklist do ciclo no repositório.
+2. Identificar a próxima ação lógica disponível.
+3. Executar o item cabível do seu agente.
+4. Registrar branch, PR (se existir), touched_paths, evidências e testes.
+5. Assinar como executor.
+6. Quando for validador, registrar observação e assinar.
+7. Informar o próximo plano lógico.
+
+Formato obrigatório de resposta:
+# JULES — CICLO 2 — EXECUÇÃO
+## 1. Itens trabalhados
+## 2. O que foi feito
+## 3. O que foi validado
+## 4. Branch / PR / touched_paths
+## 5. Evidências e testes
+## 6. Bloqueios
+## 7. Próximo plano lógico</pre></section><section class="card section"><h2>Itens do ciclo</h2><div class="table-wrap"><table><thead><tr><th>ID</th><th>Tarefa</th><th>UE</th><th>Dependência</th><th>Validador</th><th>Complexidade</th></tr></thead><tbody><tr><td>2.1.J1</td><td>Escrever ADR-007: Multi-tenancy — schema compartilhado com RLS vs schema por tenant</td><td>1.8</td><td>1.10.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.1.J2</td><td>Mapear todos os riscos de vazamento cross-tenant por camada (API, DB, cache, queue, logs)</td><td>1.8</td><td>2.1.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.1.J3</td><td>Criar checklist de revisão de tenant isolation para aplicar em todo PR futuro</td><td>1.8</td><td>2.1.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.1.J4</td><td>Escrever análise de risco de inferência cross-tenant via timing attack ou enumeração</td><td>1.8</td><td>2.1.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.1.J5</td><td>Definir política de dados de tenant deletado: soft delete, purge schedule, LGPD compliance</td><td>1.8</td><td>2.1.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.10.J1</td><td>Escrever relatório completo de Tenant Security Review com achados e severidade CVSS</td><td>1.5</td><td>2.9.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.10.J2</td><td>Revisar todas as policies e ADRs do Ciclo 2 e confirmar alinhamento com implementação</td><td>1.5</td><td>2.10.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.10.J3</td><td>Validar que CHECKLIST_MASTER.md reflete o repositório real e não tem wishful thinking</td><td>1.5</td><td>2.10.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.10.J4</td><td>Conduzir revisão de RLS: verificar todas as tabelas novas têm policy aplicada</td><td>1.5</td><td>2.10.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.10.J5</td><td>Assinar gate: &#x27;Isolamento multi-tenant aprovado — seguro para avançar ao Ciclo 3&#x27;</td><td>1.5</td><td>2.10.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.2.J1</td><td>Analisar plano de execução das queries críticas e validar uso correto de indexes</td><td>1.8</td><td>2.1.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.2.J2</td><td>Escrever análise de risco de query injection via parâmetros de paginação e filtro</td><td>1.8</td><td>2.2.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.2.J3</td><td>Definir SLA de performance de banco por endpoint (p95 máximo por tipo de operação)</td><td>1.8</td><td>2.2.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.2.J4</td><td>Criar runbook de investigação de query lenta em produção: passos e ferramentas</td><td>1.8</td><td>2.2.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.2.J5</td><td>Escrever política de criação de indexes: quando criar, custo de escrita, aprovação</td><td>1.8</td><td>2.2.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.3.J1</td><td>Escrever ADR-008: RLS como segunda camada — quando confiar apenas em RLS e quando não</td><td>2.4</td><td>2.2.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.3.J2</td><td>Criar prova formal de isolamento: script que testa 15 cenários cross-tenant e documenta</td><td>2.4</td><td>2.3.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.3.J3</td><td>Definir quais tabelas dispensam RLS com justificativa formal para cada exceção</td><td>2.4</td><td>2.3.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.3.J4</td><td>Escrever análise de risco de bypass de RLS via super-user e conexões de migração</td><td>2.4</td><td>2.3.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.3.J5</td><td>Criar checklist de revisão de RLS para toda migration que cria nova tabela</td><td>2.4</td><td>2.3.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.4.J1</td><td>Escrever threat model de convites: token hijack, replay, convite aceito por usuário errado</td><td>1.8</td><td>2.3.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.4.J2</td><td>Definir política de expiração de convites: prazo por plano e ação ao deletar org pendente</td><td>1.8</td><td>2.4.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.4.J3</td><td>Criar critérios de aceite do fluxo de provisioning testáveis sem intervenção manual</td><td>1.8</td><td>2.4.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.4.J4</td><td>Escrever análise de risco de enumeração de organizações via slug ou ID sequencial</td><td>1.8</td><td>2.4.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.4.J5</td><td>Definir limites de membros por plano e o que acontece ao atingir o limite</td><td>1.8</td><td>2.4.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.5.J1</td><td>Escrever política de auditoria: quais eventos são obrigatórios por lei (LGPD art. 37)</td><td>1.8</td><td>2.4.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.5.J2</td><td>Analisar risco de adulteração de audit log por admin — mitigação com hash encadeado</td><td>1.8</td><td>2.5.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.5.J3</td><td>Criar template de relatório de auditoria para responder solicitação de titular de dados</td><td>1.8</td><td>2.5.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.5.J4</td><td>Escrever análise: auditoria de auditoria — quem pode ver os audit logs e como é logado</td><td>1.8</td><td>2.5.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.5.J5</td><td>Definir retenção de audit log: prazo mínimo legal, custo de storage, política de purge</td><td>1.8</td><td>2.5.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.6.J1</td><td>Definir limites por plano (Free/Starter/Pro/Enterprise) com justificativa de negócio</td><td>1.8</td><td>2.5.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.6.J2</td><td>Criar cenários de abuso documentados: bot de scraping, DDoS via API key, bulk import</td><td>1.8</td><td>2.6.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.6.J3</td><td>Escrever policy de upgrade forçado e degradação de serviço ao atingir quota</td><td>1.8</td><td>2.6.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.6.J4</td><td>Definir o que conta como &#x27;uso&#x27; para cada recurso: quando incrementar o contador</td><td>1.8</td><td>2.6.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.6.J5</td><td>Criar análise de custo de infra por nível de uso para validar preços dos planos</td><td>1.8</td><td>2.6.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.7.J1</td><td>Definir SLO por tenant por plano: availability mínima e latência p95 garantida</td><td>2.1</td><td>2.6.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.7.J2</td><td>Criar runbook de incidente tenant-específico: isolar impacto sem afetar outros tenants</td><td>2.1</td><td>2.7.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.7.J3</td><td>Escrever política de comunicação de incidente para tenants afetados: prazo e canal</td><td>2.1</td><td>2.7.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.7.J4</td><td>Definir threshold de anomalia por tenant e justificativa de cada valor</td><td>2.1</td><td>2.7.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.7.J5</td><td>Criar análise de correlação: incidentes que afetam múltiplos tenants vs tenant único</td><td>2.1</td><td>2.7.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.8.J1</td><td>Escrever plano de penetration test focado em cross-tenant isolation</td><td>1.8</td><td>2.7.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.8.J2</td><td>Analisar cobertura da isolation suite e identificar gaps por domínio</td><td>1.8</td><td>2.8.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.8.J3</td><td>Criar critério de aceite: zero falha de isolamento em qualquer cenário da suíte</td><td>1.8</td><td>2.8.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.8.J4</td><td>Escrever análise de timing attack: operações de tenant A vazam informação sobre tenant B?</td><td>1.8</td><td>2.8.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.8.J5</td><td>Definir processo de regressão de isolamento: quando rerun a suíte completa</td><td>1.8</td><td>2.8.J4</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.9.J1</td><td>Escrever ADR-009: Estratégia de migração de dados legados para modelo multi-tenant</td><td>2.1</td><td>2.8.J5</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.9.J2</td><td>Criar checklist de validação pós-migração: integridade, isolation, performance, audit</td><td>2.1</td><td>2.9.J1</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.9.J3</td><td>Definir plano de rollback de migração com RTO máximo de 15 minutos</td><td>2.1</td><td>2.9.J2</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.9.J4</td><td>Escrever análise de risco de migração: dados órfãos, foreign keys, RLS quebrado</td><td>2.1</td><td>2.9.J3</td><td>CODEX</td><td>ALTA</td></tr><tr><td>2.9.J5</td><td>Criar comunicação de migração para clientes existentes com janela de manutenção</td><td>2.1</td><td>2.9.J4</td><td>CODEX</td><td>ALTA</td></tr></tbody></table></div></section></div><script>function copyPrompt(){navigator.clipboard.writeText(document.getElementById('promptBox').innerText).then(()=>alert('Prompt copiado.'));}function toggleTheme(){ const dark=document.body.classList.toggle('dark-theme'); localStorage.setItem('prompt:2:JULES:theme', dark?'dark':'light'); } if(localStorage.getItem('prompt:2:JULES:theme')==='dark') document.body.classList.add('dark-theme');</script></body></html>

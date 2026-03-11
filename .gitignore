@@ -6,3 +6,5 @@ dist
 .turbo
 .next
 .pnpm-store
+__pycache__
+*.pyc
