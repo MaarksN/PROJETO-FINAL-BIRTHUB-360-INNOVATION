@@ -14,6 +14,7 @@ const links = [
   ["/contratos", "contracts"],
   ["/atividades", "agentActivities"],
   ["/sales", "salesOs"],
+  ["/marketplace", "packMarketplace"],
 ] as const;
 
 export function NavLinks() {
