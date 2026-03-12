@@ -18,3 +18,12 @@ O selo abaixo é inalterável e indica que a base de código contida neste commi
 *   JULES (Agent - Development & Execution)
 *   CODEX (Agent - Security & Validation)
 **Data de Assinatura:** Momento do Deploy.
+
+## Assinatura Definitiva de Fechamento (CODEX)
+
+- **Escopo Validado:** Artefatos das Fases `10.4` a `10.10`
+- **Token/Hash Definitivo:** `a788293bc46c9eeb3cd6d75d30eba432d5bd0ba483322b3fef103e60463fdfe7`
+- **Timestamp (UTC):** `2026-03-12T14:47:48Z`
+- **Status de Fechamento:** `LOCKED_FOR_PRODUCTION_DEPLOY`
+
+Com esta assinatura criptográfica, o ciclo de validação cruzada é encerrado e o repositório fica formalmente fechado para o deploy produtivo da versão V1.
