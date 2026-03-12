@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseAgentManifest, AgentManifestParseError } from '../manifest/parser.ts';
-import { MANIFEST_VERSION } from '../manifest/schema.ts';
+import { parseAgentManifest, AgentManifestParseError } from '../manifest/parser';
+import { MANIFEST_VERSION } from '../manifest/schema';
 
 const validManifest = {
   manifestVersion: MANIFEST_VERSION,

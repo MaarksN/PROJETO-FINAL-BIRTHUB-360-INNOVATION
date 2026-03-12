@@ -1,4 +1,4 @@
-import { logger } from "@birthub/utils/src/logger";
+import { logger } from "@birthub/utils";
 
 // const logger = new Logger("alert-service"); // Logger class not exported, only instance 'logger'
 

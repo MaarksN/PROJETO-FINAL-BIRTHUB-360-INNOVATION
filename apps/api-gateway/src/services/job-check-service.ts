@@ -1,12 +1,16 @@
 import { Queue } from "bullmq";
-import { QueueName } from "@birthub/shared-types";
-import { createQueue } from "@birthub/queue";
+import * as QueuePackage from "@birthub/queue";
 import { AlertService } from "./alert-service.js";
 
 type AlertLevel = "info" | "warning" | "critical";
 
 type AlertSender = Pick<AlertService, "sendAlert">;
 
+type QueueName = "LEAD_ENRICHMENT" | "DEAL_CLOSED_WON";
+
+const VALID_QUEUE_NAMES: QueueName[] = ["LEAD_ENRICHMENT", "DEAL_CLOSED_WON"];
+
+const createQueue = (QueuePackage as { createQueue: (name: string) => QueueLike }).createQueue;
 type QueueFactory = (queueName: QueueName) => QueueLike;
 
 type QueueLike = Pick<Queue, "getJobCountByTypes" | "getFailed" | "close" | "getJob">;
@@ -25,7 +29,7 @@ export type CancelJobStatus =
 
 const CANCELLABLE_JOB_STATES = new Set(["waiting", "delayed", "prioritized", "paused"]);
 const ACTIVE_STATE = "active";
-const CRITICAL_QUEUES: QueueName[] = [QueueName.LEAD_ENRICHMENT, QueueName.DEAL_CLOSED_WON];
+const CRITICAL_QUEUES: QueueName[] = ["LEAD_ENRICHMENT", "DEAL_CLOSED_WON"];
 
 export class InvalidQueueNameError extends Error {
   constructor(queueName: string) {
@@ -35,7 +39,7 @@ export class InvalidQueueNameError extends Error {
 }
 
 const parseQueueName = (queueName: string): QueueName => {
-  if (!Object.values(QueueName).includes(queueName as QueueName)) {
+  if (!VALID_QUEUE_NAMES.includes(queueName as QueueName)) {
     throw new InvalidQueueNameError(queueName);
   }
 
