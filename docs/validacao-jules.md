@@ -1,68 +1,62 @@
-# Validação cruzada do trabalho do Jules
+# Validação do Jules — modo cruzado cru
 
 Data: 2026-03-12
 
-## Metodologia (checklist + prompt)
-Esta validação foi refeita com base no processo descrito nos artefatos do projeto em `CHECKLIST E PROMPTS`:
+## Escopo
+Validação cruzada direta, baseada em evidência, sem interpretação expandida:
+1. Histórico Git (commits de Jules).
+2. Confronto com checklist/prompt por ciclo.
+3. Estado técnico atual (lint/test/build).
 
-- leitura do índice mestre para identificar ciclos e artefatos por agente;
-- conferência dos checklists/prompt do agente **JULES** (ciclos 02, 04, 07, 09 e 10, que correspondem aos PRs de Jules no histórico);
-- validação cruzada em 3 camadas:
-  1. **forense de histórico Git** (o que Jules realmente entregou);
-  2. **aderência ao checklist/prompt** (tema e cobertura por ciclo);
-  3. **sanidade técnica do repositório** (lint/test/build).
+## Evidência A — Git (forense cru)
+### Commits de trabalho do Jules usados na validação
+- `68d4034` (ciclo 02)
+- `2382c28` (ciclo 04)
+- `1294481` e `d6b148b` (ciclo 07)
+- `cffd1b6` (ciclo 09)
+- `703f5e4` (ciclo 10)
 
-## 1) Forense Git — o que o Jules entregou
-Foram considerados os commits de trabalho do Jules presentes nos merges:
+### Resultado bruto
+- Arquivos únicos mapeados desses commits: **31**.
+- Arquivos que ainda existem no `HEAD`: **31/31**.
+- Artefatos Markdown de documentação nesses commits: **30**.
 
-- `68d4034` (Ciclo 02)
-- `2382c28` (Ciclo 04)
-- `1294481` e `d6b148b` (Ciclo 07)
-- `cffd1b6` (Ciclo 09)
-- `703f5e4` (Ciclo 10)
+## Evidência B — Cruzamento com CHECKLIST E PROMPTS (cru)
+### Arquivos de referência usados
+- `CHECKLIST E PROMPTS/INDEX_BirthHub360_v4.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_02_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_04_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_07_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_09_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_10_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Prompt_Ciclo_10_JULES.html`
 
-Resultado do inventário:
+### Resultado do confronto por ciclo (palavras/tema vs entrega)
+- Ciclo 02: match para `multi-tenancy`, `isolamento`, `tenant`.
+- Ciclo 04: match para `manifest`, `review`.
+- Ciclo 07: match para `billing`, `reembolso`, `grandfathering`, `checkout`, `pci`.
+- Ciclo 09: match para `onboarding`, `fricção`, `aha`.
+- Ciclo 10: match para `marketplace`, `curadoria`, `malicioso`, `moderação`, `verificação`.
 
-- **31 arquivos únicos** atribuídos a esses commits;
-- **31/31 arquivos ainda existem** no `HEAD`;
-- toda a documentação principal entregue por Jules continua versionada.
+## Evidência C — Sanidade técnica (estado atual)
+### Comandos executados
+1. `pnpm lint`
+2. `pnpm test`
+3. `pnpm --filter @birthub/dashboard test`
+4. `pnpm test:agents`
+5. `pnpm build`
 
-## 2) Validação cruzada com checklist/prompt
-### Cobertura temática por ciclo (JULES)
-- **Ciclo 02**: temas de `tenant`, isolamento e multi-tenancy presentes no checklist e refletidos nos documentos de segurança/política criados por Jules.
-- **Ciclo 04**: temas de `manifest` e revisão/governança de capabilities refletidos nos ADRs/guides/policies.
-- **Ciclo 07**: temas de billing (`reembolso`, `grandfathering`, `checkout`, `PCI`) cobertos pelos docs de billing.
-- **Ciclo 09**: temas de onboarding/UX (`onboarding`, `fricção`, `aha`) cobertos pelos docs de jornada e experiência.
-- **Ciclo 10**: temas de marketplace (`curadoria`, verificação, risco de pack malicioso, moderação) cobertos pelos docs de marketplace.
+### Resultado bruto por comando
+- `pnpm lint`: **PASS**.
+- `pnpm test`: **FAIL** (`@birthub/dashboard`).
+- `pnpm --filter @birthub/dashboard test`: **FAIL**
+  - `isRtlLanguage` não exportado de `../lib/platform-i18n.ts`.
+  - `../lib/sanitize` não encontrado.
+- `pnpm test:agents`: **FAIL** (16 erros de coleta/import em múltiplos agentes).
+- `pnpm build`: **FAIL**
+  - `TS5097` em `@birthub/agent-runtime`.
+  - `TS5097` em `@birthub/conversation-core`.
 
-### Qualidade estrutural dos artefatos de Jules
-Nos 30 arquivos Markdown entregues por Jules:
-
-- **30/30** possuem título H1;
-- todos têm conteúdo substantivo (15 a 94 linhas por documento);
-- estrutura editorial consistente (seções/listas) na quase totalidade.
-
-## 3) Sanidade técnica do estado atual
-Checks executados para confirmar o estado atual após as entregas:
-
-1. `pnpm lint` ✅
-   - sucesso.
-
-2. `pnpm test` ❌
-   - falha concentrada em `@birthub/dashboard`.
-
-3. `pnpm --filter @birthub/dashboard test` ❌
-   - confirmou erros objetivos:
-     - `platform-i18n.test.ts` importa `isRtlLanguage`, mas esse export não existe no módulo;
-     - `sanitize.test.ts` tenta importar `../lib/sanitize`, módulo não encontrado.
-
-4. `pnpm test:agents` ❌
-   - 16 erros na coleta por imports/símbolos ausentes em múltiplos agentes.
-
-5. `pnpm build` ❌
-   - bloqueado por `TS5097` em múltiplos pacotes, incluindo `@birthub/agent-runtime` e `@birthub/conversation-core` (imports com extensão `.ts` sem `allowImportingTsExtensions`).
-
-## Conclusão objetiva
-- A **validação cruzada documental do Jules** (contra checklist/prompt dos ciclos em que ele atuou) está **coberta e consistente**.
-- Porém, a **validação técnica fim-a-fim do repositório** ainda **não fecha** por falhas atuais de testes/build.
-- Portanto, o status final é: **entregas documentais do Jules validadas, plataforma geral ainda reprovada para “tudo OK” técnico** até corrigir os erros citados.
+## Saída objetiva (sem expansão)
+- Validação cruzada documental dos ciclos de Jules: **coberta**.
+- Validação técnica fim-a-fim do monorepo: **reprovada no estado atual**.
