@@ -1,7 +1,0 @@
-{
-  "entryPoints": ["index.ts"],
-  "out": "docs",
-  "plugin": [],
-  "excludePrivate": true,
-  "excludeProtected": true
-}

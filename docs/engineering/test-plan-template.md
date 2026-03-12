@@ -1,9 +1,0 @@
-# Test Plan Template
-
-Para novas funcionalidades:
-- [ ] Cenário Positivo 1: ...
-- [ ] Cenário Negativo 1 (Erro esperado): ...
-- [ ] Cenário de Borda 1: ...
-- [ ] Tipo de teste escolhido: (Unit/Integration/E2E)
-- [ ] Validação de Segurança embutida?
-- [ ] Validação de Acessibilidade? (se UI)

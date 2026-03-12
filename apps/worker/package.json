@@ -1,9 +1,0 @@
-{
-  "name": "@birthub/worker",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "pnpm --filter orchestrator-worker dev",
-    "test": "pnpm --filter orchestrator-worker test"
-  }
-}
