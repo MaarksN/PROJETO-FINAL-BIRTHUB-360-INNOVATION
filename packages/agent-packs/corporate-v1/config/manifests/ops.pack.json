@@ -1,0 +1,56 @@
+{
+  "id": "corporate-v1.ops",
+  "name": "Ops Agent Pack",
+  "version": "1.0.0",
+  "status": "draft",
+  "owner": "birthub-360-innovation",
+  "domain": [
+    "operations",
+    "support",
+    "quality"
+  ],
+  "level": "business",
+  "persona": "ops-coordinator",
+  "useCases": [
+    "queue-balancing",
+    "process-audit"
+  ],
+  "industry": [
+    "all"
+  ],
+  "description": "Ops Agent Pack com foco em automação orientada a indicadores e decisões acionáveis.",
+  "skills": [
+    {
+      "name": "ops_queue_snapshot",
+      "description": "Habilidade ops_queue_snapshot para ops agent pack."
+    },
+    {
+      "name": "sla_breach_alert",
+      "description": "Habilidade sla_breach_alert para ops agent pack."
+    }
+  ],
+  "tools": [
+    {
+      "name": "ticketing.read",
+      "mode": "dry-run-compatible"
+    },
+    {
+      "name": "workflow.execute",
+      "mode": "dry-run-compatible"
+    },
+    {
+      "name": "storage.write",
+      "mode": "dry-run-compatible"
+    }
+  ],
+  "tags": [
+    "all",
+    "business",
+    "operations",
+    "ops-coordinator",
+    "process-audit",
+    "quality",
+    "queue-balancing",
+    "support"
+  ]
+}
