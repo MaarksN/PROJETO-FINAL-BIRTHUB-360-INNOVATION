@@ -1,72 +1,61 @@
-# Validação do Jules — modo cruzado cru (liberação próximos ciclos)
+# Validação do Jules — verificação cruzada completa
 
 Data: 2026-03-12
 
-## 1) Escopo cru
-- verificar **tudo que foi entregue pelo Jules** via histórico Git dos PRs/merges com branch `jules-*`;
-- cruzar com `CHECKLIST E PROMPTS` dos ciclos de Jules (02, 04, 07, 09, 10);
-- executar checks técnicos do monorepo para decisão de liberação.
+## Escopo
+Verificação cruzada de todos os itens executados pelo Jules que ainda possuem evidência no repositório, com base em:
+1. Histórico Git (commits e merges com referência a `jules`/`JULES`/`ciclo`).
+2. Confronto com o checklist consolidado (`CHECKLIST_MASTER.md`).
+3. Sanidade técnica do estado atual do monorepo.
 
-## 2) Evidência Git (o que Jules fez)
-### Merges de Jules identificados
-- `080dece` → commit de trabalho `68d4034` (ciclo 02)
-- `a37ee5b` → commit de trabalho `2382c28` (ciclo 04)
-- `c0eaa1b` → commits de trabalho `1294481`, `d6b148b` (ciclo 07)
-- `0ae9d94` → commit de trabalho `cffd1b6` (ciclo 09)
-- `8f37089` → commit de trabalho `703f5e4` (ciclo 10)
+## Evidência A — Git (forense)
+### Consulta base
+Comando usado para inventariar os itens executados por Jules:
+- `git log --no-merges --pretty=format:'%h %s' --extended-regexp --regexp-ignore-case --grep='(JULES|Cycle|ciclo)'`
 
-### Inventário bruto
-- total de arquivos únicos nesses commits: **31**;
-- arquivos existentes no `HEAD`: **31/31**;
-- arquivos markdown de documentação: **30**.
+### Resultado consolidado
+- Commits não-merge identificados com referência direta a execução por ciclo/JULES: **52**.
+- Cobertura observada no histórico: **Ciclos 1, 2, 3, 4, 7, 8, 9 e 10**.
+- Natureza predominante dos itens executados: **documentação técnica, ADRs, políticas, runbooks e análises**.
+- Evidência explícita de validações anteriores do CODEX sobre Jules: commits `4fda653` e `a5623e0`.
 
-## 3) Cruzamento com checklist/prompt (cru)
-### Referências usadas
-- `CHECKLIST E PROMPTS/INDEX_BirthHub360_v4.html`
-- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_02_JULES.html`
-- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_04_JULES.html`
-- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_07_JULES.html`
-- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_09_JULES.html`
-- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_10_JULES.html`
-- `CHECKLIST E PROMPTS/BirthHub360_Prompt_Ciclo_10_JULES.html`
+### Commits-base já usados em validações cruzadas anteriores (amostra estável)
+- `68d4034` (ciclo 02)
+- `2382c28` (ciclo 04)
+- `1294481` e `d6b148b` (ciclo 07)
+- `cffd1b6` (ciclo 09)
+- `703f5e4` (ciclo 10)
 
-### Match objetivo por ciclo
-- ciclo 02: `multi-tenancy`, `isolamento`, `tenant` → coberto nos docs de segurança/políticas;
-- ciclo 04: `manifest`, `review` → coberto nos docs de agent manifest/governança;
-- ciclo 07: `billing`, `reembolso`, `grandfathering`, `checkout`, `pci` → coberto nos docs de billing;
-- ciclo 09: `onboarding`, `fricção`, `aha` → coberto nos docs de UX/onboarding;
-- ciclo 10: `marketplace`, `curadoria`, `malicioso`, `moderação`, `verificação` → coberto nos docs de marketplace.
+Status da amostra estável: **presentes no histórico atual e rastreáveis**.
+
+## Evidência B — Cruzamento com checklist mestre
+### Arquivo de referência usado
+- `CHECKLIST_MASTER.md`
+
+### Confronto objetivo
+Os quatro blocos de assinatura do checklist mestre foram confrontados com os artefatos executados por Jules:
+1. **Auditoria de Arquivos**: compatível com o volume de commits/docs por ciclo no Git.
+2. **Alinhamento de Escopo**: compatível com os temas recorrentes nos commits (multi-tenant, compliance, marketplace, billing, runtime, UX).
+3. **Auditoria de Bugs Abertos**: documento remete ao relatório final de readiness (`docs/release/final_readiness_report_v1.md`).
+4. **Conformidade LGPD**: refletida por commits e documentos de segurança, privacidade e governança.
+
+Conclusão do cruzamento documental: **os itens executados por Jules e o checklist final estão coerentes entre si no repositório atual**.
 
 ## 4) Sanidade técnica (execução real)
 ### Comandos executados
 1. `pnpm lint`
-2. `pnpm --filter @birthub/dashboard test`
-3. `pnpm test:agents`
-4. `pnpm build`
+2. `pnpm test`
+3. `pnpm build`
 
 ### Resultado bruto
 - `pnpm lint`: **PASS**.
-- `pnpm --filter @birthub/dashboard test`: **FAIL**
-  - export ausente `isRtlLanguage` em `../lib/platform-i18n.ts`;
-  - módulo `../lib/sanitize` não encontrado.
-- `pnpm test:agents`: **FAIL** (16 erros de coleta/import em múltiplos agentes).
-- `pnpm build`: **FAIL** com `TS5097` em múltiplos pacotes:
-  - `@birthub/auth`
-  - `@birthub/security`
-  - `@birthub/agent-runtime`
-  - `@birthub/conversation-core`
+- `pnpm test`: **FAIL** em `@birthub/agents-core`
+  - erro `ERR_MODULE_NOT_FOUND` para `packages/agents-core/src/manifest/schema` durante `manifest-parser.test.ts`.
+- `pnpm build`: **FAIL**
+  - `@birthub/auth`: `TS5097` e `TS6059` envolvendo import `../../index.ts` em teste.
+  - `@birthub/conversation-core`: `TS6059` por `index.ts` fora de `rootDir`.
 
-## 5) Decisão de liberação para próximos ciclos
-### Status
-- **NÃO LIBERADO** para fechamento técnico global / avanço sem pendências.
-
-### Critério objetivo para liberar
-Liberar quando todos os itens abaixo estiverem verdes:
-- [ ] `pnpm lint` PASS
-- [ ] `pnpm --filter @birthub/dashboard test` PASS
-- [ ] `pnpm test:agents` PASS
-- [ ] `pnpm build` PASS
-
-### Observação
-- Em modo cruzado cru, as entregas documentais de Jules estão presentes e mapeadas.
-- O bloqueio atual de liberação é técnico (testes/build), não ausência de artefato documental.
+## Saída objetiva
+- Verificação cruzada de todos os itens executados por Jules (com evidência Git disponível): **coberta**.
+- Coerência entre execução de Jules e assinatura final em `CHECKLIST_MASTER.md`: **coberta**.
+- Qualidade técnica fim-a-fim do monorepo no estado atual: **reprovada** (falhas de teste/build ainda abertas).
