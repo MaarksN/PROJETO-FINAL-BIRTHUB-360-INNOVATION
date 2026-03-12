@@ -18,6 +18,7 @@ import { tenantRateLimitMiddleware } from "./middleware/tenant-rate-limit.js";
 import { advancedWafMiddleware } from "./middleware/waf-advanced.js";
 import { enforceTenantBinding } from "./middleware/tenant-binding.js";
 import { tenantObservabilityMiddleware } from "./middleware/tenant-observability.js";
+import { tenantContextMiddleware } from "./middleware/tenant-context.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -75,7 +76,7 @@ app.use("/api", (req, res, next) => {
 });
 
 // Routes
-app.use("/api/v1", enforceTenantBinding, tenantObservabilityMiddleware, tenantRateLimitMiddleware, apiV1Router);
+app.use("/api/v1", enforceTenantBinding, tenantContextMiddleware, tenantObservabilityMiddleware, tenantRateLimitMiddleware, apiV1Router);
 app.use(router);
 app.use(errorHandler);
 
