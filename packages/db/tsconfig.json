@@ -2,16 +2,29 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "module": "commonjs",
-    "target": "es2020",
-    "lib": ["es2020", "dom"],
+    "module": "NodeNext",
+    "target": "ES2022",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "declaration": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "moduleResolution": "NodeNext",
+    "rootDir": "src",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true
   },
-  "include": ["src/**/*", "prisma/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*",
+    "prisma/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

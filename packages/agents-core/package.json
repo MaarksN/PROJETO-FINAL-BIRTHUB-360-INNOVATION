@@ -16,5 +16,12 @@
     "@types/node": "^20.12.12",
     "typedoc": "^0.26.11",
     "typescript": "^5.4.5"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   }
 }
