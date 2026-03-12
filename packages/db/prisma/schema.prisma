@@ -15,7 +15,7 @@ model Organization {
   tenant      Tenant?  @relation(fields: [tenantId], references: [id])
   name        String
   cnpj        String?  @unique
-  plan        Plan     @default(STARTER)
+  plan        PlanCode @default(STARTER)
   createdAt   DateTime @default(now())
   leads       Lead[]
   deals       Deal[]
@@ -24,6 +24,7 @@ model Organization {
   users       User[]
   customers   Customer[]
   subscriptions Subscription[]
+  entitlements Entitlement[]
   workflows   Workflow[]
   usageRecords UsageRecord[]
   conversations Conversation[]
@@ -354,18 +355,90 @@ model AgentLogArchive {
   @@index([archivedAt])
 }
 
-model PlanFeature {
-  id      String @id @default(cuid())
-  plan    Plan
-  feature String
-  limit   Int?
+model Plan {
+  id            String           @id @default(cuid())
+  code          PlanCode         @unique
+  name          String
+  description   String?
+  priceMonthly  Int              @default(0)
+  priceYearly   Int?
+  trialDays     Int              @default(14)
+  isActive      Boolean          @default(true)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  features      PlanFeature[]
+  subscriptions Subscription[]
+}
 
-  @@unique([plan, feature])
+model PlanFeature {
+  id        String   @id @default(cuid())
+  planId    String
+  plan      Plan     @relation(fields: [planId], references: [id])
+  feature   String
+  limit     Int?
+  createdAt DateTime @default(now())
+
+  @@unique([planId, feature])
+  @@index([feature])
+}
+
+model Entitlement {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  subscriptionId String?
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  feature        String
+  limit          Int?
+  enabled        Boolean      @default(true)
+  source         String       @default("plan")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([organizationId, feature])
+  @@index([subscriptionId])
+}
+
+model Subscription {
+  id                 String             @id @default(cuid())
+  organizationId     String
+  organization       Organization       @relation(fields: [organizationId], references: [id])
+  planId             String
+  plan               Plan               @relation(fields: [planId], references: [id])
+  status             SubscriptionStatus @default(TRIALING)
+  stripeCustomerId   String?
+  stripeSubscriptionId String?          @unique
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  cancelAtPeriodEnd  Boolean            @default(false)
+  cancelledAt        DateTime?
+  trialEndsAt        DateTime?
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  items              SubscriptionItem[]
+  entitlements       Entitlement[]
+
+  @@index([organizationId, status])
+  @@index([planId])
+}
+
+model SubscriptionItem {
+  id               String       @id @default(cuid())
+  subscriptionId   String
+  subscription     Subscription @relation(fields: [subscriptionId], references: [id])
+  stripeItemId     String?      @unique
+  feature          String
+  quantity         Int          @default(1)
+  unitPriceCents   Int?
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@unique([subscriptionId, feature])
 }
 
 // ─── ENUMS ───────────────────────────────────────────────────────────────────
 
-enum Plan {
+enum PlanCode {
   STARTER
   PRO
   ENTERPRISE
