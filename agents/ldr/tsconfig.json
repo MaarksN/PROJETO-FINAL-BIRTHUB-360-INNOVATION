@@ -1,17 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "target": "ES2022",
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true
+    "module": "esnext",
+    "moduleResolution": "bundler"
   },
-  "include": [
-    "worker.ts"
-  ]
+  "include": ["worker.ts"],
+  "exclude": ["node_modules", "dist"]
 }

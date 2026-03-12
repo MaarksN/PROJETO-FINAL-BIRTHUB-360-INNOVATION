@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
     "lib": [
@@ -17,7 +17,13 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ],
+      "@birthub/*": [
+        "../../packages/*/src",
+        "../../packages/*"
+      ]
     }
   },
   "include": [

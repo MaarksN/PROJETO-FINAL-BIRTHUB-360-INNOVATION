@@ -41,13 +41,13 @@ Os quatro blocos de assinatura do checklist mestre foram confrontados com os art
 
 Conclusão do cruzamento documental: **os itens executados por Jules e o checklist final estão coerentes entre si no repositório atual**.
 
-## Evidência C — Sanidade técnica (estado atual)
+## 4) Sanidade técnica (execução real)
 ### Comandos executados
 1. `pnpm lint`
 2. `pnpm test`
 3. `pnpm build`
 
-### Resultado bruto por comando
+### Resultado bruto
 - `pnpm lint`: **PASS**.
 - `pnpm test`: **FAIL** em `@birthub/agents-core`
   - erro `ERR_MODULE_NOT_FOUND` para `packages/agents-core/src/manifest/schema` durante `manifest-parser.test.ts`.
