@@ -1,0 +1,60 @@
+{
+  "id": "corporate-v1.ceo",
+  "name": "CEO Agent Pack",
+  "version": "1.0.0",
+  "status": "draft",
+  "owner": "birthub-360-innovation",
+  "domain": [
+    "strategy",
+    "growth",
+    "governance"
+  ],
+  "level": "executive",
+  "persona": "executive-leadership",
+  "useCases": [
+    "board-reporting",
+    "portfolio-prioritization"
+  ],
+  "industry": [
+    "saas",
+    "healthcare",
+    "retail"
+  ],
+  "description": "CEO Agent Pack com foco em automação orientada a indicadores e decisões acionáveis.",
+  "skills": [
+    {
+      "name": "executive_summary",
+      "description": "Habilidade executive_summary para ceo agent pack."
+    },
+    {
+      "name": "weekly_decision_log",
+      "description": "Habilidade weekly_decision_log para ceo agent pack."
+    }
+  ],
+  "tools": [
+    {
+      "name": "dashboard.read",
+      "mode": "dry-run-compatible"
+    },
+    {
+      "name": "reports.generate",
+      "mode": "dry-run-compatible"
+    },
+    {
+      "name": "llm.summarize",
+      "mode": "dry-run-compatible"
+    }
+  ],
+  "tags": [
+    "board-reporting",
+    "executive",
+    "executive-leadership",
+    "governance",
+    "growth",
+    "healthcare",
+    "portfolio-prioritization",
+    "retail",
+    "saas",
+    "strategy"
+  ]
+}

@@ -4,7 +4,7 @@ import {
   DealStage,
   InvoiceStatus,
   LeadStatus,
-  Plan,
+  PlanCode,
   PrismaClient,
   UserRole,
 } from "@prisma/client";
@@ -40,7 +40,7 @@ async function main() {
       id: IDS.org,
       name: "BirthHub Demo Org",
       cnpj: "12.345.678/0001-90",
-      plan: Plan.ENTERPRISE,
+      plan: PlanCode.ENTERPRISE,
       users: {
         create: [
           {

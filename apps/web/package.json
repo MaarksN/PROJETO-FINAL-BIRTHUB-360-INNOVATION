@@ -1,0 +1,11 @@
+{
+  "name": "@birthub/web",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @birthub/dashboard dev",
+    "build": "pnpm --filter @birthub/dashboard build",
+    "start": "pnpm --filter @birthub/dashboard start",
+    "test": "pnpm --filter @birthub/dashboard test"
+  }
+}
