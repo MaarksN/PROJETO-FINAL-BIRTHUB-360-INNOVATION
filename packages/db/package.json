@@ -10,7 +10,8 @@
     "db:seed": "prisma db seed",
     "dev": "tsc --watch",
     "db:migrate": "prisma migrate dev --name init",
-    "db:reset": "prisma migrate reset --force"
+    "db:reset": "prisma migrate reset --force",
+    "test": "node --import tsx --test src/**/*.test.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
