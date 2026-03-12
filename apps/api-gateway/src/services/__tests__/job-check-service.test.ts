@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { Queue } from "bullmq";
-import { QueueName } from "@birthub/shared-types";
+type QueueName = "LEAD_ENRICHMENT" | "DEAL_CLOSED_WON";
 import { InvalidQueueNameError, JobCheckService } from "../job-check-service.js";
 
 type FakeJob = {
@@ -72,7 +72,7 @@ test("JobCheckService.retryFailedJobs reprocessa jobs falhos", async () => {
   };
 
   const { service } = createService(queue);
-  const result = await service.retryFailedJobs(QueueName.LEAD_ENRICHMENT);
+  const result = await service.retryFailedJobs("LEAD_ENRICHMENT");
 
   assert.equal(result.retried, 2);
   assert.equal(retries, 2);
@@ -107,7 +107,7 @@ test("JobCheckService.cancelJobExecution remove jobs canceláveis", async () => 
   };
 
   const { service } = createService(queue);
-  const result = await service.cancelJobExecution({ queueName: QueueName.LEAD_ENRICHMENT, jobId: "job-1", traceId: "trace-1" });
+  const result = await service.cancelJobExecution({ queueName: "LEAD_ENRICHMENT", jobId: "job-1", traceId: "trace-1" });
 
   assert.equal(result.cancelled, true);
   assert.equal(result.status, "cancelled");
@@ -126,7 +126,7 @@ test("JobCheckService.cancelJobExecution retorna active_not_cancellable para job
   };
 
   const { service } = createService(queue);
-  const result = await service.cancelJobExecution({ queueName: QueueName.LEAD_ENRICHMENT, jobId: "active-job" });
+  const result = await service.cancelJobExecution({ queueName: "LEAD_ENRICHMENT", jobId: "active-job" });
 
   assert.equal(result.cancelled, false);
   assert.equal(result.status, "active_not_cancellable");
@@ -145,7 +145,7 @@ test("JobCheckService.cancelJobExecution retorna already_finalized para job fina
   };
 
   const { service } = createService(queue);
-  const result = await service.cancelJobExecution({ queueName: QueueName.LEAD_ENRICHMENT, jobId: "completed-job" });
+  const result = await service.cancelJobExecution({ queueName: "LEAD_ENRICHMENT", jobId: "completed-job" });
 
   assert.equal(result.cancelled, false);
   assert.equal(result.status, "already_finalized");
@@ -161,7 +161,7 @@ test("JobCheckService.cancelJobExecution é idempotente para job inexistente", a
   };
 
   const { service } = createService(queue);
-  const result = await service.cancelJobExecution({ queueName: QueueName.LEAD_ENRICHMENT, jobId: "missing-job" });
+  const result = await service.cancelJobExecution({ queueName: "LEAD_ENRICHMENT", jobId: "missing-job" });
 
   assert.equal(result.cancelled, false);
   assert.equal(result.status, "not_found");

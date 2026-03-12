@@ -55,3 +55,9 @@ const dictionary: Record<SupportedLanguage, Record<string, string>> = {
 export function t(lang: SupportedLanguage, key: string): string {
   return dictionary[lang]?.[key] ?? dictionary["pt-BR"][key] ?? key;
 }
+
+const RTL_LANGUAGES = new Set<SupportedLanguage>(["ar"]);
+
+export function isRtlLanguage(lang: SupportedLanguage): boolean {
+  return RTL_LANGUAGES.has(lang);
+}
