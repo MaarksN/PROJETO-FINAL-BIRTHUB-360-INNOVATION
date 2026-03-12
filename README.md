@@ -79,20 +79,6 @@ pnpm test:load
 
 A pipeline de CI (`.github/workflows/ci.yml`) executa esses mesmos checks, incluindo cobertura mínima de 80% no conjunto crítico de agentes via `pytest-cov`. As dependências de teste Python ficam centralizadas em `requirements-test.txt`.
 
-
-
-## 🚢 CD Automatizado (Ciclo 8)
-
-O repositório possui pipeline de CD em `.github/workflows/cd.yml` com estratégia definida no ADR-026 (`docs/adr/ADR-026-deploy-platform-render.md`):
-
-- Push em `main` dispara deploy automático em **staging**.
-- Deploy em **production** ocorre via `workflow_dispatch` com aprovação manual no environment `production`.
-
-Secrets obrigatórios:
-
-- `RENDER_STAGING_DEPLOY_HOOK_URL`
-- `RENDER_PRODUCTION_DEPLOY_HOOK_URL`
-
 ## 📈 Deploy e Monitoramento (FASE 10)
 
 - **Dev stack completa:** `docker compose -f docker-compose.dev.yml up -d`

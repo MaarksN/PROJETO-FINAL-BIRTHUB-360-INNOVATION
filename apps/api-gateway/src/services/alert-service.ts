@@ -1,6 +1,4 @@
-import { logger } from "@birthub/utils/src/logger";
-
-// const logger = new Logger("alert-service"); // Logger class not exported, only instance 'logger'
+import { logger } from "../lib/logger.js";
 
 export class AlertService {
   async sendAlert(subject: string, message: string, severity: "info" | "warning" | "critical" = "info") {

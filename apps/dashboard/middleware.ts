@@ -1,17 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { SESSION_COOKIE, verifySessionToken } from "./lib/auth/session-token";
+import { SESSION_COOKIE, isValidSessionToken } from "./lib/auth/session-token";
 
 const PUBLIC_PATHS = ["/login", "/api/session/login", "/api/session/logout", "/_next", "/favicon.ico"];
 
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
   if (PUBLIC_PATHS.some((path) => request.nextUrl.pathname.startsWith(path))) {
     return NextResponse.next();
   }
 
   const token = request.cookies.get(SESSION_COOKIE)?.value;
-  const session = await verifySessionToken(token);
-  if (session) {
+  if (isValidSessionToken(token)) {
     return NextResponse.next();
   }
 

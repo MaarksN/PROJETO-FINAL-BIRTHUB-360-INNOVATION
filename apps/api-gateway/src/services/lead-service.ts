@@ -35,16 +35,16 @@ export interface LeadOutreachResult {
 export class LeadService {
   constructor(private readonly leadRepository: LeadRepository) {}
 
-  async createLead(input: CreateLeadInput): Promise<LeadRecord> {
-    return this.leadRepository.create(input);
+  async createLead(tenantId: string, input: CreateLeadInput): Promise<LeadRecord> {
+    return this.leadRepository.create(tenantId, input);
   }
 
   async listLeads(params: LeadListParams): Promise<LeadListResult> {
     return this.leadRepository.list(params);
   }
 
-  async getLeadById(id: string): Promise<LeadRecord> {
-    const lead = await this.leadRepository.findById(id);
+  async getLeadById(tenantId: string, id: string): Promise<LeadRecord> {
+    const lead = await this.leadRepository.findById(tenantId, id);
 
     if (!lead) {
       throw new LeadNotFoundError(id);
@@ -53,8 +53,8 @@ export class LeadService {
     return lead;
   }
 
-  async updateLeadStatus(id: string, status: LeadStatus): Promise<LeadRecord> {
-    const lead = await this.leadRepository.updateStatus(id, status);
+  async updateLeadStatus(tenantId: string, id: string, status: LeadStatus): Promise<LeadRecord> {
+    const lead = await this.leadRepository.updateStatus(tenantId, id, status);
 
     if (!lead) {
       throw new LeadNotFoundError(id);
@@ -63,8 +63,8 @@ export class LeadService {
     return lead;
   }
 
-  async updateLead(id: string, input: UpdateLeadInput): Promise<LeadRecord> {
-    const lead = await this.leadRepository.update(id, input);
+  async updateLead(tenantId: string, id: string, input: UpdateLeadInput): Promise<LeadRecord> {
+    const lead = await this.leadRepository.update(tenantId, id, input);
 
     if (!lead) {
       throw new LeadNotFoundError(id);
@@ -73,16 +73,16 @@ export class LeadService {
     return lead;
   }
 
-  async deleteLead(id: string): Promise<void> {
-    const removed = await this.leadRepository.delete(id);
+  async deleteLead(tenantId: string, id: string): Promise<void> {
+    const removed = await this.leadRepository.delete(tenantId, id);
 
     if (!removed) {
       throw new LeadNotFoundError(id);
     }
   }
 
-  async triggerLeadEnrichment(id: string) {
-    await this.getLeadById(id);
+  async triggerLeadEnrichment(tenantId: string, id: string) {
+    await this.getLeadById(tenantId, id);
 
     return {
       leadId: id,
@@ -92,8 +92,8 @@ export class LeadService {
     };
   }
 
-  async triggerLeadOutreach(id: string) {
-    await this.getLeadById(id);
+  async triggerLeadOutreach(tenantId: string, id: string) {
+    await this.getLeadById(tenantId, id);
 
     return {
       leadId: id,
