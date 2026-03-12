@@ -1,0 +1,515 @@
+[
+  {
+    "package": "packages/agent-runtime",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/agents-core",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "barrel faltante: export * from \"./manifest/parser\";",
+        "barrel faltante: export * from \"./manifest/schema\";"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/auth",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/billing",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/conversation-core",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "barrel faltante: export * from \"./service\";"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/db",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "barrel faltante: export * from \"./errors/tenant-required.error\";",
+        "barrel faltante: export * from \"./repositories/base.repo\";"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/integrations",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/llm-client",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/logger",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/queue",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "barrel faltante: export * from \"./definitions\";",
+        "barrel faltante: export * from \"./workers/agent-worker\";",
+        "barrel faltante: export * from \"./workers/campaign-worker\";",
+        "barrel faltante: export * from \"./workers/report-worker\";",
+        "barrel faltante: export * from \"./workers/webhook-worker\";"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/security",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/shared-types",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "packages/utils",
+    "suspiciousSymbols": [
+      "ForbiddenError",
+      "UnauthorizedError",
+      "NotFoundError",
+      "ValidationError"
+    ],
+    "auditNotes": {
+      "barrel": [
+        "barrel faltante: export * from \"./app-error\";",
+        "barrel faltante: export * from \"./tracing\";"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/ae",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/analista",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/financeiro",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/juridico",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/ldr",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "module deveria ser \"NodeNext\"",
+        "moduleResolution deveria ser \"NodeNext\""
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/marketing",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/pos_venda",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  },
+  {
+    "package": "agents/sdr",
+    "suspiciousSymbols": [],
+    "auditNotes": {
+      "barrel": [
+        "sem src/"
+      ],
+      "packageJson": [
+        "type deveria ser \"module\"",
+        "main deveria apontar para \"./dist/index.js\"",
+        "types deveria apontar para \"./dist/index.d.ts\"",
+        "exports[\".\"] ausente (entrypoint público)"
+      ],
+      "tsconfig": [
+        "sem tsconfig.json"
+      ]
+    },
+    "changed": false,
+    "build": {
+      "ok": null
+    },
+    "dist": {
+      "ok": null
+    }
+  }
+]
