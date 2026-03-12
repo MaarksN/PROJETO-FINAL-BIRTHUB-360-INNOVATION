@@ -1,0 +1,56 @@
+{
+  "id": "corporate-v1.coo",
+  "name": "COO Agent Pack",
+  "version": "1.0.0",
+  "status": "draft",
+  "owner": "birthub-360-innovation",
+  "domain": [
+    "operations",
+    "efficiency",
+    "process"
+  ],
+  "level": "executive",
+  "persona": "operations-leadership",
+  "useCases": [
+    "sop-optimization",
+    "sla-governance"
+  ],
+  "industry": [
+    "all"
+  ],
+  "description": "COO Agent Pack com foco em automação orientada a indicadores e decisões acionáveis.",
+  "skills": [
+    {
+      "name": "ops_kpi_board",
+      "description": "Habilidade ops_kpi_board para coo agent pack."
+    },
+    {
+      "name": "capacity_alert",
+      "description": "Habilidade capacity_alert para coo agent pack."
+    }
+  ],
+  "tools": [
+    {
+      "name": "warehouse.read",
+      "mode": "dry-run-compatible"
+    },
+    {
+      "name": "workflow.execute",
+      "mode": "dry-run-compatible"
+    },
+    {
+      "name": "reports.generate",
+      "mode": "dry-run-compatible"
+    }
+  ],
+  "tags": [
+    "all",
+    "efficiency",
+    "executive",
+    "operations",
+    "operations-leadership",
+    "process",
+    "sla-governance",
+    "sop-optimization"
+  ]
+}
