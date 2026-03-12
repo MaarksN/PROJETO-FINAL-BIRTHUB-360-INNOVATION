@@ -11,8 +11,6 @@ datasource db {
 
 model Organization {
   id          String   @id @default(cuid())
-  tenantId    String?
-  tenant      Tenant?  @relation(fields: [tenantId], references: [id])
   name        String
   cnpj        String?  @unique
   plan        Plan     @default(STARTER)
@@ -23,10 +21,6 @@ model Organization {
   invoices    Invoice[]
   users       User[]
   customers   Customer[]
-  subscriptions Subscription[]
-  workflows   Workflow[]
-  usageRecords UsageRecord[]
-  conversations Conversation[]
 }
 
 model User {
@@ -37,13 +31,9 @@ model User {
   name           String
   role           UserRole
   createdAt      DateTime     @default(now())
-  refreshTokens  RefreshToken[]
-  tenantRoles    UserTenantRole[]
   dealsAsAE      Deal[]       @relation("AssignedAE")
   dealsAsSDR     Deal[]       @relation("AssignedSDR")
   commissions    Commission[]
-  refreshTokens  RefreshToken[]
-  roles          Role[]
 }
 
 model Lead {

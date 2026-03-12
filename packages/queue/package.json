@@ -18,5 +18,12 @@
     "test:load": "tsx load-test/bullmq-load-test.ts",
     "schedule:crons": "tsx scripts/schedule-recurring-jobs.ts",
     "test": "node --import tsx --test \"tests/**/*.test.ts\""
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   }
 }

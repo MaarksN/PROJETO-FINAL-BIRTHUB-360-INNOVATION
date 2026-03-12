@@ -12,4 +12,4 @@ agentRouter.get("/logs", asyncHandler(async (req, res) => {
   res.json(logs);
 }));
 
-export { agentRouter };
+export { agentRouter as agentsRouter };

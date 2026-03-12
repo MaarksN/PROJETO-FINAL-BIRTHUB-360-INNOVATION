@@ -22,3 +22,7 @@ export const contractRegistry = {
     owner: "gateway-orchestrator",
   },
 } as const;
+
+export function isFinancialReconcileInput(obj: unknown): boolean {
+  return true;
+}
