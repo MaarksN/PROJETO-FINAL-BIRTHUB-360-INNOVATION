@@ -1,28 +1,27 @@
-# Validação do Jules — modo cruzado cru
+# Validação do Jules — modo cruzado cru (liberação próximos ciclos)
 
 Data: 2026-03-12
 
-## Escopo
-Validação cruzada direta, baseada em evidência, sem interpretação expandida:
-1. Histórico Git (commits de Jules).
-2. Confronto com checklist/prompt por ciclo.
-3. Estado técnico atual (lint/test/build).
+## 1) Escopo cru
+- verificar **tudo que foi entregue pelo Jules** via histórico Git dos PRs/merges com branch `jules-*`;
+- cruzar com `CHECKLIST E PROMPTS` dos ciclos de Jules (02, 04, 07, 09, 10);
+- executar checks técnicos do monorepo para decisão de liberação.
 
-## Evidência A — Git (forense cru)
-### Commits de trabalho do Jules usados na validação
-- `68d4034` (ciclo 02)
-- `2382c28` (ciclo 04)
-- `1294481` e `d6b148b` (ciclo 07)
-- `cffd1b6` (ciclo 09)
-- `703f5e4` (ciclo 10)
+## 2) Evidência Git (o que Jules fez)
+### Merges de Jules identificados
+- `080dece` → commit de trabalho `68d4034` (ciclo 02)
+- `a37ee5b` → commit de trabalho `2382c28` (ciclo 04)
+- `c0eaa1b` → commits de trabalho `1294481`, `d6b148b` (ciclo 07)
+- `0ae9d94` → commit de trabalho `cffd1b6` (ciclo 09)
+- `8f37089` → commit de trabalho `703f5e4` (ciclo 10)
 
-### Resultado bruto
-- Arquivos únicos mapeados desses commits: **31**.
-- Arquivos que ainda existem no `HEAD`: **31/31**.
-- Artefatos Markdown de documentação nesses commits: **30**.
+### Inventário bruto
+- total de arquivos únicos nesses commits: **31**;
+- arquivos existentes no `HEAD`: **31/31**;
+- arquivos markdown de documentação: **30**.
 
-## Evidência B — Cruzamento com CHECKLIST E PROMPTS (cru)
-### Arquivos de referência usados
+## 3) Cruzamento com checklist/prompt (cru)
+### Referências usadas
 - `CHECKLIST E PROMPTS/INDEX_BirthHub360_v4.html`
 - `CHECKLIST E PROMPTS/BirthHub360_Ciclo_02_JULES.html`
 - `CHECKLIST E PROMPTS/BirthHub360_Ciclo_04_JULES.html`
@@ -31,32 +30,43 @@ Validação cruzada direta, baseada em evidência, sem interpretação expandida
 - `CHECKLIST E PROMPTS/BirthHub360_Ciclo_10_JULES.html`
 - `CHECKLIST E PROMPTS/BirthHub360_Prompt_Ciclo_10_JULES.html`
 
-### Resultado do confronto por ciclo (palavras/tema vs entrega)
-- Ciclo 02: match para `multi-tenancy`, `isolamento`, `tenant`.
-- Ciclo 04: match para `manifest`, `review`.
-- Ciclo 07: match para `billing`, `reembolso`, `grandfathering`, `checkout`, `pci`.
-- Ciclo 09: match para `onboarding`, `fricção`, `aha`.
-- Ciclo 10: match para `marketplace`, `curadoria`, `malicioso`, `moderação`, `verificação`.
+### Match objetivo por ciclo
+- ciclo 02: `multi-tenancy`, `isolamento`, `tenant` → coberto nos docs de segurança/políticas;
+- ciclo 04: `manifest`, `review` → coberto nos docs de agent manifest/governança;
+- ciclo 07: `billing`, `reembolso`, `grandfathering`, `checkout`, `pci` → coberto nos docs de billing;
+- ciclo 09: `onboarding`, `fricção`, `aha` → coberto nos docs de UX/onboarding;
+- ciclo 10: `marketplace`, `curadoria`, `malicioso`, `moderação`, `verificação` → coberto nos docs de marketplace.
 
-## Evidência C — Sanidade técnica (estado atual)
+## 4) Sanidade técnica (execução real)
 ### Comandos executados
 1. `pnpm lint`
-2. `pnpm test`
-3. `pnpm --filter @birthub/dashboard test`
-4. `pnpm test:agents`
-5. `pnpm build`
+2. `pnpm --filter @birthub/dashboard test`
+3. `pnpm test:agents`
+4. `pnpm build`
 
-### Resultado bruto por comando
+### Resultado bruto
 - `pnpm lint`: **PASS**.
-- `pnpm test`: **FAIL** (`@birthub/dashboard`).
 - `pnpm --filter @birthub/dashboard test`: **FAIL**
-  - `isRtlLanguage` não exportado de `../lib/platform-i18n.ts`.
-  - `../lib/sanitize` não encontrado.
+  - export ausente `isRtlLanguage` em `../lib/platform-i18n.ts`;
+  - módulo `../lib/sanitize` não encontrado.
 - `pnpm test:agents`: **FAIL** (16 erros de coleta/import em múltiplos agentes).
-- `pnpm build`: **FAIL**
-  - `TS5097` em `@birthub/agent-runtime`.
-  - `TS5097` em `@birthub/conversation-core`.
+- `pnpm build`: **FAIL** com `TS5097` em múltiplos pacotes:
+  - `@birthub/auth`
+  - `@birthub/security`
+  - `@birthub/agent-runtime`
+  - `@birthub/conversation-core`
 
-## Saída objetiva (sem expansão)
-- Validação cruzada documental dos ciclos de Jules: **coberta**.
-- Validação técnica fim-a-fim do monorepo: **reprovada no estado atual**.
+## 5) Decisão de liberação para próximos ciclos
+### Status
+- **NÃO LIBERADO** para fechamento técnico global / avanço sem pendências.
+
+### Critério objetivo para liberar
+Liberar quando todos os itens abaixo estiverem verdes:
+- [ ] `pnpm lint` PASS
+- [ ] `pnpm --filter @birthub/dashboard test` PASS
+- [ ] `pnpm test:agents` PASS
+- [ ] `pnpm build` PASS
+
+### Observação
+- Em modo cruzado cru, as entregas documentais de Jules estão presentes e mapeadas.
+- O bloqueio atual de liberação é técnico (testes/build), não ausência de artefato documental.
