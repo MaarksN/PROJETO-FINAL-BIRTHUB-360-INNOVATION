@@ -2,15 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { usePlatform } from "./platform-provider";
 import { t } from "../lib/platform-i18n";
-import {
-  DEFAULT_ONBOARDING_STEPS,
-  ONBOARDING_STORAGE_KEY,
-  pendingOnboardingSteps,
-  type OnboardingStepState,
-} from "../lib/onboarding";
 
 const links = [
   ["/", "overview"],
@@ -21,59 +14,14 @@ const links = [
   ["/contratos", "contracts"],
   ["/atividades", "agentActivities"],
   ["/sales", "salesOs"],
-  ["/marketplace", "packMarketplace"],
 ] as const;
-
-const ONBOARDING_STORAGE_KEY = "birthhub:onboarding:v1";
-
-type OnboardingStepState = {
-  id: string;
-  done: boolean;
-};
-
-const defaultSteps: OnboardingStepState[] = [
-  { id: "create-org", done: false },
-  { id: "setup-profile", done: false },
-  { id: "install-pack", done: false },
-  { id: "invite-team", done: false },
-];
 
 export function NavLinks() {
   const pathname = usePathname();
   const { language } = usePlatform();
-  const [pendingSteps, setPendingSteps] = useState(DEFAULT_ONBOARDING_STEPS.length);
-
-  useEffect(() => {
-    const readPending = () => {
-      const raw = window.localStorage.getItem(ONBOARDING_STORAGE_KEY);
-      if (!raw) {
-        setPendingSteps(DEFAULT_ONBOARDING_STEPS.length);
-        return;
-      }
-
-      try {
-        const parsed = JSON.parse(raw) as { steps?: OnboardingStepState[] };
-        setPendingSteps(pendingOnboardingSteps(parsed.steps ?? DEFAULT_ONBOARDING_STEPS));
-      } catch {
-        setPendingSteps(DEFAULT_ONBOARDING_STEPS.length);
-      }
-    };
-
-    readPending();
-    window.addEventListener("storage", readPending);
-
-    return () => {
-      window.removeEventListener("storage", readPending);
-    };
-  }, [pathname]);
 
   return (
     <nav className="top-nav" aria-label="Navegação do dashboard">
-      {pendingSteps > 0 ? (
-        <Link href="/onboarding" className="onboarding-chip" aria-label="Retomar onboarding">
-          Onboarding pendente: {pendingSteps}/4
-        </Link>
-      ) : null}
       {links.map(([href, key]) => {
         const isActive = pathname === href;
 

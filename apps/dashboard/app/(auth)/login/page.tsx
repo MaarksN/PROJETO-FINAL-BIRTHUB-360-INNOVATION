@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
@@ -16,11 +15,11 @@ export default function LoginPage() {
     const response = await fetch("/api/session/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ password }),
     });
 
     if (!response.ok) {
-      setError("Credenciais inválidas. Tente novamente.");
+      setError("Senha inválida. Tente novamente.");
       return;
     }
 
@@ -29,6 +28,6 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="container"><article className="card" style={{ maxWidth: 460, margin: "80px auto" }}><h1>Acesso ao Dashboard</h1><form onSubmit={onSubmit}><label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label><label>Senha<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></label>{error ? <p className="muted">{error}</p> : null}<button type="submit">Entrar</button></form></article></main>
+    <main className="container"><article className="card" style={{ maxWidth: 460, margin: "80px auto" }}><h1>Acesso ao Dashboard</h1><form onSubmit={onSubmit}><label>Senha<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} /></label>{error ? <p className="muted">{error}</p> : null}<button type="submit">Entrar</button></form></article></main>
   );
 }

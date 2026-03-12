@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
-import { SESSION_COOKIE, verifySessionToken } from "./session-token";
+import { isValidSessionToken, SESSION_COOKIE } from "./session-token";
 
 export { SESSION_COOKIE } from "./session-token";
-export { createSessionToken } from "./session-token";
+export { getSessionToken } from "./session-token";
 
-export async function getServerSession() {
+export function getServerSession() {
   const token = cookies().get(SESSION_COOKIE)?.value;
-  return verifySessionToken(token);
+  return isValidSessionToken(token);
 }

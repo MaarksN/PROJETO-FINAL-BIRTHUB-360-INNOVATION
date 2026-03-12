@@ -1,13 +1,10 @@
 # Contratos internos versionados (gateway ↔ orchestrator ↔ agentes)
 
 ## Versão ativa
-
 - `schemaVersion: "v1"`
 
 ## Fluxo crítico: Lead Lifecycle
-
 ### Input (`LeadLifecycleInput`)
-
 ```json
 {
   "schemaVersion": "v1",
@@ -20,7 +17,6 @@
 ```
 
 ### Output (`LeadLifecycleOutput`)
-
 ```json
 {
   "schemaVersion": "v1",
@@ -32,7 +28,6 @@
 ```
 
 ## Regras de evolução
-
 1. Toda mudança breaking incrementa versão (`v2`, `v3`, ...).
 2. Gateway e orchestrator devem aceitar a versão corrente e a imediatamente anterior por uma janela de depreciação.
 3. Contract tests no CI validam presença de `schemaVersion` e compatibilidade do registro de contratos.

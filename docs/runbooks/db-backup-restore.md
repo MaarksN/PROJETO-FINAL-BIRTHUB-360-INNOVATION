@@ -7,7 +7,6 @@ DATABASE_URL=postgres://... BACKUP_DIR=./backups ./packages/db/scripts/backup.sh
 ```
 
 Política sugerida:
-
 - Backup full diário.
 - Retenção de 30 dias local + replicação para storage externo.
 - Teste de restore semanal em ambiente de staging.
