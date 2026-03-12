@@ -113,3 +113,5 @@ export const QUEUES = {
 };
 
 export * from "./workers";
+
+export * from "./definitions.js";

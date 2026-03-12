@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { UnauthorizedError, ForbiddenError } from "@birthub/utils/src/errors";
-import { logger } from "@birthub/utils/src/logger";
+import { UnauthorizedError, ForbiddenError } from "@birthub/utils/dist/errors.js";
+import { logger } from "../lib/logger.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
