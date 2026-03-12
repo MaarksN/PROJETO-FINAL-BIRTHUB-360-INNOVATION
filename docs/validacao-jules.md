@@ -1,61 +1,106 @@
-# Validação do Jules — verificação cruzada completa
+# Validação do Jules — modo cruzado cru (go/no-go próximos ciclos)
 
 Data: 2026-03-12
 
-## Escopo
-Verificação cruzada de todos os itens executados pelo Jules que ainda possuem evidência no repositório, com base em:
-1. Histórico Git (commits e merges com referência a `jules`/`JULES`/`ciclo`).
-2. Confronto com o checklist consolidado (`CHECKLIST_MASTER.md`).
-3. Sanidade técnica do estado atual do monorepo.
+## Escopo cru
+- verificar tudo que foi entregue pelo Jules via merges `jules-*` no Git;
+- cruzar entregas com `CHECKLIST E PROMPTS` dos ciclos 02, 04, 07, 09 e 10;
+- executar checks técnicos para decisão de liberação.
 
-## Evidência A — Git (forense)
-### Consulta base
-Comando usado para inventariar os itens executados por Jules:
-- `git log --no-merges --pretty=format:'%h %s' --extended-regexp --regexp-ignore-case --grep='(JULES|Cycle|ciclo)'`
+## Evidência 1 — Merges/commits do Jules
+- `080dece` → `68d4034` (ciclo 02)
+- `a37ee5b` → `2382c28` (ciclo 04)
+- `c0eaa1b` → `1294481`, `d6b148b` (ciclo 07)
+- `0ae9d94` → `cffd1b6` (ciclo 09)
+- `8f37089` → `703f5e4` (ciclo 10)
 
-### Resultado consolidado
-- Commits não-merge identificados com referência direta a execução por ciclo/JULES: **52**.
-- Cobertura observada no histórico: **Ciclos 1, 2, 3, 4, 7, 8, 9 e 10**.
-- Natureza predominante dos itens executados: **documentação técnica, ADRs, políticas, runbooks e análises**.
-- Evidência explícita de validações anteriores do CODEX sobre Jules: commits `4fda653` e `a5623e0`.
+## Evidência 2 — Inventário completo do que Jules fez
+Resultado bruto do inventário por commit:
+- arquivos únicos: **31**
+- existentes no `HEAD`: **31/31**
+- markdowns: **30**
 
-### Commits-base já usados em validações cruzadas anteriores (amostra estável)
-- `68d4034` (ciclo 02)
-- `2382c28` (ciclo 04)
-- `1294481` e `d6b148b` (ciclo 07)
-- `cffd1b6` (ciclo 09)
-- `703f5e4` (ciclo 10)
+### Lista completa (31/31)
+| ciclo | commit | arquivo | status |
+|---|---|---|---|
+| 07 | d6b148b | agents/shared/errors.py | OK |
+| 04 | 2382c28 | docs/adr/ADR-013-agent-manifest.md | OK |
+| 07 | d6b148b | docs/adr/ADR-024-modelagem-planos.md | OK |
+| 02 | 68d4034 | docs/adrs/ADR-007-multi-tenancy-strategy.md | OK |
+| 04 | 2382c28 | docs/analysis/malicious-manifest-risk.md | OK |
+| 07 | 1294481 | docs/billing/analise-localizacao.md | OK |
+| 07 | 1294481 | docs/billing/checklist-pci-dss.md | OK |
+| 07 | d6b148b | docs/billing/comunicacao-mudanca-preco.md | OK |
+| 07 | d6b148b | docs/billing/politica-grandfathering.md | OK |
+| 07 | 1294481 | docs/billing/politica-reembolso.md | OK |
+| 07 | 1294481 | docs/billing/risco-double-charge.md | OK |
+| 07 | d6b148b | docs/billing/risco-downgrade.md | OK |
+| 07 | d6b148b | docs/billing/tabela-planos.md | OK |
+| 07 | 1294481 | docs/billing/ux-checkout.md | OK |
+| 04 | 2382c28 | docs/guides/agent-manifest-contribution.md | OK |
+| 04 | 2382c28 | docs/guides/capabilities-definition.md | OK |
+| 10 | 703f5e4 | docs/marketplace/curation_policy.md | OK |
+| 10 | 703f5e4 | docs/marketplace/reputation_analysis.md | OK |
+| 10 | 703f5e4 | docs/marketplace/review_moderation_process.md | OK |
+| 10 | 703f5e4 | docs/marketplace/risk_analysis_malicious_pack.md | OK |
+| 10 | 703f5e4 | docs/marketplace/verification_criteria.md | OK |
+| 04 | 2382c28 | docs/policies/manifest-review.md | OK |
+| 02 | 68d4034 | docs/policies/tenant-deletion-policy.md | OK |
+| 02 | 68d4034 | docs/security/cross-tenant-inference-risks.md | OK |
+| 02 | 68d4034 | docs/security/cross-tenant-risk-mapping.md | OK |
+| 02 | 68d4034 | docs/security/tenant-isolation-checklist.md | OK |
+| 09 | cffd1b6 | docs/ux/aha_moment.md | OK |
+| 09 | cffd1b6 | docs/ux/onboarding_friction.md | OK |
+| 09 | cffd1b6 | docs/ux/onboarding_journey.md | OK |
+| 09 | cffd1b6 | docs/ux/onboarding_success.md | OK |
+| 09 | cffd1b6 | docs/ux/onboarding_survey.md | OK |
 
-Status da amostra estável: **presentes no histórico atual e rastreáveis**.
+## Evidência 3 — Cruzamento com checklist/prompt
+Referências usadas:
+- `CHECKLIST E PROMPTS/INDEX_BirthHub360_v4.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_02_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_04_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_07_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_09_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Ciclo_10_JULES.html`
+- `CHECKLIST E PROMPTS/BirthHub360_Prompt_Ciclo_10_JULES.html`
 
-## Evidência B — Cruzamento com checklist mestre
-### Arquivo de referência usado
-- `CHECKLIST_MASTER.md`
+Match objetivo por ciclo:
+- ciclo 02: multi-tenancy / isolamento / tenant → coberto.
+- ciclo 04: manifest / review → coberto.
+- ciclo 07: billing / reembolso / grandfathering / checkout / pci → coberto.
+- ciclo 09: onboarding / fricção / aha → coberto.
+- ciclo 10: marketplace / curadoria / malicioso / moderação / verificação → coberto.
 
-### Confronto objetivo
-Os quatro blocos de assinatura do checklist mestre foram confrontados com os artefatos executados por Jules:
-1. **Auditoria de Arquivos**: compatível com o volume de commits/docs por ciclo no Git.
-2. **Alinhamento de Escopo**: compatível com os temas recorrentes nos commits (multi-tenant, compliance, marketplace, billing, runtime, UX).
-3. **Auditoria de Bugs Abertos**: documento remete ao relatório final de readiness (`docs/release/final_readiness_report_v1.md`).
-4. **Conformidade LGPD**: refletida por commits e documentos de segurança, privacidade e governança.
-
-Conclusão do cruzamento documental: **os itens executados por Jules e o checklist final estão coerentes entre si no repositório atual**.
-
-## 4) Sanidade técnica (execução real)
-### Comandos executados
+## Evidência 4 — Checks técnicos (estado atual)
+Comandos executados:
 1. `pnpm lint`
-2. `pnpm test`
-3. `pnpm build`
+2. `pnpm --filter @birthub/dashboard test`
+3. `pnpm test:agents`
+4. `pnpm build`
 
-### Resultado bruto
-- `pnpm lint`: **PASS**.
-- `pnpm test`: **FAIL** em `@birthub/agents-core`
-  - erro `ERR_MODULE_NOT_FOUND` para `packages/agents-core/src/manifest/schema` durante `manifest-parser.test.ts`.
-- `pnpm build`: **FAIL**
-  - `@birthub/auth`: `TS5097` e `TS6059` envolvendo import `../../index.ts` em teste.
-  - `@birthub/conversation-core`: `TS6059` por `index.ts` fora de `rootDir`.
+Resultado bruto:
+- `pnpm lint` → **PASS**.
+- `pnpm --filter @birthub/dashboard test` → **FAIL**
+  - `isRtlLanguage` não exportado em `../lib/platform-i18n.ts`.
+  - `../lib/sanitize` não encontrado.
+- `pnpm test:agents` → **FAIL**
+  - 16 erros de coleta/import em múltiplos agentes.
+- `pnpm build` → **FAIL**
+  - `TS5097` em `@birthub/auth`.
+  - `TS5097` em `@birthub/security`.
+  - `TS5097` em `@birthub/agent-runtime`.
+  - `TS5097` em `@birthub/conversation-core`.
 
-## Saída objetiva
-- Verificação cruzada de todos os itens executados por Jules (com evidência Git disponível): **coberta**.
-- Coerência entre execução de Jules e assinatura final em `CHECKLIST_MASTER.md`: **coberta**.
-- Qualidade técnica fim-a-fim do monorepo no estado atual: **reprovada** (falhas de teste/build ainda abertas).
+## Decisão de liberação para próximos ciclos
+**Status atual: NÃO LIBERADO**.
+
+Critério go-live para liberar:
+- [ ] `pnpm lint` PASS
+- [ ] `pnpm --filter @birthub/dashboard test` PASS
+- [ ] `pnpm test:agents` PASS
+- [ ] `pnpm build` PASS
+
+Conclusão crua:
+- documentação do Jules: presente e rastreável (31/31 arquivos);
+- bloqueio de liberação: técnico (testes/build).
