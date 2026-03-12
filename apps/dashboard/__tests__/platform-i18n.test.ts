@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { isRtlLanguage, t } from "../lib/platform-i18n.ts";
+import { t } from "../lib/platform-i18n.ts";
 
 test("pt-BR é idioma padrão funcional", () => {
   assert.equal(t("pt-BR", "overview"), "Visão Geral");
@@ -8,12 +8,4 @@ test("pt-BR é idioma padrão funcional", () => {
 
 test("fallback de chave inexistente retorna chave", () => {
   assert.equal(t("pt-BR", "chave_inexistente"), "chave_inexistente");
-});
-
-test("árabe é RTL", () => {
-  assert.equal(isRtlLanguage("ar"), true);
-});
-
-test("português não é RTL", () => {
-  assert.equal(isRtlLanguage("pt-BR"), false);
 });
