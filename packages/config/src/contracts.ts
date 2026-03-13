@@ -65,6 +65,7 @@ export const cursorPaginationQuerySchema = z.object({
 export const createOrganizationRequestSchema = z.object({
   adminEmail: z.string().email(),
   adminName: z.string().min(2),
+  adminPassword: z.string().min(12),
   name: z.string().min(2),
   slug: z
     .string()
@@ -206,4 +207,14 @@ export const userListQuerySchema = z.object({
   role: roleSchema.optional(),
   search: z.string().optional(),
   status: userStatusSchema.optional()
+});
+
+export const privacyDeleteRequestSchema = z.object({
+  confirmationText: z.string().min(5)
+});
+
+export const privacyDeleteResponseSchema = z.object({
+  anonymizedEmail: z.string().email(),
+  billingCancelled: z.boolean(),
+  requestId: z.string()
 });

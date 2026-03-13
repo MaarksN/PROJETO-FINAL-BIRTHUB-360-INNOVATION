@@ -1,6 +1,9 @@
 import { z } from "zod";
 
 import {
+  EnvValidationError,
+  hasRequiredPostgresSsl,
+  hasRequiredRedisTls,
   nodeEnvSchema,
   nonEmptyString,
   optionalUrlString,
@@ -24,11 +27,34 @@ export const workerEnvSchema = z.object({
   SENDGRID_API_KEY: nonEmptyString.optional(),
   WEBHOOK_TIMEOUT_MS: z.coerce.number().int().positive().default(10_000),
   WEB_BASE_URL: urlString.default("http://localhost:3001"),
+  WORKER_HEALTH_PORT: z.coerce.number().int().positive().default(3002),
   WORKER_CONCURRENCY: z.coerce.number().int().positive().default(5)
 });
 
 export type WorkerConfig = z.infer<typeof workerEnvSchema>;
 
 export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerConfig {
-  return parseEnv("worker", workerEnvSchema, env);
+  const parsed = parseEnv("worker", workerEnvSchema, env);
+
+  if (parsed.NODE_ENV === "production") {
+    const issues: string[] = [];
+
+    if (!hasRequiredPostgresSsl(parsed.DATABASE_URL)) {
+      issues.push("DATABASE_URL must include sslmode=require (or stronger) in production.");
+    }
+
+    if (!hasRequiredRedisTls(parsed.REDIS_URL)) {
+      issues.push("REDIS_URL must use TLS in production (rediss:// or tls=true).");
+    }
+
+    if (parsed.JOB_HMAC_GLOBAL_SECRET === "dev-job-hmac-secret") {
+      issues.push("JOB_HMAC_GLOBAL_SECRET cannot use the development default in production.");
+    }
+
+    if (issues.length > 0) {
+      throw new EnvValidationError("worker", issues);
+    }
+  }
+
+  return parsed;
 }

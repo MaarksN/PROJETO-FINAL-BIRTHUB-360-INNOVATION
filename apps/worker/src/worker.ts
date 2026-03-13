@@ -467,7 +467,7 @@ export function createBirthHubWorker(): WorkerRuntime {
             requestId: payload.executionId,
             source: ExecutionSource.MANUAL
           };
-        })());
+        })();
 
     await persistExecutionStarted({
       agentId: executionPayload.agentId,
