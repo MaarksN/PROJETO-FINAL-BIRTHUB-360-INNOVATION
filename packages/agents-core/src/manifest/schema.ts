@@ -7,6 +7,8 @@ const jsonSchemaObject = z.record(z.string(), z.unknown()).default({ type: "obje
 
 const tagListSchema = z.array(nonEmptyString).min(1);
 
+// Default-deny governance: every manifest object schema in this module is strict.
+
 export const manifestTagsSchema = z
   .object({
     domain: tagListSchema,

@@ -75,3 +75,16 @@
   - Stripe webhook, analytics, invites, marketplace e `packages/agents-core` ainda quebram o `typecheck` global.
 - Governança de fase:
   - `CHECKLIST_MASTER.md` continua mais otimista que o estado real do código e não deve ser usado como evidência final sem nova rodada corretiva.
+
+## Hotfix de Auditoria (Ciclos 4 e 8)
+
+- Data: `2026-03-13`
+- Assinatura: `[SIG: CODEX-FIX-20260313-HOTFIX-C4-C8]`
+- touched_paths:
+  - `packages/agents-core/src/manifest/schema.ts`
+  - `test-results/k6-results.txt`
+  - `test-results/bullmq-overload.txt`
+  - `docs/release/cycle-08-performance-report.md`
+  - `CHECKLIST_MASTER.md`
+  - `CHECKLIST_LOG.md`
+- Observação: atualização focada em governança de schema, evidência formal de carga k6 e evidência de overload BullMQ para revalidação do JULES.

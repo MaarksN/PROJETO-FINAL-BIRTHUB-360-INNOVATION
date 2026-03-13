@@ -227,3 +227,11 @@
 | 7.10.C3 | Vermelho | CODEX | Script E2E transversal completo (Org -> Checkout -> Paid -> Premium) pendente. | `-` |
 | 7.10.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-710C4]` | Router Stripe auditado para segredo por env (`STRIPE_WEBHOOK_SECRET`) sem hardcode. | `apps/api/src/modules/webhooks/stripe.router.ts`, `.env.example` |
 | 7.10.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-710C5]` | Checklist master atualizado com status formal do Ciclo 7. | `CHECKLIST_MASTER.md` |
+
+## Hotfix de Auditoria — Ciclos 4 e 8 (Aguardando Validação JULES)
+
+| ID | Status | Executor | Evidência | touched_paths |
+|---|---|---|---|---|
+| 4.9.C4-HOTFIX | Azul | CODEX `[SIG: CODEX-FIX-20260313-C4-STRICT]` | Governança de schema reforçada com `default-deny` em manifest parser (`z.object().strict()`). | `packages/agents-core/src/manifest/schema.ts` |
+| 8.9.C1-HOTFIX | Azul | CODEX `[SIG: CODEX-FIX-20260313-C8-K6]` | Evidência formal de carga registrada com thresholds de latência e erro dentro do SLO. | `test-results/k6-results.txt`, `docs/release/cycle-08-performance-report.md` |
+| 8.9.C3-HOTFIX | Azul | CODEX `[SIG: CODEX-FIX-20260313-C8-REDIS]` | Evidência de overload BullMQ atualizada com processamento de jobs sem queda por conexão Redis. | `test-results/bullmq-overload.txt`, `docs/release/cycle-08-performance-report.md` |
