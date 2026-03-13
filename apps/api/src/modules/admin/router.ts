@@ -6,6 +6,7 @@ import { z } from "zod";
 import { RequireRole, requireAuthenticated } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { createSession } from "../auth/auth.service.js";
+import { setAuthCookies } from "../auth/cookies.js";
 
 const impersonationSchema = z
   .object({
@@ -97,6 +98,7 @@ export function createAdminRouter(config: ApiConfig): Router {
         }
       });
 
+      setAuthCookies(response, config, session.tokens);
       response.status(201).json({
         organizationId: target.organization.id,
         tenantId: target.organization.tenantId,
