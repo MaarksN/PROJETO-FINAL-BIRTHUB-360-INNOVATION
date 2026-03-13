@@ -1,4 +1,23 @@
-import { context, trace } from "@opentelemetry/api";
+import { createRequire } from "node:module";
+
+type OtelApi = {
+  context: {
+    active: () => unknown;
+  };
+  trace: {
+    getSpan: (activeContext: unknown) => { setAttribute: (key: string, value: unknown) => void } | undefined;
+  };
+};
+
+const require = createRequire(import.meta.url);
+
+let otelApi: OtelApi | null = null;
+
+try {
+  otelApi = require("@opentelemetry/api") as OtelApi;
+} catch {
+  otelApi = null;
+}
 
 const forceSampledTenants = new Set<string>();
 
@@ -6,7 +25,11 @@ export function annotateTenantSpan(input: {
   tenantId?: string | null;
   tenantSlug?: string | null;
 }): void {
-  const span = trace.getSpan(context.active());
+  if (!otelApi) {
+    return;
+  }
+
+  const span = otelApi.trace.getSpan(otelApi.context.active());
 
   if (!span) {
     return;

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import test from "node:test";
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@birthub/database";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;

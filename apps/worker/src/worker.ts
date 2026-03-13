@@ -1,6 +1,6 @@
 import { getWorkerConfig, taskJobSchema } from "@birthub/config";
-import { prisma, runWithTenantContext } from "@birthub/database";
-import { createLogger, runWithLogContext } from "@birthub/logger";
+import { prisma } from "@birthub/database";
+import { createLogger } from "@birthub/logger";
 import { Worker } from "bullmq";
 import { createHmac } from "node:crypto";
 import { z } from "zod";
@@ -8,6 +8,7 @@ import { Redis } from "ioredis";
 
 import { PlanExecutor } from "./executors/planExecutor.js";
 import { getQueueNameForPriority } from "./queues/agentQueue.js";
+import { executeTenantJob } from "./tenant-execution.js";
 
 const logger = createLogger("worker");
 
@@ -76,29 +77,6 @@ const agentExecutionJobSchema = z
       .optional()
   })
   .strict();
-
-export async function executeTenantJob<T>(input: {
-  requestId: string;
-  tenantId: string;
-  userId: string | null;
-}, handler: () => Promise<T>): Promise<T> {
-  return runWithLogContext(
-    {
-      requestId: input.requestId,
-      tenantId: input.tenantId,
-      userId: input.userId
-    },
-    () =>
-      runWithTenantContext(
-        {
-          source: "system",
-          tenantId: input.tenantId,
-          userId: input.userId
-        },
-        handler
-      )
-  );
-}
 
 export function createBirthHubWorker(): WorkerRuntime {
   const config = getWorkerConfig();

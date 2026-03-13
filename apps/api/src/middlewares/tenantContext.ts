@@ -22,6 +22,10 @@ type BoundTenantContext = {
 };
 
 async function findOrganization(tenantReference: string) {
+  if (!process.env.DATABASE_URL) {
+    return null;
+  }
+
   try {
     return await prisma.organization.findFirst({
       where: {
