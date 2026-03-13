@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { sanitize } from "../lib/sanitize";
+import { sanitize } from "../lib/sanitize.ts";
 
 test("remove script tag", () => {
   assert.equal(sanitize('<p>ok</p><script>alert(1)</script>'), '<p>ok</p>');

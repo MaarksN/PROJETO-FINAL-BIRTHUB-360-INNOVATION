@@ -17,5 +17,14 @@
   "devDependencies": {
     "tsx": "^4.10.3",
     "@types/node": "^20.12.12"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   }
 }
