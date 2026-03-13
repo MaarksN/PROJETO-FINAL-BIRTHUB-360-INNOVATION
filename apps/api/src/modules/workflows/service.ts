@@ -2,6 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";
 import {
+  Prisma,
   prisma,
   WorkflowExecutionStatus,
   WorkflowStatus,
@@ -88,7 +89,7 @@ async function persistCanvas(
   for (const step of canvas.steps) {
     const created = await client.workflowStep.create({
       data: {
-        config: step.config,
+        config: step.config as Prisma.InputJsonValue,
         isTrigger:
           step.type === "TRIGGER_WEBHOOK" ||
           step.type === "TRIGGER_CRON" ||
@@ -140,7 +141,7 @@ async function upsertCronTrigger(config: ApiConfig, workflow: {
     cron: workflow.cronExpression,
     organizationId: workflow.organizationId,
     tenantId: workflow.tenantId,
-    triggerPayload: {},
+    triggerPayload: {} as Prisma.InputJsonValue as Record<string, unknown>,
     triggerType: WorkflowTriggerType.CRON,
     workflowId: workflow.id
   });
@@ -203,17 +204,17 @@ export async function createWorkflow(
     const created = await tx.workflow.create({
       data: {
         archivedAt: input.status === WorkflowStatus.ARCHIVED ? new Date() : null,
-        cronExpression: input.cronExpression,
-        definition: input.canvas,
-        description: input.description,
-        eventTopic: input.eventTopic,
+        cronExpression: input.cronExpression ?? null,
+        definition: input.canvas as Prisma.InputJsonValue,
+        description: input.description ?? null,
+        eventTopic: input.eventTopic ?? null,
         maxDepth: input.maxDepth,
         name: input.name,
         organizationId: identity.organizationId,
         publishedAt: input.status === WorkflowStatus.PUBLISHED ? new Date() : null,
         status: input.status,
         tenantId: identity.tenantId,
-        triggerConfig: input.triggerConfig,
+        triggerConfig: input.triggerConfig as Prisma.InputJsonValue,
         triggerType: input.triggerType,
         webhookSecret:
           input.triggerType === WorkflowTriggerType.WEBHOOK
@@ -260,30 +261,56 @@ export async function updateWorkflow(
   }
 
   const updated = await prisma.$transaction(async (tx) => {
+    const workflowUpdateData: Prisma.WorkflowUpdateInput = {};
+
+    if (input.status === WorkflowStatus.ARCHIVED) {
+      workflowUpdateData.archivedAt = new Date();
+      workflowUpdateData.publishedAt = null;
+      workflowUpdateData.status = WorkflowStatus.ARCHIVED;
+    } else if (input.status === WorkflowStatus.PUBLISHED) {
+      workflowUpdateData.archivedAt = null;
+      workflowUpdateData.publishedAt = new Date();
+      workflowUpdateData.status = WorkflowStatus.PUBLISHED;
+    } else if (input.status === WorkflowStatus.DRAFT) {
+      workflowUpdateData.archivedAt = null;
+      workflowUpdateData.publishedAt = null;
+      workflowUpdateData.status = WorkflowStatus.DRAFT;
+    }
+
+    if (input.cronExpression !== undefined) {
+      workflowUpdateData.cronExpression = input.cronExpression;
+    }
+
+    if (input.canvas !== undefined) {
+      workflowUpdateData.definition = input.canvas as Prisma.InputJsonValue;
+    }
+
+    if (input.description !== undefined) {
+      workflowUpdateData.description = input.description;
+    }
+
+    if (input.eventTopic !== undefined) {
+      workflowUpdateData.eventTopic = input.eventTopic;
+    }
+
+    if (input.maxDepth !== undefined) {
+      workflowUpdateData.maxDepth = input.maxDepth;
+    }
+
+    if (input.name !== undefined) {
+      workflowUpdateData.name = input.name;
+    }
+
+    if (input.triggerConfig !== undefined) {
+      workflowUpdateData.triggerConfig = input.triggerConfig as Prisma.InputJsonValue;
+    }
+
+    if (input.triggerType !== undefined) {
+      workflowUpdateData.triggerType = input.triggerType;
+    }
+
     const workflow = await tx.workflow.update({
-      data: {
-        archivedAt:
-          input.status === WorkflowStatus.ARCHIVED
-            ? new Date()
-            : input.status
-              ? null
-              : undefined,
-        cronExpression: input.cronExpression,
-        definition: input.canvas,
-        description: input.description,
-        eventTopic: input.eventTopic,
-        maxDepth: input.maxDepth,
-        name: input.name,
-        publishedAt:
-          input.status === WorkflowStatus.PUBLISHED
-            ? new Date()
-            : input.status
-              ? null
-              : undefined,
-        status: input.status,
-        triggerConfig: input.triggerConfig,
-        triggerType: input.triggerType
-      },
+      data: workflowUpdateData,
       where: {
         id: workflowId
       }
@@ -373,7 +400,7 @@ export async function runWorkflowNow(
       organizationId: workflow.organizationId,
       status: WorkflowExecutionStatus.RUNNING,
       tenantId: workflow.tenantId,
-      triggerPayload: input.payload,
+      triggerPayload: input.payload as Prisma.InputJsonValue,
       triggerType,
       workflowId: workflow.id
     }

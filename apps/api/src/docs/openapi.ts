@@ -1,4 +1,4 @@
-import { OpenApiGeneratorV3, OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
+import { OpenApiGeneratorV3, OpenAPIRegistry, extendZodWithOpenApi } from "@asteasolutions/zod-to-openapi";
 import {
   createOrganizationRequestSchema,
   createOrganizationResponseSchema,
@@ -8,6 +8,9 @@ import {
   taskEnqueuedResponseSchema,
   taskRequestSchema
 } from "@birthub/config";
+import { z } from "zod";
+
+extendZodWithOpenApi(z);
 
 const registry = new OpenAPIRegistry();
 
