@@ -6,10 +6,16 @@ import { useRouter } from "next/navigation";
 export interface LoginFormProps {
   apiUrl: string;
   initialRequestId: string;
+  navigate?: (href: string) => void;
 }
 
-export function LoginForm({ apiUrl, initialRequestId }: Readonly<LoginFormProps>) {
-  const router = useRouter();
+type LoginFormContentProps = Readonly<{
+  apiUrl: string;
+  initialRequestId: string;
+  navigate: (href: string) => void;
+}>;
+
+function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormContentProps) {
   const [error, setError] = useState<string | null>(null);
   const [requestId] = useState(initialRequestId);
   const [result, setResult] = useState<string | null>(null);
@@ -69,7 +75,7 @@ export function LoginForm({ apiUrl, initialRequestId }: Readonly<LoginFormProps>
         localStorage.setItem("bh_user_id", payload.session.userId);
 
         setResult(`Sessao criada para ${payload.session.userId}`);
-        router.push("/settings/security");
+        navigate("/settings/security");
       } catch (submitError) {
         setError(submitError instanceof Error ? submitError.message : "Falha desconhecida.");
       }
@@ -175,5 +181,26 @@ export function LoginForm({ apiUrl, initialRequestId }: Readonly<LoginFormProps>
         {result ? <p style={{ color: "var(--accent-strong)", margin: 0 }}>{result}</p> : null}
       </form>
     </section>
+  );
+}
+
+export function LoginForm({ apiUrl, initialRequestId, navigate }: Readonly<LoginFormProps>) {
+  if (navigate) {
+    return (
+      <LoginFormContent
+        apiUrl={apiUrl}
+        initialRequestId={initialRequestId}
+        navigate={navigate}
+      />
+    );
+  }
+
+  const router = useRouter();
+  return (
+    <LoginFormContent
+      apiUrl={apiUrl}
+      initialRequestId={initialRequestId}
+      navigate={(href) => router.push(href)}
+    />
   );
 }
