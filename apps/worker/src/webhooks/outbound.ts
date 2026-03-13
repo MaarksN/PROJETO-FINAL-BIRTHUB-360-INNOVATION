@@ -1,11 +1,15 @@
 import { createHmac } from "node:crypto";
 
 import { getWorkerConfig } from "@birthub/config";
-import { prisma, WebhookEndpointStatus } from "@birthub/database";
+import { Prisma, prisma, WebhookEndpointStatus } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import type { Queue } from "bullmq";
 
 const logger = createLogger("worker-outbound-webhooks");
+
+function toJsonValue(value: Record<string, unknown>): Prisma.InputJsonValue {
+  return value as Prisma.InputJsonValue;
+}
 
 export const outboundWebhookQueueName = "engagement.outbound-webhook";
 
@@ -114,7 +118,7 @@ export async function processOutboundWebhookJob(payload: OutboundWebhookJobPaylo
       attempt: payload.attempt ?? 1,
       endpointId: endpoint.id,
       organizationId: payload.organizationId,
-      payload: payload.payload,
+      payload: toJsonValue(payload.payload),
       signature,
       tenantId: payload.tenantId,
       topic: payload.topic

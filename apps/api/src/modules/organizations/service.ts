@@ -10,6 +10,7 @@ import {
 } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { hashPassword } from "../auth/crypto.js";
 import { ensurePlanByCode, provisionStripeCustomerForOrganization } from "../billing/service.js";
 import { enqueueCrmSync } from "../engagement/queues.js";
 
@@ -62,11 +63,16 @@ async function resolveScopedOrganization(
 export async function createOrganization(input: {
   adminEmail: string;
   adminName: string;
+  adminPassword: string;
   name: string;
   requestId: string;
   slug: string;
 }) {
   const config = getApiConfig();
+  const passwordHash = await hashPassword(
+    input.adminPassword,
+    config.AUTH_BCRYPT_SALT_ROUNDS
+  );
   const primaryDomain = input.adminEmail.includes("@")
     ? input.adminEmail.split("@")[1] ?? null
     : null;
@@ -90,7 +96,8 @@ export async function createOrganization(input: {
       const owner = await tx.user.create({
         data: {
           email: input.adminEmail,
-          name: input.adminName
+          name: input.adminName,
+          passwordHash
         }
       });
 

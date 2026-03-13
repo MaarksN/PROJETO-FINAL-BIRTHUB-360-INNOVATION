@@ -47,7 +47,7 @@ export class AgentQueueRouter {
     }
 
     const queue = new Queue<AgentQueuePayload>(queueName, {
-      connection: this.connection,
+      connection: this.connection as never,
       defaultJobOptions: {
         attempts: 5,
         backoff: {
@@ -63,8 +63,9 @@ export class AgentQueueRouter {
       }
     });
 
-    this.queues.set(queueName, queue);
-    return queue;
+    const typedQueue = queue as Queue<AgentQueuePayload>;
+    this.queues.set(queueName, typedQueue);
+    return typedQueue;
   }
 
   async enqueue(payload: AgentQueuePayload, options?: JobsOptions): Promise<void> {

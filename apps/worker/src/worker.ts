@@ -4,6 +4,7 @@ import {
   createNotificationForUser,
   ExecutionSource,
   NotificationType,
+  Prisma,
   prisma
 } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
@@ -37,6 +38,10 @@ import {
 
 const logger = createLogger("worker");
 const crmSyncQueueName = "engagement.crm-sync";
+
+function toJsonValue(value: Record<string, unknown>): Prisma.InputJsonValue {
+  return value as Prisma.InputJsonValue;
+}
 
 function signPayload(payload: string, secret: string): string {
   return createHmac("sha256", secret).update(payload).digest("hex");
@@ -148,7 +153,7 @@ async function persistExecutionStarted(input: {
     create: {
       agentId: input.agentId,
       id: input.executionId,
-      input: input.inputPayload,
+      input: toJsonValue(input.inputPayload),
       organizationId: input.organizationId ?? null,
       source: input.source,
       tenantId: input.tenantId,
@@ -156,7 +161,7 @@ async function persistExecutionStarted(input: {
     },
     update: {
       agentId: input.agentId,
-      input: input.inputPayload,
+      input: toJsonValue(input.inputPayload),
       organizationId: input.organizationId ?? null,
       source: input.source,
       status: "RUNNING",
@@ -181,9 +186,9 @@ async function persistExecutionFinished(input: {
     data: {
       completedAt: input.status === "WAITING_APPROVAL" ? null : new Date(),
       errorMessage: input.errorMessage ?? null,
-      metadata: input.metadata,
-      output: input.output,
       outputHash: input.outputHash ?? null,
+      ...(input.metadata !== undefined ? { metadata: toJsonValue(input.metadata) } : {}),
+      ...(input.output !== undefined ? { output: toJsonValue(input.output) } : {}),
       status: input.status
     },
     where: {
@@ -294,11 +299,12 @@ export function createBirthHubWorker(): WorkerRuntime {
   const connection = new Redis(config.REDIS_URL, {
     maxRetriesPerRequest: null
   });
+  const bullConnection = connection as never;
   const executor = new PlanExecutor({ redis: connection });
   const workflowExecutionQueue = new Queue<WorkflowExecutionJobPayload>(
     workflowQueueNames.execution,
     {
-      connection,
+      connection: bullConnection,
       defaultJobOptions: {
         attempts: 5,
         backoff: {
@@ -315,7 +321,7 @@ export function createBirthHubWorker(): WorkerRuntime {
     }
   );
   const emailQueue = new Queue<EmailNotificationJobPayload>(emailQueueName, {
-    connection,
+    connection: bullConnection,
     defaultJobOptions: {
       attempts: 3,
       backoff: {
@@ -331,7 +337,7 @@ export function createBirthHubWorker(): WorkerRuntime {
     }
   });
   const outboundWebhookQueue = new Queue<OutboundWebhookJobPayload>(outboundWebhookQueueName, {
-    connection,
+    connection: bullConnection,
     defaultJobOptions: {
       attempts: 5,
       backoff: {
@@ -356,8 +362,7 @@ export function createBirthHubWorker(): WorkerRuntime {
             ...input,
             workflowContextSummary: contextSummary
           },
-          tenantId: (input.tenantId as string | undefined) ?? "default-tenant",
-          toolCalls: undefined
+          tenantId: (input.tenantId as string | undefined) ?? "default-tenant"
         });
 
         return result;
@@ -436,7 +441,7 @@ export function createBirthHubWorker(): WorkerRuntime {
             fallbackSecret: config.JOB_HMAC_GLOBAL_SECRET,
             jobId,
             payload,
-            tenantSecret: tenantSecret?.secret
+            ...(tenantSecret?.secret ? { tenantSecret: tenantSecret.secret } : {})
           });
 
           return {
@@ -476,7 +481,7 @@ export function createBirthHubWorker(): WorkerRuntime {
       organizationId: executionPayload.organizationId,
       source: executionPayload.source,
       tenantId: executionPayload.tenantId,
-      userId: executionPayload.userId
+      userId: executionPayload.userId ?? null
     });
 
     return executeTenantJob(
@@ -510,12 +515,12 @@ export function createBirthHubWorker(): WorkerRuntime {
               errorMessage: "billing_past_due",
               executionId: executionPayload.executionId,
               organizationId: executionPayload.organizationId,
-              outboundWebhookQueue,
-              status: "FAILED",
-              tenantId: executionPayload.tenantId,
-              userId: executionPayload.userId,
-              webBaseUrl: config.WEB_BASE_URL
-            });
+            outboundWebhookQueue,
+            status: "FAILED",
+            tenantId: executionPayload.tenantId,
+            userId: executionPayload.userId ?? null,
+            webBaseUrl: config.WEB_BASE_URL
+          });
 
             return {
               blocked: true,
@@ -586,7 +591,7 @@ export function createBirthHubWorker(): WorkerRuntime {
             executionId: executionPayload.executionId,
             input: executionPayload.input,
             tenantId: executionPayload.tenantId,
-            toolCalls: executionPayload.toolCalls
+            ...(executionPayload.toolCalls ? { toolCalls: executionPayload.toolCalls } : {})
           });
           const outputHash = hashPayload(JSON.stringify(executionResult));
 
@@ -608,7 +613,7 @@ export function createBirthHubWorker(): WorkerRuntime {
             outboundWebhookQueue,
             status: "SUCCESS",
             tenantId: executionPayload.tenantId,
-            userId: executionPayload.userId,
+            userId: executionPayload.userId ?? null,
             webBaseUrl: config.WEB_BASE_URL
           });
 
@@ -646,7 +651,7 @@ export function createBirthHubWorker(): WorkerRuntime {
             outboundWebhookQueue,
             status: "FAILED",
             tenantId: executionPayload.tenantId,
-            userId: executionPayload.userId,
+            userId: executionPayload.userId ?? null,
             webBaseUrl: config.WEB_BASE_URL
           });
 
@@ -666,10 +671,15 @@ export function createBirthHubWorker(): WorkerRuntime {
   const workers = queueNames.map((queueName) =>
     new Worker(
       queueName,
-      async (job) => processJob({ data: job.data, id: job.id, queueName }),
+      async (job) =>
+        processJob({
+          data: job.data,
+          queueName,
+          ...(job.id !== undefined ? { id: job.id } : {})
+        }),
       {
         concurrency: config.WORKER_CONCURRENCY,
-        connection
+        connection: bullConnection
       }
     )
   );
@@ -681,7 +691,7 @@ export function createBirthHubWorker(): WorkerRuntime {
         workflowRunner.processExecutionJob(job.data as WorkflowExecutionJobPayload),
       {
         concurrency: config.WORKER_CONCURRENCY,
-        connection
+        connection: bullConnection
       }
     )
   );
@@ -693,7 +703,7 @@ export function createBirthHubWorker(): WorkerRuntime {
         workflowRunner.processTriggerJob(job.data as WorkflowTriggerJobPayload),
       {
         concurrency: config.WORKER_CONCURRENCY,
-        connection
+        connection: bullConnection
       }
     )
   );
@@ -704,7 +714,7 @@ export function createBirthHubWorker(): WorkerRuntime {
       async (job) => processEmailNotificationJob(job.data as EmailNotificationJobPayload),
       {
         concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
-        connection
+        connection: bullConnection
       }
     )
   );
@@ -715,7 +725,7 @@ export function createBirthHubWorker(): WorkerRuntime {
       async (job) => processOutboundWebhookJob(job.data as OutboundWebhookJobPayload),
       {
         concurrency: config.WORKER_CONCURRENCY,
-        connection
+        connection: bullConnection
       }
     )
   );
@@ -732,7 +742,7 @@ export function createBirthHubWorker(): WorkerRuntime {
       },
       {
         concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
-        connection
+        connection: bullConnection
       }
     )
   );

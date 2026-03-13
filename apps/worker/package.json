@@ -1,6 +1,6 @@
 {
   "name": "@birthub/worker",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "dev": "tsx watch src/index.ts",
     "lint": "eslint .",
     "load:test": "node --import tsx src/load/parallelLoad.test.ts",
-    "start": "node dist/src/index.js",
+    "start": "node dist/apps/worker/src/index.js",
     "test": "node --import tsx --test src/**/*.test.ts test/**/*.test.ts",
     "test:isolation": "node --import tsx --test test/**/*.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"

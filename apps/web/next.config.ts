@@ -1,8 +1,13 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import type { NextConfig } from "next";
 
 const nextPublicApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
 const cspReportUri = process.env.CSP_REPORT_URI;
 const cspReportOnly = (process.env.NEXT_PUBLIC_CSP_REPORT_ONLY ?? "true") === "true";
+const immutableAssetCache = "public, max-age=31536000, immutable";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -19,7 +24,33 @@ const contentSecurityPolicy = [
   .filter(Boolean)
   .join("; ");
 
+const securityHeaders = [
+  {
+    key: cspReportOnly ? "Content-Security-Policy-Report-Only" : "Content-Security-Policy",
+    value: contentSecurityPolicy
+  },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload"
+  },
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff"
+  },
+  {
+    key: "X-Frame-Options",
+    value: "DENY"
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin"
+  }
+];
+
 const nextConfig: NextConfig = {
+  compress: true,
+  output: "standalone",
+  outputFileTracingRoot: path.join(__dirname, "../.."),
   poweredByHeader: false,
   reactStrictMode: true,
   headers() {
@@ -27,28 +58,23 @@ const nextConfig: NextConfig = {
       {
         headers: [
           {
-            key: cspReportOnly
-              ? "Content-Security-Policy-Report-Only"
-              : "Content-Security-Policy",
-            value: contentSecurityPolicy
-          },
-          {
-            key: "Strict-Transport-Security",
-            value: "max-age=63072000; includeSubDomains; preload"
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff"
-          },
-          {
-            key: "X-Frame-Options",
-            value: "DENY"
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin"
+            key: "Cache-Control",
+            value: immutableAssetCache
           }
         ],
+        source: "/_next/static/(.*)"
+      },
+      {
+        headers: [
+          {
+            key: "Cache-Control",
+            value: immutableAssetCache
+          }
+        ],
+        source: "/(.*\\.(?:avif|css|gif|ico|jpg|jpeg|js|mjs|otf|png|svg|ttf|webp|woff|woff2))"
+      },
+      {
+        headers: securityHeaders,
         source: "/(.*)"
       }
     ]);

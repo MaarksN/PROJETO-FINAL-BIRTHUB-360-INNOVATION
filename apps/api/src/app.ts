@@ -45,6 +45,7 @@ import { createOrganization } from "./modules/organizations/service.js";
 import { startOutputRetentionScheduler } from "./modules/outputs/output-retention.js";
 import { createOutputRouter } from "./modules/outputs/output-routes.js";
 import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
+import { createPrivacyRouter } from "./modules/privacy/router.js";
 import { createWebhooksRouter, initializeWorkflowInternalEventBridge } from "./modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
 import { createWorkflowsRouter } from "./modules/workflows/index.js";
@@ -115,6 +116,13 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   }
 
   app.get(
+    "/health",
+    asyncHandler(async (_request, response) => {
+      response.status(200).json(await healthService());
+    })
+  );
+
+  app.get(
     "/api/v1/health",
     asyncHandler(async (_request, response) => {
       response.status(200).json(await healthService());
@@ -163,6 +171,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       const organization = await createOrganization({
         adminEmail: request.body.adminEmail,
         adminName: request.body.adminName,
+        adminPassword: request.body.adminPassword,
         name: request.body.name,
         requestId: request.context.requestId,
         slug: request.body.slug
@@ -315,6 +324,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use("/api/v1", createOrganizationsRouter());
   app.use("/api/v1/packs", createPackInstallerRouter());
   app.use("/api/v1/outputs", createOutputRouter());
+  app.use("/api/v1/privacy", createPrivacyRouter(config));
   app.use(createWorkflowsRouter(config));
   app.use(createWebhooksRouter(config));
 

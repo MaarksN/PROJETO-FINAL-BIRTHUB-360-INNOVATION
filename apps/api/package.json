@@ -1,6 +1,6 @@
 {
   "name": "@birthub/api",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/server.ts",
     "lint": "eslint .",
-    "start": "node dist/src/server.js",
+    "start": "node dist/apps/api/src/server.js",
     "test:auth": "node --import tsx --test tests/auth.test.ts",
     "test:rbac": "node --import tsx --test tests/rbac.test.ts",
     "test:security": "node --import tsx --test tests/security.test.ts",
@@ -30,6 +30,7 @@
     "@prisma/instrumentation": "^7.5.0",
     "@sentry/node": "^10.43.0",
     "bullmq": "^5.71.0",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.1",

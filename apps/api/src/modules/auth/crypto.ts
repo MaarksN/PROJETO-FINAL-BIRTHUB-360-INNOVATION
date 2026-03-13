@@ -1,7 +1,48 @@
 import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes } from "node:crypto";
+import { compare, genSalt, hash } from "bcryptjs";
 
 export function sha256(input: string): string {
   return createHash("sha256").update(input).digest("hex");
+}
+
+function isBcryptHash(value: string): boolean {
+  return value.startsWith("$2a$") || value.startsWith("$2b$") || value.startsWith("$2y$");
+}
+
+function bcryptCost(value: string): number | null {
+  if (!isBcryptHash(value)) {
+    return null;
+  }
+
+  const [, , cost] = value.split("$");
+  const parsed = Number(cost);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+export async function hashPassword(password: string, saltRounds: number): Promise<string> {
+  const salt = await genSalt(saltRounds);
+  return hash(password, salt);
+}
+
+export async function verifyPasswordHash(
+  password: string,
+  storedHash: string,
+  minimumSaltRounds: number
+): Promise<{ isValid: boolean; needsRehash: boolean }> {
+  if (isBcryptHash(storedHash)) {
+    const isValid = await compare(password, storedHash);
+    const currentCost = bcryptCost(storedHash);
+
+    return {
+      isValid,
+      needsRehash: isValid && currentCost !== null && currentCost < minimumSaltRounds
+    };
+  }
+
+  return {
+    isValid: sha256(password) === storedHash,
+    needsRehash: sha256(password) === storedHash
+  };
 }
 
 export function randomToken(byteLength = 32): string {

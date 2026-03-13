@@ -98,6 +98,7 @@ export function Navbar() {
           <Link href="/billing">Billing</Link>
           <Link href="/marketplace">Marketplace</Link>
           <Link href="/outputs">Outputs</Link>
+          <Link href="/settings/privacy">Privacidade</Link>
           <Link href="/profile/notifications">Notificacoes</Link>
           <Link href="/settings/developers/webhooks">Webhooks</Link>
           <Link href="/admin/cs">CS</Link>

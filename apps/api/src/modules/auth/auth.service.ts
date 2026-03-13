@@ -5,8 +5,10 @@ import {
   createAccessToken,
   createApiKey,
   createRefreshToken,
+  hashPassword,
   randomToken,
-  sha256
+  sha256,
+  verifyPasswordHash
 } from "./crypto.js";
 import {
   buildOtpauthUrl,
@@ -87,10 +89,6 @@ async function resolveTenantIdForOrganization(organizationId: string): Promise<s
   });
 
   return organization?.tenantId ?? null;
-}
-
-function isPasswordValid(password: string, passwordHash: string): boolean {
-  return sha256(password) === passwordHash;
 }
 
 function nowPlusHours(hours: number): Date {
@@ -236,8 +234,28 @@ export async function loginWithPassword(input: {
     throw new Error("ACCOUNT_SUSPENDED");
   }
 
-  if (!isPasswordValid(input.password, membership.user.passwordHash)) {
+  const passwordCheck = await verifyPasswordHash(
+    input.password,
+    membership.user.passwordHash,
+    input.config.AUTH_BCRYPT_SALT_ROUNDS
+  );
+
+  if (!passwordCheck.isValid) {
     throw new Error("INVALID_CREDENTIALS");
+  }
+
+  if (passwordCheck.needsRehash) {
+    await prisma.user.update({
+      data: {
+        passwordHash: await hashPassword(
+          input.password,
+          input.config.AUTH_BCRYPT_SALT_ROUNDS
+        )
+      },
+      where: {
+        id: membership.userId
+      }
+    });
   }
 
   await createNewDeviceAlert({

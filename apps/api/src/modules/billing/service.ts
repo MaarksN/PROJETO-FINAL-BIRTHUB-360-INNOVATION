@@ -541,3 +541,57 @@ export async function listUsageForOrganization(organizationReference: string) {
     items: usageRows
   };
 }
+
+export async function cancelBillingForOrganization(input: {
+  config: ApiConfig;
+  organizationReference: string;
+}): Promise<{ canceled: boolean; stripeSubscriptionId: string | null }> {
+  const organization = await prisma.organization.findFirst({
+    include: {
+      subscriptions: {
+        orderBy: {
+          updatedAt: "desc"
+        },
+        take: 1
+      }
+    },
+    where: {
+      OR: [{ id: input.organizationReference }, { tenantId: input.organizationReference }]
+    }
+  });
+
+  if (!organization) {
+    throw new ProblemDetailsError({
+      detail: "Organization not found for billing cancellation.",
+      status: 404,
+      title: "Not Found"
+    });
+  }
+
+  const subscription = organization.subscriptions[0] ?? null;
+
+  if (!subscription?.stripeSubscriptionId) {
+    return {
+      canceled: false,
+      stripeSubscriptionId: null
+    };
+  }
+
+  const stripe = createStripeClient(input.config);
+  await stripe.subscriptions.cancel(subscription.stripeSubscriptionId);
+
+  await prisma.subscription.update({
+    data: {
+      canceledAt: new Date(),
+      status: SubscriptionStatus.canceled
+    },
+    where: {
+      id: subscription.id
+    }
+  });
+
+  return {
+    canceled: true,
+    stripeSubscriptionId: subscription.stripeSubscriptionId
+  };
+}

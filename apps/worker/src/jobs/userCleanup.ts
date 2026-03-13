@@ -1,4 +1,5 @@
 import { UserStatus, prisma, type PrismaClient } from "@birthub/database";
+import { createHash } from "node:crypto";
 
 const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
 
@@ -20,7 +21,12 @@ export async function cleanupSuspendedUsers(
     await prismaClient.user.update({
       data: {
         email: `deleted+${user.id}@redacted.local`,
-        name: "Deleted User"
+        mfaEnabled: false,
+        mfaSecret: null,
+        name: "Deleted User",
+        passwordHash: createHash("sha256")
+          .update(`deleted:${user.id}:${now.toISOString()}`)
+          .digest("hex")
       },
       where: {
         id: user.id

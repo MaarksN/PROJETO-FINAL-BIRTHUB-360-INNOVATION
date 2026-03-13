@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
   const requestId = request.cookies.get("bh_request_id")?.value ?? crypto.randomUUID();
   const requestHeaders = new Headers(request.headers);
+  const secureCookie = process.env.NODE_ENV === "production";
 
   requestHeaders.set("x-request-id", requestId);
 
@@ -16,7 +17,7 @@ export function middleware(request: NextRequest) {
     httpOnly: false,
     path: "/",
     sameSite: "lax",
-    secure: false
+    secure: secureCookie
   });
   response.headers.set("x-request-id", requestId);
 

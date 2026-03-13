@@ -48,6 +48,7 @@ void test("auth login returns 200 and creates a session", async () => {
       },
       userId: "user_1"
     })),
+    stubMethod(prisma.user, "update", async () => ({ id: "user_1" })),
     stubMethod(prisma.session, "findFirst", async () => null),
     stubMethod(prisma.session, "create", async () => ({
       id: "session_1"
@@ -89,6 +90,7 @@ void test("auth login with MFA enabled returns challenge token", async () => {
       },
       userId: "user_1"
     })),
+    stubMethod(prisma.user, "update", async () => ({ id: "user_1" })),
     stubMethod(prisma.session, "findFirst", async () => null),
     stubMethod(prisma.mfaChallenge, "create", async () => ({ id: "challenge_1" }))
   ];

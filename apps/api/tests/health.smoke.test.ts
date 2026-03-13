@@ -39,3 +39,28 @@ void test("health endpoint returns 200 with database, redis and external status"
   assert.equal(response.body.services.redis.status, "up");
   assert.equal(response.body.services.externalDependencies[0].status, "up");
 });
+
+void test("health alias returns 200 for container probes", async () => {
+  const config = createTestApiConfig();
+
+  const app = createApp({
+    config,
+    healthService: async () => ({
+      checkedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
+      services: {
+        database: {
+          status: "up" as const
+        },
+        externalDependencies: [],
+        redis: {
+          status: "up" as const
+        }
+      },
+      status: "ok" as const
+    }),
+    shouldExposeDocs: false
+  });
+
+  const response = await request(app).get("/health").expect(200);
+  assert.equal(response.body.status, "ok");
+});
