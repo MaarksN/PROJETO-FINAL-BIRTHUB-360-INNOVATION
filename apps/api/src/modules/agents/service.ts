@@ -30,6 +30,9 @@ type InstalledAgentExecutionRow = {
   status: "FAILED" | "RUNNING" | "SUCCESS";
 };
 
+type AgentRecord = Exclude<Awaited<ReturnType<typeof prisma.agent.findFirst>>, null>;
+type AgentExecutionRecord = Awaited<ReturnType<typeof prisma.agentExecution.findMany>>[number];
+
 export interface InstalledAgentSnapshot {
   catalogAgentId: string;
   connectors: Record<string, unknown>;
@@ -209,8 +212,8 @@ function buildLearningRecord(input: {
 }
 
 function buildSnapshot(input: {
-  agent: Awaited<ReturnType<typeof prisma.agent.findFirstOrThrow>>;
-  executions: Awaited<ReturnType<typeof prisma.agentExecution.findMany>>;
+  agent: AgentRecord;
+  executions: AgentExecutionRecord[];
   manifest: AgentManifest;
 }): InstalledAgentSnapshot {
   const config = parseAgentConfig(input.agent.config);
