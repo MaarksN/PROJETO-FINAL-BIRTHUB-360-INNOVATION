@@ -333,6 +333,30 @@ export function createBirthHubWorker(): WorkerRuntime {
     )
   );
 
+  workers.push(
+    new Worker(
+      workflowQueueNames.execution,
+      async (job) =>
+        workflowRunner.processExecutionJob(job.data as WorkflowExecutionJobPayload),
+      {
+        concurrency: config.WORKER_CONCURRENCY,
+        connection
+      }
+    )
+  );
+
+  workers.push(
+    new Worker(
+      workflowQueueNames.trigger,
+      async (job) =>
+        workflowRunner.processTriggerJob(job.data as WorkflowTriggerJobPayload),
+      {
+        concurrency: config.WORKER_CONCURRENCY,
+        connection
+      }
+    )
+  );
+
   workers.forEach((worker) => {
     worker.on("failed", (job, error) => {
       logger.error(
@@ -348,6 +372,7 @@ export function createBirthHubWorker(): WorkerRuntime {
 
   const close = async (): Promise<void> => {
     await Promise.all(workers.map((worker) => worker.close()));
+    await workflowExecutionQueue.close();
     await connection.quit();
   };
 

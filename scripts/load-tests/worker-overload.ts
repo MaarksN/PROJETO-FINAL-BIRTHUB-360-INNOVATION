@@ -91,7 +91,13 @@ async function main(): Promise<void> {
     maxRetriesPerRequest: 1,
     retryStrategy: () => null
   });
+  connection.on("error", () => {
+    // connection errors are handled in the main promise flow
+  });
   const queue = new Queue(QUEUE_NAME, { connection });
+  queue.on("error", () => {
+    // queue-level errors are captured by the script exit code
+  });
   const startedAt = Date.now();
 
   try {
@@ -131,4 +137,7 @@ async function main(): Promise<void> {
   }
 }
 
-void main();
+void main().catch((error) => {
+  console.error(`[worker-overload] failed: ${error instanceof Error ? error.message : String(error)}`);
+  process.exitCode = 1;
+});
