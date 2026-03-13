@@ -305,9 +305,9 @@ export async function provisionStripeCustomerForOrganization(input: {
 
 async function resolveCustomerForCheckout(input: {
   config: ApiConfig;
-  organizationId: string;
+  organizationReference: string;
 }): Promise<string> {
-  const organization = await prisma.organization.findUnique({
+  const organization = await prisma.organization.findFirst({
     include: {
       memberships: {
         include: {
@@ -323,7 +323,7 @@ async function resolveCustomerForCheckout(input: {
       }
     },
     where: {
-      id: input.organizationId
+      OR: [{ id: input.organizationReference }, { tenantId: input.organizationReference }]
     }
   });
 
@@ -347,7 +347,7 @@ async function resolveCustomerForCheckout(input: {
     config: input.config,
     email,
     name,
-    organizationId: organization.id
+    organizationReference: organization.id
   });
 }
 
