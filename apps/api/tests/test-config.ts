@@ -27,6 +27,7 @@ export function createTestApiConfig(): ApiConfig {
     NODE_ENV: "test",
     OTEL_EXPORTER_OTLP_ENDPOINT: undefined,
     OTEL_SERVICE_NAME: "birthub-api-test",
+    QUEUE_BACKPRESSURE_THRESHOLD: 10_000,
     QUEUE_NAME: "birthub-cycle3",
     REDIS_URL: "redis://localhost:6379",
     REQUIRE_SECURE_COOKIES: false,

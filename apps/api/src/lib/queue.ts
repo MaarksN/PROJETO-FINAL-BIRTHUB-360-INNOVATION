@@ -9,6 +9,18 @@ type TaskJob = z.infer<typeof taskJobSchema>;
 let redisConnection: Redis | undefined;
 const queueCache = new Map<string, Queue<TaskJob>>();
 
+export class QueueBackpressureError extends Error {
+  readonly pendingJobs: number;
+  readonly threshold: number;
+
+  constructor(pendingJobs: number, threshold: number) {
+    super(`Queue backlog is ${pendingJobs} jobs (threshold ${threshold}).`);
+    this.name = "QueueBackpressureError";
+    this.pendingJobs = pendingJobs;
+    this.threshold = threshold;
+  }
+}
+
 function getRedisConnection(config: ApiConfig): Redis {
   if (!redisConnection) {
     redisConnection = new Redis(config.REDIS_URL, {
@@ -36,7 +48,19 @@ export function getTaskQueue(config: ApiConfig): Queue<TaskJob> {
 
 export async function enqueueTask(config: ApiConfig, payload: TaskJob): Promise<{ jobId: string }> {
   const validated = taskJobSchema.parse(payload);
-  const job = await getTaskQueue(config).add(validated.type, validated, {
+  const queue = getTaskQueue(config);
+  const [waitingCount, delayedCount, prioritizedCount] = await Promise.all([
+    queue.getWaitingCount(),
+    queue.getDelayedCount(),
+    queue.getPrioritizedCount()
+  ]);
+  const pendingJobs = waitingCount + delayedCount + prioritizedCount;
+
+  if (pendingJobs >= config.QUEUE_BACKPRESSURE_THRESHOLD) {
+    throw new QueueBackpressureError(pendingJobs, config.QUEUE_BACKPRESSURE_THRESHOLD);
+  }
+
+  const job = await queue.add(validated.type, validated, {
     removeOnComplete: 100,
     removeOnFail: 500
   });

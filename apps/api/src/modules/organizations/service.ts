@@ -1,17 +1,19 @@
+import { getApiConfig } from "@birthub/config";
 import {
   Prisma,
   prisma,
   type PrismaClient,
   type QuotaResourceType,
   Role,
-  SubscriptionPlan,
   SubscriptionStatus,
   withTenantDatabaseContext
 } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ensurePlanByCode, provisionStripeCustomerForOrganization } from "../billing/service.js";
 
 type DatabaseClient = PrismaClient | Prisma.TransactionClient;
+const config = getApiConfig();
 
 const bootstrapQuotas: Array<{ limit: number; resourceType: QuotaResourceType }> = [
   { limit: 5_000, resourceType: "API_REQUESTS" },
@@ -66,9 +68,11 @@ export async function createOrganization(input: {
 }) {
   try {
     return await prisma.$transaction(async (tx) => {
+      const starterPlan = await ensurePlanByCode("starter", tx);
       const organization = await tx.organization.create({
         data: {
           name: input.name,
+          planId: starterPlan.id,
           settings: {
             locale: "pt-BR",
             onboarding: true
@@ -93,11 +97,21 @@ export async function createOrganization(input: {
         }
       });
 
+      const stripeCustomerId = await provisionStripeCustomerForOrganization({
+        client: tx,
+        config,
+        email: input.adminEmail,
+        name: input.adminName,
+        organizationId: organization.id
+      });
+
       await tx.subscription.create({
         data: {
+          currentPeriodEnd: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
           organizationId: organization.id,
-          plan: SubscriptionPlan.STARTER,
-          status: SubscriptionStatus.TRIALING,
+          planId: starterPlan.id,
+          status: SubscriptionStatus.trial,
+          stripeCustomerId,
           tenantId: organization.tenantId
         }
       });

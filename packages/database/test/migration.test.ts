@@ -34,7 +34,7 @@ testIfDatabase("migracao preserva integridade referencial por tenant", async () 
       data: {
         name: "Workflow A",
         organizationId: organizationA.id,
-        status: WorkflowStatus.ACTIVE,
+        status: WorkflowStatus.PUBLISHED,
         tenantId: organizationA.tenantId
       }
     });

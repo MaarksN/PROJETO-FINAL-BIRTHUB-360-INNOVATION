@@ -34,7 +34,7 @@ testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no t
       data: {
         name: "Workflow B",
         organizationId: organizationB.id,
-        status: WorkflowStatus.ACTIVE,
+        status: WorkflowStatus.PUBLISHED,
         tenantId: organizationB.tenantId
       }
     });

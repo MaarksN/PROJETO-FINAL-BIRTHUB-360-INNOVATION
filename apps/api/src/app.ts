@@ -16,15 +16,20 @@ import type { Express } from "express";
 import helmet from "helmet";
 import swaggerUi from "swagger-ui-express";
 
+import {
+  configureCacheStore,
+  registerTenantCacheInvalidationMiddleware
+} from "./common/cache/index.js";
 import { openApiDocument } from "./docs/openapi.js";
 import { createHealthService } from "./lib/health.js";
 import { asyncHandler, ProblemDetailsError } from "./lib/problem-details.js";
-import { enqueueTask } from "./lib/queue.js";
+import { enqueueTask, QueueBackpressureError } from "./lib/queue.js";
 import { contentTypeMiddleware } from "./middleware/content-type.js";
 import { errorHandler, notFoundMiddleware } from "./middleware/error-handler.js";
 import { createRateLimitMiddleware } from "./middleware/rate-limit.js";
 import { requestContextMiddleware } from "./middleware/request-context.js";
 import { sanitizeMutationInput } from "./middleware/sanitize-input.js";
+import { tenantContextMiddleware } from "./middleware/tenant-context.js";
 import { validateBody } from "./middleware/validate-body.js";
 import { createBudgetRouter } from "./modules/budget/budget-routes.js";
 import { budgetService } from "./modules/budget/budget.service.js";
@@ -49,8 +54,12 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   const enqueueTaskDependency = dependencies.enqueueTask ?? enqueueTask;
   const shouldExposeDocs = dependencies.shouldExposeDocs ?? config.NODE_ENV !== "production";
 
+  configureCacheStore(config.REDIS_URL);
+  registerTenantCacheInvalidationMiddleware();
+
   app.disable("x-powered-by");
   app.use(requestContextMiddleware);
+  app.use(tenantContextMiddleware);
   app.use(
     helmet({
       contentSecurityPolicy: false
@@ -209,27 +218,41 @@ export function createApp(dependencies: AppDependencies = {}): Express {
         throw error;
       }
 
-      const job = await enqueueTaskDependency(config, {
-        agentId: request.body.agentId,
-        approvalRequired: request.body.approvalRequired,
-        context: request.context.tenantId
-          ? {
-              actorId: userId,
-              jobId: request.context.requestId,
-              scopedAt: new Date().toISOString(),
-              tenantId
-            }
-          : undefined,
-        estimatedCostBRL: request.body.estimatedCostBRL,
-        executionMode: request.body.executionMode,
-        payload: request.body.payload,
-        requestId: request.context.requestId,
-        signature: Buffer.from(`${tenantId}:${request.context.requestId}`).toString("base64url"),
-        tenantId,
-        type: request.body.type,
-        userId,
-        version: "1"
-      });
+      let job: { jobId: string };
+
+      try {
+        job = await enqueueTaskDependency(config, {
+          agentId: request.body.agentId,
+          approvalRequired: request.body.approvalRequired,
+          context: request.context.tenantId
+            ? {
+                actorId: userId,
+                jobId: request.context.requestId,
+                scopedAt: new Date().toISOString(),
+                tenantId
+              }
+            : undefined,
+          estimatedCostBRL: request.body.estimatedCostBRL,
+          executionMode: request.body.executionMode,
+          payload: request.body.payload,
+          requestId: request.context.requestId,
+          signature: Buffer.from(`${tenantId}:${request.context.requestId}`).toString("base64url"),
+          tenantId,
+          type: request.body.type,
+          userId,
+          version: "1"
+        });
+      } catch (error) {
+        if (error instanceof QueueBackpressureError) {
+          throw new ProblemDetailsError({
+            detail: `Queue backlog reached ${error.pendingJobs} pending jobs. Retry later.`,
+            status: 503,
+            title: "Service Unavailable"
+          });
+        }
+
+        throw error;
+      }
 
       logger.info(
         {
@@ -250,7 +273,9 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     })
   );
 
-  app.use("/api/v1/agents", createMarketplaceRouter());
+  const marketplaceRouter = createMarketplaceRouter();
+  app.use("/api/v1/agents", marketplaceRouter);
+  app.use("/api/v1/marketplace", marketplaceRouter);
   app.use("/api/v1/budgets", createBudgetRouter());
   app.use("/api/v1/packs", createPackInstallerRouter());
   app.use("/api/v1/outputs", createOutputRouter());

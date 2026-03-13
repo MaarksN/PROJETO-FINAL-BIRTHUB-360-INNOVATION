@@ -37,6 +37,7 @@ export const apiEnvSchema = z.object({
   REQUIRE_SECURE_COOKIES: z.coerce.boolean().default(false),
   OTEL_EXPORTER_OTLP_ENDPOINT: optionalUrlString,
   OTEL_SERVICE_NAME: nonEmptyString.default("birthub-api"),
+  QUEUE_BACKPRESSURE_THRESHOLD: z.coerce.number().int().positive().default(10_000),
   QUEUE_NAME: nonEmptyString.default("birthub-cycle1"),
   REDIS_URL: urlString,
   SENTRY_DSN: optionalUrlString,

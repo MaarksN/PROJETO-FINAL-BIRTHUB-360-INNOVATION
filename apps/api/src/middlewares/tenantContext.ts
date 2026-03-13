@@ -3,6 +3,7 @@ import { Buffer } from "node:buffer";
 import { prisma, runWithTenantContext } from "@birthub/database";
 import type { NextFunction, Request, Response } from "express";
 
+import { cacheTenant, getCachedTenant } from "../common/cache/index.js";
 import { ProblemDetailsError } from "../lib/problem-details.js";
 import { annotateTenantSpan } from "../tracing.js";
 
@@ -27,10 +28,22 @@ async function findOrganization(tenantReference: string) {
   }
 
   try {
+    const cachedTenant = await getCachedTenant(tenantReference);
+
+    if (cachedTenant) {
+      return cachedTenant;
+    }
+
     return await prisma.organization.findFirst({
       where: {
-        OR: [{ id: tenantReference }, { tenantId: tenantReference }]
+        OR: [{ id: tenantReference }, { slug: tenantReference }, { tenantId: tenantReference }]
       }
+    }).then(async (organization) => {
+      if (organization) {
+        await cacheTenant(organization);
+      }
+
+      return organization;
     });
   } catch {
     return null;

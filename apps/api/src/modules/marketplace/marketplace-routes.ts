@@ -1,5 +1,6 @@
 import { Router } from "express";
 
+import { sendEtaggedJson } from "../../common/cache/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { marketplaceService } from "./marketplace-service.js";
 
@@ -30,11 +31,10 @@ export function createMarketplaceRouter(): Router {
         useCases: request.query.useCase as string | string[] | undefined
       });
 
-      response.status(200).json({
+      sendEtaggedJson(request, response, {
         facets: result.facets,
         page: result.page,
         pageSize: result.pageSize,
-        requestId: request.context.requestId,
         results: result.results.map((entry) => ({
           agent: entry.manifest.agent,
           score: entry.score,
@@ -60,8 +60,7 @@ export function createMarketplaceRouter(): Router {
 
       const recommendations = await marketplaceService.recommend(tenantIndustry, 6);
 
-      response.status(200).json({
-        requestId: request.context.requestId,
+      sendEtaggedJson(request, response, {
         tenantIndustry,
         recommendations: recommendations.map((entry) => ({
           agent: entry.manifest.agent,
@@ -77,10 +76,7 @@ export function createMarketplaceRouter(): Router {
     asyncHandler(async (request, response) => {
       const matrix = await marketplaceService.getCapabilityMatrix();
 
-      response.status(200).json({
-        matrix,
-        requestId: request.context.requestId
-      });
+      sendEtaggedJson(request, response, { matrix });
     })
   );
 
@@ -97,10 +93,7 @@ export function createMarketplaceRouter(): Router {
         });
       }
 
-      response.status(200).json({
-        docs,
-        requestId: request.context.requestId
-      });
+      sendEtaggedJson(request, response, { docs });
     })
   );
 
@@ -117,10 +110,7 @@ export function createMarketplaceRouter(): Router {
         });
       }
 
-      response.status(200).json({
-        changelog,
-        requestId: request.context.requestId
-      });
+      sendEtaggedJson(request, response, { changelog });
     })
   );
 

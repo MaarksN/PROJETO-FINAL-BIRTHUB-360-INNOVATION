@@ -8,7 +8,11 @@ import {
   QuotaResourceType,
   Role,
   SessionStatus,
+  WorkflowExecutionStatus,
+  WorkflowStepType,
   SubscriptionStatus,
+  WorkflowTransitionRoute,
+  WorkflowTriggerType,
   WorkflowStatus
 } from "@prisma/client";
 import { createHash } from "node:crypto";
@@ -33,7 +37,6 @@ type TenantSeed = {
   name: string;
   planCode: string;
   slug: string;
-  workflowNames: string[];
 };
 
 const plans: PlanSeed[] = [
@@ -116,8 +119,7 @@ const tenants: TenantSeed[] = [
     ],
     name: "BirthHub Alpha",
     planCode: "professional",
-    slug: "birthhub-alpha",
-    workflowNames: ["Alpha onboarding", "Alpha renewal watch"]
+    slug: "birthhub-alpha"
   },
   {
     agents: ["Beta Concierge", "Beta Revenue Scout", "Beta Retention Radar"],
@@ -131,8 +133,7 @@ const tenants: TenantSeed[] = [
     ],
     name: "BirthHub Beta",
     planCode: "starter",
-    slug: "birthhub-beta",
-    workflowNames: ["Beta onboarding", "Beta churn shield"]
+    slug: "birthhub-beta"
   }
 ];
 
@@ -149,6 +150,10 @@ async function wipeDatabase(): Promise<void> {
   await prisma.paymentMethod.deleteMany();
   await prisma.quotaUsage.deleteMany();
   await prisma.invite.deleteMany();
+  await prisma.stepResult.deleteMany();
+  await prisma.workflowExecution.deleteMany();
+  await prisma.workflowTransition.deleteMany();
+  await prisma.workflowStep.deleteMany();
   await prisma.workflow.deleteMany();
   await prisma.agent.deleteMany();
   await prisma.customer.deleteMany();
@@ -208,6 +213,306 @@ function unlimitedToLargeNumber(value: unknown): number {
   }
 
   return value;
+}
+
+type SeedWorkflowStep = {
+  config: Record<string, unknown>;
+  isTrigger?: boolean;
+  key: string;
+  name: string;
+  type: WorkflowStepType;
+};
+
+type SeedWorkflowTransition = {
+  route: WorkflowTransitionRoute;
+  sourceKey: string;
+  targetKey: string;
+};
+
+type SeedWorkflowDefinition = {
+  cronExpression?: string;
+  description: string;
+  eventTopic?: string;
+  name: string;
+  status: WorkflowStatus;
+  steps: SeedWorkflowStep[];
+  transitions: SeedWorkflowTransition[];
+  triggerConfig: Record<string, unknown>;
+  triggerType: WorkflowTriggerType;
+  webhookSecret?: string;
+};
+
+async function createWorkflowWithGraph(input: {
+  organizationId: string;
+  tenantId: string;
+  workflow: SeedWorkflowDefinition;
+}): Promise<{ id: string; status: WorkflowStatus }> {
+  const workflow = await prisma.workflow.create({
+    data: {
+      cronExpression: input.workflow.cronExpression,
+      definition: {
+        nodes: input.workflow.steps.map((step) => ({
+          config: step.config,
+          key: step.key,
+          name: step.name,
+          type: step.type
+        })),
+        transitions: input.workflow.transitions
+      },
+      description: input.workflow.description,
+      eventTopic: input.workflow.eventTopic,
+      name: input.workflow.name,
+      organizationId: input.organizationId,
+      publishedAt: input.workflow.status === WorkflowStatus.PUBLISHED ? new Date() : null,
+      status: input.workflow.status,
+      tenantId: input.tenantId,
+      triggerConfig: input.workflow.triggerConfig,
+      triggerType: input.workflow.triggerType,
+      webhookSecret: input.workflow.webhookSecret
+    }
+  });
+
+  const stepIdByKey = new Map<string, string>();
+
+  for (const step of input.workflow.steps) {
+    const createdStep = await prisma.workflowStep.create({
+      data: {
+        config: step.config,
+        isTrigger: step.isTrigger ?? false,
+        key: step.key,
+        name: step.name,
+        onError: "STOP",
+        organizationId: input.organizationId,
+        tenantId: input.tenantId,
+        type: step.type,
+        workflowId: workflow.id
+      }
+    });
+
+    stepIdByKey.set(step.key, createdStep.id);
+  }
+
+  await Promise.all(
+    input.workflow.transitions.map((transition) =>
+      prisma.workflowTransition.create({
+        data: {
+          organizationId: input.organizationId,
+          route: transition.route,
+          sourceStepId: stepIdByKey.get(transition.sourceKey)!,
+          targetStepId: stepIdByKey.get(transition.targetKey)!,
+          tenantId: input.tenantId,
+          workflowId: workflow.id
+        }
+      })
+    )
+  );
+
+  // Cria execução de exemplo para facilitar testes de debugger e histórico no E2E.
+  const seededExecution = await prisma.workflowExecution.create({
+    data: {
+      organizationId: input.organizationId,
+      status: WorkflowExecutionStatus.SUCCESS,
+      tenantId: input.tenantId,
+      triggerPayload: {
+        seeded: true
+      },
+      triggerType: input.workflow.triggerType,
+      workflowId: workflow.id
+    }
+  });
+
+  const triggerStepKey = input.workflow.steps.find((step) => step.isTrigger)?.key;
+  const triggerStepId = triggerStepKey ? stepIdByKey.get(triggerStepKey) : null;
+
+  if (triggerStepId) {
+    await prisma.stepResult.create({
+      data: {
+        attempt: 1,
+        executionId: seededExecution.id,
+        finishedAt: new Date(),
+        input: {
+          seeded: true
+        },
+        organizationId: input.organizationId,
+        output: {
+          seeded: true,
+          tenantId: input.tenantId
+        },
+        outputSize: 64,
+        status: "SUCCESS",
+        stepId: triggerStepId,
+        tenantId: input.tenantId,
+        workflowId: workflow.id
+      }
+    });
+  }
+
+  return {
+    id: workflow.id,
+    status: workflow.status
+  };
+}
+
+function buildTenantWorkflows(tenantId: string): SeedWorkflowDefinition[] {
+  return [
+    {
+      description: "Fluxo de onboarding com trigger de webhook, espera e ação final HTTP.",
+      name: "Onboarding Workflow",
+      status: WorkflowStatus.PUBLISHED,
+      steps: [
+        {
+          config: {
+            expects: "user_created"
+          },
+          isTrigger: true,
+          key: "trigger_webhook",
+          name: "Webhook Trigger",
+          type: WorkflowStepType.TRIGGER_WEBHOOK
+        },
+        {
+          config: {
+            channel: "email",
+            message: "Bem-vindo(a) ao BirthHub 360!",
+            to: "{{ trigger.output.email }}"
+          },
+          key: "send_welcome_email",
+          name: "Send Welcome Email",
+          type: WorkflowStepType.SEND_NOTIFICATION
+        },
+        {
+          config: {
+            duration_ms: 86_400_000
+          },
+          key: "wait_24h",
+          name: "Wait 24h",
+          type: WorkflowStepType.DELAY
+        },
+        {
+          config: {
+            body: {
+              source: "workflow_onboarding",
+              tenantId,
+              userEmail: "{{ trigger.output.email }}"
+            },
+            method: "POST",
+            timeout_ms: 2_500,
+            url: "https://example.local/internal/followup"
+          },
+          key: "create_followup",
+          name: "Create Follow-up Task",
+          type: WorkflowStepType.HTTP_REQUEST
+        }
+      ],
+      transitions: [
+        {
+          route: WorkflowTransitionRoute.ALWAYS,
+          sourceKey: "trigger_webhook",
+          targetKey: "send_welcome_email"
+        },
+        {
+          route: WorkflowTransitionRoute.ALWAYS,
+          sourceKey: "send_welcome_email",
+          targetKey: "wait_24h"
+        },
+        {
+          route: WorkflowTransitionRoute.ALWAYS,
+          sourceKey: "wait_24h",
+          targetKey: "create_followup"
+        }
+      ],
+      triggerConfig: {
+        method: "POST",
+        path: "/webhooks/trigger/onboarding"
+      },
+      triggerType: WorkflowTriggerType.WEBHOOK,
+      webhookSecret: createHash("sha256").update(`${tenantId}:onboarding-webhook`).digest("hex")
+    },
+    {
+      cronExpression: "0 8 * * *",
+      description: "Fluxo de alerta operacional diário com branch condicional.",
+      name: "Alert Workflow",
+      status: WorkflowStatus.PUBLISHED,
+      steps: [
+        {
+          config: {
+            cron: "0 8 * * *"
+          },
+          isTrigger: true,
+          key: "trigger_cron",
+          name: "Daily Trigger",
+          type: WorkflowStepType.TRIGGER_CRON
+        },
+        {
+          config: {
+            method: "GET",
+            timeout_ms: 2_500,
+            url: "https://example.local/internal/health-summary"
+          },
+          key: "fetch_health",
+          name: "Fetch Health Summary",
+          type: WorkflowStepType.HTTP_REQUEST
+        },
+        {
+          config: {
+            operator: ">",
+            path: "steps.fetch_health.output.failRate",
+            value: 0.2
+          },
+          key: "check_fail_rate",
+          name: "Check Fail Rate",
+          type: WorkflowStepType.CONDITION
+        },
+        {
+          config: {
+            channel: "inapp",
+            message: "Fail rate acima do limite no tenant {{ trigger.output.tenantId }}.",
+            to: "ops@birthub.local"
+          },
+          key: "notify_ops",
+          name: "Notify Ops",
+          type: WorkflowStepType.SEND_NOTIFICATION
+        },
+        {
+          config: {
+            map: {
+              observedAt: "{{ steps.fetch_health.output.checkedAt }}",
+              status: "ok"
+            }
+          },
+          key: "log_normal_state",
+          name: "Log Normal State",
+          type: WorkflowStepType.TRANSFORMER
+        }
+      ],
+      transitions: [
+        {
+          route: WorkflowTransitionRoute.ALWAYS,
+          sourceKey: "trigger_cron",
+          targetKey: "fetch_health"
+        },
+        {
+          route: WorkflowTransitionRoute.ALWAYS,
+          sourceKey: "fetch_health",
+          targetKey: "check_fail_rate"
+        },
+        {
+          route: WorkflowTransitionRoute.IF_TRUE,
+          sourceKey: "check_fail_rate",
+          targetKey: "notify_ops"
+        },
+        {
+          route: WorkflowTransitionRoute.IF_FALSE,
+          sourceKey: "check_fail_rate",
+          targetKey: "log_normal_state"
+        }
+      ],
+      triggerConfig: {
+        cron: "0 8 * * *",
+        timezone: "America/Sao_Paulo"
+      },
+      triggerType: WorkflowTriggerType.CRON
+    }
+  ];
 }
 
 async function createTenant(
@@ -297,18 +602,11 @@ async function createTenant(
   );
 
   const workflows = await Promise.all(
-    seed.workflowNames.map((workflowName, index) =>
-      prisma.workflow.create({
-        data: {
-          definition: {
-            steps: ["capture", "qualify", "handoff"],
-            version: 1
-          },
-          name: workflowName,
-          organizationId: organization.id,
-          status: index === 0 ? WorkflowStatus.ACTIVE : WorkflowStatus.PAUSED,
-          tenantId: organization.tenantId
-        }
+    buildTenantWorkflows(organization.tenantId).map((workflow) =>
+      createWorkflowWithGraph({
+        organizationId: organization.id,
+        tenantId: organization.tenantId,
+        workflow
       })
     )
   );
