@@ -353,6 +353,9 @@ importers:
       ioredis:
         specifier: ^5.4.2
         version: 5.9.2
+      stripe:
+        specifier: ^16.10.0
+        version: 16.12.0
       swagger-ui-express:
         specifier: ^5.0.1
         version: 5.0.1(express@4.22.1)
@@ -668,8 +671,8 @@ importers:
         version: 4.3.6
     devDependencies:
       '@types/node':
-        specifier: ^22.10.2
-        version: 22.19.15
+        specifier: ^20.12.12
+        version: 20.19.33
       tsx:
         specifier: ^4.19.2
         version: 4.21.0
@@ -677,7 +680,7 @@ importers:
         specifier: ^0.26.11
         version: 0.26.11(typescript@5.9.3)
       typescript:
-        specifier: ^5.7.2
+        specifier: ^5.4.5
         version: 5.9.3
 
   packages/agents-registry:
@@ -689,6 +692,9 @@ importers:
       '@types/node':
         specifier: ^22.10.2
         version: 22.19.15
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.7.1
       tsx:
         specifier: ^4.19.2
         version: 4.21.0
@@ -3003,6 +3009,9 @@ packages:
 
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
+
+  '@types/semver@7.7.1':
+    resolution: {integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==}
 
   '@types/send@0.17.6':
     resolution: {integrity: sha512-Uqt8rPBE8SY0RK8JB1EzVOIZ32uqy8HwdxCnoCOsYrvnswqmFZ/k+9Ikidlk/ImhsdvBsloHbAlewb2IEBV/Og==}
@@ -8887,6 +8896,8 @@ snapshots:
   '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
+
+  '@types/semver@7.7.1': {}
 
   '@types/send@0.17.6':
     dependencies:

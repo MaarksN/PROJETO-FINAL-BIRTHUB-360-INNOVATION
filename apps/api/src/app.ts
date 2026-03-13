@@ -26,6 +26,12 @@ import { createRateLimitMiddleware } from "./middleware/rate-limit.js";
 import { requestContextMiddleware } from "./middleware/request-context.js";
 import { sanitizeMutationInput } from "./middleware/sanitize-input.js";
 import { validateBody } from "./middleware/validate-body.js";
+import { createBudgetRouter } from "./modules/budget/budget-routes.js";
+import { budgetService } from "./modules/budget/budget.service.js";
+import { BudgetExceededError } from "./modules/budget/budget.types.js";
+import { createMarketplaceRouter } from "./modules/marketplace/marketplace-routes.js";
+import { createOutputRouter } from "./modules/outputs/output-routes.js";
+import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
 
 const logger = createLogger("api");
 
@@ -181,25 +187,47 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/tasks",
     validateBody(taskRequestSchema),
     asyncHandler(async (request, response) => {
+      const tenantId = request.context.tenantId ?? "default-tenant";
+      const userId = request.context.userId ?? "system";
+
+      try {
+        budgetService.consumeBudget({
+          agentId: request.body.agentId,
+          costBRL: request.body.estimatedCostBRL,
+          executionMode: request.body.executionMode,
+          tenantId
+        });
+      } catch (error) {
+        if (error instanceof BudgetExceededError) {
+          throw new ProblemDetailsError({
+            detail: `Agent ${error.agentId} reached 100% budget usage and is blocked.`,
+            status: 402,
+            title: "Budget Exceeded"
+          });
+        }
+
+        throw error;
+      }
+
       const job = await enqueueTaskDependency(config, {
         agentId: request.body.agentId,
         approvalRequired: request.body.approvalRequired,
         context: request.context.tenantId
           ? {
-              actorId: request.context.userId ?? "system",
+              actorId: userId,
               jobId: request.context.requestId,
               scopedAt: new Date().toISOString(),
-              tenantId: request.context.tenantId
+              tenantId
             }
           : undefined,
         estimatedCostBRL: request.body.estimatedCostBRL,
         executionMode: request.body.executionMode,
         payload: request.body.payload,
         requestId: request.context.requestId,
-        signature: "unsigned",
-        tenantId: request.context.tenantId,
+        signature: Buffer.from(`${tenantId}:${request.context.requestId}`).toString("base64url"),
+        tenantId,
         type: request.body.type,
-        userId: request.context.userId,
+        userId,
         version: "1"
       });
 
@@ -221,6 +249,11 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       );
     })
   );
+
+  app.use("/api/v1/agents", createMarketplaceRouter());
+  app.use("/api/v1/budgets", createBudgetRouter());
+  app.use("/api/v1/packs", createPackInstallerRouter());
+  app.use("/api/v1/outputs", createOutputRouter());
 
   app.use(notFoundMiddleware);
   app.use(errorHandler);
