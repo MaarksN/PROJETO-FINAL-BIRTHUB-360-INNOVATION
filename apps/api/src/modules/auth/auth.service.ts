@@ -521,6 +521,16 @@ export async function authenticateRequest(input: {
       return null;
     }
 
+    const user = await prisma.user.findUnique({
+      where: {
+        id: apiKey.userId
+      }
+    });
+
+    if (!user || user.status === UserStatus.SUSPENDED) {
+      return null;
+    }
+
     return {
       apiKeyId: apiKey.apiKeyId,
       authType: "api-key",
@@ -706,7 +716,7 @@ export async function revokeSessionById(input: {
   sessionId: string;
   userId: string;
 }) {
-  await prisma.session.updateMany({
+  const result = await prisma.session.updateMany({
     data: {
       revokedAt: new Date()
     },
@@ -716,6 +726,8 @@ export async function revokeSessionById(input: {
       userId: input.userId
     }
   });
+
+  return result.count;
 }
 
 export async function getRoleForUser(input: {
@@ -834,7 +846,8 @@ export async function rotateTenantApiKey(input: {
     await tx.apiKey.update({
       data: {
         graceExpiresAt,
-        status: ApiKeyStatus.REVOKED
+        revokedAt: null,
+        status: ApiKeyStatus.ACTIVE
       },
       where: {
         id: current.id
