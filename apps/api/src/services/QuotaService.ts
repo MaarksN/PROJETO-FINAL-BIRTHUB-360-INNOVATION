@@ -100,11 +100,6 @@ export class QuotaService {
   ) {
     const tenantId = await resolveTenantId(client, tenantReference);
     const rows = await client.quotaUsage.findMany({
-      cursor: pagination.cursor
-        ? {
-            id: pagination.cursor
-          }
-        : undefined,
       orderBy: {
         id: "asc"
       },
@@ -112,7 +107,14 @@ export class QuotaService {
       take: pagination.take + 1,
       where: {
         tenantId
-      }
+      },
+      ...(pagination.cursor
+        ? {
+            cursor: {
+              id: pagination.cursor
+            }
+          }
+        : {})
     });
 
     const nextCursor =

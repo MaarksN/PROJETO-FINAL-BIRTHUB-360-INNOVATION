@@ -8,30 +8,39 @@ datasource db {
 }
 
 model Organization {
-  id            String         @id @default(cuid())
-  tenantId      String         @unique @default(cuid())
-  name          String
-  slug          String         @unique
-  settings      Json?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  memberships   Membership[]
-  sessions      Session[]
-  agents        Agent[]
-  workflows     Workflow[]
-  customers     Customer[]
-  invites       Invite[]
-  subscriptions Subscription[]
-  auditLogs     AuditLog[]     @relation("OrganizationAuditLogs")
-  quotaUsages   QuotaUsage[]   @relation("OrganizationQuotaUsages")
-  apiKeys       ApiKey[]
-  loginAlerts   LoginAlert[]
-  mfaChallenges MfaChallenge[]
-  jobSecrets    JobSigningSecret[]
+  id               String            @id @default(cuid())
+  tenantId         String            @unique @default(cuid())
+  name             String
+  slug             String            @unique
+  settings         Json?
+  stripeCustomerId String?           @unique @map("stripe_customer_id")
+  planId           String?           @map("plan_id")
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  memberships      Membership[]
+  sessions         Session[]
+  agents           Agent[]
+  workflows        Workflow[]
+  customers        Customer[]
+  invites          Invite[]
+  subscriptions    Subscription[]
+  invoices         Invoice[]
+  paymentMethods   PaymentMethod[]
+  usageRecords     UsageRecord[]
+  billingEvents    BillingEvent[]
+  auditLogs        AuditLog[]        @relation("OrganizationAuditLogs")
+  quotaUsages      QuotaUsage[]      @relation("OrganizationQuotaUsages")
+  apiKeys          ApiKey[]
+  loginAlerts      LoginAlert[]
+  mfaChallenges    MfaChallenge[]
+  jobSecrets       JobSigningSecret[]
+  plan             Plan?             @relation(fields: [planId], references: [id], onDelete: SetNull)
 
   @@index([tenantId])
   @@index([tenantId, id])
   @@index([tenantId, slug])
+  @@index([stripeCustomerId])
+  @@index([planId])
   @@map("organizations")
 }
 
@@ -319,22 +328,132 @@ model QuotaUsage {
   @@map("quota_usage")
 }
 
+model Plan {
+  id               String         @id @default(cuid())
+  code             String         @unique
+  name             String
+  description      String?
+  stripeProductId  String?        @unique @map("stripe_product_id")
+  stripePriceId    String?        @unique @map("stripe_price_id")
+  limits           Json
+  monthlyPriceCents Int           @default(0) @map("monthly_price_cents")
+  yearlyPriceCents Int?           @map("yearly_price_cents")
+  currency         String         @default("usd")
+  active           Boolean        @default(true)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  organizations    Organization[]
+  subscriptions    Subscription[]
+
+  @@index([active])
+  @@map("plans")
+}
+
 model Subscription {
-  id             String             @id @default(cuid())
-  tenantId       String
-  organizationId String
-  plan           SubscriptionPlan   @default(STARTER)
-  status         SubscriptionStatus @default(TRIALING)
-  renewsAt       DateTime?
-  createdAt      DateTime           @default(now())
-  updatedAt      DateTime           @updatedAt
-  organization   Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  id                  String             @id @default(cuid())
+  tenantId            String
+  organizationId      String
+  planId              String
+  stripeSubscriptionId String?           @unique @map("stripe_subscription_id")
+  stripeCustomerId    String?            @map("stripe_customer_id")
+  status              SubscriptionStatus @default(trial)
+  currentPeriodEnd    DateTime?          @map("current_period_end")
+  canceledAt          DateTime?          @map("canceled_at")
+  gracePeriodEndsAt   DateTime?          @map("grace_period_ends_at")
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  organization        Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plan                Plan               @relation(fields: [planId], references: [id], onDelete: Restrict)
+  invoices            Invoice[]
+  usageRecords        UsageRecord[]
 
   @@unique([organizationId])
   @@index([tenantId])
-  @@index([tenantId, id])
   @@index([tenantId, status])
+  @@index([stripeCustomerId])
   @@map("subscriptions")
+}
+
+model Invoice {
+  id               String      @id @default(cuid())
+  tenantId         String
+  organizationId   String
+  subscriptionId   String?
+  stripeInvoiceId  String      @unique @map("stripe_invoice_id")
+  status           InvoiceStatus
+  currency         String      @default("usd")
+  amountDueCents   Int         @default(0) @map("amount_due_cents")
+  amountPaidCents  Int         @default(0) @map("amount_paid_cents")
+  hostedInvoiceUrl String?     @map("hosted_invoice_url")
+  invoicePdfUrl    String?     @map("invoice_pdf_url")
+  dueDate          DateTime?   @map("due_date")
+  periodStart      DateTime?   @map("period_start")
+  periodEnd        DateTime?   @map("period_end")
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  subscription     Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([organizationId, createdAt])
+  @@map("invoices")
+}
+
+model PaymentMethod {
+  id                    String       @id @default(cuid())
+  tenantId              String
+  organizationId        String
+  stripePaymentMethodId String       @unique @map("stripe_payment_method_id")
+  brand                 String?
+  last4                 String?
+  expMonth              Int?         @map("exp_month")
+  expYear               Int?         @map("exp_year")
+  isDefault             Boolean      @default(false) @map("is_default")
+  createdAt             DateTime     @default(now())
+  updatedAt             DateTime     @updatedAt
+  organization          Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([organizationId, isDefault])
+  @@map("payment_methods")
+}
+
+model UsageRecord {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  subscriptionId String?
+  eventId        String       @unique @map("event_id")
+  metric         String
+  quantity       Int
+  unit           String       @default("tokens")
+  metadata       Json?
+  occurredAt     DateTime     @default(now()) @map("occurred_at")
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, metric])
+  @@index([organizationId, occurredAt])
+  @@map("usage_records")
+}
+
+model BillingEvent {
+  id            String        @id @default(cuid())
+  tenantId      String?
+  organizationId String?
+  stripeEventId String        @unique @map("stripe_event_id")
+  type          String
+  payload       Json
+  processedAt   DateTime      @default(now()) @map("processed_at")
+  createdAt     DateTime      @default(now())
+  organization  Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([organizationId, processedAt])
+  @@map("billing_events")
 }
 
 enum Role {
@@ -381,17 +500,21 @@ enum InviteStatus {
   EXPIRED
 }
 
-enum SubscriptionPlan {
-  STARTER
-  PRO
-  ENTERPRISE
+enum SubscriptionStatus {
+  trial
+  active
+  past_due
+  canceled
+  paused
 }
 
-enum SubscriptionStatus {
-  TRIALING
-  ACTIVE
-  PAST_DUE
-  CANCELLED
+enum InvoiceStatus {
+  draft
+  open
+  paid
+  uncollectible
+  void
+  past_due
 }
 
 enum ApiKeyStatus {

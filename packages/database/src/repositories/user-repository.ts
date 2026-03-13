@@ -1,11 +1,11 @@
-import { MembershipStatus, Role, type Prisma } from "@prisma/client";
+import { Role, UserStatus, type Prisma } from "@prisma/client";
 
 import { prisma } from "../client.js";
 
 export interface TenantUserFilters {
   role?: Role;
   search?: string;
-  status?: MembershipStatus;
+  status?: UserStatus;
 }
 
 export async function listUsersByTenant(
@@ -13,11 +13,11 @@ export async function listUsersByTenant(
   filters: TenantUserFilters = {}
 ) {
   const where: Prisma.UserWhereInput = {
+    ...(filters.status ? { status: filters.status } : {}),
     memberships: {
       some: {
         organizationId,
-        ...(filters.role ? { role: filters.role } : {}),
-        ...(filters.status ? { status: filters.status } : {})
+        ...(filters.role ? { role: filters.role } : {})
       }
     }
   };

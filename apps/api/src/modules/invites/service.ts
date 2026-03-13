@@ -39,7 +39,7 @@ export async function createInvite(input: {
       data: {
         email: input.email,
         expiresAt: resolveDefaultExpiry(input.expiresAt),
-        invitedByUserId: input.invitedByUserId ?? undefined,
+        invitedByUserId: input.invitedByUserId ?? null,
         organizationId: input.organizationId,
         role: input.role,
         tenantId: input.tenantId,
@@ -105,9 +105,7 @@ export async function acceptInvite(input: {
           email: invite.email,
           name: input.name ?? invite.email.split("@")[0] ?? "Invited User"
         },
-        update: {
-          name: input.name ?? undefined
-        },
+        update: input.name ? { name: input.name } : {},
         where: {
           email: invite.email
         }
@@ -187,11 +185,6 @@ export async function listInvites(input: {
 }) {
   return withTenantDatabaseContext(async (tx) => {
     const rows = await tx.invite.findMany({
-      cursor: input.cursor
-        ? {
-            id: input.cursor
-          }
-        : undefined,
       orderBy: {
         id: "asc"
       },
@@ -199,7 +192,14 @@ export async function listInvites(input: {
       take: input.take + 1,
       where: {
         tenantId: input.tenantId
-      }
+      },
+      ...(input.cursor
+        ? {
+            cursor: {
+              id: input.cursor
+            }
+          }
+        : {})
     });
 
     return {

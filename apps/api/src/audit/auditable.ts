@@ -33,7 +33,7 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
 
       enqueueAuditEvent({
         action: options.action,
-        actorId: request.context.userId ?? undefined,
+        actorId: request.context.userId ?? null,
         diff: {
           payload: request.body ?? null,
           response: result ?? null
@@ -42,9 +42,9 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
           options.resolveEntityId?.(request, response, result) ??
           String(request.params.id ?? request.params.memberId ?? "unknown"),
         entityType: options.entityType,
-        ip: request.ip || undefined,
+        ip: request.ip || null,
         tenantId,
-        userAgent: request.get("user-agent") ?? undefined
+        userAgent: request.get("user-agent") ?? null
       });
 
       return result;

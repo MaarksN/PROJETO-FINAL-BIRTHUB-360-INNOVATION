@@ -1,5 +1,5 @@
 import {
-  type Prisma,
+  Prisma,
   prisma,
   type PrismaClient,
   type QuotaResourceType,
@@ -151,11 +151,6 @@ export async function listMembersForOrganization(input: {
     await resolveScopedOrganization(tx, input.organizationId, input.tenantId);
 
     const rows = await tx.membership.findMany({
-      cursor: input.cursor
-        ? {
-            id: input.cursor
-          }
-        : undefined,
       include: {
         user: true
       },
@@ -167,7 +162,14 @@ export async function listMembersForOrganization(input: {
       where: {
         organizationId: input.organizationId,
         tenantId: input.tenantId
-      }
+      },
+      ...(input.cursor
+        ? {
+            cursor: {
+              id: input.cursor
+            }
+          }
+        : {})
     });
 
     return {
@@ -284,11 +286,6 @@ export async function listAuditLogs(input: {
     await resolveScopedOrganization(tx, input.organizationId, input.tenantId);
 
     const rows = await tx.auditLog.findMany({
-      cursor: input.cursor
-        ? {
-            id: input.cursor
-          }
-        : undefined,
       orderBy: {
         id: "asc"
       },
@@ -296,16 +293,24 @@ export async function listAuditLogs(input: {
       take: input.take + 1,
       where: {
         actorId: input.actorId,
-        createdAt:
-          input.from || input.to
-            ? {
-                gte: input.from ? new Date(input.from) : undefined,
-                lte: input.to ? new Date(input.to) : undefined
+        ...(input.from || input.to
+          ? {
+              createdAt: {
+                ...(input.from ? { gte: new Date(input.from) } : {}),
+                ...(input.to ? { lte: new Date(input.to) } : {})
               }
-            : undefined,
+            }
+          : {}),
         entityType: input.entityType,
         tenantId: input.tenantId
-      }
+      },
+      ...(input.cursor
+        ? {
+            cursor: {
+              id: input.cursor
+            }
+          }
+        : {})
     });
 
     return {
