@@ -17,16 +17,26 @@ interface StreamLog {
 
 const INITIAL_INPUT = JSON.stringify(
   {
-    toolCalls: [
-      {
-        input: { text: "Ping from Agent Studio" },
-        tool: "echo"
-      }
-    ]
+    context: {
+      objective: "Executar dry-run governado com publicacao de aprendizado",
+      origin: "Agent Studio"
+    }
   },
   null,
   2
 );
+
+function readTenantId(): string {
+  if (typeof window === "undefined") {
+    return "birthhub-alpha";
+  }
+
+  return (
+    window.localStorage.getItem("bh_tenant_id") ??
+    window.localStorage.getItem("tenantId") ??
+    "birthhub-alpha"
+  );
+}
 
 export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>) {
   const { track } = useAnalytics();
@@ -41,7 +51,7 @@ export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>)
       return null;
     }
 
-    return `${apiUrl}/api/v1/agents/${agentId}/run/stream?executionId=${encodeURIComponent(executionId)}`;
+    return `${apiUrl}/api/v1/agents/installed/${agentId}/run/stream?executionId=${encodeURIComponent(executionId)}&tenantId=${encodeURIComponent(readTenantId())}`;
   }, [agentId, apiUrl, executionId]);
 
   async function handleRun(): Promise<void> {
@@ -51,11 +61,13 @@ export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>)
 
     try {
       const parsedPayload = JSON.parse(inputPayload) as Record<string, unknown>;
-      const response = await fetch(`${apiUrl}/api/v1/agents/${agentId}/run`, {
+      const tenantId = readTenantId();
+      const response = await fetch(`${apiUrl}/api/v1/agents/installed/${agentId}/run`, {
         body: JSON.stringify(parsedPayload),
         credentials: "include",
         headers: {
-          "content-type": "application/json"
+          "content-type": "application/json",
+          "x-tenant-id": tenantId
         },
         method: "POST"
       });
@@ -73,7 +85,7 @@ export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>)
       });
 
       const source = new EventSource(
-        `${apiUrl}/api/v1/agents/${agentId}/run/stream?executionId=${encodeURIComponent(payload.executionId)}`
+        `${apiUrl}/api/v1/agents/installed/${agentId}/run/stream?executionId=${encodeURIComponent(payload.executionId)}&tenantId=${encodeURIComponent(tenantId)}`
       );
 
       source.addEventListener("log", (event) => {

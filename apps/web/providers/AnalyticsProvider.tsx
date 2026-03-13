@@ -178,7 +178,14 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
     const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
     const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
-    if (!session || cookieConsent !== "ACCEPTED" || !apiKey || !host) {
+    if (
+      !session ||
+      !session.userId ||
+      !session.tenantId ||
+      cookieConsent !== "ACCEPTED" ||
+      !apiKey ||
+      !host
+    ) {
       clientRef.current = null;
       setReady(false);
       return;

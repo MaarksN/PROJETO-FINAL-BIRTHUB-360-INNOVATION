@@ -30,11 +30,12 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
   );
 
   async function installPack(): Promise<void> {
-    setStatus("Instalando pacote...");
+    setStatus("Instalando agente oficial...");
 
     const response = await fetch(`${apiUrl}/api/v1/packs/install`, {
       body: JSON.stringify({
         activateAgents,
+        agentId: selectedPackId,
         connectors,
         packId: selectedPackId
       }),
@@ -50,7 +51,7 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
       return;
     }
 
-    setStatus("Pacote instalado com sucesso.");
+    setStatus("Agente oficial instalado com sucesso.");
     setStep(4);
   }
 
@@ -66,13 +67,13 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
       }}
     >
       <header style={{ display: "grid", gap: "0.3rem" }}>
-        <strong>Pack Installer Wizard</strong>
+        <strong>Official Agent Installer</strong>
         <small style={{ color: "var(--muted)" }}>Step {step} of 4</small>
       </header>
 
       {step === 1 ? (
         <div style={{ display: "grid", gap: "0.7rem" }}>
-          <label htmlFor="pack-select">Selecionar pack</label>
+          <label htmlFor="pack-select">Selecionar agente oficial</label>
           <select
             id="pack-select"
             onChange={(event) => setSelectedPackId(event.target.value)}
@@ -169,9 +170,9 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
       {step === 4 ? (
         <div style={{ display: "grid", gap: "0.7rem" }}>
           <strong>Ativacao concluida</strong>
-          <p style={{ margin: 0 }}>Pack {selectedPack?.name} pronto para uso.</p>
+          <p style={{ margin: 0 }}>Agente {selectedPack?.name} pronto para uso.</p>
           <button onClick={() => setStep(1)} type="button">
-            Instalar outro pack
+            Instalar outro agente
           </button>
         </div>
       ) : null}
