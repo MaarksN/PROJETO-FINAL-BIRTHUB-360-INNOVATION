@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { z } from "zod";
 
+import { RequireFeature } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { LimitExceededError } from "../billing/index.js";
 import { packInstallerService } from "./pack-installer.service.js";
@@ -10,6 +11,7 @@ export function createPackInstallerRouter(): Router {
 
   router.post(
     "/install",
+    RequireFeature("agents"),
     asyncHandler(async (request, response) => {
       const tenantId = request.context.tenantId ?? "default-tenant";
       const payload = z

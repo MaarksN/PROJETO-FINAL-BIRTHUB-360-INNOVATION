@@ -89,12 +89,64 @@ const agentExecutionJobSchema = z
   })
   .strict();
 
+function billingCacheKey(tenantReference: string): string {
+  return `billing-status:${tenantReference}`;
+}
+
+function calculateGraceBoundary(updatedAt: Date, gracePeriodDays: number): Date {
+  return new Date(updatedAt.getTime() + gracePeriodDays * 24 * 60 * 60 * 1000);
+}
+
 export function createBirthHubWorker(): WorkerRuntime {
   const config = getWorkerConfig();
   const connection = new Redis(config.REDIS_URL, {
     maxRetriesPerRequest: null
   });
   const executor = new PlanExecutor({ redis: connection });
+
+  const resolveBillingLock = async (
+    tenantReference: string
+  ): Promise<{ locked: boolean; status: string | null }> => {
+    const cached = await connection.get(billingCacheKey(tenantReference));
+
+    if (cached) {
+      return JSON.parse(cached) as { locked: boolean; status: string | null };
+    }
+
+    const organization = await prisma.organization.findFirst({
+      include: {
+        subscriptions: {
+          orderBy: {
+            updatedAt: "desc"
+          },
+          take: 1
+        }
+      },
+      where: {
+        OR: [{ id: tenantReference }, { tenantId: tenantReference }]
+      }
+    });
+    const subscription = organization?.subscriptions[0] ?? null;
+    const status = subscription?.status ?? null;
+    const graceBoundary =
+      subscription && status === "past_due"
+        ? subscription.gracePeriodEndsAt ?? calculateGraceBoundary(subscription.updatedAt, config.BILLING_GRACE_PERIOD_DAYS)
+        : null;
+    const locked = Boolean(status === "past_due" && graceBoundary && graceBoundary.getTime() <= Date.now());
+    const payload = {
+      locked,
+      status
+    };
+
+    await connection.set(
+      billingCacheKey(tenantReference),
+      JSON.stringify(payload),
+      "EX",
+      config.BILLING_STATUS_CACHE_TTL_SECONDS
+    );
+
+    return payload;
+  };
 
   const processJob = async (job: {
     id?: string | number;
@@ -146,6 +198,24 @@ export function createBirthHubWorker(): WorkerRuntime {
         userId: executionPayload.agentId
       },
       async () => {
+        const billing = await resolveBillingLock(executionPayload.tenantId);
+        if (billing.locked) {
+          logger.warn(
+            {
+              executionId: executionPayload.executionId,
+              status: billing.status,
+              tenantId: executionPayload.tenantId
+            },
+            "Worker aborted execution due to billing lock"
+          );
+
+          return {
+            blocked: true,
+            blockedAt: new Date().toISOString(),
+            reason: "billing_past_due"
+          };
+        }
+
         logger.info(
           {
             executionId: executionPayload.executionId,

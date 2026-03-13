@@ -317,6 +317,9 @@ importers:
       '@birthub/logger':
         specifier: workspace:*
         version: link:../../packages/logger
+      '@birthub/workflows-core':
+        specifier: workspace:*
+        version: link:../../packages/workflows-core
       '@opentelemetry/auto-instrumentations-node':
         specifier: ^0.57.0
         version: 0.57.1(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))
@@ -576,6 +579,9 @@ importers:
       react:
         specifier: 19.0.0
         version: 19.0.0
+      react-confetti:
+        specifier: ^6.2.1
+        version: 6.4.0(react@19.0.0)
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
@@ -619,6 +625,9 @@ importers:
       '@birthub/testing':
         specifier: workspace:*
         version: link:../../packages/testing
+      '@birthub/workflows-core':
+        specifier: workspace:*
+        version: link:../../packages/workflows-core
       bullmq:
         specifier: ^5.34.4
         version: 5.69.3
@@ -929,6 +938,22 @@ importers:
         version: 20.19.33
       typescript:
         specifier: ^5.4.5
+        version: 5.9.3
+
+  packages/workflows-core:
+    dependencies:
+      zod:
+        specifier: ^3.24.1
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.2
+        version: 22.19.15
+      tsx:
+        specifier: ^4.19.2
+        version: 4.21.0
+      typescript:
+        specifier: ^5.7.2
         version: 5.9.3
 
 packages:
@@ -5478,6 +5503,12 @@ packages:
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
 
+  react-confetti@6.4.0:
+    resolution: {integrity: sha512-5MdGUcqxrTU26I2EU7ltkWPwxvucQTuqMm8dUz72z2YMqTD6s9vMcDUysk7n9jnC+lXuCPeJJ7Knf98VEYE9Rg==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.1 || ^18.0.0 || ^19.0.0
+
   react-diff-viewer-continued@4.2.0:
     resolution: {integrity: sha512-KXeevuPpMRNDAtF878G04Yih/01DBBoC+RjDzWiA5S6TPtUzSfqF5XOlEWyXVWvJuz5n+EQ9QdUQd0ffK2By6w==}
     engines: {node: '>= 16'}
@@ -6105,6 +6136,9 @@ packages:
   turbo@2.8.10:
     resolution: {integrity: sha512-OxbzDES66+x7nnKGg2MwBA1ypVsZoDTLHpeaP4giyiHSixbsiTaMyeJqbEyvBdp5Cm28fc+8GG6RdQtic0ijwQ==}
     hasBin: true
+
+  tween-functions@1.2.0:
+    resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
 
   twilio@5.12.2:
     resolution: {integrity: sha512-yjTH04Ig0Z3PAxIXhwrto0IJC4Gv7lBDQQ9f4/P9zJhnxVdd+3tENqBMJOtdmmRags3X0jl2IGKEQefCEpJE9g==}
@@ -11618,6 +11652,11 @@ snapshots:
       defu: 6.1.4
       destr: 2.0.5
 
+  react-confetti@6.4.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      tween-functions: 1.2.0
+
   react-diff-viewer-continued@4.2.0(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@emotion/css': 11.13.5
@@ -12354,6 +12393,8 @@ snapshots:
       turbo-linux-arm64: 2.8.10
       turbo-windows-64: 2.8.10
       turbo-windows-arm64: 2.8.10
+
+  tween-functions@1.2.0: {}
 
   twilio@5.12.2:
     dependencies:

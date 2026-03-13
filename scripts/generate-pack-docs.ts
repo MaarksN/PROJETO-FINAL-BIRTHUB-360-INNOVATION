@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { loadManifestCatalog } from "@birthub/agents-core";
 
@@ -8,7 +9,8 @@ function toDocSlug(agentId: string): string {
 }
 
 async function main(): Promise<void> {
-  const root = process.cwd();
+  const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
+  const root = path.resolve(scriptsDir, "..");
   const catalogDir = path.join(root, "packages", "agent-packs");
   const outputDir = path.join(root, "docs", "agent-packs");
 

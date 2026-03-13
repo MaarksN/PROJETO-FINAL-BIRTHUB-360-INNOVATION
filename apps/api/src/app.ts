@@ -40,7 +40,9 @@ import { createOrganization } from "./modules/organizations/service.js";
 import { startOutputRetentionScheduler } from "./modules/outputs/output-retention.js";
 import { createOutputRouter } from "./modules/outputs/output-routes.js";
 import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
+import { createWebhooksRouter, initializeWorkflowInternalEventBridge } from "./modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
+import { createWorkflowsRouter } from "./modules/workflows/index.js";
 
 const logger = createLogger("api");
 
@@ -60,6 +62,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   configureCacheStore(config.REDIS_URL);
   registerTenantCacheInvalidationMiddleware();
+  initializeWorkflowInternalEventBridge(config);
 
   app.disable("x-powered-by");
   app.use(requestContextMiddleware);
@@ -198,7 +201,9 @@ export function createApp(dependencies: AppDependencies = {}): Express {
           code: billing.plan.code,
           hardLocked: billing.hardLocked,
           isPaid: billing.isPaid,
+          isWithinGracePeriod: billing.isWithinGracePeriod,
           name: billing.plan.name,
+          secondsUntilHardLock: billing.secondsUntilHardLock,
           status: billing.status
         },
         requestId: request.context.requestId,
@@ -299,6 +304,8 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use("/api/v1", createOrganizationsRouter());
   app.use("/api/v1/packs", createPackInstallerRouter());
   app.use("/api/v1/outputs", createOutputRouter());
+  app.use(createWorkflowsRouter(config));
+  app.use(createWebhooksRouter(config));
 
   app.use(notFoundMiddleware);
   app.use(errorHandler);

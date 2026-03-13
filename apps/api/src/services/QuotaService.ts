@@ -6,6 +6,9 @@ import {
   type QuotaResourceType
 } from "@birthub/database";
 
+import { readNumericPlanLimit } from "../modules/billing/plan.utils.js";
+import { getBillingSnapshot } from "../modules/billing/service.js";
+
 type DatabaseClient = PrismaClient | Prisma.TransactionClient;
 
 const defaultLimits: Record<QuotaResourceType, number> = {
@@ -14,6 +17,14 @@ const defaultLimits: Record<QuotaResourceType, number> = {
   EMAILS_SENT: 2_500,
   STORAGE_GB: 100,
   WORKFLOW_RUNS: 10_000
+};
+
+const planLimitKeyByResource: Record<QuotaResourceType, string> = {
+  AI_PROMPTS: "aiPrompts",
+  API_REQUESTS: "apiRequests",
+  EMAILS_SENT: "emails",
+  STORAGE_GB: "storageGb",
+  WORKFLOW_RUNS: "workflows"
 };
 
 async function resolveTenantId(client: DatabaseClient, tenantReference: string): Promise<string> {
@@ -39,6 +50,25 @@ function nextMonthlyReset(reference = new Date()): Date {
 export class QuotaService {
   constructor(private readonly client: DatabaseClient = prisma) {}
 
+  private async resolveLimit(tenantReference: string, resourceType: QuotaResourceType): Promise<number> {
+    try {
+      const snapshot = await getBillingSnapshot(tenantReference, 3);
+      const planLimit = readNumericPlanLimit(
+        snapshot.plan.limits,
+        planLimitKeyByResource[resourceType],
+        defaultLimits[resourceType]
+      );
+
+      if (!Number.isFinite(planLimit)) {
+        return Number.MAX_SAFE_INTEGER;
+      }
+
+      return Math.max(1, Math.floor(planLimit));
+    } catch {
+      return defaultLimits[resourceType];
+    }
+  }
+
   async checkAndConsume(
     tenantReference: string,
     resourceType: QuotaResourceType,
@@ -47,6 +77,7 @@ export class QuotaService {
   ) {
     const tenantId = await resolveTenantId(client, tenantReference);
     const period = currentMonthlyPeriod();
+    const resolvedLimit = await this.resolveLimit(tenantReference, resourceType);
     let quota = await client.quotaUsage.findFirst({
       where: {
         period,
@@ -59,11 +90,20 @@ export class QuotaService {
       quota = await client.quotaUsage.create({
         data: {
           count: 0,
-          limit: defaultLimits[resourceType],
+          limit: resolvedLimit,
           period,
           resetAt: nextMonthlyReset(),
           resourceType,
           tenantId
+        }
+      });
+    } else if (quota.limit !== resolvedLimit) {
+      quota = await client.quotaUsage.update({
+        data: {
+          limit: resolvedLimit
+        },
+        where: {
+          id: quota.id
         }
       });
     }

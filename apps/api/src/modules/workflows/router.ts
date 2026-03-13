@@ -2,9 +2,9 @@ import { createHmac } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";
 import { prisma, Role, WorkflowTriggerType } from "@birthub/database";
+import type { Request } from "express";
 import { Router } from "express";
 
-import { RequireRole, requireAuthenticated } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import { emitWorkflowInternalEvent } from "../webhooks/eventBus.js";
@@ -22,23 +22,59 @@ import {
   updateWorkflow
 } from "./service.js";
 
+function requireTenantId(request: Request): string {
+  const tenantId = request.context.tenantId;
+  if (!tenantId) {
+    throw new ProblemDetailsError({
+      detail: "Tenant context is required.",
+      status: 401,
+      title: "Unauthorized"
+    });
+  }
+
+  return tenantId;
+}
+
+async function assertAdminRole(request: Request): Promise<void> {
+  const tenantId = requireTenantId(request);
+  const userId = request.context.userId;
+
+  if (!userId) {
+    throw new ProblemDetailsError({
+      detail: "Authenticated user is required for this operation.",
+      status: 401,
+      title: "Unauthorized"
+    });
+  }
+
+  const membership = await prisma.membership.findFirst({
+    where: {
+      role: {
+        in: [Role.ADMIN, Role.OWNER]
+      },
+      tenantId,
+      userId
+    }
+  });
+
+  if (!membership) {
+    throw new ProblemDetailsError({
+      detail: "Admin or owner role is required for this operation.",
+      status: 403,
+      title: "Forbidden"
+    });
+  }
+}
+
 export function createWorkflowsRouter(config: ApiConfig): Router {
   const router = Router();
 
   router.get(
     "/api/v1/workflows",
-    requireAuthenticated,
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      const tenantId = requireTenantId(request);
 
-      const items = await listWorkflows(organizationId);
+      const items = await listWorkflows(tenantId);
       response.status(200).json({
         items,
         requestId: request.context.requestId
@@ -48,20 +84,12 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   router.post(
     "/api/v1/workflows",
-    requireAuthenticated,
-    RequireRole(Role.ADMIN),
     validateBody(workflowCreateSchema),
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      await assertAdminRole(request);
+      const tenantId = requireTenantId(request);
 
-      const workflow = await createWorkflow(config, organizationId, request.body);
+      const workflow = await createWorkflow(config, tenantId, request.body);
       response.status(201).json({
         requestId: request.context.requestId,
         workflow
@@ -71,18 +99,10 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   router.get(
     "/api/v1/workflows/:id",
-    requireAuthenticated,
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      const tenantId = requireTenantId(request);
 
-      const workflow = await getWorkflowById(request.params.id, organizationId);
+      const workflow = await getWorkflowById(request.params.id, tenantId);
       if (!workflow) {
         throw new ProblemDetailsError({
           detail: "Workflow not found.",
@@ -100,23 +120,15 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   router.put(
     "/api/v1/workflows/:id",
-    requireAuthenticated,
-    RequireRole(Role.ADMIN),
     validateBody(workflowUpdateSchema),
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      await assertAdminRole(request);
+      const tenantId = requireTenantId(request);
 
       const workflow = await updateWorkflow(
         config,
         request.params.id,
-        organizationId,
+        tenantId,
         request.body
       );
       response.status(200).json({
@@ -128,43 +140,27 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   router.delete(
     "/api/v1/workflows/:id",
-    requireAuthenticated,
-    RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      await assertAdminRole(request);
+      const tenantId = requireTenantId(request);
 
-      await archiveWorkflow(request.params.id, organizationId);
+      await archiveWorkflow(request.params.id, tenantId);
       response.status(204).send();
     })
   );
 
   router.post(
     "/api/v1/workflows/:id/run",
-    requireAuthenticated,
-    RequireRole(Role.ADMIN),
     validateBody(workflowRunSchema),
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      await assertAdminRole(request);
+      const tenantId = requireTenantId(request);
 
       try {
         const result = await runWorkflowNow(
           config,
           request.params.id,
-          organizationId,
+          tenantId,
           request.body,
           WorkflowTriggerType.MANUAL
         );
@@ -188,19 +184,11 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   router.get(
     "/api/v1/workflows/:id/webhook-url",
-    requireAuthenticated,
-    RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      await assertAdminRole(request);
+      const tenantId = requireTenantId(request);
 
-      const workflow = await getWorkflowById(request.params.id, organizationId);
+      const workflow = await getWorkflowById(request.params.id, tenantId);
       if (!workflow || workflow.triggerType !== WorkflowTriggerType.WEBHOOK) {
         throw new ProblemDetailsError({
           detail: "Webhook workflow not found.",
@@ -231,21 +219,13 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   router.post(
     "/api/v1/workflows/events/:topic",
-    requireAuthenticated,
-    RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
-      const organizationId = request.context.tenantId;
-      if (!organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authenticated organization is required.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
+      await assertAdminRole(request);
+      const tenantId = requireTenantId(request);
 
-      const organization = await prisma.organization.findUnique({
+      const organization = await prisma.organization.findFirst({
         where: {
-          id: organizationId
+          OR: [{ id: tenantId }, { tenantId }]
         }
       });
 

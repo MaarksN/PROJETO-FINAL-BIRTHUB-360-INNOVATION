@@ -33,6 +33,7 @@ export function requestContextMiddleware(
   const traceId = request.header("x-trace-id") ?? requestId;
   const tenantId = request.header("x-tenant-id") ?? null;
   const tenantSlug = request.header("x-tenant-slug") ?? null;
+  const userId = request.header("x-user-id") ?? null;
 
   request.context = {
     apiKeyId: null,
@@ -42,7 +43,7 @@ export function requestContextMiddleware(
     tenantId,
     tenantSlug,
     traceId,
-    userId: null
+    userId
   };
 
   response.setHeader("x-request-id", requestId);
@@ -54,6 +55,10 @@ export function requestContextMiddleware(
 
   if (tenantSlug) {
     response.setHeader("x-tenant-slug", tenantSlug);
+  }
+
+  if (userId) {
+    response.setHeader("x-user-id", userId);
   }
 
   runWithLogContext(request.context, () => {

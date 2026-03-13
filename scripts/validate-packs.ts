@@ -1,5 +1,6 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { AgentManifestParseError, parseAgentManifest } from "@birthub/agents-core";
 
@@ -24,7 +25,9 @@ async function findManifestFiles(rootDir: string): Promise<string[]> {
 }
 
 async function main(): Promise<void> {
-  const catalogRoot = path.join(process.cwd(), "packages", "agent-packs");
+  const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
+  const workspaceRoot = path.resolve(scriptsDir, "..");
+  const catalogRoot = path.join(workspaceRoot, "packages", "agent-packs");
   const manifestFiles = await findManifestFiles(catalogRoot);
 
   if (manifestFiles.length === 0) {

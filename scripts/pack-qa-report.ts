@@ -1,5 +1,6 @@
 import { access } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { loadManifestCatalog, runAgentDryRun } from "@birthub/agents-core";
 
@@ -13,7 +14,8 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 async function main(): Promise<void> {
-  const root = process.cwd();
+  const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
+  const root = path.resolve(scriptsDir, "..");
   const catalog = await loadManifestCatalog(path.join(root, "packages", "agent-packs"));
 
   const dryRunResults = await Promise.all(
