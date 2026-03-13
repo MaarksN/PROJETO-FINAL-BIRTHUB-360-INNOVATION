@@ -51,6 +51,12 @@
       "@birthub/logger/*": [
         "packages/logger/src/*"
       ],
+      "@birthub/workflows-core": [
+        "packages/workflows-core/src/index.ts"
+      ],
+      "@birthub/workflows-core/*": [
+        "packages/workflows-core/src/*"
+      ],
       "@birthub/testing": [
         "packages/testing/src/index.ts"
       ],
