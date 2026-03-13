@@ -35,7 +35,9 @@ export const workerEnvSchema = z.object({
   WORKER_CONCURRENCY: z.coerce.number().int().positive().optional()
 });
 
-export type WorkerConfig = z.infer<typeof workerEnvSchema>;
+export type WorkerConfig = z.infer<typeof workerEnvSchema> & {
+  WORKER_CONCURRENCY: number;
+};
 
 export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerConfig {
   const parsed = parseEnv("worker", workerEnvSchema, env);

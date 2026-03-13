@@ -7,6 +7,15 @@
 - `Amarelo`: validado com melhorias.
 - `Verde`: pronto para uso.
 
+## Revalidação 2026-03-13
+
+- Status: `Azul`
+- Executor: CODEX `[SIG: CODEX-C1-REVAL-20260313-K1]`
+- Evidências:
+  - `pnpm --filter @birthub/api typecheck` verde após normalização BullMQ/ioredis, limpeza de `exactOptionalPropertyTypes` e correções de `otel.ts`, Stripe e testes/config do API.
+  - `pnpm typecheck` verde no monorepo após follow-ups em `workflows-core`, `web` e `worker`.
+- Observação: branch/PR desta revalidação seguem para validação cruzada do JULES.
+
 ## Ciclo 1 — Itens CODEX (50)
 
 | ID | Status | Executor | Evidência | touched_paths |

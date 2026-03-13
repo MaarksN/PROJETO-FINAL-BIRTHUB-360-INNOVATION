@@ -117,7 +117,11 @@ test("Workflow runner executes HTTP_REQUEST with MSW intercepting external side-
   try {
     const fakeQueue = {
       add: async (name: string, payload: Record<string, unknown>, options?: Record<string, unknown>) => {
-        queuedJobs.push({ name, options, payload });
+        queuedJobs.push({
+          name,
+          payload,
+          ...(options ? { options } : {})
+        });
       }
     } as unknown as Queue<any>;
     const runner = new WorkflowRunner(fakeQueue);

@@ -177,11 +177,13 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
     const session = getStoredSession();
     const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
     const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+    const userId = session?.userId;
+    const tenantId = session?.tenantId;
 
     if (
       !session ||
-      !session.userId ||
-      !session.tenantId ||
+      !userId ||
+      !tenantId ||
       cookieConsent !== "ACCEPTED" ||
       !apiKey ||
       !host
@@ -193,7 +195,7 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
 
     let active = true;
 
-    void hashIdentifier(session.userId).then((distinctId) => {
+    void hashIdentifier(userId).then((distinctId) => {
       if (!active) {
         return;
       }
@@ -203,7 +205,7 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
         distinctId,
         host,
         sessionId: safeSessionId(),
-        tenantId: session.tenantId
+        tenantId
       });
 
       startTransition(() => {
