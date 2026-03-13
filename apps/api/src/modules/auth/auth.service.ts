@@ -66,11 +66,21 @@ export function canManageRole(currentRole: Role, targetRole: Role): boolean {
 export async function resolveOrganizationId(tenantId: string): Promise<string | null> {
   const organization = await prisma.organization.findFirst({
     where: {
-      OR: [{ id: tenantId }, { slug: tenantId }]
+      OR: [{ id: tenantId }, { slug: tenantId }, { tenantId }]
     }
   });
 
   return organization?.id ?? null;
+}
+
+async function resolveTenantIdForOrganization(organizationId: string): Promise<string | null> {
+  const organization = await prisma.organization.findFirst({
+    where: {
+      OR: [{ id: organizationId }, { tenantId: organizationId }]
+    }
+  });
+
+  return organization?.tenantId ?? null;
 }
 
 function isPasswordValid(password: string, passwordHash: string): boolean {
@@ -89,6 +99,7 @@ export async function createSession(input: {
   config: ApiConfig;
   ipAddress: string | null;
   organizationId: string;
+  tenantId: string;
   userAgent: string | null;
   userId: string;
 }): Promise<{ sessionId: string; tokens: SessionTokens }> {
@@ -106,6 +117,7 @@ export async function createSession(input: {
       organizationId: input.organizationId,
       refreshExpiresAt,
       refreshTokenHash: sha256(refreshToken),
+      tenantId: input.tenantId,
       token: sha256(accessToken),
       userAgent: input.userAgent,
       userId: input.userId
@@ -144,6 +156,7 @@ async function revokeAllSessionsForIdentity(input: {
 async function createNewDeviceAlert(input: {
   ipAddress: string | null;
   organizationId: string;
+  tenantId: string;
   userAgent: string | null;
   userId: string;
 }) {
@@ -169,6 +182,7 @@ async function createNewDeviceAlert(input: {
       data: {
         ipAddress: input.ipAddress,
         organizationId: input.organizationId,
+        tenantId: input.tenantId,
         userAgent: input.userAgent,
         userId: input.userId
       }
@@ -223,6 +237,7 @@ export async function loginWithPassword(input: {
   await createNewDeviceAlert({
     ipAddress: input.ipAddress,
     organizationId: input.organizationId,
+    tenantId: membership.tenantId,
     userAgent: input.userAgent,
     userId: membership.userId
   });
@@ -237,6 +252,7 @@ export async function loginWithPassword(input: {
       data: {
         expiresAt: challengeExpiresAt,
         organizationId: input.organizationId,
+        tenantId: membership.tenantId,
         tokenHash: sha256(challengeToken),
         userId: membership.userId
       }
@@ -253,6 +269,7 @@ export async function loginWithPassword(input: {
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: input.organizationId,
+    tenantId: membership.tenantId,
     userAgent: input.userAgent,
     userId: membership.userId
   });
@@ -352,6 +369,7 @@ export async function verifyMfaChallenge(input: {
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: input.organizationId,
+    tenantId: challenge.tenantId,
     userAgent: input.userAgent,
     userId: challenge.userId
   });
@@ -366,6 +384,7 @@ export async function verifyMfaChallenge(input: {
 export async function setupMfaForUser(input: {
   config: ApiConfig;
   email: string;
+  tenantId?: string;
   userId: string;
 }) {
   const secret = generateTotpSecret();
@@ -377,6 +396,16 @@ export async function setupMfaForUser(input: {
     issuer: input.config.AUTH_MFA_ISSUER,
     secret
   });
+  const membership = await prisma.membership.findFirst({
+    where: {
+      userId: input.userId
+    }
+  });
+  const tenantId = input.tenantId ?? membership?.tenantId;
+
+  if (!tenantId) {
+    throw new Error("TENANT_NOT_FOUND_FOR_USER");
+  }
 
   await prisma.$transaction([
     prisma.user.update({
@@ -396,6 +425,7 @@ export async function setupMfaForUser(input: {
     prisma.mfaRecoveryCode.createMany({
       data: hashedCodes.map((codeHash) => ({
         codeHash,
+        tenantId,
         userId: input.userId
       }))
     })
@@ -563,7 +593,11 @@ export async function refreshSession(input: {
     };
   }
 
-  if (current.revokedAt || current.refreshExpiresAt.getTime() < Date.now()) {
+  if (
+    current.revokedAt ||
+    !current.refreshExpiresAt ||
+    current.refreshExpiresAt.getTime() < Date.now()
+  ) {
     return {
       breached: false
     };
@@ -573,6 +607,7 @@ export async function refreshSession(input: {
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: current.organizationId,
+    tenantId: current.tenantId,
     userAgent: input.userAgent,
     userId: current.userId
   });
