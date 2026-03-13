@@ -10,6 +10,24 @@ import {
 } from "../auth/auth.service.js";
 import { clearAuthCookies } from "../auth/cookies.js";
 
+function readSessionId(params: Record<string, string | string[] | undefined>): string {
+  const value = params.sessionId;
+
+  if (typeof value === "string" && value.trim().length > 0) {
+    return value;
+  }
+
+  if (Array.isArray(value) && value[0]) {
+    return value[0];
+  }
+
+  throw new ProblemDetailsError({
+    detail: "A valid session id is required.",
+    status: 400,
+    title: "Bad Request"
+  });
+}
+
 export function createSessionsRouter(config: ApiConfig): Router {
   const router = Router();
 
@@ -28,13 +46,14 @@ export function createSessionsRouter(config: ApiConfig): Router {
         });
       }
 
+      const sessionId = readSessionId(request.params);
       const revokedSessions = await revokeSessionById({
         organizationId,
-        sessionId: request.params.sessionId,
+        sessionId,
         userId
       });
 
-      if (request.context.sessionId === request.params.sessionId && revokedSessions > 0) {
+      if (request.context.sessionId === sessionId && revokedSessions > 0) {
         clearAuthCookies(response, config);
       }
 

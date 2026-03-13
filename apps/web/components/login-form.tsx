@@ -68,11 +68,11 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
           throw new Error("Sessao nao retornada pela API.");
         }
 
-        localStorage.setItem("bh_access_token", payload.session.token);
-        localStorage.setItem("bh_refresh_token", payload.session.refreshToken);
         localStorage.setItem("bh_csrf_token", payload.session.csrfToken);
         localStorage.setItem("bh_tenant_id", payload.session.tenantId);
         localStorage.setItem("bh_user_id", payload.session.userId);
+        localStorage.removeItem("bh_access_token");
+        localStorage.removeItem("bh_refresh_token");
 
         setResult(`Sessao criada para ${payload.session.userId}`);
         navigate("/settings/security");

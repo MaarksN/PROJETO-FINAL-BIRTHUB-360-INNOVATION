@@ -36,6 +36,24 @@ function requireAuthScope(request: {
   };
 }
 
+function readApiKeyId(params: Record<string, string | string[] | undefined>): string {
+  const value = params.id;
+
+  if (typeof value === "string" && value.trim().length > 0) {
+    return value;
+  }
+
+  if (Array.isArray(value) && value[0]) {
+    return value[0];
+  }
+
+  throw new ProblemDetailsError({
+    detail: "A valid API key id is required.",
+    status: 400,
+    title: "Bad Request"
+  });
+}
+
 export function createApiKeysRouter(config: ApiConfig): Router {
   const router = Router();
 
@@ -89,9 +107,10 @@ export function createApiKeysRouter(config: ApiConfig): Router {
     "/:id/rotate",
     asyncHandler(async (request, response) => {
       const scope = requireAuthScope(request);
+      const id = readApiKeyId(request.params);
       const rotated = await rotateTenantApiKey({
         config,
-        id: request.params.id,
+        id,
         organizationId: scope.organizationId,
         userId: scope.userId
       });
@@ -110,8 +129,9 @@ export function createApiKeysRouter(config: ApiConfig): Router {
     "/:id",
     asyncHandler(async (request, response) => {
       const scope = requireAuthScope(request);
+      const id = readApiKeyId(request.params);
       await revokeTenantApiKey({
-        id: request.params.id,
+        id,
         organizationId: scope.organizationId,
         userId: scope.userId
       });

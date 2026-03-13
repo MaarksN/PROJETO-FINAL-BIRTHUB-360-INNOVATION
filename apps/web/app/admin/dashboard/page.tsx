@@ -262,10 +262,11 @@ export default function MasterAdminDashboardPage() {
                   }
 
                   const payload = (await response.json()) as ImpersonationResult;
-                  localStorage.setItem("bh_access_token", payload.tokens.token);
                   localStorage.setItem("bh_csrf_token", payload.tokens.csrfToken);
                   localStorage.setItem("bh_tenant_id", payload.tenantId);
                   localStorage.setItem("bh_user_id", payload.userId);
+                  localStorage.removeItem("bh_access_token");
+                  localStorage.removeItem("bh_refresh_token");
                   setImpersonation(payload);
                 })
                 .catch((impersonationError) => {

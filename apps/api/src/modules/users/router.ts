@@ -26,6 +26,24 @@ type ListedUser = {
   status: "ACTIVE" | "SUSPENDED";
 };
 
+function readUserId(params: Record<string, string | string[] | undefined>): string {
+  const value = params.userId;
+
+  if (typeof value === "string" && value.trim().length > 0) {
+    return value;
+  }
+
+  if (Array.isArray(value) && value[0]) {
+    return value[0];
+  }
+
+  throw new ProblemDetailsError({
+    detail: "A valid user id is required.",
+    status: 400,
+    title: "Bad Request"
+  });
+}
+
 async function resolveOrganizationContext(organizationReference: string): Promise<{
   id: string;
   tenantId: string;
@@ -221,9 +239,9 @@ async function revokeUserAccess(input: {
 }
 
 async function handleRoleUpdate(request: {
-  body: { role: Role };
+  body: { role: "ADMIN" | "MEMBER" | "OWNER" | "READONLY" };
   context: { requestId: string; tenantId?: string | null; userId?: string | null };
-  params: { userId: string };
+  params: Record<string, string | string[] | undefined>;
 }) {
   const organizationReference = request.context.tenantId;
   const actorUserId = request.context.userId;
@@ -237,19 +255,21 @@ async function handleRoleUpdate(request: {
   }
 
   const organization = await resolveOrganizationContext(organizationReference);
+  const role = request.body.role as Role;
+  const targetUserId = readUserId(request.params);
 
   await assertManageableTarget({
     actorUserId,
-    nextRole: request.body.role,
+    nextRole: role,
     organizationId: organization.id,
-    targetUserId: request.params.userId
+    targetUserId
   });
 
   const membership = await updateUserRoleWithAudit({
     actorUserId,
     organizationId: organization.id,
-    role: request.body.role,
-    targetUserId: request.params.userId
+    role,
+    targetUserId
   });
 
   return {
@@ -282,9 +302,9 @@ export function createUsersRouter(): Router {
       response.status(200).json({
         items: await listUsersForOrganization({
           organizationId: organization.id,
-          role: filters.role,
-          search: filters.search,
-          status: filters.status
+          ...(filters.role ? { role: filters.role as Role } : {}),
+          ...(filters.search ? { search: filters.search } : {}),
+          ...(filters.status ? { status: filters.status } : {})
         }),
         requestId: request.context.requestId
       });
@@ -308,21 +328,22 @@ export function createUsersRouter(): Router {
       }
 
       const organization = await resolveOrganizationContext(organizationReference);
+      const targetUserId = readUserId(request.params);
 
       await assertManageableTarget({
         actorUserId,
         organizationId: organization.id,
-        targetUserId: request.params.userId
+        targetUserId
       });
 
       await suspendUser({
         actorUserId,
         organizationId: organization.id,
-        targetUserId: request.params.userId
+        targetUserId
       });
       await revokeAllSessions({
         organizationId: organization.id,
-        userId: request.params.userId
+        userId: targetUserId
       });
       await prisma.apiKey.updateMany({
         data: {
@@ -331,7 +352,7 @@ export function createUsersRouter(): Router {
         },
         where: {
           organizationId: organization.id,
-          userId: request.params.userId
+          userId: targetUserId
         }
       });
 
@@ -370,17 +391,18 @@ export function createUsersRouter(): Router {
       }
 
       const organization = await resolveOrganizationContext(organizationReference);
+      const targetUserId = readUserId(request.params);
 
       await assertManageableTarget({
         actorUserId,
         organizationId: organization.id,
-        targetUserId: request.params.userId
+        targetUserId
       });
       await revokeUserAccess({
         actorUserId,
         organizationId: organization.id,
         organizationTenantId: organization.tenantId,
-        targetUserId: request.params.userId
+        targetUserId
       });
 
       response.status(200).json({

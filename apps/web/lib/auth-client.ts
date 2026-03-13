@@ -1,8 +1,8 @@
 export interface StoredSession {
-  accessToken: string;
-  csrfToken: string;
-  tenantId: string;
-  userId: string;
+  accessToken?: string;
+  csrfToken?: string;
+  tenantId?: string;
+  userId?: string;
 }
 
 function isAbsoluteUrl(value: string): boolean {
@@ -33,16 +33,29 @@ export function getStoredSession(): StoredSession | null {
   const tenantId = localStorage.getItem("bh_tenant_id");
   const userId = localStorage.getItem("bh_user_id");
 
-  if (!accessToken || !csrfToken || !tenantId || !userId) {
+  if (!accessToken && !csrfToken && !tenantId && !userId) {
     return null;
   }
 
   return {
-    accessToken,
-    csrfToken,
-    tenantId,
-    userId
+    ...(accessToken ? { accessToken } : {}),
+    ...(csrfToken ? { csrfToken } : {}),
+    ...(tenantId ? { tenantId } : {}),
+    ...(userId ? { userId } : {})
   };
+}
+
+function getCookieValue(name: string): string | null {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  const match = document.cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${name}=`));
+
+  return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
 }
 
 export async function fetchWithSession(
@@ -51,15 +64,25 @@ export async function fetchWithSession(
 ): Promise<Response> {
   const session = getStoredSession();
 
-  if (!session) {
-    throw new Error("Sessao nao encontrada. Realize login novamente.");
+  const headers = new Headers(init.headers);
+
+  if (session?.accessToken) {
+    headers.set("Authorization", `Bearer ${session.accessToken}`);
   }
 
-  const headers = new Headers(init.headers);
-  headers.set("Authorization", `Bearer ${session.accessToken}`);
-  headers.set("x-csrf-token", session.csrfToken);
-  headers.set("x-tenant-id", session.tenantId);
-  headers.set("x-user-id", session.userId);
+  const csrfToken = session?.csrfToken ?? getCookieValue("bh360_csrf");
+  if (csrfToken) {
+    headers.set("x-csrf-token", csrfToken);
+  }
+
+  if (session?.tenantId) {
+    headers.set("x-tenant-id", session.tenantId);
+  }
+
+  if (session?.userId) {
+    headers.set("x-user-id", session.userId);
+  }
+
   const nextInit: RequestInit = {
     ...init,
     credentials: "include",
