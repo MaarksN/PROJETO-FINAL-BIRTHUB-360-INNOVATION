@@ -491,10 +491,16 @@ export async function authenticateRequest(input: {
       return null;
     }
 
+    const organizationId = await resolveOrganizationId(apiKey.tenantId);
+
+    if (!organizationId) {
+      return null;
+    }
+
     return {
       apiKeyId: apiKey.apiKeyId,
       authType: "api-key",
-      organizationId: apiKey.tenantId,
+      organizationId,
       sessionId: null,
       userId: apiKey.userId
     };
@@ -728,6 +734,12 @@ export async function createTenantApiKey(input: {
   scopes: ApiKeyScope[];
   userId: string;
 }) {
+  const tenantId = await resolveTenantIdForOrganization(input.organizationId);
+
+  if (!tenantId) {
+    throw new Error("TENANT_NOT_FOUND");
+  }
+
   const generated = createApiKey(input.config.API_KEY_PREFIX);
   const record = await prisma.apiKey.create({
     data: {
@@ -737,6 +749,7 @@ export async function createTenantApiKey(input: {
       organizationId: input.organizationId,
       prefix: generated.prefix,
       scopes: input.scopes,
+      tenantId,
       userId: input.userId
     }
   });
@@ -813,6 +826,7 @@ export async function rotateTenantApiKey(input: {
         prefix: current.prefix,
         rotatedFromId: current.id,
         scopes: current.scopes,
+        tenantId: current.tenantId,
         userId: current.userId
       }
     });
@@ -895,7 +909,7 @@ export async function introspectApiKey(rawToken: string): Promise<{
     active: true,
     apiKeyId: apiKey.id,
     scopes: apiKey.scopes as ApiKeyScope[],
-    tenantId: apiKey.organizationId,
+    tenantId: apiKey.tenantId,
     userId: apiKey.userId
   };
 }
@@ -933,19 +947,24 @@ export async function suspendUser(input: {
       id: input.targetUserId
     }
   });
+  const tenantId =
+    (await resolveTenantIdForOrganization(input.organizationId)) ?? input.organizationId;
 
   await prisma.auditLog.create({
     data: {
       action: "user.suspended",
-      actorUserId: input.actorUserId,
-      after: {
-        status: updated.status
+      actorId: input.actorUserId,
+      diff: {
+        after: {
+          status: updated.status
+        },
+        before: {
+          status: before.status
+        }
       },
-      before: {
-        status: before.status
-      },
-      organizationId: input.organizationId,
-      targetUserId: input.targetUserId
+      entityId: input.targetUserId,
+      entityType: "user",
+      tenantId
     }
   });
 }
@@ -980,19 +999,24 @@ export async function updateUserRoleWithAudit(input: {
       }
     }
   });
+  const tenantId =
+    (await resolveTenantIdForOrganization(input.organizationId)) ?? input.organizationId;
 
   await prisma.auditLog.create({
     data: {
       action: "membership.role.updated",
-      actorUserId: input.actorUserId,
-      after: {
-        role: updated.role
+      actorId: input.actorUserId,
+      diff: {
+        after: {
+          role: updated.role
+        },
+        before: {
+          role: before.role
+        }
       },
-      before: {
-        role: before.role
-      },
-      organizationId: input.organizationId,
-      targetUserId: input.targetUserId
+      entityId: input.targetUserId,
+      entityType: "membership",
+      tenantId
     }
   });
 

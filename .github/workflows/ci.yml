@@ -29,6 +29,7 @@ jobs:
           - lint
           - typecheck
           - test
+          - test:isolation
           - build
     services:
       postgres:

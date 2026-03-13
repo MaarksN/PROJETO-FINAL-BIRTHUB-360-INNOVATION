@@ -37,6 +37,15 @@
         "test-results/**"
       ]
     },
+    "test:isolation": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "coverage/**",
+        "test-results/**"
+      ]
+    },
     "docs": {
       "dependsOn": [
         "^docs"

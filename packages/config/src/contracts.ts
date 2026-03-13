@@ -93,9 +93,16 @@ export const acceptInviteRequestSchema = z.object({
   userId: z.string().optional()
 });
 
+export const executionModeSchema = z.enum(["LIVE", "DRY_RUN"]);
+export const taskTypeSchema = z.enum(["sync-session", "send-welcome-email", "refresh-health"]);
+
 export const taskRequestSchema = z.object({
+  agentId: z.string().min(1).default("ceo-pack"),
+  approvalRequired: z.boolean().default(false),
+  estimatedCostBRL: z.number().nonnegative().default(0.5),
+  executionMode: executionModeSchema.default("LIVE"),
   payload: z.record(z.string(), z.unknown()).default({}),
-  type: z.enum(["sync-session", "send-welcome-email", "refresh-health"])
+  type: taskTypeSchema
 });
 
 export const jobContextSchema = z.object({
@@ -106,12 +113,16 @@ export const jobContextSchema = z.object({
 });
 
 export const taskJobSchema = z.object({
-  context: jobContextSchema,
+  agentId: z.string().min(1).default("ceo-pack"),
+  approvalRequired: z.boolean().default(false),
+  context: jobContextSchema.optional(),
+  estimatedCostBRL: z.number().nonnegative().default(0.5),
+  executionMode: executionModeSchema.default("LIVE"),
   payload: z.record(z.string(), z.unknown()),
   requestId: z.string(),
-  signature: z.string().min(32),
+  signature: z.string().min(8).default("unsigned"),
   tenantId: z.string().nullable(),
-  type: z.enum(["sync-session", "send-welcome-email", "refresh-health"]),
+  type: taskTypeSchema,
   userId: z.string().nullable(),
   version: z.literal("1")
 });

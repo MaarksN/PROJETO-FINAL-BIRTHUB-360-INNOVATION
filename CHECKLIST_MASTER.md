@@ -69,3 +69,56 @@ Fonte oficial dos 50 itens `J*` do Ciclo 1 não foi localizada no workspace atua
 | ID | Status | Observação |
 |---|---|---|
 | 1.1.J1 a 1.10.J5 | Vermelho | Backlog JULES do Ciclo 1 ausente no repositório local; requer fonte oficial para rastreabilidade correta. |
+
+## Ciclo 2 — Checkboxes CODEX (50)
+
+- [x] 2.1.C1
+- [x] 2.1.C2
+- [x] 2.1.C3
+- [x] 2.1.C4
+- [x] 2.1.C5
+- [x] 2.2.C1
+- [x] 2.2.C2
+- [x] 2.2.C3
+- [x] 2.2.C4
+- [x] 2.2.C5
+- [x] 2.3.C1
+- [x] 2.3.C2
+- [x] 2.3.C3
+- [x] 2.3.C4
+- [x] 2.3.C5
+- [x] 2.4.C1
+- [x] 2.4.C2
+- [x] 2.4.C3
+- [x] 2.4.C4
+- [x] 2.4.C5
+- [x] 2.5.C1
+- [x] 2.5.C2
+- [x] 2.5.C3
+- [x] 2.5.C4
+- [x] 2.5.C5
+- [x] 2.6.C1
+- [x] 2.6.C2
+- [x] 2.6.C3
+- [x] 2.6.C4
+- [x] 2.6.C5
+- [x] 2.7.C1
+- [x] 2.7.C2
+- [x] 2.7.C3
+- [x] 2.7.C4
+- [x] 2.7.C5
+- [x] 2.8.C1
+- [x] 2.8.C2
+- [x] 2.8.C3
+- [x] 2.8.C4
+- [x] 2.8.C5
+- [x] 2.9.C1
+- [x] 2.9.C2
+- [x] 2.9.C3
+- [x] 2.9.C4
+- [x] 2.9.C5
+- [x] 2.10.C1
+- [x] 2.10.C2
+- [x] 2.10.C3
+- [x] 2.10.C4
+- [x] 2.10.C5
