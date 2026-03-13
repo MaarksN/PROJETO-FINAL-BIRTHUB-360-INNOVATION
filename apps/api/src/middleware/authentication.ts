@@ -30,7 +30,7 @@ function extractAuthorizationToken(headerValue: string | undefined): {
 
   const [scheme, credential] = headerValue.split(" ");
 
-  if (!credential) {
+  if (!scheme || !credential) {
     return {};
   }
 

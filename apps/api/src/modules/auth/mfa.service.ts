@@ -59,12 +59,12 @@ function hotp(secret: string, counter: number, digits = 6): string {
   counterBuffer.writeUInt32BE(counter & 0xffffffff, 4);
 
   const digest = createHmac("sha1", key).update(counterBuffer).digest();
-  const offset = digest[digest.length - 1] & 0x0f;
+  const offset = (digest.at(-1) ?? 0) & 0x0f;
   const binary =
-    ((digest[offset] & 0x7f) << 24) |
-    ((digest[offset + 1] & 0xff) << 16) |
-    ((digest[offset + 2] & 0xff) << 8) |
-    (digest[offset + 3] & 0xff);
+    (((digest[offset] ?? 0) & 0x7f) << 24) |
+    (((digest[offset + 1] ?? 0) & 0xff) << 16) |
+    (((digest[offset + 2] ?? 0) & 0xff) << 8) |
+    ((digest[offset + 3] ?? 0) & 0xff);
   const otp = binary % 10 ** digits;
 
   return otp.toString().padStart(digits, "0");
