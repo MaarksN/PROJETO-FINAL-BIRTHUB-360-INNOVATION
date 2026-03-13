@@ -1,8 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import type { NextConfig } from "next";
-
 const nextPublicApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
 const cspReportUri = process.env.CSP_REPORT_URI;
 const cspReportOnly = (process.env.NEXT_PUBLIC_CSP_REPORT_ONLY ?? "true") === "true";
@@ -47,7 +45,8 @@ const securityHeaders = [
   }
 ];
 
-const nextConfig: NextConfig = {
+/** @type {import("next").NextConfig} */
+const nextConfig = {
   compress: true,
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../.."),

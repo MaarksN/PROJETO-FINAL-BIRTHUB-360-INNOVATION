@@ -18,6 +18,18 @@ interface CatalogCache {
 
 const CACHE_TTL_MS = 60_000;
 
+function canFallbackApprovalStats(error: unknown): boolean {
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  return (
+    error.name === "PrismaClientInitializationError" ||
+    error.name === "PrismaClientRustPanicError" ||
+    /DATABASE_URL/i.test(error.message)
+  );
+}
+
 function resolveCatalogRoot(): string {
   const candidates = [
     path.join(process.cwd(), "packages", "agent-packs"),
@@ -118,17 +130,33 @@ export class MarketplaceService {
       >();
     }
 
-    const feedbackRows = await prisma.agentFeedback.findMany({
-      select: {
-        agentId: true,
-        rating: true
-      },
-      where: {
-        agentId: {
-          in: agentIds
+    let feedbackRows: Array<{ agentId: string; rating: number }>;
+
+    try {
+      feedbackRows = await prisma.agentFeedback.findMany({
+        select: {
+          agentId: true,
+          rating: true
+        },
+        where: {
+          agentId: {
+            in: agentIds
+          }
         }
+      });
+    } catch (error) {
+      if (canFallbackApprovalStats(error)) {
+        return new Map<
+          string,
+          {
+            approvalRate: number;
+            feedbackCount: number;
+          }
+        >();
       }
-    });
+
+      throw error;
+    }
 
     const grouped = new Map<
       string,

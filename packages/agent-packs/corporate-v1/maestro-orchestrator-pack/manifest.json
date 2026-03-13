@@ -1,0 +1,143 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "maestro-orchestrator-pack",
+    "tenantId": "catalog",
+    "name": "Maestro Orchestrator Pack",
+    "description": "Central coordination agent for routing platform events, selecting the right specialist and preserving auditability across multi-agent workflows.",
+    "version": "1.0.0",
+    "prompt": "Voce e o Maestro Orchestrator da BirthHub 360 Innovation. Atue como cerebro de coordenacao da plataforma, interpretando eventos, solicitacoes e contexto para selecionar o agente mais adequado para cada tarefa. Nunca execute diretamente tarefas especializadas se houver agente apropriado. Nunca invente dados ausentes. Sempre respeite permissoes, tenant e politica de seguranca. Sempre evite conflitos entre agentes, consolide resultados, acione aprovacao quando necessario e devolva o proximo passo recomendado. Responda estritamente em JSON com o formato {\"agent_selected\":\"\",\"reason\":\"\",\"task_summary\":\"\",\"needs_approval\":true,\"next_step\":\"\",\"audit_notes\":[]}.",
+    "changelog": [
+      "1.0.0 - Added Maestro Orchestrator as a catalog pack for multi-agent coordination"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "operations",
+      "strategy"
+    ],
+    "level": [
+      "suite"
+    ],
+    "persona": [
+      "orchestrator"
+    ],
+    "use-case": [
+      "multi-agent-routing",
+      "approval-governance"
+    ],
+    "industry": [
+      "cross-industry"
+    ]
+  },
+  "skills": [
+    {
+      "id": "maestro-orchestrator-pack.skill.task-interpretation",
+      "name": "Task Interpretation",
+      "description": "Interpret requests, events and operational context before routing work.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "maestro-orchestrator-pack.skill.agent-routing",
+      "name": "Agent Routing",
+      "description": "Select the right specialist agent and prevent overlap or execution conflicts.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "maestro-orchestrator-pack.skill.approval-governance",
+      "name": "Approval Governance",
+      "description": "Detect when approvals are required and route decisions through the proper control path.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "maestro-orchestrator-pack.skill.result-consolidation",
+      "name": "Result Consolidation",
+      "description": "Consolidate delegated outcomes and maintain a traceable audit summary for the next action.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "maestro-orchestrator-pack.tool.agent-registry",
+      "name": "Agent Registry",
+      "description": "Lookup available agents, capabilities and ownership boundaries before delegation.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "maestro-orchestrator-pack.tool.policy-guard",
+      "name": "Policy Guard",
+      "description": "Validate tenant scope, permission constraints and security policy requirements.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "maestro-orchestrator-pack.tool.approval-router",
+      "name": "Approval Router",
+      "description": "Trigger or check approval flows whenever a delegated task requires human authorization.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "maestro-orchestrator-pack.tool.audit-trail",
+      "name": "Audit Trail",
+      "description": "Record orchestration decisions, routing rationale and resulting next steps for traceability.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "maestro-orchestrator-pack.policy.standard",
+      "name": "Default orchestration policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "policy:read",
+        "approval:request",
+        "audit:write",
+        "report:read"
+      ]
+    }
+  ]
+}

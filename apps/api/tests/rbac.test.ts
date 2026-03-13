@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { Role, UserStatus, prisma } from "@birthub/database";
+import { MembershipStatus, Role, UserStatus, prisma } from "@birthub/database";
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
@@ -23,7 +23,7 @@ function createRbacApp() {
   });
 }
 
-void test("RBAC matrix on /api/v1/billing enforces role policy", async () => {
+void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
   const roleByUserId: Record<string, Role> = {
     user_admin: Role.ADMIN,
     user_member: Role.MEMBER,
@@ -38,6 +38,10 @@ void test("RBAC matrix on /api/v1/billing enforces role policy", async () => {
   };
 
   const restores = [
+    stubMethod(prisma.organization, "findFirst", async () => ({
+      id: "org_1",
+      tenantId: "tenant_1"
+    })),
     stubMethod(prisma.session, "findUnique", async ({ where }: any) => {
       const userId = userByTokenHash[where.token as string];
 
@@ -58,6 +62,20 @@ void test("RBAC matrix on /api/v1/billing enforces role policy", async () => {
       id: where.id as string,
       status: UserStatus.ACTIVE
     })),
+    stubMethod(prisma.membership, "findMany", async () => [
+      {
+        createdAt: new Date("2026-03-13T00:00:00.000Z"),
+        organizationId: "org_1",
+        role: Role.MEMBER,
+        status: MembershipStatus.ACTIVE,
+        user: {
+          email: "member@birthub.local",
+          name: "Member Example",
+          status: UserStatus.ACTIVE
+        },
+        userId: "user_member"
+      }
+    ]),
     stubMethod(prisma.membership, "findUnique", async ({ where }: any) => {
       const userId = where.organizationId_userId.userId as string;
       const role = roleByUserId[userId];
@@ -78,38 +96,28 @@ void test("RBAC matrix on /api/v1/billing enforces role policy", async () => {
     const app = createRbacApp();
 
     const ownerResponse = await request(app)
-      .post("/api/v1/billing")
+      .get("/api/v1/users")
       .set("Authorization", "Bearer atk_owner")
-      .set("x-csrf-token", "csrf_owner")
-      .set("Cookie", ["bh360_csrf=csrf_owner"])
       .expect(200);
-    assert.equal(ownerResponse.body.message.includes("Billing mutation accepted"), true);
+    assert.equal(Array.isArray(ownerResponse.body.items), true);
 
     await request(app)
-      .post("/api/v1/billing")
+      .get("/api/v1/users")
       .set("Authorization", "Bearer atk_admin")
-      .set("x-csrf-token", "csrf_admin")
-      .set("Cookie", ["bh360_csrf=csrf_admin"])
       .expect(200);
 
     await request(app)
-      .post("/api/v1/billing")
+      .get("/api/v1/users")
       .set("Authorization", "Bearer atk_member")
-      .set("x-csrf-token", "csrf_member")
-      .set("Cookie", ["bh360_csrf=csrf_member"])
       .expect(403);
 
     await request(app)
-      .post("/api/v1/billing")
+      .get("/api/v1/users")
       .set("Authorization", "Bearer atk_readonly")
-      .set("x-csrf-token", "csrf_readonly")
-      .set("Cookie", ["bh360_csrf=csrf_readonly"])
       .expect(403);
 
     await request(app)
-      .post("/api/v1/billing")
-      .set("x-csrf-token", "csrf_anonymous")
-      .set("Cookie", ["bh360_csrf=csrf_anonymous"])
+      .get("/api/v1/users")
       .expect(401);
   } finally {
     for (const restore of restores.reverse()) {
