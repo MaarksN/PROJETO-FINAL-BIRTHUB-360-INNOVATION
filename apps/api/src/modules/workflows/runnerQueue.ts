@@ -8,9 +8,9 @@ import { Redis } from "ioredis";
 const WORKFLOW_QUEUE_NAME = "workflow-execution";
 const WORKFLOW_TRIGGER_QUEUE_NAME = "workflow-trigger";
 
-let redisConnection: Redis | undefined;
-let executionQueue: Queue<WorkflowExecutionJobPayload> | undefined;
-let triggerQueue: Queue<WorkflowTriggerJobPayload> | undefined;
+let redisConnection: Redis | null = null;
+let executionQueue: Queue | null = null;
+let triggerQueue: Queue | null = null;
 
 export interface WorkflowExecutionJobPayload {
   attempt: number;
@@ -41,10 +41,10 @@ function getRedisConnection(config: ApiConfig): Redis {
   return redisConnection;
 }
 
-function getExecutionQueue(config: ApiConfig): Queue<WorkflowExecutionJobPayload> {
+function getExecutionQueue(config: ApiConfig): Queue {
   if (!executionQueue) {
-    executionQueue = new Queue<WorkflowExecutionJobPayload>(WORKFLOW_QUEUE_NAME, {
-      connection: getRedisConnection(config),
+    executionQueue = new Queue(WORKFLOW_QUEUE_NAME, {
+      connection: getRedisConnection(config) as any,
       defaultJobOptions: {
         attempts: 5,
         backoff: {
@@ -64,10 +64,10 @@ function getExecutionQueue(config: ApiConfig): Queue<WorkflowExecutionJobPayload
   return executionQueue;
 }
 
-function getTriggerQueue(config: ApiConfig): Queue<WorkflowTriggerJobPayload> {
+function getTriggerQueue(config: ApiConfig): Queue {
   if (!triggerQueue) {
-    triggerQueue = new Queue<WorkflowTriggerJobPayload>(WORKFLOW_TRIGGER_QUEUE_NAME, {
-      connection: getRedisConnection(config),
+    triggerQueue = new Queue(WORKFLOW_TRIGGER_QUEUE_NAME, {
+      connection: getRedisConnection(config) as any,
       defaultJobOptions: {
         removeOnComplete: {
           count: 500
@@ -90,10 +90,15 @@ export async function enqueueWorkflowExecution(
     jobId?: string;
   }
 ): Promise<void> {
-  await getExecutionQueue(config).add("workflow-step", payload, {
-    delay: options?.delay,
+  const jobOptions: Record<string, unknown> = {
     jobId: options?.jobId ?? `${payload.executionId}:${payload.stepKey}:${payload.attempt}`
-  });
+  };
+
+  if (options?.delay !== undefined) {
+    jobOptions.delay = options.delay;
+  }
+
+  await getExecutionQueue(config).add("workflow-step", payload, jobOptions as any);
 }
 
 export async function enqueueWorkflowTrigger(
@@ -112,7 +117,7 @@ export async function scheduleCronWorkflow(
   await getTriggerQueue(config).add("workflow-trigger-cron", payload, {
     jobId: `cron:${payload.workflowId}`,
     repeat: {
-      cron: payload.cron
+      pattern: payload.cron
     }
   });
 }
@@ -129,4 +134,3 @@ export async function dedupeTriggerPayload(
   const result = await getRedisConnection(config).set(key, "1", "EX", 5, "NX");
   return result === "OK";
 }
-

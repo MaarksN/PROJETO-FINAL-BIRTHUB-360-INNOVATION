@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 
 import "./analytics.css";
-import "../../(dashboard)/dashboard.css";
 
 type ExecutivePayload = {
   metrics?: {
