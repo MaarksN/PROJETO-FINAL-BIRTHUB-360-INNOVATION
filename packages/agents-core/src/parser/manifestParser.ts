@@ -35,6 +35,15 @@ function compareSemverVersions(left: string, right: string): number {
 
 function formatIssue(issue: ZodIssue): string {
   const path = issue.path.length > 0 ? issue.path.join(".") : "manifest";
+
+  if (path === "tools" && issue.code === "invalid_type" && issue.expected === "array") {
+    return `O campo 'tools' precisa ser um array.`;
+  }
+
+  if (path === "skills" && issue.code === "invalid_type" && issue.expected === "array") {
+    return `O campo 'skills' precisa ser um array.`;
+  }
+
   return `${path}: ${issue.message}`;
 }
 

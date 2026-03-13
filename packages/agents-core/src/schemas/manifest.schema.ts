@@ -38,8 +38,11 @@ const restrictionPolicySchema = z
 export const agentManifestSchema = z
   .object({
     apiVersion: semanticVersionSchema.default(SUPPORTED_AGENT_API_VERSION),
+    version: semanticVersionSchema,
     description: z.string().min(1).max(2_000).optional(),
     name: z.string().min(1).max(120),
+    system_prompt: z.string().min(1).max(10_000),
+    memory_ttl: z.number().int().positive().max(31536000).default(86400),
     restrictions: restrictionPolicySchema.default({
       allowDomains: [],
       allowTools: [],
@@ -49,7 +52,7 @@ export const agentManifestSchema = z
     }),
     skills: z.array(skillReferenceSchema).min(1),
     tags: z.array(z.string().min(1)).default([]),
-    tools: z.array(toolReferenceSchema).default([]),
+    tools: z.array(toolReferenceSchema),
     metadata: z.record(z.string(), z.unknown()).optional()
   })
   .strict();
