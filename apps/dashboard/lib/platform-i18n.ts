@@ -31,6 +31,7 @@ const dictionary: Record<SupportedLanguage, Record<string, string>> = {
     contracts: "Contratos",
     agentActivities: "Atividades dos Agentes",
     salesOs: "Sales OS",
+    migrations: "Revisão de Migrações",
     logout: "Encerrar sessão",
     settings: "Configurações",
     language: "Idioma",
@@ -39,10 +40,10 @@ const dictionary: Record<SupportedLanguage, Record<string, string>> = {
     avatar: "Avatar",
   },
   en: {
-    overview: "Overview", salesPipeline: "Sales Pipeline", healthScore: "Health Score", financialView: "Financial View", analytics: "Analytics", contracts: "Contracts", agentActivities: "Agent Activities", salesOs: "Sales OS", logout: "Sign out", settings: "Settings", language: "Language", theme: "Theme", palette: "Palette", avatar: "Avatar",
+    overview: "Overview", salesPipeline: "Sales Pipeline", healthScore: "Health Score", financialView: "Financial View", analytics: "Analytics", contracts: "Contracts", agentActivities: "Agent Activities", salesOs: "Sales OS", migrations: "Migrations Review", logout: "Sign out", settings: "Settings", language: "Language", theme: "Theme", palette: "Palette", avatar: "Avatar",
   },
   es: {
-    overview: "Resumen", salesPipeline: "Pipeline de Ventas", healthScore: "Health Score", financialView: "Vista Financiera", analytics: "Analítica", contracts: "Contratos", agentActivities: "Actividades de Agentes", salesOs: "Sales OS", logout: "Cerrar sesión", settings: "Configuración", language: "Idioma", theme: "Tema", palette: "Paleta", avatar: "Avatar",
+    overview: "Resumen", salesPipeline: "Pipeline de Ventas", healthScore: "Health Score", financialView: "Vista Financiera", analytics: "Analítica", contracts: "Contratos", agentActivities: "Actividades de Agentes", salesOs: "Sales OS", migrations: "Revisión de Migraciones", logout: "Cerrar sesión", settings: "Configuración", language: "Idioma", theme: "Tema", palette: "Paleta", avatar: "Avatar",
   },
   "zh-CN": { overview: "总览", salesPipeline: "销售管道", healthScore: "健康评分", financialView: "财务视图", analytics: "分析", contracts: "合同", agentActivities: "智能体活动", salesOs: "销售系统", logout: "退出", settings: "设置", language: "语言", theme: "主题", palette: "配色", avatar: "头像" },
   hi: { overview: "ओवरव्यू", salesPipeline: "सेल्स पाइपलाइन", healthScore: "हेल्थ स्कोर", financialView: "वित्तीय दृश्य", analytics: "एनालिटिक्स", contracts: "कॉन्ट्रैक्ट्स", agentActivities: "एजेंट गतिविधियाँ", salesOs: "सेल्स OS", logout: "लॉगआउट", settings: "सेटिंग्स", language: "भाषा", theme: "थीम", palette: "पैलेट", avatar: "अवतार" },

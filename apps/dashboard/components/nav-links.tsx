@@ -14,6 +14,7 @@ const links = [
   ["/contratos", "contracts"],
   ["/atividades", "agentActivities"],
   ["/sales", "salesOs"],
+  ["/migrations", "migrations"],
 ] as const;
 
 export function NavLinks() {
