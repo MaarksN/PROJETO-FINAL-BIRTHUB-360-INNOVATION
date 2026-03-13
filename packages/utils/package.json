@@ -11,6 +11,9 @@
     "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.71.0",
+    "@opentelemetry/sdk-node": "^0.213.0",
+    "@opentelemetry/sdk-trace-node": "^2.6.0",
     "@types/node": "^25.5.0",
     "typescript": "^5.9.3"
   },

@@ -1,6 +1,6 @@
 import { jwtVerify, SignJWT } from "jose";
 
-export type AuthUser = { id: string; tenantId: string; roles: string[]; permissions: string[]; email?: string };
+export type AuthUser = { id: string; tenantId: string; roles: string[]; permissions: string[]; email?: string | undefined };
 export type JWTPayload = AuthUser & { type: "access" | "refresh"; jti: string };
 export type TokenPair = { accessToken: string; refreshToken: string };
 export type AuthConfig = { jwtSecret: string; accessTtlSec: number; refreshTtlSec: number };
@@ -54,7 +54,7 @@ export function createAuthService(config: AuthConfig): AuthService {
         tenantId: refreshPayload.tenantId,
         roles: refreshPayload.roles,
         permissions: refreshPayload.permissions,
-        email: refreshPayload.email,
+        ...(refreshPayload.email !== undefined ? { email: refreshPayload.email } : {}),
       };
       return this.issueTokens(user);
     },

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { meterUsage } from "../../index.ts";
+import { meterUsage } from "../../index.js";
 
 test("meterUsage appends record", () => {
   const store: any[] = [];
