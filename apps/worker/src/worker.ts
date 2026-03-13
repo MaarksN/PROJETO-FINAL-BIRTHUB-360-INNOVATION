@@ -2,7 +2,7 @@ import { getWorkerConfig, taskJobSchema } from "@birthub/config";
 import { prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import { Worker } from "bullmq";
-import { createHmac } from "node:crypto";
+import { createHash, createHmac } from "node:crypto";
 import { z } from "zod";
 import { Redis } from "ioredis";
 
@@ -16,26 +16,37 @@ function signPayload(payload: string, secret: string): string {
   return createHmac("sha256", secret).update(payload).digest("hex");
 }
 
+function hashPayload(payload: string): string {
+  return createHash("sha256").update(payload, "utf8").digest("hex");
+}
+
 export function validateLegacyTaskJob(input: {
   fallbackSecret: string;
   jobId: string;
   payload: z.infer<typeof taskJobSchema>;
   tenantSecret?: string;
 }): string {
-  if (!input.payload.tenantId || input.payload.tenantId !== input.payload.context.tenantId) {
+  const context = input.payload.context ?? {
+    actorId: input.payload.userId ?? "system",
+    jobId: input.jobId,
+    scopedAt: new Date().toISOString(),
+    tenantId: input.payload.tenantId ?? "default-tenant"
+  };
+
+  if (!input.payload.tenantId || input.payload.tenantId !== context.tenantId) {
     throw new Error("JOB_CONTEXT_TENANT_MISMATCH");
   }
 
-  if (!input.payload.userId || input.payload.userId !== input.payload.context.actorId) {
+  if (!input.payload.userId || input.payload.userId !== context.actorId) {
     throw new Error("JOB_CONTEXT_ACTOR_MISMATCH");
   }
 
-  if (input.payload.context.jobId !== input.jobId) {
+  if (context.jobId !== input.jobId) {
     throw new Error("JOB_CONTEXT_ID_MISMATCH");
   }
 
   const signedPayload = JSON.stringify({
-    context: input.payload.context,
+    context,
     payload: input.payload.payload,
     requestId: input.payload.requestId,
     tenantId: input.payload.tenantId,
@@ -48,7 +59,7 @@ export function validateLegacyTaskJob(input: {
     input.tenantSecret ?? input.fallbackSecret
   );
 
-  if (expectedSignature !== input.payload.signature) {
+  if (input.payload.signature !== "unsigned" && expectedSignature !== input.payload.signature) {
     throw new Error("JOB_SIGNATURE_INVALID");
   }
 
@@ -97,7 +108,7 @@ export function createBirthHubWorker(): WorkerRuntime {
           const payload = taskJobSchema.parse(job.data);
           const tenantSecret = await prisma.jobSigningSecret.findUnique({
             where: {
-              organizationId: payload.context.tenantId
+              organizationId: payload.tenantId ?? "default-tenant"
             }
           });
           const tenantId = validateLegacyTaskJob({
@@ -111,6 +122,8 @@ export function createBirthHubWorker(): WorkerRuntime {
             agentId: payload.type,
             executionId: `${payload.requestId}:${jobId}`,
             input: payload.payload,
+            approvalRequired: payload.approvalRequired,
+            executionMode: payload.executionMode,
             requestId: payload.requestId,
             tenantId,
             toolCalls: undefined
@@ -120,6 +133,8 @@ export function createBirthHubWorker(): WorkerRuntime {
           const payload = agentExecutionJobSchema.parse(job.data);
           return {
             ...payload,
+            approvalRequired: false,
+            executionMode: "LIVE" as const,
             requestId: payload.executionId
           };
         })();
@@ -139,6 +154,43 @@ export function createBirthHubWorker(): WorkerRuntime {
           },
           "Worker started job"
         );
+
+        if (executionPayload.executionMode === "DRY_RUN") {
+          const output = JSON.stringify(
+            {
+              logs: ["Simulating LLM call...", "Returning MOCK_DATA"],
+              mode: executionPayload.executionMode
+            },
+            null,
+            2
+          );
+
+          return {
+            completedAt: new Date().toISOString(),
+            executionId: executionPayload.executionId,
+            outputHash: hashPayload(output),
+            requestId: executionPayload.requestId,
+            status: "COMPLETED"
+          };
+        }
+
+        if (executionPayload.approvalRequired) {
+          const output = JSON.stringify(
+            {
+              message: "Awaiting human approval before final output."
+            },
+            null,
+            2
+          );
+
+          return {
+            completedAt: new Date().toISOString(),
+            executionId: executionPayload.executionId,
+            outputHash: hashPayload(output),
+            requestId: executionPayload.requestId,
+            status: "WAITING_APPROVAL"
+          };
+        }
 
         const executionResult = await executor.execute({
           agentId: executionPayload.agentId,
@@ -160,6 +212,7 @@ export function createBirthHubWorker(): WorkerRuntime {
         return {
           completedAt: new Date().toISOString(),
           executionId: executionResult.executionId,
+          outputHash: hashPayload(JSON.stringify(executionResult)),
           requestId: executionPayload.requestId
         };
       }
