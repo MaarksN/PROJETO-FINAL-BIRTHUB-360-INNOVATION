@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "cfo-pack",
+    "tenantId": "catalog",
+    "name": "CFO Agent Pack",
+    "description": "Finance leadership agent for margin protection and cash planning.",
+    "version": "1.0.0",
+    "prompt": "Act as CFO and optimize cash runway, margin and fiscal predictability.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "finance"
+    ],
+    "level": [
+      "c-level"
+    ],
+    "persona": [
+      "cfo"
+    ],
+    "use-case": [
+      "financial-planning"
+    ],
+    "industry": [
+      "finance"
+    ]
+  },
+  "skills": [
+    {
+      "id": "cfo-pack.skill.cash-flow-analysis",
+      "name": "Cash Flow Analysis",
+      "description": "Capability for Cash Flow Analysis in CFO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cfo-pack.skill.scenario-modeling",
+      "name": "Scenario Modeling",
+      "description": "Capability for Scenario Modeling in CFO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cfo-pack.skill.cost-governance",
+      "name": "Cost Governance",
+      "description": "Capability for Cost Governance in CFO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "cfo-pack.tool.budget-service",
+      "name": "Budget Service",
+      "description": "Operational tool Budget Service required by CFO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cfo-pack.tool.reporting-engine",
+      "name": "Reporting Engine",
+      "description": "Operational tool Reporting Engine required by CFO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cfo-pack.tool.spreadsheet-export",
+      "name": "Spreadsheet Export",
+      "description": "Operational tool Spreadsheet Export required by CFO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "cfo-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "cs-pack",
+    "tenantId": "catalog",
+    "name": "Customer Success Agent Pack",
+    "description": "CS agent focused on retention, expansion and account health.",
+    "version": "1.0.0",
+    "prompt": "Act as customer success lead and increase retention with proactive actions.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "customer-success"
+    ],
+    "level": [
+      "department"
+    ],
+    "persona": [
+      "cs"
+    ],
+    "use-case": [
+      "retention"
+    ],
+    "industry": [
+      "saas"
+    ]
+  },
+  "skills": [
+    {
+      "id": "cs-pack.skill.health-scoring",
+      "name": "Health Scoring",
+      "description": "Capability for Health Scoring in Customer Success Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cs-pack.skill.renewal-forecasting",
+      "name": "Renewal Forecasting",
+      "description": "Capability for Renewal Forecasting in Customer Success Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cs-pack.skill.playbook-recommendation",
+      "name": "Playbook Recommendation",
+      "description": "Capability for Playbook Recommendation in Customer Success Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "cs-pack.tool.health-alerting",
+      "name": "Health Alerting",
+      "description": "Operational tool Health Alerting required by Customer Success Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cs-pack.tool.nps-monitor",
+      "name": "NPS Monitor",
+      "description": "Operational tool NPS Monitor required by Customer Success Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cs-pack.tool.qbr-builder",
+      "name": "QBR Builder",
+      "description": "Operational tool QBR Builder required by Customer Success Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "cs-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

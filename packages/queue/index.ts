@@ -3,6 +3,7 @@ import { QueueName } from '@birthub/shared-types';
 import { QUEUE_CONFIG } from './src/definitions';
 
 export * from './src/definitions';
+export * from './src/job-context';
 
 const connection: ConnectionOptions = {
   host: process.env.REDIS_HOST || 'localhost',

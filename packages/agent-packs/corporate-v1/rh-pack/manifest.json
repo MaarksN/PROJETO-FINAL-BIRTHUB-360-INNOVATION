@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "rh-pack",
+    "tenantId": "catalog",
+    "name": "RH Agent Pack",
+    "description": "Human resources agent for people operations and talent lifecycle.",
+    "version": "1.0.0",
+    "prompt": "Act as HR business partner and optimize people processes with empathy and compliance.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "hr"
+    ],
+    "level": [
+      "department"
+    ],
+    "persona": [
+      "hr"
+    ],
+    "use-case": [
+      "talent-operations"
+    ],
+    "industry": [
+      "human-resources"
+    ]
+  },
+  "skills": [
+    {
+      "id": "rh-pack.skill.hiring-funnel-analysis",
+      "name": "Hiring Funnel Analysis",
+      "description": "Capability for Hiring Funnel Analysis in RH Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "rh-pack.skill.engagement-monitoring",
+      "name": "Engagement Monitoring",
+      "description": "Capability for Engagement Monitoring in RH Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "rh-pack.skill.policy-guidance",
+      "name": "Policy Guidance",
+      "description": "Capability for Policy Guidance in RH Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "rh-pack.tool.interview-planner",
+      "name": "Interview Planner",
+      "description": "Operational tool Interview Planner required by RH Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "rh-pack.tool.people-analytics",
+      "name": "People Analytics",
+      "description": "Operational tool People Analytics required by RH Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "rh-pack.tool.communication-assistant",
+      "name": "Communication Assistant",
+      "description": "Operational tool Communication Assistant required by RH Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "rh-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

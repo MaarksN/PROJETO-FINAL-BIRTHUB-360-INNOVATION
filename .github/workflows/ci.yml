@@ -1,52 +1,111 @@
 name: CI
 
 on:
+  pull_request:
   push:
     branches:
       - main
       - develop
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-  pull_request:
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
 
 jobs:
-  test:
+  gitleaks:
+    name: gitleaks
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  platform:
+    name: ${{ matrix.task }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        task:
+          - lint
+          - typecheck
+          - test
+          - build
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: birthub_cycle1
+          POSTGRES_PASSWORD: postgrespassword
+          POSTGRES_USER: postgres
+        options: >-
+          --health-cmd "pg_isready -U postgres -d birthub_cycle1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7.2-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 6379:6379
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 9.1.0
 
-      - name: Install JavaScript dependencies
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version: 22
+
+      - name: Cache Turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ matrix.task }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ matrix.task }}-
+            ${{ runner.os }}-turbo-
+
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run monorepo tests
-        run: pnpm test
+      - name: Generate Prisma client
+        run: pnpm db:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+      - name: Run ${{ matrix.task }}
+        run: pnpm ${{ matrix.task }}
+        env:
+          API_CORS_ORIGINS: http://localhost:3001
+          API_PORT: 3000
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ENVIRONMENT: ci
+          NODE_ENV: test
+          QUEUE_NAME: birthub-cycle1
+          REDIS_URL: redis://localhost:6379
+          SESSION_SECRET: ci-secret
+          WEB_BASE_URL: http://localhost:3001
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r agents/shared/requirements.txt
-          find agents -maxdepth 2 -name requirements.txt -print0 | xargs -0 -I{} pip install -r {}
-
-      - name: Run Python tests
-        run: pytest -q
+  ci:
+    name: ci
+    runs-on: ubuntu-latest
+    needs:
+      - gitleaks
+      - platform
+    steps:
+      - name: Done
+        run: echo "All required checks passed."

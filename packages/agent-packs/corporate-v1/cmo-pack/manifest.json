@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "cmo-pack",
+    "tenantId": "catalog",
+    "name": "CMO Agent Pack",
+    "description": "Marketing leadership agent for demand generation and brand efficiency.",
+    "version": "1.0.0",
+    "prompt": "Act as CMO and optimize demand generation with CAC/LTV discipline.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "marketing"
+    ],
+    "level": [
+      "c-level"
+    ],
+    "persona": [
+      "cmo"
+    ],
+    "use-case": [
+      "campaign-strategy"
+    ],
+    "industry": [
+      "marketing"
+    ]
+  },
+  "skills": [
+    {
+      "id": "cmo-pack.skill.campaign-architecture",
+      "name": "Campaign Architecture",
+      "description": "Capability for Campaign Architecture in CMO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cmo-pack.skill.attribution-analysis",
+      "name": "Attribution Analysis",
+      "description": "Capability for Attribution Analysis in CMO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cmo-pack.skill.brand-positioning",
+      "name": "Brand Positioning",
+      "description": "Capability for Brand Positioning in CMO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "cmo-pack.tool.marketing-mix-model",
+      "name": "Marketing Mix Model",
+      "description": "Operational tool Marketing Mix Model required by CMO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cmo-pack.tool.content-generator",
+      "name": "Content Generator",
+      "description": "Operational tool Content Generator required by CMO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cmo-pack.tool.analytics-connector",
+      "name": "Analytics Connector",
+      "description": "Operational tool Analytics Connector required by CMO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "cmo-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

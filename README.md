@@ -1,96 +1,49 @@
-# BirtHub 360 - Revenue Operations Ecosystem
+# BirthHub360
 
-Monorepo contendo o backend completo do ecossistema de RevOps operado por 8 Agentes de IA especializados.
+![CI](https://img.shields.io/badge/CI-platform-blue)
+![Security](https://img.shields.io/badge/security-semgrep%20%2B%20dependency--check-informational)
+![Cycle](https://img.shields.io/badge/cycle-1-orange)
 
-## 🏗️ Estrutura do Projeto
+Monorepo do BirthHub360 com a fundação do Ciclo 1 centralizada em `apps/web`, `apps/api` e `apps/worker`.
 
-O projeto é organizado como um monorepo usando `pnpm` e `turborepo`.
-
-- `apps/`: Aplicações principais (API Gateway, Orchestrator, Dashboard, etc.)
-    - `dashboard`: Next.js com Sales OS (LDR/SDR/BDR/Closer) em `/sales`.
-- `agents/`: Agentes de IA especializados (Marketing, SDR, AE, etc.)
-- `packages/`: Bibliotecas compartilhadas e utilitários
-- `infra/`: Configurações de infraestrutura (Docker, K8s, Terraform)
-
-## 🚀 Como Iniciar
-
-1. **Pré-requisitos**:
-   - Docker e Docker Compose
-   - Node.js 20+
-   - pnpm 9+
-   - Python 3.12+ (para os agentes)
-
-2. **Configuração**:
-
-   ```bash
-   # Clone o repositório
-   git clone <repo-url>
-   cd birthub-360
-
-   # Configure as variáveis de ambiente
-   cp .env.example .env
-   # Edite o arquivo .env conforme necessário
-   ```
-
-3. **Instalação**:
-
-   ```bash
-   pnpm install
-   ```
-
-4. **Executar Infraestrutura Base**:
-
-   ```bash
-   docker-compose up -d
-   ```
-
-   Isso iniciará o PostgreSQL, Redis e Elasticsearch.
-
-5. **Desenvolvimento**:
-   ```bash
-   pnpm dev
-   ```
-
-## 🧰 Operação Local Completa
-
-Para subir stack completa de desenvolvimento (apps + observabilidade):
+## Quick start
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d
+cp .env.example .env
+pnpm setup:local
 ```
 
-Isso inicia API Gateway, Dashboard, Prometheus e Grafana além da infraestrutura base.
+O comando acima instala dependências, sobe Postgres/Redis, gera o Prisma client, aplica migrations, executa seed e inicia os três apps em paralelo com Turbo.
 
+## Estrutura principal
 
-## ✅ Qualidade (FASE 9)
+- `apps/web`: Next.js com headers de segurança, login inicial e Sentry client-side.
+- `apps/api`: Express com Zod, RFC 7807, Swagger, Sentry, OpenTelemetry e health checks.
+- `apps/worker`: BullMQ worker com correlação de `requestId`.
+- `packages/config`: contratos Zod de ambiente e payloads compartilhados.
+- `packages/database`: schema Prisma inicial, singleton e seed.
+- `packages/logger`: logger estruturado com contexto assíncrono.
+- `packages/testing`: helpers de banco isolado e factories.
 
-Comandos de validação local:
+## Documentação
+
+- [Arquitetura](./docs/ARCHITECTURE.md)
+- [Checklist mestre](./CHECKLIST_MASTER.md)
+- [Log de execução](./CHECKLIST_LOG.md)
+
+## Comandos úteis
 
 ```bash
-# Unit + integração de agentes (Python)
-pnpm test:agents
-
-# E2E rotas críticas
-pnpm test:e2e
-
-# Carga BullMQ (requer Redis local)
-pnpm test:load
+pnpm dev
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm reset:local
 ```
 
-A pipeline de CI (`.github/workflows/ci.yml`) executa esses mesmos checks, incluindo cobertura mínima de 80% no conjunto crítico de agentes via `pytest-cov`. As dependências de teste Python ficam centralizadas em `requirements-test.txt`.
+## CI e segurança
 
-## 📈 Deploy e Monitoramento (FASE 10)
-
-- **Dev stack completa:** `docker compose -f docker-compose.dev.yml up -d`
-- **Cloud Run (prod):** manifesto base em `infra/cloudrun/service.yaml`
-- **Métricas e dashboards:** `infra/monitoring/prometheus.yml` e `infra/monitoring/grafana-dashboard.json`
-- **Alertas:** `infra/monitoring/alert.rules.yml`
-- **Cloud Logging:** middleware estruturado no API Gateway (`apps/api-gateway/src/middleware/cloud-logging.ts`)
-
-## 📝 Status do Projeto
-
-Consulte o arquivo `EXECUTION_CHECKLIST.md` para acompanhar o progresso detalhado da implementação.
-
-## 📄 Licença
-
-Proprietário. Todos os direitos reservados.
+- `.github/workflows/ci.yml`: `gitleaks` + `lint`, `typecheck`, `test`, `build` em paralelo.
+- `.github/workflows/security-scan.yml`: `semgrep` + `dependency-check`.
+- `.github/settings.yml`: branch protection declarativa para `main`.

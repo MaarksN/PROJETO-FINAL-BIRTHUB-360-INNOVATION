@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "ceo-pack",
+    "tenantId": "catalog",
+    "name": "CEO Agent Pack",
+    "description": "Corporate strategic agent for growth and board-level prioritization.",
+    "version": "1.0.0",
+    "prompt": "Act as CEO and define strategic priorities balancing growth, risk and execution.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "strategy"
+    ],
+    "level": [
+      "c-level"
+    ],
+    "persona": [
+      "ceo"
+    ],
+    "use-case": [
+      "strategy"
+    ],
+    "industry": [
+      "cross-industry"
+    ]
+  },
+  "skills": [
+    {
+      "id": "ceo-pack.skill.strategic-planning",
+      "name": "Strategic Planning",
+      "description": "Capability for Strategic Planning in CEO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ceo-pack.skill.executive-decisioning",
+      "name": "Executive Decisioning",
+      "description": "Capability for Executive Decisioning in CEO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ceo-pack.skill.portfolio-prioritization",
+      "name": "Portfolio Prioritization",
+      "description": "Capability for Portfolio Prioritization in CEO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "ceo-pack.tool.board-report-generator",
+      "name": "Board Report Generator",
+      "description": "Operational tool Board Report Generator required by CEO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ceo-pack.tool.kpi-dashboard",
+      "name": "KPI Dashboard",
+      "description": "Operational tool KPI Dashboard required by CEO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ceo-pack.tool.budget-forecaster",
+      "name": "Budget Forecaster",
+      "description": "Operational tool Budget Forecaster required by CEO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "ceo-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

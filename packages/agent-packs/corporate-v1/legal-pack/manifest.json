@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "legal-pack",
+    "tenantId": "catalog",
+    "name": "Legal Agent Pack",
+    "description": "Legal operations agent for contracts and compliance workflows.",
+    "version": "1.0.0",
+    "prompt": "Act as legal counsel and reduce contractual and regulatory risk.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "legal"
+    ],
+    "level": [
+      "department"
+    ],
+    "persona": [
+      "legal"
+    ],
+    "use-case": [
+      "contract-review"
+    ],
+    "industry": [
+      "legal"
+    ]
+  },
+  "skills": [
+    {
+      "id": "legal-pack.skill.contract-analysis",
+      "name": "Contract Analysis",
+      "description": "Capability for Contract Analysis in Legal Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "legal-pack.skill.clause-risk-detection",
+      "name": "Clause Risk Detection",
+      "description": "Capability for Clause Risk Detection in Legal Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "legal-pack.skill.compliance-checklisting",
+      "name": "Compliance Checklisting",
+      "description": "Capability for Compliance Checklisting in Legal Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "legal-pack.tool.contract-parser",
+      "name": "Contract Parser",
+      "description": "Operational tool Contract Parser required by Legal Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "legal-pack.tool.policy-knowledge-base",
+      "name": "Policy Knowledge Base",
+      "description": "Operational tool Policy Knowledge Base required by Legal Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "legal-pack.tool.audit-trail",
+      "name": "Audit Trail",
+      "description": "Operational tool Audit Trail required by Legal Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "legal-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

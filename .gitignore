@@ -8,3 +8,6 @@ dist
 .pnpm-store
 __pycache__
 *.pyc
+coverage
+playwright-report
+pnpm-debug.log*

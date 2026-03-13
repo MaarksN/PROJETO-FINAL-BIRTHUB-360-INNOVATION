@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "ops-pack",
+    "tenantId": "catalog",
+    "name": "Ops Agent Pack",
+    "description": "Operations agent for process control and incident response.",
+    "version": "1.0.0",
+    "prompt": "Act as operations manager and maintain process performance at scale.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "operations"
+    ],
+    "level": [
+      "department"
+    ],
+    "persona": [
+      "ops"
+    ],
+    "use-case": [
+      "incident-operations"
+    ],
+    "industry": [
+      "operations"
+    ]
+  },
+  "skills": [
+    {
+      "id": "ops-pack.skill.runbook-coordination",
+      "name": "Runbook Coordination",
+      "description": "Capability for Runbook Coordination in Ops Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ops-pack.skill.incident-triage",
+      "name": "Incident Triage",
+      "description": "Capability for Incident Triage in Ops Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ops-pack.skill.kpi-monitoring",
+      "name": "KPI Monitoring",
+      "description": "Capability for KPI Monitoring in Ops Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "ops-pack.tool.slack-notifier",
+      "name": "Slack Notifier",
+      "description": "Operational tool Slack Notifier required by Ops Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ops-pack.tool.calendar-scheduler",
+      "name": "Calendar Scheduler",
+      "description": "Operational tool Calendar Scheduler required by Ops Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "ops-pack.tool.storage-archiver",
+      "name": "Storage Archiver",
+      "description": "Operational tool Storage Archiver required by Ops Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "ops-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

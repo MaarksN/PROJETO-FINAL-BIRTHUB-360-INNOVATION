@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "coo-pack",
+    "tenantId": "catalog",
+    "name": "COO Agent Pack",
+    "description": "Operations leadership agent for process scale and efficiency.",
+    "version": "1.0.0",
+    "prompt": "Act as COO and orchestrate operational execution across departments.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "operations"
+    ],
+    "level": [
+      "c-level"
+    ],
+    "persona": [
+      "coo"
+    ],
+    "use-case": [
+      "operational-excellence"
+    ],
+    "industry": [
+      "operations"
+    ]
+  },
+  "skills": [
+    {
+      "id": "coo-pack.skill.process-mapping",
+      "name": "Process Mapping",
+      "description": "Capability for Process Mapping in COO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "coo-pack.skill.sla-control",
+      "name": "SLA Control",
+      "description": "Capability for SLA Control in COO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "coo-pack.skill.execution-cadence",
+      "name": "Execution Cadence",
+      "description": "Capability for Execution Cadence in COO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "coo-pack.tool.workflow-orchestrator",
+      "name": "Workflow Orchestrator",
+      "description": "Operational tool Workflow Orchestrator required by COO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "coo-pack.tool.task-queue",
+      "name": "Task Queue",
+      "description": "Operational tool Task Queue required by COO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "coo-pack.tool.ops-dashboard",
+      "name": "Ops Dashboard",
+      "description": "Operational tool Ops Dashboard required by COO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "coo-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

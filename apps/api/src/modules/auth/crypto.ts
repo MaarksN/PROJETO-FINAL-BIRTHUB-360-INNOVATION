@@ -1,0 +1,76 @@
+import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes } from "node:crypto";
+
+export function sha256(input: string): string {
+  return createHash("sha256").update(input).digest("hex");
+}
+
+export function randomToken(byteLength = 32): string {
+  return randomBytes(byteLength).toString("base64url");
+}
+
+export function createAccessToken(): string {
+  return `atk_${randomToken(32)}`;
+}
+
+export function createRefreshToken(): string {
+  return `rtk_${randomToken(48)}`;
+}
+
+export function createApiKey(prefix: string): {
+  hash: string;
+  key: string;
+  last4: string;
+  prefix: string;
+} {
+  const material = randomToken(36);
+  const key = `${prefix}_${material}`;
+  return {
+    hash: sha256(key),
+    key,
+    last4: key.slice(-4),
+    prefix
+  };
+}
+
+function encryptionKey(secret: string): Buffer {
+  return createHash("sha256").update(secret).digest();
+}
+
+export function encryptSensitiveValue(value: string, secret: string): string {
+  const iv = randomBytes(12);
+  const cipher = createCipheriv("aes-256-gcm", encryptionKey(secret), iv);
+  const encrypted = Buffer.concat([cipher.update(value, "utf8"), cipher.final()]);
+  const authTag = cipher.getAuthTag();
+
+  return `${iv.toString("base64url")}.${authTag.toString("base64url")}.${encrypted.toString("base64url")}`;
+}
+
+export function decryptSensitiveValue(payload: string, secret: string): string {
+  const [ivPart, authTagPart, encryptedPart] = payload.split(".");
+
+  if (!ivPart || !authTagPart || !encryptedPart) {
+    throw new Error("Invalid encrypted payload.");
+  }
+
+  const decipher = createDecipheriv(
+    "aes-256-gcm",
+    encryptionKey(secret),
+    Buffer.from(ivPart, "base64url")
+  );
+  decipher.setAuthTag(Buffer.from(authTagPart, "base64url"));
+
+  const decrypted = Buffer.concat([
+    decipher.update(Buffer.from(encryptedPart, "base64url")),
+    decipher.final()
+  ]);
+
+  return decrypted.toString("utf8");
+}
+
+export function signPayload(payload: string, secret: string): string {
+  return createHmac("sha256", secret).update(payload).digest("hex");
+}
+
+export function verifyPayloadSignature(payload: string, secret: string, signature: string): boolean {
+  return signPayload(payload, secret) === signature;
+}

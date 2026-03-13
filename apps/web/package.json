@@ -1,11 +1,30 @@
 {
   "name": "@birthub/web",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter @birthub/dashboard dev",
-    "build": "pnpm --filter @birthub/dashboard build",
-    "start": "pnpm --filter @birthub/dashboard start",
-    "test": "pnpm --filter @birthub/dashboard test"
+    "build": "next build",
+    "dev": "next dev -p 3001",
+    "lint": "eslint .",
+    "start": "next start -p 3001",
+    "test": "node --import tsx --test tests/**/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@birthub/config": "workspace:*",
+    "@birthub/logger": "workspace:*",
+    "@sentry/nextjs": "^8.48.0",
+    "next": "15.1.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "jsdom": "^25.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }

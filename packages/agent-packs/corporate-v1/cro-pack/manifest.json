@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "cro-pack",
+    "tenantId": "catalog",
+    "name": "CRO Agent Pack",
+    "description": "Revenue leadership agent focused on pipeline velocity and conversion.",
+    "version": "1.0.0",
+    "prompt": "Act as CRO and maximize predictable revenue using data-driven actions.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "revenue"
+    ],
+    "level": [
+      "c-level"
+    ],
+    "persona": [
+      "cro"
+    ],
+    "use-case": [
+      "pipeline-optimization"
+    ],
+    "industry": [
+      "sales"
+    ]
+  },
+  "skills": [
+    {
+      "id": "cro-pack.skill.pipeline-diagnostics",
+      "name": "Pipeline Diagnostics",
+      "description": "Capability for Pipeline Diagnostics in CRO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cro-pack.skill.forecast-accuracy",
+      "name": "Forecast Accuracy",
+      "description": "Capability for Forecast Accuracy in CRO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cro-pack.skill.revenue-acceleration",
+      "name": "Revenue Acceleration",
+      "description": "Capability for Revenue Acceleration in CRO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "cro-pack.tool.crm-adapter",
+      "name": "CRM Adapter",
+      "description": "Operational tool CRM Adapter required by CRO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cro-pack.tool.forecast-analyzer",
+      "name": "Forecast Analyzer",
+      "description": "Operational tool Forecast Analyzer required by CRO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cro-pack.tool.sales-alerting",
+      "name": "Sales Alerting",
+      "description": "Operational tool Sales Alerting required by CRO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "cro-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

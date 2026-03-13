@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "finance-pack",
+    "tenantId": "catalog",
+    "name": "Finance Agent Pack",
+    "description": "Departmental finance agent for controls, reconciliation and reporting.",
+    "version": "1.0.0",
+    "prompt": "Act as finance manager and ensure healthy budget execution.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "finance"
+    ],
+    "level": [
+      "department"
+    ],
+    "persona": [
+      "finance"
+    ],
+    "use-case": [
+      "budget-control"
+    ],
+    "industry": [
+      "finance"
+    ]
+  },
+  "skills": [
+    {
+      "id": "finance-pack.skill.budget-tracking",
+      "name": "Budget Tracking",
+      "description": "Capability for Budget Tracking in Finance Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "finance-pack.skill.variance-analysis",
+      "name": "Variance Analysis",
+      "description": "Capability for Variance Analysis in Finance Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "finance-pack.skill.closing-support",
+      "name": "Closing Support",
+      "description": "Capability for Closing Support in Finance Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "finance-pack.tool.ledger-reconciliation",
+      "name": "Ledger Reconciliation",
+      "description": "Operational tool Ledger Reconciliation required by Finance Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "finance-pack.tool.cost-estimator",
+      "name": "Cost Estimator",
+      "description": "Operational tool Cost Estimator required by Finance Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "finance-pack.tool.csv-export",
+      "name": "CSV Export",
+      "description": "Operational tool CSV Export required by Finance Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "finance-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

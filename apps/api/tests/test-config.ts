@@ -1,0 +1,39 @@
+import type { ApiConfig } from "@birthub/config";
+
+export function createTestApiConfig(): ApiConfig {
+  return {
+    API_AUTH_COOKIE_NAME: "bh360_session",
+    API_AUTH_REFRESH_COOKIE_NAME: "bh360_refresh",
+    API_AUTH_ROTATION_GRACE_HOURS: 24,
+    API_AUTH_SESSION_TTL_HOURS: 24,
+    API_AUTH_TOKEN_TTL_MINUTES: 15,
+    API_CORS_ORIGINS: "http://localhost:3001",
+    API_CSRF_COOKIE_NAME: "bh360_csrf",
+    API_CSRF_HEADER_NAME: "x-csrf-token",
+    API_KEY_PREFIX: "bh360_live",
+    API_KEY_RATE_LIMIT_MAX: 600,
+    API_PORT: 3000,
+    API_RATE_LIMIT_MAX: 120,
+    API_RATE_LIMIT_WINDOW_MS: 60_000,
+    AUTH_MFA_CHALLENGE_TTL_SECONDS: 300,
+    AUTH_MFA_CLOCK_SKEW_WINDOWS: 1,
+    AUTH_MFA_ENCRYPTION_KEY: "test-mfa-encryption-key",
+    AUTH_MFA_ISSUER: "BirthHub360",
+    DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/birthub_cycle1",
+    EXTERNAL_HEALTHCHECK_URLS: "",
+    JOB_HMAC_GLOBAL_SECRET: "test-job-hmac-secret",
+    LOG_LEVEL: "info",
+    NODE_ENV: "test",
+    OTEL_EXPORTER_OTLP_ENDPOINT: undefined,
+    OTEL_SERVICE_NAME: "birthub-api-test",
+    QUEUE_NAME: "birthub-cycle3",
+    REDIS_URL: "redis://localhost:6379",
+    REQUIRE_SECURE_COOKIES: false,
+    SENTRY_DSN: undefined,
+    SENTRY_ENVIRONMENT: "test",
+    SESSION_SECRET: "test-session-secret",
+    WEB_BASE_URL: "http://localhost:3001",
+    corsOrigins: ["http://localhost:3001"],
+    externalHealthcheckUrls: []
+  };
+}

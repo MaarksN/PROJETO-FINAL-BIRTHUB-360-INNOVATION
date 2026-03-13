@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "sales-pack",
+    "tenantId": "catalog",
+    "name": "Sales Agent Pack",
+    "description": "Sales execution agent for lead qualification and conversion.",
+    "version": "1.0.0",
+    "prompt": "Act as sales director and drive disciplined pipeline execution.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "sales"
+    ],
+    "level": [
+      "department"
+    ],
+    "persona": [
+      "sales"
+    ],
+    "use-case": [
+      "lead-conversion"
+    ],
+    "industry": [
+      "sales"
+    ]
+  },
+  "skills": [
+    {
+      "id": "sales-pack.skill.lead-prioritization",
+      "name": "Lead Prioritization",
+      "description": "Capability for Lead Prioritization in Sales Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "sales-pack.skill.deal-coaching",
+      "name": "Deal Coaching",
+      "description": "Capability for Deal Coaching in Sales Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "sales-pack.skill.pipeline-hygiene",
+      "name": "Pipeline Hygiene",
+      "description": "Capability for Pipeline Hygiene in Sales Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "sales-pack.tool.crm-adapter",
+      "name": "CRM Adapter",
+      "description": "Operational tool CRM Adapter required by Sales Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "sales-pack.tool.call-summary",
+      "name": "Call Summary",
+      "description": "Operational tool Call Summary required by Sales Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "sales-pack.tool.proposal-generator",
+      "name": "Proposal Generator",
+      "description": "Operational tool Proposal Generator required by Sales Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "sales-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

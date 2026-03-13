@@ -1,0 +1,116 @@
+{
+  "manifestVersion": "1.0.0",
+  "agent": {
+    "id": "cto-pack",
+    "tenantId": "catalog",
+    "name": "CTO Agent Pack",
+    "description": "Technology leadership agent for architecture, reliability and delivery.",
+    "version": "1.0.0",
+    "prompt": "Act as CTO and align technical roadmap with product and business goals.",
+    "changelog": [
+      "1.0.0 - Initial corporate pack publication for Cycle 5"
+    ]
+  },
+  "tags": {
+    "domain": [
+      "technology"
+    ],
+    "level": [
+      "c-level"
+    ],
+    "persona": [
+      "cto"
+    ],
+    "use-case": [
+      "architecture-governance"
+    ],
+    "industry": [
+      "technology"
+    ]
+  },
+  "skills": [
+    {
+      "id": "cto-pack.skill.architecture-review",
+      "name": "Architecture Review",
+      "description": "Capability for Architecture Review in CTO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cto-pack.skill.reliability-planning",
+      "name": "Reliability Planning",
+      "description": "Capability for Reliability Planning in CTO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cto-pack.skill.delivery-risk-management",
+      "name": "Delivery Risk Management",
+      "description": "Capability for Delivery Risk Management in CTO Agent Pack workflows.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "id": "cto-pack.tool.incident-monitor",
+      "name": "Incident Monitor",
+      "description": "Operational tool Incident Monitor required by CTO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cto-pack.tool.roadmap-planner",
+      "name": "Roadmap Planner",
+      "description": "Operational tool Roadmap Planner required by CTO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "id": "cto-pack.tool.dependency-auditor",
+      "name": "Dependency Auditor",
+      "description": "Operational tool Dependency Auditor required by CTO Agent Pack.",
+      "timeoutMs": 15000,
+      "inputSchema": {
+        "type": "object"
+      },
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "id": "cto-pack.policy.standard",
+      "name": "Default execution policy",
+      "effect": "allow",
+      "actions": [
+        "tool:execute",
+        "report:read",
+        "budget:consume"
+      ]
+    }
+  ]
+}

@@ -2,10 +2,16 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": [
+      "node"
+    ]
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts",
+    "index.ts"
   ],
   "exclude": [
     "node_modules",

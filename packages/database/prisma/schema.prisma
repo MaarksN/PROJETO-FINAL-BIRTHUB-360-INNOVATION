@@ -1,0 +1,408 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id            String         @id @default(cuid())
+  tenantId      String         @unique @default(cuid())
+  name          String
+  slug          String         @unique
+  settings      Json?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  memberships   Membership[]
+  sessions      Session[]
+  agents        Agent[]
+  workflows     Workflow[]
+  customers     Customer[]
+  invites       Invite[]
+  subscriptions Subscription[]
+  auditLogs     AuditLog[]     @relation("OrganizationAuditLogs")
+  quotaUsages   QuotaUsage[]   @relation("OrganizationQuotaUsages")
+  apiKeys       ApiKey[]
+  loginAlerts   LoginAlert[]
+  mfaChallenges MfaChallenge[]
+  jobSecrets    JobSigningSecret[]
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, slug])
+  @@map("organizations")
+}
+
+model User {
+  id               String            @id @default(cuid())
+  email            String            @unique
+  name             String
+  passwordHash     String            @default("")
+  status           UserStatus        @default(ACTIVE)
+  suspendedAt      DateTime?
+  mfaEnabled       Boolean           @default(false)
+  mfaSecret        String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  memberships      Membership[]
+  sessions         Session[]
+  sentInvites      Invite[]          @relation("InviteSender")
+  auditLogs        AuditLog[]        @relation("AuditActor")
+  apiKeys          ApiKey[]
+  mfaRecoveryCodes MfaRecoveryCode[]
+  mfaChallenges    MfaChallenge[]
+  loginAlerts      LoginAlert[]
+
+  @@map("users")
+}
+
+model Membership {
+  id             String           @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  role           Role
+  status         MembershipStatus @default(ACTIVE)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, userId])
+  @@index([tenantId, status])
+  @@map("members")
+}
+
+model Session {
+  id             String        @id @default(cuid())
+  tenantId       String
+  token          String        @unique
+  refreshTokenHash String?     @unique
+  csrfToken      String?
+  organizationId String
+  userId         String
+  expiresAt      DateTime
+  refreshExpiresAt DateTime?
+  lastActivityAt DateTime      @default(now())
+  revokedAt      DateTime?
+  replacedBySessionId String?
+  ipAddress      String?
+  userAgent      String?
+  status         SessionStatus @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  replacedBySession   Session? @relation("SessionRotation", fields: [replacedBySessionId], references: [id], onDelete: SetNull)
+  rotatedFromSessions Session[] @relation("SessionRotation")
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, userId])
+  @@index([tenantId, status])
+  @@index([expiresAt])
+  @@index([revokedAt])
+  @@map("sessions")
+}
+
+model ApiKey {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  label          String
+  prefix         String
+  keyHash        String       @unique
+  last4          String
+  scopes         String[]
+  status         ApiKeyStatus @default(ACTIVE)
+  expiresAt      DateTime?
+  graceExpiresAt DateTime?
+  rotatedFromId  String?
+  revokedAt      DateTime?
+  lastUsedAt     DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rotatedFrom    ApiKey?      @relation("ApiKeyRotation", fields: [rotatedFromId], references: [id], onDelete: SetNull)
+  rotatedTo      ApiKey[]     @relation("ApiKeyRotation")
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([organizationId, userId])
+  @@map("api_keys")
+}
+
+model MfaRecoveryCode {
+  id        String   @id @default(cuid())
+  tenantId  String
+  userId    String
+  codeHash  String
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, codeHash])
+  @@index([tenantId])
+  @@map("mfa_recovery_codes")
+}
+
+model MfaChallenge {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  tokenHash      String       @unique
+  expiresAt      DateTime
+  consumedAt     DateTime?
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, userId, expiresAt])
+  @@map("mfa_challenges")
+}
+
+model LoginAlert {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  ipAddress      String?
+  userAgent      String?
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, userId, createdAt])
+  @@map("login_alerts")
+}
+
+model JobSigningSecret {
+  id             String       @id @default(cuid())
+  tenantId       String       @unique
+  organizationId String       @unique
+  secret         String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("job_signing_secrets")
+}
+
+model Agent {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  name           String
+  status         AgentStatus  @default(ACTIVE)
+  config         Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, status])
+  @@map("agents")
+}
+
+model Workflow {
+  id             String         @id @default(cuid())
+  tenantId       String
+  organizationId String
+  name           String
+  status         WorkflowStatus @default(DRAFT)
+  definition     Json?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, status])
+  @@map("workflows")
+}
+
+model Customer {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  email          String
+  name           String
+  status         String
+  metadata       Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, status])
+  @@map("customers")
+}
+
+model Invite {
+  id              String       @id @default(cuid())
+  tenantId        String
+  organizationId  String
+  email           String
+  token           String       @unique
+  role            Role         @default(MEMBER)
+  status          InviteStatus @default(PENDING)
+  invitedByUserId String?
+  expiresAt       DateTime
+  acceptedAt      DateTime?
+  revokedAt       DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invitedBy       User?        @relation("InviteSender", fields: [invitedByUserId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, status])
+  @@index([expiresAt])
+  @@map("invites")
+}
+
+model AuditLog {
+  id           String       @id @default(cuid())
+  tenantId     String
+  actorId      String?
+  action       String
+  entityType   String
+  entityId     String
+  diff         Json
+  ip           String?
+  userAgent    String?
+  createdAt    DateTime     @default(now())
+  organization Organization @relation("OrganizationAuditLogs", fields: [tenantId], references: [tenantId], onDelete: Cascade)
+  actor        User?        @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, actorId])
+  @@map("audit_logs")
+}
+
+model QuotaUsage {
+  id           String            @id @default(cuid())
+  tenantId     String
+  resourceType QuotaResourceType
+  period       String
+  count        Int               @default(0)
+  limit        Int
+  resetAt      DateTime
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  organization Organization      @relation("OrganizationQuotaUsages", fields: [tenantId], references: [tenantId], onDelete: Cascade)
+
+  @@unique([tenantId, resourceType, period])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, resourceType])
+  @@index([tenantId, period])
+  @@map("quota_usage")
+}
+
+model Subscription {
+  id             String             @id @default(cuid())
+  tenantId       String
+  organizationId String
+  plan           SubscriptionPlan   @default(STARTER)
+  status         SubscriptionStatus @default(TRIALING)
+  renewsAt       DateTime?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  organization   Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, status])
+  @@map("subscriptions")
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+  READONLY
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INVITED
+  REVOKED
+}
+
+enum SessionStatus {
+  ACTIVE
+  REVOKED
+  EXPIRED
+}
+
+enum AgentStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum WorkflowStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  REVOKED
+  EXPIRED
+}
+
+enum SubscriptionPlan {
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+}
+
+enum ApiKeyStatus {
+  ACTIVE
+  REVOKED
+}
+
+enum QuotaResourceType {
+  EMAILS_SENT
+  AI_PROMPTS
+  WORKFLOW_RUNS
+  STORAGE_GB
+  API_REQUESTS
+}
