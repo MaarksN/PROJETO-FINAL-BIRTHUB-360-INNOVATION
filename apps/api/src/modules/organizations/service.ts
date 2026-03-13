@@ -102,7 +102,7 @@ export async function createOrganization(input: {
         config,
         email: input.adminEmail,
         name: input.adminName,
-        organizationId: organization.id
+        organizationReference: organization.id
       });
 
       await tx.subscription.create({
