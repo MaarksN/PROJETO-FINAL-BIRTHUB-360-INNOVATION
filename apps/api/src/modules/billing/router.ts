@@ -51,7 +51,7 @@ export function createBillingRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       const checkout = await createCheckoutSessionForOrganization({
         config,
-        organizationId: request.context.tenantId!,
+        organizationReference: request.context.tenantId!,
         planId: request.body.planId
       });
 
@@ -70,7 +70,7 @@ export function createBillingRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       const portal = await createCustomerPortalSessionForOrganization({
         config,
-        organizationId: request.context.tenantId!
+        organizationReference: request.context.tenantId!
       });
 
       response.status(200).json({
@@ -87,7 +87,7 @@ export function createBillingRouter(config: ApiConfig): Router {
       const pagination = cursorPaginationQuerySchema.parse(request.query);
       const invoices = await listInvoicesForOrganization({
         cursor: pagination.cursor,
-        organizationId: request.context.tenantId!,
+        organizationReference: request.context.tenantId!,
         take: pagination.take
       });
 
