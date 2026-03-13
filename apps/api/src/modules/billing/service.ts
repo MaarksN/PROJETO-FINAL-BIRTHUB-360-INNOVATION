@@ -104,6 +104,17 @@ function resolveGracePeriodEndsAt(
   return new Date(subscription.updatedAt.getTime() + gracePeriodDays * 24 * 60 * 60 * 1000);
 }
 
+async function findOrganizationByReference(
+  organizationReference: string,
+  client: DatabaseClient = prisma
+) {
+  return client.organization.findFirst({
+    where: {
+      OR: [{ id: organizationReference }, { tenantId: organizationReference }]
+    }
+  });
+}
+
 export async function ensurePlanByCode(code: string, client: DatabaseClient = prisma) {
   const normalized = code.trim().toLowerCase();
   const plan = await client.plan.findUnique({
@@ -153,10 +164,10 @@ export interface BillingSnapshot {
 }
 
 export async function getBillingSnapshot(
-  organizationId: string,
+  organizationReference: string,
   gracePeriodDays: number
 ): Promise<BillingSnapshot> {
-  const organization = await prisma.organization.findUnique({
+  const organization = await prisma.organization.findFirst({
     include: {
       plan: true,
       subscriptions: {
@@ -170,7 +181,7 @@ export async function getBillingSnapshot(
       }
     },
     where: {
-      id: organizationId
+      OR: [{ id: organizationReference }, { tenantId: organizationReference }]
     }
   });
 
@@ -219,11 +230,11 @@ export async function getBillingSnapshot(
 }
 
 export async function canUseFeature(
-  organizationId: string,
+  organizationReference: string,
   feature: PlanFeature,
   gracePeriodDays: number
 ): Promise<{ allowed: boolean; snapshot: BillingSnapshot }> {
-  const snapshot = await getBillingSnapshot(organizationId, gracePeriodDays);
+  const snapshot = await getBillingSnapshot(organizationReference, gracePeriodDays);
   const featureEnabled = isPlanFeatureEnabled(snapshot.plan.limits, feature);
 
   return {
@@ -232,8 +243,10 @@ export async function canUseFeature(
   };
 }
 
-export async function getAgentLimitForOrganization(organizationId: string): Promise<number> {
-  const snapshot = await getBillingSnapshot(organizationId, 3);
+export async function getAgentLimitForOrganization(
+  organizationReference: string
+): Promise<number> {
+  const snapshot = await getBillingSnapshot(organizationReference, 3);
   return readNumericPlanLimit(snapshot.plan.limits, "agents", 5);
 }
 
@@ -242,14 +255,10 @@ export async function provisionStripeCustomerForOrganization(input: {
   config: ApiConfig;
   email: string;
   name: string;
-  organizationId: string;
+  organizationReference: string;
 }): Promise<string> {
   const client = input.client ?? prisma;
-  const organization = await client.organization.findUnique({
-    where: {
-      id: input.organizationId
-    }
-  });
+  const organization = await findOrganizationByReference(input.organizationReference, client);
 
   if (!organization) {
     throw new ProblemDetailsError({
@@ -344,7 +353,7 @@ async function resolveCustomerForCheckout(input: {
 
 export async function createCheckoutSessionForOrganization(input: {
   config: ApiConfig;
-  organizationId: string;
+  organizationReference: string;
   planId: string;
 }) {
   const plan = await prisma.plan.findUnique({
@@ -372,7 +381,7 @@ export async function createCheckoutSessionForOrganization(input: {
   const stripe = createStripeClient(input.config);
   const customerId = await resolveCustomerForCheckout({
     config: input.config,
-    organizationId: input.organizationId
+    organizationReference: input.organizationReference
   });
   const session = await stripe.checkout.sessions.create({
     cancel_url: input.config.STRIPE_CANCEL_URL,
@@ -384,7 +393,7 @@ export async function createCheckoutSessionForOrganization(input: {
       }
     ],
     metadata: {
-      organizationId: input.organizationId,
+      organizationId: input.organizationReference,
       planId: plan.id
     },
     mode: "subscription",
@@ -407,13 +416,9 @@ export async function createCheckoutSessionForOrganization(input: {
 
 export async function createCustomerPortalSessionForOrganization(input: {
   config: ApiConfig;
-  organizationId: string;
+  organizationReference: string;
 }): Promise<{ url: string }> {
-  const organization = await prisma.organization.findUnique({
-    where: {
-      id: input.organizationId
-    }
-  });
+  const organization = await findOrganizationByReference(input.organizationReference);
 
   if (!organization?.stripeCustomerId) {
     throw new ProblemDetailsError({
@@ -447,9 +452,19 @@ export async function listActivePlans() {
 
 export async function listInvoicesForOrganization(input: {
   cursor?: string;
-  organizationId: string;
+  organizationReference: string;
   take: number;
 }) {
+  const organization = await findOrganizationByReference(input.organizationReference);
+
+  if (!organization) {
+    throw new ProblemDetailsError({
+      detail: "Organization not found while listing invoices.",
+      status: 404,
+      title: "Not Found"
+    });
+  }
+
   const rows = await prisma.invoice.findMany({
     cursor: input.cursor
       ? {
@@ -462,7 +477,7 @@ export async function listInvoicesForOrganization(input: {
     skip: input.cursor ? 1 : 0,
     take: input.take + 1,
     where: {
-      organizationId: input.organizationId
+      organizationId: organization.id
     }
   });
 
@@ -472,14 +487,24 @@ export async function listInvoicesForOrganization(input: {
   };
 }
 
-export async function listUsageForOrganization(organizationId: string) {
+export async function listUsageForOrganization(organizationReference: string) {
+  const organization = await findOrganizationByReference(organizationReference);
+
+  if (!organization) {
+    throw new ProblemDetailsError({
+      detail: "Organization not found while listing usage.",
+      status: 404,
+      title: "Not Found"
+    });
+  }
+
   const usageRows = await prisma.usageRecord.findMany({
     orderBy: {
       occurredAt: "desc"
     },
     take: 300,
     where: {
-      organizationId
+      organizationId: organization.id
     }
   });
   const byMetric = new Map<string, number>();

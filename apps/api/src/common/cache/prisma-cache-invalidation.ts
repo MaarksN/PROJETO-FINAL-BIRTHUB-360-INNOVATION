@@ -23,6 +23,10 @@ function organizationToReferences(organization: CachedOrganization): string[] {
 }
 
 async function resolveOrganizationsFromWhere(where: unknown): Promise<CachedOrganization[]> {
+  if (!where || typeof where !== "object") {
+    return [];
+  }
+
   const organizations = await prisma.organization.findMany({
     select: {
       id: true,
@@ -40,6 +44,10 @@ async function resolveOrganizationsFromWhere(where: unknown): Promise<CachedOrga
 }
 
 async function resolveTenantIdsForUsers(where: unknown): Promise<string[]> {
+  if (!where || typeof where !== "object") {
+    return [];
+  }
+
   const users = await prisma.user.findMany({
     select: {
       id: true

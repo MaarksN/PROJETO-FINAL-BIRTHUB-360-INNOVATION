@@ -22,10 +22,10 @@
     },
     {
       "type": "timeseries",
-      "title": "Latency p95",
+      "title": "Latency p99",
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{job='api-gateway'}[5m])))"
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket{job='api-gateway'}[5m])))"
         }
       ]
     },
