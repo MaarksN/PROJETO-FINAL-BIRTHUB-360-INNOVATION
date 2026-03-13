@@ -72,7 +72,9 @@ export abstract class BaseTool<TInput, TOutput> {
     this.inputSchema = options.inputSchema;
     this.name = options.name;
     this.outputSchema = options.outputSchema;
-    this.policyEngine = options.policyEngine;
+    if (options.policyEngine !== undefined) {
+      this.policyEngine = options.policyEngine;
+    }
   }
 
   async run(input: unknown, context: ToolRuntimeContext): Promise<TOutput> {
@@ -86,7 +88,7 @@ export abstract class BaseTool<TInput, TOutput> {
 }
 
 export interface DbReadInput {
-  params?: unknown[];
+  params?: unknown[] | undefined;
   query: string;
 }
 
@@ -104,7 +106,7 @@ export class DbReadTool extends BaseTool<DbReadInput, unknown[]> {
       }),
       name: "db-read",
       outputSchema: z.array(z.unknown()),
-      policyEngine: options.policyEngine
+      ...(options.policyEngine !== undefined ? { policyEngine: options.policyEngine } : {})
     });
 
     this.executor = options.executor;
@@ -140,10 +142,12 @@ export class DbWriteTool extends BaseTool<DbWriteInput, number> {
       }),
       name: "db-write",
       outputSchema: z.number(),
-      policyEngine: options.policyEngine
+      ...(options.policyEngine !== undefined ? { policyEngine: options.policyEngine } : {})
     });
 
-    this.auditPublisher = options.auditPublisher;
+    if (options.auditPublisher !== undefined) {
+      this.auditPublisher = options.auditPublisher;
+    }
     this.executor = options.executor;
   }
 
@@ -160,9 +164,9 @@ export class DbWriteTool extends BaseTool<DbWriteInput, number> {
 }
 
 export interface HttpInput {
-  body?: unknown;
-  headers?: Record<string, string>;
-  method?: "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
+  body?: unknown | undefined;
+  headers?: Record<string, string> | undefined;
+  method?: "DELETE" | "GET" | "PATCH" | "POST" | "PUT" | undefined;
   url: string;
 }
 
@@ -180,7 +184,7 @@ export class HttpTool extends BaseTool<HttpInput, { body: unknown; status: numbe
         body: z.unknown(),
         status: z.number()
       }),
-      policyEngine: options?.policyEngine
+      ...(options?.policyEngine !== undefined ? { policyEngine: options.policyEngine } : {})
     });
   }
 
@@ -218,7 +222,7 @@ export class SendEmailTool extends BaseTool<SendEmailInput, { queued: boolean; t
         queued: z.boolean(),
         to: z.string()
       }),
-      policyEngine: options?.policyEngine
+      ...(options?.policyEngine !== undefined ? { policyEngine: options.policyEngine } : {})
     });
   }
 
