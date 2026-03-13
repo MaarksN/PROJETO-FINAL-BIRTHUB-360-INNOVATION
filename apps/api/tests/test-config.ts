@@ -7,6 +7,7 @@ export function createTestApiConfig(): ApiConfig {
     API_AUTH_ROTATION_GRACE_HOURS: 24,
     API_AUTH_SESSION_TTL_HOURS: 24,
     API_AUTH_TOKEN_TTL_MINUTES: 15,
+    AUTH_BCRYPT_SALT_ROUNDS: 12,
     API_CORS_ORIGINS: "http://localhost:3001",
     API_CSRF_COOKIE_NAME: "bh360_csrf",
     API_CSRF_HEADER_NAME: "x-csrf-token",

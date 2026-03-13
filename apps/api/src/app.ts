@@ -5,6 +5,11 @@ import {
   getApiConfig,
   loginRequestSchema,
   loginResponseSchema,
+  logoutResponseSchema,
+  mfaVerifyRequestSchema,
+  refreshRequestSchema,
+  refreshResponseSchema,
+  sessionListResponseSchema,
   taskEnqueuedResponseSchema,
   taskRequestSchema
 } from "@birthub/config";
@@ -25,6 +30,7 @@ import { asyncHandler, ProblemDetailsError } from "./lib/problem-details.js";
 import { enqueueTask, QueueBackpressureError } from "./lib/queue.js";
 import { contentTypeMiddleware } from "./middleware/content-type.js";
 import { errorHandler, notFoundMiddleware } from "./middleware/error-handler.js";
+import { authenticationMiddleware } from "./middleware/authentication.js";
 import { createRateLimitMiddleware } from "./middleware/rate-limit.js";
 import { requestContextMiddleware } from "./middleware/request-context.js";
 import { sanitizeMutationInput } from "./middleware/sanitize-input.js";
@@ -35,6 +41,15 @@ import { budgetService } from "./modules/budget/budget.service.js";
 import { BudgetExceededError } from "./modules/budget/budget.types.js";
 import { createAdminRouter } from "./modules/admin/router.js";
 import { createAnalyticsRouter } from "./modules/analytics/router.js";
+import {
+  listActiveSessions,
+  loginWithPassword,
+  refreshSession,
+  resolveOrganizationId,
+  revokeCurrentSession,
+  verifyMfaChallenge
+} from "./modules/auth/auth.service.js";
+import { clearAuthCookies, setAuthCookies } from "./modules/auth/cookies.js";
 import { createMarketplaceRouter } from "./modules/marketplace/marketplace-routes.js";
 import { createBillingRouter, getBillingSnapshot } from "./modules/billing/index.js";
 import { createFeedbackRouter } from "./modules/feedback/index.js";
@@ -72,6 +87,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   app.disable("x-powered-by");
   app.use(requestContextMiddleware);
+  app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME));
   app.use(tenantContextMiddleware);
   app.use(
     helmet({
@@ -133,32 +149,194 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/auth/login",
     validateBody(loginRequestSchema),
     asyncHandler(async (request, response) => {
-      const userId = Buffer.from(request.body.email.toLowerCase()).toString("base64url");
-      request.context.tenantId = request.body.tenantId;
-      request.context.userId = userId;
+      const organizationId = await resolveOrganizationId(request.body.tenantId);
 
-      logger.info(
-        {
-          requestId: request.context.requestId,
-          tenantId: request.context.tenantId,
-          userId
-        },
-        "Issued development session payload"
-      );
+      if (!organizationId) {
+        throw new ProblemDetailsError({
+          detail: "Invalid organization reference for login.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      const login = await loginWithPassword({
+        config,
+        email: request.body.email,
+        ipAddress: request.ip ?? null,
+        organizationId,
+        password: request.body.password,
+        userAgent: request.header("user-agent") ?? null
+      });
+
+      if (login.mfaRequired) {
+        response.status(200).json(
+          loginResponseSchema.parse({
+            challengeExpiresAt: login.challengeExpiresAt.toISOString(),
+            challengeToken: login.challengeToken,
+            mfaRequired: true,
+            requestId: request.context.requestId
+          })
+        );
+        return;
+      }
+
+      request.context.tenantId = request.body.tenantId;
+      request.context.userId = login.userId;
+      request.context.sessionId = login.sessionId;
+      request.context.authType = "session";
+      setAuthCookies(response, config, login.tokens);
 
       response.status(200).json(
         loginResponseSchema.parse({
           mfaRequired: false,
           requestId: request.context.requestId,
           session: {
-            csrfToken: Buffer.from(`csrf:${request.context.requestId}`).toString("base64url"),
-            expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
-            id: Buffer.from(`session:${request.context.requestId}`).toString("base64url"),
-            refreshToken: Buffer.from(`refresh:${request.context.requestId}`).toString("base64url"),
+            csrfToken: login.tokens.csrfToken,
+            expiresAt: login.tokens.expiresAt.toISOString(),
+            id: login.sessionId,
+            refreshToken: login.tokens.refreshToken,
             tenantId: request.body.tenantId,
-            token: Buffer.from(`${request.body.email}:${request.context.requestId}`).toString("base64url"),
-            userId
+            token: login.tokens.token,
+            userId: login.userId
           }
+        })
+      );
+    })
+  );
+
+  app.post(
+    "/api/v1/auth/mfa/challenge",
+    validateBody(mfaVerifyRequestSchema),
+    asyncHandler(async (request, response) => {
+      const organizationId = request.context.tenantId;
+
+      if (!organizationId) {
+        throw new ProblemDetailsError({
+          detail: "Tenant context is required for MFA verification.",
+          status: 400,
+          title: "Bad Request"
+        });
+      }
+
+      const session = await verifyMfaChallenge({
+        challengeToken: request.body.challengeToken,
+        config,
+        ipAddress: request.ip ?? null,
+        organizationId,
+        recoveryCode: request.body.recoveryCode,
+        totpCode: request.body.totpCode,
+        userAgent: request.header("user-agent") ?? null
+      });
+
+      request.context.userId = session.userId;
+      request.context.sessionId = session.sessionId;
+      request.context.authType = "session";
+      setAuthCookies(response, config, session.tokens);
+
+      response.status(200).json(
+        loginResponseSchema.parse({
+          mfaRequired: false,
+          requestId: request.context.requestId,
+          session: {
+            csrfToken: session.tokens.csrfToken,
+            expiresAt: session.tokens.expiresAt.toISOString(),
+            id: session.sessionId,
+            refreshToken: session.tokens.refreshToken,
+            tenantId: organizationId,
+            token: session.tokens.token,
+            userId: session.userId
+          }
+        })
+      );
+    })
+  );
+
+  app.post(
+    "/api/v1/auth/refresh",
+    validateBody(refreshRequestSchema),
+    asyncHandler(async (request, response) => {
+      const result = await refreshSession({
+        config,
+        ipAddress: request.ip ?? null,
+        refreshToken: request.body.refreshToken,
+        userAgent: request.header("user-agent") ?? null
+      });
+
+      if (!result.tokens || !result.sessionId || !result.organizationId || !result.userId) {
+        throw new ProblemDetailsError({
+          detail: result.breached
+            ? "Refresh token reuse detected."
+            : "Refresh token is invalid or expired.",
+          status: result.breached ? 409 : 401,
+          title: result.breached ? "Conflict" : "Unauthorized"
+        });
+      }
+
+      setAuthCookies(response, config, result.tokens);
+      response.status(200).json(
+        refreshResponseSchema.parse({
+          requestId: request.context.requestId,
+          session: {
+            csrfToken: result.tokens.csrfToken,
+            expiresAt: result.tokens.expiresAt.toISOString(),
+            id: result.sessionId,
+            refreshToken: result.tokens.refreshToken,
+            tenantId: result.organizationId,
+            token: result.tokens.token,
+            userId: result.userId
+          }
+        })
+      );
+    })
+  );
+
+  app.post(
+    "/api/v1/auth/logout",
+    asyncHandler(async (request, response) => {
+      if (!request.context.sessionId) {
+        throw new ProblemDetailsError({
+          detail: "A valid authenticated session is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      await revokeCurrentSession(request.context.sessionId);
+      clearAuthCookies(response, config);
+      response.status(200).json(
+        logoutResponseSchema.parse({
+          requestId: request.context.requestId,
+          revokedSessions: 1
+        })
+      );
+    })
+  );
+
+  app.get(
+    "/api/v1/sessions",
+    asyncHandler(async (request, response) => {
+      if (!request.context.tenantId || !request.context.userId) {
+        throw new ProblemDetailsError({
+          detail: "A valid authenticated session is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      const sessions = await listActiveSessions({
+        organizationId: request.context.tenantId,
+        userId: request.context.userId
+      });
+
+      response.status(200).json(
+        sessionListResponseSchema.parse({
+          items: sessions.map((session) => ({
+            id: session.id,
+            ipAddress: session.ipAddress,
+            lastActivityAt: session.lastActivityAt.toISOString(),
+            userAgent: session.userAgent
+          })),
+          requestId: request.context.requestId
         })
       );
     })

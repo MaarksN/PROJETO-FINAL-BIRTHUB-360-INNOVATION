@@ -426,53 +426,53 @@ export function createBirthHubWorker(): WorkerRuntime {
   }) => {
     const jobId = String(job.id ?? "unknown");
     const isLegacyJob = job.queueName === config.QUEUE_NAME;
-    const executionPayload = isLegacyJob
-      ? await (async () => {
-          const payload = taskJobSchema.parse(job.data);
-          const organization = await resolveOrganizationReference(payload.tenantId ?? "default-tenant");
-          const tenantSecret = organization
-            ? await prisma.jobSigningSecret.findFirst({
-                where: {
-                  tenantId: organization.tenantId
-                }
-              })
-            : null;
-          const tenantId = validateLegacyTaskJob({
-            fallbackSecret: config.JOB_HMAC_GLOBAL_SECRET,
-            jobId,
-            payload,
-            ...(tenantSecret?.secret ? { tenantSecret: tenantSecret.secret } : {})
-          });
+    const executionPayload = await (async () => {
+      if (isLegacyJob) {
+        const payload = taskJobSchema.parse(job.data);
+        const organization = await resolveOrganizationReference(payload.tenantId ?? "default-tenant");
+        const tenantSecret = organization
+          ? await prisma.jobSigningSecret.findFirst({
+              where: {
+                tenantId: organization.tenantId
+              }
+            })
+          : null;
+        const tenantId = validateLegacyTaskJob({
+          fallbackSecret: config.JOB_HMAC_GLOBAL_SECRET,
+          jobId,
+          payload,
+          ...(tenantSecret?.secret ? { tenantSecret: tenantSecret.secret } : {})
+        });
 
-          return {
-            agentId: payload.type,
-            executionId: `${payload.requestId}:${jobId}`,
-            input: payload.payload,
-            approvalRequired: payload.approvalRequired,
-            executionMode: payload.executionMode,
-            organizationId: organization?.id ?? null,
-            requestId: payload.requestId,
-            source: ExecutionSource.MANUAL,
-            tenantId,
-            toolCalls: undefined,
-            userId: payload.userId ?? null
-          };
-        })()
-      : await (async () => {
-          const payload = agentExecutionJobSchema.parse(job.data);
-          const organization =
-            payload.organizationId
-              ? await resolveOrganizationReference(payload.organizationId)
-              : await resolveOrganizationReference(payload.tenantId);
-          return {
-            ...payload,
-            approvalRequired: false,
-            executionMode: "LIVE" as const,
-            organizationId: organization?.id ?? payload.organizationId ?? null,
-            requestId: payload.executionId,
-            source: ExecutionSource.MANUAL
-          };
-        })();
+        return {
+          agentId: payload.type,
+          approvalRequired: payload.approvalRequired,
+          executionId: `${payload.requestId}:${jobId}`,
+          executionMode: payload.executionMode,
+          input: payload.payload,
+          organizationId: organization?.id ?? null,
+          requestId: payload.requestId,
+          source: ExecutionSource.MANUAL,
+          tenantId,
+          toolCalls: undefined,
+          userId: payload.userId ?? null
+        };
+      }
+
+      const payload = agentExecutionJobSchema.parse(job.data);
+      const organization = payload.organizationId
+        ? await resolveOrganizationReference(payload.organizationId)
+        : await resolveOrganizationReference(payload.tenantId);
+
+      return {
+        ...payload,
+        approvalRequired: false,
+        executionMode: "LIVE" as const,
+        organizationId: organization?.id ?? payload.organizationId ?? null,
+        requestId: payload.executionId,
+        source: ExecutionSource.MANUAL
+      };
+    })();
 
     await persistExecutionStarted({
       agentId: executionPayload.agentId,

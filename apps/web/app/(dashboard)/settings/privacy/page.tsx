@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config";
 
-import { fetchWithSession, getStoredSession } from "../../../../../lib/auth-client.js";
+import { fetchWithSession, getStoredSession } from "../../../../lib/auth-client.js";
 
 const webConfig = getWebConfig();
 const DELETE_CONFIRMATION = "EXCLUIR MINHA CONTA";

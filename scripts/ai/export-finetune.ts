@@ -84,17 +84,20 @@ async function main() {
   const outputPath =
     parseFlag("--output") ??
     resolve(process.cwd(), "artifacts", "ai", `dataset-${version}.jsonl`);
-  const feedbackRows = await prisma.agentFeedback.findMany({
-    include: {
-      execution: true
-    },
-    orderBy: {
-      createdAt: "asc"
-    },
-    where: {
-      rating: 1
-    }
-  });
+  const hasDatabase = Boolean(process.env.DATABASE_URL);
+  const feedbackRows = hasDatabase
+    ? await prisma.agentFeedback.findMany({
+        include: {
+          execution: true
+        },
+        orderBy: {
+          createdAt: "asc"
+        },
+        where: {
+          rating: 1
+        }
+      })
+    : [];
 
   const lines = feedbackRows.map((row) =>
     stableJson({
@@ -136,18 +139,21 @@ async function main() {
 
   const storageUrl = await uploadDatasetIfConfigured(fileContent, outputPath);
 
-  await prisma.datasetExport.create({
-    data: {
-      datasetHash: fileHash,
-      fileName: `dataset-${version}.jsonl`,
-      recordCount: lines.length,
-      storageUrl
-    }
-  });
+  if (hasDatabase) {
+    await prisma.datasetExport.create({
+      data: {
+        datasetHash: fileHash,
+        fileName: `dataset-${version}.jsonl`,
+        recordCount: lines.length,
+        storageUrl
+      }
+    });
+  }
 
   console.log(
     JSON.stringify(
       {
+        databaseConnected: hasDatabase,
         fileHash,
         outputPath,
         recordCount: lines.length,

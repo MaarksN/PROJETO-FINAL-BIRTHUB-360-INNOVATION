@@ -6,13 +6,13 @@ import React from "react";
 import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 
-import { LoginForm } from "../components/login-form.js";
-
 void test("login page hydrates without mismatch", async () => {
+  const { LoginForm } = await import("../components/login-form.js");
   const markup = renderToString(
     React.createElement(LoginForm, {
       apiUrl: "http://localhost:3000",
-      initialRequestId: "req_test"
+      initialRequestId: "req_test",
+      navigate: () => undefined
     })
   );
 
@@ -43,7 +43,8 @@ void test("login page hydrates without mismatch", async () => {
     container,
     React.createElement(LoginForm, {
       apiUrl: "http://localhost:3000",
-      initialRequestId: "req_test"
+      initialRequestId: "req_test",
+      navigate: () => undefined
     })
   );
 
