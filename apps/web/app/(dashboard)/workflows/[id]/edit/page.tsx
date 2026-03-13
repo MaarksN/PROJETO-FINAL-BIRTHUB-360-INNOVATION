@@ -21,8 +21,7 @@ import ReactFlow, {
   type NodeProps
 } from "reactflow";
 
-import { validateDag } from "@birthub/workflows-core/parser/dagValidator";
-import { stepSchema } from "@birthub/workflows-core/schemas/step.schema";
+import { stepSchema, validateDag } from "@birthub/workflows-core";
 
 type BuilderNodeData = {
   category: "action" | "condition" | "trigger";
