@@ -1,5 +1,10 @@
 const API_BASE_URL = process.env.API_GATEWAY_URL || "http://localhost:3000/api/v1";
 const ORCHESTRATOR_URL = process.env.ORCHESTRATOR_URL || "http://localhost:8000";
+const REVALIDATE_SECONDS = 30;
+const SWR_FETCH_OPTIONS = {
+  cache: "force-cache" as const,
+  next: { revalidate: REVALIDATE_SECONDS }
+};
 
 // Types matching API responses
 interface Deal {
@@ -49,7 +54,7 @@ export interface OrchestratorHealth {
 
 export async function getPipelineData() {
   try {
-    const res = await fetch(`${API_BASE_URL}/deals`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/deals`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch deals");
     const deals: Deal[] = await res.json();
 
@@ -68,7 +73,7 @@ export async function getPipelineData() {
 
 export async function getAgentLogs() {
   try {
-    const res = await fetch(`${API_BASE_URL}/agents/logs`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/agents/logs`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch agent logs");
     return (await res.json()) as AgentLog[];
   } catch (error) {
@@ -79,7 +84,7 @@ export async function getAgentLogs() {
 
 export async function getHealthScoreData() {
   try {
-    const res = await fetch(`${API_BASE_URL}/customers`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/customers`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch customers");
     const customers: Customer[] = await res.json();
 
@@ -97,7 +102,7 @@ export async function getHealthScoreData() {
 
 export async function getFinanceData() {
   try {
-    const res = await fetch(`${API_BASE_URL}/financial/summary`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/financial/summary`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch financial summary");
     const data: FinancialSnapshot = await res.json();
 
@@ -118,7 +123,7 @@ export async function getFinanceData() {
 
 export async function getAnalyticsData() {
   try {
-    const res = await fetch(`${API_BASE_URL}/analytics/attribution`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/analytics/attribution`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch analytics data");
     const data: AttributionMetric[] = await res.json();
 
@@ -136,7 +141,7 @@ export async function getAnalyticsData() {
 
 export async function getContractsData() {
   try {
-    const res = await fetch(`${API_BASE_URL}/contracts`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/contracts`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch contracts data");
     const contracts: Contract[] = await res.json();
 
@@ -154,7 +159,7 @@ export async function getContractsData() {
 
 export async function getOrchestratorHealth() {
   try {
-    const res = await fetch(`${ORCHESTRATOR_URL}/health`, { cache: "no-store" });
+    const res = await fetch(`${ORCHESTRATOR_URL}/health`, SWR_FETCH_OPTIONS);
     if (!res.ok) throw new Error("Failed to fetch orchestrator health");
     return (await res.json()) as OrchestratorHealth;
   } catch (error) {

@@ -8,6 +8,13 @@ export type FinanceItem = { label: string; value: string; delta: string };
 export type AttributionItem = { source: string; leads: number; conversion: string; cac: string };
 export type ContractItem = { customer: string; status: string; mrr: string; owner: string };
 
+const SWR_OPTIONS = {
+  dedupingInterval: 30_000,
+  keepPreviousData: true,
+  revalidateIfStale: true,
+  revalidateOnFocus: true
+} as const;
+
 function authHeaders() {
   const token = typeof window !== "undefined" ? localStorage.getItem("birthub_token") : null;
   const tenantId = typeof window !== "undefined" ? localStorage.getItem("birthub_tenant_id") || "default" : "default";
@@ -18,13 +25,17 @@ function authHeaders() {
 }
 
 async function fetcher<T>(url: string): Promise<T> {
-  const response = await fetch(url, { headers: authHeaders(), cache: "no-store" });
+  const response = await fetch(url, { headers: authHeaders() });
   if (!response.ok) throw new Error(`dashboard_fetch_failed:${response.status}`);
   return response.json() as Promise<T>;
 }
 
 export function useMetrics() {
-  const swr = useSWR<{ pipeline: PipelineItem[]; finance: FinanceItem[] }>("/api/dashboard/metrics", fetcher);
+  const swr = useSWR<{ pipeline: PipelineItem[]; finance: FinanceItem[] }>(
+    "/api/dashboard/metrics",
+    fetcher,
+    SWR_OPTIONS
+  );
   return {
     data: swr.data,
     loading: swr.isLoading,
@@ -34,7 +45,11 @@ export function useMetrics() {
 }
 
 export function useAgentStatuses() {
-  const swr = useSWR<{ healthScore: HealthScoreItem[] }>("/api/dashboard/agent-statuses", fetcher);
+  const swr = useSWR<{ healthScore: HealthScoreItem[] }>(
+    "/api/dashboard/agent-statuses",
+    fetcher,
+    SWR_OPTIONS
+  );
   return {
     data: swr.data,
     loading: swr.isLoading,
@@ -44,7 +59,11 @@ export function useAgentStatuses() {
 }
 
 export function useRecentTasks() {
-  const swr = useSWR<{ contracts: ContractItem[]; attribution: AttributionItem[] }>("/api/dashboard/recent-tasks", fetcher);
+  const swr = useSWR<{ contracts: ContractItem[]; attribution: AttributionItem[] }>(
+    "/api/dashboard/recent-tasks",
+    fetcher,
+    SWR_OPTIONS
+  );
   return {
     data: swr.data,
     loading: swr.isLoading,
@@ -54,7 +73,11 @@ export function useRecentTasks() {
 }
 
 export function useBillingSummary() {
-  const swr = useSWR<{ finance: FinanceItem[] }>("/api/dashboard/billing-summary", fetcher);
+  const swr = useSWR<{ finance: FinanceItem[] }>(
+    "/api/dashboard/billing-summary",
+    fetcher,
+    SWR_OPTIONS
+  );
   return {
     data: swr.data,
     loading: swr.isLoading,
