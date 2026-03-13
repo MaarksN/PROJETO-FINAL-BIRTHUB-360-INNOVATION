@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getWebConfig } from "@birthub/config";
 
-import { fetchWithSession } from "../../../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../../lib/auth-client.js";
 
 type ApiKeyScope = "agents:read" | "agents:write" | "workflows:trigger" | "webhooks:receive";
 

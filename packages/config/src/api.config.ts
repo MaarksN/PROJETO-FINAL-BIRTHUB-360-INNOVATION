@@ -2,6 +2,11 @@ import { z } from "zod";
 
 import {
   commaSeparatedList,
+  EnvValidationError,
+  hasRequiredPostgresSsl,
+  hasRequiredRedisTls,
+  isLocalUrl,
+  isSecureHttpUrl,
   nodeEnvSchema,
   nonEmptyString,
   optionalNonEmptyString,
@@ -16,6 +21,7 @@ export const apiEnvSchema = z.object({
   API_AUTH_ROTATION_GRACE_HOURS: z.coerce.number().int().positive().default(24),
   API_AUTH_SESSION_TTL_HOURS: z.coerce.number().int().positive().default(24),
   API_AUTH_TOKEN_TTL_MINUTES: z.coerce.number().int().positive().default(15),
+  AUTH_BCRYPT_SALT_ROUNDS: z.coerce.number().int().positive().default(12),
   API_CORS_ORIGINS: z.string().default("http://localhost:3001"),
   API_CSRF_COOKIE_NAME: nonEmptyString.default("bh360_csrf"),
   API_CSRF_HEADER_NAME: nonEmptyString.default("x-csrf-token"),
@@ -58,11 +64,63 @@ export type ApiConfig = z.infer<typeof apiEnvSchema> & {
 
 export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
   const parsed = parseEnv("api", apiEnvSchema, env);
+  const corsOrigins = commaSeparatedList.parse(parsed.API_CORS_ORIGINS);
+  const externalHealthcheckUrls = commaSeparatedList.parse(parsed.EXTERNAL_HEALTHCHECK_URLS);
+
+  if (parsed.NODE_ENV === "production") {
+    const issues: string[] = [];
+
+    if (parsed.AUTH_BCRYPT_SALT_ROUNDS < 12) {
+      issues.push("AUTH_BCRYPT_SALT_ROUNDS must be >= 12 in production.");
+    }
+
+    if (!hasRequiredPostgresSsl(parsed.DATABASE_URL)) {
+      issues.push("DATABASE_URL must include sslmode=require (or stronger) in production.");
+    }
+
+    if (!hasRequiredRedisTls(parsed.REDIS_URL)) {
+      issues.push("REDIS_URL must use TLS in production (rediss:// or tls=true).");
+    }
+
+    if (!parsed.REQUIRE_SECURE_COOKIES) {
+      issues.push("REQUIRE_SECURE_COOKIES must be true in production.");
+    }
+
+    if (
+      parsed.SESSION_SECRET === "dev-session-secret" ||
+      parsed.JOB_HMAC_GLOBAL_SECRET === "dev-job-hmac-secret" ||
+      parsed.AUTH_MFA_ENCRYPTION_KEY === "dev-mfa-encryption-key"
+    ) {
+      issues.push("Production secrets cannot use development defaults.");
+    }
+
+    if (!isSecureHttpUrl(parsed.WEB_BASE_URL) || isLocalUrl(parsed.WEB_BASE_URL)) {
+      issues.push("WEB_BASE_URL must use the public HTTPS domain in production.");
+    }
+
+    if (!isSecureHttpUrl(parsed.STRIPE_SUCCESS_URL) || !isSecureHttpUrl(parsed.STRIPE_CANCEL_URL)) {
+      issues.push("Stripe return URLs must use HTTPS in production.");
+    }
+
+    if (
+      corsOrigins.length === 0 ||
+      corsOrigins.some(
+        (origin) =>
+          origin === "*" || origin.includes("localhost") || origin.includes("127.0.0.1")
+      )
+    ) {
+      issues.push("API_CORS_ORIGINS must only contain approved production origins.");
+    }
+
+    if (issues.length > 0) {
+      throw new EnvValidationError("api", issues);
+    }
+  }
 
   return {
     ...parsed,
-    corsOrigins: commaSeparatedList.parse(parsed.API_CORS_ORIGINS),
-    externalHealthcheckUrls: commaSeparatedList.parse(parsed.EXTERNAL_HEALTHCHECK_URLS),
+    corsOrigins,
+    externalHealthcheckUrls,
     SENTRY_ENVIRONMENT: parsed.SENTRY_ENVIRONMENT ?? parsed.NODE_ENV
   };
 }

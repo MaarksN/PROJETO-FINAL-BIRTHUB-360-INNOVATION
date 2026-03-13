@@ -1,6 +1,9 @@
 import { z } from "zod";
 
 import {
+  EnvValidationError,
+  isLocalUrl,
+  isSecureHttpUrl,
   nodeEnvSchema,
   optionalNonEmptyString,
   optionalUrlString,
@@ -26,5 +29,27 @@ export const webEnvSchema = z.object({
 export type WebConfig = z.infer<typeof webEnvSchema>;
 
 export function getWebConfig(env: NodeJS.ProcessEnv = process.env): WebConfig {
-  return parseEnv("web", webEnvSchema, env);
+  const parsed = parseEnv("web", webEnvSchema, env);
+
+  if (parsed.NEXT_PUBLIC_ENVIRONMENT === "production") {
+    const issues: string[] = [];
+
+    if (!isSecureHttpUrl(parsed.NEXT_PUBLIC_APP_URL) || isLocalUrl(parsed.NEXT_PUBLIC_APP_URL)) {
+      issues.push("NEXT_PUBLIC_APP_URL must point to the public HTTPS domain in production.");
+    }
+
+    if (!isSecureHttpUrl(parsed.NEXT_PUBLIC_API_URL) || isLocalUrl(parsed.NEXT_PUBLIC_API_URL)) {
+      issues.push("NEXT_PUBLIC_API_URL must point to the public HTTPS API domain in production.");
+    }
+
+    if (parsed.NEXT_PUBLIC_CSP_REPORT_ONLY) {
+      issues.push("NEXT_PUBLIC_CSP_REPORT_ONLY must be false in production.");
+    }
+
+    if (issues.length > 0) {
+      throw new EnvValidationError("web", issues);
+    }
+  }
+
+  return parsed;
 }
