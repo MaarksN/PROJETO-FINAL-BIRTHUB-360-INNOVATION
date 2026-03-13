@@ -78,7 +78,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
   const notifications: Array<{ channel: string; message: string; to: string }> = [];
   const agentCalls: Array<{ agentId: string; contextSummary: string; input: Record<string, unknown> }> = [];
 
-  const condition = await executeStep(
+  const condition = (await executeStep(
     {
       config: {
         operator: ">",
@@ -90,7 +90,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
       type: "CONDITION"
     },
     context
-  );
+  )) as { result: boolean };
   const code = await executeStep(
     {
       config: {
@@ -119,9 +119,10 @@ test("core workflow step types execute with deterministic outputs", async () => 
     },
     context
   );
-  const notification = await executeStep(
+  const notification = (await executeStep(
     {
       config: {
+        batchWindowMs: 5000,
         channel: "email",
         message: "Lead {{ trigger.output.email }} pronto",
         to: "ops@birthhub.local"
@@ -138,7 +139,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
         }
       }
     }
-  );
+  )) as { delivered: boolean };
   const agentResult = await executeStep(
     {
       config: {
@@ -177,7 +178,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     },
     context
   );
-  const delayed = await executeStep(
+  const delayed = (await executeStep(
     {
       config: {
         duration_ms: 250
@@ -187,7 +188,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
       type: "DELAY"
     },
     context
-  );
+  )) as { delayMs: number; releaseAt: Date };
 
   assert.equal(condition.result, true);
   assert.equal((code as { stepCount?: unknown }).stepCount, 1);
