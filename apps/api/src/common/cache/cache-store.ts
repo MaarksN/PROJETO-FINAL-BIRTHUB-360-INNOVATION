@@ -67,6 +67,9 @@ class RedisCacheStore implements CacheStore {
       lazyConnect: true,
       maxRetriesPerRequest: 1
     });
+    this.client.on("error", () => {
+      // handled by fallback logic on operation errors
+    });
   }
 
   private async connectIfNeeded(): Promise<void> {

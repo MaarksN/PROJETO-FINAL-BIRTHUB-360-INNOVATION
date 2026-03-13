@@ -356,6 +356,16 @@ export async function createCheckoutSessionForOrganization(input: {
   organizationReference: string;
   planId: string;
 }) {
+  const organization = await findOrganizationByReference(input.organizationReference);
+
+  if (!organization) {
+    throw new ProblemDetailsError({
+      detail: "Organization not found for checkout.",
+      status: 404,
+      title: "Not Found"
+    });
+  }
+
   const plan = await prisma.plan.findUnique({
     where: {
       id: input.planId
@@ -393,7 +403,7 @@ export async function createCheckoutSessionForOrganization(input: {
       }
     ],
     metadata: {
-      organizationId: input.organizationReference,
+      organizationId: organization.id,
       planId: plan.id
     },
     mode: "subscription",
