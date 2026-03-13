@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from typing import Any
+import hashlib
 
 import asyncpg
 from redis.asyncio import Redis
@@ -23,20 +24,29 @@ class AgentMemory:
         short_term = await self.redis.hgetall(redis_key)
         short_term_values = [json.loads(v) for v in short_term.values()]
 
-        pool = await asyncpg.create_pool(self.database_url, min_size=1, max_size=2)
-        async with pool.acquire() as conn:
-            rows = await conn.fetch(
-                """
-                SELECT id, content
-                FROM long_term_memory
-                WHERE session_id = $1 AND content ILIKE $2
-                ORDER BY created_at DESC
-                LIMIT $3
-                """,
-                session_id,
-                f"%{query}%",
-                top_k,
-            )
-        await pool.close()
-        long_term_values = [dict(row) for row in rows]
+        # Redis read-through cache for DB paginator mitigation
+        cache_key = f"db_cache:{session_id}:{hashlib.md5(query.encode()).hexdigest()}:{top_k}"
+        cached_result = await self.redis.get(cache_key)
+        if cached_result:
+            long_term_values = json.loads(cached_result)
+        else:
+            pool = await asyncpg.create_pool(self.database_url, min_size=1, max_size=2)
+            async with pool.acquire() as conn:
+                rows = await conn.fetch(
+                    """
+                    SELECT id, content
+                    FROM long_term_memory
+                    WHERE session_id = $1 AND content ILIKE $2
+                    ORDER BY created_at DESC
+                    LIMIT $3
+                    """,
+                    session_id,
+                    f"%{query}%",
+                    top_k,
+                )
+            await pool.close()
+            long_term_values = [dict(row) for row in rows]
+            # Set cache with 5-minute expiration
+            await self.redis.set(cache_key, json.dumps(long_term_values), ex=300)
+
         return short_term_values[:top_k] + long_term_values[:top_k]

@@ -19,12 +19,9 @@
     "paths": {
       "@/*": [
         "./*"
-      ],
-      "@birthub/*": [
-        "../../packages/*/src",
-        "../../packages/*"
       ]
-    }
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
