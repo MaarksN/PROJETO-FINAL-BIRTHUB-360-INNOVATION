@@ -4,14 +4,14 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "bullmq": "^5.7.0",
-    "ioredis": "^5.4.1",
-    "@birthub/shared-types": "workspace:*"
+    "@birthub/shared-types": "workspace:*",
+    "bullmq": "^5.71.0",
+    "ioredis": "^5.10.0"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
-    "@types/node": "^20.12.12",
-    "tsx": "^4.10.3"
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "scripts": {
     "build": "tsc",

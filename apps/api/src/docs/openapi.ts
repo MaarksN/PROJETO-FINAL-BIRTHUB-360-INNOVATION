@@ -1,4 +1,4 @@
-import { OpenApiGeneratorV3, OpenAPIRegistry, extendZodWithOpenApi } from "@asteasolutions/zod-to-openapi";
+import { OpenApiGeneratorV3, OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
 import {
   createOrganizationRequestSchema,
   createOrganizationResponseSchema,
@@ -8,88 +8,22 @@ import {
   taskEnqueuedResponseSchema,
   taskRequestSchema
 } from "@birthub/config";
-import { z } from "zod";
-
-extendZodWithOpenApi(z);
 
 const registry = new OpenAPIRegistry();
 
-const loginRequest = loginRequestSchema.openapi("LoginRequest", {
-  example: {
-    email: "owner@birthub.local",
-    password: "Password123!",
-    tenantId: "tenant_demo"
-  }
-});
-
-const loginResponse = loginResponseSchema.openapi("LoginResponse", {
-  example: {
-    requestId: "req_demo",
-    session: {
-      expiresAt: "2026-03-14T00:00:00.000Z",
-      tenantId: "tenant_demo",
-      token: "token_demo",
-      userId: "user_demo"
-    }
-  }
-});
-
-const createOrganizationRequest = createOrganizationRequestSchema.openapi("CreateOrganizationRequest", {
-  example: {
-    adminEmail: "owner@birthub.local",
-    adminName: "BirthHub Owner",
-    name: "BirthHub Demo",
-    slug: "birthhub-demo"
-  }
-});
-
-const createOrganizationResponse = createOrganizationResponseSchema.openapi("CreateOrganizationResponse", {
-  example: {
-    organizationId: "org_demo",
-    ownerUserId: "user_demo",
-    requestId: "req_demo",
-    role: "OWNER",
-    slug: "birthhub-demo",
-    tenantId: "tenant_demo"
-  }
-});
-
-const taskRequest = taskRequestSchema.openapi("CreateTaskRequest", {
-  example: {
-    payload: {
-      channel: "email"
-    },
-    type: "send-welcome-email"
-  }
-});
-
-const taskResponse = taskEnqueuedResponseSchema.openapi("CreateTaskResponse", {
-  example: {
-    jobId: "42",
-    requestId: "req_demo"
-  }
-});
-
-const healthResponse = healthResponseSchema.openapi("HealthResponse", {
-  example: {
-    checkedAt: "2026-03-13T00:00:00.000Z",
-    services: {
-      database: {
-        status: "up"
-      },
-      externalDependencies: [
-        {
-          name: "example.com",
-          status: "up"
-        }
-      ],
-      redis: {
-        status: "up"
-      }
-    },
-    status: "ok"
-  }
-});
+const loginRequest = registry.register("LoginRequest", loginRequestSchema);
+const loginResponse = registry.register("LoginResponse", loginResponseSchema);
+const createOrganizationRequest = registry.register(
+  "CreateOrganizationRequest",
+  createOrganizationRequestSchema
+);
+const createOrganizationResponse = registry.register(
+  "CreateOrganizationResponse",
+  createOrganizationResponseSchema
+);
+const taskRequest = registry.register("CreateTaskRequest", taskRequestSchema);
+const taskResponse = registry.register("CreateTaskResponse", taskEnqueuedResponseSchema);
+const healthResponse = registry.register("HealthResponse", healthResponseSchema);
 
 registry.registerPath({
   method: "get",
@@ -98,6 +32,24 @@ registry.registerPath({
     200: {
       content: {
         "application/json": {
+          example: {
+            checkedAt: "2026-03-13T00:00:00.000Z",
+            services: {
+              database: {
+                status: "up"
+              },
+              externalDependencies: [
+                {
+                  name: "example.com",
+                  status: "up"
+                }
+              ],
+              redis: {
+                status: "up"
+              }
+            },
+            status: "ok"
+          },
           schema: healthResponse
         }
       },
@@ -115,6 +67,11 @@ registry.registerPath({
     body: {
       content: {
         "application/json": {
+          example: {
+            email: "owner@birthub.local",
+            password: "Password123!",
+            tenantId: "tenant_demo"
+          },
           schema: loginRequest
         }
       }
@@ -124,6 +81,15 @@ registry.registerPath({
     200: {
       content: {
         "application/json": {
+          example: {
+            requestId: "req_demo",
+            session: {
+              expiresAt: "2026-03-14T00:00:00.000Z",
+              tenantId: "tenant_demo",
+              token: "token_demo",
+              userId: "user_demo"
+            }
+          },
           schema: loginResponse
         }
       },
@@ -141,6 +107,12 @@ registry.registerPath({
     body: {
       content: {
         "application/json": {
+          example: {
+            adminEmail: "owner@birthub.local",
+            adminName: "BirthHub Owner",
+            name: "BirthHub Demo",
+            slug: "birthhub-demo"
+          },
           schema: createOrganizationRequest
         }
       }
@@ -150,6 +122,14 @@ registry.registerPath({
     201: {
       content: {
         "application/json": {
+          example: {
+            organizationId: "org_demo",
+            ownerUserId: "user_demo",
+            requestId: "req_demo",
+            role: "OWNER",
+            slug: "birthhub-demo",
+            tenantId: "tenant_demo"
+          },
           schema: createOrganizationResponse
         }
       },
@@ -167,6 +147,12 @@ registry.registerPath({
     body: {
       content: {
         "application/json": {
+          example: {
+            payload: {
+              channel: "email"
+            },
+            type: "send-welcome-email"
+          },
           schema: taskRequest
         }
       }
@@ -176,6 +162,10 @@ registry.registerPath({
     202: {
       content: {
         "application/json": {
+          example: {
+            jobId: "42",
+            requestId: "req_demo"
+          },
           schema: taskResponse
         }
       },

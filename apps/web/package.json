@@ -13,19 +13,25 @@
   "dependencies": {
     "@birthub/config": "workspace:*",
     "@birthub/logger": "workspace:*",
-    "@sentry/nextjs": "^8.48.0",
-    "next": "15.1.4",
-    "react": "19.0.0",
-    "react-confetti": "^6.2.1",
-    "react-dom": "19.0.0"
+    "@birthub/workflows-core": "workspace:*",
+    "@sentry/nextjs": "^10.43.0",
+    "dagre": "^0.8.5",
+    "lucide-react": "^0.541.0",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-confetti": "^6.4.0",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.55.0",
+    "reactflow": "^11.11.4",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.10.2",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
-    "jsdom": "^25.0.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "@types/jsdom": "^28.0.0",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "jsdom": "^28.1.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

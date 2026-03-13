@@ -101,8 +101,9 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     "/api/v1/workflows/:id",
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
 
-      const workflow = await getWorkflowById(request.params.id, tenantId);
+      const workflow = await getWorkflowById(workflowId, tenantId);
       if (!workflow) {
         throw new ProblemDetailsError({
           detail: "Workflow not found.",
@@ -124,10 +125,11 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       await assertAdminRole(request);
       const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
 
       const workflow = await updateWorkflow(
         config,
-        request.params.id,
+        workflowId,
         tenantId,
         request.body
       );
@@ -143,8 +145,9 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       await assertAdminRole(request);
       const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
 
-      await archiveWorkflow(request.params.id, tenantId);
+      await archiveWorkflow(workflowId, tenantId);
       response.status(204).send();
     })
   );
@@ -155,11 +158,12 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       await assertAdminRole(request);
       const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
 
       try {
         const result = await runWorkflowNow(
           config,
-          request.params.id,
+          workflowId,
           tenantId,
           request.body,
           WorkflowTriggerType.MANUAL
@@ -187,8 +191,9 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       await assertAdminRole(request);
       const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
 
-      const workflow = await getWorkflowById(request.params.id, tenantId);
+      const workflow = await getWorkflowById(workflowId, tenantId);
       if (!workflow || workflow.triggerType !== WorkflowTriggerType.WEBHOOK) {
         throw new ProblemDetailsError({
           detail: "Webhook workflow not found.",
@@ -222,6 +227,7 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       await assertAdminRole(request);
       const tenantId = requireTenantId(request);
+      const topic = String(request.params.topic ?? "");
 
       const organization = await prisma.organization.findFirst({
         where: {
@@ -240,13 +246,13 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
       emitWorkflowInternalEvent({
         payload: (request.body ?? {}) as Record<string, unknown>,
         tenantId: organization.tenantId,
-        topic: request.params.topic
+        topic
       });
 
       response.status(202).json({
         accepted: true,
         requestId: request.context.requestId,
-        topic: request.params.topic
+        topic
       });
     })
   );

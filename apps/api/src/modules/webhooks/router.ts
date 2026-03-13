@@ -14,9 +14,10 @@ export function createWebhooksRouter(config: ApiConfig): Router {
   router.post(
     "/webhooks/trigger/:id",
     asyncHandler(async (request, response) => {
+      const workflowId = String(request.params.id ?? "");
       const workflow = await prisma.workflow.findUnique({
         where: {
-          id: request.params.id
+          id: workflowId
         }
       });
 
@@ -73,4 +74,3 @@ export function createWebhooksRouter(config: ApiConfig): Router {
 
   return router;
 }
-

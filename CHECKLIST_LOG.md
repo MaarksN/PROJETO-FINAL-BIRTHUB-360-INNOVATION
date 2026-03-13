@@ -19,3 +19,18 @@
 
 - `1.6.C3`, `1.10.C4` e `1.10.C5` possuem implementação pronta, mas a evidência final de execução depende de instalar dependências e subir serviços locais.
 - Os 50 itens `J*` do Ciclo 1 não foram encontrados como backlog explícito no workspace; por isso ficaram rastreados como pendência de origem oficial, e não como aprovados por inferência.
+
+## Execução do Ciclo 7 (Billing/Monetização)
+
+- Data: `2026-03-13`
+- Escopo principal: schema de billing, checkout/portal Stripe, webhook seguro, paywalls, grace period, UI de pricing+billing, analytics executiva e testes de faturamento.
+- Resultado: itens `7.1` até `7.8` implementados em azul; `7.9.C1-C4`, `7.10.C1` e `7.10.C3` permanecem em vermelho para próxima passada.
+
+### Evidências de execução técnica
+
+- Webhook Stripe assinado e idempotente: `apps/api/src/modules/webhooks/stripe.router.ts`
+- Módulo billing (checkout/portal/plans/invoices/usage): `apps/api/src/modules/billing/*`
+- Guard de feature com HTTP `402`: `apps/api/src/common/guards/feature.guard.ts`
+- Pricing e billing UI: `apps/web/app/pricing/page.tsx`, `apps/web/app/(dashboard)/settings/billing/page.tsx`
+- Admin analytics: `apps/web/app/admin/analytics/page.tsx`
+- Testes billing: `apps/api/tests/billing.webhook.test.ts`, `apps/api/tests/billing.idempotency.test.ts`, `apps/api/tests/billing.paywall.test.ts`, `apps/api/tests/billing.grace-period.test.ts`

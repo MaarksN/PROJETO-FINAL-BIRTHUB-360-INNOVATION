@@ -249,7 +249,7 @@ async function createWorkflowWithGraph(input: {
 }): Promise<{ id: string; status: WorkflowStatus }> {
   const workflow = await prisma.workflow.create({
     data: {
-      cronExpression: input.workflow.cronExpression,
+      cronExpression: input.workflow.cronExpression ?? null,
       definition: {
         nodes: input.workflow.steps.map((step) => ({
           config: step.config,
@@ -258,17 +258,17 @@ async function createWorkflowWithGraph(input: {
           type: step.type
         })),
         transitions: input.workflow.transitions
-      },
+      } as Prisma.InputJsonValue,
       description: input.workflow.description,
-      eventTopic: input.workflow.eventTopic,
+      eventTopic: input.workflow.eventTopic ?? null,
       name: input.workflow.name,
       organizationId: input.organizationId,
       publishedAt: input.workflow.status === WorkflowStatus.PUBLISHED ? new Date() : null,
       status: input.workflow.status,
       tenantId: input.tenantId,
-      triggerConfig: input.workflow.triggerConfig,
+      triggerConfig: input.workflow.triggerConfig as Prisma.InputJsonValue,
       triggerType: input.workflow.triggerType,
-      webhookSecret: input.workflow.webhookSecret
+      webhookSecret: input.workflow.webhookSecret ?? null
     }
   });
 
@@ -277,7 +277,7 @@ async function createWorkflowWithGraph(input: {
   for (const step of input.workflow.steps) {
     const createdStep = await prisma.workflowStep.create({
       data: {
-        config: step.config,
+        config: step.config as Prisma.InputJsonValue,
         isTrigger: step.isTrigger ?? false,
         key: step.key,
         name: step.name,
@@ -332,12 +332,12 @@ async function createWorkflowWithGraph(input: {
         finishedAt: new Date(),
         input: {
           seeded: true
-        },
+        } as Prisma.InputJsonValue,
         organizationId: input.organizationId,
         output: {
           seeded: true,
           tenantId: input.tenantId
-        },
+        } as Prisma.InputJsonValue,
         outputSize: 64,
         status: "SUCCESS",
         stepId: triggerStepId,

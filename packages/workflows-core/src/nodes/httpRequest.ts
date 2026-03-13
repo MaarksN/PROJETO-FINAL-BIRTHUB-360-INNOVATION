@@ -1,15 +1,20 @@
+import { createHmac } from "node:crypto";
+
 import { interpolateValue } from "../interpolation/interpolate.js";
 import type { WorkflowRuntimeContext } from "../types.js";
 
 interface HttpRequestNodeConfig {
-  auth?: {
-    bearer?: string;
-  };
-  body?: unknown;
-  headers?: Record<string, string>;
+  auth?:
+    | {
+        bearer?: string | undefined;
+      }
+    | undefined;
+  body?: unknown | undefined;
+  headers?: Record<string, string> | undefined;
   method?: "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
   timeout_ms?: number;
   url: string;
+  webhookSecret?: string | undefined;
 }
 
 function assertSafeUrl(rawUrl: string): URL {
@@ -72,17 +77,30 @@ export async function executeHttpRequestNode(
       headers.set("Content-Type", "application/json");
     }
 
+    if (hasBody && interpolated.webhookSecret) {
+      const payload = JSON.stringify(interpolated.body);
+      const signature = createHmac("sha256", interpolated.webhookSecret)
+        .update(payload)
+        .digest("hex");
+      headers.set("X-BirthHub-Signature", signature);
+    }
+
     const response = await fetch(safeUrl.toString(), {
-      body: hasBody ? JSON.stringify(interpolated.body) : undefined,
+      body: hasBody ? JSON.stringify(interpolated.body) : null,
       headers,
       method: interpolated.method ?? "GET",
       signal: controller.signal
     });
 
     const responseBody = await parseResponseBody(response);
+    const responseHeaders: Record<string, string> = {};
+    response.headers.forEach((value, key) => {
+      responseHeaders[key] = value;
+    });
+
     return {
       body: responseBody,
-      headers: Object.fromEntries(response.headers.entries()),
+      headers: responseHeaders,
       status: response.status
     };
   } finally {
@@ -91,4 +109,3 @@ export async function executeHttpRequestNode(
 }
 
 export type { HttpRequestNodeConfig };
-

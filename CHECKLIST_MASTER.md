@@ -122,3 +122,55 @@ Fonte oficial dos 50 itens `J*` do Ciclo 1 não foi localizada no workspace atua
 - [x] 2.10.C3
 - [x] 2.10.C4
 - [x] 2.10.C5
+
+## Ciclo 7 — Billing, Assinaturas, Monetizacao
+
+| ID | Status | Executor | Evidencia | touched_paths |
+|---|---|---|---|---|
+| 7.1.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-71C1]` | Prisma expandido com `Plan`, `Subscription`, `Invoice`, `PaymentMethod`, `UsageRecord`, `BillingEvent`. | `packages/database/prisma/schema.prisma`, `packages/database/prisma/migrations/20260313000300_cycle7_billing_foundation/migration.sql` |
+| 7.1.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-71C2]` | Enum `SubscriptionStatus` alinhado para `trial`, `active`, `past_due`, `canceled`, `paused` com migration de conversao. | `packages/database/prisma/schema.prisma`, `packages/database/prisma/migrations/20260313000300_cycle7_billing_foundation/migration.sql` |
+| 7.1.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-71C3]` | `Organization` recebeu `stripe_customer_id` e `plan_id` com indices e FK. | `packages/database/prisma/schema.prisma`, `packages/database/prisma/migrations/20260313000300_cycle7_billing_foundation/migration.sql` |
+| 7.1.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-71C4]` | `UsageRecord` criado para metered billing por consumo. | `packages/database/prisma/schema.prisma`, `packages/database/prisma/seed.ts` |
+| 7.1.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-71C5]` | Seed com planos `Starter`, `Professional`, `Enterprise` e limites JSON. | `packages/database/prisma/seed.ts` |
+| 7.2.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-72C1]` | Cliente Stripe com chave validada por Zod e `apiVersion` fixa. | `apps/api/src/modules/billing/stripe.client.ts`, `packages/config/src/api.config.ts`, `.env.example` |
+| 7.2.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-72C2]` | Criacao de org agora sincroniza `Customer` Stripe e persiste ID no DB dentro de transacao. | `apps/api/src/modules/organizations/service.ts`, `apps/api/src/modules/billing/service.ts`, `apps/api/src/app.ts` |
+| 7.2.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-72C3]` | Endpoint checkout implementado em `/api/v1/billing/checkout` retornando URL Stripe Hosted Checkout. | `apps/api/src/modules/billing/router.ts`, `apps/api/src/modules/billing/service.ts` |
+| 7.2.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-72C4]` | Endpoint `/api/v1/billing/portal` implementado para Customer Portal. | `apps/api/src/modules/billing/router.ts`, `apps/api/src/modules/billing/service.ts` |
+| 7.2.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-72C5]` | Script `billing:sync` para sincronizar Products/Prices Stripe -> Plan local. | `apps/api/src/modules/billing/sync-plans.ts`, `apps/api/package.json`, `package.json` |
+| 7.3.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-73C1]` | Rota publica `/api/webhooks/stripe` com `express.raw` e `constructEvent` estrito. | `apps/api/src/modules/webhooks/stripe.router.ts`, `apps/api/src/app.ts` |
+| 7.3.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-73C2]` | `checkout.session.completed` ativa assinatura e atualiza plano/tenant. | `apps/api/src/modules/webhooks/stripe.router.ts` |
+| 7.3.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-73C3]` | `invoice.payment_succeeded` persiste invoice paga e renova periodo da assinatura. | `apps/api/src/modules/webhooks/stripe.router.ts` |
+| 7.3.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-73C4]` | `invoice.payment_failed` move para `past_due` e publica evento de dunning. | `apps/api/src/modules/webhooks/stripe.router.ts`, `apps/api/src/modules/billing/event-bus.ts` |
+| 7.3.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-73C5]` | `customer.subscription.deleted` retorna para plano base/cancelado sem delecao de dados. | `apps/api/src/modules/webhooks/stripe.router.ts` |
+| 7.4.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-74C1]` | Guard `RequireFeature('agents')` implementado com retorno 402. | `apps/api/src/common/guards/feature.guard.ts`, `apps/api/src/common/guards/index.ts` |
+| 7.4.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-74C2]` | Limitacao de criacao de agentes no pack installer com `LimitExceededError`. | `apps/api/src/modules/packs/pack-installer.service.ts`, `apps/api/src/modules/billing/limit-exceeded.error.ts`, `apps/api/src/modules/packs/pack-installer-routes.ts` |
+| 7.4.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-74C3]` | Worker bloqueia execucao quando tenant `past_due` fora do grace period (cache 1 min). | `apps/worker/src/worker.ts`, `packages/config/src/worker.config.ts`, `.env.example` |
+| 7.4.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-74C4]` | QuotaService passa a derivar limites dinamicamente do plano/assinatura ativa. | `apps/api/src/services/QuotaService.ts` |
+| 7.4.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-74C5]` | `/api/v1/me` entrega contexto limpo de plano para UI gating. | `apps/api/src/app.ts` |
+| 7.5.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-75C1]` | Pricing page publica com tiers backend e toggle mensal/anual. | `apps/web/app/pricing/page.tsx`, `apps/web/app/pricing/pricing.css` |
+| 7.5.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-75C2]` | Billing Settings in-app com plano atual, barras de uso e renewal date. | `apps/web/app/(dashboard)/settings/billing/page.tsx` |
+| 7.5.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-75C3]` | Tabela de invoices no front com links PDF/hosted invoice. | `apps/web/app/(dashboard)/settings/billing/page.tsx` |
+| 7.5.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-75C4]` | Interceptacao global de `402` com modal de upgrade. | `apps/web/components/paywall-provider.tsx`, `apps/web/app/layout.tsx`, `apps/web/app/globals.css` |
+| 7.5.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-75C5]` | Pags `/billing/success` e `/billing/cancel` implementadas (confetti no sucesso). | `apps/web/app/billing/success/page.tsx`, `apps/web/app/billing/cancel/page.tsx` |
+| 7.6.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-76C1]` | Endpoints agregadores de usage metrics criados para resposta rapida. | `apps/api/src/modules/analytics/service.ts`, `apps/api/src/modules/analytics/router.ts`, `apps/api/src/app.ts` |
+| 7.6.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-76C2]` | Dashboard interno de MRR/ARR/churn/conversao/trend no web admin. | `apps/web/app/admin/analytics/page.tsx`, `apps/web/app/admin/analytics/analytics.css` |
+| 7.6.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-76C3]` | Relatorio de coorte via SQL (M+1/M+2/M+3) implementado. | `apps/api/src/modules/analytics/service.ts` |
+| 7.6.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-76C4]` | Export CSV de faturamento em `/api/v1/analytics/billing/export`. | `apps/api/src/modules/analytics/router.ts`, `apps/api/src/modules/analytics/service.ts` |
+| 7.6.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-76C5]` | Monitor de DAU/MAU por uso real (workflow/agent usage) implementado. | `apps/api/src/modules/analytics/service.ts` |
+| 7.7.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-77C1]` | Grace period de 3 dias aplicado no snapshot/guard/worker. | `apps/api/src/modules/billing/service.ts`, `apps/worker/src/worker.ts` |
+| 7.7.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-77C2]` | Banner global nao dispensavel quando falta <24h para suspensao. | `apps/web/components/dashboard-billing-gate.tsx`, `apps/web/app/(dashboard)/dashboard.css` |
+| 7.7.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-77C3]` | Evento de dunning publicado no webhook para iniciar serie de emails/queue. | `apps/api/src/modules/billing/event-bus.ts`, `apps/api/src/modules/webhooks/stripe.router.ts` |
+| 7.7.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-77C4]` | Reativacao por invoice success com evento de `subscription.reactivated`. | `apps/api/src/modules/webhooks/stripe.router.ts`, `apps/api/src/modules/billing/event-bus.ts` |
+| 7.7.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-77C5]` | Front redireciona contas hard-locked para `/settings/billing`. | `apps/web/components/dashboard-billing-gate.tsx` |
+| 7.8.C1 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-78C1]` | Mock offline da Stripe API criado para testes. | `apps/api/test/__mocks__/stripe.ts` |
+| 7.8.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-78C2]` | Testes de webhook com assinatura valida/invalida implementados. | `apps/api/tests/billing.webhook.test.ts` |
+| 7.8.C3 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-78C3]` | Teste de idempotencia (mesmo evento 3x -> 1 mudanca de estado). | `apps/api/tests/billing.idempotency.test.ts` |
+| 7.8.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-78C4]` | Teste de paywall garante 402 em recurso bloqueado por plano. | `apps/api/tests/billing.paywall.test.ts` |
+| 7.8.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-78C5]` | Teste de grace period (+1 dia passa, +4 dias bloqueia). | `apps/api/tests/billing.grace-period.test.ts` |
+| 7.9.C1 a 7.9.C4 | Vermelho | CODEX | Nao implementado neste lote (consolidacao fiscal noturna, tax geo, proration avancado, anti-fraude IP). | `-` |
+| 7.9.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-79C5]` | Protecao de concorrencia baseada em idempotencia por `stripe_event_id` + estado imutavel por upsert. | `apps/api/src/modules/webhooks/stripe.router.ts`, `packages/database/prisma/schema.prisma` |
+| 7.10.C1 | Vermelho | CODEX | Coverage global de billing gatekeeping ainda nao consolidado em relatorio unico. | `-` |
+| 7.10.C2 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-710C2]` | Ajustes de seguranca: assinatura webhook obrigatoria, chave Stripe via env validada por Zod. | `apps/api/src/modules/webhooks/stripe.router.ts`, `packages/config/src/api.config.ts` |
+| 7.10.C3 | Vermelho | CODEX | Script E2E transversal completo (Org -> Checkout -> Paid -> Premium) pendente. | `-` |
+| 7.10.C4 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-710C4]` | Router Stripe auditado para segredo por env (`STRIPE_WEBHOOK_SECRET`) sem hardcode. | `apps/api/src/modules/webhooks/stripe.router.ts`, `.env.example` |
+| 7.10.C5 | Azul | CODEX `[SIG: CODEX-C7-EXEC-20260313-710C5]` | Checklist master atualizado com status formal do Ciclo 7. | `CHECKLIST_MASTER.md` |

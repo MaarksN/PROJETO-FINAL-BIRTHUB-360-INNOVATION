@@ -8,11 +8,11 @@
     "test": "node --experimental-strip-types --test src/__tests__/*.test.ts"
   },
   "dependencies": {
-    "jose": "^5.9.6"
+    "jose": "^6.2.1"
   },
   "devDependencies": {
-    "typescript": "^5.4.5",
-    "@types/node": "^20.12.12"
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
   },
   "type": "module",
   "exports": {

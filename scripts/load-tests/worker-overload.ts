@@ -94,14 +94,15 @@ async function main(): Promise<void> {
   connection.on("error", () => {
     // connection errors are handled in the main promise flow
   });
-  const queue = new Queue(QUEUE_NAME, { connection });
-  queue.on("error", () => {
-    // queue-level errors are captured by the script exit code
-  });
   const startedAt = Date.now();
+  let queue: Queue | null = null;
 
   try {
     await connection.ping();
+    queue = new Queue(QUEUE_NAME, { connection });
+    queue.on("error", () => {
+      // queue-level errors are captured by the script exit code
+    });
     console.log(
       `[worker-overload] starting: queue=${QUEUE_NAME} redis=${REDIS_URL} jobs=${JOBS_TO_ENQUEUE}`
     );
@@ -132,7 +133,9 @@ async function main(): Promise<void> {
       return;
     }
   } finally {
-    await queue.close();
+    if (queue) {
+      await queue.close();
+    }
     await connection.quit();
   }
 }

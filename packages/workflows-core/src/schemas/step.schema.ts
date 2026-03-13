@@ -76,7 +76,8 @@ const httpRequestSchema = z
         headers: z.record(z.string(), interpolationString).default({}),
         method: z.enum(["DELETE", "GET", "PATCH", "POST", "PUT"]).default("GET"),
         timeout_ms: z.number().int().positive().max(10_000).default(2500),
-        url: interpolationString.url()
+        url: interpolationString.url(),
+        webhookSecret: interpolationString.min(1).optional()
       })
       .strict(),
     key: z.string().min(1),
@@ -136,6 +137,8 @@ const notificationSchema = z
       .object({
         channel: z.enum(["email", "inapp"]),
         message: interpolationString.min(1),
+        batchKey: z.string().min(1).optional(),
+        batchWindowMs: z.number().int().positive().max(60_000).default(5000),
         to: interpolationString.min(1)
       })
       .strict(),
@@ -209,4 +212,3 @@ export const workflowCanvasSchema = z
 
 export type StepDefinition = z.infer<typeof stepSchema>;
 export type WorkflowCanvas = z.infer<typeof workflowCanvasSchema>;
-

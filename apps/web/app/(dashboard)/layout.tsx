@@ -15,6 +15,8 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
         <nav className="dashboard-nav">
           <Link href="/billing">Billing</Link>
           <Link href="/pricing">Pricing</Link>
+          <Link href="/workflows/onboarding/edit">Workflow Builder</Link>
+          <Link href="/workflows/onboarding/runs">Workflow Runs</Link>
           <Link href="/settings/billing">Billing Settings</Link>
           <Link href="/settings/members">Membros</Link>
           <Link href="/settings/audit">Audit Trail</Link>

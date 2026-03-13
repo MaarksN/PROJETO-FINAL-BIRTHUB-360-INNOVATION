@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 import {
   prisma,
+  QuotaResourceType,
   StepResultStatus,
   WorkflowExecutionStatus,
   WorkflowStepOnError,
@@ -9,7 +10,12 @@ import {
   WorkflowTriggerType
 } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
-import { executeStep, stepSchema } from "@birthub/workflows-core";
+import {
+  type AgentExecutor,
+  type NotificationDispatcher,
+  executeStep,
+  stepSchema
+} from "@birthub/workflows-core";
 import { Queue } from "bullmq";
 
 const logger = createLogger("workflow-runner");
@@ -77,7 +83,11 @@ function isConditionTrue(output: unknown): boolean {
   return Boolean((output as { result?: unknown }).result);
 }
 
-function shouldFollowTransition(route: WorkflowTransitionRoute, output: unknown, failed: boolean): boolean {
+export function shouldFollowTransition(
+  route: WorkflowTransitionRoute,
+  output: unknown,
+  failed: boolean
+): boolean {
   if (failed) {
     return route === WorkflowTransitionRoute.ON_FAILURE || route === WorkflowTransitionRoute.FALLBACK;
   }
@@ -97,15 +107,57 @@ function shouldFollowTransition(route: WorkflowTransitionRoute, output: unknown,
   return false;
 }
 
-function calculateBackoff(attempt: number): number {
+export function calculateBackoff(attempt: number): number {
   return Math.min(60_000, Math.pow(2, attempt) * 1000);
+}
+
+async function consumeSharedAgentBudget(tenantId: string): Promise<void> {
+  const record = await prisma.quotaUsage.findFirst({
+    orderBy: {
+      resetAt: "desc"
+    },
+    where: {
+      resourceType: QuotaResourceType.AI_PROMPTS,
+      tenantId
+    }
+  });
+
+  if (!record) {
+    return;
+  }
+
+  if (record.count >= record.limit) {
+    throw new Error("SHARED_RATE_LIMIT_EXCEEDED");
+  }
+
+  await prisma.quotaUsage.update({
+    data: {
+      count: {
+        increment: 1
+      }
+    },
+    where: {
+      id: record.id
+    }
+  });
 }
 
 export class WorkflowRunner {
   private readonly executionQueue: Queue<WorkflowExecutionJobPayload>;
+  private readonly dependencies: {
+    agentExecutor?: AgentExecutor;
+    notificationDispatcher?: NotificationDispatcher;
+  };
 
-  constructor(executionQueueConnection: Queue<WorkflowExecutionJobPayload>) {
+  constructor(
+    executionQueueConnection: Queue<WorkflowExecutionJobPayload>,
+    dependencies: {
+      agentExecutor?: AgentExecutor;
+      notificationDispatcher?: NotificationDispatcher;
+    } = {}
+  ) {
     this.executionQueue = executionQueueConnection;
+    this.dependencies = dependencies;
   }
 
   async processTriggerJob(payload: WorkflowTriggerJobPayload): Promise<void> {
@@ -273,18 +325,75 @@ export class WorkflowRunner {
     });
 
     const now = new Date();
+    const stepInputHash = createHash("sha256")
+      .update(
+        JSON.stringify({
+          stepKey: step.key,
+          stepsContext,
+          triggerPayload: payload.triggerPayload
+        })
+      )
+      .digest("hex");
 
     try {
-      const output = await executeStep(parsedStep, {
-        executionId: payload.executionId,
-        steps: stepsContext,
-        tenantId: payload.tenantId,
-        trigger: {
-          output: payload.triggerPayload,
-          type: payload.triggerType
-        },
-        workflowId: payload.workflowId
-      });
+      let output: unknown;
+      const cacheTTLSeconds = step.cacheTTLSeconds ?? 0;
+
+      if (
+        cacheTTLSeconds > 0 &&
+        (step.type === "AGENT_EXECUTE" || step.type === "HTTP_REQUEST")
+      ) {
+        const cacheCandidates = await prisma.stepResult.findMany({
+          orderBy: {
+            finishedAt: "desc"
+          },
+          take: 10,
+          where: {
+            finishedAt: {
+              gte: new Date(Date.now() - cacheTTLSeconds * 1000)
+            },
+            status: StepResultStatus.SUCCESS,
+            stepId: step.id,
+            workflowId: payload.workflowId
+          }
+        });
+
+        const cacheHit = cacheCandidates.find((candidate) => {
+          if (typeof candidate.input !== "object" || candidate.input === null) {
+            return false;
+          }
+
+          return (
+            (candidate.input as { _cacheHash?: unknown })._cacheHash === stepInputHash &&
+            candidate.output !== null
+          );
+        });
+
+        if (cacheHit) {
+          output = cacheHit.output;
+        }
+      }
+
+      if (output === undefined) {
+        if (step.type === "AGENT_EXECUTE") {
+          await consumeSharedAgentBudget(payload.tenantId);
+        }
+
+        output = await executeStep(
+          parsedStep,
+          {
+            executionId: payload.executionId,
+            steps: stepsContext,
+            tenantId: payload.tenantId,
+            trigger: {
+              output: payload.triggerPayload,
+              type: payload.triggerType
+            },
+            workflowId: payload.workflowId
+          },
+          this.dependencies
+        );
+      }
 
       const normalizedOutput = normalizeOutput(output, payload.executionId, step.key);
       const isDelayStep = step.type === "DELAY";
@@ -295,7 +404,10 @@ export class WorkflowRunner {
           executionId: payload.executionId,
           externalPayloadUrl: normalizedOutput.externalPayloadUrl,
           finishedAt: now,
-          input: payload.triggerPayload,
+          input: {
+            _cacheHash: stepInputHash,
+            triggerPayload: payload.triggerPayload
+          },
           organizationId: payload.organizationId,
           output: normalizedOutput.output,
           outputPreview: normalizedOutput.outputPreview,
@@ -381,7 +493,10 @@ export class WorkflowRunner {
           errorMessage: error instanceof Error ? error.message : "Unknown step execution error",
           executionId: payload.executionId,
           finishedAt: now,
-          input: payload.triggerPayload,
+          input: {
+            _cacheHash: stepInputHash,
+            triggerPayload: payload.triggerPayload
+          },
           organizationId: payload.organizationId,
           outputSize: 0,
           startedAt: now,
@@ -471,4 +586,3 @@ export const workflowQueueNames = {
   execution: WORKFLOW_EXECUTION_QUEUE,
   trigger: "workflow-trigger"
 } as const;
-

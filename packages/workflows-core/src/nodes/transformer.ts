@@ -2,9 +2,9 @@ import { interpolateValue } from "../interpolation/interpolate.js";
 import type { WorkflowRuntimeContext } from "../types.js";
 
 interface TransformerConfig {
-  filter?: string;
-  map?: Record<string, unknown>;
-  sourcePath?: string;
+  filter?: string | undefined;
+  map?: Record<string, unknown> | undefined;
+  sourcePath?: string | undefined;
 }
 
 function readSource(path: string | undefined, context: WorkflowRuntimeContext): unknown[] {
@@ -62,4 +62,3 @@ export function executeTransformerNode(
 }
 
 export type { TransformerConfig };
-

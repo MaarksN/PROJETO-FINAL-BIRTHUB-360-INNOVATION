@@ -1,0 +1,27 @@
+.analytics-shell {
+  display: grid;
+  gap: 1.2rem;
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 1.5rem;
+}
+
+.analytics-line {
+  align-items: end;
+  display: flex;
+  gap: 0.6rem;
+  min-height: 220px;
+}
+
+.analytics-line span {
+  background: linear-gradient(180deg, rgba(12, 102, 82, 0.94), rgba(245, 102, 72, 0.82));
+  border-radius: 16px 16px 3px 3px;
+  flex: 1;
+  min-width: 14px;
+}
+
+@media (max-width: 720px) {
+  .analytics-shell {
+    padding: 1rem;
+  }
+}

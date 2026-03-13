@@ -128,7 +128,29 @@ export function createBirthHubWorker(): WorkerRuntime {
       }
     }
   );
-  const workflowRunner = new WorkflowRunner(workflowExecutionQueue);
+  const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
+    agentExecutor: {
+      execute: async ({ agentId, contextSummary, input }) => {
+        const result = await executor.execute({
+          agentId,
+          executionId: `workflow-agent:${Date.now()}:${agentId}`,
+          input: {
+            ...input,
+            workflowContextSummary: contextSummary
+          },
+          tenantId: (input.tenantId as string | undefined) ?? "default-tenant",
+          toolCalls: undefined
+        });
+
+        return result;
+      }
+    },
+    notificationDispatcher: {
+      send: async (message) => {
+        logger.info({ message }, "Workflow notification dispatched");
+      }
+    }
+  });
 
   const resolveBillingLock = async (
     tenantReference: string

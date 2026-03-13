@@ -33,6 +33,7 @@ import { validateBody } from "./middleware/validate-body.js";
 import { createBudgetRouter } from "./modules/budget/budget-routes.js";
 import { budgetService } from "./modules/budget/budget.service.js";
 import { BudgetExceededError } from "./modules/budget/budget.types.js";
+import { createAnalyticsRouter } from "./modules/analytics/router.js";
 import { createMarketplaceRouter } from "./modules/marketplace/marketplace-routes.js";
 import { createBillingRouter, getBillingSnapshot } from "./modules/billing/index.js";
 import { createOrganizationsRouter } from "./modules/organizations/router.js";
@@ -299,6 +300,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   const marketplaceRouter = createMarketplaceRouter();
   app.use("/api/v1/agents", marketplaceRouter);
+  app.use("/api/v1/analytics", createAnalyticsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);
   app.use("/api/v1/billing", createBillingRouter(config));
   app.use("/api/v1/budgets", createBudgetRouter());

@@ -1,15 +1,14 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 
-import { getApiConfig } from "@birthub/config";
-
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { type PlanFeature } from "../../modules/billing/plan.utils.js";
 import { canUseFeature } from "../../modules/billing/service.js";
 
+const DEFAULT_GRACE_PERIOD_DAYS = 3;
+
 export function RequireFeature(feature: PlanFeature): RequestHandler {
   return async (request: Request, _response: Response, next: NextFunction) => {
     try {
-      const config = getApiConfig();
       const organizationId = request.context.tenantId;
 
       if (!organizationId) {
@@ -23,7 +22,7 @@ export function RequireFeature(feature: PlanFeature): RequestHandler {
       const { allowed, snapshot } = await canUseFeature(
         organizationId,
         feature,
-        config.BILLING_GRACE_PERIOD_DAYS
+        DEFAULT_GRACE_PERIOD_DAYS
       );
 
       if (!allowed) {
