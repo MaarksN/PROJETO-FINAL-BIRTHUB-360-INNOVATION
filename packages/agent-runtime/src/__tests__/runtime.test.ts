@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { RuntimeGraph } from "../../index.ts";
+import { RuntimeGraph } from "../../index.js";
 
 test("runtime graph orders dependencies", () => {
   const graph = new RuntimeGraph();

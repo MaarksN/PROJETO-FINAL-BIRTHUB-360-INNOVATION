@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { ConversationService } from "../../src/service.ts";
+import { ConversationService } from "../../src/service.js";
 
 test("conversation service lifecycle", () => {
   const events: any[] = [];

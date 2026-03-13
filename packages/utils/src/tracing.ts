@@ -9,14 +9,13 @@ const sdk = new NodeSDK({
 });
 
 export const startTracing = () => {
-  sdk.start()
-    .then(() => logger.info('OpenTelemetry initialized'))
-    .catch((error) => logger.error('Error initializing OpenTelemetry', error));
+  sdk.start();
+  logger.info('OpenTelemetry initialized');
 
   process.on('SIGTERM', () => {
     sdk.shutdown()
       .then(() => logger.info('OpenTelemetry terminated'))
-      .catch((error) => logger.error('Error terminating OpenTelemetry', error))
+      .catch((error: unknown) => logger.error('Error terminating OpenTelemetry', error as Error))
       .finally(() => process.exit(0));
   });
 };

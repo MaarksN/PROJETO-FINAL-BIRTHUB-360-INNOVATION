@@ -45,8 +45,7 @@
         "packages/database/src/*"
       ],
       "@birthub/logger": [
-        "packages/logger/src/index.ts",
-        "packages/logger/index.ts"
+        "packages/logger/src/index.ts"
       ],
       "@birthub/logger/*": [
         "packages/logger/src/*"

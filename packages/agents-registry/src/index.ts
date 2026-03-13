@@ -53,7 +53,7 @@ export interface AgentIndexItem {
 
 export interface CursorPage<TItem> {
   items: TItem[];
-  nextCursor?: string;
+  nextCursor?: string | undefined;
 }
 
 export interface AuditTrailPort {

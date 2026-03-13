@@ -4,7 +4,7 @@ export type Conversation = {
   channel: string;
   status: string;
   createdAt: Date;
-  endedAt?: Date;
+  endedAt?: Date | undefined;
 };
 
 export type Message = {
@@ -12,7 +12,7 @@ export type Message = {
   conversationId: string;
   role: string;
   content: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, unknown> | undefined;
   createdAt: Date;
 };
 
@@ -54,7 +54,7 @@ export class ConversationService {
       conversationId,
       role,
       content,
-      metadata,
+      ...(metadata !== undefined ? { metadata } : {}),
       createdAt: new Date(),
     };
     this.store.messages.push(message);
