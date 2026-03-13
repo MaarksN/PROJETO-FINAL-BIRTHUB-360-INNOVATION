@@ -1,11 +1,17 @@
 import { getWorkerConfig, taskJobSchema } from "@birthub/config";
 import { prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
-import { Worker } from "bullmq";
+import { Queue, Worker } from "bullmq";
 import { createHash, createHmac } from "node:crypto";
 import { z } from "zod";
 import { Redis } from "ioredis";
 
+import {
+  WorkflowRunner,
+  type WorkflowExecutionJobPayload,
+  type WorkflowTriggerJobPayload,
+  workflowQueueNames
+} from "./engine/runner.js";
 import { PlanExecutor } from "./executors/planExecutor.js";
 import { getQueueNameForPriority } from "./queues/agentQueue.js";
 import { executeTenantJob } from "./tenant-execution.js";
@@ -103,6 +109,26 @@ export function createBirthHubWorker(): WorkerRuntime {
     maxRetriesPerRequest: null
   });
   const executor = new PlanExecutor({ redis: connection });
+  const workflowExecutionQueue = new Queue<WorkflowExecutionJobPayload>(
+    workflowQueueNames.execution,
+    {
+      connection,
+      defaultJobOptions: {
+        attempts: 5,
+        backoff: {
+          delay: 1000,
+          type: "exponential"
+        },
+        removeOnComplete: {
+          count: 500
+        },
+        removeOnFail: {
+          count: 500
+        }
+      }
+    }
+  );
+  const workflowRunner = new WorkflowRunner(workflowExecutionQueue);
 
   const resolveBillingLock = async (
     tenantReference: string

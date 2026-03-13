@@ -87,12 +87,15 @@ async function waitForDrain(queue: Queue, startedAt: number): Promise<OverloadSu
 
 async function main(): Promise<void> {
   const connection = new Redis(REDIS_URL, {
-    maxRetriesPerRequest: null
+    connectTimeout: 5000,
+    maxRetriesPerRequest: 1,
+    retryStrategy: () => null
   });
   const queue = new Queue(QUEUE_NAME, { connection });
   const startedAt = Date.now();
 
   try {
+    await connection.ping();
     console.log(
       `[worker-overload] starting: queue=${QUEUE_NAME} redis=${REDIS_URL} jobs=${JOBS_TO_ENQUEUE}`
     );
