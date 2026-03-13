@@ -35,6 +35,8 @@
     "test:e2e": "playwright test",
     "test:agents": "pytest agents tests/integration",
     "test:coverage": "pytest agents tests/integration --cov=agents/ae --cov=agents/ldr --cov=agents/sdr --cov=agents/shared --cov-fail-under=80",
+    "test:load:k6": "k6 run scripts/load-tests/stress.js",
+    "test:worker:overload": "tsx scripts/load-tests/worker-overload.ts",
     "test:load": "pnpm --filter @birthub/queue test:load",
     "dev:ldr-worker": "tsx agents/ldr/worker.ts",
     "dev:sdr-worker": "tsx agents/sdr/worker.ts",
