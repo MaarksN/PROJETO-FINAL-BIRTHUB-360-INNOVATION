@@ -17,7 +17,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@asteasolutions/zod-to-openapi": "^8.4.3",
+    "@asteasolutions/zod-to-openapi": "^7.2.0",
     "@birthub/agents-core": "workspace:*",
     "@birthub/config": "workspace:*",
     "@birthub/database": "workspace:*",

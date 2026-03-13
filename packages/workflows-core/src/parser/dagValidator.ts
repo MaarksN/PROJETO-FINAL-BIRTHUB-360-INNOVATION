@@ -163,6 +163,15 @@ export function validateDag(
 
   assertNoIsolatedNodes(input.nodes, input.edges);
 
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  for (const node of input.nodes) {
+    const cycle = getCyclePath(adjacency, node.id, visiting, visited, []);
+    if (cycle) {
+      throw new CyclicDependencyError(cycle);
+    }
+  }
+
   const rootNodeIds = input.nodes
     .filter((node) => (indegreeByNode.get(node.id) ?? 0) === 0)
     .map((node) => node.id);
@@ -177,15 +186,6 @@ export function validateDag(
     });
   }
 
-  const visiting = new Set<string>();
-  const visited = new Set<string>();
-  for (const node of input.nodes) {
-    const cycle = getCyclePath(adjacency, node.id, visiting, visited, []);
-    if (cycle) {
-      throw new CyclicDependencyError(cycle);
-    }
-  }
-
   if (requireConnected) {
     assertConnectedFromRoot(rootNodeIds[0]!, adjacency, input.nodes);
   }
@@ -196,4 +196,3 @@ export function validateDag(
     topologicalOrder: order
   };
 }
-

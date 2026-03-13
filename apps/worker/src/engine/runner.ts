@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import {
+  Prisma,
   prisma,
   QuotaResourceType,
   StepResultStatus,
@@ -182,7 +183,7 @@ export class WorkflowRunner {
         organizationId: payload.organizationId,
         status: WorkflowExecutionStatus.RUNNING,
         tenantId: payload.tenantId,
-        triggerPayload: payload.triggerPayload,
+        triggerPayload: payload.triggerPayload as Prisma.InputJsonValue,
         triggerType: payload.triggerType,
         workflowId: workflow.id
       }
@@ -407,9 +408,9 @@ export class WorkflowRunner {
           input: {
             _cacheHash: stepInputHash,
             triggerPayload: payload.triggerPayload
-          },
+          } as Prisma.InputJsonValue,
           organizationId: payload.organizationId,
-          output: normalizedOutput.output,
+          output: normalizedOutput.output as Prisma.InputJsonValue,
           outputPreview: normalizedOutput.outputPreview,
           outputSize: normalizedOutput.outputSize,
           startedAt: now,
@@ -496,7 +497,7 @@ export class WorkflowRunner {
           input: {
             _cacheHash: stepInputHash,
             triggerPayload: payload.triggerPayload
-          },
+          } as Prisma.InputJsonValue,
           organizationId: payload.organizationId,
           outputSize: 0,
           startedAt: now,
