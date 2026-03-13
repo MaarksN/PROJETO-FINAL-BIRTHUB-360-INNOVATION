@@ -22,6 +22,8 @@ export interface MarketplaceSearchResponse {
       version: string;
     };
     feedbackCount?: number;
+    installable: boolean;
+    keywords: string[];
     score: number;
     tags: {
       "use-case": string[];
@@ -80,6 +82,8 @@ export async function fetchMarketplaceRecommendations(tenantIndustry: string) {
         id: string;
         name: string;
       };
+      installable: boolean;
+      keywords: string[];
       recommendationScore: number;
       tags: {
         domain: string[];
@@ -112,6 +116,7 @@ export async function fetchComparisonMatrix() {
       agentId: string;
       agentName: string;
       domain: string[];
+      keywords: string[];
       tools: string[];
     }>;
   }>(`${config.NEXT_PUBLIC_API_URL}/api/v1/agents/compare/matrix`);
