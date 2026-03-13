@@ -29,8 +29,10 @@ import { createHealthService } from "./lib/health.js";
 import { asyncHandler, ProblemDetailsError } from "./lib/problem-details.js";
 import { enqueueTask, QueueBackpressureError } from "./lib/queue.js";
 import { contentTypeMiddleware } from "./middleware/content-type.js";
+import { csrfProtection } from "./middleware/csrf.js";
 import { errorHandler, notFoundMiddleware } from "./middleware/error-handler.js";
 import { authenticationMiddleware } from "./middleware/authentication.js";
+import { originValidationMiddleware } from "./middleware/origin-check.js";
 import { createRateLimitMiddleware } from "./middleware/rate-limit.js";
 import { requestContextMiddleware } from "./middleware/request-context.js";
 import { sanitizeMutationInput } from "./middleware/sanitize-input.js";
@@ -41,6 +43,7 @@ import { budgetService } from "./modules/budget/budget.service.js";
 import { BudgetExceededError } from "./modules/budget/budget.types.js";
 import { createAdminRouter } from "./modules/admin/router.js";
 import { createAnalyticsRouter } from "./modules/analytics/router.js";
+import { createApiKeysRouter } from "./modules/apikeys/router.js";
 import {
   listActiveSessions,
   loginWithPassword,
@@ -49,6 +52,7 @@ import {
   revokeCurrentSession,
   verifyMfaChallenge
 } from "./modules/auth/auth.service.js";
+import { createAuthRouter } from "./modules/auth/router.js";
 import { clearAuthCookies, setAuthCookies } from "./modules/auth/cookies.js";
 import { createMarketplaceRouter } from "./modules/marketplace/marketplace-routes.js";
 import { createBillingRouter, getBillingSnapshot } from "./modules/billing/index.js";
@@ -61,6 +65,8 @@ import { startOutputRetentionScheduler } from "./modules/outputs/output-retentio
 import { createOutputRouter } from "./modules/outputs/output-routes.js";
 import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
 import { createPrivacyRouter } from "./modules/privacy/router.js";
+import { createSessionsRouter } from "./modules/sessions/router.js";
+import { createUsersRouter } from "./modules/users/router.js";
 import { createWebhooksRouter, initializeWorkflowInternalEventBridge } from "./modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
 import { createWorkflowsRouter } from "./modules/workflows/index.js";
@@ -80,9 +86,12 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   const healthService = dependencies.healthService ?? createHealthService(config);
   const enqueueTaskDependency = dependencies.enqueueTask ?? enqueueTask;
   const shouldExposeDocs = dependencies.shouldExposeDocs ?? config.NODE_ENV !== "production";
+  const stripeWebhookEnabled = Boolean(config.STRIPE_SECRET_KEY && config.STRIPE_WEBHOOK_SECRET);
 
   configureCacheStore(config.REDIS_URL);
-  registerTenantCacheInvalidationMiddleware();
+  if (config.NODE_ENV !== "test") {
+    registerTenantCacheInvalidationMiddleware();
+  }
   initializeWorkflowInternalEventBridge(config);
 
   app.disable("x-powered-by");
@@ -113,10 +122,19 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       }
     })
   );
-  app.use("/api/webhooks", createStripeWebhookRouter(config));
+  if (stripeWebhookEnabled) {
+    app.use("/api/webhooks", createStripeWebhookRouter(config));
+  }
   app.use(contentTypeMiddleware);
   app.use(express.json({ limit: "256kb" }));
   app.use(sanitizeMutationInput);
+  app.use(originValidationMiddleware(config.corsOrigins));
+  app.use(
+    csrfProtection({
+      cookieName: config.API_CSRF_COOKIE_NAME,
+      headerName: config.API_CSRF_HEADER_NAME
+    })
+  );
   app.use(createRateLimitMiddleware(config));
 
   if (config.NODE_ENV !== "test") {
@@ -491,6 +509,9 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   const marketplaceRouter = createMarketplaceRouter();
   app.use(createAdminRouter(config));
+  app.use("/api/v1/auth", createAuthRouter(config));
+  app.use("/api/v1", createSessionsRouter(config));
+  app.use("/api/v1/apikeys", createApiKeysRouter(config));
   app.use("/api/v1/agents", marketplaceRouter);
   app.use("/api/v1/analytics", createAnalyticsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);
@@ -503,6 +524,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use("/api/v1/packs", createPackInstallerRouter());
   app.use("/api/v1/outputs", createOutputRouter());
   app.use("/api/v1/privacy", createPrivacyRouter(config));
+  app.use("/api/v1", createUsersRouter());
   app.use(createWorkflowsRouter(config));
   app.use(createWebhooksRouter(config));
 
