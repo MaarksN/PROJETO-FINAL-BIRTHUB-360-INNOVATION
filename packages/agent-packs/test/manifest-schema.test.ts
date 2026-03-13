@@ -1,11 +1,14 @@
 import assert from "node:assert/strict";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 
 import { loadManifestCatalog, parseAgentManifest } from "@birthub/agents-core";
 
 void test("all catalog manifests pass schema validation", async () => {
-  const catalogRoot = path.join(process.cwd(), "packages", "agent-packs");
+  const currentFile = fileURLToPath(import.meta.url);
+  const packageRoot = path.resolve(path.dirname(currentFile), "..");
+  const catalogRoot = packageRoot;
   const catalog = await loadManifestCatalog(catalogRoot);
 
   assert.ok(catalog.length >= 12, "Expected at least 12 manifests in catalog");
