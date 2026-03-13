@@ -10,6 +10,7 @@ import {
 import { prisma } from "@birthub/database";
 
 import { toPrismaJsonValue } from "../../lib/prisma-json.js";
+import { decryptConnectorsMap } from "../../lib/encryption.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { marketplaceService } from "../marketplace/marketplace-service.js";
 
@@ -130,10 +131,11 @@ function parseAgentConfig(config: unknown): AgentConfigSnapshot {
   }
 
   const candidate = config as Record<string, unknown>;
-  const connectors =
+  const rawConnectors =
     candidate.connectors && typeof candidate.connectors === "object" && !Array.isArray(candidate.connectors)
       ? (candidate.connectors as Record<string, unknown>)
       : {};
+  const connectors = decryptConnectorsMap(rawConnectors);
 
   return {
     connectors,

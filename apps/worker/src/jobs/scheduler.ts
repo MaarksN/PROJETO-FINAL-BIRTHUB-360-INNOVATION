@@ -5,6 +5,7 @@ import { flushBufferedAuditEvents } from "./auditFlush.js";
 import { computeAndPersistHealthScores } from "./healthScore.js";
 import { inviteCleanupJob } from "./inviteCleanup.js";
 import { quotaResetJob } from "./quotaReset.js";
+import { sunsetPolicyJob } from "./sunsetPolicy.js";
 
 const logger = createLogger("worker-cycle2-jobs");
 
@@ -71,6 +72,15 @@ export function startCycle2Jobs(): Cycle2JobsRuntime {
           })
           .catch((error) => {
             logger.error({ error }, "Webhook delivery pruning failed");
+          });
+        void sunsetPolicyJob()
+          .then((result) => {
+            if (result.notified > 0) {
+              logger.info({ notified: result.notified }, "Sunset policy job executed");
+            }
+          })
+          .catch((error) => {
+            logger.error({ error }, "Sunset policy job failed");
           });
       }
     }, 60 * 60 * 1000)

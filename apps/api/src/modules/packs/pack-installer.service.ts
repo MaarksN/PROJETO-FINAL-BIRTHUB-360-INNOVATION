@@ -2,6 +2,7 @@ import { isInstallableManifest } from "@birthub/agents-core";
 import { Prisma, prisma } from "@birthub/database";
 
 import { toPrismaJsonValue } from "../../lib/prisma-json.js";
+import { encryptConnectorsMap } from "../../lib/encryption.js";
 import { getAgentLimitForOrganization, LimitExceededError } from "../billing/index.js";
 import { marketplaceService } from "../marketplace/marketplace-service.js";
 
@@ -110,7 +111,7 @@ export class PackInstallerService {
           data: {
             config: toPrismaJsonValue({
               ...(currentConfig as Record<string, unknown>),
-              connectors: input.connectors,
+              connectors: encryptConnectorsMap(input.connectors),
               latestAvailableVersion: selectedEntry.manifest.agent.version,
               packId: requestedAgentId,
               sourceAgentId: selectedEntry.manifest.agent.id,
@@ -126,7 +127,7 @@ export class PackInstallerService {
         const createdAgent = await tx.agent.create({
           data: {
             config: toPrismaJsonValue({
-              connectors: input.connectors,
+              connectors: encryptConnectorsMap(input.connectors),
               installedAt: new Date().toISOString(),
               installedVersion: selectedEntry.manifest.agent.version,
               latestAvailableVersion: selectedEntry.manifest.agent.version,
@@ -181,6 +182,38 @@ export class PackInstallerService {
     const idsToDelete = agents
       .filter((agent) => extractPackId(agent.config) === input.packId)
       .map((agent) => agent.id);
+
+    if (idsToDelete.length > 0) {
+      // Find active workflows using any of the agents from this pack
+      const dependentSteps = await prisma.workflowStep.findMany({
+        where: {
+          tenantId: input.tenantId,
+          type: "AGENT_EXECUTE",
+          workflow: {
+            status: { in: ["PUBLISHED", "DRAFT"] }
+          }
+        },
+        include: {
+          workflow: true
+        }
+      });
+
+      const activeWorkflowDependencies = dependentSteps.filter((step) => {
+        const config = step.config as { agentId?: string } | null;
+        return config?.agentId && idsToDelete.includes(config.agentId);
+      });
+
+      if (activeWorkflowDependencies.length > 0) {
+        // Find workflow names to provide a better error message
+        const workflowNames = Array.from(new Set(activeWorkflowDependencies.map(s => s.workflow.name)));
+
+        // The requirement is to NOT simply delete the pack and cause crashes.
+        // We throw an explicit error allowing the user to know which workflows are blocking uninstallation.
+        throw new Error(
+          `Cannot uninstall pack because it is being used by active workflows: ${workflowNames.join(", ")}. Please remove the agents from these workflows or archive them first.`
+        );
+      }
+    }
 
     await prisma.$transaction(async (tx) => {
       if (idsToDelete.length > 0) {

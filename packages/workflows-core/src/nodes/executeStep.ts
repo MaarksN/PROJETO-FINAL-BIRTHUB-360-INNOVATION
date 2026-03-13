@@ -15,6 +15,7 @@ import type { WorkflowRuntimeContext } from "../types.js";
 export interface StepExecutionDependencies {
   agentExecutor?: AgentExecutor;
   notificationDispatcher?: NotificationDispatcher;
+  httpRequestRateLimiter?: { consume: (key: string, limit: number, windowSeconds: number) => Promise<void> };
 }
 
 export async function executeStep(
@@ -28,7 +29,7 @@ export async function executeStep(
     case "TRIGGER_EVENT":
       return context.trigger.output;
     case "HTTP_REQUEST":
-      return executeHttpRequestNode(step.config, context);
+      return executeHttpRequestNode(step.config, context, dependencies.httpRequestRateLimiter);
     case "CONDITION":
       return executeConditionNode(step.config, context);
     case "CODE":
