@@ -1,0 +1,175 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Ajudar admins a configurar a plataforma, usuários, integrações e governança.",
+    "id": "admin-ops-pack",
+    "kind": "agent",
+    "name": "Admin Ops Bot",
+    "prompt": "Voce e o Admin Ops Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nAuxiliar a administração operacional da plataforma por tenant.\n\nQUANDO ACIONAR\n- No onboarding do tenant, configuração, manutenção operacional e troubleshooting administrativo.\n\nENTRADAS OBRIGATORIAS\n- tenant settings\n- users\n- integrations\n- policies\n- billing tier\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Configurar usuários e permissões.\n- Verificar integrações.\n- Apontar pendências administrativas.\n- Sugerir próximos passos de setup.\n\nFERRAMENTAS ESPERADAS\n- admin panel\n- integrations\n- policy\n- audit\n- billing\n\nSAIDAS OBRIGATORIAS\n- ações administrativas\n- status\n- pendências\n- recomendações\n\nGUARDRAILS\n- Nunca mudar configuração crítica sem aprovação.\n- Sempre registrar alterações.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"admin_summary\": \"\",\n  \"configuration_actions\": [],\n  \"pending_items\": [],\n  \"recommendations\": []\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "admin ops bot",
+    "suporte transversal",
+    "admin panel",
+    "integrations",
+    "policy",
+    "audit",
+    "billing",
+    "tenant settings",
+    "users",
+    "policies",
+    "billing tier",
+    "ações administrativas",
+    "status",
+    "pendências"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "admin-ops-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Configurar usuários e permissões.",
+      "id": "admin-ops-pack.skill.configurar-usuarios-e-permissoes",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Configurar Usuários E Permissões.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Verificar integrações.",
+      "id": "admin-ops-pack.skill.verificar-integracoes",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Verificar Integrações.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Apontar pendências administrativas.",
+      "id": "admin-ops-pack.skill.apontar-pendencias-administrativas",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Apontar Pendências Administrativas.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Sugerir próximos passos de setup.",
+      "id": "admin-ops-pack.skill.sugerir-proximos-passos-de-setup",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Sugerir Próximos Passos De Setup.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "operations",
+      "enablement"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "admin-ops"
+    ],
+    "use-case": [
+      "admin-ops",
+      "commercial-operations"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional admin panel necessaria para Admin Ops Bot funcionar com rastreabilidade e controle.",
+      "id": "admin-ops-pack.tool.admin-panel",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Admin Panel",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional integrations necessaria para Admin Ops Bot funcionar com rastreabilidade e controle.",
+      "id": "admin-ops-pack.tool.integrations",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Integrations",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional policy necessaria para Admin Ops Bot funcionar com rastreabilidade e controle.",
+      "id": "admin-ops-pack.tool.policy",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Policy",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional audit necessaria para Admin Ops Bot funcionar com rastreabilidade e controle.",
+      "id": "admin-ops-pack.tool.audit",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Audit",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional billing necessaria para Admin Ops Bot funcionar com rastreabilidade e controle.",
+      "id": "admin-ops-pack.tool.billing",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Billing",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { DashboardBillingGate } from "../../components/dashboard-billing-gate";
-import { Navbar } from "../../components/layout/Navbar.js";
+import { Navbar } from "../../components/layout/Navbar";
 import "./dashboard.css";
 
 export default function DashboardLayout({ children }: Readonly<{ children: ReactNode }>) {
@@ -16,3 +16,4 @@ export default function DashboardLayout({ children }: Readonly<{ children: React
     </div>
   );
 }
+

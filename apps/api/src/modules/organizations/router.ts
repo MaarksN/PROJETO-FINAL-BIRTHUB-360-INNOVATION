@@ -9,6 +9,7 @@ import { z } from "zod";
 
 import { Auditable } from "../../audit/auditable.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { readTrimmedString, requireStringValue } from "../../lib/request-values.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import {
   createOrganization,
@@ -55,7 +56,7 @@ export function createOrganizationsRouter(): Router {
     resolveTenantId: (_request, _response, result) =>
       typeof result === "object" && result && "tenantId" in result ? String(result.tenantId) : undefined
   })(async (request, response) => {
-      const organization = createOrganizationResponseSchema.parse(
+    const organization = createOrganizationResponseSchema.parse(
       await createOrganization({
         ...request.body,
         requestId: request.context.requestId
@@ -78,13 +79,17 @@ export function createOrganizationsRouter(): Router {
     asyncHandler(async (request, response) => {
       const pagination = cursorPaginationQuerySchema.parse(request.query);
       const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+      const organizationId = requireStringValue(
+        request.params.id,
+        "A valid organization id is required."
+      );
 
       response.status(200).json(
         await listMembersForOrganization({
-          cursor: pagination.cursor,
-          organizationId: request.params.id,
+          organizationId,
           take: pagination.take,
-          tenantId
+          tenantId,
+          ...(pagination.cursor ? { cursor: pagination.cursor } : {})
         })
       );
     })
@@ -97,12 +102,17 @@ export function createOrganizationsRouter(): Router {
       Auditable({
         action: "member.role_updated",
         entityType: "member",
-        resolveEntityId: (request) => request.params.memberId
+        resolveEntityId: (request) => readTrimmedString(request.params.memberId)
       })(async (request, response) => {
         const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+        const memberId = requireStringValue(request.params.memberId, "A valid member id is required.");
+        const organizationId = requireStringValue(
+          request.params.id,
+          "A valid organization id is required."
+        );
         const membership = await updateMemberRole({
-          memberId: request.params.memberId,
-          organizationId: request.params.id,
+          memberId,
+          organizationId,
           role: request.body.role,
           tenantId
         });
@@ -119,12 +129,17 @@ export function createOrganizationsRouter(): Router {
       Auditable({
         action: "member.removed",
         entityType: "member",
-        resolveEntityId: (request) => request.params.memberId
+        resolveEntityId: (request) => readTrimmedString(request.params.memberId)
       })(async (request, response) => {
         const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+        const memberId = requireStringValue(request.params.memberId, "A valid member id is required.");
+        const organizationId = requireStringValue(
+          request.params.id,
+          "A valid organization id is required."
+        );
         const membership = await removeMember({
-          memberId: request.params.memberId,
-          organizationId: request.params.id,
+          memberId,
+          organizationId,
           tenantId
         });
 
@@ -139,17 +154,21 @@ export function createOrganizationsRouter(): Router {
     asyncHandler(async (request, response) => {
       const filters = auditFilterSchema.parse(request.query);
       const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+      const organizationId = requireStringValue(
+        request.params.id,
+        "A valid organization id is required."
+      );
 
       response.status(200).json(
         await listAuditLogs({
-          actorId: filters.actorId,
-          cursor: filters.cursor,
-          entityType: filters.entityType,
-          from: filters.from,
-          organizationId: request.params.id,
+          organizationId,
           take: filters.take,
           tenantId,
-          to: filters.to
+          ...(filters.actorId ? { actorId: filters.actorId } : {}),
+          ...(filters.cursor ? { cursor: filters.cursor } : {}),
+          ...(filters.entityType ? { entityType: filters.entityType } : {}),
+          ...(filters.from ? { from: filters.from } : {}),
+          ...(filters.to ? { to: filters.to } : {})
         })
       );
     })
@@ -163,13 +182,17 @@ export function createOrganizationsRouter(): Router {
         take: true
       }).parse(request.query);
       const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+      const organizationId = requireStringValue(
+        request.params.id,
+        "A valid organization id is required."
+      );
       const csv = await exportAuditLogsCsv({
-        actorId: filters.actorId,
-        entityType: filters.entityType,
-        from: filters.from,
-        organizationId: request.params.id,
         tenantId,
-        to: filters.to
+        organizationId,
+        ...(filters.actorId ? { actorId: filters.actorId } : {}),
+        ...(filters.entityType ? { entityType: filters.entityType } : {}),
+        ...(filters.from ? { from: filters.from } : {}),
+        ...(filters.to ? { to: filters.to } : {})
       });
 
       response.setHeader("Content-Disposition", 'attachment; filename="audit.csv"');

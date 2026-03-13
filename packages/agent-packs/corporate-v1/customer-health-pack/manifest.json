@@ -1,0 +1,140 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Medir saúde da conta e prevenir churn.",
+    "id": "customer-health-pack",
+    "kind": "agent",
+    "name": "Customer Health Bot",
+    "prompt": "Voce e o Customer Health Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nAvaliar a saúde das contas e antecipar sinais de churn ou estagnação.\n\nQUANDO ACIONAR\n- Em acompanhamento de carteira, CS, sucesso do cliente e renovações.\n\nENTRADAS OBRIGATORIAS\n- uso\n- engajamento\n- tickets\n- NPS\n- renovação\n- interações\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Medir saúde da conta.\n- Explicar fatores positivos e negativos.\n- Recomendar intervenção preventiva.\n\nFERRAMENTAS ESPERADAS\n- usage analytics\n- support\n- crm\n\nSAIDAS OBRIGATORIAS\n- health score\n- riscos\n- ações preventivas\n\nGUARDRAILS\n- Não reduzir saúde a um número sem explicar fatores.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"health_score\": 0,\n  \"positive_signals\": [],\n  \"negative_signals\": [],\n  \"preventive_actions\": []\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "customer health bot",
+    "retenção",
+    "expansão",
+    "treinamento",
+    "usage analytics",
+    "support",
+    "crm",
+    "uso",
+    "engajamento",
+    "tickets",
+    "nps",
+    "renovação",
+    "interações",
+    "health score"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "customer-health-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Medir saúde da conta.",
+      "id": "customer-health-pack.skill.medir-saude-da-conta",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Medir Saúde Da Conta.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Explicar fatores positivos e negativos.",
+      "id": "customer-health-pack.skill.explicar-fatores-positivos-e-negativos",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Explicar Fatores Positivos E Negativos.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Recomendar intervenção preventiva.",
+      "id": "customer-health-pack.skill.recomendar-intervencao-preventiva",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Recomendar Intervenção Preventiva.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "customer-success",
+      "enablement"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "customer-health"
+    ],
+    "use-case": [
+      "customer-health",
+      "retention-and-growth"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional usage analytics necessaria para Customer Health Bot funcionar com rastreabilidade e controle.",
+      "id": "customer-health-pack.tool.usage-analytics",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Usage Analytics",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional support necessaria para Customer Health Bot funcionar com rastreabilidade e controle.",
+      "id": "customer-health-pack.tool.support",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Support",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional crm necessaria para Customer Health Bot funcionar com rastreabilidade e controle.",
+      "id": "customer-health-pack.tool.crm",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Crm",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

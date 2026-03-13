@@ -4,16 +4,20 @@ import { Role } from "@birthub/database";
 import { Router } from "express";
 import { z } from "zod";
 
+import { sendEtaggedJson } from "../../common/cache/index.js";
 import { RequireRole, requireAuthenticated } from "../../common/guards/index.js";
-import { asyncHandler } from "../../lib/problem-details.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import {
+  clearCheckoutIpBan,
   createCheckoutSessionForOrganization,
   createCustomerPortalSessionForOrganization,
   getBillingSnapshot,
+  isCheckoutIpTemporarilyBanned,
   listActivePlans,
   listInvoicesForOrganization,
-  listUsageForOrganization
+  listUsageForOrganization,
+  registerCheckoutDecline
 } from "./service.js";
 
 const checkoutRequestSchema = z.object({
@@ -25,9 +29,9 @@ export function createBillingRouter(config: ApiConfig): Router {
 
   router.get(
     "/plans",
-    asyncHandler(async (_request, response) => {
+    asyncHandler(async (request, response) => {
       const plans = await listActivePlans();
-      response.status(200).json({
+      sendEtaggedJson(request, response, {
         items: plans.map((plan) => ({
           code: plan.code,
           currency: plan.currency,
@@ -49,17 +53,52 @@ export function createBillingRouter(config: ApiConfig): Router {
     RequireRole(Role.ADMIN),
     validateBody(checkoutRequestSchema),
     asyncHandler(async (request, response) => {
-      const checkout = await createCheckoutSessionForOrganization({
-        config,
-        organizationReference: request.context.tenantId!,
-        planId: request.body.planId
-      });
+      const requesterIp = request.ip ?? request.header("x-forwarded-for") ?? null;
 
-      response.status(200).json({
-        checkoutSessionId: checkout.id,
-        requestId: request.context.requestId,
-        url: checkout.url
-      });
+      if (await isCheckoutIpTemporarilyBanned(requesterIp)) {
+        throw new ProblemDetailsError({
+          detail: "Checkout temporarily blocked for this IP due to repeated card decline errors.",
+          status: 429,
+          title: "Too Many Requests"
+        });
+      }
+
+      try {
+        const checkout = await createCheckoutSessionForOrganization({
+          config,
+          countryCode:
+            request.header("x-country-code") ??
+            request.header("cf-ipcountry") ??
+            request.header("x-vercel-ip-country") ??
+            null,
+          locale: request.header("accept-language")?.split(",")[0] ?? null,
+          organizationReference: request.context.tenantId!,
+          planId: request.body.planId
+        });
+
+        await clearCheckoutIpBan(requesterIp);
+
+        response.status(200).json({
+          checkoutSessionId: checkout.id,
+          requestId: request.context.requestId,
+          url: checkout.url
+        });
+      } catch (error) {
+        const isCardDecline =
+          typeof error === "object" &&
+          error !== null &&
+          ("decline_code" in error ||
+            ("type" in error && (error as { type?: string }).type === "StripeCardError"));
+
+        if (isCardDecline) {
+          await registerCheckoutDecline({
+            config,
+            ipAddress: requesterIp
+          });
+        }
+
+        throw error;
+      }
     })
   );
 

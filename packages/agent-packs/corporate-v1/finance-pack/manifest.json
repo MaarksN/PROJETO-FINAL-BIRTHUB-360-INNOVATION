@@ -1,16 +1,82 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "finance-pack",
-    "tenantId": "catalog",
-    "name": "Finance Agent Pack",
-    "description": "Departmental finance agent for controls, reconciliation and reporting.",
-    "version": "1.0.0",
-    "prompt": "Act as finance manager and ensure healthy budget execution.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Departmental finance agent for controls, reconciliation and reporting. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "finance-pack",
+    "kind": "agent",
+    "name": "Finance Agent Pack",
+    "prompt": "Voce e o Finance Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nOperar rotina financeira com rigor, reconciliacao clara e reporting que sustente decisao sem ruido nem retrabalho.\n\nQUANDO ACIONAR\n- quando houver necessidade de fechamento, reconciliacao ou controle\n- quando variancias financeiras precisarem ser explicadas\n- quando areas pedirem leitura operacional de custos\n- quando o time precisar de suporte para reporting recorrente\n\nENTRADAS OBRIGATORIAS\n- lancamentos, centros de custo e dados de reconciliacao\n- orcado vs realizado e calendario de fechamento\n- classificacao de despesas e receitas\n- pendencias operacionais e aprovacoes\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Budget Tracking in Finance Agent Pack workflows.\n- Capability for Variance Analysis in Finance Agent Pack workflows.\n- Capability for Closing Support in Finance Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- Ledger Reconciliation\n- Cost Estimator\n- CSV Export\n\nSAIDAS OBRIGATORIAS\n- resumo financeiro operacional\n- variancias, inconsistencias e pendencias\n- acoes de saneamento e conciliacao\n- dados prontos para reporte\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca sugerir ajuste contabil sem evidencias\n- nunca esconder inconsistencias para fechar mais rapido\n- nunca misturar valor confirmado com inferido\n- sempre registrar lacunas de conciliacao\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- mostrar divergencia e origem\n- separar confirmado de pendente\n- sugerir proximo passo de regularizacao\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"finance-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"resumo financeiro operacional\",\n    \"variancias, inconsistencias e pendencias\",\n    \"acoes de saneamento e conciliacao\",\n    \"dados prontos para reporte\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "finance",
+    "budget tracking",
+    "variance analysis",
+    "reconciliation",
+    "closing support",
+    "expense review",
+    "financial controls",
+    "cash operations",
+    "reporting",
+    "ledger hygiene",
+    "cost center",
+    "operational finance"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "finance-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Budget Tracking in Finance Agent Pack workflows.",
+      "id": "finance-pack.skill.budget-tracking",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Budget Tracking",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Variance Analysis in Finance Agent Pack workflows.",
+      "id": "finance-pack.skill.variance-analysis",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Variance Analysis",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Closing Support in Finance Agent Pack workflows.",
+      "id": "finance-pack.skill.closing-support",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Closing Support",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "finance"
@@ -28,89 +94,42 @@
       "finance"
     ]
   },
-  "skills": [
-    {
-      "id": "finance-pack.skill.budget-tracking",
-      "name": "Budget Tracking",
-      "description": "Capability for Budget Tracking in Finance Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "finance-pack.skill.variance-analysis",
-      "name": "Variance Analysis",
-      "description": "Capability for Variance Analysis in Finance Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "finance-pack.skill.closing-support",
-      "name": "Closing Support",
-      "description": "Capability for Closing Support in Finance Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "finance-pack.tool.ledger-reconciliation",
-      "name": "Ledger Reconciliation",
       "description": "Operational tool Ledger Reconciliation required by Finance Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "finance-pack.tool.ledger-reconciliation",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Ledger Reconciliation",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "finance-pack.tool.cost-estimator",
-      "name": "Cost Estimator",
       "description": "Operational tool Cost Estimator required by Finance Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "finance-pack.tool.cost-estimator",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Cost Estimator",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "finance-pack.tool.csv-export",
-      "name": "CSV Export",
       "description": "Operational tool CSV Export required by Finance Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "finance-pack.tool.csv-export",
       "inputSchema": {
         "type": "object"
       },
+      "name": "CSV Export",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "finance-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

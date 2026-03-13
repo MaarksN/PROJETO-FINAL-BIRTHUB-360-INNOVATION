@@ -33,6 +33,10 @@ export interface ManifestSearchResult {
   total: number;
 }
 
+export function isInstallableManifest(manifest: AgentManifest): boolean {
+  return manifest.agent.kind !== "catalog";
+}
+
 async function walkDirectory(dirPath: string): Promise<string[]> {
   const entries = await readdir(dirPath, { withFileTypes: true });
   const files: string[] = [];
@@ -82,6 +86,7 @@ function calculateSearchScore(manifest: AgentManifest, query?: string): number {
   const name = normalize(manifest.agent.name);
   const description = normalize(manifest.agent.description);
   const tags = collectFlatTags(manifest.tags);
+  const keywords = manifest.keywords.map(normalize);
   const skills = manifest.skills.map((skill) => `${normalize(skill.name)} ${normalize(skill.description)}`);
   const tools = manifest.tools.map((tool) => `${normalize(tool.name)} ${normalize(tool.description)}`);
 
@@ -102,6 +107,12 @@ function calculateSearchScore(manifest: AgentManifest, query?: string): number {
   for (const tag of tags) {
     if (tag.includes(normalizedQuery)) {
       score += 6;
+    }
+  }
+
+  for (const keyword of keywords) {
+    if (keyword.includes(normalizedQuery)) {
+      score += 8;
     }
   }
 
@@ -183,6 +194,7 @@ export function searchManifestCatalog(
   catalog: ManifestCatalogEntry[],
   input: {
     filters?: ManifestSearchFilters;
+    includeCatalogEntries?: boolean;
     page?: number;
     pageSize?: number;
     query?: string;
@@ -191,11 +203,13 @@ export function searchManifestCatalog(
   const page = Math.max(input.page ?? 1, 1);
   const pageSize = Math.min(Math.max(input.pageSize ?? 12, 1), 100);
   const filters = input.filters ?? {};
+  const includeCatalogEntries = input.includeCatalogEntries ?? false;
 
   const filtered = catalog.filter((entry) => {
     const tags = entry.manifest.tags;
 
     return (
+      (includeCatalogEntries || isInstallableManifest(entry.manifest)) &&
       hasAny(tags.domain, filters.domains) &&
       hasAny(tags.level, filters.levels) &&
       hasAny(tags.persona, filters.personas) &&
@@ -239,6 +253,7 @@ export function recommendAgentsForTenant(
   const normalizedIndustry = normalize(tenantIndustry);
 
   return catalog
+    .filter((entry) => isInstallableManifest(entry.manifest))
     .map((entry) => {
       const industryTags = entry.manifest.tags.industry.map(normalize);
       const domainTags = entry.manifest.tags.domain.map(normalize);

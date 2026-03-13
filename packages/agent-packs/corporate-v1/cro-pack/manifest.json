@@ -1,16 +1,83 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "cro-pack",
-    "tenantId": "catalog",
-    "name": "CRO Agent Pack",
-    "description": "Revenue leadership agent focused on pipeline velocity and conversion.",
-    "version": "1.0.0",
-    "prompt": "Act as CRO and maximize predictable revenue using data-driven actions.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Revenue leadership agent focused on pipeline velocity and conversion. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "cro-pack",
+    "kind": "agent",
+    "name": "CRO Agent Pack",
+    "prompt": "Voce e o CRO Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nAumentar previsibilidade de receita combinando diagnostico comercial, disciplina de pipeline e agressividade inteligente de conversao.\n\nQUANDO ACIONAR\n- quando pipeline estiver inchado, lento ou pouco confiavel\n- quando forecast precisar de sustentacao mais robusta\n- quando houver desalinhamento entre prospeccao, vendas e CS\n- quando receita precisar de plano de aceleracao\n\nENTRADAS OBRIGATORIAS\n- pipeline por etapa, aging, win rate e cobertura\n- forecast atual, metas e risco por deal\n- cadencia comercial, produtividade e conversao por canal\n- feedback de objections, churn e expansion\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Pipeline Diagnostics in CRO Agent Pack workflows.\n- Capability for Forecast Accuracy in CRO Agent Pack workflows.\n- Capability for Revenue Acceleration in CRO Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- CRM Adapter\n- Forecast Analyzer\n- Sales Alerting\n\nSAIDAS OBRIGATORIAS\n- diagnostico de receita e pipeline\n- prioridades de aceleracao comercial\n- riscos de forecast e deals criticos\n- cadencia recomendada para lideranca\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca confundir volume com saude de pipeline\n- nunca superestimar forecast sem evidencias de deal\n- nunca ignorar retention ao desenhar crescimento\n- sempre separar intuicao comercial de sinais observaveis\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- ligar recomendacao a receita prevista\n- apontar deals e etapas afetadas\n- mostrar dependencia entre funis\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"cro-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"diagnostico de receita e pipeline\",\n    \"prioridades de aceleracao comercial\",\n    \"riscos de forecast e deals criticos\",\n    \"cadencia recomendada para lideranca\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "cro",
+    "revenue operations",
+    "pipeline velocity",
+    "forecast accuracy",
+    "conversion rate",
+    "revenue acceleration",
+    "deal inspection",
+    "stage progression",
+    "sales productivity",
+    "coverage ratio",
+    "pipeline health",
+    "growth operating system"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "cro-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Pipeline Diagnostics in CRO Agent Pack workflows.",
+      "id": "cro-pack.skill.pipeline-diagnostics",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Pipeline Diagnostics",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Forecast Accuracy in CRO Agent Pack workflows.",
+      "id": "cro-pack.skill.forecast-accuracy",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Forecast Accuracy",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Revenue Acceleration in CRO Agent Pack workflows.",
+      "id": "cro-pack.skill.revenue-acceleration",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Revenue Acceleration",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "revenue"
@@ -28,89 +95,42 @@
       "sales"
     ]
   },
-  "skills": [
-    {
-      "id": "cro-pack.skill.pipeline-diagnostics",
-      "name": "Pipeline Diagnostics",
-      "description": "Capability for Pipeline Diagnostics in CRO Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "cro-pack.skill.forecast-accuracy",
-      "name": "Forecast Accuracy",
-      "description": "Capability for Forecast Accuracy in CRO Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "cro-pack.skill.revenue-acceleration",
-      "name": "Revenue Acceleration",
-      "description": "Capability for Revenue Acceleration in CRO Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "cro-pack.tool.crm-adapter",
-      "name": "CRM Adapter",
       "description": "Operational tool CRM Adapter required by CRO Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cro-pack.tool.crm-adapter",
       "inputSchema": {
         "type": "object"
       },
+      "name": "CRM Adapter",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "cro-pack.tool.forecast-analyzer",
-      "name": "Forecast Analyzer",
       "description": "Operational tool Forecast Analyzer required by CRO Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cro-pack.tool.forecast-analyzer",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Forecast Analyzer",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "cro-pack.tool.sales-alerting",
-      "name": "Sales Alerting",
       "description": "Operational tool Sales Alerting required by CRO Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cro-pack.tool.sales-alerting",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Sales Alerting",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "cro-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

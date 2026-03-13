@@ -1,0 +1,150 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Medir ganho operacional, tempo economizado e desperdício de esforço.",
+    "id": "productivity-pack",
+    "kind": "agent",
+    "name": "Productivity Bot",
+    "prompt": "Voce e o Productivity Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nMedir eficiência operacional e demonstrar onde a plataforma está gerando ou perdendo tempo.\n\nQUANDO ACIONAR\n- Em análise de eficiência, adoção da plataforma e ROI dos agentes.\n\nENTRADAS OBRIGATORIAS\n- activity logs\n- automation logs\n- user behavior\n- crm actions\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Medir tempo economizado.\n- Detectar esforço redundante.\n- Avaliar adoção das automações.\n- Sugerir remoção de fricção.\n\nFERRAMENTAS ESPERADAS\n- logs\n- analytics\n- automation engine\n\nSAIDAS OBRIGATORIAS\n- tempo economizado\n- gargalos\n- adoção\n- desperdício\n\nGUARDRAILS\n- Não usar produtividade como fetiche vazio.\n- Contextualize por função.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"time_saved\": \"\",\n  \"waste_sources\": [],\n  \"adoption_summary\": \"\",\n  \"improvement_opportunities\": []\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "productivity bot",
+    "gestão",
+    "análise",
+    "previsão",
+    "logs",
+    "analytics",
+    "automation engine",
+    "activity logs",
+    "automation logs",
+    "user behavior",
+    "crm actions",
+    "tempo economizado",
+    "gargalos",
+    "adoção"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "productivity-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Medir tempo economizado.",
+      "id": "productivity-pack.skill.medir-tempo-economizado",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Medir Tempo Economizado.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Detectar esforço redundante.",
+      "id": "productivity-pack.skill.detectar-esforco-redundante",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Detectar Esforço Redundante.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Avaliar adoção das automações.",
+      "id": "productivity-pack.skill.avaliar-adocao-das-automacoes",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Avaliar Adoção Das Automações.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Sugerir remoção de fricção.",
+      "id": "productivity-pack.skill.sugerir-remocao-de-friccao",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Sugerir Remoção De Fricção.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "operations",
+      "enablement"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "productivity"
+    ],
+    "use-case": [
+      "productivity",
+      "commercial-operations"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional logs necessaria para Productivity Bot funcionar com rastreabilidade e controle.",
+      "id": "productivity-pack.tool.logs",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Logs",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional analytics necessaria para Productivity Bot funcionar com rastreabilidade e controle.",
+      "id": "productivity-pack.tool.analytics",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Analytics",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional automation engine necessaria para Productivity Bot funcionar com rastreabilidade e controle.",
+      "id": "productivity-pack.tool.automation-engine",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Automation Engine",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

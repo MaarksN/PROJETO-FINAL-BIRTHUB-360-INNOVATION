@@ -5,6 +5,7 @@ const nextPublicApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:33
 const cspReportUri = process.env.CSP_REPORT_URI;
 const cspReportOnly = (process.env.NEXT_PUBLIC_CSP_REPORT_ONLY ?? "true") === "true";
 const immutableAssetCache = "public, max-age=31536000, immutable";
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const contentSecurityPolicy = [
@@ -12,7 +13,7 @@ const contentSecurityPolicy = [
   "base-uri 'self'",
   "frame-ancestors 'none'",
   "img-src 'self' data: blob:",
-  `connect-src 'self' ${nextPublicApiUrl} https://*.ingest.sentry.io`,
+  `connect-src 'self' ${nextPublicApiUrl} https://*.ingest.sentry.io ${posthogHost ?? ""}`,
   "font-src 'self' data:",
   "object-src 'none'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval'",

@@ -1,0 +1,150 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Acelerar onboarding de novos vendedores.",
+    "id": "onboarding-sales-pack",
+    "kind": "agent",
+    "name": "Onboarding Sales Bot",
+    "prompt": "Voce e o Onboarding Sales Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nGuiar novos vendedores pelo processo comercial da empresa de forma clara e prática.\n\nQUANDO ACIONAR\n- Na entrada de novos membros no time comercial.\n\nENTRADAS OBRIGATORIAS\n- cargo\n- playbook\n- material\n- trilhas\n- metas iniciais\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Organizar trilha inicial.\n- Definir checkpoints.\n- Verificar assimilação do playbook.\n- Sugerir reforço de aprendizagem.\n\nFERRAMENTAS ESPERADAS\n- knowledge base\n- playbooks\n- training tasks\n\nSAIDAS OBRIGATORIAS\n- plano de onboarding\n- módulos\n- checkpoints\n\nGUARDRAILS\n- Onboarding progressivo e verificável.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"onboarding_plan\": [],\n  \"milestones\": [],\n  \"knowledge_checks\": [],\n  \"completion_criteria\": []\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "onboarding sales bot",
+    "retenção",
+    "expansão",
+    "treinamento",
+    "knowledge base",
+    "playbooks",
+    "training tasks",
+    "cargo",
+    "playbook",
+    "material",
+    "trilhas",
+    "metas iniciais",
+    "plano de onboarding",
+    "módulos"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "onboarding-sales-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Organizar trilha inicial.",
+      "id": "onboarding-sales-pack.skill.organizar-trilha-inicial",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Organizar Trilha Inicial.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Definir checkpoints.",
+      "id": "onboarding-sales-pack.skill.definir-checkpoints",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Definir Checkpoints.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Verificar assimilação do playbook.",
+      "id": "onboarding-sales-pack.skill.verificar-assimilacao-do-playbook",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Verificar Assimilação Do Playbook.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Sugerir reforço de aprendizagem.",
+      "id": "onboarding-sales-pack.skill.sugerir-reforco-de-aprendizagem",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Sugerir Reforço De Aprendizagem.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "customer-success",
+      "enablement"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "onboarding-sales"
+    ],
+    "use-case": [
+      "onboarding-sales",
+      "retention-and-growth"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional knowledge base necessaria para Onboarding Sales Bot funcionar com rastreabilidade e controle.",
+      "id": "onboarding-sales-pack.tool.knowledge-base",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Knowledge Base",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional playbooks necessaria para Onboarding Sales Bot funcionar com rastreabilidade e controle.",
+      "id": "onboarding-sales-pack.tool.playbooks",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Playbooks",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional training tasks necessaria para Onboarding Sales Bot funcionar com rastreabilidade e controle.",
+      "id": "onboarding-sales-pack.tool.training-tasks",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Training Tasks",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

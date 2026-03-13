@@ -1,84 +1,74 @@
-export type AgentStatus = "DEPRECATED" | "DRAFT" | "PUBLISHED";
+import { getWebConfig } from "@birthub/config";
+
 export type ExecutionStatus = "FAILED" | "RUNNING" | "SUCCESS";
 
 export interface AgentExecutionRow {
-  id: string;
-  status: ExecutionStatus;
-  startedAt: string;
   durationMs: number;
+  id: string;
+  startedAt: string;
+  status: ExecutionStatus;
 }
 
 export interface AgentSnapshot {
-  id: string;
-  name: string;
-  version: string;
-  status: AgentStatus;
-  lastRun: string;
-  failRate: number;
-  tags: string[];
-  promptVersions: string[];
-  manifest: Record<string, unknown>;
-  logs: string[];
+  catalogAgentId: string;
+  connectors: Record<string, unknown>;
+  executionCount: number;
   executions: AgentExecutionRow[];
+  failRate: number;
+  id: string;
+  keywords: string[];
+  lastRun: string | null;
+  logs: string[];
+  manifest: Record<string, unknown>;
+  name: string;
+  sourceStatus: string;
+  status: string;
+  tags: string[];
+  version: string;
 }
 
-const AGENT_SNAPSHOTS: AgentSnapshot[] = [
-  {
-    id: "agent-onboarding",
-    name: "Onboarding Concierge",
-    version: "1.3.2",
-    status: "PUBLISHED",
-    lastRun: "2026-03-13T13:20:00.000Z",
-    failRate: 0.08,
-    tags: ["onboarding", "email"],
-    promptVersions: [
-      "You are an onboarding specialist. Collect intent and route to SDR.",
-      "You are an onboarding specialist. Collect intent, classify urgency and route to SDR."
-    ],
-    manifest: {
-      apiVersion: "1.0.0",
-      name: "Onboarding Concierge",
-      skills: [{ id: "intent-classifier", version: "1.0.0" }],
-      tools: [{ id: "http", maxCalls: 5 }]
-    },
-    logs: ["Plan built with 2 tool calls", "HTTP call finished in 145ms", "Email sent to lead"],
-    executions: [
-      { id: "exec-101", status: "SUCCESS", startedAt: "2026-03-13T13:20:00.000Z", durationMs: 682 },
-      { id: "exec-100", status: "FAILED", startedAt: "2026-03-13T13:14:00.000Z", durationMs: 931 },
-      { id: "exec-099", status: "SUCCESS", startedAt: "2026-03-13T13:09:00.000Z", durationMs: 741 }
-    ]
-  },
-  {
-    id: "agent-finance-watch",
-    name: "Finance Watchdog",
-    version: "2.0.0",
-    status: "DRAFT",
-    lastRun: "2026-03-13T12:45:00.000Z",
-    failRate: 0.2,
-    tags: ["finance", "alerts"],
-    promptVersions: [
-      "Inspect invoices and report anomalies.",
-      "Inspect invoices, classify severity and emit anomaly alerts."
-    ],
-    manifest: {
-      apiVersion: "1.0.0",
-      name: "Finance Watchdog",
-      skills: [{ id: "anomaly-detector", version: "1.2.0" }],
-      tools: [{ id: "db-read", maxCalls: 8 }]
-    },
-    logs: ["Plan built with 1 tool call", "db-read returned 210 rows", "2 anomalies found"],
-    executions: [
-      { id: "exec-301", status: "SUCCESS", startedAt: "2026-03-13T12:45:00.000Z", durationMs: 1102 },
-      { id: "exec-300", status: "RUNNING", startedAt: "2026-03-13T12:42:00.000Z", durationMs: 0 },
-      { id: "exec-299", status: "FAILED", startedAt: "2026-03-13T12:30:00.000Z", durationMs: 1420 }
-    ]
+interface InstalledAgentsResponse {
+  agents: AgentSnapshot[];
+  requestId: string;
+}
+
+interface InstalledAgentResponse {
+  agent: AgentSnapshot;
+  requestId: string;
+}
+
+const DEFAULT_TENANT_ID = "birthhub-alpha";
+
+async function fetchJson<T>(path: string): Promise<T> {
+  const config = getWebConfig();
+  const response = await fetch(`${config.NEXT_PUBLIC_API_URL}${path}`, {
+    cache: "no-store",
+    headers: {
+      "x-tenant-id": DEFAULT_TENANT_ID
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${path}: ${response.status}`);
   }
-];
 
-export function listAgentSnapshots(): AgentSnapshot[] {
-  return AGENT_SNAPSHOTS.slice();
+  return (await response.json()) as T;
 }
 
-export function getAgentSnapshotById(id: string): AgentSnapshot | null {
-  return AGENT_SNAPSHOTS.find((agent) => agent.id === id) ?? null;
+export async function listInstalledAgents(): Promise<AgentSnapshot[]> {
+  try {
+    const payload = await fetchJson<InstalledAgentsResponse>("/api/v1/agents/installed");
+    return payload.agents;
+  } catch {
+    return [];
+  }
+}
+
+export async function getInstalledAgentById(id: string): Promise<AgentSnapshot | null> {
+  try {
+    const payload = await fetchJson<InstalledAgentResponse>(`/api/v1/agents/installed/${encodeURIComponent(id)}`);
+    return payload.agent;
+  } catch {
+    return null;
+  }
 }

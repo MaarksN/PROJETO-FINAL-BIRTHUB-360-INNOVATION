@@ -1,7 +1,8 @@
 import { getWebConfig } from "@birthub/config";
+import Link from "next/link";
 
-import { FeedbackWidget } from "../../../components/agents/FeedbackWidget.js";
-import { fetchOutputs } from "../../../lib/marketplace-api.js";
+import { FeedbackWidget } from "../../../components/agents/FeedbackWidget";
+import { fetchOutputDetail, fetchOutputs } from "../../../lib/marketplace-api";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -21,9 +22,11 @@ export default async function OutputsPage({
   const resolvedParams = (await searchParams) ?? {};
   const typeFilter = readParam(resolvedParams.type);
   const executionId = readParam(resolvedParams.executionId);
+  const outputId = readParam(resolvedParams.outputId);
   const config = getWebConfig();
 
   const data = await fetchOutputs(typeFilter || undefined).catch(() => ({ outputs: [] }));
+  const selectedOutput = outputId ? await fetchOutputDetail(outputId).catch(() => null) : null;
 
   return (
     <main style={{ display: "grid", gap: "1rem", padding: "1.5rem" }}>
@@ -69,7 +72,9 @@ export default async function OutputsPage({
                     <code>{output.outputHash.slice(0, 16)}...</code>
                   </td>
                   <td style={{ borderBottom: "1px solid var(--border)", padding: "0.5rem" }}>
-                    <a href={`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${output.id}`}>Detalhes</a>{" "}
+                    <Link href={`/outputs?type=${encodeURIComponent(typeFilter)}&outputId=${encodeURIComponent(output.id)}`}>
+                      Detalhes
+                    </Link>{" "}
                     <a href={`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${output.id}/export`}>
                       Exportar PDF/MD
                     </a>
@@ -80,6 +85,55 @@ export default async function OutputsPage({
           </tbody>
         </table>
       </div>
+
+      {selectedOutput ? (
+        <section
+          style={{
+            background: "rgba(255,255,255,0.92)",
+            border: "1px solid var(--border)",
+            borderRadius: 16,
+            display: "grid",
+            gap: "0.85rem",
+            padding: "1rem"
+          }}
+        >
+          <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <h2 style={{ margin: 0 }}>Detalhe do Output</h2>
+              <small style={{ color: "var(--muted)" }}>{selectedOutput.output.id}</small>
+            </div>
+            <span style={{ color: selectedOutput.integrity.isValid ? "#1b4332" : "#9d0208", fontWeight: 700 }}>
+              {selectedOutput.integrity.isValid ? "Hash valido" : "Hash divergente"}
+            </span>
+          </div>
+          <div style={{ display: "grid", gap: "0.75rem", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
+            <div>
+              <strong>Hash DB</strong>
+              <pre style={{ whiteSpace: "pre-wrap" }}>{selectedOutput.integrity.expectedHash}</pre>
+            </div>
+            <div>
+              <strong>Hash recalculado</strong>
+              <pre style={{ whiteSpace: "pre-wrap" }}>{selectedOutput.integrity.recalculatedHash}</pre>
+            </div>
+          </div>
+          <div>
+            <strong>Conteudo real</strong>
+            <pre
+              style={{
+                background: "#f8f6ef",
+                borderRadius: 12,
+                marginBottom: 0,
+                overflowX: "auto",
+                padding: "0.8rem",
+                whiteSpace: "pre-wrap"
+              }}
+            >
+              {selectedOutput.output.content}
+            </pre>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }
+

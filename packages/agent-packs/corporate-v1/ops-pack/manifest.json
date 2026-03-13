@@ -1,16 +1,83 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "ops-pack",
-    "tenantId": "catalog",
-    "name": "Ops Agent Pack",
-    "description": "Operations agent for process control and incident response.",
-    "version": "1.0.0",
-    "prompt": "Act as operations manager and maintain process performance at scale.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Operations agent for process control and incident response. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "ops-pack",
+    "kind": "agent",
+    "name": "Ops Agent Pack",
+    "prompt": "Voce e o Ops Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nCoordenar operacao diaria com runbooks, resposta rapida a incidentes e controle rigoroso de execucao multi-time.\n\nQUANDO ACIONAR\n- quando incidentes ou desvios operacionais precisarem de coordenacao\n- quando runbooks e rotinas recorrentes precisarem de disciplina\n- quando houver necessidade de comunicacao operacional estruturada\n- quando a empresa precisar preservar continuidade com menos caos\n\nENTRADAS OBRIGATORIAS\n- alertas, fila operacional e severidade do evento\n- runbooks, responsaveis e dependencias\n- metricas operacionais e restricoes de horario ou canal\n- evidencias do incidente e impacto percebido\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Runbook Coordination in Ops Agent Pack workflows.\n- Capability for Incident Triage in Ops Agent Pack workflows.\n- Capability for KPI Monitoring in Ops Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- Slack Notifier\n- Calendar Scheduler\n- Storage Archiver\n\nSAIDAS OBRIGATORIAS\n- triagem e prioridade operacional\n- sequencia de acao baseada em runbook\n- notificacoes e checkpoints sugeridos\n- registro de incidente e follow-up\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca pular registro de incidente\n- nunca acionar comunicacao critica sem contexto suficiente\n- nunca esconder impacto ou dono da acao\n- sempre manter trilha de auditoria\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- classificar severidade\n- indicar dono e tempo de resposta\n- registrar evidencia e proximo checkpoint\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"ops-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"triagem e prioridade operacional\",\n    \"sequencia de acao baseada em runbook\",\n    \"notificacoes e checkpoints sugeridos\",\n    \"registro de incidente e follow-up\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "ops",
+    "incident triage",
+    "runbook coordination",
+    "sla breach",
+    "operations alerting",
+    "task queue",
+    "calendar scheduling",
+    "incident response",
+    "operational continuity",
+    "handoff control",
+    "execution monitoring",
+    "ops hygiene"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "ops-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Runbook Coordination in Ops Agent Pack workflows.",
+      "id": "ops-pack.skill.runbook-coordination",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Runbook Coordination",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Incident Triage in Ops Agent Pack workflows.",
+      "id": "ops-pack.skill.incident-triage",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Incident Triage",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for KPI Monitoring in Ops Agent Pack workflows.",
+      "id": "ops-pack.skill.kpi-monitoring",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "KPI Monitoring",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "operations"
@@ -28,89 +95,42 @@
       "operations"
     ]
   },
-  "skills": [
-    {
-      "id": "ops-pack.skill.runbook-coordination",
-      "name": "Runbook Coordination",
-      "description": "Capability for Runbook Coordination in Ops Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "ops-pack.skill.incident-triage",
-      "name": "Incident Triage",
-      "description": "Capability for Incident Triage in Ops Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "ops-pack.skill.kpi-monitoring",
-      "name": "KPI Monitoring",
-      "description": "Capability for KPI Monitoring in Ops Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "ops-pack.tool.slack-notifier",
-      "name": "Slack Notifier",
       "description": "Operational tool Slack Notifier required by Ops Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "ops-pack.tool.slack-notifier",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Slack Notifier",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "ops-pack.tool.calendar-scheduler",
-      "name": "Calendar Scheduler",
       "description": "Operational tool Calendar Scheduler required by Ops Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "ops-pack.tool.calendar-scheduler",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Calendar Scheduler",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "ops-pack.tool.storage-archiver",
-      "name": "Storage Archiver",
       "description": "Operational tool Storage Archiver required by Ops Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "ops-pack.tool.storage-archiver",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Storage Archiver",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "ops-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

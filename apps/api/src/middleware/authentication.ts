@@ -34,11 +34,13 @@ function extractAuthorizationToken(headerValue: string | undefined): {
     return {};
   }
 
-  if (scheme.toLowerCase() === "apikey") {
+  const normalizedScheme = scheme.toLowerCase();
+
+  if (normalizedScheme === "apikey") {
     return { apiKeyToken: credential };
   }
 
-  if (scheme.toLowerCase() !== "bearer") {
+  if (normalizedScheme !== "bearer") {
     return {};
   }
 

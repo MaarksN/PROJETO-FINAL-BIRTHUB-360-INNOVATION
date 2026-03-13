@@ -1,16 +1,82 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "rh-pack",
-    "tenantId": "catalog",
-    "name": "RH Agent Pack",
-    "description": "Human resources agent for people operations and talent lifecycle.",
-    "version": "1.0.0",
-    "prompt": "Act as HR business partner and optimize people processes with empathy and compliance.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Human resources agent for people operations and talent lifecycle. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "rh-pack",
+    "kind": "agent",
+    "name": "RH Agent Pack",
+    "prompt": "Voce e o RH Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nDar velocidade e rigor a people operations, talento, engajamento e politicas internas com sensibilidade organizacional real.\n\nQUANDO ACIONAR\n- quando RH precisar analisar funil, clima ou aderencia a politicas\n- quando houver onboarding, recrutamento ou desenvolvimento de pessoas\n- quando a organizacao precisar monitorar engajamento e risco humano\n- quando for necessario padronizar comunicacao de people ops\n\nENTRADAS OBRIGATORIAS\n- dados de recrutamento, pessoas, turnover e engajamento\n- politicas internas, trilhas e marcos de onboarding\n- sinais de risco humano, performance e aderencia\n- contexto organizacional e papel do colaborador\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Hiring Funnel Analysis in RH Agent Pack workflows.\n- Capability for Engagement Monitoring in RH Agent Pack workflows.\n- Capability for Policy Guidance in RH Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- Interview Planner\n- People Analytics\n- Communication Assistant\n\nSAIDAS OBRIGATORIAS\n- diagnostico de people ops\n- recomendacoes de onboarding, hiring ou engajamento\n- riscos de politica ou experiencia do colaborador\n- plano acionavel para RH\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca expor dado sensivel sem necessidade\n- nunca reduzir decisao humana a score automatizado\n- nunca tratar risco humano como mera estatistica\n- sempre respeitar privacidade e contexto\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- preservar sensibilidade e contexto\n- separar recomendacao de julgamento\n- indicar necessidade de revisao humana\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"rh-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"diagnostico de people ops\",\n    \"recomendacoes de onboarding, hiring ou engajamento\",\n    \"riscos de politica ou experiencia do colaborador\",\n    \"plano acionavel para RH\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "hr",
+    "talent operations",
+    "hiring funnel",
+    "onboarding",
+    "engagement monitoring",
+    "people analytics",
+    "policy guidance",
+    "retention risk",
+    "manager enablement",
+    "communication assistant",
+    "employee journey",
+    "people operations"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "rh-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Hiring Funnel Analysis in RH Agent Pack workflows.",
+      "id": "rh-pack.skill.hiring-funnel-analysis",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Hiring Funnel Analysis",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Engagement Monitoring in RH Agent Pack workflows.",
+      "id": "rh-pack.skill.engagement-monitoring",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Engagement Monitoring",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Policy Guidance in RH Agent Pack workflows.",
+      "id": "rh-pack.skill.policy-guidance",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Policy Guidance",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "hr"
@@ -28,89 +94,42 @@
       "human-resources"
     ]
   },
-  "skills": [
-    {
-      "id": "rh-pack.skill.hiring-funnel-analysis",
-      "name": "Hiring Funnel Analysis",
-      "description": "Capability for Hiring Funnel Analysis in RH Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "rh-pack.skill.engagement-monitoring",
-      "name": "Engagement Monitoring",
-      "description": "Capability for Engagement Monitoring in RH Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "rh-pack.skill.policy-guidance",
-      "name": "Policy Guidance",
-      "description": "Capability for Policy Guidance in RH Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "rh-pack.tool.interview-planner",
-      "name": "Interview Planner",
       "description": "Operational tool Interview Planner required by RH Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "rh-pack.tool.interview-planner",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Interview Planner",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "rh-pack.tool.people-analytics",
-      "name": "People Analytics",
       "description": "Operational tool People Analytics required by RH Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "rh-pack.tool.people-analytics",
       "inputSchema": {
         "type": "object"
       },
+      "name": "People Analytics",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "rh-pack.tool.communication-assistant",
-      "name": "Communication Assistant",
       "description": "Operational tool Communication Assistant required by RH Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "rh-pack.tool.communication-assistant",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Communication Assistant",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "rh-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

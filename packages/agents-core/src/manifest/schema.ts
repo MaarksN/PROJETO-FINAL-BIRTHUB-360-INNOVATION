@@ -6,6 +6,7 @@ const nonEmptyString = z.string().trim().min(1);
 const jsonSchemaObject = z.record(z.string(), z.unknown()).default({ type: "object" });
 
 const tagListSchema = z.array(nonEmptyString).min(1);
+const keywordListSchema = z.array(nonEmptyString).min(5);
 
 // Default-deny governance: every manifest object schema in this module is strict.
 
@@ -54,6 +55,7 @@ export const agentDescriptorSchema = z
     changelog: z.array(nonEmptyString).default([]),
     description: nonEmptyString,
     id: nonEmptyString,
+    kind: z.enum(["agent", "catalog"]).default("agent"),
     name: nonEmptyString,
     prompt: nonEmptyString,
     tenantId: nonEmptyString.default("catalog"),
@@ -64,6 +66,7 @@ export const agentDescriptorSchema = z
 export const agentManifestSchema = z
   .object({
     agent: agentDescriptorSchema,
+    keywords: keywordListSchema,
     manifestVersion: z.literal(MANIFEST_VERSION),
     policies: z.array(policyManifestSchema).min(1),
     skills: z.array(skillManifestSchema).min(1),
@@ -74,3 +77,4 @@ export const agentManifestSchema = z
 
 export type AgentManifest = z.infer<typeof agentManifestSchema>;
 export type AgentManifestTags = z.infer<typeof manifestTagsSchema>;
+export type AgentManifestKeywords = z.infer<typeof keywordListSchema>;

@@ -1,12 +1,13 @@
 import { getWebConfig } from "@birthub/config";
 import Link from "next/link";
 
-import { PackInstaller } from "../../../components/wizards/PackInstaller.js";
+import { PackInstaller } from "../../../components/wizards/PackInstaller";
 import {
+  fetchAgentChangelog,
   fetchAgentDocs,
   fetchMarketplaceRecommendations,
   fetchMarketplaceSearch
-} from "../../../lib/marketplace-api.js";
+} from "../../../lib/marketplace-api";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
@@ -45,7 +46,12 @@ export default async function MarketplacePage({
     fetchMarketplaceRecommendations(tenantIndustry)
   ]);
 
-  const docs = selectedAgentId ? await fetchAgentDocs(selectedAgentId).catch(() => null) : null;
+  const [docs, changelog] = selectedAgentId
+    ? await Promise.all([
+        fetchAgentDocs(selectedAgentId).catch(() => null),
+        fetchAgentChangelog(selectedAgentId).catch(() => null)
+      ])
+    : [null, null];
 
   const availablePacks = search.results.map((result) => ({
     description: result.agent.description,
@@ -54,7 +60,16 @@ export default async function MarketplacePage({
   }));
 
   return (
-    <main style={{ display: "grid", gap: "1.5rem", padding: "1.5rem" }}>
+    <main
+      style={{
+        alignItems: "start",
+        display: "grid",
+        gap: "1.5rem",
+        gridTemplateColumns: selectedAgentId ? "minmax(0, 1fr) 360px" : "minmax(0, 1fr)",
+        padding: "1.5rem"
+      }}
+    >
+      <div style={{ display: "grid", gap: "1.5rem" }}>
       <header style={{ display: "grid", gap: "0.5rem" }}>
         <small style={{ color: "var(--muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
           Agent Marketplace
@@ -63,6 +78,10 @@ export default async function MarketplacePage({
         <p style={{ color: "var(--muted)", margin: 0 }}>
           Busca full-text com facets por domain, level e tags. Sugestoes personalizadas para o ramo do tenant.
         </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+          <Link href="/packs">Ver packs instalados</Link>
+          <Link href="/settings/billing#agent-budget">Gerenciar budget por agente</Link>
+        </div>
       </header>
 
       <PackInstaller apiUrl={config.NEXT_PUBLIC_API_URL} availablePacks={availablePacks.slice(0, 8)} />
@@ -168,21 +187,32 @@ export default async function MarketplacePage({
         </div>
       </section>
 
-      {docs ? (
-        <section
+      </div>
+
+      {docs && selectedAgentId ? (
+        <aside
           style={{
-            background: "rgba(255,255,255,0.88)",
+            background: "rgba(255,255,255,0.94)",
             border: "1px solid var(--border)",
-            borderRadius: 16,
-            padding: "1rem"
+            borderRadius: 18,
+            display: "grid",
+            gap: "0.9rem",
+            padding: "1rem",
+            position: "sticky",
+            top: "1rem"
           }}
         >
-          <h3 style={{ marginTop: 0 }}>Documentacao Inline ({selectedAgentId})</h3>
+          <div>
+            <small style={{ color: "var(--muted)", textTransform: "uppercase" }}>Side Drawer</small>
+            <h3 style={{ margin: "0.2rem 0 0" }}>{selectedAgentId}</h3>
+          </div>
           <pre
             style={{
               background: "#f8f6ef",
               borderRadius: 12,
               fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+              margin: 0,
+              maxHeight: 360,
               overflowX: "auto",
               padding: "0.8rem",
               whiteSpace: "pre-wrap"
@@ -190,8 +220,29 @@ export default async function MarketplacePage({
           >
             {docs.docs}
           </pre>
-        </section>
+          <div style={{ display: "grid", gap: "0.5rem" }}>
+            <strong>Changelog visual</strong>
+            {changelog?.changelog?.length ? (
+              changelog.changelog.map((item) => (
+                <div
+                  key={item}
+                  style={{
+                    background: "rgba(15,76,92,0.06)",
+                    border: "1px solid rgba(15,76,92,0.12)",
+                    borderRadius: 12,
+                    padding: "0.7rem"
+                  }}
+                >
+                  {item}
+                </div>
+              ))
+            ) : (
+              <small style={{ color: "var(--muted)" }}>Sem changelog disponivel.</small>
+            )}
+          </div>
+        </aside>
       ) : null}
     </main>
   );
 }
+

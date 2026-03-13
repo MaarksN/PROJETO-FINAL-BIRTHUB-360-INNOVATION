@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import { fetchWithSession } from "../../lib/auth-client";
 import "./pricing.css";
 
 type Plan = {
@@ -109,12 +110,10 @@ export default function PricingPage() {
     setLoadingPlanId(planId);
 
     try {
-      const response = await fetch("/api/v1/billing/checkout", {
+      const response = await fetchWithSession("/api/v1/billing/checkout", {
         body: JSON.stringify({ planId }),
         headers: {
-          "content-type": "application/json",
-          "x-tenant-id": window.localStorage.getItem("tenantId") ?? "birthhub-alpha",
-          "x-user-id": window.localStorage.getItem("userId") ?? "owner.alpha@birthub.local"
+          "content-type": "application/json"
         },
         method: "POST"
       });
@@ -201,3 +200,4 @@ export default function PricingPage() {
     </main>
   );
 }
+

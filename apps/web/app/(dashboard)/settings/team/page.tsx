@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getWebConfig } from "@birthub/config";
 
-import { fetchWithSession, getStoredSession } from "../../../../lib/auth-client.js";
+import { fetchWithSession, getStoredSession } from "../../../../lib/auth-client";
 
 type Role = "OWNER" | "ADMIN" | "MEMBER" | "READONLY";
 
@@ -146,3 +146,4 @@ export default function TeamRolesPage() {
     </section>
   );
 }
+

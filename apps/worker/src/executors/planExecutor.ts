@@ -204,6 +204,9 @@ export class PlanExecutor {
 
       for (let index = 0; index < toolCalls.length; index += 1) {
         const call = toolCalls[index];
+        if (!call) {
+          throw new Error(`Tool call at index ${index} is missing.`);
+        }
         const tool = this.tools[call.tool];
 
         if (!tool) {
@@ -278,7 +281,10 @@ export class PlanExecutor {
         return await executor();
       } catch (error) {
         lastError = error;
-        const delay = RETRY_DELAYS_MS[Math.min(attempt, RETRY_DELAYS_MS.length - 1)];
+        const delay =
+          RETRY_DELAYS_MS[Math.min(attempt, RETRY_DELAYS_MS.length - 1)] ??
+          RETRY_DELAYS_MS[RETRY_DELAYS_MS.length - 1] ??
+          1_000;
         if (attempt >= 4) {
           break;
         }

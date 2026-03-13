@@ -1,5 +1,4 @@
 import js from "@eslint/js";
-import importPlugin from "eslint-plugin-import";
 import tseslint from "typescript-eslint";
 
 const sourceGlobs = ["**/*.{ts,tsx}"];
@@ -21,18 +20,10 @@ export default tseslint.config(
   ...tseslint.configs.recommendedTypeChecked,
   {
     files: sourceGlobs,
-    plugins: {
-      import: importPlugin
-    },
     languageOptions: {
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname
-      }
-    },
-    settings: {
-      "import/resolver": {
-        typescript: true
       }
     },
     rules: {
@@ -56,25 +47,7 @@ export default tseslint.config(
           varsIgnorePattern: "^_"
         }
       ],
-      "@typescript-eslint/require-await": "off",
-      "import/order": [
-        "error",
-        {
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true
-          },
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index"
-          ],
-          "newlines-between": "always"
-        }
-      ]
+      "@typescript-eslint/require-await": "off"
     }
   }
 );

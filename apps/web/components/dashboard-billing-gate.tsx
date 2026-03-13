@@ -3,6 +3,8 @@
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
+import { fetchWithSession } from "../lib/auth-client";
+
 type MeResponse = {
   plan?: {
     hardLocked?: boolean;
@@ -30,10 +32,7 @@ export function DashboardBillingGate({ children }: Readonly<{ children: ReactNod
   useEffect(() => {
     const controller = new AbortController();
 
-    void fetch("/api/v1/me", {
-      headers: {
-        "x-tenant-id": window.localStorage.getItem("tenantId") ?? "birthhub-alpha"
-      },
+    void fetchWithSession("/api/v1/me", {
       signal: controller.signal
     })
       .then(async (response) => {
@@ -84,3 +83,4 @@ export function DashboardBillingGate({ children }: Readonly<{ children: ReactNod
     </>
   );
 }
+

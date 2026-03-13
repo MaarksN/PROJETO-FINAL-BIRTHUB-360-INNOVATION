@@ -2,11 +2,12 @@ import { notFound } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config";
 
-import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel.js";
-import { getAgentSnapshotById } from "../../../../../lib/agents.js";
+import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel";
+import { getInstalledAgentById } from "../../../../../lib/agents";
 
-export default function AgentRunPage({ params }: Readonly<{ params: { id: string } }>) {
-  const agent = getAgentSnapshotById(params.id);
+export default async function AgentRunPage({ params }: Readonly<{ params: { id: string } }>) {
+  const agent = await getInstalledAgentById(params.id);
+
   if (!agent) {
     notFound();
   }
@@ -18,7 +19,7 @@ export default function AgentRunPage({ params }: Readonly<{ params: { id: string
       <header>
         <h2 style={{ margin: 0 }}>Run Agent</h2>
         <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-          Execução manual com input customizado e logs em tempo real via SSE.
+          Dry-run seguro com logs persistidos, replay SSE curto e publicacao de aprendizado compartilhado.
         </p>
       </header>
       <AgentRunPanel agentId={agent.id} apiUrl={config.NEXT_PUBLIC_API_URL} />

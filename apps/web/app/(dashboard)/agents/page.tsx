@@ -1,14 +1,14 @@
 import Link from "next/link";
 
-import { listAgentSnapshots } from "../../../lib/agents.js";
+import { listInstalledAgents } from "../../../lib/agents";
 
 function toPercent(value: number): string {
   return `${Math.round(value * 100)}%`;
 }
 
-export default function AgentsPage() {
-  const agents = listAgentSnapshots();
-  const totalCost = agents.reduce((acc, agent) => acc + agent.executions.length * 0.0015, 0);
+export default async function AgentsPage() {
+  const agents = await listInstalledAgents();
+  const totalCost = agents.reduce((acc, agent) => acc + agent.executionCount * 0.0015, 0);
   const recentFailures = agents.flatMap((agent) =>
     agent.executions
       .filter((execution) => execution.status === "FAILED")
@@ -20,9 +20,25 @@ export default function AgentsPage() {
       <header>
         <h2 style={{ margin: 0 }}>Agents</h2>
         <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-          Lista de agentes por tenant com versão, status, última execução e taxa de falha.
+          Linha oficial de agentes instalados com manifesto real, dry-run persistido e aprendizado compartilhado governado.
         </p>
       </header>
+
+      {agents.length === 0 ? (
+        <div
+          style={{
+            background: "var(--card)",
+            border: "1px solid var(--border)",
+            borderRadius: "1rem",
+            padding: "1rem"
+          }}
+        >
+          <h3 style={{ marginTop: 0 }}>Nenhum agente oficial instalado</h3>
+          <p style={{ color: "var(--muted)", marginBottom: 0 }}>
+            Instale agentes no marketplace para acompanhar execucoes reais, politicas publicadas e logs persistidos.
+          </p>
+        </div>
+      ) : null}
 
       <div
         style={{
@@ -40,10 +56,10 @@ export default function AgentsPage() {
           <ul style={{ marginBottom: 0, marginTop: "0.35rem", paddingLeft: "1rem" }}>
             {agents
               .slice()
-              .sort((left, right) => right.executions.length - left.executions.length)
+              .sort((left, right) => right.executionCount - left.executionCount)
               .map((agent) => (
                 <li key={`usage-${agent.id}`}>
-                  {agent.name}: {agent.executions.length} execuções
+                  {agent.name}: {agent.executionCount} execucoes
                 </li>
               ))}
           </ul>
@@ -77,11 +93,12 @@ export default function AgentsPage() {
           <thead style={{ background: "rgba(19, 93, 102, 0.09)" }}>
             <tr>
               <th style={{ padding: "0.75rem", textAlign: "left" }}>Nome</th>
-              <th style={{ padding: "0.75rem", textAlign: "left" }}>Versão</th>
+              <th style={{ padding: "0.75rem", textAlign: "left" }}>Versao</th>
               <th style={{ padding: "0.75rem", textAlign: "left" }}>Status</th>
-              <th style={{ padding: "0.75rem", textAlign: "left" }}>Última execução</th>
+              <th style={{ padding: "0.75rem", textAlign: "left" }}>Catalogo</th>
+              <th style={{ padding: "0.75rem", textAlign: "left" }}>Ultima execucao</th>
               <th style={{ padding: "0.75rem", textAlign: "left" }}>Fail rate</th>
-              <th style={{ padding: "0.75rem", textAlign: "left" }}>Ações</th>
+              <th style={{ padding: "0.75rem", textAlign: "left" }}>Acoes</th>
             </tr>
           </thead>
           <tbody>
@@ -90,8 +107,9 @@ export default function AgentsPage() {
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.name}</td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.version}</td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.status}</td>
+                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.catalogAgentId}</td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
-                  {new Date(agent.lastRun).toLocaleString("pt-BR")}
+                  {agent.lastRun ? new Date(agent.lastRun).toLocaleString("pt-BR") : "Nunca executado"}
                 </td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
                   {toPercent(agent.failRate)}

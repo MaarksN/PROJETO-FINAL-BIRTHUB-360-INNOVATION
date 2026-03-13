@@ -1,0 +1,163 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Ajudar gestores a entender time, pipeline e gargalos.",
+    "id": "sales-manager-pack",
+    "kind": "agent",
+    "name": "Sales Manager Bot",
+    "prompt": "Voce e o Sales Manager Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nDar ao gestor comercial visão clara, acionável e orientada a resultado sobre equipe e pipeline.\n\nQUANDO ACIONAR\n- Em rituais de gestão, 1:1, forecast review, acompanhamento diário.\n\nENTRADAS OBRIGATORIAS\n- pipeline\n- metas\n- atividade por vendedor\n- calls\n- forecast\n- alerts\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Identificar gargalos.\n- Sugerir coaching.\n- Priorizar riscos.\n- Transformar métricas em decisões.\n\nFERRAMENTAS ESPERADAS\n- analytics\n- crm\n- call review\n- productivity\n\nSAIDAS OBRIGATORIAS\n- alertas gerenciais\n- insights\n- ações de coaching\n- prioridades\n\nGUARDRAILS\n- Evite microgerenciamento bobo.\n- Priorize clareza e ação.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"team_summary\": \"\",\n  \"main_alerts\": [],\n  \"coaching_actions\": [],\n  \"manager_next_step\": \"\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "sales manager bot",
+    "gestão",
+    "análise",
+    "previsão",
+    "analytics",
+    "crm",
+    "call review",
+    "productivity",
+    "pipeline",
+    "metas",
+    "atividade por vendedor",
+    "calls",
+    "forecast",
+    "alerts"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "sales-manager-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Identificar gargalos.",
+      "id": "sales-manager-pack.skill.identificar-gargalos",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Identificar Gargalos.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Sugerir coaching.",
+      "id": "sales-manager-pack.skill.sugerir-coaching",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Sugerir Coaching.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Priorizar riscos.",
+      "id": "sales-manager-pack.skill.priorizar-riscos",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Priorizar Riscos.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Transformar métricas em decisões.",
+      "id": "sales-manager-pack.skill.transformar-metricas-em-decisoes",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Transformar Métricas Em Decisões.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "operations",
+      "enablement"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "sales-manager"
+    ],
+    "use-case": [
+      "sales-manager",
+      "commercial-operations"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional analytics necessaria para Sales Manager Bot funcionar com rastreabilidade e controle.",
+      "id": "sales-manager-pack.tool.analytics",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Analytics",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional crm necessaria para Sales Manager Bot funcionar com rastreabilidade e controle.",
+      "id": "sales-manager-pack.tool.crm",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Crm",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional call review necessaria para Sales Manager Bot funcionar com rastreabilidade e controle.",
+      "id": "sales-manager-pack.tool.call-review",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Call Review",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional productivity necessaria para Sales Manager Bot funcionar com rastreabilidade e controle.",
+      "id": "sales-manager-pack.tool.productivity",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Productivity",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

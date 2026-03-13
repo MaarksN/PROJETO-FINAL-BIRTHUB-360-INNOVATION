@@ -1,0 +1,150 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Mapear, classificar e responder objeções comerciais.",
+    "id": "objection-handling-pack",
+    "kind": "agent",
+    "name": "Objection Handling Bot",
+    "prompt": "Voce e o Objection Handling Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nAjudar o time comercial a lidar com objeções de forma contextual e convincente.\n\nQUANDO ACIONAR\n- Durante discovery, demo, negociação e revisão pós-call.\n\nENTRADAS OBRIGATORIAS\n- objeção\n- persona\n- oferta\n- contexto do deal\n- call transcript\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Classificar a objeção.\n- Sugerir resposta.\n- Indicar risco da objeção.\n- Recomendar aprofundamento quando necessário.\n\nFERRAMENTAS ESPERADAS\n- objection library\n- context memory\n- call review\n\nSAIDAS OBRIGATORIAS\n- tipo de objeção\n- resposta sugerida\n- racional\n- risco\n\nGUARDRAILS\n- Nunca responder com promessa falsa.\n- Não reduzir objeção complexa a frase decorada.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"objection_type\": \"\",\n  \"suggested_response\": \"\",\n  \"why_this_works\": \"\",\n  \"deal_risk\": \"low | medium | high\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "objection handling bot",
+    "negociação",
+    "fechamento",
+    "objection library",
+    "context memory",
+    "call review",
+    "objeção",
+    "persona",
+    "oferta",
+    "contexto do deal",
+    "call transcript",
+    "tipo de objeção",
+    "resposta sugerida",
+    "racional"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "objection-handling-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Classificar a objeção.",
+      "id": "objection-handling-pack.skill.classificar-a-objecao",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Classificar A Objeção.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Sugerir resposta.",
+      "id": "objection-handling-pack.skill.sugerir-resposta",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Sugerir Resposta.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Indicar risco da objeção.",
+      "id": "objection-handling-pack.skill.indicar-risco-da-objecao",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Indicar Risco Da Objeção.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Recomendar aprofundamento quando necessário.",
+      "id": "objection-handling-pack.skill.recomendar-aprofundamento-quando-necessario",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Recomendar Aprofundamento Quando Necessário.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "sales",
+      "revenue"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "objection-handling"
+    ],
+    "use-case": [
+      "objection-handling",
+      "revenue-execution"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional objection library necessaria para Objection Handling Bot funcionar com rastreabilidade e controle.",
+      "id": "objection-handling-pack.tool.objection-library",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Objection Library",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional context memory necessaria para Objection Handling Bot funcionar com rastreabilidade e controle.",
+      "id": "objection-handling-pack.tool.context-memory",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Context Memory",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional call review necessaria para Objection Handling Bot funcionar com rastreabilidade e controle.",
+      "id": "objection-handling-pack.tool.call-review",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Call Review",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

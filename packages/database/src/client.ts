@@ -1,9 +1,12 @@
+import { randomUUID } from "node:crypto";
+
 import { Prisma, PrismaClient } from "@prisma/client";
 
 import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error.js";
 import { requireTenantId } from "./tenant-context.js";
 
 const QUERY_TIMEOUT_MS = 5_000;
+const DEFAULT_DATABASE_CONNECTION_LIMIT = 10;
 
 const globalForPrisma = globalThis as typeof globalThis & {
   birthubPrisma?: PrismaClient;
@@ -29,6 +32,12 @@ function raceWithTimeout<T>(
 }
 
 function createPrismaClient(): PrismaClient {
+  const normalizedDatabaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
+
+  if (normalizedDatabaseUrl) {
+    process.env.DATABASE_URL = normalizedDatabaseUrl;
+  }
+
   const baseClient = new PrismaClient({
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"]
   });
@@ -43,6 +52,37 @@ function createPrismaClient(): PrismaClient {
       }
     }
   }) as PrismaClient;
+}
+
+function normalizeDatabaseUrl(rawUrl: string | undefined): string | undefined {
+  if (!rawUrl?.trim()) {
+    return rawUrl;
+  }
+
+  try {
+    const parsed = new URL(rawUrl);
+
+    if (!parsed.protocol.startsWith("postgres")) {
+      return rawUrl;
+    }
+
+    if (!parsed.searchParams.has("pgbouncer")) {
+      parsed.searchParams.set("pgbouncer", "true");
+    }
+
+    if (!parsed.searchParams.has("connection_limit")) {
+      parsed.searchParams.set(
+        "connection_limit",
+        String(
+          Number(process.env.DATABASE_CONNECTION_LIMIT ?? DEFAULT_DATABASE_CONNECTION_LIMIT)
+        )
+      );
+    }
+
+    return parsed.toString();
+  } catch {
+    return rawUrl;
+  }
 }
 
 export const prisma = globalForPrisma.birthubPrisma ?? createPrismaClient();
@@ -71,6 +111,38 @@ export async function pingDatabase(): Promise<{ status: "up" | "down"; message?:
   } catch (error) {
     return {
       message: error instanceof Error ? error.message : "Unknown database error",
+      status: "down"
+    };
+  }
+}
+
+export async function pingDatabaseDeep(): Promise<{ status: "up" | "down"; message?: string }> {
+  const startedAt = Date.now();
+
+  try {
+    const probe = await prisma.billingEvent.create({
+      data: {
+        payload: {
+          probe: true
+        },
+        stripeEventId: `evt_health_${randomUUID()}`,
+        type: "health.deep.probe"
+      }
+    });
+
+    await prisma.billingEvent.delete({
+      where: {
+        id: probe.id
+      }
+    });
+
+    return {
+      message: `rw-ok:${Date.now() - startedAt}ms`,
+      status: "up"
+    };
+  } catch (error) {
+    return {
+      message: error instanceof Error ? error.message : "Unknown deep database error",
       status: "down"
     };
   }

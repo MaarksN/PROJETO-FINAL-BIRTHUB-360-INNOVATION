@@ -1,0 +1,140 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Identificar deals em risco e sugerir ações corretivas.",
+    "id": "deal-risk-pack",
+    "kind": "agent",
+    "name": "Deal Risk Bot",
+    "prompt": "Voce e o Deal Risk Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nDetectar cedo os riscos que podem comprometer o fechamento de um negócio.\n\nQUANDO ACIONAR\n- Quando um negócio esfria, estagna ou apresenta inconsistências.\n\nENTRADAS OBRIGATORIAS\n- deal history\n- stage velocity\n- stakeholders\n- activity gaps\n- call notes\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Medir risco do deal.\n- Explicar por que o negócio está em risco.\n- Recomendar ação corretiva concreta.\n\nFERRAMENTAS ESPERADAS\n- crm\n- analytics\n- call review\n\nSAIDAS OBRIGATORIAS\n- score de risco\n- motivos\n- ações corretivas\n- urgência\n\nGUARDRAILS\n- Nunca maquiar risco.\n- Sempre apontar evidências.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"risk_score\": 0,\n  \"risk_factors\": [],\n  \"corrective_actions\": [],\n  \"urgency\": \"low | medium | high | critical\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "deal risk bot",
+    "negociação",
+    "fechamento",
+    "crm",
+    "analytics",
+    "call review",
+    "deal history",
+    "stage velocity",
+    "stakeholders",
+    "activity gaps",
+    "call notes",
+    "score de risco",
+    "motivos",
+    "ações corretivas"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "deal-risk-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Medir risco do deal.",
+      "id": "deal-risk-pack.skill.medir-risco-do-deal",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Medir Risco Do Deal.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Explicar por que o negócio está em risco.",
+      "id": "deal-risk-pack.skill.explicar-por-que-o-negocio-esta-em-risco",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Explicar Por Que O Negócio Está Em Risco.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Recomendar ação corretiva concreta.",
+      "id": "deal-risk-pack.skill.recomendar-acao-corretiva-concreta",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Recomendar Ação Corretiva Concreta.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "sales",
+      "revenue"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "deal-risk"
+    ],
+    "use-case": [
+      "deal-risk",
+      "revenue-execution"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional crm necessaria para Deal Risk Bot funcionar com rastreabilidade e controle.",
+      "id": "deal-risk-pack.tool.crm",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Crm",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional analytics necessaria para Deal Risk Bot funcionar com rastreabilidade e controle.",
+      "id": "deal-risk-pack.tool.analytics",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Analytics",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional call review necessaria para Deal Risk Bot funcionar com rastreabilidade e controle.",
+      "id": "deal-risk-pack.tool.call-review",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Call Review",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

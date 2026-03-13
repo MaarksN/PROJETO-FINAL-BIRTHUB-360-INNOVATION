@@ -7,15 +7,77 @@ import {
 } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import express, { Router } from "express";
+import Redlock from "redlock";
 import Stripe from "stripe";
 
+import { deleteCacheKeys } from "../../common/cache/cache-store.js";
+import { toPrismaJsonValue } from "../../lib/prisma-json.js";
 import { ProblemDetailsError, asyncHandler } from "../../lib/problem-details.js";
+import { getSharedRedis } from "../../lib/redis.js";
 import { publishBillingEvent } from "../billing/event-bus.js";
 import { enqueueCrmSync } from "../engagement/queues.js";
-import { ensurePlanByCode } from "../billing/service.js";
+import {
+  ensurePlanByCode,
+  invalidateBillingSnapshotCache
+} from "../billing/service.js";
 import { createStripeClient } from "../billing/stripe.client.js";
 
 const logger = createLogger("stripe-webhook");
+let stripeRedlock: Redlock | null = null;
+
+function billingStatusCacheKey(tenantId: string): string {
+  return `billing-status:${tenantId}`;
+}
+
+function getStripeRedlock(config: ApiConfig): Redlock {
+  if (stripeRedlock) {
+    return stripeRedlock;
+  }
+
+  stripeRedlock = new Redlock([getSharedRedis(config)], {
+    retryCount: 3,
+    retryDelay: 200,
+    retryJitter: 100
+  });
+
+  return stripeRedlock;
+}
+
+function resolveLockResource(event: Stripe.Event): string {
+  const object = event.data.object as
+    | Stripe.Invoice
+    | Stripe.Subscription
+    | Stripe.Checkout.Session;
+  const candidate =
+    ("customer" in object && typeof object.customer === "string" ? object.customer : null) ??
+    ("subscription" in object && typeof object.subscription === "string"
+      ? object.subscription
+      : null) ??
+    ("metadata" in object && typeof object.metadata?.organizationId === "string"
+      ? object.metadata.organizationId
+      : null) ??
+    event.id;
+
+  return `locks:stripe:${candidate}`;
+}
+
+async function withStripeEventLock<T>(
+  config: ApiConfig,
+  event: Stripe.Event,
+  callback: () => Promise<T>
+): Promise<T> {
+  if (config.NODE_ENV === "test") {
+    return callback();
+  }
+
+  const lock = await getStripeRedlock(config).acquire([resolveLockResource(event)], 10_000);
+
+  try {
+    return await callback();
+  } finally {
+    await lock.release().catch(() => undefined);
+  }
+}
 
 function unixToDate(value: number | null | undefined): Date | null {
   if (!value) {
@@ -84,6 +146,72 @@ function resolveInvoicePeriods(invoice: Stripe.Invoice): {
   };
 }
 
+function resolveInvoiceSubscriptionId(invoice: Stripe.Invoice): string | null {
+  const subscription = invoice.parent?.subscription_details?.subscription ?? null;
+
+  if (typeof subscription === "string") {
+    return subscription;
+  }
+
+  return subscription?.id ?? null;
+}
+
+function resolveSubscriptionPeriodEnd(subscription: Stripe.Subscription): Date | null {
+  const periodEnds = subscription.items.data
+    .map((item) => item.current_period_end)
+    .filter((value): value is number => typeof value === "number");
+
+  if (periodEnds.length === 0) {
+    return unixToDate(subscription.trial_end ?? subscription.cancel_at ?? subscription.billing_cycle_anchor);
+  }
+
+  return unixToDate(Math.max(...periodEnds));
+}
+
+function buildInvoiceCreateData(input: {
+  fallbackStatus: InvoiceStatus;
+  invoice: Stripe.Invoice;
+  organizationId: string;
+  subscriptionId: string;
+  tenantId: string;
+}): Prisma.InvoiceUncheckedCreateInput {
+  const periods = resolveInvoicePeriods(input.invoice);
+
+  return {
+    amountDueCents: input.invoice.amount_due,
+    amountPaidCents: input.invoice.amount_paid,
+    currency: input.invoice.currency,
+    dueDate: unixToDate(input.invoice.due_date),
+    hostedInvoiceUrl: input.invoice.hosted_invoice_url ?? null,
+    invoicePdfUrl: input.invoice.invoice_pdf ?? null,
+    organizationId: input.organizationId,
+    periodEnd: periods.periodEnd,
+    periodStart: periods.periodStart,
+    status: resolveInvoiceStatus(input.invoice.status, input.fallbackStatus),
+    stripeInvoiceId: input.invoice.id,
+    subscriptionId: input.subscriptionId,
+    tenantId: input.tenantId
+  };
+}
+
+function buildInvoiceUpdateData(
+  invoice: Stripe.Invoice,
+  fallbackStatus: InvoiceStatus
+): Prisma.InvoiceUncheckedUpdateInput {
+  const periods = resolveInvoicePeriods(invoice);
+
+  return {
+    amountDueCents: invoice.amount_due,
+    amountPaidCents: invoice.amount_paid,
+    dueDate: unixToDate(invoice.due_date),
+    hostedInvoiceUrl: invoice.hosted_invoice_url ?? null,
+    invoicePdfUrl: invoice.invoice_pdf ?? null,
+    periodEnd: periods.periodEnd,
+    periodStart: periods.periodStart,
+    status: resolveInvoiceStatus(invoice.status, fallbackStatus)
+  };
+}
+
 async function ensureSubscriptionForOrganization(input: {
   currentPeriodEnd?: Date | null;
   organizationId: string;
@@ -109,23 +237,28 @@ async function ensureSubscriptionForOrganization(input: {
     });
   }
 
+  const createData: Prisma.SubscriptionUncheckedCreateInput = {
+    currentPeriodEnd: input.currentPeriodEnd ?? null,
+    organizationId: organization.id,
+    planId: input.planId,
+    status: SubscriptionStatus.active,
+    stripeCustomerId: input.stripeCustomerId,
+    stripeSubscriptionId: input.stripeSubscriptionId ?? null,
+    tenantId: organization.tenantId
+  };
+  const updateData: Prisma.SubscriptionUncheckedUpdateInput = {
+    planId: input.planId,
+    status: SubscriptionStatus.active,
+    stripeCustomerId: input.stripeCustomerId,
+    ...(input.currentPeriodEnd !== undefined ? { currentPeriodEnd: input.currentPeriodEnd } : {}),
+    ...(input.stripeSubscriptionId !== undefined
+      ? { stripeSubscriptionId: input.stripeSubscriptionId }
+      : {})
+  };
+
   return prisma.subscription.upsert({
-    create: {
-      currentPeriodEnd: input.currentPeriodEnd ?? null,
-      organizationId: organization.id,
-      planId: input.planId,
-      status: SubscriptionStatus.active,
-      stripeCustomerId: input.stripeCustomerId,
-      stripeSubscriptionId: input.stripeSubscriptionId ?? null,
-      tenantId: organization.tenantId
-    },
-    update: {
-      currentPeriodEnd: input.currentPeriodEnd ?? undefined,
-      planId: input.planId,
-      status: SubscriptionStatus.active,
-      stripeCustomerId: input.stripeCustomerId,
-      stripeSubscriptionId: input.stripeSubscriptionId ?? undefined
-    },
+    create: createData,
+    update: updateData,
     where: {
       organizationId: organization.id
     }
@@ -220,8 +353,7 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice): Promise<{
   }
 
   const planId = organization.planId ?? (await ensurePlanByCode("starter")).id;
-  const stripeSubscriptionId =
-    typeof invoice.subscription === "string" ? invoice.subscription : null;
+  const stripeSubscriptionId = resolveInvoiceSubscriptionId(invoice);
   const periods = resolveInvoicePeriods(invoice);
   const existingSubscription = await ensureSubscriptionForOrganization({
     currentPeriodEnd: periods.periodEnd,
@@ -233,7 +365,7 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice): Promise<{
 
   await prisma.subscription.update({
     data: {
-      currentPeriodEnd: periods.periodEnd ?? undefined,
+      currentPeriodEnd: periods.periodEnd,
       gracePeriodEndsAt: null,
       status: SubscriptionStatus.active
     },
@@ -243,31 +375,14 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice): Promise<{
   });
 
   await prisma.invoice.upsert({
-    create: {
-      amountDueCents: invoice.amount_due,
-      amountPaidCents: invoice.amount_paid,
-      currency: invoice.currency,
-      dueDate: unixToDate(invoice.due_date),
-      hostedInvoiceUrl: invoice.hosted_invoice_url,
-      invoicePdfUrl: invoice.invoice_pdf,
+    create: buildInvoiceCreateData({
+      fallbackStatus: "paid",
+      invoice,
       organizationId: organization.id,
-      periodEnd: periods.periodEnd,
-      periodStart: periods.periodStart,
-      status: resolveInvoiceStatus(invoice.status, "paid"),
-      stripeInvoiceId: invoice.id,
       subscriptionId: existingSubscription.id,
       tenantId: organization.tenantId
-    },
-    update: {
-      amountDueCents: invoice.amount_due,
-      amountPaidCents: invoice.amount_paid,
-      dueDate: unixToDate(invoice.due_date),
-      hostedInvoiceUrl: invoice.hosted_invoice_url,
-      invoicePdfUrl: invoice.invoice_pdf,
-      periodEnd: periods.periodEnd,
-      periodStart: periods.periodStart,
-      status: resolveInvoiceStatus(invoice.status, "paid")
-    },
+    }),
+    update: buildInvoiceUpdateData(invoice, "paid"),
     where: {
       stripeInvoiceId: invoice.id
     }
@@ -313,8 +428,7 @@ async function handleInvoicePaymentFailed(
   }
 
   const planId = organization.planId ?? (await ensurePlanByCode("starter")).id;
-  const stripeSubscriptionId =
-    typeof invoice.subscription === "string" ? invoice.subscription : null;
+  const stripeSubscriptionId = resolveInvoiceSubscriptionId(invoice);
   const periods = resolveInvoicePeriods(invoice);
   const gracePeriodEndsAt = new Date(
     Date.now() + config.BILLING_GRACE_PERIOD_DAYS * 24 * 60 * 60 * 1000
@@ -338,31 +452,14 @@ async function handleInvoicePaymentFailed(
   });
 
   await prisma.invoice.upsert({
-    create: {
-      amountDueCents: invoice.amount_due,
-      amountPaidCents: invoice.amount_paid,
-      currency: invoice.currency,
-      dueDate: unixToDate(invoice.due_date),
-      hostedInvoiceUrl: invoice.hosted_invoice_url,
-      invoicePdfUrl: invoice.invoice_pdf,
+    create: buildInvoiceCreateData({
+      fallbackStatus: "past_due",
+      invoice,
       organizationId: organization.id,
-      periodEnd: periods.periodEnd,
-      periodStart: periods.periodStart,
-      status: "past_due",
-      stripeInvoiceId: invoice.id,
       subscriptionId: subscription.id,
       tenantId: organization.tenantId
-    },
-    update: {
-      amountDueCents: invoice.amount_due,
-      amountPaidCents: invoice.amount_paid,
-      dueDate: unixToDate(invoice.due_date),
-      hostedInvoiceUrl: invoice.hosted_invoice_url,
-      invoicePdfUrl: invoice.invoice_pdf,
-      periodEnd: periods.periodEnd,
-      periodStart: periods.periodStart,
-      status: "past_due"
-    },
+    }),
+    update: buildInvoiceUpdateData(invoice, "past_due"),
     where: {
       stripeInvoiceId: invoice.id
     }
@@ -478,7 +575,7 @@ async function handleCustomerSubscriptionUpdated(subscription: Stripe.Subscripti
   });
 
   await ensureSubscriptionForOrganization({
-    currentPeriodEnd: unixToDate(subscription.current_period_end),
+    currentPeriodEnd: resolveSubscriptionPeriodEnd(subscription),
     organizationId: organization.id,
     planId,
     stripeCustomerId: customerId,
@@ -488,7 +585,7 @@ async function handleCustomerSubscriptionUpdated(subscription: Stripe.Subscripti
   await prisma.subscription.updateMany({
     data: {
       canceledAt: unixToDate(subscription.canceled_at),
-      currentPeriodEnd: unixToDate(subscription.current_period_end),
+      currentPeriodEnd: resolveSubscriptionPeriodEnd(subscription),
       status: mapStripeSubscriptionStatus(subscription.status)
     },
     where: {
@@ -565,66 +662,88 @@ export function createStripeWebhookRouter(config: ApiConfig): Router {
         });
       }
 
-      const existing = await prisma.billingEvent.findUnique({
-        where: {
-          stripeEventId: event.id
-        }
-      });
-
-      if (existing) {
-        response.status(200).json({
-          idempotent: true,
-          received: true
-        });
-        return;
-      }
-
-      const context = await processStripeEvent(event, config);
-
-      if (
-        context.organizationId &&
-        context.tenantId &&
-        (event.type === "checkout.session.completed" ||
-          event.type === "customer.subscription.updated")
-      ) {
-        void enqueueCrmSync(config, {
-          kind: "company-upsert",
-          organizationId: context.organizationId,
-          tenantId: context.tenantId
-        }).catch(() => undefined);
-      }
-
-      try {
-        await prisma.billingEvent.create({
-          data: {
-            organizationId: context.organizationId,
-            payload: event as unknown as Prisma.InputJsonValue,
-            stripeEventId: event.id,
-            tenantId: context.tenantId,
-            type: event.type
+      const result = await withStripeEventLock(config, event, async () => {
+        const existing = await prisma.billingEvent.findUnique({
+          where: {
+            stripeEventId: event.id
           }
         });
-      } catch (error) {
+
+        if (existing) {
+          return {
+            idempotent: true,
+            received: true
+          };
+        }
+
+        const context = await processStripeEvent(event, config);
+
         if (
-          error instanceof Prisma.PrismaClientKnownRequestError &&
-          error.code === "P2002"
+          context.organizationId &&
+          context.tenantId &&
+          (event.type === "checkout.session.completed" ||
+            event.type === "customer.subscription.updated")
         ) {
-          logger.warn(
-            {
-              eventId: event.id,
-              eventType: event.type
-            },
-            "Duplicate Stripe event ignored"
-          );
-        } else {
+          void enqueueCrmSync(config, {
+            kind: "company-upsert",
+            organizationId: context.organizationId,
+            tenantId: context.tenantId
+          }).catch(() => undefined);
+        }
+
+        try {
+          const billingEventData: Prisma.BillingEventUncheckedCreateInput = {
+            payload: toPrismaJsonValue(event),
+            stripeEventId: event.id,
+            type: event.type,
+            ...(context.organizationId ? { organizationId: context.organizationId } : {}),
+            ...(context.tenantId ? { tenantId: context.tenantId } : {})
+          };
+
+          await prisma.billingEvent.create({
+            data: billingEventData
+          });
+        } catch (error) {
+          if (
+            error instanceof Prisma.PrismaClientKnownRequestError &&
+            error.code === "P2002"
+          ) {
+            logger.warn(
+              {
+                eventId: event.id,
+                eventType: event.type
+              },
+              "Duplicate Stripe event ignored"
+            );
+
+            return {
+              idempotent: true,
+              received: true
+            };
+          }
+
           throw error;
         }
-      }
 
-      response.status(200).json({
-        idempotent: false,
-        received: true
+        if (context.tenantId || context.organizationId) {
+          await Promise.all([
+            invalidateBillingSnapshotCache([
+              context.organizationId,
+              context.tenantId
+            ]),
+            ...(context.tenantId
+              ? [deleteCacheKeys([billingStatusCacheKey(context.tenantId)])]
+              : [])
+          ]);
+        }
+
+        return {
+          idempotent: false,
+          received: true
+        };
       });
+
+      response.status(200).json(result);
     })
   );
 

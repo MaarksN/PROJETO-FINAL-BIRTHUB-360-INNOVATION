@@ -8,6 +8,7 @@ import { Router } from "express";
 
 import { Auditable } from "../../audit/auditable.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { readTrimmedString, requireStringValue } from "../../lib/request-values.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import { acceptInvite, createInvite, listInvites, revokeInvite } from "./service.js";
 
@@ -37,7 +38,7 @@ export function createInvitesRouter(): Router {
           typeof result === "object" && result && "id" in result ? String(result.id) : undefined
       })(async (request, response) => {
         const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
-        const organizationId = request.header("x-org-id")?.trim();
+        const organizationId = readTrimmedString(request.header("x-org-id"));
 
         if (!organizationId) {
           throw new ProblemDetailsError({
@@ -70,9 +71,9 @@ export function createInvitesRouter(): Router {
 
       response.status(200).json(
         await listInvites({
-          cursor: pagination.cursor,
           take: pagination.take,
-          tenantId
+          tenantId,
+          ...(pagination.cursor ? { cursor: pagination.cursor } : {})
         })
       );
     })
@@ -105,11 +106,11 @@ export function createInvitesRouter(): Router {
       Auditable({
         action: "invite.revoked",
         entityType: "invite",
-        resolveEntityId: (request) => request.params.id
+        resolveEntityId: (request) => readTrimmedString(request.params.id)
       })(async (request, response) => {
         const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
         const invite = await revokeInvite({
-          inviteId: request.params.id,
+          inviteId: requireStringValue(request.params.id, "A valid invite id is required."),
           tenantId
         });
 

@@ -1,17 +1,16 @@
-import { prisma } from "@birthub/database";
+import { isInstallableManifest } from "@birthub/agents-core";
+import { Prisma, prisma } from "@birthub/database";
 
+import { toPrismaJsonValue } from "../../lib/prisma-json.js";
 import { getAgentLimitForOrganization, LimitExceededError } from "../billing/index.js";
 import { marketplaceService } from "../marketplace/marketplace-service.js";
 
 interface InstallPackInput {
   activateAgents: boolean;
+  agentId?: string;
   connectors: Record<string, unknown>;
-  packId: string;
+  packId?: string;
   tenantId: string;
-}
-
-function isPackAgent(agentId: string): boolean {
-  return agentId.endsWith("-pack") && agentId !== "corporate-v1-catalog";
 }
 
 function extractPackId(config: unknown): string | null {
@@ -32,14 +31,35 @@ function extractVersion(config: unknown, field: "installedVersion" | "latestAvai
   return typeof value === "string" ? value : null;
 }
 
+function extractSourceAgentId(config: unknown): string | null {
+  if (!config || typeof config !== "object") {
+    return null;
+  }
+
+  const value = (config as { sourceAgentId?: unknown }).sourceAgentId;
+  return typeof value === "string" ? value : null;
+}
+
+function resolveRequestedAgentId(input: InstallPackInput): string {
+  const candidate = input.agentId?.trim() || input.packId?.trim();
+
+  if (!candidate) {
+    throw new Error("agentId or packId is required to install an official agent.");
+  }
+
+  return candidate;
+}
+
 export class PackInstallerService {
   async installPackAtomic(input: InstallPackInput) {
     const catalog = await marketplaceService.getCatalog();
+    const requestedAgentId = resolveRequestedAgentId(input);
+    const selectedEntry = catalog.find(
+      (entry) => entry.manifest.agent.id === requestedAgentId && isInstallableManifest(entry.manifest)
+    );
 
-    const agentsToInstall = catalog.filter((entry) => isPackAgent(entry.manifest.agent.id));
-
-    if (agentsToInstall.length === 0) {
-      throw new Error("No installable agents found in catalog.");
+    if (!selectedEntry) {
+      throw new Error(`Installable agent '${requestedAgentId}' was not found in catalog.`);
     }
 
     const organization = await prisma.organization.findUnique({
@@ -57,11 +77,21 @@ export class PackInstallerService {
         tenantId: input.tenantId
       }
     });
+    const tenantAgents = await prisma.agent.findMany({
+      where: {
+        tenantId: input.tenantId
+      }
+    });
+    const existingAgent = tenantAgents.find(
+      (agent) => extractSourceAgentId(agent.config) === requestedAgentId
+    ) ?? null;
+    const alreadyInstalled =
+      existingAgent !== null && extractSourceAgentId(existingAgent.config) === requestedAgentId;
     const agentLimit = await getAgentLimitForOrganization(input.tenantId);
 
     if (
       Number.isFinite(agentLimit) &&
-      currentAgentCount + agentsToInstall.length > agentLimit
+      currentAgentCount + (alreadyInstalled ? 0 : 1) > agentLimit
     ) {
       throw new LimitExceededError({
         current: currentAgentCount,
@@ -70,37 +100,62 @@ export class PackInstallerService {
       });
     }
 
+    let installedAgentId: string | null = existingAgent?.id ?? null;
+
     await prisma.$transaction(async (tx) => {
-      for (const entry of agentsToInstall) {
-        await tx.agent.create({
+      if (existingAgent && extractSourceAgentId(existingAgent.config) === requestedAgentId) {
+        const currentConfig = existingAgent.config && typeof existingAgent.config === "object" ? existingAgent.config : {};
+
+        await tx.agent.update({
           data: {
-            config: {
+            config: toPrismaJsonValue({
+              ...(currentConfig as Record<string, unknown>),
+              connectors: input.connectors,
+              latestAvailableVersion: selectedEntry.manifest.agent.version,
+              packId: requestedAgentId,
+              sourceAgentId: selectedEntry.manifest.agent.id,
+              status: input.activateAgents ? "active" : "installed"
+            }) as Prisma.InputJsonObject,
+            status: input.activateAgents ? "ACTIVE" : "PAUSED"
+          },
+          where: {
+            id: existingAgent.id
+          }
+        });
+      } else {
+        const createdAgent = await tx.agent.create({
+          data: {
+            config: toPrismaJsonValue({
               connectors: input.connectors,
               installedAt: new Date().toISOString(),
-              installedVersion: entry.manifest.agent.version,
-              latestAvailableVersion: entry.manifest.agent.version,
-              packId: input.packId,
-              sourceAgentId: entry.manifest.agent.id,
+              installedVersion: selectedEntry.manifest.agent.version,
+              latestAvailableVersion: selectedEntry.manifest.agent.version,
+              packId: requestedAgentId,
+              sourceAgentId: selectedEntry.manifest.agent.id,
               status: input.activateAgents ? "active" : "installed"
-            },
-            name: entry.manifest.agent.name,
+            }) as Prisma.InputJsonObject,
+            name: selectedEntry.manifest.agent.name,
             organizationId: organization.id,
             status: input.activateAgents ? "ACTIVE" : "PAUSED",
             tenantId: input.tenantId
           }
         });
+
+        installedAgentId = createdAgent.id;
       }
 
       await tx.auditLog.create({
         data: {
           action: "PACK_INSTALL",
           actorId: null,
-          diff: {
+          diff: toPrismaJsonValue({
             activateAgents: input.activateAgents,
+            agentId: requestedAgentId,
+            alreadyInstalled,
             connectors: input.connectors,
-            packId: input.packId
-          },
-          entityId: input.packId,
+            packId: requestedAgentId
+          }),
+          entityId: requestedAgentId,
           entityType: "agent_pack",
           tenantId: input.tenantId
         }
@@ -108,8 +163,11 @@ export class PackInstallerService {
     });
 
     return {
-      installedAgents: agentsToInstall.length,
-      packId: input.packId
+      agentId: requestedAgentId,
+      alreadyInstalled,
+      installedAgentId,
+      installedAgents: alreadyInstalled ? 0 : 1,
+      packId: requestedAgentId
     };
   }
 
@@ -139,10 +197,10 @@ export class PackInstallerService {
         data: {
           action: "PACK_UNINSTALL",
           actorId: null,
-          diff: {
+          diff: toPrismaJsonValue({
             deletedAgents: idsToDelete.length,
             packId: input.packId
-          },
+          }),
           entityId: input.packId,
           entityType: "agent_pack",
           tenantId: input.tenantId
@@ -225,10 +283,10 @@ export class PackInstallerService {
 
         await tx.agent.update({
           data: {
-            config: {
+            config: toPrismaJsonValue({
               ...(currentConfig as Record<string, unknown>),
               latestAvailableVersion: input.latestAvailableVersion
-            }
+            }) as Prisma.InputJsonObject
           },
           where: { id }
         });

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { fetchWithSession, getStoredSession } from "../../../lib/auth-client.js";
+import { fetchWithSession, getStoredSession } from "../../../lib/auth-client";
 
 type RiskItem = {
   activeUsers30d: number;
@@ -130,3 +130,4 @@ export default function CustomerSuccessRiskPage() {
     </main>
   );
 }
+

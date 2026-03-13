@@ -339,7 +339,7 @@ export async function listAuditLogs(input: {
       skip: input.cursor ? 1 : 0,
       take: input.take + 1,
       where: {
-        actorId: input.actorId,
+        ...(input.actorId ? { actorId: input.actorId } : {}),
         ...(input.from || input.to
           ? {
               createdAt: {
@@ -348,7 +348,7 @@ export async function listAuditLogs(input: {
               }
             }
           : {}),
-        entityType: input.entityType,
+        ...(input.entityType ? { entityType: input.entityType } : {}),
         tenantId: input.tenantId
       },
       ...(input.cursor

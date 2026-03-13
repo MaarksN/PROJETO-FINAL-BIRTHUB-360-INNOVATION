@@ -1,7 +1,7 @@
 import { getWebConfig } from "@birthub/config";
 
-import { LoginForm } from "../../components/login-form.js";
-import { getServerRequestId } from "../../lib/request-id.js";
+import { LoginForm } from "../../components/login-form";
+import { getServerRequestId } from "../../lib/request-id";
 
 export default async function LoginPage() {
   const config = getWebConfig();
@@ -65,3 +65,4 @@ export default async function LoginPage() {
     </main>
   );
 }
+

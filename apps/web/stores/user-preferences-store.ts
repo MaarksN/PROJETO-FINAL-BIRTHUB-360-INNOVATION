@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 
-import { fetchWithSession, getStoredSession } from "../lib/auth-client.js";
+import { fetchWithSession, getStoredSession } from "../lib/auth-client";
 
 export type CookieConsentStatus = "ACCEPTED" | "PENDING" | "REJECTED";
 
@@ -131,3 +131,4 @@ export const useUserPreferencesStore = create<UserPreferencesState>((set, get) =
     }
   }
 }));
+

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { readFirstString, requireStringValue } from "../../lib/request-values.js";
 import { outputService } from "./output.service.js";
 
 export function createOutputRouter(): Router {
@@ -11,7 +12,11 @@ export function createOutputRouter(): Router {
     "/",
     asyncHandler(async (request, response) => {
       const tenantId = request.context.tenantId ?? "default-tenant";
-      const type = request.query.type as "executive-report" | "technical-log" | undefined;
+      const requestedType = readFirstString(request.query.type);
+      const type =
+        requestedType === "executive-report" || requestedType === "technical-log"
+          ? requestedType
+          : undefined;
 
       const outputs = outputService.listByTenant(tenantId, type);
 
@@ -36,8 +41,13 @@ export function createOutputRouter(): Router {
         .parse(request.body);
 
       const created = outputService.createOutput({
-        ...payload,
-        tenantId
+        agentId: payload.agentId,
+        content: payload.content,
+        tenantId,
+        type: payload.type,
+        ...(payload.requireApproval !== undefined
+          ? { requireApproval: payload.requireApproval }
+          : {})
       });
 
       response.status(201).json({
@@ -50,17 +60,18 @@ export function createOutputRouter(): Router {
   router.get(
     "/:outputId",
     asyncHandler(async (request, response) => {
-      const output = outputService.getById(request.params.outputId);
+      const outputId = requireStringValue(request.params.outputId, "A valid output id is required.");
+      const output = outputService.getById(outputId);
 
       if (!output) {
         throw new ProblemDetailsError({
-          detail: `Output ${request.params.outputId} not found.`,
+          detail: `Output ${outputId} not found.`,
           status: 404,
           title: "Output Not Found"
         });
       }
 
-      const integrity = outputService.verifyIntegrity(request.params.outputId);
+      const integrity = outputService.verifyIntegrity(outputId);
 
       response.status(200).json({
         integrity,
@@ -73,11 +84,12 @@ export function createOutputRouter(): Router {
   router.post(
     "/:outputId/approve",
     asyncHandler(async (request, response) => {
-      const approved = outputService.approve(request.params.outputId);
+      const outputId = requireStringValue(request.params.outputId, "A valid output id is required.");
+      const approved = outputService.approve(outputId);
 
       if (!approved) {
         throw new ProblemDetailsError({
-          detail: `Output ${request.params.outputId} not found.`,
+          detail: `Output ${outputId} not found.`,
           status: 404,
           title: "Output Not Found"
         });
@@ -93,17 +105,18 @@ export function createOutputRouter(): Router {
   router.get(
     "/:outputId/export",
     asyncHandler(async (request, response) => {
-      const output = outputService.getById(request.params.outputId);
+      const outputId = requireStringValue(request.params.outputId, "A valid output id is required.");
+      const output = outputService.getById(outputId);
 
       if (!output) {
         throw new ProblemDetailsError({
-          detail: `Output ${request.params.outputId} not found.`,
+          detail: `Output ${outputId} not found.`,
           status: 404,
           title: "Output Not Found"
         });
       }
 
-      const integrity = outputService.verifyIntegrity(request.params.outputId);
+      const integrity = outputService.verifyIntegrity(outputId);
 
       if (!integrity?.isValid) {
         throw new ProblemDetailsError({
@@ -117,7 +130,7 @@ export function createOutputRouter(): Router {
         exported: {
           content: output.content,
           format: "markdown",
-          outputId: output.id
+          outputId
         },
         requestId: request.context.requestId
       });

@@ -1,4 +1,4 @@
-import { fetchComparisonMatrix } from "../../../../lib/marketplace-api.js";
+import { fetchComparisonMatrix } from "../../../../lib/marketplace-api";
 
 export default async function MarketplaceComparePage() {
   const data = await fetchComparisonMatrix();
@@ -54,3 +54,4 @@ export default async function MarketplaceComparePage() {
     </main>
   );
 }
+

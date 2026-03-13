@@ -1,16 +1,82 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "cs-pack",
-    "tenantId": "catalog",
-    "name": "Customer Success Agent Pack",
-    "description": "CS agent focused on retention, expansion and account health.",
-    "version": "1.0.0",
-    "prompt": "Act as customer success lead and increase retention with proactive actions.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "CS agent focused on retention, expansion and account health. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "cs-pack",
+    "kind": "agent",
+    "name": "Customer Success Agent Pack",
+    "prompt": "Voce e o Customer Success Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nProteger receita recorrente e expandir contas saudaveis com leitura fina de uso, risco e oportunidade.\n\nQUANDO ACIONAR\n- quando contas precisarem de acompanhamento de saude e renovacao\n- quando houver sinais de churn, queda de uso ou ticket sensivel\n- quando for preciso identificar expansion com responsabilidade\n- quando CS precisar priorizar intervencoes de alto impacto\n\nENTRADAS OBRIGATORIAS\n- uso do produto, engajamento e marcos de renovacao\n- tickets, NPS, sentiment e historico de conta\n- stakeholders, plano da conta e oportunidades\n- riscos atuais e playbooks de retencao\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Health Scoring in Customer Success Agent Pack workflows.\n- Capability for Renewal Forecasting in Customer Success Agent Pack workflows.\n- Capability for Playbook Recommendation in Customer Success Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- Health Alerting\n- NPS Monitor\n- QBR Builder\n\nSAIDAS OBRIGATORIAS\n- health summary explicavel\n- acoes preventivas ou expansao recomendada\n- prioridade de intervencao por conta\n- briefing para QBR, renewal ou rescue plan\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca perseguir upsell em conta em risco agudo\n- nunca reduzir saude a um numero sem explicacao\n- nunca ignorar sinais de suporte e sentimento\n- sempre contextualizar recomendacao pela conta\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- explicar sinais positivos e negativos\n- priorizar acao pela severidade\n- ligar recomendacao a retencao ou expansao\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"cs-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"health summary explicavel\",\n    \"acoes preventivas ou expansao recomendada\",\n    \"prioridade de intervencao por conta\",\n    \"briefing para QBR, renewal ou rescue plan\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "customer success",
+    "retention",
+    "renewal forecasting",
+    "health scoring",
+    "expansion",
+    "nps monitor",
+    "qbr builder",
+    "churn prevention",
+    "account health",
+    "adoption signal",
+    "customer risk",
+    "growth from base"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "cs-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Health Scoring in Customer Success Agent Pack workflows.",
+      "id": "cs-pack.skill.health-scoring",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Health Scoring",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Renewal Forecasting in Customer Success Agent Pack workflows.",
+      "id": "cs-pack.skill.renewal-forecasting",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Renewal Forecasting",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Playbook Recommendation in Customer Success Agent Pack workflows.",
+      "id": "cs-pack.skill.playbook-recommendation",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Playbook Recommendation",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "customer-success"
@@ -28,89 +94,42 @@
       "saas"
     ]
   },
-  "skills": [
-    {
-      "id": "cs-pack.skill.health-scoring",
-      "name": "Health Scoring",
-      "description": "Capability for Health Scoring in Customer Success Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "cs-pack.skill.renewal-forecasting",
-      "name": "Renewal Forecasting",
-      "description": "Capability for Renewal Forecasting in Customer Success Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "cs-pack.skill.playbook-recommendation",
-      "name": "Playbook Recommendation",
-      "description": "Capability for Playbook Recommendation in Customer Success Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "cs-pack.tool.health-alerting",
-      "name": "Health Alerting",
       "description": "Operational tool Health Alerting required by Customer Success Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cs-pack.tool.health-alerting",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Health Alerting",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "cs-pack.tool.nps-monitor",
-      "name": "NPS Monitor",
       "description": "Operational tool NPS Monitor required by Customer Success Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cs-pack.tool.nps-monitor",
       "inputSchema": {
         "type": "object"
       },
+      "name": "NPS Monitor",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "cs-pack.tool.qbr-builder",
-      "name": "QBR Builder",
       "description": "Operational tool QBR Builder required by Customer Success Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cs-pack.tool.qbr-builder",
       "inputSchema": {
         "type": "object"
       },
+      "name": "QBR Builder",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "cs-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

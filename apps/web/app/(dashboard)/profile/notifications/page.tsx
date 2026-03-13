@@ -2,9 +2,9 @@
 
 import { useEffect, useMemo } from "react";
 
-import { getStoredSession } from "../../../../lib/auth-client.js";
-import { useNotificationStore } from "../../../../stores/notification-store.js";
-import { useUserPreferencesStore } from "../../../../stores/user-preferences-store.js";
+import { getStoredSession } from "../../../../lib/auth-client";
+import { useNotificationStore } from "../../../../stores/notification-store";
+import { useUserPreferencesStore } from "../../../../stores/user-preferences-store";
 
 function ToggleCard(input: {
   checked: boolean;
@@ -292,3 +292,4 @@ export default function NotificationPreferencesPage() {
     </main>
   );
 }
+

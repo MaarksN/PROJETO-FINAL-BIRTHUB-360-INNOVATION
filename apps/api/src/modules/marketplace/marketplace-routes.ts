@@ -1,7 +1,10 @@
 import { Router } from "express";
 
+import { isInstallableManifest } from "@birthub/agents-core";
+
 import { sendEtaggedJson } from "../../common/cache/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { readTrimmedString, requireStringValue } from "../../lib/request-values.js";
 import { marketplaceService } from "./marketplace-service.js";
 
 function parsePositiveInt(value: unknown, fallback: number): number {
@@ -91,6 +94,8 @@ export function createMarketplaceRouter(): Router {
           agent: entry.manifest.agent,
           approvalRate: approvalStats.get(entry.manifest.agent.id)?.approvalRate ?? null,
           feedbackCount: approvalStats.get(entry.manifest.agent.id)?.feedbackCount ?? 0,
+          installable: isInstallableManifest(entry.manifest),
+          keywords: entry.manifest.keywords,
           score: entry.score,
           tags: entry.manifest.tags,
           tools: entry.manifest.tools.map((tool) => ({
@@ -107,7 +112,10 @@ export function createMarketplaceRouter(): Router {
   router.get(
     "/recommendations",
     asyncHandler(async (request, response) => {
-      const tenantIndustry = readQueryString(request.query.tenantIndustry) ?? request.header("x-tenant-industry") ?? "sales";
+      const tenantIndustry =
+        readQueryString(request.query.tenantIndustry) ??
+        readTrimmedString(request.header("x-tenant-industry")) ??
+        "sales";
 
       const recommendations = await marketplaceService.recommend(tenantIndustry, 6);
       const approvalStats = await marketplaceService.getApprovalStats(
@@ -120,6 +128,8 @@ export function createMarketplaceRouter(): Router {
           agent: entry.manifest.agent,
           approvalRate: approvalStats.get(entry.manifest.agent.id)?.approvalRate ?? null,
           feedbackCount: approvalStats.get(entry.manifest.agent.id)?.feedbackCount ?? 0,
+          installable: isInstallableManifest(entry.manifest),
+          keywords: entry.manifest.keywords,
           recommendationScore: entry.recommendationScore,
           tags: entry.manifest.tags
         }))
@@ -139,15 +149,7 @@ export function createMarketplaceRouter(): Router {
   router.get(
     "/:agentId/docs",
     asyncHandler(async (request, response) => {
-      const agentId = request.params.agentId;
-
-      if (!agentId) {
-        throw new ProblemDetailsError({
-          detail: "Agent id is required.",
-          status: 400,
-          title: "Bad Request"
-        });
-      }
+      const agentId = requireStringValue(request.params.agentId, "Agent id is required.");
 
       const docs = await marketplaceService.getAgentDocs(agentId);
 
@@ -166,15 +168,7 @@ export function createMarketplaceRouter(): Router {
   router.get(
     "/:agentId/changelog",
     asyncHandler(async (request, response) => {
-      const agentId = request.params.agentId;
-
-      if (!agentId) {
-        throw new ProblemDetailsError({
-          detail: "Agent id is required.",
-          status: 400,
-          title: "Bad Request"
-        });
-      }
+      const agentId = requireStringValue(request.params.agentId, "Agent id is required.");
 
       const changelog = await marketplaceService.getAgentChangelog(agentId);
 

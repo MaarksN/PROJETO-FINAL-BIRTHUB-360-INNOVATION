@@ -1,13 +1,14 @@
 import type { ApiConfig } from "@birthub/config";
 import { taskJobSchema } from "@birthub/config";
 import { Queue } from "bullmq";
-import { Redis } from "ioredis";
 import { z } from "zod";
 
-type TaskJob = z.infer<typeof taskJobSchema>;
+import { getBullConnection, getSharedRedis } from "./redis.js";
 
-let redisConnection: Redis | undefined;
-const queueCache = new Map<string, Queue<TaskJob>>();
+type TaskJob = z.infer<typeof taskJobSchema>;
+type TaskQueue = Queue<TaskJob, void, TaskJob["type"]>;
+
+const queueCache = new Map<string, TaskQueue>();
 
 export class QueueBackpressureError extends Error {
   readonly pendingJobs: number;
@@ -21,33 +22,54 @@ export class QueueBackpressureError extends Error {
   }
 }
 
-function getRedisConnection(config: ApiConfig): Redis {
-  if (!redisConnection) {
-    redisConnection = new Redis(config.REDIS_URL, {
-      maxRetriesPerRequest: null
-    });
-  }
+export class TenantQueueRateLimitError extends Error {
+  readonly tenantId: string;
+  readonly threshold: number;
 
-  return redisConnection;
+  constructor(tenantId: string, threshold: number) {
+    super(`Tenant ${tenantId} exceeded the queue rate limit (${threshold}).`);
+    this.name = "TenantQueueRateLimitError";
+    this.tenantId = tenantId;
+    this.threshold = threshold;
+  }
 }
 
-export function getTaskQueue(config: ApiConfig): Queue<TaskJob> {
+export function getTaskQueue(config: ApiConfig): TaskQueue {
   const existingQueue = queueCache.get(config.QUEUE_NAME);
 
   if (existingQueue) {
     return existingQueue;
   }
 
-  const queue = new Queue<TaskJob>(config.QUEUE_NAME, {
-    connection: getRedisConnection(config)
+  const queue = new Queue<TaskJob, void, TaskJob["type"]>(config.QUEUE_NAME, {
+    connection: getBullConnection(config)
   });
 
   queueCache.set(config.QUEUE_NAME, queue);
   return queue;
 }
 
+async function assertTenantQueueRateLimit(config: ApiConfig, tenantId: string | null): Promise<void> {
+  if (!tenantId) {
+    return;
+  }
+
+  const redis = getSharedRedis(config);
+  const key = `tenant-queue-rate:${tenantId}`;
+  const current = await redis.incr(key);
+
+  if (current === 1) {
+    await redis.expire(key, config.TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS);
+  }
+
+  if (current > config.TENANT_QUEUE_RATE_LIMIT_MAX) {
+    throw new TenantQueueRateLimitError(tenantId, config.TENANT_QUEUE_RATE_LIMIT_MAX);
+  }
+}
+
 export async function enqueueTask(config: ApiConfig, payload: TaskJob): Promise<{ jobId: string }> {
   const validated = taskJobSchema.parse(payload);
+  await assertTenantQueueRateLimit(config, validated.tenantId);
   const queue = getTaskQueue(config);
   const [waitingCount, delayedCount, prioritizedCount] = await Promise.all([
     queue.getWaitingCount(),
@@ -72,7 +94,7 @@ export async function enqueueTask(config: ApiConfig, payload: TaskJob): Promise<
 
 export async function pingRedis(config: ApiConfig): Promise<{ status: "up" | "down"; message?: string }> {
   try {
-    const pong = await getRedisConnection(config).ping();
+    const pong = await getSharedRedis(config).ping();
     return {
       status: pong === "PONG" ? "up" : "down"
     };

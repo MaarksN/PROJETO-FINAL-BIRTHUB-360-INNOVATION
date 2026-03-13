@@ -1,44 +1,51 @@
-"use client";
+import { notFound } from "next/navigation";
 
-import { useState } from "react";
+import { getInstalledAgentById } from "../../../../../lib/agents";
 
-interface PolicyRow {
+type ManifestPolicy = {
+  actions: string[];
+  effect: string;
   id: string;
-  label: string;
-  description: string;
-  enabled: boolean;
+  name: string;
+};
+
+function readPolicies(manifest: Record<string, unknown>): ManifestPolicy[] {
+  const policies = manifest.policies;
+
+  if (!Array.isArray(policies)) {
+    return [];
+  }
+
+  return policies.filter((policy): policy is ManifestPolicy => {
+    if (!policy || typeof policy !== "object") {
+      return false;
+    }
+
+    const candidate = policy as Record<string, unknown>;
+    return (
+      typeof candidate.id === "string" &&
+      typeof candidate.name === "string" &&
+      typeof candidate.effect === "string" &&
+      Array.isArray(candidate.actions)
+    );
+  });
 }
 
-const INITIAL_POLICIES: PolicyRow[] = [
-  {
-    id: "policy-http",
-    label: "Permitir HTTP externo",
-    description: "Libera tool.http para domínios permitidos.",
-    enabled: true
-  },
-  {
-    id: "policy-email",
-    label: "Permitir envio de email",
-    description: "Libera tool.send-email com tracking.",
-    enabled: false
-  },
-  {
-    id: "policy-db-write",
-    label: "Permitir mutação DB",
-    description: "Libera tool.db-write com audit obrigatório.",
-    enabled: false
-  }
-];
+export default async function AgentPoliciesPage({ params }: Readonly<{ params: { id: string } }>) {
+  const agent = await getInstalledAgentById(params.id);
 
-export default function AgentPoliciesPage() {
-  const [rows, setRows] = useState(INITIAL_POLICIES);
+  if (!agent) {
+    notFound();
+  }
+
+  const policies = readPolicies(agent.manifest);
 
   return (
     <section style={{ display: "grid", gap: "1rem" }}>
       <header>
         <h2 style={{ margin: 0 }}>Policies</h2>
         <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-          Gerencie regras por agente/tenant: listar, criar, editar, ativar e desativar.
+          Politicas reais e somente leitura publicadas no manifesto oficial do agente instalado.
         </p>
       </header>
 
@@ -52,67 +59,31 @@ export default function AgentPoliciesPage() {
           padding: "1rem"
         }}
       >
-        {rows.map((row) => (
-          <label
-            key={row.id}
+        {policies.map((policy) => (
+          <article
+            key={policy.id}
             style={{
-              alignItems: "center",
               border: "1px solid var(--border)",
               borderRadius: "0.75rem",
               display: "grid",
-              gap: "0.35rem",
-              gridTemplateColumns: "1fr auto",
+              gap: "0.45rem",
               padding: "0.75rem"
             }}
           >
-            <div>
-              <strong>{row.label}</strong>
-              <p style={{ color: "var(--muted)", margin: 0 }}>{row.description}</p>
+            <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
+              <strong>{policy.name}</strong>
+              <span>{policy.effect}</span>
             </div>
-            <input
-              checked={row.enabled}
-              onChange={(event) =>
-                setRows((current) =>
-                  current.map((item) =>
-                    item.id === row.id
-                      ? {
-                          ...item,
-                          enabled: event.target.checked
-                        }
-                      : item
-                  )
-                )
-              }
-              style={{ height: 20, width: 20 }}
-              type="checkbox"
-            />
-          </label>
+            <small style={{ color: "var(--muted)" }}>{policy.id}</small>
+            <p style={{ margin: 0 }}>Acoes permitidas: {policy.actions.join(", ")}</p>
+          </article>
         ))}
 
-        <button
-          onClick={() =>
-            setRows((current) => [
-              ...current,
-              {
-                id: `policy-${current.length + 1}`,
-                label: `Nova policy ${current.length + 1}`,
-                description: "Template customizado por agente.",
-                enabled: true
-              }
-            ])
-          }
-          style={{
-            background: "var(--accent)",
-            border: "none",
-            borderRadius: "999px",
-            color: "white",
-            justifySelf: "start",
-            padding: "0.55rem 1rem"
-          }}
-          type="button"
-        >
-          Criar policy
-        </button>
+        {policies.length === 0 ? (
+          <p style={{ color: "var(--muted)", margin: 0 }}>
+            Nenhuma policy estruturada foi encontrada no manifesto deste agente.
+          </p>
+        ) : null}
       </div>
     </section>
   );

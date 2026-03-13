@@ -1,3 +1,5 @@
+import { cpus } from "node:os";
+
 import { z } from "zod";
 
 import {
@@ -25,16 +27,19 @@ export const workerEnvSchema = z.object({
   REDIS_URL: urlString,
   SENTRY_DSN: optionalUrlString,
   SENDGRID_API_KEY: nonEmptyString.optional(),
+  TENANT_QUEUE_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(120),
+  TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().positive().default(60),
   WEBHOOK_TIMEOUT_MS: z.coerce.number().int().positive().default(10_000),
   WEB_BASE_URL: urlString.default("http://localhost:3001"),
   WORKER_HEALTH_PORT: z.coerce.number().int().positive().default(3002),
-  WORKER_CONCURRENCY: z.coerce.number().int().positive().default(5)
+  WORKER_CONCURRENCY: z.coerce.number().int().positive().optional()
 });
 
 export type WorkerConfig = z.infer<typeof workerEnvSchema>;
 
 export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerConfig {
   const parsed = parseEnv("worker", workerEnvSchema, env);
+  const resolvedConcurrency = parsed.WORKER_CONCURRENCY ?? Math.max(2, cpus().length);
 
   if (parsed.NODE_ENV === "production") {
     const issues: string[] = [];
@@ -56,5 +61,8 @@ export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerCon
     }
   }
 
-  return parsed;
+  return {
+    ...parsed,
+    WORKER_CONCURRENCY: resolvedConcurrency
+  };
 }

@@ -2,10 +2,10 @@
 
 import { type ReactNode, useEffect } from "react";
 
-import { CookieConsentBanner } from "../components/cookie-consent-banner.js";
-import { PaywallProvider } from "../components/paywall-provider.js";
-import { AnalyticsProvider } from "./AnalyticsProvider.js";
-import { EngagementProvider } from "./EngagementProvider.js";
+import { CookieConsentBanner } from "../components/cookie-consent-banner";
+import { PaywallProvider } from "../components/paywall-provider";
+import { AnalyticsProvider } from "./AnalyticsProvider";
+import { EngagementProvider } from "./EngagementProvider";
 
 function ServiceWorkerBootstrap() {
   useEffect(() => {
@@ -32,3 +32,4 @@ export function AppProviders({ children }: Readonly<{ children: ReactNode }>) {
     </PaywallProvider>
   );
 }
+

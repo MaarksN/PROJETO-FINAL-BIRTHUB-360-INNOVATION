@@ -9,11 +9,13 @@ const validManifest = {
     changelog: ["Initial release"],
     description: "Agent description",
     id: "agent-1",
+    kind: "agent",
     name: "Agent One",
     prompt: "Act as a strategic operator.",
     tenantId: "tenant-1",
     version: "1.0.0"
   },
+  keywords: ["strategy", "planning", "forecast", "analysis", "governance"],
   manifestVersion: MANIFEST_VERSION,
   policies: [
     {
