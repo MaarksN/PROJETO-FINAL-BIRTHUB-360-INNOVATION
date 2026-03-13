@@ -7,8 +7,8 @@ import { Bell, BellOff, CheckCheck, ExternalLink } from "lucide-react";
 import {
   type NotificationItem,
   useNotificationStore
-} from "../../stores/notification-store.js";
-import { useUserPreferencesStore } from "../../stores/user-preferences-store.js";
+} from "../../stores/notification-store";
+import { useUserPreferencesStore } from "../../stores/user-preferences-store";
 
 function toDisplayDateLabel(value: string): string {
   const current = new Date();
@@ -311,3 +311,4 @@ export function Navbar() {
     </>
   );
 }
+

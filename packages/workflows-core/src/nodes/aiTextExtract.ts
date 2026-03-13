@@ -8,7 +8,7 @@ export interface AiTextExtractConfig {
 
 function findFieldValue(text: string, field: string): string | null {
   const escapedField = field.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const regex = new RegExp(`${escapedField}\\s*[:=-]\\s*([\\w@.\\-\\s]+)`, "i");
+  const regex = new RegExp(`${escapedField}\\s*[:=-]\\s*([^\\n\\r,;]+)`, "i");
   const match = text.match(regex);
   return match?.[1]?.trim() ?? null;
 }

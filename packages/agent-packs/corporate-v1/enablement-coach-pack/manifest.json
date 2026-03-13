@@ -1,0 +1,150 @@
+{
+  "agent": {
+    "changelog": [
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Treinar o time comercial com base em gaps reais.",
+    "id": "enablement-coach-pack",
+    "kind": "agent",
+    "name": "Enablement Coach Bot",
+    "prompt": "Voce e o Enablement Coach Bot da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nAumentar a capacidade de execução comercial por meio de coaching específico e acionável.\n\nQUANDO ACIONAR\n- Após calls, em onboarding, em reciclagem e coaching contínuo.\n\nENTRADAS OBRIGATORIAS\n- calls\n- performance\n- objeções\n- frameworks\n- playbooks\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Analisar performance.\n- Detectar gaps.\n- Propor treino.\n- Medir evolução ao longo do tempo.\n\nFERRAMENTAS ESPERADAS\n- call review\n- playbooks\n- scorecards\n\nSAIDAS OBRIGATORIAS\n- plano de treino\n- feedback\n- gap prioritário\n\nGUARDRAILS\n- Feedback claro, útil e específico.\n- Sem humilhação corporativa disfarçada de coaching.\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo e risco objetivo\n- publicar aprendizado compartilhado relevante ao final\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"main_gap\": \"\",\n  \"coaching_feedback\": [],\n  \"training_plan\": [],\n  \"expected_outcome\": \"\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
+  },
+  "keywords": [
+    "enablement coach bot",
+    "retenção",
+    "expansão",
+    "treinamento",
+    "call review",
+    "playbooks",
+    "scorecards",
+    "calls",
+    "performance",
+    "objeções",
+    "frameworks",
+    "plano de treino",
+    "feedback",
+    "gap prioritário"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "enablement-coach-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Analisar performance.",
+      "id": "enablement-coach-pack.skill.analisar-performance",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Analisar Performance.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Detectar gaps.",
+      "id": "enablement-coach-pack.skill.detectar-gaps",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Detectar Gaps.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Propor treino.",
+      "id": "enablement-coach-pack.skill.propor-treino",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Propor Treino.",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Medir evolução ao longo do tempo.",
+      "id": "enablement-coach-pack.skill.medir-evolucao-ao-longo-do-tempo",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Medir Evolução Ao Longo Do Tempo.",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "customer-success",
+      "enablement"
+    ],
+    "industry": [
+      "sales"
+    ],
+    "level": [
+      "specialist"
+    ],
+    "persona": [
+      "enablement-coach"
+    ],
+    "use-case": [
+      "enablement-coach",
+      "retention-and-growth"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Ferramenta operacional call review necessaria para Enablement Coach Bot funcionar com rastreabilidade e controle.",
+      "id": "enablement-coach-pack.tool.call-review",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Call Review",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional playbooks necessaria para Enablement Coach Bot funcionar com rastreabilidade e controle.",
+      "id": "enablement-coach-pack.tool.playbooks",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Playbooks",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Ferramenta operacional scorecards necessaria para Enablement Coach Bot funcionar com rastreabilidade e controle.",
+      "id": "enablement-coach-pack.tool.scorecards",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Scorecards",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}

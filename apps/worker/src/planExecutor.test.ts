@@ -34,7 +34,10 @@ class InMemoryRedis {
       return null;
     }
 
-    this.data.set(key, { expiresAt, value });
+    this.data.set(key, {
+      ...(expiresAt !== undefined ? { expiresAt } : {}),
+      value
+    });
     return "OK";
   }
 

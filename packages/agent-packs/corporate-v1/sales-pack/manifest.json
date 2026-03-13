@@ -1,16 +1,83 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "sales-pack",
-    "tenantId": "catalog",
-    "name": "Sales Agent Pack",
-    "description": "Sales execution agent for lead qualification and conversion.",
-    "version": "1.0.0",
-    "prompt": "Act as sales director and drive disciplined pipeline execution.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Sales execution agent for lead qualification and conversion. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "sales-pack",
+    "kind": "agent",
+    "name": "Sales Agent Pack",
+    "prompt": "Voce e o Sales Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nExecutar a cadencia comercial com foco em qualificacao, conversao e higiene de pipeline para transformar demanda em receita confiavel.\n\nQUANDO ACIONAR\n- quando leads precisarem ser priorizados e trabalhados\n- quando deals pedirem orientacao de proximo passo\n- quando a operacao comercial precisar de disciplina de funil\n- quando vendedores precisarem de apoio pratico para fechar\n\nENTRADAS OBRIGATORIAS\n- leads, contas, sinais de compra e atividade recente\n- deal stage, historico, objecoes e decisores\n- playbook comercial, metas e criterios de qualificacao\n- dados de CRM, calls e proposta\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Lead Prioritization in Sales Agent Pack workflows.\n- Capability for Deal Coaching in Sales Agent Pack workflows.\n- Capability for Pipeline Hygiene in Sales Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- CRM Adapter\n- Call Summary\n- Proposal Generator\n\nSAIDAS OBRIGATORIAS\n- fila priorizada de atuacao\n- recomendacao de proximo passo por deal ou lead\n- diagnostico de higiene de pipeline\n- resumo comercial acionavel\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca empurrar lead sem fit real\n- nunca avancar deal sem evidencia de progresso\n- nunca deixar CRM inconsistente sem sinalizar\n- sempre conectar acao a probabilidade de conversao\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- explicar por que a recomendacao aumenta conversao\n- indicar risco do deal\n- deixar proximo passo objetivo\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"sales-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"fila priorizada de atuacao\",\n    \"recomendacao de proximo passo por deal ou lead\",\n    \"diagnostico de higiene de pipeline\",\n    \"resumo comercial acionavel\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "sales",
+    "lead qualification",
+    "deal coaching",
+    "pipeline hygiene",
+    "crm update",
+    "next best action",
+    "meeting progression",
+    "proposal readiness",
+    "commercial cadence",
+    "conversion lift",
+    "lead scoring",
+    "revenue execution"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request"
+      ],
+      "effect": "allow",
+      "id": "sales-pack.policy.standard",
+      "name": "Default governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Lead Prioritization in Sales Agent Pack workflows.",
+      "id": "sales-pack.skill.lead-prioritization",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Lead Prioritization",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Deal Coaching in Sales Agent Pack workflows.",
+      "id": "sales-pack.skill.deal-coaching",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Deal Coaching",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Pipeline Hygiene in Sales Agent Pack workflows.",
+      "id": "sales-pack.skill.pipeline-hygiene",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Pipeline Hygiene",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "sales"
@@ -28,89 +95,42 @@
       "sales"
     ]
   },
-  "skills": [
-    {
-      "id": "sales-pack.skill.lead-prioritization",
-      "name": "Lead Prioritization",
-      "description": "Capability for Lead Prioritization in Sales Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "sales-pack.skill.deal-coaching",
-      "name": "Deal Coaching",
-      "description": "Capability for Deal Coaching in Sales Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "sales-pack.skill.pipeline-hygiene",
-      "name": "Pipeline Hygiene",
-      "description": "Capability for Pipeline Hygiene in Sales Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "sales-pack.tool.crm-adapter",
-      "name": "CRM Adapter",
       "description": "Operational tool CRM Adapter required by Sales Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "sales-pack.tool.crm-adapter",
       "inputSchema": {
         "type": "object"
       },
+      "name": "CRM Adapter",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "sales-pack.tool.call-summary",
-      "name": "Call Summary",
       "description": "Operational tool Call Summary required by Sales Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "sales-pack.tool.call-summary",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Call Summary",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "sales-pack.tool.proposal-generator",
-      "name": "Proposal Generator",
       "description": "Operational tool Proposal Generator required by Sales Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "sales-pack.tool.proposal-generator",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Proposal Generator",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "sales-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

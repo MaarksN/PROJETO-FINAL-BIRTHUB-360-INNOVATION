@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getWebConfig } from "@birthub/config";
 
-import { fetchWithSession } from "../../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../../lib/auth-client";
 
 type Role = "OWNER" | "ADMIN" | "MEMBER" | "READONLY";
 type UserStatus = "ACTIVE" | "SUSPENDED";
@@ -183,3 +183,4 @@ export default function UsersAdminPage() {
     </section>
   );
 }
+

@@ -10,6 +10,18 @@ import { annotateTenantSpan } from "../tracing.js";
 type JwtClaims = {
   memberships?: string[] | Array<{ tenantId?: string }>;
   organizationId?: string;
+  planStatus?: {
+    code?: string;
+    hardLocked?: boolean;
+    limits?: Record<string, unknown>;
+    status?: string | null;
+  };
+  plan_status?: {
+    code?: string;
+    hardLocked?: boolean;
+    limits?: Record<string, unknown>;
+    status?: string | null;
+  };
   sub?: string;
   tenantId?: string;
   tenantSlug?: string;
@@ -148,6 +160,27 @@ async function resolveTenantFromRequest(request: Request): Promise<BoundTenantCo
   return null;
 }
 
+function resolvePlanStatusFromClaims(claims: JwtClaims | null) {
+  const planStatus = claims?.plan_status ?? claims?.planStatus;
+
+  if (!planStatus || typeof planStatus !== "object") {
+    return null;
+  }
+
+  return {
+    ...(typeof planStatus.code === "string" ? { code: planStatus.code } : {}),
+    ...(typeof planStatus.hardLocked === "boolean"
+      ? { hardLocked: planStatus.hardLocked }
+      : {}),
+    ...(typeof planStatus.status === "string" || planStatus.status === null
+      ? { status: planStatus.status ?? null }
+      : {}),
+    ...(planStatus.limits && typeof planStatus.limits === "object"
+      ? { limits: planStatus.limits }
+      : {})
+  };
+}
+
 // @see ADR-007
 export function tenantContextMiddleware(
   request: Request,
@@ -156,7 +189,12 @@ export function tenantContextMiddleware(
 ): void {
   void resolveTenantFromRequest(request)
     .then((tenantContext) => {
+      const authorization = request.header("authorization");
+      const bearerToken = authorization?.startsWith("Bearer ") ? authorization.slice(7) : undefined;
+      const claims = decodeJwtPayload(bearerToken);
+
       if (!tenantContext) {
+        request.context.billingPlanStatus = resolvePlanStatusFromClaims(claims);
         next();
         return;
       }
@@ -169,6 +207,7 @@ export function tenantContextMiddleware(
       });
 
       request.context.tenantSlug = tenantContext.tenantSlug;
+      request.context.billingPlanStatus = resolvePlanStatusFromClaims(claims);
 
       if (!request.context.tenantId) {
         request.context.tenantId = tenantContext.tenantId;

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { getWebConfig } from "@birthub/config";
 
-import { fetchWithSession } from "../../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../../lib/auth-client";
 
 interface SessionItem {
   id: string;
@@ -120,3 +120,4 @@ export default function SecuritySessionsPage() {
     </section>
   );
 }
+

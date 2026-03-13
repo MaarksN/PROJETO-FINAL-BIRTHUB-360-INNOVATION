@@ -2,8 +2,8 @@
 
 import { useMemo } from "react";
 
-import { getStoredSession } from "../lib/auth-client.js";
-import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
+import { getStoredSession } from "../lib/auth-client";
+import { useUserPreferencesStore } from "../stores/user-preferences-store";
 
 export function CookieConsentBanner() {
   const hydrated = useUserPreferencesStore((state) => state.hydrated);
@@ -77,3 +77,4 @@ export function CookieConsentBanner() {
     </aside>
   );
 }
+

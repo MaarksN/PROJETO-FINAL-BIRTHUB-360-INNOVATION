@@ -98,6 +98,13 @@ export async function fetchAgentDocs(agentId: string) {
   );
 }
 
+export async function fetchAgentChangelog(agentId: string) {
+  const config = getWebConfig();
+  return fetchJson<{ changelog: string[] }>(
+    `${config.NEXT_PUBLIC_API_URL}/api/v1/agents/${encodeURIComponent(agentId)}/changelog`
+  );
+}
+
 export async function fetchComparisonMatrix() {
   const config = getWebConfig();
   return fetchJson<{
@@ -140,4 +147,24 @@ export async function fetchOutputs(type?: string) {
       type: string;
     }>;
   }>(`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs${query}`);
+}
+
+export async function fetchOutputDetail(outputId: string) {
+  const config = getWebConfig();
+  return fetchJson<{
+    integrity: {
+      expectedHash: string;
+      isValid: boolean;
+      recalculatedHash: string;
+    };
+    output: {
+      agentId: string;
+      content: string;
+      createdAt: string;
+      id: string;
+      outputHash: string;
+      status: string;
+      type: string;
+    };
+  }>(`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${encodeURIComponent(outputId)}`);
 }

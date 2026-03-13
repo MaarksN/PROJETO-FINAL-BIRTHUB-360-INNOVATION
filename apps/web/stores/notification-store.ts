@@ -2,7 +2,7 @@
 
 import { create } from "zustand";
 
-import { fetchWithSession, getStoredSession } from "../lib/auth-client.js";
+import { fetchWithSession, getStoredSession } from "../lib/auth-client";
 
 export interface NotificationItem {
   content: string;
@@ -207,3 +207,4 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
     }
   }
 }));
+

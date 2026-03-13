@@ -4,8 +4,8 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 
-import { fetchWithSession } from "../../lib/auth-client.js";
-import { useAnalytics } from "../../providers/AnalyticsProvider.js";
+import { fetchWithSession } from "../../lib/auth-client";
+import { useAnalytics } from "../../providers/AnalyticsProvider";
 
 interface FeedbackWidgetProps {
   executionId: string;
@@ -251,3 +251,4 @@ export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
     </section>
   );
 }
+

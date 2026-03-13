@@ -15,12 +15,16 @@ void test("worker rejects manipulated jobs with tenant mismatch", () => {
         fallbackSecret: "fallback",
         jobId: "job_1",
         payload: {
+          agentId: "ceo-pack",
+          approvalRequired: false,
           context: {
             actorId: "user_1",
             jobId: "job_1",
             scopedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
             tenantId: "tenant_a"
           },
+          estimatedCostBRL: 0.5,
+          executionMode: "LIVE",
           payload: {},
           requestId: "req_1",
           signature: "invalid",
@@ -37,12 +41,16 @@ void test("worker rejects manipulated jobs with tenant mismatch", () => {
 
 void test("worker validates HMAC signature for legacy jobs", () => {
   const unsignedPayload = {
+    agentId: "ceo-pack",
+    approvalRequired: false,
     context: {
       actorId: "user_1",
       jobId: "job_1",
       scopedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
       tenantId: "tenant_a"
     },
+    estimatedCostBRL: 0.5,
+    executionMode: "LIVE" as const,
     payload: {
       channel: "email"
     },

@@ -15,6 +15,14 @@ declare global {
 export interface RequestContext {
   apiKeyId: string | null;
   authType: "api-key" | "session" | null;
+  billingPlanStatus:
+    | {
+        code?: string;
+        hardLocked?: boolean;
+        limits?: Record<string, unknown>;
+        status?: string | null;
+      }
+    | null;
   requestId: string;
   sessionId: string | null;
   tenantId: string | null;
@@ -38,6 +46,7 @@ export function requestContextMiddleware(
   request.context = {
     apiKeyId: null,
     authType: null,
+    billingPlanStatus: null,
     requestId,
     sessionId: null,
     tenantId,

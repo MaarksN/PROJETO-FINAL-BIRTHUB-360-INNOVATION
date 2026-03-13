@@ -1,19 +1,65 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "corporate-v1-catalog",
-    "tenantId": "catalog",
-    "name": "Corporate v1 Catalog",
-    "description": "Catalog manifest for the corporate v1 suite.",
-    "version": "1.0.0",
-    "prompt": "Coordinate and expose all corporate packs in the marketplace.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection descriptor updated for the premium 42-agent lineup"
+    ],
+    "description": "Collection descriptor for the unified BirthHub 360 official lineup of governed high-performance agents.",
+    "id": "corporate-v1-catalog",
+    "kind": "catalog",
+    "name": "BirthHub 360 Official Collection",
+    "prompt": "Coordinate and expose the full BirthHub 360 official collection, separating collection governance from installable agents.",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "birthhub 360",
+    "official collection",
+    "agent catalog",
+    "marketplace governance",
+    "collection descriptor"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "report:read",
+        "audit:write"
+      ],
+      "effect": "allow",
+      "id": "corporate-v1-catalog.policy.standard",
+      "name": "Collection governance policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Expose catalog metadata and collection governance across the marketplace.",
+      "id": "corporate-v1-catalog.skill.collection-governance",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Collection Governance",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Support discovery, documentation and segmentation of the official lineup.",
+      "id": "corporate-v1-catalog.skill.collection-discovery",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Collection Discovery",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "management"
+    ],
+    "industry": [
+      "sales"
     ],
     "level": [
       "suite"
@@ -22,72 +68,22 @@
       "catalog-admin"
     ],
     "use-case": [
-      "discover"
-    ],
-    "industry": [
-      "cross-industry"
+      "discover",
+      "governance"
     ]
   },
-  "skills": [
-    {
-      "id": "corporate-v1-catalog.skill.catalog-discovery",
-      "name": "Catalog Discovery",
-      "description": "Capability for Catalog Discovery in Corporate v1 Catalog workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "corporate-v1-catalog.skill.pack-governance",
-      "name": "Pack Governance",
-      "description": "Capability for Pack Governance in Corporate v1 Catalog workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "corporate-v1-catalog.tool.marketplace-search-api",
-      "name": "Marketplace Search API",
-      "description": "Operational tool Marketplace Search API required by Corporate v1 Catalog.",
-      "timeoutMs": 15000,
+      "description": "Expose official collection metadata for marketplace and documentation surfaces.",
+      "id": "corporate-v1-catalog.tool.collection-index",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Collection Index",
       "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "corporate-v1-catalog.tool.docs-renderer",
-      "name": "Docs Renderer",
-      "description": "Operational tool Docs Renderer required by Corporate v1 Catalog.",
-      "timeoutMs": 15000,
-      "inputSchema": {
         "type": "object"
       },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "corporate-v1-catalog.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      "timeoutMs": 15000
     }
   ]
 }

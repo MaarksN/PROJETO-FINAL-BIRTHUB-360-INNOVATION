@@ -2,10 +2,28 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { loadManifestCatalog } from "@birthub/agents-core";
+import { isInstallableManifest, loadManifestCatalog } from "@birthub/agents-core";
 
 function toDocSlug(agentId: string): string {
   return agentId.replace(/[^a-zA-Z0-9-]/g, "-").toLowerCase();
+}
+
+function extractPromptSection(prompt: string, heading: string): string {
+  const sectionPattern = new RegExp(
+    `(?:^|\\n)${heading}\\n([\\s\\S]*?)(?=\\n[A-Z][A-Z\\s]+\\n|$)`,
+    "u"
+  );
+  const match = prompt.match(sectionPattern);
+  return match?.[1]?.trim() ?? "";
+}
+
+function toBulletList(block: string): string[] {
+  return block
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("-"))
+    .map((line) => line.replace(/^-+\s*/, "").trim())
+    .filter(Boolean);
 }
 
 async function main(): Promise<void> {
@@ -20,11 +38,49 @@ async function main(): Promise<void> {
   for (const entry of catalog) {
     const { manifest } = entry;
     const outputPath = path.join(outputDir, `${toDocSlug(manifest.agent.id)}.mdx`);
+    const guardrails = toBulletList(extractPromptSection(manifest.agent.prompt, "GUARDRAILS"));
+    const learningContract = toBulletList(extractPromptSection(manifest.agent.prompt, "APRENDIZADO COMPARTILHADO"));
+    const operatingReasoning = toBulletList(
+      extractPromptSection(manifest.agent.prompt, "RACIOCINIO OPERACIONAL ESPERADO")
+    );
+    const outputFormat = extractPromptSection(manifest.agent.prompt, "FORMATO DE SAIDA");
+    const installable = isInstallableManifest(manifest);
 
     const content = [
       `# ${manifest.agent.name}`,
       "",
       manifest.agent.description,
+      "",
+      "## Collection Contract",
+      `- installable: ${installable ? "yes" : "no"}`,
+      `- kind: ${manifest.agent.kind}`,
+      `- version: ${manifest.agent.version}`,
+      "",
+      "## Keywords",
+      ...manifest.keywords.map((keyword) => `- ${keyword}`),
+      "",
+      "## Operational Loop",
+      "1. Context intake",
+      "2. Shared tenant learning lookup",
+      "3. Planning and governed execution",
+      "4. Structured response generation",
+      "5. Shared learning publication",
+      "",
+      "## Operating Reasoning",
+      ...(operatingReasoning.length > 0
+        ? operatingReasoning.map((item) => `- ${item}`)
+        : ["- No operating reasoning extracted from prompt."]),
+      "",
+      "## Guardrails",
+      ...(guardrails.length > 0 ? guardrails.map((item) => `- ${item}`) : ["- No guardrails extracted from prompt."]),
+      "",
+      "## Shared Learning Contract",
+      ...(learningContract.length > 0
+        ? learningContract.map((item) => `- ${item}`)
+        : ["- No shared learning contract extracted from prompt."]),
+      "",
+      "## Output Contract",
+      outputFormat || "No explicit output contract extracted from prompt.",
       "",
       "## Prompt",
       manifest.agent.prompt,
@@ -41,6 +97,11 @@ async function main(): Promise<void> {
       "",
       "## Tools",
       ...manifest.tools.map((tool) => `- **${tool.name}**: ${tool.description}`),
+      "",
+      "## Policies",
+      ...manifest.policies.map(
+        (policy) => `- **${policy.name}** (${policy.effect}): ${policy.actions.join(", ")}`
+      ),
       "",
       "## Changelog",
       ...(manifest.agent.changelog.length > 0

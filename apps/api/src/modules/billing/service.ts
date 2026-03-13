@@ -1,6 +1,12 @@
 import type { ApiConfig } from "@birthub/config";
 import { Prisma, Role, SubscriptionStatus, prisma } from "@birthub/database";
+import Stripe from "stripe";
 
+import {
+  deleteCacheKeys,
+  readCacheValue,
+  writeCacheValue
+} from "../../common/cache/cache-store.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   isPlanFeatureEnabled,
@@ -10,6 +16,10 @@ import {
 import { createStripeClient } from "./stripe.client.js";
 
 type DatabaseClient = Prisma.TransactionClient | typeof prisma;
+const BILLING_SNAPSHOT_CACHE_TTL_SECONDS = 60;
+const PLAN_CODE_ALIASES: Record<string, string> = {
+  professional: "pro"
+};
 
 const DEFAULT_PLANS: Record<
   string,
@@ -27,6 +37,9 @@ const DEFAULT_PLANS: Record<
     description: "Plano enterprise com limites ilimitados e suporte prioritário.",
     limits: {
       agents: -1,
+      aiPrompts: -1,
+      apiRequests: -1,
+      emails: -1,
       features: {
         advancedAnalytics: true,
         agents: true,
@@ -35,6 +48,7 @@ const DEFAULT_PLANS: Record<
         workflows: true
       },
       monthlyTokens: -1,
+      storageGb: -1,
       workflows: -1
     },
     monthlyPriceCents: 49900,
@@ -43,10 +57,13 @@ const DEFAULT_PLANS: Record<
     stripeProductId: "prod_enterprise",
     yearlyPriceCents: 479040
   },
-  professional: {
+  pro: {
     description: "Plano para operação em escala com automações avançadas.",
     limits: {
       agents: 25,
+      aiPrompts: 25_000,
+      apiRequests: 25_000,
+      emails: 10_000,
       features: {
         advancedAnalytics: true,
         agents: true,
@@ -54,18 +71,22 @@ const DEFAULT_PLANS: Record<
         workflows: true
       },
       monthlyTokens: 2_500_000,
+      storageGb: 500,
       workflows: 250
     },
     monthlyPriceCents: 14900,
-    name: "Professional",
-    stripePriceId: "price_professional_monthly",
-    stripeProductId: "prod_professional",
+    name: "Pro",
+    stripePriceId: "price_pro_monthly",
+    stripeProductId: "prod_pro",
     yearlyPriceCents: 143040
   },
   starter: {
     description: "Plano de entrada para times pequenos.",
     limits: {
       agents: 5,
+      aiPrompts: 5_000,
+      apiRequests: 5_000,
+      emails: 2_500,
       features: {
         advancedAnalytics: false,
         agents: true,
@@ -73,6 +94,7 @@ const DEFAULT_PLANS: Record<
         workflows: true
       },
       monthlyTokens: 250_000,
+      storageGb: 100,
       workflows: 30
     },
     monthlyPriceCents: 4900,
@@ -82,6 +104,149 @@ const DEFAULT_PLANS: Record<
     yearlyPriceCents: 47040
   }
 };
+
+function normalizePlanCode(code: string): string {
+  const normalized = code.trim().toLowerCase();
+  return PLAN_CODE_ALIASES[normalized] ?? normalized;
+}
+
+function billingSnapshotCacheKey(reference: string): string {
+  return `billing:snapshot:${reference.trim().toLowerCase()}`;
+}
+
+function serializeBillingSnapshot(snapshot: BillingSnapshot): string {
+  return JSON.stringify({
+    ...snapshot,
+    currentPeriodEnd: snapshot.currentPeriodEnd?.toISOString() ?? null,
+    gracePeriodEndsAt: snapshot.gracePeriodEndsAt?.toISOString() ?? null
+  });
+}
+
+function parseBillingSnapshot(raw: string): BillingSnapshot | null {
+  try {
+    const parsed = JSON.parse(raw) as {
+      currentPeriodEnd: string | null;
+      gracePeriodEndsAt: string | null;
+    } & Omit<BillingSnapshot, "currentPeriodEnd" | "gracePeriodEndsAt">;
+
+    return {
+      ...parsed,
+      currentPeriodEnd: parsed.currentPeriodEnd ? new Date(parsed.currentPeriodEnd) : null,
+      gracePeriodEndsAt: parsed.gracePeriodEndsAt ? new Date(parsed.gracePeriodEndsAt) : null
+    };
+  } catch {
+    return null;
+  }
+}
+
+async function cacheBillingSnapshot(snapshot: BillingSnapshot, extraReference?: string): Promise<void> {
+  const references = new Set<string>([
+    snapshot.organizationId,
+    snapshot.tenantId,
+    ...(extraReference ? [extraReference] : [])
+  ]);
+
+  await Promise.all(
+    Array.from(references).map((reference) =>
+      writeCacheValue(
+        billingSnapshotCacheKey(reference),
+        serializeBillingSnapshot(snapshot),
+        BILLING_SNAPSHOT_CACHE_TTL_SECONDS
+      )
+    )
+  );
+}
+
+export async function invalidateBillingSnapshotCache(references: Array<string | null | undefined>) {
+  await deleteCacheKeys(
+    Array.from(
+      new Set(
+        references
+          .filter((reference): reference is string => Boolean(reference?.trim()))
+          .map((reference) => billingSnapshotCacheKey(reference))
+      )
+    )
+  );
+}
+
+function normalizeStripeLocale(locale: string | null | undefined): Stripe.Checkout.SessionCreateParams.Locale | undefined {
+  if (!locale) {
+    return undefined;
+  }
+
+  const normalized = locale.toLowerCase();
+  const byPrefix: Record<string, Stripe.Checkout.SessionCreateParams.Locale> = {
+    "en": "en",
+    "en-us": "en",
+    "es": "es",
+    "fr": "fr",
+    "it": "it",
+    "pt": "pt-BR",
+    "pt-br": "pt-BR"
+  };
+
+  return byPrefix[normalized] ?? byPrefix[normalized.split("-")[0] ?? ""] ?? undefined;
+}
+
+function readOrganizationSetting(
+  settings: Prisma.JsonValue | null | undefined,
+  key: string
+): string | null {
+  if (!settings || typeof settings !== "object" || Array.isArray(settings)) {
+    return null;
+  }
+
+  const value = (settings as Record<string, unknown>)[key];
+  return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;
+}
+
+function checkoutDeclineCounterKey(ipAddress: string): string {
+  return `billing:checkout:declines:${ipAddress}`;
+}
+
+function checkoutBanKey(ipAddress: string): string {
+  return `billing:checkout:ban:${ipAddress}`;
+}
+
+export async function isCheckoutIpTemporarilyBanned(ipAddress: string | null | undefined): Promise<boolean> {
+  if (!ipAddress) {
+    return false;
+  }
+
+  return Boolean(await readCacheValue(checkoutBanKey(ipAddress)));
+}
+
+export async function clearCheckoutIpBan(ipAddress: string | null | undefined): Promise<void> {
+  if (!ipAddress) {
+    return;
+  }
+
+  await deleteCacheKeys([checkoutBanKey(ipAddress), checkoutDeclineCounterKey(ipAddress)]);
+}
+
+export async function registerCheckoutDecline(input: {
+  config: ApiConfig;
+  ipAddress: string | null | undefined;
+}): Promise<number> {
+  if (!input.ipAddress) {
+    return 0;
+  }
+
+  const current = Number(await readCacheValue(checkoutDeclineCounterKey(input.ipAddress)) ?? "0");
+  const next = current + 1;
+
+  await writeCacheValue(
+    checkoutDeclineCounterKey(input.ipAddress),
+    String(next),
+    input.config.STRIPE_TEMP_BAN_SECONDS
+  );
+
+  if (next >= input.config.STRIPE_DECLINE_BAN_THRESHOLD) {
+    await writeCacheValue(checkoutBanKey(input.ipAddress), "1", input.config.STRIPE_TEMP_BAN_SECONDS);
+  }
+
+  return next;
+}
 
 function resolveGracePeriodEndsAt(
   subscription:
@@ -116,7 +281,7 @@ async function findOrganizationByReference(
 }
 
 export async function ensurePlanByCode(code: string, client: DatabaseClient = prisma) {
-  const normalized = code.trim().toLowerCase();
+  const normalized = normalizePlanCode(code);
   const plan = await client.plan.findUnique({
     where: {
       code: normalized
@@ -175,6 +340,15 @@ export async function getBillingSnapshot(
   organizationReference: string,
   gracePeriodDays: number
 ): Promise<BillingSnapshot> {
+  const cached = await readCacheValue(billingSnapshotCacheKey(organizationReference));
+
+  if (cached) {
+    const parsed = parseBillingSnapshot(cached);
+    if (parsed) {
+      return parsed;
+    }
+  }
+
   const organization = await prisma.organization.findFirst({
     include: {
       plan: true,
@@ -213,7 +387,7 @@ export async function getBillingSnapshot(
       ? Math.max(0, Math.floor((gracePeriodEndsAt.getTime() - Date.now()) / 1000))
       : null;
 
-  return {
+  const snapshot: BillingSnapshot = {
     currentPeriodEnd: subscription?.currentPeriodEnd ?? null,
     gracePeriodEndsAt,
     hardLocked,
@@ -235,6 +409,10 @@ export async function getBillingSnapshot(
     subscriptionId: subscription?.id ?? null,
     tenantId: organization.tenantId
   };
+
+  await cacheBillingSnapshot(snapshot, organizationReference);
+
+  return snapshot;
 }
 
 export async function canUseFeature(
@@ -361,6 +539,8 @@ async function resolveCustomerForCheckout(input: {
 
 export async function createCheckoutSessionForOrganization(input: {
   config: ApiConfig;
+  countryCode?: string | null;
+  locale?: string | null;
   organizationReference: string;
   planId: string;
 }) {
@@ -401,20 +581,54 @@ export async function createCheckoutSessionForOrganization(input: {
     config: input.config,
     organizationReference: input.organizationReference
   });
+  const locale =
+    normalizeStripeLocale(input.locale) ??
+    normalizeStripeLocale(readOrganizationSetting(organization.settings, "locale"));
+  const countryCode =
+    input.countryCode?.trim().toUpperCase() ??
+    readOrganizationSetting(organization.settings, "countryCode")?.toUpperCase() ??
+    null;
+
+  if (countryCode && /^[A-Z]{2}$/.test(countryCode)) {
+    await stripe.customers.update(customerId, {
+      address: {
+        country: countryCode
+      }
+    });
+  }
+
   const session = await stripe.checkout.sessions.create({
+    automatic_tax: {
+      enabled: true
+    },
+    billing_address_collection: "auto",
     cancel_url: input.config.STRIPE_CANCEL_URL,
     customer: customerId,
+    customer_update: {
+      address: "auto",
+      name: "auto"
+    },
     line_items: [
       {
         price: plan.stripePriceId,
         quantity: 1
       }
     ],
+    ...(locale ? { locale } : {}),
     metadata: {
+      countryCode: countryCode ?? "",
       organizationId: organization.id,
       planId: plan.id
     },
     mode: "subscription",
+    subscription_data: {
+      metadata: {
+        organizationId: organization.id,
+        planId: plan.id,
+        tenantId: organization.tenantId
+      },
+      proration_behavior: "create_prorations"
+    },
     success_url: `${input.config.STRIPE_SUCCESS_URL}?session_id={CHECKOUT_SESSION_ID}`
   });
 

@@ -1,6 +1,6 @@
 import type { ApiConfig } from "@birthub/config";
 import { healthResponseSchema } from "@birthub/config";
-import { pingDatabase } from "@birthub/database";
+import { pingDatabase, pingDatabaseDeep } from "@birthub/database";
 
 import { pingRedis } from "./queue.js";
 
@@ -28,6 +28,31 @@ export function createHealthService(config: ApiConfig) {
   return async () => {
     const [database, redis, externalDependencies] = await Promise.all([
       pingDatabase(),
+      pingRedis(config),
+      Promise.all(config.externalHealthcheckUrls.map((url) => pingExternalDependency(url)))
+    ]);
+
+    return healthResponseSchema.parse({
+      checkedAt: new Date().toISOString(),
+      services: {
+        database,
+        externalDependencies,
+        redis
+      },
+      status:
+        database.status === "up" &&
+        redis.status === "up" &&
+        externalDependencies.every((dependency) => dependency.status === "up")
+          ? "ok"
+          : "degraded"
+    });
+  };
+}
+
+export function createDeepHealthService(config: ApiConfig) {
+  return async () => {
+    const [database, redis, externalDependencies] = await Promise.all([
+      pingDatabaseDeep(),
       pingRedis(config),
       Promise.all(config.externalHealthcheckUrls.map((url) => pingExternalDependency(url)))
     ]);

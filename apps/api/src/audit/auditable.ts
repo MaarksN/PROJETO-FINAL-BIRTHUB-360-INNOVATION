@@ -1,12 +1,21 @@
 import type { NextFunction, Request, Response } from "express";
 
 import { enqueueAuditEvent } from "./buffer.js";
+import { readTrimmedString } from "../lib/request-values.js";
 
 type AuditableOptions<TResult> = {
   action: string;
   entityType: string;
-  resolveEntityId?: (request: Request, response: Response, result: TResult | void) => string | undefined;
-  resolveTenantId?: (request: Request, response: Response, result: TResult | void) => string | undefined;
+  resolveEntityId?: (
+    request: Request,
+    response: Response,
+    result: TResult | void
+  ) => string | string[] | undefined;
+  resolveTenantId?: (
+    request: Request,
+    response: Response,
+    result: TResult | void
+  ) => string | string[] | undefined;
 };
 
 type AsyncRouteHandler<TResult> = (
@@ -24,12 +33,20 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
         return result;
       }
 
-      const tenantId =
-        options.resolveTenantId?.(request, response, result) ?? request.context.tenantId ?? undefined;
+      const tenantId = readTrimmedString(
+        options.resolveTenantId?.(request, response, result) ?? request.context.tenantId
+      );
 
       if (!tenantId) {
         return result;
       }
+
+      const entityId =
+        readTrimmedString(
+          options.resolveEntityId?.(request, response, result) ??
+            request.params.id ??
+            request.params.memberId
+        ) ?? "unknown";
 
       enqueueAuditEvent({
         action: options.action,
@@ -38,9 +55,7 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
           payload: request.body ?? null,
           response: result ?? null
         },
-        entityId:
-          options.resolveEntityId?.(request, response, result) ??
-          String(request.params.id ?? request.params.memberId ?? "unknown"),
+        entityId,
         entityType: options.entityType,
         ip: request.ip || null,
         tenantId,

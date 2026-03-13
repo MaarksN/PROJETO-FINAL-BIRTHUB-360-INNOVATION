@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import type { AgentSnapshot, ExecutionStatus } from "../../lib/agents.js";
+import type { AgentSnapshot, ExecutionStatus } from "../../lib/agents";
 
 type TabKey = "executions" | "logs" | "manifest" | "metrics" | "overview";
 
@@ -333,3 +333,4 @@ export function AgentDetailTabs({ agent }: Readonly<AgentDetailTabsProps>) {
     </section>
   );
 }
+

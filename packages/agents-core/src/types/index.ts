@@ -34,6 +34,30 @@ export interface AgentDefinition {
   tags?: string[];
 }
 
+export type AgentLearningLessonType =
+  | "execution-pattern"
+  | "guardrail"
+  | "handoff"
+  | "objection"
+  | "qualification"
+  | "risk"
+  | "tooling"
+  | "workflow";
+
+export interface AgentLearningRecord {
+  id: string;
+  tenantId: string;
+  sourceAgentId: string;
+  lessonType: AgentLearningLessonType;
+  summary: string;
+  evidence: string[];
+  confidence: number;
+  keywords: string[];
+  appliesTo: string[];
+  approved: boolean;
+  createdAt: string;
+}
+
 export interface ToolCall<TInput = unknown> {
   id: string;
   tool: string;

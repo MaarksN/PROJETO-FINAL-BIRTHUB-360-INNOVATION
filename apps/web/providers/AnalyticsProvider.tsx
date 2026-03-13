@@ -12,8 +12,8 @@ import {
 } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { getStoredSession } from "../lib/auth-client.js";
-import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
+import { getStoredSession } from "../lib/auth-client";
+import { useUserPreferencesStore } from "../stores/user-preferences-store";
 
 interface AnalyticsContextValue {
   ready: boolean;
@@ -243,3 +243,4 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
 export function useAnalytics(): AnalyticsContextValue {
   return useContext(AnalyticsContext);
 }
+

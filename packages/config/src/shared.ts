@@ -88,7 +88,5 @@ export function parseEnv<TSchema extends ZodTypeAny>(
     );
   }
 
-  // Zod guarantees the output shape here, but eslint cannot infer it through the generic helper.
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return parsed.data;
 }

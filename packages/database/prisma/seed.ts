@@ -46,6 +46,9 @@ const plans: PlanSeed[] = [
     description: "Plano de entrada para times pequenos.",
     limits: {
       agents: 5,
+      aiPrompts: 5_000,
+      apiRequests: 5_000,
+      emails: 2_500,
       features: {
         advancedAnalytics: false,
         agents: true,
@@ -53,6 +56,7 @@ const plans: PlanSeed[] = [
         workflows: true
       },
       monthlyTokens: 250_000,
+      storageGb: 100,
       workflows: 30
     },
     monthlyPriceCents: 4900,
@@ -62,11 +66,14 @@ const plans: PlanSeed[] = [
     yearlyPriceCents: 47040
   },
   {
-    code: "professional",
+    code: "pro",
     currency: "usd",
     description: "Plano para operação em escala com automações avançadas.",
     limits: {
       agents: 25,
+      aiPrompts: 25_000,
+      apiRequests: 25_000,
+      emails: 10_000,
       features: {
         advancedAnalytics: true,
         agents: true,
@@ -74,12 +81,13 @@ const plans: PlanSeed[] = [
         workflows: true
       },
       monthlyTokens: 2_500_000,
+      storageGb: 500,
       workflows: 250
     },
     monthlyPriceCents: 14900,
-    name: "Professional",
-    stripePriceId: "price_professional_monthly",
-    stripeProductId: "prod_professional",
+    name: "Pro",
+    stripePriceId: "price_pro_monthly",
+    stripeProductId: "prod_pro",
     yearlyPriceCents: 143040
   },
   {
@@ -88,6 +96,9 @@ const plans: PlanSeed[] = [
     description: "Plano enterprise com limites ilimitados e suporte prioritário.",
     limits: {
       agents: -1,
+      aiPrompts: -1,
+      apiRequests: -1,
+      emails: -1,
       features: {
         advancedAnalytics: true,
         agents: true,
@@ -96,6 +107,7 @@ const plans: PlanSeed[] = [
         workflows: true
       },
       monthlyTokens: -1,
+      storageGb: -1,
       workflows: -1
     },
     monthlyPriceCents: 49900,
@@ -118,7 +130,7 @@ const tenants: TenantSeed[] = [
       { email: "readonly.alpha@birthub.local", name: "Alpha Readonly", role: Role.READONLY }
     ],
     name: "BirthHub Alpha",
-    planCode: "professional",
+    planCode: "pro",
     slug: "birthhub-alpha"
   },
   {

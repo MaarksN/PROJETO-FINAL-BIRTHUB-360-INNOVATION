@@ -1,7 +1,7 @@
 import type { ApiConfig } from "@birthub/config";
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
-import { Resource } from "@opentelemetry/resources";
+import { resourceFromAttributes } from "@opentelemetry/resources";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { PrismaInstrumentation } from "@prisma/instrumentation";
 
@@ -22,7 +22,7 @@ export async function initializeOpenTelemetry(config: ApiConfig): Promise<void> 
       }),
       new PrismaInstrumentation()
     ],
-    resource: new Resource({
+    resource: resourceFromAttributes({
       "service.name": config.OTEL_SERVICE_NAME
     }),
     traceExporter: new OTLPTraceExporter({

@@ -1,3 +1,5 @@
+import type { AgentLearningRecord } from "../types/index.js";
+
 const DEFAULT_TOKEN_BUDGET = 8_000;
 
 export type ConversationRole = "assistant" | "system" | "tool" | "user";
@@ -73,6 +75,14 @@ function buildNamespacedKey(tenantId: string, agentId: string, memoryKey: string
   }
 
   return `${tenantId}:${agentId}:${memoryKey}`;
+}
+
+function buildSharedLearningKey(tenantId: string, memoryKey: string): string {
+  if (!tenantId.trim() || !memoryKey.trim()) {
+    throw new Error("tenantId and memoryKey are mandatory");
+  }
+
+  return `${tenantId}:shared-learning:${memoryKey}`;
 }
 
 export function estimateTokenCount(content: string): number {
@@ -159,6 +169,60 @@ export class AgentMemoryService {
     const keys = await this.backend.keys(`${tenantId}:*`);
     const deletedCounts = await Promise.all(keys.map((key) => this.backend.del(key)));
     return deletedCounts.reduce((total, count) => total + count, 0);
+  }
+
+  async publishSharedLearning(
+    tenantId: string,
+    record: AgentLearningRecord,
+    ttlSeconds?: number
+  ): Promise<string> {
+    const key = buildSharedLearningKey(tenantId, `${record.id}:${record.sourceAgentId}`);
+    await this.backend.set(key, JSON.stringify(record), ttlSeconds);
+    return key;
+  }
+
+  async getSharedLearning(tenantId: string, recordKey: string): Promise<AgentLearningRecord | null> {
+    const value = await this.backend.get(buildSharedLearningKey(tenantId, recordKey));
+    return value ? (JSON.parse(value) as AgentLearningRecord) : null;
+  }
+
+  async listSharedLearning(tenantId: string): Promise<AgentLearningRecord[]> {
+    const keys = await this.backend.keys(buildSharedLearningKey(tenantId, "*"));
+    const values = await Promise.all(keys.map((key) => this.backend.get(key)));
+
+    return values
+      .filter((value): value is string => value !== null)
+      .map((value) => JSON.parse(value) as AgentLearningRecord)
+      .sort((left, right) => right.createdAt.localeCompare(left.createdAt));
+  }
+
+  async querySharedLearning(
+    tenantId: string,
+    input: {
+      approvedOnly?: boolean;
+      keywords?: string[];
+      minimumConfidence?: number;
+    } = {}
+  ): Promise<AgentLearningRecord[]> {
+    const normalizedKeywords = new Set((input.keywords ?? []).map((keyword) => keyword.trim().toLowerCase()));
+    const minimumConfidence = input.minimumConfidence ?? 0;
+    const records = await this.listSharedLearning(tenantId);
+
+    return records.filter((record) => {
+      if ((input.approvedOnly ?? false) && !record.approved) {
+        return false;
+      }
+
+      if (record.confidence < minimumConfidence) {
+        return false;
+      }
+
+      if (normalizedKeywords.size === 0) {
+        return true;
+      }
+
+      return record.keywords.some((keyword) => normalizedKeywords.has(keyword.trim().toLowerCase()));
+    });
   }
 
   async upsertConversationContext(

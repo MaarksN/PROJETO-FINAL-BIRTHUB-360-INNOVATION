@@ -1,6 +1,7 @@
 import type { ApiConfig } from "@birthub/config";
 import { Queue } from "bullmq";
-import { Redis } from "ioredis";
+
+import { getBullConnection } from "../../lib/redis.js";
 
 export const engagementQueueNames = {
   crmSync: "engagement.crm-sync",
@@ -22,30 +23,45 @@ export interface OutboundWebhookJobPayload {
   topic: string;
 }
 
-let redisConnection: Redis | undefined;
-const queues = new Map<string, Queue<unknown>>();
+type CrmSyncQueue = Queue<CrmSyncJobPayload, void, CrmSyncJobPayload["kind"]>;
+type OutboundWebhookQueue = Queue<OutboundWebhookJobPayload, void, OutboundWebhookJobPayload["topic"]>;
 
-function getRedisConnection(config: ApiConfig): Redis {
-  if (!redisConnection) {
-    redisConnection = new Redis(config.REDIS_URL, {
-      maxRetriesPerRequest: null
-    });
-  }
+const crmSyncQueues = new Map<string, CrmSyncQueue>();
+const outboundWebhookQueues = new Map<string, OutboundWebhookQueue>();
 
-  return redisConnection;
-}
-
-function getQueue<TPayload>(config: ApiConfig, queueName: string): Queue<TPayload> {
-  const existing = queues.get(queueName);
+function getCrmSyncQueue(config: ApiConfig): CrmSyncQueue {
+  const cacheKey = `${config.REDIS_URL}:${engagementQueueNames.crmSync}`;
+  const existing = crmSyncQueues.get(cacheKey);
 
   if (existing) {
-    return existing as Queue<TPayload>;
+    return existing;
   }
 
-  const queue = new Queue<TPayload>(queueName, {
-    connection: getRedisConnection(config)
-  });
-  queues.set(queueName, queue as Queue<unknown>);
+  const queue = new Queue<CrmSyncJobPayload, void, CrmSyncJobPayload["kind"]>(
+    engagementQueueNames.crmSync,
+    {
+      connection: getBullConnection(config)
+    }
+  );
+  crmSyncQueues.set(cacheKey, queue);
+  return queue;
+}
+
+function getOutboundWebhookQueue(config: ApiConfig): OutboundWebhookQueue {
+  const cacheKey = `${config.REDIS_URL}:${engagementQueueNames.outboundWebhook}`;
+  const existing = outboundWebhookQueues.get(cacheKey);
+
+  if (existing) {
+    return existing;
+  }
+
+  const queue = new Queue<OutboundWebhookJobPayload, void, OutboundWebhookJobPayload["topic"]>(
+    engagementQueueNames.outboundWebhook,
+    {
+      connection: getBullConnection(config)
+    }
+  );
+  outboundWebhookQueues.set(cacheKey, queue);
   return queue;
 }
 
@@ -53,7 +69,7 @@ export async function enqueueCrmSync(
   config: ApiConfig,
   payload: CrmSyncJobPayload
 ): Promise<void> {
-  await getQueue<CrmSyncJobPayload>(config, engagementQueueNames.crmSync).add(
+  await getCrmSyncQueue(config).add(
     payload.kind,
     payload,
     {
@@ -71,10 +87,7 @@ export async function enqueueOutboundWebhook(
   config: ApiConfig,
   payload: OutboundWebhookJobPayload
 ): Promise<void> {
-  await getQueue<OutboundWebhookJobPayload>(
-    config,
-    engagementQueueNames.outboundWebhook
-  ).add(payload.topic, payload, {
+  await getOutboundWebhookQueue(config).add(payload.topic, payload, {
     attempts: 5,
     backoff: {
       delay: 1_500,

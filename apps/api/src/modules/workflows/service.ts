@@ -10,6 +10,9 @@ import {
 } from "@birthub/database";
 import { validateDag, type WorkflowCanvas } from "@birthub/workflows-core";
 
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { readNumericPlanLimit } from "../billing/plan.utils.js";
+import { getBillingSnapshot } from "../billing/service.js";
 import {
   enqueueWorkflowExecution,
   enqueueWorkflowTrigger,
@@ -44,6 +47,30 @@ async function resolveScopedIdentity(tenantReference: string): Promise<ScopedIde
     organizationId: organization.id,
     tenantId: organization.tenantId
   };
+}
+
+async function assertWorkflowLimit(identity: ScopedIdentity): Promise<void> {
+  const snapshot = await getBillingSnapshot(identity.tenantId, 3);
+  const limit = readNumericPlanLimit(snapshot.plan.limits, "workflows", 30);
+
+  if (!Number.isFinite(limit)) {
+    return;
+  }
+
+  const current = await prisma.workflow.count({
+    where: {
+      archivedAt: null,
+      tenantId: identity.tenantId
+    }
+  });
+
+  if (current >= limit) {
+    throw new ProblemDetailsError({
+      detail: `The active plan allows ${limit} workflows. Upgrade to create more.`,
+      status: 402,
+      title: "Payment Required"
+    });
+  }
 }
 
 function ensureCanvasIsDag(canvas: WorkflowCanvas): void {
@@ -194,6 +221,7 @@ export async function createWorkflow(
   input: WorkflowCreateInput
 ): Promise<PersistedWorkflow> {
   const identity = await resolveScopedIdentity(tenantReference);
+  await assertWorkflowLimit(identity);
   ensureCanvasIsDag(input.canvas);
 
   if (input.status === WorkflowStatus.PUBLISHED) {

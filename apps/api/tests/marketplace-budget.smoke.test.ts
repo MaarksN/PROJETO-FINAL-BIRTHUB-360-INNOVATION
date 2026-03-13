@@ -1,32 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import type { ApiConfig } from "@birthub/config";
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
+import { createTestApiConfig } from "./test-config.js";
 
-const baseConfig: ApiConfig = {
-  API_CORS_ORIGINS: "http://localhost:3001",
-  API_PORT: 3000,
-  API_RATE_LIMIT_MAX: 120,
-  API_RATE_LIMIT_WINDOW_MS: 60_000,
-  DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/birthub_cycle1",
-  EXTERNAL_HEALTHCHECK_URLS: "",
-  LOG_LEVEL: "info",
-  NODE_ENV: "test",
-  OTEL_EXPORTER_OTLP_ENDPOINT: undefined,
-  OTEL_SERVICE_NAME: "birthub-api-test",
-  QUEUE_BACKPRESSURE_THRESHOLD: 10_000,
-  QUEUE_NAME: "birthub-cycle1",
-  REDIS_URL: "redis://localhost:6379",
-  SENTRY_DSN: undefined,
-  SENTRY_ENVIRONMENT: "test",
-  SESSION_SECRET: "test-session-secret",
-  WEB_BASE_URL: "http://localhost:3001",
-  corsOrigins: ["http://localhost:3001"],
-  externalHealthcheckUrls: []
-};
+const baseConfig = createTestApiConfig();
 
 void test("marketplace search returns facets and ranked agents", async () => {
   const app = createApp({

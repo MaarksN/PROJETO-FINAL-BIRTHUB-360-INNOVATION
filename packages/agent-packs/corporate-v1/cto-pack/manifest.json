@@ -1,16 +1,82 @@
 {
-  "manifestVersion": "1.0.0",
   "agent": {
-    "id": "cto-pack",
-    "tenantId": "catalog",
-    "name": "CTO Agent Pack",
-    "description": "Technology leadership agent for architecture, reliability and delivery.",
-    "version": "1.0.0",
-    "prompt": "Act as CTO and align technical roadmap with product and business goals.",
     "changelog": [
-      "1.0.0 - Initial corporate pack publication for Cycle 5"
-    ]
+      "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+    ],
+    "description": "Technology leadership agent for architecture, reliability and delivery. Opera com padrao premium de governanca, qualidade e aprendizado cruzado.",
+    "id": "cto-pack",
+    "kind": "agent",
+    "name": "CTO Agent Pack",
+    "prompt": "Voce e o CTO Agent Pack da BirthHub 360 Official Collection.\n\nIDENTIDADE E MISSAO\nProteger arquitetura, confiabilidade e velocidade de entrega para que a empresa escale sem divida tecnica invisivel.\n\nQUANDO ACIONAR\n- quando arquitetura ou delivery precisarem de governanca executiva\n- quando incidentes e risco tecnico estiverem afetando negocio\n- quando houver trade-off entre velocidade e qualidade\n- quando roadmap tecnico precisar ser defendido com clareza\n\nENTRADAS OBRIGATORIAS\n- roadmap tecnico, backlog, incidentes e dependencias\n- riscos de confiabilidade, seguranca e escalabilidade\n- capacidade do time, gargalos de entrega e retrabalho\n- objetivos de negocio que dependem de tecnologia\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o contexto, o tenant, as restricoes e o objetivo real antes de agir\n- consultar memoria contextual e aprendizados compartilhados relevantes antes de responder\n- priorizar qualidade, rastreabilidade e proximo passo claro\n- distinguir fato, inferencia e ausencia de informacao\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nOBJETIVOS PRIORITARIOS\n- Capability for Architecture Review in CTO Agent Pack workflows.\n- Capability for Reliability Planning in CTO Agent Pack workflows.\n- Capability for Delivery Risk Management in CTO Agent Pack workflows.\n\nFERRAMENTAS ESPERADAS\n- Incident Monitor\n- Roadmap Planner\n- Dependency Auditor\n\nSAIDAS OBRIGATORIAS\n- prioridades tecnicas executivas\n- riscos arquiteturais com impacto de negocio\n- sequencia recomendada de mitigacao\n- resumo tecnico para lideranca nao tecnica\n\nGUARDRAILS\n- usar apenas ferramentas e politicas autorizadas\n- manter rastreabilidade e contexto de negocio\n- escalar para aprovacao humana quando o risco exigir\n- nunca recomendar shortcut tecnico sem explicitar custo futuro\n- nunca tratar incidente recorrente como ruido operacional\n- nunca ocultar dependencia ou single point of failure\n- sempre conectar risco tecnico a impacto de negocio\n- nunca misturar dados entre tenants\n- nunca afirmar certeza quando a confianca for baixa\n- sempre registrar motivo, proximo passo e risco relevante\n\nCHECKLIST DE QUALIDADE\n- mostrar impacto tecnico e de negocio\n- priorizar mitigacao por severidade\n- indicar dependencia entre times e sistemas\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Nunca altere seu proprio prompt ou policy automaticamente em producao.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"cto-pack\",\n  \"summary\": \"\",\n  \"key_outputs\": [\n    \"prioridades tecnicas executivas\",\n    \"riscos arquiteturais com impacto de negocio\",\n    \"sequencia recomendada de mitigacao\",\n    \"resumo tecnico para lideranca nao tecnica\"\n  ],\n  \"risks\": [],\n  \"next_step\": \"\",\n  \"confidence\": \"medium\"\n}",
+    "tenantId": "catalog",
+    "version": "2.0.0"
   },
+  "keywords": [
+    "cto",
+    "architecture governance",
+    "delivery risk",
+    "reliability",
+    "technical debt",
+    "incident pattern",
+    "engineering capacity",
+    "platform stability",
+    "system design",
+    "roadmap dependency",
+    "security posture",
+    "scalability risk"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read"
+      ],
+      "effect": "allow",
+      "id": "cto-pack.policy.standard",
+      "name": "Default governed operating policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Capability for Architecture Review in CTO Agent Pack workflows.",
+      "id": "cto-pack.skill.architecture-review",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Architecture Review",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Reliability Planning in CTO Agent Pack workflows.",
+      "id": "cto-pack.skill.reliability-planning",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Reliability Planning",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Capability for Delivery Risk Management in CTO Agent Pack workflows.",
+      "id": "cto-pack.skill.delivery-risk-management",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Delivery Risk Management",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
   "tags": {
     "domain": [
       "technology"
@@ -28,89 +94,42 @@
       "technology"
     ]
   },
-  "skills": [
-    {
-      "id": "cto-pack.skill.architecture-review",
-      "name": "Architecture Review",
-      "description": "Capability for Architecture Review in CTO Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "cto-pack.skill.reliability-planning",
-      "name": "Reliability Planning",
-      "description": "Capability for Reliability Planning in CTO Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    },
-    {
-      "id": "cto-pack.skill.delivery-risk-management",
-      "name": "Delivery Risk Management",
-      "description": "Capability for Delivery Risk Management in CTO Agent Pack workflows.",
-      "inputSchema": {
-        "type": "object"
-      },
-      "outputSchema": {
-        "type": "object"
-      }
-    }
-  ],
   "tools": [
     {
-      "id": "cto-pack.tool.incident-monitor",
-      "name": "Incident Monitor",
       "description": "Operational tool Incident Monitor required by CTO Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cto-pack.tool.incident-monitor",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Incident Monitor",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "cto-pack.tool.roadmap-planner",
-      "name": "Roadmap Planner",
       "description": "Operational tool Roadmap Planner required by CTO Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cto-pack.tool.roadmap-planner",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Roadmap Planner",
       "outputSchema": {
         "type": "object"
-      }
+      },
+      "timeoutMs": 15000
     },
     {
-      "id": "cto-pack.tool.dependency-auditor",
-      "name": "Dependency Auditor",
       "description": "Operational tool Dependency Auditor required by CTO Agent Pack.",
-      "timeoutMs": 15000,
+      "id": "cto-pack.tool.dependency-auditor",
       "inputSchema": {
         "type": "object"
       },
+      "name": "Dependency Auditor",
       "outputSchema": {
         "type": "object"
-      }
-    }
-  ],
-  "policies": [
-    {
-      "id": "cto-pack.policy.standard",
-      "name": "Default execution policy",
-      "effect": "allow",
-      "actions": [
-        "tool:execute",
-        "report:read",
-        "budget:consume"
-      ]
+      },
+      "timeoutMs": 15000
     }
   ]
 }

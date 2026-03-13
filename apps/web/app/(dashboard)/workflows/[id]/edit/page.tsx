@@ -34,7 +34,11 @@ type BuilderNodeData = {
     | "HTTP_REQUEST"
     | "CONDITION"
     | "SEND_NOTIFICATION"
-    | "DELAY";
+    | "DELAY"
+    | "TRANSFORMER"
+    | "AI_TEXT_EXTRACT"
+    | "AGENT_EXECUTE"
+    | "CODE";
   status: "idle" | "published";
 };
 
@@ -101,13 +105,31 @@ const initialNodes: Node<BuilderNodeData>[] = [
   {
     data: {
       category: "action",
-      config: { method: "POST", url: "https://api.example.local/contacts" },
+      config: {
+        map: {
+          leadEmail: "{{ trigger.output.email }}",
+          tenant: "{{ tenantId }}"
+        },
+        sourcePath: "trigger.output.items"
+      },
+      label: "Normalize Payload",
+      status: "published",
+      stepType: "TRANSFORMER"
+    },
+    id: "action_transform",
+    position: { x: 320, y: 120 },
+    type: "action"
+  },
+  {
+    data: {
+      category: "action",
+      config: { method: "POST", url: "https://api.partner.birthhub.test/contacts" },
       label: "Create Contact",
       status: "published",
       stepType: "HTTP_REQUEST"
     },
     id: "action_http",
-    position: { x: 420, y: 120 },
+    position: { x: 560, y: 120 },
     type: "action"
   },
   {
@@ -119,7 +141,7 @@ const initialNodes: Node<BuilderNodeData>[] = [
       stepType: "CONDITION"
     },
     id: "condition_1",
-    position: { x: 740, y: 120 },
+    position: { x: 800, y: 120 },
     type: "condition"
   },
   {
@@ -131,7 +153,55 @@ const initialNodes: Node<BuilderNodeData>[] = [
       stepType: "SEND_NOTIFICATION"
     },
     id: "action_notify",
-    position: { x: 1060, y: 60 },
+    position: { x: 1040, y: 30 },
+    type: "action"
+  },
+  {
+    data: {
+      category: "action",
+      config: {
+        fields: ["company", "priority"],
+        text: "company: {{ trigger.output.company }}\npriority: enterprise"
+      },
+      label: "Extract CRM Fields",
+      status: "published",
+      stepType: "AI_TEXT_EXTRACT"
+    },
+    id: "action_extract",
+    position: { x: 1280, y: 30 },
+    type: "action"
+  },
+  {
+    data: {
+      category: "action",
+      config: {
+        agentId: "ceo-pack",
+        input: {
+          brief: "{{ trigger.output.company }}"
+        },
+        onError: "stop"
+      },
+      label: "CEO Review",
+      status: "published",
+      stepType: "AGENT_EXECUTE"
+    },
+    id: "action_agent",
+    position: { x: 1520, y: 30 },
+    type: "action"
+  },
+  {
+    data: {
+      category: "action",
+      config: {
+        source: "return { approved: true, owner: 'growth' };",
+        timeout_ms: 250
+      },
+      label: "Code Gate",
+      status: "published",
+      stepType: "CODE"
+    },
+    id: "action_code",
+    position: { x: 1760, y: 30 },
     type: "action"
   },
   {
@@ -143,16 +213,50 @@ const initialNodes: Node<BuilderNodeData>[] = [
       stepType: "DELAY"
     },
     id: "action_delay",
-    position: { x: 1060, y: 210 },
+    position: { x: 1040, y: 220 },
+    type: "action"
+  },
+  {
+    data: {
+      category: "action",
+      config: {
+        source: "return { slaBreached: false, retryAt: '2026-03-13T16:00:00Z' };",
+        timeout_ms: 250
+      },
+      label: "Fallback Code",
+      status: "published",
+      stepType: "CODE"
+    },
+    id: "action_retry_plan",
+    position: { x: 1280, y: 220 },
+    type: "action"
+  },
+  {
+    data: {
+      category: "action",
+      config: { channel: "inapp", message: "Fluxo finalizado", to: "owner@birthhub.local" },
+      label: "Close Loop",
+      status: "published",
+      stepType: "SEND_NOTIFICATION"
+    },
+    id: "action_close",
+    position: { x: 2000, y: 120 },
     type: "action"
   }
 ];
 
 const initialEdges: Edge[] = [
-  { id: "e1", source: "trigger_1", target: "action_http", type: "smoothstep" },
-  { id: "e2", source: "action_http", target: "condition_1", type: "smoothstep" },
-  { id: "e3", label: "IF_TRUE", source: "condition_1", target: "action_notify", type: "smoothstep" },
-  { id: "e4", label: "IF_FALSE", source: "condition_1", target: "action_delay", type: "smoothstep" }
+  { id: "e1", source: "trigger_1", target: "action_transform", type: "smoothstep" },
+  { id: "e2", source: "action_transform", target: "action_http", type: "smoothstep" },
+  { id: "e3", source: "action_http", target: "condition_1", type: "smoothstep" },
+  { id: "e4", label: "IF_TRUE", source: "condition_1", target: "action_notify", type: "smoothstep" },
+  { id: "e5", source: "action_notify", target: "action_extract", type: "smoothstep" },
+  { id: "e6", source: "action_extract", target: "action_agent", type: "smoothstep" },
+  { id: "e7", source: "action_agent", target: "action_code", type: "smoothstep" },
+  { id: "e8", source: "action_code", target: "action_close", type: "smoothstep" },
+  { id: "e9", label: "IF_FALSE", source: "condition_1", target: "action_delay", type: "smoothstep" },
+  { id: "e10", source: "action_delay", target: "action_retry_plan", type: "smoothstep" },
+  { id: "e11", source: "action_retry_plan", target: "action_close", type: "smoothstep" }
 ];
 
 type SidebarForm = {

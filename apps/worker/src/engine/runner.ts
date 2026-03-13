@@ -319,7 +319,7 @@ export class WorkflowRunner {
 
     const parsedStep = stepSchema.parse({
       config: step.config,
-      isTrigger: step.isTrigger,
+      ...(step.isTrigger ? { isTrigger: step.isTrigger } : {}),
       key: step.key,
       name: step.name,
       type: step.type

@@ -25,15 +25,23 @@ import {
   registerTenantCacheInvalidationMiddleware
 } from "./common/cache/index.js";
 import { openApiDocument } from "./docs/openapi.js";
-import { createHealthService } from "./lib/health.js";
+import { createDeepHealthService, createHealthService } from "./lib/health.js";
 import { asyncHandler, ProblemDetailsError } from "./lib/problem-details.js";
-import { enqueueTask, QueueBackpressureError } from "./lib/queue.js";
+import {
+  enqueueTask,
+  QueueBackpressureError,
+  TenantQueueRateLimitError
+} from "./lib/queue.js";
 import { contentTypeMiddleware } from "./middleware/content-type.js";
 import { csrfProtection } from "./middleware/csrf.js";
 import { errorHandler, notFoundMiddleware } from "./middleware/error-handler.js";
 import { authenticationMiddleware } from "./middleware/authentication.js";
 import { originValidationMiddleware } from "./middleware/origin-check.js";
-import { createRateLimitMiddleware } from "./middleware/rate-limit.js";
+import {
+  createLoginRateLimitMiddleware,
+  createRateLimitMiddleware,
+  createWebhookRateLimitMiddleware
+} from "./middleware/rate-limit.js";
 import { requestContextMiddleware } from "./middleware/request-context.js";
 import { sanitizeMutationInput } from "./middleware/sanitize-input.js";
 import { tenantContextMiddleware } from "./middleware/tenant-context.js";
@@ -67,6 +75,7 @@ import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes
 import { createPrivacyRouter } from "./modules/privacy/router.js";
 import { createSessionsRouter } from "./modules/sessions/router.js";
 import { createUsersRouter } from "./modules/users/router.js";
+import { createInstalledAgentsRouter } from "./modules/agents/router.js";
 import { createWebhooksRouter, initializeWorkflowInternalEventBridge } from "./modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
 import { createWorkflowsRouter } from "./modules/workflows/index.js";
@@ -84,6 +93,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   const config = dependencies.config ?? getApiConfig();
   const app = express();
   const healthService = dependencies.healthService ?? createHealthService(config);
+  const deepHealthService = createDeepHealthService(config);
   const enqueueTaskDependency = dependencies.enqueueTask ?? enqueueTask;
   const shouldExposeDocs = dependencies.shouldExposeDocs ?? config.NODE_ENV !== "production";
   const stripeWebhookEnabled = Boolean(config.STRIPE_SECRET_KEY && config.STRIPE_WEBHOOK_SECRET);
@@ -123,10 +133,31 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     })
   );
   if (stripeWebhookEnabled) {
-    app.use("/api/webhooks", createStripeWebhookRouter(config));
+    app.use(
+      "/api/webhooks",
+      createWebhookRateLimitMiddleware(config),
+      createStripeWebhookRouter(config)
+    );
   }
   app.use(contentTypeMiddleware);
-  app.use(express.json({ limit: "256kb" }));
+  app.use((request, response, next) => {
+    request.setTimeout(config.API_HANDLER_TIMEOUT_MS);
+    response.setTimeout(config.API_HANDLER_TIMEOUT_MS, () => {
+      if (response.headersSent) {
+        return;
+      }
+
+      next(
+        new ProblemDetailsError({
+          detail: `Request exceeded ${config.API_HANDLER_TIMEOUT_MS}ms timeout budget.`,
+          status: 408,
+          title: "Request Timeout"
+        })
+      );
+    });
+    next();
+  });
+  app.use(express.json({ limit: config.API_JSON_BODY_LIMIT }));
   app.use(sanitizeMutationInput);
   app.use(originValidationMiddleware(config.corsOrigins));
   app.use(
@@ -163,8 +194,23 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     })
   );
 
+  app.get(
+    "/health/deep",
+    asyncHandler(async (_request, response) => {
+      response.status(200).json(await deepHealthService());
+    })
+  );
+
+  app.get(
+    "/api/v1/health/deep",
+    asyncHandler(async (_request, response) => {
+      response.status(200).json(await deepHealthService());
+    })
+  );
+
   app.post(
     "/api/v1/auth/login",
+    createLoginRateLimitMiddleware(config),
     validateBody(loginRequestSchema),
     asyncHandler(async (request, response) => {
       const organizationId = await resolveOrganizationId(request.body.tenantId);
@@ -417,6 +463,12 @@ export function createApp(dependencies: AppDependencies = {}): Express {
           secondsUntilHardLock: billing.secondsUntilHardLock,
           status: billing.status
         },
+        plan_status: {
+          code: billing.plan.code,
+          hardLocked: billing.hardLocked,
+          isWithinGracePeriod: billing.isWithinGracePeriod,
+          status: billing.status
+        },
         requestId: request.context.requestId,
         user: {
           id: request.context.userId,
@@ -477,6 +529,14 @@ export function createApp(dependencies: AppDependencies = {}): Express {
           version: "1"
         });
       } catch (error) {
+        if (error instanceof TenantQueueRateLimitError) {
+          throw new ProblemDetailsError({
+            detail: `Tenant ${error.tenantId} exceeded the queue rate limit. Retry later.`,
+            status: 429,
+            title: "Too Many Requests"
+          });
+        }
+
         if (error instanceof QueueBackpressureError) {
           throw new ProblemDetailsError({
             detail: `Queue backlog reached ${error.pendingJobs} pending jobs. Retry later.`,
@@ -508,10 +568,12 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   );
 
   const marketplaceRouter = createMarketplaceRouter();
+  const installedAgentsRouter = createInstalledAgentsRouter();
   app.use(createAdminRouter(config));
   app.use("/api/v1/auth", createAuthRouter(config));
   app.use("/api/v1", createSessionsRouter(config));
   app.use("/api/v1/apikeys", createApiKeysRouter(config));
+  app.use("/api/v1/agents", installedAgentsRouter);
   app.use("/api/v1/agents", marketplaceRouter);
   app.use("/api/v1/analytics", createAnalyticsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);

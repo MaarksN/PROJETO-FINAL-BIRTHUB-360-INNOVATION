@@ -2,8 +2,8 @@ import { notFound } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config";
 
-import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel.js";
-import { getAgentSnapshotById } from "../../../../../lib/agents.js";
+import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel";
+import { getAgentSnapshotById } from "../../../../../lib/agents";
 
 export default function AgentRunPage({ params }: Readonly<{ params: { id: string } }>) {
   const agent = getAgentSnapshotById(params.id);

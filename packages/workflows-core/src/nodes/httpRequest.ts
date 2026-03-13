@@ -9,7 +9,7 @@ interface HttpRequestNodeConfig {
         bearer?: string | undefined;
       }
     | undefined;
-  body?: unknown | undefined;
+  body?: unknown;
   headers?: Record<string, string> | undefined;
   method?: "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
   timeout_ms?: number;

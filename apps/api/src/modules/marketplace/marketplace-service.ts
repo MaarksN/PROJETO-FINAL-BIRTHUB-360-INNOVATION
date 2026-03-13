@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 
 import {
+  isInstallableManifest,
   loadManifestCatalog,
   recommendAgentsForTenant,
   searchManifestCatalog,
@@ -96,21 +97,26 @@ export class MarketplaceService {
     useCases?: string | string[];
   }): Promise<ManifestSearchResult> {
     const catalog = await this.getCatalog();
-
+    const domains = normalizeTagList(input.domains);
+    const industries = normalizeTagList(input.industries);
+    const levels = normalizeTagList(input.levels);
+    const personas = normalizeTagList(input.personas);
+    const tags = normalizeTagList(input.tags);
+    const useCases = normalizeTagList(input.useCases);
     const filters: ManifestSearchFilters = {
-      domains: normalizeTagList(input.domains),
-      industries: normalizeTagList(input.industries),
-      levels: normalizeTagList(input.levels),
-      personas: normalizeTagList(input.personas),
-      tags: normalizeTagList(input.tags),
-      useCases: normalizeTagList(input.useCases)
+      ...(domains ? { domains } : {}),
+      ...(industries ? { industries } : {}),
+      ...(levels ? { levels } : {}),
+      ...(personas ? { personas } : {}),
+      ...(tags ? { tags } : {}),
+      ...(useCases ? { useCases } : {})
     };
 
     return searchManifestCatalog(catalog, {
-      filters,
-      page: input.page,
-      pageSize: input.pageSize,
-      query: input.query
+      ...(Object.keys(filters).length > 0 ? { filters } : {}),
+      ...(typeof input.page === "number" ? { page: input.page } : {}),
+      ...(typeof input.pageSize === "number" ? { pageSize: input.pageSize } : {}),
+      ...(input.query ? { query: input.query } : {})
     });
   }
 
@@ -121,6 +127,16 @@ export class MarketplaceService {
 
   async getApprovalStats(agentIds: string[]) {
     if (agentIds.length === 0) {
+      return new Map<
+        string,
+        {
+          approvalRate: number;
+          feedbackCount: number;
+        }
+      >();
+    }
+
+    if (!process.env.DATABASE_URL) {
       return new Map<
         string,
         {
@@ -210,6 +226,12 @@ export class MarketplaceService {
       "",
       manifest.agent.description,
       "",
+      "## Keywords",
+      ...manifest.keywords.map((keyword) => `- ${keyword}`),
+      "",
+      "## Policies",
+      ...manifest.policies.map((policy) => `- **${policy.name}** (${policy.effect}): ${policy.actions.join(", ")}`),
+      "",
       "## Prompt",
       manifest.agent.prompt,
       "",
@@ -231,15 +253,17 @@ export class MarketplaceService {
       agentId: string;
       agentName: string;
       domain: string[];
+      keywords: string[];
       tools: string[];
     }>
   > {
     const catalog = await this.getCatalog();
 
-    return catalog.map((entry) => ({
+    return catalog.filter((entry) => isInstallableManifest(entry.manifest)).map((entry) => ({
       agentId: entry.manifest.agent.id,
       agentName: entry.manifest.agent.name,
       domain: entry.manifest.tags.domain,
+      keywords: entry.manifest.keywords,
       tools: entry.manifest.tools.map((tool) => tool.name)
     }));
   }
