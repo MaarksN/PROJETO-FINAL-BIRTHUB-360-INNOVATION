@@ -37,6 +37,7 @@ import { createMarketplaceRouter } from "./modules/marketplace/marketplace-route
 import { createBillingRouter, getBillingSnapshot } from "./modules/billing/index.js";
 import { createOrganizationsRouter } from "./modules/organizations/router.js";
 import { createOrganization } from "./modules/organizations/service.js";
+import { startOutputRetentionScheduler } from "./modules/outputs/output-retention.js";
 import { createOutputRouter } from "./modules/outputs/output-routes.js";
 import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
 import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
@@ -92,6 +93,10 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use(express.json({ limit: "256kb" }));
   app.use(sanitizeMutationInput);
   app.use(createRateLimitMiddleware(config));
+
+  if (config.NODE_ENV !== "test") {
+    startOutputRetentionScheduler();
+  }
 
   if (shouldExposeDocs) {
     app.get("/api/openapi.json", (_request, response) => {
