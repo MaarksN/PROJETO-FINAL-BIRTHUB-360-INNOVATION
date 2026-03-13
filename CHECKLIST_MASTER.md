@@ -123,6 +123,61 @@ Fonte oficial dos 50 itens `J*` do Ciclo 1 não foi localizada no workspace atua
 - [x] 2.10.C4
 - [x] 2.10.C5
 
+## Ciclo 6 — Itens CODEX (50)
+
+| ID | Status | Executor | Evidência | touched_paths |
+|---|---|---|---|---|
+| 6.1.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-61C1]` | Schema Prisma ampliado com `WorkflowStep`, `WorkflowTransition`, `WorkflowExecution`, `StepResult` + índices tenant e migração RLS. | `packages/database/prisma/schema.prisma`, `packages/database/prisma/migrations/20260313000300_cycle6_workflows_orchestration/migration.sql` |
+| 6.1.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-61C2]` | Validador DAG com detecção de ciclo e `CyclicDependencyError`. | `packages/workflows-core/src/parser/dagValidator.ts`, `packages/workflows-core/src/errors.ts` |
+| 6.1.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-61C3]` | CRUD API de workflows criado com estados `DRAFT/PUBLISHED/ARCHIVED` e bloqueio de execução fora de `PUBLISHED`. | `apps/api/src/modules/workflows/router.ts`, `apps/api/src/modules/workflows/service.ts` |
+| 6.1.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-61C4]` | `step.schema.ts` com unions discriminadas estritas por tipo de step. | `packages/workflows-core/src/schemas/step.schema.ts` |
+| 6.1.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-61C5]` | Seed atualizado com `Onboarding Workflow` e `Alert Workflow` por tenant com steps/transitions reais. | `packages/database/prisma/seed.ts` |
+| 6.2.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-62C1]` | `WorkflowRunner` criado com avanço por transição e persistência por step. | `apps/worker/src/engine/runner.ts`, `apps/worker/src/worker.ts` |
+| 6.2.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-62C2]` | Interpolação `{{ steps.node.output }}` e resolução em objetos aninhados. | `packages/workflows-core/src/interpolation/interpolate.ts` |
+| 6.2.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-62C3]` | Retry isolado por step com backoff exponencial e requeue dedicado. | `apps/worker/src/engine/runner.ts`, `apps/api/src/modules/workflows/runnerQueue.ts` |
+| 6.2.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-62C4]` | Delay node usa `delay` no BullMQ para retomada sem bloquear worker. | `apps/worker/src/engine/runner.ts`, `packages/workflows-core/src/nodes/delay.ts` |
+| 6.2.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-62C5]` | `StepResult` persistido com limiar 200KB e fallback para URL externa. | `apps/worker/src/engine/runner.ts`, `packages/database/prisma/schema.prisma` |
+| 6.3.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-63C1]` | Trigger webhook assinado por workflow/tenant com endpoint dedicado. | `apps/api/src/modules/webhooks/router.ts`, `apps/api/src/modules/workflows/router.ts` |
+| 6.3.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-63C2]` | Cron trigger em repeatable jobs via BullMQ (`workflow-trigger`). | `apps/api/src/modules/workflows/runnerQueue.ts`, `apps/worker/src/worker.ts` |
+| 6.3.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-63C3]` | Bridge de EventBus interno para disparo automático de workflows por tópico. | `apps/api/src/modules/webhooks/eventBus.ts`, `apps/api/src/modules/workflows/router.ts` |
+| 6.3.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-63C4]` | Endpoint manual `Run Now` com verificação de role (ADMIN/OWNER). | `apps/api/src/modules/workflows/router.ts` |
+| 6.3.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-63C5]` | Deduplicação de trigger por hash de payload + tenant em janela de 5s. | `apps/api/src/modules/workflows/runnerQueue.ts`, `apps/api/src/modules/webhooks/router.ts` |
+| 6.4.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-64C1]` | Node HTTP com headers/body dinâmicos, bearer, timeout e proteção SSRF. | `packages/workflows-core/src/nodes/httpRequest.ts` |
+| 6.4.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-64C2]` | Node Condition seguro para IF/ELSE sem execução arbitrária. | `packages/workflows-core/src/nodes/condition.ts` |
+| 6.4.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-64C3]` | Node Code sandboxed via `vm` com timeout rígido de 1000ms. | `packages/workflows-core/src/nodes/code.ts` |
+| 6.4.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-64C4]` | Node Transformer para map/filter em arrays. | `packages/workflows-core/src/nodes/transformer.ts` |
+| 6.4.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-64C5]` | Node Send Notification integrado a dispatcher global do runner. | `packages/workflows-core/src/nodes/notification.ts`, `apps/worker/src/worker.ts` |
+| 6.5.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-65C1]` | Agent Execute aguarda retorno do executor antes de avançar o fluxo. | `packages/workflows-core/src/nodes/agentExecute.ts`, `apps/worker/src/worker.ts` |
+| 6.5.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-65C2]` | Injeção de resumo de contexto do workflow no input do agente. | `packages/workflows-core/src/nodes/agentExecute.ts`, `apps/worker/src/worker.ts` |
+| 6.5.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-65C3]` | Falhas do agente respeitam `onError` com fallback/stop no runner. | `apps/worker/src/engine/runner.ts`, `packages/database/prisma/schema.prisma` |
+| 6.5.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-65C4]` | Node `AI_TEXT_EXTRACT` criado para extração rápida em JSON. | `packages/workflows-core/src/nodes/aiTextExtract.ts` |
+| 6.5.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-65C5]` | Rate limit compartilhado Workflow+Agent sobre cota `AI_PROMPTS`. | `apps/worker/src/engine/runner.ts` |
+| 6.6.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-66C1]` | React Flow instalado e configurado no editor de workflow. | `apps/web/package.json`, `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx` |
+| 6.6.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-66C2]` | Custom nodes `Trigger/Action/Condition` com status visual e handles. | `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx` |
+| 6.6.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-66C3]` | Sidebar com formulário (`react-hook-form`) para editar JSON do node. | `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx` |
+| 6.6.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-66C4]` | Minimap, controls e auto-layout (dagre) adicionados ao canvas. | `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx`, `apps/web/dagre.d.ts` |
+| 6.6.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-66C5]` | Validação live DAG + schema com borda vermelha em nós inválidos. | `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx` |
+| 6.7.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-67C1]` | Página de runs com status, data e duração. | `apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx` |
+| 6.7.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-67C2]` | Visual debugger read-only destaca arestas percorridas e falhas. | `apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx` |
+| 6.7.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-67C3]` | Drawer de input/output por nó com mascaramento de secrets. | `apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx` |
+| 6.7.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-67C4]` | Botão de retry clona run e reinicia a partir da falha. | `apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx` |
+| 6.7.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-67C5]` | Painel de métricas de sucesso/erro/duração média/gargalo por nó. | `apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx` |
+| 6.8.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-68C1]` | Suíte unitária do DAG parser cobrindo 5 grafos inválidos. | `packages/workflows-core/test/dag.test.ts` |
+| 6.8.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-68C2]` | Testes do runner para branches condicionais/failure routes. | `apps/worker/src/engine/runner.transitions.test.ts` |
+| 6.8.C3 | Vermelho | CODEX | Mock E2E de side-effects (HTTP/Email) ainda não implantado na suíte global. | `N/A` |
+| 6.8.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-68C4]` | Teste de cancelamento garante que execução cancelada não avança. | `apps/worker/src/engine/runner.cancel.test.ts` |
+| 6.8.C5 | Vermelho | CODEX | Gate de cobertura por tipo de step no CI ainda pendente de implantação. | `N/A` |
+| 6.9.C1 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-69C1]` | Cache de step idempotente com TTL por step no runner. | `apps/worker/src/engine/runner.ts`, `packages/database/prisma/schema.prisma` |
+| 6.9.C2 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-69C2]` | Batching de notificações por `batchKey` com janela configurável. | `packages/workflows-core/src/nodes/notification.ts`, `packages/workflows-core/src/schemas/step.schema.ts` |
+| 6.9.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-69C3]` | Proteção de profundidade máxima (`maxDepth`) em runtime. | `apps/worker/src/engine/runner.ts` |
+| 6.9.C4 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-69C4]` | Saída HTTP adiciona `X-BirthHub-Signature` para webhooks externos. | `packages/workflows-core/src/nodes/httpRequest.ts` |
+| 6.9.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-69C5]` | Limite de execução sandbox com timeout < 1s e guarda de memória 128MB. | `packages/workflows-core/src/nodes/code.ts` |
+| 6.10.C1 | Vermelho | CODEX | Evidência visual (GIF/print) do fluxo de 10 nós ainda não anexada. | `N/A` |
+| 6.10.C2 | Vermelho | CODEX | Zerar warnings globais do módulo novo depende de saneamento técnico legado da base. | `N/A` |
+| 6.10.C3 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-610C3]` | Estruturas de workflow com `tenantId` + políticas RLS criadas para isolamento por tenant. | `packages/database/prisma/migrations/20260313000300_cycle6_workflows_orchestration/migration.sql` |
+| 6.10.C4 | Vermelho | CODEX | E2E transversal Workflow -> Agent Engine ainda não automatizado ponta a ponta. | `N/A` |
+| 6.10.C5 | Azul | CODEX `[SIG: CODEX-C6-EXEC-20260313-610C5]` | Checklist mestre atualizado com estado de execução do Ciclo 6. | `CHECKLIST_MASTER.md` |
+
 ## Ciclo 7 — Billing, Assinaturas, Monetizacao
 
 | ID | Status | Executor | Evidencia | touched_paths |

@@ -20,6 +20,17 @@
 - `1.6.C3`, `1.10.C4` e `1.10.C5` possuem implementação pronta, mas a evidência final de execução depende de instalar dependências e subir serviços locais.
 - Os 50 itens `J*` do Ciclo 1 não foram encontrados como backlog explícito no workspace; por isso ficaram rastreados como pendência de origem oficial, e não como aprovados por inferência.
 
+## Execução do Ciclo 6 (Workflows, Automação e Orquestração)
+
+- Data: `2026-03-13`
+- Resultado: base do ciclo implementada e promovida para `Azul` em 45/50 itens, com 5 pendências explícitas em `Vermelho` (6.8.C3, 6.8.C5, 6.10.C1, 6.10.C2, 6.10.C4).
+- Evidências de testes:
+  - `pnpm --filter @birthub/workflows-core typecheck`
+  - `pnpm --filter @birthub/workflows-core test`
+  - `pnpm --filter @birthub/database typecheck`
+  - `node --import tsx --test apps/worker/src/engine/runner.transitions.test.ts apps/worker/src/engine/runner.cancel.test.ts`
+- Observação de risco: os comandos de `typecheck` globais de `@birthub/api`, `@birthub/worker` e `@birthub/web` já possuem dívida técnica anterior ao Ciclo 6 (erros estruturais preexistentes), o que impede promoção automática para `Verde` sem validação corretiva dedicada.
+
 ## Execução do Ciclo 7 (Billing/Monetização)
 
 - Data: `2026-03-13`

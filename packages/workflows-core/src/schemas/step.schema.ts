@@ -1,9 +1,15 @@
 import { z } from "zod";
 
+const interpolationGuard = (value: string) => !value.includes("${");
+
 const interpolationString = z
   .string()
   .min(1)
-  .refine((value) => !value.includes("${"), "Template literals are not allowed in workflow config.");
+  .refine((value) => interpolationGuard(value), "Template literals are not allowed in workflow config.");
+const interpolationUrlString = z
+  .string()
+  .url()
+  .refine((value) => interpolationGuard(value), "Template literals are not allowed in workflow config.");
 
 const triggerWebhookSchema = z
   .object({
@@ -68,7 +74,7 @@ const httpRequestSchema = z
       .object({
         auth: z
           .object({
-            bearer: interpolationString.min(1).optional()
+            bearer: interpolationString.optional()
           })
           .strict()
           .optional(),
@@ -76,8 +82,8 @@ const httpRequestSchema = z
         headers: z.record(z.string(), interpolationString).default({}),
         method: z.enum(["DELETE", "GET", "PATCH", "POST", "PUT"]).default("GET"),
         timeout_ms: z.number().int().positive().max(10_000).default(2500),
-        url: interpolationString.url(),
-        webhookSecret: interpolationString.min(1).optional()
+        url: interpolationUrlString,
+        webhookSecret: interpolationString.optional()
       })
       .strict(),
     key: z.string().min(1),
@@ -136,10 +142,10 @@ const notificationSchema = z
     config: z
       .object({
         channel: z.enum(["email", "inapp"]),
-        message: interpolationString.min(1),
+        message: interpolationString,
         batchKey: z.string().min(1).optional(),
         batchWindowMs: z.number().int().positive().max(60_000).default(5000),
-        to: interpolationString.min(1)
+        to: interpolationString
       })
       .strict(),
     key: z.string().min(1),
@@ -168,7 +174,7 @@ const aiTextExtractSchema = z
     config: z
       .object({
         fields: z.array(z.string().min(1)).min(1),
-        text: interpolationString.min(1)
+        text: interpolationString
       })
       .strict(),
     key: z.string().min(1),
