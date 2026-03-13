@@ -35,7 +35,7 @@ function createPrismaClient(): PrismaClient {
 
   client.$use(async (params, next) => {
     return raceWithTimeout(next(params), params.action, params.model);
-  }) as PrismaClient;
+  });
 
   return client;
 }
