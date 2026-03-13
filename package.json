@@ -28,6 +28,7 @@
     "db:migrate:deploy": "pnpm --filter @birthub/database db:migrate:deploy",
     "db:reset": "pnpm --filter @birthub/database db:reset",
     "db:seed": "pnpm --filter @birthub/database db:seed",
+    "billing:sync": "pnpm --filter @birthub/api billing:sync",
     "setup:local": "bash ./scripts/setup/setup-local.sh",
     "reset:local": "bash ./scripts/reset-local.sh",
     "postinstall": "pnpm db:generate",

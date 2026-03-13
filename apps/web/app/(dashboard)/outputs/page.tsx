@@ -1,3 +1,5 @@
+import { getWebConfig } from "@birthub/config";
+
 import { fetchOutputs } from "../../../lib/marketplace-api.js";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -17,6 +19,7 @@ export default async function OutputsPage({
 }>) {
   const resolvedParams = (await searchParams) ?? {};
   const typeFilter = readParam(resolvedParams.type);
+  const config = getWebConfig();
 
   const data = await fetchOutputs(typeFilter || undefined).catch(() => ({ outputs: [] }));
 
@@ -62,8 +65,10 @@ export default async function OutputsPage({
                     <code>{output.outputHash.slice(0, 16)}...</code>
                   </td>
                   <td style={{ borderBottom: "1px solid var(--border)", padding: "0.5rem" }}>
-                    <a href={`/api/v1/outputs/${output.id}`}>Detalhes</a>{" "}
-                    <a href={`/api/v1/outputs/${output.id}/export`}>Exportar PDF/MD</a>
+                    <a href={`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${output.id}`}>Detalhes</a>{" "}
+                    <a href={`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${output.id}/export`}>
+                      Exportar PDF/MD
+                    </a>
                   </td>
                 </tr>
               ))

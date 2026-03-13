@@ -101,12 +101,40 @@ jobs:
           SESSION_SECRET: ci-secret
           WEB_BASE_URL: http://localhost:3001
 
+  pack-tests:
+    name: pack-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate manifests
+        run: pnpm packs:validate
+
+      - name: Pack schema and regression tests
+        run: pnpm packs:test && pnpm packs:smoke && pnpm packs:regression
+
   ci:
     name: ci
     runs-on: ubuntu-latest
     needs:
       - gitleaks
       - platform
+      - pack-tests
     steps:
       - name: Done
         run: echo "All required checks passed."

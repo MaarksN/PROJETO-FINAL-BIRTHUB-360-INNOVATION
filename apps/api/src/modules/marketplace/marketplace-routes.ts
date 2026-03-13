@@ -13,23 +13,72 @@ function parsePositiveInt(value: unknown, fallback: number): number {
   return Math.floor(parsed);
 }
 
+function readQueryString(value: unknown): string | undefined {
+  if (typeof value === "string") {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    const first = value[0];
+    return typeof first === "string" ? first : undefined;
+  }
+
+  return undefined;
+}
+
 export function createMarketplaceRouter(): Router {
   const router = Router();
 
   router.get(
     "/search",
     asyncHandler(async (request, response) => {
-      const result = await marketplaceService.search({
-        domains: request.query.domain as string | string[] | undefined,
-        industries: request.query.industry as string | string[] | undefined,
-        levels: request.query.level as string | string[] | undefined,
+      const searchInput: {
+        domains?: string | string[];
+        industries?: string | string[];
+        levels?: string | string[];
+        page: number;
+        pageSize: number;
+        personas?: string | string[];
+        query: string;
+        tags?: string | string[];
+        useCases?: string | string[];
+      } = {
         page: parsePositiveInt(request.query.page, 1),
         pageSize: parsePositiveInt(request.query.pageSize, 12),
-        personas: request.query.persona as string | string[] | undefined,
-        query: (request.query.q as string | undefined) ?? "",
-        tags: request.query.tags as string | string[] | undefined,
-        useCases: request.query.useCase as string | string[] | undefined
-      });
+        query: readQueryString(request.query.q) ?? ""
+      };
+      const domains = request.query.domain as string | string[] | undefined;
+      const industries = request.query.industry as string | string[] | undefined;
+      const levels = request.query.level as string | string[] | undefined;
+      const personas = request.query.persona as string | string[] | undefined;
+      const tags = request.query.tags as string | string[] | undefined;
+      const useCases = request.query.useCase as string | string[] | undefined;
+
+      if (domains) {
+        searchInput.domains = domains;
+      }
+
+      if (industries) {
+        searchInput.industries = industries;
+      }
+
+      if (levels) {
+        searchInput.levels = levels;
+      }
+
+      if (personas) {
+        searchInput.personas = personas;
+      }
+
+      if (tags) {
+        searchInput.tags = tags;
+      }
+
+      if (useCases) {
+        searchInput.useCases = useCases;
+      }
+
+      const result = await marketplaceService.search(searchInput);
 
       sendEtaggedJson(request, response, {
         facets: result.facets,
@@ -53,10 +102,7 @@ export function createMarketplaceRouter(): Router {
   router.get(
     "/recommendations",
     asyncHandler(async (request, response) => {
-      const tenantIndustry =
-        (request.query.tenantIndustry as string | undefined) ??
-        request.header("x-tenant-industry") ??
-        "sales";
+      const tenantIndustry = readQueryString(request.query.tenantIndustry) ?? request.header("x-tenant-industry") ?? "sales";
 
       const recommendations = await marketplaceService.recommend(tenantIndustry, 6);
 
@@ -83,11 +129,21 @@ export function createMarketplaceRouter(): Router {
   router.get(
     "/:agentId/docs",
     asyncHandler(async (request, response) => {
-      const docs = await marketplaceService.getAgentDocs(request.params.agentId);
+      const agentId = request.params.agentId;
+
+      if (!agentId) {
+        throw new ProblemDetailsError({
+          detail: "Agent id is required.",
+          status: 400,
+          title: "Bad Request"
+        });
+      }
+
+      const docs = await marketplaceService.getAgentDocs(agentId);
 
       if (!docs) {
         throw new ProblemDetailsError({
-          detail: `Agent ${request.params.agentId} not found in catalog.`,
+          detail: `Agent ${agentId} not found in catalog.`,
           status: 404,
           title: "Agent Not Found"
         });
@@ -100,11 +156,21 @@ export function createMarketplaceRouter(): Router {
   router.get(
     "/:agentId/changelog",
     asyncHandler(async (request, response) => {
-      const changelog = await marketplaceService.getAgentChangelog(request.params.agentId);
+      const agentId = request.params.agentId;
+
+      if (!agentId) {
+        throw new ProblemDetailsError({
+          detail: "Agent id is required.",
+          status: 400,
+          title: "Bad Request"
+        });
+      }
+
+      const changelog = await marketplaceService.getAgentChangelog(agentId);
 
       if (!changelog) {
         throw new ProblemDetailsError({
-          detail: `Agent ${request.params.agentId} not found in catalog.`,
+          detail: `Agent ${agentId} not found in catalog.`,
           status: 404,
           title: "Agent Not Found"
         });

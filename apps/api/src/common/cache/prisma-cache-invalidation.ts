@@ -73,14 +73,106 @@ async function resolveTenantIdsForUsers(where: unknown): Promise<string[]> {
   return collectTenantReferences(memberships.map((membership) => membership.tenantId));
 }
 
+function organizationReferencesFromResult(result: unknown): string[] {
+  if (!result || typeof result !== "object") {
+    return [];
+  }
+
+  const organization = result as {
+    id?: string;
+    slug?: string | null;
+    tenantId?: string;
+  };
+
+  return collectTenantReferences([organization.id, organization.slug ?? null, organization.tenantId]);
+}
+
+function wrapDelegateMutation(
+  delegate: Record<string, unknown>,
+  action: "delete" | "update",
+  resolveReferencesBeforeMutation: (args: unknown) => Promise<string[]>,
+  resolveReferencesAfterMutation: (result: unknown) => string[] = () => []
+): void {
+  const original = delegate[action];
+
+  if (typeof original !== "function") {
+    return;
+  }
+
+  delegate[action] = (async (args: unknown) => {
+    const referencesBeforeMutation = await resolveReferencesBeforeMutation(args);
+    const result = await original.call(delegate, args);
+    const referencesAfterMutation = resolveReferencesAfterMutation(result);
+    const referencesToInvalidate = collectTenantReferences([
+      ...referencesBeforeMutation,
+      ...referencesAfterMutation
+    ]);
+
+    if (referencesToInvalidate.length > 0) {
+      await invalidateTenantCache(referencesToInvalidate);
+    }
+
+    return result;
+  }) as unknown;
+}
+
+function registerByWrappingDelegates(): void {
+  const prismaClient = prisma as unknown as {
+    organization: Record<string, unknown>;
+    user: Record<string, unknown>;
+  };
+
+  wrapDelegateMutation(
+    prismaClient.organization,
+    "update",
+    async (args) =>
+      (await resolveOrganizationsFromWhere((args as { where?: unknown })?.where)).flatMap(
+        organizationToReferences
+      ),
+    organizationReferencesFromResult
+  );
+  wrapDelegateMutation(
+    prismaClient.organization,
+    "delete",
+    async (args) =>
+      (await resolveOrganizationsFromWhere((args as { where?: unknown })?.where)).flatMap(
+        organizationToReferences
+      ),
+    organizationReferencesFromResult
+  );
+  wrapDelegateMutation(
+    prismaClient.user,
+    "update",
+    async (args) => resolveTenantIdsForUsers((args as { where?: unknown })?.where)
+  );
+  wrapDelegateMutation(
+    prismaClient.user,
+    "delete",
+    async (args) => resolveTenantIdsForUsers((args as { where?: unknown })?.where)
+  );
+}
+
 export function registerTenantCacheInvalidationMiddleware(): void {
   if (middlewareRegistered) {
     return;
   }
 
   middlewareRegistered = true;
+  const prismaWithMiddleware = prisma as {
+    $use?: (
+      middleware: (
+        params: any,
+        next: (params: any) => Promise<unknown>
+      ) => Promise<unknown>
+    ) => void;
+  };
 
-  prisma.$use(async (params, next) => {
+  if (typeof prismaWithMiddleware.$use !== "function") {
+    registerByWrappingDelegates();
+    return;
+  }
+
+  prismaWithMiddleware.$use(async (params, next) => {
     if (!params.model || !MUTATION_ACTIONS.has(params.action)) {
       return next(params);
     }
@@ -97,24 +189,9 @@ export function registerTenantCacheInvalidationMiddleware(): void {
     }
 
     const result = await next(params);
-
-    const referencesAfterMutation: string[] = [];
-
-    if (params.model === "Organization" && result && typeof result === "object") {
-      const organization = result as {
-        id?: string;
-        slug?: string | null;
-        tenantId?: string;
-      };
-
-      referencesAfterMutation.push(
-        ...collectTenantReferences([organization.id, organization.slug ?? null, organization.tenantId])
-      );
-    }
-
     const referencesToInvalidate = collectTenantReferences([
       ...referencesBeforeMutation,
-      ...referencesAfterMutation
+      ...organizationReferencesFromResult(result)
     ]);
 
     if (referencesToInvalidate.length > 0) {

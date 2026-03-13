@@ -8,7 +8,6 @@ import {
   taskEnqueuedResponseSchema,
   taskRequestSchema
 } from "@birthub/config";
-import { Role, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import cors from "cors";
 import express from "express";
@@ -35,8 +34,12 @@ import { createBudgetRouter } from "./modules/budget/budget-routes.js";
 import { budgetService } from "./modules/budget/budget.service.js";
 import { BudgetExceededError } from "./modules/budget/budget.types.js";
 import { createMarketplaceRouter } from "./modules/marketplace/marketplace-routes.js";
+import { createBillingRouter, getBillingSnapshot } from "./modules/billing/index.js";
+import { createOrganizationsRouter } from "./modules/organizations/router.js";
+import { createOrganization } from "./modules/organizations/service.js";
 import { createOutputRouter } from "./modules/outputs/output-routes.js";
 import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
+import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
 
 const logger = createLogger("api");
 
@@ -84,6 +87,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       }
     })
   );
+  app.use("/api/webhooks", createStripeWebhookRouter(config));
   app.use(contentTypeMiddleware);
   app.use(express.json({ limit: "256kb" }));
   app.use(sanitizeMutationInput);
@@ -143,52 +147,61 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/organizations",
     validateBody(createOrganizationRequestSchema),
     asyncHandler(async (request, response) => {
-      const organization = await prisma.organization.create({
-        data: {
-          name: request.body.name,
-          slug: request.body.slug
-        }
+      const organization = await createOrganization({
+        adminEmail: request.body.adminEmail,
+        adminName: request.body.adminName,
+        name: request.body.name,
+        requestId: request.context.requestId,
+        slug: request.body.slug
       });
 
-      const owner = await prisma.user.create({
-        data: {
-          email: request.body.adminEmail,
-          name: request.body.adminName
-        }
-      });
-
-      await prisma.membership.create({
-        data: {
-          organizationId: organization.id,
-          role: Role.OWNER,
-          tenantId: organization.tenantId,
-          userId: owner.id
-        }
-      });
-
-      request.context.tenantId = organization.tenantId;
-      request.context.userId = owner.id;
+      request.context.tenantId = organization.tenantId ?? null;
+      request.context.userId = organization.ownerUserId;
 
       logger.info(
         {
-          organizationId: organization.id,
+          organizationId: organization.organizationId,
           requestId: request.context.requestId,
           tenantId: organization.tenantId,
-          userId: owner.id
+          userId: organization.ownerUserId
         },
         "Provisioned organization"
       );
 
-      response.status(201).json(
-        createOrganizationResponseSchema.parse({
-          organizationId: organization.id,
-          ownerUserId: owner.id,
-          requestId: request.context.requestId,
-          role: "OWNER",
-          slug: organization.slug,
-          tenantId: organization.tenantId
-        })
+      response.status(201).json(createOrganizationResponseSchema.parse(organization));
+    })
+  );
+
+  app.get(
+    "/api/v1/me",
+    asyncHandler(async (request, response) => {
+      if (!request.context.tenantId) {
+        throw new ProblemDetailsError({
+          detail: "Tenant context is required to resolve profile.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      const billing = await getBillingSnapshot(
+        request.context.tenantId,
+        config.BILLING_GRACE_PERIOD_DAYS
       );
+
+      response.status(200).json({
+        plan: {
+          code: billing.plan.code,
+          hardLocked: billing.hardLocked,
+          isPaid: billing.isPaid,
+          name: billing.plan.name,
+          status: billing.status
+        },
+        requestId: request.context.requestId,
+        user: {
+          id: request.context.userId,
+          tenantId: request.context.tenantId
+        }
+      });
     })
   );
 
@@ -276,7 +289,9 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   const marketplaceRouter = createMarketplaceRouter();
   app.use("/api/v1/agents", marketplaceRouter);
   app.use("/api/v1/marketplace", marketplaceRouter);
+  app.use("/api/v1/billing", createBillingRouter(config));
   app.use("/api/v1/budgets", createBudgetRouter());
+  app.use("/api/v1", createOrganizationsRouter());
   app.use("/api/v1/packs", createPackInstallerRouter());
   app.use("/api/v1/outputs", createOutputRouter());
 

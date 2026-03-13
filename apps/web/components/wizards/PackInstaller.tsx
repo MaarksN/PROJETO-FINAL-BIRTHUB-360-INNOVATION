@@ -5,6 +5,7 @@ import React, { useMemo, useState } from "react";
 type Step = 1 | 2 | 3 | 4;
 
 interface PackInstallerProps {
+  apiUrl: string;
   availablePacks: Array<{
     description: string;
     id: string;
@@ -12,7 +13,7 @@ interface PackInstallerProps {
   }>;
 }
 
-export function PackInstaller({ availablePacks }: Readonly<PackInstallerProps>) {
+export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstallerProps>) {
   const [step, setStep] = useState<Step>(1);
   const [selectedPackId, setSelectedPackId] = useState<string>(availablePacks[0]?.id ?? "");
   const [activateAgents, setActivateAgents] = useState(true);
@@ -31,7 +32,7 @@ export function PackInstaller({ availablePacks }: Readonly<PackInstallerProps>) 
   async function installPack(): Promise<void> {
     setStatus("Instalando pacote...");
 
-    const response = await fetch("/api/v1/packs/install", {
+    const response = await fetch(`${apiUrl}/api/v1/packs/install`, {
       body: JSON.stringify({
         activateAgents,
         connectors,

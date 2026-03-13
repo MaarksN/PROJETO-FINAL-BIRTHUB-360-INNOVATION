@@ -29,15 +29,20 @@ function raceWithTimeout<T>(
 }
 
 function createPrismaClient(): PrismaClient {
-  const client = new PrismaClient({
+  const baseClient = new PrismaClient({
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"]
   });
 
-  client.$use(async (params, next) => {
-    return raceWithTimeout(next(params), params.action, params.model);
-  });
-
-  return client;
+  return baseClient.$extends({
+    name: "birthub-query-timeout",
+    query: {
+      $allModels: {
+        async $allOperations({ model, operation, args, query }) {
+          return raceWithTimeout(query(args), operation, model);
+        }
+      }
+    }
+  }) as PrismaClient;
 }
 
 export const prisma = globalForPrisma.birthubPrisma ?? createPrismaClient();

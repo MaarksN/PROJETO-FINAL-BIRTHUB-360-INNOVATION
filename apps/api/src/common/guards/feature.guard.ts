@@ -3,13 +3,13 @@ import type { NextFunction, Request, RequestHandler, Response } from "express";
 import { getApiConfig } from "@birthub/config";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { canUseFeature, type PlanFeature } from "../../modules/billing/service.js";
-
-const config = getApiConfig();
+import { type PlanFeature } from "../../modules/billing/plan.utils.js";
+import { canUseFeature } from "../../modules/billing/service.js";
 
 export function RequireFeature(feature: PlanFeature): RequestHandler {
   return async (request: Request, _response: Response, next: NextFunction) => {
     try {
+      const config = getApiConfig();
       const organizationId = request.context.tenantId;
 
       if (!organizationId) {

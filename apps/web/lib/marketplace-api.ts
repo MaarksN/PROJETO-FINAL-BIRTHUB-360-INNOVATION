@@ -137,5 +137,5 @@ export async function fetchOutputs(type?: string) {
       status: string;
       type: string;
     }>;
-  }>(`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${query}`);
+  }>(`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs${query}`);
 }

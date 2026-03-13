@@ -13,7 +13,6 @@ import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { ensurePlanByCode, provisionStripeCustomerForOrganization } from "../billing/service.js";
 
 type DatabaseClient = PrismaClient | Prisma.TransactionClient;
-const config = getApiConfig();
 
 const bootstrapQuotas: Array<{ limit: number; resourceType: QuotaResourceType }> = [
   { limit: 5_000, resourceType: "API_REQUESTS" },
@@ -66,6 +65,8 @@ export async function createOrganization(input: {
   requestId: string;
   slug: string;
 }) {
+  const config = getApiConfig();
+
   try {
     return await prisma.$transaction(async (tx) => {
       const starterPlan = await ensurePlanByCode("starter", tx);

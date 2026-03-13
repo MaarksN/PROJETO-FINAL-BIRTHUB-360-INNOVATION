@@ -1,3 +1,4 @@
+import { getWebConfig } from "@birthub/config";
 import Link from "next/link";
 
 import { PackInstaller } from "../../../components/wizards/PackInstaller.js";
@@ -22,6 +23,7 @@ export default async function MarketplacePage({
 }: Readonly<{
   searchParams?: Promise<SearchParams>;
 }>) {
+  const config = getWebConfig();
   const resolvedParams = (await searchParams) ?? {};
 
   const query = readParam(resolvedParams.q);
@@ -63,7 +65,7 @@ export default async function MarketplacePage({
         </p>
       </header>
 
-      <PackInstaller availablePacks={availablePacks.slice(0, 8)} />
+      <PackInstaller apiUrl={config.NEXT_PUBLIC_API_URL} availablePacks={availablePacks.slice(0, 8)} />
 
       <form
         style={{

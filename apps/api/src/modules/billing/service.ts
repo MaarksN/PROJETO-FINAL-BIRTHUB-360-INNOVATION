@@ -129,6 +129,14 @@ export async function ensurePlanByCode(code: string, client: DatabaseClient = pr
 
   const defaults = DEFAULT_PLANS[normalized] ?? DEFAULT_PLANS.starter;
 
+  if (!defaults) {
+    throw new ProblemDetailsError({
+      detail: `No default configuration found for plan code '${normalized}'.`,
+      status: 500,
+      title: "Internal Server Error"
+    });
+  }
+
   return client.plan.create({
     data: {
       code: normalized,
@@ -476,15 +484,17 @@ export async function listInvoicesForOrganization(input: {
   }
 
   const rows = await prisma.invoice.findMany({
-    cursor: input.cursor
+    ...(input.cursor
       ? {
-          id: input.cursor
+          cursor: {
+            id: input.cursor
+          },
+          skip: 1
         }
-      : undefined,
+      : {}),
     orderBy: {
       createdAt: "desc"
     },
-    skip: input.cursor ? 1 : 0,
     take: input.take + 1,
     where: {
       organizationId: organization.id

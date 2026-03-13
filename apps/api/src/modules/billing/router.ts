@@ -86,9 +86,9 @@ export function createBillingRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       const pagination = cursorPaginationQuerySchema.parse(request.query);
       const invoices = await listInvoicesForOrganization({
-        cursor: pagination.cursor,
         organizationReference: request.context.tenantId!,
-        take: pagination.take
+        take: pagination.take,
+        ...(pagination.cursor ? { cursor: pagination.cursor } : {})
       });
 
       response.status(200).json({
