@@ -1,5 +1,6 @@
 import { prisma } from "@birthub/database";
 
+import { getAgentLimitForOrganization, LimitExceededError } from "../billing/index.js";
 import { marketplaceService } from "../marketplace/marketplace-service.js";
 
 interface InstallPackInput {
@@ -49,6 +50,24 @@ export class PackInstallerService {
 
     if (!organization) {
       throw new Error(`Tenant ${input.tenantId} does not exist.`);
+    }
+
+    const currentAgentCount = await prisma.agent.count({
+      where: {
+        tenantId: input.tenantId
+      }
+    });
+    const agentLimit = await getAgentLimitForOrganization(input.tenantId);
+
+    if (
+      Number.isFinite(agentLimit) &&
+      currentAgentCount + agentsToInstall.length > agentLimit
+    ) {
+      throw new LimitExceededError({
+        current: currentAgentCount,
+        limit: agentLimit,
+        resource: "agents"
+      });
     }
 
     await prisma.$transaction(async (tx) => {

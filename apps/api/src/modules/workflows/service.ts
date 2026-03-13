@@ -26,11 +26,12 @@ export interface ScopedIdentity {
 }
 
 type PersistedWorkflow = Awaited<ReturnType<typeof getWorkflowById>>;
+type WorkflowWriteClient = Pick<typeof prisma, "workflowStep" | "workflowTransition">;
 
-async function resolveScopedIdentity(organizationId: string): Promise<ScopedIdentity> {
-  const organization = await prisma.organization.findUnique({
+async function resolveScopedIdentity(tenantReference: string): Promise<ScopedIdentity> {
+  const organization = await prisma.organization.findFirst({
     where: {
-      id: organizationId
+      OR: [{ id: tenantReference }, { tenantId: tenantReference }]
     }
   });
 
@@ -77,6 +78,7 @@ function createWebhookSecret(identity: ScopedIdentity, workflowName: string): st
 }
 
 async function persistCanvas(
+  client: WorkflowWriteClient,
   identity: ScopedIdentity,
   workflowId: string,
   canvas: WorkflowCanvas
@@ -84,7 +86,7 @@ async function persistCanvas(
   const stepIdByKey = new Map<string, string>();
 
   for (const step of canvas.steps) {
-    const created = await prisma.workflowStep.create({
+    const created = await client.workflowStep.create({
       data: {
         config: step.config,
         isTrigger:
@@ -111,7 +113,7 @@ async function persistCanvas(
       throw new Error("WORKFLOW_TRANSITION_MISSING_ENDPOINT");
     }
 
-    await prisma.workflowTransition.create({
+    await client.workflowTransition.create({
       data: {
         organizationId: identity.organizationId,
         route: transition.route,
@@ -146,7 +148,7 @@ async function upsertCronTrigger(config: ApiConfig, workflow: {
 
 export async function getWorkflowById(
   workflowId: string,
-  organizationId: string
+  tenantId: string
 ) {
   return prisma.workflow.findFirst({
     include: {
@@ -161,12 +163,12 @@ export async function getWorkflowById(
     },
     where: {
       id: workflowId,
-      organizationId
+      tenantId
     }
   });
 }
 
-export async function listWorkflows(organizationId: string) {
+export async function listWorkflows(tenantId: string) {
   return prisma.workflow.findMany({
     include: {
       _count: {
@@ -180,17 +182,17 @@ export async function listWorkflows(organizationId: string) {
       createdAt: "desc"
     },
     where: {
-      organizationId
+      tenantId
     }
   });
 }
 
 export async function createWorkflow(
   config: ApiConfig,
-  organizationId: string,
+  tenantReference: string,
   input: WorkflowCreateInput
 ): Promise<PersistedWorkflow> {
-  const identity = await resolveScopedIdentity(organizationId);
+  const identity = await resolveScopedIdentity(tenantReference);
   ensureCanvasIsDag(input.canvas);
 
   if (input.status === WorkflowStatus.PUBLISHED) {
@@ -220,7 +222,7 @@ export async function createWorkflow(
       }
     });
 
-    await persistCanvas(identity, created.id, input.canvas);
+    await persistCanvas(tx, identity, created.id, input.canvas);
     return created;
   });
 
@@ -233,7 +235,7 @@ export async function createWorkflow(
     });
   }
 
-  const persisted = await getWorkflowById(workflow.id, organizationId);
+  const persisted = await getWorkflowById(workflow.id, identity.tenantId);
   if (!persisted) {
     throw new Error("WORKFLOW_CREATE_FAILED");
   }
@@ -244,15 +246,15 @@ export async function createWorkflow(
 export async function updateWorkflow(
   config: ApiConfig,
   workflowId: string,
-  organizationId: string,
+  tenantReference: string,
   input: WorkflowUpdateInput
 ): Promise<PersistedWorkflow> {
-  const existing = await getWorkflowById(workflowId, organizationId);
+  const identity = await resolveScopedIdentity(tenantReference);
+  const existing = await getWorkflowById(workflowId, identity.tenantId);
   if (!existing) {
     throw new Error("WORKFLOW_NOT_FOUND");
   }
 
-  const identity = await resolveScopedIdentity(organizationId);
   if (input.canvas) {
     ensureCanvasIsDag(input.canvas);
   }
@@ -298,7 +300,7 @@ export async function updateWorkflow(
           workflowId
         }
       });
-      await persistCanvas(identity, workflowId, input.canvas);
+      await persistCanvas(tx, identity, workflowId, input.canvas);
     }
 
     return workflow;
@@ -313,7 +315,7 @@ export async function updateWorkflow(
     });
   }
 
-  const persisted = await getWorkflowById(workflowId, organizationId);
+  const persisted = await getWorkflowById(workflowId, identity.tenantId);
   if (!persisted) {
     throw new Error("WORKFLOW_NOT_FOUND_AFTER_UPDATE");
   }
@@ -323,8 +325,9 @@ export async function updateWorkflow(
 
 export async function archiveWorkflow(
   workflowId: string,
-  organizationId: string
+  tenantReference: string
 ): Promise<void> {
+  const identity = await resolveScopedIdentity(tenantReference);
   await prisma.workflow.updateMany({
     data: {
       archivedAt: new Date(),
@@ -332,7 +335,7 @@ export async function archiveWorkflow(
     },
     where: {
       id: workflowId,
-      organizationId
+      tenantId: identity.tenantId
     }
   });
 }
@@ -340,7 +343,7 @@ export async function archiveWorkflow(
 export async function runWorkflowNow(
   config: ApiConfig,
   workflowId: string,
-  organizationId: string,
+  tenantReference: string,
   input: WorkflowRunInput,
   triggerType: WorkflowTriggerType = WorkflowTriggerType.MANUAL
 ): Promise<{
@@ -348,7 +351,8 @@ export async function runWorkflowNow(
   mode: "async" | "sync";
   status: "accepted";
 }> {
-  const workflow = await getWorkflowById(workflowId, organizationId);
+  const identity = await resolveScopedIdentity(tenantReference);
+  const workflow = await getWorkflowById(workflowId, identity.tenantId);
   if (!workflow) {
     throw new Error("WORKFLOW_NOT_FOUND");
   }
@@ -402,4 +406,3 @@ export async function runWorkflowNow(
     status: "accepted"
   };
 }
-

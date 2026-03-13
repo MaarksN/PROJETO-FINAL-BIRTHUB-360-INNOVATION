@@ -2,6 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { LimitExceededError } from "../billing/index.js";
 import { packInstallerService } from "./pack-installer.service.js";
 
 export function createPackInstallerRouter(): Router {
@@ -19,10 +20,24 @@ export function createPackInstallerRouter(): Router {
         })
         .parse(request.body);
 
-      const result = await packInstallerService.installPackAtomic({
-        ...payload,
-        tenantId
-      });
+      let result: Awaited<ReturnType<typeof packInstallerService.installPackAtomic>>;
+
+      try {
+        result = await packInstallerService.installPackAtomic({
+          ...payload,
+          tenantId
+        });
+      } catch (error) {
+        if (error instanceof LimitExceededError) {
+          throw new ProblemDetailsError({
+            detail: `Plano atual permite no máximo ${error.limit} agentes (${error.current} já criados).`,
+            status: 402,
+            title: "Payment Required"
+          });
+        }
+
+        throw error;
+      }
 
       response.status(201).json({
         requestId: request.context.requestId,
