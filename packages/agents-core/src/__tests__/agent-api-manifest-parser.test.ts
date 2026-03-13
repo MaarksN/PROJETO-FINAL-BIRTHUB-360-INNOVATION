@@ -6,6 +6,7 @@ import { SUPPORTED_AGENT_API_VERSION } from "../schemas/manifest.schema.js";
 
 const validManifest = {
   apiVersion: SUPPORTED_AGENT_API_VERSION,
+  version: "1.0.0",
   name: "Responder Agent",
   restrictions: {
     allowDomains: ["api.birthhub.local"],
@@ -15,6 +16,7 @@ const validManifest = {
     maxTokens: 4096
   },
   skills: [{ id: "skill-classify", version: "1.0.0" }],
+  system_prompt: "You are a support responder for tenant-safe workflows.",
   tags: ["support"],
   tools: [{ id: "http", maxCalls: 3, timeoutMs: 1000 }]
 };
