@@ -171,10 +171,10 @@ export function createWebhooksRouter(config: ApiConfig): Router {
       const payload = webhookEndpointUpdateSchema.parse(request.body);
       const endpoint = await updateTenantWebhookEndpoint({
         endpointId: String(request.params.id ?? ""),
-        status: payload.status,
         tenantReference,
-        topics: payload.topics,
-        url: payload.url
+        ...(payload.status !== undefined ? { status: payload.status } : {}),
+        ...(payload.topics !== undefined ? { topics: payload.topics } : {}),
+        ...(payload.url !== undefined ? { url: payload.url } : {})
       });
 
       response.status(200).json({

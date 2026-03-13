@@ -66,11 +66,11 @@ export function createFeedbackRouter(): Router {
       const payload = feedbackSchema.parse(request.body);
       const feedback = await saveExecutionFeedback({
         executionId: String(request.params.id ?? ""),
-        expectedOutput: payload.expectedOutput,
-        notes: payload.notes,
         rating: payload.rating,
         tenantReference: identity.tenantId,
-        userId: identity.userId
+        userId: identity.userId,
+        ...(payload.expectedOutput !== undefined ? { expectedOutput: payload.expectedOutput } : {}),
+        ...(payload.notes !== undefined ? { notes: payload.notes } : {})
       });
 
       response.status(200).json({

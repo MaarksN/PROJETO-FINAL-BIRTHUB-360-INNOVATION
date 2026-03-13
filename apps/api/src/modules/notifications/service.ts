@@ -41,10 +41,10 @@ export async function getNotificationFeed(input: {
   });
 
   return listNotifications({
-    cursor: input.cursor,
-    limit: input.limit,
     tenantId: organization.tenantId,
-    userId: input.userId
+    userId: input.userId,
+    ...(input.cursor !== undefined ? { cursor: input.cursor } : {}),
+    ...(input.limit !== undefined ? { limit: input.limit } : {})
   });
 }
 
@@ -95,13 +95,13 @@ export async function saveNotificationPreferences(input: {
 }) {
   const organization = await resolveOrganization(input.tenantReference);
   return updateUserPreference({
-    cookieConsent: input.cookieConsent,
-    emailNotifications: input.emailNotifications,
-    inAppNotifications: input.inAppNotifications,
-    marketingEmails: input.marketingEmails,
     organizationId: organization.id,
-    pushNotifications: input.pushNotifications,
     tenantId: organization.tenantId,
-    userId: input.userId
+    userId: input.userId,
+    ...(input.cookieConsent !== undefined ? { cookieConsent: input.cookieConsent } : {}),
+    ...(input.emailNotifications !== undefined ? { emailNotifications: input.emailNotifications } : {}),
+    ...(input.inAppNotifications !== undefined ? { inAppNotifications: input.inAppNotifications } : {}),
+    ...(input.marketingEmails !== undefined ? { marketingEmails: input.marketingEmails } : {}),
+    ...(input.pushNotifications !== undefined ? { pushNotifications: input.pushNotifications } : {})
   });
 }

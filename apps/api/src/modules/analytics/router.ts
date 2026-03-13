@@ -31,8 +31,8 @@ export function createAnalyticsRouter(): Router {
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
       const usage = await getUsageMetrics({
-        from: range.from ? new Date(range.from) : undefined,
-        to: range.to ? new Date(range.to) : undefined
+        ...(range.from ? { from: new Date(range.from) } : {}),
+        ...(range.to ? { to: new Date(range.to) } : {})
       });
 
       response.status(200).json({
@@ -73,8 +73,8 @@ export function createAnalyticsRouter(): Router {
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
       const csv = await exportBillingCsv({
-        from: range.from ? new Date(range.from) : undefined,
-        to: range.to ? new Date(range.to) : undefined
+        ...(range.from ? { from: new Date(range.from) } : {}),
+        ...(range.to ? { to: new Date(range.to) } : {})
       });
 
       response.setHeader("Content-Disposition", 'attachment; filename="billing-export.csv"');

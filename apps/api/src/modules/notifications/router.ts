@@ -57,10 +57,10 @@ export function createNotificationsRouter(): Router {
       });
       const query = notificationQuerySchema.parse(request.query);
       const feed = await getNotificationFeed({
-        cursor: query.cursor,
         limit: query.limit,
         tenantReference: identity.tenantId,
-        userId: identity.userId
+        userId: identity.userId,
+        ...(query.cursor !== undefined ? { cursor: query.cursor } : {})
       });
 
       response.status(200).json({
@@ -143,9 +143,13 @@ export function createNotificationsRouter(): Router {
       });
       const payload = notificationPreferencesSchema.parse(request.body);
       const preferences = await saveNotificationPreferences({
-        ...payload,
         tenantReference: identity.tenantId,
-        userId: identity.userId
+        userId: identity.userId,
+        ...(payload.cookieConsent !== undefined ? { cookieConsent: payload.cookieConsent } : {}),
+        ...(payload.emailNotifications !== undefined ? { emailNotifications: payload.emailNotifications } : {}),
+        ...(payload.inAppNotifications !== undefined ? { inAppNotifications: payload.inAppNotifications } : {}),
+        ...(payload.marketingEmails !== undefined ? { marketingEmails: payload.marketingEmails } : {}),
+        ...(payload.pushNotifications !== undefined ? { pushNotifications: payload.pushNotifications } : {})
       });
 
       response.status(200).json({

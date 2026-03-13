@@ -45,3 +45,33 @@
 - Pricing e billing UI: `apps/web/app/pricing/page.tsx`, `apps/web/app/(dashboard)/settings/billing/page.tsx`
 - Admin analytics: `apps/web/app/admin/analytics/page.tsx`
 - Testes billing: `apps/api/tests/billing.webhook.test.ts`, `apps/api/tests/billing.idempotency.test.ts`, `apps/api/tests/billing.paywall.test.ts`, `apps/api/tests/billing.grace-period.test.ts`
+
+## Revalidação do Novo Ciclo 1 (fusão Ciclos 1 e 2)
+
+- Data: `2026-03-13`
+- Escopo: revalidar os 100 itens de setup, CI/CD, observabilidade, multi-tenant e RLS contra o código real do workspace.
+- Resultado parcial:
+  - `packages/database` voltou a fechar em `typecheck` e `test` após correções em repositórios tenant-aware.
+  - `apps/web` voltou a fechar em `typecheck` e no smoke test de login/hidratação após correções de imports e isolamento de navegação no componente.
+  - `apps/api` executa o smoke test de health com sucesso após remover o bloqueio em `bcryptjs` e corrigir o key generator IPv6 do rate limit.
+  - O fechamento global da fase continua bloqueado porque o `pnpm typecheck` raiz ainda falha em `apps/api` e módulos compartilhados de ciclos posteriores.
+
+### Evidências desta revalidação
+
+- `pnpm --filter @birthub/database typecheck`
+- `pnpm --filter @birthub/database test`
+- `pnpm --filter @birthub/web typecheck`
+- `pnpm --filter @birthub/web test`
+- `node --import tsx --test tests/health.smoke.test.ts` em `apps/api`
+- `pnpm typecheck` na raiz exibindo bloqueios remanescentes em `apps/api`
+
+### Bloqueios remanescentes para promover tudo a verde
+
+- Drift de tipos e dependências em `apps/api`:
+  - BullMQ/ioredis com incompatibilidade de tipos em filas.
+  - Vários payloads com `exactOptionalPropertyTypes` ainda enviando `undefined` em rotas e serviços.
+  - `Resource` de OpenTelemetry usado como valor no bootstrap atual.
+- Drift em módulos tardios acoplados ao bootstrap do API:
+  - Stripe webhook, analytics, invites, marketplace e `packages/agents-core` ainda quebram o `typecheck` global.
+- Governança de fase:
+  - `CHECKLIST_MASTER.md` continua mais otimista que o estado real do código e não deve ser usado como evidência final sem nova rodada corretiva.

@@ -39,7 +39,7 @@ void test("login page hydrates without mismatch", async () => {
     hydrationErrors.push(args.join(" "));
   };
 
-  hydrateRoot(
+  const root = hydrateRoot(
     container,
     React.createElement(LoginForm, {
       apiUrl: "http://localhost:3000",
@@ -49,8 +49,14 @@ void test("login page hydrates without mismatch", async () => {
   );
 
   await new Promise((resolve) => {
-    dom.window.setTimeout(resolve, 0);
+    dom.window.setTimeout(resolve, 50);
   });
+
+  root.unmount();
+  await new Promise((resolve) => {
+    dom.window.setTimeout(resolve, 50);
+  });
+  dom.window.close();
 
   console.error = originalConsoleError;
 

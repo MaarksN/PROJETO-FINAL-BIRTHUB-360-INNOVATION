@@ -1,5 +1,5 @@
 import type { ApiConfig } from "@birthub/config";
-import rateLimit from "express-rate-limit";
+import rateLimit, { ipKeyGenerator } from "express-rate-limit";
 
 
 import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
@@ -25,7 +25,7 @@ export function createRateLimitMiddleware(config: ApiConfig) {
     keyGenerator: (request) =>
       request.context.apiKeyId
         ? `api-key:${request.context.apiKeyId}`
-        : `ip:${request.ip ?? request.header("x-forwarded-for") ?? "anonymous"}`,
+        : `ip:${ipKeyGenerator(request.ip ?? request.header("x-forwarded-for") ?? "anonymous")}`,
     legacyHeaders: false,
     limit: (request) => (request.context.apiKeyId ? config.API_KEY_RATE_LIMIT_MAX : config.API_RATE_LIMIT_MAX),
     standardHeaders: true,
