@@ -41,6 +41,12 @@ void test("marketplace search returns facets and ranked agents", async () => {
   assert.ok(Array.isArray(response.body.results));
   assert.ok(typeof response.body.facets === "object");
   assert.ok(response.body.results.length >= 1);
+  assert.ok(response.headers.etag);
+
+  await request(app)
+    .get("/api/v1/agents/search?q=sales&page=1&pageSize=5")
+    .set("If-None-Match", response.headers.etag as string)
+    .expect(304);
 });
 
 void test("budget endpoints configure and consume tenant budget", async () => {
