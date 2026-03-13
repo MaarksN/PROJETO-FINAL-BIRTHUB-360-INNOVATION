@@ -227,21 +227,152 @@ model Agent {
 }
 
 model Workflow {
-  id             String         @id @default(cuid())
+  id             String              @id @default(cuid())
   tenantId       String
   organizationId String
   name           String
-  status         WorkflowStatus @default(DRAFT)
+  description    String?
+  status         WorkflowStatus      @default(DRAFT)
+  version        Int                 @default(1)
   definition     Json?
-  createdAt      DateTime       @default(now())
-  updatedAt      DateTime       @updatedAt
-  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  triggerType    WorkflowTriggerType @default(MANUAL)
+  triggerConfig  Json?
+  webhookSecret  String?
+  cronExpression String?
+  eventTopic     String?
+  maxDepth       Int                 @default(50)
+  publishedAt    DateTime?
+  archivedAt     DateTime?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  organization   Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  steps          WorkflowStep[]
+  transitions    WorkflowTransition[]
+  executions     WorkflowExecution[]
+  stepResults    StepResult[]
 
   @@unique([tenantId, name])
   @@index([tenantId])
   @@index([tenantId, id])
   @@index([tenantId, status])
+  @@index([tenantId, triggerType])
   @@map("workflows")
+}
+
+model WorkflowStep {
+  id               String                   @id @default(cuid())
+  tenantId         String
+  organizationId   String
+  workflowId       String
+  key              String
+  name             String
+  type             WorkflowStepType
+  config           Json
+  onError          WorkflowStepOnError      @default(STOP)
+  cacheTTLSeconds  Int?
+  timeoutMs        Int                      @default(1000)
+  isTrigger        Boolean                  @default(false)
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+  organization     Organization             @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow         Workflow                 @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  sourceTransitions WorkflowTransition[]    @relation("WorkflowTransitionSource")
+  targetTransitions WorkflowTransition[]    @relation("WorkflowTransitionTarget")
+  results          StepResult[]
+
+  @@unique([workflowId, key])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, workflowId])
+  @@index([tenantId, type])
+  @@map("workflow_steps")
+}
+
+model WorkflowTransition {
+  id             String                  @id @default(cuid())
+  tenantId       String
+  organizationId String
+  workflowId     String
+  sourceStepId   String
+  targetStepId   String
+  route          WorkflowTransitionRoute @default(ALWAYS)
+  createdAt      DateTime                @default(now())
+  organization   Organization            @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow       Workflow                @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  sourceStep     WorkflowStep            @relation("WorkflowTransitionSource", fields: [sourceStepId], references: [id], onDelete: Cascade)
+  targetStep     WorkflowStep            @relation("WorkflowTransitionTarget", fields: [targetStepId], references: [id], onDelete: Cascade)
+
+  @@unique([workflowId, sourceStepId, targetStepId, route])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, workflowId])
+  @@index([tenantId, sourceStepId])
+  @@index([tenantId, targetStepId])
+  @@map("workflow_transitions")
+}
+
+model WorkflowExecution {
+  id                    String                  @id @default(cuid())
+  tenantId              String
+  organizationId        String
+  workflowId            String
+  status                WorkflowExecutionStatus @default(RUNNING)
+  triggerType           WorkflowTriggerType
+  triggerPayload        Json?
+  dedupeHash            String?
+  depth                 Int                     @default(0)
+  startedAt             DateTime                @default(now())
+  completedAt           DateTime?
+  durationMs            Int?
+  errorMessage          String?
+  resumedFromExecutionId String?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  organization          Organization            @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow              Workflow                @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  stepResults           StepResult[]
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, workflowId])
+  @@index([tenantId, status])
+  @@index([tenantId, startedAt])
+  @@index([tenantId, dedupeHash])
+  @@map("workflow_executions")
+}
+
+model StepResult {
+  id                 String           @id @default(cuid())
+  tenantId           String
+  organizationId     String
+  workflowId         String
+  executionId        String
+  stepId             String
+  status             StepResultStatus @default(SUCCESS)
+  attempt            Int              @default(1)
+  input              Json?
+  output             Json?
+  outputSize         Int              @default(0)
+  outputPreview      String?
+  externalPayloadUrl String?
+  startedAt          DateTime         @default(now())
+  finishedAt         DateTime?
+  errorMessage       String?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  organization       Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow           Workflow         @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  execution          WorkflowExecution @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  step               WorkflowStep     @relation(fields: [stepId], references: [id], onDelete: Cascade)
+
+  @@unique([executionId, stepId, attempt])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, executionId])
+  @@index([tenantId, workflowId])
+  @@index([tenantId, stepId])
+  @@index([tenantId, status])
+  @@map("step_results")
 }
 
 model Customer {
@@ -488,9 +619,58 @@ enum AgentStatus {
 
 enum WorkflowStatus {
   DRAFT
-  ACTIVE
-  PAUSED
+  PUBLISHED
   ARCHIVED
+}
+
+enum WorkflowTriggerType {
+  MANUAL
+  WEBHOOK
+  CRON
+  EVENT
+}
+
+enum WorkflowStepType {
+  TRIGGER_WEBHOOK
+  TRIGGER_CRON
+  TRIGGER_EVENT
+  HTTP_REQUEST
+  CONDITION
+  CODE
+  TRANSFORMER
+  SEND_NOTIFICATION
+  AGENT_EXECUTE
+  AI_TEXT_EXTRACT
+  DELAY
+}
+
+enum WorkflowStepOnError {
+  STOP
+  CONTINUE
+}
+
+enum WorkflowTransitionRoute {
+  ALWAYS
+  IF_TRUE
+  IF_FALSE
+  ON_SUCCESS
+  ON_FAILURE
+  FALLBACK
+}
+
+enum WorkflowExecutionStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+  CANCELLED
+  WAITING
+}
+
+enum StepResultStatus {
+  SUCCESS
+  FAILED
+  SKIPPED
+  WAITING
 }
 
 enum InviteStatus {

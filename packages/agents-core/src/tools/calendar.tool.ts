@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 export type CalendarProvider = "google" | "ics";
 export type CalendarAction = "create_event" | "list_events";
 
@@ -21,7 +23,7 @@ function generateIcs(input: CalendarInput): string {
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     "BEGIN:VEVENT",
-    `UID:${crypto.randomUUID()}`,
+    `UID:${randomUUID()}`,
     `SUMMARY:${input.summary ?? "Untitled"}`,
     `DTSTART:${(input.startAt ?? new Date().toISOString()).replace(/[-:]/g, "")}`,
     `DTEND:${(input.endAt ?? new Date(Date.now() + 3_600_000).toISOString()).replace(/[-:]/g, "")}`,

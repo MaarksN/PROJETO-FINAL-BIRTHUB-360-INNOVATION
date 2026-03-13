@@ -1,4 +1,5 @@
 import { createLogger } from "@birthub/logger";
+import { randomUUID } from "node:crypto";
 
 import { marketplaceService } from "../marketplace/marketplace-service.js";
 import {
@@ -76,7 +77,7 @@ export class BudgetService {
       this.usageEvents.push({
         agentId: input.agentId,
         costBRL: 0,
-        eventId: crypto.randomUUID(),
+        eventId: randomUUID(),
         executionMode: input.executionMode,
         tenantId: input.tenantId,
         timestamp: new Date().toISOString()
@@ -108,7 +109,7 @@ export class BudgetService {
     this.usageEvents.push({
       agentId: input.agentId,
       costBRL: input.costBRL,
-      eventId: crypto.randomUUID(),
+      eventId: randomUUID(),
       executionMode: input.executionMode,
       tenantId: input.tenantId,
       timestamp: new Date().toISOString()

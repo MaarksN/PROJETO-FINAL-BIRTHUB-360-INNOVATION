@@ -28,6 +28,7 @@ export const apiEnvSchema = z.object({
   AUTH_MFA_CLOCK_SKEW_WINDOWS: z.coerce.number().int().positive().default(1),
   AUTH_MFA_ENCRYPTION_KEY: nonEmptyString.default("dev-mfa-encryption-key"),
   AUTH_MFA_ISSUER: nonEmptyString.default("BirthHub360"),
+  BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
   DATABASE_URL: urlString,
   EXTERNAL_HEALTHCHECK_URLS: z.string().default(""),
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
@@ -41,6 +42,11 @@ export const apiEnvSchema = z.object({
   SENTRY_DSN: optionalUrlString,
   SENTRY_ENVIRONMENT: optionalNonEmptyString,
   SESSION_SECRET: nonEmptyString.default("dev-session-secret"),
+  STRIPE_CANCEL_URL: urlString.default("http://localhost:3001/billing/cancel"),
+  STRIPE_PORTAL_RETURN_URL: urlString.default("http://localhost:3001/settings/billing"),
+  STRIPE_SECRET_KEY: nonEmptyString.default("sk_test_birthub360"),
+  STRIPE_SUCCESS_URL: urlString.default("http://localhost:3001/billing/success"),
+  STRIPE_WEBHOOK_SECRET: nonEmptyString.default("whsec_birthub360"),
   WEB_BASE_URL: urlString.default("http://localhost:3001")
 });
 

@@ -5,7 +5,8 @@ import { prisma } from "../client.js";
 const rolePriority: Record<Role, number> = {
   ADMIN: 3,
   MEMBER: 2,
-  OWNER: 4
+  OWNER: 4,
+  READONLY: 1
 };
 
 export function hasRequiredRole(currentRole: Role, requiredRole: Role): boolean {

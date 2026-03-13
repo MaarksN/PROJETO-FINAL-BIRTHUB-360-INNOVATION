@@ -9,6 +9,8 @@ import {
 } from "./shared.js";
 
 export const workerEnvSchema = z.object({
+  BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
+  BILLING_STATUS_CACHE_TTL_SECONDS: z.coerce.number().int().positive().default(60),
   DATABASE_URL: urlString,
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
