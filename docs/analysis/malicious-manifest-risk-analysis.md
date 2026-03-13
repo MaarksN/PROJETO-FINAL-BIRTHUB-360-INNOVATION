@@ -20,6 +20,11 @@ Agent Manifests maliciosos, criados ou modificados intencionalmente ou por erro,
 - **Risco**: Mapeamento que tente ler chaves globais (`AWS_SECRET_ACCESS_KEY`) em vez de chaves por escopo de tenant.
 - **Mitigação**: O manifesto só pode solicitar "Chaves Lógicas" (ex: `STRIPE_API_KEY`). A injeção real ocorre apenas no runtime, e o manifesto não tem poder de escolher de onde a chave vem.
 
+### 4. Payload Injection via chaves extras no manifesto
+- **Campo Crítico**: Qualquer objeto do manifesto (`agent`, `skills`, `tools`, `policies`, `tags`) aceitando atributos fora do contrato.
+- **Risco**: Um pack malicioso injeta metadados paralelos para burlar validações de catálogo, contaminar pipelines de review ou carregar instruções fora da superfície prevista do Marketplace.
+- **Mitigação**: Todos os contratos Zod associados a manifestos devem usar `z.object(...).strict()` e possuir testes de regressão que rejeitem chaves inesperadas no root e em objetos aninhados.
+
 ---
 
 **Assinatura Digital (Executor):**

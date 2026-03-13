@@ -12,12 +12,18 @@ export const workerEnvSchema = z.object({
   BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
   BILLING_STATUS_CACHE_TTL_SECONDS: z.coerce.number().int().positive().default(60),
   DATABASE_URL: urlString,
+  EMAIL_FROM_ADDRESS: nonEmptyString.default("noreply@birthhub.local"),
+  HUBSPOT_ACCESS_TOKEN: nonEmptyString.optional(),
+  HUBSPOT_BASE_URL: urlString.default("https://api.hubapi.com"),
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
   NODE_ENV: nodeEnvSchema,
   QUEUE_NAME: nonEmptyString.default("birthub-cycle1"),
   REDIS_URL: urlString,
   SENTRY_DSN: optionalUrlString,
+  SENDGRID_API_KEY: nonEmptyString.optional(),
+  WEBHOOK_TIMEOUT_MS: z.coerce.number().int().positive().default(10_000),
+  WEB_BASE_URL: urlString.default("http://localhost:3001"),
   WORKER_CONCURRENCY: z.coerce.number().int().positive().default(5)
 });
 

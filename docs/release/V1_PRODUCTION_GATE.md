@@ -19,6 +19,12 @@ O selo abaixo é inalterável e indica que a base de código contida neste commi
 *   CODEX (Agent - Security & Validation)
 **Data de Assinatura:** Momento do Deploy.
 
+## Gate operacional antes do merge da branch principal
+
+- Validacao de manifestos dos agentes deve permanecer em modo estrito com `z.object(...).strict()` nos contratos de catálogo e testes de regressão cobrindo chaves inesperadas.
+- A fase 8 so pode ser considerada concluida com os artefatos `test-results/k6/cycle-08-stress-summary.json` e `test-results/k6/cycle-08-stress-summary.txt` gerados por `pnpm test:load:k6`.
+- Sem esses artefatos, a branch nao deve seguir para `main`, mesmo com os demais aprovadores assinados.
+
 ## Assinatura Definitiva de Fechamento (CODEX)
 
 - **Escopo Validado:** Artefatos das Fases `10.4` a `10.10`

@@ -38,6 +38,8 @@ export interface SessionTokens {
 
 function rolePriority(role: Role): number {
   switch (role) {
+    case Role.SUPER_ADMIN:
+      return 5;
     case Role.OWNER:
       return 4;
     case Role.ADMIN:
@@ -52,6 +54,10 @@ function rolePriority(role: Role): number {
 }
 
 export function canManageRole(currentRole: Role, targetRole: Role): boolean {
+  if (currentRole === Role.SUPER_ADMIN) {
+    return true;
+  }
+
   if (currentRole === Role.OWNER) {
     return true;
   }

@@ -1,12 +1,12 @@
 import React from "react";
-
-import "./globals.css";
-import { PaywallProvider } from "../components/paywall-provider";
-
 import type { Metadata } from "next";
 
+import "./globals.css";
+import { AppProviders } from "../providers/AppProviders.js";
+
 export const metadata: Metadata = {
-  description: "Cycle 1 platform shell for BirthHub360.",
+  description: "BirthHub360 engagement command center with notifications, feedback loop and health telemetry.",
+  manifest: "/manifest.json",
   title: "BirthHub360"
 };
 
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR">
       <body>
-        <PaywallProvider>{children}</PaywallProvider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

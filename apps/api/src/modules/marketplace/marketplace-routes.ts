@@ -79,6 +79,9 @@ export function createMarketplaceRouter(): Router {
       }
 
       const result = await marketplaceService.search(searchInput);
+      const approvalStats = await marketplaceService.getApprovalStats(
+        result.results.map((entry) => entry.manifest.agent.id)
+      );
 
       sendEtaggedJson(request, response, {
         facets: result.facets,
@@ -86,6 +89,8 @@ export function createMarketplaceRouter(): Router {
         pageSize: result.pageSize,
         results: result.results.map((entry) => ({
           agent: entry.manifest.agent,
+          approvalRate: approvalStats.get(entry.manifest.agent.id)?.approvalRate ?? null,
+          feedbackCount: approvalStats.get(entry.manifest.agent.id)?.feedbackCount ?? 0,
           score: entry.score,
           tags: entry.manifest.tags,
           tools: entry.manifest.tools.map((tool) => ({
@@ -105,11 +110,16 @@ export function createMarketplaceRouter(): Router {
       const tenantIndustry = readQueryString(request.query.tenantIndustry) ?? request.header("x-tenant-industry") ?? "sales";
 
       const recommendations = await marketplaceService.recommend(tenantIndustry, 6);
+      const approvalStats = await marketplaceService.getApprovalStats(
+        recommendations.map((entry) => entry.manifest.agent.id)
+      );
 
       sendEtaggedJson(request, response, {
         tenantIndustry,
         recommendations: recommendations.map((entry) => ({
           agent: entry.manifest.agent,
+          approvalRate: approvalStats.get(entry.manifest.agent.id)?.approvalRate ?? null,
+          feedbackCount: approvalStats.get(entry.manifest.agent.id)?.feedbackCount ?? 0,
           recommendationScore: entry.recommendationScore,
           tags: entry.manifest.tags
         }))

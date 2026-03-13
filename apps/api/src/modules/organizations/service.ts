@@ -11,6 +11,7 @@ import {
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { ensurePlanByCode, provisionStripeCustomerForOrganization } from "../billing/service.js";
+import { enqueueCrmSync } from "../engagement/queues.js";
 
 type DatabaseClient = PrismaClient | Prisma.TransactionClient;
 
@@ -66,14 +67,18 @@ export async function createOrganization(input: {
   slug: string;
 }) {
   const config = getApiConfig();
+  const primaryDomain = input.adminEmail.includes("@")
+    ? input.adminEmail.split("@")[1] ?? null
+    : null;
 
   try {
-    return await prisma.$transaction(async (tx) => {
+    const created = await prisma.$transaction(async (tx) => {
       const starterPlan = await ensurePlanByCode("starter", tx);
       const organization = await tx.organization.create({
         data: {
           name: input.name,
           planId: starterPlan.id,
+          primaryDomain,
           settings: {
             locale: "pt-BR",
             onboarding: true
@@ -93,6 +98,18 @@ export async function createOrganization(input: {
         data: {
           organizationId: organization.id,
           role: Role.OWNER,
+          tenantId: organization.tenantId,
+          userId: owner.id
+        }
+      });
+
+      await tx.userPreference.create({
+        data: {
+          emailNotifications: true,
+          inAppNotifications: true,
+          marketingEmails: false,
+          organizationId: organization.id,
+          pushNotifications: false,
           tenantId: organization.tenantId,
           userId: owner.id
         }
@@ -140,6 +157,14 @@ export async function createOrganization(input: {
         tenantId: organization.tenantId
       };
     });
+
+    void enqueueCrmSync(config, {
+      kind: "company-upsert",
+      organizationId: created.organizationId,
+      tenantId: created.tenantId
+    }).catch(() => undefined);
+
+    return created;
   } catch (error) {
     if (
       error instanceof Prisma.PrismaClientKnownRequestError &&

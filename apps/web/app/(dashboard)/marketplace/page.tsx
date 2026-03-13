@@ -158,6 +158,10 @@ export default async function MarketplacePage({
               <small>Use-case: {item.tags["use-case"].join(", ")}</small>
               <small>Tools: {item.tools.map((tool) => tool.name).join(", ")}</small>
               <small style={{ color: "var(--accent-strong)" }}>Score: {item.score}</small>
+              <small>
+                Approval: {item.approvalRate ? `${Math.round(item.approvalRate * 100)}%` : "Sem votos"} · Feedbacks:{" "}
+                {item.feedbackCount ?? 0}
+              </small>
               <Link href={`/marketplace?agentId=${encodeURIComponent(item.agent.id)}`}>Abrir docs inline</Link>
             </article>
           ))}

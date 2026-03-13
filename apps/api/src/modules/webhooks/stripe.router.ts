@@ -11,6 +11,7 @@ import Stripe from "stripe";
 
 import { ProblemDetailsError, asyncHandler } from "../../lib/problem-details.js";
 import { publishBillingEvent } from "../billing/event-bus.js";
+import { enqueueCrmSync } from "../engagement/queues.js";
 import { ensurePlanByCode } from "../billing/service.js";
 import { createStripeClient } from "../billing/stripe.client.js";
 
@@ -579,6 +580,19 @@ export function createStripeWebhookRouter(config: ApiConfig): Router {
       }
 
       const context = await processStripeEvent(event, config);
+
+      if (
+        context.organizationId &&
+        context.tenantId &&
+        (event.type === "checkout.session.completed" ||
+          event.type === "customer.subscription.updated")
+      ) {
+        void enqueueCrmSync(config, {
+          kind: "company-upsert",
+          organizationId: context.organizationId,
+          tenantId: context.tenantId
+        }).catch(() => undefined);
+      }
 
       try {
         await prisma.billingEvent.create({

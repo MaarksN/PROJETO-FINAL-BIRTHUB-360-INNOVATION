@@ -111,3 +111,41 @@ void test("parseAgentManifest rejects incompatible version", () => {
     }
   );
 });
+
+void test("parseAgentManifest rejects unexpected keys at the manifest root", () => {
+  assert.throws(
+    () =>
+      parseAgentManifest({
+        ...validManifest,
+        roguePayload: {
+          enabled: true
+        }
+      }),
+    (error: unknown) => {
+      assert.ok(error instanceof AgentManifestParseError);
+      const err = error as AgentManifestParseError;
+      assert.match(err.message, /roguePayload/);
+      return true;
+    }
+  );
+});
+
+void test("parseAgentManifest rejects unexpected nested keys inside agent descriptors", () => {
+  assert.throws(
+    () =>
+      parseAgentManifest({
+        ...validManifest,
+        agent: {
+          ...validManifest.agent,
+          injectedPromptVars: ["SYSTEM_OVERRIDE"]
+        }
+      }),
+    (error: unknown) => {
+      assert.ok(error instanceof AgentManifestParseError);
+      const err = error as AgentManifestParseError;
+      assert.match(err.message, /agent/);
+      assert.match(err.message, /injectedPromptVars/);
+      return true;
+    }
+  );
+});

@@ -6,9 +6,13 @@ import { RequireRole, requireAuthenticated } from "../../common/guards/index.js"
 import { asyncHandler } from "../../lib/problem-details.js";
 import {
   exportBillingCsv,
+  getCsRiskAccounts,
+  getGlobalAgentPerformance,
   getActiveTenantsMetrics,
   getCohortMetrics,
   getExecutiveMetrics,
+  getMasterAdminDashboard,
+  getQualityReport,
   getUsageMetrics
 } from "./service.js";
 
@@ -85,6 +89,54 @@ export function createAnalyticsRouter(): Router {
     asyncHandler(async (request, response) => {
       response.status(200).json({
         metrics: await getActiveTenantsMetrics(),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.get(
+    "/cs-risk",
+    requireAuthenticated,
+    RequireRole(Role.ADMIN),
+    asyncHandler(async (request, response) => {
+      response.status(200).json({
+        items: await getCsRiskAccounts(),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.get(
+    "/quality-report",
+    requireAuthenticated,
+    RequireRole(Role.SUPER_ADMIN),
+    asyncHandler(async (request, response) => {
+      response.status(200).json({
+        items: await getQualityReport(),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.get(
+    "/agent-performance",
+    requireAuthenticated,
+    RequireRole(Role.SUPER_ADMIN),
+    asyncHandler(async (request, response) => {
+      response.status(200).json({
+        metrics: await getGlobalAgentPerformance(),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.get(
+    "/master-dashboard",
+    requireAuthenticated,
+    RequireRole(Role.SUPER_ADMIN),
+    asyncHandler(async (request, response) => {
+      response.status(200).json({
+        metrics: await getMasterAdminDashboard(),
         requestId: request.context.requestId
       });
     })

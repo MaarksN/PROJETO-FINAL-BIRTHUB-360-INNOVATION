@@ -2,6 +2,9 @@
 
 import { useMemo, useState } from "react";
 
+import { useAnalytics } from "../../providers/AnalyticsProvider.js";
+import { FeedbackWidget } from "./FeedbackWidget.js";
+
 interface AgentRunPanelProps {
   agentId: string;
   apiUrl: string;
@@ -26,6 +29,7 @@ const INITIAL_INPUT = JSON.stringify(
 );
 
 export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>) {
+  const { track } = useAnalytics();
   const [executionId, setExecutionId] = useState<string | null>(null);
   const [inputPayload, setInputPayload] = useState(INITIAL_INPUT);
   const [logs, setLogs] = useState<StreamLog[]>([]);
@@ -62,6 +66,11 @@ export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>)
 
       const payload = (await response.json()) as { executionId: string };
       setExecutionId(payload.executionId);
+      track("Agent Executed", {
+        agentId,
+        executionId: payload.executionId,
+        type: "manual"
+      });
 
       const source = new EventSource(
         `${apiUrl}/api/v1/agents/${agentId}/run/stream?executionId=${encodeURIComponent(payload.executionId)}`
@@ -145,6 +154,8 @@ export function AgentRunPanel({ agentId, apiUrl }: Readonly<AgentRunPanelProps>)
         </ul>
         {error ? <p style={{ color: "#a11d2d" }}>{error}</p> : null}
       </div>
+
+      {executionId ? <FeedbackWidget executionId={executionId} /> : null}
     </section>
   );
 }

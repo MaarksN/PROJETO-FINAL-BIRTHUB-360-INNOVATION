@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import { fetchWithSession } from "../../../lib/auth-client.js";
 import "./analytics.css";
 
 type ExecutivePayload = {
@@ -47,15 +48,10 @@ export default function AdminAnalyticsPage() {
   const [active, setActive] = useState<ActivePayload>({});
 
   useEffect(() => {
-    const headers = {
-      "x-tenant-id": window.localStorage.getItem("tenantId") ?? "birthhub-alpha",
-      "x-user-id": window.localStorage.getItem("userId") ?? "owner.alpha@birthub.local"
-    };
-
     void Promise.all([
-      fetch("/api/v1/analytics/executive", { headers }),
-      fetch("/api/v1/analytics/cohort", { headers }),
-      fetch("/api/v1/analytics/active-tenants", { headers })
+      fetchWithSession("/api/v1/analytics/executive"),
+      fetchWithSession("/api/v1/analytics/cohort"),
+      fetchWithSession("/api/v1/analytics/active-tenants")
     ])
       .then(async ([executiveResponse, cohortResponse, activeResponse]) => {
         if (executiveResponse.ok) {

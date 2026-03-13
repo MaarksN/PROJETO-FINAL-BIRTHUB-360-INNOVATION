@@ -6,7 +6,8 @@ const rolePriority: Record<Role, number> = {
   ADMIN: 3,
   MEMBER: 2,
   OWNER: 4,
-  READONLY: 1
+  READONLY: 1,
+  SUPER_ADMIN: 5
 };
 
 export function hasRequiredRole(currentRole: Role, requiredRole: Role): boolean {

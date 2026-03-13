@@ -13,6 +13,7 @@ Ele deve conter os seguintes blocos principais:
 
 ## 2. Validade e Tipagem
 Não utilize tipos genéricos (`Any`, `dict` aberto). Defina os esquemas de entrada das suas ferramentas (tools) explicitamente. Isso permite que nossa infraestrutura auto-gere interfaces no Agent Studio e restrinja as invocações de IA a limites seguros.
+Os objetos do manifesto são validados com `z.object(...).strict()`: qualquer chave extra fora do contrato publicado é rejeitada no parser e bloqueia a publicação no catálogo.
 
 ## 3. Testabilidade
 Um manifesto é considerado testável se ele detalhar exatamente os *outputs* esperados para os testes de integração. Certifique-se de que cada "tool" referenciada no manifesto possua uma contraparte testável simulada (Mock) declarada na suíte de testes do pacote.

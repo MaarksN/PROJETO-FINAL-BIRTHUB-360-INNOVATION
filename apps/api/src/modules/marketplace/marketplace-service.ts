@@ -9,6 +9,7 @@ import {
   type ManifestSearchFilters,
   type ManifestSearchResult
 } from "@birthub/agents-core";
+import { prisma } from "@birthub/database";
 
 interface CatalogCache {
   entries: ManifestCatalogEntry[];
@@ -104,6 +105,62 @@ export class MarketplaceService {
   async recommend(tenantIndustry: string, limit = 6) {
     const catalog = await this.getCatalog();
     return recommendAgentsForTenant(catalog, tenantIndustry, limit);
+  }
+
+  async getApprovalStats(agentIds: string[]) {
+    if (agentIds.length === 0) {
+      return new Map<
+        string,
+        {
+          approvalRate: number;
+          feedbackCount: number;
+        }
+      >();
+    }
+
+    const feedbackRows = await prisma.agentFeedback.findMany({
+      select: {
+        agentId: true,
+        rating: true
+      },
+      where: {
+        agentId: {
+          in: agentIds
+        }
+      }
+    });
+
+    const grouped = new Map<
+      string,
+      {
+        feedbackCount: number;
+        positive: number;
+      }
+    >();
+
+    for (const row of feedbackRows) {
+      const current = grouped.get(row.agentId) ?? {
+        feedbackCount: 0,
+        positive: 0
+      };
+      current.feedbackCount += 1;
+
+      if (row.rating > 0) {
+        current.positive += 1;
+      }
+
+      grouped.set(row.agentId, current);
+    }
+
+    return new Map(
+      Array.from(grouped.entries()).map(([agentId, value]) => [
+        agentId,
+        {
+          approvalRate: value.feedbackCount > 0 ? value.positive / value.feedbackCount : 0,
+          feedbackCount: value.feedbackCount
+        }
+      ])
+    );
   }
 
   async getAgentById(agentId: string): Promise<ManifestCatalogEntry | null> {

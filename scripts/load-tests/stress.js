@@ -64,3 +64,41 @@ export default function () {
 
   sleep(1);
 }
+
+function formatNumber(value, digits = 2) {
+  return typeof value === "number" ? value.toFixed(digits) : "n/a";
+}
+
+function readMetricValue(data, metricName, valueName) {
+  return data.metrics?.[metricName]?.values?.[valueName];
+}
+
+function readThresholdStatus(data, metricName, thresholdName) {
+  return data.metrics?.[metricName]?.thresholds?.[thresholdName]?.ok === true ? "PASS" : "FAIL";
+}
+
+export function handleSummary(data) {
+  const summaryLines = [
+    "# Cycle 08 K6 Stress Summary",
+    `generatedAt: ${new Date().toISOString()}`,
+    `baseUrl: ${BASE_URL}`,
+    `tenantId: ${TENANT_ID}`,
+    `scenario: webhook_flood`,
+    `vus: ${options.vus}`,
+    `duration: ${options.duration}`,
+    `http_reqs.rate: ${formatNumber(readMetricValue(data, "http_reqs", "rate"))} req/s`,
+    `iterations.rate: ${formatNumber(readMetricValue(data, "iterations", "rate"))} it/s`,
+    `http_req_duration.p(95): ${formatNumber(readMetricValue(data, "http_req_duration", "p(95)"))} ms`,
+    `http_req_duration.p(99): ${formatNumber(readMetricValue(data, "http_req_duration", "p(99)"))} ms`,
+    `http_req_failed.rate: ${formatNumber(readMetricValue(data, "http_req_failed", "rate"), 4)}`,
+    `threshold.http_req_duration.p(95)<300: ${readThresholdStatus(data, "http_req_duration", "p(95)<300")}`,
+    `threshold.http_req_failed.rate<0.01: ${readThresholdStatus(data, "http_req_failed", "rate<0.01")}`
+  ];
+  const textSummary = `${summaryLines.join("\n")}\n`;
+
+  return {
+    "test-results/k6/cycle-08-stress-summary.json": JSON.stringify(data, null, 2),
+    "test-results/k6/cycle-08-stress-summary.txt": textSummary,
+    stdout: textSummary
+  };
+}

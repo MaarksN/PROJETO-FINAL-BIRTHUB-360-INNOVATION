@@ -13,6 +13,7 @@ export interface MarketplaceSearchResponse {
   pageSize: number;
   requestId: string;
   results: Array<{
+    approvalRate?: number | null;
     agent: {
       description: string;
       id: string;
@@ -20,6 +21,7 @@ export interface MarketplaceSearchResponse {
       prompt: string;
       version: string;
     };
+    feedbackCount?: number;
     score: number;
     tags: {
       "use-case": string[];

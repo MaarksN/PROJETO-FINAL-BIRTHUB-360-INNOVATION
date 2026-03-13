@@ -83,21 +83,29 @@ Arquivos:
 - `apps/dashboard/lib/dashboard-data.ts`
 - `apps/dashboard/lib/api.ts`
 
-## Gargalo 6: Carga nao executada por dependencia de ambiente
+## Gargalo 6: Carga bloqueada por dependencia de ambiente e ausencia de artefatos versionados
 
 Sintoma:
 
-- `k6` ausente.
+- `k6` ausente na sessao de 2026-03-13.
 - Redis local indisponivel para teste de overload.
+- Nao havia trilha padronizada para anexar os logs de performance do K6 ao repositório.
 
 Mitigacao aplicada:
 
 - Scripts criados e versionados para execucao em ambiente com infraestrutura ativa:
   - `scripts/load-tests/stress.js`
   - `scripts/load-tests/worker-overload.ts`
+- O script `scripts/load-tests/stress.js` agora exporta automaticamente:
+  - `test-results/k6/cycle-08-stress-summary.json`
+  - `test-results/k6/cycle-08-stress-summary.txt`
+- Evidencia documental consolidada em:
+  - `docs/performance/cycle-08-k6-evidence.md`
+  - `docs/release/cycle-08-performance-report.md`
 
 Recomendacao:
 
 1. Subir `redis` e `postgres` via `docker-compose`.
 2. Executar `pnpm test:worker:overload`.
 3. Instalar `k6` e executar `pnpm test:load:k6`.
+4. Versionar os artefatos gerados em `test-results/k6/` antes do merge para `main`.

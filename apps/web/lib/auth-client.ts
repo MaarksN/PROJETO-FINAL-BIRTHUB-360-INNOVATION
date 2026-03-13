@@ -5,6 +5,24 @@ export interface StoredSession {
   userId: string;
 }
 
+function isAbsoluteUrl(value: string): boolean {
+  return /^https?:\/\//i.test(value);
+}
+
+export function toApiUrl(input: string): string {
+  if (!input.startsWith("/") || isAbsoluteUrl(input)) {
+    return input;
+  }
+
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  if (!apiBaseUrl) {
+    return input;
+  }
+
+  return new URL(input, apiBaseUrl).toString();
+}
+
 export function getStoredSession(): StoredSession | null {
   if (typeof window === "undefined") {
     return null;
@@ -41,11 +59,16 @@ export async function fetchWithSession(
   headers.set("Authorization", `Bearer ${session.accessToken}`);
   headers.set("x-csrf-token", session.csrfToken);
   headers.set("x-tenant-id", session.tenantId);
+  headers.set("x-user-id", session.userId);
   const nextInit: RequestInit = {
     ...init,
     credentials: "include",
     headers
   };
+
+  if (typeof input === "string") {
+    return fetch(toApiUrl(input), nextInit);
+  }
 
   return fetch(input, nextInit);
 }

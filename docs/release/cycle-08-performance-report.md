@@ -60,11 +60,20 @@ Script criado:
 - Script usa: `vus=100`, `duration=10m`, thresholds:
   - `http_req_duration p(95) < 300ms`
   - `http_req_failed rate < 1%`
+- O script agora exporta automaticamente os artefatos exigidos do ciclo:
+  - `test-results/k6/cycle-08-stress-summary.json`
+  - `test-results/k6/cycle-08-stress-summary.txt`
+  - Resumo em `stdout` para anexar ao log da pipeline
 
-Execucao local nesta sessao:
+Status da sessao atual em 2026-03-13:
 
 - `k6` nao estava instalado no ambiente desta execucao.
-- Comando nao executado: `k6 run scripts/load-tests/stress.js`.
+- O comando de geracao de evidencia permanece pendente: `pnpm test:load:k6`.
+- A branch so deve seguir para `main` com os arquivos acima preenchidos pelo `handleSummary` do K6.
+
+Evidencia documental complementar:
+
+- `docs/performance/cycle-08-k6-evidence.md`
 
 ## 5. Overload Worker + Redis (Fase 8.9.C3-C5)
 

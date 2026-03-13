@@ -4,4 +4,6 @@ export * from "./errors/exceeded-quota.error.js";
 export * from "./errors/prisma-query-timeout.error.js";
 export * from "./errors/tenant-required.error.js";
 export * from "./repositories/base.repo.js";
+export * from "./repositories/engagement.js";
+export * from "./repositories/index.js";
 export * from "./tenant-context.js";

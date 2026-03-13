@@ -1,5 +1,6 @@
 import { getWebConfig } from "@birthub/config";
 
+import { FeedbackWidget } from "../../../components/agents/FeedbackWidget.js";
 import { fetchOutputs } from "../../../lib/marketplace-api.js";
 
 type SearchParams = Record<string, string | string[] | undefined>;
@@ -19,6 +20,7 @@ export default async function OutputsPage({
 }>) {
   const resolvedParams = (await searchParams) ?? {};
   const typeFilter = readParam(resolvedParams.type);
+  const executionId = readParam(resolvedParams.executionId);
   const config = getWebConfig();
 
   const data = await fetchOutputs(typeFilter || undefined).catch(() => ({ outputs: [] }));
@@ -31,6 +33,8 @@ export default async function OutputsPage({
           Lista, filtro, integridade por hash SHA256 e exportacao de saidas criticas.
         </p>
       </header>
+
+      {executionId ? <FeedbackWidget executionId={executionId} /> : null}
 
       <form style={{ display: "flex", gap: "0.6rem", maxWidth: 420 }}>
         <input defaultValue={typeFilter} name="type" placeholder="technical-log ou executive-report" type="text" />

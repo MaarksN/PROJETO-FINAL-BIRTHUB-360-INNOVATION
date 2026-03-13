@@ -15,6 +15,8 @@ export const webEnvSchema = z.object({
   NEXT_PUBLIC_APP_URL: urlString.default("http://localhost:3001"),
   NEXT_PUBLIC_CSP_REPORT_ONLY: z.coerce.boolean().default(true),
   NEXT_PUBLIC_ENVIRONMENT: nodeEnvSchema,
+  NEXT_PUBLIC_POSTHOG_HOST: optionalUrlString,
+  NEXT_PUBLIC_POSTHOG_KEY: optionalNonEmptyString,
   NEXT_PUBLIC_SENTRY_DSN: optionalUrlString,
   NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE: z.coerce.number().min(0).max(1).default(0.1),
   SENTRY_AUTH_TOKEN: optionalNonEmptyString,

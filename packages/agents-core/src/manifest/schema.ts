@@ -7,56 +7,68 @@ const jsonSchemaObject = z.record(z.string(), z.unknown()).default({ type: "obje
 
 const tagListSchema = z.array(nonEmptyString).min(1);
 
-export const manifestTagsSchema = z.object({
-  domain: tagListSchema,
-  level: tagListSchema,
-  persona: tagListSchema,
-  "use-case": tagListSchema,
-  industry: tagListSchema
-});
+export const manifestTagsSchema = z
+  .object({
+    domain: tagListSchema,
+    level: tagListSchema,
+    persona: tagListSchema,
+    "use-case": tagListSchema,
+    industry: tagListSchema
+  })
+  .strict();
 
-export const skillManifestSchema = z.object({
-  description: nonEmptyString,
-  id: nonEmptyString,
-  inputSchema: jsonSchemaObject,
-  name: nonEmptyString,
-  outputSchema: jsonSchemaObject
-});
+export const skillManifestSchema = z
+  .object({
+    description: nonEmptyString,
+    id: nonEmptyString,
+    inputSchema: jsonSchemaObject,
+    name: nonEmptyString,
+    outputSchema: jsonSchemaObject
+  })
+  .strict();
 
-export const toolManifestSchema = z.object({
-  description: nonEmptyString,
-  id: nonEmptyString,
-  inputSchema: jsonSchemaObject,
-  name: nonEmptyString,
-  outputSchema: jsonSchemaObject,
-  timeoutMs: z.number().int().positive().default(15_000)
-});
+export const toolManifestSchema = z
+  .object({
+    description: nonEmptyString,
+    id: nonEmptyString,
+    inputSchema: jsonSchemaObject,
+    name: nonEmptyString,
+    outputSchema: jsonSchemaObject,
+    timeoutMs: z.number().int().positive().default(15_000)
+  })
+  .strict();
 
-export const policyManifestSchema = z.object({
-  actions: z.array(nonEmptyString).min(1),
-  effect: z.enum(["allow", "deny"]),
-  id: nonEmptyString,
-  name: nonEmptyString
-});
+export const policyManifestSchema = z
+  .object({
+    actions: z.array(nonEmptyString).min(1),
+    effect: z.enum(["allow", "deny"]),
+    id: nonEmptyString,
+    name: nonEmptyString
+  })
+  .strict();
 
-export const agentDescriptorSchema = z.object({
-  changelog: z.array(nonEmptyString).default([]),
-  description: nonEmptyString,
-  id: nonEmptyString,
-  name: nonEmptyString,
-  prompt: nonEmptyString,
-  tenantId: nonEmptyString.default("catalog"),
-  version: nonEmptyString
-});
+export const agentDescriptorSchema = z
+  .object({
+    changelog: z.array(nonEmptyString).default([]),
+    description: nonEmptyString,
+    id: nonEmptyString,
+    name: nonEmptyString,
+    prompt: nonEmptyString,
+    tenantId: nonEmptyString.default("catalog"),
+    version: nonEmptyString
+  })
+  .strict();
 
-export const agentManifestSchema = z.object({
-  agent: agentDescriptorSchema,
-  manifestVersion: z.literal(MANIFEST_VERSION),
-  policies: z.array(policyManifestSchema).min(1),
-  skills: z.array(skillManifestSchema).min(1),
-  tags: manifestTagsSchema,
-  tools: z.array(toolManifestSchema).min(1)
-});
+export const agentManifestSchema = z
+  .object({
+    agent: agentDescriptorSchema,
+    manifestVersion: z.literal(MANIFEST_VERSION),
+    policies: z.array(policyManifestSchema).min(1),
+    skills: z.array(skillManifestSchema).min(1),
+    tags: manifestTagsSchema,
+    tools: z.array(toolManifestSchema).min(1)
+  })
+  .strict();
 
 export type AgentManifest = z.infer<typeof agentManifestSchema>;
 export type AgentManifestTags = z.infer<typeof manifestTagsSchema>;

@@ -1,5 +1,11 @@
 import { getWorkerConfig, taskJobSchema } from "@birthub/config";
-import { prisma } from "@birthub/database";
+import {
+  createNotificationForOrganizationRoles,
+  createNotificationForUser,
+  ExecutionSource,
+  NotificationType,
+  prisma
+} from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import { Queue, Worker } from "bullmq";
 import { createHash, createHmac } from "node:crypto";
@@ -13,10 +19,24 @@ import {
   workflowQueueNames
 } from "./engine/runner.js";
 import { PlanExecutor } from "./executors/planExecutor.js";
+import { syncOrganizationToHubspot } from "./integrations/hubspot.js";
+import {
+  emailQueueName,
+  enqueueEmailNotification,
+  processEmailNotificationJob,
+  type EmailNotificationJobPayload
+} from "./notifications/emailQueue.js";
 import { getQueueNameForPriority } from "./queues/agentQueue.js";
 import { executeTenantJob } from "./tenant-execution.js";
+import {
+  enqueueWebhookTopicDeliveries,
+  outboundWebhookQueueName,
+  processOutboundWebhookJob,
+  type OutboundWebhookJobPayload
+} from "./webhooks/outbound.js";
 
 const logger = createLogger("worker");
+const crmSyncQueueName = "engagement.crm-sync";
 
 function signPayload(payload: string, secret: string): string {
   return createHmac("sha256", secret).update(payload).digest("hex");
@@ -83,7 +103,9 @@ const agentExecutionJobSchema = z
     agentId: z.string().min(1),
     executionId: z.string().min(1),
     input: z.record(z.string(), z.unknown()),
+    organizationId: z.string().min(1).optional(),
     tenantId: z.string().min(1),
+    userId: z.string().min(1).optional(),
     toolCalls: z
       .array(
         z.object({
@@ -94,6 +116,170 @@ const agentExecutionJobSchema = z
       .optional()
   })
   .strict();
+
+type CrmSyncJobPayload = {
+  kind: "company-upsert" | "health-score-sync";
+  organizationId: string;
+  tenantId: string;
+};
+
+function humanizeAgentId(agentId: string): string {
+  return agentId.replace(/[-_]/g, " ").trim().toUpperCase();
+}
+
+async function resolveOrganizationReference(tenantReference: string) {
+  return prisma.organization.findFirst({
+    where: {
+      OR: [{ id: tenantReference }, { tenantId: tenantReference }]
+    }
+  });
+}
+
+async function persistExecutionStarted(input: {
+  agentId: string;
+  executionId: string;
+  inputPayload: Record<string, unknown>;
+  organizationId?: string | null;
+  source: ExecutionSource;
+  tenantId: string;
+  userId?: string | null;
+}) {
+  await prisma.agentExecution.upsert({
+    create: {
+      agentId: input.agentId,
+      id: input.executionId,
+      input: input.inputPayload,
+      organizationId: input.organizationId ?? null,
+      source: input.source,
+      tenantId: input.tenantId,
+      userId: input.userId ?? null
+    },
+    update: {
+      agentId: input.agentId,
+      input: input.inputPayload,
+      organizationId: input.organizationId ?? null,
+      source: input.source,
+      status: "RUNNING",
+      tenantId: input.tenantId,
+      userId: input.userId ?? null
+    },
+    where: {
+      id: input.executionId
+    }
+  });
+}
+
+async function persistExecutionFinished(input: {
+  errorMessage?: string;
+  executionId: string;
+  metadata?: Record<string, unknown>;
+  output?: Record<string, unknown>;
+  outputHash?: string;
+  status: "FAILED" | "SUCCESS" | "WAITING_APPROVAL";
+}) {
+  await prisma.agentExecution.update({
+    data: {
+      completedAt: input.status === "WAITING_APPROVAL" ? null : new Date(),
+      errorMessage: input.errorMessage ?? null,
+      metadata: input.metadata,
+      output: input.output,
+      outputHash: input.outputHash ?? null,
+      status: input.status
+    },
+    where: {
+      id: input.executionId
+    }
+  });
+}
+
+async function fanOutExecutionOutcome(input: {
+  agentId: string;
+  emailQueue: Queue<EmailNotificationJobPayload>;
+  errorMessage?: string;
+  executionId: string;
+  organizationId?: string | null;
+  outboundWebhookQueue: Queue<OutboundWebhookJobPayload>;
+  status: "FAILED" | "SUCCESS";
+  tenantId: string;
+  userId?: string | null;
+  webBaseUrl: string;
+}) {
+  if (!input.organizationId) {
+    return;
+  }
+
+  const link = `${input.webBaseUrl}/outputs?executionId=${encodeURIComponent(input.executionId)}`;
+  const agentLabel = humanizeAgentId(input.agentId);
+
+  if (input.status === "FAILED") {
+    if (input.userId) {
+      await createNotificationForUser({
+        content: `O Agente ${agentLabel} falhou ao rodar.`,
+        link,
+        metadata: {
+          errorMessage: input.errorMessage ?? null,
+          executionId: input.executionId
+        },
+        organizationId: input.organizationId,
+        tenantId: input.tenantId,
+        type: NotificationType.AGENT_FAILED,
+        userId: input.userId
+      });
+
+      await enqueueEmailNotification(input.emailQueue, {
+        context: {
+          agentId: input.agentId,
+          errorMessage: input.errorMessage ?? "Falha nao detalhada.",
+          executionId: input.executionId,
+          link
+        },
+        organizationId: input.organizationId,
+        tenantId: input.tenantId,
+        type: "critical_error",
+        userId: input.userId
+      });
+    } else {
+      await createNotificationForOrganizationRoles({
+        content: `O Agente ${agentLabel} falhou ao rodar.`,
+        link,
+        metadata: {
+          errorMessage: input.errorMessage ?? null,
+          executionId: input.executionId
+        },
+        organizationId: input.organizationId,
+        tenantId: input.tenantId,
+        type: NotificationType.AGENT_FAILED
+      });
+    }
+  }
+
+  if (input.status === "SUCCESS" && input.userId) {
+    await enqueueEmailNotification(input.emailQueue, {
+      context: {
+        agentId: input.agentId,
+        executionId: input.executionId,
+        link
+      },
+      organizationId: input.organizationId,
+      tenantId: input.tenantId,
+      type: "workflow_completed",
+      userId: input.userId
+    });
+  }
+
+  await enqueueWebhookTopicDeliveries(input.outboundWebhookQueue, {
+    organizationId: input.organizationId,
+    payload: {
+      agentId: input.agentId,
+      errorMessage: input.errorMessage ?? null,
+      executionId: input.executionId,
+      status: input.status,
+      tenantId: input.tenantId
+    },
+    tenantId: input.tenantId,
+    topic: input.status === "SUCCESS" ? "agent.finished" : "agent.failed"
+  });
+}
 
 function billingCacheKey(tenantReference: string): string {
   return `billing-status:${tenantReference}`;
@@ -128,6 +314,38 @@ export function createBirthHubWorker(): WorkerRuntime {
       }
     }
   );
+  const emailQueue = new Queue<EmailNotificationJobPayload>(emailQueueName, {
+    connection,
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: {
+        delay: 1_000,
+        type: "exponential"
+      },
+      removeOnComplete: {
+        count: 200
+      },
+      removeOnFail: {
+        count: 200
+      }
+    }
+  });
+  const outboundWebhookQueue = new Queue<OutboundWebhookJobPayload>(outboundWebhookQueueName, {
+    connection,
+    defaultJobOptions: {
+      attempts: 5,
+      backoff: {
+        delay: 1_500,
+        type: "exponential"
+      },
+      removeOnComplete: {
+        count: 300
+      },
+      removeOnFail: {
+        count: 300
+      }
+    }
+  });
   const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
     agentExecutor: {
       execute: async ({ agentId, contextSummary, input }) => {
@@ -206,11 +424,14 @@ export function createBirthHubWorker(): WorkerRuntime {
     const executionPayload = isLegacyJob
       ? await (async () => {
           const payload = taskJobSchema.parse(job.data);
-          const tenantSecret = await prisma.jobSigningSecret.findUnique({
-            where: {
-              organizationId: payload.tenantId ?? "default-tenant"
-            }
-          });
+          const organization = await resolveOrganizationReference(payload.tenantId ?? "default-tenant");
+          const tenantSecret = organization
+            ? await prisma.jobSigningSecret.findFirst({
+                where: {
+                  tenantId: organization.tenantId
+                }
+              })
+            : null;
           const tenantId = validateLegacyTaskJob({
             fallbackSecret: config.JOB_HMAC_GLOBAL_SECRET,
             jobId,
@@ -224,115 +445,213 @@ export function createBirthHubWorker(): WorkerRuntime {
             input: payload.payload,
             approvalRequired: payload.approvalRequired,
             executionMode: payload.executionMode,
+            organizationId: organization?.id ?? null,
             requestId: payload.requestId,
+            source: ExecutionSource.MANUAL,
             tenantId,
-            toolCalls: undefined
+            toolCalls: undefined,
+            userId: payload.userId ?? null
           };
         })()
-      : (() => {
+      : await (async () => {
           const payload = agentExecutionJobSchema.parse(job.data);
+          const organization =
+            payload.organizationId
+              ? await resolveOrganizationReference(payload.organizationId)
+              : await resolveOrganizationReference(payload.tenantId);
           return {
             ...payload,
             approvalRequired: false,
             executionMode: "LIVE" as const,
-            requestId: payload.executionId
+            organizationId: organization?.id ?? payload.organizationId ?? null,
+            requestId: payload.executionId,
+            source: ExecutionSource.MANUAL
           };
-        })();
+        })());
+
+    await persistExecutionStarted({
+      agentId: executionPayload.agentId,
+      executionId: executionPayload.executionId,
+      inputPayload: executionPayload.input,
+      organizationId: executionPayload.organizationId,
+      source: executionPayload.source,
+      tenantId: executionPayload.tenantId,
+      userId: executionPayload.userId
+    });
 
     return executeTenantJob(
       {
         requestId: executionPayload.requestId,
         tenantId: executionPayload.tenantId,
-        userId: executionPayload.agentId
+        userId: executionPayload.userId ?? executionPayload.agentId
       },
       async () => {
-        const billing = await resolveBillingLock(executionPayload.tenantId);
-        if (billing.locked) {
-          logger.warn(
+        try {
+          const billing = await resolveBillingLock(executionPayload.tenantId);
+          if (billing.locked) {
+            logger.warn(
+              {
+                executionId: executionPayload.executionId,
+                status: billing.status,
+                tenantId: executionPayload.tenantId
+              },
+              "Worker aborted execution due to billing lock"
+            );
+
+            await persistExecutionFinished({
+              errorMessage: "billing_past_due",
+              executionId: executionPayload.executionId,
+              status: "FAILED"
+            });
+
+            await fanOutExecutionOutcome({
+              agentId: executionPayload.agentId,
+              emailQueue,
+              errorMessage: "billing_past_due",
+              executionId: executionPayload.executionId,
+              organizationId: executionPayload.organizationId,
+              outboundWebhookQueue,
+              status: "FAILED",
+              tenantId: executionPayload.tenantId,
+              userId: executionPayload.userId,
+              webBaseUrl: config.WEB_BASE_URL
+            });
+
+            return {
+              blocked: true,
+              blockedAt: new Date().toISOString(),
+              reason: "billing_past_due"
+            };
+          }
+
+          logger.info(
             {
               executionId: executionPayload.executionId,
-              status: billing.status,
-              tenantId: executionPayload.tenantId
+              jobId: job.id,
+              queue: job.queueName
             },
-            "Worker aborted execution due to billing lock"
+            "Worker started job"
           );
 
-          return {
-            blocked: true,
-            blockedAt: new Date().toISOString(),
-            reason: "billing_past_due"
-          };
-        }
-
-        logger.info(
-          {
-            executionId: executionPayload.executionId,
-            jobId: job.id,
-            queue: job.queueName
-          },
-          "Worker started job"
-        );
-
-        if (executionPayload.executionMode === "DRY_RUN") {
-          const output = JSON.stringify(
-            {
+          if (executionPayload.executionMode === "DRY_RUN") {
+            const output = {
               logs: ["Simulating LLM call...", "Returning MOCK_DATA"],
               mode: executionPayload.executionMode
-            },
-            null,
-            2
-          );
+            };
+            const outputHash = hashPayload(JSON.stringify(output));
 
-          return {
-            completedAt: new Date().toISOString(),
-            executionId: executionPayload.executionId,
-            outputHash: hashPayload(output),
-            requestId: executionPayload.requestId,
-            status: "COMPLETED"
-          };
-        }
+            await persistExecutionFinished({
+              executionId: executionPayload.executionId,
+              metadata: {
+                dryRun: true
+              },
+              output,
+              outputHash,
+              status: "SUCCESS"
+            });
 
-        if (executionPayload.approvalRequired) {
-          const output = JSON.stringify(
-            {
+            return {
+              completedAt: new Date().toISOString(),
+              executionId: executionPayload.executionId,
+              outputHash,
+              requestId: executionPayload.requestId,
+              status: "COMPLETED"
+            };
+          }
+
+          if (executionPayload.approvalRequired) {
+            const output = {
               message: "Awaiting human approval before final output."
+            };
+            const outputHash = hashPayload(JSON.stringify(output));
+
+            await persistExecutionFinished({
+              executionId: executionPayload.executionId,
+              output,
+              outputHash,
+              status: "WAITING_APPROVAL"
+            });
+
+            return {
+              completedAt: new Date().toISOString(),
+              executionId: executionPayload.executionId,
+              outputHash,
+              requestId: executionPayload.requestId,
+              status: "WAITING_APPROVAL"
+            };
+          }
+
+          const executionResult = await executor.execute({
+            agentId: executionPayload.agentId,
+            executionId: executionPayload.executionId,
+            input: executionPayload.input,
+            tenantId: executionPayload.tenantId,
+            toolCalls: executionPayload.toolCalls
+          });
+          const outputHash = hashPayload(JSON.stringify(executionResult));
+
+          await persistExecutionFinished({
+            executionId: executionResult.executionId,
+            metadata: {
+              steps: executionResult.steps.length
             },
-            null,
-            2
+            output: executionResult.output,
+            outputHash,
+            status: "SUCCESS"
+          });
+
+          await fanOutExecutionOutcome({
+            agentId: executionPayload.agentId,
+            emailQueue,
+            executionId: executionPayload.executionId,
+            organizationId: executionPayload.organizationId,
+            outboundWebhookQueue,
+            status: "SUCCESS",
+            tenantId: executionPayload.tenantId,
+            userId: executionPayload.userId,
+            webBaseUrl: config.WEB_BASE_URL
+          });
+
+          logger.info(
+            {
+              executionId: executionPayload.executionId,
+              jobId: job.id,
+              steps: executionResult.steps.length
+            },
+            "Worker finished job"
           );
 
           return {
             completedAt: new Date().toISOString(),
-            executionId: executionPayload.executionId,
-            outputHash: hashPayload(output),
-            requestId: executionPayload.requestId,
-            status: "WAITING_APPROVAL"
+            executionId: executionResult.executionId,
+            outputHash,
+            requestId: executionPayload.requestId
           };
-        }
+        } catch (error) {
+          const message =
+            error instanceof Error ? error.message : "Unknown agent execution failure";
 
-        const executionResult = await executor.execute({
-          agentId: executionPayload.agentId,
-          executionId: executionPayload.executionId,
-          input: executionPayload.input,
-          tenantId: executionPayload.tenantId,
-          toolCalls: executionPayload.toolCalls
-        });
-
-        logger.info(
-          {
+          await persistExecutionFinished({
+            errorMessage: message,
             executionId: executionPayload.executionId,
-            jobId: job.id,
-            steps: executionResult.steps.length
-          },
-          "Worker finished job"
-        );
+            status: "FAILED"
+          });
 
-        return {
-          completedAt: new Date().toISOString(),
-          executionId: executionResult.executionId,
-          outputHash: hashPayload(JSON.stringify(executionResult)),
-          requestId: executionPayload.requestId
-        };
+          await fanOutExecutionOutcome({
+            agentId: executionPayload.agentId,
+            emailQueue,
+            errorMessage: message,
+            executionId: executionPayload.executionId,
+            organizationId: executionPayload.organizationId,
+            outboundWebhookQueue,
+            status: "FAILED",
+            tenantId: executionPayload.tenantId,
+            userId: executionPayload.userId,
+            webBaseUrl: config.WEB_BASE_URL
+          });
+
+          throw error;
+        }
       }
     );
   };
@@ -379,6 +698,45 @@ export function createBirthHubWorker(): WorkerRuntime {
     )
   );
 
+  workers.push(
+    new Worker(
+      emailQueueName,
+      async (job) => processEmailNotificationJob(job.data as EmailNotificationJobPayload),
+      {
+        concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
+        connection
+      }
+    )
+  );
+
+  workers.push(
+    new Worker(
+      outboundWebhookQueueName,
+      async (job) => processOutboundWebhookJob(job.data as OutboundWebhookJobPayload),
+      {
+        concurrency: config.WORKER_CONCURRENCY,
+        connection
+      }
+    )
+  );
+
+  workers.push(
+    new Worker(
+      crmSyncQueueName,
+      async (job) => {
+        const payload = job.data as CrmSyncJobPayload;
+        await syncOrganizationToHubspot({
+          organizationId: payload.organizationId,
+          tenantId: payload.tenantId
+        });
+      },
+      {
+        concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
+        connection
+      }
+    )
+  );
+
   workers.forEach((worker) => {
     worker.on("failed", (job, error) => {
       logger.error(
@@ -395,6 +753,8 @@ export function createBirthHubWorker(): WorkerRuntime {
   const close = async (): Promise<void> => {
     await Promise.all(workers.map((worker) => worker.close()));
     await workflowExecutionQueue.close();
+    await emailQueue.close();
+    await outboundWebhookQueue.close();
     await connection.quit();
   };
 

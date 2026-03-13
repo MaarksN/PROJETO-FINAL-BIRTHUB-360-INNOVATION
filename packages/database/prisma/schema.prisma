@@ -13,13 +13,18 @@ model Organization {
   name             String
   slug             String            @unique
   settings         Json?
+  primaryDomain    String?           @map("primary_domain")
   stripeCustomerId String?           @unique @map("stripe_customer_id")
+  hubspotCompanyId String?           @unique @map("hubspot_company_id")
   planId           String?           @map("plan_id")
+  healthScore      Int               @default(100) @map("health_score")
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   memberships      Membership[]
   sessions         Session[]
   agents           Agent[]
+  agentExecutions  AgentExecution[]
+  agentFeedback    AgentFeedback[]
   workflows        Workflow[]
   workflowSteps    WorkflowStep[]
   workflowTransitions WorkflowTransition[]
@@ -38,13 +43,23 @@ model Organization {
   loginAlerts      LoginAlert[]
   mfaChallenges    MfaChallenge[]
   jobSecrets       JobSigningSecret[]
+  notifications    Notification[]
+  userPreferences  UserPreference[]
+  tenantActivityWindows TenantActivityWindow[]
+  webhookEndpoints WebhookEndpoint[]
+  webhookDeliveries WebhookDelivery[]
+  datasetExports   DatasetExport[]
+  crmSyncEvents    CrmSyncEvent[]
   plan             Plan?             @relation(fields: [planId], references: [id], onDelete: SetNull)
 
   @@index([tenantId])
   @@index([tenantId, id])
   @@index([tenantId, slug])
   @@index([stripeCustomerId])
+  @@index([primaryDomain])
+  @@index([hubspotCompanyId])
   @@index([planId])
+  @@index([healthScore])
   @@map("organizations")
 }
 
@@ -67,6 +82,11 @@ model User {
   mfaRecoveryCodes MfaRecoveryCode[]
   mfaChallenges    MfaChallenge[]
   loginAlerts      LoginAlert[]
+  notifications    Notification[]
+  preferences      UserPreference[]
+  agentExecutions  AgentExecution[]
+  agentFeedback    AgentFeedback[]
+  createdWebhookEndpoints WebhookEndpoint[] @relation("CreatedWebhookEndpoints")
 
   @@map("users")
 }
@@ -591,7 +611,206 @@ model BillingEvent {
   @@map("billing_events")
 }
 
+model Notification {
+  id             String           @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  type           NotificationType
+  content        String
+  link           String?
+  metadata       Json?
+  isRead         Boolean          @default(false)
+  readAt         DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, userId])
+  @@index([userId, isRead])
+  @@map("notifications")
+}
+
+model UserPreference {
+  id                  String              @id @default(cuid())
+  tenantId            String
+  organizationId      String
+  userId              String
+  inAppNotifications  Boolean             @default(true) @map("in_app_notifications")
+  emailNotifications  Boolean             @default(true) @map("email_notifications")
+  marketingEmails     Boolean             @default(false) @map("marketing_emails")
+  pushNotifications   Boolean             @default(false) @map("push_notifications")
+  cookieConsent       CookieConsentStatus @default(PENDING) @map("cookie_consent")
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  organization        Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user                User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([tenantId])
+  @@index([tenantId, userId])
+  @@map("user_preferences")
+}
+
+model AgentExecution {
+  id             String               @id
+  tenantId       String
+  organizationId String?
+  userId         String?
+  agentId        String
+  status         AgentExecutionStatus @default(RUNNING)
+  source         ExecutionSource      @default(MANUAL)
+  input          Json?
+  output         Json?
+  outputHash     String?              @map("output_hash")
+  errorMessage   String?              @map("error_message")
+  metadata       Json?
+  startedAt      DateTime             @default(now())
+  completedAt    DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  organization   Organization?        @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  user           User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  feedbacks      AgentFeedback[]
+
+  @@index([tenantId])
+  @@index([tenantId, createdAt])
+  @@index([tenantId, agentId])
+  @@index([tenantId, status])
+  @@index([organizationId, userId])
+  @@map("agent_executions")
+}
+
+model AgentFeedback {
+  id             String           @id @default(cuid())
+  executionId    String
+  tenantId       String
+  organizationId String?
+  userId         String
+  agentId        String
+  rating         Int
+  notes          String?
+  expectedOutput String?          @map("expected_output")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  execution      AgentExecution   @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  organization   Organization?    @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([executionId, userId])
+  @@index([tenantId])
+  @@index([tenantId, agentId])
+  @@index([tenantId, rating])
+  @@map("agent_feedback")
+}
+
+model TenantActivityWindow {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  windowDays     Int
+  activeUsers    Int          @default(0) @map("active_users")
+  loginCount     Int          @default(0) @map("login_count")
+  agentRuns      Int          @default(0) @map("agent_runs")
+  workflowRuns   Int          @default(0) @map("workflow_runs")
+  billingErrors  Int          @default(0) @map("billing_errors")
+  runFailures    Int          @default(0) @map("run_failures")
+  computedAt     DateTime     @default(now()) @map("computed_at")
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, windowDays])
+  @@index([organizationId, windowDays])
+  @@map("tenant_activity_windows")
+}
+
+model WebhookEndpoint {
+  id                  String                @id @default(cuid())
+  tenantId            String
+  organizationId      String
+  createdByUserId     String?
+  url                 String
+  secret              String
+  topics              String[]
+  status              WebhookEndpointStatus @default(ACTIVE)
+  consecutiveFailures Int                   @default(0) @map("consecutive_failures")
+  lastDeliveredAt     DateTime?             @map("last_delivered_at")
+  lastFailureAt       DateTime?             @map("last_failure_at")
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  organization        Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdBy           User?                 @relation("CreatedWebhookEndpoints", fields: [createdByUserId], references: [id], onDelete: SetNull)
+  deliveries          WebhookDelivery[]
+
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@index([organizationId, createdAt])
+  @@map("webhook_endpoints")
+}
+
+model WebhookDelivery {
+  id             String          @id @default(cuid())
+  endpointId     String
+  tenantId       String
+  organizationId String
+  topic          String
+  payload        Json
+  signature      String
+  attempt        Int             @default(1)
+  success        Boolean         @default(false)
+  statusCode     Int?            @map("status_code")
+  responseBody   String?         @map("response_body")
+  errorMessage   String?         @map("error_message")
+  deliveredAt    DateTime?       @map("delivered_at")
+  createdAt      DateTime        @default(now())
+  endpoint       WebhookEndpoint @relation(fields: [endpointId], references: [id], onDelete: Cascade)
+  organization   Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, topic, createdAt])
+  @@index([endpointId, createdAt])
+  @@index([organizationId, createdAt])
+  @@map("webhook_deliveries")
+}
+
+model DatasetExport {
+  id             String        @id @default(cuid())
+  tenantId       String?
+  organizationId String?
+  fileName       String        @map("file_name")
+  recordCount    Int           @default(0) @map("record_count")
+  datasetHash    String        @map("dataset_hash")
+  storageUrl     String        @map("storage_url")
+  createdAt      DateTime      @default(now())
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([createdAt])
+  @@map("dataset_exports")
+}
+
+model CrmSyncEvent {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  provider       String       @default("hubspot")
+  direction      String       @default("outbound")
+  eventType      String       @map("event_type")
+  requestBody    Json         @map("request_body")
+  responseStatus Int?         @map("response_status")
+  responseBody   String?      @map("response_body")
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([organizationId, createdAt])
+  @@map("crm_sync_events")
+}
+
 enum Role {
+  SUPER_ADMIN
   OWNER
   ADMIN
   MEMBER
@@ -712,4 +931,39 @@ enum QuotaResourceType {
   WORKFLOW_RUNS
   STORAGE_GB
   API_REQUESTS
+}
+
+enum NotificationType {
+  INFO
+  SUCCESS
+  WARNING
+  FAILED
+  WORKFLOW_COMPLETED
+  CRITICAL_ERROR
+  AGENT_FAILED
+  CHURN_RISK
+}
+
+enum CookieConsentStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum AgentExecutionStatus {
+  RUNNING
+  SUCCESS
+  FAILED
+  WAITING_APPROVAL
+}
+
+enum ExecutionSource {
+  MANUAL
+  WORKFLOW
+  INTERNAL
+}
+
+enum WebhookEndpointStatus {
+  ACTIVE
+  DISABLED
 }
