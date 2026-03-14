@@ -27,6 +27,7 @@ import {
   processEmailNotificationJob,
   type EmailNotificationJobPayload
 } from "./notifications/emailQueue.js";
+import { DynamicRateLimiter } from "./lib/rate-limiter.js";
 import { getQueueNameForPriority } from "./queues/agentQueue.js";
 import { executeTenantJob } from "./tenant-execution.js";
 import {
@@ -352,7 +353,9 @@ export function createBirthHubWorker(): WorkerRuntime {
       }
     }
   });
+  const dynamicRateLimiter = new DynamicRateLimiter(connection);
   const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
+    httpRequestRateLimiter: dynamicRateLimiter,
     agentExecutor: {
       execute: async ({ agentId, contextSummary, input }) => {
         const result = await executor.execute({
@@ -722,7 +725,7 @@ export function createBirthHubWorker(): WorkerRuntime {
   workers.push(
     new Worker(
       outboundWebhookQueueName,
-      async (job) => processOutboundWebhookJob(job.data as OutboundWebhookJobPayload),
+      async (job) => processOutboundWebhookJob(job.data as OutboundWebhookJobPayload, { redis: connection }),
       {
         concurrency: config.WORKER_CONCURRENCY,
         connection: bullConnection
