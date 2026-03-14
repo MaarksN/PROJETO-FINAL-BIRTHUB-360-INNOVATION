@@ -92,7 +92,13 @@ export async function enqueueWebhookTopicDeliveries(
   );
 }
 
-export async function processOutboundWebhookJob(payload: OutboundWebhookJobPayload) {
+import { DynamicRateLimiter } from "../lib/rate-limiter.js";
+import type { Redis } from "ioredis";
+
+export async function processOutboundWebhookJob(
+  payload: OutboundWebhookJobPayload,
+  dependencies?: { redis?: Redis }
+) {
   const endpoint = await prisma.webhookEndpoint.findUnique({
     where: {
       id: payload.endpointId
@@ -126,6 +132,13 @@ export async function processOutboundWebhookJob(payload: OutboundWebhookJobPaylo
   });
 
   try {
+    if (dependencies?.redis) {
+      const limiter = new DynamicRateLimiter(dependencies.redis);
+      const host = new URL(endpoint.url).host;
+      // Rate limit: Max 10 calls per second per tenant per host
+      await limiter.consume(`webhook:${payload.tenantId}:${host}`, 10, 1);
+    }
+
     const result = await dispatchHttpRequest({
       payload: serializedPayload,
       signature,

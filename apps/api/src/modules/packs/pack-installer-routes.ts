@@ -62,15 +62,26 @@ export function createPackInstallerRouter(): Router {
       const tenantId = request.context.tenantId ?? "default-tenant";
       const payload = z.object({ packId: z.string().min(1) }).parse(request.body);
 
-      const result = await packInstallerService.uninstallPackAtomic({
-        packId: payload.packId,
-        tenantId
-      });
+      try {
+        const result = await packInstallerService.uninstallPackAtomic({
+          packId: payload.packId,
+          tenantId
+        });
 
-      response.status(200).json({
-        requestId: request.context.requestId,
-        ...result
-      });
+        response.status(200).json({
+          requestId: request.context.requestId,
+          ...result
+        });
+      } catch (error) {
+        if (error instanceof Error && error.message.startsWith("Cannot uninstall pack because it is being used by active workflows")) {
+          throw new ProblemDetailsError({
+            detail: error.message,
+            status: 409,
+            title: "Pack in Use"
+          });
+        }
+        throw error;
+      }
     })
   );
 

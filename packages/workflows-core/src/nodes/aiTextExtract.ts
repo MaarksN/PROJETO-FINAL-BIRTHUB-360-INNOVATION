@@ -13,6 +13,9 @@ function findFieldValue(text: string, field: string): string | null {
   return match?.[1]?.trim() ?? null;
 }
 
+// Max input string size (50KB) to prevent ReDoS CPU exhaustion
+const MAX_TEXT_LENGTH = 50 * 1024;
+
 export function executeAiTextExtractNode(
   config: AiTextExtractConfig,
   context: WorkflowRuntimeContext
@@ -20,8 +23,13 @@ export function executeAiTextExtractNode(
   const interpolated = interpolateValue(config, context);
   const output: Record<string, string | null> = {};
 
+  let textToProcess = interpolated.text || "";
+  if (textToProcess.length > MAX_TEXT_LENGTH) {
+    textToProcess = textToProcess.slice(0, MAX_TEXT_LENGTH);
+  }
+
   for (const field of interpolated.fields) {
-    output[field] = findFieldValue(interpolated.text, field);
+    output[field] = findFieldValue(textToProcess, field);
   }
 
   return output;

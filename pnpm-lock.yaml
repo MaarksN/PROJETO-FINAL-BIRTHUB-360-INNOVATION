@@ -11,6 +11,16 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@types/opossum':
+        specifier: ^8.1.9
+        version: 8.1.9
+      lru-cache:
+        specifier: ^11.2.7
+        version: 11.2.7
+      opossum:
+        specifier: ^9.0.0
+        version: 9.0.0
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -3074,6 +3084,9 @@ packages:
   '@types/node@25.5.0':
     resolution: {integrity: sha512-jp2P3tQMSxWugkCUKLRPVUpGaL5MVFwF8RDuSRztfwgN1wmqJeMSbKlnEtQqU8UrhTmzEmZdu2I6v2dpp7XIxw==}
 
+  '@types/opossum@8.1.9':
+    resolution: {integrity: sha512-Jm/tYxuJFefiwRYs+/EOsUP3ktk0c8siMgAHPLnA4PXF4wKghzcjqf88dY+Xii5jId5Txw4JV0FMKTpjbd7KJA==}
+
   '@types/oracledb@6.5.2':
     resolution: {integrity: sha512-kK1eBS/Adeyis+3OlBDMeQQuasIDLUYXsi2T15ccNJ0iyUpQ4xDF7svFu3+bGVrI0CMBUclPciz+lsQR3JX3TQ==}
 
@@ -4781,6 +4794,10 @@ packages:
     resolution: {integrity: sha512-ESL2CrkS/2wTPfuend7Zhkzo2u0daGJ/A2VucJOgQ/C48S/zB8MMeMHSGKYpXhIjbPxfuezITkaBH1wqv00DDQ==}
     engines: {node: 20 || >=22}
 
+  lru-cache@11.2.7:
+    resolution: {integrity: sha512-aY/R+aEsRelme17KGQa/1ZSIpLpNYYrhcrepKTZgE+W3WM16YMCaPwOHLHsmopZHELU0Ojin1lPVxKR0MihncA==}
+    engines: {node: 20 || >=22}
+
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
@@ -5049,6 +5066,10 @@ packages:
 
   openapi3-ts@4.5.0:
     resolution: {integrity: sha512-jaL+HgTq2Gj5jRcfdutgRGLosCy/hT8sQf6VOy+P+g36cZOjI1iukdPnijC+4CmeRzg/jEllJUboEic2FhxhtQ==}
+
+  opossum@9.0.0:
+    resolution: {integrity: sha512-K76U0QkxOfUZamneQuzz+AP0fyfTJcCplZ2oZL93nxeupuJbN4s6uFNbmVCt4eWqqGqRnnowdFuBicJ1fLMVxw==}
+    engines: {node: ^24 || ^22 || ^20}
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -6152,7 +6173,7 @@ snapshots:
       '@csstools/css-color-parser': 4.0.2(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)
       '@csstools/css-parser-algorithms': 4.0.0(@csstools/css-tokenizer@4.0.0)
       '@csstools/css-tokenizer': 4.0.0
-      lru-cache: 11.2.6
+      lru-cache: 11.2.7
 
   '@asamuzakjp/dom-selector@6.8.1':
     dependencies:
@@ -6160,7 +6181,7 @@ snapshots:
       bidi-js: 1.0.3
       css-tree: 3.2.1
       is-potential-custom-element-name: 1.0.1
-      lru-cache: 11.2.6
+      lru-cache: 11.2.7
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
@@ -8509,6 +8530,10 @@ snapshots:
     dependencies:
       undici-types: 7.18.2
 
+  '@types/opossum@8.1.9':
+    dependencies:
+      '@types/node': 25.5.0
+
   '@types/oracledb@6.5.2':
     dependencies:
       '@types/node': 25.5.0
@@ -9204,7 +9229,7 @@ snapshots:
       '@asamuzakjp/css-color': 5.0.1
       '@csstools/css-syntax-patches-for-csstree': 1.1.0
       css-tree: 3.2.1
-      lru-cache: 11.2.6
+      lru-cache: 11.2.7
 
   csstype@3.2.3: {}
 
@@ -10428,6 +10453,8 @@ snapshots:
 
   lru-cache@11.2.6: {}
 
+  lru-cache@11.2.7: {}
+
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
@@ -10691,6 +10718,8 @@ snapshots:
   openapi3-ts@4.5.0:
     dependencies:
       yaml: 2.8.2
+
+  opossum@9.0.0: {}
 
   optionator@0.9.4:
     dependencies:

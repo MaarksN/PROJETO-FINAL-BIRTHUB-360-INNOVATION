@@ -148,6 +148,7 @@ export class WorkflowRunner {
   private readonly dependencies: {
     agentExecutor?: AgentExecutor;
     notificationDispatcher?: NotificationDispatcher;
+    httpRequestRateLimiter?: { consume: (key: string, limit: number, windowSeconds: number) => Promise<void> };
   };
 
   constructor(
@@ -155,6 +156,7 @@ export class WorkflowRunner {
     dependencies: {
       agentExecutor?: AgentExecutor;
       notificationDispatcher?: NotificationDispatcher;
+      httpRequestRateLimiter?: { consume: (key: string, limit: number, windowSeconds: number) => Promise<void> };
     } = {}
   ) {
     this.executionQueue = executionQueueConnection;
