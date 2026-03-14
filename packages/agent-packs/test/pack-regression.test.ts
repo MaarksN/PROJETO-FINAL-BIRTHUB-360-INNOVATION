@@ -36,7 +36,13 @@ void test("official collection regression: installable manifests keep keywords a
   for (const entry of catalog.filter((item) => isInstallableManifest(item.manifest))) {
     assert.ok(entry.manifest.keywords.length >= 8);
     assert.ok(entry.manifest.agent.prompt.includes("IDENTIDADE E MISSAO"));
+    assert.ok(entry.manifest.agent.prompt.includes("MODO DE OPERACAO AUTONOMA"));
+    assert.ok(entry.manifest.agent.prompt.includes("ROTINA DE MONITORAMENTO E ANTECIPACAO"));
+    assert.ok(entry.manifest.agent.prompt.includes("CRITERIOS DE ESCALACAO"));
     assert.ok(entry.manifest.agent.prompt.includes("APRENDIZADO COMPARTILHADO"));
+    assert.ok(
+      entry.manifest.agent.prompt.includes("nunca esperar um risco relevante virar incidente para alertar")
+    );
     assert.ok(entry.manifest.agent.prompt.includes(SHARED_LEARNING_CLAUSE));
   }
 });

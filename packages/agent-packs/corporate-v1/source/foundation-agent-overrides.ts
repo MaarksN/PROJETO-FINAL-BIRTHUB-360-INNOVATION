@@ -531,7 +531,7 @@ export const FOUNDATION_AGENT_OVERRIDES: FoundationAgentOverride[] = [
       "sempre respeitar privacidade e contexto"
     ],
     keywords: [
-      "hr",
+      "human resources",
       "talent operations",
       "hiring funnel",
       "onboarding",

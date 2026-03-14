@@ -17,6 +17,10 @@ const REQUIRED_PROMPT_SECTIONS = [
   "QUANDO ACIONAR",
   "ENTRADAS OBRIGATORIAS",
   "RACIOCINIO OPERACIONAL ESPERADO",
+  "MODO DE OPERACAO AUTONOMA",
+  "ROTINA DE MONITORAMENTO E ANTECIPACAO",
+  "CRITERIOS DE PRIORIZACAO",
+  "CRITERIOS DE ESCALACAO",
   "OBJETIVOS PRIORITARIOS",
   "FERRAMENTAS ESPERADAS",
   "SAIDAS OBRIGATORIAS",
@@ -26,6 +30,8 @@ const REQUIRED_PROMPT_SECTIONS = [
   "FORMATO DE SAIDA"
 ] as const;
 const SHARED_LEARNING_CLAUSE = "Todo agente aprende com todo agente.";
+const AUTONOMOUS_OPERATION_CLAUSE = "operar de forma autonoma dentro do escopo permitido";
+const PREVENTIVE_ALERT_CLAUSE = "nunca esperar um risco relevante virar incidente para alertar";
 
 async function findManifestFiles(rootDir: string): Promise<string[]> {
   const entries = await readdir(rootDir, { withFileTypes: true });
@@ -63,6 +69,14 @@ function validatePromptSections(manifest: AgentManifest): string[] {
 
   if (!prompt.includes(SHARED_LEARNING_CLAUSE)) {
     issues.push("Missing cross-agent shared learning clause.");
+  }
+
+  if (!prompt.toLowerCase().includes(AUTONOMOUS_OPERATION_CLAUSE)) {
+    issues.push("Missing explicit autonomous operating clause.");
+  }
+
+  if (!prompt.toLowerCase().includes(PREVENTIVE_ALERT_CLAUSE)) {
+    issues.push("Missing preventive escalation clause.");
   }
 
   return issues;
