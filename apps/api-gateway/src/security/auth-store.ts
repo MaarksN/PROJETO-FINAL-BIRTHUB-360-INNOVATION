@@ -11,13 +11,6 @@ function getJwtSecret(): string {
     return configured;
   }
 
-  if (
-    process.env.NODE_ENV === "development" &&
-    process.env.LEGACY_ALLOW_INSECURE_DEV_AUTH === "true"
-  ) {
-    return "dev-secret-change-me";
-  }
-
   throw new Error("LEGACY_JWT_SECRET_MISSING");
 }
 
