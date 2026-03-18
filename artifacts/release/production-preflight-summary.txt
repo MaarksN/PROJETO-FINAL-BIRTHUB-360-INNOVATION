@@ -1,0 +1,8 @@
+Target: production
+Checked at: 2026-03-17T18:48:29.040Z
+api: FAIL -> [api] invalid environment variables:
+- SENTRY_DSN must be configured in production.
+web: FAIL -> [web] invalid environment variables:
+- NEXT_PUBLIC_SENTRY_DSN must be configured in production.
+worker: FAIL -> [worker] invalid environment variables:
+- SENTRY_DSN must be configured in production.
