@@ -109,7 +109,7 @@ export async function runParallelExecutionLoadTest(totalExecutions: number = 50)
       await executor.execute(request);
       samples.push(performance.now() - requestStartedAt);
     },
-    { concurrency: 50 }
+    { concurrency: 10 }
   );
 
   const totalMs = performance.now() - startedAt;
