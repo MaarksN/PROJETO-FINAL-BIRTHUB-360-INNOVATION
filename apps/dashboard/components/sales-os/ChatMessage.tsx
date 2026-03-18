@@ -1,6 +1,7 @@
 import React from 'react';
 import { marked } from 'marked';
 import { ChatMessage as IChatMessage } from '../../lib/sales-os/types';
+import { sanitize } from '../../lib/sanitize';
 
 interface ChatMessageProps {
     message: IChatMessage;
@@ -18,7 +19,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
                     : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded-tl-none'
              }`}>
                  {/* Basic markdown parsing for chat */}
-                 <div dangerouslySetInnerHTML={{ __html: marked.parse(message.text) }} />
+                 <div dangerouslySetInnerHTML={{ __html: sanitize(marked.parse(message.text) as string) }} />
              </div>
         </div>
     );
