@@ -80,11 +80,16 @@ export class JobCheckService {
     try {
       const failed = await queue.getFailed();
       let retried = 0;
-      for (const job of failed as JobLike[]) {
-        if (!job.retry) continue;
-        await job.retry();
-        retried += 1;
+      const CHUNK_SIZE = 50;
+
+      const jobsToRetry = (failed as JobLike[]).filter((job) => job.retry !== undefined);
+
+      for (let i = 0; i < jobsToRetry.length; i += CHUNK_SIZE) {
+        const chunk = jobsToRetry.slice(i, i + CHUNK_SIZE);
+        await Promise.all(chunk.map((job) => job.retry!()));
+        retried += chunk.length;
       }
+
       return { retried };
     } finally {
       await queue.close();
