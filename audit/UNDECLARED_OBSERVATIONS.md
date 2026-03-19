@@ -36,7 +36,7 @@ Pré-existente: sim (confirmado antes do meu trabalho)
 Recomendação: ciclo de correção técnica separado
 
 Pacote: queue
-Tipo: TypeScript exatcOptionalPropertyTypes
+Tipo: TypeScript exactOptionalPropertyTypes
 Impacto: falha no build do pacote
 Arquivo(s): src/index.ts, src/definitions.ts
 Pré-existente: sim (confirmado antes do meu trabalho)
