@@ -76,3 +76,23 @@
   - `packages/agents/executives/BoardPrepAI/contract.yaml` e `.../system_prompt.md` sem marcação `[SOURCE]`.
   Ação requerida do executor (Jules):
   - Ver `audit/pending_review/ciclo1_boardprep-ai_codex_reprovacao.md` para checklist técnico de correção e critérios de revalidação.
+
+## 2026-03-19T13:57:50Z
+
+- Item: `VALIDACAO TECNICA BRANCH jules-agent-orchestrator-compliance-9273725926733694702`
+  Validador: `CODEX`
+  Resultado: `REPROVADO`
+  Evidência:
+  - CI da branch (SHA `dd66b20103c322017035de96bbd5b16c29851b60`) não está verde: `CHECK_RUNS_TOTAL=20`, `CHECK_RUNS_SUCCESS=4`, `CHECK_RUNS_FAILURE=14`, `CHECK_RUNS_SKIPPED=2`, `STATUS_STATE=pending` (GitHub API).
+  - Testes do pacote de agentes: `corepack pnpm test:agents` passou sem regressão local (`122 passed`).
+  - `debugAuth.ts` removido: arquivo inexistente e `NO_REFERENCES` para `debugAuth`.
+  - `legacy_eval.ts` removido: arquivo inexistente e `NO_REFERENCES` para `legacy_eval`.
+  - Módulos LDR e AE presentes e funcionais: diretórios `agents/ldr` e `agents/ae` existem; testes direcionados passaram (`9 passed`).
+  - Output schemas com rejeição: `AEOutput` e `SDROutput` existem, mas não estão aplicados na fronteira de resposta (`/run` usa `response_model=Dict[str, Any]`), e não há evidência de rejeição de payload de saída desses schemas.
+  - `required_tools` ausente em todos os manifests do pacote corporativo: `MISSING_REQUIRED_TOOLS=43/43`.
+  - Credenciais inline em prompts/manifests: varredura sem achados (`NO_INLINE_CREDENTIAL_MATCHES`).
+  - Fallback canônico em manifests: `fallback_behavior` ausente em todos os manifests do pacote corporativo (`MISSING_FALLBACK_BEHAVIOR=43/43`).
+  - Comentário `[SOURCE]` ausente nos arquivos alterados da branch (`docs/audit/human_required/billing_lock_ci_block.md` e `docs/audit/validation_log.md`).
+  - Alterações em `./docs/`: detectadas (`DOCS_CHANGED_COUNT=2`) no delta `0e0cc3a8d0f41c09ae39268e61c51e02384e1ec0..dd66b20103c322017035de96bbd5b16c29851b60`.
+  Ação requerida do executor (Jules):
+  - Corrigir os itens reprovados (CI, aplicação real de output schema com testes de rejeição, `required_tools`, `fallback_behavior`, `[SOURCE]`, e política de zero alterações em `docs/`) e reenviar para nova validação.

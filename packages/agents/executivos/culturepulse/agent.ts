@@ -1,36 +1,36 @@
-// [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI
+// [SOURCE] BirthHub360_Agentes_Parallel_Plan - CulturePulse
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import {
-  type BoardPrepContract,
-  type BoardPrepEvent,
-  type BoardPrepInput,
-  BoardPrepInputSchema,
-  type BoardPrepMetrics,
-  type BoardPrepOutput,
-  BoardPrepOutputSchema,
-  type ToolFailureMode,
-  BoardPrepContractSchema,
-  DEFAULT_BOARDPREP_CONTRACT
+  type CultureEvent,
+  type CultureFailureMode,
+  type CultureMetrics,
+  type CulturePulseContract,
+  CulturePulseContractSchema,
+  type CulturePulseInput,
+  CulturePulseInputSchema,
+  type CulturePulseOutput,
+  CulturePulseOutputSchema,
+  DEFAULT_CULTUREPULSE_CONTRACT
 } from "./schemas.js";
 import {
-  type BoardPrepToolAdapters,
-  type BoardPrepToolId,
-  type BoardPrepToolInput,
-  BOARDPREP_TOOL_IDS,
-  BoardReportTemplateSchema,
-  BudgetForecastSchema,
-  KpiDashboardSnapshotSchema,
-  createDefaultBoardPrepToolAdapters,
-  normalizeToolId
+  CULTUREPULSE_TOOL_IDS,
+  EngagementSurveySnapshotSchema,
+  ManagerSentimentSnapshotSchema,
+  RetentionRiskSnapshotSchema,
+  type CulturePulseToolAdapters,
+  type CultureToolId,
+  type CultureToolInput,
+  createDefaultCulturePulseToolAdapters,
+  normalizeCultureToolId
 } from "./tools.js";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "audit",
   "pending_review",
-  "ciclo1_boardprep-ai",
+  "ciclo1_culturepulse",
   "contract.yaml"
 );
 const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
@@ -39,7 +39,7 @@ const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   "..",
   "audit",
   "pending_review",
-  "ciclo1_boardprep-ai",
+  "ciclo1_culturepulse",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
@@ -47,13 +47,13 @@ const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   "packages",
   "agents",
   "executives",
-  "BoardPrepAI",
+  "CulturePulse",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   process.cwd(),
   "executives",
-  "BoardPrepAI",
+  "CulturePulse",
   "contract.yaml"
 );
 const DEFAULT_CONTRACT_PATHS = [
@@ -63,15 +63,15 @@ const DEFAULT_CONTRACT_PATHS = [
   DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE
 ] as const;
 
-interface BoardPrepAIAgentOptions {
+interface CulturePulseAgentOptions {
   contractPath?: string;
   now?: () => Date;
   sleep?: (delayMs: number) => Promise<void>;
-  toolAdapters?: BoardPrepToolAdapters;
+  toolAdapters?: CulturePulseToolAdapters;
 }
 
 interface LoadedContract {
-  contract: BoardPrepContract;
+  contract: CulturePulseContract;
   source: "audit_file" | "custom_file" | "default" | "package_file";
 }
 
@@ -98,11 +98,10 @@ function toStringArray(value: unknown): string[] | undefined {
   return items.length > 0 ? items : undefined;
 }
 
-function toFailureMode(rawValue: string | undefined): ToolFailureMode | undefined {
+function toFailureMode(rawValue: string | undefined): CultureFailureMode | undefined {
   if (!rawValue) {
     return undefined;
   }
-
   const normalized = rawValue.trim().toLowerCase();
   if (normalized.includes("degrad")) {
     return "degraded_report";
@@ -140,18 +139,16 @@ function extractYamlArray(text: string, acceptedKeys: string[]): string[] | unde
     }
 
     const lineIndent = line.match(/^(\s*)/)?.[1]?.length ?? 0;
-    const arrayItemMatch = line.match(/^\s*-\s*(.+)\s*$/);
-
-    if (!arrayItemMatch && line.trim().length > 0 && lineIndent <= collectorIndent) {
+    const itemMatch = line.match(/^\s*-\s*(.+)\s*$/);
+    if (!itemMatch && line.trim().length > 0 && lineIndent <= collectorIndent) {
       collecting = false;
       continue;
     }
-
-    if (!arrayItemMatch) {
+    if (!itemMatch) {
       continue;
     }
 
-    const cleaned = (arrayItemMatch[1] ?? "")
+    const cleaned = (itemMatch[1] ?? "")
       .trim()
       .replace(/^['"]/, "")
       .replace(/['"]$/, "");
@@ -166,11 +163,12 @@ function extractYamlArray(text: string, acceptedKeys: string[]): string[] | unde
 function extractFirstNumber(text: string, patterns: RegExp[]): number | undefined {
   for (const pattern of patterns) {
     const match = text.match(pattern);
-    if (match?.[1]) {
-      const parsed = Number.parseInt(match[1], 10);
-      if (Number.isFinite(parsed)) {
-        return parsed;
-      }
+    if (!match?.[1]) {
+      continue;
+    }
+    const parsed = Number.parseInt(match[1], 10);
+    if (Number.isFinite(parsed)) {
+      return parsed;
     }
   }
   return undefined;
@@ -178,7 +176,7 @@ function extractFirstNumber(text: string, patterns: RegExp[]): number | undefine
 
 function clampMaxAttempts(value: number): number {
   if (!Number.isFinite(value)) {
-    return DEFAULT_BOARDPREP_CONTRACT.retry.maxAttempts;
+    return DEFAULT_CULTUREPULSE_CONTRACT.retry.maxAttempts;
   }
   return Math.min(3, Math.max(1, Math.trunc(value)));
 }
@@ -188,7 +186,7 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   if (
     normalized.endsWith(
       path
-        .join("audit", "pending_review", "ciclo1_boardprep-ai", "contract.yaml")
+        .join("audit", "pending_review", "ciclo1_culturepulse", "contract.yaml")
         .toLowerCase()
     )
   ) {
@@ -196,7 +194,7 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   }
   if (
     normalized.endsWith(
-      path.join("executives", "BoardPrepAI", "contract.yaml").toLowerCase()
+      path.join("executives", "CulturePulse", "contract.yaml").toLowerCase()
     )
   ) {
     return "package_file";
@@ -206,8 +204,8 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
 
 function parseContractOverridesFromObject(
   value: Record<string, unknown>
-): Partial<BoardPrepContract> {
-  const overrides: Partial<BoardPrepContract> = {};
+): Partial<CulturePulseContract> {
+  const overrides: Partial<CulturePulseContract> = {};
 
   const toolIds =
     toStringArray(value.toolIds) ??
@@ -217,17 +215,17 @@ function parseContractOverridesFromObject(
     overrides.toolIds = toolIds;
   }
 
-  const retryRecord = toRecord(value.retry);
-  if (retryRecord) {
-    const retryOverride: Partial<BoardPrepContract["retry"]> = {};
-    if (typeof retryRecord.maxAttempts === "number") {
-      retryOverride.maxAttempts = clampMaxAttempts(retryRecord.maxAttempts);
+  const retry = toRecord(value.retry);
+  if (retry) {
+    const retryOverride: Partial<CulturePulseContract["retry"]> = {};
+    if (typeof retry.maxAttempts === "number") {
+      retryOverride.maxAttempts = clampMaxAttempts(retry.maxAttempts);
     }
-    if (typeof retryRecord.baseDelayMs === "number") {
-      retryOverride.baseDelayMs = retryRecord.baseDelayMs;
+    if (typeof retry.baseDelayMs === "number") {
+      retryOverride.baseDelayMs = retry.baseDelayMs;
     }
     if (Object.keys(retryOverride).length > 0) {
-      overrides.retry = retryOverride as BoardPrepContract["retry"];
+      overrides.retry = retryOverride as CulturePulseContract["retry"];
     }
   }
 
@@ -242,7 +240,7 @@ function parseContractOverridesFromObject(
   if (fallbackBehavior) {
     const toolUnavailable = toRecord(fallbackBehavior.tool_unavailable);
     const exhausted = toRecord(fallbackBehavior.exhausted);
-    const retryOverride: Partial<BoardPrepContract["retry"]> = {};
+    const retryOverride: Partial<CulturePulseContract["retry"]> = {};
 
     if (toolUnavailable && typeof toolUnavailable.retry_attempts === "number") {
       retryOverride.maxAttempts = clampMaxAttempts(toolUnavailable.retry_attempts);
@@ -252,7 +250,7 @@ function parseContractOverridesFromObject(
     }
     if (Object.keys(retryOverride).length > 0) {
       overrides.retry = {
-        ...DEFAULT_BOARDPREP_CONTRACT.retry,
+        ...DEFAULT_CULTUREPULSE_CONTRACT.retry,
         ...retryOverride
       };
     }
@@ -282,26 +280,26 @@ function parseContractOverridesFromObject(
     const metrics = toStringArray(observability.metrics);
     if (events || metrics) {
       const filteredEvents = events?.filter(
-        (entry): entry is BoardPrepContract["observability"]["events"][number] =>
-          DEFAULT_BOARDPREP_CONTRACT.observability.events.includes(
-            entry as BoardPrepContract["observability"]["events"][number]
+        (entry): entry is CulturePulseContract["observability"]["events"][number] =>
+          DEFAULT_CULTUREPULSE_CONTRACT.observability.events.includes(
+            entry as CulturePulseContract["observability"]["events"][number]
           )
       );
       const filteredMetrics = metrics?.filter(
-        (entry): entry is BoardPrepContract["observability"]["metrics"][number] =>
-          DEFAULT_BOARDPREP_CONTRACT.observability.metrics.includes(
-            entry as BoardPrepContract["observability"]["metrics"][number]
+        (entry): entry is CulturePulseContract["observability"]["metrics"][number] =>
+          DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics.includes(
+            entry as CulturePulseContract["observability"]["metrics"][number]
           )
       );
       overrides.observability = {
         events:
           filteredEvents && filteredEvents.length > 0
             ? filteredEvents
-            : DEFAULT_BOARDPREP_CONTRACT.observability.events,
+            : DEFAULT_CULTUREPULSE_CONTRACT.observability.events,
         metrics:
           filteredMetrics && filteredMetrics.length > 0
             ? filteredMetrics
-            : DEFAULT_BOARDPREP_CONTRACT.observability.metrics
+            : DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics
       };
     }
   }
@@ -309,7 +307,7 @@ function parseContractOverridesFromObject(
   return overrides;
 }
 
-function parseContractOverrides(rawText: string): Partial<BoardPrepContract> {
+function parseContractOverrides(rawText: string): Partial<CulturePulseContract> {
   const trimmed = rawText.trim();
   if (trimmed.startsWith("{")) {
     try {
@@ -319,12 +317,12 @@ function parseContractOverrides(rawText: string): Partial<BoardPrepContract> {
         return parseContractOverridesFromObject(asRecord);
       }
     } catch {
-      // Keep YAML/regex parsing fallback.
+      // keep fallback parsing
     }
   }
 
-  const overrides: Partial<BoardPrepContract> = {};
-  const attempts = extractFirstNumber(rawText, [
+  const overrides: Partial<CulturePulseContract> = {};
+  const maxAttempts = extractFirstNumber(rawText, [
     /retry_attempts\s*:\s*(\d+)/i,
     /maxAttempts\s*:\s*(\d+)/i,
     /max_attempts\s*:\s*(\d+)/i,
@@ -337,21 +335,21 @@ function parseContractOverrides(rawText: string): Partial<BoardPrepContract> {
     /wait_ms\s*:\s*(\d+)/i
   ]);
 
-  if (attempts !== undefined || baseDelayMs !== undefined) {
+  if (maxAttempts !== undefined || baseDelayMs !== undefined) {
     overrides.retry = {
-      ...DEFAULT_BOARDPREP_CONTRACT.retry,
-      ...(attempts !== undefined
-        ? { maxAttempts: clampMaxAttempts(attempts) }
+      ...DEFAULT_CULTUREPULSE_CONTRACT.retry,
+      ...(maxAttempts !== undefined
+        ? { maxAttempts: clampMaxAttempts(maxAttempts) }
         : {}),
       ...(baseDelayMs !== undefined ? { baseDelayMs } : {})
     };
   }
 
-  const inlineModeMatch = rawText.match(
+  const modeMatch = rawText.match(
     /(?:failureMode|failure_mode|fallback_mode|failure_behavior|fallback|mode)\s*:\s*["']?([a-zA-Z_-]+)["']?/i
   );
-  if (inlineModeMatch?.[1]) {
-    const mapped = toFailureMode(inlineModeMatch[1]);
+  if (modeMatch?.[1]) {
+    const mapped = toFailureMode(modeMatch[1]);
     if (mapped) {
       overrides.failureMode = mapped;
     }
@@ -366,47 +364,46 @@ function parseContractOverrides(rawText: string): Partial<BoardPrepContract> {
   const toolIds =
     extractYamlArray(rawText, ["toolIds", "tools", "required_tools"]) ??
     (() => {
-      const inlineTools = rawText.match(
+      const inline = rawText.match(
         /(?:toolIds|tools|required_tools)\s*:\s*\[([^\]]+)\]/i
       );
-      if (!inlineTools?.[1]) {
+      if (!inline?.[1]) {
         return undefined;
       }
-      const items = inlineTools[1]
+      const list = inline[1]
         .split(",")
         .map((entry) => entry.trim().replace(/^['"]/, "").replace(/['"]$/, ""))
         .filter((entry) => entry.length > 0);
-      return items.length > 0 ? items : undefined;
+      return list.length > 0 ? list : undefined;
     })();
-
   if (toolIds) {
     overrides.toolIds = toolIds;
   }
 
-  const eventValues = extractYamlArray(rawText, ["events_to_log", "events"]);
-  const metricValues = extractYamlArray(rawText, ["metrics"]);
-  if (eventValues || metricValues) {
-    const filteredEvents = eventValues?.filter(
-      (entry): entry is BoardPrepContract["observability"]["events"][number] =>
-        DEFAULT_BOARDPREP_CONTRACT.observability.events.includes(
-          entry as BoardPrepContract["observability"]["events"][number]
+  const events = extractYamlArray(rawText, ["events_to_log", "events"]);
+  const metrics = extractYamlArray(rawText, ["metrics"]);
+  if (events || metrics) {
+    const filteredEvents = events?.filter(
+      (entry): entry is CulturePulseContract["observability"]["events"][number] =>
+        DEFAULT_CULTUREPULSE_CONTRACT.observability.events.includes(
+          entry as CulturePulseContract["observability"]["events"][number]
         )
     );
-    const filteredMetrics = metricValues?.filter(
-      (entry): entry is BoardPrepContract["observability"]["metrics"][number] =>
-        DEFAULT_BOARDPREP_CONTRACT.observability.metrics.includes(
-          entry as BoardPrepContract["observability"]["metrics"][number]
+    const filteredMetrics = metrics?.filter(
+      (entry): entry is CulturePulseContract["observability"]["metrics"][number] =>
+        DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics.includes(
+          entry as CulturePulseContract["observability"]["metrics"][number]
         )
     );
     overrides.observability = {
       events:
         filteredEvents && filteredEvents.length > 0
           ? filteredEvents
-          : DEFAULT_BOARDPREP_CONTRACT.observability.events,
+          : DEFAULT_CULTUREPULSE_CONTRACT.observability.events,
       metrics:
         filteredMetrics && filteredMetrics.length > 0
           ? filteredMetrics
-          : DEFAULT_BOARDPREP_CONTRACT.observability.metrics
+          : DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics
     };
   }
 
@@ -414,10 +411,10 @@ function parseContractOverrides(rawText: string): Partial<BoardPrepContract> {
 }
 
 function mergeContract(
-  overrides: Partial<BoardPrepContract>,
-  fallback: BoardPrepContract
-): BoardPrepContract {
-  return BoardPrepContractSchema.parse({
+  overrides: Partial<CulturePulseContract>,
+  fallback: CulturePulseContract
+): CulturePulseContract {
+  return CulturePulseContractSchema.parse({
     ...fallback,
     ...overrides,
     observability: {
@@ -432,48 +429,48 @@ function mergeContract(
   });
 }
 
-function toIsoDateWithOffset(isoDate: string, offsetDays: number): string {
-  const asDate = new Date(`${isoDate}T00:00:00.000Z`);
-  asDate.setUTCDate(asDate.getUTCDate() + offsetDays);
-  return asDate.toISOString().slice(0, 10);
+function addDays(isoDate: string, days: number): string {
+  const date = new Date(`${isoDate}T00:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
 }
 
-export class BoardPrepAIAgent {
+export class CulturePulseAgent {
   private readonly contractPaths: string[];
 
   private readonly now: () => Date;
 
   private readonly sleepFn: (delayMs: number) => Promise<void>;
 
-  private readonly toolAdapters: BoardPrepToolAdapters;
+  private readonly toolAdapters: CulturePulseToolAdapters;
 
-  private lastMetrics: BoardPrepMetrics = {
+  private lastMetrics: CultureMetrics = {
     durationMs: 0,
     retries: 0,
     toolCalls: 0,
     toolFailures: 0
   };
 
-  constructor(options: BoardPrepAIAgentOptions = {}) {
+  constructor(options: CulturePulseAgentOptions = {}) {
     this.contractPaths = options.contractPath
       ? [options.contractPath]
       : [...DEFAULT_CONTRACT_PATHS];
     this.now = options.now ?? (() => new Date());
     this.sleepFn = options.sleep ?? sleep;
-    this.toolAdapters = options.toolAdapters ?? createDefaultBoardPrepToolAdapters();
+    this.toolAdapters = options.toolAdapters ?? createDefaultCulturePulseToolAdapters();
   }
 
-  getMetricsSnapshot(): BoardPrepMetrics {
+  getMetricsSnapshot(): CultureMetrics {
     return {
       ...this.lastMetrics
     };
   }
 
-  async run(input: BoardPrepInput): Promise<BoardPrepOutput> {
-    const parsedInput = BoardPrepInputSchema.parse(input);
+  async run(input: CulturePulseInput): Promise<CulturePulseOutput> {
+    const parsedInput = CulturePulseInputSchema.parse(input);
     const startedAt = this.now();
-    const events: BoardPrepEvent[] = [];
-    const metrics: BoardPrepMetrics = {
+    const events: CultureEvent[] = [];
+    const metrics: CultureMetrics = {
       durationMs: 0,
       retries: 0,
       toolCalls: 0,
@@ -482,35 +479,35 @@ export class BoardPrepAIAgent {
     const fallbackReasons: string[] = [];
 
     const emitEvent = (
-      event: Omit<BoardPrepEvent, "timestamp"> & { timestamp?: string }
+      event: Omit<CultureEvent, "timestamp"> & { timestamp?: string }
     ): void => {
-      const normalized: BoardPrepEvent = {
+      const normalized: CultureEvent = {
         ...event,
         timestamp: event.timestamp ?? this.now().toISOString()
       };
       events.push(normalized);
-      const logPayload = JSON.stringify({
+      const payload = JSON.stringify({
         level: normalized.level,
         message: normalized.message,
         name: normalized.name
       });
       if (normalized.level === "error") {
-        console.error(logPayload);
+        console.error(payload);
       } else if (normalized.level === "warning") {
-        console.warn(logPayload);
+        console.warn(payload);
       } else {
-        console.log(logPayload);
+        console.log(payload);
       }
     };
 
     emitEvent({
       details: {
         source: "request",
-        toolId: "boardprep-ai"
+        toolId: "culturepulse"
       },
       level: "info",
-      message: "BoardPrep request accepted.",
-      name: "boardprep.request.received"
+      message: "CulturePulse request accepted.",
+      name: "culturepulse.request.received"
     });
 
     const loadedContract = await this.loadContract();
@@ -520,15 +517,15 @@ export class BoardPrepAIAgent {
       },
       level: "info",
       message: `Contract loaded from ${loadedContract.source}.`,
-      name: "boardprep.contract.loaded"
+      name: "culturepulse.contract.loaded"
     });
 
-    const resolvedTools = this.resolveToolIds(loadedContract.contract.toolIds);
+    const mappedTools = this.resolveToolIds(loadedContract.contract.toolIds);
     const effectiveTools =
-      resolvedTools.length > 0 ? resolvedTools : [...BOARDPREP_TOOL_IDS];
+      mappedTools.length > 0 ? mappedTools : [...CULTUREPULSE_TOOL_IDS];
 
-    const executeWithRetry = async <T>(
-      toolId: BoardPrepToolId,
+    const runWithRetry = async <T>(
+      toolId: CultureToolId,
       operation: () => Promise<T>
     ): Promise<T> => {
       const maxAttempts = loadedContract.contract.retry.maxAttempts;
@@ -544,7 +541,7 @@ export class BoardPrepAIAgent {
           },
           level: "info",
           message: `Running ${toolId} (attempt ${attempt}/${maxAttempts}).`,
-          name: "boardprep.tool.call.started"
+          name: "culturepulse.tool.call.started"
         });
 
         try {
@@ -557,14 +554,13 @@ export class BoardPrepAIAgent {
             },
             level: "info",
             message: `${toolId} completed.`,
-            name: "boardprep.tool.call.succeeded"
+            name: "culturepulse.tool.call.succeeded"
           });
           return result;
         } catch (error) {
           const asError =
             error instanceof Error ? error : new Error("Unknown tool failure.");
           lastError = asError;
-
           emitEvent({
             details: {
               attempt,
@@ -574,15 +570,13 @@ export class BoardPrepAIAgent {
             },
             level: "warning",
             message: `${toolId} failed at attempt ${attempt}.`,
-            name: "boardprep.tool.call.failed"
+            name: "culturepulse.tool.call.failed"
           });
-
           if (attempt >= maxAttempts) {
             break;
           }
-
-          const delayMs = baseDelayMs * 2 ** (attempt - 1);
           metrics.retries += 1;
+          const delay = baseDelayMs * 2 ** (attempt - 1);
           emitEvent({
             details: {
               attempt,
@@ -590,10 +584,10 @@ export class BoardPrepAIAgent {
               toolId
             },
             level: "info",
-            message: `${toolId} retry scheduled after ${delayMs}ms.`,
-            name: "boardprep.retry.scheduled"
+            message: `${toolId} retry scheduled after ${delay}ms.`,
+            name: "culturepulse.retry.scheduled"
           });
-          await this.sleepFn(delayMs);
+          await this.sleepFn(delay);
         }
       }
 
@@ -601,68 +595,63 @@ export class BoardPrepAIAgent {
       throw lastError ?? new Error(`${toolId} failed with no details.`);
     };
 
-    const toolInput: BoardPrepToolInput = {
-      audience: parsedInput.audience,
-      currency: parsedInput.constraints.currency,
-      endDate: parsedInput.period.endDate,
-      startDate: parsedInput.period.startDate,
+    const toolInput: CultureToolInput = {
+      endDate: parsedInput.window.endDate,
+      segments: parsedInput.segments,
+      startDate: parsedInput.window.startDate,
       tenantId: parsedInput.tenantId
     };
 
-    let boardTemplate = null;
-    let budgetForecast = null;
-    let kpiDashboard = null;
+    let engagement = null;
+    let retention = null;
+    let manager = null;
 
-    if (effectiveTools.includes("board-report-generator")) {
+    if (effectiveTools.includes("engagement-survey")) {
       try {
-        boardTemplate = BoardReportTemplateSchema.parse(
-          await executeWithRetry("board-report-generator", () =>
-            this.toolAdapters.fetchBoardReportTemplate(toolInput)
+        engagement = EngagementSurveySnapshotSchema.parse(
+          await runWithRetry("engagement-survey", () =>
+            this.toolAdapters.fetchEngagementSurvey(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error
-            ? error.message
-            : "board-report-generator failed without error payload.";
-        fallbackReasons.push(`board-report-generator: ${message}`);
+          error instanceof Error ? error.message : "engagement-survey failed.";
+        fallbackReasons.push(`engagement-survey: ${message}`);
       }
     }
 
-    if (effectiveTools.includes("budget-forecaster")) {
+    if (effectiveTools.includes("retention-risk-feed")) {
       try {
-        budgetForecast = BudgetForecastSchema.parse(
-          await executeWithRetry("budget-forecaster", () =>
-            this.toolAdapters.fetchBudgetForecast(toolInput)
+        retention = RetentionRiskSnapshotSchema.parse(
+          await runWithRetry("retention-risk-feed", () =>
+            this.toolAdapters.fetchRetentionRisk(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error
-            ? error.message
-            : "budget-forecaster failed without error payload.";
-        fallbackReasons.push(`budget-forecaster: ${message}`);
+          error instanceof Error ? error.message : "retention-risk-feed failed.";
+        fallbackReasons.push(`retention-risk-feed: ${message}`);
       }
     }
 
-    if (effectiveTools.includes("kpi-dashboard")) {
+    if (effectiveTools.includes("manager-sentiment-stream")) {
       try {
-        kpiDashboard = KpiDashboardSnapshotSchema.parse(
-          await executeWithRetry("kpi-dashboard", () =>
-            this.toolAdapters.fetchKpiDashboard(toolInput)
+        manager = ManagerSentimentSnapshotSchema.parse(
+          await runWithRetry("manager-sentiment-stream", () =>
+            this.toolAdapters.fetchManagerSentiment(toolInput)
           )
         );
       } catch (error) {
         const message =
           error instanceof Error
             ? error.message
-            : "kpi-dashboard failed without error payload.";
-        fallbackReasons.push(`kpi-dashboard: ${message}`);
+            : "manager-sentiment-stream failed.";
+        fallbackReasons.push(`manager-sentiment-stream: ${message}`);
       }
     }
 
     const fallbackApplied = fallbackReasons.length > 0;
-    const fallbackMode: ToolFailureMode | null = fallbackApplied
+    const fallbackMode: CultureFailureMode | null = fallbackApplied
       ? loadedContract.contract.failureMode
       : null;
 
@@ -673,95 +662,38 @@ export class BoardPrepAIAgent {
           source: "failure_behavior"
         },
         level: "warning",
-        message: "Fallback behavior applied for BoardPrep output.",
-        name: "boardprep.fallback.applied"
+        message: "Fallback behavior applied for CulturePulse output.",
+        name: "culturepulse.fallback.applied"
       });
     }
 
-    const safeTemplate = boardTemplate ?? {
-      mandatorySections: [
-        "Strategic KPIs",
-        "Risk Radar",
-        "Capital Allocation",
-        "Board Action Queue"
-      ],
-      narrativeLens: "degraded_data_mode",
-      tone: "neutral" as const
+    const safeEngagement = engagement ?? {
+      eNps: 0,
+      engagementIndex: 0,
+      participationRatePct: 0
     };
-    const safeBudget = budgetForecast ?? {
-      cashRunwayMonths: 0,
-      fxRiskLevel: "medium" as const,
-      investmentCapacityPct: 0,
-      monthlyBurnRate: 0
+    const safeRetention = retention ?? {
+      burnoutRiskPct: 0,
+      highRiskPopulationPct: 0,
+      topDriver: "retention signal unavailable"
     };
-    const safeKpis = kpiDashboard ?? {
-      churnRatePct: 0,
-      npsScore: 0,
-      pipelineCoverageRatio: 0,
-      revenueGrowthPct: 0,
-      topRisk: "critical data unavailable"
+    const safeManager = manager ?? {
+      coachingEffectivenessPct: 0,
+      communicationClarityPct: 0,
+      topTheme: "manager sentiment unavailable"
     };
 
-    const direction = (value: number): "down" | "stable" | "up" => {
-      if (value > 0.05) {
+    const trendDirection = (value: number): "down" | "stable" | "up" => {
+      if (value > 0.5) {
         return "up";
       }
-      if (value < -0.05) {
+      if (value < -0.5) {
         return "down";
       }
       return "stable";
     };
 
-    const summary = fallbackApplied
-      ? "BoardPrep generated under fallback mode due to tool execution failures."
-      : "BoardPrep generated with full strategic tool coverage.";
-
-    const maxRecommendations = parsedInput.constraints.maxRecommendations;
-    const recommendationPool = [
-      {
-        owner: "CFO",
-        priority:
-          safeBudget.cashRunwayMonths < 10
-            ? ("critical" as const)
-            : ("high" as const),
-        recommendation:
-          safeBudget.cashRunwayMonths < 10
-            ? "Freeze discretionary spend and re-sequence hiring for runway protection."
-            : "Protect growth investments with quarterly spend checkpoints.",
-        targetDate: toIsoDateWithOffset(parsedInput.period.endDate, 14)
-      },
-      {
-        owner: "CRO",
-        priority:
-          safeKpis.pipelineCoverageRatio < 2
-            ? ("critical" as const)
-            : ("high" as const),
-        recommendation:
-          safeKpis.pipelineCoverageRatio < 2
-            ? "Launch executive deal rescue sprint for top 10 late-stage opportunities."
-            : "Increase qualification rigor to prevent late-stage slippage.",
-        targetDate: toIsoDateWithOffset(parsedInput.period.endDate, 7)
-      },
-      {
-        owner: "COO",
-        priority:
-          safeKpis.churnRatePct > 4.5 ? ("high" as const) : ("medium" as const),
-        recommendation:
-          safeKpis.churnRatePct > 4.5
-            ? "Prioritize churn containment task force with weekly escalation ritual."
-            : "Keep operating cadence and monitor churn by cohort weekly.",
-        targetDate: toIsoDateWithOffset(parsedInput.period.endDate, 21)
-      },
-      {
-        owner: "CEO",
-        priority: "medium" as const,
-        recommendation:
-          "Align board narrative with risk-adjusted growth and explicit trade-off framing.",
-        targetDate: toIsoDateWithOffset(parsedInput.period.endDate, 5)
-      }
-    ];
-
-    const status: BoardPrepOutput["status"] =
+    const status: CulturePulseOutput["status"] =
       fallbackApplied && fallbackMode === "hard_fail"
         ? "error"
         : fallbackApplied
@@ -769,86 +701,129 @@ export class BoardPrepAIAgent {
           : "success";
 
     metrics.durationMs = Math.max(0, this.now().getTime() - startedAt.getTime());
+
     emitEvent({
       details: {
         source: "response"
       },
       level: status === "error" ? "error" : "info",
-      message: "BoardPrep response generated.",
-      name: "boardprep.response.generated"
+      message: "CulturePulse response generated.",
+      name: "culturepulse.response.generated"
     });
 
-    const outputCandidate: BoardPrepOutput = {
-      agent: "BoardPrep AI",
-      domain: "executivos",
-      executiveBrief: {
-        allocationGuidance: [
+    const maxInsights = parsedInput.constraints.maxInsights;
+    const output = CulturePulseOutputSchema.parse({
+      agent: "CulturePulse",
+      cultureBrief: {
+        coverage: {
+          dataCompletenessPct: fallbackApplied ? 66 : 100,
+          segmentsAnalyzed: parsedInput.segments
+        },
+        engagementSignals: [
           {
-            confidence:
-              safeBudget.investmentCapacityPct > 30
+            interpretation:
+              safeEngagement.engagementIndex >= 70
+                ? "Overall engagement is stable and supportive of execution."
+                : "Engagement requires immediate leadership attention.",
+            metric: "Engagement Index",
+            trend: trendDirection(safeEngagement.engagementIndex - 65),
+            value: safeEngagement.engagementIndex
+          },
+          {
+            interpretation:
+              safeEngagement.eNps >= 20
+                ? "Employee advocacy remains net positive."
+                : "Employee advocacy trend is fragile.",
+            metric: "eNPS",
+            trend: trendDirection(safeEngagement.eNps),
+            value: safeEngagement.eNps
+          }
+        ].slice(0, maxInsights),
+        headline: `Culture health snapshot: engagement ${safeEngagement.engagementIndex.toFixed(
+          1
+        )}, high-risk population ${safeRetention.highRiskPopulationPct.toFixed(1)}%.`,
+        managerSignals: [
+          {
+            note: `Manager communication clarity at ${safeManager.communicationClarityPct.toFixed(
+              1
+            )}%.`,
+            strength:
+              safeManager.communicationClarityPct > 75
                 ? "high"
-                : safeBudget.investmentCapacityPct > 15
+                : safeManager.communicationClarityPct > 55
                   ? "medium"
                   : "low",
-            rationale: `Runway at ${safeBudget.cashRunwayMonths.toFixed(
+            theme: safeManager.topTheme
+          },
+          {
+            note: `Coaching effectiveness at ${safeManager.coachingEffectivenessPct.toFixed(
               1
-            )} months with FX risk level ${safeBudget.fxRiskLevel}.`,
+            )}%.`,
+            strength:
+              safeManager.coachingEffectivenessPct > 75
+                ? "high"
+                : safeManager.coachingEffectivenessPct > 55
+                  ? "medium"
+                  : "low",
+            theme: "manager coaching maturity"
+          }
+        ].slice(0, maxInsights),
+        nextActions: [
+          {
+            owner: "CHRO",
+            priority:
+              safeRetention.highRiskPopulationPct > 20 ? "high" : "medium",
             recommendation:
-              safeBudget.investmentCapacityPct > 20
-                ? "Maintain selective growth bets and preserve downside buffers."
-                : "Consolidate cash and prioritize retention-led growth motions."
-          }
-        ],
-        headline: `${safeTemplate.narrativeLens} | Revenue growth ${safeKpis.revenueGrowthPct.toFixed(
-          2
-        )}%`,
-        kpiHighlights: [
-          {
-            direction: direction(safeKpis.revenueGrowthPct),
-            metric: "Revenue Growth %",
-            rationale: "Quarter-over-quarter growth trend from KPI dashboard.",
-            value: safeKpis.revenueGrowthPct
+              safeRetention.highRiskPopulationPct > 20
+                ? "Launch retention taskforce for high-risk talent cohorts."
+                : "Maintain quarterly pulse cadence with segment-level monitoring.",
+            targetDate: addDays(parsedInput.window.endDate, 7)
           },
           {
-            direction: direction(-safeKpis.churnRatePct),
-            metric: "Churn Rate %",
-            rationale: "Lower churn drives renewal stability for board commitments.",
-            value: safeKpis.churnRatePct
-          },
-          {
-            direction: direction(safeKpis.pipelineCoverageRatio - 3),
-            metric: "Pipeline Coverage Ratio",
-            rationale:
-              "Pipeline coverage benchmarked against strategic target of 3x.",
-            value: safeKpis.pipelineCoverageRatio
+            owner: "CEO",
+            priority:
+              safeEngagement.engagementIndex < 65 ? "high" : "medium",
+            recommendation:
+              safeEngagement.engagementIndex < 65
+                ? "Run executive listening sprint with transparent commitments."
+                : "Reinforce positive practices through leadership all-hands.",
+            targetDate: addDays(parsedInput.window.endDate, 10)
           }
-        ],
-        nextBoardActions: recommendationPool.slice(0, maxRecommendations),
+        ].slice(0, maxInsights),
         riskSignals: [
           {
             impact:
-              safeKpis.churnRatePct > 5
+              safeRetention.highRiskPopulationPct > 20
+                ? "Potential attrition in critical roles."
+                : "Attrition risk currently contained.",
+            mitigation:
+              "Prioritize stay interviews and manager-led action plans for at-risk teams.",
+            severity:
+              safeRetention.highRiskPopulationPct > 25
                 ? "critical"
-                : safeKpis.churnRatePct > 3.5
+                : safeRetention.highRiskPopulationPct > 15
                   ? "high"
                   : "medium",
-            mitigation:
-              "Escalate proactive retention playbook for top ARR cohorts.",
-            signal: safeKpis.topRisk
+            signal: safeRetention.topDriver
           },
           {
             impact:
-              safeBudget.fxRiskLevel === "high"
+              safeRetention.burnoutRiskPct > 30
+                ? "Sustained burnout pressure may impact delivery and retention."
+                : "Burnout trend is monitorable but controlled.",
+            mitigation:
+              "Apply workload rebalance and enforce recovery windows in high-demand squads.",
+            severity:
+              safeRetention.burnoutRiskPct > 35
                 ? "high"
-                : safeBudget.fxRiskLevel === "medium"
+                : safeRetention.burnoutRiskPct > 20
                   ? "medium"
                   : "low",
-            mitigation:
-              "Review hedging policy and stress test downside scenarios before board meeting.",
-            signal: `FX risk level is ${safeBudget.fxRiskLevel}.`
+            signal: `Burnout risk at ${safeRetention.burnoutRiskPct.toFixed(1)}%.`
           }
-        ]
+        ].slice(0, maxInsights)
       },
+      domain: "executivos",
       fallback: {
         applied: fallbackApplied,
         mode: fallbackMode,
@@ -860,20 +835,21 @@ export class BoardPrepAIAgent {
         metrics
       },
       status,
-      summary
-    };
+      summary: fallbackApplied
+        ? "CulturePulse generated under fallback mode due to tool failures."
+        : "CulturePulse generated with complete culture intelligence coverage."
+    });
 
-    const parsedOutput = BoardPrepOutputSchema.parse(outputCandidate);
     this.lastMetrics = {
-      ...parsedOutput.observability.metrics
+      ...output.observability.metrics
     };
-    return parsedOutput;
+    return output;
   }
 
-  private resolveToolIds(toolIds: string[]): BoardPrepToolId[] {
+  private resolveToolIds(toolIds: string[]): CultureToolId[] {
     const mapped = toolIds
-      .map((toolId) => normalizeToolId(toolId))
-      .filter((toolId): toolId is BoardPrepToolId => toolId !== null);
+      .map((toolId) => normalizeCultureToolId(toolId))
+      .filter((toolId): toolId is CultureToolId => toolId !== null);
     return Array.from(new Set(mapped));
   }
 
@@ -889,7 +865,7 @@ export class BoardPrepAIAgent {
         const content = await readFile(contractPath, "utf8");
         const merged = mergeContract(
           parseContractOverrides(content),
-          DEFAULT_BOARDPREP_CONTRACT
+          DEFAULT_CULTUREPULSE_CONTRACT
         );
         return {
           contract: merged,
@@ -901,7 +877,7 @@ export class BoardPrepAIAgent {
     }
 
     return {
-      contract: DEFAULT_BOARDPREP_CONTRACT,
+      contract: DEFAULT_CULTUREPULSE_CONTRACT,
       source: "default"
     };
   }

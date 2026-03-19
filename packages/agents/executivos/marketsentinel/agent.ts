@@ -26,13 +26,42 @@ import {
   normalizeMarketToolId
 } from "./tools.js";
 
-const DEFAULT_CONTRACT_PATH = path.resolve(
+const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "audit",
   "pending_review",
   "ciclo1_marketsentinel",
   "contract.yaml"
 );
+const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
+  process.cwd(),
+  "..",
+  "..",
+  "audit",
+  "pending_review",
+  "ciclo1_marketsentinel",
+  "contract.yaml"
+);
+const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
+  process.cwd(),
+  "packages",
+  "agents",
+  "executives",
+  "MarketSentinel",
+  "contract.yaml"
+);
+const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
+  process.cwd(),
+  "executives",
+  "MarketSentinel",
+  "contract.yaml"
+);
+const DEFAULT_CONTRACT_PATHS = [
+  DEFAULT_AUDIT_CONTRACT_PATH,
+  DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE,
+  DEFAULT_PACKAGE_CONTRACT_PATH,
+  DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE
+] as const;
 
 interface MarketSentinelAgentOptions {
   contractPath?: string;
@@ -43,7 +72,7 @@ interface MarketSentinelAgentOptions {
 
 interface LoadedContract {
   contract: MarketSentinelContract;
-  source: "default" | "file";
+  source: "audit_file" | "custom_file" | "default" | "package_file";
 }
 
 function sleep(delayMs: number): Promise<void> {
@@ -145,6 +174,34 @@ function extractFirstNumber(text: string, patterns: RegExp[]): number | undefine
   return undefined;
 }
 
+function clampMaxAttempts(value: number): number {
+  if (!Number.isFinite(value)) {
+    return DEFAULT_MARKETSENTINEL_CONTRACT.retry.maxAttempts;
+  }
+  return Math.min(3, Math.max(1, Math.trunc(value)));
+}
+
+function classifyContractSource(contractPath: string): LoadedContract["source"] {
+  const normalized = path.normalize(contractPath).toLowerCase();
+  if (
+    normalized.endsWith(
+      path
+        .join("audit", "pending_review", "ciclo1_marketsentinel", "contract.yaml")
+        .toLowerCase()
+    )
+  ) {
+    return "audit_file";
+  }
+  if (
+    normalized.endsWith(
+      path.join("executives", "MarketSentinel", "contract.yaml").toLowerCase()
+    )
+  ) {
+    return "package_file";
+  }
+  return "custom_file";
+}
+
 function parseContractOverridesFromObject(
   value: Record<string, unknown>
 ): Partial<MarketSentinelContract> {
@@ -162,7 +219,7 @@ function parseContractOverridesFromObject(
   if (retry) {
     const retryOverride: Partial<MarketSentinelContract["retry"]> = {};
     if (typeof retry.maxAttempts === "number") {
-      retryOverride.maxAttempts = retry.maxAttempts;
+      retryOverride.maxAttempts = clampMaxAttempts(retry.maxAttempts);
     }
     if (typeof retry.baseDelayMs === "number") {
       retryOverride.baseDelayMs = retry.baseDelayMs;
@@ -186,7 +243,7 @@ function parseContractOverridesFromObject(
     const retryOverride: Partial<MarketSentinelContract["retry"]> = {};
 
     if (toolUnavailable && typeof toolUnavailable.retry_attempts === "number") {
-      retryOverride.maxAttempts = toolUnavailable.retry_attempts;
+      retryOverride.maxAttempts = clampMaxAttempts(toolUnavailable.retry_attempts);
     }
     if (toolUnavailable && typeof toolUnavailable.base_delay_ms === "number") {
       retryOverride.baseDelayMs = toolUnavailable.base_delay_ms;
@@ -202,24 +259,47 @@ function parseContractOverridesFromObject(
     }
   }
 
+  if (typeof value.failure_behavior === "string") {
+    const mode = toFailureMode(value.failure_behavior);
+    if (mode) {
+      overrides.failureMode = mode;
+    }
+  }
+  if (typeof value.fallback === "string") {
+    const mode = toFailureMode(value.fallback);
+    if (mode) {
+      overrides.failureMode = mode;
+    }
+  }
+
   const observability = toRecord(value.observability);
   if (observability) {
-    const events = toStringArray(observability.events);
+    const events =
+      toStringArray(observability.events_to_log) ??
+      toStringArray(observability.events);
     const metrics = toStringArray(observability.metrics);
     if (events || metrics) {
+      const filteredEvents = events?.filter(
+        (entry): entry is MarketSentinelContract["observability"]["events"][number] =>
+          DEFAULT_MARKETSENTINEL_CONTRACT.observability.events.includes(
+            entry as MarketSentinelContract["observability"]["events"][number]
+          )
+      );
+      const filteredMetrics = metrics?.filter(
+        (entry): entry is MarketSentinelContract["observability"]["metrics"][number] =>
+          DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics.includes(
+            entry as MarketSentinelContract["observability"]["metrics"][number]
+          )
+      );
       overrides.observability = {
         events:
-          events?.filter((entry): entry is MarketSentinelContract["observability"]["events"][number] =>
-            DEFAULT_MARKETSENTINEL_CONTRACT.observability.events.includes(
-              entry as MarketSentinelContract["observability"]["events"][number]
-            )
-          ) ?? DEFAULT_MARKETSENTINEL_CONTRACT.observability.events,
+          filteredEvents && filteredEvents.length > 0
+            ? filteredEvents
+            : DEFAULT_MARKETSENTINEL_CONTRACT.observability.events,
         metrics:
-          metrics?.filter((entry): entry is MarketSentinelContract["observability"]["metrics"][number] =>
-            DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics.includes(
-              entry as MarketSentinelContract["observability"]["metrics"][number]
-            )
-          ) ?? DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics
+          filteredMetrics && filteredMetrics.length > 0
+            ? filteredMetrics
+            : DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics
       };
     }
   }
@@ -258,13 +338,15 @@ function parseContractOverrides(rawText: string): Partial<MarketSentinelContract
   if (maxAttempts !== undefined || baseDelayMs !== undefined) {
     overrides.retry = {
       ...DEFAULT_MARKETSENTINEL_CONTRACT.retry,
-      ...(maxAttempts !== undefined ? { maxAttempts } : {}),
+      ...(maxAttempts !== undefined
+        ? { maxAttempts: clampMaxAttempts(maxAttempts) }
+        : {}),
       ...(baseDelayMs !== undefined ? { baseDelayMs } : {})
     };
   }
 
   const modeMatch = rawText.match(
-    /(?:failureMode|failure_mode|fallback_mode|mode)\s*:\s*["']?([a-zA-Z_-]+)["']?/i
+    /(?:failureMode|failure_mode|fallback_mode|failure_behavior|fallback|mode)\s*:\s*["']?([a-zA-Z_-]+)["']?/i
   );
   if (modeMatch?.[1]) {
     const mapped = toFailureMode(modeMatch[1]);
@@ -274,6 +356,9 @@ function parseContractOverrides(rawText: string): Partial<MarketSentinelContract
   }
   if (/notify_human\s*:\s*true/i.test(rawText)) {
     overrides.failureMode = "human_handoff";
+  }
+  if (/notificar|human|analyst|chief of staff/i.test(rawText)) {
+    overrides.failureMode = overrides.failureMode ?? "human_handoff";
   }
 
   const toolIds =
@@ -295,24 +380,30 @@ function parseContractOverrides(rawText: string): Partial<MarketSentinelContract
     overrides.toolIds = toolIds;
   }
 
-  const events = extractYamlArray(rawText, ["events"]);
+  const events = extractYamlArray(rawText, ["events_to_log", "events"]);
   const metrics = extractYamlArray(rawText, ["metrics"]);
   if (events || metrics) {
+    const filteredEvents = events?.filter(
+      (entry): entry is MarketSentinelContract["observability"]["events"][number] =>
+        DEFAULT_MARKETSENTINEL_CONTRACT.observability.events.includes(
+          entry as MarketSentinelContract["observability"]["events"][number]
+        )
+    );
+    const filteredMetrics = metrics?.filter(
+      (entry): entry is MarketSentinelContract["observability"]["metrics"][number] =>
+        DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics.includes(
+          entry as MarketSentinelContract["observability"]["metrics"][number]
+        )
+    );
     overrides.observability = {
       events:
-        events?.filter(
-          (entry): entry is MarketSentinelContract["observability"]["events"][number] =>
-            DEFAULT_MARKETSENTINEL_CONTRACT.observability.events.includes(
-              entry as MarketSentinelContract["observability"]["events"][number]
-            )
-        ) ?? DEFAULT_MARKETSENTINEL_CONTRACT.observability.events,
+        filteredEvents && filteredEvents.length > 0
+          ? filteredEvents
+          : DEFAULT_MARKETSENTINEL_CONTRACT.observability.events,
       metrics:
-        metrics?.filter(
-          (entry): entry is MarketSentinelContract["observability"]["metrics"][number] =>
-            DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics.includes(
-              entry as MarketSentinelContract["observability"]["metrics"][number]
-            )
-        ) ?? DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics
+        filteredMetrics && filteredMetrics.length > 0
+          ? filteredMetrics
+          : DEFAULT_MARKETSENTINEL_CONTRACT.observability.metrics
     };
   }
 
@@ -345,7 +436,7 @@ function addDays(isoDate: string, days: number): string {
 }
 
 export class MarketSentinelAgent {
-  private readonly contractPath: string;
+  private readonly contractPaths: string[];
 
   private readonly now: () => Date;
 
@@ -361,7 +452,9 @@ export class MarketSentinelAgent {
   };
 
   constructor(options: MarketSentinelAgentOptions = {}) {
-    this.contractPath = options.contractPath ?? DEFAULT_CONTRACT_PATH;
+    this.contractPaths = options.contractPath
+      ? [options.contractPath]
+      : [...DEFAULT_CONTRACT_PATHS];
     this.now = options.now ?? (() => new Date());
     this.sleepFn = options.sleep ?? sleep;
     this.toolAdapters = options.toolAdapters ?? createDefaultMarketSentinelToolAdapters();
@@ -720,31 +813,31 @@ export class MarketSentinelAgent {
   }
 
   private async loadContract(): Promise<LoadedContract> {
-    try {
-      await access(this.contractPath);
-    } catch {
-      return {
-        contract: DEFAULT_MARKETSENTINEL_CONTRACT,
-        source: "default"
-      };
+    for (const contractPath of this.contractPaths) {
+      try {
+        await access(contractPath);
+      } catch {
+        continue;
+      }
+
+      try {
+        const content = await readFile(contractPath, "utf8");
+        const merged = mergeContract(
+          parseContractOverrides(content),
+          DEFAULT_MARKETSENTINEL_CONTRACT
+        );
+        return {
+          contract: merged,
+          source: classifyContractSource(contractPath)
+        };
+      } catch {
+        continue;
+      }
     }
 
-    try {
-      const content = await readFile(this.contractPath, "utf8");
-      const merged = mergeContract(
-        parseContractOverrides(content),
-        DEFAULT_MARKETSENTINEL_CONTRACT
-      );
-      return {
-        contract: merged,
-        source: "file"
-      };
-    } catch {
-      return {
-        contract: DEFAULT_MARKETSENTINEL_CONTRACT,
-        source: "default"
-      };
-    }
+    return {
+      contract: DEFAULT_MARKETSENTINEL_CONTRACT,
+      source: "default"
+    };
   }
 }
-
