@@ -336,3 +336,56 @@
   - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
   - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `37/37`.
   - Registro F5 gerado em `audit/pending_review/ciclo1_expansionmapper_codex.md`.
+
+## 2026-03-19T15:52:26Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Nao ha novo item tecnico em `audit/pending_review` com tag ativa alem do historico `ciclo1_boardprep-ai_jules_fix.md`.
+  - A validacao desse item historico ja consta como `APROVADO` neste log.
+
+- Item: `CICLO1-QUOTAARCHITECT — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/quotaarchitect`.
+  - Caminho legado ausente: `packages/agents/executives/QuotaArchitect`.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `41/41`.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_quotaarchitect_codex.md`.
+
+## 2026-03-19T15:58:50Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Nao ha novo item tecnico em `audit/pending_review` com tag ativa alem do historico `ciclo1_boardprep-ai_jules_fix.md`.
+  - A validacao desse item historico ja consta como `APROVADO` neste log.
+
+- Item: `CICLO1-BRANDGUARDIAN — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/brandguardian`.
+  - Caminho legado ausente: `packages/agents/executives/BrandGuardian`.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `45/45`.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_brandguardian_codex.md`.
+
+## 2026-03-19T16:07:04Z
+
+- Item: `VALIDACAO TECNICA BRANCH jules-agent-orchestrator-compliance-9273725926733694702`
+  Validador: `CODEX`
+  Resultado: `REPROVADO`
+  Evidencia:
+  - Validacao executada em worktree isolado da branch remota `origin/jules-agent-orchestrator-compliance-9273725926733694702` no commit `8ab885b7be1ad5f937459c8a6b7321ca9c19364c`.
+  - `corepack pnpm test:agents` passou (`122 passed`).
+  - `pytest agents/ldr/tests agents/ae/tests -q` passou (`20 passed`).
+  - `debugAuth.ts` e `legacy_eval.ts` seguem ausentes (`apps/api-gateway/src/middleware/debugAuth.ts` e `packages/agents-core/src/legacy_eval.ts` inexistentes).
+  - Output schema segue sem enforcement na fronteira `/run`: `agents/ae/main.py` e `agents/sdr/main.py` ainda usam `response_model=Dict[str, Any]` (12 endpoints no total com esse padrao).
+  - `required_tools` segue ausente em manifests do pacote corporativo (`MISSING_REQUIRED_TOOLS=43/43`).
+  - `fallback_behavior` segue ausente em manifests do pacote corporativo (`MISSING_FALLBACK_BEHAVIOR=43/43`).
+  - Alteracoes em `docs/` persistem no delta de validacao (`DOCS_CHANGED_COUNT=2` desde `0e0cc3a8d0f41c09ae39268e61c51e02384e1ec0`), incluindo `docs/audit/validation_log.md` sem tag `[SOURCE]`.
+  Acao requerida do executor da branch:
+  - Corrigir os itens reprovados e reenviar para nova validacao Codex.

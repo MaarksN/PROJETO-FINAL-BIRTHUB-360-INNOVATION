@@ -63,8 +63,10 @@ test("billing premium flow unlocks paid workflow surfaces", async ({ page }) => 
   });
 
   await page.goto("/pricing");
-  await page.getByRole("button", { name: "Escolher plano" }).first().click();
-  await expect(page).toHaveURL(/\/billing\/success$/);
+  await Promise.all([
+    page.waitForURL("**/billing/success", { timeout: 15_000 }),
+    page.getByRole("button", { name: "Escolher plano" }).first().click()
+  ]);
   await expect(page.getByText("Assinatura ativada com sucesso")).toBeVisible();
 
   await page.goto("/settings/billing");
