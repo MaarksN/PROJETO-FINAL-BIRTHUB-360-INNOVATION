@@ -22,7 +22,7 @@ async function run() {
         return input;
       }
     },
-    $transaction: async (queries: Promise<any>[]) => {
+    $transaction: async (queries: Promise<unknown>[]) => {
       calls += queries.length;
       const start = performance.now();
       await new Promise((resolve) => setTimeout(resolve, queries.length * 1));
