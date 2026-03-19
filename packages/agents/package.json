@@ -1,0 +1,20 @@
+{
+  "name": "@birthub/agents",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "sourceTraceability": "BirthHub360_Agentes_Parallel_Plan - BoardPrep AI",
+  "scripts": {
+    "test": "node --import tsx --test executivos/boardprep-ai/tests/*.ts",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
+
