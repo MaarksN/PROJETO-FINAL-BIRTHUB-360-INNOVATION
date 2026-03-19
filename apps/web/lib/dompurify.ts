@@ -1,13 +1,8 @@
-import DOMPurify from "isomorphic-dompurify";
+const SCRIPT_PATTERN = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+const EVENT_HANDLER_PATTERN = /\son\w+="[^"]*"/gi;
 
-export const DOMPurifyPolyfill = {
+export const DOMPurify = {
   sanitize(input: string): string {
-    return DOMPurify.sanitize(input, {
-      ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "ul", "ol", "li", "p", "br"],
-      ALLOWED_ATTR: ["href", "target", "rel"],
-      ALLOW_UNKNOWN_PROTOCOLS: false,
-      FORBID_TAGS: ["script", "style"],
-      FORBID_ATTR: ["onerror", "onclick", "onload", "style"],
-    });
+    return input.replace(SCRIPT_PATTERN, "").replace(EVENT_HANDLER_PATTERN, "");
   }
 };

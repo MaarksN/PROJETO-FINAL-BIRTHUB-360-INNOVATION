@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { Router } from "express";
 import { z } from "zod";
 
@@ -66,7 +65,7 @@ apiV1Router.post("/leads", requireJwt, (req, res) => {
   }
 
   const lead = {
-    id: `lead_${randomUUID()}`,
+    id: `lead_${Math.random().toString(36).slice(2, 11)}`,
     tenantId,
     ...parsed.data
   };

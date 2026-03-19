@@ -39,8 +39,8 @@
   ],
   "conflicts": [
     {
-      "description": "Canonical Python runtime for pos-venda must exist at the underscore path.",
-      "requiredPath": "agents/pos_venda/main.py"
+      "description": "Legacy Python runtime must continue to exist while the queue worker overlay is migrated.",
+      "requiredPath": "agents/pos-venda/main.py"
     },
     {
       "description": "Queue worker overlay for pos-venda must remain at the underscore path.",
@@ -80,6 +80,7 @@
       "@birthub/dashboard",
       "@birthub/api-gateway",
       "@birthub/voice-engine",
+      "@birthub/webhook-receiver",
       "orchestrator-worker"
     ],
     "requiredByScript": {

@@ -39,10 +39,7 @@ function runBinIn(cwd, command, args) {
 }
 
 function runNodeScript(cwd, args) {
-  const nodeExecutable = existsSync(portableNodeExecutable)
-    ? portableNodeExecutable
-    : process.execPath;
-  run(nodeExecutable, args, { cwd });
+  run(portableNodeExecutable, args, { cwd });
 }
 
 function runPython(args) {

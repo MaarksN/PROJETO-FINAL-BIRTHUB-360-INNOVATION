@@ -16,9 +16,6 @@
     "ci:security-guardrails": "pnpm workspace:audit && pnpm --filter @birthub/config test && pnpm security:guards && pnpm --filter @birthub/api typecheck && pnpm --filter @birthub/api test && pnpm --filter @birthub/database test && pnpm --filter @birthub/database db:migrate:deploy",
     "ci:satellites": "node scripts/ci/full.mjs task satellites",
     "dev": "turbo run dev --filter=@birthub/web --filter=@birthub/api --filter=@birthub/worker --parallel",
-    "webhook-receiver:dev": "python -m uvicorn main:app --app-dir apps/webhook-receiver --reload",
-    "webhook-receiver:test": "pytest apps/webhook-receiver/tests",
-    "webhook-receiver:lint": "ruff check apps/webhook-receiver",
     "dev:legacy": "turbo run dev",
     "stack:canonical": "pnpm preflight:core && pnpm dev",
     "stack:hybrid": "pnpm preflight:full && pnpm dev:legacy",
@@ -117,8 +114,7 @@
   "pnpm": {
     "overrides": {
       "@hono/node-server": "^1.19.10",
-      "hono": "^4.12.7",
-      "fast-xml-parser": "5.5.6"
+      "hono": "^4.12.7"
     }
   },
   "dependencies": {

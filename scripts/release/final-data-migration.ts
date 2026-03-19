@@ -64,27 +64,6 @@ async function collectOperations(starterPlanId: string): Promise<MigrationOperat
 
   const operations: MigrationOperation[] = [];
 
-  const organizationIds = [...new Set(organizations.map((org) => org.id))];
-  const userIds = [...new Set(organizations.flatMap((org) => org.memberships.map((m) => m.userId)))];
-
-  const existingPreferences =
-    organizationIds.length > 0 && userIds.length > 0
-      ? await prisma.userPreference.findMany({
-          select: {
-            organizationId: true,
-            userId: true
-          },
-          where: {
-            organizationId: { in: organizationIds },
-            userId: { in: userIds }
-          }
-        })
-      : [];
-
-  const existingPrefSet = new Set(
-    existingPreferences.map((p) => `${p.organizationId}:${p.userId}`)
-  );
-
   for (const organization of organizations) {
     if (!organization.planId) {
       operations.push({
@@ -109,9 +88,16 @@ async function collectOperations(starterPlanId: string): Promise<MigrationOperat
     }
 
     for (const membership of organization.memberships) {
-      const hasPreference = existingPrefSet.has(`${organization.id}:${membership.userId}`);
+      const existingPreference = await prisma.userPreference.findUnique({
+        where: {
+          organizationId_userId: {
+            organizationId: organization.id,
+            userId: membership.userId
+          }
+        }
+      });
 
-      if (!hasPreference) {
+      if (!existingPreference) {
         operations.push({
           emailNotifications: true,
           inAppNotifications: true,

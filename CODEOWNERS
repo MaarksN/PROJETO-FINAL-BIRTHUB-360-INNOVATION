@@ -12,7 +12,7 @@
 /agents/juridico/ @legal-ops
 /agents/marketing/ @marketing-ops
 /agents/analista/ @data-bi
-/agents/pos_venda/ @cs-ops
+/agents/pos-venda/ @cs-ops
 /packages/db/ @platform-data
 /packages/integrations/ @platform-integrations
 /packages/queue/ @platform-automation

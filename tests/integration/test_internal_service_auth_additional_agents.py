@@ -10,7 +10,7 @@ from agents.financeiro.main import app as financeiro_app
 from agents.juridico.main import app as juridico_app
 from agents.marketing.main import app as marketing_app
 
-POS_VENDA_DIR = Path(__file__).resolve().parents[2] / "agents" / "pos_venda"
+POS_VENDA_DIR = Path(__file__).resolve().parents[2] / "agents" / "pos-venda"
 
 
 def _load_pos_venda_app():
