@@ -47,9 +47,9 @@ const canonicalFallbackBehavior = {
     retry_attempts: 1
   },
   exhausted: {
-    notify_human: true,
-    silence: false,
-    loop: false
+    notify_human: true as const,
+    silence: false as const,
+    loop: false as const
   }
 };
 

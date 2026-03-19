@@ -18,6 +18,14 @@ function nextMonthlyReset(reference = new Date()): Date {
   return new Date(Date.UTC(reference.getUTCFullYear(), reference.getUTCMonth() + 1, 1, 0, 0, 0));
 }
 
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
+
 export async function quotaResetJob(reference = new Date()) {
   const organizations = await prisma.organization.findMany({
     select: {
@@ -27,23 +35,31 @@ export async function quotaResetJob(reference = new Date()) {
 
   const period = currentMonthlyPeriod(reference);
   const resetAt = nextMonthlyReset(reference);
+  let upserts = 0;
 
-  const resourceTypes = Object.values(QuotaResourceType);
+  const dataToInsert = [];
 
-  const payload = organizations.flatMap((organization) =>
-    resourceTypes.map((resourceType) => ({
-      count: 0,
-      limit: defaultLimits[resourceType],
-      period,
-      resetAt,
-      resourceType,
-      tenantId: organization.tenantId
-    }))
-  );
+  for (const organization of organizations) {
+    for (const resourceType of Object.values(QuotaResourceType)) {
+      dataToInsert.push({
+        count: 0,
+        limit: defaultLimits[resourceType],
+        period,
+        resetAt,
+        resourceType,
+        tenantId: organization.tenantId
+      });
+      upserts += 1;
+    }
+  }
 
-  if (payload.length > 0) {
+  // Chunking to avoid "statement too complex" or memory issues with massive datasets
+  // 5 resources * 2000 orgs = 10,000 records per chunk
+  const chunks = chunkArray(dataToInsert, 10000);
+
+  for (const chunk of chunks) {
     await prisma.quotaUsage.createMany({
-      data: payload,
+      data: chunk,
       skipDuplicates: true
     });
   }
