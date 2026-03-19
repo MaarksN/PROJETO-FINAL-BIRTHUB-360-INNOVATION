@@ -15,3 +15,4 @@
 | QuotaArchitect | executivos | 1 | packages/agents/executivos/quotaarchitect | ready_for_jules_validation |
 | BrandGuardian | executivos | 1 | packages/agents/executivos/brandguardian | ready_for_jules_validation |
 | TrendCatcher | executivos | 1 | packages/agents/executivos/trendcatcher | ready_for_jules_validation |
+| BudgetFluid | executivos | 1 | packages/agents/executivos/budgetfluid | ready_for_jules_validation |
