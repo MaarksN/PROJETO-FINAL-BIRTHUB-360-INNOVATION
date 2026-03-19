@@ -1,3 +1,5 @@
+# Undeclared Observations
+
 Pacote: agent-runtime
 Tipo: TypeScript module resolution (.js vs .ts)
 Impacto: falha no build do pacote
