@@ -223,3 +223,43 @@
   Evidencia:
   - `CICLO1-BOARDPREP-AI — CORRECAO JULES` ja consta como `APROVADO` nesta fila.
   - Varredura em `audit/pending_review` nao encontrou novo item com tag ativa alem do historico de checklist.
+
+## 2026-03-19T15:23:01Z
+
+- Item: `CICLO1-CAPITALALLOCATOR — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/capitalallocator`.
+  - Caminho legado ausente: `packages/agents/executives/CapitalAllocator`.
+  - `corepack pnpm --filter @birthub/agents run typecheck` passou.
+  - Testes direcionados `executivos/capitalallocator/tests/*.ts` passaram com `4/4`.
+
+- Item: `CICLO1-CRISISNAVIGATOR — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/crisisnavigator`.
+  - Caminho legado ausente: `packages/agents/executives/CrisisNavigator`.
+  - Testes direcionados `executivos/crisisnavigator/tests/*.ts` passaram com `4/4`.
+
+- Item: `CICLO1-CULTUREPULSE — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/culturepulse`.
+  - Caminho legado ausente: `packages/agents/executives/CulturePulse`.
+  - Testes direcionados `executivos/culturepulse/tests/*.ts` passaram com `4/4`.
+
+- Item: `CICLO1-MARKETSENTINEL — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/marketsentinel`.
+  - Caminho legado ausente: `packages/agents/executives/MarketSentinel`.
+  - Testes direcionados `executivos/marketsentinel/tests/*.ts` passaram com `4/4`.
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Itens de entrega do ciclo 1 em `audit/pending_review` validados nesta rodada.
