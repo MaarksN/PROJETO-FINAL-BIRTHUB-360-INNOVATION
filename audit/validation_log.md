@@ -263,3 +263,30 @@
   Resultado: `NO_PENDING_ITEMS`
   Evidencia:
   - Itens de entrega do ciclo 1 em `audit/pending_review` validados nesta rodada.
+
+## 2026-03-19T15:24:08Z
+
+- Item: `CICLO1-PIPELINEORACLE — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/pipelineoracle`.
+  - Caminho legado ausente: `packages/agents/executives/PipelineOracle`.
+  - `corepack pnpm --filter @birthub/agents run typecheck` passou.
+  - Testes direcionados `executivos/pipelineoracle/tests/*.ts` passaram com `4/4`.
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Fila atual de entregas em `audit/pending_review` validada nesta rodada (incluindo PipelineOracle).
+
+## 2026-03-19T16:35:00Z
+
+- Item: `CICLO1-BOARDPREP-AI — REVALIDACAO PARCIAL (GROUNDEDNESS)`
+  Validador: `CODEX`
+  Resultado: `VALIDADO PARCIALMENTE (CORRECOES 01 E 03)`
+  Evidencia:
+  - `01 (consolidacao do caminho canonico): APROVADO` - `packages/agents/executivos/boardprep-ai` existe e `packages/agents/executives/BoardPrepAI` nao existe.
+  - `03 (inclusao das tags [SOURCE]): APROVADO` - tag `[SOURCE]` presente em `packages/agents/executivos/boardprep-ai/contract.yaml` e `packages/agents/executivos/boardprep-ai/system_prompt.md`.
+  - `02: BLOQUEADO` - bloqueado por decisao arquitetural ainda nao incorporada formalmente na issue/trace atual.
+  - Nesta revalidacao parcial, nao foi exigido `acceptance.md` nem `runtime_enforcement/runtime_cycle`, conforme delimitacao do trace vigente.

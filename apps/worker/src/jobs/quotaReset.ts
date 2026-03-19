@@ -35,7 +35,6 @@ export async function quotaResetJob(reference = new Date()) {
 
   const period = currentMonthlyPeriod(reference);
   const resetAt = nextMonthlyReset(reference);
-  let upserts = 0;
 
   const dataToInsert = [];
 
@@ -49,7 +48,6 @@ export async function quotaResetJob(reference = new Date()) {
         resourceType,
         tenantId: organization.tenantId
       });
-      upserts += 1;
     }
   }
 
@@ -66,6 +64,6 @@ export async function quotaResetJob(reference = new Date()) {
 
   return {
     period,
-    upserts: payload.length
+    upserts: dataToInsert.length
   };
 }
