@@ -26,35 +26,30 @@ export async function quotaResetJob(reference = new Date()) {
   });
 
   const period = currentMonthlyPeriod(reference);
-  let upserts = 0;
+  const resetAt = nextMonthlyReset(reference);
 
-  for (const organization of organizations) {
-    for (const resourceType of Object.values(QuotaResourceType)) {
-      await prisma.quotaUsage.upsert({
-        create: {
-          count: 0,
-          limit: defaultLimits[resourceType],
-          period,
-          resetAt: nextMonthlyReset(reference),
-          resourceType,
-          tenantId: organization.tenantId
-        },
-        update: {},
-        where: {
-          tenantId_resourceType_period: {
-            period,
-            resourceType,
-            tenantId: organization.tenantId
-          }
-        }
-      });
+  const resourceTypes = Object.values(QuotaResourceType);
 
-      upserts += 1;
-    }
+  const payload = organizations.flatMap((organization) =>
+    resourceTypes.map((resourceType) => ({
+      count: 0,
+      limit: defaultLimits[resourceType],
+      period,
+      resetAt,
+      resourceType,
+      tenantId: organization.tenantId
+    }))
+  );
+
+  if (payload.length > 0) {
+    await prisma.quotaUsage.createMany({
+      data: payload,
+      skipDuplicates: true
+    });
   }
 
   return {
     period,
-    upserts
+    upserts: payload.length
   };
 }
