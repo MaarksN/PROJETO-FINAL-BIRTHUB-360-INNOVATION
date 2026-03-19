@@ -9,3 +9,5 @@
 | CrisisNavigator | executivos | 1 | packages/agents/executivos/crisisnavigator | ready_for_jules_validation |
 | CapitalAllocator | executivos | 1 | packages/agents/executivos/capitalallocator | ready_for_jules_validation |
 | PipelineOracle | executivos | 1 | packages/agents/executivos/pipelineoracle | ready_for_jules_validation |
+| ChurnDeflector | executivos | 1 | packages/agents/executivos/churndeflector | ready_for_jules_validation |
+| PricingOptimizer | executivos | 1 | packages/agents/executivos/pricingoptimizer | ready_for_jules_validation |
