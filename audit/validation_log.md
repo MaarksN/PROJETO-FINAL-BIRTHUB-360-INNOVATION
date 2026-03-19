@@ -10,7 +10,8 @@
 - [x] F3: System Prompt gerado (`system_prompt.md`)
 
 ## Status da Validação Codex:
-- **SUSPENSO**: Validação do Codex pendente.
-- **Motivo**: Bloqueio de CI devido a problema externo de billing do GitHub Actions.
+- **SUSPENSO** (Entrega Parcial): Validação do Codex pendente para Correções 01 e 03.
+- **Motivo**: Correção-01 (caminho duplicado consolidado) e Correção-03 (tags SOURCE adicionadas) foram concluídas. A Correção-02 (Runtime Loading) permanece bloqueada aguardando autorização de escopo via atualização formal da issue (documentado em `audit/human_required/contract_runtime_decision.md`).
+- Bloqueio de CI externo de billing do GitHub Actions foi superado momentaneamente.
 
-Aguardando resolução de billing para o Codex executar código, schema e testes do agente. Nenhuma alteração técnica de escopo diverso será misturada a este branch.
+Aguardando Codex revalidar *apenas* Correções 01 e 03 neste ciclo. Nenhuma alteração de escopo diverso será misturada a este branch até a atualização do artefato instrucional.
