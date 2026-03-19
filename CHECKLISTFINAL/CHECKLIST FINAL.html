@@ -312,12 +312,70 @@ const CXL={"media":"Média-Alta","alta":"Alta","muito-alta":"Muito Alta"};
 const CXC={"media":"cx-m","alta":"cx-a","muito-alta":"cx-ma"};
 const SOPTS=[{v:"",l:"🔴 Não feito"},{v:"melhoria",l:"🟡 Precisa de Melhoria"},{v:"aprovacao",l:"🔵 Precisa de Aprovação"},{v:"feito",l:"🟢 Feito"}];
 const SCYCLE=["","melhoria","aprovacao","feito"];
+const STATUS_SEED={
+  "CD-001": "melhoria",
+  "CI-TS-001": "melhoria",
+  "CI-TS-002": "melhoria",
+  "CI-TS-003": "melhoria",
+  "CI-TS-004": "melhoria",
+  "S-001": "feito",
+  "S-002": "feito",
+  "S-003": "feito",
+  "GAP-SEC-002": "melhoria",
+  "GAP-SEC-003": "melhoria",
+  "GAP-SEC-004": "melhoria",
+  "GAP-SEC-005": "melhoria",
+  "GAP-001": "feito",
+  "GAP-002": "feito",
+  "GAP-DASH-003": "aprovacao",
+  "GAP-005": "melhoria",
+  "M-001": "melhoria",
+  "M-003": "melhoria",
+  "D-001": "aprovacao",
+  "D-002": "melhoria",
+  "GOV-001": "melhoria",
+  "GOV-003": "melhoria",
+  "GOV-004": "feito",
+  "GOV-005": "melhoria",
+  "GOV-006": "melhoria",
+  "C1-BoardPrep-AI": "melhoria",
+  "C1-BoardPrep-AI-F1": "feito",
+  "C1-BoardPrep-AI-F2": "feito",
+  "C1-BoardPrep-AI-F3": "feito",
+  "C1-BoardPrep-AI-F5": "melhoria",
+  "C1-QuotaArchitect": "aprovacao",
+  "C1-QuotaArchitect-F1": "feito",
+  "C1-QuotaArchitect-F4": "feito",
+  "C1-QuotaArchitect-F5": "aprovacao",
+  "C1-BrandGuardian": "melhoria",
+  "C1-BrandGuardian-F1": "feito",
+  "C1-BrandGuardian-F4": "feito",
+  "C1-BrandGuardian-F5": "feito",
+  "C1-TrendCatcher": "melhoria",
+  "C1-TrendCatcher-F1": "feito",
+  "C1-TrendCatcher-F4": "feito",
+  "C1-TrendCatcher-F5": "feito",
+  "C1-BudgetFluid": "aprovacao",
+  "C1-BudgetFluid-F1": "feito",
+  "C1-BudgetFluid-F4": "feito",
+  "C1-BudgetFluid-F5": "aprovacao",
+  "C1-NarrativeWeaver": "aprovacao",
+  "C1-NarrativeWeaver-F1": "feito",
+  "C1-NarrativeWeaver-F4": "feito",
+  "C1-NarrativeWeaver-F5": "aprovacao",
+  "C1-CompetitorX-Ray": "aprovacao",
+  "C1-CompetitorX-Ray-F1": "feito",
+  "C1-CompetitorX-Ray-F4": "feito",
+  "C1-CompetitorX-Ray-F5": "aprovacao"
+};
 
 function mkSel(id,cls){
-  return `<select class="${cls}" data-id="${id}" data-val="" onchange="onSel(this)">${SOPTS.map(o=>`<option value="${o.v}">${o.l}</option>`).join('')}</select>`;
+  const cur=STATUS_SEED[id] ?? "";
+  return `<select class="${cls}" data-id="${id}" data-val="${cur}" onchange="onSel(this)">${SOPTS.map(o=>`<option value="${o.v}"${o.v===cur?' selected':''}>${o.l}</option>`).join('')}</select>`;
 }
 function mkPhSel(id){
-  return `<select class="ph-s" data-id="${id}" data-val="" onchange="onPh(this)">${SOPTS.map(o=>`<option value="${o.v}">${o.l.split(' ')[0]}</option>`).join('')}</select>`;
+  const cur=STATUS_SEED[id] ?? "";
+  return `<select class="ph-s" data-id="${id}" data-val="${cur}" onchange="onPh(this)">${SOPTS.map(o=>`<option value="${o.v}"${o.v===cur?' selected':''}>${o.l.split(' ')[0]}</option>`).join('')}</select>`;
 }
 
 function buildRem(){
@@ -331,7 +389,7 @@ function buildRem(){
       div.dataset.id=it.id;
       const tagsH=(it.tags||[]).map(([t,c])=>`<span class="tag ${c}">${t}</span>`).join('');
       div.innerHTML=`
-        <div class="dot" data-val="" data-dot="${it.id}" onclick="cycleDot('${it.id}')"></div>
+        <div class="dot" data-val="${STATUS_SEED[it.id] ?? ""}" data-dot="${it.id}" onclick="cycleDot('${it.id}')"></div>
         <div class="item-id">${it.id}</div>
         <div class="item-con">
           <div class="item-lbl">${it.lbl}</div>
@@ -360,7 +418,7 @@ function buildAgents(){
       const phs=['F1','F2','F3','F4','F5'];
       const phsH=phs.map(p=>`<div class="ph-w">${mkPhSel(aid+'-'+p)}<div class="ph-l">${p}</div></div>`).join('');
       return `<div class="item" data-group="c${cycle.id}" data-cycle="${cycle.id}" data-id="${aid}">
-        <div class="dot" data-val="" data-dot="${aid}" onclick="cycleDot('${aid}')"></div>
+        <div class="dot" data-val="${STATUS_SEED[aid] ?? ""}" data-dot="${aid}" onclick="cycleDot('${aid}')"></div>
         <div class="item-id" style="font-size:8px;min-width:28px;">#${i+1}</div>
         <div class="item-con">
           <div class="item-lbl">${ag}</div>
@@ -511,9 +569,9 @@ function saveAll(silent){
 
 function loadAll(){
   const saved=localStorage.getItem('bh360_v3');
-  if(!saved)return;
-  const data=JSON.parse(saved);
-  Object.entries(data).forEach(([id,val])=>{
+  const data=saved?JSON.parse(saved):{};
+  const merged={...STATUS_SEED,...data};
+  Object.entries(merged).forEach(([id,val])=>{
     const el=document.querySelector(`select[data-id="${id}"]`);
     if(el){el.value=val;applySelStyle(el);const dot=document.querySelector(`[data-dot="${id}"]`);if(dot)dot.setAttribute('data-val',val);}
   });
