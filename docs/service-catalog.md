@@ -15,7 +15,7 @@
 | 🟢 | `agents/juridico` | Agente IA | Legal Ops | Assinatura eletrônica | Orchestrator | Estrutura, ferramentas e testes presentes. |
 | 🟢 | `agents/marketing` | Agente IA | Marketing Ops | Ads APIs | Orchestrator | Estrutura, ferramentas e testes presentes. |
 | 🟢 | `agents/analista` | Agente IA | BI/Data | DB/analytics | Orchestrator | Estrutura, ferramentas e testes presentes. |
-| 🟢 | `agents/pos-venda` | Agente IA | CS Ops | CRM/comunicação | Orchestrator | Estrutura, ferramentas e testes presentes. |
+| 🟢 | `agents/pos_venda` | Agente IA | CS Ops | CRM/comunicação | Orchestrator | Estrutura, ferramentas e testes presentes. |
 | 🟢 | `packages/shared-types` | Package compartilhado | Platform | TypeScript | Apps e Agents TS | Pacote criado e funcional para contratos compartilhados. |
 | 🟢 | `packages/llm-client` | Package compartilhado | IA Platform | Gemini SDK | Agents/Orchestrator | Cliente LLM centralizado e disponível. |
 | 🟢 | `packages/queue` | Package compartilhado | Platform | Redis/BullMQ | Orchestrator/Webhooks | Definições e utilitários de fila implementados. |
