@@ -171,6 +171,17 @@
   - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
   - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `21/21`.
 
+## 2026-03-19T15:21:11Z
+
+- Item: `CICLO1-PIPELINEORACLE — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `ENTREGUE — AGUARDA VALIDACAO JULES`
+  Evidencia:
+  - Implementacao F3/F4/F5 concluida em `packages/agents/executivos/pipelineoracle`.
+  - `typecheck` do pacote `@birthub/agents` passou.
+  - Suite `@birthub/agents` passou com `25/25` testes.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_pipelineoracle_codex.md`.
+
 ## 2026-03-19T15:05:39Z
 
 - Item: `CICLO1-BOARDPREP-AI — REVALIDACAO TECNICA (OPCAO B)`
