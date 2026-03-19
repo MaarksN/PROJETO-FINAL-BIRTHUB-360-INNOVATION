@@ -290,3 +290,31 @@
   - `03 (inclusao das tags [SOURCE]): APROVADO` - tag `[SOURCE]` presente em `packages/agents/executivos/boardprep-ai/contract.yaml` e `packages/agents/executivos/boardprep-ai/system_prompt.md`.
   - `02: BLOQUEADO` - bloqueado por decisao arquitetural ainda nao incorporada formalmente na issue/trace atual.
   - Nesta revalidacao parcial, nao foi exigido `acceptance.md` nem `runtime_enforcement/runtime_cycle`, conforme delimitacao do trace vigente.
+
+## 2026-03-19T15:36:21Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Nao ha novo item tecnico em `audit/pending_review` com tag ativa alem do historico `ciclo1_boardprep-ai_jules_fix.md`.
+  - A validacao desse item historico ja consta como `APROVADO` neste log.
+
+- Item: `CICLO1-CHURNDEFLECTOR — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/churndeflector`.
+  - Caminho legado ausente: `packages/agents/executives/ChurnDeflector`.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `33/33`.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_churndeflector_codex.md`.
+
+- Item: `CICLO1-PRICINGOPTIMIZER — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/pricingoptimizer`.
+  - Caminho legado ausente: `packages/agents/executives/PricingOptimizer`.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `33/33`.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_pricingoptimizer_codex.md`.

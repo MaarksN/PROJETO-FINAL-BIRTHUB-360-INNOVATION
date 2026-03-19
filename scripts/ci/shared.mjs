@@ -68,6 +68,8 @@ function resolveCommonWindowsToolEntries() {
   return [
     ...resolveExistingDirectories([
       path.join(programFiles, "nodejs"),
+      path.join(programFiles, "nodejs", "node_modules", "corepack", "shims"),
+      path.join(programFiles, "nodejs", "node_modules", "corepack", "shims", "nodewin"),
       path.join(programFiles, "Git", "cmd"),
       path.join(programFiles, "Git", "bin"),
       path.join(programFilesX86, "Git", "cmd"),
