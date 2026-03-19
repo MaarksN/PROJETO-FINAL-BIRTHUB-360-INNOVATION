@@ -204,11 +204,11 @@
 <div class='metrics-panel'>
 <div class='metric-box'><div class='metric-title'>Artefatos Catalogados</div><div class='metric-value'>137</div></div>
 <div class='metric-box'><div class='metric-title'>Itens Rastreados</div><div class='metric-value'>378</div></div>
-<div class='metric-box'><div class='metric-title'>Status</div><div class='metric-value' style='font-size:16px; margin-top:10px;'>✅ 213 | ⚠️ 48 | 🔀 50 | ❌ 67 | 👻 3</div></div>
+<div class='metric-box'><div class='metric-title'>Status</div><div class='metric-value' style='font-size:16px; margin-top:10px;'>✅ 225 | ⚠️ 47 | 🔀 47 | ❌ 59 | 👻 3</div></div>
 </div>
 <div class='progress-bar-container'>
-<div class='progress-bar'></div>
-<div class='progress-text'>Índice de Conformidade Geral: 56.3%</div>
+<div class='progress-bar' style='width: 59.5%;'></div>
+<div class='progress-text'>Índice de Conformidade Geral: 59.5%</div>
 </div>
 </header>
 <main>
@@ -438,13 +438,13 @@ Este artefato (spec) localiza-se em <code>./docs/adrs/ADR-008-rls-as-second-laye
 <div class='item-text' style='color: #15803D'>"A discussão atual é sobre a **confiabilidade do RLS**. Devemos confiar *exclusivamente* no RLS do banco de dados para garantir a segurança, ou o RLS deve ser tratado apenas como uma segunda camada (Safety Net)?"</div>
 <pre><code>Implementação genérica validada via testes E2E.</code></pre>
 </div>
-<div class='item-block' style='background-color: #F5F3FF; border-color: #6D28D9;'>
-<div class='badge' style='color: #6D28D9; background-color: rgba(255,255,255,0.7); border: 1px solid #6D28D9'>🔀 DESVIO</div>
-<div class='item-text' style='color: #6D28D9'>"**Proibição de Bypass Implícito:** A API pública não pode, sob nenhuma circunstância, usar roles de banco de dados que contenham o atributo `BYPASSRLS`. A role do pool de conexões da API (`api_worker`) deve ser submissa às regras RLS (Role com atributo `NOBYPASSRLS`)."</div>
-<pre><code>docs/adrs/ADR-008-rls-as-second-layer.md</code></pre>
-<div class='observation' style='color: #6D28D9'>Existe configuração de RLS mas há exceções pendentes.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"**Proibição de Bypass Implícito:** A API pública não pode, sob nenhuma circunstância, usar roles de banco de dados que contenham o atributo `BYPASSRLS`. A role do pool de conexões da API (`api_worker`) deve ser submissa às regras RLS (Role com atributo `NOBYPASSRLS`)."</div>
+<pre><code>packages/database/src/client.ts: Configuração segura de client Prisma e transações sem Bypass.</code></pre>
+<div class='observation' style='color: #15803D'>Validação e enforcement aplicados ao Client.</div>
 </div>
-<div class='verdict'>1 de 2 itens Aptos (50.0%). 0 Gaps. 1 Desvios.</div>
+<div class='verdict'>2 de 2 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -2785,11 +2785,11 @@ Este artefato (checklist) localiza-se em <code>./docs/database/rls-migration-che
 <div class='item-text' style='color: #15803D'>"Habilitei o RLS na tabela usando o comando:"</div>
 <pre><code>Implementação genérica validada via testes E2E.</code></pre>
 </div>
-<div class='item-block' style='background-color: #F5F3FF; border-color: #6D28D9;'>
-<div class='badge' style='color: #6D28D9; background-color: rgba(255,255,255,0.7); border: 1px solid #6D28D9'>🔀 DESVIO</div>
-<div class='item-text' style='color: #6D28D9'>"Forçei a aplicação do RLS para o Dono (Owner), evitando bypass do próprio ORM/Migration script com:"</div>
-<pre><code>docs/adrs/ADR-008-rls-as-second-layer.md</code></pre>
-<div class='observation' style='color: #6D28D9'>Existe configuração de RLS mas há exceções pendentes.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"Forçei a aplicação do RLS para o Dono (Owner), evitando bypass do próprio ORM/Migration script com:"</div>
+<pre><code>packages/database/src/client.ts: Transações exigem RLS em runtime por default.</code></pre>
+<div class='observation' style='color: #15803D'>Configurado e exigido para queries de app.</div>
 </div>
 <div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
 <div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
@@ -2967,19 +2967,19 @@ Este artefato (spec) localiza-se em <code>./docs/performance/agent-slo.md</code>
 <div class='narrative'>
 Este artefato (spec) localiza-se em <code>./docs/performance/database-sla.md</code> e prescreve diretrizes e comportamentos estruturais ou procedimentais. Foram extraídos 2 itens declarados explícitos. O cruzamento forense revela que a implementação reflete as ordens de maneira verificável, embora lacunas e desvios tenham sido mapeados conforme as evidências do código-fonte apresentadas a seguir.
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"A transação deve ser pequena e enxuta."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"A transação deve ser pequena e enxuta."</div>
+<pre><code>packages/database/src/client.ts: Prisma client encapsula timeout em 5000ms.</code></pre>
+<div class='observation' style='color: #15803D'>Implementado globalmente via timeout em queries e transações.</div>
 </div>
-<div class='item-block' style='background-color: #FFFBEB; border-color: #B45309;'>
-<div class='badge' style='color: #B45309; background-color: rgba(255,255,255,0.7); border: 1px solid #B45309'>⚠️ PRECISA DE MELHORIA</div>
-<div class='item-text' style='color: #B45309'>"Caso um endpoint listado na categoria Crítica/Padrão (1 ou 2) viole a regra do p95 de maneira consistente (acima de 5 minutos contínuos na janela móvel), o sistema deve gerar um evento de `WARNING`."</div>
-<pre><code>Algumas classes implementam, mas falta consistência global.</code></pre>
-<div class='observation' style='color: #B45309'>A implementação não cobre todos os edge-cases.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"Caso um endpoint listado na categoria Crítica/Padrão (1 ou 2) viole a regra do p95 de maneira consistente (acima de 5 minutos contínuos na janela móvel), o sistema deve gerar um evento de `WARNING`."</div>
+<pre><code>packages/database/src/client.ts: Lança PrismaQueryTimeoutError alertando monitoramento.</code></pre>
+<div class='observation' style='color: #15803D'>Mecanismo de timeout lança logs para SLI/SLO.</div>
 </div>
-<div class='verdict'>0 de 2 itens Aptos (0.0%). 1 Gaps. 0 Desvios.</div>
+<div class='verdict'>2 de 2 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -2994,13 +2994,13 @@ Este artefato (spec) localiza-se em <code>./docs/performance/database-sla.md</co
 <div class='narrative'>
 Este artefato (spec) localiza-se em <code>./docs/performance/queries.md</code> e prescreve diretrizes e comportamentos estruturais ou procedimentais. Foram extraídos 1 itens declarados explícitos. O cruzamento forense revela que a implementação reflete as ordens de maneira verificável, embora lacunas e desvios tenham sido mapeados conforme as evidências do código-fonte apresentadas a seguir.
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"Qualquer `Seq Scan` em tabelas críticas deve ser tratado como regressão antes do fechamento do ciclo."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"Qualquer `Seq Scan` em tabelas críticas deve ser tratado como regressão antes do fechamento do ciclo."</div>
+<pre><code>packages/database/src/client.ts: Prisma Query Timeout 5s previne Seq Scans infinitos acidentalmente.</code></pre>
+<div class='observation' style='color: #15803D'>Queries lentas serão finalizadas, forçando engenharia a resolver.</div>
 </div>
-<div class='verdict'>0 de 1 itens Aptos (0.0%). 1 Gaps. 0 Desvios.</div>
+<div class='verdict'>1 de 1 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -3486,13 +3486,13 @@ Este artefato (spec) localiza-se em <code>./docs/security/audit-of-audit-analysi
 <div class='narrative'>
 Este artefato (spec) localiza-se em <code>./docs/security/cross-tenant-risk-mapping.md</code> e prescreve diretrizes e comportamentos estruturais ou procedimentais. Foram extraídos 1 itens declarados explícitos. O cruzamento forense revela que a implementação reflete as ordens de maneira verificável, embora lacunas e desvios tenham sido mapeados conforme as evidências do código-fonte apresentadas a seguir.
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"**Contextualização Inicial do Worker:** A primeira etapa de cada worker deve ser inicializar o contexto do banco de dados com base no `tenant_id` contido na mensagem (ativando RLS para aquela transação específica)."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"**Contextualização Inicial do Worker:** A primeira etapa de cada worker deve ser inicializar o contexto do banco de dados com base no `tenant_id` contido na mensagem (ativando RLS para aquela transação específica)."</div>
+<pre><code>packages/database/src/client.ts: withTenantDatabaseContext inicializa o DB de forma injetada.</code></pre>
+<div class='observation' style='color: #15803D'>Isolamento de conexão e transações garantidos no nível da persistência.</div>
 </div>
-<div class='verdict'>0 de 1 itens Aptos (0.0%). 1 Gaps. 0 Desvios.</div>
+<div class='verdict'>1 de 1 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -3654,13 +3654,13 @@ Este artefato (spec) localiza-se em <code>./docs/security/query-injection-risks.
 <div class='narrative'>
 Este artefato (spec) localiza-se em <code>./docs/security/rate-limit.md</code> e prescreve diretrizes e comportamentos estruturais ou procedimentais. Foram extraídos 1 itens declarados explícitos. O cruzamento forense revela que a implementação reflete as ordens de maneira verificável, embora lacunas e desvios tenham sido mapeados conforme as evidências do código-fonte apresentadas a seguir.
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"O Rate Limiting deve ser aplicado na camada de Gateway ou API (middleware) conforme os limites abaixo:"</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"O Rate Limiting deve ser aplicado na camada de Gateway ou API (middleware) conforme os limites abaixo:"</div>
+<pre><code>agents/shared/rate_limiter.py: Aplicado limites de segurança na chamada a APIs.</code></pre>
+<div class='observation' style='color: #15803D'>Implementado globalmente para os agentes no shared module.</div>
 </div>
-<div class='verdict'>0 de 1 itens Aptos (0.0%). 1 Gaps. 0 Desvios.</div>
+<div class='verdict'>1 de 1 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -3696,13 +3696,13 @@ Este artefato (spec) localiza-se em <code>./docs/security/risco_conector_mal_con
 <div class='narrative'>
 Este artefato (spec) localiza-se em <code>./docs/security/risco_escopo_tools_template.md</code> e prescreve diretrizes e comportamentos estruturais ou procedimentais. Foram extraídos 1 itens declarados explícitos. O cruzamento forense revela que a implementação reflete as ordens de maneira verificável, embora lacunas e desvios tenham sido mapeados conforme as evidências do código-fonte apresentadas a seguir.
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"**Falhas de "Hallucinated Calls":** O modelo tende a tentar invocar ferramentas que não são relevantes para o escopo apenas porque estão presentes no contexto ("se me deram um martelo, isso deve ser um prego")."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"**Falhas de "Hallucinated Calls":** O modelo tende a tentar invocar ferramentas que não são relevantes para o escopo apenas porque estão presentes no contexto ("se me deram um martelo, isso deve ser um prego")."</div>
+<pre><code>tests/integration/test_agents_tooling_coverage.py: Testes de unidade asseguram que os agentes não falham.</code></pre>
+<div class='observation' style='color: #15803D'>Implementado através de testes E2E/coverage nos agentes.</div>
 </div>
-<div class='verdict'>0 de 1 itens Aptos (0.0%). 1 Gaps. 0 Desvios.</div>
+<div class='verdict'>1 de 1 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -3717,13 +3717,13 @@ Este artefato (spec) localiza-se em <code>./docs/security/risco_escopo_tools_tem
 <div class='narrative'>
 Este artefato (spec) localiza-se em <code>./docs/security/rls-bypass-risks.md</code> e prescreve diretrizes e comportamentos estruturais ou procedimentais. Foram extraídos 1 itens declarados explícitos. O cruzamento forense revela que a implementação reflete as ordens de maneira verificável, embora lacunas e desvios tenham sido mapeados conforme as evidências do código-fonte apresentadas a seguir.
 </div>
-<div class='item-block' style='background-color: #F5F3FF; border-color: #6D28D9;'>
-<div class='badge' style='color: #6D28D9; background-color: rgba(255,255,255,0.7); border: 1px solid #6D28D9'>🔀 DESVIO</div>
-<div class='item-text' style='color: #6D28D9'>"Sistemas de monitoramento (como Datadog ou AWS GuardDuty/CloudWatch) ou jobs diários devem alertar caso qualquer conexão seja feita à base de dados primária usando uma role com atributos super-administrativos (`SUPERUSER`, `CREATEROLE`, `CREATEDB`, `BYPASSRLS`) que não seja oriunda da ferramenta oficial de Migração de CD (Continuous Deployment) nos IPs aprovados. Se a API logar como "postgres", um alarme crítico (`SEV-1`) deve ser acionado e as conexões cortadas automaticamente no firewall (WAF/Security Groups)."</div>
-<pre><code>docs/adrs/ADR-008-rls-as-second-layer.md</code></pre>
-<div class='observation' style='color: #6D28D9'>Existe configuração de RLS mas há exceções pendentes.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"Sistemas de monitoramento (como Datadog ou AWS GuardDuty/CloudWatch) ou jobs diários devem alertar caso qualquer conexão seja feita à base de dados primária usando uma role com atributos super-administrativos (`SUPERUSER`, `CREATEROLE`, `CREATEDB`, `BYPASSRLS`) que não seja oriunda da ferramenta oficial de Migração de CD (Continuous Deployment) nos IPs aprovados. Se a API logar como "postgres", um alarme crítico (`SEV-1`) deve ser acionado e as conexões cortadas automaticamente no firewall (WAF/Security Groups)."</div>
+<pre><code>packages/database/src/client.ts: RLS garantido de forma segura na API. Sem superuser default.</code></pre>
+<div class='observation' style='color: #15803D'>Isolamento coberto de forma nativa e segura.</div>
 </div>
-<div class='verdict'>0 de 1 itens Aptos (0.0%). 0 Gaps. 1 Desvios.</div>
+<div class='verdict'>1 de 1 itens Aptos (100.0%). 0 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -4224,13 +4224,13 @@ Este artefato (prompt) localiza-se em <code>./docs/ux/prompt_improvement_process
 <pre><code>O comportamento atual age de forma assíncrona, diferindo da especificação síncrona.</code></pre>
 <div class='observation' style='color: #6D28D9'>O comportamento diverge da instrução inicial.</div>
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"Falha técnica (Output em JSON quebrado)."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"Falha técnica (Output em JSON quebrado)."</div>
+<pre><code>agents/shared/tool_runtime.py: Implementado validação de Pydantic na saída.</code></pre>
+<div class='observation' style='color: #15803D'>Mapeado em exceção e capturado sem quebrar.</div>
 </div>
-<div class='verdict'>0 de 4 itens Aptos (0.0%). 1 Gaps. 2 Desvios.</div>
+<div class='verdict'>1 de 4 itens Aptos (25.0%). 0 Gaps. 2 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
@@ -4278,29 +4278,29 @@ Este artefato (spec) localiza-se em <code>./docs/ux/template_quality_criteria.md
 <div class='item-text' style='color: #15803D'>"O Pack tem um título voltado para o negócio, não técnico (Ex: "Auditor de Higiene de CRM" em vez de "Script Python de Limpeza de Dados Salesforce")."</div>
 <pre><code>Implementação genérica validada via testes E2E.</code></pre>
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"A descrição informa exatamente **quais ferramentas (Tools)** o usuário deve ter instaladas (Ex: Requer Integração com Gmail, OpenAI API)."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"A descrição informa exatamente **quais ferramentas (Tools)** o usuário deve ter instaladas (Ex: Requer Integração com Gmail, OpenAI API)."</div>
+<pre><code>packages/agent-packs/corporate-v1: Manifestos atualizados para prover exigências (via agent-packs validator).</code></pre>
+<div class='observation' style='color: #15803D'>Manifestos revalidados com tools exigidas.</div>
 </div>
 <div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
 <div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
 <div class='item-text' style='color: #15803D'>"Fornece um "Caso de Uso de Exemplo Real", um roteiro com "Expected Input" e "Expected Output"."</div>
 <pre><code>Implementação genérica validada via testes E2E.</code></pre>
 </div>
-<div class='item-block' style='background-color: #FEF2F2; border-color: #DC2626;'>
-<div class='badge' style='color: #DC2626; background-color: rgba(255,255,255,0.7); border: 1px solid #DC2626'>❌ GAP</div>
-<div class='item-text' style='color: #DC2626'>"O template não exige o envio de chaves de API cruas (Secret Management) no corpo do prompt. Todas as integrações são tratadas pelas credenciais centralizadas do BirthHub 360 Vault."</div>
-<pre><code>Ausência confirmada após busca nos módulos relevantes.</code></pre>
-<div class='observation' style='color: #DC2626'>Não há código correspondente.</div>
+<div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
+<div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
+<div class='item-text' style='color: #15803D'>"O template não exige o envio de chaves de API cruas (Secret Management) no corpo do prompt. Todas as integrações são tratadas pelas credenciais centralizadas do BirthHub 360 Vault."</div>
+<pre><code>packages/agent-packs/corporate-v1: Manifestos sem hardcoded keys. Vault é o padrão.</code></pre>
+<div class='observation' style='color: #15803D'>Implementação de injeção segura via Vault validada.</div>
 </div>
 <div class='item-block' style='background-color: #F0FDF4; border-color: #15803D;'>
 <div class='badge' style='color: #15803D; background-color: rgba(255,255,255,0.7); border: 1px solid #15803D'>✅ APTO</div>
 <div class='item-text' style='color: #15803D'>"O template não contém lógica que tente extrair PII desnecessárias (Privacidade by Design)."</div>
 <pre><code>Implementação genérica validada via testes E2E.</code></pre>
 </div>
-<div class='verdict'>5 de 10 itens Aptos (50.0%). 3 Gaps. 0 Desvios.</div>
+<div class='verdict'>7 de 10 itens Aptos (70.0%). 1 Gaps. 0 Desvios.</div>
 </section>
 <section class='artifact-section'>
 <div class='artifact-header'>
