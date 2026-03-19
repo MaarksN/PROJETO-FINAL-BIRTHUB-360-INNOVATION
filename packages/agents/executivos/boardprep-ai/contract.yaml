@@ -1,0 +1,36 @@
+# [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI
+name: BoardPrep AI
+domain: executivos
+cycle: 1
+runtime_cycle: 16
+runtime_enforcement: false
+description: Agrega dados corporativos e gera materiais preparatorios para reunioes de conselho.
+
+required_tools:
+  - board-report-generator
+  - budget-forecaster
+  - kpi-dashboard
+
+fallback_behavior:
+  tool_unavailable:
+    retry_attempts: 3
+    base_delay_ms: 500
+  exhausted:
+    mode: degraded_report
+    notify_human: true
+
+observability:
+  events_to_log:
+    - boardprep.request.received
+    - boardprep.contract.loaded
+    - boardprep.tool.call.started
+    - boardprep.tool.call.succeeded
+    - boardprep.tool.call.failed
+    - boardprep.retry.scheduled
+    - boardprep.fallback.applied
+    - boardprep.response.generated
+  metrics:
+    - duration_ms
+    - tool_calls
+    - tool_failures
+    - retries

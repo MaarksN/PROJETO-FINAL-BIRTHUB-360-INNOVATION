@@ -46,14 +46,14 @@ const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "packages",
   "agents",
-  "executives",
-  "BoardPrepAI",
+  "executivos",
+  "boardprep-ai",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   process.cwd(),
-  "executives",
-  "BoardPrepAI",
+  "executivos",
+  "boardprep-ai",
   "contract.yaml"
 );
 const DEFAULT_CONTRACT_PATHS = [
@@ -196,7 +196,7 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   }
   if (
     normalized.endsWith(
-      path.join("executives", "BoardPrepAI", "contract.yaml").toLowerCase()
+      path.join("executivos", "boardprep-ai", "contract.yaml").toLowerCase()
     )
   ) {
     return "package_file";
