@@ -1,5 +1,4 @@
-// [SOURCE] apps/dashboard/README.md — LDR item / AE item
-export type ModuleType = 'hub' | 'ldr' | 'bdr' | 'sdr' | 'ae' | 'closer';
+export type ModuleType = 'hub' | 'ldr' | 'bdr' | 'sdr' | 'closer';
 
 export interface ToolField {
   id: string;

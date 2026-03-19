@@ -205,27 +205,5 @@
       },
       "timeoutMs": 15000
     }
-  ],
-  "required_tools": [
-    "Crm",
-    "Messaging History",
-    "Calendar",
-    "Policy Guard"
-  ],
-  "fallback_behavior": {
-    "tool_unavailable": {
-      "retry_attempts": 3,
-      "backoff_strategy": "exponential",
-      "base_delay_ms": 500
-    },
-    "http_429": {
-      "wait_ms": 1000,
-      "retry_attempts": 1
-    },
-    "exhausted": {
-      "notify_human": true,
-      "silence": false,
-      "loop": false
-    }
-  }
+  ]
 }

@@ -3,8 +3,6 @@ import type {
   AgentLearningRecord,
   JsonValue
 } from "../types/index.js";
-import { z } from "zod";
-// [SOURCE] checklist agent prompt templates — output schema
 
 export interface ManagedAgentPolicy {
   actions: string[];
@@ -93,66 +91,6 @@ export interface AgentRuntimeOutput {
     startedAt: string;
     tool: string;
   }>;
-}
-
-const runtimeDecisionSchema = z
-  .object({
-    decision: z.string().min(1),
-    due_window: z.string().min(1),
-    owner: z.string().min(1),
-    recommended_action: z.string().min(1),
-    why_now: z.string().min(1)
-  })
-  .strict();
-
-const runtimeLearningSchema = z
-  .object({
-    confidence: z.number(),
-    id: z.string().min(1),
-    summary: z.string().min(1)
-  })
-  .strict();
-
-const runtimeActionPlanSchema = z
-  .object({
-    action: z.string().min(1),
-    checkpoint: z.string().min(1),
-    deadline: z.string().min(1),
-    expected_impact: z.string().min(1),
-    owner: z.string().min(1)
-  })
-  .strict();
-
-const runtimeToolResultSchema = z
-  .object({
-    finishedAt: z.string().min(1),
-    output: z.unknown().nullable(),
-    startedAt: z.string().min(1),
-    tool: z.string().min(1)
-  })
-  .strict();
-
-const agentRuntimeOutputSchema: z.ZodType<AgentRuntimeOutput> = z
-  .object({
-    approvals_or_dependencies: z.array(z.string().min(1)),
-    confidence: z.enum(["high", "low", "medium"]),
-    decisions_to_anticipate: z.array(runtimeDecisionSchema),
-    emerging_risks: z.array(z.string().min(1)),
-    executionMode: z.literal("LIVE"),
-    leading_indicators: z.array(z.string().min(1)),
-    learning_used: z.array(runtimeLearningSchema),
-    next_checkpoint: z.string().min(1),
-    opportunities_to_capture: z.array(z.string().min(1)),
-    preventive_action_plan: z.array(runtimeActionPlanSchema),
-    sharedLearningCount: z.number().int().min(0),
-    status: z.enum(["critical", "stable", "watch"]),
-    summary: z.string().min(1),
-    tool_results: z.array(runtimeToolResultSchema)
-  })
-  .strict();
-
-export function parseAgentRuntimeOutput(input: unknown): AgentRuntimeOutput {
-  return agentRuntimeOutputSchema.parse(input);
 }
 
 export interface OutputGovernanceDecision {
@@ -424,7 +362,7 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
       ? `${input.manifest.agent.name} concluiu a execucao live e abriu governanca adicional antes da publicacao final.`
       : `${input.manifest.agent.name} concluiu a execucao live com ${tool_results.length} ferramenta(s) do manifesto.`;
 
-  const output: AgentRuntimeOutput = {
+  return {
     approvals_or_dependencies: governance.requireApproval
       ? ["Aprovacao humana recomendada antes de compartilhar externamente."]
       : [],
@@ -468,6 +406,4 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     summary,
     tool_results
   };
-
-  return parseAgentRuntimeOutput(output);
 }
