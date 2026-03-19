@@ -1,4 +1,5 @@
 import express from "express";
+import { LeadSchema } from "@birthub/shared-types";
 import { requireJwt } from "../middleware/auth";
 
 export const leadsRouter = express.Router();
@@ -6,8 +7,19 @@ export const leadsRouter = express.Router();
 leadsRouter.use(requireJwt);
 
 leadsRouter.post("/", async (req, res) => {
-  // TODO: Validate body with Zod
-  const leadData = req.body;
+  const result = LeadSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({
+      error: "validation_failed",
+      details: result.error.errors.map((e) => ({
+        path: e.path.join("."),
+        message: e.message,
+      })),
+    });
+  }
+
+  const leadData = result.data;
 
   // Trigger Orchestrator
   // In a real app, we'd use a queue or HTTP call to the orchestrator service

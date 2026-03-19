@@ -15,6 +15,7 @@
     "@birthub/queue": "workspace:*",
     "@birthub/shared-types": "workspace:*",
     "@birthub/utils": "workspace:*",
+    "zod": "^4.3.6",
     "bullmq": "^5.71.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
