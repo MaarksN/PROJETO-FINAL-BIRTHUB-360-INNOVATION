@@ -66,6 +66,6 @@ export async function quotaResetJob(reference = new Date()) {
 
   return {
     period,
-    upserts
+    upserts: payload.length
   };
 }
