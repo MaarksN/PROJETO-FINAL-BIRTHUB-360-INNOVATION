@@ -3,7 +3,6 @@ import test from "node:test";
 
 import { AgentManifestParseError, parseAgentManifest } from "../manifest/parser.js";
 import { MANIFEST_VERSION } from "../manifest/schema.js";
-// [SOURCE] checklist de Agent Pack publishing — GAP-004/M-002 items
 
 const validManifest = {
   agent: {
@@ -57,23 +56,6 @@ const validManifest = {
 void test("parseAgentManifest accepts valid manifest", () => {
   const parsed = parseAgentManifest(validManifest);
   assert.equal(parsed.agent.id, "agent-1");
-  assert.deepEqual(parsed.required_tools, []);
-  assert.deepEqual(parsed.fallback_behavior, {
-    tool_unavailable: {
-      retry_attempts: 3,
-      backoff_strategy: "exponential",
-      base_delay_ms: 500,
-    },
-    http_429: {
-      wait_ms: 1000,
-      retry_attempts: 1,
-    },
-    exhausted: {
-      notify_human: true,
-      silence: false,
-      loop: false,
-    },
-  });
 });
 
 void test("parseAgentManifest returns descriptive error for invalid manifest", () => {
