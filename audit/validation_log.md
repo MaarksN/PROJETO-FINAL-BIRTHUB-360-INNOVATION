@@ -96,3 +96,23 @@
   - Alterações em `./docs/`: detectadas (`DOCS_CHANGED_COUNT=2`) no delta `0e0cc3a8d0f41c09ae39268e61c51e02384e1ec0..dd66b20103c322017035de96bbd5b16c29851b60`.
   Ação requerida do executor (Jules):
   - Corrigir os itens reprovados (CI, aplicação real de output schema com testes de rejeição, `required_tools`, `fallback_behavior`, `[SOURCE]`, e política de zero alterações em `docs/`) e reenviar para nova validação.
+
+## 2026-03-19T14:08:16Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Varredura local em `audit/` (excluindo `validation_log.md`) sem ocorrencias da tag.
+
+- Item: `CICLO1-BOARDPREP-AI — VALIDACAO FORMAL JULES (F2+F3)`
+  Validador: `CODEX`
+  Resultado: `REPROVADO_COM_MOTIVO`
+  Evidencia:
+  - Probe de runtime padrao confirma consumo do artefato Jules: `boardprep.contract.loaded.details.source=package_file`.
+  - `contract.yaml` mantem campos criticos em texto livre (`failure_behavior` e `fallback`), sem estrutura deterministica para verificacao automatica de aceite.
+  - `output_schema.data_tables.items` esta como `object` sem shape explicito, gerando ambiguidade de contrato.
+  - Nao ha secao explicita de criterios de aceite verificaveis no contrato.
+  - `system_prompt.md` contem guardrails base (anti-alucinacao/PII), mas sem criterios objetivos de aprovacao/reprovacao por cenario.
+  Acao requerida do executor (Jules):
+  - Publicar versao revisada de `contract.yaml` e `system_prompt.md` com criterios testaveis e sinalizar `[AGUARDA VALIDACAO CODEX]` para revalidacao.
+  - Checklist detalhado em `audit/pending_review/ciclo1_boardprep-ai_codex_reprovacao_f2f3.md`.
