@@ -110,6 +110,7 @@ jobs:
   security-report:
     name: security coverage report
     runs-on: ubuntu-latest
+    if: always()
     needs:
       - semgrep
       - dependency-audit
