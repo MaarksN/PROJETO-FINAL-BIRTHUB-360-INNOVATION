@@ -1,8 +1,6 @@
 import express from "express";
-import { z } from "zod";
-
-import { createLogger } from "../lib/logger.js";
-import { requireJwt } from "../auth.js";
+import { LeadSchema } from "@birthub/shared-types";
+import { requireJwt } from "../middleware/auth";
 
 export const leadsRouter = express.Router();
 const logger = createLogger({ scope: "legacy-lead-intake" });
@@ -15,19 +13,19 @@ const legacyLeadIntakeSchema = z.object({
 leadsRouter.use(requireJwt);
 
 leadsRouter.post("/", async (req, res) => {
-  const parsed = legacyLeadIntakeSchema.safeParse(req.body);
-  if (!parsed.success) {
+  const result = LeadSchema.safeParse(req.body);
+
+  if (!result.success) {
     return res.status(400).json({
-      code: "VALIDATION_ERROR",
-      details: {
-        errors: parsed.error.issues.map((issue) => {
-          const path = issue.path.length > 0 ? `${issue.path.join(".")}: ` : "";
-          return `${path}${issue.message}`;
-        })
-      },
-      message: "Invalid request body"
+      error: "validation_failed",
+      details: result.error.errors.map((e) => ({
+        path: e.path.join("."),
+        message: e.message,
+      })),
     });
   }
+
+  const leadData = result.data;
 
   logger.info("legacy-lead-accepted", {
     email: parsed.data.email,
