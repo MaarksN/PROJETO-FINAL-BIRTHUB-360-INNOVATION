@@ -15,3 +15,8 @@
 - Bloqueio de CI externo de billing do GitHub Actions foi superado momentaneamente.
 
 Aguardando Codex revalidar *apenas* Correções 01 e 03 neste ciclo. Nenhuma alteração de escopo diverso será misturada a este branch até a atualização do artefato instrucional.
+
+## Pendências de Validação (Jules):
+- **Checagem executada em**: `./audit/pending_review/`
+- **Resultado**: `NO_PENDING_ITEMS`
+- **Ação**: Aguardando novas entregas grounded do Codex. A lane atual (Jules) encontra-se limpa e em espera operacional.

@@ -213,31 +213,20 @@ export async function refreshTenantActivityWindows(organizationId?: string) {
 
 export async function computeAndPersistHealthScores() {
   const refreshed = await refreshTenantActivityWindows();
-
-  const refreshedWithMetrics = refreshed.filter((item) =>
-    item.windows.some((window) => window.windowDays === 30)
-  );
-
-  const organizationIds = [...new Set(refreshedWithMetrics.map((item) => item.organizationId))];
-  const organizations = await prisma.organization.findMany({
-    where: {
-      id: {
-        in: organizationIds
-      }
-    }
-  });
-
-  const organizationMap = new Map(organizations.map((org) => [org.id, org]));
   const summary = [];
 
-  for (const item of refreshedWithMetrics) {
+  for (const item of refreshed) {
     const metrics30d = item.windows.find((window) => window.windowDays === 30);
 
     if (!metrics30d) {
       continue;
     }
 
-    const organization = organizationMap.get(item.organizationId);
+    const organization = await prisma.organization.findUnique({
+      where: {
+        id: item.organizationId
+      }
+    });
 
     if (!organization) {
       continue;

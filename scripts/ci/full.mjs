@@ -43,16 +43,15 @@ async function buildCiEnvironmentDefaults() {
     WEB_BASE_URL: envOrDefault("WEB_BASE_URL", "http://localhost:3001")
   };
 
-  if (hasEnvValue("DATABASE_URL")) {
-    defaults.DATABASE_URL = process.env.DATABASE_URL;
-  } else if (await isTcpEndpointAvailable(5432)) {
-    defaults.DATABASE_URL = "postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1";
+  if (hasEnvValue("DATABASE_URL") || await isTcpEndpointAvailable(5432)) {
+    defaults.DATABASE_URL = envOrDefault(
+      "DATABASE_URL",
+      "postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    );
   }
 
-  if (hasEnvValue("REDIS_URL")) {
-    defaults.REDIS_URL = process.env.REDIS_URL;
-  } else if (await isTcpEndpointAvailable(6379)) {
-    defaults.REDIS_URL = "redis://localhost:6379";
+  if (hasEnvValue("REDIS_URL") || await isTcpEndpointAvailable(6379)) {
+    defaults.REDIS_URL = envOrDefault("REDIS_URL", "redis://localhost:6379");
   }
 
   return defaults;

@@ -5,7 +5,7 @@ O monorepo hoje contém superfícies "core" e "legadas" convivendo lado a lado. 
 
 - `@birthub/database` vs `@birthub/db`
 - `apps/web` vs `apps/dashboard`
-- `agents/pos_venda` (path canônico) vs legado histórico
+- `agents/pos-venda` vs `agents/pos_venda`
 
 Sem uma decisão explícita, a base cresce com deriva estrutural: imports cruzados, scripts quebrados e deploys apontando para superfícies erradas.
 
@@ -17,7 +17,7 @@ As decisões formais são:
 1. `@birthub/database` é a fonte de verdade do SaaS multi-tenant e só pode ser usado nas superfícies core (`apps/api`, `apps/web`, `apps/worker`, `packages/database`, `packages/testing`).
 2. `@birthub/db` permanece como schema legado de CRM e fica isolado em `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` e `packages/db` até a migração dirigida.
 3. `apps/web` é a interface canônica de produto e release. `apps/dashboard` é legado e não entra na lane core.
-4. `agents/pos_venda` é o layout canônico (runtime Python + overlay worker), mantendo o identificador funcional `pos-venda`.
+4. `agents/pos-venda` continua como runtime Python legado. `agents/pos_venda` continua como overlay de pacote/worker até consolidação futura.
 5. Primitivos de tool runtime (`BaseTool`, `DbReadTool`, `DbWriteTool`, `HttpTool`, `SendEmailTool`) passam a ser consumidos via `@birthub/agents-core/tools`, e o policy engine via `@birthub/agents-core/policy/engine`, evitando a ambiguidade do barrel raiz.
 
 ## Consequências

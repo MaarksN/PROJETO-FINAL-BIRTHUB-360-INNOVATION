@@ -33,22 +33,16 @@ export function initializeWorkflowInternalEventBridge(config: ApiConfig): void {
         }
       });
 
-      const CHUNK_SIZE = 10;
-      for (let i = 0; i < workflows.length; i += CHUNK_SIZE) {
-        const chunk = workflows.slice(i, i + CHUNK_SIZE);
-        await Promise.all(
-          chunk.map((workflow) =>
-            runWorkflowNow(
-              config,
-              workflow.id,
-              workflow.organizationId,
-              {
-                async: true,
-                payload: event.payload
-              },
-              WorkflowTriggerType.EVENT
-            )
-          )
+      for (const workflow of workflows) {
+        await runWorkflowNow(
+          config,
+          workflow.id,
+          workflow.organizationId,
+          {
+            async: true,
+            payload: event.payload
+          },
+          WorkflowTriggerType.EVENT
         );
       }
     })();
