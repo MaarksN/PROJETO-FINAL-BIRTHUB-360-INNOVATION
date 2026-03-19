@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { TOOLS } from '../constants';
+// [SOURCE] apps/dashboard/README.md — LDR item / AE item
 
 describe('Sales OS Constants', () => {
   it('should have unique IDs for all tools', () => {
@@ -21,5 +22,20 @@ describe('Sales OS Constants', () => {
     expect(tool).toBeDefined();
     const fieldIds = tool?.fields?.map(f => f.id);
     expect(fieldIds).toContain('rebuttal');
+  });
+
+  it('should expose LDR handoff and roleplay tools', () => {
+    const ldrHandoff = TOOLS.find(t => t.id === 'ldr_handoff');
+    const ldrRoleplay = TOOLS.find(t => t.id === 'roleplay_ldr_gatekeeper');
+    expect(ldrHandoff?.modules).toContain('ldr');
+    expect(ldrRoleplay?.modules).toContain('ldr');
+    expect(ldrRoleplay?.isChat).toBe(true);
+  });
+
+  it('should expose AE proposal and ROI tools', () => {
+    const proposal = TOOLS.find(t => t.id === 'ae_proposal_generator');
+    const roi = TOOLS.find(t => t.id === 'ae_roi_calculator');
+    expect(proposal?.modules).toContain('ae');
+    expect(roi?.modules).toContain('ae');
   });
 });

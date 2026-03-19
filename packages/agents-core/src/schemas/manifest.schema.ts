@@ -1,4 +1,5 @@
 import { z } from "zod";
+// [SOURCE] checklist de Agent Pack publishing — GAP-004/M-002 items
 
 const semanticVersionRegex =
   /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
@@ -35,6 +36,49 @@ const restrictionPolicySchema = z
   })
   .strict();
 
+const canonicalFallbackBehavior = {
+  tool_unavailable: {
+    retry_attempts: 3,
+    backoff_strategy: "exponential" as const,
+    base_delay_ms: 500
+  },
+  http_429: {
+    wait_ms: 1_000,
+    retry_attempts: 1
+  },
+  exhausted: {
+    notify_human: true as const,
+    silence: false as const,
+    loop: false as const
+  }
+};
+
+const fallbackBehaviorSchema = z
+  .object({
+    tool_unavailable: z
+      .object({
+        retry_attempts: z.number().int().min(1).default(3),
+        backoff_strategy: z.enum(["exponential"]).default("exponential"),
+        base_delay_ms: z.number().int().positive().default(500)
+      })
+      .strict(),
+    http_429: z
+      .object({
+        wait_ms: z.number().int().positive().default(1_000),
+        retry_attempts: z.number().int().min(1).default(1)
+      })
+      .strict(),
+    exhausted: z
+      .object({
+        notify_human: z.literal(true).default(true),
+        silence: z.literal(false).default(false),
+        loop: z.literal(false).default(false)
+      })
+      .strict()
+  })
+  .strict()
+  .default(canonicalFallbackBehavior);
+
 export const agentManifestSchema = z
   .object({
     apiVersion: semanticVersionSchema.default(SUPPORTED_AGENT_API_VERSION),
@@ -50,9 +94,11 @@ export const agentManifestSchema = z
       maxSteps: 12,
       maxTokens: 8_000
     }),
+    required_tools: z.array(z.string().min(1)).default([]),
     skills: z.array(skillReferenceSchema).min(1),
     tags: z.array(z.string().min(1)).default([]),
     tools: z.array(toolReferenceSchema),
+    fallback_behavior: fallbackBehaviorSchema,
     metadata: z.record(z.string(), z.unknown()).optional()
   })
   .strict();

@@ -324,24 +324,24 @@ export class PackInstallerService {
       .map((agent) => agent.id);
 
     await prisma.$transaction(async (tx) => {
-      for (const id of idsToUpdate) {
-        const current = await tx.agent.findUnique({ where: { id } });
-
-        if (!current) {
-          continue;
-        }
-
-        const currentConfig = current.config && typeof current.config === "object" ? current.config : {};
-
-        await tx.agent.update({
-          data: {
-            config: toPrismaJsonValue({
-              ...(currentConfig as Record<string, unknown>),
-              latestAvailableVersion: input.latestAvailableVersion
-            }) as Prisma.InputJsonObject
-          },
-          where: { id }
+      if (idsToUpdate.length > 0) {
+        const agentsToUpdate = await tx.agent.findMany({
+          where: { id: { in: idsToUpdate } }
         });
+
+        for (const current of agentsToUpdate) {
+          const currentConfig = current.config && typeof current.config === "object" ? current.config : {};
+
+          await tx.agent.update({
+            data: {
+              config: toPrismaJsonValue({
+                ...(currentConfig as Record<string, unknown>),
+                latestAvailableVersion: input.latestAvailableVersion
+              }) as Prisma.InputJsonObject
+            },
+            where: { id: current.id }
+          });
+        }
       }
 
       await tx.auditLog.create({

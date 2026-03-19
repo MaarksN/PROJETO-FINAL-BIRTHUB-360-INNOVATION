@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getWebConfig } from "@birthub/config";
 
 import { fetchWithSession } from "../../../../lib/auth-client";
-import { DOMPurify } from "../../../../lib/dompurify";
+import { DOMPurifyPolyfill as DOMPurify } from "../../../../lib/dompurify";
 
 const webConfig = getWebConfig();
 

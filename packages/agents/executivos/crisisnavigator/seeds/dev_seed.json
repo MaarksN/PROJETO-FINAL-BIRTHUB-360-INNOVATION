@@ -1,0 +1,46 @@
+{
+  "source_traceability": "BirthHub360_Agentes_Parallel_Plan - CrisisNavigator",
+  "input": {
+    "constraints": {
+      "language": "pt-BR",
+      "maxActions": 5,
+      "requireHumanApproval": true
+    },
+    "regions": [
+      "latam",
+      "global"
+    ],
+    "requestId": "seed-crisisnavigator-001",
+    "scenario": "service_outage",
+    "sections": [
+      "situation_assessment",
+      "stakeholder_impact",
+      "response_timeline",
+      "communications",
+      "risk_signals"
+    ],
+    "severity": "sev2",
+    "tenantId": "tenant_exec_seed",
+    "window": {
+      "endDate": "2026-03-31",
+      "startDate": "2026-03-01"
+    }
+  },
+  "mock_external_sources": {
+    "comms_draft_assistant": {
+      "externalTone": "transparent",
+      "internalTone": "directive",
+      "keyMessage": "Immediate coordinated response is required with hourly leadership updates."
+    },
+    "incident_signal_feed": {
+      "confidencePct": 82.3,
+      "incidentVelocity": 74.1,
+      "topSignal": "operational degradation affecting high-value accounts"
+    },
+    "stakeholder_impact_engine": {
+      "boardImpact": "Board visibility required within current business day.",
+      "customerImpact": "Customer trust may degrade without transparent communication cadence.",
+      "regulatoryExposurePct": 31.4
+    }
+  }
+}
