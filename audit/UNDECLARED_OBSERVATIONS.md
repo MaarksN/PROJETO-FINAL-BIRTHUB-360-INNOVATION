@@ -1,48 +1,33 @@
-Pacote: agent-runtime
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/runtime.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+# Undeclared Observations
 
-Pacote: conversation-core
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/service.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+During the task to add test coverage for `generate_email_sequence` in `agents/sdr/tools.py`, several CI checks failed on pre-existing errors outside the target agent's specific package (`agents/sdr`).
 
-Pacote: auth
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/auth.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+According to the Cross-Governance Protocol, these are documented below and left unfixed:
 
-Pacote: security
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/security.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+## `security-guardrails` Check
+- `@birthub/api` typecheck failed (`tsc -p tsconfig.json --noEmit` exit status 2).
+- Errors in `packages/agents-core/src/manifest/schema.ts` (Line 53) and `packages/agents-core/src/schemas/manifest.schema.ts` (Line 80) due to `exhausted.notify_human` type mismatch (boolean vs true).
+- Error in `packages/agents-core/src/runtime/manifestRuntime.ts` (Line 135) due to `output: unknown` not assignable to `JsonValue` in `tool_results`.
 
-Pacote: utils
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/sleep.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+## `test:isolation` Check
+- `@birthub/api` test `performance.test.ts` failed because `The table public.organizations does not exist`.
+- `@birthub/database` test `migration.test.ts` and `rls.test.ts` failed for the same reason (`public.organizations does not exist`).
 
-Pacote: queue
-Tipo: TypeScript exatcOptionalPropertyTypes
-Impacto: falha no build do pacote
-Arquivo(s): src/index.ts, src/definitions.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+## `test` Check
+- Same `@birthub/database` and `@birthub/api` database table errors (`public.organizations does not exist`).
 
-Pacote: llm-client
-Tipo: TypeScript compilation / export issue
-Impacto: falha no build do pacote
-Arquivo(s): test-llm.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+## `lint` Check
+- `@birthub/worker` failed linting (`eslint .` exit status 1) with 34 problems.
+- Errors included `@typescript-eslint/no-floating-promises`, `@typescript-eslint/no-explicit-any`, `@typescript-eslint/no-unsafe-call`, and `@typescript-eslint/no-unsafe-argument` in `apps/worker/src/webhooks/outbound.ts` and `apps/worker/src/worker.ts`.
+
+## `typecheck` Check
+- Same `@birthub/api` and `packages/agents-core` typecheck errors as seen in `security-guardrails` check.
+
+## `build` Check
+- Same `packages/agents-core` typecheck/build errors.
+
+## `workflow-suite` Check
+- Error during setup or execution involving Node and Python workflows.
+
+## `gitleaks` Check
+- Error running `gitleaks detect` with `fatal: ambiguous argument... unknown revision or path not in the working tree`.
