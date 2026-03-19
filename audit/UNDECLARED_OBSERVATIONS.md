@@ -100,3 +100,8 @@ Pré-existente: sim (observado antes / fora do escopo de `agents/sdr`)
 Recomendação: ajustar a referência ao diretório `../shared` ou publicar o pacote correspondente de forma adequada, em ciclo de correção separado.
 
 The task scope has been kept strictly isolated to `agents/sdr/tests/test_sdr_tools.py` in accordance with the protocol.
+
+Nenhum script/pipeline explícito de geração do artifacts/audit/forensic_report.html
+foi encontrado no checkout atual após busca em scripts, workflows e arquivos de build.
+No estado atual do repositório, o relatório deve ser tratado como artefato
+atualizado manualmente.
