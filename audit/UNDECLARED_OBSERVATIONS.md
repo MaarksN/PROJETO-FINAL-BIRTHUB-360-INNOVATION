@@ -1,48 +1,5 @@
-Pacote: agent-runtime
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/runtime.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+# Undeclared Observations
 
-Pacote: conversation-core
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/service.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
-
-Pacote: auth
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/auth.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
-
-Pacote: security
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/security.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
-
-Pacote: utils
-Tipo: TypeScript module resolution (.js vs .ts)
-Impacto: falha no build do pacote
-Arquivo(s): src/__tests__/sleep.test.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
-
-Pacote: queue
-Tipo: TypeScript exatcOptionalPropertyTypes
-Impacto: falha no build do pacote
-Arquivo(s): src/index.ts, src/definitions.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
-
-Pacote: llm-client
-Tipo: TypeScript compilation / export issue
-Impacto: falha no build do pacote
-Arquivo(s): test-llm.ts
-Pré-existente: sim (confirmado antes do meu trabalho)
-Recomendação: ciclo de correção técnica separado
+- **No CD Workflow Found:** There is no CD pipeline (e.g. `cd.yml` or a `deploy` job) in the current checkout within `.github/workflows`. The only files present are `ci.yml`, `ci.yml.disabled`, and `security-scan.yml`.
+- **Staging Deploy Failures:** The staging deployment failures observed in the GitHub UI cannot be explained or attributed to a CD workflow present in `.github/workflows` on the current branch.
+- **External Origin Likely:** Given the absence of a CD workflow, it is highly likely that the deployment is triggered via a GitHub App, Deployments API (e.g. Vercel, Netlify, Render, Railway, Fly), or the CD workflow resides in a different branch/was removed but retains history.
