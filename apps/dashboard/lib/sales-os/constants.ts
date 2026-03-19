@@ -1,4 +1,5 @@
 import { Tool } from './types';
+// [SOURCE] apps/dashboard/README.md — LDR item / AE item
 
 export const TOOLS: Tool[] = [
   // --- LDR Tools ---
@@ -19,6 +20,22 @@ export const TOOLS: Tool[] = [
           { id: 'employees', label: 'Tamanho (Colaboradores)', type: 'select', options: ['1-10', '11-50', '51-200', '201-1000', '1000+'] },
           { id: 'funding', label: 'Funding Stage', type: 'select', options: ['Bootstrapped', 'Seed', 'Series A', 'Series B+', 'IPO'] }
       ]
+  },
+  {
+      id: 'ldr_handoff', modules: ['ldr'], name: 'Handoff Brief', icon: 'send', color: 'emerald', emoji: '🤝', desc: 'Passagem para SDR',
+      prompt: 'Gere um handoff estruturado para SDR com ICP score, contexto da conta, sinais de urgência e próximo melhor passo.',
+      fields: [
+          { id: 'lead_name', label: 'Lead', type: 'text', placeholder: 'Ex: Maria, Head de Operações' },
+          { id: 'company', label: 'Empresa', type: 'text', placeholder: 'Ex: Acme Logística' },
+          { id: 'icp_score', label: 'ICP Score', type: 'select', options: ['A', 'B', 'C'] },
+          { id: 'key_signals', label: 'Sinais-chave', type: 'textarea', placeholder: 'Ex: expansão LATAM, novo VP de vendas...' }
+      ]
+  },
+  {
+      id: 'roleplay_ldr_gatekeeper', modules: ['ldr'], name: 'Roleplay: LDR Discovery', icon: 'message-circle', color: 'emerald', emoji: '🎯', desc: 'Simulador de Descoberta', isChat: true,
+      prompt: 'Simule uma conversa de discovery inicial para validar ICP e urgência de compra.',
+      persona: 'Um prospect objetivo, com pouco tempo, que só abre contexto quando percebe valor real na conversa.',
+      firstMsg: 'Tenho 2 minutos. O que exatamente você quer entender para me ajudar?'
   },
 
   // --- BDR Tools ---
@@ -84,9 +101,29 @@ export const TOOLS: Tool[] = [
       ]
   },
 
+  // --- AE Tools ---
+  {
+      id: 'ae_proposal_generator', modules: ['ae'], name: 'Proposal Generator', icon: 'file-text', color: 'violet', emoji: '🧾', desc: 'Proposta Comercial',
+      prompt: 'Gere uma proposta executiva com escopo, premissas, cronograma e critérios de aceite.',
+      fields: [
+          { id: 'deal_value', label: 'Valor Estimado', type: 'text', placeholder: 'Ex: R$ 180.000/ano' },
+          { id: 'scope', label: 'Escopo', type: 'textarea', placeholder: 'Ex: onboarding + automações + governança' },
+          { id: 'timeline', label: 'Prazo', type: 'text', placeholder: 'Ex: 8 semanas' }
+      ]
+  },
+  {
+      id: 'ae_roi_calculator', modules: ['ae'], name: 'ROI Calculator', icon: 'line-chart', color: 'violet', emoji: '📈', desc: 'Simulação de ROI',
+      prompt: 'Calcule ROI com cenário base, otimista e conservador, incluindo payback e principais riscos.',
+      fields: [
+          { id: 'team_size', label: 'Tamanho do Time', type: 'text', placeholder: 'Ex: 45 pessoas' },
+          { id: 'current_cost', label: 'Custo Atual', type: 'text', placeholder: 'Ex: R$ 95.000/mês' },
+          { id: 'target_gain', label: 'Ganho Esperado', type: 'text', placeholder: 'Ex: +20% produtividade' }
+      ]
+  },
+
   // --- Closer Tools ---
   {
-      id: 'closer_warroom', modules: ['closer'], name: 'Deal War Room', icon: 'users', color: 'indigo', emoji: '🏛️', desc: 'Simulação Multi-Agente',
+      id: 'closer_warroom', modules: ['closer', 'ae'], name: 'Deal War Room', icon: 'users', color: 'indigo', emoji: '🏛️', desc: 'Simulação Multi-Agente',
       prompt: 'Simule um diálogo privado (formato script) entre os C-Levels da empresa sobre a compra. Revele as objeções ocultas que eles não dizem ao vendedor.',
       fields: [
           { id: 'company', label: 'Empresa', type: 'text', placeholder: 'Ex: Enterprise Co.' },
@@ -95,13 +132,13 @@ export const TOOLS: Tool[] = [
       ]
   },
   {
-      id: 'roleplay_cfo', modules: ['closer'], name: 'Roleplay: CFO Cético', icon: 'user-x', color: 'red', emoji: '😤', desc: 'Negociação Tensa', isChat: true,
+      id: 'roleplay_cfo', modules: ['closer', 'ae'], name: 'Roleplay: CFO Cético', icon: 'user-x', color: 'red', emoji: '😤', desc: 'Negociação Tensa', isChat: true,
       prompt: 'Simule uma negociação tensa com um CFO cético.',
       persona: 'Um CFO analítico, focado exclusivamente em EBITDA e redução de custos. Você odeia risco. Questione cada centavo.',
       firstMsg: 'Tenho exatos 5 minutos. Me dê um motivo financeiro para não vetar esse projeto agora.'
   },
   {
-      id: 'close_email', modules: ['closer'], name: 'Email Closer', icon: 'mail-check', color: 'sky', emoji: '📧', desc: 'Respostas Finais',
+      id: 'close_email', modules: ['closer', 'ae'], name: 'Email Closer', icon: 'mail-check', color: 'sky', emoji: '📧', desc: 'Respostas Finais',
       prompt: 'Escreva um e-mail de fechamento decisivo.',
       fields: [
           { id: 'situation', label: 'Situação Atual', type: 'textarea', placeholder: 'Ex: Cliente pediu desconto e parou de responder...' },
@@ -111,7 +148,7 @@ export const TOOLS: Tool[] = [
 
   // --- Visual & Creative (All Modules) ---
   {
-      id: 'gen_persona', modules: ['ldr', 'bdr', 'sdr', 'closer'], name: 'Visual Persona', icon: 'image', color: 'cyan', emoji: '👤', desc: 'Retrato ICP',
+      id: 'gen_persona', modules: ['ldr', 'bdr', 'sdr', 'ae', 'closer'], name: 'Visual Persona', icon: 'image', color: 'cyan', emoji: '👤', desc: 'Retrato ICP',
       prompt: 'Gere um retrato fotorealista profissional de estúdio de uma persona de negócios.', acceptsImage: false, isImage: true,
       fields: [
           { id: 'job', label: 'Cargo', type: 'text', placeholder: 'Ex: CEO de Startup' },

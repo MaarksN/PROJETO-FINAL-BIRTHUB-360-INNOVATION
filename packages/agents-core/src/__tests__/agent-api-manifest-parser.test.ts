@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { AgentManifestParseError, parseAgentManifest } from "../parser/manifestParser.js";
 import { SUPPORTED_AGENT_API_VERSION } from "../schemas/manifest.schema.js";
+// [SOURCE] checklist de Agent Pack publishing — GAP-004/M-002 items
 
 const validManifest = {
   apiVersion: SUPPORTED_AGENT_API_VERSION,
@@ -24,6 +25,23 @@ const validManifest = {
 void test("agent api manifest parser accepts a valid manifest", () => {
   const parsed = parseAgentManifest(validManifest);
   assert.equal(parsed.name, "Responder Agent");
+  assert.deepEqual(parsed.required_tools, []);
+  assert.deepEqual(parsed.fallback_behavior, {
+    tool_unavailable: {
+      retry_attempts: 3,
+      backoff_strategy: "exponential",
+      base_delay_ms: 500,
+    },
+    http_429: {
+      wait_ms: 1000,
+      retry_attempts: 1,
+    },
+    exhausted: {
+      notify_human: true,
+      silence: false,
+      loop: false,
+    },
+  });
 });
 
 void test("agent api manifest parser rejects unexpected root keys", () => {
