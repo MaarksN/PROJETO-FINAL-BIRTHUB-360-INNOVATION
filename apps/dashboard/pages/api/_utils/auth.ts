@@ -6,7 +6,11 @@ export async function requireApiAuth(req: NextApiRequest): Promise<{ tenantId: s
   const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
   if (!token) throw new Error("missing_authorization");
 
-  const secret = new TextEncoder().encode(process.env.DASHBOARD_JWT_SECRET || "dashboard-dev-secret");
+  const jwtSecret = process.env.DASHBOARD_JWT_SECRET;
+  if (!jwtSecret) {
+    throw new Error("DASHBOARD_JWT_SECRET is not defined");
+  }
+  const secret = new TextEncoder().encode(jwtSecret);
   const { payload } = await jwtVerify(token, secret);
   const tenantId = String(req.headers["x-tenant-id"] || payload.tenantId || "default");
   return { tenantId };
