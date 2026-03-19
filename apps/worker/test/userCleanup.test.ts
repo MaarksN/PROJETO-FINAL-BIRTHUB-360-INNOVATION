@@ -16,9 +16,13 @@ void test("cleanupSuspendedUsers anonymizes stale suspended users", async () => 
         }
       ],
       update: async (input: Record<string, unknown>) => {
-        updates.push(input);
         return input;
       }
+    },
+    $transaction: async (queries: Promise<unknown>[]) => {
+      const resolved = await Promise.all(queries);
+      updates.push(...(resolved as Array<Record<string, unknown>>));
+      return resolved;
     }
   } as unknown as PrismaClient;
 
