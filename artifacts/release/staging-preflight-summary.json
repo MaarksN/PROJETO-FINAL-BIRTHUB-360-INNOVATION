@@ -1,17 +1,18 @@
 {
-  "checkedAt": "2026-03-17T16:29:57.453Z",
-  "envFile": "C:/Users/Marks/Desktop/.env.staging",
-  "ok": true,
+  "checkedAt": "2026-03-19T16:18:53.992Z",
+  "envFile": ".env.example",
+  "ok": false,
   "requiredKeys": [
     {
-      "missing": [],
+      "missing": [
+        "SENTRY_DSN"
+      ],
       "present": [
         "API_CORS_ORIGINS",
         "AUTH_MFA_ENCRYPTION_KEY",
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
-        "SENTRY_DSN",
         "SESSION_SECRET",
         "STRIPE_SECRET_KEY",
         "STRIPE_WEBHOOK_SECRET",
@@ -20,21 +21,23 @@
       "scope": "api"
     },
     {
-      "missing": [],
+      "missing": [
+        "NEXT_PUBLIC_SENTRY_DSN"
+      ],
       "present": [
         "NEXT_PUBLIC_API_URL",
-        "NEXT_PUBLIC_APP_URL",
-        "NEXT_PUBLIC_SENTRY_DSN"
+        "NEXT_PUBLIC_APP_URL"
       ],
       "scope": "web"
     },
     {
-      "missing": [],
+      "missing": [
+        "SENTRY_DSN"
+      ],
       "present": [
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
-        "SENTRY_DSN",
         "WEB_BASE_URL"
       ],
       "scope": "worker"
@@ -42,18 +45,24 @@
   ],
   "results": [
     {
-      "issues": [],
-      "ok": true,
+      "issues": [
+        "[api] invalid environment variables:\n- DATABASE_URL must include sslmode=require (or stronger) in production.\n- REDIS_URL must use TLS in production (rediss:// or tls=true).\n- REQUIRE_SECURE_COOKIES must be true in production.\n- Production secrets cannot use development defaults.\n- STRIPE_SECRET_KEY cannot use placeholder values in production.\n- STRIPE_WEBHOOK_SECRET cannot use placeholder values in production.\n- SENTRY_DSN must be configured in production.\n- WEB_BASE_URL must use the public HTTPS domain in production.\n- Stripe return URLs must use HTTPS in production.\n- API_CORS_ORIGINS must only contain approved production origins."
+      ],
+      "ok": false,
       "scope": "api"
     },
     {
-      "issues": [],
-      "ok": true,
+      "issues": [
+        "[web] invalid environment variables:\n- NEXT_PUBLIC_APP_URL must point to the public HTTPS domain in production.\n- NEXT_PUBLIC_API_URL must point to the public HTTPS API domain in production.\n- NEXT_PUBLIC_CSP_REPORT_ONLY must be false in production.\n- NEXT_PUBLIC_SENTRY_DSN must be configured in production."
+      ],
+      "ok": false,
       "scope": "web"
     },
     {
-      "issues": [],
-      "ok": true,
+      "issues": [
+        "[worker] invalid environment variables:\n- DATABASE_URL must include sslmode=require (or stronger) in production.\n- REDIS_URL must use TLS in production (rediss:// or tls=true).\n- JOB_HMAC_GLOBAL_SECRET cannot use the development default in production.\n- SENTRY_DSN must be configured in production."
+      ],
+      "ok": false,
       "scope": "worker"
     }
   ],
