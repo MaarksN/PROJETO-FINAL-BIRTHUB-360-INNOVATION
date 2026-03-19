@@ -1,4 +1,4 @@
-import { access } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,6 +13,10 @@ const REQUIRED_PROMPT_SECTIONS = [
   "QUANDO ACIONAR",
   "ENTRADAS OBRIGATORIAS",
   "RACIOCINIO OPERACIONAL ESPERADO",
+  "MODO DE OPERACAO AUTONOMA",
+  "ROTINA DE MONITORAMENTO E ANTECIPACAO",
+  "CRITERIOS DE PRIORIZACAO",
+  "CRITERIOS DE ESCALACAO",
   "OBJETIVOS PRIORITARIOS",
   "FERRAMENTAS ESPERADAS",
   "SAIDAS OBRIGATORIAS",
@@ -22,6 +26,8 @@ const REQUIRED_PROMPT_SECTIONS = [
   "FORMATO DE SAIDA"
 ] as const;
 const SHARED_LEARNING_CLAUSE = "Todo agente aprende com todo agente.";
+const AUTONOMOUS_OPERATION_CLAUSE = "operar de forma autonoma dentro do escopo permitido";
+const PREVENTIVE_ALERT_CLAUSE = "nunca esperar um risco relevante virar incidente para alertar";
 
 function toDocSlug(agentId: string): string {
   return agentId.replace(/[^a-zA-Z0-9-]/g, "-").toLowerCase();
@@ -39,21 +45,18 @@ function average(values: number[]): number {
   return values.reduce((total, value) => total + value, 0) / values.length;
 }
 
-async function fileExists(filePath: string): Promise<boolean> {
-  try {
-    await access(filePath);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 async function main(): Promise<void> {
   const scriptsDir = path.dirname(fileURLToPath(import.meta.url));
   const root = path.resolve(scriptsDir, "..");
   const catalog = await loadManifestCatalog(path.join(root, "packages", "agent-packs"));
   const installableCatalog = catalog.filter((entry) => isInstallableManifest(entry.manifest));
   const catalogDescriptors = catalog.filter((entry) => !isInstallableManifest(entry.manifest));
+  const docsDir = path.join(root, "docs", "agent-packs");
+  const docsSet = new Set(
+    (await readdir(docsDir))
+      .filter((fileName) => fileName.endsWith(".mdx"))
+      .map((fileName) => fileName.toLowerCase())
+  );
 
   const dryRunResults = await Promise.all(
     catalog.map(async (entry) => ({
@@ -64,10 +67,9 @@ async function main(): Promise<void> {
 
   const docsCoverage = await Promise.all(
     catalog.map(async (entry) => {
-      const docPath = path.join(root, "docs", "agent-packs", `${toDocSlug(entry.manifest.agent.id)}.mdx`);
       return {
         agentId: entry.manifest.agent.id,
-        exists: await fileExists(docPath)
+        exists: docsSet.has(`${toDocSlug(entry.manifest.agent.id)}.mdx`)
       };
     })
   );
@@ -78,6 +80,12 @@ async function main(): Promise<void> {
     agentId: entry.manifest.agent.id,
     coveredSections: countCoveredSections(entry.manifest.agent.prompt),
     hasLearningClause: entry.manifest.agent.prompt.includes(SHARED_LEARNING_CLAUSE),
+    hasAutonomousClause: entry.manifest.agent.prompt
+      .toLowerCase()
+      .includes(AUTONOMOUS_OPERATION_CLAUSE),
+    hasPreventiveClause: entry.manifest.agent.prompt
+      .toLowerCase()
+      .includes(PREVENTIVE_ALERT_CLAUSE),
     keywordCount: entry.manifest.keywords.length,
     promptLength: entry.manifest.agent.prompt.length
   }));
@@ -86,14 +94,16 @@ async function main(): Promise<void> {
     const dryRun = dryRunResults.find((item) => item.agentId === row.agentId)?.dryRun;
 
     const sectionScore = Math.round((row.coveredSections / REQUIRED_PROMPT_SECTIONS.length) * 30);
-    const keywordScore = Math.min(20, row.keywordCount * 2);
-    const learningScore = row.hasLearningClause ? 20 : 0;
+    const keywordScore = Math.min(20, row.keywordCount);
+    const learningScore = row.hasLearningClause ? 15 : 0;
+    const autonomousScore = row.hasAutonomousClause ? 10 : 0;
+    const preventiveScore = row.hasPreventiveClause ? 5 : 0;
     const dryRunScore = dryRun?.logs.length ? 20 : 0;
     const docsScore = docsExists ? 10 : 0;
 
     return {
       agentId: row.agentId,
-      score: sectionScore + keywordScore + learningScore + dryRunScore + docsScore
+      score: sectionScore + keywordScore + learningScore + autonomousScore + preventiveScore + dryRunScore + docsScore
     };
   });
   const domainDistribution = installableCatalog.reduce<Record<string, number>>((bucket, entry) => {
@@ -122,6 +132,16 @@ async function main(): Promise<void> {
   console.log(
     `Shared learning clause coverage: ${
       promptRichness.filter((item) => item.hasLearningClause).length
+    }/${installableCatalog.length}`
+  );
+  console.log(
+    `Autonomous operating clause coverage: ${
+      promptRichness.filter((item) => item.hasAutonomousClause).length
+    }/${installableCatalog.length}`
+  );
+  console.log(
+    `Preventive alert clause coverage: ${
+      promptRichness.filter((item) => item.hasPreventiveClause).length
     }/${installableCatalog.length}`
   );
   console.log(`Average prompt length: ${Math.round(average(promptRichness.map((item) => item.promptLength)))}`);

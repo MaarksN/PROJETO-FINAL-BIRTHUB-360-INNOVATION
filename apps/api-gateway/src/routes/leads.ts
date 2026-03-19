@@ -3,6 +3,12 @@ import { LeadSchema } from "@birthub/shared-types";
 import { requireJwt } from "../middleware/auth";
 
 export const leadsRouter = express.Router();
+const logger = createLogger({ scope: "legacy-lead-intake" });
+const legacyLeadIntakeSchema = z.object({
+  email: z.string().trim().email(),
+  name: z.string().trim().min(2).max(120),
+  source: z.string().trim().min(2).max(60).optional()
+});
 
 leadsRouter.use(requireJwt);
 
@@ -21,14 +27,15 @@ leadsRouter.post("/", async (req, res) => {
 
   const leadData = result.data;
 
-  // Trigger Orchestrator
-  // In a real app, we'd use a queue or HTTP call to the orchestrator service
-  console.log("Received lead:", leadData);
+  logger.info("legacy-lead-accepted", {
+    email: parsed.data.email,
+    source: parsed.data.source ?? "manual"
+  });
 
   res.status(202).json({
-    status: "accepted",
+    lead_id: "lead_" + Math.random().toString(36).slice(2, 11),
     message: "Lead received and processing started",
-    lead_id: "lead_" + Math.random().toString(36).substr(2, 9)
+    status: "accepted"
   });
 });
 

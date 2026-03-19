@@ -1,13 +1,36 @@
 import { z, type ZodTypeAny } from "zod";
 
 export const nodeEnvSchema = z.enum(["development", "test", "production"]).default("development");
+export const deploymentEnvironmentSchema = z
+  .enum(["development", "test", "staging", "production", "ci", "ci-local"])
+  .default("development");
+function emptyStringToUndefined(value: unknown): unknown {
+  return typeof value === "string" && value.trim() === "" ? undefined : value;
+}
 
 export const nonEmptyString = z.string().trim().min(1);
-export const optionalNonEmptyString = z
-  .string()
-  .trim()
-  .min(1)
-  .optional();
+export const optionalNonEmptyString = z.preprocess(
+  emptyStringToUndefined,
+  z
+    .string()
+    .trim()
+    .min(1)
+    .optional()
+);
+export const envBoolean = z.preprocess((value) => {
+  if (typeof value === "string") {
+    const normalized = value.trim().toLowerCase();
+    if (["1", "true", "yes", "on"].includes(normalized)) {
+      return true;
+    }
+
+    if (["0", "false", "no", "off"].includes(normalized)) {
+      return false;
+    }
+  }
+
+  return value;
+}, z.boolean());
 
 export const commaSeparatedList = z
   .string()
@@ -20,7 +43,10 @@ export const commaSeparatedList = z
   );
 
 export const urlString = z.string().url();
-export const optionalUrlString = z.string().url().optional();
+export const optionalUrlString = z.preprocess(
+  emptyStringToUndefined,
+  z.string().url().optional()
+);
 
 function safeParseUrl(value: string): URL | null {
   try {
@@ -42,6 +68,17 @@ export function isLocalUrl(value: string): boolean {
 export function isSecureHttpUrl(value: string): boolean {
   const parsed = safeParseUrl(value);
   return parsed?.protocol === "https:";
+}
+
+export function hasPlaceholderMarker(value: string): boolean {
+  const normalized = value.trim().toLowerCase();
+  return ["replace", "placeholder", "changeme", "todo"].some((token) =>
+    normalized.includes(token)
+  );
+}
+
+export function isStripeTestSecretKey(value: string): boolean {
+  return value.trim().startsWith("sk_test_");
 }
 
 export function hasRequiredPostgresSsl(value: string): boolean {

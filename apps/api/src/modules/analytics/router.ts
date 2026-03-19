@@ -2,7 +2,10 @@ import { Role } from "@birthub/database";
 import { Router } from "express";
 import { z } from "zod";
 
-import { RequireRole, requireAuthenticated } from "../../common/guards/index.js";
+import {
+  RequireRole,
+  requireAuthenticatedSession
+} from "../../common/guards/index.js";
 import { asyncHandler } from "../../lib/problem-details.js";
 import {
   exportBillingCsv,
@@ -12,6 +15,7 @@ import {
   getCohortMetrics,
   getExecutiveMetrics,
   getMasterAdminDashboard,
+  getOperationsDashboard,
   getQualityReport,
   getUsageMetrics
 } from "./service.js";
@@ -26,7 +30,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/usage",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
@@ -44,7 +48,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/executive",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
@@ -56,7 +60,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/cohort",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
@@ -68,7 +72,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/billing/export",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
@@ -84,7 +88,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/active-tenants",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
@@ -96,7 +100,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/cs-risk",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
@@ -108,7 +112,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/quality-report",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
@@ -120,7 +124,7 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/agent-performance",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
@@ -132,11 +136,23 @@ export function createAnalyticsRouter(): Router {
 
   router.get(
     "/master-dashboard",
-    requireAuthenticated,
+    requireAuthenticatedSession,
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
         metrics: await getMasterAdminDashboard(),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.get(
+    "/operations",
+    requireAuthenticatedSession,
+    RequireRole(Role.SUPER_ADMIN),
+    asyncHandler(async (request, response) => {
+      response.status(200).json({
+        metrics: await getOperationsDashboard(),
         requestId: request.context.requestId
       });
     })

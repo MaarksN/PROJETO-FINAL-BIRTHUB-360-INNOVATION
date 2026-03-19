@@ -1,10 +1,12 @@
 import Link from "next/link";
 
+import { BrandLogo } from "./brand/BrandLogo";
+
 export function LegalFooter() {
   return (
     <footer className="legal-footer">
       <div className="legal-footer__row">
-        <strong>BirthHub360 v1.0</strong>
+        <BrandLogo href="/" size="sm" theme="light" />
         <nav className="legal-footer__links" aria-label="Links legais">
           <Link href="/legal/privacy">Politica de Privacidade</Link>
           <Link href="/legal/terms">Termos de Uso</Link>

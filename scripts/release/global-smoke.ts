@@ -2,8 +2,10 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { spawn } from "node:child_process";
 
+import { buildEnv, resolvePnpmInvocation } from "../ci/shared.mjs";
+
 type SmokeCommand = {
-  command: string;
+  args: string[];
   cwd: string;
   name: string;
 };
@@ -21,13 +23,13 @@ function runCommand(input: SmokeCommand): Promise<{
 }> {
   return new Promise((resolve) => {
     const startedAt = Date.now();
-    const child = spawn(input.command, {
+    const invocation = resolvePnpmInvocation();
+    const child = spawn(invocation.command, [...invocation.argsPrefix, ...input.args], {
       cwd: input.cwd,
-      env: {
-        ...process.env,
+      env: buildEnv({
         FORCE_COLOR: "0"
-      },
-      shell: true
+      }),
+      shell: false
     });
 
     let output = "";
@@ -55,12 +57,13 @@ async function main() {
     parseFlag("--output") ??
     resolve(root, "artifacts", "release", "smoke-summary.json");
   const commands: SmokeCommand[] = [
-    { command: "pnpm lint", cwd: root, name: "lint" },
-    { command: "pnpm typecheck", cwd: root, name: "typecheck" },
-    { command: "pnpm test", cwd: root, name: "unit-and-integration" },
-    { command: "pnpm release:migrate -- --dry-run", cwd: root, name: "release-migration-dry-run" },
-    { command: "pnpm privacy:verify", cwd: root, name: "privacy-anonymization" },
-    { command: "pnpm test:e2e:release", cwd: root, name: "playwright-release" }
+    { args: ["lint:core"], cwd: root, name: "lint-core" },
+    { args: ["typecheck:core"], cwd: root, name: "typecheck-core" },
+    { args: ["test:core"], cwd: root, name: "test-core" },
+    { args: ["test:isolation"], cwd: root, name: "test-isolation" },
+    { args: ["release:migrate", "--", "--dry-run"], cwd: root, name: "release-migration-dry-run" },
+    { args: ["privacy:verify"], cwd: root, name: "privacy-anonymization" },
+    { args: ["test:e2e:release"], cwd: root, name: "playwright-release" }
   ];
 
   const results = [];

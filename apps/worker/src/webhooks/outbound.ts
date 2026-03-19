@@ -1,9 +1,12 @@
 import { createHmac } from "node:crypto";
 
 import { getWorkerConfig } from "@birthub/config";
-import { Prisma, prisma, WebhookEndpointStatus } from "@birthub/database";
+import { prisma, WebhookEndpointStatus, type Prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import type { Queue } from "bullmq";
+import type { Redis } from "ioredis";
+
+import { DynamicRateLimiter } from "../lib/rate-limiter.js";
 
 const logger = createLogger("worker-outbound-webhooks");
 
@@ -26,12 +29,20 @@ function signPayload(secret: string, payload: string): string {
   return createHmac("sha256", secret).update(payload).digest("hex");
 }
 
-async function dispatchHttpRequest(input: {
+interface DispatchInput {
   payload: string;
   signature: string;
   topic: string;
   url: string;
-}) {
+}
+
+interface DispatchResult {
+  ok: boolean;
+  responseBody: string;
+  statusCode: number;
+}
+
+async function dispatchHttpRequest(input: DispatchInput): Promise<DispatchResult> {
   const config = getWorkerConfig();
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), config.WEBHOOK_TIMEOUT_MS);
@@ -47,8 +58,8 @@ async function dispatchHttpRequest(input: {
       method: "POST",
       signal: controller.signal
     });
-
     const responseBody = await response.text();
+
     return {
       ok: response.ok,
       responseBody,
@@ -67,7 +78,7 @@ export async function enqueueWebhookTopicDeliveries(
     tenantId: string;
     topic: string;
   }
-) {
+): Promise<void> {
   const endpoints = await prisma.webhookEndpoint.findMany({
     where: {
       organizationId: input.organizationId,
@@ -92,13 +103,21 @@ export async function enqueueWebhookTopicDeliveries(
   );
 }
 
-import { DynamicRateLimiter } from "../lib/rate-limiter.js";
-import type { Redis } from "ioredis";
-
 export async function processOutboundWebhookJob(
   payload: OutboundWebhookJobPayload,
-  dependencies?: { redis?: Redis }
-) {
+  dependencies?: {
+    redis?: Redis;
+  }
+): Promise<
+  | {
+      skipped: true;
+    }
+  | {
+      deliveryId: string;
+      skipped: false;
+      statusCode: number;
+    }
+> {
   const endpoint = await prisma.webhookEndpoint.findUnique({
     where: {
       id: payload.endpointId
@@ -119,6 +138,7 @@ export async function processOutboundWebhookJob(
 
   const serializedPayload = JSON.stringify(payload.payload);
   const signature = signPayload(endpoint.secret, serializedPayload);
+
   const delivery = await prisma.webhookDelivery.create({
     data: {
       attempt: payload.attempt ?? 1,
@@ -135,7 +155,7 @@ export async function processOutboundWebhookJob(
     if (dependencies?.redis) {
       const limiter = new DynamicRateLimiter(dependencies.redis);
       const host = new URL(endpoint.url).host;
-      // Rate limit: Max 10 calls per second per tenant per host
+
       await limiter.consume(`webhook:${payload.tenantId}:${host}`, 10, 1);
     }
 
@@ -160,6 +180,7 @@ export async function processOutboundWebhookJob(
 
     if (!result.ok) {
       const consecutiveFailures = endpoint.consecutiveFailures + 1;
+
       await prisma.webhookEndpoint.update({
         data: {
           consecutiveFailures,
@@ -192,8 +213,9 @@ export async function processOutboundWebhookJob(
       skipped: false,
       statusCode: result.statusCode
     };
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown webhook delivery error";
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Unknown webhook delivery error";
 
     await prisma.webhookDelivery.update({
       data: {
@@ -206,6 +228,7 @@ export async function processOutboundWebhookJob(
 
     if (!(error instanceof Error && error.message.includes("status"))) {
       const consecutiveFailures = endpoint.consecutiveFailures + 1;
+
       await prisma.webhookEndpoint.update({
         data: {
           consecutiveFailures,

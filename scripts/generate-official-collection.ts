@@ -48,6 +48,58 @@ interface GeneratedAgentSource {
   prompt: string;
 }
 
+const AUTONOMOUS_KEYWORDS = [
+  "automacao preventiva",
+  "analise proativa",
+  "sinais lideres",
+  "deteccao de anomalias",
+  "antecipacao de decisao",
+  "alerta antecipado",
+  "mitigacao preventiva",
+  "next best action",
+  "scenario planning",
+  "risk radar"
+];
+
+const AUTONOMOUS_SKILLS = [
+  {
+    description:
+      "Detectar cedo sinais lideres, anomalias, gargalos e riscos emergentes antes que virem incidente ou perda material.",
+    name: "Radar Preventivo"
+  },
+  {
+    description:
+      "Antecipar decisoes que precisam ser tomadas nos proximos ciclos e propor a melhor acao dentro da janela ideal.",
+    name: "Antecipacao de Decisao"
+  },
+  {
+    description:
+      "Transformar risco ou oportunidade em plano acionavel com prioridade, dono, prazo, checkpoint e criterio de escalacao.",
+    name: "Plano Preventivo"
+  }
+];
+
+const AUTONOMOUS_OUTPUTS = [
+  "alertas preventivos priorizados",
+  "decisoes que precisam ser antecipadas",
+  "plano preventivo com dono, prazo e checkpoint",
+  "oportunidades capturaveis antes da janela fechar"
+];
+
+const AUTONOMOUS_GUARDRAILS = [
+  "nunca esperar um risco relevante virar incidente para alertar",
+  "nunca deixar dependencia critica sem dono, prazo ou checkpoint",
+  "sempre explicitar impacto, urgencia, reversibilidade e confianca",
+  "sempre antecipar o que pode dar errado e o que pode ser capturado antes da janela fechar"
+];
+
+const AUTONOMOUS_CHECKLIST = [
+  "antecipar decisoes criticas antes da janela fechar",
+  "destacar sinais lideres, nao apenas sintomas tardios",
+  "apresentar risco, impacto, urgencia, dono e prazo",
+  "propor mitigacao preventiva e gatilho de escalacao"
+];
+
 function normalizeWhitespace(value: string): string {
   return value.replace(/\r/g, "").replace(/\u00a0/g, " ").replace(/[ \t]+\n/g, "\n").trim();
 }
@@ -78,6 +130,64 @@ function uniqueStrings(values: string[]): string[] {
   }
 
   return result;
+}
+
+function enrichInputs(inputs: string[]): string[] {
+  return uniqueStrings([
+    ...inputs,
+    "sinais lideres, tendencia recente e variacoes fora do padrao",
+    "dependencias, aprovacoes pendentes e compromissos com prazo",
+    "gargalos, riscos emergentes e oportunidades com janela curta"
+  ]);
+}
+
+function enrichOutputs(outputs: string[]): string[] {
+  return uniqueStrings([...outputs, ...AUTONOMOUS_OUTPUTS]);
+}
+
+function enrichGuardrails(guardrails: string[]): string[] {
+  return uniqueStrings([...guardrails, ...AUTONOMOUS_GUARDRAILS]);
+}
+
+function enrichChecklist(qualityChecklist: string[]): string[] {
+  return uniqueStrings([...qualityChecklist, ...AUTONOMOUS_CHECKLIST]);
+}
+
+function enrichKeywords(values: string[], extra: string[] = []): string[] {
+  return uniqueStrings([...values, ...AUTONOMOUS_KEYWORDS, ...extra]).slice(0, 20);
+}
+
+function enrichTags(tags: AgentManifest["tags"]): AgentManifest["tags"] {
+  return {
+    ...tags,
+    "use-case": uniqueStrings([
+      ...tags["use-case"],
+      "preventive-operations",
+      "decision-anticipation",
+      "autonomous-monitoring"
+    ]).slice(0, 6)
+  };
+}
+
+function mergeSkillSources(
+  primary: Array<{ description: string; name: string }>,
+  secondary: Array<{ description: string; name: string }>
+): Array<{ description: string; name: string }> {
+  const seen = new Set<string>();
+  const merged: Array<{ description: string; name: string }> = [];
+
+  for (const item of [...primary, ...secondary]) {
+    const key = `${item.name}`.trim().toLowerCase();
+
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    merged.push(item);
+  }
+
+  return merged;
 }
 
 function toManifestPath(rootDir: string, agentId: string): string {
@@ -177,7 +287,7 @@ function buildKeywordSet(input: {
     )
     .map((item) => item.toLowerCase());
 
-  return uniqueStrings(tokens).slice(0, 14);
+  return uniqueStrings(tokens).slice(0, 18);
 }
 
 function titleCase(value: string): string {
@@ -191,7 +301,7 @@ function buildSkillEntries(
   agentId: string,
   items: Array<{ description: string; name: string }>
 ): AgentManifest["skills"] {
-  return items.slice(0, 5).map((item, index) => ({
+  return items.slice(0, 8).map((item, index) => ({
     description: item.description,
     id: `${agentId}.skill.${slugify(item.name || `skill-${index + 1}`)}`,
     inputSchema: { type: "object" },
@@ -215,26 +325,26 @@ function buildToolEntries(
 }
 
 function buildPolicy(agentId: string, guardrails: string[], toolNames: string[]): AgentManifest["policies"][number] {
-  const needsApproval =
-    guardrails.some((item) => /aprova|approval|autoriz/i.test(item)) ||
-    toolNames.some((item) => /email|whatsapp|calendar|crm|sync|notification/i.test(item));
-
   const actions = uniqueStrings([
     "tool:execute",
+    "monitor:read",
     "memory:read",
     "memory:write",
     "learning:read",
     "learning:write",
+    "alert:write",
+    "workflow:trigger",
+    "decision:recommend",
     "audit:write",
     "report:read",
-    ...(needsApproval ? ["approval:request"] : [])
+    "approval:request"
   ]);
 
   return {
     actions,
     effect: "allow",
     id: `${agentId}.policy.standard`,
-    name: needsApproval ? "Default governed execution policy" : "Default governed operating policy"
+    name: "Default governed autonomous operating policy"
   };
 }
 
@@ -244,9 +354,48 @@ function buildLearningClause(): string {
     "- Todo agente aprende com todo agente.",
     "- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.",
     "- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.",
+    "- Absorva padroes recorrentes validados por outros agentes para antecipar risco, gargalo, oportunidade e decisao.",
     "- Nunca reutilize aprendizado de outro tenant.",
     "- Nunca altere seu proprio prompt ou policy automaticamente em producao."
   ].join("\n");
+}
+
+function buildAutonomousOperatingMode(): string[] {
+  return [
+    "- operar de forma autonoma dentro do escopo permitido, sem esperar a situacao degradar para agir",
+    "- monitorar sinais lideres, tendencias, outliers, gargalos, dependencias e aprovacoes pendentes",
+    "- antecipar decisoes dos proximos ciclos e recomendar acao antes do deadline ou da perda de opcao",
+    "- abrir alerta preventivo sempre que risco, atraso, churn, perda de receita, falha operacional ou bloqueio estiver ganhando probabilidade",
+    "- transformar diagnostico em fila priorizada de acao com impacto esperado, dono, prazo e checkpoint"
+  ];
+}
+
+function buildMonitoringCadence(): string[] {
+  return [
+    "- ler contexto atual, historico, memoria relevante e aprendizados compartilhados do tenant",
+    "- comparar baseline, tendencia recente e desvio observado para separar ruido de sinal real",
+    "- mapear riscos emergentes, oportunidades subaproveitadas e decisoes com janela curta",
+    "- priorizar o que tem maior impacto, menor reversibilidade, maior urgencia e maior blast radius",
+    "- recomendar a proxima melhor acao e o checkpoint em que o resultado deve ser reavaliado"
+  ];
+}
+
+function buildPriorityCriteria(): string[] {
+  return [
+    "- priorizar primeiro o que protege receita, margem, renovacao, compliance, seguranca ou reputacao",
+    "- priorizar em seguida o que destrava gargalos sistemicos e dependencias criticas",
+    "- elevar prioridade quando houver baixa reversibilidade, deadline proximo ou alto efeito cascata",
+    "- reduzir prioridade quando o impacto for marginal, a confianca for baixa e o custo de agir for alto"
+  ];
+}
+
+function buildEscalationCriteria(): string[] {
+  return [
+    "- escalar quando houver risco alto com confianca insuficiente para agir sozinho",
+    "- escalar quando a acao exigir aprovacao, excecao de policy ou comunicacao externa sensivel",
+    "- escalar quando existir dependencia critica sem dono claro ou sem resposta no tempo necessario",
+    "- escalar quando o impacto potencial ultrapassar o escopo normal do agente"
+  ];
 }
 
 function buildCompiledPrompt(input: {
@@ -281,6 +430,18 @@ function buildCompiledPrompt(input: {
     "- priorizar qualidade, rastreabilidade e proximo passo claro",
     "- distinguir fato, inferencia e ausencia de informacao",
     "- agir somente dentro de ferramentas, politicas e aprovacoes permitidas",
+    "",
+    "MODO DE OPERACAO AUTONOMA",
+    ...buildAutonomousOperatingMode(),
+    "",
+    "ROTINA DE MONITORAMENTO E ANTECIPACAO",
+    ...buildMonitoringCadence(),
+    "",
+    "CRITERIOS DE PRIORIZACAO",
+    ...buildPriorityCriteria(),
+    "",
+    "CRITERIOS DE ESCALACAO",
+    ...buildEscalationCriteria(),
     "",
     "OBJETIVOS PRIORITARIOS",
     ...input.objectives.map((item) => `- ${item}`),
@@ -317,10 +478,32 @@ function buildDefaultOutputFormat(agentId: string, outputs: string[]): string {
     {
       agent_id: agentId,
       summary: "",
-      key_outputs: outputs.slice(0, 4),
-      risks: [],
-      next_step: "",
-      confidence: "medium"
+      status: "stable | watch | critical",
+      leading_indicators: [],
+      emerging_risks: [],
+      opportunities_to_capture: [],
+      decisions_to_anticipate: [
+        {
+          decision: "",
+          why_now: "",
+          due_window: "",
+          owner: "",
+          recommended_action: ""
+        }
+      ],
+      preventive_action_plan: [
+        {
+          action: "",
+          owner: "",
+          deadline: "",
+          checkpoint: "",
+          expected_impact: ""
+        }
+      ],
+      specialist_deliverables: outputs.slice(0, 6),
+      approvals_or_dependencies: [],
+      next_checkpoint: "",
+      confidence: "low | medium | high"
     },
     null,
     2
@@ -329,53 +512,64 @@ function buildDefaultOutputFormat(agentId: string, outputs: string[]): string {
 
 function buildHtmlAgent(record: HtmlAgentRecord): GeneratedAgentSource {
   const agentId = inferHtmlAgentId(record);
-  const objectiveLines = uniqueStrings(record.promptSections.objectives.length > 0 ? record.promptSections.objectives : record.outputs);
+  const enrichedInputs = enrichInputs(record.inputs);
+  const enrichedOutputs = enrichOutputs(record.outputs);
+  const enrichedGuardrails = enrichGuardrails(record.guardrails);
+  const objectiveLines = uniqueStrings(
+    record.promptSections.objectives.length > 0 ? record.promptSections.objectives : enrichedOutputs
+  );
   const tools = record.expectedTools.map((tool) => ({
     description: `Ferramenta operacional ${tool} necessaria para ${record.title} funcionar com rastreabilidade e controle.`,
     name: titleCase(tool)
   }));
-  const skills = objectiveLines.slice(0, 5).map((objective) => ({
-    description: objective,
-    name: titleCase(objective)
-  }));
-  const outputFormat = record.promptSections.outputFormat || buildDefaultOutputFormat(agentId, record.outputs);
-  const qualityChecklist = [
+  const skills = mergeSkillSources(
+    objectiveLines.slice(0, 5).map((objective) => ({
+      description: objective,
+      name: titleCase(objective)
+    })),
+    AUTONOMOUS_SKILLS
+  );
+  const outputFormat = buildDefaultOutputFormat(agentId, enrichedOutputs);
+  const qualityChecklist = enrichChecklist([
     "separar fato, inferencia e ausencia de informacao",
     "deixar proximo passo e risco objetivo",
     "publicar aprendizado compartilhado relevante ao final"
-  ];
+  ]);
 
   return {
     category: record.category,
-    description: record.mission,
-    guardrails: record.guardrails,
+    description: `${record.mission} Opera de forma autonoma, preventiva e orientada a antecipacao de decisoes criticas.`,
+    guardrails: enrichedGuardrails,
     id: agentId,
-    inputs: record.inputs,
-    keywords: buildKeywordSet({
+    inputs: enrichedInputs,
+    keywords: enrichKeywords(
+      buildKeywordSet({
       category: record.category,
       expectedTools: record.expectedTools,
       extra: [
         ...record.promptSections.objectives,
-        ...record.guardrails
+        ...enrichedGuardrails
       ],
-      inputs: record.inputs,
-      outputs: record.outputs,
+      inputs: enrichedInputs,
+      outputs: enrichedOutputs,
       title: record.title
-    }),
+      }),
+      [record.code.toLowerCase(), slugify(record.title), "analise preventiva", "decisao antecipada"]
+    ),
     mission: record.promptSections.mission || record.mission,
     name: record.title,
     origin: "birthhub-html",
     outputFormat,
-    outputs: record.outputs,
+    outputs: enrichedOutputs,
     prompt: buildCompiledPrompt({
       category: record.category,
-      guardrails: record.guardrails,
-      inputs: record.inputs,
+      guardrails: enrichedGuardrails,
+      inputs: enrichedInputs,
       mission: record.promptSections.mission || record.mission,
       name: record.title,
       objectives: objectiveLines,
       outputFormat,
-      outputs: record.outputs,
+      outputs: enrichedOutputs,
       qualityChecklist,
       rules: record.promptSections.rules,
       tools: record.expectedTools,
@@ -383,7 +577,7 @@ function buildHtmlAgent(record: HtmlAgentRecord): GeneratedAgentSource {
     }),
     qualityChecklist,
     skills,
-    tags: inferHtmlTags(record, agentId),
+    tags: enrichTags(inferHtmlTags(record, agentId)),
     tools,
     whenToUse: record.whenToUse
   };
@@ -393,30 +587,42 @@ function buildFoundationAgent(
   manifest: AgentManifest,
   override: FoundationAgentOverride
 ): GeneratedAgentSource {
-  const outputFormat = buildDefaultOutputFormat(override.id, override.outputs);
+  const enrichedInputs = enrichInputs(override.inputs);
+  const enrichedOutputs = enrichOutputs(override.outputs);
+  const enrichedGuardrails = enrichGuardrails(override.guardrails);
+  const qualityChecklist = enrichChecklist(override.qualityChecklist);
+  const outputFormat = buildDefaultOutputFormat(override.id, enrichedOutputs);
 
   return {
     category: override.category,
-    description: `${manifest.agent.description} Opera com padrao premium de governanca, qualidade e aprendizado cruzado.`,
-    guardrails: override.guardrails,
+    description: `${manifest.agent.description} Opera com padrao premium de governanca, qualidade, antecipacao de decisoes e aprendizado cruzado.`,
+    guardrails: enrichedGuardrails,
     id: override.id,
-    inputs: override.inputs,
-    keywords: override.keywords,
+    inputs: enrichedInputs,
+    keywords: enrichKeywords(override.keywords, [
+      slugify(manifest.agent.name),
+      "executive automation",
+      "preventive analysis",
+      "autonomous execution"
+    ]),
     mission: override.mission,
     name: manifest.agent.name,
     origin: "foundation",
     outputFormat,
-    outputs: override.outputs,
+    outputs: enrichedOutputs,
     prompt: buildCompiledPrompt({
       category: override.category,
-      guardrails: override.guardrails,
-      inputs: override.inputs,
+      guardrails: enrichedGuardrails,
+      inputs: enrichedInputs,
       mission: override.mission,
       name: manifest.agent.name,
-      objectives: manifest.skills.map((skill) => skill.description),
+      objectives: uniqueStrings([
+        ...manifest.skills.map((skill) => skill.description),
+        ...AUTONOMOUS_SKILLS.map((skill) => skill.description)
+      ]),
       outputFormat,
-      outputs: override.outputs,
-      qualityChecklist: override.qualityChecklist,
+      outputs: enrichedOutputs,
+      qualityChecklist,
       rules: [
         "usar apenas ferramentas e politicas autorizadas",
         "manter rastreabilidade e contexto de negocio",
@@ -425,12 +631,15 @@ function buildFoundationAgent(
       tools: manifest.tools.map((tool) => tool.name),
       whenToUse: override.whenToUse
     }),
-    qualityChecklist: override.qualityChecklist,
-    skills: manifest.skills.map((skill) => ({
-      description: skill.description,
-      name: skill.name
-    })),
-    tags: manifest.tags,
+    qualityChecklist,
+    skills: mergeSkillSources(
+      manifest.skills.map((skill) => ({
+        description: skill.description,
+        name: skill.name
+      })),
+      AUTONOMOUS_SKILLS
+    ),
+    tags: enrichTags(manifest.tags),
     tools: manifest.tools.map((tool) => ({
       description: tool.description,
       name: tool.name
@@ -443,7 +652,7 @@ function toManifest(source: GeneratedAgentSource): AgentManifest {
   return {
     agent: {
       changelog: [
-        "2.0.0 - BirthHub 360 official collection refresh with governed shared learning, richer prompts and unified operating model"
+        "2.1.0 - BirthHub 360 collection upgraded with autonomous preventive operation, decision anticipation and stronger shared learning"
       ],
       description: source.description,
       id: source.id,
@@ -451,7 +660,7 @@ function toManifest(source: GeneratedAgentSource): AgentManifest {
       name: source.name,
       prompt: source.prompt,
       tenantId: "catalog",
-      version: "2.0.0"
+      version: "2.1.0"
     },
     keywords: source.keywords,
     manifestVersion: "1.0.0",
@@ -466,16 +675,17 @@ function buildCollectionDescriptor(): AgentManifest {
   return {
     agent: {
       changelog: [
-        "2.0.0 - BirthHub 360 official collection descriptor updated for the premium 42-agent lineup"
+        "2.1.0 - BirthHub 360 descriptor updated for the autonomous preventive 42-agent official lineup"
       ],
-      description: "Collection descriptor for the unified BirthHub 360 official lineup of governed high-performance agents.",
+      description:
+        "Collection descriptor for the unified BirthHub 360 official lineup of governed, preventive and high-performance autonomous agents.",
       id: "corporate-v1-catalog",
       kind: "catalog",
       name: "BirthHub 360 Official Collection",
       prompt:
-        "Coordinate and expose the full BirthHub 360 official collection, separating collection governance from installable agents.",
+        "Coordinate and expose the full BirthHub 360 official collection, separating collection governance from installable agents and highlighting the autonomous preventive operating model.",
       tenantId: "catalog",
-      version: "2.0.0"
+      version: "2.1.0"
     },
     keywords: [
       "birthhub 360",
@@ -596,7 +806,7 @@ async function main(): Promise<void> {
           installableCount: combinedAgents.length,
           manifestDescriptorId: "corporate-v1-catalog",
           name: "BirthHub 360 Official Collection",
-          version: "2.0.0"
+          version: "2.1.0"
         },
         generatedAt: new Date().toISOString(),
         agents: combinedAgents

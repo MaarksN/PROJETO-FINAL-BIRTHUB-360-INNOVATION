@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "executivos/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "sourceTraceability": "BirthHub360_Agentes_Parallel_Plan - BoardPrep AI"
+}
+

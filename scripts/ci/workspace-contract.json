@@ -1,0 +1,117 @@
+{
+  "applications": [
+    {
+      "lane": "core",
+      "packageName": "@birthub/api",
+      "purpose": "Canonical multi-tenant API for release and production deploys.",
+      "root": "apps/api"
+    },
+    {
+      "lane": "core",
+      "packageName": "@birthub/web",
+      "purpose": "Canonical customer-facing control plane and app-router web surface.",
+      "root": "apps/web"
+    },
+    {
+      "lane": "core",
+      "packageName": "@birthub/worker",
+      "purpose": "Canonical worker runtime for queues, workflows and billing jobs.",
+      "root": "apps/worker"
+    },
+    {
+      "lane": "legacy",
+      "packageName": "@birthub/dashboard",
+      "purpose": "Legacy CRM cockpit backed by @birthub/db and excluded from the core release lane.",
+      "root": "apps/dashboard"
+    },
+    {
+      "lane": "legacy",
+      "packageName": "@birthub/api-gateway",
+      "purpose": "Legacy/public gateway kept as compatibility proxy and supported separately.",
+      "root": "apps/api-gateway"
+    },
+    {
+      "lane": "legacy",
+      "packageName": "orchestrator-worker",
+      "purpose": "Legacy orchestration worker overlay limited to worker.ts and supported separately.",
+      "root": "apps/agent-orchestrator"
+    }
+  ],
+  "conflicts": [
+    {
+      "description": "Canonical Python runtime for pos-venda must exist at the underscore path.",
+      "requiredPath": "agents/pos_venda/main.py"
+    },
+    {
+      "description": "Queue worker overlay for pos-venda must remain at the underscore path.",
+      "requiredPath": "agents/pos_venda/worker.ts"
+    }
+  ],
+  "expectedScriptValues": [
+    {
+      "script": "dev:pos-venda-worker",
+      "value": "tsx agents/pos_venda/worker.ts"
+    }
+  ],
+  "importRules": [
+    {
+      "allowedRoots": [
+        "apps/dashboard",
+        "packages/db"
+      ],
+      "description": "@birthub/db is frozen legacy CRM schema. New code must use @birthub/database and imports are restricted to packages/db and apps/dashboard quarantine surfaces.",
+      "packageName": "@birthub/db"
+    },
+    {
+      "allowedRoots": [
+        "apps/api",
+        "packages/db",
+        "apps/web",
+        "apps/worker",
+        "packages/database",
+        "packages/testing"
+      ],
+      "description": "@birthub/database is the multi-tenant SaaS schema and must not leak into legacy CRM workspaces.",
+      "packageName": "@birthub/database"
+    }
+  ],
+  "releaseCoreScripts": {
+    "forbiddenFilters": [
+      "@birthub/dashboard",
+      "@birthub/api-gateway",
+      "@birthub/voice-engine",
+      "orchestrator-worker"
+    ],
+    "requiredByScript": {
+      "build:core": [
+        "@birthub/web",
+        "@birthub/api",
+        "@birthub/worker",
+        "@birthub/testing"
+      ],
+      "dev": [
+        "@birthub/web",
+        "@birthub/api",
+        "@birthub/worker"
+      ],
+      "lint:core": [
+        "@birthub/web",
+        "@birthub/api",
+        "@birthub/worker",
+        "@birthub/testing"
+      ],
+      "test:core": [
+        "@birthub/web",
+        "@birthub/api",
+        "@birthub/worker",
+        "@birthub/testing"
+      ],
+      "typecheck:core": [
+        "@birthub/web",
+        "@birthub/api",
+        "@birthub/worker",
+        "@birthub/testing"
+      ]
+    }
+  }
+}

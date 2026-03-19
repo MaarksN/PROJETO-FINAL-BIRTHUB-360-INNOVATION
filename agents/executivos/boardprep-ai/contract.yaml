@@ -1,0 +1,6 @@
+# [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI
+name: BoardPrep AI
+type: agent
+domain: executivos
+runtime_enforcement: false
+runtime_cycle: 16

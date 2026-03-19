@@ -43,6 +43,16 @@ async function main(): Promise<void> {
     const operatingReasoning = toBulletList(
       extractPromptSection(manifest.agent.prompt, "RACIOCINIO OPERACIONAL ESPERADO")
     );
+    const autonomousMode = toBulletList(extractPromptSection(manifest.agent.prompt, "MODO DE OPERACAO AUTONOMA"));
+    const monitoringCadence = toBulletList(
+      extractPromptSection(manifest.agent.prompt, "ROTINA DE MONITORAMENTO E ANTECIPACAO")
+    );
+    const priorityCriteria = toBulletList(
+      extractPromptSection(manifest.agent.prompt, "CRITERIOS DE PRIORIZACAO")
+    );
+    const escalationCriteria = toBulletList(
+      extractPromptSection(manifest.agent.prompt, "CRITERIOS DE ESCALACAO")
+    );
     const outputFormat = extractPromptSection(manifest.agent.prompt, "FORMATO DE SAIDA");
     const installable = isInstallableManifest(manifest);
 
@@ -70,6 +80,26 @@ async function main(): Promise<void> {
       ...(operatingReasoning.length > 0
         ? operatingReasoning.map((item) => `- ${item}`)
         : ["- No operating reasoning extracted from prompt."]),
+      "",
+      "## Autonomous Mode",
+      ...(autonomousMode.length > 0
+        ? autonomousMode.map((item) => `- ${item}`)
+        : ["- No autonomous operating mode extracted from prompt."]),
+      "",
+      "## Monitoring And Anticipation",
+      ...(monitoringCadence.length > 0
+        ? monitoringCadence.map((item) => `- ${item}`)
+        : ["- No monitoring cadence extracted from prompt."]),
+      "",
+      "## Prioritization Criteria",
+      ...(priorityCriteria.length > 0
+        ? priorityCriteria.map((item) => `- ${item}`)
+        : ["- No prioritization criteria extracted from prompt."]),
+      "",
+      "## Escalation Criteria",
+      ...(escalationCriteria.length > 0
+        ? escalationCriteria.map((item) => `- ${item}`)
+        : ["- No escalation criteria extracted from prompt."]),
       "",
       "## Guardrails",
       ...(guardrails.length > 0 ? guardrails.map((item) => `- ${item}`) : ["- No guardrails extracted from prompt."]),

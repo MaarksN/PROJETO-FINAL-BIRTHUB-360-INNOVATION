@@ -9,9 +9,20 @@ import { marketplaceService } from "../marketplace/marketplace-service.js";
 interface InstallPackInput {
   activateAgents: boolean;
   agentId?: string;
+  actorId: string;
   connectors: Record<string, unknown>;
   packId?: string;
   tenantId: string;
+}
+
+function requireActorId(actorId: string | null | undefined, action: string): string {
+  const value = actorId?.trim();
+
+  if (!value) {
+    throw new Error(`ACTOR_ID_REQUIRED:${action}`);
+  }
+
+  return value;
 }
 
 function extractPackId(config: unknown): string | null {
@@ -53,6 +64,7 @@ function resolveRequestedAgentId(input: InstallPackInput): string {
 
 export class PackInstallerService {
   async installPackAtomic(input: InstallPackInput) {
+    const actorId = requireActorId(input.actorId, "install-pack");
     const catalog = await marketplaceService.getCatalog();
     const requestedAgentId = resolveRequestedAgentId(input);
     const selectedEntry = catalog.find(
@@ -148,7 +160,7 @@ export class PackInstallerService {
       await tx.auditLog.create({
         data: {
           action: "PACK_INSTALL",
-          actorId: null,
+          actorId,
           diff: toPrismaJsonValue({
             activateAgents: input.activateAgents,
             agentId: requestedAgentId,
@@ -172,7 +184,8 @@ export class PackInstallerService {
     };
   }
 
-  async uninstallPackAtomic(input: { packId: string; tenantId: string }) {
+  async uninstallPackAtomic(input: { actorId: string; packId: string; tenantId: string }) {
+    const actorId = requireActorId(input.actorId, "uninstall-pack");
     const agents = await prisma.agent.findMany({
       where: {
         tenantId: input.tenantId
@@ -229,7 +242,7 @@ export class PackInstallerService {
       await tx.auditLog.create({
         data: {
           action: "PACK_UNINSTALL",
-          actorId: null,
+          actorId,
           diff: toPrismaJsonValue({
             deletedAgents: idsToDelete.length,
             packId: input.packId
@@ -293,7 +306,13 @@ export class PackInstallerService {
     return [...grouped.values()];
   }
 
-  async updatePackVersion(input: { latestAvailableVersion: string; packId: string; tenantId: string }) {
+  async updatePackVersion(input: {
+    actorId: string;
+    latestAvailableVersion: string;
+    packId: string;
+    tenantId: string;
+  }) {
+    const actorId = requireActorId(input.actorId, "update-pack-version");
     const agents = await prisma.agent.findMany({
       where: {
         tenantId: input.tenantId
@@ -305,25 +324,40 @@ export class PackInstallerService {
       .map((agent) => agent.id);
 
     await prisma.$transaction(async (tx) => {
-      for (const id of idsToUpdate) {
-        const current = await tx.agent.findUnique({ where: { id } });
-
-        if (!current) {
-          continue;
-        }
-
-        const currentConfig = current.config && typeof current.config === "object" ? current.config : {};
-
-        await tx.agent.update({
-          data: {
-            config: toPrismaJsonValue({
-              ...(currentConfig as Record<string, unknown>),
-              latestAvailableVersion: input.latestAvailableVersion
-            }) as Prisma.InputJsonObject
-          },
-          where: { id }
+      if (idsToUpdate.length > 0) {
+        const agentsToUpdate = await tx.agent.findMany({
+          where: { id: { in: idsToUpdate } }
         });
+
+        for (const current of agentsToUpdate) {
+          const currentConfig = current.config && typeof current.config === "object" ? current.config : {};
+
+          await tx.agent.update({
+            data: {
+              config: toPrismaJsonValue({
+                ...(currentConfig as Record<string, unknown>),
+                latestAvailableVersion: input.latestAvailableVersion
+              }) as Prisma.InputJsonObject
+            },
+            where: { id: current.id }
+          });
+        }
       }
+
+      await tx.auditLog.create({
+        data: {
+          action: "PACK_VERSION_UPDATED",
+          actorId,
+          diff: toPrismaJsonValue({
+            affectedAgents: idsToUpdate.length,
+            latestAvailableVersion: input.latestAvailableVersion,
+            packId: input.packId
+          }),
+          entityId: input.packId,
+          entityType: "agent_pack",
+          tenantId: input.tenantId
+        }
+      });
     });
 
     return {

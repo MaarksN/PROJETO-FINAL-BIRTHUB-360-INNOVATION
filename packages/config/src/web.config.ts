@@ -1,10 +1,12 @@
 import { z } from "zod";
 
 import {
+  deploymentEnvironmentSchema,
+  envBoolean,
   EnvValidationError,
+  hasPlaceholderMarker,
   isLocalUrl,
   isSecureHttpUrl,
-  nodeEnvSchema,
   optionalNonEmptyString,
   optionalUrlString,
   parseEnv,
@@ -16,8 +18,8 @@ export const webEnvSchema = z.object({
   NEXTAUTH_SECRET: optionalNonEmptyString,
   NEXT_PUBLIC_API_URL: urlString.default("http://localhost:3000"),
   NEXT_PUBLIC_APP_URL: urlString.default("http://localhost:3001"),
-  NEXT_PUBLIC_CSP_REPORT_ONLY: z.coerce.boolean().default(true),
-  NEXT_PUBLIC_ENVIRONMENT: nodeEnvSchema,
+  NEXT_PUBLIC_CSP_REPORT_ONLY: envBoolean.default(true),
+  NEXT_PUBLIC_ENVIRONMENT: deploymentEnvironmentSchema,
   NEXT_PUBLIC_POSTHOG_HOST: optionalUrlString,
   NEXT_PUBLIC_POSTHOG_KEY: optionalNonEmptyString,
   NEXT_PUBLIC_SENTRY_DSN: optionalUrlString,
@@ -31,7 +33,10 @@ export type WebConfig = z.infer<typeof webEnvSchema>;
 export function getWebConfig(env: NodeJS.ProcessEnv = process.env): WebConfig {
   const parsed = parseEnv("web", webEnvSchema, env);
 
-  if (parsed.NEXT_PUBLIC_ENVIRONMENT === "production") {
+  if (
+    parsed.NEXT_PUBLIC_ENVIRONMENT === "production" ||
+    parsed.NEXT_PUBLIC_ENVIRONMENT === "staging"
+  ) {
     const issues: string[] = [];
 
     if (!isSecureHttpUrl(parsed.NEXT_PUBLIC_APP_URL) || isLocalUrl(parsed.NEXT_PUBLIC_APP_URL)) {
@@ -44,6 +49,14 @@ export function getWebConfig(env: NodeJS.ProcessEnv = process.env): WebConfig {
 
     if (parsed.NEXT_PUBLIC_CSP_REPORT_ONLY) {
       issues.push("NEXT_PUBLIC_CSP_REPORT_ONLY must be false in production.");
+    }
+
+    if (!parsed.NEXT_PUBLIC_SENTRY_DSN) {
+      issues.push("NEXT_PUBLIC_SENTRY_DSN must be configured in production.");
+    }
+
+    if (parsed.NEXTAUTH_SECRET && hasPlaceholderMarker(parsed.NEXTAUTH_SECRET)) {
+      issues.push("NEXTAUTH_SECRET cannot use placeholder values in production.");
     }
 
     if (issues.length > 0) {

@@ -72,8 +72,16 @@ export class ClickSignClient implements ISignaturesClient {
     // This is a simplified abstraction.
 
     const response = await postJson<any>(
-      `${this.baseUrl}/documents?access_token=${this.accessToken}`,
+      `${this.baseUrl}/documents`,
       payload,
+      {
+        apiKey: this.accessToken,
+        queryAuthFallback: {
+          parameterName: "access_token",
+          provider: "clicksign",
+          token: this.accessToken
+        }
+      },
     );
 
     return this._mapResponse(response.document);
@@ -83,8 +91,16 @@ export class ClickSignClient implements ISignaturesClient {
     // ClickSign usually sends automatically when signers are added and document is finished setup.
     // Or we can trigger a notification.
     await postJson(
-      `${this.baseUrl}/documents/${documentId}/notifications?access_token=${this.accessToken}`,
+      `${this.baseUrl}/documents/${documentId}/notifications`,
       { message: "Please sign this document." },
+      {
+        apiKey: this.accessToken,
+        queryAuthFallback: {
+          parameterName: "access_token",
+          provider: "clicksign",
+          token: this.accessToken
+        }
+      },
     );
   }
 

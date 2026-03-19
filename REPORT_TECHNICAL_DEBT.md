@@ -1,62 +1,68 @@
-# Relatório Consolidado de Dívida Técnica (BirthHub360)
+# Relatorio Consolidado de Divida Tecnica (BirthHub360)
 
-Este relatório compila as informações sobre dívida técnica no repositório do BirthHub360, baseado em uma análise do código fonte, comentários TODO/FIXME, e uso de escapes de tipagem.
+Atualizado em `2026-03-17` para refletir o estado real do go-live planejado para `2026-03-20`.
 
-## Métricas de Código e Complexidade
+## Escopo de release considerado
 
-Foi realizada uma varredura para identificar o volume de código em cada parte principal da monorepo (Apps, Packages e Agents):
+O gate oficial de lancamento considera apenas o **core canonico**:
 
-### `apps/` (Aplicações Principais)
-*   **Total de Arquivos (TypeScript/TSX):** 420
-*   **Total de Linhas:** 39.056
-*   **Comentários TODO/FIXME/HACK:** 1
-*   **`@ts-ignore` / `@ts-expect-error`:** 0
-*   **`eslint-disable`:** 1
+- `apps/web`
+- `apps/api`
+- `apps/worker`
+- `packages/database`
 
-### `packages/` (Bibliotecas Compartilhadas)
-*   **Total de Arquivos (TypeScript):** 158
-*   **Total de Linhas:** 11.639
-*   **Comentários TODO/FIXME/HACK:** 0
-*   **`@ts-ignore` / `@ts-expect-error`:** 0
-*   **`eslint-disable`:** 0
+Superficies legadas ou satelites como `apps/dashboard`, `packages/db`, `apps/api-gateway`, `apps/agent-orchestrator`, `apps/voice-engine` e `apps/webhook-receiver` ficam fora do criterio de pronto do go-live, salvo promocao explicita.
 
-### `agents/` (Agentes Python)
-*   **Total de Arquivos (Python):** 223
-*   **Total de Linhas:** 11.752
-*   **Comentários TODO/FIXME/HACK:** 0
+## Divida tecnica ativa que impacta o go-live
 
-## Maior Dívida Identificada
+### P0 - Gate de instalacao e release
 
-Surpreendentemente, a monorepo apresenta **praticamente zero dívida técnica explícita** sob a forma de comentários TODO, FIXME ou bypasses de linters/tipagem.
+1. **Drift de lockfile entre workspace e manifesto**
+   - Sintoma validado em `2026-03-17`: `pnpm install --frozen-lockfile` falhava porque `pnpm-lock.yaml` estava desalinhado de `apps/agent-orchestrator/package.json`.
+   - Estado atual: corrigido por sincronizacao do lockfile, sem upgrade oportunista.
+   - Acao permanente: manter `pnpm install --frozen-lockfile` como criterio de aceite antes do go-live.
 
-### Instâncias Específicas:
+2. **Postinstall dependente de `pnpm` no PATH**
+   - Sintoma validado em `2026-03-17`: o `postinstall` raiz falhava em Windows ao chamar `pnpm db:generate`.
+   - Impacto: falso bloqueio de setup e de pipeline local.
+   - Acao: o `postinstall` passa a usar um runner Node do proprio repositorio para executar `db:generate`.
 
-1.  **Validação Pendente (API Gateway):**
-    *   **Arquivo:** `apps/api-gateway/src/routes/leads.ts` (Linha 9)
-    *   **Comentário:** `// TODO: Validate body with Zod`
-    *   **Impacto:** Risco de segurança e integridade de dados. Endpoints públicos devem sempre validar seus payloads usando Zod, de acordo com as políticas do projeto.
-    *   **Esforço:** Baixo. Requer apenas a definição de um esquema Zod e a aplicação do middleware de validação.
+### P1 - Quarentena de legado ainda aberta
 
-2.  **Bypass do Linter (Webhook Receiver):**
-    *   **Arquivo:** `apps/webhook-receiver/src/server.ts` (Linha 18)
-    *   **Comentário:** `// eslint-disable-next-line no-console`
-    *   **Impacto:** Baixo. Geralmente, `console.log` deve ser evitado em produção em favor do logger estruturado (Pino).
-    *   **Esforço:** Baixo. Substituir `console.log/error` por chamadas ao logger oficial do projeto.
+1. **Dashboard legado ainda consome `@birthub/db`**
+   - Evidencia: `apps/dashboard/src/components/kanban-board.tsx` e `apps/dashboard/src/lib/data.ts`.
+   - Impacto: a desativacao do legado ainda nao e total; o pacote legado segue existindo por compatibilidade.
+   - Acao: manter como superficie explicitamente em sunset e fora do gate do go-live, bloqueando novos usos fora da quarentena.
 
-## Análise de Complexidade de Arquivos
+2. **Hotspots grandes demais para refactor pre-launch**
+   - `apps/api/src/modules/billing/service.ts`: ~1500 linhas
+   - `apps/api/src/modules/auth/auth.service.ts`: ~1008 linhas
+   - `apps/worker/src/agents/runtime.ts`: ~989 linhas
+   - `apps/api/src/modules/agents/service.ts`: ~850 linhas
+   - `apps/worker/src/worker.ts`: ~822 linhas
+   - `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx`: ~558 linhas
+   - Impacto: risco de regressao se houver refactor estrutural perto do go-live.
+   - Acao: ate `2026-03-20`, permitir apenas correcoes cirurgicas, ajustes de config/observabilidade, testes de regressao e fixes de gates.
 
-Arquivos com grande número de linhas tendem a acumular dívida técnica latente ("God objects"). Os maiores arquivos do projeto são:
+### P2 - Operacao e narrativa
 
-1.  `apps/api/src/modules/auth/auth.service.ts` (1061 linhas): Sendo o núcleo da autenticação, o tamanho elevado pode indicar que regras de negócio de MFA, Sessões e RBAC estão misturadas. Sugere-se decomposição.
-2.  `apps/api/src/modules/billing/service.ts` (811 linhas): Potencial acoplamento excessivo da lógica de faturamento e regras do Stripe.
-3.  `packages/database/prisma/seed.ts` (807 linhas): Normal para um arquivo de seed, mas poderia ser modularizado se continuar crescendo.
-4.  `apps/worker/src/worker.ts` (776 linhas): Sugere que múltiplos job handlers estão definidos no mesmo arquivo ao invés de estarem separados em módulos.
-5.  `apps/api/src/modules/webhooks/stripe.router.ts` (751 linhas): Lógica de manipulação de webhooks pode estar no router em vez de um serviço dedicado.
+1. **Suite Python de integracao e lenta, nao quebrada**
+   - Evidencia: `pytest tests/integration` passou `20/20`, mas levou cerca de `85s`.
+   - Impacto: pressao em CI e no war room; nao e bloqueador enquanto permanecer verde.
+   - Acao: manter fora do gate canonico de go-live e reservar budget de execucao nos checks dedicados.
 
-## Conclusões e Recomendações
+2. **Documentacao historica estava defasada**
+   - O relatorio anterior apontava TODOs e bypasses ja resolvidos e descrevia testes Python como quebrados, o que nao corresponde mais ao estado atual.
+   - Acao: tratar os documentos executaveis e os artefatos recentes como fonte de verdade, com docs operacionais atualizadas para o corte de `2026-03-20`.
 
-O projeto apresenta um estado de excelência na limpeza de código e baixa dívida técnica explícita. Para manter e melhorar este padrão:
+## Baseline validado em 2026-03-17
 
-1.  **Resolver a validação Zod pendente** em `apps/api-gateway/src/routes/leads.ts` imediatamente para evitar vulnerabilidades.
-2.  **Refatorar os maiores serviços** (especialmente `auth.service.ts` e `billing/service.ts`), extraindo responsabilidades para arquivos menores visando melhorar a testabilidade e isolamento.
-3.  **Monitoramento Contínuo:** Manter a CI rigorosa para evitar a entrada de novos "TODO"s ou `eslint-disable` não justificados.
+- `pytest tests/integration`: `20/20` verde
+- `pytest apps/agent-orchestrator/tests apps/webhook-receiver/tests`: `7/7` verde
+- `node scripts/ci/workspace-audit.mjs`: verde
+
+## Recomendacao operacional
+
+1. Exigir verde para install congelado, doctor, scorecard, lint/typecheck/test/build do core, E2E mestre e preflights.
+2. Nao abrir refactors estruturais nos hotspots antes de `2026-03-20`.
+3. Manter o legado explicitamente em quarentena, sem promover novas dependencias dele no core.

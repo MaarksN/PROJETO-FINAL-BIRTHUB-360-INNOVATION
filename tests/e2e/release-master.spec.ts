@@ -1,34 +1,13 @@
 import { expect, test } from "@playwright/test";
 
-async function bootstrapSession(page: Parameters<typeof test>[0]["page"]) {
-  await page.addInitScript(() => {
-    localStorage.setItem("bh_csrf_token", "csrf-e2e");
-    localStorage.setItem("bh_tenant_id", "birthhub-alpha");
-    localStorage.setItem("bh_user_id", "owner.alpha@birthub.local");
-  });
-}
+import {
+  bootstrapSession,
+  mockDemoWorkflowRuns,
+  mockExecutionFeedback
+} from "./support";
 
 test.describe("Release master smoke flow", () => {
-  test("C1 home redirect, login and invite acceptance mock", async ({ page }) => {
-    await page.route("**/api/v1/auth/login", async (route) => {
-      await route.fulfill({
-        body: JSON.stringify({
-          mfaRequired: false,
-          requestId: "req-e2e",
-          session: {
-            csrfToken: "csrf-e2e",
-            expiresAt: "2026-03-14T00:00:00.000Z",
-            id: "sess-e2e",
-            refreshToken: "refresh-e2e",
-            tenantId: "birthhub-alpha",
-            token: "token-e2e",
-            userId: "owner.alpha@birthub.local"
-          }
-        }),
-        contentType: "application/json",
-        status: 200
-      });
-    });
+  test("C1 home redirect, session bootstrap and invite acceptance mock", async ({ page }) => {
     await page.route("**/api/v1/sessions", async (route) => {
       await route.fulfill({
         body: JSON.stringify({
@@ -57,9 +36,11 @@ test.describe("Release master smoke flow", () => {
 
     await page.goto("/");
     await expect(page).toHaveURL(/\/login$/);
-    await page.getByRole("button", { name: "Entrar" }).click();
+    await expect(page.getByRole("heading", { name: "Entrar na plataforma" })).toBeVisible();
+    await bootstrapSession(page);
+    await page.goto("/settings/security");
     await expect(page).toHaveURL(/\/settings\/security$/);
-    await expect(page.getByText("Sessoes ativas")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Sessoes ativas" })).toBeVisible();
 
     await page.goto("/invites/accept?token=invite-e2e");
     await expect(page.getByText("Convite aceito com sucesso.")).toBeVisible();
@@ -67,6 +48,7 @@ test.describe("Release master smoke flow", () => {
 
   test("C2 pricing, checkout mock and billing visibility", async ({ page }) => {
     await bootstrapSession(page);
+    await mockDemoWorkflowRuns(page);
     await page.route("**/api/v1/billing/checkout", async (route) => {
       await route.fulfill({
         body: JSON.stringify({
@@ -80,6 +62,7 @@ test.describe("Release master smoke flow", () => {
       await route.fulfill({
         body: JSON.stringify({
           plan: {
+            creditBalanceCents: 4200,
             currentPeriodEnd: "2026-04-13T00:00:00.000Z",
             isPaid: true,
             name: "Professional",
@@ -129,6 +112,17 @@ test.describe("Release master smoke flow", () => {
     await page.goto("/settings/billing");
     await expect(page.getByText("Plano atual, renovacao e consumo")).toBeVisible();
     await expect(page.getByText("Professional")).toBeVisible();
+    await expect(page.getByText(/42,00/)).toBeVisible();
+
+    await page.goto("/workflows/demo/edit");
+    await expect(page).toHaveURL(/\/workflows\/demo\/edit$/);
+    await expect(page.getByRole("button", { name: "Organizar Canvas" })).toBeVisible();
+    await expect(page.getByText("Node Sidebar")).toBeVisible();
+
+    await page.goto("/workflows/demo/runs");
+    await expect(page.getByText("Workflow Runs - demo")).toBeVisible();
+    await page.getByText("Condition").first().click();
+    await expect(page.getByText('"result": true')).toBeVisible();
 
     await page.goto("/billing/cancel");
     await expect(page.getByText("Nenhuma cobranca foi realizada")).toBeVisible();
@@ -210,44 +204,18 @@ test.describe("Release master smoke flow", () => {
     await page.goto("/profile/notifications");
     await expect(page.getByText("Preferencias de notificacao")).toBeVisible();
     await expect(page.getByText("Seu agente terminou com sucesso.")).toBeVisible();
-    await page.getByRole("button", { name: "Aceitar" }).click();
+    await page.getByRole("button", { exact: true, name: "Aceitar" }).click();
     await expect(page.getByText("Status atual:")).toBeVisible();
     await page.getByRole("button", { name: "Marcar todas como lidas" }).click();
   });
 
   test("C4 outputs feedback flow and local session cleanup", async ({ page }) => {
     await bootstrapSession(page);
-    await page.route("**/api/v1/executions/exec-feedback/feedback", async (route) => {
-      if (route.request().method() === "POST") {
-        await route.fulfill({
-          body: JSON.stringify({
-            feedback: {
-              expectedOutput: "Resposta corrigida",
-              notes: "Corrigir contexto",
-              rating: -1
-            }
-          }),
-          contentType: "application/json",
-          status: 200
-        });
-        return;
-      }
-
-      await route.fulfill({
-        body: JSON.stringify({
-          feedback: {
-            expectedOutput: "",
-            notes: "",
-            rating: 0
-          }
-        }),
-        contentType: "application/json",
-        status: 200
-      });
-    });
+    await mockExecutionFeedback(page);
 
     await page.goto("/outputs?executionId=exec-feedback");
     await expect(page.getByText("Outputs de Agente")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Polegar para baixo" })).toBeEnabled();
     await page.getByRole("button", { name: "Polegar para baixo" }).click();
     await page
       .getByPlaceholder("Descreva a resposta esperada para fortalecer o dataset RLHF.")

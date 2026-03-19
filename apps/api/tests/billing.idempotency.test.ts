@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import type { ApiConfig } from "@birthub/config";
-import { prisma } from "@birthub/database";
+import { BillingEventStatus, prisma } from "@birthub/database";
 import express from "express";
 import request from "supertest";
 import Stripe from "stripe";
@@ -12,12 +12,36 @@ import { STRIPE_API_VERSION } from "../src/modules/billing/stripe.client.js";
 import { createStripeWebhookRouter } from "../src/modules/webhooks/stripe.router.js";
 import { createTestApiConfig } from "./test-config.js";
 
-function stubMethod(target: any, key: string, value: unknown): () => void {
-  const original = target[key];
-  target[key] = value;
+function stubMethod(target: object, key: string, value: unknown): () => void {
+  const original = Reflect.get(target, key);
+  Reflect.set(target, key, value);
   return () => {
-    target[key] = original;
+    Reflect.set(target, key, original);
   };
+}
+
+function applyUpdateData<T extends Record<string, unknown>>(current: T, data: Record<string, unknown>): T {
+  const next = { ...current } as Record<string, unknown>;
+
+  for (const [key, value] of Object.entries(data)) {
+    if (
+      value &&
+      typeof value === "object" &&
+      "increment" in value &&
+      typeof (value as { increment?: unknown }).increment === "number"
+    ) {
+      next[key] = Number(next[key] ?? 0) + Number((value as { increment: number }).increment);
+      continue;
+    }
+
+    next[key] = value;
+  }
+
+  return next as T;
+}
+
+function stringValue(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : fallback;
 }
 
 function createWebhookApp(config: ApiConfig) {
@@ -32,7 +56,7 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
   const stripe = new Stripe(config.STRIPE_SECRET_KEY, {
     apiVersion: STRIPE_API_VERSION
   });
-  const processedEvents = new Set<string>();
+  const billingEvents = new Map<string, Record<string, unknown>>();
   let subscriptionUpdateCalls = 0;
   let invoiceUpsertCalls = 0;
   const payload = JSON.stringify({
@@ -70,16 +94,43 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
     secret: config.STRIPE_WEBHOOK_SECRET
   });
   const restores = [
-    stubMethod(prisma.billingEvent, "findUnique", async ({ where }: any) => {
-      const eventId = where.stripeEventId as string;
-      return processedEvents.has(eventId) ? { id: "be_1" } : null;
+    stubMethod(prisma.billingEvent, "findUnique", async (args: { where?: { stripeEventId?: string } }) => {
+      const eventId = args.where?.stripeEventId ?? "";
+      return billingEvents.get(eventId) ?? null;
     }),
-    stubMethod(prisma.billingEvent, "create", async ({ data }: any) => {
-      processedEvents.add(data.stripeEventId as string);
-      return { id: "be_1" };
+    stubMethod(prisma.billingEvent, "create", async (args: { data?: Record<string, unknown> }) => {
+      const eventId = stringValue(args.data?.stripeEventId, "evt_unknown");
+      const record = {
+        attemptCount: 0,
+        id: "be_1",
+        status: BillingEventStatus.received,
+        ...args.data
+      };
+      billingEvents.set(eventId, record);
+      return record;
     }),
-    stubMethod(prisma.organization, "findFirst", async ({ where }: any) => {
-      if (where?.stripeCustomerId === "cus_alpha") {
+    stubMethod(
+      prisma.billingEvent,
+      "update",
+      async (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
+        const eventId = args.where?.stripeEventId ?? "";
+        const current: Record<string, unknown> = billingEvents.get(eventId) ?? {
+          attemptCount: 0,
+          id: "be_1",
+          stripeEventId: eventId
+        };
+        const next = applyUpdateData(current, args.data ?? {});
+        billingEvents.set(eventId, next);
+        return next;
+      }
+    ),
+    stubMethod(
+      prisma,
+      "$transaction",
+      async <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
+    ),
+    stubMethod(prisma.organization, "findFirst", async (args: { where?: { stripeCustomerId?: string } }) => {
+      if (args.where?.stripeCustomerId === "cus_alpha") {
         return {
           id: "org_alpha",
           planId: "plan_professional",
@@ -90,8 +141,8 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
 
       return null;
     }),
-    stubMethod(prisma.organization, "findUnique", async ({ where }: any) => {
-      if (where?.id === "org_alpha") {
+    stubMethod(prisma.organization, "findUnique", async (args: { where?: { id?: string } }) => {
+      if (args.where?.id === "org_alpha") {
         return {
           id: "org_alpha",
           tenantId: "tenant_alpha"
@@ -141,6 +192,10 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
 
     assert.equal(subscriptionUpdateCalls, 1);
     assert.equal(invoiceUpsertCalls, 1);
+    assert.equal(
+      billingEvents.get("evt_invoice_paid_1")?.status,
+      BillingEventStatus.processed
+    );
   } finally {
     for (const restore of restores.reverse()) {
       restore();

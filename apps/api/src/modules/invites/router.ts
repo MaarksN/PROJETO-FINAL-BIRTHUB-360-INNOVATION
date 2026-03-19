@@ -7,6 +7,10 @@ import {
 import { Router } from "express";
 
 import { Auditable } from "../../audit/auditable.js";
+import {
+  RequireRole,
+  requireAuthenticatedSession
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { readTrimmedString, requireStringValue } from "../../lib/request-values.js";
 import { validateBody } from "../../middleware/validate-body.js";
@@ -29,32 +33,36 @@ export function createInvitesRouter(): Router {
 
   router.post(
     "/invites",
+    requireAuthenticatedSession,
+    RequireRole(Role.ADMIN),
     validateBody(createInviteRequestSchema),
     asyncHandler(
       Auditable({
         action: "invite.created",
         entityType: "invite",
+        requireActor: true,
         resolveEntityId: (_request, _response, result) =>
           typeof result === "object" && result && "id" in result ? String(result.id) : undefined
       })(async (request, response) => {
-        const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
-        const organizationId = readTrimmedString(request.header("x-org-id"));
+        const tenantId = requireTenantId(request.context.tenantId);
+        const organizationId = readTrimmedString(request.context.organizationId);
+        const createInviteInput = createInviteRequestSchema.parse(request.body);
 
         if (!organizationId) {
           throw new ProblemDetailsError({
-            detail: "x-org-id header is required to create invites.",
-            status: 400,
-            title: "Bad Request"
+            detail: "Authenticated organization context is required to create invites.",
+            status: 401,
+            title: "Unauthorized"
           });
         }
 
         const invite = await createInvite({
-          email: request.body.email,
-          expiresAt: request.body.expiresAt,
+          email: createInviteInput.email,
           invitedByUserId: request.context.userId,
           organizationId,
-          role: request.body.role as Role,
-          tenantId
+          role: createInviteInput.role as Role,
+          tenantId,
+          ...(createInviteInput.expiresAt ? { expiresAt: createInviteInput.expiresAt } : {})
         });
 
         response.status(201).json(invite);
@@ -65,8 +73,10 @@ export function createInvitesRouter(): Router {
 
   router.get(
     "/invites",
+    requireAuthenticatedSession,
+    RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
-      const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+      const tenantId = requireTenantId(request.context.tenantId);
       const pagination = cursorPaginationQuerySchema.parse(request.query);
 
       response.status(200).json(
@@ -93,7 +103,12 @@ export function createInvitesRouter(): Router {
         resolveTenantId: (_request, _response, result) =>
           typeof result === "object" && result && "tenantId" in result ? String(result.tenantId) : undefined
       })(async (request, response) => {
-        const result = await acceptInvite(request.body);
+        const payload = acceptInviteRequestSchema.parse(request.body);
+        const result = await acceptInvite({
+          token: payload.token,
+          ...(payload.name ? { name: payload.name } : {}),
+          ...(payload.userId ? { userId: payload.userId } : {})
+        });
         response.status(200).json(result);
         return result;
       })
@@ -102,13 +117,16 @@ export function createInvitesRouter(): Router {
 
   router.post(
     "/invites/:id/revoke",
+    requireAuthenticatedSession,
+    RequireRole(Role.ADMIN),
     asyncHandler(
       Auditable({
         action: "invite.revoked",
         entityType: "invite",
+        requireActor: true,
         resolveEntityId: (request) => readTrimmedString(request.params.id)
       })(async (request, response) => {
-        const tenantId = requireTenantId(request.tenantContext?.tenantId ?? request.context.tenantId);
+        const tenantId = requireTenantId(request.context.tenantId);
         const invite = await revokeInvite({
           inviteId: requireStringValue(request.params.id, "A valid invite id is required."),
           tenantId

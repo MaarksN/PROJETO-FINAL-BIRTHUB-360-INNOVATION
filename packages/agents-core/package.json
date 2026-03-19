@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc && pnpm docs",
+    "build": "tsc",
     "test": "node --import tsx --test \"src/**/*.test.ts\"",
     "docs": "typedoc --out docs src/index.ts"
   },
@@ -23,6 +23,18 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./tools": {
+      "types": "./dist/tools/index.d.ts",
+      "import": "./dist/tools/index.js"
+    },
+    "./tools/*": {
+      "types": "./dist/tools/*.d.ts",
+      "import": "./dist/tools/*.js"
+    },
+    "./policy/*": {
+      "types": "./dist/policy/*.d.ts",
+      "import": "./dist/policy/*.js"
     }
   }
 }

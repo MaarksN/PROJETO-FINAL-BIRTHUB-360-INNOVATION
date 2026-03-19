@@ -4,23 +4,23 @@
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
-      "@birthub/config": [
-        "../../packages/config/dist/index.js"
-      ],
-      "@birthub/config/*": [
-        "../../packages/config/dist/*"
-      ],
       "@birthub/logger": [
-        "../../packages/logger/dist/index.js"
+        "../../packages/logger/src/index.ts"
       ],
       "@birthub/logger/*": [
-        "../../packages/logger/dist/*"
+        "../../packages/logger/src/*"
+      ],
+      "@birthub/config": [
+        "../../packages/config"
+      ],
+      "@birthub/config/*": [
+        "../../packages/config/*"
       ],
       "@birthub/workflows-core": [
-        "../../packages/workflows-core/dist/src/index.js"
+        "../../packages/workflows-core"
       ],
       "@birthub/workflows-core/*": [
-        "../../packages/workflows-core/dist/src/*"
+        "../../packages/workflows-core/*"
       ]
     },
     "plugins": [

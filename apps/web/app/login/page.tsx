@@ -1,5 +1,6 @@
 import { getWebConfig } from "@birthub/config";
 
+import { BrandLogo } from "../../components/brand/BrandLogo";
 import { LoginForm } from "../../components/login-form";
 import { getServerRequestId } from "../../lib/request-id";
 
@@ -32,6 +33,7 @@ export default async function LoginPage() {
             padding: "1rem 0"
           }}
         >
+          <BrandLogo href="/login" showTagline size="lg" theme="light" />
           <div
             style={{
               background: "rgba(19, 93, 102, 0.08)",

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Bell, BellOff, CheckCheck, ExternalLink } from "lucide-react";
 
+import { BrandLogo } from "../brand/BrandLogo";
 import {
   type NotificationItem,
   useNotificationStore
@@ -81,8 +82,10 @@ export function Navbar() {
   return (
     <>
       <div className="dashboard-title">
-        <span>BirthHub360</span>
-        <strong>Tenant Command Center</strong>
+        <BrandLogo href="/billing" size="sm" theme="light" />
+        <div className="dashboard-title__meta">
+          <span>Tenant Command Center</span>
+        </div>
       </div>
 
       <div

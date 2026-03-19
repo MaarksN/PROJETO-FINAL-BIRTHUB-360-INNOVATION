@@ -19,11 +19,17 @@
 }
 
 .dashboard-title {
-  display: grid;
-  gap: 0.25rem;
+  align-items: center;
+  display: flex;
+  gap: 0.85rem;
 }
 
-.dashboard-title span {
+.dashboard-title__meta {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.dashboard-title__meta span {
   color: var(--muted);
   font-size: 0.85rem;
   letter-spacing: 0.12em;

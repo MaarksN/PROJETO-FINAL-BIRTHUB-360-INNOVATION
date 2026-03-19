@@ -1,6 +1,7 @@
 import { performance } from "node:perf_hooks";
 
-import { BaseTool } from "@birthub/agents-core";
+import { BaseTool } from "@birthub/agents-core/tools";
+import pMap from "p-map";
 import { z } from "zod";
 
 import { PlanExecutor, type AgentExecutionRequest } from "../executors/planExecutor.js";
@@ -101,12 +102,14 @@ export async function runParallelExecutionLoadTest(totalExecutions: number = 50)
   const startedAt = performance.now();
   const samples: number[] = [];
 
-  await Promise.all(
-    requests.map(async (request) => {
+  await pMap(
+    requests,
+    async (request) => {
       const requestStartedAt = performance.now();
       await executor.execute(request);
       samples.push(performance.now() - requestStartedAt);
-    })
+    },
+    { concurrency: 10 }
   );
 
   const totalMs = performance.now() - startedAt;

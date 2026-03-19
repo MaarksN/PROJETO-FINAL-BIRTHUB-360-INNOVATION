@@ -2,10 +2,13 @@ import { z } from "zod";
 
 import {
   commaSeparatedList,
+  envBoolean,
   EnvValidationError,
+  hasPlaceholderMarker,
   hasRequiredPostgresSsl,
   hasRequiredRedisTls,
   isLocalUrl,
+  isStripeTestSecretKey,
   isSecureHttpUrl,
   nodeEnvSchema,
   nonEmptyString,
@@ -44,10 +47,19 @@ export const apiEnvSchema = z.object({
   BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
   DATABASE_URL: urlString,
   EXTERNAL_HEALTHCHECK_URLS: z.string().default(""),
+  GOOGLE_CLIENT_ID: optionalNonEmptyString,
+  GOOGLE_CLIENT_SECRET: optionalNonEmptyString,
+  GOOGLE_REDIRECT_URI: optionalUrlString,
+  HUBSPOT_CLIENT_ID: optionalNonEmptyString,
+  HUBSPOT_CLIENT_SECRET: optionalNonEmptyString,
+  HUBSPOT_REDIRECT_URI: optionalUrlString,
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
+  MICROSOFT_CLIENT_ID: optionalNonEmptyString,
+  MICROSOFT_CLIENT_SECRET: optionalNonEmptyString,
+  MICROSOFT_REDIRECT_URI: optionalUrlString,
   NODE_ENV: nodeEnvSchema,
-  REQUIRE_SECURE_COOKIES: z.coerce.boolean().default(false),
+  REQUIRE_SECURE_COOKIES: envBoolean.default(false),
   OTEL_EXPORTER_OTLP_ENDPOINT: optionalUrlString,
   OTEL_SERVICE_NAME: nonEmptyString.default("birthub-api"),
   QUEUE_BACKPRESSURE_THRESHOLD: z.coerce.number().int().positive().default(10_000),
@@ -64,6 +76,7 @@ export const apiEnvSchema = z.object({
   STRIPE_SECRET_KEY: nonEmptyString.default("sk_test_birthub360"),
   STRIPE_SUCCESS_URL: urlString.default("http://localhost:3001/billing/success"),
   STRIPE_TEMP_BAN_SECONDS: z.coerce.number().int().positive().default(15 * 60),
+  STRIPE_WEBHOOK_TOLERANCE_SECONDS: z.coerce.number().int().positive().default(300),
   STRIPE_WEBHOOK_SECRET: nonEmptyString.default("whsec_birthub360"),
   UPTIMEROBOT_API_TOKEN: optionalNonEmptyString,
   WEB_BASE_URL: urlString.default("http://localhost:3001")
@@ -78,6 +91,12 @@ export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
   const parsed = parseEnv("api", apiEnvSchema, env);
   const corsOrigins = commaSeparatedList.parse(parsed.API_CORS_ORIGINS);
   const externalHealthcheckUrls = commaSeparatedList.parse(parsed.EXTERNAL_HEALTHCHECK_URLS);
+  const deploymentEnvironment =
+    env.DEPLOYMENT_ENVIRONMENT === "staging"
+      ? "staging"
+      : env.DEPLOYMENT_ENVIRONMENT === "production" || parsed.NODE_ENV === "production"
+        ? "production"
+        : parsed.NODE_ENV;
 
   if (parsed.NODE_ENV === "production") {
     const issues: string[] = [];
@@ -101,9 +120,28 @@ export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
     if (
       parsed.SESSION_SECRET === "dev-session-secret" ||
       parsed.JOB_HMAC_GLOBAL_SECRET === "dev-job-hmac-secret" ||
-      parsed.AUTH_MFA_ENCRYPTION_KEY === "dev-mfa-encryption-key"
+      parsed.AUTH_MFA_ENCRYPTION_KEY === "dev-mfa-encryption-key" ||
+      hasPlaceholderMarker(parsed.SESSION_SECRET) ||
+      hasPlaceholderMarker(parsed.JOB_HMAC_GLOBAL_SECRET) ||
+      hasPlaceholderMarker(parsed.AUTH_MFA_ENCRYPTION_KEY)
     ) {
       issues.push("Production secrets cannot use development defaults.");
+    }
+
+    if (hasPlaceholderMarker(parsed.STRIPE_SECRET_KEY)) {
+      issues.push("STRIPE_SECRET_KEY cannot use placeholder values in production.");
+    }
+
+    if (deploymentEnvironment === "production" && isStripeTestSecretKey(parsed.STRIPE_SECRET_KEY)) {
+      issues.push("STRIPE_SECRET_KEY must be a live production key in production.");
+    }
+
+    if (hasPlaceholderMarker(parsed.STRIPE_WEBHOOK_SECRET)) {
+      issues.push("STRIPE_WEBHOOK_SECRET cannot use placeholder values in production.");
+    }
+
+    if (!parsed.SENTRY_DSN) {
+      issues.push("SENTRY_DSN must be configured in production.");
     }
 
     if (!isSecureHttpUrl(parsed.WEB_BASE_URL) || isLocalUrl(parsed.WEB_BASE_URL)) {

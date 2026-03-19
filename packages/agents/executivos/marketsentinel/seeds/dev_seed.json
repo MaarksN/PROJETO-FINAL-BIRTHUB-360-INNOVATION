@@ -1,0 +1,37 @@
+{
+  "source_traceability": "BirthHub360_Agentes_Parallel_Plan - MarketSentinel",
+  "input": {
+    "tenantId": "tenant_exec_seed",
+    "requestId": "seed-marketsentinel-001",
+    "scope": "latam",
+    "window": {
+      "startDate": "2026-03-01",
+      "endDate": "2026-03-31"
+    },
+    "sections": [
+      "macro_trends",
+      "competitors",
+      "demand_signals",
+      "customer_sentiment",
+      "regulatory_alerts"
+    ]
+  },
+  "mock_external_sources": {
+    "macro_signal_feed": {
+      "demandMomentum": 18.7,
+      "inflationPressure": 41.2,
+      "liquidityIndex": 57.4
+    },
+    "competitor_watch": {
+      "leadingMove": "major competitor launched bundled annual pricing.",
+      "pricingAggressiveness": 68.3,
+      "releaseVelocity": 79.1
+    },
+    "sentiment_stream": {
+      "positiveMentionsPct": 59.8,
+      "negativeMentionsPct": 21.4,
+      "topicShift": "market narrative shifted to efficiency-led growth."
+    }
+  }
+}
+

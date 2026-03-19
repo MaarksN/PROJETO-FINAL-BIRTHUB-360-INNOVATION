@@ -1,25 +1,31 @@
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 
 import {
-  AgentMemoryService,
-  computeOutputHash,
-  type AgentLearningRecord,
+  createPolicyTemplate,
+  type ManagedAgentPolicy,
   type AgentManifest,
-  runAgentDryRun
 } from "@birthub/agents-core";
+import { getApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
 import { toPrismaJsonValue } from "../../lib/prisma-json.js";
 import { decryptConnectorsMap } from "../../lib/encryption.js";
+import {
+  QueueBackpressureError,
+  TenantQueueRateLimitError
+} from "../../lib/queue.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { marketplaceService } from "../marketplace/marketplace-service.js";
+import { enqueueInstalledAgentExecution } from "./queue.js";
 
 type AgentConfigSnapshot = {
   connectors: Record<string, unknown>;
   installedAt: string | null;
   installedVersion: string;
   latestAvailableVersion: string;
+  managedPolicies: ManagedAgentPolicy[];
   packId: string | null;
+  runtimeProvider: "manifest-runtime" | "python-orchestrator";
   sourceAgentId: string | null;
   status: string;
 };
@@ -27,6 +33,7 @@ type AgentConfigSnapshot = {
 type InstalledAgentExecutionRow = {
   durationMs: number;
   id: string;
+  mode: "DRY_RUN" | "LIVE" | "UNKNOWN";
   startedAt: string;
   status: "FAILED" | "RUNNING" | "SUCCESS";
 };
@@ -46,16 +53,16 @@ export interface InstalledAgentSnapshot {
   logs: string[];
   manifest: AgentManifest;
   name: string;
+  runtimeProvider: "manifest-runtime" | "python-orchestrator";
   sourceStatus: string;
   status: string;
   tags: string[];
   version: string;
 }
 
-const MINIMUM_APPROVED_LEARNING_CONFIDENCE = 0.7;
-const SHARED_LEARNING_LIMIT = 8;
-const FALLBACK_TENANT_ID = "birthhub-alpha";
-const sharedLearningMemory = new AgentMemoryService();
+function buildPayloadHash(payload: Record<string, unknown>): string {
+  return createHash("sha256").update(JSON.stringify(payload)).digest("hex");
+}
 
 function canFallbackDatabase(error: unknown): boolean {
   if (!(error instanceof Error)) {
@@ -117,6 +124,38 @@ function extractLogs(metadata: unknown): string[] {
     : [];
 }
 
+function extractPayloadHash(metadata: unknown): string | null {
+  if (!metadata || typeof metadata !== "object") {
+    return null;
+  }
+
+  const candidate = (metadata as { payloadHash?: unknown }).payloadHash;
+  return typeof candidate === "string" ? candidate : null;
+}
+
+function extractExecutionMode(execution: AgentExecutionRecord): "DRY_RUN" | "LIVE" | "UNKNOWN" {
+  if (execution.output && typeof execution.output === "object") {
+    const candidate = (execution.output as { executionMode?: unknown }).executionMode;
+    if (candidate === "DRY_RUN" || candidate === "LIVE") {
+      return candidate;
+    }
+  }
+
+  if (execution.metadata && typeof execution.metadata === "object") {
+    const candidate = (execution.metadata as { dryRun?: unknown }).dryRun;
+    if (candidate === true) {
+      return "DRY_RUN";
+    }
+
+    const runtimeProvider = (execution.metadata as { runtimeProvider?: unknown }).runtimeProvider;
+    if (typeof runtimeProvider === "string") {
+      return "LIVE";
+    }
+  }
+
+  return "UNKNOWN";
+}
+
 function parseAgentConfig(config: unknown): AgentConfigSnapshot {
   if (!config || typeof config !== "object") {
     return {
@@ -124,7 +163,9 @@ function parseAgentConfig(config: unknown): AgentConfigSnapshot {
       installedAt: null,
       installedVersion: "1.0.0",
       latestAvailableVersion: "1.0.0",
+      managedPolicies: [],
       packId: null,
+      runtimeProvider: "manifest-runtime",
       sourceAgentId: null,
       status: "installed"
     };
@@ -136,6 +177,39 @@ function parseAgentConfig(config: unknown): AgentConfigSnapshot {
       ? (candidate.connectors as Record<string, unknown>)
       : {};
   const connectors = decryptConnectorsMap(rawConnectors);
+  const managedPolicies = Array.isArray(candidate.managedPolicies)
+    ? candidate.managedPolicies
+        .filter((value): value is ManagedAgentPolicy => {
+          if (!value || typeof value !== "object") {
+            return false;
+          }
+
+          const policy = value as Record<string, unknown>;
+          return (
+            typeof policy.id === "string" &&
+            typeof policy.name === "string" &&
+            typeof policy.effect === "string" &&
+            Array.isArray(policy.actions)
+          );
+        })
+        .map((policy) => {
+          const effect: ManagedAgentPolicy["effect"] =
+            policy.effect === "deny" ? "deny" : "allow";
+
+          return {
+            actions: policy.actions.filter((value): value is string => typeof value === "string"),
+            effect,
+            id: policy.id,
+            name: policy.name,
+            ...(typeof policy.enabled === "boolean" ? { enabled: policy.enabled } : {}),
+            ...(typeof policy.reason === "string" ? { reason: policy.reason } : {})
+          } satisfies ManagedAgentPolicy;
+        })
+    : [];
+  const runtime =
+    candidate.runtime && typeof candidate.runtime === "object" && candidate.runtime !== null
+      ? (candidate.runtime as Record<string, unknown>)
+      : {};
 
   return {
     connectors,
@@ -148,69 +222,34 @@ function parseAgentConfig(config: unknown): AgentConfigSnapshot {
         : typeof candidate.installedVersion === "string"
           ? candidate.installedVersion
           : "1.0.0",
+    managedPolicies,
     packId: typeof candidate.packId === "string" ? candidate.packId : null,
+    runtimeProvider:
+      runtime.provider === "python-orchestrator" ? "python-orchestrator" : "manifest-runtime",
     sourceAgentId: typeof candidate.sourceAgentId === "string" ? candidate.sourceAgentId : null,
     status: typeof candidate.status === "string" ? candidate.status : "installed"
   };
 }
 
-function toLearningRecord(value: unknown): AgentLearningRecord | null {
-  if (!value || typeof value !== "object") {
-    return null;
+function normalizeConfigObject(config: unknown): Record<string, unknown> {
+  if (!config || typeof config !== "object" || Array.isArray(config)) {
+    return {};
   }
 
-  const candidate = value as Record<string, unknown>;
-
-  if (
-    typeof candidate.id !== "string" ||
-    typeof candidate.tenantId !== "string" ||
-    typeof candidate.sourceAgentId !== "string" ||
-    typeof candidate.lessonType !== "string" ||
-    typeof candidate.summary !== "string" ||
-    !Array.isArray(candidate.evidence) ||
-    typeof candidate.confidence !== "number" ||
-    !Array.isArray(candidate.keywords) ||
-    !Array.isArray(candidate.appliesTo) ||
-    typeof candidate.approved !== "boolean" ||
-    typeof candidate.createdAt !== "string"
-  ) {
-    return null;
-  }
-
-  return {
-    approved: candidate.approved,
-    appliesTo: candidate.appliesTo.filter((item): item is string => typeof item === "string"),
-    confidence: candidate.confidence,
-    createdAt: candidate.createdAt,
-    evidence: candidate.evidence.filter((item): item is string => typeof item === "string"),
-    id: candidate.id,
-    keywords: candidate.keywords.filter((item): item is string => typeof item === "string"),
-    lessonType: candidate.lessonType as AgentLearningRecord["lessonType"],
-    sourceAgentId: candidate.sourceAgentId,
-    summary: candidate.summary,
-    tenantId: candidate.tenantId
-  };
+  return { ...(config as Record<string, unknown>) };
 }
 
-function buildLearningRecord(input: {
-  agentId: string;
-  manifest: AgentManifest;
-  outputPreview: string;
-  tenantId: string;
-}): AgentLearningRecord {
-  return {
-    approved: true,
-    appliesTo: [input.manifest.agent.id],
-    confidence: 0.82,
-    createdAt: new Date().toISOString(),
-    evidence: [input.outputPreview],
-    id: randomUUID(),
-    keywords: input.manifest.keywords.slice(0, SHARED_LEARNING_LIMIT),
-    lessonType: "execution-pattern",
-    sourceAgentId: input.agentId,
-    summary: `${input.manifest.agent.name} executou um dry-run governado com saida estruturada e publicou um aprendizado reutilizavel.`,
-    tenantId: input.tenantId
-  };
+function mergeManagedPolicies(
+  currentPolicies: ManagedAgentPolicy[],
+  nextPolicy: ManagedAgentPolicy
+): ManagedAgentPolicy[] {
+  const merged = new Map<string, ManagedAgentPolicy>();
+
+  for (const policy of [...currentPolicies, nextPolicy]) {
+    merged.set(policy.id, policy);
+  }
+
+  return Array.from(merged.values()).sort((left, right) => left.name.localeCompare(right.name));
 }
 
 function buildSnapshot(input: {
@@ -225,6 +264,7 @@ function buildSnapshot(input: {
       startedAt: execution.startedAt
     }),
     id: execution.id,
+    mode: extractExecutionMode(execution),
     startedAt: execution.startedAt.toISOString(),
     status: mapExecutionStatus(execution.status)
   }));
@@ -243,6 +283,7 @@ function buildSnapshot(input: {
     logs: latestExecution ? extractLogs(latestExecution.metadata).slice(0, 12) : [],
     manifest: input.manifest,
     name: input.agent.name,
+    runtimeProvider: config.runtimeProvider,
     sourceStatus: input.agent.status,
     status: config.status,
     tags: flattenTags(input.manifest),
@@ -251,7 +292,15 @@ function buildSnapshot(input: {
 }
 
 async function resolveOrganization(tenantReference: string) {
-  const tenantId = tenantReference.trim() || FALLBACK_TENANT_ID;
+  const tenantId = tenantReference.trim();
+
+  if (!tenantId) {
+    throw new ProblemDetailsError({
+      detail: "Authenticated tenant context is required for installed-agent operations.",
+      status: 401,
+      title: "Unauthorized"
+    });
+  }
 
   try {
     const organization = await prisma.organization.findFirst({
@@ -330,6 +379,32 @@ async function resolveInstalledAgent(input: {
   };
 }
 
+async function findReusableRunningExecution(input: {
+  agentId: string;
+  payloadHash: string;
+  tenantId: string;
+}): Promise<AgentExecutionRecord | null> {
+  const execution = await prisma.agentExecution.findFirst({
+    orderBy: {
+      startedAt: "desc"
+    },
+    where: {
+      agentId: input.agentId,
+      startedAt: {
+        gte: new Date(Date.now() - 10 * 60 * 1000)
+      },
+      status: "RUNNING",
+      tenantId: input.tenantId
+    }
+  });
+
+  if (!execution) {
+    return null;
+  }
+
+  return extractPayloadHash(execution.metadata) === input.payloadHash ? execution : null;
+}
+
 export class InstalledAgentsService {
   async listInstalledAgents(tenantReference: string): Promise<InstalledAgentSnapshot[]> {
     if (!process.env.DATABASE_URL) {
@@ -405,11 +480,226 @@ export class InstalledAgentsService {
     });
   }
 
+  async listInstalledAgentPolicies(input: {
+    installedAgentId: string;
+    tenantReference: string;
+  }): Promise<{
+    managedPolicies: ManagedAgentPolicy[];
+    manifestPolicies: AgentManifest["policies"];
+    runtimeProvider: "manifest-runtime" | "python-orchestrator";
+  }> {
+    const resolved = await resolveInstalledAgent(input);
+
+    return {
+      managedPolicies: resolved.config.managedPolicies,
+      manifestPolicies: resolved.manifest.policies,
+      runtimeProvider: resolved.config.runtimeProvider
+    };
+  }
+
+  async upsertInstalledAgentPolicy(input: {
+    actions: string[];
+    effect: "allow" | "deny";
+    enabled?: boolean;
+    installedAgentId: string;
+    name: string;
+    policyId?: string;
+    reason?: string;
+    tenantReference: string;
+    userId: string;
+  }): Promise<ManagedAgentPolicy> {
+    const resolved = await resolveInstalledAgent({
+      installedAgentId: input.installedAgentId,
+      tenantReference: input.tenantReference
+    });
+    const nextPolicy: ManagedAgentPolicy = {
+      actions: input.actions,
+      effect: input.effect,
+      enabled: input.enabled ?? true,
+      id: input.policyId ?? `${resolved.agent.id}.policy.${randomUUID()}`,
+      name: input.name,
+      ...(input.reason ? { reason: input.reason } : {})
+    };
+    const config = normalizeConfigObject(resolved.agent.config);
+    const managedPolicies = mergeManagedPolicies(resolved.config.managedPolicies, nextPolicy);
+
+    await prisma.$transaction(async (tx) => {
+      await tx.agent.update({
+        data: {
+          config: toPrismaJsonValue({
+            ...config,
+            managedPolicies
+          })
+        },
+        where: {
+          id: resolved.agent.id
+        }
+      });
+
+      await tx.auditLog.create({
+        data: {
+          action: "AGENT_POLICY_UPSERTED",
+          actorId: input.userId,
+          diff: toPrismaJsonValue({
+            installedAgentId: resolved.agent.id,
+            policy: nextPolicy
+          }),
+          entityId: nextPolicy.id,
+          entityType: "agent_policy",
+          tenantId: resolved.organization.tenantId
+        }
+      });
+    });
+
+    return nextPolicy;
+  }
+
+  async patchInstalledAgentPolicy(input: {
+    actions?: string[];
+    effect?: "allow" | "deny";
+    enabled?: boolean;
+    installedAgentId: string;
+    name?: string;
+    policyId: string;
+    reason?: string;
+    tenantReference: string;
+    userId: string;
+  }): Promise<ManagedAgentPolicy> {
+    const resolved = await resolveInstalledAgent({
+      installedAgentId: input.installedAgentId,
+      tenantReference: input.tenantReference
+    });
+    const currentPolicy = resolved.config.managedPolicies.find((policy) => policy.id === input.policyId);
+
+    if (!currentPolicy) {
+      throw new ProblemDetailsError({
+        detail: `Managed policy ${input.policyId} was not found for installed agent ${resolved.agent.id}.`,
+        status: 404,
+        title: "Policy Not Found"
+      });
+    }
+
+    const nextPolicy: ManagedAgentPolicy = {
+      actions: input.actions ?? currentPolicy.actions,
+      effect: input.effect ?? currentPolicy.effect,
+      enabled: input.enabled ?? currentPolicy.enabled ?? true,
+      id: currentPolicy.id,
+      name: input.name ?? currentPolicy.name,
+      ...(input.reason ?? currentPolicy.reason
+        ? { reason: input.reason ?? currentPolicy.reason }
+        : {})
+    };
+    const managedPolicies = resolved.config.managedPolicies.map((policy) =>
+      policy.id === currentPolicy.id ? nextPolicy : policy
+    );
+    const config = normalizeConfigObject(resolved.agent.config);
+
+    await prisma.$transaction(async (tx) => {
+      await tx.agent.update({
+        data: {
+          config: toPrismaJsonValue({
+            ...config,
+            managedPolicies
+          })
+        },
+        where: {
+          id: resolved.agent.id
+        }
+      });
+
+      await tx.auditLog.create({
+        data: {
+          action: "AGENT_POLICY_UPDATED",
+          actorId: input.userId,
+          diff: toPrismaJsonValue({
+            installedAgentId: resolved.agent.id,
+            policy: nextPolicy
+          }),
+          entityId: nextPolicy.id,
+          entityType: "agent_policy",
+          tenantId: resolved.organization.tenantId
+        }
+      });
+    });
+
+    return nextPolicy;
+  }
+
+  async applyPolicyTemplate(input: {
+    installedAgentId: string;
+    replaceExisting?: boolean;
+    template: "admin" | "readonly" | "standard";
+    tenantReference: string;
+    userId: string;
+  }): Promise<ManagedAgentPolicy[]> {
+    const resolved = await resolveInstalledAgent({
+      installedAgentId: input.installedAgentId,
+      tenantReference: input.tenantReference
+    });
+    const templatedPolicies = createPolicyTemplate(
+      input.template,
+      resolved.organization.tenantId,
+      resolved.agent.id
+    ).map((policy, index) => ({
+      actions: [policy.action],
+      effect: policy.effect,
+      enabled: true,
+      id: policy.id,
+      name: `${input.template} template ${index + 1}`,
+      ...(policy.reason ? { reason: policy.reason } : {})
+    } satisfies ManagedAgentPolicy));
+    const config = normalizeConfigObject(resolved.agent.config);
+    const managedPolicies = input.replaceExisting
+      ? templatedPolicies
+      : Array.from(
+          new Map(
+            [...resolved.config.managedPolicies, ...templatedPolicies].map((policy) => [policy.id, policy])
+          ).values()
+        );
+
+    await prisma.$transaction(async (tx) => {
+      await tx.agent.update({
+        data: {
+          config: toPrismaJsonValue({
+            ...config,
+            managedPolicies
+          })
+        },
+        where: {
+          id: resolved.agent.id
+        }
+      });
+
+      await tx.auditLog.create({
+        data: {
+          action: "AGENT_POLICY_TEMPLATE_APPLIED",
+          actorId: input.userId,
+          diff: toPrismaJsonValue({
+            installedAgentId: resolved.agent.id,
+            managedPolicies,
+            replaceExisting: input.replaceExisting ?? false,
+            template: input.template
+          }),
+          entityId: resolved.agent.id,
+          entityType: "agent_policy_template",
+          tenantId: resolved.organization.tenantId
+        }
+      });
+    });
+
+    return managedPolicies;
+  }
+
   async getExecutionReplay(input: {
     executionId: string;
     installedAgentId: string;
     tenantReference: string;
-  }): Promise<{ executionId: string; logs: string[] }> {
+  }): Promise<{
+    executionId: string;
+    logs: string[];
+    output: Record<string, unknown> | null;
+    status: string;
+  }> {
     const resolved = await resolveInstalledAgent({
       installedAgentId: input.installedAgentId,
       tenantReference: input.tenantReference
@@ -432,7 +722,12 @@ export class InstalledAgentsService {
 
     return {
       executionId: execution.id,
-      logs: extractLogs(execution.metadata)
+      logs: extractLogs(execution.metadata),
+      output:
+        execution.output && typeof execution.output === "object"
+          ? (execution.output as Record<string, unknown>)
+          : null,
+      status: execution.status
     };
   }
 
@@ -440,169 +735,211 @@ export class InstalledAgentsService {
     installedAgentId: string;
     payload: Record<string, unknown>;
     tenantReference: string;
-    userId?: string | null;
+    userId: string;
   }): Promise<{
     catalogAgentId: string;
     executionId: string;
-    learningRecordId: string;
-    logs: string[];
-    output: Record<string, unknown>;
+    mode: "LIVE";
+    reused: boolean;
   }> {
     const resolved = await resolveInstalledAgent({
       installedAgentId: input.installedAgentId,
       tenantReference: input.tenantReference
     });
-    const sharedLearning = await this.querySharedLearning({
-      keywords: resolved.manifest.keywords,
-      tenantId: resolved.organization.tenantId
-    });
-    const startedAt = new Date();
-    const dryRun = await runAgentDryRun(resolved.manifest);
-    const learningRecord = buildLearningRecord({
+    const payloadHash = buildPayloadHash(input.payload);
+    const reusableExecution = await findReusableRunningExecution({
       agentId: resolved.agent.id,
-      manifest: resolved.manifest,
-      outputPreview: dryRun.output.slice(0, 400),
+      payloadHash,
       tenantId: resolved.organization.tenantId
     });
-    const logs = [
-      `Resolved installed agent ${resolved.agent.id} from catalog ${resolved.manifest.agent.id}.`,
-      `Loaded ${sharedLearning.length} approved shared learnings for this execution.`,
-      ...dryRun.logs,
-      `Published governed shared learning record ${learningRecord.id}.`
-    ];
-    const completedAt = new Date();
-    const output = {
-      catalogAgentId: resolved.manifest.agent.id,
-      executionMode: "DRY_RUN",
-      input: input.payload,
-      result: JSON.parse(dryRun.output) as Record<string, unknown>,
-      sharedLearningUsed: sharedLearning.map((record) => ({
-        confidence: record.confidence,
-        id: record.id,
-        sourceAgentId: record.sourceAgentId,
-        summary: record.summary
-      }))
-    };
-    const outputHash = computeOutputHash(JSON.stringify(output));
+
+    if (reusableExecution) {
+      await prisma.auditLog.create({
+        data: {
+          action: "AGENT_LIVE_EXECUTION_REUSED",
+          actorId: input.userId,
+          diff: toPrismaJsonValue({
+            executionId: reusableExecution.id,
+            installedAgentId: resolved.agent.id,
+            payloadHash
+          }),
+          entityId: reusableExecution.id,
+          entityType: "agent_execution",
+          tenantId: resolved.organization.tenantId
+        }
+      });
+
+      return {
+        catalogAgentId: resolved.manifest.agent.id,
+        executionId: reusableExecution.id,
+        mode: "LIVE",
+        reused: true
+      };
+    }
+
     const executionId = randomUUID();
+    const startedAt = new Date();
+    const initialLogs = [
+      `Resolved installed agent ${resolved.agent.id} from catalog ${resolved.manifest.agent.id}.`,
+      `Queued live execution for runtime provider ${resolved.config.runtimeProvider}.`
+    ];
 
     await prisma.$transaction(async (tx) => {
-      await tx.agentExecution.create({
-        data: {
+      await tx.agentExecution.upsert({
+        create: {
           agentId: resolved.agent.id,
-          completedAt,
           id: executionId,
           input: toPrismaJsonValue(input.payload),
           metadata: toPrismaJsonValue({
             catalogAgentId: resolved.manifest.agent.id,
-            learningRecordId: learningRecord.id,
-            logs
+            logs: initialLogs,
+            payloadHash,
+            runtimeProvider: resolved.config.runtimeProvider
           }),
           organizationId: resolved.organization.id,
-          output: toPrismaJsonValue(output),
-          outputHash,
           source: "MANUAL",
           startedAt,
-          status: "SUCCESS",
+          status: "RUNNING",
           tenantId: resolved.organization.tenantId,
-          userId: input.userId ?? null
+          userId: input.userId
+        },
+        update: {
+          agentId: resolved.agent.id,
+          input: toPrismaJsonValue(input.payload),
+          metadata: toPrismaJsonValue({
+            catalogAgentId: resolved.manifest.agent.id,
+            logs: initialLogs,
+            payloadHash,
+            runtimeProvider: resolved.config.runtimeProvider
+          }),
+          organizationId: resolved.organization.id,
+          source: "MANUAL",
+          startedAt,
+          status: "RUNNING",
+          tenantId: resolved.organization.tenantId,
+          userId: input.userId
+        },
+        where: {
+          id: executionId
         }
       });
 
       await tx.auditLog.create({
         data: {
-          action: "AGENT_DRY_RUN_EXECUTED",
-          actorId: input.userId ?? null,
+          action: "AGENT_LIVE_EXECUTION_QUEUED",
+          actorId: input.userId,
           diff: toPrismaJsonValue({
             catalogAgentId: resolved.manifest.agent.id,
             executionId,
             installedAgentId: resolved.agent.id,
-            mode: "DRY_RUN"
+            mode: "LIVE",
+            payloadHash,
+            runtimeProvider: resolved.config.runtimeProvider
           }),
           entityId: executionId,
           entityType: "agent_execution",
           tenantId: resolved.organization.tenantId
         }
       });
-
-      await tx.auditLog.create({
-        data: {
-          action: "AGENT_LEARNING_PUBLISHED",
-          actorId: input.userId ?? null,
-          diff: toPrismaJsonValue(learningRecord),
-          entityId: learningRecord.id,
-          entityType: "agent_learning",
-          tenantId: resolved.organization.tenantId
-        }
-      });
     });
 
-    await sharedLearningMemory.publishSharedLearning(resolved.organization.tenantId, learningRecord);
+    try {
+      const queued = await enqueueInstalledAgentExecution(getApiConfig(), {
+        agentId: resolved.agent.id,
+        catalogAgentId: resolved.manifest.agent.id,
+        executionId,
+        input: input.payload,
+        organizationId: resolved.organization.id,
+        tenantId: resolved.organization.tenantId,
+        userId: input.userId
+      });
+
+      await prisma.agentExecution.update({
+        data: {
+          metadata: toPrismaJsonValue({
+            catalogAgentId: resolved.manifest.agent.id,
+            logs: [
+              ...initialLogs,
+              `Job ${queued.jobId} aceito pela fila com backlog pendente ${queued.pendingJobs}.`
+            ],
+            payloadHash,
+            queueJobId: queued.jobId,
+            queuePendingJobs: queued.pendingJobs,
+            runtimeProvider: resolved.config.runtimeProvider
+          })
+        },
+        where: {
+          id: executionId
+        }
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to enqueue installed-agent execution.";
+
+      await prisma.$transaction(async (tx) => {
+        await tx.agentExecution.update({
+          data: {
+            completedAt: new Date(),
+            errorMessage,
+            metadata: toPrismaJsonValue({
+              catalogAgentId: resolved.manifest.agent.id,
+              logs: [...initialLogs, `Falha ao enfileirar execucao live: ${errorMessage}`],
+              payloadHash,
+              runtimeProvider: resolved.config.runtimeProvider
+            }),
+            status: "FAILED"
+          },
+          where: {
+            id: executionId
+          }
+        });
+
+        await tx.auditLog.create({
+          data: {
+            action: "AGENT_LIVE_EXECUTION_QUEUE_FAILED",
+            actorId: input.userId,
+            diff: toPrismaJsonValue({
+              errorMessage,
+              executionId,
+              installedAgentId: resolved.agent.id,
+              payloadHash
+            }),
+            entityId: executionId,
+            entityType: "agent_execution",
+            tenantId: resolved.organization.tenantId
+          }
+        });
+      });
+
+      if (error instanceof QueueBackpressureError) {
+        throw new ProblemDetailsError({
+          detail: error.message,
+          status: 503,
+          title: "Queue Backpressure"
+        });
+      }
+
+      if (error instanceof TenantQueueRateLimitError) {
+        throw new ProblemDetailsError({
+          detail: error.message,
+          status: 429,
+          title: "Rate Limit Exceeded"
+        });
+      }
+
+      throw new ProblemDetailsError({
+        detail: errorMessage,
+        status: 503,
+        title: "Queue Unavailable"
+      });
+    }
 
     return {
       catalogAgentId: resolved.manifest.agent.id,
       executionId,
-      learningRecordId: learningRecord.id,
-      logs,
-      output
+      mode: "LIVE",
+      reused: false
     };
-  }
-
-  private async querySharedLearning(input: {
-    keywords: string[];
-    tenantId: string;
-  }): Promise<AgentLearningRecord[]> {
-    const memoryRecords = await sharedLearningMemory.querySharedLearning(input.tenantId, {
-      approvedOnly: true,
-      keywords: input.keywords,
-      minimumConfidence: MINIMUM_APPROVED_LEARNING_CONFIDENCE
-    });
-
-    if (!process.env.DATABASE_URL) {
-      return memoryRecords.slice(0, SHARED_LEARNING_LIMIT);
-    }
-
-    let auditRecords: AgentLearningRecord[] = [];
-
-    try {
-      const auditLogs = await prisma.auditLog.findMany({
-        orderBy: {
-          createdAt: "desc"
-        },
-        take: 50,
-        where: {
-          action: "AGENT_LEARNING_PUBLISHED",
-          entityType: "agent_learning",
-          tenantId: input.tenantId
-        }
-      });
-
-      auditRecords = auditLogs
-        .map((log) => toLearningRecord(log.diff))
-        .filter((record): record is AgentLearningRecord => record !== null)
-        .filter(
-          (record) =>
-            record.approved &&
-            record.confidence >= MINIMUM_APPROVED_LEARNING_CONFIDENCE &&
-            record.keywords.some((keyword) =>
-              input.keywords.some((candidate) => candidate.toLowerCase() === keyword.toLowerCase())
-            )
-        );
-    } catch (error) {
-      if (!canFallbackDatabase(error)) {
-        throw error;
-      }
-    }
-
-    const merged = new Map<string, AgentLearningRecord>();
-
-    for (const record of [...memoryRecords, ...auditRecords]) {
-      merged.set(record.id, record);
-    }
-
-    return Array.from(merged.values())
-      .sort((left, right) => right.createdAt.localeCompare(left.createdAt))
-      .slice(0, SHARED_LEARNING_LIMIT);
   }
 }
 
