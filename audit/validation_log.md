@@ -318,3 +318,21 @@
   - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
   - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `33/33`.
   - Registro F5 gerado em `audit/pending_review/ciclo1_pricingoptimizer_codex.md`.
+
+## 2026-03-19T15:43:56Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Nao ha novo item tecnico em `audit/pending_review` com tag ativa alem do historico `ciclo1_boardprep-ai_jules_fix.md`.
+  - A validacao desse item historico ja consta como `APROVADO` neste log.
+
+- Item: `CICLO1-EXPANSIONMAPPER — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico presente: `packages/agents/executivos/expansionmapper`.
+  - Caminho legado ausente: `packages/agents/executives/ExpansionMapper`.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `37/37`.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_expansionmapper_codex.md`.

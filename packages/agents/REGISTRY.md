@@ -11,3 +11,4 @@
 | PipelineOracle | executivos | 1 | packages/agents/executivos/pipelineoracle | ready_for_jules_validation |
 | ChurnDeflector | executivos | 1 | packages/agents/executivos/churndeflector | ready_for_jules_validation |
 | PricingOptimizer | executivos | 1 | packages/agents/executivos/pricingoptimizer | ready_for_jules_validation |
+| ExpansionMapper | executivos | 1 | packages/agents/executivos/expansionmapper | ready_for_jules_validation |
