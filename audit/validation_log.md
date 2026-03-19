@@ -133,3 +133,21 @@
   - `typecheck` do pacote `@birthub/agents` passou.
   - Suite `@birthub/agents` passou com `16/16` testes.
   - Registro F5 gerado em `audit/pending_review/ciclo1_crisisnavigator_codex.md`.
+
+## 2026-03-19T15:05:39Z
+
+- Item: `CICLO1-BOARDPREP-AI — REVALIDACAO TECNICA (OPCAO B)`
+  Validador: `CODEX`
+  Resultado: `REPROVADO`
+  Evidencia:
+  - Criterio 1 OK: `packages/agents/executivos/boardprep-ai` existe.
+  - Criterio 2 FALHOU: `packages/agents/executives/BoardPrepAI` ainda existe.
+  - Criterios 3, 4 e 5 FALHARAM: no caminho canonico nao existem `contract.yaml`, `system_prompt.md` e `acceptance.md`.
+  - Criterio 6 FALHOU: nao foi possivel validar a tag `# [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI` no caminho canonico porque os arquivos exigidos nao existem.
+  - Criterio 7 FALHOU: `runtime_enforcement: false` e `runtime_cycle: 16` nao estao presentes em `packages/agents/executivos/boardprep-ai/contract.yaml` (arquivo inexistente).
+  - Criterio 8 OK: `corepack pnpm --filter @birthub/agents run typecheck` passou; `corepack pnpm --filter @birthub/agents run test` passou.
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Varredura em `audit/pending_review` nao encontrou nova sinalizacao explicita com tag para validacao Codex alem do item BoardPrep AI revalidado acima.
