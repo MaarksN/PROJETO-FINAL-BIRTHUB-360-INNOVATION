@@ -1,4 +1,5 @@
 "use client";
+// [SOURCE] apps/dashboard/README.md — LDR item / AE item
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -49,6 +50,7 @@ const MODULE_LABELS: Record<ModuleType, string> = {
     ldr: 'LDR Elite',
     bdr: 'BDR Intel',
     sdr: 'SDR Hunter',
+    ae: 'AE Proposal',
     closer: 'Closer Elite',
 };
 

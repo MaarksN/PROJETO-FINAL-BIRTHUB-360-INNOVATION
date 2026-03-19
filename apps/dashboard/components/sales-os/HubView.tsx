@@ -1,6 +1,7 @@
 "use client";
+// [SOURCE] apps/dashboard/README.md — LDR item / AE item
 import React from 'react';
-import { ScanSearch, Flame, Crown, Target, ChevronRight } from 'lucide-react';
+import { ScanSearch, Flame, Crown, Target, FileText } from 'lucide-react';
 import { ModuleType } from '../../lib/sales-os/types';
 
 interface HubViewProps {
@@ -17,7 +18,7 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectModule }) => {
                 <p className="text-slate-500 font-bold uppercase tracking-[0.3em] text-[10px]">Select Operational Module</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full max-w-6xl px-4">
                 {/* LDR */}
                 <div onClick={() => onSelectModule('ldr')} className="group relative p-6 rounded-[2rem] glass cursor-pointer overflow-hidden hover:border-emerald-500/50 transition-all hover:-translate-y-2 duration-300 active:scale-95 shadow-lg hover:shadow-emerald-500/20">
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -66,6 +67,23 @@ export const HubView: React.FC<HubViewProps> = ({ onSelectModule }) => {
                     </div>
                     <div className="w-full h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
                         <div className="h-full bg-rose-500 w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
+                    </div>
+                </div>
+
+                {/* AE */}
+                <div onClick={() => onSelectModule('ae')} className="group relative p-6 rounded-[2rem] glass cursor-pointer overflow-hidden hover:border-violet-500/50 transition-all hover:-translate-y-2 duration-300 active:scale-95 shadow-lg hover:shadow-violet-500/20">
+                    <div className="absolute inset-0 bg-gradient-to-br from-violet-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-xl bg-violet-500/10 text-violet-500 flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+                            <FileText className="w-6 h-6" />
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="text-lg font-black uppercase tracking-tighter leading-none mb-1 dark:text-white text-slate-800">AE <span className="text-violet-500 text-[10px] ml-1">Proposal</span></h3>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">ROI</p>
+                        </div>
+                    </div>
+                    <div className="w-full h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-violet-500 w-0 group-hover:w-full transition-all duration-500 ease-out"></div>
                     </div>
                 </div>
 
