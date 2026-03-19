@@ -305,14 +305,16 @@ export class PackInstallerService {
       .map((agent) => agent.id);
 
     await prisma.$transaction(async (tx) => {
-      for (const id of idsToUpdate) {
-        const current = await tx.agent.findUnique({ where: { id } });
-
-        if (!current) {
-          continue;
+      const agentsToUpdate = await tx.agent.findMany({
+        where: {
+          id: {
+            in: idsToUpdate
+          }
         }
+      });
 
-        const currentConfig = current.config && typeof current.config === "object" ? current.config : {};
+      for (const agent of agentsToUpdate) {
+        const currentConfig = agent.config && typeof agent.config === "object" ? agent.config : {};
 
         await tx.agent.update({
           data: {
@@ -321,7 +323,9 @@ export class PackInstallerService {
               latestAvailableVersion: input.latestAvailableVersion
             }) as Prisma.InputJsonObject
           },
-          where: { id }
+          where: {
+            id: agent.id
+          }
         });
       }
     });
