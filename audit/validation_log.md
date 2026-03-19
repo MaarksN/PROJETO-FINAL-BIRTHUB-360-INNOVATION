@@ -151,6 +151,26 @@
   - Suite `@birthub/agents` passou com `20/20` testes.
   - Registro F5 gerado em `audit/pending_review/ciclo1_capitalallocator_codex.md`.
 
+## 2026-03-19T15:16:26Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `ITEM_VALIDADO`
+  Evidencia:
+  - Item identificado em `audit/pending_review/ciclo1_boardprep-ai_jules_fix.md`.
+  - Item de checklist em `audit/pending_review/ciclo1_boardprep-ai_codex_reprovacao_f2f3.md` nao representa nova fila tecnica.
+
+- Item: `CICLO1-BOARDPREP-AI — CORRECAO JULES`
+  Validador: `CODEX`
+  Resultado: `APROVADO`
+  Evidencia:
+  - Caminho canonico confirmado: `packages/agents/executivos/boardprep-ai`.
+  - Duplicidade removida: `packages/agents/executives/BoardPrepAI` ausente.
+  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes no caminho canonico com tag `[SOURCE]`.
+  - Contrato contem `runtime_enforcement: false` e `runtime_cycle: 16`.
+  - Probe de runtime padrao confirmou `CONTRACT_SOURCE=file`.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck` passou.
+  - `node scripts/ci/run-pnpm.mjs --filter @birthub/agents test` passou com `21/21`.
+
 ## 2026-03-19T15:05:39Z
 
 - Item: `CICLO1-BOARDPREP-AI — REVALIDACAO TECNICA (OPCAO B)`
@@ -184,3 +204,11 @@
   - `corepack pnpm --filter @birthub/agents test` passou.
   - Probe runtime default retornou `CONTRACT_SOURCE=file`.
   - Registro de entrega detalhado em `audit/pending_review/ciclo1_boardprep-ai_jules_fix.md`.
+
+## 2026-03-19T15:17:12Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - `CICLO1-BOARDPREP-AI — CORRECAO JULES` ja consta como `APROVADO` nesta fila.
+  - Varredura em `audit/pending_review` nao encontrou novo item com tag ativa alem do historico de checklist.
