@@ -17,3 +17,4 @@
 | TrendCatcher | executivos | 1 | packages/agents/executivos/trendcatcher | ready_for_jules_validation |
 | BudgetFluid | executivos | 1 | packages/agents/executivos/budgetfluid | ready_for_jules_validation |
 | NarrativeWeaver | executivos | 1 | packages/agents/executivos/narrativeweaver | ready_for_jules_validation |
+| CompetitorX-Ray | executivos | 1 | packages/agents/executivos/competitorxray | ready_for_jules_validation |
