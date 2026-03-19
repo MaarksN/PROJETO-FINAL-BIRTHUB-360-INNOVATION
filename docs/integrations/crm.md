@@ -36,3 +36,9 @@ Crie manualmente no HubSpot Admin a propriedade de company:
 
 ## Validacao local
 Sem `HUBSPOT_ACCESS_TOKEN`, o adapter entra em modo mock e registra o corpo enviado no banco para revisao segura.
+
+## Migracao de autenticacao em integracoes externas
+- `INTEGRATIONS_ALLOW_QUERY_TOKEN_FALLBACK` controla fallback temporario para provedores legados que ainda aceitam token via query string.
+- Valor recomendado nesta release: `true` (cutover gradual com observabilidade de fallback).
+- Valor alvo da proxima release: `false` (header-only).
+- Quando o fallback e acionado por `401/403`, o runtime registra evento estruturado `integrations.query_auth_fallback` para auditoria.

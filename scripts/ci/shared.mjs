@@ -104,12 +104,14 @@ function resolvePortablePythonEntries() {
 }
 
 export function buildEnv(overrides = {}) {
+  const basePath = overrides.PATH ?? process.env.PATH;
+  const workspaceBinaryPath = path.join(projectRoot, "node_modules", ".bin");
   const pathEntries = uniquePathEntries([
     portableNodeHome,
+    ...resolveExistingDirectories([workspaceBinaryPath]),
     ...resolveCommonWindowsToolEntries(),
     ...resolvePortablePythonEntries(),
-    overrides.PATH,
-    process.env.PATH,
+    basePath
   ]);
 
   return {
@@ -161,17 +163,17 @@ export function resolvePnpmInvocation() {
     };
   }
 
-  if (npmExecPath && npmExecPath.toLowerCase().includes("pnpm")) {
+  if (existsSync(bundledCorepackPnpmCli)) {
     return {
-      argsPrefix: [npmExecPath],
+      argsPrefix: [bundledCorepackPnpmCli],
       command: process.execPath,
       env
     };
   }
 
-  if (existsSync(bundledCorepackPnpmCli)) {
+  if (npmExecPath && npmExecPath.toLowerCase().includes("pnpm")) {
     return {
-      argsPrefix: [bundledCorepackPnpmCli],
+      argsPrefix: [npmExecPath],
       command: process.execPath,
       env
     };

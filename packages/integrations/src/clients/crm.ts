@@ -22,7 +22,13 @@ export class PipedriveClient {
   ) {}
 
   createPerson(payload: Record<string, unknown>) {
-    return postJson(`${this.baseUrl}/persons?api_token=${this.token}`, payload, {
+    return postJson(`${this.baseUrl}/persons`, payload, {
+      apiKey: this.token,
+      queryAuthFallback: {
+        parameterName: "api_token",
+        provider: "pipedrive",
+        token: this.token
+      },
       timeoutMs: 10_000,
       retries: 2,
     });

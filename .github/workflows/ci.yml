@@ -215,7 +215,7 @@ jobs:
       - name: Python lint and typecheck
         run: |
           ruff check agents apps/webhook-receiver
-          mypy agents/shared apps/webhook-receiver/src || true
+          mypy agents/shared apps/webhook-receiver
 
       - name: Workflow suite
         run: pnpm ci:task workflow-suite
@@ -256,6 +256,7 @@ jobs:
       - platform
       - pack-tests
       - workflow-suite
+      - governance-gates
     steps:
       - name: Done
         run: echo "All required checks passed."

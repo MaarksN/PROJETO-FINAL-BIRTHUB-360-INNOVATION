@@ -83,7 +83,11 @@ const workspaceContract = readWorkspaceContract();
 
 const legacyImportRule = workspaceContract.importRules.find((rule) => rule.packageName === '@birthub/db');
 const legacyImports=files.filter((f)=>/^(apps|packages)\//.test(f) && /\.(ts|tsx|js|mjs|cjs)$/.test(f)).flatMap((f)=>{
-  const c=fs.readFileSync(path.join(projectRoot, f),'utf8');
+  const absoluteFile = path.join(projectRoot, f);
+  if(!fs.existsSync(absoluteFile)){
+    return [];
+  }
+  const c=fs.readFileSync(absoluteFile,'utf8');
   return c.includes('@birthub/db')?[f]:[];
 });
 const legacyImportViolations = legacyImports.filter(

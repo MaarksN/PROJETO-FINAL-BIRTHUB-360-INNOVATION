@@ -126,7 +126,7 @@ const runtimeActionPlanSchema = z
 const runtimeToolResultSchema = z
   .object({
     finishedAt: z.string().min(1),
-    output: z.unknown().nullable(),
+    output: z.custom<JsonValue | null>((val) => true).nullable(),
     startedAt: z.string().min(1),
     tool: z.string().min(1)
   })

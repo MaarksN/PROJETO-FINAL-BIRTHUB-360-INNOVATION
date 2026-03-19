@@ -26,39 +26,21 @@ import {
   normalizeToolId
 } from "./tools.js";
 
-const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
-  process.cwd(),
-  "audit",
-  "pending_review",
-  "ciclo1_boardprep-ai",
-  "contract.yaml"
-);
-const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
-  process.cwd(),
-  "..",
-  "..",
-  "audit",
-  "pending_review",
-  "ciclo1_boardprep-ai",
-  "contract.yaml"
-);
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "packages",
   "agents",
-  "executives",
-  "BoardPrepAI",
+  "executivos",
+  "boardprep-ai",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   process.cwd(),
-  "executives",
-  "BoardPrepAI",
+  "executivos",
+  "boardprep-ai",
   "contract.yaml"
 );
 const DEFAULT_CONTRACT_PATHS = [
-  DEFAULT_AUDIT_CONTRACT_PATH,
-  DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE,
   DEFAULT_PACKAGE_CONTRACT_PATH,
   DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE
 ] as const;
@@ -72,7 +54,7 @@ interface BoardPrepAIAgentOptions {
 
 interface LoadedContract {
   contract: BoardPrepContract;
-  source: "audit_file" | "custom_file" | "default" | "package_file";
+  source: "default" | "file";
 }
 
 function sleep(delayMs: number): Promise<void> {
@@ -181,27 +163,6 @@ function clampMaxAttempts(value: number): number {
     return DEFAULT_BOARDPREP_CONTRACT.retry.maxAttempts;
   }
   return Math.min(3, Math.max(1, Math.trunc(value)));
-}
-
-function classifyContractSource(contractPath: string): LoadedContract["source"] {
-  const normalized = path.normalize(contractPath).toLowerCase();
-  if (
-    normalized.endsWith(
-      path
-        .join("audit", "pending_review", "ciclo1_boardprep-ai", "contract.yaml")
-        .toLowerCase()
-    )
-  ) {
-    return "audit_file";
-  }
-  if (
-    normalized.endsWith(
-      path.join("executives", "BoardPrepAI", "contract.yaml").toLowerCase()
-    )
-  ) {
-    return "package_file";
-  }
-  return "custom_file";
 }
 
 function parseContractOverridesFromObject(
@@ -893,7 +854,7 @@ export class BoardPrepAIAgent {
         );
         return {
           contract: merged,
-          source: classifyContractSource(contractPath)
+          source: "file"
         };
       } catch {
         continue;
