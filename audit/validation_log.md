@@ -145,7 +145,8 @@
   - Criterios 3, 4 e 5 FALHARAM: no caminho canonico nao existem `contract.yaml`, `system_prompt.md` e `acceptance.md`.
   - Criterio 6 FALHOU: nao foi possivel validar a tag `# [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI` no caminho canonico porque os arquivos exigidos nao existem.
   - Criterio 7 FALHOU: `runtime_enforcement: false` e `runtime_cycle: 16` nao estao presentes em `packages/agents/executivos/boardprep-ai/contract.yaml` (arquivo inexistente).
-  - Criterio 8 OK: `corepack pnpm --filter @birthub/agents run typecheck` passou; `corepack pnpm --filter @birthub/agents run test` passou.
+  - Criterio 8 (escopo disponivel) OK: `corepack pnpm --filter @birthub/agents run typecheck` passou; `corepack pnpm --filter @birthub/agents run test` passou.
+  - Observacao objetiva: `corepack pnpm --filter @birthub/agents run build` retorna `None of the selected packages has a "build" script`.
 
 - Item: `[AGUARDA VALIDACAO CODEX]`
   Resultado: `NO_PENDING_ITEMS`
