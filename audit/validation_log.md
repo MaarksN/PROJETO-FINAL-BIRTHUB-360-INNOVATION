@@ -134,6 +134,23 @@
   - Suite `@birthub/agents` passou com `16/16` testes.
   - Registro F5 gerado em `audit/pending_review/ciclo1_crisisnavigator_codex.md`.
 
+## 2026-03-19T15:11:44Z
+
+- Item: `[AGUARDA VALIDACAO CODEX]`
+  Resultado: `NO_PENDING_ITEMS`
+  Evidencia:
+  - Varredura local em `audit/` sem pendencias novas.
+  - Unica ocorrencia da tag fora do log esta em texto de checklist (`audit/pending_review/ciclo1_boardprep-ai_codex_reprovacao_f2f3.md`) e nao representa fila pendente nova.
+
+- Item: `CICLO1-CAPITALALLOCATOR — ENTREGA CODEX`
+  Validador: `CODEX`
+  Resultado: `ENTREGUE — AGUARDA VALIDACAO JULES`
+  Evidencia:
+  - Implementacao F3/F4/F5 concluida em `packages/agents/executivos/capitalallocator`.
+  - `typecheck` do pacote `@birthub/agents` passou.
+  - Suite `@birthub/agents` passou com `20/20` testes.
+  - Registro F5 gerado em `audit/pending_review/ciclo1_capitalallocator_codex.md`.
+
 ## 2026-03-19T15:05:39Z
 
 - Item: `CICLO1-BOARDPREP-AI — REVALIDACAO TECNICA (OPCAO B)`
@@ -152,3 +169,18 @@
   Resultado: `NO_PENDING_ITEMS`
   Evidencia:
   - Varredura em `audit/pending_review` nao encontrou nova sinalizacao explicita com tag para validacao Codex alem do item BoardPrep AI revalidado acima.
+
+## 2026-03-19T15:12:52Z
+
+- Item: `CICLO1-BOARDPREP-AI — CORRECAO JULES`
+  Executor: `JULES`
+  Resultado: `ENTREGUE — AGUARDA VALIDACAO CODEX`
+  Evidencia:
+  - Consolidacao do caminho canônico em `packages/agents/executivos/boardprep-ai`.
+  - `contract.yaml` e `system_prompt.md` adicionados no caminho canônico com marcação `[SOURCE]`.
+  - Contrato canônico inclui `runtime_enforcement: false` e `runtime_cycle: 16`.
+  - Teste adicionado para validar carregamento default do contrato com `source=file`.
+  - `corepack pnpm --filter @birthub/agents typecheck` passou.
+  - `corepack pnpm --filter @birthub/agents test` passou.
+  - Probe runtime default retornou `CONTRACT_SOURCE=file`.
+  - Registro de entrega detalhado em `audit/pending_review/ciclo1_boardprep-ai_jules_fix.md`.

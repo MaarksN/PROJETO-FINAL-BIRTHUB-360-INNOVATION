@@ -54,6 +54,19 @@ void test("BoardPrep AI returns a successful executive brief on happy path", asy
   );
 });
 
+void test("BoardPrep AI loads canonical package contract by default", async () => {
+  const agent = new BoardPrepAIAgent({
+    sleep: async () => undefined
+  });
+
+  const result = await agent.run(VALID_INPUT);
+  const contractLoadedEvent = result.observability.events.find(
+    (event: BoardPrepEvent) => event.name === "boardprep.contract.loaded"
+  );
+
+  assert.equal(contractLoadedEvent?.details.source, "file");
+});
+
 void test("BoardPrep AI returns hard-fail output when contract mode is hard_fail", async () => {
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "boardprep-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");

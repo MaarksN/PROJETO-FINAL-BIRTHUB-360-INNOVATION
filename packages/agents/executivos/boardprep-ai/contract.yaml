@@ -2,6 +2,8 @@
 name: BoardPrep AI
 domain: executivos
 cycle: 1
+runtime_enforcement: false
+runtime_cycle: 16
 description: Agrega dados corporativos e gera materiais preparatórios consolidados para reuniões de conselho.
 toolIds:
   - board-report-generator

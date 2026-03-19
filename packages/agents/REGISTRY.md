@@ -7,3 +7,4 @@
 | MarketSentinel | executivos | 1 | packages/agents/executivos/marketsentinel | ready_for_jules_validation |
 | CulturePulse | executivos | 1 | packages/agents/executivos/culturepulse | ready_for_jules_validation |
 | CrisisNavigator | executivos | 1 | packages/agents/executivos/crisisnavigator | ready_for_jules_validation |
+| CapitalAllocator | executivos | 1 | packages/agents/executivos/capitalallocator | ready_for_jules_validation |
