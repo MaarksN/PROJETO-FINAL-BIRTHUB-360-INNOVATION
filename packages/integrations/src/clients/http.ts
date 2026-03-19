@@ -33,6 +33,14 @@ function appendQueryAuthToken(input: {
   return url.toString();
 }
 
+function redactQueryParameter(urlValue: string, parameterName: string): string {
+  const url = new URL(urlValue);
+  if (url.searchParams.has(parameterName)) {
+    url.searchParams.set(parameterName, "REDACTED");
+  }
+  return url.toString();
+}
+
 function asBoolean(value: string | undefined, defaultValue: boolean): boolean {
   if (value === undefined) {
     return defaultValue;
@@ -61,6 +69,7 @@ function resolveQueryFallbackEnabled(options: QueryAuthFallbackOptions | undefin
 }
 
 function logQueryAuthFallback(input: {
+  fallbackParameterName: string;
   fromUrl: string;
   provider?: string;
   status: number;
@@ -71,10 +80,11 @@ function logQueryAuthFallback(input: {
     JSON.stringify({
       event: "integrations.query_auth_fallback",
       fromUrl: input.fromUrl,
+      fallbackParameterName: input.fallbackParameterName,
       provider: input.provider ?? "unknown",
       status: input.status,
       timestamp: new Date().toISOString(),
-      toUrl: input.toUrl
+      toUrl: redactQueryParameter(input.toUrl, input.fallbackParameterName),
     }),
   );
 }
@@ -129,8 +139,9 @@ async function requestJson<T>(input: {
             url: input.url
           });
           logQueryAuthFallback({
+            fallbackParameterName: queryAuthFallback.parameterName,
             fromUrl: requestUrl,
-            provider: queryAuthFallback.provider,
+            ...(queryAuthFallback.provider ? { provider: queryAuthFallback.provider } : {}),
             status: response.status,
             toUrl: fallbackUrl
           });

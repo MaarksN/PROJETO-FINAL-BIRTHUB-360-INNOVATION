@@ -1,6 +1,6 @@
 # Monorepo Doctor Report
 
-Generated at: 2026-03-19T14:25:09.555Z
+Generated at: 2026-03-19T15:32:17.552Z
 Scope: canonical go-live gate = apps/web + apps/api + apps/worker + packages/database
 
 ## Critical findings
@@ -8,4 +8,3 @@ Scope: canonical go-live gate = apps/web + apps/api + apps/worker + packages/dat
 
 ## Warnings
 - Legacy quarantine still active for @birthub/db in: apps/dashboard/src/components/kanban-board.tsx, apps/dashboard/src/lib/data.ts
-- Potential duplicate directories in agents (posvenda): pos-venda, pos_venda
