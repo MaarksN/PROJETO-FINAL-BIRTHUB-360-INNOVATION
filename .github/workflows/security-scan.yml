@@ -98,17 +98,19 @@ jobs:
   zap-baseline:
     name: OWASP ZAP baseline
     runs-on: ubuntu-latest
+    if: ${{ vars.ZAP_TARGET_URL != '' }}
     steps:
       - name: ZAP baseline scan
         uses: zaproxy/action-baseline@v0.12.0
         with:
           allow_issue_writing: false
           cmd_options: -a
-          target: ${{ vars.ZAP_TARGET_URL || 'http://localhost:3000/api/v1/health' }}
+          target: ${{ vars.ZAP_TARGET_URL }}
 
   security-report:
     name: security coverage report
     runs-on: ubuntu-latest
+    if: always()
     needs:
       - semgrep
       - dependency-audit
@@ -133,10 +135,10 @@ jobs:
       - name: Generate security report
         run: pnpm security:report
         env:
-          NPM_AUDIT_STATUS: passed
-          RBAC_STATUS: passed
-          SEMGREP_STATUS: passed
-          ZAP_STATUS: passed
+          NPM_AUDIT_STATUS: ${{ needs.dependency-audit.result }}
+          RBAC_STATUS: ${{ needs.rbac-suite.result }}
+          SEMGREP_STATUS: ${{ needs.semgrep.result }}
+          ZAP_STATUS: ${{ needs.zap-baseline.result }}
       - name: Upload security report
         uses: actions/upload-artifact@v4
         with:

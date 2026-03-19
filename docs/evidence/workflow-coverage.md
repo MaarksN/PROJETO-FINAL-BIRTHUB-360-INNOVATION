@@ -1,6 +1,6 @@
 # Workflow Coverage Report
 
-- Generated at: 2026-03-19T15:46:18.054Z
+- Generated at: 2026-03-19T16:15:29.063Z
 - Required step types: 11
 - Critical scenarios:
   - 6.8.C3 PASS - HTTP and email side-effects are mocked inside the automated workflow suite (apps/worker/src/engine/runner.workflow-chain.test.ts)
@@ -9,14 +9,14 @@
 
 ## Step type coverage
 
-- TRIGGER_WEBHOOK: packages\workflows-core\test\step-types.test.ts, apps\worker\src\engine\runner.db-integration.test.ts
-- TRIGGER_CRON: packages\workflows-core\test\step-types.test.ts
-- TRIGGER_EVENT: packages\workflows-core\test\step-types.test.ts
-- HTTP_REQUEST: apps\worker\src\engine\runner.http.msw.test.ts, apps\worker\src\engine\runner.workflow-chain.test.ts
-- CONDITION: packages\workflows-core\test\step-types.test.ts
-- CODE: packages\workflows-core\test\step-types.test.ts
-- TRANSFORMER: packages\workflows-core\test\step-types.test.ts
-- SEND_NOTIFICATION: packages\workflows-core\test\step-types.test.ts, apps\worker\src\engine\runner.http.msw.test.ts, apps\worker\src\engine\runner.workflow-chain.test.ts
-- AGENT_EXECUTE: packages\workflows-core\test\step-types.test.ts, apps\worker\src\engine\runner.agent.smoke.test.ts, apps\worker\src\engine\runner.db-integration.test.ts, apps\worker\src\engine\runner.workflow-chain.test.ts
-- AI_TEXT_EXTRACT: packages\workflows-core\test\step-types.test.ts
-- DELAY: packages\workflows-core\test\step-types.test.ts
+- TRIGGER_WEBHOOK: packages/workflows-core/test/step-types.test.ts, apps/worker/src/engine/runner.db-integration.test.ts
+- TRIGGER_CRON: packages/workflows-core/test/step-types.test.ts
+- TRIGGER_EVENT: packages/workflows-core/test/step-types.test.ts
+- HTTP_REQUEST: apps/worker/src/engine/runner.http.msw.test.ts, apps/worker/src/engine/runner.workflow-chain.test.ts
+- CONDITION: packages/workflows-core/test/step-types.test.ts
+- CODE: packages/workflows-core/test/step-types.test.ts
+- TRANSFORMER: packages/workflows-core/test/step-types.test.ts
+- SEND_NOTIFICATION: packages/workflows-core/test/step-types.test.ts, apps/worker/src/engine/runner.http.msw.test.ts, apps/worker/src/engine/runner.workflow-chain.test.ts
+- AGENT_EXECUTE: packages/workflows-core/test/step-types.test.ts, apps/worker/src/engine/runner.agent.smoke.test.ts, apps/worker/src/engine/runner.db-integration.test.ts, apps/worker/src/engine/runner.workflow-chain.test.ts
+- AI_TEXT_EXTRACT: packages/workflows-core/test/step-types.test.ts
+- DELAY: packages/workflows-core/test/step-types.test.ts
