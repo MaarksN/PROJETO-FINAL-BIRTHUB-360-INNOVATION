@@ -8,3 +8,4 @@
 | CulturePulse | executivos | 1 | packages/agents/executivos/culturepulse | ready_for_jules_validation |
 | CrisisNavigator | executivos | 1 | packages/agents/executivos/crisisnavigator | ready_for_jules_validation |
 | CapitalAllocator | executivos | 1 | packages/agents/executivos/capitalallocator | ready_for_jules_validation |
+| PipelineOracle | executivos | 1 | packages/agents/executivos/pipelineoracle | ready_for_jules_validation |
