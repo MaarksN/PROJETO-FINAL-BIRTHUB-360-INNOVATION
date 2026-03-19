@@ -5,7 +5,7 @@
   "type": "module",
   "sourceTraceability": "BirthHub360_Agentes_Parallel_Plan - BoardPrep AI",
   "scripts": {
-    "test": "node --import tsx --test executivos/boardprep-ai/tests/*.ts",
+    "test": "node --import tsx --test executivos/**/tests/*.ts",
     "typecheck": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
@@ -17,4 +17,3 @@
     "typescript": "^5.9.3"
   }
 }
-

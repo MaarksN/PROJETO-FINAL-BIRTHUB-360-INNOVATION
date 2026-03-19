@@ -4,3 +4,4 @@
 | name | domain | cycle | path | status |
 | --- | --- | --- | --- | --- |
 | BoardPrep AI | executivos | 1 | packages/agents/executivos/boardprep-ai | ready_for_jules_validation |
+| MarketSentinel | executivos | 1 | packages/agents/executivos/marketsentinel | ready_for_jules_validation |

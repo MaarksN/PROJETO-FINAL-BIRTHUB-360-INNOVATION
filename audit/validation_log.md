@@ -13,7 +13,6 @@
 - **SUSPENSO**: Validação do Codex pendente.
 - **Motivo**: Bloqueio de CI devido a problema externo de billing do GitHub Actions.
 
-<<<<<<< HEAD
 - Item: `GAP-004`
   Resultado: `ENTREGA CODEX — AGUARDA VALIDAÇÃO JULES`
   Evidência:
@@ -63,6 +62,17 @@
   Resultado: `NO_PENDING_ITEMS`
   Evidencia:
   - Execucao inicial do Ciclo 1 sem pendencias do Jules em `audit/pending_review`.
-=======
-Aguardando resolução de billing para o Codex executar código, schema e testes do agente. Nenhuma alteração técnica de escopo diverso será misturada a este branch.
->>>>>>> 9a3726789e1d8cf1755318a6cccb2375216c31c0
+
+## 2026-03-19T13:52:46Z
+
+- Item: `CICLO1-BOARDPREP-AI — ENTREGA JULES`
+  Validador: `CODEX`
+  Resultado: `REPROVADO`
+  Evidência:
+  - `corepack pnpm --filter @birthub/agents typecheck` passou.
+  - `corepack pnpm --filter @birthub/agents test` passou.
+  - Probe de runtime padrão registrou `boardprep.contract.loaded.details.source=default`, logo o `contract.yaml` entregue no pacote não é consumido por default.
+  - Estrutura duplicada ativa: `packages/agents/executivos/boardprep-ai` e `packages/agents/executives/BoardPrepAI`.
+  - `packages/agents/executives/BoardPrepAI/contract.yaml` e `.../system_prompt.md` sem marcação `[SOURCE]`.
+  Ação requerida do executor (Jules):
+  - Ver `audit/pending_review/ciclo1_boardprep-ai_codex_reprovacao.md` para checklist técnico de correção e critérios de revalidação.
