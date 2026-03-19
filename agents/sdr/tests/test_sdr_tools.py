@@ -6,6 +6,7 @@ from agents.sdr.tools import (
     generate_call_record,
     generate_icebreaker,
     run_prospecting_call,
+    generate_email_sequence,
 )
 
 
@@ -44,3 +45,21 @@ async def test_call_qualification_and_record():
     assert qualification["score"] >= 75
     assert "SDR:" in record["transcript"]
     assert record["lead"]["id"] == "l-1"
+
+
+@pytest.mark.asyncio
+async def test_generate_email_sequence():
+    lead = {"id": "lead-1", "name": "Eve", "company": "Acme Corp"}
+    cadence_config = {"tone": "friendly", "value_prop_focus": "efficiency"}
+    result = await generate_email_sequence(lead, cadence_config)
+
+    assert result["ok"] is True
+    assert isinstance(result["data"], list)
+    assert len(result["data"]) == 3
+
+    first_step = result["data"][0]
+    assert first_step["step"] == 1
+    assert first_step["day"] == 2
+    assert "friendly" in first_step["subject"]
+    assert "efficiency" in first_step["body"]
+    assert first_step["channel"] == "email"
