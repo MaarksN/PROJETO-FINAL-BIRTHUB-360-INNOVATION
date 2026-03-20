@@ -1,11 +1,6 @@
-from __future__ import annotations
+from typing import Any, Dict
 
-# [SOURCE] checklist agent prompt templates — GAP-003
-from typing import Literal, TypeAlias
-
-from pydantic import BaseModel, ConfigDict, Field
-
-JsonObject: TypeAlias = dict[str, object]
+from pydantic import BaseModel, Field
 
 class EnrichLeadInput(BaseModel):
     email: str = Field(..., description="Email address of the lead to enrich")
@@ -30,27 +25,8 @@ class ScheduleMeetingInput(BaseModel):
 
 class SDRInput(BaseModel):
     lead_id: str | None = None
-    context: JsonObject = Field(default_factory=dict)
-
-    model_config = ConfigDict(extra="forbid")
-
-
-class SDROutputData(BaseModel):
-    call: JsonObject | None = None
-    outreach_plan: JsonObject | None = None
-    classification: JsonObject | None = None
-    meeting_slots: JsonObject | None = None
-    crm_sync: JsonObject | None = None
-
-    model_config = ConfigDict(extra="forbid")
+    context: Dict[str, Any] = Field(default_factory=dict)
 
 
 class SDROutput(BaseModel):
-    agent_id: str
-    task: str
-    status: Literal["error", "pending", "success"]
-    data: SDROutputData
-    output: SDROutputData
-    error: str | None = None
-
-    model_config = ConfigDict(extra="forbid")
+    data: Dict[str, Any] = Field(default_factory=dict)

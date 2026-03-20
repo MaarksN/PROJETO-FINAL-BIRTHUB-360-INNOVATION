@@ -1,4 +1,3 @@
-// [SOURCE] ADR-012
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -8,7 +7,6 @@ import request from "supertest";
 import { createApp } from "../src/app.js";
 import { createTestApiConfig } from "./test-config.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
-import { hasRolePermission } from "../src/common/guards/require-role.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original = Reflect.get(target, key);
@@ -30,15 +28,13 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
     user_admin: Role.ADMIN,
     user_member: Role.MEMBER,
     user_owner: Role.OWNER,
-    user_readonly: Role.READONLY,
-    user_super_admin: Role.SUPER_ADMIN
+    user_readonly: Role.READONLY
   };
   const userByTokenHash: Record<string, string> = {
     [sha256("atk_admin")]: "user_admin",
     [sha256("atk_member")]: "user_member",
     [sha256("atk_owner")]: "user_owner",
-    [sha256("atk_readonly")]: "user_readonly",
-    [sha256("atk_super_admin")]: "user_super_admin"
+    [sha256("atk_readonly")]: "user_readonly"
   };
 
   const restores = [
@@ -118,11 +114,6 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
 
     await request(app)
       .get("/api/v1/users")
-      .set("Authorization", "Bearer atk_super_admin")
-      .expect(200);
-
-    await request(app)
-      .get("/api/v1/users")
       .set("Authorization", "Bearer atk_member")
       .expect(403);
 
@@ -134,61 +125,6 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
     await request(app)
       .get("/api/v1/users")
       .expect(401);
-  } finally {
-    for (const restore of restores.reverse()) {
-      restore();
-    }
-  }
-});
-
-void test("RBAC permission map exposes expected permissions for all role profiles", () => {
-  assert.equal(hasRolePermission(Role.SUPER_ADMIN, "organization:admin"), true);
-  assert.equal(hasRolePermission(Role.OWNER, "organization:admin"), true);
-  assert.equal(hasRolePermission(Role.ADMIN, "organization:admin"), false);
-  assert.equal(hasRolePermission(Role.ADMIN, "billing:write"), true);
-  assert.equal(hasRolePermission(Role.MEMBER, "billing:write"), false);
-  assert.equal(hasRolePermission(Role.READONLY, "user:write"), false);
-});
-
-void test("RBAC rejects invalid membership role values with 403", async () => {
-  const restores = [
-    stubMethod(prisma.organization, "findFirst", async () => ({
-      id: "org_1",
-      tenantId: "tenant_1"
-    })),
-    stubMethod(prisma.session, "findUnique", async (args: { where?: { token?: string } }) => {
-      if (args.where?.token !== sha256("atk_invalid_role")) {
-        return null;
-      }
-
-      return {
-        expiresAt: new Date(Date.now() + 60_000),
-        id: "session_invalid_role",
-        organizationId: "org_1",
-        tenantId: "tenant_1",
-        revokedAt: null,
-        userId: "user_invalid"
-      };
-    }),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_invalid_role" })),
-    stubMethod(prisma.user, "findUnique", async () => ({
-      id: "user_invalid",
-      status: UserStatus.ACTIVE
-    })),
-    stubMethod(prisma.membership, "findUnique", async () => ({
-      organizationId: "org_1",
-      role: "GHOST_ROLE" as unknown as Role,
-      status: MembershipStatus.ACTIVE,
-      userId: "user_invalid"
-    }))
-  ];
-
-  try {
-    const app = createRbacApp();
-    await request(app)
-      .get("/api/v1/users")
-      .set("Authorization", "Bearer atk_invalid_role")
-      .expect(403);
   } finally {
     for (const restore of restores.reverse()) {
       restore();

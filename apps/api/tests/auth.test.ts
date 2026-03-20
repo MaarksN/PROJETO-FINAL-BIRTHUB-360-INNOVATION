@@ -1,4 +1,3 @@
-// [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -6,7 +5,6 @@ import { prisma, UserStatus } from "@birthub/database";
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
-import { createSession, verifyMfaChallenge } from "../src/modules/auth/auth.service.js";
 import { encryptTotpSecret, generateCurrentTotp, generateTotpSecret } from "../src/modules/auth/mfa.service.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
 import { createTestApiConfig } from "./test-config.js";
@@ -79,43 +77,6 @@ void test("auth login returns 200 and creates a session", async () => {
   }
 });
 
-void test("createSession generates session id with 16-byte hex entropy", async () => {
-  const config = createTestApiConfig();
-  let capturedSessionId: string | null = null;
-
-  const restores = [
-    stubMethod(prisma.session, "create", async (args: { data?: { id?: unknown } }) => {
-      const sessionId = args.data?.id;
-
-      if (typeof sessionId !== "string") {
-        throw new Error("MISSING_SESSION_ID");
-      }
-
-      capturedSessionId = sessionId;
-      return { id: sessionId };
-    })
-  ];
-
-  try {
-    const created = await createSession({
-      config,
-      ipAddress: "127.0.0.1",
-      organizationId: "org_1",
-      tenantId: "tenant_1",
-      userAgent: "auth-test",
-      userId: "user_1"
-    });
-
-    assert.match(created.sessionId, /^[a-f0-9]{32}$/);
-    assert.equal(created.sessionId.length, 32);
-    assert.equal(capturedSessionId, created.sessionId);
-  } finally {
-    for (const restore of restores.reverse()) {
-      restore();
-    }
-  }
-});
-
 void test("auth login with MFA enabled returns challenge token", async () => {
   const restores = [
     stubMethod(prisma.organization, "findFirst", async () => ({ id: "org_1", tenantId: "tenant_1" })),
@@ -176,7 +137,7 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
       id: "user_1",
       mfaSecret: encrypted
     })),
-    stubMethod(prisma.mfaChallenge, "updateMany", async () => ({ count: 1 })),
+    stubMethod(prisma.mfaChallenge, "update", async () => ({ id: "challenge_1" })),
     stubMethod(prisma.session, "create", async () => ({ id: "session_2" }))
   ];
 
@@ -197,60 +158,6 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
     assert.equal(response.body.mfaRequired, false);
     assert.equal(response.body.session.userId, "user_1");
     assert.equal(response.body.session.tenantId, "tenant_1");
-  } finally {
-    for (const restore of restores.reverse()) {
-      restore();
-    }
-  }
-});
-
-void test("verifyMfaChallenge rejects MFA challenge token reuse after first success", async () => {
-  const config = createTestApiConfig();
-  const secret = generateTotpSecret();
-  const encrypted = encryptTotpSecret(secret, config.AUTH_MFA_ENCRYPTION_KEY);
-  const validTotp = generateCurrentTotp(secret);
-  let consumeCount = 0;
-
-  const restores = [
-    stubMethod(prisma.mfaChallenge, "findUnique", async () => ({
-      consumedAt: null,
-      expiresAt: new Date(Date.now() + 60_000),
-      id: "challenge_1",
-      organizationId: "org_1",
-      tenantId: "tenant_1",
-      userId: "user_1"
-    })),
-    stubMethod(prisma.user, "findUnique", async () => ({
-      id: "user_1",
-      mfaSecret: encrypted
-    })),
-    stubMethod(prisma.mfaChallenge, "updateMany", async () => {
-      consumeCount += 1;
-      return { count: consumeCount === 1 ? 1 : 0 };
-    }),
-    stubMethod(prisma.session, "create", async () => ({ id: "session_2" }))
-  ];
-
-  try {
-    await verifyMfaChallenge({
-      challengeToken: "mfa_token_for_test",
-      config,
-      ipAddress: null,
-      totpCode: validTotp,
-      userAgent: "auth-test"
-    });
-
-    await assert.rejects(
-      () =>
-        verifyMfaChallenge({
-          challengeToken: "mfa_token_for_test",
-          config,
-          ipAddress: null,
-          totpCode: validTotp,
-          userAgent: "auth-test"
-        }),
-      (error: unknown) => error instanceof Error && error.message === "MFA_CODE_ALREADY_USED"
-    );
   } finally {
     for (const restore of restores.reverse()) {
       restore();

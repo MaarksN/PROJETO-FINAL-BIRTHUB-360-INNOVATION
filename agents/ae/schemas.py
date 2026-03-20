@@ -1,11 +1,6 @@
-from __future__ import annotations
+from typing import Any, Dict
 
-# [SOURCE] checklist agent prompt templates — GAP-003
-from typing import Literal, TypeAlias
-
-from pydantic import BaseModel, ConfigDict, Field, HttpUrl
-
-JsonObject: TypeAlias = dict[str, object]
+from pydantic import BaseModel, Field, HttpUrl
 
 class UpdateDealStageInput(BaseModel):
     deal_id: str = Field(..., description="ID of the deal to update")
@@ -30,34 +25,8 @@ class TranscribeAndSyncInput(BaseModel):
 
 class AEInput(BaseModel):
     deal_id: str | None = None
-    context: JsonObject = Field(default_factory=dict)
-
-    model_config = ConfigDict(extra="forbid")
-
-
-class AEMaterials(BaseModel):
-    proposal: JsonObject = Field(default_factory=dict)
-    roi: JsonObject = Field(default_factory=dict)
-
-    model_config = ConfigDict(extra="forbid")
-
-
-class AEOutputData(BaseModel):
-    followup: JsonObject | None = None
-    materials: AEMaterials | None = None
-    discount_validation: JsonObject | None = None
-    battlecard: JsonObject | None = None
-    crm_sync: JsonObject | None = None
-
-    model_config = ConfigDict(extra="forbid")
+    context: Dict[str, Any] = Field(default_factory=dict)
 
 
 class AEOutput(BaseModel):
-    agent_id: str
-    task: str
-    status: Literal["error", "pending", "success"]
-    data: AEOutputData
-    output: AEOutputData
-    error: str | None = None
-
-    model_config = ConfigDict(extra="forbid")
+    data: Dict[str, Any] = Field(default_factory=dict)

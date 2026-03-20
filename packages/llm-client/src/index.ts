@@ -1,4 +1,3 @@
-// [SOURCE] CI-TS-003
 import {
   ILLMClient,
   Message,
@@ -9,8 +8,6 @@ import {
   GeminiClient,
 } from "@birthub/integrations";
 import { logger } from "@birthub/utils";
-
-export { GeminiClient };
 
 export type LLMProvider = "openai" | "anthropic" | "gemini";
 

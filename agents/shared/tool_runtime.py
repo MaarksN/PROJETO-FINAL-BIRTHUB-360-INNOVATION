@@ -16,12 +16,6 @@ logger = logging.getLogger("agents.tool_runtime")
 
 _CACHE: dict[str, dict[str, Any]] = {}
 _TOOL_REGISTRY: dict[str, Callable[..., Awaitable[Any]]] = {}
-_CANONICAL_FALLBACK = {
-    "retry_attempts": 3,
-    "base_delay_ms": 250,
-    "rate_limit_extra_retry": 1,
-    "notify_human": True,
-}
 
 _SENSITIVE_KEYWORDS = {"password", "passwd", "secret", "token", "authorization", "api_key", "key", "cpf", "cnpj", "email", "phone", "credit_card"}
 _EMAIL_RE = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
@@ -86,189 +80,35 @@ def _cache_key(tool_name: str, payload: dict[str, Any]) -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
-def _resolve_fallback_behavior(fallback_behavior: Mapping[str, Any] | None) -> dict[str, Any]:
-    merged = dict(_CANONICAL_FALLBACK)
-    if fallback_behavior:
-        for key, value in fallback_behavior.items():
-            merged[key] = value
-
-    retry_attempts = merged.get("retry_attempts", _CANONICAL_FALLBACK["retry_attempts"])
-    base_delay_ms = merged.get("base_delay_ms", _CANONICAL_FALLBACK["base_delay_ms"])
-    rate_limit_extra_retry = merged.get("rate_limit_extra_retry", _CANONICAL_FALLBACK["rate_limit_extra_retry"])
-
-    return {
-        "retry_attempts": max(1, int(retry_attempts)),
-        "base_delay_ms": max(1, int(base_delay_ms)),
-        "rate_limit_extra_retry": max(0, int(rate_limit_extra_retry)),
-        "notify_human": bool(merged.get("notify_human", True)),
-    }
-
-
-def _is_http_429(error: Exception) -> bool:
-    response = getattr(error, "response", None)
-    status_code = getattr(response, "status_code", None)
-    return status_code == 429
-
-
-def _compute_backoff_seconds(attempt: int, base_delay_ms: int) -> float:
-    return (base_delay_ms * (2 ** max(0, attempt - 1))) / 1000
-
-
-async def _notify_human(*, tool_name: str, payload: dict[str, Any], reason: str) -> bool:
-    logger.warning(
-        "Tool escalation requested",
-        extra={
-            "tool": tool_name,
-            "reason": reason,
-            "payload": redact_sensitive_data(payload),
-        },
-    )
-    return True
-
-
-async def run_tool(
-    *,
-    tool_name: str,
-    handler: Callable[..., Awaitable[Any]] | None = None,
-    payload: dict[str, Any],
-    validation_model: type[BaseModel] | None = None,
-    timeout_s: float = 10.0,
-    idempotent: bool = False,
-    fallback_behavior: Mapping[str, Any] | None = None,
-) -> dict[str, Any]:
-    # [SOURCE] checklist agent templates — M-001
+async def run_tool(*, tool_name: str, handler: Callable[..., Awaitable[Any]] | None = None, payload: dict[str, Any], validation_model: type[BaseModel] | None = None, timeout_s: float = 10.0, idempotent: bool = False) -> dict[str, Any]:
     started = time.perf_counter()
     safe_payload = redact_sensitive_data(payload)
-    fallback = _resolve_fallback_behavior(fallback_behavior)
-
     try:
         if validation_model is not None:
             payload = validation_model(**payload).model_dump()
+
+        if idempotent:
+            key = _cache_key(tool_name, payload)
+            if key in _CACHE:
+                return {"ok": True, "data": _CACHE[key], "error": None, "meta": {"tool": tool_name, "cached": True, "duration_ms": 0, "cost_usd": 0.0}}
+
+        tool_handler = handler or get_tool(tool_name)
+        result = await asyncio.wait_for(tool_handler(**payload), timeout=timeout_s)
+        normalized_result = _normalize_for_json(result)
+        if idempotent:
+            _CACHE[_cache_key(tool_name, payload)] = normalized_result
+
+        elapsed = time.perf_counter() - started
+        logger.info("Tool executed", extra={"tool": tool_name, "duration_ms": int(elapsed * 1000)})
+        return {"ok": True, "data": normalized_result, "error": None, "meta": {"tool": tool_name, "cached": False, "duration_ms": int(elapsed * 1000), "cost_usd": _estimate_cost_usd(payload, normalized_result, elapsed)}}
+    except asyncio.TimeoutError:
+        elapsed = time.perf_counter() - started
+        logger.warning("Tool timeout", extra={"tool": tool_name, "payload": safe_payload})
+        return {"ok": False, "data": None, "error": f"Tool '{tool_name}' timed out after {timeout_s}s", "meta": {"tool": tool_name, "cached": False, "duration_ms": int(elapsed * 1000), "cost_usd": 0.0}}
     except ValidationError as exc:
         elapsed = time.perf_counter() - started
-        return {
-            "ok": False,
-            "data": None,
-            "error": f"Input validation failed: {exc.errors()}",
-            "meta": {
-                "tool": tool_name,
-                "cached": False,
-                "duration_ms": int(elapsed * 1000),
-                "cost_usd": 0.0,
-                "attempts": 0,
-                "human_notified": False,
-                "fallback_stage": "validation_error",
-            },
-        }
-
-    if idempotent:
-        key = _cache_key(tool_name, payload)
-        if key in _CACHE:
-            return {
-                "ok": True,
-                "data": _CACHE[key],
-                "error": None,
-                "meta": {
-                    "tool": tool_name,
-                    "cached": True,
-                    "duration_ms": 0,
-                    "cost_usd": 0.0,
-                    "attempts": 0,
-                    "human_notified": False,
-                    "fallback_stage": "cache_hit",
-                },
-            }
-
-    try:
-        tool_handler = handler or get_tool(tool_name)
-    except ToolExecutionError as exc:
+        return {"ok": False, "data": None, "error": f"Input validation failed: {exc.errors()}", "meta": {"tool": tool_name, "cached": False, "duration_ms": int(elapsed * 1000), "cost_usd": 0.0}}
+    except Exception as exc:  # noqa: BLE001
         elapsed = time.perf_counter() - started
-        human_notified = (
-            await _notify_human(tool_name=tool_name, payload=payload, reason="tool_unavailable")
-            if fallback["notify_human"]
-            else False
-        )
-        return {
-            "ok": False,
-            "data": None,
-            "error": str(exc),
-            "meta": {
-                "tool": tool_name,
-                "cached": False,
-                "duration_ms": int(elapsed * 1000),
-                "cost_usd": 0.0,
-                "attempts": 0,
-                "human_notified": human_notified,
-                "fallback_stage": "tool_unavailable",
-            },
-        }
-
-    rate_limit_retries_left = fallback["rate_limit_extra_retry"]
-    last_error: Exception | None = None
-    attempts = 0
-
-    for attempt in range(1, fallback["retry_attempts"] + 1):
-        attempts = attempt
-        try:
-            result = await asyncio.wait_for(tool_handler(**payload), timeout=timeout_s)
-            normalized_result = _normalize_for_json(result)
-            if idempotent:
-                _CACHE[_cache_key(tool_name, payload)] = normalized_result
-
-            elapsed = time.perf_counter() - started
-            logger.info("Tool executed", extra={"tool": tool_name, "duration_ms": int(elapsed * 1000)})
-            return {
-                "ok": True,
-                "data": normalized_result,
-                "error": None,
-                "meta": {
-                    "tool": tool_name,
-                    "cached": False,
-                    "duration_ms": int(elapsed * 1000),
-                    "cost_usd": _estimate_cost_usd(payload, normalized_result, elapsed),
-                    "attempts": attempts,
-                    "human_notified": False,
-                    "fallback_stage": "none",
-                },
-            }
-        except asyncio.TimeoutError as exc:
-            last_error = exc
-            logger.warning("Tool timeout", extra={"tool": tool_name, "payload": safe_payload})
-        except Exception as exc:  # noqa: BLE001
-            last_error = exc
-            if _is_http_429(exc) and rate_limit_retries_left > 0:
-                rate_limit_retries_left -= 1
-                wait_s = _compute_backoff_seconds(attempt, fallback["base_delay_ms"])
-                await asyncio.sleep(wait_s)
-                continue
-            logger.exception("Tool execution failure", extra={"tool": tool_name, "payload": safe_payload})
-
-        if attempt < fallback["retry_attempts"]:
-            wait_s = _compute_backoff_seconds(attempt, fallback["base_delay_ms"])
-            await asyncio.sleep(wait_s)
-
-    elapsed = time.perf_counter() - started
-    if last_error is None:
-        last_error = RuntimeError("Unknown tool execution error")
-
-    fallback_stage = "http_429_exhausted" if _is_http_429(last_error) else "exhausted"
-    human_notified = (
-        await _notify_human(tool_name=tool_name, payload=payload, reason=fallback_stage)
-        if fallback["notify_human"]
-        else False
-    )
-
-    return {
-        "ok": False,
-        "data": None,
-        "error": str(last_error),
-        "meta": {
-            "tool": tool_name,
-            "cached": False,
-            "duration_ms": int(elapsed * 1000),
-            "cost_usd": 0.0,
-            "attempts": attempts,
-            "human_notified": human_notified,
-            "fallback_stage": fallback_stage,
-        },
-    }
+        logger.exception("Tool execution failure", extra={"tool": tool_name, "payload": safe_payload})
+        return {"ok": False, "data": None, "error": str(exc), "meta": {"tool": tool_name, "cached": False, "duration_ms": int(elapsed * 1000), "cost_usd": 0.0}}

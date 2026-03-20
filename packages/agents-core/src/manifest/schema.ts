@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const MANIFEST_VERSION = "1.0.0" as const;
-// [SOURCE] checklist Agent Pack — GAP-004 / checklist qualidade — M-002
 
 const nonEmptyString = z.string().trim().min(1);
 const jsonSchemaObject = z.record(z.string(), z.unknown()).default({ type: "object" });
@@ -51,14 +50,6 @@ export const policyManifestSchema = z
   })
   .strict();
 
-export const fallbackBehaviorSchema = z
-  .object({
-    escalation: nonEmptyString,
-    rate_limit_handling: nonEmptyString,
-    retry_policy: nonEmptyString
-  })
-  .strict();
-
 export const agentDescriptorSchema = z
   .object({
     changelog: z.array(nonEmptyString).default([]),
@@ -75,11 +66,9 @@ export const agentDescriptorSchema = z
 export const agentManifestSchema = z
   .object({
     agent: agentDescriptorSchema,
-    fallback_behavior: fallbackBehaviorSchema,
     keywords: keywordListSchema,
     manifestVersion: z.literal(MANIFEST_VERSION),
     policies: z.array(policyManifestSchema).min(1),
-    required_tools: z.array(nonEmptyString),
     skills: z.array(skillManifestSchema).min(1),
     tags: manifestTagsSchema,
     tools: z.array(toolManifestSchema).min(1)
@@ -89,4 +78,3 @@ export const agentManifestSchema = z
 export type AgentManifest = z.infer<typeof agentManifestSchema>;
 export type AgentManifestTags = z.infer<typeof manifestTagsSchema>;
 export type AgentManifestKeywords = z.infer<typeof keywordListSchema>;
-export type AgentFallbackBehavior = z.infer<typeof fallbackBehaviorSchema>;

@@ -1,4 +1,3 @@
-// [SOURCE] CI-TS-004
 import { performance } from "node:perf_hooks";
 import { PrismaClient } from "@birthub/database";
 import { PackInstallerService } from "../../src/modules/packs/pack-installer.service.js";
@@ -43,7 +42,6 @@ async function runBenchmark() {
   const start = performance.now();
 
   await service.updatePackVersion({
-    actorId: "benchmark-system",
     packId: packId,
     tenantId: tenantId,
     latestAvailableVersion: "1.1.0",
