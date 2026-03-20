@@ -1,6 +1,6 @@
 # Matriz Agente x Vertical
 
-- Gerado em: 2026-03-20 13:40:32
+- Gerado em: 2026-03-20 13:49:34
 - Fonte: agentes em .github/agents/cycle-* e frontmatter default-vertical
 - Total de agentes mapeados: 334
 

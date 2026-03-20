@@ -8,6 +8,7 @@ if ([string]::IsNullOrWhiteSpace($RepoRoot)) {
 
 $agentsRoot = Join-Path $RepoRoot '.github\agents'
 $outFile = Join-Path $agentsRoot 'MATRIZ_AGENTE_VERTICAL.md'
+$outCsv = Join-Path $agentsRoot 'MATRIZ_AGENTE_VERTICAL.csv'
 
 $verticalMap = @{
   'SaaS B2B' = @{ Priority = 'crescimento eficiente e retenção'; KPI = 'NRR, churn, CAC payback' }
@@ -121,5 +122,11 @@ $detailTable
 "@
 
 $content | Set-Content -Path $outFile -Encoding UTF8
+
+$rows |
+  Select-Object Agent, Cycle, Vertical, Priority, KPI, File |
+  Export-Csv -Path $outCsv -NoTypeInformation -Encoding UTF8
+
 Write-Output "Matriz gerada em: $outFile"
+Write-Output "CSV gerado em: $outCsv"
 Write-Output "Total de linhas: $($rows.Count)"
