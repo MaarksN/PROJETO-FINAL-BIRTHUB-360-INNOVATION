@@ -158,16 +158,16 @@ $report = @"
 # Relatório Automático de Conformidade F1–F5
 
 - Data: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
-- Escopo: `.github/agents/cycle-01` até `.github/agents/cycle-15`
-- Total de arquivos `.agent.md` analisados: $totalAgentFiles
+- Escopo: .github/agents/cycle-01 até .github/agents/cycle-15
+- Total de arquivos .agent.md analisados: $totalAgentFiles
 - Total de não conformidades: $($issues.Count)
 
 ## Critérios F1–F5 aplicados
-- **F1 Descoberta**: `description` obrigatório e iniciando com `Use when`.
-- **F2 Contrato**: `name`, `tools`, `user-invocable:true`, seções `Escopo`, `Restrições`, `Saída Obrigatória`.
-- **F3 Prompting**: presença de saída numerada `1.`, `2.`, `3.`.
+- **F1 Descoberta**: description obrigatório e iniciando com Use when.
+- **F2 Contrato**: name, tools, user-invocable:true, seções Escopo, Restrições, Saída Obrigatória.
+- **F3 Prompting**: presença de saída numerada 1., 2., 3.
 - **F4 Implementação**: frontmatter válido, contagem esperada por ciclo e padrão de nome de arquivo.
-- **F5 Validação cruzada**: `README.md` por ciclo.
+- **F5 Validação cruzada**: README.md por ciclo.
 
 ## Cobertura por ciclo
 | Ciclo | Esperado | Encontrado | README |
@@ -191,7 +191,11 @@ $detailRows
 "@
 
 $report | Set-Content -Path $reportMd -Encoding UTF8
-($issues | ConvertTo-Json -Depth 8) | Set-Content -Path $reportJson -Encoding UTF8
+if ($issues.Count -eq 0) {
+  '[]' | Set-Content -Path $reportJson -Encoding UTF8
+} else {
+  ($issues | ConvertTo-Json -Depth 8) | Set-Content -Path $reportJson -Encoding UTF8
+}
 
 Write-Output "Relatório gerado em: $reportMd"
 Write-Output "JSON gerado em: $reportJson"

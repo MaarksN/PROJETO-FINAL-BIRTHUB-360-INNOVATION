@@ -1,0 +1,34 @@
+name: Agents Conformity (F1-F5)
+
+on:
+  pull_request:
+    paths:
+      - '.github/agents/**'
+      - '.github/workflows/agents-conformity.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/agents/**'
+      - '.github/workflows/agents-conformity.yml'
+
+jobs:
+  validate-agents:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate F1-F5 conformity
+        shell: pwsh
+        run: |
+          & '.github/agents/scripts/validate_f1_f5.ps1' -RepoRoot (Get-Location).Path -FailOnIssues
+
+      - name: Upload conformity reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agents-conformity-report
+          path: |
+            .github/agents/RELATORIO_CONFORMIDADE_F1_F5.md
+            .github/agents/RELATORIO_CONFORMIDADE_F1_F5.json
