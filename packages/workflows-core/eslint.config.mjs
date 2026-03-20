@@ -16,7 +16,7 @@ export default tseslint.config(
       }
     },
     rules: {
-      "@typescript-eslint/await-thenable": "off",
+      "@typescript-eslint/await-thenable": "warn",
       "@typescript-eslint/consistent-type-imports": "off",
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-misused-promises": [
@@ -26,9 +26,9 @@ export default tseslint.config(
         }
       ],
       "@typescript-eslint/no-namespace": "off",
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-assignment": "warn",
+      "@typescript-eslint/no-unsafe-member-access": "warn",
+      "@typescript-eslint/no-unsafe-return": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -36,7 +36,7 @@ export default tseslint.config(
           varsIgnorePattern: "^_"
         }
       ],
-      "@typescript-eslint/require-await": "off"
+      "@typescript-eslint/require-await": "warn"
     }
   },
   {
