@@ -9,6 +9,7 @@
 | C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\GOV-003_open_blockers.md | Consolidação de bloqueios ativos | ✅ |
 | C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\vindi_job_decision.md | Inclusão em governança de bloqueios | ✅ |
 | C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\untracked_executive_agents_decision.md | Decisão de governança resolvida (opção 2 aplicada) | ✅ |
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\CI-TS-004_dashboard_logic_conflict.md | Bloqueio histórico de CI marcado como resolvido | ✅ |
 | C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\artifacts\untracked_agents_snapshot\2026-03-20-executivos\README.md | Snapshot de quarentena dos agentes não rastreados | ✅ |
 
 ## Testes executados

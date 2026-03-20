@@ -1083,3 +1083,237 @@ PRÓXIMOS PASSOS PARA O HUMANO
   Auditoria de encerramento: 2026-03-20
   ./audit/validation_log.md atualizado ✅
 ════════════════════════════════════════════════════════════════
+## [2026-03-20] | [CI-TS-004] | Codex | [CONCLUÍDO]
+
+**Item:** Corrigir demais pacotes [TS-MODULE]
+**Status:** CONCLUÍDO
+**Evidência:** `corepack pnpm -r --reporter append-only typecheck` => PASS; `corepack pnpm --filter @birthub/dashboard typecheck` => PASS.
+**Arquivos alterados:** [audit/ci_failures_map.md, audit/pending_review/CI-TS-004_codex.md, audit/human_required/CI-TS-004_dashboard_logic_conflict.md, audit/human_required/GOV-003_open_blockers.md]
+**Observações:** Bloqueio técnico de dashboard encerrado e mantido apenas como histórico.
+
+---
+
+## [2026-03-20] | [CI-MAP-001] | Codex | [CONCLUÍDO]
+
+**Item:** Documentar ./audit/ci_failures_map.md — confirmar CI verde
+**Status:** CONCLUÍDO
+**Evidência:** `audit/ci_failures_map.md` atualizado para `17 PASS / 0 FAIL` após revalidação canônica do typecheck global.
+**Arquivos alterados:** [audit/ci_failures_map.md, audit/pending_review/CI-MAP-001_codex.md]
+**Observações:** Estado do mapa alinhado ao resultado real da rodada.
+
+---
+
+## [2026-03-20] | [GOV-004] | Codex | [CONCLUÍDO]
+
+**Item:** ./audit/UNDECLARED_OBSERVATIONS.md — atualizado
+**Status:** CONCLUÍDO
+**Evidência:** Linha adicionada registrando resolução do gargalo de typecheck no dashboard e CI TS verde.
+**Arquivos alterados:** [audit/UNDECLARED_OBSERVATIONS.md]
+**Observações:** Histórico anterior preservado sem reescrita destrutiva.
+
+---
+
+## [2026-03-20] | [GOV-006] | Codex | [CONCLUÍDO]
+
+**Item:** packages/agents/REGISTRY.md — índice atualizado
+**Status:** CONCLUÍDO
+**Evidência:** `REGISTRY.md` reconciliado com escopo F5 (`final_f5_jules_aprovado`); verificação de ausência de `final_f4` no arquivo.
+**Arquivos alterados:** [packages/agents/REGISTRY.md, audit/pending_review/GOV-006_codex.md]
+**Observações:** Consistência restaurada entre descrição do escopo e status por agente.
+
+---
+
+<!-- [SOURCE] ENCERRAMENTO -->
+════════════════════════════════════════════════════════════════
+  RELATÓRIO FINAL — BirthHub360 Remediação Forense (FINAL-ATUALIZADO)
+  Executor: Codex | Ciclo único
+════════════════════════════════════════════════════════════════
+
+RESULTADO GERAL
+  ✅ Concluídos      : 9
+  ⏭️  Skips (já feito): 19
+  ⚠️  Parciais        : 0
+  🔴 Bloqueados      : 3
+  Total              : 31
+
+ITENS BLOQUEADOS (requerem decisão humana)
+  - CD-001 -> audit/human_required/cd_env_config.md
+  - GAP-SEC-004 -> audit/human_required/GAP-SEC-004_backlog_missing.md
+  - M-003 -> audit/human_required/M003_bkb_integration.md
+
+ARQUIVOS CRIADOS NESTE CICLO
+  - audit/human_required/vindi_job_decision.md
+  - audit/human_required/M003_bkb_integration.md
+  - audit/human_required/GOV-003_open_blockers.md
+  - audit/human_required/untracked_executive_agents_decision.md
+  - artifacts/untracked_agents_snapshot/2026-03-20-executivos/README.md
+  - audit/pending_review/CD-001_codex.md
+  - audit/pending_review/CI-TS-004_codex.md
+  - audit/pending_review/CI-MAP-001_codex.md
+
+COBERTURA [SOURCE]
+  Arquivos com [SOURCE]: 100% no escopo alterado desta rodada
+  Arquivos sem [SOURCE]: 0
+
+CI STATUS
+  TypeScript: [x] verde [ ] com erros
+  Testes E2E: [x] verde [ ] com falhas
+
+PRÓXIMOS PASSOS PARA O HUMANO
+  1. Revisar itens em ./audit/human_required/
+  2. Responder decisões pendentes listadas acima
+  3. Validar módulos LDR e AE visualmente no dashboard
+  4. Confirmar REGISTRY.md reflete todos os agentes em produção aprovados
+
+════════════════════════════════════════════════════════════════
+  Auditoria de encerramento: 2026-03-20
+  ./audit/validation_log.md atualizado ✅
+════════════════════════════════════════════════════════════════
+## [2026-03-20] | [GAP-SEC-002] | Codex | [SKIP]
+
+**Item:** RBAC como modelo base — enum roles + middleware + testes
+**Status:** SKIP (já feito)
+**Evidência:** `corepack pnpm --filter @birthub/api test:rbac` => PASS (3/3), validando matriz RBAC e rejeição de roles inválidos.
+**Arquivos alterados:** [audit/validation_log.md]
+**Observações:** Revalidação executada nesta rodada sem necessidade de mudança de código.
+
+---
+
+## [2026-03-20] | [GAP-SEC-003] | Codex | [SKIP]
+
+**Item:** MFA — invalidar código após primeiro uso
+**Status:** SKIP (já feito)
+**Evidência:** `corepack pnpm --filter @birthub/api test:auth` => PASS (7/7), incluindo caso `verifyMfaChallenge rejects MFA challenge token reuse after first success`.
+**Arquivos alterados:** [audit/validation_log.md]
+**Observações:** Fluxo de invalidação de MFA confirmado em teste automatizado.
+
+---
+## [2026-03-20] | [ENCERRAMENTO] | Codex | [CONCLUÍDO]
+
+**Item:** Relatório final de execução (atualização pós-revalidação)
+**Status:** CONCLUÍDO
+**Evidência:** CI TypeScript verde, E2E dashboard verde e revalidação de segurança API (`test:auth` e `test:rbac`) em PASS.
+**Arquivos alterados:** [audit/validation_log.md]
+**Observações:** Consolidação final desta rodada mantida no formato canônico.
+
+---
+
+<!-- [SOURCE] ENCERRAMENTO -->
+════════════════════════════════════════════════════════════════
+  RELATÓRIO FINAL — BirthHub360 Remediação Forense (FINAL-ATUALIZADO-2)
+  Executor: Codex | Ciclo único
+════════════════════════════════════════════════════════════════
+
+RESULTADO GERAL
+  ✅ Concluídos      : 9
+  ⏭️  Skips (já feito): 19
+  ⚠️  Parciais        : 0
+  🔴 Bloqueados      : 3
+  Total              : 31
+
+ITENS BLOQUEADOS (requerem decisão humana)
+  - CD-001 -> audit/human_required/cd_env_config.md
+  - GAP-SEC-004 -> audit/human_required/GAP-SEC-004_backlog_missing.md
+  - M-003 -> audit/human_required/M003_bkb_integration.md
+
+ARQUIVOS CRIADOS NESTE CICLO
+  - audit/human_required/vindi_job_decision.md
+  - audit/human_required/M003_bkb_integration.md
+  - audit/human_required/GOV-003_open_blockers.md
+  - audit/human_required/untracked_executive_agents_decision.md
+  - artifacts/untracked_agents_snapshot/2026-03-20-executivos/README.md
+  - audit/pending_review/CD-001_codex.md
+  - audit/pending_review/CI-TS-004_codex.md
+  - audit/pending_review/CI-MAP-001_codex.md
+
+COBERTURA [SOURCE]
+  Arquivos com [SOURCE]: 100% no escopo alterado desta rodada
+  Arquivos sem [SOURCE]: 0
+
+CI STATUS
+  TypeScript: [x] verde [ ] com erros
+  Testes E2E: [x] verde [ ] com falhas
+
+SEGURANÇA (REVALIDAÇÃO)
+  - `corepack pnpm --filter @birthub/api test:auth`: PASS (7/7)
+  - `corepack pnpm --filter @birthub/api test:rbac`: PASS (3/3)
+
+PRÓXIMOS PASSOS PARA O HUMANO
+  1. Revisar itens em ./audit/human_required/
+  2. Responder decisões pendentes listadas acima
+  3. Validar módulos LDR e AE visualmente no dashboard
+  4. Confirmar REGISTRY.md reflete todos os agentes em produção aprovados
+
+════════════════════════════════════════════════════════════════
+  Auditoria de encerramento: 2026-03-20
+  ./audit/validation_log.md atualizado ✅
+════════════════════════════════════════════════════════════════
+## [2026-03-20] | [GOV-003] | Codex | [CONCLUÍDO]
+
+**Item:** ./audit/human_required/ — bloqueios documentados
+**Status:** CONCLUÍDO
+**Evidência:** `audit/human_required/GOV-003_open_blockers.md` ajustado para refletir apenas bloqueios ativos do ciclo (CD-001, GAP-SEC-004, M-003).
+**Arquivos alterados:** [audit/human_required/GOV-003_open_blockers.md, audit/validation_log.md]
+**Observações:** `S-003` permanece concluído tecnicamente com decisão registrada, sem bloqueio ativo no ciclo.
+
+---
+## [2026-03-20] | [ENCERRAMENTO] | Codex | [CONCLUÍDO]
+
+**Item:** Relatório final de execução (consolidação final)
+**Status:** CONCLUÍDO
+**Evidência:** Bloqueios ativos reconciliados em `GOV-003_open_blockers.md` e status final reemitido.
+**Arquivos alterados:** [audit/validation_log.md, audit/human_required/GOV-003_open_blockers.md]
+**Observações:** Esta entrada substitui leituras intermediárias do mesmo dia.
+
+---
+
+<!-- [SOURCE] ENCERRAMENTO -->
+════════════════════════════════════════════════════════════════
+  RELATÓRIO FINAL — BirthHub360 Remediação Forense (FINAL-ATUALIZADO-3)
+  Executor: Codex | Ciclo único
+════════════════════════════════════════════════════════════════
+
+RESULTADO GERAL
+  ✅ Concluídos      : 9
+  ⏭️  Skips (já feito): 19
+  ⚠️  Parciais        : 0
+  🔴 Bloqueados      : 3
+  Total              : 31
+
+ITENS BLOQUEADOS (requerem decisão humana)
+  - CD-001 -> audit/human_required/cd_env_config.md
+  - GAP-SEC-004 -> audit/human_required/GAP-SEC-004_backlog_missing.md
+  - M-003 -> audit/human_required/M003_bkb_integration.md
+
+ARQUIVOS CRIADOS NESTE CICLO
+  - audit/human_required/vindi_job_decision.md
+  - audit/human_required/M003_bkb_integration.md
+  - audit/human_required/GOV-003_open_blockers.md
+  - audit/human_required/untracked_executive_agents_decision.md
+  - artifacts/untracked_agents_snapshot/2026-03-20-executivos/README.md
+  - audit/pending_review/CD-001_codex.md
+  - audit/pending_review/CI-TS-004_codex.md
+  - audit/pending_review/CI-MAP-001_codex.md
+
+COBERTURA [SOURCE]
+  Arquivos com [SOURCE]: 100% no escopo alterado desta rodada
+  Arquivos sem [SOURCE]: 0
+
+CI STATUS
+  TypeScript: [x] verde [ ] com erros
+  Testes E2E: [x] verde [ ] com falhas
+
+SEGURANÇA (REVALIDAÇÃO)
+  - `corepack pnpm --filter @birthub/api test:auth`: PASS (7/7)
+  - `corepack pnpm --filter @birthub/api test:rbac`: PASS (3/3)
+
+PRÓXIMOS PASSOS PARA O HUMANO
+  1. Revisar itens em ./audit/human_required/
+  2. Responder decisões pendentes listadas acima
+  3. Validar módulos LDR e AE visualmente no dashboard
+  4. Confirmar REGISTRY.md reflete todos os agentes em produção aprovados
+
+════════════════════════════════════════════════════════════════
+  Auditoria de encerramento: 2026-03-20
+  ./audit/validation_log.md atualizado ✅
+════════════════════════════════════════════════════════════════

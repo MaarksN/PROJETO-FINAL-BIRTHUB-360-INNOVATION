@@ -1,7 +1,10 @@
 <!-- [SOURCE] CI-TS-004 -->
 # CI-TS-004 — Bloqueio técnico em @birthub/dashboard
 
-## Contexto
+## Status atual
+**RESOLVIDO EM 2026-03-20** (mantido para histórico forense).
+
+## Contexto histórico (antes da correção)
 Após correções em `@birthub/queue`, `@birthub/db`, `@birthub/llm-client`, `@birthub/worker` e `@birthub/api`, a matriz de typecheck por pacote ficou em `16/17` passando.
 
 Pacote ainda falhando:
@@ -22,5 +25,6 @@ A correção exige intervenção estrutural no módulo dashboard (arquitetura de
 3. Autorizar ciclo dedicado para saneamento completo do dashboard (escopo amplo), separado das correções pontuais de infra TS.
 
 ## Revalidação em 2026-03-20
-- `corepack pnpm -r --reporter append-only typecheck` continua falhando exclusivamente no `@birthub/dashboard`.
-- Os demais pacotes-alvo de infra (`@birthub/queue`, `@birthub/agents-core`, `@birthub/db`, `@birthub/llm-client`) permanecem verdes em typecheck isolado.
+- `corepack pnpm -r --reporter append-only typecheck` passou em verde (exit `0`) com `@birthub/dashboard` compilando.
+- `corepack pnpm --filter @birthub/dashboard typecheck` passou em verde.
+- O bloqueio deste documento foi encerrado; decisões humanas adicionais para CI-TS-004 não são mais necessárias nesta rodada.

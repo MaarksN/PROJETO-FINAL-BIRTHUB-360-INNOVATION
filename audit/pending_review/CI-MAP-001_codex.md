@@ -7,13 +7,14 @@
 | Arquivo | Ação | [SOURCE] presente |
 |---------|------|-------------------|
 | C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\ci_failures_map.md | Atualização de status consolidado da rodada | ✅ |
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\pending_review\CI-MAP-001_codex.md | Consolidação final do item | ✅ |
 
 ## Testes executados
 | Teste | Comando | Resultado |
 |-------|---------|-----------|
-| Typecheck global do workspace | `corepack pnpm -r --reporter append-only typecheck` | FAIL |
+| Typecheck global do workspace | `corepack pnpm -r --reporter append-only typecheck` | PASS |
 
 ## Resultado esperado atingido?
-[ ] Sim — evidência: ...
-[x] Parcial — gap: mapa atualizado corretamente, porém CI global ainda não está verde por bloqueio conhecido no dashboard.
+[x] Sim — evidência: mapa atualizado e CI global revalidada em verde.
+[ ] Parcial — gap: ...
 [ ] Não — motivo: ...
