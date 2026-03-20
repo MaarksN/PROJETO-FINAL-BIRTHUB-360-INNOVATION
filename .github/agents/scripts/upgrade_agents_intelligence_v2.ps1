@@ -56,14 +56,14 @@ function Upsert-Frontmatter {
     $found = $false
     for ($i=0; $i -lt $list.Count; $i++) {
       if ($list[$i] -match $pattern) {
-        $list[$i] = "$k: $($pairs[$k])"
+        $list[$i] = "${k}: $($pairs[$k])"
         $found = $true
         break
       }
     }
     if (-not $found) {
       $insert = [Math]::Min(6, $list.Count)
-      $list.Insert($insert, "$k: $($pairs[$k])")
+      $list.Insert($insert, "${k}: $($pairs[$k])")
     }
   }
 
@@ -122,9 +122,9 @@ foreach ($file in $files) {
 "@
 
   $handoff = @"
-- Acionar `planner` para decompor estratégia quando a tarefa envolver múltiplas dependências.
-- Acionar `implementer` para transformar decisão em execução rastreável.
-- Acionar `reviewer` para validação final de conformidade, risco e qualidade.
+  - Acionar planner para decompor estratégia quando a tarefa envolver múltiplas dependências.
+  - Acionar implementer para transformar decisão em execução rastreável.
+  - Acionar reviewer para validação final de conformidade, risco e qualidade.
 "@
 
   $fallback = @"
