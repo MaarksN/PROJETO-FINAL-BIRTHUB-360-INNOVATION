@@ -105,3 +105,9 @@ Nenhum script/pipeline explícito de geração do artifacts/audit/forensic_repor
 foi encontrado no checkout atual após busca em scripts, workflows e arquivos de build.
 No estado atual do repositório, o relatório deve ser tratado como artefato
 atualizado manualmente.
+
+- Data: 2026-03-20
+  Arquivo: N/A
+  Descrição: GAP-005 — busca ampla realizada, nenhuma credencial inline encontrada, confirmado em 2026-03-20
+  Hipótese: N/A
+  Ação recomendada: RESOLVIDO

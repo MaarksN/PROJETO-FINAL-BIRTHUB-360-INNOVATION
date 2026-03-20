@@ -570,3 +570,15 @@
   - Ausência de credenciais inline, placeholders ou variáveis genéricas.
   Impacto no checklist: Atualização F4/F5 como `feito` e F1-F3 como `aprovacao`.
   Proxima acao: Codex validar F1-F3.
+
+- Item: `GAP-003`
+  Resultado: `REPROVADO`
+  Evidência: `Dict[str, Any]` ainda é usado na fronteira `/run` em `agents/sdr/main.py` e `agents/ae/main.py`
+
+- Item: `GAP-004`
+  Resultado: `REPROVADO`
+  Evidência: Campo `required_tools` ausente em todos os 43 manifests na pasta `packages/agent-packs/`
+
+- Item: `GAP-005`
+  Resultado: `APROVADO`
+  Evidência: Nenhuma credencial inline bruta ou chave exposta encontrada. Variáveis tipadas estritamente usando Vault/Environment Variables.
