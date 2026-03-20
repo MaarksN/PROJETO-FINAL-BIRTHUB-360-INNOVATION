@@ -570,3 +570,12 @@
   - Ausência de credenciais inline, placeholders ou variáveis genéricas.
   Impacto no checklist: Atualização F4/F5 como `feito` e F1-F3 como `aprovacao`.
   Proxima acao: Codex validar F1-F3.
+
+## 2026-03-20T11:34:40Z
+
+- Item: `M-003, D-001, D-002`
+  Executor: `JULES`
+  Resultado: `ENTREGUE — AGUARDA VALIDAÇÃO CODEX`
+  Evidencia:
+  - Instruções estratégicas (BKB, anti-alucinação, adequação de tom) injetadas diretamente nos arquivos `system_prompt.md` dos 7 agentes aplicáveis do escopo (`packages/agents/executivos/*/system_prompt.md`).
+  - [SOURCE] anexado aos arquivos.
