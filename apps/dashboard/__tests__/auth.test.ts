@@ -1,6 +1,7 @@
+// [SOURCE] CI-TS-004
 import test from "node:test";
 import assert from "node:assert/strict";
-import { requireApiAuth } from "../pages/api/_utils/auth.ts";
+import { requireApiAuth } from "../pages/api/_utils/auth";
 import { SignJWT } from "jose";
 
 test("security: requireApiAuth should fail if DASHBOARD_JWT_SECRET is missing", async () => {
@@ -52,7 +53,8 @@ test("security: requireApiAuth should succeed with correct DASHBOARD_JWT_SECRET"
     } as any;
 
     const result = await requireApiAuth(req);
-    assert.equal(result.tenantId, "test-tenant");
+    const profile = result.profile as { tenantId?: string };
+    assert.equal(profile.tenantId, "test-tenant");
   } finally {
     if (originalSecret !== undefined) {
       process.env.DASHBOARD_JWT_SECRET = originalSecret;

@@ -1,3 +1,4 @@
+// [SOURCE] CI-TS-004
 "use client";
 import React, { useState, useRef } from 'react';
 import { ArrowLeft, Zap, Save, Copy, ImagePlus, Loader2, Cpu, Scissors, Briefcase, Languages, Trash2, Download } from 'lucide-react';
@@ -34,7 +35,11 @@ export const ToolView: React.FC<ToolViewProps> = ({ tool, moduleName, onBack }) 
     const fileToGenerativePart = async (file: File) => {
         const base64EncodedDataPromise = new Promise<string>((resolve) => {
             const reader = new FileReader();
-            reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+            reader.onloadend = () => {
+                const result = typeof reader.result === "string" ? reader.result : "";
+                const encoded = result.split(",")[1] ?? "";
+                resolve(encoded);
+            };
             reader.readAsDataURL(file);
         });
         return {

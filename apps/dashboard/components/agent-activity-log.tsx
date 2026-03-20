@@ -1,7 +1,9 @@
+// [SOURCE] CI-TS-004
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { hasSupabaseConfig, subscribeToSupabaseRealtime } from "../lib/supabase";
+import type { AgentLog } from "../lib/api";
 
 type AgentLogEntry = {
   id: string;
@@ -31,8 +33,25 @@ const fallbackLogs: AgentLogEntry[] = [
   },
 ];
 
-export function AgentActivityLog() {
-  const [entries, setEntries] = useState<AgentLogEntry[]>(fallbackLogs);
+type AgentActivityLogProps = {
+  initialLogs?: AgentLog[];
+};
+
+export function AgentActivityLog({ initialLogs }: AgentActivityLogProps) {
+  const normalizedInitialLogs: AgentLogEntry[] | null = initialLogs
+    ? initialLogs.map((log) => ({
+        id: log.id,
+        agent: log.agentName,
+        action: log.action,
+        createdAt: log.createdAt
+      }))
+    : null;
+
+  const [entries, setEntries] = useState<AgentLogEntry[]>(
+    normalizedInitialLogs && normalizedInitialLogs.length > 0
+      ? normalizedInitialLogs
+      : fallbackLogs
+  );
 
   const formatRelativeTime = (value: AgentLogEntry["createdAt"]) => {
     if (typeof value === "string" && value.startsWith("há ")) {
@@ -82,7 +101,9 @@ export function AgentActivityLog() {
           const next: AgentLogEntry = {
             id: crypto.randomUUID(),
             agent: "Agent Monitor",
-            action: demoActions[Math.floor(Math.random() * demoActions.length)],
+            action:
+              demoActions[Math.floor(Math.random() * demoActions.length)] ??
+              "Atividade registrada",
             createdAt: "agora",
           };
           return [next, ...current].slice(0, 8);

@@ -1,3 +1,4 @@
+// [SOURCE] CI-TS-004
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -16,7 +17,7 @@ const tips: Record<string, string> = {
   atividades: "Monitore ações dos agentes em tempo real.",
 };
 
-const botAnswers: Record<string, string> = {
+const botAnswers = {
   default:
     "Posso ajudar com pipeline, finanças, contratos, analytics e rotinas diárias. Pergunte algo objetivo para eu acelerar sua operação.",
   pipeline:
@@ -25,7 +26,7 @@ const botAnswers: Record<string, string> = {
     "No financeiro, monitore MRR novo, expansão e churn juntos para entender crescimento líquido.",
   contrato:
     "Para contratos, configure alertas 30/15/7 dias antes do vencimento e um playbook de renovação.",
-};
+} as const;
 
 export function ExperienceLab() {
   const [messages, setMessages] = useState<Message[]>([
@@ -61,7 +62,7 @@ export function ExperienceLab() {
     oscillator.stop(audioCtx.currentTime + 0.12);
   };
 
-  const answerFromText = (text: string) => {
+  const answerFromText = (text: string): string => {
     const normalized = text.toLowerCase();
     if (normalized.includes("pipeline")) return botAnswers.pipeline;
     if (normalized.includes("finance")) return botAnswers.financeiro;

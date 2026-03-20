@@ -1,3 +1,4 @@
+// [SOURCE] CI-TS-004
 "use client";
 
 import { createClient } from "@supabase/supabase-js";
@@ -8,13 +9,23 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-const AuthContext = createContext({ user: null, signIn: () => {}, signOut: () => {} });
+type AuthContextValue = {
+  user: unknown | null;
+  signIn: () => Promise<void>;
+  signOut: () => Promise<void>;
+};
+
+const AuthContext = createContext<AuthContextValue>({
+  user: null,
+  signIn: async () => {},
+  signOut: async () => {}
+});
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<unknown>(null);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: string, session: { user?: unknown } | null) => {
       setUser(session?.user ?? null);
     });
     return () => subscription.unsubscribe();

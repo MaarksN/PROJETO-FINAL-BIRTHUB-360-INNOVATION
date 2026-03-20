@@ -1,7 +1,7 @@
 // [SOURCE] apps/dashboard/README.md — AE
 import test from "node:test";
 import assert from "node:assert/strict";
-import { calculateRoi, generateProposal, type ProposalInput } from "../lib/ae.ts";
+import { calculateRoi, generateProposal, type ProposalInput } from "../lib/ae";
 
 test("AE: proposal generator should include key business sections", () => {
   const input: ProposalInput = {

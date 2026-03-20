@@ -1,8 +1,8 @@
 // [SOURCE] apps/dashboard/README.md — LDR
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildLeadScoringItems } from "../lib/ldr.ts";
-import type { AttributionItem } from "../lib/dashboard-types.ts";
+import { buildLeadScoringItems } from "../lib/ldr";
+import type { AttributionItem } from "../lib/dashboard-types";
 
 test("LDR: should build scored and enriched lead items from attribution", () => {
   const attribution: AttributionItem[] = [
