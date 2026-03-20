@@ -1,6 +1,10 @@
 import { cookies } from "next/headers";
 
 import type { DashboardSnapshot } from "./dashboard-types";
+import { DASHBOARD_STATIC_SNAPSHOT } from "./dashboard-static-snapshot";
+
+// [SOURCE] BirthHub360 — Remediação Forense.html — GAP-DASH-003
+const useStaticSnapshot = process.env.DASHBOARD_USE_STATIC_SNAPSHOT === "true";
 
 function resolveApiBaseUrl(): string {
   return process.env.API_URL?.trim() || "http://localhost:3000";
@@ -23,6 +27,10 @@ async function fetchDashboardSection<T>(path: string): Promise<T> {
 }
 
 export async function getDashboardSnapshot(): Promise<DashboardSnapshot> {
+  if (useStaticSnapshot) {
+    return DASHBOARD_STATIC_SNAPSHOT;
+  }
+
   const [metrics, statuses, recentTasks, billingSummary] = await Promise.all([
     fetchDashboardSection<{ finance: DashboardSnapshot["finance"]; pipeline: DashboardSnapshot["pipeline"] }>(
       "/api/v1/dashboard/metrics"

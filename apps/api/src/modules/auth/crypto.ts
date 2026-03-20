@@ -146,6 +146,11 @@ export function randomToken(byteLength = 32): string {
   return randomBytes(byteLength).toString("base64url");
 }
 
+// [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
+export function createSecureSessionId(): string {
+  return randomBytes(16).toString("hex");
+}
+
 export function createAccessToken(): string {
   return `atk_${randomToken(32)}`;
 }

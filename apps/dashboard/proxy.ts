@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// [SOURCE] BirthHub360 — Remediação Forense.html — GAP-DASH-003
 const PUBLIC_PATHS = ["/login", "/api/session/login", "/api/session/logout", "/_next", "/favicon.ico"];
+const bypassAuthProxy =
+  process.env.DASHBOARD_SKIP_AUTH_PROXY === "true" || process.env.DASHBOARD_USE_STATIC_SNAPSHOT === "true";
 
 function resolveApiBaseUrl(): string {
   return process.env.API_URL?.trim() || "http://localhost:3000";
@@ -22,6 +25,10 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 }
 
 export async function proxy(request: NextRequest) {
+  if (bypassAuthProxy) {
+    return NextResponse.next();
+  }
+
   if (PUBLIC_PATHS.some((path) => request.nextUrl.pathname.startsWith(path))) {
     return NextResponse.next();
   }

@@ -1,16 +1,43 @@
-import { Queue, Worker, QueueEvents, JobsOptions } from "bullmq";
-import IORedis from "ioredis";
+// [SOURCE] CI-TS-001
+import { Queue, Worker, QueueEvents, JobsOptions, ConnectionOptions } from "bullmq";
 import { QueueName } from "@birthub/shared-types";
 import { QUEUE_CONFIG } from "./definitions";
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 
 export class QueueManager {
-  private connection: IORedis;
+  private connection: ConnectionOptions;
   private queues: Map<string, Queue> = new Map();
 
   constructor(redisUrl: string = REDIS_URL) {
-    this.connection = new IORedis(redisUrl, { maxRetriesPerRequest: null });
+    const parsedUrl = new URL(redisUrl);
+    const connection: ConnectionOptions = {
+      host: parsedUrl.hostname,
+      port: parsedUrl.port ? Number(parsedUrl.port) : 6379,
+      maxRetriesPerRequest: null,
+    };
+
+    if (parsedUrl.username) {
+      connection.username = decodeURIComponent(parsedUrl.username);
+    }
+
+    if (parsedUrl.password) {
+      connection.password = decodeURIComponent(parsedUrl.password);
+    }
+
+    const dbSegment = parsedUrl.pathname.replace("/", "");
+    if (dbSegment) {
+      const db = Number(dbSegment);
+      if (!Number.isNaN(db)) {
+        connection.db = db;
+      }
+    }
+
+    if (parsedUrl.protocol === "rediss:") {
+      connection.tls = {};
+    }
+
+    this.connection = connection;
   }
 
   createQueue(name: string) {
@@ -54,7 +81,7 @@ export class QueueManager {
           repeat: { pattern: cfg.cron },
           removeOnComplete: 20,
           attempts: cfg.attempts,
-          priority: cfg.priority,
+          ...(cfg.priority !== undefined ? { priority: cfg.priority } : {}),
         },
       );
     }
@@ -65,7 +92,6 @@ export class QueueManager {
       Array.from(this.queues.values()).map((queue) => queue.close()),
     );
     this.queues.clear();
-    await this.connection.quit();
   }
 }
 
