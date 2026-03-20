@@ -1,5 +1,5 @@
 Target: staging
-Checked at: 2026-03-20T11:31:47.638Z
+Checked at: 2026-03-20T12:17:14.803Z
 api: FAIL -> [api] invalid environment variables:
 - DATABASE_URL: Invalid input: expected string, received undefined
 - REDIS_URL: Invalid input: expected string, received undefined
