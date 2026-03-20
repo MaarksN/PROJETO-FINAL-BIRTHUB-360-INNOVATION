@@ -180,5 +180,15 @@
       },
       "timeoutMs": 15000
     }
-  ]
+  ],
+  "required_tools": [
+    "Board Report Generator",
+    "KPI Dashboard",
+    "Budget Forecaster"
+  ],
+  "fallback_behavior": {
+    "retry_policy": "3x backoff exponencial",
+    "rate_limit_handling": "wait + 1 retry",
+    "escalation": "notificação humana responsável"
+  }
 }

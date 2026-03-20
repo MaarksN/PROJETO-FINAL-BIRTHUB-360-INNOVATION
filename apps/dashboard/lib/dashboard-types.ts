@@ -1,8 +1,26 @@
+// [SOURCE] apps/dashboard/README.md — LDR
 export type PipelineItem = { stage: string; value: number; trend: string };
 export type HealthScoreItem = { client: string; score: number; risk: string; nps: number };
 export type FinanceItem = { label: string; value: string; delta: string };
 export type AttributionItem = { source: string; leads: number; conversion: string; cac: string };
 export type ContractItem = { customer: string; status: string; mrr: string; owner: string };
+export type LeadTier = "A" | "B" | "C";
+export type LeadIntent = "alto" | "médio" | "baixo";
+
+export type LeadScoringItem = {
+  account: string;
+  source: string;
+  leadCount: number;
+  conversion: string;
+  leadScore: number;
+  tier: LeadTier;
+  enrichment: {
+    segment: string;
+    region: string;
+    intent: LeadIntent;
+    signal: string;
+  };
+};
 
 export type DashboardSnapshot = {
   attribution: AttributionItem[];

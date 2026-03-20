@@ -194,5 +194,16 @@
       },
       "timeoutMs": 15000
     }
-  ]
+  ],
+  "required_tools": [
+    "Proposal Templates",
+    "Pricing Rules",
+    "Crm",
+    "Policy Guard"
+  ],
+  "fallback_behavior": {
+    "retry_policy": "3x backoff exponencial",
+    "rate_limit_handling": "wait + 1 retry",
+    "escalation": "notificação humana responsável"
+  }
 }
