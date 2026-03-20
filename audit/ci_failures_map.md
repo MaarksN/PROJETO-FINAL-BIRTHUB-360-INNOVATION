@@ -1,7 +1,7 @@
 <!-- [SOURCE] CI-MAP-001 -->
 # CI Failures Map
 
-Data de geração: 2026-03-20T11:39:41Z
+Data de geração: 2026-03-20T12:35:00Z
 Escopo: pacotes workspace com script `typecheck` (`corepack pnpm --filter <pkg> typecheck`).
 Resultado agregado: **16 PASS / 1 FAIL** (detalhe bruto em `artifacts/typecheck_matrix.json`).
 
@@ -22,3 +22,4 @@ Pacotes em **PASS** no snapshot atual: `@birthub/agents-core`, `@birthub/agents-
 ## Estado de Pipeline
 - **CI local (typecheck por pacote): não verde** por pendência única em `@birthub/dashboard`.
 - Próxima ação para verde total depende de decisão de escopo registrada em `audit/human_required/CI-TS-004_dashboard_logic_conflict.md`.
+- **Observação complementar (GAP-DASH-003):** `apps/dashboard/package.json` agora expõe `test:e2e`, porém o typecheck estrutural do dashboard segue bloqueando verde global.

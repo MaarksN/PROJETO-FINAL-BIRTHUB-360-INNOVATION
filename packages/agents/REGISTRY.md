@@ -1,5 +1,8 @@
 <!-- [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI -->
+<!-- [SOURCE] GOV-006 -->
 # BirthHub360 Agents Registry
+
+Escopo deste índice: agentes com aprovação final F5 explícita no log de validação.
 
 | name | domain | cycle | path | status |
 | --- | --- | --- | --- | --- |
