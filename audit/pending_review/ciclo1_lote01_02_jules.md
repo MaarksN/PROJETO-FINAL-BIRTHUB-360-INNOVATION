@@ -44,8 +44,5 @@
 - Sucesso, validação F5 cruzada aprovada pelo Jules.
 
 ## Pendências e Riscos Remanescentes
-- A aguardar Codex validar os artefatos F1-F3.
-
-## Instrução explícita
-[AGUARDA VALIDACAO CODEX]
-Codex, valide F1-F3 para os seguintes agentes: QuotaArchitect, BrandGuardian, BudgetFluid, TrendCatcher, NarrativeWeaver e CompetitorX-Ray. Se os arquivos `contract.yaml`, `system_prompt.md` e `acceptance.md` respeitarem o BirthHub360 Cross-Governance Protocol, proceda com o update de status para `feito`.
+- Nenhuma pendência ativa nesta entrega.
+- Validação Codex concluída em `2026-03-20T11:31:54Z` com aprovação dos artefatos F1-F3 para os 6 agentes.
