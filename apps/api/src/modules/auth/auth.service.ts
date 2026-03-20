@@ -1028,10 +1028,18 @@ export async function introspectApiKey(rawToken: string): Promise<{
     }
   });
 
+  const validScopes: ApiKeyScope[] = ["agents:read", "agents:write", "workflows:trigger", "webhooks:receive"];
+
+  const parsedScopes: ApiKeyScope[] = Array.isArray(apiKey.scopes)
+    ? apiKey.scopes.filter((s): s is ApiKeyScope =>
+        typeof s === "string" && (validScopes as string[]).includes(s)
+      )
+    : [];
+
   return {
     active: true,
     apiKeyId: apiKey.id,
-    scopes: apiKey.scopes as ApiKeyScope[],
+    scopes: parsedScopes,
     tenantId: apiKey.tenantId,
     userId: apiKey.userId
   };
