@@ -1,0 +1,317 @@
+[
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-01",
+    "File": "boardprep-ai.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (boardprep-ai) difere do name (board-prep-ai)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-01",
+    "File": "captable-manager.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (captable-manager) difere do name (cap-table-manager)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-01",
+    "File": "cashflow-clairvoyant.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (cashflow-clairvoyant) difere do name (cash-flow-clairvoyant)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-01",
+    "File": "competitor-xray.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (competitor-xray) difere do name (competitor-x-ray)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-01",
+    "File": "vip-concierge.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (vip-concierge) difere do name (vipconcierge)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-02",
+    "File": "fx-risk-manager.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (fx-risk-manager) difere do name (fxrisk-manager)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-05",
+    "File": "icp-refiner.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (icp-refiner) difere do name (icprefiner)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-05",
+    "File": "rfp-auto-responder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (rfp-auto-responder) difere do name (rfpauto-responder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-05",
+    "File": "roi-calculator-builder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (roi-calculator-builder) difere do name (roicalculator-builder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-06",
+    "File": "poc-tracker.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (poc-tracker) difere do name (po-ctracker)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-06",
+    "File": "roi-scenario-modeler.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (roi-scenario-modeler) difere do name (roiscenario-modeler)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-07",
+    "File": "ab-test-automator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (ab-test-automator) difere do name (abtest-automator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-07",
+    "File": "cacltv-modeler.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (cacltv-modeler) difere do name (cacltvmodeler)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-07",
+    "File": "roas-maximizer.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (roas-maximizer) difere do name (roasmaximizer)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-07",
+    "File": "seo-draft-writer.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (seo-draft-writer) difere do name (seodraft-writer)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-08",
+    "File": "pr-scraper.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (pr-scraper) difere do name (prscraper)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-08",
+    "File": "serp-volatility-tracker.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (serp-volatility-tracker) difere do name (serpvolatility-tracker)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-08",
+    "File": "utm-builder-bot.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (utm-builder-bot) difere do name (utmbuilder-bot)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-09",
+    "File": "api-key-configurator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (api-key-configurator) difere do name (apikey-configurator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-09",
+    "File": "csatnps-aggregator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (csatnps-aggregator) difere do name (csatnpsaggregator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-09",
+    "File": "faq-auto-responder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (faq-auto-responder) difere do name (faqauto-responder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-09",
+    "File": "kb-gap-identifier.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (kb-gap-identifier) difere do name (kbgap-identifier)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-09",
+    "File": "qbr-deck-builder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (qbr-deck-builder) difere do name (qbrdeck-builder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-09",
+    "File": "sla-monitor.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (sla-monitor) difere do name (slamonitor)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-10",
+    "File": "acv-growth-tracker.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (acv-growth-tracker) difere do name (acvgrowth-tracker)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-10",
+    "File": "api-integration-builder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (api-integration-builder) difere do name (apiintegration-builder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-10",
+    "File": "crm-cleanser.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (crm-cleanser) difere do name (crmcleanser)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-10",
+    "File": "custom-crm-ui-builder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (custom-crm-ui-builder) difere do name (custom-crmuibuilder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-10",
+    "File": "gtm-alignment-scorer.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (gtm-alignment-scorer) difere do name (gtmalignment-scorer)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-10",
+    "File": "tool-roi-analyzer.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (tool-roi-analyzer) difere do name (tool-roianalyzer)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-11",
+    "File": "ab-test-synthesizer.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (ab-test-synthesizer) difere do name (abtest-synthesizer)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-11",
+    "File": "arr-bridge-builder.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (arr-bridge-builder) difere do name (arrbridge-builder)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-11",
+    "File": "ltv-by-channel-calculator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (ltv-by-channel-calculator) difere do name (ltvby-channel-calculator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-11",
+    "File": "sql-query-generator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (sql-query-generator) difere do name (sqlquery-generator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-11",
+    "File": "strategic-kpi-aggregator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (strategic-kpi-aggregator) difere do name (strategic-kpiaggregator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-12",
+    "File": "ip-infringement-scraper.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (ip-infringement-scraper) difere do name (ipinfringement-scraper)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-12",
+    "File": "nda-auto-signer.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (nda-auto-signer) difere do name (ndaauto-signer)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-12",
+    "File": "saas-license-auditor.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (saas-license-auditor) difere do name (saa-slicense-auditor)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-13",
+    "File": "gl-anomaly-detector.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (gl-anomaly-detector) difere do name (glanomaly-detector)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-14",
+    "File": "id-verification-matcher.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (id-verification-matcher) difere do name (idverification-matcher)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-14",
+    "File": "pep-screener.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (pep-screener) difere do name (pepscreener)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-14",
+    "File": "sar-drafter.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (sar-drafter) difere do name (sardrafter)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-14",
+    "File": "ubo-mapper.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (ubo-mapper) difere do name (ubomapper)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-15",
+    "File": "central-bank-xml-generator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (central-bank-xml-generator) difere do name (central-bank-xmlgenerator)."
+  },
+  {
+    "Severity": "Low",
+    "Cycle": "cycle-15",
+    "File": "sla-escalator.agent.md",
+    "Rule": "F4-SlugMismatch",
+    "Detail": "Slug do arquivo (sla-escalator) difere do name (slaescalator)."
+  }
+]
