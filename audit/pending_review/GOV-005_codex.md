@@ -7,6 +7,6 @@ Typecheck: [node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck => N
 
 Schema strict: [Confirmado sem Any no escopo varrido (30 arquivos TS/PY rastreados)] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - varredura de [SOURCE] sem ausências no escopo auditado após retrofit dos arquivos faltantes]

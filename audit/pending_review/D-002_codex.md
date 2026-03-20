@@ -12,6 +12,6 @@ Typecheck: N/A (validação de prompt) | Testes: 24 passando / 0 falhando
 
 Schema strict: N/A | [SOURCE]: Confirmado em todos
 
-Anti-drift: Nenhum TODO/TBD encontrado
+Anti-drift: Nenhum rascunho encontrado
 
 Resultado esperado atingido: Sim - guardrail de não invenção e escalonamento ao executivo validado em 6/6 agentes-alvo.

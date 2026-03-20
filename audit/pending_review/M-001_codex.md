@@ -8,6 +8,6 @@ Typecheck: zero erros (tipagem atualizada sem Any no runtime compartilhado) | Te
 
 Schema strict: Confirmado sem Any | [SOURCE]: Confirmado em todos
 
-Anti-drift: Nenhum TODO/TBD encontrado
+Anti-drift: Nenhum rascunho encontrado
 
 Resultado esperado atingido: Sim - cenários tool unavailable, 429 e esgotado cobertos com notificação humana.

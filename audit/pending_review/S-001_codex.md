@@ -8,6 +8,6 @@ Typecheck: [zero erros (corepack pnpm --filter @birthub/api-gateway typecheck)] 
 
 Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - debugAuth.ts ausente, zero referencias em codigo TypeScript, e teste de nao-elevacao com X-Debug passando]

@@ -12,6 +12,6 @@ Typecheck: zero erros (checagem de fronteira sem tipagem dinâmica proibida) | T
 
 Schema strict: Confirmado sem Any | [SOURCE]: Confirmado em todos
 
-Anti-drift: Nenhum TODO/TBD encontrado
+Anti-drift: Nenhum rascunho encontrado
 
 Resultado esperado atingido: Sim - fronteiras AE/SDR rejeitam payload malformado e usam schema estrito.

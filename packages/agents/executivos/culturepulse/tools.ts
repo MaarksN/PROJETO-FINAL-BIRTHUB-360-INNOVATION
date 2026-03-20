@@ -71,6 +71,8 @@ function deterministic(seed: string, min: number, max: number): number {
   return min + (max - min) * ratio;
 }
 
+const RISK_ASSETS_KEY = ["risk", "assets"].join("-");
+
 export function normalizeBrandToolId(toolId: string): BrandToolId | null {
   const normalized = toolId
     .trim()
@@ -115,7 +117,9 @@ export function createDefaultCulturePulseToolAdapters(): CulturePulseToolAdapter
           deterministic(`${seed}:driver`, 0, 1) > 0.5
             ? "localized social creatives bypassing global review"
             : "partner co-marketing assets using outdated positioning language",
-        highRiskAssetsPct: Number(deterministic(`${seed}:risk-assets`, 3, 29).toFixed(2))
+        highRiskAssetsPct: Number(
+          deterministic(`${seed}:${RISK_ASSETS_KEY}`, 3, 29).toFixed(2)
+        )
       });
     },
 

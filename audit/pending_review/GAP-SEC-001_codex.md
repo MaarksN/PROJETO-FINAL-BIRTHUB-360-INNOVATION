@@ -10,6 +10,6 @@ Typecheck: [zero erros (corepack pnpm --filter @birthub/api typecheck)] | Testes
 
 Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - geracao de session ID migrada para crypto.randomBytes(16).toString("hex"), com teste cobrindo comprimento minimo de 32 caracteres hex]

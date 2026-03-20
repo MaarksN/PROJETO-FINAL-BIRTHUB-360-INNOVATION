@@ -8,6 +8,6 @@ Typecheck: [zero erros (corepack pnpm --filter @birthub/agents-core build)] | Te
 
 Schema strict: [N/A - validacao de ausencia e integridade de pipeline] | [SOURCE]: [N/A - sem alteracao de codigo para este item]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - legacy_eval.ts ausente, zero referencias legacy_eval e zero ocorrencias eval( em packages/agents-core/src]

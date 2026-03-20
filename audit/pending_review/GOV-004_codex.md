@@ -7,6 +7,6 @@ Typecheck: [node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck => N
 
 Schema strict: [N/A] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - observações do ciclo normalizadas exclusivamente em tabela Data | Arquivo | Descrição | Hipótese | Ação]

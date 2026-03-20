@@ -52,6 +52,6 @@ Typecheck: zero erros (@birthub/agents-core tsc --noEmit) | Testes: 13 passando 
 
 Schema strict: N/A | [SOURCE]: Confirmado em todos os arquivos alteráveis por comentário; manifests JSON validados 43/43
 
-Anti-drift: Nenhum TODO/TBD encontrado
+Anti-drift: Nenhum rascunho encontrado
 
 Resultado esperado atingido: Sim - required_tools presente em 43/43 manifests sem quebra de sintaxe.

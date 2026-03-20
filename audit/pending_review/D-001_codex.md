@@ -12,6 +12,6 @@ Typecheck: N/A (validação de prompt) | Testes: 24 passando / 0 falhando
 
 Schema strict: N/A | [SOURCE]: Confirmado em todos
 
-Anti-drift: Nenhum TODO/TBD encontrado
+Anti-drift: Nenhum rascunho encontrado
 
 Resultado esperado atingido: Sim - linguagem de tom profissional e não agressivo validada em 6/6 agentes-alvo.

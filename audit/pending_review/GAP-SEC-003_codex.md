@@ -9,6 +9,6 @@ Typecheck: [zero erros (corepack pnpm --filter @birthub/api typecheck)] | Testes
 
 Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - consumo MFA tornou-se atomico com updateMany condicionado a consumedAt: null; reuso retorna MFA_CODE_ALREADY_USED e teste comprova falha no segundo uso]

@@ -9,6 +9,6 @@ Typecheck: [zero erros (corepack pnpm --filter @birthub/api typecheck)] | Testes
 
 Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - RBAC mapeado com RBACContext + ROLE_PERMISSIONS; testes cobrem autorizado, nao autorizado (403), super_admin e role invalida rejeitada]

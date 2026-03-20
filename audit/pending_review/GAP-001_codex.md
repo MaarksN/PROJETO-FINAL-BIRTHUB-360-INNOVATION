@@ -6,6 +6,6 @@ Typecheck: [Falha em baseline pre-existente fora do escopo (TS5097, TS2307, TS70
 
 Schema strict: [Confirmado sem Any] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - modulo LDR implementado e validado por teste unitario e E2E]

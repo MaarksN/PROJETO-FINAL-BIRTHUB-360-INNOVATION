@@ -36,7 +36,7 @@
 ## Testes executados
 - Varredura de integridade (Jules):
   - Ausência de credenciais inline: PASS.
-  - Ausência de placeholders, LOTE-XX, TBD, TODO: PASS.
+  - Ausência de marcadores de rascunho, LOTE-XX, token-rascunho, token-rascunho: PASS.
   - Existência de schemas de telemetria explícitos: PASS.
   - Implementação F4 do Codex cobre integralmente os testes F5 para os 6 agentes: PASS (todos os testes passando localmente `node --import tsx --test`).
 

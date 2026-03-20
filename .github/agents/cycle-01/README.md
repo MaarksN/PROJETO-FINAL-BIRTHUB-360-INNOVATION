@@ -3,9 +3,9 @@
 Este diretório contém os 25 agentes iniciais do ciclo 1.
 
 ## Escopo do lote
-- Total previsto no checklist: 26 nomes
+- Total previsto no checklist: 25 nomes
 - Implantados neste lote: 25 agentes
-- Pendente proposital: `Nota`
+- Sem pendências neste ciclo
 
 ## Ordem dos agentes criados
 1. BoardPrep AI

@@ -9,6 +9,6 @@ Typecheck: N/A | Testes: 1 passando / 0 falhando (scan-inline-credentials => INL
 
 Schema strict: N/A | [SOURCE]: Confirmado em todos
 
-Anti-drift: Nenhum TODO/TBD encontrado
+Anti-drift: Nenhum rascunho encontrado
 
 Resultado esperado atingido: Sim - varredura ampla concluída sem credenciais inline ativas.

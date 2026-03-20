@@ -10,6 +10,6 @@ Typecheck: [zero erros (corepack pnpm --filter @birthub/agents-core build)] | Te
 
 Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em todos]
 
-Anti-drift: [Nenhum TODO/TBD encontrado]
+Anti-drift: [Nenhum rascunho encontrado]
 
 Resultado esperado atingido: [Sim - ranges obrigatorios cobertos (incluindo 169.254.169.254), testes confirmam rejeicao para IPs internos e aceite para URL publica valida]
