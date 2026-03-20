@@ -12,7 +12,7 @@ import { sha256 } from "../src/modules/auth/crypto.js";
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -22,7 +22,7 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 function createAuthTestApp() {
   return createApp({
     config: createTestApiConfig(),
-    healthService: async () => ({
+    healthService: () => Promise.resolve({
       checkedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
       services: {
         database: { status: "up" as const },
@@ -37,8 +37,8 @@ function createAuthTestApp() {
 
 void test("auth login returns 200 and creates a session", async () => {
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async () => ({ id: "org_1", tenantId: "tenant_1" })),
-    stubMethod(prisma.membership, "findFirst", async () => ({
+    stubMethod(prisma.organization, "findFirst", () => Promise.resolve({ id: "org_1", tenantId: "tenant_1" })),
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
       organizationId: "org_1",
       role: "OWNER",
       tenantId: "tenant_1",
@@ -51,13 +51,13 @@ void test("auth login returns 200 and creates a session", async () => {
       },
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "update", async () => ({ id: "user_1" })),
-    stubMethod(prisma.session, "findFirst", async () => null),
-    stubMethod(prisma.session, "create", async () => ({
+    stubMethod(prisma.user, "update", () => Promise.resolve({ id: "user_1" })),
+    stubMethod(prisma.session, "findFirst", () => Promise.resolve(null)),
+    stubMethod(prisma.session, "create", () => Promise.resolve({
       id: "session_1"
     })),
-    stubMethod(prisma.session, "findMany", async () => [{ id: "session_1" }]),
-    stubMethod(prisma.session, "updateMany", async () => ({ count: 0 }))
+    stubMethod(prisma.session, "findMany", () => Promise.resolve([{ id: "session_1" }])),
+    stubMethod(prisma.session, "updateMany", () => Promise.resolve({ count: 0 }))
   ];
 
   try {
@@ -71,9 +71,10 @@ void test("auth login returns 200 and creates a session", async () => {
       })
       .expect(200);
 
-    assert.equal(response.body.mfaRequired, false);
-    assert.equal(response.body.session.userId, "user_1");
-    assert.equal(response.body.session.tenantId, "tenant_1");
+    const body = response.body as { mfaRequired: boolean; session: { tenantId: string; userId: string } };
+    assert.equal(body.mfaRequired, false);
+    assert.equal(body.session.userId, "user_1");
+    assert.equal(body.session.tenantId, "tenant_1");
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -86,7 +87,7 @@ void test("createSession generates session id with 16-byte hex entropy", async (
   let capturedSessionId: string | null = null;
 
   const restores = [
-    stubMethod(prisma.session, "create", async (args: { data?: { id?: unknown } }) => {
+    stubMethod(prisma.session, "create", (args: { data?: { id?: unknown } }) => {
       const sessionId = args.data?.id;
 
       if (typeof sessionId !== "string") {
@@ -94,7 +95,7 @@ void test("createSession generates session id with 16-byte hex entropy", async (
       }
 
       capturedSessionId = sessionId;
-      return { id: sessionId };
+      return Promise.resolve({ id: sessionId });
     })
   ];
 
@@ -120,8 +121,8 @@ void test("createSession generates session id with 16-byte hex entropy", async (
 
 void test("auth login with MFA enabled returns challenge token", async () => {
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async () => ({ id: "org_1", tenantId: "tenant_1" })),
-    stubMethod(prisma.membership, "findFirst", async () => ({
+    stubMethod(prisma.organization, "findFirst", () => Promise.resolve({ id: "org_1", tenantId: "tenant_1" })),
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
       organizationId: "org_1",
       role: "OWNER",
       tenantId: "tenant_1",
@@ -134,9 +135,9 @@ void test("auth login with MFA enabled returns challenge token", async () => {
       },
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "update", async () => ({ id: "user_1" })),
-    stubMethod(prisma.session, "findFirst", async () => null),
-    stubMethod(prisma.mfaChallenge, "create", async () => ({ id: "challenge_1" }))
+    stubMethod(prisma.user, "update", () => Promise.resolve({ id: "user_1" })),
+    stubMethod(prisma.session, "findFirst", () => Promise.resolve(null)),
+    stubMethod(prisma.mfaChallenge, "create", () => Promise.resolve({ id: "challenge_1" }))
   ];
 
   try {
@@ -150,8 +151,9 @@ void test("auth login with MFA enabled returns challenge token", async () => {
       })
       .expect(200);
 
-    assert.equal(response.body.mfaRequired, true);
-    assert.equal(typeof response.body.challengeToken, "string");
+    const body = response.body as { challengeToken: string; mfaRequired: boolean };
+    assert.equal(body.mfaRequired, true);
+    assert.equal(typeof body.challengeToken, "string");
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -166,7 +168,7 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
   const validTotp = generateCurrentTotp(secret);
 
   const restores = [
-    stubMethod(prisma.mfaChallenge, "findUnique", async () => ({
+    stubMethod(prisma.mfaChallenge, "findUnique", () => Promise.resolve({
       consumedAt: null,
       expiresAt: new Date(Date.now() + 60_000),
       id: "challenge_1",
@@ -174,15 +176,15 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
       tenantId: "tenant_1",
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       mfaSecret: encrypted
     })),
-    stubMethod(prisma.mfaChallenge, "updateMany", async () => ({ count: 1 })),
-    stubMethod(prisma.membership, "findUnique", async () => ({ role: Role.OWNER })),
-    stubMethod(prisma.session, "create", async () => ({ id: "session_2" })),
-    stubMethod(prisma.session, "findMany", async () => [{ id: "session_2" }]),
-    stubMethod(prisma.session, "updateMany", async () => ({ count: 0 }))
+    stubMethod(prisma.mfaChallenge, "updateMany", () => Promise.resolve({ count: 1 })),
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({ role: Role.OWNER })),
+    stubMethod(prisma.session, "create", () => Promise.resolve({ id: "session_2" })),
+    stubMethod(prisma.session, "findMany", () => Promise.resolve([{ id: "session_2" }])),
+    stubMethod(prisma.session, "updateMany", () => Promise.resolve({ count: 0 }))
   ];
 
   try {
@@ -199,9 +201,10 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
       })
       .expect(200);
 
-    assert.equal(response.body.mfaRequired, false);
-    assert.equal(response.body.session.userId, "user_1");
-    assert.equal(response.body.session.tenantId, "tenant_1");
+    const body = response.body as { mfaRequired: boolean; session: { tenantId: string; userId: string } };
+    assert.equal(body.mfaRequired, false);
+    assert.equal(body.session.userId, "user_1");
+    assert.equal(body.session.tenantId, "tenant_1");
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -217,7 +220,7 @@ void test("verifyMfaChallenge rejects MFA challenge token reuse after first succ
   let consumeCount = 0;
 
   const restores = [
-    stubMethod(prisma.mfaChallenge, "findUnique", async () => ({
+    stubMethod(prisma.mfaChallenge, "findUnique", () => Promise.resolve({
       consumedAt: null,
       expiresAt: new Date(Date.now() + 60_000),
       id: "challenge_1",
@@ -225,18 +228,18 @@ void test("verifyMfaChallenge rejects MFA challenge token reuse after first succ
       tenantId: "tenant_1",
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       mfaSecret: encrypted
     })),
-    stubMethod(prisma.mfaChallenge, "updateMany", async () => {
+    stubMethod(prisma.mfaChallenge, "updateMany", () => {
       consumeCount += 1;
-      return { count: consumeCount === 1 ? 1 : 0 };
+      return Promise.resolve({ count: consumeCount === 1 ? 1 : 0 });
     }),
-    stubMethod(prisma.membership, "findUnique", async () => ({ role: Role.OWNER })),
-    stubMethod(prisma.session, "create", async () => ({ id: "session_2" })),
-    stubMethod(prisma.session, "findMany", async () => [{ id: "session_2" }]),
-    stubMethod(prisma.session, "updateMany", async () => ({ count: 0 }))
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({ role: Role.OWNER })),
+    stubMethod(prisma.session, "create", () => Promise.resolve({ id: "session_2" })),
+    stubMethod(prisma.session, "findMany", () => Promise.resolve([{ id: "session_2" }])),
+    stubMethod(prisma.session, "updateMany", () => Promise.resolve({ count: 0 }))
   ];
 
   try {
@@ -271,7 +274,7 @@ void test("auth logout returns 200 for a valid session token", async () => {
   const sessionToken = "atk_valid";
 
   const restores = [
-    stubMethod(prisma.session, "findUnique", async () => ({
+    stubMethod(prisma.session, "findUnique", () => Promise.resolve({
       expiresAt,
       id: "session_1",
       organizationId: "org_1",
@@ -279,11 +282,11 @@ void test("auth logout returns 200 for a valid session token", async () => {
       revokedAt: null,
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_1" }))
+    stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" }))
   ];
 
   try {
@@ -295,7 +298,8 @@ void test("auth logout returns 200 for a valid session token", async () => {
       .set("Cookie", ["bh360_csrf=csrf_1"])
       .expect(200);
 
-    assert.equal(response.body.revokedSessions, 1);
+    const body = response.body as { revokedSessions: number };
+    assert.equal(body.revokedSessions, 1);
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -306,7 +310,7 @@ void test("auth logout returns 200 for a valid session token", async () => {
 void test("auth protected endpoint returns 401 for expired or invalid session tokens", async () => {
   const app = createAuthTestApp();
 
-  let restore = stubMethod(prisma.session, "findUnique", async () => ({
+  let restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve({
     expiresAt: new Date(Date.now() - 60_000),
     id: "session_expired",
     organizationId: "org_1",
@@ -318,7 +322,7 @@ void test("auth protected endpoint returns 401 for expired or invalid session to
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_expired").expect(401);
   restore();
 
-  restore = stubMethod(prisma.session, "findUnique", async () => null);
+  restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve(null));
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_invalid").expect(401);
   restore();
 });
@@ -328,15 +332,15 @@ void test("createSession enforces concurrent session limit for privileged roles"
   const revokedPayloads: unknown[] = [];
 
   const restores = [
-    stubMethod(prisma.session, "create", async () => ({ id: "session_new" })),
+    stubMethod(prisma.session, "create", () => Promise.resolve({ id: "session_new" })),
     stubMethod(
       prisma.session,
       "findMany",
-      async () => [{ id: "session_new" }, { id: "session_old_1" }, { id: "session_old_2" }]
+      () => Promise.resolve([{ id: "session_new" }, { id: "session_old_1" }, { id: "session_old_2" }])
     ),
-    stubMethod(prisma.session, "updateMany", async (args: unknown) => {
+    stubMethod(prisma.session, "updateMany", (args: unknown) => {
       revokedPayloads.push(args);
-      return { count: 2 };
+      return Promise.resolve({ count: 2 });
     })
   ];
 
@@ -361,7 +365,7 @@ void test("createSession enforces concurrent session limit for privileged roles"
 
 void test("authenticateRequest rejects idle-expired session", async () => {
   const restores = [
-    stubMethod(prisma.session, "findUnique", async () => ({
+    stubMethod(prisma.session, "findUnique", () => Promise.resolve({
       expiresAt: new Date(Date.now() + 60_000),
       id: "session_idle_expired",
       lastActivityAt: new Date(Date.now() - 31 * 60_000),
