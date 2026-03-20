@@ -90,11 +90,12 @@ export function createApiKeysRouter(config: ApiConfig): Router {
     validateBody(apiKeyCreateRequestSchema),
     asyncHandler(async (request, response) => {
       const scope = requireAuthScope(request);
+      const body = apiKeyCreateRequestSchema.parse(request.body);
       const created = await createTenantApiKey({
         config,
-        label: request.body.label,
+        label: body.label,
         organizationId: scope.organizationId,
-        scopes: request.body.scopes,
+        scopes: body.scopes,
         userId: scope.userId
       });
 
