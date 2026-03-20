@@ -20,8 +20,8 @@ function Convert-ToKebabCase {
   param([string]$Name)
 
   $normalized = ($Name -replace '\s+', '')
-  $step1 = $normalized -replace '([a-z0-9])([A-Z])', '$1-$2'
-  $step2 = $step1 -replace '([A-Z]+)([A-Z][a-z])', '$1-$2'
+  $step1 = $normalized -creplace '([a-z0-9])([A-Z])', '$1-$2'
+  $step2 = $step1 -creplace '([A-Z]+)([A-Z][a-z])', '$1-$2'
   return $step2.ToLower()
 }
 
@@ -29,6 +29,11 @@ foreach ($entry in $cycles.GetEnumerator()) {
   $cycle = $entry.Key
   $names = $entry.Value
   $cycleDir = Join-Path $agentsRoot ("cycle-{0}" -f $cycle)
+
+  if (Test-Path $cycleDir) {
+    Remove-Item -Path $cycleDir -Recurse -Force
+  }
+
   New-Item -Path $cycleDir -ItemType Directory -Force | Out-Null
 
   foreach ($name in $names) {

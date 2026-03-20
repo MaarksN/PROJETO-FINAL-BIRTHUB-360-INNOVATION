@@ -67,6 +67,7 @@ export function createBillingRouter(config: ApiConfig): Router {
       }
 
       try {
+        const body = checkoutRequestSchema.parse(request.body);
         const checkout = await createCheckoutSessionForOrganization({
           config,
           countryCode:
@@ -76,7 +77,7 @@ export function createBillingRouter(config: ApiConfig): Router {
             null,
           locale: request.header("accept-language")?.split(",")[0] ?? null,
           organizationReference: request.context.organizationId!,
-          planId: request.body.planId
+          planId: body.planId
         });
 
         await clearCheckoutIpBan(requesterIp);
