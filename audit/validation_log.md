@@ -570,3 +570,38 @@
   - Ausência de credenciais inline, placeholders ou variáveis genéricas.
   Impacto no checklist: Atualização F4/F5 como `feito` e F1-F3 como `aprovacao`.
   Proxima acao: Codex validar F1-F3.
+
+## 2026-03-20T01:00:00Z
+
+- Item: `GAP-001`
+  Validador: `JULES`
+  Resultado: `REPROVADO`
+  Evidência:
+  - Criado `apps/dashboard/app/ldr/acceptance.md` baseado na especificação.
+  - O módulo não existe em `apps/dashboard/app/ldr/` ou não atende aos requisitos (o Codex implementou pacotes no runtime, mas o módulo frontend do Dashboard não foi entregue).
+  - Teste de navegabilidade falharia devido à ausência de código fonte UI.
+  Ação requerida do executor (Codex):
+  - Implementar o frontend do módulo LDR em `apps/dashboard/app/ldr` seguindo o padrão SDR, CS, Finance e a spec em `acceptance.md`.
+
+## 2026-03-20T01:05:00Z
+
+- Item: `GAP-002`
+  Validador: `JULES`
+  Resultado: `REPROVADO`
+  Evidência:
+  - Criado `apps/dashboard/app/ae/acceptance.md` com a spec do README.md.
+  - O módulo não existe em `apps/dashboard/app/ae/` com o front-end de dashboard.
+  Ação requerida do executor (Codex):
+  - Implementar o frontend do módulo AE (`apps/dashboard/app/ae`), mantendo compatibilidade com `closer` e cumprindo os itens de `acceptance.md`.
+
+## 2026-03-20T01:10:00Z
+
+- Item: `GAP-DASH-003`
+  Validador: `JULES`
+  Resultado: `REPROVADO`
+  Evidência:
+  - Testes E2E executados via Playwright (`npx playwright test apps/dashboard/tests/e2e/`).
+  - Ocorreram 3 falhas nos testes E2E do Sales OS (falha de conexão ao `http://127.0.0.1:3001/sales` ou rotas inexistentes).
+  - Regressões/incompatibilidades identificadas na renderização do front-end.
+  Ação requerida do executor (Codex):
+  - Investigar e corrigir a causa raiz da falha no setup/build do front-end do dashboard que quebra os testes E2E do SDR, CS e Finance.
