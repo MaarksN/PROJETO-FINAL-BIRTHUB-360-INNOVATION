@@ -111,7 +111,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   app.disable("x-powered-by");
   app.use(requestContextMiddleware);
-  app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME));
+  app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));
   app.use(tenantContextMiddleware);
   app.use(
     helmet({

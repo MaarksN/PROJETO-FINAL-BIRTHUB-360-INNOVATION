@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+import type { ApiConfig } from "@birthub/config";
 
 import { authenticateRequest } from "../modules/auth/auth.service.js";
 
@@ -51,7 +52,10 @@ function extractAuthorizationToken(headerValue: string | undefined): {
   return { sessionToken: credential };
 }
 
-export function authenticationMiddleware(sessionCookieName: string) {
+export function authenticationMiddleware(
+  sessionCookieName: string,
+  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">
+) {
   return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     try {
       const cookies = parseCookies(request.header("cookie"));
@@ -60,6 +64,7 @@ export function authenticationMiddleware(sessionCookieName: string) {
       const apiKeyToken = authorization.apiKeyToken ?? null;
       const authenticated = await authenticateRequest({
         apiKeyToken,
+        config,
         sessionToken
       });
 

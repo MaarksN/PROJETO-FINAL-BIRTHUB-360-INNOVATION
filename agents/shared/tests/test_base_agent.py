@@ -45,3 +45,38 @@ async def test_base_agent_rate_limit(monkeypatch):
     assert first_result.status == "success"
     assert second_result.status == "error"
     assert second_result.error == "rate_limit_exceeded"
+
+
+@pytest.mark.asyncio
+async def test_base_agent_injects_bkb_context_into_runtime_state(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "fake_key")
+    BaseAgent._init_gemini = MagicMock(return_value=None)
+
+    agent = MockAgent("test_agent", "gemini-1.5-pro")
+    agent._log_to_db = AsyncMock()
+
+    async def _fake_ainvoke(state):
+        return {
+            "actions_taken": [],
+            "data": {
+                "bkb_context_available": state["context"].get("bkb_context_available"),
+                "bkb_source": state["context"].get("bkb_context", {}).get("source"),
+            },
+            "error": None,
+        }
+
+    agent.graph.ainvoke = AsyncMock(side_effect=_fake_ainvoke)
+
+    result = await agent.run(
+        {
+            "context": {
+                "knowledge_base": ["faq:pricing", "playbook:negociacao"],
+            },
+            "jobId": "job-ctx-1",
+            "tenantId": "tenant-bkb",
+        }
+    )
+
+    assert result.status == "success"
+    assert result.data["bkb_context_available"] is True
+    assert result.data["bkb_source"] == "payload"

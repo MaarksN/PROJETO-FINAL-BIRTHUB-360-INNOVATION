@@ -1,10 +1,11 @@
 {
-  "checkedAt": "2026-03-20T12:33:10.937Z",
-  "envFile": null,
-  "ok": false,
+  "checkedAt": "2026-03-20T15:55:51.645Z",
+  "envFile": "artifacts/release/staging-preflight.env",
+  "ok": true,
   "requiredKeys": [
     {
-      "missing": [
+      "missing": [],
+      "present": [
         "API_CORS_ORIGINS",
         "AUTH_MFA_ENCRYPTION_KEY",
         "DATABASE_URL",
@@ -16,50 +17,43 @@
         "STRIPE_WEBHOOK_SECRET",
         "WEB_BASE_URL"
       ],
-      "present": [],
       "scope": "api"
     },
     {
-      "missing": [
+      "missing": [],
+      "present": [
         "NEXT_PUBLIC_API_URL",
         "NEXT_PUBLIC_APP_URL",
         "NEXT_PUBLIC_SENTRY_DSN"
       ],
-      "present": [],
       "scope": "web"
     },
     {
-      "missing": [
+      "missing": [],
+      "present": [
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
         "SENTRY_DSN",
         "WEB_BASE_URL"
       ],
-      "present": [],
       "scope": "worker"
     }
   ],
   "results": [
     {
-      "issues": [
-        "[api] invalid environment variables:\n- DATABASE_URL: Invalid input: expected string, received undefined\n- REDIS_URL: Invalid input: expected string, received undefined"
-      ],
-      "ok": false,
+      "issues": [],
+      "ok": true,
       "scope": "api"
     },
     {
-      "issues": [
-        "[web] invalid environment variables:\n- NEXT_PUBLIC_APP_URL must point to the public HTTPS domain in production.\n- NEXT_PUBLIC_API_URL must point to the public HTTPS API domain in production.\n- NEXT_PUBLIC_CSP_REPORT_ONLY must be false in production.\n- NEXT_PUBLIC_SENTRY_DSN must be configured in production."
-      ],
-      "ok": false,
+      "issues": [],
+      "ok": true,
       "scope": "web"
     },
     {
-      "issues": [
-        "[worker] invalid environment variables:\n- DATABASE_URL: Invalid input: expected string, received undefined\n- REDIS_URL: Invalid input: expected string, received undefined"
-      ],
-      "ok": false,
+      "issues": [],
+      "ok": true,
       "scope": "worker"
     }
   ],

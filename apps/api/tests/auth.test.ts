@@ -2,11 +2,11 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { prisma, UserStatus } from "@birthub/database";
+import { prisma, Role, UserStatus } from "@birthub/database";
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
-import { createSession, verifyMfaChallenge } from "../src/modules/auth/auth.service.js";
+import { authenticateRequest, createSession, verifyMfaChallenge } from "../src/modules/auth/auth.service.js";
 import { encryptTotpSecret, generateCurrentTotp, generateTotpSecret } from "../src/modules/auth/mfa.service.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
 import { createTestApiConfig } from "./test-config.js";
@@ -55,7 +55,9 @@ void test("auth login returns 200 and creates a session", async () => {
     stubMethod(prisma.session, "findFirst", async () => null),
     stubMethod(prisma.session, "create", async () => ({
       id: "session_1"
-    }))
+    })),
+    stubMethod(prisma.session, "findMany", async () => [{ id: "session_1" }]),
+    stubMethod(prisma.session, "updateMany", async () => ({ count: 0 }))
   ];
 
   try {
@@ -177,7 +179,10 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
       mfaSecret: encrypted
     })),
     stubMethod(prisma.mfaChallenge, "updateMany", async () => ({ count: 1 })),
-    stubMethod(prisma.session, "create", async () => ({ id: "session_2" }))
+    stubMethod(prisma.membership, "findUnique", async () => ({ role: Role.OWNER })),
+    stubMethod(prisma.session, "create", async () => ({ id: "session_2" })),
+    stubMethod(prisma.session, "findMany", async () => [{ id: "session_2" }]),
+    stubMethod(prisma.session, "updateMany", async () => ({ count: 0 }))
   ];
 
   try {
@@ -228,7 +233,10 @@ void test("verifyMfaChallenge rejects MFA challenge token reuse after first succ
       consumeCount += 1;
       return { count: consumeCount === 1 ? 1 : 0 };
     }),
-    stubMethod(prisma.session, "create", async () => ({ id: "session_2" }))
+    stubMethod(prisma.membership, "findUnique", async () => ({ role: Role.OWNER })),
+    stubMethod(prisma.session, "create", async () => ({ id: "session_2" })),
+    stubMethod(prisma.session, "findMany", async () => [{ id: "session_2" }]),
+    stubMethod(prisma.session, "updateMany", async () => ({ count: 0 }))
   ];
 
   try {
@@ -313,4 +321,67 @@ void test("auth protected endpoint returns 401 for expired or invalid session to
   restore = stubMethod(prisma.session, "findUnique", async () => null);
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_invalid").expect(401);
   restore();
+});
+
+void test("createSession enforces concurrent session limit for privileged roles", async () => {
+  const config = createTestApiConfig();
+  const revokedPayloads: unknown[] = [];
+
+  const restores = [
+    stubMethod(prisma.session, "create", async () => ({ id: "session_new" })),
+    stubMethod(
+      prisma.session,
+      "findMany",
+      async () => [{ id: "session_new" }, { id: "session_old_1" }, { id: "session_old_2" }]
+    ),
+    stubMethod(prisma.session, "updateMany", async (args: unknown) => {
+      revokedPayloads.push(args);
+      return { count: 2 };
+    })
+  ];
+
+  try {
+    await createSession({
+      config,
+      ipAddress: "127.0.0.1",
+      organizationId: "org_1",
+      role: Role.ADMIN,
+      tenantId: "tenant_1",
+      userAgent: "auth-test",
+      userId: "user_1"
+    });
+
+    assert.equal(revokedPayloads.length, 1);
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
+});
+
+void test("authenticateRequest rejects idle-expired session", async () => {
+  const restores = [
+    stubMethod(prisma.session, "findUnique", async () => ({
+      expiresAt: new Date(Date.now() + 60_000),
+      id: "session_idle_expired",
+      lastActivityAt: new Date(Date.now() - 31 * 60_000),
+      organizationId: "org_1",
+      refreshExpiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      revokedAt: null,
+      tenantId: "tenant_1",
+      userId: "user_1"
+    }))
+  ];
+
+  try {
+    const authenticated = await authenticateRequest({
+      config: { API_AUTH_IDLE_TIMEOUT_MINUTES: 30 },
+      sessionToken: "atk_idle_expired"
+    });
+    assert.equal(authenticated, null);
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
 });

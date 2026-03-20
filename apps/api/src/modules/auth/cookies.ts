@@ -10,6 +10,8 @@ function secureCookie(config: ApiConfig): boolean {
 
 export function setAuthCookies(response: Response, config: ApiConfig, tokens: SessionTokens): void {
   const commonOptions = {
+    domain: config.API_AUTH_COOKIE_DOMAIN,
+    path: "/",
     sameSite: "strict" as const,
     secure: secureCookie(config)
   };
@@ -35,6 +37,8 @@ export function setAuthCookies(response: Response, config: ApiConfig, tokens: Se
 
 export function clearAuthCookies(response: Response, config: ApiConfig): void {
   const cookieOptions = {
+    domain: config.API_AUTH_COOKIE_DOMAIN,
+    path: "/",
     sameSite: "strict" as const,
     secure: secureCookie(config)
   };

@@ -2,6 +2,7 @@ import {
   ApiKeyStatus,
   MembershipStatus,
   Role,
+  SessionStatus,
   UserStatus,
   prisma
 } from "@birthub/database";
@@ -152,10 +153,73 @@ function nowPlusMinutes(minutes: number): Date {
   return new Date(Date.now() + minutes * 60 * 1000);
 }
 
+function resolveConcurrentSessionLimit(role: Role): number {
+  switch (role) {
+    case Role.SUPER_ADMIN:
+    case Role.OWNER:
+    case Role.ADMIN:
+      return 1;
+    case Role.MEMBER:
+    case Role.READONLY:
+      return 3;
+    default:
+      return 2;
+  }
+}
+
+async function enforceConcurrentSessionLimit(input: {
+  organizationId: string;
+  role: Role;
+  sessionId: string;
+  userId: string;
+}): Promise<void> {
+  const limit = resolveConcurrentSessionLimit(input.role);
+
+  const activeSessions = await prisma.session.findMany({
+    orderBy: {
+      createdAt: "desc"
+    },
+    select: {
+      id: true
+    },
+    where: {
+      organizationId: input.organizationId,
+      revokedAt: null,
+      userId: input.userId
+    }
+  });
+
+  if (activeSessions.length <= limit) {
+    return;
+  }
+
+  const activeWithoutCurrent = activeSessions.filter((session) => session.id !== input.sessionId);
+  const sessionsToKeep = Math.max(0, limit - 1);
+  const sessionsToRevoke = activeWithoutCurrent.slice(sessionsToKeep).map((session) => session.id);
+
+  if (sessionsToRevoke.length === 0) {
+    return;
+  }
+
+  await prisma.session.updateMany({
+    data: {
+      revokedAt: new Date(),
+      status: SessionStatus.REVOKED
+    },
+    where: {
+      id: {
+        in: sessionsToRevoke
+      },
+      revokedAt: null
+    }
+  });
+}
+
 export async function createSession(input: {
   config: ApiConfig;
   ipAddress: string | null;
   organizationId: string;
+  role?: Role;
   tenantId: string;
   userAgent: string | null;
   userId: string;
@@ -183,6 +247,15 @@ export async function createSession(input: {
       userId: input.userId
     }
   });
+
+  if (input.role) {
+    await enforceConcurrentSessionLimit({
+      organizationId: input.organizationId,
+      role: input.role,
+      sessionId: created.id,
+      userId: input.userId
+    });
+  }
 
   return {
     sessionId: created.id,
@@ -352,6 +425,7 @@ export async function loginWithPassword(input: {
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: input.organizationId,
+    role: membership.role,
     tenantId: membership.tenantId,
     userAgent: input.userAgent,
     userId: membership.userId
@@ -461,10 +535,25 @@ export async function verifyMfaChallenge(input: {
     throw new Error("MFA_CODE_ALREADY_USED");
   }
 
+  const membershipRole = (
+    await prisma.membership.findUnique({
+      where: {
+        organizationId_userId: {
+          organizationId: challenge.organizationId,
+          userId: challenge.userId
+        }
+      },
+      select: {
+        role: true
+      }
+    })
+  )?.role;
+
   const createdSession = await createSession({
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: challenge.organizationId,
+    ...(membershipRole ? { role: membershipRole } : {}),
     tenantId: challenge.tenantId,
     userAgent: input.userAgent,
     userId: challenge.userId
@@ -580,6 +669,7 @@ export async function enableMfaForUser(input: {
 
 export async function authenticateRequest(input: {
   apiKeyToken?: string | null;
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">;
   sessionToken?: string | null;
 }): Promise<AuthenticatedContext | null> {
   if (input.apiKeyToken) {
@@ -631,6 +721,20 @@ export async function authenticateRequest(input: {
   }
 
   if (session.revokedAt || session.expiresAt.getTime() < Date.now()) {
+    return null;
+  }
+
+  const idleTimeoutMinutes = input.config?.API_AUTH_IDLE_TIMEOUT_MINUTES ?? 30;
+  const lastActivityAtTime =
+    session.lastActivityAt instanceof Date
+      ? session.lastActivityAt.getTime()
+      : Date.now();
+  const idleExpiryTime = lastActivityAtTime + 60_000 * idleTimeoutMinutes;
+  if (idleExpiryTime < Date.now()) {
+    return null;
+  }
+
+  if (session.refreshExpiresAt && session.refreshExpiresAt.getTime() < Date.now()) {
     return null;
   }
 

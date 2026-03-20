@@ -14,6 +14,7 @@ from google import genai
 from langgraph.graph import StateGraph
 
 from agents.shared.db_pool import get_pool
+from agents.shared.operational_contract import inject_bkb_context
 from agents.shared.rate_limiter import RateLimiter
 
 load_dotenv()
@@ -125,7 +126,12 @@ class BaseAgent(ABC):
         state: BaseAgentState = {
             **job_data,
             "tenant_id": tenant_id,
-            "context": job_data.get("context", job_data),
+            "context": inject_bkb_context(
+                {
+                    **dict(job_data.get("context", job_data)),
+                    "tenant_id": tenant_id,
+                }
+            ),
             "messages": job_data.get("messages", []),
             "actions_taken": job_data.get("actions_taken", []),
             "data": job_data.get("data"),

@@ -20,6 +20,8 @@ import {
 
 export const apiEnvSchema = z.object({
   API_AUTH_COOKIE_NAME: nonEmptyString.default("bh360_session"),
+  API_AUTH_COOKIE_DOMAIN: optionalNonEmptyString,
+  API_AUTH_IDLE_TIMEOUT_MINUTES: z.coerce.number().int().positive().default(30),
   API_AUTH_REFRESH_COOKIE_NAME: nonEmptyString.default("bh360_refresh"),
   API_AUTH_ROTATION_GRACE_HOURS: z.coerce.number().int().positive().default(24),
   API_AUTH_SESSION_TTL_HOURS: z.coerce.number().int().positive().default(24),

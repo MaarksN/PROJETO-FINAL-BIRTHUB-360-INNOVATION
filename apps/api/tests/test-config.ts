@@ -3,6 +3,8 @@ import type { ApiConfig } from "@birthub/config";
 export function createTestApiConfig(): ApiConfig {
   return {
     API_AUTH_COOKIE_NAME: "bh360_session",
+    API_AUTH_COOKIE_DOMAIN: undefined,
+    API_AUTH_IDLE_TIMEOUT_MINUTES: 30,
     API_AUTH_REFRESH_COOKIE_NAME: "bh360_refresh",
     API_AUTH_ROTATION_GRACE_HOURS: 24,
     API_AUTH_SESSION_TTL_HOURS: 24,
