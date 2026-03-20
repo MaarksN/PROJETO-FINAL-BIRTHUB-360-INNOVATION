@@ -133,9 +133,10 @@ export function createAuthRouter(config: ApiConfig): Router {
         });
       }
 
+      const body = enableMfaRequestSchema.parse(request.body);
       const enabled = await enableMfaForUser({
         config,
-        totpCode: request.body.totpCode,
+        totpCode: body.totpCode,
         userId
       });
 
