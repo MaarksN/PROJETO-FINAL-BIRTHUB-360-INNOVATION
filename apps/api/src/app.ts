@@ -279,12 +279,18 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/auth/mfa/challenge",
     validateBody(mfaVerifyRequestSchema),
     asyncHandler(async (request, response) => {
+      const body = request.body as unknown as {
+        challengeToken: string;
+        recoveryCode?: string;
+        totpCode?: string;
+      };
+
       const session = await verifyMfaChallenge({
-        challengeToken: request.body.challengeToken,
+        challengeToken: body.challengeToken,
         config,
         ipAddress: request.ip ?? null,
-        recoveryCode: request.body.recoveryCode,
-        totpCode: request.body.totpCode,
+        recoveryCode: body.recoveryCode,
+        totpCode: body.totpCode,
         userAgent: request.header("user-agent") ?? null
       });
 
@@ -317,10 +323,14 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/auth/refresh",
     validateBody(refreshRequestSchema),
     asyncHandler(async (request, response) => {
+      const body = request.body as unknown as {
+        refreshToken: string;
+      };
+
       const result = await refreshSession({
         config,
         ipAddress: request.ip ?? null,
-        refreshToken: request.body.refreshToken,
+        refreshToken: body.refreshToken,
         userAgent: request.header("user-agent") ?? null
       });
 
@@ -416,13 +426,21 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/organizations",
     validateBody(createOrganizationRequestSchema),
     asyncHandler(async (request, response) => {
+      const body = request.body as unknown as {
+        adminEmail: string;
+        adminName: string;
+        adminPassword: string;
+        name: string;
+        slug?: string;
+      };
+
       const organization = await createOrganization({
-        adminEmail: request.body.adminEmail,
-        adminName: request.body.adminName,
-        adminPassword: request.body.adminPassword,
-        name: request.body.name,
+        adminEmail: body.adminEmail,
+        adminName: body.adminName,
+        adminPassword: body.adminPassword,
+        name: body.name,
         requestId: request.context.requestId,
-        slug: request.body.slug
+        slug: body.slug
       });
 
       request.context.organizationId = organization.organizationId;
@@ -492,6 +510,15 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     requireAuthenticatedSession,
     validateBody(taskRequestSchema),
     asyncHandler(async (request, response) => {
+      const body = request.body as unknown as {
+        agentId: string;
+        approvalRequired?: boolean;
+        estimatedCostBRL: number;
+        executionMode: "DRY_RUN" | "LIVE";
+        payload?: unknown;
+        type: string;
+      };
+
       const organizationId = request.context.organizationId;
       const tenantId = request.context.tenantId;
       const userId = request.context.userId;
@@ -507,9 +534,9 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       try {
         await budgetService.consumeBudget({
           actorId: userId,
-          agentId: request.body.agentId,
-          costBRL: request.body.estimatedCostBRL,
-          executionMode: request.body.executionMode,
+          agentId: body.agentId,
+          costBRL: body.estimatedCostBRL,
+          executionMode: body.executionMode,
           organizationId,
           requestId: request.context.requestId,
           tenantId
@@ -530,8 +557,8 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
       try {
         job = await enqueueTaskDependency(config, {
-          agentId: request.body.agentId,
-          approvalRequired: request.body.approvalRequired,
+          agentId: body.agentId,
+          approvalRequired: body.approvalRequired,
           context: {
             actorId: userId,
             jobId: request.context.requestId,
@@ -539,13 +566,13 @@ export function createApp(dependencies: AppDependencies = {}): Express {
             scopedAt: new Date().toISOString(),
             tenantId
           },
-          estimatedCostBRL: request.body.estimatedCostBRL,
-          executionMode: request.body.executionMode,
-          payload: request.body.payload,
+          estimatedCostBRL: body.estimatedCostBRL,
+          executionMode: body.executionMode,
+          payload: body.payload,
           requestId: request.context.requestId,
           signature: Buffer.from(`${tenantId}:${request.context.requestId}`).toString("base64url"),
           tenantId,
-          type: request.body.type,
+          type: body.type,
           userId,
           version: "1"
         });
