@@ -20,3 +20,7 @@ A correção exige intervenção estrutural no módulo dashboard (arquitetura de
 1. Definir baseline canônico do dashboard (paths, alias TS, dependências obrigatórias).
 2. Confirmar o contrato oficial esperado entre `@birthub/dashboard` e `@birthub/db`.
 3. Autorizar ciclo dedicado para saneamento completo do dashboard (escopo amplo), separado das correções pontuais de infra TS.
+
+## Revalidação em 2026-03-20
+- `corepack pnpm -r --reporter append-only typecheck` continua falhando exclusivamente no `@birthub/dashboard`.
+- Os demais pacotes-alvo de infra (`@birthub/queue`, `@birthub/agents-core`, `@birthub/db`, `@birthub/llm-client`) permanecem verdes em typecheck isolado.

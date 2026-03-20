@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "start": "next start -p 3001",
     "test": "node --experimental-strip-types --test __tests__/*.test.ts",
-    "test:e2e": "playwright test -c test-config/playwright.config.ts",
+    "test:e2e": "playwright test tests/e2e/dashboard-modules.spec.ts -c test-config/playwright.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

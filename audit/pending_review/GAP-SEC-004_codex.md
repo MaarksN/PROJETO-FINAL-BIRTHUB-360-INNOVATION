@@ -1,13 +1,19 @@
-Item: [GAP-SEC-004 - Demais itens do Checklist-Session-Security.md com GAP ou DESVIO] | Data: [2026-03-20T08:44:40-03:00]
+<!-- [SOURCE] GAP-SEC-004 -->
+# Pending Review — GAP-SEC-004
+**Data:** 2026-03-20
+**Executor:** Codex
 
-Arquivos criados/alterados: [
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\GAP-SEC-004_backlog_missing.md
-]
+## Arquivos criados / modificados
+| Arquivo | Ação | [SOURCE] presente |
+|---------|------|-------------------|
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\GAP-SEC-004_backlog_missing.md | Bloqueio formal mantido por ausência de backlog | ✅ |
 
-Typecheck: [N/A - bloqueio por dependencia de backlog] | Testes: [N/A - backlog ausente]
+## Testes executados
+| Teste | Comando | Resultado |
+|-------|---------|-----------|
+| Verificação de backlog obrigatório | `Test-Path audit/pending_review/GAP-SEC-004_itens.md` | FAIL |
 
-Schema strict: [N/A] | [SOURCE]: [Confirmado em todos]
-
-Anti-drift: [Nenhum TODO/TBD encontrado]
-
-Resultado esperado atingido: [Nao - arquivo exigido audit/pending_review/GAP-SEC-004_itens.md nao existe; execucao bloqueada ate publicacao do backlog pelo Jules]
+## Resultado esperado atingido?
+[ ] Sim — evidência: ...
+[ ] Parcial — gap: ...
+[x] Não — motivo: backlog canônico `GAP-SEC-004_itens.md` não existe; execução bloqueada por regra.

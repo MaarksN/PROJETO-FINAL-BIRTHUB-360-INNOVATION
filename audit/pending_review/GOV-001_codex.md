@@ -1,12 +1,19 @@
-<!-- [SOURCE] BirthHub360 — Remediação Forense — GOV-001 -->
-Item: [GOV-001 ./audit/validation_log.md — atualizado e completo] | Data: [2026-03-20T12:04:40Z]
+<!-- [SOURCE] GOV-001 -->
+# Pending Review — GOV-001
+**Data:** 2026-03-20
+**Executor:** Codex
 
-Arquivos criados/alterados: [C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\validation_log.md]
+## Arquivos criados / modificados
+| Arquivo | Ação | [SOURCE] presente |
+|---------|------|-------------------|
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\validation_log.md | Inclusão de entradas no formato oficial exigido | ✅ |
 
-Typecheck: [node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck => No projects matched the filters] | Testes: [24 passando / 0 falhando]
+## Testes executados
+| Teste | Comando | Resultado |
+|-------|---------|-----------|
+| Verificação manual de formato | Revisão textual das novas entradas `## [DATA] | [ID] | Codex | [STATUS]` | PASS |
 
-Schema strict: [N/A] | [SOURCE]: [Confirmado em todos]
-
-Anti-drift: [Nenhum TODO/TBD encontrado]
-
-Resultado esperado atingido: [Sim - log atualizado com rastreabilidade dos itens GOV-001..GOV-006 e sem perda de histórico]
+## Resultado esperado atingido?
+[x] Sim — evidência: novas entradas adicionadas sem apagar histórico legado.
+[ ] Parcial — gap: ...
+[ ] Não — motivo: ...

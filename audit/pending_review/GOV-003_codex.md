@@ -1,12 +1,20 @@
-<!-- [SOURCE] BirthHub360 — Remediação Forense — GOV-003 -->
-Item: [GOV-003 ./audit/human_required/ — bloqueios documentados e resolvidos] | Data: [2026-03-20T12:04:40Z]
+<!-- [SOURCE] GOV-003 -->
+# Pending Review — GOV-003
+**Data:** 2026-03-20
+**Executor:** Codex
 
-Arquivos criados/alterados: [C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\billing_lock_ci_block.md (removido); C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\contract_runtime_decision.md; C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\state\contract_runtime_decision.env; C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\validation_log.md]
+## Arquivos criados / modificados
+| Arquivo | Ação | [SOURCE] presente |
+|---------|------|-------------------|
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\GOV-003_open_blockers.md | Consolidação de bloqueios ativos | ✅ |
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\vindi_job_decision.md | Inclusão em governança de bloqueios | ✅ |
 
-Typecheck: [node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck => No projects matched the filters] | Testes: [24 passando / 0 falhando]
+## Testes executados
+| Teste | Comando | Resultado |
+|-------|---------|-----------|
+| Listagem de bloqueios ativos | `Get-ChildItem audit/human_required` | PASS |
 
-Schema strict: [N/A] | [SOURCE]: [Confirmado em todos]
-
-Anti-drift: [Nenhum TODO/TBD encontrado]
-
-Resultado esperado atingido: [Sim - billing_lock eliminado, decisao Option B confirmada e bloqueios humanos ativos listados no log]
+## Resultado esperado atingido?
+[x] Sim — evidência: bloqueios consolidados e classificados como AGUARDANDO HUMANO.
+[ ] Parcial — gap: ...
+[ ] Não — motivo: ...

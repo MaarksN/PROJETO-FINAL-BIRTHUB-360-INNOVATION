@@ -1,13 +1,21 @@
-Item: [S-003 - Decisao sobre syncLegacyBilling.ts (apps/worker/src/jobs/)] | Data: [2026-03-20T08:44:40-03:00]
+<!-- [SOURCE] S-003 -->
+# Pending Review — S-003
+**Data:** 2026-03-20
+**Executor:** Codex
 
-Arquivos criados/alterados: [
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\S-003_syncLegacyBilling_technical_findings.md
-]
+## Arquivos criados / modificados
+| Arquivo | Ação | [SOURCE] presente |
+|---------|------|-------------------|
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\vindi_job_decision.md | Criação de decisão humana canônica | ✅ |
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\UNDECLARED_OBSERVATIONS.md | Registro da atualização de rastreabilidade | ✅ |
 
-Typecheck: [N/A - analise de execucao ativa] | Testes: [N/A - analise estatica de uso e scheduler]
+## Testes executados
+| Teste | Comando | Resultado |
+|-------|---------|-----------|
+| Presença do arquivo legado | `git ls-files "*syncLegacyBilling.ts"` | PASS (ausente) |
+| Referências em código | `git grep -n "syncLegacyBilling" -- "*.ts"` | PASS (sem referências) |
 
-Schema strict: [N/A] | [SOURCE]: [Confirmado em todos]
-
-Anti-drift: [Nenhum TODO/TBD encontrado]
-
-Resultado esperado atingido: [Sim - descoberta tecnica documentada para Jules; arquivo/job legado nao esta presente nem referenciado; nenhuma remocao executada sem decisao humana]
+## Resultado esperado atingido?
+[x] Sim — evidência: `vindi_job_decision.md` criado e observações atualizadas sem remover código sem autorização.
+[ ] Parcial — gap: ...
+[ ] Não — motivo: ...

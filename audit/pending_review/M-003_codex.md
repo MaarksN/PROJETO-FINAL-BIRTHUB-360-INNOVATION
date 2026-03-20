@@ -1,17 +1,20 @@
-Item: M-003 - Injeção de contexto BKB nos agentes de atendimento (validação técnica Codex) | Data: 2026-03-20T08:57:45-03:00
+<!-- [SOURCE] M-003 -->
+# Pending Review — M-003
+**Data:** 2026-03-20
+**Executor:** Codex
 
-Arquivos criados/alterados:
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents\executivos\quotaarchitect\system_prompt.md
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents\executivos\brandguardian\system_prompt.md
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents\executivos\budgetfluid\system_prompt.md
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents\executivos\trendcatcher\system_prompt.md
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents\executivos\narrativeweaver\system_prompt.md
-- C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents\executivos\competitorxray\system_prompt.md
+## Arquivos criados / modificados
+| Arquivo | Ação | [SOURCE] presente |
+|---------|------|-------------------|
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\human_required\M003_bkb_integration.md | Abertura de bloqueio técnico formal | ✅ |
+| C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\UNDECLARED_OBSERVATIONS.md | Registro da limitação de runtime | ✅ |
 
-Typecheck: N/A (validação de prompt) | Testes: 24 passando / 0 falhando
+## Testes executados
+| Teste | Comando | Resultado |
+|-------|---------|-----------|
+| Busca de integração BKB em código executável | `git grep -n -E "BKB|knowledge_base|knowledgeBase" -- agents packages/agents "*.py" "*.ts"` | PARCIAL |
 
-Schema strict: N/A | [SOURCE]: Confirmado em todos
-
-Anti-drift: Nenhum TODO/TBD encontrado
-
-Resultado esperado atingido: Sim - instrução de consulta BKB validada em 6/6 agentes-alvo após injeção do Jules.
+## Resultado esperado atingido?
+[ ] Sim — evidência: ...
+[x] Parcial — gap: guardrail de prompt existe, mas pipeline de injeção BKB em runtime não está comprovado para o escopo auditado.
+[ ] Não — motivo: ...
