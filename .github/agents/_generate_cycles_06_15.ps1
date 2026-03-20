@@ -79,9 +79,9 @@ Este diretório contém os $($names.Count) agentes do ciclo $([int]$cycle).
 $($orderLines -join "`n")
 
 ## Padrão aplicado
-- Frontmatter com `name`, `description`, `tools`, `user-invocable`
-- `description` no padrão de descoberta "Use when..."
-- Corpo com `Escopo`, `Restrições`, `Saída Obrigatória`
+- Frontmatter com name, description, tools, user-invocable
+- description no padrão de descoberta "Use when..."
+- Corpo com Escopo, Restrições, Saída Obrigatória
 "@
 
   $readmePath = Join-Path $cycleDir 'README.md'

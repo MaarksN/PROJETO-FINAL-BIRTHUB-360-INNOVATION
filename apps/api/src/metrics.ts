@@ -48,20 +48,26 @@ export function setTenantStorageMetric(tenantId: string, bytes: number): void {
   setMetric(storageGauges, "birthub_tenant_storage_bytes", { tenant_id: tenantId }, bytes);
 }
 
+function resolveRoutePath(request: Request): string {
+  // Express types `route` as `any`; we narrow it explicitly to avoid unsafe member access
+  const route = request.route as { path?: string } | undefined;
+  return route?.path ?? request.path;
+}
+
 export function metricsMiddleware(request: Request, response: Response, next: NextFunction): void {
   const startedAt = performance.now();
 
   response.on("finish", () => {
     incrementMetric(requestCounters, "birthub_tenant_requests_total", {
       method: request.method,
-      route: request.route?.path ?? request.path,
+      route: resolveRoutePath(request),
       status: String(response.statusCode),
       tenant_id: request.context.tenantId ?? "anonymous"
     });
 
     incrementMetric(requestCounters, "birthub_tenant_request_duration_ms_total", {
       method: request.method,
-      route: request.route?.path ?? request.path,
+      route: resolveRoutePath(request),
       tenant_id: request.context.tenantId ?? "anonymous"
     }, Math.round(performance.now() - startedAt));
   });

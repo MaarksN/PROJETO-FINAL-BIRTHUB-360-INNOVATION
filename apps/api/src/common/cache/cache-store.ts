@@ -18,23 +18,23 @@ class CacheStoreError extends Error {
 }
 
 class NoopCacheStore implements CacheStore {
-  async del(): Promise<number> {
-    return 0;
+  del(): Promise<number> {
+    return Promise.resolve(0);
   }
 
-  async get(): Promise<string | null> {
-    return null;
+  get(): Promise<string | null> {
+    return Promise.resolve(null);
   }
 
-  async set(): Promise<void> {
-    // noop
+  set(): Promise<void> {
+    return Promise.resolve();
   }
 }
 
 class InMemoryCacheStore implements CacheStore {
   private readonly entries = new Map<string, { expiresAt: number; value: string }>();
 
-  async del(...keys: string[]): Promise<number> {
+  del(...keys: string[]): Promise<number> {
     let deleted = 0;
 
     for (const key of keys) {
@@ -43,29 +43,30 @@ class InMemoryCacheStore implements CacheStore {
       }
     }
 
-    return deleted;
+    return Promise.resolve(deleted);
   }
 
-  async get(key: string): Promise<string | null> {
+  get(key: string): Promise<string | null> {
     const entry = this.entries.get(key);
 
     if (!entry) {
-      return null;
+      return Promise.resolve(null);
     }
 
     if (entry.expiresAt <= Date.now()) {
       this.entries.delete(key);
-      return null;
+      return Promise.resolve(null);
     }
 
-    return entry.value;
+    return Promise.resolve(entry.value);
   }
 
-  async set(key: string, value: string, ttlSeconds: number): Promise<void> {
+  set(key: string, value: string, ttlSeconds: number): Promise<void> {
     this.entries.set(key, {
       expiresAt: Date.now() + ttlSeconds * 1000,
       value
     });
+    return Promise.resolve();
   }
 }
 

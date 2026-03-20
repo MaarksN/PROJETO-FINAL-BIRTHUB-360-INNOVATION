@@ -30,7 +30,7 @@ export async function initializeOpenTelemetry(config: ApiConfig): Promise<void> 
     })
   });
 
-  await sdk.start();
+  sdk.start();
 }
 
 export async function shutdownOpenTelemetry(): Promise<void> {

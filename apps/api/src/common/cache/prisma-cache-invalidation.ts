@@ -97,9 +97,9 @@ function wrapDelegateMutation(
     return;
   }
 
-  delegate[action] = (async (args: unknown) => {
+  delegate[action] = (async (args: unknown): Promise<unknown> => {
     const referencesBeforeMutation = await resolveReferencesBeforeMutation(args);
-    const result = await original.call(delegate, args);
+    const result: unknown = await (original as (args: unknown) => Promise<unknown>).call(delegate, args);
     const referencesAfterMutation = resolveReferencesAfterMutation(result);
     const referencesToInvalidate = collectTenantReferences([
       ...referencesBeforeMutation,
