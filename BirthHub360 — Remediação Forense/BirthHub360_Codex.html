@@ -138,8 +138,8 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 
 <!-- DASHBOARD -->
 <div class="dashboard">
-  <div class="dash-title">BirthHub360 — Remediação Forense</div>
-  <div class="dash-sub">31 itens · Infraestrutura · Segurança · Dashboard · Qualidade · Governança</div>
+  <div class="dash-title">BirthHub360 — Remediação Forense · <span style="color:var(--codex)">Codex</span></div>
+  <div class="dash-sub">31 itens · Execução exclusiva Codex · Infra · Segurança · Dashboard · Qualidade · Governança</div>
   <div class="kpi-grid">
     <div class="kpi k-total"><div class="kpi-val kv-p" id="d-total">31</div><div class="kpi-lbl">Total</div></div>
     <div class="kpi k-feito"><div class="kpi-val kv-g" id="d-feito">0</div><div class="kpi-lbl">✅ Feito</div></div>
@@ -164,35 +164,25 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 
 <!-- GOVERNANÇA -->
 <div class="gov-panel">
-  <div class="gov-title">⚖️ Protocolo de Governança Cruzada — Regras ativas neste checklist</div>
+  <div class="gov-title">⬡ Protocolo de Execução — Codex · Regras ativas neste checklist</div>
   <div class="gov-grid">
     <div class="gov-card">
-      <div class="gov-card-title" style="color:var(--jules);">Jules — Executor instrucional</div>
-      <div class="gov-card-body">F1 · F2 · F3 · F5<br>Valida intenção do Codex</div>
-      <div class="gov-rule">Peso validador: 180 pts</div>
-    </div>
-    <div class="gov-card">
-      <div class="gov-card-title" style="color:var(--codex);">Codex — Executor técnico</div>
-      <div class="gov-card-body">F4 · Implementação + testes<br>Valida execução do Jules</div>
-      <div class="gov-rule">Peso validador: 180 pts</div>
-    </div>
-    <div class="gov-card">
-      <div class="gov-card-title">Aprovação dupla = 360 pts</div>
-      <div class="gov-card-body">Item só fecha com Jules ✅ + Codex ✅ registrados em ./audit/validation_log.md</div>
-      <div class="gov-rule">Reprovação → executor corrige → revalida</div>
-    </div>
-    <div class="gov-card">
-      <div class="gov-card-title">Bloqueio → humano decide</div>
-      <div class="gov-card-body">Conflito entre os dois → ./audit/human_required/&lt;item&gt;.md</div>
-      <div class="gov-rule">Nenhum dos dois desbloqueia sozinho</div>
-    </div>
-    <div class="gov-card">
-      <div class="gov-card-title">Proibições absolutas</div>
-      <div class="gov-card-body">× Aprovar próprio trabalho<br>× Corrigir diretamente o outro<br>× Alterar ./docs/<br>× Implementar sem artefato declarado</div>
+      <div class="gov-card-title" style="color:var(--codex);">Codex — Executor único</div>
+      <div class="gov-card-body">Todos os 31 itens · F4 · Implementação + testes<br>Responsável por execução e registro</div>
+      <div class="gov-rule">Registrar em: ./audit/validation_log.md</div>
     </div>
     <div class="gov-card">
       <div class="gov-card-title">Auditoria obrigatória</div>
       <div class="gov-card-body">Todo arquivo criado: <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--accent2);">// [SOURCE] item-id</span><br>Registrar em validation_log.md<br>Atualizar este checklist ao concluir</div>
+    </div>
+    <div class="gov-card">
+      <div class="gov-card-title">Bloqueio → humano decide</div>
+      <div class="gov-card-body">Conflito ou ambiguidade → ./audit/human_required/&lt;item&gt;.md</div>
+      <div class="gov-rule">Não desbloquear sozinho</div>
+    </div>
+    <div class="gov-card">
+      <div class="gov-card-title">Proibições absolutas</div>
+      <div class="gov-card-body">× Alterar ./docs/<br>× Implementar sem artefato declarado<br>× Remover entradas de log existentes</div>
     </div>
   </div>
 </div>
@@ -208,12 +198,7 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
     <option value="aprovacao">🔵 Aprovação</option>
     <option value="feito">🟢 Feito</option>
   </select>
-  <select class="fsel" id="fs-owner">
-    <option value="">Todos</option>
-    <option value="jules">Jules</option>
-    <option value="codex">Codex</option>
-    <option value="ambos">Ambos</option>
-  </select>
+  <span style="font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;border-radius:6px;background:var(--codex-bg);color:var(--codex);border:1px solid rgba(127,119,221,.35);font-weight:700;">⬡ Codex only · 31 itens</span>
   <button class="tbtn tbtn-ghost" onclick="resetF()">Limpar</button>
   <button class="tbtn tbtn-ghost" onclick="doExport()">📤 CSV</button>
   <button class="tbtn tbtn-primary" onclick="saveAll()">💾 Salvar</button>
@@ -268,7 +253,7 @@ codex:["Para cada pacote: rodar typecheck isolado e coletar erros.","Appender .j
 result:"Todos os pacotes listados compilam com zero erros TypeScript. CI verde na branch principal.",
 error:"Se um pacote tiver erros que exigem mudança de lógica: documentar o pacote em human_required/<pacote>_logic_conflict.md e prosseguir com os demais sem bloqueá-los."},
 
-{id:"CI-MAP-001",lbl:"Documentar todas as falhas em ./audit/ci_failures_map.md",short:"Status RESOLVIDO por item. Confirmar CI verde na branch principal.",owner:"ambos",tags:[],
+{id:"CI-MAP-001",lbl:"Documentar todas as falhas em ./audit/ci_failures_map.md",short:"Status RESOLVIDO por item. Confirmar CI verde na branch principal.",owner:"codex",tags:[],
 jules:["Revisar o mapa criado pelo Codex e confirmar que todos os itens estão corretamente classificados.","Validar que nenhum item foi omitido do relatório.","Aprovar ou reprovar o documento em validation_log.md."],
 codex:["Criar ./audit/ci_failures_map.md com tabela: Pacote | Tipo de erro | Arquivo | Erro exato | Causa raiz | Status.","Para cada falha resolvida: marcar RESOLVIDO com data.","Para cada falha não resolvida: marcar PENDENTE com motivo.","Executar CI completo e confirmar verde antes de marcar o documento como completo."],
 result:"./audit/ci_failures_map.md existe, está completo e reflete o estado real do CI. CI verde na branch principal.",
@@ -276,19 +261,19 @@ error:"Se houver falhas que não puderam ser resolvidas: documentar com status P
 ],
 
 "b-s-seg":[
-{id:"S-001",lbl:"Confirmar remoção de debugAuth.ts (apps/api-gateway/src/middleware/)",short:"Middleware que eleva requisição com header X-Debug para role admin.",owner:"ambos",crit:true,tags:[["SEGURANÇA CRÍTICA","t-seg"]],
+{id:"S-001",lbl:"Confirmar remoção de debugAuth.ts (apps/api-gateway/src/middleware/)",short:"Middleware que eleva requisição com header X-Debug para role admin.",owner:"codex",crit:true,tags:[["SEGURANÇA CRÍTICA","t-seg"]],
 jules:["Confirmar no repositório que o arquivo não existe.","Verificar que nenhum arquivo em ./docs/ ou artefatos instrucionais referenciam este middleware.","Registrar em validation_log.md: 'S-001 — ausência confirmada — [data]'."],
 codex:["Buscar no repositório: find . -name 'debugAuth.ts' — deve retornar vazio.","Buscar referências: grep -r 'debugAuth' . --include='*.ts' — deve retornar vazio.","Verificar que o teste de não-elevação existe e passa: requisição com header X-Debug não recebe role admin.","Se arquivo ainda existir: deletar, remover imports, executar teste."],
 result:"debugAuth.ts não existe no repositório. Nenhuma referência ativa. Teste de não-elevação passando.",
 error:"Se o arquivo ainda existir: deletar imediatamente (item de segurança crítica, dispensado de validação cruzada). Registrar no log: 'S-001 — SEGURANÇA CRÍTICA — ação imediata executada'."},
 
-{id:"S-002",lbl:"Confirmar remoção de legacy_eval.ts — função linha ~45",short:"Função eval() não documentada executando prompts de versão anterior.",owner:"ambos",crit:true,tags:[["SEGURANÇA CRÍTICA","t-seg"]],
+{id:"S-002",lbl:"Confirmar remoção de legacy_eval.ts — função linha ~45",short:"Função eval() não documentada executando prompts de versão anterior.",owner:"codex",crit:true,tags:[["SEGURANÇA CRÍTICA","t-seg"]],
 jules:["Confirmar que nenhum artefato instrucional referencia esta função.","Verificar que o pipeline atual de prompts não depende desta função.","Registrar confirmação em validation_log.md."],
 codex:["Buscar: grep -r 'legacy_eval' . --include='*.ts' — deve retornar vazio.","Buscar a função eval() direta em agents-core: grep -n 'eval(' packages/agents-core/src/ -r.","Confirmar que callers foram redirecionados para o pipeline atual.","Se a função ainda existir: remover, redirecionar callers, confirmar zero imports quebrados."],
 result:"Função legacy_eval removida. Nenhum caller ativo. Pipeline atual de prompts funcionando sem dependência da função antiga.",
 error:"Se houver callers ativos: identificar qual comportamento produzem, encontrar o equivalente no pipeline atual, redirecionar. Documentar o redirecionamento em validation_log.md."},
 
-{id:"S-003",lbl:"Decisão sobre syncLegacyBilling.ts (apps/worker/src/jobs/)",short:"Job de sincronização com sistema Vindi antigo. Pode ser integração ativa não documentada.",owner:"jules",tags:[],
+{id:"S-003",lbl:"Decisão sobre syncLegacyBilling.ts (apps/worker/src/jobs/)",short:"Job de sincronização com sistema Vindi antigo. Pode ser integração ativa não documentada.",owner:"codex",tags:[],
 jules:["Buscar em todos os artefatos instrucionais referências ao sistema Vindi ou a este job.","Se não encontrar: criar ./audit/human_required/vindi_job_decision.md com a pergunta: manter ou remover?","Registrar em UNDECLARED_OBSERVATIONS.md: 'S-003 — syncLegacyBilling.ts sem artefato de origem confirmado'.","Aguardar decisão humana antes de qualquer ação no arquivo."],
 codex:["Verificar se o job está sendo chamado ativamente em algum scheduler ou worker.","Verificar se remove dependências de outros módulos caso seja removido.","Documentar descoberta técnica para Jules incluir em human_required.","Não remover o arquivo sem decisão humana registrada."],
 result:"./audit/human_required/vindi_job_decision.md criado. UNDECLARED_OBSERVATIONS.md atualizado. Nenhuma ação no arquivo até decisão humana.",
@@ -312,7 +297,7 @@ codex:["Localizar a implementação atual de verificação de código MFA.","Adi
 result:"Código MFA é invalidado imediatamente após o primeiro uso. Segundo uso retorna erro 'already used'. Teste confirma o comportamento.",
 error:"Se o store de MFA não tiver suporte a TTL/invalidação: documentar a limitação técnica em human_required/GAP-SEC-003_store_limitation.md e propor alternativa para decisão humana."},
 
-{id:"GAP-SEC-004",lbl:"Demais itens do Checklist-Session-Security.md com GAP ou DESVIO",short:"Checklist de 16 itens — 7 com problemas identificados. Revisar item a item.",owner:"ambos",tags:[],
+{id:"GAP-SEC-004",lbl:"Demais itens do Checklist-Session-Security.md com GAP ou DESVIO",short:"Checklist de 16 itens — 7 com problemas identificados. Revisar item a item.",owner:"codex",tags:[],
 jules:["Ler ./docs/Checklist-Session-Security.md na íntegra.","Para cada item com GAP ou DESVIO identificado no relatório forense: extrair o requisito exato.","Criar um sub-item em ./audit/pending_review/GAP-SEC-004_itens.md listando cada requisito pendente.","Validar as implementações do Codex item a item."],
 codex:["Ler a lista criada por Jules em pending_review/GAP-SEC-004_itens.md.","Para cada item: verificar o estado atual no código e implementar o que falta.","Escrever teste por item corrigido.","Documentar cada correção com // [SOURCE] Checklist-Session-Security.md — item X."],
 result:"Todos os 16 itens do Checklist-Session-Security.md com status APTO confirmado. Testes passando para cada requisito.",
@@ -338,7 +323,7 @@ codex:["Usar o módulo SDR como referência de padrão.","Implementar módulo AE
 result:"Módulo AE existe e é navegável. Gerador de proposta e calculadora de ROI funcionando. 'closer' existente continua funcionando sem regressão.",
 error:"Se implementar AE quebrar 'closer': parar imediatamente. Criar human_required/GAP002_closer_conflict.md descrevendo o conflito antes de qualquer outra mudança."},
 
-{id:"GAP-DASH-003",lbl:"Confirmar módulos SDR, CS e Finance — paridade e testes E2E",short:"Status: APTO. Reconfirmar ausência de regressão após ciclo de remediation.",owner:"ambos",tags:[],
+{id:"GAP-DASH-003",lbl:"Confirmar módulos SDR, CS e Finance — paridade e testes E2E",short:"Status: APTO. Reconfirmar ausência de regressão após ciclo de remediation.",owner:"codex",tags:[],
 jules:["Confirmar que a spec no README para SDR, CS e Finance não mudou.","Revisar os acceptance criteria de cada módulo.","Validar que os testes E2E existentes ainda cobrem os comportamentos declarados."],
 codex:["Rodar os testes E2E dos módulos SDR, CS e Finance.","Confirmar que nenhuma mudança do ciclo de remediation introduziu regressão.","Se algum teste falhar: investigar a causa antes de qualquer outra ação.","Documentar resultado em validation_log.md."],
 result:"Módulos SDR, CS e Finance passam em todos os testes E2E. Nenhuma regressão introduzida pelo ciclo de remediation.",
@@ -376,19 +361,19 @@ codex:["Localizar todos os manifests com find . -name 'manifest.json'.","Para ca
 result:"Todos os manifest.json têm fallback_behavior com os 3 campos preenchidos. Nenhum manifest com campo ausente.",
 error:"Se o manifest tiver formato diferente do esperado (ex: YAML em vez de JSON): documentar a inconsistência em UNDECLARED_OBSERVATIONS.md e padronizar."},
 
-{id:"M-003",lbl:"Injeção de contexto BKB nos agentes de atendimento",short:"Agentes ignoraram dados da Base de Conhecimento BirthHub.",owner:"jules",tags:[],
+{id:"M-003",lbl:"Injeção de contexto BKB nos agentes de atendimento",short:"Agentes ignoraram dados da Base de Conhecimento BirthHub.",owner:"codex",tags:[],
 jules:["Identificar nos artefatos quais agentes de atendimento devem consumir a BKB.","Verificar nos system_prompt.md de cada agente afetado se a instrução de consulta BKB está presente.","Adicionar instrução onde faltante: 'Antes de responder, consulte a Base de Conhecimento BirthHub (BKB) disponível.'","Registrar arquivos alterados com // [SOURCE] checklist qualidade — M-003.","Solicitar validação do Codex via [AGUARDA VALIDAÇÃO CODEX]."],
 codex:["Verificar que o pipeline de injeção de contexto BKB está funcionando tecnicamente.","Confirmar que o contexto BKB chega ao prompt do agente em runtime.","Validar que os testes de integração cobrem o fluxo de consulta BKB.","Aprovar ou reprovar em validation_log.md."],
 result:"Todos os agentes de atendimento têm instrução de consulta BKB no system_prompt. Pipeline de injeção funcionando e coberto por testes.",
 error:"Se a BKB não estiver disponível como ferramenta no runtime: documentar em human_required/M003_bkb_integration.md. Não adicionar instrução que referencia ferramenta inexistente — causará alucinação."},
 
-{id:"D-001",lbl:"Corrigir tom inadequado nos agentes de atendimento",short:"Desvio: 'Muito agressivo/informal'. Revisar system_prompts.",owner:"jules",tags:[],
+{id:"D-001",lbl:"Corrigir tom inadequado nos agentes de atendimento",short:"Desvio: 'Muito agressivo/informal'. Revisar system_prompts.",owner:"codex",tags:[],
 jules:["Identificar os agentes com desvio de tom no relatório forense.","Para cada agente: ler o system_prompt.md e identificar as instruções de persona e tom.","Corrigir: substituir linguagem agressiva ou informal por tom assertivo e respeitoso.","Adicionar guardrail explícito: 'Nunca use linguagem agressiva, irônica ou informal. Seja direto e respeitoso.'","Solicitar validação do Codex via [AGUARDA VALIDAÇÃO CODEX]."],
 codex:["Rodar testes de prompt nos agentes corrigidos com inputs que tendem a provocar respostas informais.","Verificar que os testes existentes de qualidade de resposta ainda passam.","Aprovar ou reprovar em validation_log.md."],
 result:"System prompts dos agentes afetados contêm guardrail de tom explícito. Nenhuma instrução que induz resposta agressiva ou informal.",
 error:"Se o tom inadequado vier de dados de treinamento e não da instrução: documentar em UNDECLARED_OBSERVATIONS.md — o problema é estrutural e requer decisão sobre fine-tuning."},
 
-{id:"D-002",lbl:"Reforçar guardrail anti-alucinação nos system prompts",short:"Desvio: 'IA inventou nomes/preços'. Instrução obrigatória de consulta à BKB.",owner:"jules",tags:[],
+{id:"D-002",lbl:"Reforçar guardrail anti-alucinação nos system prompts",short:"Desvio: 'IA inventou nomes/preços'. Instrução obrigatória de consulta à BKB.",owner:"codex",tags:[],
 jules:["Identificar todos os agentes que podem retornar preços, nomes ou dados factuais.","Para cada agente: verificar se o guardrail está presente no system_prompt.md.","Adicionar onde faltante: 'Se não souber o dado na BKB, responda: Vou consultar um executivo e retorno. NUNCA invente números, nomes ou preços.'","Adicionar // [SOURCE] checklist qualidade — D-002.","Solicitar validação do Codex."],
 codex:["Executar testes com inputs que tipicamente induzem alucinação (ex: 'qual o preço do plano X?').","Confirmar que o agente retorna a resposta de consulta humana em vez de inventar um valor.","Aprovar em validation_log.md."],
 result:"Todos os agentes que manipulam dados factuais têm guardrail anti-alucinação explícito. Testes confirmam que o agente não inventa dados ausentes.",
@@ -396,7 +381,7 @@ error:"Se o guardrail não evitar a alucinação (modelo ignora a instrução): 
 ],
 
 "b-s-gov":[
-{id:"GOV-001",lbl:"./audit/validation_log.md — atualizado e completo",short:"Todos os resultados de validação cruzada registrados.",owner:"ambos",tags:[],
+{id:"GOV-001",lbl:"./audit/validation_log.md — atualizado e completo",short:"Todos os resultados de validação cruzada registrados.",owner:"codex",tags:[],
 jules:["Verificar que todos os itens validados por Jules têm entrada no log.","Confirmar que S-001 e S-002 estão marcados como 'SEGURANÇA CRÍTICA — validação cruzada dispensada'.","Revisar que nenhuma aprovação está sem evidência descrita."],
 codex:["Verificar que todos os itens validados por Codex têm entrada no log.","Confirmar que o formato de cada entrada está correto: Data | Item | Executor | Validador | Resultado | Evidência.","Criar o arquivo se não existir. Nunca apagar entradas existentes."],
 result:"./audit/validation_log.md existe, está atualizado com todos os resultados e segue o formato padrão. Nenhuma entrada sem evidência.",
@@ -408,25 +393,25 @@ codex:["Para cada item implementado neste ciclo: verificar se o arquivo pending_
 result:"./audit/pending_review/ tem um arquivo por item entregue pelo Codex. Cada arquivo tem evidência completa.",
 error:"Se um item foi entregue mas o pending_review não foi criado: criar retroativamente com a evidência disponível. Documentar a omissão no próprio arquivo."},
 
-{id:"GOV-003",lbl:"./audit/human_required/ — bloqueios documentados e resolvidos",short:"billing_lock resolvido, vindi_job pendente, contract_runtime_decision fixado.",owner:"ambos",tags:[],
+{id:"GOV-003",lbl:"./audit/human_required/ — bloqueios documentados e resolvidos",short:"billing_lock resolvido, vindi_job pendente, contract_runtime_decision fixado.",owner:"codex",tags:[],
 jules:["Verificar quais arquivos em human_required ainda estão abertos (não foram respondidos pelo humano).","Para cada arquivo resolvido pelo humano: mover para ./audit/human_resolved/ após ação tomada.","Confirmar que vindi_job_decision.md existe se o item S-003 ainda estiver pendente."],
 codex:["Verificar se billing_lock_ci_block.md ainda existe — se o billing foi resolvido, deletar este arquivo.","Confirmar que contract_runtime_decision.md está resolvido (Opção B fixada).","Listar arquivos abertos em validation_log.md como BLOQUEADO — AGUARDANDO HUMANO."],
 result:"Arquivos resolvidos movidos para human_resolved/. Arquivos ainda abertos listados no log como BLOQUEADO. Sem arquivos órfãos em human_required/.",
 error:"Se um arquivo em human_required não tem resposta há mais de 48h: re-notificar o dono do repositório explicitamente. Não tomar decisão sozinho para desbloquear."},
 
-{id:"GOV-004",lbl:"./audit/UNDECLARED_OBSERVATIONS.md — código sem artefato documentado",short:"Registrar implementações sem declaração de origem.",owner:"ambos",tags:[],
+{id:"GOV-004",lbl:"./audit/UNDECLARED_OBSERVATIONS.md — código sem artefato documentado",short:"Registrar implementações sem declaração de origem.",owner:"codex",tags:[],
 jules:["Verificar que cada observação listada tem: localização, descrição, hipótese de origem.","Confirmar que nenhuma observação foi 'resolvida' sem decisão humana ou artefato criado."],
 codex:["Adicionar observações encontradas durante o ciclo.","Formato: Data | Arquivo | Descrição | Hipótese | Ação recomendada.","Nunca remover uma observação — marcar como RESOLVIDO com data e ação tomada."],
 result:"./audit/UNDECLARED_OBSERVATIONS.md existe e está atualizado com todas as implementações sem artefato de origem identificadas no ciclo.",
 error:"Se o arquivo não existir: criar agora mesmo com as observações conhecidas. A ausência do arquivo é um gap de governança."},
 
-{id:"GOV-005",lbl:"Comentário [SOURCE] em todos os arquivos alterados",short:"Todo .ts/.py criado ou modificado tem // [SOURCE]. JSON via .md paralelo.",owner:"ambos",tags:[],
+{id:"GOV-005",lbl:"Comentário [SOURCE] em todos os arquivos alterados",short:"Todo .ts/.py criado ou modificado tem // [SOURCE]. JSON via .md paralelo.",owner:"codex",tags:[],
 jules:["Verificar que contract.yaml, system_prompt.md e acceptance.md de cada agente têm # [SOURCE] no topo.","Confirmar que arquivos JSON têm rastreabilidade via .md paralelo em ./audit/."],
 codex:["Buscar arquivos sem [SOURCE]: grep -rL 'SOURCE' packages/agents/ --include='*.ts' --include='*.py' — deve retornar vazio.","Adicionar [SOURCE] em qualquer arquivo encontrado.","Para JSONs: confirmar que o .md de rastreabilidade correspondente existe em ./audit/pending_review/."],
 result:"Todos os arquivos criados ou alterados no ciclo têm [SOURCE] presente. Nenhum arquivo órfão sem rastreabilidade.",
 error:"Se encontrar arquivo sem [SOURCE] que foi criado antes deste ciclo: adicionar retroativamente e registrar no log: '[SOURCE] adicionado retroativamente em [data]'."},
 
-{id:"GOV-006",lbl:"packages/agents/REGISTRY.md — índice de todos os agentes criados",short:"Nome, domínio, ciclo, caminho canônico e status.",owner:"ambos",tags:[],
+{id:"GOV-006",lbl:"packages/agents/REGISTRY.md — índice de todos os agentes criados",short:"Nome, domínio, ciclo, caminho canônico e status.",owner:"codex",tags:[],
 jules:["Verificar que cada agente com F5 aprovado tem entrada no REGISTRY.md.","Confirmar que o campo status reflete o estado real (feito / em progresso / pendente)."],
 codex:["Atualizar REGISTRY.md ao concluir cada agente com F4 aprovado por Jules.","Formato: | nome | domínio | ciclo | caminho canônico | status |.","Nunca marcar status como 'feito' sem aprovação dupla registrada no log."],
 result:"REGISTRY.md existe e tem uma entrada para cada agente com F5 aprovado. Status reflete a realidade.",
@@ -436,8 +421,8 @@ error:"Se o arquivo não existir: criar agora com os agentes já concluídos. Um
 
 const SOPTS=[{v:"",l:"🔴 Não feito"},{v:"melhoria",l:"🟡 Precisa de Melhoria"},{v:"aprovacao",l:"🔵 Precisa de Aprovação"},{v:"feito",l:"🟢 Feito"}];
 const SCYCLE=["","melhoria","aprovacao","feito"];
-const OWNER_LABELS={jules:"Jules",codex:"Codex",ambos:"Jules + Codex"};
-const OWNER_CLS={jules:"ob-jules",codex:"ob-codex",ambos:"ob-ambos"};
+const OWNER_LABELS={codex:"Codex"};
+const OWNER_CLS={codex:"ob-codex"};
 
 function buildAll(){
   Object.entries(DATA).forEach(([bodyId,items])=>{
@@ -455,8 +440,8 @@ function buildAll(){
       const julesSteps=(it.jules||[]).map((s,i)=>`<li><span class="step-num">${i+1}.</span><span class="step-text">${s}</span></li>`).join('');
       const codexSteps=(it.codex||[]).map((s,i)=>`<li><span class="step-num">${i+1}.</span><span class="step-text">${s}</span></li>`).join('');
 
-      const showJules = it.owner==='jules'||it.owner==='ambos';
-      const showCodex = it.owner==='codex'||it.owner==='ambos';
+      const showJules = false; // Jules removido — apenas Codex executa
+      const showCodex = true;
 
       div.innerHTML=`
         <div class="item-top" onclick="toggleDetail('${it.id}')">
@@ -537,20 +522,17 @@ function tgl(id){document.getElementById(id).classList.toggle('collapsed');}
 function applyF(){
   const q=document.getElementById('search').value.toLowerCase();
   const fs=document.getElementById('fs-status').value;
-  const fo=document.getElementById('fs-owner').value;
   document.querySelectorAll('.item').forEach(item=>{
     const txt=item.textContent.toLowerCase();
     const sel=item.querySelector('select.ssel');
     const v=sel?sel.value:'';
-    const own=item.dataset.owner||'ambos';
     const mq=!q||txt.includes(q);
     const ms=!fs||(fs==='naofeito'?v==='':v===fs);
-    const mo=!fo||own===fo||(fo==='ambos'&&own==='ambos');
-    item.classList.toggle('hidden',!(mq&&ms&&mo));
+    item.classList.toggle('hidden',!(mq&&ms));
   });
 }
 
-function resetF(){document.getElementById('search').value='';document.getElementById('fs-status').value='';document.getElementById('fs-owner').value='';applyF();}
+function resetF(){document.getElementById('search').value='';document.getElementById('fs-status').value='';applyF();}
 
 const SK='bh360_remediacao_v2';
 let timer;
