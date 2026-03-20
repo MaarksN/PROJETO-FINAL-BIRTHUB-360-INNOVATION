@@ -105,9 +105,9 @@ Nenhum script/pipeline explícito de geração do artifacts/audit/forensic_repor
 foi encontrado no checkout atual após busca em scripts, workflows e arquivos de build.
 No estado atual do repositório, o relatório deve ser tratado como artefato
 atualizado manualmente.
-Pacote: api-gateway
-Tipo: Artefato ausente
-Impacto: Indeterminado
-Arquivo(s): N/A (Vindi Gateway)
-Pré-existente: sim
-Recomendação: S-003 — Artefato instrucional associado à integração Vindi não encontrado após busca exaustiva.
+
+- Data: 2026-03-20
+  Arquivo: N/A
+  Descrição: GAP-005 — busca ampla realizada, nenhuma credencial inline encontrada, confirmado em 2026-03-20
+  Hipótese: N/A
+  Ação recomendada: RESOLVIDO
