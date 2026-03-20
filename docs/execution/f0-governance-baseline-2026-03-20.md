@@ -5,7 +5,7 @@
 - **Fase:** F0
 - **Estado:** **PARCIAL / BLOQUEADA**
 - **Data de execução:** 2026-03-20
-- **Bloqueio ativo:** `corepack pnpm lint:core` falhou com erros em `apps/worker`.
+- **Bloqueios ativos:** `lint:core`, `typecheck:core`, `test:core` e `build:core`.
 - **Regra aplicada:** não avançar para F1 enquanto existir bloqueio aberto em F0.
 
 ## 1) Matriz de ownership técnico por domínio
@@ -19,8 +19,6 @@
 | Agents | `agents/*`, `packages/agents-*`, runtime de agentes | `@platform-automation` | `@growth-sdr` | Inclui superfícies legadas de agentes |
 | Security | hardening, scans, guardrails, compliance | `@platform-architecture` | `@platform-api` | Dono obrigatório de exceções |
 | DevOps | CI/CD, gates, proteção de branch e releases | `@platform-architecture` | `@platform-automation` | Dono de incidentes de pipeline |
-
-> Fonte base: convenções já versionadas no `CODEOWNERS` e documentação de criticidade.
 
 ## 2) Política de SLA por severidade
 
@@ -42,20 +40,22 @@
 
 | Ordem | Comando | Resultado | Evidência |
 |---:|---|---|---|
-| 01 | `corepack pnpm install --frozen-lockfile` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/01-install-frozen-lockfile.log` |
+| 01 | `corepack pnpm install --frozen-lockfile` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/01-install.log` |
 | 02 | `corepack pnpm monorepo:doctor` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/02-monorepo-doctor.log` |
 | 03 | `corepack pnpm release:scorecard` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/03-release-scorecard.log` |
 | 04 | `corepack pnpm lint:core` | ❌ FAIL | `artifacts/f0-baseline-2026-03-20/logs/04-lint-core.log` |
-| 05 | `corepack pnpm typecheck:core` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/05-typecheck-core.log` |
-| 06 | `corepack pnpm test:core` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/06-test-core.log` |
-| 07 | `corepack pnpm build:core` | ✅ PASS | `artifacts/f0-baseline-2026-03-20/logs/07-build-core.log` |
+| 05 | `corepack pnpm typecheck:core` | ❌ FAIL | `artifacts/f0-baseline-2026-03-20/logs/05-typecheck-core.log` |
+| 06 | `corepack pnpm test:core` | ❌ FAIL | `artifacts/f0-baseline-2026-03-20/logs/06-test-core.log` |
+| 07 | `corepack pnpm build:core` | ❌ FAIL | `artifacts/f0-baseline-2026-03-20/logs/07-build-core.log` |
 
-### Resumo de bloqueio aberto
+### Resumo de bloqueios abertos
 
-- `lint:core` interrompe com erros `@typescript-eslint/no-explicit-any` em testes de `apps/worker`.
-- Impacto esperado: gate de qualidade não está verde; F0 não atende critério de aceite integral.
-- Risco residual: **médio** (risco de regressão de qualidade e ambiguidade de governança de lint no core).
-- Próxima ação obrigatória: corrigir erros de lint no escopo `apps/worker` e reexecutar bateria F0 completa.
+- `lint:core` falha em `apps/api` (1 erro + 126 warnings) com erro bloqueante de regra `@typescript-eslint/no-unsafe-call`.
+- `typecheck:core` e `build:core` falham em `apps/api` com incompatibilidades de tipos em `src/app.ts`, ausência de export `createSecureSessionId` em `src/modules/auth/auth.service.ts`, e benchmark sem `actorId`.
+- `test:core` falha com 10 testes quebrando após `SyntaxError` por import de `createSecureSessionId` inexistente em `apps/api/src/modules/auth/auth.service.ts`.
+- Impacto esperado: gate canônico do core não está verde; F0 não atende o critério de aceite.
+- Risco residual: **alto** (não conformidade de baseline para início de F1 e risco de regressão em autenticação).
+- Próxima ação obrigatória: corrigir os erros em `apps/api` e reexecutar os 7 comandos da bateria F0.
 
 ## 4) Template de fechamento (Anexo B) aplicado aos itens de F0
 
@@ -76,10 +76,9 @@
   - Rollback: N/A
 
 - [ ] ITEM-ID: F0-BASELINE-GREEN
-  - Owner: Platform DevOps
+  - Owner: Platform DevOps + Platform API
   - Severidade: P0
   - Prazo: 2026-03-21
   - Evidência: `artifacts/f0-baseline-2026-03-20/logs/*`
-  - Risco residual: médio
+  - Risco residual: alto
   - Rollback: N/A
-
