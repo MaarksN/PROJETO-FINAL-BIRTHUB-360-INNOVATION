@@ -19,18 +19,14 @@ import {
 import type { Queue } from "bullmq";
 
 type MockCall = { arguments: unknown[] };
-type MockFnWithCalls = { mock: { calls: MockCall[] } };
-
 function readMockCalls(spy: unknown): MockCall[] {
-  if (
-    (typeof spy === "function" || (typeof spy === "object" && spy !== null)) &&
-    "mock" in spy &&
-    typeof spy.mock === "object" &&
-    spy.mock !== null &&
-    "calls" in spy.mock &&
-    Array.isArray(spy.mock.calls)
-  ) {
-    return (spy as MockFnWithCalls).mock.calls;
+  if (typeof spy !== "function" && (typeof spy !== "object" || spy === null)) {
+    throw new Error("Mock function does not expose calls");
+  }
+
+  const maybeMock = (spy as { mock?: { calls?: unknown } }).mock;
+  if (maybeMock && Array.isArray(maybeMock.calls)) {
+    return maybeMock.calls as MockCall[];
   }
 
   throw new Error("Mock function does not expose calls");
