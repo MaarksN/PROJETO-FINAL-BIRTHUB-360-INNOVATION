@@ -15,7 +15,8 @@ export default defineConfig({
     url: "http://127.0.0.1:3010/sales",
     reuseExistingServer: true,
     env: {
-      DASHBOARD_USE_STATIC_SNAPSHOT: "true"
+      DASHBOARD_USE_STATIC_SNAPSHOT: "true",
+      NEXT_PUBLIC_DASHBOARD_USE_STATIC_SNAPSHOT: "true"
     }
   }
 });

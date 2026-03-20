@@ -14,7 +14,7 @@ test.describe("Dashboard modules parity", () => {
     await page.goto("/health-score");
 
     await expect(page.getByRole("heading", { name: "Health Score Board" })).toBeVisible();
-    await expect(page.getByText("Risco")).toBeVisible();
+    await expect(page.getByLabel("Risco")).toBeVisible();
     await expect(page.getByText("Atlas Log")).toBeVisible();
   });
 

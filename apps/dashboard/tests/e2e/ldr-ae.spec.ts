@@ -7,7 +7,7 @@ test.describe("LDR and AE modules", () => {
 
     await expect(page.getByRole("heading", { name: "LDR — Lead Scoring & Enrichment" })).toBeVisible();
     await expect(page.getByTestId("ldr-board")).toBeVisible();
-    await expect(page.getByText("Tier")).toBeVisible();
+    await expect(page.getByText(/Tier [ABC]/).first()).toBeVisible();
   });
 
   test("AE should generate proposal and show ROI calculations", async ({ page }) => {

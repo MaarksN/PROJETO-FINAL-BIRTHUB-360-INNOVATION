@@ -207,7 +207,9 @@ async def run_tool(
     last_error: Exception | None = None
     attempts = 0
 
-    for attempt in range(1, fallback["retry_attempts"] + 1):
+    max_attempt_window = fallback["retry_attempts"] + fallback["rate_limit_extra_retry"]
+
+    for attempt in range(1, max_attempt_window + 1):
         attempts = attempt
         try:
             result = await asyncio.wait_for(tool_handler(**payload), timeout=timeout_s)
@@ -242,6 +244,9 @@ async def run_tool(
                 await asyncio.sleep(wait_s)
                 continue
             logger.exception("Tool execution failure", extra={"tool": tool_name, "payload": safe_payload})
+
+        if attempt >= fallback["retry_attempts"]:
+            break
 
         if attempt < fallback["retry_attempts"]:
             wait_s = _compute_backoff_seconds(attempt, fallback["base_delay_ms"])

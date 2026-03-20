@@ -111,3 +111,5 @@ Impacto: Indeterminado
 Arquivo(s): N/A (Vindi Gateway)
 Pré-existente: sim
 Recomendação: S-003 — Artefato instrucional associado à integração Vindi não encontrado após busca exaustiva.
+
+2026-03-20T11:48:03Z | GAP-005 | busca ampla realizada (script `scripts/security/scan-inline-credentials.mjs`), nenhuma credencial inline ativa encontrada no código-fonte em escopo (.ts/.py/.md/.yaml/.yml/.json); relatório: `artifacts/security/inline-credential-scan.json`.
