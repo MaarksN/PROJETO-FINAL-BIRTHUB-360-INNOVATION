@@ -18,7 +18,7 @@ import {
 } from "../src/webhooks/outbound.js";
 import type { Queue } from "bullmq";
 
-test("outbound webhooks", async (t) => {
+void test("outbound webhooks", async (t) => {
   process.env.DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/test";
   process.env.REDIS_URL = "redis://localhost:6379";
 
@@ -28,15 +28,16 @@ test("outbound webhooks", async (t) => {
       { id: "ep2", organizationId: "org1", status: WebhookEndpointStatus.ACTIVE, topics: ["user.created", "user.updated"] }
     ];
 
-    prisma.webhookEndpoint.findMany = mock.fn(async () => mockEndpoints) as any;
+    prisma.webhookEndpoint.findMany =
+      mock.fn(async () => mockEndpoints) as unknown as typeof prisma.webhookEndpoint.findMany;
 
-    const addedJobs: Array<{ name: string; data: any }> = [];
+    const addedJobs: Array<{ name: string; data: OutboundWebhookJobPayload }> = [];
     const mockQueue = {
-      add: async (name: string, data: any) => {
+      add: async (name: string, data: OutboundWebhookJobPayload) => {
         addedJobs.push({ name, data });
-        return { id: "job1" } as any;
+        return { id: "job1" };
       }
-    } as Queue<OutboundWebhookJobPayload>;
+    } as unknown as Queue<OutboundWebhookJobPayload>;
 
     await enqueueWebhookTopicDeliveries(mockQueue, {
       organizationId: "org1",
@@ -62,7 +63,7 @@ test("outbound webhooks", async (t) => {
       id: "ep1",
       status: WebhookEndpointStatus.DISABLED,
       topics: ["user.created"]
-    })) as any;
+    })) as unknown as typeof prisma.webhookEndpoint.findUnique;
 
     const result = await processOutboundWebhookJob({
       endpointId: "ep1",
@@ -80,7 +81,7 @@ test("outbound webhooks", async (t) => {
       id: "ep1",
       status: WebhookEndpointStatus.ACTIVE,
       topics: ["user.updated"] // missing user.created
-    })) as any;
+    })) as unknown as typeof prisma.webhookEndpoint.findUnique;
 
     const result = await processOutboundWebhookJob({
       endpointId: "ep1",
@@ -103,15 +104,19 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 0
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
+    prisma.webhookEndpoint.findUnique =
+      mock.fn(async () => mockEndpoint) as unknown as typeof prisma.webhookEndpoint.findUnique;
 
-    const deliveryCreateMock = mock.fn(async () => ({ id: "delivery1" })) as any;
+    const deliveryCreateMock =
+      mock.fn(async () => ({ id: "delivery1" })) as unknown as typeof prisma.webhookDelivery.create;
     prisma.webhookDelivery.create = deliveryCreateMock;
 
-    const deliveryUpdateMock = mock.fn(async () => ({})) as any;
+    const deliveryUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookDelivery.update;
     prisma.webhookDelivery.update = deliveryUpdateMock;
 
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
+    const endpointUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookEndpoint.update;
     prisma.webhookEndpoint.update = endpointUpdateMock;
 
     // Mock fetch
@@ -167,13 +172,17 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 2
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
-    prisma.webhookDelivery.create = mock.fn(async () => ({ id: "delivery1" })) as any;
+    prisma.webhookEndpoint.findUnique =
+      mock.fn(async () => mockEndpoint) as unknown as typeof prisma.webhookEndpoint.findUnique;
+    prisma.webhookDelivery.create =
+      mock.fn(async () => ({ id: "delivery1" })) as unknown as typeof prisma.webhookDelivery.create;
 
-    const deliveryUpdateMock = mock.fn(async () => ({})) as any;
+    const deliveryUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookDelivery.update;
     prisma.webhookDelivery.update = deliveryUpdateMock;
 
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
+    const endpointUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookEndpoint.update;
     prisma.webhookEndpoint.update = endpointUpdateMock;
 
     // Mock fetch to return 500
@@ -218,11 +227,15 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 9
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
-    prisma.webhookDelivery.create = mock.fn(async () => ({ id: "delivery1" })) as any;
-    prisma.webhookDelivery.update = mock.fn(async () => ({})) as any;
+    prisma.webhookEndpoint.findUnique =
+      mock.fn(async () => mockEndpoint) as unknown as typeof prisma.webhookEndpoint.findUnique;
+    prisma.webhookDelivery.create =
+      mock.fn(async () => ({ id: "delivery1" })) as unknown as typeof prisma.webhookDelivery.create;
+    prisma.webhookDelivery.update =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookDelivery.update;
 
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
+    const endpointUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookEndpoint.update;
     prisma.webhookEndpoint.update = endpointUpdateMock;
 
     mock.method(global, "fetch", async () => ({
@@ -259,13 +272,17 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 0
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
-    prisma.webhookDelivery.create = mock.fn(async () => ({ id: "delivery1" })) as any;
+    prisma.webhookEndpoint.findUnique =
+      mock.fn(async () => mockEndpoint) as unknown as typeof prisma.webhookEndpoint.findUnique;
+    prisma.webhookDelivery.create =
+      mock.fn(async () => ({ id: "delivery1" })) as unknown as typeof prisma.webhookDelivery.create;
 
-    const deliveryUpdateMock = mock.fn(async () => ({})) as any;
+    const deliveryUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookDelivery.update;
     prisma.webhookDelivery.update = deliveryUpdateMock;
 
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
+    const endpointUpdateMock =
+      mock.fn(async () => ({})) as unknown as typeof prisma.webhookEndpoint.update;
     prisma.webhookEndpoint.update = endpointUpdateMock;
 
     t.mock.method(global, "fetch", async () => {
