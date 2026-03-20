@@ -571,54 +571,14 @@
   Impacto no checklist: Atualização F4/F5 como `feito` e F1-F3 como `aprovacao`.
   Proxima acao: Codex validar F1-F3.
 
-## 2026-03-20T11:31:54Z
+- Item: `GAP-003`
+  Resultado: `REPROVADO`
+  Evidência: `Dict[str, Any]` ainda é usado na fronteira `/run` em `agents/sdr/main.py` e `agents/ae/main.py`
 
-- Item: `[AGUARDA VALIDACAO CODEX]`
-  Resultado: `ITEM_VALIDADO`
-  Evidencia:
-  - Tag ativa identificada em `audit/pending_review/ciclo1_lote01_02_jules.md`.
-  - Artefatos F1/F2/F3 presentes para `QuotaArchitect`, `BrandGuardian`, `BudgetFluid`, `TrendCatcher`, `NarrativeWeaver` e `CompetitorX-Ray`.
-  - Todos os 18 arquivos (`contract.yaml`, `system_prompt.md`, `acceptance.md`) possuem marcação `[SOURCE]` no topo.
-  - Execução técnica de regressão: `node --import tsx --test executivos/quotaarchitect/tests/*.ts executivos/brandguardian/tests/*.ts executivos/budgetfluid/tests/*.ts executivos/trendcatcher/tests/*.ts executivos/narrativeweaver/tests/*.ts executivos/competitorxray/tests/*.ts` com `24/24` testes passando.
+- Item: `GAP-004`
+  Resultado: `REPROVADO`
+  Evidência: Campo `required_tools` ausente em todos os 43 manifests na pasta `packages/agent-packs/`
 
-- Item: `CICLO1-QUOTAARCHITECT — ARTEFATOS JULES F1-F3`
-  Validador: `CODEX`
+- Item: `GAP-005`
   Resultado: `APROVADO`
-  Evidencia:
-  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes e rastreáveis via `[SOURCE]`.
-  - Sem placeholders ativos nem lacunas de artefato nos arquivos auditados.
-
-- Item: `CICLO1-BRANDGUARDIAN — ARTEFATOS JULES F1-F3`
-  Validador: `CODEX`
-  Resultado: `APROVADO`
-  Evidencia:
-  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes e rastreáveis via `[SOURCE]`.
-  - Sem placeholders ativos nem lacunas de artefato nos arquivos auditados.
-
-- Item: `CICLO1-BUDGETFLUID — ARTEFATOS JULES F1-F3`
-  Validador: `CODEX`
-  Resultado: `APROVADO`
-  Evidencia:
-  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes e rastreáveis via `[SOURCE]`.
-  - Sem placeholders ativos nem lacunas de artefato nos arquivos auditados.
-
-- Item: `CICLO1-TRENDCATCHER — ARTEFATOS JULES F1-F3`
-  Validador: `CODEX`
-  Resultado: `APROVADO`
-  Evidencia:
-  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes e rastreáveis via `[SOURCE]`.
-  - Sem placeholders ativos nem lacunas de artefato nos arquivos auditados.
-
-- Item: `CICLO1-NARRATIVEWEAVER — ARTEFATOS JULES F1-F3`
-  Validador: `CODEX`
-  Resultado: `APROVADO`
-  Evidencia:
-  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes e rastreáveis via `[SOURCE]`.
-  - Sem placeholders ativos nem lacunas de artefato nos arquivos auditados.
-
-- Item: `CICLO1-COMPETITORX-RAY — ARTEFATOS JULES F1-F3`
-  Validador: `CODEX`
-  Resultado: `APROVADO`
-  Evidencia:
-  - `contract.yaml`, `system_prompt.md` e `acceptance.md` presentes e rastreáveis via `[SOURCE]`.
-  - Sem placeholders ativos nem lacunas de artefato nos arquivos auditados.
+  Evidência: Nenhuma credencial inline bruta ou chave exposta encontrada. Variáveis tipadas estritamente usando Vault/Environment Variables.
