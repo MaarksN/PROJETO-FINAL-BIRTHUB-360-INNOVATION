@@ -582,3 +582,17 @@
 - Item: `GAP-005`
   Resultado: `APROVADO`
   Evidência: Nenhuma credencial inline bruta ou chave exposta encontrada. Variáveis tipadas estritamente usando Vault/Environment Variables.
+
+## 2026-03-20T12:04:40Z
+
+- Data: `2026-03-20T12:04:40Z` | Item: `GOV-001` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: `audit/validation_log.md` auditado sem remocao de historico; rodada GOV registrada com campos completos de rastreabilidade.
+
+- Data: `2026-03-20T12:04:40Z` | Item: `GOV-002` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: criacao dos artefatos `audit/pending_review/GOV-001_codex.md` ate `audit/pending_review/GOV-006_codex.md` com evidencias reais de execucao.
+
+- Data: `2026-03-20T12:04:40Z` | Item: `GOV-003` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: `billing_lock_ci_block.md` ausente/removido; `contract_runtime_decision` confirmado na Opcao B (`audit/human_required/contract_runtime_decision.md` e `audit/state/contract_runtime_decision.env`); bloqueios humanos ativos listados: `cd_env_config.md`, `cd_origin_not_found.md`, `CI-TS-004_dashboard_logic_conflict.md`, `GAP-SEC-004_backlog_missing.md`, `S-003_syncLegacyBilling_technical_findings.md`, `validation_log_history_missing.md`.
+
+- Data: `2026-03-20T12:04:40Z` | Item: `GOV-004` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: `audit/UNDECLARED_OBSERVATIONS.md` normalizado para a estrutura tabular `Data | Arquivo | Descricao | Hipotese | Acao`, preservando observacoes do ciclo.
+
+- Data: `2026-03-20T12:04:40Z` | Item: `GOV-005` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: varredura programatica de `[SOURCE]` com `TRACKED_AGENTS_CODE_MISSING_SOURCE=0` (30 arquivos TS/PY rastreados) e `AUDIT_MD_MISSING_SOURCE=0` (33 markdowns em `audit/`) apos retrofit em `cd_origin_not_found.md` e `validation_log_history_missing.md`.
+
+- Data: `2026-03-20T12:04:40Z` | Item: `GOV-006` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: `packages/agents/REGISTRY.md` atualizado para catalogar exclusivamente agentes com aprovacao explicita do Jules em estado final (`QuotaArchitect`, `BrandGuardian`, `BudgetFluid`, `TrendCatcher`, `NarrativeWeaver`, `CompetitorX-Ray`).

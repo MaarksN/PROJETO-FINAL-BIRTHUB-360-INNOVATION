@@ -1,3 +1,4 @@
+<!-- [SOURCE] BirthHub360 — Remediação Forense — GOV-005 -->
 # Bloqueio de Histórico de Validação Ausente
 
 - **Fato:** O arquivo `audit/validation_log.md` não existia no checkout inicial.
