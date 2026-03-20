@@ -6,66 +6,6 @@ import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { assertRole } from "../../modules/auth/auth.service.js";
 
 /** @see ADR-011 */
-// [SOURCE] ADR-012
-export interface RBACContext {
-  organizationId: string;
-  role: Role;
-  tenantId: string;
-  userId: string;
-}
-
-type RbacPermission =
-  | "agent:read"
-  | "agent:write"
-  | "analytics:read"
-  | "apikey:manage"
-  | "billing:read"
-  | "billing:write"
-  | "organization:admin"
-  | "user:read"
-  | "user:write";
-
-export const ROLE_PERMISSIONS: Record<Role, readonly RbacPermission[]> = {
-  [Role.SUPER_ADMIN]: [
-    "agent:read",
-    "agent:write",
-    "analytics:read",
-    "apikey:manage",
-    "billing:read",
-    "billing:write",
-    "organization:admin",
-    "user:read",
-    "user:write"
-  ],
-  [Role.OWNER]: [
-    "agent:read",
-    "agent:write",
-    "analytics:read",
-    "apikey:manage",
-    "billing:read",
-    "billing:write",
-    "organization:admin",
-    "user:read",
-    "user:write"
-  ],
-  [Role.ADMIN]: [
-    "agent:read",
-    "agent:write",
-    "analytics:read",
-    "apikey:manage",
-    "billing:read",
-    "billing:write",
-    "user:read",
-    "user:write"
-  ],
-  [Role.MEMBER]: ["agent:read", "analytics:read", "billing:read", "user:read"],
-  [Role.READONLY]: ["agent:read", "analytics:read", "billing:read", "user:read"]
-};
-
-export function hasRolePermission(role: Role, permission: RbacPermission): boolean {
-  return ROLE_PERMISSIONS[role].includes(permission);
-}
-
 export function RequireRole(minimumRole: Role): RequestHandler {
   return async (request: Request, _response: Response, next: NextFunction) => {
     try {

@@ -4,8 +4,8 @@
   "domain": "executivos",
   "current_phase": "F5",
   "executor": "Jules",
-  "validator_pending": "none",
-  "status": "feito",
+  "validator_pending": "Codex",
+  "status": "in_progress",
   "checklist_base_id": "C1-NarrativeWeaver",
-  "updated_at": "2026-03-20T11:31:54Z"
+  "updated_at": "2026-03-20T00:00:00Z"
 }

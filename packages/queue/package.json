@@ -6,7 +6,7 @@
   "dependencies": {
     "@birthub/shared-types": "workspace:*",
     "bullmq": "^5.71.0",
-    "ioredis": "5.9.3"
+    "ioredis": "^5.10.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
@@ -15,7 +15,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit",
     "test:load": "tsx load-test/bullmq-load-test.ts",
     "schedule:crons": "tsx scripts/schedule-recurring-jobs.ts",
     "test": "node --import tsx --test \"tests/**/*.test.ts\""

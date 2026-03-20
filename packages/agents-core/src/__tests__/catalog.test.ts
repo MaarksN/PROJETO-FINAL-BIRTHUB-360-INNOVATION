@@ -7,7 +7,6 @@ import {
 } from "../manifest/catalog.js";
 import { parseAgentManifest } from "../manifest/parser.js";
 import { MANIFEST_VERSION } from "../manifest/schema.js";
-// [SOURCE] checklist Agent Pack — GAP-004 / checklist qualidade — M-002
 
 const manifest = parseAgentManifest({
   agent: {
@@ -20,11 +19,6 @@ const manifest = parseAgentManifest({
     tenantId: "catalog",
     version: "1.0.0"
   },
-  fallback_behavior: {
-    escalation: "notificação humana responsável",
-    rate_limit_handling: "wait + 1 retry",
-    retry_policy: "3x backoff exponencial"
-  },
   keywords: ["customer-success", "retention", "handoff", "renewal", "support"],
   manifestVersion: MANIFEST_VERSION,
   policies: [
@@ -35,7 +29,6 @@ const manifest = parseAgentManifest({
       name: "Default policy"
     }
   ],
-  required_tools: ["CRM Tool"],
   skills: [
     {
       description: "Coordinate post-sale execution",

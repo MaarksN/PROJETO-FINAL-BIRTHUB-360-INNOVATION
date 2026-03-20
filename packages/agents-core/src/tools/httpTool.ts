@@ -1,9 +1,8 @@
+import { isIP } from "node:net";
+
 import { z } from "zod";
 
-import { isBlockedSsrfIp } from "../policy/engine.js";
 import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
-
-// [SOURCE] ADR-015 / Checklist-Session-Security.md - GAP-SEC-005
 
 const httpInputSchema = z
   .object({
@@ -38,13 +37,33 @@ function sleep(milliseconds: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
 
+function isPrivateIpAddress(hostname: string): boolean {
+  if (isIP(hostname) === 0) {
+    return false;
+  }
+
+  return (
+    hostname === "0.0.0.0" ||
+    hostname === "::1" ||
+    hostname.startsWith("10.") ||
+    hostname.startsWith("127.") ||
+    hostname.startsWith("192.168.") ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(hostname) ||
+    hostname.startsWith("fc") ||
+    hostname.startsWith("fd")
+  );
+}
+
 function isBlockedHost(hostname: string): boolean {
   const normalized = hostname.toLowerCase();
   return (
     normalized === "localhost" ||
     normalized.endsWith(".localhost") ||
     normalized.endsWith(".local") ||
-    isBlockedSsrfIp(normalized)
+    normalized === "0.0.0.0" ||
+    normalized === "127.0.0.1" ||
+    normalized === "::1" ||
+    isPrivateIpAddress(normalized)
   );
 }
 

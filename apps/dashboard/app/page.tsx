@@ -1,6 +1,5 @@
 "use client";
 
-// [SOURCE] apps/dashboard/README.md — LDR e AE
 import Link from "next/link";
 import { RealtimeBanner } from "../components/realtime-banner";
 import { ExperienceLab } from "../components/experience-lab";
@@ -10,9 +9,7 @@ import { useAgentStatuses, useBillingSummary, useMetrics } from "../lib/dashboar
 
 const cards = [
   { href: "/sales", title: "Sales OS", description: "Sistema operacional de vendas com IA (LDR, BDR, SDR, Closer)." },
-  { href: "/ldr", title: "🎯 LDR — Lead Scoring", description: "Classifique leads com score, tier e sinais de enriquecimento." },
   { href: "/pipeline", title: "🚀 Pipeline de Vendas", description: "Acompanhe evolução por etapa, volume e tendência." },
-  { href: "/ae", title: "🧮 AE — Proposal & ROI", description: "Monte propostas comerciais e calcule ROI com payback." },
   { href: "/health-score", title: "💚 Health Score Board", description: "Monitore saúde de contas e risco de churn por cliente." },
   { href: "/financeiro", title: "💰 Visão Financeira", description: "MRR, churn, inadimplência e indicadores de receita." },
   { href: "/analytics", title: "📊 Analytics & Attribution", description: "Fontes de aquisição, conversão e eficiência de CAC." },
