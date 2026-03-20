@@ -18,7 +18,21 @@ import {
 } from "../src/webhooks/outbound.js";
 import type { Queue } from "bullmq";
 
-test("outbound webhooks", async (t) => {
+type MockJob = { name: string; data: OutboundWebhookJobPayload };
+type FetchMockResponse = Pick<Response, "ok" | "status" | "text">;
+type WebhookEndpointModelMock = {
+  findMany: (args?: unknown) => Promise<unknown>;
+  findUnique: (args?: unknown) => Promise<unknown>;
+  update: (args: unknown) => Promise<unknown>;
+};
+type WebhookDeliveryModelMock = {
+  create: (args: unknown) => Promise<unknown>;
+  update: (args: unknown) => Promise<unknown>;
+};
+
+void test("outbound webhooks", async (t) => {
+  const webhookEndpointModel = prisma.webhookEndpoint as unknown as WebhookEndpointModelMock;
+  const webhookDeliveryModel = prisma.webhookDelivery as unknown as WebhookDeliveryModelMock;
   process.env.DATABASE_URL = "postgresql://postgres:postgres@localhost:5432/test";
   process.env.REDIS_URL = "redis://localhost:6379";
 
@@ -28,15 +42,15 @@ test("outbound webhooks", async (t) => {
       { id: "ep2", organizationId: "org1", status: WebhookEndpointStatus.ACTIVE, topics: ["user.created", "user.updated"] }
     ];
 
-    prisma.webhookEndpoint.findMany = mock.fn(async () => mockEndpoints) as any;
+    webhookEndpointModel.findMany = mock.fn(async () => mockEndpoints);
 
-    const addedJobs: Array<{ name: string; data: any }> = [];
+    const addedJobs: MockJob[] = [];
     const mockQueue = {
-      add: async (name: string, data: any) => {
+      add: async (name: string, data: OutboundWebhookJobPayload) => {
         addedJobs.push({ name, data });
-        return { id: "job1" } as any;
+        return { id: "job1" };
       }
-    } as Queue<OutboundWebhookJobPayload>;
+    } as unknown as Queue<OutboundWebhookJobPayload>;
 
     await enqueueWebhookTopicDeliveries(mockQueue, {
       organizationId: "org1",
@@ -58,11 +72,11 @@ test("outbound webhooks", async (t) => {
   });
 
   await t.test("processOutboundWebhookJob - skips disabled endpoints", async () => {
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => ({
+    webhookEndpointModel.findUnique = mock.fn(async () => ({
       id: "ep1",
       status: WebhookEndpointStatus.DISABLED,
       topics: ["user.created"]
-    })) as any;
+    }));
 
     const result = await processOutboundWebhookJob({
       endpointId: "ep1",
@@ -76,11 +90,11 @@ test("outbound webhooks", async (t) => {
   });
 
   await t.test("processOutboundWebhookJob - skips endpoints not matching topic", async () => {
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => ({
+    webhookEndpointModel.findUnique = mock.fn(async () => ({
       id: "ep1",
       status: WebhookEndpointStatus.ACTIVE,
       topics: ["user.updated"] // missing user.created
-    })) as any;
+    }));
 
     const result = await processOutboundWebhookJob({
       endpointId: "ep1",
@@ -103,23 +117,20 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 0
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
+    webhookEndpointModel.findUnique = mock.fn(async () => mockEndpoint);
 
-    const deliveryCreateMock = mock.fn(async () => ({ id: "delivery1" })) as any;
-    prisma.webhookDelivery.create = deliveryCreateMock;
-
-    const deliveryUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookDelivery.update = deliveryUpdateMock;
-
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookEndpoint.update = endpointUpdateMock;
+    webhookDeliveryModel.create = mock.fn(async () => ({ id: "delivery1" }));
+    const deliveryUpdateMock = mock.fn(async () => ({}));
+    webhookDeliveryModel.update = deliveryUpdateMock;
+    const endpointUpdateMock = mock.fn(async () => ({}));
+    webhookEndpointModel.update = endpointUpdateMock;
 
     // Mock fetch
-    const fetchMock = t.mock.method(global, "fetch", async () => ({
+    const fetchMock = t.mock.method(global, "fetch", async (): Promise<FetchMockResponse> => ({
       ok: true,
       status: 200,
       text: async () => "OK"
-    }));
+    }) as Response);
 
     const result = await processOutboundWebhookJob({
       attempt: 1,
@@ -150,11 +161,13 @@ test("outbound webhooks", async (t) => {
     // Verify DB updates
     assert.equal(deliveryUpdateMock.mock.calls.length, 1);
     const firstDeliveryUpdate = deliveryUpdateMock.mock.calls[0]!;
-    assert.equal(firstDeliveryUpdate.arguments[0].data.success, true);
+    const firstDeliveryUpdateArg = firstDeliveryUpdate.arguments[0] as { data: { success: boolean } };
+    assert.equal(firstDeliveryUpdateArg.data.success, true);
 
     assert.equal(endpointUpdateMock.mock.calls.length, 1);
     const firstEndpointUpdate = endpointUpdateMock.mock.calls[0]!;
-    assert.equal(firstEndpointUpdate.arguments[0].data.consecutiveFailures, 0);
+    const firstEndpointUpdateArg = firstEndpointUpdate.arguments[0] as { data: { consecutiveFailures: number } };
+    assert.equal(firstEndpointUpdateArg.data.consecutiveFailures, 0);
   });
 
   await t.test("processOutboundWebhookJob - non-200 response marks failure and increments failures", async () => {
@@ -167,21 +180,19 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 2
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
-    prisma.webhookDelivery.create = mock.fn(async () => ({ id: "delivery1" })) as any;
-
-    const deliveryUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookDelivery.update = deliveryUpdateMock;
-
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookEndpoint.update = endpointUpdateMock;
+    webhookEndpointModel.findUnique = mock.fn(async () => mockEndpoint);
+    webhookDeliveryModel.create = mock.fn(async () => ({ id: "delivery1" }));
+    const deliveryUpdateMock = mock.fn(async () => ({}));
+    webhookDeliveryModel.update = deliveryUpdateMock;
+    const endpointUpdateMock = mock.fn(async () => ({}));
+    webhookEndpointModel.update = endpointUpdateMock;
 
     // Mock fetch to return 500
-    t.mock.method(global, "fetch", async () => ({
+    t.mock.method(global, "fetch", async (): Promise<FetchMockResponse> => ({
       ok: false,
       status: 500,
       text: async () => "Internal Server Error"
-    }));
+    }) as Response);
 
     await assert.rejects(
       async () => {
@@ -199,13 +210,19 @@ test("outbound webhooks", async (t) => {
 
     // Initial update sets success=false
     assert.equal(deliveryUpdateMock.mock.calls.length, 2); // First update in try, second in catch
-    assert.equal(deliveryUpdateMock.mock.calls[0].arguments[0].data.success, false);
-    assert.equal(deliveryUpdateMock.mock.calls[0].arguments[0].data.statusCode, 500);
+    const firstDeliveryUpdateArg = deliveryUpdateMock.mock.calls[0]!.arguments[0] as {
+      data: { statusCode: number; success: boolean };
+    };
+    assert.equal(firstDeliveryUpdateArg.data.success, false);
+    assert.equal(firstDeliveryUpdateArg.data.statusCode, 500);
 
     // Verify endpoint consecutive failures incremented
     assert.equal(endpointUpdateMock.mock.calls.length, 1);
-    assert.equal(endpointUpdateMock.mock.calls[0].arguments[0].data.consecutiveFailures, 3);
-    assert.equal(endpointUpdateMock.mock.calls[0].arguments[0].data.status, WebhookEndpointStatus.ACTIVE);
+    const firstEndpointUpdateArg = endpointUpdateMock.mock.calls[0]!.arguments[0] as {
+      data: { consecutiveFailures: number; status: WebhookEndpointStatus };
+    };
+    assert.equal(firstEndpointUpdateArg.data.consecutiveFailures, 3);
+    assert.equal(firstEndpointUpdateArg.data.status, WebhookEndpointStatus.ACTIVE);
   });
 
   await t.test("processOutboundWebhookJob - 10 consecutive failures disables endpoint", async () => {
@@ -218,18 +235,17 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 9
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
-    prisma.webhookDelivery.create = mock.fn(async () => ({ id: "delivery1" })) as any;
-    prisma.webhookDelivery.update = mock.fn(async () => ({})) as any;
+    webhookEndpointModel.findUnique = mock.fn(async () => mockEndpoint);
+    webhookDeliveryModel.create = mock.fn(async () => ({ id: "delivery1" }));
+    webhookDeliveryModel.update = mock.fn(async () => ({}));
+    const endpointUpdateMock = mock.fn(async () => ({}));
+    webhookEndpointModel.update = endpointUpdateMock;
 
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookEndpoint.update = endpointUpdateMock;
-
-    mock.method(global, "fetch", async () => ({
+    t.mock.method(global, "fetch", async (): Promise<FetchMockResponse> => ({
       ok: false,
       status: 500,
       text: async () => "Internal Server Error"
-    }));
+    }) as Response);
 
     await assert.rejects(
       async () => {
@@ -245,8 +261,11 @@ test("outbound webhooks", async (t) => {
     );
 
     assert.equal(endpointUpdateMock.mock.calls.length, 1);
-    assert.equal(endpointUpdateMock.mock.calls[0].arguments[0].data.consecutiveFailures, 10);
-    assert.equal(endpointUpdateMock.mock.calls[0].arguments[0].data.status, WebhookEndpointStatus.DISABLED);
+    const firstEndpointUpdateArg = endpointUpdateMock.mock.calls[0]!.arguments[0] as {
+      data: { consecutiveFailures: number; status: WebhookEndpointStatus };
+    };
+    assert.equal(firstEndpointUpdateArg.data.consecutiveFailures, 10);
+    assert.equal(firstEndpointUpdateArg.data.status, WebhookEndpointStatus.DISABLED);
   });
 
   await t.test("processOutboundWebhookJob - network error sets error message", async () => {
@@ -259,14 +278,12 @@ test("outbound webhooks", async (t) => {
       consecutiveFailures: 0
     };
 
-    prisma.webhookEndpoint.findUnique = mock.fn(async () => mockEndpoint) as any;
-    prisma.webhookDelivery.create = mock.fn(async () => ({ id: "delivery1" })) as any;
-
-    const deliveryUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookDelivery.update = deliveryUpdateMock;
-
-    const endpointUpdateMock = mock.fn(async () => ({})) as any;
-    prisma.webhookEndpoint.update = endpointUpdateMock;
+    webhookEndpointModel.findUnique = mock.fn(async () => mockEndpoint);
+    webhookDeliveryModel.create = mock.fn(async () => ({ id: "delivery1" }));
+    const deliveryUpdateMock = mock.fn(async () => ({}));
+    webhookDeliveryModel.update = deliveryUpdateMock;
+    const endpointUpdateMock = mock.fn(async () => ({}));
+    webhookEndpointModel.update = endpointUpdateMock;
 
     t.mock.method(global, "fetch", async () => {
       throw new Error("fetch failed");
@@ -286,9 +303,11 @@ test("outbound webhooks", async (t) => {
     );
 
     assert.equal(deliveryUpdateMock.mock.calls.length, 1);
-    assert.equal(deliveryUpdateMock.mock.calls[0].arguments[0].data.errorMessage, "fetch failed");
+    const firstDeliveryUpdateArg = deliveryUpdateMock.mock.calls[0]!.arguments[0] as { data: { errorMessage: string } };
+    assert.equal(firstDeliveryUpdateArg.data.errorMessage, "fetch failed");
 
     assert.equal(endpointUpdateMock.mock.calls.length, 1);
-    assert.equal(endpointUpdateMock.mock.calls[0].arguments[0].data.consecutiveFailures, 1);
+    const firstEndpointUpdateArg = endpointUpdateMock.mock.calls[0]!.arguments[0] as { data: { consecutiveFailures: number } };
+    assert.equal(firstEndpointUpdateArg.data.consecutiveFailures, 1);
   });
 });
