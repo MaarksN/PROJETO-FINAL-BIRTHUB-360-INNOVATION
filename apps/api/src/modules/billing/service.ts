@@ -1016,22 +1016,25 @@ function resolveProrationCreditCents(event: Stripe.Event, subscription: Stripe.S
     return metadataCredit;
   }
 
-  const previousAttributes = (
-    event.data as Stripe.Event.Data & {
-      previous_attributes?: {
-        items?: {
-          data?: Array<{
-            plan?: {
-              amount?: number | null;
-            } | null;
-            price?: {
-              unit_amount?: number | null;
-            } | null;
-          }>;
-        };
+  const dataObj = event.data as unknown;
+  const isDataWithPreviousAttributes = (
+    obj: unknown
+  ): obj is {
+    previous_attributes?: {
+      items?: {
+        data?: Array<{
+          plan?: { amount?: number | null } | null;
+          price?: { unit_amount?: number | null } | null;
+        }>;
       };
-    }
-  ).previous_attributes;
+    };
+  } => {
+    return typeof obj === "object" && obj !== null && "previous_attributes" in obj;
+  };
+
+  const previousAttributes = isDataWithPreviousAttributes(dataObj)
+    ? dataObj.previous_attributes
+    : undefined;
   const previousAmount = resolveSubscriptionItemUnitAmount(previousAttributes?.items?.data?.[0]);
   const currentAmount = resolveSubscriptionItemUnitAmount(subscription.items.data[0]);
 
