@@ -105,3 +105,37 @@ Nenhum script/pipeline explícito de geração do artifacts/audit/forensic_repor
 foi encontrado no checkout atual após busca em scripts, workflows e arquivos de build.
 No estado atual do repositório, o relatório deve ser tratado como artefato
 atualizado manualmente.
+
+---
+
+## Observações de CI (agentes executivos guardrails)
+
+While working on prompt guardrails for `agents/executivos`, several pre-existing CI errors were observed in unrelated monorepo packages. As per the Cross-Governance Protocol, these are documented below and left unfixed:
+
+Pacote: @birthub/database
+Tipo: Database tests
+Impacto: Falha na suíte de testes (The table `public.organizations` does not exist)
+Arquivo(s): `test/migration.test.ts`, `test/rls.test.ts`
+Pré-existente: Sim (observado fora do escopo de agents/executivos)
+Recomendação: Resolver setup de migrations de banco para CI.
+
+Pacote: @birthub/api
+Tipo: API tests
+Impacto: Falha na suíte de testes e typecheck (The table `public.organizations` does not exist; TS2345 Property 'actorId' is missing)
+Arquivo(s): `test/performance.test.ts`, `test/benchmarks/pack-installer.benchmark.ts`
+Pré-existente: Sim (observado fora do escopo de agents/executivos)
+Recomendação: Resolver setup de banco para CI e arrumar tipos TS no benchmark.
+
+Pacote: @birthub/worker
+Tipo: Linter
+Impacto: Falha na suíte de lint (`@typescript-eslint/no-explicit-any`, `no-unsafe-call`, `no-floating-promises`, `no-unsafe-argument`)
+Arquivo(s): `src/webhooks/outbound.ts`, `src/worker.ts`
+Pré-existente: Sim (observado fora do escopo de agents/executivos)
+Recomendação: Corrigir erros de tipagem estrita do ESLint.
+
+Pacote: gitleaks, workflow-suite
+Tipo: External Actions / Python setup
+Impacto: Falha na inicialização do CI job e Python env (ambiguous argument `df2eba...`, `ERROR: ../shared is not a valid editable requirement`)
+Arquivo(s): `.github/workflows/ci.yml`, `agents/sales_ops/requirements.txt`
+Pré-existente: Sim (observado fora do escopo de agents/executivos)
+Recomendação: Arrumar dependências em Python e setup do checkout git na CI.
