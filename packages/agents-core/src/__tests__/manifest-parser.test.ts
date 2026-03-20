@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { AgentManifestParseError, parseAgentManifest } from "../manifest/parser.js";
 import { MANIFEST_VERSION } from "../manifest/schema.js";
+// [SOURCE] checklist Agent Pack — GAP-004 / checklist qualidade — M-002
 
 const validManifest = {
   agent: {
@@ -15,6 +16,11 @@ const validManifest = {
     tenantId: "tenant-1",
     version: "1.0.0"
   },
+  fallback_behavior: {
+    escalation: "notificação humana responsável",
+    rate_limit_handling: "wait + 1 retry",
+    retry_policy: "3x backoff exponencial"
+  },
   keywords: ["strategy", "planning", "forecast", "analysis", "governance"],
   manifestVersion: MANIFEST_VERSION,
   policies: [
@@ -25,6 +31,7 @@ const validManifest = {
       name: "Default policy"
     }
   ],
+  required_tools: ["Tool One"],
   skills: [
     {
       description: "Skill description",
@@ -93,6 +100,8 @@ void test("parseAgentManifest rejects partial manifest", () => {
       assert.match(err.message, /tools/);
       assert.match(err.message, /policies/);
       assert.match(err.message, /tags/);
+      assert.match(err.message, /required_tools/);
+      assert.match(err.message, /fallback_behavior/);
       return true;
     }
   );

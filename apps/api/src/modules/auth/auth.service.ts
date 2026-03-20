@@ -11,6 +11,7 @@ import {
   createAccessToken,
   createApiKey,
   createRefreshToken,
+  createSecureSessionId,
   hashPassword,
   randomToken,
   sha256,
@@ -159,6 +160,8 @@ export async function createSession(input: {
   userAgent: string | null;
   userId: string;
 }): Promise<{ sessionId: string; tokens: SessionTokens }> {
+  // [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
+  const sessionId = createSecureSessionId();
   const accessToken = createAccessToken();
   const refreshToken = createRefreshToken();
   const csrfToken = randomToken(24);
@@ -167,6 +170,7 @@ export async function createSession(input: {
 
   const created = await prisma.session.create({
     data: {
+      id: sessionId,
       csrfToken,
       expiresAt,
       ipAddress: input.ipAddress,
@@ -442,14 +446,20 @@ export async function verifyMfaChallenge(input: {
     throw new Error("INVALID_MFA_CODE");
   }
 
-  await prisma.mfaChallenge.update({
+  // [SOURCE] ADR-013
+  const consumed = await prisma.mfaChallenge.updateMany({
     data: {
       consumedAt: new Date()
     },
     where: {
+      consumedAt: null,
       id: challenge.id
     }
   });
+
+  if (consumed.count !== 1) {
+    throw new Error("MFA_CODE_ALREADY_USED");
+  }
 
   const createdSession = await createSession({
     config: input.config,

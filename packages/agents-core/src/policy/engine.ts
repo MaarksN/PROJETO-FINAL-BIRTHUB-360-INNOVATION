@@ -1,3 +1,5 @@
+import { isIP } from "node:net";
+
 export type PolicyEffect = "allow" | "deny";
 export type PolicyTemplateName = "admin" | "readonly" | "standard";
 
@@ -20,6 +22,35 @@ export interface PolicyEvaluationResult {
 export interface PolicyContext {
   tenantId?: string | null;
   metadata?: Record<string, unknown>;
+}
+
+// [SOURCE] ADR-015 / Checklist-Session-Security.md - GAP-SEC-005
+export const SSRF_BLOCKED_RANGES = [
+  "10.0.0.0/8",
+  "127.0.0.1/32",
+  "169.254.169.254/32",
+  "192.168.0.0/16",
+  "172.16.0.0/12"
+] as const;
+
+export function isBlockedSsrfIp(hostname: string): boolean {
+  const normalized = hostname.toLowerCase();
+
+  if (isIP(normalized) === 0) {
+    return false;
+  }
+
+  return (
+    normalized === "0.0.0.0" ||
+    normalized === "127.0.0.1" ||
+    normalized === "::1" ||
+    normalized === "169.254.169.254" ||
+    normalized.startsWith("10.") ||
+    normalized.startsWith("192.168.") ||
+    /^172\.(1[6-9]|2\d|3[0-1])\./.test(normalized) ||
+    normalized.startsWith("fc") ||
+    normalized.startsWith("fd")
+  );
 }
 
 function escapeRegex(value: string): string {

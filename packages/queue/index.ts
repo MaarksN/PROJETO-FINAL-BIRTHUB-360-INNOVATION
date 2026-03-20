@@ -1,3 +1,4 @@
+// [SOURCE] CI-TS-001
 import { Queue, Worker, QueueOptions, WorkerOptions, ConnectionOptions } from 'bullmq';
 import { QueueName } from '@birthub/shared-types';
 import { QUEUE_CONFIG } from './src/definitions';
@@ -11,13 +12,16 @@ const connection: ConnectionOptions = {
 };
 
 export const createQueue = (name: QueueName, options?: QueueOptions) => {
+  const queueConfig = QUEUE_CONFIG[name];
+  const defaultJobOptions = {
+    attempts: queueConfig?.attempts || 3,
+    ...(queueConfig?.backoff !== undefined ? { backoff: queueConfig.backoff } : {}),
+    ...(queueConfig?.priority !== undefined ? { priority: queueConfig.priority } : {}),
+  };
+
   return new Queue(name, {
     connection,
-    defaultJobOptions: {
-      attempts: QUEUE_CONFIG[name]?.attempts || 3,
-      backoff: QUEUE_CONFIG[name]?.backoff,
-      priority: QUEUE_CONFIG[name]?.priority,
-    },
+    defaultJobOptions,
     ...options,
   });
 };
