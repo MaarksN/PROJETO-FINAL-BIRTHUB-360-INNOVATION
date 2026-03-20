@@ -25,6 +25,13 @@ function Convert-ToKebabCase {
   return $step2.ToLower()
 }
 
+$slugOverrides = @{
+  'PoCTracker' = 'poc-tracker'
+  'CustomCRMUIBuilder' = 'custom-crm-ui-builder'
+  'LTVbyChannelCalculator' = 'ltv-by-channel-calculator'
+  'SaaSLicenseAuditor' = 'saas-license-auditor'
+}
+
 foreach ($entry in $cycles.GetEnumerator()) {
   $cycle = $entry.Key
   $names = $entry.Value
@@ -37,7 +44,7 @@ foreach ($entry in $cycles.GetEnumerator()) {
   New-Item -Path $cycleDir -ItemType Directory -Force | Out-Null
 
   foreach ($name in $names) {
-    $slug = Convert-ToKebabCase $name
+    $slug = if ($slugOverrides.ContainsKey($name)) { $slugOverrides[$name] } else { Convert-ToKebabCase $name }
     $agentPath = Join-Path $cycleDir ("{0}.agent.md" -f $slug)
 
     $agentContent = @"
