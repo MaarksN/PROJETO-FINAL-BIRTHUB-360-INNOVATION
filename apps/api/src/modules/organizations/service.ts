@@ -25,6 +25,22 @@ const bootstrapQuotas: Array<{ limit: number; resourceType: QuotaResourceType }>
   { limit: 2_500, resourceType: "EMAILS_SENT" }
 ];
 
+function resolveOrganizationSlug(name: string, slug?: string): string {
+  const source = (slug ?? name).trim().toLowerCase();
+  const normalized = source
+    .normalize("NFKD")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[_\s]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  if (normalized.length > 0) {
+    return normalized;
+  }
+
+  return `org-${Date.now()}`;
+}
+
 function buildAuditCsv(rows: Array<Record<string, unknown>>): string {
   const headers = ["createdAt", "actorId", "action", "entityType", "entityId", "ip", "userAgent"];
   const toCsvCell = (value: unknown): string => {
@@ -89,9 +105,10 @@ export async function createOrganization(input: {
   adminPassword: string;
   name: string;
   requestId: string;
-  slug: string;
+  slug?: string;
 }) {
   const config = getApiConfig();
+  const organizationSlug = resolveOrganizationSlug(input.name, input.slug);
   const passwordHash = await hashPassword(
     input.adminPassword,
     config.AUTH_BCRYPT_SALT_ROUNDS
@@ -112,7 +129,7 @@ export async function createOrganization(input: {
             locale: "pt-BR",
             onboarding: true
           },
-          slug: input.slug
+          slug: organizationSlug
         }
       });
 
@@ -201,7 +218,7 @@ export async function createOrganization(input: {
       error.code === "P2002"
     ) {
       throw new ProblemDetailsError({
-        detail: `Organization slug '${input.slug}' is already in use.`,
+        detail: `Organization slug '${organizationSlug}' is already in use.`,
         status: 409,
         title: "Conflict"
       });

@@ -1,4 +1,5 @@
 import type { ApiConfig } from "@birthub/config";
+import type { z } from "zod";
 import {
   createOrganizationRequestSchema,
   createOrganizationResponseSchema,
@@ -279,18 +280,14 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/auth/mfa/challenge",
     validateBody(mfaVerifyRequestSchema),
     asyncHandler(async (request, response) => {
-      const body = request.body as unknown as {
-        challengeToken: string;
-        recoveryCode?: string;
-        totpCode?: string;
-      };
+      const body = request.body as z.infer<typeof mfaVerifyRequestSchema>;
 
       const session = await verifyMfaChallenge({
         challengeToken: body.challengeToken,
         config,
         ipAddress: request.ip ?? null,
-        recoveryCode: body.recoveryCode,
-        totpCode: body.totpCode,
+        ...(body.recoveryCode ? { recoveryCode: body.recoveryCode } : {}),
+        ...(body.totpCode ? { totpCode: body.totpCode } : {}),
         userAgent: request.header("user-agent") ?? null
       });
 
@@ -426,13 +423,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     "/api/v1/organizations",
     validateBody(createOrganizationRequestSchema),
     asyncHandler(async (request, response) => {
-      const body = request.body as unknown as {
-        adminEmail: string;
-        adminName: string;
-        adminPassword: string;
-        name: string;
-        slug?: string;
-      };
+      const body = request.body as z.infer<typeof createOrganizationRequestSchema>;
 
       const organization = await createOrganization({
         adminEmail: body.adminEmail,
@@ -440,7 +431,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
         adminPassword: body.adminPassword,
         name: body.name,
         requestId: request.context.requestId,
-        slug: body.slug
+        ...(body.slug ? { slug: body.slug } : {})
       });
 
       request.context.organizationId = organization.organizationId;
@@ -510,14 +501,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
     requireAuthenticatedSession,
     validateBody(taskRequestSchema),
     asyncHandler(async (request, response) => {
-      const body = request.body as unknown as {
-        agentId: string;
-        approvalRequired?: boolean;
-        estimatedCostBRL: number;
-        executionMode: "DRY_RUN" | "LIVE";
-        payload?: unknown;
-        type: string;
-      };
+      const body = request.body as z.infer<typeof taskRequestSchema>;
 
       const organizationId = request.context.organizationId;
       const tenantId = request.context.tenantId;
