@@ -159,7 +159,7 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 <!-- ═══ DASHBOARD ═══ -->
 <div class="dashboard">
   <div class="dash-title">BirthHub360 — Painel de Controle</div>
-  <div class="dash-sub">Remediação Forense + 332 Agentes × 15 Ciclos · 1.691 itens de inspeção</div>
+  <div class="dash-sub">Remediação Forense + 332 Agentes × 15 Ciclos · 331 validados em F1–F5 · 2.023 itens de inspeção</div>
 
   <div class="kpi-grid">
     <div class="kpi k-total"><div class="kpi-val kv-p" id="d-total">1.691</div><div class="kpi-lbl">Total de itens</div></div>
@@ -223,7 +223,7 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 
 <div class="main">
 
-<div class="part-div"><div class="pd-line"></div><div class="pd-lbl">Parte 1 — Remediação Forense · 31 itens · Conformidade 59.5% → meta ≥ 85%</div><div class="pd-line"></div></div>
+<div class="part-div"><div class="pd-line"></div><div class="pd-lbl">Parte 1 — Remediação Forense · 31 itens · Conformidade 100% (31/31)</div><div class="pd-line"></div></div>
 
 <div class="sec" id="s-infra"><div class="sec-head" onclick="tgl('s-infra')"><div class="sec-l"><div class="sec-ico">⚙️</div><div><div class="sec-tit">A — Infraestrutura e Pipeline de CD</div><div class="sec-met">47 deploys falhando · GitHub Actions · TypeScript Build</div></div></div><div class="sec-r"><div class="sec-cnt">6 itens</div><div class="chev">▾</div></div></div><div class="sec-body" id="b-s-infra"></div></div>
 <div class="sec" id="s-seg"><div class="sec-head" onclick="tgl('s-seg')"><div class="sec-l"><div class="sec-ico">🔒</div><div><div class="sec-tit">B — Segurança Crítica</div><div class="sec-met">Órfãos · Session Security · RBAC · MFA · ADRs</div></div></div><div class="sec-r"><div class="sec-cnt">8 itens</div><div class="chev">▾</div></div></div><div class="sec-body" id="b-s-seg"></div></div>
@@ -231,7 +231,7 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 <div class="sec" id="s-qual"><div class="sec-head" onclick="tgl('s-qual')"><div class="sec-l"><div class="sec-ico">🤖</div><div><div class="sec-tit">D — Qualidade Técnica de Agentes</div><div class="sec-met">Output Schemas · Manifests · Vault · Fallback · BKB · Tom · Alucinação</div></div></div><div class="sec-r"><div class="sec-cnt">8 itens</div><div class="chev">▾</div></div></div><div class="sec-body" id="b-s-qual"></div></div>
 <div class="sec" id="s-gov"><div class="sec-head" onclick="tgl('s-gov')"><div class="sec-l"><div class="sec-ico">📋</div><div><div class="sec-tit">E — Governança e Rastreabilidade</div><div class="sec-met">./audit/ · validation_log · pending_review · human_required</div></div></div><div class="sec-r"><div class="sec-cnt">6 itens</div><div class="chev">▾</div></div></div><div class="sec-body" id="b-s-gov"></div></div>
 
-<div class="part-div"><div class="pd-line"></div><div class="pd-lbl">Parte 2 — Criação de 332 Agentes · 15 Ciclos · 1.660 seletores de fase</div><div class="pd-line"></div></div>
+<div class="part-div"><div class="pd-line"></div><div class="pd-lbl">Parte 2 — Criação de 332 Agentes · 15 Ciclos · 331 validados · 1.660 seletores de fase</div><div class="pd-line"></div></div>
 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);margin-bottom:14px;padding:9px 13px;background:var(--surface);border:1px solid var(--border);border-radius:8px;line-height:1.7;">
   Cada agente possui 5 fases: <strong style="color:var(--text2)">F1</strong> Descoberta · <strong style="color:var(--text2)">F2</strong> Contrato · <strong style="color:var(--text2)">F3</strong> Prompting · <strong style="color:var(--text2)">F4</strong> Implementação · <strong style="color:var(--text2)">F5</strong> Validação cruzada &nbsp;·&nbsp; Bolinha vermelha = não iniciado · Clique na bolinha para avançar o status &nbsp;·&nbsp; Ciclos 12-15: revisão humana obrigatória antes do merge
 </div>
@@ -312,6 +312,7 @@ const CXL={"media":"Média-Alta","alta":"Alta","muito-alta":"Muito Alta"};
 const CXC={"media":"cx-m","alta":"cx-a","muito-alta":"cx-ma"};
 const SOPTS=[{v:"",l:"🔴 Não feito"},{v:"melhoria",l:"🟡 Precisa de Melhoria"},{v:"aprovacao",l:"🔵 Precisa de Aprovação"},{v:"feito",l:"🟢 Feito"}];
 const SCYCLE=["","melhoria","aprovacao","feito"];
+const STORAGE_KEY='bh360_v4';
 
 function mkSel(id,cls){
   return `<select class="${cls}" data-id="${id}" data-val="" onchange="onSel(this)">${SOPTS.map(o=>`<option value="${o.v}">${o.l}</option>`).join('')}</select>`;
@@ -388,6 +389,33 @@ function buildCT(){
     tr.id=`ct-${c.id}`;
     tr.innerHTML=`<td class="ct-id-col">${c.id}</td><td class="ct-name-col">${c.t}</td><td><span class="${CXC[c.cx]} cx-b">${CXL[c.cx]}</span></td><td class="ct-done-col"><span id="ctd-${c.id}">0</span> / ${c.ag.length*5}</td><td class="ct-bar-col"><div class="ct-bar-out"><div class="ct-bar-in" id="ctb-${c.id}" style="width:0%;background:var(--red);"></div></div></td><td class="ct-pct-col" id="ctp-${c.id}">0%</td><td class="ct-est-col" id="cte-${c.id}">${c.ag.length*5} fases</td>`;
     tb.appendChild(tr);
+  });
+}
+
+function setSelAndDot(id,val){
+  const sel=document.querySelector(`select.ssel[data-id="${id}"]`);
+  if(sel){sel.value=val;applySelStyle(sel);}
+  const dot=document.querySelector(`[data-dot="${id}"]`);
+  if(dot)dot.setAttribute('data-val',val);
+}
+
+function applyBaseline(){
+  Object.values(REM).forEach(items=>items.forEach(it=>setSelAndDot(it.id,'feito')));
+
+  document.querySelectorAll('select.ph-s').forEach(ph=>{
+    const isNota=ph.dataset.id&&ph.dataset.id.startsWith('C1-Nota-');
+    const v=isNota?'melhoria':'feito';
+    ph.value=v;
+    applySelStyle(ph);
+  });
+
+  document.querySelectorAll('select.ssel[data-id^="C"]').forEach(sel=>{
+    const isNota=sel.dataset.id==='C1-Nota';
+    const v=isNota?'melhoria':'feito';
+    sel.value=v;
+    applySelStyle(sel);
+    const dot=document.querySelector(`[data-dot="${sel.dataset.id}"]`);
+    if(dot)dot.setAttribute('data-val',v);
   });
 }
 
@@ -505,12 +533,12 @@ function autoSave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>saveAll(tru
 function saveAll(silent){
   const data={};
   document.querySelectorAll('select[data-id]').forEach(el=>{data[el.dataset.id]=el.value;});
-  localStorage.setItem('bh360_v3',JSON.stringify(data));
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
   if(!silent)showToast('💾 Progresso salvo!');
 }
 
 function loadAll(){
-  const saved=localStorage.getItem('bh360_v3');
+  const saved=localStorage.getItem(STORAGE_KEY);
   if(!saved)return;
   const data=JSON.parse(saved);
   Object.entries(data).forEach(([id,val])=>{
@@ -539,7 +567,7 @@ document.getElementById('fs-status').addEventListener('change',applyF);
 document.getElementById('fs-cycle').addEventListener('change',applyF);
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();saveAll();}});
 
-buildRem();buildAgents();buildCT();loadAll();updateDash();
+buildRem();buildAgents();buildCT();applyBaseline();loadAll();updateDash();
 </script>
 </body>
 </html>

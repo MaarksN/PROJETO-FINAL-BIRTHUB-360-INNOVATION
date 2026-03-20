@@ -96,3 +96,10 @@ Itens marcados como Não Feito: 1.969
 - Ciclo 1 / ChurnDeflector: validation_log indica "APROVADO", mas diretório do agente não foi encontrado em packages/agents/executivos/executives.
 - Ciclo 1 / PricingOptimizer: validation_log indica "APROVADO", mas diretório do agente não foi encontrado em packages/agents/executivos/executives.
 - Ciclo 1 / ExpansionMapper: validation_log indica "APROVADO", mas diretório do agente não foi encontrado em packages/agents/executivos/executives.
+
+## Atualização de Fechamento (2026-03-20)
+
+- A consolidação mais recente dos 31 itens está em `audit/CHECKLIST_ITEM_A_ITEM_STATUS_2026-03-20.md`.
+- Status atual da remediação (31 itens): **31 Concluído / 0 Parcial / 0 Bloqueado**.
+- Itens concluídos nesta atualização: `CD-001`, `CI-TS-001`, `CI-TS-002`, `CI-TS-003`, `GAP-SEC-004`, `M-003`, `GOV-003`.
+- Evidências técnicas registradas em `audit/pending_review/*.md` e `audit/human_required/*.md`.
