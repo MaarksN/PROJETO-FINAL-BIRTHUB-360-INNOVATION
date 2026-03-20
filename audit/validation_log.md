@@ -571,11 +571,14 @@
   Impacto no checklist: Atualização F4/F5 como `feito` e F1-F3 como `aprovacao`.
   Proxima acao: Codex validar F1-F3.
 
-## 2026-03-20T11:34:40Z
+## 2026-03-20T01:00:00Z
 
-- Item: `M-003, D-001, D-002`
-  Executor: `JULES`
-  Resultado: `ENTREGUE — AGUARDA VALIDAÇÃO CODEX`
+- Item: `S-003`
+  Validador: `JULES`
+  Resultado: `BLOQUEADO - AGUARDANDO HUMANO`
   Evidencia:
-  - Instruções estratégicas (BKB, anti-alucinação, adequação de tom) injetadas diretamente nos arquivos `system_prompt.md` dos 7 agentes aplicáveis do escopo (`packages/agents/executivos/*/system_prompt.md`).
-  - [SOURCE] anexado aos arquivos.
+  - Busca exaustiva executada (`find . -type f -exec grep -l -i "vindi" {} +`).
+  - Nenhum artefato instrucional ou documento técnico referente à integração "Vindi" encontrado.
+  - Job de worker `syncLegacyBilling.ts` também inexistente no diretório `apps/worker/src/jobs`.
+  - GAP documentado em `audit/UNDECLARED_OBSERVATIONS.md`.
+  - Agente necessita que a documentação da integração (caso ainda ativa na visão de negócio) seja criada ou que haja uma decisão de descontinuação (Remoção da gateway).
