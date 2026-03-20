@@ -105,3 +105,5 @@ Nenhum script/pipeline explícito de geração do artifacts/audit/forensic_repor
 foi encontrado no checkout atual após busca em scripts, workflows e arquivos de build.
 No estado atual do repositório, o relatório deve ser tratado como artefato
 atualizado manualmente.
+
+S-003 — `syncLegacyBilling.ts` sem artefato de origem confirmado.
