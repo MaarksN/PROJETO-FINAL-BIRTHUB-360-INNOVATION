@@ -1,18 +1,23 @@
 # [SOURCE] BirthHub360 Remediacao Forense - GAP-SEC-004
 
-## Bloqueio
+## Status
 
-O item `GAP-SEC-004` exige leitura do backlog `audit/pending_review/GAP-SEC-004_itens.md`, mas o arquivo nao existe no workspace atual.
+RESOLVIDO em 2026-03-20.
+
+## Contexto
+
+O backlog `audit/pending_review/GAP-SEC-004_itens.md` foi publicado e executado nesta rodada.
 
 ## Evidencia Tecnica
 
-- `Test-Path audit/pending_review/GAP-SEC-004_itens.md` retornou `false`.
-- Busca por arquivos com `GAP-SEC-004` no repositorio nao retornou resultados.
+- `Test-Path audit/pending_review/GAP-SEC-004_itens.md` retornou `true`.
+- `corepack pnpm --filter @birthub/api typecheck` retornou PASS.
+- `corepack pnpm --filter @birthub/api test` retornou PASS.
 
 ## Impacto
 
-Sem o backlog do Jules, nao ha base deterministica para executar as correcoes item a item nem para criar os testes unitarios exigidos no checklist.
+Controles de sessão priorizados no backlog foram implementados e validados (idle timeout, concorrência de sessões, hardening de cookies e validações de autenticação).
 
 ## Acao Requerida
 
-Jules deve publicar o backlog em `audit/pending_review/GAP-SEC-004_itens.md` com os itens e criterios objetivos de aceite para desbloqueio da execucao tecnica.
+Nenhuma adicional para o fechamento técnico do item neste ciclo.

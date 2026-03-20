@@ -2,20 +2,19 @@
 # Bloqueio Técnico — M-003 (Injeção BKB em runtime)
 
 **Data:** 2026-03-20
-**Status:** BLOQUEADO — AGUARDANDO HUMANO
+**Status:** RESOLVIDO
 
 ## Contexto
-- Os `system_prompt.md` dos agentes-alvo já contêm instrução explícita de consulta BKB.
-- Nesta rodada, não foi encontrada evidência técnica de pipeline/runtime de injeção de contexto BKB além da instrução textual nos prompts.
+- Implementada injeção de contexto BKB por `tenant_id` no runtime compartilhado.
+- A injeção ocorre por payload (`knowledge_base`/`bkb`) e por registry de tenant (`BKB_TENANT_CONTEXT`/`BKB_TENANT_CONTEXT_FILE`).
 
 ## Evidência técnica
-- Busca por integração/runtime com BKB em código executável de `packages/agents` e `agents` não encontrou mecanismo inequívoco de ingestão de base de conhecimento por tenant.
-- Resultados atuais demonstram guardrail de prompt, mas não comprovam transporte de contexto BKB em execução.
+- Código: `agents/shared/operational_contract.py` (`inject_bkb_context`) e `agents/shared/base_agent.py` (injeção no estado de execução).
+- Testes: `agents/shared/tests/test_operational_contract.py` e `agents/shared/tests/test_base_agent.py`.
+- Execução: `pytest agents/shared/tests/test_operational_contract.py agents/shared/tests/test_base_agent.py -q` → PASS.
 
 ## Risco
-- Prompts podem referenciar BKB inexistente em runtime e induzir respostas sem base factual.
+- Mitigado no escopo coberto: o runtime passa a transportar contexto BKB padronizado para os agentes compartilhados.
 
 ## Decisão humana requerida
-1. Confirmar o componente oficial de runtime que injeta BKB por tenant (path, contrato e estratégia de teste).
-2. Autorizar implementação técnica de integração BKB (se inexistente) em ciclo dedicado.
-3. Definir critério de aceite mínimo (ex.: teste de integração com evidência de payload contextual).
+- Nenhuma para o fechamento técnico do item neste ciclo.
