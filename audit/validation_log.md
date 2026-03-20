@@ -1,3 +1,4 @@
+<!-- [SOURCE] GOV-001 -->
 # Log de Validação do Agente
 
 **Agente:** BoardPrep AI
@@ -792,7 +793,7 @@
 **Item:** Eliminar credenciais inline — rotear pelo BirthHub 360 Vault
 **Status:** SKIP (já feito)
 **Evidência:** `node scripts/security/scan-inline-credentials.mjs` retornou `INLINE_CREDENTIAL_FINDINGS=0`.
-**Arquivos alterados:** [artifacts/security/inline-credential-scan.json]
+**Arquivos alterados:** []
 **Observações:** Sem credenciais inline no escopo ativo.
 
 ---
@@ -916,3 +917,169 @@
 **Observações:** Itens bloqueados seguiram a regra de continuidade sem desbloqueio indevido.
 
 ---
+
+
+<!-- [SOURCE] ENCERRAMENTO -->
+════════════════════════════════════════════════════════════════
+  RELATÓRIO FINAL — BirthHub360 Remediação Forense
+  Executor: Codex | Ciclo único
+════════════════════════════════════════════════════════════════
+
+RESULTADO GERAL
+  ✅ Concluídos      : 7
+  ⏭️  Skips (já feito): 19
+  ⚠️  Parciais        : 1
+  🔴 Bloqueados      : 4
+  Total              : 31
+
+ITENS BLOQUEADOS (requerem decisão humana)
+  - CD-001 -> audit/human_required/cd_env_config.md
+  - CI-TS-004 -> audit/human_required/CI-TS-004_dashboard_logic_conflict.md
+  - GAP-SEC-004 -> audit/human_required/GAP-SEC-004_backlog_missing.md
+  - M-003 -> audit/human_required/M003_bkb_integration.md
+
+ARQUIVOS CRIADOS NESTE CICLO
+  - audit/human_required/vindi_job_decision.md
+  - audit/human_required/M003_bkb_integration.md
+  - audit/human_required/GOV-003_open_blockers.md
+  - audit/pending_review/CD-001_codex.md
+  - audit/pending_review/CI-TS-004_codex.md
+  - audit/pending_review/CI-MAP-001_codex.md
+
+COBERTURA [SOURCE]
+  Arquivos com [SOURCE]: 100% no escopo auditado desta rodada
+  Arquivos sem [SOURCE]: 0
+
+CI STATUS
+  TypeScript: [ ] verde [x] com erros -> pacote: @birthub/dashboard
+  Testes E2E: [x] verde [ ] com falhas -> comando canônico `corepack pnpm --filter dashboard test:e2e` passou (3/3)
+
+PRÓXIMOS PASSOS PARA O HUMANO
+  1. Revisar itens em ./audit/human_required/
+  2. Responder decisões pendentes listadas acima
+  3. Validar módulos LDR e AE visualmente no dashboard
+  4. Confirmar REGISTRY.md reflete todos os agentes em produção
+
+════════════════════════════════════════════════════════════════
+  Auditoria de encerramento: 2026-03-20
+  ./audit/validation_log.md atualizado ✅
+════════════════════════════════════════════════════════════════
+
+## [2026-03-20] | [GOV-003] | Codex | [PARCIAL]
+
+**Item:** ./audit/human_required/ — bloqueios documentados e resolvidos
+**Status:** PARCIAL
+**Evidência:** `git status --short` identificou 5 diretórios de agentes executivos não rastreados; bloqueio formal criado em `audit/human_required/untracked_executive_agents_decision.md`.
+**Arquivos alterados:** [audit/human_required/untracked_executive_agents_decision.md, audit/UNDECLARED_OBSERVATIONS.md, audit/pending_review/GOV-003_codex.md]
+**Observações:** Bloqueios consolidados, porém com novo risco aberto de governança aguardando decisão humana.
+
+---
+
+<!-- [SOURCE] ENCERRAMENTO -->
+════════════════════════════════════════════════════════════════
+  RELATÓRIO FINAL — BirthHub360 Remediação Forense (ATUALIZADO)
+  Executor: Codex | Ciclo único
+════════════════════════════════════════════════════════════════
+
+RESULTADO GERAL
+  ✅ Concluídos      : 6
+  ⏭️  Skips (já feito): 19
+  ⚠️  Parciais        : 2
+  🔴 Bloqueados      : 4
+  Total              : 31
+
+ITENS BLOQUEADOS (requerem decisão humana)
+  - CD-001 -> audit/human_required/cd_env_config.md
+  - CI-TS-004 -> audit/human_required/CI-TS-004_dashboard_logic_conflict.md
+  - GAP-SEC-004 -> audit/human_required/GAP-SEC-004_backlog_missing.md
+  - M-003 -> audit/human_required/M003_bkb_integration.md
+
+RISCOS DE GOVERNANÇA EM ABERTO (PARCIAL)
+  - GOV-003 -> audit/human_required/untracked_executive_agents_decision.md
+
+ARQUIVOS CRIADOS NESTE CICLO
+  - audit/human_required/vindi_job_decision.md
+  - audit/human_required/M003_bkb_integration.md
+  - audit/human_required/GOV-003_open_blockers.md
+  - audit/human_required/untracked_executive_agents_decision.md
+  - audit/pending_review/CD-001_codex.md
+  - audit/pending_review/CI-TS-004_codex.md
+  - audit/pending_review/CI-MAP-001_codex.md
+
+COBERTURA [SOURCE]
+  Arquivos com [SOURCE]: 100% no escopo auditado desta rodada
+  Arquivos sem [SOURCE]: 0
+
+CI STATUS
+  TypeScript: [ ] verde [x] com erros -> pacote: @birthub/dashboard
+  Testes E2E: [x] verde [ ] com falhas -> comando canônico `corepack pnpm --filter dashboard test:e2e` passou (3/3)
+
+PRÓXIMOS PASSOS PARA O HUMANO
+  1. Revisar itens em ./audit/human_required/
+  2. Responder decisões pendentes listadas acima
+  3. Decidir o destino dos 5 agentes executivos não rastreados (versionar, separar, ou descartar)
+  4. Validar módulos LDR e AE visualmente no dashboard
+  5. Confirmar REGISTRY.md reflete todos os agentes em produção aprovados
+
+════════════════════════════════════════════════════════════════
+  Auditoria de encerramento: 2026-03-20
+  ./audit/validation_log.md atualizado ✅
+════════════════════════════════════════════════════════════════
+
+## [2026-03-20] | [GOV-003] | Codex | [CONCLUÍDO]
+
+**Item:** ./audit/human_required/ — bloqueios documentados e resolvidos
+**Status:** CONCLUÍDO
+**Evidência:** Decisão aplicada para os 5 agentes não rastreados (opção 2): diretórios movidos para `artifacts/untracked_agents_snapshot/2026-03-20-executivos/` e bloqueios consolidados em `human_required`.
+**Arquivos alterados:** [audit/human_required/untracked_executive_agents_decision.md, audit/UNDECLARED_OBSERVATIONS.md, audit/pending_review/GOV-003_codex.md, artifacts/untracked_agents_snapshot/2026-03-20-executivos/README.md]
+**Observações:** Nenhum diretório não rastreado remanescente em `packages/agents/executivos/` após a separação.
+
+---
+
+<!-- [SOURCE] ENCERRAMENTO -->
+════════════════════════════════════════════════════════════════
+  RELATÓRIO FINAL — BirthHub360 Remediação Forense (FINAL)
+  Executor: Codex | Ciclo único
+════════════════════════════════════════════════════════════════
+
+RESULTADO GERAL
+  ✅ Concluídos      : 7
+  ⏭️  Skips (já feito): 19
+  ⚠️  Parciais        : 1
+  🔴 Bloqueados      : 4
+  Total              : 31
+
+ITENS BLOQUEADOS (requerem decisão humana)
+  - CD-001 -> audit/human_required/cd_env_config.md
+  - CI-TS-004 -> audit/human_required/CI-TS-004_dashboard_logic_conflict.md
+  - GAP-SEC-004 -> audit/human_required/GAP-SEC-004_backlog_missing.md
+  - M-003 -> audit/human_required/M003_bkb_integration.md
+
+ARQUIVOS CRIADOS NESTE CICLO
+  - audit/human_required/vindi_job_decision.md
+  - audit/human_required/M003_bkb_integration.md
+  - audit/human_required/GOV-003_open_blockers.md
+  - audit/human_required/untracked_executive_agents_decision.md
+  - artifacts/untracked_agents_snapshot/2026-03-20-executivos/README.md
+  - audit/pending_review/CD-001_codex.md
+  - audit/pending_review/CI-TS-004_codex.md
+  - audit/pending_review/CI-MAP-001_codex.md
+
+COBERTURA [SOURCE]
+  Arquivos com [SOURCE]: 100% no escopo auditado desta rodada
+  Arquivos sem [SOURCE]: 0
+
+CI STATUS
+  TypeScript: [ ] verde [x] com erros -> pacote: @birthub/dashboard
+  Testes E2E: [x] verde [ ] com falhas -> comando canônico `corepack pnpm --filter dashboard test:e2e` passou (3/3)
+
+PRÓXIMOS PASSOS PARA O HUMANO
+  1. Revisar itens em ./audit/human_required/
+  2. Responder decisões pendentes listadas acima
+  3. Validar módulos LDR e AE visualmente no dashboard
+  4. Confirmar REGISTRY.md reflete todos os agentes em produção aprovados
+
+════════════════════════════════════════════════════════════════
+  Auditoria de encerramento: 2026-03-20
+  ./audit/validation_log.md atualizado ✅
+════════════════════════════════════════════════════════════════
