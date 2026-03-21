@@ -38,7 +38,7 @@
   - Ausência de credenciais inline: PASS.
   - Ausência de marcadores de rascunho, LOTE-XX, token-rascunho, token-rascunho: PASS.
   - Existência de schemas de telemetria explícitos: PASS.
-  - Implementação F4 do Codex cobre integralmente os testes F5 para os 6 agentes: PASS (100% dos os testes passando localmente `node --import tsx --test`).
+  - Implementação F4 do Codex cobre integralmente os testes F5 para os 6 agentes: PASS (todos os testes passando localmente `node --import tsx --test`).
 
 ## Resultado dos testes
 - Sucesso, validação F5 cruzada aprovada pelo Jules.

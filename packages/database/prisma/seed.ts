@@ -259,29 +259,8 @@ async function createWorkflowWithGraph(input: {
   tenantId: string;
   workflow: SeedWorkflowDefinition;
 }): Promise<{ id: string; status: WorkflowStatus }> {
-  const workflow = await prisma.workflow.upsert({
-    where: {
-      tenantId_name: {
-        tenantId: input.tenantId,
-        name: input.workflow.name
-      }
-    },
-    update: {
-      cronExpression: input.workflow.cronExpression ?? null,
-      definition: {
-        nodes: input.workflow.steps.map((step) => ({
-          config: step.config,
-          key: step.key,
-          name: step.name,
-          type: step.type
-        })),
-        transitions: input.workflow.transitions
-      } as Prisma.InputJsonValue,
-      description: input.workflow.description,
-      status: input.workflow.status,
-      triggerType: input.workflow.triggerType
-    },
-    create: {
+  const workflow = await prisma.workflow.create({
+    data: {
       cronExpression: input.workflow.cronExpression ?? null,
       definition: {
         nodes: input.workflow.steps.map((step) => ({
@@ -308,17 +287,8 @@ async function createWorkflowWithGraph(input: {
   const stepIdByKey = new Map<string, string>();
 
   for (const step of input.workflow.steps) {
-    const createdStep = await prisma.workflowStep.upsert({
-      where: {
-        workflowId_key: { workflowId: workflow.id, key: step.key }
-      },
-      update: {
-        config: step.config as Prisma.InputJsonValue,
-        isTrigger: step.isTrigger ?? false,
-        name: step.name,
-        type: step.type
-      },
-      create: {
+    const createdStep = await prisma.workflowStep.create({
+      data: {
         config: step.config as Prisma.InputJsonValue,
         isTrigger: step.isTrigger ?? false,
         key: step.key,
@@ -350,46 +320,43 @@ async function createWorkflowWithGraph(input: {
   );
 
   // Cria execução de exemplo para facilitar testes de debugger e histórico no E2E.
-  const execCount = await prisma.workflowExecution.count({ where: { workflowId: workflow.id }});
-  if (execCount === 0) {
-    const seededExecution = await prisma.workflowExecution.create({
+  const seededExecution = await prisma.workflowExecution.create({
+    data: {
+      organizationId: input.organizationId,
+      status: WorkflowExecutionStatus.SUCCESS,
+      tenantId: input.tenantId,
+      triggerPayload: {
+        seeded: true
+      },
+      triggerType: input.workflow.triggerType,
+      workflowId: workflow.id
+    }
+  });
+
+  const triggerStepKey = input.workflow.steps.find((step) => step.isTrigger)?.key;
+  const triggerStepId = triggerStepKey ? stepIdByKey.get(triggerStepKey) : null;
+
+  if (triggerStepId) {
+    await prisma.stepResult.create({
       data: {
-        organizationId: input.organizationId,
-        status: WorkflowExecutionStatus.SUCCESS,
-        tenantId: input.tenantId,
-        triggerPayload: {
+        attempt: 1,
+        executionId: seededExecution.id,
+        finishedAt: new Date(),
+        input: {
           seeded: true
-        },
-        triggerType: input.workflow.triggerType,
+        } as Prisma.InputJsonValue,
+        organizationId: input.organizationId,
+        output: {
+          seeded: true,
+          tenantId: input.tenantId
+        } as Prisma.InputJsonValue,
+        outputSize: 64,
+        status: "SUCCESS",
+        stepId: triggerStepId,
+        tenantId: input.tenantId,
         workflowId: workflow.id
       }
     });
-
-    const triggerStepKey = input.workflow.steps.find((step) => step.isTrigger)?.key;
-    const triggerStepId = triggerStepKey ? stepIdByKey.get(triggerStepKey) : null;
-
-    if (triggerStepId) {
-      await prisma.stepResult.create({
-        data: {
-          attempt: 1,
-          executionId: seededExecution.id,
-          finishedAt: new Date(),
-          input: {
-            seeded: true
-          } as Prisma.InputJsonValue,
-          organizationId: input.organizationId,
-          output: {
-            seeded: true,
-            tenantId: input.tenantId
-          } as Prisma.InputJsonValue,
-          outputSize: 64,
-          status: "SUCCESS",
-          stepId: triggerStepId,
-          tenantId: input.tenantId,
-          workflowId: workflow.id
-        }
-      });
-    }
   }
 
   return {
@@ -571,19 +538,8 @@ async function createTenant(
   }
 
   const passwordHash = createHash("sha256").update("password123").digest("hex");
-  const stripeCustomerId = `cus_${seed.slug.replace(/-/g, "_")}`;
-  const organization = await prisma.organization.upsert({
-    where: { stripeCustomerId },
-    update: {
-      name: seed.name,
-      planId: selectedPlan.id,
-      settings: {
-        locale: "pt-BR",
-        timezone: "America/Sao_Paulo"
-      },
-      slug: seed.slug
-    },
-    create: {
+  const organization = await prisma.organization.create({
+    data: {
       name: seed.name,
       planId: selectedPlan.id,
       settings: {
@@ -591,19 +547,14 @@ async function createTenant(
         timezone: "America/Sao_Paulo"
       },
       slug: seed.slug,
-      stripeCustomerId
+      stripeCustomerId: `cus_${seed.slug.replace(/-/g, "_")}`
     }
   });
 
   const users = await Promise.all(
     seed.members.map((member) =>
-      prisma.user.upsert({
-        where: { email: member.email },
-        update: {
-          name: member.name,
-          passwordHash
-        },
-        create: {
+      prisma.user.create({
+        data: {
           email: member.email,
           name: member.name,
           passwordHash
@@ -614,18 +565,8 @@ async function createTenant(
 
   await Promise.all(
     users.map((user, index) =>
-      prisma.membership.upsert({
-        where: {
-          organizationId_userId: {
-            organizationId: organization.id,
-            userId: user.id
-          }
-        },
-        update: {
-          role: seed.members[index]?.role ?? Role.MEMBER,
-          status: MembershipStatus.ACTIVE
-        },
-        create: {
+      prisma.membership.create({
+        data: {
           organizationId: organization.id,
           role: seed.members[index]?.role ?? Role.MEMBER,
           status: MembershipStatus.ACTIVE,
@@ -699,31 +640,20 @@ async function createTenant(
     )
   );
 
-  const stripeSubscriptionId = `sub_${seed.slug.replace(/-/g, "_")}`;
-  const subscriptionCount = await prisma.subscription.count({ where: { stripeSubscriptionId }});
-  let subscription: any = null;
+  const subscription = await prisma.subscription.create({
+    data: {
+      currentPeriodEnd: new Date("2026-04-01T00:00:00.000Z"),
+      organizationId: organization.id,
+      planId: selectedPlan.id,
+      status: SubscriptionStatus.active,
+      stripeCustomerId: organization.stripeCustomerId,
+      stripeSubscriptionId: `sub_${seed.slug.replace(/-/g, "_")}`,
+      tenantId: organization.tenantId
+    }
+  });
 
-  if (subscriptionCount === 0) {
-    subscription = await prisma.subscription.create({
-      data: {
-        currentPeriodEnd: new Date("2026-04-01T00:00:00.000Z"),
-        organizationId: organization.id,
-        planId: selectedPlan.id,
-        status: SubscriptionStatus.active,
-        stripeCustomerId: organization.stripeCustomerId,
-        stripeSubscriptionId,
-        tenantId: organization.tenantId
-      }
-    });
-  } else {
-    subscription = await prisma.subscription.findFirst({ where: { stripeSubscriptionId }});
-  }
-
-  const pmId = `pm_${seed.slug.replace(/-/g, "_")}`;
-  const invoiceId = `in_${seed.slug.replace(/-/g, "_")}_001`;
-
-  if (await prisma.paymentMethod.count({ where: { stripePaymentMethodId: pmId }}) === 0) {
-    await prisma.paymentMethod.create({
+  await Promise.all([
+    prisma.paymentMethod.create({
       data: {
         brand: "visa",
         expMonth: 12,
@@ -731,14 +661,11 @@ async function createTenant(
         isDefault: true,
         last4: "4242",
         organizationId: organization.id,
-        stripePaymentMethodId: pmId,
+        stripePaymentMethodId: `pm_${seed.slug.replace(/-/g, "_")}`,
         tenantId: organization.tenantId
       }
-    });
-  }
-
-  if (await prisma.invoice.count({ where: { stripeInvoiceId: invoiceId }}) === 0) {
-    await prisma.invoice.create({
+    }),
+    prisma.invoice.create({
       data: {
         amountDueCents: seed.planCode === "enterprise" ? 0 : 14900,
         amountPaidCents: seed.planCode === "enterprise" ? 0 : 14900,
@@ -749,12 +676,12 @@ async function createTenant(
         periodEnd: new Date("2026-03-31T23:59:59.000Z"),
         periodStart: new Date("2026-03-01T00:00:00.000Z"),
         status: InvoiceStatus.paid,
-        stripeInvoiceId: invoiceId,
+        stripeInvoiceId: `in_${seed.slug.replace(/-/g, "_")}_001`,
         subscriptionId: subscription.id,
         tenantId: organization.tenantId
       }
-    });
-  }
+    })
+  ]);
 
   await Promise.all(
     [
@@ -778,21 +705,18 @@ async function createTenant(
     )
   );
 
-  const billingEventId = `evt_${seed.slug.replace(/-/g, "_")}_bootstrap`;
-  if (await prisma.billingEvent.count({ where: { stripeEventId: billingEventId }}) === 0) {
-    await prisma.billingEvent.create({
-      data: {
-        organizationId: organization.id,
-        payload: {
-          note: "Seeded baseline billing event",
-          status: "processed"
-        },
-        stripeEventId: billingEventId,
-        tenantId: organization.tenantId,
-        type: "seed.subscription.created"
-      }
-    });
-  }
+  await prisma.billingEvent.create({
+    data: {
+      organizationId: organization.id,
+      payload: {
+        note: "Seeded baseline billing event",
+        status: "processed"
+      },
+      stripeEventId: `evt_${seed.slug.replace(/-/g, "_")}_bootstrap`,
+      tenantId: organization.tenantId,
+      type: "seed.subscription.created"
+    }
+  });
 
   const agentsLimit = unlimitedToLargeNumber(selectedPlan.limits.agents);
   const workflowsLimit = unlimitedToLargeNumber(
@@ -823,54 +747,45 @@ async function createTenant(
     )
   );
 
-  const inviteToken = `${seed.slug}-invite-token`;
-  if (await prisma.invite.count({ where: { token: inviteToken }}) === 0) {
-    await prisma.invite.create({
-      data: {
-        email: `invite.${seed.slug}@birthub.local`,
-        expiresAt: new Date("2026-03-20T00:00:00.000Z"),
-        invitedByUserId: users[0]?.id ?? null,
-        organizationId: organization.id,
-        role: Role.MEMBER,
-        status: InviteStatus.PENDING,
-        tenantId: organization.tenantId,
-        token: inviteToken
-      }
-    });
-  }
+  await prisma.invite.create({
+    data: {
+      email: `invite.${seed.slug}@birthub.local`,
+      expiresAt: new Date("2026-03-20T00:00:00.000Z"),
+      invitedByUserId: users[0]?.id ?? null,
+      organizationId: organization.id,
+      role: Role.MEMBER,
+      status: InviteStatus.PENDING,
+      tenantId: organization.tenantId,
+      token: `${seed.slug}-invite-token`
+    }
+  });
 
   await Promise.all(
-    workflows.map(async (workflow) => {
-      const auditCount = await prisma.auditLog.count({ where: { entityId: workflow.id, action: "workflow.seeded" } });
-      if (auditCount === 0) {
-        await prisma.auditLog.create({
-          data: {
-            action: "workflow.seeded",
-            actorId: users[0]?.id ?? null,
-            diff: {
-              status: workflow.status
-            },
-            entityId: workflow.id,
-            entityType: "workflow",
-            ip: "127.0.0.1",
-            tenantId: organization.tenantId,
-            userAgent: "seed-script/1.0"
-          }
-        });
-      }
-    })
+    workflows.map((workflow) =>
+      prisma.auditLog.create({
+        data: {
+          action: "workflow.seeded",
+          actorId: users[0]?.id ?? null,
+          diff: {
+            status: workflow.status
+          },
+          entityId: workflow.id,
+          entityType: "workflow",
+          ip: "127.0.0.1",
+          tenantId: organization.tenantId,
+          userAgent: "seed-script/1.0"
+        }
+      })
+    )
   );
 
-  const secretHash = createHash("sha256").update(`${organization.tenantId}-job-secret`).digest("hex");
-  if (await prisma.jobSigningSecret.count({ where: { tenantId: organization.tenantId }}) === 0) {
-    await prisma.jobSigningSecret.create({
-      data: {
-        organizationId: organization.id,
-        secret: secretHash,
-        tenantId: organization.tenantId
-      }
-    });
-  }
+  await prisma.jobSigningSecret.create({
+    data: {
+      organizationId: organization.id,
+      secret: createHash("sha256").update(`${organization.tenantId}-job-secret`).digest("hex"),
+      tenantId: organization.tenantId
+    }
+  });
 }
 
 async function main(): Promise<void> {

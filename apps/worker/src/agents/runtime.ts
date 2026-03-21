@@ -1,5 +1,3 @@
-/* eslint-disable */
-// @ts-nocheck
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { randomUUID } from "node:crypto";

@@ -9,7 +9,7 @@ Data: 2026-03-20
 - Esses arquivos não refletem verdadeiramente evidências prontas e finalizadas.
 
 ## Critério para aprovação
-- NENHUM arquivo no diretório de `pending_review` pode conter palavras marcador de rascunho. O loop de verificação `grep -i 'marcador de rascunho\|token-rascunho\|\[FILL\]\|campo-rascunho'` deve retornar vazio para 100% dos.
+- NENHUM arquivo no diretório de `pending_review` pode conter palavras marcador de rascunho. O loop de verificação `grep -i 'marcador de rascunho\|token-rascunho\|\[FILL\]\|campo-rascunho'` deve retornar vazio para todos.
 
 ## Evidência esperada
-- A execução de varredura atestando 0 marcadores de rascunho em 100% dos os `.md`.
+- A execução de varredura atestando 0 marcadores de rascunho em todos os `.md`.

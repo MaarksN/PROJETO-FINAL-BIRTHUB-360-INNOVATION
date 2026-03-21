@@ -1,4 +1,4 @@
-Item: M-002 - Campo fallback_behavior em 100% dos os manifest.json | Data: 2026-03-20T08:57:45-03:00
+Item: M-002 - Campo fallback_behavior em todos os manifest.json | Data: 2026-03-20T08:57:45-03:00
 
 Arquivos criados/alterados:
 - C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agent-packs\corporate-v1\account-manager-pack\manifest.json

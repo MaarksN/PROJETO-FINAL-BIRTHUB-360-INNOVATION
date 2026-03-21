@@ -1185,12 +1185,8 @@ const STORAGE_KEY = 'birthhub360_F6_tasks';
 const TOTAL = 48;
 
 function loadState() {
-  const state = {};
-  for(let i=0; i<=47; i++) {
-    state['F6-S' + Math.floor(i/8) + '-I' + i] = true;
-  }
-  try { Object.assign(state, JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')); } catch {}
-  return state;
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+  catch { return {}; }
 }
 
 function saveState(state) {

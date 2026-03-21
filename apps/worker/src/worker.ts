@@ -1,7 +1,3 @@
-/* eslint-disable */
-// @ts-nocheck
-/* eslint-disable */
-// @ts-nocheck
 import { getWorkerConfig, taskJobSchema } from "@birthub/config";
 import {
   createNotificationForOrganizationRoles,
