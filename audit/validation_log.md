@@ -1324,3 +1324,5 @@ PRÓXIMOS PASSOS PARA O HUMANO
 2026-03-21 | GAP-DASH-003 | Jules | APROVADO | NextJS build resolvido (transpilePackages), Sales OS E2E test passou.
 2026-03-21 | GAP-SEC-001 | Jules | APROVADO | corepack pnpm test --filter auth -- --testPathPattern=rbac executado com sucesso (5/5).
 2026-03-21 | GOV-002 | Jules | APROVADO | Palavras-rascunho neutralizadas em 100% dos arquivos de pending_review/.
+
+2026-03-21 | F4 | Jules | APROVADO | Padronização de Scripts de Engenharia por Pacote concluída (lint, typecheck, test, build).

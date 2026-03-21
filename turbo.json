@@ -17,11 +17,15 @@
       ]
     },
     "lint": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": []
     },
     "typecheck": {
       "dependsOn": [
-        "^typecheck"
+        "^typecheck",
+        "^build"
       ],
       "outputs": []
     },

@@ -5,7 +5,9 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "node --import tsx --test src/**/*.test.ts"
+    "test": "node --import tsx --test src/**/*.test.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

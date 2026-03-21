@@ -8,5 +8,11 @@
       "types": "./errors/index.ts",
       "import": "./errors/index.ts"
     }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "echo \"N/A: shared only\"",
+    "build": "echo \"N/A: no build step\""
   }
 }
