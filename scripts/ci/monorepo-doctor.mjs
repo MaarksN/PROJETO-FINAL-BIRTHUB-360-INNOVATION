@@ -81,6 +81,37 @@ const tracked=trackedFiles();
 const files=tracked.files;
 const workspaceContract = readWorkspaceContract();
 
+function getAllowedDuplicateDirectoryMap(contract){
+  const allowedByBase = new Map();
+  const conflicts = Array.isArray(contract?.conflicts) ? contract.conflicts : [];
+
+  for(const conflict of conflicts){
+    const requiredPath = conflict?.requiredPath;
+    if(typeof requiredPath !== 'string') continue;
+
+    const segments = requiredPath.replaceAll('\\','/').split('/').filter(Boolean);
+    if(segments.length < 2) continue;
+
+    const [base, dirName] = segments;
+    if(!base || !dirName) continue;
+
+    const key = dirName.toLowerCase().replace(/[-_]/g,'');
+    if(!allowedByBase.has(base)){
+      allowedByBase.set(base, new Map());
+    }
+
+    const byKey = allowedByBase.get(base);
+    if(!byKey.has(key)){
+      byKey.set(key, new Set());
+    }
+    byKey.get(key).add(dirName);
+  }
+
+  return allowedByBase;
+}
+
+const allowedDuplicateDirs = getAllowedDuplicateDirectoryMap(workspaceContract);
+
 const legacyImportRule = workspaceContract.importRules.find((rule) => rule.packageName === '@birthub/db');
 const legacyImports=files.filter((f)=>/^(apps|packages)\//.test(f) && /\.(ts|tsx|js|mjs|cjs)$/.test(f)).flatMap((f)=>{
   const c=fs.readFileSync(path.join(projectRoot, f),'utf8');
@@ -134,7 +165,19 @@ for(const base of dirCandidates){
     map.set(key,[...(map.get(key)||[]),e]);
   }
   for(const [k,v] of map){
-    if(v.length>1) warnings.push(`Potential duplicate directories in ${base} (${k}): ${v.join(', ')}`);
+    if(v.length<=1) continue;
+
+    const allowedForBase = allowedDuplicateDirs.get(base);
+    const allowedNames = allowedForBase?.get(k);
+    const isAllowedDuplicate = Boolean(
+      allowedNames &&
+      allowedNames.size > 1 &&
+      v.every((name)=>allowedNames.has(name))
+    );
+
+    if(!isAllowedDuplicate){
+      warnings.push(`Potential duplicate directories in ${base} (${k}): ${v.join(', ')}`);
+    }
   }
 }
 
