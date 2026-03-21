@@ -29,6 +29,7 @@ export default tseslint.config(
       }
     },
     rules: {
+      "no-restricted-imports": ["error", {"name": "@birthub/db", "message": "Use @birthub/database instead. @birthub/db is restricted."}],
       "@typescript-eslint/await-thenable": "warn",
       "@typescript-eslint/consistent-type-imports": "off",
       "@typescript-eslint/no-floating-promises": "error",
