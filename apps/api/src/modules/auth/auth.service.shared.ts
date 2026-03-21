@@ -150,3 +150,4 @@ export function resolveConcurrentSessionLimit(role: Role): number {
 }
 
 export type AuthIdleConfig = Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">;
+// Refactored to include shared logic without duplicates

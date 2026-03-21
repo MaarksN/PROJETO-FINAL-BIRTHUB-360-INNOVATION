@@ -39,11 +39,8 @@ import {
   ApiKeyScope,
   AuthenticatedContext,
   SessionTokens,
-  rolePriority,
   canManageRole,
   resolveOrganizationId,
-  resolveTenantIdForOrganization,
-  findOrganizationByReference,
   resolveAuthorizedTenantContext
 } from "./auth.service.shared.js";
 
