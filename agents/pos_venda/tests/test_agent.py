@@ -30,7 +30,7 @@ async def test_pos_venda_agent_runs_pipeline():
     result = await agent.run({"context": {"nps_response": {"score": 9}}})
 
     output = result.data
-    assert output["agent"] == "pos-venda"
+    assert output["agent"] == "pos_venda"
     assert output["domain"] == "customer_success"
     assert output["status"] == "completed"
     assert all(task["status"] == "completed" for task in output["tasks"])

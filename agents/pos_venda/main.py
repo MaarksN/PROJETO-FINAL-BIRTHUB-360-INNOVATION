@@ -13,12 +13,12 @@ async def lifespan(_: FastAPI):
         await init_pool()
     yield
 
-app = FastAPI(title="birthub-pos-venda-agent", lifespan=lifespan)
+app = FastAPI(title="birthub-pos_venda-agent", lifespan=lifespan)
 agent = PosVendaAgent()
 
 @app.get('/health')
 async def health():
-    return {'status':'ok','agent':'pos-venda'}
+    return {'status':'ok','agent':'pos_venda'}
 
 @app.post('/run')
 async def run(req: AgentRequest, x_service_token: str | None = Header(default=None)):

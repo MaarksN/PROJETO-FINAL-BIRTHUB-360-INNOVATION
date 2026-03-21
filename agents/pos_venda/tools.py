@@ -167,8 +167,8 @@ async def validate_input(context: dict) -> dict:
 
 async def process_domain(validated: dict) -> dict:
     context = validated.get("context", {})
-    return {"domain": "pos-venda", "context": context, "validated": bool(validated.get("validated"))}
+    return {"domain": "pos_venda", "context": context, "validated": bool(validated.get("validated"))}
 
 
 async def finalize(domain: dict) -> dict:
-    return {"agent": "pos-venda", "summary": "pipeline_executed", "domain": domain.get("domain"), "context": domain.get("context", {})}
+    return {"agent": "pos_venda", "summary": "pipeline_executed", "domain": domain.get("domain"), "context": domain.get("context", {})}
