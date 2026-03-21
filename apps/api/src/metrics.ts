@@ -8,12 +8,6 @@ const requestCounters = new Map<string, number>();
 const jobCounters = new Map<string, number>();
 const storageGauges = new Map<string, number>();
 
-// Novas métricas (F7)
-const dbPoolGauges = new Map<string, number>();
-const llmCounters = new Map<string, number>();
-const workerGauges = new Map<string, number>();
-const businessCounters = new Map<string, number>();
-
 function serializeMetricKey(name: string, labels: MetricLabels): string {
   const stableLabels = Object.entries(labels)
     .sort(([left], [right]) => left.localeCompare(right))
@@ -52,28 +46,6 @@ export function recordTenantJobMetric(tenantId: string, jobName: string): void {
 
 export function setTenantStorageMetric(tenantId: string, bytes: number): void {
   setMetric(storageGauges, "birthub_tenant_storage_bytes", { tenant_id: tenantId }, bytes);
-}
-
-export function setDbConnectionPoolUsage(connections: number): void {
-  setMetric(dbPoolGauges, "birthub_db_pool_usage", {}, connections);
-}
-
-export function recordLlmMetrics(provider: string, tokens: number, latencyMs: number, isError = false): void {
-  incrementMetric(llmCounters, "birthub_llm_tokens_total", { provider }, tokens);
-  incrementMetric(llmCounters, "birthub_llm_latency_ms_total", { provider }, latencyMs);
-  if (isError) {
-    incrementMetric(llmCounters, "birthub_llm_errors_total", { provider }, 1);
-  }
-}
-
-export function recordBusinessMetric(metricType: "active_tenants" | "billing_processed" | "agents_running", amount = 1): void {
-  incrementMetric(businessCounters, "birthub_business_metrics_total", { type: metricType }, amount);
-}
-
-export function setWorkerQueueMetrics(queueName: string, waitTimeMs: number, processingTimeMs: number, dlqSize: number): void {
-  setMetric(workerGauges, "birthub_queue_wait_time_ms", { queue: queueName }, waitTimeMs);
-  setMetric(workerGauges, "birthub_queue_processing_time_ms", { queue: queueName }, processingTimeMs);
-  setMetric(workerGauges, "birthub_queue_dlq_size", { queue: queueName }, dlqSize);
 }
 
 function resolveRoutePath(request: Request): string {
@@ -125,30 +97,6 @@ export function metricsHandler(_request: Request, response: Response): void {
           "birthub_tenant_storage_bytes",
           "Current storage footprint estimate grouped by tenant.",
           storageGauges
-        ),
-        renderMetricSection(
-          "gauge",
-          "birthub_db_pool_usage",
-          "Database connection pool usage.",
-          dbPoolGauges
-        ),
-        renderMetricSection(
-          "counter",
-          "birthub_llm_tokens_total",
-          "LLM tokens usage and latency metrics.",
-          llmCounters
-        ),
-        renderMetricSection(
-          "gauge",
-          "birthub_queue_wait_time_ms",
-          "Worker queue depth and processing time metrics.",
-          workerGauges
-        ),
-        renderMetricSection(
-          "counter",
-          "birthub_business_metrics_total",
-          "High level business tracking metrics.",
-          businessCounters
         )
       ].join("\n")
     );

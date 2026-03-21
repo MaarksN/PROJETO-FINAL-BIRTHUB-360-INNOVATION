@@ -1,9 +1,6 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import { createRequire } from "node:module";
 
 import pino, { type Logger, type LoggerOptions } from "pino";
-
-const require = createRequire(import.meta.url);
 
 export interface LogContext {
   requestId?: string | null;
@@ -50,17 +47,6 @@ export function updateLogContext(context: LogContext): void {
   );
 }
 
-
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let otelApi: any = null;
-try {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  otelApi = require("@opentelemetry/api");
-} catch {
-  // Ignora se o OTEL não estiver disponível no escopo do package
-}
-
 export function createLogger(service: string, options?: LoggerOptions): Logger {
   const isProduction = process.env.NODE_ENV === "production";
   const loggerOptions: LoggerOptions = {
@@ -75,34 +61,7 @@ export function createLogger(service: string, options?: LoggerOptions): Logger {
     },
     level: process.env.LOG_LEVEL ?? "info",
     messageKey: "message",
-    mixin: () => {
-      let activeTraceId: string | null = null;
-      if (otelApi) {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-          const spanContext = otelApi.trace.getSpanContext(otelApi.context.active());
-          if (spanContext) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-            activeTraceId = spanContext.traceId;
-          }
-        } catch {
-          // Silently ignore if context API fails
-        }
-      }
-
-      const logContext = getLogContext();
-      if (activeTraceId && !logContext.traceId) {
-        logContext.traceId = activeTraceId;
-      }
-
-      // Validação F7 para campos obrigatórios
-      return {
-        ...logContext,
-        service,
-        tenant_id: logContext.tenantId ?? "system",
-        trace_id: logContext.traceId
-      };
-    },
+    mixin: () => getLogContext(),
     timestamp: () => `,"timestamp":"${new Date().toISOString()}"`
   };
 
