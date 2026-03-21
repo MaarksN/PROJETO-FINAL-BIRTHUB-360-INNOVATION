@@ -21,6 +21,21 @@ $issues = New-Object System.Collections.Generic.List[object]
 $coverage = New-Object System.Collections.Generic.List[object]
 $failsByFile = @{}
 
+function Remove-Diacritics {
+  param([string]$Text)
+
+  if ([string]::IsNullOrEmpty($Text)) { return $Text }
+
+  $normalized = $Text.Normalize([Text.NormalizationForm]::FormD)
+  $builder = New-Object System.Text.StringBuilder
+  foreach ($ch in $normalized.ToCharArray()) {
+    if ([Globalization.CharUnicodeInfo]::GetUnicodeCategory($ch) -ne [Globalization.UnicodeCategory]::NonSpacingMark) {
+      [void]$builder.Append($ch)
+    }
+  }
+  return $builder.ToString().Normalize([Text.NormalizationForm]::FormC)
+}
+
 function Add-Issue {
   param(
     [string]$Severity,
@@ -75,6 +90,7 @@ foreach ($dir in $cycleDirs) {
   foreach ($file in $agentFiles) {
     $totalAgentFiles++
     $raw = Get-Content -Path $file.FullName -Raw -Encoding UTF8
+    $normalizedRaw = Remove-Diacritics $raw
 
     if (([regex]::Matches($raw, '(?m)^---\s*$')).Count -lt 2) {
       Add-Issue -Severity 'Critical' -Cycle $cycle -File $file.Name -Rule 'F4-InvalidFrontmatterDelimiters' -Detail 'Frontmatter YAML sem delimitadores completos.'
@@ -108,7 +124,7 @@ foreach ($dir in $cycleDirs) {
       Add-Issue -Severity 'Medium' -Cycle $cycle -File $file.Name -Rule 'F2-MissingUserInvocable' -Detail 'Campo user-invocable:true ausente.'
     }
 
-    if ($raw -notmatch '(?m)^##\s+Escopo\s*$' -or $raw -notmatch '(?m)^##\s+Restrições\s*$' -or $raw -notmatch '(?m)^##\s+Saída Obrigatória\s*$') {
+    if ($normalizedRaw -notmatch '(?mi)^##\s+Escopo\s*$' -or $normalizedRaw -notmatch '(?mi)^##\s+Restricoes\s*$' -or $normalizedRaw -notmatch '(?mi)^##\s+Saida Obrigatoria\s*$') {
       Add-Issue -Severity 'High' -Cycle $cycle -File $file.Name -Rule 'F2-MissingSections' -Detail 'Seções Escopo/Restrições/Saída Obrigatória incompletas.'
     }
 

@@ -492,9 +492,9 @@ importers:
 
   apps/dashboard:
     dependencies:
-      '@birthub/db':
+      '@birthub/database':
         specifier: workspace:*
-        version: link:../../packages/db
+        version: link:../../packages/database
       '@birthub/logger':
         specifier: workspace:*
         version: link:../../packages/logger

@@ -1,16 +1,16 @@
-# Relatório Automático de Conformidade F1–F5
+﻿# RelatÃ³rio AutomÃ¡tico de Conformidade F1â€“F5
 
-- Data: 2026-03-20 14:09:10
-- Escopo: .github/agents/cycle-01 até .github/agents/cycle-15
+- Data: 2026-03-21 00:06:23
+- Escopo: .github/agents/cycle-01 atÃ© .github/agents/cycle-15
 - Total de arquivos .agent.md analisados: 331
-- Total de não conformidades: 0
+- Total de nÃ£o conformidades: 0
 
-## Critérios F1–F5 aplicados
-- **F1 Descoberta**: description obrigatório e iniciando com Use when.
-- **F2 Contrato**: name, tools, user-invocable:true, seções Escopo, Restrições, Saída Obrigatória.
-- **F3 Prompting**: presença de saída numerada 1., 2., 3.
-- **F4 Implementação**: frontmatter válido, contagem esperada por ciclo e padrão de nome de arquivo.
-- **F5 Validação cruzada**: README.md por ciclo.
+## CritÃ©rios F1â€“F5 aplicados
+- **F1 Descoberta**: description obrigatÃ³rio e iniciando com Use when.
+- **F2 Contrato**: name, tools, user-invocable:true, seÃ§Ãµes Escopo, RestriÃ§Ãµes, SaÃ­da ObrigatÃ³ria.
+- **F3 Prompting**: presenÃ§a de saÃ­da numerada 1., 2., 3.
+- **F4 ImplementaÃ§Ã£o**: frontmatter vÃ¡lido, contagem esperada por ciclo e padrÃ£o de nome de arquivo.
+- **F5 ValidaÃ§Ã£o cruzada**: README.md por ciclo.
 
 ## Cobertura por ciclo
 | Ciclo | Esperado | Encontrado | README |
@@ -31,7 +31,7 @@
 | cycle-14 | 18 | 18 | True |
 | cycle-15 | 18 | 18 | True |
 
-## Não conformidades por severidade
+## NÃ£o conformidades por severidade
 | Severidade | Qtde |
 |---|---:|
 | Critical | 0 |
@@ -51,4 +51,4 @@
 ## Achados detalhados por severidade
 | Severidade | Ciclo | Arquivo | Regra | Detalhe |
 |---|---|---|---|---|
-| - | - | - | - | Nenhuma não conformidade encontrada. |
+| - | - | - | - | Nenhuma nÃ£o conformidade encontrada. |
