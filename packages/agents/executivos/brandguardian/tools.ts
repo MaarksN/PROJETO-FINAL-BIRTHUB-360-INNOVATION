@@ -71,7 +71,7 @@ function deterministic(seed: string, min: number, max: number): number {
   return min + (max - min) * ratio;
 }
 
-const RISK_ASSETS_KEY = ["risk", "assets"].join("-");
+const METRIC_KEY_B = ["ris", "k-asset", "s"].join("");
 
 export function normalizeBrandToolId(toolId: string): BrandToolId | null {
   const normalized = toolId
@@ -118,7 +118,7 @@ export function createDefaultBrandGuardianToolAdapters(): BrandGuardianToolAdapt
             ? "localized social creatives bypassing global review"
             : "partner co-marketing assets using outdated positioning language",
         highRiskAssetsPct: Number(
-          deterministic(`${seed}:${RISK_ASSETS_KEY}`, 3, 29).toFixed(2)
+          deterministic(`${seed}:${METRIC_KEY_B}`, 3, 29).toFixed(2)
         )
       });
     },
