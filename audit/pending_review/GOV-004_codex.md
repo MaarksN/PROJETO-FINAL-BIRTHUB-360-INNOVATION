@@ -5,7 +5,7 @@ Arquivos criados/alterados: [C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTH
 
 Typecheck: [node scripts/ci/run-pnpm.mjs --filter @birthub/agents typecheck => No projects matched the filters] | Testes: [24 passando / 0 falhando]
 
-Schema strict: [N/A] | [SOURCE]: [Confirmado em todos]
+Schema strict: [N/A] | [SOURCE]: [Confirmado em 100% dos arquivos]
 
 Anti-drift: [Nenhum rascunho encontrado]
 

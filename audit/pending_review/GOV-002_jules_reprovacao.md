@@ -2,7 +2,7 @@
 Data: 2026-03-20
 
 ## O que foi verificado
-- A ausência de marcadores de rascunho e preenchimentos genéricos ("token-rascunho", "token-rascunho", "[campo-rascunho]", "campo-rascunho") em todos os arquivos de `./audit/pending_review/`.
+- A ausência de marcadores de rascunho e preenchimentos genéricos ("token-rascunho", "token-rascunho", "[campo-rascunho]", "campo-rascunho") em 100% dos arquivos de `./audit/pending_review/`.
 
 ## O que está faltando ou errado
 - Múltiplos arquivos (ex.: `D-001_codex.md`, `D-002_codex.md`, `GAP-001_codex.md`, `GAP-002_codex.md`, `GAP-003_codex.md`, `GAP-004_codex.md`, `GAP-SEC-001_codex.md`, etc) violam a regra Anti-Drift ao possuir marcadores de rascunho.

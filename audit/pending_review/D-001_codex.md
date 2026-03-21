@@ -10,7 +10,7 @@ Arquivos criados/alterados:
 
 Typecheck: N/A (validação de prompt) | Testes: 24 passando / 0 falhando
 
-Schema strict: N/A | [SOURCE]: Confirmado em todos
+Schema strict: N/A | [SOURCE]: Confirmado em 100% dos arquivos
 
 Anti-drift: Nenhum rascunho encontrado
 

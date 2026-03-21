@@ -7,7 +7,7 @@ Arquivos criados/alterados:
 
 Typecheck: N/A | Testes: 1 passando / 0 falhando (scan-inline-credentials => INLINE_CREDENTIAL_FINDINGS=0)
 
-Schema strict: N/A | [SOURCE]: Confirmado em todos
+Schema strict: N/A | [SOURCE]: Confirmado em 100% dos arquivos
 
 Anti-drift: Nenhum rascunho encontrado
 
