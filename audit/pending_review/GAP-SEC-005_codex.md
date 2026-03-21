@@ -8,7 +8,7 @@ Arquivos criados/alterados: [
 
 Typecheck: [zero erros (corepack pnpm --filter @birthub/agents-core build)] | Testes: [13 passando / 0 falhando]
 
-Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em todos]
+Schema strict: [Confirmado sem Any nas alteracoes] | [SOURCE]: [Confirmado em 100% dos arquivos]
 
 Anti-drift: [Nenhum rascunho encontrado]
 

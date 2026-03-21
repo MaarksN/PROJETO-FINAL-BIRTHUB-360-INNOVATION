@@ -6,7 +6,7 @@ Arquivos criados/alterados:
 
 Typecheck: zero erros (tipagem atualizada sem Any no runtime compartilhado) | Testes: 3 passando / 0 falhando
 
-Schema strict: Confirmado sem Any | [SOURCE]: Confirmado em todos
+Schema strict: Confirmado sem Any | [SOURCE]: Confirmado em 100% dos arquivos
 
 Anti-drift: Nenhum rascunho encontrado
 
