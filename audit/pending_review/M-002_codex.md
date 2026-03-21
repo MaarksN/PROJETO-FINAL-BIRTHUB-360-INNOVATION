@@ -47,7 +47,7 @@ Arquivos criados/alterados:
 
 Typecheck: zero erros (@birthub/agents-core tsc --noEmit) | Testes: 13 passando / 0 falhando; validação estrutural 43/43
 
-Schema strict: N/A | [SOURCE]: Confirmado em todos os arquivos alteráveis por comentário; manifests JSON validados 43/43
+Schema strict: N/A | [SOURCE]: Confirmado em 100% dos arquivos os arquivos alteráveis por comentário; manifests JSON validados 43/43
 
 Anti-drift: Nenhum rascunho encontrado
 

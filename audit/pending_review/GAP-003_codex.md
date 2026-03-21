@@ -10,7 +10,7 @@ Arquivos criados/alterados:
 
 Typecheck: zero erros (checagem de fronteira sem tipagem dinâmica proibida) | Testes: 6 passando / 0 falhando
 
-Schema strict: Confirmado sem Any | [SOURCE]: Confirmado em todos
+Schema strict: Confirmado sem Any | [SOURCE]: Confirmado em 100% dos arquivos
 
 Anti-drift: Nenhum rascunho encontrado
 

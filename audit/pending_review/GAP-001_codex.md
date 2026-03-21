@@ -4,7 +4,7 @@ Arquivos criados/alterados: [C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTH
 
 Typecheck: [Falha em baseline pre-existente fora do escopo (TS5097, TS2307, TS7006 em modulos legados)] | Testes: [2 passando / 0 falhando]
 
-Schema strict: [Confirmado sem Any] | [SOURCE]: [Confirmado em todos]
+Schema strict: [Confirmado sem Any] | [SOURCE]: [Confirmado em 100% dos arquivos]
 
 Anti-drift: [Nenhum rascunho encontrado]
 
