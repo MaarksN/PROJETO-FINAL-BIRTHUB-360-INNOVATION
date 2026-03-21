@@ -15,9 +15,15 @@ branches:
         required_approving_review_count: 1
       required_status_checks:
         contexts:
+          - ci
           - gitleaks
+          - governance-gates
           - lint
-          - typecheck
-          - test
           - build
+          - pack-tests
+          - security-guardrails
+          - test
+          - test:isolation
+          - typecheck
+          - workflow-suite
         strict: true

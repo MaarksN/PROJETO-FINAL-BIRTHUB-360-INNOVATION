@@ -21,7 +21,7 @@
     {
       "lane": "legacy",
       "packageName": "@birthub/dashboard",
-      "purpose": "Legacy CRM cockpit backed by @birthub/db and excluded from the core release lane.",
+      "purpose": "Legacy CRM cockpit on the canonical @birthub/database contract and excluded from the core release lane.",
       "root": "apps/dashboard"
     },
     {
@@ -56,15 +56,15 @@
   "importRules": [
     {
       "allowedRoots": [
-        "apps/dashboard",
         "packages/db"
       ],
-      "description": "@birthub/db is frozen legacy CRM schema. New code must use @birthub/database and imports are restricted to packages/db and apps/dashboard quarantine surfaces.",
+      "description": "@birthub/db is frozen legacy CRM schema. New code must use @birthub/database and imports are restricted to the packages/db compatibility layer only.",
       "packageName": "@birthub/db"
     },
     {
       "allowedRoots": [
         "apps/api",
+        "apps/dashboard",
         "packages/db",
         "apps/web",
         "apps/worker",

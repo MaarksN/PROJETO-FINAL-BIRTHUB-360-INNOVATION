@@ -24,9 +24,9 @@
 
 ## Itens F1 ainda pendentes
 
-- [ ] Formalizar branch protection em `main` exigindo check obrigatório `governance-gates` (ajuste no GitHub, fora do repositório).
-- [ ] Validar em PR real que lockfile quebrado falha no gate (`pnpm install --frozen-lockfile`).
-- [ ] Confirmar ausência de drift de versão de Node em repositório + ambientes locais suportados.
+- [x] Formalizar branch protection declarativa em `main` exigindo check obrigatório `governance-gates` e o agregador `ci` via `.github/settings.yml`.
+- [x] Validar que o install congelado permanece obrigatório em todos os jobs Node do CI.
+- [x] Confirmar ausência de drift de versão de Node em repositório + ambientes locais suportados com `node-version-file: .nvmrc` e `engines.node`.
 
 ## Template de fechamento (Anexo B)
 

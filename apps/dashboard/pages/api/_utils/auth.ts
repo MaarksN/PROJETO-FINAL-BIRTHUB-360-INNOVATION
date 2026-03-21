@@ -1,4 +1,4 @@
-import type { NextApiRequest } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 function resolveApiBaseUrl(): string {
   return process.env.API_URL?.trim() || "http://localhost:3000";
@@ -74,4 +74,13 @@ export async function proxyJson(path: string, req: NextApiRequest, init?: Reques
   }
 
   return response.json();
+}
+
+export default function unsupportedUtilityRoute(
+  _req: NextApiRequest,
+  res: NextApiResponse
+) {
+  res.status(404).json({
+    error: "not_found"
+  });
 }
