@@ -16,28 +16,42 @@ import { createBirthHubWorker } from "./worker.js";
 const require = createRequire(import.meta.url);
 
 try {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const { NodeSDK } = require("@opentelemetry/sdk-node");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-http");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const { OTLPMetricExporter } = require("@opentelemetry/exporter-metrics-otlp-http");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const { PeriodicExportingMetricReader } = require("@opentelemetry/sdk-metrics");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const { W3CTraceContextPropagator } = require("@opentelemetry/core");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
   const otelApi = require("@opentelemetry/api");
 
   if (otelApi) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     otelApi.propagation.setGlobalPropagator(new W3CTraceContextPropagator());
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const sdk = new NodeSDK({
     serviceName: "birthub-worker",
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     traceExporter: new OTLPTraceExporter({ url: process.env.OTLP_TRACE_URL || "http://localhost:4318/v1/traces" }),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     metricReader: new PeriodicExportingMetricReader({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       exporter: new OTLPMetricExporter({ url: process.env.OTLP_METRIC_URL || "http://localhost:4318/v1/metrics" }),
       exportIntervalMillis: 10000,
     }),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     instrumentations: [getNodeAutoInstrumentations()]
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   sdk.start();
 } catch (error) {
   console.warn("OpenTelemetry SDK not initialized in worker:", error);

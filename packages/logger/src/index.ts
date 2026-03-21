@@ -1,6 +1,9 @@
 import { AsyncLocalStorage } from "node:async_hooks";
+import { createRequire } from "node:module";
 
 import pino, { type Logger, type LoggerOptions } from "pino";
+
+const require = createRequire(import.meta.url);
 
 export interface LogContext {
   requestId?: string | null;
@@ -47,12 +50,12 @@ export function updateLogContext(context: LogContext): void {
   );
 }
 
-import { createRequire } from "node:module";
 
-const require = createRequire(import.meta.url);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let otelApi: any = null;
 try {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   otelApi = require("@opentelemetry/api");
 } catch {
   // Ignora se o OTEL não estiver disponível no escopo do package
@@ -76,7 +79,7 @@ export function createLogger(service: string, options?: LoggerOptions): Logger {
       let activeTraceId: string | null = null;
       if (otelApi) {
         try {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
           const spanContext = otelApi.trace.getSpanContext(otelApi.context.active());
           if (spanContext) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access

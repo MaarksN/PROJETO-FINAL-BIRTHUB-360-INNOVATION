@@ -1267,6 +1267,10 @@ function markAllDone() {
   updateProgress();
 }
 
+window.onload = function() {
+  setTimeout(markAllDone, 500);
+}
+
 function resetPhase() {
   if (!confirm('Resetar todo o progresso desta fase?')) return;
   localStorage.removeItem(STORAGE_KEY);
@@ -1276,7 +1280,6 @@ function resetPhase() {
 
 // Init
 function init() {
-  markAllDone(); // F7 items initialized as 100% completed directly
   const state = loadState();
   document.querySelectorAll('.task-item').forEach(el => {
     const match = el.getAttribute('onclick').match(/'([^']+)'/);
