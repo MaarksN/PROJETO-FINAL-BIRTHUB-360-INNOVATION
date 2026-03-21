@@ -34,3 +34,10 @@ __pycache__/
 *.log
 pnpm-debug.log*
 npm-debug.log*
+
+# Artifacts policies
+artifacts/**/*.zip
+artifacts/**/*.sqlite
+artifacts/**/*.log
+!artifacts/audit/
+!artifacts/untracked_agents_snapshot/

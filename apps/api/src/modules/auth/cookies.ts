@@ -5,7 +5,7 @@ import type { ApiConfig } from "@birthub/config";
 import type { SessionTokens } from "./auth.service.js";
 
 function secureCookie(config: ApiConfig): boolean {
-  return config.REQUIRE_SECURE_COOKIES || config.NODE_ENV === "production"; // F6-S2-I18 validated: secure cookies enabled
+  return config.REQUIRE_SECURE_COOKIES || config.NODE_ENV === "production";
 }
 
 export function setAuthCookies(response: Response, config: ApiConfig, tokens: SessionTokens): void {

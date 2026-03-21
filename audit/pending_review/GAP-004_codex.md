@@ -1,4 +1,4 @@
-Item: GAP-004 - Campo required_tools em 100% dos os manifests de Agent Pack | Data: 2026-03-20T08:57:45-03:00
+Item: GAP-004 - Campo required_tools em todos os manifests de Agent Pack | Data: 2026-03-20T08:57:45-03:00
 
 Arquivos criados/alterados:
 - C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\manifest\schema.ts

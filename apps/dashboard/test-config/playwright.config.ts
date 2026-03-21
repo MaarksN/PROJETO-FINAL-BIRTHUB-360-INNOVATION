@@ -16,8 +16,7 @@ export default defineConfig({
     reuseExistingServer: true,
     env: {
       DASHBOARD_USE_STATIC_SNAPSHOT: "true",
-      NEXT_PUBLIC_DASHBOARD_USE_STATIC_SNAPSHOT: "true",
-      API_URL: "http://127.0.0.1:3000"
+      NEXT_PUBLIC_DASHBOARD_USE_STATIC_SNAPSHOT: "true"
     }
   }
 });

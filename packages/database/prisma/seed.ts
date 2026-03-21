@@ -701,10 +701,10 @@ async function createTenant(
 
   const stripeSubscriptionId = `sub_${seed.slug.replace(/-/g, "_")}`;
   const subscriptionCount = await prisma.subscription.count({ where: { stripeSubscriptionId }});
-  let subscription: any = null;
+  let subscriptionId: string = "";
 
   if (subscriptionCount === 0) {
-    subscription = await prisma.subscription.create({
+    const sub = await prisma.subscription.create({
       data: {
         currentPeriodEnd: new Date("2026-04-01T00:00:00.000Z"),
         organizationId: organization.id,
@@ -715,8 +715,10 @@ async function createTenant(
         tenantId: organization.tenantId
       }
     });
+    subscriptionId = sub.id;
   } else {
-    subscription = await prisma.subscription.findFirst({ where: { stripeSubscriptionId }});
+    const sub = await prisma.subscription.findFirst({ where: { stripeSubscriptionId }});
+    subscriptionId = sub!.id;
   }
 
   const pmId = `pm_${seed.slug.replace(/-/g, "_")}`;
@@ -750,7 +752,7 @@ async function createTenant(
         periodStart: new Date("2026-03-01T00:00:00.000Z"),
         status: InvoiceStatus.paid,
         stripeInvoiceId: invoiceId,
-        subscriptionId: subscription.id,
+        subscriptionId: subscriptionId,
         tenantId: organization.tenantId
       }
     });
@@ -771,7 +773,7 @@ async function createTenant(
           metric: usage.metric,
           organizationId: organization.id,
           quantity: usage.quantity,
-          subscriptionId: subscription.id,
+          subscriptionId: subscriptionId,
           tenantId: organization.tenantId
         }
       })

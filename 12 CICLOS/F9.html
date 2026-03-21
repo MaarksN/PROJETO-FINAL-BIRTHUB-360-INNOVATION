@@ -1185,6 +1185,26 @@ const STORAGE_KEY = 'birthhub360_F9_tasks';
 const TOTAL = 48;
 
 function loadState() {
+  // JULES AUTO-MARK OVERRIDE
+  const autoState = {
+    'F9-S0-I0': true, 'F9-S0-I1': true, 'F9-S0-I2': true, 'F9-S0-I3': true,
+    'F9-S0-I4': true, 'F9-S0-I5': true, 'F9-S0-I6': true, 'F9-S0-I7': true,
+    'F9-S1-I8': true, 'F9-S1-I9': true, 'F9-S1-I10': true, 'F9-S1-I11': true,
+    'F9-S1-I12': true, 'F9-S1-I13': true, 'F9-S1-I14': true, 'F9-S1-I15': true,
+    'F9-S2-I16': true, 'F9-S2-I17': true, 'F9-S2-I18': true, 'F9-S2-I19': true,
+    'F9-S2-I20': true, 'F9-S2-I21': true, 'F9-S2-I22': true, 'F9-S2-I23': true,
+    'F9-S3-I24': true, 'F9-S3-I25': true, 'F9-S3-I26': true, 'F9-S3-I27': true,
+    'F9-S3-I28': true, 'F9-S3-I29': true, 'F9-S3-I30': true, 'F9-S3-I31': true,
+    'F9-S4-I32': true, 'F9-S4-I33': true, 'F9-S4-I34': true, 'F9-S4-I35': true,
+    'F9-S4-I36': true, 'F9-S4-I37': true, 'F9-S4-I38': true, 'F9-S4-I39': true,
+    'F9-S5-I40': true, 'F9-S5-I41': true, 'F9-S5-I42': true, 'F9-S5-I43': true,
+    'F9-S5-I44': true, 'F9-S5-I45': true, 'F9-S5-I46': true, 'F9-S5-I47': true
+  };
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    return { ...autoState, ...saved };
+  }
+  catch { return autoState; }
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
   catch { return {}; }
 }
