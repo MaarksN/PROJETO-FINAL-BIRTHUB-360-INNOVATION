@@ -5,11 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@hono/node-server': ^1.19.10
-  hono: ^4.12.7
   fast-xml-parser: '>=5.5.6'
   flatted: '>=3.4.2'
-  effect: '>=3.20.0'
 
 importers:
 
@@ -92,8 +89,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -120,8 +117,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -148,8 +145,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -176,8 +173,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -204,8 +201,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -232,8 +229,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -260,8 +257,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -288,8 +285,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -319,8 +316,8 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -389,8 +386,8 @@ importers:
         specifier: ^8.1.0
         version: 8.1.0
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
       redlock:
         specifier: 5.0.0-beta.2
         version: 5.0.0-beta.2
@@ -694,8 +691,8 @@ importers:
         specifier: ^5.71.0
         version: 5.71.0
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
       p-map:
         specifier: ^7.0.4
         version: 7.0.4
@@ -929,8 +926,8 @@ importers:
         specifier: ^5.71.0
         version: 5.71.0
       ioredis:
-        specifier: ^5.10.0
-        version: 5.10.0
+        specifier: ^5.10.1
+        version: 5.10.1
     devDependencies:
       '@types/node':
         specifier: ^25.5.0
@@ -4334,8 +4331,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect@3.21.0:
-    resolution: {integrity: sha512-PPN80qRokCd1f015IANNhrwOnLO7GrrMQfk4/lnZRE/8j7UPWrNNjPV0uBrZutI/nHzernbW+J0hdqQysHiSnQ==}
+  effect@3.18.4:
+    resolution: {integrity: sha512-b1LXQJLe9D11wfnOKAk3PKxuqYshQ0Heez+y5pnkd3jLj1yx9QhM72zZ9uUrOQyNvrs2GZZd/3maL0ZV18YuDA==}
 
   electron-to-chromium@1.5.313:
     resolution: {integrity: sha512-QBMrTWEf00GXZmJyx2lbYD45jpI3TUFnNIzJ5BBc8piGUDwMPa1GV6HJWTZVvY/eiN3fSopl7NRbgGp9sZ9LTA==}
@@ -4903,8 +4900,8 @@ packages:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
 
-  ioredis@5.10.0:
-    resolution: {integrity: sha512-HVBe9OFuqs+Z6n64q09PQvP1/R4Bm+30PAyyD4wIEqssh3v9L21QjCVk4kRLucMBcDokJTcLjsGeVRlq/nH6DA==}
+  ioredis@5.10.1:
+    resolution: {integrity: sha512-HuEDBTI70aYdx1v6U97SbNx9F1+svQKBDo30o0b9fw055LMepzpOOd0Ccg9Q6tbqmBSJaMuY0fB7yw9/vjBYCA==}
     engines: {node: '>=12.22.0'}
 
   ioredis@5.9.3:
@@ -8678,7 +8675,7 @@ snapshots:
     dependencies:
       c12: 3.1.0
       deepmerge-ts: 7.1.5
-      effect: 3.21.0
+      effect: 3.18.4
       empathic: 2.0.0
     transitivePeerDependencies:
       - magicast
@@ -10670,7 +10667,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect@3.21.0:
+  effect@3.18.4:
     dependencies:
       '@standard-schema/spec': 1.1.0
       fast-check: 3.23.2
@@ -11378,7 +11375,7 @@ snapshots:
 
   internmap@2.0.3: {}
 
-  ioredis@5.10.0:
+  ioredis@5.10.1:
     dependencies:
       '@ioredis/commands': 1.5.1
       cluster-key-slot: 1.1.2
