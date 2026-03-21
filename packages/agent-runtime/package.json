@@ -5,7 +5,9 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "node --experimental-strip-types --test src/__tests__/*.test.ts"
+    "test": "node --experimental-strip-types --test src/__tests__/*.test.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

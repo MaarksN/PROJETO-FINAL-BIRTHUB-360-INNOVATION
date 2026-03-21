@@ -49,7 +49,19 @@ export default tseslint.config(
           varsIgnorePattern: "^_"
         }
       ],
-      "@typescript-eslint/require-await": "warn"
+      "@typescript-eslint/require-await": "warn",
+      "no-restricted-imports": [
+        "error",
+        {
+          "patterns": [
+            {
+              "group": ["@birthub/db", "@birthub/db/*"],
+              "message": "Importing from @birthub/db is prohibited without formal exception."
+            }
+          ]
+        }
+      ],
+      "@typescript-eslint/no-explicit-any": "error"
     }
   }
 );
