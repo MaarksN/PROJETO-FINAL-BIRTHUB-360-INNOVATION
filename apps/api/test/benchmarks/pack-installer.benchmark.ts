@@ -42,9 +42,10 @@ async function runBenchmark() {
   const start = performance.now();
 
   await service.updatePackVersion({
+    actorId: "benchmark-runner",
     packId: packId,
     tenantId: tenantId,
-    latestAvailableVersion: "1.1.0",
+    latestAvailableVersion: "1.1.0"
   });
 
   const end = performance.now();

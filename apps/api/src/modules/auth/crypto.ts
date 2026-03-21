@@ -154,6 +154,10 @@ export function createRefreshToken(): string {
   return `rtk_${randomToken(48)}`;
 }
 
+export function createSecureSessionId(): string {
+  return randomBytes(16).toString("hex");
+}
+
 export function createApiKey(prefix: string): {
   hash: string;
   key: string;
