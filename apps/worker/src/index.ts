@@ -1,7 +1,38 @@
 import { createServer } from "node:http";
+import { createRequire } from "node:module";
 
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
+
+const require = createRequire(import.meta.url);
+
+try {
+  const { NodeSDK } = require("@opentelemetry/sdk-node");
+  const { OTLPTraceExporter } = require("@opentelemetry/exporter-trace-otlp-http");
+  const { OTLPMetricExporter } = require("@opentelemetry/exporter-metrics-otlp-http");
+  const { getNodeAutoInstrumentations } = require("@opentelemetry/auto-instrumentations-node");
+  const { PeriodicExportingMetricReader } = require("@opentelemetry/sdk-metrics");
+  const { W3CTraceContextPropagator } = require("@opentelemetry/core");
+  const otelApi = require("@opentelemetry/api");
+
+  if (otelApi) {
+    otelApi.propagation.setGlobalPropagator(new W3CTraceContextPropagator());
+  }
+
+  const sdk = new NodeSDK({
+    serviceName: "birthub-worker",
+    traceExporter: new OTLPTraceExporter({ url: process.env.OTLP_TRACE_URL || "http://localhost:4318/v1/traces" }),
+    metricReader: new PeriodicExportingMetricReader({
+      exporter: new OTLPMetricExporter({ url: process.env.OTLP_METRIC_URL || "http://localhost:4318/v1/metrics" }),
+      exportIntervalMillis: 10000,
+    }),
+    instrumentations: [getNodeAutoInstrumentations()]
+  });
+
+  sdk.start();
+} catch (error) {
+  console.warn("OpenTelemetry SDK not initialized in worker:", error);
+}
 
 import {
   evaluateFailRateAlerts,
