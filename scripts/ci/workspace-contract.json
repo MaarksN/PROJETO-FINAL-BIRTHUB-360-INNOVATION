@@ -26,12 +26,6 @@
     },
     {
       "lane": "legacy",
-      "packageName": "@birthub/api-gateway",
-      "purpose": "Legacy/public gateway kept as compatibility proxy and supported separately.",
-      "root": "apps/api-gateway"
-    },
-    {
-      "lane": "legacy",
       "packageName": "orchestrator-worker",
       "purpose": "Legacy orchestration worker overlay limited to worker.ts and supported separately.",
       "root": "apps/agent-orchestrator"
@@ -78,7 +72,6 @@
   "releaseCoreScripts": {
     "forbiddenFilters": [
       "@birthub/dashboard",
-      "@birthub/api-gateway",
       "@birthub/voice-engine",
       "@birthub/webhook-receiver",
       "orchestrator-worker"

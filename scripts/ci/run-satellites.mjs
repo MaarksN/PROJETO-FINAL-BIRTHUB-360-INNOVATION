@@ -75,17 +75,10 @@ const target = process.argv[2] ?? "test";
 
 const lanes = {
   build: [
-    () => runBinIn(packageDir("apps", "api-gateway"), "tsc", ["-p", "tsconfig.supported.json"]),
     () => runBinIn(packageDir("apps", "agent-orchestrator"), "tsc", ["-p", "tsconfig.supported.json"]),
     () => runBinIn(packageDir("apps", "voice-engine"), "tsc", ["-p", "tsconfig.json"])
   ],
   lint: [
-    () =>
-      runNodeScript(packageDir("apps", "api-gateway"), [
-        "--import",
-        "tsx",
-        "src/scripts/check-conventions.ts"
-      ]),
     () =>
       runBinIn(packageDir("apps", "agent-orchestrator"), "eslint", [
         "worker.ts",
@@ -104,13 +97,6 @@ const lanes = {
   ],
   test: [
     () =>
-      runNodeScript(packageDir("apps", "api-gateway"), [
-        "--import",
-        "tsx",
-        "--test",
-        "src/routes/*.test.ts"
-      ]),
-    () =>
       runNodeScript(packageDir("apps", "voice-engine"), [
         "--import",
         "tsx",
@@ -126,7 +112,6 @@ const lanes = {
       ])
   ],
   typecheck: [
-    () => runBinIn(packageDir("apps", "api-gateway"), "tsc", ["-p", "tsconfig.supported.json", "--noEmit"]),
     () =>
       runBinIn(packageDir("apps", "agent-orchestrator"), "tsc", [
         "-p",
