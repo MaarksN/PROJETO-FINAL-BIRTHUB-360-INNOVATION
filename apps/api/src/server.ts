@@ -9,7 +9,7 @@ const config = getApiConfig();
 const logger = createLogger("api-bootstrap");
 
 initializeApiSentry(config);
-await initializeOpenTelemetry(config);
+initializeOpenTelemetry(config);
 
 const app = createApp();
 const server = app.listen(config.API_PORT, () => {

@@ -24,9 +24,14 @@ export function PaywallProvider({ children }: Readonly<{ children: ReactNode }>)
 
       if (response.status === 402) {
         try {
-          const payload = await response.clone().json();
+          const payload = (await response.clone().json()) as unknown;
           const detail =
-            typeof payload?.detail === "string" ? payload.detail : DEFAULT_PAYWALL_MESSAGE;
+            typeof payload === "object" &&
+            payload !== null &&
+            "detail" in payload &&
+            typeof (payload as { detail: unknown }).detail === "string"
+              ? (payload as { detail: string }).detail
+              : DEFAULT_PAYWALL_MESSAGE;
 
           setState({
             detail,

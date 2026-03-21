@@ -1,0 +1,277 @@
+
+> birthub-360@1.0.0 lint:core
+> node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing run lint
+
+
+[agent-ci] >>> C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\corepack\dist\pnpm.js -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing run lint
+Scope: 9 of 36 workspace projects
+packages/config lint$ eslint .
+packages/logger lint$ eslint .
+packages/workflows-core lint$ eslint . --config eslint.config.mjs
+packages/database lint$ eslint .
+packages/logger lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\logger\src\index.test.ts
+packages/logger lint:   42:3  warning  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+packages/logger lint: Ô£û 1 problem (0 errors, 1 warning)
+packages/logger lint: Done
+packages/workflows-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\src\interpolation\interpolate.ts
+packages/workflows-core lint:   45:32  warning  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+packages/workflows-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\src\nodes\code.ts
+packages/workflows-core lint:   41:9  warning  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+packages/workflows-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\test\step-types.test.ts
+packages/workflows-core lint:   160:9  warning  Async method 'send' has no 'await' expression     @typescript-eslint/require-await
+packages/workflows-core lint:   182:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   210:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   239:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   263:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   289:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   315:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint: Ô£û 9 problems (0 errors, 9 warnings)
+packages/config lint: Done
+packages/workflows-core lint: Done
+packages/database lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\database\test\base.repo.test.ts
+packages/database lint:   18:7  warning  Async method 'create' has no 'await' expression      @typescript-eslint/require-await
+packages/database lint:   22:7  warning  Async method 'deleteMany' has no 'await' expression  @typescript-eslint/require-await
+packages/database lint:   26:7  warning  Async method 'findFirst' has no 'await' expression   @typescript-eslint/require-await
+packages/database lint:   30:7  warning  Async method 'findMany' has no 'await' expression    @typescript-eslint/require-await
+packages/database lint:   34:7  warning  Async method 'updateMany' has no 'await' expression  @typescript-eslint/require-await
+packages/database lint: Ô£û 5 problems (0 errors, 5 warnings)
+packages/database lint: Done
+apps/web lint$ eslint .
+apps/api lint$ eslint .
+packages/testing lint$ eslint .
+packages/testing lint: Done
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\audit\auditable.ts
+apps/api lint:   67:11  warning  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\modules\billing\sync-plans.ts
+apps/api lint:   30:11  warning  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\modules\marketplace\marketplace-routes.ts
+apps/api lint:   25:11  warning  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\modules\organizations\router.ts
+apps/api lint:   126:11  warning  Unsafe assignment of an `any` value           @typescript-eslint/no-unsafe-assignment
+apps/api lint:   126:30  warning  Unsafe member access .role on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\modules\privacy\router.ts
+apps/api lint:   54:9   warning  Unsafe assignment of an `any` value                       @typescript-eslint/no-unsafe-assignment
+apps/api lint:   54:40  warning  Unsafe member access .confirmationText on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\modules\workflows\router.ts
+apps/api lint:   210:44  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\src\observability\otel.ts
+apps/api lint:   11:8  warning  Async function 'initializeOpenTelemetry' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\test\__mocks__\stripe.ts
+apps/api lint:   13:9  warning  Async method 'create' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   20:9  warning  Async method 'create' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   27:7  warning  Async method 'create' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   34:9  warning  Unsafe return of a value of type `any`           @typescript-eslint/no-unsafe-return
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\test\isolation.e2e.test.ts
+apps/api lint:   27:29  warning  Unsafe member access .tenantId on an `any` value         @typescript-eslint/no-unsafe-member-access
+apps/api lint:   28:29  warning  Unsafe member access .contextTenantId on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint:   29:29  warning  Unsafe member access .tenantId on an `any` value         @typescript-eslint/no-unsafe-member-access
+apps/api lint:   30:29  warning  Unsafe member access .contextTenantId on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\test\tenant-cache.hit-miss.test.ts
+apps/api lint:   26:5    warning  Async method 'del' has no 'await' expression      @typescript-eslint/require-await
+apps/api lint:   35:5    warning  Async method 'get' has no 'await' expression      @typescript-eslint/require-await
+apps/api lint:   38:5    warning  Async method 'set' has no 'await' expression      @typescript-eslint/require-await
+apps/api lint:   63:107  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/api lint:   80:37   warning  Unsafe member access .tenantId on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint:   81:38   warning  Unsafe member access .tenantId on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\auditable.test.ts
+apps/api lint:   12:15  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.cache.test.ts
+apps/api lint:   15:5  warning  Async method 'del' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   18:5  warning  Async method 'get' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   21:5  warning  Async method 'set' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.checkout.test.ts
+apps/api lint:   11:9    warning  Unsafe assignment of an `any` value              @typescript-eslint/no-unsafe-assignment
+apps/api lint:   22:104  warning  Async arrow function has no 'await' expression   @typescript-eslint/require-await
+apps/api lint:   48:52   warning  Async arrow function has no 'await' expression   @typescript-eslint/require-await
+apps/api lint:   65:13   warning  Async method 'create' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   75:11   warning  Async method 'update' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.grace-period.test.ts
+apps/api lint:    9:9   warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:   20:59  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   44:60  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.idempotency.test.ts
+apps/api lint:    16:9    warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:    97:104  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   101:96   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   115:92   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   132:106  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   144:93   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   154:56   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   159:56   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   163:51   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.ip-ban.test.ts
+apps/api lint:   16:3  warning  Async method 'del' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   28:3  warning  Async method 'get' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   43:3  warning  Async method 'set' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.paywall.test.ts
+apps/api lint:   13:9   warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:   22:97  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   56:60  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   81:32  warning  Unsafe member access .title on an `any` value   @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.proration-credit.test.ts
+apps/api lint:    16:9    warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:   113:104  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   117:96   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   131:92   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   148:59   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   154:60   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   158:56   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   161:51   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   166:56   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   171:60   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   174:122  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.snapshot.test.ts
+apps/api lint:    9:9   warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:   18:59  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   54:60  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.webhook-audit.test.ts
+apps/api lint:    23:9    warning  Unsafe assignment of an `any` value                                 @typescript-eslint/no-unsafe-assignment
+apps/api lint:    60:106  warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:    64:98   warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:    79:94   warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:   118:5    warning  Async method 'del' has no 'await' expression                        @typescript-eslint/require-await
+apps/api lint:   125:5    warning  Async method 'get' has no 'await' expression                        @typescript-eslint/require-await
+apps/api lint:   128:5    warning  Async method 'set' has no 'await' expression                        @typescript-eslint/require-await
+apps/api lint:   177:56   warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:   224:7    warning  Async method 'processStripeBillingEvent' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   275:7    warning  Async method 'processStripeBillingEvent' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.webhook-delegation.test.ts
+apps/api lint:    19:9    warning  Unsafe assignment of an `any` value                                 @typescript-eslint/no-unsafe-assignment
+apps/api lint:    82:104  warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:    86:96   warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:   100:92   warning  Async arrow function has no 'await' expression                      @typescript-eslint/require-await
+apps/api lint:   121:7    warning  Async method 'processStripeBillingEvent' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   133:32   warning  Unsafe member access .received on an `any` value                    @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\billing.webhook.test.ts
+apps/api lint:    16:9    warning  Unsafe assignment of an `any` value               @typescript-eslint/no-unsafe-assignment
+apps/api lint:    53:106  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/api lint:    57:98   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/api lint:    71:94   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/api lint:   151:32   warning  Unsafe member access .received on an `any` value  @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\health.smoke.test.ts
+apps/api lint:   14:5   warning  Async method 'healthService' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   37:30  warning  Unsafe member access .status on an `any` value          @typescript-eslint/no-unsafe-member-access
+apps/api lint:   38:30  warning  Unsafe member access .services on an `any` value        @typescript-eslint/no-unsafe-member-access
+apps/api lint:   39:30  warning  Unsafe member access .services on an `any` value        @typescript-eslint/no-unsafe-member-access
+apps/api lint:   40:30  warning  Unsafe member access .services on an `any` value        @typescript-eslint/no-unsafe-member-access
+apps/api lint:   48:5   warning  Async method 'healthService' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   65:30  warning  Unsafe member access .status on an `any` value          @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\queue-backpressure.test.ts
+apps/api lint:   14:9   warning  Unsafe assignment of an `any` value                   @typescript-eslint/no-unsafe-assignment
+apps/api lint:   23:91  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   37:51  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   38:52  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   42:57  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   56:5   warning  Async method 'enqueueTask' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   77:32  warning  Unsafe member access .title on an `any` value         @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\rbac.test.ts
+apps/api lint:    12:9   warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:    41:59  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    45:91  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    61:51  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    62:85  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    66:56  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    83:81  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   108:51  warning  Unsafe member access .items on an `any` value   @typescript-eslint/no-unsafe-member-access
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\security.test.ts
+apps/api lint:   13:9   warning  Unsafe assignment of an `any` value                   @typescript-eslint/no-unsafe-assignment
+apps/api lint:   23:91  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   37:51  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   38:52  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   42:64  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   46:57  warning  Async arrow function has no 'await' expression        @typescript-eslint/require-await
+apps/api lint:   60:7   warning  Async method 'enqueueTask' has no 'await' expression  @typescript-eslint/require-await
+apps/api lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\api\tests\tenant-auth-hardening.test.ts
+apps/api lint:    12:9    warning  Unsafe assignment of an `any` value             @typescript-eslint/no-unsafe-assignment
+apps/api lint:    36:91   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    50:51   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    51:52   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    55:115  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:    79:8    warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   117:69   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   169:54   warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/api lint:   181:36   warning  Unsafe member access .items on an `any` value   @typescript-eslint/no-unsafe-member-access
+apps/api lint: Ô£û 124 problems (0 errors, 124 warnings)
+apps/api lint: Done
+apps/web lint: Done
+apps/worker lint$ eslint .
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\agents\runtime.db-integration.harness.ts
+apps/worker lint:    9:3  warning  Async method 'get' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   23:3  warning  Async method 'set' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   42:3  warning  Async method 'del' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\agents\runtime.ts
+apps/worker lint:   571:3  warning  Async method 'execute' has no 'await' expression         @typescript-eslint/require-await
+apps/worker lint:   618:7  warning  Async method 'executor' has no 'await' expression        @typescript-eslint/require-await
+apps/worker lint:   628:7  warning  Async method 'auditPublisher' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   631:7  warning  Async method 'executor' has no 'await' expression        @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\alerts\failRateAlert.ts
+apps/worker lint:   29:3  warning  Async method 'listWindows' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   35:3  warning  Async method 'sendEmail' has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   39:3  warning  Async method 'sendInApp' has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\engine\runner.agent.smoke.test.ts
+apps/worker lint:   28:14  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   34:92  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   57:93  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   59:18  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   64:18  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   68:94  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   72:7   warning  Async method 'add' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   76:9   warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\engine\runner.cancel.test.ts
+apps/worker lint:   15:14  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   19:92  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   26:7   warning  Async method 'add' has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\engine\runner.db-integration.harness.ts
+apps/worker lint:   30:3  warning  Async method 'add' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   39:5  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\engine\runner.http.msw.test.ts
+apps/worker lint:    55:14  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:    61:92  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   108:93  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   110:18  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   115:18  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   119:7   warning  Async method 'add' has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\engine\runner.workflow-chain.test.ts
+apps/worker lint:   112:102  warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   118:92   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   135:93   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   143:18   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   148:18   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   158:94   warning  Async arrow function has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint:   162:7    warning  Async method 'add' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   168:9    warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   177:9    warning  Async method 'send' has no 'await' expression     @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\executors\planExecutor.ts
+apps/worker lint:   106:3  warning  Async method 'build' has no 'await' expression           @typescript-eslint/require-await
+apps/worker lint:   159:7  warning  Async method 'executor' has no 'await' expression        @typescript-eslint/require-await
+apps/worker lint:   163:7  warning  Async method 'auditPublisher' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   166:7  warning  Async method 'executor' has no 'await' expression        @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\jobs\billingExport.test.ts
+apps/worker lint:   17:9   warning  Unsafe assignment of an `any` value                  @typescript-eslint/no-unsafe-assignment
+apps/worker lint:   34:75  warning  Async arrow function has no 'await' expression       @typescript-eslint/require-await
+apps/worker lint:   92:9   warning  Async method 'uploadJson' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\jobs\scheduler.ts
+apps/worker lint:   111:5  warning  Async method 'stop' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\load\parallelLoad.ts
+apps/worker lint:   12:3  warning  Async method 'get' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   26:3  warning  Async method 'set' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   44:3  warning  Async method 'del' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   58:3  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\planExecutor.test.ts
+apps/worker lint:   12:3  warning  Async method 'get' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   26:3  warning  Async method 'set' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   44:3  warning  Async method 'del' has no 'await' expression      @typescript-eslint/require-await
+apps/worker lint:   58:3  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   88:3  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\runtime.integration.test.ts
+apps/worker lint:   17:3  warning  Async method 'get' has no 'await' expression             @typescript-eslint/require-await
+apps/worker lint:   21:3  warning  Async method 'set' has no 'await' expression             @typescript-eslint/require-await
+apps/worker lint:   26:3  warning  Async method 'del' has no 'await' expression             @typescript-eslint/require-await
+apps/worker lint:   45:5  warning  Async method 'auditPublisher' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\worker.ts
+apps/worker lint:   488:7  warning  Async method 'send' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\test\userCleanup.test.ts
+apps/worker lint:   11:7  warning  Async method 'findMany' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   18:7  warning  Async method 'update' has no 'await' expression    @typescript-eslint/require-await
+apps/worker lint: Ô£û 62 problems (0 errors, 62 warnings)
+apps/worker lint: Done

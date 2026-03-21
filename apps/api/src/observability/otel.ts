@@ -8,7 +8,7 @@ import { PrismaInstrumentation } from "@prisma/instrumentation";
 let sdk: NodeSDK | undefined;
 
 // ADR-009: the Cycle 1 API coexists with legacy services, so telemetry is isolated behind an opt-in exporter.
-export async function initializeOpenTelemetry(config: ApiConfig): Promise<void> {
+export function initializeOpenTelemetry(config: ApiConfig): void {
   if (sdk || !config.OTEL_EXPORTER_OTLP_ENDPOINT) {
     return;
   }

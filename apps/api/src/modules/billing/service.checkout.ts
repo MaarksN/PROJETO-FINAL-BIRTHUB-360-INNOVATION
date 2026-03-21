@@ -11,7 +11,6 @@ import Stripe from "stripe";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { createStripeClient } from "./stripe.client.js";
 import {
-  ensurePlanByCode,
   findOrganizationByReference,
   type DatabaseClient
 } from "./service.shared.js";
