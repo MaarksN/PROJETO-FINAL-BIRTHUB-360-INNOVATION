@@ -20,7 +20,7 @@ Fonte: `artifacts/f3-hotspots-2026-03-21/hotspot-scan.txt`
 | Prioridade | Arquivo | Linhas | Status inicial |
 | --- | --- | ---: | --- |
 | P0 | `apps/api/src/modules/billing/service.ts` | 4 | já modularizado (split concluído) |
-| P0 | `apps/api/src/modules/auth/auth.service.ts` | 1116 | pendente |
+| P0 | `apps/api/src/modules/auth/auth.service.ts` | 1116 | em execução (etapa sessão concluída) |
 | P0 | `apps/worker/src/agents/runtime.ts` | 989 | pendente |
 | P1 | `apps/api/src/modules/agents/service.ts` | 850 | pendente |
 | P1 | `apps/worker/src/worker.ts` | 822 | pendente |
@@ -42,7 +42,7 @@ Fonte: `artifacts/f3-hotspots-2026-03-21/hotspot-scan.txt`
   - Owner: Platform API
   - Severidade: P0
   - Prazo: 2026-03-24
-  - Evidência: pendente
+  - Evidência: `apps/api/src/modules/auth/auth.service.sessions.ts`, `artifacts/f3-auth-split-2026-03-21/logs/01-api-typecheck.log`, `artifacts/f3-auth-split-2026-03-21/logs/02-api-test.log`
   - Risco residual: médio
   - Rollback: sim
 
