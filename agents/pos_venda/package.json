@@ -1,5 +1,5 @@
 {
-  "name": "pos-venda-agent-worker",
+  "name": "pos_venda-agent-worker",
   "version": "1.0.0",
   "private": true,
   "scripts": {

@@ -18,3 +18,7 @@
 /packages/queue/ @platform-automation
 /packages/shared-types/ @platform-api
 /packages/utils/ @platform-core
+* @admin @lead-dev
+/packages/agents/ @ai-team
+/apps/api/ @backend-team
+/apps/web/ @frontend-team

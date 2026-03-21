@@ -1,0 +1,20 @@
+# [SOURCE] BirthHub360_Higiene_Estrutural
+
+# Diretórios permitidos (Snapshots de release e docs gerados de segurança):
+# Tudo o mais, arquivos transitórios soltos, devem ser ignorados.
+
+# Ignorar dumps e logs locais, mantendo apensa auditorias versionadas
+*.log
+*.dump
+*.tmp
+*.bak
+*.swp
+
+# Permitir a estrutura de auditoria/releases
+!release/
+!security/
+!doctor/
+!untracked_agents_snapshot/
+
+# Ignorar artefatos de compilação ou de IDE local se caírem aqui
+.DS_Store

@@ -10,7 +10,7 @@ from agents.shared.tool_runtime import run_tool
 
 _tools_spec = importlib.util.spec_from_file_location("pos_venda_tools", Path(__file__).resolve().parent / "tools.py")
 if _tools_spec is None or _tools_spec.loader is None:
-    raise ImportError("Não foi possível carregar tools.py do agente pos-venda")
+    raise ImportError("Não foi possível carregar tools.py do agente pos_venda")
 _tools_module = importlib.util.module_from_spec(_tools_spec)
 _tools_spec.loader.exec_module(_tools_module)
 
@@ -51,7 +51,7 @@ class AgentState(BaseAgentState):
 
 class PosVendaAgent(BaseAgent):
     def __init__(self):
-        super().__init__(name="pos-venda")
+        super().__init__(name="pos_venda")
 
     def _build_graph(self) -> StateGraph:
         workflow = StateGraph(AgentState)
@@ -127,7 +127,7 @@ class PosVendaAgent(BaseAgent):
             "nps": state.get("nps_result", {}),
         }
         output = {
-            "agent": "pos-venda",
+            "agent": "pos_venda",
             "domain": "customer_success",
             "status": self._overall_status(deliverables),
             "tasks": state.get("task_plan", []),

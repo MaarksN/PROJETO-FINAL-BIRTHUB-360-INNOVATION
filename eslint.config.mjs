@@ -61,7 +61,9 @@ export default tseslint.config(
           ]
         }
       ],
-      "@typescript-eslint/no-explicit-any": "error"
+      "@typescript-eslint/no-explicit-any": "error",
+      "max-lines": ["error", 500],
+      "complexity": ["error", 20]
     }
   }
 );

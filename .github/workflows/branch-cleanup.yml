@@ -1,0 +1,17 @@
+name: Cleanup Merged Branches
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  cleanup_branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Delete Branch
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          numbers: ${{github.event.pull_request.number}}
