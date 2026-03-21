@@ -8,17 +8,25 @@ function resolveApiBaseUrl(): string {
 }
 
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
-  const response = await fetch(`${resolveApiBaseUrl()}/api/v1/me`, {
-    cache: "no-store",
-    headers: {
-      ...(request.headers.get("authorization")
-        ? { authorization: request.headers.get("authorization") as string }
-        : {}),
-      ...(request.headers.get("cookie") ? { cookie: request.headers.get("cookie") as string } : {})
-    }
-  });
+  if (process.env.DASHBOARD_USE_STATIC_SNAPSHOT === "true" || process.env.NEXT_PUBLIC_DASHBOARD_USE_STATIC_SNAPSHOT === "true") {
+      return true;
+  }
 
-  return response.ok;
+  try {
+      const response = await fetch(`${resolveApiBaseUrl()}/api/v1/me`, {
+        cache: "no-store",
+        headers: {
+          ...(request.headers.get("authorization")
+            ? { authorization: request.headers.get("authorization") as string }
+            : {}),
+          ...(request.headers.get("cookie") ? { cookie: request.headers.get("cookie") as string } : {})
+        }
+      });
+
+      return response.ok;
+  } catch (err) {
+      return false;
+  }
 }
 
 export async function proxy(request: NextRequest) {
