@@ -8,7 +8,10 @@
     "test": "node --import tsx --test test/**/*.test.ts",
     "smoke": "node --import tsx --test test/pack-smoke.test.ts",
     "regression": "node --import tsx --test test/pack-regression.test.ts",
-    "docs": "node --import tsx ../../scripts/generate-pack-docs.ts"
+    "docs": "node --import tsx ../../scripts/generate-pack-docs.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc"
   },
   "dependencies": {
     "@birthub/agents-core": "workspace:*"
