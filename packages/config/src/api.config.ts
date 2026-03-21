@@ -75,7 +75,7 @@ export const apiEnvSchema = z.object({
   STRIPE_CANCEL_URL: urlString.default("http://localhost:3001/billing/cancel"),
   STRIPE_DECLINE_BAN_THRESHOLD: z.coerce.number().int().positive().default(5),
   STRIPE_PORTAL_RETURN_URL: urlString.default("http://localhost:3001/settings/billing"),
-  STRIPE_SECRET_KEY: nonEmptyString.default("sk_test_birthub360"),
+  STRIPE_SECRET_KEY: nonEmptyString.default("sk_test_birthub360_mock"),
   STRIPE_SUCCESS_URL: urlString.default("http://localhost:3001/billing/success"),
   STRIPE_TEMP_BAN_SECONDS: z.coerce.number().int().positive().default(15 * 60),
   STRIPE_WEBHOOK_TOLERANCE_SECONDS: z.coerce.number().int().positive().default(300),
