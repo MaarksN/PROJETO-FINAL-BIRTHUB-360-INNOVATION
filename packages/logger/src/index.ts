@@ -47,9 +47,12 @@ export function updateLogContext(context: LogContext): void {
   );
 }
 
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+
 let otelApi: any = null;
 try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
   otelApi = require("@opentelemetry/api");
 } catch {
   // Ignora se o OTEL não estiver disponível no escopo do package

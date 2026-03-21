@@ -4,6 +4,15 @@ import { createRequire } from "node:module";
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 
+import {
+  evaluateFailRateAlerts,
+  LoggingFailRateNotifier,
+  NoopFailRateMetricsSource
+} from "./alerts/failRateAlert.js";
+import { startCycle2Jobs } from "./jobs/scheduler.js";
+import { cleanupSuspendedUsers } from "./jobs/userCleanup.js";
+import { createBirthHubWorker } from "./worker.js";
+
 const require = createRequire(import.meta.url);
 
 try {
@@ -33,15 +42,6 @@ try {
 } catch (error) {
   console.warn("OpenTelemetry SDK not initialized in worker:", error);
 }
-
-import {
-  evaluateFailRateAlerts,
-  LoggingFailRateNotifier,
-  NoopFailRateMetricsSource
-} from "./alerts/failRateAlert.js";
-import { startCycle2Jobs } from "./jobs/scheduler.js";
-import { cleanupSuspendedUsers } from "./jobs/userCleanup.js";
-import { createBirthHubWorker } from "./worker.js";
 
 const config = getWorkerConfig();
 const logger = createLogger("worker-bootstrap");
