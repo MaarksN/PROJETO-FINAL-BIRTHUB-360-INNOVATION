@@ -172,7 +172,7 @@ jobs:
 >>>>>>> Stashed changes
 
       - name: Cache Turbo
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ matrix.task }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
