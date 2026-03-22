@@ -843,6 +843,9 @@ importers:
       '@birthub/database':
         specifier: workspace:*
         version: link:../database
+      '@prisma/client':
+        specifier: ^6.19.2
+        version: 6.19.2(prisma@6.19.2(typescript@5.9.3))(typescript@5.9.3)
     devDependencies:
       '@prisma/client':
         specifier: ^7.5.0
