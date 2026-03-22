@@ -25,13 +25,13 @@ void test("Workflow runner smoke test executes CEO agent and persists the result
   const agentCalls: Array<{ agentId: string; contextSummary: string; input: Record<string, unknown> }> = [];
 
   (prisma.workflowExecution.findUnique as unknown as (args: unknown) => Promise<unknown>) =
-    async () => ({
+    () => Promise.resolve({
       depth: 0,
       id: "exec_agent",
       startedAt: new Date("2026-03-13T12:15:00.000Z"),
       status: WorkflowExecutionStatus.RUNNING
     });
-  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = async () => ({
+  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve({
     id: "wf_agent",
     maxDepth: 10,
     steps: [
@@ -54,32 +54,32 @@ void test("Workflow runner smoke test executes CEO agent and persists the result
     ],
     transitions: []
   });
-  (prisma.stepResult.findMany as unknown as (args: unknown) => Promise<unknown>) = async () => [];
+  (prisma.stepResult.findMany as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve([]);
   (prisma.stepResult.create as unknown as (args: { data: Record<string, unknown> }) => Promise<unknown>) =
-    async (args) => {
+    (args) => {
       createdResults.push(args.data);
-      return args.data;
+      return Promise.resolve(args.data);
     };
   (prisma.workflowExecution.update as unknown as (args: { data: Record<string, unknown> }) => Promise<unknown>) =
-    async (args) => {
+    (args) => {
       executionUpdates.push(args.data);
-      return args.data;
+      return Promise.resolve(args.data);
     };
-  (prisma.quotaUsage.findFirst as unknown as (args: unknown) => Promise<unknown>) = async () => null;
+  (prisma.quotaUsage.findFirst as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve(null);
 
   try {
     const fakeQueue = {
-      add: async () => undefined
+      add: () => Promise.resolve(undefined)
     } as unknown as Queue<WorkflowExecutionJobPayload>;
     const runner = new WorkflowRunner(fakeQueue, {
       agentExecutor: {
-        execute: async (args) => {
+        execute: (args) => {
           agentCalls.push(args);
-          return {
+          return Promise.resolve({
             agentId: args.agentId,
             summary: `CEO reviewed ${String(args.input.brief)}`,
             verdict: "OK"
-          };
+          });
         }
       }
     });

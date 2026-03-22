@@ -24,11 +24,11 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   configureAppInfrastructure(app, config);
   registerOperationalRoutes(app, config, {
-    healthService: dependencies.healthService,
+    ...(dependencies.healthService ? { healthService: dependencies.healthService } : {}),
     shouldExposeDocs
   });
   registerAuthAndCoreRoutes(app, config, {
-    enqueueTask: dependencies.enqueueTask
+    ...(dependencies.enqueueTask ? { enqueueTask: dependencies.enqueueTask } : {})
   });
   mountModuleRouters(app, config);
 

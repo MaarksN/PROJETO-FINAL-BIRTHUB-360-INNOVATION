@@ -108,10 +108,11 @@ export function startCycle2Jobs(): Cycle2JobsRuntime {
   }
 
   return {
-    stop: async () => {
+    stop: () => {
       for (const timer of timers) {
         clearInterval(timer);
       }
+      return Promise.resolve();
     }
   };
 }

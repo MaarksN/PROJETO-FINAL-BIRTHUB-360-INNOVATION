@@ -9,21 +9,21 @@ import { PlanExecutor, type AgentExecutionRequest } from "../executors/planExecu
 class InMemoryRedis {
   private readonly data = new Map<string, { value: string; expiresAt?: number }>();
 
-  async get(key: string): Promise<string | null> {
+  get(key: string): Promise<string | null> {
     const value = this.data.get(key);
     if (!value) {
-      return null;
+      return Promise.resolve(null);
     }
 
     if (value.expiresAt !== undefined && value.expiresAt <= Date.now()) {
       this.data.delete(key);
-      return null;
+      return Promise.resolve(null);
     }
 
-    return value.value;
+    return Promise.resolve(value.value);
   }
 
-  async set(key: string, value: string, ...args: Array<string | number>): Promise<"OK" | null> {
+  set(key: string, value: string, ...args: Array<string | number>): Promise<"OK" | null> {
     const options = args.map((item) => String(item).toUpperCase());
     const hasNx = options.includes("NX");
     const exIndex = options.indexOf("EX");
@@ -31,18 +31,18 @@ class InMemoryRedis {
       exIndex >= 0 && args[exIndex + 1] ? Date.now() + Number(args[exIndex + 1]) * 1000 : undefined;
 
     if (hasNx && this.data.has(key)) {
-      return null;
+      return Promise.resolve(null);
     }
 
     this.data.set(key, {
       ...(expiresAt !== undefined ? { expiresAt } : {}),
       value
     });
-    return "OK";
+    return Promise.resolve("OK");
   }
 
-  async del(key: string): Promise<number> {
-    return this.data.delete(key) ? 1 : 0;
+  del(key: string): Promise<number> {
+    return Promise.resolve(this.data.delete(key) ? 1 : 0);
   }
 }
 
@@ -55,8 +55,8 @@ class FastTool extends BaseTool<{ value: number }, { value: number }> {
     });
   }
 
-  protected async execute(input: { value: number }): Promise<{ value: number }> {
-    return { value: input.value + 1 };
+  protected execute(input: { value: number }): Promise<{ value: number }> {
+    return Promise.resolve({ value: input.value + 1 });
   }
 }
 

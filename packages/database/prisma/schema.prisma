@@ -147,9 +147,11 @@ model Session {
   @@index([tenantId])
   @@index([tenantId, id])
   @@index([tenantId, userId])
+  @@index([organizationId])
   @@index([tenantId, status])
   @@index([expiresAt])
   @@index([revokedAt])
+  @@index([replacedBySessionId])
   @@map("sessions")
 }
 
@@ -179,6 +181,8 @@ model ApiKey {
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([organizationId, userId])
+  @@index([userId])
+  @@index([rotatedFromId])
   @@map("api_keys")
 }
 
@@ -209,6 +213,7 @@ model MfaChallenge {
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([tenantId])
+  @@index([organizationId])
   @@index([tenantId, userId, expiresAt])
   @@map("mfa_challenges")
 }
@@ -225,6 +230,7 @@ model LoginAlert {
   user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([tenantId])
+  @@index([organizationId])
   @@index([tenantId, userId, createdAt])
   @@map("login_alerts")
 }
@@ -256,6 +262,7 @@ model Agent {
   @@unique([tenantId, name])
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, status])
   @@map("agents")
 }
@@ -350,6 +357,7 @@ model Workflow {
   @@unique([tenantId, name])
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, status])
   @@index([tenantId, triggerType])
   @@map("workflows")
@@ -379,6 +387,7 @@ model WorkflowStep {
   @@unique([workflowId, key])
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, workflowId])
   @@index([tenantId, type])
   @@map("workflow_steps")
@@ -401,6 +410,7 @@ model WorkflowTransition {
   @@unique([workflowId, sourceStepId, targetStepId, route])
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, workflowId])
   @@index([tenantId, sourceStepId])
   @@index([tenantId, targetStepId])
@@ -430,6 +440,7 @@ model WorkflowExecution {
 
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, workflowId])
   @@index([tenantId, status])
   @@index([tenantId, startedAt])
@@ -464,6 +475,7 @@ model StepResult {
   @@unique([executionId, stepId, attempt])
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, executionId])
   @@index([tenantId, workflowId])
   @@index([tenantId, stepId])
@@ -486,6 +498,7 @@ model Customer {
   @@unique([tenantId, email])
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
   @@index([tenantId, status])
   @@map("customers")
 }
@@ -509,6 +522,8 @@ model Invite {
 
   @@index([tenantId])
   @@index([tenantId, id])
+  @@index([organizationId])
+  @@index([invitedByUserId])
   @@index([tenantId, status])
   @@index([expiresAt])
   @@map("invites")
@@ -597,6 +612,7 @@ model Subscription {
 
   @@unique([organizationId])
   @@index([tenantId])
+  @@index([planId])
   @@index([tenantId, status])
   @@index([stripeCustomerId])
   @@map("subscriptions")
@@ -625,6 +641,7 @@ model Invoice {
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([organizationId, createdAt])
+  @@index([subscriptionId])
   @@map("invoices")
 }
 
@@ -665,6 +682,7 @@ model UsageRecord {
   @@index([tenantId])
   @@index([tenantId, metric])
   @@index([organizationId, occurredAt])
+  @@index([subscriptionId])
   @@map("usage_records")
 }
 
@@ -732,6 +750,7 @@ model Notification {
   user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([tenantId])
+  @@index([organizationId])
   @@index([tenantId, createdAt])
   @@index([tenantId, userId])
   @@index([userId, isRead])
@@ -785,6 +804,7 @@ model AgentExecution {
   @@index([tenantId, agentId])
   @@index([tenantId, status])
   @@index([organizationId, userId])
+  @@index([userId])
   @@map("agent_executions")
 }
 
@@ -806,6 +826,8 @@ model AgentFeedback {
 
   @@unique([executionId, userId])
   @@index([tenantId])
+  @@index([organizationId])
+  @@index([userId])
   @@index([tenantId, agentId])
   @@index([tenantId, rating])
   @@map("agent_feedback")
@@ -851,6 +873,7 @@ model WebhookEndpoint {
   @@index([tenantId])
   @@index([tenantId, status])
   @@index([organizationId, createdAt])
+  @@index([createdByUserId])
   @@map("webhook_endpoints")
 }
 
@@ -891,6 +914,7 @@ model DatasetExport {
   organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
 
   @@index([tenantId])
+  @@index([organizationId])
   @@index([createdAt])
   @@map("dataset_exports")
 }
@@ -1005,6 +1029,7 @@ model ConversationThread {
   handoffs           AgentHandoff[]
 
   @@index([tenantId])
+  @@index([connectorAccountId])
   @@index([tenantId, channel, status])
   @@index([organizationId, createdAt])
   @@index([organizationId, correlationId])
@@ -1053,6 +1078,7 @@ model AgentHandoff {
   thread            ConversationThread? @relation(fields: [threadId], references: [id], onDelete: SetNull)
 
   @@index([tenantId])
+  @@index([threadId])
   @@index([tenantId, sourceAgentId, targetAgentId])
   @@index([organizationId, correlationId])
   @@map("agent_handoffs")

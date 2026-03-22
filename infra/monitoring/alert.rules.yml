@@ -7,6 +7,10 @@ groups:
         labels:
           severity: critical
           slo: availability
+          sla_severity: P0
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
         annotations:
           summary: "API Gateway indisponível"
 
@@ -16,6 +20,10 @@ groups:
         labels:
           severity: critical
           slo: availability
+          sla_severity: P1
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
         annotations:
           summary: "Burn rate de erro acima do orçamento de 99.9%"
 
@@ -25,6 +33,10 @@ groups:
         labels:
           severity: warning
           slo: availability
+          sla_severity: P1
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
         annotations:
           summary: "Disponibilidade efetiva abaixo de 99.9%"
 
@@ -34,6 +46,10 @@ groups:
         labels:
           severity: critical
           slo: latency
+          sla_severity: P1
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
         annotations:
           summary: "Latência p99 acima de 300ms"
 
@@ -43,6 +59,10 @@ groups:
         labels:
           severity: warning
           slo: saturation
+          sla_severity: P2
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
         annotations:
           summary: "Spike de rate limiting detectado em endpoints expostos"
 
@@ -52,6 +72,10 @@ groups:
         labels:
           severity: warning
           slo: security
+          sla_severity: P2
+          owner_primary: platform-architecture
+          owner_backup: platform-api
+          communication_channel: bh360-security-ownership
         annotations:
           summary: "Spike de 401/403 na API principal após endurecimento de auth/tenant"
 
@@ -61,6 +85,10 @@ groups:
         labels:
           severity: warning
           slo: finops
+          sla_severity: P2
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
         annotations:
           summary: "Spike de 402 indica bloqueios de budget ou regressão em custos"
 
@@ -70,5 +98,107 @@ groups:
         labels:
           severity: warning
           slo: security
+          sla_severity: P1
+          owner_primary: platform-api
+          owner_backup: platform-automation
+          communication_channel: bh360-worker-ownership
         annotations:
           summary: "Rejeições anormais em /api/v1/tasks após fechamento da ingestão autenticada"
+
+  - name: birthub-sla-governance
+    rules:
+      - alert: SlaAtRiskP0
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P0",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 90m
+        labels:
+          severity: warning
+          sla_severity: P0
+          sla_state: at_risk_75
+          escalation_target: owner_primary_owner_backup
+        annotations:
+          summary: "SLA P0 em risco (>=75% do prazo)"
+          description: "Incidente P0 ativo por pelo menos 90 minutos sem encerramento."
+
+      - alert: SlaBreachedP0
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P0",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 2h
+        labels:
+          severity: critical
+          sla_severity: P0
+          sla_state: breached_100
+          escalation_target: cto_engineering_manager_platform_architecture
+        annotations:
+          summary: "SLA P0 violado"
+          description: "Incidente P0 ativo por 2 horas ou mais."
+
+      - alert: SlaAtRiskP1
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P1",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 6h
+        labels:
+          severity: warning
+          sla_severity: P1
+          sla_state: at_risk_75
+          escalation_target: owner_primary_owner_backup
+        annotations:
+          summary: "SLA P1 em risco (>=75% do prazo)"
+          description: "Incidente P1 ativo por pelo menos 6 horas sem encerramento."
+
+      - alert: SlaBreachedP1
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P1",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 8h
+        labels:
+          severity: critical
+          sla_severity: P1
+          sla_state: breached_100
+          escalation_target: engineering_manager_platform_architecture
+        annotations:
+          summary: "SLA P1 violado"
+          description: "Incidente P1 ativo por 8 horas ou mais."
+
+      - alert: SlaAtRiskP2
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P2",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 54h
+        labels:
+          severity: warning
+          sla_severity: P2
+          sla_state: at_risk_75
+          escalation_target: owner_primary_owner_backup
+        annotations:
+          summary: "SLA P2 em risco (>=75% do prazo)"
+          description: "Incidente P2 ativo por pelo menos 54 horas sem encerramento."
+
+      - alert: SlaBreachedP2
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P2",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 72h
+        labels:
+          severity: critical
+          sla_severity: P2
+          sla_state: breached_100
+          escalation_target: engineering_manager_domain_owner
+        annotations:
+          summary: "SLA P2 violado"
+          description: "Incidente P2 ativo por 72 horas ou mais."
+
+      - alert: SlaAtRiskP3
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P3",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 252h
+        labels:
+          severity: warning
+          sla_severity: P3
+          sla_state: at_risk_75
+          escalation_target: owner_primary_owner_backup
+        annotations:
+          summary: "SLA P3 em risco (>=75% do prazo)"
+          description: "Incidente P3 ativo por pelo menos 10 dias e 12 horas."
+
+      - alert: SlaBreachedP3
+        expr: sum(ALERTS{alertstate="firing",sla_severity="P3",alertname!~"SlaAtRiskP[0-3]|SlaBreachedP[0-3]"}) > 0
+        for: 336h
+        labels:
+          severity: critical
+          sla_severity: P3
+          sla_state: breached_100
+          escalation_target: domain_owner_sprint_planning
+        annotations:
+          summary: "SLA P3 violado"
+          description: "Incidente P3 ativo por 2 semanas ou mais."

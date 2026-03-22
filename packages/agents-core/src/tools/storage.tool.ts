@@ -24,7 +24,7 @@ function buildSignedUrl(provider: StorageProvider, bucket: string, key: string):
   return `https://project.supabase.co/storage/v1/object/public/${bucket}/${key}?token=mock`;
 }
 
-export async function callStorageTool(
+export function callStorageTool(
   input: StorageInput,
   options?: { simulate?: boolean }
 ): Promise<StorageResult> {
@@ -32,10 +32,10 @@ export async function callStorageTool(
     throw new Error("Live storage calls are disabled in this environment.");
   }
 
-  return {
+  return Promise.resolve({
     action: input.action,
     key: input.key,
     provider: input.provider,
     signedUrl: buildSignedUrl(input.provider, input.bucket, input.key)
-  };
+  });
 }

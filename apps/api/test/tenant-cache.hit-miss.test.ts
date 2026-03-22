@@ -23,20 +23,21 @@ function createInMemoryCacheStore() {
   const entries = new Map<string, string>();
 
   return {
-    async del(...keys: string[]) {
+    del(...keys: string[]) {
       let removed = 0;
       for (const key of keys) {
         if (entries.delete(key)) {
           removed += 1;
         }
       }
-      return removed;
+      return Promise.resolve(removed);
     },
-    async get(key: string) {
-      return entries.get(key) ?? null;
+    get(key: string) {
+      return Promise.resolve(entries.get(key) ?? null);
     },
-    async set(key: string, value: string) {
+    set(key: string, value: string) {
       entries.set(key, value);
+      return Promise.resolve();
     }
   };
 }
@@ -60,13 +61,13 @@ void test("tenant cache hit evita nova consulta ao Prisma no segundo request", a
   });
 
   let findFirstCount = 0;
-  const restoreFindFirst = stubMethod(prisma.organization as unknown as StubTarget, "findFirst", async () => {
+  const restoreFindFirst = stubMethod(prisma.organization as unknown as StubTarget, "findFirst", () => {
     findFirstCount += 1;
-    return {
+    return Promise.resolve({
       id: "org_a",
       slug: "tenant-a",
       tenantId: "tenant-a"
-    };
+    });
   });
   const previousDatabaseUrl = process.env.DATABASE_URL;
 
@@ -77,8 +78,11 @@ void test("tenant cache hit evita nova consulta ao Prisma no segundo request", a
     const firstResponse = await request(app).get("/tenant").expect(200);
     const secondResponse = await request(app).get("/tenant").expect(200);
 
-    assert.equal(firstResponse.body.tenantId, "tenant-a");
-    assert.equal(secondResponse.body.tenantId, "tenant-a");
+    const firstBody = firstResponse.body as { tenantId: string };
+    const secondBody = secondResponse.body as { tenantId: string };
+
+    assert.equal(firstBody.tenantId, "tenant-a");
+    assert.equal(secondBody.tenantId, "tenant-a");
     assert.equal(findFirstCount, 1);
   } finally {
     restoreFindFirst();

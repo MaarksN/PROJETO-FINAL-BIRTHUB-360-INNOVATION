@@ -40,9 +40,10 @@ const deliveryQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(25)
 });
 
-function assertSafeWebhookTarget(config: ApiConfig, rawUrl: string): string {
+function assertSafeWebhookTarget(rawUrl: string): string {
   const validation = validateExternalUrl(rawUrl, {
-    allowLocalDevelopmentUrls: config.NODE_ENV !== "production",
+    // Outbound webhook targets must never reach local or loopback hosts.
+    allowLocalDevelopmentUrls: false,
     requireHttps: true
   });
 
@@ -164,7 +165,7 @@ export function createWebhooksRouter(config: ApiConfig): Router {
         createdByUserId: request.context.userId,
         tenantReference,
         topics: payload.topics,
-        url: assertSafeWebhookTarget(config, payload.url)
+        url: assertSafeWebhookTarget(payload.url)
       });
 
       response.status(201).json({
@@ -196,7 +197,7 @@ export function createWebhooksRouter(config: ApiConfig): Router {
         ...(payload.status !== undefined ? { status: payload.status } : {}),
         ...(payload.topics !== undefined ? { topics: payload.topics } : {}),
         ...(payload.url !== undefined
-          ? { url: assertSafeWebhookTarget(config, payload.url) }
+          ? { url: assertSafeWebhookTarget(payload.url) }
           : {})
       });
 

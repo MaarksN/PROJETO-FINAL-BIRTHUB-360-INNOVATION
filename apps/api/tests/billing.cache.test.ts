@@ -12,13 +12,13 @@ import {
 
 function createFailingStore(): CacheStore {
   return {
-    async del(): Promise<number> {
+    del(): Promise<number> {
       throw new Error("cache_del_failure");
     },
-    async get(): Promise<string | null> {
+    get(): Promise<string | null> {
       throw new Error("cache_get_failure");
     },
-    async set(): Promise<void> {
+    set(): Promise<void> {
       throw new Error("cache_set_failure");
     }
   };

@@ -39,8 +39,8 @@
 | F0-S2-I16 | `corepack pnpm install --frozen-lockfile` verde com log | ✅ | `logs/01-install-frozen-lockfile.log` |
 | F0-S2-I17 | `corepack pnpm monorepo:doctor` verde com log | ✅ | `logs/02-monorepo-doctor.log` |
 | F0-S2-I18 | `corepack pnpm release:scorecard` com log arquivado | ✅ | `logs/03-release-scorecard.log` |
-| F0-S2-I19 | `corepack pnpm lint:core` executado com log arquivado | ⚠️ | `logs/04-lint-core.log` (falhas herdadas em `packages/auth` e `packages/database`) |
-| F0-S2-I20 | `corepack pnpm typecheck:core` executado com log arquivado | ⚠️ | `logs/05-typecheck-core.log` (falha herdada em `packages/auth`) |
+| F0-S2-I19 | `corepack pnpm lint:core` executado com log arquivado | ✅ | `logs/04-lint-core.log` (execução atual sem erros bloqueantes) |
+| F0-S2-I20 | `corepack pnpm typecheck:core` executado com log arquivado | ✅ | `logs/05-typecheck-core.log` (execução atual verde) |
 | F0-S2-I21 | `corepack pnpm test:core` verde com log arquivado | ✅ | `logs/06-test-core.log` |
 | F0-S2-I22 | `corepack pnpm build:core` verde com log arquivado | ✅ | `logs/07-build-core.log` |
 | F0-S2-I23 | Arquivar logs com timestamp e hash | ✅ | `artifacts/f0-baseline-2026-03-22/` |
@@ -85,4 +85,4 @@
 
 - **GO local:** sim.
 - **Critério atendido:** ownership publicado, SLA publicado, artifacts arquivados, workspace contract restaurado, inventário do repositório capturado, `test:core` e `build:core` verdes.
-- **Risco residual:** médio para avanço técnico, porque `lint:core` e `typecheck:core` ainda carregam falhas herdadas fora do escopo desta correção; médio para governança externa até publicação/merge e socialização formal com todos os owners humanos.
+- **Risco residual:** baixo para avanço técnico local (lane core e guardrails locais verdes) e médio para governança externa até publicação/merge e socialização formal com todos os owners humanos.

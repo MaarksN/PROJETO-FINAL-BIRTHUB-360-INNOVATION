@@ -11,6 +11,7 @@ jobs:
   workspace-compliance:
     name: workspace-compliance
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -44,6 +45,7 @@ jobs:
   legacy-agent-lane:
     name: legacy-agent-lane
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v6

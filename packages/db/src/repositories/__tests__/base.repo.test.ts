@@ -10,25 +10,25 @@ type CreateData = { tenantId?: string; name: string };
 const createDelegate = () => {
   const calls: Record<string, unknown>[] = [];
   const delegate = {
-    async findMany(args: Record<string, unknown>) {
+    findMany(args: Record<string, unknown>) {
       calls.push({ method: 'findMany', args });
-      return [] as RecordModel[];
+      return Promise.resolve([] as RecordModel[]);
     },
-    async findFirst(args: Record<string, unknown>) {
+    findFirst(args: Record<string, unknown>) {
       calls.push({ method: 'findFirst', args });
-      return null as RecordModel | null;
+      return Promise.resolve(null as RecordModel | null);
     },
-    async create(args: Record<string, unknown>) {
+    create(args: Record<string, unknown>) {
       calls.push({ method: 'create', args });
-      return { id: '1', tenantId: 'tenant-1', name: 'n' } as RecordModel;
+      return Promise.resolve({ id: '1', tenantId: 'tenant-1', name: 'n' } as RecordModel);
     },
-    async update(args: Record<string, unknown>) {
+    update(args: Record<string, unknown>) {
       calls.push({ method: 'update', args });
-      return { id: '1', tenantId: 'tenant-1', name: 'n' } as RecordModel;
+      return Promise.resolve({ id: '1', tenantId: 'tenant-1', name: 'n' } as RecordModel);
     },
-    async delete(args: Record<string, unknown>) {
+    delete(args: Record<string, unknown>) {
       calls.push({ method: 'delete', args });
-      return { id: '1', tenantId: 'tenant-1', name: 'n' } as RecordModel;
+      return Promise.resolve({ id: '1', tenantId: 'tenant-1', name: 'n' } as RecordModel);
     },
   };
 

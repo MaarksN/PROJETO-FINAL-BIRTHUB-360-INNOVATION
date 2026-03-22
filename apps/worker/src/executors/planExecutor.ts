@@ -1,15 +1,15 @@
-import { createHash } from "node:crypto";
-
-import {
-  DbReadTool,
-  DbWriteTool,
-  HttpTool,
-  SendEmailTool,
-  type BaseTool
-} from "@birthub/agents-core/tools";
-import { PolicyEngine } from "@birthub/agents-core/policy/engine";
+import { type BaseTool } from "@birthub/agents-core/tools";
 import { createLogger } from "@birthub/logger";
 import type { Redis } from "ioredis";
+
+import {
+  MockPlanBuilder,
+  buildExecutionDigest,
+  createDefaultTools,
+  createExecutorError,
+  jitter,
+  wait
+} from "./planExecutor.defaults.js";
 
 const logger = createLogger("plan-executor");
 
@@ -101,78 +101,6 @@ type CircuitBreakerState = {
   failureCount: number;
   openUntil: number | null;
 };
-
-class MockPlanBuilder implements PlanBuilder {
-  async build(input: AgentExecutionRequest): Promise<PlannedToolCall[]> {
-    const providedCalls = input.input.toolCalls;
-    if (Array.isArray(providedCalls)) {
-      return providedCalls.filter((value): value is PlannedToolCall => {
-        return (
-          typeof value === "object" &&
-          value !== null &&
-          "tool" in value &&
-          "input" in value &&
-          typeof (value as { tool?: unknown }).tool === "string"
-        );
-      });
-    }
-
-    return [];
-  }
-}
-
-function createExecutorError(code: string, message: string): Error & { code: string } {
-  const error = new Error(message) as Error & { code: string };
-  error.code = code;
-  return error;
-}
-
-function buildExecutionDigest(input: AgentExecutionRequest): string {
-  return createHash("sha256")
-    .update(JSON.stringify({ input: input.input, toolCalls: input.toolCalls }))
-    .digest("hex");
-}
-
-function jitter(delayMs: number): number {
-  const spread = Math.floor(delayMs * 0.15);
-  const randomDelta = Math.floor(Math.random() * (spread + 1));
-  return delayMs + randomDelta;
-}
-
-async function wait(ms: number): Promise<void> {
-  await new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function createDefaultTools(): Record<string, BaseTool<unknown, unknown>> {
-  const policyEngine = new PolicyEngine([
-    {
-      action: "tool.*",
-      effect: "allow",
-      id: "default-allow-tools"
-    }
-  ]);
-
-  const memoryRows: Record<string, unknown>[] = [];
-
-  return {
-    "db-read": new DbReadTool({
-      executor: async ({ tenantId }) => memoryRows.filter((row) => row.tenantId === tenantId),
-      policyEngine
-    }) as BaseTool<unknown, unknown>,
-    "db-write": new DbWriteTool({
-      auditPublisher: async (event) => {
-        logger.info({ event }, "db-write audit event emitted");
-      },
-      executor: async ({ data, tenantId }) => {
-        memoryRows.push({ ...data, tenantId });
-        return 1;
-      },
-      policyEngine
-    }) as BaseTool<unknown, unknown>,
-    http: new HttpTool({ policyEngine }) as BaseTool<unknown, unknown>,
-    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>
-  };
-}
 
 export class PlanExecutor {
   private readonly planner: PlanBuilder;

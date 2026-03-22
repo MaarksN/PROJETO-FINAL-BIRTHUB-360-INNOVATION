@@ -12,18 +12,18 @@ void test("Cancelled execution does not enqueue or process further steps", async
 
   let workflowLookupCalled = false;
   (prisma.workflowExecution.findUnique as unknown as (args: unknown) => Promise<unknown>) =
-    async () => ({
+    () => Promise.resolve({
       id: "exec_cancelled",
       status: WorkflowExecutionStatus.CANCELLED
     });
-  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = async () => {
+  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = () => {
     workflowLookupCalled = true;
-    return null;
+    return Promise.resolve(null);
   };
 
   try {
     const fakeQueue = {
-      add: async () => undefined
+      add: () => Promise.resolve(undefined)
     } as unknown as Queue<WorkflowExecutionJobPayload>;
     const runner = new WorkflowRunner(fakeQueue);
 

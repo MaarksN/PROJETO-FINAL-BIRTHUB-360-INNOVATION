@@ -9,21 +9,21 @@ import { PlanExecutor, type AgentExecutionRequest } from "./executors/planExecut
 class InMemoryRedis {
   private readonly data = new Map<string, { value: string; expiresAt?: number }>();
 
-  async get(key: string): Promise<string | null> {
+  get(key: string): Promise<string | null> {
     const current = this.data.get(key);
     if (!current) {
-      return null;
+      return Promise.resolve(null);
     }
 
     if (current.expiresAt !== undefined && current.expiresAt <= Date.now()) {
       this.data.delete(key);
-      return null;
+      return Promise.resolve(null);
     }
 
-    return current.value;
+    return Promise.resolve(current.value);
   }
 
-  async set(key: string, value: string, ...args: Array<string | number>): Promise<"OK" | null> {
+  set(key: string, value: string, ...args: Array<string | number>): Promise<"OK" | null> {
     const options = args.map((arg) => String(arg).toUpperCase());
     const hasNx = options.includes("NX");
     const exIndex = options.indexOf("EX");
@@ -31,18 +31,18 @@ class InMemoryRedis {
       exIndex >= 0 && args[exIndex + 1] ? Date.now() + Number(args[exIndex + 1]) * 1000 : undefined;
 
     if (hasNx && this.data.has(key)) {
-      return null;
+      return Promise.resolve(null);
     }
 
     this.data.set(key, {
       ...(expiresAt !== undefined ? { expiresAt } : {}),
       value
     });
-    return "OK";
+    return Promise.resolve("OK");
   }
 
-  async del(key: string): Promise<number> {
-    return this.data.delete(key) ? 1 : 0;
+  del(key: string): Promise<number> {
+    return Promise.resolve(this.data.delete(key) ? 1 : 0);
   }
 }
 
@@ -55,8 +55,8 @@ class EchoTool extends BaseTool<{ text: string }, { echoed: string }> {
     });
   }
 
-  protected async execute(input: { text: string }): Promise<{ echoed: string }> {
-    return { echoed: input.text };
+  protected execute(input: { text: string }): Promise<{ echoed: string }> {
+    return Promise.resolve({ echoed: input.text });
   }
 }
 
@@ -85,7 +85,7 @@ class FailingTool extends BaseTool<{ reason: string }, { ok: boolean }> {
     });
   }
 
-  protected async execute(input: { reason: string }): Promise<{ ok: boolean }> {
+  protected execute(input: { reason: string }): Promise<{ ok: boolean }> {
     throw new Error(input.reason);
   }
 }

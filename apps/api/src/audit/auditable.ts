@@ -64,7 +64,7 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
         action: options.action,
         actorId: actorId ?? null,
         diff: {
-          payload: request.body ?? null,
+          payload: (request.body as unknown) ?? null,
           response: result ?? null
         },
         entityId,

@@ -1,16 +1,11 @@
 ## Resumo
 
-<<<<<<< Updated upstream
 Descreva objetivamente o que mudou, qual risco foi tratado e qual evidência de validação acompanha o PR.
-=======
-<!-- Explain what changed and why. -->
->>>>>>> Stashed changes
 
 ## Justificativa formal
 
 Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concentrar mudanças estruturalmente acopladas. Explique o motivo do lote, o plano de revisão e o rollback.
 
-<<<<<<< Updated upstream
 ## Checklist de Qualidade de Pull Request
 
 - [ ] ADR ou documentação de arquitetura associada atualizada (se aplicável).
@@ -22,7 +17,7 @@ Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concen
 - [ ] Segurança aprovada e sem credenciais inline expostas.
 - [ ] Se `pnpm-lock.yaml` mudou, houve revisão de security e platform.
 - [ ] Workspaces alterados mantem `lint`, `typecheck`, `test` e `build`, ou `N/A` aprovado no relatorio F4.
-=======
+
 ## Hygiene checklist
 
 - [ ] Branch name follows policy (`feat/`, `fix/`, `refactor/`, `chore/`, `release/`, `hotfix/`)
@@ -61,4 +56,3 @@ pnpm monorepo:doctor
 ## Deployment notes
 
 <!-- Include migrations, env vars, rollout notes, and rollback plan if needed. -->
->>>>>>> Stashed changes

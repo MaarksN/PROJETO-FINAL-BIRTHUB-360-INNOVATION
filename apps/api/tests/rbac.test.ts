@@ -9,7 +9,7 @@ import { createTestApiConfig } from "./test-config.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -38,32 +38,32 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
   };
 
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async () => ({
+    stubMethod(prisma.organization, "findFirst", () => Promise.resolve({
       id: "org_1",
       tenantId: "tenant_1"
     })),
-    stubMethod(prisma.session, "findUnique", async (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
       const userId = args.where?.token ? userByTokenHash[args.where.token] : undefined;
 
       if (!userId) {
-        return null;
+        return Promise.resolve(null);
       }
 
-      return {
+      return Promise.resolve({
         expiresAt: new Date(Date.now() + 60_000),
         id: `session_${userId}`,
         organizationId: "org_1",
         tenantId: "tenant_1",
         revokedAt: null,
         userId
-      };
+      });
     }),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_any" })),
-    stubMethod(prisma.user, "findUnique", async (args: { where?: { id?: string } }) => ({
+    stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_any" })),
+    stubMethod(prisma.user, "findUnique", (args: { where?: { id?: string } }) => Promise.resolve({
       id: args.where?.id ?? "",
       status: UserStatus.ACTIVE
     })),
-    stubMethod(prisma.membership, "findMany", async () => [
+    stubMethod(prisma.membership, "findMany", () => Promise.resolve([
       {
         createdAt: new Date("2026-03-13T00:00:00.000Z"),
         organizationId: "org_1",
@@ -76,24 +76,24 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
         },
         userId: "user_member"
       }
-    ]),
+    ])),
     stubMethod(
       prisma.membership,
       "findUnique",
-      async (args: { where?: { organizationId_userId?: { userId?: string } } }) => {
-      const userId = args.where?.organizationId_userId?.userId ?? "";
-      const role = roleByUserId[userId];
+      (args: { where?: { organizationId_userId?: { userId?: string } } }) => {
+        const userId = args.where?.organizationId_userId?.userId ?? "";
+        const role = roleByUserId[userId];
 
-      if (!role) {
-        return null;
-      }
+        if (!role) {
+          return Promise.resolve(null);
+        }
 
-      return {
-        organizationId: "org_1",
-        role,
-        status: MembershipStatus.ACTIVE,
-        userId
-      };
+        return Promise.resolve({
+          organizationId: "org_1",
+          role,
+          status: MembershipStatus.ACTIVE,
+          userId
+        });
       }
     )
   ];
@@ -105,7 +105,8 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
       .get("/api/v1/users")
       .set("Authorization", "Bearer atk_owner")
       .expect(200);
-    assert.equal(Array.isArray(ownerResponse.body.items), true);
+    const ownerBody = ownerResponse.body as { items: unknown[] };
+    assert.equal(Array.isArray(ownerBody.items), true);
 
     await request(app)
       .get("/api/v1/users")

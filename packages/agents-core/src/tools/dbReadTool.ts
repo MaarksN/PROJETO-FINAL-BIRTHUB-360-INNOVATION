@@ -47,7 +47,7 @@ export class DbReadTool extends BaseTool<DbReadInput, DbReadOutput> {
       options
     );
 
-    this.executor = options.executor ?? (async () => []);
+    this.executor = options.executor ?? (() => Promise.resolve([]));
   }
 
   protected async execute(input: DbReadInput, context: ToolExecutionContext): Promise<DbReadOutput> {

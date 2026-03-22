@@ -134,8 +134,9 @@ export class MetricsRegistry {
     series.count += 1;
     series.sum += value;
     for (let index = 0; index < buckets.length; index += 1) {
-      if (value <= buckets[index]) {
-        series.counts[index] += 1;
+      const bucket = buckets[index];
+      if (bucket !== undefined && value <= bucket) {
+        series.counts[index] = (series.counts[index] ?? 0) + 1;
       }
     }
 
@@ -182,7 +183,7 @@ export class MetricsRegistry {
 function normalizeLabels(labels: MetricLabels = {}): Array<[string, string]> {
   return Object.entries(labels)
     .filter(([, value]) => value !== null && value !== undefined)
-    .map(([key, value]) => [key, String(value).replace(/"/g, '\\"')])
+    .map<[string, string]>(([key, value]) => [key, String(value).replace(/"/g, '\\"')])
     .sort(([left], [right]) => left.localeCompare(right));
 }
 

@@ -20,7 +20,7 @@ import {
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -57,11 +57,11 @@ function createBillingEventHarness(operations?: string[]) {
   return {
     billingEvents,
     restores: [
-      stubMethod(prisma.billingEvent, "findUnique", async (args: { where?: { stripeEventId?: string } }) => {
+      stubMethod(prisma.billingEvent, "findUnique", (args: { where?: { stripeEventId?: string } }) => {
         const eventId = args.where?.stripeEventId ?? "";
-        return billingEvents.get(eventId) ?? null;
+        return Promise.resolve(billingEvents.get(eventId) ?? null);
       }),
-      stubMethod(prisma.billingEvent, "create", async (args: { data?: Record<string, unknown> }) => {
+      stubMethod(prisma.billingEvent, "create", (args: { data?: Record<string, unknown> }) => {
         const eventId = stringValue(args.data?.stripeEventId, "evt_unknown");
         operations?.push("create");
         const record = {
@@ -71,12 +71,12 @@ function createBillingEventHarness(operations?: string[]) {
           ...args.data
         };
         billingEvents.set(eventId, record);
-        return record;
+        return Promise.resolve(record);
       }),
       stubMethod(
         prisma.billingEvent,
         "update",
-        async (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
+        (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
           const eventId = args.where?.stripeEventId ?? "";
           const current: Record<string, unknown> = billingEvents.get(eventId) ?? {
             attemptCount: 0,
@@ -98,13 +98,13 @@ function createBillingEventHarness(operations?: string[]) {
           }
 
           billingEvents.set(eventId, next);
-          return next;
+          return Promise.resolve(next);
         }
       ),
       stubMethod(
         prisma,
         "$transaction",
-        async <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
+        <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
       )
     ]
   };
@@ -115,23 +115,24 @@ function createRecordingCacheStore() {
   const writes: Array<{ key: string; ttlSeconds: number; value: string }> = [];
 
   const store: CacheStore = {
-    async del(...keys: string[]): Promise<number> {
+    del(...keys: string[]): Promise<number> {
       for (const key of keys) {
         values.delete(key);
       }
 
-      return keys.length;
+      return Promise.resolve(keys.length);
     },
-    async get(key: string): Promise<string | null> {
-      return values.get(key) ?? null;
+    get(key: string): Promise<string | null> {
+      return Promise.resolve(values.get(key) ?? null);
     },
-    async set(key: string, value: string, ttlSeconds: number): Promise<void> {
+    set(key: string, value: string, ttlSeconds: number): Promise<void> {
       writes.push({
         key,
         ttlSeconds,
         value
       });
       values.set(key, value);
+      return Promise.resolve();
     }
   };
 
@@ -174,9 +175,9 @@ void test("stripe webhook rejects events outside the replay window", async () =>
       Math.floor(Date.now() / 1000) - config.STRIPE_WEBHOOK_TOLERANCE_SECONDS - 15
   });
   const restores = [
-    stubMethod(prisma.billingEvent, "create", async () => {
+    stubMethod(prisma.billingEvent, "create", () => {
       billingEventCreated = true;
-      return { id: "billing_event_1" };
+      return Promise.resolve({ id: "billing_event_1" });
     })
   ];
 
@@ -221,7 +222,7 @@ void test("stripe webhook marks billing event as failed when domain processing e
 
   try {
     const app = createWebhookApp(config, {
-      processStripeBillingEvent: async () => {
+      processStripeBillingEvent: () => {
         throw new Error("domain failed");
       }
     });
@@ -272,13 +273,13 @@ void test("stripe webhook persists the raw event before invoking domain processi
 
   try {
     const app = createWebhookApp(config, {
-      processStripeBillingEvent: async ({ event }) => {
+      processStripeBillingEvent: ({ event }) => {
         operations.push("domain");
         assert.equal(
           billingEventHarness.billingEvents.get(event.id)?.status,
           BillingEventStatus.processing
         );
-        return {};
+        return Promise.resolve({});
       }
     });
 

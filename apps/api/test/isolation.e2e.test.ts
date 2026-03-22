@@ -24,8 +24,11 @@ void test("contexto de tenant nao e materializado a partir de headers crus", asy
     request(app).get("/echo").set("x-tenant-id", "tenant-b")
   ]);
 
-  assert.equal(tenantA.body.tenantId, null);
-  assert.equal(tenantA.body.contextTenantId, null);
-  assert.equal(tenantB.body.tenantId, null);
-  assert.equal(tenantB.body.contextTenantId, null);
+  const bodyA = tenantA.body as { contextTenantId: string | null; tenantId: string | null };
+  const bodyB = tenantB.body as { contextTenantId: string | null; tenantId: string | null };
+
+  assert.equal(bodyA.tenantId, null);
+  assert.equal(bodyA.contextTenantId, null);
+  assert.equal(bodyB.tenantId, null);
+  assert.equal(bodyB.contextTenantId, null);
 });

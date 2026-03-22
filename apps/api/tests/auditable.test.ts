@@ -9,7 +9,7 @@ void test("Auditable requireActor blocks sensitive mutations without an authenti
     action: "packs.install",
     entityType: "pack",
     requireActor: true
-  })(async () => ({ ok: true }));
+  })(() => Promise.resolve({ ok: true }));
 
   const request = {
     body: { packId: "pack_1" },

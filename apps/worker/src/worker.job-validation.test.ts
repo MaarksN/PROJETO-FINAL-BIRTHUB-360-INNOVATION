@@ -27,9 +27,9 @@ void test("validateLegacyTaskJob accepts signed payloads with matching tenant co
     requestId: "req_1",
     signature: "",
     tenantId: "tenant_1",
-    type: "narrativeweaver",
+    type: "sync-session" as const,
     userId: "user_1",
-    version: "1"
+    version: "1" as const
   };
   const signatureBase = JSON.stringify({
     agentId: payload.agentId,

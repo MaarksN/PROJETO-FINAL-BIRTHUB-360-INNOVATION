@@ -22,24 +22,24 @@ export interface EmailAdapter {
 }
 
 class MockSmtpAdapter implements EmailAdapter {
-  async send(input: EmailSendInput): Promise<{ bounced: boolean; messageId: string }> {
+  send(input: EmailSendInput): Promise<{ bounced: boolean; messageId: string }> {
     const bounced = input.to.endsWith("@bounce.test");
 
-    return {
+    return Promise.resolve({
       bounced,
       messageId: `smtp_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
-    };
+    });
   }
 }
 
 class MockSendgridAdapter implements EmailAdapter {
-  async send(input: EmailSendInput): Promise<{ bounced: boolean; messageId: string }> {
+  send(input: EmailSendInput): Promise<{ bounced: boolean; messageId: string }> {
     const bounced = input.to.endsWith("@bounce.test");
 
-    return {
+    return Promise.resolve({
       bounced,
       messageId: `sendgrid_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
-    };
+    });
   }
 }
 

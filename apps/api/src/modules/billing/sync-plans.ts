@@ -27,7 +27,7 @@ function parseLimitsMetadata(raw: string | undefined): Prisma.InputJsonValue {
   }
 
   try {
-    const parsed = JSON.parse(raw);
+    const parsed: unknown = JSON.parse(raw);
     if (typeof parsed === "object" && parsed && !Array.isArray(parsed)) {
       return parsed as Prisma.InputJsonValue;
     }

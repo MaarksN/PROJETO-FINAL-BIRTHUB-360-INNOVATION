@@ -4,7 +4,7 @@ O BirthHub 360 deve garantir alta disponibilidade de seus Agentes de Negócios B
 
 ## Regras e Níveis de Alerta
 
-Cada alerta será emitido com uma gravidade (Severity) vinculada diretamente a uma criticidade documentada: `P0 (Crítico)` ou `P1 (Atenção)`.
+Cada alerta deve ser emitido com gravidade (Severity) mapeada para a politica oficial de severidade `P0`, `P1`, `P2` ou `P3`, conforme `docs/operations/f0-sla-severity-policy.md` e `infra/monitoring/alert.rules.yml`.
 
 ### 1. API Gateway / Frontend
 

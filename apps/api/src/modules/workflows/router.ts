@@ -207,7 +207,7 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     "/api/v1/workflows/events/:topic",
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
-    asyncHandler(async (request, response) => {
+    asyncHandler((request, response) => {
       const tenantId = requireTenantId(request);
       const topic = String(request.params.topic ?? "");
 
@@ -222,6 +222,7 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
         requestId: request.context.requestId,
         topic
       });
+      return Promise.resolve();
     })
   );
 

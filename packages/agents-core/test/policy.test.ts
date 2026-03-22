@@ -18,8 +18,8 @@ class EchoTool extends BaseTool<{ value: string }, { value: string }> {
     );
   }
 
-  protected async execute(input: { value: string }): Promise<{ value: string }> {
-    return { value: input.value };
+  protected execute(input: { value: string }): Promise<{ value: string }> {
+    return Promise.resolve({ value: input.value });
   }
 }
 

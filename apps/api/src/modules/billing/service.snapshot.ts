@@ -212,7 +212,7 @@ function buildBillingSnapshot(input: {
     isPastDue && gracePeriodEndsAt
       ? Math.max(0, Math.floor((gracePeriodEndsAt.getTime() - Date.now()) / 1000))
       : null;
-  const isPaidStatuses = new Set([
+  const isPaidStatuses = new Set<SubscriptionStatus>([
     SubscriptionStatus.active,
     SubscriptionStatus.past_due,
     SubscriptionStatus.paused

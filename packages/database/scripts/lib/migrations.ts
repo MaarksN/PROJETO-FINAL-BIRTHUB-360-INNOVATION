@@ -64,7 +64,10 @@ export async function readMigrationRegistry(): Promise<Record<string, MigrationR
 }
 
 export function collectRlsEnabledTables(sql: string): string[] {
-  return Array.from(sql.matchAll(/ALTER TABLE "([^"]+)" ENABLE ROW LEVEL SECURITY;/g), (match) => match[1]);
+  return Array.from(
+    sql.matchAll(/ALTER TABLE "([^"]+)" ENABLE ROW LEVEL SECURITY;/g),
+    (match) => match[1]
+  ).filter((tableName): tableName is string => Boolean(tableName));
 }
 
 export function containsRlsDisable(sql: string): boolean {
@@ -75,14 +78,14 @@ export function collectCreatedViews(sql: string): string[] {
   return Array.from(
     sql.matchAll(/CREATE\s+(?:MATERIALIZED\s+)?VIEW\s+"?([A-Za-z0-9_]+)"?/gi),
     (match) => match[1]
-  );
+  ).filter((viewName): viewName is string => Boolean(viewName));
 }
 
 export function collectCreatedRoutines(sql: string): string[] {
   return Array.from(
     sql.matchAll(/CREATE\s+(?:OR\s+REPLACE\s+)?(?:FUNCTION|PROCEDURE)\s+"?([A-Za-z0-9_]+)"?/gi),
     (match) => match[1]
-  );
+  ).filter((routineName): routineName is string => Boolean(routineName));
 }
 
 export function collectRiskFlags(sql: string): string[] {

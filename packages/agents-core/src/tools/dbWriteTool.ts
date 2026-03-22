@@ -62,7 +62,7 @@ export class DbWriteTool extends BaseTool<DbWriteInput, DbWriteOutput> {
     );
 
     this.auditPublisher = options.auditPublisher;
-    this.executor = options.executor ?? (async () => 0);
+    this.executor = options.executor ?? (() => Promise.resolve(0));
   }
 
   protected async execute(input: DbWriteInput, context: ToolExecutionContext): Promise<DbWriteOutput> {

@@ -22,7 +22,7 @@ function readQueryString(value: unknown): string | undefined {
   }
 
   if (Array.isArray(value)) {
-    const first = value[0];
+    const first = (value as unknown[])[0];
     return typeof first === "string" ? first : undefined;
   }
 

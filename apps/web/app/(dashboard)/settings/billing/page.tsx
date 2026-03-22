@@ -174,8 +174,8 @@ function InvoiceAction({
   hostedInvoiceUrl,
   invoicePdfUrl
 }: {
-  hostedInvoiceUrl?: string | null;
-  invoicePdfUrl?: string | null;
+  hostedInvoiceUrl?: string | null | undefined;
+  invoicePdfUrl?: string | null | undefined;
 }) {
   if (invoicePdfUrl) {
     return (

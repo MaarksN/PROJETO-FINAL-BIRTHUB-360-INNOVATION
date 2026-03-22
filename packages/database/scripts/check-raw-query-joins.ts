@@ -8,7 +8,20 @@ type QueryJoinFinding = {
 };
 
 function shouldInspect(relativePath: string): boolean {
-  return !relativePath.startsWith("packages/database/prisma/migrations/");
+  if (relativePath.startsWith("packages/database/prisma/migrations/")) {
+    return false;
+  }
+
+  const inScopeRoot =
+    relativePath.startsWith("apps/api/") ||
+    relativePath.startsWith("packages/database/") ||
+    relativePath.startsWith("scripts/");
+
+  if (!inScopeRoot) {
+    return false;
+  }
+
+  return /\.(cjs|cts|js|mjs|mts|sql|ts)$/i.test(relativePath);
 }
 
 async function main(): Promise<void> {
@@ -18,7 +31,9 @@ async function main(): Promise<void> {
 
   for (const file of files) {
     const hasJoin = /\bJOIN\b/i.test(file.content);
-    const isRawSql = /\$(queryRaw|executeRaw)|prisma\.[A-Za-z0-9_]+\.findMany\(|SELECT\s+/i.test(file.content);
+    const hasPrismaRawCall = /\$(queryRaw|executeRaw)/i.test(file.content);
+    const hasSqlJoinPattern = /\bSELECT\b[\s\S]{0,600}\bFROM\b[\s\S]{0,600}\bJOIN\b/i.test(file.content);
+    const isRawSql = hasPrismaRawCall || hasSqlJoinPattern;
 
     if (!hasJoin || !isRawSql) {
       continue;

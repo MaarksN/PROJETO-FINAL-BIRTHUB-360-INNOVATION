@@ -68,9 +68,15 @@ async function main(): Promise<void> {
   const states: MigrationState[] = [];
 
   for (const environment of environmentNames) {
+    const databaseUrl = environmentUrls[environment];
+
+    if (!databaseUrl) {
+      continue;
+    }
+
     states.push({
       environment,
-      migrations: await readAppliedMigrations(environmentUrls[environment])
+      migrations: await readAppliedMigrations(databaseUrl)
     });
   }
 

@@ -14,17 +14,17 @@ function readSeedValue(data: Record<string, unknown>, key: string, fallback: str
 class InMemoryRedis {
   private readonly data = new Map<string, string>();
 
-  async get(key: string): Promise<string | null> {
-    return this.data.get(key) ?? null;
+  get(key: string): Promise<string | null> {
+    return Promise.resolve(this.data.get(key) ?? null);
   }
 
-  async set(key: string, value: string): Promise<"OK"> {
+  set(key: string, value: string): Promise<"OK"> {
     this.data.set(key, value);
-    return "OK";
+    return Promise.resolve("OK");
   }
 
-  async del(key: string): Promise<number> {
-    return this.data.delete(key) ? 1 : 0;
+  del(key: string): Promise<number> {
+    return Promise.resolve(this.data.delete(key) ? 1 : 0);
   }
 }
 
@@ -42,7 +42,7 @@ void test("runtime integration executes db-write and db-read with real database"
   });
 
   const dbWrite = new DbWriteTool({
-    auditPublisher: async () => undefined,
+    auditPublisher: () => Promise.resolve(undefined),
     executor: async ({ data }) => {
       const created = await handle.prisma.organization.create({
         data: {

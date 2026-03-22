@@ -47,13 +47,13 @@ void test("extractExecutionMode inspects output and metadata hints", () => {
       runtimeProvider: "manifest-runtime"
     },
     output: null
-  } as Parameters<typeof extractExecutionMode>[0];
+  } as unknown as Parameters<typeof extractExecutionMode>[0];
   const dryRunExecution = {
     metadata: {
       dryRun: true
     },
     output: null
-  } as Parameters<typeof extractExecutionMode>[0];
+  } as unknown as Parameters<typeof extractExecutionMode>[0];
 
   assert.equal(extractExecutionMode(liveExecution), "LIVE");
   assert.equal(extractExecutionMode(dryRunExecution), "DRY_RUN");

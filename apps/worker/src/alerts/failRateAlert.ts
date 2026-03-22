@@ -26,18 +26,20 @@ export interface FailRateNotifier {
 }
 
 export class NoopFailRateMetricsSource implements FailRateMetricsSource {
-  async listWindows(): Promise<FailRateWindow[]> {
-    return [];
+  listWindows(): Promise<FailRateWindow[]> {
+    return Promise.resolve([]);
   }
 }
 
 export class LoggingFailRateNotifier implements FailRateNotifier {
-  async sendEmail(alert: FailRateAlert): Promise<void> {
+  sendEmail(alert: FailRateAlert): Promise<void> {
     logger.warn({ alert }, "Fail-rate email alert dispatched");
+    return Promise.resolve();
   }
 
-  async sendInApp(alert: FailRateAlert): Promise<void> {
+  sendInApp(alert: FailRateAlert): Promise<void> {
     logger.warn({ alert }, "Fail-rate in-app alert dispatched");
+    return Promise.resolve();
   }
 }
 

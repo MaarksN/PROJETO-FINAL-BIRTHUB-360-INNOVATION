@@ -27,8 +27,9 @@ const agentCalls: Array<{
 }> = [];
 
 const fakeQueue = {
-  add: async (_name: string, payload: WorkflowExecutionJobPayload) => {
+  add: (_name: string, payload: WorkflowExecutionJobPayload) => {
     queuedJobs.push(payload);
+    return Promise.resolve();
   }
 } as {
   add: (name: string, payload: WorkflowExecutionJobPayload) => Promise<void>;
@@ -36,14 +37,14 @@ const fakeQueue = {
 
 const runner = new WorkflowRunner(fakeQueue as never, {
   agentExecutor: {
-    execute: async (input) => {
+    execute: (input) => {
       agentCalls.push(input);
 
-      return {
+      return Promise.resolve({
         agentId: input.agentId,
         reviewedCompany: input.input.company,
         reviewedTenantId: input.input.tenantId
-      };
+      });
     }
   }
 });

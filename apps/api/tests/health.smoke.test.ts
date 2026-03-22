@@ -11,7 +11,7 @@ void test("health endpoint returns 200 with database, redis and external status"
 
   const app = createApp({
     config,
-    healthService: async () => ({
+    healthService: () => Promise.resolve({
       checkedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
       services: {
         database: {
@@ -34,10 +34,19 @@ void test("health endpoint returns 200 with database, redis and external status"
 
   const response = await request(app).get("/api/v1/health").expect(200);
 
-  assert.equal(response.body.status, "ok");
-  assert.equal(response.body.services.database.status, "up");
-  assert.equal(response.body.services.redis.status, "up");
-  assert.equal(response.body.services.externalDependencies[0].status, "up");
+  const body = response.body as {
+    services: {
+      database: { status: string };
+      externalDependencies: Array<{ status: string }>;
+      redis: { status: string };
+    };
+    status: string;
+  };
+
+  assert.equal(body.status, "ok");
+  assert.equal(body.services.database.status, "up");
+  assert.equal(body.services.redis.status, "up");
+  assert.equal(body.services.externalDependencies[0]?.status, "up");
 });
 
 void test("health alias returns 200 for container probes", async () => {
@@ -45,7 +54,7 @@ void test("health alias returns 200 for container probes", async () => {
 
   const app = createApp({
     config,
-    healthService: async () => ({
+    healthService: () => Promise.resolve({
       checkedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
       services: {
         database: {
@@ -62,5 +71,6 @@ void test("health alias returns 200 for container probes", async () => {
   });
 
   const response = await request(app).get("/health").expect(200);
-  assert.equal(response.body.status, "ok");
+  const body = response.body as { status: string };
+  assert.equal(body.status, "ok");
 });

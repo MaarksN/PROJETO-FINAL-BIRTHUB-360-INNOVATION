@@ -6,7 +6,7 @@ import { prisma } from "@birthub/database";
 import { getBillingSnapshot } from "../src/modules/billing/service.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -15,7 +15,7 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 
 void test("billing snapshot includes downgrade/proration credit balance", async () => {
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async () => ({
+    stubMethod(prisma.organization, "findFirst", () => Promise.resolve({
       id: "org_alpha",
       plan: {
         code: "professional",
@@ -51,7 +51,7 @@ void test("billing snapshot includes downgrade/proration credit balance", async 
       ],
       tenantId: "tenant_alpha"
     })),
-    stubMethod(prisma.billingCredit, "aggregate", async () => ({
+    stubMethod(prisma.billingCredit, "aggregate", () => Promise.resolve({
       _sum: {
         amountCents: 4200
       }

@@ -13,7 +13,7 @@ import { createStripeWebhookRouter } from "../src/modules/webhooks/stripe.router
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -110,11 +110,11 @@ void test("customer.subscription.updated creates one proration credit for a down
     secret: config.STRIPE_WEBHOOK_SECRET
   });
   const restores = [
-    stubMethod(prisma.billingEvent, "findUnique", async (args: { where?: { stripeEventId?: string } }) => {
+    stubMethod(prisma.billingEvent, "findUnique", (args: { where?: { stripeEventId?: string } }) => {
       const eventId = args.where?.stripeEventId ?? "";
-      return billingEvents.get(eventId) ?? null;
+      return Promise.resolve(billingEvents.get(eventId) ?? null);
     }),
-    stubMethod(prisma.billingEvent, "create", async (args: { data?: Record<string, unknown> }) => {
+    stubMethod(prisma.billingEvent, "create", (args: { data?: Record<string, unknown> }) => {
       const eventId = stringValue(args.data?.stripeEventId, "evt_unknown");
       const record = {
         attemptCount: 0,
@@ -123,12 +123,12 @@ void test("customer.subscription.updated creates one proration credit for a down
         ...args.data
       };
       billingEvents.set(eventId, record);
-      return record;
+      return Promise.resolve(record);
     }),
     stubMethod(
       prisma.billingEvent,
       "update",
-      async (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
+      (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
         const eventId = args.where?.stripeEventId ?? "";
         const current: Record<string, unknown> = billingEvents.get(eventId) ?? {
           attemptCount: 0,
@@ -137,47 +137,47 @@ void test("customer.subscription.updated creates one proration credit for a down
         };
         const next = applyUpdateData(current, args.data ?? {});
         billingEvents.set(eventId, next);
-        return next;
+        return Promise.resolve(next);
       }
     ),
     stubMethod(
       prisma,
       "$transaction",
-      async <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
+      <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
     ),
-    stubMethod(prisma.organization, "findFirst", async () => ({
+    stubMethod(prisma.organization, "findFirst", () => Promise.resolve({
       id: "org_alpha",
       planId: "plan_starter",
       stripeCustomerId: "cus_alpha",
       tenantId: "tenant_alpha"
     })),
-    stubMethod(prisma.organization, "findUnique", async () => ({
+    stubMethod(prisma.organization, "findUnique", () => Promise.resolve({
       id: "org_alpha",
       tenantId: "tenant_alpha"
     })),
-    stubMethod(prisma.organization, "update", async () => ({
+    stubMethod(prisma.organization, "update", () => Promise.resolve({
       id: "org_alpha"
     })),
-    stubMethod(prisma.plan, "findFirst", async () => ({
+    stubMethod(prisma.plan, "findFirst", () => Promise.resolve({
       currency: "usd",
       id: "plan_starter",
       stripePriceId: "price_starter_monthly"
     })),
-    stubMethod(prisma.subscription, "upsert", async () => ({
+    stubMethod(prisma.subscription, "upsert", () => Promise.resolve({
       id: "sub_local_1",
       status: "active",
       tenantId: "tenant_alpha"
     })),
-    stubMethod(prisma.subscription, "updateMany", async () => ({
+    stubMethod(prisma.subscription, "updateMany", () => Promise.resolve({
       count: 1
     })),
-    stubMethod(prisma.billingCredit, "create", async (args: { data?: { amountCents?: number; stripeEventId?: string } }) => {
+    stubMethod(prisma.billingCredit, "create", (args: { data?: { amountCents?: number; stripeEventId?: string } }) => {
       billingCreditCreates.push({
         amountCents: args.data?.amountCents ?? 0,
         stripeEventId: args.data?.stripeEventId ?? ""
       });
 
-      return { id: "credit_1" };
+      return Promise.resolve({ id: "credit_1" });
     })
   ];
 

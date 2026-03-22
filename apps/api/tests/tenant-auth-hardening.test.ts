@@ -9,7 +9,7 @@ import { sha256 } from "../src/modules/auth/crypto.js";
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -33,63 +33,63 @@ function createSessionStubs(options?: {
   };
 
   return [
-    stubMethod(prisma.session, "findUnique", async (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256(token)) {
-        return null;
+        return Promise.resolve(null);
       }
 
-      return {
+      return Promise.resolve({
         expiresAt: new Date(Date.now() + 60_000),
         id: "session_1",
         organizationId: "org_1",
         tenantId: "tenant_1",
         revokedAt: null,
         userId: "user_1"
-      };
+      });
     }),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_1" })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" })),
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
-    stubMethod(prisma.organization, "findFirst", async (args: { where?: { OR?: Array<Record<string, string>> } }) => {
+    stubMethod(prisma.organization, "findFirst", (args: { where?: { OR?: Array<Record<string, string>> } }) => {
       const references = args.where?.OR ?? [];
       const values = references.flatMap((entry) => Object.values(entry));
 
       if (values.includes("org_1") || values.includes("tenant_1") || values.includes("tenant-one")) {
-        return {
+        return Promise.resolve({
           id: "org_1",
           slug: "tenant-one",
           tenantId: "tenant_1"
-        };
+        });
       }
 
       if (values.includes("org_2") || values.includes("tenant_2") || values.includes("tenant-two")) {
-        return {
+        return Promise.resolve({
           id: "org_2",
           slug: "tenant-two",
           tenantId: "tenant_2"
-        };
+        });
       }
 
-      return null;
+      return Promise.resolve(null);
     }),
-    stubMethod(prisma.membership, "findUnique", async (args: {
+    stubMethod(prisma.membership, "findUnique", (args: {
       where?: { organizationId_userId?: { organizationId?: string; userId?: string } };
     }) => {
       const organizationId = args.where?.organizationId_userId?.organizationId;
       const role = organizationId ? memberships[organizationId] : null;
 
       if (!organizationId || !role) {
-        return null;
+        return Promise.resolve(null);
       }
 
-      return {
+      return Promise.resolve({
         organizationId,
         role,
         status: MembershipStatus.ACTIVE,
         userId: "user_1"
-      };
+      });
     })
   ];
 }
@@ -114,7 +114,7 @@ void test("tasks reject anonymous and header-only requests", async () => {
 });
 
 void test("workflows reject header spoofing and forged bearer tokens", async () => {
-  const restore = stubMethod(prisma.session, "findUnique", async () => null);
+  const restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve(null));
 
   try {
     const app = createSecurityApp();
@@ -166,7 +166,7 @@ void test("authenticated tenant switch succeeds when membership is valid", async
         org_2: Role.ADMIN
       }
     }),
-    stubMethod(prisma.workflow, "findMany", async () => [])
+    stubMethod(prisma.workflow, "findMany", () => Promise.resolve([]))
   ];
 
   try {
@@ -178,7 +178,8 @@ void test("authenticated tenant switch succeeds when membership is valid", async
       .set("x-active-tenant", "tenant_2")
       .expect(200);
 
-    assert.deepEqual(response.body.items, []);
+    const body = response.body as { items: unknown[] };
+    assert.deepEqual(body.items, []);
   } finally {
     for (const restore of restores.reverse()) {
       restore();

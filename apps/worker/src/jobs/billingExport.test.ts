@@ -14,7 +14,7 @@ import {
 import { LocalBillingExportStorage } from "./billingExportStorage.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -31,7 +31,7 @@ void test("billing export window targets the previous UTC day", () => {
 
 void test("billing export groups invoices by organization and uploads deterministic JSON", async () => {
   const uploads: Array<{ body: string; key: string }> = [];
-  const restoreInvoices = stubMethod(prisma.invoice, "findMany", async () => [
+  const restoreInvoices = stubMethod(prisma.invoice, "findMany", () => Promise.resolve([
     {
       amountDueCents: 14900,
       amountPaidCents: 14900,
@@ -84,20 +84,20 @@ void test("billing export groups invoices by organization and uploads determinis
         status: "active"
       }
     }
-  ]);
+  ]));
 
   try {
     const result = await exportDailyBillingInvoices(new Date("2026-03-15T02:15:00.000Z"), {
       storage: {
-        uploadJson: async (input) => {
+        uploadJson: (input) => {
           uploads.push({
             body: input.body,
             key: input.key
           });
 
-          return {
+          return Promise.resolve({
             storageUrl: `mock://${input.key}`
-          };
+          });
         }
       }
     });

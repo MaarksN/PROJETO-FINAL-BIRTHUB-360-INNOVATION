@@ -52,13 +52,13 @@ void test("Workflow runner executes HTTP_REQUEST with MSW intercepting external 
   );
 
   (prisma.workflowExecution.findUnique as unknown as (args: unknown) => Promise<unknown>) =
-    async () => ({
+    () => Promise.resolve({
       depth: 0,
       id: "exec_http",
       startedAt: new Date("2026-03-13T12:00:00.000Z"),
       status: WorkflowExecutionStatus.RUNNING
     });
-  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = async () => ({
+  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve({
     id: "wf_http",
     maxDepth: 10,
     steps: [
@@ -105,23 +105,24 @@ void test("Workflow runner executes HTTP_REQUEST with MSW intercepting external 
       }
     ]
   });
-  (prisma.stepResult.findMany as unknown as (args: unknown) => Promise<unknown>) = async () => [];
+  (prisma.stepResult.findMany as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve([]);
   (prisma.stepResult.create as unknown as (args: { data: Record<string, unknown> }) => Promise<unknown>) =
-    async (args) => {
+    (args) => {
       createdResults.push(args.data);
-      return args.data;
+      return Promise.resolve(args.data);
     };
   (prisma.workflowExecution.update as unknown as (args: { data: Record<string, unknown> }) => Promise<unknown>) =
-    async (args) => args.data;
+    (args) => Promise.resolve(args.data);
 
   try {
     const fakeQueue = {
-      add: async (name: string, payload: Record<string, unknown>, options?: Record<string, unknown>) => {
+      add: (name: string, payload: Record<string, unknown>, options?: Record<string, unknown>) => {
         queuedJobs.push({
           name,
           payload,
           ...(options ? { options } : {})
         });
+        return Promise.resolve();
       }
     } as unknown as Queue<WorkflowExecutionJobPayload>;
     const runner = new WorkflowRunner(fakeQueue);

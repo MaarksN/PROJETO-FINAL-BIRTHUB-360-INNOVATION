@@ -10,7 +10,7 @@ import { sha256 } from "../src/modules/auth/crypto.js";
 import { budgetService } from "../src/modules/budget/budget.service.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -20,30 +20,30 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 void test("security sanitizes XSS payloads before queueing tasks", async () => {
   let queuedDescription: string | null = null;
   const restores = [
-    stubMethod(prisma.session, "findUnique", async (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256("atk_member")) {
-        return null;
+        return Promise.resolve(null);
       }
 
-      return {
+      return Promise.resolve({
         expiresAt: new Date(Date.now() + 60_000),
         id: "session_1",
         organizationId: "org_1",
         tenantId: "tenant_1",
         revokedAt: null,
         userId: "user_1"
-      };
+      });
     }),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_1" })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" })),
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
-    stubMethod(prisma.jobSigningSecret, "findUnique", async () => ({
+    stubMethod(prisma.jobSigningSecret, "findUnique", () => Promise.resolve({
       organizationId: "org_1",
       secret: "tenant-secret"
     })),
-    stubMethod(budgetService, "consumeBudget", async () => ({
+    stubMethod(budgetService, "consumeBudget", () => Promise.resolve({
       agentId: "ceo-pack",
       consumed: 0,
       currency: "BRL",
@@ -57,7 +57,7 @@ void test("security sanitizes XSS payloads before queueing tasks", async () => {
   try {
     const app = createApp({
       config: createTestApiConfig(),
-      enqueueTask: async (_config, payload) => {
+      enqueueTask: (_config, payload) => {
         if (
           payload &&
           typeof payload === "object" &&
@@ -69,7 +69,7 @@ void test("security sanitizes XSS payloads before queueing tasks", async () => {
         ) {
           queuedDescription = payload.payload.description;
         }
-        return { jobId: "job_1" };
+        return Promise.resolve({ jobId: "job_1" });
       },
       shouldExposeDocs: false
     });

@@ -96,7 +96,7 @@
         </article>
         <article class="box">
           <div class="label">Comandos Auditados</div>
-          <div class="value">`monorepo:doctor`, `release:scorecard`, `workspace:audit`, `docs:links`, `lint:core`, `db:check:governance`, `security:guards`</div>
+          <div class="value">`monorepo:doctor`, `release:scorecard`, `workspace:audit`, `docs:links`, `lint:core`, `typecheck:core`, `build:core`, `test:core`, `db:check:governance`, `security:guards`</div>
         </article>
         <article class="box">
           <div class="label">Leitura</div>
@@ -113,18 +113,18 @@
       </article>
       <article class="box yellow">
         <div class="label">Fases Amarelas</div>
-        <div class="big">9</div>
-        <div class="small">F0, F1, F2, F3, F5, F6, F7, F9, F10</div>
+        <div class="big">10</div>
+        <div class="small">F0, F1, F2, F3, F5, F6, F7, F9, F10, F11</div>
       </article>
-      <article class="box red">
+      <article class="box">
         <div class="label">Fases Vermelhas</div>
-        <div class="big">1</div>
-        <div class="small">F11</div>
+        <div class="big">0</div>
+        <div class="small">Nenhuma</div>
       </article>
       <article class="box">
         <div class="label">Sinal Geral</div>
         <div class="big">Parcial</div>
-        <div class="small">A trilha canônica evoluiu forte, mas o repositório ainda não fecha F11</div>
+        <div class="small">A trilha canônica do core fechou; faltam validações operacionais e sign-offs para encerrar F11</div>
       </article>
     </section>
 
@@ -165,9 +165,27 @@
           </tr>
           <tr>
             <td>`corepack pnpm lint:core`</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td>Falha agora concentrada em hotspots reais do `apps/api`.</td>
-            <td>Bloqueia F3/F11 com debt estrutural remanescente no backend.</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Passou após modularização dos hotspots que quebravam a trilha canônica.</td>
+            <td>Remove o último bloqueio técnico do core para F11.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm typecheck:core`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Passou após ajustes de tipagem no `apps/api`, `apps/worker`, `packages/logger` e `packages/database`.</td>
+            <td>Confirma compatibilidade estrutural do core.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm build:core`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Build canônico concluído sem falhas.</td>
+            <td>Libera validação de empacotamento do núcleo.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm test:core`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Passou após endurecer a validação de webhook settings contra alvos loopback.</td>
+            <td>Fecha a esteira técnica principal com cobertura executada.</td>
           </tr>
           <tr>
             <td>`corepack pnpm --filter @birthub/database db:check:governance`</td>
@@ -207,14 +225,14 @@
             <td><strong>F0</strong><br>Governança, Ownership e Baseline</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>Matriz de ownership publicada.</li><li>Política de SLA por severidade publicada.</li><li>Artefatos F0 presentes.</li></ul></td>
-            <td><ul><li>Baseline melhorou bastante, mas `lint:core` e typecheck ainda impedem fechamento integral.</li></ul></td>
+            <td><ul><li>Baseline técnica do core fechou, mas a trilha de release ainda depende de evidências operacionais e assinaturas finais.</li></ul></td>
             <td><a href="../docs/operations/f0-ownership-matrix.md">ownership</a><br><a href="../docs/operations/f0-sla-severity-policy.md">sla</a><br><a href="../CODEOWNERS">CODEOWNERS</a></td>
           </tr>
           <tr>
             <td><strong>F1</strong><br>Pipeline e Gates</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>CI e settings foram reconciliados.</li><li>`.python-version` foi criado.</li><li>Guardrails de branch, commits, links e hygiene foram integrados.</li></ul></td>
-            <td><ul><li>Falta validar a pipeline completa em branch com os gates novos.</li><li>`lint:core` ainda falha por hotspots do `apps/api`.</li></ul></td>
+            <td><ul><li>Falta validar a pipeline completa em branch/repositório remoto com os gates reconciliados.</li></ul></td>
             <td><a href="../.github/workflows/ci.yml">ci.yml</a><br><a href="../.github/settings.yml">settings.yml</a><br><a href="../.nvmrc">.nvmrc</a></td>
           </tr>
           <tr>
@@ -228,7 +246,7 @@
             <td><strong>F3</strong><br>Hotspots</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>O seed monolítico do database foi modularizado.</li><li>Hotspots do `apps/web` que quebravam lint foram reduzidos.</li></ul></td>
-            <td><ul><li>`apps/api/src/modules/billing/service.reconciliation.ts` segue com 833 linhas.</li><li>`service.snapshot.ts`, `connectors/service.ts` e `stripe.router.ts` ainda seguram o `lint:core`.</li></ul></td>
+            <td><ul><li>`apps/api/src/modules/billing/service.reconciliation.ts` segue grande e merece modularização adicional.</li><li>`service.snapshot.ts`, `connectors/service.ts` e `stripe.router.ts` deixaram de bloquear `lint:core`, mas continuam candidatos a simplificação.</li></ul></td>
             <td><a href="../docs/adrs/ADR-035-f3-hotspot-modularization.md">ADR-035</a><br><a href="../apps/api/src/modules/billing/service.reconciliation.ts">service.reconciliation.ts</a></td>
           </tr>
           <tr>
@@ -242,14 +260,14 @@
             <td><strong>F5</strong><br>Testes e Cobertura</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>Suites unit, integration, isolation, e2e e load existem.</li><li>Scripts de traceabilidade existem.</li></ul></td>
-            <td><ul><li>Traceabilidade não foi revalidada nesta sessão.</li><li>Fechamento final segue parcial.</li></ul></td>
+            <td><ul><li>`test:core` fechou verde.</li><li>Traceabilidade e evidências auxiliares ainda não foram regeneradas nesta sessão.</li></ul></td>
             <td><a href="../docs/testing/F5_TRACEABILITY.md">F5 traceability</a><br><a href="../tests/e2e/release-master.spec.ts">E2E release</a></td>
           </tr>
           <tr>
             <td><strong>F6</strong><br>Segurança e Compliance</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>Workflow de segurança é robusto.</li><li>`security:guards` passou.</li><li>LGPD/RLS/posture docs existem.</li></ul></td>
-            <td><ul><li>Sign-off final continua manual.</li><li>O gate completo ainda depende do fechamento de lint/typecheck do core.</li></ul></td>
+            <td><ul><li>Sign-off final continua manual.</li><li>Os gates técnicos do core fecharam, mas evidência operacional e aprovação humana seguem pendentes.</li></ul></td>
             <td><a href="../.github/workflows/security-scan.yml">security-scan</a><br><a href="../docs/security/posture_report.md">posture report</a></td>
           </tr>
           <tr>
@@ -282,9 +300,9 @@
           </tr>
           <tr>
             <td><strong>F11</strong><br>Validação Final</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td><ul><li>`monorepo:doctor`, `release:scorecard`, `workspace:audit`, `docs:links`, `hygiene:check`, `db:check:governance` e `security:guards` estão verdes.</li></ul></td>
-            <td><ul><li>`lint:core` continua vermelho por debt estrutural em `apps/api`.</li><li>PRR, on-call, status page e assinaturas finais seguem pendentes.</li></ul></td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>`monorepo:doctor`, `release:scorecard`, `workspace:audit`, `docs:links`, `hygiene:check`, `db:check:governance`, `security:guards`, `lint:core`, `typecheck:core`, `build:core` e `test:core` estão verdes.</li></ul></td>
+            <td><ul><li>PRR, on-call, status page, incident drill e assinaturas finais seguem pendentes.</li><li>F11 deixou de ter bloqueio técnico do core, mas ainda não tem fechamento operacional completo.</li></ul></td>
             <td><a href="../docs/release/f11-final-validation-2026-03-22.md">F11 validation</a><br><a href="../.github/workflows/ci.yml">ci.yml</a></td>
           </tr>
         </tbody>
@@ -292,18 +310,18 @@
     </section>
 
     <section class="issues">
-      <article class="box red">
+      <article class="box yellow">
         <h2 class="section-title">Achado Crítico 1</h2>
         <ul>
-          <li>`lint:core` agora falha por 7 erros reais concentrados em `apps/api`.</li>
-          <li>Os piores pontos estão em billing, connectors, webhooks e `tests/auth.test.ts`.</li>
+          <li>F11 deixou de ter bloqueio técnico no core.</li>
+          <li>O fechamento agora depende de evidência operacional live e aprovações humanas.</li>
         </ul>
       </article>
-      <article class="box red">
+      <article class="box yellow">
         <h2 class="section-title">Achado Crítico 2</h2>
         <ul>
-          <li>F11 segue aberto mesmo após a recuperação de F1/F4/F9.</li>
-          <li>Falta fechar lint do core e concluir as validações operacionais finais.</li>
+          <li>A pipeline reconciliada ainda precisa ser demonstrada ponta a ponta em branch/remoto.</li>
+          <li>Esse ponto mantém F1 e F11 em amarelo.</li>
         </ul>
       </article>
       <article class="box yellow">
@@ -317,19 +335,15 @@
         <h2 class="section-title">Achado Relevante</h2>
         <ul>
           <li>A higiene estrutural voltou a passar.</li>
-          <li>Resta resolver naming duplicado em `agents/` para fechar F9 de forma mais sólida.</li>
+          <li>Resta resolver naming duplicado em `agents/` e reduzir hotspots residuais para fechar F9/F3 de forma mais sólida.</li>
         </ul>
       </article>
     </section>
 
     <section class="next">
-      <article class="box red">
-        <div class="label">P0</div>
-        <div class="value">Quebrar hotspots de lint do `apps/api` em billing, connectors, webhooks e auth tests</div>
-      </article>
       <article class="box yellow">
-        <div class="label">P1</div>
-        <div class="value">Expandir o OpenAPI canônico para cobrir a maior parte dos 22 módulos da API</div>
+        <div class="label">P0</div>
+        <div class="value">Executar PRR, validar on-call/status page e capturar os sign-offs humanos que faltam para F11</div>
       </article>
       <article class="box yellow">
         <div class="label">P1</div>
@@ -337,15 +351,19 @@
       </article>
       <article class="box yellow">
         <div class="label">P1</div>
+        <div class="value">Expandir o OpenAPI canônico para cobrir a maior parte dos 22 módulos da API</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">P1</div>
         <div class="value">Normalizar naming duplicado em `agents/` e concluir o sunset do legado residual</div>
       </article>
       <article class="box yellow">
         <div class="label">P2</div>
-        <div class="value">Atacar os warnings antigos de lint e typecheck que ainda não bloqueiam o fluxo principal</div>
+        <div class="value">Atacar os warnings e hotspots residuais que já não bloqueiam o fluxo principal</div>
       </article>
       <article class="box yellow">
         <div class="label">P2</div>
-        <div class="value">Concluir PRR, on-call, status page e sign-offs para fechar F11</div>
+        <div class="value">Regenerar evidências auxiliares de traceability e manter o pacote documental sincronizado com os gates verdes</div>
       </article>
     </section>
   </main>

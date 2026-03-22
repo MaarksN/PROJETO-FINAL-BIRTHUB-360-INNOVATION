@@ -32,7 +32,8 @@ function splitFieldList(rawList: string): string[] {
     .map((item) => {
       const match = item.match(/^([A-Za-z0-9_]+)/);
       return match ? match[1] : item;
-    });
+    })
+    .filter((item): item is string => Boolean(item));
 }
 
 function parseModelLevelFields(rawBlock: string, attribute: "@@id" | "@@index" | "@@unique"): string[][] {
@@ -40,7 +41,13 @@ function parseModelLevelFields(rawBlock: string, attribute: "@@id" | "@@index" |
   const fields: string[][] = [];
 
   for (const match of rawBlock.matchAll(expression)) {
-    fields.push(splitFieldList(match[1]));
+    const fieldList = match[1];
+
+    if (!fieldList) {
+      continue;
+    }
+
+    fields.push(splitFieldList(fieldList));
   }
 
   return fields;
@@ -48,7 +55,10 @@ function parseModelLevelFields(rawBlock: string, attribute: "@@id" | "@@index" |
 
 export async function parsePrismaSchema(): Promise<ParsedModel[]> {
   const schema = await readFile(schemaPath, "utf8");
-  const modelNames = Array.from(schema.matchAll(/^model\s+(\w+)\s+\{/gm), (match) => match[1]);
+  const modelNames = Array.from(
+    schema.matchAll(/^model\s+(\w+)\s+\{/gm),
+    (match) => match[1]
+  ).filter((modelName): modelName is string => Boolean(modelName));
   const modelNameSet = new Set(modelNames);
   const models: ParsedModel[] = [];
   const modelExpression = /^model\s+(\w+)\s+\{([\s\S]*?)^\}/gm;
@@ -56,6 +66,11 @@ export async function parsePrismaSchema(): Promise<ParsedModel[]> {
   for (const match of schema.matchAll(modelExpression)) {
     const name = match[1];
     const raw = match[2];
+
+    if (!name || raw === undefined) {
+      continue;
+    }
+
     const mappedNameMatch = raw.match(/@@map\("([^"]+)"\)/);
     const mappedName = mappedNameMatch?.[1] ?? name;
     const fields: ParsedField[] = [];
@@ -73,10 +88,18 @@ export async function parsePrismaSchema(): Promise<ParsedModel[]> {
         continue;
       }
 
-      const [, fieldName, rawType, attributes] = fieldMatch;
+      const fieldName = fieldMatch[1];
+      const rawType = fieldMatch[2];
+      const attributes = fieldMatch[3] ?? "";
+
+      if (!fieldName || !rawType) {
+        continue;
+      }
+
       const normalizedType = rawType.replace(/\?$/, "").replace(/\[\]$/, "");
       const mappedFieldMatch = attributes.match(/@map\("([^"]+)"\)/);
       const relationFieldsMatch = attributes.match(/@relation\((?:[^)]*?)fields:\s*\[([^\]]+)\]/);
+      const relationFieldsRaw = relationFieldsMatch?.[1];
 
       fields.push({
         attributes,
@@ -86,7 +109,7 @@ export async function parsePrismaSchema(): Promise<ParsedModel[]> {
         mappedName: mappedFieldMatch?.[1] ?? fieldName,
         name: fieldName,
         raw: line,
-        relationFields: relationFieldsMatch ? splitFieldList(relationFieldsMatch[1]) : [],
+        relationFields: relationFieldsRaw ? splitFieldList(relationFieldsRaw) : [],
         type: normalizedType
       });
     }
@@ -120,11 +143,23 @@ export function hasIndexCoverage(model: ParsedModel, fields: string[]): boolean 
   }
 
   const candidateIndexes = [...model.indexes, ...model.uniques, model.primaryKey];
-  return candidateIndexes.some((indexFields) => {
-    if (indexFields.length < fields.length) {
+  const matchesPrefix = (indexFields: string[], expected: string[]): boolean => {
+    if (indexFields.length < expected.length) {
       return false;
     }
 
-    return fields.every((field, index) => indexFields[index] === field);
+    return expected.every((field, index) => indexFields[index] === field);
+  };
+
+  return candidateIndexes.some((indexFields) => {
+    if (matchesPrefix(indexFields, fields)) {
+      return true;
+    }
+
+    if (model.fields.some((field) => field.name === "tenantId")) {
+      return matchesPrefix(indexFields, ["tenantId", ...fields]);
+    }
+
+    return false;
   });
 }

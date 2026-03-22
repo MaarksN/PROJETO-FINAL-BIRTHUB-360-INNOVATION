@@ -13,7 +13,7 @@ import { createStripeWebhookRouter } from "../src/modules/webhooks/stripe.router
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -50,11 +50,11 @@ function createBillingEventStubs() {
   return {
     get: (eventId: string) => events.get(eventId) ?? null,
     restores: [
-      stubMethod(prisma.billingEvent, "findUnique", async (args: { where?: { stripeEventId?: string } }) => {
+      stubMethod(prisma.billingEvent, "findUnique", (args: { where?: { stripeEventId?: string } }) => {
         const eventId = args.where?.stripeEventId ?? "";
-        return events.get(eventId) ?? null;
+        return Promise.resolve(events.get(eventId) ?? null);
       }),
-      stubMethod(prisma.billingEvent, "create", async (args: { data?: Record<string, unknown> }) => {
+      stubMethod(prisma.billingEvent, "create", (args: { data?: Record<string, unknown> }) => {
         const eventId = stringValue(args.data?.stripeEventId, "evt_unknown");
         const record = {
           attemptCount: 0,
@@ -63,12 +63,12 @@ function createBillingEventStubs() {
           ...args.data
         };
         events.set(eventId, record);
-        return record;
+        return Promise.resolve(record);
       }),
       stubMethod(
         prisma.billingEvent,
         "update",
-        async (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
+        (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
           const eventId = args.where?.stripeEventId ?? "";
           const current: Record<string, unknown> = events.get(eventId) ?? {
             attemptCount: 0,
@@ -77,13 +77,13 @@ function createBillingEventStubs() {
           };
           const next = applyUpdateData(current, args.data ?? {});
           events.set(eventId, next);
-          return next;
+          return Promise.resolve(next);
         }
       ),
       stubMethod(
         prisma,
         "$transaction",
-        async <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
+        <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
       )
     ]
   };
@@ -148,7 +148,8 @@ void test("stripe webhook accepts valid signature and records billing event stat
       .send(payload)
       .expect(200);
 
-    assert.equal(response.body.received, true);
+    const body = response.body as { received: boolean };
+    assert.equal(body.received, true);
     assert.equal(
       billingEvents.get("evt_valid_signature")?.status,
       BillingEventStatus.processed

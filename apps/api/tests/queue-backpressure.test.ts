@@ -11,7 +11,7 @@ import { budgetService } from "../src/modules/budget/budget.service.js";
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -20,26 +20,26 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 
 void test("tasks endpoint returns 503 when queue backpressure threshold is reached", async () => {
   const restores = [
-    stubMethod(prisma.session, "findUnique", async (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256("atk_member")) {
-        return null;
+        return Promise.resolve(null);
       }
 
-      return {
+      return Promise.resolve({
         expiresAt: new Date(Date.now() + 60_000),
         id: "session_1",
         organizationId: "org_1",
         tenantId: "tenant_1",
         revokedAt: null,
         userId: "user_1"
-      };
+      });
     }),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_1" })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" })),
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
-    stubMethod(budgetService, "consumeBudget", async () => ({
+    stubMethod(budgetService, "consumeBudget", () => Promise.resolve({
       agentId: "ceo-pack",
       consumed: 0.5,
       currency: "BRL",
@@ -51,13 +51,11 @@ void test("tasks endpoint returns 503 when queue backpressure threshold is reach
   ];
 
   try {
-  const app = createApp({
-    config: createTestApiConfig(),
-    enqueueTask: async () => {
-      throw new QueueBackpressureError(10_000, 10_000);
-    },
-    shouldExposeDocs: false
-  });
+    const app = createApp({
+      config: createTestApiConfig(),
+      enqueueTask: () => Promise.reject(new QueueBackpressureError(10_000, 10_000)),
+      shouldExposeDocs: false
+    });
 
     const response = await request(app)
       .post("/api/v1/tasks")
@@ -74,7 +72,8 @@ void test("tasks endpoint returns 503 when queue backpressure threshold is reach
       });
 
     assert.equal(response.status, 503);
-    assert.equal(response.body.title, "Service Unavailable");
+    const body = response.body as { title: string };
+    assert.equal(body.title, "Service Unavailable");
   } finally {
     for (const restore of restores.reverse()) {
       restore();

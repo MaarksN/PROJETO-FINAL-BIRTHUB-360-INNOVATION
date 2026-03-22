@@ -119,13 +119,6 @@ export function validateExternalUrl(
   const hostname = normalizeHostname(parsed.hostname);
   const localDevelopmentUrl = allowLocalDevelopmentUrls && isLocalDevelopmentHost(hostname);
 
-  if (requireHttps && parsed.protocol !== "https:" && !localDevelopmentUrl) {
-    return {
-      ok: false,
-      reason: "HTTPS is required for external URLs."
-    };
-  }
-
   if (!localDevelopmentUrl && isInternalHostname(hostname)) {
     return {
       ok: false,
@@ -145,6 +138,13 @@ export function validateExternalUrl(
     return {
       ok: false,
       reason: "Private, loopback or link-local IPv6 addresses are not allowed."
+    };
+  }
+
+  if (requireHttps && parsed.protocol !== "https:" && !localDevelopmentUrl) {
+    return {
+      ok: false,
+      reason: "HTTPS is required for external URLs."
     };
   }
 

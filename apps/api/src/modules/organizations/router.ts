@@ -114,6 +114,7 @@ export function createOrganizationsRouter(): Router {
         requireActor: true,
         resolveEntityId: (request) => readTrimmedString(request.params.memberId)
       })(async (request, response) => {
+        const body = request.body as { role: Role };
         const tenantId = requireTenantId(request.context.tenantId);
         const memberId = requireStringValue(request.params.memberId, "A valid member id is required.");
         const organizationId = requireStringValue(
@@ -123,7 +124,7 @@ export function createOrganizationsRouter(): Router {
         const membership = await updateMemberRole({
           memberId,
           organizationId,
-          role: request.body.role,
+          role: body.role,
           tenantId
         });
 

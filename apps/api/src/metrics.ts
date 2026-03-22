@@ -115,7 +115,7 @@ async function refreshBusinessMetrics(): Promise<void> {
     }),
     prisma.invoice.count({
       where: {
-        status: "PAID"
+        status: "paid"
       }
     })
   ]);

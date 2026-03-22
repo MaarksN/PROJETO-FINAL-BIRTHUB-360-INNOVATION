@@ -135,7 +135,7 @@ export class HttpTool extends BaseTool<HttpToolInput, HttpToolOutput> {
         });
 
         const contentType = response.headers.get("content-type") ?? "";
-        const responseBody =
+        const responseBody: unknown =
           contentType.includes("application/json") ? await response.json() : await response.text();
         const responseHeaders: Record<string, string> = {};
         response.headers.forEach((value, key) => {

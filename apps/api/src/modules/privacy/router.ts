@@ -49,9 +49,10 @@ export function createPrivacyRouter(config: ApiConfig): Router {
     requireAuthenticatedSession,
     validateBody(privacyDeleteRequestSchema),
     asyncHandler(async (request, response) => {
+      const body = request.body as { confirmationText: string };
       const result = await deleteAccountAndPersonalData({
         config,
-        confirmationText: request.body.confirmationText,
+        confirmationText: body.confirmationText,
         organizationReference: request.context.organizationId!,
         userId: request.context.userId!
       });

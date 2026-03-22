@@ -9,7 +9,7 @@ import { sha256 } from "../src/modules/auth/crypto.js";
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -18,26 +18,26 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 
 function createAuthenticatedAdminStubs() {
   return [
-    stubMethod(prisma.session, "findUnique", async (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256("atk_admin")) {
-        return null;
+        return Promise.resolve(null);
       }
 
-      return {
+      return Promise.resolve({
         expiresAt: new Date(Date.now() + 60_000),
         id: "session_1",
         organizationId: "org_1",
         tenantId: "tenant_1",
         revokedAt: null,
         userId: "user_1"
-      };
+      });
     }),
-    stubMethod(prisma.session, "update", async () => ({ id: "session_1" })),
-    stubMethod(prisma.user, "findUnique", async () => ({
+    stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" })),
+    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
-    stubMethod(prisma.membership, "findUnique", async () => ({
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
       organizationId: "org_1",
       role: Role.ADMIN,
       status: MembershipStatus.ACTIVE,
@@ -66,7 +66,8 @@ void test("webhook settings reject loopback targets", async () => {
       })
       .expect(400);
 
-    assert.match(String(response.body.detail ?? ""), /not allowed|invalid/i);
+    const body = response.body as { detail?: string };
+    assert.match(String(body.detail ?? ""), /not allowed|invalid/i);
   } finally {
     for (const restore of restores.reverse()) {
       restore();

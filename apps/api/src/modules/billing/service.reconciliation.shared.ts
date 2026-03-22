@@ -11,7 +11,8 @@ import Stripe from "stripe";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { type DatabaseClient } from "./service.shared.js";
 
-export const reconciliationLogger = createLogger("billing-service");
+export const reconciliationLogger: ReturnType<typeof createLogger> =
+  createLogger("billing-service");
 
 export function unixToDate(value: number | null | undefined): Date | null {
   if (!value) {

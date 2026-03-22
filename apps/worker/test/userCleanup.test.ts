@@ -8,16 +8,16 @@ void test("cleanupSuspendedUsers anonymizes stale suspended users", async () => 
   const updates: Array<Record<string, unknown>> = [];
   const prismaClient = {
     user: {
-      findMany: async () => [
+      findMany: () => Promise.resolve([
         {
           email: "owner@birthub.local",
           id: "user_1",
           status: "SUSPENDED"
         }
-      ],
-      update: async (input: Record<string, unknown>) => {
+      ]),
+      update: (input: Record<string, unknown>) => {
         updates.push(input);
-        return input;
+        return Promise.resolve(input);
       }
     }
   } as unknown as PrismaClient;

@@ -8,7 +8,7 @@ import { createCheckoutSessionForOrganization } from "../src/modules/billing/ser
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -19,9 +19,9 @@ void test("checkout session enables automatic tax and propagates locale/country"
   const checkoutCalls: Stripe.Checkout.SessionCreateParams[] = [];
   const customerUpdates: Array<{ address: { country: string }; customerId: string }> = [];
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async (args: { include?: { memberships?: unknown } }) => {
+    stubMethod(prisma.organization, "findFirst", (args: { include?: { memberships?: unknown } }) => {
       if (args.include?.memberships) {
-        return {
+        return Promise.resolve({
           id: "org_alpha",
           memberships: [],
           name: "Alpha Corp",
@@ -31,10 +31,10 @@ void test("checkout session enables automatic tax and propagates locale/country"
           },
           stripeCustomerId: "cus_alpha",
           tenantId: "tenant_alpha"
-        };
+        });
       }
 
-      return {
+      return Promise.resolve({
         id: "org_alpha",
         name: "Alpha Corp",
         settings: {
@@ -43,9 +43,9 @@ void test("checkout session enables automatic tax and propagates locale/country"
         },
         stripeCustomerId: "cus_alpha",
         tenantId: "tenant_alpha"
-      };
+      });
     }),
-    stubMethod(prisma.plan, "findUnique", async () => ({
+    stubMethod(prisma.plan, "findUnique", () => Promise.resolve({
       active: true,
       id: "plan_professional",
       stripePriceId: "price_professional"
@@ -62,17 +62,17 @@ void test("checkout session enables automatic tax and propagates locale/country"
       stripeClient: {
         checkout: {
           sessions: {
-            create: async (input: Stripe.Checkout.SessionCreateParams) => {
+            create: (input: Stripe.Checkout.SessionCreateParams) => {
               checkoutCalls.push(input);
-              return {
+              return Promise.resolve({
                 id: "cs_test_checkout",
                 url: "https://checkout.stripe.com/pay/cs_test_checkout"
-              };
+              });
             }
           }
         },
         customers: {
-          update: async (customerId: string, input: Stripe.CustomerUpdateParams) => {
+          update: (customerId: string, input: Stripe.CustomerUpdateParams) => {
             const country =
               typeof input.address === "object" &&
               input.address !== null &&
@@ -88,9 +88,9 @@ void test("checkout session enables automatic tax and propagates locale/country"
               customerId
             });
 
-            return {
+            return Promise.resolve({
               id: customerId
-            };
+            });
           }
         }
       } as unknown as Stripe

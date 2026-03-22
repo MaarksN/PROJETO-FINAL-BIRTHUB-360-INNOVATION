@@ -10,7 +10,8 @@ import { toPrismaJsonValue } from "../../lib/prisma-json.js";
 import { getSharedRedis } from "../../lib/redis.js";
 import { type StripeBillingEventContext } from "../billing/service.js";
 
-export const stripeWebhookLogger = createLogger("stripe-webhook");
+export const stripeWebhookLogger: ReturnType<typeof createLogger> =
+  createLogger("stripe-webhook");
 export const BILLING_WEBHOOK_IDEMPOTENCY_TTL_SECONDS = 86_400;
 
 let stripeRedlock: Redlock | null = null;

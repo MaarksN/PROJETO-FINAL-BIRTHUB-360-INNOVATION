@@ -10,7 +10,7 @@ import { errorHandler } from "../src/middleware/error-handler.js";
 import { requestContextMiddleware } from "../src/middleware/request-context.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -19,9 +19,9 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 
 void test("pack install is blocked with 402 when agents feature is disabled by plan", async () => {
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async (args: { include?: { plan?: boolean } }) => {
+    stubMethod(prisma.organization, "findFirst", (args: { include?: { plan?: boolean } }) => {
       if (args.include?.plan) {
-        return {
+        return Promise.resolve({
           id: "org_alpha",
           plan: {
             code: "starter",
@@ -44,16 +44,16 @@ void test("pack install is blocked with 402 when agents feature is disabled by p
             }
           ],
           tenantId: "tenant_alpha"
-        };
+        });
       }
 
-      return {
+      return Promise.resolve({
         id: "org_alpha",
         slug: "birthhub-alpha",
         tenantId: "tenant_alpha"
-      };
+      });
     }),
-    stubMethod(prisma.billingCredit, "aggregate", async () => ({
+    stubMethod(prisma.billingCredit, "aggregate", () => Promise.resolve({
       _sum: {
         amountCents: 0
       }
@@ -78,7 +78,8 @@ void test("pack install is blocked with 402 when agents feature is disabled by p
 
     const response = await request(app).post("/guarded").expect(402);
 
-    assert.equal(response.body.title, "Payment Required");
+    const body = response.body as { title: string };
+    assert.equal(body.title, "Payment Required");
   } finally {
     for (const restore of restores.reverse()) {
       restore();

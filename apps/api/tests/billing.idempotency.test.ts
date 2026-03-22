@@ -13,7 +13,7 @@ import { createStripeWebhookRouter } from "../src/modules/webhooks/stripe.router
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -94,11 +94,11 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
     secret: config.STRIPE_WEBHOOK_SECRET
   });
   const restores = [
-    stubMethod(prisma.billingEvent, "findUnique", async (args: { where?: { stripeEventId?: string } }) => {
+    stubMethod(prisma.billingEvent, "findUnique", (args: { where?: { stripeEventId?: string } }) => {
       const eventId = args.where?.stripeEventId ?? "";
-      return billingEvents.get(eventId) ?? null;
+      return Promise.resolve(billingEvents.get(eventId) ?? null);
     }),
-    stubMethod(prisma.billingEvent, "create", async (args: { data?: Record<string, unknown> }) => {
+    stubMethod(prisma.billingEvent, "create", (args: { data?: Record<string, unknown> }) => {
       const eventId = stringValue(args.data?.stripeEventId, "evt_unknown");
       const record = {
         attemptCount: 0,
@@ -107,12 +107,12 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
         ...args.data
       };
       billingEvents.set(eventId, record);
-      return record;
+      return Promise.resolve(record);
     }),
     stubMethod(
       prisma.billingEvent,
       "update",
-      async (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
+      (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
         const eventId = args.where?.stripeEventId ?? "";
         const current: Record<string, unknown> = billingEvents.get(eventId) ?? {
           attemptCount: 0,
@@ -121,48 +121,48 @@ void test("invoice.payment_succeeded event is idempotent when replayed 3 times",
         };
         const next = applyUpdateData(current, args.data ?? {});
         billingEvents.set(eventId, next);
-        return next;
+        return Promise.resolve(next);
       }
     ),
     stubMethod(
       prisma,
       "$transaction",
-      async <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
+      <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
     ),
-    stubMethod(prisma.organization, "findFirst", async (args: { where?: { stripeCustomerId?: string } }) => {
+    stubMethod(prisma.organization, "findFirst", (args: { where?: { stripeCustomerId?: string } }) => {
       if (args.where?.stripeCustomerId === "cus_alpha") {
-        return {
+        return Promise.resolve({
           id: "org_alpha",
           planId: "plan_professional",
           stripeCustomerId: "cus_alpha",
           tenantId: "tenant_alpha"
-        };
+        });
       }
 
-      return null;
+      return Promise.resolve(null);
     }),
-    stubMethod(prisma.organization, "findUnique", async (args: { where?: { id?: string } }) => {
+    stubMethod(prisma.organization, "findUnique", (args: { where?: { id?: string } }) => {
       if (args.where?.id === "org_alpha") {
-        return {
+        return Promise.resolve({
           id: "org_alpha",
           tenantId: "tenant_alpha"
-        };
+        });
       }
 
-      return null;
+      return Promise.resolve(null);
     }),
-    stubMethod(prisma.subscription, "upsert", async () => ({
+    stubMethod(prisma.subscription, "upsert", () => Promise.resolve({
       id: "sub_local_1",
       status: "active",
       tenantId: "tenant_alpha"
     })),
-    stubMethod(prisma.subscription, "update", async () => {
+    stubMethod(prisma.subscription, "update", () => {
       subscriptionUpdateCalls += 1;
-      return { id: "sub_local_1" };
+      return Promise.resolve({ id: "sub_local_1" });
     }),
-    stubMethod(prisma.invoice, "upsert", async () => {
+    stubMethod(prisma.invoice, "upsert", () => {
       invoiceUpsertCalls += 1;
-      return { id: "invoice_1" };
+      return Promise.resolve({ id: "invoice_1" });
     })
   ];
 

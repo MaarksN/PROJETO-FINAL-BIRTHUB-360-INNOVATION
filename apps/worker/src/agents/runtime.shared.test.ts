@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { MANIFEST_VERSION } from "@birthub/agents-core";
+
 import { buildToolCostTable } from "./runtime.budget.js";
 import { matchesPattern, readSessionId } from "./runtime.shared.js";
 
@@ -14,31 +16,47 @@ void test("matchesPattern supports wildcard segments and tool costs include time
   assert.equal(matchesPattern("tenant:agent:session", "tenant:*:session"), true);
 
   const costs = buildToolCostTable({
-    defaultToolCostBrl: 0.15,
-    manifest: {
-      agent: {
-        id: "agent.demo",
-        name: "Agent Demo",
-        version: "1.0.0"
-      },
-      description: "demo",
-      keywords: [],
-      policies: [],
-      tags: {
-        domain: [],
-        industry: [],
+      defaultToolCostBrl: 0.15,
+      manifest: {
+        agent: {
+          changelog: [],
+          description: "Agent demo for tests",
+          id: "agent.demo",
+          kind: "agent",
+          name: "Agent Demo",
+          prompt: "Execute the demo workflow",
+          tenantId: "catalog",
+          version: "1.0.0"
+        },
+        keywords: [],
+        manifestVersion: MANIFEST_VERSION,
+        policies: [],
+        skills: [
+          {
+            description: "skill",
+            id: "skill.demo",
+            inputSchema: { type: "object" },
+            name: "Skill Demo",
+            outputSchema: { type: "object" }
+          }
+        ],
+        tags: {
+          domain: [],
+          industry: [],
         level: [],
         persona: [],
         "use-case": []
       },
-      tools: [
-        {
-          description: "tool",
-          id: "custom-tool",
-          name: "Custom Tool",
-          timeoutMs: 30_000
-        }
-      ]
+        tools: [
+          {
+            description: "tool",
+            id: "custom-tool",
+            inputSchema: { type: "object" },
+            name: "Custom Tool",
+            outputSchema: { type: "object" },
+            timeoutMs: 30_000
+          }
+        ]
     }
   });
 

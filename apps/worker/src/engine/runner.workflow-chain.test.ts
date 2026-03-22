@@ -109,13 +109,14 @@ void test("Workflow runner chains HTTP, agent execution and notification with mo
     })
   );
 
-  (prisma.workflowExecution.findUnique as unknown as (args: unknown) => Promise<unknown>) = async () => ({
-    depth: executionDepth,
-    id: "exec_chain",
-    startedAt: new Date("2026-03-15T12:00:00.000Z"),
-    status: executionStatus
-  });
-  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = async () => ({
+  (prisma.workflowExecution.findUnique as unknown as (args: unknown) => Promise<unknown>) = () =>
+    Promise.resolve({
+      depth: executionDepth,
+      id: "exec_chain",
+      startedAt: new Date("2026-03-15T12:00:00.000Z"),
+      status: executionStatus
+    });
+  (prisma.workflow.findFirst as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve({
     id: "wf_chain",
     maxDepth: 10,
     steps,
@@ -132,20 +133,22 @@ void test("Workflow runner chains HTTP, agent execution and notification with mo
       }
     ]
   });
-  (prisma.stepResult.findMany as unknown as (args: unknown) => Promise<unknown>) = async () =>
-    createdResults.map((result) => ({
-      ...result,
-      step: {
-        key: stepsById.get(String(result.stepId))?.key ?? "unknown"
-      }
-    }));
+  (prisma.stepResult.findMany as unknown as (args: unknown) => Promise<unknown>) = () =>
+    Promise.resolve(
+      createdResults.map((result) => ({
+        ...result,
+        step: {
+          key: stepsById.get(String(result.stepId))?.key ?? "unknown"
+        }
+      }))
+    );
   (prisma.stepResult.create as unknown as (args: { data: Record<string, unknown> }) => Promise<unknown>) =
-    async (args) => {
+    (args) => {
       createdResults.push(args.data);
-      return args.data;
+      return Promise.resolve(args.data);
     };
   (prisma.workflowExecution.update as unknown as (args: { data: Record<string, unknown> }) => Promise<unknown>) =
-    async (args) => {
+    (args) => {
       executionUpdates.push(args.data);
       if (typeof args.data.depth === "number") {
         executionDepth = args.data.depth;
@@ -153,29 +156,31 @@ void test("Workflow runner chains HTTP, agent execution and notification with mo
       if (typeof args.data.status === "string") {
         executionStatus = args.data.status as WorkflowExecutionStatus;
       }
-      return args.data;
+      return Promise.resolve(args.data);
     };
-  (prisma.quotaUsage.findFirst as unknown as (args: unknown) => Promise<unknown>) = async () => null;
+  (prisma.quotaUsage.findFirst as unknown as (args: unknown) => Promise<unknown>) = () => Promise.resolve(null);
 
   try {
     const fakeQueue = {
-      add: async (_name: string, payload: WorkflowExecutionJobPayload) => {
+      add: (_name: string, payload: WorkflowExecutionJobPayload) => {
         queuedJobs.push(payload);
+        return Promise.resolve();
       }
     } as unknown as Queue<WorkflowExecutionJobPayload>;
     const runner = new WorkflowRunner(fakeQueue, {
       agentExecutor: {
-        execute: async (args) => {
+        execute: (args) => {
           agentCalls.push(args);
-          return {
+          return Promise.resolve({
             owner: "growth",
             verdict: "APPROVED"
-          };
+          });
         }
       },
       notificationDispatcher: {
-        send: async (payload) => {
+        send: (payload) => {
           notifications.push(payload as unknown as Record<string, unknown>);
+          return Promise.resolve();
         }
       }
     });

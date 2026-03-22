@@ -6,7 +6,7 @@ import { prisma } from "@birthub/database";
 import { getBillingSnapshot } from "../src/modules/billing/service.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -17,7 +17,7 @@ void test("grace period keeps access on day +1 and locks on day +4 for past_due 
   const base = new Date("2026-03-10T00:00:00.000Z");
   const realNow = Date.now;
   const restores = [
-    stubMethod(prisma.organization, "findFirst", async () => ({
+    stubMethod(prisma.organization, "findFirst", () => Promise.resolve({
       id: "org_alpha",
       plan: {
         code: "professional",
@@ -41,7 +41,7 @@ void test("grace period keeps access on day +1 and locks on day +4 for past_due 
       ],
       tenantId: "tenant_alpha"
     })),
-    stubMethod(prisma.billingCredit, "aggregate", async () => ({
+    stubMethod(prisma.billingCredit, "aggregate", () => Promise.resolve({
       _sum: {
         amountCents: 0
       }

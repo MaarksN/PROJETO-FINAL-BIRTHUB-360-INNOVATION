@@ -16,7 +16,7 @@ import {
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key) as unknown;
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -79,11 +79,11 @@ void test("stripe webhook delegates domain processing to the canonical billing s
   const delegatedEvents: string[] = [];
   const billingEvents = new Map<string, Record<string, unknown>>();
   const restores = [
-    stubMethod(prisma.billingEvent, "findUnique", async (args: { where?: { stripeEventId?: string } }) => {
+    stubMethod(prisma.billingEvent, "findUnique", (args: { where?: { stripeEventId?: string } }) => {
       const eventId = args.where?.stripeEventId ?? "";
-      return billingEvents.get(eventId) ?? null;
+      return Promise.resolve(billingEvents.get(eventId) ?? null);
     }),
-    stubMethod(prisma.billingEvent, "create", async (args: { data?: Record<string, unknown> }) => {
+    stubMethod(prisma.billingEvent, "create", (args: { data?: Record<string, unknown> }) => {
       const eventId = stringValue(args.data?.stripeEventId, "evt_unknown");
       const record = {
         attemptCount: 0,
@@ -92,12 +92,12 @@ void test("stripe webhook delegates domain processing to the canonical billing s
         ...args.data
       };
       billingEvents.set(eventId, record);
-      return record;
+      return Promise.resolve(record);
     }),
     stubMethod(
       prisma.billingEvent,
       "update",
-      async (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
+      (args: { data?: Record<string, unknown>; where?: { stripeEventId?: string } }) => {
         const eventId = args.where?.stripeEventId ?? "";
         const current: Record<string, unknown> = billingEvents.get(eventId) ?? {
           attemptCount: 0,
@@ -106,21 +106,21 @@ void test("stripe webhook delegates domain processing to the canonical billing s
         };
         const next = applyUpdateData(current, args.data ?? {});
         billingEvents.set(eventId, next);
-        return next;
+        return Promise.resolve(next);
       }
     ),
     stubMethod(
       prisma,
       "$transaction",
-      async <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
+      <T>(callback: (tx: typeof prisma) => Promise<T>): Promise<T> => callback(prisma)
     )
   ];
 
   try {
     const app = createWebhookApp(config, {
-      processStripeBillingEvent: async ({ event }) => {
+      processStripeBillingEvent: ({ event }) => {
         delegatedEvents.push(event.id);
-        return {};
+        return Promise.resolve({});
       }
     });
     const response = await request(app)
@@ -130,7 +130,8 @@ void test("stripe webhook delegates domain processing to the canonical billing s
       .send(payload)
       .expect(200);
 
-    assert.equal(response.body.received, true);
+    const body = response.body as { received: boolean };
+    assert.equal(body.received, true);
     assert.deepEqual(delegatedEvents, ["evt_delegate_signature"]);
     assert.equal(
       billingEvents.get("evt_delegate_signature")?.status,

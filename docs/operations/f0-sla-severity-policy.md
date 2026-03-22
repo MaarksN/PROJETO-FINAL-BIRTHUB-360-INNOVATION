@@ -1,56 +1,147 @@
-# F0 — Política de SLA por Severidade
+# F0 — Politica de SLA por Severidade
 
 ## Escopo
 
-Esta política define classificação, comunicação, escalonamento, alertas preventivos e baseline operacional do ciclo F0.
+Politica canonica de incidente/SLA para o ciclo F0. Este documento define:
 
-## SLA por severidade
+- prazos de resolucao por severidade;
+- criterios objetivos de classificacao;
+- escalonamento automatico (75% e 100% do prazo);
+- plano de comunicacao com stakeholders;
+- dashboard de rastreamento em tempo real;
+- baseline de aderencia dos ultimos 90 dias;
+- aprovacao formal dos owners tecnicos.
 
-| Severidade | Critério objetivo | TTA/ack | Mitigação inicial | Correção alvo | Stakeholders |
-| --- | --- | ---: | ---: | ---: | --- |
-| P0 | indisponibilidade total, incidente de segurança crítico, risco imediato de receita/compliance | até 5 min | até 30 min | até 2 horas para contenção / até 24 horas para correção completa | engenharia, produto, security, liderança |
-| P1 | degradação severa sem outage total, workflow crítico falhando, perda funcional relevante | até 15 min | até 2 horas | até 8 horas | owner do domínio, PM, suporte |
-| P2 | defeito moderado, workaround disponível, dívida de impacto operacional controlado | até 4 horas úteis | até 24 horas | até 72 horas | owner do domínio e stakeholders afetados |
-| P3 | melhoria, ajuste menor, debt sem risco operacional imediato | até 2 dias úteis | backlogado | até 2 semanas | owner do domínio |
+Referencias operacionais:
 
-## Exemplos reais de classificação
+- Alertas Prometheus: `infra/monitoring/alert.rules.yml`
+- Dashboard Grafana: `infra/monitoring/grafana-dashboard.json`
+- Baseline de 90 dias: `docs/operations/f0-sla-adherence-baseline-90d.md`
+- Ownership tecnico: `docs/operations/f0-ownership-matrix.md`
 
-- **P0:** falha de autenticação generalizada, vazamento de segredo, fila parada com impacto em faturamento.
-- **P1:** API com degradação forte de latência, job crítico acumulando backlog, build canônico quebrado em branch de release.
-- **P2:** dashboard administrativo com erro parcial e workaround, teste intermitente em área não crítica.
-- **P3:** refino visual, cleanup técnico sem impacto imediato ao usuário.
+## SLA Publicado por Severidade
 
-## Escalonamento automático
+| Severidade | SLA maximo para resolucao | Risco (75% do prazo) | Criterio objetivo de impacto |
+| --- | ---: | ---: | --- |
+| P0 | <= 2 horas | 90 minutos | indisponibilidade total de fluxo critico, incidente de seguranca critico, risco imediato de receita/compliance |
+| P1 | <= 8 horas | 6 horas | degradacao severa de fluxo critico sem outage total |
+| P2 | <= 72 horas | 54 horas | falha moderada com workaround, impacto operacional controlado |
+| P3 | <= 2 semanas | 10 dias e 12 horas | falha menor sem impacto operacional imediato |
 
-1. Ao atingir **75% do prazo**, o owner do domínio e o backup recebem alerta preventivo.
-2. Ao violar SLA, o incidente é escalado automaticamente para `Security` ou `DevOps` quando aplicável.
-3. P0 e P1 exigem atualização contínua no canal oficial do domínio até normalização.
-4. Incidentes sem owner explícito são promovidos imediatamente para `@platform-architecture`.
+## Criterios Objetivos de Classificacao (com exemplos reais)
 
-## Plano de comunicação
+### P0
 
-| Severidade | Frequência | Canal mínimo | Conteúdo obrigatório |
-| --- | --- | --- | --- |
-| P0 | a cada 30 min | canal do domínio + liderança | impacto, hipótese, mitigação, próximo checkpoint |
-| P1 | a cada 2 h | canal do domínio + stakeholders diretos | status, workaround, ETA, risco residual |
-| P2 | diário | canal do domínio | owner, prioridade, prazo, dependências |
-| P3 | semanal | backlog/ritual | prioridade, janela planejada |
+Classifique como P0 se qualquer criterio abaixo for verdadeiro:
 
-## Baseline operacional de 90 dias
+1. `up{job="api-gateway"} == 0` por mais de 1 minuto (`ApiGatewayDown`).
+2. Fluxo critico indisponivel para a maioria dos tenants (ex.: autenticacao ou ingestao principal interrompida).
+3. Incidente de seguranca com risco imediato de exposicao de dados.
 
-Como snapshot F0 local, o histórico de aderência é registrado com baseline documental:
+Exemplos reais do stack:
 
-- `P0/P1`: sem evidência de incidentes abertos no repositório local no momento do freeze.
-- `P2/P3`: backlog tratado como dívida controlada via documentação e gates de CI.
-- Thresholds e alertas de latência já estão refletidos em `docs/observability-alerts.md`.
+- alerta `ApiGatewayDown` em `infra/monitoring/alert.rules.yml`;
+- indisponibilidade total do login/sessao do `apps/api`;
+- falha sistemica em cadeia com parada de operacao critica.
 
-## Aprovação formal
+### P1
 
-| Área | Responsável | Status | Data |
+Classifique como P1 se houver degradacao severa sem outage total:
+
+1. `ApiGatewayHighErrorBudgetBurn` em firing continuo.
+2. `ApiGatewayP99LatencySLOBreach` em firing continuo (p99 > 300ms).
+3. `ApiTaskIngestionRejections` com rejeicoes anormais no endpoint `/api/v1/tasks`.
+
+Exemplos reais do stack:
+
+- latencia p99 persistente acima do limite de SLO;
+- backlog relevante em fluxo de automacao com falhas em tarefas criticas;
+- degradacao de disponibilidade abaixo da meta com servico ainda parcialmente operacional.
+
+### P2
+
+Classifique como P2 quando houver impacto moderado com mitigacao disponivel:
+
+1. `Webhook429Spike` sustentado sem indisponibilidade total.
+2. `ApiUnauthorizedSpike` ou `ApiBudgetExceededSpike` acima do baseline, com workaround operacional.
+3. Falha parcial de modulo administrativo sem bloquear fluxo principal do cliente.
+
+Exemplos reais do stack:
+
+- excesso de rate limit em endpoints expostos sem queda global da plataforma;
+- bloqueios de budget afetando parte das operacoes de tenants;
+- erro funcional em tela administrativa com alternativa temporaria.
+
+### P3
+
+Classifique como P3 para itens sem impacto operacional imediato:
+
+1. Erro cosmetico, copy incorreta ou ajuste visual.
+2. Divida tecnica sem regressao de disponibilidade, seguranca ou faturamento.
+3. Melhoria de UX sem bloqueio de operacao.
+
+Exemplos reais do stack:
+
+- ajustes de layout em paginas do `apps/web` ou `apps/dashboard`;
+- refatoracao interna sem impacto de runtime;
+- melhorias de documentacao/runbook.
+
+Regra de desempate: na duvida, aplicar a maior severidade entre os criterios atendidos.
+
+## Escalonamento Automatico (75% e Violacao)
+
+Regras automaticas configuradas em `infra/monitoring/alert.rules.yml`:
+
+1. **75% do prazo (at risk)**: dispara `SlaAtRiskP0|P1|P2|P3`.
+2. **100% do prazo (breach)**: dispara `SlaBreachedP0|P1|P2|P3`.
+3. Alertas de risco notificam owner primario + backup.
+4. Alertas de violacao executam escalonamento por severidade:
+   - P0: owner do dominio, `@platform-architecture`, lideranca tecnica (CTO/Engineering Manager).
+   - P1: owner do dominio, `@platform-architecture`, Engineering Manager.
+   - P2: owner do dominio e Engineering Manager.
+   - P3: owner do dominio e planejamento da proxima sprint com flag `SLA-BREACH`.
+
+## Dashboard de SLA em Tempo Real
+
+Dashboard oficial: `infra/monitoring/grafana-dashboard.json`.
+
+Metricas acompanhadas em tempo real:
+
+- incidentes ativos por severidade (`P0`, `P1`, `P2`, `P3`);
+- total de incidentes em risco de SLA (75%);
+- total de violacoes de SLA (100%);
+- serie temporal de risco versus violacao;
+- tendencia de incidentes ativos por severidade.
+
+## Plano de Comunicacao com Stakeholders
+
+| Severidade | Primeira comunicacao | Cadencia minima | Canais obrigatorios | Conteudo minimo |
+| --- | --- | --- | --- | --- |
+| P0 | <= 15 min | a cada 30 min | canal do dominio, canal de incidentes, lideranca tecnica, status page quando aplicavel | impacto, escopo, mitigacao, ETA, proximo checkpoint |
+| P1 | <= 30 min | a cada 2 h | canal do dominio + stakeholders diretos (produto/suporte) | impacto, workaround, ETA, risco residual |
+| P2 | <= 4 h uteis | diaria | canal do dominio + ticket oficial | owner, prioridade, plano de correcao, dependencias |
+| P3 | <= 2 dias uteis | semanal | backlog/ritual de planejamento | prioridade, janela de entrega, criterio de aceite |
+
+## Historico de Aderencia a SLA (90 dias)
+
+Baseline publicado em:
+
+- `docs/operations/f0-sla-adherence-baseline-90d.md`
+
+Periodo de referencia:
+
+- de **2025-12-23** ate **2026-03-22**.
+
+## Aprovacao Formal da Politica
+
+| Dominio | Owner tecnico | Status | Data |
 | --- | --- | --- | --- |
 | Web | `@product-frontend` | Aprovado | 2026-03-22 |
 | API | `@platform-api` | Aprovado | 2026-03-22 |
 | Worker | `@platform-automation` | Aprovado | 2026-03-22 |
 | Database | `@platform-data` | Aprovado | 2026-03-22 |
+| Agents | `@platform-automation` | Aprovado | 2026-03-22 |
 | Security | `@platform-architecture` | Aprovado | 2026-03-22 |
 | DevOps | `@platform-architecture` | Aprovado | 2026-03-22 |
+
+Revisao obrigatoria desta politica: trimestral (proxima janela em 2026-06-22).

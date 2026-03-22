@@ -108,7 +108,7 @@ Você é o responsável por executar as pendências da auditoria forense no repo
 ### F2
 - [F2-98] APENAS DOCUMENTADO
 - [F2-99] APENAS DOCUMENTADO
-- [F2-100] NÃO ENCONTRADO
+- [F2-100] CONCLUÍDO — EVIDÊNCIA: audit/pending_review/F2-100_codex.md
 - [F2-101] APENAS DOCUMENTADO
 - [F2-102] APENAS DOCUMENTADO
 - [F2-103] APENAS DOCUMENTADO
@@ -455,7 +455,7 @@ Você é o responsável por executar as pendências da auditoria forense no repo
 - [F8-432] APENAS DOCUMENTADO
 
 ### F9
-- [F9-433] APENAS DOCUMENTADO
+- [F9-433] PARCIAL — EVIDÊNCIA: audit/pending_review/F9-433_codex.md
 - [F9-434] APENAS DOCUMENTADO
 - [F9-435] APENAS DOCUMENTADO
 - [F9-436] APENAS DOCUMENTADO
