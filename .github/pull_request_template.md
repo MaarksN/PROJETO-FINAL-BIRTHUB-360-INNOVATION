@@ -1,34 +1,48 @@
 ## Resumo
 
+<<<<<<< Updated upstream
 Descreva objetivamente o que mudou, qual risco foi tratado e qual evidência de validação acompanha o PR.
+=======
+<!-- Explain what changed and why. -->
+>>>>>>> Stashed changes
 
 ## Justificativa formal
 
 Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concentrar mudanças estruturalmente acopladas. Explique o motivo do lote, o plano de revisão e o rollback.
 
-## Checklist de Qualidade
+<<<<<<< Updated upstream
+## Checklist de Qualidade de Pull Request
 
-- [ ] Nome da branch segue a política (`feat/`, `fix/`, `refactor/`, `chore/`, `release/`, `hotfix/`)
-- [ ] Commits seguem Conventional Commits ou estão explicitamente allowlistados
-- [ ] Naming rules permanecem intactas (`snake_case` em `agents/`, `*.service.ts`, `*.controller.ts`, `*.repository.ts`, `*.types.ts`)
-- [ ] ADR ou documentação de arquitetura foi atualizada quando aplicável
-- [ ] Fonte de verdade documental foi revisada ou atualizada
-- [ ] Dependências externas novas foram registradas em `docs/processes/dependency-approval-register.md`
-- [ ] Mudanças de manifesto atualizaram `docs/release/internal-packages-changelog.md`
-- [ ] Não foram versionados dumps, `.env` ou artefatos transitórios
-- [ ] Se `pnpm-lock.yaml` mudou, houve revisão de security e platform
-- [ ] Workspaces alterados mantêm `lint`, `typecheck`, `test` e `build`, ou `N/A` aprovado no relatório F4
-- [ ] Impacto de rollback foi documentado
+- [ ] ADR ou documentação de arquitetura associada atualizada (se aplicável).
+- [ ] Testes unitários/E2E escritos e passando.
+- [ ] Limites de complexidade e tamanho de arquivo respeitados.
+- [ ] Dependências validadas e pacotes monorepo usando `workspace:*`.
+- [ ] Sem exports ou imports mortos.
+- [ ] Naming conventions respeitadas (kebab-case no front, snake_case no backend).
+- [ ] Segurança aprovada e sem credenciais inline expostas.
+- [ ] Se `pnpm-lock.yaml` mudou, houve revisão de security e platform.
+- [ ] Workspaces alterados mantem `lint`, `typecheck`, `test` e `build`, ou `N/A` aprovado no relatorio F4.
+=======
+## Hygiene checklist
 
-## O que foi atualizado
+- [ ] Branch name follows policy (`feat/`, `fix/`, `refactor/`, `chore/`, `release/`, `hotfix/`)
+- [ ] Commit messages follow Conventional Commits or are explicitly allowlisted
+- [ ] Naming rules remain intact (`snake_case` in `agents/`, `*.service.ts` / `*.controller.ts` / `*.repository.ts` / `*.types.ts`)
+- [ ] Documentation source of truth reviewed or updated
+- [ ] Internal package changelog updated when package manifests changed
+- [ ] Dependency approval register updated when external dependencies changed
+- [ ] No runtime artifacts, dumps or local `.env` files were versioned
+- [ ] Rollback impact documented
 
-- [ ] Documentação
-- [ ] Backend
-- [ ] Frontend
+## What was updated
+
+- [ ] Documentation
+- [ ] Backend (API / services)
+- [ ] Frontend (dashboard / UI)
 - [ ] Infra / CI
-- [ ] Testes
+- [ ] Tests
 
-## Validação
+## Validation
 
 ```bash
 pnpm artifacts:clean
@@ -41,9 +55,10 @@ pnpm monorepo:doctor
 
 ## Breaking changes
 
-- [ ] Não há breaking changes
-- [ ] Há breaking changes descritas abaixo
+- [ ] No breaking changes
+- [ ] Yes (describe below)
 
 ## Deployment notes
 
-Inclua migrations, variáveis de ambiente, rollout e rollback quando necessário.
+<!-- Include migrations, env vars, rollout notes, and rollback plan if needed. -->
+>>>>>>> Stashed changes
