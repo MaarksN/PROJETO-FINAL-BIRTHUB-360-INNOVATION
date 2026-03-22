@@ -34,3 +34,10 @@ __pycache__/
 *.log
 pnpm-debug.log*
 npm-debug.log*
+artifacts/**/*.bak
+artifacts/**/*.dump
+artifacts/**/*.env
+artifacts/**/*.log
+artifacts/**/*.sqlite
+artifacts/**/*.swp
+artifacts/**/*.tmp

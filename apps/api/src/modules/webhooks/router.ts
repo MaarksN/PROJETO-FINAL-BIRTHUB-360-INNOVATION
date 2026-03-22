@@ -9,6 +9,7 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
+import { validateExternalUrl } from "../../lib/external-url.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { dedupeTriggerPayload } from "../workflows/runnerQueue.js";
 import { runWorkflowNow } from "../workflows/service.js";
@@ -38,6 +39,23 @@ const webhookEndpointUpdateSchema = z
 const deliveryQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(25)
 });
+
+function assertSafeWebhookTarget(config: ApiConfig, rawUrl: string): string {
+  const validation = validateExternalUrl(rawUrl, {
+    allowLocalDevelopmentUrls: config.NODE_ENV !== "production",
+    requireHttps: true
+  });
+
+  if (!validation.ok || !validation.url) {
+    throw new ProblemDetailsError({
+      detail: validation.reason ?? "Webhook target URL is not allowed.",
+      status: 400,
+      title: "Invalid Webhook Endpoint"
+    });
+  }
+
+  return validation.url.toString();
+}
 
 export function createWebhooksRouter(config: ApiConfig): Router {
   const router = Router();
@@ -146,7 +164,7 @@ export function createWebhooksRouter(config: ApiConfig): Router {
         createdByUserId: request.context.userId,
         tenantReference,
         topics: payload.topics,
-        url: payload.url
+        url: assertSafeWebhookTarget(config, payload.url)
       });
 
       response.status(201).json({
@@ -177,7 +195,9 @@ export function createWebhooksRouter(config: ApiConfig): Router {
         tenantReference,
         ...(payload.status !== undefined ? { status: payload.status } : {}),
         ...(payload.topics !== undefined ? { topics: payload.topics } : {}),
-        ...(payload.url !== undefined ? { url: payload.url } : {})
+        ...(payload.url !== undefined
+          ? { url: assertSafeWebhookTarget(config, payload.url) }
+          : {})
       });
 
       response.status(200).json({

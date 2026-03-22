@@ -71,7 +71,14 @@ void test("parseAgentManifest returns descriptive error for invalid manifest", (
         ]
       }),
     (error: unknown) => {
+<<<<<<< Updated upstream
       assert.ok(error instanceof AgentManifestParseError);
+=======
+      if (!(error instanceof AgentManifestParseError)) {
+        return false;
+      }
+
+>>>>>>> Stashed changes
       assert.match(error.message, /tools.0.timeoutMs/);
       return true;
     }
@@ -86,7 +93,14 @@ void test("parseAgentManifest rejects partial manifest", () => {
         manifestVersion: MANIFEST_VERSION
       }),
     (error: unknown) => {
+<<<<<<< Updated upstream
       assert.ok(error instanceof AgentManifestParseError);
+=======
+      if (!(error instanceof AgentManifestParseError)) {
+        return false;
+      }
+
+>>>>>>> Stashed changes
       assert.match(error.message, /skills/);
       assert.match(error.message, /tools/);
       assert.match(error.message, /policies/);
@@ -104,7 +118,14 @@ void test("parseAgentManifest rejects incompatible version", () => {
         manifestVersion: "2.0.0"
       }),
     (error: unknown) => {
+<<<<<<< Updated upstream
       assert.ok(error instanceof AgentManifestParseError);
+=======
+      if (!(error instanceof AgentManifestParseError)) {
+        return false;
+      }
+
+>>>>>>> Stashed changes
       assert.match(error.message, /versao incompativel/);
       return true;
     }
@@ -121,7 +142,14 @@ void test("parseAgentManifest rejects unexpected keys at the manifest root", () 
         }
       }),
     (error: unknown) => {
+<<<<<<< Updated upstream
       assert.ok(error instanceof AgentManifestParseError);
+=======
+      if (!(error instanceof AgentManifestParseError)) {
+        return false;
+      }
+
+>>>>>>> Stashed changes
       assert.match(error.message, /roguePayload/);
       return true;
     }
@@ -139,7 +167,14 @@ void test("parseAgentManifest rejects unexpected nested keys inside agent descri
         }
       }),
     (error: unknown) => {
+<<<<<<< Updated upstream
       assert.ok(error instanceof AgentManifestParseError);
+=======
+      if (!(error instanceof AgentManifestParseError)) {
+        return false;
+      }
+
+>>>>>>> Stashed changes
       assert.match(error.message, /agent/);
       assert.match(error.message, /injectedPromptVars/);
       return true;

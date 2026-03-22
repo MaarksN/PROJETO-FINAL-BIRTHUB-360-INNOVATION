@@ -4,16 +4,17 @@ Repositório canônico da plataforma SaaS BirthHub 360.
 
 ## Stack canônica suportada
 
-- **Frontend oficial:** `apps/web` (Next.js + BFF em `app/api/bff`).
-- **API oficial:** `apps/api` (Express modular, OpenAPI, auth, billing, workflows).
-- **Worker oficial:** `apps/worker`.
-- **Banco canônico:** `packages/database` (Prisma schema + migrations).
+- **Frontend oficial:** `apps/web`
+- **API oficial:** `apps/api`
+- **Worker oficial:** `apps/worker`
+- **Banco canônico:** `packages/database`
 
-## Legado/deprecação controlada
+## Superfícies legadas em quarentena
 
-- `apps/dashboard`: legado, não é a UI oficial para novos fluxos.
-- `apps/api-gateway`: compat/proxy layer legado para cutover.
-- `packages/db`: camada de compatibilidade temporária para migração de imports.
+- `apps/dashboard`
+- `apps/api-gateway`
+- `apps/agent-orchestrator`
+- `packages/db`
 
 ## Setup rápido
 
@@ -24,27 +25,22 @@ pnpm monorepo:doctor
 pnpm dev
 ```
 
-## Portas locais padrão
-
-- API: `3000`
-- Web canônica: `3001`
-- Dashboard legado: `3010`
-
-## Comandos essenciais
+## Governança e higiene
 
 ```bash
-pnpm monorepo:doctor      # valida duplicidades críticas e drift
-pnpm release:scorecard    # gate técnico de release
-pnpm lint
-pnpm typecheck
-pnpm test
+pnpm artifacts:clean
+pnpm branch:check
+pnpm commits:check
+pnpm hygiene:check
+pnpm docs:check-links
+pnpm monorepo:doctor
 ```
 
-## Governança e arquitetura
+## Documentação principal
 
-- Arquitetura canônica: `docs/ARQUITETURA_CANONICA.md`
-- Migração de banco: `docs/MIGRACAO_CANONICA_DB.md`
-- Deprecação/cutover: `docs/DEPRECACAO_E_CUTOVER.md`
-- Observabilidade/SLOs: `docs/OBSERVABILIDADE_E_SLOS.md`
-- Auditoria/aprovações: `docs/AUDITORIA_E_APROVACOES.md`
-- LGPD operacional: `docs/LGPD_OPERACIONAL.md`
+- [Contribution guide](CONTRIBUTING.md)
+- [Documentation index](docs/README.md)
+- [Repository naming standard](docs/standards/repository-naming.md)
+- [Documentation source of truth](docs/processes/documentation-source-of-truth.md)
+- [Internal package graph](docs/architecture/internal-package-graph.md)
+- [Dependency approval register](docs/processes/dependency-approval-register.md)

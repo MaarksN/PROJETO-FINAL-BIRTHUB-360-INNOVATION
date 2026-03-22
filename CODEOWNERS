@@ -1,24 +1,37 @@
-# Ownership técnico por domínio
+# Repository hygiene and domain ownership
 
+/.github/ @platform-devex
+/scripts/ci/ @platform-devex
 /docs/ @platform-architecture
+/artifacts/ @platform-architecture
+/apps/api/ @platform-api
+/apps/worker/ @platform-worker
+/apps/web/ @platform-web
+/apps/dashboard/ @product-frontend
 /apps/api-gateway/ @platform-api
 /apps/agent-orchestrator/ @platform-automation
-/apps/dashboard/ @product-frontend
 /apps/webhook-receiver/ @platform-integrations
+/agents/ae/ @sales-ae
 /agents/ldr/ @growth-sdr
 /agents/sdr/ @growth-sdr
-/agents/ae/ @sales-ae
 /agents/financeiro/ @finance-engineering
 /agents/juridico/ @legal-ops
 /agents/marketing/ @marketing-ops
 /agents/analista/ @data-bi
+/agents/pos_venda/ @cs-ops
 /agents/pos-venda/ @cs-ops
+/packages/database/ @platform-data
 /packages/db/ @platform-data
-/packages/integrations/ @platform-integrations
 /packages/queue/ @platform-automation
 /packages/shared-types/ @platform-api
+/packages/integrations/ @platform-integrations
 /packages/utils/ @platform-core
+<<<<<<< Updated upstream
 * @admin @lead-dev
 /packages/agents/ @ai-team
 /apps/api/ @backend-team
 /apps/web/ @frontend-team
+=======
+/packages/agents-core/ @platform-automation
+/packages/agent-packs/ @platform-automation
+>>>>>>> Stashed changes

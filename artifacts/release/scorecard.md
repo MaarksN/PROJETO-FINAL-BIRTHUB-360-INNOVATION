@@ -1,5 +1,9 @@
 # Release Scorecard
+<<<<<<< Updated upstream
 Generated at: 2026-03-22T05:31:48.670Z
+=======
+Generated at: 2026-03-22T13:42:52.280Z
+>>>>>>> Stashed changes
 
 Canonical go-live scope: `apps/web`, `apps/api`, `apps/worker`, `packages/database`.
 Legacy and satellite surfaces stay outside the 2026-03-20 launch gate unless promoted explicitly.

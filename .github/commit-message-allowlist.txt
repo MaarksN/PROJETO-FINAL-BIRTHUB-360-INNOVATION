@@ -1,0 +1,3 @@
+# Temporary legacy exceptions.
+# Format: <sha> <optional note>
+6948a3f bootstrap commit before conventional-commit enforcement

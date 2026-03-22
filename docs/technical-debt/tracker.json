@@ -78,7 +78,11 @@
       "owner": "Architecture Council",
       "residualRisk": "medium",
       "evidence": [
+<<<<<<< Updated upstream
         "docs/processes/DEPRECACAO_E_CUTOVER.md",
+=======
+        "docs/DEPRECACAO_E_CUTOVER.md",
+>>>>>>> Stashed changes
         "docs/f10/architecture.md"
       ]
     },

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # [SOURCE] BirthHub360_Higiene_Estrutural
 
 # Diretórios permitidos (Snapshots de release e docs gerados de segurança):
@@ -20,3 +21,31 @@
 
 # Ignorar artefatos de compilação ou de IDE local se caírem aqui
 .DS_Store
+=======
+# Ignore everything by default; only audited evidence stays versioned.
+*
+!.gitignore
+!README.md
+!doctor/
+!doctor/**
+!privacy/
+!privacy/**
+!release/
+!release/**
+!security/
+!security/**
+!workflows/
+!workflows/**
+!untracked_agents_snapshot/
+!untracked_agents_snapshot/**
+!f*-*/
+!f*-*/**
+
+*.bak
+*.dump
+*.env
+*.log
+*.sqlite
+*.swp
+*.tmp
+>>>>>>> Stashed changes

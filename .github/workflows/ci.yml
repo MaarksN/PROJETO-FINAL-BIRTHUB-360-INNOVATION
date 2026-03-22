@@ -85,8 +85,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
+=======
+          node-version: 22
+>>>>>>> Stashed changes
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -160,8 +164,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
+=======
+          node-version: 22
+>>>>>>> Stashed changes
 
       - name: Cache Turbo
         uses: actions/cache@v4
@@ -195,8 +203,37 @@ jobs:
           SESSION_SECRET: ci-secret
           WEB_BASE_URL: http://localhost:3001
 
+<<<<<<< Updated upstream
   satellites:
     name: satellites
+=======
+  pack-tests:
+    name: pack-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Pack test suite
+        run: pnpm ci:task pack-tests
+
+  workflow-suite:
+    name: workflow-suite
+>>>>>>> Stashed changes
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -212,8 +249,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
+=======
+          node-version: 22
+>>>>>>> Stashed changes
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -231,8 +272,15 @@ jobs:
           find agents apps -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
           python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov
 
+<<<<<<< Updated upstream
       - name: Run satellites lane
         run: pnpm ci:task satellites
+=======
+      - name: Python lint and typecheck
+        run: |
+          ruff check agents apps/webhook-receiver
+          mypy agents/shared apps/webhook-receiver/src || true
+>>>>>>> Stashed changes
 
   legacy-agents:
     name: legacy-agents
@@ -241,6 +289,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -251,8 +301,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
+=======
+          node-version: 22
+>>>>>>> Stashed changes
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -262,6 +316,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+<<<<<<< Updated upstream
       - name: Install Python dependencies
         shell: bash
         run: |
@@ -393,6 +448,17 @@ jobs:
           ignore-unfixed: true
           vuln-type: os,library
           severity: CRITICAL,HIGH
+=======
+      - name: Run governance gates
+        run: pnpm ci:task governance
+
+      - name: Upload doctor artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: doctor-artifacts
+          path: artifacts/doctor
+          if-no-files-found: ignore
+>>>>>>> Stashed changes
 
   ci:
     name: ci
