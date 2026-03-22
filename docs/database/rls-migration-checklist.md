@@ -37,7 +37,7 @@ Copie o bloco de markdown abaixo e cole na descrição do seu Pull Request (PR) 
 
 **4. Performance: Índice de Primeira Coluna?**
 - [ ] Adicionei um índice B-Tree (ex: `CREATE INDEX`) na tabela onde o `tenant_id` é a PRIMEIRA coluna do índice, para garantir que as buscas de escopo limitadas pelo RLS usem o índice e não causem *Sequential Scans*. Exemplo:
-  `CREATE INDEX idx_[tabela]_tenant_id ON [nome_da_tabela](tenant_id);`
+  `CREATE INDEX idx_tabela_tenant_id ON tabela_exemplo USING btree (tenant_id);`
 
 **5. Rollback (Opcional, mas Recomendado)?**
 - [ ] Escrevi o código `DOWN` (rollback) da migration de forma segura, removendo a política RLS (DROP POLICY) antes ou junto com a exclusão da tabela (DROP TABLE).

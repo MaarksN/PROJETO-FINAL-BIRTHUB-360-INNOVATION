@@ -1,6 +1,0 @@
- WARN  Unsupported engine: wanted: {"node":">=24 <25"} (current: {"node":"v22.21.1","pnpm":"9.1.0"})
-
-> birthub-360@1.0.0 workspace:audit /workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION
-> node scripts/ci/workspace-audit.mjs
-
-[workspace-audit] ok

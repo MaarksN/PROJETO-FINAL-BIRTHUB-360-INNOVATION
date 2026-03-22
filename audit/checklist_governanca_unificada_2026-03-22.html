@@ -108,23 +108,23 @@
     <section class="summary">
       <article class="box green">
         <div class="label">Fases Verdes</div>
-        <div class="big">1</div>
-        <div class="small">F8</div>
+        <div class="big">2</div>
+        <div class="small">F4, F8</div>
       </article>
       <article class="box yellow">
         <div class="label">Fases Amarelas</div>
-        <div class="big">7</div>
-        <div class="small">F0, F2, F3, F5, F6, F7, F10</div>
+        <div class="big">9</div>
+        <div class="small">F0, F1, F2, F3, F5, F6, F7, F9, F10</div>
       </article>
       <article class="box red">
         <div class="label">Fases Vermelhas</div>
-        <div class="big">4</div>
-        <div class="small">F1, F4, F9, F11</div>
+        <div class="big">1</div>
+        <div class="small">F11</div>
       </article>
       <article class="box">
         <div class="label">Sinal Geral</div>
         <div class="big">Parcial</div>
-        <div class="small">A trilha canônica está madura, mas o repositório não fecha F11</div>
+        <div class="small">A trilha canônica evoluiu forte, mas o repositório ainda não fecha F11</div>
       </article>
     </section>
 
@@ -153,21 +153,21 @@
           </tr>
           <tr>
             <td>`corepack pnpm workspace:audit`</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td>Falha de compliance de scripts por pacote.</td>
-            <td>Bloqueia F4 e parte de F11.</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Passou após alinhar policy e scripts visíveis/N/A dos workers-overlay.</td>
+            <td>Fecha F4 e reduz risco de regressão por pacote.</td>
           </tr>
           <tr>
             <td>`corepack pnpm docs:links`</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td>3 links quebrados e 18 warnings.</td>
-            <td>Abre falha em F9/F10.</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>0 links quebrados; ficaram 18 warnings manuais por caminhos absolutos.</td>
+            <td>Remove bloqueio objetivo de F9/F10.</td>
           </tr>
           <tr>
             <td>`corepack pnpm lint:core`</td>
             <td><span class="chip red">Vermelho</span></td>
-            <td>Erro de `max-lines` em `packages/database/prisma/seeds/shared.ts`.</td>
-            <td>Mostra hotspot real ainda aberto.</td>
+            <td>Falha agora concentrada em hotspots reais do `apps/api`.</td>
+            <td>Bloqueia F3/F11 com debt estrutural remanescente no backend.</td>
           </tr>
           <tr>
             <td>`corepack pnpm --filter @birthub/database db:check:governance`</td>
@@ -207,14 +207,14 @@
             <td><strong>F0</strong><br>Governança, Ownership e Baseline</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>Matriz de ownership publicada.</li><li>Política de SLA por severidade publicada.</li><li>Artefatos F0 presentes.</li></ul></td>
-            <td><ul><li>Baseline atual não está 100% verde.</li><li>`CODEOWNERS` raiz está com conflito.</li></ul></td>
+            <td><ul><li>Baseline melhorou bastante, mas `lint:core` e typecheck ainda impedem fechamento integral.</li></ul></td>
             <td><a href="../docs/operations/f0-ownership-matrix.md">ownership</a><br><a href="../docs/operations/f0-sla-severity-policy.md">sla</a><br><a href="../CODEOWNERS">CODEOWNERS</a></td>
           </tr>
           <tr>
             <td><strong>F1</strong><br>Pipeline e Gates</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td><ul><li>Gitleaks, semgrep, trivy, SBOM, commitlint, pr-size e Dependabot existem.</li></ul></td>
-            <td><ul><li>`.github/workflows/ci.yml` com conflito.</li><li>`.github/settings.yml` com conflito.</li><li>`.python-version` ausente.</li><li>Node 22 conflita com `.nvmrc` 24.14.0.</li></ul></td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>CI e settings foram reconciliados.</li><li>`.python-version` foi criado.</li><li>Guardrails de branch, commits, links e hygiene foram integrados.</li></ul></td>
+            <td><ul><li>Falta validar a pipeline completa em branch com os gates novos.</li><li>`lint:core` ainda falha por hotspots do `apps/api`.</li></ul></td>
             <td><a href="../.github/workflows/ci.yml">ci.yml</a><br><a href="../.github/settings.yml">settings.yml</a><br><a href="../.nvmrc">.nvmrc</a></td>
           </tr>
           <tr>
@@ -227,15 +227,15 @@
           <tr>
             <td><strong>F3</strong><br>Hotspots</td>
             <td><span class="chip yellow">Amarelo</span></td>
-            <td><ul><li>ADRs e auditoria de modularização existem.</li><li>Core canônico melhorou.</li></ul></td>
-            <td><ul><li>`packages/database/prisma/seeds/shared.ts` tem 861 linhas.</li><li>Agents executivos seguem com arquivos ~790-806 linhas.</li></ul></td>
-            <td><a href="../docs/adrs/ADR-035-f3-hotspot-modularization.md">ADR-035</a><br><a href="../packages/database/prisma/seeds/shared.ts">shared.ts</a></td>
+            <td><ul><li>O seed monolítico do database foi modularizado.</li><li>Hotspots do `apps/web` que quebravam lint foram reduzidos.</li></ul></td>
+            <td><ul><li>`apps/api/src/modules/billing/service.reconciliation.ts` segue com 833 linhas.</li><li>`service.snapshot.ts`, `connectors/service.ts` e `stripe.router.ts` ainda seguram o `lint:core`.</li></ul></td>
+            <td><a href="../docs/adrs/ADR-035-f3-hotspot-modularization.md">ADR-035</a><br><a href="../apps/api/src/modules/billing/service.reconciliation.ts">service.reconciliation.ts</a></td>
           </tr>
           <tr>
             <td><strong>F4</strong><br>Scripts por Pacote</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td><ul><li>Política e workflow de compliance existem.</li></ul></td>
-            <td><ul><li>8 workers de agentes sem scripts mínimos.</li><li>`shared`, `shared-types` e `emails` ainda exigem ajuste.</li><li>`workspace:audit` falha.</li></ul></td>
+            <td><span class="chip green">Verde</span></td>
+            <td><ul><li>Policy de compliance alinhada com o estado real dos pacotes.</li><li>Os 8 workers-overlay agora expõem `lint`, `typecheck`, `test` e `build` visíveis com `N/A` formal.</li><li>`workspace:audit` passou.</li></ul></td>
+            <td><ul><li>Manter o changelog interno atualizado quando manifests mudarem.</li></ul></td>
             <td><a href="../artifacts/script-compliance/workspace-script-compliance.json">relatório</a><br><a href="../.github/workflows/f4-script-compliance.yml">workflow</a></td>
           </tr>
           <tr>
@@ -249,7 +249,7 @@
             <td><strong>F6</strong><br>Segurança e Compliance</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>Workflow de segurança é robusto.</li><li>`security:guards` passou.</li><li>LGPD/RLS/posture docs existem.</li></ul></td>
-            <td><ul><li>Pipeline Python depende de arquivo inexistente.</li><li>Sign-off final continua manual.</li></ul></td>
+            <td><ul><li>Sign-off final continua manual.</li><li>O gate completo ainda depende do fechamento de lint/typecheck do core.</li></ul></td>
             <td><a href="../.github/workflows/security-scan.yml">security-scan</a><br><a href="../docs/security/posture_report.md">posture report</a></td>
           </tr>
           <tr>
@@ -268,23 +268,23 @@
           </tr>
           <tr>
             <td><strong>F9</strong><br>Higiene do Repositório</td>
-            <td><span class="chip red">Vermelho</span></td>
-            <td><ul><li>Git não rastreia `node_modules`, `dist`, `coverage` e caches.</li><li>Policy de artifacts existe.</li></ul></td>
-            <td><ul><li>Naming duplicado em `agents/`.</li><li>10 arquivos versionados com conflito.</li><li>`docs:links` falha.</li></ul></td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>`hygiene:check` passou.</li><li>Conflitos de merge foram removidos.</li><li>Logs e `.env` proibidos deixaram de ser versionados em `artifacts/`.</li><li>`docs:links` passou.</li></ul></td>
+            <td><ul><li>Ainda existe naming duplicado em `agents/` (`pos_venda` vs `pos-venda`, `pre_sales` vs `pre_vendas`).</li></ul></td>
             <td><a href="../artifacts/README.md">artifacts policy</a><br><a href="../CONTRIBUTING.md">CONTRIBUTING</a><br><a href="../docs/README.md">docs index</a></td>
           </tr>
           <tr>
             <td><strong>F10</strong><br>Documentação e KT</td>
             <td><span class="chip yellow">Amarelo</span></td>
             <td><ul><li>Runbooks, templates e dashboard de dívida existem.</li><li>Swagger/OpenAPI está publicado.</li></ul></td>
-            <td><ul><li>PR template está com conflito.</li><li>3 links quebrados.</li><li>OpenAPI cobre só 3 paths para 22 módulos da API.</li></ul></td>
+            <td><ul><li>Links quebrados e conflitos do template de PR foram corrigidos.</li><li>OpenAPI ainda cobre só 3 paths para 22 módulos da API.</li></ul></td>
             <td><a href="../docs/templates/README.md">templates</a><br><a href="../apps/api/src/docs/openapi.ts">openapi</a><br><a href="../.github/PULL_REQUEST_TEMPLATE.md">PR template</a></td>
           </tr>
           <tr>
             <td><strong>F11</strong><br>Validação Final</td>
             <td><span class="chip red">Vermelho</span></td>
-            <td><ul><li>Doctor, scorecard, db governance e auth guards estão verdes.</li></ul></td>
-            <td><ul><li>Workspace audit, docs links e lint continuam vermelhos.</li><li>PRR, on-call, status page e assinaturas finais seguem pendentes.</li></ul></td>
+            <td><ul><li>`monorepo:doctor`, `release:scorecard`, `workspace:audit`, `docs:links`, `hygiene:check`, `db:check:governance` e `security:guards` estão verdes.</li></ul></td>
+            <td><ul><li>`lint:core` continua vermelho por debt estrutural em `apps/api`.</li><li>PRR, on-call, status page e assinaturas finais seguem pendentes.</li></ul></td>
             <td><a href="../docs/release/f11-final-validation-2026-03-22.md">F11 validation</a><br><a href="../.github/workflows/ci.yml">ci.yml</a></td>
           </tr>
         </tbody>
@@ -295,29 +295,29 @@
       <article class="box red">
         <h2 class="section-title">Achado Crítico 1</h2>
         <ul>
-          <li>10 arquivos versionados têm marcadores de conflito de merge.</li>
-          <li>Entre eles estão `ci.yml`, `.github/settings.yml`, `CODEOWNERS` e o template de PR.</li>
+          <li>`lint:core` agora falha por 7 erros reais concentrados em `apps/api`.</li>
+          <li>Os piores pontos estão em billing, connectors, webhooks e `tests/auth.test.ts`.</li>
         </ul>
       </article>
       <article class="box red">
         <h2 class="section-title">Achado Crítico 2</h2>
         <ul>
-          <li>`workspace:audit` falha por falta de scripts em 8 workers de agentes.</li>
-          <li>F4 continua objetivamente aberto.</li>
+          <li>F11 segue aberto mesmo após a recuperação de F1/F4/F9.</li>
+          <li>Falta fechar lint do core e concluir as validações operacionais finais.</li>
         </ul>
       </article>
-      <article class="box red">
+      <article class="box yellow">
         <h2 class="section-title">Achado Crítico 3</h2>
         <ul>
-          <li>`docs:links` falha com 3 links quebrados.</li>
-          <li>O índice principal de docs já aponta para arquivo inexistente.</li>
+          <li>O OpenAPI canônico ainda cobre só 3 paths para 22 módulos da API.</li>
+          <li>F10 continua mais forte em volume documental do que em cobertura operacional homogênea.</li>
         </ul>
       </article>
       <article class="box yellow">
         <h2 class="section-title">Achado Relevante</h2>
         <ul>
-          <li>A API tem 22 módulos em `apps/api/src/modules`, mas o OpenAPI atual expõe só 3 paths.</li>
-          <li>F10 está forte em volume documental, não em cobertura homogênea.</li>
+          <li>A higiene estrutural voltou a passar.</li>
+          <li>Resta resolver naming duplicado em `agents/` para fechar F9 de forma mais sólida.</li>
         </ul>
       </article>
     </section>
@@ -325,27 +325,27 @@
     <section class="next">
       <article class="box red">
         <div class="label">P0</div>
-        <div class="value">Resolver conflitos de merge em arquivos de governança e CI</div>
-      </article>
-      <article class="box red">
-        <div class="label">P1</div>
-        <div class="value">Fechar F4: scripts mínimos visíveis ou N/A explícito para os 8 workers de agentes</div>
+        <div class="value">Quebrar hotspots de lint do `apps/api` em billing, connectors, webhooks e auth tests</div>
       </article>
       <article class="box yellow">
         <div class="label">P1</div>
-        <div class="value">Criar `.python-version` e alinhar Node dos workflows com `.nvmrc`</div>
+        <div class="value">Expandir o OpenAPI canônico para cobrir a maior parte dos 22 módulos da API</div>
       </article>
       <article class="box yellow">
         <div class="label">P1</div>
-        <div class="value">Corrigir os 3 links quebrados e expandir OpenAPI da API canônica</div>
+        <div class="value">Executar a pipeline CI reconciliada em branch para validar os gates ponta a ponta</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">P1</div>
+        <div class="value">Normalizar naming duplicado em `agents/` e concluir o sunset do legado residual</div>
       </article>
       <article class="box yellow">
         <div class="label">P2</div>
-        <div class="value">Quebrar hotspots remanescentes em seeds e agentes executivos</div>
+        <div class="value">Atacar os warnings antigos de lint e typecheck que ainda não bloqueiam o fluxo principal</div>
       </article>
       <article class="box yellow">
         <div class="label">P2</div>
-        <div class="value">Concluir sunset do legado residual e remover naming duplicado em `agents/`</div>
+        <div class="value">Concluir PRR, on-call, status page e sign-offs para fechar F11</div>
       </article>
     </section>
   </main>

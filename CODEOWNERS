@@ -1,11 +1,11 @@
 # Repository hygiene and domain ownership
 
-/.github/ @platform-devex
-/scripts/ci/ @platform-devex
+/.github/ @platform-devex @platform-security
+/scripts/ci/ @platform-devex @platform-security
 /docs/ @platform-architecture
 /artifacts/ @platform-architecture
-/apps/api/ @platform-api
-/apps/worker/ @platform-worker
+/apps/api/ @platform-api @platform-security
+/apps/worker/ @platform-worker @platform-security
 /apps/web/ @platform-web
 /apps/dashboard/ @product-frontend
 /apps/api-gateway/ @platform-api
@@ -20,18 +20,12 @@
 /agents/analista/ @data-bi
 /agents/pos_venda/ @cs-ops
 /agents/pos-venda/ @cs-ops
-/packages/database/ @platform-data
+/packages/database/ @platform-data @platform-security
 /packages/db/ @platform-data
 /packages/queue/ @platform-automation
 /packages/shared-types/ @platform-api
 /packages/integrations/ @platform-integrations
 /packages/utils/ @platform-core
-<<<<<<< Updated upstream
-* @admin @lead-dev
-/packages/agents/ @ai-team
-/apps/api/ @backend-team
-/apps/web/ @frontend-team
-=======
 /packages/agents-core/ @platform-automation
 /packages/agent-packs/ @platform-automation
->>>>>>> Stashed changes
+* @platform-architecture @platform-devex

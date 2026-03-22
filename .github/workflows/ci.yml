@@ -12,11 +12,18 @@ permissions:
   pull-requests: read
 
 jobs:
-  commitlint:
-    name: commitlint
+  branch-name:
+    name: branch-name
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm ci:commitlint
+      command: pnpm branch:check
+      timeout_minutes: 10
+
+  commit-messages:
+    name: commit-messages
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm commits:check
       fetch_depth: 0
       timeout_minutes: 10
 
@@ -34,12 +41,20 @@ jobs:
       command: pnpm security:inline-credentials
       timeout_minutes: 10
 
-  pr-size:
-    name: pr-size
+  documentation-links:
+    name: documentation-links
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm ci:pr-size
-      timeout_minutes: 10
+      command: pnpm docs:check-links
+      timeout_minutes: 15
+
+  repo-hygiene:
+    name: repo-hygiene
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm hygiene:check
+      fetch_depth: 0
+      timeout_minutes: 20
 
   gitleaks:
     name: gitleaks
@@ -85,12 +100,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
-<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
-=======
-          node-version: 22
->>>>>>> Stashed changes
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -116,7 +127,7 @@ jobs:
           WEB_BASE_URL: http://localhost:3001
 
   platform:
-    name: ${{ matrix.task }}
+    name: platform (${{ matrix.task }})
     runs-on: ubuntu-latest
     timeout-minutes: 25
     strategy:
@@ -164,15 +175,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
-<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
-=======
-          node-version: 22
->>>>>>> Stashed changes
 
       - name: Cache Turbo
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: .turbo
           key: ${{ runner.os }}-turbo-${{ matrix.task }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
@@ -203,37 +210,8 @@ jobs:
           SESSION_SECRET: ci-secret
           WEB_BASE_URL: http://localhost:3001
 
-<<<<<<< Updated upstream
   satellites:
     name: satellites
-=======
-  pack-tests:
-    name: pack-tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: pnpm
-          node-version: 22
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Pack test suite
-        run: pnpm ci:task pack-tests
-
-  workflow-suite:
-    name: workflow-suite
->>>>>>> Stashed changes
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -249,12 +227,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
-<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
-=======
-          node-version: 22
->>>>>>> Stashed changes
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -264,23 +238,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Python dependencies
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -m pip install --upgrade pip
-          find agents apps -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
-          python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov
-
-<<<<<<< Updated upstream
       - name: Run satellites lane
         run: pnpm ci:task satellites
-=======
-      - name: Python lint and typecheck
-        run: |
-          ruff check agents apps/webhook-receiver
-          mypy agents/shared apps/webhook-receiver/src || true
->>>>>>> Stashed changes
 
   legacy-agents:
     name: legacy-agents
@@ -301,12 +260,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
-<<<<<<< Updated upstream
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
-=======
-          node-version: 22
->>>>>>> Stashed changes
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -316,7 +271,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-<<<<<<< Updated upstream
       - name: Install Python dependencies
         shell: bash
         run: |
@@ -325,11 +279,8 @@ jobs:
           find agents -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
           python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov
 
-      - name: Enforce Python ignore policy
-        run: pnpm ci:python-ignore-guard
-
-      - name: Run legacy agents coverage gate
-        run: pnpm test:coverage
+      - name: Run legacy agents lane
+        run: pnpm ci:task legacy-agents
 
   workflow-suite:
     name: workflow-suite
@@ -359,31 +310,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Python dependencies
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -m pip install --upgrade pip
-          find agents apps -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
-          python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov ruff mypy bandit pip-audit "safety==2.3.1"
-
-      - name: Enforce Python lint and typecheck
-        run: |
-          ruff check agents apps/webhook-receiver
-          mypy --strict agents/shared apps/webhook-receiver/src
-
-      - name: Enforce type-comment guard
-        run: pnpm ci:ts-comment-guard
-
-      - name: Enforce Python security gates
-        run: |
-          bandit -q -r agents apps/webhook-receiver
-          pip-audit
-          safety check --full-report
-
-      - name: Run Python workflow tests
-        run: pytest apps/agent-orchestrator/tests apps/webhook-receiver/tests
-
       - name: Run workflow suite
         run: pnpm ci:task workflow-suite
 
@@ -401,74 +327,17 @@ jobs:
       command: pnpm monorepo:doctor && pnpm release:scorecard
       timeout_minutes: 15
 
-  meta-ci:
-    name: meta-ci
-    uses: ./.github/workflows/reusable-node-check.yml
-    with:
-      command: pnpm ci:workflow-audit && pnpm ci:ts-comment-guard
-      timeout_minutes: 15
-
-  license-check:
-    name: license-check
-    uses: ./.github/workflows/reusable-node-check.yml
-    with:
-      command: pnpm ci:license-check
-      timeout_minutes: 15
-
-  container-security:
-    name: container-security (${{ matrix.image.name }})
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    strategy:
-      fail-fast: false
-      matrix:
-        image:
-          - name: web
-            dockerfile: apps/web/Dockerfile
-            tag: birthhub-web:ci
-          - name: api
-            dockerfile: apps/api/Dockerfile
-            tag: birthhub-api:ci
-          - name: worker
-            dockerfile: apps/worker/Dockerfile
-            tag: birthhub-worker:ci
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build container image
-        run: docker build -f ${{ matrix.image.dockerfile }} -t ${{ matrix.image.tag }} .
-
-      - name: Scan image with Trivy
-        uses: aquasecurity/trivy-action@0.33.1
-        with:
-          image-ref: ${{ matrix.image.tag }}
-          format: table
-          exit-code: "1"
-          ignore-unfixed: true
-          vuln-type: os,library
-          severity: CRITICAL,HIGH
-=======
-      - name: Run governance gates
-        run: pnpm ci:task governance
-
-      - name: Upload doctor artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: doctor-artifacts
-          path: artifacts/doctor
-          if-no-files-found: ignore
->>>>>>> Stashed changes
-
   ci:
     name: ci
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs:
-      - commitlint
+      - branch-name
+      - commit-messages
       - lockfile-integrity
       - inline-credentials
-      - pr-size
+      - documentation-links
+      - repo-hygiene
       - gitleaks
       - security-guardrails
       - platform
@@ -477,9 +346,6 @@ jobs:
       - workflow-suite
       - pack-tests
       - governance-gates
-      - meta-ci
-      - license-check
-      - container-security
     steps:
       - name: Done
         run: echo "All required checks passed."

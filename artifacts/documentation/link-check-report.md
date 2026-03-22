@@ -1,14 +1,8 @@
 # Documentation Link Check
 
 Files scanned: 461
-Broken links: 3
+Broken links: 0
 Warnings: 18
-
-## Broken links
-
-- `docs\database\rls-migration-checklist.md` -> `tenant_id` (Target not found: docs\database\tenant_id)
-- `docs\README.md` -> `ARQUITETURA_CANONICA.md` (Target not found: docs\ARQUITETURA_CANONICA.md)
-- `docs\workflows\complex-flow-evidence.md` -> `/artifacts/workflows/cycle6-complex-flow.svg` (Target not found: artifacts\workflows\cycle6-complex-flow.svg)
 
 ## Warnings
 
@@ -31,3 +25,4 @@ Warnings: 18
 - `docs\release\2026-03-17-vps-launch-pack.md` -> `C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ops/backup-postgres.sh` (Absolute local path kept as manual-only link)
 - `docs\release\2026-03-17-vps-launch-pack.md` -> `C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ops/restore-postgres.sh` (Absolute local path kept as manual-only link)
 
+All repo-relative documentation links resolved successfully.

@@ -12,7 +12,7 @@
 
 ## Architecture
 
-- [Canonical architecture](ARQUITETURA_CANONICA.md)
+- [Canonical architecture](f10/architecture.md)
 - [Folder structure](architecture/folder-structure.md)
 - [ADR registry](adrs/ADR-031-monorepo-source-of-truth.md)
 

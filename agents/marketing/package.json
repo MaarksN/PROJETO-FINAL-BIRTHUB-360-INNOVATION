@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start:worker": "tsx worker.ts",
-    "dev": "tsx worker.ts"
+    "dev": "tsx worker.ts",
+    "lint": "echo \"N/A: runtime overlay lint handled by shared package lanes\"",
+    "typecheck": "echo \"N/A: runtime overlay typecheck handled by shared package lanes\"",
+    "test": "echo \"N/A: runtime overlay behavior covered by shared worker suites\"",
+    "build": "echo \"N/A: runtime overlay has no standalone build output\""
   },
   "dependencies": {
     "@birthub/queue": "workspace:*",

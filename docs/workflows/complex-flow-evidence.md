@@ -2,7 +2,7 @@
 
 Artefato visual do fluxo manual complexo usado para validar o item `6.10.C1`.
 
-![Workflow complex flow](/artifacts/workflows/cycle6-complex-flow.svg)
+![Workflow complex flow](/artifacts/workflows/workflow-editor-10-nodes.png)
 
 ## Cobertura visual
 

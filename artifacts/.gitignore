@@ -1,27 +1,3 @@
-<<<<<<< Updated upstream
-# [SOURCE] BirthHub360_Higiene_Estrutural
-
-# Diretórios permitidos (Snapshots de release e docs gerados de segurança):
-# Tudo o mais, arquivos transitórios soltos, devem ser ignorados.
-
-# Ignorar dumps e logs locais, mantendo apensa auditorias versionadas
-*.log
-*.dump
-*.tmp
-*.bak
-*.swp
-
-# Permitir a estrutura de auditoria/releases
-!release/
-!security/
-!doctor/
-!untracked_agents_snapshot/
-!f0-baseline-2026-03-22/
-!f0-baseline-2026-03-22/**
-
-# Ignorar artefatos de compilação ou de IDE local se caírem aqui
-.DS_Store
-=======
 # Ignore everything by default; only audited evidence stays versioned.
 *
 !.gitignore
@@ -48,4 +24,3 @@
 *.sqlite
 *.swp
 *.tmp
->>>>>>> Stashed changes

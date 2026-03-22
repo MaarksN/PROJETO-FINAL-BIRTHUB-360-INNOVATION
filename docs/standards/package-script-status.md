@@ -1,11 +1,11 @@
 # Package Script Status
 
-Generated at: 2026-03-22T17:41:09.741Z
+Generated at: 2026-03-22T18:17:30.095Z
 
 - Workspaces: 35
-- Script slots ok: 104
-- Script slots N/A: 20
-- Script slots missing: 16
+- Script slots ok: 106
+- Script slots N/A: 34
+- Script slots missing: 0
 
 ## Approved N/A criteria
 
@@ -36,23 +36,23 @@ Generated at: 2026-03-22T17:41:09.741Z
 | @birthub/logger | packages/logger | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/queue | packages/queue | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/security | packages/security | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| @birthub/shared | packages/shared | P2 | Platform Engineering | 2026-03-29 | ok | ok | N/A | N/A | test: Behavior is covered transitively by importing packages and no standalone runtime entrypoint exists. \| build: Shared error helpers are consumed directly from source and do not require an isolated bundle. |
-| @birthub/shared-types | packages/shared-types | P2 | Platform Engineering | 2026-03-29 | ok | ok | N/A | ok | test: Schemas and type contracts are validated by downstream typecheck suites and package consumers. |
+| @birthub/shared | packages/shared | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | N/A | build: Shared error helpers are consumed directly from source and do not require an isolated bundle. |
+| @birthub/shared-types | packages/shared-types | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/testing | packages/testing | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/utils | packages/utils | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/voice-engine | apps/voice-engine | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/web | apps/web | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/worker | apps/worker | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/workflows-core | packages/workflows-core | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| ae-agent-worker | agents/ae | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| analista-agent-worker | agents/analista | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| financeiro-agent-worker | agents/financeiro | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| juridico-agent-worker | agents/juridico | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| ldr-agent-worker | agents/ldr | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| marketing-agent-worker | agents/marketing | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| ae-agent-worker | agents/ae | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| analista-agent-worker | agents/analista | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| financeiro-agent-worker | agents/financeiro | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| juridico-agent-worker | agents/juridico | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| ldr-agent-worker | agents/ldr | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| marketing-agent-worker | agents/marketing | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
 | orchestrator-worker | apps/agent-orchestrator | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| pos_venda-agent-worker | agents/pos_venda | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| sdr-agent-worker | agents/sdr | P2 | Platform Engineering | 2026-03-29 | missing | N/A | missing | N/A | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| pos_venda-agent-worker | agents/pos_venda | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
+| sdr-agent-worker | agents/sdr | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
 
 ## Governance
 
