@@ -42,18 +42,21 @@ async function captureStdout(callback: () => void): Promise<Record<string, unkno
   return JSON.parse(rawLine);
 }
 
-void test("logger emits the structured observability contract in camelCase", async () => {
+void test("logger emits structured observability fields in camelCase and snake_case", async () => {
   const previousNodeEnv = process.env.NODE_ENV;
   const previousLogLevel = process.env.LOG_LEVEL;
+  const previousSampleRate = process.env.LOG_SAMPLE_RATE;
 
   process.env.NODE_ENV = "production";
   process.env.LOG_LEVEL = "info";
+  process.env.LOG_SAMPLE_RATE = "1";
 
   try {
     const payload = await captureStdout(() =>
       runWithLogContext(
         {
           jobId: "job_123",
+          operation: "billing.webhook",
           requestId: "req_123",
           tenantId: "tenant_123",
           traceId: "trace_123",
@@ -79,14 +82,55 @@ void test("logger emits the structured observability contract in camelCase", asy
     assert.equal(payload.message, "Webhook accepted");
     assert.equal(payload.event, "billing.webhook.received");
     assert.equal(payload.requestId, "req_123");
+    assert.equal(payload.request_id, "req_123");
     assert.equal(payload.traceId, "trace_123");
+    assert.equal(payload.trace_id, "trace_123");
     assert.equal(payload.tenantId, "tenant_123");
+    assert.equal(payload.tenant_id, "tenant_123");
     assert.equal(payload.userId, "user_123");
+    assert.equal(payload.user_id, "user_123");
     assert.equal(payload.jobId, "job_123");
+    assert.equal(payload.job_id, "job_123");
+    assert.equal(payload.operation, "billing.webhook");
     assert.deepEqual(payload.context, { phase: "webhook" });
     assert.ok(typeof payload.timestamp === "string");
   } finally {
     process.env.NODE_ENV = previousNodeEnv;
     process.env.LOG_LEVEL = previousLogLevel;
+    process.env.LOG_SAMPLE_RATE = previousSampleRate;
+  }
+});
+
+void test("logger redacts sensitive fields", async () => {
+  const previousNodeEnv = process.env.NODE_ENV;
+  const previousLogLevel = process.env.LOG_LEVEL;
+  const previousSampleRate = process.env.LOG_SAMPLE_RATE;
+
+  process.env.NODE_ENV = "production";
+  process.env.LOG_LEVEL = "info";
+  process.env.LOG_SAMPLE_RATE = "1";
+
+  try {
+    const payload = await captureStdout(() => {
+      const logger = createLogger("api");
+      logger.info(
+        {
+          authorization: "Bearer secret",
+          email: "user@example.com",
+          password: "hidden",
+          refreshToken: "token-value"
+        },
+        "Sensitive payload"
+      );
+    });
+
+    assert.equal(payload.authorization, "[REDACTED]");
+    assert.equal(payload.email, "[REDACTED]");
+    assert.equal(payload.password, "[REDACTED]");
+    assert.equal(payload.refreshToken, "[REDACTED]");
+  } finally {
+    process.env.NODE_ENV = previousNodeEnv;
+    process.env.LOG_LEVEL = previousLogLevel;
+    process.env.LOG_SAMPLE_RATE = previousSampleRate;
   }
 });

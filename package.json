@@ -94,7 +94,8 @@
     "workspace:audit": "node scripts/ci/workspace-audit.mjs",
     "monorepo:doctor": "node scripts/ci/monorepo-doctor.mjs",
     "release:scorecard": "node scripts/ci/release-scorecard.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:db:baseline": "node --import tsx scripts/performance/database-baseline.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
