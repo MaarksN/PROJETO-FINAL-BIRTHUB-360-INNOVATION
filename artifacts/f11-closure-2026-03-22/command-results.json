@@ -1,0 +1,112 @@
+[
+  {
+    "name": "01-install",
+    "command": "corepack pnpm install --frozen-lockfile",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:03",
+    "endedAt": "2026-03-22T09:28:04",
+    "durationSeconds": 0.5,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\01-install.log",
+    "sha256": ""
+  },
+  {
+    "name": "02-monorepo-doctor",
+    "command": "corepack pnpm monorepo:doctor",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:04",
+    "endedAt": "2026-03-22T09:28:04",
+    "durationSeconds": 0.3,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\02-monorepo-doctor.log",
+    "sha256": ""
+  },
+  {
+    "name": "03-release-scorecard",
+    "command": "corepack pnpm release:scorecard",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:04",
+    "endedAt": "2026-03-22T09:28:05",
+    "durationSeconds": 0.2,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\03-release-scorecard.log",
+    "sha256": ""
+  },
+  {
+    "name": "04-lint-core",
+    "command": "corepack pnpm lint:core",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:05",
+    "endedAt": "2026-03-22T09:28:05",
+    "durationSeconds": 0.3,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\04-lint-core.log",
+    "sha256": ""
+  },
+  {
+    "name": "05-typecheck-core",
+    "command": "corepack pnpm typecheck:core",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:05",
+    "endedAt": "2026-03-22T09:28:05",
+    "durationSeconds": 0.2,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\05-typecheck-core.log",
+    "sha256": ""
+  },
+  {
+    "name": "06-test-core",
+    "command": "corepack pnpm test:core",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:05",
+    "endedAt": "2026-03-22T09:28:05",
+    "durationSeconds": 0.1,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\06-test-core.log",
+    "sha256": ""
+  },
+  {
+    "name": "07-test-isolation",
+    "command": "corepack pnpm test:isolation",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:05",
+    "endedAt": "2026-03-22T09:28:05",
+    "durationSeconds": 0.1,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\07-test-isolation.log",
+    "sha256": ""
+  },
+  {
+    "name": "08-build-core",
+    "command": "corepack pnpm build:core",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:05",
+    "endedAt": "2026-03-22T09:28:05",
+    "durationSeconds": 0.1,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\08-build-core.log",
+    "sha256": ""
+  },
+  {
+    "name": "09-test-e2e-release",
+    "command": "corepack pnpm test:e2e:release",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:05",
+    "endedAt": "2026-03-22T09:28:06",
+    "durationSeconds": 0.2,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\09-test-e2e-release.log",
+    "sha256": ""
+  },
+  {
+    "name": "10-preflight-staging",
+    "command": "corepack pnpm release:preflight:staging",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:06",
+    "endedAt": "2026-03-22T09:28:06",
+    "durationSeconds": 0.3,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\10-preflight-staging.log",
+    "sha256": ""
+  },
+  {
+    "name": "11-preflight-production",
+    "command": "corepack pnpm release:preflight:production",
+    "exitCode": 1,
+    "startedAt": "2026-03-22T09:28:06",
+    "endedAt": "2026-03-22T09:28:06",
+    "durationSeconds": 0.3,
+    "log": "artifacts\\f11-closure-2026-03-22\\logs\\11-preflight-production.log",
+    "sha256": ""
+  }
+]
