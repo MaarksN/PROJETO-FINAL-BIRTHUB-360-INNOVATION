@@ -15,6 +15,8 @@
 !security/
 !doctor/
 !untracked_agents_snapshot/
+!f0-baseline-2026-03-22/
+!f0-baseline-2026-03-22/**
 
 # Ignorar artefatos de compilação ou de IDE local se caírem aqui
 .DS_Store

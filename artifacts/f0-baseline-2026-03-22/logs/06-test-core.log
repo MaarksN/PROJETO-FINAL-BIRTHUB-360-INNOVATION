@@ -1,0 +1,1886 @@
+ WARN  Unsupported engine: wanted: {"node":">=24 <25"} (current: {"node":"v22.21.1","pnpm":"9.1.0"})
+
+> birthub-360@1.0.0 test:core /workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION
+> node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/db... --filter=@birthub/utils... run test
+
+
+[agent-ci] >>> /root/.nvm/versions/node/v22.21.1/bin/node /root/.cache/node/corepack/v1/pnpm/9.1.0/bin/pnpm.cjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/db... --filter=@birthub/utils... run test
+.                                        |  WARN  Unsupported engine: wanted: {"node":">=24 <25"} (current: {"node":"v22.21.1","pnpm":"9.1.0"})
+Scope: 12 of 36 workspace projects
+packages/config test$ node --import tsx --test src/**/*.test.ts
+packages/logger test$ node --import tsx --test src/**/*.test.ts
+packages/workflows-core test$ node --import tsx --test test/**/*.test.ts
+packages/agents-core test$ node --import tsx --test "src/**/*.test.ts"
+packages/logger test: TAP version 13
+packages/config test: TAP version 13
+packages/workflows-core test: TAP version 13
+packages/agents-core test: TAP version 13
+packages/logger test: # Subtest: logger emits the structured observability contract in camelCase
+packages/logger test: ok 1 - logger emits the structured observability contract in camelCase
+packages/logger test:   ---
+packages/logger test:   duration_ms: 250.100739
+packages/logger test:   type: 'test'
+packages/logger test:   ...
+packages/logger test: 1..1
+packages/logger test: # tests 1
+packages/logger test: # suites 0
+packages/logger test: # pass 1
+packages/logger test: # fail 0
+packages/logger test: # cancelled 0
+packages/logger test: # skipped 0
+packages/logger test: # todo 0
+packages/logger test: # duration_ms 5754.891827
+packages/logger test: Done
+packages/database test$ node --import tsx --test src/**/*.test.ts test/**/*.test.ts
+packages/config test: # Subtest: api config blocks placeholder production secrets and missing telemetry
+packages/config test: ok 1 - api config blocks placeholder production secrets and missing telemetry
+packages/config test:   ---
+packages/config test:   duration_ms: 198.735346
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: # Subtest: api config accepts hardened staging settings with Stripe test credentials
+packages/config test: ok 2 - api config accepts hardened staging settings with Stripe test credentials
+packages/config test:   ---
+packages/config test:   duration_ms: 1.048739
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: # Subtest: api config accepts hardened production settings
+packages/config test: ok 3 - api config accepts hardened production settings
+packages/config test:   ---
+packages/config test:   duration_ms: 0.514095
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/agents-core test: # Subtest: agent api manifest parser accepts a valid manifest
+packages/agents-core test: ok 1 - agent api manifest parser accepts a valid manifest
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 122.403499
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: agent api manifest parser rejects unexpected root keys
+packages/agents-core test: ok 2 - agent api manifest parser rejects unexpected root keys
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 9.24633
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: agent api manifest parser rejects unexpected nested restriction keys
+packages/agents-core test: ok 3 - agent api manifest parser rejects unexpected nested restriction keys
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 43.21122
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/database test: TAP version 13
+packages/workflows-core test: # Subtest: DAG validator rejects cyclic graph A->B->A
+packages/workflows-core test: ok 1 - DAG validator rejects cyclic graph A->B->A
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 2.086916
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/workflows-core test: # Subtest: DAG validator rejects self-loop graph
+packages/workflows-core test: ok 2 - DAG validator rejects self-loop graph
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 0.214567
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/workflows-core test: # Subtest: DAG validator rejects graph with isolated node
+packages/workflows-core test: ok 3 - DAG validator rejects graph with isolated node
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 0.188052
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/workflows-core test: # Subtest: DAG validator rejects graph with multiple triggers/roots
+packages/workflows-core test: ok 4 - DAG validator rejects graph with multiple triggers/roots
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 0.248746
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/workflows-core test: # Subtest: DAG validator rejects graph with dangling edges
+packages/workflows-core test: ok 5 - DAG validator rejects graph with dangling edges
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 36.590095
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/config test: # Subtest: web config requires production telemetry endpoints
+packages/config test: ok 4 - web config requires production telemetry endpoints
+packages/config test:   ---
+packages/config test:   duration_ms: 151.528102
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: # Subtest: web config rejects placeholder auth secrets in production
+packages/config test: ok 5 - web config rejects placeholder auth secrets in production
+packages/config test:   ---
+packages/config test:   duration_ms: 19.230925
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: # Subtest: web config accepts hardened production settings
+packages/config test: ok 6 - web config accepts hardened production settings
+packages/config test:   ---
+packages/config test:   duration_ms: 0.780747
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: # Subtest: web config accepts staging label with production-grade guardrails
+packages/config test: ok 7 - web config accepts staging label with production-grade guardrails
+packages/config test:   ---
+packages/config test:   duration_ms: 29.213637
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/database test: # Subtest: query sem tenantId lança TenantRequiredError
+packages/database test: ok 1 - query sem tenantId lança TenantRequiredError
+packages/database test:   ---
+packages/database test:   duration_ms: 72.632114
+packages/database test:   type: 'test'
+packages/database test:   ...
+packages/database test: # Subtest: injeta tenantId do AsyncLocalStorage e ignora tenantId externo
+packages/database test: ok 2 - injeta tenantId do AsyncLocalStorage e ignora tenantId externo
+packages/database test:   ---
+packages/database test:   duration_ms: 36.031836
+packages/database test:   type: 'test'
+packages/database test:   ...
+packages/agents-core test: # Subtest: canonicalizeAgentId normalizes underscores and spaces
+packages/agents-core test: ok 4 - canonicalizeAgentId normalizes underscores and spaces
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 2.339981
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: findManifestCatalogEntryByAgentId resolves normalized aliases
+packages/agents-core test: ok 5 - findManifestCatalogEntryByAgentId resolves normalized aliases
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 0.454752
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/workflows-core test: # Subtest: trigger step types forward the original trigger payload
+packages/workflows-core test: ok 6 - trigger step types forward the original trigger payload
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 73.082078
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/workflows-core test: # Subtest: core workflow step types execute with deterministic outputs
+packages/workflows-core test: ok 7 - core workflow step types execute with deterministic outputs
+packages/workflows-core test:   ---
+packages/workflows-core test:   duration_ms: 102.989681
+packages/workflows-core test:   type: 'test'
+packages/workflows-core test:   ...
+packages/workflows-core test: 1..7
+packages/workflows-core test: # tests 7
+packages/workflows-core test: # suites 0
+packages/workflows-core test: # pass 7
+packages/workflows-core test: # fail 0
+packages/workflows-core test: # cancelled 0
+packages/workflows-core test: # skipped 0
+packages/workflows-core test: # todo 0
+packages/workflows-core test: # duration_ms 18965.263719
+packages/workflows-core test: Done
+packages/auth test$ node --import tsx --test src/__tests__/*.test.ts
+packages/database test: # Subtest: migracao preserva integridade referencial por tenant
+packages/database test: ok 3 - migracao preserva integridade referencial por tenant # SKIP
+packages/database test:   ---
+packages/database test:   duration_ms: 1.020346
+packages/database test:   type: 'test'
+packages/database test:   ...
+packages/auth test: TAP version 13
+packages/config test: # Subtest: worker config fails fast in production when transport or secrets are insecure
+packages/config test: ok 8 - worker config fails fast in production when transport or secrets are insecure
+packages/config test:   ---
+packages/config test:   duration_ms: 180.785736
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: # Subtest: worker config accepts hardened production settings
+packages/config test: ok 9 - worker config accepts hardened production settings
+packages/config test:   ---
+packages/config test:   duration_ms: 23.943599
+packages/config test:   type: 'test'
+packages/config test:   ...
+packages/config test: 1..9
+packages/config test: # tests 9
+packages/config test: # suites 0
+packages/config test: # pass 9
+packages/config test: # fail 0
+packages/config test: # cancelled 0
+packages/config test: # skipped 0
+packages/config test: # todo 0
+packages/config test: # duration_ms 24521.675998
+packages/config test: Done
+packages/utils test$ node --import tsx --test src/__tests__/*.test.ts
+packages/agents-core test: # Subtest: parseAgentManifest accepts valid manifest
+packages/agents-core test: ok 6 - parseAgentManifest accepts valid manifest
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 163.405832
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: parseAgentManifest returns descriptive error for invalid manifest
+packages/agents-core test: ok 7 - parseAgentManifest returns descriptive error for invalid manifest
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 2.644876
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: parseAgentManifest rejects partial manifest
+packages/agents-core test: ok 8 - parseAgentManifest rejects partial manifest
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 0.836066
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: parseAgentManifest rejects incompatible version
+packages/agents-core test: ok 9 - parseAgentManifest rejects incompatible version
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 25.564301
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: parseAgentManifest rejects unexpected keys at the manifest root
+packages/agents-core test: ok 10 - parseAgentManifest rejects unexpected keys at the manifest root
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 1.009578
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: # Subtest: parseAgentManifest rejects unexpected nested keys inside agent descriptors
+packages/agents-core test: ok 11 - parseAgentManifest rejects unexpected nested keys inside agent descriptors
+packages/agents-core test:   ---
+packages/agents-core test:   duration_ms: 0.895712
+packages/agents-core test:   type: 'test'
+packages/agents-core test:   ...
+packages/agents-core test: 1..11
+packages/agents-core test: # tests 11
+packages/agents-core test: # suites 0
+packages/agents-core test: # pass 11
+packages/agents-core test: # fail 0
+packages/agents-core test: # cancelled 0
+packages/agents-core test: # skipped 0
+packages/agents-core test: # todo 0
+packages/agents-core test: # duration_ms 25014.161989
+packages/agents-core test: Done
+packages/utils test: TAP version 13
+packages/auth test: # Subtest: issue and verify access token
+packages/auth test: ok 1 - issue and verify access token
+packages/auth test:   ---
+packages/auth test:   duration_ms: 292.909567
+packages/auth test:   type: 'test'
+packages/auth test:   ...
+packages/auth test: # Subtest: refresh rotation works
+packages/auth test: ok 2 - refresh rotation works
+packages/auth test:   ---
+packages/auth test:   duration_ms: 92.177844
+packages/auth test:   type: 'test'
+packages/auth test:   ...
+packages/auth test: # Subtest: old refresh gets revoked
+packages/auth test: ok 3 - old refresh gets revoked
+packages/auth test:   ---
+packages/auth test:   duration_ms: 50.427753
+packages/auth test:   type: 'test'
+packages/auth test:   ...
+packages/auth test: # Subtest: requireRole allows proper role
+packages/auth test: ok 4 - requireRole allows proper role
+packages/auth test:   ---
+packages/auth test:   duration_ms: 0.504902
+packages/auth test:   type: 'test'
+packages/auth test:   ...
+packages/auth test: # Subtest: requirePermission blocks missing
+packages/auth test: ok 5 - requirePermission blocks missing
+packages/auth test:   ---
+packages/auth test:   duration_ms: 0.239756
+packages/auth test:   type: 'test'
+packages/auth test:   ...
+packages/database test: # Subtest: RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A
+packages/database test: ok 4 - RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A # SKIP
+packages/database test:   ---
+packages/database test:   duration_ms: 66.667439
+packages/database test:   type: 'test'
+packages/database test:   ...
+packages/auth test: 1..5
+packages/auth test: # tests 5
+packages/auth test: # suites 0
+packages/auth test: # pass 5
+packages/auth test: # fail 0
+packages/auth test: # cancelled 0
+packages/auth test: # skipped 0
+packages/auth test: # todo 0
+packages/auth test: # duration_ms 6949.928822
+packages/auth test: Done
+packages/database test: 1..4
+packages/database test: # tests 4
+packages/database test: # suites 0
+packages/database test: # pass 2
+packages/database test: # fail 0
+packages/database test: # cancelled 0
+packages/database test: # skipped 2
+packages/database test: # todo 0
+packages/database test: # duration_ms 20642.155693
+packages/database test: Done
+packages/utils test: # (node:9144) ExperimentalWarning: The MockTimers API is an experimental feature and might change at any time
+packages/utils test: # (Use `node --trace-warnings ...` to show where the warning was created)
+packages/utils test: # Subtest: sleep resolves after specified time
+packages/utils test: ok 1 - sleep resolves after specified time
+packages/utils test:   ---
+packages/utils test:   duration_ms: 95.362657
+packages/utils test:   type: 'test'
+packages/utils test:   ...
+packages/utils test: # Subtest: sleep with fake timers
+packages/utils test: ok 2 - sleep with fake timers
+packages/utils test:   ---
+packages/utils test:   duration_ms: 17.485304
+packages/utils test:   type: 'test'
+packages/utils test:   ...
+packages/utils test: # Subtest: sleep with 0ms
+packages/utils test: ok 3 - sleep with 0ms
+packages/utils test:   ---
+packages/utils test:   duration_ms: 18.20538
+packages/utils test:   type: 'test'
+packages/utils test:   ...
+packages/utils test: 1..3
+packages/utils test: # tests 3
+packages/utils test: # suites 0
+packages/utils test: # pass 3
+packages/utils test: # fail 0
+packages/utils test: # cancelled 0
+packages/utils test: # skipped 0
+packages/utils test: # todo 0
+packages/utils test: # duration_ms 4716.945363
+packages/utils test: Done
+apps/web test$ node --import tsx --test tests/**/*.test.ts
+apps/api test$ node --import tsx --test tests/**/*.test.ts test/**/*.test.ts
+packages/testing test$ node --import tsx --test src/**/*.test.ts
+packages/db test$ node --import tsx --test src/**/*.test.ts
+apps/web test: TAP version 13
+packages/testing test: TAP version 13
+packages/db test: TAP version 13
+apps/api test: TAP version 13
+packages/testing test: # Subtest: createMockAgentExecution builds completed execution with output
+packages/testing test: ok 1 - createMockAgentExecution builds completed execution with output
+packages/testing test:   ---
+packages/testing test:   duration_ms: 28.986928
+packages/testing test:   type: 'test'
+packages/testing test:   ...
+packages/testing test: # Subtest: createMockAgentExecution builds failed execution with error
+packages/testing test: ok 2 - createMockAgentExecution builds failed execution with error
+packages/testing test:   ---
+packages/testing test:   duration_ms: 0.250991
+packages/testing test:   type: 'test'
+packages/testing test:   ...
+packages/testing test: # Subtest: createInvalidMockAgentExecution emits invalid status
+packages/testing test: ok 3 - createInvalidMockAgentExecution emits invalid status
+packages/testing test:   ---
+packages/testing test:   duration_ms: 0.184362
+packages/testing test:   type: 'test'
+packages/testing test:   ...
+packages/db test: # Subtest: injeta tenantId em findMany e create
+packages/db test: ok 1 - injeta tenantId em findMany e create
+packages/db test:   ---
+packages/db test:   duration_ms: 78.481534
+packages/db test:   type: 'test'
+packages/db test:   ...
+packages/db test: # Subtest: lança TenantRequiredError quando tenantId não é informado
+packages/db test: ok 2 - lança TenantRequiredError quando tenantId não é informado
+packages/db test:   ---
+packages/db test:   duration_ms: 23.031804
+packages/db test:   type: 'test'
+packages/db test:   ...
+apps/api test: # Subtest: cache keys sempre incluem o tenantId
+apps/api test: ok 1 - cache keys sempre incluem o tenantId
+apps/api test:   ---
+apps/api test:   duration_ms: 1.312072
+apps/api test:   type: 'test'
+apps/api test:   ...
+packages/db test: 1..2
+packages/db test: # tests 2
+packages/db test: # suites 0
+packages/db test: # pass 2
+packages/db test: # fail 0
+packages/db test: # cancelled 0
+packages/db test: # skipped 0
+packages/db test: # todo 0
+packages/db test: # duration_ms 5002.264074
+packages/db test: Done
+apps/web test: # Subtest: session action allowlist
+apps/web test: ok 1 - session action allowlist
+apps/web test:   ---
+apps/web test:   duration_ms: 60.790047
+apps/web test:   type: 'test'
+apps/web test:   ...
+packages/testing test: # Subtest: testing package exposes isolated database provisioning helper
+packages/testing test: ok 4 - testing package exposes isolated database provisioning helper
+packages/testing test:   ---
+packages/testing test:   duration_ms: 5.206875
+packages/testing test:   type: 'test'
+packages/testing test:   ...
+packages/testing test: 1..4
+packages/testing test: # tests 4
+packages/testing test: # suites 0
+packages/testing test: # pass 4
+packages/testing test: # fail 0
+packages/testing test: # cancelled 0
+packages/testing test: # skipped 0
+packages/testing test: # todo 0
+packages/testing test: # duration_ms 8377.82762
+packages/testing test: Done
+apps/api test: # Subtest: resource ids de outro tenant retornam 404 ou 403 sem enumeracao
+apps/api test: ok 2 - resource ids de outro tenant retornam 404 ou 403 sem enumeracao
+apps/api test:   ---
+apps/api test:   duration_ms: 154.459955
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/web test: # Subtest: BFF allowlist blocks admin routes
+apps/web test: ok 2 - BFF allowlist blocks admin routes
+apps/web test:   ---
+apps/web test:   duration_ms: 1.28899
+apps/web test:   type: 'test'
+apps/web test:   ...
+apps/api test: # Subtest: contexto de tenant nao e materializado a partir de headers crus
+apps/api test: ok 3 - contexto de tenant nao e materializado a partir de headers crus
+apps/api test:   ---
+apps/api test:   duration_ms: 123.399719
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: query com 10k registros de um tenant unico fica abaixo de 100ms
+apps/api test: ok 4 - query com 10k registros de um tenant unico fica abaixo de 100ms # SKIP
+apps/api test:   ---
+apps/api test:   duration_ms: 1.001014
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: tenant cache hit evita nova consulta ao Prisma no segundo request
+apps/api test: ok 5 - tenant cache hit evita nova consulta ao Prisma no segundo request
+apps/api test:   ---
+apps/api test:   duration_ms: 126.786071
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/web test: # Subtest: login page hydrates without mismatch
+apps/web test: ok 3 - login page hydrates without mismatch
+apps/web test:   ---
+apps/web test:   duration_ms: 638.601185
+apps/web test:   type: 'test'
+apps/web test:   ...
+apps/web test: 1..3
+apps/web test: # tests 3
+apps/web test: # suites 0
+apps/web test: # pass 3
+apps/web test: # fail 0
+apps/web test: # cancelled 0
+apps/web test: # skipped 0
+apps/web test: # todo 0
+apps/web test: # duration_ms 18306.813312
+apps/api test: # Subtest: Auditable requireActor blocks sensitive mutations without an authenticated actor
+apps/api test: ok 6 - Auditable requireActor blocks sensitive mutations without an authenticated actor
+apps/api test:   ---
+apps/api test:   duration_ms: 40.029275
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/web test: Done
+apps/api test: # Subtest: auth login returns 200 and creates a session
+apps/api test: ok 7 - auth login returns 200 and creates a session
+apps/api test:   ---
+apps/api test:   duration_ms: 2402.97025
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: createSession generates session id with 16-byte hex entropy
+apps/api test: ok 8 - createSession generates session id with 16-byte hex entropy
+apps/api test:   ---
+apps/api test:   duration_ms: 5.100662
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: auth login with MFA enabled returns challenge token
+apps/api test: ok 9 - auth login with MFA enabled returns challenge token
+apps/api test:   ---
+apps/api test:   duration_ms: 1187.207991
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: auth MFA challenge verification accepts valid TOTP
+apps/api test: ok 10 - auth MFA challenge verification accepts valid TOTP
+apps/api test:   ---
+apps/api test:   duration_ms: 69.239734
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: verifyMfaChallenge rejects MFA challenge token reuse after first success
+apps/api test: ok 11 - verifyMfaChallenge rejects MFA challenge token reuse after first success
+apps/api test:   ---
+apps/api test:   duration_ms: 4.801685
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: auth logout returns 200 for a valid session token
+apps/api test: ok 12 - auth logout returns 200 for a valid session token
+apps/api test:   ---
+apps/api test:   duration_ms: 14.834564
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: auth protected endpoint returns 401 for expired or invalid session tokens
+apps/api test: ok 13 - auth protected endpoint returns 401 for expired or invalid session tokens
+apps/api test:   ---
+apps/api test:   duration_ms: 90.084333
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: createSession enforces concurrent session limit for privileged roles
+apps/api test: ok 14 - createSession enforces concurrent session limit for privileged roles
+apps/api test:   ---
+apps/api test:   duration_ms: 1.189807
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: authenticateRequest rejects idle-expired session
+apps/api test: ok 15 - authenticateRequest rejects idle-expired session
+apps/api test:   ---
+apps/api test:   duration_ms: 1.185637
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: cache configuration rejects missing Redis in production
+apps/api test: ok 16 - cache configuration rejects missing Redis in production
+apps/api test:   ---
+apps/api test:   duration_ms: 6.534195
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: cache read, write and delete fail closed in production mode
+apps/api test: ok 17 - cache read, write and delete fail closed in production mode
+apps/api test:   ---
+apps/api test:   duration_ms: 56.918081
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:13.062 +0000] [31mERROR[39m:
+apps/api test: #     [35mservice[39m: "cache-store"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "cache.configuration.invalid"
+apps/api test: #     [35mnodeEnv[39m: "production"
+apps/api test: #     [35mreason[39m: "missing_redis_url"
+apps/api test: #     [35mmessage[39m: "Redis is required for cache operations in production"
+apps/api test: # [2026-03-22 05:35:13.074 +0000] [31mERROR[39m:
+apps/api test: #     [35mservice[39m: "cache-store"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "cache.read.failed"
+apps/api test: #     [35mkey[39m: "billing:tenant_1"
+apps/api test: #     [35mmessage[39m: "Cache read operation failed"
+apps/api test: #     err: {
+apps/api test: #       "type": "Error",
+apps/api test: #       "message": "cache_get_failure",
+apps/api test: #       "stack":
+apps/api test: #           Error: cache_get_failure
+apps/api test: #               at Object.get (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:19:13)
+apps/api test: #               at readCacheValue (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/src/common/cache/cache-store.ts:177:29)
+apps/api test: #               at <anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:42:32)
+apps/api test: #               at waitForActual (node:assert:630:21)
+apps/api test: #               at Function.rejects (node:assert:767:31)
+apps/api test: #               at TestContext.<anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:42:18)
+apps/api test: #               at Test.runInAsyncScope (node:async_hooks:214:14)
+apps/api test: #               at Test.run (node:internal/test_runner/test:1047:25)
+apps/api test: #               at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+apps/api test: #               at Test.postRun (node:internal/test_runner/test:1173:19)
+apps/api test: #     }
+apps/api test: # [2026-03-22 05:35:13.120 +0000] [31mERROR[39m:
+apps/api test: #     [35mservice[39m: "cache-store"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "cache.write.failed"
+apps/api test: #     [35mkey[39m: "billing:tenant_1"
+apps/api test: #     [35mttlSeconds[39m: 60
+apps/api test: #     [35mmessage[39m: "Cache write operation failed"
+apps/api test: #     err: {
+apps/api test: #       "type": "Error",
+apps/api test: #       "message": "cache_set_failure",
+apps/api test: #       "stack":
+apps/api test: #           Error: cache_set_failure
+apps/api test: #               at Object.set (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:22:13)
+apps/api test: #               at writeCacheValue (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/src/common/cache/cache-store.ts:207:22)
+apps/api test: #               at <anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:44:13)
+apps/api test: #               at waitForActual (node:assert:630:21)
+apps/api test: #               at Function.rejects (node:assert:767:31)
+apps/api test: #               at TestContext.<anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:43:18)
+apps/api test: #               at async Test.run (node:internal/test_runner/test:1054:7)
+apps/api test: #               at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+apps/api test: #     }
+apps/api test: # [2026-03-22 05:35:13.120 +0000] [31mERROR[39m:
+apps/api test: #     [35mservice[39m: "cache-store"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "cache.delete.failed"
+apps/api test: #     [35mkeyCount[39m: 1
+apps/api test: #     [35mmessage[39m: "Cache delete operation failed"
+apps/api test: #     err: {
+apps/api test: #       "type": "Error",
+apps/api test: #       "message": "cache_del_failure",
+apps/api test: #       "stack":
+apps/api test: #           Error: cache_del_failure
+apps/api test: #               at Object.del (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:16:13)
+apps/api test: #               at deleteCacheKeys (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/src/common/cache/cache-store.ts:156:22)
+apps/api test: #               at <anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:48:13)
+apps/api test: #               at waitForActual (node:assert:630:21)
+apps/api test: #               at Function.rejects (node:assert:767:31)
+apps/api test: #               at TestContext.<anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.cache.test.ts:47:18)
+apps/api test: #               at async Test.run (node:internal/test_runner/test:1054:7)
+apps/api test: #               at async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+apps/api test: #     }
+apps/api test: # Subtest: checkout session enables automatic tax and propagates locale/country
+apps/api test: ok 18 - checkout session enables automatic tax and propagates locale/country
+apps/api test:   ---
+apps/api test:   duration_ms: 59.847335
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:17.735 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "billing-service"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mcheckoutSessionId[39m: "cs_test_checkout"
+apps/api test: #     [35mcountryCode[39m: "BR"
+apps/api test: #     [35mevent[39m: "billing.checkout.session.created"
+apps/api test: #     [35mlocale[39m: "pt-BR"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mplanId[39m: "plan_professional"
+apps/api test: #     [35mstripeCustomerId[39m: "cus_alpha"
+apps/api test: #     [35mmessage[39m: "Created Stripe checkout session"
+apps/api test: # Subtest: grace period keeps access on day +1 and locks on day +4 for past_due subscriptions
+apps/api test: ok 19 - grace period keeps access on day +1 and locks on day +4 for past_due subscriptions
+apps/api test:   ---
+apps/api test:   duration_ms: 12.158196
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:31.620 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "billing-service"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.invoice.payment_succeeded"
+apps/api test: #     [35minvoiceId[39m: "in_test_1"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mstripeCustomerId[39m: "cus_alpha"
+apps/api test: #     [35mstripeSubscriptionId[39m: null
+apps/api test: #     [35msubscriptionId[39m: "sub_local_1"
+apps/api test: #     [35mmessage[39m: "Processed invoice.payment_succeeded event"
+apps/api test: # [2026-03-22 05:35:31.620 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "billing-service"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.subscription.reactivated"
+apps/api test: #     [35minvoiceId[39m: "in_test_1"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mmessage[39m: "Subscription reactivated after successful invoice payment"
+apps/api test: # Subtest: invoice.payment_succeeded event is idempotent when replayed 3 times
+apps/api test: ok 20 - invoice.payment_succeeded event is idempotent when replayed 3 times
+apps/api test:   ---
+apps/api test:   duration_ms: 523.744506
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:31.621 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.processed"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mstripeEventId[39m: "evt_invoice_paid_1"
+apps/api test: #     [35mstripeEventType[39m: "invoice.payment_succeeded"
+apps/api test: #     [35mmessage[39m: "Processed Stripe billing event"
+apps/api test: # [2026-03-22 05:35:31.682 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.duplicate"
+apps/api test: #     [35mstripeEventId[39m: "evt_invoice_paid_1"
+apps/api test: #     [35mstripeEventType[39m: "invoice.payment_succeeded"
+apps/api test: #     [35mmessage[39m: "Ignoring duplicate Stripe billing event"
+apps/api test: # [2026-03-22 05:35:31.870 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.duplicate"
+apps/api test: #     [35mstripeEventId[39m: "evt_invoice_paid_1"
+apps/api test: #     [35mstripeEventType[39m: "invoice.payment_succeeded"
+apps/api test: #     [35mmessage[39m: "Ignoring duplicate Stripe billing event"
+apps/api test: # Subtest: checkout IP ban activates after repeated declines and can be cleared
+apps/api test: ok 21 - checkout IP ban activates after repeated declines and can be cleared
+apps/api test:   ---
+apps/api test:   duration_ms: 11.507116
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: pack install is blocked with 402 when agents feature is disabled by plan
+apps/api test: ok 22 - pack install is blocked with 402 when agents feature is disabled by plan
+apps/api test:   ---
+apps/api test:   duration_ms: 220.661687
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:49.727 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "billing-service"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mamountCents[39m: 10000
+apps/api test: #     [35mevent[39m: "billing.credit.proration.created"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mstripeEventId[39m: "evt_subscription_downgrade_1"
+apps/api test: #     [35msubscriptionId[39m: "sub_local_1"
+apps/api test: #     [35mmessage[39m: "Created downgrade proration credit"
+apps/api test: # [2026-03-22 05:35:49.727 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "billing-service"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.subscription.updated"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mplanId[39m: "plan_starter"
+apps/api test: #     [35mstatus[39m: "active"
+apps/api test: #     [35mstripeCustomerId[39m: "cus_alpha"
+apps/api test: #     [35mstripeEventId[39m: "evt_subscription_downgrade_1"
+apps/api test: #     [35mstripeSubscriptionId[39m: "sub_stripe_1"
+apps/api test: #     [35msubscriptionId[39m: "sub_local_1"
+apps/api test: #     [35mmessage[39m: "Processed customer.subscription.updated event"
+apps/api test: # Subtest: customer.subscription.updated creates one proration credit for a downgrade
+apps/api test: ok 23 - customer.subscription.updated creates one proration credit for a downgrade
+apps/api test:   ---
+apps/api test:   duration_ms: 368.434434
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:49.728 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: "tenant_alpha"
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.processed"
+apps/api test: #     [35morganizationId[39m: "org_alpha"
+apps/api test: #     [35mstripeEventId[39m: "evt_subscription_downgrade_1"
+apps/api test: #     [35mstripeEventType[39m: "customer.subscription.updated"
+apps/api test: #     [35mmessage[39m: "Processed Stripe billing event"
+apps/api test: # [2026-03-22 05:35:49.781 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.duplicate"
+apps/api test: #     [35mstripeEventId[39m: "evt_subscription_downgrade_1"
+apps/api test: #     [35mstripeEventType[39m: "customer.subscription.updated"
+apps/api test: #     [35mmessage[39m: "Ignoring duplicate Stripe billing event"
+apps/api test: # Subtest: billing snapshot includes downgrade/proration credit balance
+apps/api test: ok 24 - billing snapshot includes downgrade/proration credit balance
+apps/api test:   ---
+apps/api test:   duration_ms: 7.566599
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: stripe webhook rejects events outside the replay window
+apps/api test: ok 25 - stripe webhook rejects events outside the replay window
+apps/api test:   ---
+apps/api test:   duration_ms: 122.852826
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: stripe webhook marks billing event as failed when domain processing errors
+apps/api test: ok 26 - stripe webhook marks billing event as failed when domain processing errors
+apps/api test:   ---
+apps/api test:   duration_ms: 97.608679
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: stripe webhook persists the raw event before invoking domain processing and writes idempotency TTL
+apps/api test: ok 27 - stripe webhook persists the raw event before invoking domain processing and writes idempotency TTL
+apps/api test:   ---
+apps/api test:   duration_ms: 15.489739
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:35:57.859 +0000] [33mWARN[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.replay_rejected"
+apps/api test: #     [35msignatureTimestamp[39m: "2026-03-22T05:30:42.000Z"
+apps/api test: #     [35mstripeEventId[39m: "evt_replay_old"
+apps/api test: #     [35mstripeEventType[39m: "payment_intent.created"
+apps/api test: #     [35mtoleranceSeconds[39m: 300
+apps/api test: #     [35mmessage[39m: "Stripe webhook rejected because it is outside the replay window"
+apps/api test: # [2026-03-22 05:35:57.964 +0000] [31mERROR[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.processing_failed"
+apps/api test: #     [35mstripeEventId[39m: "evt_processing_failure"
+apps/api test: #     [35mstripeEventType[39m: "payment_intent.created"
+apps/api test: #     [35mmessage[39m: "Failed to process Stripe billing event"
+apps/api test: #     err: {
+apps/api test: #       "type": "Error",
+apps/api test: #       "message": "domain failed",
+apps/api test: #       "stack":
+apps/api test: #           Error: domain failed
+apps/api test: #               at processStripeBillingEvent (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.webhook-audit.test.ts:225:15)
+apps/api test: #               at <anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/src/modules/webhooks/stripe.router.ts:388:39)
+apps/api test: #               at Proxy.<anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/tests/billing.webhook-audit.test.ts:107:79)
+apps/api test: #               at <anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/src/modules/webhooks/stripe.router.ts:387:34)
+apps/api test: #               at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+apps/api test: #               at async <anonymous> (/workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION/apps/api/src/modules/webhooks/stripe.router.ts:301:22)
+apps/api test: #     }
+apps/api test: # [2026-03-22 05:35:57.981 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.processed"
+apps/api test: #     [35morganizationId[39m: null
+apps/api test: #     [35mstripeEventId[39m: "evt_audit_order"
+apps/api test: #     [35mstripeEventType[39m: "payment_intent.created"
+apps/api test: #     [35mmessage[39m: "Processed Stripe billing event"
+apps/api test: # Subtest: stripe webhook delegates domain processing to the canonical billing service
+apps/api test: ok 28 - stripe webhook delegates domain processing to the canonical billing service
+apps/api test:   ---
+apps/api test:   duration_ms: 86.152873
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:36:02.438 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.processed"
+apps/api test: #     [35morganizationId[39m: null
+apps/api test: #     [35mstripeEventId[39m: "evt_delegate_signature"
+apps/api test: #     [35mstripeEventType[39m: "payment_intent.created"
+apps/api test: #     [35mmessage[39m: "Processed Stripe billing event"
+apps/api test: # Subtest: stripe webhook rejects invalid signature with 400
+apps/api test: ok 29 - stripe webhook rejects invalid signature with 400
+apps/api test:   ---
+apps/api test:   duration_ms: 255.438062
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: stripe webhook accepts valid signature and records billing event state
+apps/api test: ok 30 - stripe webhook accepts valid signature and records billing event state
+apps/api test:   ---
+apps/api test:   duration_ms: 50.238757
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:36:07.084 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "billing-service"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.ignored"
+apps/api test: #     [35mstripeEventId[39m: "evt_valid_signature"
+apps/api test: #     [35mstripeEventType[39m: "payment_intent.created"
+apps/api test: #     [35mmessage[39m: "Ignoring unsupported Stripe billing event"
+apps/api test: # [2026-03-22 05:36:07.085 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "stripe-webhook"
+apps/api test: #     [35mjobId[39m: null
+apps/api test: #     [35mrequestId[39m: null
+apps/api test: #     [35mtenantId[39m: null
+apps/api test: #     [35mtraceId[39m: null
+apps/api test: #     [35muserId[39m: null
+apps/api test: #     [35mevent[39m: "billing.webhook.processed"
+apps/api test: #     [35morganizationId[39m: null
+apps/api test: #     [35mstripeEventId[39m: "evt_valid_signature"
+apps/api test: #     [35mstripeEventType[39m: "payment_intent.created"
+apps/api test: #     [35mmessage[39m: "Processed Stripe billing event"
+apps/api test: # Subtest: health endpoint returns 200 with database, redis and external status
+apps/api test: ok 31 - health endpoint returns 200 with database, redis and external status
+apps/api test:   ---
+apps/api test:   duration_ms: 266.3444
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: health alias returns 200 for container probes
+apps/api test: ok 32 - health alias returns 200 for container probes
+apps/api test:   ---
+apps/api test:   duration_ms: 226.595258
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: marketplace search returns facets and ranked agents
+apps/api test: ok 33 - marketplace search returns facets and ranked agents
+apps/api test:   ---
+apps/api test:   duration_ms: 625.723397
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: budget endpoints require an authenticated admin session
+apps/api test: ok 34 - budget endpoints require an authenticated admin session
+apps/api test:   ---
+apps/api test:   duration_ms: 134.761749
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: AgentMetricsService aggregates latency and fail rate
+apps/api test: ok 35 - AgentMetricsService aggregates latency and fail rate
+apps/api test:   ---
+apps/api test:   duration_ms: 2.799457
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: AgentMetricsService exports CSV rows
+apps/api test: ok 36 - AgentMetricsService exports CSV rows
+apps/api test:   ---
+apps/api test:   duration_ms: 0.746791
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: tasks endpoint returns 503 when queue backpressure threshold is reached
+apps/api test: ok 37 - tasks endpoint returns 503 when queue backpressure threshold is reached
+apps/api test:   ---
+apps/api test:   duration_ms: 375.430378
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: RBAC matrix on /api/v1/users enforces role policy
+apps/api test: ok 38 - RBAC matrix on /api/v1/users enforces role policy
+apps/api test:   ---
+apps/api test:   duration_ms: 892.448387
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: security sanitizes XSS payloads before queueing tasks
+apps/api test: ok 39 - security sanitizes XSS payloads before queueing tasks
+apps/api test:   ---
+apps/api test:   duration_ms: 269.384309
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: security rejects malicious Origin headers on mutation endpoints
+apps/api test: ok 40 - security rejects malicious Origin headers on mutation endpoints
+apps/api test:   ---
+apps/api test:   duration_ms: 220.382829
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: security requires an authenticated session for connector OAuth callbacks
+apps/api test: ok 41 - security requires an authenticated session for connector OAuth callbacks
+apps/api test:   ---
+apps/api test:   duration_ms: 26.191561
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # [2026-03-22 05:36:41.525 +0000] [32mINFO[39m:
+apps/api test: #     [35mservice[39m: "api"
+apps/api test: #     [35mjobId[39m: "job_1"
+apps/api test: #     [35mrequestId[39m: "eb398970-a53b-4822-91d0-1513b72b989b"
+apps/api test: #     [35mtenantId[39m: "tenant_1"
+apps/api test: #     [35mtraceId[39m: "eb398970-a53b-4822-91d0-1513b72b989b"
+apps/api test: #     [35muserId[39m: "user_1"
+apps/api test: #     [35mmessage[39m: "Queued task for worker processing"
+apps/api test: # Subtest: tasks reject anonymous and header-only requests
+apps/api test: ok 42 - tasks reject anonymous and header-only requests
+apps/api test:   ---
+apps/api test:   duration_ms: 584.281992
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: workflows reject header spoofing and forged bearer tokens
+apps/api test: ok 43 - workflows reject header spoofing and forged bearer tokens
+apps/api test:   ---
+apps/api test:   duration_ms: 67.089587
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: tenant switch requires authenticated membership
+apps/api test: ok 44 - tenant switch requires authenticated membership
+apps/api test:   ---
+apps/api test:   duration_ms: 20.86238
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: authenticated tenant switch succeeds when membership is valid
+apps/api test: ok 45 - authenticated tenant switch succeeds when membership is valid
+apps/api test:   ---
+apps/api test:   duration_ms: 36.85693
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: administrative organization exports reject insufficient role
+apps/api test: ok 46 - administrative organization exports reject insufficient role
+apps/api test:   ---
+apps/api test:   duration_ms: 40.820273
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: agents and packs management reject anonymous access
+apps/api test: ok 47 - agents and packs management reject anonymous access
+apps/api test:   ---
+apps/api test:   duration_ms: 27.844954
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: # Subtest: dashboard endpoints reject anonymous and insufficient-role access
+apps/api test: ok 48 - dashboard endpoints reject anonymous and insufficient-role access
+apps/api test:   ---
+apps/api test:   duration_ms: 12.550475
+apps/api test:   type: 'test'
+apps/api test:   ...
+apps/api test: 1..48
+apps/api test: # tests 48
+apps/api test: # suites 0
+apps/api test: # pass 47
+apps/api test: # fail 0
+apps/api test: # cancelled 0
+apps/api test: # skipped 1
+apps/api test: # todo 0
+apps/api test: # duration_ms 124920.861276
+apps/api test: Done
+apps/worker test$ node --import tsx --test src/**/*.test.ts test/**/*.test.ts
+apps/worker test: TAP version 13
+apps/worker test: # Subtest: Manifest runtime integration persists memory, output, approval and metrics
+apps/worker test: ok 1 - Manifest runtime integration persists memory, output, approval and metrics # SKIP DATABASE_URL is not configured for integration test.
+apps/worker test:   ---
+apps/worker test:   duration_ms: 1.318754
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Workflow runner smoke test executes CEO agent and persists the result
+apps/worker test: ok 2 - Workflow runner smoke test executes CEO agent and persists the result
+apps/worker test:   ---
+apps/worker test:   duration_ms: 10.786021
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Cancelled execution does not enqueue or process further steps
+apps/worker test: ok 3 - Cancelled execution does not enqueue or process further steps
+apps/worker test:   ---
+apps/worker test:   duration_ms: 9.394403
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Workflow runner integration persists DB-backed execution and agent handoff
+apps/worker test: ok 4 - Workflow runner integration persists DB-backed execution and agent handoff # SKIP DATABASE_URL is not configured for integration test.
+apps/worker test:   ---
+apps/worker test:   duration_ms: 1.407999
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Workflow runner executes HTTP_REQUEST with MSW intercepting external side-effects
+apps/worker test: ok 5 - Workflow runner executes HTTP_REQUEST with MSW intercepting external side-effects
+apps/worker test:   ---
+apps/worker test:   duration_ms: 53.430872
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Runner routes condition branch to THEN path when result=true
+apps/worker test: ok 6 - Runner routes condition branch to THEN path when result=true
+apps/worker test:   ---
+apps/worker test:   duration_ms: 1.190112
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Runner routes condition branch to ELSE path when result=false
+apps/worker test: ok 7 - Runner routes condition branch to ELSE path when result=false
+apps/worker test:   ---
+apps/worker test:   duration_ms: 0.242894
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Runner only follows failure routes when step fails
+apps/worker test: ok 8 - Runner only follows failure routes when step fails
+apps/worker test:   ---
+apps/worker test:   duration_ms: 0.135503
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Runner retry backoff is exponential and capped
+apps/worker test: ok 9 - Runner retry backoff is exponential and capped
+apps/worker test:   ---
+apps/worker test:   duration_ms: 0.151284
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: Workflow runner chains HTTP, agent execution and notification with mocked side-effects
+apps/worker test: ok 10 - Workflow runner chains HTTP, agent execution and notification with mocked side-effects
+apps/worker test:   ---
+apps/worker test:   duration_ms: 38.808499
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: billing export window targets the previous UTC day
+apps/worker test: ok 11 - billing export window targets the previous UTC day
+apps/worker test:   ---
+apps/worker test:   duration_ms: 2.386615
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: billing export groups invoices by organization and uploads deterministic JSON
+apps/worker test: ok 12 - billing export groups invoices by organization and uploads deterministic JSON
+apps/worker test:   ---
+apps/worker test:   duration_ms: 2.595078
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: local billing export storage writes JSON artifacts to disk
+apps/worker test: ok 13 - local billing export storage writes JSON artifacts to disk
+apps/worker test:   ---
+apps/worker test:   duration_ms: 85.329563
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: calculateHealthScore rewards active agent usage
+apps/worker test: ok 14 - calculateHealthScore rewards active agent usage
+apps/worker test:   ---
+apps/worker test:   duration_ms: 6.951122
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: calculateHealthScore penalizes critical inactivity and billing failure
+apps/worker test: ok 15 - calculateHealthScore penalizes critical inactivity and billing failure
+apps/worker test:   ---
+apps/worker test:   duration_ms: 0.287509
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: shouldEmitChurnRisk only triggers on the threshold crossing
+apps/worker test: ok 16 - shouldEmitChurnRisk only triggers on the threshold crossing
+apps/worker test:   ---
+apps/worker test:   duration_ms: 0.270376
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: worker handles 50 parallel executions without dropping jobs
+apps/worker test: ok 17 - worker handles 50 parallel executions without dropping jobs
+apps/worker test:   ---
+apps/worker test:   duration_ms: 72.870544
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # [2026-03-22 05:37:05.873 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "40cc92d1cd8be6ba4595026a5a4ebef888f984613f9ac9edc819a6ac9cf3d2d7"
+apps/worker test: #     [35mexecutionId[39m: "load-0"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.878 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "8dabe773c736d4b0df763186a57bc689409f2e8008c3c8baa748e7df61912bca"
+apps/worker test: #     [35mexecutionId[39m: "load-1"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.878 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "fbbcb347fa060740c0e47e30c3edc4a6b670d36eb40ef284215493b749d43974"
+apps/worker test: #     [35mexecutionId[39m: "load-2"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.879 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "b621723221322a2f4d24ba7984fe48cd1c715bf3ee0615becb416e4907939cde"
+apps/worker test: #     [35mexecutionId[39m: "load-3"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.879 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "2b1a5f8666a47bac9274740bdf78edd9da811836bd9771c1bade9d02d1855f7c"
+apps/worker test: #     [35mexecutionId[39m: "load-4"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.880 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "751810b88a229e672777ebc00be4e1845864fc92853830fc5d44d6ebff755686"
+apps/worker test: #     [35mexecutionId[39m: "load-5"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.880 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "443a179646647953cefe1edcdd79fed355d5f1ef743706361e3ffa1a491b5e62"
+apps/worker test: #     [35mexecutionId[39m: "load-6"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.880 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "0a383e48a2e7b9fed1fc2039b27e15213c9bbaf4c1f82190a963d820a63d1697"
+apps/worker test: #     [35mexecutionId[39m: "load-7"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.881 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "9384b71d74115922dd09a41aca1b3412b6fc1040cd274cf8280527bada673227"
+apps/worker test: #     [35mexecutionId[39m: "load-8"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.920 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "1a53fe127a8baa85799e447e3af0420338ccb3718cfc3c5e856df206876c5981"
+apps/worker test: #     [35mexecutionId[39m: "load-9"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.920 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "edf357302f8f211c2c5b22f41d9685de7da51b7abfa8d2463e7e89b333703c03"
+apps/worker test: #     [35mexecutionId[39m: "load-10"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.920 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "c6c93baa996f781e4ca2680427d55f551fbf84d50e4a1716e46778114ecdc664"
+apps/worker test: #     [35mexecutionId[39m: "load-11"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.921 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "2e5088675d0eccb0f43f249d4917969dbee7f3b7dc71058866aaa920878e9d20"
+apps/worker test: #     [35mexecutionId[39m: "load-12"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.922 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "1c8b89830ab4e17946c46a0d0b734c774956bd9ddf4fa489ee25b89b3a18d8d0"
+apps/worker test: #     [35mexecutionId[39m: "load-13"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.922 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "ad2117c5ccd581f35f46205865e49de618d14e8ce65058ae4d34e89934f4e474"
+apps/worker test: #     [35mexecutionId[39m: "load-14"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.922 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "393c44a69cc425bcd77631e6ac068023440e4d3986ccf2eb641c09bf5e0c86e1"
+apps/worker test: #     [35mexecutionId[39m: "load-15"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.922 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "d1fb377db2d415cf88e332f887aaa6eeb406a319491302ee1c9ce32940d93d3f"
+apps/worker test: #     [35mexecutionId[39m: "load-16"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "8e6335ab812731f576f2df77a0a6afdc2e9d8a970f5d16db1dc06eb2d58f0e93"
+apps/worker test: #     [35mexecutionId[39m: "load-17"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "f5f59c2eda403895d37f24fdc817060a53971cabf35fb71bf52f1fb3451aed06"
+apps/worker test: #     [35mexecutionId[39m: "load-18"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "3e30b68e1272c7a3cb9b3599b4fe524200e5c656862b4c638e3d8f4b7d7813e2"
+apps/worker test: #     [35mexecutionId[39m: "load-19"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "26f8c7c449b454708c69bd1b864dfa441110969826bd1a25ac670a9895cf08fe"
+apps/worker test: #     [35mexecutionId[39m: "load-20"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "99b5816ac61be714c4e73e1a6476a96346d4a0d85f18370ab79427de4817b5c1"
+apps/worker test: #     [35mexecutionId[39m: "load-21"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "cf5b9a9d803dd9de4e4b1233f63e8ccdc9924f222b65d7d2d528b94155551832"
+apps/worker test: #     [35mexecutionId[39m: "load-22"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.923 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "e88fbca7c07fce68e824e6e60963d7f548f8f24dab7c5b36be9cb214837cadf3"
+apps/worker test: #     [35mexecutionId[39m: "load-23"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.924 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "50c99ff28f00537639376bd27676eca4446efec24d993a51fbbba8303eca85bc"
+apps/worker test: #     [35mexecutionId[39m: "load-24"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.924 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "92e46170cb8582f45b7de305d606bfe20c823ad0828975704be0eaf7a789036a"
+apps/worker test: #     [35mexecutionId[39m: "load-25"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.924 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "ad4240e8966665444b482a6172d491bfb7e8ef3e49348a44da62d733e47ac4c9"
+apps/worker test: #     [35mexecutionId[39m: "load-26"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.924 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "298d2e862a68ddaf05e187b9faa9df6cd37e390752026393add7df153d0234a5"
+apps/worker test: #     [35mexecutionId[39m: "load-27"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.924 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "7205d46f24d63f932142a7ecc238e8032f36a3ddc4c8d835408edf943a5ee0b3"
+apps/worker test: #     [35mexecutionId[39m: "load-28"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.925 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "54978321abc3815d7899cbf3c9ba08f91c504eab67ba7ee5fb894eb75afdb81d"
+apps/worker test: #     [35mexecutionId[39m: "load-29"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.925 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "db92d8eef25bb253fdb2975addbd8d54cf700e69091b0a34b657d02873e153c7"
+apps/worker test: #     [35mexecutionId[39m: "load-30"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.925 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "b6a412abb9513d7fbeb925a8ae263681b6d449dd01633cc0c64e5b1aa748d469"
+apps/worker test: #     [35mexecutionId[39m: "load-31"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.925 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "b09fc8bb8a2addab24a8fb7eac4f7cc8763545c31fe81f79e4f44140672ca459"
+apps/worker test: #     [35mexecutionId[39m: "load-32"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.929 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "176b9add966c197d0858e6d7d29c65b9ad513af43069bd0f9111ac65a777ed88"
+apps/worker test: #     [35mexecutionId[39m: "load-33"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.930 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "420e95e1b6239967287c5b472d5e42bcdccc890d41adee45d2bceb8ac1bc3a80"
+apps/worker test: #     [35mexecutionId[39m: "load-34"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.930 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "9f7d4dc1cd50d9514aa206f6a2f6c3b0aa068f4ab043265b2b43956ee8de6edb"
+apps/worker test: #     [35mexecutionId[39m: "load-35"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.930 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "6025c0cd25827e28f2df196713e9cad964a38ccd272a77276d2f31406b367474"
+apps/worker test: #     [35mexecutionId[39m: "load-36"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.930 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "4d110731f82d53d4be97629910137a48ac3082854b28c6f80d618cf75192ce22"
+apps/worker test: #     [35mexecutionId[39m: "load-37"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.930 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "2551c682063f5505dfa73110f243c2d94d0cfa0c9dcbbca10a7e932f433b279f"
+apps/worker test: #     [35mexecutionId[39m: "load-38"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "c833c0a0aba4e8895a71023b7ddc43f2c5f8f1ea0c42595c58c32e24e52e5284"
+apps/worker test: #     [35mexecutionId[39m: "load-39"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "28faa8e5e217f266ce761fa1669a7353dc0d640a2e396208aabc424b4d498cc9"
+apps/worker test: #     [35mexecutionId[39m: "load-40"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "d8730269fea169df5b253f935b95db48343f448029bcc19a6d45a8c141f27551"
+apps/worker test: #     [35mexecutionId[39m: "load-41"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "13945cb328ef7e4c966fdfc303b5f77801321366501c67366b95dccf124ed39f"
+apps/worker test: #     [35mexecutionId[39m: "load-42"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "f355cb2f9f6553dfb784c7b94bc5bbf182cb2530de70f0c1bf410afc17532aac"
+apps/worker test: #     [35mexecutionId[39m: "load-43"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "370c828e1b3e788026ba22dd9c2abbacfd25c9d3316bc565b848874ad278ab52"
+apps/worker test: #     [35mexecutionId[39m: "load-44"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.931 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "7f0051d740fa4eb19208e0f5025ffb091daf634a355ad93a929c4c3432ea2736"
+apps/worker test: #     [35mexecutionId[39m: "load-45"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.932 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "adc5493b0e76da6e6ad94607935d6676f3aaa6261e36e4c66f3e3e73aa2d7be1"
+apps/worker test: #     [35mexecutionId[39m: "load-46"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.932 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "e4208e343c0853d9da7bc52b1579a43f8886502e1e784a8452fba966d21362d7"
+apps/worker test: #     [35mexecutionId[39m: "load-47"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.932 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "75e575448b5b4a989cd5b63705bcb2914bd8c5bd5e1581ab4a3006771d09cea3"
+apps/worker test: #     [35mexecutionId[39m: "load-48"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # [2026-03-22 05:37:05.932 +0000] [32mINFO[39m:
+apps/worker test: #     [35mservice[39m: "plan-executor"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant-load"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mestimatedCostBrlTotal[39m: 0
+apps/worker test: #     [35mexecutionDigest[39m: "303339aaa80e09f1ab5bca7640c06ece4c59c49c717fc86ff7cd960454782113"
+apps/worker test: #     [35mexecutionId[39m: "load-49"
+apps/worker test: #     [35mredactedInput[39m: {}
+apps/worker test: #     [35mtoolCalls[39m: 1
+apps/worker test: #     [35mmessage[39m: "PlanExecutor started execution"
+apps/worker test: # Subtest: outbound webhooks
+apps/worker test:     # Subtest: enqueueWebhookTopicDeliveries - enqueues jobs for active endpoints matching topic
+apps/worker test:     ok 1 - enqueueWebhookTopicDeliveries - enqueues jobs for active endpoints matching topic
+apps/worker test:       ---
+apps/worker test:       duration_ms: 3.891697
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     # Subtest: processOutboundWebhookJob - skips disabled endpoints
+apps/worker test:     ok 2 - processOutboundWebhookJob - skips disabled endpoints
+apps/worker test:       ---
+apps/worker test:       duration_ms: 0.782155
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     # Subtest: processOutboundWebhookJob - skips endpoints not matching topic
+apps/worker test:     ok 3 - processOutboundWebhookJob - skips endpoints not matching topic
+apps/worker test:       ---
+apps/worker test:       duration_ms: 0.782807
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     # Subtest: processOutboundWebhookJob - successful delivery
+apps/worker test:     ok 4 - processOutboundWebhookJob - successful delivery
+apps/worker test:       ---
+apps/worker test:       duration_ms: 63.164132
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     # Subtest: processOutboundWebhookJob - non-200 response marks failure and increments failures
+apps/worker test:     ok 5 - processOutboundWebhookJob - non-200 response marks failure and increments failures
+apps/worker test:       ---
+apps/worker test:       duration_ms: 3.831238
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     # Subtest: processOutboundWebhookJob - 10 consecutive failures disables endpoint
+apps/worker test:     ok 6 - processOutboundWebhookJob - 10 consecutive failures disables endpoint
+apps/worker test:       ---
+apps/worker test:       duration_ms: 1.83298
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     # Subtest: processOutboundWebhookJob - network error sets error message
+apps/worker test:     ok 7 - processOutboundWebhookJob - network error sets error message
+apps/worker test:       ---
+apps/worker test:       duration_ms: 1.591333
+apps/worker test:       type: 'test'
+apps/worker test:       ...
+apps/worker test:     1..7
+apps/worker test: ok 18 - outbound webhooks
+apps/worker test:   ---
+apps/worker test:   duration_ms: 79.080416
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # [2026-03-22 05:37:07.749 +0000] [31mERROR[39m:
+apps/worker test: #     [35mservice[39m: "worker-outbound-webhooks"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant1"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mendpointId[39m: "ep1"
+apps/worker test: #     [35mtopic[39m: "user.created"
+apps/worker test: #     [35mmessage[39m: "Outbound webhook delivery failed"
+apps/worker test: #     error: {}
+apps/worker test: # [2026-03-22 05:37:07.752 +0000] [31mERROR[39m:
+apps/worker test: #     [35mservice[39m: "worker-outbound-webhooks"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant1"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mendpointId[39m: "ep1"
+apps/worker test: #     [35mtopic[39m: "user.created"
+apps/worker test: #     [35mmessage[39m: "Outbound webhook delivery failed"
+apps/worker test: #     error: {}
+apps/worker test: # [2026-03-22 05:37:07.754 +0000] [31mERROR[39m:
+apps/worker test: #     [35mservice[39m: "worker-outbound-webhooks"
+apps/worker test: #     [35mjobId[39m: null
+apps/worker test: #     [35mrequestId[39m: null
+apps/worker test: #     [35mtenantId[39m: "tenant1"
+apps/worker test: #     [35mtraceId[39m: null
+apps/worker test: #     [35muserId[39m: null
+apps/worker test: #     [35mendpointId[39m: "ep1"
+apps/worker test: #     [35mtopic[39m: "user.created"
+apps/worker test: #     [35mmessage[39m: "Outbound webhook delivery failed"
+apps/worker test: #     error: {}
+apps/worker test: # Subtest: jobs concorrentes mantem o tenantContext isolado
+apps/worker test: ok 19 - jobs concorrentes mantem o tenantContext isolado
+apps/worker test:   ---
+apps/worker test:   duration_ms: 17.576764
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: # Subtest: cleanupSuspendedUsers anonymizes stale suspended users
+apps/worker test: ok 20 - cleanupSuspendedUsers anonymizes stale suspended users
+apps/worker test:   ---
+apps/worker test:   duration_ms: 3.034779
+apps/worker test:   type: 'test'
+apps/worker test:   ...
+apps/worker test: 1..20
+apps/worker test: # tests 27
+apps/worker test: # suites 0
+apps/worker test: # pass 25
+apps/worker test: # fail 0
+apps/worker test: # cancelled 0
+apps/worker test: # skipped 2
+apps/worker test: # todo 0
+apps/worker test: # duration_ms 21997.707926
+apps/worker test: Done
