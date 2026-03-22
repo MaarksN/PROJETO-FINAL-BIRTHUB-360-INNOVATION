@@ -25,7 +25,8 @@ const hotspots = [
 ];
 
 function countLines(filePath) {
-  return readFileSync(filePath, "utf8").split(/\r?\n/).length;
+  const content = readFileSync(filePath, "utf8").trimEnd();
+  return content.length === 0 ? 0 : content.split(/\r?\n/).length;
 }
 
 const results = hotspots.map((hotspot) => {
