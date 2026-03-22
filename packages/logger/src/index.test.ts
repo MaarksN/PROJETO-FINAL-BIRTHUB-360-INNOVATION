@@ -116,9 +116,16 @@ void test("logger redacts sensitive fields", async () => {
       logger.info(
         {
           authorization: "Bearer secret",
+          context: {
+            sessionId: "sess_nested"
+          },
           email: "user@example.com",
+          headers: {
+            cookie: "bh360_session=secret-cookie"
+          },
           password: "hidden",
-          refreshToken: "token-value"
+          refreshToken: "token-value",
+          sessionId: "sess_top_level"
         },
         "Sensitive payload"
       );
@@ -126,8 +133,11 @@ void test("logger redacts sensitive fields", async () => {
 
     assert.equal(payload.authorization, "[REDACTED]");
     assert.equal(payload.email, "[REDACTED]");
+    assert.deepEqual(payload.context, { sessionId: "[REDACTED]" });
+    assert.deepEqual(payload.headers, { cookie: "[REDACTED]" });
     assert.equal(payload.password, "[REDACTED]");
     assert.equal(payload.refreshToken, "[REDACTED]");
+    assert.equal(payload.sessionId, "[REDACTED]");
   } finally {
     process.env.NODE_ENV = previousNodeEnv;
     process.env.LOG_LEVEL = previousLogLevel;

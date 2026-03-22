@@ -35,17 +35,24 @@ function normalizeContext(context: LogContext): Required<LogContext> {
 const sensitivePaths = [
   "authorization",
   "context.authorization",
+  "context.csrfToken",
   "context.email",
   "context.password",
-  "context.secret",
-  "context.token",
   "context.refreshToken",
+  "context.secret",
+  "context.sessionId",
+  "context.session_id",
+  "context.token",
+  "cookie",
   "csrfToken",
   "email",
   "headers.authorization",
+  "headers.cookie",
   "password",
   "refreshToken",
   "secret",
+  "sessionId",
+  "session_id",
   "token"
 ];
 

@@ -307,6 +307,101 @@ void test("auth logout returns 200 for a valid session token", async () => {
   }
 });
 
+void test("refreshSession rotates refresh tokens and revokes the previous session", async () => {
+  const config = createTestApiConfig();
+  let createdSessionId: string | null = null;
+  let revokedReplacementId: string | null = null;
+
+  const restores = [
+    stubMethod(prisma.session, "findUnique", (args: { where?: { refreshTokenHash?: string } }) => {
+      if (args.where?.refreshTokenHash !== sha256("refresh_current")) {
+        return Promise.resolve(null);
+      }
+
+      return Promise.resolve({
+        id: "session_current",
+        organizationId: "org_1",
+        refreshExpiresAt: new Date(Date.now() + 60_000),
+        revokedAt: null,
+        tenantId: "tenant_1",
+        userId: "user_1"
+      });
+    }),
+    stubMethod(prisma.session, "create", (args: { data?: { id?: unknown } }) => {
+      const nextId = typeof args.data?.id === "string" ? args.data.id : "session_next";
+      createdSessionId = nextId;
+      return Promise.resolve({ id: nextId });
+    }),
+    stubMethod(prisma.session, "findMany", () => Promise.resolve([{ id: createdSessionId ?? "session_next" }])),
+    stubMethod(prisma.session, "updateMany", () => Promise.resolve({ count: 0 })),
+    stubMethod(prisma.session, "update", (args: { data?: { replacedBySessionId?: string | null } }) => {
+      revokedReplacementId = args.data?.replacedBySessionId ?? null;
+      return Promise.resolve({ id: "session_current" });
+    })
+  ];
+
+  try {
+    const result = await refreshSession({
+      config,
+      ipAddress: "127.0.0.1",
+      refreshToken: "refresh_current",
+      userAgent: "auth-test"
+    });
+
+    assert.equal(result.breached, false);
+    assert.equal(result.organizationId, "org_1");
+    assert.equal(result.tenantId, "tenant_1");
+    assert.equal(result.userId, "user_1");
+    assert.equal(result.sessionId, createdSessionId);
+    assert.ok(result.tokens);
+    assert.notEqual(result.tokens?.refreshToken, "refresh_current");
+    assert.equal(revokedReplacementId, createdSessionId);
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
+});
+
+void test("setAuthCookies hardens auth cookies with Strict sameSite and secure transport", () => {
+  const config = {
+    ...createTestApiConfig(),
+    REQUIRE_SECURE_COOKIES: true
+  };
+  const writtenCookies: Array<{ name: string; options: Record<string, unknown>; value: string }> = [];
+  const response = {
+    cookie(name: string, value: string, options: Record<string, unknown>) {
+      writtenCookies.push({ name, options, value });
+      return this;
+    }
+  };
+
+  setAuthCookies(response as never, config, {
+    csrfToken: "csrf_1",
+    expiresAt: new Date("2026-03-22T12:00:00.000Z"),
+    refreshToken: "refresh_1",
+    token: "atk_1"
+  });
+
+  const sessionCookie = writtenCookies.find((entry) => entry.name === config.API_AUTH_COOKIE_NAME);
+  const refreshCookie = writtenCookies.find((entry) => entry.name === config.API_AUTH_REFRESH_COOKIE_NAME);
+  const csrfCookie = writtenCookies.find((entry) => entry.name === config.API_CSRF_COOKIE_NAME);
+
+  assert.ok(sessionCookie);
+  assert.equal(sessionCookie.options.httpOnly, true);
+  assert.equal(sessionCookie.options.sameSite, "strict");
+  assert.equal(sessionCookie.options.secure, true);
+
+  assert.ok(refreshCookie);
+  assert.equal(refreshCookie.options.httpOnly, true);
+  assert.equal(refreshCookie.options.sameSite, "strict");
+  assert.equal(refreshCookie.options.secure, true);
+
+  assert.ok(csrfCookie);
+  assert.equal(csrfCookie.options.httpOnly, false);
+  assert.equal(csrfCookie.options.sameSite, "strict");
+  assert.equal(csrfCookie.options.secure, true);
+});
 void test("auth protected endpoint returns 401 for expired or invalid session tokens", async () => {
   const app = createAuthTestApp();
 
@@ -389,3 +484,4 @@ void test("authenticateRequest rejects idle-expired session", async () => {
     }
   }
 });
+
