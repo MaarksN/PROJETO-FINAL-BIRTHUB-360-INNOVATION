@@ -55,7 +55,7 @@ jobs:
       WEB_BASE_URL: ${{ vars.WEB_BASE_URL }}
     steps:
       - name: Checkout source from CI run
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
@@ -161,13 +161,13 @@ jobs:
     steps:
       - name: Checkout release source from CI run
         if: github.event_name == 'workflow_run'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Checkout release source from manual dispatch
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
