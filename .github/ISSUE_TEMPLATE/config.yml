@@ -1,5 +1,2 @@
 blank_issues_enabled: false
-contact_links:
-  - name: RFC or ADR proposal
-    url: ../docs/templates/rfc-template.md
-    about: Use o template de RFC quando a mudanca alterar arquitetura, rollout ou contrato.
+
