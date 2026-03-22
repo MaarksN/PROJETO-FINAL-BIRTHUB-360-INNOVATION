@@ -6,7 +6,8 @@ import { prisma, Role, UserStatus } from "@birthub/database";
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
-import { authenticateRequest, createSession, verifyMfaChallenge } from "../src/modules/auth/auth.service.js";
+import { authenticateRequest, createSession, refreshSession, verifyMfaChallenge } from "../src/modules/auth/auth.service.js";
+import { setAuthCookies } from "../src/modules/auth/cookies.js";
 import { encryptTotpSecret, generateCurrentTotp, generateTotpSecret } from "../src/modules/auth/mfa.service.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
 import { createTestApiConfig } from "./test-config.js";

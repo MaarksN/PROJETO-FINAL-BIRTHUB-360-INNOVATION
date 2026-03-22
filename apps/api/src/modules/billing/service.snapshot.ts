@@ -169,6 +169,77 @@ function resolveGracePeriodEndsAt(
   return new Date(subscription.updatedAt.getTime() + gracePeriodDays * 24 * 60 * 60 * 1000);
 }
 
+async function findBillingOrganization(organizationReference: string) {
+  return prisma.organization.findFirst({
+    include: {
+      plan: true,
+      subscriptions: {
+        include: {
+          plan: true
+        },
+        orderBy: {
+          updatedAt: "desc"
+        },
+        take: 1
+      }
+    },
+    where: {
+      OR: [{ id: organizationReference }, { tenantId: organizationReference }]
+    }
+  });
+}
+
+async function resolveBillingPlan(
+  organization: NonNullable<Awaited<ReturnType<typeof findBillingOrganization>>>
+) {
+  const subscription = organization.subscriptions[0] ?? null;
+  return subscription?.plan ?? organization.plan ?? (await ensurePlanByCode("starter"));
+}
+
+function buildBillingSnapshot(input: {
+  creditBalanceCents: number;
+  gracePeriodDays: number;
+  organization: NonNullable<Awaited<ReturnType<typeof findBillingOrganization>>>;
+  plan: Awaited<ReturnType<typeof ensurePlanByCode>>;
+}): BillingSnapshot {
+  const subscription = input.organization.subscriptions[0] ?? null;
+  const gracePeriodEndsAt = resolveGracePeriodEndsAt(subscription, input.gracePeriodDays);
+  const isPastDue = subscription?.status === SubscriptionStatus.past_due;
+  const hardLocked = Boolean(
+    isPastDue && gracePeriodEndsAt && gracePeriodEndsAt.getTime() <= Date.now()
+  );
+  const secondsUntilHardLock =
+    isPastDue && gracePeriodEndsAt
+      ? Math.max(0, Math.floor((gracePeriodEndsAt.getTime() - Date.now()) / 1000))
+      : null;
+  const isPaidStatuses = new Set([
+    SubscriptionStatus.active,
+    SubscriptionStatus.past_due,
+    SubscriptionStatus.paused
+  ]);
+
+  return {
+    creditBalanceCents: input.creditBalanceCents,
+    currentPeriodEnd: subscription?.currentPeriodEnd ?? null,
+    gracePeriodEndsAt,
+    hardLocked,
+    isPaid: subscription ? isPaidStatuses.has(subscription.status) : false,
+    isWithinGracePeriod: Boolean(isPastDue && gracePeriodEndsAt && !hardLocked),
+    organizationId: input.organization.id,
+    plan: {
+      code: input.plan.code,
+      id: input.plan.id,
+      limits: input.plan.limits,
+      name: input.plan.name
+    },
+    secondsUntilHardLock,
+    status: subscription?.status ?? null,
+    stripeCustomerId: input.organization.stripeCustomerId,
+    subscriptionId: subscription?.id ?? null,
+    tenantId: input.organization.tenantId
+  };
+}
+
 async function getBillingCreditBalanceCents(
   organizationId: string,
   client: DatabaseClient = prisma
@@ -199,23 +270,7 @@ export async function getBillingSnapshot(
     }
   }
 
-  const organization = await prisma.organization.findFirst({
-    include: {
-      plan: true,
-      subscriptions: {
-        include: {
-          plan: true
-        },
-        orderBy: {
-          updatedAt: "desc"
-        },
-        take: 1
-      }
-    },
-    where: {
-      OR: [{ id: organizationReference }, { tenantId: organizationReference }]
-    }
-  });
+  const organization = await findBillingOrganization(organizationReference);
 
   if (!organization) {
     throw new ProblemDetailsError({
@@ -225,42 +280,14 @@ export async function getBillingSnapshot(
     });
   }
 
-  const subscription = organization.subscriptions[0] ?? null;
-  const plan = subscription?.plan ?? organization.plan ?? (await ensurePlanByCode("starter"));
+  const plan = await resolveBillingPlan(organization);
   const creditBalanceCents = await getBillingCreditBalanceCents(organization.id);
-  const gracePeriodEndsAt = resolveGracePeriodEndsAt(subscription, gracePeriodDays);
-  const isPastDue = subscription?.status === SubscriptionStatus.past_due;
-  const hardLocked = Boolean(
-    isPastDue && gracePeriodEndsAt && gracePeriodEndsAt.getTime() <= Date.now()
-  );
-  const secondsUntilHardLock =
-    isPastDue && gracePeriodEndsAt
-      ? Math.max(0, Math.floor((gracePeriodEndsAt.getTime() - Date.now()) / 1000))
-      : null;
-
-  const snapshot: BillingSnapshot = {
+  const snapshot = buildBillingSnapshot({
     creditBalanceCents,
-    currentPeriodEnd: subscription?.currentPeriodEnd ?? null,
-    gracePeriodEndsAt,
-    hardLocked,
-    isPaid:
-      subscription?.status === SubscriptionStatus.active ||
-      subscription?.status === SubscriptionStatus.past_due ||
-      subscription?.status === SubscriptionStatus.paused,
-    isWithinGracePeriod: Boolean(isPastDue && gracePeriodEndsAt && !hardLocked),
-    organizationId: organization.id,
-    plan: {
-      code: plan.code,
-      id: plan.id,
-      limits: plan.limits,
-      name: plan.name
-    },
-    secondsUntilHardLock,
-    status: subscription?.status ?? null,
-    stripeCustomerId: organization.stripeCustomerId,
-    subscriptionId: subscription?.id ?? null,
-    tenantId: organization.tenantId
-  };
+    gracePeriodDays,
+    organization,
+    plan
+  });
 
   await cacheBillingSnapshot(snapshot, organizationReference);
 
