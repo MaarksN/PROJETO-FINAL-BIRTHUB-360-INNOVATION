@@ -9,7 +9,7 @@ import {
 import Stripe from "stripe";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { ensurePlanByCode, type DatabaseClient } from "./service.shared.js";
+import { type DatabaseClient } from "./service.shared.js";
 
 export const reconciliationLogger = createLogger("billing-service");
 

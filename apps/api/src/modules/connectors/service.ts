@@ -1,7 +1,6 @@
 import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { enqueueCrmSync } from "../engagement/queues.js";
 import { createConnectSession, finalizeConnectSession } from "./service.oauth.js";
 import {
