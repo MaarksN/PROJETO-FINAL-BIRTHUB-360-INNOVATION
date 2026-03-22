@@ -6,7 +6,7 @@
   "dependencies": {
     "@birthub/shared-types": "workspace:*",
     "bullmq": "^5.71.0",
-    "ioredis": "^5.10.0"
+    "ioredis": "^5.10.1"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
