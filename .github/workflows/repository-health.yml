@@ -36,7 +36,7 @@ jobs:
         run: pnpm monorepo:doctor
 
       - name: Upload doctor artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: repository-health-artifacts
           path: artifacts/doctor

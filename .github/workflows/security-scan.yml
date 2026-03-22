@@ -214,7 +214,7 @@ jobs:
           ZAP_STATUS: ${{ needs.zap-baseline.result }}
 
       - name: Upload security report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: security-coverage-report
           path: docs/security/security-coverage-report.md
