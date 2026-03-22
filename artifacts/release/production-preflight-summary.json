@@ -1,66 +1,63 @@
 {
-  "checkedAt": "2026-03-17T18:48:29.040Z",
-  "envFile": ".env.vps.generated",
+  "checkedAt": "2026-03-22T12:53:58.984Z",
+  "envFile": null,
   "ok": false,
   "requiredKeys": [
     {
       "missing": [
-        "SENTRY_DSN"
-      ],
-      "present": [
         "API_CORS_ORIGINS",
         "AUTH_MFA_ENCRYPTION_KEY",
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
+        "SENTRY_DSN",
         "SESSION_SECRET",
         "STRIPE_SECRET_KEY",
         "STRIPE_WEBHOOK_SECRET",
         "WEB_BASE_URL"
       ],
+      "present": [],
       "scope": "api"
     },
     {
       "missing": [
+        "NEXT_PUBLIC_API_URL",
+        "NEXT_PUBLIC_APP_URL",
         "NEXT_PUBLIC_SENTRY_DSN"
       ],
-      "present": [
-        "NEXT_PUBLIC_API_URL",
-        "NEXT_PUBLIC_APP_URL"
-      ],
+      "present": [],
       "scope": "web"
     },
     {
       "missing": [
-        "SENTRY_DSN"
-      ],
-      "present": [
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
+        "SENTRY_DSN",
         "WEB_BASE_URL"
       ],
+      "present": [],
       "scope": "worker"
     }
   ],
   "results": [
     {
       "issues": [
-        "[api] invalid environment variables:\n- SENTRY_DSN must be configured in production."
+        "[api] invalid environment variables:\n- DATABASE_URL: Invalid input: expected string, received undefined\n- REDIS_URL: Invalid input: expected string, received undefined"
       ],
       "ok": false,
       "scope": "api"
     },
     {
       "issues": [
-        "[web] invalid environment variables:\n- NEXT_PUBLIC_SENTRY_DSN must be configured in production."
+        "[web] invalid environment variables:\n- NEXT_PUBLIC_APP_URL must point to the public HTTPS domain in production.\n- NEXT_PUBLIC_API_URL must point to the public HTTPS API domain in production.\n- NEXT_PUBLIC_CSP_REPORT_ONLY must be false in production.\n- NEXT_PUBLIC_SENTRY_DSN must be configured in production."
       ],
       "ok": false,
       "scope": "web"
     },
     {
       "issues": [
-        "[worker] invalid environment variables:\n- SENTRY_DSN must be configured in production."
+        "[worker] invalid environment variables:\n- DATABASE_URL: Invalid input: expected string, received undefined\n- REDIS_URL: Invalid input: expected string, received undefined"
       ],
       "ok": false,
       "scope": "worker"

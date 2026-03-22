@@ -164,7 +164,7 @@ export class DbWriteTool extends BaseTool<DbWriteInput, number> {
 }
 
 export interface HttpInput {
-  body?: unknown | undefined;
+  body?: unknown;
   headers?: Record<string, string> | undefined;
   method?: "DELETE" | "GET" | "PATCH" | "POST" | "PUT" | undefined;
   url: string;

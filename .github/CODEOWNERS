@@ -1,9 +1,19 @@
+# Governance and release controls
+/.github/workflows/ @platform-devex @platform-security
+/.github/dependabot.yml @platform-devex @platform-security
+/.github/pull_request_template.md @platform-devex @platform-security
+/package.json @platform-devex @platform-security
+/pnpm-lock.yaml @platform-devex @platform-security
+/SECURITY.md @platform-security
+/docs/ci/ @platform-devex @platform-architecture
+/docs/security/ @platform-security @platform-architecture
+
 # Core platform ownership
-/apps/api/ @platform-api
-/apps/worker/ @platform-worker
+/apps/api/ @platform-api @platform-security
+/apps/worker/ @platform-worker @platform-security
 /apps/web/ @platform-web
-/packages/database/ @platform-data
+/packages/database/ @platform-data @platform-security
 /packages/security/ @platform-security
-/packages/workflows-core/ @platform-workflows
-/scripts/ci/ @platform-devex
+/packages/workflows-core/ @platform-workflows @platform-security
+/scripts/ci/ @platform-devex @platform-security
 /docs/ @platform-architecture

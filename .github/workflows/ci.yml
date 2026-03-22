@@ -7,14 +7,49 @@ on:
       - main
       - develop
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
+  commitlint:
+    name: commitlint
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm ci:commitlint
+      fetch_depth: 0
+      timeout_minutes: 10
+
+  lockfile-integrity:
+    name: lockfile-integrity
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm ci:lockfile
+      timeout_minutes: 15
+
+  inline-credentials:
+    name: inline-credentials
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm security:inline-credentials
+      timeout_minutes: 10
+
+  pr-size:
+    name: pr-size
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm ci:pr-size
+      timeout_minutes: 10
+
   gitleaks:
     name: gitleaks
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Gitleaks
+
+      - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -22,6 +57,7 @@ jobs:
   security-guardrails:
     name: security-guardrails
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     services:
       postgres:
         image: postgres:16-alpine
@@ -49,6 +85,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Install dependencies
@@ -77,6 +114,7 @@ jobs:
   platform:
     name: ${{ matrix.task }}
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     strategy:
       fail-fast: false
       matrix:
@@ -122,6 +160,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Cache Turbo
@@ -156,9 +195,10 @@ jobs:
           SESSION_SECRET: ci-secret
           WEB_BASE_URL: http://localhost:3001
 
-  pack-tests:
-    name: pack-tests
+  satellites:
+    name: satellites
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -172,57 +212,32 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Pack test suite
-        run: pnpm ci:task pack-tests
-
-  workflow-suite:
-    name: workflow-suite
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version-file: .python-version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Install Python dependencies
+        shell: bash
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
-          find agents -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
-          python -m pip install -r apps/webhook-receiver/requirements.txt pytest pytest-cov ruff mypy
+          find agents apps -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
+          python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov
 
-      - name: Python lint and typecheck
-        run: |
-          ruff check agents apps/webhook-receiver
-          mypy agents/shared apps/webhook-receiver/src
+      - name: Run satellites lane
+        run: pnpm ci:task satellites
 
-      - name: Workflow suite
-        run: pnpm ci:task workflow-suite
-
-  governance-gates:
-    name: governance-gates
+  legacy-agents:
+    name: legacy-agents
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -236,54 +251,169 @@ jobs:
         uses: actions/setup-node@v4
         with:
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run monorepo doctor
-        run: pnpm monorepo:doctor
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          find agents -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
+          python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov
 
-      - name: Run release scorecard
-        run: pnpm release:scorecard
+      - name: Enforce Python ignore policy
+        run: pnpm ci:python-ignore-guard
+
+      - name: Run legacy agents coverage gate
+        run: pnpm test:coverage
+
+  workflow-suite:
+    name: workflow-suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --upgrade pip
+          find agents apps -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
+          python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov ruff mypy bandit pip-audit "safety==2.3.1"
+
+      - name: Enforce Python lint and typecheck
+        run: |
+          ruff check agents apps/webhook-receiver
+          mypy --strict agents/shared apps/webhook-receiver/src
+
+      - name: Enforce type-comment guard
+        run: pnpm ci:ts-comment-guard
+
+      - name: Enforce Python security gates
+        run: |
+          bandit -q -r agents apps/webhook-receiver
+          pip-audit
+          safety check --full-report
+
+      - name: Run Python workflow tests
+        run: pytest apps/agent-orchestrator/tests apps/webhook-receiver/tests
+
+      - name: Run workflow suite
+        run: pnpm ci:task workflow-suite
+
+  pack-tests:
+    name: pack-tests
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm ci:task pack-tests
+      timeout_minutes: 20
+
+  governance-gates:
+    name: governance-gates
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm monorepo:doctor && pnpm release:scorecard
+      timeout_minutes: 15
+
+  meta-ci:
+    name: meta-ci
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm ci:workflow-audit && pnpm ci:ts-comment-guard
+      timeout_minutes: 15
+
+  license-check:
+    name: license-check
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm ci:license-check
+      timeout_minutes: 15
+
+  container-security:
+    name: container-security (${{ matrix.image.name }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - name: web
+            dockerfile: apps/web/Dockerfile
+            tag: birthhub-web:ci
+          - name: api
+            dockerfile: apps/api/Dockerfile
+            tag: birthhub-api:ci
+          - name: worker
+            dockerfile: apps/worker/Dockerfile
+            tag: birthhub-worker:ci
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build container image
+        run: docker build -f ${{ matrix.image.dockerfile }} -t ${{ matrix.image.tag }} .
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: ${{ matrix.image.tag }}
+          format: table
+          exit-code: "1"
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
 
   ci:
     name: ci
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs:
+      - commitlint
+      - lockfile-integrity
+      - inline-credentials
+      - pr-size
       - gitleaks
       - security-guardrails
       - platform
-      - pack-tests
+      - satellites
+      - legacy-agents
       - workflow-suite
+      - pack-tests
       - governance-gates
+      - meta-ci
+      - license-check
+      - container-security
     steps:
       - name: Done
         run: echo "All required checks passed."
-
-  trivy:
-    name: Trivy Security Scan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: 'fs'
-          scan-ref: '.'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
-
-  cyclonedx:
-    name: CycloneDX SBOM
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Generate SBOM
-        uses: CycloneDX/gh-node-module-generatebom@v1
-        with:
-          path: .
-          output: './bom.xml'

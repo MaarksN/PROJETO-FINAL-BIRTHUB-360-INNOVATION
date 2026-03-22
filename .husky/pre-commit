@@ -1,1 +1,3 @@
-npx lint-staged
+pnpm exec lint-staged
+pnpm typecheck:workspace
+pnpm workspace:audit

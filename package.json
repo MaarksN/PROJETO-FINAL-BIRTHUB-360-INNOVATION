@@ -8,7 +8,9 @@
   },
   "scripts": {
     "build": "pnpm build:core",
+    "build:agents": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run build",
     "build:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing run build",
+    "build:workspace": "turbo run build",
     "build:satellites": "node scripts/ci/run-satellites.mjs build",
     "bootstrap:local:windows": "powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap/bootstrap-local.ps1",
     "bootstrap:node:windows": "powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap/install-node-portable.ps1",
@@ -23,19 +25,25 @@
     "stack:canonical": "pnpm preflight:core && pnpm dev",
     "stack:hybrid": "pnpm preflight:full && pnpm dev:legacy",
     "lint": "pnpm lint:core",
+    "lint:agents": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run lint",
     "lint:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/db... --filter=@birthub/utils... run lint",
     "lint:satellites": "node scripts/ci/run-satellites.mjs lint",
+    "lint:workspace": "turbo run lint",
     "preflight:agents": "node scripts/ci/preflight.mjs agents",
     "preflight:core": "node scripts/ci/preflight.mjs core",
     "preflight:full": "node scripts/ci/preflight.mjs full",
     "preflight:satellites": "node scripts/ci/preflight.mjs satellites",
     "preflight:workflow-suite": "node scripts/ci/preflight.mjs workflow-suite",
     "typecheck": "pnpm typecheck:core",
+    "typecheck:agents": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run typecheck",
     "typecheck:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/db... --filter=@birthub/utils... run typecheck",
     "typecheck:satellites": "node scripts/ci/run-satellites.mjs typecheck",
+    "typecheck:workspace": "turbo run typecheck",
     "test": "pnpm test:core",
+    "test:agents:packages": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run test",
     "test:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/db... --filter=@birthub/utils... run test",
     "test:satellites": "node scripts/ci/run-satellites.mjs test",
+    "test:workspace": "turbo run test",
     "test:isolation": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/api --filter=@birthub/worker run test:isolation",
     "test:workflows": "pnpm --filter @birthub/workflows-core test && pnpm --filter @birthub/worker test && pnpm workflow:coverage",
     "workflow:coverage": "node --import tsx scripts/verify-workflow-step-coverage.ts",
@@ -91,7 +99,7 @@
     "dev:ae-worker": "tsx agents/ae/worker.ts",
     "dev:marketing-worker": "tsx agents/marketing/worker.ts",
     "ci:local": "bash ./scripts/ci/local-ci.sh",
-    "workspace:audit": "node scripts/ci/workspace-audit.mjs",
+    "workspace:audit": "node scripts/ci/workspace-audit.mjs && node scripts/ci/script-compliance-audit.mjs",
     "monorepo:doctor": "node scripts/ci/monorepo-doctor.mjs",
     "release:scorecard": "node scripts/ci/release-scorecard.mjs",
     "prepare": "husky"
@@ -122,6 +130,15 @@
       "fast-xml-parser": ">=5.5.6",
       "flatted": ">=3.4.2"
     }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@types/opossum": "^8.1.9",

@@ -72,8 +72,7 @@ void test("parseAgentManifest returns descriptive error for invalid manifest", (
       }),
     (error: unknown) => {
       assert.ok(error instanceof AgentManifestParseError);
-      const err = error as AgentManifestParseError;
-      assert.match(err.message, /tools.0.timeoutMs/);
+      assert.match(error.message, /tools.0.timeoutMs/);
       return true;
     }
   );
@@ -88,11 +87,10 @@ void test("parseAgentManifest rejects partial manifest", () => {
       }),
     (error: unknown) => {
       assert.ok(error instanceof AgentManifestParseError);
-      const err = error as AgentManifestParseError;
-      assert.match(err.message, /skills/);
-      assert.match(err.message, /tools/);
-      assert.match(err.message, /policies/);
-      assert.match(err.message, /tags/);
+      assert.match(error.message, /skills/);
+      assert.match(error.message, /tools/);
+      assert.match(error.message, /policies/);
+      assert.match(error.message, /tags/);
       return true;
     }
   );
@@ -107,8 +105,7 @@ void test("parseAgentManifest rejects incompatible version", () => {
       }),
     (error: unknown) => {
       assert.ok(error instanceof AgentManifestParseError);
-      const err = error as AgentManifestParseError;
-      assert.match(err.message, /versao incompativel/);
+      assert.match(error.message, /versao incompativel/);
       return true;
     }
   );
@@ -125,8 +122,7 @@ void test("parseAgentManifest rejects unexpected keys at the manifest root", () 
       }),
     (error: unknown) => {
       assert.ok(error instanceof AgentManifestParseError);
-      const err = error as AgentManifestParseError;
-      assert.match(err.message, /roguePayload/);
+      assert.match(error.message, /roguePayload/);
       return true;
     }
   );
@@ -144,9 +140,8 @@ void test("parseAgentManifest rejects unexpected nested keys inside agent descri
       }),
     (error: unknown) => {
       assert.ok(error instanceof AgentManifestParseError);
-      const err = error as AgentManifestParseError;
-      assert.match(err.message, /agent/);
-      assert.match(err.message, /injectedPromptVars/);
+      assert.match(error.message, /agent/);
+      assert.match(error.message, /injectedPromptVars/);
       return true;
     }
   );

@@ -1,4 +1,4 @@
-FROM node:22-alpine AS base
+FROM node:24.14.0-alpine AS base
 RUN apk add --no-cache libc6-compat
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm --filter @birthub/api... build
 RUN pnpm deploy --filter @birthub/api --prod /prod/api
 
-FROM node:22-alpine AS runner
+FROM node:24.14.0-alpine AS runner
 RUN apk add --no-cache wget
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"

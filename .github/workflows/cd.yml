@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       deploy_target:
-        description: "Deployment target"
+        description: Deployment target
         required: true
         default: production
         type: choice
@@ -23,12 +23,13 @@ permissions:
 
 jobs:
   staging-preflight:
-    name: Staging preflight
+    name: staging-preflight
     if: >
       github.event_name == 'workflow_run' &&
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     concurrency:
       group: cd-staging-main
       cancel-in-progress: false
@@ -66,11 +67,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Mask configured secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for key in AUTH_MFA_ENCRYPTION_KEY DATABASE_URL JOB_HMAC_GLOBAL_SECRET REDIS_URL RENDER_STAGING_DEPLOY_HOOK_URL SENTRY_DSN SESSION_SECRET STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET; do
+            value="${!key:-}"
+            if [[ -n "${value}" ]]; then
+              echo "::add-mask::${value}"
+            fi
+          done
 
       - name: Validate required staging configuration
         shell: bash
@@ -132,25 +145,83 @@ jobs:
             exit 1
           fi
 
-          echo "Staging configuration validated."
-
       - name: Run staging preflight
         run: pnpm release:preflight:staging
 
+  release-sbom:
+    name: release-sbom
+    if: >
+      (github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.deploy_target == 'production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout release source from CI run
+        if: github.event_name == 'workflow_run'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Checkout release source from manual dispatch
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate CycloneDX SBOM
+        uses: CycloneDX/gh-node-module-generatebom@v1
+        with:
+          path: .
+          output: ./artifacts/sbom/bom.xml
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-sbom
+          path: artifacts/sbom/bom.xml
+
   deploy-staging:
-    name: Deploy staging
+    name: deploy-staging
     if: >
       github.event_name == 'workflow_run' &&
       github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     needs:
       - staging-preflight
+      - release-sbom
     concurrency:
       group: cd-staging-main
       cancel-in-progress: false
     environment: staging
     steps:
+      - name: Mask deploy hook
+        shell: bash
+        env:
+          RENDER_STAGING_DEPLOY_HOOK_URL: ${{ secrets.RENDER_STAGING_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${RENDER_STAGING_DEPLOY_HOOK_URL:-}" ]]; then
+            echo "::add-mask::${RENDER_STAGING_DEPLOY_HOOK_URL}"
+          fi
+
       - name: Trigger Render deploy hook (staging)
         shell: bash
         env:
@@ -169,12 +240,14 @@ jobs:
           fi
 
           curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_STAGING_DEPLOY_HOOK_URL}"
-          echo "Staging deploy hook triggered successfully."
 
   deploy-production:
-    name: Deploy production (manual approval)
+    name: deploy-production
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs:
+      - release-sbom
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -187,6 +260,16 @@ jobs:
           if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
             echo "::error title=Invalid branch::Production deploy can only run from main." >&2
             exit 1
+          fi
+
+      - name: Mask deploy hook
+        shell: bash
+        env:
+          RENDER_PRODUCTION_DEPLOY_HOOK_URL: ${{ secrets.RENDER_PRODUCTION_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${RENDER_PRODUCTION_DEPLOY_HOOK_URL:-}" ]]; then
+            echo "::add-mask::${RENDER_PRODUCTION_DEPLOY_HOOK_URL}"
           fi
 
       - name: Trigger Render deploy hook (production)
@@ -207,4 +290,3 @@ jobs:
           fi
 
           curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_PRODUCTION_DEPLOY_HOOK_URL}"
-          echo "Production deploy hook triggered successfully."

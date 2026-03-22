@@ -1,0 +1,44 @@
+{
+  "generatedAt": "2026-03-22T12:52:26.574Z",
+  "threshold": {
+    "maxLines": 400
+  },
+  "hotspots": [
+    {
+      "afterPath": "apps/api/src/modules/analytics/service.ts",
+      "beforeLines": 500,
+      "id": "analytics-service",
+      "afterLines": 533,
+      "deltaLines": -33,
+      "meetsLimit": false,
+      "reductionPct": -6.6
+    },
+    {
+      "afterPath": "apps/api/src/modules/agents/service.ts",
+      "beforeLines": 850,
+      "id": "installed-agents-service",
+      "afterLines": 947,
+      "deltaLines": -97,
+      "meetsLimit": false,
+      "reductionPct": -11.41
+    },
+    {
+      "afterPath": "apps/worker/src/worker.ts",
+      "beforeLines": 826,
+      "id": "worker-bootstrap",
+      "afterLines": 900,
+      "deltaLines": -74,
+      "meetsLimit": false,
+      "reductionPct": -8.96
+    },
+    {
+      "afterPath": "apps/worker/src/agents/runtime.ts",
+      "beforeLines": 991,
+      "id": "agent-runtime",
+      "afterLines": 1098,
+      "deltaLines": -107,
+      "meetsLimit": false,
+      "reductionPct": -10.8
+    }
+  ]
+}
