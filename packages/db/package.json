@@ -18,7 +18,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@birthub/database": "workspace:*"
+    "@birthub/database": "workspace:*",
+    "@prisma/client": "^6.19.2"
   },
   "type": "module",
   "exports": {
