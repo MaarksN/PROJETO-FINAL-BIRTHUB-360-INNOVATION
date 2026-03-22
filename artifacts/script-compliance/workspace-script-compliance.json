@@ -5,7 +5,7 @@
     "template-only": "Package contains runtime-loaded templates and does not publish a standalone distributable artifact.",
     "types-only": "Package exports only types or schemas and is validated transitively by consumer typechecks."
   },
-  "generatedAt": "2026-03-22T12:59:37.340Z",
+  "generatedAt": "2026-03-22T17:41:09.741Z",
   "rows": [
     {
       "approvedBy": "Lead tecnico de plataforma",
@@ -501,7 +501,7 @@
           "status": "ok"
         },
         "test": {
-          "command": "node --import tsx --test",
+          "command": "node --import tsx --test templates/*.test.ts",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -540,7 +540,7 @@
           "status": "ok"
         },
         "test": {
-          "command": "node --import tsx --test",
+          "command": "node --import tsx --test src/**/*.test.ts",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -579,7 +579,7 @@
           "status": "ok"
         },
         "test": {
-          "command": "node --import tsx --test",
+          "command": "node --import tsx --test src/**/*.test.ts",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -735,7 +735,7 @@
           "status": "ok"
         },
         "test": {
-          "command": "echo \"N/A: shared only\"",
+          "command": "node --import tsx --test errors/*.test.ts",
           "criterion": "shared-source-only",
           "justification": "Behavior is covered transitively by importing packages and no standalone runtime entrypoint exists.",
           "status": "na"
@@ -774,7 +774,7 @@
           "status": "ok"
         },
         "test": {
-          "command": "echo \"N/A: types only\"",
+          "command": "node --import tsx --test src/**/*.test.ts",
           "criterion": "types-only",
           "justification": "Schemas and type contracts are validated by downstream typecheck suites and package consumers.",
           "status": "na"
@@ -1374,7 +1374,7 @@
     }
   ],
   "summary": {
-    "generatedAt": "2026-03-22T12:59:37.340Z",
+    "generatedAt": "2026-03-22T17:41:09.741Z",
     "totals": {
       "missing": 16,
       "na": 20,

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Unificado de Governança - 2026-03-22</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111827;
+      --panel-2: #0f172a;
+      --text: #e5eefb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.18);
+      --green: #16a34a;
+      --yellow: #eab308;
+      --red: #dc2626;
+      --green-bg: rgba(22, 163, 74, 0.12);
+      --yellow-bg: rgba(234, 179, 8, 0.12);
+      --red-bg: rgba(220, 38, 38, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(22,163,74,.09), transparent 30%),
+        radial-gradient(circle at top right, rgba(234,179,8,.09), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(220,38,38,.08), transparent 28%),
+        var(--bg);
+      line-height: 1.5;
+    }
+    a { color: #7dd3fc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 1380px; margin: 0 auto; padding: 24px; }
+    .hero, .box, .table-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; }
+    .hero { padding: 24px; margin-bottom: 20px; }
+    .hero h1 { margin: 0 0 12px; font-size: 42px; line-height: 1.05; }
+    .hero p { margin: 0; color: var(--muted); max-width: 980px; }
+    .meta, .summary, .issues, .next { display: grid; gap: 14px; }
+    .meta { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 18px; }
+    .summary, .issues, .next { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom: 20px; }
+    .box { padding: 16px 18px; }
+    .label { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; }
+    .value { font-size: 18px; font-weight: 700; }
+    .big { font-size: 34px; font-weight: 800; line-height: 1; margin: 8px 0; }
+    .green { background: var(--green-bg); border-color: rgba(22, 163, 74, 0.28); }
+    .yellow { background: var(--yellow-bg); border-color: rgba(234, 179, 8, 0.28); }
+    .red { background: var(--red-bg); border-color: rgba(220, 38, 38, 0.28); }
+    .chip {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      white-space: nowrap;
+    }
+    .chip.green { color: #86efac; }
+    .chip.yellow { color: #fde68a; }
+    .chip.red { color: #fecaca; }
+    .table-wrap { overflow: auto; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; min-width: 1080px; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; text-align: left; }
+    th { background: var(--panel-2); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: #cbd5e1; }
+    tr:last-child td { border-bottom: none; }
+    ul { margin: 0; padding-left: 18px; }
+    li { margin-bottom: 6px; color: var(--muted); }
+    .section-title { margin: 0 0 12px; font-size: 18px; }
+    .small { color: var(--muted); font-size: 13px; }
+    @media (max-width: 760px) {
+      .wrap { padding: 14px; }
+      .hero h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="label">Mapa Mestre de Governança</div>
+      <h1>BirthHub360<br>Checklist Unificado + Auditoria Real</h1>
+      <p>
+        Consolidação dos arquivos F0-F11 em um único checklist de governança, cruzado com varredura real do monorepo em <strong>22/03/2026</strong>.
+        Este arquivo separa o que já existe, o que está parcial e o que ainda bloqueia o fechamento das fases.
+      </p>
+      <div class="meta">
+        <article class="box">
+          <div class="label">Escopo Canônico</div>
+          <div class="value">`apps/web`, `apps/api`, `apps/worker`, `packages/database`</div>
+        </article>
+        <article class="box">
+          <div class="label">Legado em Quarentena</div>
+          <div class="value">`apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`, `packages/db`</div>
+        </article>
+        <article class="box">
+          <div class="label">Comandos Auditados</div>
+          <div class="value">`monorepo:doctor`, `release:scorecard`, `workspace:audit`, `docs:links`, `lint:core`, `db:check:governance`, `security:guards`</div>
+        </article>
+        <article class="box">
+          <div class="label">Leitura</div>
+          <div class="value">Verde = implementado, Amarelo = parcial, Vermelho = bloqueado/falho</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="summary">
+      <article class="box green">
+        <div class="label">Fases Verdes</div>
+        <div class="big">1</div>
+        <div class="small">F8</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">Fases Amarelas</div>
+        <div class="big">7</div>
+        <div class="small">F0, F2, F3, F5, F6, F7, F10</div>
+      </article>
+      <article class="box red">
+        <div class="label">Fases Vermelhas</div>
+        <div class="big">4</div>
+        <div class="small">F1, F4, F9, F11</div>
+      </article>
+      <article class="box">
+        <div class="label">Sinal Geral</div>
+        <div class="big">Parcial</div>
+        <div class="small">A trilha canônica está madura, mas o repositório não fecha F11</div>
+      </article>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Validação Rápida</th>
+            <th>Status</th>
+            <th>Resultado</th>
+            <th>Impacto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>`corepack pnpm monorepo:doctor`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Passou sem achados críticos.</td>
+            <td>Confirma saúde da trilha canônica.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm release:scorecard`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Scorecard aprovado.</td>
+            <td>Boa base para go-live canônico.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm workspace:audit`</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td>Falha de compliance de scripts por pacote.</td>
+            <td>Bloqueia F4 e parte de F11.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm docs:links`</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td>3 links quebrados e 18 warnings.</td>
+            <td>Abre falha em F9/F10.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm lint:core`</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td>Erro de `max-lines` em `packages/database/prisma/seeds/shared.ts`.</td>
+            <td>Mostra hotspot real ainda aberto.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm --filter @birthub/database db:check:governance`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Todas as migrations passaram.</td>
+            <td>F8 forte e auditável.</td>
+          </tr>
+          <tr>
+            <td>`corepack pnpm security:guards`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Scan de auth guards passou.</td>
+            <td>Confirma guardrails centrais de segurança.</td>
+          </tr>
+          <tr>
+            <td>`rg -n "@birthub/db" apps packages agents`</td>
+            <td><span class="chip green">Verde</span></td>
+            <td>Sem imports runtime fora do pacote depreciado.</td>
+            <td>F2 avançou de fato.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Status</th>
+            <th>Já Implementado</th>
+            <th>Falta / Melhorias</th>
+            <th>Evidências</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>F0</strong><br>Governança, Ownership e Baseline</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>Matriz de ownership publicada.</li><li>Política de SLA por severidade publicada.</li><li>Artefatos F0 presentes.</li></ul></td>
+            <td><ul><li>Baseline atual não está 100% verde.</li><li>`CODEOWNERS` raiz está com conflito.</li></ul></td>
+            <td><a href="../docs/operations/f0-ownership-matrix.md">ownership</a><br><a href="../docs/operations/f0-sla-severity-policy.md">sla</a><br><a href="../CODEOWNERS">CODEOWNERS</a></td>
+          </tr>
+          <tr>
+            <td><strong>F1</strong><br>Pipeline e Gates</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td><ul><li>Gitleaks, semgrep, trivy, SBOM, commitlint, pr-size e Dependabot existem.</li></ul></td>
+            <td><ul><li>`.github/workflows/ci.yml` com conflito.</li><li>`.github/settings.yml` com conflito.</li><li>`.python-version` ausente.</li><li>Node 22 conflita com `.nvmrc` 24.14.0.</li></ul></td>
+            <td><a href="../.github/workflows/ci.yml">ci.yml</a><br><a href="../.github/settings.yml">settings.yml</a><br><a href="../.nvmrc">.nvmrc</a></td>
+          </tr>
+          <tr>
+            <td><strong>F2</strong><br>Quarentena Legada</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>Limite entre canônico e legado documentado.</li><li>`@birthub/db` não aparece mais em runtime.</li></ul></td>
+            <td><ul><li>Superfícies legadas continuam vivas.</li><li>Sunset ainda não virou remoção total.</li></ul></td>
+            <td><a href="../README.md">README</a><br><a href="../docs/processes/MIGRACAO_CANONICA_DB.md">migração db</a></td>
+          </tr>
+          <tr>
+            <td><strong>F3</strong><br>Hotspots</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>ADRs e auditoria de modularização existem.</li><li>Core canônico melhorou.</li></ul></td>
+            <td><ul><li>`packages/database/prisma/seeds/shared.ts` tem 861 linhas.</li><li>Agents executivos seguem com arquivos ~790-806 linhas.</li></ul></td>
+            <td><a href="../docs/adrs/ADR-035-f3-hotspot-modularization.md">ADR-035</a><br><a href="../packages/database/prisma/seeds/shared.ts">shared.ts</a></td>
+          </tr>
+          <tr>
+            <td><strong>F4</strong><br>Scripts por Pacote</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td><ul><li>Política e workflow de compliance existem.</li></ul></td>
+            <td><ul><li>8 workers de agentes sem scripts mínimos.</li><li>`shared`, `shared-types` e `emails` ainda exigem ajuste.</li><li>`workspace:audit` falha.</li></ul></td>
+            <td><a href="../artifacts/script-compliance/workspace-script-compliance.json">relatório</a><br><a href="../.github/workflows/f4-script-compliance.yml">workflow</a></td>
+          </tr>
+          <tr>
+            <td><strong>F5</strong><br>Testes e Cobertura</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>Suites unit, integration, isolation, e2e e load existem.</li><li>Scripts de traceabilidade existem.</li></ul></td>
+            <td><ul><li>Traceabilidade não foi revalidada nesta sessão.</li><li>Fechamento final segue parcial.</li></ul></td>
+            <td><a href="../docs/testing/F5_TRACEABILITY.md">F5 traceability</a><br><a href="../tests/e2e/release-master.spec.ts">E2E release</a></td>
+          </tr>
+          <tr>
+            <td><strong>F6</strong><br>Segurança e Compliance</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>Workflow de segurança é robusto.</li><li>`security:guards` passou.</li><li>LGPD/RLS/posture docs existem.</li></ul></td>
+            <td><ul><li>Pipeline Python depende de arquivo inexistente.</li><li>Sign-off final continua manual.</li></ul></td>
+            <td><a href="../.github/workflows/security-scan.yml">security-scan</a><br><a href="../docs/security/posture_report.md">posture report</a></td>
+          </tr>
+          <tr>
+            <td><strong>F7</strong><br>Observabilidade e SLOs</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>Grafana e alert rules existem.</li><li>API tem métricas e tracing por tenant.</li></ul></td>
+            <td><ul><li>Alertas ainda olham `api-gateway` em parte.</li><li>Status page/on-call continuam documentados, não provados ao vivo.</li></ul></td>
+            <td><a href="../infra/monitoring/alert.rules.yml">alert rules</a><br><a href="../apps/api/src/metrics.ts">metrics.ts</a></td>
+          </tr>
+          <tr>
+            <td><strong>F8</strong><br>Banco e Migrações</td>
+            <td><span class="chip green">Verde</span></td>
+            <td><ul><li>Governança de migrations passou.</li><li>Seeds, backup, restore e PITR estão estruturados.</li><li>RLS e tenant isolation têm base forte.</li></ul></td>
+            <td><ul><li>Drills reais seguem como disciplina operacional, não como gap estrutural.</li></ul></td>
+            <td><a href="../packages/database/docs/F8_IMPLEMENTATION.md">F8 implementation</a><br><a href="../artifacts/database/f8/migration-governance-report.txt">report</a></td>
+          </tr>
+          <tr>
+            <td><strong>F9</strong><br>Higiene do Repositório</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td><ul><li>Git não rastreia `node_modules`, `dist`, `coverage` e caches.</li><li>Policy de artifacts existe.</li></ul></td>
+            <td><ul><li>Naming duplicado em `agents/`.</li><li>10 arquivos versionados com conflito.</li><li>`docs:links` falha.</li></ul></td>
+            <td><a href="../artifacts/README.md">artifacts policy</a><br><a href="../CONTRIBUTING.md">CONTRIBUTING</a><br><a href="../docs/README.md">docs index</a></td>
+          </tr>
+          <tr>
+            <td><strong>F10</strong><br>Documentação e KT</td>
+            <td><span class="chip yellow">Amarelo</span></td>
+            <td><ul><li>Runbooks, templates e dashboard de dívida existem.</li><li>Swagger/OpenAPI está publicado.</li></ul></td>
+            <td><ul><li>PR template está com conflito.</li><li>3 links quebrados.</li><li>OpenAPI cobre só 3 paths para 22 módulos da API.</li></ul></td>
+            <td><a href="../docs/templates/README.md">templates</a><br><a href="../apps/api/src/docs/openapi.ts">openapi</a><br><a href="../.github/PULL_REQUEST_TEMPLATE.md">PR template</a></td>
+          </tr>
+          <tr>
+            <td><strong>F11</strong><br>Validação Final</td>
+            <td><span class="chip red">Vermelho</span></td>
+            <td><ul><li>Doctor, scorecard, db governance e auth guards estão verdes.</li></ul></td>
+            <td><ul><li>Workspace audit, docs links e lint continuam vermelhos.</li><li>PRR, on-call, status page e assinaturas finais seguem pendentes.</li></ul></td>
+            <td><a href="../docs/release/f11-final-validation-2026-03-22.md">F11 validation</a><br><a href="../.github/workflows/ci.yml">ci.yml</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="issues">
+      <article class="box red">
+        <h2 class="section-title">Achado Crítico 1</h2>
+        <ul>
+          <li>10 arquivos versionados têm marcadores de conflito de merge.</li>
+          <li>Entre eles estão `ci.yml`, `.github/settings.yml`, `CODEOWNERS` e o template de PR.</li>
+        </ul>
+      </article>
+      <article class="box red">
+        <h2 class="section-title">Achado Crítico 2</h2>
+        <ul>
+          <li>`workspace:audit` falha por falta de scripts em 8 workers de agentes.</li>
+          <li>F4 continua objetivamente aberto.</li>
+        </ul>
+      </article>
+      <article class="box red">
+        <h2 class="section-title">Achado Crítico 3</h2>
+        <ul>
+          <li>`docs:links` falha com 3 links quebrados.</li>
+          <li>O índice principal de docs já aponta para arquivo inexistente.</li>
+        </ul>
+      </article>
+      <article class="box yellow">
+        <h2 class="section-title">Achado Relevante</h2>
+        <ul>
+          <li>A API tem 22 módulos em `apps/api/src/modules`, mas o OpenAPI atual expõe só 3 paths.</li>
+          <li>F10 está forte em volume documental, não em cobertura homogênea.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="next">
+      <article class="box red">
+        <div class="label">P0</div>
+        <div class="value">Resolver conflitos de merge em arquivos de governança e CI</div>
+      </article>
+      <article class="box red">
+        <div class="label">P1</div>
+        <div class="value">Fechar F4: scripts mínimos visíveis ou N/A explícito para os 8 workers de agentes</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">P1</div>
+        <div class="value">Criar `.python-version` e alinhar Node dos workflows com `.nvmrc`</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">P1</div>
+        <div class="value">Corrigir os 3 links quebrados e expandir OpenAPI da API canônica</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">P2</div>
+        <div class="value">Quebrar hotspots remanescentes em seeds e agentes executivos</div>
+      </article>
+      <article class="box yellow">
+        <div class="label">P2</div>
+        <div class="value">Concluir sunset do legado residual e remover naming duplicado em `agents/`</div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
