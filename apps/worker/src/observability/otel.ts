@@ -1,17 +1,15 @@
-import type { ApiConfig } from "@birthub/config";
 import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 import { resourceFromAttributes } from "@opentelemetry/resources";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
-import { PrismaInstrumentation } from "@prisma/instrumentation";
 
 let sdk: NodeSDK | undefined;
 
-// ADR-009: the Cycle 1 API coexists with legacy services, so telemetry is isolated behind an opt-in exporter.
-export function initializeOpenTelemetry(config: ApiConfig): void {
-  if (sdk || !config.OTEL_EXPORTER_OTLP_ENDPOINT) {
+export function initializeWorkerOpenTelemetry(): void {
+  const OTLP_URL = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
+  if (sdk || !OTLP_URL) {
     return;
   }
 
@@ -21,18 +19,17 @@ export function initializeOpenTelemetry(config: ApiConfig): void {
         "@opentelemetry/instrumentation-fs": {
           enabled: false
         }
-      }),
-      new PrismaInstrumentation()
+      })
     ],
     resource: resourceFromAttributes({
-      "service.name": config.OTEL_SERVICE_NAME
+      "service.name": process.env.OTEL_SERVICE_NAME || "birthub-worker"
     }),
     traceExporter: new OTLPTraceExporter({
-      url: `${config.OTEL_EXPORTER_OTLP_ENDPOINT.replace(/\/$/, "")}/v1/traces`
+      url: `${OTLP_URL.replace(/\/$/, "")}/v1/traces`
     }),
     metricReader: new PeriodicExportingMetricReader({
       exporter: new OTLPMetricExporter({
-        url: `${config.OTEL_EXPORTER_OTLP_ENDPOINT.replace(/\/$/, "")}/v1/metrics`
+        url: `${OTLP_URL.replace(/\/$/, "")}/v1/metrics`
       }),
       exportIntervalMillis: 10000,
     })
@@ -41,7 +38,7 @@ export function initializeOpenTelemetry(config: ApiConfig): void {
   sdk.start();
 }
 
-export async function shutdownOpenTelemetry(): Promise<void> {
+export async function shutdownWorkerOpenTelemetry(): Promise<void> {
   if (!sdk) {
     return;
   }

@@ -11,6 +11,9 @@ import {
 import { startCycle2Jobs } from "./jobs/scheduler.js";
 import { cleanupSuspendedUsers } from "./jobs/userCleanup.js";
 import { createBirthHubWorker } from "./worker.js";
+import { initializeWorkerOpenTelemetry, shutdownWorkerOpenTelemetry } from "./observability/otel.js";
+
+initializeWorkerOpenTelemetry();
 
 const config = getWorkerConfig();
 const logger = createLogger("worker-bootstrap");
@@ -103,6 +106,7 @@ async function shutdown(signal: string): Promise<void> {
   });
   await cycle2Jobs.stop();
   await runtime.close();
+  await shutdownWorkerOpenTelemetry();
   logger.info({ signal }, "Worker shutdown completed");
 }
 
