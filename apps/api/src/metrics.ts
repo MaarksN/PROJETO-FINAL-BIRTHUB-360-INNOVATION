@@ -1,103 +1,207 @@
 import { performance } from "node:perf_hooks";
 
+import { prisma } from "@birthub/database";
+import {
+  incrementCounter,
+  observeHistogram,
+  renderPrometheusMetrics,
+  setActiveSpanAttributes,
+  setGauge
+} from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
 
-type MetricLabels = Record<string, string>;
-
-const requestCounters = new Map<string, number>();
-const jobCounters = new Map<string, number>();
-const storageGauges = new Map<string, number>();
-
-function serializeMetricKey(name: string, labels: MetricLabels): string {
-  const stableLabels = Object.entries(labels)
-    .sort(([left], [right]) => left.localeCompare(right))
-    .map(([key, value]) => `${key}="${value.replace(/"/g, '\\"')}"`)
-    .join(",");
-
-  return stableLabels ? `${name}{${stableLabels}}` : name;
-}
-
-function incrementMetric(store: Map<string, number>, name: string, labels: MetricLabels, amount = 1): void {
-  const key = serializeMetricKey(name, labels);
-  store.set(key, (store.get(key) ?? 0) + amount);
-}
-
-function setMetric(store: Map<string, number>, name: string, labels: MetricLabels, value: number): void {
-  const key = serializeMetricKey(name, labels);
-  store.set(key, value);
-}
-
-function renderMetricSection(type: "counter" | "gauge", name: string, help: string, store: Map<string, number>): string {
-  const lines = [`# HELP ${name} ${help}`, `# TYPE ${name} ${type}`];
-
-  for (const [key, value] of store.entries()) {
-    lines.push(`${key} ${value}`);
-  }
-
-  return lines.join("\n");
-}
-
-export function recordTenantJobMetric(tenantId: string, jobName: string): void {
-  incrementMetric(jobCounters, "birthub_tenant_jobs_total", {
-    job_name: jobName,
-    tenant_id: tenantId
-  });
+export function recordTenantJobMetric(
+  tenantId: string,
+  jobName: string,
+  status = "accepted"
+): void {
+  incrementCounter(
+    "birthub_tenant_jobs_total",
+    {
+      job_name: jobName,
+      status,
+      tenant_id: tenantId
+    },
+    1,
+    "Total worker jobs grouped by tenant, job name and status."
+  );
 }
 
 export function setTenantStorageMetric(tenantId: string, bytes: number): void {
-  setMetric(storageGauges, "birthub_tenant_storage_bytes", { tenant_id: tenantId }, bytes);
+  setGauge(
+    "birthub_tenant_storage_bytes",
+    bytes,
+    { tenant_id: tenantId },
+    "Current storage footprint estimate grouped by tenant."
+  );
+}
+
+export function recordBillingProcessedMetric(input: {
+  amountCents: number;
+  currency?: string;
+  source?: string;
+  status?: string;
+}): void {
+  incrementCounter(
+    "birthub_billing_events_total",
+    {
+      currency: input.currency ?? "unknown",
+      source: input.source ?? "billing",
+      status: input.status ?? "processed"
+    },
+    1,
+    "Total processed billing events grouped by source and status."
+  );
+  incrementCounter(
+    "birthub_billing_processed_cents_total",
+    {
+      currency: input.currency ?? "unknown",
+      source: input.source ?? "billing"
+    },
+    Math.max(0, Math.round(input.amountCents)),
+    "Total billing volume processed in cents."
+  );
+}
+
+export function recordWebVitalMetric(input: {
+  name: "CLS" | "FCP" | "INP" | "LCP" | "TTFB";
+  path: string;
+  rating?: string;
+  value: number;
+}): void {
+  const labels = {
+    name: input.name,
+    path: input.path,
+    rating: input.rating ?? "unknown"
+  };
+
+  if (input.name === "CLS") {
+    setGauge(
+      "birthub_web_vital_score",
+      input.value,
+      labels,
+      "Current Web Vital score-style metrics grouped by route and rating."
+    );
+    return;
+  }
+
+  observeHistogram(
+    "birthub_web_vital_ms",
+    input.value,
+    labels,
+    {
+      help: "Web Vital latency metrics in milliseconds grouped by route and rating."
+    }
+  );
 }
 
 function resolveRoutePath(request: Request): string {
-  // Express types `route` as `any`; we narrow it explicitly to avoid unsafe member access
   const route = request.route as { path?: string } | undefined;
   return route?.path ?? request.path;
+}
+
+async function refreshBusinessMetrics(): Promise<void> {
+  const [activeTenants, agentsRunning, paidInvoices, paidInvoiceCount] = await Promise.all([
+    prisma.organization.count(),
+    prisma.agentExecution.count({
+      where: {
+        status: "RUNNING"
+      }
+    }),
+    prisma.invoice.aggregate({
+      _sum: {
+        amountPaidCents: true
+      }
+    }),
+    prisma.invoice.count({
+      where: {
+        status: "PAID"
+      }
+    })
+  ]);
+
+  setGauge(
+    "birthub_business_active_tenants",
+    activeTenants,
+    {},
+    "Current number of active tenants."
+  );
+  setGauge(
+    "birthub_business_agents_running",
+    agentsRunning,
+    {},
+    "Current number of running agent executions."
+  );
+  setGauge(
+    "birthub_business_billing_processed_cents",
+    paidInvoices._sum.amountPaidCents ?? 0,
+    {},
+    "Current cumulative billing volume marked as paid."
+  );
+  setGauge(
+    "birthub_business_paid_invoices_total",
+    paidInvoiceCount,
+    {},
+    "Current number of paid invoices."
+  );
 }
 
 export function metricsMiddleware(request: Request, response: Response, next: NextFunction): void {
   const startedAt = performance.now();
 
   response.on("finish", () => {
-    incrementMetric(requestCounters, "birthub_tenant_requests_total", {
-      method: request.method,
-      route: resolveRoutePath(request),
-      status: String(response.statusCode),
-      tenant_id: request.context.tenantId ?? "anonymous"
-    });
+    const durationMs = performance.now() - startedAt;
+    const route = resolveRoutePath(request);
+    const tenantId = request.context?.tenantId ?? "anonymous";
 
-    incrementMetric(requestCounters, "birthub_tenant_request_duration_ms_total", {
-      method: request.method,
-      route: resolveRoutePath(request),
-      tenant_id: request.context.tenantId ?? "anonymous"
-    }, Math.round(performance.now() - startedAt));
+    incrementCounter(
+      "birthub_http_requests_total",
+      {
+        method: request.method,
+        route,
+        status: String(response.statusCode),
+        tenant_id: tenantId
+      },
+      1,
+      "Total HTTP requests grouped by method, route, status and tenant."
+    );
+    observeHistogram(
+      "birthub_http_request_duration_ms",
+      durationMs,
+      {
+        method: request.method,
+        route,
+        status: String(response.statusCode)
+      },
+      {
+        help: "HTTP request latency in milliseconds grouped by method, route and status."
+      }
+    );
+
+    if (response.statusCode >= 400) {
+      incrementCounter(
+        "birthub_http_request_errors_total",
+        {
+          method: request.method,
+          route,
+          status: String(response.statusCode)
+        },
+        1,
+        "Total HTTP request errors grouped by method, route and status."
+      );
+    }
+
+    setActiveSpanAttributes({
+      "birthub.http.route": route,
+      "birthub.http.status_code": response.statusCode,
+      "birthub.tenant.id": tenantId
+    });
   });
 
   next();
 }
 
-export function metricsHandler(_request: Request, response: Response): void {
-  response
-    .type("text/plain; version=0.0.4")
-    .send(
-      [
-        renderMetricSection(
-          "counter",
-          "birthub_tenant_requests_total",
-          "Total HTTP requests grouped by tenant.",
-          requestCounters
-        ),
-        renderMetricSection(
-          "counter",
-          "birthub_tenant_jobs_total",
-          "Total worker jobs grouped by tenant.",
-          jobCounters
-        ),
-        renderMetricSection(
-          "gauge",
-          "birthub_tenant_storage_bytes",
-          "Current storage footprint estimate grouped by tenant.",
-          storageGauges
-        )
-      ].join("\n")
-    );
+export async function metricsHandler(_request: Request, response: Response): Promise<void> {
+  await refreshBusinessMetrics();
+  response.type("text/plain; version=0.0.4").send(renderPrometheusMetrics());
 }

@@ -7,10 +7,40 @@ import { requireTenantId } from "./tenant-context.js";
 
 const QUERY_TIMEOUT_MS = 5_000;
 const DEFAULT_DATABASE_CONNECTION_LIMIT = 10;
+const DEFAULT_SLOW_QUERY_MS = 750;
 
 const globalForPrisma = globalThis as typeof globalThis & {
   birthubPrisma?: PrismaClient;
 };
+
+type MetricLabels = Record<string, string | number | boolean | null | undefined>;
+
+type GlobalMetricsApi = {
+  incrementCounter: (
+    name: string,
+    labels?: MetricLabels,
+    amount?: number,
+    help?: string
+  ) => void;
+  observeHistogram: (
+    name: string,
+    value: number,
+    labels?: MetricLabels,
+    options?: {
+      buckets?: number[];
+      help?: string;
+    }
+  ) => void;
+  setGauge: (name: string, value: number, labels?: MetricLabels, help?: string) => void;
+};
+
+const globalMetrics = globalThis as typeof globalThis & {
+  __birthubMetricsApi?: GlobalMetricsApi;
+};
+
+function getMetricsApi(): GlobalMetricsApi | null {
+  return globalMetrics.__birthubMetricsApi ?? null;
+}
 
 function raceWithTimeout<T>(
   promise: Promise<T>,
@@ -31,6 +61,54 @@ function raceWithTimeout<T>(
   ]);
 }
 
+function resolveConnectionLimit(): number {
+  const explicit = Number(process.env.DATABASE_CONNECTION_LIMIT ?? "");
+  if (Number.isFinite(explicit) && explicit > 0) {
+    return explicit;
+  }
+
+  try {
+    const parsed = new URL(process.env.DATABASE_URL ?? "");
+    const raw = Number(parsed.searchParams.get("connection_limit") ?? "");
+    if (Number.isFinite(raw) && raw > 0) {
+      return raw;
+    }
+  } catch {
+    // Ignore malformed URLs and fall back to the default.
+  }
+
+  return DEFAULT_DATABASE_CONNECTION_LIMIT;
+}
+
+function resolveSlowQueryThresholdMs(): number {
+  const raw = Number(process.env.DB_SLOW_QUERY_MS ?? "");
+  return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_SLOW_QUERY_MS;
+}
+
+const connectionLimit = resolveConnectionLimit();
+const slowQueryThresholdMs = resolveSlowQueryThresholdMs();
+let activeQueries = 0;
+
+function updateDatabaseGauges(): void {
+  const metrics = getMetricsApi();
+  if (!metrics) {
+    return;
+  }
+
+  metrics.setGauge(
+    "birthub_db_active_queries",
+    activeQueries,
+    {},
+    "Current number of active Prisma queries."
+  );
+  metrics.setGauge(
+    "birthub_db_connection_pool_usage_ratio",
+    connectionLimit > 0 ? activeQueries / connectionLimit : 0,
+    {},
+    "Approximate database connection pool usage ratio."
+  );
+}
+
 function createPrismaClient(): PrismaClient {
   const normalizedDatabaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
 
@@ -43,11 +121,89 @@ function createPrismaClient(): PrismaClient {
   });
 
   return baseClient.$extends({
-    name: "birthub-query-timeout",
+    name: "birthub-query-observability",
     query: {
       $allModels: {
         async $allOperations({ model, operation, args, query }) {
-          return raceWithTimeout(query(args), operation, model);
+          const metrics = getMetricsApi();
+          const queryModel = model ?? "raw";
+          const startedAt = Date.now();
+
+          activeQueries += 1;
+          updateDatabaseGauges();
+
+          try {
+            const result = await raceWithTimeout(query(args), operation, model);
+            const durationMs = Date.now() - startedAt;
+
+            if (metrics) {
+              metrics.incrementCounter(
+                "birthub_db_queries_total",
+                {
+                  model: queryModel,
+                  operation,
+                  outcome: "success"
+                },
+                1,
+                "Total database queries grouped by model, operation and outcome."
+              );
+              metrics.observeHistogram(
+                "birthub_db_query_duration_ms",
+                durationMs,
+                {
+                  model: queryModel,
+                  operation
+                },
+                {
+                  help: "Database query latency in milliseconds."
+                }
+              );
+              if (durationMs >= slowQueryThresholdMs) {
+                metrics.incrementCounter(
+                  "birthub_db_slow_queries_total",
+                  {
+                    model: queryModel,
+                    operation
+                  },
+                  1,
+                  "Total slow database queries grouped by model and operation."
+                );
+              }
+            }
+
+            return result;
+          } catch (error) {
+            const durationMs = Date.now() - startedAt;
+
+            if (metrics) {
+              metrics.incrementCounter(
+                "birthub_db_queries_total",
+                {
+                  model: queryModel,
+                  operation,
+                  outcome: "error"
+                },
+                1,
+                "Total database queries grouped by model, operation and outcome."
+              );
+              metrics.observeHistogram(
+                "birthub_db_query_duration_ms",
+                durationMs,
+                {
+                  model: queryModel,
+                  operation
+                },
+                {
+                  help: "Database query latency in milliseconds."
+                }
+              );
+            }
+
+            throw error;
+          } finally {
+            activeQueries = Math.max(0, activeQueries - 1);
+            updateDatabaseGauges();
+          }
         }
       }
     }

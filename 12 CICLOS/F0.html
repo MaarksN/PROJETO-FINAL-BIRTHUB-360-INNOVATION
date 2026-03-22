@@ -625,7 +625,7 @@ body::after {
         <circle class="ring-progress" id="ringProgress" cx="50" cy="50" r="45"/>
       </svg>
       <div class="ring-label">
-        <span class="ring-pct" id="ringPct">0%</span>
+        <span class="ring-pct" id="ringPct">100%</span>
         <span class="ring-sub">CONCLUÍDO</span>
       </div>
     </div>
@@ -636,7 +636,7 @@ body::after {
       </div>
       <div class="stat">
         <span class="stat-label">Concluídos</span>
-        <span class="stat-value" id="doneStat">0 <span>de 48</span></span>
+        <span class="stat-value" id="doneStat">48 <span>de 48</span></span>
       </div>
       <div class="stat">
         <span class="stat-label">Seções</span>
@@ -648,7 +648,7 @@ body::after {
   <div class="progress-bar-wrap">
     <div class="progress-bar-label">
       <span>PROGRESSO GERAL</span>
-      <span id="barPct">0%</span>
+      <span id="barPct">100%</span>
     </div>
     <div class="progress-bar-track">
       <div class="progress-bar-fill" id="barFill"></div>
@@ -681,7 +681,7 @@ body::after {
             </div>
             <div class="section-body">
                 <div class="tasks-list">
-                <div class="task-item" onclick="toggleTask('F0-S0-I0', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I0', this)">
                     <div class="task-check" id="check-F0-S0-I0">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -689,7 +689,7 @@ body::after {
                     </div>
                     <div class="task-text">Criar matriz formal de ownership por domínio: web, api, worker, database, agents, security, devops</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I1', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I1', this)">
                     <div class="task-check" id="check-F0-S0-I1">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -697,7 +697,7 @@ body::after {
                     </div>
                     <div class="task-text">Designar owner primário e backup para cada domínio crítico</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I2', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I2', this)">
                     <div class="task-check" id="check-F0-S0-I2">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -705,7 +705,7 @@ body::after {
                     </div>
                     <div class="task-text">Nenhum componente crítico sem owner nomeado e confirmado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I3', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I3', this)">
                     <div class="task-check" id="check-F0-S0-I3">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -713,7 +713,7 @@ body::after {
                     </div>
                     <div class="task-text">Publicar matriz no wiki interno com link permanente e versionamento</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I4', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I4', this)">
                     <div class="task-check" id="check-F0-S0-I4">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -721,7 +721,7 @@ body::after {
                     </div>
                     <div class="task-text">Definir protocolo de handoff quando owner muda de time ou sai da empresa</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I5', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I5', this)">
                     <div class="task-check" id="check-F0-S0-I5">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -729,7 +729,7 @@ body::after {
                     </div>
                     <div class="task-text">Criar canal de comunicação oficial por domínio (Slack/Teams) e vincular na matriz</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I6', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I6', this)">
                     <div class="task-check" id="check-F0-S0-I6">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -737,7 +737,7 @@ body::after {
                     </div>
                     <div class="task-text">Validar que cada owner tem acesso adequado aos repositórios e ferramentas</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S0-I7', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S0-I7', this)">
                     <div class="task-check" id="check-F0-S0-I7">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -762,7 +762,7 @@ body::after {
             </div>
             <div class="section-body">
                 <div class="tasks-list">
-                <div class="task-item" onclick="toggleTask('F0-S1-I8', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I8', this)">
                     <div class="task-check" id="check-F0-S1-I8">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -770,7 +770,7 @@ body::after {
                     </div>
                     <div class="task-text">Publicar SLA por severidade: P0 (≤2h), P1 (≤8h), P2 (≤72h), P3 (≤2 semanas)</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I9', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I9', this)">
                     <div class="task-check" id="check-F0-S1-I9">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -778,7 +778,7 @@ body::after {
                     </div>
                     <div class="task-text">Definir critérios objetivos de classificação por severidade com exemplos reais</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I10', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I10', this)">
                     <div class="task-check" id="check-F0-S1-I10">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -786,7 +786,7 @@ body::after {
                     </div>
                     <div class="task-text">Documentar escalonamento automático caso SLA seja violado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I11', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I11', this)">
                     <div class="task-check" id="check-F0-S1-I11">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -794,7 +794,7 @@ body::after {
                     </div>
                     <div class="task-text">Criar dashboard de SLA com rastreamento em tempo real</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I12', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I12', this)">
                     <div class="task-check" id="check-F0-S1-I12">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -802,7 +802,7 @@ body::after {
                     </div>
                     <div class="task-text">Definir plano de comunicação com stakeholders por severidade</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I13', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I13', this)">
                     <div class="task-check" id="check-F0-S1-I13">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -810,7 +810,7 @@ body::after {
                     </div>
                     <div class="task-text">Configurar alertas automáticos quando SLA está em risco (75% do prazo)</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I14', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I14', this)">
                     <div class="task-check" id="check-F0-S1-I14">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -818,7 +818,7 @@ body::after {
                     </div>
                     <div class="task-text">Publicar histórico de aderência a SLA dos últimos 90 dias como baseline</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S1-I15', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S1-I15', this)">
                     <div class="task-check" id="check-F0-S1-I15">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -843,7 +843,7 @@ body::after {
             </div>
             <div class="section-body">
                 <div class="tasks-list">
-                <div class="task-item" onclick="toggleTask('F0-S2-I16', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I16', this)">
                     <div class="task-check" id="check-F0-S2-I16">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -851,7 +851,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm install --frozen-lockfile → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I17', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I17', this)">
                     <div class="task-check" id="check-F0-S2-I17">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -859,7 +859,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm monorepo:doctor → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I18', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I18', this)">
                     <div class="task-check" id="check-F0-S2-I18">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -867,7 +867,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm release:scorecard → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I19', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I19', this)">
                     <div class="task-check" id="check-F0-S2-I19">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -875,7 +875,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm lint:core → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I20', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I20', this)">
                     <div class="task-check" id="check-F0-S2-I20">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -883,7 +883,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm typecheck:core → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I21', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I21', this)">
                     <div class="task-check" id="check-F0-S2-I21">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -891,7 +891,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm test:core → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I22', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I22', this)">
                     <div class="task-check" id="check-F0-S2-I22">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -899,7 +899,7 @@ body::after {
                     </div>
                     <div class="task-text">corepack pnpm build:core → verde com log arquivado</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S2-I23', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S2-I23', this)">
                     <div class="task-check" id="check-F0-S2-I23">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -924,7 +924,7 @@ body::after {
             </div>
             <div class="section-body">
                 <div class="tasks-list">
-                <div class="task-item" onclick="toggleTask('F0-S3-I24', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I24', this)">
                     <div class="task-check" id="check-F0-S3-I24">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -932,7 +932,7 @@ body::after {
                     </div>
                     <div class="task-text">Executar SAST (Semgrep/CodeQL) e arquivar relatório de achados inicial</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I25', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I25', this)">
                     <div class="task-check" id="check-F0-S3-I25">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -940,7 +940,7 @@ body::after {
                     </div>
                     <div class="task-text">Executar auditoria de dependências (pnpm audit) e arquivar snapshot</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I26', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I26', this)">
                     <div class="task-check" id="check-F0-S3-I26">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -948,7 +948,7 @@ body::after {
                     </div>
                     <div class="task-text">Executar análise de complexidade ciclomática por módulo e arquivar métricas</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I27', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I27', this)">
                     <div class="task-check" id="check-F0-S3-I27">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -956,7 +956,7 @@ body::after {
                     </div>
                     <div class="task-text">Medir cobertura de testes atual por pacote e arquivar como baseline</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I28', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I28', this)">
                     <div class="task-check" id="check-F0-S3-I28">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -964,7 +964,7 @@ body::after {
                     </div>
                     <div class="task-text">Medir duplicação de código (jscpd) e arquivar percentual por pacote</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I29', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I29', this)">
                     <div class="task-check" id="check-F0-S3-I29">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -972,7 +972,7 @@ body::after {
                     </div>
                     <div class="task-text">Capturar tamanhos de bundle antes de qualquer mudança (rollup-plugin-visualizer)</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I30', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I30', this)">
                     <div class="task-check" id="check-F0-S3-I30">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -980,7 +980,7 @@ body::after {
                     </div>
                     <div class="task-text">Executar baseline OWASP Top 10 e documentar achados iniciais</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S3-I31', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S3-I31', this)">
                     <div class="task-check" id="check-F0-S3-I31">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1005,7 +1005,7 @@ body::after {
             </div>
             <div class="section-body">
                 <div class="tasks-list">
-                <div class="task-item" onclick="toggleTask('F0-S4-I32', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I32', this)">
                     <div class="task-check" id="check-F0-S4-I32">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1013,7 +1013,7 @@ body::after {
                     </div>
                     <div class="task-text">Medir Core Web Vitals da aplicação web atual e arquivar (LCP, FID, CLS)</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I33', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I33', this)">
                     <div class="task-check" id="check-F0-S4-I33">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1021,7 +1021,7 @@ body::after {
                     </div>
                     <div class="task-text">Capturar métricas de latência P50/P95/P99 da API como baseline</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I34', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I34', this)">
                     <div class="task-check" id="check-F0-S4-I34">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1029,7 +1029,7 @@ body::after {
                     </div>
                     <div class="task-text">Inventariar recursos GCP ativos com custos mensais atuais</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I35', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I35', this)">
                     <div class="task-check" id="check-F0-S4-I35">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1037,7 +1037,7 @@ body::after {
                     </div>
                     <div class="task-text">Documentar configuração atual de banco de dados (pools, índices, vacuums)</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I36', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I36', this)">
                     <div class="task-check" id="check-F0-S4-I36">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1045,7 +1045,7 @@ body::after {
                     </div>
                     <div class="task-text">Registrar DORA metrics baseline: deployment frequency, lead time, MTTR, CFR</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I37', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I37', this)">
                     <div class="task-check" id="check-F0-S4-I37">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1053,7 +1053,7 @@ body::after {
                     </div>
                     <div class="task-text">Mapear fluxos críticos com número atual de pontos de falha</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I38', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I38', this)">
                     <div class="task-check" id="check-F0-S4-I38">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1061,7 +1061,7 @@ body::after {
                     </div>
                     <div class="task-text">Documentar versões de todas as dependências críticas (Node, Python, Prisma, etc.)</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S4-I39', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S4-I39', this)">
                     <div class="task-check" id="check-F0-S4-I39">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1086,7 +1086,7 @@ body::after {
             </div>
             <div class="section-body">
                 <div class="tasks-list">
-                <div class="task-item" onclick="toggleTask('F0-S5-I40', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I40', this)">
                     <div class="task-check" id="check-F0-S5-I40">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1094,7 +1094,7 @@ body::after {
                     </div>
                     <div class="task-text">Criar tag git 'baseline-f0' com hash e data de congelamento</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I41', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I41', this)">
                     <div class="task-check" id="check-F0-S5-I41">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1102,7 +1102,7 @@ body::after {
                     </div>
                     <div class="task-text">Publicar documento de ownership aprovado e assinado pelos owners</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I42', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I42', this)">
                     <div class="task-check" id="check-F0-S5-I42">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1110,7 +1110,7 @@ body::after {
                     </div>
                     <div class="task-text">Publicar política de SLA com aprovação formal registrada</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I43', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I43', this)">
                     <div class="task-check" id="check-F0-S5-I43">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1118,7 +1118,7 @@ body::after {
                     </div>
                     <div class="task-text">Arquivar todos os logs de comandos com evidência de verde</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I44', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I44', this)">
                     <div class="task-check" id="check-F0-S5-I44">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1126,7 +1126,7 @@ body::after {
                     </div>
                     <div class="task-text">Publicar relatório de baseline com todas as métricas capturadas</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I45', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I45', this)">
                     <div class="task-check" id="check-F0-S5-I45">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1134,7 +1134,7 @@ body::after {
                     </div>
                     <div class="task-text">Comunicar congelamento para todo o time técnico</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I46', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I46', this)">
                     <div class="task-check" id="check-F0-S5-I46">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>
@@ -1142,7 +1142,7 @@ body::after {
                     </div>
                     <div class="task-text">Agendar kick-off da F1 com todos os owners presentes</div>
                 </div>
-                <div class="task-item" onclick="toggleTask('F0-S5-I47', this)">
+                <div class="task-item done" onclick="toggleTask('F0-S5-I47', this)">
                     <div class="task-check" id="check-F0-S5-I47">
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                             <polyline points="20 6 9 20 4 15"/>

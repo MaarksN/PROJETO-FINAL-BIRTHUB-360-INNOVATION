@@ -97,8 +97,8 @@ export function handleSummary(data) {
   const textSummary = `${summaryLines.join("\n")}\n`;
 
   return {
-    "test-results/k6/cycle-08-stress-summary.json": JSON.stringify(data, null, 2),
-    "test-results/k6/cycle-08-stress-summary.txt": textSummary,
+    "artifacts/performance/k6/cycle-08-stress-summary.json": JSON.stringify(data, null, 2),
+    "artifacts/performance/k6/cycle-08-stress-summary.txt": textSummary,
     stdout: textSummary
   };
 }

@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import path from "node:path";
 import { Queue } from "bullmq";
 import { Redis } from "ioredis";
 
@@ -121,6 +123,10 @@ async function main(): Promise<void> {
     }
 
     const summary = await waitForDrain(queue, startedAt);
+    const artifactDir = path.join(process.cwd(), "artifacts", "performance");
+    mkdirSync(artifactDir, { recursive: true });
+    writeFileSync(path.join(artifactDir, "worker-overload.json"), `${JSON.stringify(summary, null, 2)}\n`, "utf8");
+    writeFileSync(path.join(artifactDir, "worker-overload.txt"), `[worker-overload] summary=${JSON.stringify(summary)}\n`, "utf8");
     console.log(`[worker-overload] summary=${JSON.stringify(summary)}`);
 
     if (summary.apiFailures > 0) {

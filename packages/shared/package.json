@@ -12,7 +12,7 @@
   "scripts": {
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"N/A: shared only\"",
+    "test": "node --import tsx --test errors/*.test.ts",
     "build": "echo \"N/A: no build step\""
   }
 }
