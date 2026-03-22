@@ -231,7 +231,7 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version-file: .python-version
 
@@ -264,7 +264,7 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version-file: .python-version
 
@@ -303,7 +303,7 @@ jobs:
           node-version-file: .nvmrc
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version-file: .python-version
 
