@@ -1,3 +1,8 @@
+ WARN  Unsupported engine: wanted: {"node":">=24 <25"} (current: {"node":"v22.21.1","pnpm":"9.1.0"})
+
+> birthub-360@1.0.0 release:scorecard /workspace/PROJETO-FINAL-BIRTHUB-360-INNOVATION
+> node scripts/ci/release-scorecard.mjs
+
 # Release Scorecard
 Generated at: 2026-03-22T05:31:48.670Z
 
