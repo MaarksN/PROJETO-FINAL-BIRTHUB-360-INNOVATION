@@ -10,7 +10,7 @@
     "test": "node --import tsx --test src/**/*.test.ts"
   },
   "dependencies": {
-    "@hubspot/api-client": "^13.4.0",
+    "@hubspot/api-client": "^13.5.0",
     "pipedrive": "^31.2.1",
     "resend": "^6.9.4",
     "stripe": "^20.4.1"

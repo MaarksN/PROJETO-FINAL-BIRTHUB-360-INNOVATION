@@ -862,8 +862,8 @@ importers:
   packages/integrations:
     dependencies:
       '@hubspot/api-client':
-        specifier: ^13.4.0
-        version: 13.4.0
+        specifier: ^13.5.0
+        version: 13.5.0
       pipedrive:
         specifier: ^31.2.1
         version: 31.2.1
@@ -1622,8 +1622,8 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@hubspot/api-client@13.4.0':
-    resolution: {integrity: sha512-B2Bu/F/nxzqvF0LlEIgA28G6ObANXkYosJSFLW3bdYXOOgH9kbVLJwPGze0H6L+dQJ+vmzZ1LeRpl5REXyHShA==}
+  '@hubspot/api-client@13.5.0':
+    resolution: {integrity: sha512-zZ9ybOqudSgAZSow5dgYWRkslDPfqA2fWnERMqWQm6ASlM/XCFS6zoec0zD3d6OxeoLOfiovVo39gVpK+KWQ9Q==}
     engines: {node: '>=18.0.0'}
 
   '@humanfs/core@0.19.1':
@@ -7525,7 +7525,7 @@ snapshots:
       protobufjs: 7.5.4
       yargs: 17.7.2
 
-  '@hubspot/api-client@13.4.0':
+  '@hubspot/api-client@13.5.0':
     dependencies:
       '@types/node': 25.5.0
       '@types/node-fetch': 2.6.13
