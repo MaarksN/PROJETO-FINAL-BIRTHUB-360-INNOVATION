@@ -1,0 +1,136 @@
+import { z } from "zod";
+import { BaseTool, DbReadTool, DbWriteTool, HttpTool, SendEmailTool } from "@birthub/agents-core/tools";
+import type { AgentManifest } from "@birthub/agents-core";
+import { PolicyEngine } from "@birthub/agents-core/policy/engine";
+import { createLogger } from "@birthub/logger";
+
+import { readNumbers, readStrings, roundCurrency } from "./runtime.shared.js";
+
+const logger = createLogger("agent-runtime");
+
+export class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<string, unknown>> {
+  constructor(
+    private readonly capability: {
+      description: string;
+      id: string;
+      name: string;
+    },
+    options?: {
+      policyEngine?: PolicyEngine;
+      timeoutMs?: number;
+    }
+  ) {
+    super({
+      description: capability.description,
+      inputSchema: z.object({}).catchall(z.unknown()),
+      name: capability.id,
+      outputSchema: z.object({}).catchall(z.unknown()),
+      ...(options?.timeoutMs ? { timeoutMs: options.timeoutMs } : {})
+    }, options?.policyEngine ? { policyEngine: options.policyEngine } : {});
+  }
+
+  protected async execute(
+    input: Record<string, unknown>,
+    context: {
+      agentId: string;
+      policyContext?: Record<string, unknown>;
+      tenantId: string;
+      traceId: string;
+    }
+  ): Promise<Record<string, unknown>> {
+    const flattenedNumbers = readNumbers(input.sourcePayload ?? input);
+    const flattenedStrings = readStrings(input.sourcePayload ?? input).slice(0, 6);
+    const average =
+      flattenedNumbers.length > 0
+        ? Math.round(
+            (flattenedNumbers.reduce((total, value) => total + value, 0) / flattenedNumbers.length) *
+              100
+          ) / 100
+        : 0;
+
+    return {
+      agentId: context.agentId,
+      capability: this.capability.name,
+      capabilityId: this.capability.id,
+      confidence: flattenedNumbers.length > 0 ? "medium" : "high",
+      evidence: flattenedStrings,
+      observedAverage: average,
+      summary: `${this.capability.name} executada com ${flattenedNumbers.length} sinal(is) numerico(s) e ${flattenedStrings.length} evidencia(s) textual(is).`,
+      tenantId: context.tenantId,
+      traceId: context.traceId
+    };
+  }
+}
+
+export function buildToolCostTable(input: {
+  defaultToolCostBrl: number;
+  manifest: AgentManifest;
+}): Record<string, number> {
+  const table: Record<string, number> = {
+    "db-read": 0.08,
+    "db-write": 0.12,
+    http: 0.22,
+    "send-email": 0.06
+  };
+
+  for (const tool of input.manifest.tools) {
+    const timeoutWeight = Math.min(tool.timeoutMs / 60_000, 1) * 0.08;
+    table[tool.id] = roundCurrency(input.defaultToolCostBrl + timeoutWeight);
+  }
+
+  return table;
+}
+
+export function createRuntimeTools(
+  manifest: AgentManifest,
+  policyEngine: PolicyEngine,
+  defaultToolCostBrl: number
+): {
+  costs: Record<string, number>;
+  tools: Record<string, BaseTool<unknown, unknown>>;
+} {
+  const costs = buildToolCostTable({
+    defaultToolCostBrl,
+    manifest
+  });
+  const tools: Record<string, BaseTool<unknown, unknown>> = {
+    "db-read": new DbReadTool({
+      executor: async ({ query, tenantId }) => [
+        {
+          query,
+          source: "agent-runtime",
+          tenantId
+        }
+      ],
+      policyEngine
+    }) as BaseTool<unknown, unknown>,
+    "db-write": new DbWriteTool({
+      auditPublisher: async (event) => {
+        logger.info({ event }, "agent-runtime db-write audit");
+      },
+      executor: async () => 1,
+      policyEngine
+    }) as BaseTool<unknown, unknown>,
+    http: new HttpTool({ policyEngine }) as BaseTool<unknown, unknown>,
+    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>
+  };
+
+  for (const tool of manifest.tools) {
+    tools[tool.id] = new ManifestCapabilityTool(
+      {
+        description: tool.description,
+        id: tool.id,
+        name: tool.name
+      },
+      {
+        policyEngine,
+        timeoutMs: tool.timeoutMs
+      }
+    ) as BaseTool<unknown, unknown>;
+  }
+
+  return {
+    costs,
+    tools
+  };
+}
