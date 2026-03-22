@@ -1,8 +1,7 @@
 import { randomUUID } from "node:crypto";
 
-import { runWithLogContext } from "@birthub/logger";
+import { getActiveTraceContext, runWithLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
-
 
 declare global {
   namespace Express {
@@ -32,6 +31,19 @@ export interface RequestContext {
   userId: string | null;
 }
 
+function readTraceIdFromTraceparent(traceparent: string | undefined): string | null {
+  if (!traceparent) {
+    return null;
+  }
+
+  const parts = traceparent.split("-");
+  if (parts.length < 4) {
+    return null;
+  }
+
+  return parts[1]?.trim() || null;
+}
+
 // ADR-007: tenant identity is bound at the edge and propagated immutably through the request lifecycle.
 export function requestContextMiddleware(
   request: Request,
@@ -39,7 +51,12 @@ export function requestContextMiddleware(
   next: NextFunction
 ): void {
   const requestId = request.header("x-request-id") ?? randomUUID();
-  const traceId = request.header("x-trace-id") ?? requestId;
+  const activeTrace = getActiveTraceContext();
+  const traceId =
+    request.header("x-trace-id") ??
+    readTraceIdFromTraceparent(request.header("traceparent") ?? undefined) ??
+    activeTrace?.traceId ??
+    requestId;
 
   request.context = {
     apiKeyId: null,

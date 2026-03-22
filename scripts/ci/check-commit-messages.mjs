@@ -47,16 +47,14 @@ function resolveBaseRef() {
 
 function loadAllowlist() {
   if (!existsSync(allowlistPath)) {
-    return new Set();
+    return [];
   }
 
-  return new Set(
-    readFileSync(allowlistPath, "utf8")
-      .split(/\r?\n/u)
-      .map((line) => line.trim())
-      .filter((line) => line && !line.startsWith("#"))
-      .map((line) => line.split(/\s+/u)[0])
-  );
+  return readFileSync(allowlistPath, "utf8")
+    .split(/\r?\n/u)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"))
+    .map((line) => line.split(/\s+/u)[0]);
 }
 
 function listCommitSubjects(baseRef) {
@@ -86,9 +84,10 @@ try {
   const allowlist = loadAllowlist();
   const baseRef = resolveBaseRef();
   const commits = listCommitSubjects(baseRef);
-  const invalidCommits = commits.filter(
-    ({ sha, subject }) => !allowlist.has(sha) && !isAllowedSubject(subject)
-  );
+  const invalidCommits = commits.filter(({ sha, subject }) => {
+    const allowlisted = allowlist.some((entry) => sha.startsWith(entry));
+    return !allowlisted && !isAllowedSubject(subject);
+  });
 
   if (invalidCommits.length > 0) {
     console.error("[commit-check] FAILED");

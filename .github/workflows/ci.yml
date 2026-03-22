@@ -408,12 +408,25 @@ jobs:
       - name: Run governance gates
         run: pnpm ci:task governance
 
+      - name: Verify docs governance
+        run: pnpm docs:verify
+
       - name: Upload doctor artifacts
         uses: actions/upload-artifact@v4
         with:
           name: doctor-artifacts
           path: artifacts/doctor
           if-no-files-found: ignore
+
+      - name: Upload docs governance artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-governance
+          path: |
+            artifacts/documentation/link-check-report.md
+            artifacts/documentation/technical-health-dashboard.md
+            docs/f10/dependency-graph.md
+          if-no-files-found: error
 
   ci:
     name: ci

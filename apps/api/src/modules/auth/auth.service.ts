@@ -6,6 +6,7 @@ import {
   prisma
 } from "@birthub/database";
 import type { ApiConfig } from "@birthub/config";
+import { setActiveSpanAttributes, withActiveSpan } from "@birthub/logger";
 
 import {
   createApiKey,
@@ -602,3 +603,5 @@ export async function updateUserRoleWithAudit(input: {
 
   return updated;
 }
+
+

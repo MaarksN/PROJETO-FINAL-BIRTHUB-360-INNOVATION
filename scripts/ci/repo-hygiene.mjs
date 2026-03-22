@@ -77,11 +77,16 @@ function listTrackedFiles() {
 }
 
 function listChangedFiles(baseRef) {
+  const includeWorktree = process.argv.includes("--include-worktree");
   const diffFromBase = baseRef
     ? gitCapture(["diff", "--name-only", "--diff-filter=ACMR", `${baseRef}..HEAD`, "--"], true)
     : "";
-  const diffFromHead = gitCapture(["diff", "--name-only", "--diff-filter=ACMR", "HEAD", "--"], true);
-  const stagedDiff = gitCapture(["diff", "--cached", "--name-only", "--diff-filter=ACMR", "--"], true);
+  const diffFromHead = !baseRef || includeWorktree
+    ? gitCapture(["diff", "--name-only", "--diff-filter=ACMR", "HEAD", "--"], true)
+    : "";
+  const stagedDiff = !baseRef || includeWorktree
+    ? gitCapture(["diff", "--cached", "--name-only", "--diff-filter=ACMR", "--"], true)
+    : "";
 
   const files = [diffFromBase, diffFromHead, stagedDiff]
     .join("\n")
@@ -407,7 +412,7 @@ function checkTrackedArtifacts(trackedFiles) {
   const issues = [];
   const forbiddenArtifactExtensions = [".bak", ".dump", ".env", ".log", ".sqlite", ".swp", ".tmp"];
 
-  for (const relativePath of trackedFiles.filter((file) => file.startsWith("artifacts/"))) {
+  for (const relativePath of trackedFiles.filter((file) => file.startsWith("artifacts/") && existsSync(path.join(projectRoot, file)))) {
     const lowerCasePath = relativePath.toLowerCase();
 
     if (forbiddenArtifactExtensions.some((extension) => lowerCasePath.endsWith(extension))) {
@@ -459,3 +464,5 @@ if (issues.length > 0) {
     `[repo-hygiene] ok (${candidateFiles.length} file${candidateFiles.length === 1 ? "" : "s"} evaluated${baseRef ? `, base=${baseRef}` : ""})`
   );
 }
+
+

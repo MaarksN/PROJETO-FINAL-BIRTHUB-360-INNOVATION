@@ -17,13 +17,26 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "db:generate": "prisma generate --schema prisma/schema.prisma",
-    "db:migrate:deploy": "prisma migrate deploy --schema prisma/schema.prisma",
+    "db:migrate:deploy": "node --import tsx scripts/migrate-deploy-safe.ts",
     "db:migrate:dev": "prisma migrate dev --schema prisma/schema.prisma --name cycle2_multitenancy",
     "db:reset": "prisma migrate reset --schema prisma/schema.prisma --force",
     "db:seed": "prisma db seed --schema prisma/schema.prisma",
     "lint": "eslint .",
     "test": "node --import tsx --test src/**/*.test.ts test/**/*.test.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "db:check:all": "node --import tsx scripts/post-migration-checklist.ts",
+    "db:check:drift": "node --import tsx scripts/check-schema-drift.ts",
+    "db:check:fk": "node --import tsx scripts/check-fk-indexes.ts",
+    "db:check:governance": "node --import tsx scripts/check-migration-governance.ts",
+    "db:check:joins": "node --import tsx scripts/check-raw-query-joins.ts",
+    "db:check:performance": "node --import tsx scripts/analyze-performance.ts",
+    "db:check:ri": "node --import tsx scripts/check-referential-integrity.ts",
+    "db:check:tenancy": "node --import tsx scripts/check-tenancy-controls.ts",
+    "db:compare:envs": "node --import tsx scripts/compare-migration-state.ts",
+    "db:seed:ci": "node --import tsx prisma/seed.ts --profile=ci",
+    "db:seed:smoke": "node --import tsx prisma/seed.ts --profile=smoke",
+    "db:seed:staging": "node --import tsx prisma/seed.ts --profile=staging",
+    "db:validate:pr": "node --import tsx scripts/validate-migrations-on-test-db.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.2",

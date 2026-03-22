@@ -1,5 +1,5 @@
 import type { ApiConfig } from "@birthub/config";
-import type { z } from "zod";
+import { z } from "zod";
 import {
   createOrganizationRequestSchema,
   createOrganizationResponseSchema,
@@ -14,7 +14,7 @@ import {
   taskEnqueuedResponseSchema,
   taskRequestSchema
 } from "@birthub/config";
-import { createLogger } from "@birthub/logger";
+import { createLogger, setActiveSpanAttributes, withActiveSpan } from "@birthub/logger";
 import cors from "cors";
 import express from "express";
 import type { Express } from "express";
@@ -77,6 +77,7 @@ import { createOrganizationsRouter } from "./modules/organizations/router.js";
 import { createOrganization } from "./modules/organizations/service.js";
 import { startOutputRetentionScheduler } from "./modules/outputs/output-retention.js";
 import { createOutputRouter } from "./modules/outputs/output-routes.js";
+import { metricsHandler, metricsMiddleware, recordTenantJobMetric, recordWebVitalMetric } from "./metrics.js";
 import { createPackInstallerRouter } from "./modules/packs/pack-installer-routes.js";
 import { createPrivacyRouter } from "./modules/privacy/router.js";
 import { createSessionsRouter } from "./modules/sessions/router.js";
@@ -87,6 +88,13 @@ import { createStripeWebhookRouter } from "./modules/webhooks/stripe.router.js";
 import { createWorkflowsRouter } from "./modules/workflows/index.js";
 
 const logger = createLogger("api");
+const webVitalMetricSchema = z.object({
+  id: z.string().min(1),
+  name: z.enum(["CLS", "FCP", "INP", "LCP", "TTFB"]),
+  path: z.string().min(1).default("/"),
+  rating: z.enum(["good", "needs-improvement", "poor"]).optional(),
+  value: z.number()
+});
 
 export interface AppDependencies {
   config?: ApiConfig;
@@ -114,6 +122,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use(requestContextMiddleware);
   app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));
   app.use(tenantContextMiddleware);
+  app.use(metricsMiddleware);
   app.use(
     helmet({
       contentSecurityPolicy: false
@@ -166,6 +175,30 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   app.use(express.json({ limit: config.API_JSON_BODY_LIMIT }));
   app.use(sanitizeMutationInput);
   app.use(originValidationMiddleware(config.corsOrigins));
+  app.post(
+    "/api/v1/observability/web-vitals",
+    validateBody(webVitalMetricSchema),
+    asyncHandler(async (request, response) => {
+      const metric = webVitalMetricSchema.parse(request.body);
+
+      recordWebVitalMetric({
+        name: metric.name,
+        path: metric.path,
+        ...(metric.rating ? { rating: metric.rating } : {}),
+        value: metric.value
+      });
+      setActiveSpanAttributes({
+        "birthub.web_vital.name": metric.name,
+        "birthub.web_vital.path": metric.path,
+        "birthub.web_vital.rating": metric.rating ?? "unknown"
+      });
+
+      response.status(202).json({
+        received: true,
+        requestId: request.context.requestId
+      });
+    })
+  );
   app.use(
     csrfProtection({
       cookieName: config.API_CSRF_COOKIE_NAME,
@@ -438,6 +471,13 @@ export function createApp(dependencies: AppDependencies = {}): Express {
       request.context.tenantId = organization.tenantId ?? null;
       request.context.userId = organization.ownerUserId;
 
+      recordTenantJobMetric(tenantId, body.type);
+      setActiveSpanAttributes({
+        "birthub.job.id": job.jobId,
+        "birthub.tenant.id": tenantId,
+        "birthub.trace.id": request.context.traceId
+      });
+
       logger.info(
         {
           organizationId: organization.organizationId,
@@ -580,6 +620,13 @@ export function createApp(dependencies: AppDependencies = {}): Express {
         throw error;
       }
 
+      recordTenantJobMetric(tenantId, body.type);
+      setActiveSpanAttributes({
+        "birthub.job.id": job.jobId,
+        "birthub.tenant.id": tenantId,
+        "birthub.trace.id": request.context.traceId
+      });
+
       logger.info(
         {
           jobId: job.jobId,
@@ -629,3 +676,5 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   return app;
 }
+
+

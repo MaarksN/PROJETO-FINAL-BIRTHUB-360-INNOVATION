@@ -112,7 +112,12 @@
     "test:shard": "node scripts/testing/run-shard.mjs",
     "test:traceability": "node scripts/testing/generate-traceability-report.mjs",
     "report:performance": "node scripts/testing/generate-performance-report.mjs",
-    "report:regression-zero": "node scripts/testing/generate-regression-zero-report.mjs"
+    "report:regression-zero": "node scripts/testing/generate-regression-zero-report.mjs",
+    "db:check:all": "pnpm --filter @birthub/database db:check:all",
+    "db:seed:ci": "pnpm --filter @birthub/database db:seed:ci",
+    "db:seed:smoke": "pnpm --filter @birthub/database db:seed:smoke",
+    "db:seed:staging": "pnpm --filter @birthub/database db:seed:staging",
+    "db:validate:pr": "pnpm --filter @birthub/database db:validate:pr"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
