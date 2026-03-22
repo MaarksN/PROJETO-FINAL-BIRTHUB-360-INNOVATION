@@ -12,7 +12,7 @@
   "dependencies": {
     "@hubspot/api-client": "^13.4.0",
     "pipedrive": "^31.2.1",
-    "resend": "^6.9.3",
+    "resend": "^6.9.4",
     "stripe": "^20.4.1"
   },
   "devDependencies": {
