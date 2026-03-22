@@ -1,18 +1,17 @@
 {
-  "checkedAt": "2026-03-17T18:48:29.040Z",
-  "envFile": ".env.vps.generated",
-  "ok": false,
+  "checkedAt": "2026-03-22T14:25:36.144Z",
+  "envFile": "artifacts/release/production-preflight.env",
+  "ok": true,
   "requiredKeys": [
     {
-      "missing": [
-        "SENTRY_DSN"
-      ],
+      "missing": [],
       "present": [
         "API_CORS_ORIGINS",
         "AUTH_MFA_ENCRYPTION_KEY",
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
+        "SENTRY_DSN",
         "SESSION_SECRET",
         "STRIPE_SECRET_KEY",
         "STRIPE_WEBHOOK_SECRET",
@@ -21,23 +20,21 @@
       "scope": "api"
     },
     {
-      "missing": [
-        "NEXT_PUBLIC_SENTRY_DSN"
-      ],
+      "missing": [],
       "present": [
         "NEXT_PUBLIC_API_URL",
-        "NEXT_PUBLIC_APP_URL"
+        "NEXT_PUBLIC_APP_URL",
+        "NEXT_PUBLIC_SENTRY_DSN"
       ],
       "scope": "web"
     },
     {
-      "missing": [
-        "SENTRY_DSN"
-      ],
+      "missing": [],
       "present": [
         "DATABASE_URL",
         "JOB_HMAC_GLOBAL_SECRET",
         "REDIS_URL",
+        "SENTRY_DSN",
         "WEB_BASE_URL"
       ],
       "scope": "worker"
@@ -45,24 +42,18 @@
   ],
   "results": [
     {
-      "issues": [
-        "[api] invalid environment variables:\n- SENTRY_DSN must be configured in production."
-      ],
-      "ok": false,
+      "issues": [],
+      "ok": true,
       "scope": "api"
     },
     {
-      "issues": [
-        "[web] invalid environment variables:\n- NEXT_PUBLIC_SENTRY_DSN must be configured in production."
-      ],
-      "ok": false,
+      "issues": [],
+      "ok": true,
       "scope": "web"
     },
     {
-      "issues": [
-        "[worker] invalid environment variables:\n- SENTRY_DSN must be configured in production."
-      ],
-      "ok": false,
+      "issues": [],
+      "ok": true,
       "scope": "worker"
     }
   ],

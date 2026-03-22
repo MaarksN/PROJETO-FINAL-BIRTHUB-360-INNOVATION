@@ -5,7 +5,7 @@ import path from "node:path";
 
 import { projectRoot } from "./shared.mjs";
 
-const markdownLinkPattern = /!?\[[^\]]*]\(([^)]+)\)/gu;
+const markdownLinkPattern = /!?\[[^\]]*\]\(([^)]+)\)/gu;
 const alwaysCheckedFiles = [
   "README.md",
   "CONTRIBUTING.md",
@@ -141,3 +141,4 @@ if (issues.length > 0) {
 } else {
   console.log(`[doc-links] ok (${files.length} markdown file${files.length === 1 ? "" : "s"} checked)`);
 }
+
