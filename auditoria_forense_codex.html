@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auditoria Forense Codex</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 0; background: #0b1020; color: #e5e7eb; }
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 16px; }
+    .card { background: #111827; border: 1px solid #334155; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+    .kpi { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .kpi div { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px; }
+    .legend span { margin-right: 12px; }
+    .dot { display:inline-block; width:10px; height:10px; border-radius:999px; margin-right:6px; vertical-align:middle; }
+    .g { background:#16a34a; } .y { background:#eab308; } .r { background:#dc2626; } .b { background:#2563eb; }
+    a { color: #38bdf8; text-decoration: none; }
+    iframe { width: 100%; height: 70vh; border: 1px solid #334155; border-radius: 8px; background: #fff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Auditoria Forense — Semáforo Executivo</h1>
+      <p>Escopo auditado a partir dos itens versionados em <strong>12 CICLOS (F0–F11)</strong> e evidências concretas do repositório.</p>
+      <div class="legend">
+        <span><i class="dot g"></i>VERDE = IMPLEMENTADO</span>
+        <span><i class="dot y"></i>AMARELO = PARCIAL / DIVERGENTE / APENAS DOCUMENTADO / CONFLITANTE</span>
+        <span><i class="dot r"></i>VERMELHO = NÃO ENCONTRADO</span>
+        <span><i class="dot b"></i>AZUL = IMPLEMENTADO FORA DO PLANO</span>
+      </div>
+    </div>
+
+    <div class="card kpi">
+      <div><small>Total itens</small><br><strong>576</strong></div>
+      <div><small>Implementado</small><br><strong>8</strong></div>
+      <div><small>Parcial</small><br><strong>0</strong></div>
+      <div><small>Não encontrado</small><br><strong>55</strong></div>
+      <div><small>Aderência</small><br><strong>1.2%</strong></div>
+    </div>
+
+    <div class="card">
+      <p><strong>Veredito:</strong> O repositório <strong>não contempla integralmente</strong> o plano auditado.</p>
+      <p>Relatório textual completo: <a href="audit_forensic_report.md">audit_forensic_report.md</a></p>
+      <p>Checklist visual item a item (com semáforo): <a href="audit/auditoria_forense_repositorio.html">audit/auditoria_forense_repositorio.html</a></p>
+      <iframe src="audit/auditoria_forense_repositorio.html" title="Checklist forense item a item"></iframe>
+    </div>
+  </div>
+</body>
+</html>
