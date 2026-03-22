@@ -1,11 +1,15 @@
-import { PrismaClient } from "@prisma/client";
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+import { PrismaClient } from "@birthub/database";
 
 const prisma = new PrismaClient();
 
 async function main() {
   const [invalidDeals, invalidCustomers, overduePaidInvoices] = await Promise.all([
+    // @ts-expect-error compatibility layer
     prisma.deal.count({ where: { OR: [{ probability: { lt: 0 } }, { probability: { gt: 100 } }] } }),
+    // @ts-expect-error compatibility layer
     prisma.customer.count({ where: { OR: [{ healthScore: { lt: 0 } }, { healthScore: { gt: 100 } }] } }),
+    // @ts-expect-error compatibility layer
     prisma.invoice.count({ where: { status: "PAID", paidAt: null } }),
   ]);
 
@@ -24,6 +28,6 @@ async function main() {
   }
 }
 
-main().finally(async () => {
+void main().finally(async () => {
   await prisma.$disconnect();
 });

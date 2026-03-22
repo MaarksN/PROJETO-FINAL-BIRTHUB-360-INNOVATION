@@ -35,7 +35,7 @@ const createDelegate = () => {
   return { delegate, calls };
 };
 
-test('injeta tenantId em findMany e create', async () => {
+void test('injeta tenantId em findMany e create', async () => {
   const { delegate, calls } = createDelegate();
   const repo = new BaseTenantRepository<Where, CreateData, RecordModel>(delegate);
 
@@ -46,7 +46,7 @@ test('injeta tenantId em findMany e create', async () => {
   assert.deepEqual(calls[1], { method: 'create', args: { data: { name: 'Acme', tenantId: 'tenant-1' } } });
 });
 
-test('lança TenantRequiredError quando tenantId não é informado', async () => {
+void test('lança TenantRequiredError quando tenantId não é informado', () => {
   const { delegate } = createDelegate();
   const repo = new BaseTenantRepository<Where, CreateData, RecordModel>(delegate);
 

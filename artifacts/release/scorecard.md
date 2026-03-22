@@ -1,5 +1,5 @@
 # Release Scorecard
-Generated at: 2026-03-21T03:07:56.915Z
+Generated at: 2026-03-21T14:28:28.969Z
 
 Canonical go-live scope: `apps/web`, `apps/api`, `apps/worker`, `packages/database`.
 Legacy and satellite surfaces stay outside the 2026-03-20 launch gate unless promoted explicitly.

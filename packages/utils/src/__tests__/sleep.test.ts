@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert';
 import { sleep } from '../sleep.js';
 
-test('sleep resolves after specified time', async () => {
+void test('sleep resolves after specified time', async () => {
   const start = Date.now();
   const delay = 50;
   await sleep(delay);
@@ -12,7 +12,7 @@ test('sleep resolves after specified time', async () => {
   assert(delta >= delay - 5, `Expected at least ${delay}ms, got ${delta}ms`);
 });
 
-test('sleep with fake timers', async (t) => {
+void test('sleep with fake timers', async (t) => {
   t.mock.timers.enable({ apis: ['setTimeout'] });
 
   let resolved = false;
@@ -31,7 +31,7 @@ test('sleep with fake timers', async (t) => {
   await p;
 });
 
-test('sleep with 0ms', async () => {
+void test('sleep with 0ms', async () => {
   const start = Date.now();
   await sleep(0);
   const end = Date.now();
