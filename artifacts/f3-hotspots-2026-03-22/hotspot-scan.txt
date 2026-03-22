@@ -1,0 +1,13 @@
+# F3 hotspot scan (2026-03-22)
+apps/api/src/app.ts	39
+apps/api/src/modules/agents/service.ts	946
+apps/api/src/modules/analytics/service.ts	532
+apps/worker/src/agents/runtime.ts	1097
+apps/worker/src/engine/runner.ts	597
+apps/worker/src/worker.ts	899
+packages/agents/executivos/narrativeweaver/agent.ts	877
+packages/database/prisma/seed.ts	33
+apps/api/src/app/auth-routes.ts	229
+apps/api/src/app/core-business-routes.ts	213
+packages/database/prisma/seed/tenant.ts	365
+packages/database/prisma/seed/workflows.ts	149
