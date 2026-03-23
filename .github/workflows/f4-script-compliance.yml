@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Install dependencies
@@ -59,6 +60,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Setup Python
@@ -70,10 +72,14 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Python dependencies
+        shell: bash
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
-          find agents -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
-          python -m pip install pytest
+          python -m pip install -r requirements-test.txt -e ./agents/shared pytest mypy ruff "fastapi==0.115.0" "starlette<0.39.0"
+
+      - name: Enforce Python workflow hard-fail policy
+        run: python scripts/ci/check-python-workflow-hard-fail.py
 
       - name: Run agent lint
         run: pnpm lint:agents

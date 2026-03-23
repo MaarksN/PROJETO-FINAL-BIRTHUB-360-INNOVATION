@@ -2,6 +2,9 @@ name: CI
 
 on:
   pull_request:
+    branches:
+      - main
+      - develop
   push:
     branches:
       - main
@@ -20,19 +23,90 @@ jobs:
       timeout_minutes: 10
 
   commit-messages:
-    name: commit-messages
+    name: commitlint
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm commits:check
+      command: pnpm ci:commitlint
       fetch_depth: 0
       timeout_minutes: 10
 
   lockfile-integrity:
     name: lockfile-integrity
-    uses: ./.github/workflows/reusable-node-check.yml
-    with:
-      command: pnpm ci:lockfile
-      timeout_minutes: 15
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce lockfile governance
+        run: pnpm ci:lockfile
+
+  lockfile-corruption-simulation:
+    name: lockfile-corruption-simulation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Corrupt lockfile fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp pnpm-lock.yaml pnpm-lock.yaml.bak
+          printf '\n__corrupted_lockfile_marker: [\n' >> pnpm-lock.yaml
+
+      - name: Assert frozen install fails on corrupted lockfile
+        shell: bash
+        run: |
+          set +e
+          pnpm install --frozen-lockfile > lockfile-corruption.log 2>&1
+          status=$?
+          set -e
+
+          if [[ "${status}" -eq 0 ]]; then
+            echo "::error title=Lockfile corruption simulation failed::pnpm install unexpectedly succeeded."
+            cat lockfile-corruption.log
+            exit 1
+          fi
+
+          if ! grep -Eiq "ERR_PNPM|lockfile|yaml|parse" lockfile-corruption.log; then
+            echo "::warning::Install failed as expected, but lockfile-specific markers were not found in output."
+          fi
+
+      - name: Restore lockfile
+        if: always()
+        shell: bash
+        run: mv pnpm-lock.yaml.bak pnpm-lock.yaml
 
   inline-credentials:
     name: inline-credentials
@@ -276,11 +350,60 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          find agents -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
-          python -m pip install -r requirements-test.txt pytest pytest-asyncio pytest-cov
+          python -m pip install -r requirements-test.txt -e ./agents/shared redis mypy ruff bandit pip-audit "safety>=3.7.0" "fastapi==0.115.0" "starlette<0.39.0"
 
-      - name: Run legacy agents lane
-        run: pnpm ci:task legacy-agents
+      - name: Enforce Python workflow hard-fail policy
+        run: python scripts/ci/check-python-workflow-hard-fail.py
+
+      - name: Validate type ignore allowlist
+        run: python scripts/ci/check-type-ignore-allowlist.py
+
+      - name: Run Ruff (blocking)
+        run: python -m ruff check --select E9,F63,F7,F82 agents apps/agent-orchestrator apps/webhook-receiver
+
+      - name: Run mypy strict on critical Python modules
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m mypy --strict --disable-error-code import-untyped agents/runtime
+          python -m mypy --strict --disable-error-code import-untyped apps/agent-orchestrator/main.py
+          python -m mypy --strict apps/webhook-receiver/main.py
+
+      - name: Validate all Python agents with mypy baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m mypy agents --ignore-missing-imports --follow-imports=skip \
+            --disable-error-code attr-defined \
+            --disable-error-code arg-type \
+            --disable-error-code union-attr \
+            --disable-error-code var-annotated \
+            --disable-error-code no-redef \
+            --disable-error-code assignment \
+            --disable-error-code typeddict-item \
+            --disable-error-code index \
+            --disable-error-code misc \
+            --disable-error-code comparison-overlap \
+            --disable-error-code no-any-return
+
+      - name: Run pytest with coverage gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pytest agents tests/integration apps/agent-orchestrator/tests apps/webhook-receiver/tests \
+            --cov=agents \
+            --cov=apps/agent-orchestrator \
+            --cov=apps/webhook-receiver \
+            --cov-fail-under=80
+
+      - name: Run Bandit (blocking)
+        run: python -m bandit -q -r agents apps/agent-orchestrator apps/webhook-receiver -x "*/tests/*" -lll
+
+      - name: Run pip-audit (blocking)
+        run: python -m pip_audit -r requirements-test.txt
+
+      - name: Run Safety (blocking)
+        run: python -m safety check --full-report -r requirements-test.txt
 
   workflow-suite:
     name: workflow-suite
@@ -324,7 +447,7 @@ jobs:
     name: governance-gates
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm monorepo:doctor && pnpm release:scorecard && pnpm audit:ownership
+      command: pnpm monorepo:doctor && RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard && pnpm audit:ownership
       timeout_minutes: 15
 
   ci:
@@ -335,6 +458,7 @@ jobs:
       - branch-name
       - commit-messages
       - lockfile-integrity
+      - lockfile-corruption-simulation
       - inline-credentials
       - documentation-links
       - repo-hygiene

@@ -6,7 +6,7 @@ import time
 from collections import defaultdict
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-from typing import Any, Dict, Literal
+from typing import Any, AsyncIterator, Dict, Literal, cast
 
 from fastapi import FastAPI, Header, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -226,7 +226,7 @@ async def _list_events(status: str | None = None, limit: int = 20) -> Dict[str, 
 
 
 @asynccontextmanager
-async def lifespan(_: FastAPI):
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     await _safe_init_db()
     yield
 
@@ -265,28 +265,55 @@ async def health() -> Dict[str, Any]:
 
 
 @app.post("/run")
-async def run_lead_lifecycle(request: RunRequest, x_service_token: str | None = Header(default=None)):
+async def run_lead_lifecycle(
+    request: RunRequest,
+    x_service_token: str | None = Header(default=None)
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
-    state = {"lead_id": request.lead_id, "context": request.context, "score": 0, "tier": "T4", "actions_taken": [], "error": ""}
-    return await FLOW_LEAD_LIFECYCLE_GRAPH.ainvoke(state)
+    state: Dict[str, Any] = {
+        "lead_id": request.lead_id,
+        "context": request.context,
+        "score": 0,
+        "tier": "T4",
+        "actions_taken": [],
+        "error": "",
+    }
+    result = await FLOW_LEAD_LIFECYCLE_GRAPH.ainvoke(cast(Any, state))
+    return cast(Dict[str, Any], result)
 
 
 @app.post("/run/lifecycle")
-async def run_lead_lifecycle_v1(request: RunRequest, x_service_token: str | None = Header(default=None)):
+async def run_lead_lifecycle_v1(
+    request: RunRequest,
+    x_service_token: str | None = Header(default=None)
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
-    state = {"lead_id": request.lead_id, "context": request.context, "score": 0, "tier": "T4", "actions_taken": [], "error": ""}
-    result = await FLOW_LEAD_LIFECYCLE_GRAPH.ainvoke(state)
+    state: Dict[str, Any] = {
+        "lead_id": request.lead_id,
+        "context": request.context,
+        "score": 0,
+        "tier": "T4",
+        "actions_taken": [],
+        "error": "",
+    }
+    result = await FLOW_LEAD_LIFECYCLE_GRAPH.ainvoke(cast(Any, state))
     return {"schemaVersion": "v1", "status": "completed", "result": result}
 
 
 @app.post("/events/run")
-async def run_event_internal(request: EventRunRequest, x_service_token: str | None = Header(default=None)):
+async def run_event_internal(
+    request: EventRunRequest,
+    x_service_token: str | None = Header(default=None)
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     return await _execute_event(request)
 
 
 @app.post("/run/event")
-async def run_event_v1(request: EventRunRequest, x_service_token: str | None = Header(default=None)):
+async def run_event_v1(
+    request: EventRunRequest,
+    x_service_token: str | None = Header(default=None)
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     return await _execute_event(request)
 
@@ -296,13 +323,13 @@ async def list_events(
     status: str | None = Query(default=None),
     limit: int = Query(default=20, ge=1, le=100),
     x_service_token: str | None = Header(default=None),
-):
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     return await _list_events(status=status, limit=limit)
 
 
 @app.get("/events/summary")
-async def events_summary(x_service_token: str | None = Header(default=None)):
+async def events_summary(x_service_token: str | None = Header(default=None)) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     counts = await _count_persisted_events()
     if counts is not None:
@@ -315,7 +342,10 @@ async def events_summary(x_service_token: str | None = Header(default=None)):
 
 
 @app.get("/events/metrics")
-async def get_metrics_legacy(event_type: EventType | None = Query(default=None), x_service_token: str | None = Header(default=None)):
+async def get_metrics_legacy(
+    event_type: EventType | None = Query(default=None),
+    x_service_token: str | None = Header(default=None)
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     if event_type:
         return {event_type: FLOW_METRICS[event_type].as_dict()}
@@ -323,13 +353,13 @@ async def get_metrics_legacy(event_type: EventType | None = Query(default=None),
 
 
 @app.get("/metrics/flows")
-async def get_metrics_v1(x_service_token: str | None = Header(default=None)):
+async def get_metrics_v1(x_service_token: str | None = Header(default=None)) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     return {"metrics": {key: value.as_dict() for key, value in FLOW_METRICS.items()}}
 
 
 @app.get("/dlq")
-async def list_dlq(x_service_token: str | None = Header(default=None)):
+async def list_dlq(x_service_token: str | None = Header(default=None)) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     persisted = await _list_persisted_events(status="failed", limit=100)
     if persisted is not None:
@@ -341,7 +371,10 @@ async def list_dlq(x_service_token: str | None = Header(default=None)):
 
 
 @app.post("/dlq/reprocess/{event_id}")
-async def reprocess_dlq_event(event_id: str, x_service_token: str | None = Header(default=None)):
+async def reprocess_dlq_event(
+    event_id: str,
+    x_service_token: str | None = Header(default=None)
+) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     record = DLQ_STORE.get(event_id) or await _load_persisted_event(event_id)
     if record is None or record.get("status") != "failed":
@@ -362,7 +395,7 @@ async def reprocess_dlq_event(event_id: str, x_service_token: str | None = Heade
 
 
 @app.get("/events/{event_id}")
-async def get_event(event_id: str, x_service_token: str | None = Header(default=None)):
+async def get_event(event_id: str, x_service_token: str | None = Header(default=None)) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     record = EVENT_STORE.get(event_id) or await _load_persisted_event(event_id)
     if record is None:
@@ -371,7 +404,7 @@ async def get_event(event_id: str, x_service_token: str | None = Header(default=
 
 
 @app.post("/events/{event_id}/cancel")
-async def cancel_event(event_id: str, x_service_token: str | None = Header(default=None)):
+async def cancel_event(event_id: str, x_service_token: str | None = Header(default=None)) -> Dict[str, Any]:
     validate_internal_service_token(x_service_token)
     record = EVENT_STORE.get(event_id) or await _load_persisted_event(event_id)
     if record is None:

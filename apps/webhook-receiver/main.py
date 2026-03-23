@@ -1,6 +1,7 @@
 import json
 import os
 from contextlib import asynccontextmanager
+from typing import Any, AsyncIterator
 
 import httpx
 from fastapi import FastAPI, Header, HTTPException, Request
@@ -55,7 +56,7 @@ def _get_redis_client() -> Redis:
 
 
 @asynccontextmanager
-async def lifespan(_: FastAPI):
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
     if _is_strict_runtime() and not INTERNAL_SERVICE_TOKEN:
         raise RuntimeError("INTERNAL_SERVICE_TOKEN is required in strict runtime")
     if _is_strict_runtime() and not os.getenv("SVIX_WEBHOOK_SECRET"):
@@ -98,7 +99,7 @@ def _verify_svix_signature(
         raise HTTPException(status_code=401, detail="Invalid Svix signature") from exc
 
 
-async def _patch(path: str, payload: dict) -> None:
+async def _patch(path: str, payload: dict[str, Any]) -> None:
     headers = {"Content-Type": "application/json"}
     if INTERNAL_SERVICE_TOKEN:
         headers["x-service-token"] = INTERNAL_SERVICE_TOKEN
@@ -107,14 +108,14 @@ async def _patch(path: str, payload: dict) -> None:
         await client.patch(f"{_resolve_api_gateway_url()}{path}", json=payload, headers=headers)
 
 
-async def handle_payment_success(data: dict) -> None:
+async def handle_payment_success(data: dict[str, Any]) -> None:
     organization_id = data.get("object", {}).get("metadata", {}).get("organizationId") or data.get("organizationId")
     if not organization_id:
         return
     await _patch(f"/api/v1/internal/organizations/{organization_id}/plan", {"plan": "PRO"})
 
 
-async def handle_subscription_change(data: dict) -> None:
+async def handle_subscription_change(data: dict[str, Any]) -> None:
     organization_id = data.get("object", {}).get("metadata", {}).get("organizationId") or data.get("organizationId")
     plan = data.get("object", {}).get("metadata", {}).get("plan") or data.get("plan")
     if not organization_id or not plan:
@@ -122,7 +123,7 @@ async def handle_subscription_change(data: dict) -> None:
     await _patch(f"/api/v1/internal/organizations/{organization_id}/plan", {"plan": plan})
 
 
-async def handle_email_open(data: dict) -> None:
+async def handle_email_open(data: dict[str, Any]) -> None:
     activity_id = data.get("activityId")
     if not activity_id:
         return
@@ -130,7 +131,7 @@ async def handle_email_open(data: dict) -> None:
 
 
 @app.get("/health")
-async def health() -> dict:
+async def health() -> dict[str, Any]:
     if not _is_strict_runtime():
         return {"status": "ok"}
 
@@ -189,7 +190,7 @@ async def receive_webhook(
     svix_id: str | None = Header(default=None),
     svix_timestamp: str | None = Header(default=None),
     svix_signature: str | None = Header(default=None),
-) -> dict:
+) -> dict[str, bool]:
     body = await request.body()
     _verify_svix_signature(body, svix_id, svix_timestamp, svix_signature)
     payload = await request.json()

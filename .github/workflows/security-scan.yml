@@ -85,17 +85,19 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          find agents apps -name requirements.txt -print0 | xargs -0 -n1 python -m pip install -r
-          python -m pip install -r requirements-test.txt bandit pip-audit "safety==2.3.1"
+          python -m pip install -r requirements-test.txt bandit pip-audit "safety>=3.7.0"
+
+      - name: Enforce Python workflow hard-fail policy
+        run: python scripts/ci/check-python-workflow-hard-fail.py
 
       - name: Run Bandit
-        run: bandit -q -r agents apps/webhook-receiver
+        run: python -m bandit -q -r agents apps/webhook-receiver -x "*/tests/*" -lll
 
       - name: Run pip-audit
-        run: pip-audit
+        run: python -m pip_audit -r requirements-test.txt
 
       - name: Run Safety
-        run: safety check --full-report
+        run: python -m safety check --full-report -r requirements-test.txt
 
   rbac-suite:
     name: RBAC suite

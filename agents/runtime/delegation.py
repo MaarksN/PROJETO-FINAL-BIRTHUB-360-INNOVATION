@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
 
 
 @dataclass
@@ -12,7 +11,7 @@ class AgentCapability:
 
 
 class DelegationRouter:
-    def __init__(self):
+    def __init__(self) -> None:
         self.capabilities: list[AgentCapability] = []
 
     def register_agent(self, agent_type: str, description: str, embedding: list[float]) -> None:
@@ -30,4 +29,4 @@ class DelegationRouter:
         n2 = sum(a * a for a in v2) ** 0.5
         if n1 == 0 or n2 == 0:
             return 0.0
-        return dot / (n1 * n2)
+        return float(dot / (n1 * n2))

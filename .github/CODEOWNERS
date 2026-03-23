@@ -1,7 +1,7 @@
 # Governance and release controls
 /.github/workflows/ @platform-devex @platform-security
 /.github/dependabot.yml @platform-devex @platform-security
-/.github/PULL_REQUEST_TEMPLATE.md @platform-devex @platform-security
+/.github/pull_request_template.md @platform-devex @platform-security
 /package.json @platform-devex @platform-security
 /pnpm-lock.yaml @platform-devex @platform-security
 /SECURITY.md @platform-security @platform-architecture
@@ -11,6 +11,16 @@
 /scripts/security/ @platform-security @platform-devex
 /infra/ @platform-devex @platform-architecture
 /ops/ @platform-devex @platform-architecture
+
+# Critical components (service-criticality)
+/apps/api-gateway/ @platform-api @platform-security
+/apps/agent-orchestrator/ @platform-worker @platform-api
+/packages/db/ @platform-data @platform-security
+/packages/queue/ @platform-worker @platform-api
+/apps/webhook-receiver/ @platform-integrations @platform-api
+/agents/ @platform-automation @growth-sdr
+/apps/dashboard/ @platform-web @product-frontend
+/packages/integrations/ @platform-api @platform-integrations
 
 # Web domain
 /apps/web/ @platform-web @product-frontend

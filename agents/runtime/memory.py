@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Any
+from typing import Any, cast
 import hashlib
 
 import asyncpg
@@ -10,8 +10,9 @@ from redis.asyncio import Redis
 
 
 class AgentMemory:
-    def __init__(self, redis_url: str | None = None, database_url: str | None = None):
-        self.redis = Redis.from_url(redis_url or os.getenv("REDIS_URL", "redis://localhost:6379"), decode_responses=True)
+    def __init__(self, redis_url: str | None = None, database_url: str | None = None) -> None:
+        resolved_redis_url = redis_url or os.getenv("REDIS_URL") or "redis://localhost:6379"
+        self.redis = Redis.from_url(resolved_redis_url, decode_responses=True)
         self.database_url = database_url or os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/agent_orchestrator")
 
     async def store(self, key: str, value: dict[str, Any], session_id: str) -> None:
@@ -22,13 +23,14 @@ class AgentMemory:
     async def recall(self, query: str, session_id: str, top_k: int = 3) -> list[dict[str, Any]]:
         redis_key = f"agent_memory:session:{session_id}"
         short_term = await self.redis.hgetall(redis_key)
-        short_term_values = [json.loads(v) for v in short_term.values()]
+        short_term_values = [cast(dict[str, Any], json.loads(v)) for v in short_term.values()]
 
         # Redis read-through cache for DB paginator mitigation
-        cache_key = f"db_cache:{session_id}:{hashlib.md5(query.encode()).hexdigest()}:{top_k}"
+        cache_key = f"db_cache:{session_id}:{hashlib.sha256(query.encode()).hexdigest()}:{top_k}"
         cached_result = await self.redis.get(cache_key)
+        long_term_values: list[dict[str, Any]]
         if cached_result:
-            long_term_values = json.loads(cached_result)
+            long_term_values = cast(list[dict[str, Any]], json.loads(cached_result))
         else:
             pool = await asyncpg.create_pool(self.database_url, min_size=1, max_size=2)
             async with pool.acquire() as conn:

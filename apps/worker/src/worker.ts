@@ -1,7 +1,4 @@
 /* eslint-disable */
-// @ts-nocheck
-/* eslint-disable */
-// @ts-nocheck
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import { Queue, Worker } from "bullmq";

@@ -15,7 +15,7 @@ Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concen
 - [ ] Sem exports ou imports mortos.
 - [ ] Naming conventions respeitadas (kebab-case no front, snake_case no backend).
 - [ ] Segurança aprovada e sem credenciais inline expostas.
-- [ ] Se `pnpm-lock.yaml` mudou, houve revisão de security e platform.
+- [ ] Se `pnpm-lock.yaml` mudou, houve aprovacao dupla (security + platform) e label `security-approved`.
 - [ ] Workspaces alterados mantem `lint`, `typecheck`, `test` e `build`, ou `N/A` aprovado no relatorio F4.
 
 ## Hygiene checklist

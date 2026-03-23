@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal
+from typing import Any, Literal
 
 Decision = Literal["proceed", "retry", "escalate"]
 
@@ -19,7 +19,7 @@ class StepEvaluator:
         self.proceed_threshold = proceed_threshold
         self.escalate_threshold = escalate_threshold
 
-    def evaluate(self, step_result: dict, retries_done: int) -> Evaluation:
+    def evaluate(self, step_result: dict[str, Any], retries_done: int) -> Evaluation:
         quality = float(step_result.get("quality", 0.0))
         if quality >= self.proceed_threshold:
             return Evaluation(score=quality, decision="proceed", reason="Resultado com qualidade adequada.")

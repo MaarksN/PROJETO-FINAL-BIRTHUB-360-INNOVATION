@@ -31,7 +31,8 @@ async def init_pool(dsn: Optional[str] = None) -> asyncpg.Pool:
             statement_cache_size=100,
         )
         logger.info("DB Pool initialized successfully")
-        return _pool # type: ignore
+        assert _pool is not None
+        return _pool
     except Exception as e:
         logger.error(f"Failed to initialize DB Pool: {e}")
         raise

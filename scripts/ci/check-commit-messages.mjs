@@ -1,13 +1,11 @@
 #!/usr/bin/env node
-import { execSync } from "node:child_process";
+import { execSync, spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-import { projectRoot } from "./shared.mjs";
+import { projectRoot, resolvePnpmInvocation } from "./shared.mjs";
 
 const allowlistPath = path.join(projectRoot, ".github", "commit-message-allowlist.txt");
-const conventionalPattern =
-  /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([^)]+\))?!?: .+/;
 const extraAllowedPatterns = [/^Merge .+/, /^Revert ".+"/];
 
 function gitCapture(args, allowFailure = false) {
@@ -21,6 +19,24 @@ function gitCapture(args, allowFailure = false) {
       return "";
     }
     throw error;
+  }
+}
+
+function ensureCommitlintAvailable(invocation) {
+  const result = spawnSync(
+    invocation.command,
+    [...invocation.argsPrefix, "exec", "commitlint", "--version"],
+    {
+      cwd: projectRoot,
+      encoding: "utf8",
+      env: invocation.env,
+      stdio: "pipe"
+    }
+  );
+
+  if ((result.status ?? 1) !== 0) {
+    const details = (result.stderr || result.stdout || "unknown error").trim();
+    throw new Error(`commitlint is unavailable: ${details}`);
   }
 }
 
@@ -78,22 +94,56 @@ function listCommitSubjects(baseRef) {
     });
 }
 
-function isAllowedSubject(subject) {
-  return conventionalPattern.test(subject) || extraAllowedPatterns.some((pattern) => pattern.test(subject));
+function lintSubject(invocation, subject) {
+  return spawnSync(
+    invocation.command,
+    [...invocation.argsPrefix, "exec", "commitlint", "--config", "commitlint.config.cjs"],
+    {
+      cwd: projectRoot,
+      encoding: "utf8",
+      env: invocation.env,
+      input: `${subject}\n`,
+      stdio: "pipe"
+    }
+  );
 }
 
 try {
+  const pnpmInvocation = resolvePnpmInvocation();
+  ensureCommitlintAvailable(pnpmInvocation);
+
   const allowlist = loadAllowlist();
   const baseRef = resolveBaseRef();
   const commits = listCommitSubjects(baseRef);
-  const invalidCommits = commits.filter(
-    ({ sha, subject }) => !allowlist.has(sha) && !isAllowedSubject(subject)
-  );
+  const invalidCommits = [];
+
+  for (const commit of commits) {
+    if (allowlist.has(commit.sha)) {
+      continue;
+    }
+
+    if (extraAllowedPatterns.some((pattern) => pattern.test(commit.subject))) {
+      continue;
+    }
+
+    const result = lintSubject(pnpmInvocation, commit.subject);
+    if ((result.status ?? 1) === 0) {
+      continue;
+    }
+
+    invalidCommits.push({
+      ...commit,
+      output: (result.stderr || result.stdout || "commitlint validation failed").trim()
+    });
+  }
 
   if (invalidCommits.length > 0) {
     console.error("[commit-check] FAILED");
     for (const invalidCommit of invalidCommits) {
       console.error(`- ${invalidCommit.sha.slice(0, 7)} ${invalidCommit.subject}`);
+      for (const line of invalidCommit.output.split(/\r?\n/u).filter(Boolean)) {
+        console.error(`  ${line}`);
+      }
     }
     console.error(
       `Add only temporary legacy exceptions to ${path.relative(projectRoot, allowlistPath).replaceAll("\\", "/")}.`

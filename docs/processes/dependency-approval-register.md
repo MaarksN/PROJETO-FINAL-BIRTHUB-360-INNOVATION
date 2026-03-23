@@ -2,6 +2,8 @@
 
 Toda nova dependência externa adicionada a `apps/*`, `packages/*` ou `agents/*` deve registrar contexto, licença e aprovação de lead técnico.
 
+Fluxo operacional obrigatório: `docs/processes/dependency-update-security-workflow.md`.
+
 ## Required fields
 
 | Data | Dependência | Escopo | Motivo | Licença | Aprovado por | Rollback |

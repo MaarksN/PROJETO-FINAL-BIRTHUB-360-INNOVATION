@@ -6,7 +6,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, cast
 import json
 
 from pydantic import BaseModel, Field
@@ -25,7 +25,12 @@ class AgentTaskEvent(BaseModel):
 
 
 class EventBus:
-    def __init__(self, redis_url: str, stream_name: str = "agent_tasks", result_stream: str = "agent_results"):
+    def __init__(
+        self,
+        redis_url: str,
+        stream_name: str = "agent_tasks",
+        result_stream: str = "agent_results"
+    ) -> None:
         self.redis = Redis.from_url(redis_url, decode_responses=True)
         self.stream_name = stream_name
         self.result_stream = result_stream
@@ -34,16 +39,37 @@ class EventBus:
         message = event.model_dump()
         message["payload"] = json.dumps(message["payload"])
         message["timestamp"] = message["timestamp"].isoformat()
-        return await self.redis.xadd(self.stream_name, {k: str(v) for k, v in message.items()})
+        entry_id = await self.redis.xadd(self.stream_name, {k: str(v) for k, v in message.items()})
+        return cast(str, entry_id)
 
-    async def consume(self, consumer_group: str, consumer_name: str, count: int = 10, block_ms: int = 2000):
+    async def consume(
+        self,
+        consumer_group: str,
+        consumer_name: str,
+        count: int = 10,
+        block_ms: int = 2000
+    ) -> list[Any]:
         try:
             await self.redis.xgroup_create(self.stream_name, consumer_group, id="0", mkstream=True)
         except Exception:
             pass
-        return await self.redis.xreadgroup(consumer_group, consumer_name, {self.stream_name: ">"}, count=count, block=block_ms)
+        entries = await self.redis.xreadgroup(
+            consumer_group,
+            consumer_name,
+            {self.stream_name: ">"},
+            count=count,
+            block=block_ms
+        )
+        return cast(list[Any], entries)
 
-    async def publish_result(self, event_id: str, correlation_id: str, status: str, data: dict[str, Any] | None = None, error: str | None = None) -> str:
+    async def publish_result(
+        self,
+        event_id: str,
+        correlation_id: str,
+        status: str,
+        data: dict[str, Any] | None = None,
+        error: str | None = None
+    ) -> str:
         payload = {
             "event_id": event_id,
             "correlation_id": correlation_id,
@@ -52,4 +78,5 @@ class EventBus:
             "error": error or "",
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
-        return await self.redis.xadd(self.result_stream, {k: str(v) for k, v in payload.items()})
+        entry_id = await self.redis.xadd(self.result_stream, {k: str(v) for k, v in payload.items()})
+        return cast(str, entry_id)

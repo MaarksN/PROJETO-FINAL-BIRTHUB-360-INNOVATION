@@ -6,6 +6,7 @@
 - [Repository naming standard](standards/repository-naming.md)
 - [Documentation source of truth](processes/documentation-source-of-truth.md)
 - [Dependency approval register](processes/dependency-approval-register.md)
+- [Secure dependency update workflow](processes/dependency-update-security-workflow.md)
 - [Internal package graph](architecture/internal-package-graph.md)
 - [Internal packages changelog](release/internal-packages-changelog.md)
 - [Documentation template](templates/documentation-template.md)
@@ -36,3 +37,4 @@
 - [Security PR acceptance](security-pr-acceptance.md)
 - [Threat model](threat-model-system.md)
 - [Dependency approval register](processes/dependency-approval-register.md)
+- [Secure dependency update workflow](processes/dependency-update-security-workflow.md)

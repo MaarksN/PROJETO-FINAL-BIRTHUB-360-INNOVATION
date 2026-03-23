@@ -9,14 +9,21 @@ from orchestrator.event_bus import AgentTaskEvent, EventBus
 
 EVENT_BUS = EventBus(os.getenv("REDIS_URL", "redis://localhost:6379"))
 logger = logging.getLogger("orchestrator.flows")
+ActionResult = dict[str, Any]
 
 
-async def _post_with_retry(url: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+async def _post_with_retry(url: str, payload: Dict[str, Any]) -> ActionResult:
     logger.info("Dispatching orchestrator payload", extra={"url": url})
     return {"url": url, "payload": payload}
 
 
-async def _trigger_agent_action(*, agent_type: str, task: str, payload: Dict[str, Any], action_name: str) -> Dict[str, Any]:
+async def _trigger_agent_action(
+    *,
+    agent_type: str,
+    task: str,
+    payload: Dict[str, Any],
+    action_name: str
+) -> ActionResult:
     event = AgentTaskEvent(event_id=str(uuid4()), tenant_id=str(payload.get("tenant_id", "unknown")), agent_type=agent_type, task=task, payload=payload, correlation_id=str(uuid4()))
     await EVENT_BUS.publish(event)
     return {"actions_taken": [action_name]}
@@ -35,13 +42,13 @@ class OrchestratorState(TypedDict):
 
 # --- Nodes Implementation ---
 
-async def ldr_enrich(state: OrchestratorState):
+async def ldr_enrich(state: OrchestratorState) -> ActionResult:
     logger.info("Executing LDR Enrichment", extra={"lead_id": state["lead_id"]})
     await _trigger_agent_action(agent_type="ldr", task="run", payload={"lead_id": state["lead_id"], "context": state["context"]}, action_name="ldr_enrich_completed")
     return {"actions_taken": ["ldr_enrich_completed"]}
 
 
-async def ldr_score(state: OrchestratorState):
+async def ldr_score(state: OrchestratorState) -> ActionResult:
     logger.info("Executing LDR Scoring", extra={"lead_id": state["lead_id"]})
     await _trigger_agent_action(agent_type="ldr", task="score", payload={"lead_data": state["context"]}, action_name="ldr_score_requested")
     return {"score": int(state.get("context", {}).get("score", 0)), "tier": state.get("context", {}).get("tier", "T4"), "actions_taken": ["ldr_score_calculated"]}
@@ -59,7 +66,7 @@ def check_score_condition(state: OrchestratorState) -> Literal["high_priority", 
     return "disqualify"
 
 
-async def alert_ae(state: OrchestratorState):
+async def alert_ae(state: OrchestratorState) -> ActionResult:
     logger.info("Alerting AE for high priority lead")
     return await _trigger_agent_action(
         agent_type="ae",
@@ -69,7 +76,7 @@ async def alert_ae(state: OrchestratorState):
     )
 
 
-async def sdr_outreach_immediate(state: OrchestratorState):
+async def sdr_outreach_immediate(state: OrchestratorState) -> ActionResult:
     logger.info("Triggering Immediate SDR Outreach")
     return await _trigger_agent_action(
         agent_type="sdr",
@@ -79,7 +86,7 @@ async def sdr_outreach_immediate(state: OrchestratorState):
     )
 
 
-async def sdr_queue_priority(state: OrchestratorState):
+async def sdr_queue_priority(state: OrchestratorState) -> ActionResult:
     logger.info("Queueing for SDR Priority")
     return await _trigger_agent_action(
         agent_type="sdr",
@@ -89,7 +96,7 @@ async def sdr_queue_priority(state: OrchestratorState):
     )
 
 
-async def nurture_sequence(state: OrchestratorState):
+async def nurture_sequence(state: OrchestratorState) -> ActionResult:
     logger.info("Starting Nurture Sequence")
     return await _trigger_agent_action(
         agent_type="marketing",
@@ -99,7 +106,7 @@ async def nurture_sequence(state: OrchestratorState):
     )
 
 
-async def disqualify_lead(state: OrchestratorState):
+async def disqualify_lead(state: OrchestratorState) -> ActionResult:
     logger.info("Disqualifying Lead")
     return await _trigger_agent_action(
         agent_type="ldr",
@@ -116,7 +123,7 @@ class LifecycleEventState(TypedDict):
     error: str
 
 
-async def financeiro_emit_invoice(state: LifecycleEventState):
+async def financeiro_emit_invoice(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="financeiro",
         task="run",
@@ -125,7 +132,7 @@ async def financeiro_emit_invoice(state: LifecycleEventState):
     )
 
 
-async def juridico_generate_contract(state: LifecycleEventState):
+async def juridico_generate_contract(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="juridico",
         task="run",
@@ -134,7 +141,7 @@ async def juridico_generate_contract(state: LifecycleEventState):
     )
 
 
-async def pos_venda_start_onboarding(state: LifecycleEventState):
+async def pos_venda_start_onboarding(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="pos-venda",
         task="run",
@@ -143,7 +150,7 @@ async def pos_venda_start_onboarding(state: LifecycleEventState):
     )
 
 
-async def analista_log_anomaly(state: LifecycleEventState):
+async def analista_log_anomaly(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="analista",
         task="run",
@@ -152,7 +159,7 @@ async def analista_log_anomaly(state: LifecycleEventState):
     )
 
 
-async def pos_venda_trigger_playbook(state: LifecycleEventState):
+async def pos_venda_trigger_playbook(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="pos-venda",
         task="run",
@@ -161,13 +168,13 @@ async def pos_venda_trigger_playbook(state: LifecycleEventState):
     )
 
 
-async def pos_venda_trigger_churn_playbook(state: LifecycleEventState):
+async def pos_venda_trigger_churn_playbook(state: LifecycleEventState) -> ActionResult:
     payload = {"event": "CHURN_RISK_HIGH", "entity_id": state["entity_id"], "context": state["context"]}
     await _post_with_retry("/run/event", payload)
     return {"actions_taken": ["pos_venda_trigger_churn_playbook_requested"]}
 
 
-async def analista_log_churn_risk(state: LifecycleEventState):
+async def analista_log_churn_risk(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="analista",
         task="run",
@@ -176,7 +183,7 @@ async def analista_log_churn_risk(state: LifecycleEventState):
     )
 
 
-async def financeiro_prepare_retention_offer(state: LifecycleEventState):
+async def financeiro_prepare_retention_offer(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="financeiro",
         task="run",
@@ -185,7 +192,7 @@ async def financeiro_prepare_retention_offer(state: LifecycleEventState):
     )
 
 
-async def analista_generate_board_report(state: LifecycleEventState):
+async def analista_generate_board_report(state: LifecycleEventState) -> ActionResult:
     return await _trigger_agent_action(
         agent_type="analista",
         task="run",
@@ -194,7 +201,7 @@ async def analista_generate_board_report(state: LifecycleEventState):
     )
 
 
-def _build_linear_flow(*nodes: tuple[str, Any]):
+def _build_linear_flow(*nodes: tuple[str, Any]) -> Any:
     graph = StateGraph(LifecycleEventState)
     first_node_name = nodes[0][0]
     graph.set_entry_point(first_node_name)

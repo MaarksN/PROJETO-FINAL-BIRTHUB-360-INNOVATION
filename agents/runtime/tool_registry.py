@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any, Callable, ClassVar
 
 
 @dataclass
@@ -20,13 +20,16 @@ class ToolSpec:
 
 
 class ToolRegistry:
-    _instance: "ToolRegistry | None" = None
+    _instance: ClassVar["ToolRegistry | None"] = None
+    _tools: dict[str, ToolSpec]
+    _usage: dict[str, int]
 
-    def __new__(cls):
+    def __new__(cls) -> "ToolRegistry":
         if cls._instance is None:
             cls._instance = super().__new__(cls)
             cls._instance._tools = {}
             cls._instance._usage = {}
+        assert cls._instance is not None
         return cls._instance
 
     def register(self, name: str, handler: Callable[[dict[str, Any], dict[str, Any]], dict[str, Any]], input_schema: dict[str, str], output_schema: dict[str, str], policy: ToolPolicy) -> None:

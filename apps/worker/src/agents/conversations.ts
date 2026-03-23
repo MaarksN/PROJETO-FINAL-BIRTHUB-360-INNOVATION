@@ -1,5 +1,4 @@
 /* eslint-disable */
-// @ts-nocheck
 import { Prisma, prisma } from "@birthub/database";
 
 function toJsonValue(value: unknown): Prisma.InputJsonValue {

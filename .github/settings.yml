@@ -16,8 +16,13 @@ branches:
         required_approving_review_count: 2
       required_status_checks:
         contexts:
-          - ci
           - governance-gates
+          - commitlint
+          - lockfile-integrity
+          - lockfile-corruption-simulation
+          - "platform (lint)"
+          - "platform (typecheck)"
+          - ci
           - security coverage report
         strict: true
   - name: develop
@@ -31,7 +36,12 @@ branches:
         required_approving_review_count: 2
       required_status_checks:
         contexts:
-          - ci
           - governance-gates
+          - commitlint
+          - lockfile-integrity
+          - lockfile-corruption-simulation
+          - "platform (lint)"
+          - "platform (typecheck)"
+          - ci
           - security coverage report
         strict: true

@@ -130,7 +130,14 @@ const hasDevelopBranchProtection =
   repositorySettings.includes("- name: develop") &&
   repositorySettings.includes("required_approving_review_count: 2") &&
   repositorySettings.includes("strict: true");
-const requiredStatusChecks = ["ci", "governance-gates", "security coverage report"];
+const requiredStatusChecks = [
+  "governance-gates",
+  "commitlint",
+  "platform (lint)",
+  "platform (typecheck)",
+  "ci",
+  "security coverage report",
+];
 const missingStatusChecks = requiredStatusChecks.filter(
   (checkName) => !repositorySettings.includes(`- ${checkName}`),
 );

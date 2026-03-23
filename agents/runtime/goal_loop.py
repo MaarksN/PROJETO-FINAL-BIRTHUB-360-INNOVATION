@@ -2,10 +2,14 @@ from __future__ import annotations
 
 import asyncio
 from dataclasses import dataclass
-from typing import Any, Callable
+from typing import Any, Awaitable, Callable, TypeVar, cast
 
 from agents.runtime.evaluator import StepEvaluator
 from agents.runtime.planner import Planner, Step
+
+StepExecutionResult = dict[str, Any]
+StepExecutor = Callable[[Step, dict[str, Any]], StepExecutionResult | Awaitable[StepExecutionResult]]
+T = TypeVar("T")
 
 
 @dataclass
@@ -14,13 +18,22 @@ class GoalEvent:
     payload: dict[str, Any]
 
 
+GoalEmitter = Callable[[GoalEvent], None]
+
+
 class GoalLoop:
-    def __init__(self, planner: Planner, evaluator: StepEvaluator, max_iterations: int = 10):
+    def __init__(self, planner: Planner, evaluator: StepEvaluator, max_iterations: int = 10) -> None:
         self.planner = planner
         self.evaluator = evaluator
         self.max_iterations = max_iterations
 
-    async def run(self, goal: str, context: dict[str, Any], step_executor: Callable[[Step, dict[str, Any]], Any], emit: Callable[[GoalEvent], None]) -> dict[str, Any]:
+    async def run(
+        self,
+        goal: str,
+        context: dict[str, Any],
+        step_executor: StepExecutor,
+        emit: GoalEmitter
+    ) -> dict[str, Any]:
         emit(GoalEvent("goal.started", {"goal": goal}))
         plan = self.planner.create_plan(goal, context)
 
@@ -71,7 +84,7 @@ class GoalLoop:
         return {"status": "failed", "results": results}
 
 
-async def _maybe_await(value):
+async def _maybe_await(value: T | Awaitable[T]) -> T:
     if asyncio.iscoroutine(value):
-        return await value
-    return value
+        return await cast(Awaitable[T], value)
+    return cast(T, value)

@@ -68,7 +68,7 @@ Referencia: `docs/service-criticality.md`.
 - Evento calendario: `ops/governance/ownership-quarterly-review.ics`.
 - Ticket recorrente Jira: `BH360-OWN-TRI-001`.
 - Link Jira: `https://jira.example.internal/browse/BH360-OWN-TRI-001`.
-- Status atual: provisioning externo Jira/Calendar pendente de validacao administrativa.
+- Status atual: provisioning externo **confirmado como bloqueado** (dependencia administrativa em GitHub Wiki/Jira).
 - Evidencia de bloqueio externo: `ops/governance/external-provisioning-status.md`.
 
 ## Regras obrigatorias

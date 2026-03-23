@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import math
 import logging
+import importlib
 from urllib.parse import urlencode
 
 import httpx
@@ -116,8 +117,8 @@ async def run_ab_test_analysis(test_id: str, variants: list, metrics: dict) -> d
         return max(0.0, min(1.0, math.erfc(z / math.sqrt(2))))
 
     try:
-        from scipy.stats import ttest_ind  # type: ignore
-
+        scipy_stats = importlib.import_module("scipy.stats")
+        ttest_ind = getattr(scipy_stats, "ttest_ind")
         stat = ttest_ind(sample_a, sample_b, equal_var=False)
         p_value = float(stat.pvalue)
     except ModuleNotFoundError:
