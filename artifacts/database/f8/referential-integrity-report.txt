@@ -1,1 +1,0 @@
-Referential integrity check skipped because DATABASE_URL is not configured.

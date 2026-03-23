@@ -1,7 +1,0 @@
-# Core Web Vitals Baseline
-generatedAt: 2026-03-23T00:11:15.455Z
-routes: /, /pricing
-LCP median (ms): 444
-FID median (ms): 0.5
-CLS median: 0
-note_fid: FID captured via first-input PerformanceObserver.

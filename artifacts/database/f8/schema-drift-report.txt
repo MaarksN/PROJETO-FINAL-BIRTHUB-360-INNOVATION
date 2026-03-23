@@ -1,1 +1,0 @@
-Schema drift check skipped because DATABASE_URL is not configured.
