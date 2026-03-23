@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-03-22T21:25:34.4921903-03:00",
+  "projectId": "birthub360",
+  "billing": {
+    "ok": true,
+    "data": {
+      "billingAccountName": "",
+      "billingEnabled": false,
+      "name": "projects/birthub360/billingInfo",
+      "projectId": "birthub360"
+    },
+    "raw": "{\r\n  \"billingAccountName\": \"\",\r\n  \"billingEnabled\": false,\r\n  \"name\": \"projects/birthub360/billingInfo\",\r\n  \"projectId\": \"birthub360\"\r\n}"
+  },
+  "resources": {
+    "enabledServices": [
+      "analyticshub.googleapis.com",
+      "appengine.googleapis.com",
+      "bigquery.googleapis.com",
+      "bigqueryconnection.googleapis.com",
+      "bigquerydatapolicy.googleapis.com",
+      "bigquerydatatransfer.googleapis.com",
+      "bigquerymigration.googleapis.com",
+      "bigqueryreservation.googleapis.com",
+      "bigquerystorage.googleapis.com",
+      "cloudaicompanion.googleapis.com",
+      "cloudapis.googleapis.com",
+      "cloudresourcemanager.googleapis.com",
+      "cloudtrace.googleapis.com",
+      "dataform.googleapis.com",
+      "dataplex.googleapis.com",
+      "datastore.googleapis.com",
+      "fcm.googleapis.com",
+      "fcmregistrations.googleapis.com",
+      "firebase.googleapis.com",
+      "firebaseappdistribution.googleapis.com",
+      "firebasehosting.googleapis.com",
+      "firebaseinstallations.googleapis.com",
+      "firebaseremoteconfig.googleapis.com",
+      "firebaseremoteconfigrealtime.googleapis.com",
+      "firebaserules.googleapis.com",
+      "identitytoolkit.googleapis.com",
+      "logging.googleapis.com",
+      "monitoring.googleapis.com",
+      "pubsub.googleapis.com",
+      "runtimeconfig.googleapis.com",
+      "securetoken.googleapis.com",
+      "servicemanagement.googleapis.com",
+      "serviceusage.googleapis.com",
+      "sql-component.googleapis.com",
+      "storage-api.googleapis.com",
+      "storage-component.googleapis.com",
+      "storage.googleapis.com",
+      "testing.googleapis.com"
+    ],
+    "buckets": {
+      "ok": true,
+      "data": null,
+      "raw": "[]"
+    },
+    "pubsubTopics": {
+      "ok": true,
+      "data": null,
+      "raw": "[]"
+    },
+    "cloudRunServices": {
+      "ok": false,
+      "data": null,
+      "raw": "API [run.googleapis.com] not enabled on project [birthub360]. Would you like to \r\nenable and retry (this will take a few minutes)? (y/N)?  \r\nERROR: (gcloud.run.services.list) PERMISSION_DENIED: Cloud Run Admin API has not been used in project birthub360 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/run.googleapis.com/overview?project=birthub360 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. This command is authenticated as marcelinmark@gmail.com which is the active account specified by the [core/account] property.\r\nCloud Run Admin API has not been used in project birthub360 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/run.googleapis.com/overview?project=birthub360 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.\r\nGoogle developers console API activation\r\nhttps://console.developers.google.com/apis/api/run.googleapis.com/overview?project=birthub360\r\n- '@type': type.googleapis.com/google.rpc.ErrorInfo\r\n  domain: googleapis.com\r\n  metadata:\r\n    activationUrl: https://console.developers.google.com/apis/api/run.googleapis.com/overview?project=birthub360\r\n    consumer: projects/birthub360\r\n    containerInfo: birthub360\r\n    service: run.googleapis.com\r\n    serviceTitle: Cloud Run Admin API\r\n  reason: SERVICE_DISABLED"
+    },
+    "cloudSqlInstances": {
+      "ok": false,
+      "data": null,
+      "raw": "API [sqladmin.googleapis.com] not enabled on project [birthub360]. Would you \r\nlike to enable and retry (this will take a few minutes)? (y/N)?  \r\nERROR: (gcloud.sql.instances.list) [marcelinmark@gmail.com] does not have permission to access projects instance [birthub360] (or it may not exist): Cloud SQL Admin API has not been used in project birthub360 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/sqladmin.googleapis.com/overview?project=birthub360 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. This command is authenticated as marcelinmark@gmail.com which is the active account specified by the [core/account] property.\r\nCloud SQL Admin API has not been used in project birthub360 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/sqladmin.googleapis.com/overview?project=birthub360 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.\r\nGoogle developers console API activation\r\nhttps://console.developers.google.com/apis/api/sqladmin.googleapis.com/overview?project=birthub360\r\n- '@type': type.googleapis.com/google.rpc.ErrorInfo\r\n  domain: googleapis.com\r\n  metadata:\r\n    activationUrl: https://console.developers.google.com/apis/api/sqladmin.googleapis.com/overview?project=birthub360\r\n    consumer: projects/birthub360\r\n    containerInfo: birthub360\r\n    service: sqladmin.googleapis.com\r\n    serviceTitle: Cloud SQL Admin API\r\n  reason: SERVICE_DISABLED\r\n[]"
+    },
+    "redisInstances": {
+      "ok": false,
+      "data": null,
+      "raw": "API [redis.googleapis.com] not enabled on project [birthub360]. Would you like \r\nto enable and retry (this will take a few minutes)? (y/N)?  \r\nERROR: (gcloud.redis.instances.list) PERMISSION_DENIED: Google Cloud Memorystore for Redis API has not been used in project birthub360 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/redis.googleapis.com/overview?project=birthub360 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. This command is authenticated as marcelinmark@gmail.com which is the active account specified by the [core/account] property.\r\nGoogle Cloud Memorystore for Redis API has not been used in project birthub360 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/redis.googleapis.com/overview?project=birthub360 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.\r\nGoogle developers console API activation\r\nhttps://console.developers.google.com/apis/api/redis.googleapis.com/overview?project=birthub360\r\n- '@type': type.googleapis.com/google.rpc.ErrorInfo\r\n  domain: googleapis.com\r\n  metadata:\r\n    activationUrl: https://console.developers.google.com/apis/api/redis.googleapis.com/overview?project=birthub360\r\n    consumer: projects/birthub360\r\n    containerInfo: birthub360\r\n    service: redis.googleapis.com\r\n    serviceTitle: Google Cloud Memorystore for Redis API\r\n  reason: SERVICE_DISABLED\r\n[]"
+    }
+  },
+  "costBaseline": {
+    "monthlyBillableCostUsd": 0,
+    "method": "Billing disabled at project level (gcloud billing projects describe), so billable monthly cost is USD 0.",
+    "confidence": "high"
+  },
+  "notes": [
+    "Commands that returned non-JSON were preserved in raw field.",
+    "Some APIs may be disabled and report permission/service-disabled errors in raw output."
+  ]
+}

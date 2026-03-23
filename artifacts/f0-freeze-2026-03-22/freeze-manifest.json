@@ -1,0 +1,38 @@
+{
+  "freezeDate": "2026-03-22",
+  "freezeTimestamp": "2026-03-22T20:56:46-03:00",
+  "git": {
+    "branch": "main",
+    "commit": "4b7e6cb41515f33d6fe3a2880485e86ee289ca5e",
+    "shortCommit": "4b7e6cb",
+    "tag": "baseline-f0"
+  },
+  "commands": [
+    {
+      "name": "01-git-head",
+      "command": "git show -s --date=iso --pretty=format:\"%H%n%h%n%ad%n%s\" HEAD",
+      "exitCode": 0,
+      "log": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\f0-freeze-2026-03-22\\logs\\20260322T205646-0300-01-git-head.log"
+    },
+    {
+      "name": "02-monorepo-doctor",
+      "command": "corepack pnpm monorepo:doctor",
+      "exitCode": 0,
+      "log": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\f0-freeze-2026-03-22\\logs\\20260322T205646-0300-02-monorepo-doctor.log"
+    },
+    {
+      "name": "03-workspace-audit",
+      "command": "corepack pnpm workspace:audit",
+      "exitCode": 0,
+      "log": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\f0-freeze-2026-03-22\\logs\\20260322T205646-0300-03-workspace-audit.log"
+    },
+    {
+      "name": "04-release-scorecard",
+      "command": "corepack pnpm release:scorecard",
+      "exitCode": 0,
+      "log": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\f0-freeze-2026-03-22\\logs\\20260322T205646-0300-04-release-scorecard.log"
+    }
+  ],
+  "allGreen": true,
+  "checksums": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\f0-freeze-2026-03-22\\logs.sha256"
+}

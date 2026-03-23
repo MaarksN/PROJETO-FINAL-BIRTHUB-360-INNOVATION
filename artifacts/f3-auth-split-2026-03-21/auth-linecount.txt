@@ -1,4 +1,0 @@
-# auth hotspot linecount
-apps/api/src/modules/auth/auth.service.ts	529
-apps/api/src/modules/auth/auth.service.sessions.ts	289
-apps/api/src/modules/auth/auth.service.credentials.ts	332

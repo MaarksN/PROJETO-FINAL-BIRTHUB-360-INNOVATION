@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-03-23T00:11:15.455Z",
+  "notes": {
+    "fid": "FID captured via first-input PerformanceObserver."
+  },
+  "routes": [
+    "/",
+    "/pricing"
+  ],
+  "runs": [
+    {
+      "cls": 0,
+      "fidMs": 6.2,
+      "iteration": 1,
+      "lcpMs": 2096,
+      "route": "/"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.6,
+      "iteration": 2,
+      "lcpMs": 528,
+      "route": "/"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.4,
+      "iteration": 3,
+      "lcpMs": 448,
+      "route": "/"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.7,
+      "iteration": 4,
+      "lcpMs": 440,
+      "route": "/"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.4,
+      "iteration": 5,
+      "lcpMs": 448,
+      "route": "/"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.4,
+      "iteration": 1,
+      "lcpMs": 1404,
+      "route": "/pricing"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.5,
+      "iteration": 2,
+      "lcpMs": 180,
+      "route": "/pricing"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.5,
+      "iteration": 3,
+      "lcpMs": 224,
+      "route": "/pricing"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.5,
+      "iteration": 4,
+      "lcpMs": 188,
+      "route": "/pricing"
+    },
+    {
+      "cls": 0,
+      "fidMs": 0.4,
+      "iteration": 5,
+      "lcpMs": 204,
+      "route": "/pricing"
+    }
+  ],
+  "summary": {
+    "clsMedian": 0,
+    "fidMedianMs": 0.5,
+    "lcpMedianMs": 444
+  }
+}

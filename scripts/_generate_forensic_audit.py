@@ -23,7 +23,7 @@ files_exist = {
     "GITLEAKS": (ROOT / ".gitleaks.toml").exists(),
     "COMMITLINT": (ROOT / "commitlint.config.cjs").exists(),
     "PR_TEMPLATE": (ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md").exists(),
-    "OWNERSHIP_DOC": (ROOT / "docs" / "F0" / "ownership.md").exists(),
+    "OWNERSHIP_DOC": (ROOT / "docs" / "operations" / "f0-ownership-matrix.md").exists(),
     "SLA_DOC": (ROOT / "docs" / "F0" / "sla.md").exists(),
     "F11_EVIDENCE": (ROOT / "artifacts" / "f11-closure-2026-03-22" / "EVIDENCE_INDEX.md").exists(),
     "SCRIPT_STATUS": (ROOT / "docs" / "standards" / "package-script-status.md").exists(),
@@ -124,7 +124,7 @@ def classify(phase: str, tid: str, task: str):
         if ("ownership" in t or "owner" in t) and files_exist["OWNERSHIP_DOC"]:
             status = STATUS_IMPLEMENTADO
             evidence = "Matriz de ownership publicada em documento versionado."
-            files = "docs/F0/ownership.md"
+            files = "docs/operations/f0-ownership-matrix.md"
             obs = "Artefato existe no repositório com domínios e responsáveis."
             next_action = "Validar assinatura formal dos owners em sistema externo."
         elif "sla" in t and files_exist["SLA_DOC"]:

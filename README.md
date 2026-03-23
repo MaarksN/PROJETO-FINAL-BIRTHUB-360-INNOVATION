@@ -40,6 +40,7 @@ pnpm monorepo:doctor
 
 - [Contribution guide](CONTRIBUTING.md)
 - [Documentation index](docs/README.md)
+- [F0 ownership matrix](docs/operations/f0-ownership-matrix.md)
 - [Repository naming standard](docs/standards/repository-naming.md)
 - [Documentation source of truth](docs/processes/documentation-source-of-truth.md)
 - [Internal package graph](docs/architecture/internal-package-graph.md)

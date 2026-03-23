@@ -32,6 +32,7 @@
 
 ## Security and governance
 
+- [F0 ownership matrix](operations/f0-ownership-matrix.md)
 - [Security PR acceptance](security-pr-acceptance.md)
 - [Threat model](threat-model-system.md)
 - [Dependency approval register](processes/dependency-approval-register.md)

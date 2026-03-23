@@ -1,0 +1,11 @@
+DORA Baseline (90d)
+source=GitHub Actions workflow .github/workflows/cd.yml (workflow_id=244938760)
+window_start=2025-12-23T00:23:12.9491426Z
+window_end=2026-03-23T00:23:31.1869674Z
+successful_deployments=0
+failed_deployments=46
+deployment_frequency_per_day=0
+deployment_frequency_per_week=0
+lead_time_median_minutes=
+mttr_median_minutes=
+cfr_percent=100

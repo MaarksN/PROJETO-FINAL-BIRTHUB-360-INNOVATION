@@ -4,30 +4,53 @@
 /.github/PULL_REQUEST_TEMPLATE.md @platform-devex @platform-security
 /package.json @platform-devex @platform-security
 /pnpm-lock.yaml @platform-devex @platform-security
-/SECURITY.md @platform-security
+/SECURITY.md @platform-security @platform-architecture
 /docs/security/ @platform-security @platform-architecture
-/docs/ @platform-architecture
+/docs/operations/ @platform-architecture @platform-devex
 /scripts/ci/ @platform-devex @platform-security
+/scripts/security/ @platform-security @platform-devex
+/infra/ @platform-devex @platform-architecture
+/ops/ @platform-devex @platform-architecture
 
-# Core platform ownership
+# Web domain
+/apps/web/ @platform-web @product-frontend
+/apps/dashboard/ @product-frontend @platform-web
+
+# API domain
 /apps/api/ @platform-api @platform-security
-/apps/worker/ @platform-worker @platform-security
-/apps/web/ @platform-web
-/apps/dashboard/ @product-frontend
-/apps/api-gateway/ @platform-api
-/apps/agent-orchestrator/ @platform-automation
-/apps/webhook-receiver/ @platform-integrations
-/agents/ae/ @sales-ae
-/agents/ldr/ @growth-sdr
-/agents/sdr/ @growth-sdr
-/agents/financeiro/ @finance-engineering
-/agents/juridico/ @legal-ops
-/agents/marketing/ @marketing-ops
-/agents/analista/ @data-bi
-/agents/pos_venda/ @cs-ops
-/agents/pos-venda/ @cs-ops
+/apps/api-gateway/ @platform-api @platform-security
+/apps/webhook-receiver/ @platform-integrations @platform-api
+/packages/integrations/ @platform-integrations @platform-api
+
+# Worker domain
+/apps/worker/ @platform-worker @platform-api
+/apps/agent-orchestrator/ @platform-automation @platform-worker
+/packages/queue/ @platform-worker @platform-api
+
+# Database domain
 /packages/database/ @platform-data @platform-security
-/packages/db/ @platform-data
+/packages/db/ @platform-data @platform-security
+
+# Agents domain
+/packages/agents-core/ @platform-automation @growth-sdr
+/packages/agent-packs/ @platform-automation @growth-sdr
+/packages/agents/ @platform-automation @growth-sdr
+/agents/ @platform-automation @growth-sdr
+/agents/ae/ @sales-ae @platform-automation
+/agents/ldr/ @growth-sdr @platform-automation
+/agents/sdr/ @growth-sdr @platform-automation
+/agents/financeiro/ @finance-engineering @platform-automation
+/agents/juridico/ @legal-ops @platform-automation
+/agents/marketing/ @marketing-ops @platform-automation
+/agents/analista/ @data-bi @platform-automation
+/agents/pos_venda/ @cs-ops @platform-automation
+/agents/pos-venda/ @cs-ops @platform-automation
+
+# Security domain
+/packages/security/ @platform-security @platform-architecture
+
+# Shared and fallback coverage
 /packages/workflows-core/ @platform-workflows @platform-security
-/packages/agents-core/ @platform-automation
-/packages/agent-packs/ @platform-automation
+/packages/shared-types/ @platform-api @platform-architecture
+/packages/utils/ @platform-core @platform-architecture
+* @platform-architecture @platform-devex

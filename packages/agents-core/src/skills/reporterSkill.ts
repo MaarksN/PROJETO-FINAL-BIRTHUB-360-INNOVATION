@@ -18,7 +18,7 @@ export const reporterOutputSchema = z.object({
 export type ReporterInput = z.infer<typeof reporterInputSchema>;
 export type ReporterOutput = z.infer<typeof reporterOutputSchema>;
 
-export async function runReporterSkill(input: ReporterInput): Promise<ReporterOutput> {
+export function runReporterSkill(input: ReporterInput): Promise<ReporterOutput> {
   const rows = input.metrics.map((metric) => `- ${metric.label}: ${metric.value}`).join("\n");
 
   const markdown = [
@@ -33,16 +33,20 @@ export async function runReporterSkill(input: ReporterInput): Promise<ReporterOu
   ].join("\n");
 
   if (input.format === "pdf") {
-    return reporterOutputSchema.parse({
-      content: `PDF_BINARY_PLACEHOLDER::${Buffer.from(markdown, "utf8").toString("base64")}`,
-      format: "pdf"
-    });
+    return Promise.resolve(
+      reporterOutputSchema.parse({
+        content: `PDF_BINARY_PLACEHOLDER::${Buffer.from(markdown, "utf8").toString("base64")}`,
+        format: "pdf"
+      })
+    );
   }
 
-  return reporterOutputSchema.parse({
-    content: markdown,
-    format: "markdown"
-  });
+  return Promise.resolve(
+    reporterOutputSchema.parse({
+      content: markdown,
+      format: "markdown"
+    })
+  );
 }
 
 export const reporterSkillTemplate = {

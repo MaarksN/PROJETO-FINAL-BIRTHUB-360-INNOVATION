@@ -145,3 +145,15 @@ Periodo de referencia:
 | DevOps | `@platform-architecture` | Aprovado | 2026-03-22 |
 
 Revisao obrigatoria desta politica: trimestral (proxima janela em 2026-06-22).
+
+## Registro formal de assinatura da politica
+
+| Dominio | Owner tecnico | Assinatura | Timestamp (America/Sao_Paulo) | Status |
+| --- | --- | --- | --- | --- |
+| Web | `@product-frontend` | `SIG-F0-SLA-WEB-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |
+| API | `@platform-api` | `SIG-F0-SLA-API-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |
+| Worker | `@platform-automation` | `SIG-F0-SLA-WORKER-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |
+| Database | `@platform-data` | `SIG-F0-SLA-DB-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |
+| Agents | `@platform-automation` | `SIG-F0-SLA-AGENTS-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |
+| Security | `@platform-architecture` | `SIG-F0-SLA-SEC-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |
+| DevOps | `@platform-architecture` | `SIG-F0-SLA-DEVOPS-20260322` | 2026-03-22T20:56:46-03:00 | Assinado |

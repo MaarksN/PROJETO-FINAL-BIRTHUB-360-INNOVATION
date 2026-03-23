@@ -20,7 +20,7 @@ export const orchestratorOutputSchema = z.object({
 export type OrchestratorInput = z.infer<typeof orchestratorInputSchema>;
 export type OrchestratorOutput = z.infer<typeof orchestratorOutputSchema>;
 
-export async function runOrchestratorSkill(input: OrchestratorInput): Promise<OrchestratorOutput> {
+export function runOrchestratorSkill(input: OrchestratorInput): Promise<OrchestratorOutput> {
   const selectedAgents = input.availableAgents.slice(0, input.maxSteps);
 
   const plan = selectedAgents.map((agentId, index) => ({
@@ -29,10 +29,12 @@ export async function runOrchestratorSkill(input: OrchestratorInput): Promise<Or
     subAgentId: agentId
   }));
 
-  return orchestratorOutputSchema.parse({
-    plan,
-    queueAgentIds: selectedAgents
-  });
+  return Promise.resolve(
+    orchestratorOutputSchema.parse({
+      plan,
+      queueAgentIds: selectedAgents
+    })
+  );
 }
 
 export const orchestratorSkillTemplate = {

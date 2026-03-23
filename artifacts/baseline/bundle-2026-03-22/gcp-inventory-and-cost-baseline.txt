@@ -1,0 +1,11 @@
+GCP Inventory Baseline
+generated_at=2026-03-22T21:25:34.4921903-03:00
+project_id=birthub360
+billing_enabled=False
+monthly_billable_cost_usd=0
+enabled_services_count=38
+buckets_json_ok=True
+pubsub_topics_json_ok=True
+cloud_run_json_ok=False
+cloud_sql_json_ok=False
+redis_json_ok=False

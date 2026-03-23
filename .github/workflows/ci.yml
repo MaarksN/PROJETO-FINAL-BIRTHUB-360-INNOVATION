@@ -324,7 +324,7 @@ jobs:
     name: governance-gates
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm monorepo:doctor && pnpm release:scorecard
+      command: pnpm monorepo:doctor && pnpm release:scorecard && pnpm audit:ownership
       timeout_minutes: 15
 
   ci:

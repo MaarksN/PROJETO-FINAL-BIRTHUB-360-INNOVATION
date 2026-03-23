@@ -2,7 +2,8 @@
 
 Artefato visual do fluxo manual complexo usado para validar o item `6.10.C1`.
 
-![Workflow complex flow](/artifacts/workflows/workflow-editor-10-nodes.png)
+Evidência visual arquivada temporariamente indisponível no workspace atual.
+Para reprodução da captura, executar `pnpm test:workflows:evidence`.
 
 ## Cobertura visual
 

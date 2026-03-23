@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-03-22T20:57:43.3407097-03:00",
+  "timezone": "America/Sao_Paulo",
+  "gitBranch": "main",
+  "gitCommit": "4b7e6cb41515f33d6fe3a2880485e86ee289ca5e",
+  "node": "v24.14.0",
+  "pnpm": "9.1.0",
+  "python": "Python 3.12.10",
+  "tools": {
+    "semgrep": "NOT_FOUND",
+    "codeql": "NOT_FOUND",
+    "jscpd": "NOT_FOUND",
+    "docker": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"
+  }
+}

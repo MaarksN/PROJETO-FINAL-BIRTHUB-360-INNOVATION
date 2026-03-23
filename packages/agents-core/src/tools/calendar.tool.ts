@@ -32,7 +32,7 @@ function generateIcs(input: CalendarInput): string {
   ].join("\n");
 }
 
-export async function callCalendarTool(
+export function callCalendarTool(
   input: CalendarInput,
   options?: { simulate?: boolean }
 ): Promise<CalendarResult> {
@@ -46,10 +46,10 @@ export async function callCalendarTool(
     summary: input.summary
   });
 
-  return {
+  return Promise.resolve({
     action: input.action,
     eventId: `evt_${Date.now()}`,
     provider: input.provider,
     raw
-  };
+  });
 }

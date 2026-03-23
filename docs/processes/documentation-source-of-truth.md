@@ -4,6 +4,7 @@
 
 | Processo | Documento canônico | Owner | Revisão | Referências históricas/superseded |
 | --- | --- | --- | --- | --- |
+| Ownership por domínio | `docs/operations/f0-ownership-matrix.md` | `@platform-devex` | trimestral | `docs/F0/ownership.md` |
 | Deploy / go-live | `docs/release/2026-03-20-go-live-runbook.md` | `@platform-architecture` | a cada release | `docs/release/2026-03-16-staging-validation-runbook.md` |
 | Rollback de banco | `docs/database/migration-rollback-plan.md` | `@platform-data` | a cada mudança de migração | `docs/release/rollback_v1.sql`, `docs/runbooks/db-backup-restore.md` |
 | Onboarding CS | `docs/cs/cs-tool-onboarding.md` | `@cs-ops` | mensal | `docs/ux/cs_tool_onboarding.md` |

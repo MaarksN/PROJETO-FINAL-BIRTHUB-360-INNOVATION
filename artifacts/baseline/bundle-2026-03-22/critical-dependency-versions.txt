@@ -1,0 +1,5 @@
+Critical dependency versions
+node_runtime=v24.14.0
+python_runtime=Python 3.12.10
+pnpm_runtime=9.1.0
+prisma_cli_and_client=System.Object[]
