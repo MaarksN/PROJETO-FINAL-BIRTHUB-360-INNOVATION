@@ -22,11 +22,8 @@
     "ci:dirty-tree": "node scripts/ci/check-dirty-tree.mjs",
     "ci:full": "node scripts/ci/full.mjs full",
     "ci:legacy-agents": "node scripts/ci/full.mjs task legacy-agents",
-<<<<<<< Updated upstream
-=======
     "ci:legacy-db-surface-freeze": "node scripts/ci/check-legacy-db-surface-freeze.mjs",
     "ci:legacy-runtime-surface-freeze": "node scripts/ci/check-legacy-runtime-surface-freeze.mjs",
->>>>>>> Stashed changes
     "ci:lockfile": "node scripts/ci/lockfile-governance.mjs",
     "ci:security-guardrails": "node scripts/ci/security-guardrails-local.mjs",
     "ci:security-guardrails:strict": "node scripts/ci/security-guardrails-local.mjs --require-db",
