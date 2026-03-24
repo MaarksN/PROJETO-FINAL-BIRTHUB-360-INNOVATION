@@ -33,10 +33,13 @@ export async function evaluateWorkerReadiness(input: {
   const [redisStatus, queueStates] = await Promise.all([
     input
       .pingRedis()
-      .then((response) => ({
-        message: response,
-        status: response.toUpperCase() === "PONG" ? "up" : "down"
-      }))
+      .then((response) => {
+        const status: "up" | "down" = response.toUpperCase() === "PONG" ? "up" : "down";
+        return {
+          message: response,
+          status
+        };
+      })
       .catch((error) => ({
         message: error instanceof Error ? error.message : "Redis ping failed",
         status: "down" as const

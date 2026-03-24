@@ -43,7 +43,7 @@ const crmSyncQueueName = "engagement.crm-sync";
 export interface WorkerRuntime {
   close: () => Promise<void>;
   connection: Redis;
-  queues: Array<Queue<unknown>>;
+  queues: Queue[];
   workers: Worker[];
 }
 
@@ -343,20 +343,24 @@ export function createBirthHubWorker(): WorkerRuntime {
 
   workers.forEach((worker) => {
     worker.on("completed", (job) => {
+      const startedAt = typeof job?.processedOn === "number" ? job.processedOn : undefined;
+      const finishedAt = typeof job?.finishedOn === "number" ? job.finishedOn : undefined;
       recordWorkerJobMetric({
-        finishedAt: job?.finishedOn,
         queue: worker.name,
-        startedAt: job?.processedOn,
-        status: "completed"
+        status: "completed",
+        ...(startedAt !== undefined ? { startedAt } : {}),
+        ...(finishedAt !== undefined ? { finishedAt } : {})
       });
     });
 
     worker.on("failed", (job, error) => {
+      const startedAt = typeof job?.processedOn === "number" ? job.processedOn : undefined;
+      const finishedAt = typeof job?.finishedOn === "number" ? job.finishedOn : undefined;
       recordWorkerJobMetric({
-        finishedAt: job?.finishedOn,
         queue: worker.name,
-        startedAt: job?.processedOn,
-        status: "failed"
+        status: "failed",
+        ...(startedAt !== undefined ? { startedAt } : {}),
+        ...(finishedAt !== undefined ? { finishedAt } : {})
       });
       logger.error(
         {
