@@ -1,5 +1,7 @@
 # Matriz de Criticidade por Serviço (Canônica)
 
+Fonte canônica de fronteiras: `docs/service-catalog.md`.
+
 ## Níveis
 - **P0 (Crítico):** indisponibilidade interrompe o fluxo principal da plataforma.
 - **P1 (Alto):** degradação relevante em componente satélite com impacto operacional indireto.
@@ -33,6 +35,7 @@
 | `packages/db` | P3 | Pacote legado substituído por `packages/database`. | N/A | N/A |
 
 ## Diretriz de atendimento
+- Apenas superfícies do **core canônico** podem receber classificação **P0**.
 - Incidentes **P0 (core)**: acionamento imediato de on-call + atualização a cada 30 minutos.
 - Incidentes **P1/P2 (satélites)**: triagem por prioridade operacional e comunicação horária.
 - Incidentes **P3 (legacy/quarentena)**: sem plantão dedicado; priorização por janela de manutenção.

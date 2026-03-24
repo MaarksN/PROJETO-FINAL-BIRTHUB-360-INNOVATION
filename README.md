@@ -4,6 +4,8 @@ Repositório canônico da plataforma SaaS BirthHub 360.
 
 ## Índice operacional único
 
+Fonte única operacional: `docs/service-catalog.md`.
+
 ### Core canônico (default)
 - `apps/web`
 - `apps/api`
@@ -31,6 +33,8 @@ pnpm dev
 ```
 
 > Use o setup acima para o core canônico. Superfícies em legacy/quarentena não devem ser usadas como fluxo padrão de desenvolvimento.
+
+Não use como entrada default: `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` ou `packages/db`.
 
 ## Governança e higiene
 

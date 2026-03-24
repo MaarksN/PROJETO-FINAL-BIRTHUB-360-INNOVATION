@@ -3,6 +3,9 @@
 ## Canonical entry points
 
 - [Contribution guide](../CONTRIBUTING.md)
+- [Service catalog (core vs legacy vs satellites)](service-catalog.md)
+- [Service criticality](service-criticality.md)
+- [Observability alerts](observability-alerts.md)
 - [Repository naming standard](standards/repository-naming.md)
 - [Documentation source of truth](processes/documentation-source-of-truth.md)
 - [Dependency approval register](processes/dependency-approval-register.md)

@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-03-24T15:41:14.463Z",
+  "commands": [
+    {
+      "code": 1,
+      "durationMs": 74531,
+      "name": "lint-core"
+    },
+    {
+      "code": 1,
+      "durationMs": 31250,
+      "name": "typecheck-core"
+    },
+    {
+      "code": 0,
+      "durationMs": 39465,
+      "name": "test-core"
+    },
+    {
+      "code": 0,
+      "durationMs": 5524,
+      "name": "test-isolation"
+    },
+    {
+      "code": 0,
+      "durationMs": 1374,
+      "name": "release-migration-dry-run"
+    },
+    {
+      "code": 0,
+      "durationMs": 1360,
+      "name": "privacy-anonymization"
+    },
+    {
+      "code": 1,
+      "durationMs": 52354,
+      "name": "playwright-release"
+    }
+  ],
+  "ok": false
+}
