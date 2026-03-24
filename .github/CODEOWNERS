@@ -12,40 +12,27 @@
 /infra/ @platform-devex @platform-architecture
 /ops/ @platform-devex @platform-architecture
 
-# Critical components (service-criticality)
-/apps/api-gateway/ @platform-api @platform-security
-/apps/agent-orchestrator/ @platform-worker @platform-api
-/packages/db/ @platform-data @platform-security
-/packages/queue/ @platform-worker @platform-api
-/apps/webhook-receiver/ @platform-integrations @platform-api
-/agents/ @platform-automation @growth-sdr
-/apps/dashboard/ @platform-web @product-frontend
-/packages/integrations/ @platform-api @platform-integrations
-
-# Web domain
+# Core canônico (P0)
 /apps/web/ @platform-web @product-frontend
-/apps/dashboard/ @product-frontend @platform-web
-
-# API domain
 /apps/api/ @platform-api @platform-security
-/apps/api-gateway/ @platform-api @platform-security
-/apps/webhook-receiver/ @platform-integrations @platform-api
-/packages/integrations/ @platform-integrations @platform-api
-
-# Worker domain
 /apps/worker/ @platform-worker @platform-api
-/apps/agent-orchestrator/ @platform-automation @platform-worker
-/packages/queue/ @platform-worker @platform-api
-
-# Database domain
 /packages/database/ @platform-data @platform-security
-/packages/db/ @platform-data @platform-security
 
-# Agents domain
-/packages/agents-core/ @platform-automation @growth-sdr
+# Satélites operacionais
 /packages/agent-packs/ @platform-automation @growth-sdr
-/packages/agents/ @platform-automation @growth-sdr
+/apps/webhook-receiver/ @platform-integrations @platform-api
+/apps/voice-engine/ @platform-automation @platform-worker
+/packages/queue/ @platform-worker @platform-api
+/packages/integrations/ @platform-integrations @platform-api
 /agents/ @platform-automation @growth-sdr
+
+# Legacy / quarentena (não-core)
+/apps/dashboard/ @platform-architecture @product-frontend
+/apps/api-gateway/ @platform-architecture @platform-api
+/apps/agent-orchestrator/ @platform-architecture @platform-worker
+/packages/db/ @platform-architecture @platform-data
+
+# Agents domain specializations
 /agents/ae/ @sales-ae @platform-automation
 /agents/ldr/ @growth-sdr @platform-automation
 /agents/sdr/ @growth-sdr @platform-automation
@@ -56,10 +43,8 @@
 /agents/pos_venda/ @cs-ops @platform-automation
 /agents/pos-venda/ @cs-ops @platform-automation
 
-# Security domain
-/packages/security/ @platform-security @platform-architecture
-
 # Shared and fallback coverage
+/packages/security/ @platform-security @platform-architecture
 /packages/workflows-core/ @platform-workflows @platform-security
 /packages/shared-types/ @platform-api @platform-architecture
 /packages/utils/ @platform-core @platform-architecture
