@@ -1,109 +1,247 @@
 groups:
-  - name: birthub-slo-alerts
+  - name: birthub-core-operational
     rules:
-      - alert: ApiGatewayDown
-        expr: up{job="api-gateway"} == 0
-        for: 1m
+      - alert: ApiUnavailable
+        expr: up{job="api"} == 0
+        for: 2m
         labels:
           severity: critical
+          domain: api
           slo: availability
           sla_severity: P0
           owner_primary: platform-api
           owner_backup: platform-architecture
           communication_channel: bh360-api-ownership
         annotations:
-          summary: "API Gateway indisponível"
+          summary: "API indisponível"
+          description: "O job da API não responde há pelo menos 2 minutos."
 
-      - alert: ApiGatewayHighErrorBudgetBurn
-        expr: rate(http_requests_total{job="api-gateway",status=~"5.."}[5m]) / clamp_min(rate(http_requests_total{job="api-gateway"}[5m]), 0.001) > 0.001
+      - alert: ApiHighErrorRate
+        expr: sum(rate(birthub_http_requests_total{status=~"5.."}[5m])) / clamp_min(sum(rate(birthub_http_requests_total[5m])), 0.001) > 0.05
         for: 10m
         labels:
           severity: critical
+          domain: api
           slo: availability
           sla_severity: P1
           owner_primary: platform-api
           owner_backup: platform-architecture
           communication_channel: bh360-api-ownership
         annotations:
-          summary: "Burn rate de erro acima do orçamento de 99.9%"
+          summary: "API com fail-rate elevado"
+          description: "Taxa de respostas 5xx acima de 5% por 10 minutos."
 
-      - alert: ApiGatewayUptimeSLOBreach
-        expr: (1 - (rate(http_requests_total{job="api-gateway",status=~"5.."}[5m]) / clamp_min(rate(http_requests_total{job="api-gateway"}[5m]), 0.001))) < 0.999
-        for: 15m
+      - alert: ApiHighLatencyP95
+        expr: histogram_quantile(0.95, sum by (le) (rate(birthub_http_request_duration_ms_bucket[5m]))) > 500
+        for: 10m
         labels:
           severity: warning
-          slo: availability
-          sla_severity: P1
-          owner_primary: platform-api
-          owner_backup: platform-architecture
-          communication_channel: bh360-api-ownership
-        annotations:
-          summary: "Disponibilidade efetiva abaixo de 99.9%"
-
-      - alert: ApiGatewayP99LatencySLOBreach
-        expr: histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket{job="api-gateway"}[5m]))) > 0.3
-        for: 15m
-        labels:
-          severity: critical
+          domain: api
           slo: latency
+          sla_severity: P2
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
+        annotations:
+          summary: "Latência p95 da API alta"
+          description: "p95 acima de 500ms por 10 minutos."
+
+      - alert: WebUnavailable
+        expr: up{job="web"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          domain: web
+          slo: availability
+          sla_severity: P0
+          owner_primary: platform-web
+          owner_backup: platform-architecture
+          communication_channel: bh360-web-ownership
+        annotations:
+          summary: "Web indisponível"
+          description: "O job web não responde há pelo menos 2 minutos."
+
+      - alert: WebAvailabilityDegraded
+        expr: sum(rate(birthub_web_healthcheck_requests_total{status="degraded"}[5m])) / clamp_min(sum(rate(birthub_web_healthcheck_requests_total[5m])), 0.001) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+          domain: web
+          slo: availability
           sla_severity: P1
-          owner_primary: platform-api
+          owner_primary: platform-web
           owner_backup: platform-architecture
-          communication_channel: bh360-api-ownership
+          communication_channel: bh360-web-ownership
         annotations:
-          summary: "Latência p99 acima de 300ms"
+          summary: "Disponibilidade da web degradada"
+          description: "Mais de 5% das verificações de health/readiness estão degradadas."
 
-      - alert: Webhook429Spike
-        expr: rate(http_requests_total{job="api-gateway",status="429"}[10m]) > 3
+      - alert: WebHighLatencyP95
+        expr: histogram_quantile(0.95, sum by (le, endpoint) (rate(birthub_web_healthcheck_duration_ms_bucket{endpoint="readiness"}[5m]))) > 400
         for: 10m
         labels:
           severity: warning
-          slo: saturation
+          domain: web
+          slo: latency
           sla_severity: P2
-          owner_primary: platform-api
+          owner_primary: platform-web
           owner_backup: platform-architecture
-          communication_channel: bh360-api-ownership
+          communication_channel: bh360-web-ownership
         annotations:
-          summary: "Spike de rate limiting detectado em endpoints expostos"
+          summary: "Latência p95 da readiness web alta"
+          description: "p95 da readiness web acima de 400ms por 10 minutos."
 
-      - alert: ApiUnauthorizedSpike
-        expr: rate(http_requests_total{job="api",status=~"401|403"}[10m]) > 5
-        for: 10m
+      - alert: WorkerUnavailable
+        expr: up{job="worker"} == 0
+        for: 2m
         labels:
-          severity: warning
-          slo: security
-          sla_severity: P2
-          owner_primary: platform-architecture
+          severity: critical
+          domain: worker
+          slo: availability
+          sla_severity: P0
+          owner_primary: platform-automation
           owner_backup: platform-api
-          communication_channel: bh360-security-ownership
-        annotations:
-          summary: "Spike de 401/403 na API principal após endurecimento de auth/tenant"
-
-      - alert: ApiBudgetExceededSpike
-        expr: rate(http_requests_total{job="api",status="402"}[10m]) > 1
-        for: 10m
-        labels:
-          severity: warning
-          slo: finops
-          sla_severity: P2
-          owner_primary: platform-api
-          owner_backup: platform-architecture
-          communication_channel: bh360-api-ownership
-        annotations:
-          summary: "Spike de 402 indica bloqueios de budget ou regressão em custos"
-
-      - alert: ApiTaskIngestionRejections
-        expr: rate(http_requests_total{job="api",path="/api/v1/tasks",status=~"401|402|429|503"}[10m]) > 1
-        for: 10m
-        labels:
-          severity: warning
-          slo: security
-          sla_severity: P1
-          owner_primary: platform-api
-          owner_backup: platform-automation
           communication_channel: bh360-worker-ownership
         annotations:
-          summary: "Rejeições anormais em /api/v1/tasks após fechamento da ingestão autenticada"
+          summary: "Worker indisponível"
+          description: "O job worker não responde há pelo menos 2 minutos."
+
+      - alert: WorkerQueueBacklogHigh
+        expr: birthub_worker_queue_backlog_total > 200
+        for: 10m
+        labels:
+          severity: warning
+          domain: queue
+          slo: saturation
+          sla_severity: P2
+          owner_primary: platform-automation
+          owner_backup: platform-api
+          communication_channel: bh360-worker-ownership
+        annotations:
+          summary: "Backlog de filas do worker elevado"
+          description: "Backlog total acima de 200 jobs por 10 minutos."
+
+      - alert: WorkerDlqGrowing
+        expr: increase(birthub_worker_queue_dlq_total[10m]) > 5
+        for: 5m
+        labels:
+          severity: critical
+          domain: queue
+          slo: reliability
+          sla_severity: P1
+          owner_primary: platform-automation
+          owner_backup: platform-api
+          communication_channel: bh360-worker-ownership
+        annotations:
+          summary: "DLQ do worker crescendo"
+          description: "Mais de 5 novos jobs falhos em 10 minutos."
+
+      - alert: WorkerHighFailRate
+        expr: sum(rate(birthub_worker_jobs_total{status="failed"}[5m])) / clamp_min(sum(rate(birthub_worker_jobs_total[5m])), 0.001) > 0.1
+        for: 10m
+        labels:
+          severity: critical
+          domain: worker
+          slo: reliability
+          sla_severity: P1
+          owner_primary: platform-automation
+          owner_backup: platform-api
+          communication_channel: bh360-worker-ownership
+        annotations:
+          summary: "Fail-rate do worker acima do limite"
+          description: "Mais de 10% dos jobs processados falham por 10 minutos."
+
+      - alert: DatabaseConnectionPoolSaturation
+        expr: birthub_db_connection_pool_usage_ratio > 0.9
+        for: 10m
+        labels:
+          severity: warning
+          domain: database
+          slo: saturation
+          sla_severity: P2
+          owner_primary: platform-data
+          owner_backup: platform-api
+          communication_channel: bh360-database-ownership
+        annotations:
+          summary: "Pool de conexões do banco saturado"
+          description: "Uso do pool de conexões acima de 90% por 10 minutos."
+
+      - alert: DatabaseQueryErrorSpike
+        expr: sum(rate(birthub_db_queries_total{status="error"}[5m])) > 2
+        for: 10m
+        labels:
+          severity: critical
+          domain: database
+          slo: reliability
+          sla_severity: P1
+          owner_primary: platform-data
+          owner_backup: platform-api
+          communication_channel: bh360-database-ownership
+        annotations:
+          summary: "Erros de consulta no banco em alta"
+          description: "Taxa de erros de query acima de 2/s por 10 minutos."
+
+      - alert: QueueExporterUnavailable
+        expr: up{job="queue"} == 0
+        for: 5m
+        labels:
+          severity: warning
+          domain: queue
+          slo: observability
+          sla_severity: P2
+          owner_primary: platform-automation
+          owner_backup: platform-data
+          communication_channel: bh360-worker-ownership
+        annotations:
+          summary: "Observabilidade de fila indisponível"
+          description: "Job de observabilidade de queue sem dados por 5 minutos."
+
+  - name: birthub-observability-coverage
+    rules:
+      - alert: ApiMetricsMissing
+        expr: absent(birthub_http_requests_total)
+        for: 5m
+        labels:
+          severity: warning
+          domain: api
+          slo: observability
+          sla_severity: P2
+          owner_primary: platform-api
+          owner_backup: platform-architecture
+          communication_channel: bh360-api-ownership
+        annotations:
+          summary: "Métricas da API ausentes"
+          description: "A série birthub_http_requests_total não está sendo coletada."
+
+      - alert: WebMetricsMissing
+        expr: absent(birthub_web_healthcheck_requests_total)
+        for: 5m
+        labels:
+          severity: warning
+          domain: web
+          slo: observability
+          sla_severity: P2
+          owner_primary: platform-web
+          owner_backup: platform-architecture
+          communication_channel: bh360-web-ownership
+        annotations:
+          summary: "Métricas da web ausentes"
+          description: "A série birthub_web_healthcheck_requests_total não está sendo coletada."
+
+      - alert: WorkerMetricsMissing
+        expr: absent(birthub_worker_jobs_total)
+        for: 5m
+        labels:
+          severity: warning
+          domain: worker
+          slo: observability
+          sla_severity: P2
+          owner_primary: platform-automation
+          owner_backup: platform-api
+          communication_channel: bh360-worker-ownership
+        annotations:
+          summary: "Métricas do worker ausentes"
+          description: "A série birthub_worker_jobs_total não está sendo coletada."
 
   - name: birthub-sla-governance
     rules:

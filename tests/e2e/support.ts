@@ -200,6 +200,7 @@ const evidenceWorkflowPayload = {
 
 export async function bootstrapSession(page: Page): Promise<void> {
   await page.addInitScript(() => {
+    localStorage.setItem("bh_access_token", "access-e2e-token");
     localStorage.setItem("bh_csrf_token", "csrf-e2e");
     localStorage.setItem("bh_tenant_id", "birthhub-alpha");
     localStorage.setItem("bh_user_id", "owner.alpha@birthub.local");
@@ -231,7 +232,7 @@ export async function mockExecutionFeedback(
   page: Page,
   executionId = "exec-feedback"
 ): Promise<void> {
-  await page.route(`**/api/v1/executions/${executionId}/feedback`, async (route) => {
+  await page.route(`**/executions/${executionId}/feedback**`, async (route) => {
     if (route.request().method() === "POST") {
       await route.fulfill({
         body: JSON.stringify({

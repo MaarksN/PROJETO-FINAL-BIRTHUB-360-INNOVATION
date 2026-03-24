@@ -7,13 +7,14 @@ import {
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";
 import { getWorkerConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
-import { createLogger } from "@birthub/logger";
 
 import { PlanExecutor } from "../executors/planExecutor.js";
 import { runtimeMemory } from "./runtime.memory.js";
+import type {
+  RuntimeExecutionInput,
+  RuntimeExecutionResult
+} from "./runtime.types.js";
 import {
-  type RuntimeExecutionInput,
-  type RuntimeExecutionResult,
   readSessionId,
   roundCurrency
 } from "./runtime.shared.js";
@@ -21,8 +22,6 @@ import { resolveRuntimeAgent, resolveManagedPolicies } from "./runtime.catalog.j
 import { querySharedLearning, appendConversationMessage, buildLearningRecord, createOutputArtifact } from "./runtime.telemetry.js";
 import { createRuntimeTools } from "./runtime.tools.js";
 import { ensureBudgetHeadroom, consumeBudget } from "./runtime.budget.js";
-
-const logger = createLogger("agent-runtime");
 
 export async function executeManifestAgentRuntime(
   input: RuntimeExecutionInput
