@@ -5,7 +5,7 @@ from html import escape
 from datetime import datetime
 
 ROOT = Path(r"C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION")
-PHASE_DIR = ROOT / "12 CICLOS"
+PHASE_DIR = ROOT / "docs" / "programs" / "12-ciclos"
 
 STATUS_IMPLEMENTADO = "IMPLEMENTADO"
 STATUS_PARCIAL = "PARCIAL"
@@ -485,7 +485,7 @@ report_lines = []
 report_lines.append("# 1. Resumo Executivo")
 report_lines.append("")
 report_lines.append(f"- Data da auditoria: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-report_lines.append(f"- Escopo auditado: repositório completo + checklist consolidado em `12 CICLOS/F0..F11.html` ({len(items)} itens)")
+report_lines.append(f"- Escopo auditado: repositório completo + checklist consolidado em `docs/programs/12-ciclos/F0..F11.html` ({len(items)} itens)")
 report_lines.append(f"- Implementado: {count_by_status[STATUS_IMPLEMENTADO]}")
 report_lines.append(f"- Parcial: {count_by_status[STATUS_PARCIAL]}")
 report_lines.append(f"- Não encontrado: {count_by_status[STATUS_NAO]}")
@@ -495,7 +495,7 @@ report_lines.append(f"- Conflitante: {count_by_status[STATUS_CONFLITANTE]}")
 report_lines.append(f"- Implementado fora do plano: {count_by_status[STATUS_FORA]}")
 report_lines.append(f"- Aderência estimada (IMPLEMENTADO): {adherence:.2f}%")
 report_lines.append("")
-report_lines.append("- Observação forense: há divergência entre o checklist expandido solicitado (escopo textual externo) e o checklist versionado no repositório (`12 CICLOS`). Esta auditoria usou apenas itens versionados como base rastreável primária para evitar inferência não auditável.")
+report_lines.append("- Observação forense: há divergência entre o checklist expandido solicitado (escopo textual externo) e o checklist versionado no repositório (`docs/programs/12-ciclos`). Esta auditoria usou apenas itens versionados como base rastreável primária para evitar inferência não auditável.")
 
 report_lines.append("\n# 2. Lista Mestra dos Itens Auditados\n")
 for it in items:
@@ -676,7 +676,7 @@ tr.blue td{{border-left:4px solid #2563eb}}
 <div class=\"container\">
   <div class=\"card\">
     <h1>Auditoria Forense — Relatório Executivo (Codex)</h1>
-    <p>Escopo auditado: repositório completo + checklist versionado em <b>12 CICLOS/F0..F11.html</b>.</p>
+    <p>Escopo auditado: repositório completo + checklist versionado em <b>docs/programs/12-ciclos/F0..F11.html</b>.</p>
     <div class=\"legend\">
       <span><i class=\"dot green\"></i>VERDE = IMPLEMENTADO</span>
       <span><i class=\"dot yellow\"></i>AMARELO = PARCIAL / DIVERGENTE / APENAS DOCUMENTADO / CONFLITANTE</span>
