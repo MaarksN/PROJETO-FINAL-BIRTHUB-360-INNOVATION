@@ -58,6 +58,9 @@ jobs:
       - name: Enforce agent surface freeze
         run: node scripts/ci/check-agent-surface-freeze.mjs
 
+      - name: Enforce legacy DB surface freeze
+        run: node scripts/ci/check-legacy-db-surface-freeze.mjs
+
       - name: Enforce lockfile governance
         run: pnpm ci:lockfile
 

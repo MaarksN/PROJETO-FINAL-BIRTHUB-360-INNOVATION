@@ -33,6 +33,7 @@ Classificação consolidada:
 - `pnpm db:generate`
 - `pnpm monorepo:doctor`
 - `git grep "@birthub/db" -- apps packages agents`
+- `pnpm ci:legacy-db-surface-freeze` (bloqueia novos usos fora de `packages/db` e eixos documentais)
 - `pnpm db:check:all` (quando ambiente com banco estiver disponível)
 - `pnpm db:seed:smoke` (quando ambiente com banco estiver disponível)
 
