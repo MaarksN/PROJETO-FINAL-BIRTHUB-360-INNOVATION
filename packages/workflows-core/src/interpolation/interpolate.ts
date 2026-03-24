@@ -42,7 +42,8 @@ export function interpolateValue<T>(value: T, context: WorkflowRuntimeContext): 
   }
 
   if (Array.isArray(value)) {
-    return value.map((item) => interpolateValue(item, context)) as T;
+    const mapped: unknown[] = value.map((item: unknown) => interpolateValue(item, context));
+    return mapped as T;
   }
 
   if (typeof value === "object" && value !== null) {

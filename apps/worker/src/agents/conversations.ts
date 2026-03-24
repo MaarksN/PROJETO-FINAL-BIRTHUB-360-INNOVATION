@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Prisma, prisma } from "@birthub/database";
 
 function toJsonValue(value: unknown): Prisma.InputJsonValue {

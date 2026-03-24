@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Prisma, prisma } from "@birthub/database";
 
 import {
