@@ -145,7 +145,8 @@
     "db:seed:ci": "pnpm --filter @birthub/database db:seed:ci",
     "db:seed:smoke": "pnpm --filter @birthub/database db:seed:smoke",
     "db:seed:staging": "pnpm --filter @birthub/database db:seed:staging",
-    "db:validate:pr": "pnpm --filter @birthub/database db:validate:pr"
+    "db:validate:pr": "pnpm --filter @birthub/database db:validate:pr",
+    "release:rollback:evidence": "node --import tsx scripts/release/verify-rollback-evidence.ts --target=production"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
