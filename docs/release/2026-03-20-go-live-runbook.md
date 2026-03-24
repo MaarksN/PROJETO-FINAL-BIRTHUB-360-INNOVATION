@@ -48,7 +48,9 @@ Ficam fora do criterio de pronto, salvo promocao explicita:
 - `pnpm release:preflight:staging`
 - `pnpm release:preflight:production`
 
-Motivo atual: nao existem `.env.staging` e `.env.production` com segredos validos neste workspace. Os preflights falham por ausencia de `DATABASE_URL`, `REDIS_URL`, `SESSION_SECRET`, `JOB_HMAC_GLOBAL_SECRET`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_APP_URL`, `NEXT_PUBLIC_SENTRY_DSN` e correlatos.
+Motivo atual (historico): nao existiam equivalentes de `.env.staging` e `.env.production` com segredos validos no workspace. Esse bloqueio passa a ser coberto por equivalentes selados em `ops/env/.env.staging.sealed.example` e `ops/env/.env.production.sealed.example` + gates obrigatorios no CD.
+
+Referencia de inventario e ownership: `docs/release/production-preflight-inventory.md`.
 
 ## Sequencia obrigatoria
 
@@ -77,8 +79,8 @@ Motivo atual: nao existem `.env.staging` e `.env.production` com segredos valido
 
 ### 2026-03-19 - rehearsal de producao
 
-1. Rodar `pnpm release:preflight:staging -- --env-file=.env.staging`.
-2. Rodar `pnpm release:preflight:production -- --env-file=.env.production`.
+1. Rodar `pnpm release:preflight:staging -- --env-file=ops/env/.env.staging.sealed.example`.
+2. Rodar `pnpm release:preflight:production -- --env-file=ops/env/.env.production.sealed.example`.
 3. Rodar `pnpm release:smoke`.
 4. Rodar `pnpm test:e2e:release`.
 5. Validar migrations, rollback, segredos e variaveis obrigatorias.

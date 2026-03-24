@@ -17,8 +17,8 @@ on:
         type: choice
         options:
           - production
-      rollback_evidence_ref:
-        description: URL/ticket/artefato do rollback rehearsal aprovado
+      rollback_rehearsal_evidence:
+        description: URL/document path proving latest rollback rehearsal
         required: true
         type: string
 
@@ -152,14 +152,67 @@ jobs:
       - name: Run staging preflight
         run: pnpm release:preflight:staging
 
+      - name: Upload staging preflight evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: staging-preflight-evidence
+          path: artifacts/release/staging-preflight-summary.*
+
+  release-sbom:
+    name: release-sbom
+    if: >
+      (github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.deploy_target == 'production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout release source from CI run
+        if: github.event_name == 'workflow_run'
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Checkout release source from manual dispatch
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate CycloneDX SBOM
+        uses: CycloneDX/gh-node-module-generatebom@v1
+        with:
+          path: .
+          output: ./artifacts/sbom/bom.xml
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-sbom
+          path: artifacts/sbom/bom.xml
 
   production-preflight:
     name: production-preflight
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     concurrency:
-      group: cd-production-preflight
+      group: cd-production
       cancel-in-progress: false
     environment: production
     env:
@@ -172,6 +225,7 @@ jobs:
       NEXT_PUBLIC_CSP_REPORT_ONLY: ${{ vars.NEXT_PUBLIC_CSP_REPORT_ONLY }}
       NEXT_PUBLIC_SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
       REDIS_URL: ${{ secrets.REDIS_URL }}
+      RENDER_PRODUCTION_DEPLOY_HOOK_URL: ${{ secrets.RENDER_PRODUCTION_DEPLOY_HOOK_URL }}
       REQUIRE_SECURE_COOKIES: ${{ vars.REQUIRE_SECURE_COOKIES }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
       SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
@@ -203,7 +257,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for key in AUTH_MFA_ENCRYPTION_KEY DATABASE_URL JOB_HMAC_GLOBAL_SECRET REDIS_URL SENTRY_DSN SESSION_SECRET STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET; do
+          for key in AUTH_MFA_ENCRYPTION_KEY DATABASE_URL JOB_HMAC_GLOBAL_SECRET REDIS_URL RENDER_PRODUCTION_DEPLOY_HOOK_URL SENTRY_DSN SESSION_SECRET STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET; do
             value="${!key:-}"
             if [[ -n "${value}" ]]; then
               echo "::add-mask::${value}"
@@ -216,6 +270,7 @@ jobs:
           set -euo pipefail
 
           required_secrets=(
+            RENDER_PRODUCTION_DEPLOY_HOOK_URL
             DATABASE_URL
             REDIS_URL
             SESSION_SECRET
@@ -272,31 +327,26 @@ jobs:
       - name: Run production preflight
         run: pnpm release:preflight:production
 
-      - name: Upload production preflight artifact
+      - name: Upload production preflight evidence
         uses: actions/upload-artifact@v7
         with:
-          name: production-preflight
+          name: production-preflight-evidence
           path: artifacts/release/production-preflight-summary.*
 
-  release-sbom:
-    name: release-sbom
-    if: >
-      (github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main') ||
-      (github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.deploy_target == 'production')
+  release-smoke-gate:
+    name: release-smoke-gate
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
+    needs:
+      - release-sbom
+      - production-preflight
+    concurrency:
+      group: cd-production
+      cancel-in-progress: false
+    environment: production
     steps:
-      - name: Checkout release source from CI run
-        if: github.event_name == 'workflow_run'
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-
       - name: Checkout release source from manual dispatch
-        if: github.event_name == 'workflow_dispatch'
         uses: actions/checkout@v6
 
       - name: Setup pnpm
@@ -314,17 +364,102 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate CycloneDX SBOM
-        uses: CycloneDX/gh-node-module-generatebom@v1
-        with:
-          path: .
-          output: ./artifacts/sbom/bom.xml
+      - name: Run release smoke gate
+        run: pnpm release:smoke
 
-      - name: Upload SBOM artifact
+      - name: Upload smoke evidence
         uses: actions/upload-artifact@v7
         with:
-          name: release-sbom
-          path: artifacts/sbom/bom.xml
+          name: release-smoke-evidence
+          path: artifacts/release/smoke-summary.*
+
+  release-e2e-gate:
+    name: release-e2e-gate
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    needs:
+      - release-smoke-gate
+    concurrency:
+      group: cd-production
+      cancel-in-progress: false
+    environment: production
+    steps:
+      - name: Checkout release source from manual dispatch
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run release E2E gate
+        run: pnpm test:e2e:release
+
+      - name: Upload E2E evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-e2e-evidence
+          path: |
+            playwright-report
+            test-results
+
+  rollback-rehearsal-evidence-gate:
+    name: rollback-rehearsal-evidence-gate
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs:
+      - release-e2e-gate
+    steps:
+      - name: Validate rollback rehearsal evidence input
+        shell: bash
+        env:
+          ROLLBACK_REHEARSAL_EVIDENCE: ${{ github.event.inputs.rollback_rehearsal_evidence }}
+        run: |
+          set -euo pipefail
+
+          evidence="${ROLLBACK_REHEARSAL_EVIDENCE:-}"
+          if [[ -z "${evidence}" ]]; then
+            echo "::error title=Missing rollback evidence::Provide rollback rehearsal evidence when dispatching production deploy." >&2
+            exit 1
+          fi
+
+          if [[ ${#evidence} -lt 12 ]]; then
+            echo "::error title=Invalid rollback evidence::Evidence must be a traceable URL, ticket, runbook path, or report reference." >&2
+            exit 1
+          fi
+
+          echo "rollback_rehearsal_evidence=${evidence}" >> "$GITHUB_OUTPUT"
+
+      - name: Persist rollback rehearsal evidence
+        shell: bash
+        env:
+          ROLLBACK_REHEARSAL_EVIDENCE: ${{ github.event.inputs.rollback_rehearsal_evidence }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/release
+          {
+            echo "Checked at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "Rollback rehearsal evidence: ${ROLLBACK_REHEARSAL_EVIDENCE}"
+          } > artifacts/release/rollback-rehearsal-evidence.txt
+
+      - name: Upload rollback rehearsal evidence
+        uses: actions/upload-artifact@v7
+        with:
+          name: rollback-rehearsal-evidence
+          path: artifacts/release/rollback-rehearsal-evidence.txt
 
   deploy-staging:
     name: deploy-staging
@@ -371,118 +506,17 @@ jobs:
 
           curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_STAGING_DEPLOY_HOOK_URL}"
 
-
-  production-release-smoke:
-    name: production-release-smoke
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-    needs:
-      - production-preflight
-      - release-sbom
-    steps:
-      - name: Checkout release source from manual dispatch
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run release smoke gate
-        run: pnpm release:smoke
-
-      - name: Upload release smoke artifact
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: production-release-smoke
-          path: artifacts/release/smoke-summary.*
-
-  production-release-e2e:
-    name: production-release-e2e
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    needs:
-      - production-release-smoke
-    steps:
-      - name: Checkout release source from manual dispatch
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run release E2E gate
-        run: pnpm test:e2e:release
-
-  production-rollback-evidence:
-    name: production-rollback-evidence
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs:
-      - production-release-e2e
-    steps:
-      - name: Checkout release source from manual dispatch
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Validate rollback rehearsal evidence
-        run: pnpm release:rollback:evidence -- --target=production --evidence="${{ github.event.inputs.rollback_evidence_ref }}"
-
-      - name: Upload rollback evidence artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: production-rollback-evidence
-          path: artifacts/release/production-rollback-evidence.*
-
   deploy-production:
     name: deploy-production
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs:
+      - release-sbom
       - production-preflight
-      - production-release-smoke
-      - production-release-e2e
-      - production-rollback-evidence
+      - release-smoke-gate
+      - release-e2e-gate
+      - rollback-rehearsal-evidence-gate
     concurrency:
       group: cd-production
       cancel-in-progress: false

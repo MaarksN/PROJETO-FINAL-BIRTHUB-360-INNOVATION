@@ -12,6 +12,8 @@
 /infra/ @platform-devex @platform-architecture
 /ops/ @platform-devex @platform-architecture
 
+# Fronteiras validadas conforme docs/service-catalog.md
+
 # Core canônico (P0)
 /apps/web/ @platform-web @product-frontend
 /apps/api/ @platform-api @platform-security

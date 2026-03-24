@@ -2,6 +2,14 @@
 
 > Legenda de status: 🟢 **core canônico (P0)** · 🟡 **satélite operacional** · 🔴 **legacy/quarentena**
 
+## Fonte única operacional
+
+Este documento é a **fonte única** para fronteiras operacionais entre core, legado e satélites.
+
+- Apenas `apps/web`, `apps/api`, `apps/worker` e `packages/database` são **core canônico**.
+- Superfícies em **legacy/quarentena** não são default de desenvolvimento nem de operação.
+- Satélites são suportados, porém com governança e severidade abaixo do core.
+
 ## Índice único de fronteiras operacionais
 
 | Camada | Superfície | Tipo | Estado operacional | Dono sugerido | Evidência de runtime |
@@ -23,3 +31,4 @@
 1. **Core canônico oficial:** `apps/web`, `apps/api`, `apps/worker`, `packages/database`.
 2. **Legacy/quarentena:** não define roadmap principal, não recebe classificação P0 e não deve aparecer como default em onboarding, runbook ou operação.
 3. **Satélites:** continuam suportados, mas com SLO/alerta e governança proporcionais ao impacto indireto no fluxo principal.
+4. **Qualquer divergência** entre documentos deve ser resolvida em favor deste catálogo.

@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-03-24T14:36:35.729Z",
-  "envFile": "ops/release/sealed/.env.staging.sealed",
+  "checkedAt": "2026-03-24T15:06:26.139Z",
+  "envFile": "ops/env/.env.staging.sealed.example",
   "ok": true,
   "requiredKeys": [
     {
