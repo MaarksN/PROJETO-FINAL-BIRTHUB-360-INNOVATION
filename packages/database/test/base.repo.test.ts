@@ -16,22 +16,27 @@ function createDelegate() {
     calls,
     delegate: {
       async create(args: Record<string, unknown>) {
+        await Promise.resolve();
         calls.push({ args, method: "create" });
         return { id: "rec-1", tenantId: "tenant-alpha", name: "Acme" } as RecordModel;
       },
       async deleteMany(args: Record<string, unknown>) {
+        await Promise.resolve();
         calls.push({ args, method: "deleteMany" });
         return { count: 1 };
       },
       async findFirst(args: Record<string, unknown>) {
+        await Promise.resolve();
         calls.push({ args, method: "findFirst" });
         return { id: "rec-1", tenantId: "tenant-alpha", name: "Acme" } as RecordModel;
       },
       async findMany(args: Record<string, unknown>) {
+        await Promise.resolve();
         calls.push({ args, method: "findMany" });
         return [] as RecordModel[];
       },
       async updateMany(args: Record<string, unknown>) {
+        await Promise.resolve();
         calls.push({ args, method: "updateMany" });
         return { count: 1 };
       }

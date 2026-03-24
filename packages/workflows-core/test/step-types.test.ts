@@ -158,6 +158,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       notificationDispatcher: {
         send: async (message) => {
+          await Promise.resolve();
           notifications.push(message);
         }
       }
@@ -180,6 +181,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       agentExecutor: {
         execute: async (args) => {
+          await Promise.resolve();
           agentCalls.push(args);
           return {
             agentId: args.agentId,
@@ -208,6 +210,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       handoffExecutor: {
         execute: async (args) => {
+          await Promise.resolve();
           handoffCalls.push(args);
           return {
             correlationId: args.correlationId,
@@ -237,6 +240,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       connectorExecutor: {
         execute: async (args) => {
+          await Promise.resolve();
           connectorCalls.push(args);
           return {
             queued: true,
@@ -261,6 +265,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       connectorExecutor: {
         execute: async (args) => {
+          await Promise.resolve();
           connectorCalls.push(args);
           return {
             queued: true,
@@ -287,6 +292,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       connectorExecutor: {
         execute: async (args) => {
+          await Promise.resolve();
           connectorCalls.push(args);
           return {
             queued: true,
@@ -313,6 +319,7 @@ test("core workflow step types execute with deterministic outputs", async () => 
     {
       connectorExecutor: {
         execute: async (args) => {
+          await Promise.resolve();
           connectorCalls.push(args);
           return {
             queued: true,

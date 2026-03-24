@@ -36,6 +36,7 @@ Achado consolidado:
 - Ação aplicada nesta execução:
   - CI ajustado para não depender de paths ausentes.
   - runner de satélites ajustado para pular legados ausentes sem quebrar lane canônica.
+  - guarda de freeze adicionada: `pnpm ci:legacy-runtime-surface-freeze` (bloqueia nova criação de arquivos em `apps/api-gateway`, `apps/agent-orchestrator` e `apps/dashboard`).
 
 ## Próximos passos para sunset físico
 

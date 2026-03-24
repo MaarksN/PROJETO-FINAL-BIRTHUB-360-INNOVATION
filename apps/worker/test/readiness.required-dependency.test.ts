@@ -5,14 +5,18 @@ import { evaluateWorkerReadiness } from "../src/operational/readiness.js";
 
 void test("worker readiness returns degraded when Redis dependency is unavailable", async () => {
   const payload = await evaluateWorkerReadiness({
-    listQueueStates: async () => [
-      {
-        backlog: 7,
-        dlq: 1,
-        name: "birthub-cycle1"
-      }
-    ],
+    listQueueStates: async () => {
+      await Promise.resolve();
+      return [
+        {
+          backlog: 7,
+          dlq: 1,
+          name: "birthub-cycle1"
+        }
+      ];
+    },
     pingRedis: async () => {
+      await Promise.resolve();
       throw new Error("ECONNREFUSED redis:6379");
     },
     queueCount: 1,

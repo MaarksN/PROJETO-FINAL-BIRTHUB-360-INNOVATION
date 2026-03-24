@@ -105,10 +105,13 @@ const lanes = {
         "--test",
         "__tests__/*.test.ts"
       ]),
-    () =>
-      runIfDirectoryExists(["apps", "agent-orchestrator"], "agent-orchestrator smoke", () =>
-        runPython(["-m", "pytest", "apps/agent-orchestrator/tests", "apps/webhook-receiver/tests"])
-      )
+    () => {
+      const pytestTargets = ["agents", "tests/integration", "apps/webhook-receiver/tests"];
+      if (existsSync(packageDir("apps", "agent-orchestrator"))) {
+        pytestTargets.splice(2, 0, "apps/agent-orchestrator/tests");
+      }
+      runPython(["-m", "pytest", ...pytestTargets]);
+    }
   ],
   test: [
     () =>

@@ -38,7 +38,7 @@ export function executeCodeNode(
     input
   });
 
-  const result = script.runInNewContext(sandbox, {
+  const result: unknown = script.runInNewContext(sandbox, {
     timeout
   });
 

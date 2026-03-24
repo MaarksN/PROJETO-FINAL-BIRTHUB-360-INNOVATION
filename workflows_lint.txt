@@ -1,0 +1,10 @@
+
+> @birthub/workflows-core@0.1.0 lint C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core
+> eslint . --config eslint.config.mjs
+
+
+C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\src\interpolation\interpolate.ts
+  45:32  warning  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+
+Ô£û 1 problem (0 errors, 1 warning)
+

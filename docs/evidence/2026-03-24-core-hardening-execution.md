@@ -98,3 +98,12 @@ Evidências registradas nesta execução:
 - ajustes de CI para remover dependência crítica de `apps/agent-orchestrator` ausente:
   - `.github/workflows/ci.yml`
   - `scripts/ci/run-satellites.mjs`
+
+### Guardas adicionais de contenção de legado
+
+- `scripts/ci/check-legacy-db-surface-freeze.mjs`
+  - comando: `pnpm ci:legacy-db-surface-freeze`
+  - objetivo: bloquear regressão de referências a `@birthub/db`/`packages/db` fora de `packages/db` e eixos documentais.
+- `scripts/ci/check-legacy-runtime-surface-freeze.mjs`
+  - comando: `pnpm ci:legacy-runtime-surface-freeze`
+  - objetivo: bloquear reintrodução de superfícies legadas (`apps/api-gateway`, `apps/agent-orchestrator`, `apps/dashboard`).
