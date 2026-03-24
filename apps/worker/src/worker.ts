@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
+import { incrementCounter, observeHistogram } from "@birthub/logger";
 import { Queue, Worker } from "bullmq";
 import { Redis } from "ioredis";
 
@@ -42,7 +43,45 @@ const crmSyncQueueName = "engagement.crm-sync";
 export interface WorkerRuntime {
   close: () => Promise<void>;
   connection: Redis;
+  queues: Array<Queue<unknown>>;
   workers: Worker[];
+}
+
+function recordWorkerJobMetric(input: {
+  queue: string;
+  status: "completed" | "failed";
+  startedAt?: number;
+  finishedAt?: number;
+}): void {
+  incrementCounter(
+    "birthub_worker_jobs_total",
+    {
+      queue: input.queue,
+      status: input.status
+    },
+    1,
+    "Total processed worker jobs grouped by queue and status."
+  );
+
+  if (
+    typeof input.startedAt === "number" &&
+    Number.isFinite(input.startedAt) &&
+    typeof input.finishedAt === "number" &&
+    Number.isFinite(input.finishedAt) &&
+    input.finishedAt >= input.startedAt
+  ) {
+    observeHistogram(
+      "birthub_worker_job_duration_ms",
+      input.finishedAt - input.startedAt,
+      {
+        queue: input.queue,
+        status: input.status
+      },
+      {
+        help: "Worker job processing duration in milliseconds grouped by queue and status."
+      }
+    );
+  }
 }
 
 export function createBirthHubWorker(): WorkerRuntime {
@@ -101,6 +140,12 @@ export function createBirthHubWorker(): WorkerRuntime {
         count: 300
       }
     }
+  });
+  const workflowTriggerQueue = new Queue<WorkflowTriggerJobPayload>(workflowQueueNames.trigger, {
+    connection: bullConnection
+  });
+  const crmSyncQueue = new Queue<CrmSyncJobPayload>(crmSyncQueueName, {
+    connection: bullConnection
   });
   const dynamicRateLimiter = new DynamicRateLimiter(connection);
   const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
@@ -210,6 +255,12 @@ export function createBirthHubWorker(): WorkerRuntime {
     getQueueNameForPriority("normal"),
     getQueueNameForPriority("low")
   ];
+  const tenantTaskQueues = queueNames.map(
+    (queueName) =>
+      new Queue(queueName, {
+        connection: bullConnection
+      })
+  );
 
   const workers = queueNames.map((queueName) =>
     new Worker(
@@ -275,7 +326,7 @@ export function createBirthHubWorker(): WorkerRuntime {
 
   workers.push(
     new Worker(
-      crmSyncQueueName,
+      crmSyncQueue.name,
       async (job) => {
         const payload = job.data as CrmSyncJobPayload;
         await syncOrganizationToHubspot({
@@ -291,7 +342,22 @@ export function createBirthHubWorker(): WorkerRuntime {
   );
 
   workers.forEach((worker) => {
+    worker.on("completed", (job) => {
+      recordWorkerJobMetric({
+        finishedAt: job?.finishedOn,
+        queue: worker.name,
+        startedAt: job?.processedOn,
+        status: "completed"
+      });
+    });
+
     worker.on("failed", (job, error) => {
+      recordWorkerJobMetric({
+        finishedAt: job?.finishedOn,
+        queue: worker.name,
+        startedAt: job?.processedOn,
+        status: "failed"
+      });
       logger.error(
         {
           error,
@@ -305,15 +371,30 @@ export function createBirthHubWorker(): WorkerRuntime {
 
   const close = async (): Promise<void> => {
     await Promise.all(workers.map((worker) => worker.close()));
-    await workflowExecutionQueue.close();
-    await emailQueue.close();
-    await outboundWebhookQueue.close();
+    await Promise.all(
+      [
+        ...tenantTaskQueues,
+        workflowExecutionQueue,
+        workflowTriggerQueue,
+        emailQueue,
+        outboundWebhookQueue,
+        crmSyncQueue
+      ].map((queue) => queue.close())
+    );
     await connection.quit();
   };
 
   return {
     close,
     connection,
+    queues: [
+      ...tenantTaskQueues,
+      workflowExecutionQueue,
+      workflowTriggerQueue,
+      emailQueue,
+      outboundWebhookQueue,
+      crmSyncQueue
+    ],
     workers
   };
 }

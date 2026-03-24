@@ -1,4 +1,4 @@
-import { observeHistogram, incrementCounter } from "@birthub/logger";
+import { incrementCounter, observeHistogram } from "@birthub/logger";
 import { NextResponse } from "next/server";
 
 import { evaluateWebOperationalHealth } from "../../lib/operational-health";
@@ -14,7 +14,7 @@ export async function GET() {
   incrementCounter(
     "birthub_web_healthcheck_requests_total",
     {
-      endpoint: "health",
+      endpoint: "readiness",
       status: payload.status
     },
     1,
@@ -24,7 +24,7 @@ export async function GET() {
     "birthub_web_healthcheck_duration_ms",
     durationMs,
     {
-      endpoint: "health",
+      endpoint: "readiness",
       status: payload.status
     },
     {
