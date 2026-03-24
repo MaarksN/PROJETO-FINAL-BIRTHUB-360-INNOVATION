@@ -36,6 +36,7 @@ function createHtmlArtifact(input: GeneratorInput): string {
 }
 
 export async function runGeneratorSkill(input: GeneratorInput): Promise<GeneratorOutput> {
+  await Promise.resolve();
   const artifact = input.format === "html" ? createHtmlArtifact(input) : createMarkdownArtifact(input);
 
   return generatorOutputSchema.parse({

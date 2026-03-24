@@ -36,6 +36,7 @@ export async function callCrmTool(
   input: CrmInput,
   options?: { simulate?: boolean }
 ): Promise<CrmResult> {
+  await Promise.resolve();
   const endpoint = resolveEndpoint(input.provider, input.action);
 
   if (!(options?.simulate ?? true)) {

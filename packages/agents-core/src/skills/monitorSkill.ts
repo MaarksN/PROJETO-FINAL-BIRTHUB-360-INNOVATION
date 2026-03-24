@@ -42,6 +42,7 @@ function classifySeverity(deviation: number): "low" | "medium" | "high" {
 }
 
 export async function runMonitorSkill(input: MonitorInput): Promise<MonitorOutput> {
+  await Promise.resolve();
   const values = input.points.map((point) => point.value);
   const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
   const stdDev = computeStdDev(values) || 1;

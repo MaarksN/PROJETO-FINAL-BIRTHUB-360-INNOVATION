@@ -50,20 +50,24 @@ export class InMemoryAgentMemoryBackend implements AgentMemoryBackend {
   }
 
   async set(key: string, value: string, ttlSeconds?: number): Promise<void> {
+    await Promise.resolve();
     const expiresAt = ttlSeconds !== undefined ? Date.now() + ttlSeconds * 1000 : undefined;
     this.records.set(key, expiresAt === undefined ? { value } : { expiresAt, value });
   }
 
   async get(key: string): Promise<string | null> {
+    await Promise.resolve();
     this.sweepExpired();
     return this.records.get(key)?.value ?? null;
   }
 
   async del(key: string): Promise<number> {
+    await Promise.resolve();
     return this.records.delete(key) ? 1 : 0;
   }
 
   async keys(pattern: string): Promise<string[]> {
+    await Promise.resolve();
     this.sweepExpired();
     return Array.from(this.records.keys()).filter((key) => matchesPattern(key, pattern));
   }

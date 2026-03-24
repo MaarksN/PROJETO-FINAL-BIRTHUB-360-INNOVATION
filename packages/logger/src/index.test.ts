@@ -3,6 +3,15 @@ import test from "node:test";
 
 import { createLogger, runWithLogContext } from "./index.js";
 
+function parseJsonObject(raw: string): Record<string, unknown> {
+  const parsed: unknown = JSON.parse(raw);
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    throw new TypeError("Expected logger JSON line to be an object.");
+  }
+
+  return parsed;
+}
+
 async function captureStdout(callback: () => void): Promise<Record<string, unknown>> {
   const chunks: string[] = [];
   const originalWrite = process.stdout.write.bind(process.stdout);
@@ -39,7 +48,7 @@ async function captureStdout(callback: () => void): Promise<Record<string, unkno
     .find((line) => line.trim().startsWith("{"));
 
   assert.ok(rawLine, "Expected logger to emit one JSON line.");
-  return JSON.parse(rawLine);
+  return parseJsonObject(rawLine);
 }
 
 void test("logger emits structured observability fields in camelCase and snake_case", async () => {

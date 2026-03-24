@@ -107,3 +107,9 @@ Evidências registradas nesta execução:
 - `scripts/ci/check-legacy-runtime-surface-freeze.mjs`
   - comando: `pnpm ci:legacy-runtime-surface-freeze`
   - objetivo: bloquear reintrodução de superfícies legadas (`apps/api-gateway`, `apps/agent-orchestrator`, `apps/dashboard`).
+
+## Etapa 6 - Baseline operacional de agentes
+
+- comando executado: `pnpm agent:snapshot`
+- artefato gerado e higienizado: `artifacts/agent-readiness/agent-snapshot-2026-03-24.json`
+- objetivo: registrar baseline objetivo para consolidação progressiva de catálogo/capabilities.

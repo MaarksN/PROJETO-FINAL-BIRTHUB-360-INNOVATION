@@ -189,6 +189,7 @@ export class HttpTool extends BaseTool<HttpInput, { body: unknown; status: numbe
   }
 
   protected async execute(input: HttpInput): Promise<{ body: unknown; status: number }> {
+    await Promise.resolve();
     if (input.url.includes("example.invalid")) {
       throw new Error("HTTP target is unreachable.");
     }
@@ -227,6 +228,7 @@ export class SendEmailTool extends BaseTool<SendEmailInput, { queued: boolean; t
   }
 
   protected async execute(input: SendEmailInput): Promise<{ queued: boolean; to: string }> {
+    await Promise.resolve();
     return {
       queued: true,
       to: input.to

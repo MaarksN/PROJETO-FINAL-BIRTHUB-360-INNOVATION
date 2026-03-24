@@ -13,10 +13,12 @@ void test("health returns 503 when required API dependency is unavailable", asyn
   process.env.NEXT_PUBLIC_ENVIRONMENT = "development";
   process.env.NEXT_PUBLIC_API_URL = "http://api.internal.local";
 
-  globalThis.fetch = (async () =>
-    new Response(JSON.stringify({ status: "down" }), {
-      status: 503
-    })) as typeof fetch;
+  globalThis.fetch = (() =>
+    Promise.resolve(
+      new Response(JSON.stringify({ status: "down" }), {
+        status: 503
+      })
+    )) as typeof fetch;
 
   try {
     const response = await GET();

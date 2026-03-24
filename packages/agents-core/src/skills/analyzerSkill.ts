@@ -14,6 +14,7 @@ export type AnalyzerInput = z.infer<typeof analyzerInputSchema>;
 export type AnalyzerOutput = z.infer<typeof analyzerOutputSchema>;
 
 export async function runAnalyzerSkill(input: AnalyzerInput): Promise<AnalyzerOutput> {
+  await Promise.resolve();
   const normalizedContext = input.context.toLowerCase();
   const positiveSignals = ["growth", "win", "healthy", "efficient", "improve"];
 

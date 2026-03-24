@@ -13,6 +13,7 @@ export function computeOutputHash(output: string): string {
 }
 
 export async function runAgentDryRun(manifest: AgentManifest): Promise<DryRunResult> {
+  await Promise.resolve();
   const logs = [
     `Simulating agent ${manifest.agent.id} (${manifest.agent.name})`,
     "Simulating LLM call...",

@@ -127,7 +127,7 @@ export class MetricsRegistry {
       {
         buckets,
         count: 0,
-        counts: new Array(buckets.length).fill(0),
+        counts: Array.from({ length: buckets.length }, () => 0),
         sum: 0
       };
 
@@ -161,7 +161,8 @@ export class MetricsRegistry {
         continue;
       }
 
-      for (const [labels, series] of metric.values.entries()) {
+      const histogramValues: Map<string, HistogramMetricSeries> = metric.values;
+      for (const [labels, series] of histogramValues.entries()) {
         const baseLabels = labels === "" ? [] : labels.slice(1, -1).split(",").filter(Boolean);
 
         for (let index = 0; index < series.buckets.length; index += 1) {
