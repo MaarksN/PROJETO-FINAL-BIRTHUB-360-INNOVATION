@@ -25,7 +25,7 @@ export default defineConfig({
   },
   webServer: {
     command: pnpmCommand,
-    url: "http://127.0.0.1:3001/health",
+    url: "http://127.0.0.1:3001/",
     reuseExistingServer: true,
     env: {
       NEXT_PUBLIC_API_URL: "http://127.0.0.1:3001",

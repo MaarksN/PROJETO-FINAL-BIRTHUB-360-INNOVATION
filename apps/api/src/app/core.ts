@@ -20,6 +20,7 @@ import {
   createRateLimitMiddleware,
   createWebhookRateLimitMiddleware
 } from "../middleware/rate-limit.js";
+import { metricsHandler, metricsMiddleware } from "../metrics.js";
 import { requestContextMiddleware } from "../middleware/request-context.js";
 import { sanitizeMutationInput } from "../middleware/sanitize-input.js";
 import { tenantContextMiddleware } from "../middleware/tenant-context.js";
@@ -111,6 +112,7 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
 
   app.use(contentTypeMiddleware);
   registerTimeoutMiddleware(app, config);
+  app.use(metricsMiddleware);
   app.use(express.json({ limit: config.API_JSON_BODY_LIMIT }));
   app.use(sanitizeMutationInput);
   app.use(originValidationMiddleware(config.corsOrigins));
@@ -141,6 +143,20 @@ export function registerOperationalRoutes(
 
     app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(openApiDocument));
   }
+
+  app.get(
+    "/metrics",
+    asyncHandler(async (request, response) => {
+      await metricsHandler(request, response);
+    })
+  );
+
+  app.get(
+    "/api/v1/metrics",
+    asyncHandler(async (request, response) => {
+      await metricsHandler(request, response);
+    })
+  );
 
   app.get(
     "/health",

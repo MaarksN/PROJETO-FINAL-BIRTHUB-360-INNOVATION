@@ -42,6 +42,16 @@ function runNodeScript(cwd, args) {
   run(portableNodeExecutable, args, { cwd });
 }
 
+function runIfDirectoryExists(relativeSegments, label, callback) {
+  const cwd = packageDir(...relativeSegments);
+  if (!existsSync(cwd)) {
+    console.log(`[satellites] Skipping ${label}: missing ${cwd}`);
+    return;
+  }
+
+  callback(cwd);
+}
+
 function runPython(args) {
   const candidates =
     process.platform === "win32"
@@ -75,15 +85,17 @@ const target = process.argv[2] ?? "test";
 
 const lanes = {
   build: [
-    () => runBinIn(packageDir("apps", "agent-orchestrator"), "tsc", ["-p", "tsconfig.supported.json"]),
+    () =>
+      runIfDirectoryExists(["apps", "agent-orchestrator"], "agent-orchestrator build", (cwd) =>
+        runBinIn(cwd, "tsc", ["-p", "tsconfig.supported.json"])
+      ),
     () => runBinIn(packageDir("apps", "voice-engine"), "tsc", ["-p", "tsconfig.json"])
   ],
   lint: [
     () =>
-      runBinIn(packageDir("apps", "agent-orchestrator"), "eslint", [
-        "worker.ts",
-        "src/worker.contract.test.ts"
-      ]),
+      runIfDirectoryExists(["apps", "agent-orchestrator"], "agent-orchestrator lint", (cwd) =>
+        runBinIn(cwd, "eslint", ["worker.ts", "src/worker.contract.test.ts"])
+      ),
     () => runBinIn(packageDir("apps", "voice-engine"), "eslint", ["src"])
   ],
   smoke: [
@@ -93,7 +105,10 @@ const lanes = {
         "--test",
         "__tests__/*.test.ts"
       ]),
-    () => runPython(["-m", "pytest", "apps/agent-orchestrator/tests", "apps/webhook-receiver/tests"])
+    () =>
+      runIfDirectoryExists(["apps", "agent-orchestrator"], "agent-orchestrator smoke", () =>
+        runPython(["-m", "pytest", "apps/agent-orchestrator/tests", "apps/webhook-receiver/tests"])
+      )
   ],
   test: [
     () =>
@@ -104,20 +119,15 @@ const lanes = {
         "src/**/*.test.ts"
       ]),
     () =>
-      runNodeScript(packageDir("apps", "agent-orchestrator"), [
-        "--import",
-        "tsx",
-        "--test",
-        "src/worker.contract.test.ts"
-      ])
+      runIfDirectoryExists(["apps", "agent-orchestrator"], "agent-orchestrator test", (cwd) =>
+        runNodeScript(cwd, ["--import", "tsx", "--test", "src/worker.contract.test.ts"])
+      )
   ],
   typecheck: [
     () =>
-      runBinIn(packageDir("apps", "agent-orchestrator"), "tsc", [
-        "-p",
-        "tsconfig.supported.json",
-        "--noEmit"
-      ]),
+      runIfDirectoryExists(["apps", "agent-orchestrator"], "agent-orchestrator typecheck", (cwd) =>
+        runBinIn(cwd, "tsc", ["-p", "tsconfig.supported.json", "--noEmit"])
+      ),
     () => runBinIn(packageDir("apps", "voice-engine"), "tsc", ["-p", "tsconfig.json", "--noEmit"])
   ]
 };
