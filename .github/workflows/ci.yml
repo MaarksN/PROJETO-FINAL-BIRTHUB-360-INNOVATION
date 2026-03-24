@@ -55,6 +55,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+<<<<<<< Updated upstream
+=======
+      - name: Enforce agent surface freeze
+        run: node scripts/ci/check-agent-surface-freeze.mjs
+
+      - name: Enforce legacy DB surface freeze
+        run: node scripts/ci/check-legacy-db-surface-freeze.mjs
+
+      - name: Enforce legacy runtime surface freeze
+        run: node scripts/ci/check-legacy-runtime-surface-freeze.mjs
+
+>>>>>>> Stashed changes
       - name: Enforce lockfile governance
         run: pnpm ci:lockfile
 
