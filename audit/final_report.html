@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Auditoria Forense BirthHub 360</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { border-bottom: 2px solid #2c3e50; padding-bottom: 10px; color: #2c3e50; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card { padding: 20px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .status-danger { border-left: 5px solid #e74c3c; background: #fceae8; }
+        .status-warning { border-left: 5px solid #f1c40f; background: #fdf8e3; }
+        .status-success { border-left: 5px solid #2ecc71; background: #eafaf1; }
+        .score { font-size: 2.5em; font-weight: bold; text-align: center; margin: 20px 0; color: #e74c3c; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background: #2c3e50; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard Auditoria: BirthHub 360</h1>
+
+        <div class="score">SCORE TÉCNICO: 57/100</div>
+
+        <div class="grid">
+            <div class="card status-danger">
+                <h3>🔴 Bloqueadores Produção</h3>
+                <ul>
+                    <li>Arquitetura Híbrida em `/agents` (Node Workers vs Python Agents).</li>
+                    <li>Nomenclaturas conflitantes (ex: `pos-venda` / `pos_venda`).</li>
+                    <li>Cargos irreais simulados (ex: `analista`, `copywriter`) gerando peso morto.</li>
+                </ul>
+            </div>
+
+            <div class="card status-warning">
+                <h3>🟡 Dívida de Código Core</h3>
+                <ul>
+                    <li>Falta empacotamento E2E Python integrado aos Pipelines de Next.js.</li>
+                    <li>Timers e dependências de sandbox falham com `pytest` / CI longos (15 min).</li>
+                    <li>TranspilePackages e export flags sub-ótimos no workspace.</li>
+                </ul>
+            </div>
+
+            <div class="card status-success">
+                <h3>🟢 Core Sólido (Apps)</h3>
+                <ul>
+                    <li>Apps `web`, `api`, `worker` e `packages/database` maduros.</li>
+                    <li>Pipeline de Github Actions estruturada (Preflights e Lints mapeados).</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 style="margin-top:40px;">Decisão Executiva (Roadmap R0)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ação</th>
+                    <th>Alvo</th>
+                    <th>Motivo Técnico</th>
+                    <th>Status Auditoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>REMOVER</strong></td>
+                    <td>`pos-venda`, `pre_sales`, `pre_vendas`, etc.</td>
+                    <td>Duplicação massiva de escopo, arquivos soltos (lixo de experimentação).</td>
+                    <td style="color:#e74c3c; font-weight:bold;">PENDENTE (P1)</td>
+                </tr>
+                <tr>
+                    <td><strong>CONSOLIDAR</strong></td>
+                    <td>`agents/shared` e runtime Python.</td>
+                    <td>Remover os `.ts` misturados. Unificar tool-chain e `pyproject.toml`.</td>
+                    <td style="color:#f1c40f; font-weight:bold;">PENDENTE (P2)</td>
+                </tr>
+                <tr>
+                    <td><strong>MANTER</strong></td>
+                    <td>`ae`, `ldr`, `sdr`, `marketing`, `pos_venda`, `financeiro`, `juridico`</td>
+                    <td>Possuem estrutura madura (`cadence_engine.py`, `crm_sync.py`, workers, db tests).</td>
+                    <td style="color:#2ecc71; font-weight:bold;">VERIFICADO</td>
+                </tr>
+                <tr>
+                    <td><strong>AJUSTAR</strong></td>
+                    <td>`pnpm-workspace.yaml`, Pipelines CI.</td>
+                    <td>Limpar as chamadas de pacotes removidos para não quebrar a compilação do core.</td>
+                    <td style="color:#f1c40f; font-weight:bold;">PENDENTE (P3)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 30px; text-align: center; color: #7f8c8d; font-size: 0.9em;">
+            Relatório gerado automaticamente — O código-fonte dita a verdade técnica.
+        </div>
+    </div>
+</body>
+</html>

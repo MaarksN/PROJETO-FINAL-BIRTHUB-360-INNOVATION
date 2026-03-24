@@ -1,123 +1,37 @@
-# F4 — REORGANIZACAO ARQUITETURAL E ESTRUTURAL
+# F4 — REORGANIZAÇÃO ESTRUTURAL
 
-## Escopo executado
+## Estrutura Atual
+O monorepo atualmente está mapeado pelo `pnpm-workspace.yaml` cobrindo `apps/*`, `packages/*`, e `agents/*`. A separação lógica falha porque a pasta `packages/` tem subpastas que competem com `agents/` (`packages/agents`, `packages/agents-core`, `packages/agents-registry`), criando confusão sobre onde os agentes residem e como são geridos.
 
-- Fase executada: `F4 — Reorganizacao Arquitetural e Estrutural`
-- Repositorio-alvo: `https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION`
-- Branch canonica: `main`
-- Commit de referencia: `0d21dc8215ef2857eae82ba5d32433ff58cfcdbd`
-- Natureza desta execucao: proposta estrutural documental; nenhuma movimentacao fisica de codigo foi aplicada
-- Situacao do artefato nesta rodada: o arquivo ja existia no `HEAD` canonico e foi revalidado/atualizado contra a baseline desta execucao
-- Fonte de verdade desta fase:
-  - `README.md`
-  - `docs/f10/architecture.md`
-  - `docs/release/2026-03-20-go-live-runbook.md`
-  - `docs/migration/legacy-api-gateway-strangler.md`
-  - `git ls-tree -d --name-only HEAD`
-  - `audit/F1_inventory.md`
-  - `audit/F2_traceability.md`
-  - `audit/F3_cleanup.md`
-- Contexto adicional nao-canonico:
-  - o staged diff atual remove grandes porcoes de `apps/api-gateway`, `apps/agent-orchestrator`, `apps/dashboard` e `packages/db`;
-  - esse estado foi usado apenas como sinal de convergencia e risco operacional, nunca como baseline principal das conclusoes.
+## Proposta de Nova Arquitetura
 
-## Estrutura atual vs ideal
+Para limpar e escalar o projeto, aplicaremos a hierarquia rígida entre componentes:
 
-| Area atual | Problema estrutural | Estrutura recomendada | Impacto esperado |
-| --- | --- | --- | --- |
-| Raiz do monorepo (`.github`, `12 CICLOS`, `agents`, `apps`, `artifacts`, `audit`, `docs`, `google`, `infra`, `logs`, `ops`, `packages`, `scripts`, `tests`) | Produto, operacao, programas internos, evidencias geradas e artefatos de auditoria convivem no mesmo nivel de navegacao | Manter na raiz apenas lanes permanentes de produto/governanca (`apps`, `packages`, `docs`, `infra`, `scripts`, `.github`, `tests`, `audit`) e mover `12 CICLOS` para um eixo documental; externalizar logs e artefatos gerados | Reduz ruido visual, facilita onboarding e separa claramente codigo-fonte de evidencia gerada |
-| `apps/web`, `apps/api`, `apps/worker` convivendo com `apps/dashboard`, `apps/api-gateway` e `apps/agent-orchestrator` no mesmo lane primario | A fronteira entre core canonico e legado fica implicita, embora o `README.md` e `docs/f10/architecture.md` ja publiquem uma taxonomia clara | Preservar `apps/web`, `apps/api` e `apps/worker` como lane primaria e mover superficies legadas para um eixo explicito de quarentena (`apps/legacy/*`) ou trilha equivalente | Diminui erro de onboarding, reduz extensao acidental do legado e deixa o caminho critico do produto evidente |
-| `apps/api` e `apps/api-gateway` | A API oficial e a camada de compatibilidade ainda compartilham o mesmo plano de navegacao, apesar de `docs/migration/legacy-api-gateway-strangler.md` declarar o gateway como `frozen` e `proxy mode` | `apps/api` como edge oficial; `apps/api-gateway` realocado para `apps/legacy/api-gateway` ate o sunset completo | Reduz divergencia de auth, tenant policy, webhooks e publicacao de endpoints |
-| `apps/worker` e `apps/agent-orchestrator` | Execucao assincrona e fluxos de negocio continuam fragmentados entre worker canonico e orquestrador legado | `apps/worker` mantido como lane canonica unica de jobs, filas e execucao; `apps/agent-orchestrator` movido para `apps/legacy/agent-orchestrator` ate retirada | Melhora previsibilidade operacional e reduz duplicidade de ownership para automacao |
-| `packages/database` e `packages/db` | Existem duas superficies de banco de dados publicadas ao mesmo tempo, apesar de o canon apontar apenas `packages/database` | Consolidar toda a governanca, schema e cliente em `packages/database`; tratar `packages/db` como legado isolado para migracao final e retirada | Elimina drift de schema/import e clarifica a fonte de verdade de dados |
-| `apps/voice-engine`, `apps/webhook-receiver` e `google/genai` fora da taxonomia principal publicada | Servicos satelite e namespaces auxiliares existem, mas nao aparecem com a mesma clareza de classificacao do core e do legado de transicao | Criar uma classificacao documental explicita para satelites/experimentais (`apps/satellites/*` ou equivalente) e enquadrar `google/genai` por ownership/papel tecnico | Reduz risco de orfandade, ownership difuso e deploy acidental sem governanca |
-| `docs/`, `ops/` e `12 CICLOS/` | O source of truth documental existe, mas artefatos operacionais e programaticos ainda estao espalhados fora de um indice unico | Centralizar documentacao viva em `docs/`, manter `ops/` para ativos operacionais e mover programas/ciclos para uma subarvore documental indexada | Diminui ambiguidade entre norma, runbook, historico e programa interno |
-| `artifacts/`, `logs/`, `.coverage`, `.lint_output.txt` e bundles gerados versionados | Evidencia transitoria compete com codigo-fonte e aumenta peso estrutural do repositorio | Externalizar artefatos regeneraveis para storage de CI/auditoria e manter no Git apenas o que for fonte de verdade permanente | Reduz peso morto, ruido de diff e custo de manutencao do repositorio |
+### CORE (Sobrevivência Máxima - Blocking Go-Live)
+Os elementos cruciais para o ecossistema e que bloqueiam a produção:
+- `apps/web`: O frontend principal da plataforma
+- `apps/api`: O backend primário
+- `apps/worker`: Orquestrador de jobs/background e core Node
+- `packages/database`: Prisma ORM, migrations, seeders, conexões DB
+- `packages/auth`, `packages/security`, `packages/workflows-core`, `packages/queue` e pacotes core como `config`, `logger`, `testing`.
+- `agents/shared`: Core Python que suporta todos os agentes.
+- Agentes vitais (a decidir, ver Fase 3: `ae`, `ldr`, `sdr`, `pos_venda`, etc).
 
-## Estrutura-alvo documental proposta
+### SATELLITES (Não Bloqueiam Go-Live)
+Pacotes secundários ou específicos que orbitam o core mas não determinam falha primária da plataforma:
+- `apps/dashboard`: Legado / Proxy Frontend.
+- `apps/webhook-receiver`: Integrador externo (Python).
+- `apps/voice-engine`: Serviço isolado experimental.
+- `packages/agent-packs`: Módulos ou pacotes de config de agentes opcionais.
 
-`apps/worker` foi preservado no singular, em linha com o canon ja publicado. A proposta abaixo adapta a estrutura-alvo ao repositorio real, sem copiar a arvore generica do template externo:
+### LEGACY (Candidatos à Remoção Imediata ou Isolamento)
+Componentes legados e duplicações estruturais:
+- Pacotes genéricos ou diretórios em `agents/` como `analista`, `copywriter`, `coordenador_comercial`, etc (Conforme fase F3).
+- Diretórios que misturam linguagens de forma bizarra (e.g. `pre_sales`, `pos-venda` - quebrar a barreira de naming convencionada `snake_case` e idioma padrão).
 
-```text
-/
-|-- apps/
-|   |-- api/
-|   |-- web/
-|   |-- worker/
-|   |-- legacy/
-|   |   |-- api-gateway/
-|   |   |-- agent-orchestrator/
-|   |   `-- dashboard/
-|   `-- satellites/
-|       |-- voice-engine/
-|       `-- webhook-receiver/
-|-- packages/
-|   |-- database/
-|   `-- ...shared packages
-|-- agents/
-|-- docs/
-|   |-- architecture/
-|   |-- migration/
-|   |-- operations/
-|   |-- release/
-|   |-- standards/
-|   |-- adrs/
-|   |-- archive/
-|   `-- programs/12-ciclos/
-|-- infra/
-|-- ops/
-|-- scripts/
-|-- tests/
-|-- audit/
-`-- generated-outside-git/
-    |-- artifacts/
-    `-- logs/
-```
+## Benefícios da Reorganização (Atual vs Ideal)
 
-## Movimentacoes recomendadas
+- **Atual:** Confusão de responsabilidades, pacotes de infra e pacotes de domínio misturados, scripts rodando agentes de caminhos incorretos ou em Python/TypeScript com a mesma pasta.
+- **Ideal:** Delimitação nítida e expurgo da duplicidade. O `apps/worker` absorve o runtime de Node de agentes (se aplicável) e as rotinas Python dos agentes operam através do `agents/shared` via gRPC/REST (ou outro protocolo). `packages/` volta a ser uma pasta apenas de utilitários e bibliotecas agnósticas a produto.
 
-| Categoria | Item atual | Novo local sugerido | Motivo | Risco |
-| --- | --- | --- | --- | --- |
-| Consolidacao do core canonico | `apps/api-gateway` | `apps/legacy/api-gateway/` durante o sunset; remocao ao final do strangler | Deixar explicito que o gateway nao e mais edge primario e limitar sua expansao a compatibilidade controlada | Medio: consumidores remanescentes ainda podem existir e precisam de plano de corte |
-| Consolidacao do core canonico | `apps/agent-orchestrator` | `apps/legacy/agent-orchestrator/` durante o sunset; remocao apos cutover de fluxos | Separar runtime legado do worker canonico e evitar falsa equivalencia entre lanes | Medio-Alto: fluxos residuais podem depender da superficie Python |
-| Consolidacao do core canonico | `apps/dashboard` | `apps/legacy/dashboard/` ate paridade final em `apps/web` ou retirada | Tornar a UX oficial inequivoca e evitar dupla referencia de frontend interno | Medio: operadores remanescentes podem ainda usar a superficie antiga |
-| Sunset/retirada de legados | `packages/db` | `packages/legacy/db/` enquanto houver migracao; depois remocao fisica | Encerrar a duplicidade de schema/cliente e reforcar `packages/database` como unica fonte de verdade | Alto: qualquer consumidor nao migrado quebra se a retirada for prematura |
-| Classificacao de satelites | `apps/voice-engine` | `apps/satellites/voice-engine/` ou marcacao documental equivalente | O servico existe, mas esta fora da taxonomia canonica/legada principal; precisa de enquadramento claro | Medio: classificacao incorreta pode afetar ownership e pipeline |
-| Classificacao de satelites | `apps/webhook-receiver` | `apps/satellites/webhook-receiver/` ou promocao explicita ao core se entrar no caminho critico | O runbook o coloca fora do criterio de pronto; a estrutura deve refletir isso | Medio: promover ou isolar o servico exige decisao de produto/operacao |
-| Externalizacao de artefatos gerados | `artifacts/quality/jscpd/html/`, `logs/ci-runs/*.zip`, `.coverage`, `.lint_output.txt` | Storage de CI/auditoria e geracao sob demanda | Sao evidencias regeneraveis e nao deveriam competir com codigo-fonte | Baixo-Medio: parte das trilhas de auditoria precisa de novo destino oficial |
-| Reorganizacao documental | `12 CICLOS/` | `docs/programs/12-ciclos/` | O conteudo e relevante, mas hoje fica fora do indice documental canonico | Baixo: exige ajuste de links e indices |
-| Reorganizacao documental | Documentos superseded e aliases como `docs/F0/*`, pares de onboarding e ADRs duplicados | `docs/archive/` com redirecionamento explicito para o canonico | Reduz ambiguidade de navegacao e reforca source of truth | Baixo: links internos antigos precisam continuar resolvendo corretamente |
-| Reorganizacao documental/tecnica | `google/genai/` | `packages/integrations/google-genai/` ou documentacao explicita de papel/ownership | Namespace isolado sem enquadramento claro dificulta manutencao e rastreabilidade | Medio: mover o namespace exige validar imports e consumers |
-
-## Limitacoes e riscos da reestruturacao
-
-- O worktree local continua divergente e ja contem um cutover staged grande fora desta fase; por isso a F4 foi executada apenas como desenho estrutural.
-- As movimentacoes recomendadas acima nao devem ser aplicadas mecanicamente sem reconciliar consumidores remanescentes, pipelines e ownership.
-- O staged diff atual aponta para a mesma direcao desta proposta, mas ainda nao pode ser tomado como estado oficial do repositorio.
-- A classificacao final de `apps/voice-engine`, `apps/webhook-receiver` e `google/genai` depende de decisao explicita de ownership/governanca, nao apenas de rearranjo fisico.
-
-## Sintese da fase
-
-- A estrutura canonica ja foi publicada, mas ainda nao esta refletida de forma suficientemente explicita na topologia do repositorio.
-- O principal ganho estrutural esperado e tornar visivel a separacao entre core canonico, legado em sunset, satelites fora de escopo e artefatos gerados.
-- A proposta mais importante desta fase nao e mover pastas imediatamente, e sim fixar uma taxonomia operacional coerente com `README.md`, `docs/f10/architecture.md` e `docs/release/2026-03-20-go-live-runbook.md`.
-
-## RELATORIO F4 — MODIFICACOES REAIS
-
-- Arquivos criados:
-  - nenhum nesta rodada; o artefato da fase ja existia no `HEAD` e foi revalidado/atualizado
-- Arquivos alterados:
-  - `/audit/F4_restructure.md`
-  - `/audit/master_checklist.md`
-- Arquivos removidos:
-  - nenhum
-- Decisoes estruturais tomadas:
-  - o core canonico deve permanecer explicitamente centrado em `apps/web`, `apps/api`, `apps/worker` e `packages/database`
-  - o legado deve sair do lane primario de navegacao e permanecer em quarentena estrutural/documental ate o sunset
-  - artefatos gerados e logs devem sair do fluxo de codigo-fonte sempre que houver storage alternativo
-- Riscos remanescentes:
-  - worktree local divergente impede movimentacao fisica segura nesta rodada
-  - consumidores residuais do legado ainda precisam de reconciliacao antes de qualquer move/delete definitivo
-  - satelites e namespaces auxiliares ainda exigem classificacao formal de ownership
-- Observacao obrigatoria:
-  - `Nenhum arquivo funcional do produto foi modificado nesta fase; apenas artefatos de auditoria foram produzidos.`
+**Ações Principais:** Mover agentes satélites e obsoletos para o lixo e focar os pacotes essenciais dentro da esteira CI (via `scripts/ci/run-pnpm.mjs task core`).
