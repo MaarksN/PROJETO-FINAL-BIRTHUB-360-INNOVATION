@@ -2,21 +2,26 @@
 
 Repositório canônico da plataforma SaaS BirthHub 360.
 
-## Stack canônica suportada
+## Índice operacional único
 
-- **Frontend oficial:** `apps/web`
-- **API oficial:** `apps/api`
-- **Worker oficial:** `apps/worker`
-- **Banco canônico:** `packages/database`
+### Core canônico (default)
+- `apps/web`
+- `apps/api`
+- `apps/worker`
+- `packages/database`
 
-## Superfícies legadas em quarentena
-
+### Legacy / quarentena (não-default)
 - `apps/dashboard`
 - `apps/api-gateway`
 - `apps/agent-orchestrator`
 - `packages/db`
 
-## Setup rápido
+### Satélites (apoio)
+- `packages/agent-packs`
+- `apps/webhook-receiver`
+- `apps/voice-engine`
+
+## Setup rápido (core)
 
 ```bash
 pnpm install
@@ -24,6 +29,8 @@ pnpm db:generate
 pnpm monorepo:doctor
 pnpm dev
 ```
+
+> Use o setup acima para o core canônico. Superfícies em legacy/quarentena não devem ser usadas como fluxo padrão de desenvolvimento.
 
 ## Governança e higiene
 
@@ -38,6 +45,9 @@ pnpm monorepo:doctor
 
 ## Documentação principal
 
+- [Service catalog](docs/service-catalog.md)
+- [Service criticality](docs/service-criticality.md)
+- [Observability alerts](docs/observability-alerts.md)
 - [Contribution guide](CONTRIBUTING.md)
 - [Documentation index](docs/README.md)
 - [F0 ownership matrix](docs/operations/f0-ownership-matrix.md)

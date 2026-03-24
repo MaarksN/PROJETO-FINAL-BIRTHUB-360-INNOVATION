@@ -1,35 +1,25 @@
 # Catálogo de Serviços e Repositórios (Taxonomia Canônica)
 
-> Legenda de status: 🟢 **ativo em produção** · 🟡 **satélite/apoio** · 🔴 **legado/sunset ou órfão**
+> Legenda de status: 🟢 **core canônico (P0)** · 🟡 **satélite operacional** · 🔴 **legacy/quarentena**
 
-## Core canônico (P0)
+## Índice único de fronteiras operacionais
 
-| Status | Superfície | Tipo | Dono sugerido | Evidência de runtime | Observação |
+| Camada | Superfície | Tipo | Estado operacional | Dono sugerido | Evidência de runtime |
 |---|---|---|---|---|---|
-| 🟢 | `apps/api` | API | Platform/API | `apps/api/src/server.ts` | API principal em execução com bootstrap de observabilidade e Sentry. |
-| 🟢 | `apps/web` | Front-end | Product Frontend | `apps/web/package.json` | Aplicação Next.js principal (`dev`, `build`, `start`). |
-| 🟢 | `apps/worker` | Worker | Platform/Automation | `apps/worker/src/index.ts` | Worker principal com healthcheck, jobs e shutdown controlado. |
-| 🟢 | `packages/database` | Data layer | Platform/Data | `packages/database/package.json` | Pacote oficial de persistência Prisma/migrações (`@birthub/database`). |
-| 🟢 | `packages/agent-packs` | Catálogo de agentes | AI Platform | `apps/api/src/modules/marketplace/marketplace-service.ts`, `apps/worker/src/agents/runtime.shared.ts` | Único diretório carregado em runtime para catálogo de agentes. |
+| Core | `apps/web` | Front-end | 🟢 Default para experiência do produto | Product Frontend | `apps/web/package.json` |
+| Core | `apps/api` | API | 🟢 Default para tráfego de negócio | Platform/API | `apps/api/src/server.ts` |
+| Core | `apps/worker` | Worker | 🟢 Default para filas e processamento assíncrono | Platform/Automation | `apps/worker/src/index.ts` |
+| Core | `packages/database` | Data layer | 🟢 Default para schema, client Prisma e migrações | Platform/Data | `packages/database/package.json` |
+| Legacy/Quarentena | `apps/dashboard` | Front-end legado | 🔴 Fora de P0 e sem papel de rota principal | Product Frontend | Diretório legado mantido para compatibilidade interna |
+| Legacy/Quarentena | `apps/api-gateway` | API legado | 🔴 Não presente no `HEAD` atual | Platform/API | Sem evidência de runtime atual |
+| Legacy/Quarentena | `apps/agent-orchestrator` | Worker legado | 🔴 Não presente no `HEAD` atual | Platform/Automation | Sem evidência de runtime atual |
+| Legacy/Quarentena | `packages/db` | Data package legado | 🔴 Não presente no `HEAD` atual | Platform/Data | Substituído por `packages/database` |
+| Satélite | `packages/agent-packs` | Catálogo de agentes | 🟡 Dependência de domínio, não infraestrutura core | AI Platform | `apps/api/src/modules/marketplace/marketplace-service.ts`; `apps/worker/src/agents/runtime.shared.ts` |
+| Satélite | `apps/webhook-receiver` | Ingestão de eventos | 🟡 Borda de integração | Platform/Integrations | Serviço dedicado de entrada externa |
+| Satélite | `apps/voice-engine` | Serviço de voz | 🟡 Capacidade adicional | Platform/Automation | Serviço fora do núcleo transacional |
 
-## Legado em sunset (não-P0)
+## Diretriz canônica
 
-| Status | Superfície | Tipo | Situação atual | Observação |
-|---|---|---|---|---|
-| 🔴 | `apps/api-gateway` | API legado | Não presente no diretório `apps/` no HEAD atual | Removido/descontinuado; não tratar como ativo. |
-| 🔴 | `apps/agent-orchestrator` | Worker legado | Não presente no diretório `apps/` no HEAD atual | Removido/descontinuado; não tratar como ativo. |
-| 🔴 | `apps/dashboard` | Front-end legado | Presente no monorepo, fora do core canônico | Mantido como legado/suporte; não classificar como P0. |
-| 🔴 | `packages/db` | Data package legado | Não presente no diretório `packages/` no HEAD atual | Substituído por `packages/database`. |
-
-## Satélites (apoio)
-
-| Status | Superfície | Tipo | Situação atual | Observação |
-|---|---|---|---|---|
-| 🟡 | `apps/voice-engine` | Serviço satélite | Presente em `apps/` | Fora do core canônico; impacto indireto no negócio. |
-| 🟡 | `apps/webhook-receiver` | Ingestão satélite | Presente em `apps/` | Mantido como borda de integração, fora do núcleo P0. |
-
-## Órfãos
-
-| Status | Superfície | Tipo | Situação atual | Observação |
-|---|---|---|---|---|
-| 🔴 | `google/genai/__init__.py` | Código órfão | Arquivo Python isolado no repo | Sem evidência de integração no runtime canônico atual. |
+1. **Core canônico oficial:** `apps/web`, `apps/api`, `apps/worker`, `packages/database`.
+2. **Legacy/quarentena:** não define roadmap principal, não recebe classificação P0 e não deve aparecer como default em onboarding, runbook ou operação.
+3. **Satélites:** continuam suportados, mas com SLO/alerta e governança proporcionais ao impacto indireto no fluxo principal.

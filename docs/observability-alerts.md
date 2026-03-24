@@ -1,54 +1,64 @@
-# Alertas Mínimos de Observabilidade
+# Alertas Mínimos de Observabilidade (Foco no Core Canônico)
 
-O BirthHub 360 deve garantir alta disponibilidade de seus Agentes de Negócios B2B e da Interface de Dashboard. Para isto, configuramos limites baseados em SLI (Service Level Indicators) nos provedores de nuvem para disparar alertas automáticos no canal do Slack ou PagerDuty para acionamento de On-Call. O ruído deve ser minimizado, alertando a equipe primariamente com base no impacto ao usuário final ou violação do nosso SLA/SLO.
+A operação deve priorizar detecção e resposta para o **core canônico**: `apps/web`, `apps/api`, `apps/worker` e `packages/database`. Alertas de satélite devem ser configurados sem competir com a resposta de incidentes P0 do core.
 
-## Regras e Níveis de Alerta
+## Escopo e severidade
 
-Cada alerta deve ser emitido com gravidade (Severity) mapeada para a politica oficial de severidade `P0`, `P1`, `P2` ou `P3`, conforme `docs/operations/f0-sla-severity-policy.md` e `infra/monitoring/alert.rules.yml`.
+- **P0**: risco imediato ao fluxo principal do core.
+- **P1**: degradação relevante sem interrupção total do core.
+- **P2**: impacto moderado em satélites.
+- **P3**: legado/quarentena, sem rota principal de produção.
 
-### 1. API Gateway / Frontend
+Referências de política: `docs/operations/f0-sla-severity-policy.md` e `infra/monitoring/alert.rules.yml`.
 
-**Erro Rate 5xx (HTTP)**
+## 1) `apps/api` (core)
 
-- **Threshold**: `> 1%` dos requests totais retornando HTTP 500-599 em uma janela de 5 minutos.
-- **Action**: Alert `P0`. Significa falha sistêmica, queda do Gateway, ou falha massiva no banco de dados base.
+**Erro HTTP 5xx**
+- **Threshold**: `> 1%` das requisições em 5 min.
+- **Ação**: `P0`.
 
-**High Latency (P95 Latency HTTP)**
+**Latência P95**
+- **Threshold**: P95 `> 800ms` por 10 min.
+- **Ação**: `P1`.
 
-- **Threshold**: P95 do tempo de resposta `> 800ms` nos últimos 10 minutos (ignorando Webhooks pesados já delegados).
-- **Action**: Alert `P1`. Pode ser indicativo de um pico anômalo de uso, query pesada ou degradação temporária dos provedores de nuvem. Requer investigação para evitar timeout.
+## 2) `apps/web` (core)
 
-### 2. Agentes de IA e Orchestrator (LangGraph / Python)
+**Falha de disponibilidade do front-end**
+- **Threshold**: disponibilidade sintética `< 99.5%` em janela de 5 min.
+- **Ação**: `P0`.
 
-**Taxa de Sucesso dos Handoffs (Workflows)**
+**Erro de carregamento crítico**
+- **Threshold**: aumento sustentado de erro JS crítico (`window.onerror`/chunk load) `> 2%` por 10 min.
+- **Ação**: `P1`.
 
-- **Threshold**: `> 5%` das instâncias do LangGraph falhando com erro fatal (Fatal Exceptions) nos últimos 15 minutos.
-- **Action**: Alert `P0`. O orquestrador não está conseguindo enviar as tarefas para os agentes filhos, ou os agentes retornaram erros estruturados (schema não validado pelo Pydantic repetidas vezes).
+## 3) `apps/worker` (core)
 
-**Degradação Externa (Latência LLM/Integrações)**
+**Backlog de fila**
+- **Threshold**: `> 500` jobs pendentes por mais de 5 min sem tendência de queda.
+- **Ação**: `P1`.
 
-- **Threshold**: Latência média de chamadas LLM (`OpenAI`, `Gemini`) ou integrações (`Stripe`, `Pipedrive`) ultrapassa o dobro do histórico baseline (`> 30s` em chamadas síncronas LLM) durante 15 minutos contínuos.
-- **Action**: Alert `P1`. O sistema pode estar sendo impactado por um incidente "outage" no fornecedor (ex: OpenAI fora do ar). Ativar os fallbacks disponíveis.
+**DLQ / Falha de job**
+- **Threshold**: `> 10%` de jobs em DLQ em 15 min.
+- **Ação**: `P0`.
 
-### 3. Fila (Queue / Worker BullMQ)
+## 4) `packages/database` (core)
 
-**Build-Up (Fila Enchendo)**
+**Saturação de conexões/CPU**
+- **Threshold**: pool esgotado ou CPU `> 85%` por 10 min.
+- **Ação**: `P0`.
 
-- **Threshold**: `> 500` jobs acumulados na fila principal aguardando processamento por mais de 5 minutos sem diminuição (Rate de consume menor que rate de envio).
-- **Action**: Alert `P1`. Escalabilidade necessária nos workers. Os containers não estão dando conta da demanda (Ex: disparo massivo de cadências de prospecção do LDR).
+**Erro de consulta/transação**
+- **Threshold**: taxa de erro de query acima de baseline por 10 min.
+- **Ação**: `P0` se indisponibilizar fluxo principal; `P1` caso degradado.
 
-**Dead Letter Queue (DLQ Rate)**
+## Satélites e legado
 
-- **Threshold**: `> 10%` dos jobs enviados vão para a DLQ no período de 15 minutos (ou falhas fixas após todas as retentativas esgotadas do BullMQ).
-- **Action**: Alert `P0`. Há uma falha lógica de código num Worker (Ex: Payload inesperado gerando crash em lote).
+- **Satélites** (`packages/agent-packs`, `apps/webhook-receiver`, `apps/voice-engine`): alertar no máximo em `P1/P2`, com roteamento que não interrompa triagem do core.
+- **Legacy/quarentena** (`apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`, `packages/db`): sem política de alerta P0; tratar como `P3` e janela de manutenção.
 
-### 4. Infraestrutura (Nodes / BD)
+## Pós-alerta
 
-**Saturação de Banco de Dados**
-
-- **Threshold**: Conexões simultâneas esgotando (Pooling Maxed Out) ou uso de CPU de banco de dados `> 85%` por mais de 10 minutos contínuos.
-- **Action**: Alert `P0`. Possibilidade de outage ou queries descontroladas N+1 via Prisma (necessita analise imediata e possivel upgrade emergencial do banco).
-
-### Ações Pós-Alerta
-
-A emissão do alerta inicia o **Runbook de Investigação de Incidente** (`docs/runbooks/incident-investigation.md`). Alertas P1 exigem notificação da equipe durante horário comercial; alertas P0 enviam acionamento via "Pagging" (PagerDuty) independentemente da hora.
+A emissão de alerta inicia o runbook de investigação (`docs/runbooks/incident-investigation.md`).
+- `P0`: acionamento imediato de on-call.
+- `P1`: triagem em até 15 min.
+- `P2/P3`: fila operacional e correção programada.
