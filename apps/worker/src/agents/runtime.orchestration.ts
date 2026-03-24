@@ -15,9 +15,16 @@ import type {
   RuntimeExecutionResult
 } from "./runtime.types.js";
 import {
+<<<<<<< HEAD
   readSessionId,
   roundCurrency
 } from "./runtime.shared.js";
+=======
+  type RuntimeExecutionInput,
+  type RuntimeExecutionResult
+} from "./runtime.types.js";
+import { readSessionId, roundCurrency } from "./runtime.shared.js";
+>>>>>>> origin/audit-forense-marco-zero-12009194758414298733
 import { resolveRuntimeAgent, resolveManagedPolicies } from "./runtime.catalog.js";
 import { querySharedLearning, appendConversationMessage, buildLearningRecord, createOutputArtifact } from "./runtime.telemetry.js";
 import { createRuntimeTools } from "./runtime.tools.js";
