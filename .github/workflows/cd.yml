@@ -17,6 +17,10 @@ on:
         type: choice
         options:
           - production
+      rollback_evidence_ref:
+        description: URL/ticket/artefato do rollback rehearsal aprovado
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -148,6 +152,132 @@ jobs:
       - name: Run staging preflight
         run: pnpm release:preflight:staging
 
+
+  production-preflight:
+    name: production-preflight
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: cd-production-preflight
+      cancel-in-progress: false
+    environment: production
+    env:
+      API_CORS_ORIGINS: ${{ vars.API_CORS_ORIGINS }}
+      AUTH_MFA_ENCRYPTION_KEY: ${{ secrets.AUTH_MFA_ENCRYPTION_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      JOB_HMAC_GLOBAL_SECRET: ${{ secrets.JOB_HMAC_GLOBAL_SECRET }}
+      NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+      NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
+      NEXT_PUBLIC_CSP_REPORT_ONLY: ${{ vars.NEXT_PUBLIC_CSP_REPORT_ONLY }}
+      NEXT_PUBLIC_SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
+      REDIS_URL: ${{ secrets.REDIS_URL }}
+      REQUIRE_SECURE_COOKIES: ${{ vars.REQUIRE_SECURE_COOKIES }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+      STRIPE_CANCEL_URL: ${{ vars.STRIPE_CANCEL_URL }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      STRIPE_SUCCESS_URL: ${{ vars.STRIPE_SUCCESS_URL }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      WEB_BASE_URL: ${{ vars.WEB_BASE_URL }}
+    steps:
+      - name: Checkout release source from manual dispatch
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Mask configured secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for key in AUTH_MFA_ENCRYPTION_KEY DATABASE_URL JOB_HMAC_GLOBAL_SECRET REDIS_URL SENTRY_DSN SESSION_SECRET STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET; do
+            value="${!key:-}"
+            if [[ -n "${value}" ]]; then
+              echo "::add-mask::${value}"
+            fi
+          done
+
+      - name: Validate required production configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_secrets=(
+            DATABASE_URL
+            REDIS_URL
+            SESSION_SECRET
+            JOB_HMAC_GLOBAL_SECRET
+            AUTH_MFA_ENCRYPTION_KEY
+            STRIPE_SECRET_KEY
+            STRIPE_WEBHOOK_SECRET
+            SENTRY_DSN
+          )
+
+          required_vars=(
+            API_CORS_ORIGINS
+            WEB_BASE_URL
+            NEXT_PUBLIC_API_URL
+            NEXT_PUBLIC_APP_URL
+            NEXT_PUBLIC_SENTRY_DSN
+            NEXT_PUBLIC_CSP_REPORT_ONLY
+            REQUIRE_SECURE_COOKIES
+            STRIPE_SUCCESS_URL
+            STRIPE_CANCEL_URL
+          )
+
+          missing=()
+
+          for key in "${required_secrets[@]}"; do
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("${key} (secret)")
+            fi
+          done
+
+          for key in "${required_vars[@]}"; do
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("${key} (variable)")
+            fi
+          done
+
+          if (( ${#missing[@]} > 0 )); then
+            printf 'Missing required production configuration:\n' >&2
+            printf ' - %s\n' "${missing[@]}" >&2
+            echo "::error title=Missing production configuration::Configure missing keys in Environment production (Secrets/Variables)." >&2
+            exit 1
+          fi
+
+          if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" ]]; then
+            echo "::error title=Invalid production variable::NEXT_PUBLIC_CSP_REPORT_ONLY must be set to false in Environment production variables." >&2
+            exit 1
+          fi
+
+          if [[ "${REQUIRE_SECURE_COOKIES}" != "true" ]]; then
+            echo "::error title=Invalid production variable::REQUIRE_SECURE_COOKIES must be set to true in Environment production variables." >&2
+            exit 1
+          fi
+
+      - name: Run production preflight
+        run: pnpm release:preflight:production
+
+      - name: Upload production preflight artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-preflight
+          path: artifacts/release/production-preflight-summary.*
+
   release-sbom:
     name: release-sbom
     if: >
@@ -241,13 +371,118 @@ jobs:
 
           curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_STAGING_DEPLOY_HOOK_URL}"
 
+
+  production-release-smoke:
+    name: production-release-smoke
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    needs:
+      - production-preflight
+      - release-sbom
+    steps:
+      - name: Checkout release source from manual dispatch
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run release smoke gate
+        run: pnpm release:smoke
+
+      - name: Upload release smoke artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-release-smoke
+          path: artifacts/release/smoke-summary.*
+
+  production-release-e2e:
+    name: production-release-e2e
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs:
+      - production-release-smoke
+    steps:
+      - name: Checkout release source from manual dispatch
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run release E2E gate
+        run: pnpm test:e2e:release
+
+  production-rollback-evidence:
+    name: production-rollback-evidence
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      - production-release-e2e
+    steps:
+      - name: Checkout release source from manual dispatch
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate rollback rehearsal evidence
+        run: pnpm release:rollback:evidence -- --target=production --evidence="${{ github.event.inputs.rollback_evidence_ref }}"
+
+      - name: Upload rollback evidence artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-rollback-evidence
+          path: artifacts/release/production-rollback-evidence.*
+
   deploy-production:
     name: deploy-production
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs:
-      - release-sbom
+      - production-preflight
+      - production-release-smoke
+      - production-release-e2e
+      - production-rollback-evidence
     concurrency:
       group: cd-production
       cancel-in-progress: false
