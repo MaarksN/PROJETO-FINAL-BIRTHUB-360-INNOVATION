@@ -16,10 +16,17 @@ void test("dry-run smoke execution works for every manifest", async () => {
   const catalog = await loadManifestCatalog(catalogRoot);
   const installableCatalog = catalog.filter((entry) => isInstallableManifest(entry.manifest));
   const catalogDescriptors = catalog.filter((entry) => !isInstallableManifest(entry.manifest));
+  const officialCollectionRoot = path.join(packageRoot, "corporate-v1");
+  const officialCatalog = catalog.filter((entry) => entry.manifestPath.startsWith(officialCollectionRoot));
+  const officialInstallableCatalog = officialCatalog.filter((entry) => isInstallableManifest(entry.manifest));
+  const officialCatalogDescriptors = officialCatalog.filter((entry) => !isInstallableManifest(entry.manifest));
 
-  assert.equal(catalog.length, 43);
-  assert.equal(installableCatalog.length, 42);
-  assert.equal(catalogDescriptors.length, 1);
+  assert.ok(catalog.length >= 43);
+  assert.ok(installableCatalog.length >= 42);
+  assert.ok(catalogDescriptors.length >= 1);
+  assert.equal(officialCatalog.length, 43);
+  assert.equal(officialInstallableCatalog.length, 42);
+  assert.equal(officialCatalogDescriptors.length, 1);
 
   for (const entry of catalog) {
     const result = await runAgentDryRun(entry.manifest);

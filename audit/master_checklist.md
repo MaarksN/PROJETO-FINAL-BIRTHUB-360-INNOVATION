@@ -1,8 +1,8 @@
 # MASTER CHECKLIST — AUDITORIA BIRTHUB 360 INNOVATION
 
 ## STATUS GLOBAL
-Progresso Geral: 33%
-Última atualização: 2026-03-24 00:24 America/Sao_Paulo
+Progresso Geral: 58%
+Última atualização: 2026-03-24 01:10 America/Sao_Paulo
 Repositório-alvo: https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION
 Commit baseline canônico: `0d21dc8215ef2857eae82ba5d32433ff58cfcdbd`
 
@@ -31,17 +31,17 @@ Arquivo da fase: `/audit/F3_cleanup.md`
 Relatório final da fase: obrigatório
 
 ### F4 — Reorganização Arquitetural e Estrutural
-Status: ⬜ Não iniciado
+Status: 🟢 Concluído
 Arquivo da fase: `/audit/F4_restructure.md`
 Relatório final da fase: obrigatório
 
 ### F5 — Dívida Técnica Profunda
-Status: ⬜ Não iniciado
+Status: 🟢 Concluído
 Arquivo da fase: `/audit/F5_tech_debt.md`
 Relatório final da fase: obrigatório
 
 ### F6 — Gaps de Produção Real
-Status: ⬜ Não iniciado
+Status: 🟢 Concluído
 Arquivo da fase: `/audit/F6_production_gaps.md`
 Relatório final da fase: obrigatório
 
@@ -164,6 +164,42 @@ Use este padrão ao concluir cada fase:
   - candidatos óbvios a remoção/externalização somam `7.837.239` bytes, incluindo arquivos temporários, binários utilitários, bundle HTML gerado e freeze de métricas;
   - itens consolidáveis mapeados para superfícies canônicas vs legadas, nomenclaturas duplicadas em `agents/` e documentos canônicos vs superseded.
 - Link interno para o relatório da fase: `/audit/F3_cleanup.md`
+
+### F4 — Reorganização Arquitetural e Estrutural
+- Data/hora de início: 2026-03-24 01:06 America/Sao_Paulo
+- Transição inicial registrada: `⬜ Não iniciado -> 🟡 Em andamento`
+- Data/hora de conclusão: 2026-03-24 01:08 America/Sao_Paulo
+- Transição final registrada: `🟡 Em andamento -> 🟢 Concluído`
+- Progresso Geral: 42%
+- Resumo da fase:
+  - proposta estrutural documental consolidada a partir do `README`, da arquitetura F10, do runbook de go-live e dos achados de F1-F3;
+  - estrutura-alvo adaptada ao repositório real, preservando `apps/worker` no singular e separando explicitamente core canônico, legado em sunset, satélites e artefatos gerados;
+  - staged cutover atual tratado apenas como contexto de convergência/risco, sem substituir o `HEAD` canônico como baseline.
+- Link interno para o relatório da fase: `/audit/F4_restructure.md`
+
+### F5 — Dívida Técnica Profunda
+- Data/hora de início: 2026-03-24 01:08 America/Sao_Paulo
+- Transição inicial registrada: `⬜ Não iniciado -> 🟡 Em andamento`
+- Data/hora de conclusão: 2026-03-24 01:09 America/Sao_Paulo
+- Transição final registrada: `🟡 Em andamento -> 🟢 Concluído`
+- Progresso Geral: 50%
+- Resumo da fase:
+  - scan obrigatório consolidado em `10` itens de dívida técnica rastreáveis (`TD-001` a `TD-010`), com evidência, severidade, score e ação corretiva;
+  - riscos mais críticos concentram-se em divergência entre canon e governança legada, observabilidade ainda apontada ao legado e pipeline de produção menos rigoroso que o runbook oficial;
+  - categoria `Performance` foi coberta, mas sem evidência suficiente nesta amostra para virar item autônomo de dívida.
+- Link interno para o relatório da fase: `/audit/F5_tech_debt.md`
+
+### F6 — Gaps de Produção Real
+- Data/hora de início: 2026-03-24 01:09 America/Sao_Paulo
+- Transição inicial registrada: `⬜ Não iniciado -> 🟡 Em andamento`
+- Data/hora de conclusão: 2026-03-24 01:10 America/Sao_Paulo
+- Transição final registrada: `🟡 Em andamento -> 🟢 Concluído`
+- Progresso Geral: 58%
+- Resumo da fase:
+  - análise focada exclusivamente no core canônico (`apps/web`, `apps/api`, `apps/worker`, `packages/database`) e nos gates reais de go-live;
+  - bloqueadores objetivos ficaram concentrados em rehearsal final de preflight e na ausência de gates automáticos de preflight/smoke/E2E/rollback no lane de produção;
+  - legados foram mantidos como contexto e risco documental, sem promoção automática a bloqueador sem evidência de dependência crítica do core.
+- Link interno para o relatório da fase: `/audit/F6_production_gaps.md`
 
 ---
 

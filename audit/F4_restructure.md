@@ -7,6 +7,7 @@
 - Branch canonica: `main`
 - Commit de referencia: `0d21dc8215ef2857eae82ba5d32433ff58cfcdbd`
 - Natureza desta execucao: proposta estrutural documental; nenhuma movimentacao fisica de codigo foi aplicada
+- Situacao do artefato nesta rodada: o arquivo ja existia no `HEAD` canonico e foi revalidado/atualizado contra a baseline desta execucao
 - Fonte de verdade desta fase:
   - `README.md`
   - `docs/f10/architecture.md`
@@ -104,8 +105,9 @@
 ## RELATORIO F4 — MODIFICACOES REAIS
 
 - Arquivos criados:
-  - `/audit/F4_restructure.md`
+  - nenhum nesta rodada; o artefato da fase ja existia no `HEAD` e foi revalidado/atualizado
 - Arquivos alterados:
+  - `/audit/F4_restructure.md`
   - `/audit/master_checklist.md`
 - Arquivos removidos:
   - nenhum
