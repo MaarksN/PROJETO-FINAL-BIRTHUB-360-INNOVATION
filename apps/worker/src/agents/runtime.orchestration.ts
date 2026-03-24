@@ -13,10 +13,9 @@ import { PlanExecutor } from "../executors/planExecutor.js";
 import { runtimeMemory } from "./runtime.memory.js";
 import {
   type RuntimeExecutionInput,
-  type RuntimeExecutionResult,
-  readSessionId,
-  roundCurrency
-} from "./runtime.shared.js";
+  type RuntimeExecutionResult
+} from "./runtime.types.js";
+import { readSessionId, roundCurrency } from "./runtime.shared.js";
 import { resolveRuntimeAgent, resolveManagedPolicies } from "./runtime.catalog.js";
 import { querySharedLearning, appendConversationMessage, buildLearningRecord, createOutputArtifact } from "./runtime.telemetry.js";
 import { createRuntimeTools } from "./runtime.tools.js";
