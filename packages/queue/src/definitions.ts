@@ -131,7 +131,7 @@ export const QUEUE_CONFIG: Record<
     cron: "0 2 * * *",
   },
   [QueueName.COMMISSION_CALC]: { attempts: 3, priority: 3, cron: "0 18 L * *" },
-  [QueueName.BOARD_REPORT]: { attempts: 2, priority: 2, cron: "0 17 * * 5" },
+  [QueueName.BOARD_REPORT]: { attempts: 2, priority: 2, cron: "0 8 * * 1" },
   [QueueName.CONTRACT_DEADLINES]: {
     attempts: 2,
     priority: 4,
