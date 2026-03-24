@@ -9,28 +9,12 @@ packages/config lint$ eslint .
 packages/logger lint$ eslint .
 packages/workflows-core lint$ eslint . --config eslint.config.mjs
 packages/agents-core lint$ eslint .
-packages/config lint: 'eslint' n´┐¢o ´┐¢ reconhecido como um comando interno
-packages/config lint: ou externo, um programa oper´┐¢vel ou um arquivo em lotes.
-packages/config lint: Failed
-C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\config:
-ÔÇëERR_PNPM_RECURSIVE_RUN_FIRST_FAILÔÇë @birthub/config@1.0.0 lint: `eslint .`
-Exit status 1
-packages/logger lint: 'eslint' n´┐¢o ´┐¢ reconhecido como um comando interno
-packages/logger lint: ou externo, um programa oper´┐¢vel ou um arquivo em lotes.
-packages/workflows-core lint: 'eslint' n´┐¢o ´┐¢ reconhecido como um comando interno
-packages/workflows-core lint: ou externo, um programa oper´┐¢vel ou um arquivo em lotes.
-packages/logger lint: Failed
-file:///C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION/scripts/ci/shared.mjs:220
-    throw new Error(`Command failed: ${[command, ...args].join(" ")}`);
-          ^
-
-Error: Command failed: C:\Program Files\nodejs\node.exe C:\Users\Marks\AppData\Local\node\corepack\v1\pnpm\9.1.0\bin\pnpm.cjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run lint
-    at run (file:///C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION/scripts/ci/shared.mjs:220:11)
-    at runPnpm (file:///C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION/scripts/ci/shared.mjs:238:10)
-    at file:///C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION/scripts/ci/run-pnpm.mjs:10:1
-    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:661:26)
-    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
-
-Node.js v24.14.0
-ÔÇëELIFECYCLEÔÇë Command failed with exit code 1.
+packages/logger lint: Done
+packages/database lint$ eslint .
+packages/config lint: Done
+packages/auth lint$ eslint .
+packages/workflows-core lint: Done
+packages/utils lint$ eslint .
+packages/auth lint: Done
+packages/utils lint: Done
+packages/database lint: Done
