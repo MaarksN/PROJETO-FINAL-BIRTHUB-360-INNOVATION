@@ -1196,19 +1196,7 @@ const STORAGE_KEY = 'birthhub360_F10_tasks';
 const TOTAL = 48;
 
 function loadState() {
-  try {
-    const savedState = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-
-    // Explicitly mark all items as completed
-    const state = { ...savedState };
-    document.querySelectorAll('.task-item').forEach(el => {
-      const match = el.getAttribute('onclick').match(/'([^']+)'/);
-      if (match) {
-        state[match[1]] = true;
-      }
-    });
-    return state;
-  }
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
   catch { return {}; }
 }
 
