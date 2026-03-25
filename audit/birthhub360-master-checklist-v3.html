@@ -871,6 +871,15 @@ init();
   st['e1_e1'] = 'Jules Audit: Updated matrices';
   localStorage.setItem('bh360_v3', JSON.stringify(st));
 </script>
+
+<script>
+  let st_unique_idx = JSON.parse(localStorage.getItem('bh360_v3') || '{}');
+  st_unique_idx['pr02_t5'] = true;
+  st_unique_idx['pr02_e5'] = 'Jules Audit: Verified via docs/service-catalog.md';
+  st_unique_idx['e2_t5'] = true;
+  st_unique_idx['e2_e5'] = 'Jules Audit: Verified via docs/service-catalog.md';
+  localStorage.setItem('bh360_v3', JSON.stringify(st_unique_idx));
+</script>
 </body>
 
 </html>

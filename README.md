@@ -5,14 +5,15 @@ Repositório canônico da plataforma SaaS BirthHub 360.
 ## Índice operacional único
 
 Fonte única operacional: `docs/service-catalog.md`.
+Consulte também o [Índice Único: Core vs Legacy vs Satellites](docs/architecture/core-legacy-satellites-index.md).
 
-### Core canônico (default)
+### Core canônico
 - `apps/web`
 - `apps/api`
 - `apps/worker`
 - `packages/database`
 
-### Legacy / quarentena (não-default)
+### Legacy / quarentena
 - `apps/dashboard`
 - `apps/api-gateway`
 - `apps/agent-orchestrator`
@@ -31,10 +32,6 @@ pnpm db:generate
 pnpm monorepo:doctor
 pnpm dev
 ```
-
-> Use o setup acima para o core canônico. Superfícies em legacy/quarentena não devem ser usadas como fluxo padrão de desenvolvimento.
-
-Não use como entrada default: `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` ou `packages/db`.
 
 ## Governança e higiene
 

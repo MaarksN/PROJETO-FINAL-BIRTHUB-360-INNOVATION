@@ -1,6 +1,6 @@
 ---
 description: "Use when reviewing or shipping custom agents, skills, prompts, and hooks with acceptance criteria and definition of done."
-applyTo: ".github/agents/**/*.md, .github/skills/**/SKILL.md, .github/prompts/**/*.md, .github/hooks/**/*.json"
+applyTo: "docs/archive/github-agents/**/*.md, .github/skills/**/SKILL.md, .github/prompts/**/*.md, .github/hooks/**/*.json"
 ---
 # Qualidade e Aceite
 

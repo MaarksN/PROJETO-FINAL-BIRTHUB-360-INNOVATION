@@ -1,6 +1,6 @@
-# New Commercial Agents
+# Commercial Agents (runtime legacy controlado)
 
-This directory contains 10 new AI agents designed for specific commercial roles in the Brazilian market.
+This directory contains operational and compatibility agents while canonical growth moves to `packages/agent-packs`.
 
 ## Agents List
 
@@ -29,20 +29,22 @@ This directory contains 10 new AI agents designed for specific commercial roles 
     *   **Tools**: Account planning, stakeholder mapping, QBR scheduling.
     *   **Port**: 8013
 
-6.  **Partners** (`agents/partners`)
+6.  **Parcerias (canonical)** (`agents/parcerias`)
     *   **Role**: Channel and partner management.
-    *   **Tools**: Partner lead registration, commission calculation, collateral sharing.
+    *   **Tools**: Partner fit scoring, plan, pipeline and enablement.
     *   **Port**: 8014
+    *   **Compatibility**: `agents/partners` is legacy compatibility.
 
 7.  **Field** (`agents/field`)
     *   **Role**: Field sales and territory management.
     *   **Tools**: Route optimization, visit reporting, inventory checking.
     *   **Port**: 8015
 
-8.  **Pre-Sales** (`agents/pre_sales`)
-    *   **Role**: Technical sales support and solution engineering.
-    *   **Tools**: Demo generation, RFP answering, feasibility checks.
+8.  **Pre-vendas (canonical)** (`agents/pre_vendas`)
+    *   **Role**: Discovery qualification and next-step planning.
+    *   **Tools**: Qualification scoring, fit risk and plan generation.
     *   **Port**: 8016
+    *   **Compatibility**: `agents/pre_sales` is legacy compatibility.
 
 9.  **Copywriter** (`agents/copywriter`)
     *   **Role**: Sales content generation.
@@ -58,3 +60,7 @@ This directory contains 10 new AI agents designed for specific commercial roles 
 
 *   **Queues**: All agents have dedicated queues defined in `@birthub/shared-types` and configured in `packages/queue`.
 *   **Base Agent**: All agents inherit from `BaseAgent` in `agents/shared`, ensuring consistent logging, rate limiting, and observability.
+
+## Canonical families and deprecation map
+
+See `docs/agent-packs/canonical-agent-line.md` for canonical families, duplicate consolidation and guardrails.

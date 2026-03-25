@@ -20,8 +20,8 @@ branches:
           - commitlint
           - lockfile-integrity
           - lockfile-corruption-simulation
-          - platform (lint)
-          - platform (typecheck)
+          - "platform (lint)"
+          - "platform (typecheck)"
           - ci
           - security coverage report
         strict: true
@@ -40,8 +40,8 @@ branches:
           - commitlint
           - lockfile-integrity
           - lockfile-corruption-simulation
-          - platform (lint)
-          - platform (typecheck)
+          - "platform (lint)"
+          - "platform (typecheck)"
           - ci
           - security coverage report
         strict: true
