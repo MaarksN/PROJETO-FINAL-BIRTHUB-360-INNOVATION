@@ -1,9 +1,9 @@
 # Package Script Status
 
-Generated at: 2026-03-23T01:47:02.423Z
+Generated at: 2026-03-25T19:14:00.584Z
 
-- Workspaces: 35
-- Script slots ok: 106
+- Workspaces: 31
+- Script slots ok: 90
 - Script slots N/A: 34
 - Script slots missing: 0
 
@@ -23,13 +23,10 @@ Generated at: 2026-03-23T01:47:02.423Z
 | @birthub/agents-core | packages/agents-core | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/agents-registry | packages/agents-registry | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/api | apps/api | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| @birthub/api-gateway | apps/api-gateway | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/auth | packages/auth | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/config | packages/config | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/conversation-core | packages/conversation-core | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| @birthub/dashboard | apps/dashboard | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/database | packages/database | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| @birthub/db | packages/db | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/emails | packages/emails | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | N/A | build: Email templates are rendered in-place by consumers and do not ship a separate library build. |
 | @birthub/integrations | packages/integrations | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/llm-client | packages/llm-client | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
@@ -50,7 +47,6 @@ Generated at: 2026-03-23T01:47:02.423Z
 | juridico-agent-worker | agents/juridico | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
 | ldr-agent-worker | agents/ldr | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
 | marketing-agent-worker | agents/marketing | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
-| orchestrator-worker | apps/agent-orchestrator | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | pos_venda-agent-worker | agents/pos_venda | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
 | sdr-agent-worker | agents/sdr | P2 | Platform Engineering | 2026-03-29 | N/A | N/A | N/A | N/A | lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. \| typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. \| test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. \| build: The package runs a tsx worker shim and does not ship a standalone distributable bundle. |
 

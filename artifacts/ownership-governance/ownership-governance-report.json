@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-23T02:10:33.739Z",
+  "generatedAt": "2026-03-25T19:13:51.914Z",
   "checks": {
     "matrix-exists": {
       "status": "pass",
@@ -39,14 +39,17 @@
     "critical-components-covered-by-codeowners": {
       "status": "pass",
       "criticalComponents": [
+        "apps/api",
+        "apps/web",
+        "apps/worker",
+        "packages/database",
+        "packages/agent-packs",
+        "apps/webhook-receiver",
+        "apps/voice-engine",
+        "apps/dashboard",
         "apps/api-gateway",
         "apps/agent-orchestrator",
-        "packages/db",
-        "packages/queue",
-        "apps/webhook-receiver",
-        "agents/*",
-        "apps/dashboard",
-        "packages/integrations"
+        "packages/db"
       ],
       "missingCoverage": []
     }
