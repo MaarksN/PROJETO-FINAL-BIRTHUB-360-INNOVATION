@@ -2,7 +2,6 @@
 set -euo pipefail
 
 pnpm install --frozen-lockfile
-pnpm --filter @birthub/api-gateway lint
-pnpm --filter @birthub/api-gateway test
-pnpm --filter @birthub/api-gateway test:contract
+pnpm lint:core
+pnpm test:core
 pytest tests/integration
