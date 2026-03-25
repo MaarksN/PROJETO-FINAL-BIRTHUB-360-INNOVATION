@@ -132,8 +132,6 @@
     "docs:health": "node scripts/docs/generate-technical-health-dashboard.mjs",
     "docs:changelog:init": "node scripts/docs/bootstrap-changelogs.mjs",
     "docs:verify": "pnpm docs:links && pnpm docs:dependency-graph && pnpm docs:health",
-    "coverage:check": "node scripts/coverage/check.mjs",
-    "coverage:baseline:update": "node scripts/coverage/check.mjs --write-baseline",
     "test:python:integration": "pytest tests/integration -n auto --dist loadfile",
     "test:python:coverage": "pytest agents tests/integration -n auto --dist loadfile --cov=agents/ae --cov=agents/ldr --cov=agents/sdr --cov=agents/shared --cov-fail-under=80",
     "test:tag:unit": "node scripts/testing/run-tagged-tests.mjs unit",

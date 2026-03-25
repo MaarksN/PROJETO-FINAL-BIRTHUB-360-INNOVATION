@@ -5,7 +5,7 @@
     "template-only": "Package contains runtime-loaded templates and does not publish a standalone distributable artifact.",
     "types-only": "Package exports only types or schemas and is validated transitively by consumer typechecks."
   },
-  "generatedAt": "2026-03-23T01:47:02.423Z",
+  "generatedAt": "2026-03-25T19:14:00.584Z",
   "rows": [
     {
       "approvedBy": "Lead tecnico de plataforma",
@@ -206,45 +206,6 @@
       "approvedBy": "Lead tecnico de plataforma",
       "approvedOn": "2026-03-22",
       "deadline": "2026-03-29",
-      "directory": "apps/api-gateway",
-      "name": "@birthub/api-gateway",
-      "notes": "",
-      "owner": "Platform Engineering",
-      "priority": "P2",
-      "relativePath": "apps/api-gateway/package.json",
-      "reviewer": "Platform Tech Lead",
-      "risk": "low",
-      "scripts": {
-        "lint": {
-          "command": "node --import tsx src/scripts/check-conventions.ts",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "typecheck": {
-          "command": "tsc -p tsconfig.supported.json --noEmit",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "test": {
-          "command": "node --import tsx --test \"src/routes/*.test.ts\"",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "build": {
-          "command": "tsc -p tsconfig.supported.json",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        }
-      }
-    },
-    {
-      "approvedBy": "Lead tecnico de plataforma",
-      "approvedOn": "2026-03-22",
-      "deadline": "2026-03-29",
       "directory": "packages/auth",
       "name": "@birthub/auth",
       "notes": "",
@@ -362,45 +323,6 @@
       "approvedBy": "Lead tecnico de plataforma",
       "approvedOn": "2026-03-22",
       "deadline": "2026-03-29",
-      "directory": "apps/dashboard",
-      "name": "@birthub/dashboard",
-      "notes": "",
-      "owner": "Platform Engineering",
-      "priority": "P2",
-      "relativePath": "apps/dashboard/package.json",
-      "reviewer": "Platform Tech Lead",
-      "risk": "low",
-      "scripts": {
-        "lint": {
-          "command": "eslint .",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "typecheck": {
-          "command": "tsc -p tsconfig.json --noEmit",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "test": {
-          "command": "node --experimental-strip-types --test __tests__/*.test.ts",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "build": {
-          "command": "next build",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        }
-      }
-    },
-    {
-      "approvedBy": "Lead tecnico de plataforma",
-      "approvedOn": "2026-03-22",
-      "deadline": "2026-03-29",
       "directory": "packages/database",
       "name": "@birthub/database",
       "notes": "",
@@ -430,45 +352,6 @@
         },
         "build": {
           "command": "tsc -p tsconfig.json",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        }
-      }
-    },
-    {
-      "approvedBy": "Lead tecnico de plataforma",
-      "approvedOn": "2026-03-22",
-      "deadline": "2026-03-29",
-      "directory": "packages/db",
-      "name": "@birthub/db",
-      "notes": "",
-      "owner": "Platform Engineering",
-      "priority": "P2",
-      "relativePath": "packages/db/package.json",
-      "reviewer": "Platform Tech Lead",
-      "risk": "low",
-      "scripts": {
-        "lint": {
-          "command": "eslint .",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "typecheck": {
-          "command": "tsc --noEmit",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "test": {
-          "command": "node --import tsx --test src/**/*.test.ts",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "build": {
-          "command": "tsc",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -1259,45 +1142,6 @@
       "approvedBy": "Lead tecnico de plataforma",
       "approvedOn": "2026-03-22",
       "deadline": "2026-03-29",
-      "directory": "apps/agent-orchestrator",
-      "name": "orchestrator-worker",
-      "notes": "",
-      "owner": "Platform Engineering",
-      "priority": "P2",
-      "relativePath": "apps/agent-orchestrator/package.json",
-      "reviewer": "Platform Tech Lead",
-      "risk": "low",
-      "scripts": {
-        "lint": {
-          "command": "eslint worker.ts src/worker.contract.test.ts",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "typecheck": {
-          "command": "tsc -p tsconfig.supported.json --noEmit",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "test": {
-          "command": "node --import tsx --test \"src/worker.contract.test.ts\"",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        },
-        "build": {
-          "command": "tsc -p tsconfig.supported.json",
-          "criterion": null,
-          "justification": null,
-          "status": "ok"
-        }
-      }
-    },
-    {
-      "approvedBy": "Lead tecnico de plataforma",
-      "approvedOn": "2026-03-22",
-      "deadline": "2026-03-29",
       "directory": "agents/pos_venda",
       "name": "pos_venda-agent-worker",
       "notes": "lint: Linting is enforced in shared packages; the overlay only wires a role-specific worker entrypoint. | typecheck: Worker imports resolve through shared package lanes; wrapper correctness is guarded by lint plus downstream package typechecks. | test: Behavior is covered by shared worker suites and queue-level flows; the overlay only binds a role-specific shim. | build: The package runs a tsx worker shim and does not ship a standalone distributable bundle.",
@@ -1374,12 +1218,12 @@
     }
   ],
   "summary": {
-    "generatedAt": "2026-03-23T01:47:02.423Z",
+    "generatedAt": "2026-03-25T19:14:00.584Z",
     "totals": {
       "missing": 0,
       "na": 34,
-      "ok": 106,
-      "workspaces": 35
+      "ok": 90,
+      "workspaces": 31
     }
   }
 }
