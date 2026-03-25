@@ -419,47 +419,40 @@ jobs:
     name: rollback-rehearsal-evidence-gate
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     needs:
       - release-e2e-gate
     steps:
-      - name: Validate rollback rehearsal evidence input
-        shell: bash
+      - name: Checkout release source from manual dispatch
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify rollback rehearsal evidence
         env:
           ROLLBACK_REHEARSAL_EVIDENCE: ${{ github.event.inputs.rollback_rehearsal_evidence }}
-        run: |
-          set -euo pipefail
-
-          evidence="${ROLLBACK_REHEARSAL_EVIDENCE:-}"
-          if [[ -z "${evidence}" ]]; then
-            echo "::error title=Missing rollback evidence::Provide rollback rehearsal evidence when dispatching production deploy." >&2
-            exit 1
-          fi
-
-          if [[ ${#evidence} -lt 12 ]]; then
-            echo "::error title=Invalid rollback evidence::Evidence must be a traceable URL, ticket, runbook path, or report reference." >&2
-            exit 1
-          fi
-
-          echo "rollback_rehearsal_evidence=${evidence}" >> "$GITHUB_OUTPUT"
-
-      - name: Persist rollback rehearsal evidence
-        shell: bash
-        env:
-          ROLLBACK_REHEARSAL_EVIDENCE: ${{ github.event.inputs.rollback_rehearsal_evidence }}
-        run: |
-          set -euo pipefail
-          mkdir -p artifacts/release
-          {
-            echo "Checked at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            echo "Rollback rehearsal evidence: ${ROLLBACK_REHEARSAL_EVIDENCE}"
-          } > artifacts/release/rollback-rehearsal-evidence.txt
+        run: pnpm release:rollback:evidence --evidence="${ROLLBACK_REHEARSAL_EVIDENCE}"
 
       - name: Upload rollback rehearsal evidence
         uses: actions/upload-artifact@v7
         with:
           name: rollback-rehearsal-evidence
-          path: artifacts/release/rollback-rehearsal-evidence.txt
+          path: |
+            artifacts/release/production-rollback-evidence.txt
+            artifacts/release/production-rollback-evidence.json
 
   deploy-staging:
     name: deploy-staging
@@ -512,6 +505,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs:
+      - staging-preflight
       - release-sbom
       - production-preflight
       - release-smoke-gate

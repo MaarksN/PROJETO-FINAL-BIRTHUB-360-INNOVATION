@@ -133,8 +133,8 @@ const hasDevelopBranchProtection =
 const requiredStatusChecks = [
   "governance-gates",
   "commitlint",
-  "platform (lint)",
-  "platform (typecheck)",
+  '"platform (lint)"',
+  '"platform (typecheck)"',
   "ci",
   "security coverage report",
 ];

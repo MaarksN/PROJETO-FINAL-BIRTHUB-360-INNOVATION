@@ -30,6 +30,7 @@ __pycache__/
 .env.vps.generated
 .env.local
 .env.*.local
+.env.*.mock
 .DS_Store
 *.log
 pnpm-debug.log*
