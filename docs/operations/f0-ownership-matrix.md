@@ -31,3 +31,4 @@ Current Version: 1.0.0
 Tracking Ticket: https://jira.example.com/browse/BH-100
 
 Calendar Event: ownership-quarterly-review.ics
+Next Review Date: 2026-07-01 10:00 America/Sao_Paulo

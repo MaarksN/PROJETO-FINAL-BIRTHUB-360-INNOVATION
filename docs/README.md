@@ -17,7 +17,6 @@
 ## Architecture
 
 - [Canonical architecture](f10/architecture.md)
-- [Índice Único: Core vs Legacy vs Satellites](architecture/core-legacy-satellites-index.md)
 - [Folder structure](architecture/folder-structure.md)
 - [ADR registry](adrs/ADR-031-monorepo-source-of-truth.md)
 

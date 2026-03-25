@@ -6,7 +6,7 @@
 ## Pilha de Customizacao
 1. Workspace Instructions (`.github/copilot-instructions.md`)
 2. File Instructions (`.github/instructions/*.instructions.md`)
-3. Custom Agents arquivados (`docs/archive/github-agents/*.agent.md`)
+3. Custom Agents (`.github/agents/*.agent.md`)
 4. Skills (`.github/skills/**/SKILL.md`)
 5. Prompts (`.github/prompts/*.prompt.md`)
 6. Hooks (`.github/hooks/policy.json` + scripts)

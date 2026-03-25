@@ -15,59 +15,43 @@ Referências de política: `docs/operations/f0-sla-severity-policy.md` e `infra/
 
 ## 1) `apps/api` (core)
 
-**ApiUnavailable**
-- **Threshold**: Indisponibilidade total (`up{job="api"} == 0`) por 2 min.
+**Erro HTTP 5xx**
+- **Threshold**: `> 1%` das requisições em 5 min.
 - **Ação**: `P0`.
 
-**ApiHighErrorRate**
-- **Threshold**: `> 5%` das requisições com erro `5xx` em 5 min, mantido por 10 min.
+**Latência P95**
+- **Threshold**: P95 `> 800ms` por 10 min.
 - **Ação**: `P1`.
-
-**ApiHighLatencyP95**
-- **Threshold**: P95 `> 500ms` mantido por 10 min.
-- **Ação**: `P2`.
 
 ## 2) `apps/web` (core)
 
-**WebUnavailable**
-- **Threshold**: Indisponibilidade total (`up{job="web"} == 0`) por 2 min.
+**Falha de disponibilidade do front-end**
+- **Threshold**: disponibilidade sintética `< 99.5%` em janela de 5 min.
 - **Ação**: `P0`.
 
-**WebAvailabilityDegraded**
-- **Threshold**: `> 5%` das verificações de health/readiness degradadas em 5 min, mantido por 10 min.
+**Erro de carregamento crítico**
+- **Threshold**: aumento sustentado de erro JS crítico (`window.onerror`/chunk load) `> 2%` por 10 min.
 - **Ação**: `P1`.
-
-**WebHighLatencyP95**
-- **Threshold**: Latência P95 da readiness web `> 400ms` por 10 min.
-- **Ação**: `P2`.
 
 ## 3) `apps/worker` (core)
 
-**WorkerUnavailable**
-- **Threshold**: Indisponibilidade total (`up{job="worker"} == 0`) por 2 min.
+**Backlog de fila**
+- **Threshold**: `> 500` jobs pendentes por mais de 5 min sem tendência de queda.
+- **Ação**: `P1`.
+
+**DLQ / Falha de job**
+- **Threshold**: `> 10%` de jobs em DLQ em 15 min.
 - **Ação**: `P0`.
-
-**WorkerQueueBacklogHigh**
-- **Threshold**: `> 200` jobs de backlog mantido por 10 min.
-- **Ação**: `P2`.
-
-**WorkerDlqGrowing**
-- **Threshold**: `> 5` novos jobs falhos (DLQ) em 10 min, mantido por 5 min.
-- **Ação**: `P1`.
-
-**WorkerHighFailRate**
-- **Threshold**: `> 10%` dos jobs falhando mantido por 10 min.
-- **Ação**: `P1`.
 
 ## 4) `packages/database` (core)
 
-**DatabaseConnectionPoolSaturation**
-- **Threshold**: Uso do pool de conexões `> 90%` por 10 min.
-- **Ação**: `P2`.
+**Saturação de conexões/CPU**
+- **Threshold**: pool esgotado ou CPU `> 85%` por 10 min.
+- **Ação**: `P0`.
 
-**DatabaseQueryErrorSpike**
-- **Threshold**: Taxa de erros de query `> 2/s` por 10 min.
-- **Ação**: `P1`.
+**Erro de consulta/transação**
+- **Threshold**: taxa de erro de query acima de baseline por 10 min.
+- **Ação**: `P0` se indisponibilizar fluxo principal; `P1` caso degradado.
 
 ## Satélites e legado
 

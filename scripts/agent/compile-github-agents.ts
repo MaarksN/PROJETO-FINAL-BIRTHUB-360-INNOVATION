@@ -513,7 +513,7 @@ function buildCollectionDescriptorManifest(installableCount: number): AgentManif
       changelog: [
         `${GITHUB_AGENT_COLLECTION_VERSION} - Descriptor updated for ${installableCount} compiled GitHub agents`
       ],
-      description: "Catalog descriptor for the compiled archived GitHub agents collection routed through manifest-runtime.",
+      description: "Catalog descriptor for the compiled .github/agents collection routed through manifest-runtime.",
       id: GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID,
       kind: "catalog",
       name: GITHUB_AGENT_COLLECTION_NAME,

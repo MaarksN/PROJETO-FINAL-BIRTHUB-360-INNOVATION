@@ -1,6 +1,6 @@
 ---
 description: "Use when defining agent architecture, decomposition, responsibilities, boundaries, and orchestration strategy for custom agents and skills."
-applyTo: "docs/archive/github-agents/**/*.md, .github/skills/**/SKILL.md"
+applyTo: ".github/agents/**/*.md, .github/skills/**/SKILL.md"
 ---
 # Arquitetura de Agentes
 

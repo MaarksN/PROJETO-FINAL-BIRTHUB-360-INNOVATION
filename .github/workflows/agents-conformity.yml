@@ -3,12 +3,12 @@ name: Agents Conformity (F1-F5)
 on:
   pull_request:
     paths:
-      - 'docs/archive/github-agents/**'
+      - '.github/agents/**'
       - '.github/workflows/agents-conformity.yml'
   push:
     branches: [ main ]
     paths:
-      - 'docs/archive/github-agents/**'
+      - '.github/agents/**'
       - '.github/workflows/agents-conformity.yml'
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
       - name: Validate F1-F5 conformity
         shell: pwsh
         run: |
-          & 'docs/archive/github-agents/scripts/validate_f1_f5.ps1' -RepoRoot (Get-Location).Path -FailOnIssues
+          & '.github/agents/scripts/validate_f1_f5.ps1' -RepoRoot (Get-Location).Path -FailOnIssues
 
       - name: Upload conformity reports
         if: always()
@@ -31,5 +31,5 @@ jobs:
         with:
           name: agents-conformity-report
           path: |
-            docs/archive/github-agents/RELATORIO_CONFORMIDADE_F1_F5.md
-            docs/archive/github-agents/RELATORIO_CONFORMIDADE_F1_F5.json
+            .github/agents/RELATORIO_CONFORMIDADE_F1_F5.md
+            .github/agents/RELATORIO_CONFORMIDADE_F1_F5.json
