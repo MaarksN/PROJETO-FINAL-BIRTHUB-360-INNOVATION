@@ -1,6 +1,6 @@
 ---
 description: "Use when creating or editing agents, skills, hooks, or prompts with tool execution, permissions, or security impact."
-applyTo: ".github/agents/**/*.md, .github/skills/**/SKILL.md, .github/hooks/**/*.json"
+applyTo: "docs/archive/github-agents/**/*.md, .github/skills/**/SKILL.md, .github/hooks/**/*.json"
 ---
 # Segurança para Customizações
 

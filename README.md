@@ -5,6 +5,7 @@ Repositório canônico da plataforma SaaS BirthHub 360.
 ## Índice operacional único
 
 Fonte única operacional: `docs/service-catalog.md`.
+Consulte também o [Índice Único: Core vs Legacy vs Satellites](docs/architecture/core-legacy-satellites-index.md).
 
 ### Core canônico
 - `apps/web`

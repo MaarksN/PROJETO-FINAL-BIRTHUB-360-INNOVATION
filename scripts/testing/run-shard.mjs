@@ -5,9 +5,8 @@ import { capturePnpm, projectRoot } from "../ci/shared.mjs";
 
 const shards = {
   api: ["@birthub/api"],
-  "api-gateway": ["@birthub/api-gateway"],
   worker: ["@birthub/worker"],
-  ui: ["@birthub/web", "@birthub/dashboard", "@birthub/voice-engine"],
+  ui: ["@birthub/web", "@birthub/voice-engine"],
   packages: [
     "@birthub/agent-packs",
     "@birthub/agent-runtime",
@@ -17,7 +16,6 @@ const shards = {
     "@birthub/config",
     "@birthub/conversation-core",
     "@birthub/database",
-    "@birthub/db",
     "@birthub/emails",
     "@birthub/integrations",
     "@birthub/llm-client",
@@ -28,8 +26,7 @@ const shards = {
     "@birthub/shared-types",
     "@birthub/testing",
     "@birthub/utils",
-    "@birthub/workflows-core",
-    "orchestrator-worker"
+    "@birthub/workflows-core"
   ]
 };
 

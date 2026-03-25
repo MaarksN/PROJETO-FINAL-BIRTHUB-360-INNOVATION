@@ -34,13 +34,13 @@ Referencias operacionais:
 
 Classifique como P0 se qualquer criterio abaixo for verdadeiro:
 
-1. `up{job="api-gateway"} == 0` por mais de 1 minuto (`ApiGatewayDown`).
+1. `up{job="api"} == 0` ou `up{job="web"} == 0` por mais de 2 minutos.
 2. Fluxo critico indisponivel para a maioria dos tenants (ex.: autenticacao ou ingestao principal interrompida).
 3. Incidente de seguranca com risco imediato de exposicao de dados.
 
 Exemplos reais do stack:
 
-- alerta `ApiGatewayDown` em `infra/monitoring/alert.rules.yml`;
+- alertas `ApiUnavailable`, `WebUnavailable` ou `WorkerUnavailable` em `infra/monitoring/alert.rules.yml`;
 - indisponibilidade total do login/sessao do `apps/api`;
 - falha sistemica em cadeia com parada de operacao critica.
 
@@ -48,13 +48,13 @@ Exemplos reais do stack:
 
 Classifique como P1 se houver degradacao severa sem outage total:
 
-1. `ApiGatewayHighErrorBudgetBurn` em firing continuo.
-2. `ApiGatewayP99LatencySLOBreach` em firing continuo (p99 > 300ms).
-3. `ApiTaskIngestionRejections` com rejeicoes anormais no endpoint `/api/v1/tasks`.
+1. `ApiHighErrorRate` em firing continuo.
+2. `WorkerHighFailRate` ou `WorkerDlqGrowing` em firing continuo.
+3. `DatabaseQueryErrorSpike` com impacto direto em fluxo critico.
 
 Exemplos reais do stack:
 
-- latencia p99 persistente acima do limite de SLO;
+- latencia p95 da API acima do limite de SLO;
 - backlog relevante em fluxo de automacao com falhas em tarefas criticas;
 - degradacao de disponibilidade abaixo da meta com servico ainda parcialmente operacional.
 
@@ -62,13 +62,13 @@ Exemplos reais do stack:
 
 Classifique como P2 quando houver impacto moderado com mitigacao disponivel:
 
-1. `Webhook429Spike` sustentado sem indisponibilidade total.
-2. `ApiUnauthorizedSpike` ou `ApiBudgetExceededSpike` acima do baseline, com workaround operacional.
+1. `WorkerQueueBacklogHigh` sustentado sem indisponibilidade total.
+2. `ApiHighLatencyP95` ou `WebHighLatencyP95` acima do baseline, com workaround operacional.
 3. Falha parcial de modulo administrativo sem bloquear fluxo principal do cliente.
 
 Exemplos reais do stack:
 
-- excesso de rate limit em endpoints expostos sem queda global da plataforma;
+- atraso operacional em filas sem perda de processamento;
 - bloqueios de budget afetando parte das operacoes de tenants;
 - erro funcional em tela administrativa com alternativa temporaria.
 
@@ -82,7 +82,7 @@ Classifique como P3 para itens sem impacto operacional imediato:
 
 Exemplos reais do stack:
 
-- ajustes de layout em paginas do `apps/web` ou `apps/dashboard`;
+- ajustes de layout em paginas do `apps/web`;
 - refatoracao interna sem impacto de runtime;
 - melhorias de documentacao/runbook.
 
