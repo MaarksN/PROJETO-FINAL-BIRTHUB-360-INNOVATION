@@ -55,8 +55,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-<<<<<<< Updated upstream
-=======
       - name: Enforce agent surface freeze
         run: node scripts/ci/check-agent-surface-freeze.mjs
 
@@ -66,7 +64,6 @@ jobs:
       - name: Enforce legacy runtime surface freeze
         run: node scripts/ci/check-legacy-runtime-surface-freeze.mjs
 
->>>>>>> Stashed changes
       - name: Enforce lockfile governance
         run: pnpm ci:lockfile
 
@@ -460,6 +457,13 @@ jobs:
       command: pnpm monorepo:doctor && RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard && pnpm audit:ownership
       timeout_minutes: 15
 
+  release-smoke:
+    name: release-smoke
+    uses: ./.github/workflows/reusable-node-check.yml
+    with:
+      command: pnpm release:smoke
+      timeout_minutes: 40
+
   ci:
     name: ci
     runs-on: ubuntu-latest
@@ -480,6 +484,7 @@ jobs:
       - workflow-suite
       - pack-tests
       - governance-gates
+      - release-smoke
     steps:
       - name: Done
         run: echo "All required checks passed."
