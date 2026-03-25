@@ -9,7 +9,7 @@ function parseJsonObject(raw: string): Record<string, unknown> {
     throw new TypeError("Expected logger JSON line to be an object.");
   }
 
-  return parsed;
+  return parsed as Record<string, unknown>;
 }
 
 async function captureStdout(callback: () => void): Promise<Record<string, unknown>> {
