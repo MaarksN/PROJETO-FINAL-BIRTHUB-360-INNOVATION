@@ -16,7 +16,7 @@ Fonte canônica de fronteiras: `docs/service-catalog.md`.
 | `apps/web` | P0 | Interface principal para usuários e operação diária. | 30 min | 15 min |
 | `apps/worker` | P0 | Processamento assíncrono crítico (jobs e automações de negócio). | 30 min | 10 min |
 | `packages/database` (PostgreSQL/Prisma) | P0 | Persistência transacional oficial (`@birthub/database`). | 30 min | 5 min |
-| `packages/agent-packs` | P0 | Catálogo funcional e componente de infraestrutura core de agentes. | 30 min | 15 min |
+| `packages/agent-packs` | P0 | Catálogo de agentes diretamente integrado ao runtime canônico. | 30 min | 5 min |
 
 ## Satélites (fora do core)
 

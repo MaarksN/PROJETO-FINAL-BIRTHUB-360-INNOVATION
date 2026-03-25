@@ -1,0 +1,90 @@
+
+> birthub-360@1.0.0 lint:core C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION
+> node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run lint
+
+
+[agent-ci] >>> C:\Program Files\nodejs\node.exe C:\Users\Marks\AppData\Local\node\corepack\v1\pnpm\9.1.0\bin\pnpm.cjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run lint
+Scope: 11 of 32 workspace projects
+packages/config lint$ eslint .
+packages/logger lint$ eslint .
+packages/workflows-core lint$ eslint . --config eslint.config.mjs
+packages/agents-core lint$ eslint .
+packages/logger lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\logger\src\index.test.ts
+packages/logger lint:   42:3  warning  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+packages/logger lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\logger\src\metrics.ts
+packages/logger lint:   130:9  warning  Unsafe assignment of type `any[]` to a variable of type `number[]`  @typescript-eslint/no-unsafe-assignment
+packages/logger lint:   139:9  warning  Unsafe assignment of an `any` value                                 @typescript-eslint/no-unsafe-assignment
+packages/logger lint: Ô£û 3 problems (0 errors, 3 warnings)
+packages/logger lint: Done
+packages/database lint$ eslint .
+packages/workflows-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\src\interpolation\interpolate.ts
+packages/workflows-core lint:   45:32  warning  Unsafe return of a value of type `any`  @typescript-eslint/no-unsafe-return
+packages/workflows-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\src\nodes\code.ts
+packages/workflows-core lint:   41:9  warning  Unsafe assignment of an `any` value  @typescript-eslint/no-unsafe-assignment
+packages/workflows-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\workflows-core\test\step-types.test.ts
+packages/workflows-core lint:   160:9  warning  Async method 'send' has no 'await' expression     @typescript-eslint/require-await
+packages/workflows-core lint:   182:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   210:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   239:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   263:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   289:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint:   315:9  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/workflows-core lint: Ô£û 9 problems (0 errors, 9 warnings)
+packages/workflows-core lint: Done
+packages/auth lint$ eslint .
+packages/config lint: Done
+packages/utils lint$ eslint .
+packages/auth lint: Done
+packages/database lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\database\test\base.repo.test.ts
+packages/database lint:   18:7  warning  Async method 'create' has no 'await' expression      @typescript-eslint/require-await
+packages/database lint:   22:7  warning  Async method 'deleteMany' has no 'await' expression  @typescript-eslint/require-await
+packages/database lint:   26:7  warning  Async method 'findFirst' has no 'await' expression   @typescript-eslint/require-await
+packages/database lint:   30:7  warning  Async method 'findMany' has no 'await' expression    @typescript-eslint/require-await
+packages/database lint:   34:7  warning  Async method 'updateMany' has no 'await' expression  @typescript-eslint/require-await
+packages/database lint: Ô£û 5 problems (0 errors, 5 warnings)
+packages/database lint: Done
+packages/utils lint: Done
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\execution\dry-run.ts
+packages/agents-core lint:   15:8  warning  Async function 'runAgentDryRun' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\memory\memoryService.ts
+packages/agents-core lint:   52:3  warning  Async method 'set' has no 'await' expression   @typescript-eslint/require-await
+packages/agents-core lint:   57:3  warning  Async method 'get' has no 'await' expression   @typescript-eslint/require-await
+packages/agents-core lint:   62:3  warning  Async method 'del' has no 'await' expression   @typescript-eslint/require-await
+packages/agents-core lint:   66:3  warning  Async method 'keys' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\runtime\toolkit.ts
+packages/agents-core lint:   191:3  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint:   229:3  warning  Async method 'execute' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\skills\analyzerSkill.ts
+packages/agents-core lint:   16:8  warning  Async function 'runAnalyzerSkill' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\skills\generatorSkill.ts
+packages/agents-core lint:   38:8  warning  Async function 'runGeneratorSkill' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\skills\monitorSkill.ts
+packages/agents-core lint:   44:8  warning  Async function 'runMonitorSkill' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\agents-core\src\tools\crm.tool.ts
+packages/agents-core lint:   35:8  warning  Async function 'callCrmTool' has no 'await' expression  @typescript-eslint/require-await
+packages/agents-core lint: Ô£û 11 problems (0 errors, 11 warnings)
+packages/agents-core lint: Done
+apps/web lint$ eslint .
+apps/api lint$ eslint .
+packages/testing lint$ eslint .
+packages/testing lint: Done
+apps/api lint: Done
+apps/web lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\web\tests\health.required-dependency.test.ts
+apps/web lint:   16:32  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
+apps/web lint: Ô£û 1 problem (0 errors, 1 warning)
+apps/web lint: Done
+apps/worker lint$ eslint .
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\agents\conversations.ts
+apps/worker lint:   1:1  warning  Unused eslint-disable directive (no problems were reported)
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\agents\handoffs.ts
+apps/worker lint:   1:1  warning  Unused eslint-disable directive (no problems were reported)
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\agents\runtime.ts
+apps/worker lint:   1:1  warning  Unused eslint-disable directive (no problems were reported)
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\src\integrations\connectors.runtime.ts
+apps/worker lint:   1:1  warning  Unused eslint-disable directive (no problems were reported)
+apps/worker lint: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker\test\readiness.required-dependency.test.ts
+apps/worker lint:    8:5  warning  Async method 'listQueueStates' has no 'await' expression  @typescript-eslint/require-await
+apps/worker lint:   15:5  warning  Async method 'pingRedis' has no 'await' expression        @typescript-eslint/require-await
+apps/worker lint: Ô£û 6 problems (0 errors, 6 warnings)
+apps/worker lint:   0 errors and 4 warnings potentially fixable with the `--fix` option.
+apps/worker lint: Done

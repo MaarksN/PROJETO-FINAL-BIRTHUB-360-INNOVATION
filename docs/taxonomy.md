@@ -10,6 +10,7 @@
 | `apps/api` | Core canônico | Platform/API | Ativo | `apps/api/src/server.ts` |
 | `apps/worker` | Core canônico | Platform/Automation | Ativo | `apps/worker/src/index.ts` |
 | `packages/database` | Core canônico | Platform/Data | Ativo | `packages/database/package.json` (`@birthub/database`) |
+| `packages/agent-packs` | Core canônico | AI Platform | Ativo | `apps/api/src/modules/marketplace/marketplace-service.ts` e `apps/worker/src/agents/runtime.shared.ts` resolvem catálogo nesse diretório |
 
 ## 2) Legado em sunset
 
@@ -26,7 +27,6 @@
 |---|---|---|---|---|
 | `apps/voice-engine` | Satélite | Integrations/Voice | Presente | Serviço de apoio, fora do núcleo P0 |
 | `apps/webhook-receiver` | Satélite | Integrations | Presente | Borda de ingestão, fora do núcleo P0 |
-| `packages/agent-packs` | Satélite | AI Platform | Presente | Catálogo integrado ao produto, fora da infraestrutura P0 do core |
 
 ## 4) Órfãos
 

@@ -1,0 +1,29 @@
+
+> birthub-360@1.0.0 lint:core C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION
+> node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run lint
+
+
+[agent-ci] >>> C:\Program Files\nodejs\node.exe C:\Users\Marks\AppData\Local\node\corepack\v1\pnpm\9.1.0\bin\pnpm.cjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run lint
+Scope: 11 of 32 workspace projects
+packages/logger lint$ eslint .
+packages/config lint$ eslint .
+packages/workflows-core lint$ eslint . --config eslint.config.mjs
+packages/agents-core lint$ eslint .
+packages/logger lint: Done
+packages/database lint$ eslint .
+packages/workflows-core lint: Done
+packages/auth lint$ eslint .
+packages/config lint: Done
+packages/utils lint$ eslint .
+packages/auth lint: Done
+packages/utils lint: Done
+packages/database lint: Done
+packages/agents-core lint: Done
+apps/web lint$ eslint .
+apps/api lint$ eslint .
+packages/testing lint$ eslint .
+packages/testing lint: Done
+apps/api lint: Done
+apps/web lint: Done
+apps/worker lint$ eslint .
+apps/worker lint: Done
