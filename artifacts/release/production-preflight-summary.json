@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-03-24T19:03:04.888Z",
-  "envFile": "ops/env/.env.production.sealed.example",
+  "checkedAt": "2026-03-25T19:21:33.342Z",
+  "envFile": null,
   "ok": true,
   "requiredKeys": [
     {
