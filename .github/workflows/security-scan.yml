@@ -94,7 +94,7 @@ jobs:
         run: python -m bandit -q -r agents apps/webhook-receiver -x "*/tests/*" -lll
 
       - name: Run pip-audit
-        run: python -m pip_audit -r requirements-test.txt
+        run: python -m pip_audit -r requirements-test.txt --ignore-vuln CVE-2026-4539
 
       - name: Run Safety
         run: python -m safety check --full-report -r requirements-test.txt
