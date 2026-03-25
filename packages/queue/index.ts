@@ -16,14 +16,14 @@ export const createQueue = (name: QueueName, options?: QueueOptions) => {
     defaultJobOptions: {
       attempts: QUEUE_CONFIG[name]?.attempts || 3,
       backoff: QUEUE_CONFIG[name]?.backoff,
-      priority: QUEUE_CONFIG[name]?.priority,
+      priority: QUEUE_CONFIG[name]?.priority ?? 0,
     },
     ...options,
   });
 };
 
-export const createWorker = (name: QueueName, processor: any, options?: WorkerOptions) => {
-  return new Worker(name, processor, {
+export const createWorker = (name: QueueName, processor: unknown, options?: WorkerOptions) => {
+  return new Worker(name, processor as any, {
     connection,
     concurrency: 5,
     ...options,

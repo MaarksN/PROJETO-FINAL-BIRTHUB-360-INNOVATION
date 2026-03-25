@@ -1,4 +1,4 @@
-import { Queue, Worker, QueueEvents, JobsOptions } from "bullmq";
+import { Queue, Worker, QueueEvents, JobsOptions, ConnectionOptions } from "bullmq";
 import IORedis from "ioredis";
 import { QueueName } from "@birthub/shared-types";
 import { QUEUE_CONFIG } from "./definitions";
@@ -17,17 +17,19 @@ export class QueueManager {
     if (this.queues.has(name)) {
       return this.queues.get(name)!;
     }
-    const queue = new Queue(name, { connection: this.connection });
+    const queue = new Queue(name, { connection: this.connection as unknown as ConnectionOptions });
     this.queues.set(name, queue);
     return queue;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createWorker(name: string, processor: any) {
-    return new Worker(name, processor, { connection: this.connection });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    return new Worker(name, processor, { connection: this.connection as unknown as ConnectionOptions });
   }
 
   createQueueEvents(name: string) {
-    return new QueueEvents(name, { connection: this.connection });
+    return new QueueEvents(name, { connection: this.connection as unknown as ConnectionOptions });
   }
 
   async addJob(
@@ -54,7 +56,7 @@ export class QueueManager {
           repeat: { pattern: cfg.cron },
           removeOnComplete: 20,
           attempts: cfg.attempts,
-          priority: cfg.priority,
+          priority: cfg.priority ?? 0,
         },
       );
     }
@@ -85,6 +87,7 @@ export function scopedQueueName(baseQueue: QueueName | string, tenantId?: string
 }
 
 export const createQueue = (name: string) => getManager().createQueue(name);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createWorker = (name: string, processor: any) =>
   getManager().createWorker(name, processor);
 export const createQueueEvents = (name: string) =>

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { CRMAdapterFactory, GoogleCalendarClient, HubspotClient, PagarmeClient, WebhookRegistry } from "../index.ts";
+import { CRMAdapterFactory, GoogleCalendarClient, HubspotClient, PagarmeClient, WebhookRegistry } from "../index";
 
 void test("integrations entrypoint exposes critical clients and adapters", () => {
   assert.equal(typeof HubspotClient, "function");

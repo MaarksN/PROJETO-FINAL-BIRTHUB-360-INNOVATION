@@ -9,7 +9,8 @@ function parseJsonObject(raw: string): Record<string, unknown> {
     throw new TypeError("Expected logger JSON line to be an object.");
   }
 
-  return parsed;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return parsed as any;
 }
 
 async function captureStdout(callback: () => void): Promise<Record<string, unknown>> {
