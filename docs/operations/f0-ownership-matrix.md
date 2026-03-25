@@ -50,6 +50,8 @@ Referência detalhada: `docs/release/production-preflight-inventory.md`.
 | `STRIPE_SECRET_KEY` | `@platform-api` | `@platform-security` | 90 dias ou incidente |
 | `STRIPE_WEBHOOK_SECRET` | `@platform-api` | `@platform-security` | 90 dias ou incidente |
 | `RENDER_PRODUCTION_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | troca de infra |
+| `RENDER_STAGING_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | N/A |
+| `SENTRY_DSN` | `@platform-api` | `@platform-devex` | N/A |
 
 ## Regras obrigatórias
 

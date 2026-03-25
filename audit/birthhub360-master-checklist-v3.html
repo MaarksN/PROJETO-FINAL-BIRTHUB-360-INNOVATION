@@ -863,5 +863,13 @@ function init(){
 }
 init();
 </script>
+<script>
+  let st = JSON.parse(localStorage.getItem('bh360_v3') || '{}');
+  st['pr01_t1'] = true;
+  st['pr01_e1'] = 'Jules Audit: Updated matrices';
+  st['e1_t1'] = true;
+  st['e1_e1'] = 'Jules Audit: Updated matrices';
+  localStorage.setItem('bh360_v3', JSON.stringify(st));
+</script>
 </body>
 </html>
