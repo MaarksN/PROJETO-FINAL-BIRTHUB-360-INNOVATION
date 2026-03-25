@@ -325,7 +325,7 @@ jobs:
           fi
 
       - name: Run production preflight
-        run: pnpm release:preflight:production
+        run: pnpm release:preflight:production --env-file=ops/release/sealed/.env.production.sealed
 
       - name: Upload production preflight evidence
         uses: actions/upload-artifact@v7
