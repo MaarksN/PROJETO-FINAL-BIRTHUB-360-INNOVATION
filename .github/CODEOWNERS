@@ -15,24 +15,24 @@
 # Fronteiras validadas conforme docs/service-catalog.md
 
 # Core canônico (P0)
-/apps/web/ @platform-web @product-frontend
+/apps/web/ @product-frontend
 /apps/api/ @platform-api @platform-security
-/apps/worker/ @platform-worker @platform-api
+/apps/worker/ @platform-automation @platform-api
 /packages/database/ @platform-data @platform-security
 
 # Satélites operacionais
-/packages/agent-packs/ @platform-automation @growth-sdr
+/packages/agent-packs/ @ai-platform
 /apps/webhook-receiver/ @platform-integrations @platform-api
-/apps/voice-engine/ @platform-automation @platform-worker
+/apps/voice-engine/ @platform-automation
 /packages/queue/ @platform-worker @platform-api
 /packages/integrations/ @platform-integrations @platform-api
 /agents/ @platform-automation @growth-sdr
 
 # Legacy / quarentena (não-core)
-/apps/dashboard/ @platform-architecture @product-frontend
-/apps/api-gateway/ @platform-architecture @platform-api
-/apps/agent-orchestrator/ @platform-architecture @platform-worker
-/packages/db/ @platform-architecture @platform-data
+/apps/dashboard/ @product-frontend @platform-architecture
+/apps/api-gateway/ @platform-api @platform-architecture
+/apps/agent-orchestrator/ @platform-automation @platform-architecture
+/packages/db/ @platform-data @platform-architecture
 
 # Agents domain specializations
 /agents/ae/ @sales-ae @platform-automation
