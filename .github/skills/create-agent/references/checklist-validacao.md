@@ -15,7 +15,7 @@
 - Formato de saída claro e verificável.
 
 ## F4 — Implementação
-- Local correto (`.github/agents`, `.github/skills`, etc.).
+- Local correto (`docs/archive/github-agents`, `.github/skills`, etc.).
 - `tools` mínimos para a função.
 - Sem dependências implícitas não documentadas.
 
