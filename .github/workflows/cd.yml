@@ -505,6 +505,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs:
+      - staging-preflight
       - release-sbom
       - production-preflight
       - release-smoke-gate
