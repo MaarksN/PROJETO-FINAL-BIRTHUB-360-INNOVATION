@@ -74,3 +74,43 @@ Arquivos temporários versionados removidos da raiz:
 - `web_lint.txt`
 - `worker_lint.txt`
 - `workflows_lint.txt`
+
+## 7) Arquivamento de `.github/agents` fora da árvore operacional
+
+Mudança estrutural aplicada:
+
+- `git mv .github/agents docs/archive/github-agents`
+
+Controles ajustados:
+
+- Workflow de conformidade de agentes atualizado para `docs/archive/github-agents`.
+- Instruções (`applyTo`) e playbook atualizados para o novo local arquivado.
+- Catálogo canônico de famílias de agentes publicado em `docs/agent-packs/canonical-agent-line.md`.
+
+## 8) Verificações de freeze pós-cutover
+
+Comandos executados:
+
+```bash
+corepack pnpm ci:legacy-runtime-surface-freeze
+corepack pnpm ci:legacy-db-surface-freeze
+```
+
+Resultado:
+
+- Legacy runtime surface freeze: **passed**.
+- Legacy DB surface freeze: **passed**.
+
+## 9) Inventário de consumidores legados de dados
+
+Comando executado:
+
+```bash
+corepack pnpm audit:f2:db-imports
+```
+
+Resultado:
+
+- Auditoria concluída com artefatos em `artifacts/f2-legacy-2026-03-25/logs/`.
+- Raw: `01b-git-grep-birthub-db.log`.
+- Resumo: `01c-f2-100-git-grep-summary.md`.
