@@ -44,6 +44,9 @@ Fonte operacional: `.github/workflows/cd.yml` (jobs `staging-preflight` e `produ
 | `AUTH_MFA_ENCRYPTION_KEY` | Auth/MFA | `@platform-security` | semestral + rotação emergencial |
 | `STRIPE_SECRET_KEY` | Billing | `@platform-api` | conforme politica Stripe + incidente |
 | `STRIPE_WEBHOOK_SECRET` | Billing/Webhook | `@platform-api` | a cada reconfiguracao de endpoint |
+| `SENTRY_DSN` | API | `@platform-api` | N/A |
+| `RENDER_STAGING_DEPLOY_HOOK_URL` | Deploy | `@platform-devex` | N/A |
+| `RENDER_PRODUCTION_DEPLOY_HOOK_URL` | Deploy | `@platform-devex` | N/A |
 
 ## 3) Rehearsal verificavel
 
