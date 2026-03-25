@@ -457,12 +457,12 @@ jobs:
       command: pnpm monorepo:doctor && RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard && pnpm audit:ownership
       timeout_minutes: 15
 
-  release-smoke:
-    name: release-smoke
+  e2e-release:
+    name: e2e-release
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm release:smoke
-      timeout_minutes: 40
+      command: pnpm test:e2e:release
+      timeout_minutes: 20
 
   ci:
     name: ci
@@ -484,7 +484,7 @@ jobs:
       - workflow-suite
       - pack-tests
       - governance-gates
-      - release-smoke
+      - e2e-release
     steps:
       - name: Done
         run: echo "All required checks passed."
