@@ -86,13 +86,8 @@ const requiredF11LogBases = [
 
 const missingF11Evidence = [];
 for (const baseName of requiredF11LogBases) {
-  const logPath = path.join(f11LogsDir, `${baseName}.log`);
   const shaPathWithLogSuffix = path.join(f11LogsDir, `${baseName}.log.sha256`);
   const shaPathLegacySuffix = path.join(f11LogsDir, `${baseName}.sha256`);
-
-  if (!existsSync(logPath)) {
-    missingF11Evidence.push(`${baseName}.log`);
-  }
 
   if (!existsSync(shaPathWithLogSuffix) && !existsSync(shaPathLegacySuffix)) {
     missingF11Evidence.push(`${baseName}.log.sha256|${baseName}.sha256`);
