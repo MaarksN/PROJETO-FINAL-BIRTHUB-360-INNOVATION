@@ -18,7 +18,7 @@ Este documento é a **fonte única** para fronteiras operacionais entre core, le
 | Core | `apps/api` | API | 🟢 Default para tráfego de negócio | Platform/API | `apps/api/src/server.ts` |
 | Core | `apps/worker` | Worker | 🟢 Default para filas e processamento assíncrono | Platform/Automation | `apps/worker/src/index.ts` |
 | Core | `packages/database` | Data layer | 🟢 Default para schema, client Prisma e migrações | Platform/Data | `packages/database/package.json` |
-| Legacy/Quarentena | `apps/dashboard` | Front-end legado | 🔴 Fora de P0 e sem papel de rota principal | Product Frontend | Diretório legado mantido para compatibilidade interna |
+| Legacy/Quarentena | `apps/legacy/dashboard` | Front-end legado | 🔴 Fora de P0 e sem papel de rota principal | Product Frontend | Diretório legado mantido para compatibilidade interna |
 | Legacy/Quarentena | `apps/api-gateway` | API legado | 🔴 Não presente no `HEAD` atual | Platform/API | Sem evidência de runtime atual |
 | Legacy/Quarentena | `apps/agent-orchestrator` | Worker legado | 🔴 Não presente no `HEAD` atual | Platform/Automation | Sem evidência de runtime atual |
 | Legacy/Quarentena | `packages/db` | Data package legado | 🔴 Não presente no `HEAD` atual | Platform/Data | Substituído por `packages/database` |

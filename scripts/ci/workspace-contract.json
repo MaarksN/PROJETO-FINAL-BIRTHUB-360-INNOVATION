@@ -22,7 +22,7 @@
       "lane": "legacy",
       "packageName": "@birthub/dashboard",
       "purpose": "Legacy CRM cockpit on the canonical @birthub/database contract and excluded from the core release lane.",
-      "root": "apps/dashboard"
+      "root": "apps/legacy/dashboard"
     },
     {
       "lane": "legacy",
@@ -58,7 +58,7 @@
     {
       "allowedRoots": [
         "apps/api",
-        "apps/dashboard",
+        "apps/legacy/dashboard",
         "packages/db",
         "apps/web",
         "apps/worker",

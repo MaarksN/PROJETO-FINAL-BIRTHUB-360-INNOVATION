@@ -114,3 +114,30 @@ Resultado:
 - Auditoria concluída com artefatos em `artifacts/f2-legacy-2026-03-25/logs/`.
 - Raw: `01b-git-grep-birthub-db.log`.
 - Resumo: `01c-f2-100-git-grep-summary.md`.
+
+## 10) Cutover físico do dashboard para legado controlado
+
+Mudança aplicada:
+
+- `git mv apps/dashboard apps/legacy/dashboard`
+
+Controles alinhados:
+
+- `.github/CODEOWNERS` atualizado para `apps/legacy/dashboard`.
+- `scripts/ci/workspace-contract.json` atualizado para o novo root legado.
+- `scripts/ci/check-legacy-runtime-surface-freeze.mjs` atualizado para congelar `apps/legacy/dashboard` e permitir somente o rename de migração controlada.
+- Documentação canônica atualizada: `README.md`, `docs/service-catalog.md`, `docs/service-criticality.md`, `docs/observability-alerts.md`, `docs/taxonomy.md`, `docs/operations/core-boundaries-communication.md`.
+
+Validação executada:
+
+```bash
+corepack pnpm monorepo:doctor
+corepack pnpm ci:legacy-runtime-surface-freeze
+corepack pnpm ci:legacy-db-surface-freeze
+```
+
+Resultado:
+
+- Monorepo Doctor: sem findings críticos e sem warnings.
+- Legacy runtime freeze: **passed**.
+- Legacy DB freeze: **passed**.

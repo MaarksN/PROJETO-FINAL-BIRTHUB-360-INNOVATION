@@ -29,7 +29,7 @@ Fonte canônica de fronteiras: `docs/service-catalog.md`.
 
 | Serviço | Criticidade | Justificativa | RTO | RPO |
 |---|---|---|---|---|
-| `apps/dashboard` | P3 | Superfície legada/suporte, fora do runtime principal. | 1 dia útil | 4 h |
+| `apps/legacy/dashboard` | P3 | Superfície legada/suporte, fora do runtime principal. | 1 dia útil | 4 h |
 | `apps/api-gateway` | P3 | Componente legado não presente no `HEAD` atual. | N/A | N/A |
 | `apps/agent-orchestrator` | P3 | Componente legado não presente no `HEAD` atual. | N/A | N/A |
 | `packages/db` | P3 | Pacote legado substituído por `packages/database`. | N/A | N/A |

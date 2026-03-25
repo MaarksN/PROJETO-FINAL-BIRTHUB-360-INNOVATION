@@ -29,7 +29,7 @@
 /agents/ @platform-automation @growth-sdr
 
 # Legacy / quarentena (não-core)
-/apps/dashboard/ @platform-architecture @product-frontend
+/apps/legacy/dashboard/ @platform-architecture @product-frontend
 /apps/api-gateway/ @platform-architecture @platform-api
 /apps/agent-orchestrator/ @platform-architecture @platform-worker
 /packages/db/ @platform-architecture @platform-data
