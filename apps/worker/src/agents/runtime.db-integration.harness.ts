@@ -1,3 +1,5 @@
+import { createLogger } from "@birthub/logger";
+const logger = createLogger("worker");
 /* eslint-disable */
 import { executeManifestAgentRuntime } from "./runtime.js";
 import { Prisma, prisma } from "@birthub/database";
@@ -138,7 +140,7 @@ async function main(): Promise<void> {
       })
     ]);
 
-  console.log(
+  logger.info(
     JSON.stringify({
       approvedOutputStatus: approvedOutput?.status ?? null,
       budgetEventKinds: budgetEvents.map((event) => event.kind),
@@ -155,6 +157,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });
