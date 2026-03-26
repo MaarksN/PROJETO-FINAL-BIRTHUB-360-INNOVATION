@@ -39,6 +39,10 @@ void test("tasks endpoint returns 503 when queue backpressure threshold is reach
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
+      role: "MEMBER",
+      status: "ACTIVE"
+    })),
     stubMethod(budgetService, "consumeBudget", () => Promise.resolve({
       agentId: "ceo-pack",
       consumed: 0.5,
