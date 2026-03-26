@@ -10,7 +10,7 @@ import { canUseFeature } from "../../modules/billing/service.js";
 const DEFAULT_GRACE_PERIOD_DAYS = 3;
 
 export function RequireFeature(feature: PlanFeature): RequestHandler {
-  return async (request: Request, _response: Response, next: NextFunction) => {
+  return async (request: Request, response: Response, next: NextFunction) => {
     try {
       const organizationId = request.context.organizationId;
 

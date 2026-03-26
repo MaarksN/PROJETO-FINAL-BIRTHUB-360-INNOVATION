@@ -7,7 +7,7 @@ import { assertRole } from "../../modules/auth/auth.service.js";
 
 /** @see ADR-011 */
 export function RequireRole(minimumRole: Role): RequestHandler {
-  return async (request: Request, _response: Response, next: NextFunction) => {
+  return async (request: Request, response: Response, next: NextFunction) => {
     try {
       const userId = request.context.userId;
       const organizationId = request.context.organizationId;
