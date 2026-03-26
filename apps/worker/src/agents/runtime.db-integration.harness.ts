@@ -3,6 +3,9 @@ import { executeManifestAgentRuntime } from "./runtime.js";
 import { Prisma, prisma } from "@birthub/database";
 import { outputService } from "../../../api/src/modules/outputs/output.service.js";
 import { agentMetricsService } from "../../../api/src/modules/agents/metrics.service.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("worker-runtime");
 
 class InMemoryRedis {
   private readonly data = new Map<string, { expiresAt?: number; value: string }>();
@@ -138,7 +141,7 @@ async function main(): Promise<void> {
       })
     ]);
 
-  console.log(
+  logger.info(
     JSON.stringify({
       approvedOutputStatus: approvedOutput?.status ?? null,
       budgetEventKinds: budgetEvents.map((event) => event.kind),
@@ -155,6 +158,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

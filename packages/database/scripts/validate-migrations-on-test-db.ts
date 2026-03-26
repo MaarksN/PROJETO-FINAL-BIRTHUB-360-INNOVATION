@@ -2,6 +2,9 @@ import { resolve } from "node:path";
 
 import { getPrismaBinaryPath, runCommand } from "./lib/process.js";
 import { databasePackageRoot, schemaPath } from "./lib/paths.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-validate-migrations-on-test-db");
 
 function looksDisposableDatabase(url: string): boolean {
   return /(localhost|127\.0\.0\.1|shadow|test|validation|staging)/i.test(url);
@@ -58,6 +61,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

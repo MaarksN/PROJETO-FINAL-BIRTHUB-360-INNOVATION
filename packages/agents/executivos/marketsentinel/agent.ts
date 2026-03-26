@@ -1,3 +1,7 @@
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("agent");
+
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - MarketSentinel
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -512,11 +516,11 @@ export class MarketSentinelAgent {
         name: normalized.name
       });
       if (normalized.level === "error") {
-        console.error(payload);
+        logger.error(payload);
       } else if (normalized.level === "warning") {
-        console.warn(payload);
+        logger.warn(payload);
       } else {
-        console.log(payload);
+        logger.info(payload);
       }
     };
 

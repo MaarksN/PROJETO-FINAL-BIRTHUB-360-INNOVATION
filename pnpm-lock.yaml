@@ -578,6 +578,9 @@ importers:
 
   packages/agents-core:
     dependencies:
+      '@birthub/logger':
+        specifier: workspace:^
+        version: link:../logger
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -654,6 +657,9 @@ importers:
 
   packages/database:
     dependencies:
+      '@birthub/logger':
+        specifier: workspace:^
+        version: link:../logger
       '@prisma/client':
         specifier: ^6.19.2
         version: 6.19.2(prisma@6.19.2(typescript@5.9.3))(typescript@5.9.3)

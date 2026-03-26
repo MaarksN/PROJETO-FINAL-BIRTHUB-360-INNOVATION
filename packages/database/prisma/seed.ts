@@ -9,6 +9,9 @@ import {
   disconnectTenantClient
 } from "./seed/tenant.js";
 import { disconnectWorkflowClient } from "./seed/workflows.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-seed");
 
 async function main(): Promise<void> {
   await wipeDatabase();
@@ -21,7 +24,7 @@ async function main(): Promise<void> {
 
 main()
   .catch((error) => {
-    console.error(error);
+    logger.error(error);
     process.exitCode = 1;
   })
   .finally(async () => {

@@ -2,6 +2,9 @@ import { resolve } from "node:path";
 
 import { runCommand } from "./lib/process.js";
 import { databasePackageRoot } from "./lib/paths.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-post-migration-checklist");
 
 async function runScript(scriptName: string): Promise<void> {
   const scriptPath = resolve(databasePackageRoot, "scripts", scriptName);
@@ -32,6 +35,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

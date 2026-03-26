@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 import { F8_CONFIG } from "../f8.config.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-analyze-performance");
 
 type SlowQueryRow = {
   calls: bigint | number;
@@ -35,7 +38,7 @@ async function main(): Promise<void> {
       "Performance audit skipped because DATABASE_URL is not configured."
     );
 
-    console.log(`Performance audit skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+    logger.info(`Performance audit skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
     return;
   }
 
@@ -105,7 +108,7 @@ async function main(): Promise<void> {
     const jsonPath = await writeJsonReport("f8/performance-report.json", report);
     const txtPath = await writeTextReport("f8/performance-report.txt", text);
 
-    console.log(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+    logger.info(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
 
     if (!report.ok) {
       process.exitCode = 1;
@@ -116,6 +119,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });
