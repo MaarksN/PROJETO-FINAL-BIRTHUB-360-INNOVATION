@@ -1,10 +1,12 @@
+import { createLogger } from "@birthub/logger";
+const logger = createLogger("worker");
 import { runParallelExecutionLoadTest } from "./parallelLoad.js";
 
 async function main() {
-  console.log("Starting baseline run...");
+  logger.info("Starting baseline run...");
   const metrics = await runParallelExecutionLoadTest(500);
-  console.log("Baseline metrics:");
-  console.log(metrics);
+  logger.info("Baseline metrics:");
+  logger.info(metrics);
 }
 
 main().catch(console.error);
