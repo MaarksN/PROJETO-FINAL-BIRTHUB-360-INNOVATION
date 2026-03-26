@@ -29,55 +29,51 @@ type AsyncRouteHandler<TResult> = (
 export function Auditable<TResult>(options: AuditableOptions<TResult>) {
   return (handler: AsyncRouteHandler<TResult>): AsyncRouteHandler<TResult> =>
     async (request, response, next) => {
-      try {
-        const result = await handler(request, response, next);
+      const result = await handler(request, response, next);
 
-        if (!["DELETE", "PATCH", "POST", "PUT"].includes(request.method)) {
-          return result;
-        }
-
-        const tenantId = readTrimmedString(
-          options.resolveTenantId?.(request, response, result) ?? request.context.tenantId
-        );
-
-        if (!tenantId) {
-          return result;
-        }
-
-        const actorId = request.context.userId;
-
-        if (options.requireActor && !actorId) {
-          throw new ProblemDetailsError({
-            detail: "An authenticated actor is required for this mutation.",
-            status: 401,
-            title: "Unauthorized"
-          });
-        }
-
-        const entityId =
-          readTrimmedString(
-            options.resolveEntityId?.(request, response, result) ??
-              request.params.id ??
-              request.params.memberId
-          ) ?? "unknown";
-
-        enqueueAuditEvent({
-          action: options.action,
-          actorId: actorId ?? null,
-          diff: {
-            payload: (request.body as unknown) ?? null,
-            response: result ?? null
-          },
-          entityId,
-          entityType: options.entityType,
-          ip: request.ip || null,
-          tenantId,
-          userAgent: request.get("user-agent") ?? null
-        });
-
+      if (!["DELETE", "PATCH", "POST", "PUT"].includes(request.method)) {
         return result;
-      } catch (error) {
-        next(error);
       }
+
+      const tenantId = readTrimmedString(
+        options.resolveTenantId?.(request, response, result) ?? request.context.tenantId
+      );
+
+      if (!tenantId) {
+        return result;
+      }
+
+      const actorId = request.context.userId;
+
+      if (options.requireActor && !actorId) {
+        throw new ProblemDetailsError({
+          detail: "An authenticated actor is required for this mutation.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      const entityId =
+        readTrimmedString(
+          options.resolveEntityId?.(request, response, result) ??
+            request.params.id ??
+            request.params.memberId
+        ) ?? "unknown";
+
+      enqueueAuditEvent({
+        action: options.action,
+        actorId: actorId ?? null,
+        diff: {
+          payload: (request.body as unknown) ?? null,
+          response: result ?? null
+        },
+        entityId,
+        entityType: options.entityType,
+        ip: request.ip || null,
+        tenantId,
+        userAgent: request.get("user-agent") ?? null
+      });
+
+      return result;
     };
 }

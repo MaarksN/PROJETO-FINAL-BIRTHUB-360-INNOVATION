@@ -1,5 +1,3 @@
-import { createLogger } from "@birthub/logger";
-const logger = createLogger("agent");
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - PricingOptimizer
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -512,11 +510,11 @@ export class PricingOptimizerAgent {
         name: normalized.name
       });
       if (normalized.level === "error") {
-        logger.error(payload);
+        console.error(payload);
       } else if (normalized.level === "warning") {
-        logger.warn(payload);
+        console.warn(payload);
       } else {
-        logger.info(payload);
+        console.log(payload);
       }
     };
 
