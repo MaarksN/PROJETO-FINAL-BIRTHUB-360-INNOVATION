@@ -3,41 +3,41 @@ import type { NextFunction, Request, RequestHandler, Response } from "express";
 import { Role } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { assertRole } from "../../modules/auth/auth.service.js";
+import { rolePriority } from "../../modules/auth/auth.service.shared.js";
 
 /** @see ADR-011 */
 export function RequireRole(minimumRole: Role): RequestHandler {
-  return async (request: Request, _response: Response, next: NextFunction) => {
-    try {
-      const userId = request.context.userId;
-      const organizationId = request.context.organizationId;
+  return (request: Request, _response: Response, next: NextFunction) => {
+    const userId = request.context.userId;
+    const organizationId = request.context.organizationId;
+    const role = request.context.role;
 
-      if (!userId || !organizationId) {
-        throw new ProblemDetailsError({
-          detail: "Authentication is required before role authorization.",
+    if (!userId || !organizationId || !role) {
+      next(
+        new ProblemDetailsError({
+          detail: "Authentication and role are required before role authorization.",
           status: 401,
           title: "Unauthorized"
-        });
-      }
+        })
+      );
+      return;
+    }
 
-      const hasRole = await assertRole({
-        minimumRole,
-        organizationId,
-        userId
-      });
+    const currentRolePriority = rolePriority(role as Role);
+    const requiredRolePriority = rolePriority(minimumRole);
 
-      if (!hasRole) {
-        throw new ProblemDetailsError({
+    if (currentRolePriority < requiredRolePriority) {
+      next(
+        new ProblemDetailsError({
           detail: `Role '${minimumRole}' is required for this operation.`,
           status: 403,
           title: "Forbidden"
-        });
-      }
-
-      next();
-    } catch (error) {
-      next(error);
+        })
+      );
+      return;
     }
+
+    next();
   };
 }
 

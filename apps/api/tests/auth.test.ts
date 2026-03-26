@@ -287,6 +287,10 @@ void test("auth logout returns 200 for a valid session token", async () => {
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
+      role: Role.MEMBER,
+      status: "ACTIVE"
+    })),
     stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" }))
   ];
 
@@ -415,12 +419,23 @@ void test("auth protected endpoint returns 401 for expired or invalid session to
     userId: "user_1"
   }));
 
+  let restoreMembership = stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
+    role: Role.MEMBER,
+    status: "ACTIVE"
+  }));
+
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_expired").expect(401);
   restore();
+  restoreMembership();
 
   restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve(null));
+  restoreMembership = stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
+    role: Role.MEMBER,
+    status: "ACTIVE"
+  }));
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_invalid").expect(401);
   restore();
+  restoreMembership();
 });
 
 void test("createSession enforces concurrent session limit for privileged roles", async () => {
