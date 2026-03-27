@@ -1,106 +1,107 @@
+import type { JobsOptions } from "bullmq";
+
 import { QueueName } from "@birthub/shared-types";
 
-export const QUEUE_CONFIG: Record<
-  string,
-  {
-    attempts: number;
-    priority?: number;
-    backoff?: any;
-    cron?: string;
-    removeOnFail?: { count: number };
-    removeOnComplete?: { count: number };
-  }
-> = {
+export interface QueueDefinition {
+  attempts: number;
+  backoff?: JobsOptions["backoff"];
+  cron?: string;
+  priority?: number;
+  removeOnComplete?: JobsOptions["removeOnComplete"];
+  removeOnFail?: JobsOptions["removeOnFail"];
+}
+
+export const QUEUE_CONFIG: Record<string, QueueDefinition> = {
   // Agent Queues
   [QueueName.SDR_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.LDR_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.AE_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.ANALISTA_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.FINANCEIRO_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.JURIDICO_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.MARKETING_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.POS_VENDA_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.BDR_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.CLOSER_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.SALES_OPS_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.ENABLEMENT_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.KAM_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.PARTNERS_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.FIELD_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.PRE_SALES_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.COPYWRITER_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
   [QueueName.SOCIAL_QUEUE]: {
     attempts: 3,
     backoff: { type: "exponential", delay: 1000 },
-    priority: 10,
+    priority: 10
   },
 
   // Task Queues
@@ -109,14 +110,14 @@ export const QUEUE_CONFIG: Record<
     backoff: { type: "exponential", delay: 1000 },
     priority: 10,
     removeOnFail: { count: 1000 },
-    removeOnComplete: { count: 100 },
+    removeOnComplete: { count: 100 }
   },
   [QueueName.DEAL_CLOSED_WON]: {
     attempts: 5,
     backoff: { type: "fixed", delay: 1000 },
     priority: 10,
     removeOnFail: { count: 1000 },
-    removeOnComplete: { count: 100 },
+    removeOnComplete: { count: 100 }
   },
   [QueueName.HEALTH_ALERT]: { attempts: 4, backoff: { type: "exponential", delay: 800 }, priority: 9 },
   [QueueName.CHURN_RISK_HIGH]: { attempts: 4, backoff: { type: "exponential", delay: 800 }, priority: 9 },
@@ -128,14 +129,14 @@ export const QUEUE_CONFIG: Record<
   [QueueName.BANK_RECONCILIATION]: {
     attempts: 2,
     priority: 2,
-    cron: "0 2 * * *",
+    cron: "0 2 * * *"
   },
   [QueueName.COMMISSION_CALC]: { attempts: 3, priority: 3, cron: "0 18 L * *" },
   [QueueName.BOARD_REPORT]: { attempts: 2, priority: 2, cron: "0 8 * * 1" },
   [QueueName.CONTRACT_DEADLINES]: {
     attempts: 2,
     priority: 4,
-    cron: "0 8 * * 1",
+    cron: "0 8 * * 1"
   },
-  [QueueName.DOMAIN_WARMUP]: { attempts: 1, priority: 1, cron: "*/30 * * * *" },
+  [QueueName.DOMAIN_WARMUP]: { attempts: 1, priority: 1, cron: "*/30 * * * *" }
 };

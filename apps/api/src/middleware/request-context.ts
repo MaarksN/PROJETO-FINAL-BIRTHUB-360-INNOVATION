@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 
+import type { Role } from "@birthub/database";
 import { getActiveTraceContext, runWithLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
 
@@ -24,7 +25,7 @@ export interface RequestContext {
     | null;
   organizationId: string | null;
   requestId: string;
-  role: string | null;
+  role: Role | null;
   sessionId: string | null;
   tenantId: string | null;
   tenantSlug: string | null;

@@ -1,5 +1,6 @@
 import type { ApiConfig } from "@birthub/config";
 import {
+  MembershipStatus,
   Role,
   SessionStatus,
   prisma
@@ -77,7 +78,15 @@ export async function createSession(input: {
   userId: string;
 }): Promise<{ sessionId: string; tokens: SessionTokens }> {
   const sessionId = createSecureSessionId();
-  const accessToken = createAccessToken(input.role?.toLowerCase() || "guest");
+  const accessToken = createAccessToken({
+    organizationId: input.organizationId,
+    role: input.role ?? null,
+    secret: input.config.SESSION_SECRET,
+    sessionId,
+    tenantId: input.tenantId,
+    ttlMinutes: input.config.API_AUTH_TOKEN_TTL_MINUTES,
+    userId: input.userId
+  });
   const refreshToken = createRefreshToken();
   const csrfToken = randomToken(24);
   const expiresAt = nowPlusMinutes(input.config.API_AUTH_TOKEN_TTL_MINUTES);
@@ -231,10 +240,28 @@ export async function refreshSession(input: {
     };
   }
 
+  const membershipRole = await prisma.membership.findUnique({
+    select: {
+      role: true,
+      status: true
+    },
+    where: {
+      organizationId_userId: {
+        organizationId: current.organizationId,
+        userId: current.userId
+      }
+    }
+  });
+
   const nextSession = await createSession({
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: current.organizationId,
+    ...(membershipRole?.status === MembershipStatus.ACTIVE
+      ? {
+          role: membershipRole.role
+        }
+      : {}),
     tenantId: current.tenantId,
     userAgent: input.userAgent,
     userId: current.userId

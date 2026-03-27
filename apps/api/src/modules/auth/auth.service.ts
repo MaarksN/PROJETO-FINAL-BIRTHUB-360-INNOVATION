@@ -6,7 +6,8 @@ import {
 import type { ApiConfig } from "@birthub/config";
 
 import {
-  sha256
+  sha256,
+  verifyAccessToken
 } from "./crypto.js";
 import {
   enableMfaForUser,
@@ -73,15 +74,37 @@ export {
 
 export type { ApiKeyScope, AuthenticatedContext, SessionTokens };
 
-function extractRoleFromToken(token: string, prefix: string): Role | null {
-  const parts = token.split("_");
-  if (parts.length >= 3 && parts[0] === prefix) {
-    const rawRole = parts[prefix === "bh360" ? 2 : 1]?.toUpperCase();
-    if (Object.values(Role).includes(rawRole as Role)) {
-      return rawRole as Role;
-    }
+function isRole(value: unknown): value is Role {
+  return Object.values(Role).includes(value as Role);
+}
+
+function resolveVerifiedSessionRole(input: {
+  organizationId: string;
+  sessionId: string;
+  tenantId: string;
+  token: string;
+  userId: string;
+  secret?: string;
+}): Role | null {
+  if (!input.secret) {
+    return null;
   }
-  return null;
+
+  const claims = verifyAccessToken(input.token, input.secret);
+  if (!claims) {
+    return null;
+  }
+
+  if (
+    claims.organizationId !== input.organizationId ||
+    claims.sessionId !== input.sessionId ||
+    claims.tenantId !== input.tenantId ||
+    claims.userId !== input.userId
+  ) {
+    return null;
+  }
+
+  return isRole(claims.role) ? claims.role : null;
 }
 
 async function authenticateApiKey(token: string): Promise<AuthenticatedContext | null> {
@@ -100,7 +123,10 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
     return null;
   }
 
-  const role = extractRoleFromToken(token, "bh360") || await getRoleForUser({ organizationId, userId: apiKey.userId });
+  const role = await getRoleForUser({
+    organizationId,
+    userId: apiKey.userId
+  });
 
   return {
     apiKeyId: apiKey.apiKeyId,
@@ -115,7 +141,7 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
 
 async function authenticateSession(
   token: string,
-  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">
 ): Promise<AuthenticatedContext | null> {
   const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
   if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
@@ -134,7 +160,23 @@ async function authenticateSession(
 
   await prisma.session.update({ data: { lastActivityAt: new Date() }, where: { id: session.id } });
 
-  const role = extractRoleFromToken(token, "atk") || await getRoleForUser({ organizationId: session.organizationId, userId: session.userId });
+  const role =
+    resolveVerifiedSessionRole({
+      organizationId: session.organizationId,
+      ...(config?.SESSION_SECRET
+        ? {
+            secret: config.SESSION_SECRET
+          }
+        : {}),
+      sessionId: session.id,
+      tenantId: session.tenantId,
+      token,
+      userId: session.userId
+    }) ??
+    (await getRoleForUser({
+      organizationId: session.organizationId,
+      userId: session.userId
+    }));
 
   return {
     apiKeyId: null,
@@ -149,7 +191,7 @@ async function authenticateSession(
 
 export async function authenticateRequest(input: {
   apiKeyToken?: string | null;
-  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">;
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">;
   sessionToken?: string | null;
 }): Promise<AuthenticatedContext | null> {
   if (input.apiKeyToken) {
@@ -162,4 +204,3 @@ export async function authenticateRequest(input: {
 
   return null;
 }
-

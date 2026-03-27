@@ -1,14 +1,63 @@
-import winston from 'winston';
+import {
+  createLogger as createStructuredLogger,
+  getLogContext,
+  runWithLogContext,
+  updateLogContext
+} from "@birthub/logger";
+import type { Logger as StructuredLogger } from "pino";
 
-export const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json(),
-    winston.format.errors({ stack: true })
-  ),
-  defaultMeta: { service: 'birthub-360' },
-  transports: [
-    new winston.transports.Console()
-  ],
-});
+export interface LegacyLogger {
+  debug: (message: string, context?: unknown) => void;
+  error: (message: string, context?: unknown) => void;
+  info: (message: string, context?: unknown) => void;
+  raw: StructuredLogger;
+  warn: (message: string, context?: unknown) => void;
+}
+
+const rawLogger = createStructuredLogger("utils");
+
+function emit(level: "debug" | "error" | "info" | "warn", message: string, context?: unknown): void {
+  const logMethod = rawLogger[level].bind(rawLogger) as (...args: unknown[]) => void;
+
+  if (context instanceof Error) {
+    logMethod(
+      {
+        err: context,
+        errorName: context.name
+      },
+      message
+    );
+    return;
+  }
+
+  if (context && typeof context === "object") {
+    logMethod(context, message);
+    return;
+  }
+
+  if (context !== undefined) {
+    logMethod({ context }, message);
+    return;
+  }
+
+  logMethod(message);
+}
+
+export const logger: LegacyLogger = {
+  debug: (message, context) => {
+    emit("debug", message, context);
+  },
+  error: (message, context) => {
+    emit("error", message, context);
+  },
+  info: (message, context) => {
+    emit("info", message, context);
+  },
+  raw: rawLogger,
+  warn: (message, context) => {
+    emit("warn", message, context);
+  }
+};
+
+export const createLogger = createStructuredLogger;
+export { getLogContext, runWithLogContext, updateLogContext };

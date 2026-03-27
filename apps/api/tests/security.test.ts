@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { setMaxListeners } from "node:events";
 import test from "node:test";
 
 import { UserStatus, prisma } from "@birthub/database";
@@ -8,6 +9,8 @@ import { createApp } from "../src/app.js";
 import { createTestApiConfig } from "./test-config.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
 import { budgetService } from "../src/modules/budget/budget.service.js";
+
+setMaxListeners(20);
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

@@ -1,4 +1,5 @@
 import { prisma, runWithTenantContext } from "@birthub/database";
+import { updateLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
 
 import { cacheTenant, getCachedTenant } from "../common/cache/index.js";
@@ -135,6 +136,11 @@ export function tenantContextMiddleware(
       request.context.tenantId = tenantContext.tenantId;
       request.context.tenantSlug = tenantContext.tenantSlug;
       request.context.userId = tenantContext.userId;
+      updateLogContext({
+        requestId: request.context.requestId,
+        tenantId: tenantContext.tenantId,
+        userId: tenantContext.userId
+      });
 
       response.setHeader("x-organization-id", tenantContext.organizationId);
       response.setHeader("x-tenant-id", tenantContext.tenantId);

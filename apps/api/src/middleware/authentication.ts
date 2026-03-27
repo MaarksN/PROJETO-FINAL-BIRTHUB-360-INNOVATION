@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import type { ApiConfig } from "@birthub/config";
+import { updateLogContext } from "@birthub/logger";
 
 import { authenticateRequest } from "../modules/auth/auth.service.js";
 
@@ -54,7 +55,7 @@ function extractAuthorizationToken(headerValue: string | undefined): {
 
 export function authenticationMiddleware(
   sessionCookieName: string,
-  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">
+  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">
 ) {
   return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     try {
@@ -80,6 +81,11 @@ export function authenticationMiddleware(
       request.context.sessionId = authenticated.sessionId;
       request.context.tenantId = authenticated.tenantId;
       request.context.userId = authenticated.userId;
+      updateLogContext({
+        requestId: request.context.requestId,
+        tenantId: authenticated.tenantId,
+        userId: authenticated.userId
+      });
 
       response.setHeader("x-organization-id", authenticated.organizationId);
       response.setHeader("x-tenant-id", authenticated.tenantId);

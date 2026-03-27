@@ -222,7 +222,6 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
         requestId: request.context.requestId,
         topic
       });
-      return Promise.resolve();
     })
   );
 

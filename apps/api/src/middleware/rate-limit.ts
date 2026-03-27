@@ -1,12 +1,15 @@
 import type { ApiConfig } from "@birthub/config";
 import { MembershipStatus, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
+import type { Redis } from "ioredis";
 import type { Request, RequestHandler, Response } from "express";
-import rateLimit, { ipKeyGenerator, type Options } from "express-rate-limit";
 
 import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
+import { getSharedRedis } from "../lib/redis.js";
 
 const logger = createLogger("api-rate-limit");
+
+type RateLimitScope = "api" | "login" | "webhook";
 
 function resolveEndpointKey(request: Request): string {
   const normalizedPath = (request.path || "/").replace(/\/+/g, "/").replace(/\/$/, "") || "/";
@@ -27,7 +30,7 @@ function readTrimmedBodyField(request: Request, field: "email" | "tenantId"): st
   return trimmed.length > 0 ? trimmed : null;
 }
 
-function logRateLimitExceeded(request: Request, scope: "api" | "login" | "webhook"): void {
+function logRateLimitExceeded(request: Request, scope: RateLimitScope): void {
   logger.warn(
     {
       endpoint: resolveEndpointKey(request),
@@ -86,35 +89,43 @@ async function recordBruteForceAlert(request: Request): Promise<void> {
   });
 }
 
-function buildHandler(input: {
-  detail: string;
-  scope: "api" | "login" | "webhook";
-  windowMs: number;
-}): NonNullable<Options["handler"]> {
-  return (request: Request, response: Response, _next, _options) => {
-    const retryAfterSeconds = Math.ceil(input.windowMs / 1000);
+function buildRateLimitError(
+  request: Request,
+  response: Response,
+  input: {
+    detail: string;
+    retryAfterSeconds: number;
+  }
+): void {
+  response.setHeader("Retry-After", String(input.retryAfterSeconds));
+  response.status(429).json(
+    toProblemDetails(
+      request,
+      new ProblemDetailsError({
+        detail: input.detail,
+        status: 429,
+        title: "Too Many Requests"
+      })
+    )
+  );
+}
 
-    logRateLimitExceeded(request, input.scope);
-    if (input.scope === "login") {
-      void recordBruteForceAlert(request);
-    }
-
-    response.setHeader("Retry-After", String(retryAfterSeconds));
-    response.status(429).json(
-      toProblemDetails(
-        request,
-        new ProblemDetailsError({
-          detail: input.detail,
-          status: 429,
-          title: "Too Many Requests"
-        })
-      )
-    );
-  };
+function setStandardRateLimitHeaders(
+  response: Response,
+  input: {
+    limit: number;
+    remaining: number;
+    retryAfterSeconds: number;
+  }
+): void {
+  response.setHeader("RateLimit-Limit", String(input.limit));
+  response.setHeader("RateLimit-Remaining", String(Math.max(0, input.remaining)));
+  response.setHeader("RateLimit-Reset", String(input.retryAfterSeconds));
 }
 
 function resolveIpKey(request: Request): string {
-  return ipKeyGenerator(request.ip ?? request.header("x-forwarded-for") ?? "anonymous");
+  const rawIp = request.ip ?? request.header("x-forwarded-for") ?? "anonymous";
+  return rawIp.trim().toLowerCase().replace(/[^a-z0-9:.,_-]/gi, "_");
 }
 
 function resolveAuthenticatedKey(request: Request): string {
@@ -135,32 +146,147 @@ function resolveAuthenticatedKey(request: Request): string {
   return `ip:${resolveIpKey(request)}:endpoint:${endpoint}`;
 }
 
+async function consumeFixedWindow(input: {
+  key: string;
+  redis: Redis;
+  scope: RateLimitScope;
+  windowMs: number;
+}): Promise<{
+  count: number;
+  retryAfterSeconds: number;
+  storageKey: string;
+}> {
+  const now = Date.now();
+  const currentWindow = Math.floor(now / input.windowMs);
+  const remainingWindowMs = Math.max(1, input.windowMs - (now % input.windowMs));
+  const storageKey = `rate_limit:${input.scope}:${currentWindow}:${input.key}`;
+  const pipelineResult = await input.redis.multi().incr(storageKey).pexpire(storageKey, remainingWindowMs).exec();
+
+  if (!pipelineResult || pipelineResult.length === 0) {
+    throw new Error("RATE_LIMIT_BACKEND_UNAVAILABLE");
+  }
+
+  const count = Number(pipelineResult[0]?.[1] ?? NaN);
+  if (!Number.isFinite(count)) {
+    throw new Error("RATE_LIMIT_BACKEND_INVALID_RESPONSE");
+  }
+
+  return {
+    count,
+    retryAfterSeconds: Math.max(1, Math.ceil(remainingWindowMs / 1000)),
+    storageKey
+  };
+}
+
+async function releaseSuccessfulRequest(redis: Redis, storageKey: string): Promise<void> {
+  try {
+    await redis.decr(storageKey);
+  } catch (error) {
+    logger.error(
+      {
+        error,
+        storageKey
+      },
+      "Failed to release successful rate-limit reservation"
+    );
+  }
+}
+
+function createDistributedRateLimitMiddleware(
+  config: ApiConfig,
+  input: {
+    detail: string | ((request: Request) => string);
+    keyGenerator: (request: Request) => string;
+    limit: number | ((request: Request) => number);
+    scope: RateLimitScope;
+    skipSuccessfulRequests?: boolean;
+    windowMs: number;
+  }
+): RequestHandler {
+  const redis = getSharedRedis(config);
+
+  return (request, response, next) => {
+    void (async () => {
+      try {
+        const limit =
+          typeof input.limit === "function" ? input.limit(request) : input.limit;
+        const consumed = await consumeFixedWindow({
+          key: input.keyGenerator(request),
+          redis,
+          scope: input.scope,
+          windowMs: input.windowMs
+        });
+        const remaining = Math.max(0, limit - consumed.count);
+        setStandardRateLimitHeaders(response, {
+          limit,
+          remaining,
+          retryAfterSeconds: consumed.retryAfterSeconds
+        });
+
+        if (consumed.count > limit) {
+          logRateLimitExceeded(request, input.scope);
+          if (input.scope === "login") {
+            void recordBruteForceAlert(request);
+          }
+
+          buildRateLimitError(request, response, {
+            detail:
+              typeof input.detail === "function" ? input.detail(request) : input.detail,
+            retryAfterSeconds: consumed.retryAfterSeconds
+          });
+          return;
+        }
+
+        if (input.skipSuccessfulRequests) {
+          response.on("finish", () => {
+            if (response.statusCode < 400) {
+              void releaseSuccessfulRequest(redis, consumed.storageKey);
+            }
+          });
+        }
+
+        next();
+      } catch (error) {
+        logger.error(
+          {
+            endpoint: resolveEndpointKey(request),
+            error,
+            requestId: request.context.requestId,
+            scope: input.scope,
+            tenantId: request.context.tenantId,
+            userId: request.context.userId
+          },
+          "Distributed rate-limit backend failed"
+        );
+        next(
+          new ProblemDetailsError({
+            detail: "Rate-limiting backend is unavailable.",
+            status: 503,
+            title: "Service Unavailable"
+          })
+        );
+      }
+    })();
+  };
+}
+
 export function createRateLimitMiddleware(config: ApiConfig): RequestHandler {
-  return rateLimit({
-    handler: (request, response, next, options) =>
-      buildHandler({
-        detail: request.context.apiKeyId
-          ? "Too many requests for this API key. Please retry later."
-          : "Too many requests from this IP address. Please retry later.",
-        scope: "api",
-        windowMs: config.API_RATE_LIMIT_WINDOW_MS
-      })(request, response, next, options),
+  return createDistributedRateLimitMiddleware(config, {
+    detail: (request) =>
+      request.context.apiKeyId
+        ? "Too many requests for this API key. Please retry later."
+        : "Too many requests from this IP address. Please retry later.",
     keyGenerator: resolveAuthenticatedKey,
-    legacyHeaders: false,
     limit: (request) =>
       request.context.apiKeyId ? config.API_KEY_RATE_LIMIT_MAX : config.API_RATE_LIMIT_MAX,
-    standardHeaders: true,
+    scope: "api",
     windowMs: config.API_RATE_LIMIT_WINDOW_MS
   });
 }
 
 export function createLoginRateLimitMiddleware(config: ApiConfig): RequestHandler {
-  return rateLimit({
-    handler: buildHandler({
-      detail: "Too many login attempts from this IP address. Please retry later.",
-      scope: "login",
-      windowMs: config.API_LOGIN_RATE_LIMIT_WINDOW_MS
-    }),
+  return createDistributedRateLimitMiddleware(config, {
+    detail: "Too many login attempts from this IP address. Please retry later.",
     keyGenerator: (request) => {
       const email = readTrimmedBodyField(request, "email")?.toLowerCase() ?? "unknown-email";
       const tenantReference =
@@ -168,21 +294,16 @@ export function createLoginRateLimitMiddleware(config: ApiConfig): RequestHandle
 
       return `login:${tenantReference}:${email}:${resolveIpKey(request)}`;
     },
-    legacyHeaders: false,
     limit: config.API_LOGIN_RATE_LIMIT_MAX,
+    scope: "login",
     skipSuccessfulRequests: true,
-    standardHeaders: true,
     windowMs: config.API_LOGIN_RATE_LIMIT_WINDOW_MS
   });
 }
 
 export function createWebhookRateLimitMiddleware(config: ApiConfig): RequestHandler {
-  return rateLimit({
-    handler: buildHandler({
-      detail: "Inbound webhook traffic temporarily rate limited for this route.",
-      scope: "webhook",
-      windowMs: config.API_WEBHOOK_RATE_LIMIT_WINDOW_MS
-    }),
+  return createDistributedRateLimitMiddleware(config, {
+    detail: "Inbound webhook traffic temporarily rate limited for this route.",
     keyGenerator: (request) => {
       const tenantId = request.context.tenantId ?? "public";
       const signature =
@@ -192,12 +313,11 @@ export function createWebhookRateLimitMiddleware(config: ApiConfig): RequestHand
 
       return `webhook:${tenantId}:${resolveEndpointKey(request)}:${signature}:${resolveIpKey(request)}`;
     },
-    legacyHeaders: false,
     limit: (request) =>
       request.context.tenantId
         ? config.API_WEBHOOK_RATE_LIMIT_MAX * config.API_WEBHOOK_RATE_LIMIT_TENANT_MULTIPLIER
         : config.API_WEBHOOK_RATE_LIMIT_MAX,
-    standardHeaders: true,
+    scope: "webhook",
     windowMs: config.API_WEBHOOK_RATE_LIMIT_WINDOW_MS
   });
 }

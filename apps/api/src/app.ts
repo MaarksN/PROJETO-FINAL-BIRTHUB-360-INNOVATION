@@ -3,17 +3,26 @@ import { getApiConfig } from "@birthub/config";
 import express from "express";
 import type { Express } from "express";
 
-import { createHealthService } from "./lib/health.js";
-import { errorHandler, notFoundMiddleware } from "./middleware/error-handler.js";
+import {
+  createDeepHealthService,
+  createHealthService,
+  createReadinessHealthService
+} from "./lib/health.js";
 import { enqueueTask } from "./lib/queue.js";
-import { configureAppInfrastructure, registerOperationalRoutes } from "./app/core.js";
+import {
+  configureAppInfrastructure,
+  registerGlobalErrorHandling,
+  registerOperationalRoutes
+} from "./app/core.js";
 import { registerAuthAndCoreRoutes } from "./app/auth-and-core-routes.js";
 import { mountModuleRouters } from "./app/module-routes.js";
 
 export interface AppDependencies {
   config?: ApiConfig;
+  deepHealthService?: ReturnType<typeof createDeepHealthService>;
   enqueueTask?: typeof enqueueTask;
   healthService?: ReturnType<typeof createHealthService>;
+  readinessService?: ReturnType<typeof createReadinessHealthService>;
   shouldExposeDocs?: boolean;
 }
 
@@ -24,7 +33,9 @@ export function createApp(dependencies: AppDependencies = {}): Express {
 
   configureAppInfrastructure(app, config);
   registerOperationalRoutes(app, config, {
+    ...(dependencies.deepHealthService ? { deepHealthService: dependencies.deepHealthService } : {}),
     ...(dependencies.healthService ? { healthService: dependencies.healthService } : {}),
+    ...(dependencies.readinessService ? { readinessService: dependencies.readinessService } : {}),
     shouldExposeDocs
   });
   registerAuthAndCoreRoutes(app, config, {
@@ -32,8 +43,7 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   });
   mountModuleRouters(app, config);
 
-  app.use(notFoundMiddleware);
-  app.use(errorHandler);
+  registerGlobalErrorHandling(app);
 
   return app;
 }

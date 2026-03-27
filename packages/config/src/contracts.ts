@@ -136,20 +136,31 @@ export const taskEnqueuedResponseSchema = z.object({
 
 export const healthResponseSchema = z.object({
   checkedAt: z.string(),
+  mode: z.enum(["liveness", "readiness", "deep"]).optional(),
   services: z.object({
     database: z.object({
+      latencyMs: z.number().nonnegative().optional(),
       message: z.string().optional(),
-      status: z.enum(["up", "down"])
+      status: z.enum(["up", "down"]),
+      strict: z.boolean().optional(),
+      thresholdMs: z.number().nonnegative().optional()
     }),
     externalDependencies: z.array(
       z.object({
+        latencyMs: z.number().nonnegative().optional(),
         name: z.string(),
-        status: z.enum(["up", "down"])
+        message: z.string().optional(),
+        status: z.enum(["up", "down"]),
+        strict: z.boolean().optional(),
+        thresholdMs: z.number().nonnegative().optional()
       })
     ),
     redis: z.object({
+      latencyMs: z.number().nonnegative().optional(),
       message: z.string().optional(),
-      status: z.enum(["up", "down"])
+      status: z.enum(["up", "down"]),
+      strict: z.boolean().optional(),
+      thresholdMs: z.number().nonnegative().optional()
     })
   }),
   status: z.enum(["ok", "degraded"])
@@ -219,5 +230,4 @@ export const privacyDeleteResponseSchema = z.object({
   billingCancelled: z.boolean(),
   requestId: z.string()
 });
-
 

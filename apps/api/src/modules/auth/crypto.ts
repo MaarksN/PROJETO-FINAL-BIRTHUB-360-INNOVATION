@@ -11,6 +11,20 @@ import { promisify } from "node:util";
 
 const scrypt = promisify(scryptCallback);
 const SCRYPT_KEY_BYTES = 64;
+const ACCESS_TOKEN_ISSUER = "birthub360-api";
+
+export interface AccessTokenClaims {
+  exp: number;
+  iat: number;
+  iss: string;
+  jti: string;
+  organizationId: string;
+  role: string | null;
+  sessionId: string;
+  tenantId: string;
+  typ: "access";
+  userId: string;
+}
 
 type OptionalBcryptModule = {
   compare: (password: string, hashed: string) => Promise<boolean>;
@@ -146,11 +160,121 @@ export function randomToken(byteLength = 32): string {
   return randomBytes(byteLength).toString("base64url");
 }
 
-export function createAccessToken(role?: string): string {
-  if (role) {
-    return `atk_${role}_${randomToken(32)}`;
+function encodeBase64UrlJson(value: object): string {
+  return Buffer.from(JSON.stringify(value)).toString("base64url");
+}
+
+function decodeBase64UrlJson(value: string): unknown {
+  return JSON.parse(Buffer.from(value, "base64url").toString("utf8"));
+}
+
+export function createAccessToken(input: {
+  organizationId: string;
+  role?: string | null;
+  secret: string;
+  sessionId: string;
+  tenantId: string;
+  ttlMinutes: number;
+  userId: string;
+}): string {
+  const issuedAt = Math.floor(Date.now() / 1000);
+  const payload: AccessTokenClaims = {
+    exp: issuedAt + input.ttlMinutes * 60,
+    iat: issuedAt,
+    iss: ACCESS_TOKEN_ISSUER,
+    jti: randomToken(16),
+    organizationId: input.organizationId,
+    role: input.role ?? null,
+    sessionId: input.sessionId,
+    tenantId: input.tenantId,
+    typ: "access",
+    userId: input.userId
+  };
+  const header = encodeBase64UrlJson({
+    alg: "HS256",
+    typ: "JWT"
+  });
+  const body = encodeBase64UrlJson(payload);
+  const signature = createHmac("sha256", input.secret)
+    .update(`${header}.${body}`)
+    .digest("base64url");
+
+  return `${header}.${body}.${signature}`;
+}
+
+export function verifyAccessToken(
+  token: string,
+  secret: string
+): AccessTokenClaims | null {
+  const parts = token.split(".");
+
+  if (parts.length !== 3) {
+    return null;
   }
-  return `atk_${randomToken(32)}`;
+
+  const [headerPart, payloadPart, signaturePart] = parts;
+  if (!headerPart || !payloadPart || !signaturePart) {
+    return null;
+  }
+
+  const expectedSignature = createHmac("sha256", secret)
+    .update(`${headerPart}.${payloadPart}`)
+    .digest();
+  const actualSignature = Buffer.from(signaturePart, "base64url");
+
+  if (
+    actualSignature.length !== expectedSignature.length ||
+    !timingSafeEqual(actualSignature, expectedSignature)
+  ) {
+    return null;
+  }
+
+  try {
+    const header = decodeBase64UrlJson(headerPart) as {
+      alg?: unknown;
+      typ?: unknown;
+    };
+    const payload = decodeBase64UrlJson(payloadPart) as Partial<AccessTokenClaims>;
+    const now = Math.floor(Date.now() / 1000);
+
+    if (header.alg !== "HS256" || header.typ !== "JWT") {
+      return null;
+    }
+
+    if (
+      payload.typ !== "access" ||
+      payload.iss !== ACCESS_TOKEN_ISSUER ||
+      typeof payload.exp !== "number" ||
+      payload.exp <= now ||
+      typeof payload.iat !== "number" ||
+      typeof payload.jti !== "string" ||
+      typeof payload.organizationId !== "string" ||
+      typeof payload.sessionId !== "string" ||
+      typeof payload.tenantId !== "string" ||
+      typeof payload.userId !== "string"
+    ) {
+      return null;
+    }
+
+    if (payload.role !== null && payload.role !== undefined && typeof payload.role !== "string") {
+      return null;
+    }
+
+    return {
+      exp: payload.exp,
+      iat: payload.iat,
+      iss: payload.iss,
+      jti: payload.jti,
+      organizationId: payload.organizationId,
+      role: payload.role ?? null,
+      sessionId: payload.sessionId,
+      tenantId: payload.tenantId,
+      typ: payload.typ,
+      userId: payload.userId
+    };
+  } catch {
+    return null;
+  }
 }
 
 export function createRefreshToken(): string {

@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "winston": "^3.19.0"
+    "@birthub/logger": "workspace:*"
   },
   "devDependencies": {
     "@opentelemetry/auto-instrumentations-node": "^0.71.0",

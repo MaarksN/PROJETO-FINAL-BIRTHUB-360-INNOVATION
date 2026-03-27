@@ -1,4 +1,5 @@
 import type { ApiConfig } from "@birthub/config";
+import { createLogger } from "@birthub/logger";
 import cors from "cors";
 import express from "express";
 import type { Express } from "express";
@@ -10,10 +11,15 @@ import {
   registerTenantCacheInvalidationMiddleware
 } from "../common/cache/index.js";
 import { openApiDocument } from "../docs/openapi.js";
-import { createDeepHealthService, createHealthService } from "../lib/health.js";
+import {
+  createDeepHealthService,
+  createHealthService,
+  createReadinessHealthService
+} from "../lib/health.js";
 import { asyncHandler, ProblemDetailsError } from "../lib/problem-details.js";
 import { contentTypeMiddleware } from "../middleware/content-type.js";
 import { csrfProtection } from "../middleware/csrf.js";
+import { globalErrorHandler, notFoundMiddleware } from "../middleware/error-handler.js";
 import { authenticationMiddleware } from "../middleware/authentication.js";
 import { originValidationMiddleware } from "../middleware/origin-check.js";
 import {
@@ -27,6 +33,8 @@ import { tenantContextMiddleware } from "../middleware/tenant-context.js";
 import { startOutputRetentionScheduler } from "../modules/outputs/output-retention.js";
 import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router.js";
+
+const requestLogger = createLogger("api-http");
 
 function buildCorsOptions(config: ApiConfig): cors.CorsOptions {
   return {
@@ -66,6 +74,43 @@ function buildHelmetOptions(): Parameters<typeof helmet>[0] {
   };
 }
 
+function registerRequestLoggingMiddleware(app: Express): void {
+  app.use((request, response, next) => {
+    const startedAt = process.hrtime.bigint();
+
+    response.on("finish", () => {
+      const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
+      const payload = {
+        durationMs: Number(durationMs.toFixed(2)),
+        method: request.method,
+        organizationId: request.context.organizationId,
+        path: request.originalUrl,
+        remoteAddress: request.ip ?? request.header("x-forwarded-for") ?? null,
+        requestId: request.context.requestId,
+        role: request.context.role,
+        statusCode: response.statusCode,
+        tenantId: request.context.tenantId,
+        traceId: request.context.traceId,
+        userId: request.context.userId
+      };
+
+      if (response.statusCode >= 500) {
+        requestLogger.error(payload, "HTTP request completed with server error");
+        return;
+      }
+
+      if (response.statusCode >= 400) {
+        requestLogger.warn(payload, "HTTP request completed with client error");
+        return;
+      }
+
+      requestLogger.info(payload, "HTTP request completed");
+    });
+
+    next();
+  });
+}
+
 function registerTimeoutMiddleware(app: Express, config: ApiConfig): void {
   app.use((request, response, next) => {
     request.setTimeout(config.API_HANDLER_TIMEOUT_MS);
@@ -96,6 +141,7 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
 
   app.disable("x-powered-by");
   app.use(requestContextMiddleware);
+  registerRequestLoggingMiddleware(app);
   app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));
   app.use(tenantContextMiddleware);
   app.use(helmet(buildHelmetOptions()));
@@ -129,12 +175,15 @@ export function registerOperationalRoutes(
   app: Express,
   config: ApiConfig,
   options: {
+    deepHealthService?: ReturnType<typeof createDeepHealthService>;
     healthService?: ReturnType<typeof createHealthService>;
+    readinessService?: ReturnType<typeof createReadinessHealthService>;
     shouldExposeDocs: boolean;
   }
 ): void {
   const healthService = options.healthService ?? createHealthService(config);
-  const deepHealthService = createDeepHealthService(config);
+  const deepHealthService = options.deepHealthService ?? createDeepHealthService(config);
+  const readinessService = options.readinessService ?? createReadinessHealthService(config);
 
   if (options.shouldExposeDocs) {
     app.get("/api/openapi.json", (_request, response) => {
@@ -175,14 +224,37 @@ export function registerOperationalRoutes(
   app.get(
     "/health/deep",
     asyncHandler(async (_request, response) => {
-      response.status(200).json(await deepHealthService());
+      const payload = await deepHealthService();
+      response.status(payload.status === "ok" ? 200 : 503).json(payload);
     })
   );
 
   app.get(
     "/api/v1/health/deep",
     asyncHandler(async (_request, response) => {
-      response.status(200).json(await deepHealthService());
+      const payload = await deepHealthService();
+      response.status(payload.status === "ok" ? 200 : 503).json(payload);
     })
   );
+
+  app.get(
+    "/health/readiness",
+    asyncHandler(async (_request, response) => {
+      const payload = await readinessService();
+      response.status(payload.status === "ok" ? 200 : 503).json(payload);
+    })
+  );
+
+  app.get(
+    "/api/v1/health/readiness",
+    asyncHandler(async (_request, response) => {
+      const payload = await readinessService();
+      response.status(payload.status === "ok" ? 200 : 503).json(payload);
+    })
+  );
+}
+
+export function registerGlobalErrorHandling(app: Express): void {
+  app.use(notFoundMiddleware);
+  app.use(globalErrorHandler);
 }

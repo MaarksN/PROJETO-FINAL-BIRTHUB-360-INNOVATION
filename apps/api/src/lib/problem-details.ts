@@ -56,9 +56,17 @@ export function fromZodError(error: ZodError): ProblemDetailsError {
 }
 
 export function asyncHandler(
-  handler: (request: Request, response: Response, next: NextFunction) => Promise<unknown>
+  handler: (
+    request: Request,
+    response: Response,
+    next: NextFunction
+  ) => Promise<unknown> | unknown
 ): RequestHandler {
   return (request, response, next) => {
-    void handler(request, response, next).catch(next);
+    try {
+      Promise.resolve(handler(request, response, next)).catch(next);
+    } catch (error) {
+      next(error);
+    }
   };
 }
