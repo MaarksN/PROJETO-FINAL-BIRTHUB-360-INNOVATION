@@ -411,17 +411,11 @@ void test("auth protected endpoint returns 401 for expired or invalid session to
   const app = createAuthTestApp();
 
   let restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve({
-    expiresAt: new Date(Date.now() - 60_000),
-    id: "session_expired",
-    organizationId: "org_1",
-    tenantId: "tenant_1",
-    revokedAt: null,
-    userId: "user_1"
+    expiresAt: new Date(Date.now() - 60_000), id: "s1", organizationId: "o1", tenantId: "t1", revokedAt: null, userId: "u1"
   }));
 
   let restoreMembership = stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
-    role: Role.MEMBER,
-    status: "ACTIVE"
+    role: Role.MEMBER, status: "ACTIVE"
   }));
 
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_expired").expect(401);
@@ -430,8 +424,7 @@ void test("auth protected endpoint returns 401 for expired or invalid session to
 
   restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve(null));
   restoreMembership = stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
-    role: Role.MEMBER,
-    status: "ACTIVE"
+    role: Role.MEMBER, status: "ACTIVE"
   }));
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_invalid").expect(401);
   restore();
