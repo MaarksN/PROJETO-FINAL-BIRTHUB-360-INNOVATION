@@ -127,6 +127,11 @@ export function configureCacheStore(
 ): void {
   strictCacheMode = nodeEnv === "production";
 
+  if (nodeEnv === "test") {
+    useFallbackStore();
+    return;
+  }
+
   if (!redisUrl?.trim()) {
     if (strictCacheMode) {
       logger.error(

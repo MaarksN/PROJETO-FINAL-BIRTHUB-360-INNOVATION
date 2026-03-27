@@ -24,8 +24,8 @@ const DEFAULT_REMOVE_ON_FAIL = { count: 500 };
 const logger = createLogger("queue-manager");
 
 type QueueIdentifier = QueueName | string;
-type ManagedQueue = Queue<unknown, unknown, string>;
-type ManagedWorker = Worker<unknown, unknown, string>;
+type ManagedQueue = Queue<any, any, string>;
+type ManagedWorker = Worker<any, any, string>;
 type ManagedQueueEvents = QueueEvents;
 
 export interface QueueManagerOptions {
@@ -40,13 +40,21 @@ function resolveDefaultJobOptions(name: QueueIdentifier): JobsOptions {
   const queueName = resolveQueueName(name);
   const config = QUEUE_CONFIG[queueName];
 
-  return {
+  const options: JobsOptions = {
     attempts: config?.attempts ?? 1,
-    ...(config?.backoff ? { backoff: config.backoff } : {}),
-    ...(config?.priority !== undefined ? { priority: config.priority } : {}),
     removeOnComplete: config?.removeOnComplete ?? DEFAULT_REMOVE_ON_COMPLETE,
     removeOnFail: config?.removeOnFail ?? DEFAULT_REMOVE_ON_FAIL
   };
+
+  if (config?.backoff !== undefined) {
+    options.backoff = config.backoff;
+  }
+
+  if (config?.priority !== undefined) {
+    options.priority = config.priority;
+  }
+
+  return options;
 }
 
 function createRedisConnection(redisUrl: string): IORedis {
@@ -166,8 +174,7 @@ export class QueueManager {
     }
 
     const queueOptions: QueueOptions = {
-      connection: this.connection,
-      defaultJobOptions: resolveDefaultJobOptions(queueName)
+      connection: this.connection as unknown as QueueOptions["connection"]
     };
     const queue = new Queue<DataType, ResultType, NameType>(queueName, queueOptions);
 
@@ -208,13 +215,13 @@ export class QueueManager {
         }
       },
       {
-        connection: this.connection,
+        connection: this.connection as unknown as WorkerOptions["connection"],
         ...options
       }
     );
 
-    this.workers.add(worker as ManagedWorker);
-    this.registerWorkerTelemetry(worker as ManagedWorker, queueName);
+    this.workers.add(worker as unknown as ManagedWorker);
+    this.registerWorkerTelemetry(worker as unknown as ManagedWorker, queueName);
     logger.info({ queue: queueName }, "Worker created");
 
     return worker;
@@ -226,7 +233,7 @@ export class QueueManager {
   ): QueueEvents {
     const queueName = resolveQueueName(name);
     const queueEvents = new QueueEvents(queueName, {
-      connection: this.connection,
+      connection: this.connection as unknown as QueueEventsOptions["connection"],
       ...options
     });
 
@@ -243,7 +250,8 @@ export class QueueManager {
     const resolvedQueueName = resolveQueueName(queueName);
     const queue = this.createQueue(resolvedQueueName);
     const startedAt = performance.now();
-    const job = await queue.add(jobName, data, opts);
+    const jobOptions = opts ? { ...resolveDefaultJobOptions(resolvedQueueName), ...opts } : resolveDefaultJobOptions(resolvedQueueName);
+    const job = await queue.add(jobName, data, jobOptions);
 
     incrementCounter(
       "birthub_queue_jobs_enqueued_total",

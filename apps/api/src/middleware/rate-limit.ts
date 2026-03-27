@@ -8,6 +8,7 @@ import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js
 import { getSharedRedis } from "../lib/redis.js";
 
 const logger = createLogger("api-rate-limit");
+const memoryRateLimitStore = new Map<string, { count: number; expiresAt: number }>();
 
 type RateLimitScope = "api" | "login" | "webhook";
 
@@ -178,7 +179,62 @@ async function consumeFixedWindow(input: {
   };
 }
 
-async function releaseSuccessfulRequest(redis: Redis, storageKey: string): Promise<void> {
+function consumeFixedWindowInMemory(input: {
+  key: string;
+  scope: RateLimitScope;
+  windowMs: number;
+}): {
+  count: number;
+  retryAfterSeconds: number;
+  storageKey: string;
+} {
+  const now = Date.now();
+  const currentWindow = Math.floor(now / input.windowMs);
+  const remainingWindowMs = Math.max(1, input.windowMs - (now % input.windowMs));
+  const storageKey = `rate_limit:${input.scope}:${currentWindow}:${input.key}`;
+  const current = memoryRateLimitStore.get(storageKey);
+
+  if (!current || current.expiresAt <= now) {
+    memoryRateLimitStore.set(storageKey, {
+      count: 1,
+      expiresAt: now + remainingWindowMs
+    });
+
+    return {
+      count: 1,
+      retryAfterSeconds: Math.max(1, Math.ceil(remainingWindowMs / 1000)),
+      storageKey
+    };
+  }
+
+  current.count += 1;
+  current.expiresAt = now + remainingWindowMs;
+  memoryRateLimitStore.set(storageKey, current);
+
+  return {
+    count: current.count,
+    retryAfterSeconds: Math.max(1, Math.ceil((current.expiresAt - now) / 1000)),
+    storageKey
+  };
+}
+
+async function releaseSuccessfulRequest(redis: Redis | null, storageKey: string): Promise<void> {
+  if (!redis) {
+    const current = memoryRateLimitStore.get(storageKey);
+    if (!current) {
+      return;
+    }
+
+    current.count = Math.max(0, current.count - 1);
+    if (current.count === 0) {
+      memoryRateLimitStore.delete(storageKey);
+      return;
+    }
+
+    memoryRateLimitStore.set(storageKey, current);
+    return;
+  }
+
   try {
     await redis.decr(storageKey);
   } catch (error) {
@@ -203,19 +259,26 @@ function createDistributedRateLimitMiddleware(
     windowMs: number;
   }
 ): RequestHandler {
-  const redis = getSharedRedis(config);
+  const useInMemoryStore = config.NODE_ENV === "test";
+  let redis: Redis | null = null;
 
   return (request, response, next) => {
     void (async () => {
       try {
         const limit =
           typeof input.limit === "function" ? input.limit(request) : input.limit;
-        const consumed = await consumeFixedWindow({
-          key: input.keyGenerator(request),
-          redis,
-          scope: input.scope,
-          windowMs: input.windowMs
-        });
+        const consumed = useInMemoryStore
+          ? consumeFixedWindowInMemory({
+              key: input.keyGenerator(request),
+              scope: input.scope,
+              windowMs: input.windowMs
+            })
+          : await consumeFixedWindow({
+              key: input.keyGenerator(request),
+              redis: redis ?? (redis = getSharedRedis(config)),
+              scope: input.scope,
+              windowMs: input.windowMs
+            });
         const remaining = Math.max(0, limit - consumed.count);
         setStandardRateLimitHeaders(response, {
           limit,

@@ -5,6 +5,7 @@ import {
   SessionStatus,
   prisma
 } from "@birthub/database";
+import { createLogger } from "@birthub/logger";
 
 import {
   createAccessToken,
@@ -19,6 +20,8 @@ import {
   resolveConcurrentSessionLimit,
   type SessionTokens
 } from "./auth.service.shared.js";
+
+const logger = createLogger("auth-sessions");
 
 async function enforceConcurrentSessionLimit(input: {
   organizationId: string;
@@ -146,6 +149,47 @@ async function revokeAllSessionsForIdentity(input: {
   return result.count;
 }
 
+async function tryResolveActiveMembershipRole(input: {
+  organizationId: string;
+  userId: string;
+}): Promise<Role | undefined> {
+  if (!process.env.DATABASE_URL) {
+    return undefined;
+  }
+
+  try {
+    const membership = await prisma.membership.findUnique({
+      select: {
+        role: true,
+        status: true
+      },
+      where: {
+        organizationId_userId: {
+          organizationId: input.organizationId,
+          userId: input.userId
+        }
+      }
+    });
+
+    if (membership?.status === MembershipStatus.ACTIVE) {
+      return membership.role;
+    }
+
+    return undefined;
+  } catch (error) {
+    logger.warn(
+      {
+        err: error,
+        organizationId: input.organizationId,
+        userId: input.userId
+      },
+      "Failed to resolve membership role during session refresh; continuing without embedded role claim"
+    );
+
+    return undefined;
+  }
+}
+
 export async function createNewDeviceAlert(input: {
   ipAddress: string | null;
   organizationId: string;
@@ -240,26 +284,18 @@ export async function refreshSession(input: {
     };
   }
 
-  const membershipRole = await prisma.membership.findUnique({
-    select: {
-      role: true,
-      status: true
-    },
-    where: {
-      organizationId_userId: {
-        organizationId: current.organizationId,
-        userId: current.userId
-      }
-    }
+  const membershipRole = await tryResolveActiveMembershipRole({
+    organizationId: current.organizationId,
+    userId: current.userId
   });
 
   const nextSession = await createSession({
     config: input.config,
     ipAddress: input.ipAddress,
     organizationId: current.organizationId,
-    ...(membershipRole?.status === MembershipStatus.ACTIVE
+    ...(membershipRole
       ? {
-          role: membershipRole.role
+          role: membershipRole
         }
       : {}),
     tenantId: current.tenantId,

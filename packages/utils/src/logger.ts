@@ -4,13 +4,12 @@ import {
   runWithLogContext,
   updateLogContext
 } from "@birthub/logger";
-import type { Logger as StructuredLogger } from "pino";
 
 export interface LegacyLogger {
   debug: (message: string, context?: unknown) => void;
   error: (message: string, context?: unknown) => void;
   info: (message: string, context?: unknown) => void;
-  raw: StructuredLogger;
+  raw: ReturnType<typeof createStructuredLogger>;
   warn: (message: string, context?: unknown) => void;
 }
 

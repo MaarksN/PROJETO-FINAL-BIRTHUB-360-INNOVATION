@@ -109,6 +109,7 @@ export function updateLogContext(context: LogContext): void {
 
 export function createLogger(service: string, options?: LoggerOptions): Logger {
   const isProduction = process.env.NODE_ENV === "production";
+  const shouldPrettyPrint = !isProduction && process.env.NODE_ENV !== "test";
   const loggerOptions: LoggerOptions = {
     ...options,
     base: {
@@ -160,7 +161,7 @@ export function createLogger(service: string, options?: LoggerOptions): Logger {
     timestamp: () => `,"timestamp":"${new Date().toISOString()}"`
   };
 
-  if (!isProduction) {
+  if (shouldPrettyPrint) {
     loggerOptions.transport = {
       options: {
         colorize: true,

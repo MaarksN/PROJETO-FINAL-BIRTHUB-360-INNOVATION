@@ -1,6 +1,7 @@
 import { createRequire } from "node:module";
+import path from "node:path";
 
-const require = createRequire(import.meta.url);
+const require = createRequire(path.join(process.cwd(), "package.json"));
 
 type TraceContext = {
   spanId: string | null;

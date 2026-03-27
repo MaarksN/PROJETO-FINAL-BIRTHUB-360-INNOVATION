@@ -15,7 +15,7 @@ void test("webhook registry signs and verifies payloads", () => {
   const registry = new WebhookRegistry();
   const endpoint = registry.register("tenant_1", {
     eventTypes: ["billing.updated"],
-    secret: "secret_123",
+    secret: "test-secret-placeholder",
     url: "https://birthhub.test/hooks"
   });
   const payload = JSON.stringify({ ok: true });
