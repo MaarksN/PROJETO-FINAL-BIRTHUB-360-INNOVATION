@@ -3,6 +3,9 @@ import { executeManifestAgentRuntime } from "./runtime.js";
 import { Prisma, prisma } from "@birthub/database";
 import { outputService } from "../../../api/src/modules/outputs/output.service.js";
 import { agentMetricsService } from "../../../api/src/modules/agents/metrics.service.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("worker-runtime");
 
 class InMemoryRedis {
   private readonly data = new Map<string, { expiresAt?: number; value: string }>();

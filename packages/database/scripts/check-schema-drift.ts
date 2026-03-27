@@ -1,6 +1,9 @@
 import { getPrismaBinaryPath, runCommand } from "./lib/process.js";
 import { schemaPath } from "./lib/paths.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-check-schema-drift");
 
 async function main(): Promise<void> {
   if (!process.env.DATABASE_URL) {
@@ -17,7 +20,7 @@ async function main(): Promise<void> {
       "Schema drift check skipped because DATABASE_URL is not configured."
     );
 
-    console.log(`Schema drift check skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+    logger.info(`Schema drift check skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
     return;
   }
 
@@ -51,7 +54,7 @@ async function main(): Promise<void> {
   const jsonPath = await writeJsonReport("f8/schema-drift-report.json", report);
   const txtPath = await writeTextReport("f8/schema-drift-report.txt", text);
 
-  console.log(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+  logger.info(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
 
   if (!ok) {
     process.exitCode = 1;
@@ -59,6 +62,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

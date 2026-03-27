@@ -49,6 +49,7 @@ const securityHeaders = [
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  turbopack: { resolveAlias: { "@birthub/*": "../../packages/*/dist/src/index.js" } },
   compress: true,
   output: isWindows ? undefined : "standalone",
   outputFileTracingRoot: path.join(__dirname, "../.."),

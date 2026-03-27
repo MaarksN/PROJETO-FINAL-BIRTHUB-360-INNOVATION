@@ -8,6 +8,9 @@ import {
 } from "./lib/migrations.js";
 import { getTenantScopedModels, hasIndexCoverage, parsePrismaSchema } from "./lib/prisma-schema.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-check-tenancy-controls");
 
 type TenancyFinding = {
   issues: string[];
@@ -81,7 +84,7 @@ async function main(): Promise<void> {
   const jsonPath = await writeJsonReport("f8/tenant-isolation-report.json", report);
   const txtPath = await writeTextReport("f8/tenant-isolation-report.txt", text);
 
-  console.log(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+  logger.info(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
 
   if (!report.ok) {
     process.exitCode = 1;
@@ -89,6 +92,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

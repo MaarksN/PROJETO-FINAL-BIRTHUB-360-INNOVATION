@@ -3,6 +3,9 @@ import { PrismaClient } from "@prisma/client";
 import { F8_CONFIG } from "../f8.config.js";
 import { runCommand, getPrismaBinaryPath } from "./lib/process.js";
 import { databasePackageRoot, schemaPath } from "./lib/paths.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-migrate-deploy-safe");
 
 async function runTsScript(scriptName: string): Promise<void> {
   const scriptPath = `${databasePackageRoot}/scripts/${scriptName}`;
@@ -68,6 +71,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

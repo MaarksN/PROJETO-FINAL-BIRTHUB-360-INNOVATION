@@ -1,4 +1,7 @@
 import { runParallelExecutionLoadTest } from "./parallelLoad.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("worker-benchmark");
 
 async function main() {
   const executions = 100000;
@@ -17,4 +20,4 @@ async function main() {
   console.error(`- p99: ${metrics.p99Ms.toFixed(2)}ms`);
 }
 
-main().catch(console.error);
+main().catch((err) => logger.error(err));

@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 import { F8_CONFIG } from "../f8.config.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-compare-migration-state");
 
 type MigrationState = {
   environment: string;
@@ -61,7 +64,7 @@ async function main(): Promise<void> {
       "Migration state comparison skipped because less than two environment URLs were configured."
     );
 
-    console.log(`Migration state comparison skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+    logger.info(`Migration state comparison skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
     return;
   }
 
@@ -106,7 +109,7 @@ async function main(): Promise<void> {
   const jsonPath = await writeJsonReport("f8/migration-state-report.json", report);
   const txtPath = await writeTextReport("f8/migration-state-report.txt", text);
 
-  console.log(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+  logger.info(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
 
   if (!report.ok) {
     process.exitCode = 1;
@@ -114,6 +117,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

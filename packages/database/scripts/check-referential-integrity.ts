@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("db-check-referential-integrity");
 
 type ConstraintRow = {
   constraint_name: string;
@@ -22,7 +25,7 @@ async function main(): Promise<void> {
       "Referential integrity check skipped because DATABASE_URL is not configured."
     );
 
-    console.log(`Referential integrity check skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+    logger.info(`Referential integrity check skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
     return;
   }
 
@@ -53,7 +56,7 @@ async function main(): Promise<void> {
     const jsonPath = await writeJsonReport("f8/referential-integrity-report.json", report);
     const txtPath = await writeTextReport("f8/referential-integrity-report.txt", text);
 
-    console.log(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+    logger.info(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
 
     if (!report.ok) {
       process.exitCode = 1;
@@ -64,6 +67,6 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error(error);
   process.exitCode = 1;
 });

@@ -3,26 +3,6 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
-    "paths": {
-      "@birthub/logger": [
-        "../../packages/logger/src/index.ts"
-      ],
-      "@birthub/logger/*": [
-        "../../packages/logger/src/*"
-      ],
-      "@birthub/config": [
-        "../../packages/config"
-      ],
-      "@birthub/config/*": [
-        "../../packages/config/*"
-      ],
-      "@birthub/workflows-core": [
-        "../../packages/workflows-core"
-      ],
-      "@birthub/workflows-core/*": [
-        "../../packages/workflows-core/*"
-      ]
-    },
     "plugins": [
       {
         "name": "next"
