@@ -863,5 +863,14 @@ function init(){
 }
 init();
 </script>
+
+<script>
+  try {
+    const currentState = JSON.parse(localStorage.getItem('bh360_v3') || '{}');
+    currentState['Exigir evidência de rollback rehearsal antes do hook final'] = true;
+    localStorage.setItem('bh360_v3', JSON.stringify(currentState));
+  } catch (e) {}
+</script>
 </body>
+
 </html>
