@@ -141,8 +141,8 @@ async function main(): Promise<void> {
       })
     ]);
 
-  console.log(
-    JSON.stringify({
+  logger.info(
+    {
       approvedOutputStatus: approvedOutput?.status ?? null,
       budgetEventKinds: budgetEvents.map((event) => event.kind),
       executionStatus: persistedExecution.status,
@@ -153,11 +153,12 @@ async function main(): Promise<void> {
         tool_cost: metrics.tool_cost
       },
       outputCount: outputs.length
-    })
+    },
+    "Runtime integration harness completed"
   );
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error({ error }, "Runtime integration harness failed");
   process.exitCode = 1;
 });

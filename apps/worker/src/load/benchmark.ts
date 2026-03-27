@@ -10,14 +10,20 @@ async function main() {
   const metrics = await runParallelExecutionLoadTest(executions);
   const end = performance.now();
 
-  console.error(`\n\n=== BENCHMARK RESULTS ===`);
-  console.error(`Total benchmark time: ${(end - start).toFixed(2)}ms`);
-  console.error('Metrics:');
-  console.error(`- Success Count: ${metrics.successCount}`);
-  console.error(`- Total Time (internal): ${metrics.totalMs.toFixed(2)}ms`);
-  console.error(`- p50: ${metrics.p50Ms.toFixed(2)}ms`);
-  console.error(`- p95: ${metrics.p95Ms.toFixed(2)}ms`);
-  console.error(`- p99: ${metrics.p99Ms.toFixed(2)}ms`);
+  logger.info(
+    {
+      benchmarkDurationMs: Number((end - start).toFixed(2)),
+      executions,
+      metrics: {
+        p50Ms: Number(metrics.p50Ms.toFixed(2)),
+        p95Ms: Number(metrics.p95Ms.toFixed(2)),
+        p99Ms: Number(metrics.p99Ms.toFixed(2)),
+        successCount: metrics.successCount,
+        totalMs: Number(metrics.totalMs.toFixed(2))
+      }
+    },
+    "Benchmark results"
+  );
 }
 
-main().catch((err) => logger.error(err));
+main().catch((error) => logger.error({ error }, "Benchmark run failed"));

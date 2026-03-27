@@ -30,24 +30,38 @@ const cycle2Jobs = startCycle2Jobs();
 async function listQueueStates(): Promise<WorkerQueueState[]> {
   const states = await Promise.all(
     runtime.queues.map(async (queue) => {
-      const counts = await queue.getJobCounts(
-        "active",
-        "delayed",
-        "paused",
-        "prioritized",
-        "waiting",
-        "failed"
+      const dlqQueue = runtime.dlqQueues.find(
+        (candidateQueue) => candidateQueue.name === `${queue.name}.dlq`
       );
+      const [counts, dlqCounts] = await Promise.all([
+        queue.getJobCounts(
+          "active",
+          "delayed",
+          "paused",
+          "prioritized",
+          "waiting",
+          "failed"
+        ),
+        dlqQueue
+          ? dlqQueue.getJobCounts("active", "delayed", "paused", "prioritized", "waiting")
+          : Promise.resolve(null)
+      ]);
       const backlog =
         (counts.active ?? 0) +
         (counts.waiting ?? 0) +
         (counts.prioritized ?? 0) +
         (counts.delayed ?? 0) +
         (counts.paused ?? 0);
+      const dlq =
+        (dlqCounts?.active ?? 0) +
+        (dlqCounts?.waiting ?? 0) +
+        (dlqCounts?.prioritized ?? 0) +
+        (dlqCounts?.delayed ?? 0) +
+        (dlqCounts?.paused ?? 0);
 
       return {
         backlog,
-        dlq: counts.failed ?? 0,
+        dlq,
         name: queue.name
       };
     })

@@ -70,6 +70,11 @@ function getTriggerQueue(config: ApiConfig): Queue {
     triggerQueue = new Queue(WORKFLOW_TRIGGER_QUEUE_NAME, {
       connection: getRedisConnection(config) as unknown as ConnectionOptions,
       defaultJobOptions: {
+        attempts: 5,
+        backoff: {
+          delay: 1_000,
+          type: "exponential"
+        },
         removeOnComplete: {
           count: 500
         },
@@ -135,5 +140,4 @@ export async function dedupeTriggerPayload(
   const result = await getRedisConnection(config).set(key, "1", "EX", 5, "NX");
   return result === "OK";
 }
-
 

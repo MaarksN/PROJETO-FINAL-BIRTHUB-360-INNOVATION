@@ -40,7 +40,20 @@ function getCrmSyncQueue(config: ApiConfig): CrmSyncQueue {
   const queue = new Queue<CrmSyncJobPayload, void, CrmSyncJobPayload["kind"]>(
     engagementQueueNames.crmSync,
     {
-      connection: getBullConnection(config)
+      connection: getBullConnection(config),
+      defaultJobOptions: {
+        attempts: 5,
+        backoff: {
+          delay: 2_000,
+          type: "exponential"
+        },
+        removeOnComplete: {
+          count: 100
+        },
+        removeOnFail: {
+          count: 250
+        }
+      }
     }
   );
   crmSyncQueues.set(cacheKey, queue);
@@ -58,7 +71,20 @@ function getOutboundWebhookQueue(config: ApiConfig): OutboundWebhookQueue {
   const queue = new Queue<OutboundWebhookJobPayload, void, OutboundWebhookJobPayload["topic"]>(
     engagementQueueNames.outboundWebhook,
     {
-      connection: getBullConnection(config)
+      connection: getBullConnection(config),
+      defaultJobOptions: {
+        attempts: 5,
+        backoff: {
+          delay: 1_500,
+          type: "exponential"
+        },
+        removeOnComplete: {
+          count: 200
+        },
+        removeOnFail: {
+          count: 300
+        }
+      }
     }
   );
   outboundWebhookQueues.set(cacheKey, queue);

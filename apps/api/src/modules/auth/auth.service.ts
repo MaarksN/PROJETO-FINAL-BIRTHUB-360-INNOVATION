@@ -141,7 +141,8 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
 
 async function authenticateSession(
   token: string,
-  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
+    Partial<Pick<ApiConfig, "SESSION_SECRET">>
 ): Promise<AuthenticatedContext | null> {
   const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
   if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
@@ -191,7 +192,8 @@ async function authenticateSession(
 
 export async function authenticateRequest(input: {
   apiKeyToken?: string | null;
-  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">;
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
+    Partial<Pick<ApiConfig, "SESSION_SECRET">>;
   sessionToken?: string | null;
 }): Promise<AuthenticatedContext | null> {
   if (input.apiKeyToken) {

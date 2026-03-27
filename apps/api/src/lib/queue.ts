@@ -42,7 +42,20 @@ export function getTaskQueue(config: ApiConfig): TaskQueue {
   }
 
   const queue = new Queue<TaskJob, void, TaskJob["type"]>(config.QUEUE_NAME, {
-    connection: getBullConnection(config)
+    connection: getBullConnection(config),
+    defaultJobOptions: {
+      attempts: 5,
+      backoff: {
+        delay: 1_000,
+        type: "exponential"
+      },
+      removeOnComplete: {
+        count: 100
+      },
+      removeOnFail: {
+        count: 500
+      }
+    }
   });
 
   queueCache.set(config.QUEUE_NAME, queue);

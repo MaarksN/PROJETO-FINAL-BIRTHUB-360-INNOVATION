@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { createLogger } from "@birthub/logger";
 import { Queue } from "bullmq";
 import { Redis } from "ioredis";
 
@@ -19,6 +20,7 @@ const JOBS_TO_ENQUEUE = Number(process.env.OVERLOAD_JOBS ?? "5000");
 const CHUNK_SIZE = Number(process.env.OVERLOAD_CHUNK_SIZE ?? "250");
 const MAX_WAIT_MS = Number(process.env.OVERLOAD_MAX_WAIT_MS ?? "600000");
 const POLL_INTERVAL_MS = Number(process.env.OVERLOAD_POLL_INTERVAL_MS ?? "5000");
+const logger = createLogger("worker-overload");
 
 function createJobPayload(index: number) {
   return {
@@ -105,8 +107,13 @@ async function main(): Promise<void> {
     queue.on("error", () => {
       // queue-level errors are captured by the script exit code
     });
-    console.log(
-      `[worker-overload] starting: queue=${QUEUE_NAME} redis=${REDIS_URL} jobs=${JOBS_TO_ENQUEUE}`
+    logger.info(
+      {
+        jobs: JOBS_TO_ENQUEUE,
+        queue: QUEUE_NAME,
+        redisUrl: REDIS_URL
+      },
+      "Worker overload test starting"
     );
 
     for (let index = 0; index < JOBS_TO_ENQUEUE; index += CHUNK_SIZE) {
@@ -127,7 +134,7 @@ async function main(): Promise<void> {
     mkdirSync(artifactDir, { recursive: true });
     writeFileSync(path.join(artifactDir, "worker-overload.json"), `${JSON.stringify(summary, null, 2)}\n`, "utf8");
     writeFileSync(path.join(artifactDir, "worker-overload.txt"), `[worker-overload] summary=${JSON.stringify(summary)}\n`, "utf8");
-    console.log(`[worker-overload] summary=${JSON.stringify(summary)}`);
+    logger.info(summary, "Worker overload test completed");
 
     if (summary.apiFailures > 0) {
       process.exitCode = 1;
@@ -147,6 +154,11 @@ async function main(): Promise<void> {
 }
 
 void main().catch((error) => {
-  console.error(`[worker-overload] failed: ${error instanceof Error ? error.message : String(error)}`);
+  logger.error(
+    {
+      error
+    },
+    "Worker overload test failed"
+  );
   process.exitCode = 1;
 });

@@ -4,10 +4,9 @@ import { createLogger } from "@birthub/logger";
 const logger = createLogger("worker-baseline");
 
 async function main() {
-  console.log("Starting baseline run...");
+  logger.info("Starting baseline run");
   const metrics = await runParallelExecutionLoadTest(500);
-  console.log("Baseline metrics:");
-  console.log(metrics);
+  logger.info({ metrics }, "Baseline metrics collected");
 }
 
-main().catch((err) => logger.error(err));
+main().catch((error) => logger.error({ error }, "Baseline run failed"));
