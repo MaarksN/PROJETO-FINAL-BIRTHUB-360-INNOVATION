@@ -73,3 +73,26 @@ export function createDeepHealthService(config: ApiConfig) {
     });
   };
 }
+
+export function createReadinessService(config: ApiConfig) {
+  return async () => {
+    // Only check internal core dependencies like redis and database to know if ready to accept traffic
+    const [database, redis] = await Promise.all([
+      pingDatabase(),
+      pingRedis(config)
+    ]);
+
+    return {
+      checkedAt: new Date().toISOString(),
+      services: {
+        database,
+        externalDependencies: [],
+        redis
+      },
+      status:
+        database.status === "up" && redis.status === "up"
+          ? "ok"
+          : "degraded"
+    };
+  };
+}

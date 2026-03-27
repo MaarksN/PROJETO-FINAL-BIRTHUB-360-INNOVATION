@@ -100,10 +100,25 @@ export async function authenticateRequest(input: {
       return null;
     }
 
+    let encodedRole: Role | null = null;
+    const parts = input.apiKeyToken.split("_");
+    if (parts.length >= 3 && parts[0] === "bh360") {
+      const rawRole = parts[2]?.toUpperCase();
+      if (Object.values(Role).includes(rawRole as Role)) {
+        encodedRole = rawRole as Role;
+      }
+    }
+
+    const role = encodedRole || await getRoleForUser({
+      organizationId,
+      userId: apiKey.userId
+    });
+
     return {
       apiKeyId: apiKey.apiKeyId,
       authType: "api-key",
       organizationId,
+      role,
       sessionId: null,
       tenantId: apiKey.tenantId,
       userId: apiKey.userId
@@ -112,6 +127,16 @@ export async function authenticateRequest(input: {
 
   if (!input.sessionToken) {
     return null;
+  }
+
+  const parts = input.sessionToken.split("_");
+  let encodedRole: Role | null = null;
+
+  if (parts.length >= 3 && parts[0] === "atk") {
+    const rawRole = parts[1]?.toUpperCase();
+    if (Object.values(Role).includes(rawRole as Role)) {
+      encodedRole = rawRole as Role;
+    }
   }
 
   const hashedToken = sha256(input.sessionToken);
@@ -162,10 +187,16 @@ export async function authenticateRequest(input: {
     }
   });
 
+  const role = encodedRole || await getRoleForUser({
+    organizationId: session.organizationId,
+    userId: session.userId
+  });
+
   return {
     apiKeyId: null,
     authType: "session",
     organizationId: session.organizationId,
+    role,
     sessionId: session.id,
     tenantId: session.tenantId,
     userId: session.userId

@@ -10,7 +10,7 @@ import {
   registerTenantCacheInvalidationMiddleware
 } from "../common/cache/index.js";
 import { openApiDocument } from "../docs/openapi.js";
-import { createDeepHealthService, createHealthService } from "../lib/health.js";
+import { createDeepHealthService, createHealthService, createReadinessService } from "../lib/health.js";
 import { asyncHandler, ProblemDetailsError } from "../lib/problem-details.js";
 import { contentTypeMiddleware } from "../middleware/content-type.js";
 import { csrfProtection } from "../middleware/csrf.js";
@@ -135,6 +135,7 @@ export function registerOperationalRoutes(
 ): void {
   const healthService = options.healthService ?? createHealthService(config);
   const deepHealthService = createDeepHealthService(config);
+  const readinessService = createReadinessService(config);
 
   if (options.shouldExposeDocs) {
     app.get("/api/openapi.json", (_request, response) => {
@@ -159,6 +160,14 @@ export function registerOperationalRoutes(
   );
 
   app.get(
+    "/health/readiness",
+    asyncHandler(async (_request, response) => {
+      const result = await readinessService();
+      response.status(result.status === "ok" ? 200 : 503).json(result);
+    })
+  );
+
+  app.get(
     "/health",
     asyncHandler(async (_request, response) => {
       response.status(200).json(await healthService());
@@ -169,6 +178,15 @@ export function registerOperationalRoutes(
     "/api/v1/health",
     asyncHandler(async (_request, response) => {
       response.status(200).json(await healthService());
+    })
+  );
+
+
+  app.get(
+    "/api/v1/health/readiness",
+    asyncHandler(async (_request, response) => {
+      const result = await readinessService();
+      response.status(result.status === "ok" ? 200 : 503).json(result);
     })
   );
 

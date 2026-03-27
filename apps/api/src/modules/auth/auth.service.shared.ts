@@ -15,6 +15,7 @@ export interface AuthenticatedContext {
   apiKeyId: string | null;
   authType: "api-key" | "session";
   organizationId: string;
+  role: Role | null;
   sessionId: string | null;
   tenantId: string;
   userId: string;

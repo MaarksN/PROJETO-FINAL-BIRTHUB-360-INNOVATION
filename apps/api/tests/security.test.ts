@@ -39,6 +39,10 @@ void test("security sanitizes XSS payloads before queueing tasks", async () => {
       id: "user_1",
       status: UserStatus.ACTIVE
     })),
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
+      role: "MEMBER",
+      status: "ACTIVE"
+    })),
     stubMethod(prisma.jobSigningSecret, "findUnique", () => Promise.resolve({
       organizationId: "org_1",
       secret: "tenant-secret"

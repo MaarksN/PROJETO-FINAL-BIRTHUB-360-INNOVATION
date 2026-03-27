@@ -1,3 +1,5 @@
+import { createLogger } from "@birthub/logger";
+const logger = createLogger("worker");
 import { runParallelExecutionLoadTest } from "./parallelLoad.js";
 import { createLogger } from "@birthub/logger";
 

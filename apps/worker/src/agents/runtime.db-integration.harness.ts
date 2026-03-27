@@ -1,3 +1,5 @@
+import { createLogger } from "@birthub/logger";
+const logger = createLogger("worker");
 /* eslint-disable */
 import { executeManifestAgentRuntime } from "./runtime.js";
 import { Prisma, prisma } from "@birthub/database";

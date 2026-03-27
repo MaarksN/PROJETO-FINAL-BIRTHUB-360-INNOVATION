@@ -76,6 +76,7 @@ export function authenticationMiddleware(
       request.context.authType = authenticated.authType;
       request.context.apiKeyId = authenticated.apiKeyId;
       request.context.organizationId = authenticated.organizationId;
+      request.context.role = authenticated.role;
       request.context.sessionId = authenticated.sessionId;
       request.context.tenantId = authenticated.tenantId;
       request.context.userId = authenticated.userId;

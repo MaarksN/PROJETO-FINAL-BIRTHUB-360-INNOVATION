@@ -77,7 +77,7 @@ export async function createSession(input: {
   userId: string;
 }): Promise<{ sessionId: string; tokens: SessionTokens }> {
   const sessionId = createSecureSessionId();
-  const accessToken = createAccessToken();
+  const accessToken = createAccessToken(input.role?.toLowerCase() || "guest");
   const refreshToken = createRefreshToken();
   const csrfToken = randomToken(24);
   const expiresAt = nowPlusMinutes(input.config.API_AUTH_TOKEN_TTL_MINUTES);
