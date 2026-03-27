@@ -24,6 +24,7 @@ export interface RequestContext {
     | null;
   organizationId: string | null;
   requestId: string;
+  role: string | null;
   sessionId: string | null;
   tenantId: string | null;
   tenantSlug: string | null;
@@ -64,6 +65,7 @@ export function requestContextMiddleware(
     billingPlanStatus: null,
     organizationId: null,
     requestId,
+    role: null,
     sessionId: null,
     tenantId: null,
     tenantSlug: null,

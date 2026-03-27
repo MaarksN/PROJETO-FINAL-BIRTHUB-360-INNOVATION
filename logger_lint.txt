@@ -11,4 +11,3 @@ C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\lo
   139:9  warning  Unsafe assignment of an `any` value                                 @typescript-eslint/no-unsafe-assignment
 
 Ô£û 3 problems (0 errors, 3 warnings)
-

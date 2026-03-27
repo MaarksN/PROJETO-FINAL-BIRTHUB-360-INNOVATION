@@ -44,6 +44,8 @@ Os itens abaixo sao a uniao do que o lane de release exige em `scripts/release/p
 | `STRIPE_SECRET_KEY` | `@platform-api` | `@platform-security` | 90 dias ou incidente | smoke de billing verde |
 | `STRIPE_WEBHOOK_SECRET` | `@platform-api` | `@platform-security` | 90 dias ou incidente | webhook signature check verde |
 | `RENDER_PRODUCTION_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | em toda troca de infra | deploy hook dry-check + gate de branch |
+| `RENDER_STAGING_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | N/A | N/A |
+| `SENTRY_DSN` | `@platform-api` | `@platform-devex` | N/A | N/A |
 
 > Referencia de ownership: `.github/CODEOWNERS`.
 

@@ -9,7 +9,7 @@ Fonte única operacional: `docs/service-catalog.md`.
 ## Resumo da mudança
 
 - **Core canônico (default):** `apps/web`, `apps/api`, `apps/worker`, `packages/database`.
-- **Legacy/quarentena (não-default):** `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`, `packages/db`.
+- **Legacy/quarentena (não-default):** `apps/legacy/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`, `packages/db`.
 - **Satélites operacionais:** `packages/agent-packs`, `apps/webhook-receiver`, `apps/voice-engine`.
 
 ## Instrução para on-call

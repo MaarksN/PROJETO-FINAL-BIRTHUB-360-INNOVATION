@@ -146,7 +146,10 @@ export function randomToken(byteLength = 32): string {
   return randomBytes(byteLength).toString("base64url");
 }
 
-export function createAccessToken(): string {
+export function createAccessToken(role?: string): string {
+  if (role) {
+    return `atk_${role}_${randomToken(32)}`;
+  }
   return `atk_${randomToken(32)}`;
 }
 

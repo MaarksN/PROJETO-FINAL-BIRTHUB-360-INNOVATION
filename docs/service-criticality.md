@@ -16,12 +16,12 @@ Fonte canônica de fronteiras: `docs/service-catalog.md`.
 | `apps/web` | P0 | Interface principal para usuários e operação diária. | 30 min | 15 min |
 | `apps/worker` | P0 | Processamento assíncrono crítico (jobs e automações de negócio). | 30 min | 10 min |
 | `packages/database` (PostgreSQL/Prisma) | P0 | Persistência transacional oficial (`@birthub/database`). | 30 min | 5 min |
+| `packages/agent-packs` | P0 | Catálogo de agentes diretamente integrado ao runtime canônico. | 30 min | 5 min |
 
 ## Satélites (fora do core)
 
 | Serviço | Criticidade | Justificativa | RTO | RPO |
 |---|---|---|---|---|
-| `packages/agent-packs` | P1 | Catálogo funcional importante, mas não componente de infraestrutura core. | 1 h | 15 min |
 | `apps/webhook-receiver` | P1 | Entrada de integrações externas; impacto indireto no fluxo principal. | 1 h | 15 min |
 | `apps/voice-engine` | P2 | Capacidade complementar sem bloqueio do núcleo transacional. | 4 h | 1 h |
 
@@ -29,7 +29,7 @@ Fonte canônica de fronteiras: `docs/service-catalog.md`.
 
 | Serviço | Criticidade | Justificativa | RTO | RPO |
 |---|---|---|---|---|
-| `apps/dashboard` | P3 | Superfície legada/suporte, fora do runtime principal. | 1 dia útil | 4 h |
+| `apps/legacy/dashboard` | P3 | Superfície legada/suporte, fora do runtime principal. | 1 dia útil | 4 h |
 | `apps/api-gateway` | P3 | Componente legado não presente no `HEAD` atual. | N/A | N/A |
 | `apps/agent-orchestrator` | P3 | Componente legado não presente no `HEAD` atual. | N/A | N/A |
 | `packages/db` | P3 | Pacote legado substituído por `packages/database`. | N/A | N/A |

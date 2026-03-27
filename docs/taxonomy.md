@@ -18,7 +18,7 @@
 |---|---|---|---|---|
 | `apps/api-gateway` | Legado em sunset | Platform/API | Ausente no HEAD | Não encontrado em `apps/`; não classificar como P0/ativo |
 | `apps/agent-orchestrator` | Legado em sunset | Platform/Automation | Ausente no HEAD | Não encontrado em `apps/`; não classificar como P0/ativo |
-| `apps/dashboard` | Legado em sunset | Product Frontend | Presente | Fora do core canônico atual |
+| `apps/legacy/dashboard` | Legado em sunset | Product Frontend | Presente | Fora do core canônico atual |
 | `packages/db` | Legado em sunset | Platform/Data | Ausente no HEAD | Não encontrado em `packages/`; substituído por `packages/database` |
 
 ## 3) Satélites

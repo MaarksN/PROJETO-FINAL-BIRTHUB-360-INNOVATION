@@ -7,4 +7,3 @@ C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\web\te
   16:32  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
 
 Ô£û 1 problem (0 errors, 1 warning)
-

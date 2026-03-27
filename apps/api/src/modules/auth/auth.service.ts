@@ -1,5 +1,6 @@
 import {
   UserStatus,
+  Role,
   prisma
 } from "@birthub/database";
 import type { ApiConfig } from "@birthub/config";
@@ -72,104 +73,93 @@ export {
 
 export type { ApiKeyScope, AuthenticatedContext, SessionTokens };
 
-export async function authenticateRequest(input: {
-  apiKeyToken?: string | null;
-  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">;
-  sessionToken?: string | null;
-}): Promise<AuthenticatedContext | null> {
-  if (input.apiKeyToken) {
-    const apiKey = await introspectApiKey(input.apiKeyToken);
-
-    if (!apiKey.active || !apiKey.userId || !apiKey.tenantId) {
-      return null;
+function extractRoleFromToken(token: string, prefix: string): Role | null {
+  const parts = token.split("_");
+  if (parts.length >= 3 && parts[0] === prefix) {
+    const rawRole = parts[prefix === "bh360" ? 2 : 1]?.toUpperCase();
+    if (Object.values(Role).includes(rawRole as Role)) {
+      return rawRole as Role;
     }
-
-    const organizationId = await resolveOrganizationId(apiKey.tenantId);
-
-    if (!organizationId) {
-      return null;
-    }
-
-    const user = await prisma.user.findUnique({
-      where: {
-        id: apiKey.userId
-      }
-    });
-
-    if (!user || user.status === UserStatus.SUSPENDED) {
-      return null;
-    }
-
-    return {
-      apiKeyId: apiKey.apiKeyId,
-      authType: "api-key",
-      organizationId,
-      sessionId: null,
-      tenantId: apiKey.tenantId,
-      userId: apiKey.userId
-    };
   }
+  return null;
+}
 
-  if (!input.sessionToken) {
+async function authenticateApiKey(token: string): Promise<AuthenticatedContext | null> {
+  const apiKey = await introspectApiKey(token);
+  if (!apiKey.active || !apiKey.userId || !apiKey.tenantId) {
     return null;
   }
 
-  const hashedToken = sha256(input.sessionToken);
-  const session = await prisma.session.findUnique({
-    where: {
-      token: hashedToken
-    }
-  });
-
-  if (!session) {
+  const organizationId = await resolveOrganizationId(apiKey.tenantId);
+  if (!organizationId) {
     return null;
   }
 
-  if (session.revokedAt || session.expiresAt.getTime() < Date.now()) {
-    return null;
-  }
-
-  const idleTimeoutMinutes = input.config?.API_AUTH_IDLE_TIMEOUT_MINUTES ?? 30;
-  const lastActivityAtTime =
-    session.lastActivityAt instanceof Date
-      ? session.lastActivityAt.getTime()
-      : Date.now();
-  const idleExpiryTime = lastActivityAtTime + 60_000 * idleTimeoutMinutes;
-  if (idleExpiryTime < Date.now()) {
-    return null;
-  }
-
-  if (session.refreshExpiresAt && session.refreshExpiresAt.getTime() < Date.now()) {
-    return null;
-  }
-
-  const user = await prisma.user.findUnique({
-    where: {
-      id: session.userId
-    }
-  });
-
+  const user = await prisma.user.findUnique({ where: { id: apiKey.userId } });
   if (!user || user.status === UserStatus.SUSPENDED) {
     return null;
   }
 
-  await prisma.session.update({
-    data: {
-      lastActivityAt: new Date()
-    },
-    where: {
-      id: session.id
-    }
-  });
+  const role = extractRoleFromToken(token, "bh360") || await getRoleForUser({ organizationId, userId: apiKey.userId });
+
+  return {
+    apiKeyId: apiKey.apiKeyId,
+    authType: "api-key",
+    organizationId,
+    role,
+    sessionId: null,
+    tenantId: apiKey.tenantId,
+    userId: apiKey.userId
+  };
+}
+
+async function authenticateSession(
+  token: string,
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">
+): Promise<AuthenticatedContext | null> {
+  const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
+  if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
+    return null;
+  }
+
+  const idleExpiry = (session.lastActivityAt instanceof Date ? session.lastActivityAt.getTime() : Date.now()) + 60_000 * (config?.API_AUTH_IDLE_TIMEOUT_MINUTES ?? 30);
+  if (idleExpiry < Date.now() || (session.refreshExpiresAt && session.refreshExpiresAt.getTime() < Date.now())) {
+    return null;
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: session.userId } });
+  if (!user || user.status === UserStatus.SUSPENDED) {
+    return null;
+  }
+
+  await prisma.session.update({ data: { lastActivityAt: new Date() }, where: { id: session.id } });
+
+  const role = extractRoleFromToken(token, "atk") || await getRoleForUser({ organizationId: session.organizationId, userId: session.userId });
 
   return {
     apiKeyId: null,
     authType: "session",
     organizationId: session.organizationId,
+    role,
     sessionId: session.id,
     tenantId: session.tenantId,
     userId: session.userId
   };
 }
 
+export async function authenticateRequest(input: {
+  apiKeyToken?: string | null;
+  config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES">;
+  sessionToken?: string | null;
+}): Promise<AuthenticatedContext | null> {
+  if (input.apiKeyToken) {
+    return authenticateApiKey(input.apiKeyToken);
+  }
+
+  if (input.sessionToken) {
+    return authenticateSession(input.sessionToken, input.config);
+  }
+
+  return null;
+}
 

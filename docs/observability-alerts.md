@@ -56,7 +56,7 @@ Referências de política: `docs/operations/f0-sla-severity-policy.md` e `infra/
 ## Satélites e legado
 
 - **Satélites** (`packages/agent-packs`, `apps/webhook-receiver`, `apps/voice-engine`): alertar no máximo em `P1/P2`, com roteamento que não interrompa triagem do core.
-- **Legacy/quarentena** (`apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`, `packages/db`): sem política de alerta `P0`; tratar como `P3` e janela de manutenção.
+- **Legacy/quarentena** (`apps/legacy/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`, `packages/db`): sem política de alerta `P0`; tratar como `P3` e janela de manutenção.
 - **Regra operacional:** nenhuma superfície fora do core pode abrir incidente `P0` por padrão.
 
 ## Pós-alerta

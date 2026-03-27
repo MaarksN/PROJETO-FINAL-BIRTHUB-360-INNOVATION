@@ -29,4 +29,3 @@ C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\packages\ag
   35:8  warning  Async function 'callCrmTool' has no 'await' expression  @typescript-eslint/require-await
 
 Ô£û 11 problems (0 errors, 11 warnings)
-

@@ -17,4 +17,3 @@ C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\worker
 
 Ô£û 4 problems (0 errors, 4 warnings)
   0 errors and 4 warnings potentially fixable with the `--fix` option.
-
