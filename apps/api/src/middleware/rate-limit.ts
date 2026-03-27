@@ -3,6 +3,8 @@ import { MembershipStatus, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import type { Request, RequestHandler, Response } from "express";
 import rateLimit, { ipKeyGenerator, type Options } from "express-rate-limit";
+import RedisStore from "rate-limit-redis";
+import { getSharedRedis } from "../lib/queue.js";
 
 import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
 
@@ -137,6 +139,7 @@ function resolveAuthenticatedKey(request: Request): string {
 
 export function createRateLimitMiddleware(config: ApiConfig): RequestHandler {
   return rateLimit({
+    store: new RedisStore({ sendCommand: (...args: string[]) => getSharedRedis(config).call(...args) }),
     handler: (request, response, next, options) =>
       buildHandler({
         detail: request.context.apiKeyId
@@ -156,6 +159,7 @@ export function createRateLimitMiddleware(config: ApiConfig): RequestHandler {
 
 export function createLoginRateLimitMiddleware(config: ApiConfig): RequestHandler {
   return rateLimit({
+    store: new RedisStore({ sendCommand: (...args: string[]) => getSharedRedis(config).call(...args) }),
     handler: buildHandler({
       detail: "Too many login attempts from this IP address. Please retry later.",
       scope: "login",
@@ -178,6 +182,7 @@ export function createLoginRateLimitMiddleware(config: ApiConfig): RequestHandle
 
 export function createWebhookRateLimitMiddleware(config: ApiConfig): RequestHandler {
   return rateLimit({
+    store: new RedisStore({ sendCommand: (...args: string[]) => getSharedRedis(config).call(...args) }),
     handler: buildHandler({
       detail: "Inbound webhook traffic temporarily rate limited for this route.",
       scope: "webhook",

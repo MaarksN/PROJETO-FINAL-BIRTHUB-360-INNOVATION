@@ -14,9 +14,11 @@ export const createQueue = (name: QueueName, options?: QueueOptions) => {
   return new Queue(name, {
     connection,
     defaultJobOptions: {
-      attempts: QUEUE_CONFIG[name]?.attempts || 3,
-      backoff: QUEUE_CONFIG[name]?.backoff,
+      attempts: QUEUE_CONFIG[name]?.attempts || 5,
+      backoff: QUEUE_CONFIG[name]?.backoff || { type: "exponential", delay: 2000 },
       priority: QUEUE_CONFIG[name]?.priority,
+      removeOnComplete: QUEUE_CONFIG[name]?.removeOnComplete || { count: 500 },
+      removeOnFail: QUEUE_CONFIG[name]?.removeOnFail || { count: 1000 },
     },
     ...options,
   });

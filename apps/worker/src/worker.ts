@@ -142,10 +142,28 @@ export function createBirthHubWorker(): WorkerRuntime {
     }
   });
   const workflowTriggerQueue = new Queue<WorkflowTriggerJobPayload>(workflowQueueNames.trigger, {
-    connection: bullConnection
+    connection: bullConnection,
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: {
+        delay: 2000,
+        type: "exponential"
+      },
+      removeOnComplete: { count: 100 },
+      removeOnFail: { count: 500 }
+    }
   });
   const crmSyncQueue = new Queue<CrmSyncJobPayload>(crmSyncQueueName, {
-    connection: bullConnection
+    connection: bullConnection,
+    defaultJobOptions: {
+      attempts: 3,
+      backoff: {
+        delay: 5000,
+        type: "exponential"
+      },
+      removeOnComplete: { count: 100 },
+      removeOnFail: { count: 500 }
+    }
   });
   const dynamicRateLimiter = new DynamicRateLimiter(connection);
   const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
@@ -258,7 +276,16 @@ export function createBirthHubWorker(): WorkerRuntime {
   const tenantTaskQueues = queueNames.map(
     (queueName) =>
       new Queue(queueName, {
-        connection: bullConnection
+        connection: bullConnection,
+        defaultJobOptions: {
+          attempts: 5,
+          backoff: {
+            delay: 2000,
+            type: "exponential"
+          },
+          removeOnComplete: { count: 500 },
+          removeOnFail: { count: 1000 }
+        }
       })
   );
 

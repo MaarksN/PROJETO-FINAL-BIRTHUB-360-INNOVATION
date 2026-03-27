@@ -1,7 +1,7 @@
 # MASTER EXECUTION CHECKLIST — BIRTHUB 360
 
 ## STATUS GLOBAL
-Progresso Geral: 33%
+Progresso Geral: 66%
 
 ---
 
@@ -11,8 +11,8 @@ Progresso Geral: 33%
 [x] 1.3 Health Probes
 
 ## FASE 2 — RESILIÊNCIA E ESCALABILIDADE
-[ ] 2.1 Rate Limiting Distribuído
-[ ] 2.2 Workers + DLQ + Backoff
+[x] 2.1 Rate Limiting Distribuído
+[x] 2.2 Workers + DLQ + Backoff
 
 ## FASE 3 — SEGURANÇA E QUALIDADE
 [ ] 3.1 Zero Any Typings
