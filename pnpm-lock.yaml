@@ -747,6 +747,9 @@ importers:
 
   packages/queue:
     dependencies:
+      '@birthub/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@birthub/shared-types':
         specifier: workspace:*
         version: link:../shared-types
@@ -810,9 +813,9 @@ importers:
 
   packages/utils:
     dependencies:
-      winston:
-        specifier: ^3.19.0
-        version: 3.19.0
+      '@birthub/logger':
+        specifier: workspace:*
+        version: link:../logger
     devDependencies:
       '@opentelemetry/auto-instrumentations-node':
         specifier: ^0.71.0
