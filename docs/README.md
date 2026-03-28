@@ -3,6 +3,7 @@
 ## Canonical entry points
 
 - [Contribution guide](../CONTRIBUTING.md)
+- [Operational hub](operational/README.md)
 - [Service catalog (core vs legacy vs satellites)](service-catalog.md)
 - [Service criticality](service-criticality.md)
 - [Observability alerts](observability-alerts.md)
@@ -22,7 +23,9 @@
 
 ## Release and operations
 
+- [Operational runbook hub](operational/README.md)
 - [Go-live runbook](release/2026-03-20-go-live-runbook.md)
+- [Release process](release/release-process.md)
 - [Database migration rollback plan](database/migration-rollback-plan.md)
 - [Incident response](runbooks/critical-incidents.md)
 - [Critical incident runbook](runbooks/critical-incidents.md)

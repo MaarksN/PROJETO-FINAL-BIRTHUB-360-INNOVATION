@@ -26,6 +26,31 @@ import {
 
 const fixCatalog = [
   {
+    issue_id: "logger-transport-stability",
+    severity: "high",
+    role: "Core structured logger transport shared by API, worker and packages.",
+    explanation:
+      "Reuses a single pino-pretty transport so runtime logger creation does not add duplicate process exit listeners and destabilize test lanes.",
+    source_paths: ["packages/logger/src/index.ts"],
+    verification_commands: [
+      "corepack pnpm --filter @birthub/logger test",
+      "corepack pnpm --filter @birthub/api test:security"
+    ]
+  },
+  {
+    issue_id: "package-manager-pinning",
+    severity: "high",
+    role: "Root script execution compatibility across developer and CI environments.",
+    explanation:
+      "Pins root script entrypoints to corepack pnpm so workspace validation does not depend on whichever global pnpm version is installed on the machine.",
+    source_paths: ["package.json"],
+    verification_commands: [
+      "corepack pnpm ci:task lint",
+      "corepack pnpm ci:task typecheck",
+      "corepack pnpm ci:task test"
+    ]
+  },
+  {
     issue_id: "utils-logger-alignment",
     severity: "high",
     role: "Structured logging baseline for shared utility consumers.",
@@ -48,8 +73,8 @@ const fixCatalog = [
     severity: "medium",
     role: "API security regression test stability.",
     explanation:
-      "Caps listener warnings in the API security suite so the security lane reports actionable failures instead of framework listener noise.",
-    source_paths: ["apps/api/tests/security.test.ts"],
+      "Keeps the suite aligned with higher listener ceilings while the shared logger transport remains stable across repeated app bootstraps.",
+    source_paths: ["apps/api/tests/security.test.ts", "packages/logger/src/index.ts"],
     verification_commands: ["corepack pnpm --filter @birthub/api test:security"]
   },
   {
@@ -317,7 +342,7 @@ function parseCheckSummary(check) {
   const text = `${check.stdout}\n${check.stderr}`;
   return {
     hasMaxListenersWarning: text.includes("MaxListenersExceededWarning"),
-    passed: /pass\s+\d+/i.test(text) || /✔/u.test(text),
+    passed: check.exitCode === 0 && (/pass\s+\d+/i.test(text) || /✔/u.test(text)),
     skippedCount: Number((text.match(/skip(?:ped)?\s+(\d+)/i) ?? [])[1] ?? 0)
   };
 }

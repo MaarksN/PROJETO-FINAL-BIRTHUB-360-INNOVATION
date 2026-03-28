@@ -50,10 +50,12 @@ pnpm monorepo:doctor
 ## Documentação principal
 
 - [Service catalog](docs/service-catalog.md)
+- [Operational hub](docs/operational/README.md)
 - [Service criticality](docs/service-criticality.md)
 - [Observability alerts](docs/observability-alerts.md)
 - [Contribution guide](CONTRIBUTING.md)
 - [Documentation index](docs/README.md)
+- [Release process](docs/release/release-process.md)
 - [F0 ownership matrix](docs/operations/f0-ownership-matrix.md)
 - [Repository naming standard](docs/standards/repository-naming.md)
 - [Documentation source of truth](docs/processes/documentation-source-of-truth.md)

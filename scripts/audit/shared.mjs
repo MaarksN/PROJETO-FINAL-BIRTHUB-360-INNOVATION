@@ -313,22 +313,40 @@ export function truncateOutput(input, limit = 6000) {
 }
 
 export function runCommand(command, args, options = {}) {
-  const result = spawnSync(command, args, {
+  const sharedOptions = {
     cwd: repoRoot,
     encoding: "utf8",
-    shell: false,
     timeout: options.timeoutMs ?? 180000,
     env: {
       ...process.env,
       ...(options.env ?? {})
     }
-  });
+  };
+  const result =
+    process.platform === "win32"
+      ? spawnSync(
+          [command, ...args]
+            .map((value) => (/\s/.test(value) ? `"${value.replace(/"/g, '\\"')}"` : value))
+            .join(" "),
+          {
+            ...sharedOptions,
+            shell: true
+          }
+        )
+      : spawnSync(command, args, {
+          ...sharedOptions,
+          shell: false
+        });
 
   return {
     command: [command, ...args].join(" "),
-    exitCode: result.status ?? 1,
+    exitCode: result.status ?? (result.error ? 1 : 0),
     signal: result.signal ?? null,
-    stderr: truncateOutput(result.stderr ?? ""),
+    stderr: truncateOutput(
+      [result.stderr ?? "", result.error ? String(result.error.message ?? result.error) : ""]
+        .filter(Boolean)
+        .join("\n")
+    ),
     stdout: truncateOutput(result.stdout ?? "")
   };
 }

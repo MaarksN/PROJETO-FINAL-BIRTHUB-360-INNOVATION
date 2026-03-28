@@ -1,9 +1,0 @@
-
-> @birthub/web@1.0.0 lint C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\web
-> eslint .
-
-
-C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\apps\web\tests\health.required-dependency.test.ts
-  16:32  warning  Async arrow function has no 'await' expression  @typescript-eslint/require-await
-
-Ô£û 1 problem (0 errors, 1 warning)
