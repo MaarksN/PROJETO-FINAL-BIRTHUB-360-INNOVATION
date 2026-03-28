@@ -13,7 +13,7 @@
   "dependencies": {
     "@birthub/queue": "workspace:*",
     "@birthub/shared-types": "workspace:*",
-    "axios": "^1.13.6",
+    "axios": "^1.14.0",
     "bullmq": "^5.71.0",
     "dotenv": "^17.3.1",
     "ioredis": "^5.10.1"
