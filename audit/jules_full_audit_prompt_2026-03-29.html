@@ -114,6 +114,8 @@
         <li>Diferenciar artefato primario, derivado, duplicado, inconsistente e espelho orfao.</li>
         <li>Todo achado precisa de evidencia objetiva: caminho, trecho, metadado ou contradicao verificavel.</li>
         <li>Se um artefato for apenas documental, sem lastro operacional, registrar isso explicitamente.</li>
+        <li>Ler e confrontar obrigatoriamente o pacote externo de evidencias listado neste PDF.</li>
+        <li>Qualquer claim externo de <code>APROVADO</code>, <code>CONCLUIDO</code> ou <code>PRONTO</code> deve ser validado no repositorio vivo.</li>
       </ol>
     </div>
     <div>
@@ -143,6 +145,30 @@
       <li>Integridade de sourcePath e de primario relacionado, quando houver.</li>
       <li>Obsolescencia: arquivo vivo, historico, legado, orfao ou inconsistente.</li>
       <li>Risco de governanca: alto, medio ou baixo impacto caso o artefato esteja incorreto.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>Pacote externo obrigatorio de confronto</h2>
+    <p>Os arquivos abaixo tambem devem ser lidos pelo Jules. Eles nao substituem o corpus principal, mas devem ser confrontados com o repositorio vivo e com os 3292 artefatos mapeados para detectar divergencias historicas, claims sem lastro, aprovacoes indevidas e escopos conflitantes.</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Caminho absoluto</th><th>Papel no confronto</th></tr>
+      </thead>
+      <tbody><tr><td>1</td><td><code>C:\Users\Marks\Desktop\Nova pasta\auditoria_forense_codex.html</code></td><td>HTML de auditoria forense do Codex</td></tr><tr><td>2</td><td><code>C:\Users\Marks\Desktop\Nova pasta\JULES_PRE_VALIDACAO.md</code></td><td>pre-validacao do Jules</td></tr><tr><td>3</td><td><code>C:\Users\Marks\Desktop\Nova pasta\UNDECLARED_OBSERVATIONS.md</code></td><td>observacoes nao declaradas e hipoteses</td></tr><tr><td>4</td><td><code>C:\Users\Marks\Desktop\Nova pasta\CHECKLIST_ITEM_A_ITEM_STATUS_2026-03-20.md</code></td><td>status item a item consolidado</td></tr><tr><td>5</td><td><code>C:\Users\Marks\Desktop\Nova pasta\JULES_EXECUTION_REPORT_F0.md</code></td><td>relatorio de execucao do Jules para F0</td></tr><tr><td>6</td><td><code>C:\Users\Marks\Desktop\Nova pasta\JULES_PARECER_FINAL.md</code></td><td>parecer final do Jules</td></tr><tr><td>7</td><td><code>C:\Users\Marks\Desktop\Nova pasta\auditoria_forense_repositorio.html</code></td><td>HTML de auditoria forense do repositorio</td></tr><tr><td>8</td><td><code>C:\Users\Marks\Desktop\Nova pasta\checklist_governanca_unificada_2026-03-22.html</code></td><td>checklist unificado de governanca</td></tr><tr><td>9</td><td><code>C:\Users\Marks\Desktop\Nova pasta\baseline-execution-report-2026-03-22.md</code></td><td>baseline execution report</td></tr><tr><td>10</td><td><code>C:\Users\Marks\Desktop\Nova pasta\f0-baseline-report-2026-03-22.md</code></td><td>baseline report da fase F0</td></tr><tr><td>11</td><td><code>C:\Users\Marks\Desktop\Nova pasta\f0-freeze-signoff-2026-03-22.md</code></td><td>sign-off final de freeze F0</td></tr><tr><td>12</td><td><code>C:\Users\Marks\Desktop\Nova pasta\PROMPT_GERAL_PENDENCIAS.md</code></td><td>prompt geral de pendencias forenses</td></tr><tr><td>13</td><td><code>C:\Users\Marks\Desktop\Nova pasta\COMMERCIALIZATION_REQUIREMENTS.md</code></td><td>requisitos de comercializacao</td></tr><tr><td>14</td><td><code>C:\Users\Marks\Desktop\Nova pasta\organization-audit-2026-03-22.md</code></td><td>auditoria de organizacao do repositorio</td></tr><tr><td>15</td><td><code>C:\Users\Marks\Desktop\Nova pasta\audit_forensic_report.md</code></td><td>relatorio forense consolidado historico</td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Verificacoes obrigatorias sobre o pacote externo</h2>
+    <ol>
+      <li>Comparar escopo e contagens declaradas nesses documentos com o universo atual de 3292 artefatos.</li>
+      <li>Validar se aprovacoes, conclusoes, freezes, baselines, sign-offs e pareceres finais possuem lastro tecnico no repositorio.</li>
+      <li>Mapear pendencias, observacoes nao declaradas e gaps citados fora da trilha oficial do inventario.</li>
+      <li>Identificar contradicoes entre relatorios externos e o estado vivo dos arquivos do repositorio.</li>
+      <li>Distinguir documento historico valido de documento obsoleto, enganoso ou inconsistente.</li>
+      <li>Registrar como finding critico qualquer documento externo que apresente conclusao positiva sem evidencia operacional correspondente.</li>
+      <li>Verificar se os requisitos de comercializacao dependem de controles ainda ausentes, gaps nao resolvidos ou readiness nao comprovado.</li>
     </ol>
   </section>
 

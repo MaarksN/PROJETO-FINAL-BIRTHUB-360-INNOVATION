@@ -17,6 +17,26 @@ Esta auditoria deve ser executada com base no corpus consolidado gerado em `2026
 4. Inventario JSON estruturado:
    `C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\audit\governance_inventory_complete_2026-03-29.json`
 
+## Pacote externo obrigatorio de confronto
+
+Os arquivos abaixo tambem fazem parte da auditoria e devem ser lidos e confrontados com o estado real do repositorio e com o corpus principal de 3292 artefatos:
+
+1. `C:\Users\Marks\Desktop\Nova pasta\auditoria_forense_codex.html` - HTML de auditoria forense do Codex
+2. `C:\Users\Marks\Desktop\Nova pasta\JULES_PRE_VALIDACAO.md` - pre-validacao do Jules
+3. `C:\Users\Marks\Desktop\Nova pasta\UNDECLARED_OBSERVATIONS.md` - observacoes nao declaradas e hipoteses
+4. `C:\Users\Marks\Desktop\Nova pasta\CHECKLIST_ITEM_A_ITEM_STATUS_2026-03-20.md` - status item a item consolidado
+5. `C:\Users\Marks\Desktop\Nova pasta\JULES_EXECUTION_REPORT_F0.md` - relatorio de execucao do Jules para F0
+6. `C:\Users\Marks\Desktop\Nova pasta\JULES_PARECER_FINAL.md` - parecer final do Jules
+7. `C:\Users\Marks\Desktop\Nova pasta\auditoria_forense_repositorio.html` - HTML de auditoria forense do repositorio
+8. `C:\Users\Marks\Desktop\Nova pasta\checklist_governanca_unificada_2026-03-22.html` - checklist unificado de governanca
+9. `C:\Users\Marks\Desktop\Nova pasta\baseline-execution-report-2026-03-22.md` - baseline execution report
+10. `C:\Users\Marks\Desktop\Nova pasta\f0-baseline-report-2026-03-22.md` - baseline report da fase F0
+11. `C:\Users\Marks\Desktop\Nova pasta\f0-freeze-signoff-2026-03-22.md` - sign-off final de freeze F0
+12. `C:\Users\Marks\Desktop\Nova pasta\PROMPT_GERAL_PENDENCIAS.md` - prompt geral de pendencias forenses
+13. `C:\Users\Marks\Desktop\Nova pasta\COMMERCIALIZATION_REQUIREMENTS.md` - requisitos de comercializacao
+14. `C:\Users\Marks\Desktop\Nova pasta\organization-audit-2026-03-22.md` - auditoria de organizacao do repositorio
+15. `C:\Users\Marks\Desktop\Nova pasta\audit_forensic_report.md` - relatorio forense consolidado historico
+
 ## Volume auditavel
 
 - Total de artefatos: 3292
@@ -63,6 +83,8 @@ Validar a integridade, consistencia, cobertura e utilidade operacional dos 3292 
 6. Diferenciar claramente: artefato primario, artefato derivado, duplicado, inconsistente e espelho orfao.
 7. Todo achado deve conter evidencia objetiva: caminho, trecho, metadado ou contradicao verificavel.
 8. Se um artefato for apenas documental e nao tiver lastro operacional, registrar isso explicitamente.
+9. Confrontar obrigatoriamente o pacote externo de evidencias com o inventario principal e registrar qualquer divergencia de escopo, contagem, status, aprovacao, freeze, baseline ou claim de implementacao.
+10. Se um documento externo afirmar que algo esta `APROVADO`, `CONCLUIDO` ou `PRONTO`, validar no repositorio e registrar como inconsistencia critica caso nao exista lastro tecnico correspondente.
 
 ## Metodo de execucao
 
@@ -76,8 +98,15 @@ Validar a integridade, consistencia, cobertura e utilidade operacional dos 3292 
    - duplicidade ou conflito de versao
    - relacao com readiness, traceabilidade, arquitetura ou lifecycle
    - se e acionavel, apenas documental ou espelho derivado
-3. Ao final de cada grupo, consolidar: achados criticos, lacunas, contradicoes, artefatos redundantes e artefatos obsoletos.
-4. Ao final da auditoria completa, gerar uma avaliacao executiva do sistema de governanca da engenharia.
+3. Para o pacote externo de confronto, verificar tambem:
+   - se os totais e escopos declarados batem com o universo atual de 3292 artefatos
+   - se os status `aprovado`, `concluido`, `pronto` ou equivalentes possuem evidencia empirica no repositorio
+   - se existem pendencias, observacoes nao declaradas ou gaps citados fora da trilha oficial
+   - se baseline, freeze, sign-off e organization audit convergem com os artefatos vivos do repositorio
+   - se os documentos HTML externos descrevem o mesmo sistema de governanca ou uma fotografia historica divergente
+   - se `COMMERCIALIZATION_REQUIREMENTS.md` depende de gaps ainda abertos ou de controles inexistentes
+4. Ao final de cada grupo, consolidar: achados criticos, lacunas, contradicoes, artefatos redundantes e artefatos obsoletos.
+5. Ao final da auditoria completa, gerar uma avaliacao executiva do sistema de governanca da engenharia.
 
 ## Saidas obrigatorias
 
@@ -119,6 +148,7 @@ Gerar os seguintes arquivos:
 - sourcePath quebrado
 - fragmentacao documental
 - ausencia de implementacao operacional
+- contradicoes entre pacote externo e repositorio vivo
 
 ### 6. Mapa de maturidade da governanca
 - controles fortes
