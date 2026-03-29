@@ -1,6 +1,8 @@
 // [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
 import assert from "node:assert/strict";
 import test from "node:test";
+import { setMaxListeners } from "node:events";
+setMaxListeners(20);
 
 import { prisma, Role, UserStatus } from "@birthub/database";
 import request from "supertest";
