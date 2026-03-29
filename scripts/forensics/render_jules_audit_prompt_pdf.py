@@ -13,6 +13,23 @@ ROOT = Path(__file__).resolve().parents[2]
 AUDIT_DIR = ROOT / "audit"
 PHASE_RE = re.compile(r"(?i)(?:^|[^a-z0-9])(f(?:1[01]|[0-9]))(?:[^a-z0-9]|$)")
 CYCLE_RE = re.compile(r"(?i)cycle[-_ ]?(\d{1,2})")
+EXTERNAL_PROMPT_FILES = [
+    (r"C:\Users\Marks\Desktop\Nova pasta\auditoria_forense_codex.html", "HTML de auditoria forense do Codex"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\JULES_PRE_VALIDACAO.md", "pre-validacao do Jules"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\UNDECLARED_OBSERVATIONS.md", "observacoes nao declaradas e hipoteses"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\CHECKLIST_ITEM_A_ITEM_STATUS_2026-03-20.md", "status item a item consolidado"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\JULES_EXECUTION_REPORT_F0.md", "relatorio de execucao do Jules para F0"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\JULES_PARECER_FINAL.md", "parecer final do Jules"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\auditoria_forense_repositorio.html", "HTML de auditoria forense do repositorio"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\checklist_governanca_unificada_2026-03-22.html", "checklist unificado de governanca"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\baseline-execution-report-2026-03-22.md", "baseline execution report"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\f0-baseline-report-2026-03-22.md", "baseline report da fase F0"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\f0-freeze-signoff-2026-03-22.md", "sign-off final de freeze F0"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\PROMPT_GERAL_PENDENCIAS.md", "prompt geral de pendencias forenses"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\COMMERCIALIZATION_REQUIREMENTS.md", "requisitos de comercializacao"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\organization-audit-2026-03-22.md", "auditoria de organizacao do repositorio"),
+    (r"C:\Users\Marks\Desktop\Nova pasta\audit_forensic_report.md", "relatorio forense consolidado historico"),
+]
 
 
 def latest_inventory_json() -> Path:
