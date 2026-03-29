@@ -1,3 +1,5 @@
+import { setMaxListeners } from "node:events";
+setMaxListeners(20);
 import assert from "node:assert/strict";
 import { setMaxListeners } from "node:events";
 import test from "node:test";
