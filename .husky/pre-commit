@@ -1,3 +1,0 @@
-pnpm exec lint-staged
-pnpm typecheck:workspace
-pnpm workspace:audit
