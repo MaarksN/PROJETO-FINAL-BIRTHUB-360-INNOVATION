@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "jose": "^6.2.1"
+    "jose": "^6.2.2"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
