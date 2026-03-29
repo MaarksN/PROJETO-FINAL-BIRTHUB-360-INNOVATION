@@ -7,6 +7,8 @@ setMaxListeners(20);
 setMaxListeners(20);
 
 import { MembershipStatus, Role, UserStatus, prisma } from "@birthub/database";
+
+setMaxListeners(20);
 import request from "supertest";
 
 import { createApp } from "../src/app.js";
