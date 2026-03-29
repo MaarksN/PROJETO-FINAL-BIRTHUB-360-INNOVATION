@@ -148,6 +148,10 @@ def render_html(report: dict, inventory_path: Path) -> str:
         for cycle, count in sorted(cycle_counts.items(), key=lambda item: int(item[0].split('-')[1]))
     ) or "<tr><td colspan='2'>Sem ciclos explicitos.</td></tr>"
     alerts = "".join(f"<li>{escape(alert)}</li>" for alert in report.get("critical_alerts", []))
+    external_rows = "".join(
+        f"<tr><td>{index}</td><td><code>{escape(path)}</code></td><td>{escape(label)}</td></tr>"
+        for index, (path, label) in enumerate(EXTERNAL_PROMPT_FILES, start=1)
+    )
 
     sections: list[str] = []
     item_number = 0
@@ -330,6 +334,8 @@ def render_html(report: dict, inventory_path: Path) -> str:
         <li>Diferenciar artefato primario, derivado, duplicado, inconsistente e espelho orfao.</li>
         <li>Todo achado precisa de evidencia objetiva: caminho, trecho, metadado ou contradicao verificavel.</li>
         <li>Se um artefato for apenas documental, sem lastro operacional, registrar isso explicitamente.</li>
+        <li>Ler e confrontar obrigatoriamente o pacote externo de evidencias listado neste PDF.</li>
+        <li>Qualquer claim externo de <code>APROVADO</code>, <code>CONCLUIDO</code> ou <code>PRONTO</code> deve ser validado no repositorio vivo.</li>
       </ol>
     </div>
     <div>
@@ -359,6 +365,30 @@ def render_html(report: dict, inventory_path: Path) -> str:
       <li>Integridade de sourcePath e de primario relacionado, quando houver.</li>
       <li>Obsolescencia: arquivo vivo, historico, legado, orfao ou inconsistente.</li>
       <li>Risco de governanca: alto, medio ou baixo impacto caso o artefato esteja incorreto.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>Pacote externo obrigatorio de confronto</h2>
+    <p>Os arquivos abaixo tambem devem ser lidos pelo Jules. Eles nao substituem o corpus principal, mas devem ser confrontados com o repositorio vivo e com os 3292 artefatos mapeados para detectar divergencias historicas, claims sem lastro, aprovacoes indevidas e escopos conflitantes.</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Caminho absoluto</th><th>Papel no confronto</th></tr>
+      </thead>
+      <tbody>{external_rows}</tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Verificacoes obrigatorias sobre o pacote externo</h2>
+    <ol>
+      <li>Comparar escopo e contagens declaradas nesses documentos com o universo atual de 3292 artefatos.</li>
+      <li>Validar se aprovacoes, conclusoes, freezes, baselines, sign-offs e pareceres finais possuem lastro tecnico no repositorio.</li>
+      <li>Mapear pendencias, observacoes nao declaradas e gaps citados fora da trilha oficial do inventario.</li>
+      <li>Identificar contradicoes entre relatorios externos e o estado vivo dos arquivos do repositorio.</li>
+      <li>Distinguir documento historico valido de documento obsoleto, enganoso ou inconsistente.</li>
+      <li>Registrar como finding critico qualquer documento externo que apresente conclusao positiva sem evidencia operacional correspondente.</li>
+      <li>Verificar se os requisitos de comercializacao dependem de controles ainda ausentes, gaps nao resolvidos ou readiness nao comprovado.</li>
     </ol>
   </section>
 
