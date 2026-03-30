@@ -5,7 +5,7 @@
   "dataLicense": "CC0-1.0",
   "documentNamespace": "https://birthub.local/spdx/1aeebb36-71b5-c2e9-7a18-b3f75d1c111a",
   "creationInfo": {
-    "created": "2026-03-30T12:06:22.759Z",
+    "created": "2026-03-30T12:11:09.466Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
