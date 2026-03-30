@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-03-30T10:12:54.623Z",
-  "logPath": "logs/releases/release-1.0.0-2026-03-30T10-12-54.623Z.log",
+  "generatedAt": "2026-03-30T12:06:24.382Z",
+  "logPath": "logs/releases/release-1.0.0-2026-03-30T12-06-24.382Z.log",
   "releaseVersion": "1.0.0",
   "semverTag": "v1.0.0",
   "artifacts": [
     {
       "path": "artifacts/release/checksums-manifest.sha256",
-      "sha256": "05bdb78f55a44811de45a52a6572c002272bd1898b5cf2abb1a38ade31ce9c1b",
-      "sizeBytes": 1431
+      "sha256": "79b71e5fe966f313a0fa962d3135505d46f28845af932047feaed92447716b02",
+      "sizeBytes": 1527
     },
     {
       "path": "artifacts/release/final-data-migration-report.json",
@@ -36,8 +36,8 @@
     },
     {
       "path": "artifacts/release/release-artifact-catalog.json",
-      "sha256": "0fbb14e66c2aeeeacae80cc9379280336b602d28518dd952884933fcae0ae975",
-      "sizeBytes": 2553
+      "sha256": "99715c95d9cb8bf9e729cc601f4755a3ca6f75add3403885eb15a5e68e222199",
+      "sizeBytes": 2722
     },
     {
       "path": "artifacts/release/scorecard.md",
@@ -66,8 +66,13 @@
     },
     {
       "path": "artifacts/sbom/bom.xml",
-      "sha256": "4a3226a4c7516c1ccd2a29db8c27860a4740d3d4b7043aa3c1dcee78457492fc",
+      "sha256": "5baf32264757d3bdcfebb272532bdb3f9f1a95d55681e185ce13769cca2bc035",
       "sizeBytes": 19924
+    },
+    {
+      "path": "artifacts/sbom/sbom.spdx.json",
+      "sha256": "473d2f2df21174626835b099ba18f400abe015a4ee25c79f3328972b9fe7f2a0",
+      "sizeBytes": 40540
     }
   ]
 }

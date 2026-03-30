@@ -204,7 +204,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: release-sbom
-          path: artifacts/sbom/bom.xml
+          path: |
+            artifacts/sbom/bom.xml
+            artifacts/sbom/sbom.spdx.json
 
       - name: Upload release manifests
         uses: actions/upload-artifact@v7
@@ -515,7 +517,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs:
-      - staging-preflight
       - release-sbom
       - production-preflight
       - release-smoke-gate
