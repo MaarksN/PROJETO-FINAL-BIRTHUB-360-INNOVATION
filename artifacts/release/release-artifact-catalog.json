@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-03-30T10:12:54.623Z",
-  "logPath": "logs/releases/release-1.0.0-2026-03-30T10-12-54.623Z.log",
+  "generatedAt": "2026-03-30T10:50:49.293Z",
+  "logPath": "logs/releases/release-1.0.0-2026-03-30T10-50-49.293Z.log",
   "releaseVersion": "1.0.0",
   "semverTag": "v1.0.0",
   "artifacts": [
     {
       "path": "artifacts/release/checksums-manifest.sha256",
-      "sha256": "05bdb78f55a44811de45a52a6572c002272bd1898b5cf2abb1a38ade31ce9c1b",
+      "sha256": "571a173fb91f22e16ab30a5747e33485db5a479836d735d84dcdc2f3ac288bd7",
       "sizeBytes": 1431
     },
     {
@@ -36,7 +36,7 @@
     },
     {
       "path": "artifacts/release/release-artifact-catalog.json",
-      "sha256": "0fbb14e66c2aeeeacae80cc9379280336b602d28518dd952884933fcae0ae975",
+      "sha256": "a0c6acc20d716f30fe56c1d9d8832a84460b89fd0429a7de9abb72ab7d73b95e",
       "sizeBytes": 2553
     },
     {
@@ -66,8 +66,13 @@
     },
     {
       "path": "artifacts/sbom/bom.xml",
-      "sha256": "4a3226a4c7516c1ccd2a29db8c27860a4740d3d4b7043aa3c1dcee78457492fc",
+      "sha256": "864d8616e9caab604de348b4278cd7398a8bf2f2cfa26383f9d94ccda5264716",
       "sizeBytes": 19924
+    },
+    {
+      "path": "artifacts/sbom/sbom.spdx.json",
+      "sha256": "95f4b1ef5913eb6f289db01d6911eb7633216b50281d3c26e96ea03914b98fda",
+      "sizeBytes": 40540
     }
   ]
 }

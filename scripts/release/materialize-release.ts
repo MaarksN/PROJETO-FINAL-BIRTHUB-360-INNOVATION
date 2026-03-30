@@ -71,20 +71,20 @@ async function main() {
   await mkdir(notesDir, { recursive: true });
   await mkdir(logsDir, { recursive: true });
 
-  const releaseArtifacts = await listFiles(releaseDir);
+  const existingReleaseArtifacts = await listFiles(releaseDir);
   const sbomArtifacts = await listFiles(sbomDir);
-  const allArtifacts = [...releaseArtifacts, ...sbomArtifacts];
+  const discoveredArtifacts = [...existingReleaseArtifacts, ...sbomArtifacts];
 
-  const entries = await buildChecksumManifest(allArtifacts, root);
-  if (entries.length === 0) {
+  if (discoveredArtifacts.length === 0) {
     throw new Error("No release artifacts found under artifacts/release or artifacts/sbom.");
   }
 
-  const checksumPath = resolve(releaseDir, "checksums-manifest.sha256");
-  const checksumBody = entries.map((entry) => `${entry.sha256}  ${entry.path}`).join("\n");
-  await writeFile(checksumPath, `${checksumBody}\n`, "utf8");
-
   const catalogPath = resolve(manifestsDir, "release_artifact_catalog.md");
+  const summaryPath = resolve(releaseDir, "release-artifact-catalog.json");
+  const checksumPath = resolve(releaseDir, "checksums-manifest.sha256");
+  const logPath = resolve(logsDir, `release-${RELEASE_VERSION}-${runDate.replaceAll(":", "-")}.log`);
+
+  const initialEntries = await buildChecksumManifest(discoveredArtifacts, root);
   const catalog = [
     "# Release Artifact Catalog",
     "",
@@ -94,7 +94,7 @@ async function main() {
     "",
     "| Artifact | SHA-256 | Size (bytes) |",
     "| --- | --- | ---: |",
-    ...entries.map((entry) => `| \`${entry.path}\` | \`${entry.sha256}\` | ${entry.sizeBytes} |`)
+    ...initialEntries.map((entry) => `| \`${entry.path}\` | \`${entry.sha256}\` | ${entry.sizeBytes} |`)
   ].join("\n");
   await writeFile(catalogPath, `${catalog}\n`, "utf8");
 
@@ -125,17 +125,15 @@ async function main() {
   ].join("\n");
   await writeFile(releaseNotesPath, `${releaseNotes}\n`, "utf8");
 
-  const logPath = resolve(logsDir, `release-${RELEASE_VERSION}-${runDate.replaceAll(":", "-")}.log`);
   const logBody = [
     `release_version=${RELEASE_VERSION}`,
     `semver_tag=${semverTag}`,
     `generated_at=${runDate}`,
-    `artifact_count=${entries.length}`,
-    ...entries.map((entry) => `artifact=${entry.path};sha256=${entry.sha256};size=${entry.sizeBytes}`)
+    `artifact_count=${initialEntries.length}`,
+    ...initialEntries.map((entry) => `artifact=${entry.path};sha256=${entry.sha256};size=${entry.sizeBytes}`)
   ].join("\n");
   await writeFile(logPath, `${logBody}\n`, "utf8");
 
-  const summaryPath = resolve(releaseDir, "release-artifact-catalog.json");
   await writeFile(
     summaryPath,
     JSON.stringify(
@@ -144,7 +142,7 @@ async function main() {
         logPath: relative(root, logPath).replaceAll("\\", "/"),
         releaseVersion: RELEASE_VERSION,
         semverTag,
-        artifacts: entries
+        artifacts: initialEntries
       },
       null,
       2
@@ -152,7 +150,12 @@ async function main() {
     "utf8"
   );
 
-  process.stdout.write(`Release artifacts materialized (${entries.length} files).\n`);
+  const allArtifacts = await listFiles(releaseDir).then((releaseArtifacts) => [...releaseArtifacts, ...sbomArtifacts]);
+  const finalEntries = await buildChecksumManifest(allArtifacts, root);
+  const checksumBody = finalEntries.map((entry) => `${entry.sha256}  ${entry.path}`).join("\n");
+  await writeFile(checksumPath, `${checksumBody}\n`, "utf8");
+
+  process.stdout.write(`Release artifacts materialized (${finalEntries.length} files).\n`);
   process.stdout.write(`Checksum manifest: ${relative(root, checksumPath)}\n`);
   process.stdout.write(`Catalog: ${relative(root, catalogPath)}\n`);
   process.stdout.write(`Release notes: ${relative(root, releaseNotesPath)}\n`);
