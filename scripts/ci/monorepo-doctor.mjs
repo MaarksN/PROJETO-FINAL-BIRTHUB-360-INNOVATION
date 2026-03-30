@@ -78,7 +78,7 @@ function isWithinAllowedRoots(file, allowedRoots){
 }
 
 const tracked=trackedFiles();
-const files=tracked.files;
+const files=tracked.files.filter((file) => fs.existsSync(path.join(projectRoot, file)));
 const workspaceContract = readWorkspaceContract();
 
 function getAllowedDuplicateDirectoryMap(contract){

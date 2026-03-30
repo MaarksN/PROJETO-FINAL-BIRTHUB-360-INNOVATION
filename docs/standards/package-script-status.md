@@ -1,6 +1,6 @@
 # Package Script Status
 
-Generated at: 2026-03-30T15:23:03.433Z
+Generated at: 2026-03-30T16:52:47.533Z
 
 - Workspaces: 23
 - Script slots ok: 90
@@ -45,4 +45,3 @@ Generated at: 2026-03-30T15:23:03.433Z
 ## Governance
 
 Reference process: `docs/standards/package-script-governance.md`.
-

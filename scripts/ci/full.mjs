@@ -134,7 +134,6 @@ const taskGroups = {
     "test:isolation",
     "build:core"
   ],
-  "legacy-agents": ["preflight:agents", "test:agents"],
   "pack-tests": ["packs:validate", "packs:test", "packs:smoke", "packs:regression"],
   platform: ["core"],
   satellites: [
