@@ -1,7 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { createLogger } from "@birthub/logger";
 
 type RollbackTarget = "production" | "staging";
+const logger = createLogger("release-rollback-evidence");
 
 function parseFlag(name: string): string | undefined {
   const match = process.argv.find((item) => item.startsWith(`${name}=`));
@@ -57,10 +59,13 @@ async function main() {
     "utf8"
   );
 
-  console.log(JSON.stringify(report, null, 2));
+  logger.info({ report }, "Rollback rehearsal evidence verified");
 }
 
 void main().catch((error) => {
-  console.error(error instanceof Error ? error.message : String(error));
+  logger.error(
+    { error: error instanceof Error ? error.message : String(error) },
+    "Rollback rehearsal evidence verification failed"
+  );
   process.exitCode = 1;
 });

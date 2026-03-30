@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
 import { getApiConfig, getWebConfig, getWorkerConfig } from "@birthub/config";
+import { createLogger } from "@birthub/logger";
 
 type PreflightTarget = "production" | "staging";
 type ScopeName = "api" | "web" | "worker";
@@ -11,6 +12,8 @@ type ScopeResult = {
   ok: boolean;
   scope: ScopeName;
 };
+
+const logger = createLogger("release-preflight");
 
 function parseFlag(name: string): string | undefined {
   const match = process.argv.find((item) => item.startsWith(`${name}=`));
@@ -173,7 +176,7 @@ async function main() {
     "utf8"
   );
 
-  console.log(JSON.stringify(report, null, 2));
+  logger.info({ report }, "Release preflight completed");
 
   if (!report.ok) {
     process.exitCode = 1;
@@ -181,6 +184,6 @@ async function main() {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error({ error }, "Release preflight failed");
   process.exitCode = 1;
 });

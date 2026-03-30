@@ -60,7 +60,7 @@ export function asyncHandler(
     request: Request,
     response: Response,
     next: NextFunction
-  ) => Promise<unknown> | unknown
+  ) => Promise<unknown> | void
 ): RequestHandler {
   return (request, response, next) => {
     try {

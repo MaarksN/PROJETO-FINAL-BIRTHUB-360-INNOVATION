@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { spawn } from "node:child_process";
 
+import { createLogger } from "@birthub/logger";
 import { buildEnv, resolvePnpmInvocation } from "../ci/shared.mjs";
 
 type SmokeCommand = {
@@ -9,6 +10,8 @@ type SmokeCommand = {
   cwd: string;
   name: string;
 };
+
+const logger = createLogger("release-smoke");
 
 function parseFlag(name: string): string | undefined {
   const flag = process.argv.find((item) => item.startsWith(`${name}=`));
@@ -34,11 +37,11 @@ function runCommand(input: SmokeCommand): Promise<{
 
     let output = "";
 
-    child.stdout.on("data", (chunk) => {
-      output += chunk.toString();
+    child.stdout.on("data", (chunk: Buffer | string) => {
+      output += typeof chunk === "string" ? chunk : chunk.toString("utf8");
     });
-    child.stderr.on("data", (chunk) => {
-      output += chunk.toString();
+    child.stderr.on("data", (chunk: Buffer | string) => {
+      output += typeof chunk === "string" ? chunk : chunk.toString("utf8");
     });
     child.on("close", (code) => {
       resolve({
@@ -93,7 +96,7 @@ async function main() {
   await writeFile(outputPath, JSON.stringify(report, null, 2), "utf8");
   await writeFile(outputPath.replace(/\.json$/i, ".txt"), humanSummary, "utf8");
 
-  console.log(humanSummary);
+  logger.info({ summary: humanSummary }, "Release smoke gate completed");
 
   if (!report.ok) {
     process.exitCode = 1;
@@ -101,6 +104,6 @@ async function main() {
 }
 
 void main().catch((error) => {
-  console.error(error);
+  logger.error({ error }, "Release smoke gate failed");
   process.exitCode = 1;
 });

@@ -53,13 +53,9 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
     stdio: "inherit"
   });
 
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: databaseUrl
-      }
-    }
-  });
+  const previousDatabaseUrl = process.env.DATABASE_URL;
+  process.env.DATABASE_URL = databaseUrl;
+  const prisma = new PrismaClient();
 
   await seedCoreFixtures(prisma);
 
@@ -67,6 +63,11 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
     cleanup: async () => {
       await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
       await prisma.$disconnect();
+      if (previousDatabaseUrl === undefined) {
+        delete process.env.DATABASE_URL;
+      } else {
+        process.env.DATABASE_URL = previousDatabaseUrl;
+      }
     },
     databaseUrl,
     prisma,

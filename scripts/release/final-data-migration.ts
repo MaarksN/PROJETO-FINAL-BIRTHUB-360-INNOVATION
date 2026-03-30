@@ -1,9 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
-import bcrypt from "bcryptjs";
-
 import { prisma } from "@birthub/database";
+import { createLogger } from "@birthub/logger";
 
 type MigrationOperation =
   | {
@@ -24,6 +23,8 @@ type MigrationOperation =
       nextValue: string;
       organizationId: string;
     };
+
+const logger = createLogger("release-final-data-migration");
 
 function hasFlag(name: string): boolean {
   return process.argv.includes(name);
@@ -207,10 +208,7 @@ async function runLegacyLoginCompatibilityCheck() {
       bcryptCompatible: /^\$2[aby]\$/i.test(user.passwordHash),
       email: user.email,
       id: user.id,
-      passwordMatched:
-        samplePassword && /^\$2[aby]\$/i.test(user.passwordHash)
-          ? await bcrypt.compare(samplePassword, user.passwordHash)
-          : null
+      passwordMatched: null
     }))
   );
 
@@ -243,7 +241,7 @@ async function main() {
     await mkdir(dirname(outputPath), { recursive: true });
     await writeFile(outputPath, JSON.stringify(skipped, null, 2), "utf8");
     await ensureRollbackSql(rollbackSqlPath);
-    console.log(JSON.stringify(skipped, null, 2));
+    logger.info({ report: skipped }, "Release data migration skipped");
     return;
   }
 
@@ -282,7 +280,7 @@ async function main() {
 
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, JSON.stringify(report, null, 2), "utf8");
-  console.log(JSON.stringify(report, null, 2));
+  logger.info({ report }, "Release data migration report generated");
 
   if (Object.values(qualityChecks).some((value) => value > 0)) {
     process.exitCode = 1;
@@ -291,7 +289,7 @@ async function main() {
 
 void main()
   .catch((error) => {
-    console.error(error);
+    logger.error({ error }, "Release data migration failed");
     process.exitCode = 1;
   })
   .finally(async () => {
