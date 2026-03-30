@@ -10,7 +10,7 @@
   "scripts": {
     "artifacts:clean": "node scripts/ci/cleanup-artifacts.mjs",
     "branch:check": "node scripts/ci/check-branch-name.mjs",
-    "build": "corepack pnpm build:core && corepack pnpm release:sbom",
+    "build": "corepack pnpm db:generate && corepack pnpm build:core && corepack pnpm release:sbom",
     "build:agents": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run build",
     "build:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing run build",
     "build:workspace": "turbo run build",
@@ -153,7 +153,8 @@
     "release:rollback:evidence": "node --import tsx scripts/release/verify-rollback-evidence.ts --target=production",
     "release:sbom": "node scripts/release/generate-sbom.mjs",
     "release:materialize": "node --import tsx scripts/release/materialize-release.ts",
-    "release:bundle": "corepack pnpm release:sbom && corepack pnpm release:materialize"
+    "release:bundle": "corepack pnpm release:sbom && corepack pnpm release:materialize",
+    "release:verify:cycle0": "bash ./scripts/release/verify-cycle0-flow.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
