@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-25T20:18:45.427Z",
+  "generatedAt": "2026-03-30T17:45:05.180Z",
   "checks": {
     "matrix-exists": {
       "status": "pass",
@@ -46,7 +46,7 @@
         "packages/agent-packs",
         "apps/webhook-receiver",
         "apps/voice-engine",
-        "apps/dashboard",
+        "apps/legacy/dashboard",
         "apps/api-gateway",
         "apps/agent-orchestrator",
         "packages/db"

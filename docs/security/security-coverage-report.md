@@ -1,6 +1,6 @@
 # Security Coverage Report
 
-- generatedAt: 2026-03-30T16:50:31.292Z
+- generatedAt: 2026-03-30T17:44:55.990Z
 - semgrep: unknown
 - dependency_scan: unknown
 - rbac_suite: unknown
