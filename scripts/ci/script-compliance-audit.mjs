@@ -48,6 +48,10 @@ const scriptPolicyPath = path.join(
 
 function walkFiles(rootRelativePath) {
   const rootDirectory = path.join(projectRoot, rootRelativePath);
+  if (!existsSync(rootDirectory)) {
+    return [];
+  }
+
   const collectedFiles = [];
   const queue = [rootDirectory];
 

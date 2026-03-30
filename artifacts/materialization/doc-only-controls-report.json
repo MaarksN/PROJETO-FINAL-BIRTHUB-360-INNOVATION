@@ -16,7 +16,7 @@
       "missingTimeout": []
     },
     "branch-protection-baseline": {
-      "status": "pass",
+      "status": "fail",
       "hasDevelopBranchProtection": true,
       "hasMainBranchProtection": true,
       "missingStatusChecksByBranch": {
@@ -68,6 +68,8 @@
       "forbiddenImportHits": []
     }
   },
-  "blockers": [],
+  "blockers": [
+    "branch-protection-baseline"
+  ],
   "warnings": []
 }

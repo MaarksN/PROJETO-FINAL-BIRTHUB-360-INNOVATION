@@ -13,7 +13,9 @@ if (!databaseUrl) {
   process.exit(0);
 }
 
-const prisma = new PrismaClient({ datasources: { db: { url: databaseUrl } } });
+const previousDatabaseUrl = process.env.DATABASE_URL;
+process.env.DATABASE_URL = databaseUrl;
+const prisma = new PrismaClient();
 
 try {
   const organization = await prisma.organization.create({
@@ -52,4 +54,9 @@ try {
   }
 } finally {
   await prisma.$disconnect();
+  if (previousDatabaseUrl === undefined) {
+    delete process.env.DATABASE_URL;
+  } else {
+    process.env.DATABASE_URL = previousDatabaseUrl;
+  }
 }

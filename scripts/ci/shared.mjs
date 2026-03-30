@@ -107,7 +107,9 @@ function resolvePortablePythonEntries() {
 }
 
 export function buildEnv(overrides = {}) {
+  const workspaceBin = path.join(projectRoot, "node_modules", ".bin");
   const pathEntries = uniquePathEntries([
+    workspaceBin,
     portableNodeHome,
     ...resolveCommonWindowsToolEntries(),
     ...resolvePortablePythonEntries(),

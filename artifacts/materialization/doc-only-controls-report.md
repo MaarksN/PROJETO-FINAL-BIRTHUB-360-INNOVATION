@@ -22,5 +22,9 @@ Gerado em: 2026-03-30T16:52:45.982Z
 
 ## Resumo
 
-- Blockers: 0
+- Blockers: 1
 - Warnings: 0
+
+### Blockers
+
+- branch-protection-baseline

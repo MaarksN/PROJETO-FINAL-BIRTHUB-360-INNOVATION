@@ -225,6 +225,15 @@ export function createAccessToken(input: {
   return `${header}.${body}.${signature}`;
 }
 
+function isValidJwtHeader(value: unknown): value is { alg: "HS256"; typ: "JWT" } {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as { alg?: unknown; typ?: unknown };
+  return candidate.alg === "HS256" && candidate.typ === "JWT";
+}
+
 export function verifyAccessToken(
   token: string,
   secret: string
@@ -253,14 +262,11 @@ export function verifyAccessToken(
   }
 
   try {
-    const header = decodeBase64UrlJson(headerPart) as {
-      alg?: unknown;
-      typ?: unknown;
-    };
+    const header = decodeBase64UrlJson(headerPart);
     const payload = decodeBase64UrlJson(payloadPart) as Partial<AccessTokenClaims>;
     const now = Math.floor(Date.now() / 1000);
 
-    if (header.alg !== "HS256" || header.typ !== "JWT") {
+    if (!isValidJwtHeader(header)) {
       return null;
     }
 
