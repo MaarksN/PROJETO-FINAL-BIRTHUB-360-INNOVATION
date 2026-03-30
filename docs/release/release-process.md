@@ -33,3 +33,4 @@
 - `CHANGELOG.md`
 - `docs/release/2026-03-20-go-live-runbook.md`
 - `scripts/ops/rollback-release.sh`
+- `docs/release/reproducible-build.md`

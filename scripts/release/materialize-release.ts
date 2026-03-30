@@ -114,7 +114,14 @@ async function main() {
     "## Operacional",
     "",
     "- Workflow de CD exige preflight staging/production e evidência de rollback.",
-    "- Script de rollback disponível em `scripts/ops/rollback-release.sh`."
+    "- Script de rollback disponível em `scripts/ops/rollback-release.sh`.",
+    "",
+    "## Tag semântica da release",
+    "",
+    "```bash",
+    `git tag ${semverTag}`,
+    `git push origin ${semverTag}`,
+    "```"
   ].join("\n");
   await writeFile(releaseNotesPath, `${releaseNotes}\n`, "utf8");
 

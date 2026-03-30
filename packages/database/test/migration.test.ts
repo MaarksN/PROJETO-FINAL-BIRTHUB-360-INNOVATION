@@ -7,13 +7,9 @@ const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("migracao preserva integridade referencial por tenant", async () => {
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: databaseUrl
-      }
-    }
-  });
+  const previousDatabaseUrl = process.env.DATABASE_URL;
+  process.env.DATABASE_URL = databaseUrl;
+  const prisma = new PrismaClient();
 
   try {
     const organizationA = await prisma.organization.create({
@@ -60,5 +56,10 @@ void testIfDatabase("migracao preserva integridade referencial por tenant", asyn
     assert.equal(membershipB.tenantId, organizationB.tenantId);
   } finally {
     await prisma.$disconnect();
+    if (previousDatabaseUrl === undefined) {
+      delete process.env.DATABASE_URL;
+    } else {
+      process.env.DATABASE_URL = previousDatabaseUrl;
+    }
   }
 });

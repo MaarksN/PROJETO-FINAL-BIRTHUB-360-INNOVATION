@@ -1,16 +1,9 @@
 import { setMaxListeners } from "node:events";
 setMaxListeners(20);
 import assert from "node:assert/strict";
-import { setMaxListeners } from "node:events";
 import test from "node:test";
-import { setMaxListeners } from "node:events";
-setMaxListeners(20);
-
-setMaxListeners(20);
 
 import { MembershipStatus, Role, UserStatus, prisma } from "@birthub/database";
-
-setMaxListeners(20);
 import request from "supertest";
 
 import { createApp } from "../src/app.js";

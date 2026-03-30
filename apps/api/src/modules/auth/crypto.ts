@@ -202,6 +202,37 @@ export function createAccessToken(input: {
   return `${header}.${body}.${signature}`;
 }
 
+function isValidJwtHeader(value: unknown): value is { alg: "HS256"; typ: "JWT" } {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as { alg?: unknown; typ?: unknown };
+  return candidate.alg === "HS256" && candidate.typ === "JWT";
+}
+
+function hasValidAccessTokenClaims(
+  payload: Partial<AccessTokenClaims>,
+  now: number
+): payload is AccessTokenClaims {
+  if (
+    payload.typ !== "access" ||
+    payload.iss !== ACCESS_TOKEN_ISSUER ||
+    typeof payload.exp !== "number" ||
+    payload.exp <= now ||
+    typeof payload.iat !== "number" ||
+    typeof payload.jti !== "string" ||
+    typeof payload.organizationId !== "string" ||
+    typeof payload.sessionId !== "string" ||
+    typeof payload.tenantId !== "string" ||
+    typeof payload.userId !== "string"
+  ) {
+    return false;
+  }
+
+  return payload.role === null || payload.role === undefined || typeof payload.role === "string";
+}
+
 export function verifyAccessToken(
   token: string,
   secret: string
@@ -230,33 +261,15 @@ export function verifyAccessToken(
   }
 
   try {
-    const header = decodeBase64UrlJson(headerPart) as {
-      alg?: unknown;
-      typ?: unknown;
-    };
+    const header = decodeBase64UrlJson(headerPart);
     const payload = decodeBase64UrlJson(payloadPart) as Partial<AccessTokenClaims>;
     const now = Math.floor(Date.now() / 1000);
 
-    if (header.alg !== "HS256" || header.typ !== "JWT") {
+    if (!isValidJwtHeader(header)) {
       return null;
     }
 
-    if (
-      payload.typ !== "access" ||
-      payload.iss !== ACCESS_TOKEN_ISSUER ||
-      typeof payload.exp !== "number" ||
-      payload.exp <= now ||
-      typeof payload.iat !== "number" ||
-      typeof payload.jti !== "string" ||
-      typeof payload.organizationId !== "string" ||
-      typeof payload.sessionId !== "string" ||
-      typeof payload.tenantId !== "string" ||
-      typeof payload.userId !== "string"
-    ) {
-      return null;
-    }
-
-    if (payload.role !== null && payload.role !== undefined && typeof payload.role !== "string") {
+    if (!hasValidAccessTokenClaims(payload, now)) {
       return null;
     }
 
