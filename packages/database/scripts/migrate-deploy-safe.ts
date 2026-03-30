@@ -1,6 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import type { PrismaClient } from "@prisma/client";
 
 import { F8_CONFIG } from "../f8.config.js";
+import { createPrismaClient } from "../src/client.js";
 import { runCommand, getPrismaBinaryPath } from "./lib/process.js";
 import { databasePackageRoot, schemaPath } from "./lib/paths.js";
 import { createLogger } from "@birthub/logger";
@@ -39,7 +40,7 @@ async function main(): Promise<void> {
     throw new Error("DATABASE_URL is required for migrate-deploy-safe.");
   }
 
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient();
 
   try {
     await runTsScript("check-migration-governance.ts");

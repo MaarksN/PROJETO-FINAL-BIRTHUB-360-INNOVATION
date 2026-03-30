@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { F8_CONFIG } from "../f8.config.js";
+import { createPrismaClient } from "../src/client.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
 
@@ -42,7 +41,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient();
 
   try {
     let topSlowQueries: SlowQueryRow[] = [];

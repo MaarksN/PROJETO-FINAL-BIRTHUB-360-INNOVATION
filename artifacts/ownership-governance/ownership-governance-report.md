@@ -1,6 +1,6 @@
 # Ownership Governance Report
 
-Generated at: 2026-03-25T20:18:45.427Z
+Generated at: 2026-03-30T20:56:07.763Z
 
 | Check | Status | Details |
 | --- | --- | --- |
@@ -14,4 +14,4 @@ Generated at: 2026-03-25T20:18:45.427Z
 | quarterly-review-date-present | PASS | {} |
 | jira-link-present | PASS | {} |
 | calendar-reference-present | PASS | {} |
-| critical-components-covered-by-codeowners | PASS | {"criticalComponents":["apps/api","apps/web","apps/worker","packages/database","packages/agent-packs","apps/webhook-receiver","apps/voice-engine","apps/dashboard","apps/api-gateway","apps/agent-orchestrator","packages/db"],"missingCoverage":[]} |
+| critical-components-covered-by-codeowners | PASS | {"criticalComponents":["apps/api","apps/web","apps/worker","packages/database","packages/agent-packs","apps/webhook-receiver","apps/voice-engine","apps/legacy/dashboard","apps/api-gateway","apps/agent-orchestrator","packages/db"],"missingCoverage":[]} |

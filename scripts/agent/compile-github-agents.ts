@@ -1,8 +1,8 @@
-import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import type { AgentManifest } from "@birthub/agents-core";
-import { runAgentDryRun } from "@birthub/agents-core";
+import { isInstallableManifest, loadManifestCatalog, runAgentDryRun } from "@birthub/agents-core";
 
 import {
   type CompiledGithubAgentsSummary,
@@ -122,6 +122,19 @@ async function listGithubAgentMarkdownFiles(rootDir: string): Promise<string[]> 
   }
 
   return files.sort();
+}
+
+async function pathExists(targetPath: string): Promise<boolean> {
+  try {
+    await readdir(targetPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function readJson<T>(filePath: string): Promise<T> {
+  return JSON.parse(await readFile(filePath, "utf8")) as T;
 }
 
 function inferDomainTags(source: GithubAgentSource): string[] {
@@ -662,18 +675,101 @@ async function writeJson(filePath: string, data: unknown): Promise<void> {
   await writeFile(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
+async function rewriteCompiledCollectionArtifacts(input: {
+  collectionRoot: string;
+  workspaceRoot: string;
+}): Promise<void> {
+  const catalog = await loadManifestCatalog(input.collectionRoot);
+  const installableEntries = catalog.filter((entry) => isInstallableManifest(entry.manifest));
+  const artifacts: CompiledAgentArtifact[] = [];
+
+  for (const entry of installableEntries) {
+    const agentDir = path.dirname(entry.manifestPath);
+    const evidencePath = path.join(agentDir, "evidence.json");
+    const readinessPath = path.join(agentDir, "readiness.json");
+    const evidence = await readJson<GithubAgentEvidenceArtifact>(evidencePath);
+    const existingReadiness = await readJson<GithubAgentReadinessArtifact>(readinessPath);
+    const readiness = buildReadinessArtifact({
+      collectionRoot: input.collectionRoot,
+      evidence,
+      manifest: entry.manifest,
+      manifestPath: entry.manifestPath,
+      readinessPath,
+      workspaceRoot: input.workspaceRoot
+    });
+
+    readiness.collaborators = existingReadiness.collaborators;
+
+    await writeJson(readinessPath, readiness);
+
+    artifacts.push({
+      evidencePath,
+      manifestPath: entry.manifestPath,
+      readinessPath,
+      sourcePath: evidence.sourcePath
+    });
+  }
+
+  await writeJson(path.join(input.collectionRoot, "collection-report.json"), {
+    artifacts: artifacts.map((artifact) => ({
+      evidencePath: toPosixPath(path.relative(input.workspaceRoot, artifact.evidencePath)),
+      manifestPath: toPosixPath(path.relative(input.workspaceRoot, artifact.manifestPath)),
+      readinessPath: toPosixPath(path.relative(input.workspaceRoot, artifact.readinessPath)),
+      sourcePath: artifact.sourcePath
+    })),
+    collectionDescriptorId: GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID,
+    collectionName: GITHUB_AGENT_COLLECTION_NAME,
+    generatedAt: new Date().toISOString(),
+    installableCount: artifacts.length,
+    totalCount: artifacts.length + 1
+  });
+}
+
 export async function compileGithubAgentsCollection(
   options: CompileGithubAgentsOptions = {}
 ): Promise<CompiledGithubAgentsSummary> {
   const workspaceRoot = options.workspaceRoot ?? getWorkspaceRoot();
   const sourceRoot = options.sourceRoot ?? getGithubAgentSourceRoot(workspaceRoot);
   const collectionRoot = options.outputRoot ?? getGithubAgentCollectionRoot(workspaceRoot);
+  const canonicalCollectionRoot = getGithubAgentCollectionRoot(workspaceRoot);
+  const sourceFiles =
+    (await pathExists(sourceRoot)) ? await listGithubAgentMarkdownFiles(sourceRoot) : [];
+
+  if (sourceFiles.length === 0) {
+    if (!(await pathExists(canonicalCollectionRoot))) {
+      throw new Error(
+        `GitHub agent source root '${toPosixPath(path.relative(workspaceRoot, sourceRoot))}' is missing and no canonical compiled collection is available.`
+      );
+    }
+
+    if (path.resolve(canonicalCollectionRoot) !== path.resolve(collectionRoot)) {
+      if (options.cleanOutput ?? true) {
+        await rm(collectionRoot, { force: true, recursive: true });
+      }
+      await mkdir(path.dirname(collectionRoot), { recursive: true });
+      await cp(canonicalCollectionRoot, collectionRoot, { recursive: true, force: true });
+      await rewriteCompiledCollectionArtifacts({
+        collectionRoot,
+        workspaceRoot
+      });
+    }
+
+    const catalog = await loadManifestCatalog(collectionRoot);
+    const installableCount = catalog.filter((entry) => isInstallableManifest(entry.manifest)).length;
+
+    return {
+      collectionDescriptorId: GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID,
+      collectionRoot,
+      generatedAt: new Date().toISOString(),
+      installableCount,
+      sourceCount: installableCount,
+      totalCount: catalog.length
+    };
+  }
 
   if (options.cleanOutput ?? true) {
     await rm(collectionRoot, { force: true, recursive: true });
   }
-
-  const sourceFiles = await listGithubAgentMarkdownFiles(sourceRoot);
   const idCounts = new Map<string, number>();
   const artifacts: CompiledAgentArtifact[] = [];
 

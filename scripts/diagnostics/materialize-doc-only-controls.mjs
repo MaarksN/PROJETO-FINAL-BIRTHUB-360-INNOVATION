@@ -27,6 +27,10 @@ function addCheck(name, status, details = {}) {
 
 function walkFiles(startRelativePath) {
   const startPath = path.join(root, startRelativePath);
+  if (!existsSync(startPath)) {
+    return [];
+  }
+
   const queue = [startPath];
   const files = [];
 
@@ -237,6 +241,7 @@ addCheck(
 );
 
 const sourceFiles = ["apps", "packages", "agents"]
+  .filter((directory) => existsSync(path.join(root, directory)))
   .flatMap((directory) => walkFiles(directory))
   .filter((filePath) => !/\.(md|mdx|json)$/i.test(filePath));
 

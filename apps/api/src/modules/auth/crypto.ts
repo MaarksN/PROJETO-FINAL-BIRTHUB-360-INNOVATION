@@ -10,6 +10,7 @@ import {
 import { promisify } from "node:util";
 
 const scrypt = promisify(scryptCallback);
+const AUTH_TAG_LENGTH = 16;
 const SCRYPT_KEY_BYTES = 64;
 const ACCESS_TOKEN_ISSUER = "birthub360-api";
 
@@ -337,7 +338,10 @@ export function decryptSensitiveValue(payload: string, secret: string): string {
   const decipher = createDecipheriv(
     "aes-256-gcm",
     encryptionKey(secret),
-    Buffer.from(ivPart, "base64url")
+    Buffer.from(ivPart, "base64url"),
+    {
+      authTagLength: AUTH_TAG_LENGTH
+    }
   );
   decipher.setAuthTag(Buffer.from(authTagPart, "base64url"));
 

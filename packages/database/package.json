@@ -8,7 +8,8 @@
   "exports": {
     ".": {
       "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js"
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
     }
   },
   "prisma": {
@@ -39,12 +40,15 @@
     "db:validate:pr": "node --import tsx scripts/validate-migrations-on-test-db.ts"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.6.0",
     "@birthub/logger": "workspace:^",
-    "@prisma/client": "^6.19.2",
+    "@prisma/client": "^7.6.0",
+    "pg": "^8.20.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "@types/pg": "^8.16.0",
     "prisma": "^7.6.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

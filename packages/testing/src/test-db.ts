@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { PrismaClient } from "@birthub/database";
+import { createPrismaClient, PrismaClient } from "@birthub/database";
 
 import { seedCoreFixtures } from "./factories.js";
 
@@ -16,7 +16,7 @@ function withSchema(databaseUrl: string, schema: string): string {
 function pnpmExecutable(): string {
   const bundledPnpm = resolve(
     import.meta.dirname,
-    "../../../.tools/node-v22.22.1-win-x64/node_modules/corepack/dist/pnpm.js"
+    "../../../.tools/node-v24.14.0-win-x64/node_modules/corepack/dist/pnpm.js"
   );
 
   if (existsSync(bundledPnpm)) {
@@ -53,9 +53,7 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
     stdio: "inherit"
   });
 
-  const previousDatabaseUrl = process.env.DATABASE_URL;
-  process.env.DATABASE_URL = databaseUrl;
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient({ databaseUrl });
 
   await seedCoreFixtures(prisma);
 
@@ -63,11 +61,6 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
     cleanup: async () => {
       await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
       await prisma.$disconnect();
-      if (previousDatabaseUrl === undefined) {
-        delete process.env.DATABASE_URL;
-      } else {
-        process.env.DATABASE_URL = previousDatabaseUrl;
-      }
     },
     databaseUrl,
     prisma,

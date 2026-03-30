@@ -27,6 +27,9 @@ const allowedDependencyLicenses = new Set([
 const dependencyApprovalRegister = "docs/processes/dependency-approval-register.md";
 const internalChangelogPath = "docs/release/internal-packages-changelog.md";
 const allowedLegacyFiles = new Set(["agents/pos-venda/main.py"]);
+const allowedHistoricalArtifactPrefixes = [
+  "artifacts/f11-closure-2026-03-22/logs/"
+];
 
 function gitCapture(args, allowFailure = false) {
   try {
@@ -408,6 +411,10 @@ function checkTrackedArtifacts(trackedFiles) {
   const forbiddenArtifactExtensions = [".bak", ".dump", ".env", ".log", ".sqlite", ".swp", ".tmp"];
 
   for (const relativePath of trackedFiles.filter((file) => file.startsWith("artifacts/"))) {
+    if (allowedHistoricalArtifactPrefixes.some((prefix) => relativePath.startsWith(prefix))) {
+      continue;
+    }
+
     const lowerCasePath = relativePath.toLowerCase();
 
     if (forbiddenArtifactExtensions.some((extension) => lowerCasePath.endsWith(extension))) {

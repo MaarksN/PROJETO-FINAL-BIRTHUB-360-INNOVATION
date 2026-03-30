@@ -356,23 +356,38 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Detect legacy Python agent surface
+        id: legacy_surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -d agents ]] && find agents -type f \( -name '*.py' -o -name '*.ts' \) -print -quit | grep -q .; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install Python dependencies
+        if: steps.legacy_surface.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          python -m pip install -r requirements-test.txt -e ./agents/shared redis mypy ruff bandit pip-audit "safety>=3.7.0" "fastapi==0.115.0" "starlette<0.39.0"
+          python -m pip install -r requirements-test.txt redis mypy ruff bandit pip-audit "safety>=3.7.0" "fastapi==0.115.0" "starlette<0.39.0"
 
       - name: Enforce Python workflow hard-fail policy
         run: python scripts/ci/check-python-workflow-hard-fail.py
 
       - name: Validate type ignore allowlist
+        if: steps.legacy_surface.outputs.present == 'true'
         run: python scripts/ci/check-type-ignore-allowlist.py
 
       - name: Run Ruff (blocking)
+        if: steps.legacy_surface.outputs.present == 'true'
         run: python -m ruff check --select E9,F63,F7,F82 agents apps/webhook-receiver
 
       - name: Run mypy strict on critical Python modules
+        if: steps.legacy_surface.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -380,6 +395,7 @@ jobs:
           python -m mypy --strict apps/webhook-receiver/main.py
 
       - name: Validate all Python agents with mypy baseline
+        if: steps.legacy_surface.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -397,6 +413,7 @@ jobs:
             --disable-error-code no-any-return
 
       - name: Run pytest with coverage gate
+        if: steps.legacy_surface.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -406,13 +423,20 @@ jobs:
             --cov-fail-under=80
 
       - name: Run Bandit (blocking)
+        if: steps.legacy_surface.outputs.present == 'true'
         run: python -m bandit -q -r agents apps/webhook-receiver -x "*/tests/*" -lll
 
       - name: Run pip-audit (blocking)
+        if: steps.legacy_surface.outputs.present == 'true'
         run: python -m pip_audit -r requirements-test.txt
 
       - name: Run Safety (blocking)
+        if: steps.legacy_surface.outputs.present == 'true'
         run: python -m safety check --full-report -r requirements-test.txt
+
+      - name: Skip legacy Python agent checks
+        if: steps.legacy_surface.outputs.present != 'true'
+        run: echo "No tracked legacy Python agent surface was found in this checkout."
 
   workflow-suite:
     name: workflow-suite

@@ -1,6 +1,6 @@
 # Materialização Técnica de Itens Apenas Documentados
 
-Gerado em: 2026-03-25T19:45:10.553Z
+Gerado em: 2026-03-30T20:56:05.878Z
 
 ## Status dos controles
 
@@ -18,7 +18,7 @@ Gerado em: 2026-03-25T19:45:10.553Z
 | pnpm-version-pinned-in-packageManager | PASS | {"packageManager":"pnpm@9.1.0"} |
 | f11-docs-consistent-with-latest-closure | PASS | {"staleMentions":[]} |
 | pr-template-merge-markers | PASS | {} |
-| agent-naming-conflict-pos-venda | PASS | {"hasCompatibilityShim":true,"hasDualDirs":true,"legacyAliasFiles":["agents/pos-venda/main.py"],"mode":"compatibility-shim-enforced"} |
+| agent-naming-conflict-pos-venda | PASS | {"hasCompatibilityShim":false,"hasDualDirs":false,"legacyAliasFiles":[],"mode":"single-directory"} |
 | legacy-db-imports-quarantined | PASS | {"forbiddenImportHits":[]} |
 
 ## Resumo

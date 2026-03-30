@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 
+import { PrismaPg } from "@prisma/adapter-pg";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error.js";
@@ -7,6 +8,8 @@ import { requireTenantId } from "./tenant-context.js";
 
 const QUERY_TIMEOUT_MS = 5_000;
 const DEFAULT_DATABASE_CONNECTION_LIMIT = 10;
+const DEFAULT_DEVELOPMENT_DATABASE_URL =
+  "postgresql://postgres:postgres@localhost:5432/birthub?schema=public";
 const DEFAULT_SLOW_QUERY_MS = 750;
 
 const globalForPrisma = globalThis as typeof globalThis & {
@@ -61,14 +64,14 @@ function raceWithTimeout<T>(
   ]);
 }
 
-function resolveConnectionLimit(): number {
+function resolveConnectionLimit(databaseUrl: string): number {
   const explicit = Number(process.env.DATABASE_CONNECTION_LIMIT ?? "");
   if (Number.isFinite(explicit) && explicit > 0) {
     return explicit;
   }
 
   try {
-    const parsed = new URL(process.env.DATABASE_URL ?? "");
+    const parsed = new URL(databaseUrl);
     const raw = Number(parsed.searchParams.get("connection_limit") ?? "");
     if (Number.isFinite(raw) && raw > 0) {
       return raw;
@@ -85,11 +88,10 @@ function resolveSlowQueryThresholdMs(): number {
   return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_SLOW_QUERY_MS;
 }
 
-const connectionLimit = resolveConnectionLimit();
 const slowQueryThresholdMs = resolveSlowQueryThresholdMs();
 let activeQueries = 0;
 
-function updateDatabaseGauges(): void {
+function updateDatabaseGauges(connectionLimit: number): void {
   const metrics = getMetricsApi();
   if (!metrics) {
     return;
@@ -109,14 +111,52 @@ function updateDatabaseGauges(): void {
   );
 }
 
-function createPrismaClient(): PrismaClient {
-  const normalizedDatabaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
+function resolveRuntimeDatabaseUrl(rawUrl: string | undefined): string {
+  if (rawUrl?.trim()) {
+    return rawUrl;
+  }
 
-  if (normalizedDatabaseUrl) {
+  const nodeEnv = process.env.NODE_ENV ?? "development";
+  if (nodeEnv === "development" || nodeEnv === "test") {
+    return DEFAULT_DEVELOPMENT_DATABASE_URL;
+  }
+
+  throw new Error(
+    "DATABASE_URL environment variable must be set for Prisma in non-development environments."
+  );
+}
+
+function createPrismaAdapter(databaseUrl: string, connectionLimit: number): PrismaPg {
+  const parsed = new URL(databaseUrl);
+  const schema = parsed.searchParams.get("schema") ?? undefined;
+
+  parsed.searchParams.delete("connection_limit");
+  parsed.searchParams.delete("pgbouncer");
+  parsed.searchParams.delete("schema");
+
+  return new PrismaPg(
+    {
+      connectionString: parsed.toString(),
+      max: connectionLimit
+    },
+    schema ? { schema } : undefined
+  );
+}
+
+export function createPrismaClient(options: { databaseUrl?: string } = {}): PrismaClient {
+  const runtimeDatabaseUrl = resolveRuntimeDatabaseUrl(
+    options.databaseUrl ?? process.env.DATABASE_URL
+  );
+  const normalizedDatabaseUrl =
+    normalizeDatabaseUrl(runtimeDatabaseUrl) ?? runtimeDatabaseUrl;
+  const connectionLimit = resolveConnectionLimit(normalizedDatabaseUrl);
+
+  if (options.databaseUrl === undefined) {
     process.env.DATABASE_URL = normalizedDatabaseUrl;
   }
 
   const baseClient = new PrismaClient({
+    adapter: createPrismaAdapter(normalizedDatabaseUrl, connectionLimit),
     log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"]
   });
 
@@ -130,7 +170,7 @@ function createPrismaClient(): PrismaClient {
           const startedAt = Date.now();
 
           activeQueries += 1;
-          updateDatabaseGauges();
+          updateDatabaseGauges(connectionLimit);
 
           try {
             const result = await raceWithTimeout(query(args), operation, model);
@@ -202,7 +242,7 @@ function createPrismaClient(): PrismaClient {
             throw error;
           } finally {
             activeQueries = Math.max(0, activeQueries - 1);
-            updateDatabaseGauges();
+            updateDatabaseGauges(connectionLimit);
           }
         }
       }

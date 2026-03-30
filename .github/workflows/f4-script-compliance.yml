@@ -71,15 +71,31 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Detect legacy Python agent surface
+        id: legacy_surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -d agents ]] && find agents -type f \( -name '*.py' -o -name '*.ts' \) -print -quit | grep -q .; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install Python dependencies
+        if: steps.legacy_surface.outputs.present == 'true'
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          python -m pip install -r requirements-test.txt -e ./agents/shared pytest mypy ruff "fastapi==0.115.0" "starlette<0.39.0"
+          python -m pip install -r requirements-test.txt pytest mypy ruff "fastapi==0.115.0" "starlette<0.39.0"
 
       - name: Enforce Python workflow hard-fail policy
         run: python scripts/ci/check-python-workflow-hard-fail.py
+
+      - name: Skip legacy Python bootstrap
+        if: steps.legacy_surface.outputs.present != 'true'
+        run: echo "No tracked legacy Python agent surface was found in this checkout."
 
       - name: Run agent lint
         run: pnpm lint:agents

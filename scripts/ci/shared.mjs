@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WINDOWS_COMMAND_EXTENSIONS = [".cmd", ".exe", ".bat"];
 
 export const projectRoot = path.resolve(__dirname, "../..");
-export const portableNodeHome = path.join(projectRoot, ".tools", "node-v22.22.1-win-x64");
+export const portableNodeHome = path.join(projectRoot, ".tools", "node-v24.14.0-win-x64");
 export const portableCorepackHome = path.join(projectRoot, ".tools", "corepack-home");
 export const portableNodeExecutable = path.join(
   portableNodeHome,

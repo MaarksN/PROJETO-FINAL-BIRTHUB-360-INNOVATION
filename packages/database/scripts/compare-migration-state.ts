@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-
 import { F8_CONFIG } from "../f8.config.js";
+import { createPrismaClient } from "../src/client.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
 
@@ -24,9 +23,7 @@ function resolveEnvironmentUrls(): Record<string, string> {
 }
 
 async function readAppliedMigrations(databaseUrl: string): Promise<string[]> {
-  const previousDatabaseUrl = process.env.DATABASE_URL;
-  process.env.DATABASE_URL = databaseUrl;
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient({ databaseUrl });
 
   try {
     const rows = await prisma.$queryRaw<Array<{ migration_name: string }>>`
@@ -39,11 +36,6 @@ async function readAppliedMigrations(databaseUrl: string): Promise<string[]> {
     return rows.map((row) => row.migration_name);
   } finally {
     await prisma.$disconnect();
-    if (previousDatabaseUrl === undefined) {
-      delete process.env.DATABASE_URL;
-    } else {
-      process.env.DATABASE_URL = previousDatabaseUrl;
-    }
   }
 }
 

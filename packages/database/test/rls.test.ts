@@ -1,15 +1,15 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { PrismaClient, WorkflowStatus } from "@prisma/client";
+import { WorkflowStatus } from "@prisma/client";
+
+import { createPrismaClient } from "../src/client.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async () => {
-  const previousDatabaseUrl = process.env.DATABASE_URL;
-  process.env.DATABASE_URL = databaseUrl;
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient({ databaseUrl });
 
   try {
     const organizationA = await prisma.organization.create({
@@ -43,10 +43,5 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
     assert.equal(rows.length, 0);
   } finally {
     await prisma.$disconnect();
-    if (previousDatabaseUrl === undefined) {
-      delete process.env.DATABASE_URL;
-    } else {
-      process.env.DATABASE_URL = previousDatabaseUrl;
-    }
   }
 });

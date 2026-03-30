@@ -12,7 +12,7 @@ function resolveBin(command) {
   const filename = process.platform === "win32" ? `${command}.CMD` : command;
   const candidates = [
     path.join(projectRoot, "node_modules", ".bin", filename),
-    path.join(projectRoot, ".tools", "node-v22.22.1-win-x64", filename)
+    path.join(projectRoot, ".tools", "node-v24.14.0-win-x64", filename)
   ];
 
   const resolved = candidates.find((candidate) => existsSync(candidate));
@@ -39,7 +39,8 @@ function runBinIn(cwd, command, args) {
 }
 
 function runNodeScript(cwd, args) {
-  run(portableNodeExecutable, args, { cwd });
+  const nodeExecutable = existsSync(portableNodeExecutable) ? portableNodeExecutable : process.execPath;
+  run(nodeExecutable, args, { cwd });
 }
 
 function runIfDirectoryExists(relativeSegments, label, callback) {

@@ -3,6 +3,7 @@ import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:
 import { getApiConfig } from "@birthub/config";
 
 const ALGORITHM = "aes-256-gcm";
+const AUTH_TAG_LENGTH = 16;
 const IV_LENGTH = 16;
 
 /**
@@ -48,7 +49,9 @@ export function decryptConnectorToken(encryptedText: string): string {
     const authTag = Buffer.from(authTagHex, "hex");
     const key = getEncryptionKey();
 
-    const decipher = createDecipheriv(ALGORITHM, key, iv);
+    const decipher = createDecipheriv(ALGORITHM, key, iv, {
+      authTagLength: AUTH_TAG_LENGTH
+    });
     decipher.setAuthTag(authTag);
 
     let decrypted = decipher.update(encryptedHex, "hex", "utf8");

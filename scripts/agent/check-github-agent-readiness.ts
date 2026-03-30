@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import {
@@ -18,6 +18,8 @@ import {
   type GithubAgentReadinessArtifact,
   getGithubAgentArtifactsRoot,
   getGithubAgentCollectionRoot,
+  getGithubAgentSourceRoot,
+  isGithubAgentSourcePath,
   getWorkspaceRoot,
   isDirectExecution,
   parseMarkdownAgentSource,
@@ -87,6 +89,37 @@ async function fileExists(filePath: string): Promise<boolean> {
   }
 }
 
+async function directoryExists(directoryPath: string): Promise<boolean> {
+  try {
+    await readdir(directoryPath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function hasGithubAgentSourceFiles(rootDir: string): Promise<boolean> {
+  try {
+    const entries = await readdir(rootDir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const entryPath = path.join(rootDir, entry.name);
+
+      if (entry.isDirectory() && (await hasGithubAgentSourceFiles(entryPath))) {
+        return true;
+      }
+
+      if (entry.isFile() && entry.name.endsWith(".agent.md")) {
+        return true;
+      }
+    }
+
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 function buildPolicyEngine(manifest: AgentManifest): PolicyEngine {
   const rules = manifest.policies.flatMap((policy) =>
     policy.actions.map((action, index) => ({
@@ -134,6 +167,9 @@ export async function verifyGithubAgentsReadiness(
   const workspaceRoot = options.workspaceRoot ?? getWorkspaceRoot();
   const collectionRoot = options.collectionRoot ?? getGithubAgentCollectionRoot(workspaceRoot);
   const reportRoot = options.reportRoot ?? getGithubAgentArtifactsRoot(workspaceRoot);
+  const hasGithubAgentSources = await hasGithubAgentSourceFiles(
+    getGithubAgentSourceRoot(workspaceRoot)
+  );
   const catalog = await loadManifestCatalog(collectionRoot);
   const installableEntries = catalog.filter((entry) => isInstallableManifest(entry.manifest));
   const descriptorEntries = catalog.filter((entry) => !isInstallableManifest(entry.manifest));
@@ -380,8 +416,10 @@ export async function verifyGithubAgentsReadiness(
 
       const sourcePath = resolveWorkspaceRelativePath(workspaceRoot, evidence.sourcePath);
       if (!(await fileExists(sourcePath))) {
-        checks.evidence = false;
-        issues.push(`Evidence source path '${evidence.sourcePath}' does not exist.`);
+        if (hasGithubAgentSources || !isGithubAgentSourcePath(evidence.sourcePath)) {
+          checks.evidence = false;
+          issues.push(`Evidence source path '${evidence.sourcePath}' does not exist.`);
+        }
       } else {
         const sourceRaw = await readFile(sourcePath, "utf8");
         const relativeSourcePath = toPosixPath(path.relative(workspaceRoot, sourcePath));

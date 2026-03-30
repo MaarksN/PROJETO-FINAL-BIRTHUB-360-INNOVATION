@@ -152,6 +152,10 @@ export function getGithubAgentCollectionRoot(workspaceRoot = getWorkspaceRoot())
   return path.join(workspaceRoot, "packages", "agent-packs", GITHUB_AGENT_COLLECTION_DIRNAME);
 }
 
+export function isGithubAgentSourcePath(value: string): boolean {
+  return toPosixPath(value).startsWith(".github/agents/");
+}
+
 export function getGithubAgentArtifactsRoot(workspaceRoot = getWorkspaceRoot()): string {
   return path.join(workspaceRoot, "artifacts", "agent-readiness");
 }

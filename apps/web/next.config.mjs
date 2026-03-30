@@ -8,6 +8,14 @@ const immutableAssetCache = "public, max-age=31536000, immutable";
 const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isWindows = process.platform === "win32";
+const turbopackAliases = {
+  "@birthub/config": path.resolve(__dirname, "../../packages/config/dist/index.js"),
+  "@birthub/logger": path.resolve(__dirname, "../../packages/logger/dist/index.js"),
+  "@birthub/workflows-core": path.resolve(
+    __dirname,
+    "../../packages/workflows-core/dist/src/index.js"
+  )
+};
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -49,7 +57,9 @@ const securityHeaders = [
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  turbopack: { resolveAlias: { "@birthub/*": "../../packages/*/dist/src/index.js" } },
+  turbopack: {
+    resolveAlias: turbopackAliases
+  },
   compress: true,
   output: isWindows ? undefined : "standalone",
   outputFileTracingRoot: path.join(__dirname, "../.."),
