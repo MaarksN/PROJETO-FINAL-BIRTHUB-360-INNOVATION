@@ -27,10 +27,6 @@ function addCheck(name, status, details = {}) {
 
 function walkFiles(startRelativePath) {
   const startPath = path.join(root, startRelativePath);
-  if (!existsSync(startPath)) {
-    return [];
-  }
-
   const queue = [startPath];
   const files = [];
 
@@ -53,6 +49,77 @@ function walkFiles(startRelativePath) {
   }
 
   return files;
+}
+
+function unquoteYamlScalar(value) {
+  return value.trim().replace(/^['"]|['"]$/g, "");
+}
+
+function parseBranchProtectionSettings(rawYaml) {
+  const lines = rawYaml.split(/\r?\n/u);
+  const branches = new Map();
+  let currentBranch = null;
+  let currentContextIndent = null;
+
+  for (const line of lines) {
+    const branchMatch = line.match(/^(\s*)-\s+name:\s+(.+?)\s*$/u);
+    if (branchMatch) {
+      const [, indent, rawName] = branchMatch;
+      currentBranch = {
+        contexts: [],
+        indent: indent.length,
+        name: unquoteYamlScalar(rawName),
+        requiredApprovingReviewCount: null,
+        strict: null
+      };
+      currentContextIndent = null;
+      branches.set(currentBranch.name, currentBranch);
+      continue;
+    }
+
+    if (!currentBranch) {
+      continue;
+    }
+
+    const currentIndent = line.match(/^(\s*)/u)?.[1]?.length ?? 0;
+    if (currentIndent <= currentBranch.indent && line.trim().length > 0) {
+      currentBranch = null;
+      currentContextIndent = null;
+      continue;
+    }
+
+    const reviewCountMatch = line.match(/^\s*required_approving_review_count:\s*(\d+)\s*$/u);
+    if (reviewCountMatch) {
+      currentBranch.requiredApprovingReviewCount = Number(reviewCountMatch[1]);
+      continue;
+    }
+
+    const strictMatch = line.match(/^\s*strict:\s*(true|false)\s*$/u);
+    if (strictMatch) {
+      currentBranch.strict = strictMatch[1] === "true";
+      continue;
+    }
+
+    const contextsMatch = line.match(/^(\s*)contexts:\s*$/u);
+    if (contextsMatch) {
+      currentContextIndent = contextsMatch[1].length;
+      continue;
+    }
+
+    if (currentContextIndent !== null) {
+      if (currentIndent <= currentContextIndent && line.trim().length > 0) {
+        currentContextIndent = null;
+        continue;
+      }
+
+      const contextMatch = line.match(/^\s*-\s+(.+?)\s*$/u);
+      if (contextMatch) {
+        currentBranch.contexts.push(unquoteYamlScalar(contextMatch[1]));
+      }
+    }
+  }
+
+  return branches;
 }
 
 const packageJson = JSON.parse(readText("package.json"));
@@ -121,25 +188,33 @@ addCheck(
   { missingTimeout },
 );
 
+const protectedBranches = parseBranchProtectionSettings(repositorySettings);
+const mainBranchProtection = protectedBranches.get("main");
+const developBranchProtection = protectedBranches.get("develop");
 const hasMainBranchProtection =
-  repositorySettings.includes("- name: main") &&
-  repositorySettings.includes("required_approving_review_count: 2") &&
-  repositorySettings.includes("strict: true");
+  mainBranchProtection?.requiredApprovingReviewCount === 2 && mainBranchProtection.strict === true;
 const hasDevelopBranchProtection =
-  repositorySettings.includes("- name: develop") &&
-  repositorySettings.includes("required_approving_review_count: 2") &&
-  repositorySettings.includes("strict: true");
+  developBranchProtection?.requiredApprovingReviewCount === 2 && developBranchProtection.strict === true;
 const requiredStatusChecks = [
   "governance-gates",
   "commitlint",
-  "\"platform (lint)\"",
-  "\"platform (typecheck)\"",
+  "platform (lint)",
+  "platform (typecheck)",
   "ci",
   "security coverage report",
 ];
-const missingStatusChecks = requiredStatusChecks.filter(
-  (checkName) => !repositorySettings.includes(`- ${checkName}`),
-);
+const missingStatusChecksByBranch = {
+  develop: requiredStatusChecks.filter(
+    (checkName) => !developBranchProtection?.contexts.includes(checkName)
+  ),
+  main: requiredStatusChecks.filter(
+    (checkName) => !mainBranchProtection?.contexts.includes(checkName)
+  )
+};
+const missingStatusChecks = [
+  ...missingStatusChecksByBranch.main.map((checkName) => `main:${checkName}`),
+  ...missingStatusChecksByBranch.develop.map((checkName) => `develop:${checkName}`)
+];
 addCheck(
   "branch-protection-baseline",
   hasMainBranchProtection && hasDevelopBranchProtection && missingStatusChecks.length === 0
@@ -148,6 +223,7 @@ addCheck(
   {
     hasDevelopBranchProtection,
     hasMainBranchProtection,
+    missingStatusChecksByBranch,
     missingStatusChecks,
   },
 );
@@ -213,35 +289,7 @@ const prTemplate = readText(".github/PULL_REQUEST_TEMPLATE.md");
 const hasMergeMarkers = prTemplate.includes("<<<<<<<") || prTemplate.includes(">>>>>>>");
 addCheck("pr-template-merge-markers", hasMergeMarkers ? "fail" : "pass");
 
-const posVendaDir = path.join(root, "agents", "pos_venda");
-const posVendaLegacyDir = path.join(root, "agents", "pos-venda");
-const posVendaLegacyMain = path.join(posVendaLegacyDir, "main.py");
-const hasDualDirs = existsSync(posVendaDir) && existsSync(posVendaLegacyDir);
-const hasCompatibilityShim =
-  existsSync(posVendaLegacyMain) &&
-  readFileSync(posVendaLegacyMain, "utf8").includes("Compatibility shim");
-
-const legacyAliasFiles = existsSync(posVendaLegacyDir)
-  ? readdirSync(posVendaLegacyDir)
-      .filter((entry) => entry !== "__pycache__")
-      .map((entry) => normalize(path.join("agents", "pos-venda", entry)))
-  : [];
-const hasOnlyCompatibilityShim =
-  legacyAliasFiles.length === 1 && legacyAliasFiles[0] === "agents/pos-venda/main.py";
-
-addCheck(
-  "agent-naming-conflict-pos-venda",
-  !hasDualDirs || (hasCompatibilityShim && hasOnlyCompatibilityShim) ? "pass" : "fail",
-  {
-    hasCompatibilityShim,
-    hasDualDirs,
-    legacyAliasFiles,
-    mode: hasDualDirs ? "compatibility-shim-enforced" : "single-directory",
-  },
-);
-
-const sourceFiles = ["apps", "packages", "agents"]
-  .filter((directory) => existsSync(path.join(root, directory)))
+const sourceFiles = ["apps", "packages"]
   .flatMap((directory) => walkFiles(directory))
   .filter((filePath) => !/\.(md|mdx|json)$/i.test(filePath));
 

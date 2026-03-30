@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T20:56:05.878Z",
+  "generatedAt": "2026-03-30T16:52:45.982Z",
   "checks": {
     "codeowners-present": {
       "status": "pass"
@@ -16,15 +16,18 @@
       "missingTimeout": []
     },
     "branch-protection-baseline": {
-      "status": "pass",
+      "status": "fail",
       "hasDevelopBranchProtection": true,
       "hasMainBranchProtection": true,
+      "missingStatusChecksByBranch": {
+        "develop": [],
+        "main": []
+      },
       "missingStatusChecks": []
     },
     "setup-node-version-pinned": {
       "status": "pass",
       "setupNodeLines": [
-        "v6",
         "v6",
         "v6",
         "v6",
@@ -36,7 +39,6 @@
     "setup-python-version-pinned": {
       "status": "pass",
       "setupPythonLines": [
-        "v6",
         "v6",
         "v6",
         "v6"
@@ -61,18 +63,13 @@
     "pr-template-merge-markers": {
       "status": "pass"
     },
-    "agent-naming-conflict-pos-venda": {
-      "status": "pass",
-      "hasCompatibilityShim": false,
-      "hasDualDirs": false,
-      "legacyAliasFiles": [],
-      "mode": "single-directory"
-    },
     "legacy-db-imports-quarantined": {
       "status": "pass",
       "forbiddenImportHits": []
     }
   },
-  "blockers": [],
+  "blockers": [
+    "branch-protection-baseline"
+  ],
   "warnings": []
 }

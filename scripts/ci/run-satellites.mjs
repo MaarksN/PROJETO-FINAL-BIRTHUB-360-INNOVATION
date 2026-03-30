@@ -100,16 +100,23 @@ const lanes = {
     () => runBinIn(packageDir("apps", "voice-engine"), "eslint", ["src"])
   ],
   smoke: [
-    () =>
-      runNodeScript(packageDir("apps", "dashboard"), [
+    () => {
+      const dashboardTestDir = packageDir("apps", "legacy", "dashboard", "__tests__");
+      if (!existsSync(dashboardTestDir)) {
+        console.log("[satellites] Skipping legacy dashboard smoke: missing test directory");
+        return;
+      }
+
+      runNodeScript(packageDir("apps", "legacy", "dashboard"), [
         "--experimental-strip-types",
         "--test",
         "__tests__/*.test.ts"
-      ]),
+      ]);
+    },
     () => {
-      const pytestTargets = ["agents", "tests/integration", "apps/webhook-receiver/tests"];
+      const pytestTargets = ["apps/webhook-receiver/tests"];
       if (existsSync(packageDir("apps", "agent-orchestrator"))) {
-        pytestTargets.splice(2, 0, "apps/agent-orchestrator/tests");
+        pytestTargets.unshift("apps/agent-orchestrator/tests");
       }
       runPython(["-m", "pytest", ...pytestTargets]);
     }

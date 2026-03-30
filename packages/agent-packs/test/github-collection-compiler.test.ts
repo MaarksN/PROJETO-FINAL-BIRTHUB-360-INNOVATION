@@ -1,49 +1,39 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
-import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { isInstallableManifest, loadManifestCatalog } from "@birthub/agents-core";
+import { parseAgentManifest } from "@birthub/agents-core";
 
-import compilerModule from "../../../scripts/agent/compile-github-agents.ts";
-import helperModule from "../../../scripts/agent/github-agent-collection.ts";
+const OFFICIAL_COLLECTION_DESCRIPTOR_ID = "corporate-v1-catalog";
+const OFFICIAL_INSTALLABLE_COUNT = 42;
+const OFFICIAL_TOTAL_COUNT = 43;
 
-const { compileGithubAgentsCollection } = compilerModule as {
-  compileGithubAgentsCollection: typeof import("../../../scripts/agent/compile-github-agents.js").compileGithubAgentsCollection;
-};
-const { GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID } = helperModule as {
-  GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID: string;
-};
-
-void test("github agents compiler builds a canonical manifest collection from .github/agents", async () => {
+void test("official agent pack catalog remains canonical and loadable", async () => {
   const currentFile = fileURLToPath(import.meta.url);
   const packageRoot = path.resolve(path.dirname(currentFile), "..");
-  const workspaceRoot = path.resolve(packageRoot, "..", "..");
-  const tempRoot = await mkdtemp(path.join(os.tmpdir(), "github-agents-compiler-"));
-  const collectionRoot = path.join(tempRoot, "github-agents-v1");
+  const collectionRoot = path.join(packageRoot, "corporate-v1");
+  const catalog = await loadManifestCatalog(collectionRoot);
+  const installableCatalog = catalog.filter((entry) => isInstallableManifest(entry.manifest));
+  const descriptor = catalog.find((entry) => entry.manifest.agent.id === OFFICIAL_COLLECTION_DESCRIPTOR_ID);
+  const maestro = catalog.find((entry) => entry.manifest.agent.id === "maestro-orchestrator-pack");
 
-  try {
-    const summary = await compileGithubAgentsCollection({
-      outputRoot: collectionRoot,
-      workspaceRoot
-    });
-    const catalog = await loadManifestCatalog(collectionRoot);
-    const installableCatalog = catalog.filter((entry) => isInstallableManifest(entry.manifest));
-    const descriptor = catalog.find((entry) => entry.manifest.agent.id === GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID);
-    const planner = catalog.find((entry) => entry.manifest.agent.id === "planner-github-pack");
+  assert.equal(catalog.length, OFFICIAL_TOTAL_COUNT);
+  assert.equal(installableCatalog.length, OFFICIAL_INSTALLABLE_COUNT);
+  assert.ok(descriptor, "Expected official collection descriptor manifest.");
+  assert.ok(maestro, "Expected maestro-orchestrator-pack in the official collection.");
+  assert.match(maestro.manifest.agent.prompt, /IDENTIDADE E MISSAO/);
+  assert.match(maestro.manifest.agent.prompt, /FORMATO DE SAIDA/);
+});
 
-    assert.ok(summary.sourceCount >= 300);
-    assert.equal(summary.installableCount, summary.sourceCount);
-    assert.equal(summary.totalCount, summary.installableCount + 1);
-    assert.equal(catalog.length, summary.totalCount);
-    assert.equal(installableCatalog.length, summary.installableCount);
-    assert.ok(descriptor, "Expected compiled collection descriptor manifest.");
-    assert.ok(planner, "Expected planner-github-pack to be compiled from .github/agents/planner.agent.md.");
-    assert.match(planner.manifest.agent.prompt, /IDENTIDADE E MISSAO/);
-    assert.match(planner.manifest.agent.prompt, /FORMATO DE SAIDA/);
-  } finally {
-    await rm(tempRoot, { force: true, recursive: true });
+void test("official manifests remain parseable from disk", async () => {
+  const currentFile = fileURLToPath(import.meta.url);
+  const packageRoot = path.resolve(path.dirname(currentFile), "..");
+  const collectionRoot = path.join(packageRoot, "corporate-v1");
+  const catalog = await loadManifestCatalog(collectionRoot);
+
+  for (const entry of catalog) {
+    assert.doesNotThrow(() => parseAgentManifest(entry.manifest));
   }
 });

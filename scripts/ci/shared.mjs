@@ -9,10 +9,13 @@ const WINDOWS_COMMAND_EXTENSIONS = [".cmd", ".exe", ".bat"];
 export const projectRoot = path.resolve(__dirname, "../..");
 export const portableNodeHome = path.join(projectRoot, ".tools", "node-v24.14.0-win-x64");
 export const portableCorepackHome = path.join(projectRoot, ".tools", "corepack-home");
-export const portableNodeExecutable = path.join(
+const preferredPortableNodeExecutable = path.join(
   portableNodeHome,
   process.platform === "win32" ? "node.exe" : "node"
 );
+export const portableNodeExecutable = existsSync(preferredPortableNodeExecutable)
+  ? preferredPortableNodeExecutable
+  : process.execPath;
 export const portablePnpmCli = path.join(
   portableNodeHome,
   "node_modules",
@@ -104,7 +107,9 @@ function resolvePortablePythonEntries() {
 }
 
 export function buildEnv(overrides = {}) {
+  const workspaceBin = path.join(projectRoot, "node_modules", ".bin");
   const pathEntries = uniquePathEntries([
+    workspaceBin,
     portableNodeHome,
     ...resolveCommonWindowsToolEntries(),
     ...resolvePortablePythonEntries(),

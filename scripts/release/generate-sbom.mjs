@@ -2,7 +2,8 @@
 import { createHash } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+
+import { capturePnpm } from '../ci/shared.mjs';
 
 const root = process.cwd();
 const outputDir = path.join(root, 'artifacts', 'sbom');
@@ -19,13 +20,9 @@ function escapeXml(value) {
 }
 
 function execPnpm(args) {
-  const cmd = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
-  const result = spawnSync(cmd, args, {
-    cwd: root,
-    encoding: 'utf8'
-  });
+  const result = capturePnpm(args, { cwd: root });
 
-  if (result.status !== 0) {
+  if ((result.status ?? 1) !== 0) {
     throw new Error(result.stderr || result.stdout || `pnpm ${args.join(' ')} failed`);
   }
 
