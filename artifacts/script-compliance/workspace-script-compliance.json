@@ -5,7 +5,7 @@
     "template-only": "Package contains runtime-loaded templates and does not publish a standalone distributable artifact.",
     "types-only": "Package exports only types or schemas and is validated transitively by consumer typechecks."
   },
-  "generatedAt": "2026-03-30T16:52:47.533Z",
+  "generatedAt": "2026-03-30T21:45:04.988Z",
   "rows": [
     {
       "approvedBy": "Lead tecnico de plataforma",
@@ -906,7 +906,7 @@
     }
   ],
   "summary": {
-    "generatedAt": "2026-03-30T16:52:47.533Z",
+    "generatedAt": "2026-03-30T21:45:04.988Z",
     "totals": {
       "missing": 0,
       "na": 2,
