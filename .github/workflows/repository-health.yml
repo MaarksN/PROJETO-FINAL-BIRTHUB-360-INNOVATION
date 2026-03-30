@@ -3,6 +3,9 @@ name: Repository Health
 on:
   schedule:
     - cron: '0 12 * * 1'
+  push:
+    branches:
+      - 'codex/**'
   workflow_dispatch:
 
 jobs:
@@ -26,7 +29,7 @@ jobs:
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
-          node-version: 22
+          node-version-file: .nvmrc
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

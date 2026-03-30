@@ -29,13 +29,13 @@ export function globalErrorHandler(
 
   const errorContext = {
     method: request.method,
-    organizationId: request.context.organizationId,
+    organizationId: request.context?.organizationId,
     path: request.originalUrl,
-    requestId: request.context.requestId,
-    role: request.context.role,
-    tenantId: request.context.tenantId,
-    traceId: request.context.traceId,
-    userId: request.context.userId
+    requestId: request.context?.requestId,
+    role: request.context?.role,
+    tenantId: request.context?.tenantId,
+    traceId: request.context?.traceId,
+    userId: request.context?.userId
   };
 
   if (error instanceof ProblemDetailsError) {

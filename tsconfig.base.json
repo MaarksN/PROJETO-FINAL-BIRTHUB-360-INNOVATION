@@ -48,11 +48,29 @@
       "@birthub/database/*": [
         "packages/database/src/*"
       ],
+      "@birthub/config": [
+        "packages/config/src/index.ts"
+      ],
+      "@birthub/config/*": [
+        "packages/config/src/*"
+      ],
+      "@birthub/logger": [
+        "packages/logger/src/index.ts"
+      ],
+      "@birthub/logger/*": [
+        "packages/logger/src/*"
+      ],
       "@birthub/testing": [
         "packages/testing/src/index.ts"
       ],
       "@birthub/testing/*": [
         "packages/testing/src/*"
+      ],
+      "@birthub/workflows-core": [
+        "packages/workflows-core/src/index.ts"
+      ],
+      "@birthub/workflows-core/*": [
+        "packages/workflows-core/src/*"
       ],
       "@birthub/*": [
         "packages/*/src",

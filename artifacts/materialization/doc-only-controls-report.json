@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T18:40:17.842Z",
+  "generatedAt": "2026-03-30T17:39:08.298Z",
   "checks": {
     "codeowners-present": {
       "status": "pass"
@@ -19,15 +19,15 @@
       "status": "fail",
       "hasDevelopBranchProtection": true,
       "hasMainBranchProtection": true,
-      "missingStatusChecks": [
-        "\"platform (lint)\"",
-        "\"platform (typecheck)\""
-      ]
+      "missingStatusChecksByBranch": {
+        "develop": [],
+        "main": []
+      },
+      "missingStatusChecks": []
     },
     "setup-node-version-pinned": {
       "status": "pass",
       "setupNodeLines": [
-        "v6",
         "v6",
         "v6",
         "v6",
@@ -39,7 +39,6 @@
     "setup-python-version-pinned": {
       "status": "pass",
       "setupPythonLines": [
-        "v6",
         "v6",
         "v6",
         "v6"
@@ -63,13 +62,6 @@
     },
     "pr-template-merge-markers": {
       "status": "pass"
-    },
-    "agent-naming-conflict-pos-venda": {
-      "status": "pass",
-      "hasCompatibilityShim": false,
-      "hasDualDirs": false,
-      "legacyAliasFiles": [],
-      "mode": "single-directory"
     },
     "legacy-db-imports-quarantined": {
       "status": "pass",

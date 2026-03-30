@@ -1,10 +1,10 @@
 # Security Coverage Report
 
-- generatedAt: 2026-03-23T02:16:12.650Z
-- semgrep: completed-local
-- dependency_scan: completed-local
-- rbac_suite: completed-local
-- zap_baseline: not-run-local
+- generatedAt: 2026-03-30T17:44:55.990Z
+- semgrep: unknown
+- dependency_scan: unknown
+- rbac_suite: unknown
+- zap_baseline: unknown
 
 ## Modules
 
