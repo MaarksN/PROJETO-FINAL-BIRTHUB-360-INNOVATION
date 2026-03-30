@@ -52,3 +52,4 @@ rg.cmd
 logs/ci-runs/*.zip
 artifacts/quality/jscpd/html/
 artifacts/f0-freeze-2026-03-22/metrics/
+.github/agents/
