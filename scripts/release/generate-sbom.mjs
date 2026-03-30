@@ -69,10 +69,15 @@ const componentsXml = [...componentMap.values()]
   )
   .join('\n');
 
+const sourceDateEpoch = process.env.SOURCE_DATE_EPOCH;
+const bomTimestamp = sourceDateEpoch
+  ? new Date(Number(sourceDateEpoch) * 1000).toISOString()
+  : new Date().toISOString();
+
 const bom = `<?xml version="1.0" encoding="UTF-8"?>
 <bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:${serialUuid}" version="1">
   <metadata>
-    <timestamp>${new Date().toISOString()}</timestamp>
+    <timestamp>${bomTimestamp}</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
