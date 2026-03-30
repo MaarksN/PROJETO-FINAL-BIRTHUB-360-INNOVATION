@@ -49,6 +49,7 @@ const securityHeaders = [
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: ["127.0.0.1"],
   compress: true,
   output: isWindows ? undefined : "standalone",
   outputFileTracingRoot: path.join(__dirname, "../.."),
