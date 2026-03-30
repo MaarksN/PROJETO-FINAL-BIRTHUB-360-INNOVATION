@@ -37,11 +37,21 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
 
       - name: Run command
         run: ${{ inputs.command }}

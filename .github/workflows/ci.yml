@@ -49,11 +49,22 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
 
       - name: Enforce agent surface freeze
         run: node scripts/ci/check-agent-surface-freeze.mjs
@@ -84,7 +95,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Corrupt lockfile fixture
@@ -185,11 +198,22 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
 
       - name: Generate Prisma client
         run: pnpm db:generate
@@ -260,20 +284,31 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Cache Turbo
         uses: actions/cache@v5
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ matrix.task }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
+          key: ${{ runner.os }}-turbo-${{ matrix.task }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json', 'packages/database/prisma/schema.prisma') }}
           restore-keys: |
             ${{ runner.os }}-turbo-${{ matrix.task }}-
             ${{ runner.os }}-turbo-
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
 
       - name: Generate Prisma client
         run: pnpm db:generate
@@ -312,7 +347,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Setup Python
@@ -322,6 +359,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
 
       - name: Run satellites lane
         run: pnpm ci:task satellites
@@ -345,7 +391,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Setup Python
@@ -355,6 +403,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
 
       - name: Install Python dependencies
         shell: bash
@@ -431,7 +488,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            packages/database/prisma/schema.prisma
           node-version-file: .nvmrc
 
       - name: Setup Python
@@ -441,6 +500,15 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Prisma diagnostics
+        run: |
+          npx prisma --version
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
 
       - name: Run workflow suite
         run: pnpm ci:task workflow-suite
