@@ -1,6 +1,6 @@
 # Materialização Técnica de Itens Apenas Documentados
 
-Gerado em: 2026-03-25T19:45:10.553Z
+Gerado em: 2026-03-30T18:40:17.842Z
 
 ## Status dos controles
 
@@ -10,7 +10,7 @@ Gerado em: 2026-03-25T19:45:10.553Z
 | f11-evidence-bundle-complete | PASS | {"missingF11Evidence":[]} |
 | frozen-lockfile-in-workflows | PASS | {} |
 | workflow-timeouts | PASS | {"missingTimeout":[]} |
-| branch-protection-baseline | PASS | {"hasDevelopBranchProtection":true,"hasMainBranchProtection":true,"missingStatusChecks":[]} |
+| branch-protection-baseline | FAIL | {"hasDevelopBranchProtection":true,"hasMainBranchProtection":true,"missingStatusChecks":["\"platform (lint)\"","\"platform (typecheck)\""]} |
 | setup-node-version-pinned | PASS | {"setupNodeLines":["v6","v6","v6","v6","v6","v6","v6"]} |
 | setup-python-version-pinned | PASS | {"setupPythonLines":["v6","v6","v6","v6"]} |
 | node-version-aligned-with-nvmrc | PASS | {"nvmrc":"24.14.0"} |
@@ -18,10 +18,14 @@ Gerado em: 2026-03-25T19:45:10.553Z
 | pnpm-version-pinned-in-packageManager | PASS | {"packageManager":"pnpm@9.1.0"} |
 | f11-docs-consistent-with-latest-closure | PASS | {"staleMentions":[]} |
 | pr-template-merge-markers | PASS | {} |
-| agent-naming-conflict-pos-venda | PASS | {"hasCompatibilityShim":true,"hasDualDirs":true,"legacyAliasFiles":["agents/pos-venda/main.py"],"mode":"compatibility-shim-enforced"} |
+| agent-naming-conflict-pos-venda | PASS | {"hasCompatibilityShim":false,"hasDualDirs":false,"legacyAliasFiles":[],"mode":"single-directory"} |
 | legacy-db-imports-quarantined | PASS | {"forbiddenImportHits":[]} |
 
 ## Resumo
 
-- Blockers: 0
+- Blockers: 1
 - Warnings: 0
+
+### Blockers
+
+- branch-protection-baseline
