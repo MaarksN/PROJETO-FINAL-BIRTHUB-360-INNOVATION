@@ -117,12 +117,17 @@ export function buildEnv(overrides = {}) {
     process.env.PATH,
   ]);
 
-  return {
+  const env = {
     ...process.env,
     ...overrides,
     COREPACK_HOME: overrides.COREPACK_HOME ?? process.env.COREPACK_HOME ?? portableCorepackHome,
-    PATH: pathEntries.join(path.delimiter)
   };
+
+  if ("Path" in env) delete env.Path;
+  if ("path" in env) delete env.path;
+
+  env.PATH = pathEntries.join(path.delimiter);
+  return env;
 }
 
 function findCommandInPath(command, env = process.env) {
