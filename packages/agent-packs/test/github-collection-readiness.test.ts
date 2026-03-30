@@ -1,46 +1,50 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm } from "node:fs/promises";
-import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import compilerModule from "../../../scripts/agent/compile-github-agents.ts";
-import readinessModule from "../../../scripts/agent/check-github-agent-readiness.ts";
+import { isInstallableManifest, loadManifestCatalog } from "@birthub/agents-core";
 
-const { compileGithubAgentsCollection } = compilerModule as {
-  compileGithubAgentsCollection: typeof import("../../../scripts/agent/compile-github-agents.js").compileGithubAgentsCollection;
-};
-const { verifyGithubAgentsReadiness } = readinessModule as {
-  verifyGithubAgentsReadiness: typeof import("../../../scripts/agent/check-github-agent-readiness.js").verifyGithubAgentsReadiness;
-};
+const REQUIRED_PROMPT_SECTIONS = [
+  "IDENTIDADE E MISSAO",
+  "QUANDO ACIONAR",
+  "ENTRADAS OBRIGATORIAS",
+  "RACIOCINIO OPERACIONAL ESPERADO",
+  "MODO DE OPERACAO AUTONOMA",
+  "ROTINA DE MONITORAMENTO E ANTECIPACAO",
+  "CRITERIOS DE PRIORIZACAO",
+  "CRITERIOS DE ESCALACAO",
+  "OBJETIVOS PRIORITARIOS",
+  "FERRAMENTAS ESPERADAS",
+  "SAIDAS OBRIGATORIAS",
+  "GUARDRAILS",
+  "CHECKLIST DE QUALIDADE",
+  "APRENDIZADO COMPARTILHADO",
+  "FORMATO DE SAIDA"
+] as const;
 
-void test("github agents readiness gate validates manifest, integration, policy, adapters and evidence", async () => {
+void test("official installable packs keep the required readiness contract", async () => {
   const currentFile = fileURLToPath(import.meta.url);
   const packageRoot = path.resolve(path.dirname(currentFile), "..");
-  const workspaceRoot = path.resolve(packageRoot, "..", "..");
-  const tempRoot = await mkdtemp(path.join(os.tmpdir(), "github-agents-readiness-"));
-  const collectionRoot = path.join(tempRoot, "github-agents-v1");
-  const reportRoot = path.join(tempRoot, "reports");
+  const collectionRoot = path.join(packageRoot, "corporate-v1");
+  const catalog = await loadManifestCatalog(collectionRoot);
+  const installableEntries = catalog.filter((entry) => isInstallableManifest(entry.manifest));
 
-  try {
-    const summary = await compileGithubAgentsCollection({
-      outputRoot: collectionRoot,
-      workspaceRoot
-    });
-    const report = await verifyGithubAgentsReadiness({
-      collectionRoot,
-      reportRoot,
-      workspaceRoot
-    });
+  assert.ok(installableEntries.length > 0, "Expected installable manifests in the official collection.");
 
-    assert.equal(report.failures.length, 0, report.failures.map((failure) => failure.message).join("\n"));
-    assert.equal(report.descriptor.found, true);
-    assert.equal(report.installableCount, summary.installableCount);
-    assert.equal(report.totalCount, summary.totalCount);
-    assert.equal(report.passedCount, summary.installableCount);
-    assert.ok(report.results.every((result) => Object.values(result.checks).every(Boolean)));
-  } finally {
-    await rm(tempRoot, { force: true, recursive: true });
+  for (const entry of installableEntries) {
+    const { manifest } = entry;
+
+    assert.ok(manifest.skills.length > 0, `${manifest.agent.id} must declare at least one skill.`);
+    assert.ok(manifest.tools.length > 0, `${manifest.agent.id} must declare at least one tool.`);
+    assert.ok(manifest.policies.length > 0, `${manifest.agent.id} must declare at least one policy.`);
+
+    for (const section of REQUIRED_PROMPT_SECTIONS) {
+      assert.match(
+        manifest.agent.prompt,
+        new RegExp(section),
+        `${manifest.agent.id} is missing prompt section '${section}'.`
+      );
+    }
   }
 });

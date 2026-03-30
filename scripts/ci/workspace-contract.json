@@ -31,22 +31,8 @@
       "root": "apps/agent-orchestrator"
     }
   ],
-  "conflicts": [
-    {
-      "description": "Legacy Python runtime must continue to exist while the queue worker overlay is migrated.",
-      "requiredPath": "agents/pos-venda/main.py"
-    },
-    {
-      "description": "Queue worker overlay for pos-venda must remain at the underscore path.",
-      "requiredPath": "agents/pos_venda/worker.ts"
-    }
-  ],
-  "expectedScriptValues": [
-    {
-      "script": "dev:pos-venda-worker",
-      "value": "tsx agents/pos_venda/worker.ts"
-    }
-  ],
+  "conflicts": [],
+  "expectedScriptValues": [],
   "importRules": [
     {
       "allowedRoots": [

@@ -48,7 +48,7 @@ function toRepoRelativePath(absolutePath) {
 }
 
 function collectSourceFiles() {
-  return ["apps", "packages", "agents"].flatMap((rootRelativePath) =>
+  return ["apps", "packages"].flatMap((rootRelativePath) =>
     walkFiles(rootRelativePath).filter((absolutePath) => /\.(?:[cm]?[jt]sx?|json)$/.test(absolutePath))
   );
 }

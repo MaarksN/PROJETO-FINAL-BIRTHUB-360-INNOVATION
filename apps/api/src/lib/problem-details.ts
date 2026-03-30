@@ -55,13 +55,13 @@ export function fromZodError(error: ZodError): ProblemDetailsError {
   });
 }
 
-export function asyncHandler(
-  handler: (
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ) => Promise<unknown> | unknown
-): RequestHandler {
+type AsyncRouteHandler<T = void> = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => Promise<T> | T;
+
+export function asyncHandler<T = void>(handler: AsyncRouteHandler<T>): RequestHandler {
   return (request, response, next) => {
     try {
       Promise.resolve(handler(request, response, next)).catch(next);
