@@ -7,6 +7,7 @@ import { spawnSync } from 'node:child_process';
 const root = process.cwd();
 const outputDir = path.join(root, 'artifacts', 'sbom');
 const outputFile = path.join(outputDir, 'bom.xml');
+const spdxOutputFile = path.join(outputDir, 'sbom.spdx.json');
 
 function escapeXml(value) {
   return value
@@ -98,4 +99,63 @@ ${componentsXml}
 `;
 
 await writeFile(outputFile, bom, 'utf8');
-process.stdout.write(`SBOM generated at ${path.relative(root, outputFile)} with ${componentMap.size} components.\n`);
+
+const sourceDateEpochForSpdx = process.env.SOURCE_DATE_EPOCH;
+const spdxCreated = sourceDateEpochForSpdx
+  ? new Date(Number(sourceDateEpochForSpdx) * 1000).toISOString()
+  : new Date().toISOString();
+
+const spdxDocument = {
+  SPDXID: 'SPDXRef-DOCUMENT',
+  spdxVersion: 'SPDX-2.3',
+  name: 'birthub-360',
+  dataLicense: 'CC0-1.0',
+  documentNamespace: `https://birthub.local/spdx/${serialUuid}`,
+  creationInfo: {
+    created: spdxCreated,
+    creators: ['Tool: release-sbom-generator@1.0.0']
+  },
+  documentDescribes: ['SPDXRef-Package-birthub-360'],
+  packages: [
+    {
+      SPDXID: 'SPDXRef-Package-birthub-360',
+      name: 'birthub-360',
+      versionInfo: '1.0.0',
+      downloadLocation: 'NOASSERTION',
+      filesAnalyzed: false,
+      supplier: 'Organization: BirthHub',
+      externalRefs: [
+        {
+          referenceCategory: 'PACKAGE-MANAGER',
+          referenceType: 'purl',
+          referenceLocator: 'pkg:npm/birthub-360@1.0.0'
+        }
+      ]
+    },
+    ...[...componentMap.values()]
+      .sort((a, b) => a.name.localeCompare(b.name) || a.version.localeCompare(b.version))
+      .map((component) => ({
+        SPDXID: `SPDXRef-Package-${createHash('sha256')
+          .update(`${component.name}@${component.version}`)
+          .digest('hex')
+          .slice(0, 16)}`,
+        name: component.name,
+        versionInfo: component.version,
+        downloadLocation: 'NOASSERTION',
+        filesAnalyzed: false,
+        supplier: 'NOASSERTION',
+        externalRefs: [
+          {
+            referenceCategory: 'PACKAGE-MANAGER',
+            referenceType: 'purl',
+            referenceLocator: component.purl
+          }
+        ]
+      }))
+  ]
+};
+
+await writeFile(spdxOutputFile, `${JSON.stringify(spdxDocument, null, 2)}\n`, 'utf8');
+process.stdout.write(
+  `SBOM generated at ${path.relative(root, outputFile)} and ${path.relative(root, spdxOutputFile)} with ${componentMap.size} components.\n`
+);
