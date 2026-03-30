@@ -27,7 +27,7 @@ jobs:
       - name: Enable auto-merge for security patches
         if: >
           contains(github.event.pull_request.labels.*.name, 'security') &&
-          steps.metadata.outputs.update-type == 'version-update:semver-patch'
+          steps.metadata.outputs['update-type'] == 'version-update:semver-patch'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
