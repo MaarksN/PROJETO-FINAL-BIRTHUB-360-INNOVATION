@@ -27,6 +27,7 @@ function addCheck(name, status, details = {}) {
 
 function walkFiles(startRelativePath) {
   const startPath = path.join(root, startRelativePath);
+  if (!existsSync(startPath)) return [];
   const queue = [startPath];
   const files = [];
 
