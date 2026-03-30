@@ -195,16 +195,26 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate CycloneDX SBOM
-        uses: CycloneDX/gh-node-module-generatebom@v1
-        with:
-          path: .
-          output: ./artifacts/sbom/bom.xml
+        run: pnpm release:sbom
+
+      - name: Materialize release bundle manifests
+        run: pnpm release:materialize -- --tag=v1.0.0
 
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v7
         with:
           name: release-sbom
           path: artifacts/sbom/bom.xml
+
+      - name: Upload release manifests
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-manifests
+          path: |
+            artifacts/release/checksums-manifest.sha256
+            artifacts/release/release-artifact-catalog.json
+            releases/manifests/release_artifact_catalog.md
+            releases/notes/v1.0.0.md
 
   production-preflight:
     name: production-preflight
