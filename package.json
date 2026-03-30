@@ -10,7 +10,7 @@
   "scripts": {
     "artifacts:clean": "node scripts/ci/cleanup-artifacts.mjs",
     "branch:check": "node scripts/ci/check-branch-name.mjs",
-    "build": "corepack pnpm build:core && corepack pnpm release:sbom",
+    "build": "corepack pnpm db:generate && corepack pnpm build:core && corepack pnpm release:sbom",
     "build:agents": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run build",
     "build:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing run build",
     "build:workspace": "turbo run build",
