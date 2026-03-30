@@ -23,7 +23,7 @@ export function RequireRole(minimumRole: Role): RequestHandler {
       return;
     }
 
-    const currentRolePriority = rolePriority(role as Role);
+    const currentRolePriority = rolePriority(role);
     const requiredRolePriority = rolePriority(minimumRole);
 
     if (currentRolePriority < requiredRolePriority) {

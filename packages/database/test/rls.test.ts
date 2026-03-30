@@ -7,13 +7,9 @@ const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async () => {
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: databaseUrl
-      }
-    }
-  });
+  const previousDatabaseUrl = process.env.DATABASE_URL;
+  process.env.DATABASE_URL = databaseUrl;
+  const prisma = new PrismaClient();
 
   try {
     const organizationA = await prisma.organization.create({
@@ -47,5 +43,10 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
     assert.equal(rows.length, 0);
   } finally {
     await prisma.$disconnect();
+    if (previousDatabaseUrl === undefined) {
+      delete process.env.DATABASE_URL;
+    } else {
+      process.env.DATABASE_URL = previousDatabaseUrl;
+    }
   }
 });
