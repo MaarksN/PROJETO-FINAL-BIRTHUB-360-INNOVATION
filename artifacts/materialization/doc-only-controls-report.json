@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T16:52:45.982Z",
+  "generatedAt": "2026-04-01T02:34:05.336Z",
   "checks": {
     "codeowners-present": {
       "status": "pass"
@@ -16,7 +16,7 @@
       "missingTimeout": []
     },
     "branch-protection-baseline": {
-      "status": "fail",
+      "status": "pass",
       "hasDevelopBranchProtection": true,
       "hasMainBranchProtection": true,
       "missingStatusChecksByBranch": {
@@ -68,8 +68,6 @@
       "forbiddenImportHits": []
     }
   },
-  "blockers": [
-    "branch-protection-baseline"
-  ],
+  "blockers": [],
   "warnings": []
 }

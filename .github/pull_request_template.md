@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 ## Resumo
 
 Descreva objetivamente o que mudou, qual risco foi tratado e qual evidência de validação acompanha o PR.
@@ -6,6 +5,18 @@ Descreva objetivamente o que mudou, qual risco foi tratado e qual evidência de 
 ## Justificativa formal
 
 Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concentrar mudanças estruturalmente acopladas. Explique o motivo do lote, o plano de revisão e o rollback.
+
+## Linked issue(s)
+
+- Closes #
+
+## What was updated
+
+- [ ] Documentation
+- [ ] Backend (API / services)
+- [ ] Frontend (dashboard / UI)
+- [ ] Infra / CI
+- [ ] Tests
 
 ## Checklist de Qualidade de Pull Request
 
@@ -29,27 +40,9 @@ Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concen
 - [ ] Dependency approval register updated when external dependencies changed
 - [ ] No runtime artifacts, dumps or local `.env` files were versioned
 - [ ] Rollback impact documented
-=======
-## Summary
-
-<!-- Describe what changed and why. -->
-
-## Linked issue(s)
-
-- Closes #
->>>>>>> Stashed changes
-
-## What was updated
-
-- [ ] Documentation
-- [ ] Backend (API / services)
-- [ ] Frontend (dashboard / UI)
-- [ ] Infra / CI
-- [ ] Tests
 
 ## Validation
 
-<<<<<<< Updated upstream
 ```bash
 pnpm artifacts:clean
 pnpm branch:check
@@ -57,14 +50,6 @@ pnpm commits:check
 pnpm hygiene:check
 pnpm docs:check-links
 pnpm monorepo:doctor
-=======
-<!-- Add the commands you ran locally and the results. -->
-
-```bash
-# example
-pnpm lint
-pnpm test
->>>>>>> Stashed changes
 ```
 
 ## Breaking changes
@@ -74,9 +59,7 @@ pnpm test
 
 ## Deployment notes
 
-<!-- Include migrations, env vars, rollout notes, and rollback plan if needed. -->
-<<<<<<< Updated upstream
-=======
+Include migrations, env vars, rollout notes, and rollback plan if needed.
 
 ## Conflict checklist (required when GitHub reports merge conflicts)
 
@@ -85,4 +68,3 @@ pnpm test
 - [ ] Re-ran tests after conflict resolution
 - [ ] Reviewed `.env.example` changes for compatibility
 - [ ] Confirmed CI workflow files still reflect required jobs
->>>>>>> Stashed changes

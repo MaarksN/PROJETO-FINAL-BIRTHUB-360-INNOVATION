@@ -47,7 +47,7 @@ jobs:
 
       - name: Prisma diagnostics
         run: |
-          npx prisma --version
+          node -e "const pkg=require('./packages/database/package.json'); console.log('prisma(dev):', pkg.devDependencies?.prisma ?? 'missing'); console.log('@prisma/client(dep):', pkg.dependencies?.['@prisma/client'] ?? 'missing');"
           pnpm ls @prisma/client
           pnpm ls prisma
           cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true

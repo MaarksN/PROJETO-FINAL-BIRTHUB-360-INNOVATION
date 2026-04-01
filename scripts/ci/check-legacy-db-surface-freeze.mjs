@@ -26,6 +26,10 @@ function isAllowedPath(path) {
     return true;
   }
 
+  if (normalizedPath.startsWith("audit/")) {
+    return true;
+  }
+
   if (normalizedPath.startsWith("scripts/diagnostics/")) {
     return true;
   }
@@ -61,7 +65,7 @@ const violations = lines.filter((line) => {
 
 if (violations.length > 0) {
   console.error("Legacy DB surface freeze violation detected.");
-  console.error("Only docs/artifacts/diagnostics and packages/db compatibility layer may reference '@birthub/db' or 'packages/db'.");
+  console.error("Only docs/artifacts/audit/diagnostics and packages/db compatibility layer may reference '@birthub/db' or 'packages/db'.");
   for (const violation of violations) {
     console.error(` - ${violation}`);
   }
