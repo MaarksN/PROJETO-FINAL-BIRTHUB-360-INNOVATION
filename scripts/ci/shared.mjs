@@ -23,6 +23,14 @@ export const portablePnpmCli = path.join(
   "dist",
   "pnpm.js"
 );
+const portableCorepackPnpmDist = path.join(
+  portableCorepackHome,
+  "v1",
+  "pnpm",
+  "9.1.0",
+  "dist",
+  "pnpm.cjs"
+);
 
 function uniquePathEntries(entries) {
   return [...new Set(entries.filter(Boolean))];
@@ -117,16 +125,42 @@ export function buildEnv(overrides = {}) {
     process.env.PATH,
   ]);
 
+  const resolvedCorepackHome = (() => {
+    const overrideCorepackHome = overrides.COREPACK_HOME;
+    if (typeof overrideCorepackHome === "string" && overrideCorepackHome.trim().length > 0) {
+      return overrideCorepackHome;
+    }
+
+    const envCorepackHome = process.env.COREPACK_HOME;
+    if (typeof envCorepackHome === "string" && envCorepackHome.trim().length > 0) {
+      return envCorepackHome;
+    }
+
+    if (process.platform === "win32" && existsSync(portableCorepackPnpmDist)) {
+      return portableCorepackHome;
+    }
+
+    return null;
+  })();
+
   const env = {
     ...process.env,
-    ...overrides,
-    COREPACK_HOME: overrides.COREPACK_HOME ?? process.env.COREPACK_HOME ?? portableCorepackHome,
+    ...overrides
   };
+
+  if (resolvedCorepackHome) {
+    env.COREPACK_HOME = resolvedCorepackHome;
+  } else {
+    delete env.COREPACK_HOME;
+  }
 
   if ("Path" in env) delete env.Path;
   if ("path" in env) delete env.path;
 
   env.PATH = pathEntries.join(path.delimiter);
+  if (process.platform === "win32") {
+    env.Path = env.PATH;
+  }
   return env;
 }
 
@@ -245,23 +279,27 @@ export function runCapture(command, args, options = {}) {
 
 export function runPnpm(args, options = {}) {
   const invocation = resolvePnpmInvocation();
+  const envOverrides = {
+    ...invocation.env,
+    ...(options.env ?? {})
+  };
+
   return run(invocation.command, [...invocation.argsPrefix, ...args], {
     ...options,
-    env: {
-      ...invocation.env,
-      ...(options.env ?? {})
-    }
+    env: envOverrides
   });
 }
 
 export function capturePnpm(args, options = {}) {
   const invocation = resolvePnpmInvocation();
+  const envOverrides = {
+    ...invocation.env,
+    ...(options.env ?? {})
+  };
+
   return runCapture(invocation.command, [...invocation.argsPrefix, ...args], {
     ...options,
-    env: {
-      ...invocation.env,
-      ...(options.env ?? {})
-    }
+    env: envOverrides
   });
 }
 

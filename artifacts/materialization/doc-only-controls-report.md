@@ -1,6 +1,6 @@
 # Materialização Técnica de Itens Apenas Documentados
 
-Gerado em: 2026-03-30T16:52:45.982Z
+Gerado em: 2026-04-01T02:34:05.336Z
 
 ## Status dos controles
 
@@ -22,9 +22,5 @@ Gerado em: 2026-03-30T16:52:45.982Z
 
 ## Resumo
 
-- Blockers: 1
+- Blockers: 0
 - Warnings: 0
-
-### Blockers
-
-- branch-protection-baseline
