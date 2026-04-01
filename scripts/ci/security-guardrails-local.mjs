@@ -97,41 +97,49 @@ async function canReachDatabase(databaseUrl) {
 }
 
 async function main() {
+  const databaseUrl = resolveDatabaseUrl();
+
+  if (databaseUrl) {
+    process.env.DATABASE_URL = databaseUrl;
+  }
+
+  const databaseReachable = databaseUrl
+    ? await canReachDatabase(databaseUrl)
+    : false;
+
+  if (databaseUrl && databaseReachable) {
+    runPnpm(["db:bootstrap:ci"], {
+      env: {
+        DATABASE_URL: databaseUrl
+      }
+    });
+  } else if (requireDatabase) {
+    if (!databaseUrl) {
+      throw new Error("[security-guardrails] DATABASE_URL é obrigatória neste modo (use --require-db apenas em CI/ambiente com banco acessível).");
+    }
+
+    throw new Error("[security-guardrails] DATABASE_URL configurada, mas o banco está inacessível no host/porta informados.");
+  }
+
   runPnpm(["workspace:audit"]);
   runPnpm(["--filter", "@birthub/config", "test"]);
   runPnpm(["security:guards"]);
   runPnpm(["--filter", "@birthub/api", "typecheck"]);
   runPnpm(["--filter", "@birthub/api", "test"]);
   runPnpm(["--filter", "@birthub/database", "test"]);
-  runPnpm(["db:check:all"]);
+  runPnpm(["--filter", "@birthub/database", "db:check:governance"]);
+  runPnpm(["--filter", "@birthub/database", "db:check:fk"]);
+  runPnpm(["--filter", "@birthub/database", "db:check:tenancy"]);
 
-  const databaseUrl = resolveDatabaseUrl();
-
-  if (!databaseUrl) {
-    if (requireDatabase) {
-      throw new Error("[security-guardrails] DATABASE_URL é obrigatória neste modo (use --require-db apenas em CI/ambiente com banco acessível).");
-    }
-
-    console.log("[security-guardrails:local] SKIPPED db:migrate:deploy (DATABASE_URL não configurada no ambiente local).");
-    return;
+  if (databaseUrl && databaseReachable) {
+    runPnpm(["--filter", "@birthub/database", "db:check:ri"], {
+      env: {
+        DATABASE_URL: databaseUrl
+      }
+    });
+  } else {
+    console.log("[security-guardrails:local] SKIPPED db:check:ri (DATABASE_URL não configurada ou banco inacessível).");
   }
-
-  const databaseReachable = await canReachDatabase(databaseUrl);
-
-  if (!databaseReachable) {
-    if (requireDatabase) {
-      throw new Error("[security-guardrails] DATABASE_URL configurada, mas o banco está inacessível no host/porta informados.");
-    }
-
-    console.log("[security-guardrails:local] SKIPPED db:migrate:deploy (DATABASE_URL configurada, mas banco inacessível no host/porta informados).");
-    return;
-  }
-
-  runPnpm(["--filter", "@birthub/database", "db:migrate:deploy"], {
-    env: {
-      DATABASE_URL: databaseUrl
-    }
-  });
 
   console.log("[security-guardrails:local] PASS");
 }
