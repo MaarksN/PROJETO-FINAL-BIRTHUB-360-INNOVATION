@@ -227,15 +227,50 @@ function validateManifestAndLockfileDrift(changedFiles, issues) {
     return;
   }
 
+  const baseRef = resolveBaseRef();
   const normalizedFiles = new Set(changedFiles);
   const lockfileChanged = normalizedFiles.has("pnpm-lock.yaml");
 
+  function pickLockfileRelevantManifestFields(manifest) {
+    return {
+      dependencies: manifest?.dependencies ?? {},
+      devDependencies: manifest?.devDependencies ?? {},
+      optionalDependencies: manifest?.optionalDependencies ?? {},
+      packageManager: manifest?.packageManager ?? null,
+      peerDependencies: manifest?.peerDependencies ?? {},
+      peerDependenciesMeta: manifest?.peerDependenciesMeta ?? {},
+      pnpm: manifest?.pnpm ?? {}
+    };
+  }
+
+  function readManifestFromWorkingTree(relativePath) {
+    return JSON.parse(readText(path.join(projectRoot, relativePath)));
+  }
+
+  function readManifestFromRef(ref, relativePath) {
+    const content = gitCapture(["show", `${ref}:${relativePath}`], true);
+    return content ? JSON.parse(content) : null;
+  }
+
+  function didLockfileRelevantManifestFieldsChange(relativePath) {
+    const currentManifest = pickLockfileRelevantManifestFields(readManifestFromWorkingTree(relativePath));
+    const previousManifest = pickLockfileRelevantManifestFields(
+      baseRef ? readManifestFromRef(baseRef, relativePath) : readManifestFromRef("HEAD", relativePath)
+    );
+
+    return JSON.stringify(currentManifest) !== JSON.stringify(previousManifest);
+  }
+
   const manifestChanged = changedFiles.some((file) => {
-    if (file === "package.json" || file === "pnpm-workspace.yaml") {
+    if (file === "pnpm-workspace.yaml") {
       return true;
     }
 
-    return /^(apps|agents|packages)\/[^/]+\/package\.json$/u.test(file);
+    if (file === "package.json" || /^(apps|agents|packages)\/[^/]+\/package\.json$/u.test(file)) {
+      return didLockfileRelevantManifestFieldsChange(file);
+    }
+
+    return false;
   });
 
   if (manifestChanged && !lockfileChanged) {

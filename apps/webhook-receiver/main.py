@@ -16,7 +16,9 @@ redis_client: Redis | None = None
 
 def _is_strict_runtime() -> bool:
     environment = (os.getenv("NODE_ENV") or os.getenv("ENVIRONMENT") or "development").lower()
-    return environment not in {"dev", "development", "test"} or os.getenv("CI") == "true"
+    if environment in {"dev", "development", "test"}:
+        return (os.getenv("STRICT_RUNTIME") or "").lower() in {"1", "true", "yes"}
+    return True
 
 
 def _resolve_redis_url() -> str:
