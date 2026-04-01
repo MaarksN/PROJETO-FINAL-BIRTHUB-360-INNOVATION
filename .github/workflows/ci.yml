@@ -281,9 +281,9 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
-      - name: Apply database migrations
+      - name: Bootstrap CI database
         if: ${{ matrix.task == 'test' || matrix.task == 'test:isolation' }}
-        run: pnpm db:migrate:deploy
+        run: pnpm db:bootstrap:ci
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
@@ -399,8 +399,8 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
-      - name: Apply database migrations
-        run: pnpm db:migrate:deploy
+      - name: Bootstrap CI database
+        run: pnpm db:bootstrap:ci
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 

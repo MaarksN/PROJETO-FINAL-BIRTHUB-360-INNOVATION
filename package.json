@@ -86,6 +86,7 @@
     "format": "prettier --write .",
     "lint:workflows": "corepack pnpm --filter @birthub/workflows-core exec eslint . --config eslint.config.mjs --max-warnings=0",
     "db:generate": "corepack pnpm --filter @birthub/database db:generate",
+    "db:bootstrap:ci": "corepack pnpm --filter @birthub/database db:bootstrap:ci",
     "db:migrate": "corepack pnpm --filter @birthub/database db:migrate:dev",
     "db:migrate:deploy": "corepack pnpm --filter @birthub/database db:migrate:deploy",
     "db:reset": "corepack pnpm --filter @birthub/database db:reset",
