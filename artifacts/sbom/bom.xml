@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:1aeebb36-71b5-c2e9-7a18-b3f75d1c111a" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:2c0c3964-2c5d-c0e2-bc8e-7b9904810a21" version="1">
   <metadata>
-    <timestamp>2026-03-30T12:06:22.752Z</timestamp>
+    <timestamp>2026-03-31T22:23:39.466Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -356,10 +356,10 @@
       <version>3.8.1</version>
       <purl>pkg:npm/prettier@3.8.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/prisma@7.6.0">
+    <component type="library" bom-ref="pkg:npm/prisma@6.19.2">
       <name>prisma</name>
-      <version>7.6.0</version>
-      <purl>pkg:npm/prisma@7.6.0</purl>
+      <version>6.19.2</version>
+      <purl>pkg:npm/prisma@6.19.2</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/rate-limit-redis@4.3.1">
       <name>rate-limit-redis</name>

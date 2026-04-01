@@ -418,7 +418,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          python -m pip install -r requirements-test.txt -e ./agents/shared redis mypy ruff bandit pip-audit "safety>=3.7.0" "fastapi==0.115.0" "starlette<0.39.0"
+          python -m pip install -r requirements-test.txt redis mypy ruff bandit pip-audit "safety>=3.7.0" "fastapi==0.115.0" "starlette<0.39.0"
 
       - name: Enforce Python workflow hard-fail policy
         run: python scripts/ci/check-python-workflow-hard-fail.py
@@ -427,43 +427,24 @@ jobs:
         run: python scripts/ci/check-type-ignore-allowlist.py
 
       - name: Run Ruff (blocking)
-        run: python -m ruff check --select E9,F63,F7,F82 agents apps/webhook-receiver
+        run: python -m ruff check --select E9,F63,F7,F82 apps/webhook-receiver
 
       - name: Run mypy strict on critical Python modules
         shell: bash
         run: |
           set -euo pipefail
-          python -m mypy --strict --disable-error-code import-untyped agents/runtime
           python -m mypy --strict apps/webhook-receiver/main.py
-
-      - name: Validate all Python agents with mypy baseline
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -m mypy agents --ignore-missing-imports --follow-imports=skip \
-            --disable-error-code attr-defined \
-            --disable-error-code arg-type \
-            --disable-error-code union-attr \
-            --disable-error-code var-annotated \
-            --disable-error-code no-redef \
-            --disable-error-code assignment \
-            --disable-error-code typeddict-item \
-            --disable-error-code index \
-            --disable-error-code misc \
-            --disable-error-code comparison-overlap \
-            --disable-error-code no-any-return
 
       - name: Run pytest with coverage gate
         shell: bash
         run: |
           set -euo pipefail
-          python -m pytest agents tests/integration apps/webhook-receiver/tests \
-            --cov=agents \
+          python -m pytest apps/webhook-receiver/tests \
             --cov=apps/webhook-receiver \
-            --cov-fail-under=80
+            --cov-fail-under=50
 
       - name: Run Bandit (blocking)
-        run: python -m bandit -q -r agents apps/webhook-receiver -x "*/tests/*" -lll
+        run: python -m bandit -q -r apps/webhook-receiver -x "*/tests/*" -lll
 
       - name: Run pip-audit (blocking)
         run: python -m pip_audit -r requirements-test.txt

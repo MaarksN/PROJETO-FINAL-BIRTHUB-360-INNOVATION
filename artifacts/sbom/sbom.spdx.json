@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/1aeebb36-71b5-c2e9-7a18-b3f75d1c111a",
+  "documentNamespace": "https://birthub.local/spdx/2c0c3964-2c5d-c0e2-bc8e-7b9904810a21",
   "creationInfo": {
-    "created": "2026-03-30T12:06:22.759Z",
+    "created": "2026-03-31T22:23:39.470Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -1050,9 +1050,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-fb76f711bc57441c",
+      "SPDXID": "SPDXRef-Package-317ceeca4654a2e6",
       "name": "prisma",
-      "versionInfo": "7.6.0",
+      "versionInfo": "6.19.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1060,7 +1060,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/prisma@7.6.0"
+          "referenceLocator": "pkg:npm/prisma@6.19.2"
         }
       ]
     },
