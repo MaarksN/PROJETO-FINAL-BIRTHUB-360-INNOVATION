@@ -279,23 +279,27 @@ export function runCapture(command, args, options = {}) {
 
 export function runPnpm(args, options = {}) {
   const invocation = resolvePnpmInvocation();
+  const envOverrides = {
+    ...invocation.env,
+    ...(options.env ?? {})
+  };
+
   return run(invocation.command, [...invocation.argsPrefix, ...args], {
     ...options,
-    env: {
-      ...invocation.env,
-      ...(options.env ?? {})
-    }
+    env: envOverrides
   });
 }
 
 export function capturePnpm(args, options = {}) {
   const invocation = resolvePnpmInvocation();
+  const envOverrides = {
+    ...invocation.env,
+    ...(options.env ?? {})
+  };
+
   return runCapture(invocation.command, [...invocation.argsPrefix, ...args], {
     ...options,
-    env: {
-      ...invocation.env,
-      ...(options.env ?? {})
-    }
+    env: envOverrides
   });
 }
 

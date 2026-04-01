@@ -9,12 +9,9 @@ const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isWindows = process.platform === "win32";
 const turbopackAliases = {
-  "@birthub/config": path.resolve(__dirname, "../../packages/config/dist/index.js"),
-  "@birthub/logger": path.resolve(__dirname, "../../packages/logger/dist/index.js"),
-  "@birthub/workflows-core": path.resolve(
-    __dirname,
-    "../../packages/workflows-core/dist/src/index.js"
-  )
+  "@birthub/config": "@birthub/config/nextjs",
+  "@birthub/logger": "@birthub/logger/nextjs",
+  "@birthub/workflows-core": "@birthub/workflows-core/nextjs"
 };
 
 const contentSecurityPolicy = [
