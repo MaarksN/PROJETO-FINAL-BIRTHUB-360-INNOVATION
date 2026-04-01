@@ -41,6 +41,14 @@ Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concen
 - [ ] No runtime artifacts, dumps or local `.env` files were versioned
 - [ ] Rollback impact documented
 
+## What was updated
+
+- [ ] Documentation
+- [ ] Backend (API / services)
+- [ ] Frontend (dashboard / UI)
+- [ ] Infra / CI
+- [ ] Tests
+
 ## Validation
 
 ```bash
@@ -59,12 +67,4 @@ pnpm monorepo:doctor
 
 ## Deployment notes
 
-Include migrations, env vars, rollout notes, and rollback plan if needed.
-
-## Conflict checklist (required when GitHub reports merge conflicts)
-
-- [ ] Pulled latest target branch into this branch
-- [ ] Resolved all conflicted files locally
-- [ ] Re-ran tests after conflict resolution
-- [ ] Reviewed `.env.example` changes for compatibility
-- [ ] Confirmed CI workflow files still reflect required jobs
+<!-- Include migrations, env vars, rollout notes, and rollback plan if needed. -->
