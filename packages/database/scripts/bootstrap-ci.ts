@@ -4,27 +4,16 @@ import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-bootstrap-ci");
 
-async function runPrismaStep(stepName: string, args: string[]): Promise<void> {
-  const result = await runCommand(getPrismaBinaryPath(), args);
-  process.stdout.write(result.output);
-
-  if (result.code !== 0) {
-    throw new Error(`${stepName} failed with exit code ${result.code}.`);
-  }
-}
-
-async function runPrismaStepWithOutput(
+async function runPrismaStep(
   stepName: string,
   args: string[]
-): Promise<{ code: number; output: string }> {
+): Promise<void> {
   const result = await runCommand(getPrismaBinaryPath(), args);
   process.stdout.write(result.output);
 
   if (result.code !== 0) {
     throw new Error(`${stepName} failed with exit code ${result.code}.`);
   }
-
-  return result;
 }
 
 async function main(): Promise<void> {
@@ -61,7 +50,7 @@ async function main(): Promise<void> {
       message
     );
 
-    await runPrismaStepWithOutput("prisma db push --force-reset", [
+    await runPrismaStep("prisma db push --force-reset", [
       "db",
       "push",
       "--schema",
