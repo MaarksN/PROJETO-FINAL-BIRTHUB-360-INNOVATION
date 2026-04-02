@@ -13,6 +13,20 @@ async function runPrismaStep(stepName: string, args: string[]): Promise<void> {
   }
 }
 
+async function runPrismaStepWithOutput(
+  stepName: string,
+  args: string[]
+): Promise<{ code: number; output: string }> {
+  const result = await runCommand(getPrismaBinaryPath(), args);
+  process.stdout.write(result.output);
+
+  if (result.code !== 0) {
+    throw new Error(`${stepName} failed with exit code ${result.code}.`);
+  }
+
+  return result;
+}
+
 async function main(): Promise<void> {
   if (!process.env.DATABASE_URL) {
     throw new Error("DATABASE_URL is required for db:bootstrap:ci.");
@@ -27,14 +41,36 @@ async function main(): Promise<void> {
 
   // CI jobs need the live schema to match the current Prisma datamodel, even if
   // historical migrations still lag behind on indexes/defaults.
-  await runPrismaStep("prisma db push", [
-    "db",
-    "push",
-    "--schema",
-    schemaPath,
-    "--accept-data-loss",
-    "--skip-generate"
-  ]);
+  try {
+    await runPrismaStep("prisma db push", [
+      "db",
+      "push",
+      "--schema",
+      schemaPath,
+      "--accept-data-loss",
+      "--skip-generate"
+    ]);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    logger.warn(
+      {
+        reason:
+          "db push failed after migrate deploy; retrying with force-reset for ephemeral CI database.",
+        step: "prisma db push"
+      },
+      message
+    );
+
+    await runPrismaStepWithOutput("prisma db push --force-reset", [
+      "db",
+      "push",
+      "--schema",
+      schemaPath,
+      "--accept-data-loss",
+      "--force-reset",
+      "--skip-generate"
+    ]);
+  }
 }
 
 void main().catch((error) => {
