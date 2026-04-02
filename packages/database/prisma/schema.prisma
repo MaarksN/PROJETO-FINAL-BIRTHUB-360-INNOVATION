@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Organization {
-  id               String            @id @default(cuid())
+  id               String            @default(cuid())
   tenantId         String            @unique @default(cuid())
   name             String
   slug             String            @unique
@@ -62,6 +62,7 @@ model Organization {
   agentHandoffs    AgentHandoff[]
   plan             Plan?             @relation(fields: [planId], references: [id], onDelete: SetNull)
 
+  @@id([id], map: "Organization_pkey")
   @@index([tenantId])
   @@index([tenantId, id])
   @@index([tenantId, slug])
@@ -74,7 +75,7 @@ model Organization {
 }
 
 model User {
-  id               String            @id @default(cuid())
+  id               String            @default(cuid())
   email            String            @unique
   name             String
   passwordHash     String            @default("")
@@ -98,11 +99,12 @@ model User {
   agentFeedback    AgentFeedback[]
   createdWebhookEndpoints WebhookEndpoint[] @relation("CreatedWebhookEndpoints")
 
+  @@id([id], map: "User_pkey")
   @@map("users")
 }
 
 model Membership {
-  id             String           @id @default(cuid())
+  id             String           @default(cuid())
   tenantId       String
   organizationId String
   userId         String
@@ -113,6 +115,7 @@ model Membership {
   organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@id([id], map: "Membership_pkey")
   @@unique([organizationId, userId])
   @@index([tenantId])
   @@index([tenantId, id])
@@ -122,7 +125,7 @@ model Membership {
 }
 
 model Session {
-  id             String        @id @default(cuid())
+  id             String        @default(cuid())
   tenantId       String
   token          String        @unique
   refreshTokenHash String?     @unique
@@ -144,6 +147,7 @@ model Session {
   replacedBySession   Session? @relation("SessionRotation", fields: [replacedBySessionId], references: [id], onDelete: SetNull)
   rotatedFromSessions Session[] @relation("SessionRotation")
 
+  @@id([id], map: "Session_pkey")
   @@index([tenantId])
   @@index([tenantId, id])
   @@index([tenantId, userId])
