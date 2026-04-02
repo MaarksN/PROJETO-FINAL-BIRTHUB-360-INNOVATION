@@ -20,7 +20,7 @@ CREATE TABLE "connector_accounts" (
   "disconnected_at" TIMESTAMP(3),
   "last_sync_at" TIMESTAMP(3),
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 
   CONSTRAINT "connector_accounts_pkey" PRIMARY KEY ("id")
 );
@@ -34,7 +34,7 @@ CREATE TABLE "connector_credentials" (
   "encrypted_value" TEXT NOT NULL,
   "expires_at" TIMESTAMP(3),
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 
   CONSTRAINT "connector_credentials_pkey" PRIMARY KEY ("id")
 );
@@ -52,7 +52,7 @@ CREATE TABLE "connector_sync_cursors" (
   "last_sync_at" TIMESTAMP(3),
   "next_sync_at" TIMESTAMP(3),
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 
   CONSTRAINT "connector_sync_cursors_pkey" PRIMARY KEY ("id")
 );
@@ -71,7 +71,7 @@ CREATE TABLE "conversation_threads" (
   "customer_reference" TEXT,
   "metadata" JSONB,
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 
   CONSTRAINT "conversation_threads_pkey" PRIMARY KEY ("id")
 );
@@ -108,7 +108,7 @@ CREATE TABLE "agent_handoffs" (
   "context" JSONB NOT NULL,
   "result" JSONB,
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 
   CONSTRAINT "agent_handoffs_pkey" PRIMARY KEY ("id")
 );
