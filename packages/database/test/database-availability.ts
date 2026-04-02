@@ -5,6 +5,14 @@ type ConnectivityProbeClient = {
 };
 
 function isDatabaseUnavailableError(error: unknown): boolean {
+  const errorWithCode =
+    typeof error === "object" && error !== null ? (error as { code?: unknown; message?: unknown }) : null;
+
+  const rawCode = errorWithCode?.code;
+  if (typeof rawCode === "string" && ["ECONNREFUSED", "P1001"].includes(rawCode.toUpperCase())) {
+    return true;
+  }
+
   if (!(error instanceof Error)) {
     return false;
   }

@@ -1,0 +1,128 @@
+Schema drift check: FAIL
+
+warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).
+For more information, see: https://pris.ly/prisma-config
+
+Loaded Prisma config from prisma.config.ts.
+
+warn The Prisma config file in prisma.config.ts overrides the deprecated `package.json#prisma` property in package.json.
+  For more information, see: https://pris.ly/prisma-config
+
+
+[*] Changed the `agent_executions` table
+  [+] Added index on columns (userId)
+
+[*] Changed the `agent_feedback` table
+  [+] Added index on columns (organizationId)
+  [+] Added index on columns (userId)
+
+[*] Changed the `agent_handoffs` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (thread_id)
+
+[*] Changed the `agents` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `api_keys` table
+  [+] Added index on columns (userId)
+  [+] Added index on columns (rotatedFromId)
+
+[*] Changed the `audit_logs` table
+  [-] Removed index on columns (tenantId, action, createdAt)
+  [+] Added foreign key on columns (tenantId)
+
+[*] Changed the `connector_accounts` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+
+[*] Changed the `connector_credentials` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+
+[*] Changed the `connector_sync_cursors` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+
+[*] Changed the `conversation_threads` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (connector_account_id)
+
+[*] Changed the `customers` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `dataset_exports` table
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `invites` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+  [+] Added index on columns (invitedByUserId)
+
+[*] Changed the `invoices` table
+  [+] Added index on columns (subscriptionId)
+
+[*] Changed the `login_alerts` table
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `members` table
+  [-] Removed index on columns (userId)
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [*] Renamed the foreign key "Membership_organizationId_fkey" to "members_organizationId_fkey"
+  [*] Renamed the foreign key "Membership_userId_fkey" to "members_userId_fkey"
+  [*] Renamed index `Membership_organizationId_userId_key` to `members_organizationId_userId_key`
+
+[*] Changed the `mfa_challenges` table
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `notifications` table
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `organizations` table
+  [*] Renamed index `Organization_slug_key` to `organizations_slug_key`
+
+[*] Changed the `quota_usage` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added foreign key on columns (tenantId)
+
+[*] Changed the `sessions` table
+  [-] Removed index on columns (organizationId, userId)
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+  [+] Added index on columns (replacedBySessionId)
+  [*] Renamed the foreign key "Session_organizationId_fkey" to "sessions_organizationId_fkey"
+  [*] Renamed the foreign key "Session_userId_fkey" to "sessions_userId_fkey"
+  [*] Renamed index `Session_expiresAt_idx` to `sessions_expiresAt_idx`
+  [*] Renamed index `Session_token_key` to `sessions_token_key`
+
+[*] Changed the `step_results` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `subscriptions` table
+  [-] Removed index on columns (tenantId, id)
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (planId)
+
+[*] Changed the `usage_records` table
+  [+] Added index on columns (subscriptionId)
+
+[*] Changed the `users` table
+  [*] Renamed index `User_email_key` to `users_email_key`
+
+[*] Changed the `webhook_endpoints` table
+  [+] Added index on columns (createdByUserId)
+
+[*] Changed the `workflow_executions` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `workflow_steps` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
+
+[*] Changed the `workflow_transitions` table
+  [+] Added index on columns (organizationId)
+  [*] Renamed index `workflow_transitions_workflowId_source_target_route_key` to `workflow_transitions_workflowId_sourceStepId_targetStepId_r_key`
+
+[*] Changed the `workflows` table
+  [*] Altered column `updatedAt` (default changed from `Some(Now)` to `None`)
+  [+] Added index on columns (organizationId)
