@@ -41,14 +41,14 @@ cat >"${SUMMARY_JSON}" <<JSON
   "generatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "status": "${status}",
   "failedStep": "${failed_step}",
-  "logFile": "${LOG_FILE}"
+  "logFile": "$(realpath --relative-to="${ROOT_DIR}" "${LOG_FILE}")"
 }
 JSON
 
 {
   echo "cycle0_flow_status=${status}"
   echo "failed_step=${failed_step}"
-  echo "log_file=${LOG_FILE}"
+  echo "log_file=$(realpath --relative-to="${ROOT_DIR}" "${LOG_FILE}")"
 } >"${SUMMARY_TXT}"
 
 if [[ "${status}" != "passed" ]]; then

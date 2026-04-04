@@ -3,15 +3,18 @@ import test from "node:test";
 import { randomUUID } from "node:crypto";
 
 import { WorkflowStatus } from "@prisma/client";
+import { createPrismaClient } from "../src/client.js";
+import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
-void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async () => {
-  const { createPrismaClient } = await import("../src/client.js");
+void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async (context) => {
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
+    await ensureDatabaseAvailableOrSkip(context, prisma);
+
     // 1. Geramos os IDs de Tenant antecipadamente para o setup
     const tenantIdA = randomUUID();
     const tenantIdB = randomUUID();
