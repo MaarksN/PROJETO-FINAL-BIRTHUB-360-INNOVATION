@@ -34,6 +34,8 @@ jobs:
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     concurrency:
       group: cd-staging-main
       cancel-in-progress: false
@@ -168,6 +170,8 @@ jobs:
       github.event.inputs.deploy_target == 'production')
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     steps:
       - name: Checkout release source from CI run
         if: github.event_name == 'workflow_run'
@@ -223,6 +227,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -351,6 +357,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    permissions:
+      contents: read
     needs:
       - deploy-production
     concurrency:
@@ -391,6 +399,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    permissions:
+      contents: read
     needs:
       - release-smoke-gate
     concurrency:
@@ -434,6 +444,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
     needs:
       - release-e2e-gate
     steps:
@@ -476,6 +488,8 @@ jobs:
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
     needs:
       - staging-preflight
       - release-sbom
@@ -519,6 +533,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
     needs:
       - release-sbom
       - production-preflight
