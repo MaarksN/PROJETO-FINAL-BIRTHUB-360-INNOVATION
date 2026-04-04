@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 type CoverageCheck = {
@@ -95,6 +95,7 @@ mkdirSync(dirname(jsonPath), { recursive: true });
 mkdirSync(dirname(markdownPath), { recursive: true });
 writeFileSync(jsonPath, JSON.stringify(summary, null, 2));
 writeFileSync(markdownPath, markdown, "utf8");
+rmSync(jsonPath, { force: true });
 
 if (coveragePercent < threshold) {
   throw new Error(

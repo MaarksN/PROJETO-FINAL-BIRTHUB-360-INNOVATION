@@ -14,6 +14,16 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
 
   try {
     await ensureDatabaseAvailableOrSkip(context, prisma);
+    const [{ bypass }] = await prisma.$queryRaw<Array<{ bypass: boolean }>>`
+      SELECT (r.rolsuper OR r.rolbypassrls) AS "bypass"
+      FROM pg_roles r
+      WHERE r.rolname = current_user
+    `;
+
+    if (bypass) {
+      context.skip("A role atual ignora RLS (superuser/BYPASSRLS), impossibilitando validar isolamento por tenant.");
+      return;
+    }
 
     // 1. Geramos os IDs de Tenant antecipadamente para o setup
     const tenantIdA = randomUUID();
