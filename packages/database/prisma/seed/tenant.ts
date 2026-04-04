@@ -20,6 +20,22 @@ export async function disconnectTenantClient(): Promise<void> {
   await prisma.$disconnect();
 }
 
+function buildMonthlyWindow(referenceDate = new Date()) {
+  const periodStart = new Date(
+    Date.UTC(referenceDate.getUTCFullYear(), referenceDate.getUTCMonth(), 1)
+  );
+  const nextPeriodStart = new Date(
+    Date.UTC(referenceDate.getUTCFullYear(), referenceDate.getUTCMonth() + 1, 1)
+  );
+
+  return {
+    period: `MONTHLY-${periodStart.toISOString().slice(0, 7)}`,
+    periodEnd: new Date(nextPeriodStart.getTime() - 1),
+    periodStart,
+    resetAt: nextPeriodStart
+  };
+}
+
 function unlimitedToLargeNumber(value: unknown): number {
   if (typeof value !== "number") {
     return 0;
@@ -121,6 +137,7 @@ async function seedBillingRecords(input: {
 }): Promise<void> {
   const pmId = `pm_${input.seed.slug.replace(/-/g, "_")}`;
   const invoiceId = `in_${input.seed.slug.replace(/-/g, "_")}_001`;
+  const monthlyWindow = buildMonthlyWindow();
 
   if (await prisma.paymentMethod.count({ where: { stripePaymentMethodId: pmId } }) === 0) {
     await prisma.paymentMethod.create({
@@ -146,8 +163,8 @@ async function seedBillingRecords(input: {
         hostedInvoiceUrl: `https://billing.stripe.com/invoice/${input.seed.slug}/latest`,
         invoicePdfUrl: `https://pay.stripe.com/invoice/${input.seed.slug}/latest.pdf`,
         organizationId: input.organizationId,
-        periodEnd: new Date("2026-03-31T23:59:59.000Z"),
-        periodStart: new Date("2026-03-01T00:00:00.000Z"),
+        periodEnd: monthlyWindow.periodEnd,
+        periodStart: monthlyWindow.periodStart,
         status: InvoiceStatus.paid,
         stripeInvoiceId: invoiceId,
         subscriptionId: input.subscriptionId,
@@ -177,6 +194,7 @@ async function seedUsageAndQuota(input: {
   subscriptionId: string;
   tenantId: string;
 }): Promise<void> {
+  const monthlyWindow = buildMonthlyWindow();
   await Promise.all(
     [
       { metric: "tokens.input", quantity: 122_000 },
@@ -213,8 +231,8 @@ async function seedUsageAndQuota(input: {
         data: {
           count: index * 10,
           limit: quota.limit,
-          period: "MONTHLY-2026-03",
-          resetAt: new Date("2026-04-01T00:00:00.000Z"),
+          period: monthlyWindow.period,
+          resetAt: monthlyWindow.resetAt,
           resourceType: quota.resourceType,
           tenantId: input.tenantId
         }
@@ -234,7 +252,7 @@ async function seedInviteAndSecret(input: {
     await prisma.invite.create({
       data: {
         email: `invite.${input.seed.slug}@birthub.local`,
-        expiresAt: new Date("2026-03-20T00:00:00.000Z"),
+        expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
         invitedByUserId: input.userId,
         organizationId: input.organizationId,
         role: "MEMBER",
@@ -328,11 +346,12 @@ export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Pr
   );
 
   const stripeSubscriptionId = `sub_${seed.slug.replace(/-/g, "_")}`;
+  const monthlyWindow = buildMonthlyWindow();
   const subscription =
     (await prisma.subscription.findFirst({ where: { stripeSubscriptionId } })) ??
     (await prisma.subscription.create({
       data: {
-        currentPeriodEnd: new Date("2026-04-01T00:00:00.000Z"),
+        currentPeriodEnd: monthlyWindow.resetAt,
         organizationId: organization.id,
         planId: selectedPlan.id,
         status: SubscriptionStatus.active,

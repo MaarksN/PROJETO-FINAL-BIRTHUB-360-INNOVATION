@@ -1,11 +1,12 @@
 import { schemaPath } from "./lib/paths.js";
-import { getPrismaBinaryPath, runCommand } from "./lib/process.js";
+import { getPrismaCommand, runCommand } from "./lib/process.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-bootstrap-ci");
 
 async function runPrismaStep(stepName: string, args: string[]): Promise<void> {
-  const result = await runCommand(getPrismaBinaryPath(), args);
+  const prisma = getPrismaCommand();
+  const result = await runCommand(prisma.command, [...prisma.args, ...args]);
   process.stdout.write(result.output);
 
   if (result.code !== 0) {
@@ -23,17 +24,6 @@ async function main(): Promise<void> {
     "deploy",
     "--schema",
     schemaPath
-  ]);
-
-  // CI jobs need the live schema to match the current Prisma datamodel, even if
-  // historical migrations still lag behind on indexes/defaults.
-  await runPrismaStep("prisma db push", [
-    "db",
-    "push",
-    "--schema",
-    schemaPath,
-    "--accept-data-loss",
-    "--skip-generate"
   ]);
 }
 

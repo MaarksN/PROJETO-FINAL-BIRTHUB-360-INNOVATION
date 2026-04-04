@@ -9,6 +9,7 @@ Programa central de rastreabilidade de divida tecnica do monorepo.
 - Velocidade por sprint: `docs/technical-debt/velocity.md`
 - Debt-to-feature ratio: `docs/technical-debt/debt-feature-ratio.md`
 - Relatorio executivo: `docs/technical-debt/executive-report.md`
+- Checklist HTML de execucao: `docs/technical-debt/checklist.html`
 - Changelog tecnico: `docs/technical-debt/CHANGELOG.md`
 
 ## Matriz atual

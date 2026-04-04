@@ -3,12 +3,12 @@ import test from "node:test";
 import { randomUUID } from "node:crypto";
 
 import { WorkflowStatus } from "@prisma/client";
-import { createPrismaClient } from "../src/client.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async () => {
+  const { createPrismaClient } = await import("../src/client.js");
   const prisma = createPrismaClient({ databaseUrl });
 
   try {

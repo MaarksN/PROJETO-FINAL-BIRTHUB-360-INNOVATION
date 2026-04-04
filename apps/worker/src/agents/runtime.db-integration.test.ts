@@ -3,13 +3,13 @@ import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 import test from "node:test";
 
-import { provisionTestDatabase } from "@birthub/testing";
+import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "@birthub/testing";
 
 void test("Manifest runtime integration persists memory, output, approval and metrics", async (context) => {
-  const baseDatabaseUrl = process.env.DATABASE_URL;
+  const baseDatabaseUrl = resolveExplicitTestDatabaseUrl();
 
   if (!baseDatabaseUrl) {
-    context.skip("DATABASE_URL is not configured for integration test.");
+    context.skip("A real DATABASE_URL is not configured for integration test.");
     return;
   }
 

@@ -3,12 +3,11 @@ import test from "node:test";
 
 import { WorkflowStatus } from "@prisma/client";
 
-import { createPrismaClient } from "../src/client.js";
-
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("migracao preserva integridade referencial por tenant", async () => {
+  const { createPrismaClient } = await import("../src/client.js");
   const prisma = createPrismaClient({ databaseUrl });
 
   try {

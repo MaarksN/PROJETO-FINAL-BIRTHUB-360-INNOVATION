@@ -1,0 +1,6 @@
+{
+  "checkedAt": "2026-04-02T13:01:18.983Z",
+  "ok": true,
+  "reason": "At least two environment URLs are required (DATABASE_URL_DEV/STAGING/PROD).",
+  "skipped": true
+}

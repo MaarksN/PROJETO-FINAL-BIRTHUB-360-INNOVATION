@@ -133,15 +133,16 @@ async function executeCrmUpsert(input: {
       },
       organizationId: input.organizationId,
       scope: input.action.scope ?? "crm:companies",
-      status: "success",
+      status: response.disabled ? "failed" : "success",
       tenantId: input.tenantId
     });
 
     return {
+      ...(response.disabled ? { blockedReason: response.reason ?? "hubspot_credentials_missing" } : {}),
       objectType: input.action.objectType,
       provider,
       responseStatus: response.status,
-      synced: true
+      synced: !response.disabled
     };
   }
 

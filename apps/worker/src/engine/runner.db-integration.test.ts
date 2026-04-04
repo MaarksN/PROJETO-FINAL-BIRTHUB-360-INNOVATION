@@ -11,13 +11,13 @@ import {
   WorkflowTriggerType as TriggerType,
   WorkflowTransitionRoute
 } from "@birthub/database";
-import { provisionTestDatabase } from "@birthub/testing";
+import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "@birthub/testing";
 
 void test("Workflow runner integration persists DB-backed execution and agent handoff", async (context) => {
-  const baseDatabaseUrl = process.env.DATABASE_URL;
+  const baseDatabaseUrl = resolveExplicitTestDatabaseUrl();
 
   if (!baseDatabaseUrl) {
-    context.skip("DATABASE_URL is not configured for integration test.");
+    context.skip("A real DATABASE_URL is not configured for integration test.");
     return;
   }
 

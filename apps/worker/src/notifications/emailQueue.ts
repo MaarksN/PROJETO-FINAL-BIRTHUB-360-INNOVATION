@@ -15,6 +15,12 @@ export interface EmailNotificationJobPayload {
   userId: string;
 }
 
+interface EmailDeliveryResult {
+  delivered: boolean;
+  reason?: string;
+  status: number | null;
+}
+
 function renderLayout(input: {
   body: string;
   eyebrow: string;
@@ -112,13 +118,14 @@ async function sendViaSendgrid(input: {
   html: string;
   subject: string;
   to: string;
-}) {
+}): Promise<EmailDeliveryResult> {
   const config = getWorkerConfig();
 
   if (!config.SENDGRID_API_KEY) {
     return {
-      mock: true,
-      status: 200
+      delivered: false,
+      reason: "SENDGRID_API_KEY is not configured.",
+      status: null
     };
   }
 
@@ -152,7 +159,7 @@ async function sendViaSendgrid(input: {
   }
 
   return {
-    mock: false,
+    delivered: true,
     status: response.status
   };
 }
@@ -221,15 +228,33 @@ export async function processEmailNotificationJob(payload: EmailNotificationJobP
     to: user.email
   });
 
+  if (!result.delivered) {
+    logger.warn(
+      {
+        reason: result.reason,
+        status: result.status,
+        tenantId: payload.tenantId,
+        type: payload.type,
+        userId: payload.userId
+      },
+      "Email notification skipped because external delivery is not configured"
+    );
+
+    return {
+      reason: result.reason,
+      skipped: true,
+      status: result.status
+    };
+  }
+
   logger.info(
     {
-      mock: result.mock,
       status: result.status,
       tenantId: payload.tenantId,
       type: payload.type,
       userId: payload.userId
     },
-    "Email notification processed"
+    "Email notification delivered"
   );
 
   return {

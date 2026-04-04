@@ -1,0 +1,6 @@
+{
+  "checkedAt": "2026-04-02T13:01:23.039Z",
+  "ok": true,
+  "output": "warn The configuration property `package.json#prisma` is deprecated and will be removed in Prisma 7. Please migrate to a Prisma config file (e.g., `prisma.config.ts`).\nFor more information, see: https://pris.ly/prisma-config\n\nLoaded Prisma config from prisma.config.ts.\n\nwarn The Prisma config file in prisma.config.ts overrides the deprecated `package.json#prisma` property in package.json.\n  For more information, see: https://pris.ly/prisma-config\n\nNo difference detected.\n\n",
+  "skipped": false
+}
