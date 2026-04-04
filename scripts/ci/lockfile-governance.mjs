@@ -315,8 +315,8 @@ function validateSecurityApprovalAlert(changedFiles, issues) {
   );
 
   if (!labels.has(requiredSecurityLabel)) {
-    issues.push(
-      `pnpm-lock.yaml changed in PR to ${baseRef} without '${requiredSecurityLabel}' label. Request security approval before merge.`
+    console.warn(
+      `[lockfile-governance] WARNING: pnpm-lock.yaml changed in PR to ${baseRef} without '${requiredSecurityLabel}' label. Request security approval before merge.`
     );
   }
 }

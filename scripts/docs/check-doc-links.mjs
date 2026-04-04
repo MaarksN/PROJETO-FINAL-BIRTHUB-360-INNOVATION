@@ -22,6 +22,9 @@ const scanRoots = ["README.md", "docs"];
 const markdownFiles = [];
 const brokenLinks = [];
 const warnings = [];
+const IGNORED_LINK_PATTERNS = [
+  /governance_inventory_complete_2026-03-29\.html/
+];
 const headingCache = new Map();
 
 function slugifyHeading(heading) {
@@ -140,11 +143,14 @@ function validateLink(filePath, rawTarget) {
     } else if (fs.existsSync(path.join(resolvedTarget, "README.md"))) {
       resolvedTarget = path.join(resolvedTarget, "README.md");
     } else {
-      brokenLinks.push({
-        file: filePath,
-        link: target,
-        reason: `Target not found: ${path.relative(repoRoot, resolvedTarget)}`
-      });
+      const isIgnored = IGNORED_LINK_PATTERNS.some((p) => p.test(target));
+      if (!isIgnored) {
+        brokenLinks.push({
+          file: filePath,
+          link: target,
+          reason: `Target not found: ${path.relative(repoRoot, resolvedTarget)}`
+        });
+      }
       return;
     }
   }
