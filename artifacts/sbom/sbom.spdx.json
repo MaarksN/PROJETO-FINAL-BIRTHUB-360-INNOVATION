@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/42ff8d07-2f0a-4166-7011-7f8711dfcdea",
+  "documentNamespace": "https://birthub.local/spdx/1aeebb36-71b5-c2e9-7a18-b3f75d1c111a",
   "creationInfo": {
-    "created": "2026-04-02T12:41:49.095Z",
+    "created": "2026-03-30T12:11:09.466Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -420,21 +420,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-1ea4f15b9b75909a",
-      "name": "@prisma/adapter-pg",
-      "versionInfo": "7.6.0",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40prisma%2Fadapter-pg@7.6.0"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-0ac7528915681ed1",
       "name": "@prisma/client",
       "versionInfo": "6.19.2",
@@ -701,6 +686,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/cors@2.8.6"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-f4c06a1feaf4ba8e",
+      "name": "dagre",
+      "versionInfo": "0.8.5",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/dagre@0.8.5"
         }
       ]
     },
@@ -1050,9 +1050,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-317ceeca4654a2e6",
+      "SPDXID": "SPDXRef-Package-fb76f711bc57441c",
       "name": "prisma",
-      "versionInfo": "6.19.2",
+      "versionInfo": "7.6.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1060,7 +1060,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/prisma@6.19.2"
+          "referenceLocator": "pkg:npm/prisma@7.6.0"
         }
       ]
     },

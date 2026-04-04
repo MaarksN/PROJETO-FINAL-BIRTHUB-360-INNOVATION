@@ -145,7 +145,8 @@
     "release:sbom": "node scripts/release/generate-sbom.mjs",
     "release:materialize": "node --import tsx scripts/release/materialize-release.ts",
     "release:bundle": "corepack pnpm release:sbom && corepack pnpm release:materialize",
-    "release:verify:cycle0": "bash ./scripts/release/verify-cycle0-flow.sh"
+    "release:verify:cycle0": "bash ./scripts/release/verify-cycle0-flow.sh",
+    "release:origin:ensure": "bash ./scripts/release/configure-origin-remote.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
