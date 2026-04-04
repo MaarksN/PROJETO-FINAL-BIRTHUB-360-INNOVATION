@@ -3,18 +3,14 @@ import test from "node:test";
 
 import { WorkflowStatus } from "@prisma/client";
 
-import { createPrismaClient } from "../src/client.js";
-import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
-
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
-void testIfDatabase("migracao preserva integridade referencial por tenant", async (context) => {
+void testIfDatabase("migracao preserva integridade referencial por tenant", async () => {
+  const { createPrismaClient } = await import("../src/client.js");
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
-    await ensureDatabaseAvailableOrSkip(context, prisma);
-
     const organizationA = await prisma.organization.create({
       data: {
         name: "Migration Tenant A",

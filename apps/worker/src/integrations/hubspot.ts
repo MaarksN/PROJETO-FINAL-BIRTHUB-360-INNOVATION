@@ -11,6 +11,13 @@ export class HubspotRateLimitError extends Error {
   }
 }
 
+export class MissingHubspotCredentialsError extends Error {
+  constructor(message = "HUBSPOT_ACCESS_TOKEN is not configured.") {
+    super(message);
+    this.name = "MissingHubspotCredentialsError";
+  }
+}
+
 interface HubspotCompanyPayload {
   arrCents: number;
   domain: string | null;
@@ -25,6 +32,8 @@ interface HubspotCompanyPayload {
 type HubspotResponse = {
   body: string;
   companyId: string | null;
+  disabled?: boolean;
+  reason?: string;
   status: number;
 };
 
@@ -40,19 +49,7 @@ class HubspotSyncAdapter {
     payload: Record<string, unknown>;
   }): Promise<HubspotResponse> {
     if (!this.token) {
-      const body = JSON.stringify({
-        mock: true,
-        payload: input.payload
-      });
-
-      return {
-        body,
-        companyId:
-          typeof input.payload.id === "string"
-            ? input.payload.id
-            : `mock-${Date.now().toString(36)}`,
-        status: 200
-      };
+      throw new MissingHubspotCredentialsError();
     }
 
     const response = await fetch(`${this.baseUrl}${input.path}`, {
@@ -120,6 +117,30 @@ class HubspotSyncAdapter {
   }
 }
 
+async function persistCrmSyncEvent(
+  snapshot: Awaited<ReturnType<typeof loadOrganizationSnapshot>>,
+  response: HubspotResponse
+) {
+  await prisma.crmSyncEvent.create({
+    data: {
+      eventType: "company.upsert",
+      organizationId: snapshot.organizationId,
+      requestBody: {
+        arrCents: snapshot.arrCents,
+        domain: snapshot.domain,
+        healthScore: snapshot.healthScore,
+        name: snapshot.name,
+        planCode: snapshot.planCode,
+        status: snapshot.status,
+        tenantId: snapshot.tenantId
+      },
+      responseBody: response.body,
+      responseStatus: response.status,
+      tenantId: snapshot.tenantId
+    }
+  });
+}
+
 async function loadOrganizationSnapshot(organizationId: string) {
   const organization = await prisma.organization.findUnique({
     include: {
@@ -180,48 +201,59 @@ export async function syncOrganizationToHubspot(input: {
     config.HUBSPOT_ACCESS_TOKEN || undefined,
     config.HUBSPOT_BASE_URL
   );
+  try {
+    const response = await adapter.upsertCompany(snapshot);
 
-  const response = await adapter.upsertCompany(snapshot);
+    await persistCrmSyncEvent(snapshot, response);
 
-  await prisma.crmSyncEvent.create({
-    data: {
-      eventType: "company.upsert",
-      organizationId: snapshot.organizationId,
-      requestBody: {
-        arrCents: snapshot.arrCents,
-        domain: snapshot.domain,
-        healthScore: snapshot.healthScore,
-        name: snapshot.name,
-        planCode: snapshot.planCode,
-        status: snapshot.status,
+    if (response.companyId && response.companyId !== snapshot.hubspotCompanyId) {
+      await prisma.organization.update({
+        data: {
+          hubspotCompanyId: response.companyId
+        },
+        where: {
+          id: snapshot.organizationId
+        }
+      });
+    }
+
+    logger.info(
+      {
+        organizationId: snapshot.organizationId,
+        responseStatus: response.status,
         tenantId: snapshot.tenantId
       },
-      responseBody: response.body,
-      responseStatus: response.status,
-      tenantId: snapshot.tenantId
+      "HubSpot organization sync completed"
+    );
+
+    return response;
+  } catch (error) {
+    if (error instanceof MissingHubspotCredentialsError) {
+      const response: HubspotResponse = {
+        body: JSON.stringify({
+          disabled: true,
+          reason: error.message
+        }),
+        companyId: snapshot.hubspotCompanyId,
+        disabled: true,
+        reason: error.message,
+        status: 412
+      };
+
+      await persistCrmSyncEvent(snapshot, response);
+
+      logger.warn(
+        {
+          organizationId: snapshot.organizationId,
+          reason: error.message,
+          tenantId: snapshot.tenantId
+        },
+        "HubSpot organization sync skipped because credentials are not configured"
+      );
+
+      return response;
     }
-  });
 
-  if (response.companyId && response.companyId !== snapshot.hubspotCompanyId) {
-    await prisma.organization.update({
-      data: {
-        hubspotCompanyId: response.companyId
-      },
-      where: {
-        id: snapshot.organizationId
-      }
-    });
+    throw error;
   }
-
-  logger.info(
-    {
-      mock: !config.HUBSPOT_ACCESS_TOKEN,
-      organizationId: snapshot.organizationId,
-      responseStatus: response.status,
-      tenantId: snapshot.tenantId
-    },
-    "HubSpot organization sync completed"
-  );
-
-  return response;
 }

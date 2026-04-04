@@ -1,14 +1,12 @@
 import { schemaPath } from "./lib/paths.js";
-import { getPrismaBinaryPath, runCommand } from "./lib/process.js";
+import { getPrismaCommand, runCommand } from "./lib/process.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-bootstrap-ci");
 
-async function runPrismaStep(
-  stepName: string,
-  args: string[]
-): Promise<void> {
-  const result = await runCommand(getPrismaBinaryPath(), args);
+async function runPrismaStep(stepName: string, args: string[]): Promise<void> {
+  const prisma = getPrismaCommand();
+  const result = await runCommand(prisma.command, [...prisma.args, ...args]);
   process.stdout.write(result.output);
 
   if (result.code !== 0) {
@@ -27,39 +25,6 @@ async function main(): Promise<void> {
     "--schema",
     schemaPath
   ]);
-
-  // CI jobs need the live schema to match the current Prisma datamodel, even if
-  // historical migrations still lag behind on indexes/defaults.
-  try {
-    await runPrismaStep("prisma db push", [
-      "db",
-      "push",
-      "--schema",
-      schemaPath,
-      "--accept-data-loss",
-      "--skip-generate"
-    ]);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    logger.warn(
-      {
-        reason:
-          "db push failed after migrate deploy; retrying with force-reset for ephemeral CI database.",
-        step: "prisma db push"
-      },
-      message
-    );
-
-    await runPrismaStep("prisma db push --force-reset", [
-      "db",
-      "push",
-      "--schema",
-      schemaPath,
-      "--accept-data-loss",
-      "--force-reset",
-      "--skip-generate"
-    ]);
-  }
 }
 
 void main().catch((error) => {

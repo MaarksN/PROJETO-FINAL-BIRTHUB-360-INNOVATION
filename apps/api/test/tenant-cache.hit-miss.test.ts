@@ -42,7 +42,7 @@ function createInMemoryCacheStore() {
   };
 }
 
-void test("tenant cache hit evita nova consulta ao Prisma no segundo request", async () => {
+void test("tenant context reutiliza identidade autenticada sem consultar Prisma", async () => {
   const app = express();
   app.use(requestContextMiddleware);
   app.use((req, _res, next) => {
@@ -83,7 +83,7 @@ void test("tenant cache hit evita nova consulta ao Prisma no segundo request", a
 
     assert.equal(firstBody.tenantId, "tenant-a");
     assert.equal(secondBody.tenantId, "tenant-a");
-    assert.equal(findFirstCount, 1);
+    assert.equal(findFirstCount, 0);
   } finally {
     restoreFindFirst();
     process.env.DATABASE_URL = previousDatabaseUrl;

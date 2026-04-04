@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { DbReadTool, DbWriteTool, type BaseTool } from "@birthub/agents-core/tools";
-import { provisionTestDatabase } from "@birthub/testing";
+import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "@birthub/testing";
 
 import { PlanExecutor } from "./executors/planExecutor.js";
 
@@ -29,10 +29,10 @@ class InMemoryRedis {
 }
 
 void test("runtime integration executes db-write and db-read with real database", async (context) => {
-  const baseDatabaseUrl = process.env.DATABASE_URL;
+  const baseDatabaseUrl = resolveExplicitTestDatabaseUrl();
 
   if (!baseDatabaseUrl) {
-    context.skip("DATABASE_URL is not configured for integration test.");
+    context.skip("A real DATABASE_URL is not configured for integration test.");
     return;
   }
 

@@ -120,13 +120,22 @@ CREATE TABLE "step_results" (
   CONSTRAINT "step_results_pkey" PRIMARY KEY ("id")
 );
 
+ALTER TABLE "workflow_steps"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
+
+ALTER TABLE "workflow_executions"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
+
+ALTER TABLE "step_results"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
+
 CREATE UNIQUE INDEX "workflow_steps_workflowId_key_key" ON "workflow_steps"("workflowId", "key");
 CREATE INDEX "workflow_steps_tenantId_idx" ON "workflow_steps"("tenantId");
 CREATE INDEX "workflow_steps_tenantId_id_idx" ON "workflow_steps"("tenantId", "id");
 CREATE INDEX "workflow_steps_tenantId_workflowId_idx" ON "workflow_steps"("tenantId", "workflowId");
 CREATE INDEX "workflow_steps_tenantId_type_idx" ON "workflow_steps"("tenantId", "type");
 
-CREATE UNIQUE INDEX "workflow_transitions_workflowId_source_target_route_key"
+CREATE UNIQUE INDEX "workflow_transitions_workflowId_sourceStepId_targetStepId_r_key"
   ON "workflow_transitions"("workflowId", "sourceStepId", "targetStepId", "route");
 CREATE INDEX "workflow_transitions_tenantId_idx" ON "workflow_transitions"("tenantId");
 CREATE INDEX "workflow_transitions_tenantId_id_idx" ON "workflow_transitions"("tenantId", "id");

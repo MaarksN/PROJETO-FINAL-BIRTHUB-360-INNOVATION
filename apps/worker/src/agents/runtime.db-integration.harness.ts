@@ -141,21 +141,21 @@ async function main(): Promise<void> {
       })
     ]);
 
-  logger.info(
-    {
-      approvedOutputStatus: approvedOutput?.status ?? null,
-      budgetEventKinds: budgetEvents.map((event) => event.kind),
-      executionStatus: persistedExecution.status,
-      learningPublishedCount,
-      memoryEntryCount,
-      metrics: {
-        execution_count: metrics.execution_count,
-        tool_cost: metrics.tool_cost
-      },
-      outputCount: outputs.length
+  const summary = {
+    approvedOutputStatus: approvedOutput?.status ?? null,
+    budgetEventKinds: budgetEvents.map((event) => event.kind),
+    executionStatus: persistedExecution.status,
+    learningPublishedCount,
+    memoryEntryCount,
+    metrics: {
+      execution_count: metrics.execution_count,
+      tool_cost: metrics.tool_cost
     },
-    "Runtime integration harness completed"
-  );
+    outputCount: outputs.length
+  };
+
+  logger.info(summary, "Runtime integration harness completed");
+  process.stdout.write(`${JSON.stringify(summary)}\n`);
 }
 
 void main().catch((error) => {
