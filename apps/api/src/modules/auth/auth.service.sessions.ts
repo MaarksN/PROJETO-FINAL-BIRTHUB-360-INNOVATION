@@ -20,6 +20,10 @@ import {
   resolveConcurrentSessionLimit,
   type SessionTokens
 } from "./auth.service.shared.js";
+import {
+  hasExplicitDatabaseUrl,
+  isDatabaseUnavailableError
+} from "../../lib/database-availability.js";
 
 const logger = createLogger("auth-sessions");
 
@@ -153,7 +157,7 @@ async function tryResolveActiveMembershipRole(input: {
   organizationId: string;
   userId: string;
 }): Promise<Role | undefined> {
-  if (!process.env.DATABASE_URL) {
+  if (!hasExplicitDatabaseUrl()) {
     return undefined;
   }
 
@@ -177,6 +181,10 @@ async function tryResolveActiveMembershipRole(input: {
 
     return undefined;
   } catch (error) {
+    if (!isDatabaseUnavailableError(error)) {
+      throw error;
+    }
+
     logger.warn(
       {
         err: error,

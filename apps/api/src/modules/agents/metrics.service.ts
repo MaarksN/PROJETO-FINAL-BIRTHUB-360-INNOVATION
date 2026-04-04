@@ -1,5 +1,7 @@
 import { prisma } from "@birthub/database";
 
+import { hasExplicitDatabaseUrl, isDatabaseUnavailableError } from "../../lib/database-availability.js";
+
 export type ExecutionStatus = "FAILED" | "SUCCESS";
 
 export interface AgentRunLog {
@@ -70,24 +72,12 @@ function extractToolCost(metadata: unknown): number {
   return typeof candidate === "number" && Number.isFinite(candidate) ? candidate : 0;
 }
 
-function hasDatabaseUrl(): boolean {
-  return typeof process.env.DATABASE_URL === "string" && process.env.DATABASE_URL.length > 0;
-}
-
-function isDatabaseUnavailableError(error: unknown): boolean {
-  return (
-    error instanceof Error &&
-    (error.name === "PrismaClientInitializationError" ||
-      error.message.includes("Environment variable not found: DATABASE_URL"))
-  );
-}
-
 async function loadRunLogs(input: {
   agentId?: string;
   since?: Date;
   tenantId: string;
 }): Promise<AgentRunLog[]> {
-  if (!hasDatabaseUrl()) {
+  if (!hasExplicitDatabaseUrl()) {
     return [];
   }
 

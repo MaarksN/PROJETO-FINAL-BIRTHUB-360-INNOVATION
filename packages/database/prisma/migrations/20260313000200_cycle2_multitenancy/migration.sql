@@ -12,6 +12,22 @@ ALTER TABLE "User" RENAME TO "users";
 ALTER TABLE "Membership" RENAME TO "members";
 ALTER TABLE "Session" RENAME TO "sessions";
 
+ALTER TABLE "organizations" RENAME CONSTRAINT "Organization_pkey" TO "organizations_pkey";
+ALTER TABLE "users" RENAME CONSTRAINT "User_pkey" TO "users_pkey";
+ALTER TABLE "members" RENAME CONSTRAINT "Membership_pkey" TO "members_pkey";
+ALTER TABLE "sessions" RENAME CONSTRAINT "Session_pkey" TO "sessions_pkey";
+
+ALTER TABLE "members" RENAME CONSTRAINT "Membership_organizationId_fkey" TO "members_organizationId_fkey";
+ALTER TABLE "members" RENAME CONSTRAINT "Membership_userId_fkey" TO "members_userId_fkey";
+ALTER TABLE "sessions" RENAME CONSTRAINT "Session_organizationId_fkey" TO "sessions_organizationId_fkey";
+ALTER TABLE "sessions" RENAME CONSTRAINT "Session_userId_fkey" TO "sessions_userId_fkey";
+
+ALTER INDEX "Organization_slug_key" RENAME TO "organizations_slug_key";
+ALTER INDEX "User_email_key" RENAME TO "users_email_key";
+ALTER INDEX "Membership_organizationId_userId_key" RENAME TO "members_organizationId_userId_key";
+ALTER INDEX "Session_token_key" RENAME TO "sessions_token_key";
+ALTER INDEX "Session_expiresAt_idx" RENAME TO "sessions_expiresAt_idx";
+
 ALTER TABLE "organizations"
   ADD COLUMN "tenantId" TEXT,
   ADD COLUMN "settings" JSONB;
@@ -40,6 +56,9 @@ WHERE m."organizationId" = o."id";
 ALTER TABLE "members"
   ALTER COLUMN "tenantId" SET NOT NULL;
 
+ALTER TABLE "members"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
+
 CREATE INDEX "members_tenantId_idx" ON "members"("tenantId");
 CREATE INDEX "members_tenantId_id_idx" ON "members"("tenantId", "id");
 CREATE INDEX "members_tenantId_userId_idx" ON "members"("tenantId", "userId");
@@ -57,6 +76,9 @@ WHERE s."organizationId" = o."id";
 
 ALTER TABLE "sessions"
   ALTER COLUMN "tenantId" SET NOT NULL;
+
+ALTER TABLE "sessions"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
 
 CREATE INDEX "sessions_tenantId_idx" ON "sessions"("tenantId");
 CREATE INDEX "sessions_tenantId_id_idx" ON "sessions"("tenantId", "id");
@@ -155,6 +177,15 @@ CREATE TABLE "subscriptions" (
   "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT "subscriptions_pkey" PRIMARY KEY ("id")
 );
+
+ALTER TABLE "workflows"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
+
+ALTER TABLE "quota_usage"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
+
+ALTER TABLE "subscriptions"
+  ALTER COLUMN "updatedAt" DROP DEFAULT;
 
 CREATE UNIQUE INDEX "agents_tenantId_name_key" ON "agents"("tenantId", "name");
 CREATE UNIQUE INDEX "workflows_tenantId_name_key" ON "workflows"("tenantId", "name");

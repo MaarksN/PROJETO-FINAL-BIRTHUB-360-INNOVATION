@@ -9,13 +9,24 @@ export type CommandResult = {
   output: string;
 };
 
-export function getPrismaBinaryPath(): string {
-  return resolve(
-    databasePackageRoot,
-    "node_modules",
-    ".bin",
-    process.platform === "win32" ? "prisma.CMD" : "prisma"
-  );
+export type CommandSpec = {
+  args: string[];
+  command: string;
+};
+
+export function getPrismaCommand(): CommandSpec {
+  return {
+    args: [resolve(databasePackageRoot, "node_modules", "prisma", "build", "index.js")],
+    command: process.execPath
+  };
+}
+
+function quoteWindowsCommandArg(value: string): string {
+  if (value.length === 0) {
+    return '""';
+  }
+
+  return `"${value.replace(/"/g, '\\"')}"`;
 }
 
 export async function runCommand(
@@ -27,14 +38,21 @@ export async function runCommand(
   }
 ): Promise<CommandResult> {
   return new Promise((resolveResult, reject) => {
-    const child = spawn(command, args, {
+    const requiresWindowsCmdWrapper =
+      process.platform === "win32" && /\.(cmd|bat)$/iu.test(command);
+    const spawnCommand = requiresWindowsCmdWrapper ? process.env.ComSpec ?? "cmd.exe" : command;
+    const spawnArgs = requiresWindowsCmdWrapper
+      ? ["/d", "/s", "/c", [command, ...args].map(quoteWindowsCommandArg).join(" ")]
+      : args;
+
+    const child = spawn(spawnCommand, spawnArgs, {
       cwd: options?.cwd ?? databasePackageRoot,
       env: {
         ...process.env,
         ...options?.env
       },
-      shell: false,
-      stdio: "pipe"
+      stdio: "pipe",
+      windowsVerbatimArguments: requiresWindowsCmdWrapper
     });
 
     let output = "";

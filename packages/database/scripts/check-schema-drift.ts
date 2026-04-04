@@ -1,4 +1,4 @@
-import { getPrismaBinaryPath, runCommand } from "./lib/process.js";
+import { getPrismaCommand, runCommand } from "./lib/process.js";
 import { schemaPath } from "./lib/paths.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
@@ -24,8 +24,9 @@ async function main(): Promise<void> {
     return;
   }
 
-  const prismaBinary = getPrismaBinaryPath();
+  const prisma = getPrismaCommand();
   const args = [
+    ...prisma.args,
     "migrate",
     "diff",
     "--exit-code",
@@ -39,7 +40,7 @@ async function main(): Promise<void> {
     args.push("--shadow-database-url", process.env.SHADOW_DATABASE_URL);
   }
 
-  const result = await runCommand(prismaBinary, args);
+  const result = await runCommand(prisma.command, args);
   const ok = result.code === 0;
   const report = {
     checkedAt: new Date().toISOString(),

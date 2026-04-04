@@ -21,8 +21,8 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
   const [result, setResult] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [formValues, setFormValues] = useState({
-    email: "owner.alpha@birthub.local",
-    password: "password123",
+    email: "",
+    password: "",
     tenantId: ""
   });
 
@@ -126,7 +126,9 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
         <label style={{ display: "grid", gap: "0.35rem" }}>
           <span>Email</span>
           <input
+            autoComplete="username"
             onChange={(event) => setFormValues((current) => ({ ...current, email: event.target.value }))}
+            placeholder="voce@empresa.com"
             type="email"
             value={formValues.email}
           />
@@ -134,9 +136,11 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
         <label style={{ display: "grid", gap: "0.35rem" }}>
           <span>Senha</span>
           <input
+            autoComplete="current-password"
             onChange={(event) =>
               setFormValues((current) => ({ ...current, password: event.target.value }))
             }
+            placeholder="Sua senha"
             type="password"
             value={formValues.password}
           />
@@ -147,6 +151,7 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
             onChange={(event) =>
               setFormValues((current) => ({ ...current, tenantId: event.target.value }))
             }
+            placeholder="slug, tenantId ou organizationId"
             type="text"
             value={formValues.tenantId}
           />

@@ -13,24 +13,17 @@ import {
 } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 
+import {
+  hasExplicitDatabaseUrl,
+  isDatabaseUnavailableError
+} from "../../lib/database-availability.js";
+
 interface CatalogCache {
   entries: ManifestCatalogEntry[];
   loadedAt: number;
 }
 
 const CACHE_TTL_MS = 60_000;
-
-function canFallbackApprovalStats(error: unknown): boolean {
-  if (!(error instanceof Error)) {
-    return false;
-  }
-
-  return (
-    error.name === "PrismaClientInitializationError" ||
-    error.name === "PrismaClientRustPanicError" ||
-    /DATABASE_URL/i.test(error.message)
-  );
-}
 
 function resolveCatalogRoot(): string {
   const candidates = [
@@ -137,7 +130,7 @@ export class MarketplaceService {
       >();
     }
 
-    if (!process.env.DATABASE_URL) {
+    if (!hasExplicitDatabaseUrl()) {
       return new Map<
         string,
         {
@@ -162,7 +155,7 @@ export class MarketplaceService {
         }
       });
     } catch (error) {
-      if (canFallbackApprovalStats(error)) {
+      if (isDatabaseUnavailableError(error)) {
         return new Map<
           string,
           {

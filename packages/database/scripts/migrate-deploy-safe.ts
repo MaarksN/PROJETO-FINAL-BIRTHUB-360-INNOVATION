@@ -2,7 +2,7 @@ import type { PrismaClient } from "@prisma/client";
 
 import { F8_CONFIG } from "../f8.config.js";
 import { createPrismaClient } from "../src/client.js";
-import { runCommand, getPrismaBinaryPath } from "./lib/process.js";
+import { getPrismaCommand, runCommand } from "./lib/process.js";
 import { databasePackageRoot, schemaPath } from "./lib/paths.js";
 import { createLogger } from "@birthub/logger";
 
@@ -46,7 +46,9 @@ async function main(): Promise<void> {
     await runTsScript("check-migration-governance.ts");
     await acquireLock(prisma);
 
-    const migrateResult = await runCommand(getPrismaBinaryPath(), [
+    const prismaCli = getPrismaCommand();
+    const migrateResult = await runCommand(prismaCli.command, [
+      ...prismaCli.args,
       "migrate",
       "deploy",
       "--schema",

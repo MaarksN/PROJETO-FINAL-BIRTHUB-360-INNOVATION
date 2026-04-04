@@ -1,8 +1,7 @@
-import { prisma, runWithTenantContext } from "@birthub/database";
+import { runWithTenantContext } from "@birthub/database";
 import { updateLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
 
-import { cacheTenant, getCachedTenant } from "../common/cache/index.js";
 import { ProblemDetailsError } from "../lib/problem-details.js";
 import { resolveAuthorizedTenantContext } from "../modules/auth/auth.service.js";
 import { annotateTenantSpan } from "../tracing.js";
@@ -20,34 +19,6 @@ declare global {
     interface Request {
       tenantContext?: Readonly<BoundTenantContext>;
     }
-  }
-}
-
-async function findOrganization(tenantReference: string) {
-  if (!process.env.DATABASE_URL) {
-    return null;
-  }
-
-  try {
-    const cachedTenant = await getCachedTenant(tenantReference);
-
-    if (cachedTenant) {
-      return cachedTenant;
-    }
-
-    const organization = await prisma.organization.findFirst({
-      where: {
-        OR: [{ id: tenantReference }, { slug: tenantReference }, { tenantId: tenantReference }]
-      }
-    });
-
-    if (organization) {
-      await cacheTenant(organization);
-    }
-
-    return organization;
-  } catch {
-    return null;
   }
 }
 
@@ -100,14 +71,11 @@ async function resolveTenantFromRequest(request: Request): Promise<BoundTenantCo
     return null;
   }
 
-  const organization =
-    (await findOrganization(organizationId)) ?? (await findOrganization(tenantId));
-
   return {
     organizationId,
     source: "authenticated",
     tenantId,
-    tenantSlug: organization?.slug ?? request.context.tenantSlug ?? null,
+    tenantSlug: request.context.tenantSlug ?? null,
     userId
   };
 }

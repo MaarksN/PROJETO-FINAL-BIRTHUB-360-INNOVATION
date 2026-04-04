@@ -6,7 +6,7 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 
 ### Database CI bootstrap lane
 
-- adicionado `db:bootstrap:ci` em `@birthub/database` e no workspace root para materializar bancos efemeros de CI com `migrate deploy` seguido de `db push`
+- adicionado `db:bootstrap:ci` em `@birthub/database` e no workspace root para materializar bancos efemeros de CI com `migrate deploy`; o drift historico de indexes/defaults/FKs passou a ficar versionado em migration dedicada em vez de depender de `db push`
 - alinhados os jobs `platform`, `workflow-suite` e `security-guardrails` para usar bootstrap de schema compatível com testes, sem acoplar os runners ao checklist pós-migração de release
 
 ### Next.js package export alignment

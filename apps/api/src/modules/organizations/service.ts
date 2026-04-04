@@ -25,6 +25,23 @@ const bootstrapQuotas: Array<{ limit: number; resourceType: QuotaResourceType }>
   { limit: 2_500, resourceType: "EMAILS_SENT" }
 ];
 
+function buildCurrentQuotaWindow(referenceDate = new Date()): {
+  period: string;
+  resetAt: Date;
+} {
+  const periodStart = new Date(
+    Date.UTC(referenceDate.getUTCFullYear(), referenceDate.getUTCMonth(), 1)
+  );
+  const nextPeriodStart = new Date(
+    Date.UTC(referenceDate.getUTCFullYear(), referenceDate.getUTCMonth() + 1, 1)
+  );
+
+  return {
+    period: `MONTHLY-${periodStart.toISOString().slice(0, 7)}`,
+    resetAt: nextPeriodStart
+  };
+}
+
 function resolveOrganizationSlug(name: string, slug?: string): string {
   const source = (slug ?? name).trim().toLowerCase();
   const normalized = source
@@ -113,6 +130,7 @@ export async function createOrganization(input: {
     input.adminPassword,
     config.AUTH_BCRYPT_SALT_ROUNDS
   );
+  const quotaWindow = buildCurrentQuotaWindow();
   const primaryDomain = input.adminEmail.includes("@")
     ? input.adminEmail.split("@")[1] ?? null
     : null;
@@ -186,8 +204,8 @@ export async function createOrganization(input: {
           tx.quotaUsage.create({
             data: {
               limit: quota.limit,
-              period: "MONTHLY-2026-03",
-              resetAt: new Date("2026-04-01T00:00:00.000Z"),
+              period: quotaWindow.period,
+              resetAt: quotaWindow.resetAt,
               resourceType: quota.resourceType,
               tenantId: organization.tenantId
             }

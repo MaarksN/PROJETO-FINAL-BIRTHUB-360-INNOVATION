@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
 
-import { getPrismaBinaryPath, runCommand } from "./lib/process.js";
+import { getPrismaCommand, runCommand } from "./lib/process.js";
 import { databasePackageRoot, schemaPath } from "./lib/paths.js";
 import { createLogger } from "@birthub/logger";
 
@@ -23,8 +23,9 @@ async function main(): Promise<void> {
     );
   }
 
-  const prismaBinary = getPrismaBinaryPath();
-  const resetResult = await runCommand(prismaBinary, [
+  const prisma = getPrismaCommand();
+  const resetResult = await runCommand(prisma.command, [
+    ...prisma.args,
     "migrate",
     "reset",
     "--force",

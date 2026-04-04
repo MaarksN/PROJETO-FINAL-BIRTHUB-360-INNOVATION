@@ -22,8 +22,14 @@ type TableOptionRow = {
   reloptions: string[] | null;
 };
 
+function looksDisposableDatabase(url: string): boolean {
+  return /(localhost|127\.0\.0\.1|shadow|test|validation)/i.test(url);
+}
+
 async function main(): Promise<void> {
-  if (!process.env.DATABASE_URL) {
+  const databaseUrl = process.env.DATABASE_URL;
+
+  if (!databaseUrl) {
     const report = {
       checkedAt: new Date().toISOString(),
       ok: true,
@@ -42,12 +48,14 @@ async function main(): Promise<void> {
   }
 
   const prisma = createPrismaClient();
+  const disposableDatabase = looksDisposableDatabase(databaseUrl);
 
   try {
     let topSlowQueries: SlowQueryRow[] = [];
     let unusedIndexes: UnusedIndexRow[] = [];
     let tableOptions: TableOptionRow[] = [];
     const issues: string[] = [];
+    const observations: string[] = [];
 
     try {
       topSlowQueries = await prisma.$queryRawUnsafe<SlowQueryRow[]>(`
@@ -57,7 +65,8 @@ async function main(): Promise<void> {
         LIMIT 20
       `);
     } catch (error) {
-      issues.push(`pg_stat_statements unavailable: ${error instanceof Error ? error.message : String(error)}`);
+      const message = `pg_stat_statements unavailable: ${error instanceof Error ? error.message : String(error)}`;
+      (disposableDatabase ? observations : issues).push(message);
     }
 
     unusedIndexes = await prisma.$queryRawUnsafe<UnusedIndexRow[]>(`
@@ -84,12 +93,15 @@ async function main(): Promise<void> {
     }
 
     if (unusedIndexes.length > 0) {
-      issues.push(`Unused indexes detected: ${unusedIndexes.length}.`);
+      const message = `Unused indexes detected: ${unusedIndexes.length}.`;
+      (disposableDatabase ? observations : issues).push(message);
     }
 
     const report = {
       checkedAt: new Date().toISOString(),
+      disposableDatabase,
       issues,
+      observations,
       ok: issues.length === 0,
       topSlowQueries,
       unusedIndexes,
@@ -101,7 +113,8 @@ async function main(): Promise<void> {
       `Top slow queries collected: ${topSlowQueries.length}`,
       `Unused indexes: ${unusedIndexes.length}`,
       ...tableOptions.map((row) => `${row.relname}: ${(row.reloptions ?? []).join(",") || "default"}`),
-      ...(issues.length === 0 ? [] : ["", ...issues])
+      ...(observations.length === 0 ? [] : ["", "Observations:", ...observations]),
+      ...(issues.length === 0 ? [] : ["", "Issues:", ...issues])
     ].join("\n");
 
     const jsonPath = await writeJsonReport("f8/performance-report.json", report);

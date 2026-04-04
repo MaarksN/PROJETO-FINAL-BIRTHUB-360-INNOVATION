@@ -11,3 +11,4 @@ PASS 20260316000100_cycle10_connectors_handoffs :: risks=none :: findings=0
 PASS 20260317000100_cycle11_billing_webhook_audit :: risks=set_not_null,bulk_update :: findings=0
 PASS 20260322000100_cycle8_data_resilience_controls :: risks=none :: findings=0
 PASS 20260331000100_cycle12_rls_policy_alignment :: risks=none :: findings=0
+PASS 20260402000100_cycle12_ci_schema_alignment :: risks=none :: findings=0

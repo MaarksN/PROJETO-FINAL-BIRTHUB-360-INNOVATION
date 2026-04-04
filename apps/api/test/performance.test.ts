@@ -2,12 +2,11 @@ import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import test from "node:test";
 
-import { createPrismaClient } from "@birthub/database";
-
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("query com 10k registros de um tenant unico fica abaixo de 100ms", async () => {
+  const { createPrismaClient } = await import("@birthub/database");
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
