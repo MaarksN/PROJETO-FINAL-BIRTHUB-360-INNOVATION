@@ -31,13 +31,15 @@ function isDatabaseUnavailableError(error: unknown): boolean {
 export async function ensureDatabaseAvailableOrSkip(
   context: TestContext,
   client: ConnectivityProbeClient
-): Promise<void> {
+): Promise<boolean> {
+  // true => database reached; false => test skipped due to unavailable database.
   try {
     await client.$executeRawUnsafe("SELECT 1");
+    return true;
   } catch (error) {
     if (isDatabaseUnavailableError(error)) {
       context.skip("DATABASE_URL configurado, mas o banco não está acessível para este teste de integração.");
-      return;
+      return false;
     }
 
     throw error;
