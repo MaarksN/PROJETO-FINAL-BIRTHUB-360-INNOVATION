@@ -15,7 +15,7 @@
     "@birthub/logger": "workspace:*",
     "@birthub/workflows-core": "workspace:*",
     "@sentry/nextjs": "^10.45.0",
-    "isomorphic-dompurify": "^3.6.0",
+    "isomorphic-dompurify": "^3.7.1",
     "lucide-react": "^0.541.0",
     "next": "16.1.6",
     "react": "19.2.4",
