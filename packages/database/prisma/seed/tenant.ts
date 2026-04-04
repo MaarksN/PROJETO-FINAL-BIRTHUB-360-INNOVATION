@@ -2,7 +2,6 @@ import {
   AgentStatus,
   InviteStatus,
   MembershipStatus,
-  PrismaClient,
   QuotaResourceType,
   SessionStatus,
   SubscriptionStatus,
@@ -10,11 +9,12 @@ import {
 } from "@prisma/client";
 import { createHash } from "node:crypto";
 
+import { createPrismaClient } from "../../src/client.js";
 import { buildTenantWorkflows } from "./data.js";
 import type { SeededPlanMap, TenantSeed } from "./types.js";
 import { createWorkflowWithGraph } from "./workflows.js";
 
-const prisma = new PrismaClient();
+const prisma = createPrismaClient();
 
 export async function disconnectTenantClient(): Promise<void> {
   await prisma.$disconnect();

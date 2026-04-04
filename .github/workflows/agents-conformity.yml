@@ -1,35 +1,51 @@
-name: Agents Conformity (F1-F5)
+name: Agent Packs Conformity
 
 on:
   pull_request:
     paths:
-      - '.github/agents/**'
+      - 'packages/agent-packs/**'
+      - 'scripts/agent/**'
       - '.github/workflows/agents-conformity.yml'
   push:
     branches: [ main ]
     paths:
-      - '.github/agents/**'
+      - 'packages/agent-packs/**'
+      - 'scripts/agent/**'
       - '.github/workflows/agents-conformity.yml'
 
 jobs:
-  validate-agents:
-    runs-on: windows-latest
+  validate-agent-packs:
+    runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Validate F1-F5 conformity
-        shell: pwsh
-        run: |
-          & '.github/agents/scripts/validate_f1_f5.ps1' -RepoRoot (Get-Location).Path -FailOnIssues
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: '.nvmrc'
 
-      - name: Upload conformity reports
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.1.0
+
+      - name: Install dependencies
+        run: corepack pnpm install --frozen-lockfile
+
+      - name: Validate generated collection
+        run: corepack pnpm --filter @birthub/agent-packs validate
+
+      - name: Test generated collection
+        run: corepack pnpm --filter @birthub/agent-packs test
+
+      - name: Upload generated collection evidence
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: agents-conformity-report
-          path: |
-            .github/agents/RELATORIO_CONFORMIDADE_F1_F5.md
-            .github/agents/RELATORIO_CONFORMIDADE_F1_F5.json
+          name: agent-packs-readiness
+          path: packages/agent-packs/github-agents-v1/**/readiness.json

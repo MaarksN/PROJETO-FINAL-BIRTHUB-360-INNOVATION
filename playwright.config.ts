@@ -5,7 +5,7 @@ import { defineConfig } from "@playwright/test";
 
 const bundledPnpm = resolve(
   process.cwd(),
-  ".tools/node-v22.22.1-win-x64/node_modules/corepack/dist/pnpm.js"
+  ".tools/node-v24.14.0-win-x64/node_modules/corepack/dist/pnpm.js"
 );
 const globalCorepackPnpm = resolve(dirname(process.execPath), "node_modules/corepack/dist/pnpm.js");
 const pnpmCli = existsSync(bundledPnpm)

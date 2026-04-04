@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:1aeebb36-71b5-c2e9-7a18-b3f75d1c111a" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:42ff8d07-2f0a-4166-7011-7f8711dfcdea" version="1">
   <metadata>
     <timestamp>2026-03-30T12:11:09.458Z</timestamp>
     <tools>
@@ -146,6 +146,11 @@
       <version>1.58.2</version>
       <purl>pkg:npm/%40playwright%2Ftest@1.58.2</purl>
     </component>
+    <component type="library" bom-ref="pkg:npm/%40prisma%2Fadapter-pg@7.6.0">
+      <name>@prisma/adapter-pg</name>
+      <version>7.6.0</version>
+      <purl>pkg:npm/%40prisma%2Fadapter-pg@7.6.0</purl>
+    </component>
     <component type="library" bom-ref="pkg:npm/%40prisma%2Fclient@6.19.2">
       <name>@prisma/client</name>
       <version>6.19.2</version>
@@ -235,11 +240,6 @@
       <name>cors</name>
       <version>2.8.6</version>
       <purl>pkg:npm/cors@2.8.6</purl>
-    </component>
-    <component type="library" bom-ref="pkg:npm/dagre@0.8.5">
-      <name>dagre</name>
-      <version>0.8.5</version>
-      <purl>pkg:npm/dagre@0.8.5</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/eslint@10.0.3">
       <name>eslint</name>
@@ -356,10 +356,10 @@
       <version>3.8.1</version>
       <purl>pkg:npm/prettier@3.8.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/prisma@7.6.0">
+    <component type="library" bom-ref="pkg:npm/prisma@6.19.2">
       <name>prisma</name>
-      <version>7.6.0</version>
-      <purl>pkg:npm/prisma@7.6.0</purl>
+      <version>6.19.2</version>
+      <purl>pkg:npm/prisma@6.19.2</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/rate-limit-redis@4.3.1">
       <name>rate-limit-redis</name>

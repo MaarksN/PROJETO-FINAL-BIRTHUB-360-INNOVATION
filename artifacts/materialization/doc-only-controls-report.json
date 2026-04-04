@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-25T19:45:10.553Z",
+  "generatedAt": "2026-04-01T02:34:05.336Z",
   "checks": {
     "codeowners-present": {
       "status": "pass"
@@ -19,12 +19,15 @@
       "status": "pass",
       "hasDevelopBranchProtection": true,
       "hasMainBranchProtection": true,
+      "missingStatusChecksByBranch": {
+        "develop": [],
+        "main": []
+      },
       "missingStatusChecks": []
     },
     "setup-node-version-pinned": {
       "status": "pass",
       "setupNodeLines": [
-        "v6",
         "v6",
         "v6",
         "v6",
@@ -36,7 +39,6 @@
     "setup-python-version-pinned": {
       "status": "pass",
       "setupPythonLines": [
-        "v6",
         "v6",
         "v6",
         "v6"
@@ -60,15 +62,6 @@
     },
     "pr-template-merge-markers": {
       "status": "pass"
-    },
-    "agent-naming-conflict-pos-venda": {
-      "status": "pass",
-      "hasCompatibilityShim": true,
-      "hasDualDirs": true,
-      "legacyAliasFiles": [
-        "agents/pos-venda/main.py"
-      ],
-      "mode": "compatibility-shim-enforced"
     },
     "legacy-db-imports-quarantined": {
       "status": "pass",

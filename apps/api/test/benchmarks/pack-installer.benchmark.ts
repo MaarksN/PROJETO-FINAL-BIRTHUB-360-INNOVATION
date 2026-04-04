@@ -1,9 +1,9 @@
 import { performance } from "node:perf_hooks";
-import { PrismaClient } from "@birthub/database";
+import { createPrismaClient } from "@birthub/database";
 import { PackInstallerService } from "../../src/modules/packs/pack-installer.service.js";
 
 async function runBenchmark() {
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient();
   const service = new PackInstallerService();
   const tenantId = `bench-${Date.now()}`;
   const packId = "test-pack";

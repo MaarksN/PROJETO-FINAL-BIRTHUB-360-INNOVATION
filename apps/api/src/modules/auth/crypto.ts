@@ -10,6 +10,7 @@ import {
 import { promisify } from "node:util";
 
 const scrypt = promisify(scryptCallback);
+const AES_GCM_AUTH_TAG_LENGTH = 16;
 const SCRYPT_KEY_BYTES = 64;
 const ACCESS_TOKEN_ISSUER = "birthub360-api";
 
@@ -168,6 +169,28 @@ function decodeBase64UrlJson(value: string): unknown {
   return JSON.parse(Buffer.from(value, "base64url").toString("utf8"));
 }
 
+function isValidAccessTokenPayload(
+  payload: Partial<AccessTokenClaims>,
+  now: number
+): payload is AccessTokenClaims {
+  if (
+    payload.typ !== "access" ||
+    payload.iss !== ACCESS_TOKEN_ISSUER ||
+    typeof payload.exp !== "number" ||
+    payload.exp <= now ||
+    typeof payload.iat !== "number" ||
+    typeof payload.jti !== "string" ||
+    typeof payload.organizationId !== "string" ||
+    typeof payload.sessionId !== "string" ||
+    typeof payload.tenantId !== "string" ||
+    typeof payload.userId !== "string"
+  ) {
+    return false;
+  }
+
+  return payload.role === null || payload.role === undefined || typeof payload.role === "string";
+}
+
 export function createAccessToken(input: {
   organizationId: string;
   role?: string | null;
@@ -211,28 +234,6 @@ function isValidJwtHeader(value: unknown): value is { alg: "HS256"; typ: "JWT" }
   return candidate.alg === "HS256" && candidate.typ === "JWT";
 }
 
-function hasValidAccessTokenClaims(
-  payload: Partial<AccessTokenClaims>,
-  now: number
-): payload is AccessTokenClaims {
-  if (
-    payload.typ !== "access" ||
-    payload.iss !== ACCESS_TOKEN_ISSUER ||
-    typeof payload.exp !== "number" ||
-    payload.exp <= now ||
-    typeof payload.iat !== "number" ||
-    typeof payload.jti !== "string" ||
-    typeof payload.organizationId !== "string" ||
-    typeof payload.sessionId !== "string" ||
-    typeof payload.tenantId !== "string" ||
-    typeof payload.userId !== "string"
-  ) {
-    return false;
-  }
-
-  return payload.role === null || payload.role === undefined || typeof payload.role === "string";
-}
-
 export function verifyAccessToken(
   token: string,
   secret: string
@@ -269,7 +270,7 @@ export function verifyAccessToken(
       return null;
     }
 
-    if (!hasValidAccessTokenClaims(payload, now)) {
+    if (!isValidAccessTokenPayload(payload, now)) {
       return null;
     }
 
@@ -320,7 +321,9 @@ function encryptionKey(secret: string): Buffer {
 
 export function encryptSensitiveValue(value: string, secret: string): string {
   const iv = randomBytes(12);
-  const cipher = createCipheriv("aes-256-gcm", encryptionKey(secret), iv);
+  const cipher = createCipheriv("aes-256-gcm", encryptionKey(secret), iv, {
+    authTagLength: AES_GCM_AUTH_TAG_LENGTH
+  });
   const encrypted = Buffer.concat([cipher.update(value, "utf8"), cipher.final()]);
   const authTag = cipher.getAuthTag();
 
@@ -337,7 +340,10 @@ export function decryptSensitiveValue(payload: string, secret: string): string {
   const decipher = createDecipheriv(
     "aes-256-gcm",
     encryptionKey(secret),
-    Buffer.from(ivPart, "base64url")
+    Buffer.from(ivPart, "base64url"),
+    {
+      authTagLength: AES_GCM_AUTH_TAG_LENGTH
+    }
   );
   decipher.setAuthTag(Buffer.from(authTagPart, "base64url"));
 

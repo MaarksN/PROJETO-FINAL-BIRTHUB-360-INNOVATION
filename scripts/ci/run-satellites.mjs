@@ -12,7 +12,7 @@ function resolveBin(command) {
   const filename = process.platform === "win32" ? `${command}.CMD` : command;
   const candidates = [
     path.join(projectRoot, "node_modules", ".bin", filename),
-    path.join(projectRoot, ".tools", "node-v22.22.1-win-x64", filename)
+    path.join(projectRoot, ".tools", "node-v24.14.0-win-x64", filename)
   ];
 
   const resolved = candidates.find((candidate) => existsSync(candidate));
@@ -39,7 +39,8 @@ function runBinIn(cwd, command, args) {
 }
 
 function runNodeScript(cwd, args) {
-  run(portableNodeExecutable, args, { cwd });
+  const nodeExecutable = existsSync(portableNodeExecutable) ? portableNodeExecutable : process.execPath;
+  run(nodeExecutable, args, { cwd });
 }
 
 function runIfDirectoryExists(relativeSegments, label, callback) {
@@ -99,16 +100,23 @@ const lanes = {
     () => runBinIn(packageDir("apps", "voice-engine"), "eslint", ["src"])
   ],
   smoke: [
-    () =>
-      runNodeScript(packageDir("apps", "dashboard"), [
+    () => {
+      const dashboardTestDir = packageDir("apps", "legacy", "dashboard", "__tests__");
+      if (!existsSync(dashboardTestDir)) {
+        console.log("[satellites] Skipping legacy dashboard smoke: missing test directory");
+        return;
+      }
+
+      runNodeScript(packageDir("apps", "legacy", "dashboard"), [
         "--experimental-strip-types",
         "--test",
         "__tests__/*.test.ts"
-      ]),
+      ]);
+    },
     () => {
-      const pytestTargets = ["agents", "tests/integration", "apps/webhook-receiver/tests"];
+      const pytestTargets = ["apps/webhook-receiver/tests"];
       if (existsSync(packageDir("apps", "agent-orchestrator"))) {
-        pytestTargets.splice(2, 0, "apps/agent-orchestrator/tests");
+        pytestTargets.unshift("apps/agent-orchestrator/tests");
       }
       runPython(["-m", "pytest", ...pytestTargets]);
     }

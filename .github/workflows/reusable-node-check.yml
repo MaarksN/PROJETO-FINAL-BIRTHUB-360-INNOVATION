@@ -43,5 +43,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright browsers
+        if: contains(inputs.command, 'test:e2e')
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Prisma diagnostics
+        run: |
+          node -e "const pkg=require('./packages/database/package.json'); console.log('prisma(dev):', pkg.devDependencies?.prisma ?? 'missing'); console.log('@prisma/client(dep):', pkg.dependencies?.['@prisma/client'] ?? 'missing');"
+          pnpm ls @prisma/client
+          pnpm ls prisma
+          cat packages/database/prisma/schema.prisma | grep -A 5 datasource || true
+          sha256sum packages/database/prisma/schema.prisma || true
+
       - name: Run command
         run: ${{ inputs.command }}

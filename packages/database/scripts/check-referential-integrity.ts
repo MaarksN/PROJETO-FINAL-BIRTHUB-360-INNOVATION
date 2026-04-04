@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
+import { createPrismaClient } from "../src/client.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
 
@@ -29,7 +28,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient();
 
   try {
     const invalidConstraints = await prisma.$queryRawUnsafe<ConstraintRow[]>(`

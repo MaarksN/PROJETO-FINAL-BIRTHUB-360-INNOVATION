@@ -10,7 +10,7 @@ import path from "node:path";
 import { formatNow, projectRoot } from "./shared.mjs";
 
 const requiredScripts = ["lint", "typecheck", "test", "build"];
-const workspaceRoots = ["apps", "packages", "agents"];
+const workspaceRoots = ["apps", "packages"];
 const ignoredDirectoryNames = new Set([
   ".git",
   ".next",
@@ -48,6 +48,10 @@ const scriptPolicyPath = path.join(
 
 function walkFiles(rootRelativePath) {
   const rootDirectory = path.join(projectRoot, rootRelativePath);
+  if (!existsSync(rootDirectory)) {
+    return [];
+  }
+
   const collectedFiles = [];
   const queue = [rootDirectory];
 

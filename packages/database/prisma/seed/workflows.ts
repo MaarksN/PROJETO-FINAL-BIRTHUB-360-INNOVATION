@@ -1,13 +1,13 @@
 import {
   Prisma,
-  PrismaClient,
   WorkflowExecutionStatus,
   WorkflowStatus
 } from "@prisma/client";
 
+import { createPrismaClient } from "../../src/client.js";
 import type { SeedWorkflowDefinition } from "./types.js";
 
-const prisma = new PrismaClient();
+const prisma = createPrismaClient();
 
 export async function disconnectWorkflowClient(): Promise<void> {
   await prisma.$disconnect();

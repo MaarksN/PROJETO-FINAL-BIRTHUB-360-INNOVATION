@@ -27,6 +27,12 @@ const allowedDependencyLicenses = new Set([
 const dependencyApprovalRegister = "docs/processes/dependency-approval-register.md";
 const internalChangelogPath = "docs/release/internal-packages-changelog.md";
 const allowedLegacyFiles = new Set(["agents/pos-venda/main.py"]);
+const auditedArtifactLogBundles = [
+  {
+    evidenceIndexPath: "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
+    logsDirectory: "artifacts/f11-closure-2026-03-22/logs/"
+  }
+];
 
 function gitCapture(args, allowFailure = false) {
   try {
@@ -406,9 +412,29 @@ function checkCyclomaticComplexity(candidateFiles) {
 function checkTrackedArtifacts(trackedFiles) {
   const issues = [];
   const forbiddenArtifactExtensions = [".bak", ".dump", ".env", ".log", ".sqlite", ".swp", ".tmp"];
+  const trackedFileSet = new Set(trackedFiles);
+
+  function isAllowedAuditedArtifactLog(relativePath) {
+    for (const bundle of auditedArtifactLogBundles) {
+      if (!relativePath.startsWith(bundle.logsDirectory) || !trackedFileSet.has(bundle.evidenceIndexPath)) {
+        continue;
+      }
+
+      const checksumCandidates = [(`${relativePath}.sha256`), relativePath.replace(/\.log$/u, ".sha256")];
+      if (checksumCandidates.some((candidate) => trackedFileSet.has(candidate))) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   for (const relativePath of trackedFiles.filter((file) => file.startsWith("artifacts/"))) {
     const lowerCasePath = relativePath.toLowerCase();
+
+    if (lowerCasePath.endsWith(".log") && isAllowedAuditedArtifactLog(relativePath)) {
+      continue;
+    }
 
     if (forbiddenArtifactExtensions.some((extension) => lowerCasePath.endsWith(extension))) {
       issues.push(`${relativePath} must not be versioned inside artifacts/.`);

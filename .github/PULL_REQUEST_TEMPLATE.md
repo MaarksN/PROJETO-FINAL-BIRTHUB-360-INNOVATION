@@ -6,6 +6,18 @@ Descreva objetivamente o que mudou, qual risco foi tratado e qual evidência de 
 
 Preencha esta seção somente se o PR ultrapassar 500 linhas alteradas ou concentrar mudanças estruturalmente acopladas. Explique o motivo do lote, o plano de revisão e o rollback.
 
+## Linked issue(s)
+
+- Closes #
+
+## What was updated
+
+- [ ] Documentation
+- [ ] Backend (API / services)
+- [ ] Frontend (dashboard / UI)
+- [ ] Infra / CI
+- [ ] Tests
+
 ## Checklist de Qualidade de Pull Request
 
 - [ ] ADR ou documentação de arquitetura associada atualizada (se aplicável).

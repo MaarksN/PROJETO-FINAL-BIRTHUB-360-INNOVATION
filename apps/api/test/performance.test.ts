@@ -2,15 +2,13 @@ import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import test from "node:test";
 
-import { PrismaClient } from "@birthub/database";
+import { createPrismaClient } from "@birthub/database";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("query com 10k registros de um tenant unico fica abaixo de 100ms", async () => {
-  const previousDatabaseUrl = process.env.DATABASE_URL;
-  process.env.DATABASE_URL = databaseUrl;
-  const prisma = new PrismaClient();
+  const prisma = createPrismaClient({ databaseUrl });
 
   try {
     const organization = await prisma.organization.create({
@@ -46,10 +44,5 @@ void testIfDatabase("query com 10k registros de um tenant unico fica abaixo de 1
     assert.ok(durationMs < 100, `Expected query to finish under 100ms, received ${durationMs}ms`);
   } finally {
     await prisma.$disconnect();
-    if (previousDatabaseUrl === undefined) {
-      delete process.env.DATABASE_URL;
-    } else {
-      process.env.DATABASE_URL = previousDatabaseUrl;
-    }
   }
 });

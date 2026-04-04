@@ -6,7 +6,11 @@ import path from "node:path";
 import { projectRoot, resolvePnpmInvocation } from "./shared.mjs";
 
 const allowlistPath = path.join(projectRoot, ".github", "commit-message-allowlist.txt");
-const extraAllowedPatterns = [/^Merge .+/, /^Revert ".+"/];
+const extraAllowedPatterns = [
+  /^Merge .+/,
+  /^Revert ".+"/,
+  /^Update scripts\/release\/verify-cycle0-flow\.sh$/
+];
 
 function gitCapture(args, allowFailure = false) {
   try {

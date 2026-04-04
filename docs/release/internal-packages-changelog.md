@@ -2,6 +2,18 @@
 
 Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json` ou `agents/*/package.json` for alterado.
 
+## 2026-03-31
+
+### Database CI bootstrap lane
+
+- adicionado `db:bootstrap:ci` em `@birthub/database` e no workspace root para materializar bancos efemeros de CI com `migrate deploy` seguido de `db push`
+- alinhados os jobs `platform`, `workflow-suite` e `security-guardrails` para usar bootstrap de schema compatível com testes, sem acoplar os runners ao checklist pós-migração de release
+
+### Next.js package export alignment
+
+- adicionados subpaths `./nextjs` em `@birthub/config`, `@birthub/logger` e `@birthub/workflows-core` para estabilizar a resolucao do web app no Turbopack/Next durante CI e E2E
+- alinhado o bootstrap do pipeline para reinstalar o lockfile e manter os exports internos consistentes entre build local e GitHub Actions
+
 ## 2026-03-22
 
 ### Repository hygiene baseline (F9)

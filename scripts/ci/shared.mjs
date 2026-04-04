@@ -7,18 +7,29 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const WINDOWS_COMMAND_EXTENSIONS = [".cmd", ".exe", ".bat"];
 
 export const projectRoot = path.resolve(__dirname, "../..");
-export const portableNodeHome = path.join(projectRoot, ".tools", "node-v22.22.1-win-x64");
+export const portableNodeHome = path.join(projectRoot, ".tools", "node-v24.14.0-win-x64");
 export const portableCorepackHome = path.join(projectRoot, ".tools", "corepack-home");
-export const portableNodeExecutable = path.join(
+const preferredPortableNodeExecutable = path.join(
   portableNodeHome,
   process.platform === "win32" ? "node.exe" : "node"
 );
+export const portableNodeExecutable = existsSync(preferredPortableNodeExecutable)
+  ? preferredPortableNodeExecutable
+  : process.execPath;
 export const portablePnpmCli = path.join(
   portableNodeHome,
   "node_modules",
   "corepack",
   "dist",
   "pnpm.js"
+);
+const portableCorepackPnpmDist = path.join(
+  portableCorepackHome,
+  "v1",
+  "pnpm",
+  "9.1.0",
+  "dist",
+  "pnpm.cjs"
 );
 
 function uniquePathEntries(entries) {
@@ -104,7 +115,9 @@ function resolvePortablePythonEntries() {
 }
 
 export function buildEnv(overrides = {}) {
+  const workspaceBin = path.join(projectRoot, "node_modules", ".bin");
   const pathEntries = uniquePathEntries([
+    workspaceBin,
     portableNodeHome,
     ...resolveCommonWindowsToolEntries(),
     ...resolvePortablePythonEntries(),
@@ -112,12 +125,43 @@ export function buildEnv(overrides = {}) {
     process.env.PATH,
   ]);
 
-  return {
+  const resolvedCorepackHome = (() => {
+    const overrideCorepackHome = overrides.COREPACK_HOME;
+    if (typeof overrideCorepackHome === "string" && overrideCorepackHome.trim().length > 0) {
+      return overrideCorepackHome;
+    }
+
+    const envCorepackHome = process.env.COREPACK_HOME;
+    if (typeof envCorepackHome === "string" && envCorepackHome.trim().length > 0) {
+      return envCorepackHome;
+    }
+
+    if (process.platform === "win32" && existsSync(portableCorepackPnpmDist)) {
+      return portableCorepackHome;
+    }
+
+    return null;
+  })();
+
+  const env = {
     ...process.env,
-    ...overrides,
-    COREPACK_HOME: overrides.COREPACK_HOME ?? process.env.COREPACK_HOME ?? portableCorepackHome,
-    PATH: pathEntries.join(path.delimiter)
+    ...overrides
   };
+
+  if (resolvedCorepackHome) {
+    env.COREPACK_HOME = resolvedCorepackHome;
+  } else {
+    delete env.COREPACK_HOME;
+  }
+
+  if ("Path" in env) delete env.Path;
+  if ("path" in env) delete env.path;
+
+  env.PATH = pathEntries.join(path.delimiter);
+  if (process.platform === "win32") {
+    env.Path = env.PATH;
+  }
+  return env;
 }
 
 function findCommandInPath(command, env = process.env) {
@@ -235,23 +279,27 @@ export function runCapture(command, args, options = {}) {
 
 export function runPnpm(args, options = {}) {
   const invocation = resolvePnpmInvocation();
+  const envOverrides = {
+    ...invocation.env,
+    ...(options.env ?? {})
+  };
+
   return run(invocation.command, [...invocation.argsPrefix, ...args], {
     ...options,
-    env: {
-      ...invocation.env,
-      ...(options.env ?? {})
-    }
+    env: envOverrides
   });
 }
 
 export function capturePnpm(args, options = {}) {
   const invocation = resolvePnpmInvocation();
+  const envOverrides = {
+    ...invocation.env,
+    ...(options.env ?? {})
+  };
+
   return runCapture(invocation.command, [...invocation.argsPrefix, ...args], {
     ...options,
-    env: {
-      ...invocation.env,
-      ...(options.env ?? {})
-    }
+    env: envOverrides
   });
 }
 

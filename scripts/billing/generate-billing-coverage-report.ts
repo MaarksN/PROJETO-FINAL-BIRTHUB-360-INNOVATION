@@ -28,10 +28,14 @@ const checks: CoverageCheck[] = [
     patterns: [/exportDailyBillingInvoices/, /uploadJson/, /resolveBillingExportWindow/]
   },
   {
-    file: "apps/api/src/modules/webhooks/stripe.router.ts",
+    file: "apps/api/src/modules/billing/service.reconciliation.handlers.ts",
     id: "7.9.C3",
-    label: "Downgrade/proration cria credito idempotente",
-    patterns: [/createDowngradeProrationCredit/, /DOWNGRADE_PRORATION/, /customer\.subscription\.updated/]
+    label: "Downgrade/proration cria credito idempotente no handler canônico de reconciliacao",
+    patterns: [
+      /createDowngradeProrationCredit/,
+      /customer\.subscription\.updated/,
+      /resolveProrationCreditCents/
+    ]
   },
   {
     file: "apps/api/tests/billing.proration-credit.test.ts",

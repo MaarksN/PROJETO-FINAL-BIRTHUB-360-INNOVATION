@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
+    "incremental": false,
     "plugins": [
       {
         "name": "next"

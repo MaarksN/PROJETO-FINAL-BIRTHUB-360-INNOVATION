@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $nodeBootstrap = Join-Path $PSScriptRoot "install-node-portable.ps1"
-$portableNodeHome = Join-Path $repoRoot ".tools\node-v22.22.1-win-x64"
+$portableNodeHome = Join-Path $repoRoot ".tools\node-v24.14.0-win-x64"
 $portableNodeExe = Join-Path $portableNodeHome "node.exe"
 $corepackHome = Join-Path $repoRoot ".tools\corepack-home"
 
