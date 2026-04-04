@@ -13,12 +13,20 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
-    await ensureDatabaseAvailableOrSkip(context, prisma);
-    const [{ bypass }] = await prisma.$queryRaw<Array<{ bypass: boolean }>>`
+    const databaseAvailable = await ensureDatabaseAvailableOrSkip(context, prisma);
+    if (!databaseAvailable) {
+      return;
+    }
+    const roleRows = await prisma.$queryRaw<Array<{ bypass: boolean }>>`
       SELECT (r.rolsuper OR r.rolbypassrls) AS "bypass"
       FROM pg_roles r
       WHERE r.rolname = current_user
     `;
+    if (roleRows.length === 0) {
+      context.skip("Não foi possível determinar flags de RLS da role atual (pg_roles vazio para current_user).");
+      return;
+    }
+    const bypass = roleRows[0]?.bypass ?? false;
 
     if (bypass) {
       context.skip("A role atual ignora RLS (superuser/BYPASSRLS), impossibilitando validar isolamento por tenant.");

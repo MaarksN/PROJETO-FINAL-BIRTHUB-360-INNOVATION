@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 type CoverageCheck = {
@@ -78,7 +78,6 @@ const summary = {
   results,
   threshold
 };
-const jsonPath = resolve(root, "test-results/billing-coverage.json");
 const markdownPath = resolve(root, "docs/evidence/billing-coverage.md");
 const markdown = `# Billing Coverage Report
 
@@ -91,11 +90,8 @@ ${results
   .join("\n")}
 `;
 
-mkdirSync(dirname(jsonPath), { recursive: true });
 mkdirSync(dirname(markdownPath), { recursive: true });
-writeFileSync(jsonPath, JSON.stringify(summary, null, 2));
 writeFileSync(markdownPath, markdown, "utf8");
-rmSync(jsonPath, { force: true });
 
 if (coveragePercent < threshold) {
   throw new Error(
