@@ -6496,4171 +6496,4171 @@ Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item 
 Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0516 "O inventario de segredos de release existe em `releases/manifests/` e em `ops/`, indicando duplicidade potencial de manutencao." e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0517 — [ ] `artifacts/security/semgrep-f0-exit-code.txt` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-exit-code-txt)
+### IMP-0517 — [ ] `artifacts/security/semgrep-f0-exit-code.txt` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-exit-code-txt)
 - **Ordem de exportação:** 722
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0517 "[ ] `artifacts/security/semgrep-f0-exit-code.txt` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-exit-code-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0517 "[ ] `artifacts/security/semgrep-f0-exit-code.txt` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-exit-code-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0518 — [ ] `artifacts/security/semgrep-f0-initial.json` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-initial-json)
+### IMP-0518 — [ ] `artifacts/security/semgrep-f0-initial.json` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-initial-json)
 - **Ordem de exportação:** 723
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0518 "[ ] `artifacts/security/semgrep-f0-initial.json` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-initial-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0518 "[ ] `artifacts/security/semgrep-f0-initial.json` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `security evidence artifact` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-semgrep-f0-initial-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0519 — [ ] `docs/execution/f0-freeze-communication-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f0-freeze-communication-2026-03-22-md)
+### IMP-0519 — [ ] `docs/execution/f0-freeze-communication-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f0-freeze-communication-2026-03-22-md)
 - **Ordem de exportação:** 724
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0519 "[ ] `docs/execution/f0-freeze-communication-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f0-freeze-communication-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0519 "[ ] `docs/execution/f0-freeze-communication-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f0-freeze-communication-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0520 — [ ] `docs/execution/f0-no-blockers-gate-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f0-no-blockers-gate-2026-03-22-md)
+### IMP-0520 — [ ] `docs/execution/f0-no-blockers-gate-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f0-no-blockers-gate-2026-03-22-md)
 - **Ordem de exportação:** 725
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0520 "[ ] `docs/execution/f0-no-blockers-gate-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f0-no-blockers-gate-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0520 "[ ] `docs/execution/f0-no-blockers-gate-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f0-no-blockers-gate-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0521 — [ ] `docs/operations/f0-evidence-freshness-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-evidence-freshness-policy-md)
+### IMP-0521 — [ ] `docs/operations/f0-evidence-freshness-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-evidence-freshness-policy-md)
 - **Ordem de exportação:** 726
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0521 "[ ] `docs/operations/f0-evidence-freshness-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-evidence-freshness-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0521 "[ ] `docs/operations/f0-evidence-freshness-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-evidence-freshness-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0522 — [ ] `docs/operations/f0-ownership-matrix.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `traceability matrix` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-ownership-matrix-md)
+### IMP-0522 — [ ] `docs/operations/f0-ownership-matrix.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `traceability matrix` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-ownership-matrix-md)
 - **Ordem de exportação:** 727
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0522 "[ ] `docs/operations/f0-ownership-matrix.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `traceability matrix` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-ownership-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0522 "[ ] `docs/operations/f0-ownership-matrix.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `traceability matrix` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-ownership-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0523 — [ ] `docs/operations/f0-sla-adherence-baseline-90d.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-adherence-baseline-90d-md)
+### IMP-0523 — [ ] `docs/operations/f0-sla-adherence-baseline-90d.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-adherence-baseline-90d-md)
 - **Ordem de exportação:** 728
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0523 "[ ] `docs/operations/f0-sla-adherence-baseline-90d.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-adherence-baseline-90d-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0523 "[ ] `docs/operations/f0-sla-adherence-baseline-90d.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-adherence-baseline-90d-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0524 — [ ] `docs/operations/f0-sla-severity-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-severity-policy-md)
+### IMP-0524 — [ ] `docs/operations/f0-sla-severity-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-severity-policy-md)
 - **Ordem de exportação:** 729
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0524 "[ ] `docs/operations/f0-sla-severity-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-severity-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0524 "[ ] `docs/operations/f0-sla-severity-policy.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-f0-sla-severity-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0525 — [ ] `docs/security/f0-owasp-top10-baseline.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-f0-owasp-top10-baseline-md)
+### IMP-0525 — [ ] `docs/security/f0-owasp-top10-baseline.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-f0-owasp-top10-baseline-md)
 - **Ordem de exportação:** 730
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0525 "[ ] `docs/security/f0-owasp-top10-baseline.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-f0-owasp-top10-baseline-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0525 "[ ] `docs/security/f0-owasp-top10-baseline.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-f0-owasp-top10-baseline-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0526 — [ ] `docs/F0/sla.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f0-sla-md)
+### IMP-0526 — [ ] `docs/F0/sla.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f0-sla-md)
 - **Ordem de exportação:** 731
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0526 "[ ] `docs/F0/sla.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f0-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0526 "[ ] `docs/F0/sla.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f0-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0527 — [ ] `scripts/f0/generate-governance-baseline.mjs` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-f0-generate-governance-baseline-mjs)
+### IMP-0527 — [ ] `scripts/f0/generate-governance-baseline.mjs` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-f0-generate-governance-baseline-mjs)
 - **Ordem de exportação:** 732
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0527 "[ ] `scripts/f0/generate-governance-baseline.mjs` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-f0-generate-governance-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0527 "[ ] `scripts/f0/generate-governance-baseline.mjs` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-f0-generate-governance-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0528 — [ ] `docs/F0/ownership.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f0-ownership-md)
+### IMP-0528 — [ ] `docs/F0/ownership.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f0-ownership-md)
 - **Ordem de exportação:** 733
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0528 "[ ] `docs/F0/ownership.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f0-ownership-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0528 "[ ] `docs/F0/ownership.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F0` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f0-ownership-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0529 — [ ] `docs/execution/f1-kickoff-2026-03-25.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f1-kickoff-2026-03-25-md)
+### IMP-0529 — [ ] `docs/execution/f1-kickoff-2026-03-25.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f1-kickoff-2026-03-25-md)
 - **Ordem de exportação:** 734
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0529 "[ ] `docs/execution/f1-kickoff-2026-03-25.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f1-kickoff-2026-03-25-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0529 "[ ] `docs/execution/f1-kickoff-2026-03-25.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f1-kickoff-2026-03-25-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0530 — [ ] `docs/execution/f1-pipeline-stabilization-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-20-md)
+### IMP-0530 — [ ] `docs/execution/f1-pipeline-stabilization-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-20-md)
 - **Ordem de exportação:** 735
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0530 "[ ] `docs/execution/f1-pipeline-stabilization-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-20-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0530 "[ ] `docs/execution/f1-pipeline-stabilization-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-20-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0531 — [ ] `docs/execution/f1-pipeline-stabilization-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-21-md)
+### IMP-0531 — [ ] `docs/execution/f1-pipeline-stabilization-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-21-md)
 - **Ordem de exportação:** 736
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0531 "[ ] `docs/execution/f1-pipeline-stabilization-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0531 "[ ] `docs/execution/f1-pipeline-stabilization-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f1-pipeline-stabilization-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0532 — [ ] `.github/workflows/agents-conformity.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-agents-conformity-yml)
+### IMP-0532 — [ ] `.github/workflows/agents-conformity.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-agents-conformity-yml)
 - **Ordem de exportação:** 737
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0532 "[ ] `.github/workflows/agents-conformity.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-agents-conformity-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0532 "[ ] `.github/workflows/agents-conformity.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-agents-conformity-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0533 — [ ] `.github/prompts/revisar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#github-prompts-revisar-agente-prompt-md)
+### IMP-0533 — [ ] `.github/prompts/revisar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-prompts-revisar-agente-prompt-md)
 - **Ordem de exportação:** 738
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0533 "[ ] `.github/prompts/revisar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#github-prompts-revisar-agente-prompt-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0533 "[ ] `.github/prompts/revisar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-prompts-revisar-agente-prompt-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0534 — [ ] `.github/skills/create-agent/references/checklist-validacao.md` | `Instructional Artifacts (prompts)` | `checklist` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-checklist-validacao-md)
+### IMP-0534 — [ ] `.github/skills/create-agent/references/checklist-validacao.md` | `Instructional Artifacts (prompts)` | `checklist` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-checklist-validacao-md)
 - **Ordem de exportação:** 739
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0534 "[ ] `.github/skills/create-agent/references/checklist-validacao.md` | `Instructional Artifacts (prompts)` | `checklist` | `Primario` | `Existe` | `F1` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-checklist-validacao-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0534 "[ ] `.github/skills/create-agent/references/checklist-validacao.md` | `Instructional Artifacts (prompts)` | `checklist` | `Primario` | `Existe` | `F1` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-checklist-validacao-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0535 — [ ] `docs/execution/f2-legacy-quarantine-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-20-md)
+### IMP-0535 — [ ] `docs/execution/f2-legacy-quarantine-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-20-md)
 - **Ordem de exportação:** 740
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0535 "[ ] `docs/execution/f2-legacy-quarantine-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-20-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0535 "[ ] `docs/execution/f2-legacy-quarantine-2026-03-20.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-20-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0536 — [ ] `docs/execution/f2-legacy-quarantine-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-21-md)
+### IMP-0536 — [ ] `docs/execution/f2-legacy-quarantine-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-21-md)
 - **Ordem de exportação:** 741
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0536 "[ ] `docs/execution/f2-legacy-quarantine-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0536 "[ ] `docs/execution/f2-legacy-quarantine-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F2` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f2-legacy-quarantine-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0537 — [ ] `docs/evidence/f3-hotspots-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-f3-hotspots-2026-03-22-md)
+### IMP-0537 — [ ] `docs/evidence/f3-hotspots-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-f3-hotspots-2026-03-22-md)
 - **Ordem de exportação:** 742
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0537 "[ ] `docs/evidence/f3-hotspots-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-f3-hotspots-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0537 "[ ] `docs/evidence/f3-hotspots-2026-03-22.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-f3-hotspots-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0538 — [ ] `docs/execution/f3-auth-split-session-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f3-auth-split-session-2026-03-21-md)
+### IMP-0538 — [ ] `docs/execution/f3-auth-split-session-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f3-auth-split-session-2026-03-21-md)
 - **Ordem de exportação:** 743
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0538 "[ ] `docs/execution/f3-auth-split-session-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f3-auth-split-session-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0538 "[ ] `docs/execution/f3-auth-split-session-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f3-auth-split-session-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0539 — [ ] `docs/execution/f3-hotspots-kickoff-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f3-hotspots-kickoff-2026-03-21-md)
+### IMP-0539 — [ ] `docs/execution/f3-hotspots-kickoff-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f3-hotspots-kickoff-2026-03-21-md)
 - **Ordem de exportação:** 744
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0539 "[ ] `docs/execution/f3-hotspots-kickoff-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-f3-hotspots-kickoff-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0539 "[ ] `docs/execution/f3-hotspots-kickoff-2026-03-21.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-f3-hotspots-kickoff-2026-03-21-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0540 — [ ] `scripts/ci/f3-hotspot-metrics.mjs` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-f3-hotspot-metrics-mjs)
+### IMP-0540 — [ ] `scripts/ci/f3-hotspot-metrics.mjs` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-f3-hotspot-metrics-mjs)
 - **Ordem de exportação:** 745
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0540 "[ ] `scripts/ci/f3-hotspot-metrics.mjs` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-f3-hotspot-metrics-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0540 "[ ] `scripts/ci/f3-hotspot-metrics.mjs` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-f3-hotspot-metrics-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0541 — [ ] `docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adr-adr-012-f3-http-bootstrap-and-seed-modularization-md)
+### IMP-0541 — [ ] `docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adr-adr-012-f3-http-bootstrap-and-seed-modularization-md)
 - **Ordem de exportação:** 746
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0541 "[ ] `docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adr-adr-012-f3-http-bootstrap-and-seed-modularization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0541 "[ ] `docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adr-adr-012-f3-http-bootstrap-and-seed-modularization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0542 — [ ] `docs/adrs/ADR-035-f3-hotspot-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-035-f3-hotspot-modularization-md)
+### IMP-0542 — [ ] `docs/adrs/ADR-035-f3-hotspot-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-035-f3-hotspot-modularization-md)
 - **Ordem de exportação:** 747
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0542 "[ ] `docs/adrs/ADR-035-f3-hotspot-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-035-f3-hotspot-modularization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0542 "[ ] `docs/adrs/ADR-035-f3-hotspot-modularization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | `F3` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-035-f3-hotspot-modularization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0543 — [ ] `.github/workflows/f4-script-compliance.yml` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `CI/CD control workflow` | `Primario` | `Existe` | `F4` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-f4-script-compliance-yml)
+### IMP-0543 — [ ] `.github/workflows/f4-script-compliance.yml` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `CI/CD control workflow` | `Primario` | `Existe` | `F4` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-f4-script-compliance-yml)
 - **Ordem de exportação:** 748
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0543 "[ ] `.github/workflows/f4-script-compliance.yml` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `CI/CD control workflow` | `Primario` | `Existe` | `F4` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-f4-script-compliance-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0543 "[ ] `.github/workflows/f4-script-compliance.yml` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `CI/CD control workflow` | `Primario` | `Existe` | `F4` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-f4-script-compliance-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0544 — [ ] `docs/testing/F5_TRACEABILITY.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | `F5` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-f5-traceability-md)
+### IMP-0544 — [ ] `docs/testing/F5_TRACEABILITY.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | `F5` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-f5-traceability-md)
 - **Ordem de exportação:** 749
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0544 "[ ] `docs/testing/F5_TRACEABILITY.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | `F5` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-f5-traceability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0544 "[ ] `docs/testing/F5_TRACEABILITY.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | `F5` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-f5-traceability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0545 — [ ] `packages/database/scripts/check-migration-governance.ts` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `F8` | [corpus](governance_inventory_complete_2026-03-29.html#packages-database-scripts-check-migration-governance-ts)
+### IMP-0545 — [ ] `packages/database/scripts/check-migration-governance.ts` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `F8` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-database-scripts-check-migration-governance-ts)
 - **Ordem de exportação:** 750
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0545 "[ ] `packages/database/scripts/check-migration-governance.ts` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `F8` | [corpus](governance_inventory_complete_2026-03-29.html#packages-database-scripts-check-migration-governance-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0545 "[ ] `packages/database/scripts/check-migration-governance.ts` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `F8` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-database-scripts-check-migration-governance-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0546 — [ ] `docs/f10/architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-architecture-md)
+### IMP-0546 — [ ] `docs/f10/architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-architecture-md)
 - **Ordem de exportação:** 751
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0546 "[ ] `docs/f10/architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-architecture-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0546 "[ ] `docs/f10/architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-architecture-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0547 — [ ] `docs/f10/README.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-readme-md)
+### IMP-0547 — [ ] `docs/f10/README.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-readme-md)
 - **Ordem de exportação:** 752
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0547 "[ ] `docs/f10/README.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0547 "[ ] `docs/f10/README.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0548 — [ ] `docs/f10/dependency-graph.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-dependency-graph-md)
+### IMP-0548 — [ ] `docs/f10/dependency-graph.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-dependency-graph-md)
 - **Ordem de exportação:** 753
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0548 "[ ] `docs/f10/dependency-graph.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-dependency-graph-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0548 "[ ] `docs/f10/dependency-graph.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-dependency-graph-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0549 — [ ] `docs/f10/knowledge-transfer.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-knowledge-transfer-md)
+### IMP-0549 — [ ] `docs/f10/knowledge-transfer.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-knowledge-transfer-md)
 - **Ordem de exportação:** 754
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0549 "[ ] `docs/f10/knowledge-transfer.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](governance_inventory_complete_2026-03-29.html#docs-f10-knowledge-transfer-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0549 "[ ] `docs/f10/knowledge-transfer.md` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F10` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-f10-knowledge-transfer-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0550 — [ ] `artifacts/f11-closure-2026-03-22/logs/01-install-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-01-install-rerun-log)
+### IMP-0550 — [ ] `artifacts/f11-closure-2026-03-22/logs/01-install-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-01-install-rerun-log)
 - **Ordem de exportação:** 755
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0550 "[ ] `artifacts/f11-closure-2026-03-22/logs/01-install-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-01-install-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0550 "[ ] `artifacts/f11-closure-2026-03-22/logs/01-install-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-01-install-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0551 — [ ] `artifacts/f11-closure-2026-03-22/logs/02-monorepo-doctor.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-02-monorepo-doctor-log)
+### IMP-0551 — [ ] `artifacts/f11-closure-2026-03-22/logs/02-monorepo-doctor.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-02-monorepo-doctor-log)
 - **Ordem de exportação:** 756
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0551 "[ ] `artifacts/f11-closure-2026-03-22/logs/02-monorepo-doctor.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-02-monorepo-doctor-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0551 "[ ] `artifacts/f11-closure-2026-03-22/logs/02-monorepo-doctor.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-02-monorepo-doctor-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0552 — [ ] `artifacts/f11-closure-2026-03-22/logs/04-lint-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-04-lint-core-rerun-log)
+### IMP-0552 — [ ] `artifacts/f11-closure-2026-03-22/logs/04-lint-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-04-lint-core-rerun-log)
 - **Ordem de exportação:** 757
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0552 "[ ] `artifacts/f11-closure-2026-03-22/logs/04-lint-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-04-lint-core-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0552 "[ ] `artifacts/f11-closure-2026-03-22/logs/04-lint-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-04-lint-core-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0553 — [ ] `artifacts/f11-closure-2026-03-22/logs/06-test-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-06-test-core-rerun-log)
+### IMP-0553 — [ ] `artifacts/f11-closure-2026-03-22/logs/06-test-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-06-test-core-rerun-log)
 - **Ordem de exportação:** 758
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0553 "[ ] `artifacts/f11-closure-2026-03-22/logs/06-test-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-06-test-core-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0553 "[ ] `artifacts/f11-closure-2026-03-22/logs/06-test-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-06-test-core-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0554 — [ ] `artifacts/f11-closure-2026-03-22/logs/07-test-isolation.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-07-test-isolation-log)
+### IMP-0554 — [ ] `artifacts/f11-closure-2026-03-22/logs/07-test-isolation.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-07-test-isolation-log)
 - **Ordem de exportação:** 759
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0554 "[ ] `artifacts/f11-closure-2026-03-22/logs/07-test-isolation.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-07-test-isolation-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0554 "[ ] `artifacts/f11-closure-2026-03-22/logs/07-test-isolation.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-07-test-isolation-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0555 — [ ] `artifacts/f11-closure-2026-03-22/logs/08-build-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-08-build-core-rerun-log)
+### IMP-0555 — [ ] `artifacts/f11-closure-2026-03-22/logs/08-build-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-08-build-core-rerun-log)
 - **Ordem de exportação:** 760
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0555 "[ ] `artifacts/f11-closure-2026-03-22/logs/08-build-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-08-build-core-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0555 "[ ] `artifacts/f11-closure-2026-03-22/logs/08-build-core-rerun.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-08-build-core-rerun-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0556 — [ ] `artifacts/f11-closure-2026-03-22/logs/12-workspace-audit.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-12-workspace-audit-log)
+### IMP-0556 — [ ] `artifacts/f11-closure-2026-03-22/logs/12-workspace-audit.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-12-workspace-audit-log)
 - **Ordem de exportação:** 761
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0556 "[ ] `artifacts/f11-closure-2026-03-22/logs/12-workspace-audit.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-12-workspace-audit-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0556 "[ ] `artifacts/f11-closure-2026-03-22/logs/12-workspace-audit.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-12-workspace-audit-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0557 — [ ] `artifacts/f11-closure-2026-03-22/logs/13-security-report.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-13-security-report-log)
+### IMP-0557 — [ ] `artifacts/f11-closure-2026-03-22/logs/13-security-report.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-13-security-report-log)
 - **Ordem de exportação:** 762
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0557 "[ ] `artifacts/f11-closure-2026-03-22/logs/13-security-report.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-13-security-report-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0557 "[ ] `artifacts/f11-closure-2026-03-22/logs/13-security-report.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-13-security-report-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0558 — [ ] `artifacts/f11-closure-2026-03-22/logs/14-privacy-verify.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-14-privacy-verify-log)
+### IMP-0558 — [ ] `artifacts/f11-closure-2026-03-22/logs/14-privacy-verify.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-14-privacy-verify-log)
 - **Ordem de exportação:** 763
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0558 "[ ] `artifacts/f11-closure-2026-03-22/logs/14-privacy-verify.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-14-privacy-verify-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0558 "[ ] `artifacts/f11-closure-2026-03-22/logs/14-privacy-verify.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-14-privacy-verify-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0559 — [ ] `artifacts/f11-closure-2026-03-22/logs/16-grep-legacy-db.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-16-grep-legacy-db-log)
+### IMP-0559 — [ ] `artifacts/f11-closure-2026-03-22/logs/16-grep-legacy-db.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-16-grep-legacy-db-log)
 - **Ordem de exportação:** 764
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0559 "[ ] `artifacts/f11-closure-2026-03-22/logs/16-grep-legacy-db.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-16-grep-legacy-db-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0559 "[ ] `artifacts/f11-closure-2026-03-22/logs/16-grep-legacy-db.log` | `Governance & Audit Artifacts` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-16-grep-legacy-db-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0560 — [ ] `artifacts/f11-closure-2026-03-22/logs/03-release-scorecard.log` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-03-release-scorecard-log)
+### IMP-0560 — [ ] `artifacts/f11-closure-2026-03-22/logs/03-release-scorecard.log` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-03-release-scorecard-log)
 - **Ordem de exportação:** 765
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0560 "[ ] `artifacts/f11-closure-2026-03-22/logs/03-release-scorecard.log` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-03-release-scorecard-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0560 "[ ] `artifacts/f11-closure-2026-03-22/logs/03-release-scorecard.log` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-03-release-scorecard-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0561 — [ ] `artifacts/f11-closure-2026-03-22/logs/09-test-e2e-release.log` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-09-test-e2e-release-log)
+### IMP-0561 — [ ] `artifacts/f11-closure-2026-03-22/logs/09-test-e2e-release.log` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-09-test-e2e-release-log)
 - **Ordem de exportação:** 766
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0561 "[ ] `artifacts/f11-closure-2026-03-22/logs/09-test-e2e-release.log` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-09-test-e2e-release-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0561 "[ ] `artifacts/f11-closure-2026-03-22/logs/09-test-e2e-release.log` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-logs-09-test-e2e-release-log)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0562 — [ ] `docs/release/f11-closure-minutes-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-f11-closure-minutes-2026-03-22-md)
+### IMP-0562 — [ ] `docs/release/f11-closure-minutes-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-f11-closure-minutes-2026-03-22-md)
 - **Ordem de exportação:** 767
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0562 "[ ] `docs/release/f11-closure-minutes-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-f11-closure-minutes-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0562 "[ ] `docs/release/f11-closure-minutes-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-f11-closure-minutes-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0563 — [ ] `docs/release/f11-executive-summary-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-f11-executive-summary-2026-03-22-md)
+### IMP-0563 — [ ] `docs/release/f11-executive-summary-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-f11-executive-summary-2026-03-22-md)
 - **Ordem de exportação:** 768
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0563 "[ ] `docs/release/f11-executive-summary-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-f11-executive-summary-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0563 "[ ] `docs/release/f11-executive-summary-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-f11-executive-summary-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0564 — [ ] `docs/release/f11-residual-risk-register-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-f11-residual-risk-register-2026-03-22-md)
+### IMP-0564 — [ ] `docs/release/f11-residual-risk-register-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-f11-residual-risk-register-2026-03-22-md)
 - **Ordem de exportação:** 769
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0564 "[ ] `docs/release/f11-residual-risk-register-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-f11-residual-risk-register-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0564 "[ ] `docs/release/f11-residual-risk-register-2026-03-22.md` | `Readiness & Release Assurance` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-f11-residual-risk-register-2026-03-22-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0565 — [ ] `artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-evidence-index-md)
+### IMP-0565 — [ ] `artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-evidence-index-md)
 - **Ordem de exportação:** 770
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0565 "[ ] `artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-evidence-index-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0565 "[ ] `artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md` | `Traceability & Inventory` | `phase execution record` | `Primario` | `Existe` | `F11` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-f11-closure-2026-03-22-evidence-index-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0566 — [ ] `.gitleaks.toml` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `Cycle-01` | [corpus](governance_inventory_complete_2026-03-29.html#gitleaks-toml)
+### IMP-0566 — [ ] `.gitleaks.toml` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `Cycle-01` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#gitleaks-toml)
 - **Ordem de exportação:** 771
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0566 "[ ] `.gitleaks.toml` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `Cycle-01` | [corpus](governance_inventory_complete_2026-03-29.html#gitleaks-toml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0566 "[ ] `.gitleaks.toml` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | `Cycle-01` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#gitleaks-toml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0567 — [ ] `artifacts/release/final-data-migration-report.json` | `Readiness & Release Assurance` | `release evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-final-data-migration-report-json)
+### IMP-0567 — [ ] `artifacts/release/final-data-migration-report.json` | `Readiness & Release Assurance` | `release evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-final-data-migration-report-json)
 - **Ordem de exportação:** 772
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0567 "[ ] `artifacts/release/final-data-migration-report.json` | `Readiness & Release Assurance` | `release evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-final-data-migration-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0567 "[ ] `artifacts/release/final-data-migration-report.json` | `Readiness & Release Assurance` | `release evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-final-data-migration-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0568 — [ ] `artifacts/release/production-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-json)
+### IMP-0568 — [ ] `artifacts/release/production-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-json)
 - **Ordem de exportação:** 773
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0568 "[ ] `artifacts/release/production-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0568 "[ ] `artifacts/release/production-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0569 — [ ] `artifacts/release/production-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-txt)
+### IMP-0569 — [ ] `artifacts/release/production-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-txt)
 - **Ordem de exportação:** 774
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0569 "[ ] `artifacts/release/production-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0569 "[ ] `artifacts/release/production-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-preflight-summary-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0570 — [ ] `artifacts/release/production-rollback-evidence.json` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-json)
+### IMP-0570 — [ ] `artifacts/release/production-rollback-evidence.json` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-json)
 - **Ordem de exportação:** 775
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0570 "[ ] `artifacts/release/production-rollback-evidence.json` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0570 "[ ] `artifacts/release/production-rollback-evidence.json` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0571 — [ ] `artifacts/release/production-rollback-evidence.txt` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-txt)
+### IMP-0571 — [ ] `artifacts/release/production-rollback-evidence.txt` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-txt)
 - **Ordem de exportação:** 776
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0571 "[ ] `artifacts/release/production-rollback-evidence.txt` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0571 "[ ] `artifacts/release/production-rollback-evidence.txt` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-production-rollback-evidence-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0572 — [ ] `artifacts/release/scorecard.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-scorecard-md)
+### IMP-0572 — [ ] `artifacts/release/scorecard.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-scorecard-md)
 - **Ordem de exportação:** 777
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0572 "[ ] `artifacts/release/scorecard.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-scorecard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0572 "[ ] `artifacts/release/scorecard.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-scorecard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0573 — [ ] `artifacts/release/smoke-summary.json` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-json)
+### IMP-0573 — [ ] `artifacts/release/smoke-summary.json` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-json)
 - **Ordem de exportação:** 778
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0573 "[ ] `artifacts/release/smoke-summary.json` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0573 "[ ] `artifacts/release/smoke-summary.json` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0574 — [ ] `artifacts/release/smoke-summary.txt` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-txt)
+### IMP-0574 — [ ] `artifacts/release/smoke-summary.txt` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-txt)
 - **Ordem de exportação:** 779
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0574 "[ ] `artifacts/release/smoke-summary.txt` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0574 "[ ] `artifacts/release/smoke-summary.txt` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-smoke-summary-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0575 — [ ] `artifacts/release/staging-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-json)
+### IMP-0575 — [ ] `artifacts/release/staging-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-json)
 - **Ordem de exportação:** 780
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0575 "[ ] `artifacts/release/staging-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0575 "[ ] `artifacts/release/staging-preflight-summary.json` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0576 — [ ] `artifacts/release/staging-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-txt)
+### IMP-0576 — [ ] `artifacts/release/staging-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-txt)
 - **Ordem de exportação:** 781
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0576 "[ ] `artifacts/release/staging-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0576 "[ ] `artifacts/release/staging-preflight-summary.txt` | `Readiness & Release Assurance` | `preflight report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-release-staging-preflight-summary-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0577 — [ ] `docs/billing/smoke-test-billing.md` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-smoke-test-billing-md)
+### IMP-0577 — [ ] `docs/billing/smoke-test-billing.md` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-smoke-test-billing-md)
 - **Ordem de exportação:** 782
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0577 "[ ] `docs/billing/smoke-test-billing.md` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-smoke-test-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0577 "[ ] `docs/billing/smoke-test-billing.md` | `Readiness & Release Assurance` | `smoke report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-smoke-test-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0578 — [ ] `docs/operational/runbooks/production-release-runbook.md` | `Readiness & Release Assurance` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operational-runbooks-production-release-runbook-md)
+### IMP-0578 — [ ] `docs/operational/runbooks/production-release-runbook.md` | `Readiness & Release Assurance` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operational-runbooks-production-release-runbook-md)
 - **Ordem de exportação:** 783
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0578 "[ ] `docs/operational/runbooks/production-release-runbook.md` | `Readiness & Release Assurance` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operational-runbooks-production-release-runbook-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0578 "[ ] `docs/operational/runbooks/production-release-runbook.md` | `Readiness & Release Assurance` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operational-runbooks-production-release-runbook-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0579 — [ ] `docs/processes/RELEASE_SCORECARD.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-release-scorecard-md)
+### IMP-0579 — [ ] `docs/processes/RELEASE_SCORECARD.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-release-scorecard-md)
 - **Ordem de exportação:** 784
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0579 "[ ] `docs/processes/RELEASE_SCORECARD.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-release-scorecard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0579 "[ ] `docs/processes/RELEASE_SCORECARD.md` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-release-scorecard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0580 — [ ] `docs/release/2026-03-16-beta-rollout-plan.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-2026-03-16-beta-rollout-plan-md)
+### IMP-0580 — [ ] `docs/release/2026-03-16-beta-rollout-plan.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-2026-03-16-beta-rollout-plan-md)
 - **Ordem de exportação:** 785
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0580 "[ ] `docs/release/2026-03-16-beta-rollout-plan.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-2026-03-16-beta-rollout-plan-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0580 "[ ] `docs/release/2026-03-16-beta-rollout-plan.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-2026-03-16-beta-rollout-plan-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0581 — [ ] `docs/release/2026-03-17-vps-launch-pack.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-2026-03-17-vps-launch-pack-md)
+### IMP-0581 — [ ] `docs/release/2026-03-17-vps-launch-pack.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-2026-03-17-vps-launch-pack-md)
 - **Ordem de exportação:** 786
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0581 "[ ] `docs/release/2026-03-17-vps-launch-pack.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-2026-03-17-vps-launch-pack-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0581 "[ ] `docs/release/2026-03-17-vps-launch-pack.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-2026-03-17-vps-launch-pack-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0582 — [ ] `docs/release/2026-03-20-go-live-runbook.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-2026-03-20-go-live-runbook-md)
+### IMP-0582 — [ ] `docs/release/2026-03-20-go-live-runbook.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-2026-03-20-go-live-runbook-md)
 - **Ordem de exportação:** 787
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0582 "[ ] `docs/release/2026-03-20-go-live-runbook.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-2026-03-20-go-live-runbook-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0582 "[ ] `docs/release/2026-03-20-go-live-runbook.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-2026-03-20-go-live-runbook-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0583 — [ ] `docs/release/V1_PRODUCTION_GATE.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-v1-production-gate-md)
+### IMP-0583 — [ ] `docs/release/V1_PRODUCTION_GATE.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-v1-production-gate-md)
 - **Ordem de exportação:** 788
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0583 "[ ] `docs/release/V1_PRODUCTION_GATE.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-v1-production-gate-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0583 "[ ] `docs/release/V1_PRODUCTION_GATE.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-v1-production-gate-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0584 — [ ] `docs/release/internal-packages-changelog.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-internal-packages-changelog-md)
+### IMP-0584 — [ ] `docs/release/internal-packages-changelog.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-internal-packages-changelog-md)
 - **Ordem de exportação:** 789
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0584 "[ ] `docs/release/internal-packages-changelog.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-internal-packages-changelog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0584 "[ ] `docs/release/internal-packages-changelog.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-internal-packages-changelog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0585 — [ ] `docs/release/production-preflight-inventory.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-production-preflight-inventory-md)
+### IMP-0585 — [ ] `docs/release/production-preflight-inventory.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-production-preflight-inventory-md)
 - **Ordem de exportação:** 790
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0585 "[ ] `docs/release/production-preflight-inventory.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-production-preflight-inventory-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0585 "[ ] `docs/release/production-preflight-inventory.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-production-preflight-inventory-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0586 — [ ] `docs/release/release-process.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-release-process-md)
+### IMP-0586 — [ ] `docs/release/release-process.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-release-process-md)
 - **Ordem de exportação:** 791
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0586 "[ ] `docs/release/release-process.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-release-process-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0586 "[ ] `docs/release/release-process.md` | `Readiness & Release Assurance` | `release readiness document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-release-process-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0587 — [ ] `docs/release/rollback_v1.sql` | `Readiness & Release Assurance` | `rollback script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-rollback-v1-sql)
+### IMP-0587 — [ ] `docs/release/rollback_v1.sql` | `Readiness & Release Assurance` | `rollback script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-rollback-v1-sql)
 - **Ordem de exportação:** 792
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0587 "[ ] `docs/release/rollback_v1.sql` | `Readiness & Release Assurance` | `rollback script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-release-rollback-v1-sql)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0587 "[ ] `docs/release/rollback_v1.sql` | `Readiness & Release Assurance` | `rollback script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-release-rollback-v1-sql)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0588 — [ ] `docs/runbooks/rollback-canonical-stack.md` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-rollback-canonical-stack-md)
+### IMP-0588 — [ ] `docs/runbooks/rollback-canonical-stack.md` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-rollback-canonical-stack-md)
 - **Ordem de exportação:** 793
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0588 "[ ] `docs/runbooks/rollback-canonical-stack.md` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-rollback-canonical-stack-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0588 "[ ] `docs/runbooks/rollback-canonical-stack.md` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-rollback-canonical-stack-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0589 — [ ] `ops/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#ops-release-secrets-inventory-2026-03-24-md)
+### IMP-0589 — [ ] `ops/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-release-secrets-inventory-2026-03-24-md)
 - **Ordem de exportação:** 794
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0589 "[ ] `ops/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#ops-release-secrets-inventory-2026-03-24-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0589 "[ ] `ops/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-release-secrets-inventory-2026-03-24-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0590 — [ ] `ops/release/sealed/.env.production.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-production-sealed)
+### IMP-0590 — [ ] `ops/release/sealed/.env.production.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-production-sealed)
 - **Ordem de exportação:** 795
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0590 "[ ] `ops/release/sealed/.env.production.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-production-sealed)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0590 "[ ] `ops/release/sealed/.env.production.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-production-sealed)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0591 — [ ] `ops/release/sealed/.env.staging.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-staging-sealed)
+### IMP-0591 — [ ] `ops/release/sealed/.env.staging.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-staging-sealed)
 - **Ordem de exportação:** 796
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0591 "[ ] `ops/release/sealed/.env.staging.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-staging-sealed)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0591 "[ ] `ops/release/sealed/.env.staging.sealed` | `Readiness & Release Assurance` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-release-sealed-env-staging-sealed)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0592 — [ ] `releases/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-readme-md)
+### IMP-0592 — [ ] `releases/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-readme-md)
 - **Ordem de exportação:** 797
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0592 "[ ] `releases/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0592 "[ ] `releases/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0593 — [ ] `releases/evidence/README.md` | `Readiness & Release Assurance` | `release evidence index` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-evidence-readme-md)
+### IMP-0593 — [ ] `releases/evidence/README.md` | `Readiness & Release Assurance` | `release evidence index` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-evidence-readme-md)
 - **Ordem de exportação:** 798
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0593 "[ ] `releases/evidence/README.md` | `Readiness & Release Assurance` | `release evidence index` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-evidence-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0593 "[ ] `releases/evidence/README.md` | `Readiness & Release Assurance` | `release evidence index` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-evidence-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0594 — [ ] `releases/manifests/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#releases-manifests-release-secrets-inventory-2026-03-24-md)
+### IMP-0594 — [ ] `releases/manifests/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-manifests-release-secrets-inventory-2026-03-24-md)
 - **Ordem de exportação:** 799
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0594 "[ ] `releases/manifests/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#releases-manifests-release-secrets-inventory-2026-03-24-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0594 "[ ] `releases/manifests/release-secrets-inventory-2026-03-24.md` | `Readiness & Release Assurance` | `inventory` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-manifests-release-secrets-inventory-2026-03-24-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0595 — [ ] `releases/manifests/release_artifact_catalog.md` | `Readiness & Release Assurance` | `release manifest` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-manifests-release-artifact-catalog-md)
+### IMP-0595 — [ ] `releases/manifests/release_artifact_catalog.md` | `Readiness & Release Assurance` | `release manifest` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-manifests-release-artifact-catalog-md)
 - **Ordem de exportação:** 800
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0595 "[ ] `releases/manifests/release_artifact_catalog.md` | `Readiness & Release Assurance` | `release manifest` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-manifests-release-artifact-catalog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0595 "[ ] `releases/manifests/release_artifact_catalog.md` | `Readiness & Release Assurance` | `release manifest` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-manifests-release-artifact-catalog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0596 — [ ] `releases/notes/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-notes-readme-md)
+### IMP-0596 — [ ] `releases/notes/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-notes-readme-md)
 - **Ordem de exportação:** 801
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0596 "[ ] `releases/notes/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#releases-notes-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0596 "[ ] `releases/notes/README.md` | `Readiness & Release Assurance` | `release structure document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#releases-notes-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0597 — [ ] `scripts/ci/preflight.mjs` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-preflight-mjs)
+### IMP-0597 — [ ] `scripts/ci/preflight.mjs` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-preflight-mjs)
 - **Ordem de exportação:** 802
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0597 "[ ] `scripts/ci/preflight.mjs` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-preflight-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0597 "[ ] `scripts/ci/preflight.mjs` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-preflight-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0598 — [ ] `scripts/ci/release-scorecard.mjs` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-release-scorecard-mjs)
+### IMP-0598 — [ ] `scripts/ci/release-scorecard.mjs` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-release-scorecard-mjs)
 - **Ordem de exportação:** 803
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0598 "[ ] `scripts/ci/release-scorecard.mjs` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-release-scorecard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0598 "[ ] `scripts/ci/release-scorecard.mjs` | `Readiness & Release Assurance` | `scorecard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-release-scorecard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0599 — [ ] `scripts/release/final-data-migration.ts` | `Readiness & Release Assurance` | `release automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-final-data-migration-ts)
+### IMP-0599 — [ ] `scripts/release/final-data-migration.ts` | `Readiness & Release Assurance` | `release automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-final-data-migration-ts)
 - **Ordem de exportação:** 804
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0599 "[ ] `scripts/release/final-data-migration.ts` | `Readiness & Release Assurance` | `release automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-final-data-migration-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0599 "[ ] `scripts/release/final-data-migration.ts` | `Readiness & Release Assurance` | `release automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-final-data-migration-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0600 — [ ] `scripts/release/global-smoke.ts` | `Readiness & Release Assurance` | `smoke automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-global-smoke-ts)
+### IMP-0600 — [ ] `scripts/release/global-smoke.ts` | `Readiness & Release Assurance` | `smoke automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-global-smoke-ts)
 - **Ordem de exportação:** 805
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0600 "[ ] `scripts/release/global-smoke.ts` | `Readiness & Release Assurance` | `smoke automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-global-smoke-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0600 "[ ] `scripts/release/global-smoke.ts` | `Readiness & Release Assurance` | `smoke automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-global-smoke-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0601 — [ ] `scripts/release/preflight-env.ts` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-preflight-env-ts)
+### IMP-0601 — [ ] `scripts/release/preflight-env.ts` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-preflight-env-ts)
 - **Ordem de exportação:** 806
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0601 "[ ] `scripts/release/preflight-env.ts` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-preflight-env-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0601 "[ ] `scripts/release/preflight-env.ts` | `Readiness & Release Assurance` | `preflight automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-preflight-env-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0602 — [ ] `scripts/release/verify-rollback-evidence.ts` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-verify-rollback-evidence-ts)
+### IMP-0602 — [ ] `scripts/release/verify-rollback-evidence.ts` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-verify-rollback-evidence-ts)
 - **Ordem de exportação:** 807
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0602 "[ ] `scripts/release/verify-rollback-evidence.ts` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-release-verify-rollback-evidence-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0602 "[ ] `scripts/release/verify-rollback-evidence.ts` | `Readiness & Release Assurance` | `rollback evidence` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-release-verify-rollback-evidence-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0603 — [ ] `tests/e2e/release-master.spec.ts` | `Readiness & Release Assurance` | `control test` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#tests-e2e-release-master-spec-ts)
+### IMP-0603 — [ ] `tests/e2e/release-master.spec.ts` | `Readiness & Release Assurance` | `control test` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#tests-e2e-release-master-spec-ts)
 - **Ordem de exportação:** 808
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0603 "[ ] `tests/e2e/release-master.spec.ts` | `Readiness & Release Assurance` | `control test` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#tests-e2e-release-master-spec-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0603 "[ ] `tests/e2e/release-master.spec.ts` | `Readiness & Release Assurance` | `control test` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#tests-e2e-release-master-spec-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0604 — [ ] `.github/PLAYBOOK_AGENTES.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-playbook-agentes-md)
+### IMP-0604 — [ ] `.github/PLAYBOOK_AGENTES.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-playbook-agentes-md)
 - **Ordem de exportação:** 809
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0604 "[ ] `.github/PLAYBOOK_AGENTES.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-playbook-agentes-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0604 "[ ] `.github/PLAYBOOK_AGENTES.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-playbook-agentes-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0605 — [ ] `docs/execution/runtime-legacy-cutover-2026-03-24.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-runtime-legacy-cutover-2026-03-24-md)
+### IMP-0605 — [ ] `docs/execution/runtime-legacy-cutover-2026-03-24.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-runtime-legacy-cutover-2026-03-24-md)
 - **Ordem de exportação:** 810
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0605 "[ ] `docs/execution/runtime-legacy-cutover-2026-03-24.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-execution-runtime-legacy-cutover-2026-03-24-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0605 "[ ] `docs/execution/runtime-legacy-cutover-2026-03-24.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `phase execution record` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-execution-runtime-legacy-cutover-2026-03-24-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0606 — [ ] `docs/runbooks/playbook-operacional-agentes-comerciais.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-playbook-operacional-agentes-comerciais-md)
+### IMP-0606 — [ ] `docs/runbooks/playbook-operacional-agentes-comerciais.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-playbook-operacional-agentes-comerciais-md)
 - **Ordem de exportação:** 811
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0606 "[ ] `docs/runbooks/playbook-operacional-agentes-comerciais.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-playbook-operacional-agentes-comerciais-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0606 "[ ] `docs/runbooks/playbook-operacional-agentes-comerciais.md` | `Agent Lifecycle (ciclos / fases / F1–F5)` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-playbook-operacional-agentes-comerciais-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0607 — [ ] `audit/saas_maturity_score.md` | `Architecture & Maturity` | `maturity assessment` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-saas-maturity-score-md)
+### IMP-0607 — [ ] `audit/saas_maturity_score.md` | `Architecture & Maturity` | `maturity assessment` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-saas-maturity-score-md)
 - **Ordem de exportação:** 812
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0607 "[ ] `audit/saas_maturity_score.md` | `Architecture & Maturity` | `maturity assessment` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-saas-maturity-score-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0607 "[ ] `audit/saas_maturity_score.md` | `Architecture & Maturity` | `maturity assessment` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-saas-maturity-score-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0608 — [ ] `audit/target_architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-target-architecture-md)
+### IMP-0608 — [ ] `audit/target_architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-target-architecture-md)
 - **Ordem de exportação:** 813
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0608 "[ ] `audit/target_architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-target-architecture-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0608 "[ ] `audit/target_architecture.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-target-architecture-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0609 — [ ] `docs/ARCHITECTURE.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-md)
+### IMP-0609 — [ ] `docs/ARCHITECTURE.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-md)
 - **Ordem de exportação:** 814
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0609 "[ ] `docs/ARCHITECTURE.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0609 "[ ] `docs/ARCHITECTURE.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0610 — [ ] `docs/OBSERVABILIDADE_E_SLOS.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observabilidade-e-slos-md)
+### IMP-0610 — [ ] `docs/OBSERVABILIDADE_E_SLOS.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observabilidade-e-slos-md)
 - **Ordem de exportação:** 815
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0610 "[ ] `docs/OBSERVABILIDADE_E_SLOS.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observabilidade-e-slos-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0610 "[ ] `docs/OBSERVABILIDADE_E_SLOS.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observabilidade-e-slos-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0611 — [ ] `docs/adrs/003-observability-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-003-observability-strategy-md)
+### IMP-0611 — [ ] `docs/adrs/003-observability-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-003-observability-strategy-md)
 - **Ordem de exportação:** 816
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0611 "[ ] `docs/adrs/003-observability-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-003-observability-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0611 "[ ] `docs/adrs/003-observability-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-003-observability-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0612 — [ ] `docs/adrs/004-configuration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-004-configuration-strategy-md)
+### IMP-0612 — [ ] `docs/adrs/004-configuration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-004-configuration-strategy-md)
 - **Ordem de exportação:** 817
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0612 "[ ] `docs/adrs/004-configuration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-004-configuration-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0612 "[ ] `docs/adrs/004-configuration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-004-configuration-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0613 — [ ] `docs/adrs/005-migrations-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-005-migrations-strategy-md)
+### IMP-0613 — [ ] `docs/adrs/005-migrations-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-005-migrations-strategy-md)
 - **Ordem de exportação:** 818
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0613 "[ ] `docs/adrs/005-migrations-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-005-migrations-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0613 "[ ] `docs/adrs/005-migrations-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-005-migrations-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0614 — [ ] `docs/adrs/ADR-001-monorepo-tooling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-001-monorepo-tooling-md)
+### IMP-0614 — [ ] `docs/adrs/ADR-001-monorepo-tooling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-001-monorepo-tooling-md)
 - **Ordem de exportação:** 819
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0614 "[ ] `docs/adrs/ADR-001-monorepo-tooling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-001-monorepo-tooling-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0614 "[ ] `docs/adrs/ADR-001-monorepo-tooling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-001-monorepo-tooling-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0615 — [ ] `docs/adrs/ADR-002-cicd-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-002-cicd-strategy-md)
+### IMP-0615 — [ ] `docs/adrs/ADR-002-cicd-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-002-cicd-strategy-md)
 - **Ordem de exportação:** 820
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0615 "[ ] `docs/adrs/ADR-002-cicd-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-002-cicd-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0615 "[ ] `docs/adrs/ADR-002-cicd-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-002-cicd-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0616 — [ ] `docs/adrs/ADR-003-observability.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-003-observability-md)
+### IMP-0616 — [ ] `docs/adrs/ADR-003-observability.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-003-observability-md)
 - **Ordem de exportação:** 821
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0616 "[ ] `docs/adrs/ADR-003-observability.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-003-observability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0616 "[ ] `docs/adrs/ADR-003-observability.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-003-observability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0617 — [ ] `docs/adrs/ADR-004-env-management.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-004-env-management-md)
+### IMP-0617 — [ ] `docs/adrs/ADR-004-env-management.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-004-env-management-md)
 - **Ordem de exportação:** 822
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0617 "[ ] `docs/adrs/ADR-004-env-management.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-004-env-management-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0617 "[ ] `docs/adrs/ADR-004-env-management.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-004-env-management-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0618 — [ ] `docs/adrs/ADR-005-cors-headers.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-005-cors-headers-md)
+### IMP-0618 — [ ] `docs/adrs/ADR-005-cors-headers.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-005-cors-headers-md)
 - **Ordem de exportação:** 823
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0618 "[ ] `docs/adrs/ADR-005-cors-headers.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-005-cors-headers-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0618 "[ ] `docs/adrs/ADR-005-cors-headers.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-005-cors-headers-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0619 — [ ] `docs/adrs/ADR-006-database-orm.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-006-database-orm-md)
+### IMP-0619 — [ ] `docs/adrs/ADR-006-database-orm.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-006-database-orm-md)
 - **Ordem de exportação:** 824
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0619 "[ ] `docs/adrs/ADR-006-database-orm.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-006-database-orm-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0619 "[ ] `docs/adrs/ADR-006-database-orm.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-006-database-orm-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0620 — [ ] `docs/adrs/ADR-007-error-handling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-error-handling-md)
+### IMP-0620 — [ ] `docs/adrs/ADR-007-error-handling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-error-handling-md)
 - **Ordem de exportação:** 825
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0620 "[ ] `docs/adrs/ADR-007-error-handling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-error-handling-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0620 "[ ] `docs/adrs/ADR-007-error-handling.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-error-handling-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0621 — [ ] `docs/adrs/ADR-007-multi-tenancy-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-multi-tenancy-strategy-md)
+### IMP-0621 — [ ] `docs/adrs/ADR-007-multi-tenancy-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-multi-tenancy-strategy-md)
 - **Ordem de exportação:** 826
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0621 "[ ] `docs/adrs/ADR-007-multi-tenancy-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-multi-tenancy-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0621 "[ ] `docs/adrs/ADR-007-multi-tenancy-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-007-multi-tenancy-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0622 — [ ] `docs/adrs/ADR-008-rls-as-second-layer.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-rls-as-second-layer-md)
+### IMP-0622 — [ ] `docs/adrs/ADR-008-rls-as-second-layer.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-rls-as-second-layer-md)
 - **Ordem de exportação:** 827
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0622 "[ ] `docs/adrs/ADR-008-rls-as-second-layer.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-rls-as-second-layer-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0622 "[ ] `docs/adrs/ADR-008-rls-as-second-layer.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-rls-as-second-layer-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0623 — [ ] `docs/adrs/ADR-008-testing-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-testing-strategy-md)
+### IMP-0623 — [ ] `docs/adrs/ADR-008-testing-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-testing-strategy-md)
 - **Ordem de exportação:** 828
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0623 "[ ] `docs/adrs/ADR-008-testing-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-testing-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0623 "[ ] `docs/adrs/ADR-008-testing-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-008-testing-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0624 — [ ] `docs/adrs/ADR-009-legacy-migration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-009-legacy-migration-strategy-md)
+### IMP-0624 — [ ] `docs/adrs/ADR-009-legacy-migration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-009-legacy-migration-strategy-md)
 - **Ordem de exportação:** 829
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0624 "[ ] `docs/adrs/ADR-009-legacy-migration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-009-legacy-migration-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0624 "[ ] `docs/adrs/ADR-009-legacy-migration-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-009-legacy-migration-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0625 — [ ] `docs/adrs/ADR-010-auth-provider.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-010-auth-provider-md)
+### IMP-0625 — [ ] `docs/adrs/ADR-010-auth-provider.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-010-auth-provider-md)
 - **Ordem de exportação:** 830
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0625 "[ ] `docs/adrs/ADR-010-auth-provider.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-010-auth-provider-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0625 "[ ] `docs/adrs/ADR-010-auth-provider.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-010-auth-provider-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0626 — [ ] `docs/adrs/ADR-011-session-storage.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-011-session-storage-md)
+### IMP-0626 — [ ] `docs/adrs/ADR-011-session-storage.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-011-session-storage-md)
 - **Ordem de exportação:** 831
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0626 "[ ] `docs/adrs/ADR-011-session-storage.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-011-session-storage-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0626 "[ ] `docs/adrs/ADR-011-session-storage.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-011-session-storage-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0627 — [ ] `docs/adrs/ADR-012-authorization-model.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-012-authorization-model-md)
+### IMP-0627 — [ ] `docs/adrs/ADR-012-authorization-model.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-012-authorization-model-md)
 - **Ordem de exportação:** 832
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0627 "[ ] `docs/adrs/ADR-012-authorization-model.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-012-authorization-model-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0627 "[ ] `docs/adrs/ADR-012-authorization-model.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-012-authorization-model-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0628 — [ ] `docs/adrs/ADR-013-agent-manifest-design.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-agent-manifest-design-md)
+### IMP-0628 — [ ] `docs/adrs/ADR-013-agent-manifest-design.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-agent-manifest-design-md)
 - **Ordem de exportação:** 833
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0628 "[ ] `docs/adrs/ADR-013-agent-manifest-design.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-agent-manifest-design-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0628 "[ ] `docs/adrs/ADR-013-agent-manifest-design.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-agent-manifest-design-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0629 — [ ] `docs/adrs/ADR-013-mfa-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-mfa-strategy-md)
+### IMP-0629 — [ ] `docs/adrs/ADR-013-mfa-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-mfa-strategy-md)
 - **Ordem de exportação:** 834
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0629 "[ ] `docs/adrs/ADR-013-mfa-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-mfa-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0629 "[ ] `docs/adrs/ADR-013-mfa-strategy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-013-mfa-strategy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0630 — [ ] `docs/adrs/ADR-014-agent-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-engine-md)
+### IMP-0630 — [ ] `docs/adrs/ADR-014-agent-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-engine-md)
 - **Ordem de exportação:** 835
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0630 "[ ] `docs/adrs/ADR-014-agent-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-engine-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0630 "[ ] `docs/adrs/ADR-014-agent-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-engine-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0631 — [ ] `docs/adrs/ADR-014-agent-versioning.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-versioning-md)
+### IMP-0631 — [ ] `docs/adrs/ADR-014-agent-versioning.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-versioning-md)
 - **Ordem de exportação:** 836
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0631 "[ ] `docs/adrs/ADR-014-agent-versioning.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-versioning-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0631 "[ ] `docs/adrs/ADR-014-agent-versioning.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-014-agent-versioning-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0632 — [ ] `docs/adrs/ADR-015-sandbox-external-tools.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-015-sandbox-external-tools-md)
+### IMP-0632 — [ ] `docs/adrs/ADR-015-sandbox-external-tools.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-015-sandbox-external-tools-md)
 - **Ordem de exportação:** 837
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0632 "[ ] `docs/adrs/ADR-015-sandbox-external-tools.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-015-sandbox-external-tools-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0632 "[ ] `docs/adrs/ADR-015-sandbox-external-tools.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-015-sandbox-external-tools-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0633 — [ ] `docs/adrs/ADR-017-tools-framework.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-017-tools-framework-md)
+### IMP-0633 — [ ] `docs/adrs/ADR-017-tools-framework.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-017-tools-framework-md)
 - **Ordem de exportação:** 838
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0633 "[ ] `docs/adrs/ADR-017-tools-framework.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-017-tools-framework-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0633 "[ ] `docs/adrs/ADR-017-tools-framework.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-017-tools-framework-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0634 — [ ] `docs/adrs/ADR-018-policy-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-018-policy-engine-md)
+### IMP-0634 — [ ] `docs/adrs/ADR-018-policy-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-018-policy-engine-md)
 - **Ordem de exportação:** 839
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0634 "[ ] `docs/adrs/ADR-018-policy-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-018-policy-engine-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0634 "[ ] `docs/adrs/ADR-018-policy-engine.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-018-policy-engine-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0635 — [ ] `docs/adrs/ADR-025-billing-baseado-em-uso.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-025-billing-baseado-em-uso-md)
+### IMP-0635 — [ ] `docs/adrs/ADR-025-billing-baseado-em-uso.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-025-billing-baseado-em-uso-md)
 - **Ordem de exportação:** 840
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0635 "[ ] `docs/adrs/ADR-025-billing-baseado-em-uso.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-025-billing-baseado-em-uso-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0635 "[ ] `docs/adrs/ADR-025-billing-baseado-em-uso.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-025-billing-baseado-em-uso-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0636 — [ ] `docs/adrs/ADR-028-user-feedback-loop.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-user-feedback-loop-md)
+### IMP-0636 — [ ] `docs/adrs/ADR-028-user-feedback-loop.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-user-feedback-loop-md)
 - **Ordem de exportação:** 841
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0636 "[ ] `docs/adrs/ADR-028-user-feedback-loop.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-user-feedback-loop-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0636 "[ ] `docs/adrs/ADR-028-user-feedback-loop.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-user-feedback-loop-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0637 — [ ] `docs/adrs/ADR-028_Feedback_Prompt_Cycle.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-feedback-prompt-cycle-md)
+### IMP-0637 — [ ] `docs/adrs/ADR-028_Feedback_Prompt_Cycle.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-feedback-prompt-cycle-md)
 - **Ordem de exportação:** 842
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0637 "[ ] `docs/adrs/ADR-028_Feedback_Prompt_Cycle.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-feedback-prompt-cycle-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0637 "[ ] `docs/adrs/ADR-028_Feedback_Prompt_Cycle.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-028-feedback-prompt-cycle-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0638 — [ ] `docs/adrs/ADR-030-breaking-changes-policy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-030-breaking-changes-policy-md)
+### IMP-0638 — [ ] `docs/adrs/ADR-030-breaking-changes-policy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-030-breaking-changes-policy-md)
 - **Ordem de exportação:** 843
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0638 "[ ] `docs/adrs/ADR-030-breaking-changes-policy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-030-breaking-changes-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0638 "[ ] `docs/adrs/ADR-030-breaking-changes-policy.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-030-breaking-changes-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0639 — [ ] `docs/adrs/ADR-031-monorepo-source-of-truth.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-031-monorepo-source-of-truth-md)
+### IMP-0639 — [ ] `docs/adrs/ADR-031-monorepo-source-of-truth.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-031-monorepo-source-of-truth-md)
 - **Ordem de exportação:** 844
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0639 "[ ] `docs/adrs/ADR-031-monorepo-source-of-truth.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-031-monorepo-source-of-truth-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0639 "[ ] `docs/adrs/ADR-031-monorepo-source-of-truth.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-031-monorepo-source-of-truth-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0640 — [ ] `docs/adrs/ADR-032-agent-runtime-standardization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-032-agent-runtime-standardization-md)
+### IMP-0640 — [ ] `docs/adrs/ADR-032-agent-runtime-standardization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-032-agent-runtime-standardization-md)
 - **Ordem de exportação:** 845
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0640 "[ ] `docs/adrs/ADR-032-agent-runtime-standardization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-032-agent-runtime-standardization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0640 "[ ] `docs/adrs/ADR-032-agent-runtime-standardization.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-032-agent-runtime-standardization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0641 — [ ] `docs/adrs/ADR-033-billing-canonical-schema-cutover.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-033-billing-canonical-schema-cutover-md)
+### IMP-0641 — [ ] `docs/adrs/ADR-033-billing-canonical-schema-cutover.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-033-billing-canonical-schema-cutover-md)
 - **Ordem de exportação:** 846
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0641 "[ ] `docs/adrs/ADR-033-billing-canonical-schema-cutover.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-033-billing-canonical-schema-cutover-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0641 "[ ] `docs/adrs/ADR-033-billing-canonical-schema-cutover.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-033-billing-canonical-schema-cutover-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0642 — [ ] `docs/adrs/ADR_TEMPLATE.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-template-md)
+### IMP-0642 — [ ] `docs/adrs/ADR_TEMPLATE.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-template-md)
 - **Ordem de exportação:** 847
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0642 "[ ] `docs/adrs/ADR_TEMPLATE.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-adr-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0642 "[ ] `docs/adrs/ADR_TEMPLATE.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-adr-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0643 — [ ] `docs/adrs/INDEX.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-index-md)
+### IMP-0643 — [ ] `docs/adrs/INDEX.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-index-md)
 - **Ordem de exportação:** 848
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0643 "[ ] `docs/adrs/INDEX.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-adrs-index-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0643 "[ ] `docs/adrs/INDEX.md` | `Architecture & Maturity` | `ADR` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-adrs-index-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0644 — [ ] `docs/architecture/Agent-Memory-QA.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-agent-memory-qa-md)
+### IMP-0644 — [ ] `docs/architecture/Agent-Memory-QA.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-agent-memory-qa-md)
 - **Ordem de exportação:** 849
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0644 "[ ] `docs/architecture/Agent-Memory-QA.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-agent-memory-qa-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0644 "[ ] `docs/architecture/Agent-Memory-QA.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-agent-memory-qa-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0645 — [ ] `docs/architecture/Agent-Registry-Execution.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-agent-registry-execution-md)
+### IMP-0645 — [ ] `docs/architecture/Agent-Registry-Execution.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-agent-registry-execution-md)
 - **Ordem de exportação:** 850
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0645 "[ ] `docs/architecture/Agent-Registry-Execution.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-agent-registry-execution-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0645 "[ ] `docs/architecture/Agent-Registry-Execution.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-agent-registry-execution-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0646 — [ ] `docs/architecture/AgentManifest-Spec.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-agentmanifest-spec-md)
+### IMP-0646 — [ ] `docs/architecture/AgentManifest-Spec.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-agentmanifest-spec-md)
 - **Ordem de exportação:** 851
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0646 "[ ] `docs/architecture/AgentManifest-Spec.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-agentmanifest-spec-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0646 "[ ] `docs/architecture/AgentManifest-Spec.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-agentmanifest-spec-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0647 — [ ] `docs/architecture/Monorepo-Agents-Core.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-monorepo-agents-core-md)
+### IMP-0647 — [ ] `docs/architecture/Monorepo-Agents-Core.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-monorepo-agents-core-md)
 - **Ordem de exportação:** 852
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0647 "[ ] `docs/architecture/Monorepo-Agents-Core.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-monorepo-agents-core-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0647 "[ ] `docs/architecture/Monorepo-Agents-Core.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-monorepo-agents-core-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0648 — [ ] `docs/architecture/api-layers.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-api-layers-md)
+### IMP-0648 — [ ] `docs/architecture/api-layers.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-api-layers-md)
 - **Ordem de exportação:** 853
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0648 "[ ] `docs/architecture/api-layers.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-api-layers-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0648 "[ ] `docs/architecture/api-layers.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-api-layers-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0649 — [ ] `docs/architecture/decisions/020-skill-templates-design.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-020-skill-templates-design-md)
+### IMP-0649 — [ ] `docs/architecture/decisions/020-skill-templates-design.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-020-skill-templates-design-md)
 - **Ordem de exportação:** 854
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0649 "[ ] `docs/architecture/decisions/020-skill-templates-design.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-020-skill-templates-design-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0649 "[ ] `docs/architecture/decisions/020-skill-templates-design.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-020-skill-templates-design-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0650 — [ ] `docs/architecture/decisions/021-connectors-pattern.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-021-connectors-pattern-md)
+### IMP-0650 — [ ] `docs/architecture/decisions/021-connectors-pattern.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-021-connectors-pattern-md)
 - **Ordem de exportação:** 855
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0650 "[ ] `docs/architecture/decisions/021-connectors-pattern.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-021-connectors-pattern-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0650 "[ ] `docs/architecture/decisions/021-connectors-pattern.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-decisions-021-connectors-pattern-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0651 — [ ] `docs/architecture/erd.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-erd-md)
+### IMP-0651 — [ ] `docs/architecture/erd.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-erd-md)
 - **Ordem de exportação:** 856
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0651 "[ ] `docs/architecture/erd.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-erd-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0651 "[ ] `docs/architecture/erd.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-erd-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0652 — [ ] `docs/architecture/folder-structure.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-folder-structure-md)
+### IMP-0652 — [ ] `docs/architecture/folder-structure.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-folder-structure-md)
 - **Ordem de exportação:** 857
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0652 "[ ] `docs/architecture/folder-structure.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-folder-structure-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0652 "[ ] `docs/architecture/folder-structure.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-folder-structure-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0653 — [ ] `docs/architecture/internal-package-graph.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-internal-package-graph-md)
+### IMP-0653 — [ ] `docs/architecture/internal-package-graph.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-internal-package-graph-md)
 - **Ordem de exportação:** 858
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0653 "[ ] `docs/architecture/internal-package-graph.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-internal-package-graph-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0653 "[ ] `docs/architecture/internal-package-graph.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-internal-package-graph-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0654 — [ ] `docs/architecture/request-context.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-request-context-md)
+### IMP-0654 — [ ] `docs/architecture/request-context.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-request-context-md)
 - **Ordem de exportação:** 859
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0654 "[ ] `docs/architecture/request-context.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-request-context-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0654 "[ ] `docs/architecture/request-context.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-request-context-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0655 — [ ] `docs/architecture/request-id.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-request-id-md)
+### IMP-0655 — [ ] `docs/architecture/request-id.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-request-id-md)
 - **Ordem de exportação:** 860
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0655 "[ ] `docs/architecture/request-id.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-architecture-request-id-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0655 "[ ] `docs/architecture/request-id.md` | `Architecture & Maturity` | `architecture artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-architecture-request-id-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0656 — [ ] `docs/billing/orcamentos_padrao_planos.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-orcamentos-padrao-planos-md)
+### IMP-0656 — [ ] `docs/billing/orcamentos_padrao_planos.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-orcamentos-padrao-planos-md)
 - **Ordem de exportação:** 861
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0656 "[ ] `docs/billing/orcamentos_padrao_planos.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-orcamentos-padrao-planos-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0656 "[ ] `docs/billing/orcamentos_padrao_planos.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-orcamentos-padrao-planos-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0657 — [ ] `docs/evidence/observability.md` | `Architecture & Maturity` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-observability-md)
+### IMP-0657 — [ ] `docs/evidence/observability.md` | `Architecture & Maturity` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-observability-md)
 - **Ordem de exportação:** 862
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0657 "[ ] `docs/evidence/observability.md` | `Architecture & Maturity` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-observability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0657 "[ ] `docs/evidence/observability.md` | `Architecture & Maturity` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-observability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0658 — [ ] `docs/observability-alerts.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observability-alerts-md)
+### IMP-0658 — [ ] `docs/observability-alerts.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observability-alerts-md)
 - **Ordem de exportação:** 863
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0658 "[ ] `docs/observability-alerts.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observability-alerts-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0658 "[ ] `docs/observability-alerts.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observability-alerts-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0659 — [ ] `docs/observability/alerts.yml` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observability-alerts-yml)
+### IMP-0659 — [ ] `docs/observability/alerts.yml` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observability-alerts-yml)
 - **Ordem de exportação:** 864
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0659 "[ ] `docs/observability/alerts.yml` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observability-alerts-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0659 "[ ] `docs/observability/alerts.yml` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observability-alerts-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0660 — [ ] `docs/observability/dashboard.json` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observability-dashboard-json)
+### IMP-0660 — [ ] `docs/observability/dashboard.json` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observability-dashboard-json)
 - **Ordem de exportação:** 865
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0660 "[ ] `docs/observability/dashboard.json` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-observability-dashboard-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0660 "[ ] `docs/observability/dashboard.json` | `Architecture & Maturity` | `observability dataset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-observability-dashboard-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0661 — [ ] `docs/runbooks/slow-query-investigation.md` | `Architecture & Maturity` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-slow-query-investigation-md)
+### IMP-0661 — [ ] `docs/runbooks/slow-query-investigation.md` | `Architecture & Maturity` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-slow-query-investigation-md)
 - **Ordem de exportação:** 866
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0661 "[ ] `docs/runbooks/slow-query-investigation.md` | `Architecture & Maturity` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-slow-query-investigation-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0661 "[ ] `docs/runbooks/slow-query-investigation.md` | `Architecture & Maturity` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-slow-query-investigation-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0662 — [ ] `docs/service-catalog.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-service-catalog-md)
+### IMP-0662 — [ ] `docs/service-catalog.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-service-catalog-md)
 - **Ordem de exportação:** 867
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0662 "[ ] `docs/service-catalog.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-service-catalog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0662 "[ ] `docs/service-catalog.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-service-catalog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0663 — [ ] `docs/service-criticality.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-service-criticality-md)
+### IMP-0663 — [ ] `docs/service-criticality.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-service-criticality-md)
 - **Ordem de exportação:** 868
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0663 "[ ] `docs/service-criticality.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-service-criticality-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0663 "[ ] `docs/service-criticality.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-service-criticality-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0664 — [ ] `docs/slo.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-slo-md)
+### IMP-0664 — [ ] `docs/slo.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-slo-md)
 - **Ordem de exportação:** 869
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0664 "[ ] `docs/slo.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-slo-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0664 "[ ] `docs/slo.md` | `Architecture & Maturity` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-slo-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0665 — [ ] `docs/templates/adr-template.md` | `Architecture & Maturity` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-adr-template-md)
+### IMP-0665 — [ ] `docs/templates/adr-template.md` | `Architecture & Maturity` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-adr-template-md)
 - **Ordem de exportação:** 870
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0665 "[ ] `docs/templates/adr-template.md` | `Architecture & Maturity` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-adr-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0665 "[ ] `docs/templates/adr-template.md` | `Architecture & Maturity` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-adr-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0666 — [ ] `.github/hooks/policy.json` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-hooks-policy-json)
+### IMP-0666 — [ ] `.github/hooks/policy.json` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-hooks-policy-json)
 - **Ordem de exportação:** 871
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0666 "[ ] `.github/hooks/policy.json` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-hooks-policy-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0666 "[ ] `.github/hooks/policy.json` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-hooks-policy-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0667 — [ ] `.github/hooks/scripts/posttool-validate.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-hooks-scripts-posttool-validate-ps1)
+### IMP-0667 — [ ] `.github/hooks/scripts/posttool-validate.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-hooks-scripts-posttool-validate-ps1)
 - **Ordem de exportação:** 872
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0667 "[ ] `.github/hooks/scripts/posttool-validate.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-hooks-scripts-posttool-validate-ps1)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0667 "[ ] `.github/hooks/scripts/posttool-validate.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-hooks-scripts-posttool-validate-ps1)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0668 — [ ] `.github/hooks/scripts/pretool-guard.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-hooks-scripts-pretool-guard-ps1)
+### IMP-0668 — [ ] `.github/hooks/scripts/pretool-guard.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-hooks-scripts-pretool-guard-ps1)
 - **Ordem de exportação:** 873
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0668 "[ ] `.github/hooks/scripts/pretool-guard.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-hooks-scripts-pretool-guard-ps1)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0668 "[ ] `.github/hooks/scripts/pretool-guard.ps1` | `Control & Verification (checklists, checks.json)` | `governance hook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-hooks-scripts-pretool-guard-ps1)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0669 — [ ] `.github/workflows/branch-cleanup.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-branch-cleanup-yml)
+### IMP-0669 — [ ] `.github/workflows/branch-cleanup.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-branch-cleanup-yml)
 - **Ordem de exportação:** 874
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0669 "[ ] `.github/workflows/branch-cleanup.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-branch-cleanup-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0669 "[ ] `.github/workflows/branch-cleanup.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-branch-cleanup-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0670 — [ ] `.github/workflows/cd.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-cd-yml)
+### IMP-0670 — [ ] `.github/workflows/cd.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-cd-yml)
 - **Ordem de exportação:** 875
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0670 "[ ] `.github/workflows/cd.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-cd-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0670 "[ ] `.github/workflows/cd.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-cd-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0671 — [ ] `.github/workflows/ci.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-ci-yml)
+### IMP-0671 — [ ] `.github/workflows/ci.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-ci-yml)
 - **Ordem de exportação:** 876
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0671 "[ ] `.github/workflows/ci.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-ci-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0671 "[ ] `.github/workflows/ci.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-ci-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0672 — [ ] `.github/workflows/dependabot-auto-merge.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-dependabot-auto-merge-yml)
+### IMP-0672 — [ ] `.github/workflows/dependabot-auto-merge.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-dependabot-auto-merge-yml)
 - **Ordem de exportação:** 877
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0672 "[ ] `.github/workflows/dependabot-auto-merge.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-dependabot-auto-merge-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0672 "[ ] `.github/workflows/dependabot-auto-merge.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-dependabot-auto-merge-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0673 — [ ] `.github/workflows/materialize-doc-only.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-materialize-doc-only-yml)
+### IMP-0673 — [ ] `.github/workflows/materialize-doc-only.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-materialize-doc-only-yml)
 - **Ordem de exportação:** 878
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0673 "[ ] `.github/workflows/materialize-doc-only.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-materialize-doc-only-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0673 "[ ] `.github/workflows/materialize-doc-only.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-materialize-doc-only-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0674 — [ ] `.github/workflows/repository-health.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-repository-health-yml)
+### IMP-0674 — [ ] `.github/workflows/repository-health.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-repository-health-yml)
 - **Ordem de exportação:** 879
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0674 "[ ] `.github/workflows/repository-health.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-repository-health-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0674 "[ ] `.github/workflows/repository-health.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-repository-health-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0675 — [ ] `.github/workflows/reusable-node-check.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-reusable-node-check-yml)
+### IMP-0675 — [ ] `.github/workflows/reusable-node-check.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-reusable-node-check-yml)
 - **Ordem de exportação:** 880
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0675 "[ ] `.github/workflows/reusable-node-check.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-reusable-node-check-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0675 "[ ] `.github/workflows/reusable-node-check.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-reusable-node-check-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0676 — [ ] `.github/workflows/security-scan.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-security-scan-yml)
+### IMP-0676 — [ ] `.github/workflows/security-scan.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-security-scan-yml)
 - **Ordem de exportação:** 881
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0676 "[ ] `.github/workflows/security-scan.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-workflows-security-scan-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0676 "[ ] `.github/workflows/security-scan.yml` | `Control & Verification (checklists, checks.json)` | `CI/CD control workflow` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-workflows-security-scan-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0677 — [ ] `artifacts/quality/bundle/web-bundle-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-json)
+### IMP-0677 — [ ] `artifacts/quality/bundle/web-bundle-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-json)
 - **Ordem de exportação:** 882
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0677 "[ ] `artifacts/quality/bundle/web-bundle-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0677 "[ ] `artifacts/quality/bundle/web-bundle-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0678 — [ ] `artifacts/quality/bundle/web-bundle-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-md)
+### IMP-0678 — [ ] `artifacts/quality/bundle/web-bundle-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-md)
 - **Ordem de exportação:** 883
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0678 "[ ] `artifacts/quality/bundle/web-bundle-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0678 "[ ] `artifacts/quality/bundle/web-bundle-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-bundle-web-bundle-baseline-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0679 — [ ] `artifacts/quality/complexity/cyclomatic-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-json)
+### IMP-0679 — [ ] `artifacts/quality/complexity/cyclomatic-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-json)
 - **Ordem de exportação:** 884
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0679 "[ ] `artifacts/quality/complexity/cyclomatic-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0679 "[ ] `artifacts/quality/complexity/cyclomatic-baseline.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0680 — [ ] `artifacts/quality/complexity/cyclomatic-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-md)
+### IMP-0680 — [ ] `artifacts/quality/complexity/cyclomatic-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-md)
 - **Ordem de exportação:** 885
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0680 "[ ] `artifacts/quality/complexity/cyclomatic-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0680 "[ ] `artifacts/quality/complexity/cyclomatic-baseline.md` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-complexity-cyclomatic-baseline-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0681 — [ ] `artifacts/quality/jscpd/jscpd-exit-code.txt` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-exit-code-txt)
+### IMP-0681 — [ ] `artifacts/quality/jscpd/jscpd-exit-code.txt` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-exit-code-txt)
 - **Ordem de exportação:** 886
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0681 "[ ] `artifacts/quality/jscpd/jscpd-exit-code.txt` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-exit-code-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0681 "[ ] `artifacts/quality/jscpd/jscpd-exit-code.txt` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-exit-code-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0682 — [ ] `artifacts/quality/jscpd/jscpd-report.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-report-json)
+### IMP-0682 — [ ] `artifacts/quality/jscpd/jscpd-report.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-report-json)
 - **Ordem de exportação:** 887
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0682 "[ ] `artifacts/quality/jscpd/jscpd-report.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0682 "[ ] `artifacts/quality/jscpd/jscpd-report.json` | `Control & Verification (checklists, checks.json)` | `quality baseline artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-quality-jscpd-jscpd-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0683 — [ ] `artifacts/script-compliance/workspace-script-compliance.md` | `Control & Verification (checklists, checks.json)` | `audit artifact` | `Primario` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-script-compliance-workspace-script-compliance-md)
+### IMP-0683 — [ ] `artifacts/script-compliance/workspace-script-compliance.md` | `Control & Verification (checklists, checks.json)` | `audit artifact` | `Primario` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-script-compliance-workspace-script-compliance-md)
 - **Ordem de exportação:** 888
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0683 "[ ] `artifacts/script-compliance/workspace-script-compliance.md` | `Control & Verification (checklists, checks.json)` | `audit artifact` | `Primario` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-script-compliance-workspace-script-compliance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0683 "[ ] `artifacts/script-compliance/workspace-script-compliance.md` | `Control & Verification (checklists, checks.json)` | `audit artifact` | `Primario` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-script-compliance-workspace-script-compliance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0684 — [ ] `audit/birthhub360-master-checklist-v3.html` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-birthhub360-master-checklist-v3-html)
+### IMP-0684 — [ ] `audit/birthhub360-master-checklist-v3.html` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-birthhub360-master-checklist-v3-html)
 - **Ordem de exportação:** 889
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0684 "[ ] `audit/birthhub360-master-checklist-v3.html` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-birthhub360-master-checklist-v3-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0684 "[ ] `audit/birthhub360-master-checklist-v3.html` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-birthhub360-master-checklist-v3-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0685 — [ ] `audit/checks.json` | `Control & Verification (checklists, checks.json)` | `control check registry` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-checks-json)
+### IMP-0685 — [ ] `audit/checks.json` | `Control & Verification (checklists, checks.json)` | `control check registry` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-checks-json)
 - **Ordem de exportação:** 890
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0685 "[ ] `audit/checks.json` | `Control & Verification (checklists, checks.json)` | `control check registry` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-checks-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0685 "[ ] `audit/checks.json` | `Control & Verification (checklists, checks.json)` | `control check registry` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-checks-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0686 — [ ] `audit/execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-execution-checklist-md)
+### IMP-0686 — [ ] `audit/execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-execution-checklist-md)
 - **Ordem de exportação:** 891
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0686 "[ ] `audit/execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-execution-checklist-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0686 "[ ] `audit/execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-execution-checklist-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0687 — [ ] `audit/master_execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-master-execution-checklist-md)
+### IMP-0687 — [ ] `audit/master_execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-master-execution-checklist-md)
 - **Ordem de exportação:** 892
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0687 "[ ] `audit/master_execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-master-execution-checklist-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0687 "[ ] `audit/master_execution_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-master-execution-checklist-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0688 — [ ] `audit/master_governance_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-master-governance-checklist-md)
+### IMP-0688 — [ ] `audit/master_governance_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-master-governance-checklist-md)
 - **Ordem de exportação:** 893
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0688 "[ ] `audit/master_governance_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-master-governance-checklist-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0688 "[ ] `audit/master_governance_checklist.md` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-master-governance-checklist-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0689 — [ ] `docs/agent-packs/policy-and-approval-guard-pack.mdx` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-policy-and-approval-guard-pack-mdx)
+### IMP-0689 — [ ] `docs/agent-packs/policy-and-approval-guard-pack.mdx` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-policy-and-approval-guard-pack-mdx)
 - **Ordem de exportação:** 894
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0689 "[ ] `docs/agent-packs/policy-and-approval-guard-pack.mdx` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-policy-and-approval-guard-pack-mdx)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0689 "[ ] `docs/agent-packs/policy-and-approval-guard-pack.mdx` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-policy-and-approval-guard-pack-mdx)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0690 — [ ] `docs/log-retention-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-log-retention-policy-md)
+### IMP-0690 — [ ] `docs/log-retention-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-log-retention-policy-md)
 - **Ordem de exportação:** 895
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0690 "[ ] `docs/log-retention-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-log-retention-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0690 "[ ] `docs/log-retention-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-log-retention-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0691 — [ ] `docs/policies/agent-deprecation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-agent-deprecation-policy-md)
+### IMP-0691 — [ ] `docs/policies/agent-deprecation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-agent-deprecation-policy-md)
 - **Ordem de exportação:** 896
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0691 "[ ] `docs/policies/agent-deprecation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-agent-deprecation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0691 "[ ] `docs/policies/agent-deprecation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-agent-deprecation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0692 — [ ] `docs/policies/approvals-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-approvals-policy-md)
+### IMP-0692 — [ ] `docs/policies/approvals-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-approvals-policy-md)
 - **Ordem de exportação:** 897
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0692 "[ ] `docs/policies/approvals-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-approvals-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0692 "[ ] `docs/policies/approvals-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-approvals-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0693 — [ ] `docs/policies/forced-upgrade-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-forced-upgrade-policy-md)
+### IMP-0693 — [ ] `docs/policies/forced-upgrade-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-forced-upgrade-policy-md)
 - **Ordem de exportação:** 898
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0693 "[ ] `docs/policies/forced-upgrade-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-forced-upgrade-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0693 "[ ] `docs/policies/forced-upgrade-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-forced-upgrade-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0694 — [ ] `docs/policies/incident-communication-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-incident-communication-policy-md)
+### IMP-0694 — [ ] `docs/policies/incident-communication-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-incident-communication-policy-md)
 - **Ordem de exportação:** 899
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0694 "[ ] `docs/policies/incident-communication-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-incident-communication-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0694 "[ ] `docs/policies/incident-communication-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-incident-communication-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0695 — [ ] `docs/policies/index-creation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-index-creation-policy-md)
+### IMP-0695 — [ ] `docs/policies/index-creation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-index-creation-policy-md)
 - **Ordem de exportação:** 900
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0695 "[ ] `docs/policies/index-creation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-index-creation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0695 "[ ] `docs/policies/index-creation-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-index-creation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0696 — [ ] `docs/policies/invitation-expiration-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-invitation-expiration-policy-md)
+### IMP-0696 — [ ] `docs/policies/invitation-expiration-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-invitation-expiration-policy-md)
 - **Ordem de exportação:** 901
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0696 "[ ] `docs/policies/invitation-expiration-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-invitation-expiration-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0696 "[ ] `docs/policies/invitation-expiration-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-invitation-expiration-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0697 — [ ] `docs/policies/member-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-member-limits-policy-md)
+### IMP-0697 — [ ] `docs/policies/member-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-member-limits-policy-md)
 - **Ordem de exportação:** 902
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0697 "[ ] `docs/policies/member-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-member-limits-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0697 "[ ] `docs/policies/member-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-member-limits-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0698 — [ ] `docs/policies/plan-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-plan-limits-policy-md)
+### IMP-0698 — [ ] `docs/policies/plan-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-plan-limits-policy-md)
 - **Ordem de exportação:** 903
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0698 "[ ] `docs/policies/plan-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-plan-limits-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0698 "[ ] `docs/policies/plan-limits-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-plan-limits-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0699 — [ ] `docs/policies/prompt-editing-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-prompt-editing-policy-md)
+### IMP-0699 — [ ] `docs/policies/prompt-editing-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-prompt-editing-policy-md)
 - **Ordem de exportação:** 904
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0699 "[ ] `docs/policies/prompt-editing-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-prompt-editing-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0699 "[ ] `docs/policies/prompt-editing-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-prompt-editing-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0700 — [ ] `docs/policies/template-update-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-template-update-policy-md)
+### IMP-0700 — [ ] `docs/policies/template-update-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-template-update-policy-md)
 - **Ordem de exportação:** 905
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0700 "[ ] `docs/policies/template-update-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-template-update-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0700 "[ ] `docs/policies/template-update-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-template-update-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0701 — [ ] `docs/policies/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-tenant-deletion-policy-md)
+### IMP-0701 — [ ] `docs/policies/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-tenant-deletion-policy-md)
 - **Ordem de exportação:** 906
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0701 "[ ] `docs/policies/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-tenant-deletion-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0701 "[ ] `docs/policies/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-tenant-deletion-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0702 — [ ] `docs/security/impersonation-policy.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-impersonation-policy-md)
+### IMP-0702 — [ ] `docs/security/impersonation-policy.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-impersonation-policy-md)
 - **Ordem de exportação:** 907
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0702 "[ ] `docs/security/impersonation-policy.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-impersonation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0702 "[ ] `docs/security/impersonation-policy.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-impersonation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0703 — [ ] `docs/security/tenant-auth-guardrails.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-tenant-auth-guardrails-md)
+### IMP-0703 — [ ] `docs/security/tenant-auth-guardrails.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-tenant-auth-guardrails-md)
 - **Ordem de exportação:** 908
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0703 "[ ] `docs/security/tenant-auth-guardrails.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-tenant-auth-guardrails-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0703 "[ ] `docs/security/tenant-auth-guardrails.md` | `Control & Verification (checklists, checks.json)` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-tenant-auth-guardrails-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0704 — [ ] `docs/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-tenant-deletion-policy-md)
+### IMP-0704 — [ ] `docs/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-tenant-deletion-policy-md)
 - **Ordem de exportação:** 909
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0704 "[ ] `docs/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-tenant-deletion-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0704 "[ ] `docs/tenant-deletion-policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-tenant-deletion-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0705 — [ ] `docs/testing/isolation-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-isolation-acceptance-criteria-md)
+### IMP-0705 — [ ] `docs/testing/isolation-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-isolation-acceptance-criteria-md)
 - **Ordem de exportação:** 910
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0705 "[ ] `docs/testing/isolation-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-isolation-acceptance-criteria-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0705 "[ ] `docs/testing/isolation-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-isolation-acceptance-criteria-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0706 — [ ] `docs/testing/provisioning-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-provisioning-acceptance-criteria-md)
+### IMP-0706 — [ ] `docs/testing/provisioning-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-provisioning-acceptance-criteria-md)
 - **Ordem de exportação:** 911
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0706 "[ ] `docs/testing/provisioning-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-provisioning-acceptance-criteria-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0706 "[ ] `docs/testing/provisioning-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `testing control document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-provisioning-acceptance-criteria-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0707 — [ ] `docs/ux/dashboard_data_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-dashboard-data-policy-md)
+### IMP-0707 — [ ] `docs/ux/dashboard_data_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-dashboard-data-policy-md)
 - **Ordem de exportação:** 912
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0707 "[ ] `docs/ux/dashboard_data_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-dashboard-data-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0707 "[ ] `docs/ux/dashboard_data_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-dashboard-data-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0708 — [ ] `docs/ux/impersonation_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-impersonation-policy-md)
+### IMP-0708 — [ ] `docs/ux/impersonation_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-impersonation-policy-md)
 - **Ordem de exportação:** 913
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0708 "[ ] `docs/ux/impersonation_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-impersonation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0708 "[ ] `docs/ux/impersonation_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-impersonation-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0709 — [ ] `docs/ux/kb_update_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-kb-update-policy-md)
+### IMP-0709 — [ ] `docs/ux/kb_update_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-kb-update-policy-md)
 - **Ordem de exportação:** 914
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0709 "[ ] `docs/ux/kb_update_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-kb-update-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0709 "[ ] `docs/ux/kb_update_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-kb-update-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0710 — [ ] `docs/ux/notification_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-notification-policy-md)
+### IMP-0710 — [ ] `docs/ux/notification_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-notification-policy-md)
 - **Ordem de exportação:** 915
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0710 "[ ] `docs/ux/notification_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-notification-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0710 "[ ] `docs/ux/notification_policy.md` | `Control & Verification (checklists, checks.json)` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-notification-policy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0711 — [ ] `docs/workflows/approval-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-approval-acceptance-criteria-md)
+### IMP-0711 — [ ] `docs/workflows/approval-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-approval-acceptance-criteria-md)
 - **Ordem de exportação:** 916
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0711 "[ ] `docs/workflows/approval-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-approval-acceptance-criteria-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0711 "[ ] `docs/workflows/approval-acceptance-criteria.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-approval-acceptance-criteria-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0712 — [ ] `docs/workflows/complex-flow-evidence.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-complex-flow-evidence-md)
+### IMP-0712 — [ ] `docs/workflows/complex-flow-evidence.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-complex-flow-evidence-md)
 - **Ordem de exportação:** 917
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0712 "[ ] `docs/workflows/complex-flow-evidence.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-complex-flow-evidence-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0712 "[ ] `docs/workflows/complex-flow-evidence.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-complex-flow-evidence-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0713 — [ ] `docs/workflows/template-customization-guide.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-template-customization-guide-md)
+### IMP-0713 — [ ] `docs/workflows/template-customization-guide.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-template-customization-guide-md)
 - **Ordem de exportação:** 918
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0713 "[ ] `docs/workflows/template-customization-guide.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-template-customization-guide-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0713 "[ ] `docs/workflows/template-customization-guide.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-template-customization-guide-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0714 — [ ] `docs/workflows/template-use-cases.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-template-use-cases-md)
+### IMP-0714 — [ ] `docs/workflows/template-use-cases.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-template-use-cases-md)
 - **Ordem de exportação:** 919
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0714 "[ ] `docs/workflows/template-use-cases.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-workflows-template-use-cases-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0714 "[ ] `docs/workflows/template-use-cases.md` | `Control & Verification (checklists, checks.json)` | `workflow governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-workflows-template-use-cases-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0715 — [ ] `packages/database/scripts/post-migration-checklist.ts` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#packages-database-scripts-post-migration-checklist-ts)
+### IMP-0715 — [ ] `packages/database/scripts/post-migration-checklist.ts` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-database-scripts-post-migration-checklist-ts)
 - **Ordem de exportação:** 920
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0715 "[ ] `packages/database/scripts/post-migration-checklist.ts` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#packages-database-scripts-post-migration-checklist-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0715 "[ ] `packages/database/scripts/post-migration-checklist.ts` | `Control & Verification (checklists, checks.json)` | `checklist` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-database-scripts-post-migration-checklist-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0716 — [ ] `scripts/ci/check-python-workflow-hard-fail.py` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-python-workflow-hard-fail-py)
+### IMP-0716 — [ ] `scripts/ci/check-python-workflow-hard-fail.py` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-python-workflow-hard-fail-py)
 - **Ordem de exportação:** 921
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0716 "[ ] `scripts/ci/check-python-workflow-hard-fail.py` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-python-workflow-hard-fail-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0716 "[ ] `scripts/ci/check-python-workflow-hard-fail.py` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-python-workflow-hard-fail-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0717 — [ ] `scripts/ci/lint-policy.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-lint-policy-mjs)
+### IMP-0717 — [ ] `scripts/ci/lint-policy.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-lint-policy-mjs)
 - **Ordem de exportação:** 922
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0717 "[ ] `scripts/ci/lint-policy.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-lint-policy-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0717 "[ ] `scripts/ci/lint-policy.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-lint-policy-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0718 — [ ] `scripts/ci/script-compliance-audit.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-audit-mjs)
+### IMP-0718 — [ ] `scripts/ci/script-compliance-audit.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-audit-mjs)
 - **Ordem de exportação:** 923
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0718 "[ ] `scripts/ci/script-compliance-audit.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-audit-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0718 "[ ] `scripts/ci/script-compliance-audit.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-audit-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0719 — [ ] `scripts/ci/script-compliance-policy.json` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-policy-json)
+### IMP-0719 — [ ] `scripts/ci/script-compliance-policy.json` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-policy-json)
 - **Ordem de exportação:** 924
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0719 "[ ] `scripts/ci/script-compliance-policy.json` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-policy-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0719 "[ ] `scripts/ci/script-compliance-policy.json` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-script-compliance-policy-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0720 — [ ] `scripts/ci/security-guardrails-local.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-security-guardrails-local-mjs)
+### IMP-0720 — [ ] `scripts/ci/security-guardrails-local.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-security-guardrails-local-mjs)
 - **Ordem de exportação:** 925
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0720 "[ ] `scripts/ci/security-guardrails-local.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-security-guardrails-local-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0720 "[ ] `scripts/ci/security-guardrails-local.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-security-guardrails-local-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0721 — [ ] `scripts/ci/ts-directives-guard.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-ts-directives-guard-mjs)
+### IMP-0721 — [ ] `scripts/ci/ts-directives-guard.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-ts-directives-guard-mjs)
 - **Ordem de exportação:** 926
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0721 "[ ] `scripts/ci/ts-directives-guard.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-ts-directives-guard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0721 "[ ] `scripts/ci/ts-directives-guard.mjs` | `Control & Verification (checklists, checks.json)` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-ts-directives-guard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0722 — [ ] `scripts/quality/generate-cyclomatic-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-quality-generate-cyclomatic-baseline-mjs)
+### IMP-0722 — [ ] `scripts/quality/generate-cyclomatic-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-quality-generate-cyclomatic-baseline-mjs)
 - **Ordem de exportação:** 927
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0722 "[ ] `scripts/quality/generate-cyclomatic-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-quality-generate-cyclomatic-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0722 "[ ] `scripts/quality/generate-cyclomatic-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-quality-generate-cyclomatic-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0723 — [ ] `scripts/quality/generate-web-bundle-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-quality-generate-web-bundle-baseline-mjs)
+### IMP-0723 — [ ] `scripts/quality/generate-web-bundle-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-quality-generate-web-bundle-baseline-mjs)
 - **Ordem de exportação:** 928
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0723 "[ ] `scripts/quality/generate-web-bundle-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-quality-generate-web-bundle-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0723 "[ ] `scripts/quality/generate-web-bundle-baseline.mjs` | `Control & Verification (checklists, checks.json)` | `quality baseline generator` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-quality-generate-web-bundle-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0724 — [ ] `scripts/security/check-auth-guards.test.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-test-ts)
+### IMP-0724 — [ ] `scripts/security/check-auth-guards.test.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-test-ts)
 - **Ordem de exportação:** 929
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0724 "[ ] `scripts/security/check-auth-guards.test.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-test-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0724 "[ ] `scripts/security/check-auth-guards.test.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-test-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0725 — [ ] `scripts/security/check-auth-guards.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-ts)
+### IMP-0725 — [ ] `scripts/security/check-auth-guards.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-ts)
 - **Ordem de exportação:** 930
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0725 "[ ] `scripts/security/check-auth-guards.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0725 "[ ] `scripts/security/check-auth-guards.ts` | `Control & Verification (checklists, checks.json)` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-check-auth-guards-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0726 — [ ] `audit/files_analysis/docs/slo.md.md` | `Derived / Analytical Mirror (files_analysis)` | `files_analysis mirror (governance document)` | `Derivado (files_analysis)` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#audit-files-analysis-docs-slo-md-md)
+### IMP-0726 — [ ] `audit/files_analysis/docs/slo.md.md` | `Derived / Analytical Mirror (files_analysis)` | `files_analysis mirror (governance document)` | `Derivado (files_analysis)` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-files-analysis-docs-slo-md-md)
 - **Ordem de exportação:** 931
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0726 "[ ] `audit/files_analysis/docs/slo.md.md` | `Derived / Analytical Mirror (files_analysis)` | `files_analysis mirror (governance document)` | `Derivado (files_analysis)` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#audit-files-analysis-docs-slo-md-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0726 "[ ] `audit/files_analysis/docs/slo.md.md` | `Derived / Analytical Mirror (files_analysis)` | `files_analysis mirror (governance document)` | `Derivado (files_analysis)` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-files-analysis-docs-slo-md-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0727 — [ ] `.github/ISSUE_TEMPLATE/documentation-gap.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-documentation-gap-yml)
+### IMP-0727 — [ ] `.github/ISSUE_TEMPLATE/documentation-gap.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-documentation-gap-yml)
 - **Ordem de exportação:** 932
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0727 "[ ] `.github/ISSUE_TEMPLATE/documentation-gap.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-documentation-gap-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0727 "[ ] `.github/ISSUE_TEMPLATE/documentation-gap.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-documentation-gap-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0728 — [ ] `.github/ISSUE_TEMPLATE/tech-debt.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-tech-debt-yml)
+### IMP-0728 — [ ] `.github/ISSUE_TEMPLATE/tech-debt.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-tech-debt-yml)
 - **Ordem de exportação:** 933
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0728 "[ ] `.github/ISSUE_TEMPLATE/tech-debt.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-tech-debt-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0728 "[ ] `.github/ISSUE_TEMPLATE/tech-debt.yml` | `Gap & Remediation` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-tech-debt-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0729 — [ ] `audit/autofix/manifest.json` | `Gap & Remediation` | `autofix manifest` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-manifest-json)
+### IMP-0729 — [ ] `audit/autofix/manifest.json` | `Gap & Remediation` | `autofix manifest` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-manifest-json)
 - **Ordem de exportação:** 934
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0729 "[ ] `audit/autofix/manifest.json` | `Gap & Remediation` | `autofix manifest` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-manifest-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0729 "[ ] `audit/autofix/manifest.json` | `Gap & Remediation` | `autofix manifest` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-manifest-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0730 — [ ] `audit/autofix/notes/api-authentication-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-authentication-snapshot-md)
+### IMP-0730 — [ ] `audit/autofix/notes/api-authentication-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-authentication-snapshot-md)
 - **Ordem de exportação:** 935
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0730 "[ ] `audit/autofix/notes/api-authentication-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-authentication-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0730 "[ ] `audit/autofix/notes/api-authentication-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-authentication-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0731 — [ ] `audit/autofix/notes/api-error-handler-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-error-handler-snapshot-md)
+### IMP-0731 — [ ] `audit/autofix/notes/api-error-handler-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-error-handler-snapshot-md)
 - **Ordem de exportação:** 936
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0731 "[ ] `audit/autofix/notes/api-error-handler-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-error-handler-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0731 "[ ] `audit/autofix/notes/api-error-handler-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-error-handler-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0732 — [ ] `audit/autofix/notes/api-rate-limit-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-rate-limit-snapshot-md)
+### IMP-0732 — [ ] `audit/autofix/notes/api-rate-limit-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-rate-limit-snapshot-md)
 - **Ordem de exportação:** 937
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0732 "[ ] `audit/autofix/notes/api-rate-limit-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-rate-limit-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0732 "[ ] `audit/autofix/notes/api-rate-limit-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-rate-limit-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0733 — [ ] `audit/autofix/notes/api-security-suite-listener-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-security-suite-listener-stability-md)
+### IMP-0733 — [ ] `audit/autofix/notes/api-security-suite-listener-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-security-suite-listener-stability-md)
 - **Ordem de exportação:** 938
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0733 "[ ] `audit/autofix/notes/api-security-suite-listener-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-security-suite-listener-stability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0733 "[ ] `audit/autofix/notes/api-security-suite-listener-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-api-security-suite-listener-stability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0734 — [ ] `audit/autofix/notes/logger-transport-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-logger-transport-stability-md)
+### IMP-0734 — [ ] `audit/autofix/notes/logger-transport-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-logger-transport-stability-md)
 - **Ordem de exportação:** 939
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0734 "[ ] `audit/autofix/notes/logger-transport-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-logger-transport-stability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0734 "[ ] `audit/autofix/notes/logger-transport-stability.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-logger-transport-stability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0735 — [ ] `audit/autofix/notes/metrics-service-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-metrics-service-snapshot-md)
+### IMP-0735 — [ ] `audit/autofix/notes/metrics-service-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-metrics-service-snapshot-md)
 - **Ordem de exportação:** 940
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0735 "[ ] `audit/autofix/notes/metrics-service-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-metrics-service-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0735 "[ ] `audit/autofix/notes/metrics-service-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-metrics-service-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0736 — [ ] `audit/autofix/notes/queue-manager-hardening.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-queue-manager-hardening-md)
+### IMP-0736 — [ ] `audit/autofix/notes/queue-manager-hardening.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-queue-manager-hardening-md)
 - **Ordem de exportação:** 941
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0736 "[ ] `audit/autofix/notes/queue-manager-hardening.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-queue-manager-hardening-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0736 "[ ] `audit/autofix/notes/queue-manager-hardening.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-queue-manager-hardening-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0737 — [ ] `audit/autofix/notes/utils-logger-alignment.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-utils-logger-alignment-md)
+### IMP-0737 — [ ] `audit/autofix/notes/utils-logger-alignment.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-utils-logger-alignment-md)
 - **Ordem de exportação:** 942
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0737 "[ ] `audit/autofix/notes/utils-logger-alignment.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-utils-logger-alignment-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0737 "[ ] `audit/autofix/notes/utils-logger-alignment.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-utils-logger-alignment-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0738 — [ ] `audit/autofix/notes/worker-runtime-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-worker-runtime-snapshot-md)
+### IMP-0738 — [ ] `audit/autofix/notes/worker-runtime-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-worker-runtime-snapshot-md)
 - **Ordem de exportação:** 943
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0738 "[ ] `audit/autofix/notes/worker-runtime-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-notes-worker-runtime-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0738 "[ ] `audit/autofix/notes/worker-runtime-snapshot.md` | `Gap & Remediation` | `remediation note` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-notes-worker-runtime-snapshot-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0739 — [ ] `audit/autofix/snapshots/apps/api/src/middleware/authentication.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-authentication-ts)
+### IMP-0739 — [ ] `audit/autofix/snapshots/apps/api/src/middleware/authentication.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-authentication-ts)
 - **Ordem de exportação:** 944
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0739 "[ ] `audit/autofix/snapshots/apps/api/src/middleware/authentication.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-authentication-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0739 "[ ] `audit/autofix/snapshots/apps/api/src/middleware/authentication.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-authentication-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0740 — [ ] `audit/autofix/snapshots/apps/api/src/middleware/error-handler.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-error-handler-ts)
+### IMP-0740 — [ ] `audit/autofix/snapshots/apps/api/src/middleware/error-handler.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-error-handler-ts)
 - **Ordem de exportação:** 945
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0740 "[ ] `audit/autofix/snapshots/apps/api/src/middleware/error-handler.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-error-handler-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0740 "[ ] `audit/autofix/snapshots/apps/api/src/middleware/error-handler.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-error-handler-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0741 — [ ] `audit/autofix/snapshots/apps/api/src/middleware/rate-limit.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-rate-limit-ts)
+### IMP-0741 — [ ] `audit/autofix/snapshots/apps/api/src/middleware/rate-limit.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-rate-limit-ts)
 - **Ordem de exportação:** 946
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0741 "[ ] `audit/autofix/snapshots/apps/api/src/middleware/rate-limit.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-rate-limit-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0741 "[ ] `audit/autofix/snapshots/apps/api/src/middleware/rate-limit.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-middleware-rate-limit-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0742 — [ ] `audit/autofix/snapshots/apps/api/src/modules/agents/metrics.service.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-modules-agents-metrics-service-ts)
+### IMP-0742 — [ ] `audit/autofix/snapshots/apps/api/src/modules/agents/metrics.service.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-modules-agents-metrics-service-ts)
 - **Ordem de exportação:** 947
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0742 "[ ] `audit/autofix/snapshots/apps/api/src/modules/agents/metrics.service.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-modules-agents-metrics-service-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0742 "[ ] `audit/autofix/snapshots/apps/api/src/modules/agents/metrics.service.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-src-modules-agents-metrics-service-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0743 — [ ] `audit/autofix/snapshots/apps/api/tests/security.test.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-tests-security-test-ts)
+### IMP-0743 — [ ] `audit/autofix/snapshots/apps/api/tests/security.test.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-tests-security-test-ts)
 - **Ordem de exportação:** 948
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0743 "[ ] `audit/autofix/snapshots/apps/api/tests/security.test.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-tests-security-test-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0743 "[ ] `audit/autofix/snapshots/apps/api/tests/security.test.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-api-tests-security-test-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0744 — [ ] `audit/autofix/snapshots/apps/worker/src/worker.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-worker-src-worker-ts)
+### IMP-0744 — [ ] `audit/autofix/snapshots/apps/worker/src/worker.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-worker-src-worker-ts)
 - **Ordem de exportação:** 949
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0744 "[ ] `audit/autofix/snapshots/apps/worker/src/worker.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-worker-src-worker-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0744 "[ ] `audit/autofix/snapshots/apps/worker/src/worker.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-apps-worker-src-worker-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0745 — [ ] `audit/autofix/snapshots/packages/logger/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-logger-src-index-ts)
+### IMP-0745 — [ ] `audit/autofix/snapshots/packages/logger/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-logger-src-index-ts)
 - **Ordem de exportação:** 950
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0745 "[ ] `audit/autofix/snapshots/packages/logger/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-logger-src-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0745 "[ ] `audit/autofix/snapshots/packages/logger/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-logger-src-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0746 — [ ] `audit/autofix/snapshots/packages/queue/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-package-json)
+### IMP-0746 — [ ] `audit/autofix/snapshots/packages/queue/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-package-json)
 - **Ordem de exportação:** 951
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0746 "[ ] `audit/autofix/snapshots/packages/queue/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-package-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0746 "[ ] `audit/autofix/snapshots/packages/queue/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-package-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0747 — [ ] `audit/autofix/snapshots/packages/queue/src/definitions.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-definitions-ts)
+### IMP-0747 — [ ] `audit/autofix/snapshots/packages/queue/src/definitions.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-definitions-ts)
 - **Ordem de exportação:** 952
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0747 "[ ] `audit/autofix/snapshots/packages/queue/src/definitions.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-definitions-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0747 "[ ] `audit/autofix/snapshots/packages/queue/src/definitions.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-definitions-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0748 — [ ] `audit/autofix/snapshots/packages/queue/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-index-ts)
+### IMP-0748 — [ ] `audit/autofix/snapshots/packages/queue/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-index-ts)
 - **Ordem de exportação:** 953
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0748 "[ ] `audit/autofix/snapshots/packages/queue/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0748 "[ ] `audit/autofix/snapshots/packages/queue/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-queue-src-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0749 — [ ] `audit/autofix/snapshots/packages/utils/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-index-ts)
+### IMP-0749 — [ ] `audit/autofix/snapshots/packages/utils/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-index-ts)
 - **Ordem de exportação:** 954
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0749 "[ ] `audit/autofix/snapshots/packages/utils/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0749 "[ ] `audit/autofix/snapshots/packages/utils/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0750 — [ ] `audit/autofix/snapshots/packages/utils/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-package-json)
+### IMP-0750 — [ ] `audit/autofix/snapshots/packages/utils/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-package-json)
 - **Ordem de exportação:** 955
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0750 "[ ] `audit/autofix/snapshots/packages/utils/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-package-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0750 "[ ] `audit/autofix/snapshots/packages/utils/package.json` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-package-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0751 — [ ] `audit/autofix/snapshots/packages/utils/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-index-ts)
+### IMP-0751 — [ ] `audit/autofix/snapshots/packages/utils/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-index-ts)
 - **Ordem de exportação:** 956
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0751 "[ ] `audit/autofix/snapshots/packages/utils/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0751 "[ ] `audit/autofix/snapshots/packages/utils/src/index.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-index-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0752 — [ ] `audit/autofix/snapshots/packages/utils/src/logger.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-logger-ts)
+### IMP-0752 — [ ] `audit/autofix/snapshots/packages/utils/src/logger.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-logger-ts)
 - **Ordem de exportação:** 957
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0752 "[ ] `audit/autofix/snapshots/packages/utils/src/logger.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-logger-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0752 "[ ] `audit/autofix/snapshots/packages/utils/src/logger.ts` | `Gap & Remediation` | `remediation snapshot` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-autofix-snapshots-packages-utils-src-logger-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0753 — [ ] `audit/gaps.md` | `Gap & Remediation` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-gaps-md)
+### IMP-0753 — [ ] `audit/gaps.md` | `Gap & Remediation` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-gaps-md)
 - **Ordem de exportação:** 958
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0753 "[ ] `audit/gaps.md` | `Gap & Remediation` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-gaps-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0753 "[ ] `audit/gaps.md` | `Gap & Remediation` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-gaps-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0754 — [ ] `docs/technical-debt/CHANGELOG.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-changelog-md)
+### IMP-0754 — [ ] `docs/technical-debt/CHANGELOG.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-changelog-md)
 - **Ordem de exportação:** 959
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0754 "[ ] `docs/technical-debt/CHANGELOG.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-changelog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0754 "[ ] `docs/technical-debt/CHANGELOG.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-changelog-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0755 — [ ] `docs/technical-debt/README.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-readme-md)
+### IMP-0755 — [ ] `docs/technical-debt/README.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-readme-md)
 - **Ordem de exportação:** 960
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0755 "[ ] `docs/technical-debt/README.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0755 "[ ] `docs/technical-debt/README.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0756 — [ ] `docs/technical-debt/dashboard.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-dashboard-md)
+### IMP-0756 — [ ] `docs/technical-debt/dashboard.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-dashboard-md)
 - **Ordem de exportação:** 961
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0756 "[ ] `docs/technical-debt/dashboard.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-dashboard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0756 "[ ] `docs/technical-debt/dashboard.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-dashboard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0757 — [ ] `docs/technical-debt/debt-feature-ratio.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-debt-feature-ratio-md)
+### IMP-0757 — [ ] `docs/technical-debt/debt-feature-ratio.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-debt-feature-ratio-md)
 - **Ordem de exportação:** 962
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0757 "[ ] `docs/technical-debt/debt-feature-ratio.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-debt-feature-ratio-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0757 "[ ] `docs/technical-debt/debt-feature-ratio.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-debt-feature-ratio-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0758 — [ ] `docs/technical-debt/tracker.json` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-tracker-json)
+### IMP-0758 — [ ] `docs/technical-debt/tracker.json` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-tracker-json)
 - **Ordem de exportação:** 963
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0758 "[ ] `docs/technical-debt/tracker.json` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-tracker-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0758 "[ ] `docs/technical-debt/tracker.json` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-tracker-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0759 — [ ] `docs/technical-debt/velocity.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-velocity-md)
+### IMP-0759 — [ ] `docs/technical-debt/velocity.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-velocity-md)
 - **Ordem de exportação:** 964
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0759 "[ ] `docs/technical-debt/velocity.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-technical-debt-velocity-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0759 "[ ] `docs/technical-debt/velocity.md` | `Gap & Remediation` | `technical debt register` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-technical-debt-velocity-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0760 — [ ] `.github/ISSUE_TEMPLATE/bug-report.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-bug-report-yml)
+### IMP-0760 — [ ] `.github/ISSUE_TEMPLATE/bug-report.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-bug-report-yml)
 - **Ordem de exportação:** 965
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0760 "[ ] `.github/ISSUE_TEMPLATE/bug-report.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-bug-report-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0760 "[ ] `.github/ISSUE_TEMPLATE/bug-report.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-bug-report-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0761 — [ ] `.github/ISSUE_TEMPLATE/config.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-config-yml)
+### IMP-0761 — [ ] `.github/ISSUE_TEMPLATE/config.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-config-yml)
 - **Ordem de exportação:** 966
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0761 "[ ] `.github/ISSUE_TEMPLATE/config.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-issue-template-config-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0761 "[ ] `.github/ISSUE_TEMPLATE/config.yml` | `Governance & Audit Artifacts` | `issue intake template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-issue-template-config-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0762 — [ ] `.github/PULL_REQUEST_TEMPLATE.md` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-pull-request-template-md)
+### IMP-0762 — [ ] `.github/PULL_REQUEST_TEMPLATE.md` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-pull-request-template-md)
 - **Ordem de exportação:** 967
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0762 "[ ] `.github/PULL_REQUEST_TEMPLATE.md` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-pull-request-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0762 "[ ] `.github/PULL_REQUEST_TEMPLATE.md` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-pull-request-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0763 — [ ] `.github/commit-message-allowlist.txt` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-commit-message-allowlist-txt)
+### IMP-0763 — [ ] `.github/commit-message-allowlist.txt` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-commit-message-allowlist-txt)
 - **Ordem de exportação:** 968
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0763 "[ ] `.github/commit-message-allowlist.txt` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-commit-message-allowlist-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0763 "[ ] `.github/commit-message-allowlist.txt` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-commit-message-allowlist-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0764 — [ ] `.github/dependabot.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-dependabot-yml)
+### IMP-0764 — [ ] `.github/dependabot.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-dependabot-yml)
 - **Ordem de exportação:** 969
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0764 "[ ] `.github/dependabot.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-dependabot-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0764 "[ ] `.github/dependabot.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-dependabot-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0765 — [ ] `.github/lockfile/pnpm-lock.sha256` | `Governance & Audit Artifacts` | `integrity checksum` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-lockfile-pnpm-lock-sha256)
+### IMP-0765 — [ ] `.github/lockfile/pnpm-lock.sha256` | `Governance & Audit Artifacts` | `integrity checksum` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-lockfile-pnpm-lock-sha256)
 - **Ordem de exportação:** 970
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0765 "[ ] `.github/lockfile/pnpm-lock.sha256` | `Governance & Audit Artifacts` | `integrity checksum` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-lockfile-pnpm-lock-sha256)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0765 "[ ] `.github/lockfile/pnpm-lock.sha256` | `Governance & Audit Artifacts` | `integrity checksum` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-lockfile-pnpm-lock-sha256)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0766 — [ ] `.github/settings.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-settings-yml)
+### IMP-0766 — [ ] `.github/settings.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-settings-yml)
 - **Ordem de exportação:** 971
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0766 "[ ] `.github/settings.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-settings-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0766 "[ ] `.github/settings.yml` | `Governance & Audit Artifacts` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-settings-yml)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0767 — [ ] `SECURITY.md` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#security-md)
+### IMP-0767 — [ ] `SECURITY.md` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#security-md)
 - **Ordem de exportação:** 972
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0767 "[ ] `SECURITY.md` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#security-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0767 "[ ] `SECURITY.md` | `Governance & Audit Artifacts` | `governance artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#security-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0768 — [ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-json)
+### IMP-0768 — [ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-json)
 - **Ordem de exportação:** 973
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0768 "[ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0768 "[ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0769 — [ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-txt)
+### IMP-0769 — [ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-txt)
 - **Ordem de exportação:** 974
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0769 "[ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0769 "[ ] `artifacts/baseline/2026-03-23T02-19-24.184Z/api-latency-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-24-184z-api-latency-baseline-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0770 — [ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-json)
+### IMP-0770 — [ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-json)
 - **Ordem de exportação:** 975
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0770 "[ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0770 "[ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0771 — [ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-txt)
+### IMP-0771 — [ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-txt)
 - **Ordem de exportação:** 976
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0771 "[ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0771 "[ ] `artifacts/baseline/2026-03-23T02-19-44.799Z/web-vitals-baseline.txt` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-baseline-2026-03-23t02-19-44-799z-web-vitals-baseline-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0772 — [ ] `artifacts/doctor/monorepo-doctor-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-doctor-monorepo-doctor-report-md)
+### IMP-0772 — [ ] `artifacts/doctor/monorepo-doctor-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-doctor-monorepo-doctor-report-md)
 - **Ordem de exportação:** 977
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0772 "[ ] `artifacts/doctor/monorepo-doctor-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-doctor-monorepo-doctor-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0772 "[ ] `artifacts/doctor/monorepo-doctor-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-doctor-monorepo-doctor-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0773 — [ ] `artifacts/documentation/link-check-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-documentation-link-check-report-md)
+### IMP-0773 — [ ] `artifacts/documentation/link-check-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-documentation-link-check-report-md)
 - **Ordem de exportação:** 978
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0773 "[ ] `artifacts/documentation/link-check-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-documentation-link-check-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0773 "[ ] `artifacts/documentation/link-check-report.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-documentation-link-check-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0774 — [ ] `artifacts/materialization/doc-only-controls-report.json` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-json)
+### IMP-0774 — [ ] `artifacts/materialization/doc-only-controls-report.json` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-json)
 - **Ordem de exportação:** 979
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0774 "[ ] `artifacts/materialization/doc-only-controls-report.json` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0774 "[ ] `artifacts/materialization/doc-only-controls-report.json` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0775 — [ ] `artifacts/materialization/doc-only-controls-report.md` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-md)
+### IMP-0775 — [ ] `artifacts/materialization/doc-only-controls-report.md` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-md)
 - **Ordem de exportação:** 980
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0775 "[ ] `artifacts/materialization/doc-only-controls-report.md` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0775 "[ ] `artifacts/materialization/doc-only-controls-report.md` | `Governance & Audit Artifacts` | `control materialization report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-materialization-doc-only-controls-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0776 — [ ] `artifacts/monitoring/etapa3-endpoint-simulation.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-monitoring-etapa3-endpoint-simulation-md)
+### IMP-0776 — [ ] `artifacts/monitoring/etapa3-endpoint-simulation.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-monitoring-etapa3-endpoint-simulation-md)
 - **Ordem de exportação:** 981
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0776 "[ ] `artifacts/monitoring/etapa3-endpoint-simulation.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-monitoring-etapa3-endpoint-simulation-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0776 "[ ] `artifacts/monitoring/etapa3-endpoint-simulation.md` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-monitoring-etapa3-endpoint-simulation-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0777 — [ ] `artifacts/performance/database-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-performance-database-baseline-json)
+### IMP-0777 — [ ] `artifacts/performance/database-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-performance-database-baseline-json)
 - **Ordem de exportação:** 982
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0777 "[ ] `artifacts/performance/database-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-performance-database-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0777 "[ ] `artifacts/performance/database-baseline.json` | `Governance & Audit Artifacts` | `audit artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-performance-database-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0778 — [ ] `artifacts/privacy/anonymization-report.json` | `Governance & Audit Artifacts` | `privacy evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-privacy-anonymization-report-json)
+### IMP-0778 — [ ] `artifacts/privacy/anonymization-report.json` | `Governance & Audit Artifacts` | `privacy evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-privacy-anonymization-report-json)
 - **Ordem de exportação:** 983
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0778 "[ ] `artifacts/privacy/anonymization-report.json` | `Governance & Audit Artifacts` | `privacy evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-privacy-anonymization-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0778 "[ ] `artifacts/privacy/anonymization-report.json` | `Governance & Audit Artifacts` | `privacy evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-privacy-anonymization-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0779 — [ ] `artifacts/security/inline-credential-scan.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-inline-credential-scan-json)
+### IMP-0779 — [ ] `artifacts/security/inline-credential-scan.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-inline-credential-scan-json)
 - **Ordem de exportação:** 984
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0779 "[ ] `artifacts/security/inline-credential-scan.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-inline-credential-scan-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0779 "[ ] `artifacts/security/inline-credential-scan.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-inline-credential-scan-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0780 — [ ] `artifacts/security/owasp-top10-baseline.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-owasp-top10-baseline-json)
+### IMP-0780 — [ ] `artifacts/security/owasp-top10-baseline.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-owasp-top10-baseline-json)
 - **Ordem de exportação:** 985
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0780 "[ ] `artifacts/security/owasp-top10-baseline.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-owasp-top10-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0780 "[ ] `artifacts/security/owasp-top10-baseline.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-owasp-top10-baseline-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0781 — [ ] `artifacts/security/pnpm-audit-high-exit-code.txt` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-exit-code-txt)
+### IMP-0781 — [ ] `artifacts/security/pnpm-audit-high-exit-code.txt` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-exit-code-txt)
 - **Ordem de exportação:** 986
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0781 "[ ] `artifacts/security/pnpm-audit-high-exit-code.txt` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-exit-code-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0781 "[ ] `artifacts/security/pnpm-audit-high-exit-code.txt` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-exit-code-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0782 — [ ] `artifacts/security/pnpm-audit-high.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-json)
+### IMP-0782 — [ ] `artifacts/security/pnpm-audit-high.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-json)
 - **Ordem de exportação:** 987
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0782 "[ ] `artifacts/security/pnpm-audit-high.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0782 "[ ] `artifacts/security/pnpm-audit-high.json` | `Governance & Audit Artifacts` | `security evidence artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-security-pnpm-audit-high-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0783 — [ ] `audit/README.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-readme-md)
+### IMP-0783 — [ ] `audit/README.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-readme-md)
 - **Ordem de exportação:** 988
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0783 "[ ] `audit/README.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0783 "[ ] `audit/README.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0784 — [ ] `audit/final_governance_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-final-governance-report-md)
+### IMP-0784 — [ ] `audit/final_governance_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-final-governance-report-md)
 - **Ordem de exportação:** 989
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0784 "[ ] `audit/final_governance_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-final-governance-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0784 "[ ] `audit/final_governance_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-final-governance-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0785 — [ ] `audit/governance_dashboard.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-governance-dashboard-html)
+### IMP-0785 — [ ] `audit/governance_dashboard.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-governance-dashboard-html)
 - **Ordem de exportação:** 990
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0785 "[ ] `audit/governance_dashboard.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-governance-dashboard-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0785 "[ ] `audit/governance_dashboard.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-governance-dashboard-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0786 — [ ] `audit/phase_2_execution_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-phase-2-execution-report-md)
+### IMP-0786 — [ ] `audit/phase_2_execution_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-phase-2-execution-report-md)
 - **Ordem de exportação:** 991
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0786 "[ ] `audit/phase_2_execution_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-phase-2-execution-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0786 "[ ] `audit/phase_2_execution_report.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-phase-2-execution-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0787 — [ ] `audit/report.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-report-html)
+### IMP-0787 — [ ] `audit/report.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-report-html)
 - **Ordem de exportação:** 992
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0787 "[ ] `audit/report.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-report-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0787 "[ ] `audit/report.html` | `Governance & Audit Artifacts` | `audit dashboard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-report-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0788 — [ ] `audit/validation_log.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-validation-log-md)
+### IMP-0788 — [ ] `audit/validation_log.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-validation-log-md)
 - **Ordem de exportação:** 993
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0788 "[ ] `audit/validation_log.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-validation-log-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0788 "[ ] `audit/validation_log.md` | `Governance & Audit Artifacts` | `audit report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-validation-log-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0789 — [ ] `docs/README.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-readme-md)
+### IMP-0789 — [ ] `docs/README.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-readme-md)
 - **Ordem de exportação:** 994
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0789 "[ ] `docs/README.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0789 "[ ] `docs/README.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0790 — [ ] `docs/agent-packs/capabilities-and-safety-rails.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-capabilities-and-safety-rails-md)
+### IMP-0790 — [ ] `docs/agent-packs/capabilities-and-safety-rails.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-capabilities-and-safety-rails-md)
 - **Ordem de exportação:** 995
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0790 "[ ] `docs/agent-packs/capabilities-and-safety-rails.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-capabilities-and-safety-rails-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0790 "[ ] `docs/agent-packs/capabilities-and-safety-rails.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-capabilities-and-safety-rails-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0791 — [ ] `docs/billing/criterios-aceite-ui-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-criterios-aceite-ui-billing-md)
+### IMP-0791 — [ ] `docs/billing/criterios-aceite-ui-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-criterios-aceite-ui-billing-md)
 - **Ordem de exportação:** 996
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0791 "[ ] `docs/billing/criterios-aceite-ui-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-criterios-aceite-ui-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0791 "[ ] `docs/billing/criterios-aceite-ui-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-criterios-aceite-ui-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0792 — [ ] `docs/billing/infrastructure-cost-per-run.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-infrastructure-cost-per-run-md)
+### IMP-0792 — [ ] `docs/billing/infrastructure-cost-per-run.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-infrastructure-cost-per-run-md)
 - **Ordem de exportação:** 997
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0792 "[ ] `docs/billing/infrastructure-cost-per-run.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-infrastructure-cost-per-run-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0792 "[ ] `docs/billing/infrastructure-cost-per-run.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-infrastructure-cost-per-run-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0793 — [ ] `docs/billing/metricas-sucesso-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-metricas-sucesso-billing-md)
+### IMP-0793 — [ ] `docs/billing/metricas-sucesso-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-metricas-sucesso-billing-md)
 - **Ordem de exportação:** 998
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0793 "[ ] `docs/billing/metricas-sucesso-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-metricas-sucesso-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0793 "[ ] `docs/billing/metricas-sucesso-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-metricas-sucesso-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0794 — [ ] `docs/billing/modelo-projecao-uso.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-modelo-projecao-uso-md)
+### IMP-0794 — [ ] `docs/billing/modelo-projecao-uso.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-modelo-projecao-uso-md)
 - **Ordem de exportação:** 999
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0794 "[ ] `docs/billing/modelo-projecao-uso.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-modelo-projecao-uso-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0794 "[ ] `docs/billing/modelo-projecao-uso.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-modelo-projecao-uso-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0795 — [ ] `docs/billing/modelo_custo_agente.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-modelo-custo-agente-md)
+### IMP-0795 — [ ] `docs/billing/modelo_custo_agente.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-modelo-custo-agente-md)
 - **Ordem de exportação:** 1000
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0795 "[ ] `docs/billing/modelo_custo_agente.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-modelo-custo-agente-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0795 "[ ] `docs/billing/modelo_custo_agente.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-modelo-custo-agente-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0796 — [ ] `docs/billing/politica-dados-financeiros.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-politica-dados-financeiros-md)
+### IMP-0796 — [ ] `docs/billing/politica-dados-financeiros.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-politica-dados-financeiros-md)
 - **Ordem de exportação:** 1001
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0796 "[ ] `docs/billing/politica-dados-financeiros.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-politica-dados-financeiros-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0796 "[ ] `docs/billing/politica-dados-financeiros.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-politica-dados-financeiros-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0797 — [ ] `docs/billing/politica_budget_overflow.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-politica-budget-overflow-md)
+### IMP-0797 — [ ] `docs/billing/politica_budget_overflow.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-politica-budget-overflow-md)
 - **Ordem de exportação:** 1002
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0797 "[ ] `docs/billing/politica_budget_overflow.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-politica-budget-overflow-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0797 "[ ] `docs/billing/politica_budget_overflow.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-politica-budget-overflow-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0798 — [ ] `docs/billing/risco-teste-producao.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-risco-teste-producao-md)
+### IMP-0798 — [ ] `docs/billing/risco-teste-producao.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-risco-teste-producao-md)
 - **Ordem de exportação:** 1003
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0798 "[ ] `docs/billing/risco-teste-producao.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-risco-teste-producao-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0798 "[ ] `docs/billing/risco-teste-producao.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-risco-teste-producao-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0799 — [ ] `docs/billing/risco-under-counting.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-risco-under-counting-md)
+### IMP-0799 — [ ] `docs/billing/risco-under-counting.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-risco-under-counting-md)
 - **Ordem de exportação:** 1004
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0799 "[ ] `docs/billing/risco-under-counting.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-risco-under-counting-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0799 "[ ] `docs/billing/risco-under-counting.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-risco-under-counting-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0800 — [ ] `docs/billing/sla-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-sla-billing-md)
+### IMP-0800 — [ ] `docs/billing/sla-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-sla-billing-md)
 - **Ordem de exportação:** 1005
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0800 "[ ] `docs/billing/sla-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-sla-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0800 "[ ] `docs/billing/sla-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-sla-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0801 — [ ] `docs/billing/ux-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-ux-billing-md)
+### IMP-0801 — [ ] `docs/billing/ux-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-ux-billing-md)
 - **Ordem de exportação:** 1006
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0801 "[ ] `docs/billing/ux-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-ux-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0801 "[ ] `docs/billing/ux-billing.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-ux-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0802 — [ ] `docs/evidence/2026-03-14-ciclo-estabilizacao-web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-14-ciclo-estabilizacao-web-build-md)
+### IMP-0802 — [ ] `docs/evidence/2026-03-14-ciclo-estabilizacao-web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-14-ciclo-estabilizacao-web-build-md)
 - **Ordem de exportação:** 1007
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0802 "[ ] `docs/evidence/2026-03-14-ciclo-estabilizacao-web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-14-ciclo-estabilizacao-web-build-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0802 "[ ] `docs/evidence/2026-03-14-ciclo-estabilizacao-web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-14-ciclo-estabilizacao-web-build-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0803 — [ ] `docs/evidence/2026-03-15-ciclo-estabilizacao-final-monorepo.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-15-ciclo-estabilizacao-final-monorepo-md)
+### IMP-0803 — [ ] `docs/evidence/2026-03-15-ciclo-estabilizacao-final-monorepo.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-15-ciclo-estabilizacao-final-monorepo-md)
 - **Ordem de exportação:** 1008
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0803 "[ ] `docs/evidence/2026-03-15-ciclo-estabilizacao-final-monorepo.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-15-ciclo-estabilizacao-final-monorepo-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0803 "[ ] `docs/evidence/2026-03-15-ciclo-estabilizacao-final-monorepo.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-15-ciclo-estabilizacao-final-monorepo-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0804 — [ ] `docs/evidence/2026-03-24-core-hardening-execution.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-24-core-hardening-execution-md)
+### IMP-0804 — [ ] `docs/evidence/2026-03-24-core-hardening-execution.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-24-core-hardening-execution-md)
 - **Ordem de exportação:** 1009
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0804 "[ ] `docs/evidence/2026-03-24-core-hardening-execution.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-24-core-hardening-execution-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0804 "[ ] `docs/evidence/2026-03-24-core-hardening-execution.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-24-core-hardening-execution-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0805 — [ ] `docs/evidence/agents-runtime.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-agents-runtime-md)
+### IMP-0805 — [ ] `docs/evidence/agents-runtime.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-agents-runtime-md)
 - **Ordem de exportação:** 1010
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0805 "[ ] `docs/evidence/agents-runtime.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-agents-runtime-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0805 "[ ] `docs/evidence/agents-runtime.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-agents-runtime-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0806 — [ ] `docs/evidence/billing.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-billing-md)
+### IMP-0806 — [ ] `docs/evidence/billing.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-billing-md)
 - **Ordem de exportação:** 1011
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0806 "[ ] `docs/evidence/billing.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0806 "[ ] `docs/evidence/billing.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-billing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0807 — [ ] `docs/evidence/db-package-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-db-package-fix-md)
+### IMP-0807 — [ ] `docs/evidence/db-package-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-db-package-fix-md)
 - **Ordem de exportação:** 1012
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0807 "[ ] `docs/evidence/db-package-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-db-package-fix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0807 "[ ] `docs/evidence/db-package-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-db-package-fix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0808 — [ ] `docs/evidence/lint-cleanup.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-lint-cleanup-md)
+### IMP-0808 — [ ] `docs/evidence/lint-cleanup.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-lint-cleanup-md)
 - **Ordem de exportação:** 1013
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0808 "[ ] `docs/evidence/lint-cleanup.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-lint-cleanup-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0808 "[ ] `docs/evidence/lint-cleanup.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-lint-cleanup-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0809 — [ ] `docs/evidence/monorepo-stability.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-monorepo-stability-md)
+### IMP-0809 — [ ] `docs/evidence/monorepo-stability.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-monorepo-stability-md)
 - **Ordem de exportação:** 1014
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0809 "[ ] `docs/evidence/monorepo-stability.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-monorepo-stability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0809 "[ ] `docs/evidence/monorepo-stability.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-monorepo-stability-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0810 — [ ] `docs/evidence/multi-tenant.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-multi-tenant-md)
+### IMP-0810 — [ ] `docs/evidence/multi-tenant.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-multi-tenant-md)
 - **Ordem de exportação:** 1015
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0810 "[ ] `docs/evidence/multi-tenant.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-multi-tenant-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0810 "[ ] `docs/evidence/multi-tenant.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-multi-tenant-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0811 — [ ] `docs/evidence/next-structure.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-next-structure-md)
+### IMP-0811 — [ ] `docs/evidence/next-structure.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-next-structure-md)
 - **Ordem de exportação:** 1016
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0811 "[ ] `docs/evidence/next-structure.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-next-structure-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0811 "[ ] `docs/evidence/next-structure.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-next-structure-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0812 — [ ] `docs/evidence/packages-standardization.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-packages-standardization-md)
+### IMP-0812 — [ ] `docs/evidence/packages-standardization.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-packages-standardization-md)
 - **Ordem de exportação:** 1017
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0812 "[ ] `docs/evidence/packages-standardization.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-packages-standardization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0812 "[ ] `docs/evidence/packages-standardization.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-packages-standardization-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0813 — [ ] `docs/evidence/pipeline-local.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-pipeline-local-md)
+### IMP-0813 — [ ] `docs/evidence/pipeline-local.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-pipeline-local-md)
 - **Ordem de exportação:** 1018
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0813 "[ ] `docs/evidence/pipeline-local.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-pipeline-local-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0813 "[ ] `docs/evidence/pipeline-local.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-pipeline-local-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0814 — [ ] `docs/evidence/prompt-v2-full-phases.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-prompt-v2-full-phases-md)
+### IMP-0814 — [ ] `docs/evidence/prompt-v2-full-phases.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-prompt-v2-full-phases-md)
 - **Ordem de exportação:** 1019
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0814 "[ ] `docs/evidence/prompt-v2-full-phases.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-prompt-v2-full-phases-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0814 "[ ] `docs/evidence/prompt-v2-full-phases.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-prompt-v2-full-phases-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0815 — [ ] `docs/evidence/regression-zero.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-regression-zero-md)
+### IMP-0815 — [ ] `docs/evidence/regression-zero.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-regression-zero-md)
 - **Ordem de exportação:** 1020
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0815 "[ ] `docs/evidence/regression-zero.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-regression-zero-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0815 "[ ] `docs/evidence/regression-zero.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-regression-zero-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0816 — [ ] `docs/evidence/test-coverage-dashboard.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-test-coverage-dashboard-md)
+### IMP-0816 — [ ] `docs/evidence/test-coverage-dashboard.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-test-coverage-dashboard-md)
 - **Ordem de exportação:** 1021
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0816 "[ ] `docs/evidence/test-coverage-dashboard.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-test-coverage-dashboard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0816 "[ ] `docs/evidence/test-coverage-dashboard.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-test-coverage-dashboard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0817 — [ ] `docs/evidence/utils-esm-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-utils-esm-fix-md)
+### IMP-0817 — [ ] `docs/evidence/utils-esm-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-utils-esm-fix-md)
 - **Ordem de exportação:** 1022
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0817 "[ ] `docs/evidence/utils-esm-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-utils-esm-fix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0817 "[ ] `docs/evidence/utils-esm-fix.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-utils-esm-fix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0818 — [ ] `docs/evidence/ux.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-ux-md)
+### IMP-0818 — [ ] `docs/evidence/ux.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-ux-md)
 - **Ordem de exportação:** 1023
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0818 "[ ] `docs/evidence/ux.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-ux-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0818 "[ ] `docs/evidence/ux.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-ux-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0819 — [ ] `docs/evidence/web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-web-build-md)
+### IMP-0819 — [ ] `docs/evidence/web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-web-build-md)
 - **Ordem de exportação:** 1024
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0819 "[ ] `docs/evidence/web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-web-build-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0819 "[ ] `docs/evidence/web-build.md` | `Governance & Audit Artifacts` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-web-build-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0820 — [ ] `docs/operational/README.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operational-readme-md)
+### IMP-0820 — [ ] `docs/operational/README.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operational-readme-md)
 - **Ordem de exportação:** 1025
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0820 "[ ] `docs/operational/README.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operational-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0820 "[ ] `docs/operational/README.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operational-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0821 — [ ] `docs/operational/manuals/operations_guide.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operational-manuals-operations-guide-md)
+### IMP-0821 — [ ] `docs/operational/manuals/operations_guide.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operational-manuals-operations-guide-md)
 - **Ordem de exportação:** 1026
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0821 "[ ] `docs/operational/manuals/operations_guide.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operational-manuals-operations-guide-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0821 "[ ] `docs/operational/manuals/operations_guide.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operational-manuals-operations-guide-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0822 — [ ] `docs/operations/core-boundaries-communication.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-core-boundaries-communication-md)
+### IMP-0822 — [ ] `docs/operations/core-boundaries-communication.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-core-boundaries-communication-md)
 - **Ordem de exportação:** 1027
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0822 "[ ] `docs/operations/core-boundaries-communication.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-operations-core-boundaries-communication-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0822 "[ ] `docs/operations/core-boundaries-communication.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-operations-core-boundaries-communication-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0823 — [ ] `docs/policies/agent-breaking-changes-definition.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-agent-breaking-changes-definition-md)
+### IMP-0823 — [ ] `docs/policies/agent-breaking-changes-definition.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-agent-breaking-changes-definition-md)
 - **Ordem de exportação:** 1028
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0823 "[ ] `docs/policies/agent-breaking-changes-definition.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-agent-breaking-changes-definition-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0823 "[ ] `docs/policies/agent-breaking-changes-definition.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-agent-breaking-changes-definition-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0824 — [ ] `docs/policies/agent-deactivation-threshold.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-agent-deactivation-threshold-md)
+### IMP-0824 — [ ] `docs/policies/agent-deactivation-threshold.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-agent-deactivation-threshold-md)
 - **Ordem de exportação:** 1029
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0824 "[ ] `docs/policies/agent-deactivation-threshold.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-agent-deactivation-threshold-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0824 "[ ] `docs/policies/agent-deactivation-threshold.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-agent-deactivation-threshold-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0825 — [ ] `docs/policies/approval-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-approval-sla-md)
+### IMP-0825 — [ ] `docs/policies/approval-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-approval-sla-md)
 - **Ordem de exportação:** 1030
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0825 "[ ] `docs/policies/approval-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-approval-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0825 "[ ] `docs/policies/approval-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-approval-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0826 — [ ] `docs/policies/default-plan-policies.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-default-plan-policies-md)
+### IMP-0826 — [ ] `docs/policies/default-plan-policies.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-default-plan-policies-md)
 - **Ordem de exportação:** 1031
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0826 "[ ] `docs/policies/default-plan-policies.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-default-plan-policies-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0826 "[ ] `docs/policies/default-plan-policies.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-default-plan-policies-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0827 — [ ] `docs/policies/migration-communication-plan.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-migration-communication-plan-md)
+### IMP-0827 — [ ] `docs/policies/migration-communication-plan.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-migration-communication-plan-md)
 - **Ordem de exportação:** 1032
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0827 "[ ] `docs/policies/migration-communication-plan.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-migration-communication-plan-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0827 "[ ] `docs/policies/migration-communication-plan.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-migration-communication-plan-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0828 — [ ] `docs/policies/negative-feedback-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-negative-feedback-sla-md)
+### IMP-0828 — [ ] `docs/policies/negative-feedback-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-negative-feedback-sla-md)
 - **Ordem de exportação:** 1033
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0828 "[ ] `docs/policies/negative-feedback-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-negative-feedback-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0828 "[ ] `docs/policies/negative-feedback-sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-negative-feedback-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0829 — [ ] `docs/policies/third-party-tools.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-third-party-tools-md)
+### IMP-0829 — [ ] `docs/policies/third-party-tools.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-third-party-tools-md)
 - **Ordem de exportação:** 1034
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0829 "[ ] `docs/policies/third-party-tools.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-policies-third-party-tools-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0829 "[ ] `docs/policies/third-party-tools.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-policies-third-party-tools-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0830 — [ ] `docs/processes/DEPRECACAO_E_CUTOVER.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-deprecacao-e-cutover-md)
+### IMP-0830 — [ ] `docs/processes/DEPRECACAO_E_CUTOVER.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-deprecacao-e-cutover-md)
 - **Ordem de exportação:** 1035
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0830 "[ ] `docs/processes/DEPRECACAO_E_CUTOVER.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-deprecacao-e-cutover-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0830 "[ ] `docs/processes/DEPRECACAO_E_CUTOVER.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-deprecacao-e-cutover-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0831 — [ ] `docs/processes/MIGRACAO_CANONICA_DB.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-migracao-canonica-db-md)
+### IMP-0831 — [ ] `docs/processes/MIGRACAO_CANONICA_DB.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-migracao-canonica-db-md)
 - **Ordem de exportação:** 1036
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0831 "[ ] `docs/processes/MIGRACAO_CANONICA_DB.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-migracao-canonica-db-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0831 "[ ] `docs/processes/MIGRACAO_CANONICA_DB.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-migracao-canonica-db-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0832 — [ ] `docs/processes/ONBOARDING.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-onboarding-md)
+### IMP-0832 — [ ] `docs/processes/ONBOARDING.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-onboarding-md)
 - **Ordem de exportação:** 1037
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0832 "[ ] `docs/processes/ONBOARDING.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-onboarding-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0832 "[ ] `docs/processes/ONBOARDING.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-onboarding-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0833 — [ ] `docs/processes/OPERATIONS.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-operations-md)
+### IMP-0833 — [ ] `docs/processes/OPERATIONS.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-operations-md)
 - **Ordem de exportação:** 1038
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0833 "[ ] `docs/processes/OPERATIONS.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-operations-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0833 "[ ] `docs/processes/OPERATIONS.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-operations-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0834 — [ ] `docs/processes/dependency-approval-register.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-dependency-approval-register-md)
+### IMP-0834 — [ ] `docs/processes/dependency-approval-register.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-dependency-approval-register-md)
 - **Ordem de exportação:** 1039
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0834 "[ ] `docs/processes/dependency-approval-register.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-dependency-approval-register-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0834 "[ ] `docs/processes/dependency-approval-register.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-dependency-approval-register-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0835 — [ ] `docs/processes/documentation-source-of-truth.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-documentation-source-of-truth-md)
+### IMP-0835 — [ ] `docs/processes/documentation-source-of-truth.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-documentation-source-of-truth-md)
 - **Ordem de exportação:** 1040
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0835 "[ ] `docs/processes/documentation-source-of-truth.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-processes-documentation-source-of-truth-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0835 "[ ] `docs/processes/documentation-source-of-truth.md` | `Governance & Audit Artifacts` | `operational governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-processes-documentation-source-of-truth-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0836 — [ ] `docs/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-rfc-template-md)
+### IMP-0836 — [ ] `docs/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-rfc-template-md)
 - **Ordem de exportação:** 1041
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0836 "[ ] `docs/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-rfc-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0836 "[ ] `docs/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-rfc-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0837 — [ ] `docs/runbooks/agent-runtime-rollout.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-agent-runtime-rollout-md)
+### IMP-0837 — [ ] `docs/runbooks/agent-runtime-rollout.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-agent-runtime-rollout-md)
 - **Ordem de exportação:** 1042
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0837 "[ ] `docs/runbooks/agent-runtime-rollout.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-agent-runtime-rollout-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0837 "[ ] `docs/runbooks/agent-runtime-rollout.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-agent-runtime-rollout-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0838 — [ ] `docs/runbooks/auth-tenant-rollout-canary.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-auth-tenant-rollout-canary-md)
+### IMP-0838 — [ ] `docs/runbooks/auth-tenant-rollout-canary.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-auth-tenant-rollout-canary-md)
 - **Ordem de exportação:** 1043
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0838 "[ ] `docs/runbooks/auth-tenant-rollout-canary.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-auth-tenant-rollout-canary-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0838 "[ ] `docs/runbooks/auth-tenant-rollout-canary.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-auth-tenant-rollout-canary-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0839 — [ ] `docs/runbooks/critical-incidents.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-critical-incidents-md)
+### IMP-0839 — [ ] `docs/runbooks/critical-incidents.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-critical-incidents-md)
 - **Ordem de exportação:** 1044
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0839 "[ ] `docs/runbooks/critical-incidents.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-critical-incidents-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0839 "[ ] `docs/runbooks/critical-incidents.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-critical-incidents-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0840 — [ ] `docs/runbooks/db-backup-restore.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-db-backup-restore-md)
+### IMP-0840 — [ ] `docs/runbooks/db-backup-restore.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-db-backup-restore-md)
 - **Ordem de exportação:** 1045
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0840 "[ ] `docs/runbooks/db-backup-restore.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-db-backup-restore-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0840 "[ ] `docs/runbooks/db-backup-restore.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-db-backup-restore-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0841 — [ ] `docs/runbooks/deploy-canonical-stack.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-deploy-canonical-stack-md)
+### IMP-0841 — [ ] `docs/runbooks/deploy-canonical-stack.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-deploy-canonical-stack-md)
 - **Ordem de exportação:** 1046
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0841 "[ ] `docs/runbooks/deploy-canonical-stack.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-deploy-canonical-stack-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0841 "[ ] `docs/runbooks/deploy-canonical-stack.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-deploy-canonical-stack-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0842 — [ ] `docs/runbooks/disaster-recovery.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-disaster-recovery-md)
+### IMP-0842 — [ ] `docs/runbooks/disaster-recovery.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-disaster-recovery-md)
 - **Ordem de exportação:** 1047
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0842 "[ ] `docs/runbooks/disaster-recovery.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-disaster-recovery-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0842 "[ ] `docs/runbooks/disaster-recovery.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-disaster-recovery-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0843 — [ ] `docs/runbooks/dod-sprint-bloco-template.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-dod-sprint-bloco-template-md)
+### IMP-0843 — [ ] `docs/runbooks/dod-sprint-bloco-template.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-dod-sprint-bloco-template-md)
 - **Ordem de exportação:** 1048
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0843 "[ ] `docs/runbooks/dod-sprint-bloco-template.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-dod-sprint-bloco-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0843 "[ ] `docs/runbooks/dod-sprint-bloco-template.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-dod-sprint-bloco-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0844 — [ ] `docs/runbooks/high-fail-rate-triage.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-high-fail-rate-triage-md)
+### IMP-0844 — [ ] `docs/runbooks/high-fail-rate-triage.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-high-fail-rate-triage-md)
 - **Ordem de exportação:** 1049
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0844 "[ ] `docs/runbooks/high-fail-rate-triage.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-high-fail-rate-triage-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0844 "[ ] `docs/runbooks/high-fail-rate-triage.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-high-fail-rate-triage-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0845 — [ ] `docs/runbooks/tenant-specific-incident-runbook.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-tenant-specific-incident-runbook-md)
+### IMP-0845 — [ ] `docs/runbooks/tenant-specific-incident-runbook.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-tenant-specific-incident-runbook-md)
 - **Ordem de exportação:** 1050
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0845 "[ ] `docs/runbooks/tenant-specific-incident-runbook.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-tenant-specific-incident-runbook-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0845 "[ ] `docs/runbooks/tenant-specific-incident-runbook.md` | `Governance & Audit Artifacts` | `runbook` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-tenant-specific-incident-runbook-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0846 — [ ] `docs/security-pr-acceptance.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-pr-acceptance-md)
+### IMP-0846 — [ ] `docs/security-pr-acceptance.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-pr-acceptance-md)
 - **Ordem de exportação:** 1051
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0846 "[ ] `docs/security-pr-acceptance.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-pr-acceptance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0846 "[ ] `docs/security-pr-acceptance.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-pr-acceptance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0847 — [ ] `docs/security/abuse-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-abuse-scenarios-md)
+### IMP-0847 — [ ] `docs/security/abuse-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-abuse-scenarios-md)
 - **Ordem de exportação:** 1052
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0847 "[ ] `docs/security/abuse-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-abuse-scenarios-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0847 "[ ] `docs/security/abuse-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-abuse-scenarios-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0848 — [ ] `docs/security/csp.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-csp-md)
+### IMP-0848 — [ ] `docs/security/csp.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-csp-md)
 - **Ordem de exportação:** 1053
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0848 "[ ] `docs/security/csp.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-csp-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0848 "[ ] `docs/security/csp.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-csp-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0849 — [ ] `docs/security/data-masking.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-data-masking-md)
+### IMP-0849 — [ ] `docs/security/data-masking.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-data-masking-md)
 - **Ordem de exportação:** 1054
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0849 "[ ] `docs/security/data-masking.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-data-masking-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0849 "[ ] `docs/security/data-masking.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-data-masking-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0850 — [ ] `docs/security/debug-sensitive-data.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-debug-sensitive-data-md)
+### IMP-0850 — [ ] `docs/security/debug-sensitive-data.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-debug-sensitive-data-md)
 - **Ordem de exportação:** 1055
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0850 "[ ] `docs/security/debug-sensitive-data.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-debug-sensitive-data-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0850 "[ ] `docs/security/debug-sensitive-data.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-debug-sensitive-data-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0851 — [ ] `docs/security/invitation-threat-model.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-invitation-threat-model-md)
+### IMP-0851 — [ ] `docs/security/invitation-threat-model.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-invitation-threat-model-md)
 - **Ordem de exportação:** 1056
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0851 "[ ] `docs/security/invitation-threat-model.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-invitation-threat-model-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0851 "[ ] `docs/security/invitation-threat-model.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-invitation-threat-model-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0852 — [ ] `docs/security/isolation-proof-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-isolation-proof-scenarios-md)
+### IMP-0852 — [ ] `docs/security/isolation-proof-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-isolation-proof-scenarios-md)
 - **Ordem de exportação:** 1057
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0852 "[ ] `docs/security/isolation-proof-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-isolation-proof-scenarios-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0852 "[ ] `docs/security/isolation-proof-scenarios.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-isolation-proof-scenarios-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0853 — [ ] `docs/security/pentest-plan-cross-tenant.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-pentest-plan-cross-tenant-md)
+### IMP-0853 — [ ] `docs/security/pentest-plan-cross-tenant.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-pentest-plan-cross-tenant-md)
 - **Ordem de exportação:** 1058
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0853 "[ ] `docs/security/pentest-plan-cross-tenant.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-pentest-plan-cross-tenant-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0853 "[ ] `docs/security/pentest-plan-cross-tenant.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-pentest-plan-cross-tenant-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0854 — [ ] `docs/security/politica_credenciais_conectores.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-politica-credenciais-conectores-md)
+### IMP-0854 — [ ] `docs/security/politica_credenciais_conectores.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-politica-credenciais-conectores-md)
 - **Ordem de exportação:** 1059
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0854 "[ ] `docs/security/politica_credenciais_conectores.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-politica-credenciais-conectores-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0854 "[ ] `docs/security/politica_credenciais_conectores.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-politica-credenciais-conectores-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0855 — [ ] `docs/security/rate-limit.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-rate-limit-md)
+### IMP-0855 — [ ] `docs/security/rate-limit.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-rate-limit-md)
 - **Ordem de exportação:** 1060
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0855 "[ ] `docs/security/rate-limit.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-rate-limit-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0855 "[ ] `docs/security/rate-limit.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-rate-limit-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0856 — [ ] `docs/security/risco_budget_overflow.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-risco-budget-overflow-md)
+### IMP-0856 — [ ] `docs/security/risco_budget_overflow.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-risco-budget-overflow-md)
 - **Ordem de exportação:** 1061
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0856 "[ ] `docs/security/risco_budget_overflow.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-risco-budget-overflow-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0856 "[ ] `docs/security/risco_budget_overflow.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-risco-budget-overflow-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0857 — [ ] `docs/security/risco_conector_mal_configurado.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-risco-conector-mal-configurado-md)
+### IMP-0857 — [ ] `docs/security/risco_conector_mal_configurado.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-risco-conector-mal-configurado-md)
 - **Ordem de exportação:** 1062
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0857 "[ ] `docs/security/risco_conector_mal_configurado.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-risco-conector-mal-configurado-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0857 "[ ] `docs/security/risco_conector_mal_configurado.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-risco-conector-mal-configurado-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0858 — [ ] `docs/security/risco_escopo_tools_template.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-risco-escopo-tools-template-md)
+### IMP-0858 — [ ] `docs/security/risco_escopo_tools_template.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-risco-escopo-tools-template-md)
 - **Ordem de exportação:** 1063
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0858 "[ ] `docs/security/risco_escopo_tools_template.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-risco-escopo-tools-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0858 "[ ] `docs/security/risco_escopo_tools_template.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-risco-escopo-tools-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0859 — [ ] `docs/security/rls.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-rls-md)
+### IMP-0859 — [ ] `docs/security/rls.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-rls-md)
 - **Ordem de exportação:** 1064
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0859 "[ ] `docs/security/rls.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-rls-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0859 "[ ] `docs/security/rls.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-rls-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0860 — [ ] `docs/security/sast-tools.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-sast-tools-md)
+### IMP-0860 — [ ] `docs/security/sast-tools.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-sast-tools-md)
 - **Ordem de exportação:** 1065
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0860 "[ ] `docs/security/sast-tools.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-sast-tools-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0860 "[ ] `docs/security/sast-tools.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-sast-tools-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0861 — [ ] `docs/security/security-coverage-report.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-security-coverage-report-md)
+### IMP-0861 — [ ] `docs/security/security-coverage-report.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-security-coverage-report-md)
 - **Ordem de exportação:** 1066
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0861 "[ ] `docs/security/security-coverage-report.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-security-coverage-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0861 "[ ] `docs/security/security-coverage-report.md` | `Governance & Audit Artifacts` | `security governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-security-coverage-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0862 — [ ] `docs/standards/api-content-type.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-api-content-type-md)
+### IMP-0862 — [ ] `docs/standards/api-content-type.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-api-content-type-md)
 - **Ordem de exportação:** 1067
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0862 "[ ] `docs/standards/api-content-type.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-api-content-type-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0862 "[ ] `docs/standards/api-content-type.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-api-content-type-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0863 — [ ] `docs/standards/ci-performance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-ci-performance-md)
+### IMP-0863 — [ ] `docs/standards/ci-performance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-ci-performance-md)
 - **Ordem de exportação:** 1068
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0863 "[ ] `docs/standards/ci-performance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-ci-performance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0863 "[ ] `docs/standards/ci-performance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-ci-performance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0864 — [ ] `docs/standards/database-modeling.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-database-modeling-md)
+### IMP-0864 — [ ] `docs/standards/database-modeling.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-database-modeling-md)
 - **Ordem de exportação:** 1069
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0864 "[ ] `docs/standards/database-modeling.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-database-modeling-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0864 "[ ] `docs/standards/database-modeling.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-database-modeling-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0865 — [ ] `docs/standards/env-example.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-env-example-md)
+### IMP-0865 — [ ] `docs/standards/env-example.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-env-example-md)
 - **Ordem de exportação:** 1070
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0865 "[ ] `docs/standards/env-example.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-env-example-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0865 "[ ] `docs/standards/env-example.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-env-example-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0866 — [ ] `docs/standards/env-public.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-env-public-md)
+### IMP-0866 — [ ] `docs/standards/env-public.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-env-public-md)
 - **Ordem de exportação:** 1071
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0866 "[ ] `docs/standards/env-public.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-env-public-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0866 "[ ] `docs/standards/env-public.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-env-public-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0867 — [ ] `docs/standards/env-vars.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-env-vars-md)
+### IMP-0867 — [ ] `docs/standards/env-vars.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-env-vars-md)
 - **Ordem de exportação:** 1072
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0867 "[ ] `docs/standards/env-vars.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-env-vars-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0867 "[ ] `docs/standards/env-vars.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-env-vars-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0868 — [ ] `docs/standards/flaky-tests.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-flaky-tests-md)
+### IMP-0868 — [ ] `docs/standards/flaky-tests.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-flaky-tests-md)
 - **Ordem de exportação:** 1073
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0868 "[ ] `docs/standards/flaky-tests.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-flaky-tests-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0868 "[ ] `docs/standards/flaky-tests.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-flaky-tests-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0869 — [ ] `docs/standards/linting.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-linting-md)
+### IMP-0869 — [ ] `docs/standards/linting.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-linting-md)
 - **Ordem de exportação:** 1074
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0869 "[ ] `docs/standards/linting.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-linting-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0869 "[ ] `docs/standards/linting.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-linting-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0870 — [ ] `docs/standards/logging.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-logging-md)
+### IMP-0870 — [ ] `docs/standards/logging.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-logging-md)
 - **Ordem de exportação:** 1075
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0870 "[ ] `docs/standards/logging.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-logging-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0870 "[ ] `docs/standards/logging.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-logging-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0871 — [ ] `docs/standards/migrations-seed.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-migrations-seed-md)
+### IMP-0871 — [ ] `docs/standards/migrations-seed.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-migrations-seed-md)
 - **Ordem de exportação:** 1076
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0871 "[ ] `docs/standards/migrations-seed.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-migrations-seed-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0871 "[ ] `docs/standards/migrations-seed.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-migrations-seed-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0872 — [ ] `docs/standards/openapi.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-openapi-md)
+### IMP-0872 — [ ] `docs/standards/openapi.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-openapi-md)
 - **Ordem de exportação:** 1077
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0872 "[ ] `docs/standards/openapi.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-openapi-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0872 "[ ] `docs/standards/openapi.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-openapi-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0873 — [ ] `docs/standards/package-script-governance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-package-script-governance-md)
+### IMP-0873 — [ ] `docs/standards/package-script-governance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-package-script-governance-md)
 - **Ordem de exportação:** 1078
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0873 "[ ] `docs/standards/package-script-governance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-package-script-governance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0873 "[ ] `docs/standards/package-script-governance.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-package-script-governance-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0874 — [ ] `docs/standards/package-script-status.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-package-script-status-md)
+### IMP-0874 — [ ] `docs/standards/package-script-status.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-package-script-status-md)
 - **Ordem de exportação:** 1079
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0874 "[ ] `docs/standards/package-script-status.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-package-script-status-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0874 "[ ] `docs/standards/package-script-status.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-package-script-status-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0875 — [ ] `docs/standards/repository-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-repository-naming-md)
+### IMP-0875 — [ ] `docs/standards/repository-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-repository-naming-md)
 - **Ordem de exportação:** 1080
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0875 "[ ] `docs/standards/repository-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-repository-naming-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0875 "[ ] `docs/standards/repository-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-repository-naming-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0876 — [ ] `docs/standards/test-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-test-naming-md)
+### IMP-0876 — [ ] `docs/standards/test-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-test-naming-md)
 - **Ordem de exportação:** 1081
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0876 "[ ] `docs/standards/test-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-test-naming-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0876 "[ ] `docs/standards/test-naming.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-test-naming-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0877 — [ ] `docs/standards/testing.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-testing-md)
+### IMP-0877 — [ ] `docs/standards/testing.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-testing-md)
 - **Ordem de exportação:** 1082
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0877 "[ ] `docs/standards/testing.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-testing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0877 "[ ] `docs/standards/testing.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-testing-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0878 — [ ] `docs/standards/typescript.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-typescript-md)
+### IMP-0878 — [ ] `docs/standards/typescript.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-typescript-md)
 - **Ordem de exportação:** 1083
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0878 "[ ] `docs/standards/typescript.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-standards-typescript-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0878 "[ ] `docs/standards/typescript.md` | `Governance & Audit Artifacts` | `engineering standard` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-standards-typescript-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0879 — [ ] `docs/support/client_migration_communication.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-support-client-migration-communication-md)
+### IMP-0879 — [ ] `docs/support/client_migration_communication.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-support-client-migration-communication-md)
 - **Ordem de exportação:** 1084
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0879 "[ ] `docs/support/client_migration_communication.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-support-client-migration-communication-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0879 "[ ] `docs/support/client_migration_communication.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-support-client-migration-communication-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0880 — [ ] `docs/support/version_zero_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-support-version-zero-sla-md)
+### IMP-0880 — [ ] `docs/support/version_zero_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-support-version-zero-sla-md)
 - **Ordem de exportação:** 1085
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0880 "[ ] `docs/support/version_zero_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-support-version-zero-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0880 "[ ] `docs/support/version_zero_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-support-version-zero-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0881 — [ ] `docs/taxonomy.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-taxonomy-md)
+### IMP-0881 — [ ] `docs/taxonomy.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-taxonomy-md)
 - **Ordem de exportação:** 1086
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0881 "[ ] `docs/taxonomy.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-taxonomy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0881 "[ ] `docs/taxonomy.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-taxonomy-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0882 — [ ] `docs/templates/README.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-readme-md)
+### IMP-0882 — [ ] `docs/templates/README.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-readme-md)
 - **Ordem de exportação:** 1087
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0882 "[ ] `docs/templates/README.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0882 "[ ] `docs/templates/README.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-readme-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0883 — [ ] `docs/templates/documentation-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-documentation-template-md)
+### IMP-0883 — [ ] `docs/templates/documentation-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-documentation-template-md)
 - **Ordem de exportação:** 1088
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0883 "[ ] `docs/templates/documentation-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-documentation-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0883 "[ ] `docs/templates/documentation-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-documentation-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0884 — [ ] `docs/templates/postmortem-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-postmortem-template-md)
+### IMP-0884 — [ ] `docs/templates/postmortem-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-postmortem-template-md)
 - **Ordem de exportação:** 1089
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0884 "[ ] `docs/templates/postmortem-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-postmortem-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0884 "[ ] `docs/templates/postmortem-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-postmortem-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0885 — [ ] `docs/templates/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-rfc-template-md)
+### IMP-0885 — [ ] `docs/templates/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-rfc-template-md)
 - **Ordem de exportação:** 1090
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0885 "[ ] `docs/templates/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-templates-rfc-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0885 "[ ] `docs/templates/rfc-template.md` | `Governance & Audit Artifacts` | `template` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-templates-rfc-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0886 — [ ] `docs/testing/isolation-regression-process.md` | `Governance & Audit Artifacts` | `testing control document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-isolation-regression-process-md)
+### IMP-0886 — [ ] `docs/testing/isolation-regression-process.md` | `Governance & Audit Artifacts` | `testing control document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-isolation-regression-process-md)
 - **Ordem de exportação:** 1091
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0886 "[ ] `docs/testing/isolation-regression-process.md` | `Governance & Audit Artifacts` | `testing control document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-testing-isolation-regression-process-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0886 "[ ] `docs/testing/isolation-regression-process.md` | `Governance & Audit Artifacts` | `testing control document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-testing-isolation-regression-process-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0887 — [ ] `docs/ux/health_score_model.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-health-score-model-md)
+### IMP-0887 — [ ] `docs/ux/health_score_model.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-health-score-model-md)
 - **Ordem de exportação:** 1092
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0887 "[ ] `docs/ux/health_score_model.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-health-score-model-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0887 "[ ] `docs/ux/health_score_model.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-health-score-model-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0888 — [ ] `docs/ux/negative_feedback_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-negative-feedback-sla-md)
+### IMP-0888 — [ ] `docs/ux/negative_feedback_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-negative-feedback-sla-md)
 - **Ordem de exportação:** 1093
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0888 "[ ] `docs/ux/negative_feedback_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-negative-feedback-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0888 "[ ] `docs/ux/negative_feedback_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Inconsistente` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-negative-feedback-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0889 — [ ] `docs/ux/notification_delivery_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-notification-delivery-sla-md)
+### IMP-0889 — [ ] `docs/ux/notification_delivery_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-notification-delivery-sla-md)
 - **Ordem de exportação:** 1094
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0889 "[ ] `docs/ux/notification_delivery_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-notification-delivery-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0889 "[ ] `docs/ux/notification_delivery_sla.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-notification-delivery-sla-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0890 — [ ] `docs/ux/prompt_improvement_process.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-prompt-improvement-process-md)
+### IMP-0890 — [ ] `docs/ux/prompt_improvement_process.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-prompt-improvement-process-md)
 - **Ordem de exportação:** 1095
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0890 "[ ] `docs/ux/prompt_improvement_process.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-prompt-improvement-process-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0890 "[ ] `docs/ux/prompt_improvement_process.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-prompt-improvement-process-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0891 — [ ] `docs/ux/teste_usabilidade_wizard.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-teste-usabilidade-wizard-md)
+### IMP-0891 — [ ] `docs/ux/teste_usabilidade_wizard.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-teste-usabilidade-wizard-md)
 - **Ordem de exportação:** 1096
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0891 "[ ] `docs/ux/teste_usabilidade_wizard.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-ux-teste-usabilidade-wizard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0891 "[ ] `docs/ux/teste_usabilidade_wizard.md` | `Governance & Audit Artifacts` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-ux-teste-usabilidade-wizard-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0892 — [ ] `ops/env/.env.production.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-env-env-production-sealed-example)
+### IMP-0892 — [ ] `ops/env/.env.production.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-env-env-production-sealed-example)
 - **Ordem de exportação:** 1097
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0892 "[ ] `ops/env/.env.production.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-env-env-production-sealed-example)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0892 "[ ] `ops/env/.env.production.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-env-env-production-sealed-example)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0893 — [ ] `ops/env/.env.staging.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-env-env-staging-sealed-example)
+### IMP-0893 — [ ] `ops/env/.env.staging.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-env-env-staging-sealed-example)
 - **Ordem de exportação:** 1098
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0893 "[ ] `ops/env/.env.staging.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-env-env-staging-sealed-example)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0893 "[ ] `ops/env/.env.staging.sealed.example` | `Governance & Audit Artifacts` | `release sealed artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-env-env-staging-sealed-example)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0894 — [ ] `ops/governance/external-provisioning-status.md` | `Governance & Audit Artifacts` | `governance record` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-governance-external-provisioning-status-md)
+### IMP-0894 — [ ] `ops/governance/external-provisioning-status.md` | `Governance & Audit Artifacts` | `governance record` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-governance-external-provisioning-status-md)
 - **Ordem de exportação:** 1099
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0894 "[ ] `ops/governance/external-provisioning-status.md` | `Governance & Audit Artifacts` | `governance record` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-governance-external-provisioning-status-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0894 "[ ] `ops/governance/external-provisioning-status.md` | `Governance & Audit Artifacts` | `governance record` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-governance-external-provisioning-status-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0895 — [ ] `scripts/_generate_forensic_audit.py` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-generate-forensic-audit-py)
+### IMP-0895 — [ ] `scripts/_generate_forensic_audit.py` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-generate-forensic-audit-py)
 - **Ordem de exportação:** 1100
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0895 "[ ] `scripts/_generate_forensic_audit.py` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-generate-forensic-audit-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0895 "[ ] `scripts/_generate_forensic_audit.py` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-generate-forensic-audit-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0896 — [ ] `scripts/audit/generate-governance-suite.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-generate-governance-suite-mjs)
+### IMP-0896 — [ ] `scripts/audit/generate-governance-suite.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-generate-governance-suite-mjs)
 - **Ordem de exportação:** 1101
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0896 "[ ] `scripts/audit/generate-governance-suite.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-generate-governance-suite-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0896 "[ ] `scripts/audit/generate-governance-suite.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-generate-governance-suite-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0897 — [ ] `scripts/audit/generate-report.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-generate-report-mjs)
+### IMP-0897 — [ ] `scripts/audit/generate-report.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-generate-report-mjs)
 - **Ordem de exportação:** 1102
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0897 "[ ] `scripts/audit/generate-report.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-generate-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0897 "[ ] `scripts/audit/generate-report.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-generate-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0898 — [ ] `scripts/audit/prepare-history.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-prepare-history-mjs)
+### IMP-0898 — [ ] `scripts/audit/prepare-history.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-prepare-history-mjs)
 - **Ordem de exportação:** 1103
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0898 "[ ] `scripts/audit/prepare-history.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-prepare-history-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0898 "[ ] `scripts/audit/prepare-history.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-prepare-history-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0899 — [ ] `scripts/audit/shared.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-shared-mjs)
+### IMP-0899 — [ ] `scripts/audit/shared.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-shared-mjs)
 - **Ordem de exportação:** 1104
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0899 "[ ] `scripts/audit/shared.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-audit-shared-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0899 "[ ] `scripts/audit/shared.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-audit-shared-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0900 — [ ] `scripts/billing/generate-billing-coverage-report.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-billing-generate-billing-coverage-report-ts)
+### IMP-0900 — [ ] `scripts/billing/generate-billing-coverage-report.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-billing-generate-billing-coverage-report-ts)
 - **Ordem de exportação:** 1105
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0900 "[ ] `scripts/billing/generate-billing-coverage-report.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-billing-generate-billing-coverage-report-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0900 "[ ] `scripts/billing/generate-billing-coverage-report.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-billing-generate-billing-coverage-report-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0901 — [ ] `scripts/ci/audit-scripts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-audit-scripts-mjs)
+### IMP-0901 — [ ] `scripts/ci/audit-scripts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-audit-scripts-mjs)
 - **Ordem de exportação:** 1106
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0901 "[ ] `scripts/ci/audit-scripts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-audit-scripts-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0901 "[ ] `scripts/ci/audit-scripts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-audit-scripts-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0902 — [ ] `scripts/ci/check-agent-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-agent-surface-freeze-mjs)
+### IMP-0902 — [ ] `scripts/ci/check-agent-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-agent-surface-freeze-mjs)
 - **Ordem de exportação:** 1107
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0902 "[ ] `scripts/ci/check-agent-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-agent-surface-freeze-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0902 "[ ] `scripts/ci/check-agent-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-agent-surface-freeze-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0903 — [ ] `scripts/ci/check-branch-name.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-branch-name-mjs)
+### IMP-0903 — [ ] `scripts/ci/check-branch-name.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-branch-name-mjs)
 - **Ordem de exportação:** 1108
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0903 "[ ] `scripts/ci/check-branch-name.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-branch-name-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0903 "[ ] `scripts/ci/check-branch-name.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-branch-name-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0904 — [ ] `scripts/ci/check-commit-messages.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-commit-messages-mjs)
+### IMP-0904 — [ ] `scripts/ci/check-commit-messages.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-commit-messages-mjs)
 - **Ordem de exportação:** 1109
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0904 "[ ] `scripts/ci/check-commit-messages.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-commit-messages-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0904 "[ ] `scripts/ci/check-commit-messages.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-commit-messages-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0905 — [ ] `scripts/ci/check-dirty-tree.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-dirty-tree-mjs)
+### IMP-0905 — [ ] `scripts/ci/check-dirty-tree.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-dirty-tree-mjs)
 - **Ordem de exportação:** 1110
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0905 "[ ] `scripts/ci/check-dirty-tree.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-dirty-tree-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0905 "[ ] `scripts/ci/check-dirty-tree.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-dirty-tree-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0906 — [ ] `scripts/ci/check-doc-links.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-doc-links-mjs)
+### IMP-0906 — [ ] `scripts/ci/check-doc-links.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-doc-links-mjs)
 - **Ordem de exportação:** 1111
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0906 "[ ] `scripts/ci/check-doc-links.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-doc-links-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0906 "[ ] `scripts/ci/check-doc-links.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-doc-links-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0907 — [ ] `scripts/ci/check-legacy-db-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-db-surface-freeze-mjs)
+### IMP-0907 — [ ] `scripts/ci/check-legacy-db-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-db-surface-freeze-mjs)
 - **Ordem de exportação:** 1112
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0907 "[ ] `scripts/ci/check-legacy-db-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-db-surface-freeze-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0907 "[ ] `scripts/ci/check-legacy-db-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-db-surface-freeze-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0908 — [ ] `scripts/ci/check-legacy-runtime-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-runtime-surface-freeze-mjs)
+### IMP-0908 — [ ] `scripts/ci/check-legacy-runtime-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-runtime-surface-freeze-mjs)
 - **Ordem de exportação:** 1113
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0908 "[ ] `scripts/ci/check-legacy-runtime-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-runtime-surface-freeze-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0908 "[ ] `scripts/ci/check-legacy-runtime-surface-freeze.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-legacy-runtime-surface-freeze-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0909 — [ ] `scripts/ci/check-type-ignore-allowlist.py` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-type-ignore-allowlist-py)
+### IMP-0909 — [ ] `scripts/ci/check-type-ignore-allowlist.py` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-type-ignore-allowlist-py)
 - **Ordem de exportação:** 1114
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0909 "[ ] `scripts/ci/check-type-ignore-allowlist.py` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-type-ignore-allowlist-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0909 "[ ] `scripts/ci/check-type-ignore-allowlist.py` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-type-ignore-allowlist-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0910 — [ ] `scripts/ci/check_links.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-links-sh)
+### IMP-0910 — [ ] `scripts/ci/check_links.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-links-sh)
 - **Ordem de exportação:** 1115
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0910 "[ ] `scripts/ci/check_links.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-links-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0910 "[ ] `scripts/ci/check_links.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-links-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0911 — [ ] `scripts/ci/check_naming.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-naming-sh)
+### IMP-0911 — [ ] `scripts/ci/check_naming.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-naming-sh)
 - **Ordem de exportação:** 1116
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0911 "[ ] `scripts/ci/check_naming.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-check-naming-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0911 "[ ] `scripts/ci/check_naming.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-check-naming-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0912 — [ ] `scripts/ci/clean_artifacts.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-clean-artifacts-sh)
+### IMP-0912 — [ ] `scripts/ci/clean_artifacts.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-clean-artifacts-sh)
 - **Ordem de exportação:** 1117
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0912 "[ ] `scripts/ci/clean_artifacts.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-clean-artifacts-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0912 "[ ] `scripts/ci/clean_artifacts.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-clean-artifacts-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0913 — [ ] `scripts/ci/cleanup-artifacts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-cleanup-artifacts-mjs)
+### IMP-0913 — [ ] `scripts/ci/cleanup-artifacts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-cleanup-artifacts-mjs)
 - **Ordem de exportação:** 1118
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0913 "[ ] `scripts/ci/cleanup-artifacts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-cleanup-artifacts-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0913 "[ ] `scripts/ci/cleanup-artifacts.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-cleanup-artifacts-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0914 — [ ] `scripts/ci/full.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-full-mjs)
+### IMP-0914 — [ ] `scripts/ci/full.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-full-mjs)
 - **Ordem de exportação:** 1119
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0914 "[ ] `scripts/ci/full.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-full-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0914 "[ ] `scripts/ci/full.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-full-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0915 — [ ] `scripts/ci/local-ci.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-local-ci-sh)
+### IMP-0915 — [ ] `scripts/ci/local-ci.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-local-ci-sh)
 - **Ordem de exportação:** 1120
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0915 "[ ] `scripts/ci/local-ci.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-local-ci-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0915 "[ ] `scripts/ci/local-ci.sh` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-local-ci-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0916 — [ ] `scripts/ci/lockfile-governance.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-lockfile-governance-mjs)
+### IMP-0916 — [ ] `scripts/ci/lockfile-governance.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-lockfile-governance-mjs)
 - **Ordem de exportação:** 1121
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0916 "[ ] `scripts/ci/lockfile-governance.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-lockfile-governance-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0916 "[ ] `scripts/ci/lockfile-governance.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-lockfile-governance-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0917 — [ ] `scripts/ci/monorepo-doctor.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-monorepo-doctor-mjs)
+### IMP-0917 — [ ] `scripts/ci/monorepo-doctor.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-monorepo-doctor-mjs)
 - **Ordem de exportação:** 1122
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0917 "[ ] `scripts/ci/monorepo-doctor.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-monorepo-doctor-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0917 "[ ] `scripts/ci/monorepo-doctor.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-monorepo-doctor-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0918 — [ ] `scripts/ci/repo-hygiene.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-repo-hygiene-mjs)
+### IMP-0918 — [ ] `scripts/ci/repo-hygiene.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-repo-hygiene-mjs)
 - **Ordem de exportação:** 1123
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0918 "[ ] `scripts/ci/repo-hygiene.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-repo-hygiene-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0918 "[ ] `scripts/ci/repo-hygiene.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-repo-hygiene-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0919 — [ ] `scripts/ci/run-pnpm.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-run-pnpm-mjs)
+### IMP-0919 — [ ] `scripts/ci/run-pnpm.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-run-pnpm-mjs)
 - **Ordem de exportação:** 1124
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0919 "[ ] `scripts/ci/run-pnpm.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-run-pnpm-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0919 "[ ] `scripts/ci/run-pnpm.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-run-pnpm-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0920 — [ ] `scripts/ci/run-satellites.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-run-satellites-mjs)
+### IMP-0920 — [ ] `scripts/ci/run-satellites.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-run-satellites-mjs)
 - **Ordem de exportação:** 1125
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0920 "[ ] `scripts/ci/run-satellites.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-run-satellites-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0920 "[ ] `scripts/ci/run-satellites.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-run-satellites-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0921 — [ ] `scripts/ci/shared.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-shared-mjs)
+### IMP-0921 — [ ] `scripts/ci/shared.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-shared-mjs)
 - **Ordem de exportação:** 1126
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0921 "[ ] `scripts/ci/shared.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-shared-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0921 "[ ] `scripts/ci/shared.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-shared-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0922 — [ ] `scripts/ci/type-ignore-allowlist.txt` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-type-ignore-allowlist-txt)
+### IMP-0922 — [ ] `scripts/ci/type-ignore-allowlist.txt` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-type-ignore-allowlist-txt)
 - **Ordem de exportação:** 1127
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0922 "[ ] `scripts/ci/type-ignore-allowlist.txt` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-type-ignore-allowlist-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0922 "[ ] `scripts/ci/type-ignore-allowlist.txt` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-type-ignore-allowlist-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0923 — [ ] `scripts/ci/workspace-audit.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-audit-mjs)
+### IMP-0923 — [ ] `scripts/ci/workspace-audit.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-audit-mjs)
 - **Ordem de exportação:** 1128
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0923 "[ ] `scripts/ci/workspace-audit.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-audit-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0923 "[ ] `scripts/ci/workspace-audit.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-audit-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0924 — [ ] `scripts/ci/workspace-contract.json` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-contract-json)
+### IMP-0924 — [ ] `scripts/ci/workspace-contract.json` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-contract-json)
 - **Ordem de exportação:** 1129
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0924 "[ ] `scripts/ci/workspace-contract.json` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-contract-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0924 "[ ] `scripts/ci/workspace-contract.json` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-workspace-contract-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0925 — [ ] `scripts/ci/write-lockfile-hash.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-write-lockfile-hash-mjs)
+### IMP-0925 — [ ] `scripts/ci/write-lockfile-hash.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-write-lockfile-hash-mjs)
 - **Ordem de exportação:** 1130
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0925 "[ ] `scripts/ci/write-lockfile-hash.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-ci-write-lockfile-hash-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0925 "[ ] `scripts/ci/write-lockfile-hash.mjs` | `Governance & Audit Artifacts` | `CI governance script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-ci-write-lockfile-hash-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0926 — [ ] `scripts/diagnostics/audit-legacy-db-imports.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-audit-legacy-db-imports-mjs)
+### IMP-0926 — [ ] `scripts/diagnostics/audit-legacy-db-imports.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-audit-legacy-db-imports-mjs)
 - **Ordem de exportação:** 1131
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0926 "[ ] `scripts/diagnostics/audit-legacy-db-imports.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-audit-legacy-db-imports-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0926 "[ ] `scripts/diagnostics/audit-legacy-db-imports.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-audit-legacy-db-imports-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0927 — [ ] `scripts/diagnostics/materialize-doc-only-controls.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-materialize-doc-only-controls-mjs)
+### IMP-0927 — [ ] `scripts/diagnostics/materialize-doc-only-controls.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-materialize-doc-only-controls-mjs)
 - **Ordem de exportação:** 1132
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0927 "[ ] `scripts/diagnostics/materialize-doc-only-controls.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-materialize-doc-only-controls-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0927 "[ ] `scripts/diagnostics/materialize-doc-only-controls.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-materialize-doc-only-controls-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0928 — [ ] `scripts/diagnostics/repo_health.sh` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-repo-health-sh)
+### IMP-0928 — [ ] `scripts/diagnostics/repo_health.sh` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-repo-health-sh)
 - **Ordem de exportação:** 1133
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0928 "[ ] `scripts/diagnostics/repo_health.sh` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-repo-health-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0928 "[ ] `scripts/diagnostics/repo_health.sh` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-repo-health-sh)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0929 — [ ] `scripts/docs/bootstrap-changelogs.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-bootstrap-changelogs-mjs)
+### IMP-0929 — [ ] `scripts/docs/bootstrap-changelogs.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-bootstrap-changelogs-mjs)
 - **Ordem de exportação:** 1134
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0929 "[ ] `scripts/docs/bootstrap-changelogs.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-bootstrap-changelogs-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0929 "[ ] `scripts/docs/bootstrap-changelogs.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-bootstrap-changelogs-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0930 — [ ] `scripts/docs/check-doc-links.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-check-doc-links-mjs)
+### IMP-0930 — [ ] `scripts/docs/check-doc-links.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-check-doc-links-mjs)
 - **Ordem de exportação:** 1135
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0930 "[ ] `scripts/docs/check-doc-links.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-check-doc-links-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0930 "[ ] `scripts/docs/check-doc-links.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-check-doc-links-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0931 — [ ] `scripts/docs/generate-dependency-graph.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-generate-dependency-graph-mjs)
+### IMP-0931 — [ ] `scripts/docs/generate-dependency-graph.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-generate-dependency-graph-mjs)
 - **Ordem de exportação:** 1136
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0931 "[ ] `scripts/docs/generate-dependency-graph.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-generate-dependency-graph-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0931 "[ ] `scripts/docs/generate-dependency-graph.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-generate-dependency-graph-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0932 — [ ] `scripts/docs/generate-technical-health-dashboard.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-generate-technical-health-dashboard-mjs)
+### IMP-0932 — [ ] `scripts/docs/generate-technical-health-dashboard.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-generate-technical-health-dashboard-mjs)
 - **Ordem de exportação:** 1137
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0932 "[ ] `scripts/docs/generate-technical-health-dashboard.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-docs-generate-technical-health-dashboard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0932 "[ ] `scripts/docs/generate-technical-health-dashboard.mjs` | `Governance & Audit Artifacts` | `documentation control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-docs-generate-technical-health-dashboard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0933 — [ ] `scripts/forensics/materialize-logical-batch.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-forensics-materialize-logical-batch-mjs)
+### IMP-0933 — [ ] `scripts/forensics/materialize-logical-batch.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-forensics-materialize-logical-batch-mjs)
 - **Ordem de exportação:** 1138
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0933 "[ ] `scripts/forensics/materialize-logical-batch.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-forensics-materialize-logical-batch-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0933 "[ ] `scripts/forensics/materialize-logical-batch.mjs` | `Governance & Audit Artifacts` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-forensics-materialize-logical-batch-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0934 — [ ] `scripts/security/generate-owasp-baseline.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-generate-owasp-baseline-mjs)
+### IMP-0934 — [ ] `scripts/security/generate-owasp-baseline.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-generate-owasp-baseline-mjs)
 - **Ordem de exportação:** 1139
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0934 "[ ] `scripts/security/generate-owasp-baseline.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-generate-owasp-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0934 "[ ] `scripts/security/generate-owasp-baseline.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-generate-owasp-baseline-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0935 — [ ] `scripts/security/generate-security-report.ts` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-generate-security-report-ts)
+### IMP-0935 — [ ] `scripts/security/generate-security-report.ts` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-generate-security-report-ts)
 - **Ordem de exportação:** 1140
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0935 "[ ] `scripts/security/generate-security-report.ts` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-generate-security-report-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0935 "[ ] `scripts/security/generate-security-report.ts` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-generate-security-report-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0936 — [ ] `scripts/security/scan-inline-credentials.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-scan-inline-credentials-mjs)
+### IMP-0936 — [ ] `scripts/security/scan-inline-credentials.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-scan-inline-credentials-mjs)
 - **Ordem de exportação:** 1141
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0936 "[ ] `scripts/security/scan-inline-credentials.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-security-scan-inline-credentials-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0936 "[ ] `scripts/security/scan-inline-credentials.mjs` | `Governance & Audit Artifacts` | `security audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-security-scan-inline-credentials-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0937 — [ ] `scripts/sync-birthhub-html.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-sync-birthhub-html-ts)
+### IMP-0937 — [ ] `scripts/sync-birthhub-html.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-sync-birthhub-html-ts)
 - **Ordem de exportação:** 1142
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0937 "[ ] `scripts/sync-birthhub-html.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-sync-birthhub-html-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0937 "[ ] `scripts/sync-birthhub-html.ts` | `Governance & Audit Artifacts` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-sync-birthhub-html-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0938 — [ ] `scripts/testing/flaky-quarantine.json` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-flaky-quarantine-json)
+### IMP-0938 — [ ] `scripts/testing/flaky-quarantine.json` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-flaky-quarantine-json)
 - **Ordem de exportação:** 1143
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0938 "[ ] `scripts/testing/flaky-quarantine.json` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-flaky-quarantine-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0938 "[ ] `scripts/testing/flaky-quarantine.json` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-flaky-quarantine-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0939 — [ ] `scripts/testing/generate-performance-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-generate-performance-report-mjs)
+### IMP-0939 — [ ] `scripts/testing/generate-performance-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-generate-performance-report-mjs)
 - **Ordem de exportação:** 1144
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0939 "[ ] `scripts/testing/generate-performance-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-generate-performance-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0939 "[ ] `scripts/testing/generate-performance-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-generate-performance-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0940 — [ ] `scripts/testing/generate-regression-zero-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-generate-regression-zero-report-mjs)
+### IMP-0940 — [ ] `scripts/testing/generate-regression-zero-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-generate-regression-zero-report-mjs)
 - **Ordem de exportação:** 1145
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0940 "[ ] `scripts/testing/generate-regression-zero-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-generate-regression-zero-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0940 "[ ] `scripts/testing/generate-regression-zero-report.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-generate-regression-zero-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0941 — [ ] `scripts/testing/run-shard.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-run-shard-mjs)
+### IMP-0941 — [ ] `scripts/testing/run-shard.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-run-shard-mjs)
 - **Ordem de exportação:** 1146
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0941 "[ ] `scripts/testing/run-shard.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-run-shard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0941 "[ ] `scripts/testing/run-shard.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-run-shard-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0942 — [ ] `scripts/testing/run-tagged-tests.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-run-tagged-tests-mjs)
+### IMP-0942 — [ ] `scripts/testing/run-tagged-tests.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-run-tagged-tests-mjs)
 - **Ordem de exportação:** 1147
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0942 "[ ] `scripts/testing/run-tagged-tests.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-run-tagged-tests-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0942 "[ ] `scripts/testing/run-tagged-tests.mjs` | `Governance & Audit Artifacts` | `testing audit script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-run-tagged-tests-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0943 — [ ] `tests/e2e/billing-premium.spec.ts` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#tests-e2e-billing-premium-spec-ts)
+### IMP-0943 — [ ] `tests/e2e/billing-premium.spec.ts` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#tests-e2e-billing-premium-spec-ts)
 - **Ordem de exportação:** 1148
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0943 "[ ] `tests/e2e/billing-premium.spec.ts` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#tests-e2e-billing-premium-spec-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0943 "[ ] `tests/e2e/billing-premium.spec.ts` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#tests-e2e-billing-premium-spec-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0944 — [ ] `tests/integration/test_orchestrator_event_reliability.py` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#tests-integration-test-orchestrator-event-reliability-py)
+### IMP-0944 — [ ] `tests/integration/test_orchestrator_event_reliability.py` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#tests-integration-test-orchestrator-event-reliability-py)
 - **Ordem de exportação:** 1149
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0944 "[ ] `tests/integration/test_orchestrator_event_reliability.py` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#tests-integration-test-orchestrator-event-reliability-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0944 "[ ] `tests/integration/test_orchestrator_event_reliability.py` | `Governance & Audit Artifacts` | `control test` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#tests-integration-test-orchestrator-event-reliability-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0945 — [ ] `.github/copilot-instructions.md` | `Instructional Artifacts (prompts)` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-copilot-instructions-md)
+### IMP-0945 — [ ] `.github/copilot-instructions.md` | `Instructional Artifacts (prompts)` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-copilot-instructions-md)
 - **Ordem de exportação:** 1150
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0945 "[ ] `.github/copilot-instructions.md` | `Instructional Artifacts (prompts)` | `repository governance control` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-copilot-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0945 "[ ] `.github/copilot-instructions.md` | `Instructional Artifacts (prompts)` | `repository governance control` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-copilot-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0946 — [ ] `.github/instructions/arquitetura.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-instructions-arquitetura-instructions-md)
+### IMP-0946 — [ ] `.github/instructions/arquitetura.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-instructions-arquitetura-instructions-md)
 - **Ordem de exportação:** 1151
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0946 "[ ] `.github/instructions/arquitetura.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-instructions-arquitetura-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0946 "[ ] `.github/instructions/arquitetura.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-instructions-arquitetura-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0947 — [ ] `.github/instructions/qualidade.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-instructions-qualidade-instructions-md)
+### IMP-0947 — [ ] `.github/instructions/qualidade.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-instructions-qualidade-instructions-md)
 - **Ordem de exportação:** 1152
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0947 "[ ] `.github/instructions/qualidade.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-instructions-qualidade-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0947 "[ ] `.github/instructions/qualidade.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-instructions-qualidade-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0948 — [ ] `.github/instructions/seguranca.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-instructions-seguranca-instructions-md)
+### IMP-0948 — [ ] `.github/instructions/seguranca.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-instructions-seguranca-instructions-md)
 - **Ordem de exportação:** 1153
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0948 "[ ] `.github/instructions/seguranca.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-instructions-seguranca-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0948 "[ ] `.github/instructions/seguranca.instructions.md` | `Instructional Artifacts (prompts)` | `instruction set` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-instructions-seguranca-instructions-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0949 — [ ] `.github/prompts/criar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-prompts-criar-agente-prompt-md)
+### IMP-0949 — [ ] `.github/prompts/criar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-prompts-criar-agente-prompt-md)
 - **Ordem de exportação:** 1154
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0949 "[ ] `.github/prompts/criar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-prompts-criar-agente-prompt-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0949 "[ ] `.github/prompts/criar-agente.prompt.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-prompts-criar-agente-prompt-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0950 — [ ] `.github/skills/create-agent/SKILL.md` | `Instructional Artifacts (prompts)` | `skill definition` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-skill-md)
+### IMP-0950 — [ ] `.github/skills/create-agent/SKILL.md` | `Instructional Artifacts (prompts)` | `skill definition` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-skill-md)
 - **Ordem de exportação:** 1155
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0950 "[ ] `.github/skills/create-agent/SKILL.md` | `Instructional Artifacts (prompts)` | `skill definition` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-skill-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0950 "[ ] `.github/skills/create-agent/SKILL.md` | `Instructional Artifacts (prompts)` | `skill definition` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-skill-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0951 — [ ] `.github/skills/create-agent/assets/contract-template.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-assets-contract-template-md)
+### IMP-0951 — [ ] `.github/skills/create-agent/assets/contract-template.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-assets-contract-template-md)
 - **Ordem de exportação:** 1156
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0951 "[ ] `.github/skills/create-agent/assets/contract-template.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-assets-contract-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0951 "[ ] `.github/skills/create-agent/assets/contract-template.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-assets-contract-template-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0952 — [ ] `.github/skills/create-agent/references/template-agent.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-template-agent-md)
+### IMP-0952 — [ ] `.github/skills/create-agent/references/template-agent.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-template-agent-md)
 - **Ordem de exportação:** 1157
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0952 "[ ] `.github/skills/create-agent/references/template-agent.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-template-agent-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0952 "[ ] `.github/skills/create-agent/references/template-agent.md` | `Instructional Artifacts (prompts)` | `instruction asset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-skills-create-agent-references-template-agent-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0953 — [ ] `PROMPT_GERAL_PENDENCIAS.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#prompt-geral-pendencias-md)
+### IMP-0953 — [ ] `PROMPT_GERAL_PENDENCIAS.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#prompt-geral-pendencias-md)
 - **Ordem de exportação:** 1158
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0953 "[ ] `PROMPT_GERAL_PENDENCIAS.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#prompt-geral-pendencias-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0953 "[ ] `PROMPT_GERAL_PENDENCIAS.md` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#prompt-geral-pendencias-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0954 — [ ] `docs/programs/internal/prompt_soberano_v13.html` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-programs-internal-prompt-soberano-v13-html)
+### IMP-0954 — [ ] `docs/programs/internal/prompt_soberano_v13.html` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-programs-internal-prompt-soberano-v13-html)
 - **Ordem de exportação:** 1159
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0954 "[ ] `docs/programs/internal/prompt_soberano_v13.html` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-programs-internal-prompt-soberano-v13-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0954 "[ ] `docs/programs/internal/prompt_soberano_v13.html` | `Instructional Artifacts (prompts)` | `operational prompt` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-programs-internal-prompt-soberano-v13-html)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0955 — [ ] `artifacts/agent-readiness/agent-snapshot-2026-03-24.json` | `Readiness & Release Assurance` | `agent readiness artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-agent-readiness-agent-snapshot-2026-03-24-json)
+### IMP-0955 — [ ] `artifacts/agent-readiness/agent-snapshot-2026-03-24.json` | `Readiness & Release Assurance` | `agent readiness artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-agent-readiness-agent-snapshot-2026-03-24-json)
 - **Ordem de exportação:** 1160
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0955 "[ ] `artifacts/agent-readiness/agent-snapshot-2026-03-24.json` | `Readiness & Release Assurance` | `agent readiness artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-agent-readiness-agent-snapshot-2026-03-24-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0955 "[ ] `artifacts/agent-readiness/agent-snapshot-2026-03-24.json` | `Readiness & Release Assurance` | `agent readiness artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-agent-readiness-agent-snapshot-2026-03-24-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0956 — [ ] `docs/evidence/2026-03-25-go-live-hardening-verification.md` | `Readiness & Release Assurance` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-25-go-live-hardening-verification-md)
+### IMP-0956 — [ ] `docs/evidence/2026-03-25-go-live-hardening-verification.md` | `Readiness & Release Assurance` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-25-go-live-hardening-verification-md)
 - **Ordem de exportação:** 1161
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0956 "[ ] `docs/evidence/2026-03-25-go-live-hardening-verification.md` | `Readiness & Release Assurance` | `evidence narrative` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-25-go-live-hardening-verification-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0956 "[ ] `docs/evidence/2026-03-25-go-live-hardening-verification.md` | `Readiness & Release Assurance` | `evidence narrative` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-evidence-2026-03-25-go-live-hardening-verification-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0957 — [ ] `packages/agent-packs/github-agents-v1/readiness-gate-report.json` | `Readiness & Release Assurance` | `readiness gate report` | `Primario` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-readiness-gate-report-json)
+### IMP-0957 — [ ] `packages/agent-packs/github-agents-v1/readiness-gate-report.json` | `Readiness & Release Assurance` | `readiness gate report` | `Primario` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-readiness-gate-report-json)
 - **Ordem de exportação:** 1162
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0957 "[ ] `packages/agent-packs/github-agents-v1/readiness-gate-report.json` | `Readiness & Release Assurance` | `readiness gate report` | `Primario` | `Duplicado` | [corpus](governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-readiness-gate-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0957 "[ ] `packages/agent-packs/github-agents-v1/readiness-gate-report.json` | `Readiness & Release Assurance` | `readiness gate report` | `Primario` | `Duplicado` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-readiness-gate-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0958 — [ ] `scripts/agent/check-github-agent-readiness.ts` | `Readiness & Release Assurance` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-agent-check-github-agent-readiness-ts)
+### IMP-0958 — [ ] `scripts/agent/check-github-agent-readiness.ts` | `Readiness & Release Assurance` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-agent-check-github-agent-readiness-ts)
 - **Ordem de exportação:** 1163
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0958 "[ ] `scripts/agent/check-github-agent-readiness.ts` | `Readiness & Release Assurance` | `control script` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-agent-check-github-agent-readiness-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0958 "[ ] `scripts/agent/check-github-agent-readiness.ts` | `Readiness & Release Assurance` | `control script` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-agent-check-github-agent-readiness-ts)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0959 — [ ] `.github/CODEOWNERS` | `Traceability & Inventory` | `ownership matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-codeowners)
+### IMP-0959 — [ ] `.github/CODEOWNERS` | `Traceability & Inventory` | `ownership matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-codeowners)
 - **Ordem de exportação:** 1164
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0959 "[ ] `.github/CODEOWNERS` | `Traceability & Inventory` | `ownership matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#github-codeowners)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0959 "[ ] `.github/CODEOWNERS` | `Traceability & Inventory` | `ownership matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#github-codeowners)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0960 — [ ] `artifacts/ownership-governance/ownership-governance-report.json` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-json)
+### IMP-0960 — [ ] `artifacts/ownership-governance/ownership-governance-report.json` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-json)
 - **Ordem de exportação:** 1165
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0960 "[ ] `artifacts/ownership-governance/ownership-governance-report.json` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0960 "[ ] `artifacts/ownership-governance/ownership-governance-report.json` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0961 — [ ] `artifacts/ownership-governance/ownership-governance-report.md` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-md)
+### IMP-0961 — [ ] `artifacts/ownership-governance/ownership-governance-report.md` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-md)
 - **Ordem de exportação:** 1166
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0961 "[ ] `artifacts/ownership-governance/ownership-governance-report.md` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0961 "[ ] `artifacts/ownership-governance/ownership-governance-report.md` | `Traceability & Inventory` | `ownership governance report` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#artifacts-ownership-governance-ownership-governance-report-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0962 — [ ] `audit/forensic_inventory.md` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-forensic-inventory-md)
+### IMP-0962 — [ ] `audit/forensic_inventory.md` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-forensic-inventory-md)
 - **Ordem de exportação:** 1167
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0962 "[ ] `audit/forensic_inventory.md` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-forensic-inventory-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0962 "[ ] `audit/forensic_inventory.md` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-forensic-inventory-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0963 — [ ] `audit/inventory.json` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-inventory-json)
+### IMP-0963 — [ ] `audit/inventory.json` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-inventory-json)
 - **Ordem de exportação:** 1168
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0963 "[ ] `audit/inventory.json` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-inventory-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0963 "[ ] `audit/inventory.json` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-inventory-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0964 — [ ] `audit/traceability_matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-traceability-matrix-md)
+### IMP-0964 — [ ] `audit/traceability_matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-traceability-matrix-md)
 - **Ordem de exportação:** 1169
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0964 "[ ] `audit/traceability_matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#audit-traceability-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0964 "[ ] `audit/traceability_matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#audit-traceability-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0965 — [ ] `docs/agent-packs/corporate-v1-catalog.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-corporate-v1-catalog-mdx)
+### IMP-0965 — [ ] `docs/agent-packs/corporate-v1-catalog.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-corporate-v1-catalog-mdx)
 - **Ordem de exportação:** 1170
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0965 "[ ] `docs/agent-packs/corporate-v1-catalog.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-corporate-v1-catalog-mdx)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0965 "[ ] `docs/agent-packs/corporate-v1-catalog.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-corporate-v1-catalog-mdx)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0966 — [ ] `docs/agent-packs/kpi-analyst-pack.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-kpi-analyst-pack-mdx)
+### IMP-0966 — [ ] `docs/agent-packs/kpi-analyst-pack.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-kpi-analyst-pack-mdx)
 - **Ordem de exportação:** 1171
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0966 "[ ] `docs/agent-packs/kpi-analyst-pack.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-agent-packs-kpi-analyst-pack-mdx)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0966 "[ ] `docs/agent-packs/kpi-analyst-pack.mdx` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-agent-packs-kpi-analyst-pack-mdx)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0967 — [ ] `docs/billing/kpis-financeiros.md` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-kpis-financeiros-md)
+### IMP-0967 — [ ] `docs/billing/kpis-financeiros.md` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-kpis-financeiros-md)
 - **Ordem de exportação:** 1172
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0967 "[ ] `docs/billing/kpis-financeiros.md` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-billing-kpis-financeiros-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0967 "[ ] `docs/billing/kpis-financeiros.md` | `Traceability & Inventory` | `governance document` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-billing-kpis-financeiros-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0968 — [ ] `docs/runbooks/incident-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-incident-response-matrix-md)
+### IMP-0968 — [ ] `docs/runbooks/incident-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-incident-response-matrix-md)
 - **Ordem de exportação:** 1173
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0968 "[ ] `docs/runbooks/incident-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-incident-response-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0968 "[ ] `docs/runbooks/incident-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-incident-response-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0969 — [ ] `docs/runbooks/p1-alert-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-p1-alert-response-matrix-md)
+### IMP-0969 — [ ] `docs/runbooks/p1-alert-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-p1-alert-response-matrix-md)
 - **Ordem de exportação:** 1174
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0969 "[ ] `docs/runbooks/p1-alert-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-runbooks-p1-alert-response-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0969 "[ ] `docs/runbooks/p1-alert-response-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-runbooks-p1-alert-response-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0970 — [ ] `docs/security/vulnerability-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-vulnerability-matrix-md)
+### IMP-0970 — [ ] `docs/security/vulnerability-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-vulnerability-matrix-md)
 - **Ordem de exportação:** 1175
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0970 "[ ] `docs/security/vulnerability-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#docs-security-vulnerability-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0970 "[ ] `docs/security/vulnerability-matrix.md` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#docs-security-vulnerability-matrix-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0971 — [ ] `logs/ci-runs/20260322-205239_09c4a36/run-manifest.txt` | `Traceability & Inventory` | `governance artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#logs-ci-runs-20260322-205239-09c4a36-run-manifest-txt)
+### IMP-0971 — [ ] `logs/ci-runs/20260322-205239_09c4a36/run-manifest.txt` | `Traceability & Inventory` | `governance artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#logs-ci-runs-20260322-205239-09c4a36-run-manifest-txt)
 - **Ordem de exportação:** 1176
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0971 "[ ] `logs/ci-runs/20260322-205239_09c4a36/run-manifest.txt` | `Traceability & Inventory` | `governance artifact` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#logs-ci-runs-20260322-205239-09c4a36-run-manifest-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0971 "[ ] `logs/ci-runs/20260322-205239_09c4a36/run-manifest.txt` | `Traceability & Inventory` | `governance artifact` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#logs-ci-runs-20260322-205239-09c4a36-run-manifest-txt)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0972 — [ ] `ops/governance/ownership-quarterly-review-jira.md` | `Traceability & Inventory` | `governance record` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-jira-md)
+### IMP-0972 — [ ] `ops/governance/ownership-quarterly-review-jira.md` | `Traceability & Inventory` | `governance record` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-jira-md)
 - **Ordem de exportação:** 1177
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0972 "[ ] `ops/governance/ownership-quarterly-review-jira.md` | `Traceability & Inventory` | `governance record` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-jira-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0972 "[ ] `ops/governance/ownership-quarterly-review-jira.md` | `Traceability & Inventory` | `governance record` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-jira-md)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0973 — [ ] `ops/governance/ownership-quarterly-review.ics` | `Traceability & Inventory` | `review schedule` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-ics)
+### IMP-0973 — [ ] `ops/governance/ownership-quarterly-review.ics` | `Traceability & Inventory` | `review schedule` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-ics)
 - **Ordem de exportação:** 1178
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0973 "[ ] `ops/governance/ownership-quarterly-review.ics` | `Traceability & Inventory` | `review schedule` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-ics)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0973 "[ ] `ops/governance/ownership-quarterly-review.ics` | `Traceability & Inventory` | `review schedule` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#ops-governance-ownership-quarterly-review-ics)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0974 — [ ] `packages/agent-packs/github-agents-v1/collection-report.json` | `Traceability & Inventory` | `collection inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-collection-report-json)
+### IMP-0974 — [ ] `packages/agent-packs/github-agents-v1/collection-report.json` | `Traceability & Inventory` | `collection inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-collection-report-json)
 - **Ordem de exportação:** 1179
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0974 "[ ] `packages/agent-packs/github-agents-v1/collection-report.json` | `Traceability & Inventory` | `collection inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-collection-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0974 "[ ] `packages/agent-packs/github-agents-v1/collection-report.json` | `Traceability & Inventory` | `collection inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-collection-report-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0975 — [ ] `packages/agent-packs/github-agents-v1/manifest.json` | `Traceability & Inventory` | `collection manifest` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-manifest-json)
+### IMP-0975 — [ ] `packages/agent-packs/github-agents-v1/manifest.json` | `Traceability & Inventory` | `collection manifest` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-manifest-json)
 - **Ordem de exportação:** 1180
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0975 "[ ] `packages/agent-packs/github-agents-v1/manifest.json` | `Traceability & Inventory` | `collection manifest` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-manifest-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0975 "[ ] `packages/agent-packs/github-agents-v1/manifest.json` | `Traceability & Inventory` | `collection manifest` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#packages-agent-packs-github-agents-v1-manifest-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0976 — [ ] `scripts/diagnostics/check-ownership-governance.mjs` | `Traceability & Inventory` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-check-ownership-governance-mjs)
+### IMP-0976 — [ ] `scripts/diagnostics/check-ownership-governance.mjs` | `Traceability & Inventory` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-check-ownership-governance-mjs)
 - **Ordem de exportação:** 1181
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0976 "[ ] `scripts/diagnostics/check-ownership-governance.mjs` | `Traceability & Inventory` | `audit automation` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-diagnostics-check-ownership-governance-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0976 "[ ] `scripts/diagnostics/check-ownership-governance.mjs` | `Traceability & Inventory` | `audit automation` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-diagnostics-check-ownership-governance-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0977 — [ ] `scripts/forensics/generate_governance_inventory.py` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-forensics-generate-governance-inventory-py)
+### IMP-0977 — [ ] `scripts/forensics/generate_governance_inventory.py` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-forensics-generate-governance-inventory-py)
 - **Ordem de exportação:** 1182
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0977 "[ ] `scripts/forensics/generate_governance_inventory.py` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-forensics-generate-governance-inventory-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0977 "[ ] `scripts/forensics/generate_governance_inventory.py` | `Traceability & Inventory` | `inventory` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-forensics-generate-governance-inventory-py)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0978 — [ ] `scripts/testing/generate-traceability-report.mjs` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-generate-traceability-report-mjs)
+### IMP-0978 — [ ] `scripts/testing/generate-traceability-report.mjs` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-generate-traceability-report-mjs)
 - **Ordem de exportação:** 1183
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0978 "[ ] `scripts/testing/generate-traceability-report.mjs` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-generate-traceability-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0978 "[ ] `scripts/testing/generate-traceability-report.mjs` | `Traceability & Inventory` | `traceability matrix` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-generate-traceability-report-mjs)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
-### IMP-0979 — [ ] `scripts/testing/traceability-data.json` | `Traceability & Inventory` | `traceability dataset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-traceability-data-json)
+### IMP-0979 — [ ] `scripts/testing/traceability-data.json` | `Traceability & Inventory` | `traceability dataset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-traceability-data-json)
 - **Ordem de exportação:** 1184
 - **Status de origem:** Não iniciado
 - **Fonte:** `importado`
 - **Prompt individual:**
 ```text
-Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0979 "[ ] `scripts/testing/traceability-data.json` | `Traceability & Inventory` | `traceability dataset` | `Primario` | `Existe` | [corpus](governance_inventory_complete_2026-03-29.html#scripts-testing-traceability-data-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
+Você é um auditor técnico sênior da plataforma BirthHub 360. Analise o item IMP-0979 "[ ] `scripts/testing/traceability-data.json` | `Traceability & Inventory` | `traceability dataset` | `Primario` | `Existe` | [corpus](../../audit/governance_inventory_complete_2026-03-29.html#scripts-testing-traceability-data-json)" e produza uma validação objetiva. Fonte de origem: importado. Status documental atual: Não iniciado. Entregue: (1) evidências localizadas, (2) lacunas ou contradições, (3) impacto no go-live, (4) ação corretiva recomendada, (5) prioridade P0-P3, (6) critérios de comprovação final.
 ```
 
 ### IMP-0980 — Corpus HTML completo com o conteudo integral dos artefatos:
