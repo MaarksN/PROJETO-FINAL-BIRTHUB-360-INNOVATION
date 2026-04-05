@@ -1,6 +1,6 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-05T20:52:59.312Z
+- Generated at: 2026-04-05T21:03:34.854Z
 - Source report: `audit\auditor-prime-2026-04-05.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
@@ -8,19 +8,18 @@
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
 | TD-029 Superfície crítica sem teste relacionado por heurística de nome (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 1-3 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-030 Superfície crítica sem teste relacionado por heurística de nome (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 1-3 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-031 Chamada externa sem timeout ou abort path explícito (`apps/legacy/dashboard/proxy.ts`) | @platform-security | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-032 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/packs/page.tsx`) | @product-frontend | 0.5-2 dias | TD-031 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-033 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`) | @product-frontend | 0.5-2 dias | TD-031 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-034 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 0.5-2 dias | TD-031 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-035 Chamada externa sem timeout ou abort path explícito (`apps/web/app/api/auth/[...session]/route.ts`) | @product-frontend | 0.5-2 dias | TD-031 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-036 Configuração sensível dispersa em módulo crítico (`apps/web/lib/auth-client.ts`) | @product-frontend | 0.5-2 dias | TD-016 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-030 Chamada externa sem timeout ou abort path explícito (`apps/legacy/dashboard/proxy.ts`) | @platform-security | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-031 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/packs/page.tsx`) | @product-frontend | 0.5-2 dias | TD-030 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-032 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`) | @product-frontend | 0.5-2 dias | TD-030 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-033 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 0.5-2 dias | TD-030 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-034 Chamada externa sem timeout ou abort path explícito (`apps/web/app/api/auth/[...session]/route.ts`) | @product-frontend | 0.5-2 dias | TD-030 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-035 Configuração sensível dispersa em módulo crítico (`apps/web/lib/auth-client.ts`) | @product-frontend | 0.5-2 dias | TD-016 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 2 — Qualidade + observabilidade
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-042 Cobertura estrutural baixa em packages/database (`packages/database/src/errors/cross-tenant-access.error.ts`) | @platform-data | 1-3 dias | TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
+| TD-042 Cobertura estrutural baixa em apps/api (`apps/api/src/app/module-routes.ts`) | @platform-api | 1-3 dias | TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
 
 ## Sprint 3 — Performance + UX técnica
 
@@ -32,6 +31,7 @@
 | TD-055 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-056 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/agents/metrics.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-058 Consulta findMany sem paginação explícita (`apps/api/src/modules/agents/service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 

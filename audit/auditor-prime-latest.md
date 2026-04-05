@@ -9,14 +9,15 @@
 ### Top 5 riscos críticos
 
 - TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:1
-- TD-030 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/connectors/router.ts:1
-- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/legacy/dashboard/proxy.ts:11
-- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/packs/page.tsx:35
-- TD-033 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279
+- TD-030 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/legacy/dashboard/proxy.ts:11
+- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/packs/page.tsx:35
+- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279
+- TD-033 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99
 
 ### Análise Pendente
 
 - TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core | requer: docs/architecture/c4-context.md
+- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
 - TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -276,15 +277,7 @@
   VDI: 3.65 (ALTO)
   Esforço: 1-3 dias
 
-- TD-030 | Superfície crítica sem teste relacionado por heurística de nome
-  Localização: apps/api/src/modules/connectors/router.ts:1
-  Problema: Identificado em apps/api/src/modules/connectors/router.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.
-  Impacto: Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.
-  Solução recomendada: Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.
-  VDI: 3.65 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-031 | Chamada externa sem timeout ou abort path explícito
+- TD-030 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/legacy/dashboard/proxy.ts:11
   Problema: Indício em apps/legacy/dashboard/proxy.ts:11 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -292,7 +285,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-032 | Chamada externa sem timeout ou abort path explícito
+- TD-031 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/web/app/(dashboard)/packs/page.tsx:35
   Problema: Indício em apps/web/app/(dashboard)/packs/page.tsx:35 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -300,7 +293,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-033 | Chamada externa sem timeout ou abort path explícito
+- TD-032 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279
   Problema: Indício em apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -308,7 +301,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-034 | Chamada externa sem timeout ou abort path explícito
+- TD-033 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99
   Problema: Indício em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -316,7 +309,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-035 | Chamada externa sem timeout ou abort path explícito
+- TD-034 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/web/app/api/auth/[...session]/route.ts:9
   Problema: Indício em apps/web/app/api/auth/[...session]/route.ts:9 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -324,7 +317,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-036 | Configuração sensível dispersa em módulo crítico
+- TD-035 | Configuração sensível dispersa em módulo crítico
   Localização: apps/web/lib/auth-client.ts:17
   Problema: Identificado em módulo crítico (apps/web/lib/auth-client.ts) acesso direto a process.env, reduzindo auditabilidade de segredos e políticas de fallback.
   Impacto: Módulos críticos com leitura dispersa de env facilitam drift entre ambientes e tornam segredos mais difíceis de governar.
@@ -332,7 +325,7 @@
   VDI: 3.45 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-037 | Semgrep WARNING em cd.yml
+- TD-036 | Semgrep WARNING em cd.yml
   Localização: .github/workflows/cd.yml:65
   Problema: Semgrep sinalizou em .github/workflows/cd.yml:65 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -340,7 +333,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-038 | Semgrep WARNING em cd.yml
+- TD-037 | Semgrep WARNING em cd.yml
   Localização: .github/workflows/cd.yml:191
   Problema: Semgrep sinalizou em .github/workflows/cd.yml:191 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -348,7 +341,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-039 | Semgrep WARNING em prisma-schema.ts
+- TD-038 | Semgrep WARNING em prisma-schema.ts
   Localização: packages/database/scripts/lib/prisma-schema.ts:40
   Problema: Semgrep sinalizou em packages/database/scripts/lib/prisma-schema.ts:40 o padrão "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -356,7 +349,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-040 | Semgrep WARNING em runtime.shared.ts
+- TD-039 | Semgrep WARNING em runtime.shared.ts
   Localização: apps/worker/src/agents/runtime.shared.ts:113
   Problema: Semgrep sinalizou em apps/worker/src/agents/runtime.shared.ts:113 o padrão "RegExp() called with a `pattern` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -364,7 +357,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-041 | Semgrep WARNING em worker.job-validation.test.ts
+- TD-040 | Semgrep WARNING em worker.job-validation.test.ts
   Localização: apps/worker/src/worker.job-validation.test.ts:47
   Problema: Semgrep sinalizou em apps/worker/src/worker.job-validation.test.ts:47 o padrão "Detected a hardcoded hmac key".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -372,11 +365,19 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
+- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
 ### Dimensão 4 — Cobertura de Testes e Observabilidade
 
-- TD-042 | Cobertura estrutural baixa em packages/database
-  Localização: packages/database/src/errors/cross-tenant-access.error.ts:1
-  Problema: O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 6 arquivos de teste diretos e 9 gaps principais.
+- TD-042 | Cobertura estrutural baixa em apps/api
+  Localização: apps/api/src/app/module-routes.ts:1
+  Problema: O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 32 arquivos de teste diretos e 5 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 3.45 (ALTO)
@@ -415,22 +416,6 @@
   Esforço: 0.5-1 dia
 
 - TD-047 | Módulo volumoso sem teste relacionado direto
-  Localização: packages/database/prisma/migration-registry.json:1
-  Problema: Identificado em packages/database/prisma/migration-registry.json um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
-  Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
-  Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
-  VDI: 2.65 (MÉDIO)
-  Esforço: 0.5-2 dias
-
-- TD-048 | Módulo volumoso sem teste relacionado direto
-  Localização: apps/api/src/modules/users/router.ts:1
-  Problema: Identificado em apps/api/src/modules/users/router.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
-  Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
-  Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
-  VDI: 2.65 (MÉDIO)
-  Esforço: 0.5-2 dias
-
-- TD-049 | Módulo volumoso sem teste relacionado direto
   Localização: apps/web/app/admin/dashboard/page.tsx:1
   Problema: Identificado em apps/web/app/admin/dashboard/page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -438,7 +423,7 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-050 | Módulo volumoso sem teste relacionado direto
+- TD-048 | Módulo volumoso sem teste relacionado direto
   Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:1
   Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -446,7 +431,7 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-051 | Módulo volumoso sem teste relacionado direto
+- TD-049 | Módulo volumoso sem teste relacionado direto
   Localização: apps/api/src/middleware/rate-limit.ts:1
   Problema: Identificado em apps/api/src/middleware/rate-limit.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -454,17 +439,33 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
+- TD-050 | Módulo volumoso sem teste relacionado direto
+  Localização: packages/database/prisma/seeds/shared-runtime.ts:1
+  Problema: Identificado em packages/database/prisma/seeds/shared-runtime.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
+  Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
+  Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
+  VDI: 2.65 (MÉDIO)
+  Esforço: 0.5-2 dias
+
+- TD-051 | Módulo volumoso sem teste relacionado direto
+  Localização: apps/api/src/modules/dashboard/service.shared.ts:1
+  Problema: Identificado em apps/api/src/modules/dashboard/service.shared.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
+  Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
+  Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
+  VDI: 2.65 (MÉDIO)
+  Esforço: 0.5-2 dias
+
 - TD-052 | Módulo volumoso sem teste relacionado direto
-  Localização: apps/api/src/modules/connectors/router.ts:1
-  Problema: Identificado em apps/api/src/modules/connectors/router.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
+  Localização: apps/web/components/layout/Navbar.tsx:1
+  Problema: Identificado em apps/web/components/layout/Navbar.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
   Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
 - TD-053 | Módulo volumoso sem teste relacionado direto
-  Localização: packages/database/prisma/seeds/shared-runtime.ts:1
-  Problema: Identificado em packages/database/prisma/seeds/shared-runtime.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
+  Localização: packages/database/src/repositories/engagement.ts:1
+  Problema: Identificado em packages/database/src/repositories/engagement.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
   Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
   VDI: 2.65 (MÉDIO)
@@ -1722,14 +1723,14 @@
 - Nós mapeados: 22
 - Arestas mapeadas: 18
 
-- TD-029 -> TD-030 (Debt dependency)
-- TD-031 -> TD-032 (Debt dependency)
-- TD-031 -> TD-033 (Debt dependency)
-- TD-031 -> TD-034 (Debt dependency)
-- TD-031 -> TD-035 (Debt dependency)
-- TD-016 -> TD-036 (Debt dependency)
+- TD-030 -> TD-031 (Debt dependency)
+- TD-030 -> TD-032 (Debt dependency)
+- TD-030 -> TD-033 (Debt dependency)
+- TD-030 -> TD-034 (Debt dependency)
+- TD-016 -> TD-035 (Debt dependency)
 - TD-026 -> TD-042 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
+- TD-054 -> TD-055 (Debt dependency)
 - TD-089 -> IN-001 (Scale foundation before innovation)
 - TD-089 -> IN-002 (Scale foundation before innovation)
 - TD-089 -> IN-003 (Scale foundation before innovation)

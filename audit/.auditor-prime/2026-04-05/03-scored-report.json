@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T20:52:58.502Z",
+    "generatedAt": "2026-04-05T21:03:34.305Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "6724a3c3c835fda5a3130753d1af641531383730",
+    "headSha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -39,20 +39,6 @@
       },
       {
         "id": "TD-030",
-        "title": "Superfície crítica sem teste relacionado por heurística de nome",
-        "dimension": "Dimensão 3 — Segurança",
-        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
-        "vdiScore": 3.65,
-        "location": {
-          "path": "apps/api/src/modules/connectors/router.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        }
-      },
-      {
-        "id": "TD-031",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
@@ -66,7 +52,7 @@
         }
       },
       {
-        "id": "TD-032",
+        "id": "TD-031",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
@@ -80,7 +66,7 @@
         }
       },
       {
-        "id": "TD-033",
+        "id": "TD-032",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
@@ -90,6 +76,20 @@
           "lines": {
             "start": 279,
             "end": 279
+          }
+        }
+      },
+      {
+        "id": "TD-033",
+        "title": "Chamada externa sem timeout ou abort path explícito",
+        "dimension": "Dimensão 3 — Segurança",
+        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+        "vdiScore": 3.6,
+        "location": {
+          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+          "lines": {
+            "start": 99,
+            "end": 99
           }
         }
       }
@@ -1307,48 +1307,6 @@
     },
     {
       "dimension": "security",
-      "title": "Superfície crítica sem teste relacionado por heurística de nome",
-      "location": {
-        "path": "apps/api/src/modules/connectors/router.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/api/src/modules/connectors/router.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
-      "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
-      "recommendation": "Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 4,
-        "reverseEffort": 3,
-        "frequency": 3
-      },
-      "vdiScore": 3.65,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.64,
-      "evidenceRefs": [
-        {
-          "path": "apps/api/src/modules/connectors/router.ts",
-          "line": 1,
-          "summary": "Nenhum teste relacionado encontrado pela heurística de stem/module."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "security-tests"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-030",
-      "dependencies": [
-        "TD-029"
-      ]
-    },
-    {
-      "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
         "path": "apps/legacy/dashboard/proxy.ts",
@@ -1384,7 +1342,7 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-031",
+      "id": "TD-030",
       "dependencies": []
     },
     {
@@ -1424,9 +1382,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-032",
+      "id": "TD-031",
       "dependencies": [
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1466,9 +1424,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-033",
+      "id": "TD-032",
       "dependencies": [
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1508,9 +1466,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-034",
+      "id": "TD-033",
       "dependencies": [
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1550,9 +1508,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-035",
+      "id": "TD-034",
       "dependencies": [
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1592,7 +1550,7 @@
         "foundation-config"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-036",
+      "id": "TD-035",
       "dependencies": [
         "TD-016"
       ]
@@ -1640,10 +1598,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-037",
+      "id": "TD-036",
       "dependencies": [
         "TD-029",
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1689,10 +1647,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-038",
+      "id": "TD-037",
       "dependencies": [
         "TD-029",
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1738,10 +1696,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-039",
+      "id": "TD-038",
       "dependencies": [
         "TD-029",
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1787,10 +1745,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-040",
+      "id": "TD-039",
       "dependencies": [
         "TD-029",
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -1836,23 +1794,65 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-041",
+      "id": "TD-040",
       "dependencies": [
         "TD-029",
-        "TD-031"
+        "TD-030"
       ]
     },
     {
-      "dimension": "tests_observability",
-      "title": "Cobertura estrutural baixa em packages/database",
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
       "location": {
-        "path": "packages/database/src/errors/cross-tenant-access.error.ts",
+        "path": ".github/workflows/security-scan.yml",
         "lines": {
           "start": 1,
           "end": 1
         }
       },
-      "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 6 arquivos de teste diretos e 9 gaps principais.",
+      "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+      "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+      "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-041",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Cobertura estrutural baixa em apps/api",
+      "location": {
+        "path": "apps/api/src/app/module-routes.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 32 arquivos de teste diretos e 5 gaps principais.",
       "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
       "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
       "vdiFactors": {
@@ -1868,14 +1868,14 @@
       "confidence": 0.86,
       "evidenceRefs": [
         {
-          "path": "packages/database/src/errors/cross-tenant-access.error.ts",
+          "path": "apps/api/src/app/module-routes.ts",
           "line": 1,
-          "summary": "Gap estrutural identificado para packages/database."
+          "summary": "Gap estrutural identificado para apps/api."
         },
         {
           "path": "artifacts/testing/module-coverage.json",
           "line": 1,
-          "summary": "packages/database: 6 testes diretos, 9 gaps."
+          "summary": "apps/api: 32 testes diretos, 5 gaps."
         }
       ],
       "inference": false,
@@ -2076,90 +2076,6 @@
       "dimension": "tests_observability",
       "title": "Módulo volumoso sem teste relacionado direto",
       "location": {
-        "path": "packages/database/prisma/migration-registry.json",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em packages/database/prisma/migration-registry.json um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 2.65,
-      "effort": "0.5-2 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 1",
-      "confidence": 0.68,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/prisma/migration-registry.json",
-          "line": 1,
-          "summary": "Heurística não encontrou arquivo de teste relacionado."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-047",
-      "dependencies": [
-        "TD-042"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Módulo volumoso sem teste relacionado direto",
-      "location": {
-        "path": "apps/api/src/modules/users/router.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/api/src/modules/users/router.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 2.65,
-      "effort": "0.5-2 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 1",
-      "confidence": 0.68,
-      "evidenceRefs": [
-        {
-          "path": "apps/api/src/modules/users/router.ts",
-          "line": 1,
-          "summary": "Heurística não encontrou arquivo de teste relacionado."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-048",
-      "dependencies": [
-        "TD-042"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Módulo volumoso sem teste relacionado direto",
-      "location": {
         "path": "apps/web/app/admin/dashboard/page.tsx",
         "lines": {
           "start": 1,
@@ -2193,7 +2109,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-049",
+      "id": "TD-047",
       "dependencies": [
         "TD-042"
       ]
@@ -2235,7 +2151,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-050",
+      "id": "TD-048",
       "dependencies": [
         "TD-042"
       ]
@@ -2277,49 +2193,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-051",
-      "dependencies": [
-        "TD-042"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Módulo volumoso sem teste relacionado direto",
-      "location": {
-        "path": "apps/api/src/modules/connectors/router.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/api/src/modules/connectors/router.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 2.65,
-      "effort": "0.5-2 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 1",
-      "confidence": 0.68,
-      "evidenceRefs": [
-        {
-          "path": "apps/api/src/modules/connectors/router.ts",
-          "line": 1,
-          "summary": "Heurística não encontrou arquivo de teste relacionado."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-052",
+      "id": "TD-049",
       "dependencies": [
         "TD-042"
       ]
@@ -2351,6 +2225,132 @@
       "evidenceRefs": [
         {
           "path": "packages/database/prisma/seeds/shared-runtime.ts",
+          "line": 1,
+          "summary": "Heurística não encontrou arquivo de teste relacionado."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-050",
+      "dependencies": [
+        "TD-042"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Módulo volumoso sem teste relacionado direto",
+      "location": {
+        "path": "apps/api/src/modules/dashboard/service.shared.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em apps/api/src/modules/dashboard/service.shared.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 2,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 2.65,
+      "effort": "0.5-2 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.68,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/dashboard/service.shared.ts",
+          "line": 1,
+          "summary": "Heurística não encontrou arquivo de teste relacionado."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-051",
+      "dependencies": [
+        "TD-042"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Módulo volumoso sem teste relacionado direto",
+      "location": {
+        "path": "apps/web/components/layout/Navbar.tsx",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em apps/web/components/layout/Navbar.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 2,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 2.65,
+      "effort": "0.5-2 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.68,
+      "evidenceRefs": [
+        {
+          "path": "apps/web/components/layout/Navbar.tsx",
+          "line": 1,
+          "summary": "Heurística não encontrou arquivo de teste relacionado."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-052",
+      "dependencies": [
+        "TD-042"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Módulo volumoso sem teste relacionado direto",
+      "location": {
+        "path": "packages/database/src/repositories/engagement.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em packages/database/src/repositories/engagement.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 2,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 2.65,
+      "effort": "0.5-2 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.68,
+      "evidenceRefs": [
+        {
+          "path": "packages/database/src/repositories/engagement.ts",
           "line": 1,
           "summary": "Heurística não encontrou arquivo de teste relacionado."
         }
@@ -2779,7 +2779,7 @@
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-063",
       "dependencies": [
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -2821,7 +2821,7 @@
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-064",
       "dependencies": [
-        "TD-031"
+        "TD-030"
       ]
     },
     {
@@ -6566,7 +6566,7 @@
       },
       {
         "id": "TD-030",
-        "label": "Superfície crítica sem teste relacionado por heurística de nome",
+        "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
         "type": "debt"
       },
@@ -6595,26 +6595,20 @@
         "type": "debt"
       },
       {
-        "id": "TD-035",
-        "label": "Chamada externa sem timeout ou abort path explícito",
-        "phase": "Fase 1",
-        "type": "debt"
-      },
-      {
         "id": "TD-001",
         "label": "Complexidade acima do limiar em registerAuthRoutes",
         "phase": "Fase 2",
         "type": "debt"
       },
       {
-        "id": "TD-036",
+        "id": "TD-035",
         "label": "Configuração sensível dispersa em módulo crítico",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
         "id": "TD-042",
-        "label": "Cobertura estrutural baixa em packages/database",
+        "label": "Cobertura estrutural baixa em apps/api",
         "phase": "Fase 1",
         "type": "debt"
       },
@@ -6626,6 +6620,12 @@
       },
       {
         "id": "TD-054",
+        "label": "Consulta findMany sem paginação explícita",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
+        "id": "TD-055",
         "label": "Consulta findMany sem paginação explícita",
         "phase": "Fase 2",
         "type": "debt"
@@ -6693,33 +6693,28 @@
     ],
     "edges": [
       {
-        "from": "TD-029",
-        "to": "TD-030",
+        "from": "TD-030",
+        "to": "TD-031",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-031",
+        "from": "TD-030",
         "to": "TD-032",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-031",
+        "from": "TD-030",
         "to": "TD-033",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-031",
+        "from": "TD-030",
         "to": "TD-034",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-031",
-        "to": "TD-035",
-        "reason": "Debt dependency"
-      },
-      {
         "from": "TD-016",
-        "to": "TD-036",
+        "to": "TD-035",
         "reason": "Debt dependency"
       },
       {
@@ -6730,6 +6725,11 @@
       {
         "from": "TD-001",
         "to": "TD-002",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-054",
+        "to": "TD-055",
         "reason": "Debt dependency"
       },
       {
@@ -6885,6 +6885,18 @@
       "requires": "docs/architecture/c4-context.md",
       "location": {
         "path": "docs/service-catalog.md",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      }
+    },
+    {
+      "id": "TD-041",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
+      "requires": "semgrep --json",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
         "lines": {
           "start": 1,
           "end": 1
@@ -7128,8 +7140,8 @@
         "key": "security",
         "label": "Dimensão 3 — Segurança",
         "weight": 18,
-        "avgTopVdi": 3.63,
-        "score": 8.19
+        "avgTopVdi": 3.62,
+        "score": 8.23
       },
       {
         "key": "tests_observability",
@@ -7184,10 +7196,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6081,
-      "coreTrackedFiles": 440,
+      "trackedFiles": 6087,
+      "coreTrackedFiles": 446,
       "runtimeFiles": 1801,
-      "testFiles": 138,
+      "testFiles": 144,
       "modules": 284
     },
     "capabilities": {
@@ -8456,8 +8468,18 @@
       }
     },
     "git": {
-      "totalCommits": 1098,
+      "totalCommits": 1100,
       "last30Days": [
+        {
+          "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "fdca819168fe1306701a269798520990cad5a70d",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "6724a3c3c835fda5a3130753d1af641531383730",
           "date": "2026-04-05",
@@ -11105,6 +11127,16 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "fdca819168fe1306701a269798520990cad5a70d",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "6724a3c3c835fda5a3130753d1af641531383730",
             "date": "2026-04-05",
             "subject": "1"
@@ -11218,16 +11250,6 @@
             "sha": "7430447d82717b7bde123bf1e2a520bfb665f533",
             "date": "2026-03-29",
             "subject": "1"
-          },
-          {
-            "sha": "27b84d4a86ac7a894e7058ac4aa7feaf30a48c71",
-            "date": "2026-03-28",
-            "subject": "Your commit message here"
-          },
-          {
-            "sha": "e261a01c9a06ff3525d4672da40130df8a163574",
-            "date": "2026-03-28",
-            "subject": "Your commit message here"
           }
         ]
       }

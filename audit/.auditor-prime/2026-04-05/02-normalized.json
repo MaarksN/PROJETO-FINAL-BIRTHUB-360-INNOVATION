@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T20:52:58.502Z",
+    "generatedAt": "2026-04-05T21:03:34.305Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "6724a3c3c835fda5a3130753d1af641531383730",
+    "headSha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -17,10 +17,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6081,
-      "coreTrackedFiles": 440,
+      "trackedFiles": 6087,
+      "coreTrackedFiles": 446,
       "runtimeFiles": 1801,
-      "testFiles": 138,
+      "testFiles": 144,
       "modules": 284
     },
     "capabilities": {
@@ -1289,8 +1289,18 @@
       }
     },
     "git": {
-      "totalCommits": 1098,
+      "totalCommits": 1100,
       "last30Days": [
+        {
+          "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "fdca819168fe1306701a269798520990cad5a70d",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "6724a3c3c835fda5a3130753d1af641531383730",
           "date": "2026-04-05",
@@ -3938,6 +3948,16 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "fdca819168fe1306701a269798520990cad5a70d",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "6724a3c3c835fda5a3130753d1af641531383730",
             "date": "2026-04-05",
             "subject": "1"
@@ -4051,16 +4071,6 @@
             "sha": "7430447d82717b7bde123bf1e2a520bfb665f533",
             "date": "2026-03-29",
             "subject": "1"
-          },
-          {
-            "sha": "27b84d4a86ac7a894e7058ac4aa7feaf30a48c71",
-            "date": "2026-03-28",
-            "subject": "Your commit message here"
-          },
-          {
-            "sha": "e261a01c9a06ff3525d4672da40130df8a163574",
-            "date": "2026-03-28",
-            "subject": "Your commit message here"
           }
         ]
       }
@@ -5169,43 +5179,6 @@
       },
       {
         "dimension": "security",
-        "title": "Superfície crítica sem teste relacionado por heurística de nome",
-        "location": {
-          "path": "apps/api/src/modules/connectors/router.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em apps/api/src/modules/connectors/router.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
-        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
-        "recommendation": "Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 4,
-          "reverseEffort": 3,
-          "frequency": 3
-        },
-        "vdiScore": 3.65,
-        "effort": "1-3 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.64,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/connectors/router.ts",
-            "line": 1,
-            "summary": "Nenhum teste relacionado encontrado pela heurística de stem/module."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "security-tests"
-        ]
-      },
-      {
-        "dimension": "security",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "location": {
           "path": "apps/legacy/dashboard/proxy.ts",
@@ -5640,20 +5613,57 @@
           "security-tests",
           "integration-guardrails"
         ]
-      }
-    ],
-    "tests_observability": [
+      },
       {
-        "dimension": "tests_observability",
-        "title": "Cobertura estrutural baixa em packages/database",
+        "dimension": "security",
+        "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
         "location": {
-          "path": "packages/database/src/errors/cross-tenant-access.error.ts",
+          "path": ".github/workflows/security-scan.yml",
           "lines": {
             "start": 1,
             "end": 1
           }
         },
-        "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 6 arquivos de teste diretos e 9 gaps principais.",
+        "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+        "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+        "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": ".github/workflows/security-scan.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      }
+    ],
+    "tests_observability": [
+      {
+        "dimension": "tests_observability",
+        "title": "Cobertura estrutural baixa em apps/api",
+        "location": {
+          "path": "apps/api/src/app/module-routes.ts",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 32 arquivos de teste diretos e 5 gaps principais.",
         "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
         "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
         "vdiFactors": {
@@ -5669,14 +5679,14 @@
         "confidence": 0.86,
         "evidenceRefs": [
           {
-            "path": "packages/database/src/errors/cross-tenant-access.error.ts",
+            "path": "apps/api/src/app/module-routes.ts",
             "line": 1,
-            "summary": "Gap estrutural identificado para packages/database."
+            "summary": "Gap estrutural identificado para apps/api."
           },
           {
             "path": "artifacts/testing/module-coverage.json",
             "line": 1,
-            "summary": "packages/database: 6 testes diretos, 9 gaps."
+            "summary": "apps/api: 32 testes diretos, 5 gaps."
           }
         ],
         "inference": false,
@@ -5850,80 +5860,6 @@
         "dimension": "tests_observability",
         "title": "Módulo volumoso sem teste relacionado direto",
         "location": {
-          "path": "packages/database/prisma/migration-registry.json",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em packages/database/prisma/migration-registry.json um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 2.65,
-        "effort": "0.5-2 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.68,
-        "evidenceRefs": [
-          {
-            "path": "packages/database/prisma/migration-registry.json",
-            "line": 1,
-            "summary": "Heurística não encontrou arquivo de teste relacionado."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "test-harness"
-        ]
-      },
-      {
-        "dimension": "tests_observability",
-        "title": "Módulo volumoso sem teste relacionado direto",
-        "location": {
-          "path": "apps/api/src/modules/users/router.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em apps/api/src/modules/users/router.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 2.65,
-        "effort": "0.5-2 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.68,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/users/router.ts",
-            "line": 1,
-            "summary": "Heurística não encontrou arquivo de teste relacionado."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "test-harness"
-        ]
-      },
-      {
-        "dimension": "tests_observability",
-        "title": "Módulo volumoso sem teste relacionado direto",
-        "location": {
           "path": "apps/web/app/admin/dashboard/page.tsx",
           "lines": {
             "start": 1,
@@ -6035,43 +5971,6 @@
         "dimension": "tests_observability",
         "title": "Módulo volumoso sem teste relacionado direto",
         "location": {
-          "path": "apps/api/src/modules/connectors/router.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em apps/api/src/modules/connectors/router.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 2.65,
-        "effort": "0.5-2 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.68,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/connectors/router.ts",
-            "line": 1,
-            "summary": "Heurística não encontrou arquivo de teste relacionado."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "test-harness"
-        ]
-      },
-      {
-        "dimension": "tests_observability",
-        "title": "Módulo volumoso sem teste relacionado direto",
-        "location": {
           "path": "packages/database/prisma/seeds/shared-runtime.ts",
           "lines": {
             "start": 1,
@@ -6095,6 +5994,117 @@
         "evidenceRefs": [
           {
             "path": "packages/database/prisma/seeds/shared-runtime.ts",
+            "line": 1,
+            "summary": "Heurística não encontrou arquivo de teste relacionado."
+          }
+        ],
+        "inference": true,
+        "insufficient": false,
+        "dependencyHints": [
+          "test-harness"
+        ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "Módulo volumoso sem teste relacionado direto",
+        "location": {
+          "path": "apps/api/src/modules/dashboard/service.shared.ts",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em apps/api/src/modules/dashboard/service.shared.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 4
+        },
+        "vdiScore": 2.65,
+        "effort": "0.5-2 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.68,
+        "evidenceRefs": [
+          {
+            "path": "apps/api/src/modules/dashboard/service.shared.ts",
+            "line": 1,
+            "summary": "Heurística não encontrou arquivo de teste relacionado."
+          }
+        ],
+        "inference": true,
+        "insufficient": false,
+        "dependencyHints": [
+          "test-harness"
+        ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "Módulo volumoso sem teste relacionado direto",
+        "location": {
+          "path": "apps/web/components/layout/Navbar.tsx",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em apps/web/components/layout/Navbar.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 4
+        },
+        "vdiScore": 2.65,
+        "effort": "0.5-2 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.68,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/components/layout/Navbar.tsx",
+            "line": 1,
+            "summary": "Heurística não encontrou arquivo de teste relacionado."
+          }
+        ],
+        "inference": true,
+        "insufficient": false,
+        "dependencyHints": [
+          "test-harness"
+        ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "Módulo volumoso sem teste relacionado direto",
+        "location": {
+          "path": "packages/database/src/repositories/engagement.ts",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em packages/database/src/repositories/engagement.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 4
+        },
+        "vdiScore": 2.65,
+        "effort": "0.5-2 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.68,
+        "evidenceRefs": [
+          {
+            "path": "packages/database/src/repositories/engagement.ts",
             "line": 1,
             "summary": "Heurística não encontrou arquivo de teste relacionado."
           }
