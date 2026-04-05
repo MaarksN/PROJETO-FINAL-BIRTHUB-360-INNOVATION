@@ -1,18 +1,24 @@
 import { isSupportedSessionAction } from "../session-actions";
 import { NextRequest, NextResponse } from "next/server";
 
-import { getWebConfig } from "@birthub/config";
+import { fetchWithTimeout } from "@birthub/utils";
 
-const webConfig = getWebConfig();
+import { resolveApiBaseUrl } from "../../../../lib/auth-client";
+
+const AUTH_SESSION_PROXY_TIMEOUT_MS = 5_000;
 
 async function proxyApi(request: NextRequest, path: string, init: RequestInit): Promise<NextResponse> {
-  const response = await fetch(`${webConfig.NEXT_PUBLIC_API_URL}${path}`, {
+  const headers = new Headers(init.headers);
+  if (init.body && !headers.has("content-type")) {
+    headers.set("content-type", "application/json");
+  }
+  headers.set("cookie", request.headers.get("cookie") ?? "");
+
+  const response = await fetchWithTimeout(`${resolveApiBaseUrl()}${path}`, {
     ...init,
-    headers: {
-      ...(init.headers ?? {}),
-      "content-type": "application/json",
-      cookie: request.headers.get("cookie") ?? ""
-    }
+    headers,
+    timeoutMessage: `Auth BFF exceeded the ${AUTH_SESSION_PROXY_TIMEOUT_MS}ms timeout budget.`,
+    timeoutMs: AUTH_SESSION_PROXY_TIMEOUT_MS
   });
 
   const responseBody = await response.text();

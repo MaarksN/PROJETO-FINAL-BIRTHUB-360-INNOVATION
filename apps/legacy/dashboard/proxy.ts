@@ -1,24 +1,33 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+import { fetchWithTimeout } from "@birthub/utils";
+
 const PUBLIC_PATHS = ["/login", "/api/session/login", "/api/session/logout", "/_next", "/favicon.ico"];
+const AUTH_PROBE_TIMEOUT_MS = 5_000;
 
 function resolveApiBaseUrl(): string {
   return process.env.API_URL?.trim() || "http://localhost:3000";
 }
 
 async function isAuthenticated(request: NextRequest): Promise<boolean> {
-  const response = await fetch(`${resolveApiBaseUrl()}/api/v1/me`, {
-    cache: "no-store",
-    headers: {
-      ...(request.headers.get("authorization")
-        ? { authorization: request.headers.get("authorization") as string }
-        : {}),
-      ...(request.headers.get("cookie") ? { cookie: request.headers.get("cookie") as string } : {})
-    }
-  });
+  try {
+    const response = await fetchWithTimeout(`${resolveApiBaseUrl()}/api/v1/me`, {
+      cache: "no-store",
+      headers: {
+        ...(request.headers.get("authorization")
+          ? { authorization: request.headers.get("authorization") as string }
+          : {}),
+        ...(request.headers.get("cookie") ? { cookie: request.headers.get("cookie") as string } : {})
+      },
+      timeoutMessage: `Legacy auth probe exceeded the ${AUTH_PROBE_TIMEOUT_MS}ms timeout budget.`,
+      timeoutMs: AUTH_PROBE_TIMEOUT_MS
+    });
 
-  return response.ok;
+    return response.ok;
+  } catch {
+    return false;
+  }
 }
 
 export async function proxy(request: NextRequest) {

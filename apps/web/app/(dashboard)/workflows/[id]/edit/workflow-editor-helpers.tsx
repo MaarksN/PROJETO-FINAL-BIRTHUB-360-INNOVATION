@@ -2,6 +2,8 @@ import { Handle, Position, type Edge, type Node, type NodeProps } from "reactflo
 
 import { stepSchema, validateDag, type WorkflowCanvas } from "@birthub/workflows-core";
 
+import { fetchWithSession } from "../../../../../lib/auth-client";
+
 export type BuilderNodeData = {
   category: "action" | "condition" | "trigger";
   config: Record<string, unknown>;
@@ -57,6 +59,8 @@ export const FALLBACK_CANVAS: WorkflowCanvas = {
   ],
   transitions: []
 };
+
+const WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS = 10_000;
 
 type WorkflowRoute = "ALWAYS" | "FALLBACK" | "IF_FALSE" | "IF_TRUE" | "ON_FAILURE" | "ON_SUCCESS";
 
@@ -276,9 +280,13 @@ export function applySidebarValues(
 }
 
 export async function loadWorkflowDefinition(apiBaseUrl: string, workflowId: string) {
-  const response = await fetch(`${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(workflowId)}`, {
-    credentials: "include"
-  });
+  const response = await fetchWithSession(
+    `${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(workflowId)}`,
+    {
+      timeoutMessage: `Falha ao carregar workflow dentro do limite de ${WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`Falha ao carregar workflow (${response.status}).`);
@@ -301,18 +309,22 @@ export async function saveWorkflowDefinition(
   edges: Edge[],
   status: "DRAFT" | "PUBLISHED"
 ): Promise<WorkflowResponse> {
-  const response = await fetch(`${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(workflowId)}`, {
-    body: JSON.stringify({
-      canvas: flowToCanvas(nodes, edges),
-      name: workflowName,
-      status
-    }),
-    credentials: "include",
-    headers: {
-      "content-type": "application/json"
-    },
-    method: "PUT"
-  });
+  const response = await fetchWithSession(
+    `${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(workflowId)}`,
+    {
+      body: JSON.stringify({
+        canvas: flowToCanvas(nodes, edges),
+        name: workflowName,
+        status
+      }),
+      headers: {
+        "content-type": "application/json"
+      },
+      method: "PUT",
+      timeoutMessage: `Falha ao salvar workflow dentro do limite de ${WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`Falha ao salvar workflow (${response.status}).`);

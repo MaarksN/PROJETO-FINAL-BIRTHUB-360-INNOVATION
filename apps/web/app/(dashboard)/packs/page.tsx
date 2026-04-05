@@ -2,12 +2,16 @@
 
 import { useEffect, useState } from "react";
 
+import { fetchWithSession } from "../../../lib/auth-client";
+
 type PackStatus = {
   installedVersion: string;
   latestAvailableVersion: string;
   packId: string;
   status: "active" | "degraded" | "failed" | "installed";
 };
+
+const PACKS_REQUEST_TIMEOUT_MS = 8_000;
 
 function buildHeaders() {
   return {
@@ -32,9 +36,10 @@ export default function PacksPage() {
   const [message, setMessage] = useState("");
 
   async function refresh(): Promise<void> {
-    const response = await fetch("/api/v1/packs/status", {
-      credentials: "include",
-      headers: buildHeaders()
+    const response = await fetchWithSession("/api/v1/packs/status", {
+      headers: buildHeaders(),
+      timeoutMessage: `Falha ao carregar packs dentro do limite de ${PACKS_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: PACKS_REQUEST_TIMEOUT_MS
     });
 
     if (!response.ok) {
@@ -53,13 +58,14 @@ export default function PacksPage() {
   async function updateToV2(packId: string): Promise<void> {
     setMessage(`Sinalizando update ${packId} -> v2.0...`);
 
-    const response = await fetch(`/api/v1/packs/${encodeURIComponent(packId)}/version`, {
+    const response = await fetchWithSession(`/api/v1/packs/${encodeURIComponent(packId)}/version`, {
       body: JSON.stringify({
         latestAvailableVersion: "2.0.0"
       }),
-      credentials: "include",
       headers: buildHeaders(),
-      method: "POST"
+      method: "POST",
+      timeoutMessage: `Falha ao atualizar pack dentro do limite de ${PACKS_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: PACKS_REQUEST_TIMEOUT_MS
     });
 
     setMessage(response.ok ? `Pack ${packId} sinalizado para update v2.0.` : `Falha ao atualizar ${packId}.`);
@@ -71,11 +77,12 @@ export default function PacksPage() {
   async function uninstall(packId: string): Promise<void> {
     setMessage(`Desinstalando ${packId}...`);
 
-    const response = await fetch("/api/v1/packs/uninstall", {
+    const response = await fetchWithSession("/api/v1/packs/uninstall", {
       body: JSON.stringify({ packId }),
-      credentials: "include",
       headers: buildHeaders(),
-      method: "POST"
+      method: "POST",
+      timeoutMessage: `Falha ao remover pack dentro do limite de ${PACKS_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: PACKS_REQUEST_TIMEOUT_MS
     });
 
     setMessage(response.ok ? `Pack ${packId} removido.` : `Falha ao remover ${packId}.`);
