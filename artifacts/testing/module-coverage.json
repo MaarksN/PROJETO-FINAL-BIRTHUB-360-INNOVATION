@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-05T21:03:25.620Z",
+  "checkedAt": "2026-04-05T21:31:53.063Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -35,6 +35,7 @@
         "apps/api/tests/billing.webhook-delegation.test.ts",
         "apps/api/tests/billing.webhook.test.ts",
         "apps/api/tests/cache-store.test.ts",
+        "apps/api/tests/connectors-router.test.ts",
         "apps/api/tests/core-business-routes.test.ts",
         "apps/api/tests/external-url.test.ts",
         "apps/api/tests/health.smoke.test.ts",
@@ -48,7 +49,6 @@
         "apps/api/tests/tenant-auth-hardening.test.ts",
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
-        "apps/api/tests/connectors-router.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": [
@@ -61,30 +61,21 @@
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 75,
-      "directTestFiles": 6,
+      "runtimeFiles": 76,
+      "directTestFiles": 8,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/web/tests/auth-session-route.test.ts",
         "apps/web/tests/bff-allowlist.test.ts",
         "apps/web/tests/health.required-dependency.test.ts",
         "apps/web/tests/login.smoke.test.ts",
+        "apps/web/tests/auth-client.test.ts",
+        "apps/web/tests/workflow-runs-page.test.ts",
         "tests/e2e/critical-routes.spec.ts",
         "tests/e2e/billing-premium.spec.ts"
       ],
       "gaps": [
-        "apps/web/app/(dashboard)/agents/[id]/page.tsx",
-        "apps/web/app/(dashboard)/agents/[id]/policies/page.tsx",
-        "apps/web/app/(dashboard)/agents/[id]/run/page.tsx",
-        "apps/web/app/(dashboard)/agents/page.tsx",
-        "apps/web/app/(dashboard)/billing/budgets/page.tsx",
-        "apps/web/app/(dashboard)/billing/page.tsx",
-        "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
-        "apps/web/app/(dashboard)/layout.tsx",
-        "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
-        "apps/web/app/(dashboard)/marketplace/page.tsx",
-        "apps/web/app/(dashboard)/outputs/page.tsx",
-        "apps/web/app/(dashboard)/packs/page.tsx"
+        "apps/web/app/(dashboard)/layout.tsx"
       ]
     },
     {
@@ -137,14 +128,14 @@
       "directTests": [
         "packages/database/test/base.repo.test.ts",
         "packages/database/test/client.test.ts",
-        "packages/database/test/database-availability.ts",
-        "packages/database/test/migration.test.ts",
-        "packages/database/test/query-budget.test.ts",
-        "packages/database/test/rls.test.ts",
         "packages/database/test/cross-tenant-access.error.test.ts",
+        "packages/database/test/database-availability.ts",
         "packages/database/test/exceeded-quota.error.test.ts",
         "packages/database/test/index.test.ts",
+        "packages/database/test/migration.test.ts",
         "packages/database/test/prisma-query-timeout.error.test.ts",
+        "packages/database/test/query-budget.test.ts",
+        "packages/database/test/rls.test.ts",
         "packages/database/test/tenant-required.error.test.ts"
       ],
       "gaps": [

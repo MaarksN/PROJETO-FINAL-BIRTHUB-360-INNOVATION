@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-import { fetchWithTimeout } from "@birthub/utils";
+import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
 
 const PUBLIC_PATHS = ["/login", "/api/session/login", "/api/session/logout", "/_next", "/favicon.ico"];
 const AUTH_PROBE_TIMEOUT_MS = 5_000;

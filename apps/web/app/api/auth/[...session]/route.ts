@@ -1,7 +1,7 @@
 import { isSupportedSessionAction } from "../session-actions";
 import { NextRequest, NextResponse } from "next/server";
 
-import { fetchWithTimeout } from "@birthub/utils";
+import { fetchWithTimeout } from "../../../../../../packages/utils/src/fetch";
 
 import { resolveApiBaseUrl } from "../../../../lib/auth-client";
 

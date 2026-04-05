@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-05T21:03:34.854Z",
+  "generatedAt": "2026-04-05T21:32:15.519Z",
   "sourceReport": "audit\\auditor-prime-2026-04-05.json",
   "top15Ids": [
     "TD-029",
@@ -7,16 +7,16 @@
     "TD-031",
     "TD-032",
     "TD-033",
-    "TD-034",
     "TD-001",
-    "TD-035",
     "TD-042",
-    "TD-002",
+    "TD-043",
     "TD-054",
     "TD-055",
     "TD-056",
     "TD-057",
-    "TD-058"
+    "TD-058",
+    "TD-002",
+    "TD-003"
   ],
   "sprints": [
     {
@@ -25,21 +25,23 @@
       "items": [
         {
           "id": "TD-029",
-          "title": "Superfície crítica sem teste relacionado por heurística de nome",
-          "owner": "@product-frontend",
-          "effort": "1-3 dias",
-          "dependencies": [],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx"
-        },
-        {
-          "id": "TD-030",
           "title": "Chamada externa sem timeout ou abort path explícito",
           "owner": "@platform-security",
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/legacy/dashboard/proxy.ts"
+          "path": "apps/dashboard/lib/dashboard-data.ts"
+        },
+        {
+          "id": "TD-030",
+          "title": "Chamada externa sem timeout ou abort path explícito",
+          "owner": "@product-frontend",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/web/app/api/bff/[...path]/route.ts"
         },
         {
           "id": "TD-031",
@@ -47,10 +49,10 @@
           "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
-            "TD-030"
+            "TD-029"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/app/(dashboard)/packs/page.tsx"
+          "path": "apps/web/app/invites/accept/page.tsx"
         },
         {
           "id": "TD-032",
@@ -58,10 +60,10 @@
           "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
-            "TD-030"
+            "TD-029"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx"
+          "path": "apps/web/app/pricing/page.tsx"
         },
         {
           "id": "TD-033",
@@ -69,32 +71,10 @@
           "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
-            "TD-030"
+            "TD-029"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx"
-        },
-        {
-          "id": "TD-034",
-          "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@product-frontend",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-030"
-          ],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/app/api/auth/[...session]/route.ts"
-        },
-        {
-          "id": "TD-035",
-          "title": "Configuração sensível dispersa em módulo crítico",
-          "owner": "@product-frontend",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-016"
-          ],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/lib/auth-client.ts"
+          "path": "apps/web/components/agents/PolicyManager.tsx"
         }
       ]
     },
@@ -112,6 +92,18 @@
           ],
           "acceptanceCriteria": "Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`.",
           "path": "apps/api/src/app/module-routes.ts"
+        },
+        {
+          "id": "TD-043",
+          "title": "Cobertura estrutural baixa em packages/database",
+          "owner": "@platform-data",
+          "effort": "1-3 dias",
+          "dependencies": [
+            "TD-042",
+            "TD-026"
+          ],
+          "acceptanceCriteria": "Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`.",
+          "path": "packages/database/src/repositories/access-control.ts"
         }
       ]
     },
@@ -127,17 +119,6 @@
           "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
           "path": "apps/api/src/app/auth-routes.ts"
-        },
-        {
-          "id": "TD-002",
-          "title": "Arquivo grande demais para o boundary atual (473 linhas)",
-          "owner": "@platform-api",
-          "effort": "2-5 dias",
-          "dependencies": [
-            "TD-001"
-          ],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/modules/billing/service.checkout.ts"
         },
         {
           "id": "TD-054",
@@ -191,6 +172,28 @@
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
           "path": "apps/api/src/modules/agents/service.ts"
+        },
+        {
+          "id": "TD-002",
+          "title": "Complexidade acima do limiar em <anonymous>",
+          "owner": "@platform-automation",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/worker/src/worker.process-job.ts"
+        },
+        {
+          "id": "TD-003",
+          "title": "Complexidade acima do limiar em createConnectorsRouter",
+          "owner": "@platform-api",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/api/src/modules/connectors/router.ts"
         }
       ]
     },

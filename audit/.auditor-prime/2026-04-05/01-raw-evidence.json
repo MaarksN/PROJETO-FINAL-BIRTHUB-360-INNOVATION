@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T21:03:34.305Z",
+    "generatedAt": "2026-04-05T21:32:14.772Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
+    "headSha": "10bed44c28904583b7f5705500fc33138ad49411",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,11 +16,11 @@
     }
   },
   "repo": {
-    "trackedFiles": 6087,
-    "coreTrackedFiles": 446,
-    "runtimeFiles": 1801,
-    "testFiles": 144,
-    "modules": 284
+    "trackedFiles": 6121,
+    "coreTrackedFiles": 449,
+    "runtimeFiles": 1806,
+    "testFiles": 146,
+    "modules": 295
   },
   "files": [
     {
@@ -65,23 +65,33 @@
     },
     {
       "path": ".gitattributes",
-      "bytes": 421,
-      "lines": 27,
+      "bytes": 961,
+      "lines": 54,
       "language": "Unknown",
       "kind": "runtime",
       "topLevel": ".gitattributes",
       "moduleBucket": ".gitattributes",
-      "sha256": "f3aa53fe0c76af093cebf291cb1e0cf8bda72759f4f487ad9ed8caf24ebe8d2e"
+      "sha256": "a008e100eecd94ec8ce558a3cc8d0af696b699bdad97e169a22e120c43b9821b"
     },
     {
       "path": ".github/CODEOWNERS",
-      "bytes": 2369,
-      "lines": 54,
+      "bytes": 2728,
+      "lines": 63,
       "language": "Unknown",
       "kind": "runtime",
       "topLevel": ".github",
       "moduleBucket": ".github/CODEOWNERS",
-      "sha256": "12cfdecafcf760dbccf4a2ce7ac752f5c585415f87800982d7d411ab73ae78af"
+      "sha256": "f5cd701531c4ac26a7c0cd0065cd477b73250175118e2d462303030151a2ab32"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/ADR_TEMPLATE.md",
+      "bytes": 602,
+      "lines": 18,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": ".github",
+      "moduleBucket": ".github/ISSUE_TEMPLATE",
+      "sha256": "d624a1e857d93766f930d69bb5385e05a3d7792e2b5c876e58c00848acb5fd5f"
     },
     {
       "path": ".github/ISSUE_TEMPLATE/bug-report.yml",
@@ -92,6 +102,16 @@
       "topLevel": ".github",
       "moduleBucket": ".github/ISSUE_TEMPLATE",
       "sha256": "9bef82d8c8a8e04944d80d09e36a72c90c55bba7654b3b2fbc5e25f3a5ed6e83"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.md",
+      "bytes": 797,
+      "lines": 33,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": ".github",
+      "moduleBucket": ".github/ISSUE_TEMPLATE",
+      "sha256": "8bae4df8d18b540e5c37f502d61a04b7af65435484831b7f0c79dd34cd012266"
     },
     {
       "path": ".github/ISSUE_TEMPLATE/config.yml",
@@ -112,6 +132,16 @@
       "topLevel": ".github",
       "moduleBucket": ".github/ISSUE_TEMPLATE",
       "sha256": "9e421a5af2ec6814e6b558494aa5fe971b30843c7ddc9c304cf62b45a6a52ab5"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/post-mortem.md",
+      "bytes": 1114,
+      "lines": 26,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": ".github",
+      "moduleBucket": ".github/ISSUE_TEMPLATE",
+      "sha256": "0cce9971966f1e8710920884d834c2048e962e9ec2908d731aedd999463c5b42"
     },
     {
       "path": ".github/ISSUE_TEMPLATE/tech-debt.yml",
@@ -135,23 +165,23 @@
     },
     {
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
-      "bytes": 2302,
-      "lines": 71,
+      "bytes": 3051,
+      "lines": 99,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": ".github",
       "moduleBucket": ".github/PULL_REQUEST_TEMPLATE.md",
-      "sha256": "1a05b20cf79afbf563eed634953eaee7da7b4e667e83affcda9251cce77c1259"
+      "sha256": "59bdd6596dad999efb6e59fd72c5cf32091f18f8242619b842aada519dc9d019"
     },
     {
       "path": ".github/commit-message-allowlist.txt",
-      "bytes": 412,
-      "lines": 7,
+      "bytes": 682,
+      "lines": 9,
       "language": "TXT",
       "kind": "runtime",
       "topLevel": ".github",
       "moduleBucket": ".github/commit-message-allowlist.txt",
-      "sha256": "32e2db44ff1aae22075a0b3af61df84801c08a17def3131a095944479bad6a08"
+      "sha256": "5167996f52a09b823a9a398b865893751672e24cde1bd7ac64430691986ac34b"
     },
     {
       "path": ".github/copilot-instructions.md",
@@ -265,13 +295,13 @@
     },
     {
       "path": ".github/pull_request_template.md",
-      "bytes": 2302,
-      "lines": 71,
+      "bytes": 3051,
+      "lines": 99,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": ".github",
       "moduleBucket": ".github/pull_request_template.md",
-      "sha256": "1a05b20cf79afbf563eed634953eaee7da7b4e667e83affcda9251cce77c1259"
+      "sha256": "59bdd6596dad999efb6e59fd72c5cf32091f18f8242619b842aada519dc9d019"
     },
     {
       "path": ".github/settings.yml",
@@ -425,13 +455,13 @@
     },
     {
       "path": ".gitignore",
-      "bytes": 808,
-      "lines": 56,
+      "bytes": 1031,
+      "lines": 66,
       "language": "Unknown",
       "kind": "runtime",
       "topLevel": ".gitignore",
       "moduleBucket": ".gitignore",
-      "sha256": "41279e470d60723697682e700350c771e8e82e03cdb34de18ab258147e7b385d"
+      "sha256": "adf03015e4f4b930d9640e709d59f4ca9b5afc2193ef612de2cfa619b6ac7f21"
     },
     {
       "path": ".gitleaks.toml",
@@ -534,6 +564,46 @@
       "sha256": "81364f92fabeecf382d023fe08c70202b5567fe84a009c3613f79dcc345e920b"
     },
     {
+      "path": "12 CICLOS/F10.html",
+      "bytes": 52196,
+      "lines": 1328,
+      "language": "HTML",
+      "kind": "doc",
+      "topLevel": "12 CICLOS",
+      "moduleBucket": "12 CICLOS/F10.html",
+      "sha256": "003aaa41a8dd555cbf0b52893cf0911557cac594ff3e1deb47bc900acb1bbe72"
+    },
+    {
+      "path": "12 CICLOS/F11.html",
+      "bytes": 52058,
+      "lines": 1328,
+      "language": "HTML",
+      "kind": "doc",
+      "topLevel": "12 CICLOS",
+      "moduleBucket": "12 CICLOS/F11.html",
+      "sha256": "5ddb9a9f35985e37672d87078b06d1310530d4a42e6f324b3d88acabe74aa4b7"
+    },
+    {
+      "path": "12 CICLOS/F6.html",
+      "bytes": 50809,
+      "lines": 1308,
+      "language": "HTML",
+      "kind": "doc",
+      "topLevel": "12 CICLOS",
+      "moduleBucket": "12 CICLOS/F6.html",
+      "sha256": "a7180487a7a780d8fd090101f71b39d46469385577f68dd91da7b8f5195ba5fe"
+    },
+    {
+      "path": "12 CICLOS/F9.html",
+      "bytes": 52033,
+      "lines": 1328,
+      "language": "HTML",
+      "kind": "doc",
+      "topLevel": "12 CICLOS",
+      "moduleBucket": "12 CICLOS/F9.html",
+      "sha256": "f2027c1e54c9b2d32230cb243fa8920daf9d9b95df69f810b4d95a7510b54656"
+    },
+    {
       "path": "CHANGELOG.md",
       "bytes": 356,
       "lines": 16,
@@ -615,13 +685,13 @@
     },
     {
       "path": "apps/api/src/app.ts",
-      "bytes": 1785,
-      "lines": 50,
+      "bytes": 3407,
+      "lines": 111,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "c6d54b64bf1e6ad45952ba6bfe297ae5217f2e8f022cfc04579df6d4b9eba5a4"
+      "sha256": "94ae3ace4f32651a26f211d1c9f944ccb63e208fc51bc066ccd02f5dc9030c9e"
     },
     {
       "path": "apps/api/src/app/auth-and-core-routes.ts",
@@ -2204,6 +2274,16 @@
       "sha256": "5c9584c653528224632f7fda4b692aafd30ea5ea10601d5fef728659de924b6f"
     },
     {
+      "path": "apps/api/tests/connectors-router.test.ts",
+      "bytes": 8330,
+      "lines": 288,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "3b9a0c5c327e69a4c094f718168f9f943a72336606ceaa955d4e4f049d147638"
+    },
+    {
       "path": "apps/api/tests/core-business-routes.test.ts",
       "bytes": 862,
       "lines": 33,
@@ -2275,13 +2355,13 @@
     },
     {
       "path": "apps/api/tests/rbac.test.ts",
-      "bytes": 3900,
-      "lines": 137,
+      "bytes": 3970,
+      "lines": 140,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "96b9a1b3c27873ed4b81d7f2edecf9aaee80ebf33eeba9542deb2354ff761729"
+      "sha256": "7d5ef58361e61ee3d196a53b55f1b211358f37ee1fc467fa5fe263bd64492acb"
     },
     {
       "path": "apps/api/tests/redis.test.ts",
@@ -2344,6 +2424,26 @@
       "sha256": "b3d93a13e6f608fa5569f0de0d5ed0294479f5d81cead57102f5c436e9c3f4f1"
     },
     {
+      "path": "apps/dashboard/lib/dashboard-data.ts",
+      "bytes": 1535,
+      "lines": 49,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/dashboard",
+      "sha256": "283bb2f45ea168bb5114f50b990cc77becf1e16aaab1d19bdeb28e63231eb4d0"
+    },
+    {
+      "path": "apps/dashboard/lib/dashboard-static-snapshot.ts",
+      "bytes": 211,
+      "lines": 10,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/dashboard",
+      "sha256": "7fe6d48d6442a9a1121ac02913c1940a6d83fd344d99509f9b56e497c1ff8005"
+    },
+    {
       "path": "apps/legacy/dashboard/lib/dashboard-static-snapshot.ts",
       "bytes": 211,
       "lines": 10,
@@ -2355,13 +2455,13 @@
     },
     {
       "path": "apps/legacy/dashboard/proxy.ts",
-      "bytes": 1376,
-      "lines": 45,
+      "bytes": 1696,
+      "lines": 54,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/legacy",
-      "sha256": "e928f94b5dd499e6bcf46fdb176a213c892a2153195d204e754ad1ba8d84819a"
+      "sha256": "4ca0ffef2b059d7e8cb2270decddc8d7e418ce6320b5e39469ce25e0687488bb"
     },
     {
       "path": "apps/legacy/dashboard/test-config/playwright.config.ts",
@@ -2575,13 +2675,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/packs/page.tsx",
-      "bytes": 4667,
-      "lines": 151,
+      "bytes": 5140,
+      "lines": 158,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "95734da3a6bde2ee3df81611b42dd22900b01329830f02441f2ff2be59b7f975"
+      "sha256": "2d8af8f9027b2906f7cdd2c6d759ad82a6080ad6cff4b1405285c455908fe0b6"
     },
     {
       "path": "apps/web/app/(dashboard)/profile/notifications/page.tsx",
@@ -2735,23 +2835,33 @@
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-      "bytes": 8123,
-      "lines": 323,
+      "bytes": 8585,
+      "lines": 335,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "8bea681b5dc339253ee5288f8feb0e78f6064a30a3f341fd4d9bcc510fa49d87"
+      "sha256": "f382f1512a85b322b4df207fc954dacf14e88ae1a1d4c76b93d4d07a1d53cd7e"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts",
+      "bytes": 3092,
+      "lines": 111,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "12953954a3a691699f93cda4838a631822cfbd7e88d0a701c62d4d660cfab5df"
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-      "bytes": 13086,
-      "lines": 389,
+      "bytes": 10215,
+      "lines": 296,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "eee8be6a0c301147d5124e2a584ca187df85a01abc7b78cced1237f4c2820ac5"
+      "sha256": "98dae888a15cd9c5690f57b02925d5db76ab084a63de0c21d11928d02324f971"
     },
     {
       "path": "apps/web/app/admin/analytics/analytics.css",
@@ -2795,13 +2905,13 @@
     },
     {
       "path": "apps/web/app/api/auth/[...session]/route.ts",
-      "bytes": 2281,
-      "lines": 74,
+      "bytes": 2616,
+      "lines": 80,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "5af3b02914a7be9926c1a41d890efe2f7105bac21609aa0259a6d1b3544ef4d2"
+      "sha256": "2fe4879c88e81ae51d6dd7591ea84c46c1ce78fe5ccf3f310c8593959f5aa74f"
     },
     {
       "path": "apps/web/app/api/auth/session-actions.ts",
@@ -3145,13 +3255,13 @@
     },
     {
       "path": "apps/web/lib/auth-client.ts",
-      "bytes": 2086,
-      "lines": 90,
+      "bytes": 2556,
+      "lines": 100,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "47118277832383e8e83f64ccc8508873479a3ead4b0301773384c3337e2b8f7d"
+      "sha256": "6be2eadbf3f4fca660a77fcc4096c8b07d7c3781354e7d006b97e4623bff1d35"
     },
     {
       "path": "apps/web/lib/dompurify.ts",
@@ -3385,13 +3495,13 @@
     },
     {
       "path": "apps/web/tests/auth-session-route.test.ts",
-      "bytes": 321,
-      "lines": 10,
+      "bytes": 4155,
+      "lines": 126,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "3b38ad0bec84f49134bda7b9ea8bcd6aa2d472d3dd53fdfde5d0af328f7a3506"
+      "sha256": "6637abccec7ea5f77bf594ff7952524bd72f2ec3a0c2139b91334a1da7ad701a"
     },
     {
       "path": "apps/web/tests/bff-allowlist.test.ts",
@@ -3575,13 +3685,13 @@
     },
     {
       "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
-      "bytes": 4583,
-      "lines": 165,
+      "bytes": 4668,
+      "lines": 168,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/worker",
-      "sha256": "4e0c2b6fd517bf34fa2157291c48471376273acb9b10cfe2b83c73e97c5dbf58"
+      "sha256": "8114c4773fb0ffe3cb3f50f3abf5a975d6e09e95f54d5e4867dc870bf671893d"
     },
     {
       "path": "apps/worker/src/agents/runtime.db-integration.test.ts",
@@ -3675,13 +3785,13 @@
     },
     {
       "path": "apps/worker/src/agents/runtime.ts",
-      "bytes": 7904,
-      "lines": 260,
+      "bytes": 8100,
+      "lines": 267,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/worker",
-      "sha256": "255627e8f699dd339628729f2ddbc419b41dd3558bb7aae7f400a0ac039a36a1"
+      "sha256": "74c5697ed00f6cd07ddfad083598c95723a7750fce1e9fce35e4c4371ee19014"
     },
     {
       "path": "apps/worker/src/agents/runtime.types.ts",
@@ -4215,13 +4325,13 @@
     },
     {
       "path": "apps/worker/src/worker.ts",
-      "bytes": 12301,
-      "lines": 407,
+      "bytes": 12618,
+      "lines": 419,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/worker",
-      "sha256": "5cf5d8808c2683d91d52573646bcf8cd5235e1da57bdd8e0dbfda621b135a17a"
+      "sha256": "bb1fb9b8eb259f6c521f3999c0ad88d3cef1e86c90a95835153d4ef33e86259a"
     },
     {
       "path": "apps/worker/test/outbound.webhooks.test.ts",
@@ -4281,7 +4391,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/accessibility",
-      "sha256": "8f727f1a93ccf48836c721f48fd68c7f74b98c7e6783be1b21e92ed0ca353dd1"
+      "sha256": "3ad686f424fa115ac166858f487ba730f8f437520172125ca928deb6366c0279"
     },
     {
       "path": "artifacts/agent-readiness/agent-snapshot-2026-03-24.json",
@@ -4491,7 +4601,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "ab1f8312b55ec56b497e3f3d1f3d8afbd794fac59b4c0f14a6e71a2cb8958f6a"
+      "sha256": "5fc1b6cd411c294936e5f450ed505c5e8daae85d3b47c574887b9639066e5ba0"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -4531,7 +4641,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/dr",
-      "sha256": "0319d55361555614c8869849143054e5b13b24849e9cf06b2d2304a82938993b"
+      "sha256": "048df554d19f38629c5aebce594ceb0880d10f181167fe694b5f41f918cd52bf"
     },
     {
       "path": "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
@@ -4961,7 +5071,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/performance",
-      "sha256": "a0bc6ea78c9bfb632d0ee4af1156b23103b30cade8acbed861c354d161f61d7e"
+      "sha256": "7d17160c5e6280d123439faca74d1fa1d490abff7dda26d07d313e344cc489f6"
     },
     {
       "path": "artifacts/privacy/anonymization-report.json",
@@ -4981,7 +5091,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "ae1736db4b96377ed5504fe3bc73387dd86c240a34a632984615b01b47543632"
+      "sha256": "2ae0f4a174733c03ba08e1668e58630371bcec92db70c395d7156545dc03cc04"
     },
     {
       "path": "artifacts/quality/bundle/web-bundle-baseline.md",
@@ -4991,7 +5101,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "5ec05989faaa39b9174873d7e1d6be742ab7703f96e736184fd50b15966288a6"
+      "sha256": "bc945aaab453fd7d980bf362628d86ceedf423eff0dd230bcf7cdec1a2ee9e84"
     },
     {
       "path": "artifacts/quality/complexity/cyclomatic-baseline.json",
@@ -5215,13 +5325,13 @@
     },
     {
       "path": "artifacts/security/inline-credential-scan.json",
-      "bytes": 115,
+      "bytes": 271,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/security",
-      "sha256": "9ce3b2d0811c82ccc1ca1013ff86cef06f1579c955ef3b732814c0dcfe25b72c"
+      "sha256": "c639aea22c3c42cbc67e3d88c8d812f23c4c63130e4243d30112bfa933575979"
     },
     {
       "path": "artifacts/security/owasp-top10-baseline.json",
@@ -5275,13 +5385,13 @@
     },
     {
       "path": "artifacts/security/semgrep-head.json",
-      "bytes": 37577,
+      "bytes": 48095,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/security",
-      "sha256": "e453a794ba052b86bd0b1e550250d0bf4006768cd049cd109e0101e1858731d5"
+      "sha256": "5f916ff5fee4b6e31316a92e5c48f88c9bb03b689af55ec90ac624a78ed8a0e3"
     },
     {
       "path": "artifacts/tenancy/rls-proof-head.json",
@@ -5291,47 +5401,47 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/tenancy",
-      "sha256": "e491e5ab727948d1bc6e7fe0f509e411f3ec2fd2a43fdfd62f841c66e28aecfe"
+      "sha256": "3dcf69a64431fe5e6e8eeabf35f1167d4fe544d1156113073269dc150d340682"
     },
     {
       "path": "artifacts/testing/module-coverage.json",
-      "bytes": 6578,
+      "bytes": 6037,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/testing",
-      "sha256": "7774caa504df09a1abee9f44b46a54afbc54c46469264811295280adf1bd7913"
+      "sha256": "5f86ac8421761a2ffe9056d7f78440af1a0a0d28fa99abf7d7f240abfa83c6c9"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
-      "bytes": 2544637,
+      "bytes": 2546162,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "f975d2d4bdcc2defb2f5539e75d71b738fc610127167238b22c51b3d3d3f365f"
+      "sha256": "7a104b674b460724281c780b208a51c9123bb4de19a82a2ceb6f470bd18bd3a1"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/02-normalized.json",
-      "bytes": 381758,
+      "bytes": 381964,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "5b3595942c0d980bcb3eab30eca74579776785a08506ddc6f2058ccdd6e4633b"
+      "sha256": "886f659d0d9e011814d38e5300f38480ae46e6caba53946efd7d96a089816e72"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/03-scored-report.json",
-      "bytes": 413872,
+      "bytes": 414381,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "40825e449f8d405f76784b5a1279466ea7b0801c13b753b8706094396058c92b"
+      "sha256": "b43abb5b6ace2d7d233ed88f8b203fc492a419cc27a59af8cf650dc10426a855"
     },
     {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
@@ -5362,6 +5472,16 @@
       "topLevel": "audit",
       "moduleBucket": "audit/AUDITORIA_PRIME_BIRTHHUB360.html",
       "sha256": "3ce003cf2da8a01e199ff2716b05aebeb5d64a526d01c93c59d77f81d07862d2"
+    },
+    {
+      "path": "audit/JULES_PARECER_FINAL.md",
+      "bytes": 1674,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/JULES_PARECER_FINAL.md",
+      "sha256": "5f8df2f77c044ca6bb2a47cda604c74112235bfca9b60f697b25c168b25c0a44"
     },
     {
       "path": "audit/PLANO_EXECUCAO_CORRECOES.md",
@@ -5425,83 +5545,83 @@
     },
     {
       "path": "audit/auditor-prime-2026-04-05.html",
-      "bytes": 463853,
+      "bytes": 464310,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-05.html",
-      "sha256": "76abd70c57b2f2f794a0fdafe82cef447f13b6bf1ab1ef3d991b4dad045e1ae8"
+      "sha256": "a1b2650e7db9beffa1ea4e507dadef5b96c180ca806faa020f15bcda55e5302a"
     },
     {
       "path": "audit/auditor-prime-2026-04-05.json",
-      "bytes": 413872,
+      "bytes": 414381,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-05.json",
-      "sha256": "40825e449f8d405f76784b5a1279466ea7b0801c13b753b8706094396058c92b"
+      "sha256": "b43abb5b6ace2d7d233ed88f8b203fc492a419cc27a59af8cf650dc10426a855"
     },
     {
       "path": "audit/auditor-prime-2026-04-05.md",
-      "bytes": 128897,
+      "bytes": 129054,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-05.md",
-      "sha256": "9739ed38d96128445b8a9fe1c3c17b5e59afc7c5616b963599b44a7f1db0b6cc"
+      "sha256": "9ed862b138031b66fc239d649898f8e7c5169bed68f7b1c96f3a7275f49dfeff"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.json",
-      "bytes": 8008,
+      "bytes": 7947,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.json",
-      "sha256": "04164234e90cb5bf28e0e8b99a262f77957eeb6eaac08d8b785cb52e90aaf92a"
+      "sha256": "0853d10c2ea95de9d28061dd7211950ce09f20d93f31a7e7dde3ab5fa72c8170"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.md",
-      "bytes": 5014,
+      "bytes": 4953,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.md",
-      "sha256": "1647e96f0831e663739ae978919bd633c646a3f222c78eecfcaf28630a528ecf"
+      "sha256": "5ea698d03a94b5fe821f61b4d95be8236f4de0f6e44a2af906f3e3ad2fc8ab2c"
     },
     {
       "path": "audit/auditor-prime-latest.html",
-      "bytes": 463853,
+      "bytes": 464310,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.html",
-      "sha256": "76abd70c57b2f2f794a0fdafe82cef447f13b6bf1ab1ef3d991b4dad045e1ae8"
+      "sha256": "a1b2650e7db9beffa1ea4e507dadef5b96c180ca806faa020f15bcda55e5302a"
     },
     {
       "path": "audit/auditor-prime-latest.json",
-      "bytes": 413872,
+      "bytes": 414381,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.json",
-      "sha256": "40825e449f8d405f76784b5a1279466ea7b0801c13b753b8706094396058c92b"
+      "sha256": "b43abb5b6ace2d7d233ed88f8b203fc492a419cc27a59af8cf650dc10426a855"
     },
     {
       "path": "audit/auditor-prime-latest.md",
-      "bytes": 128897,
+      "bytes": 129054,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.md",
-      "sha256": "9739ed38d96128445b8a9fe1c3c17b5e59afc7c5616b963599b44a7f1db0b6cc"
+      "sha256": "9ed862b138031b66fc239d649898f8e7c5169bed68f7b1c96f3a7275f49dfeff"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -5745,13 +5865,13 @@
     },
     {
       "path": "audit/birthhub360-master-checklist-v3.html",
-      "bytes": 66734,
+      "bytes": 67015,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/birthhub360-master-checklist-v3.html",
-      "sha256": "209f711da1b0527579b9a9051b11617e99157668bdabf0cda43a6a2a51c45112"
+      "sha256": "d5e59b1650036d566058d2895441f22a219174d7c739854be1a53cfc3be43fb9"
     },
     {
       "path": "audit/checks.json",
@@ -38634,6 +38754,66 @@
       "sha256": "849de5eefb0aa9ca2d19b72690611f5dc116d50392f4223346c93bb026ca9a6d"
     },
     {
+      "path": "audit/pending_review/GAP-003_codex.md",
+      "bytes": 1074,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/pending_review",
+      "sha256": "d40bfa08196ad2ac7c52aeee85f7d2af0af3bae667261911a6780bd9d6216c8e"
+    },
+    {
+      "path": "audit/pending_review/GAP-004_codex.md",
+      "bytes": 6730,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/pending_review",
+      "sha256": "657c969371d97afd011e9784b878bf1715437388a80a2e9e1f6c3779f49406a5"
+    },
+    {
+      "path": "audit/pending_review/GOV-002_jules_reprovacao.md",
+      "bytes": 982,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/pending_review",
+      "sha256": "06a9192c87405eadf830fedd1f45f987a2f15d865dc054d8029b68bdecd760b1"
+    },
+    {
+      "path": "audit/pending_review/M-001_codex.md",
+      "bytes": 683,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/pending_review",
+      "sha256": "cb0f8db3983859b1243702dde5b9f8bffb956fe8ddff21448d939f5d16bbcef3"
+    },
+    {
+      "path": "audit/pending_review/M-002_codex.md",
+      "bytes": 6378,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/pending_review",
+      "sha256": "9fa475e55a768115bc2c1b8c82529b5d12c4cc4a41800a4df06ab818b56c3187"
+    },
+    {
+      "path": "audit/pending_review/ciclo1_lote01_02_jules.md",
+      "bytes": 2154,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/pending_review",
+      "sha256": "3d6d6bf3f31fc39a43205adb2a8ca393e43b04284e8d7680b4acebae6aa23d13"
+    },
+    {
       "path": "audit/phase_2_execution_report.md",
       "bytes": 1711,
       "lines": 0,
@@ -38715,23 +38895,23 @@
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-05.json",
-      "bytes": 8008,
+      "bytes": 7947,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-05.json",
-      "sha256": "04164234e90cb5bf28e0e8b99a262f77957eeb6eaac08d8b785cb52e90aaf92a"
+      "sha256": "0853d10c2ea95de9d28061dd7211950ce09f20d93f31a7e7dde3ab5fa72c8170"
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-05.md",
-      "bytes": 5014,
+      "bytes": 4953,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-05.md",
-      "sha256": "1647e96f0831e663739ae978919bd633c646a3f222c78eecfcaf28630a528ecf"
+      "sha256": "5ea698d03a94b5fe821f61b4d95be8236f4de0f6e44a2af906f3e3ad2fc8ab2c"
     },
     {
       "path": "audit/traceability_matrix.md",
@@ -38745,13 +38925,13 @@
     },
     {
       "path": "audit/validation_log.md",
-      "bytes": 1151,
+      "bytes": 64522,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/validation_log.md",
-      "sha256": "26ae52b0d7266b0a95b36f216b4de797412fd67979dfbcd559d5636d0857042b"
+      "sha256": "c52974ed31e122261919dbdb730024425947e18f9e1048afa639611e0a7b73f5"
     },
     {
       "path": "ci-local.ps1",
@@ -38942,6 +39122,16 @@
       "topLevel": "docs",
       "moduleBucket": "docs/adr",
       "sha256": "27aebb2a3a1abb9fe3c0c07fbaaaa4a6452cca2b4b7302d229c239098d0862cb"
+    },
+    {
+      "path": "docs/adrs/0001-initial-architecture.md",
+      "bytes": 634,
+      "lines": 8,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/adrs",
+      "sha256": "5526654ad5db9303786aa19df2ee864e96c5b1503757e4826ac83a34c443c10a"
     },
     {
       "path": "docs/adrs/003-observability-strategy.md",
@@ -39275,13 +39465,23 @@
     },
     {
       "path": "docs/adrs/INDEX.md",
-      "bytes": 1482,
-      "lines": 37,
+      "bytes": 821,
+      "lines": 14,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/adrs",
-      "sha256": "ae00fb2edd9cec86571c2bfbe402c8d2cc39d2ab868064e077f08db83ad696c6"
+      "sha256": "93de0c368f92546062947d9a8a8a7c8a2d166ac32dfb3e30982a0f63bac1b8a5"
+    },
+    {
+      "path": "docs/adrs/index.md",
+      "bytes": 821,
+      "lines": 14,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/adrs",
+      "sha256": "93de0c368f92546062947d9a8a8a7c8a2d166ac32dfb3e30982a0f63bac1b8a5"
     },
     {
       "path": "docs/agent-packs/account-manager-pack.mdx",
@@ -39802,6 +40002,26 @@
       "topLevel": "docs",
       "moduleBucket": "docs/architecture",
       "sha256": "ca5eb24cc76bf7d03f6b5442dac2b743f7729f6f8f7f5fff1de730480b7da72d"
+    },
+    {
+      "path": "docs/architecture/bounded-contexts.md",
+      "bytes": 1755,
+      "lines": 22,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/architecture",
+      "sha256": "41e1f87a4e3b218ed08773bc93bb9043cee1942610cc38b1838cf338e898b30e"
+    },
+    {
+      "path": "docs/architecture/c4-model.md",
+      "bytes": 1410,
+      "lines": 20,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/architecture",
+      "sha256": "729e5c0ffe1405bc24fb9ba5524443b8d837f8ce293bc6c0d3cf8ad13ae780ee"
     },
     {
       "path": "docs/architecture/decisions/020-skill-templates-design.md",
@@ -40534,6 +40754,16 @@
       "sha256": "d580cf0450cc171a680b17a1887162df3acd2520885ba4ef9c19817c5167bd1a"
     },
     {
+      "path": "docs/index.md",
+      "bytes": 2260,
+      "lines": 37,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/index.md",
+      "sha256": "7eb052ce6109ffc620a1c1089072ff926acec7c2680312ae0fd29b1fb2aa8b38"
+    },
+    {
       "path": "docs/integrations/crm.md",
       "bytes": 1117,
       "lines": 39,
@@ -40542,6 +40772,16 @@
       "topLevel": "docs",
       "moduleBucket": "docs/integrations",
       "sha256": "4ba05d596da0be9131e65584ad23eb4ef84bb49e50cbd5b3c8ddf589360fa2fb"
+    },
+    {
+      "path": "docs/knowledge/glossary.md",
+      "bytes": 1433,
+      "lines": 11,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/knowledge",
+      "sha256": "c34beda025c714828b499e67f8ea5f1102e4bce85045ba39422efce1f5369c8a"
     },
     {
       "path": "docs/log-fields-and-pii-redaction.md",
@@ -40671,7 +40911,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "741b17e411b18501e24304cc18d6f9970b72858b57ae7b5f6c40283e1f3cc657"
+      "sha256": "d9fe7f577823dad1e1cae15d892b335670642315bb4c79ff871cef7fb7ee6a34"
     },
     {
       "path": "docs/operations/f0-evidence-freshness-policy.md",
@@ -40721,7 +40961,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "16a8fe3c2543ee57580b1157fecf7a3ffaf3a1200ee96eb6e356a6bc7f70a0f6"
+      "sha256": "ac16f7ac0b72dc5c0f02b36672e9241eb5fcedf12ea2b68b94b6b844b5337fc5"
     },
     {
       "path": "docs/performance/agent-slo.md",
@@ -41394,6 +41634,16 @@
       "sha256": "d42c7546b8f51deef9036c2eff3ad417df6ca5c9cb20ed249180fbe247f3c48c"
     },
     {
+      "path": "docs/releases/f11-sign-off.md",
+      "bytes": 1820,
+      "lines": 31,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/releases",
+      "sha256": "d41ad9e1adbf9cc2e2f48366547a5cc39fec7a8df1fb63c170e38e6f0328c606"
+    },
+    {
       "path": "docs/rfc-template.md",
       "bytes": 1416,
       "lines": 63,
@@ -41492,6 +41742,26 @@
       "topLevel": "docs",
       "moduleBucket": "docs/runbooks",
       "sha256": "52aafe13ef303c084a958a2efe09581fd55fd277c02d3ecaad2f5e1c18851592"
+    },
+    {
+      "path": "docs/runbooks/incident-response.md",
+      "bytes": 1251,
+      "lines": 25,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/runbooks",
+      "sha256": "837a3680169e0fbfbe9b5d3c1c7aeb654f42dca4d883b953401af1d8f017ef99"
+    },
+    {
+      "path": "docs/runbooks/onboarding-guide.md",
+      "bytes": 1458,
+      "lines": 19,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/runbooks",
+      "sha256": "61b8993caa004d2aab8f930a89b92f6cf6d2d8c966e4f03bd82da5819441bce4"
     },
     {
       "path": "docs/runbooks/p1-alert-response-matrix.md",
@@ -41794,6 +42064,16 @@
       "sha256": "63c0c4d19f6d71d34b0fdb98412a4e47139ea06b9a39b57f3ebbab8aed7c21df"
     },
     {
+      "path": "docs/standards/artifacts-policy.md",
+      "bytes": 1378,
+      "lines": 20,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/standards",
+      "sha256": "a3b55efe1c971f8f99f74274be3ccfa5742591dacf8ae1b7b5583244fcae9f8c"
+    },
+    {
       "path": "docs/standards/ci-performance.md",
       "bytes": 232,
       "lines": 5,
@@ -41882,6 +42162,16 @@
       "topLevel": "docs",
       "moduleBucket": "docs/standards",
       "sha256": "b1f0483a850c2ed417450cf34a17648a45b83b4a2994bc5969a4841f5448a4a0"
+    },
+    {
+      "path": "docs/standards/naming-conventions.md",
+      "bytes": 816,
+      "lines": 26,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/standards",
+      "sha256": "1059711575ff9afccd43743e434b76e7f141755a75615df6987419e8f26faed0"
     },
     {
       "path": "docs/standards/openapi.md",
@@ -42035,13 +42325,33 @@
     },
     {
       "path": "docs/technical-debt/executive-report.md",
-      "bytes": 7073,
-      "lines": 81,
+      "bytes": 8050,
+      "lines": 98,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/technical-debt",
-      "sha256": "072b49eb5a0d6288c31e43133588a5b0347871e6c225aa835003b1f2c90952ae"
+      "sha256": "aa59d3e42b0fec11f2b83c8b9a94beccd2d096431ccd0269d757f7a486ff8a05"
+    },
+    {
+      "path": "docs/technical-debt/f11-executive-summary.md",
+      "bytes": 1738,
+      "lines": 24,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/technical-debt",
+      "sha256": "167063d272502bd4b50be82d6e62ae691858a7aed02c329916657343c2553c84"
+    },
+    {
+      "path": "docs/technical-debt/retrospective.md",
+      "bytes": 1284,
+      "lines": 12,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/technical-debt",
+      "sha256": "845714fe580a59c8be59be53cd590df283cae22c0c80cd79f838601d7511c8ab"
     },
     {
       "path": "docs/technical-debt/tracker.json",
@@ -42505,13 +42815,23 @@
     },
     {
       "path": "eslint.config.mjs",
-      "bytes": 1755,
-      "lines": 70,
+      "bytes": 1880,
+      "lines": 72,
       "language": "JavaScript",
       "kind": "config",
       "topLevel": "eslint.config.mjs",
       "moduleBucket": "eslint.config.mjs",
-      "sha256": "31e5d608cbcd752f69eee22e932f9b47494842aeadb6b1189f8baa8c6e994d51"
+      "sha256": "f12d84122b7eeee51c98768e743d96f684e21347677728a5c4b8ea97327b7723"
+    },
+    {
+      "path": "eslint.config.mjs.patch",
+      "bytes": 491,
+      "lines": 14,
+      "language": "PATCH",
+      "kind": "runtime",
+      "topLevel": "eslint.config.mjs.patch",
+      "moduleBucket": "eslint.config.mjs.patch",
+      "sha256": "429a21e29c32979fb9c364e8c00e119f6027b1cf9a7dc4d7c7946adec5ad2697"
     },
     {
       "path": "fix-turbopack-root-only.py",
@@ -55545,13 +55865,13 @@
     },
     {
       "path": "packages/agents/REGISTRY.md",
-      "bytes": 917,
+      "bytes": 923,
       "lines": 15,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "9487a1f2df7e8d35605a07eb09ea985a69ff25c06c49b2ce09b004110e76be52"
+      "sha256": "85371e4ef15e0b3c9cbd7878df122b3bd0521985b33ae9509a19ea9e2d08ca93"
     },
     {
       "path": "packages/agents/executivos/boardprep-ai/acceptance.md",
@@ -55584,7 +55904,7 @@
       "sha256": "e0b0c202884e1c6e951390acc624a210d628de62b53b2a83a2e6f57ef174e945"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/acceptance.md",
+      "path": "packages/agents/executivos/brand-guardian/acceptance.md",
       "bytes": 1311,
       "lines": 10,
       "language": "Markdown",
@@ -55594,7 +55914,7 @@
       "sha256": "188737d3423c6ca5f45e3e65d49adc7c209f5c14118c20631577e58256aa48fd"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/agent.ts",
+      "path": "packages/agents/executivos/brand-guardian/agent.ts",
       "bytes": 26039,
       "lines": 863,
       "language": "TypeScript",
@@ -55604,7 +55924,7 @@
       "sha256": "01f57cb29e6f842efdd2f2937935fcfc35e25f1f23f69bcc95681a30c02f6e7f"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/contract.yaml",
+      "path": "packages/agents/executivos/brand-guardian/contract.yaml",
       "bytes": 4268,
       "lines": 193,
       "language": "YAML",
@@ -55614,7 +55934,7 @@
       "sha256": "188344e9666052bc40cf14337576270d5a14a883b84ca1d58332a44931c66246"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/schemas.ts",
+      "path": "packages/agents/executivos/brand-guardian/schemas.ts",
       "bytes": 5994,
       "lines": 208,
       "language": "TypeScript",
@@ -55624,7 +55944,7 @@
       "sha256": "d8abccd0ed56da5fe302ae28839bafa66a07d2effc0869e97976e0b2e628e2ff"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/brand-guardian/seeds/dev_seed.json",
       "bytes": 1204,
       "lines": 47,
       "language": "JSON",
@@ -55634,7 +55954,7 @@
       "sha256": "d31fd50202e70153fd602e03a3fd0c73abe2b7ef8d5def9d69f3252f3d94e874"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/system_prompt.md",
+      "path": "packages/agents/executivos/brand-guardian/system_prompt.md",
       "bytes": 3030,
       "lines": 79,
       "language": "Markdown",
@@ -55644,7 +55964,7 @@
       "sha256": "476cb8f7b3de9d553d9a7055cbb101db223d3eeec7489e93ac1c448943db2796"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/tests/test_schema.ts",
+      "path": "packages/agents/executivos/brand-guardian/tests/test_schema.ts",
       "bytes": 1790,
       "lines": 69,
       "language": "TypeScript",
@@ -55654,7 +55974,7 @@
       "sha256": "a1e6fff31d87f257f8d84f5b236414cf8939ad3ec0dc0fef6e8eec5a94460715"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/tests/test_unit.ts",
+      "path": "packages/agents/executivos/brand-guardian/tests/test_unit.ts",
       "bytes": 3127,
       "lines": 105,
       "language": "TypeScript",
@@ -55664,7 +55984,7 @@
       "sha256": "f6885f5a758f54e83097b9663fd80165f08d6ffa378e23f42088606f7de0ec37"
     },
     {
-      "path": "packages/agents/executivos/brandguardian/tools.ts",
+      "path": "packages/agents/executivos/brand-guardian/tools.ts",
       "bytes": 4931,
       "lines": 137,
       "language": "TypeScript",
@@ -55674,7 +55994,7 @@
       "sha256": "1f1ee5c30cf37b237be35db0b076180eb51c825dd5ace1f7821355befbe73e08"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/acceptance.md",
+      "path": "packages/agents/executivos/budget-fluid/acceptance.md",
       "bytes": 1317,
       "lines": 10,
       "language": "Markdown",
@@ -55684,7 +56004,7 @@
       "sha256": "300526b4fa2751f31e0f497faa1cbf5e8cffe5b07ccb27e7299e04c01db5a837"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/agent.ts",
+      "path": "packages/agents/executivos/budget-fluid/agent.ts",
       "bytes": 25851,
       "lines": 864,
       "language": "TypeScript",
@@ -55694,7 +56014,7 @@
       "sha256": "1f6b666a4d8704d920bdd0f3fe5150a4868c2a027e71a6d85164fce98e0167f1"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/contract.yaml",
+      "path": "packages/agents/executivos/budget-fluid/contract.yaml",
       "bytes": 4296,
       "lines": 195,
       "language": "YAML",
@@ -55704,7 +56024,7 @@
       "sha256": "14f41ed6a74619685060255501540d9616f4484ead5fd844dda6bc3503278886"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/schemas.ts",
+      "path": "packages/agents/executivos/budget-fluid/schemas.ts",
       "bytes": 6023,
       "lines": 209,
       "language": "TypeScript",
@@ -55714,7 +56034,7 @@
       "sha256": "99bbab63eb4445a9c177377eddc3f8150bf342daca05ac92267f405478c29f6d"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/budget-fluid/seeds/dev_seed.json",
       "bytes": 1189,
       "lines": 48,
       "language": "JSON",
@@ -55724,7 +56044,7 @@
       "sha256": "6d7251be533f187ad3f278ae4a8a0f66204963f0f207fc8ef4efae47a4603308"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/system_prompt.md",
+      "path": "packages/agents/executivos/budget-fluid/system_prompt.md",
       "bytes": 2977,
       "lines": 80,
       "language": "Markdown",
@@ -55734,7 +56054,7 @@
       "sha256": "2adc0a48c273371d23f9442913b037a26faed66fe80251ac1e17ed0e37ab7385"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/tests/test_schema.ts",
+      "path": "packages/agents/executivos/budget-fluid/tests/test_schema.ts",
       "bytes": 1787,
       "lines": 69,
       "language": "TypeScript",
@@ -55744,7 +56064,7 @@
       "sha256": "f972fe28ea268f397dcabc5099838f7427e0f24a7e39c8e1afd97d9971603d03"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/tests/test_unit.ts",
+      "path": "packages/agents/executivos/budget-fluid/tests/test_unit.ts",
       "bytes": 3089,
       "lines": 105,
       "language": "TypeScript",
@@ -55754,7 +56074,7 @@
       "sha256": "969b9a7f095b6850091d725ffa2eb33d425d006ef73fe92ee661dea4f3323d9c"
     },
     {
-      "path": "packages/agents/executivos/budgetfluid/tools.ts",
+      "path": "packages/agents/executivos/budget-fluid/tools.ts",
       "bytes": 4636,
       "lines": 124,
       "language": "TypeScript",
@@ -55764,7 +56084,7 @@
       "sha256": "7c76063ee68afea38e7cee6af110a194a2c736a01e1d036b72b277dfc52faee6"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/acceptance.md",
+      "path": "packages/agents/executivos/capital-allocator/acceptance.md",
       "bytes": 1332,
       "lines": 10,
       "language": "Markdown",
@@ -55774,7 +56094,7 @@
       "sha256": "e06a29d113a6f5818fd7dcddba816d2f673fb676ad7364492889357e5fc2744c"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/agent.ts",
+      "path": "packages/agents/executivos/capital-allocator/agent.ts",
       "bytes": 26156,
       "lines": 864,
       "language": "TypeScript",
@@ -55784,7 +56104,7 @@
       "sha256": "1e70384ddf5795d81ce3454a01ce48408eadb2dfc57e7a58de6a4959336c71ab"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/contract.yaml",
+      "path": "packages/agents/executivos/capital-allocator/contract.yaml",
       "bytes": 4366,
       "lines": 195,
       "language": "YAML",
@@ -55794,7 +56114,7 @@
       "sha256": "66885a674de675bba3691a4b181b6ec09fba653a8296cc494e7dc16f87cbab7f"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/schemas.ts",
+      "path": "packages/agents/executivos/capital-allocator/schemas.ts",
       "bytes": 6163,
       "lines": 209,
       "language": "TypeScript",
@@ -55804,7 +56124,7 @@
       "sha256": "9ad88b52cb2104318484af14186dceed8866135e2177a12964f1391152fa4090"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/capital-allocator/seeds/dev_seed.json",
       "bytes": 1204,
       "lines": 48,
       "language": "JSON",
@@ -55814,7 +56134,7 @@
       "sha256": "01d28009420b9400128f1639e519ec1a6ad730f2a045deadd319b9bb088ca014"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/system_prompt.md",
+      "path": "packages/agents/executivos/capital-allocator/system_prompt.md",
       "bytes": 3336,
       "lines": 86,
       "language": "Markdown",
@@ -55824,7 +56144,7 @@
       "sha256": "a65f006e0c943097b0dccbf267848eb0974376fe5591f7d8912bbf9210ecfe71"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/tests/test_schema.ts",
+      "path": "packages/agents/executivos/capital-allocator/tests/test_schema.ts",
       "bytes": 1837,
       "lines": 69,
       "language": "TypeScript",
@@ -55834,7 +56154,7 @@
       "sha256": "05b8341ea07968aad6b70b6fd4603a8cdec8dd4b2f3ee9ad9a500438242452ff"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/tests/test_unit.ts",
+      "path": "packages/agents/executivos/capital-allocator/tests/test_unit.ts",
       "bytes": 3164,
       "lines": 105,
       "language": "TypeScript",
@@ -55844,7 +56164,7 @@
       "sha256": "fcef57d48df2e4cbee37b95b314ae8cefb033a39e1f3cc168754da5cc40eaae2"
     },
     {
-      "path": "packages/agents/executivos/capitalallocator/tools.ts",
+      "path": "packages/agents/executivos/capital-allocator/tools.ts",
       "bytes": 4656,
       "lines": 124,
       "language": "TypeScript",
@@ -55854,7 +56174,7 @@
       "sha256": "aabb31ce905824345e6216001a15664406616b2b4510290f7b6b845458d7f120"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/acceptance.md",
+      "path": "packages/agents/executivos/churn-deflector/acceptance.md",
       "bytes": 1337,
       "lines": 10,
       "language": "Markdown",
@@ -55864,7 +56184,7 @@
       "sha256": "f27bee23eb0b5a5e3df8ca303df27b7f2a16d9a291546fb8b2c63544c893e5fd"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/agent.ts",
+      "path": "packages/agents/executivos/churn-deflector/agent.ts",
       "bytes": 26104,
       "lines": 863,
       "language": "TypeScript",
@@ -55874,7 +56194,7 @@
       "sha256": "e768c35dc7733e7b7da7d3bb5dcdf88792f14075e00a1762cf233b08ecc72c12"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/contract.yaml",
+      "path": "packages/agents/executivos/churn-deflector/contract.yaml",
       "bytes": 4303,
       "lines": 193,
       "language": "YAML",
@@ -55884,7 +56204,7 @@
       "sha256": "91b04a83c9c9628e1fcb3d296b8756d9d16f37162e48af76adf36325096d0b8a"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/schemas.ts",
+      "path": "packages/agents/executivos/churn-deflector/schemas.ts",
       "bytes": 6025,
       "lines": 208,
       "language": "TypeScript",
@@ -55894,7 +56214,7 @@
       "sha256": "a216c3168b129f9c5a0912764f89ec2461d847626678fa749436ac33a1f83c75"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/churn-deflector/seeds/dev_seed.json",
       "bytes": 1205,
       "lines": 47,
       "language": "JSON",
@@ -55904,7 +56224,7 @@
       "sha256": "d9a5df9681a2ce33d5cb120c7dfc601c58deff7f4a3266b9561aae0b60446b22"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/system_prompt.md",
+      "path": "packages/agents/executivos/churn-deflector/system_prompt.md",
       "bytes": 3357,
       "lines": 85,
       "language": "Markdown",
@@ -55914,7 +56234,7 @@
       "sha256": "bb58a73d9c190134aa8bb0c5a953c774687fb130728f93af35044a1ce6ec54a2"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/tests/test_schema.ts",
+      "path": "packages/agents/executivos/churn-deflector/tests/test_schema.ts",
       "bytes": 1798,
       "lines": 69,
       "language": "TypeScript",
@@ -55924,7 +56244,7 @@
       "sha256": "a5b38c539cd734153da2431ba8d2243661868dc2186ef41296b3427d003483d0"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/tests/test_unit.ts",
+      "path": "packages/agents/executivos/churn-deflector/tests/test_unit.ts",
       "bytes": 3143,
       "lines": 105,
       "language": "TypeScript",
@@ -55934,7 +56254,7 @@
       "sha256": "e8a624f90229e70d24f7c45bb40112a5465996cd03e3692f367089495c1920a8"
     },
     {
-      "path": "packages/agents/executivos/churndeflector/tools.ts",
+      "path": "packages/agents/executivos/churn-deflector/tools.ts",
       "bytes": 4933,
       "lines": 137,
       "language": "TypeScript",
@@ -55944,7 +56264,7 @@
       "sha256": "a023687f883adffe03f9f7b42a93ec8dc58db024628114166ac594bab67f64d3"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/acceptance.md",
+      "path": "packages/agents/executivos/competitor-xray/acceptance.md",
       "bytes": 1332,
       "lines": 10,
       "language": "Markdown",
@@ -55954,7 +56274,7 @@
       "sha256": "919a54b2e138d0e699d1c5bbe50dff9bb4524a4fb088ade553bbb0569a96da7b"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/agent.ts",
+      "path": "packages/agents/executivos/competitor-xray/agent.ts",
       "bytes": 26365,
       "lines": 863,
       "language": "TypeScript",
@@ -55964,7 +56284,7 @@
       "sha256": "c75d46b496b70fc1dbd2776158568a75c15f9ecf1b0e0873663f14614b573c80"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/contract.yaml",
+      "path": "packages/agents/executivos/competitor-xray/contract.yaml",
       "bytes": 4364,
       "lines": 195,
       "language": "YAML",
@@ -55974,7 +56294,7 @@
       "sha256": "0bfe50a9facaa4bc7407cc066a71e49dab530c4c6e1b805550a11191832d04b0"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/schemas.ts",
+      "path": "packages/agents/executivos/competitor-xray/schemas.ts",
       "bytes": 6278,
       "lines": 213,
       "language": "TypeScript",
@@ -55984,7 +56304,7 @@
       "sha256": "1d2a58df43de31ea93a8a67eb6746f43798e7d9bbb5a8e67a5807f65c3b58e7a"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/competitor-xray/seeds/dev_seed.json",
       "bytes": 1277,
       "lines": 48,
       "language": "JSON",
@@ -55994,7 +56314,7 @@
       "sha256": "11f3083f0777adcc0517d3bf99450a3843cd4346f38f47475e877b99bc8787bc"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/system_prompt.md",
+      "path": "packages/agents/executivos/competitor-xray/system_prompt.md",
       "bytes": 3277,
       "lines": 80,
       "language": "Markdown",
@@ -56004,7 +56324,7 @@
       "sha256": "3521de46787f383c39c694db8198a7c48c52e4607f8cb3839eeff450b6adbfc6"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/tests/test_schema.ts",
+      "path": "packages/agents/executivos/competitor-xray/tests/test_schema.ts",
       "bytes": 1794,
       "lines": 69,
       "language": "TypeScript",
@@ -56014,7 +56334,7 @@
       "sha256": "cf2743a880258be84b7b5f6c4e48615cde5ac2ceb9876722ce778cc64251918d"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/tests/test_unit.ts",
+      "path": "packages/agents/executivos/competitor-xray/tests/test_unit.ts",
       "bytes": 3150,
       "lines": 105,
       "language": "TypeScript",
@@ -56024,7 +56344,7 @@
       "sha256": "4b3bc43aadc6fdf0af64e0fc7ac463cac5906e3ec24b127f55f5d089c24a86c0"
     },
     {
-      "path": "packages/agents/executivos/competitorxray/tools.ts",
+      "path": "packages/agents/executivos/competitor-xray/tools.ts",
       "bytes": 5057,
       "lines": 145,
       "language": "TypeScript",
@@ -56034,7 +56354,7 @@
       "sha256": "3f4fbce3c6d094b32d061f33ee1c3a620c9a23b395417cb3b9833fa1fad15425"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/acceptance.md",
+      "path": "packages/agents/executivos/crisis-navigator/acceptance.md",
       "bytes": 1344,
       "lines": 10,
       "language": "Markdown",
@@ -56044,7 +56364,7 @@
       "sha256": "ca89e58e82482efa0d293985d67c00acf49e552090c8462a1272220d2704bd16"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+      "path": "packages/agents/executivos/crisis-navigator/agent.ts",
       "bytes": 26407,
       "lines": 863,
       "language": "TypeScript",
@@ -56054,7 +56374,7 @@
       "sha256": "a72b25d3b38885f4f2b842873eac941f09d5c264d615af46803a6695235f6b14"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/contract.yaml",
+      "path": "packages/agents/executivos/crisis-navigator/contract.yaml",
       "bytes": 4352,
       "lines": 195,
       "language": "YAML",
@@ -56064,7 +56384,7 @@
       "sha256": "f057670dafd101c955d2c625d52dafe4449ef9a3e1f8ee8827319262f9e41fb2"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/schemas.ts",
+      "path": "packages/agents/executivos/crisis-navigator/schemas.ts",
       "bytes": 6297,
       "lines": 213,
       "language": "TypeScript",
@@ -56074,7 +56394,7 @@
       "sha256": "3b377a50019c44aaabcc874ee674538a00eb4afce58b6add3ccfa67dac65c42c"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/crisis-navigator/seeds/dev_seed.json",
       "bytes": 1275,
       "lines": 48,
       "language": "JSON",
@@ -56084,7 +56404,7 @@
       "sha256": "7828c8f100799c87ab719eff51698a83e258f3cfdaa008817ce4afae66f87e8c"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/system_prompt.md",
+      "path": "packages/agents/executivos/crisis-navigator/system_prompt.md",
       "bytes": 3521,
       "lines": 86,
       "language": "Markdown",
@@ -56094,7 +56414,7 @@
       "sha256": "14ae1c644c37193011c0317379fd5ee022d04a5d83b3bfb093a9a36475e33d7b"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/tests/test_schema.ts",
+      "path": "packages/agents/executivos/crisis-navigator/tests/test_schema.ts",
       "bytes": 1797,
       "lines": 69,
       "language": "TypeScript",
@@ -56104,7 +56424,7 @@
       "sha256": "4868e76dc179e4e3f90d88ffddd5ffc1fa428f38f4f7b9b61e8e1297f5fe8167"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/tests/test_unit.ts",
+      "path": "packages/agents/executivos/crisis-navigator/tests/test_unit.ts",
       "bytes": 3157,
       "lines": 105,
       "language": "TypeScript",
@@ -56114,7 +56434,7 @@
       "sha256": "b347a5fb0b1618062c97610771b8fcd982875f6dea91249496e384ba267157fe"
     },
     {
-      "path": "packages/agents/executivos/crisisnavigator/tools.ts",
+      "path": "packages/agents/executivos/crisis-navigator/tools.ts",
       "bytes": 5054,
       "lines": 145,
       "language": "TypeScript",
@@ -56124,7 +56444,7 @@
       "sha256": "29cc2a92d9b17cfb6f3369e35a1102d6d411839b7f7cbf7f700741e81927d2b6"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/acceptance.md",
+      "path": "packages/agents/executivos/culture-pulse/acceptance.md",
       "bytes": 1331,
       "lines": 10,
       "language": "Markdown",
@@ -56134,7 +56454,7 @@
       "sha256": "934b7206a7808a48b36f242e0634496fc423eb12dfcc5586e86927932e2e6fd0"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/agent.ts",
+      "path": "packages/agents/executivos/culture-pulse/agent.ts",
       "bytes": 25982,
       "lines": 863,
       "language": "TypeScript",
@@ -56144,7 +56464,7 @@
       "sha256": "543e7b0922165217eec895bd56663035794c7e63506fdb1a53c862706513cc36"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/contract.yaml",
+      "path": "packages/agents/executivos/culture-pulse/contract.yaml",
       "bytes": 4275,
       "lines": 193,
       "language": "YAML",
@@ -56154,7 +56474,7 @@
       "sha256": "f77e4e1042c0e2d86385c0da829dee56d477742a6102a070fe46b711a7660e24"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/schemas.ts",
+      "path": "packages/agents/executivos/culture-pulse/schemas.ts",
       "bytes": 5969,
       "lines": 208,
       "language": "TypeScript",
@@ -56164,7 +56484,7 @@
       "sha256": "2de1970f78c85e99f059a0d172412eabcf1e4f85ff2869c5a09d2617ed1c9f04"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/culture-pulse/seeds/dev_seed.json",
       "bytes": 1201,
       "lines": 47,
       "language": "JSON",
@@ -56174,7 +56494,7 @@
       "sha256": "f82f6d150168ddb0cf6d2ab39de97b60b6101a57e698be53a48f4d7788561401"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/system_prompt.md",
+      "path": "packages/agents/executivos/culture-pulse/system_prompt.md",
       "bytes": 3349,
       "lines": 85,
       "language": "Markdown",
@@ -56184,7 +56504,7 @@
       "sha256": "087b3e5d9727031a48c16fa83f3aa91b03287df519fdcdecd50c8fafdf4532c5"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/tests/test_schema.ts",
+      "path": "packages/agents/executivos/culture-pulse/tests/test_schema.ts",
       "bytes": 1778,
       "lines": 69,
       "language": "TypeScript",
@@ -56194,7 +56514,7 @@
       "sha256": "6a9756739396ff6314c1fa96c3ca7dd2efa41424a768c0700a9101295b2af283"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/tests/test_unit.ts",
+      "path": "packages/agents/executivos/culture-pulse/tests/test_unit.ts",
       "bytes": 3113,
       "lines": 105,
       "language": "TypeScript",
@@ -56204,7 +56524,7 @@
       "sha256": "dba019064533a59259019f5854e79326bd7871439d6f21c77eb85728be257435"
     },
     {
-      "path": "packages/agents/executivos/culturepulse/tools.ts",
+      "path": "packages/agents/executivos/culture-pulse/tools.ts",
       "bytes": 4925,
       "lines": 137,
       "language": "TypeScript",
@@ -56214,7 +56534,7 @@
       "sha256": "f388adfea5a486043abc417ce0b4cecc42c4d2fb06bf49bb2e39bb748e14bd0e"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/acceptance.md",
+      "path": "packages/agents/executivos/expansion-mapper/acceptance.md",
       "bytes": 1344,
       "lines": 10,
       "language": "Markdown",
@@ -56224,7 +56544,7 @@
       "sha256": "af46394d6d16c3a4a98a0e3118dbdd6342b950b70ecdd7391f587f2ccfc7e7e5"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/agent.ts",
+      "path": "packages/agents/executivos/expansion-mapper/agent.ts",
       "bytes": 26236,
       "lines": 862,
       "language": "TypeScript",
@@ -56234,7 +56554,7 @@
       "sha256": "64b8b5bf7cdcddaf83610224bd5e6d0c4bc4d66497c60a68b811cab65ea2587d"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/contract.yaml",
+      "path": "packages/agents/executivos/expansion-mapper/contract.yaml",
       "bytes": 4364,
       "lines": 195,
       "language": "YAML",
@@ -56244,7 +56564,7 @@
       "sha256": "28ada98eaf8ec43cffb3fbed59d70b5f11d471382ca0d71d9a9005ae16743e06"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/schemas.ts",
+      "path": "packages/agents/executivos/expansion-mapper/schemas.ts",
       "bytes": 6121,
       "lines": 209,
       "language": "TypeScript",
@@ -56254,7 +56574,7 @@
       "sha256": "29810e12aaa752d89172280b016ea19999879e4a0bc10f7b8d81200f0c7edde4"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/expansion-mapper/seeds/dev_seed.json",
       "bytes": 1265,
       "lines": 48,
       "language": "JSON",
@@ -56264,7 +56584,7 @@
       "sha256": "2b72948f5333e2b4cedd37888511ea04ce6ad0494b07899106e7c78e8df88f52"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/system_prompt.md",
+      "path": "packages/agents/executivos/expansion-mapper/system_prompt.md",
       "bytes": 3584,
       "lines": 86,
       "language": "Markdown",
@@ -56274,7 +56594,7 @@
       "sha256": "0db10df41dba494608a27898675ad8f1ad5d7fab4f48023c159022f2c3714e65"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/tests/test_schema.ts",
+      "path": "packages/agents/executivos/expansion-mapper/tests/test_schema.ts",
       "bytes": 1819,
       "lines": 69,
       "language": "TypeScript",
@@ -56284,7 +56604,7 @@
       "sha256": "2adac2f77436a091fedd42e3cc1a9d493f2c503245ff8b3b19c917893e0abb17"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/tests/test_unit.ts",
+      "path": "packages/agents/executivos/expansion-mapper/tests/test_unit.ts",
       "bytes": 3143,
       "lines": 105,
       "language": "TypeScript",
@@ -56294,7 +56614,7 @@
       "sha256": "247c500826460db7ff8b4bb65c8808baf13d413952ffdf5f5d25e6a767d02125"
     },
     {
-      "path": "packages/agents/executivos/expansionmapper/tools.ts",
+      "path": "packages/agents/executivos/expansion-mapper/tools.ts",
       "bytes": 4822,
       "lines": 131,
       "language": "TypeScript",
@@ -56304,7 +56624,7 @@
       "sha256": "e5c55e3206d0e38b4e82bc3e39d3a8e9a3cd64126ce2fd5e359e2e3f1e45c461"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/acceptance.md",
+      "path": "packages/agents/executivos/market-sentinel/acceptance.md",
       "bytes": 1341,
       "lines": 10,
       "language": "Markdown",
@@ -56314,7 +56634,7 @@
       "sha256": "bbfbd16edbdb0a095e70773b31a50f5f75f9d35e293096a7e7fc97dc6c967250"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/agent.ts",
+      "path": "packages/agents/executivos/market-sentinel/agent.ts",
       "bytes": 26175,
       "lines": 862,
       "language": "TypeScript",
@@ -56324,7 +56644,7 @@
       "sha256": "4b8ba82b7c835106f1265be4b47c9b7949c5d03b1222acb46596f2797f9a02a8"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/contract.yaml",
+      "path": "packages/agents/executivos/market-sentinel/contract.yaml",
       "bytes": 4350,
       "lines": 195,
       "language": "YAML",
@@ -56334,7 +56654,7 @@
       "sha256": "aff38ba8a74283f05f1a0b5e980ada0ff04e6215e4612d90db8b5a653c34d29d"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/schemas.ts",
+      "path": "packages/agents/executivos/market-sentinel/schemas.ts",
       "bytes": 6093,
       "lines": 209,
       "language": "TypeScript",
@@ -56344,7 +56664,7 @@
       "sha256": "b4961f808ec12f57d78f19a6308e2e76da58a11436a0c41b65c4225ccd7fa541"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/market-sentinel/seeds/dev_seed.json",
       "bytes": 1262,
       "lines": 48,
       "language": "JSON",
@@ -56354,7 +56674,7 @@
       "sha256": "caa608361f7cb03e3b593bf824bc861c70836156a7cc9a1b531da0e068527fa2"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/system_prompt.md",
+      "path": "packages/agents/executivos/market-sentinel/system_prompt.md",
       "bytes": 3580,
       "lines": 86,
       "language": "Markdown",
@@ -56364,7 +56684,7 @@
       "sha256": "29cea54d89f4f8b42222ad3f34d80b20ea7b04d0cd0b63e719039c158afc4a5b"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/tests/test_schema.ts",
+      "path": "packages/agents/executivos/market-sentinel/tests/test_schema.ts",
       "bytes": 1809,
       "lines": 69,
       "language": "TypeScript",
@@ -56374,7 +56694,7 @@
       "sha256": "0e7171a297e3f9d172cc0f75660aaf4d601312e4bc1b879965ca5f62a9ad3c6a"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/tests/test_unit.ts",
+      "path": "packages/agents/executivos/market-sentinel/tests/test_unit.ts",
       "bytes": 3128,
       "lines": 105,
       "language": "TypeScript",
@@ -56384,7 +56704,7 @@
       "sha256": "f4f23d0e3e628c2bce59fde0283aa213d527c886d0078b5717f33bef31cc0165"
     },
     {
-      "path": "packages/agents/executivos/marketsentinel/tools.ts",
+      "path": "packages/agents/executivos/market-sentinel/tools.ts",
       "bytes": 4818,
       "lines": 131,
       "language": "TypeScript",
@@ -56394,7 +56714,7 @@
       "sha256": "0768e456b2b7e0b093e259eeb5e95444323d7732aa6e5d9cbf99a8d5eb999067"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/acceptance.md",
+      "path": "packages/agents/executivos/narrative-weaver/acceptance.md",
       "bytes": 1315,
       "lines": 10,
       "language": "Markdown",
@@ -56404,7 +56724,7 @@
       "sha256": "843a6dd5ee45955d49bcdf6200821b60e688e6fc8420527127250201bb2b7b8f"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+      "path": "packages/agents/executivos/narrative-weaver/agent.ts",
       "bytes": 26794,
       "lines": 878,
       "language": "TypeScript",
@@ -56414,7 +56734,7 @@
       "sha256": "be875735b15590bfb755a0d3d82e166148d179711bab49433c6c6406000fd58c"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/contract.yaml",
+      "path": "packages/agents/executivos/narrative-weaver/contract.yaml",
       "bytes": 4347,
       "lines": 195,
       "language": "YAML",
@@ -56424,7 +56744,7 @@
       "sha256": "be5cdd245a78ffda302951f093e6a5deeeb5e2623c8c49ff04185180552c5a33"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/schemas.ts",
+      "path": "packages/agents/executivos/narrative-weaver/schemas.ts",
       "bytes": 6302,
       "lines": 213,
       "language": "TypeScript",
@@ -56434,7 +56754,7 @@
       "sha256": "ed26c11e8f4b32399d030bf32b573e1a0a13a352fce42c05d84035d5b11eaf6b"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/narrative-weaver/seeds/dev_seed.json",
       "bytes": 1296,
       "lines": 48,
       "language": "JSON",
@@ -56444,7 +56764,7 @@
       "sha256": "41e505cbd77dc1e0198bf60dc0adff243269d8f32369fd58978bb694d6719d75"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/system_prompt.md",
+      "path": "packages/agents/executivos/narrative-weaver/system_prompt.md",
       "bytes": 3144,
       "lines": 80,
       "language": "Markdown",
@@ -56454,7 +56774,7 @@
       "sha256": "d8e0e9d7732e9c8e5a5e2708b334a022274613c5efcfbde602e3356f3bedf2fa"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/tests/test_schema.ts",
+      "path": "packages/agents/executivos/narrative-weaver/tests/test_schema.ts",
       "bytes": 1805,
       "lines": 72,
       "language": "TypeScript",
@@ -56464,7 +56784,7 @@
       "sha256": "5ebd4bfa72a273e9a2fc0f24564feeff1a7ce8239f950d79b2a0b798e29a8c8d"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/tests/test_unit.ts",
+      "path": "packages/agents/executivos/narrative-weaver/tests/test_unit.ts",
       "bytes": 3179,
       "lines": 105,
       "language": "TypeScript",
@@ -56474,7 +56794,7 @@
       "sha256": "4cec7e780afec1f3e3432da6dcf82730a9e25524e7debf86e9366087031bfbaf"
     },
     {
-      "path": "packages/agents/executivos/narrativeweaver/tools.ts",
+      "path": "packages/agents/executivos/narrative-weaver/tools.ts",
       "bytes": 5194,
       "lines": 151,
       "language": "TypeScript",
@@ -56484,7 +56804,7 @@
       "sha256": "437bc23aa73c22a2b14d83535df9a13c3a80f11793d351355158696b44e475f6"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/acceptance.md",
+      "path": "packages/agents/executivos/pipeline-oracle/acceptance.md",
       "bytes": 1335,
       "lines": 10,
       "language": "Markdown",
@@ -56494,7 +56814,7 @@
       "sha256": "59ca7b4c6cd58acf989028bc0e28c2bacbab082a8430aac994e49c92a833d043"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+      "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
       "bytes": 26347,
       "lines": 872,
       "language": "TypeScript",
@@ -56504,7 +56824,7 @@
       "sha256": "ab7ad3d6b4bd97634a49a18004b4327375bde70901af1a9720ae800c99e32d91"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/contract.yaml",
+      "path": "packages/agents/executivos/pipeline-oracle/contract.yaml",
       "bytes": 4348,
       "lines": 195,
       "language": "YAML",
@@ -56514,7 +56834,7 @@
       "sha256": "518be924261f7ec50470b484f649729e8abd9e94ffb988d218640648bdc7e265"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/schemas.ts",
+      "path": "packages/agents/executivos/pipeline-oracle/schemas.ts",
       "bytes": 6067,
       "lines": 213,
       "language": "TypeScript",
@@ -56524,7 +56844,7 @@
       "sha256": "1debb4cbb1f51f9ab44a66260b5ae67cf72476fda2b0f4f88f465f75fc6179e3"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/pipeline-oracle/seeds/dev_seed.json",
       "bytes": 1160,
       "lines": 47,
       "language": "JSON",
@@ -56534,7 +56854,7 @@
       "sha256": "36fe5516026c2ec8261f7fa1c3309a6d04a28a2b350de7503febf080eb83b3b8"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/system_prompt.md",
+      "path": "packages/agents/executivos/pipeline-oracle/system_prompt.md",
       "bytes": 3349,
       "lines": 86,
       "language": "Markdown",
@@ -56544,7 +56864,7 @@
       "sha256": "0061c8df71eda2a5d6bb3984caa5e55a1136b76bdc41d388ba5f881d4f0b849d"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/tests/test_schema.ts",
+      "path": "packages/agents/executivos/pipeline-oracle/tests/test_schema.ts",
       "bytes": 1812,
       "lines": 72,
       "language": "TypeScript",
@@ -56554,7 +56874,7 @@
       "sha256": "d1ab0e5b764a6f8e946c1b3fa18369965c4bab7efee7bbeea09e97a61e90caa9"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/tests/test_unit.ts",
+      "path": "packages/agents/executivos/pipeline-oracle/tests/test_unit.ts",
       "bytes": 3147,
       "lines": 105,
       "language": "TypeScript",
@@ -56564,7 +56884,7 @@
       "sha256": "5255fb142442c763eb7fec09310b42f7a7dc44b96e13fd9f8dbcdc65d5403505"
     },
     {
-      "path": "packages/agents/executivos/pipelineoracle/tools.ts",
+      "path": "packages/agents/executivos/pipeline-oracle/tools.ts",
       "bytes": 4926,
       "lines": 139,
       "language": "TypeScript",
@@ -56574,7 +56894,7 @@
       "sha256": "b29bcb076a6f292374bc57fd0a65ecb1a4554d3f52a8d01f0fd036d3170089b6"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/acceptance.md",
+      "path": "packages/agents/executivos/pricing-optimizer/acceptance.md",
       "bytes": 1336,
       "lines": 10,
       "language": "Markdown",
@@ -56584,7 +56904,7 @@
       "sha256": "48b7be4b4d3c8058a78a6969bc479b190bf43bbb3864557f04924c188047c87c"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+      "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
       "bytes": 26486,
       "lines": 863,
       "language": "TypeScript",
@@ -56594,7 +56914,7 @@
       "sha256": "f3a14468117fad4eda86fdf77f0b1e443ffda55d39596fe2f5a2fd5b4c5d2805"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/contract.yaml",
+      "path": "packages/agents/executivos/pricing-optimizer/contract.yaml",
       "bytes": 4391,
       "lines": 195,
       "language": "YAML",
@@ -56604,7 +56924,7 @@
       "sha256": "bdaefe5ae5069a1fb1bd9713e36096a677ba1c5dc8630a4ac51eef95cc04f17a"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/schemas.ts",
+      "path": "packages/agents/executivos/pricing-optimizer/schemas.ts",
       "bytes": 6333,
       "lines": 213,
       "language": "TypeScript",
@@ -56614,7 +56934,7 @@
       "sha256": "12545bf88589d13d39cb48e12a9ff5e1d766f11636c350f2bc70a6d3d95fa09a"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/pricing-optimizer/seeds/dev_seed.json",
       "bytes": 1281,
       "lines": 48,
       "language": "JSON",
@@ -56624,7 +56944,7 @@
       "sha256": "c75b9a43126fcb8da56373f2d84961f212602b705ae2b68cb136acea281e39c5"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/system_prompt.md",
+      "path": "packages/agents/executivos/pricing-optimizer/system_prompt.md",
       "bytes": 3622,
       "lines": 86,
       "language": "Markdown",
@@ -56634,7 +56954,7 @@
       "sha256": "1dda8b53f33c245f799b6a4e9b40b5438b670b4bff83e71c96aa2b3fd0ddd447"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/tests/test_schema.ts",
+      "path": "packages/agents/executivos/pricing-optimizer/tests/test_schema.ts",
       "bytes": 1813,
       "lines": 69,
       "language": "TypeScript",
@@ -56644,7 +56964,7 @@
       "sha256": "164e39c9c52acbd0860029840f7f7690c3438b01088bcc412413a88923930012"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/tests/test_unit.ts",
+      "path": "packages/agents/executivos/pricing-optimizer/tests/test_unit.ts",
       "bytes": 3179,
       "lines": 105,
       "language": "TypeScript",
@@ -56654,7 +56974,7 @@
       "sha256": "8570535afb0f88679bd743286a8223db6d612cb1982f6bbc093c43f5f118d586"
     },
     {
-      "path": "packages/agents/executivos/pricingoptimizer/tools.ts",
+      "path": "packages/agents/executivos/pricing-optimizer/tools.ts",
       "bytes": 5064,
       "lines": 145,
       "language": "TypeScript",
@@ -56664,7 +56984,7 @@
       "sha256": "c249bb57310f2bc0057a11f6ca5968d155bb5bca92f6f47a4207b6b81d5ddb34"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/acceptance.md",
+      "path": "packages/agents/executivos/quota-architect/acceptance.md",
       "bytes": 1335,
       "lines": 10,
       "language": "Markdown",
@@ -56674,7 +56994,7 @@
       "sha256": "8c9973a224db565fff744e31f5769d84ed0ab85136b417c12953e19b2863543d"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+      "path": "packages/agents/executivos/quota-architect/agent.ts",
       "bytes": 26347,
       "lines": 872,
       "language": "TypeScript",
@@ -56684,7 +57004,7 @@
       "sha256": "89d1d4c847d5a880e11579447530ad2133ce290e3b748c3fe98539b942a3730f"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/contract.yaml",
+      "path": "packages/agents/executivos/quota-architect/contract.yaml",
       "bytes": 4348,
       "lines": 195,
       "language": "YAML",
@@ -56694,7 +57014,7 @@
       "sha256": "55ff47db648a6c8c1b7ef3ca20c89abdcaf3db3d4e2281d8448ae84227cf1add"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/schemas.ts",
+      "path": "packages/agents/executivos/quota-architect/schemas.ts",
       "bytes": 6067,
       "lines": 213,
       "language": "TypeScript",
@@ -56704,7 +57024,7 @@
       "sha256": "410a6145aa1e25f9def620bd97a484d150c533f319c2f3ffebf8d1f3738d410d"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/quota-architect/seeds/dev_seed.json",
       "bytes": 1160,
       "lines": 47,
       "language": "JSON",
@@ -56714,7 +57034,7 @@
       "sha256": "03621858f58101e7c96979c83f14f962cfc89d8e95d66f1796eb056f2ac0a46d"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/system_prompt.md",
+      "path": "packages/agents/executivos/quota-architect/system_prompt.md",
       "bytes": 3010,
       "lines": 80,
       "language": "Markdown",
@@ -56724,7 +57044,7 @@
       "sha256": "c0d6e822d53e114e1166ae87fc99fb3735387cb156f07bf683ed0f5785036078"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/tests/test_schema.ts",
+      "path": "packages/agents/executivos/quota-architect/tests/test_schema.ts",
       "bytes": 1812,
       "lines": 72,
       "language": "TypeScript",
@@ -56734,7 +57054,7 @@
       "sha256": "0e3276acf99b2838d441defe9bd351c4a57ac9b0200f3daa6aa5f436e3be4060"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/tests/test_unit.ts",
+      "path": "packages/agents/executivos/quota-architect/tests/test_unit.ts",
       "bytes": 3147,
       "lines": 105,
       "language": "TypeScript",
@@ -56744,7 +57064,7 @@
       "sha256": "6c990bdeef0e25d9311b0c100c71b88628db01ea1991d652eae1b8cc18f7db33"
     },
     {
-      "path": "packages/agents/executivos/quotaarchitect/tools.ts",
+      "path": "packages/agents/executivos/quota-architect/tools.ts",
       "bytes": 4926,
       "lines": 139,
       "language": "TypeScript",
@@ -56754,7 +57074,7 @@
       "sha256": "d542a5c0e3886685b19d5bbde3a5943812ad72ea21e728400f1ee5e1e583a4ab"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/acceptance.md",
+      "path": "packages/agents/executivos/trend-catcher/acceptance.md",
       "bytes": 1322,
       "lines": 10,
       "language": "Markdown",
@@ -56764,7 +57084,7 @@
       "sha256": "68a7e5e0a42732550db13ec9c6a9055e0d5e55927d74fc2c3cef303f94274917"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/agent.ts",
+      "path": "packages/agents/executivos/trend-catcher/agent.ts",
       "bytes": 25972,
       "lines": 862,
       "language": "TypeScript",
@@ -56774,7 +57094,7 @@
       "sha256": "9971a5ffd7041b55ae54110694a90cea7f6e943461471f2b28aaebfba496a831"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/contract.yaml",
+      "path": "packages/agents/executivos/trend-catcher/contract.yaml",
       "bytes": 4299,
       "lines": 195,
       "language": "YAML",
@@ -56784,7 +57104,7 @@
       "sha256": "9a927224b85f2a403cc5f56715fed6ce47c62de4ed4e7a8ff23879bd10217c72"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/schemas.ts",
+      "path": "packages/agents/executivos/trend-catcher/schemas.ts",
       "bytes": 5990,
       "lines": 209,
       "language": "TypeScript",
@@ -56794,7 +57114,7 @@
       "sha256": "a3da4d6abe0ba0761705dc97a08e6a641dbd076f789e4bc280460efe2625178d"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/seeds/dev_seed.json",
+      "path": "packages/agents/executivos/trend-catcher/seeds/dev_seed.json",
       "bytes": 1246,
       "lines": 48,
       "language": "JSON",
@@ -56804,7 +57124,7 @@
       "sha256": "4a14ba465195e425ee0d1111544bebf1401711840b72d5bf5d197b1c51bab832"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/system_prompt.md",
+      "path": "packages/agents/executivos/trend-catcher/system_prompt.md",
       "bytes": 3217,
       "lines": 80,
       "language": "Markdown",
@@ -56814,7 +57134,7 @@
       "sha256": "0e8eb41c92833fab0a4bd52f2b7a56a227c557cb1a9c7979029de88ddb619107"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/tests/test_schema.ts",
+      "path": "packages/agents/executivos/trend-catcher/tests/test_schema.ts",
       "bytes": 1769,
       "lines": 69,
       "language": "TypeScript",
@@ -56824,7 +57144,7 @@
       "sha256": "e287c10743b29841510493339984c3953d958d80b430f0007e746179d2397062"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/tests/test_unit.ts",
+      "path": "packages/agents/executivos/trend-catcher/tests/test_unit.ts",
       "bytes": 3084,
       "lines": 105,
       "language": "TypeScript",
@@ -56834,7 +57154,7 @@
       "sha256": "e5aeecdbad633964498bd0e5adc50651f4576be18de4cbf097d7e356ccf75e9f"
     },
     {
-      "path": "packages/agents/executivos/trendcatcher/tools.ts",
+      "path": "packages/agents/executivos/trend-catcher/tools.ts",
       "bytes": 4779,
       "lines": 131,
       "language": "TypeScript",
@@ -57065,13 +57385,13 @@
     },
     {
       "path": "packages/conversation-core/src/__tests__/service.test.ts",
-      "bytes": 574,
+      "bytes": 583,
       "lines": 17,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/conversation-core",
-      "sha256": "a808ac1ea943548890f2802b7c49472f09c50633bf74d27471c704fc9eb6a9dc"
+      "sha256": "587e62463171af59fb71a1942b981ba0aade8d7ad5f92e6a715f350b13c9a6dd"
     },
     {
       "path": "packages/conversation-core/src/index.ts",
@@ -57365,13 +57685,13 @@
     },
     {
       "path": "packages/database/prisma/seed.ts",
-      "bytes": 796,
-      "lines": 37,
+      "bytes": 26257,
+      "lines": 897,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "0d541b1e3b86989ddf9f03fedbb4e5fac4670385a82eb9ea9185194b65b949fd"
+      "sha256": "c9d519cc333e3def336ed30a9e7f29c1300bcbe1425f9a1469c3ee5bd6aafe13"
     },
     {
       "path": "packages/database/prisma/seed/data.ts",
@@ -57884,6 +58204,16 @@
       "sha256": "c53732c09afb7f937775963f359088693c835d65da68d5fad14c910f9ac825a6"
     },
     {
+      "path": "packages/database/test/cross-tenant-access.error.test.ts",
+      "bytes": 1201,
+      "lines": 35,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "12201a2cd344d8a6c76fb05f07a4fec14cb9260c32e6aa5aab49a23be44c9b06"
+    },
+    {
       "path": "packages/database/test/database-availability.ts",
       "bytes": 1370,
       "lines": 48,
@@ -57894,6 +58224,26 @@
       "sha256": "004f960c83f694d96da43fca6bcf041b36ff0c26adb1a35f0a27fd620a10c0fd"
     },
     {
+      "path": "packages/database/test/exceeded-quota.error.test.ts",
+      "bytes": 1169,
+      "lines": 37,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "c9ddba6dd0ffc93f63378ff3472560d011de8c9fce51aab77d29169817a41883"
+    },
+    {
+      "path": "packages/database/test/index.test.ts",
+      "bytes": 541,
+      "lines": 17,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "c5fc71642e85e3004306c7dc8a18aab21b820df39bb97b8cbe803bea583cae42"
+    },
+    {
       "path": "packages/database/test/migration.test.ts",
       "bytes": 1672,
       "lines": 60,
@@ -57902,6 +58252,16 @@
       "topLevel": "packages",
       "moduleBucket": "packages/database",
       "sha256": "85903f4931215f2a368e85b9cf99b229188f07785c5f98032a45b008e3eb1baa"
+    },
+    {
+      "path": "packages/database/test/prisma-query-timeout.error.test.ts",
+      "bytes": 938,
+      "lines": 24,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "5cd55168a7aa4752235c9ae7f384389377f3fc29f2f37f498a4cf1429270c4b3"
     },
     {
       "path": "packages/database/test/query-budget.test.ts",
@@ -57922,6 +58282,16 @@
       "topLevel": "packages",
       "moduleBucket": "packages/database",
       "sha256": "b376185e2cdcbf19c8b7cde5a38fc4bb37be63fd9005fabf0e216318bfc8ba68"
+    },
+    {
+      "path": "packages/database/test/tenant-required.error.test.ts",
+      "bytes": 592,
+      "lines": 18,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "36666de082eacc2a6ee0a1fcf47bcc7de4b3f43a85b63665bef77553e2e66ee8"
     },
     {
       "path": "packages/database/tsconfig.json",
@@ -58904,14 +59274,24 @@
       "sha256": "8e0623fcedd6e1e15a1e8a04359fc2071353fb67abc5eaa34b8433a503340726"
     },
     {
-      "path": "packages/utils/src/index.ts",
-      "bytes": 116,
-      "lines": 5,
+      "path": "packages/utils/src/fetch.ts",
+      "bytes": 1611,
+      "lines": 67,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/utils",
-      "sha256": "44a65efd7095e9202b5d4269fa512265a567251647492ecf84e1dbb2572abbb5"
+      "sha256": "fbc28eb39ac2e2750b0c562ca9d02f5bcbf787195b637078557b8c6a57c05091"
+    },
+    {
+      "path": "packages/utils/src/index.ts",
+      "bytes": 144,
+      "lines": 6,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "packages",
+      "moduleBucket": "packages/utils",
+      "sha256": "cf2492a53fffc2783e09114ea4605c8f8d9ea086b1305cad9b049a7d93cc9964"
     },
     {
       "path": "packages/utils/src/logger.ts",
@@ -59195,13 +59575,13 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "bytes": 494544,
-      "lines": 13732,
+      "bytes": 495027,
+      "lines": 13748,
       "language": "YAML",
       "kind": "config",
       "topLevel": "pnpm-lock.yaml",
       "moduleBucket": "pnpm-lock.yaml",
-      "sha256": "e00f755306dfeb131801c20ad778ce536e077d6eacbd1056bec52d1bad88c189"
+      "sha256": "ea0728cd0a26dde5e800bdf98c981ef307285ea7b812c598224079bc8a31f6dc"
     },
     {
       "path": "pnpm-workspace.yaml",
@@ -60834,70 +61214,30 @@
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
     },
     {
-      "path": "apps/api/tests/connectors-router.test.ts",
-      "bytes": 8330,
-      "lines": 288,
+      "path": "apps/web/tests/auth-client.test.ts",
+      "bytes": 4759,
+      "lines": 133,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "3b9a0c5c327e69a4c094f718168f9f943a72336606ceaa955d4e4f049d147638"
+      "moduleBucket": "apps/web",
+      "sha256": "7f5e10a32e46afaea75c44477fa0c3a7eb475de1ff4568156638e066079b4dc9"
     },
     {
-      "path": "packages/database/test/cross-tenant-access.error.test.ts",
-      "bytes": 1201,
-      "lines": 35,
+      "path": "apps/web/tests/workflow-runs-page.test.ts",
+      "bytes": 3428,
+      "lines": 130,
       "language": "TypeScript",
       "kind": "test",
-      "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "12201a2cd344d8a6c76fb05f07a4fec14cb9260c32e6aa5aab49a23be44c9b06"
-    },
-    {
-      "path": "packages/database/test/exceeded-quota.error.test.ts",
-      "bytes": 1169,
-      "lines": 37,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "c9ddba6dd0ffc93f63378ff3472560d011de8c9fce51aab77d29169817a41883"
-    },
-    {
-      "path": "packages/database/test/index.test.ts",
-      "bytes": 541,
-      "lines": 17,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "c5fc71642e85e3004306c7dc8a18aab21b820df39bb97b8cbe803bea583cae42"
-    },
-    {
-      "path": "packages/database/test/prisma-query-timeout.error.test.ts",
-      "bytes": 938,
-      "lines": 24,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "5cd55168a7aa4752235c9ae7f384389377f3fc29f2f37f498a4cf1429270c4b3"
-    },
-    {
-      "path": "packages/database/test/tenant-required.error.test.ts",
-      "bytes": 592,
-      "lines": 18,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "36666de082eacc2a6ee0a1fcf47bcc7de4b3f43a85b63665bef77553e2e66ee8"
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "e9f13ec4b634ee70dcdf16518373e7a29be148a35363208b9dc5c399be0ee798"
     }
   ],
   "complexity": {
     "available": true,
-    "filesScanned": 631,
-    "functionsScanned": 4483,
+    "filesScanned": 637,
+    "functionsScanned": 4511,
     "modules": [
       {
         "module": "packages/agents-core",
@@ -61138,23 +61478,61 @@
         ]
       },
       {
-        "module": "apps/web",
-        "functions": 624,
-        "avgComplexity": 2.69,
-        "p95Complexity": 9,
+        "module": "packages/workflows-core",
+        "functions": 68,
+        "avgComplexity": 3.34,
+        "p95Complexity": 10,
         "maxComplexity": 35,
+        "functionsAtOrAbove10": 4,
+        "functionsAtOrAbove20": 1,
+        "hotspots": [
+          {
+            "file": "packages/workflows-core/src/nodes/executeStep.ts",
+            "module": "packages/workflows-core",
+            "functionName": "executeStep",
+            "line": 31,
+            "endLine": 156,
+            "length": 126,
+            "complexity": 35
+          },
+          {
+            "file": "packages/workflows-core/src/parser/dagValidator.ts",
+            "module": "packages/workflows-core",
+            "functionName": "validateDag",
+            "line": 125,
+            "endLine": 198,
+            "length": 74,
+            "complexity": 18
+          },
+          {
+            "file": "packages/workflows-core/src/nodes/httpRequest.ts",
+            "module": "packages/workflows-core",
+            "functionName": "executeHttpRequestNode",
+            "line": 96,
+            "endLine": 152,
+            "length": 57,
+            "complexity": 12
+          },
+          {
+            "file": "packages/workflows-core/src/parser/dagValidator.ts",
+            "module": "packages/workflows-core",
+            "functionName": "topologicalSort",
+            "line": 96,
+            "endLine": 123,
+            "length": 28,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "module": "apps/web",
+        "functions": 645,
+        "avgComplexity": 2.65,
+        "p95Complexity": 9,
+        "maxComplexity": 33,
         "functionsAtOrAbove10": 26,
         "functionsAtOrAbove20": 4,
         "hotspots": [
-          {
-            "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-            "module": "apps/web",
-            "functionName": "WorkflowRunsPage",
-            "line": 84,
-            "endLine": 388,
-            "length": 305,
-            "complexity": 35
-          },
           {
             "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
             "module": "apps/web",
@@ -61162,6 +61540,15 @@
             "line": 35,
             "endLine": 419,
             "length": 385,
+            "complexity": 33
+          },
+          {
+            "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+            "module": "apps/web",
+            "functionName": "WorkflowRunsPage",
+            "line": 17,
+            "endLine": 295,
+            "length": 279,
             "complexity": 33
           },
           {
@@ -61257,53 +61644,6 @@
         ]
       },
       {
-        "module": "packages/workflows-core",
-        "functions": 68,
-        "avgComplexity": 3.34,
-        "p95Complexity": 10,
-        "maxComplexity": 35,
-        "functionsAtOrAbove10": 4,
-        "functionsAtOrAbove20": 1,
-        "hotspots": [
-          {
-            "file": "packages/workflows-core/src/nodes/executeStep.ts",
-            "module": "packages/workflows-core",
-            "functionName": "executeStep",
-            "line": 31,
-            "endLine": 156,
-            "length": 126,
-            "complexity": 35
-          },
-          {
-            "file": "packages/workflows-core/src/parser/dagValidator.ts",
-            "module": "packages/workflows-core",
-            "functionName": "validateDag",
-            "line": 125,
-            "endLine": 198,
-            "length": 74,
-            "complexity": 18
-          },
-          {
-            "file": "packages/workflows-core/src/nodes/httpRequest.ts",
-            "module": "packages/workflows-core",
-            "functionName": "executeHttpRequestNode",
-            "line": 96,
-            "endLine": 152,
-            "length": 57,
-            "complexity": 12
-          },
-          {
-            "file": "packages/workflows-core/src/parser/dagValidator.ts",
-            "module": "packages/workflows-core",
-            "functionName": "topologicalSort",
-            "line": 96,
-            "endLine": 123,
-            "length": 28,
-            "complexity": 10
-          }
-        ]
-      },
-      {
         "module": "packages/agents",
         "functions": 812,
         "avgComplexity": 3.33,
@@ -61313,7 +61653,7 @@
         "functionsAtOrAbove20": 42,
         "hotspots": [
           {
-            "file": "packages/agents/executivos/brandguardian/agent.ts",
+            "file": "packages/agents/executivos/brand-guardian/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 489,
@@ -61322,7 +61662,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/churndeflector/agent.ts",
+            "file": "packages/agents/executivos/churn-deflector/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 489,
@@ -61331,7 +61671,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/competitorxray/agent.ts",
+            "file": "packages/agents/executivos/competitor-xray/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 487,
@@ -61340,7 +61680,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+            "file": "packages/agents/executivos/crisis-navigator/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 487,
@@ -61349,7 +61689,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/culturepulse/agent.ts",
+            "file": "packages/agents/executivos/culture-pulse/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 489,
@@ -61358,7 +61698,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/expansionmapper/agent.ts",
+            "file": "packages/agents/executivos/expansion-mapper/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 489,
@@ -61367,7 +61707,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/marketsentinel/agent.ts",
+            "file": "packages/agents/executivos/market-sentinel/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 489,
@@ -61376,7 +61716,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+            "file": "packages/agents/executivos/narrative-weaver/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 497,
@@ -61385,7 +61725,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+            "file": "packages/agents/executivos/pipeline-oracle/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 490,
@@ -61394,7 +61734,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+            "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 487,
@@ -61403,7 +61743,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+            "file": "packages/agents/executivos/quota-architect/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 490,
@@ -61412,7 +61752,7 @@
             "complexity": 31
           },
           {
-            "file": "packages/agents/executivos/trendcatcher/agent.ts",
+            "file": "packages/agents/executivos/trend-catcher/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
             "line": 489,
@@ -61480,8 +61820,8 @@
             "file": "apps/worker/src/worker.ts",
             "module": "apps/worker",
             "functionName": "createBirthHubWorker",
-            "line": 110,
-            "endLine": 406,
+            "line": 122,
+            "endLine": 418,
             "length": 297,
             "complexity": 16
           },
@@ -61498,8 +61838,8 @@
             "file": "apps/worker/src/agents/runtime.ts",
             "module": "apps/worker",
             "functionName": "executeManifestAgentRuntime",
-            "line": 39,
-            "endLine": 259,
+            "line": 46,
+            "endLine": 266,
             "length": 221,
             "complexity": 14
           },
@@ -61779,6 +62119,26 @@
         ]
       },
       {
+        "module": "packages/utils",
+        "functions": 21,
+        "avgComplexity": 1.86,
+        "p95Complexity": 5,
+        "maxComplexity": 11,
+        "functionsAtOrAbove10": 1,
+        "functionsAtOrAbove20": 0,
+        "hotspots": [
+          {
+            "file": "packages/utils/src/fetch.ts",
+            "module": "packages/utils",
+            "functionName": "fetchWithTimeout",
+            "line": 16,
+            "endLine": 66,
+            "length": 51,
+            "complexity": 11
+          }
+        ]
+      },
+      {
         "module": "packages/agents-registry",
         "functions": 46,
         "avgComplexity": 2.11,
@@ -61829,19 +62189,9 @@
         "hotspots": []
       },
       {
-        "module": "packages/utils",
-        "functions": 17,
-        "avgComplexity": 1.24,
-        "p95Complexity": 5,
-        "maxComplexity": 5,
-        "functionsAtOrAbove10": 0,
-        "functionsAtOrAbove20": 0,
-        "hotspots": []
-      },
-      {
         "module": "apps/legacy",
         "functions": 4,
-        "avgComplexity": 2.5,
+        "avgComplexity": 2.75,
         "p95Complexity": 4,
         "maxComplexity": 4,
         "functionsAtOrAbove10": 0,
@@ -61874,6 +62224,16 @@
         "avgComplexity": 1.29,
         "p95Complexity": 3,
         "maxComplexity": 3,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "apps/dashboard",
+        "functions": 3,
+        "avgComplexity": 1.67,
+        "p95Complexity": 2,
+        "maxComplexity": 2,
         "functionsAtOrAbove10": 0,
         "functionsAtOrAbove20": 0,
         "hotspots": []
@@ -61947,15 +62307,6 @@
         "complexity": 38
       },
       {
-        "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "module": "apps/web",
-        "functionName": "WorkflowRunsPage",
-        "line": 84,
-        "endLine": 388,
-        "length": 305,
-        "complexity": 35
-      },
-      {
         "file": "packages/workflows-core/src/nodes/executeStep.ts",
         "module": "packages/workflows-core",
         "functionName": "executeStep",
@@ -61974,7 +62325,16 @@
         "complexity": 33
       },
       {
-        "file": "packages/agents/executivos/brandguardian/agent.ts",
+        "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+        "module": "apps/web",
+        "functionName": "WorkflowRunsPage",
+        "line": 17,
+        "endLine": 295,
+        "length": 279,
+        "complexity": 33
+      },
+      {
+        "file": "packages/agents/executivos/brand-guardian/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 489,
@@ -61983,7 +62343,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/churndeflector/agent.ts",
+        "file": "packages/agents/executivos/churn-deflector/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 489,
@@ -61992,7 +62352,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/competitorxray/agent.ts",
+        "file": "packages/agents/executivos/competitor-xray/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 487,
@@ -62001,7 +62361,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "file": "packages/agents/executivos/crisis-navigator/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 487,
@@ -62010,7 +62370,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/culturepulse/agent.ts",
+        "file": "packages/agents/executivos/culture-pulse/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 489,
@@ -62019,7 +62379,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/expansionmapper/agent.ts",
+        "file": "packages/agents/executivos/expansion-mapper/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 489,
@@ -62028,7 +62388,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/marketsentinel/agent.ts",
+        "file": "packages/agents/executivos/market-sentinel/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 489,
@@ -62037,7 +62397,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "file": "packages/agents/executivos/narrative-weaver/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 497,
@@ -62046,7 +62406,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "file": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 490,
@@ -62055,7 +62415,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 487,
@@ -62064,7 +62424,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "file": "packages/agents/executivos/quota-architect/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 490,
@@ -62073,7 +62433,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/trendcatcher/agent.ts",
+        "file": "packages/agents/executivos/trend-catcher/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 489,
@@ -62082,7 +62442,7 @@
         "complexity": 31
       },
       {
-        "file": "packages/agents/executivos/brandguardian/agent.ts",
+        "file": "packages/agents/executivos/brand-guardian/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62091,7 +62451,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/budgetfluid/agent.ts",
+        "file": "packages/agents/executivos/budget-fluid/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 203,
@@ -62100,7 +62460,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/budgetfluid/agent.ts",
+        "file": "packages/agents/executivos/budget-fluid/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 487,
@@ -62109,7 +62469,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/capitalallocator/agent.ts",
+        "file": "packages/agents/executivos/capital-allocator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 203,
@@ -62118,7 +62478,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/capitalallocator/agent.ts",
+        "file": "packages/agents/executivos/capital-allocator/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
         "line": 487,
@@ -62127,7 +62487,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/churndeflector/agent.ts",
+        "file": "packages/agents/executivos/churn-deflector/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62136,7 +62496,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/competitorxray/agent.ts",
+        "file": "packages/agents/executivos/competitor-xray/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 203,
@@ -62145,7 +62505,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "file": "packages/agents/executivos/crisis-navigator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 203,
@@ -62154,7 +62514,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/culturepulse/agent.ts",
+        "file": "packages/agents/executivos/culture-pulse/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62163,7 +62523,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/expansionmapper/agent.ts",
+        "file": "packages/agents/executivos/expansion-mapper/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62172,7 +62532,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/marketsentinel/agent.ts",
+        "file": "packages/agents/executivos/market-sentinel/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62181,7 +62541,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "file": "packages/agents/executivos/narrative-weaver/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62190,7 +62550,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "file": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 206,
@@ -62199,7 +62559,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 203,
@@ -62208,7 +62568,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "file": "packages/agents/executivos/quota-architect/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 206,
@@ -62217,7 +62577,7 @@
         "complexity": 30
       },
       {
-        "file": "packages/agents/executivos/trendcatcher/agent.ts",
+        "file": "packages/agents/executivos/trend-catcher/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
         "line": 205,
@@ -62307,7 +62667,7 @@
         "complexity": 22
       },
       {
-        "file": "packages/agents/executivos/brandguardian/agent.ts",
+        "file": "packages/agents/executivos/brand-guardian/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 310,
@@ -62316,7 +62676,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/budgetfluid/agent.ts",
+        "file": "packages/agents/executivos/budget-fluid/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 308,
@@ -62325,7 +62685,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/capitalallocator/agent.ts",
+        "file": "packages/agents/executivos/capital-allocator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 308,
@@ -62334,7 +62694,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/churndeflector/agent.ts",
+        "file": "packages/agents/executivos/churn-deflector/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 310,
@@ -62343,7 +62703,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/competitorxray/agent.ts",
+        "file": "packages/agents/executivos/competitor-xray/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 308,
@@ -62352,7 +62712,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "file": "packages/agents/executivos/crisis-navigator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 308,
@@ -62361,7 +62721,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/culturepulse/agent.ts",
+        "file": "packages/agents/executivos/culture-pulse/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 310,
@@ -62370,7 +62730,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/expansionmapper/agent.ts",
+        "file": "packages/agents/executivos/expansion-mapper/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 310,
@@ -62379,7 +62739,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/marketsentinel/agent.ts",
+        "file": "packages/agents/executivos/market-sentinel/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 310,
@@ -62388,7 +62748,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "file": "packages/agents/executivos/narrative-weaver/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 314,
@@ -62397,7 +62757,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "file": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 311,
@@ -62406,7 +62766,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 308,
@@ -62415,7 +62775,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "file": "packages/agents/executivos/quota-architect/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 311,
@@ -62424,7 +62784,7 @@
         "complexity": 21
       },
       {
-        "file": "packages/agents/executivos/trendcatcher/agent.ts",
+        "file": "packages/agents/executivos/trend-catcher/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
         "line": 310,
@@ -64773,6 +65133,7 @@
       "serviceCatalog": true,
       "releaseRunbook": true,
       "adrFiles": [
+        ".github/ISSUE_TEMPLATE/ADR_TEMPLATE.md",
         "audit/files_analysis/docs/ADR-011-RBAC-Strategy.md.md",
         "audit/files_analysis/docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md.md",
         "audit/files_analysis/docs/adrs/003-observability-strategy.md.md",
@@ -64812,6 +65173,7 @@
         "audit/files_analysis/docs/templates/adr-template.md.md",
         "docs/ADR-011-RBAC-Strategy.md",
         "docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md",
+        "docs/adrs/0001-initial-architecture.md",
         "docs/adrs/003-observability-strategy.md",
         "docs/adrs/004-configuration-strategy.md",
         "docs/adrs/005-migrations-strategy.md",
@@ -64846,6 +65208,7 @@
         "docs/adrs/ADR-035-f3-hotspot-modularization.md",
         "docs/adrs/ADR_TEMPLATE.md",
         "docs/adrs/INDEX.md",
+        "docs/adrs/index.md",
         "docs/billing/orcamentos_padrao_planos.md",
         "docs/templates/adr-template.md"
       ],
@@ -64927,8 +65290,43 @@
     }
   },
   "git": {
-    "totalCommits": 1100,
+    "totalCommits": 1113,
     "last30Days": [
+      {
+        "sha": "10bed44c28904583b7f5705500fc33138ad49411",
+        "date": "2026-04-05",
+        "subject": "q2"
+      },
+      {
+        "sha": "b0156959a9f09d4a9576a512344948eeb5eba2b3",
+        "date": "2026-04-05",
+        "subject": "1"
+      },
+      {
+        "sha": "b05ed16da8faf583e1fd627daf8e5d94ca396052",
+        "date": "2026-04-05",
+        "subject": "Merge remote-tracking branch 'origin/copilot/fix-ci-failing-checks'"
+      },
+      {
+        "sha": "b86a9e5b57732bad853dacb85258ba87fe7ff153",
+        "date": "2026-04-05",
+        "subject": "1"
+      },
+      {
+        "sha": "220dd5cf2f4c1fff1ef5548ba3f78d39be3cc687",
+        "date": "2026-04-05",
+        "subject": "Merge remote-tracking branch 'origin/jules-rollback-evidence-11280991384400769238'"
+      },
+      {
+        "sha": "3d8a9de838cffd47ee36adc2f247cfcc5887baec",
+        "date": "2026-04-05",
+        "subject": "Merge remote-tracking branch 'origin/fix-production-cd-pipeline-gates-13306548828248575664'"
+      },
+      {
+        "sha": "fb7b699cdecec1cb40ad0fd217d5f9142677b58b",
+        "date": "2026-04-05",
+        "subject": "1"
+      },
       {
         "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
         "date": "2026-04-05",
@@ -67582,9 +67980,24 @@
     ],
     "deploymentFrequencyProxy": {
       "windowDays": 30,
-      "mergeCommits": 246,
+      "mergeCommits": 249,
       "activeDays": 21,
       "placeholderMessages": [
+        {
+          "sha": "b0156959a9f09d4a9576a512344948eeb5eba2b3",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "b86a9e5b57732bad853dacb85258ba87fe7ff153",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "fb7b699cdecec1cb40ad0fd217d5f9142677b58b",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
           "date": "2026-04-05",
@@ -67692,21 +68105,6 @@
         },
         {
           "sha": "fa168c803900e22449eb561e05cd50bd684639c0",
-          "date": "2026-03-29",
-          "subject": "1"
-        },
-        {
-          "sha": "55c52f1a6c8e3c071da4768fe5876ef21fae623e",
-          "date": "2026-03-29",
-          "subject": "1"
-        },
-        {
-          "sha": "f22022fcadd0b8cb4f003792d15e47b7099ef2af",
-          "date": "2026-03-29",
-          "subject": "1"
-        },
-        {
-          "sha": "7430447d82717b7bde123bf1e2a520bfb665f533",
           "date": "2026-03-29",
           "subject": "1"
         }
@@ -67915,294 +68313,294 @@
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 513,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 515,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 517,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 513,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 515,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 517,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 513,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 515,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 517,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 513,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 515,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 517,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
-        "line": 515,
-        "text": "console.error(payload);",
-        "summary": "Uso de console.* em superfície de runtime."
-      },
-      {
-        "id": "console-runtime",
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
-        "line": 517,
-        "text": "console.warn(payload);",
-        "summary": "Uso de console.* em superfície de runtime."
-      },
-      {
-        "id": "console-runtime",
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
-        "line": 519,
-        "text": "console.log(payload);",
-        "summary": "Uso de console.* em superfície de runtime."
-      },
-      {
-        "id": "console-runtime",
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
+        "line": 515,
+        "text": "console.error(payload);",
+        "summary": "Uso de console.* em superfície de runtime."
+      },
+      {
+        "id": "console-runtime",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
+        "line": 517,
+        "text": "console.warn(payload);",
+        "summary": "Uso de console.* em superfície de runtime."
+      },
+      {
+        "id": "console-runtime",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
+        "line": 519,
+        "text": "console.log(payload);",
+        "summary": "Uso de console.* em superfície de runtime."
+      },
+      {
+        "id": "console-runtime",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 523,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 525,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 527,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 516,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 518,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 520,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 513,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 515,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 517,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 516,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 518,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 520,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
@@ -68337,8 +68735,15 @@
       },
       {
         "id": "direct-env",
+        "path": "apps/dashboard/lib/dashboard-data.ts",
+        "line": 6,
+        "text": "return process.env.API_URL?.trim() || \"http://localhost:3000\";",
+        "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
+      },
+      {
+        "id": "direct-env",
         "path": "apps/legacy/dashboard/proxy.ts",
-        "line": 7,
+        "line": 10,
         "text": "return process.env.API_URL?.trim() || \"http://localhost:3000\";",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
@@ -68365,13 +68770,6 @@
       },
       {
         "id": "direct-env",
-        "path": "apps/web/lib/auth-client.ts",
-        "line": 17,
-        "text": "const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;",
-        "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
-      },
-      {
-        "id": "direct-env",
         "path": "apps/web/providers/AnalyticsProvider.tsx",
         "line": 186,
         "text": "const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;",
@@ -68387,21 +68785,21 @@
       {
         "id": "direct-env",
         "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
-        "line": 52,
+        "line": 55,
         "text": "const executionId = process.env.RUNTIME_TEST_EXECUTION_ID;",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
       {
         "id": "direct-env",
         "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
-        "line": 54,
+        "line": 57,
         "text": "const organizationId = process.env.RUNTIME_TEST_ORGANIZATION_ID;",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
       {
         "id": "direct-env",
         "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
-        "line": 56,
+        "line": 59,
         "text": "const userId = process.env.RUNTIME_TEST_USER_ID;",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
@@ -68719,28 +69117,8 @@
     "rawQueryUnsafeOccurrences": [],
     "networkWithoutTimeout": [
       {
-        "path": "apps/legacy/dashboard/proxy.ts",
+        "path": "apps/dashboard/lib/dashboard-data.ts",
         "line": 11,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/packs/page.tsx",
-        "line": 35,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-        "line": 279,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "line": 99,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      },
-      {
-        "path": "apps/web/app/api/auth/[...session]/route.ts",
-        "line": 9,
         "summary": "Operação externa sem timeout explícito no arquivo."
       },
       {
@@ -68779,11 +69157,6 @@
         "summary": "Operação externa sem timeout explícito no arquivo."
       },
       {
-        "path": "apps/web/lib/auth-client.ts",
-        "line": 85,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      },
-      {
         "path": "apps/web/lib/marketplace-api.server.ts",
         "line": 47,
         "summary": "Operação externa sem timeout explícito no arquivo."
@@ -68815,7 +69188,7 @@
       },
       {
         "path": "apps/worker/src/worker.ts",
-        "line": 112,
+        "line": 124,
         "summary": "Operação externa sem timeout explícito no arquivo."
       },
       {
@@ -69073,6 +69446,11 @@
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts",
+        "line": 70,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
         "path": "apps/worker/src/engine/runner.db-integration.harness.ts",
         "line": 63,
         "summary": "Await detectado em loop síncrono/iterativo."
@@ -69158,78 +69536,88 @@
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 835,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 836,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 836,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 835,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 835,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 835,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 835,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 834,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
         "line": 834,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 850,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 844,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 835,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 844,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 834,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "packages/database/prisma/seed.ts",
-        "line": 20,
+        "line": 180,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "packages/database/prisma/seed.ts",
+        "line": 307,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "packages/database/prisma/seed.ts",
+        "line": 880,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
@@ -69503,15 +69891,15 @@
       },
       {
         "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-        "line": 6,
+        "line": 8,
         "count": 64,
         "summary": "64 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
         "line": 1,
-        "count": 68,
-        "summary": "68 linhas com strings textuais embutidas na UI."
+        "count": 54,
+        "summary": "54 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/admin/analytics/page.tsx",
@@ -69869,14 +70257,6 @@
         "complexity": 38
       },
       {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "line": 84,
-        "endLine": 388,
-        "functionName": "WorkflowRunsPage",
-        "length": 305,
-        "complexity": 35
-      },
-      {
         "path": "packages/workflows-core/src/nodes/executeStep.ts",
         "line": 31,
         "endLine": 156,
@@ -69893,7 +70273,15 @@
         "complexity": 33
       },
       {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+        "line": 17,
+        "endLine": 295,
+        "functionName": "WorkflowRunsPage",
+        "length": 279,
+        "complexity": 33
+      },
+      {
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 489,
         "endLine": 825,
         "functionName": "run",
@@ -69901,7 +70289,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 489,
         "endLine": 825,
         "functionName": "run",
@@ -69909,7 +70297,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 487,
         "endLine": 825,
         "functionName": "run",
@@ -69917,7 +70305,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 487,
         "endLine": 825,
         "functionName": "run",
@@ -69925,7 +70313,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 489,
         "endLine": 825,
         "functionName": "run",
@@ -69933,7 +70321,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 489,
         "endLine": 824,
         "functionName": "run",
@@ -69941,7 +70329,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
         "line": 489,
         "endLine": 824,
         "functionName": "run",
@@ -69949,7 +70337,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 497,
         "endLine": 840,
         "functionName": "run",
@@ -69957,7 +70345,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 490,
         "endLine": 834,
         "functionName": "run",
@@ -69965,7 +70353,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 487,
         "endLine": 825,
         "functionName": "run",
@@ -69973,7 +70361,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 490,
         "endLine": 834,
         "functionName": "run",
@@ -69981,7 +70369,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 489,
         "endLine": 824,
         "functionName": "run",
@@ -69989,7 +70377,7 @@
         "complexity": 31
       },
       {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 205,
         "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
@@ -69997,7 +70385,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 203,
         "endLine": 306,
         "functionName": "parseContractOverridesFromObject",
@@ -70005,7 +70393,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 487,
         "endLine": 826,
         "functionName": "run",
@@ -70013,7 +70401,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 203,
         "endLine": 306,
         "functionName": "parseContractOverridesFromObject",
@@ -70021,7 +70409,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 487,
         "endLine": 826,
         "functionName": "run",
@@ -70029,7 +70417,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 205,
         "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
@@ -70037,7 +70425,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 203,
         "endLine": 306,
         "functionName": "parseContractOverridesFromObject",
@@ -70045,7 +70433,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 203,
         "endLine": 306,
         "functionName": "parseContractOverridesFromObject",
@@ -70053,7 +70441,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 205,
         "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
@@ -70061,7 +70449,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 205,
         "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
@@ -70069,7 +70457,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
         "line": 205,
         "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
@@ -70077,7 +70465,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 205,
         "endLine": 312,
         "functionName": "parseContractOverridesFromObject",
@@ -70085,7 +70473,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 206,
         "endLine": 309,
         "functionName": "parseContractOverridesFromObject",
@@ -70093,7 +70481,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 203,
         "endLine": 306,
         "functionName": "parseContractOverridesFromObject",
@@ -70101,7 +70489,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 206,
         "endLine": 309,
         "functionName": "parseContractOverridesFromObject",
@@ -70109,7 +70497,7 @@
         "complexity": 30
       },
       {
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 205,
         "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
@@ -70157,7 +70545,7 @@
         "complexity": 22
       },
       {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 310,
         "endLine": 408,
         "functionName": "parseContractOverrides",
@@ -70165,7 +70553,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 308,
         "endLine": 406,
         "functionName": "parseContractOverrides",
@@ -70173,7 +70561,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 308,
         "endLine": 406,
         "functionName": "parseContractOverrides",
@@ -70181,7 +70569,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 310,
         "endLine": 408,
         "functionName": "parseContractOverrides",
@@ -70189,7 +70577,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 308,
         "endLine": 406,
         "functionName": "parseContractOverrides",
@@ -70197,7 +70585,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 308,
         "endLine": 406,
         "functionName": "parseContractOverrides",
@@ -70205,7 +70593,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 310,
         "endLine": 408,
         "functionName": "parseContractOverrides",
@@ -70213,7 +70601,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 310,
         "endLine": 408,
         "functionName": "parseContractOverrides",
@@ -70221,7 +70609,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
         "line": 310,
         "endLine": 408,
         "functionName": "parseContractOverrides",
@@ -70229,7 +70617,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 314,
         "endLine": 416,
         "functionName": "parseContractOverrides",
@@ -70237,7 +70625,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 311,
         "endLine": 409,
         "functionName": "parseContractOverrides",
@@ -70245,7 +70633,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 308,
         "endLine": 406,
         "functionName": "parseContractOverrides",
@@ -70253,7 +70641,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 311,
         "endLine": 409,
         "functionName": "parseContractOverrides",
@@ -70261,7 +70649,7 @@
         "complexity": 21
       },
       {
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 310,
         "endLine": 408,
         "functionName": "parseContractOverrides",
@@ -70461,72 +70849,77 @@
         "lines": 1265
       },
       {
-        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "path": "packages/database/prisma/seed.ts",
+        "line": 1,
+        "lines": 897
+      },
+      {
+        "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 1,
         "lines": 878
       },
       {
-        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
         "line": 1,
         "lines": 872
       },
       {
-        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "path": "packages/agents/executivos/quota-architect/agent.ts",
         "line": 1,
         "lines": 872
       },
       {
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 1,
         "lines": 864
       },
       {
-        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 1,
         "lines": 864
       },
       {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 1,
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "path": "packages/agents/executivos/churn-deflector/agent.ts",
         "line": 1,
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
         "line": 1,
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
         "line": 1,
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "path": "packages/agents/executivos/culture-pulse/agent.ts",
         "line": 1,
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 1,
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "path": "packages/agents/executivos/expansion-mapper/agent.ts",
         "line": 1,
         "lines": 862
       },
       {
-        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "path": "packages/agents/executivos/market-sentinel/agent.ts",
         "line": 1,
         "lines": 862
       },
       {
-        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "path": "packages/agents/executivos/trend-catcher/agent.ts",
         "line": 1,
         "lines": 862
       },
@@ -70596,14 +70989,14 @@
         "lines": 421
       },
       {
+        "path": "apps/worker/src/worker.ts",
+        "line": 1,
+        "lines": 419
+      },
+      {
         "path": "packages/agents-core/src/runtime/manifestRuntime.ts",
         "line": 1,
         "lines": 410
-      },
-      {
-        "path": "apps/worker/src/worker.ts",
-        "line": 1,
-        "lines": 407
       },
       {
         "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
@@ -70614,11 +71007,6 @@
         "path": "packages/queue/src/index.ts",
         "line": 1,
         "lines": 391
-      },
-      {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "line": 1,
-        "lines": 389
       },
       {
         "path": "apps/api/src/middleware/rate-limit.ts",
@@ -70686,6 +71074,11 @@
         "lines": 340
       },
       {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
+        "line": 1,
+        "lines": 335
+      },
+      {
         "path": "apps/api/src/modules/connectors/service.shared.ts",
         "line": 1,
         "lines": 333
@@ -70704,11 +71097,6 @@
         "path": "apps/api/src/modules/agents/service.ts",
         "line": 1,
         "lines": 324
-      },
-      {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-        "line": 1,
-        "lines": 323
       },
       {
         "path": "apps/web/components/layout/Navbar.tsx",
@@ -70734,14 +71122,6 @@
     "importCycles": [],
     "coverageGaps": [
       {
-        "path": "apps/web/app/admin/dashboard/page.tsx",
-        "relatedTests": []
-      },
-      {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "relatedTests": []
-      },
-      {
         "path": "apps/api/src/middleware/rate-limit.ts",
         "relatedTests": []
       },
@@ -70759,10 +71139,6 @@
       },
       {
         "path": "packages/database/src/repositories/engagement.ts",
-        "relatedTests": []
-      },
-      {
-        "path": "apps/web/app/(dashboard)/profile/notifications/page.tsx",
         "relatedTests": []
       },
       {
@@ -70810,16 +71186,16 @@
   "evidenceArtifacts": {
     "environmentParity": {
       "path": "docs/operations/environment-parity.md",
-      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-05T21:03:05.452Z\n- Source of truth: `auditor-prime-2026-04-05` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
+      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-05T21:31:23.391Z\n- Source of truth: `auditor-prime-2026-04-05` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
     },
     "sla": {
       "path": "docs/operations/sla.md",
-      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-05T21:03:05.471Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
+      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-05T21:31:23.422Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
     },
     "semgrep": {
       "path": "artifacts/security/semgrep-head.json",
       "data": {
-        "checkedAt": "2026-04-05T21:03:25.609Z",
+        "checkedAt": "2026-04-05T21:31:53.047Z",
         "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
         "exitCode": 0,
         "status": "fresh",
@@ -70849,7 +71225,7 @@
         ],
         "summary": {
           "findings": 16,
-          "errors": 0,
+          "errors": 5,
           "severities": {
             "ERROR": 0,
             "WARNING": 6,
@@ -71713,14 +72089,256 @@
             }
           }
         ],
-        "errors": [],
+        "errors": [
+          {
+            "code": 3,
+            "level": "warn",
+            "type": "Syntax error",
+            "message": "Syntax error at line apps\\api\\src\\app.ts:1:\n `import type { ApiConfig } from \"@birthub/config\";\nimport { getApiConfig } from \"@birthub/config\";\nimport express from \"express\";\nimport type { Express } from \"express\";\n\nimport {\n  createDeepHealthService,\n  createHealthService,\n  createReadinessHealthService\n} from \"./lib/health.js\";\nimport { enqueueTask } from \"./lib/queue.js\";\nimport {\n  configureAppInfrastructure,\n  registerGlobalErrorHandling,\n  registerOperationalRoutes\n} from \"./app/core.js\";\nimport { registerAuthAndCoreRoutes } from \"./app/auth-and-core-routes.js\";\nimport { mountModuleRouters } from \"./app/module-routes.js\";\n\nexport interface AppDependencies {\n  config?: ApiConfig;\n  deepHealthService?: ReturnType<typeof createDeepHealthService>;\n  enqueueTask?: typeof enqueueTask;\n  healthService?: ReturnType<typeof createHealthService>;\n  readinessService?: ReturnType<typeof createReadinessHealthService>;\n  shouldExposeDocs?: boolean;\n}\n\nexport function createApp(dependencies: AppDependencies = {}): Express {\n  const config = dependencies.config ?? getApiConfig();\n  const shouldExposeDocs = dependencies.shouldExposeDocs ?? config.NODE_ENV !== \"production\";\n  const app = express();\n\n<<<<<<< HEAD\n  configureAppInfrastructure(app, config);\n  registerOperationalRoutes(app, config, {\n    ...(dependencies.deepHealthService ? { deepHealthService: dependencies.deepHealthService } : {}),\n    ...(dependencies.healthService ? { healthService: dependencies.healthService } : {}),\n    ...(dependencies.readinessService ? { readinessService: dependencies.readinessService } : {}),\n    shouldExposeDocs\n=======\n  configureCacheStore(config.REDIS_URL, config.NODE_ENV);\n  if (config.NODE_ENV !== \"test\") {\n    registerTenantCacheInvalidationMiddleware();\n  }\n  initializeWorkflowInternalEventBridge(config);\n\n  app.disable(\"x-powered-by\");\n  app.use(requestContextMiddleware);\n  app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));\n  app.use(tenantContextMiddleware);\n  app.use(\n    helmet({\n      contentSecurityPolicy: false\n    })\n  );\n  app.use(\n    cors({\n... (truncated 1376 more characters)",
+            "path": "apps\\api\\src\\app.ts"
+          },
+          {
+            "code": 3,
+            "level": "warn",
+            "type": [
+              "PartialParsing",
+              [
+                {
+                  "path": "apps\\worker\\src\\agents\\runtime.db-integration.harness.ts",
+                  "start": {
+                    "line": 1,
+                    "col": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 167,
+                    "col": 3,
+                    "offset": 4666
+                  }
+                }
+              ]
+            ],
+            "message": "Syntax error at line apps\\worker\\src\\agents\\runtime.db-integration.harness.ts:1:\n `<<<<<<< HEAD\n/* eslint-disable */\n=======\n>>>>>>> origin/jules-f8-database-integrity-16939282469267761297\nimport { executeManifestAgentRuntime } from \"./runtime.js\";\nimport { Prisma, prisma } from \"@birthub/database\";\nimport { outputService } from \"../../../api/src/modules/outputs/output.service.js\";\nimport { agentMetricsService } from \"../../../api/src/modules/agents/metrics.service.js\";\nimport { createLogger } from \"@birthub/logger\";\n\nconst logger = createLogger(\"worker-runtime\");\n\nclass InMemoryRedis {\n  private readonly data = new Map<string, { expiresAt?: number; value: string }>();\n\n  async get(key: string): Promise<string | null> {\n    const current = this.data.get(key);\n    if (!current) {\n      return null;\n    }\n\n    if (current.expiresAt !== undefined && current.expiresAt <= Date.now()) {\n      this.data.delete(key);\n      return null;\n    }\n\n    return current.value;\n  }\n\n  async set(key: string, value: string, ...args: Array<string | number>): Promise<\"OK\" | null> {\n    const options = args.map((arg) => String(arg).toUpperCase());\n    const hasNx = options.includes(\"NX\");\n    const exIndex = options.indexOf(\"EX\");\n    const expiresAt =\n      exIndex >= 0 && args[exIndex + 1] ? Date.now() + Number(args[exIndex + 1]) * 1000 : undefined;\n\n    if (hasNx && this.data.has(key)) {\n      return null;\n    }\n\n    this.data.set(key, {\n      ...(expiresAt !== undefined ? { expiresAt } : {}),\n      value\n    });\n\n    return \"OK\";\n  }\n\n  async del(key: string): Promise<number> {\n    return this.data.delete(key) ? 1 : 0;\n  }\n}\n\nasync function main(): Promise<void> {\n  const executionId = process.env.RUNTIME_TEST_EXECUTION_ID;\n  const agentId = process.env.RUNTIME_TEST_AGENT_ID;\n  const organizationId = process.env.RUNTIME_TEST_ORGANIZATION_ID;\n  const tenantId = process.env.RUNTIME_TEST_TENANT_ID;\n  const userId = process.env.RUNTIME_TEST_USER_ID;\n\n  if (!executionId || !agentId || !organizationId || !tenantId || !userId) {\n    throw new Error(\"Runtime integration harness is missing required env vars.\");\n  }\n\n  co... (truncated 2635 more characters)",
+            "path": "apps\\worker\\src\\agents\\runtime.db-integration.harness.ts",
+            "spans": [
+              {
+                "file": "apps\\worker\\src\\agents\\runtime.db-integration.harness.ts",
+                "start": {
+                  "line": 1,
+                  "col": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 167,
+                  "col": 3,
+                  "offset": 4666
+                }
+              }
+            ]
+          },
+          {
+            "code": 3,
+            "level": "warn",
+            "type": [
+              "PartialParsing",
+              [
+                {
+                  "path": "apps\\worker\\src\\agents\\runtime.ts",
+                  "start": {
+                    "line": 1,
+                    "col": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 3,
+                    "col": 37,
+                    "offset": 57
+                  }
+                },
+                {
+                  "path": "apps\\worker\\src\\agents\\runtime.ts",
+                  "start": {
+                    "line": 7,
+                    "col": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 7,
+                    "col": 8,
+                    "offset": 7
+                  }
+                }
+              ]
+            ],
+            "message": "Syntax error at line apps\\worker\\src\\agents\\runtime.ts:1:\n `<<<<<<< HEAD\n=======\nimport { existsSync } from \"node:fs\"` was unexpected",
+            "path": "apps\\worker\\src\\agents\\runtime.ts",
+            "spans": [
+              {
+                "file": "apps\\worker\\src\\agents\\runtime.ts",
+                "start": {
+                  "line": 1,
+                  "col": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 3,
+                  "col": 37,
+                  "offset": 57
+                }
+              },
+              {
+                "file": "apps\\worker\\src\\agents\\runtime.ts",
+                "start": {
+                  "line": 7,
+                  "col": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 7,
+                  "col": 8,
+                  "offset": 7
+                }
+              }
+            ]
+          },
+          {
+            "code": 3,
+            "level": "warn",
+            "type": [
+              "PartialParsing",
+              [
+                {
+                  "path": "apps\\worker\\src\\worker.ts",
+                  "start": {
+                    "line": 1,
+                    "col": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 5,
+                    "col": 65,
+                    "offset": 157
+                  }
+                },
+                {
+                  "path": "apps\\worker\\src\\worker.ts",
+                  "start": {
+                    "line": 14,
+                    "col": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 14,
+                    "col": 8,
+                    "offset": 7
+                  }
+                }
+              ]
+            ],
+            "message": "Syntax error at line apps\\worker\\src\\worker.ts:1:\n `<<<<<<< HEAD\n/* eslint-disable */\nimport { getWorkerConfig } from \"@birthub/config\";\n=======\nimport { getWorkerConfig, taskJobSchema } from \"@birthub/config\"` was unexpected",
+            "path": "apps\\worker\\src\\worker.ts",
+            "spans": [
+              {
+                "file": "apps\\worker\\src\\worker.ts",
+                "start": {
+                  "line": 1,
+                  "col": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 5,
+                  "col": 65,
+                  "offset": 157
+                }
+              },
+              {
+                "file": "apps\\worker\\src\\worker.ts",
+                "start": {
+                  "line": 14,
+                  "col": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 14,
+                  "col": 8,
+                  "offset": 7
+                }
+              }
+            ]
+          },
+          {
+            "code": 3,
+            "level": "warn",
+            "type": [
+              "PartialParsing",
+              [
+                {
+                  "path": "packages\\database\\prisma\\seed.ts",
+                  "start": {
+                    "line": 14,
+                    "col": 1,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 29,
+                    "col": 2,
+                    "offset": 335
+                  }
+                },
+                {
+                  "path": "packages\\database\\prisma\\seed.ts",
+                  "start": {
+                    "line": 874,
+                    "col": 4,
+                    "offset": 0
+                  },
+                  "end": {
+                    "line": 874,
+                    "col": 8,
+                    "offset": 4
+                  }
+                }
+              ]
+            ],
+            "message": "Syntax error at line packages\\database\\prisma\\seed.ts:14:\n `<<<<<<< HEAD\nconst logger = createLogger(\"db-seed\");\n=======\nconst prisma = new PrismaClient();\n\ntype PlanSeed = {\n  code: string;\n  currency: string;\n  description: string;\n  limits: Record<string, unknown>;\n  monthlyPriceCents: number;\n  name: string;\n  stripePriceId: string;\n  stripeProductId: string;\n  yearlyPriceCents: number;\n}` was unexpected",
+            "path": "packages\\database\\prisma\\seed.ts",
+            "spans": [
+              {
+                "file": "packages\\database\\prisma\\seed.ts",
+                "start": {
+                  "line": 14,
+                  "col": 1,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 29,
+                  "col": 2,
+                  "offset": 335
+                }
+              },
+              {
+                "file": "packages\\database\\prisma\\seed.ts",
+                "start": {
+                  "line": 874,
+                  "col": 4,
+                  "offset": 0
+                },
+                "end": {
+                  "line": 874,
+                  "col": 8,
+                  "offset": 4
+                }
+              }
+            ]
+          }
+        ],
         "stderr": ""
       }
     },
     "moduleCoverage": {
       "path": "artifacts/testing/module-coverage.json",
       "data": {
-        "checkedAt": "2026-04-05T21:03:25.620Z",
+        "checkedAt": "2026-04-05T21:31:53.063Z",
         "mode": "static-coverage-proxy",
         "sufficient": false,
         "limitations": [
@@ -71756,6 +72374,7 @@
               "apps/api/tests/billing.webhook-delegation.test.ts",
               "apps/api/tests/billing.webhook.test.ts",
               "apps/api/tests/cache-store.test.ts",
+              "apps/api/tests/connectors-router.test.ts",
               "apps/api/tests/core-business-routes.test.ts",
               "apps/api/tests/external-url.test.ts",
               "apps/api/tests/health.smoke.test.ts",
@@ -71769,7 +72388,6 @@
               "apps/api/tests/tenant-auth-hardening.test.ts",
               "apps/api/tests/test-config.ts",
               "apps/api/tests/webhooks.security.test.ts",
-              "apps/api/tests/connectors-router.test.ts",
               "tests/e2e/critical-routes.spec.ts"
             ],
             "gaps": [
@@ -71782,30 +72400,21 @@
           },
           {
             "module": "apps/web",
-            "runtimeFiles": 75,
-            "directTestFiles": 6,
+            "runtimeFiles": 76,
+            "directTestFiles": 8,
             "traceabilityFlows": 2,
             "directTests": [
               "apps/web/tests/auth-session-route.test.ts",
               "apps/web/tests/bff-allowlist.test.ts",
               "apps/web/tests/health.required-dependency.test.ts",
               "apps/web/tests/login.smoke.test.ts",
+              "apps/web/tests/auth-client.test.ts",
+              "apps/web/tests/workflow-runs-page.test.ts",
               "tests/e2e/critical-routes.spec.ts",
               "tests/e2e/billing-premium.spec.ts"
             ],
             "gaps": [
-              "apps/web/app/(dashboard)/agents/[id]/page.tsx",
-              "apps/web/app/(dashboard)/agents/[id]/policies/page.tsx",
-              "apps/web/app/(dashboard)/agents/[id]/run/page.tsx",
-              "apps/web/app/(dashboard)/agents/page.tsx",
-              "apps/web/app/(dashboard)/billing/budgets/page.tsx",
-              "apps/web/app/(dashboard)/billing/page.tsx",
-              "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
-              "apps/web/app/(dashboard)/layout.tsx",
-              "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
-              "apps/web/app/(dashboard)/marketplace/page.tsx",
-              "apps/web/app/(dashboard)/outputs/page.tsx",
-              "apps/web/app/(dashboard)/packs/page.tsx"
+              "apps/web/app/(dashboard)/layout.tsx"
             ]
           },
           {
@@ -71858,14 +72467,14 @@
             "directTests": [
               "packages/database/test/base.repo.test.ts",
               "packages/database/test/client.test.ts",
-              "packages/database/test/database-availability.ts",
-              "packages/database/test/migration.test.ts",
-              "packages/database/test/query-budget.test.ts",
-              "packages/database/test/rls.test.ts",
               "packages/database/test/cross-tenant-access.error.test.ts",
+              "packages/database/test/database-availability.ts",
               "packages/database/test/exceeded-quota.error.test.ts",
               "packages/database/test/index.test.ts",
+              "packages/database/test/migration.test.ts",
               "packages/database/test/prisma-query-timeout.error.test.ts",
+              "packages/database/test/query-budget.test.ts",
+              "packages/database/test/rls.test.ts",
               "packages/database/test/tenant-required.error.test.ts"
             ],
             "gaps": [
@@ -71880,14 +72489,14 @@
     "bundleBaseline": {
       "path": "artifacts/performance/web-bundle-head.json",
       "data": {
-        "checkedAt": "2026-04-05T21:03:25.688Z",
+        "checkedAt": "2026-04-05T21:31:53.142Z",
         "status": "fresh",
         "sufficient": true,
         "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
         "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
         "stderr": "",
         "baseline": {
-          "generatedAt": "2026-04-05T21:03:25.675Z",
+          "generatedAt": "2026-04-05T21:31:53.129Z",
           "nextBuildDir": "apps/web/.next",
           "chunks": {
             "files": 44,
@@ -71949,7 +72558,7 @@
     "accessibility": {
       "path": "artifacts/accessibility/axe-report.json",
       "data": {
-        "checkedAt": "2026-04-05T21:03:28.567Z",
+        "checkedAt": "2026-04-05T21:31:57.039Z",
         "mode": "browser-dom-smoke",
         "requestedTool": "playwright",
         "sufficient": true,
@@ -72004,7 +72613,7 @@
     "disasterRecovery": {
       "path": "artifacts/dr/latest-drill.json",
       "data": {
-        "checkedAt": "2026-04-05T21:03:28.568Z",
+        "checkedAt": "2026-04-05T21:31:57.040Z",
         "status": "missing-drill-record",
         "sufficient": false,
         "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
@@ -72021,10 +72630,10 @@
     "rlsProof": {
       "path": "artifacts/tenancy/rls-proof-head.json",
       "data": {
-        "checkedAt": "2026-04-05T21:03:30.083Z",
+        "checkedAt": "2026-04-05T21:31:58.766Z",
         "adminDatabaseUrlConfigured": true,
         "roleProvisioning": {
-          "checkedAt": "2026-04-05T21:03:29.486Z",
+          "checkedAt": "2026-04-05T21:31:58.078Z",
           "command": "node --import tsx packages/database/scripts/provision-rls-runtime-role.ts",
           "databaseName": "birthub_cycle1",
           "exitCode": 0,
@@ -72044,13 +72653,13 @@
         "tenancyControl": {
           "command": "node --import tsx packages/database/scripts/check-tenancy-controls.ts",
           "exitCode": 0,
-          "stdout": "[2026-04-05 18:03:28.882 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
+          "stdout": "[2026-04-05 18:31:57.376 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
           "stderr": ""
         },
         "runtimeProof": {
           "command": "node --import tsx --test packages/database/test/rls.test.ts",
           "exitCode": 0,
-          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (103.9315ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 521.8167",
+          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (113.3011ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 593.6923",
           "stderr": "",
           "runtimeDatabaseUrlConfigured": true,
           "status": "passed"

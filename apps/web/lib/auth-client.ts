@@ -1,5 +1,8 @@
 import { getWebConfig } from "@birthub/config";
-import { fetchWithTimeout, type FetchWithTimeoutInit } from "@birthub/utils";
+import {
+  fetchWithTimeout,
+  type FetchWithTimeoutInit
+} from "../../../packages/utils/src/fetch";
 
 export interface StoredSession {
   accessToken?: string;

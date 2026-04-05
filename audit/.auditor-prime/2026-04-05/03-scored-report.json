@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T21:03:34.305Z",
+    "generatedAt": "2026-04-05T21:32:14.772Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
+    "headSha": "10bed44c28904583b7f5705500fc33138ad49411",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -25,15 +25,15 @@
     "topRisks": [
       {
         "id": "TD-029",
-        "title": "Superfície crítica sem teste relacionado por heurística de nome",
+        "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
-        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
-        "vdiScore": 3.65,
+        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+        "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+          "path": "apps/dashboard/lib/dashboard-data.ts",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 11,
+            "end": 11
           }
         }
       },
@@ -44,10 +44,10 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/legacy/dashboard/proxy.ts",
+          "path": "apps/web/app/api/bff/[...path]/route.ts",
           "lines": {
-            "start": 11,
-            "end": 11
+            "start": 28,
+            "end": 28
           }
         }
       },
@@ -58,10 +58,10 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/(dashboard)/packs/page.tsx",
+          "path": "apps/web/app/invites/accept/page.tsx",
           "lines": {
-            "start": 35,
-            "end": 35
+            "start": 31,
+            "end": 31
           }
         }
       },
@@ -72,10 +72,10 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
+          "path": "apps/web/app/pricing/page.tsx",
           "lines": {
-            "start": 279,
-            "end": 279
+            "start": 91,
+            "end": 91
           }
         }
       },
@@ -86,15 +86,15 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+          "path": "apps/web/components/agents/PolicyManager.tsx",
           "lines": {
-            "start": 99,
-            "end": 99
+            "start": 43,
+            "end": 43
           }
         }
       }
     ],
-    "costOfNonActionWeeksPerMonth": 8.7,
+    "costOfNonActionWeeksPerMonth": 8.6,
     "launchViability": {
       "status": "CONDICIONAL",
       "justification": "O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1."
@@ -143,48 +143,6 @@
     },
     {
       "dimension": "architecture",
-      "title": "Arquivo grande demais para o boundary atual (473 linhas)",
-      "location": {
-        "path": "apps/api/src/modules/billing/service.checkout.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/api/src/modules/billing/service.checkout.ts um arquivo com 473 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
-      "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
-      "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 3,
-        "reverseEffort": 4,
-        "frequency": 4
-      },
-      "vdiScore": 3.35,
-      "effort": "2-5 dias",
-      "severity": "ALTO",
-      "phase": "Fase 2",
-      "confidence": 0.88,
-      "evidenceRefs": [
-        {
-          "path": "apps/api/src/modules/billing/service.checkout.ts",
-          "line": 1,
-          "summary": "473 linhas no arquivo."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "refactor-core"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-002",
-      "dependencies": [
-        "TD-001"
-      ]
-    },
-    {
-      "dimension": "architecture",
       "title": "Complexidade acima do limiar em <anonymous>",
       "location": {
         "path": "apps/worker/src/worker.process-job.ts",
@@ -220,7 +178,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-003",
+      "id": "TD-002",
       "dependencies": [
         "TD-001"
       ]
@@ -262,7 +220,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-004",
+      "id": "TD-003",
       "dependencies": [
         "TD-001"
       ]
@@ -304,7 +262,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-005",
+      "id": "TD-004",
       "dependencies": [
         "TD-001"
       ]
@@ -346,7 +304,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-006",
+      "id": "TD-005",
       "dependencies": [
         "TD-001"
       ]
@@ -388,7 +346,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-007",
+      "id": "TD-006",
       "dependencies": [
         "TD-001"
       ]
@@ -399,11 +357,11 @@
       "location": {
         "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
         "lines": {
-          "start": 84,
-          "end": 388
+          "start": 17,
+          "end": 295
         }
       },
-      "problem": "Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:84 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).",
+      "problem": "Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).",
       "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
       "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
       "vdiFactors": {
@@ -420,8 +378,8 @@
       "evidenceRefs": [
         {
           "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-          "line": 84,
-          "summary": "Complexidade=35; extensão=305 linhas."
+          "line": 17,
+          "summary": "Complexidade=33; extensão=279 linhas."
         }
       ],
       "inference": false,
@@ -430,7 +388,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-008",
+      "id": "TD-007",
       "dependencies": [
         "TD-001"
       ]
@@ -472,7 +430,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-009",
+      "id": "TD-008",
       "dependencies": [
         "TD-001"
       ]
@@ -514,7 +472,7 @@
         "module-boundaries"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-010",
+      "id": "TD-009",
       "dependencies": []
     },
     {
@@ -554,7 +512,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-011",
+      "id": "TD-010",
       "dependencies": [
         "TD-001"
       ]
@@ -596,7 +554,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-012",
+      "id": "TD-011",
       "dependencies": [
         "TD-001"
       ]
@@ -630,6 +588,48 @@
           "path": "packages/database/prisma/migration-registry.json",
           "line": 1,
           "summary": "797 linhas no arquivo."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-012",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Arquivo grande demais para o boundary atual (897 linhas)",
+      "location": {
+        "path": "packages/database/prisma/seed.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em packages/database/prisma/seed.ts um arquivo com 897 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+      "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
+      "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 1,
+        "reverseEffort": 4,
+        "frequency": 4
+      },
+      "vdiScore": 2.75,
+      "effort": "2-5 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 2",
+      "confidence": 0.88,
+      "evidenceRefs": [
+        {
+          "path": "packages/database/prisma/seed.ts",
+          "line": 1,
+          "summary": "897 linhas no arquivo."
         }
       ],
       "inference": false,
@@ -853,11 +853,11 @@
       "location": {
         "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
         "lines": {
-          "start": 52,
-          "end": 52
+          "start": 55,
+          "end": 55
         }
       },
-      "problem": "Identificado em apps/worker/src/agents/runtime.db-integration.harness.ts:52 acesso direto a process.env em runtime fora de um boundary dedicado de config.",
+      "problem": "Identificado em apps/worker/src/agents/runtime.db-integration.harness.ts:55 acesso direto a process.env em runtime fora de um boundary dedicado de config.",
       "impact": "Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.",
       "recommendation": "Encapsular leituras em surface única de configuração com validação e defaults explícitos.",
       "vdiFactors": {
@@ -874,7 +874,7 @@
       "evidenceRefs": [
         {
           "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
-          "line": 52,
+          "line": 55,
           "summary": "3 leitura(s) direta(s) de env."
         }
       ],
@@ -1185,13 +1185,13 @@
       "dimension": "code_quality",
       "title": "Logging ad-hoc com console.* em runtime",
       "location": {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "lines": {
           "start": 515,
           "end": 515
         }
       },
-      "problem": "Identificado em packages/agents/executivos/brandguardian/agent.ts:515 uso de console.* em uma superfície de runtime do core.",
+      "problem": "Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 uso de console.* em uma superfície de runtime do core.",
       "impact": "Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.",
       "recommendation": "Migrar o módulo para o logger estruturado do workspace e eliminar saídas diretas via console.",
       "vdiFactors": {
@@ -1207,7 +1207,7 @@
       "confidence": 0.92,
       "evidenceRefs": [
         {
-          "path": "packages/agents/executivos/brandguardian/agent.ts",
+          "path": "packages/agents/executivos/brand-guardian/agent.ts",
           "line": 515,
           "summary": "3 ocorrência(s) de console.*."
         }
@@ -1227,13 +1227,13 @@
       "dimension": "code_quality",
       "title": "Logging ad-hoc com console.* em runtime",
       "location": {
-        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "lines": {
           "start": 513,
           "end": 513
         }
       },
-      "problem": "Identificado em packages/agents/executivos/budgetfluid/agent.ts:513 uso de console.* em uma superfície de runtime do core.",
+      "problem": "Identificado em packages/agents/executivos/budget-fluid/agent.ts:513 uso de console.* em uma superfície de runtime do core.",
       "impact": "Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.",
       "recommendation": "Migrar o módulo para o logger estruturado do workspace e eliminar saídas diretas via console.",
       "vdiFactors": {
@@ -1249,7 +1249,7 @@
       "confidence": 0.92,
       "evidenceRefs": [
         {
-          "path": "packages/agents/executivos/budgetfluid/agent.ts",
+          "path": "packages/agents/executivos/budget-fluid/agent.ts",
           "line": 513,
           "summary": "3 ocorrência(s) de console.*."
         }
@@ -1267,55 +1267,15 @@
     },
     {
       "dimension": "security",
-      "title": "Superfície crítica sem teste relacionado por heurística de nome",
-      "location": {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
-      "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
-      "recommendation": "Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 4,
-        "reverseEffort": 3,
-        "frequency": 3
-      },
-      "vdiScore": 3.65,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.64,
-      "evidenceRefs": [
-        {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-          "line": 1,
-          "summary": "Nenhum teste relacionado encontrado pela heurística de stem/module."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "security-tests"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-029",
-      "dependencies": []
-    },
-    {
-      "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/legacy/dashboard/proxy.ts",
+        "path": "apps/dashboard/lib/dashboard-data.ts",
         "lines": {
           "start": 11,
           "end": 11
         }
       },
-      "problem": "Indício em apps/legacy/dashboard/proxy.ts:11 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/dashboard/lib/dashboard-data.ts:11 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1331,7 +1291,7 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/legacy/dashboard/proxy.ts",
+          "path": "apps/dashboard/lib/dashboard-data.ts",
           "line": 11,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
@@ -1342,20 +1302,20 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-030",
+      "id": "TD-029",
       "dependencies": []
     },
     {
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/app/(dashboard)/packs/page.tsx",
+        "path": "apps/web/app/api/bff/[...path]/route.ts",
         "lines": {
-          "start": 35,
-          "end": 35
+          "start": 28,
+          "end": 28
         }
       },
-      "problem": "Indício em apps/web/app/(dashboard)/packs/page.tsx:35 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/app/api/bff/[...path]/route.ts:28 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1371,8 +1331,50 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/(dashboard)/packs/page.tsx",
-          "line": 35,
+          "path": "apps/web/app/api/bff/[...path]/route.ts",
+          "line": 28,
+          "summary": "Operação externa sem timeout explícito no arquivo."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "integration-guardrails"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-030",
+      "dependencies": [
+        "TD-029"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "Chamada externa sem timeout ou abort path explícito",
+      "location": {
+        "path": "apps/web/app/invites/accept/page.tsx",
+        "lines": {
+          "start": 31,
+          "end": 31
+        }
+      },
+      "problem": "Indício em apps/web/app/invites/accept/page.tsx:31 de acesso externo sem timeout explícito no arquivo.",
+      "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+      "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 3.6,
+      "effort": "0.5-2 dias",
+      "severity": "ALTO",
+      "phase": "Fase 1",
+      "confidence": 0.74,
+      "evidenceRefs": [
+        {
+          "path": "apps/web/app/invites/accept/page.tsx",
+          "line": 31,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1384,20 +1386,20 @@
       "dimensionLabel": "Dimensão 3 — Segurança",
       "id": "TD-031",
       "dependencies": [
-        "TD-030"
+        "TD-029"
       ]
     },
     {
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
+        "path": "apps/web/app/pricing/page.tsx",
         "lines": {
-          "start": 279,
-          "end": 279
+          "start": 91,
+          "end": 91
         }
       },
-      "problem": "Indício em apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/app/pricing/page.tsx:91 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1413,8 +1415,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-          "line": 279,
+          "path": "apps/web/app/pricing/page.tsx",
+          "line": 91,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1426,20 +1428,20 @@
       "dimensionLabel": "Dimensão 3 — Segurança",
       "id": "TD-032",
       "dependencies": [
-        "TD-030"
+        "TD-029"
       ]
     },
     {
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+        "path": "apps/web/components/agents/PolicyManager.tsx",
         "lines": {
-          "start": 99,
-          "end": 99
+          "start": 43,
+          "end": 43
         }
       },
-      "problem": "Indício em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/components/agents/PolicyManager.tsx:43 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1455,8 +1457,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-          "line": 99,
+          "path": "apps/web/components/agents/PolicyManager.tsx",
+          "line": 43,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1468,91 +1470,7 @@
       "dimensionLabel": "Dimensão 3 — Segurança",
       "id": "TD-033",
       "dependencies": [
-        "TD-030"
-      ]
-    },
-    {
-      "dimension": "security",
-      "title": "Chamada externa sem timeout ou abort path explícito",
-      "location": {
-        "path": "apps/web/app/api/auth/[...session]/route.ts",
-        "lines": {
-          "start": 9,
-          "end": 9
-        }
-      },
-      "problem": "Indício em apps/web/app/api/auth/[...session]/route.ts:9 de acesso externo sem timeout explícito no arquivo.",
-      "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
-      "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 4,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 3.6,
-      "effort": "0.5-2 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.74,
-      "evidenceRefs": [
-        {
-          "path": "apps/web/app/api/auth/[...session]/route.ts",
-          "line": 9,
-          "summary": "Operação externa sem timeout explícito no arquivo."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "integration-guardrails"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-034",
-      "dependencies": [
-        "TD-030"
-      ]
-    },
-    {
-      "dimension": "security",
-      "title": "Configuração sensível dispersa em módulo crítico",
-      "location": {
-        "path": "apps/web/lib/auth-client.ts",
-        "lines": {
-          "start": 17,
-          "end": 17
-        }
-      },
-      "problem": "Identificado em módulo crítico (apps/web/lib/auth-client.ts) acesso direto a process.env, reduzindo auditabilidade de segredos e políticas de fallback.",
-      "impact": "Módulos críticos com leitura dispersa de env facilitam drift entre ambientes e tornam segredos mais difíceis de governar.",
-      "recommendation": "Centralizar segredos/flags operacionais em config tipada e remover leitura direta no módulo de domínio.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 4,
-        "reverseEffort": 2,
-        "frequency": 3
-      },
-      "vdiScore": 3.45,
-      "effort": "0.5-2 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.86,
-      "evidenceRefs": [
-        {
-          "path": "apps/web/lib/auth-client.ts",
-          "line": 17,
-          "summary": "1 leitura(s) direta(s) de env em módulo crítico."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "foundation-config"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-035",
-      "dependencies": [
-        "TD-016"
+        "TD-029"
       ]
     },
     {
@@ -1598,10 +1516,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-036",
+      "id": "TD-034",
       "dependencies": [
-        "TD-029",
-        "TD-030"
+        "TD-029"
       ]
     },
     {
@@ -1647,10 +1564,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-037",
+      "id": "TD-035",
       "dependencies": [
-        "TD-029",
-        "TD-030"
+        "TD-034",
+        "TD-029"
       ]
     },
     {
@@ -1696,10 +1613,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-038",
+      "id": "TD-036",
       "dependencies": [
-        "TD-029",
-        "TD-030"
+        "TD-034",
+        "TD-029"
       ]
     },
     {
@@ -1745,10 +1662,10 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-039",
+      "id": "TD-037",
       "dependencies": [
-        "TD-029",
-        "TD-030"
+        "TD-034",
+        "TD-029"
       ]
     },
     {
@@ -1794,15 +1711,99 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-040",
+      "id": "TD-038",
       "dependencies": [
-        "TD-029",
-        "TD-030"
+        "TD-034",
+        "TD-029"
       ]
     },
     {
       "dimension": "security",
       "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+      "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+      "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-039",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.",
+      "impact": "Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.",
+      "recommendation": "Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-040",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)",
       "location": {
         "path": ".github/workflows/security-scan.yml",
         "lines": {
@@ -1892,38 +1893,38 @@
     },
     {
       "dimension": "tests_observability",
-      "title": "Cobertura estrutural baixa em apps/web",
+      "title": "Cobertura estrutural baixa em packages/database",
       "location": {
-        "path": "apps/web/app/(dashboard)/agents/[id]/page.tsx",
+        "path": "packages/database/src/repositories/access-control.ts",
         "lines": {
           "start": 1,
           "end": 1
         }
       },
-      "problem": "O proxy de cobertura identifica 75 arquivos de runtime para apps/web, mas apenas 6 arquivos de teste diretos e 12 gaps principais.",
+      "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 11 arquivos de teste diretos e 3 gaps principais.",
       "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
       "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
       "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 2,
+        "businessImpact": 3,
+        "securityRisk": 4,
         "reverseEffort": 3,
         "frequency": 4
       },
-      "vdiScore": 3.2,
+      "vdiScore": 3.45,
       "effort": "1-3 dias",
       "severity": "ALTO",
       "phase": "Fase 1",
       "confidence": 0.86,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/(dashboard)/agents/[id]/page.tsx",
+          "path": "packages/database/src/repositories/access-control.ts",
           "line": 1,
-          "summary": "Gap estrutural identificado para apps/web."
+          "summary": "Gap estrutural identificado para packages/database."
         },
         {
           "path": "artifacts/testing/module-coverage.json",
           "line": 1,
-          "summary": "apps/web: 6 testes diretos, 12 gaps."
+          "summary": "packages/database: 11 testes diretos, 3 gaps."
         }
       ],
       "inference": false,
@@ -2034,13 +2035,13 @@
       "dimension": "tests_observability",
       "title": "Observabilidade inconsistente por uso de console em runtime",
       "location": {
-        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "lines": {
           "start": 515,
           "end": 515
         }
       },
-      "problem": "Identificado em packages/agents/executivos/brandguardian/agent.ts:515 logging ad-hoc fora da cadeia estruturada de observabilidade.",
+      "problem": "Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 logging ad-hoc fora da cadeia estruturada de observabilidade.",
       "impact": "Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.",
       "recommendation": "Alinhar o módulo ao logger estruturado e adicionar contexto de tenant/trace nas saídas relevantes.",
       "vdiFactors": {
@@ -2056,7 +2057,7 @@
       "confidence": 0.91,
       "evidenceRefs": [
         {
-          "path": "packages/agents/executivos/brandguardian/agent.ts",
+          "path": "packages/agents/executivos/brand-guardian/agent.ts",
           "line": 515,
           "summary": "3 ocorrência(s) de console.*."
         }
@@ -2070,90 +2071,6 @@
       "id": "TD-046",
       "dependencies": [
         "TD-026"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Módulo volumoso sem teste relacionado direto",
-      "location": {
-        "path": "apps/web/app/admin/dashboard/page.tsx",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/web/app/admin/dashboard/page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 2.65,
-      "effort": "0.5-2 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 1",
-      "confidence": 0.68,
-      "evidenceRefs": [
-        {
-          "path": "apps/web/app/admin/dashboard/page.tsx",
-          "line": 1,
-          "summary": "Heurística não encontrou arquivo de teste relacionado."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-047",
-      "dependencies": [
-        "TD-042"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Módulo volumoso sem teste relacionado direto",
-      "location": {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 2.65,
-      "effort": "0.5-2 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 1",
-      "confidence": 0.68,
-      "evidenceRefs": [
-        {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-          "line": 1,
-          "summary": "Heurística não encontrou arquivo de teste relacionado."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-048",
-      "dependencies": [
-        "TD-042"
       ]
     },
     {
@@ -2193,7 +2110,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-049",
+      "id": "TD-047",
       "dependencies": [
         "TD-042"
       ]
@@ -2235,7 +2152,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-050",
+      "id": "TD-048",
       "dependencies": [
         "TD-042"
       ]
@@ -2277,7 +2194,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-051",
+      "id": "TD-049",
       "dependencies": [
         "TD-042"
       ]
@@ -2319,7 +2236,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-052",
+      "id": "TD-050",
       "dependencies": [
         "TD-042"
       ]
@@ -2351,6 +2268,90 @@
       "evidenceRefs": [
         {
           "path": "packages/database/src/repositories/engagement.ts",
+          "line": 1,
+          "summary": "Heurística não encontrou arquivo de teste relacionado."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-051",
+      "dependencies": [
+        "TD-042"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Módulo volumoso sem teste relacionado direto",
+      "location": {
+        "path": "apps/web/stores/notification-store.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em apps/web/stores/notification-store.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 2,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 2.65,
+      "effort": "0.5-2 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.68,
+      "evidenceRefs": [
+        {
+          "path": "apps/web/stores/notification-store.ts",
+          "line": 1,
+          "summary": "Heurística não encontrou arquivo de teste relacionado."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-052",
+      "dependencies": [
+        "TD-042"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Módulo volumoso sem teste relacionado direto",
+      "location": {
+        "path": "apps/api/src/modules/outputs/output-routes.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em apps/api/src/modules/outputs/output-routes.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 2,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 2.65,
+      "effort": "0.5-2 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.68,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/outputs/output-routes.ts",
           "line": 1,
           "summary": "Heurística não encontrou arquivo de teste relacionado."
         }
@@ -2744,13 +2745,13 @@
       "dimension": "performance",
       "title": "Integração externa sem deadline operacional explícito",
       "location": {
-        "path": "apps/legacy/dashboard/proxy.ts",
+        "path": "apps/dashboard/lib/dashboard-data.ts",
         "lines": {
           "start": 11,
           "end": 11
         }
       },
-      "problem": "Acesso externo em apps/legacy/dashboard/proxy.ts:11 não expõe timeout/abort guard no arquivo atual.",
+      "problem": "Acesso externo em apps/dashboard/lib/dashboard-data.ts:11 não expõe timeout/abort guard no arquivo atual.",
       "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
       "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
       "vdiFactors": {
@@ -2766,7 +2767,7 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/legacy/dashboard/proxy.ts",
+          "path": "apps/dashboard/lib/dashboard-data.ts",
           "line": 11,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
@@ -2779,20 +2780,20 @@
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-063",
       "dependencies": [
-        "TD-030"
+        "TD-029"
       ]
     },
     {
       "dimension": "performance",
       "title": "Integração externa sem deadline operacional explícito",
       "location": {
-        "path": "apps/web/app/(dashboard)/packs/page.tsx",
+        "path": "apps/web/app/api/bff/[...path]/route.ts",
         "lines": {
-          "start": 35,
-          "end": 35
+          "start": 28,
+          "end": 28
         }
       },
-      "problem": "Acesso externo em apps/web/app/(dashboard)/packs/page.tsx:35 não expõe timeout/abort guard no arquivo atual.",
+      "problem": "Acesso externo em apps/web/app/api/bff/[...path]/route.ts:28 não expõe timeout/abort guard no arquivo atual.",
       "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
       "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
       "vdiFactors": {
@@ -2808,8 +2809,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/(dashboard)/packs/page.tsx",
-          "line": 35,
+          "path": "apps/web/app/api/bff/[...path]/route.ts",
+          "line": 28,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -2821,7 +2822,7 @@
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-064",
       "dependencies": [
-        "TD-030"
+        "TD-029"
       ]
     },
     {
@@ -6560,7 +6561,7 @@
     "nodes": [
       {
         "id": "TD-029",
-        "label": "Superfície crítica sem teste relacionado por heurística de nome",
+        "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
         "type": "debt"
       },
@@ -6589,21 +6590,9 @@
         "type": "debt"
       },
       {
-        "id": "TD-034",
-        "label": "Chamada externa sem timeout ou abort path explícito",
-        "phase": "Fase 1",
-        "type": "debt"
-      },
-      {
         "id": "TD-001",
         "label": "Complexidade acima do limiar em registerAuthRoutes",
         "phase": "Fase 2",
-        "type": "debt"
-      },
-      {
-        "id": "TD-035",
-        "label": "Configuração sensível dispersa em módulo crítico",
-        "phase": "Fase 1",
         "type": "debt"
       },
       {
@@ -6613,9 +6602,9 @@
         "type": "debt"
       },
       {
-        "id": "TD-002",
-        "label": "Arquivo grande demais para o boundary atual (473 linhas)",
-        "phase": "Fase 2",
+        "id": "TD-043",
+        "label": "Cobertura estrutural baixa em packages/database",
+        "phase": "Fase 1",
         "type": "debt"
       },
       {
@@ -6626,6 +6615,18 @@
       },
       {
         "id": "TD-055",
+        "label": "Consulta findMany sem paginação explícita",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
+        "id": "TD-056",
+        "label": "Consulta findMany sem paginação explícita",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
+        "id": "TD-057",
         "label": "Consulta findMany sem paginação explícita",
         "phase": "Fase 2",
         "type": "debt"
@@ -6693,28 +6694,23 @@
     ],
     "edges": [
       {
-        "from": "TD-030",
+        "from": "TD-029",
+        "to": "TD-030",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-029",
         "to": "TD-031",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-030",
+        "from": "TD-029",
         "to": "TD-032",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-030",
+        "from": "TD-029",
         "to": "TD-033",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-030",
-        "to": "TD-034",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-016",
-        "to": "TD-035",
         "reason": "Debt dependency"
       },
       {
@@ -6723,13 +6719,28 @@
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-001",
-        "to": "TD-002",
+        "from": "TD-042",
+        "to": "TD-043",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-026",
+        "to": "TD-043",
         "reason": "Debt dependency"
       },
       {
         "from": "TD-054",
         "to": "TD-055",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-054",
+        "to": "TD-056",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-054",
+        "to": "TD-057",
         "reason": "Debt dependency"
       },
       {
@@ -6892,8 +6903,32 @@
       }
     },
     {
-      "id": "TD-041",
+      "id": "TD-039",
       "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
+      "requires": "semgrep --json",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      }
+    },
+    {
+      "id": "TD-040",
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)",
+      "requires": "DAST/ZAP report",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      }
+    },
+    {
+      "id": "TD-041",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)",
       "requires": "semgrep --json",
       "location": {
         "path": ".github/workflows/security-scan.yml",
@@ -7126,8 +7161,8 @@
         "key": "architecture",
         "label": "Dimensão 1 — Saúde Arquitetural",
         "weight": 14,
-        "avgTopVdi": 3.38,
-        "score": 6.9
+        "avgTopVdi": 3.35,
+        "score": 6.96
       },
       {
         "key": "code_quality",
@@ -7140,15 +7175,15 @@
         "key": "security",
         "label": "Dimensão 3 — Segurança",
         "weight": 18,
-        "avgTopVdi": 3.62,
-        "score": 8.23
+        "avgTopVdi": 3.6,
+        "score": 8.28
       },
       {
         "key": "tests_observability",
         "label": "Dimensão 4 — Cobertura de Testes e Observabilidade",
         "weight": 12,
-        "avgTopVdi": 3.28,
-        "score": 6.09
+        "avgTopVdi": 3.37,
+        "score": 5.94
       },
       {
         "key": "performance",
@@ -7196,11 +7231,11 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6087,
-      "coreTrackedFiles": 446,
-      "runtimeFiles": 1801,
-      "testFiles": 144,
-      "modules": 284
+      "trackedFiles": 6121,
+      "coreTrackedFiles": 449,
+      "runtimeFiles": 1806,
+      "testFiles": 146,
+      "modules": 295
     },
     "capabilities": {
       "apiModules": [
@@ -8314,6 +8349,7 @@
         "serviceCatalog": true,
         "releaseRunbook": true,
         "adrFiles": [
+          ".github/ISSUE_TEMPLATE/ADR_TEMPLATE.md",
           "audit/files_analysis/docs/ADR-011-RBAC-Strategy.md.md",
           "audit/files_analysis/docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md.md",
           "audit/files_analysis/docs/adrs/003-observability-strategy.md.md",
@@ -8353,6 +8389,7 @@
           "audit/files_analysis/docs/templates/adr-template.md.md",
           "docs/ADR-011-RBAC-Strategy.md",
           "docs/adr/ADR-012-f3-http-bootstrap-and-seed-modularization.md",
+          "docs/adrs/0001-initial-architecture.md",
           "docs/adrs/003-observability-strategy.md",
           "docs/adrs/004-configuration-strategy.md",
           "docs/adrs/005-migrations-strategy.md",
@@ -8387,6 +8424,7 @@
           "docs/adrs/ADR-035-f3-hotspot-modularization.md",
           "docs/adrs/ADR_TEMPLATE.md",
           "docs/adrs/INDEX.md",
+          "docs/adrs/index.md",
           "docs/billing/orcamentos_padrao_planos.md",
           "docs/templates/adr-template.md"
         ],
@@ -8468,8 +8506,43 @@
       }
     },
     "git": {
-      "totalCommits": 1100,
+      "totalCommits": 1113,
       "last30Days": [
+        {
+          "sha": "10bed44c28904583b7f5705500fc33138ad49411",
+          "date": "2026-04-05",
+          "subject": "q2"
+        },
+        {
+          "sha": "b0156959a9f09d4a9576a512344948eeb5eba2b3",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "b05ed16da8faf583e1fd627daf8e5d94ca396052",
+          "date": "2026-04-05",
+          "subject": "Merge remote-tracking branch 'origin/copilot/fix-ci-failing-checks'"
+        },
+        {
+          "sha": "b86a9e5b57732bad853dacb85258ba87fe7ff153",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "220dd5cf2f4c1fff1ef5548ba3f78d39be3cc687",
+          "date": "2026-04-05",
+          "subject": "Merge remote-tracking branch 'origin/jules-rollback-evidence-11280991384400769238'"
+        },
+        {
+          "sha": "3d8a9de838cffd47ee36adc2f247cfcc5887baec",
+          "date": "2026-04-05",
+          "subject": "Merge remote-tracking branch 'origin/fix-production-cd-pipeline-gates-13306548828248575664'"
+        },
+        {
+          "sha": "fb7b699cdecec1cb40ad0fd217d5f9142677b58b",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
           "date": "2026-04-05",
@@ -11123,9 +11196,24 @@
       ],
       "deploymentFrequencyProxy": {
         "windowDays": 30,
-        "mergeCommits": 246,
+        "mergeCommits": 249,
         "activeDays": 21,
         "placeholderMessages": [
+          {
+            "sha": "b0156959a9f09d4a9576a512344948eeb5eba2b3",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "b86a9e5b57732bad853dacb85258ba87fe7ff153",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "fb7b699cdecec1cb40ad0fd217d5f9142677b58b",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
           {
             "sha": "331712abdb1ae40cac438e97eebe49e2d4d4880e",
             "date": "2026-04-05",
@@ -11233,21 +11321,6 @@
           },
           {
             "sha": "fa168c803900e22449eb561e05cd50bd684639c0",
-            "date": "2026-03-29",
-            "subject": "1"
-          },
-          {
-            "sha": "55c52f1a6c8e3c071da4768fe5876ef21fae623e",
-            "date": "2026-03-29",
-            "subject": "1"
-          },
-          {
-            "sha": "f22022fcadd0b8cb4f003792d15e47b7099ef2af",
-            "date": "2026-03-29",
-            "subject": "1"
-          },
-          {
-            "sha": "7430447d82717b7bde123bf1e2a520bfb665f533",
             "date": "2026-03-29",
             "subject": "1"
           }
