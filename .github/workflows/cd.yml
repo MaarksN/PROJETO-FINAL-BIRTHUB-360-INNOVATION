@@ -42,6 +42,8 @@ jobs:
     environment: staging
     env:
       API_CORS_ORIGINS: ${{ vars.API_CORS_ORIGINS }}
+      BILLING_EXPORT_S3_BUCKET: ${{ vars.BILLING_EXPORT_S3_BUCKET }}
+      BILLING_EXPORT_STORAGE_MODE: ${{ vars.BILLING_EXPORT_STORAGE_MODE }}
       AUTH_MFA_ENCRYPTION_KEY: ${{ secrets.AUTH_MFA_ENCRYPTION_KEY }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       JOB_HMAC_GLOBAL_SECRET: ${{ secrets.JOB_HMAC_GLOBAL_SECRET }}
@@ -118,6 +120,7 @@ jobs:
             REQUIRE_SECURE_COOKIES
             STRIPE_SUCCESS_URL
             STRIPE_CANCEL_URL
+            BILLING_EXPORT_STORAGE_MODE
           )
 
           missing=()
@@ -140,6 +143,18 @@ jobs:
             echo "::error title=Missing staging configuration::Configure missing keys in Environment staging (Secrets/Variables)." >&2
             exit 1
           fi
+
+
+          if [[ "${BILLING_EXPORT_STORAGE_MODE}" != "local" && "${BILLING_EXPORT_STORAGE_MODE}" != "s3" ]]; then
+            echo "::error title=Invalid variable::BILLING_EXPORT_STORAGE_MODE must be local or s3." >&2
+            exit 1
+          fi
+
+          if [[ "${BILLING_EXPORT_STORAGE_MODE}" == "s3" && -z "${BILLING_EXPORT_S3_BUCKET:-}" ]]; then
+            echo "::error title=Missing variable::BILLING_EXPORT_S3_BUCKET must be set when BILLING_EXPORT_STORAGE_MODE=s3." >&2
+            exit 1
+          fi
+
 
           if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" ]]; then
             echo "::error title=Invalid staging variable::NEXT_PUBLIC_CSP_REPORT_ONLY must be set to false in Environment staging variables." >&2
@@ -235,6 +250,8 @@ jobs:
     environment: production
     env:
       API_CORS_ORIGINS: ${{ vars.API_CORS_ORIGINS }}
+      BILLING_EXPORT_S3_BUCKET: ${{ vars.BILLING_EXPORT_S3_BUCKET }}
+      BILLING_EXPORT_STORAGE_MODE: ${{ vars.BILLING_EXPORT_STORAGE_MODE }}
       AUTH_MFA_ENCRYPTION_KEY: ${{ secrets.AUTH_MFA_ENCRYPTION_KEY }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       JOB_HMAC_GLOBAL_SECRET: ${{ secrets.JOB_HMAC_GLOBAL_SECRET }}
@@ -309,6 +326,7 @@ jobs:
             REQUIRE_SECURE_COOKIES
             STRIPE_SUCCESS_URL
             STRIPE_CANCEL_URL
+            BILLING_EXPORT_STORAGE_MODE
           )
 
           missing=()
@@ -332,6 +350,16 @@ jobs:
             exit 1
           fi
 
+          if [[ "${BILLING_EXPORT_STORAGE_MODE}" != "local" && "${BILLING_EXPORT_STORAGE_MODE}" != "s3" ]]; then
+            echo "::error title=Invalid variable::BILLING_EXPORT_STORAGE_MODE must be local or s3." >&2
+            exit 1
+          fi
+
+          if [[ "${BILLING_EXPORT_STORAGE_MODE}" == "s3" && -z "${BILLING_EXPORT_S3_BUCKET:-}" ]]; then
+            echo "::error title=Missing variable::BILLING_EXPORT_S3_BUCKET must be set when BILLING_EXPORT_STORAGE_MODE=s3." >&2
+            exit 1
+          fi
+
           if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" ]]; then
             echo "::error title=Invalid production variable::NEXT_PUBLIC_CSP_REPORT_ONLY must be set to false in Environment production variables." >&2
             exit 1
@@ -343,7 +371,7 @@ jobs:
           fi
 
       - name: Run production preflight
-        run: pnpm release:preflight:production --env-file=ops/release/sealed/.env.production.sealed
+        run: pnpm release:preflight:production
 
       - name: Upload production preflight evidence
         uses: actions/upload-artifact@v4

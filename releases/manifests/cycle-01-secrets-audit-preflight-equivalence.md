@@ -112,8 +112,8 @@ No precondition blocker prevented continuation because staging/production equiva
 | STRIPE_SUCCESS_URL | required | required | HIGH | Billing Integrations | GitHub Environment Variables (`vars`) | unverified |
 | STRIPE_WEBHOOK_SECRET | required | required | CRITICAL | Billing Integrations | GitHub Environment Secrets (`secrets`) | unverified |
 | WEB_BASE_URL | required | required | CRITICAL | Web Platform Team | GitHub Environment Variables (`vars`) | unverified |
-| BILLING_EXPORT_STORAGE_MODE | not explicitly mapped in CD env | not explicitly mapped in CD env | HIGH | Worker Platform Team | manual `.env` / CI env block | inconsistent |
-| BILLING_EXPORT_S3_BUCKET | not explicitly mapped in CD env | not explicitly mapped in CD env | HIGH | Worker Platform Team | manual `.env` / CI env block | inconsistent |
+| BILLING_EXPORT_STORAGE_MODE | required | required | HIGH | Worker Platform Team | GitHub Environment Variables (`vars`) | unverified |
+| BILLING_EXPORT_S3_BUCKET | conditional (`s3` mode) | conditional (`s3` mode) | HIGH | Worker Platform Team | GitHub Environment Variables (`vars`) | unverified |
 
 ## Step 4 — Gap Analysis (status != present)
 
@@ -123,19 +123,33 @@ No precondition blocker prevented continuation because staging/production equiva
 - **Impact before Cycle 02:** deployment can fail at preflight or deploy-hook phases; failures will be discovered late in CD.
 - **Recommended remediation:** export and archive a redacted environment configuration evidence artifact per environment (key names + last rotated date + owner), attached to release evidence.
 
-### 2) Worker hidden runtime dependency (`BILLING_EXPORT_STORAGE_MODE` / `BILLING_EXPORT_S3_BUCKET`)
-- **Gap:** worker production validator enforces conditional bucket presence, but these keys are absent from CD env contract checks.
-- **Root cause hypothesis:** `preflight-env.ts` relies on ambient process env while `cd.yml` validates only a narrower key list.
-- **Impact before Cycle 02:** production preflight may fail unexpectedly if storage mode is set to `s3` without matching bucket.
-- **Recommended remediation:** add both keys to production `env:` map and required-variable logic (conditional check for bucket when mode is `s3`), or explicitly pin storage mode for release jobs.
+### 2) Worker runtime dependency tracking (`BILLING_EXPORT_STORAGE_MODE` / `BILLING_EXPORT_S3_BUCKET`)
+- **Gap:** no repository-visible proof that these variables are populated correctly in GitHub Environments.
+- **Root cause hypothesis:** values are maintained externally in environment settings.
+- **Impact before Cycle 02:** preflight can still fail if values are absent/invalid at runtime.
+- **Recommended remediation:** record redacted staging/production evidence for these variables with owner + last-rotation/change date.
 
-### 3) Preflight source asymmetry (staging vs production)
-- **Gap:** production preflight uses explicit sealed env file; staging preflight does not pass `--env-file`.
-- **Root cause hypothesis:** staging job assumes GitHub environment injection only; production mixes injection + sealed file overlay.
-- **Impact before Cycle 02:** inconsistent provenance and reproducibility between environments.
-- **Recommended remediation:** standardize both jobs to one source strategy (either explicit sealed file overlays for both or pure environment injection for both) and document precedence.
+### 3) Preflight source equivalence
+- **Gap:** no functional asymmetry remains in invocation style (both jobs execute package scripts that define their env-file behavior).
+- **Root cause hypothesis:** previous command-level comparison did not account for npm script arguments.
+- **Impact before Cycle 02:** low; documentation drift risk only.
+- **Recommended remediation:** keep workflow and package scripts aligned and documented in one source-of-truth table.
 
 ### 4) Naming divergence / duplicates / hidden deps flags
 - **Naming divergence:** none detected for overlapping keys (consistent naming across preflight, CD env blocks, and sealed examples).
 - **Duplicate conflicting keys:** none detected in inspected files.
-- **Hidden runtime dependency flagged:** `BILLING_EXPORT_STORAGE_MODE` and `BILLING_EXPORT_S3_BUCKET` are consumed by worker config but not declared in CD required checks.
+- **Hidden runtime dependency flagged:** none outstanding in CD required checks for worker billing export mode/bucket.
+
+## Follow-up Implementation (post-review)
+
+Implemented in `.github/workflows/cd.yml`:
+
+- Added `BILLING_EXPORT_STORAGE_MODE` and `BILLING_EXPORT_S3_BUCKET` to staging and production preflight `env:` blocks via GitHub Environment variables.
+- Added validation rules in staging and production preflight checks:
+  - `BILLING_EXPORT_STORAGE_MODE` must be `local` or `s3`.
+  - `BILLING_EXPORT_S3_BUCKET` is required when `BILLING_EXPORT_STORAGE_MODE=s3`.
+- Standardized production preflight invocation to `pnpm release:preflight:production` (the npm script already defines `--env-file`), matching staging pattern.
+
+Template alignment updates:
+
+- `scripts/release/.env.staging.template` and `scripts/release/.env.production.template` now mark `BILLING_EXPORT_STORAGE_MODE` as required and `BILLING_EXPORT_S3_BUCKET` as conditional optional.
