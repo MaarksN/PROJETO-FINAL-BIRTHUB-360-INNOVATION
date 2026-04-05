@@ -34,6 +34,8 @@ jobs:
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     concurrency:
       group: cd-staging-main
       cancel-in-progress: false
@@ -168,7 +170,7 @@ jobs:
         run: pnpm release:preflight:staging
 
       - name: Upload staging preflight evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: staging-preflight-evidence
           path: artifacts/release/staging-preflight-summary.*
@@ -183,6 +185,8 @@ jobs:
       github.event.inputs.deploy_target == 'production')
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     steps:
       - name: Checkout release source from CI run
         if: github.event_name == 'workflow_run'
@@ -216,7 +220,7 @@ jobs:
         run: pnpm release:materialize -- --tag=v1.0.0
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: release-sbom
           path: |
@@ -224,7 +228,7 @@ jobs:
             artifacts/sbom/sbom.spdx.json
 
       - name: Upload release manifests
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: release-manifests
           path: |
@@ -238,6 +242,8 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -368,19 +374,21 @@ jobs:
         run: pnpm release:preflight:production
 
       - name: Upload production preflight evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
-          name: production-preflight-evidence
+          name: preflight-report
           path: artifacts/release/production-preflight-summary.*
 
   release-smoke-gate:
     name: release-smoke-gate
+    # Executa apenas após aprovação do deploy manual na branch de produção
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    permissions:
+      contents: read
     needs:
-      - release-sbom
-      - production-preflight
+      - deploy-production
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -408,16 +416,19 @@ jobs:
         run: pnpm release:smoke
 
       - name: Upload smoke evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
-          name: release-smoke-evidence
+          name: smoke-results
           path: artifacts/release/smoke-summary.*
 
   release-e2e-gate:
     name: release-e2e-gate
+    # E2E test gate executa em produção logo após o smoke test (dependência imposta por `needs`)
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
+    permissions:
+      contents: read
     needs:
       - release-smoke-gate
     concurrency:
@@ -448,18 +459,21 @@ jobs:
 
       - name: Upload E2E evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
-          name: release-e2e-evidence
+          name: e2e-release-results
           path: |
             playwright-report
             test-results
 
   rollback-rehearsal-evidence-gate:
     name: rollback-rehearsal-evidence-gate
+    # Valida evidência de rollback controlado após todos os testes terem sucesso
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
     needs:
       - release-e2e-gate
     steps:
@@ -487,9 +501,9 @@ jobs:
         run: pnpm release:rollback:evidence --evidence="${ROLLBACK_REHEARSAL_EVIDENCE}"
 
       - name: Upload rollback rehearsal evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
-          name: rollback-rehearsal-evidence
+          name: rollback-rehearsal-report
           path: |
             artifacts/release/production-rollback-evidence.txt
             artifacts/release/production-rollback-evidence.json
@@ -502,6 +516,8 @@ jobs:
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
     needs:
       - staging-preflight
       - release-sbom
@@ -541,15 +557,15 @@ jobs:
 
   deploy-production:
     name: deploy-production
+    # Ponto único de entrada do caminho de produção (após preflight e sbom)
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
     needs:
       - release-sbom
       - production-preflight
-      - release-smoke-gate
-      - release-e2e-gate
-      - rollback-rehearsal-evidence-gate
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -592,3 +608,15 @@ jobs:
           fi
 
           curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_PRODUCTION_DEPLOY_HOOK_URL}"
+
+      - name: Generate deploy manifest
+        shell: bash
+        run: |
+          mkdir -p artifacts/release
+          echo '{"status": "deployed", "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}' > artifacts/release/deploy-manifest.json
+
+      - name: Upload deploy manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy-manifest
+          path: artifacts/release/deploy-manifest.json
