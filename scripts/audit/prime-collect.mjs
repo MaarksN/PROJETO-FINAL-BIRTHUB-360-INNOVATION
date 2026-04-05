@@ -13,6 +13,7 @@ import {
   formatNumber,
   fromRepo,
   listTrackedFiles,
+  listUntrackedFiles,
   makeEvidenceRef,
   median,
   moduleBucket,
@@ -662,6 +663,7 @@ async function main() {
 
   const trackedFiles = unique([
     ...listTrackedFiles(),
+    ...listUntrackedFiles(),
     ...supplementalEvidencePaths.filter((relativePathValue) => existsSync(fromRepo(relativePathValue)))
   ]);
   const fileIndex = await collectFileIndex(trackedFiles);

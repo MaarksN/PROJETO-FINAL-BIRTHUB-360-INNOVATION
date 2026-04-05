@@ -8,6 +8,7 @@ import path from "node:path";
 import {
   fromRepo,
   listTrackedFiles,
+  listUntrackedFiles,
   relativePath,
   reportDateParts,
   safeRun,
@@ -241,6 +242,7 @@ async function stopProcess(child) {
 function collectEvidenceFiles() {
   return dedupe([
     ...listTrackedFiles(),
+    ...listUntrackedFiles(),
     ...supplementalEvidencePaths.filter(fileExists)
   ]);
 }

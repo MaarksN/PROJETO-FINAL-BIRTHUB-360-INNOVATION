@@ -96,6 +96,19 @@ export function listTrackedFiles() {
     .filter((entry) => existsSync(fromRepo(entry)));
 }
 
+export function listUntrackedFiles() {
+  const output = runGit(["ls-files", "--others", "--exclude-standard"]);
+  return output
+    .split(/\r?\n/)
+    .map((line) => posixPath(line.trim()))
+    .filter(Boolean)
+    .filter((entry) => existsSync(fromRepo(entry)))
+    .filter(
+      (entry) =>
+        /^(apps\/|packages\/|scripts\/|docs\/|infra\/|ops\/|\.github\/workflows\/)/.test(entry)
+    );
+}
+
 export function safeRun(command, args, options = {}) {
   assertSafeRunCommand(command);
   const requiresWindowsCmdWrapper =
