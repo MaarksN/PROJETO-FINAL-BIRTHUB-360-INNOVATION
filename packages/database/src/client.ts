@@ -6,7 +6,7 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error.js";
 import { requireTenantId } from "./tenant-context.js";
 
-const QUERY_TIMEOUT_MS = 5_000;
+const DEFAULT_QUERY_TIMEOUT_MS = 5_000;
 const DEFAULT_DATABASE_CONNECTION_LIMIT = 10;
 const DEFAULT_DEVELOPMENT_DATABASE_URL =
   "postgresql://postgres:postgres@localhost:5432/birthub?schema=public";
@@ -45,26 +45,37 @@ function getMetricsApi(): GlobalMetricsApi | null {
   return globalMetrics.__birthubMetricsApi ?? null;
 }
 
-function raceWithTimeout<T>(
+function resolveQueryTimeoutMs(): number {
+  const raw = Number(process.env.PRISMA_QUERY_TIMEOUT_MS ?? "");
+  return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_QUERY_TIMEOUT_MS;
+}
+
+export function raceWithTimeout<T>(
   promise: Promise<T>,
   operation: string,
   model?: string
 ): Promise<T> {
+  const timeoutMs = resolveQueryTimeoutMs();
   return Promise.race([
     promise,
     new Promise<T>((_, reject) => {
       const timer = setTimeout(() => {
-        reject(new PrismaQueryTimeoutError(operation, QUERY_TIMEOUT_MS, model));
-      }, QUERY_TIMEOUT_MS);
+        reject(new PrismaQueryTimeoutError(operation, timeoutMs, model));
+      }, timeoutMs);
 
-      void promise.finally(() => {
-        clearTimeout(timer);
-      });
+      void promise.then(
+        () => {
+          clearTimeout(timer);
+        },
+        () => {
+          clearTimeout(timer);
+        }
+      );
     })
   ]);
 }
 
-function resolveConnectionLimit(databaseUrl: string): number {
+export function resolveConnectionLimit(databaseUrl: string): number {
   const explicit = Number(process.env.DATABASE_CONNECTION_LIMIT ?? "");
   if (Number.isFinite(explicit) && explicit > 0) {
     return explicit;
@@ -111,7 +122,7 @@ function updateDatabaseGauges(connectionLimit: number): void {
   );
 }
 
-function resolveRuntimeDatabaseUrl(rawUrl: string | undefined): string {
+export function resolveRuntimeDatabaseUrl(rawUrl: string | undefined): string {
   if (rawUrl?.trim()) {
     return rawUrl;
   }
@@ -250,7 +261,7 @@ export function createPrismaClient(options: { databaseUrl?: string } = {}): Pris
   }) as PrismaClient;
 }
 
-function normalizeDatabaseUrl(rawUrl: string | undefined): string | undefined {
+export function normalizeDatabaseUrl(rawUrl: string | undefined): string | undefined {
   if (!rawUrl?.trim()) {
     return rawUrl;
   }

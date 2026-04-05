@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T20:27:35.892Z",
+    "generatedAt": "2026-04-05T20:51:13.932Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "2688195d60e9c70bfc9c9ce739ec3cf867dbf082",
+    "headSha": "1647c3acc7256660906da84f4b08d99d982b108e",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -17,9 +17,9 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6073,
-      "coreTrackedFiles": 432,
-      "runtimeFiles": 1800,
+      "trackedFiles": 6074,
+      "coreTrackedFiles": 433,
+      "runtimeFiles": 1801,
       "testFiles": 131,
       "modules": 284
     },
@@ -1289,8 +1289,13 @@
       }
     },
     "git": {
-      "totalCommits": 1094,
+      "totalCommits": 1095,
       "last30Days": [
+        {
+          "sha": "1647c3acc7256660906da84f4b08d99d982b108e",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "2688195d60e9c70bfc9c9ce739ec3cf867dbf082",
           "date": "2026-04-05",
@@ -3918,6 +3923,11 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "1647c3acc7256660906da84f4b08d99d982b108e",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "5db912f596e34e8360ac7be2c3652a992d48c366",
             "date": "2026-04-05",
             "subject": "1"
@@ -4034,11 +4044,6 @@
           },
           {
             "sha": "f8c48527d050a8a36b3ceccadf8477d558b3ace1",
-            "date": "2026-03-27",
-            "subject": "Your commit message here"
-          },
-          {
-            "sha": "110be920576450024bd6b347b0b1a297a9b92c34",
             "date": "2026-03-27",
             "subject": "Your commit message here"
           }
@@ -4633,11 +4638,11 @@
         "location": {
           "path": "packages/database/src/client.ts",
           "lines": {
-            "start": 68,
-            "end": 68
+            "start": 49,
+            "end": 49
           }
         },
-        "problem": "Identificado em packages/database/src/client.ts:68 acesso direto a process.env em runtime fora de um boundary dedicado de config.",
+        "problem": "Identificado em packages/database/src/client.ts:49 acesso direto a process.env em runtime fora de um boundary dedicado de config.",
         "impact": "Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.",
         "recommendation": "Encapsular leituras em surface única de configuração com validação e defaults explícitos.",
         "vdiFactors": {
@@ -4654,8 +4659,8 @@
         "evidenceRefs": [
           {
             "path": "packages/database/src/client.ts",
-            "line": 68,
-            "summary": "8 leitura(s) direta(s) de env."
+            "line": 49,
+            "summary": "9 leitura(s) direta(s) de env."
           }
         ],
         "inference": false,
@@ -5188,13 +5193,13 @@
         "dimension": "security",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "location": {
-          "path": "apps/api/src/docs/openapi.ts",
+          "path": "apps/legacy/dashboard/proxy.ts",
           "lines": {
-            "start": 41,
-            "end": 41
+            "start": 11,
+            "end": 11
           }
         },
-        "problem": "Indício em apps/api/src/docs/openapi.ts:41 de acesso externo sem timeout explícito no arquivo.",
+        "problem": "Indício em apps/legacy/dashboard/proxy.ts:11 de acesso externo sem timeout explícito no arquivo.",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
         "vdiFactors": {
@@ -5210,8 +5215,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/docs/openapi.ts",
-            "line": 41,
+            "path": "apps/legacy/dashboard/proxy.ts",
+            "line": 11,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],
@@ -5225,13 +5230,13 @@
         "dimension": "security",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "location": {
-          "path": "apps/api/src/lib/database-availability.ts",
+          "path": "apps/web/app/(dashboard)/packs/page.tsx",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 35,
+            "end": 35
           }
         },
-        "problem": "Indício em apps/api/src/lib/database-availability.ts:1 de acesso externo sem timeout explícito no arquivo.",
+        "problem": "Indício em apps/web/app/(dashboard)/packs/page.tsx:35 de acesso externo sem timeout explícito no arquivo.",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
         "vdiFactors": {
@@ -5247,8 +5252,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/lib/database-availability.ts",
-            "line": 1,
+            "path": "apps/web/app/(dashboard)/packs/page.tsx",
+            "line": 35,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],
@@ -5262,13 +5267,13 @@
         "dimension": "security",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "location": {
-          "path": "apps/api/src/lib/external-url.ts",
+          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 279,
+            "end": 279
           }
         },
-        "problem": "Indício em apps/api/src/lib/external-url.ts:1 de acesso externo sem timeout explícito no arquivo.",
+        "problem": "Indício em apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279 de acesso externo sem timeout explícito no arquivo.",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
         "vdiFactors": {
@@ -5284,8 +5289,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/lib/external-url.ts",
-            "line": 1,
+            "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
+            "line": 279,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],
@@ -5299,13 +5304,13 @@
         "dimension": "security",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "location": {
-          "path": "apps/api/src/lib/problem-details.ts",
+          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
           "lines": {
-            "start": 54,
-            "end": 54
+            "start": 99,
+            "end": 99
           }
         },
-        "problem": "Indício em apps/api/src/lib/problem-details.ts:54 de acesso externo sem timeout explícito no arquivo.",
+        "problem": "Indício em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99 de acesso externo sem timeout explícito no arquivo.",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
         "vdiFactors": {
@@ -5321,8 +5326,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/lib/problem-details.ts",
-            "line": 54,
+            "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+            "line": 99,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],
@@ -5336,13 +5341,13 @@
         "dimension": "security",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "location": {
-          "path": "apps/api/src/lib/redis.ts",
+          "path": "apps/web/app/api/auth/[...session]/route.ts",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 9,
+            "end": 9
           }
         },
-        "problem": "Indício em apps/api/src/lib/redis.ts:1 de acesso externo sem timeout explícito no arquivo.",
+        "problem": "Indício em apps/web/app/api/auth/[...session]/route.ts:9 de acesso externo sem timeout explícito no arquivo.",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
         "vdiFactors": {
@@ -5358,8 +5363,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/lib/redis.ts",
-            "line": 1,
+            "path": "apps/web/app/api/auth/[...session]/route.ts",
+            "line": 9,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],
@@ -6424,13 +6429,13 @@
         "dimension": "performance",
         "title": "Integração externa sem deadline operacional explícito",
         "location": {
-          "path": "apps/api/src/docs/openapi.ts",
+          "path": "apps/legacy/dashboard/proxy.ts",
           "lines": {
-            "start": 41,
-            "end": 41
+            "start": 11,
+            "end": 11
           }
         },
-        "problem": "Acesso externo em apps/api/src/docs/openapi.ts:41 não expõe timeout/abort guard no arquivo atual.",
+        "problem": "Acesso externo em apps/legacy/dashboard/proxy.ts:11 não expõe timeout/abort guard no arquivo atual.",
         "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
         "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
         "vdiFactors": {
@@ -6446,8 +6451,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/docs/openapi.ts",
-            "line": 41,
+            "path": "apps/legacy/dashboard/proxy.ts",
+            "line": 11,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],
@@ -6461,13 +6466,13 @@
         "dimension": "performance",
         "title": "Integração externa sem deadline operacional explícito",
         "location": {
-          "path": "apps/api/src/lib/database-availability.ts",
+          "path": "apps/web/app/(dashboard)/packs/page.tsx",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 35,
+            "end": 35
           }
         },
-        "problem": "Acesso externo em apps/api/src/lib/database-availability.ts:1 não expõe timeout/abort guard no arquivo atual.",
+        "problem": "Acesso externo em apps/web/app/(dashboard)/packs/page.tsx:35 não expõe timeout/abort guard no arquivo atual.",
         "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
         "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
         "vdiFactors": {
@@ -6483,8 +6488,8 @@
         "confidence": 0.74,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/lib/database-availability.ts",
-            "line": 1,
+            "path": "apps/web/app/(dashboard)/packs/page.tsx",
+            "line": 35,
             "summary": "Operação externa sem timeout explícito no arquivo."
           }
         ],

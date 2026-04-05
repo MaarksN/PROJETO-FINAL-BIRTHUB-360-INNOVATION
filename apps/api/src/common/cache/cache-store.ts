@@ -1,6 +1,8 @@
 import { Redis } from "ioredis";
 import { createLogger } from "@birthub/logger";
 
+const REDIS_CONNECT_TIMEOUT_MS = 5_000;
+
 export interface CacheStore {
   del: (...keys: string[]) => Promise<number>;
   get: (key: string) => Promise<string | null>;
@@ -75,6 +77,7 @@ class RedisCacheStore implements CacheStore {
 
   constructor(redisUrl: string) {
     this.client = new Redis(redisUrl, {
+      connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
       enableOfflineQueue: false,
       lazyConnect: true,
       maxRetriesPerRequest: 1

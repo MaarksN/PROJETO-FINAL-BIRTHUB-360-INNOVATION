@@ -2,6 +2,7 @@ import type { ApiConfig } from "@birthub/config";
 import type { ConnectionOptions } from "bullmq";
 import { Redis } from "ioredis";
 
+const REDIS_CONNECT_TIMEOUT_MS = 5_000;
 const redisClients = new Map<string, Redis>();
 const bullConnections = new Map<string, ConnectionOptions>();
 
@@ -10,6 +11,8 @@ function buildBullConnection(redisUrl: string): ConnectionOptions {
   const dbSegment = parsed.pathname.replace(/^\/+/, "");
   const db = dbSegment.length > 0 ? Number(dbSegment) : undefined;
   const connection: Record<string, unknown> = {
+    connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
+    enableOfflineQueue: false,
     host: parsed.hostname,
     maxRetriesPerRequest: null,
     port: parsed.port ? Number(parsed.port) : 6379
@@ -43,6 +46,9 @@ export function getSharedRedis(configOrUrl: ApiConfig | string): Redis {
   }
 
   const redis = new Redis(redisUrl, {
+    connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
+    enableOfflineQueue: false,
+    lazyConnect: true,
     maxRetriesPerRequest: null
   });
   redisClients.set(redisUrl, redis);

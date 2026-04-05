@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-05T20:27:36.479Z",
+  "generatedAt": "2026-04-05T20:51:14.728Z",
   "sourceReport": "audit\\auditor-prime-2026-04-05.json",
   "top15Ids": [
     "TD-042",
@@ -46,55 +46,55 @@
         {
           "id": "TD-031",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@platform-api",
+          "owner": "@platform-security",
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/docs/openapi.ts"
+          "path": "apps/legacy/dashboard/proxy.ts"
         },
         {
           "id": "TD-032",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@platform-api",
+          "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-031"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/lib/database-availability.ts"
+          "path": "apps/web/app/(dashboard)/packs/page.tsx"
         },
         {
           "id": "TD-033",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@platform-api",
+          "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-031"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/lib/external-url.ts"
+          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx"
         },
         {
           "id": "TD-034",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@platform-api",
+          "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-031"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/lib/problem-details.ts"
+          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx"
         },
         {
           "id": "TD-035",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@platform-api",
+          "owner": "@product-frontend",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-031"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/lib/redis.ts"
+          "path": "apps/web/app/api/auth/[...session]/route.ts"
         },
         {
           "id": "TD-036",

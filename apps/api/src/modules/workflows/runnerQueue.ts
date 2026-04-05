@@ -6,6 +6,7 @@ import type { ConnectionOptions, JobsOptions } from "bullmq";
 import { Queue } from "bullmq";
 import { Redis } from "ioredis";
 
+const REDIS_CONNECT_TIMEOUT_MS = 5_000;
 const WORKFLOW_QUEUE_NAME = "workflow-execution";
 const WORKFLOW_TRIGGER_QUEUE_NAME = "workflow-trigger";
 
@@ -35,6 +36,9 @@ export interface WorkflowTriggerJobPayload {
 function getRedisConnection(config: ApiConfig): Redis {
   if (!redisConnection) {
     redisConnection = new Redis(config.REDIS_URL, {
+      connectTimeout: REDIS_CONNECT_TIMEOUT_MS,
+      enableOfflineQueue: false,
+      lazyConnect: true,
       maxRetriesPerRequest: null
     });
   }
@@ -140,4 +144,3 @@ export async function dedupeTriggerPayload(
   const result = await getRedisConnection(config).set(key, "1", "EX", 5, "NX");
   return result === "OK";
 }
-

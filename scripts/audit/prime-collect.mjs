@@ -281,13 +281,14 @@ async function collectFilePredicates(files) {
     const lines = await readLines(filePath).catch(() => []);
     const content = lines.join("\n");
     const isCoreRuntime = isRuntimeCode(filePath) && isWithinPrefixes(filePath, runtimeScanPrefixes);
+    const outboundIoPattern = /(fetch\s*\(|axios\.(get|post|put|delete|request)|new\s+Redis\s*\()/;
 
     if (
       isCoreRuntime &&
-      /(fetch\s*\(|axios\.(get|post|put|delete|request)|new URL\(|https?:\/\/)/.test(content) &&
+      outboundIoPattern.test(content) &&
       !/(timeout|AbortSignal|AbortController|requestTimeout|setTimeout\()/i.test(content)
     ) {
-      const lineMatch = lines.findIndex((line) => /(fetch\s*\(|axios\.(get|post|put|delete|request)|https?:\/\/)/.test(line));
+      const lineMatch = lines.findIndex((line) => outboundIoPattern.test(line));
       networkWithoutTimeout.push({
         path: filePath,
         line: Math.max(1, lineMatch + 1),

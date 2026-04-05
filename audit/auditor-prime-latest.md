@@ -12,7 +12,7 @@
 - TD-043 | Cobertura estrutural baixa em packages/database | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.8 | packages/database/src/client.ts:1
 - TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:1
 - TD-030 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/connectors/router.ts:1
-- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/api/src/docs/openapi.ts:41
+- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/legacy/dashboard/proxy.ts:11
 
 ### Análise Pendente
 
@@ -163,8 +163,8 @@
   Esforço: 2-5 dias
 
 - TD-016 | Acesso direto a process.env fora da camada de configuração
-  Localização: packages/database/src/client.ts:68
-  Problema: Identificado em packages/database/src/client.ts:68 acesso direto a process.env em runtime fora de um boundary dedicado de config.
+  Localização: packages/database/src/client.ts:49
+  Problema: Identificado em packages/database/src/client.ts:49 acesso direto a process.env em runtime fora de um boundary dedicado de config.
   Impacto: Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.
   Solução recomendada: Encapsular leituras em surface única de configuração com validação e defaults explícitos.
   VDI: 2.95 (MÉDIO)
@@ -285,40 +285,40 @@
   Esforço: 1-3 dias
 
 - TD-031 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/api/src/docs/openapi.ts:41
-  Problema: Indício em apps/api/src/docs/openapi.ts:41 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/legacy/dashboard/proxy.ts:11
+  Problema: Indício em apps/legacy/dashboard/proxy.ts:11 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-032 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/api/src/lib/database-availability.ts:1
-  Problema: Indício em apps/api/src/lib/database-availability.ts:1 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/app/(dashboard)/packs/page.tsx:35
+  Problema: Indício em apps/web/app/(dashboard)/packs/page.tsx:35 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-033 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/api/src/lib/external-url.ts:1
-  Problema: Indício em apps/api/src/lib/external-url.ts:1 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279
+  Problema: Indício em apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-034 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/api/src/lib/problem-details.ts:54
-  Problema: Indício em apps/api/src/lib/problem-details.ts:54 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99
+  Problema: Indício em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:99 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-035 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/api/src/lib/redis.ts:1
-  Problema: Indício em apps/api/src/lib/redis.ts:1 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/app/api/auth/[...session]/route.ts:9
+  Problema: Indício em apps/web/app/api/auth/[...session]/route.ts:9 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
@@ -545,16 +545,16 @@
   Esforço: 1-3 dias
 
 - TD-063 | Integração externa sem deadline operacional explícito
-  Localização: apps/api/src/docs/openapi.ts:41
-  Problema: Acesso externo em apps/api/src/docs/openapi.ts:41 não expõe timeout/abort guard no arquivo atual.
+  Localização: apps/legacy/dashboard/proxy.ts:11
+  Problema: Acesso externo em apps/legacy/dashboard/proxy.ts:11 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
   Solução recomendada: Padronizar timeout, retry budget e instrumentação de latência por integração.
   VDI: 3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-064 | Integração externa sem deadline operacional explícito
-  Localização: apps/api/src/lib/database-availability.ts:1
-  Problema: Acesso externo em apps/api/src/lib/database-availability.ts:1 não expõe timeout/abort guard no arquivo atual.
+  Localização: apps/web/app/(dashboard)/packs/page.tsx:35
+  Problema: Acesso externo em apps/web/app/(dashboard)/packs/page.tsx:35 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
   Solução recomendada: Padronizar timeout, retry budget e instrumentação de latência por integração.
   VDI: 3 (ALTO)
