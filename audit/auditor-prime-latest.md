@@ -3,16 +3,16 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 52/100
-- Estimativa de custo de não-ação: 8.9 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8.7 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-042 | Cobertura estrutural baixa em apps/api | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.8 | apps/api/src/app/auth-and-core-routes.ts:1
-- TD-043 | Cobertura estrutural baixa em packages/database | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.8 | packages/database/src/client.ts:1
 - TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:1
 - TD-030 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/connectors/router.ts:1
 - TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/legacy/dashboard/proxy.ts:11
+- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/packs/page.tsx:35
+- TD-033 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:279
 
 ### Análise Pendente
 
@@ -374,25 +374,25 @@
 
 ### Dimensão 4 — Cobertura de Testes e Observabilidade
 
-- TD-042 | Cobertura estrutural baixa em apps/api
-  Localização: apps/api/src/app/auth-and-core-routes.ts:1
-  Problema: O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 26 arquivos de teste diretos e 10 gaps principais.
+- TD-042 | Cobertura estrutural baixa em packages/database
+  Localização: packages/database/src/errors/cross-tenant-access.error.ts:1
+  Problema: O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 6 arquivos de teste diretos e 9 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
-  VDI: 3.8 (ALTO)
+  VDI: 3.45 (ALTO)
   Esforço: 1-3 dias
 
-- TD-043 | Cobertura estrutural baixa em packages/database
-  Localização: packages/database/src/client.ts:1
-  Problema: O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 4 arquivos de teste diretos e 11 gaps principais.
-  Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
-  Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
-  VDI: 3.8 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-044 | Cobertura estrutural baixa em apps/web
+- TD-043 | Cobertura estrutural baixa em apps/web
   Localização: apps/web/app/(dashboard)/agents/[id]/page.tsx:1
   Problema: O proxy de cobertura identifica 75 arquivos de runtime para apps/web, mas apenas 6 arquivos de teste diretos e 12 gaps principais.
+  Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
+  Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
+  VDI: 3.2 (ALTO)
+  Esforço: 1-3 dias
+
+- TD-044 | Cobertura estrutural baixa em apps/worker
+  Localização: apps/worker/src/agents/conversations.ts:1
+  Problema: O proxy de cobertura identifica 70 arquivos de runtime para apps/worker, mas apenas 22 arquivos de teste diretos e 10 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 3.2 (ALTO)
@@ -1720,17 +1720,15 @@
 
 - Caminho crítico: TD-029 -> TD-001 -> TD-089
 - Nós mapeados: 22
-- Arestas mapeadas: 20
+- Arestas mapeadas: 18
 
-- TD-026 -> TD-042 (Debt dependency)
-- TD-042 -> TD-043 (Debt dependency)
-- TD-026 -> TD-043 (Debt dependency)
 - TD-029 -> TD-030 (Debt dependency)
 - TD-031 -> TD-032 (Debt dependency)
 - TD-031 -> TD-033 (Debt dependency)
 - TD-031 -> TD-034 (Debt dependency)
 - TD-031 -> TD-035 (Debt dependency)
 - TD-016 -> TD-036 (Debt dependency)
+- TD-026 -> TD-042 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
 - TD-089 -> IN-001 (Scale foundation before innovation)
 - TD-089 -> IN-002 (Scale foundation before innovation)

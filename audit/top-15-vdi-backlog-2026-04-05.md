@@ -1,6 +1,6 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-05T20:51:14.728Z
+- Generated at: 2026-04-05T20:52:59.312Z
 - Source report: `audit\auditor-prime-2026-04-05.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
@@ -20,8 +20,7 @@
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-042 Cobertura estrutural baixa em apps/api (`apps/api/src/app/auth-and-core-routes.ts`) | @platform-api | 1-3 dias | TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
-| TD-043 Cobertura estrutural baixa em packages/database (`packages/database/src/client.ts`) | @platform-data | 1-3 dias | TD-042, TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
+| TD-042 Cobertura estrutural baixa em packages/database (`packages/database/src/errors/cross-tenant-access.error.ts`) | @platform-data | 1-3 dias | TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
 
 ## Sprint 3 — Performance + UX técnica
 
@@ -32,6 +31,7 @@
 | TD-054 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | nenhuma | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-055 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-056 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/agents/metrics.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 

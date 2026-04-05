@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T20:51:13.932Z",
+    "generatedAt": "2026-04-05T20:52:58.502Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "1647c3acc7256660906da84f4b08d99d982b108e",
+    "headSha": "6724a3c3c835fda5a3130753d1af641531383730",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -23,34 +23,6 @@
   "executiveSummary": {
     "technicalHealthScore": 52,
     "topRisks": [
-      {
-        "id": "TD-042",
-        "title": "Cobertura estrutural baixa em apps/api",
-        "dimension": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-        "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
-        "vdiScore": 3.8,
-        "location": {
-          "path": "apps/api/src/app/auth-and-core-routes.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        }
-      },
-      {
-        "id": "TD-043",
-        "title": "Cobertura estrutural baixa em packages/database",
-        "dimension": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-        "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
-        "vdiScore": 3.8,
-        "location": {
-          "path": "packages/database/src/client.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        }
-      },
       {
         "id": "TD-029",
         "title": "Superfície crítica sem teste relacionado por heurística de nome",
@@ -92,9 +64,37 @@
             "end": 11
           }
         }
+      },
+      {
+        "id": "TD-032",
+        "title": "Chamada externa sem timeout ou abort path explícito",
+        "dimension": "Dimensão 3 — Segurança",
+        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+        "vdiScore": 3.6,
+        "location": {
+          "path": "apps/web/app/(dashboard)/packs/page.tsx",
+          "lines": {
+            "start": 35,
+            "end": 35
+          }
+        }
+      },
+      {
+        "id": "TD-033",
+        "title": "Chamada externa sem timeout ou abort path explícito",
+        "dimension": "Dimensão 3 — Segurança",
+        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+        "vdiScore": 3.6,
+        "location": {
+          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
+          "lines": {
+            "start": 279,
+            "end": 279
+          }
+        }
       }
     ],
-    "costOfNonActionWeeksPerMonth": 8.9,
+    "costOfNonActionWeeksPerMonth": 8.7,
     "launchViability": {
       "status": "CONDICIONAL",
       "justification": "O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1."
@@ -1844,38 +1844,38 @@
     },
     {
       "dimension": "tests_observability",
-      "title": "Cobertura estrutural baixa em apps/api",
+      "title": "Cobertura estrutural baixa em packages/database",
       "location": {
-        "path": "apps/api/src/app/auth-and-core-routes.ts",
+        "path": "packages/database/src/errors/cross-tenant-access.error.ts",
         "lines": {
           "start": 1,
           "end": 1
         }
       },
-      "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 26 arquivos de teste diretos e 10 gaps principais.",
+      "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 6 arquivos de teste diretos e 9 gaps principais.",
       "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
       "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
       "vdiFactors": {
-        "businessImpact": 4,
+        "businessImpact": 3,
         "securityRisk": 4,
         "reverseEffort": 3,
         "frequency": 4
       },
-      "vdiScore": 3.8,
+      "vdiScore": 3.45,
       "effort": "1-3 dias",
       "severity": "ALTO",
       "phase": "Fase 1",
       "confidence": 0.86,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/app/auth-and-core-routes.ts",
+          "path": "packages/database/src/errors/cross-tenant-access.error.ts",
           "line": 1,
-          "summary": "Gap estrutural identificado para apps/api."
+          "summary": "Gap estrutural identificado para packages/database."
         },
         {
           "path": "artifacts/testing/module-coverage.json",
           "line": 1,
-          "summary": "apps/api: 26 testes diretos, 10 gaps."
+          "summary": "packages/database: 6 testes diretos, 9 gaps."
         }
       ],
       "inference": false,
@@ -1887,55 +1887,6 @@
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
       "id": "TD-042",
       "dependencies": [
-        "TD-026"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Cobertura estrutural baixa em packages/database",
-      "location": {
-        "path": "packages/database/src/client.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 4 arquivos de teste diretos e 11 gaps principais.",
-      "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
-      "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 4,
-        "reverseEffort": 3,
-        "frequency": 4
-      },
-      "vdiScore": 3.8,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.86,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/src/client.ts",
-          "line": 1,
-          "summary": "Gap estrutural identificado para packages/database."
-        },
-        {
-          "path": "artifacts/testing/module-coverage.json",
-          "line": 1,
-          "summary": "packages/database: 4 testes diretos, 11 gaps."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness",
-        "observability-foundation"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-043",
-      "dependencies": [
-        "TD-042",
         "TD-026"
       ]
     },
@@ -1973,6 +1924,55 @@
           "path": "artifacts/testing/module-coverage.json",
           "line": 1,
           "summary": "apps/web: 6 testes diretos, 12 gaps."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness",
+        "observability-foundation"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-043",
+      "dependencies": [
+        "TD-042",
+        "TD-026"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Cobertura estrutural baixa em apps/worker",
+      "location": {
+        "path": "apps/worker/src/agents/conversations.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "O proxy de cobertura identifica 70 arquivos de runtime para apps/worker, mas apenas 22 arquivos de teste diretos e 10 gaps principais.",
+      "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
+      "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 3,
+        "frequency": 4
+      },
+      "vdiScore": 3.2,
+      "effort": "1-3 dias",
+      "severity": "ALTO",
+      "phase": "Fase 1",
+      "confidence": 0.86,
+      "evidenceRefs": [
+        {
+          "path": "apps/worker/src/agents/conversations.ts",
+          "line": 1,
+          "summary": "Gap estrutural identificado para apps/worker."
+        },
+        {
+          "path": "artifacts/testing/module-coverage.json",
+          "line": 1,
+          "summary": "apps/worker: 22 testes diretos, 10 gaps."
         }
       ],
       "inference": false,
@@ -6559,18 +6559,6 @@
   "dependencyMatrix": {
     "nodes": [
       {
-        "id": "TD-042",
-        "label": "Cobertura estrutural baixa em apps/api",
-        "phase": "Fase 1",
-        "type": "debt"
-      },
-      {
-        "id": "TD-043",
-        "label": "Cobertura estrutural baixa em packages/database",
-        "phase": "Fase 1",
-        "type": "debt"
-      },
-      {
         "id": "TD-029",
         "label": "Superfície crítica sem teste relacionado por heurística de nome",
         "phase": "Fase 1",
@@ -6625,8 +6613,20 @@
         "type": "debt"
       },
       {
+        "id": "TD-042",
+        "label": "Cobertura estrutural baixa em packages/database",
+        "phase": "Fase 1",
+        "type": "debt"
+      },
+      {
         "id": "TD-002",
         "label": "Arquivo grande demais para o boundary atual (473 linhas)",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
+        "id": "TD-054",
+        "label": "Consulta findMany sem paginação explícita",
         "phase": "Fase 2",
         "type": "debt"
       },
@@ -6693,21 +6693,6 @@
     ],
     "edges": [
       {
-        "from": "TD-026",
-        "to": "TD-042",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-042",
-        "to": "TD-043",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-026",
-        "to": "TD-043",
-        "reason": "Debt dependency"
-      },
-      {
         "from": "TD-029",
         "to": "TD-030",
         "reason": "Debt dependency"
@@ -6735,6 +6720,11 @@
       {
         "from": "TD-016",
         "to": "TD-036",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-026",
+        "to": "TD-042",
         "reason": "Debt dependency"
       },
       {
@@ -7145,8 +7135,8 @@
         "key": "tests_observability",
         "label": "Dimensão 4 — Cobertura de Testes e Observabilidade",
         "weight": 12,
-        "avgTopVdi": 3.6,
-        "score": 5.52
+        "avgTopVdi": 3.28,
+        "score": 6.09
       },
       {
         "key": "performance",
@@ -7194,10 +7184,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6074,
-      "coreTrackedFiles": 433,
+      "trackedFiles": 6081,
+      "coreTrackedFiles": 440,
       "runtimeFiles": 1801,
-      "testFiles": 131,
+      "testFiles": 138,
       "modules": 284
     },
     "capabilities": {
@@ -8466,8 +8456,23 @@
       }
     },
     "git": {
-      "totalCommits": 1095,
+      "totalCommits": 1098,
       "last30Days": [
+        {
+          "sha": "6724a3c3c835fda5a3130753d1af641531383730",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "042c74a14629bfc14bcd65547b69d9a016a49c5d",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "d4a0ce8bce4a60886b2cddbe39da40c5f16515d0",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "1647c3acc7256660906da84f4b08d99d982b108e",
           "date": "2026-04-05",
@@ -11100,6 +11105,21 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "6724a3c3c835fda5a3130753d1af641531383730",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "042c74a14629bfc14bcd65547b69d9a016a49c5d",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "d4a0ce8bce4a60886b2cddbe39da40c5f16515d0",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "1647c3acc7256660906da84f4b08d99d982b108e",
             "date": "2026-04-05",
             "subject": "1"
@@ -11207,21 +11227,6 @@
           {
             "sha": "e261a01c9a06ff3525d4672da40130df8a163574",
             "date": "2026-03-28",
-            "subject": "Your commit message here"
-          },
-          {
-            "sha": "2e570d66a4012d543813634d1446d63469cc4a44",
-            "date": "2026-03-28",
-            "subject": "Your commit message here"
-          },
-          {
-            "sha": "69b70a6c54e45fe15c38ac1e1043e6bed1b100da",
-            "date": "2026-03-28",
-            "subject": "Your commit message here"
-          },
-          {
-            "sha": "f8c48527d050a8a36b3ceccadf8477d558b3ace1",
-            "date": "2026-03-27",
             "subject": "Your commit message here"
           }
         ]
