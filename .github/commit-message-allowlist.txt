@@ -4,3 +4,5 @@
 512dde4000634bc12b03c9162ea57935f03c5525 legacy baseline commit before branch policy hardening
 f628a7ade8ca37624052039b78a4f9efd4eef131 legacy baseline commit before branch policy hardening
 116d26eab493d21e41a9567e6838ea19856cf2b2 legacy baseline commit before branch policy hardening
+b6739c2f25740a81468ef72da17b71ad01d95d86 legacy commit from codex/conduct-secrets-audit-process before conventional-commit enforcement
+6e3776cd8e3f2d4b023cfeec8840672a2f6426d6 legacy commit from codex/conduct-secrets-audit-process before conventional-commit enforcement
