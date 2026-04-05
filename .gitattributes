@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * text=auto eol=lf
 <<<<<<< Updated upstream
 *.bat eol=crlf
@@ -18,9 +19,35 @@
 *.yml text eol=lf
 *.yaml text eol=lf
 *.sql text eol=lf
+=======
+* text=auto
+
+# Arquivos TypeScript e Javascript (usar formato UNIX/LF)
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.jsx text eol=lf
+
+# JSON e Configurações
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+
+# Binários que não recebem EOL config
+>>>>>>> origin/jules-f8-database-integrity-16939282469267761297
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
+<<<<<<< HEAD
 *.pdf binary
 >>>>>>> Stashed changes
+=======
+*.webp binary
+*.ico binary
+*.pdf binary
+*.zip binary
+>>>>>>> origin/jules-f8-database-integrity-16939282469267761297

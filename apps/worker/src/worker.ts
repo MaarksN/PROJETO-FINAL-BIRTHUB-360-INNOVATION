@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 /* eslint-disable */
 import { getWorkerConfig } from "@birthub/config";
+=======
+import { getWorkerConfig, taskJobSchema } from "@birthub/config";
+import {
+  createNotificationForOrganizationRoles,
+  createNotificationForUser,
+  ExecutionSource,
+  NotificationType,
+  Prisma,
+  prisma
+} from "@birthub/database";
+>>>>>>> origin/jules-f8-database-integrity-16939282469267761297
 import { createLogger } from "@birthub/logger";
 import { incrementCounter, observeHistogram } from "@birthub/logger";
 import { Queue, Worker, type JobsOptions } from "bullmq";

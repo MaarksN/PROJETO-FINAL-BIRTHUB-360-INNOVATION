@@ -2,8 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { ConversationService } from "../../src/service.js";
 
-test("conversation service lifecycle", () => {
-  const events: any[] = [];
+void test("conversation service lifecycle", () => {
+  const events: unknown[] = [];
   const svc = new ConversationService({ conversations: [], messages: [] }, (event) => events.push(event));
 
   const conv = svc.createConversation("org-1", "web");

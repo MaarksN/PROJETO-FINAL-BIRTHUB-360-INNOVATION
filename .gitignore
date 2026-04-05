@@ -34,6 +34,7 @@ __pycache__/
 *.log
 pnpm-debug.log*
 npm-debug.log*
+<<<<<<< HEAD
 artifacts/**/*.bak
 artifacts/**/*.dump
 artifacts/**/*.env
@@ -53,3 +54,12 @@ logs/ci-runs/*.zip
 artifacts/quality/jscpd/html/
 artifacts/f0-freeze-2026-03-22/metrics/
 .github/agents/
+=======
+
+# Artifacts policies
+artifacts/**/*.zip
+artifacts/**/*.sqlite
+artifacts/**/*.log
+!artifacts/audit/
+!artifacts/untracked_agents_snapshot/
+>>>>>>> origin/jules-f8-database-integrity-16939282469267761297

@@ -50,6 +50,8 @@ export default tseslint.config(
         }
       ],
       "@typescript-eslint/require-await": "warn",
+      "max-lines": ["warn", { "max": 500, "skipBlankLines": true, "skipComments": true }],
+      "complexity": ["warn", 20],
       "no-restricted-imports": [
         "error",
         {
