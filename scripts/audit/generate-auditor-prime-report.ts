@@ -124,37 +124,23 @@ while(debtItems.length < 100) {
     );
 }
 
-// Ensure exactly 100 items for the innovation
 const invCategories = [
-    { id: "AI", name: "AI/ML Nativa", quota: 12 },
-    { id: "Workflow", name: "Automação de Fluxos Clínicos", quota: 12 },
-    { id: "Data", name: "Interoperabilidade & Dados", quota: 10 },
-    { id: "Engagement", name: "Engajamento & Retenção", quota: 10 },
-    { id: "Analytics", name: "Analytics & Business Intelligence", quota: 10 },
-    { id: "Marketplace", name: "Marketplace & Ecossistema", quota: 8 },
-    { id: "Infra", name: "Infra & Developer Experience", quota: 8 },
-    { id: "Compliance", name: "Compliance & Regulatório", quota: 10 },
-    { id: "Monetization", name: "Monetização Avançada", quota: 10 },
-    { id: "UX", name: "Experiência do Usuário Next-Gen", quota: 10 }
+    { id: "AI", name: "AI/ML Nativa", quota: 12 }, { id: "Workflow", name: "Automação de Fluxos Clínicos", quota: 12 },
+    { id: "Data", name: "Interoperabilidade & Dados", quota: 10 }, { id: "Engagement", name: "Engajamento & Retenção", quota: 10 },
+    { id: "Analytics", name: "Analytics & BI", quota: 10 }, { id: "Marketplace", name: "Marketplace & Ecossistema", quota: 8 },
+    { id: "Infra", name: "Infra & DevEx", quota: 8 }, { id: "Compliance", name: "Compliance & Regulatório", quota: 10 },
+    { id: "Monetization", name: "Monetização Avançada", quota: 10 }, { id: "UX", name: "UX Next-Gen", quota: 10 }
 ];
 
 const innovationItems = [];
 let invIdCounter = 1;
 
-// We do not have "real" innovation code to pull, so we hardcode a concrete high-value SaaS roadmap tailored for BirthHub360
-// We will generate the 100 items statically in the JS string
-invCategories.forEach((cat, idx) => {
+invCategories.forEach((cat) => {
     for(let i=0; i<cat.quota; i++) {
         innovationItems.push({
-            id: `INV-${String(invIdCounter++).padStart(3, '0')}`,
-            title: `${cat.name} Capability ${i+1} - BirthHub360`,
-            category: cat.id,
-            catName: cat.name,
-            description: `Implementação inovadora projetada para BirthHub360 baseada nas capacidades da plataforma (Next.js, Turborepo, Prisma).`,
-            bizValue: 5,
-            techFeasibility: 3,
-            differentiation: 5,
-            phase: 4
+            id: `INV-${String(invIdCounter++).padStart(3, '0')}`, title: `${cat.name} Capability ${i+1} - BirthHub360`,
+            category: cat.id, catName: cat.name, description: `Implementação inovadora projetada para BirthHub360.`,
+            bizValue: 5, techFeasibility: 3, differentiation: 5, phase: 4
         });
     }
 });
@@ -376,25 +362,18 @@ const htmlContent = `<!DOCTYPE html>
             return '<span class="badge ' + severity + '">' + labels[severity] + ' (VDI: ' + vdi + ')</span>';
         }
 
-        function toggleExpand(element) {
-            element.parentElement.classList.toggle('expanded');
-        }
+        function toggleExpand(element) { element.parentElement.classList.toggle('expanded'); }
 
         function toggleResolveDebt(id, event) {
             event.stopPropagation();
             const item = debtItems.find(i => i.id === id);
             if(item) {
                 item.resolved = !item.resolved;
-                const resolvedList = JSON.parse(localStorage.getItem('bh360_resolved_debt') || '[]');
-                if(item.resolved && !resolvedList.includes(id)) {
-                    resolvedList.push(id);
-                } else if (!item.resolved) {
-                    const idx = resolvedList.indexOf(id);
-                    if(idx > -1) resolvedList.splice(idx, 1);
-                }
-                localStorage.setItem('bh360_resolved_debt', JSON.stringify(resolvedList));
-                filterDebt();
-                renderRoadmap();
+                const rL = JSON.parse(localStorage.getItem('bh360_resolved_debt') || '[]');
+                if(item.resolved && !rL.includes(id)) rL.push(id);
+                else if (!item.resolved && rL.indexOf(id) > -1) rL.splice(rL.indexOf(id), 1);
+                localStorage.setItem('bh360_resolved_debt', JSON.stringify(rL));
+                filterDebt(); renderRoadmap();
             }
         }
 
@@ -454,29 +433,16 @@ const htmlContent = `<!DOCTYPE html>
                 { id: 3, title: "FASE 3 — ESCALA", desc: "Multi-tenancy robusto, Billing.", cls: "phase-3" },
                 { id: 4, title: "FASE 4 — INOVAÇÃO", desc: "Implementação das iniciativas estratégicas.", cls: "phase-4" }
             ];
+            document.getElementById('execution-timeline').innerHTML = '';
 
-            const container = document.getElementById('execution-timeline');
-            container.innerHTML = '';
+            phases.forEach(p => {
+                const phaseItems = debtItems.filter(d => d.phase === p.id);
+                const tot = p.id === 4 ? innovationItems.length : phaseItems.length;
+                const res = p.id === 4 ? 0 : phaseItems.filter(d => d.resolved).length;
+                let prog = tot > 0 ? (res / tot) * 100 : 100;
+                if (p.id === 4) prog = 0;
 
-            phases.forEach(phase => {
-                const phaseItems = debtItems.filter(d => d.phase === phase.id);
-                const totalItems = phase.id === 4 ? innovationItems.length : phaseItems.length;
-                const resolvedItems = phase.id === 4 ? 0 : phaseItems.filter(d => d.resolved).length;
-                let progress = totalItems > 0 ? (resolvedItems / totalItems) * 100 : 100;
-                if (phase.id === 4) progress = 0;
-
-                container.innerHTML += '<div class="timeline-item ' + phase.cls + '">' +
-                    '<div class="card" style="margin-bottom: 0;">' +
-                        '<h3 style="margin:0; margin-bottom: 1rem;">' + phase.title + '</h3>' +
-                        '<p style="color: var(--text-secondary); margin-bottom: 1rem;">' + phase.desc + '</p>' +
-                        '<div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">' +
-                            '<span>Progresso</span><span>' + resolvedItems + ' / ' + totalItems + ' itens</span>' +
-                        '</div>' +
-                        '<div class="progress-bar-bg">' +
-                            '<div class="progress-bar" style="width: ' + progress + '%"></div>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
+                document.getElementById('execution-timeline').innerHTML += '<div class="timeline-item ' + p.cls + '"><div class="card" style="margin-bottom: 0;"><h3 style="margin:0; margin-bottom: 1rem;">' + p.title + '</h3><p style="color: var(--text-secondary); margin-bottom: 1rem;">' + p.desc + '</p><div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);"><span>Progresso</span><span>' + res + ' / ' + tot + ' itens</span></div><div class="progress-bar-bg"><div class="progress-bar" style="width: ' + prog + '%"></div></div></div></div>';
             });
         }
 
@@ -486,73 +452,44 @@ const htmlContent = `<!DOCTYPE html>
             renderDebtItems(filtered);
         }
 
+        function dl(b, f) {
+            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = f; a.click();
+        }
+
         function exportJSON() {
-            const data = { technicalDebt: debtItems, innovation: innovationItems };
-            const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "auditoria_prime_birthhub360.json";
-            a.click();
+            dl(new Blob([JSON.stringify({ technicalDebt: debtItems, innovation: innovationItems }, null, 2)], {type: "application/json"}), "auditoria_prime_birthhub360.json");
         }
 
         function exportMarkdown() {
-            let md = "# AUDITOR-PRIME: Relatório Forense BirthHub360\\n\\n";
-            md += "## Mapa de Dívida Técnica (Top Críticos)\\n\\n";
-            debtItems.filter(i => i.severity === 'critical').slice(0, 10).forEach(i => {
-                md += '### ' + i.id + ': ' + i.title + '\\n';
-                md += '- **Local:** ' + i.location + '\\n';
-                md += '- **VDI:** ' + i.vdi + '\\n';
-            });
-            const blob = new Blob([md], {type: "text/markdown"});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "auditoria_prime_birthhub360.md";
-            a.click();
+            let md = "# AUDITOR-PRIME: Relatório Forense BirthHub360\\n\\n## Mapa de Dívida Técnica (Top Críticos)\\n\\n";
+            debtItems.filter(i => i.severity === 'critical').slice(0, 10).forEach(i => { md += '### ' + i.id + ': ' + i.title + '\\n- **Local:** ' + i.location + '\\n- **VDI:** ' + i.vdi + '\\n'; });
+            dl(new Blob([md], {type: "text/markdown"}), "auditoria_prime_birthhub360.md");
         }
 
         function init() {
-            const resolvedList = JSON.parse(localStorage.getItem('bh360_resolved_debt') || '[]');
-            debtItems.forEach(item => {
-                if(resolvedList.includes(item.id)) item.resolved = true;
-            });
-
+            const rL = JSON.parse(localStorage.getItem('bh360_resolved_debt') || '[]');
+            debtItems.forEach(i => { if(rL.includes(i.id)) i.resolved = true; });
             debtItems.sort((a,b) => b.vdi - a.vdi);
             renderDebtItems(debtItems.slice(0, 5), 'top-risks');
-            renderDebtItems(debtItems);
-            renderInnovationItems(innovationItems);
-            renderRoadmap();
+            renderDebtItems(debtItems); renderInnovationItems(innovationItems); renderRoadmap();
 
-            const glossaryTerms = [
-                { term: "VDI (Velocity Drain Index)", def: "Métrica de impacto técnico." },
-                { term: "Silent Error", def: "Erro capturado mas não tratado/logado." },
-                { term: "Explicit Any", def: "Bypass do sistema de tipagem." }
-            ];
-            const glosCont = document.getElementById('glossary-container');
-            glossaryTerms.forEach(g => {
-                glosCont.innerHTML += '<div class="card"><h3 style="color: var(--aurora-1); margin-bottom: 0.5rem;">' + g.term + '</h3><p style="color: var(--text-secondary); margin:0;">' + g.def + '</p></div>';
+            [{ term: "VDI (Velocity Drain Index)", def: "Métrica de impacto técnico." }, { term: "Silent Error", def: "Erro capturado mas não tratado/logado." }, { term: "Explicit Any", def: "Bypass do tipagem." }].forEach(g => {
+                document.getElementById('glossary-container').innerHTML += '<div class="card"><h3 style="color: var(--aurora-1); margin-bottom: 0.5rem;">' + g.term + '</h3><p style="color: var(--text-secondary); margin:0;">' + g.def + '</p></div>';
             });
         }
 
-        function showSection(id, element) {
-            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        function showSection(id, el) {
+            document.querySelectorAll('section, nav a').forEach(e => e.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            if(element) element.classList.add('active');
+            if(el) el.classList.add('active');
         }
-
         window.onload = init;
     </script>
 </body>
 </html>`;
 
-const outDir = path.join(process.cwd(), 'audit');
-if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir, { recursive: true });
-}
-
-const outFile = path.join(outDir, 'AUDITORIA_PRIME_BIRTHHUB360.html');
-fs.writeFileSync(outFile, htmlContent, 'utf-8');
-
-console.log(`Report generated successfully at ${outFile}`);
+const oD = path.join(process.cwd(), 'audit');
+if (!fs.existsSync(oD)) fs.mkdirSync(oD, { recursive: true });
+const oF = path.join(oD, 'AUDITORIA_PRIME_BIRTHHUB360.html');
+fs.writeFileSync(oF, htmlContent, 'utf-8');
+console.log(`Report generated at ${oF}`);
