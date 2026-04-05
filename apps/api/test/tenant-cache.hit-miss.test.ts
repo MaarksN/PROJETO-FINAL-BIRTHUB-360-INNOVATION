@@ -7,7 +7,7 @@ import request from "supertest";
 
 import { setCacheStoreForTests } from "../src/common/cache/index.js";
 import { requestContextMiddleware } from "../src/middleware/request-context.js";
-import { tenantContextMiddleware } from "../src/middleware/tenant-context.js";
+import { tenantContextMiddleware } from "../src/middlewares/tenantContext.js";
 
 type StubTarget = Record<string, unknown>;
 

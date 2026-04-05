@@ -2,33 +2,29 @@
 
 ## 1. EXECUTIVE SUMMARY
 
-- Score geral de saúde técnica: 52/100
-- Estimativa de custo de não-ação: 9.3 semanas de engenharia perdidas/mês
+- Score geral de saúde técnica: 53/100
+- Estimativa de custo de não-ação: 8.9 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
 - TD-089 | Prova fresca de isolamento RLS por tenant não acompanha o pacote soberano | Dimensão 8 — Maturidade Operacional e Multi-tenancy | VDI 4.45 | packages/database/test/rls.test.ts:1
-- TD-029 | Uso de raw query insegura no acesso a dados | Dimensão 3 — Segurança | VDI 3.95 | packages/database/scripts/analyze-performance.ts:61
-- TD-030 | Uso de raw query insegura no acesso a dados | Dimensão 3 — Segurança | VDI 3.95 | packages/database/scripts/analyze-performance.ts:72
-- TD-031 | Uso de raw query insegura no acesso a dados | Dimensão 3 — Segurança | VDI 3.95 | packages/database/scripts/analyze-performance.ts:80
-- TD-032 | Uso de raw query insegura no acesso a dados | Dimensão 3 — Segurança | VDI 3.95 | packages/database/scripts/check-referential-integrity.ts:34
+- TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:1
+- TD-030 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/connectors/router.ts:1
+- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/api/src/docs/openapi.ts:41
+- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/api/src/lib/database-availability.ts:1
 
 ### Análise Pendente
 
-- TD-007 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core | requer: docs/architecture/c4-context.md
-- TD-008 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 2) | requer: docs/architecture/dependency-boundaries.md
-- TD-009 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 3) | requer: docs/architecture/c4-context.md
-- TD-010 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 4) | requer: docs/architecture/dependency-boundaries.md
-- TD-011 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 5) | requer: docs/architecture/c4-context.md
-- TD-012 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 6) | requer: docs/architecture/dependency-boundaries.md
-- TD-013 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 7) | requer: docs/architecture/c4-context.md
-- TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 8) | requer: docs/architecture/dependency-boundaries.md
-- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
+- TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core | requer: docs/architecture/c4-context.md
+- TD-037 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
+- TD-038 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
+- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
+- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4) | requer: DAST/ZAP report
+- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5) | requer: semgrep --json
 - TD-051 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada | requer: cobertura por módulo
 - TD-052 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2) | requer: SLO dashboards vivos
 - TD-053 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3) | requer: cobertura por módulo
-- TD-065 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD | requer: bundle baseline fresco
 - TD-070 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-071 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-072 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -53,23 +49,79 @@
 
 ### Dimensão 1 — Saúde Arquitetural
 
-- TD-001 | Arquivo grande demais para o boundary atual (482 linhas)
-  Localização: apps/web/app/(dashboard)/settings/billing/page.tsx:1
-  Problema: Identificado em apps/web/app/(dashboard)/settings/billing/page.tsx um arquivo com 482 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+- TD-001 | Complexidade acima do limiar em registerAuthRoutes
+  Localização: apps/api/src/app/auth-routes.ts:28
+  Problema: Identificado em apps/api/src/app/auth-routes.ts:28 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.55 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-002 | Arquivo grande demais para o boundary atual (473 linhas)
+  Localização: apps/api/src/modules/billing/service.checkout.ts:1
+  Problema: Identificado em apps/api/src/modules/billing/service.checkout.ts um arquivo com 473 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 3.35 (ALTO)
   Esforço: 2-5 dias
 
-- TD-002 | Superfícies duplicadas para contexto de tenant no mesmo serviço
-  Localização: apps/api/src/middleware/tenant-context.ts:1
-  Problema: O serviço expõe duas convenções de pasta/nome para middleware de tenant context, um indício de drift arquitetural e de nomenclatura.
-  Impacto: Duplicidade de entrypoints aumenta o risco de importar a variante errada e dificulta consolidar políticas cross-cutting.
-  Solução recomendada: Consolidar a superfície oficial em um único módulo e adicionar teste/guardrail de import path permitido.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-1 dia
+- TD-003 | Complexidade acima do limiar em <anonymous>
+  Localização: apps/worker/src/worker.process-job.ts:45
+  Problema: Identificado em apps/worker/src/worker.process-job.ts:45 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
 
-- TD-003 | Superfície legacy ainda versionada ao lado do core canônico
+- TD-004 | Complexidade acima do limiar em createConnectorsRouter
+  Localização: apps/api/src/modules/connectors/router.ts:170
+  Problema: Identificado em apps/api/src/modules/connectors/router.ts:170 uma função com complexidade ciclomática 38, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-005 | Complexidade acima do limiar em createJobProcessor
+  Localização: apps/worker/src/worker.process-job.ts:36
+  Problema: Identificado em apps/worker/src/worker.process-job.ts:36 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-006 | Complexidade acima do limiar em DeveloperWebhooksPage
+  Localização: apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35
+  Problema: Identificado em apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-007 | Complexidade acima do limiar em executeStep
+  Localização: packages/workflows-core/src/nodes/executeStep.ts:31
+  Problema: Identificado em packages/workflows-core/src/nodes/executeStep.ts:31 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-008 | Complexidade acima do limiar em WorkflowRunsPage
+  Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:84
+  Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:84 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-009 | Complexidade acima do limiar em parseAgentConfig
+  Localização: apps/api/src/modules/agents/service.config.ts:6
+  Problema: Identificado em apps/api/src/modules/agents/service.config.ts:6 uma função com complexidade ciclomática 26, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.05 (ALTO)
+  Esforço: 1-3 dias
+
+- TD-010 | Superfície legacy ainda versionada ao lado do core canônico
   Localização: docs/service-catalog.md:1
   Problema: O catálogo canônico marca o dashboard legado como quarentena, mas a superfície continua presente e próxima do fluxo principal do monorepo.
   Impacto: Manter legado ao lado do core amplia ruído de manutenção e aumenta o risco de dependências regressivas no lane principal.
@@ -77,7 +129,7 @@
   VDI: 2.85 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-004 | Arquivo grande demais para o boundary atual (1265 linhas)
+- TD-011 | Arquivo grande demais para o boundary atual (1265 linhas)
   Localização: packages/database/prisma/schema.prisma:1
   Problema: Identificado em packages/database/prisma/schema.prisma um arquivo com 1265 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
@@ -85,15 +137,15 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-005 | Arquivo grande demais para o boundary atual (476 linhas)
-  Localização: apps/api/src/modules/dashboard/service.ts:1
-  Problema: Identificado em apps/api/src/modules/dashboard/service.ts um arquivo com 476 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+- TD-012 | Arquivo grande demais para o boundary atual (474 linhas)
+  Localização: apps/api/src/modules/workflows/service.ts:1
+  Problema: Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 474 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-006 | Arquivo grande demais para o boundary atual (797 linhas)
+- TD-013 | Arquivo grande demais para o boundary atual (797 linhas)
   Localização: packages/database/prisma/migration-registry.json:1
   Problema: Identificado em packages/database/prisma/migration-registry.json um arquivo com 797 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
@@ -101,67 +153,11 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-007 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core
+- TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core
   Localização: docs/service-catalog.md:1
   Problema: O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.
   Impacto: Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.
   Solução recomendada: Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-008 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 2)
-  Localização: docs/service-catalog.md:1
-  Problema: Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.
-  Impacto: Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.
-  Solução recomendada: Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-009 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 3)
-  Localização: docs/service-catalog.md:1
-  Problema: O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.
-  Impacto: Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.
-  Solução recomendada: Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-010 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 4)
-  Localização: docs/service-catalog.md:1
-  Problema: Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.
-  Impacto: Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.
-  Solução recomendada: Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-011 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 5)
-  Localização: docs/service-catalog.md:1
-  Problema: O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.
-  Impacto: Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.
-  Solução recomendada: Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-012 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 6)
-  Localização: docs/service-catalog.md:1
-  Problema: Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.
-  Impacto: Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.
-  Solução recomendada: Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-013 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 7)
-  Localização: docs/service-catalog.md:1
-  Problema: O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.
-  Impacto: Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.
-  Solução recomendada: Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 8)
-  Localização: docs/service-catalog.md:1
-  Problema: Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.
-  Impacto: Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.
-  Solução recomendada: Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -281,39 +277,7 @@
 
 ### Dimensão 3 — Segurança
 
-- TD-029 | Uso de raw query insegura no acesso a dados
-  Localização: packages/database/scripts/analyze-performance.ts:61
-  Problema: Identificado em packages/database/scripts/analyze-performance.ts:61 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.
-  Impacto: Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.
-  Solução recomendada: Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.
-  VDI: 3.95 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-030 | Uso de raw query insegura no acesso a dados
-  Localização: packages/database/scripts/analyze-performance.ts:72
-  Problema: Identificado em packages/database/scripts/analyze-performance.ts:72 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.
-  Impacto: Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.
-  Solução recomendada: Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.
-  VDI: 3.95 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-031 | Uso de raw query insegura no acesso a dados
-  Localização: packages/database/scripts/analyze-performance.ts:80
-  Problema: Identificado em packages/database/scripts/analyze-performance.ts:80 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.
-  Impacto: Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.
-  Solução recomendada: Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.
-  VDI: 3.95 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-032 | Uso de raw query insegura no acesso a dados
-  Localização: packages/database/scripts/check-referential-integrity.ts:34
-  Problema: Identificado em packages/database/scripts/check-referential-integrity.ts:34 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.
-  Impacto: Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.
-  Solução recomendada: Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.
-  VDI: 3.95 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-033 | Superfície crítica sem teste relacionado por heurística de nome
+- TD-029 | Superfície crítica sem teste relacionado por heurística de nome
   Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:1
   Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.
   Impacto: Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.
@@ -321,7 +285,7 @@
   VDI: 3.65 (ALTO)
   Esforço: 1-3 dias
 
-- TD-034 | Superfície crítica sem teste relacionado por heurística de nome
+- TD-030 | Superfície crítica sem teste relacionado por heurística de nome
   Localização: apps/api/src/modules/connectors/router.ts:1
   Problema: Identificado em apps/api/src/modules/connectors/router.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.
   Impacto: Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.
@@ -329,7 +293,7 @@
   VDI: 3.65 (ALTO)
   Esforço: 1-3 dias
 
-- TD-035 | Chamada externa sem timeout ou abort path explícito
+- TD-031 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/api/src/docs/openapi.ts:41
   Problema: Indício em apps/api/src/docs/openapi.ts:41 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -337,7 +301,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-036 | Chamada externa sem timeout ou abort path explícito
+- TD-032 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/api/src/lib/database-availability.ts:1
   Problema: Indício em apps/api/src/lib/database-availability.ts:1 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -345,7 +309,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-037 | Chamada externa sem timeout ou abort path explícito
+- TD-033 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/api/src/lib/external-url.ts:1
   Problema: Indício em apps/api/src/lib/external-url.ts:1 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -353,7 +317,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-038 | Chamada externa sem timeout ou abort path explícito
+- TD-034 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/api/src/lib/problem-details.ts:54
   Problema: Indício em apps/api/src/lib/problem-details.ts:54 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -361,7 +325,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-039 | Chamada externa sem timeout ou abort path explícito
+- TD-035 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/api/src/lib/redis.ts:1
   Problema: Indício em apps/api/src/lib/redis.ts:1 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -369,7 +333,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-040 | Configuração sensível dispersa em módulo crítico
+- TD-036 | Configuração sensível dispersa em módulo crítico
   Localização: apps/web/lib/auth-client.ts:17
   Problema: Identificado em módulo crítico (apps/web/lib/auth-client.ts) acesso direto a process.env, reduzindo auditabilidade de segredos e políticas de fallback.
   Impacto: Módulos críticos com leitura dispersa de env facilitam drift entre ambientes e tornam segredos mais difíceis de governar.
@@ -377,7 +341,39 @@
   VDI: 3.45 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
+- TD-037 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-038 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
+  Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
+  Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
+  Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
+  Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
@@ -573,13 +569,13 @@
   VDI: 3 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-065 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD
-  Localização: scripts/quality/generate-web-bundle-baseline.mjs:1
-  Problema: O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.
-  Impacto: Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.
-  Solução recomendada: Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+- TD-065 | Página/estado web com complexidade alta (20)
+  Localização: apps/web/components/agents/FeedbackWidget.tsx:40
+  Problema: Identificado em apps/web/components/agents/FeedbackWidget.tsx:40 um componente/página com complexidade 20.
+  Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
+  Solução recomendada: Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.
+  VDI: 2.4 (MÉDIO)
+  Esforço: 1-3 dias
 
 ### Dimensão 6 — Infraestrutura e DevOps
 
@@ -1733,21 +1729,15 @@
 
 - Caminho crítico: TD-089 -> TD-029 -> TD-001 -> TD-090
 - Nós mapeados: 22
-- Arestas mapeadas: 23
+- Arestas mapeadas: 17
 
-- TD-002 -> TD-089 (Debt dependency)
-- TD-002 -> TD-029 (Debt dependency)
-- TD-002 -> TD-030 (Debt dependency)
 - TD-029 -> TD-030 (Debt dependency)
-- TD-002 -> TD-031 (Debt dependency)
-- TD-029 -> TD-031 (Debt dependency)
-- TD-002 -> TD-032 (Debt dependency)
-- TD-029 -> TD-032 (Debt dependency)
-- TD-033 -> TD-034 (Debt dependency)
-- TD-035 -> TD-036 (Debt dependency)
-- TD-035 -> TD-037 (Debt dependency)
-- TD-035 -> TD-038 (Debt dependency)
-- TD-035 -> TD-039 (Debt dependency)
+- TD-031 -> TD-032 (Debt dependency)
+- TD-031 -> TD-033 (Debt dependency)
+- TD-031 -> TD-034 (Debt dependency)
+- TD-031 -> TD-035 (Debt dependency)
+- TD-016 -> TD-036 (Debt dependency)
+- TD-001 -> TD-002 (Debt dependency)
 - TD-090 -> IN-001 (Scale foundation before innovation)
 - TD-090 -> IN-002 (Scale foundation before innovation)
 - TD-090 -> IN-003 (Scale foundation before innovation)

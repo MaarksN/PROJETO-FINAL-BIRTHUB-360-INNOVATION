@@ -31,13 +31,13 @@ async function main(): Promise<void> {
   const prisma = createPrismaClient();
 
   try {
-    const invalidConstraints = await prisma.$queryRawUnsafe<ConstraintRow[]>(`
+    const invalidConstraints = await prisma.$queryRaw<ConstraintRow[]>`
       SELECT conname AS constraint_name, conrelid::regclass::text AS table_name
       FROM pg_constraint
       WHERE contype = 'f'
         AND NOT convalidated
       ORDER BY conrelid::regclass::text ASC, conname ASC
-    `);
+    `;
 
     const report = {
       checkedAt: new Date().toISOString(),

@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { F8_CONFIG } from "../f8.config.js";
 import { createPrismaClient } from "../src/client.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
@@ -58,31 +59,35 @@ async function main(): Promise<void> {
     const observations: string[] = [];
 
     try {
-      topSlowQueries = await prisma.$queryRawUnsafe<SlowQueryRow[]>(`
+      topSlowQueries = await prisma.$queryRaw<SlowQueryRow[]>`
         SELECT query, calls, total_exec_time, mean_exec_time
         FROM pg_stat_statements
         ORDER BY mean_exec_time DESC
         LIMIT 20
-      `);
+      `;
     } catch (error) {
       const message = `pg_stat_statements unavailable: ${error instanceof Error ? error.message : String(error)}`;
       (disposableDatabase ? observations : issues).push(message);
     }
 
-    unusedIndexes = await prisma.$queryRawUnsafe<UnusedIndexRow[]>(`
+    unusedIndexes = await prisma.$queryRaw<UnusedIndexRow[]>`
       SELECT indexrelname AS index_name, relname AS table_name
       FROM pg_stat_user_indexes
       WHERE idx_scan = 0
         AND indexrelname NOT LIKE '%_pkey'
       ORDER BY relname ASC, indexrelname ASC
-    `);
+    `;
 
-    tableOptions = await prisma.$queryRawUnsafe<TableOptionRow[]>(`
-      SELECT relname, reloptions
-      FROM pg_class
-      WHERE relname = ANY($1)
-      ORDER BY relname ASC
-    `, [...F8_CONFIG.highWriteTables]);
+    if (F8_CONFIG.highWriteTables.length > 0) {
+      tableOptions = await prisma.$queryRaw<TableOptionRow[]>(
+        Prisma.sql`
+          SELECT relname, reloptions
+          FROM pg_class
+          WHERE relname IN (${Prisma.join(F8_CONFIG.highWriteTables.map((table) => Prisma.sql`${table}`))})
+          ORDER BY relname ASC
+        `
+      );
+    }
 
     for (const table of F8_CONFIG.highWriteTables) {
       const config = tableOptions.find((row) => row.relname === table);

@@ -1,0 +1,157 @@
+{
+  "checkedAt": "2026-04-05T15:04:25.234Z",
+  "mode": "static-coverage-proxy",
+  "sufficient": false,
+  "limitations": [
+    "This snapshot is structural and traceability-backed; it is not line or branch coverage.",
+    "Environment-gated suites and Python runtime coverage remain outside this proxy."
+  ],
+  "summary": {
+    "modules": 4,
+    "modulesWithDirectTests": 4,
+    "modulesWithTraceability": 3
+  },
+  "surfaces": [
+    {
+      "module": "apps/api",
+      "runtimeFiles": 134,
+      "directTestFiles": 26,
+      "traceabilityFlows": 2,
+      "directTests": [
+        "apps/api/tests/analytics.utils.test.ts",
+        "apps/api/tests/auditable.test.ts",
+        "apps/api/tests/auth.test.ts",
+        "apps/api/tests/billing.cache.test.ts",
+        "apps/api/tests/billing.checkout.test.ts",
+        "apps/api/tests/billing.grace-period.test.ts",
+        "apps/api/tests/billing.idempotency.test.ts",
+        "apps/api/tests/billing.ip-ban.test.ts",
+        "apps/api/tests/billing.paywall.test.ts",
+        "apps/api/tests/billing.proration-credit.test.ts",
+        "apps/api/tests/billing.snapshot.test.ts",
+        "apps/api/tests/billing.webhook-audit.test.ts",
+        "apps/api/tests/billing.webhook-delegation.test.ts",
+        "apps/api/tests/billing.webhook.test.ts",
+        "apps/api/tests/external-url.test.ts",
+        "apps/api/tests/health.smoke.test.ts",
+        "apps/api/tests/installed-agents-helpers.test.ts",
+        "apps/api/tests/marketplace-budget.smoke.test.ts",
+        "apps/api/tests/metrics.service.test.ts",
+        "apps/api/tests/queue-backpressure.test.ts",
+        "apps/api/tests/rbac.test.ts",
+        "apps/api/tests/security.test.ts",
+        "apps/api/tests/tenant-auth-hardening.test.ts",
+        "apps/api/tests/test-config.ts",
+        "apps/api/tests/webhooks.security.test.ts",
+        "tests/e2e/critical-routes.spec.ts"
+      ],
+      "gaps": [
+        "apps/api/src/app/auth-and-core-routes.ts",
+        "apps/api/src/app/auth-routes.ts",
+        "apps/api/src/app/core-business-routes.ts",
+        "apps/api/src/app/core.ts",
+        "apps/api/src/app/module-routes.ts",
+        "apps/api/src/audit/buffer.ts",
+        "apps/api/src/common/cache/cache-store.ts",
+        "apps/api/src/common/cache/http-cache.ts",
+        "apps/api/src/common/cache/index.ts",
+        "apps/api/src/common/cache/prisma-cache-invalidation.ts"
+      ]
+    },
+    {
+      "module": "apps/web",
+      "runtimeFiles": 72,
+      "directTestFiles": 6,
+      "traceabilityFlows": 2,
+      "directTests": [
+        "apps/web/tests/auth-session-route.test.ts",
+        "apps/web/tests/bff-allowlist.test.ts",
+        "apps/web/tests/health.required-dependency.test.ts",
+        "apps/web/tests/login.smoke.test.ts",
+        "tests/e2e/critical-routes.spec.ts",
+        "tests/e2e/billing-premium.spec.ts"
+      ],
+      "gaps": [
+        "apps/web/app/(dashboard)/agents/[id]/page.tsx",
+        "apps/web/app/(dashboard)/agents/[id]/policies/page.tsx",
+        "apps/web/app/(dashboard)/agents/[id]/run/page.tsx",
+        "apps/web/app/(dashboard)/agents/page.tsx",
+        "apps/web/app/(dashboard)/billing/budgets/page.tsx",
+        "apps/web/app/(dashboard)/billing/page.tsx",
+        "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
+        "apps/web/app/(dashboard)/layout.tsx",
+        "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
+        "apps/web/app/(dashboard)/marketplace/page.tsx",
+        "apps/web/app/(dashboard)/outputs/page.tsx",
+        "apps/web/app/(dashboard)/packs/page.tsx"
+      ]
+    },
+    {
+      "module": "apps/worker",
+      "runtimeFiles": 70,
+      "directTestFiles": 22,
+      "traceabilityFlows": 3,
+      "directTests": [
+        "apps/worker/src/agents/runtime.db-integration.test.ts",
+        "apps/worker/src/agents/runtime.shared.test.ts",
+        "apps/worker/src/engine/runner.agent.smoke.test.ts",
+        "apps/worker/src/engine/runner.cancel.test.ts",
+        "apps/worker/src/engine/runner.db-integration.test.ts",
+        "apps/worker/src/engine/runner.http.msw.test.ts",
+        "apps/worker/src/engine/runner.transitions.test.ts",
+        "apps/worker/src/engine/runner.workflow-chain.test.ts",
+        "apps/worker/src/job-security.test.ts",
+        "apps/worker/src/jobs/billingExport.test.ts",
+        "apps/worker/src/jobs/healthScore.test.ts",
+        "apps/worker/src/load/parallelLoad.test.ts",
+        "apps/worker/src/planExecutor.test.ts",
+        "apps/worker/src/runtime.integration.test.ts",
+        "apps/worker/src/worker.job-validation.test.ts",
+        "apps/worker/src/worker.test.ts",
+        "apps/worker/test/outbound.webhooks.test.ts",
+        "apps/worker/test/queue.isolation.test.ts",
+        "apps/worker/test/readiness.required-dependency.test.ts",
+        "apps/worker/test/userCleanup.test.ts",
+        "tests/e2e/workflow-editor-evidence.spec.ts",
+        "tests/e2e/workflow-agent-output.spec.ts"
+      ],
+      "gaps": [
+        "apps/worker/src/agents/conversations.ts",
+        "apps/worker/src/agents/handoffs.ts",
+        "apps/worker/src/agents/runtime.artifacts.ts",
+        "apps/worker/src/agents/runtime.budget.ts",
+        "apps/worker/src/agents/runtime.catalog.ts",
+        "apps/worker/src/agents/runtime.db-integration.harness.ts",
+        "apps/worker/src/agents/runtime.errors.ts",
+        "apps/worker/src/agents/runtime.memory.ts",
+        "apps/worker/src/agents/runtime.orchestration.ts",
+        "apps/worker/src/agents/runtime.resolution.ts"
+      ]
+    },
+    {
+      "module": "packages/database",
+      "runtimeFiles": 13,
+      "directTestFiles": 4,
+      "traceabilityFlows": 0,
+      "directTests": [
+        "packages/database/test/base.repo.test.ts",
+        "packages/database/test/database-availability.ts",
+        "packages/database/test/migration.test.ts",
+        "packages/database/test/rls.test.ts"
+      ],
+      "gaps": [
+        "packages/database/src/client.ts",
+        "packages/database/src/errors/cross-tenant-access.error.ts",
+        "packages/database/src/errors/exceeded-quota.error.ts",
+        "packages/database/src/errors/prisma-query-timeout.error.ts",
+        "packages/database/src/errors/tenant-required.error.ts",
+        "packages/database/src/index.ts",
+        "packages/database/src/query-budget.ts",
+        "packages/database/src/repositories/access-control.ts",
+        "packages/database/src/repositories/engagement.ts",
+        "packages/database/src/repositories/index.ts",
+        "packages/database/src/repositories/user-repository.ts"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -11,6 +11,14 @@ const organizationBackfillTables = [
   "invites",
   "subscriptions"
 ] as const;
+
+function quoteIdentifier(identifier: string): Prisma.Sql {
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(identifier)) {
+    throw new Error(`Unsafe SQL identifier rejected: ${identifier}`);
+  }
+
+  return Prisma.raw(`"${identifier}"`);
+}
 
 async function tableExists(tableName: string): Promise<boolean> {
   const rows = await prisma.$queryRaw<Array<{ exists: boolean }>>`
@@ -62,8 +70,11 @@ async function backfillOrganizations(defaultTenantId: string): Promise<void> {
     return;
   }
 
-  await prisma.$executeRawUnsafe(
-    `UPDATE "organizations" SET "tenantId" = COALESCE(NULLIF("tenantId", ''), "id", '${defaultTenantId}')`
+  await prisma.$executeRaw(
+    Prisma.sql`
+      UPDATE ${quoteIdentifier("organizations")}
+      SET "tenantId" = COALESCE(NULLIF("tenantId", ''), "id", ${defaultTenantId})
+    `
   );
 }
 
@@ -77,12 +88,14 @@ async function backfillChildTables(defaultTenantId: string): Promise<void> {
       continue;
     }
 
-    await prisma.$executeRawUnsafe(
-      `UPDATE "${tableName}" child
-       SET "tenantId" = COALESCE(NULLIF(child."tenantId", ''), org."tenantId", '${defaultTenantId}')
-       FROM "organizations" org
-       WHERE child."organizationId" = org."id"
-         AND (child."tenantId" IS NULL OR child."tenantId" = '')`
+    await prisma.$executeRaw(
+      Prisma.sql`
+        UPDATE ${quoteIdentifier(tableName)} child
+        SET "tenantId" = COALESCE(NULLIF(child."tenantId", ''), org."tenantId", ${defaultTenantId})
+        FROM ${quoteIdentifier("organizations")} org
+        WHERE child."organizationId" = org."id"
+          AND (child."tenantId" IS NULL OR child."tenantId" = '')
+      `
     );
   }
 
@@ -95,10 +108,12 @@ async function backfillChildTables(defaultTenantId: string): Promise<void> {
       continue;
     }
 
-    await prisma.$executeRawUnsafe(
-      `UPDATE "${standaloneTable}"
-       SET "tenantId" = COALESCE(NULLIF("tenantId", ''), '${defaultTenantId}')
-       WHERE "tenantId" IS NULL OR "tenantId" = ''`
+    await prisma.$executeRaw(
+      Prisma.sql`
+        UPDATE ${quoteIdentifier(standaloneTable)}
+        SET "tenantId" = COALESCE(NULLIF("tenantId", ''), ${defaultTenantId})
+        WHERE "tenantId" IS NULL OR "tenantId" = ''
+      `
     );
   }
 }

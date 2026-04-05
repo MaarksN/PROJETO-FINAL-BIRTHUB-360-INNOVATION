@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T14:06:53.475Z",
+    "generatedAt": "2026-04-05T15:04:35.059Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "f2baf5a190330f01c9f132708bcd7c49a5359099",
+    "headSha": "3797bdedc7fd859cc483b6621260ef7f9c38692a",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -21,7 +21,7 @@
     }
   },
   "executiveSummary": {
-    "technicalHealthScore": 52,
+    "technicalHealthScore": 53,
     "topRisks": [
       {
         "id": "TD-089",
@@ -39,62 +39,62 @@
       },
       {
         "id": "TD-029",
-        "title": "Uso de raw query insegura no acesso a dados",
+        "title": "Superfície crítica sem teste relacionado por heurística de nome",
         "dimension": "Dimensão 3 — Segurança",
-        "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-        "vdiScore": 3.95,
+        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
+        "vdiScore": 3.65,
         "location": {
-          "path": "packages/database/scripts/analyze-performance.ts",
+          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
           "lines": {
-            "start": 61,
-            "end": 61
+            "start": 1,
+            "end": 1
           }
         }
       },
       {
         "id": "TD-030",
-        "title": "Uso de raw query insegura no acesso a dados",
+        "title": "Superfície crítica sem teste relacionado por heurística de nome",
         "dimension": "Dimensão 3 — Segurança",
-        "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-        "vdiScore": 3.95,
+        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
+        "vdiScore": 3.65,
         "location": {
-          "path": "packages/database/scripts/analyze-performance.ts",
+          "path": "apps/api/src/modules/connectors/router.ts",
           "lines": {
-            "start": 72,
-            "end": 72
+            "start": 1,
+            "end": 1
           }
         }
       },
       {
         "id": "TD-031",
-        "title": "Uso de raw query insegura no acesso a dados",
+        "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
-        "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-        "vdiScore": 3.95,
+        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+        "vdiScore": 3.6,
         "location": {
-          "path": "packages/database/scripts/analyze-performance.ts",
+          "path": "apps/api/src/docs/openapi.ts",
           "lines": {
-            "start": 80,
-            "end": 80
+            "start": 41,
+            "end": 41
           }
         }
       },
       {
         "id": "TD-032",
-        "title": "Uso de raw query insegura no acesso a dados",
+        "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
-        "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-        "vdiScore": 3.95,
+        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
+        "vdiScore": 3.6,
         "location": {
-          "path": "packages/database/scripts/check-referential-integrity.ts",
+          "path": "apps/api/src/lib/database-availability.ts",
           "lines": {
-            "start": 34,
-            "end": 34
+            "start": 1,
+            "end": 1
           }
         }
       }
     ],
-    "costOfNonActionWeeksPerMonth": 9.3,
+    "costOfNonActionWeeksPerMonth": 8.9,
     "launchViability": {
       "status": "CONDICIONAL",
       "justification": "O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1."
@@ -103,15 +103,55 @@
   "debtItems": [
     {
       "dimension": "architecture",
-      "title": "Arquivo grande demais para o boundary atual (482 linhas)",
+      "title": "Complexidade acima do limiar em registerAuthRoutes",
       "location": {
-        "path": "apps/web/app/(dashboard)/settings/billing/page.tsx",
+        "path": "apps/api/src/app/auth-routes.ts",
+        "lines": {
+          "start": 28,
+          "end": 229
+        }
+      },
+      "problem": "Identificado em apps/api/src/app/auth-routes.ts:28 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 3,
+        "reverseEffort": 4,
+        "frequency": 3
+      },
+      "vdiScore": 3.55,
+      "effort": "2-5 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/app/auth-routes.ts",
+          "line": 28,
+          "summary": "Complexidade=22; extensão=202 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-001",
+      "dependencies": []
+    },
+    {
+      "dimension": "architecture",
+      "title": "Arquivo grande demais para o boundary atual (473 linhas)",
+      "location": {
+        "path": "apps/api/src/modules/billing/service.checkout.ts",
         "lines": {
           "start": 1,
           "end": 1
         }
       },
-      "problem": "Identificado em apps/web/app/(dashboard)/settings/billing/page.tsx um arquivo com 482 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+      "problem": "Identificado em apps/api/src/modules/billing/service.checkout.ts um arquivo com 473 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
       "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
       "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
       "vdiFactors": {
@@ -127,9 +167,9 @@
       "confidence": 0.88,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/(dashboard)/settings/billing/page.tsx",
+          "path": "apps/api/src/modules/billing/service.checkout.ts",
           "line": 1,
-          "summary": "482 linhas no arquivo."
+          "summary": "473 linhas no arquivo."
         }
       ],
       "inference": false,
@@ -138,53 +178,304 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-001",
-      "dependencies": []
+      "id": "TD-002",
+      "dependencies": [
+        "TD-001"
+      ]
     },
     {
       "dimension": "architecture",
-      "title": "Superfícies duplicadas para contexto de tenant no mesmo serviço",
+      "title": "Complexidade acima do limiar em <anonymous>",
       "location": {
-        "path": "apps/api/src/middleware/tenant-context.ts",
+        "path": "apps/worker/src/worker.process-job.ts",
         "lines": {
-          "start": 1,
-          "end": 1
+          "start": 45,
+          "end": 287
         }
       },
-      "problem": "O serviço expõe duas convenções de pasta/nome para middleware de tenant context, um indício de drift arquitetural e de nomenclatura.",
-      "impact": "Duplicidade de entrypoints aumenta o risco de importar a variante errada e dificulta consolidar políticas cross-cutting.",
-      "recommendation": "Consolidar a superfície oficial em um único módulo e adicionar teste/guardrail de import path permitido.",
+      "problem": "Identificado em apps/worker/src/worker.process-job.ts:45 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
       "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 4,
-        "reverseEffort": 2,
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 4,
         "frequency": 3
       },
-      "vdiScore": 3.1,
-      "effort": "0.5-1 dia",
+      "vdiScore": 3.25,
+      "effort": "2-5 dias",
       "severity": "ALTO",
       "phase": "Fase 2",
-      "confidence": 0.9,
+      "confidence": 0.94,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/middleware/tenant-context.ts",
-          "line": 1,
-          "summary": "Primeira variante do middleware."
-        },
-        {
-          "path": "apps/api/src/middlewares/tenantContext.ts",
-          "line": 1,
-          "summary": "Segunda variante do middleware."
+          "path": "apps/worker/src/worker.process-job.ts",
+          "line": 45,
+          "summary": "Complexidade=24; extensão=243 linhas."
         }
       ],
       "inference": false,
       "insufficient": false,
       "dependencyHints": [
-        "tenant-proof"
+        "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-002",
-      "dependencies": []
+      "id": "TD-003",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Complexidade acima do limiar em createConnectorsRouter",
+      "location": {
+        "path": "apps/api/src/modules/connectors/router.ts",
+        "lines": {
+          "start": 170,
+          "end": 362
+        }
+      },
+      "problem": "Identificado em apps/api/src/modules/connectors/router.ts:170 uma função com complexidade ciclomática 38, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 4,
+        "frequency": 3
+      },
+      "vdiScore": 3.25,
+      "effort": "2-5 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/connectors/router.ts",
+          "line": 170,
+          "summary": "Complexidade=38; extensão=193 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-004",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Complexidade acima do limiar em createJobProcessor",
+      "location": {
+        "path": "apps/worker/src/worker.process-job.ts",
+        "lines": {
+          "start": 36,
+          "end": 288
+        }
+      },
+      "problem": "Identificado em apps/worker/src/worker.process-job.ts:36 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 4,
+        "frequency": 3
+      },
+      "vdiScore": 3.25,
+      "effort": "2-5 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "apps/worker/src/worker.process-job.ts",
+          "line": 36,
+          "summary": "Complexidade=24; extensão=253 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-005",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Complexidade acima do limiar em DeveloperWebhooksPage",
+      "location": {
+        "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+        "lines": {
+          "start": 35,
+          "end": 419
+        }
+      },
+      "problem": "Identificado em apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 4,
+        "frequency": 3
+      },
+      "vdiScore": 3.25,
+      "effort": "2-5 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+          "line": 35,
+          "summary": "Complexidade=33; extensão=385 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-006",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Complexidade acima do limiar em executeStep",
+      "location": {
+        "path": "packages/workflows-core/src/nodes/executeStep.ts",
+        "lines": {
+          "start": 31,
+          "end": 156
+        }
+      },
+      "problem": "Identificado em packages/workflows-core/src/nodes/executeStep.ts:31 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 4,
+        "frequency": 3
+      },
+      "vdiScore": 3.25,
+      "effort": "2-5 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "packages/workflows-core/src/nodes/executeStep.ts",
+          "line": 31,
+          "summary": "Complexidade=35; extensão=126 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-007",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Complexidade acima do limiar em WorkflowRunsPage",
+      "location": {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+        "lines": {
+          "start": 84,
+          "end": 388
+        }
+      },
+      "problem": "Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:84 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 4,
+        "frequency": 3
+      },
+      "vdiScore": 3.25,
+      "effort": "2-5 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+          "line": 84,
+          "summary": "Complexidade=35; extensão=305 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-008",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Complexidade acima do limiar em parseAgentConfig",
+      "location": {
+        "path": "apps/api/src/modules/agents/service.config.ts",
+        "lines": {
+          "start": 6,
+          "end": 79
+        }
+      },
+      "problem": "Identificado em apps/api/src/modules/agents/service.config.ts:6 uma função com complexidade ciclomática 26, acima do limiar operacional recomendado (>10).",
+      "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+      "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 2,
+        "reverseEffort": 3,
+        "frequency": 3
+      },
+      "vdiScore": 3.05,
+      "effort": "1-3 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.94,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/agents/service.config.ts",
+          "line": 6,
+          "summary": "Complexidade=26; extensão=74 linhas."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-009",
+      "dependencies": [
+        "TD-001"
+      ]
     },
     {
       "dimension": "architecture",
@@ -223,7 +514,7 @@
         "module-boundaries"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-003",
+      "id": "TD-010",
       "dependencies": []
     },
     {
@@ -263,22 +554,22 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-004",
+      "id": "TD-011",
       "dependencies": [
         "TD-001"
       ]
     },
     {
       "dimension": "architecture",
-      "title": "Arquivo grande demais para o boundary atual (476 linhas)",
+      "title": "Arquivo grande demais para o boundary atual (474 linhas)",
       "location": {
-        "path": "apps/api/src/modules/dashboard/service.ts",
+        "path": "apps/api/src/modules/workflows/service.ts",
         "lines": {
           "start": 1,
           "end": 1
         }
       },
-      "problem": "Identificado em apps/api/src/modules/dashboard/service.ts um arquivo com 476 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+      "problem": "Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 474 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
       "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
       "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
       "vdiFactors": {
@@ -294,9 +585,9 @@
       "confidence": 0.88,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/dashboard/service.ts",
+          "path": "apps/api/src/modules/workflows/service.ts",
           "line": 1,
-          "summary": "476 linhas no arquivo."
+          "summary": "474 linhas no arquivo."
         }
       ],
       "inference": false,
@@ -305,7 +596,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-005",
+      "id": "TD-012",
       "dependencies": [
         "TD-001"
       ]
@@ -347,7 +638,7 @@
         "refactor-core"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-006",
+      "id": "TD-013",
       "dependencies": [
         "TD-001"
       ]
@@ -389,302 +680,8 @@
         "baseline-proof"
       ],
       "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-007",
-      "dependencies": []
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 2)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.",
-      "impact": "Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.",
-      "recommendation": "Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-008",
-      "dependencies": [
-        "TD-007"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 3)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.",
-      "impact": "Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.",
-      "recommendation": "Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-009",
-      "dependencies": [
-        "TD-007"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 4)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.",
-      "impact": "Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.",
-      "recommendation": "Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-010",
-      "dependencies": [
-        "TD-007"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 5)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.",
-      "impact": "Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.",
-      "recommendation": "Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-011",
-      "dependencies": [
-        "TD-007"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 6)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.",
-      "impact": "Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.",
-      "recommendation": "Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-012",
-      "dependencies": [
-        "TD-007"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 7)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "O repositório lista a taxonomia canônica do core, mas não traz um diagrama C4 versionado do contexto atual para validar fronteiras, responsabilidades e integrações síncronas/assíncronas.",
-      "impact": "Sem essa evidência, revisões arquiteturais ficam dependentes de leitura de código e aumentam o custo de onboarding e de refactors transversais.",
-      "recommendation": "Versionar um diagrama C4 Context + Container do core canônico e referenciá-lo a partir do service catalog.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-013",
-      "dependencies": [
-        "TD-007"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 8)",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Não há uma matriz versionada que formalize as dependências permitidas entre apps, packages e superfícies legadas/quarentenadas.",
-      "impact": "Sem regra publicada, acoplamentos regressivos podem voltar ao core sem gatilho documental claro.",
-      "recommendation": "Publicar uma matriz de dependências permitidas e bloqueadas entre o core, satélites e legado.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/service-catalog.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "baseline-proof"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
       "id": "TD-014",
-      "dependencies": [
-        "TD-007"
-      ]
+      "dependencies": []
     },
     {
       "dimension": "code_quality",
@@ -1270,181 +1267,6 @@
     },
     {
       "dimension": "security",
-      "title": "Uso de raw query insegura no acesso a dados",
-      "location": {
-        "path": "packages/database/scripts/analyze-performance.ts",
-        "lines": {
-          "start": 61,
-          "end": 61
-        }
-      },
-      "problem": "Identificado em packages/database/scripts/analyze-performance.ts:61 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.",
-      "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-      "recommendation": "Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 5,
-        "reverseEffort": 3,
-        "frequency": 3
-      },
-      "vdiScore": 3.95,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.97,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/scripts/analyze-performance.ts",
-          "line": 61,
-          "summary": "Uso de raw query insegura identificado."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "tenant-proof",
-        "data-contracts"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-029",
-      "dependencies": [
-        "TD-002"
-      ]
-    },
-    {
-      "dimension": "security",
-      "title": "Uso de raw query insegura no acesso a dados",
-      "location": {
-        "path": "packages/database/scripts/analyze-performance.ts",
-        "lines": {
-          "start": 72,
-          "end": 72
-        }
-      },
-      "problem": "Identificado em packages/database/scripts/analyze-performance.ts:72 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.",
-      "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-      "recommendation": "Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 5,
-        "reverseEffort": 3,
-        "frequency": 3
-      },
-      "vdiScore": 3.95,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.97,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/scripts/analyze-performance.ts",
-          "line": 72,
-          "summary": "Uso de raw query insegura identificado."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "tenant-proof",
-        "data-contracts"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-030",
-      "dependencies": [
-        "TD-002",
-        "TD-029"
-      ]
-    },
-    {
-      "dimension": "security",
-      "title": "Uso de raw query insegura no acesso a dados",
-      "location": {
-        "path": "packages/database/scripts/analyze-performance.ts",
-        "lines": {
-          "start": 80,
-          "end": 80
-        }
-      },
-      "problem": "Identificado em packages/database/scripts/analyze-performance.ts:80 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.",
-      "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-      "recommendation": "Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 5,
-        "reverseEffort": 3,
-        "frequency": 3
-      },
-      "vdiScore": 3.95,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.97,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/scripts/analyze-performance.ts",
-          "line": 80,
-          "summary": "Uso de raw query insegura identificado."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "tenant-proof",
-        "data-contracts"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-031",
-      "dependencies": [
-        "TD-002",
-        "TD-029"
-      ]
-    },
-    {
-      "dimension": "security",
-      "title": "Uso de raw query insegura no acesso a dados",
-      "location": {
-        "path": "packages/database/scripts/check-referential-integrity.ts",
-        "lines": {
-          "start": 34,
-          "end": 34
-        }
-      },
-      "problem": "Identificado em packages/database/scripts/check-referential-integrity.ts:34 uso de prisma raw unsafe, o que amplia superfície para injection ou bypass de abstrações seguras.",
-      "impact": "Esse padrão aumenta risco de falha crítica de segurança e dificulta validar tenancy e saneamento em todo call path.",
-      "recommendation": "Substituir por query parametrizada segura ou reintroduzir a operação em repository tipado com validação explícita.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 5,
-        "reverseEffort": 3,
-        "frequency": 3
-      },
-      "vdiScore": 3.95,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.97,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/scripts/check-referential-integrity.ts",
-          "line": 34,
-          "summary": "Uso de raw query insegura identificado."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "tenant-proof",
-        "data-contracts"
-      ],
-      "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-032",
-      "dependencies": [
-        "TD-002",
-        "TD-029"
-      ]
-    },
-    {
-      "dimension": "security",
       "title": "Superfície crítica sem teste relacionado por heurística de nome",
       "location": {
         "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
@@ -1480,7 +1302,7 @@
         "security-tests"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-033",
+      "id": "TD-029",
       "dependencies": []
     },
     {
@@ -1520,9 +1342,9 @@
         "security-tests"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-034",
+      "id": "TD-030",
       "dependencies": [
-        "TD-033"
+        "TD-029"
       ]
     },
     {
@@ -1562,7 +1384,7 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-035",
+      "id": "TD-031",
       "dependencies": []
     },
     {
@@ -1602,9 +1424,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-036",
+      "id": "TD-032",
       "dependencies": [
-        "TD-035"
+        "TD-031"
       ]
     },
     {
@@ -1644,9 +1466,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-037",
+      "id": "TD-033",
       "dependencies": [
-        "TD-035"
+        "TD-031"
       ]
     },
     {
@@ -1686,9 +1508,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-038",
+      "id": "TD-034",
       "dependencies": [
-        "TD-035"
+        "TD-031"
       ]
     },
     {
@@ -1728,9 +1550,9 @@
         "integration-guardrails"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-039",
+      "id": "TD-035",
       "dependencies": [
-        "TD-035"
+        "TD-031"
       ]
     },
     {
@@ -1770,7 +1592,7 @@
         "foundation-config"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
-      "id": "TD-040",
+      "id": "TD-036",
       "dependencies": [
         "TD-016"
       ]
@@ -1812,9 +1634,177 @@
         "baseline-proof"
       ],
       "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-037",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.",
+      "impact": "Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.",
+      "recommendation": "Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-038",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+      "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+      "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-039",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.",
+      "impact": "Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.",
+      "recommendation": "Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
+      "id": "TD-040",
+      "dependencies": [
+        "TD-014"
+      ]
+    },
+    {
+      "dimension": "security",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)",
+      "location": {
+        "path": ".github/workflows/security-scan.yml",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+      "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+      "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": ".github/workflows/security-scan.yml",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "baseline-proof"
+      ],
+      "dimensionLabel": "Dimensão 3 — Segurança",
       "id": "TD-041",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -2232,7 +2222,7 @@
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
       "id": "TD-051",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -2274,7 +2264,7 @@
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
       "id": "TD-052",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -2316,7 +2306,7 @@
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
       "id": "TD-053",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -2732,7 +2722,7 @@
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-063",
       "dependencies": [
-        "TD-035"
+        "TD-031"
       ]
     },
     {
@@ -2774,50 +2764,48 @@
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-064",
       "dependencies": [
-        "TD-035"
+        "TD-031"
       ]
     },
     {
       "dimension": "performance",
-      "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD",
+      "title": "Página/estado web com complexidade alta (20)",
       "location": {
-        "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+        "path": "apps/web/components/agents/FeedbackWidget.tsx",
         "lines": {
-          "start": 1,
-          "end": 1
+          "start": 40,
+          "end": 253
         }
       },
-      "problem": "O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.",
-      "impact": "Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.",
-      "recommendation": "Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.",
+      "problem": "Identificado em apps/web/components/agents/FeedbackWidget.tsx:40 um componente/página com complexidade 20.",
+      "impact": "Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.",
+      "recommendation": "Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.",
       "vdiFactors": {
         "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 2
+        "securityRisk": 1,
+        "reverseEffort": 3,
+        "frequency": 3
       },
-      "vdiScore": 2.35,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "vdiScore": 2.4,
+      "effort": "1-3 dias",
       "severity": "MÉDIO",
       "phase": "Fase 2",
-      "confidence": 0.42,
+      "confidence": 0.89,
       "evidenceRefs": [
         {
-          "path": "scripts/quality/generate-web-bundle-baseline.mjs",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
+          "path": "apps/web/components/agents/FeedbackWidget.tsx",
+          "line": 40,
+          "summary": "Complexidade=20."
         }
       ],
       "inference": false,
-      "insufficient": true,
+      "insufficient": false,
       "dependencyHints": [
-        "baseline-proof"
+        "web-performance"
       ],
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
       "id": "TD-065",
-      "dependencies": [
-        "TD-007"
-      ]
+      "dependencies": []
     },
     {
       "dimension": "devops",
@@ -3022,7 +3010,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-070",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3064,7 +3052,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-071",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3106,7 +3094,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-072",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3148,7 +3136,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-073",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3190,7 +3178,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-074",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3232,7 +3220,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-075",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3274,7 +3262,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-076",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3316,7 +3304,7 @@
       "dimensionLabel": "Dimensão 6 — Infraestrutura e DevOps",
       "id": "TD-077",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3745,7 +3733,7 @@
       "dimensionLabel": "Dimensão 7 — Dívida de Produto e UX Técnica",
       "id": "TD-087",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3787,7 +3775,7 @@
       "dimensionLabel": "Dimensão 7 — Dívida de Produto e UX Técnica",
       "id": "TD-088",
       "dependencies": [
-        "TD-007"
+        "TD-014"
       ]
     },
     {
@@ -3828,9 +3816,7 @@
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-089",
-      "dependencies": [
-        "TD-002"
-      ]
+      "dependencies": []
     },
     {
       "dimension": "operations_multitenancy",
@@ -3951,7 +3937,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-092",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -3993,7 +3979,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-093",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4035,7 +4021,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-094",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4077,7 +4063,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-095",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4119,7 +4105,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-096",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4161,7 +4147,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-097",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4203,7 +4189,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-098",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4245,7 +4231,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-099",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     },
     {
@@ -4287,7 +4273,7 @@
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-100",
       "dependencies": [
-        "TD-002"
+        "TD-089"
       ]
     }
   ],
@@ -6521,37 +6507,37 @@
       },
       {
         "id": "TD-029",
-        "label": "Uso de raw query insegura no acesso a dados",
+        "label": "Superfície crítica sem teste relacionado por heurística de nome",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
         "id": "TD-030",
-        "label": "Uso de raw query insegura no acesso a dados",
+        "label": "Superfície crítica sem teste relacionado por heurística de nome",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
         "id": "TD-031",
-        "label": "Uso de raw query insegura no acesso a dados",
+        "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
         "id": "TD-032",
-        "label": "Uso de raw query insegura no acesso a dados",
+        "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
         "id": "TD-033",
-        "label": "Superfície crítica sem teste relacionado por heurística de nome",
+        "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
         "id": "TD-034",
-        "label": "Superfície crítica sem teste relacionado por heurística de nome",
+        "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
         "type": "debt"
       },
@@ -6562,27 +6548,27 @@
         "type": "debt"
       },
       {
+        "id": "TD-001",
+        "label": "Complexidade acima do limiar em registerAuthRoutes",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
         "id": "TD-036",
-        "label": "Chamada externa sem timeout ou abort path explícito",
+        "label": "Configuração sensível dispersa em módulo crítico",
         "phase": "Fase 1",
         "type": "debt"
       },
       {
-        "id": "TD-037",
-        "label": "Chamada externa sem timeout ou abort path explícito",
-        "phase": "Fase 1",
+        "id": "TD-002",
+        "label": "Arquivo grande demais para o boundary atual (473 linhas)",
+        "phase": "Fase 2",
         "type": "debt"
       },
       {
-        "id": "TD-038",
-        "label": "Chamada externa sem timeout ou abort path explícito",
-        "phase": "Fase 1",
-        "type": "debt"
-      },
-      {
-        "id": "TD-039",
-        "label": "Chamada externa sem timeout ou abort path explícito",
-        "phase": "Fase 1",
+        "id": "TD-054",
+        "label": "Consulta findMany sem paginação explícita",
+        "phase": "Fase 2",
         "type": "debt"
       },
       {
@@ -6648,68 +6634,38 @@
     ],
     "edges": [
       {
-        "from": "TD-002",
-        "to": "TD-089",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-002",
-        "to": "TD-029",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-002",
-        "to": "TD-030",
-        "reason": "Debt dependency"
-      },
-      {
         "from": "TD-029",
         "to": "TD-030",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-002",
-        "to": "TD-031",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-029",
-        "to": "TD-031",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-002",
+        "from": "TD-031",
         "to": "TD-032",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-029",
-        "to": "TD-032",
+        "from": "TD-031",
+        "to": "TD-033",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-033",
+        "from": "TD-031",
         "to": "TD-034",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-035",
+        "from": "TD-031",
+        "to": "TD-035",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-016",
         "to": "TD-036",
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-035",
-        "to": "TD-037",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-035",
-        "to": "TD-038",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-035",
-        "to": "TD-039",
+        "from": "TD-001",
+        "to": "TD-002",
         "reason": "Debt dependency"
       },
       {
@@ -6861,7 +6817,7 @@
   ],
   "pendingAnalysis": [
     {
-      "id": "TD-007",
+      "id": "TD-014",
       "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core",
       "requires": "docs/architecture/c4-context.md",
       "location": {
@@ -6873,11 +6829,11 @@
       }
     },
     {
-      "id": "TD-008",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 2)",
-      "requires": "docs/architecture/dependency-boundaries.md",
+      "id": "TD-037",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
+      "requires": "semgrep --json",
       "location": {
-        "path": "docs/service-catalog.md",
+        "path": ".github/workflows/security-scan.yml",
         "lines": {
           "start": 1,
           "end": 1
@@ -6885,11 +6841,11 @@
       }
     },
     {
-      "id": "TD-009",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 3)",
-      "requires": "docs/architecture/c4-context.md",
+      "id": "TD-038",
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)",
+      "requires": "DAST/ZAP report",
       "location": {
-        "path": "docs/service-catalog.md",
+        "path": ".github/workflows/security-scan.yml",
         "lines": {
           "start": 1,
           "end": 1
@@ -6897,11 +6853,11 @@
       }
     },
     {
-      "id": "TD-010",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 4)",
-      "requires": "docs/architecture/dependency-boundaries.md",
+      "id": "TD-039",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)",
+      "requires": "semgrep --json",
       "location": {
-        "path": "docs/service-catalog.md",
+        "path": ".github/workflows/security-scan.yml",
         "lines": {
           "start": 1,
           "end": 1
@@ -6909,47 +6865,11 @@
       }
     },
     {
-      "id": "TD-011",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 5)",
-      "requires": "docs/architecture/c4-context.md",
+      "id": "TD-040",
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)",
+      "requires": "DAST/ZAP report",
       "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      }
-    },
-    {
-      "id": "TD-012",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 6)",
-      "requires": "docs/architecture/dependency-boundaries.md",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      }
-    },
-    {
-      "id": "TD-013",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 7)",
-      "requires": "docs/architecture/c4-context.md",
-      "location": {
-        "path": "docs/service-catalog.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      }
-    },
-    {
-      "id": "TD-014",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 8)",
-      "requires": "docs/architecture/dependency-boundaries.md",
-      "location": {
-        "path": "docs/service-catalog.md",
+        "path": ".github/workflows/security-scan.yml",
         "lines": {
           "start": 1,
           "end": 1
@@ -6958,7 +6878,7 @@
     },
     {
       "id": "TD-041",
-      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual",
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)",
       "requires": "semgrep --json",
       "location": {
         "path": ".github/workflows/security-scan.yml",
@@ -6998,18 +6918,6 @@
       "requires": "cobertura por módulo",
       "location": {
         "path": "scripts/testing/generate-traceability-report.mjs",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      }
-    },
-    {
-      "id": "TD-065",
-      "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD",
-      "requires": "bundle baseline fresco",
-      "location": {
-        "path": "scripts/quality/generate-web-bundle-baseline.mjs",
         "lines": {
           "start": 1,
           "end": 1
@@ -7251,8 +7159,8 @@
         "key": "architecture",
         "label": "Dimensão 1 — Saúde Arquitetural",
         "weight": 14,
-        "avgTopVdi": 3.1,
-        "score": 7.49
+        "avgTopVdi": 3.38,
+        "score": 6.9
       },
       {
         "key": "code_quality",
@@ -7265,8 +7173,8 @@
         "key": "security",
         "label": "Dimensão 3 — Segurança",
         "weight": 18,
-        "avgTopVdi": 3.95,
-        "score": 7.33
+        "avgTopVdi": 3.63,
+        "score": 8.19
       },
       {
         "key": "tests_observability",
@@ -7321,11 +7229,11 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6037,
-      "coreTrackedFiles": 429,
-      "runtimeFiles": 1786,
+      "trackedFiles": 6060,
+      "coreTrackedFiles": 428,
+      "runtimeFiles": 1792,
       "testFiles": 131,
-      "modules": 268
+      "modules": 279
     },
     "capabilities": {
       "apiModules": [
@@ -8542,7 +8450,8 @@
           "packages/agents-core/docs/interfaces/SlackMessageInput.html",
           "packages/agents-core/docs/interfaces/SlackMessageResult.html",
           "packages/agents-core/docs/types/SlackMode.html",
-          "packages/agents-core/src/tools/slack.tool.ts"
+          "packages/agents-core/src/tools/slack.tool.ts",
+          "docs/operations/sla.md"
         ],
         "i18nFiles": [
           "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
@@ -8592,7 +8501,7 @@
       }
     },
     "git": {
-      "totalCommits": 1088,
+      "totalCommits": 1089,
       "last30Days": [],
       "deploymentFrequencyProxy": {
         "windowDays": 30,

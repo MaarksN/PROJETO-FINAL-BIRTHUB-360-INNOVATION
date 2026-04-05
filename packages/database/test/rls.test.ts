@@ -70,7 +70,7 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
     // 4. Teste de Fogo: Tentamos acessar o Workflow B usando a sessão do Tenant A
     const rows = await prisma.$transaction(async (tx) => {
       // Configuramos a sessão do Postgres para o Tenant A
-      await tx.$executeRawUnsafe(`SELECT set_config('app.current_tenant_id', '${organizationA.tenantId}', true)`);
+      await tx.$queryRaw`SELECT set_config('app.current_tenant_id', ${organizationA.tenantId}, true)`;
       
       // Tentamos buscar o workflow que pertence ao Tenant B
       // O RLS deve fazer com que o Postgres retorne zero linhas, mesmo o ID existindo

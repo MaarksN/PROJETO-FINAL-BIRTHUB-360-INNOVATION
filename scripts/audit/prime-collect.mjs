@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import path from "node:path";
 import { promises as fs } from "node:fs";
+import { existsSync } from "node:fs";
 
 import {
   auditRoot,
@@ -29,10 +30,21 @@ import {
   unique,
   writeJson
 } from "./shared-prime.mjs";
+import { refreshPrimeEvidence } from "./prime-refresh-evidence.mjs";
 
 const codeExtensions = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);
 const corePrefixes = ["apps/web/", "apps/api/", "apps/worker/", "packages/database/"];
 const runtimeScanPrefixes = ["apps/", "packages/", "infra/", "ops/", ".github/workflows/"];
+const supplementalEvidencePaths = [
+  "docs/operations/environment-parity.md",
+  "docs/operations/sla.md",
+  "artifacts/security/semgrep-head.json",
+  "artifacts/testing/module-coverage.json",
+  "artifacts/performance/web-bundle-head.json",
+  "artifacts/accessibility/axe-report.json",
+  "artifacts/dr/latest-drill.json",
+  "artifacts/tenancy/rls-proof-head.json"
+];
 
 function isScannableCode(filePath) {
   const extension = path.posix.extname(filePath).toLowerCase();
@@ -598,7 +610,12 @@ async function main() {
   await fs.mkdir(supportDirectory, { recursive: true });
   await fs.mkdir(auditRoot, { recursive: true });
 
-  const trackedFiles = listTrackedFiles();
+  await refreshPrimeEvidence();
+
+  const trackedFiles = unique([
+    ...listTrackedFiles(),
+    ...supplementalEvidencePaths.filter((relativePathValue) => existsSync(fromRepo(relativePathValue)))
+  ]);
   const fileIndex = await collectFileIndex(trackedFiles);
   const complexity = await analyzeComplexity(trackedFiles);
   const schema = await parseSchemaModels();

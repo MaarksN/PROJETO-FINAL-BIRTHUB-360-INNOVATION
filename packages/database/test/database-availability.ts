@@ -1,7 +1,7 @@
 import type { TestContext } from "node:test";
 
 type ConnectivityProbeClient = {
-  $executeRawUnsafe: (query: string) => Promise<unknown>;
+  $queryRaw: (query: TemplateStringsArray, ...values: unknown[]) => Promise<unknown>;
 };
 
 function isDatabaseUnavailableError(error: unknown): boolean {
@@ -34,7 +34,7 @@ export async function ensureDatabaseAvailableOrSkip(
 ): Promise<boolean> {
   // true => database reached; false => test skipped due to unavailable database.
   try {
-    await client.$executeRawUnsafe("SELECT 1");
+    await client.$queryRaw`SELECT 1`;
     return true;
   } catch (error) {
     if (isDatabaseUnavailableError(error)) {

@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-04-05T15:04:25.218Z",
+  "command": "semgrep --config auto --json",
+  "status": "tool-missing",
+  "sufficient": false,
+  "reason": "Semgrep binary is not available on the current runner.",
+  "stderr": "'semgrep' não é reconhecido como um comando interno\r\nou externo, um programa operável ou um arquivo em lotes.",
+  "requiredAction": "Install semgrep on the runner or provide a connector-backed SAST lane."
+}

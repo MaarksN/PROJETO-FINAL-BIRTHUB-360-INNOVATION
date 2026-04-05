@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T14:06:53.475Z",
+    "generatedAt": "2026-04-05T15:04:35.059Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "f2baf5a190330f01c9f132708bcd7c49a5359099",
+    "headSha": "3797bdedc7fd859cc483b6621260ef7f9c38692a",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,11 +16,11 @@
     }
   },
   "repo": {
-    "trackedFiles": 6037,
-    "coreTrackedFiles": 429,
-    "runtimeFiles": 1786,
+    "trackedFiles": 6060,
+    "coreTrackedFiles": 428,
+    "runtimeFiles": 1792,
     "testFiles": 131,
-    "modules": 268
+    "modules": 279
   },
   "files": [
     {
@@ -661,7 +661,7 @@
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "9516c70a33816b60d4a59c3f61d9450b576f31c46a197d5a94cb5b459591040c"
+      "sha256": "d160030e343a2c531e1b1df909c0043fee5fb8aabf70185bc2422dd2ef2ae93c"
     },
     {
       "path": "apps/api/src/app/module-routes.ts",
@@ -972,16 +972,6 @@
       "topLevel": "apps",
       "moduleBucket": "apps/api",
       "sha256": "5439ed38c34be9a573c4f6793fbb08374775792279e14119c1d48bb835a56f42"
-    },
-    {
-      "path": "apps/api/src/middleware/tenant-context.ts",
-      "bytes": 75,
-      "lines": 2,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "8e7c762018f27a50258a062c3008c764c15cba7896c745c3659dcd23e01db15b"
     },
     {
       "path": "apps/api/src/middleware/validate-body.ts",
@@ -1555,13 +1545,13 @@
     },
     {
       "path": "apps/api/src/modules/dashboard/service.ts",
-      "bytes": 12230,
-      "lines": 476,
+      "bytes": 5147,
+      "lines": 162,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "c4e00a95b6b8f626176044980cdb4222c83d3d8981bffaacfb45c489b2f49375"
+      "sha256": "23b2290427578111e5013692131b88de3c296792d9234c117b5c8025a706fa32"
     },
     {
       "path": "apps/api/src/modules/engagement/queues.ts",
@@ -2001,7 +1991,7 @@
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "0321dceebd3254bcb0dd4ce64ce556397df91a46b9ae95a4f54b15827593bdf6"
+      "sha256": "346f7e5b98151b34ec8268a3662eacf04fc62e4c6ee3dfb95f5b706ca413e73b"
     },
     {
       "path": "apps/api/test/isolation.e2e.test.ts",
@@ -2011,7 +2001,7 @@
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "affd1c3f9fc271e1588e0719c0ebe3fcc5f636c90f9d511842a86a7fc589acea"
+      "sha256": "2e12155c89cc588483b38a1c1a40fa0b27d6eb1267af52e2ec83ac6d45dfde18"
     },
     {
       "path": "apps/api/test/performance.test.ts",
@@ -2031,7 +2021,7 @@
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "3e2b437a8c83ba7051b8d95008b5130515ac4512b814a2f64cbf91ef9e6621ca"
+      "sha256": "edb31aaaff76d945af4daf38d199142bf2f0650331eca72b4a40d2cf8e31a030"
     },
     {
       "path": "apps/api/tests/analytics.utils.test.ts",
@@ -2565,13 +2555,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/settings/billing/page.tsx",
-      "bytes": 13981,
-      "lines": 482,
+      "bytes": 1254,
+      "lines": 52,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "99eb4d1679f92b3dfd89d673651ff4e3bfd4a9845979062ddfce868fb3c749f4"
+      "sha256": "6c3dfe95ab1d30d1c916eb61d6dac3cce0354e843ff33bd35940804923afa307"
     },
     {
       "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
@@ -4401,7 +4391,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "0a6b2bd56517a619dcfa2b9456b341ec9c5b7487e279e832a5b5f301e58a77ab"
+      "sha256": "a500a6cc9884957ea0794fd3b1412e2d1ef768a70311302bac07add9287c5fe9"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -5164,6 +5154,36 @@
       "sha256": "1e40e5838940bf33118a153c1c5ab27f819efff8e3a41fd541d0d656703cde52"
     },
     {
+      "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
+      "bytes": 2310063,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/.auditor-prime",
+      "sha256": "e88aa1ccf939dbaeca2da66425b4e1c2480e532053553a43725f43a4b7a2d62f"
+    },
+    {
+      "path": "audit/.auditor-prime/2026-04-05/02-normalized.json",
+      "bytes": 279546,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/.auditor-prime",
+      "sha256": "b03b3039892b5408e2a53621c54e9161fc4377a018641c8b26e4d51c703538e9"
+    },
+    {
+      "path": "audit/.auditor-prime/2026-04-05/03-scored-report.json",
+      "bytes": 316924,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/.auditor-prime",
+      "sha256": "da2a3cf5ddc3eba46614645cbf18a947d39bd1eb6416dd9cca74b9f794a6a4ca"
+    },
+    {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
       "bytes": 5026,
       "lines": 0,
@@ -5242,6 +5262,66 @@
       "topLevel": "audit",
       "moduleBucket": "audit/STATUS_FINAL_PRONTIDAO.md",
       "sha256": "f5b106fb42c025302cf9bb03146e08e52f4b04c897de00084f55dcc3f6032a3e"
+    },
+    {
+      "path": "audit/auditor-prime-2026-04-05.html",
+      "bytes": 399486,
+      "lines": 0,
+      "language": "HTML",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-2026-04-05.html",
+      "sha256": "37485939178fcaa9f18173e8e8bf1fb9e08a530d011f7aa9656438c2616d605d"
+    },
+    {
+      "path": "audit/auditor-prime-2026-04-05.json",
+      "bytes": 316924,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-2026-04-05.json",
+      "sha256": "da2a3cf5ddc3eba46614645cbf18a947d39bd1eb6416dd9cca74b9f794a6a4ca"
+    },
+    {
+      "path": "audit/auditor-prime-2026-04-05.md",
+      "bytes": 132417,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-2026-04-05.md",
+      "sha256": "477c9b145cab6248fd4c1bc8bcf301bbcc9c49e6526f877293692930ab173c7e"
+    },
+    {
+      "path": "audit/auditor-prime-latest.html",
+      "bytes": 399486,
+      "lines": 0,
+      "language": "HTML",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-latest.html",
+      "sha256": "37485939178fcaa9f18173e8e8bf1fb9e08a530d011f7aa9656438c2616d605d"
+    },
+    {
+      "path": "audit/auditor-prime-latest.json",
+      "bytes": 316924,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-latest.json",
+      "sha256": "da2a3cf5ddc3eba46614645cbf18a947d39bd1eb6416dd9cca74b9f794a6a4ca"
+    },
+    {
+      "path": "audit/auditor-prime-latest.md",
+      "bytes": 132417,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-latest.md",
+      "sha256": "477c9b145cab6248fd4c1bc8bcf301bbcc9c49e6526f877293692930ab173c7e"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -42505,13 +42585,13 @@
     },
     {
       "path": "package.json",
-      "bytes": 13882,
-      "lines": 224,
+      "bytes": 14113,
+      "lines": 226,
       "language": "JSON",
       "kind": "config",
       "topLevel": "package.json",
       "moduleBucket": "package.json",
-      "sha256": "753d50932d2813d8376a542d7b0a89f22782a3fc7f2e0a98c62520ff7799659e"
+      "sha256": "3f410ebeaff2a6ebd3bebd4f8c97bb0d07704b263f1090df9250c482e9a73902"
     },
     {
       "path": "packages/agent-packs/CHANGELOG.md",
@@ -57235,13 +57315,13 @@
     },
     {
       "path": "packages/database/scripts/analyze-performance.ts",
-      "bytes": 4305,
-      "lines": 137,
+      "bytes": 4468,
+      "lines": 142,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "3fbbf3ac086484d3688566f159e08b93e74a93269c3da6850702a97fd76da579"
+      "sha256": "3b7080b8c4ab21be6c50a0e60a6fc12a3a7c91dbee7902b6c775690f65151cca"
     },
     {
       "path": "packages/database/scripts/bootstrap-ci.ts",
@@ -57285,13 +57365,13 @@
     },
     {
       "path": "packages/database/scripts/check-referential-integrity.ts",
-      "bytes": 2182,
+      "bytes": 2174,
       "lines": 72,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "919bb29dab58b400139d251ec5584269c3eadfcd232b666a2f0b11141c6f9028"
+      "sha256": "e575ec8e924c6625d11febef8b07aac1d7ca1e816dcc7344c5a121e3efa213c6"
     },
     {
       "path": "packages/database/scripts/check-schema-drift.ts",
@@ -57565,13 +57645,13 @@
     },
     {
       "path": "packages/database/test/database-availability.ts",
-      "bytes": 1352,
+      "bytes": 1370,
       "lines": 48,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "74a9c385a9b205b4bcda113ff0955c75df15f6d4d034852e128cf125f25ee9ab"
+      "sha256": "004f960c83f694d96da43fca6bcf041b36ff0c26adb1a35f0a27fd620a10c0fd"
     },
     {
       "path": "packages/database/test/migration.test.ts",
@@ -57585,13 +57665,13 @@
     },
     {
       "path": "packages/database/test/rls.test.ts",
-      "bytes": 3288,
+      "bytes": 3276,
       "lines": 90,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "f01a998122864d286350d17d5b13a16003b6dfd0fda6e0ff5a719dfd7273d1d5"
+      "sha256": "b376185e2cdcbf19c8b7cde5a38fc4bb37be63fd9005fabf0e216318bfc8ba68"
     },
     {
       "path": "packages/database/tsconfig.json",
@@ -58485,13 +58565,13 @@
     },
     {
       "path": "packages/testing/src/test-db.ts",
-      "bytes": 3322,
-      "lines": 128,
+      "bytes": 3596,
+      "lines": 138,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/testing",
-      "sha256": "a4e178e5e67c8905c9c0ded8d284bcab4c8b84e52dcfc9039b3b94d26055882a"
+      "sha256": "d62c0f58f508e405341eb91f0e77e33bb48047a1d90884d18f8a3569a73f9953"
     },
     {
       "path": "packages/testing/tsconfig.json",
@@ -59072,6 +59152,76 @@
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
       "sha256": "9b82726ce9d6a753514f6274496bb21bbdd3573cd0b156b8fcabe646aa66b6fe"
+    },
+    {
+      "path": "scripts/audit/prime-catalog.mjs",
+      "bytes": 28658,
+      "lines": 396,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "6dbf8da00da89375ab767bfd867a821fb644314e29c4feb84e3c64cc0dfa1606"
+    },
+    {
+      "path": "scripts/audit/prime-collect.mjs",
+      "bytes": 26916,
+      "lines": 791,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "07c36764594c950e03bf4a119d67df8578f982859c2f48a0c3f0ccc54fcb9cf3"
+    },
+    {
+      "path": "scripts/audit/prime-normalize.mjs",
+      "bytes": 50636,
+      "lines": 1230,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "173d4f231790414d82978ff0a94b2f384a9d96daea7ddb039ecef1bd2b7ab0f6"
+    },
+    {
+      "path": "scripts/audit/prime-render.mjs",
+      "bytes": 30976,
+      "lines": 789,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "1da2baf05ac3eeca938fef07330f29cfcaf21fd1af7fece10443e38769e88f0b"
+    },
+    {
+      "path": "scripts/audit/prime-score.mjs",
+      "bytes": 11066,
+      "lines": 370,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "5d9bf743ba6d301261e79aad15bbfb7f00c9ab45d1158ba527ce73844b5ef3cb"
+    },
+    {
+      "path": "scripts/audit/prime-verify.mjs",
+      "bytes": 2485,
+      "lines": 73,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "a79f9bb471359d89b96405e4e5e61555dd83ffac77b574335e9b96e579e22bc2"
+    },
+    {
+      "path": "scripts/audit/shared-prime.mjs",
+      "bytes": 8500,
+      "lines": 299,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "48fc6616d690a1e0875944780b8b060baaed0eed61781d0c127c1d538a33534c"
     },
     {
       "path": "scripts/audit/shared.mjs",
@@ -59685,13 +59835,13 @@
     },
     {
       "path": "scripts/migrate-to-multitenant.ts",
-      "bytes": 3257,
-      "lines": 132,
+      "bytes": 3628,
+      "lines": 147,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/migrate-to-multitenant.ts",
-      "sha256": "ce3311c137de7ad9353af51f8a70d81f02993ed25ff6e5952ebe59dc3c26823c"
+      "sha256": "b3f793d58748870636d717457e4b15249af4089cdf59fd130f22084663e72f56"
     },
     {
       "path": "scripts/notifications/validate-org-invite-email.ts",
@@ -60392,15 +60542,1825 @@
       "topLevel": "turbo.json",
       "moduleBucket": "turbo.json",
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
+    },
+    {
+      "path": "docs/operations/environment-parity.md",
+      "bytes": 1859,
+      "lines": 33,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/operations",
+      "sha256": "8109066e015ce08a23c9f6b202ec224d5e862f26176faf44d3d6d503a1567e04"
+    },
+    {
+      "path": "docs/operations/sla.md",
+      "bytes": 653,
+      "lines": 21,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/operations",
+      "sha256": "87e1f985ed25cd6baafe5875bd78baca86c8a4aafed1311bcb9f7f02048861d5"
+    },
+    {
+      "path": "artifacts/security/semgrep-head.json",
+      "bytes": 436,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/security",
+      "sha256": "fdcba420700b0d2fa734a399ec33923e08b71a2cf9ee98e896703881f497bb1f"
+    },
+    {
+      "path": "artifacts/testing/module-coverage.json",
+      "bytes": 6559,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/testing",
+      "sha256": "aa81a2cf1f3a4f177432be6e3e0982497796328ae5bcf285bcf904a33516d11d"
+    },
+    {
+      "path": "artifacts/performance/web-bundle-head.json",
+      "bytes": 392,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/performance",
+      "sha256": "7a05e51b83961c5bd06e025e8934a93f9c84ec5421623855856cd7cb5c4a8307"
+    },
+    {
+      "path": "artifacts/accessibility/axe-report.json",
+      "bytes": 5905,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/accessibility",
+      "sha256": "c99bd3dfc1ddc53f6b442579ea228af39f4d6e8965b0b32084449973074bc993"
+    },
+    {
+      "path": "artifacts/dr/latest-drill.json",
+      "bytes": 490,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/dr",
+      "sha256": "0b9f5fea8321183edd86f0441079b13721de2ff53cf8b7f7411a07b9a4ecb644"
+    },
+    {
+      "path": "artifacts/tenancy/rls-proof-head.json",
+      "bytes": 2808,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/tenancy",
+      "sha256": "135933eaa4f1cad641e4e011a7c2b1de9702ebbf5b08da32a8e90ad2055373b9"
     }
   ],
   "complexity": {
-    "available": false,
-    "reason": "typescript package unavailable",
-    "filesScanned": 0,
-    "functionsScanned": 0,
-    "modules": [],
-    "hotspots": []
+    "available": true,
+    "filesScanned": 613,
+    "functionsScanned": 4367,
+    "modules": [
+      {
+        "module": "packages/agents-core",
+        "functions": 485,
+        "avgComplexity": 4.87,
+        "p95Complexity": 9,
+        "maxComplexity": 471,
+        "functionsAtOrAbove10": 19,
+        "functionsAtOrAbove20": 7,
+        "hotspots": [
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 3,
+            "endLine": 6,
+            "length": 4,
+            "complexity": 471
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 3,
+            "endLine": 4,
+            "length": 2,
+            "complexity": 281
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 3,
+            "endLine": 4,
+            "length": 2,
+            "complexity": 281
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 4,
+            "endLine": 4,
+            "length": 1,
+            "complexity": 28
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "V",
+            "line": 4,
+            "endLine": 4,
+            "length": 1,
+            "complexity": 28
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 4,
+            "endLine": 4,
+            "length": 1,
+            "complexity": 28
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "ot",
+            "line": 5,
+            "endLine": 5,
+            "length": 1,
+            "complexity": 27
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 5,
+            "endLine": 5,
+            "length": 1,
+            "complexity": 19
+          },
+          {
+            "file": "packages/agents-core/src/manifest/catalog.ts",
+            "module": "packages/agents-core",
+            "functionName": "calculateSearchScore",
+            "line": 98,
+            "endLine": 161,
+            "length": 64,
+            "complexity": 17
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 4,
+            "endLine": 4,
+            "length": 1,
+            "complexity": 16
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "at",
+            "line": 5,
+            "endLine": 6,
+            "length": 2,
+            "complexity": 15
+          },
+          {
+            "file": "packages/agents-core/docs/assets/main.js",
+            "module": "packages/agents-core",
+            "functionName": "<anonymous>",
+            "line": 4,
+            "endLine": 4,
+            "length": 1,
+            "complexity": 14
+          }
+        ]
+      },
+      {
+        "module": "apps/api",
+        "functions": 1233,
+        "avgComplexity": 2.96,
+        "p95Complexity": 10,
+        "maxComplexity": 38,
+        "functionsAtOrAbove10": 64,
+        "functionsAtOrAbove20": 3,
+        "hotspots": [
+          {
+            "file": "apps/api/src/modules/connectors/router.ts",
+            "module": "apps/api",
+            "functionName": "createConnectorsRouter",
+            "line": 170,
+            "endLine": 362,
+            "length": 193,
+            "complexity": 38
+          },
+          {
+            "file": "apps/api/src/modules/agents/service.config.ts",
+            "module": "apps/api",
+            "functionName": "parseAgentConfig",
+            "line": 6,
+            "endLine": 79,
+            "length": 74,
+            "complexity": 26
+          },
+          {
+            "file": "apps/api/src/app/auth-routes.ts",
+            "module": "apps/api",
+            "functionName": "registerAuthRoutes",
+            "line": 28,
+            "endLine": 229,
+            "length": 202,
+            "complexity": 22
+          },
+          {
+            "file": "apps/api/src/lib/external-url.ts",
+            "module": "apps/api",
+            "functionName": "isPrivateIpv4",
+            "line": 23,
+            "endLine": 46,
+            "length": 24,
+            "complexity": 19
+          },
+          {
+            "file": "apps/api/src/lib/external-url.ts",
+            "module": "apps/api",
+            "functionName": "validateExternalUrl",
+            "line": 88,
+            "endLine": 155,
+            "length": 68,
+            "complexity": 19
+          },
+          {
+            "file": "apps/api/src/modules/packs/pack-installer.service.ts",
+            "module": "apps/api",
+            "functionName": "installPackAtomic",
+            "line": 66,
+            "endLine": 185,
+            "length": 120,
+            "complexity": 19
+          },
+          {
+            "file": "apps/api/src/modules/webhooks/router.ts",
+            "module": "apps/api",
+            "functionName": "createWebhooksRouter",
+            "line": 61,
+            "endLine": 269,
+            "length": 209,
+            "complexity": 19
+          },
+          {
+            "file": "apps/api/src/modules/workflows/router.ts",
+            "module": "apps/api",
+            "functionName": "createWorkflowsRouter",
+            "line": 42,
+            "endLine": 229,
+            "length": 188,
+            "complexity": 19
+          },
+          {
+            "file": "apps/api/src/modules/agents/router.ts",
+            "module": "apps/api",
+            "functionName": "createInstalledAgentsRouter",
+            "line": 60,
+            "endLine": 381,
+            "length": 322,
+            "complexity": 18
+          },
+          {
+            "file": "apps/api/src/modules/connectors/service.oauth.ts",
+            "module": "apps/api",
+            "functionName": "finalizeConnectSession",
+            "line": 94,
+            "endLine": 191,
+            "length": 98,
+            "complexity": 18
+          },
+          {
+            "file": "apps/api/src/modules/organizations/router.ts",
+            "module": "apps/api",
+            "functionName": "createOrganizationsRouter",
+            "line": 50,
+            "endLine": 222,
+            "length": 173,
+            "complexity": 18
+          },
+          {
+            "file": "apps/api/src/modules/packs/pack-installer-routes.ts",
+            "module": "apps/api",
+            "functionName": "createPackInstallerRouter",
+            "line": 15,
+            "endLine": 214,
+            "length": 200,
+            "complexity": 18
+          }
+        ]
+      },
+      {
+        "module": "apps/web",
+        "functions": 598,
+        "avgComplexity": 2.69,
+        "p95Complexity": 9,
+        "maxComplexity": 35,
+        "functionsAtOrAbove10": 25,
+        "functionsAtOrAbove20": 4,
+        "hotspots": [
+          {
+            "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+            "module": "apps/web",
+            "functionName": "WorkflowRunsPage",
+            "line": 84,
+            "endLine": 388,
+            "length": 305,
+            "complexity": 35
+          },
+          {
+            "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+            "module": "apps/web",
+            "functionName": "DeveloperWebhooksPage",
+            "line": 35,
+            "endLine": 419,
+            "length": 385,
+            "complexity": 33
+          },
+          {
+            "file": "apps/web/components/agents/FeedbackWidget.tsx",
+            "module": "apps/web",
+            "functionName": "FeedbackWidget",
+            "line": 40,
+            "endLine": 253,
+            "length": 214,
+            "complexity": 20
+          },
+          {
+            "file": "apps/web/stores/notification-store.ts",
+            "module": "apps/web",
+            "functionName": "<anonymous>",
+            "line": 72,
+            "endLine": 209,
+            "length": 138,
+            "complexity": 20
+          },
+          {
+            "file": "apps/web/components/agents/agent-run-panel.tsx",
+            "module": "apps/web",
+            "functionName": "AgentRunPanel",
+            "line": 37,
+            "endLine": 197,
+            "length": 161,
+            "complexity": 18
+          },
+          {
+            "file": "apps/web/components/agents/PolicyManager.tsx",
+            "module": "apps/web",
+            "functionName": "PolicyManager",
+            "line": 21,
+            "endLine": 290,
+            "length": 270,
+            "complexity": 18
+          },
+          {
+            "file": "apps/web/app/(dashboard)/profile/notifications/page.tsx",
+            "module": "apps/web",
+            "functionName": "NotificationPreferencesPage",
+            "line": 48,
+            "endLine": 294,
+            "length": 247,
+            "complexity": 16
+          },
+          {
+            "file": "apps/web/app/pricing/page.tsx",
+            "module": "apps/web",
+            "functionName": "PricingPage",
+            "line": 85,
+            "endLine": 202,
+            "length": 118,
+            "complexity": 15
+          },
+          {
+            "file": "apps/web/app/(dashboard)/marketplace/page.tsx",
+            "module": "apps/web",
+            "functionName": "MarketplacePage",
+            "line": 22,
+            "endLine": 247,
+            "length": 226,
+            "complexity": 13
+          },
+          {
+            "file": "apps/web/app/(dashboard)/outputs/page.tsx",
+            "module": "apps/web",
+            "functionName": "OutputsPage",
+            "line": 18,
+            "endLine": 161,
+            "length": 144,
+            "complexity": 13
+          },
+          {
+            "file": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+            "module": "apps/web",
+            "functionName": "PrivacySettingsPageClient",
+            "line": 12,
+            "endLine": 161,
+            "length": 150,
+            "complexity": 13
+          },
+          {
+            "file": "apps/web/app/admin/analytics/page.tsx",
+            "module": "apps/web",
+            "functionName": "AdminAnalyticsPage",
+            "line": 45,
+            "endLine": 153,
+            "length": 109,
+            "complexity": 13
+          }
+        ]
+      },
+      {
+        "module": "packages/workflows-core",
+        "functions": 68,
+        "avgComplexity": 3.34,
+        "p95Complexity": 10,
+        "maxComplexity": 35,
+        "functionsAtOrAbove10": 4,
+        "functionsAtOrAbove20": 1,
+        "hotspots": [
+          {
+            "file": "packages/workflows-core/src/nodes/executeStep.ts",
+            "module": "packages/workflows-core",
+            "functionName": "executeStep",
+            "line": 31,
+            "endLine": 156,
+            "length": 126,
+            "complexity": 35
+          },
+          {
+            "file": "packages/workflows-core/src/parser/dagValidator.ts",
+            "module": "packages/workflows-core",
+            "functionName": "validateDag",
+            "line": 125,
+            "endLine": 198,
+            "length": 74,
+            "complexity": 18
+          },
+          {
+            "file": "packages/workflows-core/src/nodes/httpRequest.ts",
+            "module": "packages/workflows-core",
+            "functionName": "executeHttpRequestNode",
+            "line": 96,
+            "endLine": 152,
+            "length": 57,
+            "complexity": 12
+          },
+          {
+            "file": "packages/workflows-core/src/parser/dagValidator.ts",
+            "module": "packages/workflows-core",
+            "functionName": "topologicalSort",
+            "line": 96,
+            "endLine": 123,
+            "length": 28,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "module": "packages/agents",
+        "functions": 812,
+        "avgComplexity": 3.33,
+        "p95Complexity": 21,
+        "maxComplexity": 31,
+        "functionsAtOrAbove10": 56,
+        "functionsAtOrAbove20": 42,
+        "hotspots": [
+          {
+            "file": "packages/agents/executivos/brandguardian/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 489,
+            "endLine": 825,
+            "length": 337,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/churndeflector/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 489,
+            "endLine": 825,
+            "length": 337,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/competitorxray/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 487,
+            "endLine": 825,
+            "length": 339,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 487,
+            "endLine": 825,
+            "length": 339,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/culturepulse/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 489,
+            "endLine": 825,
+            "length": 337,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/expansionmapper/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 489,
+            "endLine": 824,
+            "length": 336,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/marketsentinel/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 489,
+            "endLine": 824,
+            "length": 336,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 497,
+            "endLine": 840,
+            "length": 344,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 490,
+            "endLine": 834,
+            "length": 345,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 487,
+            "endLine": 825,
+            "length": 339,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 490,
+            "endLine": 834,
+            "length": 345,
+            "complexity": 31
+          },
+          {
+            "file": "packages/agents/executivos/trendcatcher/agent.ts",
+            "module": "packages/agents",
+            "functionName": "run",
+            "line": 489,
+            "endLine": 824,
+            "length": 336,
+            "complexity": 31
+          }
+        ]
+      },
+      {
+        "module": "apps/worker",
+        "functions": 514,
+        "avgComplexity": 2.52,
+        "p95Complexity": 9,
+        "maxComplexity": 24,
+        "functionsAtOrAbove10": 20,
+        "functionsAtOrAbove20": 3,
+        "hotspots": [
+          {
+            "file": "apps/worker/src/worker.process-job.ts",
+            "module": "apps/worker",
+            "functionName": "createJobProcessor",
+            "line": 36,
+            "endLine": 288,
+            "length": 253,
+            "complexity": 24
+          },
+          {
+            "file": "apps/worker/src/worker.process-job.ts",
+            "module": "apps/worker",
+            "functionName": "<anonymous>",
+            "line": 45,
+            "endLine": 287,
+            "length": 243,
+            "complexity": 24
+          },
+          {
+            "file": "apps/worker/src/agents/conversations.ts",
+            "module": "apps/worker",
+            "functionName": "ensureConversationThread",
+            "line": 57,
+            "endLine": 110,
+            "length": 54,
+            "complexity": 20
+          },
+          {
+            "file": "apps/worker/src/agents/runtime.catalog.ts",
+            "module": "apps/worker",
+            "functionName": "parseAgentConfig",
+            "line": 57,
+            "endLine": 108,
+            "length": 52,
+            "complexity": 17
+          },
+          {
+            "file": "apps/worker/src/agents/runtime.shared.ts",
+            "module": "apps/worker",
+            "functionName": "parseAgentConfig",
+            "line": 58,
+            "endLine": 109,
+            "length": 52,
+            "complexity": 17
+          },
+          {
+            "file": "apps/worker/src/worker.ts",
+            "module": "apps/worker",
+            "functionName": "createBirthHubWorker",
+            "line": 110,
+            "endLine": 406,
+            "length": 297,
+            "complexity": 16
+          },
+          {
+            "file": "apps/worker/src/agents/runtime.orchestration.ts",
+            "module": "apps/worker",
+            "functionName": "executeManifestAgentRuntime",
+            "line": 23,
+            "endLine": 239,
+            "length": 217,
+            "complexity": 14
+          },
+          {
+            "file": "apps/worker/src/agents/runtime.ts",
+            "module": "apps/worker",
+            "functionName": "executeManifestAgentRuntime",
+            "line": 39,
+            "endLine": 259,
+            "length": 221,
+            "complexity": 14
+          },
+          {
+            "file": "apps/worker/src/jobs/sunsetPolicy.ts",
+            "module": "apps/worker",
+            "functionName": "sunsetPolicyJob",
+            "line": 6,
+            "endLine": 118,
+            "length": 113,
+            "complexity": 14
+          },
+          {
+            "file": "apps/worker/src/worker.notifications.ts",
+            "module": "apps/worker",
+            "functionName": "fanOutExecutionOutcome",
+            "line": 21,
+            "endLine": 140,
+            "length": 120,
+            "complexity": 14
+          },
+          {
+            "file": "apps/worker/src/integrations/connectors.runtime.ts",
+            "module": "apps/worker",
+            "functionName": "executeCrmUpsert",
+            "line": 103,
+            "endLine": 187,
+            "length": 85,
+            "complexity": 13
+          },
+          {
+            "file": "apps/worker/src/webhooks/outbound.ts",
+            "module": "apps/worker",
+            "functionName": "processOutboundWebhookJob",
+            "line": 98,
+            "endLine": 235,
+            "length": 138,
+            "complexity": 13
+          }
+        ]
+      },
+      {
+        "module": "packages/database",
+        "functions": 226,
+        "avgComplexity": 2.64,
+        "p95Complexity": 10,
+        "maxComplexity": 22,
+        "functionsAtOrAbove10": 13,
+        "functionsAtOrAbove20": 1,
+        "hotspots": [
+          {
+            "file": "packages/database/scripts/check-migration-governance.ts",
+            "module": "packages/database",
+            "functionName": "main",
+            "line": 24,
+            "endLine": 109,
+            "length": 86,
+            "complexity": 22
+          },
+          {
+            "file": "packages/database/scripts/analyze-performance.ts",
+            "module": "packages/database",
+            "functionName": "main",
+            "line": 30,
+            "endLine": 136,
+            "length": 107,
+            "complexity": 18
+          },
+          {
+            "file": "packages/database/scripts/lib/prisma-schema.ts",
+            "module": "packages/database",
+            "functionName": "parsePrismaSchema",
+            "line": 56,
+            "endLine": 134,
+            "length": 79,
+            "complexity": 16
+          },
+          {
+            "file": "packages/database/prisma/seeds/shared-ops.ts",
+            "module": "packages/database",
+            "functionName": "ensureBilling",
+            "line": 11,
+            "endLine": 218,
+            "length": 208,
+            "complexity": 13
+          },
+          {
+            "file": "packages/database/prisma/seed/workflows.ts",
+            "module": "packages/database",
+            "functionName": "createWorkflowWithGraph",
+            "line": 16,
+            "endLine": 149,
+            "length": 134,
+            "complexity": 12
+          },
+          {
+            "file": "packages/database/scripts/check-tenancy-controls.ts",
+            "module": "packages/database",
+            "functionName": "main",
+            "line": 21,
+            "endLine": 92,
+            "length": 72,
+            "complexity": 12
+          },
+          {
+            "file": "packages/database/prisma/seed/tenant.ts",
+            "module": "packages/database",
+            "functionName": "createTenant",
+            "line": 278,
+            "endLine": 384,
+            "length": 107,
+            "complexity": 11
+          },
+          {
+            "file": "packages/database/scripts/lib/migrations.ts",
+            "module": "packages/database",
+            "functionName": "validateRegistryEntryShape",
+            "line": 125,
+            "endLine": 165,
+            "length": 41,
+            "complexity": 11
+          },
+          {
+            "file": "packages/database/src/repositories/engagement.ts",
+            "module": "packages/database",
+            "functionName": "updateUserPreference",
+            "line": 42,
+            "endLine": 102,
+            "length": 61,
+            "complexity": 11
+          },
+          {
+            "file": "packages/database/scripts/check-raw-query-joins.ts",
+            "module": "packages/database",
+            "functionName": "main",
+            "line": 30,
+            "endLine": 80,
+            "length": 51,
+            "complexity": 10
+          },
+          {
+            "file": "packages/database/scripts/compare-migration-state.ts",
+            "module": "packages/database",
+            "functionName": "main",
+            "line": 42,
+            "endLine": 110,
+            "length": 69,
+            "complexity": 10
+          },
+          {
+            "file": "packages/database/src/client.ts",
+            "module": "packages/database",
+            "functionName": "createPrismaClient",
+            "line": 146,
+            "endLine": 251,
+            "length": 106,
+            "complexity": 10
+          }
+        ]
+      },
+      {
+        "module": "apps/voice-engine",
+        "functions": 44,
+        "avgComplexity": 2.3,
+        "p95Complexity": 5,
+        "maxComplexity": 17,
+        "functionsAtOrAbove10": 1,
+        "functionsAtOrAbove20": 0,
+        "hotspots": [
+          {
+            "file": "apps/voice-engine/src/server.ts",
+            "module": "apps/voice-engine",
+            "functionName": "createVoiceEngineRuntime",
+            "line": 87,
+            "endLine": 220,
+            "length": 134,
+            "complexity": 17
+          }
+        ]
+      },
+      {
+        "module": "packages/integrations",
+        "functions": 57,
+        "avgComplexity": 1.81,
+        "p95Complexity": 5,
+        "maxComplexity": 13,
+        "functionsAtOrAbove10": 1,
+        "functionsAtOrAbove20": 0,
+        "hotspots": [
+          {
+            "file": "packages/integrations/src/clients/http.ts",
+            "module": "packages/integrations",
+            "functionName": "postJson",
+            "line": 17,
+            "endLine": 67,
+            "length": 51,
+            "complexity": 13
+          }
+        ]
+      },
+      {
+        "module": "packages/config",
+        "functions": 43,
+        "avgComplexity": 2.63,
+        "p95Complexity": 9,
+        "maxComplexity": 12,
+        "functionsAtOrAbove10": 2,
+        "functionsAtOrAbove20": 0,
+        "hotspots": [
+          {
+            "file": "packages/config/src/web.config.ts",
+            "module": "packages/config",
+            "functionName": "getWebConfig",
+            "line": 33,
+            "endLine": 68,
+            "length": 36,
+            "complexity": 12
+          },
+          {
+            "file": "packages/config/src/worker.config.ts",
+            "module": "packages/config",
+            "functionName": "getWorkerConfig",
+            "line": 60,
+            "endLine": 99,
+            "length": 40,
+            "complexity": 11
+          }
+        ]
+      },
+      {
+        "module": "packages/logger",
+        "functions": 56,
+        "avgComplexity": 2.48,
+        "p95Complexity": 8,
+        "maxComplexity": 12,
+        "functionsAtOrAbove10": 2,
+        "functionsAtOrAbove20": 0,
+        "hotspots": [
+          {
+            "file": "packages/logger/src/index.ts",
+            "module": "packages/logger",
+            "functionName": "createLogger",
+            "line": 128,
+            "endLine": 191,
+            "length": 64,
+            "complexity": 12
+          },
+          {
+            "file": "packages/logger/src/index.ts",
+            "module": "packages/logger",
+            "functionName": "normalizeContext",
+            "line": 20,
+            "endLine": 34,
+            "length": 15,
+            "complexity": 11
+          }
+        ]
+      },
+      {
+        "module": "packages/testing",
+        "functions": 20,
+        "avgComplexity": 2.55,
+        "p95Complexity": 12,
+        "maxComplexity": 12,
+        "functionsAtOrAbove10": 1,
+        "functionsAtOrAbove20": 0,
+        "hotspots": [
+          {
+            "file": "packages/testing/src/agent-execution.factory.ts",
+            "module": "packages/testing",
+            "functionName": "createMockAgentExecution",
+            "line": 30,
+            "endLine": 56,
+            "length": 27,
+            "complexity": 12
+          }
+        ]
+      },
+      {
+        "module": "packages/agents-registry",
+        "functions": 46,
+        "avgComplexity": 2.11,
+        "p95Complexity": 5,
+        "maxComplexity": 9,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/auth",
+        "functions": 18,
+        "avgComplexity": 1.78,
+        "p95Complexity": 7,
+        "maxComplexity": 7,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/agent-runtime",
+        "functions": 5,
+        "avgComplexity": 2.8,
+        "p95Complexity": 6,
+        "maxComplexity": 6,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/llm-client",
+        "functions": 6,
+        "avgComplexity": 3,
+        "p95Complexity": 6,
+        "maxComplexity": 6,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/queue",
+        "functions": 60,
+        "avgComplexity": 1.67,
+        "p95Complexity": 5,
+        "maxComplexity": 6,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/utils",
+        "functions": 17,
+        "avgComplexity": 1.24,
+        "p95Complexity": 5,
+        "maxComplexity": 5,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "apps/legacy",
+        "functions": 4,
+        "avgComplexity": 2.5,
+        "p95Complexity": 4,
+        "maxComplexity": 4,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/agent-packs",
+        "functions": 22,
+        "avgComplexity": 1.32,
+        "p95Complexity": 2,
+        "maxComplexity": 3,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/conversation-core",
+        "functions": 10,
+        "avgComplexity": 1.3,
+        "p95Complexity": 3,
+        "maxComplexity": 3,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/security",
+        "functions": 14,
+        "avgComplexity": 1.29,
+        "p95Complexity": 3,
+        "maxComplexity": 3,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/emails",
+        "functions": 5,
+        "avgComplexity": 1.4,
+        "p95Complexity": 2,
+        "maxComplexity": 2,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/shared",
+        "functions": 2,
+        "avgComplexity": 1,
+        "p95Complexity": 1,
+        "maxComplexity": 1,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      },
+      {
+        "module": "packages/shared-types",
+        "functions": 2,
+        "avgComplexity": 1,
+        "p95Complexity": 1,
+        "maxComplexity": 1,
+        "functionsAtOrAbove10": 0,
+        "functionsAtOrAbove20": 0,
+        "hotspots": []
+      }
+    ],
+    "hotspots": [
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "<anonymous>",
+        "line": 3,
+        "endLine": 6,
+        "length": 4,
+        "complexity": 471
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "<anonymous>",
+        "line": 3,
+        "endLine": 4,
+        "length": 2,
+        "complexity": 281
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "<anonymous>",
+        "line": 3,
+        "endLine": 4,
+        "length": 2,
+        "complexity": 281
+      },
+      {
+        "file": "apps/api/src/modules/connectors/router.ts",
+        "module": "apps/api",
+        "functionName": "createConnectorsRouter",
+        "line": 170,
+        "endLine": 362,
+        "length": 193,
+        "complexity": 38
+      },
+      {
+        "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+        "module": "apps/web",
+        "functionName": "WorkflowRunsPage",
+        "line": 84,
+        "endLine": 388,
+        "length": 305,
+        "complexity": 35
+      },
+      {
+        "file": "packages/workflows-core/src/nodes/executeStep.ts",
+        "module": "packages/workflows-core",
+        "functionName": "executeStep",
+        "line": 31,
+        "endLine": 156,
+        "length": 126,
+        "complexity": 35
+      },
+      {
+        "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+        "module": "apps/web",
+        "functionName": "DeveloperWebhooksPage",
+        "line": 35,
+        "endLine": 419,
+        "length": 385,
+        "complexity": 33
+      },
+      {
+        "file": "packages/agents/executivos/brandguardian/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 489,
+        "endLine": 825,
+        "length": 337,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/churndeflector/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 489,
+        "endLine": 825,
+        "length": 337,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/competitorxray/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 487,
+        "endLine": 825,
+        "length": 339,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 487,
+        "endLine": 825,
+        "length": 339,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/culturepulse/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 489,
+        "endLine": 825,
+        "length": 337,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/expansionmapper/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 489,
+        "endLine": 824,
+        "length": 336,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/marketsentinel/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 489,
+        "endLine": 824,
+        "length": 336,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 497,
+        "endLine": 840,
+        "length": 344,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 490,
+        "endLine": 834,
+        "length": 345,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 487,
+        "endLine": 825,
+        "length": 339,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 490,
+        "endLine": 834,
+        "length": 345,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/trendcatcher/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 489,
+        "endLine": 824,
+        "length": 336,
+        "complexity": 31
+      },
+      {
+        "file": "packages/agents/executivos/brandguardian/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 308,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/budgetfluid/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 203,
+        "endLine": 306,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/budgetfluid/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 487,
+        "endLine": 826,
+        "length": 340,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/capitalallocator/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 203,
+        "endLine": 306,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/capitalallocator/agent.ts",
+        "module": "packages/agents",
+        "functionName": "run",
+        "line": 487,
+        "endLine": 826,
+        "length": 340,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/churndeflector/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 308,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/competitorxray/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 203,
+        "endLine": 306,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 203,
+        "endLine": 306,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/culturepulse/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 308,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/expansionmapper/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 308,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/marketsentinel/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 308,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 312,
+        "length": 108,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 206,
+        "endLine": 309,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 203,
+        "endLine": 306,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 206,
+        "endLine": 309,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents/executivos/trendcatcher/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverridesFromObject",
+        "line": 205,
+        "endLine": 308,
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "<anonymous>",
+        "line": 4,
+        "endLine": 4,
+        "length": 1,
+        "complexity": 28
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "V",
+        "line": 4,
+        "endLine": 4,
+        "length": 1,
+        "complexity": 28
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "<anonymous>",
+        "line": 4,
+        "endLine": 4,
+        "length": 1,
+        "complexity": 28
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "ot",
+        "line": 5,
+        "endLine": 5,
+        "length": 1,
+        "complexity": 27
+      },
+      {
+        "file": "apps/api/src/modules/agents/service.config.ts",
+        "module": "apps/api",
+        "functionName": "parseAgentConfig",
+        "line": 6,
+        "endLine": 79,
+        "length": 74,
+        "complexity": 26
+      },
+      {
+        "file": "apps/worker/src/worker.process-job.ts",
+        "module": "apps/worker",
+        "functionName": "createJobProcessor",
+        "line": 36,
+        "endLine": 288,
+        "length": 253,
+        "complexity": 24
+      },
+      {
+        "file": "apps/worker/src/worker.process-job.ts",
+        "module": "apps/worker",
+        "functionName": "<anonymous>",
+        "line": 45,
+        "endLine": 287,
+        "length": 243,
+        "complexity": 24
+      },
+      {
+        "file": "apps/api/src/app/auth-routes.ts",
+        "module": "apps/api",
+        "functionName": "registerAuthRoutes",
+        "line": 28,
+        "endLine": 229,
+        "length": 202,
+        "complexity": 22
+      },
+      {
+        "file": "packages/database/scripts/check-migration-governance.ts",
+        "module": "packages/database",
+        "functionName": "main",
+        "line": 24,
+        "endLine": 109,
+        "length": 86,
+        "complexity": 22
+      },
+      {
+        "file": "packages/agents/executivos/brandguardian/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 310,
+        "endLine": 408,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/budgetfluid/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 308,
+        "endLine": 406,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/capitalallocator/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 308,
+        "endLine": 406,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/churndeflector/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 310,
+        "endLine": 408,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/competitorxray/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 308,
+        "endLine": 406,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 308,
+        "endLine": 406,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/culturepulse/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 310,
+        "endLine": 408,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/expansionmapper/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 310,
+        "endLine": 408,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/marketsentinel/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 310,
+        "endLine": 408,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 314,
+        "endLine": 416,
+        "length": 103,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 311,
+        "endLine": 409,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 308,
+        "endLine": 406,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 311,
+        "endLine": 409,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "packages/agents/executivos/trendcatcher/agent.ts",
+        "module": "packages/agents",
+        "functionName": "parseContractOverrides",
+        "line": 310,
+        "endLine": 408,
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "file": "apps/web/components/agents/FeedbackWidget.tsx",
+        "module": "apps/web",
+        "functionName": "FeedbackWidget",
+        "line": 40,
+        "endLine": 253,
+        "length": 214,
+        "complexity": 20
+      },
+      {
+        "file": "apps/web/stores/notification-store.ts",
+        "module": "apps/web",
+        "functionName": "<anonymous>",
+        "line": 72,
+        "endLine": 209,
+        "length": 138,
+        "complexity": 20
+      },
+      {
+        "file": "apps/worker/src/agents/conversations.ts",
+        "module": "apps/worker",
+        "functionName": "ensureConversationThread",
+        "line": 57,
+        "endLine": 110,
+        "length": 54,
+        "complexity": 20
+      },
+      {
+        "file": "apps/api/src/lib/external-url.ts",
+        "module": "apps/api",
+        "functionName": "isPrivateIpv4",
+        "line": 23,
+        "endLine": 46,
+        "length": 24,
+        "complexity": 19
+      },
+      {
+        "file": "apps/api/src/lib/external-url.ts",
+        "module": "apps/api",
+        "functionName": "validateExternalUrl",
+        "line": 88,
+        "endLine": 155,
+        "length": 68,
+        "complexity": 19
+      },
+      {
+        "file": "apps/api/src/modules/packs/pack-installer.service.ts",
+        "module": "apps/api",
+        "functionName": "installPackAtomic",
+        "line": 66,
+        "endLine": 185,
+        "length": 120,
+        "complexity": 19
+      },
+      {
+        "file": "apps/api/src/modules/webhooks/router.ts",
+        "module": "apps/api",
+        "functionName": "createWebhooksRouter",
+        "line": 61,
+        "endLine": 269,
+        "length": 209,
+        "complexity": 19
+      },
+      {
+        "file": "apps/api/src/modules/workflows/router.ts",
+        "module": "apps/api",
+        "functionName": "createWorkflowsRouter",
+        "line": 42,
+        "endLine": 229,
+        "length": 188,
+        "complexity": 19
+      },
+      {
+        "file": "packages/agents-core/docs/assets/main.js",
+        "module": "packages/agents-core",
+        "functionName": "<anonymous>",
+        "line": 5,
+        "endLine": 5,
+        "length": 1,
+        "complexity": 19
+      },
+      {
+        "file": "apps/api/src/modules/agents/router.ts",
+        "module": "apps/api",
+        "functionName": "createInstalledAgentsRouter",
+        "line": 60,
+        "endLine": 381,
+        "length": 322,
+        "complexity": 18
+      },
+      {
+        "file": "apps/api/src/modules/connectors/service.oauth.ts",
+        "module": "apps/api",
+        "functionName": "finalizeConnectSession",
+        "line": 94,
+        "endLine": 191,
+        "length": 98,
+        "complexity": 18
+      },
+      {
+        "file": "apps/api/src/modules/organizations/router.ts",
+        "module": "apps/api",
+        "functionName": "createOrganizationsRouter",
+        "line": 50,
+        "endLine": 222,
+        "length": 173,
+        "complexity": 18
+      },
+      {
+        "file": "apps/api/src/modules/packs/pack-installer-routes.ts",
+        "module": "apps/api",
+        "functionName": "createPackInstallerRouter",
+        "line": 15,
+        "endLine": 214,
+        "length": 200,
+        "complexity": 18
+      },
+      {
+        "file": "apps/api/src/modules/workflows/service.ts",
+        "module": "apps/api",
+        "functionName": "updateWorkflow",
+        "line": 285,
+        "endLine": 389,
+        "length": 105,
+        "complexity": 18
+      },
+      {
+        "file": "apps/web/components/agents/agent-run-panel.tsx",
+        "module": "apps/web",
+        "functionName": "AgentRunPanel",
+        "line": 37,
+        "endLine": 197,
+        "length": 161,
+        "complexity": 18
+      },
+      {
+        "file": "apps/web/components/agents/PolicyManager.tsx",
+        "module": "apps/web",
+        "functionName": "PolicyManager",
+        "line": 21,
+        "endLine": 290,
+        "length": 270,
+        "complexity": 18
+      },
+      {
+        "file": "packages/database/scripts/analyze-performance.ts",
+        "module": "packages/database",
+        "functionName": "main",
+        "line": 30,
+        "endLine": 136,
+        "length": 107,
+        "complexity": 18
+      },
+      {
+        "file": "packages/workflows-core/src/parser/dagValidator.ts",
+        "module": "packages/workflows-core",
+        "functionName": "validateDag",
+        "line": 125,
+        "endLine": 198,
+        "length": 74,
+        "complexity": 18
+      },
+      {
+        "file": "apps/api/src/modules/billing/router.ts",
+        "module": "apps/api",
+        "functionName": "createBillingRouter",
+        "line": 30,
+        "endLine": 180,
+        "length": 151,
+        "complexity": 17
+      },
+      {
+        "file": "apps/api/src/modules/outputs/output-routes.ts",
+        "module": "apps/api",
+        "functionName": "createOutputRouter",
+        "line": 13,
+        "endLine": 218,
+        "length": 206,
+        "complexity": 17
+      },
+      {
+        "file": "apps/voice-engine/src/server.ts",
+        "module": "apps/voice-engine",
+        "functionName": "createVoiceEngineRuntime",
+        "line": 87,
+        "endLine": 220,
+        "length": 134,
+        "complexity": 17
+      },
+      {
+        "file": "apps/worker/src/agents/runtime.catalog.ts",
+        "module": "apps/worker",
+        "functionName": "parseAgentConfig",
+        "line": 57,
+        "endLine": 108,
+        "length": 52,
+        "complexity": 17
+      }
+    ]
   },
   "schema": {
     "path": "packages/database/prisma/schema.prisma",
@@ -62646,7 +64606,8 @@
         "packages/agents-core/docs/interfaces/SlackMessageInput.html",
         "packages/agents-core/docs/interfaces/SlackMessageResult.html",
         "packages/agents-core/docs/types/SlackMode.html",
-        "packages/agents-core/src/tools/slack.tool.ts"
+        "packages/agents-core/src/tools/slack.tool.ts",
+        "docs/operations/sla.md"
       ],
       "i18nFiles": [
         "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
@@ -62696,7 +64657,7 @@
     }
   },
   "git": {
-    "totalCommits": 1088,
+    "totalCommits": 1089,
     "last30Days": [],
     "deploymentFrequencyProxy": {
       "windowDays": 30,
@@ -63449,7 +65410,7 @@
       {
         "id": "direct-env",
         "path": "packages/database/scripts/analyze-performance.ts",
-        "line": 30,
+        "line": 31,
         "text": "const databaseUrl = process.env.DATABASE_URL;",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
@@ -63666,64 +65627,7 @@
     ],
     "todoOccurrences": [],
     "emptyCatchOccurrences": [],
-    "rawQueryUnsafeOccurrences": [
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/scripts/analyze-performance.ts",
-        "line": 61,
-        "text": "topSlowQueries = await prisma.$queryRawUnsafe<SlowQueryRow[]>(`",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/scripts/analyze-performance.ts",
-        "line": 72,
-        "text": "unusedIndexes = await prisma.$queryRawUnsafe<UnusedIndexRow[]>(`",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/scripts/analyze-performance.ts",
-        "line": 80,
-        "text": "tableOptions = await prisma.$queryRawUnsafe<TableOptionRow[]>(`",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/scripts/check-referential-integrity.ts",
-        "line": 34,
-        "text": "const invalidConstraints = await prisma.$queryRawUnsafe<ConstraintRow[]>(`",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/test/database-availability.ts",
-        "line": 4,
-        "text": "$executeRawUnsafe: (query: string) => Promise<unknown>;",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/test/database-availability.ts",
-        "line": 37,
-        "text": "await client.$executeRawUnsafe(\"SELECT 1\");",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/database/test/rls.test.ts",
-        "line": 73,
-        "text": "await tx.$executeRawUnsafe(`SELECT set_config('app.current_tenant_id', '${organizationA.tenantId}', true)`);",
-        "summary": "Uso de raw query insegura identificado."
-      },
-      {
-        "id": "raw-query-unsafe",
-        "path": "packages/testing/src/test-db.ts",
-        "line": 120,
-        "text": "await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS \"${schema}\" CASCADE`);",
-        "summary": "Uso de raw query insegura identificado."
-      }
-    ],
+    "rawQueryUnsafeOccurrences": [],
     "networkWithoutTimeout": [
       {
         "path": "apps/api/src/docs/openapi.ts",
@@ -64567,12 +66471,6 @@
         "summary": "23 linhas com strings textuais embutidas na UI."
       },
       {
-        "path": "apps/web/app/(dashboard)/settings/billing/page.tsx",
-        "line": 1,
-        "count": 48,
-        "summary": "48 linhas com strings textuais embutidas na UI."
-      },
-      {
         "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
         "line": 1,
         "count": 69,
@@ -64966,7 +66864,576 @@
         "missingError": true
       }
     ],
-    "longFunctions": [],
+    "longFunctions": [
+      {
+        "path": "apps/api/src/modules/connectors/router.ts",
+        "line": 170,
+        "endLine": 362,
+        "functionName": "createConnectorsRouter",
+        "length": 193,
+        "complexity": 38
+      },
+      {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+        "line": 84,
+        "endLine": 388,
+        "functionName": "WorkflowRunsPage",
+        "length": 305,
+        "complexity": 35
+      },
+      {
+        "path": "packages/workflows-core/src/nodes/executeStep.ts",
+        "line": 31,
+        "endLine": 156,
+        "functionName": "executeStep",
+        "length": 126,
+        "complexity": 35
+      },
+      {
+        "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+        "line": 35,
+        "endLine": 419,
+        "functionName": "DeveloperWebhooksPage",
+        "length": 385,
+        "complexity": 33
+      },
+      {
+        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "line": 489,
+        "endLine": 825,
+        "functionName": "run",
+        "length": 337,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "line": 489,
+        "endLine": 825,
+        "functionName": "run",
+        "length": 337,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "line": 487,
+        "endLine": 825,
+        "functionName": "run",
+        "length": 339,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "line": 487,
+        "endLine": 825,
+        "functionName": "run",
+        "length": 339,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "line": 489,
+        "endLine": 825,
+        "functionName": "run",
+        "length": 337,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "line": 489,
+        "endLine": 824,
+        "functionName": "run",
+        "length": 336,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "line": 489,
+        "endLine": 824,
+        "functionName": "run",
+        "length": 336,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "line": 497,
+        "endLine": 840,
+        "functionName": "run",
+        "length": 344,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "line": 490,
+        "endLine": 834,
+        "functionName": "run",
+        "length": 345,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "line": 487,
+        "endLine": 825,
+        "functionName": "run",
+        "length": 339,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "line": 490,
+        "endLine": 834,
+        "functionName": "run",
+        "length": 345,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "line": 489,
+        "endLine": 824,
+        "functionName": "run",
+        "length": 336,
+        "complexity": 31
+      },
+      {
+        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "line": 205,
+        "endLine": 308,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "line": 203,
+        "endLine": 306,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "line": 487,
+        "endLine": 826,
+        "functionName": "run",
+        "length": 340,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "line": 203,
+        "endLine": 306,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "line": 487,
+        "endLine": 826,
+        "functionName": "run",
+        "length": 340,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "line": 205,
+        "endLine": 308,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "line": 203,
+        "endLine": 306,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "line": 203,
+        "endLine": 306,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "line": 205,
+        "endLine": 308,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "line": 205,
+        "endLine": 308,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "line": 205,
+        "endLine": 308,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "line": 205,
+        "endLine": 312,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 108,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "line": 206,
+        "endLine": 309,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "line": 203,
+        "endLine": 306,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "line": 206,
+        "endLine": 309,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "line": 205,
+        "endLine": 308,
+        "functionName": "parseContractOverridesFromObject",
+        "length": 104,
+        "complexity": 30
+      },
+      {
+        "path": "apps/api/src/modules/agents/service.config.ts",
+        "line": 6,
+        "endLine": 79,
+        "functionName": "parseAgentConfig",
+        "length": 74,
+        "complexity": 26
+      },
+      {
+        "path": "apps/worker/src/worker.process-job.ts",
+        "line": 36,
+        "endLine": 288,
+        "functionName": "createJobProcessor",
+        "length": 253,
+        "complexity": 24
+      },
+      {
+        "path": "apps/worker/src/worker.process-job.ts",
+        "line": 45,
+        "endLine": 287,
+        "functionName": "<anonymous>",
+        "length": 243,
+        "complexity": 24
+      },
+      {
+        "path": "apps/api/src/app/auth-routes.ts",
+        "line": 28,
+        "endLine": 229,
+        "functionName": "registerAuthRoutes",
+        "length": 202,
+        "complexity": 22
+      },
+      {
+        "path": "packages/database/scripts/check-migration-governance.ts",
+        "line": 24,
+        "endLine": 109,
+        "functionName": "main",
+        "length": 86,
+        "complexity": 22
+      },
+      {
+        "path": "packages/agents/executivos/brandguardian/agent.ts",
+        "line": 310,
+        "endLine": 408,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/budgetfluid/agent.ts",
+        "line": 308,
+        "endLine": 406,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/capitalallocator/agent.ts",
+        "line": 308,
+        "endLine": 406,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/churndeflector/agent.ts",
+        "line": 310,
+        "endLine": 408,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/competitorxray/agent.ts",
+        "line": 308,
+        "endLine": 406,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/crisisnavigator/agent.ts",
+        "line": 308,
+        "endLine": 406,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/culturepulse/agent.ts",
+        "line": 310,
+        "endLine": 408,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/expansionmapper/agent.ts",
+        "line": 310,
+        "endLine": 408,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/marketsentinel/agent.ts",
+        "line": 310,
+        "endLine": 408,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/narrativeweaver/agent.ts",
+        "line": 314,
+        "endLine": 416,
+        "functionName": "parseContractOverrides",
+        "length": 103,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/pipelineoracle/agent.ts",
+        "line": 311,
+        "endLine": 409,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/pricingoptimizer/agent.ts",
+        "line": 308,
+        "endLine": 406,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/quotaarchitect/agent.ts",
+        "line": 311,
+        "endLine": 409,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "packages/agents/executivos/trendcatcher/agent.ts",
+        "line": 310,
+        "endLine": 408,
+        "functionName": "parseContractOverrides",
+        "length": 99,
+        "complexity": 21
+      },
+      {
+        "path": "apps/web/components/agents/FeedbackWidget.tsx",
+        "line": 40,
+        "endLine": 253,
+        "functionName": "FeedbackWidget",
+        "length": 214,
+        "complexity": 20
+      },
+      {
+        "path": "apps/web/stores/notification-store.ts",
+        "line": 72,
+        "endLine": 209,
+        "functionName": "<anonymous>",
+        "length": 138,
+        "complexity": 20
+      },
+      {
+        "path": "apps/worker/src/agents/conversations.ts",
+        "line": 57,
+        "endLine": 110,
+        "functionName": "ensureConversationThread",
+        "length": 54,
+        "complexity": 20
+      },
+      {
+        "path": "apps/api/src/lib/external-url.ts",
+        "line": 88,
+        "endLine": 155,
+        "functionName": "validateExternalUrl",
+        "length": 68,
+        "complexity": 19
+      },
+      {
+        "path": "apps/api/src/modules/packs/pack-installer.service.ts",
+        "line": 66,
+        "endLine": 185,
+        "functionName": "installPackAtomic",
+        "length": 120,
+        "complexity": 19
+      },
+      {
+        "path": "apps/api/src/modules/webhooks/router.ts",
+        "line": 61,
+        "endLine": 269,
+        "functionName": "createWebhooksRouter",
+        "length": 209,
+        "complexity": 19
+      },
+      {
+        "path": "apps/api/src/modules/workflows/router.ts",
+        "line": 42,
+        "endLine": 229,
+        "functionName": "createWorkflowsRouter",
+        "length": 188,
+        "complexity": 19
+      },
+      {
+        "path": "apps/api/src/modules/agents/router.ts",
+        "line": 60,
+        "endLine": 381,
+        "functionName": "createInstalledAgentsRouter",
+        "length": 322,
+        "complexity": 18
+      },
+      {
+        "path": "apps/api/src/modules/connectors/service.oauth.ts",
+        "line": 94,
+        "endLine": 191,
+        "functionName": "finalizeConnectSession",
+        "length": 98,
+        "complexity": 18
+      },
+      {
+        "path": "apps/api/src/modules/organizations/router.ts",
+        "line": 50,
+        "endLine": 222,
+        "functionName": "createOrganizationsRouter",
+        "length": 173,
+        "complexity": 18
+      },
+      {
+        "path": "apps/api/src/modules/packs/pack-installer-routes.ts",
+        "line": 15,
+        "endLine": 214,
+        "functionName": "createPackInstallerRouter",
+        "length": 200,
+        "complexity": 18
+      },
+      {
+        "path": "apps/api/src/modules/workflows/service.ts",
+        "line": 285,
+        "endLine": 389,
+        "functionName": "updateWorkflow",
+        "length": 105,
+        "complexity": 18
+      },
+      {
+        "path": "apps/web/components/agents/agent-run-panel.tsx",
+        "line": 37,
+        "endLine": 197,
+        "functionName": "AgentRunPanel",
+        "length": 161,
+        "complexity": 18
+      },
+      {
+        "path": "apps/web/components/agents/PolicyManager.tsx",
+        "line": 21,
+        "endLine": 290,
+        "functionName": "PolicyManager",
+        "length": 270,
+        "complexity": 18
+      },
+      {
+        "path": "packages/database/scripts/analyze-performance.ts",
+        "line": 30,
+        "endLine": 136,
+        "functionName": "main",
+        "length": 107,
+        "complexity": 18
+      },
+      {
+        "path": "packages/workflows-core/src/parser/dagValidator.ts",
+        "line": 125,
+        "endLine": 198,
+        "functionName": "validateDag",
+        "length": 74,
+        "complexity": 18
+      },
+      {
+        "path": "apps/api/src/modules/billing/router.ts",
+        "line": 30,
+        "endLine": 180,
+        "functionName": "createBillingRouter",
+        "length": 151,
+        "complexity": 17
+      },
+      {
+        "path": "apps/api/src/modules/outputs/output-routes.ts",
+        "line": 13,
+        "endLine": 218,
+        "functionName": "createOutputRouter",
+        "length": 206,
+        "complexity": 17
+      },
+      {
+        "path": "apps/voice-engine/src/server.ts",
+        "line": 87,
+        "endLine": 220,
+        "functionName": "createVoiceEngineRuntime",
+        "length": 134,
+        "complexity": 17
+      },
+      {
+        "path": "apps/worker/src/agents/runtime.catalog.ts",
+        "line": 57,
+        "endLine": 108,
+        "functionName": "parseAgentConfig",
+        "length": 52,
+        "complexity": 17
+      }
+    ],
     "largeFiles": [
       {
         "path": "packages/agent-packs/corporate-v1/source/official-collection.json",
@@ -65082,16 +67549,6 @@
         "path": "packages/agents-registry/src/index.ts",
         "line": 1,
         "lines": 512
-      },
-      {
-        "path": "apps/web/app/(dashboard)/settings/billing/page.tsx",
-        "line": 1,
-        "lines": 482
-      },
-      {
-        "path": "apps/api/src/modules/dashboard/service.ts",
-        "line": 1,
-        "lines": 476
       },
       {
         "path": "apps/api/src/modules/workflows/service.ts",
@@ -65267,6 +67724,16 @@
         "path": "packages/agents-core/src/manifest/catalog.ts",
         "line": 1,
         "lines": 315
+      },
+      {
+        "path": "apps/worker/src/engine/runner.execution.ts",
+        "line": 1,
+        "lines": 314
+      },
+      {
+        "path": "packages/workflows-core/src/schemas/step.schema.ts",
+        "line": 1,
+        "lines": 309
       }
     ],
     "importCycles": [],
@@ -65313,6 +67780,22 @@
       },
       {
         "path": "apps/web/app/(dashboard)/profile/notifications/page.tsx",
+        "relatedTests": []
+      },
+      {
+        "path": "apps/web/stores/notification-store.ts",
+        "relatedTests": []
+      },
+      {
+        "path": "apps/api/src/modules/connectors/service.oauth.ts",
+        "relatedTests": []
+      },
+      {
+        "path": "apps/api/src/modules/organizations/router.ts",
+        "relatedTests": []
+      },
+      {
+        "path": "apps/api/src/modules/outputs/output-routes.ts",
         "relatedTests": []
       }
     ],

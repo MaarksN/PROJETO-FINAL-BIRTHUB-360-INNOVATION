@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-import type { PrismaClient } from "@birthub/database";
+import { Prisma, type PrismaClient } from "@birthub/database";
 
 import { seedCoreFixtures } from "./factories.js";
 
@@ -72,6 +72,14 @@ async function createPrismaForTest(databaseUrl: string): Promise<PrismaClient> {
   return createPrismaClient({ databaseUrl });
 }
 
+function quoteIdentifier(identifier: string): Prisma.Sql {
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(identifier)) {
+    throw new Error(`Unsafe SQL identifier rejected: ${identifier}`);
+  }
+
+  return Prisma.raw(`"${identifier}"`);
+}
+
 export function resolveExplicitTestDatabaseUrl(
   env: NodeJS.ProcessEnv = process.env
 ): string | null {
@@ -117,7 +125,9 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
 
   return {
     cleanup: async () => {
-      await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
+      await prisma.$executeRaw(
+        Prisma.sql`DROP SCHEMA IF EXISTS ${quoteIdentifier(schema)} CASCADE`
+      );
       await prisma.$disconnect();
     },
     databaseUrl,

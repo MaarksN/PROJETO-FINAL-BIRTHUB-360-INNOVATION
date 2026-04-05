@@ -29,7 +29,7 @@ import {
 import { metricsHandler, metricsMiddleware } from "../metrics.js";
 import { requestContextMiddleware } from "../middleware/request-context.js";
 import { sanitizeMutationInput } from "../middleware/sanitize-input.js";
-import { tenantContextMiddleware } from "../middleware/tenant-context.js";
+import { tenantContextMiddleware } from "../middlewares/tenantContext.js";
 import { startOutputRetentionScheduler } from "../modules/outputs/output-retention.js";
 import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router.js";
