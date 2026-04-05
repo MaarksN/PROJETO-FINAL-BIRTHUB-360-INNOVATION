@@ -1,3 +1,6 @@
+import { getWebConfig } from "@birthub/config";
+import { fetchWithTimeout, type FetchWithTimeoutInit } from "@birthub/utils";
+
 export interface StoredSession {
   accessToken?: string;
   csrfToken?: string;
@@ -5,22 +8,25 @@ export interface StoredSession {
   userId?: string;
 }
 
+export const SESSION_FETCH_TIMEOUT_MS = 10_000;
+
 function isAbsoluteUrl(value: string): boolean {
   return /^https?:\/\//i.test(value);
 }
 
-export function toApiUrl(input: string): string {
+export function resolveApiBaseUrl(env: NodeJS.ProcessEnv = process.env): string {
+  return getWebConfig({
+    ...env,
+    NEXT_PUBLIC_ENVIRONMENT: env.NEXT_PUBLIC_ENVIRONMENT ?? "development"
+  }).NEXT_PUBLIC_API_URL;
+}
+
+export function toApiUrl(input: string, env: NodeJS.ProcessEnv = process.env): string {
   if (!input.startsWith("/") || isAbsoluteUrl(input)) {
     return input;
   }
 
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-  if (!apiBaseUrl) {
-    return input;
-  }
-
-  return new URL(input, apiBaseUrl).toString();
+  return new URL(input, resolveApiBaseUrl(env)).toString();
 }
 
 export function getStoredSession(): StoredSession | null {
@@ -60,7 +66,7 @@ function getCookieValue(name: string): string | null {
 
 export async function fetchWithSession(
   input: RequestInfo | URL,
-  init: RequestInit = {}
+  init: FetchWithTimeoutInit = {}
 ): Promise<Response> {
   const session = getStoredSession();
 
@@ -75,15 +81,16 @@ export async function fetchWithSession(
     headers.set("x-csrf-token", csrfToken);
   }
 
-  const nextInit: RequestInit = {
+  const nextInit: FetchWithTimeoutInit = {
     ...init,
     credentials: "include",
-    headers
+    headers,
+    timeoutMs: init.timeoutMs ?? SESSION_FETCH_TIMEOUT_MS
   };
 
   if (typeof input === "string") {
-    return fetch(toApiUrl(input), nextInit);
+    return fetchWithTimeout(toApiUrl(input), nextInit);
   }
 
-  return fetch(input, nextInit);
+  return fetchWithTimeout(input, nextInit);
 }

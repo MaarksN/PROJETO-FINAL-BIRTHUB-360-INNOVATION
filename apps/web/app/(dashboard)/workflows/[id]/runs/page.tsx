@@ -4,82 +4,15 @@ import "reactflow/dist/style.css";
 
 import { use, useEffect, useMemo, useState, useTransition } from "react";
 
-import { getWebConfig } from "@birthub/config";
 import ReactFlow, { Background, MiniMap, type Edge, type Node } from "reactflow";
 
-import type { WorkflowCanvas } from "@birthub/workflows-core";
-
-type WorkflowExecutionSnapshot = {
-  completedAt: string | null;
-  durationMs: number | null;
-  errorMessage: string | null;
-  id: string;
-  startedAt: string;
-  status: "CANCELLED" | "FAILED" | "RUNNING" | "SUCCESS" | "WAITING";
-  stepResults: Array<{
-    errorMessage: string | null;
-    input: Record<string, unknown> | null;
-    output: Record<string, unknown> | null;
-    status: "FAILED" | "SKIPPED" | "SUCCESS" | "WAITING";
-    step: {
-      id: string;
-      key: string;
-      name: string;
-      type: string;
-    };
-  }>;
-};
-
-type WorkflowResponse = {
-  workflow: {
-    definition: WorkflowCanvas | null;
-    executions: WorkflowExecutionSnapshot[];
-    name: string;
-  };
-};
-
-const apiBaseUrl = getWebConfig().NEXT_PUBLIC_API_URL;
-
-function buildGraph(canvas: WorkflowCanvas | null): {
-  edges: Edge[];
-  nodes: Node[];
-} {
-  const safeCanvas =
-    canvas ??
-    ({
-      steps: [],
-      transitions: []
-    } satisfies WorkflowCanvas);
-  const nodes = safeCanvas.steps.map((step, index) => ({
-    data: { label: step.name },
-    id: step.key,
-    position: {
-      x: (index % 4) * 260,
-      y: Math.floor(index / 4) * 170
-    },
-    type: "default"
-  }));
-  const edges = safeCanvas.transitions.map((transition, index) => ({
-    id: `edge_${index + 1}`,
-    label: transition.route === "ALWAYS" ? undefined : transition.route,
-    source: transition.source,
-    target: transition.target,
-    type: "smoothstep"
-  }));
-
-  return { edges, nodes };
-}
-
-function maskSecrets(payload: Record<string, unknown>): string {
-  const clone = { ...payload };
-  for (const key of Object.keys(clone)) {
-    if (key.toLowerCase().includes("secret") || key.toLowerCase().includes("token")) {
-      clone[key] = "***";
-    }
-  }
-
-  return JSON.stringify(clone, null, 2);
-}
+import {
+  buildGraph,
+  loadWorkflowRuns,
+  maskSecrets,
+  retryWorkflowRun,
+  type WorkflowExecutionSnapshot
+} from "./page.data";
 
 export default function WorkflowRunsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -96,15 +29,7 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
 
     async function loadWorkflow(): Promise<void> {
       try {
-        const response = await fetch(`${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(id)}`, {
-          credentials: "include"
-        });
-
-        if (!response.ok) {
-          throw new Error(`Falha ao carregar workflow (${response.status}).`);
-        }
-
-        const payload = (await response.json()) as WorkflowResponse;
+        const payload = await loadWorkflowRuns(id);
         if (cancelled) {
           return;
         }
@@ -293,25 +218,7 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
                         startTransition(() => {
                           void (async () => {
                             try {
-                              const response = await fetch(
-                                `${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(id)}/run`,
-                                {
-                                  body: JSON.stringify({
-                                    async: true,
-                                    payload: {}
-                                  }),
-                                  credentials: "include",
-                                  headers: {
-                                    "content-type": "application/json"
-                                  },
-                                  method: "POST"
-                                }
-                              );
-
-                              if (!response.ok) {
-                                throw new Error(`Falha ao reenfileirar workflow (${response.status}).`);
-                              }
-
+                              await retryWorkflowRun(id);
                               setError("Retry aceito. Recarregue em alguns segundos para ver a nova run.");
                             } catch (retryError) {
                               setError(
