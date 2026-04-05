@@ -86,6 +86,26 @@ function groupOccurrencesByPath(occurrences) {
   return [...map.values()].sort((left, right) => right.count - left.count || left.path.localeCompare(right.path));
 }
 
+function normalizeArtifactPath(value) {
+  return String(value ?? "").replaceAll("\\", "/");
+}
+
+function isCoreRelevantEvidencePath(value) {
+  const normalized = normalizeArtifactPath(value);
+  return /^(apps\/api|apps\/web|apps\/worker|packages\/database|infra\/|\.github\/workflows\/|scripts\/)/.test(normalized);
+}
+
+function semgrepSeverityWeight(result) {
+  const severity = String(result.extra?.severity ?? result.extra?.metadata?.severity ?? "INFO").toUpperCase();
+  if (severity === "ERROR") {
+    return 3;
+  }
+  if (severity === "WARNING") {
+    return 2;
+  }
+  return 1;
+}
+
 function computeVdi(vdiFactors) {
   const raw =
     vdiFactors.businessImpact * 0.35 +
@@ -527,6 +547,13 @@ async function buildCodeQualityCandidates(raw) {
 
 async function buildSecurityCandidates(raw) {
   const candidates = [];
+  const semgrepResults = (raw.evidenceArtifacts?.semgrep?.data?.results ?? [])
+    .map((entry) => ({
+      ...entry,
+      path: normalizeArtifactPath(entry.path)
+    }))
+    .filter((entry) => isCoreRelevantEvidencePath(entry.path))
+    .sort((left, right) => semgrepSeverityWeight(right) - semgrepSeverityWeight(left));
 
   for (const occurrence of raw.staticFindings.rawQueryUnsafeOccurrences.slice(0, 4)) {
     candidates.push(
@@ -634,11 +661,49 @@ async function buildSecurityCandidates(raw) {
     );
   }
 
+  for (const finding of semgrepResults.slice(0, 5)) {
+    const severityWeight = semgrepSeverityWeight(finding);
+    const line = finding.start?.line ?? 1;
+    const severity = String(finding.extra?.severity ?? finding.extra?.metadata?.severity ?? "INFO").toUpperCase();
+    const shortMessage = String(finding.extra?.message ?? finding.check_id ?? "Semgrep finding").split(". ")[0];
+    const recommendation = finding.extra?.fix
+      ? `Aplicar a correção sugerida pelo Semgrep e validar o fluxo afetado. Fix sugerido: ${String(finding.extra.fix).slice(0, 180)}`
+      : "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.";
+
+    candidates.push(
+      baseCandidate({
+        dimension: "security",
+        title: `Semgrep ${severity} em ${path.posix.basename(finding.path)}`,
+        location: {
+          path: finding.path,
+          lines: { start: line, end: line }
+        },
+        problem: `Semgrep sinalizou em ${finding.path}:${line} o padrão "${shortMessage}".`,
+        impact: "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
+        recommendation,
+        vdiFactors: {
+          businessImpact: severityWeight >= 3 ? 4 : 3,
+          securityRisk: Math.min(5, severityWeight + 2),
+          reverseEffort: severityWeight >= 3 ? 3 : 2,
+          frequency: 3
+        },
+        effort: severityWeight >= 3 ? "1-3 dias" : "0.5-2 dias",
+        confidence: 0.83,
+        evidenceRefs: [
+          makeEvidenceRef(finding.path, line, shortMessage),
+          makeEvidenceRef(raw.evidenceArtifacts.semgrep.path, 1, `Semgrep ${severity} confirmado no artefato fresco.`)
+        ],
+        dependencyHints: ["security-tests", "integration-guardrails"]
+      })
+    );
+  }
+
   return ensureTargetCount("security", sortCandidates(candidates), dimensionConfig.find((entry) => entry.key === "security").target);
 }
 
 async function buildTestsObservabilityCandidates(raw) {
   const candidates = [];
+  const moduleCoverage = raw.evidenceArtifacts?.moduleCoverage?.data;
 
   for (const gap of raw.staticFindings.coverageGaps.slice(0, 7)) {
     candidates.push(
@@ -719,11 +784,45 @@ async function buildTestsObservabilityCandidates(raw) {
     );
   }
 
+  for (const surface of (moduleCoverage?.surfaces ?? [])
+    .slice()
+    .sort((left, right) => right.gaps.length - left.gaps.length || left.module.localeCompare(right.module))
+    .slice(0, 3)) {
+    const anchorPath = surface.gaps[0] ?? raw.evidenceArtifacts.moduleCoverage.path;
+    candidates.push(
+      baseCandidate({
+        dimension: "tests_observability",
+        title: `Cobertura estrutural baixa em ${surface.module}`,
+        location: {
+          path: anchorPath,
+          lines: { start: 1, end: 1 }
+        },
+        problem: `O proxy de cobertura identifica ${surface.runtimeFiles} arquivos de runtime para ${surface.module}, mas apenas ${surface.directTestFiles} arquivos de teste diretos e ${surface.gaps.length} gaps principais.` ,
+        impact: "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
+        recommendation: "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
+        vdiFactors: {
+          businessImpact: surface.gaps.length >= 10 ? 4 : 3,
+          securityRisk: /api|database/.test(surface.module) ? 4 : 2,
+          reverseEffort: 3,
+          frequency: 4
+        },
+        effort: "1-3 dias",
+        confidence: 0.86,
+        evidenceRefs: [
+          makeEvidenceRef(anchorPath, 1, `Gap estrutural identificado para ${surface.module}.`),
+          makeEvidenceRef(raw.evidenceArtifacts.moduleCoverage.path, 1, `${surface.module}: ${surface.directTestFiles} testes diretos, ${surface.gaps.length} gaps.`)
+        ],
+        dependencyHints: ["test-harness", "observability-foundation"]
+      })
+    );
+  }
+
   return ensureTargetCount("tests_observability", sortCandidates(candidates), dimensionConfig.find((entry) => entry.key === "tests_observability").target);
 }
 
 async function buildPerformanceCandidates(raw) {
   const candidates = [];
+  const bundleBaseline = raw.evidenceArtifacts?.bundleBaseline?.data;
 
   for (const occurrence of raw.staticFindings.findManyWithoutPagination.slice(0, 5)) {
     candidates.push(
@@ -832,6 +931,37 @@ async function buildPerformanceCandidates(raw) {
     );
   }
 
+  if (bundleBaseline?.baseline?.chunks?.totalKiB) {
+    const totalKiB = bundleBaseline.baseline.chunks.totalKiB;
+    const topChunk = bundleBaseline.baseline.chunks.top10?.[0];
+    candidates.push(
+      baseCandidate({
+        dimension: "performance",
+        title: `Bundle web fresco acima de 2 MiB (${totalKiB} KiB)`,
+        location: {
+          path: raw.evidenceArtifacts.bundleBaseline.path,
+          lines: { start: 1, end: 1 }
+        },
+        problem: `A baseline fresca do bundle registrou ${totalKiB} KiB distribuídos em ${bundleBaseline.baseline.chunks.files} arquivos, com chunk líder de ${topChunk?.bytes ?? "n/d"} bytes.`,
+        impact: "Bundles desse porte pressionam LCP/TTI, aumentam custo de download e tendem a penalizar dispositivos móveis em jornadas críticas.",
+        recommendation: "Aplicar code splitting por rota, revisar dependências pesadas do dashboard e estabelecer budget de bundle com fail em CI.",
+        vdiFactors: {
+          businessImpact: totalKiB >= 2000 ? 4 : 3,
+          securityRisk: 1,
+          reverseEffort: 3,
+          frequency: 4
+        },
+        effort: "1-3 dias",
+        confidence: 0.9,
+        evidenceRefs: [
+          makeEvidenceRef(raw.evidenceArtifacts.bundleBaseline.path, 1, `Bundle fresco com ${totalKiB} KiB.`),
+          ...(topChunk?.file ? [makeEvidenceRef(normalizeArtifactPath(topChunk.file), 1, `Maior chunk atual com ${topChunk.bytes} bytes.`)] : [])
+        ],
+        dependencyHints: ["web-performance"]
+      })
+    );
+  }
+
   return ensureTargetCount("performance", sortCandidates(candidates), dimensionConfig.find((entry) => entry.key === "performance").target);
 }
 
@@ -922,6 +1052,7 @@ async function buildDevOpsCandidates(raw) {
 
 async function buildProductUxCandidates(raw) {
   const candidates = [];
+  const accessibility = raw.evidenceArtifacts?.accessibility?.data;
 
   for (const file of raw.staticFindings.hardcodedWebStrings.slice(0, 6)) {
     candidates.push(
@@ -1029,11 +1160,46 @@ async function buildProductUxCandidates(raw) {
     );
   }
 
+  for (const finding of (accessibility?.findings ?? []).slice(0, 4)) {
+    const isRouteFinding = Boolean(finding.route);
+    const locationPath = isRouteFinding
+      ? raw.evidenceArtifacts.accessibility.path
+      : normalizeArtifactPath(finding.file ?? raw.evidenceArtifacts.accessibility.path);
+
+    candidates.push(
+      baseCandidate({
+        dimension: "product_ux",
+        title: `A11y automatizada sinaliza ${finding.rule}`,
+        location: {
+          path: locationPath,
+          lines: { start: Number(finding.line) || 1, end: Number(finding.line) || 1 }
+        },
+        problem: isRouteFinding
+          ? `A evidência automatizada de acessibilidade encontrou ${finding.rule} na rota ${finding.route}.`
+          : `A evidência automatizada de acessibilidade encontrou ${finding.rule} em ${locationPath}:${Number(finding.line) || 1}.`,
+        impact: "Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.",
+        recommendation: "Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.",
+        vdiFactors: {
+          businessImpact: finding.severity === "medium" ? 3 : 2,
+          securityRisk: 1,
+          reverseEffort: 1,
+          frequency: 3
+        },
+        effort: "<2h",
+        confidence: 0.88,
+        evidenceRefs: [makeEvidenceRef(raw.evidenceArtifacts.accessibility.path, 1, finding.message)],
+        dependencyHints: ["a11y-foundation"]
+      })
+    );
+  }
+
   return ensureTargetCount("product_ux", sortCandidates(candidates), dimensionConfig.find((entry) => entry.key === "product_ux").target);
 }
 
 async function buildOperationsCandidates(raw) {
   const candidates = [];
+  const disasterRecovery = raw.evidenceArtifacts?.disasterRecovery?.data;
+  const rlsProof = raw.evidenceArtifacts?.rlsProof?.data;
 
   if ((raw.capabilities.docs.slaFiles ?? []).length === 0) {
     candidates.push(
@@ -1089,30 +1255,60 @@ async function buildOperationsCandidates(raw) {
     );
   }
 
-  candidates.push(
-    baseCandidate({
-      dimension: "operations_multitenancy",
-      title: "Prova fresca de isolamento RLS por tenant não acompanha o pacote soberano",
-      location: {
-        path: "packages/database/test/rls.test.ts",
-        lines: { start: 1, end: 1 }
-      },
-      problem: "O repositório contém teste de RLS, mas a auditoria soberana ainda não anexa uma execução fresca da prova de isolamento para o HEAD auditado.",
-      impact: "Sem evidência executada do ciclo atual, o principal controle de multi-tenancy continua mais presumido do que comprovado.",
-      recommendation: "Rodar a prova de isolamento em banco efêmero durante a coleta e anexar o artefato ao pacote soberano.",
-      vdiFactors: {
-        businessImpact: 5,
-        securityRisk: 5,
-        reverseEffort: 3,
-        frequency: 4
-      },
-      effort: "1-3 dias",
-      confidence: 0.78,
-      evidenceRefs: [makeEvidenceRef("packages/database/test/rls.test.ts", 1, "Teste existe, mas falta evidência fresca anexada ao pacote soberano.")],
-      inference: true,
-      dependencyHints: ["tenant-proof"]
-    })
-  );
+  if (rlsProof?.runtimeProof?.status !== "passed") {
+    candidates.push(
+      baseCandidate({
+        dimension: "operations_multitenancy",
+        title: "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
+        location: {
+          path: raw.evidenceArtifacts.rlsProof.path,
+          lines: { start: 1, end: 1 }
+        },
+        problem: `A evidência fresca marca a prova runtime de RLS como "${rlsProof?.runtimeProof?.status ?? "indisponível"}", apesar de o audit estático de tenancy passar.`,
+        impact: "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
+        recommendation: "Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.",
+        vdiFactors: {
+          businessImpact: 5,
+          securityRisk: 5,
+          reverseEffort: 3,
+          frequency: 4
+        },
+        effort: "1-3 dias",
+        confidence: 0.92,
+        evidenceRefs: [
+          makeEvidenceRef(raw.evidenceArtifacts.rlsProof.path, 1, `runtimeProof=${rlsProof?.runtimeProof?.status ?? "missing"}`),
+          makeEvidenceRef("packages/database/test/rls.test.ts", 1, "Teste de RLS versionado no pacote database.")
+        ],
+        dependencyHints: ["tenant-proof"]
+      })
+    );
+  }
+
+  if (disasterRecovery?.status && disasterRecovery.status !== "recorded") {
+    candidates.push(
+      baseCandidate({
+        dimension: "operations_multitenancy",
+        title: "Drill de disaster recovery não registrado no ciclo atual",
+        location: {
+          path: raw.evidenceArtifacts.disasterRecovery.path,
+          lines: { start: 1, end: 1 }
+        },
+        problem: `O artefato fresco de DR está em status "${disasterRecovery.status}", sem comprovação recente de exercício de recuperação.`,
+        impact: "A recuperabilidade operacional segue mais assumida do que comprovada, elevando risco de restauração lenta em incidente real.",
+        recommendation: "Executar o drill com o script operacional versionado e anexar o resultado ao pacote soberano do ciclo.",
+        vdiFactors: {
+          businessImpact: 4,
+          securityRisk: 3,
+          reverseEffort: 2,
+          frequency: 3
+        },
+        effort: "0.5-2 dias",
+        confidence: 0.89,
+        evidenceRefs: [makeEvidenceRef(raw.evidenceArtifacts.disasterRecovery.path, 1, `status=${disasterRecovery.status}`)],
+        dependencyHints: ["ops-contract"]
+      })
+    );
+  }
 
   if ((raw.capabilities.docs.fhirFiles ?? []).length === 0) {
     candidates.push(

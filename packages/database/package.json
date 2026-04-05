@@ -37,7 +37,8 @@
     "db:seed:ci": "node --import tsx prisma/seed.ts --profile=ci",
     "db:seed:smoke": "node --import tsx prisma/seed.ts --profile=smoke",
     "db:seed:staging": "node --import tsx prisma/seed.ts --profile=staging",
-    "db:validate:pr": "node --import tsx scripts/validate-migrations-on-test-db.ts"
+    "db:validate:pr": "node --import tsx scripts/validate-migrations-on-test-db.ts",
+    "db:provision:app-role": "node --import tsx scripts/provision-rls-runtime-role.ts"
   },
   "dependencies": {
     "@birthub/logger": "workspace:^",

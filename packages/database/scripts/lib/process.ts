@@ -21,6 +21,15 @@ export function getPrismaCommand(): CommandSpec {
   };
 }
 
+function assertAllowedCommand(command: string): void {
+  const normalized = String(command);
+  if (normalized === process.execPath) {
+    return;
+  }
+
+  throw new Error(`runCommand refused command outside the allowlist: ${normalized}`);
+}
+
 function quoteWindowsCommandArg(value: string): string {
   if (value.length === 0) {
     return '""';
@@ -37,6 +46,7 @@ export async function runCommand(
     env?: NodeJS.ProcessEnv;
   }
 ): Promise<CommandResult> {
+  assertAllowedCommand(command);
   return new Promise((resolveResult, reject) => {
     const requiresWindowsCmdWrapper =
       process.platform === "win32" && /\.(cmd|bat)$/iu.test(command);
@@ -45,6 +55,7 @@ export async function runCommand(
       ? ["/d", "/s", "/c", [command, ...args].map(quoteWindowsCommandArg).join(" ")]
       : args;
 
+    // nosemgrep: javascript.lang.security.detect-child-process.detect-child-process -- command is allowlisted to process.execPath for internal migration tooling only.
     const child = spawn(spawnCommand, spawnArgs, {
       cwd: options?.cwd ?? databasePackageRoot,
       env: {

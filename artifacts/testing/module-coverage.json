@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-05T15:04:25.234Z",
+  "checkedAt": "2026-04-05T20:27:26.573Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -14,7 +14,7 @@
   "surfaces": [
     {
       "module": "apps/api",
-      "runtimeFiles": 134,
+      "runtimeFiles": 135,
       "directTestFiles": 26,
       "traceabilityFlows": 2,
       "directTests": [
@@ -60,7 +60,7 @@
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 72,
+      "runtimeFiles": 75,
       "directTestFiles": 6,
       "traceabilityFlows": 2,
       "directTests": [

@@ -1,24 +1,24 @@
 # Web Bundle Baseline
 
-- generatedAt: 2026-03-23T02:41:31.058Z
+- generatedAt: 2026-04-05T20:27:26.620Z
 - nextBuildDir: apps/web/.next
 - chunk files: 44
-- total size: 2293839 bytes (2240.08 KiB)
+- total size: 2318662 bytes (2264.32 KiB)
 
 ## Top 10 Chunks
 
 | File | Bytes | KiB |
 | --- | ---: | ---: |
-| apps/web/.next/static/chunks/0i161bnz72xm0.js | 513007 | 500.98 |
-| apps/web/.next/static/chunks/0bne91v9vu3p-.js | 341829 | 333.82 |
-| apps/web/.next/static/chunks/16jxj9jfdnfwh.js | 282733 | 276.11 |
-| apps/web/.next/static/chunks/04phlj5h7kdab.js | 232267 | 226.82 |
-| apps/web/.next/static/chunks/0a1q74ztjlk2q.js | 231026 | 225.61 |
-| apps/web/.next/static/chunks/0zup1k23rbfdx.js | 139409 | 136.14 |
-| apps/web/.next/static/chunks/0yfo0cx26v9is.js | 122968 | 120.09 |
+| apps/web/.next/static/chunks/0juvkggxd51sz.js | 514549 | 502.49 |
+| apps/web/.next/static/chunks/1491hd.k7-gyh.js | 341830 | 333.82 |
+| apps/web/.next/static/chunks/0~otl2ac6088e.js | 283202 | 276.56 |
+| apps/web/.next/static/chunks/0wqu_f0fj5ka7.js | 232345 | 226.90 |
+| apps/web/.next/static/chunks/0m5gear2kenii.js | 231026 | 225.61 |
+| apps/web/.next/static/chunks/14djqq0ow71a2.js | 139409 | 136.14 |
+| apps/web/.next/static/chunks/0w7aknc.w_blt.js | 122968 | 120.09 |
 | apps/web/.next/static/chunks/03~yq9q893hmn.js | 112594 | 109.96 |
-| apps/web/.next/static/chunks/0jqcj36097rga.js | 52144 | 50.92 |
-| apps/web/.next/static/chunks/16o0~d4ow4q1s.js | 44841 | 43.79 |
+| apps/web/.next/static/chunks/0ipvu-jqklq7o.js | 52141 | 50.92 |
+| apps/web/.next/static/chunks/0eqai92zx~ez-.js | 44841 | 43.79 |
 
 ## Pages in build-manifest
 

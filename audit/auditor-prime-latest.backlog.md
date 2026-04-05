@@ -1,13 +1,12 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-05T15:04:36.022Z
+- Generated at: 2026-04-05T20:27:36.479Z
 - Source report: `audit\auditor-prime-2026-04-05.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-089 Prova fresca de isolamento RLS por tenant não acompanha o pacote soberano (`packages/database/test/rls.test.ts`) | @platform-data | 1-3 dias | nenhuma | Prova de isolamento atualizada em `artifacts/tenancy/rls-proof-head.json`, controles de tenancy verificados e item rebaixado/removido na próxima auditoria. |
 | TD-029 Superfície crítica sem teste relacionado por heurística de nome (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 1-3 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-030 Superfície crítica sem teste relacionado por heurística de nome (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 1-3 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-031 Chamada externa sem timeout ou abort path explícito (`apps/api/src/docs/openapi.ts`) | @platform-api | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
@@ -19,7 +18,10 @@
 
 ## Sprint 2 — Qualidade + observabilidade
 
-- Sem itens de dívida adicionais alocados neste sprint.
+| Item | Owner | Esforço | Dependências | Critério de aceite |
+| --- | --- | --- | --- | --- |
+| TD-042 Cobertura estrutural baixa em apps/api (`apps/api/src/app/auth-and-core-routes.ts`) | @platform-api | 1-3 dias | TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
+| TD-043 Cobertura estrutural baixa em packages/database (`packages/database/src/client.ts`) | @platform-data | 1-3 dias | TD-042, TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
 
 ## Sprint 3 — Performance + UX técnica
 
@@ -30,7 +32,6 @@
 | TD-054 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | nenhuma | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-055 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-056 Consulta findMany sem paginação explícita (`apps/api/src/common/cache/prisma-cache-invalidation.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/agents/metrics.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 

@@ -74,6 +74,19 @@ export function runGit(args) {
   }).trim();
 }
 
+function assertSafeRunCommand(command) {
+  const normalized = String(command);
+  const baseName = path.basename(normalized).toLowerCase();
+  const allowedCommands = new Set(["git", "node", "semgrep", "python", "python.exe"]);
+  const allowedBaseNames = new Set(["node.exe", "semgrep.exe", "python.exe", "cmd.exe"]);
+
+  if (allowedCommands.has(normalized.toLowerCase()) || allowedBaseNames.has(baseName)) {
+    return;
+  }
+
+  throw new Error(`safeRun refused command outside the allowlist: ${normalized}`);
+}
+
 export function listTrackedFiles() {
   const output = runGit(["ls-files"]);
   return output
@@ -84,33 +97,33 @@ export function listTrackedFiles() {
 }
 
 export function safeRun(command, args, options = {}) {
-  const result =
-    process.platform === "win32"
-      ? spawnSync(
-          [command, ...args]
-            .map((value) => (/\s/.test(value) ? `"${value.replace(/"/g, '\\"')}"` : value))
-            .join(" "),
-          {
-            cwd: options.cwd ?? repoRoot,
-            encoding: "utf8",
-            env: {
-              ...process.env,
-              ...(options.env ?? {})
-            },
-            shell: true,
-            timeout: options.timeoutMs ?? 180000
-          }
-        )
-      : spawnSync(command, args, {
-          cwd: options.cwd ?? repoRoot,
-          encoding: "utf8",
-          env: {
-            ...process.env,
-            ...(options.env ?? {})
-          },
-          shell: false,
-          timeout: options.timeoutMs ?? 180000
-        });
+  assertSafeRunCommand(command);
+  const requiresWindowsCmdWrapper =
+    process.platform === "win32" && /\.(cmd|bat)$/iu.test(command);
+  const spawnCommand = requiresWindowsCmdWrapper ? process.env.ComSpec ?? "cmd.exe" : command;
+  const spawnArgs = requiresWindowsCmdWrapper
+    ? [
+        "/d",
+        "/s",
+        "/c",
+        [command, ...args]
+          .map((value) => (/\s/.test(value) ? `"${value.replace(/"/g, '\\"')}"` : value))
+          .join(" ")
+      ]
+    : args;
+
+  // nosemgrep: javascript.lang.security.detect-child-process.detect-child-process -- safeRun is restricted to an internal allowlist of tooling binaries.
+  const result = spawnSync(spawnCommand, spawnArgs, {
+    cwd: options.cwd ?? repoRoot,
+    encoding: "utf8",
+    env: {
+      ...process.env,
+      ...(options.env ?? {})
+    },
+    shell: false,
+    timeout: options.timeoutMs ?? 180000,
+    windowsVerbatimArguments: requiresWindowsCmdWrapper
+  });
 
   return {
     command: [command, ...args].join(" "),

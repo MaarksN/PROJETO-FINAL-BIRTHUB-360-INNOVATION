@@ -30,7 +30,6 @@ import {
   unique,
   writeJson
 } from "./shared-prime.mjs";
-import { refreshPrimeEvidence } from "./prime-refresh-evidence.mjs";
 
 const codeExtensions = new Set([".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"]);
 const corePrefixes = ["apps/web/", "apps/api/", "apps/worker/", "packages/database/"];
@@ -69,6 +68,19 @@ function quantile(values, percentile) {
 async function readOptional(relativePathValue) {
   try {
     return await readText(relativePathValue);
+  } catch {
+    return null;
+  }
+}
+
+async function readJsonIfExists(relativePathValue) {
+  const content = await readOptional(relativePathValue);
+  if (!content) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(content);
   } catch {
     return null;
   }
@@ -602,6 +614,43 @@ function collectCoverageGaps(files, fileIndex, complexity) {
     .slice(0, 30);
 }
 
+async function collectEvidenceArtifacts() {
+  return {
+    environmentParity: {
+      path: "docs/operations/environment-parity.md",
+      content: await readOptional("docs/operations/environment-parity.md")
+    },
+    sla: {
+      path: "docs/operations/sla.md",
+      content: await readOptional("docs/operations/sla.md")
+    },
+    semgrep: {
+      path: "artifacts/security/semgrep-head.json",
+      data: await readJsonIfExists("artifacts/security/semgrep-head.json")
+    },
+    moduleCoverage: {
+      path: "artifacts/testing/module-coverage.json",
+      data: await readJsonIfExists("artifacts/testing/module-coverage.json")
+    },
+    bundleBaseline: {
+      path: "artifacts/performance/web-bundle-head.json",
+      data: await readJsonIfExists("artifacts/performance/web-bundle-head.json")
+    },
+    accessibility: {
+      path: "artifacts/accessibility/axe-report.json",
+      data: await readJsonIfExists("artifacts/accessibility/axe-report.json")
+    },
+    disasterRecovery: {
+      path: "artifacts/dr/latest-drill.json",
+      data: await readJsonIfExists("artifacts/dr/latest-drill.json")
+    },
+    rlsProof: {
+      path: "artifacts/tenancy/rls-proof-head.json",
+      data: await readJsonIfExists("artifacts/tenancy/rls-proof-head.json")
+    }
+  };
+}
+
 async function main() {
   const { dateOnly, slug } = reportDateParts();
   const supportDirectory = supportRoot(dateOnly);
@@ -609,8 +658,6 @@ async function main() {
 
   await fs.mkdir(supportDirectory, { recursive: true });
   await fs.mkdir(auditRoot, { recursive: true });
-
-  await refreshPrimeEvidence();
 
   const trackedFiles = unique([
     ...listTrackedFiles(),
@@ -693,6 +740,7 @@ async function main() {
   const filePredicates = await collectFilePredicates(trackedFiles);
   const capabilities = collectCapabilities(trackedFiles, schema.models);
   const coverageGaps = collectCoverageGaps(trackedFiles, fileIndex, complexity);
+  const evidenceArtifacts = await collectEvidenceArtifacts();
 
   const branch = safeRun("git", ["branch", "--show-current"]).stdout || "HEAD";
   const headSha = safeRun("git", ["rev-parse", "HEAD"]).stdout || "unknown";
@@ -760,6 +808,7 @@ async function main() {
       coverageGaps,
       dockerFacts
     },
+    evidenceArtifacts,
     supportingReferences: {
       canonicalScope: makeEvidenceRef(
         "docs/service-catalog.md",

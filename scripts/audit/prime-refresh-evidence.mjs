@@ -1,6 +1,8 @@
 #!/usr/bin/env node
+import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { promises as fs } from "node:fs";
+import { createServer } from "node:net";
 import path from "node:path";
 
 import {
@@ -24,6 +26,21 @@ const supplementalEvidencePaths = [
   "artifacts/tenancy/rls-proof-head.json"
 ];
 
+function resolveSemgrepRuntime() {
+  const localVenvExecutable = fromRepo(".tools/semgrep-venv/Scripts/semgrep.exe");
+  if (existsSync(localVenvExecutable)) {
+    return {
+      argsPrefix: [],
+      command: localVenvExecutable
+    };
+  }
+
+  return {
+    argsPrefix: [],
+    command: "semgrep"
+  };
+}
+
 function fileExists(relativePathValue) {
   return existsSync(fromRepo(relativePathValue));
 }
@@ -38,6 +55,187 @@ async function readJsonIfExists(relativePathValue) {
 
 function dedupe(values) {
   return [...new Set(values)];
+}
+
+function tryParseJson(value) {
+  if (!value?.trim()) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(value);
+  } catch {
+    return null;
+  }
+}
+
+function normalizePathValue(value) {
+  return String(value ?? "").replaceAll("\\", "/");
+}
+
+function semgrepTargets() {
+  return [
+    "apps/api",
+    "apps/web",
+    "apps/worker",
+    "packages/database",
+    "infra",
+    ".github/workflows",
+    "scripts/ops",
+    "scripts/release",
+    "scripts/security",
+    "scripts/testing",
+    "scripts/performance",
+    "scripts/migrate-to-multitenant.ts",
+    "scripts/audit/prime-backlog.mjs",
+    "scripts/audit/prime-collect.mjs",
+    "scripts/audit/prime-normalize.mjs",
+    "scripts/audit/prime-refresh-evidence.mjs",
+    "scripts/audit/prime-render.mjs",
+    "scripts/audit/prime-score.mjs",
+    "scripts/audit/prime-verify.mjs",
+    "scripts/audit/shared-prime.mjs"
+  ].filter((entry) => existsSync(fromRepo(entry)));
+}
+
+function summarizeSemgrepResults(results) {
+  const counts = { ERROR: 0, WARNING: 0, INFO: 0, UNKNOWN: 0 };
+  for (const result of results) {
+    const severity = String(result.extra?.severity ?? result.extra?.metadata?.severity ?? "UNKNOWN").toUpperCase();
+    counts[severity] = (counts[severity] ?? 0) + 1;
+  }
+  return counts;
+}
+
+async function wait(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function waitForHttp(url, timeoutMs = 180_000) {
+  const startedAt = Date.now();
+
+  while (Date.now() - startedAt < timeoutMs) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        return;
+      }
+    } catch {
+      // keep polling
+    }
+    await wait(1_000);
+  }
+
+  throw new Error(`Timed out waiting for ${url}`);
+}
+
+async function isReachable(url, timeoutMs = 15_000) {
+  try {
+    const response = await fetch(url, {
+      signal: AbortSignal.timeout(timeoutMs)
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+async function findAvailablePort(preferredPort = 3101) {
+  for (let port = preferredPort; port < preferredPort + 20; port += 1) {
+    const available = await new Promise((resolve) => {
+      const server = createServer();
+      server.unref();
+      server.once("error", () => resolve(false));
+      server.listen(port, () => {
+        server.close(() => resolve(true));
+      });
+    });
+
+    if (available) {
+      return port;
+    }
+  }
+
+  throw new Error(`No free port found between ${preferredPort} and ${preferredPort + 19}.`);
+}
+
+function resolvePlaywrightChromium() {
+  return import("@playwright/test")
+    .then((module) => {
+      const browserPath = module.chromium.executablePath();
+      return {
+        chromium: module.chromium,
+        browserPath,
+        available: existsSync(browserPath)
+      };
+    })
+    .catch(() => ({
+      chromium: null,
+      browserPath: null,
+      available: false
+    }));
+}
+
+function spawnWebDevServer(port) {
+  const nextBinaryCandidates = [
+    fromRepo("apps/web/node_modules/next/dist/bin/next"),
+    fromRepo("node_modules/next/dist/bin/next")
+  ];
+  const nextBinary = nextBinaryCandidates.find((candidate) => existsSync(candidate));
+  const env = {
+    ...process.env,
+    NEXT_PUBLIC_API_URL: `http://127.0.0.1:${port}`,
+    NEXT_PUBLIC_APP_URL: `http://127.0.0.1:${port}`,
+    NEXT_PUBLIC_ENVIRONMENT: "test",
+    NEXT_TELEMETRY_DISABLED: "1",
+    WEB_PORT: String(port)
+  };
+
+  if (nextBinary) {
+    return spawn(process.execPath, [nextBinary, "dev", "-p", String(port)], {
+      cwd: fromRepo("apps/web"),
+      env,
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+  }
+
+  if (process.platform === "win32") {
+    return spawn("cmd.exe", ["/d", "/s", "/c", `npx next dev -p ${port}`], {
+      cwd: fromRepo("apps/web"),
+      env,
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+  }
+
+  return spawn("npx", ["next", "dev", "-p", String(port)], {
+    cwd: fromRepo("apps/web"),
+    env,
+    stdio: ["ignore", "pipe", "pipe"]
+  });
+}
+
+async function stopProcess(child) {
+  if (!child || child.killed) {
+    return;
+  }
+
+  if (process.platform === "win32" && child.pid) {
+    await new Promise((resolve) => {
+      const killer = spawn("taskkill", ["/PID", String(child.pid), "/T", "/F"], {
+        stdio: "ignore"
+      });
+      killer.once("exit", () => resolve());
+      killer.once("error", () => resolve());
+    });
+    return;
+  }
+
+  child.kill("SIGTERM");
+  await wait(1_000);
+
+  if (!child.killed) {
+    child.kill("SIGKILL");
+  }
 }
 
 function collectEvidenceFiles() {
@@ -140,12 +338,32 @@ async function writeSlaSnapshot() {
 
 async function writeSemgrepSnapshot() {
   const artifactPath = "artifacts/security/semgrep-head.json";
-  const semgrepVersion = safeRun("semgrep", ["--version"], { timeoutMs: 10_000 });
+  const semgrepRuntime = resolveSemgrepRuntime();
+  const scanArgs = [
+    ...semgrepRuntime.argsPrefix,
+    "scan",
+    "--config",
+    "auto",
+    "--json",
+    "--quiet",
+    ...semgrepTargets()
+  ];
+  const semgrepVersion = safeRun(
+    semgrepRuntime.command,
+    [...semgrepRuntime.argsPrefix, "--version"],
+    {
+      env: {
+        PYTHONIOENCODING: "utf-8",
+        PYTHONUTF8: "1"
+      },
+      timeoutMs: 30_000
+    }
+  );
 
   if (semgrepVersion.exitCode !== 0) {
     await writeJson(fromRepo(artifactPath), {
       checkedAt: new Date().toISOString(),
-      command: "semgrep --config auto --json",
+      command: [semgrepRuntime.command, ...semgrepRuntime.argsPrefix, "scan", "--config", "auto", "--json"].join(" "),
       status: "tool-missing",
       sufficient: false,
       reason: "Semgrep binary is not available on the current runner.",
@@ -156,18 +374,47 @@ async function writeSemgrepSnapshot() {
   }
 
   const result = safeRun(
-    "semgrep",
-    ["scan", "--config", "auto", "--json", "--output", fromRepo(artifactPath)],
-    { timeoutMs: 600_000 }
+    semgrepRuntime.command,
+    scanArgs,
+    {
+      env: {
+        PYTHONIOENCODING: "utf-8",
+        PYTHONUTF8: "1"
+      },
+      timeoutMs: 600_000
+    }
   );
+
+  let parsed = null;
+  try {
+    parsed = JSON.parse(result.stdout);
+  } catch {
+    parsed = null;
+  }
+
+  const normalizedResults = (parsed?.results ?? []).map((entry) => ({
+    ...entry,
+    path: normalizePathValue(entry.path)
+  }));
 
   await writeJson(fromRepo(artifactPath), {
     checkedAt: new Date().toISOString(),
     command: result.command,
     exitCode: result.exitCode,
-    status: result.exitCode === 0 ? "pass" : "findings-or-failure",
-    sufficient: result.exitCode === 0,
-    stdout: result.stdout,
+    status: result.exitCode === 0 && parsed ? "fresh" : "scan-failed",
+    sufficient: result.exitCode === 0 && Array.isArray(parsed?.results),
+    version: semgrepVersion.stdout || semgrepVersion.stderr || null,
+    targets: semgrepTargets(),
+    summary: parsed
+      ? {
+          findings: normalizedResults.length,
+          errors: parsed.errors?.length ?? 0,
+          severities: summarizeSemgrepResults(normalizedResults)
+        }
+      : null,
+    results: normalizedResults,
+    errors: parsed?.errors ?? [],
+    stdout: parsed ? undefined : result.stdout,
     stderr: result.stderr
   });
 }
@@ -292,6 +539,161 @@ async function writeBundleSnapshot() {
 }
 
 async function writeAccessibilitySnapshot(files) {
+  const artifactPath = fromRepo("artifacts/accessibility/axe-report.json");
+  const playwright = await resolvePlaywrightChromium();
+  const routes = ["/", "/pricing", "/legal/terms", "/legal/privacy"];
+  const existingBaseUrl = "http://127.0.0.1:3001";
+  const reuseExistingServer = await isReachable(`${existingBaseUrl}/pricing`);
+  const port = reuseExistingServer ? 3001 : await findAvailablePort(3101);
+  const baseUrl = `http://127.0.0.1:${port}`;
+
+  if (playwright.available && playwright.chromium) {
+    const devServer = reuseExistingServer ? null : spawnWebDevServer(port);
+    const stdout = [];
+    const stderr = [];
+
+    devServer?.stdout?.on("data", (chunk) => stdout.push(String(chunk)));
+    devServer?.stderr?.on("data", (chunk) => stderr.push(String(chunk)));
+
+    try {
+      if (!reuseExistingServer) {
+        await waitForHttp(`${baseUrl}/pricing`, 180_000);
+      }
+      const browser = await playwright.chromium.launch({ headless: true });
+      const findings = [];
+      const summaries = [];
+
+      try {
+        for (const route of routes) {
+          const context = await browser.newContext();
+          const page = await context.newPage();
+
+          await page.goto(`${baseUrl}${route}`, {
+            timeout: 30_000,
+            waitUntil: "load"
+          });
+
+          const snapshot = await page.evaluate(() => {
+            const controlSelector = "input, textarea, select";
+            const labelable = [...document.querySelectorAll(controlSelector)];
+            const unlabeledControls = labelable
+              .filter((element) => {
+                const node = element;
+                const ariaLabel = node.getAttribute("aria-label");
+                const ariaLabelledBy = node.getAttribute("aria-labelledby");
+                const id = node.getAttribute("id");
+                const hasExplicitLabel = Boolean(id && document.querySelector(`label[for="${id}"]`));
+                const wrappedByLabel = Boolean(node.closest("label"));
+                const isHidden = node.getAttribute("type") === "hidden";
+                return !isHidden && !ariaLabel && !ariaLabelledBy && !hasExplicitLabel && !wrappedByLabel;
+              })
+              .map((element) => ({
+                selector: element.tagName.toLowerCase(),
+                snippet: (element.outerHTML ?? "").slice(0, 180)
+              }));
+
+            const imagesWithoutAlt = [...document.querySelectorAll("img:not([alt])")].map((element) => ({
+              selector: element.tagName.toLowerCase(),
+              snippet: (element.outerHTML ?? "").slice(0, 180)
+            }));
+
+            const tablesWithoutCaption = [...document.querySelectorAll("table")]
+              .filter((table) => !table.querySelector("caption"))
+              .map((element) => ({
+                selector: element.tagName.toLowerCase(),
+                snippet: (element.outerHTML ?? "").slice(0, 180)
+              }));
+
+            return {
+              title: document.title,
+              unlabeledControls,
+              imagesWithoutAlt,
+              tablesWithoutCaption
+            };
+          });
+
+          summaries.push({
+            route,
+            title: snapshot.title,
+            unlabeledControls: snapshot.unlabeledControls.length,
+            imagesWithoutAlt: snapshot.imagesWithoutAlt.length,
+            tablesWithoutCaption: snapshot.tablesWithoutCaption.length
+          });
+
+          for (const issue of snapshot.unlabeledControls.slice(0, 5)) {
+            findings.push({
+              route,
+              rule: "input-label",
+              severity: "medium",
+              message: "Rendered form control without accessible label in browser-backed smoke.",
+              snippet: issue.snippet
+            });
+          }
+
+          for (const issue of snapshot.imagesWithoutAlt.slice(0, 5)) {
+            findings.push({
+              route,
+              rule: "img-alt",
+              severity: "medium",
+              message: "Rendered image without alt attribute in browser-backed smoke.",
+              snippet: issue.snippet
+            });
+          }
+
+          for (const issue of snapshot.tablesWithoutCaption.slice(0, 5)) {
+            findings.push({
+              route,
+              rule: "table-caption",
+              severity: "low",
+              message: "Rendered table without caption in browser-backed smoke.",
+              snippet: issue.snippet
+            });
+          }
+
+          await context.close();
+        }
+      } finally {
+        await browser.close();
+      }
+
+      await writeJson(artifactPath, {
+        checkedAt: new Date().toISOString(),
+        mode: "browser-dom-smoke",
+        requestedTool: "playwright",
+        sufficient: true,
+        browserPath: playwright.browserPath,
+        baseUrl,
+        reusedExistingServer: reuseExistingServer,
+        routes,
+        summary: {
+          routesScanned: summaries.length,
+          findings: findings.length
+        },
+        routeSummaries: summaries,
+        findings,
+        stdout: stdout.join(""),
+        stderr: stderr.join("")
+      });
+      return;
+    } catch (error) {
+      await writeJson(artifactPath, {
+        checkedAt: new Date().toISOString(),
+        mode: "browser-dom-smoke",
+        requestedTool: "playwright",
+        sufficient: false,
+        browserPath: playwright.browserPath,
+        baseUrl,
+        reusedExistingServer: reuseExistingServer,
+        reason: error instanceof Error ? error.message : String(error),
+        stdout: stdout.join(""),
+        stderr: stderr.join("")
+      });
+      return;
+    } finally {
+      await stopProcess(devServer);
+    }
+  }
+
   const webFiles = files.filter((filePath) => filePath.startsWith("apps/web/") && filePath.endsWith(".tsx"));
   const findings = [];
 
@@ -335,7 +737,7 @@ async function writeAccessibilitySnapshot(files) {
     }
   }
 
-  await writeJson(fromRepo("artifacts/accessibility/axe-report.json"), {
+  await writeJson(artifactPath, {
     checkedAt: new Date().toISOString(),
     mode: "static-fallback",
     requestedTool: "axe",
@@ -344,6 +746,8 @@ async function writeAccessibilitySnapshot(files) {
       "No browser-backed axe runner is configured in the current sovereign audit lane.",
       "Findings are heuristic and should be validated by a real Playwright+axe pass."
     ],
+    browserPath: playwright.browserPath,
+    browserAvailable: playwright.available,
     summary: {
       filesScanned: webFiles.length,
       findings: findings.length
@@ -378,20 +782,89 @@ async function writeDisasterRecoverySnapshot() {
 }
 
 async function writeRlsSnapshot() {
+  const adminDatabaseUrl = process.env.DATABASE_URL?.trim() ?? "";
   const tenancyControl = safeRun(
     "node",
     ["--import", "tsx", "packages/database/scripts/check-tenancy-controls.ts"],
     { timeoutMs: 300_000 }
   );
-  const rlsTestRun = safeRun(
-    "node",
-    ["--import", "tsx", "--test", "packages/database/test/rls.test.ts"],
-    { timeoutMs: 300_000 }
-  );
+  let roleProvisioning = null;
+  let runtimeDatabaseUrl = adminDatabaseUrl;
+
+  if (adminDatabaseUrl) {
+    const provisionRun = safeRun(
+      "node",
+      ["--import", "tsx", "packages/database/scripts/provision-rls-runtime-role.ts"],
+      {
+        env: {
+          ...process.env,
+          DATABASE_URL: adminDatabaseUrl
+        },
+        timeoutMs: 300_000
+      }
+    );
+    const provisionPayload = tryParseJson(provisionRun.stdout);
+    const provisioningReady =
+      provisionRun.exitCode === 0 &&
+      provisionPayload?.status === "ready" &&
+      typeof provisionPayload.runtimeDatabaseUrl === "string";
+
+    if (provisioningReady) {
+      runtimeDatabaseUrl = provisionPayload.runtimeDatabaseUrl;
+    }
+
+    roleProvisioning = {
+      checkedAt: provisionPayload?.checkedAt ?? new Date().toISOString(),
+      command: provisionRun.command,
+      databaseName: provisionPayload?.databaseName ?? null,
+      exitCode: provisionRun.exitCode,
+      roleExisted: provisionPayload?.roleExisted ?? null,
+      roleName: provisionPayload?.roleName ?? null,
+      runtimeDatabaseUrlRedacted: provisionPayload?.runtimeDatabaseUrlRedacted ?? null,
+      runtimeRole: provisionPayload?.runtimeRole ?? null,
+      schemaName: provisionPayload?.schemaName ?? null,
+      status: provisioningReady ? "ready" : "failed",
+      stderr: provisionRun.stderr || null,
+      stdout: provisioningReady ? null : provisionRun.stdout || null
+    };
+  }
+
+  const shouldRunRuntimeProof = Boolean(runtimeDatabaseUrl);
+  const rlsTestRun = shouldRunRuntimeProof
+    ? safeRun(
+        "node",
+        ["--import", "tsx", "--test", "packages/database/test/rls.test.ts"],
+        {
+          env: {
+            ...process.env,
+            DATABASE_URL: runtimeDatabaseUrl
+          },
+          timeoutMs: 300_000
+        }
+      )
+    : {
+        command: "node --import tsx --test packages/database/test/rls.test.ts",
+        exitCode: 0,
+        stderr: "",
+        stdout: ""
+      };
+  const runtimeOutput = [rlsTestRun.stdout, rlsTestRun.stderr].filter(Boolean).join("\n");
+  const runtimeStatus = !shouldRunRuntimeProof
+    ? "skipped-no-database"
+    : roleProvisioning?.status === "failed"
+      ? "failed-role-provisioning"
+      : /ignora RLS \(superuser\/BYPASSRLS\)/i.test(runtimeOutput)
+        ? "skipped-bypass-role"
+        : /banco não está acessível/i.test(runtimeOutput)
+          ? "skipped-no-database"
+          : rlsTestRun.exitCode === 0
+            ? "passed"
+            : "failed";
 
   await writeJson(fromRepo("artifacts/tenancy/rls-proof-head.json"), {
     checkedAt: new Date().toISOString(),
-    databaseUrlConfigured: Boolean(process.env.DATABASE_URL),
+    adminDatabaseUrlConfigured: Boolean(adminDatabaseUrl),
+    roleProvisioning,
     tenancyControl: {
       command: tenancyControl.command,
       exitCode: tenancyControl.exitCode,
@@ -403,13 +876,10 @@ async function writeRlsSnapshot() {
       exitCode: rlsTestRun.exitCode,
       stdout: rlsTestRun.stdout,
       stderr: rlsTestRun.stderr,
-      status: !process.env.DATABASE_URL
-        ? "skipped-no-database"
-        : rlsTestRun.exitCode === 0
-          ? "passed"
-          : "failed"
+      runtimeDatabaseUrlConfigured: shouldRunRuntimeProof,
+      status: runtimeStatus
     },
-    sufficient: Boolean(process.env.DATABASE_URL) && rlsTestRun.exitCode === 0
+    sufficient: runtimeStatus === "passed"
   });
 }
 

@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T15:04:35.059Z",
+    "generatedAt": "2026-04-05T20:27:35.892Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "3797bdedc7fd859cc483b6621260ef7f9c38692a",
+    "headSha": "2688195d60e9c70bfc9c9ce739ec3cf867dbf082",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,11 +16,11 @@
     }
   },
   "repo": {
-    "trackedFiles": 6060,
-    "coreTrackedFiles": 428,
-    "runtimeFiles": 1792,
+    "trackedFiles": 6073,
+    "coreTrackedFiles": 432,
+    "runtimeFiles": 1800,
     "testFiles": 131,
-    "modules": 279
+    "modules": 284
   },
   "files": [
     {
@@ -405,13 +405,13 @@
     },
     {
       "path": ".github/workflows/reusable-node-check.yml",
-      "bytes": 1618,
-      "lines": 60,
+      "bytes": 2750,
+      "lines": 94,
       "language": "YAML",
       "kind": "infra",
       "topLevel": ".github",
       "moduleBucket": ".github/workflows",
-      "sha256": "482f4f18b9a47e4fff9754b3faa1f982e0743273b28f46da9cbb2fb70c5585ef"
+      "sha256": "ee25ea417ebfaf458e4b27e51caaa3e1ed2f3ee5a002429429f7fd1ba4301b9d"
     },
     {
       "path": ".github/workflows/security-scan.yml",
@@ -1544,6 +1544,16 @@
       "sha256": "081828ad3555c6ff957b8f81751cf538b32fe937682257d4d5d3100571852503"
     },
     {
+      "path": "apps/api/src/modules/dashboard/service.shared.ts",
+      "bytes": 7601,
+      "lines": 333,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "a2139f01348e41b84aefe794faa76f1c368f880adee85932abc8a0f1b1045127"
+    },
+    {
       "path": "apps/api/src/modules/dashboard/service.ts",
       "bytes": 5147,
       "lines": 162,
@@ -2554,6 +2564,26 @@
       "sha256": "278a9f6267c8ed1023a68c1937cbbe4c8fcc071e2f61da5f475a7e52f6347215"
     },
     {
+      "path": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
+      "bytes": 8831,
+      "lines": 294,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "1efc248364ab495f136fefc2269daf24c0d0b89ad891badd2339ebb44b3f7b03"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/billing/billing.types.ts",
+      "bytes": 1353,
+      "lines": 72,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "9f40e2a150dbcf16ca6e0962d857b2e5ba93288b4868efc151ca4022aefc5245"
+    },
+    {
       "path": "apps/web/app/(dashboard)/settings/billing/page.tsx",
       "bytes": 1254,
       "lines": 52,
@@ -2562,6 +2592,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/web",
       "sha256": "6c3dfe95ab1d30d1c916eb61d6dac3cce0354e843ff33bd35940804923afa307"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/billing/use-billing-settings.ts",
+      "bytes": 3631,
+      "lines": 123,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "6d308ccb96a26fe38a6f1ff9daef816d0d197b3492eb7e0a4f58a72a63445ee9"
     },
     {
       "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
@@ -4184,6 +4224,16 @@
       "sha256": "8e153526b5f07014c0fd5e624d6d42a706b4a31d28ac42067915083017848152"
     },
     {
+      "path": "artifacts/accessibility/axe-report.json",
+      "bytes": 1185,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/accessibility",
+      "sha256": "71423e9b44cbb7cf202e980de85d6fb7e4548a59312cac38a0f729d3c8a23e83"
+    },
+    {
       "path": "artifacts/agent-readiness/agent-snapshot-2026-03-24.json",
       "bytes": 12942,
       "lines": 0,
@@ -4391,7 +4441,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "a500a6cc9884957ea0794fd3b1412e2d1ef768a70311302bac07add9287c5fe9"
+      "sha256": "d0825fa5bf4fa530f37aefc0482099f0fb2c3104645c91e55ad853d73594556b"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -4422,6 +4472,16 @@
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/documentation",
       "sha256": "8f835f0f041d252721bccbaffba12d400501a4a76dcf9859103f3026dc877b66"
+    },
+    {
+      "path": "artifacts/dr/latest-drill.json",
+      "bytes": 490,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/dr",
+      "sha256": "13ae6619bd48e9e90bbe8d0b8f205103d5b93b7b05f9ac537ecdb558ed07c1d5"
     },
     {
       "path": "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
@@ -4844,6 +4904,16 @@
       "sha256": "140cb2f47e2c827d065b9b669501d59f4934bec192c8d37abadadebcd9dc17b0"
     },
     {
+      "path": "artifacts/performance/web-bundle-head.json",
+      "bytes": 1718,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/performance",
+      "sha256": "b15963d07c7cee42efd0551c70d6131878be0a33104ea9c896445f73f4ceefeb"
+    },
+    {
       "path": "artifacts/privacy/anonymization-report.json",
       "bytes": 160,
       "lines": 0,
@@ -4861,7 +4931,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "0ef3d5e4b0af317fce4451985ba81479952b0c2a73d7e4f0e4fa5da598adc74d"
+      "sha256": "fc507e9bf79a291b5c4d73abd26c725ff39357144f5c15cd33473aadae01e4a0"
     },
     {
       "path": "artifacts/quality/bundle/web-bundle-baseline.md",
@@ -4871,7 +4941,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "a3c82e3049823768a56371ce035b2ff02a2015b1bb6ab8b8071578e8435a96dd"
+      "sha256": "8cf06bc277baf2713b26021bd9c1f2e092678202452f47cc88201d45dda3771e"
     },
     {
       "path": "artifacts/quality/complexity/cyclomatic-baseline.json",
@@ -5154,34 +5224,64 @@
       "sha256": "1e40e5838940bf33118a153c1c5ab27f819efff8e3a41fd541d0d656703cde52"
     },
     {
+      "path": "artifacts/security/semgrep-head.json",
+      "bytes": 37577,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/security",
+      "sha256": "c621914c416cca6c602552b72848ea1006e5afb80ebf64b3e94e68f3743a0b32"
+    },
+    {
+      "path": "artifacts/tenancy/rls-proof-head.json",
+      "bytes": 3309,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/tenancy",
+      "sha256": "3541cfc43987f991d121da8501b6f2fc04e9334b9b949dcca5b292dba1cda1c8"
+    },
+    {
+      "path": "artifacts/testing/module-coverage.json",
+      "bytes": 6559,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "artifact",
+      "topLevel": "artifacts",
+      "moduleBucket": "artifacts/testing",
+      "sha256": "d1f93ba24aae207208cde804445dc6562052da713e908d04ec8b92a7a3885cb4"
+    },
+    {
       "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
-      "bytes": 2310063,
+      "bytes": 2543366,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "e88aa1ccf939dbaeca2da66425b4e1c2480e532053553a43725f43a4b7a2d62f"
+      "sha256": "5b80778fae8aaeed8141f19a6d56fc594da8cbd00cc86ae77dc4cea2d17dd653"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/02-normalized.json",
-      "bytes": 279546,
+      "bytes": 380990,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "b03b3039892b5408e2a53621c54e9161fc4377a018641c8b26e4d51c703538e9"
+      "sha256": "29bdcd90239d5ba6024827c49f6ee66515b44762e318c741d5eb9557940fd032"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/03-scored-report.json",
-      "bytes": 316924,
+      "bytes": 413282,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "da2a3cf5ddc3eba46614645cbf18a947d39bd1eb6416dd9cca74b9f794a6a4ca"
+      "sha256": "ed9ccf3823133e221c0f73f0e6b8f737e7be08a4895582e05e2df4aedde854e3"
     },
     {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
@@ -5202,6 +5302,16 @@
       "topLevel": "audit",
       "moduleBucket": "audit/AUDITORIA_CODEX_STATUS.md",
       "sha256": "956bc37c4a234be5002a7f1d9aa923aeabaf1d5586ea7a99cfd443403bb3f176"
+    },
+    {
+      "path": "audit/AUDITORIA_PRIME_BIRTHHUB360.html",
+      "bytes": 89757,
+      "lines": 0,
+      "language": "HTML",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/AUDITORIA_PRIME_BIRTHHUB360.html",
+      "sha256": "3ce003cf2da8a01e199ff2716b05aebeb5d64a526d01c93c59d77f81d07862d2"
     },
     {
       "path": "audit/PLANO_EXECUCAO_CORRECOES.md",
@@ -5265,63 +5375,83 @@
     },
     {
       "path": "audit/auditor-prime-2026-04-05.html",
-      "bytes": 399486,
+      "bytes": 463267,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-05.html",
-      "sha256": "37485939178fcaa9f18173e8e8bf1fb9e08a530d011f7aa9656438c2616d605d"
+      "sha256": "ab37636d1ba33e66e127ca956e2859d782903ed78d5978b4b16b14181c7aeb96"
     },
     {
       "path": "audit/auditor-prime-2026-04-05.json",
-      "bytes": 316924,
+      "bytes": 413282,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-05.json",
-      "sha256": "da2a3cf5ddc3eba46614645cbf18a947d39bd1eb6416dd9cca74b9f794a6a4ca"
+      "sha256": "ed9ccf3823133e221c0f73f0e6b8f737e7be08a4895582e05e2df4aedde854e3"
     },
     {
       "path": "audit/auditor-prime-2026-04-05.md",
-      "bytes": 132417,
+      "bytes": 128771,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-05.md",
-      "sha256": "477c9b145cab6248fd4c1bc8bcf301bbcc9c49e6526f877293692930ab173c7e"
+      "sha256": "70ce5b59afe9555daf4a96c80cab541a3ab393f7c4875b4beac2710046f78659"
+    },
+    {
+      "path": "audit/auditor-prime-latest.backlog.json",
+      "bytes": 7891,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-latest.backlog.json",
+      "sha256": "ae9a3bf9623b1cf50de45b82b02a9d706ee08563eec8ce32dc58c7b1ebf0ad1e"
+    },
+    {
+      "path": "audit/auditor-prime-latest.backlog.md",
+      "bytes": 4883,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-latest.backlog.md",
+      "sha256": "79ce7c78196c254bbf75e81c80ee1059536d5d9ec175f8764d1acded85132fd5"
     },
     {
       "path": "audit/auditor-prime-latest.html",
-      "bytes": 399486,
+      "bytes": 463267,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.html",
-      "sha256": "37485939178fcaa9f18173e8e8bf1fb9e08a530d011f7aa9656438c2616d605d"
+      "sha256": "ab37636d1ba33e66e127ca956e2859d782903ed78d5978b4b16b14181c7aeb96"
     },
     {
       "path": "audit/auditor-prime-latest.json",
-      "bytes": 316924,
+      "bytes": 413282,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.json",
-      "sha256": "da2a3cf5ddc3eba46614645cbf18a947d39bd1eb6416dd9cca74b9f794a6a4ca"
+      "sha256": "ed9ccf3823133e221c0f73f0e6b8f737e7be08a4895582e05e2df4aedde854e3"
     },
     {
       "path": "audit/auditor-prime-latest.md",
-      "bytes": 132417,
+      "bytes": 128771,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.md",
-      "sha256": "477c9b145cab6248fd4c1bc8bcf301bbcc9c49e6526f877293692930ab173c7e"
+      "sha256": "70ce5b59afe9555daf4a96c80cab541a3ab393f7c4875b4beac2710046f78659"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -38534,6 +38664,26 @@
       "sha256": "2d0ae7a0eede728cc21448fe205cace1749770860a1ace6261de13bc9e723ff1"
     },
     {
+      "path": "audit/top-15-vdi-backlog-2026-04-05.json",
+      "bytes": 7891,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/top-15-vdi-backlog-2026-04-05.json",
+      "sha256": "ae9a3bf9623b1cf50de45b82b02a9d706ee08563eec8ce32dc58c7b1ebf0ad1e"
+    },
+    {
+      "path": "audit/top-15-vdi-backlog-2026-04-05.md",
+      "bytes": 4883,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/top-15-vdi-backlog-2026-04-05.md",
+      "sha256": "79ce7c78196c254bbf75e81c80ee1059536d5d9ec175f8764d1acded85132fd5"
+    },
+    {
       "path": "audit/traceability_matrix.md",
       "bytes": 9787,
       "lines": 0,
@@ -40464,6 +40614,16 @@
       "sha256": "6682df4110a41db19f3dc8193e11cc20f6e336772cfe181605662b4622e36b64"
     },
     {
+      "path": "docs/operations/environment-parity.md",
+      "bytes": 1855,
+      "lines": 33,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/operations",
+      "sha256": "406d1af99d6f54eb7b19ea493121212c255d3c1c77533b8bd7ed26a8686ef8d5"
+    },
+    {
       "path": "docs/operations/f0-evidence-freshness-policy.md",
       "bytes": 3553,
       "lines": 37,
@@ -40502,6 +40662,16 @@
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
       "sha256": "46605d3b41f848c5a8d9a0f54e5d37d1083ad36ab3537cf7643c18b4c75929ed"
+    },
+    {
+      "path": "docs/operations/sla.md",
+      "bytes": 653,
+      "lines": 21,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/operations",
+      "sha256": "91e6efa17b5aef27fdf73768c556ab0009ff5f109468a5d19e5996b4d722c331"
     },
     {
       "path": "docs/performance/agent-slo.md",
@@ -42585,13 +42755,13 @@
     },
     {
       "path": "package.json",
-      "bytes": 14113,
-      "lines": 226,
+      "bytes": 14306,
+      "lines": 227,
       "language": "JSON",
       "kind": "config",
       "topLevel": "package.json",
       "moduleBucket": "package.json",
-      "sha256": "3f410ebeaff2a6ebd3bebd4f8c97bb0d07704b263f1090df9250c482e9a73902"
+      "sha256": "aea3d2ef2dd42d9657f5711ec0f4772744fc9ba92e235730f3254a0ae40630cb"
     },
     {
       "path": "packages/agent-packs/CHANGELOG.md",
@@ -56965,13 +57135,13 @@
     },
     {
       "path": "packages/database/package.json",
-      "bytes": 2316,
-      "lines": 55,
+      "bytes": 2404,
+      "lines": 56,
       "language": "JSON",
       "kind": "config",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "84160eb63c48ecd44b20283927c8db7f763b174c483a3839d638e16ee7df09b4"
+      "sha256": "ad85c316fb50344825beeb1f48839a2ce372e1e8551afcfcf865fd68b0df8f58"
     },
     {
       "path": "packages/database/prisma.config.ts",
@@ -57325,13 +57495,13 @@
     },
     {
       "path": "packages/database/scripts/bootstrap-ci.ts",
-      "bytes": 900,
-      "lines": 34,
+      "bytes": 1456,
+      "lines": 52,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "f34a007a74166a97840ac5b021c14b5d2ade0dc22aa71cf5f6ccf056190cfaf1"
+      "sha256": "221dc7b2f0c4cc91e55f0ff484e0e15ccd7d94346b0e514cfb4886f51e90739d"
     },
     {
       "path": "packages/database/scripts/check-fk-indexes.ts",
@@ -57435,13 +57605,13 @@
     },
     {
       "path": "packages/database/scripts/lib/process.ts",
-      "bytes": 1875,
-      "lines": 76,
+      "bytes": 2316,
+      "lines": 87,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "04041808131db5fa11f90feef3a7300949ae95a826871d3e5809d33a1b8dd795"
+      "sha256": "790c692a78e88e7cb486a6d9bd368710ad1f8af9295d920f7768eae9bd07ee2b"
     },
     {
       "path": "packages/database/scripts/lib/repo-scan.ts",
@@ -59124,6 +59294,16 @@
       "sha256": "0772fb74e8d25fe24249cdf065ed56842fdd807811fef6567ffcbca59a423629"
     },
     {
+      "path": "scripts/audit/generate-auditor-prime-report.ts",
+      "bytes": 27348,
+      "lines": 496,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "dedc627a710aecb057a8e477662259ddd4c101e45eb9ac6e54076026b3b470da"
+    },
+    {
       "path": "scripts/audit/generate-governance-suite.mjs",
       "bytes": 53356,
       "lines": 324,
@@ -59144,6 +59324,16 @@
       "sha256": "a35db6792d2055f80132bd62a2a399222a78a2b32fcc1d0d64765355077921aa"
     },
     {
+      "path": "scripts/audit/generate-sovereign-report.ts",
+      "bytes": 108,
+      "lines": 5,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "e22c7591a7ecc2930e81d411d8cb34c7ed9418d9734cde8d46b82a1d4431dbe7"
+    },
+    {
       "path": "scripts/audit/prepare-history.mjs",
       "bytes": 1751,
       "lines": 62,
@@ -59152,6 +59342,16 @@
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
       "sha256": "9b82726ce9d6a753514f6274496bb21bbdd3573cd0b156b8fcabe646aa66b6fe"
+    },
+    {
+      "path": "scripts/audit/prime-backlog.mjs",
+      "bytes": 5336,
+      "lines": 168,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "ad2b51a70e80baddf1bc4cff90b8be77554e05a566c3f988e85a92db20f8e86b"
     },
     {
       "path": "scripts/audit/prime-catalog.mjs",
@@ -59165,23 +59365,33 @@
     },
     {
       "path": "scripts/audit/prime-collect.mjs",
-      "bytes": 26916,
-      "lines": 791,
+      "bytes": 28399,
+      "lines": 840,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "07c36764594c950e03bf4a119d67df8578f982859c2f48a0c3f0ccc54fcb9cf3"
+      "sha256": "1d9854583cfe44857ce9cdb6adc9c1c8061b248dd2c2b98cc6659cd0741e078c"
     },
     {
       "path": "scripts/audit/prime-normalize.mjs",
-      "bytes": 50636,
-      "lines": 1230,
+      "bytes": 59870,
+      "lines": 1426,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "173d4f231790414d82978ff0a94b2f384a9d96daea7ddb039ecef1bd2b7ab0f6"
+      "sha256": "81a305848cf24d6f581fe4c05049ef1488aa0b885e5ad98999d9504534e17ac7"
+    },
+    {
+      "path": "scripts/audit/prime-refresh-evidence.mjs",
+      "bytes": 31186,
+      "lines": 913,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/audit",
+      "sha256": "63007bbc083d9a9efbf15f80e433d377d8bf0536043471d36dc4e6757095714a"
     },
     {
       "path": "scripts/audit/prime-render.mjs",
@@ -59215,13 +59425,13 @@
     },
     {
       "path": "scripts/audit/shared-prime.mjs",
-      "bytes": 8500,
-      "lines": 299,
+      "bytes": 9177,
+      "lines": 312,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "48fc6616d690a1e0875944780b8b060baaed0eed61781d0c127c1d538a33534c"
+      "sha256": "e02715578cf07c5d48cc663abdc6ef2738ba5b2231011eb598d9d2461b1e08a9"
     },
     {
       "path": "scripts/audit/shared.mjs",
@@ -60542,92 +60752,12 @@
       "topLevel": "turbo.json",
       "moduleBucket": "turbo.json",
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
-    },
-    {
-      "path": "docs/operations/environment-parity.md",
-      "bytes": 1859,
-      "lines": 33,
-      "language": "Markdown",
-      "kind": "doc",
-      "topLevel": "docs",
-      "moduleBucket": "docs/operations",
-      "sha256": "8109066e015ce08a23c9f6b202ec224d5e862f26176faf44d3d6d503a1567e04"
-    },
-    {
-      "path": "docs/operations/sla.md",
-      "bytes": 653,
-      "lines": 21,
-      "language": "Markdown",
-      "kind": "doc",
-      "topLevel": "docs",
-      "moduleBucket": "docs/operations",
-      "sha256": "87e1f985ed25cd6baafe5875bd78baca86c8a4aafed1311bcb9f7f02048861d5"
-    },
-    {
-      "path": "artifacts/security/semgrep-head.json",
-      "bytes": 436,
-      "lines": 0,
-      "language": "JSON",
-      "kind": "artifact",
-      "topLevel": "artifacts",
-      "moduleBucket": "artifacts/security",
-      "sha256": "fdcba420700b0d2fa734a399ec33923e08b71a2cf9ee98e896703881f497bb1f"
-    },
-    {
-      "path": "artifacts/testing/module-coverage.json",
-      "bytes": 6559,
-      "lines": 0,
-      "language": "JSON",
-      "kind": "artifact",
-      "topLevel": "artifacts",
-      "moduleBucket": "artifacts/testing",
-      "sha256": "aa81a2cf1f3a4f177432be6e3e0982497796328ae5bcf285bcf904a33516d11d"
-    },
-    {
-      "path": "artifacts/performance/web-bundle-head.json",
-      "bytes": 392,
-      "lines": 0,
-      "language": "JSON",
-      "kind": "artifact",
-      "topLevel": "artifacts",
-      "moduleBucket": "artifacts/performance",
-      "sha256": "7a05e51b83961c5bd06e025e8934a93f9c84ec5421623855856cd7cb5c4a8307"
-    },
-    {
-      "path": "artifacts/accessibility/axe-report.json",
-      "bytes": 5905,
-      "lines": 0,
-      "language": "JSON",
-      "kind": "artifact",
-      "topLevel": "artifacts",
-      "moduleBucket": "artifacts/accessibility",
-      "sha256": "c99bd3dfc1ddc53f6b442579ea228af39f4d6e8965b0b32084449973074bc993"
-    },
-    {
-      "path": "artifacts/dr/latest-drill.json",
-      "bytes": 490,
-      "lines": 0,
-      "language": "JSON",
-      "kind": "artifact",
-      "topLevel": "artifacts",
-      "moduleBucket": "artifacts/dr",
-      "sha256": "0b9f5fea8321183edd86f0441079b13721de2ff53cf8b7f7411a07b9a4ecb644"
-    },
-    {
-      "path": "artifacts/tenancy/rls-proof-head.json",
-      "bytes": 2808,
-      "lines": 0,
-      "language": "JSON",
-      "kind": "artifact",
-      "topLevel": "artifacts",
-      "moduleBucket": "artifacts/tenancy",
-      "sha256": "135933eaa4f1cad641e4e011a7c2b1de9702ebbf5b08da32a8e90ad2055373b9"
     }
   ],
   "complexity": {
     "available": true,
-    "filesScanned": 613,
-    "functionsScanned": 4367,
+    "filesScanned": 617,
+    "functionsScanned": 4405,
     "modules": [
       {
         "module": "packages/agents-core",
@@ -60750,7 +60880,7 @@
       },
       {
         "module": "apps/api",
-        "functions": 1233,
+        "functions": 1243,
         "avgComplexity": 2.96,
         "p95Complexity": 10,
         "maxComplexity": 38,
@@ -60869,11 +60999,11 @@
       },
       {
         "module": "apps/web",
-        "functions": 598,
+        "functions": 624,
         "avgComplexity": 2.69,
         "p95Complexity": 9,
         "maxComplexity": 35,
-        "functionsAtOrAbove10": 25,
+        "functionsAtOrAbove10": 26,
         "functionsAtOrAbove20": 4,
         "hotspots": [
           {
@@ -61273,7 +61403,7 @@
       },
       {
         "module": "packages/database",
-        "functions": 226,
+        "functions": 228,
         "avgComplexity": 2.64,
         "p95Complexity": 10,
         "maxComplexity": 22,
@@ -64597,6 +64727,7 @@
         "audit/files_analysis/packages/agents-core/src/tools/slack.tool.ts.md",
         "docs/F0/sla.md",
         "docs/billing/sla-billing.md",
+        "docs/operations/sla.md",
         "packages/agent-packs/github-agents-v1/sla-escalator-github-pack/evidence.json",
         "packages/agent-packs/github-agents-v1/sla-escalator-github-pack/manifest.json",
         "packages/agent-packs/github-agents-v1/sla-escalator-github-pack/readiness.json",
@@ -64606,8 +64737,7 @@
         "packages/agents-core/docs/interfaces/SlackMessageInput.html",
         "packages/agents-core/docs/interfaces/SlackMessageResult.html",
         "packages/agents-core/docs/types/SlackMode.html",
-        "packages/agents-core/src/tools/slack.tool.ts",
-        "docs/operations/sla.md"
+        "packages/agents-core/src/tools/slack.tool.ts"
       ],
       "i18nFiles": [
         "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
@@ -64657,13 +64787,2760 @@
     }
   },
   "git": {
-    "totalCommits": 1089,
-    "last30Days": [],
+    "totalCommits": 1094,
+    "last30Days": [
+      {
+        "sha": "2688195d60e9c70bfc9c9ce739ec3cf867dbf082",
+        "date": "2026-04-05",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "5db912f596e34e8360ac7be2c3652a992d48c366",
+        "date": "2026-04-05",
+        "subject": "1"
+      },
+      {
+        "sha": "3797bdedc7fd859cc483b6621260ef7f9c38692a",
+        "date": "2026-04-05",
+        "subject": "1"
+      },
+      {
+        "sha": "f2baf5a190330f01c9f132708bcd7c49a5359099",
+        "date": "2026-04-05",
+        "subject": "Merge remote-tracking branch 'origin/codex/create-technical-debt-report-and-roadmap-vlkzr8'"
+      },
+      {
+        "sha": "e88cfa36664b631942fd39a426a1add42a20cc4f",
+        "date": "2026-04-05",
+        "subject": "Merge remote-tracking branch 'origin/codex/create-technical-debt-report-and-roadmap'"
+      },
+      {
+        "sha": "9d2e309b65aba04d324d2f5345eb71b19369b1f7",
+        "date": "2026-04-05",
+        "subject": "Merge pull request #272 from MaarksN/codex/conduct-secrets-audit-process"
+      },
+      {
+        "sha": "4e11b3615fa2460de407d2138a3c9bac9ec66ada",
+        "date": "2026-04-04",
+        "subject": "Merge pull request #271 from MaarksN/codex/conduct-secrets-audit-process"
+      },
+      {
+        "sha": "392af2fe9cc2225a4fc05b274723664931244607",
+        "date": "2026-04-04",
+        "subject": "Merge pull request #270 from MaarksN/fix-production-cd-pipeline-gates-13306548828248575664"
+      },
+      {
+        "sha": "5e0e4eb1281769267a99a81919dd77da0df2c393",
+        "date": "2026-04-04",
+        "subject": "Create PLANO_CANONICO_15_CICLOS_PROMPTS_2026-04-04.md"
+      },
+      {
+        "sha": "920c657800f507c8d0fb6523df9a5ef489602f23",
+        "date": "2026-04-04",
+        "subject": "1"
+      },
+      {
+        "sha": "0bc8e8f45ad575d4c22999b48b0f1e8f35ecd703",
+        "date": "2026-04-04",
+        "subject": "Merge pull request #267 from MaarksN/codex/create-technical-debt-report-and-roadmap-34yhzj"
+      },
+      {
+        "sha": "0878c6033794dcf1d2b0594abf635f89aac37236",
+        "date": "2026-04-04",
+        "subject": "Merge pull request #268 from MaarksN/copilot/fix-ci-failing-tests"
+      },
+      {
+        "sha": "4832800724e86c5a62941c7b3378e902e6dd9f0c",
+        "date": "2026-04-04",
+        "subject": "Merge pull request #265 from MaarksN/codex/create-technical-debt-report-and-roadmap"
+      },
+      {
+        "sha": "a26b97673c2656e1ae18c9d980a990309acedbca",
+        "date": "2026-04-04",
+        "subject": "Merge pull request #253 from MaarksN/dependabot/npm_and_yarn/types/node-25.5.2"
+      },
+      {
+        "sha": "9d3452a44a3d8212f5fe6467f263ddb62783f284",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/typescript-eslint-8.58.0'"
+      },
+      {
+        "sha": "958ff9341d4bf7bc574d25e713a2bace095176a7",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/react-hook-form-7.72.1'"
+      },
+      {
+        "sha": "ff56f670826cf6c6086dc076a0cde84b7cfcb257",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/zustand-5.0.12'"
+      },
+      {
+        "sha": "da83ee9ea5866f4bd488978e4fd8818e2d5f2b5e",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/types/node-25.5.2'"
+      },
+      {
+        "sha": "c5ddcadc6fd8c9c73bba7e81460dc175cf667d55",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/prisma-7.6.0'"
+      },
+      {
+        "sha": "741a18b8daa54fa188cd6ab950b6c148c9856e5c",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/lucide-react-1.7.0'"
+      },
+      {
+        "sha": "6a4059c6aa8df6d0de5ca17f1e2495c7ce3f1800",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/isomorphic-dompurify-3.7.1'"
+      },
+      {
+        "sha": "664874fffbf5a7337135c3ff4f9a77da756c5ec9",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/bullmq-5.73.0'"
+      },
+      {
+        "sha": "8961ebe62587bc49bb912d95b530c25d728bc3d8",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/asteasolutions/zod-to-openapi-8.5.0'"
+      },
+      {
+        "sha": "a47ea57d8f6bab936d1b6422c9e2a9cc9e5acbc1",
+        "date": "2026-04-04",
+        "subject": "Merge remote-tracking branch 'origin/codex/create-technical-debt-report-and-roadmap'"
+      },
+      {
+        "sha": "89251234e4fbbff589f77d32bf8dce7fc7313756",
+        "date": "2026-04-04",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "835369c39ca7b6599d8bfa95358a3e5a83ecc296",
+        "date": "2026-04-04",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "cfa53d10ceb3b0d9d9ad0da7b648281819ba3f7e",
+        "date": "2026-04-04",
+        "subject": "1"
+      },
+      {
+        "sha": "3d9fce41a2f1029181c5038e498a1ca31d7b1210",
+        "date": "2026-04-02",
+        "subject": "Merge branch 'fix/migration-syntax-error'"
+      },
+      {
+        "sha": "f46435a9ce96e788f2ffb415c7817b8e5654f56b",
+        "date": "2026-04-02",
+        "subject": "Merge pull request #244 from MaarksN/claude/run-pnpm-audit-high-level"
+      },
+      {
+        "sha": "b2bf977f6806dc0ee53bc0b620e3ee47635a28dc",
+        "date": "2026-04-01",
+        "subject": "Merge pull request #243 from MaarksN/copilot/fix-workflow-run-errors"
+      },
+      {
+        "sha": "5b24da0235566c9aa411fa4b3378599fcfc0dd03",
+        "date": "2026-04-01",
+        "subject": "Merge remote-tracking branch 'origin/jules-audit-ciclo0-3463312025041475595'"
+      },
+      {
+        "sha": "a077a07743bedfe72f52fe1d0ff7092b93603e38",
+        "date": "2026-04-01",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "6e9ad0db34f1417a1b6752cab1490b954c3ff459",
+        "date": "2026-04-01",
+        "subject": "fix(ci): bootstrap ephemeral databases before checks"
+      },
+      {
+        "sha": "f77e8ec8829927a0b3e84e9a0fb6178c131b76a1",
+        "date": "2026-04-01",
+        "subject": "Merge remote-tracking branch 'origin/fix/ci-github-actions-guardrails-and-prisma-834312322426766059'"
+      },
+      {
+        "sha": "827395e4dfda9d457f70a26aeafc7fb0d7960496",
+        "date": "2026-04-01",
+        "subject": "Merge pull request #240 from MaarksN/copilot/update-pnpm-lockfile-and-fix-template"
+      },
+      {
+        "sha": "8ed322b4983294a7c1df50e9beb1abea17400f20",
+        "date": "2026-04-01",
+        "subject": "Merge pull request #241 from MaarksN/codex/ci-green-main-rerun"
+      },
+      {
+        "sha": "a376cb37c8a55d6ee53888dcdb2afb82aba2ba72",
+        "date": "2026-04-01",
+        "subject": "Merge pull request #239 from MaarksN/jules/levantamento-repositorio-7105554055801130335"
+      },
+      {
+        "sha": "c4fc82dee2c2f6d63e8d7dc8226e9f09399455e7",
+        "date": "2026-04-01",
+        "subject": "1"
+      },
+      {
+        "sha": "b7d77691c95721ef71bde3281a7a5457949fb568",
+        "date": "2026-04-01",
+        "subject": "Update CI dependencies and Next.js alias configuration"
+      },
+      {
+        "sha": "f628a7ade8ca37624052039b78a4f9efd4eef131",
+        "date": "2026-03-31",
+        "subject": "1"
+      },
+      {
+        "sha": "512dde4000634bc12b03c9162ea57935f03c5525",
+        "date": "2026-03-31",
+        "subject": "1"
+      },
+      {
+        "sha": "e7f221e61ea7d44f9c38079bc6e4df70c4659eba",
+        "date": "2026-03-30",
+        "subject": "1"
+      },
+      {
+        "sha": "15fae05a07507db1925ba4492d3f5a24daea6bc6",
+        "date": "2026-03-30",
+        "subject": "Merge remote-tracking branch 'origin/jules-audit-ciclo0-3463312025041475595'"
+      },
+      {
+        "sha": "47464b8b8d97c7bd69f4ef59bed569a7effadd6c",
+        "date": "2026-03-30",
+        "subject": "Merge remote-tracking branch 'origin/fix/ci-github-actions-guardrails-and-prisma-834312322426766059'"
+      },
+      {
+        "sha": "c71759ecb58080847ae5cd8484e4617aef6a2b14",
+        "date": "2026-03-30",
+        "subject": "Merge branch 'fix/gha-codex/execute-code-in-f3.html'"
+      },
+      {
+        "sha": "a5df61420c8f05ddde709b08dc3d850c2a57ece9",
+        "date": "2026-03-30",
+        "subject": "Merge branch 'codex/ci-green-main'"
+      },
+      {
+        "sha": "77851345b1bd52fc307a52c48bb1c2dc84db3a1b",
+        "date": "2026-03-30",
+        "subject": "Update shared.mjs"
+      },
+      {
+        "sha": "fd586903246d3ea20fc1f0148d7f8565b8021ce4",
+        "date": "2026-03-30",
+        "subject": "1"
+      },
+      {
+        "sha": "52d4b32a18b70f92248e0a394f18d413ff00aaa7",
+        "date": "2026-03-30",
+        "subject": "1"
+      },
+      {
+        "sha": "1c6ce576b0a73ce703da28caeb080a345d1a1567",
+        "date": "2026-03-30",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "62097f558b0aac397685f19bd69622431e4090d7",
+        "date": "2026-03-30",
+        "subject": "1"
+      },
+      {
+        "sha": "c593c58434117c88b5eb853fa11861f9c30d625b",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #230 from MaarksN/codex/implementar-artefatos-para-release"
+      },
+      {
+        "sha": "a2971687b8234d9cfa537334966fc40f4c130932",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #231 from MaarksN/fix-github-actions-syntax-17518617566187463181"
+      },
+      {
+        "sha": "e4db36ebe5ee2748bcdd2f211c4229d40c432f73",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #232 from MaarksN/fix/ci-github-actions-guardrails-and-prisma-834312322426766059"
+      },
+      {
+        "sha": "f2b85c95a5e144f41cd09579128b0defee1dac68",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #229 from MaarksN/codex/implementar-artefatos-para-release."
+      },
+      {
+        "sha": "3fa410dff29e5c8d14aabf8af6b542f65b713de8",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #228 from MaarksN/codex/implementar-artefatos-para-release"
+      },
+      {
+        "sha": "2a8e95149681f31a7c5717e5c73deeefca4f4142",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #227 from MaarksN/codex/implementar-artefatos-para-release"
+      },
+      {
+        "sha": "f282988785535dcf5a0fe8b7b1b2988352e394ab",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #226 from MaarksN/codex/implementar-artefatos-para-release"
+      },
+      {
+        "sha": "63a42155210e286fbf9d6a02c9cab8c6c91dc0d6",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #225 from MaarksN/jules-audit-ciclo0-3463312025041475595"
+      },
+      {
+        "sha": "783564346b1e19c4ab31245eac6c94be7154cc55",
+        "date": "2026-03-30",
+        "subject": "Merge pull request #224 from MaarksN/codex/implementar-artefatos-para-release"
+      },
+      {
+        "sha": "0e1a1a1942cdb1e259957a3a1bbf07b24d0d8a2a",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "dbd047c06a487dde1a9736884019767066af73d5",
+        "date": "2026-03-29",
+        "subject": "Update jules_full_audit_prompt_2026-03-29.pdf"
+      },
+      {
+        "sha": "bdc252e896da608b4d664f66f9b0a342d1a27966",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "dce7e13285e016dc799b8d3731894b20e389be8e",
+        "date": "2026-03-29",
+        "subject": "Update render_jules_audit_prompt_pdf.py"
+      },
+      {
+        "sha": "57d0d4a66f948c21f2dfb8ffef9571c821d0c1fa",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "3b543936700698ba66474ed48dcd9ba05a820d68",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "fa168c803900e22449eb561e05cd50bd684639c0",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "d1f219e876b73c5e0bfe76b9edc51630591adeae",
+        "date": "2026-03-29",
+        "subject": "Create generate_governance_audit_checklist.py"
+      },
+      {
+        "sha": "55c52f1a6c8e3c071da4768fe5876ef21fae623e",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "f22022fcadd0b8cb4f003792d15e47b7099ef2af",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "1119fa4f78cf3eb5f7b7c391c67f4066c0adeef6",
+        "date": "2026-03-29",
+        "subject": "Merge remote-tracking branch 'origin/feat/env-sealed-mocks-1659497465902630872'"
+      },
+      {
+        "sha": "ad9840e77c3ca695f0f78f5b292d758fbbad7c94",
+        "date": "2026-03-29",
+        "subject": "Merge remote-tracking branch 'origin/feat/roadmap-fase1-estabilidade-564326637829990854'"
+      },
+      {
+        "sha": "86f62f90126e87e0b45f4b88ebd9bb999f12d31c",
+        "date": "2026-03-29",
+        "subject": "Merge remote-tracking branch 'origin/fix-production-preflight-cd-3764486023140396798'"
+      },
+      {
+        "sha": "8b05c27d497eb511863b9aa736d63c1ef3dc87b2",
+        "date": "2026-03-29",
+        "subject": "Merge remote-tracking branch 'origin/jules-17430010772685702267-4f110513'"
+      },
+      {
+        "sha": "7430447d82717b7bde123bf1e2a520bfb665f533",
+        "date": "2026-03-29",
+        "subject": "1"
+      },
+      {
+        "sha": "00190923a0c06a155434d4138f90c05c2fc6fca3",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #214 from MaarksN/dependabot/npm_and_yarn/prisma/instrumentation-7.6.0"
+      },
+      {
+        "sha": "650ef85be597f908e51782fd19e503e8269020bb",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #208 from MaarksN/dependabot/github_actions/actions/checkout-6"
+      },
+      {
+        "sha": "fc481ba5d44c3e90aef995e8447e700f93d24f00",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #207 from MaarksN/dependabot/github_actions/actions/upload-artifact-7"
+      },
+      {
+        "sha": "0774a47105a0762917e92a3c72a02d62801ce1aa",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #209 from MaarksN/dependabot/github_actions/pnpm/action-setup-5"
+      },
+      {
+        "sha": "0c2efd814cf65292cc933d4495f377c1b39c3f00",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #210 from MaarksN/dependabot/github_actions/actions/setup-node-6"
+      },
+      {
+        "sha": "67f11470eeb24d9a78fd92cbdc1b9f9da32443fb",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #212 from MaarksN/dependabot/npm_and_yarn/aws-sdk/client-s3-3.1019.0"
+      },
+      {
+        "sha": "c8d5a4e0a6dcb0403b9b1aa7a78a8cf35a77e852",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #213 from MaarksN/dependabot/npm_and_yarn/jose-6.2.2"
+      },
+      {
+        "sha": "f461bc7397f6527caa6c295edbb9a78c114f3973",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #211 from MaarksN/dependabot/npm_and_yarn/react-hook-form-7.72.0"
+      },
+      {
+        "sha": "bbf5d0f2faa62fff620a6c82a5207d0d67066d8e",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #216 from MaarksN/dependabot/npm_and_yarn/types/jsdom-28.0.1"
+      },
+      {
+        "sha": "69c49e809e65fb2c050267e95d2d3239eb08619e",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #218 from MaarksN/dependabot/npm_and_yarn/opentelemetry/sdk-node-0.214.0"
+      },
+      {
+        "sha": "c769c5b08a9fa833676acab1f25b98e6ffcf1c70",
+        "date": "2026-03-29",
+        "subject": "Merge pull request #206 from MaarksN/dependabot/github_actions/actions/cache-5"
+      },
+      {
+        "sha": "140b692c027a10c489c53830c77482e4e812f28f",
+        "date": "2026-03-28",
+        "subject": "Merge pull request #217 from MaarksN/dependabot/npm_and_yarn/stripe-21.0.1"
+      },
+      {
+        "sha": "18a1ce37b9df773231d3357ff2448f379ce58d95",
+        "date": "2026-03-28",
+        "subject": "Merge pull request #219 from MaarksN/dependabot/npm_and_yarn/prisma-7.6.0"
+      },
+      {
+        "sha": "1941e1441c7abab1b13b9b34f4b6a3c2cf2f1ec6",
+        "date": "2026-03-28",
+        "subject": "Merge pull request #220 from MaarksN/dependabot/npm_and_yarn/opentelemetry/exporter-trace-otlp-http-0.214.0"
+      },
+      {
+        "sha": "27b84d4a86ac7a894e7058ac4aa7feaf30a48c71",
+        "date": "2026-03-28",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "e261a01c9a06ff3525d4672da40130df8a163574",
+        "date": "2026-03-28",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "2e570d66a4012d543813634d1446d63469cc4a44",
+        "date": "2026-03-28",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "0469b3229567179b665160d7943c434f9db849ba",
+        "date": "2026-03-28",
+        "subject": "Merge pull request #222 from MaarksN/fix/xss-vulnerability-dompurify-7731124782266741992"
+      },
+      {
+        "sha": "41ab8a3add2e1e9d499fcf4f6d5b5a77b7cde4a9",
+        "date": "2026-03-28",
+        "subject": "Merge pull request #221 from MaarksN/feature/governance-commercialization-requirements-7252693455591900567"
+      },
+      {
+        "sha": "69b70a6c54e45fe15c38ac1e1043e6bed1b100da",
+        "date": "2026-03-28",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "f8c48527d050a8a36b3ceccadf8477d558b3ace1",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "110be920576450024bd6b347b0b1a297a9b92c34",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "4e684002a14bbf9f77850f7519222620d5424e90",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "cc64c51ba6cbe75ee6726babf36debdfb90e7f31",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "b8e4484edb439c85ea9da248f560ad8f5b30a47d",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "87858632917aa95a780c02412c5adc707c807b6c",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "259c5ae43c384536972331d29d4a34a32e1495e3",
+        "date": "2026-03-27",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "2e6c7bc750ec4223f1a354726f0a82ee635e1b3f",
+        "date": "2026-03-27",
+        "subject": "Merge pull request #194 from MaarksN/jules-rollback-evidence-11280991384400769238"
+      },
+      {
+        "sha": "ac580bdda84647fc78e334b88ac1ef9c5ccc8ae0",
+        "date": "2026-03-27",
+        "subject": "Merge pull request #205 from MaarksN/fix-health-rbac-typings-66359551872397004"
+      },
+      {
+        "sha": "c52ab87131b91b31ee41fd366e66de7ee55af351",
+        "date": "2026-03-26",
+        "subject": "Merge pull request #204 from MaarksN/fix-health-rbac-typings-66359551872397004"
+      },
+      {
+        "sha": "258b6478b60d28b81da90b9f4507976a41498128",
+        "date": "2026-03-26",
+        "subject": "Merge pull request #203 from MaarksN/feat/roadmap-fase1-estabilidade-564326637829990854"
+      },
+      {
+        "sha": "d350940ed63ff2d96a9c260889123ffc8ced9dec",
+        "date": "2026-03-25",
+        "subject": "Merge pull request #201 from MaarksN/audit-f12-saas-maturity-4330620997289678880"
+      },
+      {
+        "sha": "3783018630dd77f6eefbfd7bd12a1ea58b8aa2b2",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "86d1ef20b3881ef2e08568eb115d439b5a60e41c",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "6b086a1428bab044252b8558080e1da7498d4b88",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "f135ce55292119fbed5b69705735ae074f7f5999",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "72dee4ae661ae7f1a61362648033687c6a44a1f2",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "bec818fed172da250b7c6017b34735bce9e161d8",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "634e5ee3f7bf3b6ae3f5e1b1f5fd427ba0bdee3c",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "b878f1f5534ebd902d07276e119ed2ae3d08ab19",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "24f41c8516f45d5653189f92e507b3ec298dd7b6",
+        "date": "2026-03-25",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "e4aca81bc4dd84df21dfc2764edd8260bd1dd9e7",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "deb4678404a842c92c5aaef81a49d52459798e82",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "b0aca3d20cb4b1e4ed3ae2eef89370fe9c0a9d99",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "53a23681fec13fd04c0bfeb12c65bf74d41af464",
+        "date": "2026-03-24",
+        "subject": "Merge remote-tracking branch 'origin/codex/corrigir-arquivo-prompt_soberano_v13.html'"
+      },
+      {
+        "sha": "bd1a4c7110abd1cdeeb9af44fb5f3d0240138590",
+        "date": "2026-03-24",
+        "subject": "1"
+      },
+      {
+        "sha": "ab097418e78e3536d9288426f57b7f816beb045d",
+        "date": "2026-03-24",
+        "subject": "1"
+      },
+      {
+        "sha": "946ec562f3ee47e8742640b85f8c6a7019266131",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "847e63de76d510934a5ac7151ba3552b3b88fe1a",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "7f9b95304583f95e09cadec19d9a7dd74fb51c1b",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "e01799d5d7cacd45eb30c06120d3ffa865e03c44",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "d723c14c5a728c229fc7259cbe6aeef0286b1c8c",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "7707c05531cef30eb37d83eab2e8d7cc02db7298",
+        "date": "2026-03-24",
+        "subject": "Merge pull request #182 from MaarksN/chore/core-boundaries-single-source"
+      },
+      {
+        "sha": "e91c16ca10065e339a273fd47afcc65e38da2114",
+        "date": "2026-03-24",
+        "subject": "Merge pull request #181 from MaarksN/chore/core-boundaries-single-source"
+      },
+      {
+        "sha": "9ac6020b70e9cc2572356ec26f408f8e0b4a8e70",
+        "date": "2026-03-24",
+        "subject": "Merge pull request #180 from MaarksN/codex/implement-production-preflight-gates"
+      },
+      {
+        "sha": "b33773177c13849e9364cfe1c5f818d84c29fc48",
+        "date": "2026-03-24",
+        "subject": "Merge pull request #179 from MaarksN/codex/reconcile-core-vs-legacy-architecture"
+      },
+      {
+        "sha": "525ec7c0120f6bcd9eb4645107a79703776d3ce5",
+        "date": "2026-03-24",
+        "subject": "Merge pull request #178 from MaarksN/codex/corrigir-arquivo-prompt_soberano_v13.html-vs8fs2"
+      },
+      {
+        "sha": "c103b78d3d019069fa5be30c211d1705efda30fb",
+        "date": "2026-03-24",
+        "subject": "Merge pull request #174 from MaarksN/codex/execute-corrections-from-prompt_soberano_v13.html-y8jinb"
+      },
+      {
+        "sha": "6db90403dfc8ba3f8a90f21c4a1759717d492537",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "370d695aa3c6aac2875d84c907cd2f5e6a999245",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "baee19674eb387ccef5c2ca42f7d8c68e139845d",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "bb8c4222b497b96ac17be9da87dae0d09260a90d",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "5473e386633df2beec061baf33d5e94d49cfc2d4",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "61a430c9d3944b2bf58380d0bf20b18460e73f6a",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "7013fb35d307e34f3120a9d107e4971287f3aca6",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "c1c3a0b2903e0450f7e5b8ac1034d7f79c02f520",
+        "date": "2026-03-24",
+        "subject": "Your commit message here"
+      },
+      {
+        "sha": "0d21dc8215ef2857eae82ba5d32433ff58cfcdbd",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "0b359dc0e76fd38970032a9474473d66a619db76",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "8af63434f9d00f8c000701566cf8bf6faeecbf05",
+        "date": "2026-03-22",
+        "subject": "1"
+      },
+      {
+        "sha": "7b4b5900456ff9536c98e1b0955b7b84bd0cef3e",
+        "date": "2026-03-22",
+        "subject": "1"
+      },
+      {
+        "sha": "4b7e6cb41515f33d6fe3a2880485e86ee289ca5e",
+        "date": "2026-03-22",
+        "subject": "1"
+      },
+      {
+        "sha": "86b57e778ada9b43b4ec4ef47eb7f5497e104594",
+        "date": "2026-03-22",
+        "subject": "1"
+      },
+      {
+        "sha": "09c4a368e72d30f418a7332a6c2a59c2770e76ab",
+        "date": "2026-03-22",
+        "subject": "1"
+      },
+      {
+        "sha": "08528e8962eaa85ab484edf1e540a3d27b0e036a",
+        "date": "2026-03-22",
+        "subject": "1"
+      },
+      {
+        "sha": "82761c95afdc943e8f4681b610843572f2431ed6",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "209c36ecdc3996ff17021e159ad8c7ab6eee34c3",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/feat/f7-observabilidade-slos-17583736042209024636'"
+      },
+      {
+        "sha": "726562a3e0c52e9b234e5be28c7c2c59e0468709",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/feat/f1-pipeline-stabilization-17772818106759209447'"
+      },
+      {
+        "sha": "e0e7594ab016ac5942eb57cbf34fc617909200bd",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/sentry/nextjs-10.45.0'"
+      },
+      {
+        "sha": "a329f6e7833c01111db97a6e4a12c605ac0016df",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/isomorphic-dompurify-3.6.0'"
+      },
+      {
+        "sha": "0ee6ca4a5c6385ce2a60d5c9a5934e44ded9033a",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/hubspot/api-client-13.5.0'"
+      },
+      {
+        "sha": "68cf8c49d62ee492c114105654bdb7d015de810b",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/aws-sdk/client-s3-3.1014.0'"
+      },
+      {
+        "sha": "f11675a447df76d10a6091b28d441f8a7caa87cf",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/zaproxy/action-baseline-0.15.0'"
+      },
+      {
+        "sha": "a4addf072513fac4fcbd39c46a1a2707f8f39b26",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/actions/upload-artifact-7'"
+      },
+      {
+        "sha": "a0856b53fb9586d4c6646ebbedb0799646f3d30b",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "e4050ea976515ad15c02f9305e2ecc529174e07d",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/actions/setup-python-6'"
+      },
+      {
+        "sha": "bd4f793ec285465371ad650f39a4181111356483",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/pnpm/action-setup-5'"
+      },
+      {
+        "sha": "de7013b0edcbdf36fe88abbd8a483f02bd597e6b",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/ioredis-5.10.1'"
+      },
+      {
+        "sha": "44298c9972e751ec8382edcfeef9cffc64d88e79",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/jsdom-29.0.1'"
+      },
+      {
+        "sha": "da47f5e7e73b9a3bcdc3070f04c5e8d2fd3200b2",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/actions/setup-node-6'"
+      },
+      {
+        "sha": "4e15daf81becf00cf10521f6ab5db40ee7c35ddb",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/actions/checkout-6'"
+      },
+      {
+        "sha": "07f1cfc92b8aba975fcc75be6530256b6804fc86",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/prisma/client-7.5.0'"
+      },
+      {
+        "sha": "df22725c8928c96840bb7e1dc69025e825f9b02b",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "73a99301e047dfcdd40956f5952977ae43ef89b0",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "0a9d69a3a47a2ec08eb5e684bef6c07e9053718a",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "fad8287b97d9210d6aca4c48894a9037410102c2",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "0589a03bf51fb5ba35b8b2bf54c8671165611112",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "8964aa919202bb7922359525ed29c7b91ba1f44f",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "0fc8d75989569ecda58e86411fb1e8028d89f3c1",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/npm_and_yarn/ws-8.20.0'"
+      },
+      {
+        "sha": "2aab116f4d1c7d3a722e390d77141c904eeed50e",
+        "date": "2026-03-22",
+        "subject": "Merge remote-tracking branch 'origin/dependabot/github_actions/actions/cache-5'"
+      },
+      {
+        "sha": "b8b2add3e3328adfca452e427f4d4162adf8b781",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "4b49f3839cc38a5f6e8d49c8974bc03aac4a94ee",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "2ae3f92a1f64d8cfce9c21eda6fd6431bc4bee94",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem descrevendo o que você alterou"
+      },
+      {
+        "sha": "390ad9addf4c703a8f68bb491884ea14333ec18e",
+        "date": "2026-03-22",
+        "subject": "Merge pull request #167 from MaarksN/codex/execute-next-20-logical-steps-for-prompts"
+      },
+      {
+        "sha": "c06c129370ba7e960458c3422875ed0c5048c9d4",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "b76fe822bfa88e83768d0a14f3ec4104d65f8fa4",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "44447c60afb515287f2dad5fe3687b3f95270194",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "a794869dbb6e21cc1647154c83d35522cf688019",
+        "date": "2026-03-22",
+        "subject": "Sua mensagem de commit aqui"
+      },
+      {
+        "sha": "3b47863a4fe8ab48aa9f7a6d17ed8118888820f8",
+        "date": "2026-03-22",
+        "subject": "Merge pull request #153 from MaarksN/codex/execute-code-in-f3.html"
+      },
+      {
+        "sha": "8f495040a0c3eb5803a638d73f4ba735f0eb655c",
+        "date": "2026-03-22",
+        "subject": "Merge pull request #152 from MaarksN/codex/execute-code-from-f0.html"
+      },
+      {
+        "sha": "196d13eaa042862dadb65df926af6d1f8cce87fe",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #151 from MaarksN/jules-forensic-audit-4226331032084121507"
+      },
+      {
+        "sha": "8e88615946f15f295dde9a39de9d2a37cb72e1bb",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #150 from MaarksN/feat/f9-structural-hygiene-16553596916791701441"
+      },
+      {
+        "sha": "e0d94cba840d85cd2aebe5f2fabd35775d10bd1d",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #141 from MaarksN/jules-f8-database-integrity-16939282469267761297"
+      },
+      {
+        "sha": "417ad7fc65e1b93b9525267c5b0cb8094d07b29a",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #144 from MaarksN/jules-f6-security-compliance-1935198858899584907"
+      },
+      {
+        "sha": "325e77027000629e7df3a3925efe608a4e9b264c",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #140 from MaarksN/jules/f10-checklist-complete-5570468698125445723"
+      },
+      {
+        "sha": "157e56582bdd9ce993bfdbe5830a4961bf1bf076",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #135 from MaarksN/jules-remediate-gap-001-sec-001-459080358331998459"
+      },
+      {
+        "sha": "39edd538f29d24759e9ea22899e112db8a4d2882",
+        "date": "2026-03-21",
+        "subject": "Merge remote-tracking branch 'origin/jules/cross-governance-c1-f1-f3-9720861999641302808'"
+      },
+      {
+        "sha": "5041ee01dd0a2884f920f6dafb04b3006fdeeafb",
+        "date": "2026-03-21",
+        "subject": "Merge remote-tracking branch 'origin/f2-legacy-db-deprecation-15118141901278624483'"
+      },
+      {
+        "sha": "7fd13a117717644c614122c06588fa5c78b07e29",
+        "date": "2026-03-21",
+        "subject": "Update pull_request_template.md"
+      },
+      {
+        "sha": "4f078154457853faf9833f21450f9eb226fd4454",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #138 from MaarksN/jules-validation-remediation-5364182741650770958"
+      },
+      {
+        "sha": "afba155918941dcbfaa2184cf996d67a826878c2",
+        "date": "2026-03-21",
+        "subject": "Merge pull request #136 from MaarksN/f4-standardization-9936575936991332144"
+      },
+      {
+        "sha": "f1358d34befbd2a7445927a4df5ef6bf441cb0d5",
+        "date": "2026-03-21",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "1c9c46c785e3358c1535436b28582666831dc8c8",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "3e070caf89219690e73ef5c8f5d5accfd3705d53",
+        "date": "2026-03-21",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "68bb3e9aaf7e4dcc8764f7eaae80a2c3dce38fe3",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "eaa7caebfc9075d2184133a3339d86bf7e05a6be",
+        "date": "2026-03-21",
+        "subject": "Merge remote-tracking branch 'origin/jules-7517810915114119982-cda596e4'"
+      },
+      {
+        "sha": "3620e926c9b3a62f8fe4414e7400c6f712e3183e",
+        "date": "2026-03-21",
+        "subject": "Merge remote-tracking branch 'origin/fix-jules-validation-f0-14609333817428319553'"
+      },
+      {
+        "sha": "5aca852203f1610a64a4e6948471949870462029",
+        "date": "2026-03-21",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "49e58a853fac5d26f2eddf25fbd7bee5fd4c25f5",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "ffce7a4c9adcb326c263f15dcb6519391c060bad",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "df8c82fed70379a4c8895691c6ebb5716dd0fd30",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "7924dfd1415c92a154f3c2da4150febe2ba28d5b",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "a05c771d883201e1af64fb51a3d60177cc36e19b",
+        "date": "2026-03-21",
+        "subject": "Update RELATORIO_CONFORMIDADE_F1_F5.md"
+      },
+      {
+        "sha": "76d11abda4e60d019b1defbfcfb9c4348fc93569",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "4e59bd2903cdbfea72b8d982808436bd9d1368de",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "211f860f74540d8b8934cbab02de0d2d0a50d2af",
+        "date": "2026-03-21",
+        "subject": "1"
+      },
+      {
+        "sha": "4f57dcec89c1945aaa428e8d78c61b9bd26311a1",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "d840dca7b500b1245903aadf0648253b9b2475cc",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/codex/execute-technical-debt-plan-for-birthhub-360-q3f73t'"
+      },
+      {
+        "sha": "55e8597a51ed3320eaaefa59e435e44f76e396f0",
+        "date": "2026-03-20",
+        "subject": "Merge pull request #131 from MaarksN/codex/execute-technical-debt-plan-for-birthhub-360-95jtho"
+      },
+      {
+        "sha": "f746486fdd9f83c1bc8e1c1954db00f311f05717",
+        "date": "2026-03-20",
+        "subject": "Merge pull request #130 from MaarksN/codex/execute-technical-debt-plan-for-birthhub-360"
+      },
+      {
+        "sha": "972d193efba464627f2fb35d2db128808aab9830",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/codex/manage-technical-debt-for-birthhub-360'"
+      },
+      {
+        "sha": "f284bfb20f2f7d18805096a06872bad431c479ff",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/codex/manage-technical-debt-for-birthhub-360-i1o659'"
+      },
+      {
+        "sha": "c61e6f81c0a53d078791f80e4ed09230ce7f9a67",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/jules-audit-remediation-4604544824523542962'"
+      },
+      {
+        "sha": "c14919b41808bd606bad9eeb2c09163ccb985650",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "295378daaecd15072e23941dd6c7322719c5a6d5",
+        "date": "2026-03-20",
+        "subject": "Update app.ts"
+      },
+      {
+        "sha": "3392846d3edceed521b2f194c22e39b2bfaa93ed",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "a255f05bf2ba4e4941a7b46e40c5faa210db3adf",
+        "date": "2026-03-20",
+        "subject": "Update outbound.webhooks.test.ts"
+      },
+      {
+        "sha": "f39a8f8befbbfc06be3dbb1d5dfce9dee3acc92a",
+        "date": "2026-03-20",
+        "subject": "21"
+      },
+      {
+        "sha": "5e91a953760476489cbe33bf7ec00e6d194a5d65",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "04bc25296d206a3e0ba3a44b32668d79d7055a5e",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "7c410580d74a93ec92c3a3e2dce4d642de435d67",
+        "date": "2026-03-20",
+        "subject": "agentes"
+      },
+      {
+        "sha": "413fa83889fa0994d8e13abc42865ca62479c5d7",
+        "date": "2026-03-20",
+        "subject": "agentes"
+      },
+      {
+        "sha": "dd371c52e777c9397baf664d3726c3bc0c25d9b7",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "cef937f93257d1449c53f91be0be3f02f48772af",
+        "date": "2026-03-20",
+        "subject": "agentes"
+      },
+      {
+        "sha": "12f341c775a7651e984c9a232436f97798bf129a",
+        "date": "2026-03-20",
+        "subject": "aagentes"
+      },
+      {
+        "sha": "2ed190f8672a1e2ce97ada57fcb5ee5e5bc95fca",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/jules/system-prompts-guardrails-17402443022818082681'"
+      },
+      {
+        "sha": "33b788c17ea1b4493ec6a5fb5d72c3060b3cf8b6",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/jules-s003-audit-11277938105496567242'"
+      },
+      {
+        "sha": "cb3c4a874bd0e28707e65695cd13f59fc90d644a",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/jules-7517810915114119982-cda596e4'"
+      },
+      {
+        "sha": "6f751f223fc82a553fd380f6c6dbe70dada70fdd",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'fix/jules-validation-reports-14573602867938393343'"
+      },
+      {
+        "sha": "0a96cbe389f2f0b1af2bfcbcee0e58ba12bc0323",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "5f5fd8eae57af1131795c49823de9f62d3a2c361",
+        "date": "2026-03-20",
+        "subject": "agentes"
+      },
+      {
+        "sha": "ba933cc6dcd177f8c88068ca0b191c69d69ccc05",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "e7866f9b2d76458e522c97d79796d354cbcab4aa",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "a328309d991e3f71eea7a736ed288a298576aab7",
+        "date": "2026-03-20",
+        "subject": "Update RELATORIO_CONFORMIDADE_F1_F5.md"
+      },
+      {
+        "sha": "db93eb9f9e79ba25052ab2012c2f9cc2f2a00d7d",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "e4e0bcb4b12855623fce3f142415ca99fb4f818a",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "eba1c3ddf54cec9b26916cb3f623c3f2ef4a72e2",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "1727c573c1f08ed81458bd5c1115c8629d8d52b5",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "8e4b759c337f76c117d08d3eee63e81d56013139",
+        "date": "2026-03-20",
+        "subject": "Create SLUG_POLICY.md"
+      },
+      {
+        "sha": "d72e3b234782316b35ee6dcc0a3a8f48bd11203e",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "6c8900effaff5ab3566ee410a59694ed945ca5e6",
+        "date": "2026-03-20",
+        "subject": "Delete _generate_cycles_06_15.ps1"
+      },
+      {
+        "sha": "6085c7bebdf208aa88b268d523ecc42a3bb7bff4",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "a0d2aebc569c516c90ed15157c58c1433b736891",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "1f8d49155de8adecfa90dd208e6942e029f90550",
+        "date": "2026-03-20",
+        "subject": "Update router.ts"
+      },
+      {
+        "sha": "8ae8d7d2e72c0fd0d4483964c4fd11a42ba118d5",
+        "date": "2026-03-20",
+        "subject": "Update router.ts"
+      },
+      {
+        "sha": "10198ba95ac2277372634faeaf562d93afa0067a",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "f9fc5b1e1f9846acc16f696e5fbdd1dd0d356a1d",
+        "date": "2026-03-20",
+        "subject": "Create _generate_cycles_06_15.ps1"
+      },
+      {
+        "sha": "4932b6a4c1cdaebd1f49821c5964196d86ab5470",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "871570cae1bd58ca212eee7cee6e71be055bdbc1",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "ed5056c99b2e5108a48821488d5fff4ae831b7b4",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "45e65009c4ac22b6f4be9af37bae3915f7c03e4d",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "ac78286b4f3a79570a011c2a2ddd1f97a634b66e",
+        "date": "2026-03-20",
+        "subject": "CODIGOS"
+      },
+      {
+        "sha": "1844610a18ec40bdbdb76ff90ef0fdeb779bebe9",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "acc838e7347dc93bc5bc7456febb4331b0df4996",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'fix/jules-validation-reports-14573602867938393343'"
+      },
+      {
+        "sha": "36871eb585dab7dacab02509acccd2aadb571e90",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "7c9140516fe4a1942bc0a041c5e05ac818dd0a43",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "f45a9faa45b34f441f667cf8cd632d5f07b6874c",
+        "date": "2026-03-20",
+        "subject": "Q"
+      },
+      {
+        "sha": "7d59a25aaca33612a7d3ac6790e5bcf8ffabbb17",
+        "date": "2026-03-20",
+        "subject": "Quarantine untracked executive agents and update audit governance"
+      },
+      {
+        "sha": "006ef1b46be37bcdf7d5239aec1748a1ac1204c9",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "9f8ffbf0969d2f6047f4596459429ce7ba3bc802",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "677b007e649d06e2cc892b6f56bc25e9baaf9360",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'chore/jules-remediation-checklist-15629486741056909834'"
+      },
+      {
+        "sha": "0c0c29ec0ce88d7bc5286839e821a83a3d19898d",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "501e69614f16636430f4b0c329771a36ed759cdd",
+        "date": "2026-03-20",
+        "subject": "Merge pull request #125 from MaarksN/jules-audit-remediation-11689419923628867589"
+      },
+      {
+        "sha": "6ca282b60e0885ee8eb13b7a572f62815c2e7411",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "39328b000ef0de7be95b75ade7a941cb8f08073b",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "ae89025ce883b0efd22b99814df97884dda33fef",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "b1150a5513ee71fc9484d276b5e50e6b2439c07d",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "b6853356febd7bb4e1bd92b4ad059240bc5635c9",
+        "date": "2026-03-20",
+        "subject": "Create GAP-DASH-003_codex.md"
+      },
+      {
+        "sha": "0069c1980290a122c67473e4f9b9dd9a45ceac08",
+        "date": "2026-03-20",
+        "subject": "Create GAP-002_codex.md"
+      },
+      {
+        "sha": "07928040bd99dfb0fcf3ce3783657d70a300ebbf",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "84d31ac3ce50afc7277bba08887a725ae0ab3658",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "fe125b66139d0bc8ab60619ad12ae0e49d4b228e",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "353e24235c6f164b4f221a8c0647ff32399e9771",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "e426dc1a5ff0b0be3e5694e87290defa62d91061",
+        "date": "2026-03-20",
+        "subject": "Create test_tool_runtime.py"
+      },
+      {
+        "sha": "51bc8271069e0c297b41f25526704cbbd9196c31",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "6787c29fb75c569728d17f168138355add2d2a43",
+        "date": "2026-03-20",
+        "subject": "Update tool_runtime.py"
+      },
+      {
+        "sha": "c4f541024b61f67b65c17a6f9c8dd00c8a9326ff",
+        "date": "2026-03-20",
+        "subject": "Create ci_failures_map.md"
+      },
+      {
+        "sha": "88b986a7d6a100e55b65076157a52beecd29a3e4",
+        "date": "2026-03-20",
+        "subject": "CODIGOS"
+      },
+      {
+        "sha": "4c2e5b912ad753ffec56c1129af0ad9a3b4f4d03",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/perf-fix-n-plus-one-pack-installer-9047749614186727766'"
+      },
+      {
+        "sha": "4ad1dc98ed34e09e4bda7d82d85d26747a7c3eb1",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/jules/cross-governance-c1-f1-f3-9720861999641302808'"
+      },
+      {
+        "sha": "2c546c602b11b7dfa788c6b746c14e094ab4ea0f",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/fix/web-dompurify-xss-6245212314772810691'"
+      },
+      {
+        "sha": "169e9fbab8fa75dad1e1dc558ee0e88df16f46b8",
+        "date": "2026-03-20",
+        "subject": "Merge remote-tracking branch 'origin/fix-hardcoded-jwt-secret-dashboard-8395710243917562091'"
+      },
+      {
+        "sha": "f971fe7447ef6cfbaf0311534e213dbfd36c303b",
+        "date": "2026-03-20",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "08be688908cbed64ae82dcf279916008ae38d5c6",
+        "date": "2026-03-20",
+        "subject": "1"
+      },
+      {
+        "sha": "922cdad14545fafeb7d660f683fa24059cb2512b",
+        "date": "2026-03-19",
+        "subject": "[CHECKLIST] Atualizar 2.023 status via auditoria forense"
+      },
+      {
+        "sha": "c4df278d63c20554abd5466a27c49149b4cbc908",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "5b01248bd523a39d3cd5286fa218b98fb66db1e0",
+        "date": "2026-03-19",
+        "subject": "Create test_unit.ts"
+      },
+      {
+        "sha": "14dcf76b671b7666e081c5b431e6a64ac9ee2b0b",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "ec0a85b1d05a0f0483445374dcbe2909ea015150",
+        "date": "2026-03-19",
+        "subject": "Update REGISTRY.md"
+      },
+      {
+        "sha": "762f04f9d25b722bcce1a7f7ce23563e792c6a0f",
+        "date": "2026-03-19",
+        "subject": "Create ciclo1_narrativeweaver_codex.md"
+      },
+      {
+        "sha": "24a7f9354503334f542002ed632a3f769841c3fd",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "5d10d56873ee38670e440e9325d42489594205fa",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "5b21f12fa9d05f950ff1513ddec94425333bdf1a",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "7dceb7b974b8d9936770491212d932146278836d",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "3806476201ada1a067a1b31490fa777c98440605",
+        "date": "2026-03-19",
+        "subject": "Merge remote-tracking branch 'origin/feature/boardprep-ai-f2-f3-5494124945123148238'"
+      },
+      {
+        "sha": "15396b18fa4466220f20174f163b69c2d469ff93",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'fix/sdr-generate-email-sequence-test-15781072376995714933'"
+      },
+      {
+        "sha": "920f09cbc5414c56e33ca1d64958c2e5de477bf9",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "a338e3740daf52b5e6104883706a0ca111c7f4a5",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "6c2790f5039809953111ba716f43e374b8b9f4be",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "e33d1e39b78a9dc2ea9dbef10f5e143267ea44ef",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "44cdc4fe686c3c3ef3fda4a2cc96a7d7c95e45ee",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "01b2a815fa7a3a95e36721874d86c0080ea34542",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "957bf9e0351b11a6a916fcc8aaa65aa99b4b7538",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "838f41853cfdcb3c82462fcb1a869c752e39cb20",
+        "date": "2026-03-19",
+        "subject": "Update CI PATH shims and log Codex delivery validations"
+      },
+      {
+        "sha": "1f7866060ace607e1017eb893b8f0eb1b8baaa67",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "6b67509d8a7f9b6755347a5c56e88bdbc9929b37",
+        "date": "2026-03-19",
+        "subject": "Merge remote-tracking branch 'origin/perf/user-cleanup-n1-9873602903165392039'"
+      },
+      {
+        "sha": "5a8610f76004b36c11f0a6e586cdd4971042d665",
+        "date": "2026-03-19",
+        "subject": "Merge remote-tracking branch 'origin/testing-improvement-sdr-tools-14865401721844985733'"
+      },
+      {
+        "sha": "a86ebede7dceb268471acfab334977dc558355fd",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "faaec7873ccf8f93270cf4a40b631aac9c9b3e3c",
+        "date": "2026-03-19",
+        "subject": "q"
+      },
+      {
+        "sha": "dbfce60ef14e41ca3c9d89bcef21cb0d5d0710d2",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "47b02d7e931eafa20a5d872ead9ab374e1f3ebb3",
+        "date": "2026-03-19",
+        "subject": "Update validation_log.md"
+      },
+      {
+        "sha": "8ef82fda63fdc168ff162f5b007ad35741d4108c",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "98d3785dd05ae49288cf42ee9a245c0357b4f08f",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "977262bd8587d845a0a82dca1e49b976d623c615",
+        "date": "2026-03-19",
+        "subject": "Create test_schema.ts"
+      },
+      {
+        "sha": "9d3ef973a83c05269ae5958bb7d9c5d23dcd6d78",
+        "date": "2026-03-19",
+        "subject": "AGENTES"
+      },
+      {
+        "sha": "e591d5a3caa44e2439e32f75a0caa2457c48d5ce",
+        "date": "2026-03-19",
+        "subject": "CODIGOS"
+      },
+      {
+        "sha": "647eb940e3a9ff0e752b0c6e480838554d708531",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "3463164c857d23918227fdcce2f83aa1a6cf2843",
+        "date": "2026-03-19",
+        "subject": "Create acceptance.md"
+      },
+      {
+        "sha": "4cc0c1775b09de23068b313888295af1c8cf2613",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "43e05f7df5e7523809b7acfd9e8d6c4053c265dc",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "e5ac1c83c93a04dcf6cb8c5d975eeebc7bf56b37",
+        "date": "2026-03-19",
+        "subject": "Update validation_log.md"
+      },
+      {
+        "sha": "ea6babd113ba308ce086ecc4450acac60746360a",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "ac02b30d5b2031fb19f54a786e678275dbf6857e",
+        "date": "2026-03-19",
+        "subject": "Update validation_log.md"
+      },
+      {
+        "sha": "4eaaed931e1041398f0c1e3c8aa13a5a79cefef3",
+        "date": "2026-03-19",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "4c692af270cbc427921b8cfb6e28ce4bf05ceda6",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "4b67c9e7d0eceae8cacf84fb9a702ba7cddf69c4",
+        "date": "2026-03-19",
+        "subject": "CODIGOS"
+      },
+      {
+        "sha": "474f8568fab1f1305511431d02cd58647ebf837a",
+        "date": "2026-03-19",
+        "subject": "Log BoardPrep F2 F3 validation and add rework checklist"
+      },
+      {
+        "sha": "57e40a2e41b7c488823237817d6a5950374193e0",
+        "date": "2026-03-19",
+        "subject": "Create ciclo1_culturepulse_codex.md"
+      },
+      {
+        "sha": "2f93f0a3e98baa3656876633ced2d902406b1a15",
+        "date": "2026-03-19",
+        "subject": "Create ciclo1_marketsentinel_codex.md"
+      },
+      {
+        "sha": "03ad03a59f85b497fd514e935fbf0672c2b3f8e2",
+        "date": "2026-03-19",
+        "subject": "CODIGOS"
+      },
+      {
+        "sha": "4764f8f48112de5f2162cd64b40657794190c4a2",
+        "date": "2026-03-19",
+        "subject": "1"
+      },
+      {
+        "sha": "8af4289cc91a710444f753cab68164c2195b462d",
+        "date": "2026-03-19",
+        "subject": "C"
+      },
+      {
+        "sha": "0ee9445871526446fce001ed175995e860debe2c",
+        "date": "2026-03-19",
+        "subject": "CODIGOS"
+      },
+      {
+        "sha": "9d03be5ced72a5b292cf2d20298dd1ea00b922e9",
+        "date": "2026-03-19",
+        "subject": "Implement BoardPrep AI agent with tests and governance artifacts"
+      },
+      {
+        "sha": "5447d89cd5fec91b210e0e0f868e3cb88f03c842",
+        "date": "2026-03-19",
+        "subject": "CÓDIGOS"
+      },
+      {
+        "sha": "198d8734b3e2f7875da49f75a77df443774e0811",
+        "date": "2026-03-19",
+        "subject": "Merge remote-tracking branch 'origin/perf/limit-concurrent-promise-execution-7526601051347025078'"
+      },
+      {
+        "sha": "c4cddc2d275fe2d32751123bdded90a01512e657",
+        "date": "2026-03-19",
+        "subject": "Merge remote-tracking branch 'origin/forensic-audit-report-5393135172856853482'"
+      },
+      {
+        "sha": "5967e6ef52a2c685824e51ffbc07a87904098c6f",
+        "date": "2026-03-19",
+        "subject": "codigos"
+      },
+      {
+        "sha": "0e0cc3a8d0f41c09ae39268e61c51e02384e1ec0",
+        "date": "2026-03-18",
+        "subject": "Merge pull request #76 from MaarksN/jules-juridico-agent-status-tests-11301703885603943544"
+      },
+      {
+        "sha": "f5783f78c6729ed78023f0901906656428bc7e35",
+        "date": "2026-03-18",
+        "subject": "Merge remote-tracking branch 'origin/perf-optimize-parallel-load-1117562769459004361'"
+      },
+      {
+        "sha": "66b00f10d9e9ef05efaefed81cd070c85a3ab440",
+        "date": "2026-03-18",
+        "subject": "Merge remote-tracking branch 'origin/fix/sunset-policy-n1-query-11322301313096107798'"
+      },
+      {
+        "sha": "2c2f8d8d011a07cd0e5ac0e7fea1f4aa7b132fe2",
+        "date": "2026-03-18",
+        "subject": "Merge remote-tracking branch 'origin/fix/xss-chatmessage-sanitize-5232890426969309882'"
+      },
+      {
+        "sha": "f8995871526cf11694e89f5f00c0ae0e7cbf361f",
+        "date": "2026-03-18",
+        "subject": "Merge remote-tracking branch 'origin/docs/unified-audit-checklist-4631713977187124010'"
+      },
+      {
+        "sha": "66bc64755180833aaf0678794dd5cb21ff896e75",
+        "date": "2026-03-18",
+        "subject": "Merge remote-tracking branch 'origin/jules-2022975065028179039-8e247743'"
+      },
+      {
+        "sha": "5674a9af14f7be59a0ed885bc739e04ff830d84c",
+        "date": "2026-03-18",
+        "subject": "Merge remote-tracking branch 'origin/security/remove-jwt-secret-fallback-1157551594251094697'"
+      },
+      {
+        "sha": "38ba4a99c97eba8cb2df6b86e437de91f08a35ab",
+        "date": "2026-03-18",
+        "subject": "Merge pull request #82 from MaarksN/feat/optimize-job-check-service-11204147073105877335"
+      },
+      {
+        "sha": "7cac9c62caccaaf4d5734f6dd4433a11655c92f5",
+        "date": "2026-03-18",
+        "subject": "Merge pull request #79 from MaarksN/perf/limit-concurrent-promise-execution-7526601051347025078"
+      },
+      {
+        "sha": "7f9b8457371b7e3e799f3cdda2b5cc99e61d81da",
+        "date": "2026-03-18",
+        "subject": "Merge pull request #77 from MaarksN/jules-2022975065028179039-8e247743"
+      },
+      {
+        "sha": "ccaa75d17e2db38bfd5e36555103ded9e2043bec",
+        "date": "2026-03-18",
+        "subject": "ADD"
+      },
+      {
+        "sha": "930e48ddf1c751030e78c48c2cc903a53902dde4",
+        "date": "2026-03-18",
+        "subject": "DELETE"
+      },
+      {
+        "sha": "023ad59664ba30df55485025c8306c1ff37672e3",
+        "date": "2026-03-14",
+        "subject": "Merge remote-tracking branch 'origin/jules-auditoria-852201687858137471'"
+      },
+      {
+        "sha": "81665fac533ec24959221e88cdd30a40e7fa7db5",
+        "date": "2026-03-14",
+        "subject": "Merge remote-tracking branch 'origin/jules-audit-cycle-3-2294546520542535047'"
+      },
+      {
+        "sha": "840ced48f96cdf1d1b392d019f8c3c18a77352c3",
+        "date": "2026-03-14",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "8f068867c6cedfdc43c9559b60443d7f2fa1913c",
+        "date": "2026-03-14",
+        "subject": "c"
+      },
+      {
+        "sha": "bc894f76c67c66692ed0b64e74f3410d91f28482",
+        "date": "2026-03-13",
+        "subject": "a"
+      },
+      {
+        "sha": "705d9c4535a26064ef31ee3c15c50d12a0947ef7",
+        "date": "2026-03-13",
+        "subject": "J"
+      },
+      {
+        "sha": "d00ee9c5ef4544b825f17a07da0ba9e83f6b62af",
+        "date": "2026-03-13",
+        "subject": "J"
+      },
+      {
+        "sha": "dcd77eef977f9cb3ca72ae0780f0c2c789d51036",
+        "date": "2026-03-13",
+        "subject": "Merge branch 'codex/novo-ciclo-5-final'"
+      },
+      {
+        "sha": "4e84d153ad01709cebd64d625a6e6b2c1b572dc0",
+        "date": "2026-03-13",
+        "subject": "Merge pull request #70 from MaarksN/codex/novo-ciclo-5-final"
+      },
+      {
+        "sha": "9cbdb8c2742eff56c8206cd3513fe581f089d580",
+        "date": "2026-03-13",
+        "subject": "C"
+      },
+      {
+        "sha": "e6f278717cadad7c557303ce7b67726e05fe63f6",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/jules-audit-report-17361551944171655267'"
+      },
+      {
+        "sha": "57e7acd8517c475fd4a6ce5f9803e2e791c6a681",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/fix/agents-core-toolkit-exact-optional-17850279293909155581'"
+      },
+      {
+        "sha": "b84e4b1cd0383e12ffb7f5f8477b085923ca34e6",
+        "date": "2026-03-13",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "7cf37c1bdc6b2d967a741670d755a99f8700d152",
+        "date": "2026-03-13",
+        "subject": "C"
+      },
+      {
+        "sha": "77fe986edc5b5099962de47510e3aae952d625db",
+        "date": "2026-03-13",
+        "subject": "C"
+      },
+      {
+        "sha": "06c49ee4dab8da0f3418e3752eeab6428c6d7d72",
+        "date": "2026-03-13",
+        "subject": "CICL"
+      },
+      {
+        "sha": "676848892c2b47d03310e0aa2ba041b05fa56be8",
+        "date": "2026-03-13",
+        "subject": "Update app.ts"
+      },
+      {
+        "sha": "b5551bdd66b6023a778ffda3f433e68ee2ac232a",
+        "date": "2026-03-13",
+        "subject": "CICLO"
+      },
+      {
+        "sha": "a26d215ec6ee2a34ea4095279dfd0b396d031537",
+        "date": "2026-03-13",
+        "subject": "Update router.ts"
+      },
+      {
+        "sha": "c4e07c9adc0f1994229118c3b7fb16fb01b9cdd6",
+        "date": "2026-03-13",
+        "subject": "Update auth.service.ts"
+      },
+      {
+        "sha": "605355d6fb5cd0bc0cf94eb5fa67cd85fb35d61f",
+        "date": "2026-03-13",
+        "subject": "Update content-type.ts"
+      },
+      {
+        "sha": "b250987a0a2c834121a36fe8caf513fa67b46783",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/fix/agents-core-toolkit-exact-optional-17850279293909155581'"
+      },
+      {
+        "sha": "b739388c31f83613202a10cb6be0eb1bf300e0aa",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "1e93280f5a3860c9fd73580e24ec5435692438f6",
+        "date": "2026-03-13",
+        "subject": "Update login-form.tsx"
+      },
+      {
+        "sha": "4ef066193528b7fda850c3129879deaee31a6e7f",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "cf2f045e3ecb2928b109b1ae8a8475c795ec9b4a",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/fix/agents-core-toolkit-exact-optional-17850279293909155581'"
+      },
+      {
+        "sha": "aa73dc35d262caa5a3c3748698c262d3325c3fd3",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/feature/ciclo3-auth-rbac-mfa-16535093978039303046'"
+      },
+      {
+        "sha": "dc3abbd3fa1cbe30855cdcebe54b439f7f86a763",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/ciclo-04-agent-core-architecture-5454412989070108827'"
+      },
+      {
+        "sha": "aa4e3165ac3db2d5edb362bcef248c44433fd2ee",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "8d01e194b670ef5ec7854b27e56eb17eef978cd1",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "921bc3b82d3c2f4d312eb39879aa623f2c97194b",
+        "date": "2026-03-13",
+        "subject": "CICLO"
+      },
+      {
+        "sha": "84aabfa7a6bc2c320bac9a75395384167704d7ca",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "926152d58f516a1e81cc171a0d1f9ef1bb690754",
+        "date": "2026-03-13",
+        "subject": "Create ci-local.ps1"
+      },
+      {
+        "sha": "d2bac3a89dd6e325a7ff44047500b110d77fd9f6",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/feature/ciclo3-auth-rbac-mfa-16535093978039303046'"
+      },
+      {
+        "sha": "ffa1e673f96b1213762085449c88d97f6e772ef3",
+        "date": "2026-03-13",
+        "subject": "Update architecture.md"
+      },
+      {
+        "sha": "da5005ab76f970bb7fcab1ea6efa3ccbcb0d2be4",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/jules-17238362143525949324-f953a1d2'"
+      },
+      {
+        "sha": "c3e2c0c9662f36dce26e09be555c835b474af1bd",
+        "date": "2026-03-13",
+        "subject": "docs: create ADRs for Auth, Session, RBAC and MFA (Ciclo 3)"
+      },
+      {
+        "sha": "51874a275461f2df8800e9ae59c6435577bc7da5",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "d80b3c8e5cda77d9e41b24921e05d7005f81f5a0",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "268ddd343d4c1e6dddc8ced611eab6f97674111b",
+        "date": "2026-03-13",
+        "subject": "Update index.ts"
+      },
+      {
+        "sha": "3f7f3249005acbd0a51f30b84899a6fe3e955c89",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "86296d5456cb90ce7bb02fd2cafe8b364b6d0650",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "91bd1b42c1d0488aa0d41833a5b5a9616b6b3422",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "581cb0a0e15b071ae6904bea680e3a03123dcc6a",
+        "date": "2026-03-13",
+        "subject": "CICLLOS"
+      },
+      {
+        "sha": "16c918ff323d8721af8085dd9d0db55f3c8ece47",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "8c5e25178535bfb63c36aa07622f46a1ac8c7228",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "ffc3bfbd4546ef0f3f675c2c8f794d7eb222f9ad",
+        "date": "2026-03-13",
+        "subject": "Update pack-regression.test.ts"
+      },
+      {
+        "sha": "7b15ca649f840c9a2f8cb79485cfe40dda4b6304",
+        "date": "2026-03-13",
+        "subject": "Update layout.tsx"
+      },
+      {
+        "sha": "07e0ecad09af567e24c9b2042eb3106ddd93a616",
+        "date": "2026-03-13",
+        "subject": "Update pack-smoke.test.ts"
+      },
+      {
+        "sha": "d90a236716c2c4e2f091a31d2ad0d8605beefb74",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "5b79dfda8ce084ea1bc404e035c2e8a00f998115",
+        "date": "2026-03-13",
+        "subject": "Create paywall-provider.tsx"
+      },
+      {
+        "sha": "49345f24fe8fdcf7dce8d09af56027e37b4b2581",
+        "date": "2026-03-13",
+        "subject": "CICLOS"
+      },
+      {
+        "sha": "d4cec6f48f7827a3eeb6985635d0ea30a138b608",
+        "date": "2026-03-13",
+        "subject": "Create OPERATIONS.md"
+      },
+      {
+        "sha": "39ce02d85d520fd3a23314062e89d27c78fbaf22",
+        "date": "2026-03-13",
+        "subject": "Update app.ts"
+      },
+      {
+        "sha": "d57fd0025feea69dd9cdd091c5b502f3968e3c72",
+        "date": "2026-03-13",
+        "subject": "Update package.json"
+      },
+      {
+        "sha": "1edd0356e332eb8bbf7fcefcd0457dee9975b418",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "9b5519c9bbeac2dcfdd78c5de73b41d79aab8eba",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "1c53845d5ab3be22ccbfdb5a596cefd7feeb496b",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "64c731e4443da03deafd0c4cbb4272c30bcca1c0",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "398494ea2be402df4ab1d178780d3a419c056459",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "d228a3f671431acc8613b533d97a4c2cadb0273c",
+        "date": "2026-03-13",
+        "subject": "Update service.ts"
+      },
+      {
+        "sha": "d38b01f7247fe10dfdc0aa407df68c2c206959e1",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "ce6dbc0803d017398dcb179509873b0f1e7af249",
+        "date": "2026-03-13",
+        "subject": "Update service.ts"
+      },
+      {
+        "sha": "e565e76c2e536591150a360d63cc7d78f91f71b9",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "4bbf3bc4d3733ee9b20a8b0dc2f2d24ea92718e6",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "b6e20451bd94e057988bde4095462ea348064929",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "3f17063b070797ef907f41503b820348e3ebcf2c",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "2fbd6cbf7b80985dfc26c95b00e47e2c88197fd8",
+        "date": "2026-03-13",
+        "subject": "cicloss"
+      },
+      {
+        "sha": "0fb4c347e14310a2c1e7130a9c669c6f60720710",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "cb38fdace7462ffc8225b6ddffe9dc96245c6da3",
+        "date": "2026-03-13",
+        "subject": "Create aiTextExtract.ts"
+      },
+      {
+        "sha": "ad118130eeec4f0cf287c1e97ce7d334cb428ed8",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "244afd6e4e452787136c2a57212117490a077bd1",
+        "date": "2026-03-13",
+        "subject": "Update worker.test.ts"
+      },
+      {
+        "sha": "5823175934d0a35ff5a9c9ad19262d8902d70d16",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "1214128c4fb1e287bfabc3d2f3986ce80bcf467c",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "62a682a71bf49f047d9f82e8689c23ee29796fc7",
+        "date": "2026-03-13",
+        "subject": "ciclos"
+      },
+      {
+        "sha": "753686e16c3f0ed2a9845934e1def0d27b31aa79",
+        "date": "2026-03-13",
+        "subject": "3"
+      },
+      {
+        "sha": "89eb756e1a03df08d08f09cf07bd50ad188eb5d2",
+        "date": "2026-03-13",
+        "subject": "2"
+      },
+      {
+        "sha": "1cdcb81302c5fd54df3d61560fd36b0090db3708",
+        "date": "2026-03-13",
+        "subject": "feat: consolidar entregas do ciclo 4"
+      },
+      {
+        "sha": "63911ad55ab964197ee16a93f4df274cb3da2ba9",
+        "date": "2026-03-13",
+        "subject": "Update auth.service.ts"
+      },
+      {
+        "sha": "0d461f5fa68fef829266336556f33f966d1d5576",
+        "date": "2026-03-13",
+        "subject": "1"
+      },
+      {
+        "sha": "56fdb885001951491baf597f7ec7570768e6a890",
+        "date": "2026-03-13",
+        "subject": "Novos arquivos"
+      },
+      {
+        "sha": "bc1ecb6c2e1225ca0a5a35ceb2a154c47b296a34",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/docs-workflow-engine-design-14105467882616459095'"
+      },
+      {
+        "sha": "9cb211c92bc91f5585db853b1aaba05bd5cfdadb",
+        "date": "2026-03-13",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-7-4102829256787985573'"
+      },
+      {
+        "sha": "998e6ef92c227fe58687485bbdb2d96846bf6cbf",
+        "date": "2026-03-13",
+        "subject": "Merge pull request #63 from MaarksN/jules/ciclo-10-marketplace-docs-11756871749441469334"
+      },
+      {
+        "sha": "655998438363de02f817ae412bf1a47d4b571898",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-9-execucao-fase-9.1-13342386175110096233'"
+      },
+      {
+        "sha": "879f7df8fd032f29bb5b1604356e43931c4ffd38",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-execution-validation-9765648125644733546'"
+      },
+      {
+        "sha": "4a160c159dbc659550c4435eff23600d918c926c",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #62 from MaarksN/jules-execution-validation-9765648125644733546"
+      },
+      {
+        "sha": "71ba4adddab05ac5a7b0a7b697621c6c993bfe96",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/codex/validate-all-actions-by-jules-fle0zu'"
+      },
+      {
+        "sha": "3e8126660a0b5bdb275fd75983d0fe4971436ddc",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/feat/jules-ciclo-4-agent-manifest-docs-14767036945478325050'"
+      },
+      {
+        "sha": "532fae7a4c902ebed1e132811fc438e3f2671814",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-04-phase-4.1-4.2-1233833762855561459'"
+      },
+      {
+        "sha": "8d29708a52cead394a1797422bd2fca0f959a883",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-2-execucao-11132292995455127129'"
+      },
+      {
+        "sha": "8bf6d04a4d38b7cb277f2e7ff587a8064719794d",
+        "date": "2026-03-12",
+        "subject": "Merge branch 'main' of https://github.com/MaarksN/PROJETO-FINAL-BIRTHUB-360-INNOVATION"
+      },
+      {
+        "sha": "8e3c50105573346ee19e348812cab86004afd547",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules/add-cycle-08-documentation-6875125793121785936'"
+      },
+      {
+        "sha": "42581ae5134fe60f75ebe527e6191dfeb23ed232",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #55 from MaarksN/codex/validate-all-actions-by-jules-s4tr1o"
+      },
+      {
+        "sha": "a1817840a026b0af79f0e6bf42336f21d96056df",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #54 from MaarksN/codex/execute-instructions-from-birthhub360_prompt_ciclo_01_codex-t0fok5"
+      },
+      {
+        "sha": "701ff08a6320c6ea5bd707bd18983f51c376936e",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #53 from MaarksN/codex/execute-instructions-from-birthhub360_prompt_ciclo_02_codex-f8lfmx"
+      },
+      {
+        "sha": "bd22b1f14d4a413919c2f3dbea4a3d647c7c2059",
+        "date": "2026-03-12",
+        "subject": "Avalie demanda de consultoria"
+      },
+      {
+        "sha": "0ad268009e2abc9e0ed33cb96e9c103cf6f32ef0",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/codex/add-initial-audit-and-autofix-script-csho8w'"
+      },
+      {
+        "sha": "9d6861f0126150e87a2c24c5c3ed57681aaddc61",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/docs-workflow-engine-design-14105467882616459095'"
+      },
+      {
+        "sha": "c1bbab4db1807f12a4bfdf8d5d5a7d54f516ebc6",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/feat/jules-ciclo-4-agent-manifest-docs-14767036945478325050'"
+      },
+      {
+        "sha": "7ca6c3a898b7ec47b52fdd9693fbb74a79da67d6",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/feature/agent-packs-docs-10154439552786565723'"
+      },
+      {
+        "sha": "12088bd9054abe7ac302cf311987b679913def55",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-auth-docs-ciclo3-12083144378503111950'"
+      },
+      {
+        "sha": "3c53e2c6b7dbef9f54d04300118a9640e3632fa4",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-2-execucao-11132292995455127129'"
+      },
+      {
+        "sha": "12632909fd228f8193e5e668b643afd9cfc153d7",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-9-execucao-fase-9.1-13342386175110096233'"
+      },
+      {
+        "sha": "3ee6fe42a2633b83c664475eaf390733ab91bbbf",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules-ciclo-7-4102829256787985573'"
+      },
+      {
+        "sha": "f0d33ad3d5033e6e1a280fa00876cbb2e216c68a",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules/ciclo-10-marketplace-docs-11756871749441469334'"
+      },
+      {
+        "sha": "db102250590672208657e9f454fbcef16ef2401d",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #52 from MaarksN/feat/docs-ciclo-01-jules-17458371352759133853"
+      },
+      {
+        "sha": "6578d2d00b1dfa13069ea1321bbec10e1412d089",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #51 from MaarksN/jules/add-cycle-08-documentation-6875125793121785936"
+      },
+      {
+        "sha": "e319c056e78402c33b2a1fbd4d950322c5ced049",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/codex/add-initial-audit-and-autofix-script-q6quj5'"
+      },
+      {
+        "sha": "613ffb19095e817be95340fceb01350c2a2607f8",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #48 from MaarksN/codex/add-initial-audit-and-autofix-script"
+      },
+      {
+        "sha": "5461ce9b086d3f7141aae395025503cf2436b03e",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #47 from MaarksN/feature/agent-packs-docs-10154439552786565723"
+      },
+      {
+        "sha": "a276c9540754db690773c9110d8f224cf96e9209",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #46 from MaarksN/jules-ciclo-9-execucao-fase-9.1-13342386175110096233"
+      },
+      {
+        "sha": "4497bba97c6d570404c8ad213cd57199d1f002e5",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #45 from MaarksN/codex/validate-all-actions-by-jules-wk3k3t"
+      },
+      {
+        "sha": "13de9790a954a339c892235b59b4b617d06014e7",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/jules/ciclo-10-marketplace-docs-11756871749441469334'"
+      },
+      {
+        "sha": "1701bcd6e42e9378b0021c9f25484a614b438ee6",
+        "date": "2026-03-12",
+        "subject": "Merge remote-tracking branch 'origin/feat/docs-ciclo-01-jules-17458371352759133853'"
+      },
+      {
+        "sha": "be57b0d827325252d230690dfd94d764c6f80fe5",
+        "date": "2026-03-12",
+        "subject": "Delete Checklist e Prompts.rar"
+      },
+      {
+        "sha": "fbbcaa02a5866e2fe7cf3cb0ad37ff75c8ea4009",
+        "date": "2026-03-12",
+        "subject": "Delete SAAS BIRTHUB 360.zip"
+      },
+      {
+        "sha": "a20dded4dfb98b70c8ab01e4e97fc127389184c7",
+        "date": "2026-03-12",
+        "subject": "Delete CHECKLIST E PROMPTS/INDEX_BirthHub360_v4.html"
+      },
+      {
+        "sha": "60a86ac17ff82b541f7f35e46054df2f0f2d7d63",
+        "date": "2026-03-12",
+        "subject": "Delete CHECKLIST E PROMPTS/JULES_Consolidado.html"
+      },
+      {
+        "sha": "a7e5511f54fd5f7898f2f07382b8ae4ff421c2e6",
+        "date": "2026-03-12",
+        "subject": "Delete CHECKLIST E PROMPTS/CODEX_Consolidado.html"
+      },
+      {
+        "sha": "9fefc95634a554dd6bd53e273f959c7eb21ab4ba",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #44 from MaarksN/consolidate-checklist-prompts-765261786426404480"
+      },
+      {
+        "sha": "378eefb7245f584e400ab2e54e73e9556472632d",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #43 from MaarksN/jules-ciclo-2-execucao-11132292995455127129"
+      },
+      {
+        "sha": "55ddf2e8858ee60bdc76b51c01fca6c3af183b1d",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #42 from MaarksN/jules-ciclo-1-docs-13913214220240111234"
+      },
+      {
+        "sha": "5e8f3e76e17670219a2b12ef89297b3cf5d3a7b6",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #41 from MaarksN/jules-ciclo-7-4102829256787985573"
+      },
+      {
+        "sha": "4b7a5a8bcafc0987a7a48aaa15c45bfc228ee734",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #40 from MaarksN/feat/jules-ciclo-4-agent-manifest-docs-14767036945478325050"
+      },
+      {
+        "sha": "eda209fa39f5ef22d26ef56da6a6168b01a1d7ca",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #39 from MaarksN/jules/ciclo-10-marketplace-docs-11756871749441469334"
+      },
+      {
+        "sha": "81f237c4ff6f83e18856211d293055756ae176c4",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #38 from MaarksN/jules/add-cycle-08-documentation-6875125793121785936"
+      },
+      {
+        "sha": "63683bb756a3c8ea53237d161f22047b11c1c58a",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #37 from MaarksN/docs-workflow-engine-design-14105467882616459095"
+      },
+      {
+        "sha": "6390793274cdfa900badbf0974b6306de8f92458",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #36 from MaarksN/codex/validate-all-actions-by-jules-f44n77"
+      },
+      {
+        "sha": "b44652c9e17450cfd85e02f2661416ce7a114b05",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #35 from MaarksN/feat/docs-ciclo-01-jules-17458371352759133853"
+      },
+      {
+        "sha": "b6ebdfbb390190070ae2edeb64c4c8233ea57504",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #34 from MaarksN/jules/ciclo-10-marketplace-docs-11756871749441469334"
+      },
+      {
+        "sha": "736770e962ca90343c2c006fb1da738914ba97ab",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #33 from MaarksN/feature/agent-packs-docs-10154439552786565723"
+      },
+      {
+        "sha": "8c237b5c51af49c259b552b55daeb3683a960b3a",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #32 from MaarksN/jules-ciclo-7-4102829256787985573"
+      },
+      {
+        "sha": "6c5c1e67b29cabd9692a92697f97450bdedc719d",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #31 from MaarksN/jules-ciclo-9-execucao-fase-9.1-13342386175110096233. -./"
+      },
+      {
+        "sha": "dba6dbf563c8f2b2804dfc26261018081a61c4ad",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #30 from MaarksN/feat/jules-ciclo-4-agent-manifest-docs-14767036945478325050"
+      },
+      {
+        "sha": "4f5d4e72fc63a8f91bcba0e9127212b8246b95be",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #29 from MaarksN/jules/add-cycle-08-documentation-6875125793121785936"
+      },
+      {
+        "sha": "b886c970f53aa0d78a7f6307caee77a44e4fce04",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #24 from MaarksN/jules-auth-docs-ciclo3-12083144378503111950"
+      },
+      {
+        "sha": "614c4431a47bece511fa65c497dede9197df0899",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #26 from MaarksN/jules-ciclo-1-docs-13913214220240111234"
+      },
+      {
+        "sha": "7d84b982ad7c4ad8f4d08c3c3abd9da50650b4bd",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #28 from MaarksN/jules-ciclo-2-execucao-11132292995455127129"
+      },
+      {
+        "sha": "9c2a5e9f595b5684471b161e1ad0a3c9dcbf26ec",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #27 from MaarksN/docs-workflow-engine-design-14105467882616459095"
+      },
+      {
+        "sha": "791a733592d1890d2f8cae2fd40fa569b2867b08",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #25 from MaarksN/codex/execute-next-50-logical-steps-from-codex-checklists"
+      },
+      {
+        "sha": "66a0a039f137d349e50eea960855cc4874637eb6",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #16 from MaarksN/feat/docs-ciclo-01-jules-17458371352759133853"
+      },
+      {
+        "sha": "7f2ac17d50f4efc38f53b67bfe5de5fcc508513f",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #23 from MaarksN/codex/validate-all-actions-by-jules"
+      },
+      {
+        "sha": "1bd596efaf6f4fc22315d0aeee71a9b3716ddfd1",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #11 from MaarksN/jules/add-cycle-08-documentation-6875125793121785936"
+      },
+      {
+        "sha": "57b62a54ed125d8b28e38e728145e62e4248a94f",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #22 from MaarksN/codex/execute-tasks-from-birthhub360_prompt_ciclo_06_codex"
+      },
+      {
+        "sha": "4ba57bff5467caefd2340d3a482b3e959483a72d",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #21 from MaarksN/codex/execute-tasks-from-birthhub360_prompt_ciclo_05_codex.html"
+      },
+      {
+        "sha": "6e64fa6490b994e460598e1856056c5b865b952d",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #20 from MaarksN/codex/execute-instructions-in-birthhub360_prompt_ciclo_07_codex.ht"
+      },
+      {
+        "sha": "ef7f9ae786bc170c67cb4b45f9371c91cb5672a3",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #19 from MaarksN/codex/execute-tasks-from-birthhub360_prompt_ciclo_04_codex.html"
+      },
+      {
+        "sha": "8d02fc5b3ad1e091c38a88c6bf62b509b3dbf479",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #18 from MaarksN/codex/execute-prompts-from-birthhub360-checklist"
+      },
+      {
+        "sha": "c0eaa1bb4a468bb2039eeec3f9ca71f39fc75261",
+        "date": "2026-03-12",
+        "subject": "Merge pull request #10 from MaarksN/jules-ciclo-7-4102829256787985573"
+      },
+      {
+        "sha": "df061ea7fdfb47bbcba27857e07bb2d18b9ec5ef",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #17 from MaarksN/codex/execute-prompts-from-birthhub360_prompt_ciclo_09_codex.html-rlgb23"
+      },
+      {
+        "sha": "37daf8818eb9281125e3b262a510f7b7fd5c73c4",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #15 from MaarksN/codex/execute-prompts-from-birthhub360_prompt_ciclo_09_codex.html"
+      },
+      {
+        "sha": "4082b135aad0563b472867aa7ef653e216279b80",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #14 from MaarksN/codex/execute-instructions-from-birthhub360_prompt_ciclo_10_codex"
+      },
+      {
+        "sha": "749b92f78bc9043f53bb927e9cbdae4704db5139",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #13 from MaarksN/feature/agent-packs-docs-10154439552786565723"
+      },
+      {
+        "sha": "6570f32ad7d05b85e390198c7e6072baf55a79f9",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #12 from MaarksN/docs-workflow-engine-design-14105467882616459095"
+      },
+      {
+        "sha": "8f37089f5b3cb1d238f9af7b6427cdb686b3dcac",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #3 from MaarksN/jules/ciclo-10-marketplace-docs-11756871749441469334"
+      },
+      {
+        "sha": "080dece7c2346114d41342201edab7635cacfb0b",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #9 from MaarksN/jules-ciclo-2-execucao-11132292995455127129"
+      },
+      {
+        "sha": "a37ee5b3f805f05692591531908e59a2e4e0964c",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #5 from MaarksN/feat/jules-ciclo-4-agent-manifest-docs-14767036945478325050"
+      },
+      {
+        "sha": "0ae9d94abc7da8845a3dedf7036ebccde325d3b9",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #8 from MaarksN/jules-ciclo-9-execucao-fase-9.1-13342386175110096233"
+      },
+      {
+        "sha": "70ee919b1c877426c7b43ec1105b585d7ee275bb",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #7 from MaarksN/codex/execute-tasks-from-birthhub360-prompts"
+      },
+      {
+        "sha": "a2a5b1fe55f3a8d3344fa57cb29ecf42001efaef",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #6 from MaarksN/codex/execute-instructions-from-birthhub360_prompt_ciclo_02_codex"
+      },
+      {
+        "sha": "d98d046fb54a40bda5a424bcc4e0c4f826d8247b",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #4 from MaarksN/codex/execute-instructions-from-birthhub360_prompt_ciclo_01_codex-v4fsmh"
+      },
+      {
+        "sha": "532d4b80cf926a68aa9dfeb0aec899696e58acd0",
+        "date": "2026-03-11",
+        "subject": "Delete CHECKLIST E PROMPTS/BirthHub360_Prompt_Ciclo_00_JULES.html"
+      },
+      {
+        "sha": "dd0e2bb87e0244b225607812bc991c634e7f22f3",
+        "date": "2026-03-11",
+        "subject": "Delete CHECKLIST E PROMPTS/BirthHub360_Prompt_Ciclo_00_CODEX.html"
+      },
+      {
+        "sha": "39c49fff00f09c1e4e91d30263fdad93c509cf46",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #2 from MaarksN/chore-add-checklists-and-prompts-15219615263311442645"
+      },
+      {
+        "sha": "a739c104391f1db2243c58992ebf73cd0d808a2d",
+        "date": "2026-03-11",
+        "subject": "Add files via upload"
+      },
+      {
+        "sha": "31084b719004fc935260027ccd3be439e461fdb2",
+        "date": "2026-03-11",
+        "subject": "Merge pull request #1 from MaarksN/feat/extract-monorepo-8727503202165645280"
+      },
+      {
+        "sha": "fa7e3925894ce962212773cd9b5e2e96c48bdecd",
+        "date": "2026-03-11",
+        "subject": "Add files via upload"
+      },
+      {
+        "sha": "9b130b0c8654658798327e780c5d2fea906f4157",
+        "date": "2026-03-11",
+        "subject": "Delete BirthHub360_Ciclo_00_JULES.html"
+      },
+      {
+        "sha": "c1dcc582b0ea6cf35558d7b902f09122ae0bb8c5",
+        "date": "2026-03-11",
+        "subject": "Add files via upload"
+      }
+    ],
     "deploymentFrequencyProxy": {
       "windowDays": 30,
-      "mergeCommits": 0,
-      "activeDays": 0,
-      "placeholderMessages": []
+      "mergeCommits": 246,
+      "activeDays": 21,
+      "placeholderMessages": [
+        {
+          "sha": "5db912f596e34e8360ac7be2c3652a992d48c366",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "3797bdedc7fd859cc483b6621260ef7f9c38692a",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "920c657800f507c8d0fb6523df9a5ef489602f23",
+          "date": "2026-04-04",
+          "subject": "1"
+        },
+        {
+          "sha": "cfa53d10ceb3b0d9d9ad0da7b648281819ba3f7e",
+          "date": "2026-04-04",
+          "subject": "1"
+        },
+        {
+          "sha": "c4fc82dee2c2f6d63e8d7dc8226e9f09399455e7",
+          "date": "2026-04-01",
+          "subject": "1"
+        },
+        {
+          "sha": "f628a7ade8ca37624052039b78a4f9efd4eef131",
+          "date": "2026-03-31",
+          "subject": "1"
+        },
+        {
+          "sha": "512dde4000634bc12b03c9162ea57935f03c5525",
+          "date": "2026-03-31",
+          "subject": "1"
+        },
+        {
+          "sha": "e7f221e61ea7d44f9c38079bc6e4df70c4659eba",
+          "date": "2026-03-30",
+          "subject": "1"
+        },
+        {
+          "sha": "fd586903246d3ea20fc1f0148d7f8565b8021ce4",
+          "date": "2026-03-30",
+          "subject": "1"
+        },
+        {
+          "sha": "52d4b32a18b70f92248e0a394f18d413ff00aaa7",
+          "date": "2026-03-30",
+          "subject": "1"
+        },
+        {
+          "sha": "62097f558b0aac397685f19bd69622431e4090d7",
+          "date": "2026-03-30",
+          "subject": "1"
+        },
+        {
+          "sha": "0e1a1a1942cdb1e259957a3a1bbf07b24d0d8a2a",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "bdc252e896da608b4d664f66f9b0a342d1a27966",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "57d0d4a66f948c21f2dfb8ffef9571c821d0c1fa",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "3b543936700698ba66474ed48dcd9ba05a820d68",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "fa168c803900e22449eb561e05cd50bd684639c0",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "55c52f1a6c8e3c071da4768fe5876ef21fae623e",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "f22022fcadd0b8cb4f003792d15e47b7099ef2af",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "7430447d82717b7bde123bf1e2a520bfb665f533",
+          "date": "2026-03-29",
+          "subject": "1"
+        },
+        {
+          "sha": "27b84d4a86ac7a894e7058ac4aa7feaf30a48c71",
+          "date": "2026-03-28",
+          "subject": "Your commit message here"
+        },
+        {
+          "sha": "e261a01c9a06ff3525d4672da40130df8a163574",
+          "date": "2026-03-28",
+          "subject": "Your commit message here"
+        },
+        {
+          "sha": "2e570d66a4012d543813634d1446d63469cc4a44",
+          "date": "2026-03-28",
+          "subject": "Your commit message here"
+        },
+        {
+          "sha": "69b70a6c54e45fe15c38ac1e1043e6bed1b100da",
+          "date": "2026-03-28",
+          "subject": "Your commit message here"
+        },
+        {
+          "sha": "f8c48527d050a8a36b3ceccadf8477d558b3ace1",
+          "date": "2026-03-27",
+          "subject": "Your commit message here"
+        },
+        {
+          "sha": "110be920576450024bd6b347b0b1a297a9b92c34",
+          "date": "2026-03-27",
+          "subject": "Your commit message here"
+        }
+      ]
     }
   },
   "staticFindings": {
@@ -65417,7 +68294,7 @@
       {
         "id": "direct-env",
         "path": "packages/database/scripts/bootstrap-ci.ts",
-        "line": 18,
+        "line": 35,
         "text": "if (!process.env.DATABASE_URL) {",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
@@ -65473,7 +68350,7 @@
       {
         "id": "direct-env",
         "path": "packages/database/scripts/lib/process.ts",
-        "line": 43,
+        "line": 53,
         "text": "const spawnCommand = requiresWindowsCmdWrapper ? process.env.ComSpec ?? \"cmd.exe\" : command;",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
@@ -66469,6 +69346,12 @@
         "line": 3,
         "count": 23,
         "summary": "23 linhas com strings textuais embutidas na UI."
+      },
+      {
+        "path": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
+        "line": 7,
+        "count": 32,
+        "summary": "32 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
@@ -67696,6 +70579,11 @@
         "lines": 333
       },
       {
+        "path": "apps/api/src/modules/dashboard/service.shared.ts",
+        "line": 1,
+        "lines": 333
+      },
+      {
         "path": "apps/api/src/modules/webhooks/stripe.webhook.processing.ts",
         "line": 1,
         "lines": 331
@@ -67729,11 +70617,6 @@
         "path": "apps/worker/src/engine/runner.execution.ts",
         "line": 1,
         "lines": 314
-      },
-      {
-        "path": "packages/workflows-core/src/schemas/step.schema.ts",
-        "line": 1,
-        "lines": 309
       }
     ],
     "importCycles": [],
@@ -67768,6 +70651,10 @@
       },
       {
         "path": "apps/api/src/modules/connectors/service.shared.ts",
+        "relatedTests": []
+      },
+      {
+        "path": "apps/api/src/modules/dashboard/service.shared.ts",
         "relatedTests": []
       },
       {
@@ -67831,6 +70718,1258 @@
         "line": 1
       }
     ]
+  },
+  "evidenceArtifacts": {
+    "environmentParity": {
+      "path": "docs/operations/environment-parity.md",
+      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-05T20:27:07.924Z\n- Source of truth: `auditor-prime-2026-04-05` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
+    },
+    "sla": {
+      "path": "docs/operations/sla.md",
+      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-05T20:27:07.955Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
+    },
+    "semgrep": {
+      "path": "artifacts/security/semgrep-head.json",
+      "data": {
+        "checkedAt": "2026-04-05T20:27:26.562Z",
+        "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
+        "exitCode": 0,
+        "status": "fresh",
+        "sufficient": true,
+        "version": "1.157.0",
+        "targets": [
+          "apps/api",
+          "apps/web",
+          "apps/worker",
+          "packages/database",
+          "infra",
+          ".github/workflows",
+          "scripts/ops",
+          "scripts/release",
+          "scripts/security",
+          "scripts/testing",
+          "scripts/performance",
+          "scripts/migrate-to-multitenant.ts",
+          "scripts/audit/prime-backlog.mjs",
+          "scripts/audit/prime-collect.mjs",
+          "scripts/audit/prime-normalize.mjs",
+          "scripts/audit/prime-refresh-evidence.mjs",
+          "scripts/audit/prime-render.mjs",
+          "scripts/audit/prime-score.mjs",
+          "scripts/audit/prime-verify.mjs",
+          "scripts/audit/shared-prime.mjs"
+        ],
+        "summary": {
+          "findings": 16,
+          "errors": 0,
+          "severities": {
+            "ERROR": 0,
+            "WARNING": 6,
+            "INFO": 10,
+            "UNKNOWN": 0
+          }
+        },
+        "results": [
+          {
+            "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
+            "path": ".github/workflows/cd.yml",
+            "start": {
+              "line": 65,
+              "col": 9,
+              "offset": 2153
+            },
+            "end": {
+              "line": 68,
+              "col": 57,
+              "offset": 2291
+            },
+            "extra": {
+              "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
+              "metadata": {
+                "category": "security",
+                "owasp": "A01:2017 - Injection",
+                "cwe": "CWE-913: Improper Control of Dynamically-Managed Code Resources",
+                "likelihood": "MEDIUM",
+                "impact": "MEDIUM",
+                "confidence": "MEDIUM",
+                "subcategory": [
+                  "vuln"
+                ],
+                "references": [
+                  "https://securitylab.github.com/research/github-actions-preventing-pwn-requests/",
+                  "https://github.com/justinsteven/advisories/blob/master/2021_github_actions_checkspelling_token_leak_via_advice_symlink.md",
+                  "https://www.legitsecurity.com/blog/github-privilege-escalation-vulnerability"
+                ],
+                "technology": [
+                  "github-actions"
+                ],
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Code Injection"
+                ],
+                "source": "https://semgrep.dev/r/yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
+                "shortlink": "https://sg.run/A0p6"
+              },
+              "severity": "WARNING",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
+            "path": ".github/workflows/cd.yml",
+            "start": {
+              "line": 191,
+              "col": 9,
+              "offset": 6299
+            },
+            "end": {
+              "line": 195,
+              "col": 57,
+              "offset": 6493
+            },
+            "extra": {
+              "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
+              "metadata": {
+                "category": "security",
+                "owasp": "A01:2017 - Injection",
+                "cwe": "CWE-913: Improper Control of Dynamically-Managed Code Resources",
+                "likelihood": "MEDIUM",
+                "impact": "MEDIUM",
+                "confidence": "MEDIUM",
+                "subcategory": [
+                  "vuln"
+                ],
+                "references": [
+                  "https://securitylab.github.com/research/github-actions-preventing-pwn-requests/",
+                  "https://github.com/justinsteven/advisories/blob/master/2021_github_actions_checkspelling_token_leak_via_advice_symlink.md",
+                  "https://www.legitsecurity.com/blog/github-privilege-escalation-vulnerability"
+                ],
+                "technology": [
+                  "github-actions"
+                ],
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Code Injection"
+                ],
+                "source": "https://semgrep.dev/r/yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
+                "shortlink": "https://sg.run/A0p6"
+              },
+              "severity": "WARNING",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+            "path": "apps/worker/src/agents/runtime.shared.ts",
+            "start": {
+              "line": 113,
+              "col": 10,
+              "offset": 3443
+            },
+            "end": {
+              "line": 113,
+              "col": 59,
+              "offset": 3492
+            },
+            "extra": {
+              "message": "RegExp() called with a `pattern` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
+              "metadata": {
+                "owasp": [
+                  "A05:2021 - Security Misconfiguration",
+                  "A06:2017 - Security Misconfiguration",
+                  "A02:2025 - Security Misconfiguration"
+                ],
+                "cwe": [
+                  "CWE-1333: Inefficient Regular Expression Complexity"
+                ],
+                "references": [
+                  "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+                ],
+                "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
+                "category": "security",
+                "technology": [
+                  "javascript"
+                ],
+                "subcategory": [
+                  "vuln"
+                ],
+                "likelihood": "MEDIUM",
+                "impact": "MEDIUM",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Denial-of-Service (DoS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+                "shortlink": "https://sg.run/gr65"
+              },
+              "severity": "WARNING",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.lang.security.audit.hardcoded-hmac-key.hardcoded-hmac-key",
+            "path": "apps/worker/src/worker.job-validation.test.ts",
+            "start": {
+              "line": 47,
+              "col": 23,
+              "offset": 1317
+            },
+            "end": {
+              "line": 47,
+              "col": 53,
+              "offset": 1347
+            },
+            "extra": {
+              "message": "Detected a hardcoded hmac key. Avoid hardcoding secrets and consider using an alternate option such as reading the secret from a config file or using an environment variable.",
+              "metadata": {
+                "interfile": true,
+                "category": "security",
+                "technology": [
+                  "crypto",
+                  "hmac"
+                ],
+                "references": [
+                  "https://rules.sonarsource.com/javascript/RSPEC-2068",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-management"
+                ],
+                "owasp": [
+                  "A07:2021 - Identification and Authentication Failures",
+                  "A07:2025 - Authentication Failures"
+                ],
+                "cwe": [
+                  "CWE-798: Use of Hard-coded Credentials"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Hard-coded Secrets"
+                ],
+                "source": "https://semgrep.dev/r/javascript.lang.security.audit.hardcoded-hmac-key.hardcoded-hmac-key",
+                "shortlink": "https://sg.run/K9bn"
+              },
+              "severity": "WARNING",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+            "path": "infra/cloudrun/service.yaml",
+            "start": {
+              "line": 10,
+              "col": 5,
+              "offset": 188
+            },
+            "end": {
+              "line": 10,
+              "col": 9,
+              "offset": 192
+            },
+            "extra": {
+              "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
+              "fix": "spec:\n      securityContext:\n        runAsNonRoot: true #",
+              "metadata": {
+                "references": [
+                  "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/",
+                  "https://kubernetes.io/docs/concepts/policy/pod-security-policy/",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-2-set-a-user"
+                ],
+                "category": "security",
+                "cwe": [
+                  "CWE-250: Execution with Unnecessary Privileges"
+                ],
+                "owasp": [
+                  "A05:2021 - Security Misconfiguration",
+                  "A06:2017 - Security Misconfiguration",
+                  "A02:2025 - Security Misconfiguration"
+                ],
+                "technology": [
+                  "kubernetes"
+                ],
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Improper Authorization"
+                ],
+                "source": "https://semgrep.dev/r/yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+                "shortlink": "https://sg.run/dgP5"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+            "path": "packages/database/scripts/lib/prisma-schema.ts",
+            "start": {
+              "line": 40,
+              "col": 22,
+              "offset": 931
+            },
+            "end": {
+              "line": 40,
+              "col": 71,
+              "offset": 980
+            },
+            "extra": {
+              "message": "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
+              "metadata": {
+                "owasp": [
+                  "A05:2021 - Security Misconfiguration",
+                  "A06:2017 - Security Misconfiguration",
+                  "A02:2025 - Security Misconfiguration"
+                ],
+                "cwe": [
+                  "CWE-1333: Inefficient Regular Expression Complexity"
+                ],
+                "references": [
+                  "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+                ],
+                "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
+                "category": "security",
+                "technology": [
+                  "javascript"
+                ],
+                "subcategory": [
+                  "vuln"
+                ],
+                "likelihood": "MEDIUM",
+                "impact": "MEDIUM",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Denial-of-Service (DoS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+                "shortlink": "https://sg.run/gr65"
+              },
+              "severity": "WARNING",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/audit/shared-prime.mjs",
+            "start": {
+              "line": 293,
+              "col": 10,
+              "offset": 8778
+            },
+            "end": {
+              "line": 294,
+              "col": 30,
+              "offset": 8821
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/audit/shared-prime.mjs",
+            "start": {
+              "line": 293,
+              "col": 10,
+              "offset": 8778
+            },
+            "end": {
+              "line": 295,
+              "col": 29,
+              "offset": 8850
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/audit/shared-prime.mjs",
+            "start": {
+              "line": 293,
+              "col": 10,
+              "offset": 8778
+            },
+            "end": {
+              "line": 296,
+              "col": 29,
+              "offset": 8879
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/audit/shared-prime.mjs",
+            "start": {
+              "line": 293,
+              "col": 10,
+              "offset": 8778
+            },
+            "end": {
+              "line": 297,
+              "col": 31,
+              "offset": 8910
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")\n    .replaceAll(\">\", \"&gt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+            "path": "scripts/ops/generate-vps-env.mjs",
+            "start": {
+              "line": 70,
+              "col": 19,
+              "offset": 1815
+            },
+            "end": {
+              "line": 70,
+              "col": 49,
+              "offset": 1845
+            },
+            "extra": {
+              "message": "RegExp() called with a `key` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
+              "metadata": {
+                "owasp": [
+                  "A05:2021 - Security Misconfiguration",
+                  "A06:2017 - Security Misconfiguration",
+                  "A02:2025 - Security Misconfiguration"
+                ],
+                "cwe": [
+                  "CWE-1333: Inefficient Regular Expression Complexity"
+                ],
+                "references": [
+                  "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+                ],
+                "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
+                "category": "security",
+                "technology": [
+                  "javascript"
+                ],
+                "subcategory": [
+                  "vuln"
+                ],
+                "likelihood": "MEDIUM",
+                "impact": "MEDIUM",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Denial-of-Service (DoS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+                "shortlink": "https://sg.run/gr65"
+              },
+              "severity": "WARNING",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/release/generate-sbom.mjs",
+            "start": {
+              "line": 14,
+              "col": 10,
+              "offset": 432
+            },
+            "end": {
+              "line": 15,
+              "col": 30,
+              "offset": 467
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/release/generate-sbom.mjs",
+            "start": {
+              "line": 14,
+              "col": 10,
+              "offset": 432
+            },
+            "end": {
+              "line": 16,
+              "col": 29,
+              "offset": 496
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/release/generate-sbom.mjs",
+            "start": {
+              "line": 14,
+              "col": 10,
+              "offset": 432
+            },
+            "end": {
+              "line": 17,
+              "col": 29,
+              "offset": 525
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')\n    .replaceAll('<', '&lt;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/release/generate-sbom.mjs",
+            "start": {
+              "line": 14,
+              "col": 10,
+              "offset": 432
+            },
+            "end": {
+              "line": 18,
+              "col": 31,
+              "offset": 556
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')\n    .replaceAll('<', '&lt;')\n    .replaceAll('>', '&gt;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+            "path": "scripts/release/generate-sbom.mjs",
+            "start": {
+              "line": 14,
+              "col": 10,
+              "offset": 432
+            },
+            "end": {
+              "line": 19,
+              "col": 31,
+              "offset": 587
+            },
+            "extra": {
+              "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')\n    .replaceAll('<', '&lt;')\n    .replaceAll('>', '&gt;')\n    .replaceAll('\"', '&quot;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
+              "metadata": {
+                "category": "security",
+                "technology": [
+                  "javascript",
+                  "typescript"
+                ],
+                "owasp": [
+                  "A07:2017 - Cross-Site Scripting (XSS)",
+                  "A03:2021 - Injection",
+                  "A05:2025 - Injection"
+                ],
+                "cwe": [
+                  "CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+                ],
+                "references": [
+                  "https://www.npmjs.com/package/dompurify",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html"
+                ],
+                "cwe2022-top25": true,
+                "cwe2021-top25": true,
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Cross-Site-Scripting (XSS)"
+                ],
+                "source": "https://semgrep.dev/r/javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
+                "shortlink": "https://sg.run/AzoB"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          }
+        ],
+        "errors": [],
+        "stderr": ""
+      }
+    },
+    "moduleCoverage": {
+      "path": "artifacts/testing/module-coverage.json",
+      "data": {
+        "checkedAt": "2026-04-05T20:27:26.573Z",
+        "mode": "static-coverage-proxy",
+        "sufficient": false,
+        "limitations": [
+          "This snapshot is structural and traceability-backed; it is not line or branch coverage.",
+          "Environment-gated suites and Python runtime coverage remain outside this proxy."
+        ],
+        "summary": {
+          "modules": 4,
+          "modulesWithDirectTests": 4,
+          "modulesWithTraceability": 3
+        },
+        "surfaces": [
+          {
+            "module": "apps/api",
+            "runtimeFiles": 135,
+            "directTestFiles": 26,
+            "traceabilityFlows": 2,
+            "directTests": [
+              "apps/api/tests/analytics.utils.test.ts",
+              "apps/api/tests/auditable.test.ts",
+              "apps/api/tests/auth.test.ts",
+              "apps/api/tests/billing.cache.test.ts",
+              "apps/api/tests/billing.checkout.test.ts",
+              "apps/api/tests/billing.grace-period.test.ts",
+              "apps/api/tests/billing.idempotency.test.ts",
+              "apps/api/tests/billing.ip-ban.test.ts",
+              "apps/api/tests/billing.paywall.test.ts",
+              "apps/api/tests/billing.proration-credit.test.ts",
+              "apps/api/tests/billing.snapshot.test.ts",
+              "apps/api/tests/billing.webhook-audit.test.ts",
+              "apps/api/tests/billing.webhook-delegation.test.ts",
+              "apps/api/tests/billing.webhook.test.ts",
+              "apps/api/tests/external-url.test.ts",
+              "apps/api/tests/health.smoke.test.ts",
+              "apps/api/tests/installed-agents-helpers.test.ts",
+              "apps/api/tests/marketplace-budget.smoke.test.ts",
+              "apps/api/tests/metrics.service.test.ts",
+              "apps/api/tests/queue-backpressure.test.ts",
+              "apps/api/tests/rbac.test.ts",
+              "apps/api/tests/security.test.ts",
+              "apps/api/tests/tenant-auth-hardening.test.ts",
+              "apps/api/tests/test-config.ts",
+              "apps/api/tests/webhooks.security.test.ts",
+              "tests/e2e/critical-routes.spec.ts"
+            ],
+            "gaps": [
+              "apps/api/src/app/auth-and-core-routes.ts",
+              "apps/api/src/app/auth-routes.ts",
+              "apps/api/src/app/core-business-routes.ts",
+              "apps/api/src/app/core.ts",
+              "apps/api/src/app/module-routes.ts",
+              "apps/api/src/audit/buffer.ts",
+              "apps/api/src/common/cache/cache-store.ts",
+              "apps/api/src/common/cache/http-cache.ts",
+              "apps/api/src/common/cache/index.ts",
+              "apps/api/src/common/cache/prisma-cache-invalidation.ts"
+            ]
+          },
+          {
+            "module": "apps/web",
+            "runtimeFiles": 75,
+            "directTestFiles": 6,
+            "traceabilityFlows": 2,
+            "directTests": [
+              "apps/web/tests/auth-session-route.test.ts",
+              "apps/web/tests/bff-allowlist.test.ts",
+              "apps/web/tests/health.required-dependency.test.ts",
+              "apps/web/tests/login.smoke.test.ts",
+              "tests/e2e/critical-routes.spec.ts",
+              "tests/e2e/billing-premium.spec.ts"
+            ],
+            "gaps": [
+              "apps/web/app/(dashboard)/agents/[id]/page.tsx",
+              "apps/web/app/(dashboard)/agents/[id]/policies/page.tsx",
+              "apps/web/app/(dashboard)/agents/[id]/run/page.tsx",
+              "apps/web/app/(dashboard)/agents/page.tsx",
+              "apps/web/app/(dashboard)/billing/budgets/page.tsx",
+              "apps/web/app/(dashboard)/billing/page.tsx",
+              "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
+              "apps/web/app/(dashboard)/layout.tsx",
+              "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
+              "apps/web/app/(dashboard)/marketplace/page.tsx",
+              "apps/web/app/(dashboard)/outputs/page.tsx",
+              "apps/web/app/(dashboard)/packs/page.tsx"
+            ]
+          },
+          {
+            "module": "apps/worker",
+            "runtimeFiles": 70,
+            "directTestFiles": 22,
+            "traceabilityFlows": 3,
+            "directTests": [
+              "apps/worker/src/agents/runtime.db-integration.test.ts",
+              "apps/worker/src/agents/runtime.shared.test.ts",
+              "apps/worker/src/engine/runner.agent.smoke.test.ts",
+              "apps/worker/src/engine/runner.cancel.test.ts",
+              "apps/worker/src/engine/runner.db-integration.test.ts",
+              "apps/worker/src/engine/runner.http.msw.test.ts",
+              "apps/worker/src/engine/runner.transitions.test.ts",
+              "apps/worker/src/engine/runner.workflow-chain.test.ts",
+              "apps/worker/src/job-security.test.ts",
+              "apps/worker/src/jobs/billingExport.test.ts",
+              "apps/worker/src/jobs/healthScore.test.ts",
+              "apps/worker/src/load/parallelLoad.test.ts",
+              "apps/worker/src/planExecutor.test.ts",
+              "apps/worker/src/runtime.integration.test.ts",
+              "apps/worker/src/worker.job-validation.test.ts",
+              "apps/worker/src/worker.test.ts",
+              "apps/worker/test/outbound.webhooks.test.ts",
+              "apps/worker/test/queue.isolation.test.ts",
+              "apps/worker/test/readiness.required-dependency.test.ts",
+              "apps/worker/test/userCleanup.test.ts",
+              "tests/e2e/workflow-editor-evidence.spec.ts",
+              "tests/e2e/workflow-agent-output.spec.ts"
+            ],
+            "gaps": [
+              "apps/worker/src/agents/conversations.ts",
+              "apps/worker/src/agents/handoffs.ts",
+              "apps/worker/src/agents/runtime.artifacts.ts",
+              "apps/worker/src/agents/runtime.budget.ts",
+              "apps/worker/src/agents/runtime.catalog.ts",
+              "apps/worker/src/agents/runtime.db-integration.harness.ts",
+              "apps/worker/src/agents/runtime.errors.ts",
+              "apps/worker/src/agents/runtime.memory.ts",
+              "apps/worker/src/agents/runtime.orchestration.ts",
+              "apps/worker/src/agents/runtime.resolution.ts"
+            ]
+          },
+          {
+            "module": "packages/database",
+            "runtimeFiles": 13,
+            "directTestFiles": 4,
+            "traceabilityFlows": 0,
+            "directTests": [
+              "packages/database/test/base.repo.test.ts",
+              "packages/database/test/database-availability.ts",
+              "packages/database/test/migration.test.ts",
+              "packages/database/test/rls.test.ts"
+            ],
+            "gaps": [
+              "packages/database/src/client.ts",
+              "packages/database/src/errors/cross-tenant-access.error.ts",
+              "packages/database/src/errors/exceeded-quota.error.ts",
+              "packages/database/src/errors/prisma-query-timeout.error.ts",
+              "packages/database/src/errors/tenant-required.error.ts",
+              "packages/database/src/index.ts",
+              "packages/database/src/query-budget.ts",
+              "packages/database/src/repositories/access-control.ts",
+              "packages/database/src/repositories/engagement.ts",
+              "packages/database/src/repositories/index.ts",
+              "packages/database/src/repositories/user-repository.ts"
+            ]
+          }
+        ]
+      }
+    },
+    "bundleBaseline": {
+      "path": "artifacts/performance/web-bundle-head.json",
+      "data": {
+        "checkedAt": "2026-04-05T20:27:26.632Z",
+        "status": "fresh",
+        "sufficient": true,
+        "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
+        "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
+        "stderr": "",
+        "baseline": {
+          "generatedAt": "2026-04-05T20:27:26.620Z",
+          "nextBuildDir": "apps/web/.next",
+          "chunks": {
+            "files": 44,
+            "totalBytes": 2318662,
+            "totalKiB": 2264.32,
+            "top10": [
+              {
+                "file": "apps/web/.next/static/chunks/0juvkggxd51sz.js",
+                "bytes": 514549
+              },
+              {
+                "file": "apps/web/.next/static/chunks/1491hd.k7-gyh.js",
+                "bytes": 341830
+              },
+              {
+                "file": "apps/web/.next/static/chunks/0~otl2ac6088e.js",
+                "bytes": 283202
+              },
+              {
+                "file": "apps/web/.next/static/chunks/0wqu_f0fj5ka7.js",
+                "bytes": 232345
+              },
+              {
+                "file": "apps/web/.next/static/chunks/0m5gear2kenii.js",
+                "bytes": 231026
+              },
+              {
+                "file": "apps/web/.next/static/chunks/14djqq0ow71a2.js",
+                "bytes": 139409
+              },
+              {
+                "file": "apps/web/.next/static/chunks/0w7aknc.w_blt.js",
+                "bytes": 122968
+              },
+              {
+                "file": "apps/web/.next/static/chunks/03~yq9q893hmn.js",
+                "bytes": 112594
+              },
+              {
+                "file": "apps/web/.next/static/chunks/0ipvu-jqklq7o.js",
+                "bytes": 52141
+              },
+              {
+                "file": "apps/web/.next/static/chunks/0eqai92zx~ez-.js",
+                "bytes": 44841
+              }
+            ]
+          },
+          "pages": [
+            {
+              "page": "/_app",
+              "assetsCount": 0,
+              "assets": []
+            }
+          ]
+        }
+      }
+    },
+    "accessibility": {
+      "path": "artifacts/accessibility/axe-report.json",
+      "data": {
+        "checkedAt": "2026-04-05T20:27:29.147Z",
+        "mode": "browser-dom-smoke",
+        "requestedTool": "playwright",
+        "sufficient": true,
+        "browserPath": "C:\\Users\\Marks\\AppData\\Local\\ms-playwright\\chromium-1208\\chrome-win64\\chrome.exe",
+        "baseUrl": "http://127.0.0.1:3001",
+        "reusedExistingServer": true,
+        "routes": [
+          "/",
+          "/pricing",
+          "/legal/terms",
+          "/legal/privacy"
+        ],
+        "summary": {
+          "routesScanned": 4,
+          "findings": 0
+        },
+        "routeSummaries": [
+          {
+            "route": "/",
+            "title": "BirthHub 360",
+            "unlabeledControls": 0,
+            "imagesWithoutAlt": 0,
+            "tablesWithoutCaption": 0
+          },
+          {
+            "route": "/pricing",
+            "title": "BirthHub 360",
+            "unlabeledControls": 0,
+            "imagesWithoutAlt": 0,
+            "tablesWithoutCaption": 0
+          },
+          {
+            "route": "/legal/terms",
+            "title": "BirthHub 360",
+            "unlabeledControls": 0,
+            "imagesWithoutAlt": 0,
+            "tablesWithoutCaption": 0
+          },
+          {
+            "route": "/legal/privacy",
+            "title": "BirthHub 360",
+            "unlabeledControls": 0,
+            "imagesWithoutAlt": 0,
+            "tablesWithoutCaption": 0
+          }
+        ],
+        "findings": [],
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "disasterRecovery": {
+      "path": "artifacts/dr/latest-drill.json",
+      "data": {
+        "checkedAt": "2026-04-05T20:27:29.148Z",
+        "status": "missing-drill-record",
+        "sufficient": false,
+        "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
+        "runbook": "docs/runbooks/disaster-recovery.md",
+        "script": "scripts/ops/record-disaster-recovery-drill.ts",
+        "relatedRollbackEvidence": {
+          "checkedAt": "2026-03-24T14:37:26.498Z",
+          "evidence": "JIRA-REL-2026-031-rollback-drill",
+          "ok": true,
+          "target": "production"
+        }
+      }
+    },
+    "rlsProof": {
+      "path": "artifacts/tenancy/rls-proof-head.json",
+      "data": {
+        "checkedAt": "2026-04-05T20:27:30.656Z",
+        "adminDatabaseUrlConfigured": true,
+        "roleProvisioning": {
+          "checkedAt": "2026-04-05T20:27:30.074Z",
+          "command": "node --import tsx packages/database/scripts/provision-rls-runtime-role.ts",
+          "databaseName": "birthub_cycle1",
+          "exitCode": 0,
+          "roleExisted": true,
+          "roleName": "api_worker",
+          "runtimeDatabaseUrlRedacted": "postgresql://api_worker:********@127.0.0.1:5432/birthub_cycle1?schema=public&pgbouncer=true&connection_limit=10",
+          "runtimeRole": {
+            "currentUser": "api_worker",
+            "bypass": false,
+            "canLogin": true
+          },
+          "schemaName": "public",
+          "status": "ready",
+          "stderr": null,
+          "stdout": null
+        },
+        "tenancyControl": {
+          "command": "node --import tsx packages/database/scripts/check-tenancy-controls.ts",
+          "exitCode": 0,
+          "stdout": "[2026-04-05 17:27:29.464 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
+          "stderr": ""
+        },
+        "runtimeProof": {
+          "command": "node --import tsx --test packages/database/test/rls.test.ts",
+          "exitCode": 0,
+          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (94.3734ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 511.4078",
+          "stderr": "",
+          "runtimeDatabaseUrlConfigured": true,
+          "status": "passed"
+        },
+        "sufficient": true
+      }
+    }
   },
   "supportingReferences": {
     "canonicalScope": {

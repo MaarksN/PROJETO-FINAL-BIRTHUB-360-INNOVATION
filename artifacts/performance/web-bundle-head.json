@@ -1,12 +1,66 @@
 {
-  "checkedAt": "2026-04-05T15:04:25.236Z",
-  "status": "build-missing",
-  "sufficient": false,
-  "reason": "apps/web/.next/build-manifest.json was not found on the current runner.",
-  "historicalBaseline": {
-    "generatedAt": "2026-03-23T02:41:31.058Z",
-    "totalKiB": 2240.08,
-    "files": 44
-  },
-  "requiredAction": "Run the web build on the runner before the next sovereign audit."
+  "checkedAt": "2026-04-05T20:27:26.632Z",
+  "status": "fresh",
+  "sufficient": true,
+  "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
+  "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
+  "stderr": "",
+  "baseline": {
+    "generatedAt": "2026-04-05T20:27:26.620Z",
+    "nextBuildDir": "apps/web/.next",
+    "chunks": {
+      "files": 44,
+      "totalBytes": 2318662,
+      "totalKiB": 2264.32,
+      "top10": [
+        {
+          "file": "apps/web/.next/static/chunks/0juvkggxd51sz.js",
+          "bytes": 514549
+        },
+        {
+          "file": "apps/web/.next/static/chunks/1491hd.k7-gyh.js",
+          "bytes": 341830
+        },
+        {
+          "file": "apps/web/.next/static/chunks/0~otl2ac6088e.js",
+          "bytes": 283202
+        },
+        {
+          "file": "apps/web/.next/static/chunks/0wqu_f0fj5ka7.js",
+          "bytes": 232345
+        },
+        {
+          "file": "apps/web/.next/static/chunks/0m5gear2kenii.js",
+          "bytes": 231026
+        },
+        {
+          "file": "apps/web/.next/static/chunks/14djqq0ow71a2.js",
+          "bytes": 139409
+        },
+        {
+          "file": "apps/web/.next/static/chunks/0w7aknc.w_blt.js",
+          "bytes": 122968
+        },
+        {
+          "file": "apps/web/.next/static/chunks/03~yq9q893hmn.js",
+          "bytes": 112594
+        },
+        {
+          "file": "apps/web/.next/static/chunks/0ipvu-jqklq7o.js",
+          "bytes": 52141
+        },
+        {
+          "file": "apps/web/.next/static/chunks/0eqai92zx~ez-.js",
+          "bytes": 44841
+        }
+      ]
+    },
+    "pages": [
+      {
+        "page": "/_app",
+        "assetsCount": 0,
+        "assets": []
+      }
+    ]
+  }
 }

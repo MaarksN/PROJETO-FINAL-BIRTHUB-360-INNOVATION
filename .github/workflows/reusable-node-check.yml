@@ -56,4 +56,38 @@ jobs:
           sha256sum packages/database/prisma/schema.prisma || true
 
       - name: Run command
-        run: ${{ inputs.command }}
+        env:
+          WORKFLOW_COMMAND: ${{ inputs.command }}
+        run: |
+          case "$WORKFLOW_COMMAND" in
+            "pnpm branch:check")
+              pnpm branch:check
+              ;;
+            "pnpm ci:commitlint")
+              pnpm ci:commitlint
+              ;;
+            "pnpm security:inline-credentials")
+              pnpm security:inline-credentials
+              ;;
+            "pnpm docs:check-links")
+              pnpm docs:check-links
+              ;;
+            "pnpm hygiene:check")
+              pnpm hygiene:check
+              ;;
+            "pnpm ci:task pack-tests")
+              pnpm ci:task pack-tests
+              ;;
+            "pnpm monorepo:doctor && RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard && pnpm audit:ownership")
+              pnpm monorepo:doctor
+              RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard
+              pnpm audit:ownership
+              ;;
+            "pnpm test:e2e:release")
+              pnpm test:e2e:release
+              ;;
+            *)
+              echo "Unsupported workflow command: $WORKFLOW_COMMAND" >&2
+              exit 1
+              ;;
+          esac
