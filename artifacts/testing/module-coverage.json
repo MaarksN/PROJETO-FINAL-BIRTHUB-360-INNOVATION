@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-05T20:51:01.638Z",
+  "checkedAt": "2026-04-05T20:52:47.640Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -15,11 +15,13 @@
     {
       "module": "apps/api",
       "runtimeFiles": 135,
-      "directTestFiles": 26,
+      "directTestFiles": 31,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
         "apps/api/tests/auditable.test.ts",
+        "apps/api/tests/auth-and-core-routes.test.ts",
+        "apps/api/tests/auth-routes.test.ts",
         "apps/api/tests/auth.test.ts",
         "apps/api/tests/billing.cache.test.ts",
         "apps/api/tests/billing.checkout.test.ts",
@@ -32,6 +34,8 @@
         "apps/api/tests/billing.webhook-audit.test.ts",
         "apps/api/tests/billing.webhook-delegation.test.ts",
         "apps/api/tests/billing.webhook.test.ts",
+        "apps/api/tests/cache-store.test.ts",
+        "apps/api/tests/core-business-routes.test.ts",
         "apps/api/tests/external-url.test.ts",
         "apps/api/tests/health.smoke.test.ts",
         "apps/api/tests/installed-agents-helpers.test.ts",
@@ -39,6 +43,7 @@
         "apps/api/tests/metrics.service.test.ts",
         "apps/api/tests/queue-backpressure.test.ts",
         "apps/api/tests/rbac.test.ts",
+        "apps/api/tests/redis.test.ts",
         "apps/api/tests/security.test.ts",
         "apps/api/tests/tenant-auth-hardening.test.ts",
         "apps/api/tests/test-config.ts",
@@ -46,13 +51,8 @@
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": [
-        "apps/api/src/app/auth-and-core-routes.ts",
-        "apps/api/src/app/auth-routes.ts",
-        "apps/api/src/app/core-business-routes.ts",
-        "apps/api/src/app/core.ts",
         "apps/api/src/app/module-routes.ts",
         "apps/api/src/audit/buffer.ts",
-        "apps/api/src/common/cache/cache-store.ts",
         "apps/api/src/common/cache/http-cache.ts",
         "apps/api/src/common/cache/index.ts",
         "apps/api/src/common/cache/prisma-cache-invalidation.ts"
@@ -131,22 +131,22 @@
     {
       "module": "packages/database",
       "runtimeFiles": 13,
-      "directTestFiles": 4,
+      "directTestFiles": 6,
       "traceabilityFlows": 0,
       "directTests": [
         "packages/database/test/base.repo.test.ts",
+        "packages/database/test/client.test.ts",
         "packages/database/test/database-availability.ts",
         "packages/database/test/migration.test.ts",
+        "packages/database/test/query-budget.test.ts",
         "packages/database/test/rls.test.ts"
       ],
       "gaps": [
-        "packages/database/src/client.ts",
         "packages/database/src/errors/cross-tenant-access.error.ts",
         "packages/database/src/errors/exceeded-quota.error.ts",
         "packages/database/src/errors/prisma-query-timeout.error.ts",
         "packages/database/src/errors/tenant-required.error.ts",
         "packages/database/src/index.ts",
-        "packages/database/src/query-budget.ts",
         "packages/database/src/repositories/access-control.ts",
         "packages/database/src/repositories/engagement.ts",
         "packages/database/src/repositories/index.ts",

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-05T20:51:01.625Z",
+  "checkedAt": "2026-04-05T20:52:47.626Z",
   "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
   "exitCode": 0,
   "status": "fresh",
@@ -349,14 +349,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 293,
+        "line": 306,
         "col": 10,
-        "offset": 8778
+        "offset": 9178
       },
       "end": {
-        "line": 294,
+        "line": 307,
         "col": 30,
-        "offset": 8821
+        "offset": 9221
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -404,14 +404,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 293,
+        "line": 306,
         "col": 10,
-        "offset": 8778
+        "offset": 9178
       },
       "end": {
-        "line": 295,
+        "line": 308,
         "col": 29,
-        "offset": 8850
+        "offset": 9250
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -459,14 +459,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 293,
+        "line": 306,
         "col": 10,
-        "offset": 8778
+        "offset": 9178
       },
       "end": {
-        "line": 296,
+        "line": 309,
         "col": 29,
-        "offset": 8879
+        "offset": 9279
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -514,14 +514,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 293,
+        "line": 306,
         "col": 10,
-        "offset": 8778
+        "offset": 9178
       },
       "end": {
-        "line": 297,
+        "line": 310,
         "col": 31,
-        "offset": 8910
+        "offset": 9310
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")\n    .replaceAll(\">\", \"&gt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
