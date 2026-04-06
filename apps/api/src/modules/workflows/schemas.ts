@@ -23,6 +23,7 @@ export const workflowUpdateSchema = workflowCreateSchema.partial().strict();
 export const workflowRunSchema = z
   .object({
     async: z.boolean().default(true),
+    dryRun: z.boolean().default(false),
     payload: z.record(z.string(), z.unknown()).default({})
   })
   .strict();

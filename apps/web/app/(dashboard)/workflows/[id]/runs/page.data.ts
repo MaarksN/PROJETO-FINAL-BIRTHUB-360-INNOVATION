@@ -9,6 +9,7 @@ export type WorkflowExecutionSnapshot = {
   durationMs: number | null;
   errorMessage: string | null;
   id: string;
+  isDryRun?: boolean;
   startedAt: string;
   status: "CANCELLED" | "FAILED" | "RUNNING" | "SUCCESS" | "WAITING";
   stepResults: Array<{

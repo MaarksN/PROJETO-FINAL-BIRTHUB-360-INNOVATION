@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/42ff8d07-2f0a-4166-7011-7f8711dfcdea",
+  "documentNamespace": "https://birthub.local/spdx/570477d4-0578-f11b-4cc2-d9057449c563",
   "creationInfo": {
-    "created": "2026-04-02T12:25:38.123Z",
+    "created": "2026-04-06T15:38:16.833Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -30,9 +30,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-67c5212fe3863b8b",
+      "SPDXID": "SPDXRef-Package-be5829c1c2971067",
       "name": "@asteasolutions/zod-to-openapi",
-      "versionInfo": "7.3.4",
+      "versionInfo": "8.5.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -40,7 +40,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40asteasolutions%2Fzod-to-openapi@7.3.4"
+          "referenceLocator": "pkg:npm/%40asteasolutions%2Fzod-to-openapi@8.5.0"
         }
       ]
     },
@@ -540,9 +540,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-1958a4cc3004504e",
+      "SPDXID": "SPDXRef-Package-897fe745bdd360c0",
       "name": "@types/node",
-      "versionInfo": "25.5.0",
+      "versionInfo": "25.5.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -550,7 +550,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40types%2Fnode@25.5.0"
+          "referenceLocator": "pkg:npm/%40types%2Fnode@25.5.2"
         }
       ]
     },
@@ -675,9 +675,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-4a4fd21f7d2ec66e",
+      "SPDXID": "SPDXRef-Package-c02639ab3a601d47",
       "name": "bullmq",
-      "versionInfo": "5.71.0",
+      "versionInfo": "5.73.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -685,7 +685,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/bullmq@5.71.0"
+          "referenceLocator": "pkg:npm/bullmq@5.73.0"
         }
       ]
     },
@@ -765,9 +765,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-2ce679b0205a9a4f",
+      "SPDXID": "SPDXRef-Package-cb91601b36b6df74",
       "name": "express-rate-limit",
-      "versionInfo": "8.3.1",
+      "versionInfo": "8.3.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -775,7 +775,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/express-rate-limit@8.3.1"
+          "referenceLocator": "pkg:npm/express-rate-limit@8.3.2"
         }
       ]
     },
@@ -840,9 +840,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-969b179eb86e8170",
+      "SPDXID": "SPDXRef-Package-8476c82125018969",
       "name": "isomorphic-dompurify",
-      "versionInfo": "3.6.0",
+      "versionInfo": "3.7.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -850,7 +850,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/isomorphic-dompurify@3.6.0"
+          "referenceLocator": "pkg:npm/isomorphic-dompurify@3.7.1"
         }
       ]
     },
@@ -1125,9 +1125,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-7d29221270b534d5",
+      "SPDXID": "SPDXRef-Package-25e5309cfb9caeb9",
       "name": "react-hook-form",
-      "versionInfo": "7.72.0",
+      "versionInfo": "7.72.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1135,7 +1135,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/react-hook-form@7.72.0"
+          "referenceLocator": "pkg:npm/react-hook-form@7.72.1"
         }
       ]
     },
@@ -1335,9 +1335,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-17821c75715700c7",
+      "SPDXID": "SPDXRef-Package-c6d213c18200cd6d",
       "name": "typescript-eslint",
-      "versionInfo": "8.57.0",
+      "versionInfo": "8.58.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1345,7 +1345,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/typescript-eslint@8.57.0"
+          "referenceLocator": "pkg:npm/typescript-eslint@8.58.0"
         }
       ]
     },
@@ -1380,9 +1380,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-d119499813526717",
+      "SPDXID": "SPDXRef-Package-1c630e513f55c991",
       "name": "zustand",
-      "versionInfo": "5.0.11",
+      "versionInfo": "5.0.12",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1390,7 +1390,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/zustand@5.0.11"
+          "referenceLocator": "pkg:npm/zustand@5.0.12"
         }
       ]
     }

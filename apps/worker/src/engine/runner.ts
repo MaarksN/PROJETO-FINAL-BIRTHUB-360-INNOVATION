@@ -23,6 +23,7 @@ import {
 export interface WorkflowExecutionJobPayload {
   attempt: number;
   executionId: string;
+  isDryRun?: boolean | undefined;
   organizationId: string;
   stepKey: string;
   tenantId: string;
@@ -32,6 +33,7 @@ export interface WorkflowExecutionJobPayload {
 }
 
 export interface WorkflowTriggerJobPayload {
+  isDryRun?: boolean | undefined;
   organizationId: string;
   tenantId: string;
   triggerPayload: Record<string, unknown>;
@@ -82,6 +84,7 @@ export class WorkflowRunner {
 
     const execution = await prisma.workflowExecution.create({
       data: {
+        isDryRun: payload.isDryRun ?? false,
         organizationId: payload.organizationId,
         status: WorkflowExecutionStatus.RUNNING,
         tenantId: payload.tenantId,
@@ -117,6 +120,7 @@ export class WorkflowRunner {
       {
         attempt: 1,
         executionId: execution.id,
+        isDryRun: payload.isDryRun,
         organizationId: payload.organizationId,
         stepKey: triggerStep.key,
         tenantId: payload.tenantId,

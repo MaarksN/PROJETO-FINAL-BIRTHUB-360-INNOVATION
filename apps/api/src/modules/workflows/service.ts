@@ -438,6 +438,7 @@ export async function runWorkflowNow(
 
   const execution = await prisma.workflowExecution.create({
     data: {
+      isDryRun: input.dryRun,
       organizationId: workflow.organizationId,
       status: WorkflowExecutionStatus.RUNNING,
       tenantId: workflow.tenantId,
@@ -451,6 +452,7 @@ export async function runWorkflowNow(
     await enqueueWorkflowExecution(config, {
       attempt: 1,
       executionId: execution.id,
+      isDryRun: input.dryRun,
       organizationId: workflow.organizationId,
       stepKey: triggerStep.key,
       tenantId: workflow.tenantId,
@@ -460,6 +462,7 @@ export async function runWorkflowNow(
     });
   } else {
     await enqueueWorkflowTrigger(config, {
+      isDryRun: input.dryRun,
       organizationId: workflow.organizationId,
       tenantId: workflow.tenantId,
       triggerPayload: input.payload,
