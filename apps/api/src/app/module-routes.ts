@@ -23,30 +23,82 @@ import { createUsersRouter } from "../modules/users/router.js";
 import { createWebhooksRouter } from "../modules/webhooks/index.js";
 import { createWorkflowsRouter } from "../modules/workflows/index.js";
 
-export function mountModuleRouters(app: Express, config: ApiConfig): void {
-  const marketplaceRouter = createMarketplaceRouter();
-  const installedAgentsRouter = createInstalledAgentsRouter();
+type ModuleRouterDependencies = {
+  createAdminRouter: typeof createAdminRouter;
+  createAnalyticsRouter: typeof createAnalyticsRouter;
+  createApiKeysRouter: typeof createApiKeysRouter;
+  createAuthRouter: typeof createAuthRouter;
+  createBillingRouter: typeof createBillingRouter;
+  createBudgetRouter: typeof createBudgetRouter;
+  createConnectorsRouter: typeof createConnectorsRouter;
+  createDashboardRouter: typeof createDashboardRouter;
+  createFeedbackRouter: typeof createFeedbackRouter;
+  createInstalledAgentsRouter: typeof createInstalledAgentsRouter;
+  createInvitesRouter: typeof createInvitesRouter;
+  createMarketplaceRouter: typeof createMarketplaceRouter;
+  createNotificationsRouter: typeof createNotificationsRouter;
+  createOrganizationsRouter: typeof createOrganizationsRouter;
+  createOutputRouter: typeof createOutputRouter;
+  createPackInstallerRouter: typeof createPackInstallerRouter;
+  createPrivacyRouter: typeof createPrivacyRouter;
+  createSessionsRouter: typeof createSessionsRouter;
+  createUsersRouter: typeof createUsersRouter;
+  createWebhooksRouter: typeof createWebhooksRouter;
+  createWorkflowsRouter: typeof createWorkflowsRouter;
+};
 
-  app.use(createAdminRouter(config));
-  app.use("/api/v1/auth", createAuthRouter(config));
-  app.use("/api/v1", createSessionsRouter(config));
-  app.use("/api/v1/apikeys", createApiKeysRouter(config));
+const defaultDependencies: ModuleRouterDependencies = {
+  createAdminRouter,
+  createAnalyticsRouter,
+  createApiKeysRouter,
+  createAuthRouter,
+  createBillingRouter,
+  createBudgetRouter,
+  createConnectorsRouter,
+  createDashboardRouter,
+  createFeedbackRouter,
+  createInstalledAgentsRouter,
+  createInvitesRouter,
+  createMarketplaceRouter,
+  createNotificationsRouter,
+  createOrganizationsRouter,
+  createOutputRouter,
+  createPackInstallerRouter,
+  createPrivacyRouter,
+  createSessionsRouter,
+  createUsersRouter,
+  createWebhooksRouter,
+  createWorkflowsRouter
+};
+
+export function mountModuleRouters(
+  app: Express,
+  config: ApiConfig,
+  dependencies: ModuleRouterDependencies = defaultDependencies
+): void {
+  const marketplaceRouter = dependencies.createMarketplaceRouter();
+  const installedAgentsRouter = dependencies.createInstalledAgentsRouter();
+
+  app.use(dependencies.createAdminRouter(config));
+  app.use("/api/v1/auth", dependencies.createAuthRouter(config));
+  app.use("/api/v1", dependencies.createSessionsRouter(config));
+  app.use("/api/v1/apikeys", dependencies.createApiKeysRouter(config));
   app.use("/api/v1/agents", installedAgentsRouter);
   app.use("/api/v1/agents", marketplaceRouter);
-  app.use("/api/v1/analytics", createAnalyticsRouter());
-  app.use(createDashboardRouter());
-  app.use("/api/v1/connectors", createConnectorsRouter(config));
+  app.use("/api/v1/analytics", dependencies.createAnalyticsRouter());
+  app.use(dependencies.createDashboardRouter());
+  app.use("/api/v1/connectors", dependencies.createConnectorsRouter(config));
   app.use("/api/v1/marketplace", marketplaceRouter);
-  app.use("/api/v1/billing", createBillingRouter(config));
-  app.use("/api/v1/budgets", createBudgetRouter());
-  app.use("/api/v1", createFeedbackRouter());
-  app.use("/api/v1", createInvitesRouter());
-  app.use("/api/v1", createNotificationsRouter());
-  app.use("/api/v1", createOrganizationsRouter());
-  app.use("/api/v1/packs", createPackInstallerRouter());
-  app.use("/api/v1/outputs", createOutputRouter());
-  app.use("/api/v1/privacy", createPrivacyRouter(config));
-  app.use("/api/v1", createUsersRouter());
-  app.use(createWorkflowsRouter(config));
-  app.use(createWebhooksRouter(config));
+  app.use("/api/v1/billing", dependencies.createBillingRouter(config));
+  app.use("/api/v1/budgets", dependencies.createBudgetRouter());
+  app.use("/api/v1", dependencies.createFeedbackRouter());
+  app.use("/api/v1", dependencies.createInvitesRouter());
+  app.use("/api/v1", dependencies.createNotificationsRouter());
+  app.use("/api/v1", dependencies.createOrganizationsRouter());
+  app.use("/api/v1/packs", dependencies.createPackInstallerRouter());
+  app.use("/api/v1/outputs", dependencies.createOutputRouter());
+  app.use("/api/v1/privacy", dependencies.createPrivacyRouter(config));
+  app.use("/api/v1", dependencies.createUsersRouter());
+  app.use(dependencies.createWorkflowsRouter(config));
+  app.use(dependencies.createWebhooksRouter(config));
 }

@@ -1,17 +1,4 @@
-<<<<<<< HEAD
-/* eslint-disable */
 import { getWorkerConfig } from "@birthub/config";
-=======
-import { getWorkerConfig, taskJobSchema } from "@birthub/config";
-import {
-  createNotificationForOrganizationRoles,
-  createNotificationForUser,
-  ExecutionSource,
-  NotificationType,
-  Prisma,
-  prisma
-} from "@birthub/database";
->>>>>>> origin/jules-f8-database-integrity-16939282469267761297
 import { createLogger } from "@birthub/logger";
 import { incrementCounter, observeHistogram } from "@birthub/logger";
 import { Queue, Worker, type JobsOptions } from "bullmq";
@@ -52,6 +39,7 @@ export { validateLegacyTaskJob } from "./worker.job-validation.js";
 
 const logger = createLogger("worker");
 const crmSyncQueueName = "engagement.crm-sync";
+const WORKER_REDIS_TIMEOUT_MS = 10_000;
 
 export interface WorkerRuntime {
   close: () => Promise<void>;
@@ -122,6 +110,8 @@ function buildRetryableJobOptions(input: {
 export function createBirthHubWorker(): WorkerRuntime {
   const config = getWorkerConfig();
   const connection = new Redis(config.REDIS_URL, {
+    commandTimeout: WORKER_REDIS_TIMEOUT_MS,
+    connectTimeout: WORKER_REDIS_TIMEOUT_MS,
     maxRetriesPerRequest: null
   });
   const workerFactory = new WorkerFactory(connection);

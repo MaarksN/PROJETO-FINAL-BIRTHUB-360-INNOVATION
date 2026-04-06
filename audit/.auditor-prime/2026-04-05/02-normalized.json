@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T01:17:52.862Z",
+    "generatedAt": "2026-04-06T01:43:34.512Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "efa044649c6ca91f14a2820d1cb5d33d13837fba",
+    "headSha": "85ff0b054624644b4b770febde252a90652d7d34",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -17,10 +17,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6122,
-      "coreTrackedFiles": 450,
+      "trackedFiles": 6125,
+      "coreTrackedFiles": 452,
       "runtimeFiles": 1806,
-      "testFiles": 147,
+      "testFiles": 150,
       "modules": 295
     },
     "capabilities": {
@@ -1242,7 +1242,8 @@
           "packages/agents-core/docs/interfaces/SlackMessageInput.html",
           "packages/agents-core/docs/interfaces/SlackMessageResult.html",
           "packages/agents-core/docs/types/SlackMode.html",
-          "packages/agents-core/src/tools/slack.tool.ts"
+          "packages/agents-core/src/tools/slack.tool.ts",
+          "packages/agents-core/src/__tests__/slack.tool.test.ts"
         ],
         "i18nFiles": [
           "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
@@ -1292,8 +1293,13 @@
       }
     },
     "git": {
-      "totalCommits": 1116,
+      "totalCommits": 1117,
       "last30Days": [
+        {
+          "sha": "85ff0b054624644b4b770febde252a90652d7d34",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "efa044649c6ca91f14a2820d1cb5d33d13837fba",
           "date": "2026-04-05",
@@ -4001,6 +4007,11 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "85ff0b054624644b4b770febde252a90652d7d34",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "efa044649c6ca91f14a2820d1cb5d33d13837fba",
             "date": "2026-04-05",
             "subject": "1"
@@ -4119,11 +4130,6 @@
             "sha": "0e1a1a1942cdb1e259957a3a1bbf07b24d0d8a2a",
             "date": "2026-03-29",
             "subject": "1"
-          },
-          {
-            "sha": "bdc252e896da608b4d664f66f9b0a342d1a27966",
-            "date": "2026-03-29",
-            "subject": "1"
           }
         ]
       }
@@ -4182,6 +4188,43 @@
             "path": "apps/api/src/app/auth-routes.ts",
             "line": 28,
             "summary": "Complexidade=22; extensão=202 linhas."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "refactor-core"
+        ]
+      },
+      {
+        "dimension": "architecture",
+        "title": "Arquivo grande demais para o boundary atual (473 linhas)",
+        "location": {
+          "path": "apps/api/src/modules/billing/service.checkout.ts",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em apps/api/src/modules/billing/service.checkout.ts um arquivo com 473 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+        "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
+        "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 3,
+          "reverseEffort": 4,
+          "frequency": 4
+        },
+        "vdiScore": 3.35,
+        "effort": "2-5 dias",
+        "severity": "ALTO",
+        "phase": "Fase 2",
+        "confidence": 0.88,
+        "evidenceRefs": [
+          {
+            "path": "apps/api/src/modules/billing/service.checkout.ts",
+            "line": 1,
+            "summary": "473 linhas no arquivo."
           }
         ],
         "inference": false,
@@ -4599,43 +4642,6 @@
       },
       {
         "dimension": "architecture",
-        "title": "Arquivo grande demais para o boundary atual (897 linhas)",
-        "location": {
-          "path": "packages/database/prisma/seed.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em packages/database/prisma/seed.ts um arquivo com 897 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
-        "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
-        "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 1,
-          "reverseEffort": 4,
-          "frequency": 4
-        },
-        "vdiScore": 2.75,
-        "effort": "2-5 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 2",
-        "confidence": 0.88,
-        "evidenceRefs": [
-          {
-            "path": "packages/database/prisma/seed.ts",
-            "line": 1,
-            "summary": "897 linhas no arquivo."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "refactor-core"
-        ]
-      },
-      {
-        "dimension": "architecture",
         "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core",
         "location": {
           "path": "docs/service-catalog.md",
@@ -4827,11 +4833,11 @@
         "location": {
           "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
           "lines": {
-            "start": 55,
-            "end": 55
+            "start": 51,
+            "end": 51
           }
         },
-        "problem": "Identificado em apps/worker/src/agents/runtime.db-integration.harness.ts:55 acesso direto a process.env em runtime fora de um boundary dedicado de config.",
+        "problem": "Identificado em apps/worker/src/agents/runtime.db-integration.harness.ts:51 acesso direto a process.env em runtime fora de um boundary dedicado de config.",
         "impact": "Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.",
         "recommendation": "Encapsular leituras em surface única de configuração com validação e defaults explícitos.",
         "vdiFactors": {
@@ -4848,7 +4854,7 @@
         "evidenceRefs": [
           {
             "path": "apps/worker/src/agents/runtime.db-integration.harness.ts",
-            "line": 55,
+            "line": 51,
             "summary": "3 leitura(s) direta(s) de env."
           }
         ],
@@ -5193,80 +5199,6 @@
       }
     ],
     "security": [
-      {
-        "dimension": "security",
-        "title": "Chamada externa sem timeout ou abort path explícito",
-        "location": {
-          "path": "apps/worker/src/worker.ts",
-          "lines": {
-            "start": 124,
-            "end": 124
-          }
-        },
-        "problem": "Indício em apps/worker/src/worker.ts:124 de acesso externo sem timeout explícito no arquivo.",
-        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
-        "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 4,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.6,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "apps/worker/src/worker.ts",
-            "line": 124,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "security",
-        "title": "Chamada externa sem timeout ou abort path explícito",
-        "location": {
-          "path": "packages/agents-core/src/tools/slack.tool.ts",
-          "lines": {
-            "start": 34,
-            "end": 34
-          }
-        },
-        "problem": "Indício em packages/agents-core/src/tools/slack.tool.ts:34 de acesso externo sem timeout explícito no arquivo.",
-        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
-        "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 4,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.6,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "packages/agents-core/src/tools/slack.tool.ts",
-            "line": 34,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
       {
         "dimension": "security",
         "title": "Semgrep WARNING em cd.yml",
@@ -5703,6 +5635,80 @@
         "dependencyHints": [
           "baseline-proof"
         ]
+      },
+      {
+        "dimension": "security",
+        "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 7)",
+        "location": {
+          "path": ".github/workflows/security-scan.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+        "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+        "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": ".github/workflows/security-scan.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "security",
+        "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8)",
+        "location": {
+          "path": ".github/workflows/security-scan.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.",
+        "impact": "Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.",
+        "recommendation": "Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": ".github/workflows/security-scan.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
       }
     ],
     "tests_observability": [
@@ -5710,13 +5716,13 @@
         "dimension": "tests_observability",
         "title": "Cobertura estrutural baixa em apps/api",
         "location": {
-          "path": "apps/api/src/app/module-routes.ts",
+          "path": "apps/api/src/audit/buffer.ts",
           "lines": {
             "start": 1,
             "end": 1
           }
         },
-        "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 32 arquivos de teste diretos e 5 gaps principais.",
+        "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 33 arquivos de teste diretos e 4 gaps principais.",
         "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
         "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
         "vdiFactors": {
@@ -5732,14 +5738,14 @@
         "confidence": 0.86,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/app/module-routes.ts",
+            "path": "apps/api/src/audit/buffer.ts",
             "line": 1,
             "summary": "Gap estrutural identificado para apps/api."
           },
           {
             "path": "artifacts/testing/module-coverage.json",
             "line": 1,
-            "summary": "apps/api: 32 testes diretos, 5 gaps."
+            "summary": "apps/api: 33 testes diretos, 4 gaps."
           }
         ],
         "inference": false,
@@ -5753,13 +5759,13 @@
         "dimension": "tests_observability",
         "title": "Cobertura estrutural baixa em packages/database",
         "location": {
-          "path": "packages/database/src/repositories/access-control.ts",
+          "path": "packages/database/src/repositories/engagement.ts",
           "lines": {
             "start": 1,
             "end": 1
           }
         },
-        "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 11 arquivos de teste diretos e 3 gaps principais.",
+        "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 12 arquivos de teste diretos e 2 gaps principais.",
         "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
         "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
         "vdiFactors": {
@@ -5775,14 +5781,14 @@
         "confidence": 0.86,
         "evidenceRefs": [
           {
-            "path": "packages/database/src/repositories/access-control.ts",
+            "path": "packages/database/src/repositories/engagement.ts",
             "line": 1,
             "summary": "Gap estrutural identificado para packages/database."
           },
           {
             "path": "artifacts/testing/module-coverage.json",
             "line": 1,
-            "summary": "packages/database: 11 testes diretos, 3 gaps."
+            "summary": "packages/database: 12 testes diretos, 2 gaps."
           }
         ],
         "inference": false,
@@ -6505,80 +6511,6 @@
       },
       {
         "dimension": "performance",
-        "title": "Integração externa sem deadline operacional explícito",
-        "location": {
-          "path": "apps/worker/src/worker.ts",
-          "lines": {
-            "start": 124,
-            "end": 124
-          }
-        },
-        "problem": "Acesso externo em apps/worker/src/worker.ts:124 não expõe timeout/abort guard no arquivo atual.",
-        "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
-        "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "apps/worker/src/worker.ts",
-            "line": 124,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "performance",
-        "title": "Integração externa sem deadline operacional explícito",
-        "location": {
-          "path": "packages/agents-core/src/tools/slack.tool.ts",
-          "lines": {
-            "start": 34,
-            "end": 34
-          }
-        },
-        "problem": "Acesso externo em packages/agents-core/src/tools/slack.tool.ts:34 não expõe timeout/abort guard no arquivo atual.",
-        "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
-        "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "packages/agents-core/src/tools/slack.tool.ts",
-            "line": 34,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "performance",
         "title": "Bundle web fresco acima de 2 MiB (2264.32 KiB)",
         "location": {
           "path": "artifacts/performance/web-bundle-head.json",
@@ -6611,6 +6543,80 @@
             "path": "apps/web/.next/static/chunks/0juvkggxd51sz.js",
             "line": 1,
             "summary": "Maior chunk atual com 514549 bytes."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "web-performance"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "Página/estado web com complexidade alta (20)",
+        "location": {
+          "path": "apps/web/components/agents/FeedbackWidget.tsx",
+          "lines": {
+            "start": 40,
+            "end": 253
+          }
+        },
+        "problem": "Identificado em apps/web/components/agents/FeedbackWidget.tsx:40 um componente/página com complexidade 20.",
+        "impact": "Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.",
+        "recommendation": "Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 1,
+          "reverseEffort": 3,
+          "frequency": 3
+        },
+        "vdiScore": 2.4,
+        "effort": "1-3 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.89,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/components/agents/FeedbackWidget.tsx",
+            "line": 40,
+            "summary": "Complexidade=20."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "web-performance"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "Página/estado web com complexidade alta (33)",
+        "location": {
+          "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+          "lines": {
+            "start": 35,
+            "end": 419
+          }
+        },
+        "problem": "Identificado em apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35 um componente/página com complexidade 33.",
+        "impact": "Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.",
+        "recommendation": "Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 1,
+          "reverseEffort": 3,
+          "frequency": 3
+        },
+        "vdiScore": 2.4,
+        "effort": "1-3 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.89,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+            "line": 35,
+            "summary": "Complexidade=33."
           }
         ],
         "inference": false,

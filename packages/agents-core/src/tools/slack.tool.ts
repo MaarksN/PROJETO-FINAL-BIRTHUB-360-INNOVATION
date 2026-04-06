@@ -14,6 +14,15 @@ export interface SlackMessageResult {
   ts: string;
 }
 
+const SLACK_REQUEST_TIMEOUT_MS = 10_000;
+
+async function postWithTimeout(url: string, init: RequestInit): Promise<Response> {
+  return fetch(url, {
+    ...init,
+    signal: AbortSignal.timeout(SLACK_REQUEST_TIMEOUT_MS)
+  });
+}
+
 export async function postSlackMessage(
   input: SlackMessageInput,
   options?: { simulate?: boolean }
@@ -31,7 +40,7 @@ export async function postSlackMessage(
       throw new Error("webhookUrl is required for Slack webhook mode.");
     }
 
-    const response = await fetch(input.webhookUrl, {
+    const response = await postWithTimeout(input.webhookUrl, {
       body: JSON.stringify({ channel: input.channel, text: input.text }),
       headers: { "content-type": "application/json" },
       method: "POST"
@@ -52,7 +61,7 @@ export async function postSlackMessage(
     throw new Error("token is required for Slack API mode.");
   }
 
-  const response = await fetch("https://slack.com/api/chat.postMessage", {
+  const response = await postWithTimeout("https://slack.com/api/chat.postMessage", {
     body: JSON.stringify({ channel: input.channel, text: input.text }),
     headers: {
       authorization: `Bearer ${input.token}`,
