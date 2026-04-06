@@ -1,8 +1,9 @@
+/* eslint-disable max-lines */
 "use client";
 
 import "reactflow/dist/style.css";
 
-import { use, useEffect, useMemo, useState, useTransition, useRef, type ReactNode } from "react";
+import { use, useEffect, useMemo, useState, useTransition, type ReactNode } from "react";
 
 import { getWebConfig } from "@birthub/config";
 import { Play, Save, Shuffle, Zap } from "lucide-react";
@@ -403,7 +404,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
     setSaveMessage("Iniciando dry run...");
 
     try {
-      const payload = JSON.parse(simulationPayload);
+      const payload = JSON.parse(simulationPayload) as Record<string, unknown>;
       const res = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}/run`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -414,7 +415,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         throw new Error(`Erro: ${res.status}`);
       }
 
-      const { executionId } = await res.json();
+      const { executionId } = (await res.json()) as { executionId: string };
 
       // Poll para pegar os resultados da execucao
       let attempts = 0;
@@ -430,16 +431,16 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         try {
           const runRes = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}`);
           if (runRes.ok) {
-            const data = await runRes.json();
-            const run = data.workflow.executions.find((e: any) => e.id === executionId);
+            const data = (await runRes.json()) as { workflow: { executions: Array<{ id: string; status: string; stepResults: Array<{ step: { key: string }; status: string }> }> } };
+            const run = data.workflow.executions.find((e) => e.id === executionId);
             if (run && (run.status === "SUCCESS" || run.status === "FAILED")) {
               clearInterval(poll);
               setSimulating(false);
               setSaveMessage(`Dry Run Finalizado: ${run.status}`);
 
               const results: Record<string, "SUCCESS" | "FAILED" | "WAITING"> = {};
-              run.stepResults.forEach((r: any) => {
-                results[r.step.key] = r.status;
+              run.stepResults.forEach((r) => {
+                results[r.step.key] = r.status as "SUCCESS" | "FAILED" | "WAITING";
               });
               setSimulatedResults(results);
             }
