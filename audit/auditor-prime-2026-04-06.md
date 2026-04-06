@@ -10,9 +10,9 @@
 
 - TD-001 | Complexidade acima do limiar em registerAuthRoutes | Dimensão 1 — Saúde Arquitetural | VDI 3.55 | apps/api/src/app/auth-routes.ts:28
 - TD-002 | Arquivo grande demais para o boundary atual (473 linhas) | Dimensão 1 — Saúde Arquitetural | VDI 3.35 | apps/api/src/modules/billing/service.checkout.ts:1
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/auth/auth.service.keys.ts:53
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/auth/auth.service.sessions.ts:38
-- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/auth/auth.service.sessions.ts:356
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/connectors/service.ts:25
+- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/marketplace/marketplace-service.ts:146
+- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/outputs/output.service.ts:90
 
 ### Análise Pendente
 
@@ -483,40 +483,40 @@
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/auth/auth.service.keys.ts:53
-  Problema: Indício em apps/api/src/modules/auth/auth.service.keys.ts:53 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/connectors/service.ts:25
+  Problema: Indício em apps/api/src/modules/connectors/service.ts:25 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/auth/auth.service.sessions.ts:38
-  Problema: Indício em apps/api/src/modules/auth/auth.service.sessions.ts:38 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/marketplace/marketplace-service.ts:146
+  Problema: Indício em apps/api/src/modules/marketplace/marketplace-service.ts:146 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/auth/auth.service.sessions.ts:356
-  Problema: Indício em apps/api/src/modules/auth/auth.service.sessions.ts:356 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/outputs/output.service.ts:90
+  Problema: Indício em apps/api/src/modules/outputs/output.service.ts:90 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-057 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/budget/budget.service.ts:390
-  Problema: Indício em apps/api/src/modules/budget/budget.service.ts:390 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/outputs/output.service.ts:104
+  Problema: Indício em apps/api/src/modules/outputs/output.service.ts:104 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-058 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/connectors/service.ts:23
-  Problema: Indício em apps/api/src/modules/connectors/service.ts:23 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/outputs/output.service.ts:130
+  Problema: Indício em apps/api/src/modules/outputs/output.service.ts:130 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)

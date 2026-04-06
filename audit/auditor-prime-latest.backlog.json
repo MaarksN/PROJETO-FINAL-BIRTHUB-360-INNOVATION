@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-06T03:57:02.026Z",
+  "generatedAt": "2026-04-06T03:58:40.038Z",
   "sourceReport": "audit\\auditor-prime-2026-04-06.json",
   "top15Ids": [
     "TD-001",
@@ -79,7 +79,7 @@
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/auth/auth.service.keys.ts"
+          "path": "apps/api/src/modules/connectors/service.ts"
         },
         {
           "id": "TD-055",
@@ -90,7 +90,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/auth/auth.service.sessions.ts"
+          "path": "apps/api/src/modules/marketplace/marketplace-service.ts"
         },
         {
           "id": "TD-056",
@@ -101,7 +101,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/auth/auth.service.sessions.ts"
+          "path": "apps/api/src/modules/outputs/output.service.ts"
         },
         {
           "id": "TD-057",
@@ -112,7 +112,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/budget/budget.service.ts"
+          "path": "apps/api/src/modules/outputs/output.service.ts"
         },
         {
           "id": "TD-058",
@@ -123,7 +123,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/connectors/service.ts"
+          "path": "apps/api/src/modules/outputs/output.service.ts"
         },
         {
           "id": "TD-003",

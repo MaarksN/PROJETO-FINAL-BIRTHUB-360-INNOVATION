@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T03:57:01.536Z",
+    "generatedAt": "2026-04-06T03:58:39.478Z",
     "reportDate": "2026-04-06",
     "slug": "auditor-prime-2026-04-06",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "2d47d14672953506f0d024207776218e16b95dda",
+    "headSha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -58,10 +58,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/auth/auth.service.keys.ts",
+          "path": "apps/api/src/modules/connectors/service.ts",
           "lines": {
-            "start": 53,
-            "end": 53
+            "start": 25,
+            "end": 25
           }
         }
       },
@@ -72,10 +72,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
+          "path": "apps/api/src/modules/marketplace/marketplace-service.ts",
           "lines": {
-            "start": 38,
-            "end": 38
+            "start": 146,
+            "end": 146
           }
         }
       },
@@ -86,10 +86,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
+          "path": "apps/api/src/modules/outputs/output.service.ts",
           "lines": {
-            "start": 356,
-            "end": 356
+            "start": 90,
+            "end": 90
           }
         }
       }
@@ -2360,13 +2360,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/auth/auth.service.keys.ts",
+        "path": "apps/api/src/modules/connectors/service.ts",
         "lines": {
-          "start": 53,
-          "end": 53
+          "start": 25,
+          "end": 25
         }
       },
-      "problem": "Indício em apps/api/src/modules/auth/auth.service.keys.ts:53 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em apps/api/src/modules/connectors/service.ts:25 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2382,8 +2382,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/auth/auth.service.keys.ts",
-          "line": 53,
+          "path": "apps/api/src/modules/connectors/service.ts",
+          "line": 25,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2400,13 +2400,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
+        "path": "apps/api/src/modules/marketplace/marketplace-service.ts",
         "lines": {
-          "start": 38,
-          "end": 38
+          "start": 146,
+          "end": 146
         }
       },
-      "problem": "Indício em apps/api/src/modules/auth/auth.service.sessions.ts:38 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em apps/api/src/modules/marketplace/marketplace-service.ts:146 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2422,8 +2422,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
-          "line": 38,
+          "path": "apps/api/src/modules/marketplace/marketplace-service.ts",
+          "line": 146,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2442,13 +2442,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
+        "path": "apps/api/src/modules/outputs/output.service.ts",
         "lines": {
-          "start": 356,
-          "end": 356
+          "start": 90,
+          "end": 90
         }
       },
-      "problem": "Indício em apps/api/src/modules/auth/auth.service.sessions.ts:356 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em apps/api/src/modules/outputs/output.service.ts:90 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2464,8 +2464,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
-          "line": 356,
+          "path": "apps/api/src/modules/outputs/output.service.ts",
+          "line": 90,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2484,13 +2484,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/budget/budget.service.ts",
+        "path": "apps/api/src/modules/outputs/output.service.ts",
         "lines": {
-          "start": 390,
-          "end": 390
+          "start": 104,
+          "end": 104
         }
       },
-      "problem": "Indício em apps/api/src/modules/budget/budget.service.ts:390 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em apps/api/src/modules/outputs/output.service.ts:104 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2506,8 +2506,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/budget/budget.service.ts",
-          "line": 390,
+          "path": "apps/api/src/modules/outputs/output.service.ts",
+          "line": 104,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2526,13 +2526,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/connectors/service.ts",
+        "path": "apps/api/src/modules/outputs/output.service.ts",
         "lines": {
-          "start": 23,
-          "end": 23
+          "start": 130,
+          "end": 130
         }
       },
-      "problem": "Indício em apps/api/src/modules/connectors/service.ts:23 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em apps/api/src/modules/outputs/output.service.ts:130 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2548,8 +2548,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/connectors/service.ts",
-          "line": 23,
+          "path": "apps/api/src/modules/outputs/output.service.ts",
+          "line": 130,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -8580,8 +8580,13 @@
       }
     },
     "git": {
-      "totalCommits": 1121,
+      "totalCommits": 1122,
       "last30Days": [
+        {
+          "sha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
         {
           "sha": "2d47d14672953506f0d024207776218e16b95dda",
           "date": "2026-04-06",
@@ -11314,6 +11319,11 @@
         "activeDays": 22,
         "placeholderMessages": [
           {
+            "sha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
+            "date": "2026-04-06",
+            "subject": "1"
+          },
+          {
             "sha": "2d47d14672953506f0d024207776218e16b95dda",
             "date": "2026-04-06",
             "subject": "1"
@@ -11431,11 +11441,6 @@
           {
             "sha": "512dde4000634bc12b03c9162ea57935f03c5525",
             "date": "2026-03-31",
-            "subject": "1"
-          },
-          {
-            "sha": "e7f221e61ea7d44f9c38079bc6e4df70c4659eba",
-            "date": "2026-03-30",
             "subject": "1"
           }
         ]
