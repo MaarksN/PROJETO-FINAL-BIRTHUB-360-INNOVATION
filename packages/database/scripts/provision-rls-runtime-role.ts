@@ -88,7 +88,7 @@ function redactDatabaseUrl(databaseUrl: string): string {
   if (parsed.password) {
     parsed.username = "REDACTED";
   }
-  return parsed.toString().replace(/:REDACTED@/, ":****@").replace(/REDACTED:****@/, "****:****@");
+  return parsed.toString().replace(":REDACTED@", ":****@").replace("REDACTED:****@", "****:****@");
 }
 
 async function executeStatement(prisma: ReturnType<typeof createPrismaClient>, sql: string) {
