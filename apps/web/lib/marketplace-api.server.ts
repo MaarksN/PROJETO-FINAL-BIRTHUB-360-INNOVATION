@@ -1,6 +1,8 @@
 import { getWebConfig } from "@birthub/config";
 import { cookies } from "next/headers";
 
+import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+
 export interface MarketplaceSearchResponse {
   facets: {
     domains: Record<string, number>;
@@ -42,13 +44,17 @@ export interface MarketplaceSearchResponse {
   total: number;
 }
 
+const MARKETPLACE_REQUEST_TIMEOUT_MS = 8_000;
+
 async function fetchJson<T>(url: string): Promise<T> {
   const cookieStore = await cookies();
-  const response = await fetch(url, {
+  const response = await fetchWithTimeout(url, {
     cache: "no-store",
     headers: {
       cookie: cookieStore.toString()
-    }
+    },
+    timeoutMessage: `Marketplace API exceeded the ${MARKETPLACE_REQUEST_TIMEOUT_MS}ms timeout budget.`,
+    timeoutMs: MARKETPLACE_REQUEST_TIMEOUT_MS
   });
 
   if (!response.ok) {

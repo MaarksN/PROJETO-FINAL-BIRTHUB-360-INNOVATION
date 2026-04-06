@@ -1,6 +1,8 @@
 import { getWebConfig } from "@birthub/config";
 import { cookies } from "next/headers";
 
+import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+
 export type ExecutionStatus = "FAILED" | "RUNNING" | "SUCCESS";
 
 export interface AgentExecutionRow {
@@ -40,6 +42,8 @@ interface InstalledAgentResponse {
   agent: AgentSnapshot;
   requestId: string;
 }
+
+const AGENTS_REQUEST_TIMEOUT_MS = 8_000;
 
 export interface ManagedPolicySnapshot {
   actions: string[];
@@ -93,7 +97,11 @@ async function fetchJson<T>(path: string): Promise<T> {
     ...(typeof window === "undefined" ? {} : { credentials: "include" }),
     ...(cookieStore ? { headers: { cookie: cookieStore.toString() } } : {})
   };
-  const response = await fetch(`${config.NEXT_PUBLIC_API_URL}${path}`, requestInit);
+  const response = await fetchWithTimeout(`${config.NEXT_PUBLIC_API_URL}${path}`, {
+    ...requestInit,
+    timeoutMessage: `Agents API exceeded the ${AGENTS_REQUEST_TIMEOUT_MS}ms timeout budget for ${path}.`,
+    timeoutMs: AGENTS_REQUEST_TIMEOUT_MS
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch ${path}: ${response.status}`);

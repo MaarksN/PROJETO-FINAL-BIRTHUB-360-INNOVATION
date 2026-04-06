@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState, useTransition, type FormEvent } from "react";
+import React, { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+
+import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
 
 export interface LoginFormProps {
   apiUrl: string;
@@ -15,31 +17,47 @@ type LoginFormContentProps = Readonly<{
   navigate: (href: string) => void;
 }>;
 
+const LOGIN_REQUEST_TIMEOUT_MS = 8_000;
+
 function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormContentProps) {
   const [error, setError] = useState<string | null>(null);
   const [requestId] = useState(initialRequestId);
   const [result, setResult] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const submitControllerRef = useRef<AbortController | null>(null);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
     tenantId: ""
   });
 
+  useEffect(() => {
+    return () => {
+      submitControllerRef.current?.abort();
+    };
+  }, []);
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
 
     const submit = async () => {
+      submitControllerRef.current?.abort();
+      const controller = new AbortController();
+      submitControllerRef.current = controller;
+
       try {
-        const response = await fetch(`${apiUrl}/api/v1/auth/login`, {
+        const response = await fetchWithTimeout(`${apiUrl}/api/v1/auth/login`, {
           body: JSON.stringify(formValues),
           credentials: "include",
           headers: {
             "content-type": "application/json",
             "x-request-id": requestId
           },
-          method: "POST"
+          method: "POST",
+          signal: controller.signal,
+          timeoutMessage: `Falha ao autenticar dentro do limite de ${LOGIN_REQUEST_TIMEOUT_MS}ms.`,
+          timeoutMs: LOGIN_REQUEST_TIMEOUT_MS
         });
 
         if (!response.ok) {
@@ -76,7 +94,14 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
         setResult(`Sessao criada para ${payload.session.userId}`);
         navigate("/settings/security");
       } catch (submitError) {
+        if (controller.signal.aborted) {
+          return;
+        }
         setError(submitError instanceof Error ? submitError.message : "Falha desconhecida.");
+      } finally {
+        if (submitControllerRef.current === controller) {
+          submitControllerRef.current = null;
+        }
       }
     };
 

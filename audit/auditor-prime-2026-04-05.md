@@ -3,16 +3,16 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 52/100
-- Estimativa de custo de não-ação: 8.6 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8.8 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-029 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/dashboard/lib/dashboard-data.ts:11
-- TD-030 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/api/bff/[...path]/route.ts:28
-- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/invites/accept/page.tsx:31
-- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/pricing/page.tsx:91
-- TD-033 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/components/agents/PolicyManager.tsx:43
+- TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano | Dimensão 8 — Maturidade Operacional e Multi-tenancy | VDI 4.45 | artifacts/tenancy/rls-proof-head.json:1
+- TD-029 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/components/login-form.tsx:35
+- TD-030 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/components/wizards/PackInstaller.tsx:35
+- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/lib/agents.ts:96
+- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/lib/marketplace-api.server.ts:47
 
 ### Análise Pendente
 
@@ -29,15 +29,14 @@
 - TD-077 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7) | requer: inventário de ambientes
 - TD-087 | [DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend | requer: auditoria a11y automatizada
 - TD-088 | [DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2) | requer: baseline de cross-browser
-- TD-092 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant | requer: SLA versionado
-- TD-093 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2) | requer: evidência de DR drill
-- TD-094 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3) | requer: SLA versionado
-- TD-095 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4) | requer: evidência de DR drill
-- TD-096 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5) | requer: SLA versionado
-- TD-097 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6) | requer: evidência de DR drill
-- TD-098 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7) | requer: SLA versionado
-- TD-099 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8) | requer: evidência de DR drill
-- TD-100 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9) | requer: SLA versionado
+- TD-093 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant | requer: SLA versionado
+- TD-094 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2) | requer: evidência de DR drill
+- TD-095 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3) | requer: SLA versionado
+- TD-096 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4) | requer: evidência de DR drill
+- TD-097 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5) | requer: SLA versionado
+- TD-098 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6) | requer: evidência de DR drill
+- TD-099 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7) | requer: SLA versionado
+- TD-100 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8) | requer: evidência de DR drill
 
 ## 2. MAPA DE DÍVIDA TÉCNICA — 100 ITENS DE MELHORIA
 
@@ -272,40 +271,40 @@
 ### Dimensão 3 — Segurança
 
 - TD-029 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/dashboard/lib/dashboard-data.ts:11
-  Problema: Indício em apps/dashboard/lib/dashboard-data.ts:11 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/components/login-form.tsx:35
+  Problema: Indício em apps/web/components/login-form.tsx:35 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-030 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/app/api/bff/[...path]/route.ts:28
-  Problema: Indício em apps/web/app/api/bff/[...path]/route.ts:28 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/components/wizards/PackInstaller.tsx:35
+  Problema: Indício em apps/web/components/wizards/PackInstaller.tsx:35 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-031 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/app/invites/accept/page.tsx:31
-  Problema: Indício em apps/web/app/invites/accept/page.tsx:31 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/lib/agents.ts:96
+  Problema: Indício em apps/web/lib/agents.ts:96 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-032 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/app/pricing/page.tsx:91
-  Problema: Indício em apps/web/app/pricing/page.tsx:91 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/lib/marketplace-api.server.ts:47
+  Problema: Indício em apps/web/lib/marketplace-api.server.ts:47 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-033 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/components/agents/PolicyManager.tsx:43
-  Problema: Indício em apps/web/components/agents/PolicyManager.tsx:43 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/web/lib/marketplace-api.ts:5
+  Problema: Indício em apps/web/lib/marketplace-api.ts:5 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
@@ -548,16 +547,16 @@
   Esforço: 1-3 dias
 
 - TD-063 | Integração externa sem deadline operacional explícito
-  Localização: apps/dashboard/lib/dashboard-data.ts:11
-  Problema: Acesso externo em apps/dashboard/lib/dashboard-data.ts:11 não expõe timeout/abort guard no arquivo atual.
+  Localização: apps/web/components/login-form.tsx:35
+  Problema: Acesso externo em apps/web/components/login-form.tsx:35 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
   Solução recomendada: Padronizar timeout, retry budget e instrumentação de latência por integração.
   VDI: 3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-064 | Integração externa sem deadline operacional explícito
-  Localização: apps/web/app/api/bff/[...path]/route.ts:28
-  Problema: Acesso externo em apps/web/app/api/bff/[...path]/route.ts:28 não expõe timeout/abort guard no arquivo atual.
+  Localização: apps/web/components/wizards/PackInstaller.tsx:35
+  Problema: Acesso externo em apps/web/components/wizards/PackInstaller.tsx:35 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
   Solução recomendada: Padronizar timeout, retry budget e instrumentação de latência por integração.
   VDI: 3 (ALTO)
@@ -761,7 +760,15 @@
 
 ### Dimensão 8 — Maturidade Operacional e Multi-tenancy
 
-- TD-089 | Ausência de superfícies explícitas de interoperabilidade clínica padrão
+- TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano
+  Localização: artifacts/tenancy/rls-proof-head.json:1
+  Problema: A evidência fresca marca a prova runtime de RLS como "failed-role-provisioning", apesar de o audit estático de tenancy passar.
+  Impacto: Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.
+  Solução recomendada: Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.
+  VDI: 4.45 (CRÍTICO)
+  Esforço: 1-3 dias
+
+- TD-090 | Ausência de superfícies explícitas de interoperabilidade clínica padrão
   Localização: packages/integrations/src/clients/http.ts:1
   Problema: Há base de conectores genérica, mas a auditoria não encontrou superfícies FHIR/HL7 versionadas no HEAD atual.
   Impacto: Para healthtech, isso limita integração operacional com ecossistema clínico e aumenta esforço por implantação.
@@ -769,7 +776,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 1-2 semanas
 
-- TD-090 | Drill de disaster recovery não registrado no ciclo atual
+- TD-091 | Drill de disaster recovery não registrado no ciclo atual
   Localização: artifacts/dr/latest-drill.json:1
   Problema: O artefato fresco de DR está em status "missing-drill-record", sem comprovação recente de exercício de recuperação.
   Impacto: A recuperabilidade operacional segue mais assumida do que comprovada, elevando risco de restauração lenta em incidente real.
@@ -777,7 +784,7 @@
   VDI: 3.15 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-091 | Playbook explícito de on-call não encontrado
+- TD-092 | Playbook explícito de on-call não encontrado
   Localização: docs/release/release-process.md:1
   Problema: Há processo de release e runbook de go-live, mas sem playbook claro de on-call/escalation versionado no conjunto atual.
   Impacto: Sem definição formal de ownership e escalonamento, o tempo de restauração cresce em incidentes reais.
@@ -785,7 +792,7 @@
   VDI: 2.85 (MÉDIO)
   Esforço: 0.5-1 dia
 
-- TD-092 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant
+- TD-093 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -793,7 +800,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-093 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)
+- TD-094 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -801,7 +808,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-094 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)
+- TD-095 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -809,7 +816,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-095 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)
+- TD-096 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -817,7 +824,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-096 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)
+- TD-097 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -825,7 +832,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-097 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)
+- TD-098 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -833,7 +840,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-098 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)
+- TD-099 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -841,19 +848,11 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-099 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)
+- TD-100 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
   Solução recomendada: Anexar evidência de drill de recuperação ao pacote operacional por release ou quarter.
-  VDI: 2.95 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-100 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)
-  Localização: docs/operational/README.md:1
-  Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
-  Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
-  Solução recomendada: Versionar um SLA operacional mínimo e referenciá-lo no hub operacional e no release process.
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -1686,7 +1685,7 @@
 ### Fase 0 — Estabilização (Semanas 1-2)
 
 - Objetivo: Resolver todos os itens VDI 4.0+ que bloqueiam segurança, isolamento de tenant ou funcionamento básico.
-- Itens de dívida: 0
+- Itens de dívida: 1
 - Itens de inovação: 0
 - Headcount recomendado: 2
 
@@ -1707,7 +1706,7 @@
 ### Fase 3 — Escala (Semanas 17-24)
 
 - Objetivo: Fortalecer multi-tenancy, billing avançado, interoperabilidade clínica e recuperabilidade.
-- Itens de dívida: 12
+- Itens de dívida: 11
 - Itens de inovação: 30
 - Headcount recomendado: 2
 
@@ -1721,9 +1720,9 @@
 
 ## 5. MATRIZ DE DEPENDÊNCIAS
 
-- Caminho crítico: TD-029 -> TD-001 -> TD-089
+- Caminho crítico: TD-089 -> TD-029 -> TD-001 -> TD-090
 - Nós mapeados: 22
-- Arestas mapeadas: 20
+- Arestas mapeadas: 19
 
 - TD-029 -> TD-030 (Debt dependency)
 - TD-029 -> TD-031 (Debt dependency)
@@ -1734,17 +1733,16 @@
 - TD-026 -> TD-043 (Debt dependency)
 - TD-054 -> TD-055 (Debt dependency)
 - TD-054 -> TD-056 (Debt dependency)
-- TD-054 -> TD-057 (Debt dependency)
-- TD-089 -> IN-001 (Scale foundation before innovation)
-- TD-089 -> IN-002 (Scale foundation before innovation)
-- TD-089 -> IN-003 (Scale foundation before innovation)
-- TD-089 -> IN-004 (Scale foundation before innovation)
-- TD-089 -> IN-005 (Scale foundation before innovation)
-- TD-089 -> IN-006 (Scale foundation before innovation)
-- TD-089 -> IN-007 (Scale foundation before innovation)
-- TD-089 -> IN-008 (Scale foundation before innovation)
-- TD-089 -> IN-009 (Scale foundation before innovation)
-- TD-089 -> IN-010 (Scale foundation before innovation)
+- TD-090 -> IN-001 (Scale foundation before innovation)
+- TD-090 -> IN-002 (Scale foundation before innovation)
+- TD-090 -> IN-003 (Scale foundation before innovation)
+- TD-090 -> IN-004 (Scale foundation before innovation)
+- TD-090 -> IN-005 (Scale foundation before innovation)
+- TD-090 -> IN-006 (Scale foundation before innovation)
+- TD-090 -> IN-007 (Scale foundation before innovation)
+- TD-090 -> IN-008 (Scale foundation before innovation)
+- TD-090 -> IN-009 (Scale foundation before innovation)
+- TD-090 -> IN-010 (Scale foundation before innovation)
 
 ## 6. GLOSSÁRIO TÉCNICO
 

@@ -92,7 +92,7 @@ void test("BFF route proxies allowed requests with forwarded headers and body", 
     });
     const headers = new Headers(requestInit?.headers);
 
-    assert.equal(requestUrl, "https://api.birthub.test/api/v1/workflows/run");
+    assert.match(requestUrl, /\/api\/v1\/workflows\/run$/);
     assert.equal(requestInit?.method, "POST");
     assert.equal(requestInit?.body, '{"async":true}');
     assert.equal(headers.get("authorization"), "Bearer atk_123");

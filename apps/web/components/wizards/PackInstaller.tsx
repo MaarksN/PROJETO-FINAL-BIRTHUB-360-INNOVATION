@@ -2,6 +2,8 @@
 
 import React, { useMemo, useState } from "react";
 
+import { fetchWithSession } from "../../lib/auth-client";
+
 type Step = 1 | 2 | 3 | 4;
 
 interface PackInstallerProps {
@@ -12,6 +14,8 @@ interface PackInstallerProps {
     name: string;
   }>;
 }
+
+const PACK_INSTALL_TIMEOUT_MS = 8_000;
 
 export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstallerProps>) {
   const [step, setStep] = useState<Step>(1);
@@ -32,7 +36,7 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
   async function installPack(): Promise<void> {
     setStatus("Instalando agente oficial...");
 
-    const response = await fetch(`${apiUrl}/api/v1/packs/install`, {
+    const response = await fetchWithSession(`${apiUrl}/api/v1/packs/install`, {
       body: JSON.stringify({
         activateAgents,
         agentId: selectedPackId,
@@ -43,7 +47,9 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
       headers: {
         "content-type": "application/json"
       },
-      method: "POST"
+      method: "POST",
+      timeoutMessage: `Falha ao instalar pack dentro do limite de ${PACK_INSTALL_TIMEOUT_MS}ms.`,
+      timeoutMs: PACK_INSTALL_TIMEOUT_MS
     });
 
     if (!response.ok) {

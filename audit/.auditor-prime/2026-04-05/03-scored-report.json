@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-05T21:32:14.772Z",
+    "generatedAt": "2026-04-06T01:10:56.663Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "10bed44c28904583b7f5705500fc33138ad49411",
+    "headSha": "b3af578566ffee9ca7ff190c56ba164b6b598791",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -24,16 +24,30 @@
     "technicalHealthScore": 52,
     "topRisks": [
       {
+        "id": "TD-089",
+        "title": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
+        "dimension": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
+        "impact": "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
+        "vdiScore": 4.45,
+        "location": {
+          "path": "artifacts/tenancy/rls-proof-head.json",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        }
+      },
+      {
         "id": "TD-029",
         "title": "Chamada externa sem timeout ou abort path explícito",
         "dimension": "Dimensão 3 — Segurança",
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/dashboard/lib/dashboard-data.ts",
+          "path": "apps/web/components/login-form.tsx",
           "lines": {
-            "start": 11,
-            "end": 11
+            "start": 35,
+            "end": 35
           }
         }
       },
@@ -44,10 +58,10 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/api/bff/[...path]/route.ts",
+          "path": "apps/web/components/wizards/PackInstaller.tsx",
           "lines": {
-            "start": 28,
-            "end": 28
+            "start": 35,
+            "end": 35
           }
         }
       },
@@ -58,10 +72,10 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/invites/accept/page.tsx",
+          "path": "apps/web/lib/agents.ts",
           "lines": {
-            "start": 31,
-            "end": 31
+            "start": 96,
+            "end": 96
           }
         }
       },
@@ -72,29 +86,15 @@
         "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
         "vdiScore": 3.6,
         "location": {
-          "path": "apps/web/app/pricing/page.tsx",
+          "path": "apps/web/lib/marketplace-api.server.ts",
           "lines": {
-            "start": 91,
-            "end": 91
-          }
-        }
-      },
-      {
-        "id": "TD-033",
-        "title": "Chamada externa sem timeout ou abort path explícito",
-        "dimension": "Dimensão 3 — Segurança",
-        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
-        "vdiScore": 3.6,
-        "location": {
-          "path": "apps/web/components/agents/PolicyManager.tsx",
-          "lines": {
-            "start": 43,
-            "end": 43
+            "start": 47,
+            "end": 47
           }
         }
       }
     ],
-    "costOfNonActionWeeksPerMonth": 8.6,
+    "costOfNonActionWeeksPerMonth": 8.8,
     "launchViability": {
       "status": "CONDICIONAL",
       "justification": "O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1."
@@ -1269,13 +1269,13 @@
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/dashboard/lib/dashboard-data.ts",
+        "path": "apps/web/components/login-form.tsx",
         "lines": {
-          "start": 11,
-          "end": 11
+          "start": 35,
+          "end": 35
         }
       },
-      "problem": "Indício em apps/dashboard/lib/dashboard-data.ts:11 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/components/login-form.tsx:35 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1291,8 +1291,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/dashboard/lib/dashboard-data.ts",
-          "line": 11,
+          "path": "apps/web/components/login-form.tsx",
+          "line": 35,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1309,13 +1309,13 @@
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/app/api/bff/[...path]/route.ts",
+        "path": "apps/web/components/wizards/PackInstaller.tsx",
         "lines": {
-          "start": 28,
-          "end": 28
+          "start": 35,
+          "end": 35
         }
       },
-      "problem": "Indício em apps/web/app/api/bff/[...path]/route.ts:28 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/components/wizards/PackInstaller.tsx:35 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1331,8 +1331,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/api/bff/[...path]/route.ts",
-          "line": 28,
+          "path": "apps/web/components/wizards/PackInstaller.tsx",
+          "line": 35,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1351,13 +1351,13 @@
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/app/invites/accept/page.tsx",
+        "path": "apps/web/lib/agents.ts",
         "lines": {
-          "start": 31,
-          "end": 31
+          "start": 96,
+          "end": 96
         }
       },
-      "problem": "Indício em apps/web/app/invites/accept/page.tsx:31 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/lib/agents.ts:96 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1373,8 +1373,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/invites/accept/page.tsx",
-          "line": 31,
+          "path": "apps/web/lib/agents.ts",
+          "line": 96,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1393,13 +1393,13 @@
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/app/pricing/page.tsx",
+        "path": "apps/web/lib/marketplace-api.server.ts",
         "lines": {
-          "start": 91,
-          "end": 91
+          "start": 47,
+          "end": 47
         }
       },
-      "problem": "Indício em apps/web/app/pricing/page.tsx:91 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/lib/marketplace-api.server.ts:47 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1415,8 +1415,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/pricing/page.tsx",
-          "line": 91,
+          "path": "apps/web/lib/marketplace-api.server.ts",
+          "line": 47,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -1435,13 +1435,13 @@
       "dimension": "security",
       "title": "Chamada externa sem timeout ou abort path explícito",
       "location": {
-        "path": "apps/web/components/agents/PolicyManager.tsx",
+        "path": "apps/web/lib/marketplace-api.ts",
         "lines": {
-          "start": 43,
-          "end": 43
+          "start": 5,
+          "end": 5
         }
       },
-      "problem": "Indício em apps/web/components/agents/PolicyManager.tsx:43 de acesso externo sem timeout explícito no arquivo.",
+      "problem": "Indício em apps/web/lib/marketplace-api.ts:5 de acesso externo sem timeout explícito no arquivo.",
       "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
       "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
       "vdiFactors": {
@@ -1457,8 +1457,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/components/agents/PolicyManager.tsx",
-          "line": 43,
+          "path": "apps/web/lib/marketplace-api.ts",
+          "line": 5,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -2745,13 +2745,13 @@
       "dimension": "performance",
       "title": "Integração externa sem deadline operacional explícito",
       "location": {
-        "path": "apps/dashboard/lib/dashboard-data.ts",
+        "path": "apps/web/components/login-form.tsx",
         "lines": {
-          "start": 11,
-          "end": 11
+          "start": 35,
+          "end": 35
         }
       },
-      "problem": "Acesso externo em apps/dashboard/lib/dashboard-data.ts:11 não expõe timeout/abort guard no arquivo atual.",
+      "problem": "Acesso externo em apps/web/components/login-form.tsx:35 não expõe timeout/abort guard no arquivo atual.",
       "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
       "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
       "vdiFactors": {
@@ -2767,8 +2767,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/dashboard/lib/dashboard-data.ts",
-          "line": 11,
+          "path": "apps/web/components/login-form.tsx",
+          "line": 35,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -2787,13 +2787,13 @@
       "dimension": "performance",
       "title": "Integração externa sem deadline operacional explícito",
       "location": {
-        "path": "apps/web/app/api/bff/[...path]/route.ts",
+        "path": "apps/web/components/wizards/PackInstaller.tsx",
         "lines": {
-          "start": 28,
-          "end": 28
+          "start": 35,
+          "end": 35
         }
       },
-      "problem": "Acesso externo em apps/web/app/api/bff/[...path]/route.ts:28 não expõe timeout/abort guard no arquivo atual.",
+      "problem": "Acesso externo em apps/web/components/wizards/PackInstaller.tsx:35 não expõe timeout/abort guard no arquivo atual.",
       "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
       "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
       "vdiFactors": {
@@ -2809,8 +2809,8 @@
       "confidence": 0.74,
       "evidenceRefs": [
         {
-          "path": "apps/web/app/api/bff/[...path]/route.ts",
-          "line": 28,
+          "path": "apps/web/components/wizards/PackInstaller.tsx",
+          "line": 35,
           "summary": "Operação externa sem timeout explícito no arquivo."
         }
       ],
@@ -3841,6 +3841,51 @@
     },
     {
       "dimension": "operations_multitenancy",
+      "title": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
+      "location": {
+        "path": "artifacts/tenancy/rls-proof-head.json",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "A evidência fresca marca a prova runtime de RLS como \"failed-role-provisioning\", apesar de o audit estático de tenancy passar.",
+      "impact": "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
+      "recommendation": "Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.",
+      "vdiFactors": {
+        "businessImpact": 5,
+        "securityRisk": 5,
+        "reverseEffort": 3,
+        "frequency": 4
+      },
+      "vdiScore": 4.45,
+      "effort": "1-3 dias",
+      "severity": "CRÍTICO",
+      "phase": "Fase 0",
+      "confidence": 0.92,
+      "evidenceRefs": [
+        {
+          "path": "artifacts/tenancy/rls-proof-head.json",
+          "line": 1,
+          "summary": "runtimeProof=failed-role-provisioning"
+        },
+        {
+          "path": "packages/database/test/rls.test.ts",
+          "line": 1,
+          "summary": "Teste de RLS versionado no pacote database."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "tenant-proof"
+      ],
+      "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
+      "id": "TD-089",
+      "dependencies": []
+    },
+    {
+      "dimension": "operations_multitenancy",
       "title": "Ausência de superfícies explícitas de interoperabilidade clínica padrão",
       "location": {
         "path": "packages/integrations/src/clients/http.ts",
@@ -3876,7 +3921,7 @@
         "clinical-interoperability"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-089",
+      "id": "TD-090",
       "dependencies": []
     },
     {
@@ -3916,7 +3961,7 @@
         "ops-contract"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-090",
+      "id": "TD-091",
       "dependencies": []
     },
     {
@@ -3956,9 +4001,9 @@
         "ops-contract"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-091",
+      "id": "TD-092",
       "dependencies": [
-        "TD-090"
+        "TD-091"
       ]
     },
     {
@@ -3998,8 +4043,10 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-092",
-      "dependencies": []
+      "id": "TD-093",
+      "dependencies": [
+        "TD-089"
+      ]
     },
     {
       "dimension": "operations_multitenancy",
@@ -4038,9 +4085,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-093",
+      "id": "TD-094",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     },
     {
@@ -4080,9 +4127,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-094",
+      "id": "TD-095",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     },
     {
@@ -4122,9 +4169,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-095",
+      "id": "TD-096",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     },
     {
@@ -4164,9 +4211,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-096",
+      "id": "TD-097",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     },
     {
@@ -4206,9 +4253,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-097",
+      "id": "TD-098",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     },
     {
@@ -4248,9 +4295,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-098",
+      "id": "TD-099",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     },
     {
@@ -4290,51 +4337,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-099",
-      "dependencies": [
-        "TD-092"
-      ]
-    },
-    {
-      "dimension": "operations_multitenancy",
-      "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)",
-      "location": {
-        "path": "docs/operational/README.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.",
-      "impact": "Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.",
-      "recommendation": "Versionar um SLA operacional mínimo e referenciá-lo no hub operacional e no release process.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 4,
-        "reverseEffort": 2,
-        "frequency": 2
-      },
-      "vdiScore": 2.95,
-      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-      "severity": "MÉDIO",
-      "phase": "Fase 3",
-      "confidence": 0.42,
-      "evidenceRefs": [
-        {
-          "path": "docs/operational/README.md",
-          "line": 1,
-          "summary": "Evidência atual insuficiente para concluir o item."
-        }
-      ],
-      "inference": false,
-      "insufficient": true,
-      "dependencyHints": [
-        "tenant-proof"
-      ],
-      "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-100",
       "dependencies": [
-        "TD-092"
+        "TD-089"
       ]
     }
   ],
@@ -6289,9 +6294,11 @@
       "phase": "Fase 0",
       "title": "Estabilização (Semanas 1-2)",
       "objective": "Resolver todos os itens VDI 4.0+ que bloqueiam segurança, isolamento de tenant ou funcionamento básico.",
-      "debtIds": [],
+      "debtIds": [
+        "TD-089"
+      ],
       "innovationIds": [],
-      "progressWeight": 0,
+      "progressWeight": 1,
       "headcount": {
         "phase": "Fase 0",
         "recommendedHeadcount": 2,
@@ -6428,7 +6435,6 @@
       "title": "Escala (Semanas 17-24)",
       "objective": "Fortalecer multi-tenancy, billing avançado, interoperabilidade clínica e recuperabilidade.",
       "debtIds": [
-        "TD-089",
         "TD-090",
         "TD-091",
         "TD-092",
@@ -6473,7 +6479,7 @@
         "IN-089",
         "IN-090"
       ],
-      "progressWeight": 42,
+      "progressWeight": 41,
       "headcount": {
         "phase": "Fase 3",
         "recommendedHeadcount": 2,
@@ -6560,6 +6566,12 @@
   "dependencyMatrix": {
     "nodes": [
       {
+        "id": "TD-089",
+        "label": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
+        "phase": "Fase 0",
+        "type": "debt"
+      },
+      {
         "id": "TD-029",
         "label": "Chamada externa sem timeout ou abort path explícito",
         "phase": "Fase 1",
@@ -6621,12 +6633,6 @@
       },
       {
         "id": "TD-056",
-        "label": "Consulta findMany sem paginação explícita",
-        "phase": "Fase 2",
-        "type": "debt"
-      },
-      {
-        "id": "TD-057",
         "label": "Consulta findMany sem paginação explícita",
         "phase": "Fase 2",
         "type": "debt"
@@ -6739,65 +6745,61 @@
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-054",
-        "to": "TD-057",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-001",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-002",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-003",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-004",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-005",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-006",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-007",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-008",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-009",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-089",
+        "from": "TD-090",
         "to": "IN-010",
         "reason": "Scale foundation before innovation"
       }
     ],
     "criticalPath": [
+      "TD-089",
       "TD-029",
       "TD-001",
-      "TD-089"
+      "TD-090"
     ],
     "headcountByPhase": [
       {
@@ -7047,7 +7049,7 @@
       }
     },
     {
-      "id": "TD-092",
+      "id": "TD-093",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant",
       "requires": "SLA versionado",
       "location": {
@@ -7059,7 +7061,7 @@
       }
     },
     {
-      "id": "TD-093",
+      "id": "TD-094",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7071,7 +7073,7 @@
       }
     },
     {
-      "id": "TD-094",
+      "id": "TD-095",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)",
       "requires": "SLA versionado",
       "location": {
@@ -7083,7 +7085,7 @@
       }
     },
     {
-      "id": "TD-095",
+      "id": "TD-096",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7095,7 +7097,7 @@
       }
     },
     {
-      "id": "TD-096",
+      "id": "TD-097",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)",
       "requires": "SLA versionado",
       "location": {
@@ -7107,7 +7109,7 @@
       }
     },
     {
-      "id": "TD-097",
+      "id": "TD-098",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7119,7 +7121,7 @@
       }
     },
     {
-      "id": "TD-098",
+      "id": "TD-099",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)",
       "requires": "SLA versionado",
       "location": {
@@ -7131,23 +7133,11 @@
       }
     },
     {
-      "id": "TD-099",
+      "id": "TD-100",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)",
       "requires": "evidência de DR drill",
       "location": {
         "path": "packages/database/docs/BACKUP_RECOVERY.md",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      }
-    },
-    {
-      "id": "TD-100",
-      "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)",
-      "requires": "SLA versionado",
-      "location": {
-        "path": "docs/operational/README.md",
         "lines": {
           "start": 1,
           "end": 1
@@ -7210,8 +7200,8 @@
         "key": "operations_multitenancy",
         "label": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
         "weight": 10,
-        "avgTopVdi": 3.08,
-        "score": 5.38
+        "avgTopVdi": 3.62,
+        "score": 4.57
       }
     ],
     "debtCount": 100,
@@ -7231,10 +7221,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6121,
-      "coreTrackedFiles": 449,
+      "trackedFiles": 6122,
+      "coreTrackedFiles": 450,
       "runtimeFiles": 1806,
-      "testFiles": 146,
+      "testFiles": 147,
       "modules": 295
     },
     "capabilities": {
@@ -8506,8 +8496,18 @@
       }
     },
     "git": {
-      "totalCommits": 1113,
+      "totalCommits": 1115,
       "last30Days": [
+        {
+          "sha": "b3af578566ffee9ca7ff190c56ba164b6b598791",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
+        {
+          "sha": "39a94e1c5dc6c00a9c8775c9cd6e12ee114a249a",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "10bed44c28904583b7f5705500fc33138ad49411",
           "date": "2026-04-05",
@@ -11200,6 +11200,16 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "b3af578566ffee9ca7ff190c56ba164b6b598791",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
+            "sha": "39a94e1c5dc6c00a9c8775c9cd6e12ee114a249a",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "b0156959a9f09d4a9576a512344948eeb5eba2b3",
             "date": "2026-04-05",
             "subject": "1"
@@ -11311,16 +11321,6 @@
           },
           {
             "sha": "57d0d4a66f948c21f2dfb8ffef9571c821d0c1fa",
-            "date": "2026-03-29",
-            "subject": "1"
-          },
-          {
-            "sha": "3b543936700698ba66474ed48dcd9ba05a820d68",
-            "date": "2026-03-29",
-            "subject": "1"
-          },
-          {
-            "sha": "fa168c803900e22449eb561e05cd50bd684639c0",
             "date": "2026-03-29",
             "subject": "1"
           }

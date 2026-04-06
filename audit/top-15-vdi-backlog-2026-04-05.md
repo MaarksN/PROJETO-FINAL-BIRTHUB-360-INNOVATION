@@ -1,17 +1,18 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-05T21:32:15.519Z
+- Generated at: 2026-04-06T01:10:57.569Z
 - Source report: `audit\auditor-prime-2026-04-05.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-029 Chamada externa sem timeout ou abort path explícito (`apps/dashboard/lib/dashboard-data.ts`) | @platform-security | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-030 Chamada externa sem timeout ou abort path explícito (`apps/web/app/api/bff/[...path]/route.ts`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-031 Chamada externa sem timeout ou abort path explícito (`apps/web/app/invites/accept/page.tsx`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-032 Chamada externa sem timeout ou abort path explícito (`apps/web/app/pricing/page.tsx`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-033 Chamada externa sem timeout ou abort path explícito (`apps/web/components/agents/PolicyManager.tsx`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-089 Prova runtime de RLS por tenant ainda não fecha no runner soberano (`artifacts/tenancy/rls-proof-head.json`) | @platform-architecture | 1-3 dias | nenhuma | Prova de isolamento atualizada em `artifacts/tenancy/rls-proof-head.json`, controles de tenancy verificados e item rebaixado/removido na próxima auditoria. |
+| TD-029 Chamada externa sem timeout ou abort path explícito (`apps/web/components/login-form.tsx`) | @product-frontend | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-030 Chamada externa sem timeout ou abort path explícito (`apps/web/components/wizards/PackInstaller.tsx`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-031 Chamada externa sem timeout ou abort path explícito (`apps/web/lib/agents.ts`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-032 Chamada externa sem timeout ou abort path explícito (`apps/web/lib/marketplace-api.server.ts`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-033 Chamada externa sem timeout ou abort path explícito (`apps/web/lib/marketplace-api.ts`) | @product-frontend | 0.5-2 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 2 — Qualidade + observabilidade
 
@@ -31,7 +32,6 @@
 | TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/agents/metrics.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-058 Consulta findMany sem paginação explícita (`apps/api/src/modules/agents/service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-002 Complexidade acima do limiar em <anonymous> (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-003 Complexidade acima do limiar em createConnectorsRouter (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 
