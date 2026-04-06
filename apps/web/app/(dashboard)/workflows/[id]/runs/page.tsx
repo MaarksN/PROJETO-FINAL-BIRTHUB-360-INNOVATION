@@ -218,7 +218,12 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
                         startTransition(() => {
                           void (async () => {
                             try {
-                              await retryWorkflowRun(id);
+                              await retryWorkflowRun({
+                                failedExecutionId: run.id,
+                                failedStepKey:
+                                  run.stepResults.find((result) => result.status === "FAILED")?.step.key,
+                                workflowId: id
+                              });
                               setError("Retry aceito. Recarregue em alguns segundos para ver a nova run.");
                             } catch (retryError) {
                               setError(
