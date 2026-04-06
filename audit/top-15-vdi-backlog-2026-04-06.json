@@ -1,12 +1,9 @@
 {
-  "generatedAt": "2026-04-06T13:52:57.317Z",
+  "generatedAt": "2026-04-06T13:57:48.997Z",
   "sourceReport": "audit\\auditor-prime-2026-04-06.json",
   "top15Ids": [
     "TD-054",
     "TD-055",
-    "TD-056",
-    "TD-057",
-    "TD-058",
     "TD-001",
     "TD-002",
     "TD-003",
@@ -16,7 +13,10 @@
     "TD-007",
     "TD-089",
     "TD-090",
-    "TD-029"
+    "TD-029",
+    "TD-030",
+    "TD-031",
+    "TD-032"
   ],
   "sprints": [
     {
@@ -49,6 +49,39 @@
           "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
           "path": ".github/workflows/cd.yml"
+        },
+        {
+          "id": "TD-030",
+          "title": "Semgrep WARNING em cd.yml",
+          "owner": "@platform-security",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": ".github/workflows/cd.yml"
+        },
+        {
+          "id": "TD-031",
+          "title": "Semgrep WARNING em prisma-schema.ts",
+          "owner": "@platform-data",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "packages/database/scripts/lib/prisma-schema.ts"
+        },
+        {
+          "id": "TD-032",
+          "title": "Semgrep WARNING em runtime.shared.ts",
+          "owner": "@platform-automation",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/worker/src/agents/runtime.shared.ts"
         }
       ]
     },
@@ -68,7 +101,7 @@
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "packages/database/src/repositories/base.repo.ts"
+          "path": "packages/database/test/base.repo.test.ts"
         },
         {
           "id": "TD-055",
@@ -79,40 +112,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "packages/database/src/repositories/base.repo.ts"
-        },
-        {
-          "id": "TD-056",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-data",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "packages/database/src/repositories/base.repo.ts"
-        },
-        {
-          "id": "TD-057",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-data",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "packages/database/src/repositories/engagement.ts"
-        },
-        {
-          "id": "TD-058",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-data",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "packages/database/src/repositories/user-repository.ts"
+          "path": "packages/database/test/base.repo.test.ts"
         },
         {
           "id": "TD-001",

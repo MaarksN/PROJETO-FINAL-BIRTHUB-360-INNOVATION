@@ -3,16 +3,16 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 55/100
-- Estimativa de custo de não-ação: 8.1 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:27
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:112
-- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:115
-- TD-057 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/engagement.ts:151
-- TD-058 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/user-repository.ts:42
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/test/base.repo.test.ts:51
+- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/test/base.repo.test.ts:65
+- TD-001 | Complexidade acima do limiar em <anonymous> | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/worker/src/worker.process-job.ts:45
+- TD-002 | Complexidade acima do limiar em createConnectorsRouter | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/api/src/modules/connectors/router.ts:170
+- TD-003 | Complexidade acima do limiar em createJobProcessor | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/worker/src/worker.process-job.ts:36
 
 ### Análise Pendente
 
@@ -27,6 +27,8 @@
 - TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8) | requer: DAST/ZAP report
 - TD-052 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada | requer: cobertura por módulo
 - TD-053 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2) | requer: SLO dashboards vivos
+- TD-064 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD | requer: bundle baseline fresco
+- TD-065 | [DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2) | requer: load test recente
 - TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -483,46 +485,22 @@
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: packages/database/src/repositories/base.repo.ts:27
-  Problema: Indício em packages/database/src/repositories/base.repo.ts:27 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/test/base.repo.test.ts:51
+  Problema: Indício em packages/database/test/base.repo.test.ts:51 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-055 | Consulta findMany sem paginação explícita
-  Localização: packages/database/src/repositories/base.repo.ts:112
-  Problema: Indício em packages/database/src/repositories/base.repo.ts:112 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/test/base.repo.test.ts:65
+  Problema: Indício em packages/database/test/base.repo.test.ts:65 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-056 | Consulta findMany sem paginação explícita
-  Localização: packages/database/src/repositories/base.repo.ts:115
-  Problema: Indício em packages/database/src/repositories/base.repo.ts:115 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-057 | Consulta findMany sem paginação explícita
-  Localização: packages/database/src/repositories/engagement.ts:151
-  Problema: Indício em packages/database/src/repositories/engagement.ts:151 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-058 | Consulta findMany sem paginação explícita
-  Localização: packages/database/src/repositories/user-repository.ts:42
-  Problema: Indício em packages/database/src/repositories/user-repository.ts:42 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-059 | Await serial em loop de runtime
+- TD-056 | Await serial em loop de runtime
   Localização: apps/api/src/modules/billing/sync-plans.ts:62
   Problema: Indício em apps/api/src/modules/billing/sync-plans.ts:62 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -530,7 +508,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-060 | Await serial em loop de runtime
+- TD-057 | Await serial em loop de runtime
   Localização: apps/api/src/modules/packs/pack-installer.service.ts:91
   Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:91 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -538,7 +516,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-061 | Await serial em loop de runtime
+- TD-058 | Await serial em loop de runtime
   Localização: apps/api/src/modules/packs/pack-installer.service.ts:135
   Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:135 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -546,7 +524,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-062 | Await serial em loop de runtime
+- TD-059 | Await serial em loop de runtime
   Localização: apps/api/src/modules/packs/pack-installer.service.ts:418
   Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:418 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -554,7 +532,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-063 | Bundle web fresco acima de 2 MiB (2264.32 KiB)
+- TD-060 | Bundle web fresco acima de 2 MiB (2264.32 KiB)
   Localização: artifacts/performance/web-bundle-head.json:1
   Problema: A baseline fresca do bundle registrou 2264.32 KiB distribuídos em 44 arquivos, com chunk líder de 514549 bytes.
   Impacto: Bundles desse porte pressionam LCP/TTI, aumentam custo de download e tendem a penalizar dispositivos móveis em jornadas críticas.
@@ -562,7 +540,7 @@
   VDI: 2.9 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-064 | Página/estado web com complexidade alta (20)
+- TD-061 | Página/estado web com complexidade alta (20)
   Localização: apps/web/components/agents/FeedbackWidget.tsx:40
   Problema: Identificado em apps/web/components/agents/FeedbackWidget.tsx:40 um componente/página com complexidade 20.
   Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
@@ -570,13 +548,37 @@
   VDI: 2.4 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-065 | Página/estado web com complexidade alta (33)
+- TD-062 | Página/estado web com complexidade alta (33)
   Localização: apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35
   Problema: Identificado em apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35 um componente/página com complexidade 33.
   Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
   Solução recomendada: Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.
   VDI: 2.4 (MÉDIO)
   Esforço: 1-3 dias
+
+- TD-063 | Página/estado web com complexidade alta (33)
+  Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17
+  Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17 um componente/página com complexidade 33.
+  Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
+  Solução recomendada: Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.
+  VDI: 2.4 (MÉDIO)
+  Esforço: 1-3 dias
+
+- TD-064 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD
+  Localização: scripts/quality/generate-web-bundle-baseline.mjs:1
+  Problema: O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.
+  Impacto: Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.
+  Solução recomendada: Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-065 | [DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2)
+  Localização: package.json:1
+  Problema: Há scripts de stress e overload, mas a auditoria soberana não possui uma execução recente associada ao HEAD auditado.
+  Impacto: Capacidade e backpressure podem ser superestimados perto do lançamento.
+  Solução recomendada: Executar pelo menos um teste de carga rápido para API e worker no collect de release candidate.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
 ### Dimensão 6 — Infraestrutura e DevOps
 
@@ -1730,12 +1732,9 @@
 
 - Caminho crítico: TD-029 -> TD-001 -> TD-089
 - Nós mapeados: 22
-- Arestas mapeadas: 20
+- Arestas mapeadas: 17
 
 - TD-054 -> TD-055 (Debt dependency)
-- TD-054 -> TD-056 (Debt dependency)
-- TD-054 -> TD-057 (Debt dependency)
-- TD-054 -> TD-058 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
 - TD-001 -> TD-003 (Debt dependency)
 - TD-001 -> TD-004 (Debt dependency)

@@ -297,7 +297,10 @@ async function collectFilePredicates(files) {
       });
     }
 
-    if (filePath.startsWith("apps/api/") || filePath.startsWith("packages/database/")) {
+    if (
+      (filePath.startsWith("apps/api/") || filePath.startsWith("packages/database/")) &&
+      !/\/test\/|\.test\./.test(filePath)
+    ) {
       for (let index = 0; index < lines.length; index += 1) {
         if (!lines[index].includes("findMany(")) continue;
         if (/^\s*(?:async\s+)?findMany\s*\(/.test(lines[index])) continue;
