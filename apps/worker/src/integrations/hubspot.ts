@@ -2,7 +2,10 @@ import { getWorkerConfig } from "@birthub/config";
 import { prisma, SubscriptionStatus } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 
+import { fetchWithTimeout } from "../../../../packages/utils/src/fetch.js";
+
 const logger = createLogger("worker-hubspot");
+const HUBSPOT_REQUEST_TIMEOUT_MS = 10_000;
 
 export class HubspotRateLimitError extends Error {
   constructor(message = "HubSpot API rate limit reached.") {
@@ -52,13 +55,15 @@ class HubspotSyncAdapter {
       throw new MissingHubspotCredentialsError();
     }
 
-    const response = await fetch(`${this.baseUrl}${input.path}`, {
+    const response = await fetchWithTimeout(`${this.baseUrl}${input.path}`, {
       body: JSON.stringify(input.payload),
       headers: {
         authorization: `Bearer ${this.token}`,
         "content-type": "application/json"
       },
-      method: input.method
+      method: input.method,
+      timeoutMessage: `HubSpot sync exceeded the ${HUBSPOT_REQUEST_TIMEOUT_MS}ms timeout budget.`,
+      timeoutMs: HUBSPOT_REQUEST_TIMEOUT_MS
     });
 
     const body = await response.text();

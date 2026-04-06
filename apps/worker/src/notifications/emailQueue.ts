@@ -3,9 +3,12 @@ import { ensureUserPreference, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import type { Queue } from "bullmq";
 
+import { fetchWithTimeout } from "../../../../packages/utils/src/fetch.js";
+
 const logger = createLogger("worker-email-queue");
 
 export const emailQueueName = "engagement.email";
+const SENDGRID_REQUEST_TIMEOUT_MS = 10_000;
 
 export interface EmailNotificationJobPayload {
   context: Record<string, unknown>;
@@ -129,7 +132,7 @@ async function sendViaSendgrid(input: {
     };
   }
 
-  const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
+  const response = await fetchWithTimeout("https://api.sendgrid.com/v3/mail/send", {
     body: JSON.stringify({
       content: [
         {
@@ -151,7 +154,9 @@ async function sendViaSendgrid(input: {
       authorization: `Bearer ${config.SENDGRID_API_KEY}`,
       "content-type": "application/json"
     },
-    method: "POST"
+    method: "POST",
+    timeoutMessage: `SendGrid delivery exceeded the ${SENDGRID_REQUEST_TIMEOUT_MS}ms timeout budget.`,
+    timeoutMs: SENDGRID_REQUEST_TIMEOUT_MS
   });
 
   if (!response.ok) {

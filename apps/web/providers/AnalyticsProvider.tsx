@@ -14,6 +14,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 import { getStoredSession } from "../lib/auth-client";
 import { useUserPreferencesStore } from "../stores/user-preferences-store";
+import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
 
 interface AnalyticsContextValue {
   ready: boolean;
@@ -38,6 +39,8 @@ const redactedFieldPatterns = [
   /input/i,
   /output/i
 ];
+
+const ANALYTICS_REQUEST_TIMEOUT_MS = 3_000;
 
 const AnalyticsContext = createContext<AnalyticsContextValue>({
   ready: false,
@@ -157,14 +160,16 @@ function buildAnalyticsClient(input: {
           return;
         }
 
-        await fetch(endpoint, {
+        await fetchWithTimeout(endpoint, {
           body,
           headers: {
             "content-type": "application/json"
           },
           keepalive: true,
           method: "POST",
-          mode: "cors"
+          mode: "cors",
+          timeoutMessage: `Analytics dispatch exceeded the ${ANALYTICS_REQUEST_TIMEOUT_MS}ms timeout budget.`,
+          timeoutMs: ANALYTICS_REQUEST_TIMEOUT_MS
         });
       } catch {
         // Trackers blocked by extensions or privacy settings must never break the UI tree.

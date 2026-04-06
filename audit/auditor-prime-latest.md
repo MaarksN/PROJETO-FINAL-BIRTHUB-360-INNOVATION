@@ -3,23 +3,26 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 52/100
-- Estimativa de custo de não-ação: 8.8 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8.6 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
 - TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano | Dimensão 8 — Maturidade Operacional e Multi-tenancy | VDI 4.45 | artifacts/tenancy/rls-proof-head.json:1
-- TD-029 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/components/login-form.tsx:35
-- TD-030 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/components/wizards/PackInstaller.tsx:35
-- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/lib/agents.ts:96
-- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/lib/marketplace-api.server.ts:47
+- TD-029 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/worker/src/worker.ts:124
+- TD-030 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | packages/agents-core/src/tools/slack.tool.ts:34
+- TD-001 | Complexidade acima do limiar em registerAuthRoutes | Dimensão 1 — Saúde Arquitetural | VDI 3.55 | apps/api/src/app/auth-routes.ts:28
+- TD-042 | Cobertura estrutural baixa em apps/api | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.45 | apps/api/src/app/module-routes.ts:1
 
 ### Análise Pendente
 
 - TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core | requer: docs/architecture/c4-context.md
-- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
-- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
-- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
+- TD-036 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
+- TD-037 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
+- TD-038 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
+- TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4) | requer: DAST/ZAP report
+- TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5) | requer: semgrep --json
+- TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6) | requer: DAST/ZAP report
 - TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -271,46 +274,22 @@
 ### Dimensão 3 — Segurança
 
 - TD-029 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/components/login-form.tsx:35
-  Problema: Indício em apps/web/components/login-form.tsx:35 de acesso externo sem timeout explícito no arquivo.
+  Localização: apps/worker/src/worker.ts:124
+  Problema: Indício em apps/worker/src/worker.ts:124 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-030 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/components/wizards/PackInstaller.tsx:35
-  Problema: Indício em apps/web/components/wizards/PackInstaller.tsx:35 de acesso externo sem timeout explícito no arquivo.
+  Localização: packages/agents-core/src/tools/slack.tool.ts:34
+  Problema: Indício em packages/agents-core/src/tools/slack.tool.ts:34 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
   Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-031 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/lib/agents.ts:96
-  Problema: Indício em apps/web/lib/agents.ts:96 de acesso externo sem timeout explícito no arquivo.
-  Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
-  Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
-  VDI: 3.6 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-032 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/lib/marketplace-api.server.ts:47
-  Problema: Indício em apps/web/lib/marketplace-api.server.ts:47 de acesso externo sem timeout explícito no arquivo.
-  Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
-  Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
-  VDI: 3.6 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-033 | Chamada externa sem timeout ou abort path explícito
-  Localização: apps/web/lib/marketplace-api.ts:5
-  Problema: Indício em apps/web/lib/marketplace-api.ts:5 de acesso externo sem timeout explícito no arquivo.
-  Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
-  Solução recomendada: Padronizar client HTTP com timeout, retry com backoff e métricas por integração.
-  VDI: 3.6 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-034 | Semgrep WARNING em cd.yml
+- TD-031 | Semgrep WARNING em cd.yml
   Localização: .github/workflows/cd.yml:65
   Problema: Semgrep sinalizou em .github/workflows/cd.yml:65 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -318,7 +297,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-035 | Semgrep WARNING em cd.yml
+- TD-032 | Semgrep WARNING em cd.yml
   Localização: .github/workflows/cd.yml:191
   Problema: Semgrep sinalizou em .github/workflows/cd.yml:191 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -326,7 +305,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-036 | Semgrep WARNING em prisma-schema.ts
+- TD-033 | Semgrep WARNING em prisma-schema.ts
   Localização: packages/database/scripts/lib/prisma-schema.ts:40
   Problema: Semgrep sinalizou em packages/database/scripts/lib/prisma-schema.ts:40 o padrão "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -334,7 +313,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-037 | Semgrep WARNING em runtime.shared.ts
+- TD-034 | Semgrep WARNING em runtime.shared.ts
   Localização: apps/worker/src/agents/runtime.shared.ts:113
   Problema: Semgrep sinalizou em apps/worker/src/agents/runtime.shared.ts:113 o padrão "RegExp() called with a `pattern` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -342,7 +321,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-038 | Semgrep WARNING em worker.job-validation.test.ts
+- TD-035 | Semgrep WARNING em worker.job-validation.test.ts
   Localização: apps/worker/src/worker.job-validation.test.ts:47
   Problema: Semgrep sinalizou em apps/worker/src/worker.job-validation.test.ts:47 o padrão "Detected a hardcoded hmac key".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -350,7 +329,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
+- TD-036 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
@@ -358,7 +337,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
+- TD-037 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
   Localização: .github/workflows/security-scan.yml:1
   Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
   Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
@@ -366,11 +345,35 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
+- TD-038 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
   Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
+  Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
+  Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
+  Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
+  Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -547,16 +550,16 @@
   Esforço: 1-3 dias
 
 - TD-063 | Integração externa sem deadline operacional explícito
-  Localização: apps/web/components/login-form.tsx:35
-  Problema: Acesso externo em apps/web/components/login-form.tsx:35 não expõe timeout/abort guard no arquivo atual.
+  Localização: apps/worker/src/worker.ts:124
+  Problema: Acesso externo em apps/worker/src/worker.ts:124 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
   Solução recomendada: Padronizar timeout, retry budget e instrumentação de latência por integração.
   VDI: 3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-064 | Integração externa sem deadline operacional explícito
-  Localização: apps/web/components/wizards/PackInstaller.tsx:35
-  Problema: Acesso externo em apps/web/components/wizards/PackInstaller.tsx:35 não expõe timeout/abort guard no arquivo atual.
+  Localização: packages/agents-core/src/tools/slack.tool.ts:34
+  Problema: Acesso externo em packages/agents-core/src/tools/slack.tool.ts:34 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
   Solução recomendada: Padronizar timeout, retry budget e instrumentação de latência por integração.
   VDI: 3 (ALTO)
@@ -762,7 +765,7 @@
 
 - TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano
   Localização: artifacts/tenancy/rls-proof-head.json:1
-  Problema: A evidência fresca marca a prova runtime de RLS como "failed-role-provisioning", apesar de o audit estático de tenancy passar.
+  Problema: A evidência fresca marca a prova runtime de RLS como "skipped-no-database", apesar de o audit estático de tenancy passar.
   Impacto: Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.
   Solução recomendada: Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.
   VDI: 4.45 (CRÍTICO)
@@ -1725,14 +1728,14 @@
 - Arestas mapeadas: 19
 
 - TD-029 -> TD-030 (Debt dependency)
-- TD-029 -> TD-031 (Debt dependency)
-- TD-029 -> TD-032 (Debt dependency)
-- TD-029 -> TD-033 (Debt dependency)
 - TD-026 -> TD-042 (Debt dependency)
 - TD-042 -> TD-043 (Debt dependency)
 - TD-026 -> TD-043 (Debt dependency)
 - TD-054 -> TD-055 (Debt dependency)
 - TD-054 -> TD-056 (Debt dependency)
+- TD-054 -> TD-057 (Debt dependency)
+- TD-054 -> TD-058 (Debt dependency)
+- TD-001 -> TD-002 (Debt dependency)
 - TD-090 -> IN-001 (Scale foundation before innovation)
 - TD-090 -> IN-002 (Scale foundation before innovation)
 - TD-090 -> IN-003 (Scale foundation before innovation)

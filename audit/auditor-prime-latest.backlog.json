@@ -1,13 +1,10 @@
 {
-  "generatedAt": "2026-04-06T01:10:57.569Z",
+  "generatedAt": "2026-04-06T01:17:53.556Z",
   "sourceReport": "audit\\auditor-prime-2026-04-05.json",
   "top15Ids": [
     "TD-089",
     "TD-029",
     "TD-030",
-    "TD-031",
-    "TD-032",
-    "TD-033",
     "TD-001",
     "TD-042",
     "TD-043",
@@ -16,7 +13,10 @@
     "TD-056",
     "TD-057",
     "TD-058",
-    "TD-002"
+    "TD-002",
+    "TD-003",
+    "TD-004",
+    "TD-005"
   ],
   "sprints": [
     {
@@ -35,55 +35,22 @@
         {
           "id": "TD-029",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@product-frontend",
+          "owner": "@platform-automation",
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/components/login-form.tsx"
+          "path": "apps/worker/src/worker.ts"
         },
         {
           "id": "TD-030",
           "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@product-frontend",
+          "owner": "@platform-security",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-029"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/components/wizards/PackInstaller.tsx"
-        },
-        {
-          "id": "TD-031",
-          "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@product-frontend",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-029"
-          ],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/lib/agents.ts"
-        },
-        {
-          "id": "TD-032",
-          "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@product-frontend",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-029"
-          ],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/lib/marketplace-api.server.ts"
-        },
-        {
-          "id": "TD-033",
-          "title": "Chamada externa sem timeout ou abort path explícito",
-          "owner": "@product-frontend",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-029"
-          ],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/web/lib/marketplace-api.ts"
+          "path": "packages/agents-core/src/tools/slack.tool.ts"
         }
       ]
     },
@@ -192,6 +159,39 @@
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
           "path": "apps/worker/src/worker.process-job.ts"
+        },
+        {
+          "id": "TD-003",
+          "title": "Complexidade acima do limiar em createConnectorsRouter",
+          "owner": "@platform-api",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/api/src/modules/connectors/router.ts"
+        },
+        {
+          "id": "TD-004",
+          "title": "Complexidade acima do limiar em createJobProcessor",
+          "owner": "@platform-automation",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/worker/src/worker.process-job.ts"
+        },
+        {
+          "id": "TD-005",
+          "title": "Complexidade acima do limiar em DeveloperWebhooksPage",
+          "owner": "@product-frontend",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx"
         }
       ]
     },
