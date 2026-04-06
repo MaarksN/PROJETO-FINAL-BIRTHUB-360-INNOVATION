@@ -34,6 +34,7 @@ void test("listUsersByTenant builds membership, status and search filters", asyn
       orderBy: {
         createdAt: "desc"
       },
+      take: 100,
       where: {
         OR: [
           {

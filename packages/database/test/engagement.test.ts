@@ -137,9 +137,34 @@ void test("createNotificationForOrganizationRoles only creates notifications for
         }
       ]
     });
+    assert.equal((createManyArgs as { take?: number }).take, undefined);
   } finally {
     prisma.membership.findMany = originalFindMany;
     prisma.notification.createMany = originalCreateMany;
+  }
+});
+
+void test("createNotificationForOrganizationRoles caps membership reads", async () => {
+  const originalFindMany = prisma.membership.findMany;
+  let received: unknown = null;
+
+  prisma.membership.findMany = (async (args: unknown) => {
+    received = args;
+    return [];
+  }) as unknown as typeof prisma.membership.findMany;
+
+  try {
+    const result = await createNotificationForOrganizationRoles({
+      content: "ops",
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      type: NotificationType.INFO
+    });
+
+    assert.deepEqual(result, { count: 0 });
+    assert.equal((received as { take?: number }).take, 100);
+  } finally {
+    prisma.membership.findMany = originalFindMany;
   }
 });
 

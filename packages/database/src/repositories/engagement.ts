@@ -3,6 +3,7 @@ import { Prisma, Role, type Membership, type Notification, type NotificationType
 import { prisma } from "../client.js";
 
 type JsonObject = Prisma.InputJsonValue | undefined;
+const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;
 
 export async function ensureUserPreference(input: {
   organizationId: string;
@@ -161,6 +162,7 @@ export async function createNotificationForOrganizationRoles(input: {
         }
       }
     },
+    take: ORGANIZATION_ROLE_NOTIFICATION_LIMIT,
     where: {
       organizationId: input.organizationId,
       role: {
