@@ -27,7 +27,14 @@ export const workflowRunSchema = z
   })
   .strict();
 
+export const workflowRevertSchema = z
+  .object({
+    version: z.number().int().positive()
+  })
+  .strict();
+
 export type WorkflowCreateInput = z.infer<typeof workflowCreateSchema>;
 export type WorkflowRunInput = z.infer<typeof workflowRunSchema>;
 export type WorkflowUpdateInput = z.infer<typeof workflowUpdateSchema>;
+export type WorkflowRevertInput = z.infer<typeof workflowRevertSchema>;
 

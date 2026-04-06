@@ -14,6 +14,7 @@ import { validateBody } from "../../middleware/validate-body.js";
 import { emitWorkflowInternalEvent } from "../webhooks/eventBus.js";
 import {
   workflowCreateSchema,
+  workflowRevertSchema,
   workflowRunSchema,
   workflowUpdateSchema
 } from "./schemas.js";
@@ -21,7 +22,9 @@ import {
   archiveWorkflow,
   createWorkflow,
   getWorkflowById,
+  getWorkflowRevisions,
   listWorkflows,
+  revertWorkflow,
   runWorkflowNow,
   updateWorkflow
 } from "./service.js";
@@ -128,6 +131,39 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
       await archiveWorkflow(workflowId, tenantId);
       response.status(204).send();
+    })
+  );
+
+  router.get(
+    "/api/v1/workflows/:id/revisions",
+    requireAuthenticatedSession,
+    asyncHandler(async (request, response) => {
+      const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
+
+      const items = await getWorkflowRevisions(workflowId, tenantId);
+      response.status(200).json({
+        items,
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.post(
+    "/api/v1/workflows/:id/revert",
+    requireAuthenticatedSession,
+    RequireRole(Role.ADMIN),
+    validateBody(workflowRevertSchema),
+    asyncHandler(async (request, response) => {
+      const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
+      const payload = workflowRevertSchema.parse(request.body);
+
+      const workflow = await revertWorkflow(config, workflowId, tenantId, payload);
+      response.status(200).json({
+        requestId: request.context.requestId,
+        workflow
+      });
     })
   );
 

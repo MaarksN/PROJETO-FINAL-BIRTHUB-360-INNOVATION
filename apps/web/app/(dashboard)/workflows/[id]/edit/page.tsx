@@ -200,6 +200,13 @@ function WorkflowEditorCanvas({
         </div>
         <div style={{ display: "flex", gap: 8 }}>
           <button
+            onClick={() => window.location.href = `/workflows/${id}/revisions`}
+            style={{ alignItems: "center", display: "inline-flex", gap: 6 }}
+            type="button"
+          >
+            Revisoes
+          </button>
+          <button
             onClick={onShuffle}
             style={{ alignItems: "center", display: "inline-flex", gap: 6 }}
             type="button"
