@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T13:45:09.406Z",
+  "checkedAt": "2026-04-06T13:52:43.754Z",
   "mode": "browser-dom-smoke",
   "requestedTool": "playwright",
   "sufficient": true,
@@ -47,6 +47,6 @@
     }
   ],
   "findings": [],
-  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 907ms\n\n GET /pricing 200 in 721ms (next.js: 126ms, proxy.ts: 186ms, application-code: 409ms)\n GET / 200 in 127ms (next.js: 52ms, proxy.ts: 7ms, application-code: 68ms)\n GET /pricing 200 in 78ms (next.js: 4ms, proxy.ts: 6ms, application-code: 67ms)\n GET /legal/terms 200 in 94ms (next.js: 28ms, proxy.ts: 5ms, application-code: 61ms)\n GET /legal/privacy 200 in 99ms (next.js: 28ms, proxy.ts: 6ms, application-code: 64ms)\n",
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 1301ms\n\n GET /pricing 200 in 792ms (next.js: 133ms, proxy.ts: 257ms, application-code: 403ms)\n GET / 200 in 195ms (next.js: 87ms, proxy.ts: 10ms, application-code: 98ms)\n GET /pricing 200 in 93ms (next.js: 5ms, proxy.ts: 8ms, application-code: 80ms)\n GET /legal/terms 200 in 163ms (next.js: 38ms, proxy.ts: 7ms, application-code: 118ms)\n GET /legal/privacy 200 in 146ms (next.js: 42ms, proxy.ts: 8ms, application-code: 96ms)\n",
   "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"127.0.0.1\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['127.0.0.1'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins\n"
 }

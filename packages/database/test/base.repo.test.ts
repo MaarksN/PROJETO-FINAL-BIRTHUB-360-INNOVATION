@@ -91,6 +91,7 @@ void test("injeta tenantId do AsyncLocalStorage e ignora tenantId externo", asyn
 
   assert.deepEqual(calls[0], {
     args: {
+      take: 100,
       where: {
         id: "rec-1",
         tenantId: "tenant-alpha"
@@ -122,4 +123,31 @@ void test("injeta tenantId do AsyncLocalStorage e ignora tenantId externo", asyn
     },
     method: "updateMany"
   });
+});
+
+void test("findMany aplica limite padrao e cap de seguranca", async () => {
+  const { calls, delegate } = createDelegate();
+  const repository = new BaseRepository<Where, Data, RecordModel>(delegate);
+
+  await runWithTenantContext(
+    {
+      source: "authenticated",
+      tenantId: "tenant-alpha"
+    },
+    async () => {
+      await repository.findMany();
+      await repository.findMany({
+        take: 999
+      });
+    }
+  );
+
+  assert.equal(calls[0]?.method, "findMany");
+  assert.deepEqual(calls[0]?.args, {
+    take: 100,
+    where: {
+      tenantId: "tenant-alpha"
+    }
+  });
+  assert.equal((calls[1]?.args as { take?: number }).take, 500);
 });

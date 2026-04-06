@@ -13,6 +13,9 @@ type MutationArgs<TWhere extends TenantScopedWhere, TData extends TenantScopedDa
   where?: Omit<TWhere, "tenantId">;
 } & Record<string, unknown>;
 
+const DEFAULT_FIND_MANY_LIMIT = 100;
+const MAX_FIND_MANY_LIMIT = 500;
+
 type TenantScopedDelegate<
   TWhere extends TenantScopedWhere,
   TData extends TenantScopedData,
@@ -46,6 +49,14 @@ function getScopedTenantId(operation: string): string {
 
     throw new TenantRequiredError(operation);
   }
+}
+
+function normalizeFindManyTake(value: unknown): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return DEFAULT_FIND_MANY_LIMIT;
+  }
+
+  return Math.min(Math.max(Math.trunc(value), 1), MAX_FIND_MANY_LIMIT);
 }
 
 // @see ADR-008
@@ -100,8 +111,10 @@ export class BaseRepository<
 
   findMany(args: FindArgs<TWhere> = {}): Promise<TResult[]> {
     const tenantId = getScopedTenantId("findMany");
+    const take = normalizeFindManyTake(args.take);
     return this.delegate.findMany({
       ...args,
+      take,
       where: {
         ...(omitTenantId(args.where) ?? {}),
         tenantId

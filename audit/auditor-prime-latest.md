@@ -8,11 +8,11 @@
 
 ### Top 5 riscos críticos
 
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/users/router.ts:81
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/webhooks/eventBus.ts:27
-- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/webhooks/settings.service.ts:33
-- TD-057 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/workflows/service.ts:210
-- TD-058 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:24
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:27
+- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:112
+- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:115
+- TD-057 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/engagement.ts:151
+- TD-058 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/user-repository.ts:42
 
 ### Análise Pendente
 
@@ -130,17 +130,17 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-011 | Arquivo grande demais para o boundary atual (466 linhas)
-  Localização: apps/worker/src/executors/planExecutor.ts:1
-  Problema: Identificado em apps/worker/src/executors/planExecutor.ts um arquivo com 466 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+- TD-011 | Arquivo grande demais para o boundary atual (477 linhas)
+  Localização: apps/api/src/modules/workflows/service.ts:1
+  Problema: Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 477 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-012 | Arquivo grande demais para o boundary atual (474 linhas)
-  Localização: apps/api/src/modules/workflows/service.ts:1
-  Problema: Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 474 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+- TD-012 | Arquivo grande demais para o boundary atual (482 linhas)
+  Localização: apps/api/src/modules/users/router.ts:1
+  Problema: Identificado em apps/api/src/modules/users/router.ts um arquivo com 482 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
@@ -483,40 +483,40 @@
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/users/router.ts:81
-  Problema: Indício em apps/api/src/modules/users/router.ts:81 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/src/repositories/base.repo.ts:27
+  Problema: Indício em packages/database/src/repositories/base.repo.ts:27 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/webhooks/eventBus.ts:27
-  Problema: Indício em apps/api/src/modules/webhooks/eventBus.ts:27 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/src/repositories/base.repo.ts:112
+  Problema: Indício em packages/database/src/repositories/base.repo.ts:112 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/webhooks/settings.service.ts:33
-  Problema: Indício em apps/api/src/modules/webhooks/settings.service.ts:33 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/src/repositories/base.repo.ts:115
+  Problema: Indício em packages/database/src/repositories/base.repo.ts:115 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-057 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/workflows/service.ts:210
-  Problema: Indício em apps/api/src/modules/workflows/service.ts:210 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/src/repositories/engagement.ts:151
+  Problema: Indício em packages/database/src/repositories/engagement.ts:151 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-058 | Consulta findMany sem paginação explícita
-  Localização: packages/database/src/repositories/base.repo.ts:24
-  Problema: Indício em packages/database/src/repositories/base.repo.ts:24 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/src/repositories/user-repository.ts:42
+  Problema: Indício em packages/database/src/repositories/user-repository.ts:42 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-06T13:45:20.123Z",
+  "generatedAt": "2026-04-06T13:52:57.317Z",
   "sourceReport": "audit\\auditor-prime-2026-04-06.json",
   "top15Ids": [
     "TD-054",
@@ -64,44 +64,44 @@
         {
           "id": "TD-054",
           "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
+          "owner": "@platform-data",
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/users/router.ts"
+          "path": "packages/database/src/repositories/base.repo.ts"
         },
         {
           "id": "TD-055",
           "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
+          "owner": "@platform-data",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/webhooks/eventBus.ts"
+          "path": "packages/database/src/repositories/base.repo.ts"
         },
         {
           "id": "TD-056",
           "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
+          "owner": "@platform-data",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/webhooks/settings.service.ts"
+          "path": "packages/database/src/repositories/base.repo.ts"
         },
         {
           "id": "TD-057",
           "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
+          "owner": "@platform-data",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/workflows/service.ts"
+          "path": "packages/database/src/repositories/engagement.ts"
         },
         {
           "id": "TD-058",
@@ -112,7 +112,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "packages/database/src/repositories/base.repo.ts"
+          "path": "packages/database/src/repositories/user-repository.ts"
         },
         {
           "id": "TD-001",

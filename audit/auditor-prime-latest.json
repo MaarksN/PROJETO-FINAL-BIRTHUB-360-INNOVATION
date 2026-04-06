@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T13:45:19.250Z",
+    "generatedAt": "2026-04-06T13:52:56.061Z",
     "reportDate": "2026-04-06",
     "slug": "auditor-prime-2026-04-06",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "4aec76af091281d13cab71bcc370e83f5c5fddb5",
+    "headSha": "6ee93a377f58e3cdebc8be3c40dca21e11c29353",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -30,10 +30,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/users/router.ts",
+          "path": "packages/database/src/repositories/base.repo.ts",
           "lines": {
-            "start": 81,
-            "end": 81
+            "start": 27,
+            "end": 27
           }
         }
       },
@@ -44,10 +44,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/webhooks/eventBus.ts",
+          "path": "packages/database/src/repositories/base.repo.ts",
           "lines": {
-            "start": 27,
-            "end": 27
+            "start": 112,
+            "end": 112
           }
         }
       },
@@ -58,10 +58,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/webhooks/settings.service.ts",
+          "path": "packages/database/src/repositories/base.repo.ts",
           "lines": {
-            "start": 33,
-            "end": 33
+            "start": 115,
+            "end": 115
           }
         }
       },
@@ -72,10 +72,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "apps/api/src/modules/workflows/service.ts",
+          "path": "packages/database/src/repositories/engagement.ts",
           "lines": {
-            "start": 210,
-            "end": 210
+            "start": 151,
+            "end": 151
           }
         }
       },
@@ -86,10 +86,10 @@
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "vdiScore": 3.3,
         "location": {
-          "path": "packages/database/src/repositories/base.repo.ts",
+          "path": "packages/database/src/repositories/user-repository.ts",
           "lines": {
-            "start": 24,
-            "end": 24
+            "start": 42,
+            "end": 42
           }
         }
       }
@@ -519,49 +519,7 @@
     },
     {
       "dimension": "architecture",
-      "title": "Arquivo grande demais para o boundary atual (466 linhas)",
-      "location": {
-        "path": "apps/worker/src/executors/planExecutor.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em apps/worker/src/executors/planExecutor.ts um arquivo com 466 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
-      "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
-      "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 1,
-        "reverseEffort": 4,
-        "frequency": 4
-      },
-      "vdiScore": 2.75,
-      "effort": "2-5 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 2",
-      "confidence": 0.88,
-      "evidenceRefs": [
-        {
-          "path": "apps/worker/src/executors/planExecutor.ts",
-          "line": 1,
-          "summary": "466 linhas no arquivo."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "refactor-core"
-      ],
-      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
-      "id": "TD-011",
-      "dependencies": [
-        "TD-001"
-      ]
-    },
-    {
-      "dimension": "architecture",
-      "title": "Arquivo grande demais para o boundary atual (474 linhas)",
+      "title": "Arquivo grande demais para o boundary atual (477 linhas)",
       "location": {
         "path": "apps/api/src/modules/workflows/service.ts",
         "lines": {
@@ -569,7 +527,7 @@
           "end": 1
         }
       },
-      "problem": "Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 474 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+      "problem": "Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 477 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
       "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
       "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
       "vdiFactors": {
@@ -587,7 +545,49 @@
         {
           "path": "apps/api/src/modules/workflows/service.ts",
           "line": 1,
-          "summary": "474 linhas no arquivo."
+          "summary": "477 linhas no arquivo."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "refactor-core"
+      ],
+      "dimensionLabel": "Dimensão 1 — Saúde Arquitetural",
+      "id": "TD-011",
+      "dependencies": [
+        "TD-001"
+      ]
+    },
+    {
+      "dimension": "architecture",
+      "title": "Arquivo grande demais para o boundary atual (482 linhas)",
+      "location": {
+        "path": "apps/api/src/modules/users/router.ts",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Identificado em apps/api/src/modules/users/router.ts um arquivo com 482 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+      "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
+      "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 1,
+        "reverseEffort": 4,
+        "frequency": 4
+      },
+      "vdiScore": 2.75,
+      "effort": "2-5 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 2",
+      "confidence": 0.88,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/users/router.ts",
+          "line": 1,
+          "summary": "482 linhas no arquivo."
         }
       ],
       "inference": false,
@@ -2360,13 +2360,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/users/router.ts",
+        "path": "packages/database/src/repositories/base.repo.ts",
         "lines": {
-          "start": 81,
-          "end": 81
+          "start": 27,
+          "end": 27
         }
       },
-      "problem": "Indício em apps/api/src/modules/users/router.ts:81 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em packages/database/src/repositories/base.repo.ts:27 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2382,8 +2382,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/users/router.ts",
-          "line": 81,
+          "path": "packages/database/src/repositories/base.repo.ts",
+          "line": 27,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2400,13 +2400,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/webhooks/eventBus.ts",
+        "path": "packages/database/src/repositories/base.repo.ts",
         "lines": {
-          "start": 27,
-          "end": 27
+          "start": 112,
+          "end": 112
         }
       },
-      "problem": "Indício em apps/api/src/modules/webhooks/eventBus.ts:27 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em packages/database/src/repositories/base.repo.ts:112 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2422,8 +2422,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/webhooks/eventBus.ts",
-          "line": 27,
+          "path": "packages/database/src/repositories/base.repo.ts",
+          "line": 112,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2442,13 +2442,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/webhooks/settings.service.ts",
+        "path": "packages/database/src/repositories/base.repo.ts",
         "lines": {
-          "start": 33,
-          "end": 33
+          "start": 115,
+          "end": 115
         }
       },
-      "problem": "Indício em apps/api/src/modules/webhooks/settings.service.ts:33 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em packages/database/src/repositories/base.repo.ts:115 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2464,8 +2464,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/webhooks/settings.service.ts",
-          "line": 33,
+          "path": "packages/database/src/repositories/base.repo.ts",
+          "line": 115,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2484,13 +2484,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "apps/api/src/modules/workflows/service.ts",
+        "path": "packages/database/src/repositories/engagement.ts",
         "lines": {
-          "start": 210,
-          "end": 210
+          "start": 151,
+          "end": 151
         }
       },
-      "problem": "Indício em apps/api/src/modules/workflows/service.ts:210 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em packages/database/src/repositories/engagement.ts:151 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2506,8 +2506,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/modules/workflows/service.ts",
-          "line": 210,
+          "path": "packages/database/src/repositories/engagement.ts",
+          "line": 151,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -2526,13 +2526,13 @@
       "dimension": "performance",
       "title": "Consulta findMany sem paginação explícita",
       "location": {
-        "path": "packages/database/src/repositories/base.repo.ts",
+        "path": "packages/database/src/repositories/user-repository.ts",
         "lines": {
-          "start": 24,
-          "end": 24
+          "start": 42,
+          "end": 42
         }
       },
-      "problem": "Indício em packages/database/src/repositories/base.repo.ts:24 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "problem": "Indício em packages/database/src/repositories/user-repository.ts:42 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
       "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
       "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
       "vdiFactors": {
@@ -2548,8 +2548,8 @@
       "confidence": 0.72,
       "evidenceRefs": [
         {
-          "path": "packages/database/src/repositories/base.repo.ts",
-          "line": 24,
+          "path": "packages/database/src/repositories/user-repository.ts",
+          "line": 42,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -8580,8 +8580,23 @@
       }
     },
     "git": {
-      "totalCommits": 1125,
+      "totalCommits": 1128,
       "last30Days": [
+        {
+          "sha": "6ee93a377f58e3cdebc8be3c40dca21e11c29353",
+          "date": "2026-04-06",
+          "subject": "Update service.ts"
+        },
+        {
+          "sha": "d8a7a57007d5f1c1c5579c53010d8dd9cec7802a",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
+        {
+          "sha": "56e2e31e28b6bccf83ba81ab589c306a7112a002",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
         {
           "sha": "4aec76af091281d13cab71bcc370e83f5c5fddb5",
           "date": "2026-04-06",
@@ -11334,6 +11349,16 @@
         "activeDays": 22,
         "placeholderMessages": [
           {
+            "sha": "d8a7a57007d5f1c1c5579c53010d8dd9cec7802a",
+            "date": "2026-04-06",
+            "subject": "1"
+          },
+          {
+            "sha": "56e2e31e28b6bccf83ba81ab589c306a7112a002",
+            "date": "2026-04-06",
+            "subject": "1"
+          },
+          {
             "sha": "4aec76af091281d13cab71bcc370e83f5c5fddb5",
             "date": "2026-04-06",
             "subject": "1"
@@ -11446,16 +11471,6 @@
           {
             "sha": "3797bdedc7fd859cc483b6621260ef7f9c38692a",
             "date": "2026-04-05",
-            "subject": "1"
-          },
-          {
-            "sha": "920c657800f507c8d0fb6523df9a5ef489602f23",
-            "date": "2026-04-04",
-            "subject": "1"
-          },
-          {
-            "sha": "cfa53d10ceb3b0d9d9ad0da7b648281819ba3f7e",
-            "date": "2026-04-04",
             "subject": "1"
           }
         ]
