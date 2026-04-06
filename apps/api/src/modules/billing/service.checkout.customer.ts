@@ -50,8 +50,8 @@ export function readOrganizationSetting(
 }
 
 export function resolveCheckoutPreferences(input: {
-  countryCode?: string | null;
-  locale?: string | null;
+  countryCode?: string | null | undefined;
+  locale?: string | null | undefined;
   settings: Prisma.JsonValue | null | undefined;
 }): {
   countryCode: string | null;

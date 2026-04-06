@@ -89,7 +89,7 @@ async function listTenantAgentSummaries(
   let cursor: string | null = null;
 
   while (true) {
-    const page = await client.agent.findMany({
+    const page: PackAgentSummary[] = await client.agent.findMany({
       ...(cursor
         ? {
             cursor: {
@@ -133,7 +133,7 @@ async function listActiveWorkflowDependencies(tenantId: string): Promise<Workflo
   let cursor: string | null = null;
 
   while (true) {
-    const page = await prisma.workflowStep.findMany({
+    const page: WorkflowDependencyStep[] = await prisma.workflowStep.findMany({
       ...(cursor
         ? {
             cursor: {

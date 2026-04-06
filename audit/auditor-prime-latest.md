@@ -3,16 +3,16 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 55/100
-- Estimativa de custo de não-ação: 8.2 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8.1 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-001 | Arquivo grande demais para o boundary atual (473 linhas) | Dimensão 1 — Saúde Arquitetural | VDI 3.35 | apps/api/src/modules/billing/service.checkout.ts:1
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/packs/pack-installer.service.ts:93
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/packs/pack-installer.service.ts:189
-- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/packs/pack-installer.service.ts:201
-- TD-057 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/packs/pack-installer.service.ts:264
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/users/router.ts:81
+- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/webhooks/eventBus.ts:27
+- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/webhooks/settings.service.ts:33
+- TD-057 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/workflows/service.ts:210
+- TD-058 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | packages/database/src/repositories/base.repo.ts:24
 
 ### Análise Pendente
 
@@ -50,15 +50,7 @@
 
 ### Dimensão 1 — Saúde Arquitetural
 
-- TD-001 | Arquivo grande demais para o boundary atual (473 linhas)
-  Localização: apps/api/src/modules/billing/service.checkout.ts:1
-  Problema: Identificado em apps/api/src/modules/billing/service.checkout.ts um arquivo com 473 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
-  Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
-  Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
-  VDI: 3.35 (ALTO)
-  Esforço: 2-5 dias
-
-- TD-002 | Complexidade acima do limiar em <anonymous>
+- TD-001 | Complexidade acima do limiar em <anonymous>
   Localização: apps/worker/src/worker.process-job.ts:45
   Problema: Identificado em apps/worker/src/worker.process-job.ts:45 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -66,7 +58,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-003 | Complexidade acima do limiar em createConnectorsRouter
+- TD-002 | Complexidade acima do limiar em createConnectorsRouter
   Localização: apps/api/src/modules/connectors/router.ts:170
   Problema: Identificado em apps/api/src/modules/connectors/router.ts:170 uma função com complexidade ciclomática 38, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -74,7 +66,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-004 | Complexidade acima do limiar em createJobProcessor
+- TD-003 | Complexidade acima do limiar em createJobProcessor
   Localização: apps/worker/src/worker.process-job.ts:36
   Problema: Identificado em apps/worker/src/worker.process-job.ts:36 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -82,7 +74,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-005 | Complexidade acima do limiar em DeveloperWebhooksPage
+- TD-004 | Complexidade acima do limiar em DeveloperWebhooksPage
   Localização: apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35
   Problema: Identificado em apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -90,7 +82,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-006 | Complexidade acima do limiar em executeStep
+- TD-005 | Complexidade acima do limiar em executeStep
   Localização: packages/workflows-core/src/nodes/executeStep.ts:31
   Problema: Identificado em packages/workflows-core/src/nodes/executeStep.ts:31 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -98,7 +90,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-007 | Complexidade acima do limiar em main
+- TD-006 | Complexidade acima do limiar em main
   Localização: packages/database/scripts/check-migration-governance.ts:24
   Problema: Identificado em packages/database/scripts/check-migration-governance.ts:24 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -106,7 +98,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-008 | Complexidade acima do limiar em WorkflowRunsPage
+- TD-007 | Complexidade acima do limiar em WorkflowRunsPage
   Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17
   Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -114,7 +106,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-009 | Complexidade acima do limiar em parseAgentConfig
+- TD-008 | Complexidade acima do limiar em parseAgentConfig
   Localização: apps/api/src/modules/agents/service.config.ts:6
   Problema: Identificado em apps/api/src/modules/agents/service.config.ts:6 uma função com complexidade ciclomática 26, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -122,7 +114,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-010 | Superfície legacy ainda versionada ao lado do core canônico
+- TD-009 | Superfície legacy ainda versionada ao lado do core canônico
   Localização: docs/service-catalog.md:1
   Problema: O catálogo canônico marca o dashboard legado como quarentena, mas a superfície continua presente e próxima do fluxo principal do monorepo.
   Impacto: Manter legado ao lado do core amplia ruído de manutenção e aumenta o risco de dependências regressivas no lane principal.
@@ -130,9 +122,17 @@
   VDI: 2.85 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-011 | Arquivo grande demais para o boundary atual (1265 linhas)
+- TD-010 | Arquivo grande demais para o boundary atual (1265 linhas)
   Localização: packages/database/prisma/schema.prisma:1
   Problema: Identificado em packages/database/prisma/schema.prisma um arquivo com 1265 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+  Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
+  Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
+  VDI: 2.75 (MÉDIO)
+  Esforço: 2-5 dias
+
+- TD-011 | Arquivo grande demais para o boundary atual (466 linhas)
+  Localização: apps/worker/src/executors/planExecutor.ts:1
+  Problema: Identificado em apps/worker/src/executors/planExecutor.ts um arquivo com 466 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
@@ -483,40 +483,40 @@
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:93
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:93 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/users/router.ts:81
+  Problema: Indício em apps/api/src/modules/users/router.ts:81 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:189
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:189 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/webhooks/eventBus.ts:27
+  Problema: Indício em apps/api/src/modules/webhooks/eventBus.ts:27 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:201
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:201 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/webhooks/settings.service.ts:33
+  Problema: Indício em apps/api/src/modules/webhooks/settings.service.ts:33 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-057 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:264
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:264 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/workflows/service.ts:210
+  Problema: Indício em apps/api/src/modules/workflows/service.ts:210 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-058 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:316
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:316 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: packages/database/src/repositories/base.repo.ts:24
+  Problema: Indício em packages/database/src/repositories/base.repo.ts:24 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
@@ -531,24 +531,24 @@
   Esforço: 1-3 dias
 
 - TD-060 | Await serial em loop de runtime
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:335
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:335 de await dentro de loop sequencial.
+  Localização: apps/api/src/modules/packs/pack-installer.service.ts:91
+  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:91 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
   Solução recomendada: Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
 - TD-061 | Await serial em loop de runtime
-  Localização: apps/api/src/modules/webhooks/eventBus.ts:36
-  Problema: Indício em apps/api/src/modules/webhooks/eventBus.ts:36 de await dentro de loop sequencial.
+  Localização: apps/api/src/modules/packs/pack-installer.service.ts:135
+  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:135 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
   Solução recomendada: Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
 - TD-062 | Await serial em loop de runtime
-  Localização: apps/api/src/modules/workflows/service.ts:116
-  Problema: Indício em apps/api/src/modules/workflows/service.ts:116 de await dentro de loop sequencial.
+  Localização: apps/api/src/modules/packs/pack-installer.service.ts:418
+  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:418 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
   Solução recomendada: Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.
   VDI: 3.05 (ALTO)

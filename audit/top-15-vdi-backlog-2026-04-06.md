@@ -1,6 +1,6 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-06T13:11:03.875Z
+- Generated at: 2026-04-06T13:45:20.123Z
 - Source report: `audit\auditor-prime-2026-04-06.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
@@ -9,6 +9,7 @@
 | --- | --- | --- | --- | --- |
 | TD-089 Ausência de superfícies explícitas de interoperabilidade clínica padrão (`packages/integrations/src/clients/http.ts`) | @platform-architecture | 1-2 semanas | nenhuma | Capacidade operacional/multi-tenant materializada com evidência versionada, critério técnico validado e item rebaixado/removido na próxima auditoria. |
 | TD-090 Drill de disaster recovery não registrado no ciclo atual (`artifacts/dr/latest-drill.json`) | @platform-architecture | 0.5-2 dias | nenhuma | Capacidade operacional/multi-tenant materializada com evidência versionada, critério técnico validado e item rebaixado/removido na próxima auditoria. |
+| TD-029 Semgrep WARNING em cd.yml (`.github/workflows/cd.yml`) | @platform-security | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 2 — Qualidade + observabilidade
 
@@ -18,19 +19,18 @@
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-001 Arquivo grande demais para o boundary atual (473 linhas) (`apps/api/src/modules/billing/service.checkout.ts`) | @platform-api | 2-5 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-054 Consulta findMany sem paginação explícita (`apps/api/src/modules/packs/pack-installer.service.ts`) | @platform-api | 0.5-2 dias | nenhuma | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-055 Consulta findMany sem paginação explícita (`apps/api/src/modules/packs/pack-installer.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-056 Consulta findMany sem paginação explícita (`apps/api/src/modules/packs/pack-installer.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/packs/pack-installer.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-058 Consulta findMany sem paginação explícita (`apps/api/src/modules/packs/pack-installer.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-002 Complexidade acima do limiar em <anonymous> (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-003 Complexidade acima do limiar em createConnectorsRouter (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-004 Complexidade acima do limiar em createJobProcessor (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-005 Complexidade acima do limiar em DeveloperWebhooksPage (`apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-006 Complexidade acima do limiar em executeStep (`packages/workflows-core/src/nodes/executeStep.ts`) | @platform-architecture | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-007 Complexidade acima do limiar em main (`packages/database/scripts/check-migration-governance.ts`) | @platform-data | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-008 Complexidade acima do limiar em WorkflowRunsPage (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-054 Consulta findMany sem paginação explícita (`apps/api/src/modules/users/router.ts`) | @platform-api | 0.5-2 dias | nenhuma | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-055 Consulta findMany sem paginação explícita (`apps/api/src/modules/webhooks/eventBus.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-056 Consulta findMany sem paginação explícita (`apps/api/src/modules/webhooks/settings.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/workflows/service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-058 Consulta findMany sem paginação explícita (`packages/database/src/repositories/base.repo.ts`) | @platform-data | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-001 Complexidade acima do limiar em <anonymous> (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-002 Complexidade acima do limiar em createConnectorsRouter (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-003 Complexidade acima do limiar em createJobProcessor (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-004 Complexidade acima do limiar em DeveloperWebhooksPage (`apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-005 Complexidade acima do limiar em executeStep (`packages/workflows-core/src/nodes/executeStep.ts`) | @platform-architecture | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-006 Complexidade acima do limiar em main (`packages/database/scripts/check-migration-governance.ts`) | @platform-data | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-007 Complexidade acima do limiar em WorkflowRunsPage (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 
