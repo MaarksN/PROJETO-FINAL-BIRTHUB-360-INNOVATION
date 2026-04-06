@@ -66,7 +66,8 @@ export async function executeManifestAgentRuntime(
   const { costs: toolCostTable, tools: runtimeTools } = createRuntimeTools(
     resolved.manifest,
     policyEngine,
-    workerConfig.AGENT_DEFAULT_TOOL_COST_BRL
+    workerConfig.AGENT_DEFAULT_TOOL_COST_BRL,
+    input.redis
   );
 
   const persistLogs = async (): Promise<void> => {

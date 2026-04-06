@@ -9,6 +9,8 @@ import {
   readNumbers,
   readStrings
 } from "./runtime.shared.js";
+import { HandoffTool } from "./tools/handoffTool.js";
+import type { Redis } from "ioredis";
 
 const logger = createLogger("agent-runtime");
 
@@ -70,7 +72,8 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
 export function createRuntimeTools(
   manifest: AgentManifest,
   policyEngine: PolicyEngine,
-  defaultToolCostBrl: number
+  defaultToolCostBrl: number,
+  redis: Redis
 ): {
   costs: Record<string, number>;
   tools: Record<string, BaseTool<unknown, unknown>>;
@@ -100,7 +103,8 @@ export function createRuntimeTools(
       policyEngine
     }) as BaseTool<unknown, unknown>,
     http: new HttpTool({ policyEngine }) as BaseTool<unknown, unknown>,
-    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>
+    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>,
+    handoff: new HandoffTool({ redis }) as BaseTool<unknown, unknown>
   };
 
   for (const tool of manifest.tools) {
