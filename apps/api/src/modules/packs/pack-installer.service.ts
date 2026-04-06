@@ -15,6 +15,25 @@ interface InstallPackInput {
   tenantId: string;
 }
 
+const PACK_AGENT_PAGE_SIZE = 100;
+const PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE = 100;
+
+type PackInstallerDatabaseClient = Prisma.TransactionClient | typeof prisma;
+
+type PackAgentSummary = {
+  config: Prisma.JsonValue | null;
+  id: string;
+  status: string;
+};
+
+type WorkflowDependencyStep = {
+  config: Prisma.JsonValue | null;
+  id: string;
+  workflow: {
+    name: string;
+  };
+};
+
 function requireActorId(actorId: string | null | undefined, action: string): string {
   const value = actorId?.trim();
 
@@ -62,6 +81,107 @@ function resolveRequestedAgentId(input: InstallPackInput): string {
   return candidate;
 }
 
+async function listTenantAgentSummaries(
+  client: PackInstallerDatabaseClient,
+  tenantId: string
+): Promise<PackAgentSummary[]> {
+  const agents: PackAgentSummary[] = [];
+  let cursor: string | null = null;
+
+  while (true) {
+    const page = await client.agent.findMany({
+      ...(cursor
+        ? {
+            cursor: {
+              id: cursor
+            },
+            skip: 1
+          }
+        : {}),
+      orderBy: {
+        id: "asc"
+      },
+      select: {
+        config: true,
+        id: true,
+        status: true
+      },
+      take: PACK_AGENT_PAGE_SIZE,
+      where: {
+        tenantId
+      }
+    });
+
+    agents.push(...page);
+
+    if (page.length < PACK_AGENT_PAGE_SIZE) {
+      break;
+    }
+
+    cursor = page[page.length - 1]?.id ?? null;
+
+    if (!cursor) {
+      break;
+    }
+  }
+
+  return agents;
+}
+
+async function listActiveWorkflowDependencies(tenantId: string): Promise<WorkflowDependencyStep[]> {
+  const steps: WorkflowDependencyStep[] = [];
+  let cursor: string | null = null;
+
+  while (true) {
+    const page = await prisma.workflowStep.findMany({
+      ...(cursor
+        ? {
+            cursor: {
+              id: cursor
+            },
+            skip: 1
+          }
+        : {}),
+      orderBy: {
+        id: "asc"
+      },
+      select: {
+        config: true,
+        id: true,
+        workflow: {
+          select: {
+            name: true
+          }
+        }
+      },
+      take: PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE,
+      where: {
+        tenantId,
+        type: "AGENT_EXECUTE",
+        workflow: {
+          status: {
+            in: ["PUBLISHED", "DRAFT"]
+          }
+        }
+      }
+    });
+
+    steps.push(...page);
+
+    if (page.length < PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE) {
+      break;
+    }
+
+    cursor = page[page.length - 1]?.id ?? null;
+
+    if (!cursor) {
+      break;
+    }
+  }
+
+  return steps;
+}
+
 export class PackInstallerService {
   async installPackAtomic(input: InstallPackInput) {
     const actorId = requireActorId(input.actorId, "install-pack");
@@ -85,16 +205,8 @@ export class PackInstallerService {
       throw new Error(`Tenant ${input.tenantId} does not exist.`);
     }
 
-    const currentAgentCount = await prisma.agent.count({
-      where: {
-        tenantId: input.tenantId
-      }
-    });
-    const tenantAgents = await prisma.agent.findMany({
-      where: {
-        tenantId: input.tenantId
-      }
-    });
+    const tenantAgents = await listTenantAgentSummaries(prisma, input.tenantId);
+    const currentAgentCount = tenantAgents.length;
     const existingAgent = tenantAgents.find(
       (agent) => extractSourceAgentId(agent.config) === requestedAgentId
     ) ?? null;
@@ -186,11 +298,7 @@ export class PackInstallerService {
 
   async uninstallPackAtomic(input: { actorId: string; packId: string; tenantId: string }) {
     const actorId = requireActorId(input.actorId, "uninstall-pack");
-    const agents = await prisma.agent.findMany({
-      where: {
-        tenantId: input.tenantId
-      }
-    });
+    const agents = await listTenantAgentSummaries(prisma, input.tenantId);
 
     const idsToDelete = agents
       .filter((agent) => extractPackId(agent.config) === input.packId)
@@ -198,18 +306,7 @@ export class PackInstallerService {
 
     if (idsToDelete.length > 0) {
       // Find active workflows using any of the agents from this pack
-      const dependentSteps = await prisma.workflowStep.findMany({
-        where: {
-          tenantId: input.tenantId,
-          type: "AGENT_EXECUTE",
-          workflow: {
-            status: { in: ["PUBLISHED", "DRAFT"] }
-          }
-        },
-        include: {
-          workflow: true
-        }
-      });
+      const dependentSteps = await listActiveWorkflowDependencies(input.tenantId);
 
       const activeWorkflowDependencies = dependentSteps.filter((step) => {
         const config = step.config as { agentId?: string } | null;
@@ -261,11 +358,7 @@ export class PackInstallerService {
   }
 
   async getPackStatus(tenantId: string) {
-    const agents = await prisma.agent.findMany({
-      where: {
-        tenantId
-      }
-    });
+    const agents = await listTenantAgentSummaries(prisma, tenantId);
 
     const grouped = new Map<
       string,
@@ -313,25 +406,15 @@ export class PackInstallerService {
     tenantId: string;
   }) {
     const actorId = requireActorId(input.actorId, "update-pack-version");
-    const agents = await prisma.agent.findMany({
-      where: {
-        tenantId: input.tenantId
-      }
-    });
-
-    const idsToUpdate = agents
+    const agentsToUpdate = (await listTenantAgentSummaries(prisma, input.tenantId))
       .filter((agent) => extractPackId(agent.config) === input.packId)
-      .map((agent) => agent.id);
+      .map((agent) => ({
+        config: agent.config,
+        id: agent.id
+      }));
+    const idsToUpdate = agentsToUpdate.map((agent) => agent.id);
 
     await prisma.$transaction(async (tx) => {
-      const agentsToUpdate = await tx.agent.findMany({
-        where: {
-          id: {
-            in: idsToUpdate
-          }
-        }
-      });
-
       for (const agent of agentsToUpdate) {
         const currentConfig = agent.config && typeof agent.config === "object" ? agent.config : {};
 

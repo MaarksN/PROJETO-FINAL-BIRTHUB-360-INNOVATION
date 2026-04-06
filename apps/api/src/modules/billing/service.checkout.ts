@@ -1,165 +1,22 @@
 import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import {
-  Role,
   SubscriptionStatus,
-  prisma,
-  type Prisma
+  prisma
 } from "@birthub/database";
 import Stripe from "stripe";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { createStripeClient } from "./stripe.client.js";
 import {
-  findOrganizationByReference,
-  type DatabaseClient
-} from "./service.shared.js";
+  resolveCheckoutPreferences,
+  resolveCustomerForCheckout
+} from "./service.checkout.customer.js";
+import { findOrganizationByReference } from "./service.shared.js";
 
 const logger = createLogger("billing-service");
 
-function normalizeStripeLocale(
-  locale: string | null | undefined
-): Stripe.Checkout.SessionCreateParams.Locale | undefined {
-  if (!locale) {
-    return undefined;
-  }
-
-  const normalized = locale.toLowerCase();
-  const byPrefix: Record<string, Stripe.Checkout.SessionCreateParams.Locale> = {
-    en: "en",
-    "en-us": "en",
-    es: "es",
-    fr: "fr",
-    it: "it",
-    pt: "pt-BR",
-    "pt-br": "pt-BR"
-  };
-
-  return byPrefix[normalized] ?? byPrefix[normalized.split("-")[0] ?? ""] ?? undefined;
-}
-
-function readOrganizationSetting(
-  settings: Prisma.JsonValue | null | undefined,
-  key: string
-): string | null {
-  if (!settings || typeof settings !== "object" || Array.isArray(settings)) {
-    return null;
-  }
-
-  const value = (settings as Record<string, unknown>)[key];
-  return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;
-}
-
-export async function provisionStripeCustomerForOrganization(input: {
-  client?: DatabaseClient;
-  config: ApiConfig;
-  email: string;
-  name: string;
-  organizationReference: string;
-}): Promise<string> {
-  const client = input.client ?? prisma;
-  const organization = await findOrganizationByReference(input.organizationReference, client);
-
-  if (!organization) {
-    throw new ProblemDetailsError({
-      detail: "Organization not found when provisioning Stripe customer.",
-      status: 404,
-      title: "Not Found"
-    });
-  }
-
-  if (organization.stripeCustomerId) {
-    return organization.stripeCustomerId;
-  }
-
-  const stripe = createStripeClient(input.config);
-  const customer = await stripe.customers.create({
-    email: input.email,
-    metadata: {
-      organizationId: organization.id,
-      tenantId: organization.tenantId
-    },
-    name: input.name
-  });
-
-  await client.organization.update({
-    data: {
-      stripeCustomerId: customer.id
-    },
-    where: {
-      id: organization.id
-    }
-  });
-
-  await client.subscription.updateMany({
-    data: {
-      stripeCustomerId: customer.id
-    },
-    where: {
-      organizationId: organization.id
-    }
-  });
-
-  logger.info(
-    {
-      event: "billing.customer.provisioned",
-      organizationId: organization.id,
-      stripeCustomerId: customer.id,
-      tenantId: organization.tenantId
-    },
-    "Provisioned Stripe customer for organization"
-  );
-
-  return customer.id;
-}
-
-async function resolveCustomerForCheckout(input: {
-  config: ApiConfig;
-  organizationReference: string;
-}): Promise<string> {
-  const organization = await prisma.organization.findFirst({
-    include: {
-      memberships: {
-        include: {
-          user: true
-        },
-        orderBy: {
-          createdAt: "asc"
-        },
-        take: 1,
-        where: {
-          role: Role.OWNER
-        }
-      }
-    },
-    where: {
-      OR: [{ id: input.organizationReference }, { tenantId: input.organizationReference }]
-    }
-  });
-
-  if (!organization) {
-    throw new ProblemDetailsError({
-      detail: "Organization not found for checkout.",
-      status: 404,
-      title: "Not Found"
-    });
-  }
-
-  if (organization.stripeCustomerId) {
-    return organization.stripeCustomerId;
-  }
-
-  const owner = organization.memberships[0]?.user;
-  const email = owner?.email ?? `billing+${organization.tenantId}@birthub.local`;
-  const name = owner?.name ?? organization.name;
-
-  return provisionStripeCustomerForOrganization({
-    config: input.config,
-    email,
-    name,
-    organizationReference: organization.id
-  });
-}
+export { provisionStripeCustomerForOrganization } from "./service.checkout.customer.js";
 
 export async function createCheckoutSessionForOrganization(input: {
   config: ApiConfig;
@@ -206,13 +63,11 @@ export async function createCheckoutSessionForOrganization(input: {
     config: input.config,
     organizationReference: input.organizationReference
   });
-  const locale =
-    normalizeStripeLocale(input.locale) ??
-    normalizeStripeLocale(readOrganizationSetting(organization.settings, "locale"));
-  const countryCode =
-    input.countryCode?.trim().toUpperCase() ??
-    readOrganizationSetting(organization.settings, "countryCode")?.toUpperCase() ??
-    null;
+  const { countryCode, locale } = resolveCheckoutPreferences({
+    countryCode: input.countryCode,
+    locale: input.locale,
+    settings: organization.settings
+  });
 
   if (countryCode && /^[A-Z]{2}$/.test(countryCode)) {
     await stripe.customers.update(customerId, {
