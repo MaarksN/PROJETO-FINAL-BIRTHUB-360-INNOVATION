@@ -86,7 +86,7 @@ function buildRuntimeDatabaseUrl(
 function redactDatabaseUrl(databaseUrl: string): string {
   const parsed = new URL(databaseUrl);
   if (parsed.password) {
-    parsed.password = "********";
+    parsed.password = "HIDDEN";
   }
   return parsed.toString();
 }
