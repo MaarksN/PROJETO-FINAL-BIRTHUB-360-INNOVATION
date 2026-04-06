@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T01:43:34.512Z",
+    "generatedAt": "2026-04-06T02:07:28.764Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "85ff0b054624644b4b770febde252a90652d7d34",
+    "headSha": "0eafb82dee480033a2e0451b901c1a35a981991a",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -58,21 +58,7 @@
         "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
         "vdiScore": 3.45,
         "location": {
-          "path": "apps/api/src/audit/buffer.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        }
-      },
-      {
-        "id": "TD-043",
-        "title": "Cobertura estrutural baixa em packages/database",
-        "dimension": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-        "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
-        "vdiScore": 3.45,
-        "location": {
-          "path": "packages/database/src/repositories/engagement.ts",
+          "path": "artifacts/testing/module-coverage.json",
           "lines": {
             "start": 1,
             "end": 1
@@ -90,6 +76,20 @@
           "lines": {
             "start": 1,
             "end": 1
+          }
+        }
+      },
+      {
+        "id": "TD-054",
+        "title": "Consulta findMany sem paginação explícita",
+        "dimension": "Dimensão 5 — Performance e Escalabilidade",
+        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
+        "vdiScore": 3.3,
+        "location": {
+          "path": "apps/api/src/modules/agents/metrics.service.ts",
+          "lines": {
+            "start": 86,
+            "end": 86
           }
         }
       }
@@ -1843,13 +1843,13 @@
       "dimension": "tests_observability",
       "title": "Cobertura estrutural baixa em apps/api",
       "location": {
-        "path": "apps/api/src/audit/buffer.ts",
+        "path": "artifacts/testing/module-coverage.json",
         "lines": {
           "start": 1,
           "end": 1
         }
       },
-      "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 33 arquivos de teste diretos e 4 gaps principais.",
+      "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 37 arquivos de teste diretos e 0 gaps principais.",
       "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
       "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
       "vdiFactors": {
@@ -1865,14 +1865,14 @@
       "confidence": 0.86,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/audit/buffer.ts",
+          "path": "artifacts/testing/module-coverage.json",
           "line": 1,
           "summary": "Gap estrutural identificado para apps/api."
         },
         {
           "path": "artifacts/testing/module-coverage.json",
           "line": 1,
-          "summary": "apps/api: 33 testes diretos, 4 gaps."
+          "summary": "apps/api: 37 testes diretos, 0 gaps."
         }
       ],
       "inference": false,
@@ -1884,55 +1884,6 @@
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
       "id": "TD-042",
       "dependencies": [
-        "TD-026"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Cobertura estrutural baixa em packages/database",
-      "location": {
-        "path": "packages/database/src/repositories/engagement.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 12 arquivos de teste diretos e 2 gaps principais.",
-      "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
-      "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 4,
-        "reverseEffort": 3,
-        "frequency": 4
-      },
-      "vdiScore": 3.45,
-      "effort": "1-3 dias",
-      "severity": "ALTO",
-      "phase": "Fase 1",
-      "confidence": 0.86,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/src/repositories/engagement.ts",
-          "line": 1,
-          "summary": "Gap estrutural identificado para packages/database."
-        },
-        {
-          "path": "artifacts/testing/module-coverage.json",
-          "line": 1,
-          "summary": "packages/database: 12 testes diretos, 2 gaps."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness",
-        "observability-foundation"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-043",
-      "dependencies": [
-        "TD-042",
         "TD-026"
       ]
     },
@@ -1979,7 +1930,7 @@
         "observability-foundation"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-044",
+      "id": "TD-043",
       "dependencies": [
         "TD-042",
         "TD-026"
@@ -2022,7 +1973,7 @@
         "observability-foundation"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-045",
+      "id": "TD-044",
       "dependencies": [
         "TD-026"
       ]
@@ -2064,8 +2015,57 @@
         "observability-foundation"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-045",
+      "dependencies": [
+        "TD-026"
+      ]
+    },
+    {
+      "dimension": "tests_observability",
+      "title": "Cobertura estrutural baixa em apps/web",
+      "location": {
+        "path": "apps/web/app/(dashboard)/layout.tsx",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "O proxy de cobertura identifica 76 arquivos de runtime para apps/web, mas apenas 9 arquivos de teste diretos e 1 gaps principais.",
+      "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
+      "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 2,
+        "reverseEffort": 3,
+        "frequency": 4
+      },
+      "vdiScore": 2.85,
+      "effort": "1-3 dias",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.86,
+      "evidenceRefs": [
+        {
+          "path": "apps/web/app/(dashboard)/layout.tsx",
+          "line": 1,
+          "summary": "Gap estrutural identificado para apps/web."
+        },
+        {
+          "path": "artifacts/testing/module-coverage.json",
+          "line": 1,
+          "summary": "apps/web: 9 testes diretos, 1 gaps."
+        }
+      ],
+      "inference": false,
+      "insufficient": false,
+      "dependencyHints": [
+        "test-harness",
+        "observability-foundation"
+      ],
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
       "id": "TD-046",
       "dependencies": [
+        "TD-042",
         "TD-026"
       ]
     },
@@ -2241,48 +2241,6 @@
       "dimension": "tests_observability",
       "title": "Módulo volumoso sem teste relacionado direto",
       "location": {
-        "path": "packages/database/src/repositories/engagement.ts",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "Identificado em packages/database/src/repositories/engagement.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-      "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-      "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-      "vdiFactors": {
-        "businessImpact": 3,
-        "securityRisk": 2,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 2.65,
-      "effort": "0.5-2 dias",
-      "severity": "MÉDIO",
-      "phase": "Fase 1",
-      "confidence": 0.68,
-      "evidenceRefs": [
-        {
-          "path": "packages/database/src/repositories/engagement.ts",
-          "line": 1,
-          "summary": "Heurística não encontrou arquivo de teste relacionado."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "test-harness"
-      ],
-      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-051",
-      "dependencies": [
-        "TD-042"
-      ]
-    },
-    {
-      "dimension": "tests_observability",
-      "title": "Módulo volumoso sem teste relacionado direto",
-      "location": {
         "path": "apps/web/stores/notification-store.ts",
         "lines": {
           "start": 1,
@@ -2316,7 +2274,7 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-052",
+      "id": "TD-051",
       "dependencies": [
         "TD-042"
       ]
@@ -2358,133 +2316,51 @@
         "test-harness"
       ],
       "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
-      "id": "TD-053",
+      "id": "TD-052",
       "dependencies": [
         "TD-042"
       ]
     },
     {
-      "dimension": "performance",
-      "title": "Consulta findMany sem paginação explícita",
+      "dimension": "tests_observability",
+      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada",
       "location": {
-        "path": "apps/api/src/common/cache/prisma-cache-invalidation.ts",
+        "path": "scripts/testing/generate-traceability-report.mjs",
         "lines": {
-          "start": 28,
-          "end": 28
+          "start": 1,
+          "end": 1
         }
       },
-      "problem": "Indício em apps/api/src/common/cache/prisma-cache-invalidation.ts:28 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-      "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-      "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
+      "problem": "Há muitas suites de teste no monorepo, mas a auditoria não encontra uma matriz de cobertura unit/integration/e2e por módulo do core no formato atual.",
+      "impact": "Sem a decomposição por módulo, o risco de falso conforto sobre cobertura global aumenta.",
+      "recommendation": "Gerar um relatório de cobertura por módulo e anexar ao pipeline soberano.",
       "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 3,
+        "businessImpact": 3,
+        "securityRisk": 2,
         "reverseEffort": 2,
-        "frequency": 4
+        "frequency": 2
       },
-      "vdiScore": 3.3,
-      "effort": "0.5-2 dias",
-      "severity": "ALTO",
-      "phase": "Fase 2",
-      "confidence": 0.72,
+      "vdiScore": 2.35,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 1",
+      "confidence": 0.42,
       "evidenceRefs": [
         {
-          "path": "apps/api/src/common/cache/prisma-cache-invalidation.ts",
-          "line": 28,
-          "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
+          "path": "scripts/testing/generate-traceability-report.mjs",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
         }
       ],
-      "inference": true,
-      "insufficient": false,
+      "inference": false,
+      "insufficient": true,
       "dependencyHints": [
-        "query-budget"
+        "baseline-proof"
       ],
-      "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
-      "id": "TD-054",
-      "dependencies": []
-    },
-    {
-      "dimension": "performance",
-      "title": "Consulta findMany sem paginação explícita",
-      "location": {
-        "path": "apps/api/src/common/cache/prisma-cache-invalidation.ts",
-        "lines": {
-          "start": 49,
-          "end": 49
-        }
-      },
-      "problem": "Indício em apps/api/src/common/cache/prisma-cache-invalidation.ts:49 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-      "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-      "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 3,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 3.3,
-      "effort": "0.5-2 dias",
-      "severity": "ALTO",
-      "phase": "Fase 2",
-      "confidence": 0.72,
-      "evidenceRefs": [
-        {
-          "path": "apps/api/src/common/cache/prisma-cache-invalidation.ts",
-          "line": 49,
-          "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "query-budget"
-      ],
-      "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
-      "id": "TD-055",
+      "dimensionLabel": "Dimensão 4 — Cobertura de Testes e Observabilidade",
+      "id": "TD-053",
       "dependencies": [
-        "TD-054"
-      ]
-    },
-    {
-      "dimension": "performance",
-      "title": "Consulta findMany sem paginação explícita",
-      "location": {
-        "path": "apps/api/src/common/cache/prisma-cache-invalidation.ts",
-        "lines": {
-          "start": 60,
-          "end": 60
-        }
-      },
-      "problem": "Indício em apps/api/src/common/cache/prisma-cache-invalidation.ts:60 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-      "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-      "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-      "vdiFactors": {
-        "businessImpact": 4,
-        "securityRisk": 3,
-        "reverseEffort": 2,
-        "frequency": 4
-      },
-      "vdiScore": 3.3,
-      "effort": "0.5-2 dias",
-      "severity": "ALTO",
-      "phase": "Fase 2",
-      "confidence": 0.72,
-      "evidenceRefs": [
-        {
-          "path": "apps/api/src/common/cache/prisma-cache-invalidation.ts",
-          "line": 60,
-          "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-        }
-      ],
-      "inference": true,
-      "insufficient": false,
-      "dependencyHints": [
-        "query-budget"
-      ],
-      "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
-      "id": "TD-056",
-      "dependencies": [
-        "TD-054"
+        "TD-014"
       ]
     },
     {
@@ -2524,10 +2400,8 @@
         "query-budget"
       ],
       "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
-      "id": "TD-057",
-      "dependencies": [
-        "TD-054"
-      ]
+      "id": "TD-054",
+      "dependencies": []
     },
     {
       "dimension": "performance",
@@ -2557,6 +2431,132 @@
         {
           "path": "apps/api/src/modules/agents/service.ts",
           "line": 36,
+          "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "query-budget"
+      ],
+      "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
+      "id": "TD-055",
+      "dependencies": [
+        "TD-054"
+      ]
+    },
+    {
+      "dimension": "performance",
+      "title": "Consulta findMany sem paginação explícita",
+      "location": {
+        "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+        "lines": {
+          "start": 16,
+          "end": 16
+        }
+      },
+      "problem": "Indício em apps/api/src/modules/analytics/dashboard.service.ts:16 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
+      "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 3,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 3.3,
+      "effort": "0.5-2 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.72,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+          "line": 16,
+          "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "query-budget"
+      ],
+      "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
+      "id": "TD-056",
+      "dependencies": [
+        "TD-054"
+      ]
+    },
+    {
+      "dimension": "performance",
+      "title": "Consulta findMany sem paginação explícita",
+      "location": {
+        "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+        "lines": {
+          "start": 21,
+          "end": 21
+        }
+      },
+      "problem": "Indício em apps/api/src/modules/analytics/dashboard.service.ts:21 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
+      "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 3,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 3.3,
+      "effort": "0.5-2 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.72,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+          "line": 21,
+          "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
+        }
+      ],
+      "inference": true,
+      "insufficient": false,
+      "dependencyHints": [
+        "query-budget"
+      ],
+      "dimensionLabel": "Dimensão 5 — Performance e Escalabilidade",
+      "id": "TD-057",
+      "dependencies": [
+        "TD-054"
+      ]
+    },
+    {
+      "dimension": "performance",
+      "title": "Consulta findMany sem paginação explícita",
+      "location": {
+        "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+        "lines": {
+          "start": 32,
+          "end": 32
+        }
+      },
+      "problem": "Indício em apps/api/src/modules/analytics/dashboard.service.ts:32 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+      "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
+      "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
+      "vdiFactors": {
+        "businessImpact": 4,
+        "securityRisk": 3,
+        "reverseEffort": 2,
+        "frequency": 4
+      },
+      "vdiScore": 3.3,
+      "effort": "0.5-2 dias",
+      "severity": "ALTO",
+      "phase": "Fase 2",
+      "confidence": 0.72,
+      "evidenceRefs": [
+        {
+          "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+          "line": 32,
           "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
         }
       ],
@@ -6580,12 +6580,6 @@
         "type": "debt"
       },
       {
-        "id": "TD-043",
-        "label": "Cobertura estrutural baixa em packages/database",
-        "phase": "Fase 1",
-        "type": "debt"
-      },
-      {
         "id": "TD-002",
         "label": "Arquivo grande demais para o boundary atual (473 linhas)",
         "phase": "Fase 2",
@@ -6630,6 +6624,12 @@
       {
         "id": "TD-004",
         "label": "Complexidade acima do limiar em createConnectorsRouter",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
+        "id": "TD-005",
+        "label": "Complexidade acima do limiar em createJobProcessor",
         "phase": "Fase 2",
         "type": "debt"
       },
@@ -6701,16 +6701,6 @@
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-042",
-        "to": "TD-043",
-        "reason": "Debt dependency"
-      },
-      {
-        "from": "TD-026",
-        "to": "TD-043",
-        "reason": "Debt dependency"
-      },
-      {
         "from": "TD-001",
         "to": "TD-002",
         "reason": "Debt dependency"
@@ -6743,6 +6733,11 @@
       {
         "from": "TD-001",
         "to": "TD-004",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-001",
+        "to": "TD-005",
         "reason": "Debt dependency"
       },
       {
@@ -7002,6 +6997,18 @@
       }
     },
     {
+      "id": "TD-053",
+      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada",
+      "requires": "cobertura por módulo",
+      "location": {
+        "path": "scripts/testing/generate-traceability-report.mjs",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      }
+    },
+    {
       "id": "TD-071",
       "title": "[DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod",
       "requires": "inventário de ambientes",
@@ -7233,8 +7240,8 @@
         "key": "tests_observability",
         "label": "Dimensão 4 — Cobertura de Testes e Observabilidade",
         "weight": 12,
-        "avgTopVdi": 3.37,
-        "score": 5.94
+        "avgTopVdi": 3.2,
+        "score": 6.24
       },
       {
         "key": "performance",
@@ -7282,10 +7289,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6125,
-      "coreTrackedFiles": 452,
+      "trackedFiles": 6131,
+      "coreTrackedFiles": 458,
       "runtimeFiles": 1806,
-      "testFiles": 150,
+      "testFiles": 156,
       "modules": 295
     },
     "capabilities": {
@@ -8507,8 +8514,8 @@
           "packages/agents-core/docs/interfaces/SlackMessageInput.html",
           "packages/agents-core/docs/interfaces/SlackMessageResult.html",
           "packages/agents-core/docs/types/SlackMode.html",
-          "packages/agents-core/src/tools/slack.tool.ts",
-          "packages/agents-core/src/__tests__/slack.tool.test.ts"
+          "packages/agents-core/src/__tests__/slack.tool.test.ts",
+          "packages/agents-core/src/tools/slack.tool.ts"
         ],
         "i18nFiles": [
           "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
@@ -8558,8 +8565,13 @@
       }
     },
     "git": {
-      "totalCommits": 1117,
+      "totalCommits": 1118,
       "last30Days": [
+        {
+          "sha": "0eafb82dee480033a2e0451b901c1a35a981991a",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "85ff0b054624644b4b770febde252a90652d7d34",
           "date": "2026-04-05",
@@ -11272,6 +11284,11 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "0eafb82dee480033a2e0451b901c1a35a981991a",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "85ff0b054624644b4b770febde252a90652d7d34",
             "date": "2026-04-05",
             "subject": "1"
@@ -11389,11 +11406,6 @@
           {
             "sha": "62097f558b0aac397685f19bd69622431e4090d7",
             "date": "2026-03-30",
-            "subject": "1"
-          },
-          {
-            "sha": "0e1a1a1942cdb1e259957a3a1bbf07b24d0d8a2a",
-            "date": "2026-03-29",
             "subject": "1"
           }
         ]

@@ -45,3 +45,11 @@ export async function flushAuditBuffer(): Promise<number> {
 
   return batch.length;
 }
+
+export function resetAuditBufferForTests(): void {
+  auditBuffer.length = 0;
+  if (flushInterval) {
+    clearInterval(flushInterval);
+    flushInterval = undefined;
+  }
+}

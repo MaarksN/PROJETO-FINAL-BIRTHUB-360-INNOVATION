@@ -3,6 +3,7 @@ import { type Prisma, prisma } from "@birthub/database";
 import { invalidateTenantCache } from "./tenant-cache.js";
 
 let middlewareRegistered = false;
+const CACHE_INVALIDATION_LOOKUP_LIMIT = 500;
 
 type CachedOrganization = {
   id: string;
@@ -31,6 +32,7 @@ async function resolveOrganizationsFromWhere(where: unknown): Promise<CachedOrga
       slug: true,
       tenantId: true
     },
+    take: CACHE_INVALIDATION_LOOKUP_LIMIT,
     where: where as Prisma.OrganizationWhereInput
   });
 
@@ -50,6 +52,7 @@ async function resolveTenantIdsForUsers(where: unknown): Promise<string[]> {
     select: {
       id: true
     },
+    take: CACHE_INVALIDATION_LOOKUP_LIMIT,
     where: where as Prisma.UserWhereInput
   });
 
@@ -61,6 +64,7 @@ async function resolveTenantIdsForUsers(where: unknown): Promise<string[]> {
     select: {
       tenantId: true
     },
+    take: CACHE_INVALIDATION_LOOKUP_LIMIT,
     where: {
       userId: {
         in: users.map((user) => user.id)
@@ -158,3 +162,9 @@ export function registerTenantCacheInvalidationMiddleware(): void {
   middlewareRegistered = true;
   registerByWrappingDelegates();
 }
+
+export const tenantCacheInvalidationTestables = {
+  collectTenantReferences,
+  organizationReferencesFromResult,
+  organizationToReferences
+};

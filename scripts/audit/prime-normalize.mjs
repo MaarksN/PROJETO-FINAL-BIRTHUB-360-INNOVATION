@@ -785,6 +785,7 @@ async function buildTestsObservabilityCandidates(raw) {
   }
 
   for (const surface of (moduleCoverage?.surfaces ?? [])
+    .filter((entry) => entry.gaps.length > 0)
     .slice()
     .sort((left, right) => right.gaps.length - left.gaps.length || left.module.localeCompare(right.module))
     .slice(0, 3)) {

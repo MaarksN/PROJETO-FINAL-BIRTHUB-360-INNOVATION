@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T01:43:25.104Z",
+  "checkedAt": "2026-04-06T02:07:15.787Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -15,7 +15,7 @@
     {
       "module": "apps/api",
       "runtimeFiles": 135,
-      "directTestFiles": 33,
+      "directTestFiles": 37,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -42,6 +42,7 @@
         "apps/api/tests/installed-agents-helpers.test.ts",
         "apps/api/tests/marketplace-budget.smoke.test.ts",
         "apps/api/tests/metrics.service.test.ts",
+        "apps/api/tests/module-routes.test.ts",
         "apps/api/tests/queue-backpressure.test.ts",
         "apps/api/tests/rbac.test.ts",
         "apps/api/tests/redis.test.ts",
@@ -49,15 +50,13 @@
         "apps/api/tests/tenant-auth-hardening.test.ts",
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
-        "apps/api/tests/module-routes.test.ts",
+        "apps/api/tests/buffer.test.ts",
+        "apps/api/tests/cache-index.test.ts",
+        "apps/api/tests/http-cache.test.ts",
+        "apps/api/tests/prisma-cache-invalidation.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
-      "gaps": [
-        "apps/api/src/audit/buffer.ts",
-        "apps/api/src/common/cache/http-cache.ts",
-        "apps/api/src/common/cache/index.ts",
-        "apps/api/src/common/cache/prisma-cache-invalidation.ts"
-      ]
+      "gaps": []
     },
     {
       "module": "apps/web",
@@ -124,9 +123,10 @@
     {
       "module": "packages/database",
       "runtimeFiles": 13,
-      "directTestFiles": 12,
+      "directTestFiles": 14,
       "traceabilityFlows": 0,
       "directTests": [
+        "packages/database/test/access-control.repo.test.ts",
         "packages/database/test/base.repo.test.ts",
         "packages/database/test/client.test.ts",
         "packages/database/test/cross-tenant-access.error.test.ts",
@@ -138,12 +138,10 @@
         "packages/database/test/query-budget.test.ts",
         "packages/database/test/rls.test.ts",
         "packages/database/test/tenant-required.error.test.ts",
-        "packages/database/test/access-control.repo.test.ts"
+        "packages/database/test/engagement.test.ts",
+        "packages/database/test/user-repository.test.ts"
       ],
-      "gaps": [
-        "packages/database/src/repositories/engagement.ts",
-        "packages/database/src/repositories/user-repository.ts"
-      ]
+      "gaps": []
     }
   ]
 }

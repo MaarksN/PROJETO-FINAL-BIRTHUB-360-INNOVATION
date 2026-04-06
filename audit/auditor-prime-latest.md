@@ -10,9 +10,9 @@
 
 - TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano | Dimensão 8 — Maturidade Operacional e Multi-tenancy | VDI 4.45 | artifacts/tenancy/rls-proof-head.json:1
 - TD-001 | Complexidade acima do limiar em registerAuthRoutes | Dimensão 1 — Saúde Arquitetural | VDI 3.55 | apps/api/src/app/auth-routes.ts:28
-- TD-042 | Cobertura estrutural baixa em apps/api | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.45 | apps/api/src/audit/buffer.ts:1
-- TD-043 | Cobertura estrutural baixa em packages/database | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.45 | packages/database/src/repositories/engagement.ts:1
+- TD-042 | Cobertura estrutural baixa em apps/api | Dimensão 4 — Cobertura de Testes e Observabilidade | VDI 3.45 | artifacts/testing/module-coverage.json:1
 - TD-002 | Arquivo grande demais para o boundary atual (473 linhas) | Dimensão 1 — Saúde Arquitetural | VDI 3.35 | apps/api/src/modules/billing/service.checkout.ts:1
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/agents/metrics.service.ts:86
 
 ### Análise Pendente
 
@@ -25,6 +25,7 @@
 - TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6) | requer: DAST/ZAP report
 - TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 7) | requer: semgrep --json
 - TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8) | requer: DAST/ZAP report
+- TD-053 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada | requer: cobertura por módulo
 - TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -382,22 +383,14 @@
 ### Dimensão 4 — Cobertura de Testes e Observabilidade
 
 - TD-042 | Cobertura estrutural baixa em apps/api
-  Localização: apps/api/src/audit/buffer.ts:1
-  Problema: O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 33 arquivos de teste diretos e 4 gaps principais.
+  Localização: artifacts/testing/module-coverage.json:1
+  Problema: O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 37 arquivos de teste diretos e 0 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 3.45 (ALTO)
   Esforço: 1-3 dias
 
-- TD-043 | Cobertura estrutural baixa em packages/database
-  Localização: packages/database/src/repositories/engagement.ts:1
-  Problema: O proxy de cobertura identifica 13 arquivos de runtime para packages/database, mas apenas 12 arquivos de teste diretos e 2 gaps principais.
-  Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
-  Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
-  VDI: 3.45 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-044 | Cobertura estrutural baixa em apps/worker
+- TD-043 | Cobertura estrutural baixa em apps/worker
   Localização: apps/worker/src/agents/conversations.ts:1
   Problema: O proxy de cobertura identifica 70 arquivos de runtime para apps/worker, mas apenas 22 arquivos de teste diretos e 10 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
@@ -405,7 +398,7 @@
   VDI: 3.2 (ALTO)
   Esforço: 1-3 dias
 
-- TD-045 | Observabilidade inconsistente por uso de console em runtime
+- TD-044 | Observabilidade inconsistente por uso de console em runtime
   Localização: packages/llm-client/scripts/test-llm.ts:6
   Problema: Identificado em packages/llm-client/scripts/test-llm.ts:6 logging ad-hoc fora da cadeia estruturada de observabilidade.
   Impacto: Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.
@@ -413,13 +406,21 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia
 
-- TD-046 | Observabilidade inconsistente por uso de console em runtime
+- TD-045 | Observabilidade inconsistente por uso de console em runtime
   Localização: packages/agents/executivos/brand-guardian/agent.ts:515
   Problema: Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 logging ad-hoc fora da cadeia estruturada de observabilidade.
   Impacto: Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.
   Solução recomendada: Alinhar o módulo ao logger estruturado e adicionar contexto de tenant/trace nas saídas relevantes.
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia
+
+- TD-046 | Cobertura estrutural baixa em apps/web
+  Localização: apps/web/app/(dashboard)/layout.tsx:1
+  Problema: O proxy de cobertura identifica 76 arquivos de runtime para apps/web, mas apenas 9 arquivos de teste diretos e 1 gaps principais.
+  Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
+  Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
+  VDI: 2.85 (MÉDIO)
+  Esforço: 1-3 dias
 
 - TD-047 | Módulo volumoso sem teste relacionado direto
   Localização: apps/api/src/middleware/rate-limit.ts:1
@@ -454,14 +455,6 @@
   Esforço: 0.5-2 dias
 
 - TD-051 | Módulo volumoso sem teste relacionado direto
-  Localização: packages/database/src/repositories/engagement.ts:1
-  Problema: Identificado em packages/database/src/repositories/engagement.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
-  Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
-  Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
-  VDI: 2.65 (MÉDIO)
-  Esforço: 0.5-2 dias
-
-- TD-052 | Módulo volumoso sem teste relacionado direto
   Localização: apps/web/stores/notification-store.ts:1
   Problema: Identificado em apps/web/stores/notification-store.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -469,7 +462,7 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-053 | Módulo volumoso sem teste relacionado direto
+- TD-052 | Módulo volumoso sem teste relacionado direto
   Localização: apps/api/src/modules/outputs/output-routes.ts:1
   Problema: Identificado em apps/api/src/modules/outputs/output-routes.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -477,33 +470,17 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
+- TD-053 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada
+  Localização: scripts/testing/generate-traceability-report.mjs:1
+  Problema: Há muitas suites de teste no monorepo, mas a auditoria não encontra uma matriz de cobertura unit/integration/e2e por módulo do core no formato atual.
+  Impacto: Sem a decomposição por módulo, o risco de falso conforto sobre cobertura global aumenta.
+  Solução recomendada: Gerar um relatório de cobertura por módulo e anexar ao pipeline soberano.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/common/cache/prisma-cache-invalidation.ts:28
-  Problema: Indício em apps/api/src/common/cache/prisma-cache-invalidation.ts:28 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/common/cache/prisma-cache-invalidation.ts:49
-  Problema: Indício em apps/api/src/common/cache/prisma-cache-invalidation.ts:49 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/common/cache/prisma-cache-invalidation.ts:60
-  Problema: Indício em apps/api/src/common/cache/prisma-cache-invalidation.ts:60 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-057 | Consulta findMany sem paginação explícita
   Localização: apps/api/src/modules/agents/metrics.service.ts:86
   Problema: Indício em apps/api/src/modules/agents/metrics.service.ts:86 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
@@ -511,9 +488,33 @@
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-058 | Consulta findMany sem paginação explícita
+- TD-055 | Consulta findMany sem paginação explícita
   Localização: apps/api/src/modules/agents/service.ts:36
   Problema: Indício em apps/api/src/modules/agents/service.ts:36 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
+  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
+  VDI: 3.3 (ALTO)
+  Esforço: 0.5-2 dias
+
+- TD-056 | Consulta findMany sem paginação explícita
+  Localização: apps/api/src/modules/analytics/dashboard.service.ts:16
+  Problema: Indício em apps/api/src/modules/analytics/dashboard.service.ts:16 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
+  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
+  VDI: 3.3 (ALTO)
+  Esforço: 0.5-2 dias
+
+- TD-057 | Consulta findMany sem paginação explícita
+  Localização: apps/api/src/modules/analytics/dashboard.service.ts:21
+  Problema: Indício em apps/api/src/modules/analytics/dashboard.service.ts:21 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
+  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
+  VDI: 3.3 (ALTO)
+  Esforço: 0.5-2 dias
+
+- TD-058 | Consulta findMany sem paginação explícita
+  Localização: apps/api/src/modules/analytics/dashboard.service.ts:32
+  Problema: Indício em apps/api/src/modules/analytics/dashboard.service.ts:32 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
@@ -1727,11 +1728,9 @@
 
 - Caminho crítico: TD-089 -> TD-029 -> TD-001 -> TD-090
 - Nós mapeados: 22
-- Arestas mapeadas: 20
+- Arestas mapeadas: 19
 
 - TD-026 -> TD-042 (Debt dependency)
-- TD-042 -> TD-043 (Debt dependency)
-- TD-026 -> TD-043 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
 - TD-054 -> TD-055 (Debt dependency)
 - TD-054 -> TD-056 (Debt dependency)
@@ -1739,6 +1738,7 @@
 - TD-054 -> TD-058 (Debt dependency)
 - TD-001 -> TD-003 (Debt dependency)
 - TD-001 -> TD-004 (Debt dependency)
+- TD-001 -> TD-005 (Debt dependency)
 - TD-090 -> IN-001 (Scale foundation before innovation)
 - TD-090 -> IN-002 (Scale foundation before innovation)
 - TD-090 -> IN-003 (Scale foundation before innovation)
