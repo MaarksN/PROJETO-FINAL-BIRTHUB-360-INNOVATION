@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-06T03:58:40.038Z",
+  "generatedAt": "2026-04-06T13:11:03.875Z",
   "sourceReport": "audit\\auditor-prime-2026-04-06.json",
   "top15Ids": [
     "TD-001",
-    "TD-002",
     "TD-054",
     "TD-055",
     "TD-056",
     "TD-057",
     "TD-058",
+    "TD-002",
     "TD-003",
     "TD-004",
     "TD-005",
@@ -54,21 +54,10 @@
       "items": [
         {
           "id": "TD-001",
-          "title": "Complexidade acima do limiar em registerAuthRoutes",
-          "owner": "@platform-api",
-          "effort": "2-5 dias",
-          "dependencies": [],
-          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": "apps/api/src/app/auth-routes.ts"
-        },
-        {
-          "id": "TD-002",
           "title": "Arquivo grande demais para o boundary atual (473 linhas)",
           "owner": "@platform-api",
           "effort": "2-5 dias",
-          "dependencies": [
-            "TD-001"
-          ],
+          "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
           "path": "apps/api/src/modules/billing/service.checkout.ts"
         },
@@ -79,7 +68,7 @@
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/connectors/service.ts"
+          "path": "apps/api/src/modules/packs/pack-installer.service.ts"
         },
         {
           "id": "TD-055",
@@ -90,7 +79,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/marketplace/marketplace-service.ts"
+          "path": "apps/api/src/modules/packs/pack-installer.service.ts"
         },
         {
           "id": "TD-056",
@@ -101,7 +90,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/outputs/output.service.ts"
+          "path": "apps/api/src/modules/packs/pack-installer.service.ts"
         },
         {
           "id": "TD-057",
@@ -112,7 +101,7 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/outputs/output.service.ts"
+          "path": "apps/api/src/modules/packs/pack-installer.service.ts"
         },
         {
           "id": "TD-058",
@@ -123,10 +112,10 @@
             "TD-054"
           ],
           "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/outputs/output.service.ts"
+          "path": "apps/api/src/modules/packs/pack-installer.service.ts"
         },
         {
-          "id": "TD-003",
+          "id": "TD-002",
           "title": "Complexidade acima do limiar em <anonymous>",
           "owner": "@platform-automation",
           "effort": "2-5 dias",
@@ -137,7 +126,7 @@
           "path": "apps/worker/src/worker.process-job.ts"
         },
         {
-          "id": "TD-004",
+          "id": "TD-003",
           "title": "Complexidade acima do limiar em createConnectorsRouter",
           "owner": "@platform-api",
           "effort": "2-5 dias",
@@ -148,7 +137,7 @@
           "path": "apps/api/src/modules/connectors/router.ts"
         },
         {
-          "id": "TD-005",
+          "id": "TD-004",
           "title": "Complexidade acima do limiar em createJobProcessor",
           "owner": "@platform-automation",
           "effort": "2-5 dias",
@@ -159,7 +148,7 @@
           "path": "apps/worker/src/worker.process-job.ts"
         },
         {
-          "id": "TD-006",
+          "id": "TD-005",
           "title": "Complexidade acima do limiar em DeveloperWebhooksPage",
           "owner": "@product-frontend",
           "effort": "2-5 dias",
@@ -170,7 +159,7 @@
           "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx"
         },
         {
-          "id": "TD-007",
+          "id": "TD-006",
           "title": "Complexidade acima do limiar em executeStep",
           "owner": "@platform-architecture",
           "effort": "2-5 dias",
@@ -179,6 +168,17 @@
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
           "path": "packages/workflows-core/src/nodes/executeStep.ts"
+        },
+        {
+          "id": "TD-007",
+          "title": "Complexidade acima do limiar em main",
+          "owner": "@platform-data",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "packages/database/scripts/check-migration-governance.ts"
         },
         {
           "id": "TD-008",

@@ -19,6 +19,9 @@ export interface OutputRecord {
   type: OutputType;
 }
 
+const OUTPUT_LIST_LIMIT = 250;
+const OUTPUT_EXECUTION_LINK_LIMIT = 250;
+
 function hashContent(content: string): string {
   return createHash("sha256").update(content, "utf8").digest("hex");
 }
@@ -88,6 +91,7 @@ export class OutputService {
 
   async listByTenant(tenantId: string, type?: OutputType): Promise<OutputRecord[]> {
     const outputs = await prisma.outputArtifact.findMany({
+      take: OUTPUT_LIST_LIMIT,
       orderBy: {
         createdAt: "desc"
       },
@@ -102,6 +106,7 @@ export class OutputService {
 
   async listByExecution(tenantId: string, executionId: string): Promise<OutputRecord[]> {
     const links = await prisma.auditLog.findMany({
+      take: OUTPUT_EXECUTION_LINK_LIMIT,
       orderBy: {
         createdAt: "desc"
       },
@@ -128,6 +133,7 @@ export class OutputService {
     }
 
     const outputs = await prisma.outputArtifact.findMany({
+      take: OUTPUT_EXECUTION_LINK_LIMIT,
       orderBy: {
         createdAt: "desc"
       },

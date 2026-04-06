@@ -24,6 +24,7 @@ interface CatalogCache {
 }
 
 const CACHE_TTL_MS = 60_000;
+const MARKETPLACE_FEEDBACK_LOOKUP_LIMIT = 5_000;
 
 function resolveCatalogRoot(): string {
   const candidates = [
@@ -144,6 +145,7 @@ export class MarketplaceService {
 
     try {
       feedbackRows = await prisma.agentFeedback.findMany({
+        take: MARKETPLACE_FEEDBACK_LOOKUP_LIMIT,
         select: {
           agentId: true,
           rating: true
