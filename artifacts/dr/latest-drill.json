@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T13:59:07.288Z",
+  "checkedAt": "2026-04-06T14:13:35.981Z",
   "status": "missing-drill-record",
   "sufficient": false,
   "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",

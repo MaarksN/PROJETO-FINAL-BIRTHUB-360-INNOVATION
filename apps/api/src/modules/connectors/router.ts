@@ -90,9 +90,9 @@ type ConnectorRequestContext = {
 };
 
 function requireOrganizationContext(input: {
-  organizationId?: string | null;
-  tenantId?: string | null;
-  userId?: string | null;
+  organizationId?: string | null | undefined;
+  tenantId?: string | null | undefined;
+  userId?: string | null | undefined;
 }) {
   if (!input.organizationId || !input.tenantId || !input.userId) {
     throw new ProblemDetailsError({
@@ -167,10 +167,10 @@ function buildCallbackPayload(input: Record<string, unknown>) {
 }
 
 function resolveCallbackContext(input: {
-  organizationId?: string | null;
+  organizationId?: string | null | undefined;
   provider: ConnectorProvider;
   state: string;
-  tenantId?: string | null;
+  tenantId?: string | null | undefined;
 }) {
   if (input.organizationId && input.tenantId) {
     return {

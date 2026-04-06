@@ -1,6 +1,6 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-06T13:59:17.486Z
+- Generated at: 2026-04-06T14:13:45.848Z
 - Source report: `audit\auditor-prime-2026-04-06.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
@@ -17,20 +17,21 @@
 
 ## Sprint 2 — Qualidade + observabilidade
 
-- Sem itens de dívida adicionais alocados neste sprint.
+| Item | Owner | Esforço | Dependências | Critério de aceite |
+| --- | --- | --- | --- | --- |
+| TD-015 Uso recorrente de any em index.ts (`packages/shared-types/src/index.ts`) | @platform-architecture | 2-5 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 3 — Performance + UX técnica
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-001 Complexidade acima do limiar em <anonymous> (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-002 Complexidade acima do limiar em createConnectorsRouter (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-003 Complexidade acima do limiar em createJobProcessor (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-004 Complexidade acima do limiar em DeveloperWebhooksPage (`apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-005 Complexidade acima do limiar em executeStep (`packages/workflows-core/src/nodes/executeStep.ts`) | @platform-architecture | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-006 Complexidade acima do limiar em main (`packages/database/scripts/check-migration-governance.ts`) | @platform-data | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-007 Complexidade acima do limiar em WorkflowRunsPage (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-008 Complexidade acima do limiar em parseAgentConfig (`apps/api/src/modules/agents/service.config.ts`) | @platform-api | 1-3 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-001 Complexidade acima do limiar em <anonymous> (`apps/web/stores/notification-store.ts`) | @product-frontend | 2-5 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-002 Complexidade acima do limiar em DeveloperWebhooksPage (`apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-003 Complexidade acima do limiar em executeStep (`packages/workflows-core/src/nodes/executeStep.ts`) | @platform-architecture | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-004 Complexidade acima do limiar em FeedbackWidget (`apps/web/components/agents/FeedbackWidget.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-005 Complexidade acima do limiar em main (`packages/database/scripts/check-migration-governance.ts`) | @platform-data | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-006 Complexidade acima do limiar em WorkflowRunsPage (`apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-007 Complexidade acima do limiar em ensureConversationThread (`apps/worker/src/agents/conversations.ts`) | @platform-automation | 1-3 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 

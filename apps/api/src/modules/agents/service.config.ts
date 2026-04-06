@@ -54,9 +54,10 @@ function isManagedPolicyCandidate(value: unknown): value is Record<string, unkno
 
 function toManagedPolicy(policy: Record<string, unknown>): ManagedAgentPolicy {
   const effect: ManagedAgentPolicy["effect"] = policy.effect === "deny" ? "deny" : "allow";
+  const actions = Array.isArray(policy.actions) ? policy.actions : [];
 
   return {
-    actions: policy.actions.filter((value): value is string => typeof value === "string"),
+    actions: actions.filter((value): value is string => typeof value === "string"),
     effect,
     id: policy.id as string,
     name: policy.name as string,

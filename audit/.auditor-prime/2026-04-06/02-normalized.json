@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T13:59:16.666Z",
+    "generatedAt": "2026-04-06T14:13:45.049Z",
     "reportDate": "2026-04-06",
     "slug": "auditor-prime-2026-04-06",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
+    "headSha": "8279d32c4407337281c597fd671a2dfc6e7c6ff8",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -1293,8 +1293,18 @@
       }
     },
     "git": {
-      "totalCommits": 1132,
+      "totalCommits": 1134,
       "last30Days": [
+        {
+          "sha": "8279d32c4407337281c597fd671a2dfc6e7c6ff8",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
+        {
+          "sha": "09fa82367af7f90747cbc743c5e708837f624b27",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
         {
           "sha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
           "date": "2026-04-06",
@@ -4082,6 +4092,16 @@
         "activeDays": 22,
         "placeholderMessages": [
           {
+            "sha": "8279d32c4407337281c597fd671a2dfc6e7c6ff8",
+            "date": "2026-04-06",
+            "subject": "1"
+          },
+          {
+            "sha": "09fa82367af7f90747cbc743c5e708837f624b27",
+            "date": "2026-04-06",
+            "subject": "1"
+          },
+          {
             "sha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
             "date": "2026-04-06",
             "subject": "1"
@@ -4195,16 +4215,6 @@
             "sha": "fdca819168fe1306701a269798520990cad5a70d",
             "date": "2026-04-05",
             "subject": "1"
-          },
-          {
-            "sha": "6724a3c3c835fda5a3130753d1af641531383730",
-            "date": "2026-04-05",
-            "subject": "1"
-          },
-          {
-            "sha": "042c74a14629bfc14bcd65547b69d9a016a49c5d",
-            "date": "2026-04-05",
-            "subject": "1"
           }
         ]
       }
@@ -4238,13 +4248,13 @@
         "dimension": "architecture",
         "title": "Complexidade acima do limiar em <anonymous>",
         "location": {
-          "path": "apps/worker/src/worker.process-job.ts",
+          "path": "apps/web/stores/notification-store.ts",
           "lines": {
-            "start": 45,
-            "end": 287
+            "start": 72,
+            "end": 209
           }
         },
-        "problem": "Identificado em apps/worker/src/worker.process-job.ts:45 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).",
+        "problem": "Identificado em apps/web/stores/notification-store.ts:72 uma função com complexidade ciclomática 20, acima do limiar operacional recomendado (>10).",
         "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
         "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
         "vdiFactors": {
@@ -4260,83 +4270,9 @@
         "confidence": 0.94,
         "evidenceRefs": [
           {
-            "path": "apps/worker/src/worker.process-job.ts",
-            "line": 45,
-            "summary": "Complexidade=24; extensão=243 linhas."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "refactor-core"
-        ]
-      },
-      {
-        "dimension": "architecture",
-        "title": "Complexidade acima do limiar em createConnectorsRouter",
-        "location": {
-          "path": "apps/api/src/modules/connectors/router.ts",
-          "lines": {
-            "start": 170,
-            "end": 362
-          }
-        },
-        "problem": "Identificado em apps/api/src/modules/connectors/router.ts:170 uma função com complexidade ciclomática 38, acima do limiar operacional recomendado (>10).",
-        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
-        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 4,
-          "frequency": 3
-        },
-        "vdiScore": 3.25,
-        "effort": "2-5 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.94,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/connectors/router.ts",
-            "line": 170,
-            "summary": "Complexidade=38; extensão=193 linhas."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "refactor-core"
-        ]
-      },
-      {
-        "dimension": "architecture",
-        "title": "Complexidade acima do limiar em createJobProcessor",
-        "location": {
-          "path": "apps/worker/src/worker.process-job.ts",
-          "lines": {
-            "start": 36,
-            "end": 288
-          }
-        },
-        "problem": "Identificado em apps/worker/src/worker.process-job.ts:36 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).",
-        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
-        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 4,
-          "frequency": 3
-        },
-        "vdiScore": 3.25,
-        "effort": "2-5 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.94,
-        "evidenceRefs": [
-          {
-            "path": "apps/worker/src/worker.process-job.ts",
-            "line": 36,
-            "summary": "Complexidade=24; extensão=253 linhas."
+            "path": "apps/web/stores/notification-store.ts",
+            "line": 72,
+            "summary": "Complexidade=20; extensão=138 linhas."
           }
         ],
         "inference": false,
@@ -4421,6 +4357,43 @@
       },
       {
         "dimension": "architecture",
+        "title": "Complexidade acima do limiar em FeedbackWidget",
+        "location": {
+          "path": "apps/web/components/agents/FeedbackWidget.tsx",
+          "lines": {
+            "start": 40,
+            "end": 253
+          }
+        },
+        "problem": "Identificado em apps/web/components/agents/FeedbackWidget.tsx:40 uma função com complexidade ciclomática 20, acima do limiar operacional recomendado (>10).",
+        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+        "vdiFactors": {
+          "businessImpact": 4,
+          "securityRisk": 2,
+          "reverseEffort": 4,
+          "frequency": 3
+        },
+        "vdiScore": 3.25,
+        "effort": "2-5 dias",
+        "severity": "ALTO",
+        "phase": "Fase 2",
+        "confidence": 0.94,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/components/agents/FeedbackWidget.tsx",
+            "line": 40,
+            "summary": "Complexidade=20; extensão=214 linhas."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "refactor-core"
+        ]
+      },
+      {
+        "dimension": "architecture",
         "title": "Complexidade acima do limiar em main",
         "location": {
           "path": "packages/database/scripts/check-migration-governance.ts",
@@ -4495,15 +4468,15 @@
       },
       {
         "dimension": "architecture",
-        "title": "Complexidade acima do limiar em parseAgentConfig",
+        "title": "Complexidade acima do limiar em ensureConversationThread",
         "location": {
-          "path": "apps/api/src/modules/agents/service.config.ts",
+          "path": "apps/worker/src/agents/conversations.ts",
           "lines": {
-            "start": 6,
-            "end": 79
+            "start": 57,
+            "end": 110
           }
         },
-        "problem": "Identificado em apps/api/src/modules/agents/service.config.ts:6 uma função com complexidade ciclomática 26, acima do limiar operacional recomendado (>10).",
+        "problem": "Identificado em apps/worker/src/agents/conversations.ts:57 uma função com complexidade ciclomática 20, acima do limiar operacional recomendado (>10).",
         "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
         "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
         "vdiFactors": {
@@ -4519,9 +4492,9 @@
         "confidence": 0.94,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/agents/service.config.ts",
-            "line": 6,
-            "summary": "Complexidade=26; extensão=74 linhas."
+            "path": "apps/worker/src/agents/conversations.ts",
+            "line": 57,
+            "summary": "Complexidade=20; extensão=54 linhas."
           }
         ],
         "inference": false,
@@ -4707,6 +4680,43 @@
             "path": "packages/database/prisma/migration-registry.json",
             "line": 1,
             "summary": "797 linhas no arquivo."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "refactor-core"
+        ]
+      },
+      {
+        "dimension": "architecture",
+        "title": "Complexidade acima do limiar em isPrivateIpv4",
+        "location": {
+          "path": "apps/api/src/lib/external-url.ts",
+          "lines": {
+            "start": 23,
+            "end": 46
+          }
+        },
+        "problem": "Identificado em apps/api/src/lib/external-url.ts:23 uma função com complexidade ciclomática 19, acima do limiar operacional recomendado (>10).",
+        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 3,
+          "frequency": 3
+        },
+        "vdiScore": 2.7,
+        "effort": "1-3 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.94,
+        "evidenceRefs": [
+          {
+            "path": "apps/api/src/lib/external-url.ts",
+            "line": 23,
+            "summary": "Complexidade=19; extensão=24 linhas."
           }
         ],
         "inference": false,

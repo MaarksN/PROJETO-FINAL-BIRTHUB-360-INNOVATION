@@ -8,11 +8,11 @@
 
 ### Top 5 riscos críticos
 
-- TD-001 | Complexidade acima do limiar em <anonymous> | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/worker/src/worker.process-job.ts:45
-- TD-002 | Complexidade acima do limiar em createConnectorsRouter | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/api/src/modules/connectors/router.ts:170
-- TD-003 | Complexidade acima do limiar em createJobProcessor | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/worker/src/worker.process-job.ts:36
-- TD-004 | Complexidade acima do limiar em DeveloperWebhooksPage | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35
-- TD-005 | Complexidade acima do limiar em executeStep | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | packages/workflows-core/src/nodes/executeStep.ts:31
+- TD-001 | Complexidade acima do limiar em <anonymous> | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/stores/notification-store.ts:72
+- TD-002 | Complexidade acima do limiar em DeveloperWebhooksPage | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35
+- TD-003 | Complexidade acima do limiar em executeStep | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | packages/workflows-core/src/nodes/executeStep.ts:31
+- TD-004 | Complexidade acima do limiar em FeedbackWidget | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/components/agents/FeedbackWidget.tsx:40
+- TD-005 | Complexidade acima do limiar em main | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | packages/database/scripts/check-migration-governance.ts:24
 
 ### Análise Pendente
 
@@ -55,30 +55,14 @@
 ### Dimensão 1 — Saúde Arquitetural
 
 - TD-001 | Complexidade acima do limiar em <anonymous>
-  Localização: apps/worker/src/worker.process-job.ts:45
-  Problema: Identificado em apps/worker/src/worker.process-job.ts:45 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).
+  Localização: apps/web/stores/notification-store.ts:72
+  Problema: Identificado em apps/web/stores/notification-store.ts:72 uma função com complexidade ciclomática 20, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
   Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-002 | Complexidade acima do limiar em createConnectorsRouter
-  Localização: apps/api/src/modules/connectors/router.ts:170
-  Problema: Identificado em apps/api/src/modules/connectors/router.ts:170 uma função com complexidade ciclomática 38, acima do limiar operacional recomendado (>10).
-  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
-  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
-  VDI: 3.25 (ALTO)
-  Esforço: 2-5 dias
-
-- TD-003 | Complexidade acima do limiar em createJobProcessor
-  Localização: apps/worker/src/worker.process-job.ts:36
-  Problema: Identificado em apps/worker/src/worker.process-job.ts:36 uma função com complexidade ciclomática 24, acima do limiar operacional recomendado (>10).
-  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
-  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
-  VDI: 3.25 (ALTO)
-  Esforço: 2-5 dias
-
-- TD-004 | Complexidade acima do limiar em DeveloperWebhooksPage
+- TD-002 | Complexidade acima do limiar em DeveloperWebhooksPage
   Localização: apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35
   Problema: Identificado em apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx:35 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -86,7 +70,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-005 | Complexidade acima do limiar em executeStep
+- TD-003 | Complexidade acima do limiar em executeStep
   Localização: packages/workflows-core/src/nodes/executeStep.ts:31
   Problema: Identificado em packages/workflows-core/src/nodes/executeStep.ts:31 uma função com complexidade ciclomática 35, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -94,7 +78,15 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-006 | Complexidade acima do limiar em main
+- TD-004 | Complexidade acima do limiar em FeedbackWidget
+  Localização: apps/web/components/agents/FeedbackWidget.tsx:40
+  Problema: Identificado em apps/web/components/agents/FeedbackWidget.tsx:40 uma função com complexidade ciclomática 20, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-005 | Complexidade acima do limiar em main
   Localização: packages/database/scripts/check-migration-governance.ts:24
   Problema: Identificado em packages/database/scripts/check-migration-governance.ts:24 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -102,7 +94,7 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-007 | Complexidade acima do limiar em WorkflowRunsPage
+- TD-006 | Complexidade acima do limiar em WorkflowRunsPage
   Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17
   Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17 uma função com complexidade ciclomática 33, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -110,15 +102,15 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-008 | Complexidade acima do limiar em parseAgentConfig
-  Localização: apps/api/src/modules/agents/service.config.ts:6
-  Problema: Identificado em apps/api/src/modules/agents/service.config.ts:6 uma função com complexidade ciclomática 26, acima do limiar operacional recomendado (>10).
+- TD-007 | Complexidade acima do limiar em ensureConversationThread
+  Localização: apps/worker/src/agents/conversations.ts:57
+  Problema: Identificado em apps/worker/src/agents/conversations.ts:57 uma função com complexidade ciclomática 20, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
   Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-009 | Superfície legacy ainda versionada ao lado do core canônico
+- TD-008 | Superfície legacy ainda versionada ao lado do core canônico
   Localização: docs/service-catalog.md:1
   Problema: O catálogo canônico marca o dashboard legado como quarentena, mas a superfície continua presente e próxima do fluxo principal do monorepo.
   Impacto: Manter legado ao lado do core amplia ruído de manutenção e aumenta o risco de dependências regressivas no lane principal.
@@ -126,7 +118,7 @@
   VDI: 2.85 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-010 | Arquivo grande demais para o boundary atual (1265 linhas)
+- TD-009 | Arquivo grande demais para o boundary atual (1265 linhas)
   Localização: packages/database/prisma/schema.prisma:1
   Problema: Identificado em packages/database/prisma/schema.prisma um arquivo com 1265 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
@@ -134,7 +126,7 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-011 | Arquivo grande demais para o boundary atual (477 linhas)
+- TD-010 | Arquivo grande demais para o boundary atual (477 linhas)
   Localização: apps/api/src/modules/workflows/service.ts:1
   Problema: Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 477 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
@@ -142,7 +134,7 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-012 | Arquivo grande demais para o boundary atual (482 linhas)
+- TD-011 | Arquivo grande demais para o boundary atual (482 linhas)
   Localização: apps/api/src/modules/users/router.ts:1
   Problema: Identificado em apps/api/src/modules/users/router.ts um arquivo com 482 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
@@ -150,13 +142,21 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-013 | Arquivo grande demais para o boundary atual (797 linhas)
+- TD-012 | Arquivo grande demais para o boundary atual (797 linhas)
   Localização: packages/database/prisma/migration-registry.json:1
   Problema: Identificado em packages/database/prisma/migration-registry.json um arquivo com 797 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
+
+- TD-013 | Complexidade acima do limiar em isPrivateIpv4
+  Localização: apps/api/src/lib/external-url.ts:23
+  Problema: Identificado em apps/api/src/lib/external-url.ts:23 uma função com complexidade ciclomática 19, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 2.7 (MÉDIO)
+  Esforço: 1-3 dias
 
 - TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core
   Localização: docs/service-catalog.md:1
@@ -1741,9 +1741,9 @@
 - TD-001 -> TD-004 (Debt dependency)
 - TD-001 -> TD-005 (Debt dependency)
 - TD-001 -> TD-006 (Debt dependency)
-- TD-001 -> TD-007 (Debt dependency)
 - TD-029 -> TD-030 (Debt dependency)
 - TD-029 -> TD-031 (Debt dependency)
+- TD-029 -> TD-032 (Debt dependency)
 - TD-089 -> IN-001 (Scale foundation before innovation)
 - TD-089 -> IN-002 (Scale foundation before innovation)
 - TD-089 -> IN-003 (Scale foundation before innovation)
