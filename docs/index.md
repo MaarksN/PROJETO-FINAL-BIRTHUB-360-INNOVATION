@@ -15,14 +15,10 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 - [Relatório Executivo de Saúde Técnica e Dívida](technical-debt/executive-report.md)
 
 ## 3. Playbooks e Runbooks (Engenharia de Dados e Backend)
-- [Disaster Recovery e Backups](runbooks/db-dr-backup.md)
-- [Padrões de Migrations de Banco](runbooks/db-migrations.md)
-- [Monitoramento de Performance e Tuning (PgBouncer, Vacuum)](runbooks/db-performance.md)
+- [Disaster Recovery e Backups](runbooks/db-backup-restore.md)
 - [Rollout de Autenticação e Multitenant](runbooks/auth-tenant-rollout-canary.md)
 
 ## 4. Deploy e Releases
-- [Staging Checklist e Preflight](runbooks/cd-staging-checklist.md)
-- [Relatórios de Falha em Staging](runbooks/cd-staging-failure-report.md)
 
 ## 5. Operações e Resposta a Incidentes
 - [Post-Mortems e Resposta a Incidentes (Outage/Security)](runbooks/incident-response.md)
