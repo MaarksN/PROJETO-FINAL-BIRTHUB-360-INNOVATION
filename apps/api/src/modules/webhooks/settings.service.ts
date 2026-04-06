@@ -6,6 +6,8 @@ import { prisma, WebhookEndpointStatus } from "@birthub/database";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { enqueueOutboundWebhook } from "../engagement/queues.js";
 
+const WEBHOOK_ENDPOINT_LIST_LIMIT = 100;
+
 function buildWebhookSecret(): string {
   return randomBytes(24).toString("hex");
 }
@@ -41,6 +43,7 @@ export async function listTenantWebhookEndpoints(tenantReference: string) {
     orderBy: {
       createdAt: "desc"
     },
+    take: WEBHOOK_ENDPOINT_LIST_LIMIT,
     where: {
       organizationId: organization.id
     }

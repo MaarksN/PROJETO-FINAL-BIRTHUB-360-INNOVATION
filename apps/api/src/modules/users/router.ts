@@ -29,6 +29,8 @@ type ListedUser = {
   status: "ACTIVE" | "SUSPENDED";
 };
 
+const USER_LIST_LIMIT = 250;
+
 function readUserId(params: Record<string, string | string[] | undefined>): string {
   const value = params.userId;
 
@@ -78,33 +80,56 @@ async function listUsersForOrganization(input: {
   search?: string;
   status?: "ACTIVE" | "SUSPENDED";
 }): Promise<ListedUser[]> {
+  const normalizedSearch = input.search?.trim() ?? "";
   const memberships = await prisma.membership.findMany({
     include: {
-      user: true
+      user: {
+        select: {
+          email: true,
+          name: true,
+          status: true
+        }
+      }
     },
     orderBy: {
       createdAt: "asc"
     },
+    take: USER_LIST_LIMIT,
     where: {
       organizationId: input.organizationId,
-      ...(input.role ? { role: input.role } : {})
+      status: {
+        not: MembershipStatus.REVOKED
+      },
+      ...(input.role ? { role: input.role } : {}),
+      ...(input.status || normalizedSearch
+        ? {
+            user: {
+              ...(input.status ? { status: input.status } : {}),
+              ...(normalizedSearch
+                ? {
+                    OR: [
+                      {
+                        email: {
+                          contains: normalizedSearch,
+                          mode: "insensitive"
+                        }
+                      },
+                      {
+                        name: {
+                          contains: normalizedSearch,
+                          mode: "insensitive"
+                        }
+                      }
+                    ]
+                  }
+                : {})
+            }
+          }
+        : {})
     }
   });
 
-  const normalizedSearch = input.search?.trim().toLowerCase() ?? "";
-
   return memberships
-    .filter((membership) => membership.status !== MembershipStatus.REVOKED)
-    .filter((membership) =>
-      input.status ? membership.user.status === input.status : true
-    )
-    .filter((membership) =>
-      normalizedSearch.length > 0
-        ? `${membership.user.name} ${membership.user.email}`
-            .toLowerCase()
-            .includes(normalizedSearch)
-        : true
-    )
     .map((membership) => ({
       email: membership.user.email,
       id: membership.userId,

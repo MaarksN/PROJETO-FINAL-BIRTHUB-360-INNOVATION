@@ -14,6 +14,8 @@ interface WorkflowInternalEvent {
   topic: string;
 }
 
+const INTERNAL_EVENT_WORKFLOW_LIMIT = 100;
+
 let isBridgeInitialized = false;
 
 export function initializeWorkflowInternalEventBridge(config: ApiConfig): void {
@@ -25,6 +27,10 @@ export function initializeWorkflowInternalEventBridge(config: ApiConfig): void {
   eventBus.on(INTERNAL_TOPIC, (event: WorkflowInternalEvent) => {
     void (async () => {
       const workflows = await prisma.workflow.findMany({
+        orderBy: {
+          createdAt: "asc"
+        },
+        take: INTERNAL_EVENT_WORKFLOW_LIMIT,
         where: {
           eventTopic: event.topic,
           status: WorkflowStatus.PUBLISHED,
@@ -52,4 +58,3 @@ export function initializeWorkflowInternalEventBridge(config: ApiConfig): void {
 export function emitWorkflowInternalEvent(event: WorkflowInternalEvent): void {
   eventBus.emit(INTERNAL_TOPIC, event);
 }
-
