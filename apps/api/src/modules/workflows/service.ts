@@ -29,6 +29,8 @@ export interface ScopedIdentity {
   tenantId: string;
 }
 
+const WORKFLOW_LIST_LIMIT = 100;
+
 type PersistedWorkflow = Awaited<ReturnType<typeof getWorkflowById>>;
 type WorkflowWriteClient = Pick<typeof prisma, "workflowStep" | "workflowTransition">;
 
@@ -219,6 +221,7 @@ export async function listWorkflows(tenantId: string) {
     orderBy: {
       createdAt: "desc"
     },
+    take: WORKFLOW_LIST_LIMIT,
     where: {
       tenantId
     }
