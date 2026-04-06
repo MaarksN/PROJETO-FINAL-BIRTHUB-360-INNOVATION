@@ -1,6 +1,6 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-06T03:43:25.595Z
+- Generated at: 2026-04-06T03:57:02.026Z
 - Source report: `audit\auditor-prime-2026-04-06.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
@@ -8,12 +8,11 @@
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
 | TD-089 Ausência de superfícies explícitas de interoperabilidade clínica padrão (`packages/integrations/src/clients/http.ts`) | @platform-architecture | 1-2 semanas | nenhuma | Capacidade operacional/multi-tenant materializada com evidência versionada, critério técnico validado e item rebaixado/removido na próxima auditoria. |
+| TD-090 Drill de disaster recovery não registrado no ciclo atual (`artifacts/dr/latest-drill.json`) | @platform-architecture | 0.5-2 dias | nenhuma | Capacidade operacional/multi-tenant materializada com evidência versionada, critério técnico validado e item rebaixado/removido na próxima auditoria. |
 
 ## Sprint 2 — Qualidade + observabilidade
 
-| Item | Owner | Esforço | Dependências | Critério de aceite |
-| --- | --- | --- | --- | --- |
-| TD-042 Cobertura estrutural baixa em apps/worker (`apps/worker/src/agents/conversations.ts`) | @platform-automation | 1-3 dias | TD-026 | Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`. |
+- Sem itens de dívida adicionais alocados neste sprint.
 
 ## Sprint 3 — Performance + UX técnica
 
@@ -21,11 +20,11 @@
 | --- | --- | --- | --- | --- |
 | TD-001 Complexidade acima do limiar em registerAuthRoutes (`apps/api/src/app/auth-routes.ts`) | @platform-api | 2-5 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-002 Arquivo grande demais para o boundary atual (473 linhas) (`apps/api/src/modules/billing/service.checkout.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
-| TD-054 Consulta findMany sem paginação explícita (`apps/api/src/modules/analytics/reporting.service.ts`) | @platform-api | 0.5-2 dias | nenhuma | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-055 Consulta findMany sem paginação explícita (`apps/api/src/modules/analytics/reporting.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-056 Consulta findMany sem paginação explícita (`apps/api/src/modules/analytics/usage.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/analytics/usage.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
-| TD-058 Consulta findMany sem paginação explícita (`apps/api/src/modules/analytics/usage.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-054 Consulta findMany sem paginação explícita (`apps/api/src/modules/auth/auth.service.keys.ts`) | @platform-api | 0.5-2 dias | nenhuma | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-055 Consulta findMany sem paginação explícita (`apps/api/src/modules/auth/auth.service.sessions.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-056 Consulta findMany sem paginação explícita (`apps/api/src/modules/auth/auth.service.sessions.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-057 Consulta findMany sem paginação explícita (`apps/api/src/modules/budget/budget.service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
+| TD-058 Consulta findMany sem paginação explícita (`apps/api/src/modules/connectors/service.ts`) | @platform-api | 0.5-2 dias | TD-054 | Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado. |
 | TD-003 Complexidade acima do limiar em <anonymous> (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-004 Complexidade acima do limiar em createConnectorsRouter (`apps/api/src/modules/connectors/router.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-005 Complexidade acima do limiar em createJobProcessor (`apps/worker/src/worker.process-job.ts`) | @platform-automation | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |

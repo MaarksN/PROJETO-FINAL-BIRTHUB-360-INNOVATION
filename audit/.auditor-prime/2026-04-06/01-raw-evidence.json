@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T03:43:25.090Z",
+    "generatedAt": "2026-04-06T03:57:01.536Z",
     "reportDate": "2026-04-06",
     "slug": "auditor-prime-2026-04-06",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "838a047e97f1dad98c16a54d37b289c6a96fc575",
+    "headSha": "2d47d14672953506f0d024207776218e16b95dda",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,11 +16,11 @@
     }
   },
   "repo": {
-    "trackedFiles": 6131,
-    "coreTrackedFiles": 458,
+    "trackedFiles": 6147,
+    "coreTrackedFiles": 466,
     "runtimeFiles": 1806,
-    "testFiles": 156,
-    "modules": 295
+    "testFiles": 164,
+    "modules": 300
   },
   "files": [
     {
@@ -1215,13 +1215,13 @@
     },
     {
       "path": "apps/api/src/modules/analytics/reporting.service.ts",
-      "bytes": 6766,
-      "lines": 254,
+      "bytes": 7000,
+      "lines": 261,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "68b3245cbc889e153723c23ce741a91e42e6767ff7f17fbfef63f332847e836e"
+      "sha256": "5aa7bf12780b2aaa8c14e90ccd8a72475c24328fe01ef306c977765a0de7ead5"
     },
     {
       "path": "apps/api/src/modules/analytics/router.ts",
@@ -1245,13 +1245,13 @@
     },
     {
       "path": "apps/api/src/modules/analytics/usage.service.ts",
-      "bytes": 1778,
-      "lines": 80,
+      "bytes": 1941,
+      "lines": 85,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "1ca15a7bde729a2626f875467f6045e3bf1fc055915ab3e694387dff0fd5aa4a"
+      "sha256": "e0eb82a749fc17158d877bf00232fd0663e9fad193bf921be4d62fa4fea25a09"
     },
     {
       "path": "apps/api/src/modules/apikeys/apikeys.service.ts",
@@ -4465,13 +4465,13 @@
     },
     {
       "path": "artifacts/accessibility/axe-report.json",
-      "bytes": 2389,
+      "bytes": 2390,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/accessibility",
-      "sha256": "b2b250a136295680117a2f157bb3ab0556767d7230fc1e8db29af5742c8dd9fe"
+      "sha256": "0fe654a056575afac209da306e37b2cc0eadb8db37d1bedd305876afc6c966ff"
     },
     {
       "path": "artifacts/agent-readiness/agent-snapshot-2026-03-24.json",
@@ -4681,7 +4681,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "d6491638a176e93a9f0623edfdf6cedc3e1815831522a8785da16997d8a21aed"
+      "sha256": "d7d1970a6f3553546d14a48f2400c46c207b2fbebe32c93438f732a703928711"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -4721,7 +4721,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/dr",
-      "sha256": "4dc26ee26ccd78bc1da7408d8ae4d85ea85520607a1c24829939b209d3cd349b"
+      "sha256": "5a3b686a8e28d4f2bd6fa1b6b3250b67226e0a074c6fc4569542bfd508b27b8d"
     },
     {
       "path": "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
@@ -5151,7 +5151,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/performance",
-      "sha256": "3777b81ac4a575c4940509a373d02f445c683d1d15628e76cdfe0a0738ed4580"
+      "sha256": "bc12ac265f0ade4b8817505040eb6d4c0cccb595c63f912b0500d8f275e39051"
     },
     {
       "path": "artifacts/privacy/anonymization-report.json",
@@ -5171,7 +5171,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "41117b0e8440becc9b9c61b30c0eb2e277624ab7b95f45f9a88ae1f7b69fba90"
+      "sha256": "479eb2c96ee24702f59b984244db43d98b01c86635cadab8671528d95b3352bd"
     },
     {
       "path": "artifacts/quality/bundle/web-bundle-baseline.md",
@@ -5181,7 +5181,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "18f07566bce3b197eca550786ce655191564f7980ec29e727ccf96ff2c87a776"
+      "sha256": "221f4e25952774321520d7192c024d424fd8df12761db45f2eb75b3aa8e96c6b"
     },
     {
       "path": "artifacts/quality/complexity/cyclomatic-baseline.json",
@@ -5471,7 +5471,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/security",
-      "sha256": "a52da16a688af8bd4807b86c0d5f47218eea3abfa01be268f070045f842dd936"
+      "sha256": "8826270734700ced985c4327458a8b8bf8f780032e124c9aee8fb8e1c94d59fa"
     },
     {
       "path": "artifacts/tenancy/rls-proof-head.json",
@@ -5481,17 +5481,17 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/tenancy",
-      "sha256": "beb6737541a5643fc2b56f96de40a7c7e58d4c915a4b49d0564238af594cbace"
+      "sha256": "9904c530c4348d60e6a12c13872929718a64e7bf0ce7287d1c2c9b8d662c0659"
     },
     {
       "path": "artifacts/testing/module-coverage.json",
-      "bytes": 6045,
+      "bytes": 6085,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/testing",
-      "sha256": "2fbb4ba94f3631c7cf3bf43dab499d8365f5447aec99c0e03a822b8a3bea9247"
+      "sha256": "b7ed722a6b5b41c941ae400797145d3891723a6105cb7d09454eb4210167c3e6"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
@@ -5522,6 +5522,36 @@
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
       "sha256": "e90c0dd7d23d98499c009e349bcac76f703aaebd3370cee97ad4f218ddd62c64"
+    },
+    {
+      "path": "audit/.auditor-prime/2026-04-06/01-raw-evidence.json",
+      "bytes": 2557039,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/.auditor-prime",
+      "sha256": "c6b4051867af1c7dbfb61d9b4dc74158e13399ee61e699d47a83621efce5dab2"
+    },
+    {
+      "path": "audit/.auditor-prime/2026-04-06/02-normalized.json",
+      "bytes": 385040,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/.auditor-prime",
+      "sha256": "9b3546be436b4fc46d9e3906711478c59f694d00ddfb1660da1f98957e270999"
+    },
+    {
+      "path": "audit/.auditor-prime/2026-04-06/03-scored-report.json",
+      "bytes": 420611,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/.auditor-prime",
+      "sha256": "aee7078462cfa4f59514e433bc77ee7ca56465f34efb34cb9cb2bcdcdf245526"
     },
     {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
@@ -5654,54 +5684,84 @@
       "sha256": "e172f75faa7f9c107e1d1531d8637c0a05a3281d7438e45577d313fda0927f3f"
     },
     {
+      "path": "audit/auditor-prime-2026-04-06.html",
+      "bytes": 471380,
+      "lines": 0,
+      "language": "HTML",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-2026-04-06.html",
+      "sha256": "a4dbb605217cec21cde18c0dacefa09b0b32d6cfaa33dc5c838aa5be6eb4fb38"
+    },
+    {
+      "path": "audit/auditor-prime-2026-04-06.json",
+      "bytes": 420611,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-2026-04-06.json",
+      "sha256": "aee7078462cfa4f59514e433bc77ee7ca56465f34efb34cb9cb2bcdcdf245526"
+    },
+    {
+      "path": "audit/auditor-prime-2026-04-06.md",
+      "bytes": 131583,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/auditor-prime-2026-04-06.md",
+      "sha256": "1f6210e09505d974cb96ee4d5c341eb4c1e594c45430807c2316c1dd0b16ca3a"
+    },
+    {
       "path": "audit/auditor-prime-latest.backlog.json",
-      "bytes": 8043,
+      "bytes": 8015,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.json",
-      "sha256": "1f764c5fd9786221576acd7c36e519541bd4235cdb5f2d2d495c2c917a357d0b"
+      "sha256": "eb55d3295ba080eaddb900666f6bab3a27e466fca314b67bbeb8181c6001ea85"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.md",
-      "bytes": 5014,
+      "bytes": 4988,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.md",
-      "sha256": "2e60a76b21ecaa66c686dcbcdf8fe41a713bc9fd118f5633da57ae642c349452"
+      "sha256": "788ce506fe0d5ece61d21aef2803ec1c85b80b023ee87128765fc87cac9d90b3"
     },
     {
       "path": "audit/auditor-prime-latest.html",
-      "bytes": 471005,
+      "bytes": 471380,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.html",
-      "sha256": "14798499f4aecd0c7910531dc43ee2cd6bdc40f53bdc070ce0d8449291eda80f"
+      "sha256": "a4dbb605217cec21cde18c0dacefa09b0b32d6cfaa33dc5c838aa5be6eb4fb38"
     },
     {
       "path": "audit/auditor-prime-latest.json",
-      "bytes": 420272,
+      "bytes": 420611,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.json",
-      "sha256": "e90c0dd7d23d98499c009e349bcac76f703aaebd3370cee97ad4f218ddd62c64"
+      "sha256": "aee7078462cfa4f59514e433bc77ee7ca56465f34efb34cb9cb2bcdcdf245526"
     },
     {
       "path": "audit/auditor-prime-latest.md",
-      "bytes": 131415,
+      "bytes": 131583,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.md",
-      "sha256": "e172f75faa7f9c107e1d1531d8637c0a05a3281d7438e45577d313fda0927f3f"
+      "sha256": "1f6210e09505d974cb96ee4d5c341eb4c1e594c45430807c2316c1dd0b16ca3a"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -38994,6 +39054,26 @@
       "sha256": "2e60a76b21ecaa66c686dcbcdf8fe41a713bc9fd118f5633da57ae642c349452"
     },
     {
+      "path": "audit/top-15-vdi-backlog-2026-04-06.json",
+      "bytes": 8015,
+      "lines": 0,
+      "language": "JSON",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/top-15-vdi-backlog-2026-04-06.json",
+      "sha256": "eb55d3295ba080eaddb900666f6bab3a27e466fca314b67bbeb8181c6001ea85"
+    },
+    {
+      "path": "audit/top-15-vdi-backlog-2026-04-06.md",
+      "bytes": 4988,
+      "lines": 0,
+      "language": "Markdown",
+      "kind": "historical",
+      "topLevel": "audit",
+      "moduleBucket": "audit/top-15-vdi-backlog-2026-04-06.md",
+      "sha256": "788ce506fe0d5ece61d21aef2803ec1c85b80b023ee87128765fc87cac9d90b3"
+    },
+    {
       "path": "audit/traceability_matrix.md",
       "bytes": 9787,
       "lines": 0,
@@ -40991,7 +41071,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "fa38f1913d140724df3f5d75a2f1b4a6287045fb1915774ce77a34a9a337aeb5"
+      "sha256": "0efdaf6462c691a8c9bffe98cdf31aee7e351ca66f1299a171aa940eb0e44e60"
     },
     {
       "path": "docs/operations/f0-evidence-freshness-policy.md",
@@ -41041,7 +41121,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "2da62f166951c966670e28b1d3bad0a43754ab7912d037b308a61d5f737f2905"
+      "sha256": "b21790ea99ca218716128ab8956a227970d55e60cf86300c9e94194f37d5277a"
     },
     {
       "path": "docs/performance/agent-slo.md",
@@ -61332,12 +61412,92 @@
       "topLevel": "turbo.json",
       "moduleBucket": "turbo.json",
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
+    },
+    {
+      "path": "apps/worker/src/agents/conversations.test.ts",
+      "bytes": 2761,
+      "lines": 99,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "ee9092ca035afe9fe549f9238ca5a1012ca2eed14d432b59daed3a9f72a407a2"
+    },
+    {
+      "path": "apps/worker/src/agents/handoffs.test.ts",
+      "bytes": 3149,
+      "lines": 93,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "6a81a6be099a15f8d086d83317912d3ab3e57e8d94de2acaf0e7a89968912bfd"
+    },
+    {
+      "path": "apps/worker/src/agents/runtime.artifacts.test.ts",
+      "bytes": 2866,
+      "lines": 105,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "e130e0e555ec272dcb63ab2f148f36d7c5213412648cb768b4b2d21383f4bfb5"
+    },
+    {
+      "path": "apps/worker/src/agents/runtime.budget.test.ts",
+      "bytes": 3142,
+      "lines": 119,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "6bc3bdeb9719dc3eb7dcf080082af12d0db65254e825c93284a5a10659035b91"
+    },
+    {
+      "path": "apps/worker/src/agents/runtime.catalog.test.ts",
+      "bytes": 2143,
+      "lines": 94,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "071a39028667982a7a952cb7d815c2d25291282473101cc2df585ea6a48cac99"
+    },
+    {
+      "path": "apps/worker/src/agents/runtime.errors.test.ts",
+      "bytes": 439,
+      "lines": 13,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "f4ca4cb352da2ff7f8843e58d21e80cb9badb63f89d0471f3bec3bbb54b344fb"
+    },
+    {
+      "path": "apps/worker/src/agents/runtime.memory.test.ts",
+      "bytes": 2564,
+      "lines": 89,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "0c494a893096e399cdf36821f31f2530d72dbc67b58b804156e5f318c0b2a2a3"
+    },
+    {
+      "path": "apps/worker/src/agents/runtime.resolution.test.ts",
+      "bytes": 918,
+      "lines": 35,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/worker",
+      "sha256": "9f67235b68d44cf6b62f18c24f5a9c2c86e4a89efc9972cb819f4a90555f3bba"
     }
   ],
   "complexity": {
     "available": true,
-    "filesScanned": 647,
-    "functionsScanned": 4602,
+    "filesScanned": 655,
+    "functionsScanned": 4640,
     "modules": [
       {
         "module": "packages/agents-core",
@@ -61864,8 +62024,8 @@
       },
       {
         "module": "apps/worker",
-        "functions": 514,
-        "avgComplexity": 2.52,
+        "functions": 552,
+        "avgComplexity": 2.41,
         "p95Complexity": 9,
         "maxComplexity": 24,
         "functionsAtOrAbove10": 20,
@@ -65391,8 +65551,13 @@
     }
   },
   "git": {
-    "totalCommits": 1120,
+    "totalCommits": 1121,
     "last30Days": [
+      {
+        "sha": "2d47d14672953506f0d024207776218e16b95dda",
+        "date": "2026-04-06",
+        "subject": "1"
+      },
       {
         "sha": "838a047e97f1dad98c16a54d37b289c6a96fc575",
         "date": "2026-04-06",
@@ -68120,6 +68285,11 @@
       "activeDays": 22,
       "placeholderMessages": [
         {
+          "sha": "2d47d14672953506f0d024207776218e16b95dda",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
+        {
           "sha": "838a047e97f1dad98c16a54d37b289c6a96fc575",
           "date": "2026-04-06",
           "subject": "1"
@@ -68236,11 +68406,6 @@
         },
         {
           "sha": "e7f221e61ea7d44f9c38079bc6e4df70c4659eba",
-          "date": "2026-03-30",
-          "subject": "1"
-        },
-        {
-          "sha": "fd586903246d3ea20fc1f0148d7f8565b8021ce4",
           "date": "2026-03-30",
           "subject": "1"
         }
@@ -69246,31 +69411,6 @@
     "rawQueryUnsafeOccurrences": [],
     "networkWithoutTimeout": [],
     "findManyWithoutPagination": [
-      {
-        "path": "apps/api/src/modules/analytics/reporting.service.ts",
-        "line": 7,
-        "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-      },
-      {
-        "path": "apps/api/src/modules/analytics/reporting.service.ts",
-        "line": 91,
-        "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-      },
-      {
-        "path": "apps/api/src/modules/analytics/usage.service.ts",
-        "line": 33,
-        "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-      },
-      {
-        "path": "apps/api/src/modules/analytics/usage.service.ts",
-        "line": 44,
-        "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-      },
-      {
-        "path": "apps/api/src/modules/analytics/usage.service.ts",
-        "line": 55,
-        "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-      },
       {
         "path": "apps/api/src/modules/auth/auth.service.keys.ts",
         "line": 53,
@@ -71160,16 +71300,16 @@
   "evidenceArtifacts": {
     "environmentParity": {
       "path": "docs/operations/environment-parity.md",
-      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-06T03:42:55.555Z\n- Source of truth: `auditor-prime-2026-04-06` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
+      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-06T03:56:11.128Z\n- Source of truth: `auditor-prime-2026-04-06` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
     },
     "sla": {
       "path": "docs/operations/sla.md",
-      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-06T03:42:55.575Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
+      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-06T03:56:11.147Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
     },
     "semgrep": {
       "path": "artifacts/security/semgrep-head.json",
       "data": {
-        "checkedAt": "2026-04-06T03:43:14.431Z",
+        "checkedAt": "2026-04-06T03:56:50.669Z",
         "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
         "exitCode": 0,
         "status": "fresh",
@@ -72070,7 +72210,7 @@
     "moduleCoverage": {
       "path": "artifacts/testing/module-coverage.json",
       "data": {
-        "checkedAt": "2026-04-06T03:43:14.440Z",
+        "checkedAt": "2026-04-06T03:56:50.678Z",
         "mode": "static-coverage-proxy",
         "sufficient": false,
         "limitations": [
@@ -72151,8 +72291,8 @@
           },
           {
             "module": "apps/worker",
-            "runtimeFiles": 70,
-            "directTestFiles": 22,
+            "runtimeFiles": 78,
+            "directTestFiles": 30,
             "traceabilityFlows": 3,
             "directTests": [
               "apps/worker/src/agents/runtime.db-integration.test.ts",
@@ -72175,20 +72315,20 @@
               "apps/worker/test/queue.isolation.test.ts",
               "apps/worker/test/readiness.required-dependency.test.ts",
               "apps/worker/test/userCleanup.test.ts",
+              "apps/worker/src/agents/conversations.test.ts",
+              "apps/worker/src/agents/handoffs.test.ts",
+              "apps/worker/src/agents/runtime.artifacts.test.ts",
+              "apps/worker/src/agents/runtime.budget.test.ts",
+              "apps/worker/src/agents/runtime.catalog.test.ts",
+              "apps/worker/src/agents/runtime.errors.test.ts",
+              "apps/worker/src/agents/runtime.memory.test.ts",
+              "apps/worker/src/agents/runtime.resolution.test.ts",
               "tests/e2e/workflow-editor-evidence.spec.ts",
               "tests/e2e/workflow-agent-output.spec.ts"
             ],
             "gaps": [
-              "apps/worker/src/agents/conversations.ts",
-              "apps/worker/src/agents/handoffs.ts",
-              "apps/worker/src/agents/runtime.artifacts.ts",
-              "apps/worker/src/agents/runtime.budget.ts",
-              "apps/worker/src/agents/runtime.catalog.ts",
               "apps/worker/src/agents/runtime.db-integration.harness.ts",
-              "apps/worker/src/agents/runtime.errors.ts",
-              "apps/worker/src/agents/runtime.memory.ts",
-              "apps/worker/src/agents/runtime.orchestration.ts",
-              "apps/worker/src/agents/runtime.resolution.ts"
+              "apps/worker/src/agents/runtime.orchestration.ts"
             ]
           },
           {
@@ -72220,14 +72360,14 @@
     "bundleBaseline": {
       "path": "artifacts/performance/web-bundle-head.json",
       "data": {
-        "checkedAt": "2026-04-06T03:43:14.497Z",
+        "checkedAt": "2026-04-06T03:56:50.733Z",
         "status": "fresh",
         "sufficient": true,
         "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
         "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
         "stderr": "",
         "baseline": {
-          "generatedAt": "2026-04-06T03:43:14.486Z",
+          "generatedAt": "2026-04-06T03:56:50.724Z",
           "nextBuildDir": "apps/web/.next",
           "chunks": {
             "files": 44,
@@ -72289,7 +72429,7 @@
     "accessibility": {
       "path": "artifacts/accessibility/axe-report.json",
       "data": {
-        "checkedAt": "2026-04-06T03:43:19.389Z",
+        "checkedAt": "2026-04-06T03:56:56.015Z",
         "mode": "browser-dom-smoke",
         "requestedTool": "playwright",
         "sufficient": true,
@@ -72337,14 +72477,14 @@
           }
         ],
         "findings": [],
-        "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 493ms\n\n GET /pricing 200 in 523ms (next.js: 93ms, proxy.ts: 148ms, application-code: 281ms)\n GET / 200 in 93ms (next.js: 40ms, proxy.ts: 5ms, application-code: 48ms)\n GET /pricing 200 in 61ms (next.js: 4ms, proxy.ts: 4ms, application-code: 52ms)\n GET /legal/terms 200 in 71ms (next.js: 21ms, proxy.ts: 4ms, application-code: 46ms)\n GET /legal/privacy 200 in 73ms (next.js: 21ms, proxy.ts: 4ms, application-code: 48ms)\n",
+        "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 527ms\n\n GET /pricing 200 in 577ms (next.js: 106ms, proxy.ts: 192ms, application-code: 278ms)\n GET / 200 in 85ms (next.js: 27ms, proxy.ts: 4ms, application-code: 54ms)\n GET /pricing 200 in 48ms (next.js: 4ms, proxy.ts: 4ms, application-code: 40ms)\n GET /legal/terms 200 in 89ms (next.js: 21ms, proxy.ts: 4ms, application-code: 64ms)\n GET /legal/privacy 200 in 75ms (next.js: 20ms, proxy.ts: 4ms, application-code: 51ms)\n",
         "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"127.0.0.1\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['127.0.0.1'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins\n"
       }
     },
     "disasterRecovery": {
       "path": "artifacts/dr/latest-drill.json",
       "data": {
-        "checkedAt": "2026-04-06T03:43:19.453Z",
+        "checkedAt": "2026-04-06T03:56:56.073Z",
         "status": "missing-drill-record",
         "sufficient": false,
         "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
@@ -72361,10 +72501,10 @@
     "rlsProof": {
       "path": "artifacts/tenancy/rls-proof-head.json",
       "data": {
-        "checkedAt": "2026-04-06T03:43:20.924Z",
+        "checkedAt": "2026-04-06T03:56:57.453Z",
         "adminDatabaseUrlConfigured": true,
         "roleProvisioning": {
-          "checkedAt": "2026-04-06T03:43:20.367Z",
+          "checkedAt": "2026-04-06T03:56:56.921Z",
           "command": "node --import tsx packages/database/scripts/provision-rls-runtime-role.ts",
           "databaseName": "postgres",
           "exitCode": 0,
@@ -72384,13 +72524,13 @@
         "tenancyControl": {
           "command": "node --import tsx packages/database/scripts/check-tenancy-controls.ts",
           "exitCode": 0,
-          "stdout": "[2026-04-06 00:43:19.782 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
+          "stdout": "[2026-04-06 00:56:56.362 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
           "stderr": ""
         },
         "runtimeProof": {
           "command": "node --import tsx --test packages/database/test/rls.test.ts",
           "exitCode": 0,
-          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (106.084ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 487.0294",
+          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (93.0163ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 464.5643",
           "stderr": "",
           "runtimeDatabaseUrlConfigured": true,
           "status": "passed"

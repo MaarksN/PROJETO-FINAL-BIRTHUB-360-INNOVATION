@@ -26,6 +26,8 @@ import {
 } from "../../lib/database-availability.js";
 
 const logger = createLogger("auth-sessions");
+const ACTIVE_SESSION_ENFORCEMENT_LIMIT = 250;
+const ACTIVE_SESSION_LIST_LIMIT = 100;
 
 async function enforceConcurrentSessionLimit(input: {
   organizationId: string;
@@ -42,6 +44,7 @@ async function enforceConcurrentSessionLimit(input: {
     select: {
       id: true
     },
+    take: ACTIVE_SESSION_ENFORCEMENT_LIMIT,
     where: {
       organizationId: input.organizationId,
       revokedAt: null,
@@ -363,6 +366,7 @@ export async function listActiveSessions(input: {
       lastActivityAt: true,
       userAgent: true
     },
+    take: ACTIVE_SESSION_LIST_LIMIT,
     where: {
       organizationId: input.organizationId,
       revokedAt: null,

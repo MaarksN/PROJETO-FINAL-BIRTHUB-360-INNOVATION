@@ -18,6 +18,8 @@ import {
 export type { ConnectorOauthState, ConnectorProvider };
 export { parseConnectorOauthState };
 
+const CONNECTOR_ACCOUNT_LIST_LIMIT = 250;
+
 export const connectorsService = {
   async listConnectors(input: { organizationId: string }) {
     const accounts = await prisma.connectorAccount.findMany({
@@ -44,6 +46,7 @@ export const connectorsService = {
           take: 10
         }
       },
+      take: CONNECTOR_ACCOUNT_LIST_LIMIT,
       orderBy: [{ provider: "asc" }, { accountKey: "asc" }],
       where: {
         organizationId: input.organizationId

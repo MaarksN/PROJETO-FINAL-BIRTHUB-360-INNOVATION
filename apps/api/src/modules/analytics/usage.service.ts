@@ -3,6 +3,8 @@ import { prisma } from "@birthub/database";
 import type { DateRange } from "./analytics.types.js";
 import { resolveDateRange } from "./analytics.utils.js";
 
+const ACTIVE_TENANT_WINDOW_LIMIT = 2_000;
+
 export async function getUsageMetrics(range?: Partial<DateRange>) {
   const { from, to } = resolveDateRange(range);
   const usage = await prisma.usageRecord.groupBy({
@@ -35,6 +37,7 @@ export async function getActiveTenantsMetrics() {
       select: {
         tenantId: true
       },
+      take: ACTIVE_TENANT_WINDOW_LIMIT,
       where: {
         startedAt: {
           gte: dayAgo
@@ -46,6 +49,7 @@ export async function getActiveTenantsMetrics() {
       select: {
         tenantId: true
       },
+      take: ACTIVE_TENANT_WINDOW_LIMIT,
       where: {
         startedAt: {
           gte: monthAgo
@@ -57,6 +61,7 @@ export async function getActiveTenantsMetrics() {
       select: {
         tenantId: true
       },
+      take: ACTIVE_TENANT_WINDOW_LIMIT,
       where: {
         metric: {
           startsWith: "agent."

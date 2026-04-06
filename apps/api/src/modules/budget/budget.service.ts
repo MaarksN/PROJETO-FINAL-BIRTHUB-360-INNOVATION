@@ -11,6 +11,8 @@ import {
 
 const logger = createLogger("budget-service");
 const DEFAULT_BUDGET_LIMIT_BRL = 100;
+const BUDGET_RECORD_LIST_LIMIT = 250;
+const BUDGET_EVENT_EXPORT_LIMIT = 10_000;
 
 function toBudgetRecord(record: {
   agentId: string;
@@ -164,6 +166,7 @@ export class BudgetService {
         orderBy: {
           updatedAt: "desc"
         },
+        take: BUDGET_RECORD_LIST_LIMIT,
         where: {
           organizationId,
           tenantId
@@ -391,6 +394,7 @@ export class BudgetService {
       orderBy: {
         createdAt: "asc"
       },
+      take: BUDGET_EVENT_EXPORT_LIMIT,
       where: {
         kind: {
           in: ["CONSUME", "DRY_RUN"]

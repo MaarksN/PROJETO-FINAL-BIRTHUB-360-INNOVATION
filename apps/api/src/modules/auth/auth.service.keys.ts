@@ -13,6 +13,8 @@ import {
   resolveTenantIdForOrganization
 } from "./auth.service.shared.js";
 
+const TENANT_API_KEY_LIST_LIMIT = 100;
+
 export async function createTenantApiKey(input: {
   config: ApiConfig;
   label: string;
@@ -62,6 +64,7 @@ export async function listTenantApiKeys(input: {
       scopes: true,
       status: true
     },
+    take: TENANT_API_KEY_LIST_LIMIT,
     where: {
       organizationId: input.organizationId,
       userId: input.userId

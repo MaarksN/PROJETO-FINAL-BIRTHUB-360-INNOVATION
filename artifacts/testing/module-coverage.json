@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T03:43:14.440Z",
+  "checkedAt": "2026-04-06T03:58:27.583Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -80,8 +80,8 @@
     },
     {
       "module": "apps/worker",
-      "runtimeFiles": 70,
-      "directTestFiles": 22,
+      "runtimeFiles": 78,
+      "directTestFiles": 30,
       "traceabilityFlows": 3,
       "directTests": [
         "apps/worker/src/agents/runtime.db-integration.test.ts",
@@ -104,20 +104,20 @@
         "apps/worker/test/queue.isolation.test.ts",
         "apps/worker/test/readiness.required-dependency.test.ts",
         "apps/worker/test/userCleanup.test.ts",
+        "apps/worker/src/agents/conversations.test.ts",
+        "apps/worker/src/agents/handoffs.test.ts",
+        "apps/worker/src/agents/runtime.artifacts.test.ts",
+        "apps/worker/src/agents/runtime.budget.test.ts",
+        "apps/worker/src/agents/runtime.catalog.test.ts",
+        "apps/worker/src/agents/runtime.errors.test.ts",
+        "apps/worker/src/agents/runtime.memory.test.ts",
+        "apps/worker/src/agents/runtime.resolution.test.ts",
         "tests/e2e/workflow-editor-evidence.spec.ts",
         "tests/e2e/workflow-agent-output.spec.ts"
       ],
       "gaps": [
-        "apps/worker/src/agents/conversations.ts",
-        "apps/worker/src/agents/handoffs.ts",
-        "apps/worker/src/agents/runtime.artifacts.ts",
-        "apps/worker/src/agents/runtime.budget.ts",
-        "apps/worker/src/agents/runtime.catalog.ts",
         "apps/worker/src/agents/runtime.db-integration.harness.ts",
-        "apps/worker/src/agents/runtime.errors.ts",
-        "apps/worker/src/agents/runtime.memory.ts",
-        "apps/worker/src/agents/runtime.orchestration.ts",
-        "apps/worker/src/agents/runtime.resolution.ts"
+        "apps/worker/src/agents/runtime.orchestration.ts"
       ]
     },
     {

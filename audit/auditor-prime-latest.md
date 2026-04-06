@@ -10,9 +10,9 @@
 
 - TD-001 | Complexidade acima do limiar em registerAuthRoutes | Dimensão 1 — Saúde Arquitetural | VDI 3.55 | apps/api/src/app/auth-routes.ts:28
 - TD-002 | Arquivo grande demais para o boundary atual (473 linhas) | Dimensão 1 — Saúde Arquitetural | VDI 3.35 | apps/api/src/modules/billing/service.checkout.ts:1
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/analytics/reporting.service.ts:7
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/analytics/reporting.service.ts:91
-- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/analytics/usage.service.ts:33
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/auth/auth.service.keys.ts:53
+- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/auth/auth.service.sessions.ts:38
+- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/auth/auth.service.sessions.ts:356
 
 ### Análise Pendente
 
@@ -384,15 +384,7 @@
 
 ### Dimensão 4 — Cobertura de Testes e Observabilidade
 
-- TD-042 | Cobertura estrutural baixa em apps/worker
-  Localização: apps/worker/src/agents/conversations.ts:1
-  Problema: O proxy de cobertura identifica 70 arquivos de runtime para apps/worker, mas apenas 22 arquivos de teste diretos e 10 gaps principais.
-  Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
-  Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
-  VDI: 3.2 (ALTO)
-  Esforço: 1-3 dias
-
-- TD-043 | Observabilidade inconsistente por uso de console em runtime
+- TD-042 | Observabilidade inconsistente por uso de console em runtime
   Localização: packages/llm-client/scripts/test-llm.ts:6
   Problema: Identificado em packages/llm-client/scripts/test-llm.ts:6 logging ad-hoc fora da cadeia estruturada de observabilidade.
   Impacto: Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.
@@ -400,7 +392,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia
 
-- TD-044 | Observabilidade inconsistente por uso de console em runtime
+- TD-043 | Observabilidade inconsistente por uso de console em runtime
   Localização: packages/agents/executivos/brand-guardian/agent.ts:515
   Problema: Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 logging ad-hoc fora da cadeia estruturada de observabilidade.
   Impacto: Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.
@@ -408,9 +400,17 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia
 
-- TD-045 | Cobertura estrutural baixa em apps/web
+- TD-044 | Cobertura estrutural baixa em apps/web
   Localização: apps/web/app/(dashboard)/layout.tsx:1
   Problema: O proxy de cobertura identifica 76 arquivos de runtime para apps/web, mas apenas 9 arquivos de teste diretos e 1 gaps principais.
+  Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
+  Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
+  VDI: 2.85 (MÉDIO)
+  Esforço: 1-3 dias
+
+- TD-045 | Cobertura estrutural baixa em apps/worker
+  Localização: apps/worker/src/agents/runtime.db-integration.harness.ts:1
+  Problema: O proxy de cobertura identifica 78 arquivos de runtime para apps/worker, mas apenas 30 arquivos de teste diretos e 2 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 2.85 (MÉDIO)
@@ -483,40 +483,40 @@
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/analytics/reporting.service.ts:7
-  Problema: Indício em apps/api/src/modules/analytics/reporting.service.ts:7 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/auth/auth.service.keys.ts:53
+  Problema: Indício em apps/api/src/modules/auth/auth.service.keys.ts:53 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/analytics/reporting.service.ts:91
-  Problema: Indício em apps/api/src/modules/analytics/reporting.service.ts:91 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/auth/auth.service.sessions.ts:38
+  Problema: Indício em apps/api/src/modules/auth/auth.service.sessions.ts:38 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/analytics/usage.service.ts:33
-  Problema: Indício em apps/api/src/modules/analytics/usage.service.ts:33 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/auth/auth.service.sessions.ts:356
+  Problema: Indício em apps/api/src/modules/auth/auth.service.sessions.ts:356 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-057 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/analytics/usage.service.ts:44
-  Problema: Indício em apps/api/src/modules/analytics/usage.service.ts:44 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/budget/budget.service.ts:390
+  Problema: Indício em apps/api/src/modules/budget/budget.service.ts:390 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-058 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/analytics/usage.service.ts:55
-  Problema: Indício em apps/api/src/modules/analytics/usage.service.ts:55 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/connectors/service.ts:23
+  Problema: Indício em apps/api/src/modules/connectors/service.ts:23 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)

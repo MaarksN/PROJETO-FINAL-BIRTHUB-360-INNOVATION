@@ -3,11 +3,16 @@ import { Prisma, SubscriptionStatus, prisma } from "@birthub/database";
 import type { DateRange } from "./analytics.types.js";
 import { resolveDateRange } from "./analytics.utils.js";
 
+const EXECUTIVE_SUBSCRIPTION_LIMIT = 5_000;
+const BILLING_EXPORT_LIMIT = 20_000;
+const CS_RISK_ORGANIZATION_LIMIT = 2_000;
+
 export async function getExecutiveMetrics() {
   const subscriptions = await prisma.subscription.findMany({
     include: {
       plan: true
-    }
+    },
+    take: EXECUTIVE_SUBSCRIPTION_LIMIT
   });
   const activeStatuses = new Set<SubscriptionStatus>([
     SubscriptionStatus.active,
@@ -92,6 +97,7 @@ export async function exportBillingCsv(input: Partial<DateRange>) {
     orderBy: {
       createdAt: "asc"
     },
+    take: BILLING_EXPORT_LIMIT,
     where: {
       createdAt: {
         gte: from,
@@ -149,6 +155,7 @@ export async function getCsRiskAccounts() {
         }
       }
     },
+    take: CS_RISK_ORGANIZATION_LIMIT,
     orderBy: [
       {
         healthScore: "asc"
