@@ -81,14 +81,11 @@ export function createRuntimeTools(
   });
   const tools: Record<string, BaseTool<unknown, unknown>> = {
     "db-read": new DbReadTool({
-      executor: ({ query, tenantId }) =>
-        Promise.resolve([
-          {
-            query,
-            source: "agent-runtime",
-            tenantId
-          }
-        ]),
+      executor: async ({ query, params, tenantId }) => {
+        const { prisma } = await import("@birthub/database");
+        const results = await prisma.$queryRawUnsafe(query, ...params);
+        return Array.isArray(results) ? results : [results];
+      },
       policyEngine
     }) as BaseTool<unknown, unknown>,
     "db-write": new DbWriteTool({
@@ -100,7 +97,15 @@ export function createRuntimeTools(
       policyEngine
     }) as BaseTool<unknown, unknown>,
     http: new HttpTool({ policyEngine }) as BaseTool<unknown, unknown>,
-    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>
+    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>,
+    "handoff": new ManifestCapabilityTool(
+      {
+        description: "Delega a execução para outro especialista ou transfere o controle.",
+        id: "handoff",
+        name: "Handoff"
+      },
+      { policyEngine }
+    ) as BaseTool<unknown, unknown>
   };
 
   for (const tool of manifest.tools) {

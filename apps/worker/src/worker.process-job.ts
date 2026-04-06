@@ -7,7 +7,7 @@ import { createLogger } from "@birthub/logger";
 import type { Queue } from "bullmq";
 import type { Redis } from "ioredis";
 
-import { executeManifestAgentRuntime } from "./agents/runtime.js";
+import { executeManifestAgentRuntime } from "./agents/runtime.orchestration.js";
 import { executeTenantJob } from "./tenant-execution.js";
 import {
   persistExecutionFinished,
