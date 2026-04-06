@@ -2,9 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getWebConfig } from "@birthub/config";
 
+import { fetchWithTimeout } from "../../../../../../packages/utils/src/fetch";
+
 import { isBffPathAllowed } from "../policy";
 
 const webConfig = getWebConfig();
+const BFF_PROXY_TIMEOUT_MS = 8_000;
 
 async function proxy(request: NextRequest, path: string): Promise<NextResponse> {
   if (!isBffPathAllowed(path)) {
@@ -25,7 +28,11 @@ async function proxy(request: NextRequest, path: string): Promise<NextResponse> 
     requestInit.body = await request.text();
   }
 
-  const response = await fetch(`${webConfig.NEXT_PUBLIC_API_URL}/${path}`, requestInit);
+  const response = await fetchWithTimeout(`${webConfig.NEXT_PUBLIC_API_URL}/${path}`, {
+    ...requestInit,
+    timeoutMessage: `BFF proxy exceeded the ${BFF_PROXY_TIMEOUT_MS}ms timeout budget.`,
+    timeoutMs: BFF_PROXY_TIMEOUT_MS
+  });
 
   const nextResponse = new NextResponse(await response.text(), { status: response.status });
   const setCookie = response.headers.get("set-cookie");

@@ -2,12 +2,16 @@
 
 import { useState, useTransition } from "react";
 
+import { fetchWithSession } from "../../lib/auth-client";
+
 type ManifestPolicy = {
   actions: string[];
   effect: string;
   id: string;
   name: string;
 };
+
+const POLICY_REQUEST_TIMEOUT_MS = 8_000;
 
 type ManagedPolicy = {
   actions: string[];
@@ -40,13 +44,14 @@ export function PolicyManager({
   const [isPending, startTransition] = useTransition();
 
   async function postJson<T>(path: string, method: "PATCH" | "POST", body: Record<string, unknown>): Promise<T> {
-    const response = await fetch(`${apiUrl}${path}`, {
+    const response = await fetchWithSession(`${apiUrl}${path}`, {
       body: JSON.stringify(body),
-      credentials: "include",
       headers: {
         "content-type": "application/json"
       },
-      method
+      method,
+      timeoutMessage: `Falha ao salvar policy dentro do limite de ${POLICY_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: POLICY_REQUEST_TIMEOUT_MS
     });
 
     if (!response.ok) {

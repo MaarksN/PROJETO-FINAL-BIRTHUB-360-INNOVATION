@@ -14,6 +14,8 @@ type Plan = {
   name: string;
 };
 
+const PRICING_REQUEST_TIMEOUT_MS = 8_000;
+
 const fallbackPlans: Plan[] = [
   {
     code: "starter",
@@ -88,7 +90,13 @@ export default function PricingPage() {
   const [loadingPlanId, setLoadingPlanId] = useState<string | null>(null);
 
   useEffect(() => {
-    void fetch("/api/v1/billing/plans")
+    const controller = new AbortController();
+
+    void fetchWithSession("/api/v1/billing/plans", {
+      signal: controller.signal,
+      timeoutMessage: `Falha ao carregar planos dentro do limite de ${PRICING_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: PRICING_REQUEST_TIMEOUT_MS
+    })
       .then(async (response) => {
         if (!response.ok) {
           return;
@@ -99,6 +107,10 @@ export default function PricingPage() {
         }
       })
       .catch(() => undefined);
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   const sortedPlans = useMemo(
@@ -115,7 +127,9 @@ export default function PricingPage() {
         headers: {
           "content-type": "application/json"
         },
-        method: "POST"
+        method: "POST",
+        timeoutMessage: `Falha ao abrir checkout dentro do limite de ${PRICING_REQUEST_TIMEOUT_MS}ms.`,
+        timeoutMs: PRICING_REQUEST_TIMEOUT_MS
       });
 
       if (!response.ok) {
@@ -200,4 +214,3 @@ export default function PricingPage() {
     </main>
   );
 }
-

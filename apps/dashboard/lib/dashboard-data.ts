@@ -1,6 +1,10 @@
 import { cookies } from "next/headers";
 
+import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+
 import type { DashboardSnapshot } from "./dashboard-types";
+
+const DASHBOARD_SECTION_TIMEOUT_MS = 5_000;
 
 function resolveApiBaseUrl(): string {
   return process.env.API_URL?.trim() || "http://localhost:3000";
@@ -8,11 +12,13 @@ function resolveApiBaseUrl(): string {
 
 async function fetchDashboardSection<T>(path: string): Promise<T> {
   const cookieStore = await cookies();
-  const response = await fetch(`${resolveApiBaseUrl()}${path}`, {
+  const response = await fetchWithTimeout(`${resolveApiBaseUrl()}${path}`, {
     cache: "no-store",
     headers: {
       cookie: cookieStore.toString()
-    }
+    },
+    timeoutMessage: `Dashboard data exceeded the ${DASHBOARD_SECTION_TIMEOUT_MS}ms timeout budget.`,
+    timeoutMs: DASHBOARD_SECTION_TIMEOUT_MS
   });
 
   if (!response.ok) {

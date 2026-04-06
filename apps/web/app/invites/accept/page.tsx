@@ -1,6 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+
+import { fetchWithTimeout } from "../../../../../packages/utils/src/fetch";
+
+import { toApiUrl } from "../../../lib/auth-client";
+
+const INVITE_ACCEPT_TIMEOUT_MS = 8_000;
 import { useSearchParams } from "next/navigation";
 
 export default function AcceptInvitePage() {
@@ -27,15 +33,19 @@ export default function AcceptInvitePage() {
     }
 
     let active = true;
+    const controller = new AbortController();
 
-    void fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/invites/accept`, {
+    void fetchWithTimeout(toApiUrl("/api/v1/invites/accept"), {
       body: JSON.stringify({
         token
       }),
       headers: {
         "content-type": "application/json"
       },
-      method: "POST"
+      method: "POST",
+      signal: controller.signal,
+      timeoutMessage: `Falha ao aceitar convite dentro do limite de ${INVITE_ACCEPT_TIMEOUT_MS}ms.`,
+      timeoutMs: INVITE_ACCEPT_TIMEOUT_MS
     })
       .then(async (response) => {
         if (!response.ok) {
@@ -57,7 +67,7 @@ export default function AcceptInvitePage() {
         });
       })
       .catch((error) => {
-        if (!active) {
+        if (!active || controller.signal.aborted) {
           return;
         }
 
@@ -70,6 +80,7 @@ export default function AcceptInvitePage() {
 
     return () => {
       active = false;
+      controller.abort();
     };
   }, [token]);
 
