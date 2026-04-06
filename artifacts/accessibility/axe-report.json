@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T13:57:37.634Z",
+  "checkedAt": "2026-04-06T13:59:07.208Z",
   "mode": "browser-dom-smoke",
   "requestedTool": "playwright",
   "sufficient": true,
@@ -47,6 +47,6 @@
     }
   ],
   "findings": [],
-  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 2.9s\n\n GET /pricing 200 in 883ms (next.js: 138ms, proxy.ts: 318ms, application-code: 428ms)\n GET / 200 in 116ms (next.js: 34ms, proxy.ts: 5ms, application-code: 77ms)\n GET /pricing 200 in 71ms (next.js: 5ms, proxy.ts: 6ms, application-code: 60ms)\n GET /legal/terms 200 in 119ms (next.js: 36ms, proxy.ts: 6ms, application-code: 77ms)\n GET /legal/privacy 200 in 139ms (next.js: 34ms, proxy.ts: 5ms, application-code: 100ms)\n",
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 693ms\n\n GET /pricing 200 in 2.2s (next.js: 285ms, proxy.ts: 672ms, application-code: 1205ms)\n GET / 200 in 306ms (next.js: 62ms, proxy.ts: 12ms, application-code: 233ms)\n GET /pricing 200 in 73ms (next.js: 4ms, proxy.ts: 6ms, application-code: 63ms)\n GET /legal/terms 200 in 120ms (next.js: 30ms, proxy.ts: 6ms, application-code: 84ms)\n GET /legal/privacy 200 in 146ms (next.js: 39ms, proxy.ts: 8ms, application-code: 99ms)\n",
   "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"127.0.0.1\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['127.0.0.1'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins\n"
 }

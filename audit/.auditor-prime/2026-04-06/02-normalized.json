@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T13:57:48.052Z",
+    "generatedAt": "2026-04-06T13:59:16.666Z",
     "reportDate": "2026-04-06",
     "slug": "auditor-prime-2026-04-06",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "3bcbd44194e30a09b34dd7ec04d37e703ab018ba",
+    "headSha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -1293,8 +1293,13 @@
       }
     },
     "git": {
-      "totalCommits": 1131,
+      "totalCommits": 1132,
       "last30Days": [
+        {
+          "sha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
+          "date": "2026-04-06",
+          "subject": "1"
+        },
         {
           "sha": "3bcbd44194e30a09b34dd7ec04d37e703ab018ba",
           "date": "2026-04-06",
@@ -4077,6 +4082,11 @@
         "activeDays": 22,
         "placeholderMessages": [
           {
+            "sha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
+            "date": "2026-04-06",
+            "subject": "1"
+          },
+          {
             "sha": "3bcbd44194e30a09b34dd7ec04d37e703ab018ba",
             "date": "2026-04-06",
             "subject": "1"
@@ -4193,11 +4203,6 @@
           },
           {
             "sha": "042c74a14629bfc14bcd65547b69d9a016a49c5d",
-            "date": "2026-04-05",
-            "subject": "1"
-          },
-          {
-            "sha": "d4a0ce8bce4a60886b2cddbe39da40c5f16515d0",
             "date": "2026-04-05",
             "subject": "1"
           }
@@ -6242,80 +6247,6 @@
     "performance": [
       {
         "dimension": "performance",
-        "title": "Consulta findMany sem paginação explícita",
-        "location": {
-          "path": "packages/database/test/base.repo.test.ts",
-          "lines": {
-            "start": 51,
-            "end": 51
-          }
-        },
-        "problem": "Indício em packages/database/test/base.repo.test.ts:51 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-        "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.72,
-        "evidenceRefs": [
-          {
-            "path": "packages/database/test/base.repo.test.ts",
-            "line": 51,
-            "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "query-budget"
-        ]
-      },
-      {
-        "dimension": "performance",
-        "title": "Consulta findMany sem paginação explícita",
-        "location": {
-          "path": "packages/database/test/base.repo.test.ts",
-          "lines": {
-            "start": 65,
-            "end": 65
-          }
-        },
-        "problem": "Indício em packages/database/test/base.repo.test.ts:65 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-        "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.72,
-        "evidenceRefs": [
-          {
-            "path": "packages/database/test/base.repo.test.ts",
-            "line": 65,
-            "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "query-budget"
-        ]
-      },
-      {
-        "dimension": "performance",
         "title": "Await serial em loop de runtime",
         "location": {
           "path": "apps/api/src/modules/billing/sync-plans.ts",
@@ -6655,6 +6586,80 @@
       {
         "dimension": "performance",
         "title": "[DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2)",
+        "location": {
+          "path": "package.json",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há scripts de stress e overload, mas a auditoria soberana não possui uma execução recente associada ao HEAD auditado.",
+        "impact": "Capacidade e backpressure podem ser superestimados perto do lançamento.",
+        "recommendation": "Executar pelo menos um teste de carga rápido para API e worker no collect de release candidate.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "package.json",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD (complementar 3)",
+        "location": {
+          "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.",
+        "impact": "Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.",
+        "recommendation": "Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "[DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 4)",
         "location": {
           "path": "package.json",
           "lines": {
