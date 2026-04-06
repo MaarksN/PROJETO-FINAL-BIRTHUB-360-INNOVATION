@@ -23,7 +23,8 @@ void test("slack tool propagates timeout through abort signal", async () => {
       init?.signal?.addEventListener(
         "abort",
         () => {
-          reject(init.signal?.reason ?? new Error("aborted"));
+          const err = init.signal?.reason instanceof Error ? init.signal.reason : new Error(String(init.signal?.reason ?? "aborted"));
+          reject(err);
         },
         { once: true }
       );
