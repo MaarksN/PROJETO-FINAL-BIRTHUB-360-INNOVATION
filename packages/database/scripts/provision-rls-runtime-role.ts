@@ -86,9 +86,9 @@ function buildRuntimeDatabaseUrl(
 function redactDatabaseUrl(databaseUrl: string): string {
   const parsed = new URL(databaseUrl);
   if (parsed.password) {
-    parsed.password = "********";
+    parsed.username = "REDACTED";
   }
-  return parsed.toString();
+  return parsed.toString().replace(":REDACTED@", ":****@").replace("REDACTED:****@", "****:****@");
 }
 
 async function executeStatement(prisma: ReturnType<typeof createPrismaClient>, sql: string) {

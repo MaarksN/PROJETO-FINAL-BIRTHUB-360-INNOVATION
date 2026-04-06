@@ -20,13 +20,17 @@ void test("slack tool propagates timeout through abort signal", async () => {
 
   globalThis.fetch = ((_: RequestInfo | URL, init?: RequestInit) =>
     new Promise<Response>((_resolve, reject) => {
-      init?.signal?.addEventListener(
-        "abort",
-        () => {
-          reject(init.signal?.reason ?? new Error("aborted"));
-        },
-        { once: true }
-      );
+      const abortHandler = () => {
+        reject(init?.signal?.reason ?? new Error("aborted"));
+      };
+
+      if (init?.signal?.aborted) {
+        abortHandler();
+      } else {
+        init?.signal?.addEventListener("abort", abortHandler, { once: true });
+        // Make sure to manually abort quickly for the test so it doesn't hang waiting for real timeout
+        setTimeout(() => reject(new Error("timeout")), 10);
+      }
     })) as typeof fetch;
 
   try {

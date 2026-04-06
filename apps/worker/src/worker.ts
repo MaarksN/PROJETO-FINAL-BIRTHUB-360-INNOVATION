@@ -5,7 +5,7 @@ import { Queue, Worker, type JobsOptions } from "bullmq";
 import { Redis } from "ioredis";
 
 import { persistAgentHandoff } from "./agents/handoffs.js";
-import { executeManifestAgentRuntime } from "./agents/runtime.js";
+import { executeManifestAgentRuntime } from "./agents/runtime.orchestration.js";
 import {
   WorkflowRunner,
   type WorkflowExecutionJobPayload,
