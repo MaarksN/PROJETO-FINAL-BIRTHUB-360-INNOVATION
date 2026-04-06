@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Relatorio Executivo de Divida Tecnica
 
 - Data da analise: 2026-04-02
@@ -79,7 +78,6 @@ O tracker atual captura parte da situacao, mas sub-representa a divida observada
 ## Conclusao
 
 O repositorio esta bem controlado em governanca, mas ainda carrega debitos importantes na camada de contratos, manutencao de UI e consolidacao do sunset legado. O melhor retorno imediato vem de alinhar a documentacao da API com a superficie real, remover referencias operacionais legadas e atacar os hotspots de duplicacao no `apps/web`.
-=======
 # Relatório Executivo Mensal de Saúde Técnica
 
 ## Resumo e Matriz de Dívida (Debt Matrix)

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Governance and release controls
 /.github/workflows/ @platform-devex @platform-security
 /.github/dependabot.yml @platform-devex @platform-security
@@ -52,11 +51,9 @@
 /packages/shared-types/ @platform-api @platform-architecture
 /packages/utils/ @platform-core @platform-architecture
 * @platform-architecture @platform-devex
-=======
 *                   @birthub/core-maintainers
 /apps/web/          @birthub/frontend
 /apps/dashboard/    @birthub/frontend
 /packages/database/ @birthub/data-engineering
 /packages/agents/   @birthub/ai-engineers
 /audit/             @birthub/auditors @birthub/core-maintainers
->>>>>>> origin/jules-f8-database-integrity-16939282469267761297
