@@ -85,10 +85,10 @@ void test("workflow runs helpers load and retry through the session-aware timeou
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
     calls.push({
       ...(init ? { init } : {}),
-      url: String(input)
+      url: typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as { url: string }).url
     });
 
-    if (String(input).endsWith("/run")) {
+    if (typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as { url: string }).url.endsWith("/run")) {
       return Promise.resolve(new Response(null, { status: 202 }));
     }
 
