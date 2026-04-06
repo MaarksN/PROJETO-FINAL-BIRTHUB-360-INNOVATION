@@ -2,6 +2,8 @@ import { prisma } from "@birthub/database";
 
 import { hasExplicitDatabaseUrl, isDatabaseUnavailableError } from "../../lib/database-availability.js";
 
+const AGENT_EXECUTION_SNAPSHOT_LIMIT = 1_000;
+
 export type ExecutionStatus = "FAILED" | "SUCCESS";
 
 export interface AgentRunLog {
@@ -87,6 +89,7 @@ async function loadRunLogs(input: {
       orderBy: {
         startedAt: "desc"
       },
+      take: AGENT_EXECUTION_SNAPSHOT_LIMIT,
       where: {
         ...(input.agentId ? { agentId: input.agentId } : {}),
         ...(input.since ? { startedAt: { gte: input.since } } : {}),

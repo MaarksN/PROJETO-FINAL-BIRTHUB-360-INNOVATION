@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-06T02:07:28.764Z",
+    "generatedAt": "2026-04-06T02:11:18.449Z",
     "reportDate": "2026-04-05",
     "slug": "auditor-prime-2026-04-05",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "0eafb82dee480033a2e0451b901c1a35a981991a",
+    "headSha": "81e597eb7e459bb27a40fc7d5fa80b75026f2373",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -1293,8 +1293,13 @@
       }
     },
     "git": {
-      "totalCommits": 1118,
+      "totalCommits": 1119,
       "last30Days": [
+        {
+          "sha": "81e597eb7e459bb27a40fc7d5fa80b75026f2373",
+          "date": "2026-04-05",
+          "subject": "1"
+        },
         {
           "sha": "0eafb82dee480033a2e0451b901c1a35a981991a",
           "date": "2026-04-05",
@@ -4012,6 +4017,11 @@
         "activeDays": 21,
         "placeholderMessages": [
           {
+            "sha": "81e597eb7e459bb27a40fc7d5fa80b75026f2373",
+            "date": "2026-04-05",
+            "subject": "1"
+          },
+          {
             "sha": "0eafb82dee480033a2e0451b901c1a35a981991a",
             "date": "2026-04-05",
             "subject": "1"
@@ -4128,11 +4138,6 @@
           },
           {
             "sha": "52d4b32a18b70f92248e0a394f18d413ff00aaa7",
-            "date": "2026-03-30",
-            "subject": "1"
-          },
-          {
-            "sha": "62097f558b0aac397685f19bd69622431e4090d7",
             "date": "2026-03-30",
             "subject": "1"
           }
@@ -5719,49 +5724,6 @@
     "tests_observability": [
       {
         "dimension": "tests_observability",
-        "title": "Cobertura estrutural baixa em apps/api",
-        "location": {
-          "path": "artifacts/testing/module-coverage.json",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "O proxy de cobertura identifica 135 arquivos de runtime para apps/api, mas apenas 37 arquivos de teste diretos e 0 gaps principais.",
-        "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
-        "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 4,
-          "reverseEffort": 3,
-          "frequency": 4
-        },
-        "vdiScore": 3.45,
-        "effort": "1-3 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.86,
-        "evidenceRefs": [
-          {
-            "path": "artifacts/testing/module-coverage.json",
-            "line": 1,
-            "summary": "Gap estrutural identificado para apps/api."
-          },
-          {
-            "path": "artifacts/testing/module-coverage.json",
-            "line": 1,
-            "summary": "apps/api: 37 testes diretos, 0 gaps."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "test-harness",
-          "observability-foundation"
-        ]
-      },
-      {
-        "dimension": "tests_observability",
         "title": "Cobertura estrutural baixa em apps/worker",
         "location": {
           "path": "apps/worker/src/agents/conversations.ts",
@@ -6178,6 +6140,43 @@
         "dependencyHints": [
           "baseline-proof"
         ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "[DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2)",
+        "location": {
+          "path": "infra/monitoring/alert.rules.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há artefatos e regras de monitoramento versionados, mas não há evidência viva de dashboards/SLOs com budget consumido por janela.",
+        "impact": "A operação fica com sinais técnicos, mas sem indicador explícito de confiabilidade do serviço para decisão executiva.",
+        "recommendation": "Versionar a definição de SLO por fluxo crítico e anexar screenshot/export JSON dos dashboards vivos.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "infra/monitoring/alert.rules.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
       }
     ],
     "performance": [
@@ -6185,13 +6184,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/agents/metrics.service.ts",
+          "path": "apps/api/src/modules/analytics/reporting.service.ts",
           "lines": {
-            "start": 86,
-            "end": 86
+            "start": 7,
+            "end": 7
           }
         },
-        "problem": "Indício em apps/api/src/modules/agents/metrics.service.ts:86 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/analytics/reporting.service.ts:7 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6207,8 +6206,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/agents/metrics.service.ts",
-            "line": 86,
+            "path": "apps/api/src/modules/analytics/reporting.service.ts",
+            "line": 7,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6222,13 +6221,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/agents/service.ts",
+          "path": "apps/api/src/modules/analytics/reporting.service.ts",
           "lines": {
-            "start": 36,
-            "end": 36
+            "start": 91,
+            "end": 91
           }
         },
-        "problem": "Indício em apps/api/src/modules/agents/service.ts:36 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/analytics/reporting.service.ts:91 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6244,8 +6243,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/agents/service.ts",
-            "line": 36,
+            "path": "apps/api/src/modules/analytics/reporting.service.ts",
+            "line": 91,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6259,13 +6258,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+          "path": "apps/api/src/modules/analytics/usage.service.ts",
           "lines": {
-            "start": 16,
-            "end": 16
+            "start": 33,
+            "end": 33
           }
         },
-        "problem": "Indício em apps/api/src/modules/analytics/dashboard.service.ts:16 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/analytics/usage.service.ts:33 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6281,8 +6280,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/analytics/dashboard.service.ts",
-            "line": 16,
+            "path": "apps/api/src/modules/analytics/usage.service.ts",
+            "line": 33,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6296,13 +6295,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+          "path": "apps/api/src/modules/analytics/usage.service.ts",
           "lines": {
-            "start": 21,
-            "end": 21
+            "start": 44,
+            "end": 44
           }
         },
-        "problem": "Indício em apps/api/src/modules/analytics/dashboard.service.ts:21 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/analytics/usage.service.ts:44 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6318,8 +6317,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/analytics/dashboard.service.ts",
-            "line": 21,
+            "path": "apps/api/src/modules/analytics/usage.service.ts",
+            "line": 44,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6333,13 +6332,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/analytics/dashboard.service.ts",
+          "path": "apps/api/src/modules/analytics/usage.service.ts",
           "lines": {
-            "start": 32,
-            "end": 32
+            "start": 55,
+            "end": 55
           }
         },
-        "problem": "Indício em apps/api/src/modules/analytics/dashboard.service.ts:32 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/analytics/usage.service.ts:55 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6355,8 +6354,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/analytics/dashboard.service.ts",
-            "line": 32,
+            "path": "apps/api/src/modules/analytics/usage.service.ts",
+            "line": 55,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],

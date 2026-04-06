@@ -5,6 +5,10 @@ import { agentMetricsService } from "../agents/metrics.service.js";
 import { getInstalledAgentQueueStats } from "../agents/queue.js";
 import { uniqueTenantCount } from "./analytics.utils.js";
 
+const MASTER_DASHBOARD_SUBSCRIPTION_LIMIT = 5_000;
+const DASHBOARD_TENANT_SNAPSHOT_LIMIT = 2_000;
+const DASHBOARD_USAGE_ROW_LIMIT = 10_000;
+
 export async function getMasterAdminDashboard() {
   const now = new Date();
   const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -16,13 +20,15 @@ export async function getMasterAdminDashboard() {
       prisma.subscription.findMany({
         include: {
           plan: true
-        }
+        },
+        take: MASTER_DASHBOARD_SUBSCRIPTION_LIMIT
       }),
       prisma.workflowExecution.findMany({
         distinct: ["tenantId"],
         select: {
           tenantId: true
         },
+        take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
           startedAt: {
             gte: weekAgo
@@ -34,6 +40,7 @@ export async function getMasterAdminDashboard() {
         select: {
           tenantId: true
         },
+        take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
           startedAt: {
             gte: monthAgo
@@ -45,6 +52,7 @@ export async function getMasterAdminDashboard() {
         select: {
           tenantId: true
         },
+        take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
           startedAt: {
             gte: weekAgo
@@ -56,6 +64,7 @@ export async function getMasterAdminDashboard() {
         select: {
           tenantId: true
         },
+        take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
           startedAt: {
             gte: monthAgo
@@ -67,6 +76,7 @@ export async function getMasterAdminDashboard() {
           metric: true,
           quantity: true
         },
+        take: DASHBOARD_USAGE_ROW_LIMIT,
         where: {
           occurredAt: {
             gte: monthAgo
@@ -116,6 +126,7 @@ export async function getOperationsDashboard() {
     select: {
       tenantId: true
     },
+    take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
     where: {
       startedAt: {
         gte: since

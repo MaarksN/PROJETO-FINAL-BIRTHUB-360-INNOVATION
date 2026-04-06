@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T02:07:22.768Z",
+  "checkedAt": "2026-04-06T02:11:12.428Z",
   "mode": "browser-dom-smoke",
   "requestedTool": "playwright",
   "sufficient": true,
@@ -47,6 +47,6 @@
     }
   ],
   "findings": [],
-  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 869ms\n\n GET /pricing 200 in 633ms (next.js: 111ms, proxy.ts: 191ms, application-code: 330ms)\n GET / 200 in 109ms (next.js: 43ms, proxy.ts: 5ms, application-code: 61ms)\n GET /pricing 200 in 72ms (next.js: 3ms, proxy.ts: 5ms, application-code: 64ms)\n GET /legal/terms 200 in 80ms (next.js: 24ms, proxy.ts: 6ms, application-code: 50ms)\n GET /legal/privacy 200 in 85ms (next.js: 24ms, proxy.ts: 4ms, application-code: 57ms)\n",
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 512ms\n\n GET /pricing 200 in 582ms (next.js: 105ms, proxy.ts: 173ms, application-code: 303ms)\n GET / 200 in 99ms (next.js: 31ms, proxy.ts: 6ms, application-code: 62ms)\n GET /pricing 200 in 55ms (next.js: 3ms, proxy.ts: 5ms, application-code: 46ms)\n GET /legal/terms 200 in 105ms (next.js: 24ms, proxy.ts: 4ms, application-code: 77ms)\n GET /legal/privacy 200 in 82ms (next.js: 22ms, proxy.ts: 5ms, application-code: 55ms)\n",
   "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"127.0.0.1\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['127.0.0.1'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins\n"
 }

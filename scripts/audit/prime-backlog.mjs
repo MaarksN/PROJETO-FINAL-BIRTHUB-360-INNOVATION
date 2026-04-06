@@ -47,8 +47,11 @@ function acceptanceCriteria(item) {
   if (/raw query/i.test(item.title)) {
     return "Nenhum uso inseguro remanescente no escopo do item; validação direcionada executada; auditor-prime rerodado sem reincidência do achado.";
   }
-  if (/RLS|tenant/i.test(item.title) || item.dimension === "operations_multitenancy") {
+  if (/RLS|row-level security|tenant/i.test(item.title)) {
     return "Prova de isolamento atualizada em `artifacts/tenancy/rls-proof-head.json`, controles de tenancy verificados e item rebaixado/removido na próxima auditoria.";
+  }
+  if (item.dimension === "operations_multitenancy") {
+    return "Capacidade operacional/multi-tenant materializada com evidência versionada, critério técnico validado e item rebaixado/removido na próxima auditoria.";
   }
   if (item.dimension === "tests_observability") {
     return "Evidência fresca anexada ao pipeline soberano, com referência versionada e consumo automático pelo `audit:prime`.";

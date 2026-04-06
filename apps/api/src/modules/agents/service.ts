@@ -24,6 +24,8 @@ import {
 } from "./service.snapshot.js";
 import type { InstalledAgentSnapshot } from "./service.types.js";
 
+const INSTALLED_AGENT_LIST_LIMIT = 250;
+
 export type { InstalledAgentSnapshot } from "./service.types.js";
 
 export class InstalledAgentsService {
@@ -37,6 +39,7 @@ export class InstalledAgentsService {
       orderBy: {
         updatedAt: "desc"
       },
+      take: INSTALLED_AGENT_LIST_LIMIT,
       where: {
         tenantId: organization.tenantId
       }
