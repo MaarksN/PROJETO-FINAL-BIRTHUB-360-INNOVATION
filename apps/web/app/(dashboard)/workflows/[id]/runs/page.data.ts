@@ -90,19 +90,30 @@ export async function loadWorkflowRuns(workflowId: string): Promise<WorkflowResp
   return (await response.json()) as WorkflowResponse;
 }
 
-export async function retryWorkflowRun(workflowId: string): Promise<void> {
-  const response = await fetchWithSession(`/api/v1/workflows/${encodeURIComponent(workflowId)}/run`, {
+export async function retryWorkflowRun(input: {
+  failedExecutionId: string;
+  failedStepKey?: string | undefined;
+  workflowId: string;
+}): Promise<void> {
+  const response = await fetchWithSession(
+    `/api/v1/workflows/${encodeURIComponent(input.workflowId)}/run`,
+    {
     body: JSON.stringify({
       async: true,
-      payload: {}
+      payload: {},
+      retry: {
+        fromExecutionId: input.failedExecutionId,
+        ...(input.failedStepKey ? { fromStepKey: input.failedStepKey } : {})
+      }
     }),
     headers: {
       "content-type": "application/json"
     },
     method: "POST",
     timeoutMessage: `Falha ao reenfileirar workflow dentro do limite de ${WORKFLOW_RUNS_TIMEOUT_MS}ms.`,
-    timeoutMs: WORKFLOW_RUNS_TIMEOUT_MS
-  });
+      timeoutMs: WORKFLOW_RUNS_TIMEOUT_MS
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`Falha ao reenfileirar workflow (${response.status}).`);
