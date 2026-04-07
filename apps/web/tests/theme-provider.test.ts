@@ -101,7 +101,7 @@ void test("theme provider persists the chosen mode and updates document theme st
       configurable: true,
       value: originalLocalStorage
     });
-    if (hadActEnvironment) {
+    if (hadActEnvironment && originalActEnvironment !== undefined) {
       reactActEnvironmentTarget.IS_REACT_ACT_ENVIRONMENT = originalActEnvironment;
     } else {
       Reflect.deleteProperty(reactActEnvironmentTarget, "IS_REACT_ACT_ENVIRONMENT");
