@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:42ff8d07-2f0a-4166-7011-7f8711dfcdea" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:570477d4-0578-f11b-4cc2-d9057449c563" version="1">
   <metadata>
-    <timestamp>2026-04-02T12:25:38.120Z</timestamp>
+    <timestamp>2026-04-06T15:38:16.830Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -16,10 +16,10 @@
     </component>
   </metadata>
   <components>
-    <component type="library" bom-ref="pkg:npm/%40asteasolutions%2Fzod-to-openapi@7.3.4">
+    <component type="library" bom-ref="pkg:npm/%40asteasolutions%2Fzod-to-openapi@8.5.0">
       <name>@asteasolutions/zod-to-openapi</name>
-      <version>7.3.4</version>
-      <purl>pkg:npm/%40asteasolutions%2Fzod-to-openapi@7.3.4</purl>
+      <version>8.5.0</version>
+      <purl>pkg:npm/%40asteasolutions%2Fzod-to-openapi@8.5.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40aws-sdk%2Fclient-s3@3.1019.0">
       <name>@aws-sdk/client-s3</name>
@@ -186,10 +186,10 @@
       <version>28.0.1</version>
       <purl>pkg:npm/%40types%2Fjsdom@28.0.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40types%2Fnode@25.5.0">
+    <component type="library" bom-ref="pkg:npm/%40types%2Fnode@25.5.2">
       <name>@types/node</name>
-      <version>25.5.0</version>
-      <purl>pkg:npm/%40types%2Fnode@25.5.0</purl>
+      <version>25.5.2</version>
+      <purl>pkg:npm/%40types%2Fnode@25.5.2</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40types%2Fopossum@8.1.9">
       <name>@types/opossum</name>
@@ -231,10 +231,10 @@
       <version>3.0.3</version>
       <purl>pkg:npm/bcryptjs@3.0.3</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/bullmq@5.71.0">
+    <component type="library" bom-ref="pkg:npm/bullmq@5.73.0">
       <name>bullmq</name>
-      <version>5.71.0</version>
-      <purl>pkg:npm/bullmq@5.71.0</purl>
+      <version>5.73.0</version>
+      <purl>pkg:npm/bullmq@5.73.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/cors@2.8.6">
       <name>cors</name>
@@ -261,10 +261,10 @@
       <version>5.2.1</version>
       <purl>pkg:npm/express@5.2.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/express-rate-limit@8.3.1">
+    <component type="library" bom-ref="pkg:npm/express-rate-limit@8.3.2">
       <name>express-rate-limit</name>
-      <version>8.3.1</version>
-      <purl>pkg:npm/express-rate-limit@8.3.1</purl>
+      <version>8.3.2</version>
+      <purl>pkg:npm/express-rate-limit@8.3.2</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/fast-xml-parser@5.5.8">
       <name>fast-xml-parser</name>
@@ -286,10 +286,10 @@
       <version>5.10.1</version>
       <purl>pkg:npm/ioredis@5.10.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/isomorphic-dompurify@3.6.0">
+    <component type="library" bom-ref="pkg:npm/isomorphic-dompurify@3.7.1">
       <name>isomorphic-dompurify</name>
-      <version>3.6.0</version>
-      <purl>pkg:npm/isomorphic-dompurify@3.6.0</purl>
+      <version>3.7.1</version>
+      <purl>pkg:npm/isomorphic-dompurify@3.7.1</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/jose@6.2.2">
       <name>jose</name>
@@ -381,10 +381,10 @@
       <version>19.2.4</version>
       <purl>pkg:npm/react-dom@19.2.4</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/react-hook-form@7.72.0">
+    <component type="library" bom-ref="pkg:npm/react-hook-form@7.72.1">
       <name>react-hook-form</name>
-      <version>7.72.0</version>
-      <purl>pkg:npm/react-hook-form@7.72.0</purl>
+      <version>7.72.1</version>
+      <purl>pkg:npm/react-hook-form@7.72.1</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/reactflow@11.11.4">
       <name>reactflow</name>
@@ -451,10 +451,10 @@
       <version>5.9.3</version>
       <purl>pkg:npm/typescript@5.9.3</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/typescript-eslint@8.57.0">
+    <component type="library" bom-ref="pkg:npm/typescript-eslint@8.58.0">
       <name>typescript-eslint</name>
-      <version>8.57.0</version>
-      <purl>pkg:npm/typescript-eslint@8.57.0</purl>
+      <version>8.58.0</version>
+      <purl>pkg:npm/typescript-eslint@8.58.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/ws@8.20.0">
       <name>ws</name>
@@ -466,10 +466,10 @@
       <version>4.3.6</version>
       <purl>pkg:npm/zod@4.3.6</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/zustand@5.0.11">
+    <component type="library" bom-ref="pkg:npm/zustand@5.0.12">
       <name>zustand</name>
-      <version>5.0.11</version>
-      <purl>pkg:npm/zustand@5.0.11</purl>
+      <version>5.0.12</version>
+      <purl>pkg:npm/zustand@5.0.12</purl>
     </component>
   </components>
 </bom>

@@ -91,6 +91,7 @@ function buildQueuedPayload(
   return {
     attempt,
     executionId: payload.executionId,
+    isDryRun: payload.isDryRun,
     organizationId: payload.organizationId,
     stepKey,
     tenantId: payload.tenantId,

@@ -110,6 +110,7 @@ export function createWebhooksRouter(config: ApiConfig): Router {
         workflow.organizationId,
         {
           async: true,
+          dryRun: false,
           payload
         },
         WorkflowTriggerType.WEBHOOK

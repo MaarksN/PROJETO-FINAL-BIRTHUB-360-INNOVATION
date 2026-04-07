@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 "use client";
 
 import "reactflow/dist/style.css";
@@ -141,7 +142,9 @@ function WorkflowEditorCanvas({
   validationErrors,
   workflowName,
   workflowStatus,
-  setWorkflowName
+  setWorkflowName,
+  simulating,
+  onSimulate
 }: {
   decoratedNodes: Node<BuilderNodeData>[];
   edges: Edge[];
@@ -157,8 +160,10 @@ function WorkflowEditorCanvas({
   validationErrors: string[];
   workflowName: string;
   workflowStatus: WorkflowStatus;
+  simulating: boolean;
+  onSimulate: () => void;
 }) {
-  const actionsDisabled = isPending || validationErrors.length > 0;
+  const actionsDisabled = isPending || validationErrors.length > 0 || simulating;
 
   return (
     <div
@@ -221,6 +226,14 @@ function WorkflowEditorCanvas({
             type="button"
           >
             <Play size={14} /> Publicar
+          </button>
+          <button
+            disabled={actionsDisabled}
+            onClick={onSimulate}
+            style={{ alignItems: "center", display: "inline-flex", gap: 6, background: "#0284c7" }}
+            type="button"
+          >
+            <Play size={14} /> {simulating ? "Simulando..." : "Simular (Dry Run)"}
           </button>
         </div>
       </header>
@@ -334,6 +347,10 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
   const [loadingError, setLoadingError] = useState<string | null>(null);
   const [saveMessage, setSaveMessage] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const [simulating, setSimulating] = useState(false);
+  const [simulationPayload, setSimulationPayload] = useState("{}");
+  const [showSimulationModal, setShowSimulationModal] = useState(false);
+  const [simulatedResults, setSimulatedResults] = useState<Record<string, "SUCCESS" | "FAILED" | "WAITING">>({});
 
   useWorkflowLoader({
     id,
@@ -351,10 +368,19 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
   );
   const form = useWorkflowForm(selectedNode);
   const validation = useMemo(() => buildValidation(nodes, edges), [edges, nodes]);
-  const decoratedNodes = useMemo(
-    () => decorateNodes(nodes, validation.invalidNodeIds),
-    [nodes, validation.invalidNodeIds]
-  );
+  const decoratedNodes = useMemo(() => {
+    return decorateNodes(nodes, validation.invalidNodeIds).map((node) => {
+      const simStatus = simulatedResults[node.id];
+      if (!simStatus) return node;
+      return {
+        ...node,
+        style: {
+          background: simStatus === "FAILED" ? "#fff5f5" : simStatus === "SUCCESS" ? "#ecfff5" : "#f8fafc",
+          border: simStatus === "FAILED" ? "2px solid #c1121f" : simStatus === "SUCCESS" ? "2px solid #1b4332" : "1px solid #cbd5e1"
+        }
+      };
+    });
+  }, [nodes, validation.invalidNodeIds, simulatedResults]);
 
   function handlePersist(status: Exclude<WorkflowStatus, "ARCHIVED">): void {
     setSaveMessage(null);
@@ -368,6 +394,66 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
           setLoadingError(error instanceof Error ? error.message : "Falha ao salvar.");
         });
     });
+  }
+
+  async function runSimulation() {
+    setSimulating(true);
+    setShowSimulationModal(false);
+    setLoadingError(null);
+    setSimulatedResults({});
+    setSaveMessage("Iniciando dry run...");
+
+    try {
+      const payload = JSON.parse(simulationPayload) as Record<string, unknown>;
+      const res = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}/run`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ async: false, dryRun: true, payload })
+      });
+
+      if (!res.ok) {
+        throw new Error(`Erro: ${res.status}`);
+      }
+
+      const { executionId } = (await res.json()) as { executionId: string };
+
+      // Poll para pegar os resultados da execucao
+      let attempts = 0;
+      const poll = setInterval(async () => {
+        attempts++;
+        if (attempts > 10) {
+          clearInterval(poll);
+          setSimulating(false);
+          setLoadingError("Simulação demorou muito.");
+          return;
+        }
+
+        try {
+          const runRes = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}`);
+          if (runRes.ok) {
+            const data = (await runRes.json()) as { workflow: { executions: Array<{ id: string; status: string; stepResults: Array<{ step: { key: string }; status: string }> }> } };
+            const run = data.workflow.executions.find((e) => e.id === executionId);
+            if (run && (run.status === "SUCCESS" || run.status === "FAILED")) {
+              clearInterval(poll);
+              setSimulating(false);
+              setSaveMessage(`Dry Run Finalizado: ${run.status}`);
+
+              const results: Record<string, "SUCCESS" | "FAILED" | "WAITING"> = {};
+              run.stepResults.forEach((r) => {
+                results[r.step.key] = r.status as "SUCCESS" | "FAILED" | "WAITING";
+              });
+              setSimulatedResults(results);
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }, 1000);
+
+    } catch (e) {
+      setSimulating(false);
+      setLoadingError(e instanceof Error ? e.message : "Payload invalido");
+    }
   }
 
   function handleSidebarSubmit(values: SidebarValues): void {
@@ -408,6 +494,8 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         validationErrors={validation.errors}
         workflowName={workflowName}
         workflowStatus={workflowStatus}
+        simulating={simulating}
+        onSimulate={() => setShowSimulationModal(true)}
       />
       <WorkflowSidebar
         form={form}
@@ -416,6 +504,31 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         saveMessage={saveMessage}
         validationErrors={validation.errors}
       />
+
+      {showSimulationModal && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+          background: "rgba(0,0,0,0.5)", zIndex: 1000,
+          display: "flex", alignItems: "center", justifyContent: "center"
+        }}>
+          <div style={{ background: "#fff", padding: "2rem", borderRadius: 16, width: 400, display: "grid", gap: "1rem" }}>
+            <h3 style={{ margin: 0 }}>Simular Dry Run</h3>
+            <p style={{ margin: 0, fontSize: 13, color: "#455a64" }}>
+              Insira o payload JSON de entrada. Side-effects (como chamadas HTTP reais) serão pulados. O resultado será projetado no canvas!
+            </p>
+            <textarea
+              rows={8}
+              value={simulationPayload}
+              onChange={(e) => setSimulationPayload(e.target.value)}
+              style={{ fontFamily: "monospace", width: "100%", padding: "0.5rem" }}
+            />
+            <div style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-end" }}>
+              <button onClick={() => setShowSimulationModal(false)} type="button" style={{ background: "#e2e8f0", color: "#1e293b" }}>Cancelar</button>
+              <button onClick={runSimulation} type="button" style={{ background: "#0284c7", color: "#fff" }}>Executar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

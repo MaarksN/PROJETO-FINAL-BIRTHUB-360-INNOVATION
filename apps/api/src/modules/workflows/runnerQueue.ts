@@ -17,6 +17,7 @@ let triggerQueue: Queue | null = null;
 export interface WorkflowExecutionJobPayload {
   attempt: number;
   executionId: string;
+  isDryRun?: boolean | undefined;
   organizationId: string;
   stepKey: string;
   tenantId: string;
@@ -26,6 +27,7 @@ export interface WorkflowExecutionJobPayload {
 }
 
 export interface WorkflowTriggerJobPayload {
+  isDryRun?: boolean | undefined;
   organizationId: string;
   tenantId: string;
   triggerPayload: Record<string, unknown>;
