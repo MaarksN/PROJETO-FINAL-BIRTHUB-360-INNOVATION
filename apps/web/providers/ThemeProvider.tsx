@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, type ReactNode, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  createElement,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from "react";
 
 type ThemeMode = "dark" | "light";
 
@@ -54,7 +62,7 @@ export function ThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
     [mode]
   );
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  return createElement(ThemeContext.Provider, { value }, children);
 }
 
 export function useThemeMode() {

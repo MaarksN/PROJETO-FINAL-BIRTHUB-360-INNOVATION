@@ -17,6 +17,7 @@ import {
   type NotificationItem,
   useNotificationStore
 } from "../../stores/notification-store";
+import { getDictionary } from "../../lib/i18n";
 import { useUserPreferencesStore } from "../../stores/user-preferences-store";
 import { BrandLogo } from "../brand/BrandLogo";
 import { GlobalSearch } from "./GlobalSearch";
@@ -62,19 +63,8 @@ function groupByDay(items: NotificationItem[]) {
   }, []);
 }
 
-const navItems = [
-  { href: "/dashboard", label: "Dashboard" },
-  { href: "/patients", label: "Pacientes" },
-  { href: "/appointments", label: "Agenda" },
-  { href: "/workflows", label: "Workflows" },
-  { href: "/notifications", label: "Notificacoes" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/conversations", label: "Conversations" },
-  { href: "/reports", label: "Reports" },
-  { href: "/onboarding", label: "Onboarding" }
-];
-
 export function Navbar() {
+  const copy = getDictionary();
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -128,14 +118,14 @@ export function Navbar() {
       <div className="dashboard-topbar__identity">
         <BrandLogo href="/dashboard" size="sm" theme={mode === "dark" ? "dark" : "light"} />
         <div className="dashboard-title__meta">
-          <span>Central de Operacao</span>
-          <strong>Experiencia conectada ao produto</strong>
+          <span>{copy.navbar.identityTitle}</span>
+          <strong>{copy.navbar.identityDescription}</strong>
         </div>
       </div>
 
       <div className="dashboard-topbar__content">
         <nav className="dashboard-nav" aria-label="Navegacao principal">
-          {navItems.map((item) => {
+          {copy.navbar.items.map((item) => {
             const active =
               pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
 

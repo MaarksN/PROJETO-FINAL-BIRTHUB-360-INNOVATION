@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-07T18:04:51.733Z",
+    "generatedAt": "2026-04-07T22:16:13.027Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "5de19bac37232ca0ed2e6715d450e939b9ff8640",
+    "headSha": "228ed6a667204eeb82a919a3a14ed2876047198a",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,11 +16,11 @@
     }
   },
   "repo": {
-    "trackedFiles": 6228,
-    "coreTrackedFiles": 532,
-    "runtimeFiles": 1865,
-    "testFiles": 174,
-    "modules": 306
+    "trackedFiles": 6251,
+    "coreTrackedFiles": 550,
+    "runtimeFiles": 1872,
+    "testFiles": 185,
+    "modules": 302
   },
   "files": [
     {
@@ -35,13 +35,13 @@
     },
     {
       "path": ".env.example",
-      "bytes": 8000,
-      "lines": 261,
+      "bytes": 8385,
+      "lines": 273,
       "language": "EXAMPLE",
       "kind": "runtime",
       "topLevel": ".env.example",
       "moduleBucket": ".env.example",
-      "sha256": "1e7eceb50b736d421995f13436c6148ec94ab433aa20885692b97bfeb42bff48"
+      "sha256": "27bb01b6a7cef192399139fe953458d115a315547770879fee14ddc1b81b495c"
     },
     {
       "path": ".env.vps.example",
@@ -295,13 +295,13 @@
     },
     {
       "path": ".github/settings.yml",
-      "bytes": 1316,
-      "lines": 48,
+      "bytes": 1432,
+      "lines": 52,
       "language": "YAML",
       "kind": "runtime",
       "topLevel": ".github",
       "moduleBucket": ".github/settings.yml",
-      "sha256": "f157632ee62124f2e2172458e84a8031f554b6a33d00eaa051e126c56b3b4fd9"
+      "sha256": "282fd3a7c1a7bfc373795810d70a742d2b214f8a703828014c548745612a516d"
     },
     {
       "path": ".github/skills/create-agent/SKILL.md",
@@ -365,23 +365,23 @@
     },
     {
       "path": ".github/workflows/cd.yml",
-      "bytes": 31598,
-      "lines": 756,
+      "bytes": 32820,
+      "lines": 774,
       "language": "YAML",
       "kind": "infra",
       "topLevel": ".github",
       "moduleBucket": ".github/workflows",
-      "sha256": "1c53dc29311e4e0a847a513b37a6ea051651597eeff5852e1c87ceaeeb748de6"
+      "sha256": "3b186e7f4c3731cec6658b9471d74b07acc498a45b4baef40fb6cc732ec66026"
     },
     {
       "path": ".github/workflows/ci.yml",
-      "bytes": 16231,
-      "lines": 558,
+      "bytes": 21719,
+      "lines": 738,
       "language": "YAML",
       "kind": "infra",
       "topLevel": ".github",
       "moduleBucket": ".github/workflows",
-      "sha256": "754f722053be8b535be1778d4c2e622f267a95856a33fb5dd4558e57388369e3"
+      "sha256": "61eb47b3fae9dd3174136ffea999f581b3821147151bbf888494706be76e04d4"
     },
     {
       "path": ".github/workflows/f4-script-compliance.yml",
@@ -605,13 +605,13 @@
     },
     {
       "path": "SECURITY.md",
-      "bytes": 2892,
+      "bytes": 2919,
       "lines": 38,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "SECURITY.md",
       "moduleBucket": "SECURITY.md",
-      "sha256": "eb52984ed8cf7cad866a00b535fab8b572999c94e7c110a34d28ffa4c101387e"
+      "sha256": "5d5c3465c3025fff5dc8963a1ad8c7376ce6d884d06c5347bc2326cc04213f2f"
     },
     {
       "path": "apps/api/CHANGELOG.md",
@@ -645,13 +645,13 @@
     },
     {
       "path": "apps/api/package.json",
-      "bytes": 1871,
-      "lines": 56,
+      "bytes": 1911,
+      "lines": 57,
       "language": "JSON",
       "kind": "config",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "cc7f3f5f9af2828d95cfa704eaebe16933989e337ac6871e54698401197eae73"
+      "sha256": "92fb5cfd96de19ebc8bc9ab460820afc88f09fb4c2e7e9f642c8cc5a2f5f6a04"
     },
     {
       "path": "apps/api/src/app.ts",
@@ -705,13 +705,13 @@
     },
     {
       "path": "apps/api/src/app/module-routes.ts",
-      "bytes": 5865,
-      "lines": 121,
+      "bytes": 6036,
+      "lines": 125,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "a1e68cd8d658e16a88004c458c09b87e8f0d51f5c60df3a4293788500924cff7"
+      "sha256": "56c84c37356a49f46d57bcc9cae89ea094fb25d2766a24bede51330c15bf79e7"
     },
     {
       "path": "apps/api/src/audit/auditable.ts",
@@ -942,6 +942,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/api",
       "sha256": "8311ab53e797ace750c1d4a1351de30fb44f8d278197b20d742de71104a933a4"
+    },
+    {
+      "path": "apps/api/src/middleware/break-glass-audit.ts",
+      "bytes": 1516,
+      "lines": 54,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "362debeabf8884f68a92eca3f81d74654a00ee0a12ad03f8680b33f7da72cee8"
     },
     {
       "path": "apps/api/src/middleware/content-type.ts",
@@ -1255,13 +1265,13 @@
     },
     {
       "path": "apps/api/src/modules/auth/auth.service.credentials.ts",
-      "bytes": 10428,
-      "lines": 460,
+      "bytes": 10554,
+      "lines": 464,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "f66a5a2ca356e9471e20f00d7e834dde38da65eda07685a776b71bb8b3b1e8ba"
+      "sha256": "a2ac52e6897e5141613ab0fdd95e6c1c4e04bd87e736eef30b1b8dfe0c5ce413"
     },
     {
       "path": "apps/api/src/modules/auth/auth.service.keys.ts",
@@ -1285,13 +1295,13 @@
     },
     {
       "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
-      "bytes": 9993,
-      "lines": 425,
+      "bytes": 10010,
+      "lines": 426,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "b179ef25e5f5936e8056db98e5585bfe1ba2b4e232f5700ab0504405137b6a2f"
+      "sha256": "ca0d5d80b828e9940fe62af85bcd9722ac2f9f2c8d7a235ca94c226f0d618f29"
     },
     {
       "path": "apps/api/src/modules/auth/auth.service.shared.ts",
@@ -1305,13 +1315,13 @@
     },
     {
       "path": "apps/api/src/modules/auth/auth.service.ts",
-      "bytes": 6044,
-      "lines": 234,
+      "bytes": 6108,
+      "lines": 237,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "ad034503eaa11757468a09a5b560ba49137a41135787567d1326b77ac59755e4"
+      "sha256": "d9397e729ee942d67d554d33770334204db97f244a306230bca3443083e53092"
     },
     {
       "path": "apps/api/src/modules/auth/cookies.ts",
@@ -1504,6 +1514,16 @@
       "sha256": "a89f26fe7c68b866907613a0e1a1be728393ef58558e5b725329ae305c714589"
     },
     {
+      "path": "apps/api/src/modules/break-glass/router.ts",
+      "bytes": 7016,
+      "lines": 245,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "8e1aad23c25d0939a5acf68a434b9264132c02bcdcb390b89501360c9d541760"
+    },
+    {
       "path": "apps/api/src/modules/budget/budget-routes.ts",
       "bytes": 4731,
       "lines": 172,
@@ -1535,33 +1555,33 @@
     },
     {
       "path": "apps/api/src/modules/clinical/router.ts",
-      "bytes": 15830,
-      "lines": 533,
+      "bytes": 17027,
+      "lines": 558,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "2cc7de3488f7b7f2858afad1006b7f37a0f73e115314757ac6696f3d68f4469b"
+      "sha256": "9a1f957e1d71bee7a8182e750980b0410d85e36832ec77c49209a27bdd273b0d"
     },
     {
       "path": "apps/api/src/modules/clinical/schemas.ts",
-      "bytes": 5348,
-      "lines": 159,
+      "bytes": 5586,
+      "lines": 166,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "c55b8c6bc673492acf805a08fea772b622cf0ff0542faf97542bfdaa2835ab1b"
+      "sha256": "7d4ce3b689164aedad8837ebf37ced9dce9bdf43af14c0516f2ccd5685471779"
     },
     {
       "path": "apps/api/src/modules/clinical/service.ts",
-      "bytes": 61802,
-      "lines": 2065,
+      "bytes": 63029,
+      "lines": 2110,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "c394280520031dad5b56871eef909292d34ee8ac3ac8f1fa6ac90af966b7e60d"
+      "sha256": "91e16dcc9aa3042be962bca09380110647d37a59b83d292bd82479ba2038874f"
     },
     {
       "path": "apps/api/src/modules/connectors/index.ts",
@@ -1625,53 +1645,53 @@
     },
     {
       "path": "apps/api/src/modules/conversations/router.ts",
-      "bytes": 5917,
-      "lines": 205,
+      "bytes": 6823,
+      "lines": 244,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "01498cc3e4c33c1973b40b04c880cbc15880b2a244f5b6fc0a27ef9496e43b30"
+      "sha256": "e71395a7158a3ca02def8e55c7a845b755b1f985c2396bca10aadce3fa91ad02"
     },
     {
       "path": "apps/api/src/modules/conversations/service.ts",
-      "bytes": 7024,
-      "lines": 274,
+      "bytes": 7479,
+      "lines": 296,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "52524a320e843b7e595b5f91b36b9f163287ebdf122ffc8d2f111965ed0c4776"
+      "sha256": "71b06cd274180a979ba8055edb550a6311f021805d0bdcffd318be6bb50ef5d1"
     },
     {
       "path": "apps/api/src/modules/dashboard/router.ts",
-      "bytes": 3539,
-      "lines": 127,
+      "bytes": 3849,
+      "lines": 136,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "8a53c427e5a1722bf5a3f7acd0e8194721b78dc577afed9834ec57860f3bed97"
+      "sha256": "83b011067f5b37f89e337ed18e091988e5d5e6b9945b02aa7b7786f0bbd30717"
     },
     {
       "path": "apps/api/src/modules/dashboard/service.shared.ts",
-      "bytes": 8487,
-      "lines": 378,
+      "bytes": 9121,
+      "lines": 401,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "dbf5ce539375402b7261203212bdcc1a04ab8287d519323256137d7c96f76269"
+      "sha256": "b32063365598537832892988d4fa429f1da01b40d450a01566f825f5c4b89de2"
     },
     {
       "path": "apps/api/src/modules/dashboard/service.ts",
-      "bytes": 7652,
-      "lines": 247,
+      "bytes": 14693,
+      "lines": 524,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "6269b630c1959db1b6403ccc942440c0439daedc0c7f631f11f86f853a5f2cf1"
+      "sha256": "90ce7068450b96e2ecb8ef6a42690b8224a976fd424f680baa8b879f410f6ef5"
     },
     {
       "path": "apps/api/src/modules/engagement/queues.ts",
@@ -1712,6 +1732,26 @@
       "topLevel": "apps",
       "moduleBucket": "apps/api",
       "sha256": "477ad28d20f23db951a94859bd9623776834af1c7a9272dfdbe05a0b37062b5b"
+    },
+    {
+      "path": "apps/api/src/modules/fhir/router.ts",
+      "bytes": 5168,
+      "lines": 181,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "e9c5634c16e8269e40105ac8ddf07b64454cfec521b59fcbfbbd47d3cca85ea1"
+    },
+    {
+      "path": "apps/api/src/modules/fhir/service.ts",
+      "bytes": 11167,
+      "lines": 489,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "683fe19a910fc3405fbc1b2ffe8b7904ed774df4a9c71458ebfe17ebcd4d6a8f"
     },
     {
       "path": "apps/api/src/modules/invites/router.ts",
@@ -1854,14 +1894,44 @@
       "sha256": "ca540e74b263f2f48725a3b70bf1a4dfc82fa7fa4079df5c78417f43fe307d5a"
     },
     {
-      "path": "apps/api/src/modules/privacy/router.ts",
-      "bytes": 6778,
-      "lines": 254,
+      "path": "apps/api/src/modules/privacy/consent.service.ts",
+      "bytes": 9524,
+      "lines": 347,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "b8daee396fc4dca8835f0cccc6b067060ff5f4df7154dec667b8462ca31f81d8"
+      "sha256": "48023c5b7cd6e2e8c26a733f8544f05b8c9643a82393f74ad7b609ac9c3fec43"
+    },
+    {
+      "path": "apps/api/src/modules/privacy/retention-scheduler.ts",
+      "bytes": 884,
+      "lines": 33,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "44a87b0672eccecfc6cd1c501c8a6ef3bd3d668bce313c630d46878b89aab25d"
+    },
+    {
+      "path": "apps/api/src/modules/privacy/retention.service.ts",
+      "bytes": 13320,
+      "lines": 520,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "0bd4ea98ac0f159a50572cc12511d14f2271efca670fb4eba3610a716ec97608"
+    },
+    {
+      "path": "apps/api/src/modules/privacy/router.ts",
+      "bytes": 7886,
+      "lines": 292,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "2b523e3ca798dcb9fdee5a04931ada4db3afbc59b0cde6a3ab087f2267905c1d"
     },
     {
       "path": "apps/api/src/modules/privacy/service.ts",
@@ -1925,13 +1995,13 @@
     },
     {
       "path": "apps/api/src/modules/webhooks/eventBus.ts",
-      "bytes": 1576,
-      "lines": 62,
+      "bytes": 1549,
+      "lines": 61,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "534fa391eaebe41d339973e9606ed6210c2e07bfd5e04d51ffcf8e1a20dc17c5"
+      "sha256": "c639a98bcc16739f31d7b2a39b69413819ee4bd0f2bce5630d39e7fdaa7e9765"
     },
     {
       "path": "apps/api/src/modules/webhooks/index.ts",
@@ -1945,13 +2015,13 @@
     },
     {
       "path": "apps/api/src/modules/webhooks/router.ts",
-      "bytes": 7523,
-      "lines": 271,
+      "bytes": 7498,
+      "lines": 270,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "16963335ab87e8b74fa34aeb825805b84a3e0ea10ff5ad4f2223a149f720335f"
+      "sha256": "dc33bd109325595b88cabd5a3cda9a5ff3e83b26c756201caececdd5520eb2d2"
     },
     {
       "path": "apps/api/src/modules/webhooks/settings.service.ts",
@@ -1985,13 +2055,13 @@
     },
     {
       "path": "apps/api/src/modules/webhooks/stripe.webhook.shared.ts",
-      "bytes": 7785,
-      "lines": 290,
+      "bytes": 8181,
+      "lines": 304,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "38c6dde78205469d9605fd73fd40e0616b2f4ca7da57ec2ea01714727def923c"
+      "sha256": "5c28adf2f5376ddf99134ba4c72a2014d3d9693f7f9ede086fff868bc2cf859e"
     },
     {
       "path": "apps/api/src/modules/workflows/index.ts",
@@ -2215,13 +2285,13 @@
     },
     {
       "path": "apps/api/tests/auth.test.ts",
-      "bytes": 16634,
-      "lines": 499,
+      "bytes": 16683,
+      "lines": 501,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "bc3554a30a7c9016d1d1ae56c24b720162ea774378ee8e712b6df373898fadc9"
+      "sha256": "dbd7ef32924dd6c91513ba6309933dc6b3319437a2a9ff533cf4a1b71c89de69"
     },
     {
       "path": "apps/api/tests/billing.cache.test.ts",
@@ -2325,13 +2395,13 @@
     },
     {
       "path": "apps/api/tests/billing.webhook.test.ts",
-      "bytes": 5046,
-      "lines": 167,
+      "bytes": 6379,
+      "lines": 214,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "481baed57460e738585a22e6a14040893476cbbaf8a74789b0640ebfc00e78e3"
+      "sha256": "903907638329c5f0a0a296ca5ca6b80ef62e3f922763471ef8657003105cb924"
     },
     {
       "path": "apps/api/tests/buffer.test.ts",
@@ -2364,14 +2434,24 @@
       "sha256": "e030c8caa14c633a294e7f9a9be4cde17af19fb63188e65e4648d8dcc7f88050"
     },
     {
-      "path": "apps/api/tests/connectors-router.test.ts",
-      "bytes": 8330,
-      "lines": 288,
+      "path": "apps/api/tests/clinical-router.test.ts",
+      "bytes": 5216,
+      "lines": 197,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "3b9a0c5c327e69a4c094f718168f9f943a72336606ceaa955d4e4f049d147638"
+      "sha256": "6c57d9ad594815354562fc66247a1d155e09b701857becc9053da01b5d8c0fb3"
+    },
+    {
+      "path": "apps/api/tests/connectors-router.test.ts",
+      "bytes": 8486,
+      "lines": 293,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "e084a6fbdf5cbd37524bab53d164647a6aee723bf61af1959f38f020cbe2fe23"
     },
     {
       "path": "apps/api/tests/core-business-routes.test.ts",
@@ -2392,6 +2472,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/api",
       "sha256": "3681d5bd5f1579f8b46475a748e29d79f44710375eeb7b49c932034ab25111b0"
+    },
+    {
+      "path": "apps/api/tests/fhir-router.test.ts",
+      "bytes": 3479,
+      "lines": 118,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "3afa6256ed7511c4ce7e25baff00d33a1a6824675916469e1e746c618e09f7ce"
     },
     {
       "path": "apps/api/tests/health.smoke.test.ts",
@@ -2445,13 +2535,13 @@
     },
     {
       "path": "apps/api/tests/module-routes.test.ts",
-      "bytes": 4554,
-      "lines": 120,
+      "bytes": 5019,
+      "lines": 132,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "e1db3a20ef734563bc681bf26fc8ee9002ca79b5c77b3cda0dffc2a05e649080"
+      "sha256": "4a8364ae465090da7ca5b46880e6679f147883cc4043b31ab4cd4c525fbdcdfa"
     },
     {
       "path": "apps/api/tests/pack-installer.service.test.ts",
@@ -2515,23 +2605,23 @@
     },
     {
       "path": "apps/api/tests/tenant-auth-hardening.test.ts",
-      "bytes": 6445,
-      "lines": 244,
+      "bytes": 6661,
+      "lines": 249,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "43c4d93c2404cdc598cdf7a7462ebd61b966864012930fb349060fae63448fa4"
+      "sha256": "6310b75ac067af6b7fb1a08fb343595b38f84b1aed17abdeda0cbc72b682ea1b"
     },
     {
       "path": "apps/api/tests/test-config.ts",
-      "bytes": 2405,
-      "lines": 63,
+      "bytes": 2601,
+      "lines": 66,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "e991a6c613ea068a023fe2402c5be48d2d6d15854fd1cdf3aafa947c6d0f99dd"
+      "sha256": "a659fd64d88b0bf6a4302ad488eb8629b6ffd43c9ee7b44aa77c5f3aeaf39919"
     },
     {
       "path": "apps/api/tests/webhooks.security.test.ts",
@@ -2764,6 +2854,16 @@
       "sha256": "8ea5924ebc8513edb02ca0b395cc26d2ee48594b71447e07fd17ef395b2b8c7d"
     },
     {
+      "path": "apps/web/app/(dashboard)/appointments/page.tsx",
+      "bytes": 308,
+      "lines": 13,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "a19aa97beab046e7b64b518b4e9d6de6e93612665538836b5865b2a692022be7"
+    },
+    {
       "path": "apps/web/app/(dashboard)/billing/budgets/page.tsx",
       "bytes": 4486,
       "lines": 117,
@@ -2782,6 +2882,36 @@
       "topLevel": "apps",
       "moduleBucket": "apps/web",
       "sha256": "b131cae0bb525350aedfe700d246aa7838d68588c20a39e96285d9b52bf5f79b"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/conversations/error.tsx",
+      "bytes": 388,
+      "lines": 19,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "73dfc6717b7df730d1351706e06cf8ea3726bde64c39f35c7cdae5a94e8088c1"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/conversations/loading.tsx",
+      "bytes": 311,
+      "lines": 11,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "7694f51bc3aa7a449dfe47e7c1b83166a3bb40adf7bd4f3f7d2f8a03cd17578c"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/conversations/page.tsx",
+      "bytes": 14373,
+      "lines": 417,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "c6a9b5112dfefe841ccd2852f43ed6e42651e7c3696d6f618953e13e4cb5da20"
     },
     {
       "path": "apps/web/app/(dashboard)/dashboard.css",
@@ -2815,23 +2945,23 @@
     },
     {
       "path": "apps/web/app/(dashboard)/dashboard/page.data.ts",
-      "bytes": 2275,
-      "lines": 109,
+      "bytes": 3519,
+      "lines": 156,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "7e35d27ea566d95100c0495d442b143850494b18274cbb0ae8740b26ee7d46cf"
+      "sha256": "2900bb9bbd598f269d5b5f6bdbf868f8ce07d679143c4ba85746b79ffc9cc1f1"
     },
     {
       "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
-      "bytes": 9954,
-      "lines": 281,
+      "bytes": 16189,
+      "lines": 442,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "e193f520ee2205f44b1c76a5a08ce902f5b2a31ffd939d0b8d78ea4bf30fb12a"
+      "sha256": "d310ec87eba0ac1c83af4cfbf99b51931fe9f64bc7614dde18fefdfae1f9b697"
     },
     {
       "path": "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
@@ -2874,6 +3004,66 @@
       "sha256": "9a49f2b099746c8c7f492270c5a6e64c631a4bae2be7392929822a0869dc371c"
     },
     {
+      "path": "apps/web/app/(dashboard)/notifications/error.tsx",
+      "bytes": 384,
+      "lines": 19,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "727498cae3ae9431c8f402cf7c8d5b938e89b3684d432cfee590df489c961b22"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/notifications/loading.tsx",
+      "bytes": 295,
+      "lines": 11,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "f234d34a5f60757313ada2365cc73e0872dbef08325ce5f7f886b352c447475f"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/notifications/page.tsx",
+      "bytes": 6643,
+      "lines": 189,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "3ca2b61e5a4e6b92a3d0a6985a4012a0f193dff8938d0394ef888246ff1974f5"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/onboarding/error.tsx",
+      "bytes": 372,
+      "lines": 19,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "8acada09d94a33e4b8d204424209a162a9ef6b6ba9a8982b851a255e53e49614"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/onboarding/loading.tsx",
+      "bytes": 290,
+      "lines": 11,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "50a970473d09d89d61ed164392028c20910cba83064b6d5e8e470ebd04f1b4bf"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/onboarding/page.tsx",
+      "bytes": 5732,
+      "lines": 176,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "07214f0677b8b73c3a15e0f7c80e920e7ceb4f5ead45ba1a259e4b5aa489aab1"
+    },
+    {
       "path": "apps/web/app/(dashboard)/outputs/page.tsx",
       "bytes": 7085,
       "lines": 163,
@@ -2894,14 +3084,54 @@
       "sha256": "2d8af8f9027b2906f7cdd2c6d759ad82a6080ad6cff4b1405285c455908fe0b6"
     },
     {
+      "path": "apps/web/app/(dashboard)/patients/[id]/appointments/page.tsx",
+      "bytes": 447,
+      "lines": 18,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "33b3f51ed37a87c0efd974090e6773bdb5a577b58885d80f8dca69d855142759"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
+      "bytes": 32453,
+      "lines": 695,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "1d9f0592e3bf457fce22adb1d67aa913b50e63400f55f48fc63fdf5969d2db0c"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
+      "bytes": 13702,
+      "lines": 362,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "8399b7da6f2f9c60e8b21589c08e299ad37cd21c07a5f191c16d6a84d2a23f98"
+    },
+    {
       "path": "apps/web/app/(dashboard)/patients/clinical-data.ts",
-      "bytes": 11295,
+      "bytes": 11292,
       "lines": 415,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "286cc6a2991b3ac0b0f42ab9d8842ee76430b3cc6d68c49c9257328020bbfc89"
+      "sha256": "af0c69a68cf9a91449f91428724670d9e065199146e11e8227787825290fd83d"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/patients/page.tsx",
+      "bytes": 10365,
+      "lines": 276,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "ddbcd94fbfc582a74012b1b96fc5dda800027fe7f47cf66e5d3b5e1a98b94daf"
     },
     {
       "path": "apps/web/app/(dashboard)/profile/notifications/page.tsx",
@@ -3005,13 +3235,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
-      "bytes": 14392,
-      "lines": 539,
+      "bytes": 2122,
+      "lines": 76,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "42caba5555cde78ec9559560f8c8f3e80e5bca8eb9650c87ed1ab6adc7bf8a62"
+      "sha256": "b67fe0fb5fb5b2d434edbe43cacb624bce79bef11dd696f2ebed1303bfcf21bb"
     },
     {
       "path": "apps/web/app/(dashboard)/settings/members/page.tsx",
@@ -3035,13 +3265,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-      "bytes": 5530,
-      "lines": 162,
+      "bytes": 30562,
+      "lines": 908,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "b231bee4ed01d0c5d586297993acbbb90d9193d1085c8bceaf8bb786abdd995e"
+      "sha256": "ef8c42ad307cd3774388b91a47b80d67c6c9ab06ed747e5ef9492d6f95b9a910"
     },
     {
       "path": "apps/web/app/(dashboard)/settings/security/page.tsx",
@@ -3145,13 +3375,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/page.tsx",
-      "bytes": 3608,
+      "bytes": 3602,
       "lines": 106,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "3297a87df773fb35829332b3bc66a4c3b12c1923e84012cee86f61c55a479baf"
+      "sha256": "36d3842a16884532c125cb6a5e08257bf408c154cc48bfb39d0b24d2f444f182"
     },
     {
       "path": "apps/web/app/admin/analytics/analytics.css",
@@ -3445,13 +3675,13 @@
     },
     {
       "path": "apps/web/components/cookie-consent-banner.tsx",
-      "bytes": 2323,
-      "lines": 81,
+      "bytes": 3306,
+      "lines": 123,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "39d7cc62a56561de2d79e1837c6da977f66e4471e89dbdabdc941b193a3a9c21"
+      "sha256": "ea13d8e87d90b35a512bf28017039ebcdfb1765495e131c4b8d0695f35807016"
     },
     {
       "path": "apps/web/components/dashboard-billing-gate.tsx",
@@ -3495,13 +3725,13 @@
     },
     {
       "path": "apps/web/components/layout/Navbar.tsx",
-      "bytes": 9099,
-      "lines": 259,
+      "bytes": 9102,
+      "lines": 269,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "5784e72ae9a365ecd782af0209e6fea6e85eb409f8029a707f70c8392a904b8a"
+      "sha256": "22172fc49ca71b46bf2bb527954e3419a46b7448a6efe8616d47ac32843875eb"
     },
     {
       "path": "apps/web/components/legal-footer.tsx",
@@ -3675,13 +3905,13 @@
     },
     {
       "path": "apps/web/lib/product-api.ts",
-      "bytes": 6412,
-      "lines": 251,
+      "bytes": 6589,
+      "lines": 256,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "3205e00cec6d502aec5b387b7495c9808eb0adf71d7ace703bdefdb56fec475b"
+      "sha256": "eccc7ad73cb0b22f4faf8f325bb4bc918e3c4cc5cf65a412237172d0d8394a48"
     },
     {
       "path": "apps/web/lib/request-id.ts",
@@ -3715,23 +3945,23 @@
     },
     {
       "path": "apps/web/next.config.mjs",
-      "bytes": 2469,
-      "lines": 94,
+      "bytes": 2972,
+      "lines": 104,
       "language": "JavaScript",
       "kind": "config",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "5e0c9b596bcfb1f2e73bf1fd7b5987e4dac580e4504766a1400003aa57fb465c"
+      "sha256": "4baf35e5e8921d13465c016e1caa0e94e27268b8887fc0731a484ee1e090ebc2"
     },
     {
       "path": "apps/web/package.json",
-      "bytes": 987,
-      "lines": 38,
+      "bytes": 1027,
+      "lines": 39,
       "language": "JSON",
       "kind": "config",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "5645941f0c2ba40ddd4446367e093dddabd2a8756c674b8dc5d78fdaa77d07de"
+      "sha256": "67621df9b26d2c42b603ec67f5299f3e47e5b0d9f1d1bbfd9868b5b5ff78ac74"
     },
     {
       "path": "apps/web/providers/AnalyticsProvider.tsx",
@@ -3765,13 +3995,13 @@
     },
     {
       "path": "apps/web/providers/ThemeProvider.tsx",
-      "bytes": 1497,
-      "lines": 63,
+      "bytes": 1512,
+      "lines": 71,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "0917b8267bf6f75d372b08c88f2bfdcb87cb303860c7bdc6a6a96170e99d2819"
+      "sha256": "41258bf4198e25eaca862df3109a6c72e41080d6acf768bc8d84870f7cbe8c13"
     },
     {
       "path": "apps/web/proxy.ts",
@@ -3782,6 +4012,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/web",
       "sha256": "0cd41a0022e2874c0ec619e7f061bb3a10b52548b8a57b68210d47bf33bd924e"
+    },
+    {
+      "path": "apps/web/public/.well-known/security.txt",
+      "bytes": 215,
+      "lines": 6,
+      "language": "TXT",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "4cdbb3abeba34b760f58a293f86e415036e3202041a3dc9a430118c18bf04ea3"
     },
     {
       "path": "apps/web/public/brand/birthhub360-logo.svg",
@@ -3844,6 +4084,16 @@
       "sha256": "3e5523e9f59d144e031ea28313259b28621c447e534695fd25b2acb452e265d1"
     },
     {
+      "path": "apps/web/public/security.txt",
+      "bytes": 215,
+      "lines": 6,
+      "language": "TXT",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "4cdbb3abeba34b760f58a293f86e415036e3202041a3dc9a430118c18bf04ea3"
+    },
+    {
       "path": "apps/web/public/sw.js",
       "bytes": 1690,
       "lines": 63,
@@ -3865,13 +4115,13 @@
     },
     {
       "path": "apps/web/stores/notification-store.ts",
-      "bytes": 5831,
-      "lines": 252,
+      "bytes": 7298,
+      "lines": 301,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "2ad25e8e99ffce5abea4c7d4ff942ba2b060839f936b78aa53a28a8fc9f1ef9f"
+      "sha256": "7e1531fea6270362ec2e56d2205a18cd637d4e6b31aa4dec4d0ec46c164c93c3"
     },
     {
       "path": "apps/web/stores/user-preferences-store.ts",
@@ -3922,6 +4172,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/web",
       "sha256": "f969faa43e1f966bf42552af7b6f57ba511a1f87c536d3bf86ccbb7d584ccbfe"
+    },
+    {
+      "path": "apps/web/tests/clinical-data.test.ts",
+      "bytes": 1261,
+      "lines": 43,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "f31e633d9661328053ab5d5498eb3ea5d0bf5b2d5d5f5e8aaef3b89fd0638e9a"
     },
     {
       "path": "apps/web/tests/dashboard-data.test.ts",
@@ -4075,13 +4335,13 @@
     },
     {
       "path": "apps/worker/package.json",
-      "bytes": 1054,
-      "lines": 36,
+      "bytes": 1094,
+      "lines": 37,
       "language": "JSON",
       "kind": "config",
       "topLevel": "apps",
       "moduleBucket": "apps/worker",
-      "sha256": "6df72960baed75e79837dea5ed0a04bbe085d4f3a5d30ea141a07e1f5e0dc0b8"
+      "sha256": "a8cfa3be50d58cb84efd19f6ca78ff2897e82457a0f08cbce691c22e832e549f"
     },
     {
       "path": "apps/worker/src/agents/conversations.test.ts",
@@ -4825,13 +5085,13 @@
     },
     {
       "path": "apps/worker/src/worker.job-validation.ts",
-      "bytes": 2946,
-      "lines": 101,
+      "bytes": 3206,
+      "lines": 112,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/worker",
-      "sha256": "3a5642958d75cb590a1f8637d98e62cc6f7631614056aac63ba1abe5df85602a"
+      "sha256": "d9e4de6433ca7b131c34437ba39f1575caa805fa9251f9dd70b40949036814a2"
     },
     {
       "path": "apps/worker/src/worker.notifications.ts",
@@ -4845,13 +5105,13 @@
     },
     {
       "path": "apps/worker/src/worker.process-job.ts",
-      "bytes": 10534,
-      "lines": 396,
+      "bytes": 10598,
+      "lines": 397,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/worker",
-      "sha256": "13daa68b4ec791c5330e5e9c2149fb875ab1bee228f320c589a63d8a76dbfae5"
+      "sha256": "0fc8abbe18e1235cc620860a008827510a78b9a1e78fe18aa9c1d42c847e7bd8"
     },
     {
       "path": "apps/worker/src/worker.test.ts",
@@ -4925,13 +5185,13 @@
     },
     {
       "path": "artifacts/accessibility/axe-report.json",
-      "bytes": 2406,
+      "bytes": 1185,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/accessibility",
-      "sha256": "e56ea9981defbe2db03a49b43cb8621867c273d90adfc64883372f3706d6c589"
+      "sha256": "c44abb3383bd7905a1f38b3d6c9117df9fac2c2969ee8830bc961f59060feb49"
     },
     {
       "path": "artifacts/agent-readiness/agent-snapshot-2026-03-24.json",
@@ -5141,7 +5401,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "6260c00f5b808476ba2b9d0195b2192e0ba534273a30016d44273b648b7ea2e2"
+      "sha256": "46ef2b1a4417d4a880a9a813dd3c5a2774f5d11be478a5c8f552cc2c89d798b1"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -5181,7 +5441,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/dr",
-      "sha256": "39ab7c089bc497e326f3896f2527ca3c1fbbfd759bb00b1b9594746b2c7a4a17"
+      "sha256": "ff6001686efb7587fe70474ef331d36958e13f5f12e9212200b7dd0201b3e818"
     },
     {
       "path": "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
@@ -5621,7 +5881,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/performance",
-      "sha256": "f6d89e0f62c63bc988847bb7d41bef1224ce81b4efa274edd22986024c8d292c"
+      "sha256": "221192847ae06e9662f9523311b2511fa4bc266df1dc9eb39246d41615e21b04"
     },
     {
       "path": "artifacts/privacy/anonymization-report.json",
@@ -5641,7 +5901,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "ba0b9c9dccb4b49ec458b26cb8181a453378cd6a732f0305cab8df654427f3c2"
+      "sha256": "67ffc0dbc162742fe89fe4f018afe3f83e0ee1bdafe2310be5f7bcd8261aadd6"
     },
     {
       "path": "artifacts/quality/bundle/web-bundle-baseline.md",
@@ -5651,7 +5911,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "74bd66310c85ae90b50ad48faa228668119aefddf4fd97ac3f8a97660aed8fd7"
+      "sha256": "48b0cbfc6438c543a39f1114b9428fe924eff148c70ecd34bb77e39bbc04b381"
     },
     {
       "path": "artifacts/quality/complexity/cyclomatic-baseline.json",
@@ -5695,13 +5955,13 @@
     },
     {
       "path": "artifacts/release/checksums-manifest.sha256",
-      "bytes": 1527,
+      "bytes": 1744,
       "lines": 0,
       "language": "SHA256",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/release",
-      "sha256": "a6c233e6b1fb80dc074bfef2e4a535fba217e183586a28ea728b5c5392aa8574"
+      "sha256": "14443fedbf99a6d67f72beb2669d0b2e9cdfcf8d475635e2a8986ffab2a9a785"
     },
     {
       "path": "artifacts/release/cycle0-flow-summary.json",
@@ -5735,13 +5995,13 @@
     },
     {
       "path": "artifacts/release/production-preflight-summary.json",
-      "bytes": 1112,
+      "bytes": 1180,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/release",
-      "sha256": "b7584f061dae08c9cf338a9c89d262af78f8c24be8f67bb9faf4cc2798d142bc"
+      "sha256": "a6f400872cf4618d98e57aba9acd3b34ef166e712d1d1c12c1fe982ffede04dd"
     },
     {
       "path": "artifacts/release/production-preflight-summary.txt",
@@ -5751,7 +6011,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/release",
-      "sha256": "275c7465b2751ccdc792f4efa7158f7e25316e6347d4fcd31d52eebc4946f5e6"
+      "sha256": "016dbd4754d060c6ed481e79e39838fe5cb33da8a565b7136c10ddf23ed889a1"
     },
     {
       "path": "artifacts/release/production-rollback-evidence.json",
@@ -5775,13 +6035,13 @@
     },
     {
       "path": "artifacts/release/release-artifact-catalog.json",
-      "bytes": 2722,
+      "bytes": 3086,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/release",
-      "sha256": "f37b324cf855059166321270d7eebe8dc6978689de1c8b63d5010cc62ed9a97a"
+      "sha256": "9719296d38e8b8055ca34e362d4061ab594276245fb1a9262e5efad7bf9b5f73"
     },
     {
       "path": "artifacts/release/scorecard.md",
@@ -5815,13 +6075,13 @@
     },
     {
       "path": "artifacts/release/staging-preflight-summary.json",
-      "bytes": 1145,
+      "bytes": 1174,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/release",
-      "sha256": "a55f7d60bc680fe1c83a188db62fdebaf344973b5aaf9f5d12e2f9b79194728a"
+      "sha256": "0d151ed185c47787dbee02f1f585cc72ff58b626d25e5587e1bf80b0eaa6d30d"
     },
     {
       "path": "artifacts/release/staging-preflight-summary.txt",
@@ -5831,27 +6091,27 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/release",
-      "sha256": "9a6b83ea178ad7e5aefee5ed433eae242f720947c88d88d27ad7e7aace20a316"
+      "sha256": "76d276d26011f6a70d9d77d76bee6686fb1492a7329651d88ebf57527b4a6a18"
     },
     {
       "path": "artifacts/sbom/bom.xml",
-      "bytes": 19974,
+      "bytes": 20814,
       "lines": 0,
       "language": "XML",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/sbom",
-      "sha256": "6e29fe5d95b51da3ac13b9b8d004a0874ee99f432dfa22ee1ed4f49f0dd3b461"
+      "sha256": "070922411788704bf193ac7cb897da26cd106c1484538ff1fe8d116028d65246"
     },
     {
       "path": "artifacts/sbom/sbom.spdx.json",
-      "bytes": 40572,
+      "bytes": 42312,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/sbom",
-      "sha256": "9421bfbba81ef0e23e6a47a8bbe5806b394dcfe5804f0f2c3cd92ee9c8e63026"
+      "sha256": "2209057ac9fe133359fc2bb4984fbd4070b5dc084bf9ba5780391daf26c9cddf"
     },
     {
       "path": "artifacts/script-compliance/workspace-script-compliance.json",
@@ -5935,33 +6195,33 @@
     },
     {
       "path": "artifacts/security/semgrep-head.json",
-      "bytes": 66263,
+      "bytes": 71491,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/security",
-      "sha256": "afb103fb599b4ecad21ffa1c0bfa6cb37ce5d00f82fe572442eb31774815a3da"
+      "sha256": "3f4c1378e7842a50573e0b18c688788ffedc2b23a8ef38016f0e2172c0cb6585"
     },
     {
       "path": "artifacts/tenancy/rls-proof-head.json",
-      "bytes": 3623,
+      "bytes": 2832,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/tenancy",
-      "sha256": "21818c118f067cc153ee608d4c32608a6191045eac55b2f6c3ed63293031d497"
+      "sha256": "6448efd1d1356d34ce6195f2d3c74e3c050852c30cabbb81124ff12134c22384"
     },
     {
       "path": "artifacts/testing/module-coverage.json",
-      "bytes": 6693,
+      "bytes": 7150,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/testing",
-      "sha256": "d18d6dccedfe2a44fbd324daf01db71c13bd911df25e4fc50285428632b4f4d9"
+      "sha256": "b25a9b0c32bc94a98d7d19cc98bbf9316c230992d3a392910509659cfb6ff478"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
@@ -6025,33 +6285,33 @@
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/01-raw-evidence.json",
-      "bytes": 2605033,
+      "bytes": 2646225,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "449097da0c03be311bf777c151fc5a9742f40e54028356bb67d3a7305d593fdc"
+      "sha256": "607d65dbc455ce8968405d1b8ddbfefea4b7c320a4a73f6e9695e5c7d5abe039"
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/02-normalized.json",
-      "bytes": 399800,
+      "bytes": 399185,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "879e6e966d11000623022070f0412da20fe83b622e94f74bfa4b9cae3fb2f2b8"
+      "sha256": "03b46313635fe2ff358dcd4c60b2275e79f7318a73bfc979d4d753497e01a30e"
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "bytes": 435025,
+      "bytes": 433997,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "cd944f4147e34adecc6b080156272a2323244ca2258705d302e419495bf9086e"
+      "sha256": "1438b01790691563da3c0c7b16ef5b35c495922811949ef1dd08c3823845bf12"
     },
     {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
@@ -6215,83 +6475,83 @@
     },
     {
       "path": "audit/auditor-prime-2026-04-07.html",
-      "bytes": 479560,
+      "bytes": 478051,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.html",
-      "sha256": "a741ada395eb0aaed22b9f0f85be96caad5c42734c62b22040ace926920428c7"
+      "sha256": "f1b66491578afefc3f84a8e4761a0f4e14680a2c1f49c8fe4e5a4c951f903605"
     },
     {
       "path": "audit/auditor-prime-2026-04-07.json",
-      "bytes": 435025,
+      "bytes": 433997,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.json",
-      "sha256": "cd944f4147e34adecc6b080156272a2323244ca2258705d302e419495bf9086e"
+      "sha256": "1438b01790691563da3c0c7b16ef5b35c495922811949ef1dd08c3823845bf12"
     },
     {
       "path": "audit/auditor-prime-2026-04-07.md",
-      "bytes": 131378,
+      "bytes": 130755,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.md",
-      "sha256": "103b4fc098f1d48b3a4590b824f85522e957dc7338a2fd1331189ad42254b916"
+      "sha256": "50328be31d4256a0c02c2e349bd0613c8abf956b29fcea94f4265fbf429bce2f"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.json",
-      "bytes": 7981,
+      "bytes": 7930,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.json",
-      "sha256": "3bf15a98f20dcdb84509987d30542f1dc6c81515a0dc5f627a42cdd3a93cb56c"
+      "sha256": "470b35c28307adeef7329845d4a4ba5633743b1f5d4c703a270a79995ef7e2ed"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.md",
-      "bytes": 4952,
+      "bytes": 4901,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.md",
-      "sha256": "e0993a7709698a8d2baf63ab93eee42d66f839e814087ab0c7c279140f6f2c09"
+      "sha256": "b3103a35c26700b422f1fe6fd79a609654a1758da924d47e92c14006676d25ab"
     },
     {
       "path": "audit/auditor-prime-latest.html",
-      "bytes": 479560,
+      "bytes": 478051,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.html",
-      "sha256": "a741ada395eb0aaed22b9f0f85be96caad5c42734c62b22040ace926920428c7"
+      "sha256": "f1b66491578afefc3f84a8e4761a0f4e14680a2c1f49c8fe4e5a4c951f903605"
     },
     {
       "path": "audit/auditor-prime-latest.json",
-      "bytes": 435025,
+      "bytes": 433997,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.json",
-      "sha256": "cd944f4147e34adecc6b080156272a2323244ca2258705d302e419495bf9086e"
+      "sha256": "1438b01790691563da3c0c7b16ef5b35c495922811949ef1dd08c3823845bf12"
     },
     {
       "path": "audit/auditor-prime-latest.md",
-      "bytes": 131378,
+      "bytes": 130755,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.md",
-      "sha256": "103b4fc098f1d48b3a4590b824f85522e957dc7338a2fd1331189ad42254b916"
+      "sha256": "50328be31d4256a0c02c2e349bd0613c8abf956b29fcea94f4265fbf429bce2f"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -39615,23 +39875,23 @@
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-07.json",
-      "bytes": 7981,
+      "bytes": 7930,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-07.json",
-      "sha256": "3bf15a98f20dcdb84509987d30542f1dc6c81515a0dc5f627a42cdd3a93cb56c"
+      "sha256": "470b35c28307adeef7329845d4a4ba5633743b1f5d4c703a270a79995ef7e2ed"
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-07.md",
-      "bytes": 4952,
+      "bytes": 4901,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-07.md",
-      "sha256": "e0993a7709698a8d2baf63ab93eee42d66f839e814087ab0c7c279140f6f2c09"
+      "sha256": "b3103a35c26700b422f1fe6fd79a609654a1758da924d47e92c14006676d25ab"
     },
     {
       "path": "audit/traceability_matrix.md",
@@ -39735,13 +39995,13 @@
     },
     {
       "path": "docs/F0/diagnostico-operacional-baseline-2026-04-07.md",
-      "bytes": 19426,
-      "lines": 334,
+      "bytes": 19767,
+      "lines": 347,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/F0",
-      "sha256": "7cb28f06dd2617c77e8b31fb650decb04dd68a5df8da5fa086d208565d268b48"
+      "sha256": "8a580db766fa18d7c5ba3a7457e397f8902683208b8e166c90fe596e206af201"
     },
     {
       "path": "docs/F0/ownership.md",
@@ -40184,6 +40444,16 @@
       "sha256": "eb96f9d925dcfa24fb857b8884c559c120a214133bfe692562de26379c61aaa7"
     },
     {
+      "path": "docs/adrs/ADR-036-canonical-deploy-platform.md",
+      "bytes": 2110,
+      "lines": 40,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/adrs",
+      "sha256": "bc64c0c2e0cf10857595667c9a1732ce5fc2ae9a43d6f9f369ac713cedc80c4d"
+    },
+    {
       "path": "docs/adrs/ADR_TEMPLATE.md",
       "bytes": 688,
       "lines": 41,
@@ -40195,23 +40465,23 @@
     },
     {
       "path": "docs/adrs/INDEX.md",
-      "bytes": 821,
-      "lines": 14,
+      "bytes": 962,
+      "lines": 15,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/adrs",
-      "sha256": "86c85088d4f51d14fbf2c4fdab655a7fecc46c728450bcf7ffd64497063db483"
+      "sha256": "966e31d721038560aa31e522c875ba4e41fd4ae32d00a4570b8837f6ffc5dc79"
     },
     {
       "path": "docs/adrs/index.md",
-      "bytes": 821,
-      "lines": 14,
+      "bytes": 962,
+      "lines": 15,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/adrs",
-      "sha256": "86c85088d4f51d14fbf2c4fdab655a7fecc46c728450bcf7ffd64497063db483"
+      "sha256": "966e31d721038560aa31e522c875ba4e41fd4ae32d00a4570b8837f6ffc5dc79"
     },
     {
       "path": "docs/agent-packs/account-manager-pack.mdx",
@@ -40965,13 +41235,13 @@
     },
     {
       "path": "docs/canonical-stack-connectors.md",
-      "bytes": 3191,
-      "lines": 117,
+      "bytes": 3256,
+      "lines": 116,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/canonical-stack-connectors.md",
-      "sha256": "77ef82d73c420560321fa92f1c27f7c56a5fcf7a2beacdc9c6db80620a037589"
+      "sha256": "60a66c71ef9f8069ac3499adbf4690a2c1a57b3d8098306032d3e5c86604ba2e"
     },
     {
       "path": "docs/ci/local-ci.md",
@@ -40995,23 +41265,23 @@
     },
     {
       "path": "docs/configuration-policy.md",
-      "bytes": 4156,
+      "bytes": 3999,
       "lines": 51,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/configuration-policy.md",
-      "sha256": "838956f89f130e1352de1750135fb6600a76403d458303960ee9cb788bca81a3"
+      "sha256": "de787bdc4e9e28f08d974398ce21dc78c4e3f8cfa46a1e812e19397e6cc48423"
     },
     {
       "path": "docs/configuration-rotation.md",
-      "bytes": 3735,
-      "lines": 47,
+      "bytes": 3738,
+      "lines": 48,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/configuration-rotation.md",
-      "sha256": "1f058d59af1ed4bee073b203c36d9c2ed3d09e2e3443c99d9007a40bf6d4bbe2"
+      "sha256": "78bcd15f92652e74bfebfcc6f1fa882f695451f7314ebaa77aac019cc83f1ad3"
     },
     {
       "path": "docs/contracts/internal-versioned-contracts.md",
@@ -41042,6 +41312,46 @@
       "topLevel": "docs",
       "moduleBucket": "docs/cs",
       "sha256": "75f50c21e26ca26c46ef1b28a437a46c360f0b3a6bdf659f2d1e43d548a2cf74"
+    },
+    {
+      "path": "docs/cycles/2026-04-07-fase-2-nucleo-materno-infantil.md",
+      "bytes": 5710,
+      "lines": 112,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/cycles",
+      "sha256": "38f50c903a7d588a345726fdca060d884e7e2d4e67301d7074bba735d4cf3491"
+    },
+    {
+      "path": "docs/cycles/2026-04-07-fase-3-seguranca-e-compliance.md",
+      "bytes": 7297,
+      "lines": 140,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/cycles",
+      "sha256": "ff4ed6fe91f5a9503a6490222f8d4ad115eca07f04720e8f1810646f759a4a14"
+    },
+    {
+      "path": "docs/cycles/2026-04-07-fase-4-experiencia-central-de-produto.md",
+      "bytes": 6341,
+      "lines": 137,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/cycles",
+      "sha256": "5bcbae777176a65057e8eb2e9fbbd94f2a23538ef67fbf1bf6faad7b76aafdcf"
+    },
+    {
+      "path": "docs/cycles/2026-04-07-fase-5-sustentacao-de-producao.md",
+      "bytes": 3889,
+      "lines": 102,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "docs",
+      "moduleBucket": "docs/cycles",
+      "sha256": "cdfc2480750926a7945ea3530b8126262d029bf8fc9206eec54fd80a1601fb2b"
     },
     {
       "path": "docs/database/migration-rollback-plan.md",
@@ -41085,13 +41395,13 @@
     },
     {
       "path": "docs/environment-variables-inventory.md",
-      "bytes": 6418,
-      "lines": 91,
+      "bytes": 7235,
+      "lines": 104,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/environment-variables-inventory.md",
-      "sha256": "804ff700f482d39bb12a063527c77406fb05565c87e42ab9e1628e5610cbc042"
+      "sha256": "1da14d07d5e59b1fd2ad3cb7b3264e6968485981fcc72a83995d85fdcd0a4d6a"
     },
     {
       "path": "docs/evidence/2026-03-14-ciclo-estabilizacao-web-build.md",
@@ -41281,7 +41591,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/evidence",
-      "sha256": "efd76dce81fe86fb0226b840956b4fe698de27e2b1d37e0c17503c82a21690f1"
+      "sha256": "c5afb4c0bb43bf26235a4a702c744a7ea3a4fe6e0232625c017cd3bc43350172"
     },
     {
       "path": "docs/evidence/utils-esm-fix.md",
@@ -41455,13 +41765,13 @@
     },
     {
       "path": "docs/f10/architecture.md",
-      "bytes": 7260,
-      "lines": 166,
+      "bytes": 7458,
+      "lines": 167,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/f10",
-      "sha256": "73b5c2656d29ca11c6f786f5a106fee364450c0d1702d7be56c6cf67330091a6"
+      "sha256": "d04a5260ed7e8e2d0459bad51164a4eccfb74e5c7ef074a1f98449389f6fd2e9"
     },
     {
       "path": "docs/f10/dependency-graph.md",
@@ -41565,13 +41875,13 @@
     },
     {
       "path": "docs/observability-alerts.md",
-      "bytes": 2535,
-      "lines": 68,
+      "bytes": 2893,
+      "lines": 74,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/observability-alerts.md",
-      "sha256": "89b8503ed02d6a6cf32740b45f15d2835f1f1e098c964ca2cdada684e00c5244"
+      "sha256": "69f63af15f89bdfa98725aa14418cdf9d92621fc80755c7e3ecc99a58b6a1ced"
     },
     {
       "path": "docs/observability/alerts.yml",
@@ -41645,13 +41955,13 @@
     },
     {
       "path": "docs/operations/environment-parity.md",
-      "bytes": 1859,
+      "bytes": 1909,
       "lines": 33,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "a39509a2cc95ccd503a08a259c20e5212cd6510ed66d48ea5c7499f01e9a4266"
+      "sha256": "b44ce23968dfcd952ec934ebc346a8628a3a17eb004340585925dbcf17adbd02"
     },
     {
       "path": "docs/operations/f0-evidence-freshness-policy.md",
@@ -41665,13 +41975,13 @@
     },
     {
       "path": "docs/operations/f0-ownership-matrix.md",
-      "bytes": 1605,
-      "lines": 35,
+      "bytes": 1954,
+      "lines": 39,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "b839a573bc8f574fac7b48a3083a5be5072e66f6cebb2f451dadc2146c676a68"
+      "sha256": "ad0eece2412ecfe67fe8c550ba6ea4a18383d6e752c8db98f6e22173d73b799c"
     },
     {
       "path": "docs/operations/f0-sla-adherence-baseline-90d.md",
@@ -41701,7 +42011,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "2d9b17b833d0e61b95a804dd70272e2f612b40b27b7c3d125a48f38c5205312f"
+      "sha256": "1f9458f84d27fb2af7f1898238af65d2ec3c3e649eac3dde9d79fad40881a776"
     },
     {
       "path": "docs/performance/agent-slo.md",
@@ -42025,13 +42335,13 @@
     },
     {
       "path": "docs/processes/ONBOARDING.md",
-      "bytes": 2074,
+      "bytes": 2098,
       "lines": 53,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/processes",
-      "sha256": "4bac426224857c19c600279401e7c2cc178b62b88d3e542320797402dfcf04b5"
+      "sha256": "396169ecf1ff5e9355710f052c6677889214cd88325a337d5d9e719acea6d1a2"
     },
     {
       "path": "docs/processes/OPERATIONS.md",
@@ -42335,23 +42645,23 @@
     },
     {
       "path": "docs/release/production-preflight-inventory.md",
-      "bytes": 4232,
-      "lines": 75,
+      "bytes": 5554,
+      "lines": 89,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/release",
-      "sha256": "76fb6ed1f5a469603511f009d4614d24b1226c8a200eb202e983332f0cd02235"
+      "sha256": "58d3acec7499c258c59e6275642496cc26e48a2a3a99311414d35568621939eb"
     },
     {
       "path": "docs/release/release-process.md",
-      "bytes": 1354,
-      "lines": 37,
+      "bytes": 1841,
+      "lines": 43,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/release",
-      "sha256": "67772e6cf79ece1a26831f5c1b62728f4deef19b3c78f32c23339e01eaec89ee"
+      "sha256": "17d5348a691708bf320381fbc0ee2f402ffa4a5cf3b7e819e8934d28244af275"
     },
     {
       "path": "docs/release/reproducible-build.md",
@@ -42435,13 +42745,13 @@
     },
     {
       "path": "docs/runbooks/deploy-canonical-stack.md",
-      "bytes": 712,
-      "lines": 24,
+      "bytes": 1255,
+      "lines": 30,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/runbooks",
-      "sha256": "2e7ea353e0256f63834deac233ea984a65b5941389445c36202c684e8fbe1e3f"
+      "sha256": "553c80d58405cd8f29d01ece3cd46a9241653fa9890199e67c18d1ed0456d97d"
     },
     {
       "path": "docs/runbooks/disaster-recovery.md",
@@ -42485,13 +42795,13 @@
     },
     {
       "path": "docs/runbooks/incident-response.md",
-      "bytes": 1251,
+      "bytes": 1291,
       "lines": 25,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/runbooks",
-      "sha256": "837a3680169e0fbfbe9b5d3c1c7aeb654f42dca4d883b953401af1d8f017ef99"
+      "sha256": "1a7215b3fdd167b8783b0d4ee7413708fe9571fd5fee119c033b1ec75d30284d"
     },
     {
       "path": "docs/runbooks/onboarding-guide.md",
@@ -42525,13 +42835,13 @@
     },
     {
       "path": "docs/runbooks/rollback-canonical-stack.md",
-      "bytes": 662,
+      "bytes": 725,
       "lines": 21,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/runbooks",
-      "sha256": "a46df8fd8dc0cfdb46edcd1fcbf48c12cbffbdb7960a1cdfabb6a3dfb49d09df"
+      "sha256": "36b78e0c1f8abbc22206a731d462b48feddb0b61dd25769225f6fd4a27e46669"
     },
     {
       "path": "docs/runbooks/slow-query-investigation.md",
@@ -43585,13 +43895,13 @@
     },
     {
       "path": "infra/cloudrun/service.yaml",
-      "bytes": 6105,
-      "lines": 191,
+      "bytes": 3094,
+      "lines": 103,
       "language": "YAML",
       "kind": "infra",
       "topLevel": "infra",
       "moduleBucket": "infra/cloudrun",
-      "sha256": "7ae28ee567dbde7d7d705ea1374c6f45832d2111a9c2c0674020aafdefc4784a"
+      "sha256": "89aba68192f9df2251d5c4a3c9793c94b42c28a6856d9985f8560c5c7bb646d1"
     },
     {
       "path": "infra/docker/.gitkeep",
@@ -43775,23 +44085,23 @@
     },
     {
       "path": "ops/env/.env.production.sealed.example",
-      "bytes": 1459,
-      "lines": 33,
+      "bytes": 1939,
+      "lines": 43,
       "language": "EXAMPLE",
       "kind": "infra",
       "topLevel": "ops",
       "moduleBucket": "ops/env",
-      "sha256": "b7bd5b0b87ca57d3b47a18516c7045c3fc0739f36c232e6744155fc8e08a504e"
+      "sha256": "5711f4188289d25e108f77e73dda281ec06a6db66bc34fb9cde88a79e5e0739a"
     },
     {
       "path": "ops/env/.env.staging.sealed.example",
-      "bytes": 1464,
-      "lines": 33,
+      "bytes": 1961,
+      "lines": 43,
       "language": "EXAMPLE",
       "kind": "infra",
       "topLevel": "ops",
       "moduleBucket": "ops/env",
-      "sha256": "7a57555704d281388c23f96f7d7dd14b9f94e43a694103cc64bdba5a2a8a55a0"
+      "sha256": "2380d9e2180a04585ff48594449955203c5b9ac3e23172d06eef29717474ddf6"
     },
     {
       "path": "ops/governance/external-provisioning-status.md",
@@ -43865,13 +44175,13 @@
     },
     {
       "path": "package.json",
-      "bytes": 15015,
-      "lines": 237,
+      "bytes": 15368,
+      "lines": 238,
       "language": "JSON",
       "kind": "config",
       "topLevel": "package.json",
       "moduleBucket": "package.json",
-      "sha256": "1cd42c4c7a838fa1c2d59face822bdb679cc55a0a6a5d1af2190d12e10db6c3a"
+      "sha256": "2db9d225af12292b907f8a422ac91c5b7290f8d5d5453e81705e6d34e012fd52"
     },
     {
       "path": "packages/agent-packs/CHANGELOG.md",
@@ -58005,13 +58315,13 @@
     },
     {
       "path": "packages/config/src/api.config.test.ts",
-      "bytes": 3151,
-      "lines": 76,
+      "bytes": 3857,
+      "lines": 91,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/config",
-      "sha256": "ff4411abd96ce9665c6a1857d4924c7ef1b5786f541d475951d6a51c25a863c4"
+      "sha256": "771fad4515c85428cc6877910ab66b4aecb7c9c1b933b1c7109dd6cd76600f0a"
     },
     {
       "path": "packages/config/src/api.config.ts",
@@ -58075,23 +58385,23 @@
     },
     {
       "path": "packages/config/src/worker.config.test.ts",
-      "bytes": 2045,
-      "lines": 53,
+      "bytes": 2241,
+      "lines": 58,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/config",
-      "sha256": "aa67768ce68e555e377ff2584f0d288b075c1c08dabe6ebc6151bfd30f20afdc"
+      "sha256": "31ef813969d0186de88721bd2f12a946ac252e772643f0c038cba30b66f85559"
     },
     {
       "path": "packages/config/src/worker.config.ts",
-      "bytes": 4209,
-      "lines": 106,
+      "bytes": 4423,
+      "lines": 111,
       "language": "TypeScript",
       "kind": "config",
       "topLevel": "packages",
       "moduleBucket": "packages/config",
-      "sha256": "014a60d532461bb09076d7016fa960548a5455de392ec7418c1d3b406e59ccff"
+      "sha256": "f29994961a3ad24a5d5af3591394c6feaf90bfa9a5cc9a38c8d8a7de04a8c5f9"
     },
     {
       "path": "packages/config/tsconfig.json",
@@ -58275,13 +58585,13 @@
     },
     {
       "path": "packages/database/prisma/migration-registry.json",
-      "bytes": 28888,
-      "lines": 917,
+      "bytes": 30841,
+      "lines": 977,
       "language": "JSON",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "35affacc5c268e87f8cda55164ee5b5fd6777c0eb9c55a84bd9fea3c3ed8afc3"
+      "sha256": "3cb3c3863d5a21e421b034eff3ffc33a6cdb7df31a2b932eda3d6266cb8c3912"
     },
     {
       "path": "packages/database/prisma/migrations/20260313000100_cycle1_foundation/migration.sql",
@@ -58925,13 +59235,13 @@
     },
     {
       "path": "packages/database/src/repositories/engagement.ts",
-      "bytes": 8441,
-      "lines": 349,
+      "bytes": 9568,
+      "lines": 382,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "03ae5db5dd862c12b71ab49f068d6aa894cad2da4cbc77ae17d8cd7ea3888472"
+      "sha256": "95b87fc65e740bf1727759a9eaab6f449e06c60dd4372c27ef81a80f1086e3e1"
     },
     {
       "path": "packages/database/src/repositories/index.ts",
@@ -59005,13 +59315,13 @@
     },
     {
       "path": "packages/database/test/database-availability.ts",
-      "bytes": 1370,
-      "lines": 48,
+      "bytes": 1500,
+      "lines": 53,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "004f960c83f694d96da43fca6bcf041b36ff0c26adb1a35f0a27fd620a10c0fd"
+      "sha256": "f63e32f98ef7a19999275515c666bfb9b6efd228cbc81a577d19a1d27b3ca529"
     },
     {
       "path": "packages/database/test/engagement.test.ts",
@@ -59042,6 +59352,16 @@
       "topLevel": "packages",
       "moduleBucket": "packages/database",
       "sha256": "c5fc71642e85e3004306c7dc8a18aab21b820df39bb97b8cbe803bea583cae42"
+    },
+    {
+      "path": "packages/database/test/maternal-domain.rls.test.ts",
+      "bytes": 2180,
+      "lines": 70,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "5e10a5c3fbbe224899c025a90b5ee72d272679131f6d553cec641eb458c89401"
     },
     {
       "path": "packages/database/test/migration.test.ts",
@@ -59764,24 +60084,34 @@
       "sha256": "58e7c55527d6fe59307f005ee68ca2f099c4ea3c344c859c11e4981c9c2db615"
     },
     {
+      "path": "packages/security/index.js",
+      "bytes": 28,
+      "lines": 2,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "packages",
+      "moduleBucket": "packages/security",
+      "sha256": "64e55237cb4410e17d968cd08975566059f27638ebb0b86048031b987ba251c4"
+    },
+    {
       "path": "packages/security/index.ts",
-      "bytes": 6034,
+      "bytes": 6036,
       "lines": 230,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/security",
-      "sha256": "d1b87c80220291f46ca42135c37483f01da24251c9cb7300223945cb9bea0c35"
+      "sha256": "8b32e744656523bd73cda26da8e74ab1ac6010b55cb9e3381d7186c1c025d921"
     },
     {
       "path": "packages/security/package.json",
-      "bytes": 565,
-      "lines": 27,
+      "bytes": 572,
+      "lines": 28,
       "language": "JSON",
       "kind": "config",
       "topLevel": "packages",
       "moduleBucket": "packages/security",
-      "sha256": "bbebab61ccac5a1a0d14fbb29f9761ea03ca4382011d3dd928174dfdea751352"
+      "sha256": "63256fdfe22f92420c8fe8cb529642ff69cf9f770f9986f9fc7976aa6f6fa8db"
     },
     {
       "path": "packages/security/src/__tests__/security.test.ts",
@@ -60295,13 +60625,13 @@
     },
     {
       "path": "packages/workflows-core/src/nodes/executeStep.ts",
-      "bytes": 6389,
-      "lines": 179,
+      "bytes": 8099,
+      "lines": 268,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/workflows-core",
-      "sha256": "c5aa9b5071bc61eb1115a1179402eb49e41102d9faa3ea174ff148d1e2df50d0"
+      "sha256": "dbb345625df619047f59beee1e2cc6385073d730749e6f0b27565147512bb14f"
     },
     {
       "path": "packages/workflows-core/src/nodes/httpRequest.ts",
@@ -60405,23 +60735,23 @@
     },
     {
       "path": "playwright.config.ts",
-      "bytes": 1304,
-      "lines": 43,
+      "bytes": 1324,
+      "lines": 45,
       "language": "TypeScript",
       "kind": "config",
       "topLevel": "playwright.config.ts",
       "moduleBucket": "playwright.config.ts",
-      "sha256": "1b5e4ab56136cecab596a9ea8a14d483ea0e9b8892c0d1f5d0171ba929b38d8d"
+      "sha256": "0f00599c31fd2f52d8d37cfd6bd8e0ed6970a5e2de0d7e6562b3caf0f0932cf5"
     },
     {
       "path": "pnpm-lock.yaml",
-      "bytes": 494544,
-      "lines": 13732,
+      "bytes": 543933,
+      "lines": 15183,
       "language": "YAML",
       "kind": "config",
       "topLevel": "pnpm-lock.yaml",
       "moduleBucket": "pnpm-lock.yaml",
-      "sha256": "e00f755306dfeb131801c20ad778ce536e077d6eacbd1056bec52d1bad88c189"
+      "sha256": "bb49222e0027584566658927846c1a96a2c44c14eebd7f94245e8d6fe1b49b2c"
     },
     {
       "path": "pnpm-workspace.yaml",
@@ -60495,13 +60825,13 @@
     },
     {
       "path": "releases/manifests/release_artifact_catalog.md",
-      "bytes": 1930,
-      "lines": 23,
+      "bytes": 2182,
+      "lines": 25,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "releases",
       "moduleBucket": "releases/manifests",
-      "sha256": "f8ca65a2423452be1374b4e020c8fcdfe0b0a3bda5c890d76191c5755cf5bde0"
+      "sha256": "f4176a095b377726e7685ae0d3c03157ee5f7c702bc476007da4a2b18fa699bc"
     },
     {
       "path": "releases/notes/README.md",
@@ -60515,13 +60845,13 @@
     },
     {
       "path": "releases/notes/v1.0.0.md",
-      "bytes": 579,
+      "bytes": 597,
       "lines": 23,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "releases",
       "moduleBucket": "releases/notes",
-      "sha256": "d8827a780401af236a43994e0707031eb0d041587cce8d4720638aed1618261f"
+      "sha256": "ebbbbbc5acc6afd9f7e5aeb0ca0f474f2fd587bf29bc7f87e2a8d8dfe86db63a"
     },
     {
       "path": "renovate.json",
@@ -60675,13 +61005,13 @@
     },
     {
       "path": "scripts/audit/prime-collect.mjs",
-      "bytes": 28588,
+      "bytes": 28596,
       "lines": 847,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "633efc236e9270929c5d57f3ff9f448b6a588b2ccba710725ddc2b3cdf36dfe2"
+      "sha256": "f12cc1428198814b91d4459b4ec2f2b0fcf4b8e545dfc7ee3a8b652c513f9d5f"
     },
     {
       "path": "scripts/audit/prime-normalize.mjs",
@@ -60695,13 +61025,13 @@
     },
     {
       "path": "scripts/audit/prime-refresh-evidence.mjs",
-      "bytes": 35077,
+      "bytes": 35152,
       "lines": 1042,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "1b0d60221d9084e9e3a23e2c5e30507032262a55ca67bd0dbc82eabbf936408d"
+      "sha256": "1657ce2b30a69b1aa272d37f13d62a3c609040d9a927478247a7b09230a42b6d"
     },
     {
       "path": "scripts/audit/prime-render.mjs",
@@ -61085,13 +61415,13 @@
     },
     {
       "path": "scripts/ci/shared.mjs",
-      "bytes": 8445,
-      "lines": 328,
+      "bytes": 10235,
+      "lines": 401,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/ci",
-      "sha256": "7aa2a08398f949d4a602d53ba328dc16d58e1a9a3c386d40faea443da7bb1447"
+      "sha256": "f15c73d89479aa2e23bcf6d16dac7adadb1bb60fa50276cafa8c8c583231cd7c"
     },
     {
       "path": "scripts/ci/ts-directives-guard.mjs",
@@ -61535,23 +61865,23 @@
     },
     {
       "path": "scripts/release/.env.production.template",
-      "bytes": 1628,
-      "lines": 31,
+      "bytes": 2341,
+      "lines": 40,
       "language": "TEMPLATE",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/release",
-      "sha256": "7446c56681749a8d626049ab9ba1ba106b377a82626700b79ed0c7c794a48ff1"
+      "sha256": "42037c7e5bc768a369d18a757e3d5a738880e29764ab2636c4fb15b71058c3a4"
     },
     {
       "path": "scripts/release/.env.staging.template",
-      "bytes": 1609,
-      "lines": 31,
+      "bytes": 2301,
+      "lines": 40,
       "language": "TEMPLATE",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/release",
-      "sha256": "c80e6625158df674fa11e5975700ccf942edaf950fda5145bcb3f15e161db2eb"
+      "sha256": "e928896b37c333643ca4fbff704bd786efc00de12e18f69d42c70031ab7ed0d4"
     },
     {
       "path": "scripts/release/configure-origin-remote.sh",
@@ -61605,13 +61935,13 @@
     },
     {
       "path": "scripts/release/preflight-env.ts",
-      "bytes": 4774,
-      "lines": 190,
+      "bytes": 4804,
+      "lines": 191,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/release",
-      "sha256": "5f3ec23d1295702b2cfef622622902890e6b471f9982463e19064b586f5766d8"
+      "sha256": "daf025f567cb0f97184c6222ee62c1e087fd4fae0716861e9cbca41a31a575d3"
     },
     {
       "path": "scripts/release/verify-cycle0-flow.sh",
@@ -61834,64 +62164,14 @@
       "sha256": "4bb2ce9b014623681b549b24cb7b07fe8aabf22ef0cb507e115a3cb080e5976f"
     },
     {
-      "path": "test-results/billing-coverage.json",
-      "bytes": 1917,
-      "lines": 85,
-      "language": "JSON",
-      "kind": "runtime",
-      "topLevel": "test-results",
-      "moduleBucket": "test-results/billing-coverage.json",
-      "sha256": "e341e78bc95d9d695fab740083e522148b152135f8f20be0bafc2c805d12c7ab"
-    },
-    {
-      "path": "test-results/release-master-Release-mas-54d1d-mock-and-billing-visibility/video.webm",
-      "bytes": 368423,
-      "lines": 1525,
-      "language": "WEBM",
-      "kind": "runtime",
-      "topLevel": "test-results",
-      "moduleBucket": "test-results/release-master-Release-mas-54d1d-mock-and-billing-visibility",
-      "sha256": "9f4db05ad44b8ac8590037ffd9d51257786b0b855852eca24389d3f292a9c8b6"
-    },
-    {
-      "path": "test-results/release-master-Release-mas-8b753-w-and-local-session-cleanup/video.webm",
-      "bytes": 90839,
-      "lines": 253,
-      "language": "WEBM",
-      "kind": "runtime",
-      "topLevel": "test-results",
-      "moduleBucket": "test-results/release-master-Release-mas-8b753-w-and-local-session-cleanup",
-      "sha256": "5ef15b086638cf7ec12de7b1b91640e8c0babf42e71baa4295030668cc1fa05e"
-    },
-    {
-      "path": "test-results/release-master-Release-mas-9eae8--and-invite-acceptance-mock/video.webm",
-      "bytes": 174110,
-      "lines": 558,
-      "language": "WEBM",
-      "kind": "runtime",
-      "topLevel": "test-results",
-      "moduleBucket": "test-results/release-master-Release-mas-9eae8--and-invite-acceptance-mock",
-      "sha256": "e16db76a931f240b6883ce03a524df25834ec06952857c72be08497427879ac5"
-    },
-    {
-      "path": "test-results/release-master-Release-mas-a6e70-t-settings-stay-operational/video.webm",
-      "bytes": 53722,
-      "lines": 213,
-      "language": "WEBM",
-      "kind": "runtime",
-      "topLevel": "test-results",
-      "moduleBucket": "test-results/release-master-Release-mas-a6e70-t-settings-stay-operational",
-      "sha256": "4ca5f6d0e6b9a1ed6175e4105b73242167d285610a12deb08424d5efbbcce538"
-    },
-    {
       "path": "tests/e2e/agent-studio.spec.ts",
-      "bytes": 745,
-      "lines": 18,
+      "bytes": 529,
+      "lines": 17,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "tests",
       "moduleBucket": "tests/e2e",
-      "sha256": "45810a7b02c0787b02ff923a6558852527e405cb8dd2c8a613163a94c5d94041"
+      "sha256": "a3c55c139b48cd68dd066a600bb39d69765b2392f526e8e824775846aeabe8ee"
     },
     {
       "path": "tests/e2e/billing-premium.spec.ts",
@@ -61912,6 +62192,16 @@
       "topLevel": "tests",
       "moduleBucket": "tests/e2e",
       "sha256": "dcec3641c46f12775f4830d41858de72cfb9c24eac812f6182c3e7cd8ac31cd6"
+    },
+    {
+      "path": "tests/e2e/maternal-clinic.spec.ts",
+      "bytes": 4607,
+      "lines": 140,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "tests",
+      "moduleBucket": "tests/e2e",
+      "sha256": "99a15db8dec3dd2655d252bc3114e130f7c9f4d75ef9f61b4c181b7c5e0975ad"
     },
     {
       "path": "tests/e2e/release-master.spec.ts",
@@ -62074,240 +62364,180 @@
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
     },
     {
-      "path": "apps/api/src/middleware/break-glass-audit.ts",
-      "bytes": 1473,
-      "lines": 50,
+      "path": "apps/api/tests/conversations-router.test.ts",
+      "bytes": 7257,
+      "lines": 256,
       "language": "TypeScript",
-      "kind": "runtime",
+      "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "274f1a9bde8206c861c8dc30cb55bbb8d4a212be91511b28fe7551fa5f84485e"
+      "sha256": "2520b17e97c361a9f04dda69087d8b5a998fdf8756a98395ac420b00e81a602f"
     },
     {
-      "path": "apps/api/src/modules/break-glass/router.ts",
-      "bytes": 7016,
-      "lines": 245,
+      "path": "apps/api/tests/retention.service.test.ts",
+      "bytes": 6875,
+      "lines": 210,
       "language": "TypeScript",
-      "kind": "runtime",
+      "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "8e1aad23c25d0939a5acf68a434b9264132c02bcdcb390b89501360c9d541760"
+      "sha256": "3b641c5e513f81b01f576504fb4df810669638b1d803f3898cb2a026116592a9"
     },
     {
-      "path": "apps/api/src/modules/privacy/consent.service.ts",
-      "bytes": 6338,
-      "lines": 241,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "90603bc6b7bec486c3eee73c573fa70aa5bc169fb3f8b680aff7a56a3812cee8"
-    },
-    {
-      "path": "apps/api/src/modules/privacy/retention-scheduler.ts",
-      "bytes": 884,
-      "lines": 33,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "44a87b0672eccecfc6cd1c501c8a6ef3bd3d668bce313c630d46878b89aab25d"
-    },
-    {
-      "path": "apps/api/src/modules/privacy/retention.service.ts",
-      "bytes": 10463,
-      "lines": 400,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "55129c41a8189c9093c6e0fcda5b6ae45357b9eecdb4c25b19ac88611e5982a6"
-    },
-    {
-      "path": "apps/api/tests/clinical-router.test.ts",
-      "bytes": 5060,
+      "path": "apps/api/tests/search-router.test.ts",
+      "bytes": 5224,
       "lines": 192,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "9c6a7853f8768894f601a376b10a6a883f20ebc17dbeee23a477f96323d851d6"
+      "sha256": "dbb82ee221524af639c42443159d9a06ea2bfa473be7ee794ac02d053ed586a4"
     },
     {
-      "path": "apps/web/app/(dashboard)/appointments/page.tsx",
-      "bytes": 308,
-      "lines": 13,
+      "path": "apps/legacy/dashboard/README.md",
+      "bytes": 481,
+      "lines": 12,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "apps",
+      "moduleBucket": "apps/legacy",
+      "sha256": "4f1a71b65784d38e204cd1f3a956ca20fc189adf9e221b6eb8d5ac29d5defd57"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.data.ts",
+      "bytes": 3904,
+      "lines": 157,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "a19aa97beab046e7b64b518b4e9d6de6e93612665538836b5865b2a692022be7"
+      "sha256": "04bc009fca160baf0130cc1ef16943d1d19ab3343d12f37d63f6a3f94665fc81"
     },
     {
-      "path": "apps/web/app/(dashboard)/conversations/error.tsx",
-      "bytes": 388,
-      "lines": 19,
+      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.model.ts",
+      "bytes": 4231,
+      "lines": 158,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "73dfc6717b7df730d1351706e06cf8ea3726bde64c39f35c7cdae5a94e8088c1"
+      "sha256": "eb9515f4386e7681f7f1b4245511fa9cf7dd71a5b994c4f4c000d1bbf1f45824"
     },
     {
-      "path": "apps/web/app/(dashboard)/conversations/loading.tsx",
-      "bytes": 311,
-      "lines": 11,
+      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
+      "bytes": 6475,
+      "lines": 230,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "7694f51bc3aa7a449dfe47e7c1b83166a3bb40adf7bd4f3f7d2f8a03cd17578c"
+      "sha256": "7b20fe996fae09b451902a1ace5dba38c07ae89226e793a116fd02555eed9299"
     },
     {
-      "path": "apps/web/app/(dashboard)/conversations/page.tsx",
-      "bytes": 14166,
-      "lines": 403,
+      "path": "apps/web/lib/i18n.ts",
+      "bytes": 1751,
+      "lines": 60,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "dba4162a08ce5d3f10b7d4fe154eb154f78d8510a76cd81ded634c4b40ca9839"
+      "sha256": "1b9ba6578b3d6fba305ff309843a90314162d90c993f2f121f50014dbb416c9d"
     },
     {
-      "path": "apps/web/app/(dashboard)/notifications/error.tsx",
-      "bytes": 384,
-      "lines": 19,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "727498cae3ae9431c8f402cf7c8d5b938e89b3684d432cfee590df489c961b22"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/notifications/loading.tsx",
-      "bytes": 295,
-      "lines": 11,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "f234d34a5f60757313ada2365cc73e0872dbef08325ce5f7f886b352c447475f"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/notifications/page.tsx",
-      "bytes": 6644,
-      "lines": 189,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "9e12e7826db1d7668f9726df0d8162fb24091ab73dc30543c2b8057611c0d3a8"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/onboarding/error.tsx",
-      "bytes": 372,
-      "lines": 19,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "8acada09d94a33e4b8d204424209a162a9ef6b6ba9a8982b851a255e53e49614"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/onboarding/loading.tsx",
-      "bytes": 290,
-      "lines": 11,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "50a970473d09d89d61ed164392028c20910cba83064b6d5e8e470ebd04f1b4bf"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/onboarding/page.tsx",
-      "bytes": 5732,
-      "lines": 176,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "07214f0677b8b73c3a15e0f7c80e920e7ceb4f5ead45ba1a259e4b5aa489aab1"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/patients/[id]/appointments/page.tsx",
-      "bytes": 447,
-      "lines": 18,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "33b3f51ed37a87c0efd974090e6773bdb5a577b58885d80f8dca69d855142759"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
-      "bytes": 32453,
-      "lines": 695,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "1d9f0592e3bf457fce22adb1d67aa913b50e63400f55f48fc63fdf5969d2db0c"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
-      "bytes": 13702,
-      "lines": 362,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "8399b7da6f2f9c60e8b21589c08e299ad37cd21c07a5f191c16d6a84d2a23f98"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/patients/page.tsx",
-      "bytes": 10365,
-      "lines": 276,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "ddbcd94fbfc582a74012b1b96fc5dda800027fe7f47cf66e5d3b5e1a98b94daf"
-    },
-    {
-      "path": "apps/web/tests/clinical-data.test.ts",
-      "bytes": 1261,
-      "lines": 43,
+      "path": "apps/web/tests/developer-webhooks-page.test.ts",
+      "bytes": 7171,
+      "lines": 214,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "f31e633d9661328053ab5d5498eb3ea5d0bf5b2d5d5f5e8aaef3b89fd0638e9a"
+      "sha256": "369b69d729420dd1f63eadec4400a8ca70e409ed2a4707441d5dbd6c97cb4f6a"
     },
     {
-      "path": "docs/cycles/2026-04-07-fase-2-nucleo-materno-infantil.md",
-      "bytes": 3798,
-      "lines": 92,
-      "language": "Markdown",
-      "kind": "doc",
-      "topLevel": "docs",
-      "moduleBucket": "docs/cycles",
-      "sha256": "199f88e5565b3b88e6956daf61bd90a67ee2a6ce32b2e72be06de031af79b3ab"
+      "path": "apps/web/tests/i18n.test.ts",
+      "bytes": 792,
+      "lines": 25,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "dd4cbfa7d07d09d5c40a152ab813e5a37062c6ab29778488369adf14cf23669b"
     },
     {
-      "path": "packages/database/test/maternal-domain.rls.test.ts",
-      "bytes": 2180,
-      "lines": 70,
+      "path": "apps/web/tests/notification-store.test.ts",
+      "bytes": 7694,
+      "lines": 245,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "e65cc8c16dba25d320ddee52f8cc132d41841058f39c519f71b999410585d2ef"
+    },
+    {
+      "path": "apps/web/tests/product-api.test.ts",
+      "bytes": 5132,
+      "lines": 149,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "eba097929072a595a2d1b595e1050d894363c9a1be3f5674cf7f015eaa7991cb"
+    },
+    {
+      "path": "apps/web/tests/theme-provider.test.ts",
+      "bytes": 3772,
+      "lines": 112,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "ed00f0e859bcfa60b04067b47f67546bf360075b94755846fb4e93a3e97d2dde"
+    },
+    {
+      "path": "packages/database/prisma/migrations/20260407000300_phase1_lgpd_user_preferences/migration.sql",
+      "bytes": 649,
+      "lines": 18,
+      "language": "SQL",
+      "kind": "runtime",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "51fbe79102ff4fd24e71a59c93819e6794c1a96dcb7f4b035be699ebb76dca75"
+    },
+    {
+      "path": "packages/security/src/index.ts",
+      "bytes": 29,
+      "lines": 2,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "packages",
+      "moduleBucket": "packages/security",
+      "sha256": "33b1627f740228fd33b9a6f407467e93840f3df93b7f1f40585d113fa387c66e"
+    },
+    {
+      "path": "packages/workflows-core/test/executeStep.test.ts",
+      "bytes": 1791,
+      "lines": 79,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "5e10a5c3fbbe224899c025a90b5ee72d272679131f6d553cec641eb458c89401"
+      "moduleBucket": "packages/workflows-core",
+      "sha256": "d62cf122880140e96e9756ae1f88202b7e6b1d90f3b00f522588765a961f0c5f"
+    },
+    {
+      "path": "scripts/legacy/block-legacy-entrypoint.mjs",
+      "bytes": 369,
+      "lines": 12,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/legacy",
+      "sha256": "1afe06c286d3b0c9a7958114011e89130b68cf748b84ca46a46a593287a2f5d0"
     }
   ],
   "complexity": {
     "available": true,
-    "filesScanned": 721,
-    "functionsScanned": 5472,
+    "filesScanned": 739,
+    "functionsScanned": 5687,
     "modules": [
       {
         "module": "packages/agents-core",
@@ -62430,12 +62660,12 @@
       },
       {
         "module": "apps/web",
-        "functions": 1088,
-        "avgComplexity": 2.72,
+        "functions": 1184,
+        "avgComplexity": 2.75,
         "p95Complexity": 9,
         "maxComplexity": 120,
-        "functionsAtOrAbove10": 51,
-        "functionsAtOrAbove20": 8,
+        "functionsAtOrAbove10": 55,
+        "functionsAtOrAbove20": 9,
         "hotspots": [
           {
             "file": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
@@ -62445,6 +62675,15 @@
             "endLine": 694,
             "length": 597,
             "complexity": 120
+          },
+          {
+            "file": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+            "module": "apps/web",
+            "functionName": "PrivacySettingsPageClient",
+            "line": 165,
+            "endLine": 907,
+            "length": 743,
+            "complexity": 70
           },
           {
             "file": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
@@ -62469,8 +62708,8 @@
             "module": "apps/web",
             "functionName": "ConversationsPage",
             "line": 50,
-            "endLine": 402,
-            "length": 353,
+            "endLine": 416,
+            "length": 367,
             "complexity": 32
           },
           {
@@ -62492,6 +62731,15 @@
             "complexity": 23
           },
           {
+            "file": "apps/web/components/layout/Navbar.tsx",
+            "module": "apps/web",
+            "functionName": "Navbar",
+            "line": 66,
+            "endLine": 268,
+            "length": 203,
+            "complexity": 22
+          },
+          {
             "file": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
             "module": "apps/web",
             "functionName": "WorkflowEditPage",
@@ -62499,15 +62747,6 @@
             "endLine": 544,
             "length": 196,
             "complexity": 21
-          },
-          {
-            "file": "apps/web/components/layout/Navbar.tsx",
-            "module": "apps/web",
-            "functionName": "Navbar",
-            "line": 77,
-            "endLine": 258,
-            "length": 182,
-            "complexity": 20
           },
           {
             "file": "apps/web/app/(dashboard)/onboarding/page.tsx",
@@ -62535,15 +62774,6 @@
             "endLine": 295,
             "length": 271,
             "complexity": 18
-          },
-          {
-            "file": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
-            "module": "apps/web",
-            "functionName": "refresh",
-            "line": 111,
-            "endLine": 146,
-            "length": 36,
-            "complexity": 17
           }
         ]
       },
@@ -62668,19 +62898,19 @@
       },
       {
         "module": "apps/api",
-        "functions": 1623,
-        "avgComplexity": 2.84,
+        "functions": 1737,
+        "avgComplexity": 2.82,
         "p95Complexity": 9,
         "maxComplexity": 23,
-        "functionsAtOrAbove10": 81,
-        "functionsAtOrAbove20": 3,
+        "functionsAtOrAbove10": 85,
+        "functionsAtOrAbove20": 4,
         "hotspots": [
           {
             "file": "apps/api/src/modules/clinical/service.ts",
             "module": "apps/api",
             "functionName": "deriveClinicalAlerts",
-            "line": 424,
-            "endLine": 528,
+            "line": 438,
+            "endLine": 542,
             "length": 105,
             "complexity": 23
           },
@@ -62697,9 +62927,18 @@
             "file": "apps/api/src/modules/auth/auth.service.ts",
             "module": "apps/api",
             "functionName": "authenticateSession",
-            "line": 151,
-            "endLine": 215,
+            "line": 154,
+            "endLine": 218,
             "length": 65,
+            "complexity": 20
+          },
+          {
+            "file": "apps/api/src/modules/clinical/router.ts",
+            "module": "apps/api",
+            "functionName": "createClinicalRouter",
+            "line": 49,
+            "endLine": 557,
+            "length": 509,
             "complexity": 20
           },
           {
@@ -62721,6 +62960,15 @@
             "complexity": 19
           },
           {
+            "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+            "module": "apps/api",
+            "functionName": "verifyMfaChallenge",
+            "line": 213,
+            "endLine": 360,
+            "length": 148,
+            "complexity": 19
+          },
+          {
             "file": "apps/api/src/modules/packs/pack-installer.service.ts",
             "module": "apps/api",
             "functionName": "installPackAtomic",
@@ -62734,8 +62982,8 @@
             "module": "apps/api",
             "functionName": "createWebhooksRouter",
             "line": 61,
-            "endLine": 270,
-            "length": 210,
+            "endLine": 269,
+            "length": 209,
             "complexity": 19
           },
           {
@@ -62764,35 +63012,17 @@
             "endLine": 191,
             "length": 98,
             "complexity": 18
-          },
-          {
-            "file": "apps/api/src/modules/organizations/router.ts",
-            "module": "apps/api",
-            "functionName": "createOrganizationsRouter",
-            "line": 50,
-            "endLine": 222,
-            "length": 173,
-            "complexity": 18
-          },
-          {
-            "file": "apps/api/src/modules/packs/pack-installer-routes.ts",
-            "module": "apps/api",
-            "functionName": "createPackInstallerRouter",
-            "line": 15,
-            "endLine": 214,
-            "length": 200,
-            "complexity": 18
           }
         ]
       },
       {
         "module": "packages/database",
         "functions": 314,
-        "avgComplexity": 2.35,
+        "avgComplexity": 2.39,
         "p95Complexity": 8,
         "maxComplexity": 22,
         "functionsAtOrAbove10": 13,
-        "functionsAtOrAbove20": 1,
+        "functionsAtOrAbove20": 2,
         "hotspots": [
           {
             "file": "packages/database/scripts/check-migration-governance.ts",
@@ -62801,6 +63031,15 @@
             "line": 24,
             "endLine": 109,
             "length": 86,
+            "complexity": 22
+          },
+          {
+            "file": "packages/database/src/repositories/engagement.ts",
+            "module": "packages/database",
+            "functionName": "updateUserPreference",
+            "line": 50,
+            "endLine": 181,
+            "length": 132,
             "complexity": 22
           },
           {
@@ -62822,21 +63061,21 @@
             "complexity": 16
           },
           {
-            "file": "packages/database/src/repositories/engagement.ts",
-            "module": "packages/database",
-            "functionName": "updateUserPreference",
-            "line": 50,
-            "endLine": 148,
-            "length": 99,
-            "complexity": 14
-          },
-          {
             "file": "packages/database/prisma/seeds/shared-ops.ts",
             "module": "packages/database",
             "functionName": "ensureBilling",
             "line": 11,
             "endLine": 218,
             "length": 208,
+            "complexity": 13
+          },
+          {
+            "file": "packages/database/test/database-availability.ts",
+            "module": "packages/database",
+            "functionName": "isDatabaseUnavailableError",
+            "line": 7,
+            "endLine": 34,
+            "length": 28,
             "complexity": 13
           },
           {
@@ -62891,15 +63130,6 @@
             "line": 42,
             "endLine": 110,
             "length": 69,
-            "complexity": 10
-          },
-          {
-            "file": "packages/database/src/client.ts",
-            "module": "packages/database",
-            "functionName": "createPrismaClient",
-            "line": 157,
-            "endLine": 262,
-            "length": 106,
             "complexity": 10
           }
         ]
@@ -62998,9 +63228,9 @@
             "file": "apps/worker/src/worker.job-validation.ts",
             "module": "apps/worker",
             "functionName": "validateLegacyTaskJob",
-            "line": 60,
-            "endLine": 100,
-            "length": 41,
+            "line": 64,
+            "endLine": 111,
+            "length": 48,
             "complexity": 13
           },
           {
@@ -63025,8 +63255,8 @@
       },
       {
         "module": "packages/workflows-core",
-        "functions": 104,
-        "avgComplexity": 2.45,
+        "functions": 109,
+        "avgComplexity": 2.39,
         "p95Complexity": 7,
         "maxComplexity": 18,
         "functionsAtOrAbove10": 4,
@@ -63093,8 +63323,8 @@
       {
         "module": "packages/config",
         "functions": 47,
-        "avgComplexity": 2.64,
-        "p95Complexity": 11,
+        "avgComplexity": 2.66,
+        "p95Complexity": 12,
         "maxComplexity": 14,
         "functionsAtOrAbove10": 4,
         "functionsAtOrAbove20": 0,
@@ -63121,10 +63351,10 @@
             "file": "packages/config/src/worker.config.ts",
             "module": "packages/config",
             "functionName": "getWorkerConfig",
-            "line": 62,
-            "endLine": 105,
-            "length": 44,
-            "complexity": 11
+            "line": 63,
+            "endLine": 110,
+            "length": 48,
+            "complexity": 12
           },
           {
             "file": "packages/config/src/api.config.ts",
@@ -63395,6 +63625,15 @@
         "complexity": 120
       },
       {
+        "file": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+        "module": "apps/web",
+        "functionName": "PrivacySettingsPageClient",
+        "line": 165,
+        "endLine": 907,
+        "length": 743,
+        "complexity": 70
+      },
+      {
         "file": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
         "module": "apps/web",
         "functionName": "AppointmentsBoard",
@@ -63417,8 +63656,8 @@
         "module": "apps/web",
         "functionName": "ConversationsPage",
         "line": 50,
-        "endLine": 402,
-        "length": 353,
+        "endLine": 416,
+        "length": 367,
         "complexity": 32
       },
       {
@@ -63722,8 +63961,8 @@
         "file": "apps/api/src/modules/clinical/service.ts",
         "module": "apps/api",
         "functionName": "deriveClinicalAlerts",
-        "line": 424,
-        "endLine": 528,
+        "line": 438,
+        "endLine": 542,
         "length": 105,
         "complexity": 23
       },
@@ -63746,12 +63985,30 @@
         "complexity": 22
       },
       {
+        "file": "apps/web/components/layout/Navbar.tsx",
+        "module": "apps/web",
+        "functionName": "Navbar",
+        "line": 66,
+        "endLine": 268,
+        "length": 203,
+        "complexity": 22
+      },
+      {
         "file": "packages/database/scripts/check-migration-governance.ts",
         "module": "packages/database",
         "functionName": "main",
         "line": 24,
         "endLine": 109,
         "length": 86,
+        "complexity": 22
+      },
+      {
+        "file": "packages/database/src/repositories/engagement.ts",
+        "module": "packages/database",
+        "functionName": "updateUserPreference",
+        "line": 50,
+        "endLine": 181,
+        "length": 132,
         "complexity": 22
       },
       {
@@ -63893,18 +64150,18 @@
         "file": "apps/api/src/modules/auth/auth.service.ts",
         "module": "apps/api",
         "functionName": "authenticateSession",
-        "line": 151,
-        "endLine": 215,
+        "line": 154,
+        "endLine": 218,
         "length": 65,
         "complexity": 20
       },
       {
-        "file": "apps/web/components/layout/Navbar.tsx",
-        "module": "apps/web",
-        "functionName": "Navbar",
-        "line": 77,
-        "endLine": 258,
-        "length": 182,
+        "file": "apps/api/src/modules/clinical/router.ts",
+        "module": "apps/api",
+        "functionName": "createClinicalRouter",
+        "line": 49,
+        "endLine": 557,
+        "length": 509,
         "complexity": 20
       },
       {
@@ -63935,6 +64192,15 @@
         "complexity": 19
       },
       {
+        "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+        "module": "apps/api",
+        "functionName": "verifyMfaChallenge",
+        "line": 213,
+        "endLine": 360,
+        "length": 148,
+        "complexity": 19
+      },
+      {
         "file": "apps/api/src/modules/packs/pack-installer.service.ts",
         "module": "apps/api",
         "functionName": "installPackAtomic",
@@ -63948,8 +64214,8 @@
         "module": "apps/api",
         "functionName": "createWebhooksRouter",
         "line": 61,
-        "endLine": 270,
-        "length": 210,
+        "endLine": 269,
+        "length": 209,
         "complexity": 19
       },
       {
@@ -64041,42 +64307,6 @@
         "endLine": 136,
         "length": 107,
         "complexity": 18
-      },
-      {
-        "file": "packages/workflows-core/src/parser/dagValidator.ts",
-        "module": "packages/workflows-core",
-        "functionName": "validateDag",
-        "line": 125,
-        "endLine": 198,
-        "length": 74,
-        "complexity": 18
-      },
-      {
-        "file": "apps/api/src/modules/billing/router.ts",
-        "module": "apps/api",
-        "functionName": "createBillingRouter",
-        "line": 30,
-        "endLine": 180,
-        "length": 151,
-        "complexity": 17
-      },
-      {
-        "file": "apps/api/src/modules/clinical/router.ts",
-        "module": "apps/api",
-        "functionName": "createClinicalRouter",
-        "line": 49,
-        "endLine": 532,
-        "length": 484,
-        "complexity": 17
-      },
-      {
-        "file": "apps/api/src/modules/clinical/service.ts",
-        "module": "apps/api",
-        "functionName": "updateAppointment",
-        "line": 1660,
-        "endLine": 1739,
-        "length": 80,
-        "complexity": 17
       }
     ]
   },
@@ -65440,6 +65670,7 @@
       "apikeys",
       "auth",
       "billing",
+      "break-glass",
       "budget",
       "clinical",
       "connectors",
@@ -65447,6 +65678,7 @@
       "dashboard",
       "engagement",
       "feedback",
+      "fhir",
       "invites",
       "marketplace",
       "notifications",
@@ -65458,8 +65690,7 @@
       "sessions",
       "users",
       "webhooks",
-      "workflows",
-      "break-glass"
+      "workflows"
     ],
     "webRoutes": [
       "(dashboard)/agents",
@@ -66957,6 +67188,7 @@
         "docs/adrs/ADR-032-agent-runtime-standardization.md",
         "docs/adrs/ADR-033-billing-canonical-schema-cutover.md",
         "docs/adrs/ADR-035-f3-hotspot-modularization.md",
+        "docs/adrs/ADR-036-canonical-deploy-platform.md",
         "docs/adrs/ADR_TEMPLATE.md",
         "docs/adrs/INDEX.md",
         "docs/adrs/index.md",
@@ -66998,13 +67230,19 @@
         "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
         "audit/files_analysis/scripts/ci/check-commit-messages.mjs.md",
         "packages/agents-core/docs/functions/compressConversationMessages.html",
-        "scripts/ci/check-commit-messages.mjs"
+        "scripts/ci/check-commit-messages.mjs",
+        "apps/web/lib/i18n.ts",
+        "apps/web/tests/i18n.test.ts"
       ],
-      "fhirFiles": []
+      "fhirFiles": [
+        "apps/api/src/modules/fhir/router.ts",
+        "apps/api/src/modules/fhir/service.ts",
+        "apps/api/tests/fhir-router.test.ts"
+      ]
     },
     "infra": {
       "terraform": true,
-      "cloudRun": true,
+      "canonicalCdWorkflow": true,
       "k8sFiles": [],
       "monitoringFiles": [
         "infra/monitoring/alert.rules.yml",
@@ -67042,8 +67280,18 @@
     }
   },
   "git": {
-    "totalCommits": 1179,
+    "totalCommits": 1181,
     "last30Days": [
+      {
+        "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
+        "date": "2026-04-07",
+        "subject": "1"
+      },
+      {
+        "sha": "aaac3b4851e7fc226a496e8ca7baa904470ea685",
+        "date": "2026-04-07",
+        "subject": "1"
+      },
       {
         "sha": "5de19bac37232ca0ed2e6715d450e939b9ff8640",
         "date": "2026-04-07",
@@ -69951,6 +70199,16 @@
       "activeDays": 23,
       "placeholderMessages": [
         {
+          "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "aaac3b4851e7fc226a496e8ca7baa904470ea685",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
           "sha": "899e59d3cde621d5f33593e4d84a1b9d7267f497",
           "date": "2026-04-07",
           "subject": "1"
@@ -70062,16 +70320,6 @@
         },
         {
           "sha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
-          "date": "2026-04-06",
-          "subject": "1"
-        },
-        {
-          "sha": "2d47d14672953506f0d024207776218e16b95dda",
-          "date": "2026-04-06",
-          "subject": "1"
-        },
-        {
-          "sha": "838a047e97f1dad98c16a54d37b289c6a96fc575",
           "date": "2026-04-06",
           "subject": "1"
         }
@@ -71097,32 +71345,27 @@
     "findManyWithoutPagination": [
       {
         "path": "apps/api/src/modules/clinical/service.ts",
-        "line": 890,
+        "line": 924,
         "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
       },
       {
         "path": "apps/api/src/modules/clinical/service.ts",
-        "line": 1505,
+        "line": 1539,
         "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
       },
       {
         "path": "apps/api/src/modules/clinical/service.ts",
-        "line": 1808,
+        "line": 1842,
         "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
       },
       {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 210,
+        "path": "apps/api/src/modules/fhir/service.ts",
+        "line": 411,
         "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
       },
       {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 360,
-        "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-      },
-      {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 375,
+        "path": "apps/api/src/modules/privacy/consent.service.ts",
+        "line": 303,
         "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
       }
     ],
@@ -71145,6 +71388,41 @@
       {
         "path": "apps/api/src/modules/packs/pack-installer.service.ts",
         "line": 418,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/consent.service.ts",
+        "line": 187,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 111,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 145,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 192,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 349,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 494,
+        "summary": "Await detectado em loop síncrono/iterativo."
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 505,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
@@ -71506,26 +71784,6 @@
         "path": "packages/queue/src/workers/base-worker.ts",
         "line": 20,
         "summary": "Await detectado em loop síncrono/iterativo."
-      },
-      {
-        "path": "apps/api/src/modules/privacy/consent.service.ts",
-        "line": 120,
-        "summary": "Await detectado em loop síncrono/iterativo."
-      },
-      {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 214,
-        "summary": "Await detectado em loop síncrono/iterativo."
-      },
-      {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 369,
-        "summary": "Await detectado em loop síncrono/iterativo."
-      },
-      {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 385,
-        "summary": "Await detectado em loop síncrono/iterativo."
       }
     ],
     "hardcodedWebStrings": [
@@ -71548,10 +71806,16 @@
         "summary": "29 linhas com strings textuais embutidas na UI."
       },
       {
+        "path": "apps/web/app/(dashboard)/conversations/page.tsx",
+        "line": 1,
+        "count": 81,
+        "summary": "81 linhas com strings textuais embutidas na UI."
+      },
+      {
         "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
         "line": 6,
-        "count": 61,
-        "summary": "61 linhas com strings textuais embutidas na UI."
+        "count": 109,
+        "summary": "109 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
@@ -71572,6 +71836,18 @@
         "summary": "64 linhas com strings textuais embutidas na UI."
       },
       {
+        "path": "apps/web/app/(dashboard)/notifications/page.tsx",
+        "line": 1,
+        "count": 32,
+        "summary": "32 linhas com strings textuais embutidas na UI."
+      },
+      {
+        "path": "apps/web/app/(dashboard)/onboarding/page.tsx",
+        "line": 1,
+        "count": 20,
+        "summary": "20 linhas com strings textuais embutidas na UI."
+      },
+      {
         "path": "apps/web/app/(dashboard)/outputs/page.tsx",
         "line": 15,
         "count": 39,
@@ -71582,6 +71858,24 @@
         "line": 1,
         "count": 41,
         "summary": "41 linhas com strings textuais embutidas na UI."
+      },
+      {
+        "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
+        "line": 1,
+        "count": 116,
+        "summary": "116 linhas com strings textuais embutidas na UI."
+      },
+      {
+        "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
+        "line": 1,
+        "count": 49,
+        "summary": "49 linhas com strings textuais embutidas na UI."
+      },
+      {
+        "path": "apps/web/app/(dashboard)/patients/page.tsx",
+        "line": 1,
+        "count": 45,
+        "summary": "45 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/profile/notifications/page.tsx",
@@ -71616,14 +71910,14 @@
       {
         "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
         "line": 1,
-        "count": 68,
-        "summary": "68 linhas com strings textuais embutidas na UI."
+        "count": 7,
+        "summary": "7 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
         "line": 1,
-        "count": 43,
-        "summary": "43 linhas com strings textuais embutidas na UI."
+        "count": 212,
+        "summary": "212 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/settings/security/page.tsx",
@@ -71778,8 +72072,8 @@
       {
         "path": "apps/web/components/cookie-consent-banner.tsx",
         "line": 1,
-        "count": 19,
-        "summary": "19 linhas com strings textuais embutidas na UI."
+        "count": 31,
+        "summary": "31 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/components/dashboard-billing-gate.tsx",
@@ -71796,8 +72090,8 @@
       {
         "path": "apps/web/components/layout/Navbar.tsx",
         "line": 1,
-        "count": 34,
-        "summary": "34 linhas com strings textuais embutidas na UI."
+        "count": 25,
+        "summary": "25 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/components/login-form.tsx",
@@ -71844,44 +72138,14 @@
       {
         "path": "apps/web/providers/ThemeProvider.tsx",
         "line": 1,
-        "count": 8,
-        "summary": "8 linhas com strings textuais embutidas na UI."
+        "count": 9,
+        "summary": "9 linhas com strings textuais embutidas na UI."
       },
       {
-        "path": "apps/web/app/(dashboard)/conversations/page.tsx",
-        "line": 1,
-        "count": 81,
-        "summary": "81 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/notifications/page.tsx",
-        "line": 1,
-        "count": 32,
-        "summary": "32 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/onboarding/page.tsx",
-        "line": 1,
-        "count": 20,
-        "summary": "20 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
-        "line": 1,
-        "count": 116,
-        "summary": "116 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
-        "line": 1,
-        "count": 49,
-        "summary": "49 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/page.tsx",
-        "line": 1,
-        "count": 45,
-        "summary": "45 linhas com strings textuais embutidas na UI."
+        "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
+        "line": 6,
+        "count": 31,
+        "summary": "31 linhas com strings textuais embutidas na UI."
       }
     ],
     "imageWithoutAlt": [],
@@ -71906,6 +72170,12 @@
       },
       {
         "path": "apps/web/app/(dashboard)/agents/page.tsx",
+        "line": 1,
+        "missingLoading": true,
+        "missingError": true
+      },
+      {
+        "path": "apps/web/app/(dashboard)/appointments/page.tsx",
         "line": 1,
         "missingLoading": true,
         "missingError": true
@@ -71948,6 +72218,24 @@
       },
       {
         "path": "apps/web/app/(dashboard)/packs/page.tsx",
+        "line": 1,
+        "missingLoading": true,
+        "missingError": true
+      },
+      {
+        "path": "apps/web/app/(dashboard)/patients/[id]/appointments/page.tsx",
+        "line": 1,
+        "missingLoading": true,
+        "missingError": true
+      },
+      {
+        "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
+        "line": 1,
+        "missingLoading": true,
+        "missingError": true
+      },
+      {
+        "path": "apps/web/app/(dashboard)/patients/page.tsx",
         "line": 1,
         "missingLoading": true,
         "missingError": true
@@ -72101,30 +72389,6 @@
         "line": 1,
         "missingLoading": true,
         "missingError": true
-      },
-      {
-        "path": "apps/web/app/(dashboard)/appointments/page.tsx",
-        "line": 1,
-        "missingLoading": true,
-        "missingError": true
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/[id]/appointments/page.tsx",
-        "line": 1,
-        "missingLoading": true,
-        "missingError": true
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
-        "line": 1,
-        "missingLoading": true,
-        "missingError": true
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/page.tsx",
-        "line": 1,
-        "missingLoading": true,
-        "missingError": true
       }
     ],
     "longFunctions": [
@@ -72135,6 +72399,14 @@
         "functionName": "PatientDetailPage",
         "length": 597,
         "complexity": 120
+      },
+      {
+        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+        "line": 165,
+        "endLine": 907,
+        "functionName": "PrivacySettingsPageClient",
+        "length": 743,
+        "complexity": 70
       },
       {
         "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
@@ -72155,9 +72427,9 @@
       {
         "path": "apps/web/app/(dashboard)/conversations/page.tsx",
         "line": 50,
-        "endLine": 402,
+        "endLine": 416,
         "functionName": "ConversationsPage",
-        "length": 353,
+        "length": 367,
         "complexity": 32
       },
       {
@@ -72394,8 +72666,8 @@
       },
       {
         "path": "apps/api/src/modules/clinical/service.ts",
-        "line": 424,
-        "endLine": 528,
+        "line": 438,
+        "endLine": 542,
         "functionName": "deriveClinicalAlerts",
         "length": 105,
         "complexity": 23
@@ -72417,11 +72689,27 @@
         "complexity": 22
       },
       {
+        "path": "apps/web/components/layout/Navbar.tsx",
+        "line": 66,
+        "endLine": 268,
+        "functionName": "Navbar",
+        "length": 203,
+        "complexity": 22
+      },
+      {
         "path": "packages/database/scripts/check-migration-governance.ts",
         "line": 24,
         "endLine": 109,
         "functionName": "main",
         "length": 86,
+        "complexity": 22
+      },
+      {
+        "path": "packages/database/src/repositories/engagement.ts",
+        "line": 50,
+        "endLine": 181,
+        "functionName": "updateUserPreference",
+        "length": 132,
         "complexity": 22
       },
       {
@@ -72546,18 +72834,18 @@
       },
       {
         "path": "apps/api/src/modules/auth/auth.service.ts",
-        "line": 151,
-        "endLine": 215,
+        "line": 154,
+        "endLine": 218,
         "functionName": "authenticateSession",
         "length": 65,
         "complexity": 20
       },
       {
-        "path": "apps/web/components/layout/Navbar.tsx",
-        "line": 77,
-        "endLine": 258,
-        "functionName": "Navbar",
-        "length": 182,
+        "path": "apps/api/src/modules/clinical/router.ts",
+        "line": 49,
+        "endLine": 557,
+        "functionName": "createClinicalRouter",
+        "length": 509,
         "complexity": 20
       },
       {
@@ -72577,6 +72865,14 @@
         "complexity": 19
       },
       {
+        "path": "apps/api/src/modules/auth/auth.service.credentials.ts",
+        "line": 213,
+        "endLine": 360,
+        "functionName": "verifyMfaChallenge",
+        "length": 148,
+        "complexity": 19
+      },
+      {
         "path": "apps/api/src/modules/packs/pack-installer.service.ts",
         "line": 186,
         "endLine": 297,
@@ -72587,9 +72883,9 @@
       {
         "path": "apps/api/src/modules/webhooks/router.ts",
         "line": 61,
-        "endLine": 270,
+        "endLine": 269,
         "functionName": "createWebhooksRouter",
-        "length": 210,
+        "length": 209,
         "complexity": 19
       },
       {
@@ -72663,38 +72959,6 @@
         "functionName": "main",
         "length": 107,
         "complexity": 18
-      },
-      {
-        "path": "packages/workflows-core/src/parser/dagValidator.ts",
-        "line": 125,
-        "endLine": 198,
-        "functionName": "validateDag",
-        "length": 74,
-        "complexity": 18
-      },
-      {
-        "path": "apps/api/src/modules/billing/router.ts",
-        "line": 30,
-        "endLine": 180,
-        "functionName": "createBillingRouter",
-        "length": 151,
-        "complexity": 17
-      },
-      {
-        "path": "apps/api/src/modules/clinical/router.ts",
-        "line": 49,
-        "endLine": 532,
-        "functionName": "createClinicalRouter",
-        "length": 484,
-        "complexity": 17
-      },
-      {
-        "path": "apps/api/src/modules/clinical/service.ts",
-        "line": 1660,
-        "endLine": 1739,
-        "functionName": "updateAppointment",
-        "length": 80,
-        "complexity": 17
       }
     ],
     "largeFiles": [
@@ -72711,7 +72975,7 @@
       {
         "path": "apps/api/src/modules/clinical/service.ts",
         "line": 1,
-        "lines": 2065
+        "lines": 2110
       },
       {
         "path": "packages/agent-packs/github-agents-v1/collection-report.json",
@@ -72734,14 +72998,19 @@
         "lines": 1342
       },
       {
+        "path": "packages/database/prisma/migration-registry.json",
+        "line": 1,
+        "lines": 977
+      },
+      {
         "path": "apps/api/src/modules/workflows/service.ts",
         "line": 1,
         "lines": 967
       },
       {
-        "path": "packages/database/prisma/migration-registry.json",
+        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
         "line": 1,
-        "lines": 917
+        "lines": 908
       },
       {
         "path": "packages/agents/executivos/narrative-weaver/agent.ts",
@@ -72834,24 +73103,34 @@
         "lines": 603
       },
       {
+        "path": "apps/api/src/modules/clinical/router.ts",
+        "line": 1,
+        "lines": 558
+      },
+      {
         "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
         "line": 1,
         "lines": 545
       },
       {
-        "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
+        "path": "apps/api/src/modules/dashboard/service.ts",
         "line": 1,
-        "lines": 539
+        "lines": 524
       },
       {
-        "path": "apps/api/src/modules/clinical/router.ts",
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
         "line": 1,
-        "lines": 533
+        "lines": 520
       },
       {
         "path": "packages/agents-registry/src/index.ts",
         "line": 1,
         "lines": 512
+      },
+      {
+        "path": "apps/api/src/modules/fhir/service.ts",
+        "line": 1,
+        "lines": 489
       },
       {
         "path": "apps/api/src/modules/users/router.ts",
@@ -72869,14 +73148,14 @@
         "lines": 466
       },
       {
-        "path": "apps/api/src/modules/billing/service.reconciliation.handlers.ts",
+        "path": "apps/api/src/modules/auth/auth.service.credentials.ts",
         "line": 1,
         "lines": 464
       },
       {
-        "path": "apps/api/src/modules/auth/auth.service.credentials.ts",
+        "path": "apps/api/src/modules/billing/service.reconciliation.handlers.ts",
         "line": 1,
-        "lines": 460
+        "lines": 464
       },
       {
         "path": "apps/api/src/modules/packs/pack-installer.service.ts",
@@ -72899,14 +73178,24 @@
         "lines": 445
       },
       {
+        "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
+        "line": 1,
+        "lines": 442
+      },
+      {
         "path": "apps/api/src/modules/auth/auth.service.sessions.ts",
         "line": 1,
-        "lines": 425
+        "lines": 426
       },
       {
         "path": "apps/api/src/modules/budget/budget.service.ts",
         "line": 1,
         "lines": 425
+      },
+      {
+        "path": "apps/web/app/(dashboard)/conversations/page.tsx",
+        "line": 1,
+        "lines": 417
       },
       {
         "path": "apps/web/app/(dashboard)/patients/clinical-data.ts",
@@ -72919,19 +73208,14 @@
         "lines": 410
       },
       {
-        "path": "apps/web/app/(dashboard)/conversations/page.tsx",
+        "path": "apps/api/src/modules/dashboard/service.shared.ts",
         "line": 1,
-        "lines": 403
-      },
-      {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 1,
-        "lines": 400
+        "lines": 401
       },
       {
         "path": "apps/worker/src/worker.process-job.ts",
         "line": 1,
-        "lines": 396
+        "lines": 397
       },
       {
         "path": "apps/worker/src/worker.ts",
@@ -72954,9 +73238,9 @@
         "lines": 382
       },
       {
-        "path": "apps/api/src/modules/dashboard/service.shared.ts",
+        "path": "packages/database/src/repositories/engagement.ts",
         "line": 1,
-        "lines": 378
+        "lines": 382
       },
       {
         "path": "apps/api/src/modules/privacy/service.ts",
@@ -72977,32 +73261,12 @@
         "path": "packages/database/src/client.ts",
         "line": 1,
         "lines": 357
-      },
-      {
-        "path": "packages/database/src/repositories/engagement.ts",
-        "line": 1,
-        "lines": 349
-      },
-      {
-        "path": "apps/api/src/modules/billing/service.reconciliation.shared.ts",
-        "line": 1,
-        "lines": 347
-      },
-      {
-        "path": "packages/database/prisma/seeds/shared-runtime.ts",
-        "line": 1,
-        "lines": 343
-      },
-      {
-        "path": "apps/worker/src/integrations/connectors.runtime.ts",
-        "line": 1,
-        "lines": 340
       }
     ],
     "importCycles": [],
     "coverageGaps": [
       {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
         "relatedTests": []
       },
       {
@@ -73011,6 +73275,10 @@
       },
       {
         "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
+        "relatedTests": []
+      },
+      {
+        "path": "apps/api/src/modules/privacy/consent.service.ts",
         "relatedTests": []
       },
       {
@@ -73058,16 +73326,16 @@
   "evidenceArtifacts": {
     "environmentParity": {
       "path": "docs/operations/environment-parity.md",
-      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-07T18:03:15.714Z\n- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is not configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
+      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-07T22:13:39.526Z\n- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
     },
     "sla": {
       "path": "docs/operations/sla.md",
-      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-07T18:03:15.759Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
+      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-07T22:13:39.562Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
     },
     "semgrep": {
       "path": "artifacts/security/semgrep-head.json",
       "data": {
-        "checkedAt": "2026-04-07T18:04:06.455Z",
+        "checkedAt": "2026-04-07T22:15:25.876Z",
         "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
         "exitCode": 0,
         "status": "fresh",
@@ -73096,12 +73364,12 @@
           "scripts/audit/shared-prime.mjs"
         ],
         "summary": {
-          "findings": 18,
+          "findings": 20,
           "errors": 12,
           "severities": {
             "ERROR": 0,
             "WARNING": 8,
-            "INFO": 10,
+            "INFO": 12,
             "UNKNOWN": 0
           }
         },
@@ -73110,14 +73378,14 @@
             "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
             "path": ".github/workflows/cd.yml",
             "start": {
-              "line": 63,
+              "line": 72,
               "col": 9,
-              "offset": 2049
+              "offset": 2660
             },
             "end": {
-              "line": 66,
+              "line": 75,
               "col": 57,
-              "offset": 2187
+              "offset": 2798
             },
             "extra": {
               "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -73157,14 +73425,14 @@
             "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
             "path": ".github/workflows/cd.yml",
             "start": {
-              "line": 222,
+              "line": 240,
               "col": 9,
-              "offset": 9247
+              "offset": 10469
             },
             "end": {
-              "line": 226,
+              "line": 244,
               "col": 57,
-              "offset": 9441
+              "offset": 10663
             },
             "extra": {
               "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -73204,14 +73472,14 @@
             "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
             "path": ".github/workflows/cd.yml",
             "start": {
-              "line": 288,
+              "line": 306,
               "col": 9,
-              "offset": 11268
+              "offset": 12490
             },
             "end": {
-              "line": 291,
+              "line": 309,
               "col": 57,
-              "offset": 11414
+              "offset": 12636
             },
             "extra": {
               "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -73358,14 +73626,122 @@
             "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
             "path": "infra/cloudrun/service.yaml",
             "start": {
-              "line": 10,
+              "line": 21,
               "col": 5,
-              "offset": 188
+              "offset": 640
             },
             "end": {
-              "line": 10,
+              "line": 21,
               "col": 9,
-              "offset": 192
+              "offset": 644
+            },
+            "extra": {
+              "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
+              "fix": "spec:\n      securityContext:\n        runAsNonRoot: true #",
+              "metadata": {
+                "references": [
+                  "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/",
+                  "https://kubernetes.io/docs/concepts/policy/pod-security-policy/",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-2-set-a-user"
+                ],
+                "category": "security",
+                "cwe": [
+                  "CWE-250: Execution with Unnecessary Privileges"
+                ],
+                "owasp": [
+                  "A05:2021 - Security Misconfiguration",
+                  "A06:2017 - Security Misconfiguration",
+                  "A02:2025 - Security Misconfiguration"
+                ],
+                "technology": [
+                  "kubernetes"
+                ],
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Improper Authorization"
+                ],
+                "source": "https://semgrep.dev/r/yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+                "shortlink": "https://sg.run/dgP5"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+            "path": "infra/cloudrun/service.yaml",
+            "start": {
+              "line": 54,
+              "col": 5,
+              "offset": 1596
+            },
+            "end": {
+              "line": 54,
+              "col": 9,
+              "offset": 1600
+            },
+            "extra": {
+              "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
+              "fix": "spec:\n      securityContext:\n        runAsNonRoot: true #",
+              "metadata": {
+                "references": [
+                  "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/",
+                  "https://kubernetes.io/docs/concepts/policy/pod-security-policy/",
+                  "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-2-set-a-user"
+                ],
+                "category": "security",
+                "cwe": [
+                  "CWE-250: Execution with Unnecessary Privileges"
+                ],
+                "owasp": [
+                  "A05:2021 - Security Misconfiguration",
+                  "A06:2017 - Security Misconfiguration",
+                  "A02:2025 - Security Misconfiguration"
+                ],
+                "technology": [
+                  "kubernetes"
+                ],
+                "subcategory": [
+                  "audit"
+                ],
+                "likelihood": "LOW",
+                "impact": "LOW",
+                "confidence": "LOW",
+                "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                "vulnerability_class": [
+                  "Improper Authorization"
+                ],
+                "source": "https://semgrep.dev/r/yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+                "shortlink": "https://sg.run/dgP5"
+              },
+              "severity": "INFO",
+              "fingerprint": "requires login",
+              "lines": "requires login",
+              "validation_state": "NO_VALIDATOR",
+              "engine_kind": "OSS"
+            }
+          },
+          {
+            "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+            "path": "infra/cloudrun/service.yaml",
+            "start": {
+              "line": 87,
+              "col": 5,
+              "offset": 2557
+            },
+            "end": {
+              "line": 87,
+              "col": 9,
+              "offset": 2561
             },
             "extra": {
               "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
@@ -74086,110 +74462,110 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 309,
+                    "line": 327,
                     "col": 14,
-                    "offset": 11907
+                    "offset": 13129
                   },
                   "end": {
-                    "line": 309,
+                    "line": 327,
                     "col": 50,
-                    "offset": 11943
+                    "offset": 13165
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 311,
+                    "line": 329,
                     "col": 13,
-                    "offset": 11907
+                    "offset": 13129
                   },
                   "end": {
-                    "line": 311,
+                    "line": 329,
                     "col": 48,
-                    "offset": 11942
+                    "offset": 13164
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 311,
+                    "line": 329,
                     "col": 69,
-                    "offset": 11907
+                    "offset": 13129
                   },
                   "end": {
-                    "line": 311,
+                    "line": 329,
                     "col": 90,
-                    "offset": 11928
+                    "offset": 13150
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 311,
+                    "line": 329,
                     "col": 96,
-                    "offset": 11907
+                    "offset": 13129
                   },
                   "end": {
-                    "line": 311,
+                    "line": 329,
                     "col": 135,
-                    "offset": 11946
+                    "offset": 13168
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:309:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.event.workflow_run.head_sha` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:327:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.event.workflow_run.head_sha` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 309,
+                  "line": 327,
                   "col": 14,
-                  "offset": 11907
+                  "offset": 13129
                 },
                 "end": {
-                  "line": 309,
+                  "line": 327,
                   "col": 50,
-                  "offset": 11943
+                  "offset": 13165
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 311,
+                  "line": 329,
                   "col": 13,
-                  "offset": 11907
+                  "offset": 13129
                 },
                 "end": {
-                  "line": 311,
+                  "line": 329,
                   "col": 48,
-                  "offset": 11942
+                  "offset": 13164
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 311,
+                  "line": 329,
                   "col": 69,
-                  "offset": 11907
+                  "offset": 13129
                 },
                 "end": {
-                  "line": 311,
+                  "line": 329,
                   "col": 90,
-                  "offset": 11928
+                  "offset": 13150
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 311,
+                  "line": 329,
                   "col": 96,
-                  "offset": 11907
+                  "offset": 13129
                 },
                 "end": {
-                  "line": 311,
+                  "line": 329,
                   "col": 135,
-                  "offset": 11946
+                  "offset": 13168
                 }
               }
             ]
@@ -74203,32 +74579,32 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 323,
+                    "line": 341,
                     "col": 16,
-                    "offset": 12677
+                    "offset": 13899
                   },
                   "end": {
-                    "line": 323,
+                    "line": 341,
                     "col": 46,
-                    "offset": 12707
+                    "offset": 13929
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:323:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:341:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 323,
+                  "line": 341,
                   "col": 16,
-                  "offset": 12677
+                  "offset": 13899
                 },
                 "end": {
-                  "line": 323,
+                  "line": 341,
                   "col": 46,
-                  "offset": 12707
+                  "offset": 13929
                 }
               }
             ]
@@ -74242,32 +74618,32 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 328,
+                    "line": 346,
                     "col": 16,
-                    "offset": 12881
+                    "offset": 14103
                   },
                   "end": {
-                    "line": 328,
+                    "line": 346,
                     "col": 46,
-                    "offset": 12911
+                    "offset": 14133
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:328:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:346:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 328,
+                  "line": 346,
                   "col": 16,
-                  "offset": 12881
+                  "offset": 14103
                 },
                 "end": {
-                  "line": 328,
+                  "line": 346,
                   "col": 46,
-                  "offset": 12911
+                  "offset": 14133
                 }
               }
             ]
@@ -74281,32 +74657,32 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 333,
+                    "line": 351,
                     "col": 16,
-                    "offset": 13088
+                    "offset": 14310
                   },
                   "end": {
-                    "line": 333,
+                    "line": 351,
                     "col": 49,
-                    "offset": 13121
+                    "offset": 14343
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:333:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:351:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 333,
+                  "line": 351,
                   "col": 16,
-                  "offset": 13088
+                  "offset": 14310
                 },
                 "end": {
-                  "line": 333,
+                  "line": 351,
                   "col": 49,
-                  "offset": 13121
+                  "offset": 14343
                 }
               }
             ]
@@ -74320,188 +74696,188 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 669,
+                    "line": 687,
                     "col": 11,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 669,
+                    "line": 687,
                     "col": 34,
-                    "offset": 27704
+                    "offset": 28926
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 670,
+                    "line": 688,
                     "col": 39,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 670,
+                    "line": 688,
                     "col": 67,
-                    "offset": 27709
+                    "offset": 28931
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 670,
+                    "line": 688,
                     "col": 109,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 670,
+                    "line": 688,
                     "col": 175,
-                    "offset": 27747
+                    "offset": 28969
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 671,
+                    "line": 689,
                     "col": 39,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 671,
+                    "line": 689,
                     "col": 67,
-                    "offset": 27709
+                    "offset": 28931
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 671,
+                    "line": 689,
                     "col": 109,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 671,
+                    "line": 689,
                     "col": 175,
-                    "offset": 27747
+                    "offset": 28969
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 672,
+                    "line": 690,
                     "col": 39,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 672,
+                    "line": 690,
                     "col": 70,
-                    "offset": 27712
+                    "offset": 28934
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 672,
+                    "line": 690,
                     "col": 112,
-                    "offset": 27681
+                    "offset": 28903
                   },
                   "end": {
-                    "line": 672,
+                    "line": 690,
                     "col": 181,
-                    "offset": 27750
+                    "offset": 28972
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:669:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:687:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 669,
+                  "line": 687,
                   "col": 11,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 669,
+                  "line": 687,
                   "col": 34,
-                  "offset": 27704
+                  "offset": 28926
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 670,
+                  "line": 688,
                   "col": 39,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 670,
+                  "line": 688,
                   "col": 67,
-                  "offset": 27709
+                  "offset": 28931
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 670,
+                  "line": 688,
                   "col": 109,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 670,
+                  "line": 688,
                   "col": 175,
-                  "offset": 27747
+                  "offset": 28969
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 671,
+                  "line": 689,
                   "col": 39,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 671,
+                  "line": 689,
                   "col": 67,
-                  "offset": 27709
+                  "offset": 28931
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 671,
+                  "line": 689,
                   "col": 109,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 671,
+                  "line": 689,
                   "col": 175,
-                  "offset": 27747
+                  "offset": 28969
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 672,
+                  "line": 690,
                   "col": 39,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 672,
+                  "line": 690,
                   "col": 70,
-                  "offset": 27712
+                  "offset": 28934
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 672,
+                  "line": 690,
                   "col": 112,
-                  "offset": 27681
+                  "offset": 28903
                 },
                 "end": {
-                  "line": 672,
+                  "line": 690,
                   "col": 181,
-                  "offset": 27750
+                  "offset": 28972
                 }
               }
             ]
@@ -74515,110 +74891,110 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 682,
+                    "line": 700,
                     "col": 16,
-                    "offset": 28438
+                    "offset": 29660
                   },
                   "end": {
-                    "line": 682,
+                    "line": 700,
                     "col": 39,
-                    "offset": 28461
+                    "offset": 29683
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 684,
+                    "line": 702,
                     "col": 15,
-                    "offset": 28438
+                    "offset": 29660
                   },
                   "end": {
-                    "line": 684,
+                    "line": 702,
                     "col": 81,
-                    "offset": 28504
+                    "offset": 29726
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 685,
+                    "line": 703,
                     "col": 15,
-                    "offset": 28438
+                    "offset": 29660
                   },
                   "end": {
-                    "line": 685,
+                    "line": 703,
                     "col": 81,
-                    "offset": 28504
+                    "offset": 29726
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 686,
+                    "line": 704,
                     "col": 18,
-                    "offset": 28438
+                    "offset": 29660
                   },
                   "end": {
-                    "line": 686,
+                    "line": 704,
                     "col": 87,
-                    "offset": 28507
+                    "offset": 29729
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:682:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:700:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 682,
+                  "line": 700,
                   "col": 16,
-                  "offset": 28438
+                  "offset": 29660
                 },
                 "end": {
-                  "line": 682,
+                  "line": 700,
                   "col": 39,
-                  "offset": 28461
+                  "offset": 29683
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 684,
+                  "line": 702,
                   "col": 15,
-                  "offset": 28438
+                  "offset": 29660
                 },
                 "end": {
-                  "line": 684,
+                  "line": 702,
                   "col": 81,
-                  "offset": 28504
+                  "offset": 29726
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 685,
+                  "line": 703,
                   "col": 15,
-                  "offset": 28438
+                  "offset": 29660
                 },
                 "end": {
-                  "line": 685,
+                  "line": 703,
                   "col": 81,
-                  "offset": 28504
+                  "offset": 29726
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 686,
+                  "line": 704,
                   "col": 18,
-                  "offset": 28438
+                  "offset": 29660
                 },
                 "end": {
-                  "line": 686,
+                  "line": 704,
                   "col": 87,
-                  "offset": 28507
+                  "offset": 29729
                 }
               }
             ]
@@ -74632,84 +75008,84 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 732,
+                    "line": 750,
                     "col": 13,
-                    "offset": 30321
+                    "offset": 31543
                   },
                   "end": {
-                    "line": 732,
+                    "line": 750,
                     "col": 48,
-                    "offset": 30356
+                    "offset": 31578
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 732,
+                    "line": 750,
                     "col": 69,
-                    "offset": 30321
+                    "offset": 31543
                   },
                   "end": {
-                    "line": 732,
+                    "line": 750,
                     "col": 90,
-                    "offset": 30342
+                    "offset": 31564
                   }
                 },
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 732,
+                    "line": 750,
                     "col": 96,
-                    "offset": 30321
+                    "offset": 31543
                   },
                   "end": {
-                    "line": 732,
+                    "line": 750,
                     "col": 135,
-                    "offset": 30360
+                    "offset": 31582
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:732:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.GCP_ARTIFACT_REGISTRY_REGION` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:750:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.GCP_ARTIFACT_REGISTRY_REGION` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 732,
+                  "line": 750,
                   "col": 13,
-                  "offset": 30321
+                  "offset": 31543
                 },
                 "end": {
-                  "line": 732,
+                  "line": 750,
                   "col": 48,
-                  "offset": 30356
+                  "offset": 31578
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 732,
+                  "line": 750,
                   "col": 69,
-                  "offset": 30321
+                  "offset": 31543
                 },
                 "end": {
-                  "line": 732,
+                  "line": 750,
                   "col": 90,
-                  "offset": 30342
+                  "offset": 31564
                 }
               },
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 732,
+                  "line": 750,
                   "col": 96,
-                  "offset": 30321
+                  "offset": 31543
                 },
                 "end": {
-                  "line": 732,
+                  "line": 750,
                   "col": 135,
-                  "offset": 30360
+                  "offset": 31582
                 }
               }
             ]
@@ -74723,32 +75099,32 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 744,
+                    "line": 762,
                     "col": 16,
-                    "offset": 31028
+                    "offset": 32250
                   },
                   "end": {
-                    "line": 744,
+                    "line": 762,
                     "col": 46,
-                    "offset": 31058
+                    "offset": 32280
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:744:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:762:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 744,
+                  "line": 762,
                   "col": 16,
-                  "offset": 31028
+                  "offset": 32250
                 },
                 "end": {
-                  "line": 744,
+                  "line": 762,
                   "col": 46,
-                  "offset": 31058
+                  "offset": 32280
                 }
               }
             ]
@@ -74762,32 +75138,32 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 749,
+                    "line": 767,
                     "col": 16,
-                    "offset": 31232
+                    "offset": 32454
                   },
                   "end": {
-                    "line": 749,
+                    "line": 767,
                     "col": 46,
-                    "offset": 31262
+                    "offset": 32484
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:749:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:767:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 749,
+                  "line": 767,
                   "col": 16,
-                  "offset": 31232
+                  "offset": 32454
                 },
                 "end": {
-                  "line": 749,
+                  "line": 767,
                   "col": 46,
-                  "offset": 31262
+                  "offset": 32484
                 }
               }
             ]
@@ -74801,32 +75177,32 @@
                 {
                   "path": ".github\\workflows\\cd.yml",
                   "start": {
-                    "line": 754,
+                    "line": 772,
                     "col": 16,
-                    "offset": 31439
+                    "offset": 32661
                   },
                   "end": {
-                    "line": 754,
+                    "line": 772,
                     "col": 49,
-                    "offset": 31472
+                    "offset": 32694
                   }
                 }
               ]
             ],
-            "message": "Syntax error at line .github\\workflows\\cd.yml:754:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
+            "message": "Syntax error at line .github\\workflows\\cd.yml:772:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
             "path": ".github\\workflows\\cd.yml",
             "spans": [
               {
                 "file": ".github\\workflows\\cd.yml",
                 "start": {
-                  "line": 754,
+                  "line": 772,
                   "col": 16,
-                  "offset": 31439
+                  "offset": 32661
                 },
                 "end": {
-                  "line": 754,
+                  "line": 772,
                   "col": 49,
-                  "offset": 31472
+                  "offset": 32694
                 }
               }
             ]
@@ -74838,7 +75214,7 @@
     "moduleCoverage": {
       "path": "artifacts/testing/module-coverage.json",
       "data": {
-        "checkedAt": "2026-04-07T18:04:06.480Z",
+        "checkedAt": "2026-04-07T22:15:25.893Z",
         "mode": "static-coverage-proxy",
         "sufficient": false,
         "limitations": [
@@ -74853,8 +75229,8 @@
         "surfaces": [
           {
             "module": "apps/api",
-            "runtimeFiles": 150,
-            "directTestFiles": 40,
+            "runtimeFiles": 152,
+            "directTestFiles": 44,
             "traceabilityFlows": 2,
             "directTests": [
               "apps/api/tests/analytics.utils.test.ts",
@@ -74876,9 +75252,11 @@
               "apps/api/tests/buffer.test.ts",
               "apps/api/tests/cache-index.test.ts",
               "apps/api/tests/cache-store.test.ts",
+              "apps/api/tests/clinical-router.test.ts",
               "apps/api/tests/connectors-router.test.ts",
               "apps/api/tests/core-business-routes.test.ts",
               "apps/api/tests/external-url.test.ts",
+              "apps/api/tests/fhir-router.test.ts",
               "apps/api/tests/health.smoke.test.ts",
               "apps/api/tests/http-cache.test.ts",
               "apps/api/tests/installed-agents-helpers.test.ts",
@@ -74895,37 +75273,43 @@
               "apps/api/tests/test-config.ts",
               "apps/api/tests/webhooks.security.test.ts",
               "apps/api/tests/workflow-retry-lineage.integration.test.ts",
-              "apps/api/tests/clinical-router.test.ts",
+              "apps/api/tests/conversations-router.test.ts",
+              "apps/api/tests/retention.service.test.ts",
+              "apps/api/tests/search-router.test.ts",
               "tests/e2e/critical-routes.spec.ts"
             ],
             "gaps": []
           },
           {
             "module": "apps/web",
-            "runtimeFiles": 115,
-            "directTestFiles": 13,
+            "runtimeFiles": 119,
+            "directTestFiles": 18,
             "traceabilityFlows": 2,
             "directTests": [
               "apps/web/tests/auth-client.test.ts",
               "apps/web/tests/auth-session-route.test.ts",
               "apps/web/tests/bff-allowlist.test.ts",
               "apps/web/tests/bff-route.test.ts",
+              "apps/web/tests/clinical-data.test.ts",
               "apps/web/tests/dashboard-data.test.ts",
               "apps/web/tests/health.required-dependency.test.ts",
               "apps/web/tests/login.smoke.test.ts",
               "apps/web/tests/offline-page.test.ts",
               "apps/web/tests/workflow-runs-page.test.ts",
               "apps/web/tests/workflows-list.test.ts",
-              "apps/web/tests/clinical-data.test.ts",
+              "apps/web/tests/developer-webhooks-page.test.ts",
+              "apps/web/tests/i18n.test.ts",
+              "apps/web/tests/notification-store.test.ts",
+              "apps/web/tests/product-api.test.ts",
+              "apps/web/tests/theme-provider.test.ts",
               "tests/e2e/critical-routes.spec.ts",
               "tests/e2e/billing-premium.spec.ts"
             ],
             "gaps": [
               "apps/web/app/(dashboard)/analytics/error.tsx",
               "apps/web/app/(dashboard)/analytics/loading.tsx",
-              "apps/web/app/(dashboard)/dashboard/error.tsx",
-              "apps/web/app/(dashboard)/dashboard/loading.tsx",
-              "apps/web/app/(dashboard)/dashboard/page.data.ts"
+              "apps/web/app/(dashboard)/conversations/error.tsx",
+              "apps/web/app/(dashboard)/conversations/loading.tsx"
             ]
           },
           {
@@ -74973,7 +75357,7 @@
           {
             "module": "packages/database",
             "runtimeFiles": 13,
-            "directTestFiles": 14,
+            "directTestFiles": 15,
             "traceabilityFlows": 0,
             "directTests": [
               "packages/database/test/access-control.repo.test.ts",
@@ -74984,6 +75368,7 @@
               "packages/database/test/engagement.test.ts",
               "packages/database/test/exceeded-quota.error.test.ts",
               "packages/database/test/index.test.ts",
+              "packages/database/test/maternal-domain.rls.test.ts",
               "packages/database/test/migration.test.ts",
               "packages/database/test/prisma-query-timeout.error.test.ts",
               "packages/database/test/query-budget.test.ts",
@@ -74999,14 +75384,14 @@
     "bundleBaseline": {
       "path": "artifacts/performance/web-bundle-head.json",
       "data": {
-        "checkedAt": "2026-04-07T18:04:06.671Z",
+        "checkedAt": "2026-04-07T22:15:26.141Z",
         "status": "fresh",
         "sufficient": true,
         "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
         "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
         "stderr": "",
         "baseline": {
-          "generatedAt": "2026-04-07T18:04:06.625Z",
+          "generatedAt": "2026-04-07T22:15:26.085Z",
           "nextBuildDir": "apps/web/.next",
           "chunks": {
             "files": 44,
@@ -75068,13 +75453,13 @@
     "accessibility": {
       "path": "artifacts/accessibility/axe-report.json",
       "data": {
-        "checkedAt": "2026-04-07T18:04:29.104Z",
+        "checkedAt": "2026-04-07T22:15:48.672Z",
         "mode": "browser-dom-smoke",
         "requestedTool": "playwright",
         "sufficient": true,
         "browserPath": "C:\\Users\\Marks\\AppData\\Local\\ms-playwright\\chromium-1208\\chrome-win64\\chrome.exe",
-        "baseUrl": "http://127.0.0.1:3101",
-        "reusedExistingServer": false,
+        "baseUrl": "http://127.0.0.1:3001",
+        "reusedExistingServer": true,
         "routes": [
           "/",
           "/pricing",
@@ -75116,14 +75501,14 @@
           }
         ],
         "findings": [],
-        "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 3.3s\n\n GET /pricing 200 in 1914ms (next.js: 329ms, proxy.ts: 613ms, application-code: 972ms)\n GET / 200 in 225ms (next.js: 61ms, proxy.ts: 14ms, application-code: 150ms)\n GET /pricing 200 in 229ms (next.js: 10ms, proxy.ts: 18ms, application-code: 201ms)\n GET /legal/terms 200 in 343ms (next.js: 130ms, proxy.ts: 42ms, application-code: 172ms)\n GET /legal/privacy 200 in 841ms (next.js: 167ms, proxy.ts: 106ms, application-code: 568ms)\n",
-        "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"127.0.0.1\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['127.0.0.1'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins\n"
+        "stdout": "",
+        "stderr": ""
       }
     },
     "disasterRecovery": {
       "path": "artifacts/dr/latest-drill.json",
       "data": {
-        "checkedAt": "2026-04-07T18:04:29.337Z",
+        "checkedAt": "2026-04-07T22:15:48.675Z",
         "status": "missing-drill-record",
         "sufficient": false,
         "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
@@ -75140,42 +75525,25 @@
     "rlsProof": {
       "path": "artifacts/tenancy/rls-proof-head.json",
       "data": {
-        "checkedAt": "2026-04-07T18:04:34.313Z",
-        "adminDatabaseUrlConfigured": true,
-        "adminDatabaseUrlSource": "embedded-postgres",
-        "roleProvisioning": {
-          "checkedAt": "2026-04-07T18:04:32.522Z",
-          "command": "node --import tsx packages/database/scripts/provision-rls-runtime-role.ts",
-          "databaseName": "postgres",
-          "exitCode": 0,
-          "roleExisted": true,
-          "roleName": "api_worker",
-          "runtimeDatabaseUrlRedacted": "postgresql://REDACTED:postgres@127.0.0.1:5432/postgres?schema=public&pgbouncer=true&connection_limit=10",
-          "runtimeRole": {
-            "currentUser": "api_worker",
-            "bypass": false,
-            "canLogin": true
-          },
-          "schemaName": "public",
-          "status": "ready",
-          "stderr": null,
-          "stdout": null
-        },
+        "checkedAt": "2026-04-07T22:15:49.887Z",
+        "adminDatabaseUrlConfigured": false,
+        "adminDatabaseUrlSource": "none",
+        "roleProvisioning": null,
         "tenancyControl": {
           "command": "node --import tsx packages/database/scripts/check-tenancy-controls.ts",
           "exitCode": 0,
-          "stdout": "[2026-04-07 15:04:30.728 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS privacy_consents\\nPASS privacy_consent_events\\nPASS data_retention_policies\\nPASS data_retention_executions\\nPASS break_glass_grants\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_revisions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS patients\\nPASS pregnancy_records\\nPASS appointments\\nPASS clinical_notes\\nPASS neonatal_records\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
+          "stdout": "[2026-04-07 19:15:49.753 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS privacy_consents\\nPASS privacy_consent_events\\nPASS data_retention_policies\\nPASS data_retention_executions\\nPASS break_glass_grants\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_revisions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS patients\\nPASS pregnancy_records\\nPASS appointments\\nPASS clinical_notes\\nPASS neonatal_records\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
           "stderr": ""
         },
         "runtimeProof": {
           "command": "node --import tsx --test packages/database/test/rls.test.ts",
           "exitCode": 0,
-          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (232.1296ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1606.0289",
+          "stdout": "",
           "stderr": "",
-          "runtimeDatabaseUrlConfigured": true,
-          "status": "passed"
+          "runtimeDatabaseUrlConfigured": false,
+          "status": "skipped-no-database"
         },
-        "sufficient": true
+        "sufficient": false
       }
     }
   },

@@ -94,7 +94,10 @@ function resolveVerifiedSessionRole(input: {
   }
 
   const claims = resolveSecretCandidates(input.secret, input.fallbacks).reduce<ReturnType<typeof verifyAccessToken>>(
-    (resolvedClaims, candidate) => resolvedClaims ?? verifyAccessToken(input.token, candidate),
+    (
+      resolvedClaims: ReturnType<typeof verifyAccessToken>,
+      candidate: string
+    ) => resolvedClaims ?? verifyAccessToken(input.token, candidate),
     null
   );
 

@@ -181,17 +181,21 @@ export function createPrivacyRouter(config: ApiConfig): Router {
       }
 
       const body = retentionUpdateSchema.parse(request.body);
-      response.status(200).json({
-        ...(await updateRetentionPolicies({
-          organizationReference,
-          policies: body.policies.map((policy) => ({
+      const policies = body.policies.map(
+        (policy) =>
+          ({
             dataCategory: policy.dataCategory,
             ...(policy.action !== undefined ? { action: policy.action } : {}),
             ...(policy.enabled !== undefined ? { enabled: policy.enabled } : {}),
             ...(policy.retentionDays !== undefined
               ? { retentionDays: policy.retentionDays }
               : {})
-          }))
+          }) as Parameters<typeof updateRetentionPolicies>[0]["policies"][number]
+      );
+      response.status(200).json({
+        ...(await updateRetentionPolicies({
+          organizationReference,
+          policies
         })),
         requestId: request.context.requestId
       });

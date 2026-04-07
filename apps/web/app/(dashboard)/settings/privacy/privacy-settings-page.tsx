@@ -50,6 +50,23 @@ type PrivacyConsentEvent = {
   source: ConsentSource;
 };
 
+type PrivacyConsentPreferences = {
+  cookieConsent: "ACCEPTED" | "PENDING" | "REJECTED";
+  emailNotifications: boolean;
+  inAppNotifications: boolean;
+  lgpdConsentedAt: string | null;
+  lgpdConsentStatus: "ACCEPTED" | "PENDING" | "REJECTED";
+  lgpdConsentVersion: string;
+  lgpdLegalBasis:
+    | "CONSENT"
+    | "CONTRACT"
+    | "HEALTH_PROTECTION"
+    | "LEGAL_OBLIGATION"
+    | "LEGITIMATE_INTEREST";
+  marketingEmails: boolean;
+  pushNotifications: boolean;
+};
+
 type RetentionPolicy = {
   action: RetentionAction;
   createdAt: string;
@@ -148,6 +165,8 @@ async function parseJson<T>(response: Response): Promise<T> {
 export default function PrivacySettingsPageClient() {
   const [confirmation, setConfirmation] = useState("");
   const [consentHistory, setConsentHistory] = useState<PrivacyConsentEvent[]>([]);
+  const [consentPreferences, setConsentPreferences] =
+    useState<PrivacyConsentPreferences | null>(null);
   const [consents, setConsents] = useState<PrivacyConsent[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -189,6 +208,7 @@ export default function PrivacySettingsPageClient() {
         const consentPayload = await parseJson<{
           history?: PrivacyConsentEvent[];
           items?: PrivacyConsent[];
+          preferences?: PrivacyConsentPreferences;
         }>(consentResponse);
 
         let nextRetentionPolicies: RetentionPolicy[] = [];
@@ -214,6 +234,7 @@ export default function PrivacySettingsPageClient() {
 
         setConsentHistory(consentPayload.history ?? []);
         setConsents(consentPayload.items ?? []);
+        setConsentPreferences(consentPayload.preferences ?? null);
         setRetentionPolicies(nextRetentionPolicies);
         setRetentionExecutions(nextRetentionExecutions);
         setRetentionAccessDenied(nextRetentionDenied);
@@ -283,9 +304,11 @@ export default function PrivacySettingsPageClient() {
       const consentPayload = await parseJson<{
         history?: PrivacyConsentEvent[];
         items?: PrivacyConsent[];
+        preferences?: PrivacyConsentPreferences;
       }>(consentResponse);
       setConsentHistory(consentPayload.history ?? []);
       setConsents(consentPayload.items ?? []);
+      setConsentPreferences(consentPayload.preferences ?? null);
     }
 
     if (retentionResponse.ok) {
@@ -523,6 +546,30 @@ export default function PrivacySettingsPageClient() {
             Ajuste consentimentos por finalidade e acompanhe as ultimas alteracoes registradas.
           </p>
         </div>
+
+        {consentPreferences ? (
+          <div
+            style={{
+              background: "rgba(19,93,102,0.05)",
+              border: "1px solid rgba(19,93,102,0.12)",
+              borderRadius: "1rem",
+              display: "grid",
+              gap: "0.35rem",
+              padding: "0.9rem"
+            }}
+          >
+            <strong>Centro canonico de consentimento</strong>
+            <p style={{ color: "var(--muted)", margin: 0 }}>
+              Status geral: {consentPreferences.lgpdConsentStatus}. Base legal:{" "}
+              {consentPreferences.lgpdLegalBasis.toLowerCase().replaceAll("_", " ")}. Versao ativa:{" "}
+              {consentPreferences.lgpdConsentVersion}.
+            </p>
+            <small style={{ color: "var(--muted)" }}>
+              Ultimo aceite registrado: {formatDate(consentPreferences.lgpdConsentedAt)}. Todas as
+              alteracoes sao auditadas no backend e no historico abaixo.
+            </small>
+          </div>
+        ) : null}
 
         {isLoading ? (
           <p style={{ color: "var(--muted)", margin: 0 }}>Carregando estado de privacidade...</p>

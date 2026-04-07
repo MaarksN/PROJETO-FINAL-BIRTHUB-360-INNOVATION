@@ -51,6 +51,15 @@ export async function updateUserPreference(input: {
   cookieConsent?: "ACCEPTED" | "PENDING" | "REJECTED";
   emailNotifications?: boolean;
   inAppNotifications?: boolean;
+  lgpdConsentedAt?: Date | null;
+  lgpdConsentStatus?: "ACCEPTED" | "PENDING" | "REJECTED";
+  lgpdConsentVersion?: string;
+  lgpdLegalBasis?:
+    | "CONSENT"
+    | "CONTRACT"
+    | "HEALTH_PROTECTION"
+    | "LEGAL_OBLIGATION"
+    | "LEGITIMATE_INTEREST";
   marketingEmails?: boolean;
   organizationId: string;
   pushNotifications?: boolean;
@@ -87,6 +96,22 @@ export async function updateUserPreference(input: {
     createData.inAppNotifications = input.inAppNotifications;
   }
 
+  if (input.lgpdConsentedAt !== undefined) {
+    createData.lgpdConsentedAt = input.lgpdConsentedAt;
+  }
+
+  if (input.lgpdConsentStatus !== undefined) {
+    createData.lgpdConsentStatus = input.lgpdConsentStatus;
+  }
+
+  if (input.lgpdConsentVersion !== undefined) {
+    createData.lgpdConsentVersion = input.lgpdConsentVersion;
+  }
+
+  if (input.lgpdLegalBasis !== undefined) {
+    createData.lgpdLegalBasis = input.lgpdLegalBasis;
+  }
+
   if (input.marketingEmails !== undefined) {
     createData.marketingEmails = input.marketingEmails;
   }
@@ -105,6 +130,14 @@ export async function updateUserPreference(input: {
       ...(input.inAppNotifications !== undefined
         ? { inAppNotifications: input.inAppNotifications }
         : {}),
+      ...(input.lgpdConsentedAt !== undefined ? { lgpdConsentedAt: input.lgpdConsentedAt } : {}),
+      ...(input.lgpdConsentStatus !== undefined
+        ? { lgpdConsentStatus: input.lgpdConsentStatus }
+        : {}),
+      ...(input.lgpdConsentVersion !== undefined
+        ? { lgpdConsentVersion: input.lgpdConsentVersion }
+        : {}),
+      ...(input.lgpdLegalBasis !== undefined ? { lgpdLegalBasis: input.lgpdLegalBasis } : {}),
       ...(input.marketingEmails !== undefined
         ? { marketingEmails: input.marketingEmails }
         : {}),

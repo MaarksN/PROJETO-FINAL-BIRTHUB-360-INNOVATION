@@ -7,6 +7,23 @@ type HealthScoreItem = { client: string; score: number; risk: string; nps: numbe
 type FinanceItem = { label: string; value: string; delta: string };
 type AttributionItem = { source: string; leads: number; conversion: string; cac: string };
 type ContractItem = { customer: string; status: string; mrr: string; owner: string };
+type ClinicalMetricItem = { label: string; value: number; delta: string };
+type ClinicalAlertItem = {
+  description: string;
+  href: string;
+  id: string;
+  severity: "high" | "low" | "medium";
+  title: string;
+};
+type ClinicalSpotlightItem = {
+  gestationalAgeLabel: string | null;
+  latestNoteTitle: string | null;
+  nextAppointmentAt: string | null;
+  patientId: string;
+  patientName: string;
+  riskLevel: "HIGH" | "LOW" | "MODERATE";
+  status: "ACTIVE" | "CLOSED" | "DELIVERED";
+};
 
 export type DashboardMetrics = {
   finance: FinanceItem[];
@@ -24,6 +41,12 @@ export type DashboardRecentTasks = {
 
 export type DashboardBillingSummary = {
   finance: FinanceItem[];
+};
+
+export type DashboardClinicalSummary = {
+  alerts: ClinicalAlertItem[];
+  metrics: ClinicalMetricItem[];
+  spotlight: ClinicalSpotlightItem[];
 };
 
 export type DashboardOnboarding = {

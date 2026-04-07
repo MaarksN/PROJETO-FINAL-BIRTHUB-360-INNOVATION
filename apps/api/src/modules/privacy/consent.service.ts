@@ -4,6 +4,7 @@ import {
   ConsentStatus,
   CookieConsentStatus,
   LawfulBasis,
+  ensureUserPreference,
   prisma
 } from "@birthub/database";
 
@@ -15,6 +16,24 @@ const DEFAULT_CONSENT_PURPOSES = [
   ConsentPurpose.MARKETING,
   ConsentPurpose.HEALTH_DATA_SHARING
 ] as const;
+const CONSENT_VERSION = "2026-04";
+
+type ConsentSnapshot = {
+  purpose: ConsentPurpose;
+  status: ConsentStatus;
+};
+
+type LgpdPreferenceState = {
+  consentedAt: Date | null;
+  legalBasis:
+    | "CONSENT"
+    | "CONTRACT"
+    | "HEALTH_PROTECTION"
+    | "LEGAL_OBLIGATION"
+    | "LEGITIMATE_INTEREST";
+  status: "ACCEPTED" | "PENDING" | "REJECTED";
+  version: string;
+};
 
 function mapAnalyticsConsent(status: ConsentStatus): CookieConsentStatus {
   switch (status) {
@@ -25,6 +44,30 @@ function mapAnalyticsConsent(status: ConsentStatus): CookieConsentStatus {
     default:
       return CookieConsentStatus.PENDING;
   }
+}
+
+function deriveLgpdPreferenceState(
+  items: ConsentSnapshot[],
+  currentConsentedAt: Date | null
+): LgpdPreferenceState {
+  const byPurpose = new Map(items.map((item) => [item.purpose, item.status]));
+  const statuses = DEFAULT_CONSENT_PURPOSES.map(
+    (purpose) => byPurpose.get(purpose) ?? ConsentStatus.PENDING
+  );
+  const status = statuses.some((value) => value === ConsentStatus.PENDING)
+    ? "PENDING"
+    : statuses.every((value) => value === ConsentStatus.REVOKED)
+      ? "REJECTED"
+      : "ACCEPTED";
+  const healthDataGranted =
+    byPurpose.get(ConsentPurpose.HEALTH_DATA_SHARING) === ConsentStatus.GRANTED;
+
+  return {
+    consentedAt: status === "ACCEPTED" ? currentConsentedAt ?? new Date() : null,
+    legalBasis: healthDataGranted ? "HEALTH_PROTECTION" : "CONSENT",
+    status,
+    version: CONSENT_VERSION
+  };
 }
 
 export async function ensurePrivacyConsents(input: {
@@ -72,7 +115,7 @@ export async function listPrivacyConsents(input: {
   userId: string;
 }) {
   const organization = await ensurePrivacyConsents(input);
-  const [items, history] = await Promise.all([
+  const [items, history, preferences] = await Promise.all([
     prisma.privacyConsent.findMany({
       orderBy: {
         purpose: "asc"
@@ -91,12 +134,28 @@ export async function listPrivacyConsents(input: {
         organizationId: organization.id,
         userId: input.userId
       }
+    }),
+    ensureUserPreference({
+      organizationId: organization.id,
+      tenantId: organization.tenantId,
+      userId: input.userId
     })
   ]);
 
   return {
     history,
-    items
+    items,
+    preferences: {
+      cookieConsent: preferences.cookieConsent,
+      emailNotifications: preferences.emailNotifications,
+      inAppNotifications: preferences.inAppNotifications,
+      lgpdConsentedAt: preferences.lgpdConsentedAt,
+      lgpdConsentStatus: preferences.lgpdConsentStatus,
+      lgpdConsentVersion: preferences.lgpdConsentVersion,
+      lgpdLegalBasis: preferences.lgpdLegalBasis,
+      marketingEmails: preferences.marketingEmails,
+      pushNotifications: preferences.pushNotifications
+    }
   };
 }
 
@@ -116,6 +175,14 @@ export async function savePrivacyConsentDecisions(input: {
 
   const updatedItems = await prisma.$transaction(async (tx) => {
     const results = [];
+    const currentPreference = await tx.userPreference.findUnique({
+      where: {
+        organizationId_userId: {
+          organizationId: organization.id,
+          userId: input.userId
+        }
+      }
+    });
 
     for (const decision of input.decisions) {
       const current = await tx.privacyConsent.findUnique({
@@ -232,6 +299,45 @@ export async function savePrivacyConsentDecisions(input: {
 
       results.push(updated);
     }
+
+    const currentItems = await tx.privacyConsent.findMany({
+      select: {
+        purpose: true,
+        status: true
+      },
+      where: {
+        organizationId: organization.id,
+        userId: input.userId
+      }
+    });
+    const lgpdState = deriveLgpdPreferenceState(
+      currentItems,
+      currentPreference?.lgpdConsentedAt ?? null
+    );
+
+    await tx.userPreference.upsert({
+      create: {
+        lgpdConsentedAt: lgpdState.consentedAt,
+        lgpdConsentStatus: lgpdState.status,
+        lgpdConsentVersion: lgpdState.version,
+        lgpdLegalBasis: lgpdState.legalBasis,
+        organizationId: organization.id,
+        tenantId: organization.tenantId,
+        userId: input.userId
+      },
+      update: {
+        lgpdConsentedAt: lgpdState.consentedAt,
+        lgpdConsentStatus: lgpdState.status,
+        lgpdConsentVersion: lgpdState.version,
+        lgpdLegalBasis: lgpdState.legalBasis
+      },
+      where: {
+        organizationId_userId: {
+          organizationId: organization.id,
+          userId: input.userId
+        }
+      }
+    });
 
     return results;
   });

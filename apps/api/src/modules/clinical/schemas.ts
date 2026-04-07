@@ -103,9 +103,12 @@ export const createAppointmentSchema = z.object({
   weightKg: optionalNumber
 });
 
-export const updateAppointmentSchema = createAppointmentSchema
-  .omit({ patientId: true, scheduledAt: true })
-  .extend({
+const { patientId: _appointmentPatientId, scheduledAt: _appointmentScheduledAt, ...appointmentUpdateShape } =
+  createAppointmentSchema.shape;
+
+export const updateAppointmentSchema = z
+  .object({
+    ...appointmentUpdateShape,
     scheduledAt: z.string().trim().min(4).optional()
   })
   .partial()
@@ -151,8 +154,11 @@ export const clinicalNoteSchema = clinicalNoteObjectSchema
     }
   );
 
-export const clinicalNoteUpdateSchema = clinicalNoteObjectSchema
-  .omit({ patientId: true })
+const { patientId: _clinicalNotePatientId, ...clinicalNoteUpdateShape } =
+  clinicalNoteObjectSchema.shape;
+
+export const clinicalNoteUpdateSchema = z
+  .object(clinicalNoteUpdateShape)
   .partial()
   .refine((value) => Object.keys(value).length > 0, {
     message: "At least one clinical note field is required."

@@ -13,7 +13,9 @@ const pnpmCli = existsSync(bundledPnpm)
   : existsSync(globalCorepackPnpm)
     ? globalCorepackPnpm
     : null;
-const pnpmCommand = pnpmCli ? `node "${pnpmCli}" --filter @birthub/web dev` : "pnpm --filter @birthub/web dev";
+const webServerCommand = pnpmCli
+  ? `node "${pnpmCli}" --filter @birthub/web dev`
+  : "npm run dev --workspace @birthub/web";
 const remoteBaseUrl = process.env.E2E_BASE_URL?.trim();
 const baseURL = remoteBaseUrl && remoteBaseUrl.length > 0 ? remoteBaseUrl : "http://127.0.0.1:3001";
 const apiURL = process.env.E2E_API_URL?.trim() || baseURL;
@@ -29,7 +31,7 @@ export default defineConfig({
   webServer: remoteBaseUrl
     ? undefined
     : {
-        command: pnpmCommand,
+        command: webServerCommand,
         url: "http://127.0.0.1:3001/",
         reuseExistingServer: true,
         env: {

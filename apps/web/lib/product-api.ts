@@ -10,6 +10,11 @@ async function ensureOk(response: Response, fallback: string) {
   return response;
 }
 
+function appendQuery(pathname: string, query: URLSearchParams): string {
+  const serialized = query.toString();
+  return serialized ? `${pathname}?${serialized}` : pathname;
+}
+
 export async function fetchSearchResults(query: string) {
   const response = await fetchWithSession(`/api/v1/search?q=${encodeURIComponent(query)}`, {
     cache: "no-store",
@@ -131,7 +136,7 @@ export async function fetchConversationList(params: {
     query.set("status", params.status);
   }
 
-  const response = await fetchWithSession(`/api/v1/conversations?${query.toString()}`, {
+  const response = await fetchWithSession(appendQuery("/api/v1/conversations", query), {
     cache: "no-store"
   });
 

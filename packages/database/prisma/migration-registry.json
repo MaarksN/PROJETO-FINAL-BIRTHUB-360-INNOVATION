@@ -911,6 +911,66 @@
         "rollbackTested": true,
         "viewsAndRoutinesReviewed": true
       }
+    },
+    "20260407000300_phase1_lgpd_user_preferences": {
+      "environments": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "estimatedDurationMinutes": 5,
+      "impact": "low",
+      "maintenanceWindowSlaMinutes": 30,
+      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state.",
+      "owner": "Platform Data",
+      "postMigrationChecklist": [
+        "drift_check",
+        "fk_index_audit",
+        "integrity_health_check",
+        "migration_state_report",
+        "release_smoke",
+        "rls_audit"
+      ],
+      "preProductionChecklist": [
+        "backup_confirmed",
+        "maintenance_window",
+        "rollback_validated",
+        "stakeholder_notice"
+      ],
+      "review": {
+        "approverRoles": [
+          "DBA",
+          "DB_LEAD"
+        ],
+        "reviewer": "Database Lead"
+      },
+      "rollback": {
+        "strategy": "Keep the consent center read-only and remove the added preference fields only if the new LGPD write path regresses notifications or privacy exports.",
+        "steps": [
+          "Pause the rollout and validate the migration state.",
+          "Confirm backup freshness and the current preference payload shape.",
+          "Drop the LGPD preference columns and enums or restore the previous stable snapshot if needed.",
+          "Replay privacy, notification and dashboard smoke tests before reopening traffic."
+        ],
+        "testedEnvironments": [
+          "staging"
+        ]
+      },
+      "severity": "P1",
+      "strategy": {
+        "backwardCompatible": true,
+        "batching": {
+          "required": false
+        },
+        "expandContract": true,
+        "transactional": true
+      },
+      "validation": {
+        "driftChecked": false,
+        "rlsReviewed": true,
+        "rollbackTested": false,
+        "viewsAndRoutinesReviewed": true
+      }
     }
   }
 }

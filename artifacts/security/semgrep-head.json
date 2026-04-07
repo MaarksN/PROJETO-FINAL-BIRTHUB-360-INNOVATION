@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-07T18:04:06.455Z",
+  "checkedAt": "2026-04-07T22:15:25.876Z",
   "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
   "exitCode": 0,
   "status": "fresh",
@@ -28,12 +28,12 @@
     "scripts/audit/shared-prime.mjs"
   ],
   "summary": {
-    "findings": 18,
+    "findings": 20,
     "errors": 12,
     "severities": {
       "ERROR": 0,
       "WARNING": 8,
-      "INFO": 10,
+      "INFO": 12,
       "UNKNOWN": 0
     }
   },
@@ -42,14 +42,14 @@
       "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
       "path": ".github/workflows/cd.yml",
       "start": {
-        "line": 63,
+        "line": 72,
         "col": 9,
-        "offset": 2049
+        "offset": 2660
       },
       "end": {
-        "line": 66,
+        "line": 75,
         "col": 57,
-        "offset": 2187
+        "offset": 2798
       },
       "extra": {
         "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -89,14 +89,14 @@
       "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
       "path": ".github/workflows/cd.yml",
       "start": {
-        "line": 222,
+        "line": 240,
         "col": 9,
-        "offset": 9247
+        "offset": 10469
       },
       "end": {
-        "line": 226,
+        "line": 244,
         "col": 57,
-        "offset": 9441
+        "offset": 10663
       },
       "extra": {
         "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -136,14 +136,14 @@
       "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
       "path": ".github/workflows/cd.yml",
       "start": {
-        "line": 288,
+        "line": 306,
         "col": 9,
-        "offset": 11268
+        "offset": 12490
       },
       "end": {
-        "line": 291,
+        "line": 309,
         "col": 57,
-        "offset": 11414
+        "offset": 12636
       },
       "extra": {
         "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -290,14 +290,122 @@
       "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
       "path": "infra/cloudrun/service.yaml",
       "start": {
-        "line": 10,
+        "line": 21,
         "col": 5,
-        "offset": 188
+        "offset": 640
       },
       "end": {
-        "line": 10,
+        "line": 21,
         "col": 9,
-        "offset": 192
+        "offset": 644
+      },
+      "extra": {
+        "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
+        "fix": "spec:\n      securityContext:\n        runAsNonRoot: true #",
+        "metadata": {
+          "references": [
+            "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/",
+            "https://kubernetes.io/docs/concepts/policy/pod-security-policy/",
+            "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-2-set-a-user"
+          ],
+          "category": "security",
+          "cwe": [
+            "CWE-250: Execution with Unnecessary Privileges"
+          ],
+          "owasp": [
+            "A05:2021 - Security Misconfiguration",
+            "A06:2017 - Security Misconfiguration",
+            "A02:2025 - Security Misconfiguration"
+          ],
+          "technology": [
+            "kubernetes"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+          "shortlink": "https://sg.run/dgP5"
+        },
+        "severity": "INFO",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+      "path": "infra/cloudrun/service.yaml",
+      "start": {
+        "line": 54,
+        "col": 5,
+        "offset": 1596
+      },
+      "end": {
+        "line": 54,
+        "col": 9,
+        "offset": 1600
+      },
+      "extra": {
+        "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
+        "fix": "spec:\n      securityContext:\n        runAsNonRoot: true #",
+        "metadata": {
+          "references": [
+            "https://kubernetes.io/blog/2016/08/security-best-practices-kubernetes-deployment/",
+            "https://kubernetes.io/docs/concepts/policy/pod-security-policy/",
+            "https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html#rule-2-set-a-user"
+          ],
+          "category": "security",
+          "cwe": [
+            "CWE-250: Execution with Unnecessary Privileges"
+          ],
+          "owasp": [
+            "A05:2021 - Security Misconfiguration",
+            "A06:2017 - Security Misconfiguration",
+            "A02:2025 - Security Misconfiguration"
+          ],
+          "technology": [
+            "kubernetes"
+          ],
+          "subcategory": [
+            "audit"
+          ],
+          "likelihood": "LOW",
+          "impact": "LOW",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Improper Authorization"
+          ],
+          "source": "https://semgrep.dev/r/yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+          "shortlink": "https://sg.run/dgP5"
+        },
+        "severity": "INFO",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
+      "path": "infra/cloudrun/service.yaml",
+      "start": {
+        "line": 87,
+        "col": 5,
+        "offset": 2557
+      },
+      "end": {
+        "line": 87,
+        "col": 9,
+        "offset": 2561
       },
       "extra": {
         "message": "When running containers in Kubernetes, it's important to ensure that they  are properly secured to prevent privilege escalation attacks.  One potential vulnerability is when a container is allowed to run  applications as the root user, which could allow an attacker to gain  access to sensitive resources. To mitigate this risk, it's recommended to  add a `securityContext` to the container, with the parameter `runAsNonRoot`  set to `true`. This will ensure that the container runs as a non-root user,  limiting the damage that could be caused by any potential attacks. By  adding a `securityContext` to the container in your Kubernetes pod, you can  help to ensure that your containerized applications are more secure and  less vulnerable to privilege escalation attacks.",
@@ -1018,110 +1126,110 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 309,
+              "line": 327,
               "col": 14,
-              "offset": 11907
+              "offset": 13129
             },
             "end": {
-              "line": 309,
+              "line": 327,
               "col": 50,
-              "offset": 11943
+              "offset": 13165
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 311,
+              "line": 329,
               "col": 13,
-              "offset": 11907
+              "offset": 13129
             },
             "end": {
-              "line": 311,
+              "line": 329,
               "col": 48,
-              "offset": 11942
+              "offset": 13164
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 311,
+              "line": 329,
               "col": 69,
-              "offset": 11907
+              "offset": 13129
             },
             "end": {
-              "line": 311,
+              "line": 329,
               "col": 90,
-              "offset": 11928
+              "offset": 13150
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 311,
+              "line": 329,
               "col": 96,
-              "offset": 11907
+              "offset": 13129
             },
             "end": {
-              "line": 311,
+              "line": 329,
               "col": 135,
-              "offset": 11946
+              "offset": 13168
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:309:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.event.workflow_run.head_sha` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:327:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.event.workflow_run.head_sha` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 309,
+            "line": 327,
             "col": 14,
-            "offset": 11907
+            "offset": 13129
           },
           "end": {
-            "line": 309,
+            "line": 327,
             "col": 50,
-            "offset": 11943
+            "offset": 13165
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 311,
+            "line": 329,
             "col": 13,
-            "offset": 11907
+            "offset": 13129
           },
           "end": {
-            "line": 311,
+            "line": 329,
             "col": 48,
-            "offset": 11942
+            "offset": 13164
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 311,
+            "line": 329,
             "col": 69,
-            "offset": 11907
+            "offset": 13129
           },
           "end": {
-            "line": 311,
+            "line": 329,
             "col": 90,
-            "offset": 11928
+            "offset": 13150
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 311,
+            "line": 329,
             "col": 96,
-            "offset": 11907
+            "offset": 13129
           },
           "end": {
-            "line": 311,
+            "line": 329,
             "col": 135,
-            "offset": 11946
+            "offset": 13168
           }
         }
       ]
@@ -1135,32 +1243,32 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 323,
+              "line": 341,
               "col": 16,
-              "offset": 12677
+              "offset": 13899
             },
             "end": {
-              "line": 323,
+              "line": 341,
               "col": 46,
-              "offset": 12707
+              "offset": 13929
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:323:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:341:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 323,
+            "line": 341,
             "col": 16,
-            "offset": 12677
+            "offset": 13899
           },
           "end": {
-            "line": 323,
+            "line": 341,
             "col": 46,
-            "offset": 12707
+            "offset": 13929
           }
         }
       ]
@@ -1174,32 +1282,32 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 328,
+              "line": 346,
               "col": 16,
-              "offset": 12881
+              "offset": 14103
             },
             "end": {
-              "line": 328,
+              "line": 346,
               "col": 46,
-              "offset": 12911
+              "offset": 14133
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:328:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:346:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 328,
+            "line": 346,
             "col": 16,
-            "offset": 12881
+            "offset": 14103
           },
           "end": {
-            "line": 328,
+            "line": 346,
             "col": 46,
-            "offset": 12911
+            "offset": 14133
           }
         }
       ]
@@ -1213,32 +1321,32 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 333,
+              "line": 351,
               "col": 16,
-              "offset": 13088
+              "offset": 14310
             },
             "end": {
-              "line": 333,
+              "line": 351,
               "col": 49,
-              "offset": 13121
+              "offset": 14343
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:333:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:351:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 333,
+            "line": 351,
             "col": 16,
-            "offset": 13088
+            "offset": 14310
           },
           "end": {
-            "line": 333,
+            "line": 351,
             "col": 49,
-            "offset": 13121
+            "offset": 14343
           }
         }
       ]
@@ -1252,188 +1360,188 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 669,
+              "line": 687,
               "col": 11,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 669,
+              "line": 687,
               "col": 34,
-              "offset": 27704
+              "offset": 28926
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 670,
+              "line": 688,
               "col": 39,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 670,
+              "line": 688,
               "col": 67,
-              "offset": 27709
+              "offset": 28931
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 670,
+              "line": 688,
               "col": 109,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 670,
+              "line": 688,
               "col": 175,
-              "offset": 27747
+              "offset": 28969
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 671,
+              "line": 689,
               "col": 39,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 671,
+              "line": 689,
               "col": 67,
-              "offset": 27709
+              "offset": 28931
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 671,
+              "line": 689,
               "col": 109,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 671,
+              "line": 689,
               "col": 175,
-              "offset": 27747
+              "offset": 28969
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 672,
+              "line": 690,
               "col": 39,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 672,
+              "line": 690,
               "col": 70,
-              "offset": 27712
+              "offset": 28934
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 672,
+              "line": 690,
               "col": 112,
-              "offset": 27681
+              "offset": 28903
             },
             "end": {
-              "line": 672,
+              "line": 690,
               "col": 181,
-              "offset": 27750
+              "offset": 28972
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:669:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:687:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 669,
+            "line": 687,
             "col": 11,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 669,
+            "line": 687,
             "col": 34,
-            "offset": 27704
+            "offset": 28926
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 670,
+            "line": 688,
             "col": 39,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 670,
+            "line": 688,
             "col": 67,
-            "offset": 27709
+            "offset": 28931
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 670,
+            "line": 688,
             "col": 109,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 670,
+            "line": 688,
             "col": 175,
-            "offset": 27747
+            "offset": 28969
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 671,
+            "line": 689,
             "col": 39,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 671,
+            "line": 689,
             "col": 67,
-            "offset": 27709
+            "offset": 28931
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 671,
+            "line": 689,
             "col": 109,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 671,
+            "line": 689,
             "col": 175,
-            "offset": 27747
+            "offset": 28969
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 672,
+            "line": 690,
             "col": 39,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 672,
+            "line": 690,
             "col": 70,
-            "offset": 27712
+            "offset": 28934
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 672,
+            "line": 690,
             "col": 112,
-            "offset": 27681
+            "offset": 28903
           },
           "end": {
-            "line": 672,
+            "line": 690,
             "col": 181,
-            "offset": 27750
+            "offset": 28972
           }
         }
       ]
@@ -1447,110 +1555,110 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 682,
+              "line": 700,
               "col": 16,
-              "offset": 28438
+              "offset": 29660
             },
             "end": {
-              "line": 682,
+              "line": 700,
               "col": 39,
-              "offset": 28461
+              "offset": 29683
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 684,
+              "line": 702,
               "col": 15,
-              "offset": 28438
+              "offset": 29660
             },
             "end": {
-              "line": 684,
+              "line": 702,
               "col": 81,
-              "offset": 28504
+              "offset": 29726
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 685,
+              "line": 703,
               "col": 15,
-              "offset": 28438
+              "offset": 29660
             },
             "end": {
-              "line": 685,
+              "line": 703,
               "col": 81,
-              "offset": 28504
+              "offset": 29726
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 686,
+              "line": 704,
               "col": 18,
-              "offset": 28438
+              "offset": 29660
             },
             "end": {
-              "line": 686,
+              "line": 704,
               "col": 87,
-              "offset": 28507
+              "offset": 29729
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:682:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:700:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 682,
+            "line": 700,
             "col": 16,
-            "offset": 28438
+            "offset": 29660
           },
           "end": {
-            "line": 682,
+            "line": 700,
             "col": 39,
-            "offset": 28461
+            "offset": 29683
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 684,
+            "line": 702,
             "col": 15,
-            "offset": 28438
+            "offset": 29660
           },
           "end": {
-            "line": 684,
+            "line": 702,
             "col": 81,
-            "offset": 28504
+            "offset": 29726
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 685,
+            "line": 703,
             "col": 15,
-            "offset": 28438
+            "offset": 29660
           },
           "end": {
-            "line": 685,
+            "line": 703,
             "col": 81,
-            "offset": 28504
+            "offset": 29726
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 686,
+            "line": 704,
             "col": 18,
-            "offset": 28438
+            "offset": 29660
           },
           "end": {
-            "line": 686,
+            "line": 704,
             "col": 87,
-            "offset": 28507
+            "offset": 29729
           }
         }
       ]
@@ -1564,84 +1672,84 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 732,
+              "line": 750,
               "col": 13,
-              "offset": 30321
+              "offset": 31543
             },
             "end": {
-              "line": 732,
+              "line": 750,
               "col": 48,
-              "offset": 30356
+              "offset": 31578
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 732,
+              "line": 750,
               "col": 69,
-              "offset": 30321
+              "offset": 31543
             },
             "end": {
-              "line": 732,
+              "line": 750,
               "col": 90,
-              "offset": 30342
+              "offset": 31564
             }
           },
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 732,
+              "line": 750,
               "col": 96,
-              "offset": 30321
+              "offset": 31543
             },
             "end": {
-              "line": 732,
+              "line": 750,
               "col": 135,
-              "offset": 30360
+              "offset": 31582
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:732:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.GCP_ARTIFACT_REGISTRY_REGION` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:750:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.GCP_ARTIFACT_REGISTRY_REGION` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 732,
+            "line": 750,
             "col": 13,
-            "offset": 30321
+            "offset": 31543
           },
           "end": {
-            "line": 732,
+            "line": 750,
             "col": 48,
-            "offset": 30356
+            "offset": 31578
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 732,
+            "line": 750,
             "col": 69,
-            "offset": 30321
+            "offset": 31543
           },
           "end": {
-            "line": 732,
+            "line": 750,
             "col": 90,
-            "offset": 30342
+            "offset": 31564
           }
         },
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 732,
+            "line": 750,
             "col": 96,
-            "offset": 30321
+            "offset": 31543
           },
           "end": {
-            "line": 732,
+            "line": 750,
             "col": 135,
-            "offset": 30360
+            "offset": 31582
           }
         }
       ]
@@ -1655,32 +1763,32 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 744,
+              "line": 762,
               "col": 16,
-              "offset": 31028
+              "offset": 32250
             },
             "end": {
-              "line": 744,
+              "line": 762,
               "col": 46,
-              "offset": 31058
+              "offset": 32280
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:744:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:762:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 744,
+            "line": 762,
             "col": 16,
-            "offset": 31028
+            "offset": 32250
           },
           "end": {
-            "line": 744,
+            "line": 762,
             "col": 46,
-            "offset": 31058
+            "offset": 32280
           }
         }
       ]
@@ -1694,32 +1802,32 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 749,
+              "line": 767,
               "col": 16,
-              "offset": 31232
+              "offset": 32454
             },
             "end": {
-              "line": 749,
+              "line": 767,
               "col": 46,
-              "offset": 31262
+              "offset": 32484
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:749:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:767:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 749,
+            "line": 767,
             "col": 16,
-            "offset": 31232
+            "offset": 32454
           },
           "end": {
-            "line": 749,
+            "line": 767,
             "col": 46,
-            "offset": 31262
+            "offset": 32484
           }
         }
       ]
@@ -1733,32 +1841,32 @@
           {
             "path": ".github\\workflows\\cd.yml",
             "start": {
-              "line": 754,
+              "line": 772,
               "col": 16,
-              "offset": 31439
+              "offset": 32661
             },
             "end": {
-              "line": 754,
+              "line": 772,
               "col": 49,
-              "offset": 31472
+              "offset": 32694
             }
           }
         ]
       ],
-      "message": "Syntax error at line .github\\workflows\\cd.yml:754:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
+      "message": "Syntax error at line .github\\workflows\\cd.yml:772:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
       "path": ".github\\workflows\\cd.yml",
       "spans": [
         {
           "file": ".github\\workflows\\cd.yml",
           "start": {
-            "line": 754,
+            "line": 772,
             "col": 16,
-            "offset": 31439
+            "offset": 32661
           },
           "end": {
-            "line": 754,
+            "line": 772,
             "col": 49,
-            "offset": 31472
+            "offset": 32694
           }
         }
       ]

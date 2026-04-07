@@ -186,6 +186,59 @@ function findCommandInPath(command, env = process.env) {
   return null;
 }
 
+function resolveNpmCliScript(npmExecutablePath) {
+  if (!npmExecutablePath) {
+    return null;
+  }
+
+  const npmRoot = path.dirname(npmExecutablePath);
+  const candidates = [
+    path.join(npmRoot, "node_modules", "npm", "bin", "npm-cli.js"),
+    path.join(npmRoot, "npm", "bin", "npm-cli.js")
+  ];
+
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+  }
+
+  return null;
+}
+
+function resolveLocalPnpmCliFromStore() {
+  const localAppData = process.env.LOCALAPPDATA;
+  if (!localAppData) {
+    return null;
+  }
+
+  const pnpmToolsRoot = path.join(localAppData, "pnpm", ".tools", "pnpm");
+  if (!existsSync(pnpmToolsRoot)) {
+    return null;
+  }
+
+  const candidateDirectories = readdirSync(pnpmToolsRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort((left, right) => right.localeCompare(left));
+
+  for (const directoryName of candidateDirectories) {
+    const candidateRoot = path.join(pnpmToolsRoot, directoryName);
+    const candidateCliPaths = [
+      path.join(candidateRoot, "node_modules", "pnpm", "bin", "pnpm.cjs"),
+      path.join(candidateRoot, "node_modules", "pnpm", "dist", "pnpm.cjs")
+    ];
+
+    for (const candidateCliPath of candidateCliPaths) {
+      if (existsSync(candidateCliPath)) {
+        return candidateCliPath;
+      }
+    }
+  }
+
+  return null;
+}
+
 export function resolvePnpmInvocation() {
   const env = buildEnv();
   const npmExecPath = process.env.npm_execpath;
@@ -231,9 +284,29 @@ export function resolvePnpmInvocation() {
     };
   }
 
+  const localPnpmCli = resolveLocalPnpmCliFromStore();
+
+  if (localPnpmCli) {
+    return {
+      argsPrefix: [localPnpmCli],
+      command: process.execPath,
+      env
+    };
+  }
+
   const npmPath = findCommandInPath("npm", env);
 
   if (npmPath) {
+    const npmCliScript = resolveNpmCliScript(npmPath);
+
+    if (npmCliScript) {
+      return {
+        argsPrefix: [npmCliScript, "exec", "pnpm@9.1.0", "--"],
+        command: process.execPath,
+        env
+      };
+    }
+
     return {
       argsPrefix: ["exec", "pnpm@9.1.0", "--"],
       command: npmPath,

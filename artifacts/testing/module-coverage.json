@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-07T18:04:06.480Z",
+  "checkedAt": "2026-04-07T22:15:25.893Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -14,8 +14,8 @@
   "surfaces": [
     {
       "module": "apps/api",
-      "runtimeFiles": 150,
-      "directTestFiles": 40,
+      "runtimeFiles": 152,
+      "directTestFiles": 44,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -37,9 +37,11 @@
         "apps/api/tests/buffer.test.ts",
         "apps/api/tests/cache-index.test.ts",
         "apps/api/tests/cache-store.test.ts",
+        "apps/api/tests/clinical-router.test.ts",
         "apps/api/tests/connectors-router.test.ts",
         "apps/api/tests/core-business-routes.test.ts",
         "apps/api/tests/external-url.test.ts",
+        "apps/api/tests/fhir-router.test.ts",
         "apps/api/tests/health.smoke.test.ts",
         "apps/api/tests/http-cache.test.ts",
         "apps/api/tests/installed-agents-helpers.test.ts",
@@ -56,37 +58,43 @@
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
         "apps/api/tests/workflow-retry-lineage.integration.test.ts",
-        "apps/api/tests/clinical-router.test.ts",
+        "apps/api/tests/conversations-router.test.ts",
+        "apps/api/tests/retention.service.test.ts",
+        "apps/api/tests/search-router.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": []
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 115,
-      "directTestFiles": 13,
+      "runtimeFiles": 119,
+      "directTestFiles": 18,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/web/tests/auth-client.test.ts",
         "apps/web/tests/auth-session-route.test.ts",
         "apps/web/tests/bff-allowlist.test.ts",
         "apps/web/tests/bff-route.test.ts",
+        "apps/web/tests/clinical-data.test.ts",
         "apps/web/tests/dashboard-data.test.ts",
         "apps/web/tests/health.required-dependency.test.ts",
         "apps/web/tests/login.smoke.test.ts",
         "apps/web/tests/offline-page.test.ts",
         "apps/web/tests/workflow-runs-page.test.ts",
         "apps/web/tests/workflows-list.test.ts",
-        "apps/web/tests/clinical-data.test.ts",
+        "apps/web/tests/developer-webhooks-page.test.ts",
+        "apps/web/tests/i18n.test.ts",
+        "apps/web/tests/notification-store.test.ts",
+        "apps/web/tests/product-api.test.ts",
+        "apps/web/tests/theme-provider.test.ts",
         "tests/e2e/critical-routes.spec.ts",
         "tests/e2e/billing-premium.spec.ts"
       ],
       "gaps": [
         "apps/web/app/(dashboard)/analytics/error.tsx",
         "apps/web/app/(dashboard)/analytics/loading.tsx",
-        "apps/web/app/(dashboard)/dashboard/error.tsx",
-        "apps/web/app/(dashboard)/dashboard/loading.tsx",
-        "apps/web/app/(dashboard)/dashboard/page.data.ts"
+        "apps/web/app/(dashboard)/conversations/error.tsx",
+        "apps/web/app/(dashboard)/conversations/loading.tsx"
       ]
     },
     {
@@ -134,7 +142,7 @@
     {
       "module": "packages/database",
       "runtimeFiles": 13,
-      "directTestFiles": 14,
+      "directTestFiles": 15,
       "traceabilityFlows": 0,
       "directTests": [
         "packages/database/test/access-control.repo.test.ts",
@@ -145,6 +153,7 @@
         "packages/database/test/engagement.test.ts",
         "packages/database/test/exceeded-quota.error.test.ts",
         "packages/database/test/index.test.ts",
+        "packages/database/test/maternal-domain.rls.test.ts",
         "packages/database/test/migration.test.ts",
         "packages/database/test/prisma-query-timeout.error.test.ts",
         "packages/database/test/query-budget.test.ts",

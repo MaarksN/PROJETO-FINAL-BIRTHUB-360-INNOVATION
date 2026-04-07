@@ -13,6 +13,7 @@ const isDevelopmentLike =
   webConfig.NEXT_PUBLIC_ENVIRONMENT === "test" ||
   webConfig.NEXT_PUBLIC_ENVIRONMENT === "ci" ||
   webConfig.NEXT_PUBLIC_ENVIRONMENT === "ci-local";
+const cspReportOnly = isDevelopmentLike ? webConfig.NEXT_PUBLIC_CSP_REPORT_ONLY : false;
 const connectSrc = [
   "'self'",
   webConfig.NEXT_PUBLIC_API_URL,
@@ -38,7 +39,7 @@ const contentSecurityPolicy = {
 };
 const securityHeaders = buildSecurityHeaders({
   contentSecurityPolicy,
-  reportOnly: webConfig.NEXT_PUBLIC_CSP_REPORT_ONLY
+  reportOnly: cspReportOnly
 });
 const turbopackAliases = {
   "@birthub/config": "@birthub/config/nextjs",
@@ -48,6 +49,7 @@ const turbopackAliases = {
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: ["127.0.0.1", "localhost"],
   compress: true,
   crossOrigin: "anonymous",
   experimental: {

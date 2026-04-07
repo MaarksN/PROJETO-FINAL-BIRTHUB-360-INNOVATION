@@ -37,9 +37,9 @@ export default async function WorkflowsPage() {
             </Link>
           </div>
         }
-        badge="Workflow list"
+        badge="Lista canonica"
         description="Lista central de fluxos com status, trigger, CTA principal e acesso rapido ao editor real."
-        title="Operar workflows sem sair da interface"
+        title="Operar workflows sem URL manual"
       />
 
       {data.items.length === 0 ? (

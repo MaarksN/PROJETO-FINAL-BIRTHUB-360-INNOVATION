@@ -3,28 +3,26 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 53/100
-- Estimativa de custo de não-ação: 8.4 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8.6 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/privacy/retention.service.ts:1
-- TD-030 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417
-- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/public/sw.js:28
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/clinical/service.ts:890
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/clinical/service.ts:1505
+- TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano | Dimensão 8 — Maturidade Operacional e Multi-tenancy | VDI 4.45 | artifacts/tenancy/rls-proof-head.json:1
+- TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:1
+- TD-030 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/privacy/consent.service.ts:1
+- TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417
+- TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/public/sw.js:28
 
 ### Análise Pendente
 
 - TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core | requer: docs/architecture/c4-context.md
-- TD-037 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
-- TD-038 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
-- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
-- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4) | requer: DAST/ZAP report
-- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5) | requer: semgrep --json
-- TD-051 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada | requer: cobertura por módulo
-- TD-052 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2) | requer: SLO dashboards vivos
-- TD-053 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3) | requer: cobertura por módulo
+- TD-038 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
+- TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
+- TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
+- TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4) | requer: DAST/ZAP report
+- TD-052 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada | requer: cobertura por módulo
+- TD-053 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2) | requer: SLO dashboards vivos
 - TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -64,23 +62,15 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-003 | Complexidade acima do limiar em createWorkflowsRouter
-  Localização: apps/api/src/modules/workflows/router.ts:61
-  Problema: Identificado em apps/api/src/modules/workflows/router.ts:61 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).
+- TD-003 | Complexidade acima do limiar em deriveClinicalAlerts
+  Localização: apps/api/src/modules/clinical/service.ts:438
+  Problema: Identificado em apps/api/src/modules/clinical/service.ts:438 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
   Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-004 | Complexidade acima do limiar em deriveClinicalAlerts
-  Localização: apps/api/src/modules/clinical/service.ts:424
-  Problema: Identificado em apps/api/src/modules/clinical/service.ts:424 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).
-  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
-  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
-  VDI: 3.25 (ALTO)
-  Esforço: 2-5 dias
-
-- TD-005 | Complexidade acima do limiar em PatientDetailPage
+- TD-004 | Complexidade acima do limiar em PatientDetailPage
   Localização: apps/web/app/(dashboard)/patients/[id]/page.tsx:98
   Problema: Identificado em apps/web/app/(dashboard)/patients/[id]/page.tsx:98 uma função com complexidade ciclomática 120, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
@@ -88,9 +78,17 @@
   VDI: 3.25 (ALTO)
   Esforço: 2-5 dias
 
-- TD-006 | Complexidade acima do limiar em PatientsPage
+- TD-005 | Complexidade acima do limiar em PatientsPage
   Localização: apps/web/app/(dashboard)/patients/page.tsx:34
   Problema: Identificado em apps/web/app/(dashboard)/patients/page.tsx:34 uma função com complexidade ciclomática 26, acima do limiar operacional recomendado (>10).
+  Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
+  Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
+  VDI: 3.25 (ALTO)
+  Esforço: 2-5 dias
+
+- TD-006 | Complexidade acima do limiar em PrivacySettingsPageClient
+  Localização: apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:165
+  Problema: Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:165 uma função com complexidade ciclomática 70, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
   Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
   VDI: 3.25 (ALTO)
@@ -128,25 +126,25 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-011 | Arquivo grande demais para o boundary atual (2065 linhas)
+- TD-011 | Arquivo grande demais para o boundary atual (2110 linhas)
   Localização: apps/api/src/modules/clinical/service.ts:1
-  Problema: Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2065 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+  Problema: Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2110 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-012 | Arquivo grande demais para o boundary atual (917 linhas)
-  Localização: packages/database/prisma/migration-registry.json:1
-  Problema: Identificado em packages/database/prisma/migration-registry.json um arquivo com 917 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
-  Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
-  Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
-  VDI: 2.75 (MÉDIO)
-  Esforço: 2-5 dias
-
-- TD-013 | Arquivo grande demais para o boundary atual (967 linhas)
+- TD-012 | Arquivo grande demais para o boundary atual (967 linhas)
   Localização: apps/api/src/modules/workflows/service.ts:1
   Problema: Identificado em apps/api/src/modules/workflows/service.ts um arquivo com 967 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+  Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
+  Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
+  VDI: 2.75 (MÉDIO)
+  Esforço: 2-5 dias
+
+- TD-013 | Arquivo grande demais para o boundary atual (977 linhas)
+  Localização: packages/database/prisma/migration-registry.json:1
+  Problema: Identificado em packages/database/prisma/migration-registry.json um arquivo com 977 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
@@ -277,14 +275,22 @@
 ### Dimensão 3 — Segurança
 
 - TD-029 | Superfície crítica sem teste relacionado por heurística de nome
-  Localização: apps/api/src/modules/privacy/retention.service.ts:1
-  Problema: Identificado em apps/api/src/modules/privacy/retention.service.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.
+  Localização: apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:1
+  Problema: Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.
   Impacto: Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.
   Solução recomendada: Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.
   VDI: 3.65 (ALTO)
   Esforço: 1-3 dias
 
-- TD-030 | Chamada externa sem timeout ou abort path explícito
+- TD-030 | Superfície crítica sem teste relacionado por heurística de nome
+  Localização: apps/api/src/modules/privacy/consent.service.ts:1
+  Problema: Identificado em apps/api/src/modules/privacy/consent.service.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.
+  Impacto: Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.
+  Solução recomendada: Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.
+  VDI: 3.65 (ALTO)
+  Esforço: 1-3 dias
+
+- TD-031 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417
   Problema: Indício em apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -292,7 +298,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-031 | Chamada externa sem timeout ou abort path explícito
+- TD-032 | Chamada externa sem timeout ou abort path explícito
   Localização: apps/web/public/sw.js:28
   Problema: Indício em apps/web/public/sw.js:28 de acesso externo sem timeout explícito no arquivo.
   Impacto: Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.
@@ -300,31 +306,31 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-032 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:63
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:63 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
-  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
-  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-2 dias
-
 - TD-033 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:222
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:222 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
+  Localização: .github/workflows/cd.yml:72
+  Problema: Semgrep sinalizou em .github/workflows/cd.yml:72 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
   Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-034 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:288
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:288 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
+  Localização: .github/workflows/cd.yml:240
+  Problema: Semgrep sinalizou em .github/workflows/cd.yml:240 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
   Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-035 | Semgrep WARNING em runtime.shared.ts
+- TD-035 | Semgrep WARNING em cd.yml
+  Localização: .github/workflows/cd.yml:306
+  Problema: Semgrep sinalizou em .github/workflows/cd.yml:306 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
+  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
+  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
+  VDI: 3.1 (ALTO)
+  Esforço: 0.5-2 dias
+
+- TD-036 | Semgrep WARNING em runtime.shared.ts
   Localização: apps/worker/src/agents/runtime.shared.ts:113
   Problema: Semgrep sinalizou em apps/worker/src/agents/runtime.shared.ts:113 o padrão "RegExp() called with a `pattern` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -332,7 +338,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-036 | Semgrep WARNING em worker.job-validation.test.ts
+- TD-037 | Semgrep WARNING em worker.job-validation.test.ts
   Localização: apps/worker/src/worker.job-validation.test.ts:47
   Problema: Semgrep sinalizou em apps/worker/src/worker.job-validation.test.ts:47 o padrão "Detected a hardcoded hmac key".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
@@ -340,7 +346,7 @@
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-037 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
+- TD-038 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
@@ -348,7 +354,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-038 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
+- TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
   Localização: .github/workflows/security-scan.yml:1
   Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
   Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
@@ -356,7 +362,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
+- TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
@@ -364,19 +370,11 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)
+- TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)
   Localização: .github/workflows/security-scan.yml:1
   Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
   Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
   Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
-  VDI: 2.95 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
-- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)
-  Localização: .github/workflows/security-scan.yml:1
-  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
-  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
-  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -400,7 +398,7 @@
 
 - TD-044 | Cobertura estrutural baixa em apps/web
   Localização: apps/web/app/(dashboard)/analytics/error.tsx:1
-  Problema: O proxy de cobertura identifica 115 arquivos de runtime para apps/web, mas apenas 13 arquivos de teste diretos e 5 gaps principais.
+  Problema: O proxy de cobertura identifica 119 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 2.85 (MÉDIO)
@@ -415,8 +413,8 @@
   Esforço: 1-3 dias
 
 - TD-046 | Módulo volumoso sem teste relacionado direto
-  Localização: apps/api/src/modules/privacy/retention.service.ts:1
-  Problema: Identificado em apps/api/src/modules/privacy/retention.service.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
+  Localização: apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:1
+  Problema: Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
   Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
   VDI: 2.65 (MÉDIO)
@@ -439,6 +437,14 @@
   Esforço: 0.5-2 dias
 
 - TD-049 | Módulo volumoso sem teste relacionado direto
+  Localização: apps/api/src/modules/privacy/consent.service.ts:1
+  Problema: Identificado em apps/api/src/modules/privacy/consent.service.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
+  Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
+  Solução recomendada: Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.
+  VDI: 2.65 (MÉDIO)
+  Esforço: 0.5-2 dias
+
+- TD-050 | Módulo volumoso sem teste relacionado direto
   Localização: packages/database/prisma/seeds/shared-runtime.ts:1
   Problema: Identificado em packages/database/prisma/seeds/shared-runtime.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -446,7 +452,7 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-050 | Módulo volumoso sem teste relacionado direto
+- TD-051 | Módulo volumoso sem teste relacionado direto
   Localização: apps/web/components/layout/Navbar.tsx:1
   Problema: Identificado em apps/web/components/layout/Navbar.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.
   Impacto: A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.
@@ -454,7 +460,7 @@
   VDI: 2.65 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-051 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada
+- TD-052 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada
   Localização: scripts/testing/generate-traceability-report.mjs:1
   Problema: Há muitas suites de teste no monorepo, mas a auditoria não encontra uma matriz de cobertura unit/integration/e2e por módulo do core no formato atual.
   Impacto: Sem a decomposição por módulo, o risco de falso conforto sobre cobertura global aumenta.
@@ -462,7 +468,7 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-052 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2)
+- TD-053 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2)
   Localização: infra/monitoring/alert.rules.yml:1
   Problema: Há artefatos e regras de monitoramento versionados, mas não há evidência viva de dashboards/SLOs com budget consumido por janela.
   Impacto: A operação fica com sinais técnicos, mas sem indicador explícito de confiabilidade do serviço para decisão executiva.
@@ -470,51 +476,43 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-053 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3)
-  Localização: scripts/testing/generate-traceability-report.mjs:1
-  Problema: Há muitas suites de teste no monorepo, mas a auditoria não encontra uma matriz de cobertura unit/integration/e2e por módulo do core no formato atual.
-  Impacto: Sem a decomposição por módulo, o risco de falso conforto sobre cobertura global aumenta.
-  Solução recomendada: Gerar um relatório de cobertura por módulo e anexar ao pipeline soberano.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
-
 ### Dimensão 5 — Performance e Escalabilidade
 
 - TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/clinical/service.ts:890
-  Problema: Indício em apps/api/src/modules/clinical/service.ts:890 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/clinical/service.ts:924
+  Problema: Indício em apps/api/src/modules/clinical/service.ts:924 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/clinical/service.ts:1505
-  Problema: Indício em apps/api/src/modules/clinical/service.ts:1505 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/clinical/service.ts:1539
+  Problema: Indício em apps/api/src/modules/clinical/service.ts:1539 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/clinical/service.ts:1808
-  Problema: Indício em apps/api/src/modules/clinical/service.ts:1808 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/clinical/service.ts:1842
+  Problema: Indício em apps/api/src/modules/clinical/service.ts:1842 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-057 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/privacy/retention.service.ts:210
-  Problema: Indício em apps/api/src/modules/privacy/retention.service.ts:210 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/fhir/service.ts:411
+  Problema: Indício em apps/api/src/modules/fhir/service.ts:411 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
 - TD-058 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/privacy/retention.service.ts:360
-  Problema: Indício em apps/api/src/modules/privacy/retention.service.ts:360 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
+  Localização: apps/api/src/modules/privacy/consent.service.ts:303
+  Problema: Indício em apps/api/src/modules/privacy/consent.service.ts:303 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
   Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
   Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
   VDI: 3.3 (ALTO)
@@ -725,24 +723,24 @@
   Esforço: 1-3 dias
 
 - TD-084 | Strings de interface hardcoded em superfície web
-  Localização: apps/web/app/(dashboard)/dashboard/page.tsx:6
-  Problema: Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 61 linhas com texto hardcoded na UI.
+  Localização: apps/web/app/(dashboard)/conversations/page.tsx:1
+  Problema: Identificado em apps/web/app/(dashboard)/conversations/page.tsx:1 um cluster de 81 linhas com texto hardcoded na UI.
   Impacto: Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.
   Solução recomendada: Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.
   VDI: 2.55 (MÉDIO)
   Esforço: 1-3 dias
 
 - TD-085 | Strings de interface hardcoded em superfície web
-  Localização: apps/web/app/(dashboard)/developers/apikeys/page.tsx:1
-  Problema: Identificado em apps/web/app/(dashboard)/developers/apikeys/page.tsx:1 um cluster de 44 linhas com texto hardcoded na UI.
+  Localização: apps/web/app/(dashboard)/dashboard/page.tsx:6
+  Problema: Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 109 linhas com texto hardcoded na UI.
   Impacto: Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.
   Solução recomendada: Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.
   VDI: 2.55 (MÉDIO)
   Esforço: 1-3 dias
 
 - TD-086 | Strings de interface hardcoded em superfície web
-  Localização: apps/web/app/(dashboard)/marketplace/compare/page.tsx:7
-  Problema: Identificado em apps/web/app/(dashboard)/marketplace/compare/page.tsx:7 um cluster de 12 linhas com texto hardcoded na UI.
+  Localização: apps/web/app/(dashboard)/developers/apikeys/page.tsx:1
+  Problema: Identificado em apps/web/app/(dashboard)/developers/apikeys/page.tsx:1 um cluster de 44 linhas com texto hardcoded na UI.
   Impacto: Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.
   Solução recomendada: Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.
   VDI: 2.55 (MÉDIO)
@@ -766,13 +764,13 @@
 
 ### Dimensão 8 — Maturidade Operacional e Multi-tenancy
 
-- TD-089 | Ausência de superfícies explícitas de interoperabilidade clínica padrão
-  Localização: packages/integrations/src/clients/http.ts:1
-  Problema: Há base de conectores genérica, mas a auditoria não encontrou superfícies FHIR/HL7 versionadas no HEAD atual.
-  Impacto: Para healthtech, isso limita integração operacional com ecossistema clínico e aumenta esforço por implantação.
-  Solução recomendada: Planejar uma camada clínica padronizada de interoperabilidade antes de escalar tenants enterprise.
-  VDI: 3.25 (ALTO)
-  Esforço: 1-2 semanas
+- TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano
+  Localização: artifacts/tenancy/rls-proof-head.json:1
+  Problema: A evidência fresca marca a prova runtime de RLS como "skipped-no-database", apesar de o audit estático de tenancy passar.
+  Impacto: Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.
+  Solução recomendada: Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.
+  VDI: 4.45 (CRÍTICO)
+  Esforço: 1-3 dias
 
 - TD-090 | Drill de disaster recovery não registrado no ciclo atual
   Localização: artifacts/dr/latest-drill.json:1
@@ -1691,7 +1689,7 @@
 ### Fase 0 — Estabilização (Semanas 1-2)
 
 - Objetivo: Resolver todos os itens VDI 4.0+ que bloqueiam segurança, isolamento de tenant ou funcionamento básico.
-- Itens de dívida: 0
+- Itens de dívida: 1
 - Itens de inovação: 0
 - Headcount recomendado: 2
 
@@ -1712,7 +1710,7 @@
 ### Fase 3 — Escala (Semanas 17-24)
 
 - Objetivo: Fortalecer multi-tenancy, billing avançado, interoperabilidade clínica e recuperabilidade.
-- Itens de dívida: 12
+- Itens de dívida: 11
 - Itens de inovação: 30
 - Headcount recomendado: 2
 
@@ -1726,28 +1724,27 @@
 
 ## 5. MATRIZ DE DEPENDÊNCIAS
 
-- Caminho crítico: TD-029 -> TD-001 -> TD-089
+- Caminho crítico: TD-089 -> TD-029 -> TD-001 -> TD-090
 - Nós mapeados: 22
-- Arestas mapeadas: 18
+- Arestas mapeadas: 17
 
-- TD-030 -> TD-031 (Debt dependency)
+- TD-029 -> TD-030 (Debt dependency)
+- TD-031 -> TD-032 (Debt dependency)
 - TD-054 -> TD-055 (Debt dependency)
 - TD-054 -> TD-056 (Debt dependency)
 - TD-054 -> TD-057 (Debt dependency)
 - TD-054 -> TD-058 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
-- TD-001 -> TD-003 (Debt dependency)
-- TD-001 -> TD-004 (Debt dependency)
-- TD-089 -> IN-001 (Scale foundation before innovation)
-- TD-089 -> IN-002 (Scale foundation before innovation)
-- TD-089 -> IN-003 (Scale foundation before innovation)
-- TD-089 -> IN-004 (Scale foundation before innovation)
-- TD-089 -> IN-005 (Scale foundation before innovation)
-- TD-089 -> IN-006 (Scale foundation before innovation)
-- TD-089 -> IN-007 (Scale foundation before innovation)
-- TD-089 -> IN-008 (Scale foundation before innovation)
-- TD-089 -> IN-009 (Scale foundation before innovation)
-- TD-089 -> IN-010 (Scale foundation before innovation)
+- TD-090 -> IN-001 (Scale foundation before innovation)
+- TD-090 -> IN-002 (Scale foundation before innovation)
+- TD-090 -> IN-003 (Scale foundation before innovation)
+- TD-090 -> IN-004 (Scale foundation before innovation)
+- TD-090 -> IN-005 (Scale foundation before innovation)
+- TD-090 -> IN-006 (Scale foundation before innovation)
+- TD-090 -> IN-007 (Scale foundation before innovation)
+- TD-090 -> IN-008 (Scale foundation before innovation)
+- TD-090 -> IN-009 (Scale foundation before innovation)
+- TD-090 -> IN-010 (Scale foundation before innovation)
 
 ## 6. GLOSSÁRIO TÉCNICO
 

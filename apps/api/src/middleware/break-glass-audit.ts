@@ -18,12 +18,13 @@ export function breakGlassAuditMiddleware(
     next();
     return;
   }
+  const auditedActorId = actorId;
 
   response.on("finish", () => {
     void prisma.auditLog.create({
       data: {
         action: "admin.break_glass.accessed",
-        actorId,
+        actorId: auditedActorId,
         diff: {
           after: {
             breakGlassGrantId: request.context.breakGlassGrantId,

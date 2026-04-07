@@ -221,6 +221,7 @@ void test("dashboard endpoints reject anonymous and insufficient-role access", a
   const app = createSecurityApp();
 
   await request(app).get("/api/v1/dashboard/metrics").expect(401);
+  await request(app).get("/api/v1/dashboard/clinical-summary").expect(401);
 
   const restores = [
     ...createSessionStubs({
@@ -233,6 +234,10 @@ void test("dashboard endpoints reject anonymous and insufficient-role access", a
   try {
     await request(app)
       .get("/api/v1/dashboard/metrics")
+      .set("Authorization", "Bearer atk_valid")
+      .expect(403);
+    await request(app)
+      .get("/api/v1/dashboard/clinical-summary")
       .set("Authorization", "Bearer atk_valid")
       .expect(403);
   } finally {

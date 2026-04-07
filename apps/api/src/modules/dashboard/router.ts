@@ -10,6 +10,7 @@ import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js"
 import {
   getDashboardAgentStatuses,
   getDashboardBillingSummary,
+  getDashboardClinicalSummary,
   getDashboardMetrics,
   getDashboardOnboarding,
   getDashboardRecentTasks
@@ -68,6 +69,14 @@ export function createDashboardRouter(): Router {
     asyncHandler(async (request, response) => {
       const { organizationId, tenantId } = requireContext(request);
       response.status(200).json(await getDashboardBillingSummary(organizationId, tenantId));
+    })
+  );
+
+  router.get(
+    "/api/v1/dashboard/clinical-summary",
+    asyncHandler(async (request, response) => {
+      const { organizationId, tenantId } = requireContext(request);
+      response.status(200).json(await getDashboardClinicalSummary(organizationId, tenantId));
     })
   );
 

@@ -15,6 +15,9 @@ import { hashPassword, randomToken } from "../auth/crypto.js";
 import { findOrganizationByReference } from "./service.js";
 
 const REDACTED_OUTPUT_CONTENT = "[REDACTED BY RETENTION POLICY]";
+const RETENTION_POLICY_PAGE_SIZE = 25;
+const RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE = 100;
+const RETENTION_SUSPENDED_USER_PAGE_SIZE = 100;
 
 const DEFAULT_RETENTION_POLICIES: Array<{
   action: RetentionAction;
@@ -60,6 +63,146 @@ function anonymizedEmail(userId: string): string {
 
 function redactedContentHash() {
   return createHash("sha256").update(REDACTED_OUTPUT_CONTENT, "utf8").digest("hex");
+}
+
+function buildIdCursor(cursorId?: string) {
+  return cursorId
+    ? {
+        cursor: {
+          id: cursorId
+        },
+        skip: 1
+      }
+    : {};
+}
+
+function sortPolicies<T extends { dataCategory: string; id: string }>(policies: T[]) {
+  return policies.sort(
+    (left, right) =>
+      left.dataCategory.localeCompare(right.dataCategory) || left.id.localeCompare(right.id)
+  );
+}
+
+async function listRetentionPoliciesPage(input: {
+  enabled?: boolean;
+  organizationId: string;
+  cursorId?: string;
+}) {
+  return prisma.dataRetentionPolicy.findMany({
+    ...buildIdCursor(input.cursorId),
+    orderBy: {
+      id: "asc"
+    },
+    take: RETENTION_POLICY_PAGE_SIZE,
+    where: {
+      organizationId: input.organizationId,
+      ...(input.enabled !== undefined ? { enabled: input.enabled } : {})
+    }
+  });
+}
+
+async function listRetentionPoliciesForOrganization(input: {
+  enabled?: boolean;
+  organizationId: string;
+}) {
+  const items: Awaited<ReturnType<typeof listRetentionPoliciesPage>> = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await listRetentionPoliciesPage({
+      enabled: input.enabled,
+      organizationId: input.organizationId,
+      cursorId
+    });
+    items.push(...page);
+
+    if (page.length < RETENTION_POLICY_PAGE_SIZE) {
+      return sortPolicies(items);
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listOrganizationsPage(cursorId?: string) {
+  return prisma.organization.findMany({
+    ...buildIdCursor(cursorId),
+    orderBy: {
+      id: "asc"
+    },
+    select: {
+      id: true,
+      tenantId: true
+    },
+    take: RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE
+  });
+}
+
+async function listOrganizationsForRetentionSweep() {
+  const organizations: Awaited<ReturnType<typeof listOrganizationsPage>> = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await listOrganizationsPage(cursorId);
+    organizations.push(...page);
+
+    if (page.length < RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE) {
+      return organizations;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listSuspendedUsersPage(input: {
+  organizationId: string;
+  cutoff: Date;
+  cursorId?: string;
+}) {
+  return prisma.user.findMany({
+    ...buildIdCursor(input.cursorId),
+    orderBy: {
+      id: "asc"
+    },
+    select: {
+      id: true
+    },
+    take: RETENTION_SUSPENDED_USER_PAGE_SIZE,
+    where: {
+      memberships: {
+        some: {
+          organizationId: input.organizationId
+        }
+      },
+      status: UserStatus.SUSPENDED,
+      suspendedAt: {
+        lte: input.cutoff
+      }
+    }
+  });
+}
+
+async function listSuspendedUsersForRetention(input: {
+  organizationId: string;
+  cutoff: Date;
+}) {
+  const users: Awaited<ReturnType<typeof listSuspendedUsersPage>> = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await listSuspendedUsersPage({
+      organizationId: input.organizationId,
+      cutoff: input.cutoff,
+      cursorId
+    });
+    users.push(...page);
+
+    if (page.length < RETENTION_SUSPENDED_USER_PAGE_SIZE) {
+      return users;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
 }
 
 async function ensureDefaultPolicies(input: {
@@ -196,18 +339,10 @@ async function executePolicy(input: {
       break;
     }
     case RetentionDataCategory.SUSPENDED_USERS: {
-      const where = {
-        memberships: {
-          some: {
-            organizationId: input.organizationId
-          }
-        },
-        status: UserStatus.SUSPENDED,
-        suspendedAt: {
-          lte: cutoff
-        }
-      };
-      const users = await prisma.user.findMany({ where });
+      const users = await listSuspendedUsersForRetention({
+        organizationId: input.organizationId,
+        cutoff
+      });
       scannedCount = users.length;
 
       if (input.mode !== RetentionExecutionMode.DRY_RUN && users.length > 0) {
@@ -287,13 +422,8 @@ export async function listRetentionPolicies(input: {
   });
 
   const [items, executions] = await Promise.all([
-    prisma.dataRetentionPolicy.findMany({
-      orderBy: {
-        dataCategory: "asc"
-      },
-      where: {
-        organizationId: organization.id
-      }
+    listRetentionPoliciesForOrganization({
+      organizationId: organization.id
     }),
     prisma.dataRetentionExecution.findMany({
       orderBy: {
@@ -357,12 +487,7 @@ export async function runRetentionSweep(input: {
 }) {
   const organizations = input.organizationReference
     ? [await resolveOrganization({ organizationReference: input.organizationReference })]
-    : await prisma.organization.findMany({
-        select: {
-          id: true,
-          tenantId: true
-        }
-      });
+    : await listOrganizationsForRetentionSweep();
 
   const results = [];
 
@@ -372,14 +497,9 @@ export async function runRetentionSweep(input: {
       tenantId: organization.tenantId
     });
 
-    const policies = await prisma.dataRetentionPolicy.findMany({
-      orderBy: {
-        dataCategory: "asc"
-      },
-      where: {
-        enabled: true,
-        organizationId: organization.id
-      }
+    const policies = await listRetentionPoliciesForOrganization({
+      enabled: true,
+      organizationId: organization.id
     });
 
     for (const policy of policies) {

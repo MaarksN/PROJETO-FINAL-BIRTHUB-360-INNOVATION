@@ -121,51 +121,140 @@ function buildCalendarEventConfig<TType extends "GOOGLE_EVENT" | "MS_EVENT">(
   };
 }
 
+async function executeAgentStep(
+  step: StepOf<"AGENT_EXECUTE">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeAgentNode(step.config, context, requireAgentExecutor(dependencies));
+}
+
+async function executeAgentHandoffStep(
+  step: StepOf<"AGENT_HANDOFF">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeAgentHandoffNode(
+    buildHandoffConfig(step.config),
+    context,
+    requireHandoffExecutor(dependencies)
+  );
+}
+
+async function executeAiTextExtractStep(
+  step: StepOf<"AI_TEXT_EXTRACT">,
+  context: WorkflowRuntimeContext
+) {
+  return executeAiTextExtractNode(step.config, context);
+}
+
+async function executeCodeStep(step: StepOf<"CODE">, context: WorkflowRuntimeContext) {
+  return executeCodeNode(step.config, context.steps, context);
+}
+
+async function executeConditionStep(step: StepOf<"CONDITION">, context: WorkflowRuntimeContext) {
+  return executeConditionNode(step.config, context);
+}
+
+async function executeCrmUpsertStep(
+  step: StepOf<"CRM_UPSERT">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeConnectorActionNode(
+    buildCrmUpsertConfig(step.config),
+    context,
+    requireConnectorExecutor(dependencies)
+  );
+}
+
+async function executeDelayStep(step: StepOf<"DELAY">) {
+  return executeDelayNode(step.config);
+}
+
+async function executeGoogleEventStep(
+  step: StepOf<"GOOGLE_EVENT">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeConnectorActionNode(
+    buildCalendarEventConfig("GOOGLE_EVENT", step.config),
+    context,
+    requireConnectorExecutor(dependencies)
+  );
+}
+
+async function executeHttpRequestStep(
+  step: StepOf<"HTTP_REQUEST">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeHttpRequestNode(step.config, context, dependencies.httpRequestRateLimiter);
+}
+
+async function executeMsEventStep(
+  step: StepOf<"MS_EVENT">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeConnectorActionNode(
+    buildCalendarEventConfig("MS_EVENT", step.config),
+    context,
+    requireConnectorExecutor(dependencies)
+  );
+}
+
+async function executeNotificationStep(
+  step: StepOf<"SEND_NOTIFICATION">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeNotificationNode(step.config, context, dependencies.notificationDispatcher);
+}
+
+async function executeTransformerStep(
+  step: StepOf<"TRANSFORMER">,
+  context: WorkflowRuntimeContext
+) {
+  return executeTransformerNode(step.config, context);
+}
+
+async function executeTriggerStep(
+  _step: StepOf<"TRIGGER_CRON" | "TRIGGER_EVENT" | "TRIGGER_WEBHOOK">,
+  context: WorkflowRuntimeContext
+) {
+  return context.trigger.output;
+}
+
+async function executeWhatsappSendStep(
+  step: StepOf<"WHATSAPP_SEND">,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) {
+  return executeConnectorActionNode(
+    buildWhatsappSendConfig(step.config),
+    context,
+    requireConnectorExecutor(dependencies)
+  );
+}
+
 const stepHandlers = {
-  AGENT_EXECUTE: async (step, context, dependencies) =>
-    executeAgentNode(step.config, context, requireAgentExecutor(dependencies)),
-  AGENT_HANDOFF: async (step, context, dependencies) =>
-    executeAgentHandoffNode(
-      buildHandoffConfig(step.config),
-      context,
-      requireHandoffExecutor(dependencies)
-    ),
-  AI_TEXT_EXTRACT: async (step, context) => executeAiTextExtractNode(step.config, context),
-  CODE: async (step, context) => executeCodeNode(step.config, context.steps, context),
-  CONDITION: async (step, context) => executeConditionNode(step.config, context),
-  CRM_UPSERT: async (step, context, dependencies) =>
-    executeConnectorActionNode(
-      buildCrmUpsertConfig(step.config),
-      context,
-      requireConnectorExecutor(dependencies)
-    ),
-  DELAY: async (step) => executeDelayNode(step.config),
-  GOOGLE_EVENT: async (step, context, dependencies) =>
-    executeConnectorActionNode(
-      buildCalendarEventConfig("GOOGLE_EVENT", step.config),
-      context,
-      requireConnectorExecutor(dependencies)
-    ),
-  HTTP_REQUEST: async (step, context, dependencies) =>
-    executeHttpRequestNode(step.config, context, dependencies.httpRequestRateLimiter),
-  MS_EVENT: async (step, context, dependencies) =>
-    executeConnectorActionNode(
-      buildCalendarEventConfig("MS_EVENT", step.config),
-      context,
-      requireConnectorExecutor(dependencies)
-    ),
-  SEND_NOTIFICATION: async (step, context, dependencies) =>
-    executeNotificationNode(step.config, context, dependencies.notificationDispatcher),
-  TRANSFORMER: async (step, context) => executeTransformerNode(step.config, context),
-  TRIGGER_CRON: async (_step, context) => context.trigger.output,
-  TRIGGER_EVENT: async (_step, context) => context.trigger.output,
-  TRIGGER_WEBHOOK: async (_step, context) => context.trigger.output,
-  WHATSAPP_SEND: async (step, context, dependencies) =>
-    executeConnectorActionNode(
-      buildWhatsappSendConfig(step.config),
-      context,
-      requireConnectorExecutor(dependencies)
-    )
+  AGENT_EXECUTE: executeAgentStep,
+  AGENT_HANDOFF: executeAgentHandoffStep,
+  AI_TEXT_EXTRACT: executeAiTextExtractStep,
+  CODE: executeCodeStep,
+  CONDITION: executeConditionStep,
+  CRM_UPSERT: executeCrmUpsertStep,
+  DELAY: executeDelayStep,
+  GOOGLE_EVENT: executeGoogleEventStep,
+  HTTP_REQUEST: executeHttpRequestStep,
+  MS_EVENT: executeMsEventStep,
+  SEND_NOTIFICATION: executeNotificationStep,
+  TRANSFORMER: executeTransformerStep,
+  TRIGGER_CRON: executeTriggerStep,
+  TRIGGER_EVENT: executeTriggerStep,
+  TRIGGER_WEBHOOK: executeTriggerStep,
+  WHATSAPP_SEND: executeWhatsappSendStep
 } satisfies { [TType in StepType]: StepHandler<TType> };
 
 export async function executeStep(

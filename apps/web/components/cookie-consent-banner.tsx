@@ -1,14 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
   fetchWithSession,
   getStoredSession
 } from "../lib/auth-client";
+import { getDictionary } from "../lib/i18n";
 import { useUserPreferencesStore } from "../stores/user-preferences-store";
 
 export function CookieConsentBanner() {
+  const copy = getDictionary();
   const hydrated = useUserPreferencesStore((state) => state.hydrated);
   const hydratePreferences = useUserPreferencesStore((state) => state.hydrate);
   const preferences = useUserPreferencesStore((state) => state.preferences);
@@ -70,10 +73,9 @@ export function CookieConsentBanner() {
       }}
     >
       <div style={{ display: "grid", gap: "0.35rem" }}>
-        <strong>Consentimento de analytics</strong>
+        <strong>{copy.consentBanner.title}</strong>
         <p style={{ color: "rgba(226,232,240,0.9)", margin: 0 }}>
-          Usamos telemetria sem PII para medir pageviews e execucao de agentes. Se voce rejeitar,
-          o tracker externo permanece desligado.
+          {copy.consentBanner.description}
         </p>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
@@ -85,7 +87,7 @@ export function CookieConsentBanner() {
           }}
           type="button"
         >
-          Aceitar analytics
+          {copy.consentBanner.accept}
         </button>
         <button
           className="ghost-button"
@@ -100,8 +102,20 @@ export function CookieConsentBanner() {
           }}
           type="button"
         >
-          Rejeitar
+          {copy.consentBanner.reject}
         </button>
+        <Link
+          href="/settings/privacy"
+          style={{
+            alignItems: "center",
+            color: "#f8fafc",
+            display: "inline-flex",
+            fontWeight: 600,
+            textDecoration: "none"
+          }}
+        >
+          {copy.consentBanner.settings}
+        </Link>
       </div>
     </aside>
   );

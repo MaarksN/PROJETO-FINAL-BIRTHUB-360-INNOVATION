@@ -1,7 +1,7 @@
 # Fase 0 — Diagnóstico Operacional e Baseline
 
 ## Objetivo do ciclo
-Validar o estado real do monorepo no `HEAD` de 2026-04-07, confirmar ou refutar os itens mais sensíveis do relatório, materializar o baseline inicial de risco e definir a sequência exata das próximas fases.
+Reconciliar o baseline da Fase 0 com o worktree atual de 2026-04-07, distinguindo bloqueios já fechados no core canônico dos riscos que continuam abertos para governança, segurança operacional e evidência de release.
 
 ## Itens do relatório atacados
 - [x] `TD-001` do relatório master: refresh token store em memória
@@ -12,51 +12,47 @@ Validar o estado real do monorepo no `HEAD` de 2026-04-07, confirmar ou refutar 
 - [x] `TD-031`, `TD-032`, `TD-033`, `TD-035`, `TD-037`, `TD-038`
 
 ## Leitura do estado atual
-- Existe um monorepo real com `apps/*`, `apps/legacy/*` e `packages/*`, com core canônico documentado em `docs/service-catalog.md`.
-- O core de runtime está concentrado em `apps/web`, `apps/api`, `apps/worker` e `packages/database`.
-- `apps/legacy/dashboard` segue versionado e `apps/dashboard` hoje não é uma aplicação de runtime; ele contém apenas bibliotecas (`lib/dashboard-data.ts`, `lib/dashboard-static-snapshot.ts`).
-- O frontend em `apps/web` possui superfícies de detalhe para workflows (`/(dashboard)/workflows/[id]/edit`, `/(dashboard)/workflows/[id]/revisions`, `/(dashboard)/workflows/[id]/runs`), mas não possui `app/(dashboard)/page.tsx` nem `app/(dashboard)/workflows/page.tsx`.
-- O backend possui rota real para listar workflows em `apps/api/src/modules/workflows/router.ts` (`GET /api/v1/workflows`), o que contradiz a ausência de uma listagem canônica no frontend.
-- O schema Prisma existe em `packages/database/prisma/schema.prisma` com 1170 linhas, migrations versionadas e `migration-registry.json`.
-- O domínio persistido é majoritariamente operacional/SaaS (`Organization`, `Workflow`, `WorkflowExecution`, billing, notifications, connectors, audit), sem modelos explícitos materno-infantis no schema atual.
-- `.env.example` cobre superfície relevante de segurança e operação: CSP, cookies seguros, CSRF, rate limit, Redis, Stripe, SendGrid, HubSpot, Google e Microsoft.
-- Headers de segurança existem nos dois lados: Helmet na API e CSP/HSTS/X-Frame-Options/Referrer-Policy no Next.js.
-- Há UI e API de privacidade/LGPD (`/settings/privacy`, `/api/v1/privacy`) e banner de consentimento de analytics, mas isso não substitui prova de isolamento multi-tenant em runtime.
-- Há sinais fortes de PT-BR (`lang="pt-BR"`, `toLocaleString("pt-BR")`, manifest com `lang: pt-BR`), porém não foi localizada uma camada formal de i18n como `next-intl`, `react-intl` ou `i18next`.
-- O pipeline de CI executa lint, typecheck, test, test:isolation, build, suite de segurança, suite RBAC e workflow-suite com Postgres e Redis efêmeros; porém ainda existem testes que fazem `skip` quando não há banco real ou contexto externo.
+- O monorepo continua real e operacional, com `apps/web`, `apps/api`, `apps/worker` e `packages/database` como core canônico segundo `docs/service-catalog.md`.
+- O frontend principal em `apps/web` agora comprova navegação canônica para `/dashboard` e `/workflows`, além de superfícies clínicas para `/patients` e `/appointments`.
+- `apps/web/app/page.tsx` redireciona para `/dashboard` quando há sessão local e para `/login` quando não há.
+- A API mantém superfícies reais para workflows, dashboard, sessões e também para o domínio clínico em `/patients`, `/appointments` e `/clinical-notes`.
+- O schema Prisma materializa tanto o domínio operacional quanto o domínio clínico materno-infantil (`Patient`, `PregnancyRecord`, `Appointment`, `ClinicalNote`, `NeonatalRecord`).
+- A lacuna anterior de RLS em `workflow_revisions` foi fechada e a prova runtime atual de tenant isolation está suficiente.
+- A autenticação do runtime canônico da API é persistida em banco via `prisma.session`, com hash de access token e refresh token; o `Map` em `packages/auth` permanece como dívida localizada de pacote, sem evidência de wiring no core.
+- Segurança, LGPD e postura PT-BR continuam presentes; a maior abertura remanescente está em governança de dívida, endurecimento de CD e evidência de segurança menos condicional.
 
 ## Decisões arquiteturais
 - Tratar `docs/service-catalog.md` como fonte canônica de fronteiras operacionais.
-- Tratar `apps/web` como frontend canônico de produto.
-- Tratar `apps/legacy/dashboard` como legado/quarentena e `apps/dashboard` como biblioteca auxiliar, não como superfície válida para fechar o checklist de dashboard home.
-- Separar o catálogo de dívida em duas fontes até a renumeração ser saneada:
-  - Bloqueadores de go-live: `audit/RELATORIO_DIVIDA_TECNICA_MASTER.md`
-  - Backlog estrutural atual: `audit/.auditor-prime/2026-04-07/03-scored-report.json`
-- Considerar `TD-001` a `TD-008` como ambíguos sem uma tabela de mapeamento, porque os mesmos IDs foram reutilizados para problemas diferentes.
-- Considerar a plataforma em `RED` enquanto existirem, ao mesmo tempo, lacuna de RLS em `workflow_revisions`, prova runtime de isolamento não fechada e ausência de superfícies canônicas de dashboard/workflow list no frontend principal.
+- Tratar o runtime canônico apenas por `apps/web`, `apps/api`, `apps/worker` e `packages/database`; código isolado fora desse fluxo não fecha finding de produção por si só.
+- Reclassificar `TD-001` do relatório master como:
+  - refutado no runtime principal
+  - confirmado apenas como dívida localizada em `packages/auth`
+- Reclassificar `TD-002` do relatório master como refutado no worktree atual, porque a prova estática e runtime agora fecha com `sufficient: true`.
+- Manter dois catálogos de dívida até renumeração formal:
+  - bloqueadores históricos/go-live: `audit/RELATORIO_DIVIDA_TECNICA_MASTER.md`
+  - backlog estrutural atual: `audit/.auditor-prime/2026-04-07/03-scored-report.json`
+- Mover o status global de `RED` para `YELLOW`, porque os bloqueios de tenancy, navegação canônica e auth durável no core já não sustentam mais um baseline vermelho.
 
 Alternativas descartadas:
-- Considerar `apps/dashboard` como “dashboard home” do produto.
-- Considerar `TD-001` a `TD-008` do auditor-prime como equivalentes aos `TD-001` a `TD-008` do relatório master.
-- Considerar o problema de schema drift ainda ativo no `HEAD` atual sem revalidar o artefato fresco.
+- Continuar tratando ausência de dashboard home e workflow list como fato atual.
+- Continuar tratando ausência de domínio clínico como fato atual.
+- Continuar tratando `packages/auth/index.ts` como prova suficiente de falha do runtime principal sem evidência de dependência ou import no core.
 
 Justificativa:
-- Essas três leituras falseariam o baseline e esconderiam divergências concretas entre documentação, código e artefatos atuais.
+- Essas três leituras ficaram desatualizadas em relação ao estado atual do repositório e distorciam a priorização do próximo ciclo.
 
 ## Plano executável
-- Passo 1: congelar a taxonomia canônica do ciclo, separando claramente relatório master e auditor-prime.
-- Passo 2: fechar o bloqueador de isolamento multi-tenant, adicionando RLS em `workflow_revisions` e rerodando a prova runtime com banco acessível.
-- Passo 3: substituir o refresh token store em memória por persistência durável compartilhada.
-- Passo 4: decidir o caminho canônico para dashboard home e workflow list no `apps/web`; implementar ou despublicar explicitamente.
-- Passo 5: endurecer `cd.yml` e fechar warnings de segurança com evidência fresca versionada.
-- Passo 6: atacar backlog estrutural de complexidade, `process.env` fora do boundary de config e usos de `any`.
-- Passo 7: só depois abrir Fase 3 de domínio clínico, porque o schema atual ainda não materializa o domínio materno-infantil prometido.
+- Passo 1: congelar o baseline reconciliado da Fase 0 com status `YELLOW`.
+- Passo 2: abrir ciclo de governança para tabela oficial de mapeamento entre relatório master e auditor-prime.
+- Passo 3: abrir ciclo de segurança de release para endurecer `cd.yml`, reduzir condicionalidade de DAST e publicar evidência fresca do ciclo.
+- Passo 4: abrir ciclo de limpeza arquitetural para remover, deprecar ou reimplementar `packages/auth` de forma coerente com a estratégia DB-backed do runtime.
+- Passo 5: abrir ciclo de consolidação clínica para validar ponta a ponta schema, API, UI e testes das superfícies de pacientes, consultas, gestação e notas clínicas.
 
 ## Arquivos impactados
 - criar:
-  - `docs/F0/diagnostico-operacional-baseline-2026-04-07.md`
+  - nenhum
 - alterar:
-  - nenhum arquivo de runtime neste ciclo diagnóstico
+  - `docs/F0/diagnostico-operacional-baseline-2026-04-07.md`
 - remover:
   - nenhum
 
@@ -81,49 +77,35 @@ Justificativa:
 | `infra/` | existe com `cloudrun`, `docker`, `k8s`, `monitoring`, `terraform` | árvore real do repositório |
 | `docs/` | existe com áreas operacionais, arquitetura, release, security, workflows e `F0` | árvore real do repositório |
 | `apps/legacy/dashboard` | ainda presente | `docs/service-catalog.md`, diretório `apps/legacy/dashboard` |
-| `apps/dashboard` | não é app de runtime; contém só `lib/*.ts` | `apps/dashboard/lib/dashboard-data.ts`, `apps/dashboard/lib/dashboard-static-snapshot.ts` |
+| `apps/dashboard` | segue sem papel de app principal de runtime | `apps/dashboard/lib/*` |
 
 ### 2. Rotas reais do frontend
 
-Superfícies confirmadas em `apps/web/app`:
-- `/login`
-- `/pricing`
-- `/legal/privacy`
-- `/legal/terms`
-- `/billing/success`
-- `/billing/cancel`
-- `/invites/accept`
-- `/admin/dashboard`
-- `/admin/analytics`
-- `/admin/cs`
-- `/(dashboard)/agents`
-- `/(dashboard)/billing`
-- `/(dashboard)/marketplace`
-- `/(dashboard)/outputs`
-- `/(dashboard)/packs`
-- `/(dashboard)/profile/notifications`
-- `/(dashboard)/profile/security`
-- `/(dashboard)/settings/audit`
-- `/(dashboard)/settings/billing`
-- `/(dashboard)/settings/developers/webhooks`
-- `/(dashboard)/settings/members`
-- `/(dashboard)/settings/privacy`
-- `/(dashboard)/settings/security`
-- `/(dashboard)/settings/team`
-- `/(dashboard)/settings/users`
-- `/(dashboard)/workflows/[id]/edit`
-- `/(dashboard)/workflows/[id]/revisions`
-- `/(dashboard)/workflows/[id]/runs`
+Superfícies canônicas confirmadas em `apps/web/app`:
+- `/dashboard`
+- `/workflows`
+- `/patients`
+- `/patients/[id]`
+- `/appointments`
+- `/reports`
+- `/analytics`
+- `/notifications`
+- `/settings/privacy`
+- `/settings/security`
+- `/settings/team`
+- `/settings/users`
+- `/workflows/[id]/edit`
+- `/workflows/[id]/revisions`
+- `/workflows/[id]/runs`
 
-Lacunas confirmadas:
-- `apps/web/app/(dashboard)/page.tsx`: inexistente
-- `apps/web/app/(dashboard)/workflows/page.tsx`: inexistente
-- `apps/web/app/page.tsx` redireciona apenas para `/login`
+Comportamento de entrada confirmado:
+- `apps/web/app/page.tsx` redireciona para `/dashboard` quando existe sessão persistida no cliente.
+- `apps/web/app/page.tsx` redireciona para `/login` quando não existe sessão.
 
 Leitura operacional:
-- Existe detalhe de workflow, mas não existe home canônica do dashboard no app principal.
-- Existe detalhe de workflow, mas não existe listagem canônica de workflows no app principal.
-- Isso contradiz um produto minimamente navegável via `apps/web` sem deep links.
+- A ausência anterior de dashboard home no frontend principal está refutada.
+- A ausência anterior de workflow list canônica no frontend principal está refutada.
+- O frontend principal já expõe também superfícies clínicas iniciais, o que refuta a tese de “produto apenas operacional/SaaS” em termos absolutos.
 
 ### 3. Rotas reais da API
 
@@ -141,30 +123,52 @@ Mounts principais confirmados em `apps/api/src/app/module-routes.ts`:
 - `/api/v1/outputs`
 - `/api/v1/privacy`
 - `/api/v1/workflows`
-- superfícies adicionais para sessões, invites, notifications, organizations, users e webhooks
+- `/api/v1/patients`
+- `/api/v1/appointments`
+- `/api/v1/clinical-notes`
 
-Rotas de workflow confirmadas:
-- `GET /api/v1/workflows`
-- `POST /api/v1/workflows`
-- `GET /api/v1/workflows/:id`
-- `PUT /api/v1/workflows/:id`
-- `DELETE /api/v1/workflows/:id`
-- `POST /api/v1/workflows/:id/run`
-- `GET /api/v1/workflows/:id/executions/lineage`
+Rotas clínicas confirmadas em `apps/api/src/modules/clinical/router.ts`:
+- `GET /api/v1/patients`
+- `POST /api/v1/patients`
+- `GET /api/v1/patients/:id`
+- `PATCH /api/v1/patients/:id`
+- `DELETE /api/v1/patients/:id`
+- `POST /api/v1/patients/:id/pregnancy-records`
+- `POST /api/v1/patients/:id/neonatal-records`
+- `GET /api/v1/appointments`
+- `POST /api/v1/appointments`
+- `GET /api/v1/appointments/:id`
+- `PATCH /api/v1/appointments/:id`
+- `DELETE /api/v1/appointments/:id`
+- `GET /api/v1/clinical-notes`
+- `POST /api/v1/clinical-notes`
+- `PATCH /api/v1/clinical-notes/:noteGroupId`
+- `DELETE /api/v1/clinical-notes/:noteGroupId`
 
 Conclusão:
-- A API já oferece superfície canônica para listagem de workflows.
-- O desalinhamento está hoje principalmente no frontend principal.
+- O core de API hoje já atende tanto o domínio operacional quanto o domínio clínico inicial.
+- O gap atual não é ausência de rotas, e sim governança, evidência e cobertura de maturidade.
 
 ### 4. Banco, schema e migrations
 
-- `packages/database/prisma/schema.prisma` existe e tem 1170 linhas.
-- Existem migrations versionadas de `20260313000100_cycle1_foundation` até `20260402000100_cycle12_ci_schema_alignment`.
-- O schema contém `Workflow`, `WorkflowStep`, `WorkflowTransition`, `WorkflowRevision` e `WorkflowExecution`.
-- O schema não materializa modelos clínicos explícitos como gravidez, gestante, parto, recém-nascido, cuidado materno ou infantil.
-- Isso indica que o produto ainda está modelado mais como plataforma operacional multi-tenant do que como healthtech materno-infantil de domínio profundo.
+- `packages/database/prisma/schema.prisma` existe, segue grande e central, e materializa o domínio operacional.
+- O mesmo schema agora também materializa entidades clínicas explícitas:
+  - `Patient`
+  - `PregnancyRecord`
+  - `Appointment`
+  - `ClinicalNote`
+  - `NeonatalRecord`
+- Existe migration dedicada para alinhar RLS de `workflow_revisions`.
+- O artefato `artifacts/tenancy/rls-proof-head.json` registra:
+  - `PASS workflow_revisions`
+  - `runtimeProof.status = passed`
+  - `sufficient = true`
 
-### 5. Segurança, LGPD, i18n e testes
+Leitura:
+- A lacuna de isolamento multi-tenant anteriormente aberta em `workflow_revisions` não permanece como bloqueio atual.
+- O domínio materno-infantil já entrou no schema; o próximo debate deixa de ser “existe ou não existe” e passa a ser “qual a profundidade e a cobertura operacional real”.
+
+### 5. Segurança, auth, LGPD, i18n e testes
 
 - API com Helmet e CSP em `apps/api/src/app/core.ts`.
 - Web com CSP/HSTS/X-Frame-Options/Referrer-Policy em `apps/web/next.config.mjs`.
@@ -172,37 +176,53 @@ Conclusão:
   - `/settings/privacy`
   - `/api/v1/privacy`
   - banner de consentimento de analytics
-- PT-BR confirmado por `lang="pt-BR"` e formatação local, mas sem camada formal de i18n detectada.
-- CI real existe e sobe Postgres/Redis para várias lanes.
-- Ainda existem `skip`s condicionais em testes dependentes de banco/contexto externo.
+- PT-BR segue explícito em layout, manifest e formatações.
+- Não foi localizada camada formal de i18n como `next-intl`, `react-intl` ou `i18next`.
+- O runtime canônico de sessão é DB-backed:
+  - `apps/api/src/modules/auth/auth.service.sessions.ts` cria sessão em `prisma.session`
+  - persiste `token` com hash
+  - persiste `refreshTokenHash`
+  - faz rotação de refresh token por nova sessão
+- `packages/auth/index.ts` ainda contém `Map` local para refresh tokens, mas:
+  - `apps/api/package.json` não declara dependência de `@birthub/auth`
+  - `apps/web/package.json` não declara dependência de `@birthub/auth`
+  - `apps/worker/package.json` não declara dependência de `@birthub/auth`
+  - a busca por imports em `apps/api`, `apps/web` e `apps/worker` não retornou uso de `@birthub/auth` ou `createAuthService`
+- CI real continua robusta, mas ainda há pontos de fragilidade:
+  - testes que fazem `skip` sem banco/contexto externo
+  - DAST condicional a `ZAP_TARGET_URL`
+  - hardening de CD ainda pendente
 
-### 6. Contradições relevantes entre relatório e código real
+### 6. Contradições relevantes entre baseline anterior e código real
 
-- O relatório master diz que `TD-003` é drift de schema bloqueando; o artefato atual de drift está em `PASS`.
-- O relatório master usa `TD-001` e `TD-002` para riscos operacionais de auth/RLS; o auditor-prime atual reutiliza `TD-001` e `TD-002` para hotspots arquiteturais completamente diferentes.
-- O frontend principal não comprova dashboard home nem workflow list, embora a API e os detalhes de workflow existam.
-- Há UI de LGPD/consentimento, mas a prova forte de isolamento multi-tenant segue insuficiente.
+- A leitura anterior de “`workflow_revisions` sem RLS” está superada.
+- A leitura anterior de “runtime proof não fechada” está superada.
+- A leitura anterior de “dashboard home ausente” está superada.
+- A leitura anterior de “workflow list ausente” está superada.
+- A leitura anterior de “domínio materno-infantil ausente do schema” está superada.
+- A leitura anterior de “refresh token em memória bloqueando o runtime principal” não se sustenta com a arquitetura atualmente ligada no core.
+- A colisão de IDs `TD-001` a `TD-008` entre catálogos continua real e ainda distorce priorização.
 
 ### 7. O que bloqueia avanço imediato
 
-- `packages/auth/index.ts` ainda mantém refresh token store em `Map` local.
-- `artifacts/tenancy/rls-proof-head.json` aponta `runtimeProof.status = skipped-no-database`.
-- O mesmo artefato registra `FAIL workflow_revisions` por política RLS ausente.
-- Não há home do dashboard nem workflow list canônica em `apps/web`.
-- O catálogo de dívida não é estável: o mesmo ID significa coisas diferentes em relatórios diferentes.
+- Não existe ainda uma tabela oficial de mapeamento entre relatório master e auditor-prime.
+- `cd.yml` continua com pontos de endurecimento pendentes.
+- O baseline de DAST ainda depende de configuração opcional e não fecha evidência invariável do ciclo.
+- Parte da evidência de maturidade continua dispersa entre artefatos, docs e workflows.
+- `packages/auth` permanece como dívida arquitetural residual e fonte provável de falso positivo em auditorias futuras se não for saneado.
 
 ### 8. Confirmação/refutação do relatório master (`audit/RELATORIO_DIVIDA_TECNICA_MASTER.md`)
 
 | ID | Status | Evidência principal | Leitura |
 |---|---|---|---|
-| TD-001 | CONFIRMADO | `packages/auth/index.ts:21` | `refreshStore` continua em memória, sem durabilidade ou compartilhamento entre instâncias. |
-| TD-002 | CONFIRMADO COM DESVIO | `packages/database/test/rls.test.ts`, `artifacts/tenancy/rls-proof-head.json:8` | O risco de isolamento permanece aberto, mas o sintoma atual não é “teste falhando” e sim prova runtime não fechada + `workflow_revisions` sem RLS. |
-| TD-003 | REFUTADO NO HEAD ATUAL | `artifacts/database/f8/schema-drift-report.txt:1`, `packages/database/scripts/check-schema-drift.ts` | O artefato fresco atual está em `PASS`; o risco restante é operacional, porque o check pode ser pulado sem `DATABASE_URL`. |
-| TD-004 | AMBÍGUO | ausência de definição no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
-| TD-005 | AMBÍGUO | ausência de definição no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
-| TD-006 | AMBÍGUO | ausência de definição no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
-| TD-007 | AMBÍGUO | ausência de definição no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
-| TD-008 | AMBÍGUO | ausência de definição no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
+| TD-001 | REFUTADO NO CORE / CONFIRMADO EM PACOTE ISOLADO | `apps/api/src/modules/auth/auth.service.sessions.ts`, `apps/api/package.json`, `packages/auth/index.ts` | O runtime principal persiste sessão e refresh token em banco; o `Map` em memória existe, mas sem evidência de wiring no core canônico. |
+| TD-002 | REFUTADO NO WORKTREE ATUAL | `packages/database/prisma/migrations/20260407000100_workflow_revisions_rls_alignment/migration.sql`, `artifacts/tenancy/rls-proof-head.json` | O risco tratado pelo item foi fechado na fotografia atual: `workflow_revisions` está em `PASS` e a prova runtime está suficiente. |
+| TD-003 | REFUTADO NO HEAD ATUAL | `artifacts/database/f8/schema-drift-report.txt:1`, `packages/database/scripts/check-schema-drift.ts` | O artefato fresco atual está em `PASS`; o risco remanescente é mais de governança operacional que de drift confirmado. |
+| TD-004 | AMBÍGUO | ausência de definição estável no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
+| TD-005 | AMBÍGUO | ausência de definição estável no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
+| TD-006 | AMBÍGUO | ausência de definição estável no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
+| TD-007 | AMBÍGUO | ausência de definição estável no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
+| TD-008 | AMBÍGUO | ausência de definição estável no relatório master + reutilização no auditor-prime | Não há definição estável do item neste catálogo. |
 
 ### 9. Confirmação do backlog estrutural atual (`audit/.auditor-prime/2026-04-07/03-scored-report.json`)
 
@@ -215,7 +235,7 @@ Conclusão:
 | TD-005 | CONFIRMADO | `apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17` | página de runs complexa |
 | TD-006 | CONFIRMADO | `apps/worker/src/agents/conversations.ts:57` | função de conversa complexa |
 | TD-007 | CONFIRMADO | `docs/service-catalog.md`, `apps/legacy/dashboard` | legado ainda convive com o core |
-| TD-008 | CONFIRMADO | `packages/database/prisma/schema.prisma` | schema central grande e concentrado |
+| TD-008 | CONFIRMADO | `packages/database/prisma/schema.prisma` | schema central segue grande e concentrado |
 | TD-018 | CONFIRMADO | `packages/database/scripts/check-schema-drift.ts:9` | `process.env` fora de camada única de config |
 | TD-020 | CONFIRMADO | `apps/worker/src/engine/runner.db-integration.harness.ts:4` | harness lê `WORKFLOW_TEST_*` diretamente de `process.env` |
 | TD-021 | CONFIRMADO | `packages/integrations/src/clients/fiscal.ts:63` | uso de `postJson<any>` em runtime |
@@ -224,85 +244,78 @@ Conclusão:
 | TD-031 | CONFIRMADO | `.github/workflows/cd.yml:4`, `.github/workflows/cd.yml:68` | workflow usa `workflow_run` e checkout do SHA vindo do run anterior |
 | TD-032 | CONFIRMADO | `.github/workflows/cd.yml:181`, `.github/workflows/cd.yml:195` | mesmo padrão reaparece na etapa de SBOM/release |
 | TD-033 | CONFIRMADO | `packages/database/scripts/lib/prisma-schema.ts:40` | regex construída dinamicamente |
-| TD-035 | CONFIRMADO COM CONTEXTO | `apps/worker/src/worker.job-validation.test.ts:47` | finding existe, mas está em arquivo de teste; não é o mesmo peso de um secret runtime |
+| TD-035 | CONFIRMADO COM CONTEXTO | `apps/worker/src/worker.job-validation.test.ts:47` | finding existe, mas está em arquivo de teste; não tem o mesmo peso de um secret runtime |
 | TD-037 | CONFIRMADO COMO GAP DE EVIDÊNCIA | `.github/workflows/security-scan.yml` | existe esqueleto de ZAP, mas roda só se `ZAP_TARGET_URL` estiver configurada |
-| TD-038 | PARCIAL | `.github/workflows/security-scan.yml` | Semgrep roda no pipeline, mas o pacote soberano do ciclo não expõe baseline JSON fresca como artefato canônico de F0 |
+| TD-038 | PARCIAL | `.github/workflows/security-scan.yml` | Semgrep roda no pipeline, mas o pacote soberano do ciclo ainda não publica baseline única e fresca de segurança em F0 |
 
 ## B. Decisões arquiteturais
 
-### Caminhos canônicos propostos
+### Caminhos canônicos consolidados
 
 - Frontend de produto: `apps/web`
 - Backend de negócio: `apps/api`
 - Worker assíncrono: `apps/worker`
 - Banco/schema/migrations: `packages/database`
 - Legado: `apps/legacy/dashboard`
-- App auxiliar sem papel de runtime: `apps/dashboard`
 - Fonte canônica de fronteiras: `docs/service-catalog.md`
-- Fonte canônica de bloqueadores de go-live deste ciclo: `audit/RELATORIO_DIVIDA_TECNICA_MASTER.md`
+- Fonte canônica de bloqueadores históricos: `audit/RELATORIO_DIVIDA_TECNICA_MASTER.md`
 - Fonte canônica de backlog estrutural atual: `audit/.auditor-prime/2026-04-07/03-scored-report.json`
 
-### Definição clara do que impede sair de RED
+### Definição clara do que impede sair de YELLOW para GREEN
 
-Para sair de `RED`, o repositório precisa fechar simultaneamente:
-- RLS de `workflow_revisions`
-- prova runtime de isolamento com banco acessível no ciclo atual
-- persistência durável de refresh tokens
-- definição explícita do dashboard home e workflow list canônicos no `apps/web`
-- tabela oficial de mapeamento entre relatório master e auditor-prime, ou renumeração única
+Para sair de `YELLOW`, o repositório precisa fechar simultaneamente:
+- tabela oficial de mapeamento ou renumeração única dos TDs
+- endurecimento de `cd.yml`
+- baseline de segurança menos condicional, com evidência fresca de ciclo
+- saneamento ou depreciação explícita de `packages/auth`
+- validação fresca de CI e staging para o recorte canônico do produto
 
 ## C. Plano executável do ciclo atual
 
-1. Congelar este baseline como documento canônico de Fase 0.
-2. Abrir ciclo curto de remediação de tenancy:
-   - adicionar política RLS para `workflow_revisions`
-   - rerodar prova estática e runtime com DB real
-3. Abrir ciclo curto de auth:
-   - substituir `Map` local por store durável
-4. Abrir ciclo curto de navegação canônica:
-   - criar `app/(dashboard)/page.tsx`
-   - criar `app/(dashboard)/workflows/page.tsx`
-   - ou, se a decisão for outra, ajustar docs/runbooks para refletir a ausência
-5. Abrir ciclo curto de governança:
-   - renumerar ou mapear formalmente os TDs conflitantes
-6. Fechar segurança de pipeline e evidência:
+1. Congelar este baseline reconciliado como documento canônico de Fase 0.
+2. Abrir ciclo curto de governança:
+   - mapear IDs do relatório master contra auditor-prime
+   - publicar tabela oficial de equivalência ou renumerar
+3. Abrir ciclo curto de segurança de release:
    - revisar `cd.yml`
    - tornar DAST menos condicional
-   - publicar baseline SAST/DAST como artefato do ciclo
-7. Só então entrar em Fase 2/Fase 3 de refactor e domínio clínico
+   - consolidar artefato canônico de segurança do ciclo
+4. Abrir ciclo curto de auth package hygiene:
+   - remover ou deprecar `packages/auth`
+   - alinhar auditorias para o fluxo DB-backed real
+5. Abrir ciclo curto de consolidação clínica:
+   - validar ponta a ponta API/UI/testes para pacientes, gestação, consultas e notas
 
 Sequência exata recomendada:
-1. tenancy/RLS
-2. auth durável
-3. catálogo de dívida canônico
-4. dashboard/workflows canônicos
-5. pipeline de segurança
-6. refactors estruturais
-7. expansão de domínio materno-infantil
+1. governança de catálogo TD
+2. segurança de release/CD
+3. saneamento de `packages/auth`
+4. consolidação clínica ponta a ponta
+5. backlog estrutural de complexidade e `any`
 
 ## D. Implementação
 
-- Este ciclo implementou o baseline documental da Fase 0.
+- Este ciclo atualizou o baseline documental da Fase 0 para refletir o runtime real do worktree atual.
+- Os achados de tenancy, dashboard home, workflow list, auth durável e domínio clínico foram reclassificados com evidência fresca.
 - Nenhum arquivo de runtime foi alterado nesta rodada.
-- O principal resultado produzido é uma leitura unificada, rastreável e acionável do estado real do repositório.
 
 ## E. Validação
 
 ### Local
-- [x] Estrutura real de `apps/`, `packages/`, `infra/`, `docs/` auditada
-- [x] `schema.prisma`, migrations e artefatos de drift/RLS auditados
-- [x] Rotas reais do frontend e da API auditadas
-- [x] Dashboard home e workflow list validados como ausentes no `apps/web`
-- [x] Modelos materno-infantis explícitos validados como ausentes no schema atual
-- [x] `.env.example`, CSP e headers de segurança auditados
-- [x] CI auditada com distinção entre testes reais e `skip`s condicionais
-- [x] legado, PT-BR e fluxos LGPD/consentimento auditados
+- [x] Rotas reais do frontend revalidadas
+- [x] Rotas reais da API revalidadas
+- [x] `schema.prisma` e migrations revalidados
+- [x] Prova de tenancy/RLS revalidada como suficiente
+- [x] Sessões DB-backed revalidadas no runtime da API
+- [x] Ausência de dependência/import de `@birthub/auth` no core canônico revalidada
+- [x] Superfícies clínicas em schema, API e frontend confirmadas
+- [x] Catálogo canônico de serviços revisitado
 
 ### CI
 - [ ] validação em CI concluída
 
 Observação:
-- O pipeline versionado existe e é robusto, mas não foi reexecutado integralmente neste ciclo diagnóstico.
+- O pipeline versionado continua presente, mas não foi reexecutado integralmente nesta rodada documental.
 
 ### Staging
 - [ ] validação em staging concluída
@@ -314,20 +327,20 @@ Observação:
 
 | Dimensão | Status | Justificativa |
 |---|---|---|
-| Risco de produção | ALTO | auth sem store durável, dashboard/workflows canônicos incompletos |
-| Risco de segurança | ALTO | `workflow_revisions` sem RLS + warnings de CD + evidência DAST incompleta |
-| Risco regulatório | ALTO | LGPD de UI existe, mas isolamento multi-tenant ainda não está comprovado ponta a ponta |
-| Risco de produto | ALTO | ausência de dashboard home, ausência de workflow list e ausência de domínio materno-infantil explícito |
-| Risco operacional | ALTO | colisão de IDs de dívida e dependência de evidência parcialmente dispersa |
+| Risco de produção | MÉDIO | core canônico já tem home, workflow list, tenancy proof e auth durável; faltam evidência fresca e governança de release |
+| Risco de segurança | MÉDIO | RLS fechou no runtime atual, mas CD/DAST e baseline canônica de segurança ainda precisam endurecimento |
+| Risco regulatório | MÉDIO | LGPD e isolamento multi-tenant estão melhor posicionados, porém sem fechamento fresco de staging |
+| Risco de produto | MÉDIO | domínio clínico, dashboard e workflows já existem; o gap agora é profundidade, cobertura e maturidade |
+| Risco operacional | ALTO | colisão de IDs de dívida e evidência ainda dispersa continuam atrapalhando priorização e governança |
 
 ## F. Status
-- [x] RED
+- [ ] RED
 - [ ] BLUE
-- [ ] YELLOW
+- [x] YELLOW
 - [ ] GREEN
 
 Resumo final:
-- O monorepo é real, grande e operacional.
-- O core canônico existe.
-- O produto não está pronto para sair de `RED`.
-- O maior bloqueio não é falta de código; é desalinhamento entre catálogo de dívida, prova de isolamento, superfícies canônicas de produto e evidência operacional fresca.
+- O monorepo continua grande, real e operacional.
+- O core canônico está mais maduro do que a leitura anterior indicava.
+- Tenancy, auth durável do runtime principal, dashboard home, workflow list e domínio clínico inicial já não sustentam status `RED`.
+- O gargalo atual está em governança de dívida, evidência de segurança/release e consolidação do que já entrou no produto.

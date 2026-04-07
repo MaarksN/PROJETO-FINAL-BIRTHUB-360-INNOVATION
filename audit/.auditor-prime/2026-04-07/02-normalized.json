@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-07T18:04:51.733Z",
+    "generatedAt": "2026-04-07T22:16:13.027Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "5de19bac37232ca0ed2e6715d450e939b9ff8640",
+    "headSha": "228ed6a667204eeb82a919a3a14ed2876047198a",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -17,11 +17,11 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6228,
-      "coreTrackedFiles": 532,
-      "runtimeFiles": 1865,
-      "testFiles": 174,
-      "modules": 306
+      "trackedFiles": 6251,
+      "coreTrackedFiles": 550,
+      "runtimeFiles": 1872,
+      "testFiles": 185,
+      "modules": 302
     },
     "capabilities": {
       "apiModules": [
@@ -31,6 +31,7 @@
         "apikeys",
         "auth",
         "billing",
+        "break-glass",
         "budget",
         "clinical",
         "connectors",
@@ -38,6 +39,7 @@
         "dashboard",
         "engagement",
         "feedback",
+        "fhir",
         "invites",
         "marketplace",
         "notifications",
@@ -49,8 +51,7 @@
         "sessions",
         "users",
         "webhooks",
-        "workflows",
-        "break-glass"
+        "workflows"
       ],
       "webRoutes": [
         "(dashboard)/agents",
@@ -1548,6 +1549,7 @@
           "docs/adrs/ADR-032-agent-runtime-standardization.md",
           "docs/adrs/ADR-033-billing-canonical-schema-cutover.md",
           "docs/adrs/ADR-035-f3-hotspot-modularization.md",
+          "docs/adrs/ADR-036-canonical-deploy-platform.md",
           "docs/adrs/ADR_TEMPLATE.md",
           "docs/adrs/INDEX.md",
           "docs/adrs/index.md",
@@ -1589,13 +1591,19 @@
           "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
           "audit/files_analysis/scripts/ci/check-commit-messages.mjs.md",
           "packages/agents-core/docs/functions/compressConversationMessages.html",
-          "scripts/ci/check-commit-messages.mjs"
+          "scripts/ci/check-commit-messages.mjs",
+          "apps/web/lib/i18n.ts",
+          "apps/web/tests/i18n.test.ts"
         ],
-        "fhirFiles": []
+        "fhirFiles": [
+          "apps/api/src/modules/fhir/router.ts",
+          "apps/api/src/modules/fhir/service.ts",
+          "apps/api/tests/fhir-router.test.ts"
+        ]
       },
       "infra": {
         "terraform": true,
-        "cloudRun": true,
+        "canonicalCdWorkflow": true,
         "k8sFiles": [],
         "monitoringFiles": [
           "infra/monitoring/alert.rules.yml",
@@ -1633,8 +1641,18 @@
       }
     },
     "git": {
-      "totalCommits": 1179,
+      "totalCommits": 1181,
       "last30Days": [
+        {
+          "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "aaac3b4851e7fc226a496e8ca7baa904470ea685",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
         {
           "sha": "5de19bac37232ca0ed2e6715d450e939b9ff8640",
           "date": "2026-04-07",
@@ -4542,6 +4560,16 @@
         "activeDays": 23,
         "placeholderMessages": [
           {
+            "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "aaac3b4851e7fc226a496e8ca7baa904470ea685",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
             "sha": "899e59d3cde621d5f33593e4d84a1b9d7267f497",
             "date": "2026-04-07",
             "subject": "1"
@@ -4655,16 +4683,6 @@
             "sha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
             "date": "2026-04-06",
             "subject": "1"
-          },
-          {
-            "sha": "2d47d14672953506f0d024207776218e16b95dda",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "838a047e97f1dad98c16a54d37b289c6a96fc575",
-            "date": "2026-04-06",
-            "subject": "1"
           }
         ]
       }
@@ -4738,7 +4756,7 @@
           "path": "apps/web/app/(dashboard)/conversations/page.tsx",
           "lines": {
             "start": 50,
-            "end": 402
+            "end": 416
           }
         },
         "problem": "Identificado em apps/web/app/(dashboard)/conversations/page.tsx:50 uma função com complexidade ciclomática 32, acima do limiar operacional recomendado (>10).",
@@ -4759,44 +4777,7 @@
           {
             "path": "apps/web/app/(dashboard)/conversations/page.tsx",
             "line": 50,
-            "summary": "Complexidade=32; extensão=353 linhas."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "refactor-core"
-        ]
-      },
-      {
-        "dimension": "architecture",
-        "title": "Complexidade acima do limiar em createWorkflowsRouter",
-        "location": {
-          "path": "apps/api/src/modules/workflows/router.ts",
-          "lines": {
-            "start": 61,
-            "end": 279
-          }
-        },
-        "problem": "Identificado em apps/api/src/modules/workflows/router.ts:61 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).",
-        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
-        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 4,
-          "frequency": 3
-        },
-        "vdiScore": 3.25,
-        "effort": "2-5 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.94,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/workflows/router.ts",
-            "line": 61,
-            "summary": "Complexidade=22; extensão=219 linhas."
+            "summary": "Complexidade=32; extensão=367 linhas."
           }
         ],
         "inference": false,
@@ -4811,11 +4792,11 @@
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 424,
-            "end": 528
+            "start": 438,
+            "end": 542
           }
         },
-        "problem": "Identificado em apps/api/src/modules/clinical/service.ts:424 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).",
+        "problem": "Identificado em apps/api/src/modules/clinical/service.ts:438 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).",
         "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
         "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
         "vdiFactors": {
@@ -4832,7 +4813,7 @@
         "evidenceRefs": [
           {
             "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 424,
+            "line": 438,
             "summary": "Complexidade=23; extensão=105 linhas."
           }
         ],
@@ -4908,6 +4889,43 @@
             "path": "apps/web/app/(dashboard)/patients/page.tsx",
             "line": 34,
             "summary": "Complexidade=26; extensão=242 linhas."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "refactor-core"
+        ]
+      },
+      {
+        "dimension": "architecture",
+        "title": "Complexidade acima do limiar em PrivacySettingsPageClient",
+        "location": {
+          "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+          "lines": {
+            "start": 165,
+            "end": 907
+          }
+        },
+        "problem": "Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:165 uma função com complexidade ciclomática 70, acima do limiar operacional recomendado (>10).",
+        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+        "vdiFactors": {
+          "businessImpact": 4,
+          "securityRisk": 2,
+          "reverseEffort": 4,
+          "frequency": 3
+        },
+        "vdiScore": 3.25,
+        "effort": "2-5 dias",
+        "severity": "ALTO",
+        "phase": "Fase 2",
+        "confidence": 0.94,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+            "line": 165,
+            "summary": "Complexidade=70; extensão=743 linhas."
           }
         ],
         "inference": false,
@@ -5066,7 +5084,7 @@
       },
       {
         "dimension": "architecture",
-        "title": "Arquivo grande demais para o boundary atual (2065 linhas)",
+        "title": "Arquivo grande demais para o boundary atual (2110 linhas)",
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
@@ -5074,7 +5092,7 @@
             "end": 1
           }
         },
-        "problem": "Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2065 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+        "problem": "Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2110 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
         "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
         "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
         "vdiFactors": {
@@ -5092,44 +5110,7 @@
           {
             "path": "apps/api/src/modules/clinical/service.ts",
             "line": 1,
-            "summary": "2065 linhas no arquivo."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "refactor-core"
-        ]
-      },
-      {
-        "dimension": "architecture",
-        "title": "Arquivo grande demais para o boundary atual (917 linhas)",
-        "location": {
-          "path": "packages/database/prisma/migration-registry.json",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em packages/database/prisma/migration-registry.json um arquivo com 917 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
-        "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
-        "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 1,
-          "reverseEffort": 4,
-          "frequency": 4
-        },
-        "vdiScore": 2.75,
-        "effort": "2-5 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 2",
-        "confidence": 0.88,
-        "evidenceRefs": [
-          {
-            "path": "packages/database/prisma/migration-registry.json",
-            "line": 1,
-            "summary": "917 linhas no arquivo."
+            "summary": "2110 linhas no arquivo."
           }
         ],
         "inference": false,
@@ -5167,6 +5148,43 @@
             "path": "apps/api/src/modules/workflows/service.ts",
             "line": 1,
             "summary": "967 linhas no arquivo."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "refactor-core"
+        ]
+      },
+      {
+        "dimension": "architecture",
+        "title": "Arquivo grande demais para o boundary atual (977 linhas)",
+        "location": {
+          "path": "packages/database/prisma/migration-registry.json",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em packages/database/prisma/migration-registry.json um arquivo com 977 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+        "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
+        "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 1,
+          "reverseEffort": 4,
+          "frequency": 4
+        },
+        "vdiScore": 2.75,
+        "effort": "2-5 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.88,
+        "evidenceRefs": [
+          {
+            "path": "packages/database/prisma/migration-registry.json",
+            "line": 1,
+            "summary": "977 linhas no arquivo."
           }
         ],
         "inference": false,
@@ -5738,13 +5756,13 @@
         "dimension": "security",
         "title": "Superfície crítica sem teste relacionado por heurística de nome",
         "location": {
-          "path": "apps/api/src/modules/privacy/retention.service.ts",
+          "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
           "lines": {
             "start": 1,
             "end": 1
           }
         },
-        "problem": "Identificado em apps/api/src/modules/privacy/retention.service.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
+        "problem": "Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
         "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
         "recommendation": "Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.",
         "vdiFactors": {
@@ -5760,7 +5778,44 @@
         "confidence": 0.64,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/privacy/retention.service.ts",
+            "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
+            "line": 1,
+            "summary": "Nenhum teste relacionado encontrado pela heurística de stem/module."
+          }
+        ],
+        "inference": true,
+        "insufficient": false,
+        "dependencyHints": [
+          "security-tests"
+        ]
+      },
+      {
+        "dimension": "security",
+        "title": "Superfície crítica sem teste relacionado por heurística de nome",
+        "location": {
+          "path": "apps/api/src/modules/privacy/consent.service.ts",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em apps/api/src/modules/privacy/consent.service.ts ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
+        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
+        "recommendation": "Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.",
+        "vdiFactors": {
+          "businessImpact": 4,
+          "securityRisk": 4,
+          "reverseEffort": 3,
+          "frequency": 3
+        },
+        "vdiScore": 3.65,
+        "effort": "1-3 dias",
+        "severity": "ALTO",
+        "phase": "Fase 1",
+        "confidence": 0.64,
+        "evidenceRefs": [
+          {
+            "path": "apps/api/src/modules/privacy/consent.service.ts",
             "line": 1,
             "summary": "Nenhum teste relacionado encontrado pela heurística de stem/module."
           }
@@ -5851,11 +5906,11 @@
         "location": {
           "path": ".github/workflows/cd.yml",
           "lines": {
-            "start": 63,
-            "end": 63
+            "start": 72,
+            "end": 72
           }
         },
-        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:63 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
+        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:72 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
         "impact": "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
         "recommendation": "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.",
         "vdiFactors": {
@@ -5872,7 +5927,7 @@
         "evidenceRefs": [
           {
             "path": ".github/workflows/cd.yml",
-            "line": 63,
+            "line": 72,
             "summary": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request"
           },
           {
@@ -5894,11 +5949,11 @@
         "location": {
           "path": ".github/workflows/cd.yml",
           "lines": {
-            "start": 222,
-            "end": 222
+            "start": 240,
+            "end": 240
           }
         },
-        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:222 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
+        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:240 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
         "impact": "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
         "recommendation": "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.",
         "vdiFactors": {
@@ -5915,7 +5970,7 @@
         "evidenceRefs": [
           {
             "path": ".github/workflows/cd.yml",
-            "line": 222,
+            "line": 240,
             "summary": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request"
           },
           {
@@ -5937,11 +5992,11 @@
         "location": {
           "path": ".github/workflows/cd.yml",
           "lines": {
-            "start": 288,
-            "end": 288
+            "start": 306,
+            "end": 306
           }
         },
-        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:288 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
+        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:306 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
         "impact": "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
         "recommendation": "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.",
         "vdiFactors": {
@@ -5958,7 +6013,7 @@
         "evidenceRefs": [
           {
             "path": ".github/workflows/cd.yml",
-            "line": 288,
+            "line": 306,
             "summary": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request"
           },
           {
@@ -6207,43 +6262,6 @@
         "dependencyHints": [
           "baseline-proof"
         ]
-      },
-      {
-        "dimension": "security",
-        "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)",
-        "location": {
-          "path": ".github/workflows/security-scan.yml",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
-        "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
-        "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 4,
-          "reverseEffort": 2,
-          "frequency": 2
-        },
-        "vdiScore": 2.95,
-        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.42,
-        "evidenceRefs": [
-          {
-            "path": ".github/workflows/security-scan.yml",
-            "line": 1,
-            "summary": "Evidência atual insuficiente para concluir o item."
-          }
-        ],
-        "inference": false,
-        "insufficient": true,
-        "dependencyHints": [
-          "baseline-proof"
-        ]
       }
     ],
     "tests_observability": [
@@ -6331,7 +6349,7 @@
             "end": 1
           }
         },
-        "problem": "O proxy de cobertura identifica 115 arquivos de runtime para apps/web, mas apenas 13 arquivos de teste diretos e 5 gaps principais.",
+        "problem": "O proxy de cobertura identifica 119 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.",
         "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
         "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
         "vdiFactors": {
@@ -6354,7 +6372,7 @@
           {
             "path": "artifacts/testing/module-coverage.json",
             "line": 1,
-            "summary": "apps/web: 13 testes diretos, 5 gaps."
+            "summary": "apps/web: 18 testes diretos, 4 gaps."
           }
         ],
         "inference": false,
@@ -6411,13 +6429,13 @@
         "dimension": "tests_observability",
         "title": "Módulo volumoso sem teste relacionado direto",
         "location": {
-          "path": "apps/api/src/modules/privacy/retention.service.ts",
+          "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
           "lines": {
             "start": 1,
             "end": 1
           }
         },
-        "problem": "Identificado em apps/api/src/modules/privacy/retention.service.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+        "problem": "Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
         "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
         "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
         "vdiFactors": {
@@ -6433,7 +6451,7 @@
         "confidence": 0.68,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/privacy/retention.service.ts",
+            "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
             "line": 1,
             "summary": "Heurística não encontrou arquivo de teste relacionado."
           }
@@ -6508,6 +6526,43 @@
         "evidenceRefs": [
           {
             "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
+            "line": 1,
+            "summary": "Heurística não encontrou arquivo de teste relacionado."
+          }
+        ],
+        "inference": true,
+        "insufficient": false,
+        "dependencyHints": [
+          "test-harness"
+        ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "Módulo volumoso sem teste relacionado direto",
+        "location": {
+          "path": "apps/api/src/modules/privacy/consent.service.ts",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em apps/api/src/modules/privacy/consent.service.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
+        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
+        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 4
+        },
+        "vdiScore": 2.65,
+        "effort": "0.5-2 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.68,
+        "evidenceRefs": [
+          {
+            "path": "apps/api/src/modules/privacy/consent.service.ts",
             "line": 1,
             "summary": "Heurística não encontrou arquivo de teste relacionado."
           }
@@ -6665,43 +6720,6 @@
         "dependencyHints": [
           "baseline-proof"
         ]
-      },
-      {
-        "dimension": "tests_observability",
-        "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3)",
-        "location": {
-          "path": "scripts/testing/generate-traceability-report.mjs",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Há muitas suites de teste no monorepo, mas a auditoria não encontra uma matriz de cobertura unit/integration/e2e por módulo do core no formato atual.",
-        "impact": "Sem a decomposição por módulo, o risco de falso conforto sobre cobertura global aumenta.",
-        "recommendation": "Gerar um relatório de cobertura por módulo e anexar ao pipeline soberano.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 2
-        },
-        "vdiScore": 2.35,
-        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.42,
-        "evidenceRefs": [
-          {
-            "path": "scripts/testing/generate-traceability-report.mjs",
-            "line": 1,
-            "summary": "Evidência atual insuficiente para concluir o item."
-          }
-        ],
-        "inference": false,
-        "insufficient": true,
-        "dependencyHints": [
-          "baseline-proof"
-        ]
       }
     ],
     "performance": [
@@ -6711,11 +6729,11 @@
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 890,
-            "end": 890
+            "start": 924,
+            "end": 924
           }
         },
-        "problem": "Indício em apps/api/src/modules/clinical/service.ts:890 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/clinical/service.ts:924 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6732,7 +6750,7 @@
         "evidenceRefs": [
           {
             "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 890,
+            "line": 924,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6748,11 +6766,11 @@
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 1505,
-            "end": 1505
+            "start": 1539,
+            "end": 1539
           }
         },
-        "problem": "Indício em apps/api/src/modules/clinical/service.ts:1505 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/clinical/service.ts:1539 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6769,7 +6787,7 @@
         "evidenceRefs": [
           {
             "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 1505,
+            "line": 1539,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6785,11 +6803,11 @@
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 1808,
-            "end": 1808
+            "start": 1842,
+            "end": 1842
           }
         },
-        "problem": "Indício em apps/api/src/modules/clinical/service.ts:1808 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/clinical/service.ts:1842 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6806,7 +6824,7 @@
         "evidenceRefs": [
           {
             "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 1808,
+            "line": 1842,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6820,13 +6838,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/privacy/retention.service.ts",
+          "path": "apps/api/src/modules/fhir/service.ts",
           "lines": {
-            "start": 210,
-            "end": 210
+            "start": 411,
+            "end": 411
           }
         },
-        "problem": "Indício em apps/api/src/modules/privacy/retention.service.ts:210 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/fhir/service.ts:411 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6842,8 +6860,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/privacy/retention.service.ts",
-            "line": 210,
+            "path": "apps/api/src/modules/fhir/service.ts",
+            "line": 411,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -6857,13 +6875,13 @@
         "dimension": "performance",
         "title": "Consulta findMany sem paginação explícita",
         "location": {
-          "path": "apps/api/src/modules/privacy/retention.service.ts",
+          "path": "apps/api/src/modules/privacy/consent.service.ts",
           "lines": {
-            "start": 360,
-            "end": 360
+            "start": 303,
+            "end": 303
           }
         },
-        "problem": "Indício em apps/api/src/modules/privacy/retention.service.ts:360 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
+        "problem": "Indício em apps/api/src/modules/privacy/consent.service.ts:303 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
         "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
         "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
         "vdiFactors": {
@@ -6879,8 +6897,8 @@
         "confidence": 0.72,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/privacy/retention.service.ts",
-            "line": 360,
+            "path": "apps/api/src/modules/privacy/consent.service.ts",
+            "line": 303,
             "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
           }
         ],
@@ -7831,13 +7849,51 @@
         "dimension": "product_ux",
         "title": "Strings de interface hardcoded em superfície web",
         "location": {
+          "path": "apps/web/app/(dashboard)/conversations/page.tsx",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Identificado em apps/web/app/(dashboard)/conversations/page.tsx:1 um cluster de 81 linhas com texto hardcoded na UI.",
+        "impact": "Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.",
+        "recommendation": "Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 1,
+          "reverseEffort": 3,
+          "frequency": 4
+        },
+        "vdiScore": 2.55,
+        "effort": "1-3 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.82,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/app/(dashboard)/conversations/page.tsx",
+            "line": 1,
+            "summary": "81 linhas com strings textuais embutidas na UI."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "ux-foundation",
+          "i18n-foundation"
+        ]
+      },
+      {
+        "dimension": "product_ux",
+        "title": "Strings de interface hardcoded em superfície web",
+        "location": {
           "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
           "lines": {
             "start": 6,
             "end": 6
           }
         },
-        "problem": "Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 61 linhas com texto hardcoded na UI.",
+        "problem": "Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 109 linhas com texto hardcoded na UI.",
         "impact": "Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.",
         "recommendation": "Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.",
         "vdiFactors": {
@@ -7855,7 +7911,7 @@
           {
             "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
             "line": 6,
-            "summary": "61 linhas com strings textuais embutidas na UI."
+            "summary": "109 linhas com strings textuais embutidas na UI."
           }
         ],
         "inference": false,
@@ -7894,44 +7950,6 @@
             "path": "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
             "line": 1,
             "summary": "44 linhas com strings textuais embutidas na UI."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "ux-foundation",
-          "i18n-foundation"
-        ]
-      },
-      {
-        "dimension": "product_ux",
-        "title": "Strings de interface hardcoded em superfície web",
-        "location": {
-          "path": "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
-          "lines": {
-            "start": 7,
-            "end": 7
-          }
-        },
-        "problem": "Identificado em apps/web/app/(dashboard)/marketplace/compare/page.tsx:7 um cluster de 12 linhas com texto hardcoded na UI.",
-        "impact": "Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.",
-        "recommendation": "Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 1,
-          "reverseEffort": 3,
-          "frequency": 4
-        },
-        "vdiScore": 2.55,
-        "effort": "1-3 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 2",
-        "confidence": 0.82,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
-            "line": 7,
-            "summary": "12 linhas com strings textuais embutidas na UI."
           }
         ],
         "inference": false,
@@ -8019,39 +8037,44 @@
     "operations_multitenancy": [
       {
         "dimension": "operations_multitenancy",
-        "title": "Ausência de superfícies explícitas de interoperabilidade clínica padrão",
+        "title": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
         "location": {
-          "path": "packages/integrations/src/clients/http.ts",
+          "path": "artifacts/tenancy/rls-proof-head.json",
           "lines": {
             "start": 1,
             "end": 1
           }
         },
-        "problem": "Há base de conectores genérica, mas a auditoria não encontrou superfícies FHIR/HL7 versionadas no HEAD atual.",
-        "impact": "Para healthtech, isso limita integração operacional com ecossistema clínico e aumenta esforço por implantação.",
-        "recommendation": "Planejar uma camada clínica padronizada de interoperabilidade antes de escalar tenants enterprise.",
+        "problem": "A evidência fresca marca a prova runtime de RLS como \"skipped-no-database\", apesar de o audit estático de tenancy passar.",
+        "impact": "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
+        "recommendation": "Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.",
         "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 4,
-          "frequency": 3
+          "businessImpact": 5,
+          "securityRisk": 5,
+          "reverseEffort": 3,
+          "frequency": 4
         },
-        "vdiScore": 3.25,
-        "effort": "1-2 semanas",
-        "severity": "ALTO",
-        "phase": "Fase 3",
-        "confidence": 0.69,
+        "vdiScore": 4.45,
+        "effort": "1-3 dias",
+        "severity": "CRÍTICO",
+        "phase": "Fase 0",
+        "confidence": 0.92,
         "evidenceRefs": [
           {
-            "path": "packages/integrations/src/clients/http.ts",
+            "path": "artifacts/tenancy/rls-proof-head.json",
             "line": 1,
-            "summary": "Base HTTP genérica presente; padrões clínicos não detectados por convenção de arquivos."
+            "summary": "runtimeProof=skipped-no-database"
+          },
+          {
+            "path": "packages/database/test/rls.test.ts",
+            "line": 1,
+            "summary": "Teste de RLS versionado no pacote database."
           }
         ],
-        "inference": true,
+        "inference": false,
         "insufficient": false,
         "dependencyHints": [
-          "clinical-interoperability"
+          "tenant-proof"
         ]
       },
       {

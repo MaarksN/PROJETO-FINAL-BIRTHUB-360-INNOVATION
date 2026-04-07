@@ -1,6 +1,6 @@
 # Environment Parity
 
-- Refreshed at: 2026-04-07T18:03:15.714Z
+- Refreshed at: 2026-04-07T22:13:39.526Z
 - Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.
 
 ## Runtime Surfaces
@@ -26,5 +26,7 @@
 
 ## Known Gaps
 
-- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is not configured on this runner`.
+- Kubernetes manifests: present.
+- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.
 - This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.
+

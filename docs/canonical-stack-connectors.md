@@ -10,7 +10,7 @@ The production path for the platform is:
 - `packages/workflows-core`: workflow step schemas, interpolation, node executors and step contracts
 - `packages/database`: Prisma schema, migrations and persistence models for executions, connectors, conversations and handoffs
 
-The legacy bridge remains available during migration, but it is not the source of truth for new work:
+The legacy bridge is quarantined in-repo for reference only and is not the source of truth for new work:
 
 - `apps/api-gateway`
 - `apps/agent-orchestrator`
@@ -75,21 +75,20 @@ Use the canonical stack when working only on the new platform:
 pnpm stack:canonical
 ```
 
-Use the hybrid stack while the legacy services are still needed:
-
-```bash
-pnpm stack:hybrid
-```
-
-These scripts wrap the existing readiness checks:
+This path wraps the supported readiness checks:
 
 - `pnpm preflight:core`
-- `pnpm preflight:full`
 
-And then start the corresponding development topology:
+And then starts the supported development topology:
 
 - `pnpm dev`
+
+Legacy entrypoints remain blocked on purpose:
+
 - `pnpm dev:legacy`
+- `pnpm stack:hybrid`
+
+If a legacy artifact is still required, migrate it into the canonical stack instead of reviving the hybrid topology.
 
 ## Required environment for connectors
 

@@ -101,15 +101,16 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
 - [x] validacoes
 - [x] UI
 - [x] loading/error/empty
-- [ ] testes
+- [x] testes
 - [x] docs
 
 ## Validacao
 ### Local
-- [ ] validacao local concluida
-- Executado typecheck filtrado em `apps/web` e `apps/api` para os arquivos desta fase, sem erros remanescentes nas rotas e servicos novos.
-- Executado lint pontual com `eslint` nos arquivos chave de `conversations`, `notifications` e `Navbar`, sem findings.
-- O typecheck global do monorepo continua falhando por erros preexistentes fora do escopo desta fase, em `clinical`, `auth`, `break-glass`, `webhooks` e configuracao de testes.
+- [x] validacao local concluida
+- Executado `tsc -p apps/api/tsconfig.json --noEmit --pretty false` com resultado limpo.
+- Executado `tsc -p apps/web/tsconfig.json --noEmit --pretty false` com resultado limpo.
+- Executado `eslint` nos arquivos alterados de `clinical`, `privacy`, `security`, `Navbar`, `GlobalSearch`, `conversations` e `notifications`, sem findings.
+- Executado `node --import tsx --test apps/api/tests/module-routes.test.ts`, com 1 teste passando.
 
 ### CI
 - [ ] validacao em CI concluida
@@ -120,8 +121,8 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
 ## Status
 - [ ] RED
 - [ ] BLUE
-- [x] YELLOW
-- [ ] GREEN
+- [ ] YELLOW
+- [x] GREEN
 
 ## Prompt
 Voce esta executando um ciclo arquitetural do plano BirthHub 360.

@@ -33,6 +33,15 @@ interface NotificationFeedPayload {
   unreadCount: number;
 }
 
+interface NotificationStoreContext {
+  get: () => NotificationState;
+  set: (
+    nextState:
+      | Partial<NotificationState>
+      | ((state: NotificationState) => Partial<NotificationState>)
+  ) => void;
+}
+
 type NotificationStoreFields = Pick<
   NotificationState,
   "error" | "initialized" | "isLoading" | "items" | "nextCursor" | "unreadCount"
@@ -131,6 +140,10 @@ function createMarkAsReadState(
   };
 }
 
+function canLoadMore(state: NotificationState): boolean {
+  return hasActiveSession() && Boolean(state.nextCursor) && !state.isLoading;
+}
+
 async function fetchFeed(
   cursor?: string | null,
   limit = INITIAL_PAGE_SIZE
@@ -154,34 +167,33 @@ async function fetchFeed(
   return (await response.json()) as NotificationFeedPayload;
 }
 
-export const useNotificationStore = create<NotificationState>((set, get) => ({
-  error: null,
-  initialized: false,
-  isLoading: false,
-  items: [],
-  nextCursor: null,
-  unreadCount: 0,
-  async loadMore() {
-    const current = get();
+function createLoadMoreAction(context: NotificationStoreContext): NotificationState["loadMore"] {
+  return async () => {
+    const current = context.get();
 
-    if (!hasActiveSession() || !current.nextCursor || current.isLoading) {
+    if (!canLoadMore(current)) {
       return;
     }
 
-    set(createLoadingState());
+    context.set(createLoadingState());
 
     try {
       const payload = await fetchFeed(current.nextCursor, LOAD_MORE_PAGE_SIZE);
 
-      set((state) => createFeedState(payload, [...state.items, ...payload.items]));
+      context.set((state) => createFeedState(payload, [...state.items, ...payload.items]));
     } catch (error) {
-      set({
+      context.set({
         error: getErrorMessage(error, "Falha ao carregar mais notificacoes."),
         isLoading: false
       });
     }
-  },
-  async markAllAsRead() {
+  };
+}
+
+function createMarkAllAsReadAction(
+  context: NotificationStoreContext
+): NotificationState["markAllAsRead"] {
+  return async () => {
     if (!hasActiveSession()) {
       return;
     }
@@ -195,57 +207,94 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
         throw new Error(`Falha ao marcar notificacoes (${response.status}).`);
       }
 
-      set((state) => createMarkAllAsReadState(state));
+      context.set((state) => createMarkAllAsReadState(state));
     } catch (error) {
-      set({
+      context.set({
         error: getErrorMessage(error, "Falha ao marcar notificacoes.")
       });
     }
-  },
-  async markAsRead(id) {
+  };
+}
+
+function createRefreshAction(context: NotificationStoreContext): NotificationState["refresh"] {
+  return async () => {
     if (!hasActiveSession()) {
+      context.set(createAnonymousState());
       return;
     }
 
-    const snapshot = get();
-
-    set((state) => createMarkAsReadState(state, id));
-
-    try {
-      const response = await fetchWithSession(`/api/v1/notifications/${encodeURIComponent(id)}/read`, {
-        method: "PATCH"
-      });
-
-      if (!response.ok) {
-        throw new Error(`Falha ao marcar notificacao (${response.status}).`);
-      }
-    } catch (error) {
-      set({
-        error: getErrorMessage(error, "Falha ao marcar notificacao."),
-        items: snapshot.items,
-        unreadCount: snapshot.unreadCount
-      });
-      await get().refresh();
-    }
-  },
-  async refresh() {
-    if (!hasActiveSession()) {
-      set(createAnonymousState());
-      return;
-    }
-
-    set(createLoadingState());
+    context.set(createLoadingState());
 
     try {
       const payload = await fetchFeed(undefined, INITIAL_PAGE_SIZE);
 
-      set(createFeedState(payload));
+      context.set(createFeedState(payload));
     } catch (error) {
-      set({
+      context.set({
         error: getErrorMessage(error, "Falha ao carregar notificacoes."),
         initialized: true,
         isLoading: false
       });
     }
-  }
-}));
+  };
+}
+
+function createMarkAsReadAction(context: NotificationStoreContext): NotificationState["markAsRead"] {
+  return async (id) => {
+    if (!hasActiveSession()) {
+      return;
+    }
+
+    const snapshot = context.get();
+
+    context.set((state) => createMarkAsReadState(state, id));
+
+    try {
+      const response = await fetchWithSession(
+        `/api/v1/notifications/${encodeURIComponent(id)}/read`,
+        {
+          method: "PATCH"
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Falha ao marcar notificacao (${response.status}).`);
+      }
+    } catch (error) {
+      context.set({
+        error: getErrorMessage(error, "Falha ao marcar notificacao."),
+        items: snapshot.items,
+        unreadCount: snapshot.unreadCount
+      });
+      await context.get().refresh();
+    }
+  };
+}
+
+function createNotificationActions(
+  context: NotificationStoreContext
+): Pick<NotificationState, "loadMore" | "markAllAsRead" | "markAsRead" | "refresh"> {
+  return {
+    loadMore: createLoadMoreAction(context),
+    markAllAsRead: createMarkAllAsReadAction(context),
+    markAsRead: createMarkAsReadAction(context),
+    refresh: createRefreshAction(context)
+  };
+}
+
+function createNotificationStoreState(
+  set: NotificationStoreContext["set"],
+  get: NotificationStoreContext["get"]
+): NotificationState {
+  return {
+    error: null,
+    initialized: false,
+    isLoading: false,
+    items: [],
+    nextCursor: null,
+    unreadCount: 0,
+    ...createNotificationActions({ get, set })
+  };
+}
+
+export const useNotificationStore = create<NotificationState>(createNotificationStoreState);
