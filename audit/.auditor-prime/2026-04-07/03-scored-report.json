@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-07T22:16:13.027Z",
+    "generatedAt": "2026-04-07T22:24:37.426Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "228ed6a667204eeb82a919a3a14ed2876047198a",
+    "headSha": "cd498b47d93f4e59c485341d431113be70b3e503",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -23,20 +23,6 @@
   "executiveSummary": {
     "technicalHealthScore": 53,
     "topRisks": [
-      {
-        "id": "TD-089",
-        "title": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
-        "dimension": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-        "impact": "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
-        "vdiScore": 4.45,
-        "location": {
-          "path": "artifacts/tenancy/rls-proof-head.json",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        }
-      },
       {
         "id": "TD-029",
         "title": "Superfície crítica sem teste relacionado por heurística de nome",
@@ -92,9 +78,23 @@
             "end": 28
           }
         }
+      },
+      {
+        "id": "TD-054",
+        "title": "Consulta findMany sem paginação explícita",
+        "dimension": "Dimensão 5 — Performance e Escalabilidade",
+        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
+        "vdiScore": 3.3,
+        "location": {
+          "path": "apps/api/src/modules/clinical/service.ts",
+          "lines": {
+            "start": 924,
+            "end": 924
+          }
+        }
       }
     ],
-    "costOfNonActionWeeksPerMonth": 8.6,
+    "costOfNonActionWeeksPerMonth": 8.4,
     "launchViability": {
       "status": "CONDICIONAL",
       "justification": "O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1."
@@ -1936,7 +1936,7 @@
           "end": 1
         }
       },
-      "problem": "O proxy de cobertura identifica 119 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.",
+      "problem": "O proxy de cobertura identifica 121 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.",
       "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
       "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
       "vdiFactors": {
@@ -3833,51 +3833,6 @@
     },
     {
       "dimension": "operations_multitenancy",
-      "title": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
-      "location": {
-        "path": "artifacts/tenancy/rls-proof-head.json",
-        "lines": {
-          "start": 1,
-          "end": 1
-        }
-      },
-      "problem": "A evidência fresca marca a prova runtime de RLS como \"skipped-no-database\", apesar de o audit estático de tenancy passar.",
-      "impact": "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
-      "recommendation": "Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.",
-      "vdiFactors": {
-        "businessImpact": 5,
-        "securityRisk": 5,
-        "reverseEffort": 3,
-        "frequency": 4
-      },
-      "vdiScore": 4.45,
-      "effort": "1-3 dias",
-      "severity": "CRÍTICO",
-      "phase": "Fase 0",
-      "confidence": 0.92,
-      "evidenceRefs": [
-        {
-          "path": "artifacts/tenancy/rls-proof-head.json",
-          "line": 1,
-          "summary": "runtimeProof=skipped-no-database"
-        },
-        {
-          "path": "packages/database/test/rls.test.ts",
-          "line": 1,
-          "summary": "Teste de RLS versionado no pacote database."
-        }
-      ],
-      "inference": false,
-      "insufficient": false,
-      "dependencyHints": [
-        "tenant-proof"
-      ],
-      "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-089",
-      "dependencies": []
-    },
-    {
-      "dimension": "operations_multitenancy",
       "title": "Drill de disaster recovery não registrado no ciclo atual",
       "location": {
         "path": "artifacts/dr/latest-drill.json",
@@ -3913,7 +3868,7 @@
         "ops-contract"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-090",
+      "id": "TD-089",
       "dependencies": []
     },
     {
@@ -3953,9 +3908,9 @@
         "ops-contract"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-091",
+      "id": "TD-090",
       "dependencies": [
-        "TD-090"
+        "TD-089"
       ]
     },
     {
@@ -3995,10 +3950,8 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-092",
-      "dependencies": [
-        "TD-089"
-      ]
+      "id": "TD-091",
+      "dependencies": []
     },
     {
       "dimension": "operations_multitenancy",
@@ -4037,9 +3990,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-093",
+      "id": "TD-092",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4079,9 +4032,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-094",
+      "id": "TD-093",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4121,9 +4074,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-095",
+      "id": "TD-094",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4163,9 +4116,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-096",
+      "id": "TD-095",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4205,9 +4158,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-097",
+      "id": "TD-096",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4247,9 +4200,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-098",
+      "id": "TD-097",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4289,9 +4242,9 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
-      "id": "TD-099",
+      "id": "TD-098",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     },
     {
@@ -4331,9 +4284,51 @@
         "tenant-proof"
       ],
       "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
+      "id": "TD-099",
+      "dependencies": [
+        "TD-091"
+      ]
+    },
+    {
+      "dimension": "operations_multitenancy",
+      "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 10)",
+      "location": {
+        "path": "packages/database/docs/BACKUP_RECOVERY.md",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      },
+      "problem": "Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.",
+      "impact": "A recuperabilidade real do sistema continua mais assumida do que comprovada.",
+      "recommendation": "Anexar evidência de drill de recuperação ao pacote operacional por release ou quarter.",
+      "vdiFactors": {
+        "businessImpact": 3,
+        "securityRisk": 4,
+        "reverseEffort": 2,
+        "frequency": 2
+      },
+      "vdiScore": 2.95,
+      "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+      "severity": "MÉDIO",
+      "phase": "Fase 3",
+      "confidence": 0.42,
+      "evidenceRefs": [
+        {
+          "path": "packages/database/docs/BACKUP_RECOVERY.md",
+          "line": 1,
+          "summary": "Evidência atual insuficiente para concluir o item."
+        }
+      ],
+      "inference": false,
+      "insufficient": true,
+      "dependencyHints": [
+        "tenant-proof"
+      ],
+      "dimensionLabel": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
       "id": "TD-100",
       "dependencies": [
-        "TD-089"
+        "TD-091"
       ]
     }
   ],
@@ -6288,11 +6283,9 @@
       "phase": "Fase 0",
       "title": "Estabilização (Semanas 1-2)",
       "objective": "Resolver todos os itens VDI 4.0+ que bloqueiam segurança, isolamento de tenant ou funcionamento básico.",
-      "debtIds": [
-        "TD-089"
-      ],
+      "debtIds": [],
       "innovationIds": [],
-      "progressWeight": 1,
+      "progressWeight": 0,
       "headcount": {
         "phase": "Fase 0",
         "recommendedHeadcount": 2,
@@ -6429,6 +6422,7 @@
       "title": "Escala (Semanas 17-24)",
       "objective": "Fortalecer multi-tenancy, billing avançado, interoperabilidade clínica e recuperabilidade.",
       "debtIds": [
+        "TD-089",
         "TD-090",
         "TD-091",
         "TD-092",
@@ -6473,7 +6467,7 @@
         "IN-089",
         "IN-090"
       ],
-      "progressWeight": 41,
+      "progressWeight": 42,
       "headcount": {
         "phase": "Fase 3",
         "recommendedHeadcount": 2,
@@ -6560,12 +6554,6 @@
   "dependencyMatrix": {
     "nodes": [
       {
-        "id": "TD-089",
-        "label": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
-        "phase": "Fase 0",
-        "type": "debt"
-      },
-      {
         "id": "TD-029",
         "label": "Superfície crítica sem teste relacionado por heurística de nome",
         "phase": "Fase 1",
@@ -6628,6 +6616,12 @@
       {
         "id": "TD-002",
         "label": "Complexidade acima do limiar em ConversationsPage",
+        "phase": "Fase 2",
+        "type": "debt"
+      },
+      {
+        "id": "TD-003",
+        "label": "Complexidade acima do limiar em deriveClinicalAlerts",
         "phase": "Fase 2",
         "type": "debt"
       },
@@ -6729,61 +6723,65 @@
         "reason": "Debt dependency"
       },
       {
-        "from": "TD-090",
+        "from": "TD-001",
+        "to": "TD-003",
+        "reason": "Debt dependency"
+      },
+      {
+        "from": "TD-089",
         "to": "IN-001",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-002",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-003",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-004",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-005",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-006",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-007",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-008",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-009",
         "reason": "Scale foundation before innovation"
       },
       {
-        "from": "TD-090",
+        "from": "TD-089",
         "to": "IN-010",
         "reason": "Scale foundation before innovation"
       }
     ],
     "criticalPath": [
-      "TD-089",
       "TD-029",
       "TD-001",
-      "TD-090"
+      "TD-089"
     ],
     "headcountByPhase": [
       {
@@ -7069,7 +7067,7 @@
       }
     },
     {
-      "id": "TD-092",
+      "id": "TD-091",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant",
       "requires": "SLA versionado",
       "location": {
@@ -7081,7 +7079,7 @@
       }
     },
     {
-      "id": "TD-093",
+      "id": "TD-092",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7093,7 +7091,7 @@
       }
     },
     {
-      "id": "TD-094",
+      "id": "TD-093",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)",
       "requires": "SLA versionado",
       "location": {
@@ -7105,7 +7103,7 @@
       }
     },
     {
-      "id": "TD-095",
+      "id": "TD-094",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7117,7 +7115,7 @@
       }
     },
     {
-      "id": "TD-096",
+      "id": "TD-095",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)",
       "requires": "SLA versionado",
       "location": {
@@ -7129,7 +7127,7 @@
       }
     },
     {
-      "id": "TD-097",
+      "id": "TD-096",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7141,7 +7139,7 @@
       }
     },
     {
-      "id": "TD-098",
+      "id": "TD-097",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)",
       "requires": "SLA versionado",
       "location": {
@@ -7153,7 +7151,7 @@
       }
     },
     {
-      "id": "TD-099",
+      "id": "TD-098",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)",
       "requires": "evidência de DR drill",
       "location": {
@@ -7165,11 +7163,23 @@
       }
     },
     {
-      "id": "TD-100",
+      "id": "TD-099",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)",
       "requires": "SLA versionado",
       "location": {
         "path": "docs/operational/README.md",
+        "lines": {
+          "start": 1,
+          "end": 1
+        }
+      }
+    },
+    {
+      "id": "TD-100",
+      "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 10)",
+      "requires": "evidência de DR drill",
+      "location": {
+        "path": "packages/database/docs/BACKUP_RECOVERY.md",
         "lines": {
           "start": 1,
           "end": 1
@@ -7232,8 +7242,8 @@
         "key": "operations_multitenancy",
         "label": "Dimensão 8 — Maturidade Operacional e Multi-tenancy",
         "weight": 10,
-        "avgTopVdi": 3.48,
-        "score": 4.78
+        "avgTopVdi": 2.98,
+        "score": 5.53
       }
     ],
     "debtCount": 100,
@@ -7253,9 +7263,9 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6251,
-      "coreTrackedFiles": 550,
-      "runtimeFiles": 1872,
+      "trackedFiles": 6253,
+      "coreTrackedFiles": 552,
+      "runtimeFiles": 1874,
       "testFiles": 185,
       "modules": 302
     },
@@ -8824,12 +8834,14 @@
           "packages/agents-core/src/tools/slack.tool.ts"
         ],
         "i18nFiles": [
+          "apps/web/lib/i18n.ts",
+          "apps/web/tests/i18n.test.ts",
           "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
           "audit/files_analysis/scripts/ci/check-commit-messages.mjs.md",
           "packages/agents-core/docs/functions/compressConversationMessages.html",
           "scripts/ci/check-commit-messages.mjs",
-          "apps/web/lib/i18n.ts",
-          "apps/web/tests/i18n.test.ts"
+          "apps/web/lib/i18n.server.ts",
+          "apps/web/providers/I18nProvider.tsx"
         ],
         "fhirFiles": [
           "apps/api/src/modules/fhir/router.ts",
@@ -8877,8 +8889,23 @@
       }
     },
     "git": {
-      "totalCommits": 1181,
+      "totalCommits": 1184,
       "last30Days": [
+        {
+          "sha": "cd498b47d93f4e59c485341d431113be70b3e503",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "e901da02f35f3cc264e5daa2ce8d8b61ffd8a6bf",
+          "date": "2026-04-07",
+          "subject": "Update test-coverage-dashboard.md"
+        },
+        {
+          "sha": "f989cc0fdc8a114345b71a543155b595885e61be",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
         {
           "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
           "date": "2026-04-07",
@@ -11796,6 +11823,16 @@
         "activeDays": 23,
         "placeholderMessages": [
           {
+            "sha": "cd498b47d93f4e59c485341d431113be70b3e503",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "f989cc0fdc8a114345b71a543155b595885e61be",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
             "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
             "date": "2026-04-07",
             "subject": "1"
@@ -11909,16 +11946,6 @@
             "sha": "7193e8c33a46ba3f01dae97b181c28edb5f84cca",
             "date": "2026-04-06",
             "subject": "Q"
-          },
-          {
-            "sha": "a6a9b5de7c4261983c9d0eb3e5fd75ecb2c87cdf",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
-            "date": "2026-04-06",
-            "subject": "1"
           }
         ]
       }

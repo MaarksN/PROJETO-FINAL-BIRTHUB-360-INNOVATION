@@ -3,16 +3,16 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 53/100
-- Estimativa de custo de não-ação: 8.6 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 8.4 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano | Dimensão 8 — Maturidade Operacional e Multi-tenancy | VDI 4.45 | artifacts/tenancy/rls-proof-head.json:1
 - TD-029 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:1
 - TD-030 | Superfície crítica sem teste relacionado por heurística de nome | Dimensão 3 — Segurança | VDI 3.65 | apps/api/src/modules/privacy/consent.service.ts:1
 - TD-031 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417
 - TD-032 | Chamada externa sem timeout ou abort path explícito | Dimensão 3 — Segurança | VDI 3.6 | apps/web/public/sw.js:28
+- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/clinical/service.ts:924
 
 ### Análise Pendente
 
@@ -32,15 +32,16 @@
 - TD-077 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7) | requer: inventário de ambientes
 - TD-087 | [DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend | requer: auditoria a11y automatizada
 - TD-088 | [DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2) | requer: baseline de cross-browser
-- TD-092 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant | requer: SLA versionado
-- TD-093 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2) | requer: evidência de DR drill
-- TD-094 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3) | requer: SLA versionado
-- TD-095 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4) | requer: evidência de DR drill
-- TD-096 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5) | requer: SLA versionado
-- TD-097 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6) | requer: evidência de DR drill
-- TD-098 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7) | requer: SLA versionado
-- TD-099 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8) | requer: evidência de DR drill
-- TD-100 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9) | requer: SLA versionado
+- TD-091 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant | requer: SLA versionado
+- TD-092 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2) | requer: evidência de DR drill
+- TD-093 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3) | requer: SLA versionado
+- TD-094 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4) | requer: evidência de DR drill
+- TD-095 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5) | requer: SLA versionado
+- TD-096 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6) | requer: evidência de DR drill
+- TD-097 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7) | requer: SLA versionado
+- TD-098 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8) | requer: evidência de DR drill
+- TD-099 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9) | requer: SLA versionado
+- TD-100 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 10) | requer: evidência de DR drill
 
 ## 2. MAPA DE DÍVIDA TÉCNICA — 100 ITENS DE MELHORIA
 
@@ -398,7 +399,7 @@
 
 - TD-044 | Cobertura estrutural baixa em apps/web
   Localização: apps/web/app/(dashboard)/analytics/error.tsx:1
-  Problema: O proxy de cobertura identifica 119 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.
+  Problema: O proxy de cobertura identifica 121 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 2.85 (MÉDIO)
@@ -764,15 +765,7 @@
 
 ### Dimensão 8 — Maturidade Operacional e Multi-tenancy
 
-- TD-089 | Prova runtime de RLS por tenant ainda não fecha no runner soberano
-  Localização: artifacts/tenancy/rls-proof-head.json:1
-  Problema: A evidência fresca marca a prova runtime de RLS como "skipped-no-database", apesar de o audit estático de tenancy passar.
-  Impacto: Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.
-  Solução recomendada: Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.
-  VDI: 4.45 (CRÍTICO)
-  Esforço: 1-3 dias
-
-- TD-090 | Drill de disaster recovery não registrado no ciclo atual
+- TD-089 | Drill de disaster recovery não registrado no ciclo atual
   Localização: artifacts/dr/latest-drill.json:1
   Problema: O artefato fresco de DR está em status "missing-drill-record", sem comprovação recente de exercício de recuperação.
   Impacto: A recuperabilidade operacional segue mais assumida do que comprovada, elevando risco de restauração lenta em incidente real.
@@ -780,7 +773,7 @@
   VDI: 3.15 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-091 | Playbook explícito de on-call não encontrado
+- TD-090 | Playbook explícito de on-call não encontrado
   Localização: docs/release/release-process.md:1
   Problema: Há processo de release e runbook de go-live, mas sem playbook claro de on-call/escalation versionado no conjunto atual.
   Impacto: Sem definição formal de ownership e escalonamento, o tempo de restauração cresce em incidentes reais.
@@ -788,7 +781,7 @@
   VDI: 2.85 (MÉDIO)
   Esforço: 0.5-1 dia
 
-- TD-092 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant
+- TD-091 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -796,7 +789,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-093 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)
+- TD-092 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -804,7 +797,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-094 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)
+- TD-093 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -812,7 +805,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-095 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)
+- TD-094 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -820,7 +813,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-096 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)
+- TD-095 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -828,7 +821,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-097 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)
+- TD-096 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -836,7 +829,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-098 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)
+- TD-097 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
@@ -844,7 +837,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-099 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)
+- TD-098 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)
   Localização: packages/database/docs/BACKUP_RECOVERY.md:1
   Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
   Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
@@ -852,11 +845,19 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-100 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)
+- TD-099 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)
   Localização: docs/operational/README.md:1
   Problema: O repositório não expõe um documento SLA explícito por tenant/serviço no conjunto de docs atual.
   Impacto: Sem SLA público-interno versionado, incidentes e prioridades de restauração perdem referência contratual e operacional.
   Solução recomendada: Versionar um SLA operacional mínimo e referenciá-lo no hub operacional e no release process.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-100 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 10)
+  Localização: packages/database/docs/BACKUP_RECOVERY.md:1
+  Problema: Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.
+  Impacto: A recuperabilidade real do sistema continua mais assumida do que comprovada.
+  Solução recomendada: Anexar evidência de drill de recuperação ao pacote operacional por release ou quarter.
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -1689,7 +1690,7 @@
 ### Fase 0 — Estabilização (Semanas 1-2)
 
 - Objetivo: Resolver todos os itens VDI 4.0+ que bloqueiam segurança, isolamento de tenant ou funcionamento básico.
-- Itens de dívida: 1
+- Itens de dívida: 0
 - Itens de inovação: 0
 - Headcount recomendado: 2
 
@@ -1710,7 +1711,7 @@
 ### Fase 3 — Escala (Semanas 17-24)
 
 - Objetivo: Fortalecer multi-tenancy, billing avançado, interoperabilidade clínica e recuperabilidade.
-- Itens de dívida: 11
+- Itens de dívida: 12
 - Itens de inovação: 30
 - Headcount recomendado: 2
 
@@ -1724,9 +1725,9 @@
 
 ## 5. MATRIZ DE DEPENDÊNCIAS
 
-- Caminho crítico: TD-089 -> TD-029 -> TD-001 -> TD-090
+- Caminho crítico: TD-029 -> TD-001 -> TD-089
 - Nós mapeados: 22
-- Arestas mapeadas: 17
+- Arestas mapeadas: 18
 
 - TD-029 -> TD-030 (Debt dependency)
 - TD-031 -> TD-032 (Debt dependency)
@@ -1735,16 +1736,17 @@
 - TD-054 -> TD-057 (Debt dependency)
 - TD-054 -> TD-058 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
-- TD-090 -> IN-001 (Scale foundation before innovation)
-- TD-090 -> IN-002 (Scale foundation before innovation)
-- TD-090 -> IN-003 (Scale foundation before innovation)
-- TD-090 -> IN-004 (Scale foundation before innovation)
-- TD-090 -> IN-005 (Scale foundation before innovation)
-- TD-090 -> IN-006 (Scale foundation before innovation)
-- TD-090 -> IN-007 (Scale foundation before innovation)
-- TD-090 -> IN-008 (Scale foundation before innovation)
-- TD-090 -> IN-009 (Scale foundation before innovation)
-- TD-090 -> IN-010 (Scale foundation before innovation)
+- TD-001 -> TD-003 (Debt dependency)
+- TD-089 -> IN-001 (Scale foundation before innovation)
+- TD-089 -> IN-002 (Scale foundation before innovation)
+- TD-089 -> IN-003 (Scale foundation before innovation)
+- TD-089 -> IN-004 (Scale foundation before innovation)
+- TD-089 -> IN-005 (Scale foundation before innovation)
+- TD-089 -> IN-006 (Scale foundation before innovation)
+- TD-089 -> IN-007 (Scale foundation before innovation)
+- TD-089 -> IN-008 (Scale foundation before innovation)
+- TD-089 -> IN-009 (Scale foundation before innovation)
+- TD-089 -> IN-010 (Scale foundation before innovation)
 
 ## 6. GLOSSÁRIO TÉCNICO
 

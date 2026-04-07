@@ -1,6 +1,10 @@
-export type SupportedLocale = "pt-BR";
+export const supportedLocales = ["pt-BR", "en-US"] as const;
 
-type Dictionary = {
+export type SupportedLocale = (typeof supportedLocales)[number];
+
+export const defaultLocale: SupportedLocale = "pt-BR";
+
+export type Dictionary = {
   consentBanner: {
     accept: string;
     description: string;
@@ -8,15 +12,133 @@ type Dictionary = {
     settings: string;
     title: string;
   };
+  dashboardHome: {
+    alertSeverityLabels: Record<string, string>;
+    attributionHeading: string;
+    cacColumn: string;
+    clinicalDescription: string;
+    clinicalHeading: string;
+    clinicalRiskLabels: Record<string, string>;
+    clinicalStatusLabels: Record<string, string>;
+    consentAttentionTitle: string;
+    consentBadge: string;
+    consentLegalBasisLabels: Record<string, string>;
+    consentStatusLabels: Record<string, string>;
+    continueLabel: string;
+    continueOnboarding: string;
+    conversionColumn: string;
+    customerColumn: string;
+    customerHealthHeading: string;
+    description: string;
+    gestationalAgeUnknown: string;
+    goLiveAlertsHeading: string;
+    highlightedWorkflowsDescription: string;
+    highlightedWorkflowsHeading: string;
+    leadsColumn: string;
+    noAttributionDescription: string;
+    noAttributionTitle: string;
+    noClinicalAlertsDescription: string;
+    noClinicalAlertsTitle: string;
+    noClinicalNote: string;
+    noClinicalSpotlightDescription: string;
+    noClinicalSpotlightTitle: string;
+    noCustomerHealthDescription: string;
+    noCustomerHealthTitle: string;
+    noRecentContractsDescription: string;
+    noRecentContractsTitle: string;
+    noReturnScheduled: string;
+    noUsageDescription: string;
+    noUsageTitle: string;
+    noWorkflowsDescription: string;
+    noWorkflowsTitle: string;
+    npsColumn: string;
+    onboardingBadge: string;
+    openClinicalModule: string;
+    openEditor: string;
+    openPatient: string;
+    openQueue: string;
+    openWorkflows: string;
+    planStatusLabel: string;
+    recentContractsHeading: string;
+    reviewConsents: string;
+    returnPrefix: string;
+    riskColumn: string;
+    scoreColumn: string;
+    sourceColumn: string;
+    stepsLabel: string;
+    title: string;
+    usageHeading: string;
+    viewExecutions: string;
+    viewFullWorkflowList: string;
+    viewReports: string;
+    viewSchedule: string;
+    workflowStatusLabels: Record<string, string>;
+    workflowTriggerLabels: Record<string, string>;
+  };
+  loading: {
+    badge: string;
+    dashboardDescription: string;
+    dashboardTitle: string;
+    workflowsDescription: string;
+    workflowsTitle: string;
+  };
   navbar: {
+    activateDarkTheme: string;
+    activateLightTheme: string;
+    darkModeLabel: string;
+    emptyDescription: string;
+    emptyTitle: string;
+    feedLabel: string;
     identityDescription: string;
     identityTitle: string;
     items: Array<{
       href: string;
       label: string;
     }>;
+    lightModeLabel: string;
+    markAllRead: string;
+    navigationAriaLabel: string;
+    notificationsDescription: string;
+    notificationsDisabledDescription: string;
+    notificationsDisabledTitle: string;
+    notificationsTitle: string;
+    openDetail: string;
+    openNotifications: string;
+    preferences: string;
+    today: string;
+    viewCenter: string;
+    yesterday: string;
+  };
+  workflowsPage: {
+    backHome: string;
+    badge: string;
+    continueEditing: string;
+    description: string;
+    emptyDescription: string;
+    emptyTitle: string;
+    executionsLabel: string;
+    openEditor: string;
+    revisions: string;
+    statusLabels: Record<string, string>;
+    stepsLabel: string;
+    title: string;
+    triggerLabels: Record<string, string>;
+    updatedAtLabel: string;
+    viewExecutions: string;
   };
 };
+
+const sharedNavbarItems = [
+  { href: "/dashboard", label: { "en-US": "Dashboard", "pt-BR": "Dashboard" } },
+  { href: "/patients", label: { "en-US": "Patients", "pt-BR": "Pacientes" } },
+  { href: "/appointments", label: { "en-US": "Appointments", "pt-BR": "Agenda" } },
+  { href: "/workflows", label: { "en-US": "Workflows", "pt-BR": "Workflows" } },
+  { href: "/notifications", label: { "en-US": "Notifications", "pt-BR": "Notificacoes" } },
+  { href: "/analytics", label: { "en-US": "Analytics", "pt-BR": "Analytics" } },
+  { href: "/conversations", label: { "en-US": "Conversations", "pt-BR": "Conversas" } },
+  { href: "/reports", label: { "en-US": "Reports", "pt-BR": "Relatorios" } },
+  { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } }
+] as const;
 
 const dictionaries: Record<SupportedLocale, Dictionary> = {
   "pt-BR": {
@@ -28,32 +150,416 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       settings: "Abrir central LGPD",
       title: "Consentimento de analytics"
     },
+    dashboardHome: {
+      alertSeverityLabels: {
+        high: "Alta",
+        low: "Baixa",
+        medium: "Media"
+      },
+      attributionHeading: "Attribution",
+      cacColumn: "CAC",
+      clinicalDescription:
+        "Baseline materno-infantil com gestacoes ativas, agenda e spotlight operacional.",
+      clinicalHeading: "Resumo clinico",
+      clinicalRiskLabels: {
+        HIGH: "Alto",
+        LOW: "Baixo",
+        MODERATE: "Moderado"
+      },
+      clinicalStatusLabels: {
+        ACTIVE: "Ativa",
+        CLOSED: "Encerrada",
+        DELIVERED: "Parto concluido"
+      },
+      consentAttentionTitle:
+        "O centro de consentimento ainda precisa de atencao antes do go-live.",
+      consentBadge: "LGPD pendente",
+      consentLegalBasisLabels: {
+        CONSENT: "consentimento",
+        CONTRACT: "contrato",
+        HEALTH_PROTECTION: "protecao da saude",
+        LEGAL_OBLIGATION: "obrigacao legal",
+        LEGITIMATE_INTEREST: "legitimo interesse"
+      },
+      consentStatusLabels: {
+        ACCEPTED: "Aceito",
+        PENDING: "Pendente",
+        REJECTED: "Rejeitado"
+      },
+      continueLabel: "Continuar",
+      continueOnboarding: "Continuar onboarding",
+      conversionColumn: "Conversao",
+      customerColumn: "Cliente",
+      customerHealthHeading: "Saude de clientes",
+      description:
+        "Resumo operacional da conta com acesso direto para as jornadas principais, sem depender de URL manual.",
+      gestationalAgeUnknown: "Idade gestacional nao calculada",
+      goLiveAlertsHeading: "Alertas de go-live",
+      highlightedWorkflowsDescription:
+        "Acesso rapido para editar ou executar os fluxos mais recentes.",
+      highlightedWorkflowsHeading: "Workflows em destaque",
+      leadsColumn: "Leads",
+      noAttributionDescription:
+        "A origem dos leads aparecera aqui assim que a organizacao tiver dados de atribuicao.",
+      noAttributionTitle: "Sem atribuicao suficiente",
+      noClinicalAlertsDescription: "Nenhum alerta clinico critico detectado no tenant ativo.",
+      noClinicalAlertsTitle: "Sem alertas clinicos",
+      noClinicalNote: "Sem nota clinica versionada",
+      noClinicalSpotlightDescription:
+        "Assim que o tenant tiver pacientes, consultas e notas clinicas, o spotlight aparece aqui.",
+      noClinicalSpotlightTitle: "Sem spotlight clinico",
+      noCustomerHealthDescription:
+        "Assim que houver clientes vinculados, a saude operacional aparecera aqui.",
+      noCustomerHealthTitle: "Sem saude calculada",
+      noRecentContractsDescription:
+        "Quando a organizacao tiver clientes ou contratos, eles aparecerao nesta lista.",
+      noRecentContractsTitle: "Sem contratos recentes",
+      noReturnScheduled: "sem retorno agendado",
+      noUsageDescription: "Ainda nao ha metricas de uso para a organizacao ativa.",
+      noUsageTitle: "Sem consumo registrado",
+      noWorkflowsDescription:
+        "Nenhum workflow criado ainda. Comece pela lista de workflows para montar o primeiro fluxo.",
+      noWorkflowsTitle: "Sem workflows ativos",
+      npsColumn: "NPS",
+      onboardingBadge: "Onboarding guiado",
+      openClinicalModule: "Abrir modulo clinico",
+      openEditor: "Abrir editor",
+      openPatient: "Abrir paciente",
+      openQueue: "Abrir fila correspondente",
+      openWorkflows: "Abrir workflows",
+      planStatusLabel: "status",
+      recentContractsHeading: "Contratos recentes",
+      reviewConsents: "Revisar consentimentos",
+      returnPrefix: "retorno",
+      riskColumn: "Risco",
+      scoreColumn: "Score",
+      sourceColumn: "Origem",
+      stepsLabel: "etapas",
+      title: "Central diaria de operacao",
+      usageHeading: "Uso e plano",
+      viewExecutions: "Ver execucoes",
+      viewFullWorkflowList: "Ver lista completa",
+      viewReports: "Ver reports",
+      viewSchedule: "Ver agenda",
+      workflowStatusLabels: {
+        ARCHIVED: "Arquivado",
+        DRAFT: "Rascunho",
+        PUBLISHED: "Publicado"
+      },
+      workflowTriggerLabels: {
+        EVENT: "Evento",
+        MANUAL: "Manual",
+        SCHEDULE: "Agendado",
+        WEBHOOK: "Webhook"
+      }
+    },
+    loading: {
+      badge: "Carregando",
+      dashboardDescription: "Montando indicadores, workflows e billing da conta ativa.",
+      dashboardTitle: "Carregando dashboard",
+      workflowsDescription: "Carregando a lista de workflows, status e contagens do backend.",
+      workflowsTitle: "Carregando workflows"
+    },
     navbar: {
+      activateDarkTheme: "Ativar tema escuro",
+      activateLightTheme: "Ativar tema claro",
+      darkModeLabel: "Escuro",
+      emptyDescription: "Nenhuma notificacao recente para este usuario.",
+      emptyTitle: "Feed vazio",
+      feedLabel: "Feed",
       identityDescription: "Experiencia conectada ao produto",
       identityTitle: "Central de Operacao",
-      items: [
-        { href: "/dashboard", label: "Dashboard" },
-        { href: "/patients", label: "Pacientes" },
-        { href: "/appointments", label: "Agenda" },
-        { href: "/workflows", label: "Workflows" },
-        { href: "/notifications", label: "Notificacoes" },
-        { href: "/analytics", label: "Analytics" },
-        { href: "/conversations", label: "Conversas" },
-        { href: "/reports", label: "Relatorios" },
-        { href: "/onboarding", label: "Onboarding" }
-      ]
+      items: sharedNavbarItems.map((item) => ({
+        href: item.href,
+        label: item.label["pt-BR"]
+      })),
+      lightModeLabel: "Claro",
+      markAllRead: "Ler tudo",
+      navigationAriaLabel: "Navegacao principal",
+      notificationsDescription: "Atualizacao leve em tempo real com persistencia no backend.",
+      notificationsDisabledDescription:
+        "Reative em preferencias para voltar a receber avisos no app.",
+      notificationsDisabledTitle: "Notificacoes in-app desativadas",
+      notificationsTitle: "Notificacoes",
+      openDetail: "Abrir detalhe",
+      openNotifications: "Abrir central de notificacoes",
+      preferences: "Preferencias",
+      today: "Hoje",
+      viewCenter: "Ver central",
+      yesterday: "Ontem"
+    },
+    workflowsPage: {
+      backHome: "Voltar para home",
+      badge: "Lista canonica",
+      continueEditing: "Continuar edicao",
+      description:
+        "Lista central de fluxos com status, trigger, CTA principal e acesso rapido ao editor real.",
+      emptyDescription:
+        "Crie o primeiro workflow para comecar a operar a automacao pelo produto.",
+      emptyTitle: "Nenhum workflow criado",
+      executionsLabel: "execucoes",
+      openEditor: "Abrir editor",
+      revisions: "Revisoes",
+      statusLabels: {
+        ARCHIVED: "Arquivado",
+        DRAFT: "Rascunho",
+        PUBLISHED: "Publicado"
+      },
+      stepsLabel: "etapas",
+      title: "Operar workflows sem URL manual",
+      triggerLabels: {
+        EVENT: "Evento",
+        MANUAL: "Manual",
+        SCHEDULE: "Agendado",
+        WEBHOOK: "Webhook"
+      },
+      updatedAtLabel: "Atualizado em",
+      viewExecutions: "Ver execucoes"
+    }
+  },
+  "en-US": {
+    consentBanner: {
+      accept: "Allow analytics",
+      description:
+        "We use telemetry without PII to measure pageviews, product health, and agent execution. If you reject it, the external tracker stays off.",
+      reject: "Reject",
+      settings: "Open LGPD center",
+      title: "Analytics consent"
+    },
+    dashboardHome: {
+      alertSeverityLabels: {
+        high: "High",
+        low: "Low",
+        medium: "Medium"
+      },
+      attributionHeading: "Attribution",
+      cacColumn: "CAC",
+      clinicalDescription:
+        "Maternal-infant baseline with active pregnancies, scheduling, and operational spotlight.",
+      clinicalHeading: "Clinical summary",
+      clinicalRiskLabels: {
+        HIGH: "High",
+        LOW: "Low",
+        MODERATE: "Moderate"
+      },
+      clinicalStatusLabels: {
+        ACTIVE: "Active",
+        CLOSED: "Closed",
+        DELIVERED: "Delivered"
+      },
+      consentAttentionTitle: "The consent center still needs attention before go-live.",
+      consentBadge: "LGPD pending",
+      consentLegalBasisLabels: {
+        CONSENT: "consent",
+        CONTRACT: "contract",
+        HEALTH_PROTECTION: "health protection",
+        LEGAL_OBLIGATION: "legal obligation",
+        LEGITIMATE_INTEREST: "legitimate interest"
+      },
+      consentStatusLabels: {
+        ACCEPTED: "Accepted",
+        PENDING: "Pending",
+        REJECTED: "Rejected"
+      },
+      continueLabel: "Continue",
+      continueOnboarding: "Continue onboarding",
+      conversionColumn: "Conversion",
+      customerColumn: "Customer",
+      customerHealthHeading: "Customer health",
+      description:
+        "Operational account summary with direct entry points into the main journeys, without relying on manual URLs.",
+      gestationalAgeUnknown: "Gestational age not calculated",
+      goLiveAlertsHeading: "Go-live alerts",
+      highlightedWorkflowsDescription: "Quick access to edit or run the latest flows.",
+      highlightedWorkflowsHeading: "Featured workflows",
+      leadsColumn: "Leads",
+      noAttributionDescription:
+        "Lead origin will appear here as soon as the organization has attribution data.",
+      noAttributionTitle: "Not enough attribution data",
+      noClinicalAlertsDescription: "No critical clinical alerts detected for the active tenant.",
+      noClinicalAlertsTitle: "No clinical alerts",
+      noClinicalNote: "No versioned clinical note",
+      noClinicalSpotlightDescription:
+        "As soon as the tenant has patients, appointments, and clinical notes, the spotlight will appear here.",
+      noClinicalSpotlightTitle: "No clinical spotlight",
+      noCustomerHealthDescription:
+        "Once customers are linked, operational health will appear here.",
+      noCustomerHealthTitle: "No health score available",
+      noRecentContractsDescription:
+        "When the organization has customers or contracts, they will appear in this list.",
+      noRecentContractsTitle: "No recent contracts",
+      noReturnScheduled: "no follow-up scheduled",
+      noUsageDescription: "There are still no usage metrics for the active organization.",
+      noUsageTitle: "No recorded usage",
+      noWorkflowsDescription:
+        "No workflow has been created yet. Start from the workflows list to build the first flow.",
+      noWorkflowsTitle: "No active workflows",
+      npsColumn: "NPS",
+      onboardingBadge: "Guided onboarding",
+      openClinicalModule: "Open clinical module",
+      openEditor: "Open editor",
+      openPatient: "Open patient",
+      openQueue: "Open matching queue",
+      openWorkflows: "Open workflows",
+      planStatusLabel: "status",
+      recentContractsHeading: "Recent contracts",
+      reviewConsents: "Review consents",
+      returnPrefix: "follow-up",
+      riskColumn: "Risk",
+      scoreColumn: "Score",
+      sourceColumn: "Source",
+      stepsLabel: "steps",
+      title: "Daily operations hub",
+      usageHeading: "Usage and plan",
+      viewExecutions: "View executions",
+      viewFullWorkflowList: "View full list",
+      viewReports: "View reports",
+      viewSchedule: "View schedule",
+      workflowStatusLabels: {
+        ARCHIVED: "Archived",
+        DRAFT: "Draft",
+        PUBLISHED: "Published"
+      },
+      workflowTriggerLabels: {
+        EVENT: "Event",
+        MANUAL: "Manual",
+        SCHEDULE: "Scheduled",
+        WEBHOOK: "Webhook"
+      }
+    },
+    loading: {
+      badge: "Loading",
+      dashboardDescription: "Preparing account indicators, workflows, and billing data.",
+      dashboardTitle: "Loading dashboard",
+      workflowsDescription: "Loading workflows list, statuses, and backend counters.",
+      workflowsTitle: "Loading workflows"
+    },
+    navbar: {
+      activateDarkTheme: "Switch to dark theme",
+      activateLightTheme: "Switch to light theme",
+      darkModeLabel: "Dark",
+      emptyDescription: "There are no recent notifications for this user.",
+      emptyTitle: "Empty feed",
+      feedLabel: "Feed",
+      identityDescription: "Product-connected experience",
+      identityTitle: "Operations Hub",
+      items: sharedNavbarItems.map((item) => ({
+        href: item.href,
+        label: item.label["en-US"]
+      })),
+      lightModeLabel: "Light",
+      markAllRead: "Mark all as read",
+      navigationAriaLabel: "Primary navigation",
+      notificationsDescription: "Lightweight near-real-time updates with backend persistence.",
+      notificationsDisabledDescription:
+        "Turn it back on in preferences to receive in-app updates again.",
+      notificationsDisabledTitle: "In-app notifications are disabled",
+      notificationsTitle: "Notifications",
+      openDetail: "Open detail",
+      openNotifications: "Open notifications center",
+      preferences: "Preferences",
+      today: "Today",
+      viewCenter: "View center",
+      yesterday: "Yesterday"
+    },
+    workflowsPage: {
+      backHome: "Back to home",
+      badge: "Canonical list",
+      continueEditing: "Continue editing",
+      description:
+        "Central workflow inventory with status, trigger, primary CTA, and quick access to the real editor.",
+      emptyDescription: "Create the first workflow to start operating automation from the product.",
+      emptyTitle: "No workflows created",
+      executionsLabel: "executions",
+      openEditor: "Open editor",
+      revisions: "Revisions",
+      statusLabels: {
+        ARCHIVED: "Archived",
+        DRAFT: "Draft",
+        PUBLISHED: "Published"
+      },
+      stepsLabel: "steps",
+      title: "Operate workflows without manual URLs",
+      triggerLabels: {
+        EVENT: "Event",
+        MANUAL: "Manual",
+        SCHEDULE: "Scheduled",
+        WEBHOOK: "Webhook"
+      },
+      updatedAtLabel: "Updated on",
+      viewExecutions: "View executions"
     }
   }
 };
 
-export function getDictionary(locale: SupportedLocale = "pt-BR"): Dictionary {
+function matchSupportedLocale(input: string | null | undefined): SupportedLocale | null {
+  if (!input) {
+    return null;
+  }
+
+  const normalized = input.trim().toLowerCase();
+
+  for (const locale of supportedLocales) {
+    const current = locale.toLowerCase();
+    const language = current.split("-")[0];
+
+    if (normalized === current || normalized === language || normalized.startsWith(`${language}-`)) {
+      return locale;
+    }
+  }
+
+  return null;
+}
+
+export function resolveLocale(input?: string | null): SupportedLocale {
+  if (!input) {
+    return defaultLocale;
+  }
+
+  const requestedLocales = input
+    .split(",")
+    .map((entry) => entry.split(";")[0]?.trim())
+    .filter((entry): entry is string => Boolean(entry));
+
+  for (const requestedLocale of requestedLocales) {
+    const matched = matchSupportedLocale(requestedLocale);
+
+    if (matched) {
+      return matched;
+    }
+  }
+
+  return defaultLocale;
+}
+
+export function getDictionary(locale: SupportedLocale = defaultLocale): Dictionary {
   return dictionaries[locale];
+}
+
+export function translateLabel(labels: Record<string, string>, key: string): string {
+  return labels[key] ?? key.replaceAll("_", " ");
+}
+
+export function formatDateTime(
+  locale: SupportedLocale,
+  value: Date | string,
+  options?: Intl.DateTimeFormatOptions
+): string {
+  const date = typeof value === "string" ? new Date(value) : value;
+  return new Intl.DateTimeFormat(locale, options).format(date);
+}
+
+export function formatNumber(
+  locale: SupportedLocale,
+  value: number,
+  options?: Intl.NumberFormatOptions
+): string {
+  return new Intl.NumberFormat(locale, options).format(value);
 }
 
 export function formatPtBrDateTime(
   value: Date | string,
   options?: Intl.DateTimeFormatOptions
 ): string {
-  const date = typeof value === "string" ? new Date(value) : value;
-  return new Intl.DateTimeFormat("pt-BR", options).format(date);
+  return formatDateTime("pt-BR", value, options);
 }

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import { LegalFooter } from "../components/legal-footer";
+import { getRequestLocale } from "../lib/i18n.server";
 import { AppProviders } from "../providers/AppProviders";
 
 export const metadata: Metadata = {
@@ -15,11 +16,15 @@ export const metadata: Metadata = {
   title: "BirthHub 360"
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({
+  children
+}: Readonly<{ children: React.ReactNode }>) {
+  const locale = await getRequestLocale();
+
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body>
-        <AppProviders>
+        <AppProviders locale={locale}>
           <div className="app-shell">
             <div className="app-shell__content">{children}</div>
             <LegalFooter />

@@ -22,7 +22,7 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
 - Faltavam a home de produto, a lista de workflows, onboarding, busca global, analytics de produto, conversations, reports e modo escuro persistido.
 - O navbar existente nao sustentava uma jornada operacional completa e a entrada no sistema ainda dependia de conhecer URLs manualmente.
 - A API ja expunha dados para dashboard, workflows, outputs, billing e notificacoes, mas search e conversations ainda nao tinham superficie funcional para o frontend.
-- A validacao global do repositorio segue bloqueada por erros preexistentes fora desta fase, sobretudo em modulos clinicos, auth e configuracao de testes.
+- A fase precisava ainda de cobertura direta para `search`, `conversations`, cliente de produto e persistencia de tema, para sair do estado de UX pronta porem pouco provada.
 
 ## Decisoes arquiteturais
 - Reaproveitar o app `apps/web` existente, expandindo a shell autenticada em vez de criar um frontend paralelo.
@@ -78,6 +78,10 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
   - `apps/web/lib/product-api.server.ts`
   - `apps/web/lib/product-api.ts`
   - `apps/web/providers/ThemeProvider.tsx`
+  - `apps/api/tests/conversations-router.test.ts`
+  - `apps/api/tests/search-router.test.ts`
+  - `apps/web/tests/product-api.test.ts`
+  - `apps/web/tests/theme-provider.test.ts`
 - Alterar:
   - `apps/api/src/app/module-routes.ts`
   - `apps/api/src/modules/dashboard/router.ts`
@@ -90,7 +94,9 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
   - `apps/web/app/(dashboard)/dashboard.css`
   - `apps/web/components/layout/Navbar.tsx`
   - `apps/web/components/login-form.tsx`
+  - `apps/web/lib/product-api.ts`
   - `apps/web/providers/AppProviders.tsx`
+  - `apps/web/providers/ThemeProvider.tsx`
 - Remover:
   - nenhum
 
@@ -104,13 +110,19 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
 - [x] testes
 - [x] docs
 
+## Implementacao
+- A shell autenticada passou a operar como produto real com home, workflows, notifications, onboarding, analytics, conversations e reports ligados a APIs reais.
+- A busca global com `cmd/ctrl + k` ficou integrada ao backend por `search`, com debounce leve, atalhos e navegacao direta entre dominios operacionais.
+- O `ThemeProvider` sustenta dark mode persistido em `localStorage`, refletindo o estado escolhido no `documentElement` e no navbar.
+- Notifications e conversations receberam cobertura direta de API, incluindo filtros tenant-aware, criacao de thread, historico e feed persistido.
+- A camada cliente de produto ganhou testes para os helpers compartilhados e um ajuste em `product-api` para nao emitir query string vazia em listagem de conversas.
+
 ## Validacao
 ### Local
 - [x] validacao local concluida
-- Executado `tsc -p apps/api/tsconfig.json --noEmit --pretty false` com resultado limpo.
-- Executado `tsc -p apps/web/tsconfig.json --noEmit --pretty false` com resultado limpo.
-- Executado `eslint` nos arquivos alterados de `clinical`, `privacy`, `security`, `Navbar`, `GlobalSearch`, `conversations` e `notifications`, sem findings.
-- Executado `node --import tsx --test apps/api/tests/module-routes.test.ts`, com 1 teste passando.
+- Executado `node --import tsx --test apps/api/tests/conversations-router.test.ts apps/api/tests/search-router.test.ts apps/api/tests/module-routes.test.ts`, com 6 testes passando.
+- Executado `node --import tsx --test apps/web/tests/auth-client.test.ts apps/web/tests/dashboard-data.test.ts apps/web/tests/product-api.test.ts apps/web/tests/theme-provider.test.ts apps/web/tests/workflows-list.test.ts`, com 8 testes passando.
+- Executado `pnpm --filter @birthub/web typecheck`, com resultado limpo.
 
 ### CI
 - [ ] validacao em CI concluida
@@ -121,8 +133,12 @@ Executar a Fase 4 do BirthHub 360, transformando o dashboard em uma experiencia 
 ## Status
 - [ ] RED
 - [ ] BLUE
-- [ ] YELLOW
-- [x] GREEN
+- [x] YELLOW
+- [ ] GREEN
+
+Justificativa do status:
+- O escopo de experiencia central de produto esta implementado e validado localmente, incluindo busca, conversations e persistencia de tema.
+- O status permanece `YELLOW` porque CI e staging ainda nao foram executados para este ciclo.
 
 ## Prompt
 Voce esta executando um ciclo arquitetural do plano BirthHub 360.

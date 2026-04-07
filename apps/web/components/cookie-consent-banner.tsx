@@ -7,11 +7,11 @@ import {
   fetchWithSession,
   getStoredSession
 } from "../lib/auth-client";
-import { getDictionary } from "../lib/i18n";
+import { useI18n } from "../providers/I18nProvider";
 import { useUserPreferencesStore } from "../stores/user-preferences-store";
 
 export function CookieConsentBanner() {
-  const copy = getDictionary();
+  const { dictionary: copy } = useI18n();
   const hydrated = useUserPreferencesStore((state) => state.hydrated);
   const hydratePreferences = useUserPreferencesStore((state) => state.hydrate);
   const preferences = useUserPreferencesStore((state) => state.preferences);

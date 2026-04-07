@@ -33,6 +33,7 @@ export function ProductEmptyState(input: {
 }
 
 export function ProductLoadingShell(input: {
+  badge?: string;
   description: string;
   title: string;
 }) {
@@ -40,7 +41,7 @@ export function ProductLoadingShell(input: {
     <main className="dashboard-content">
       <section className="hero-card product-header">
         <div className="product-header__copy">
-          <span className="badge">Carregando</span>
+          <span className="badge">{input.badge ?? "Carregando"}</span>
           <h1>{input.title}</h1>
           <p>{input.description}</p>
         </div>

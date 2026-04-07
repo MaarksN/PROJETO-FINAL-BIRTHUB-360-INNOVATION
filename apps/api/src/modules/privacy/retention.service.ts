@@ -65,17 +65,6 @@ function redactedContentHash() {
   return createHash("sha256").update(REDACTED_OUTPUT_CONTENT, "utf8").digest("hex");
 }
 
-function buildIdCursor(cursorId?: string) {
-  return cursorId
-    ? {
-        cursor: {
-          id: cursorId
-        },
-        skip: 1
-      }
-    : {};
-}
-
 function sortPolicies<T extends { dataCategory: string; id: string }>(policies: T[]) {
   return policies.sort(
     (left, right) =>
@@ -84,25 +73,40 @@ function sortPolicies<T extends { dataCategory: string; id: string }>(policies: 
 }
 
 async function listRetentionPoliciesPage(input: {
-  enabled?: boolean;
+  enabled?: boolean | undefined;
   organizationId: string;
-  cursorId?: string;
+  cursorId?: string | undefined;
 }) {
+  const where = {
+    organizationId: input.organizationId,
+    ...(input.enabled !== undefined ? { enabled: input.enabled } : {})
+  };
+
+  if (input.cursorId) {
+    return prisma.dataRetentionPolicy.findMany({
+      cursor: {
+        id: input.cursorId
+      },
+      orderBy: {
+        id: "asc"
+      },
+      skip: 1,
+      take: RETENTION_POLICY_PAGE_SIZE,
+      where
+    });
+  }
+
   return prisma.dataRetentionPolicy.findMany({
-    ...buildIdCursor(input.cursorId),
     orderBy: {
       id: "asc"
     },
     take: RETENTION_POLICY_PAGE_SIZE,
-    where: {
-      organizationId: input.organizationId,
-      ...(input.enabled !== undefined ? { enabled: input.enabled } : {})
-    }
+    where
   });
 }
 
 async function listRetentionPoliciesForOrganization(input: {
-  enabled?: boolean;
+  enabled?: boolean | undefined;
   organizationId: string;
 }) {
   const items: Awaited<ReturnType<typeof listRetentionPoliciesPage>> = [];
@@ -110,9 +114,9 @@ async function listRetentionPoliciesForOrganization(input: {
 
   while (true) {
     const page = await listRetentionPoliciesPage({
-      enabled: input.enabled,
       organizationId: input.organizationId,
-      cursorId
+      ...(input.enabled !== undefined ? { enabled: input.enabled } : {}),
+      ...(cursorId ? { cursorId } : {})
     });
     items.push(...page);
 
@@ -125,15 +129,30 @@ async function listRetentionPoliciesForOrganization(input: {
 }
 
 async function listOrganizationsPage(cursorId?: string) {
+  const select = {
+    id: true,
+    tenantId: true
+  };
+
+  if (cursorId) {
+    return prisma.organization.findMany({
+      cursor: {
+        id: cursorId
+      },
+      orderBy: {
+        id: "asc"
+      },
+      select,
+      skip: 1,
+      take: RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE
+    });
+  }
+
   return prisma.organization.findMany({
-    ...buildIdCursor(cursorId),
     orderBy: {
       id: "asc"
     },
-    select: {
-      id: true,
-      tenantId: true
-    },
+    select,
     take: RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE
   });
 }
@@ -157,10 +176,38 @@ async function listOrganizationsForRetentionSweep() {
 async function listSuspendedUsersPage(input: {
   organizationId: string;
   cutoff: Date;
-  cursorId?: string;
+  cursorId?: string | undefined;
 }) {
+  const where = {
+    memberships: {
+      some: {
+        organizationId: input.organizationId
+      }
+    },
+    status: UserStatus.SUSPENDED,
+    suspendedAt: {
+      lte: input.cutoff
+    }
+  };
+
+  if (input.cursorId) {
+    return prisma.user.findMany({
+      cursor: {
+        id: input.cursorId
+      },
+      orderBy: {
+        id: "asc"
+      },
+      select: {
+        id: true
+      },
+      skip: 1,
+      take: RETENTION_SUSPENDED_USER_PAGE_SIZE,
+      where
+    });
+  }
+
   return prisma.user.findMany({
-    ...buildIdCursor(input.cursorId),
     orderBy: {
       id: "asc"
     },
@@ -168,17 +215,7 @@ async function listSuspendedUsersPage(input: {
       id: true
     },
     take: RETENTION_SUSPENDED_USER_PAGE_SIZE,
-    where: {
-      memberships: {
-        some: {
-          organizationId: input.organizationId
-        }
-      },
-      status: UserStatus.SUSPENDED,
-      suspendedAt: {
-        lte: input.cutoff
-      }
-    }
+    where
   });
 }
 
@@ -193,7 +230,7 @@ async function listSuspendedUsersForRetention(input: {
     const page = await listSuspendedUsersPage({
       organizationId: input.organizationId,
       cutoff: input.cutoff,
-      cursorId
+      ...(cursorId ? { cursorId } : {})
     });
     users.push(...page);
 

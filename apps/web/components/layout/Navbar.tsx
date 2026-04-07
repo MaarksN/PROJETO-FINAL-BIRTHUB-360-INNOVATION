@@ -17,12 +17,19 @@ import {
   type NotificationItem,
   useNotificationStore
 } from "../../stores/notification-store";
-import { getDictionary } from "../../lib/i18n";
 import { useUserPreferencesStore } from "../../stores/user-preferences-store";
+import { useI18n } from "../../providers/I18nProvider";
 import { BrandLogo } from "../brand/BrandLogo";
 import { GlobalSearch } from "./GlobalSearch";
 
-function toDisplayDateLabel(value: string): string {
+function toDisplayDateLabel(
+  locale: string,
+  labels: {
+    today: string;
+    yesterday: string;
+  },
+  value: string
+): string {
   const current = new Date();
   const target = new Date(value);
   const dayDiff = Math.floor(
@@ -32,22 +39,29 @@ function toDisplayDateLabel(value: string): string {
   );
 
   if (dayDiff === 0) {
-    return "Hoje";
+    return labels.today;
   }
 
   if (dayDiff === 1) {
-    return "Ontem";
+    return labels.yesterday;
   }
 
-  return target.toLocaleDateString("pt-BR", {
+  return target.toLocaleDateString(locale, {
     day: "2-digit",
     month: "short"
   });
 }
 
-function groupByDay(items: NotificationItem[]) {
+function groupByDay(
+  locale: string,
+  labels: {
+    today: string;
+    yesterday: string;
+  },
+  items: NotificationItem[]
+) {
   return items.reduce<Array<{ label: string; items: NotificationItem[] }>>((groups, item) => {
-    const label = toDisplayDateLabel(item.createdAt);
+    const label = toDisplayDateLabel(locale, labels, item.createdAt);
     const currentGroup = groups.find((group) => group.label === label);
 
     if (currentGroup) {
@@ -64,7 +78,11 @@ function groupByDay(items: NotificationItem[]) {
 }
 
 export function Navbar() {
-  const copy = getDictionary();
+  const {
+    dictionary: copy,
+    formatDateTime,
+    locale
+  } = useI18n();
   const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -111,7 +129,10 @@ export function Navbar() {
     };
   }, [notificationsEnabled, refresh]);
 
-  const grouped = useMemo(() => groupByDay(items.slice(0, 10)), [items]);
+  const grouped = useMemo(
+    () => groupByDay(locale, copy.navbar, items.slice(0, 10)),
+    [copy.navbar, items, locale]
+  );
 
   return (
     <>
@@ -124,7 +145,7 @@ export function Navbar() {
       </div>
 
       <div className="dashboard-topbar__content">
-        <nav className="dashboard-nav" aria-label="Navegacao principal">
+        <nav className="dashboard-nav" aria-label={copy.navbar.navigationAriaLabel}>
           {copy.navbar.items.map((item) => {
             const active =
               pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
@@ -146,19 +167,19 @@ export function Navbar() {
           <GlobalSearch />
 
           <button
-            aria-label={mode === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
+            aria-label={mode === "dark" ? copy.navbar.activateLightTheme : copy.navbar.activateDarkTheme}
             className="ghost-button"
             onClick={toggleMode}
             type="button"
           >
             {mode === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
-            <span>{mode === "dark" ? "Claro" : "Escuro"}</span>
+            <span>{mode === "dark" ? copy.navbar.lightModeLabel : copy.navbar.darkModeLabel}</span>
           </button>
 
           <div ref={dropdownRef} style={{ position: "relative" }}>
             <button
               aria-expanded={open}
-              aria-label="Abrir central de notificacoes"
+              aria-label={copy.navbar.openNotifications}
               className="ghost-button"
               onClick={() => {
                 if (!open) {
@@ -175,7 +196,7 @@ export function Navbar() {
               type="button"
             >
               {notificationsEnabled === false ? <BellOff size={18} /> : <Bell size={18} />}
-              <span>Feed</span>
+              <span>{copy.navbar.feedLabel}</span>
               {notificationsEnabled !== false && unreadCount > 0 ? (
                 <span className="notification-badge">{unreadCount > 99 ? "99+" : unreadCount}</span>
               ) : null}
@@ -185,8 +206,8 @@ export function Navbar() {
               <div className="notification-dropdown">
                 <div className="notification-dropdown__header">
                   <div>
-                    <strong>Notificacoes</strong>
-                    <p>Atualizacao leve em tempo real com persistencia no backend.</p>
+                    <strong>{copy.navbar.notificationsTitle}</strong>
+                    <p>{copy.navbar.notificationsDescription}</p>
                   </div>
                   <button
                     className="ghost-button"
@@ -196,21 +217,19 @@ export function Navbar() {
                     type="button"
                   >
                     <CheckCheck size={16} />
-                    <span>Ler tudo</span>
+                    <span>{copy.navbar.markAllRead}</span>
                   </button>
                 </div>
 
                 {notificationsEnabled === false ? (
                   <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
-                    <strong>Notificacoes in-app desativadas</strong>
-                    <p style={{ marginBottom: 0 }}>
-                      Reative em preferencias para voltar a receber avisos no app.
-                    </p>
+                    <strong>{copy.navbar.notificationsDisabledTitle}</strong>
+                    <p style={{ marginBottom: 0 }}>{copy.navbar.notificationsDisabledDescription}</p>
                   </div>
                 ) : grouped.length === 0 ? (
                   <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
-                    <strong>Feed vazio</strong>
-                    <p style={{ marginBottom: 0 }}>Nenhuma notificacao recente para este usuario.</p>
+                    <strong>{copy.navbar.emptyTitle}</strong>
+                    <p style={{ marginBottom: 0 }}>{copy.navbar.emptyDescription}</p>
                   </div>
                 ) : (
                   <div className="notification-dropdown__list">
@@ -232,7 +251,7 @@ export function Navbar() {
                             <div className="notification-card__title">
                               <strong>{item.type.replace(/_/g, " ")}</strong>
                               <small>
-                                {new Date(item.createdAt).toLocaleTimeString("pt-BR", {
+                                {formatDateTime(item.createdAt, {
                                   hour: "2-digit",
                                   minute: "2-digit"
                                 })}
@@ -240,7 +259,7 @@ export function Navbar() {
                             </div>
                             <span>{item.content}</span>
                             <span className="notification-card__link">
-                              Abrir detalhe
+                              {copy.navbar.openDetail}
                               <ExternalLink size={14} />
                             </span>
                           </a>
@@ -252,10 +271,10 @@ export function Navbar() {
 
                 <div className="notification-dropdown__footer">
                   <Link href="/notifications" onClick={() => setOpen(false)}>
-                    Ver central
+                    {copy.navbar.viewCenter}
                   </Link>
                   <Link href="/profile/notifications" onClick={() => setOpen(false)}>
-                    Preferencias
+                    {copy.navbar.preferences}
                   </Link>
                 </div>
               </div>

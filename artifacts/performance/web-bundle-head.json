@@ -1,12 +1,12 @@
 {
-  "checkedAt": "2026-04-07T22:15:26.141Z",
-  "status": "fresh",
-  "sufficient": true,
+  "checkedAt": "2026-04-07T22:25:26.374Z",
+  "status": "generation-failed",
+  "sufficient": false,
   "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
-  "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
-  "stderr": "",
+  "stdout": "",
+  "stderr": "spawnSync C:\\Program Files\\nodejs\\node.exe EPERM",
   "baseline": {
-    "generatedAt": "2026-04-07T22:15:26.085Z",
+    "generatedAt": "2026-04-07T22:24:15.476Z",
     "nextBuildDir": "apps/web/.next",
     "chunks": {
       "files": 44,

@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-07T22:16:13.027Z",
+    "generatedAt": "2026-04-07T22:24:37.426Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "228ed6a667204eeb82a919a3a14ed2876047198a",
+    "headSha": "cd498b47d93f4e59c485341d431113be70b3e503",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,9 +16,9 @@
     }
   },
   "repo": {
-    "trackedFiles": 6251,
-    "coreTrackedFiles": 550,
-    "runtimeFiles": 1872,
+    "trackedFiles": 6253,
+    "coreTrackedFiles": 552,
+    "runtimeFiles": 1874,
     "testFiles": 185,
     "modules": 302
   },
@@ -1915,13 +1915,13 @@
     },
     {
       "path": "apps/api/src/modules/privacy/retention.service.ts",
-      "bytes": 13320,
-      "lines": 520,
+      "bytes": 13991,
+      "lines": 557,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "0bd4ea98ac0f159a50572cc12511d14f2271efca670fb4eba3610a716ec97608"
+      "sha256": "0cd4b6d819d78d21e9133a5954cef4e9577e6efd80daf6e6b33f39b27214b2ce"
     },
     {
       "path": "apps/api/src/modules/privacy/router.ts",
@@ -2454,6 +2454,16 @@
       "sha256": "e084a6fbdf5cbd37524bab53d164647a6aee723bf61af1959f38f020cbe2fe23"
     },
     {
+      "path": "apps/api/tests/conversations-router.test.ts",
+      "bytes": 7257,
+      "lines": 256,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "2520b17e97c361a9f04dda69087d8b5a998fdf8756a98395ac420b00e81a602f"
+    },
+    {
       "path": "apps/api/tests/core-business-routes.test.ts",
       "bytes": 862,
       "lines": 33,
@@ -2515,13 +2525,13 @@
     },
     {
       "path": "apps/api/tests/marketplace-budget.smoke.test.ts",
-      "bytes": 4617,
-      "lines": 158,
+      "bytes": 6222,
+      "lines": 222,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "apps",
       "moduleBucket": "apps/api",
-      "sha256": "21551ea98c62badeff60aa0394a0766fb60c531356429ba1e6345766bee218c1"
+      "sha256": "7161845e566509135eb1a3ddcbd3a0ff15352697ac4d2f35574fb651fcc4e51e"
     },
     {
       "path": "apps/api/tests/metrics.service.test.ts",
@@ -2592,6 +2602,26 @@
       "topLevel": "apps",
       "moduleBucket": "apps/api",
       "sha256": "6d00cb84095dd539d03e5e28b8bb048e58f3ab585789ebd5490ed5441abcf3a3"
+    },
+    {
+      "path": "apps/api/tests/retention.service.test.ts",
+      "bytes": 6875,
+      "lines": 210,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "3b641c5e513f81b01f576504fb4df810669638b1d803f3898cb2a026116592a9"
+    },
+    {
+      "path": "apps/api/tests/search-router.test.ts",
+      "bytes": 5224,
+      "lines": 192,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/api",
+      "sha256": "dbb82ee221524af639c42443159d9a06ea2bfa473be7ee794ac02d053ed586a4"
     },
     {
       "path": "apps/api/tests/security.test.ts",
@@ -2672,6 +2702,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/dashboard",
       "sha256": "7fe6d48d6442a9a1121ac02913c1940a6d83fd344d99509f9b56e497c1ff8005"
+    },
+    {
+      "path": "apps/legacy/dashboard/README.md",
+      "bytes": 481,
+      "lines": 12,
+      "language": "Markdown",
+      "kind": "doc",
+      "topLevel": "apps",
+      "moduleBucket": "apps/legacy",
+      "sha256": "4f1a71b65784d38e204cd1f3a956ca20fc189adf9e221b6eb8d5ac29d5defd57"
     },
     {
       "path": "apps/legacy/dashboard/lib/dashboard-static-snapshot.ts",
@@ -2935,13 +2975,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/dashboard/loading.tsx",
-      "bytes": 297,
-      "lines": 11,
+      "bytes": 513,
+      "lines": 17,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "1387efbe0344fc060a845316ce77149952f82b5dc6ba166cc6195f036dffbec7"
+      "sha256": "2d02a6a591bc8370b14290424e625468a05bdaba4a24c708b003747acead7c05"
     },
     {
       "path": "apps/web/app/(dashboard)/dashboard/page.data.ts",
@@ -3234,6 +3274,36 @@
       "sha256": "6d308ccb96a26fe38a6f1ff9daef816d0d197b3492eb7e0a4f58a72a63445ee9"
     },
     {
+      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.data.ts",
+      "bytes": 3904,
+      "lines": 157,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "04bc009fca160baf0130cc1ef16943d1d19ab3343d12f37d63f6a3f94665fc81"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.model.ts",
+      "bytes": 4231,
+      "lines": 158,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "eb9515f4386e7681f7f1b4245511fa9cf7dd71a5b994c4f4c000d1bbf1f45824"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
+      "bytes": 6475,
+      "lines": 230,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "7b20fe996fae09b451902a1ace5dba38c07ae89226e793a116fd02555eed9299"
+    },
+    {
       "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
       "bytes": 2122,
       "lines": 76,
@@ -3365,23 +3435,23 @@
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/loading.tsx",
-      "bytes": 299,
-      "lines": 11,
+      "bytes": 509,
+      "lines": 17,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "7538fdf7d802e16677fa57cb59511b6a96729fe33f2852125ccc85ce7725dbcb"
+      "sha256": "06420f83cfca74b602fb583e16fbefbddef70b78459ee85352ccef26212d3627"
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/page.tsx",
-      "bytes": 3602,
-      "lines": 106,
+      "bytes": 4194,
+      "lines": 118,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "36d3842a16884532c125cb6a5e08257bf408c154cc48bfb39d0b24d2f444f182"
+      "sha256": "80aba7ec534f1e885c79c9bad4f27537c528637108e7fcfa64685e8e02096ac2"
     },
     {
       "path": "apps/web/app/admin/analytics/analytics.css",
@@ -3525,13 +3595,13 @@
     },
     {
       "path": "apps/web/app/layout.tsx",
-      "bytes": 892,
-      "lines": 32,
+      "bytes": 1016,
+      "lines": 37,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "644f79d8e664884e4c2f29930f457f4c88842f19b03c09e5f818c0bba076a3ff"
+      "sha256": "338126f9c669eedb3dd10bb5e847a1060950b596c2595e79df0d54c8b0d5c2ca"
     },
     {
       "path": "apps/web/app/legal/privacy/page.tsx",
@@ -3675,13 +3745,13 @@
     },
     {
       "path": "apps/web/components/cookie-consent-banner.tsx",
-      "bytes": 3306,
+      "bytes": 3324,
       "lines": 123,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "ea13d8e87d90b35a512bf28017039ebcdfb1765495e131c4b8d0695f35807016"
+      "sha256": "a83e422948e6021d1e65cf1c54805205d7cd3e8bfd991f151b7ef6745b549d17"
     },
     {
       "path": "apps/web/components/dashboard-billing-gate.tsx",
@@ -3695,13 +3765,13 @@
     },
     {
       "path": "apps/web/components/dashboard/page-fragments.tsx",
-      "bytes": 1739,
-      "lines": 61,
+      "bytes": 1776,
+      "lines": 62,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "7884aebe29b33fcd99df80746ec39c94bc5890ce1062c4c2519d224585136cd6"
+      "sha256": "21a7e67f422003ee0774eb16ab6ea78b217bd4a754b8bf7463f459d447e3b062"
     },
     {
       "path": "apps/web/components/dashboard/route-error-view.tsx",
@@ -3725,13 +3795,13 @@
     },
     {
       "path": "apps/web/components/layout/Navbar.tsx",
-      "bytes": 9102,
-      "lines": 269,
+      "bytes": 9471,
+      "lines": 288,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "22172fc49ca71b46bf2bb527954e3419a46b7448a6efe8616d47ac32843875eb"
+      "sha256": "3c6146ffcb7613d12a702b4d185335544e3c5c1f1e85267fa116add13429b865"
     },
     {
       "path": "apps/web/components/legal-footer.tsx",
@@ -3864,6 +3934,16 @@
       "sha256": "d0959a8c5d47803733a8cc341d9587096c16332e612a20904aff7d42cb75fb88"
     },
     {
+      "path": "apps/web/lib/i18n.ts",
+      "bytes": 19965,
+      "lines": 566,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "23b3687e91fc20c1861ad333e244e442c397e15ea96bf6a6b4a466ad0b0f6c48"
+    },
+    {
       "path": "apps/web/lib/marketplace-api.server.ts",
       "bytes": 5323,
       "lines": 199,
@@ -3945,13 +4025,13 @@
     },
     {
       "path": "apps/web/next.config.mjs",
-      "bytes": 2972,
-      "lines": 104,
+      "bytes": 3021,
+      "lines": 105,
       "language": "JavaScript",
       "kind": "config",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "4baf35e5e8921d13465c016e1caa0e94e27268b8887fc0731a484ee1e090ebc2"
+      "sha256": "bc536474c49ab50b23e503f8c78e7eae42bb354b41d6454ebd6e8d15a026bc64"
     },
     {
       "path": "apps/web/package.json",
@@ -3975,13 +4055,13 @@
     },
     {
       "path": "apps/web/providers/AppProviders.tsx",
-      "bytes": 1084,
-      "lines": 40,
+      "bytes": 1306,
+      "lines": 50,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "10776392105ecfe2d93b1f338d05d6d88975f5b30c21694010900afee7f4bf44"
+      "sha256": "4d39b1eff1c00cdbdd7a02a413e092fe16f693bb18948f4406ee326c8390d64b"
     },
     {
       "path": "apps/web/providers/EngagementProvider.tsx",
@@ -4194,6 +4274,16 @@
       "sha256": "1d32e2358633d3f4ea4086f09bf6dbadfb8a57f7007d543f64c73db47d8e70d3"
     },
     {
+      "path": "apps/web/tests/developer-webhooks-page.test.ts",
+      "bytes": 7171,
+      "lines": 214,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "369b69d729420dd1f63eadec4400a8ca70e409ed2a4707441d5dbd6c97cb4f6a"
+    },
+    {
       "path": "apps/web/tests/health.required-dependency.test.ts",
       "bytes": 1661,
       "lines": 52,
@@ -4202,6 +4292,16 @@
       "topLevel": "apps",
       "moduleBucket": "apps/web",
       "sha256": "76aa7921efe32ddf509b8df8e53d7fabb6c698310a078c9ac17471922916d8b1"
+    },
+    {
+      "path": "apps/web/tests/i18n.test.ts",
+      "bytes": 792,
+      "lines": 25,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "dd4cbfa7d07d09d5c40a152ab813e5a37062c6ab29778488369adf14cf23669b"
     },
     {
       "path": "apps/web/tests/login.smoke.test.ts",
@@ -4214,6 +4314,16 @@
       "sha256": "522e7506d4185307c2d3c34734ea9e6419405311e45a919fc10e39e4a5f336ac"
     },
     {
+      "path": "apps/web/tests/notification-store.test.ts",
+      "bytes": 7694,
+      "lines": 245,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "e65cc8c16dba25d320ddee52f8cc132d41841058f39c519f71b999410585d2ef"
+    },
+    {
       "path": "apps/web/tests/offline-page.test.ts",
       "bytes": 495,
       "lines": 15,
@@ -4222,6 +4332,26 @@
       "topLevel": "apps",
       "moduleBucket": "apps/web",
       "sha256": "efdbb2e7be99ce17ac3d5e78a55a2a9346c2b0c568f7a62b0991d713df6fb1ff"
+    },
+    {
+      "path": "apps/web/tests/product-api.test.ts",
+      "bytes": 5132,
+      "lines": 149,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "eba097929072a595a2d1b595e1050d894363c9a1be3f5674cf7f015eaa7991cb"
+    },
+    {
+      "path": "apps/web/tests/theme-provider.test.ts",
+      "bytes": 3812,
+      "lines": 112,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "f6c64353502fdca383a45b9dd798052c1753027fbaac050f8fe366bf57b3f722"
     },
     {
       "path": "apps/web/tests/workflow-runs-page.test.ts",
@@ -5185,13 +5315,13 @@
     },
     {
       "path": "artifacts/accessibility/axe-report.json",
-      "bytes": 1185,
+      "bytes": 1968,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/accessibility",
-      "sha256": "c44abb3383bd7905a1f38b3d6c9117df9fac2c2969ee8830bc961f59060feb49"
+      "sha256": "110fb489200929d8b87d12d2b5abfaef2afadfed1c913531af38e15ef1dae948"
     },
     {
       "path": "artifacts/agent-readiness/agent-snapshot-2026-03-24.json",
@@ -5401,7 +5531,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "46ef2b1a4417d4a880a9a813dd3c5a2774f5d11be478a5c8f552cc2c89d798b1"
+      "sha256": "07fb4f77209966e0d50691153b66a77696a213ad05aafc7ca0a3971aae8de1b0"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -5441,7 +5571,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/dr",
-      "sha256": "ff6001686efb7587fe70474ef331d36958e13f5f12e9212200b7dd0201b3e818"
+      "sha256": "5d97ec1fd795cab5e4e6478ec0e7ecd5097d594c1d0ec824440950b005a8c97c"
     },
     {
       "path": "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
@@ -5881,7 +6011,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/performance",
-      "sha256": "221192847ae06e9662f9523311b2511fa4bc266df1dc9eb39246d41615e21b04"
+      "sha256": "c870b80ea44a7255cb9e4f12278f1b97309f6e52949c0bbb3dbad2758707807b"
     },
     {
       "path": "artifacts/privacy/anonymization-report.json",
@@ -5901,7 +6031,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "67ffc0dbc162742fe89fe4f018afe3f83e0ee1bdafe2310be5f7bcd8261aadd6"
+      "sha256": "b9ec410b207254e726ef907bb08f8031c7c610d06088ec1a0b2de3fbc1d23b44"
     },
     {
       "path": "artifacts/quality/bundle/web-bundle-baseline.md",
@@ -5911,7 +6041,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "48b0cbfc6438c543a39f1114b9428fe924eff148c70ecd34bb77e39bbc04b381"
+      "sha256": "5f0e06e054dce95995c6a298a2130365c724bdf23173feddbaee57fe1233adbe"
     },
     {
       "path": "artifacts/quality/complexity/cyclomatic-baseline.json",
@@ -6195,23 +6325,23 @@
     },
     {
       "path": "artifacts/security/semgrep-head.json",
-      "bytes": 71491,
+      "bytes": 71499,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/security",
-      "sha256": "3f4c1378e7842a50573e0b18c688788ffedc2b23a8ef38016f0e2172c0cb6585"
+      "sha256": "62bffaec24e49e7fc2e1f8df555f5bcf634dcc6480dfe529434047103b8b06aa"
     },
     {
       "path": "artifacts/tenancy/rls-proof-head.json",
-      "bytes": 2832,
+      "bytes": 3621,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/tenancy",
-      "sha256": "6448efd1d1356d34ce6195f2d3c74e3c050852c30cabbb81124ff12134c22384"
+      "sha256": "9efa61a355bd2a87ab8d22a97b28b45e4c04cde1cc413b91da9bd42afe16f727"
     },
     {
       "path": "artifacts/testing/module-coverage.json",
@@ -6221,7 +6351,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/testing",
-      "sha256": "b25a9b0c32bc94a98d7d19cc98bbf9316c230992d3a392910509659cfb6ff478"
+      "sha256": "29f971bc0881589720f8d9bc182352c44d311cadeccf2c8abfcda30e47a32ddc"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
@@ -6285,33 +6415,33 @@
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/01-raw-evidence.json",
-      "bytes": 2646225,
+      "bytes": 18241919,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "607d65dbc455ce8968405d1b8ddbfefea4b7c320a4a73f6e9695e5c7d5abe039"
+      "sha256": "358c7c900577b7233f28a5bbeec7e9699bb120bcba4a873f6f1592b071264f1a"
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/02-normalized.json",
-      "bytes": 399185,
+      "bytes": 292327,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "03b46313635fe2ff358dcd4c60b2275e79f7318a73bfc979d4d753497e01a30e"
+      "sha256": "3a8d17eb763045b1cd46a44c440333a29fa01224be453282480dae5eb975121b"
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "bytes": 433997,
+      "bytes": 326973,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "1438b01790691563da3c0c7b16ef5b35c495922811949ef1dd08c3823845bf12"
+      "sha256": "31c50806ac944a3721d181a9b5aac44a083e56b48b8826002390aa510ee53634"
     },
     {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
@@ -6475,83 +6605,83 @@
     },
     {
       "path": "audit/auditor-prime-2026-04-07.html",
-      "bytes": 478051,
+      "bytes": 406297,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.html",
-      "sha256": "f1b66491578afefc3f84a8e4761a0f4e14680a2c1f49c8fe4e5a4c951f903605"
+      "sha256": "758c1308719220d580d46a6c8f7a02e768700d6ac2da811bfc98b9a6252ee460"
     },
     {
       "path": "audit/auditor-prime-2026-04-07.json",
-      "bytes": 433997,
+      "bytes": 326973,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.json",
-      "sha256": "1438b01790691563da3c0c7b16ef5b35c495922811949ef1dd08c3823845bf12"
+      "sha256": "31c50806ac944a3721d181a9b5aac44a083e56b48b8826002390aa510ee53634"
     },
     {
       "path": "audit/auditor-prime-2026-04-07.md",
-      "bytes": 130755,
+      "bytes": 132741,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.md",
-      "sha256": "50328be31d4256a0c02c2e349bd0613c8abf956b29fcea94f4265fbf429bce2f"
+      "sha256": "f8e35627eb65ba2933bce0e78173ebea1a643e2ae4e8610464f67f39d4ddcb93"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.json",
-      "bytes": 7930,
+      "bytes": 8191,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.json",
-      "sha256": "470b35c28307adeef7329845d4a4ba5633743b1f5d4c703a270a79995ef7e2ed"
+      "sha256": "1067767a6260b6d60f304b86b34795c7b5c51d0bb370d0ad70f62d4ccdfd7e25"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.md",
-      "bytes": 4901,
+      "bytes": 5162,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.md",
-      "sha256": "b3103a35c26700b422f1fe6fd79a609654a1758da924d47e92c14006676d25ab"
+      "sha256": "adc5017ab8a0425515455a0769d745a64cfd3afb82646264ea7213ba49a65f63"
     },
     {
       "path": "audit/auditor-prime-latest.html",
-      "bytes": 478051,
+      "bytes": 406297,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.html",
-      "sha256": "f1b66491578afefc3f84a8e4761a0f4e14680a2c1f49c8fe4e5a4c951f903605"
+      "sha256": "758c1308719220d580d46a6c8f7a02e768700d6ac2da811bfc98b9a6252ee460"
     },
     {
       "path": "audit/auditor-prime-latest.json",
-      "bytes": 433997,
+      "bytes": 326973,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.json",
-      "sha256": "1438b01790691563da3c0c7b16ef5b35c495922811949ef1dd08c3823845bf12"
+      "sha256": "31c50806ac944a3721d181a9b5aac44a083e56b48b8826002390aa510ee53634"
     },
     {
       "path": "audit/auditor-prime-latest.md",
-      "bytes": 130755,
+      "bytes": 132741,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.md",
-      "sha256": "50328be31d4256a0c02c2e349bd0613c8abf956b29fcea94f4265fbf429bce2f"
+      "sha256": "f8e35627eb65ba2933bce0e78173ebea1a643e2ae4e8610464f67f39d4ddcb93"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -39875,23 +40005,23 @@
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-07.json",
-      "bytes": 7930,
+      "bytes": 8191,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-07.json",
-      "sha256": "470b35c28307adeef7329845d4a4ba5633743b1f5d4c703a270a79995ef7e2ed"
+      "sha256": "1067767a6260b6d60f304b86b34795c7b5c51d0bb370d0ad70f62d4ccdfd7e25"
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-07.md",
-      "bytes": 4901,
+      "bytes": 5162,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-07.md",
-      "sha256": "b3103a35c26700b422f1fe6fd79a609654a1758da924d47e92c14006676d25ab"
+      "sha256": "adc5017ab8a0425515455a0769d745a64cfd3afb82646264ea7213ba49a65f63"
     },
     {
       "path": "audit/traceability_matrix.md",
@@ -41335,13 +41465,13 @@
     },
     {
       "path": "docs/cycles/2026-04-07-fase-4-experiencia-central-de-produto.md",
-      "bytes": 6341,
-      "lines": 137,
+      "bytes": 7719,
+      "lines": 153,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/cycles",
-      "sha256": "5bcbae777176a65057e8eb2e9fbbd94f2a23538ef67fbf1bf6faad7b76aafdcf"
+      "sha256": "639b35e8eda708d90d9880b91bbbb22ebb5e795d060f0442f2dd336e162caefe"
     },
     {
       "path": "docs/cycles/2026-04-07-fase-5-sustentacao-de-producao.md",
@@ -41591,7 +41721,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/evidence",
-      "sha256": "c5afb4c0bb43bf26235a4a702c744a7ea3a4fe6e0232625c017cd3bc43350172"
+      "sha256": "a39c83f777836df83fb7e1bd3e560a7e18aad506ba2d038a04ea87eb89eb49fe"
     },
     {
       "path": "docs/evidence/utils-esm-fix.md",
@@ -41955,13 +42085,13 @@
     },
     {
       "path": "docs/operations/environment-parity.md",
-      "bytes": 1909,
+      "bytes": 1913,
       "lines": 33,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "b44ce23968dfcd952ec934ebc346a8628a3a17eb004340585925dbcf17adbd02"
+      "sha256": "8f3491e953cee0c870b5f1cb09ca9c035e009da3737dbb1f7c4f40e7829e62f3"
     },
     {
       "path": "docs/operations/f0-evidence-freshness-policy.md",
@@ -42011,7 +42141,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "1f9458f84d27fb2af7f1898238af65d2ec3c3e649eac3dde9d79fad40881a776"
+      "sha256": "34d8c4b0ca21317ab77adba270ac1d4e2c776d763f2300b0ae31eefc45a319a1"
     },
     {
       "path": "docs/performance/agent-slo.md",
@@ -58754,6 +58884,16 @@
       "sha256": "157f4a110293c655872bda9817dc35ce5b3d325507256df8895781b49f46c42f"
     },
     {
+      "path": "packages/database/prisma/migrations/20260407000300_phase1_lgpd_user_preferences/migration.sql",
+      "bytes": 649,
+      "lines": 18,
+      "language": "SQL",
+      "kind": "runtime",
+      "topLevel": "packages",
+      "moduleBucket": "packages/database",
+      "sha256": "51fbe79102ff4fd24e71a59c93819e6794c1a96dcb7f4b035be699ebb76dca75"
+    },
+    {
       "path": "packages/database/prisma/migrations/migration_lock.toml",
       "bytes": 24,
       "lines": 2,
@@ -59315,13 +59455,13 @@
     },
     {
       "path": "packages/database/test/database-availability.ts",
-      "bytes": 1500,
-      "lines": 53,
+      "bytes": 1672,
+      "lines": 56,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "f63e32f98ef7a19999275515c666bfb9b6efd228cbc81a577d19a1d27b3ca529"
+      "sha256": "fdaf929a07d3fa1eb57e11fc9f76e2c528541f918e9debc780fe9865f0ab2837"
     },
     {
       "path": "packages/database/test/engagement.test.ts",
@@ -59365,13 +59505,13 @@
     },
     {
       "path": "packages/database/test/migration.test.ts",
-      "bytes": 1672,
-      "lines": 60,
+      "bytes": 1891,
+      "lines": 67,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "85903f4931215f2a368e85b9cf99b229188f07785c5f98032a45b008e3eb1baa"
+      "sha256": "404ed4255f2247e981eb02ce6f98f1359106067baeb7ed3774c3c376b2b703f9"
     },
     {
       "path": "packages/database/test/prisma-query-timeout.error.test.ts",
@@ -60124,6 +60264,16 @@
       "sha256": "c61a20d6edabb2a3b3f87265bf8f5c0219cb44654d996ebd0f3c6aea774b127b"
     },
     {
+      "path": "packages/security/src/index.ts",
+      "bytes": 29,
+      "lines": 2,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "packages",
+      "moduleBucket": "packages/security",
+      "sha256": "33b1627f740228fd33b9a6f407467e93840f3df93b7f1f40585d113fa387c66e"
+    },
+    {
       "path": "packages/security/tsconfig.json",
       "bytes": 223,
       "lines": 16,
@@ -60704,6 +60854,16 @@
       "sha256": "9301888fb863d028f59d57bd21030cc361cfe955a0e49e5e4204b6b76f1181be"
     },
     {
+      "path": "packages/workflows-core/test/executeStep.test.ts",
+      "bytes": 1791,
+      "lines": 79,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "packages",
+      "moduleBucket": "packages/workflows-core",
+      "sha256": "d62cf122880140e96e9756ae1f88202b7e6b1d90f3b00f522588765a961f0c5f"
+    },
+    {
       "path": "packages/workflows-core/test/semantic-step-lint.test.ts",
       "bytes": 3021,
       "lines": 136,
@@ -61005,13 +61165,13 @@
     },
     {
       "path": "scripts/audit/prime-collect.mjs",
-      "bytes": 28596,
-      "lines": 847,
+      "bytes": 28695,
+      "lines": 852,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "f12cc1428198814b91d4459b4ec2f2b0fcf4b8e545dfc7ee3a8b652c513f9d5f"
+      "sha256": "7c7da45800dd5f583364bc10ca0a193e0353de4c8c75e711d9ba88bf5a3b74b4"
     },
     {
       "path": "scripts/audit/prime-normalize.mjs",
@@ -61025,13 +61185,13 @@
     },
     {
       "path": "scripts/audit/prime-refresh-evidence.mjs",
-      "bytes": 35152,
-      "lines": 1042,
+      "bytes": 35712,
+      "lines": 1056,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "1657ce2b30a69b1aa272d37f13d62a3c609040d9a927478247a7b09230a42b6d"
+      "sha256": "3172a8a4106b3a17625547256f50f0a25300fccc7d014a61b22a122bcd3a413e"
     },
     {
       "path": "scripts/audit/prime-render.mjs",
@@ -61065,13 +61225,13 @@
     },
     {
       "path": "scripts/audit/shared-prime.mjs",
-      "bytes": 9577,
-      "lines": 325,
+      "bytes": 11804,
+      "lines": 403,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "6381cda2d83df3856bc13c640e9c99a26bad3ed93e9715d93b9b4a7049d81677"
+      "sha256": "139165264444b684bf2fff63d3473ba586dfc09995491f624038954110c29f16"
     },
     {
       "path": "scripts/audit/shared.mjs",
@@ -61662,6 +61822,16 @@
       "topLevel": "scripts",
       "moduleBucket": "scripts/generate-pack-docs.ts",
       "sha256": "c9940cda4376125c6332b54746ae3d7f78b78103f250c68bf02c729cdab2e4dc"
+    },
+    {
+      "path": "scripts/legacy/block-legacy-entrypoint.mjs",
+      "bytes": 369,
+      "lines": 12,
+      "language": "JavaScript",
+      "kind": "runtime",
+      "topLevel": "scripts",
+      "moduleBucket": "scripts/legacy",
+      "sha256": "1afe06c286d3b0c9a7958114011e89130b68cf748b84ca46a46a593287a2f5d0"
     },
     {
       "path": "scripts/load-tests/stress.js",
@@ -62364,180 +62534,30 @@
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
     },
     {
-      "path": "apps/api/tests/conversations-router.test.ts",
-      "bytes": 7257,
-      "lines": 256,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "2520b17e97c361a9f04dda69087d8b5a998fdf8756a98395ac420b00e81a602f"
-    },
-    {
-      "path": "apps/api/tests/retention.service.test.ts",
-      "bytes": 6875,
-      "lines": 210,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "3b641c5e513f81b01f576504fb4df810669638b1d803f3898cb2a026116592a9"
-    },
-    {
-      "path": "apps/api/tests/search-router.test.ts",
-      "bytes": 5224,
-      "lines": 192,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/api",
-      "sha256": "dbb82ee221524af639c42443159d9a06ea2bfa473be7ee794ac02d053ed586a4"
-    },
-    {
-      "path": "apps/legacy/dashboard/README.md",
-      "bytes": 481,
-      "lines": 12,
-      "language": "Markdown",
-      "kind": "doc",
-      "topLevel": "apps",
-      "moduleBucket": "apps/legacy",
-      "sha256": "4f1a71b65784d38e204cd1f3a956ca20fc189adf9e221b6eb8d5ac29d5defd57"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.data.ts",
-      "bytes": 3904,
-      "lines": 157,
+      "path": "apps/web/lib/i18n.server.ts",
+      "bytes": 280,
+      "lines": 9,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "04bc009fca160baf0130cc1ef16943d1d19ab3343d12f37d63f6a3f94665fc81"
+      "sha256": "efc3b6b05b853aaa72d4b83e3d02865039170776bc2fc6a22c001c3cc8ad6216"
     },
     {
-      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.model.ts",
-      "bytes": 4231,
-      "lines": 158,
+      "path": "apps/web/providers/I18nProvider.tsx",
+      "bytes": 1221,
+      "lines": 51,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "eb9515f4386e7681f7f1b4245511fa9cf7dd71a5b994c4f4c000d1bbf1f45824"
-    },
-    {
-      "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "bytes": 6475,
-      "lines": 230,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "7b20fe996fae09b451902a1ace5dba38c07ae89226e793a116fd02555eed9299"
-    },
-    {
-      "path": "apps/web/lib/i18n.ts",
-      "bytes": 1751,
-      "lines": 60,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "1b9ba6578b3d6fba305ff309843a90314162d90c993f2f121f50014dbb416c9d"
-    },
-    {
-      "path": "apps/web/tests/developer-webhooks-page.test.ts",
-      "bytes": 7171,
-      "lines": 214,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "369b69d729420dd1f63eadec4400a8ca70e409ed2a4707441d5dbd6c97cb4f6a"
-    },
-    {
-      "path": "apps/web/tests/i18n.test.ts",
-      "bytes": 792,
-      "lines": 25,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "dd4cbfa7d07d09d5c40a152ab813e5a37062c6ab29778488369adf14cf23669b"
-    },
-    {
-      "path": "apps/web/tests/notification-store.test.ts",
-      "bytes": 7694,
-      "lines": 245,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "e65cc8c16dba25d320ddee52f8cc132d41841058f39c519f71b999410585d2ef"
-    },
-    {
-      "path": "apps/web/tests/product-api.test.ts",
-      "bytes": 5132,
-      "lines": 149,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "eba097929072a595a2d1b595e1050d894363c9a1be3f5674cf7f015eaa7991cb"
-    },
-    {
-      "path": "apps/web/tests/theme-provider.test.ts",
-      "bytes": 3772,
-      "lines": 112,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "apps",
-      "moduleBucket": "apps/web",
-      "sha256": "ed00f0e859bcfa60b04067b47f67546bf360075b94755846fb4e93a3e97d2dde"
-    },
-    {
-      "path": "packages/database/prisma/migrations/20260407000300_phase1_lgpd_user_preferences/migration.sql",
-      "bytes": 649,
-      "lines": 18,
-      "language": "SQL",
-      "kind": "runtime",
-      "topLevel": "packages",
-      "moduleBucket": "packages/database",
-      "sha256": "51fbe79102ff4fd24e71a59c93819e6794c1a96dcb7f4b035be699ebb76dca75"
-    },
-    {
-      "path": "packages/security/src/index.ts",
-      "bytes": 29,
-      "lines": 2,
-      "language": "TypeScript",
-      "kind": "runtime",
-      "topLevel": "packages",
-      "moduleBucket": "packages/security",
-      "sha256": "33b1627f740228fd33b9a6f407467e93840f3df93b7f1f40585d113fa387c66e"
-    },
-    {
-      "path": "packages/workflows-core/test/executeStep.test.ts",
-      "bytes": 1791,
-      "lines": 79,
-      "language": "TypeScript",
-      "kind": "test",
-      "topLevel": "packages",
-      "moduleBucket": "packages/workflows-core",
-      "sha256": "d62cf122880140e96e9756ae1f88202b7e6b1d90f3b00f522588765a961f0c5f"
-    },
-    {
-      "path": "scripts/legacy/block-legacy-entrypoint.mjs",
-      "bytes": 369,
-      "lines": 12,
-      "language": "JavaScript",
-      "kind": "runtime",
-      "topLevel": "scripts",
-      "moduleBucket": "scripts/legacy",
-      "sha256": "1afe06c286d3b0c9a7958114011e89130b68cf748b84ca46a46a593287a2f5d0"
+      "sha256": "4c417b9cc9da4afa903411dffdfc95a0bc55dd420025a99c248880d19c187326"
     }
   ],
   "complexity": {
     "available": true,
-    "filesScanned": 739,
-    "functionsScanned": 5687,
+    "filesScanned": 741,
+    "functionsScanned": 5702,
     "modules": [
       {
         "module": "packages/agents-core",
@@ -62660,8 +62680,8 @@
       },
       {
         "module": "apps/web",
-        "functions": 1184,
-        "avgComplexity": 2.75,
+        "functions": 1198,
+        "avgComplexity": 2.74,
         "p95Complexity": 9,
         "maxComplexity": 120,
         "functionsAtOrAbove10": 55,
@@ -62734,9 +62754,9 @@
             "file": "apps/web/components/layout/Navbar.tsx",
             "module": "apps/web",
             "functionName": "Navbar",
-            "line": 66,
-            "endLine": 268,
-            "length": 203,
+            "line": 80,
+            "endLine": 287,
+            "length": 208,
             "complexity": 22
           },
           {
@@ -62898,7 +62918,7 @@
       },
       {
         "module": "apps/api",
-        "functions": 1737,
+        "functions": 1738,
         "avgComplexity": 2.82,
         "p95Complexity": 9,
         "maxComplexity": 23,
@@ -63018,7 +63038,7 @@
       {
         "module": "packages/database",
         "functions": 314,
-        "avgComplexity": 2.39,
+        "avgComplexity": 2.4,
         "p95Complexity": 8,
         "maxComplexity": 22,
         "functionsAtOrAbove10": 13,
@@ -63061,21 +63081,21 @@
             "complexity": 16
           },
           {
+            "file": "packages/database/test/database-availability.ts",
+            "module": "packages/database",
+            "functionName": "isDatabaseUnavailableError",
+            "line": 7,
+            "endLine": 37,
+            "length": 31,
+            "complexity": 16
+          },
+          {
             "file": "packages/database/prisma/seeds/shared-ops.ts",
             "module": "packages/database",
             "functionName": "ensureBilling",
             "line": 11,
             "endLine": 218,
             "length": 208,
-            "complexity": 13
-          },
-          {
-            "file": "packages/database/test/database-availability.ts",
-            "module": "packages/database",
-            "functionName": "isDatabaseUnavailableError",
-            "line": 7,
-            "endLine": 34,
-            "length": 28,
             "complexity": 13
           },
           {
@@ -63988,9 +64008,9 @@
         "file": "apps/web/components/layout/Navbar.tsx",
         "module": "apps/web",
         "functionName": "Navbar",
-        "line": 66,
-        "endLine": 268,
-        "length": 203,
+        "line": 80,
+        "endLine": 287,
+        "length": 208,
         "complexity": 22
       },
       {
@@ -67227,12 +67247,14 @@
         "packages/agents-core/src/tools/slack.tool.ts"
       ],
       "i18nFiles": [
+        "apps/web/lib/i18n.ts",
+        "apps/web/tests/i18n.test.ts",
         "audit/files_analysis/packages/agents-core/docs/functions/compressConversationMessages.html.md",
         "audit/files_analysis/scripts/ci/check-commit-messages.mjs.md",
         "packages/agents-core/docs/functions/compressConversationMessages.html",
         "scripts/ci/check-commit-messages.mjs",
-        "apps/web/lib/i18n.ts",
-        "apps/web/tests/i18n.test.ts"
+        "apps/web/lib/i18n.server.ts",
+        "apps/web/providers/I18nProvider.tsx"
       ],
       "fhirFiles": [
         "apps/api/src/modules/fhir/router.ts",
@@ -67280,8 +67302,23 @@
     }
   },
   "git": {
-    "totalCommits": 1181,
+    "totalCommits": 1184,
     "last30Days": [
+      {
+        "sha": "cd498b47d93f4e59c485341d431113be70b3e503",
+        "date": "2026-04-07",
+        "subject": "1"
+      },
+      {
+        "sha": "e901da02f35f3cc264e5daa2ce8d8b61ffd8a6bf",
+        "date": "2026-04-07",
+        "subject": "Update test-coverage-dashboard.md"
+      },
+      {
+        "sha": "f989cc0fdc8a114345b71a543155b595885e61be",
+        "date": "2026-04-07",
+        "subject": "1"
+      },
       {
         "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
         "date": "2026-04-07",
@@ -70199,6 +70236,16 @@
       "activeDays": 23,
       "placeholderMessages": [
         {
+          "sha": "cd498b47d93f4e59c485341d431113be70b3e503",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "f989cc0fdc8a114345b71a543155b595885e61be",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
           "sha": "228ed6a667204eeb82a919a3a14ed2876047198a",
           "date": "2026-04-07",
           "subject": "1"
@@ -70312,16 +70359,6 @@
           "sha": "7193e8c33a46ba3f01dae97b181c28edb5f84cca",
           "date": "2026-04-06",
           "subject": "Q"
-        },
-        {
-          "sha": "a6a9b5de7c4261983c9d0eb3e5fd75ecb2c87cdf",
-          "date": "2026-04-06",
-          "subject": "1"
-        },
-        {
-          "sha": "57ee9750f9e527c1e15aa4476ad18d5259016cde",
-          "date": "2026-04-06",
-          "subject": "1"
         }
       ]
     }
@@ -71397,32 +71434,32 @@
       },
       {
         "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 111,
+        "line": 115,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 145,
+        "line": 164,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 192,
+        "line": 229,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 349,
+        "line": 386,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 494,
+        "line": 531,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 505,
+        "line": 542,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
@@ -71908,6 +71945,12 @@
         "summary": "32 linhas com strings textuais embutidas na UI."
       },
       {
+        "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
+        "line": 6,
+        "count": 31,
+        "summary": "31 linhas com strings textuais embutidas na UI."
+      },
+      {
         "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.tsx",
         "line": 1,
         "count": 7,
@@ -71964,8 +72007,8 @@
       {
         "path": "apps/web/app/(dashboard)/workflows/page.tsx",
         "line": 6,
-        "count": 20,
-        "summary": "20 linhas com strings textuais embutidas na UI."
+        "count": 16,
+        "summary": "16 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/admin/analytics/page.tsx",
@@ -71996,12 +72039,6 @@
         "line": 1,
         "count": 21,
         "summary": "21 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/layout.tsx",
-        "line": 9,
-        "count": 6,
-        "summary": "6 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/legal/privacy/page.tsx",
@@ -72090,8 +72127,8 @@
       {
         "path": "apps/web/components/layout/Navbar.tsx",
         "line": 1,
-        "count": 25,
-        "summary": "25 linhas com strings textuais embutidas na UI."
+        "count": 20,
+        "summary": "20 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/components/login-form.tsx",
@@ -72140,12 +72177,6 @@
         "line": 1,
         "count": 9,
         "summary": "9 linhas com strings textuais embutidas na UI."
-      },
-      {
-        "path": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-        "line": 6,
-        "count": 31,
-        "summary": "31 linhas com strings textuais embutidas na UI."
       }
     ],
     "imageWithoutAlt": [],
@@ -72690,10 +72721,10 @@
       },
       {
         "path": "apps/web/components/layout/Navbar.tsx",
-        "line": 66,
-        "endLine": 268,
+        "line": 80,
+        "endLine": 287,
         "functionName": "Navbar",
-        "length": 203,
+        "length": 208,
         "complexity": 22
       },
       {
@@ -73103,9 +73134,19 @@
         "lines": 603
       },
       {
+        "path": "apps/web/lib/i18n.ts",
+        "line": 1,
+        "lines": 566
+      },
+      {
         "path": "apps/api/src/modules/clinical/router.ts",
         "line": 1,
         "lines": 558
+      },
+      {
+        "path": "apps/api/src/modules/privacy/retention.service.ts",
+        "line": 1,
+        "lines": 557
       },
       {
         "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
@@ -73116,11 +73157,6 @@
         "path": "apps/api/src/modules/dashboard/service.ts",
         "line": 1,
         "lines": 524
-      },
-      {
-        "path": "apps/api/src/modules/privacy/retention.service.ts",
-        "line": 1,
-        "lines": 520
       },
       {
         "path": "packages/agents-registry/src/index.ts",
@@ -73256,11 +73292,6 @@
         "path": "packages/shared-types/src/index.ts",
         "line": 1,
         "lines": 358
-      },
-      {
-        "path": "packages/database/src/client.ts",
-        "line": 1,
-        "lines": 357
       }
     ],
     "importCycles": [],
@@ -73326,16 +73357,16 @@
   "evidenceArtifacts": {
     "environmentParity": {
       "path": "docs/operations/environment-parity.md",
-      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-07T22:13:39.526Z\n- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
+      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-07T22:23:45.294Z\n- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is not configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
     },
     "sla": {
       "path": "docs/operations/sla.md",
-      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-07T22:13:39.562Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
+      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-07T22:23:45.320Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
     },
     "semgrep": {
       "path": "artifacts/security/semgrep-head.json",
       "data": {
-        "checkedAt": "2026-04-07T22:15:25.876Z",
+        "checkedAt": "2026-04-07T22:24:15.389Z",
         "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
         "exitCode": 0,
         "status": "fresh",
@@ -73892,14 +73923,14 @@
             "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
             "path": "scripts/audit/shared-prime.mjs",
             "start": {
-              "line": 306,
+              "line": 384,
               "col": 10,
-              "offset": 9178
+              "offset": 11405
             },
             "end": {
-              "line": 307,
+              "line": 385,
               "col": 30,
-              "offset": 9221
+              "offset": 11448
             },
             "extra": {
               "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -73947,14 +73978,14 @@
             "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
             "path": "scripts/audit/shared-prime.mjs",
             "start": {
-              "line": 306,
+              "line": 384,
               "col": 10,
-              "offset": 9178
+              "offset": 11405
             },
             "end": {
-              "line": 308,
+              "line": 386,
               "col": 29,
-              "offset": 9250
+              "offset": 11477
             },
             "extra": {
               "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -74002,14 +74033,14 @@
             "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
             "path": "scripts/audit/shared-prime.mjs",
             "start": {
-              "line": 306,
+              "line": 384,
               "col": 10,
-              "offset": 9178
+              "offset": 11405
             },
             "end": {
-              "line": 309,
+              "line": 387,
               "col": 29,
-              "offset": 9279
+              "offset": 11506
             },
             "extra": {
               "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -74057,14 +74088,14 @@
             "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
             "path": "scripts/audit/shared-prime.mjs",
             "start": {
-              "line": 306,
+              "line": 384,
               "col": 10,
-              "offset": 9178
+              "offset": 11405
             },
             "end": {
-              "line": 310,
+              "line": 388,
               "col": 31,
-              "offset": 9310
+              "offset": 11537
             },
             "extra": {
               "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")\n    .replaceAll(\">\", \"&gt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -75214,7 +75245,7 @@
     "moduleCoverage": {
       "path": "artifacts/testing/module-coverage.json",
       "data": {
-        "checkedAt": "2026-04-07T22:15:25.893Z",
+        "checkedAt": "2026-04-07T22:24:15.407Z",
         "mode": "static-coverage-proxy",
         "sufficient": false,
         "limitations": [
@@ -75254,6 +75285,7 @@
               "apps/api/tests/cache-store.test.ts",
               "apps/api/tests/clinical-router.test.ts",
               "apps/api/tests/connectors-router.test.ts",
+              "apps/api/tests/conversations-router.test.ts",
               "apps/api/tests/core-business-routes.test.ts",
               "apps/api/tests/external-url.test.ts",
               "apps/api/tests/fhir-router.test.ts",
@@ -75268,21 +75300,20 @@
               "apps/api/tests/queue-backpressure.test.ts",
               "apps/api/tests/rbac.test.ts",
               "apps/api/tests/redis.test.ts",
+              "apps/api/tests/retention.service.test.ts",
+              "apps/api/tests/search-router.test.ts",
               "apps/api/tests/security.test.ts",
               "apps/api/tests/tenant-auth-hardening.test.ts",
               "apps/api/tests/test-config.ts",
               "apps/api/tests/webhooks.security.test.ts",
               "apps/api/tests/workflow-retry-lineage.integration.test.ts",
-              "apps/api/tests/conversations-router.test.ts",
-              "apps/api/tests/retention.service.test.ts",
-              "apps/api/tests/search-router.test.ts",
               "tests/e2e/critical-routes.spec.ts"
             ],
             "gaps": []
           },
           {
             "module": "apps/web",
-            "runtimeFiles": 119,
+            "runtimeFiles": 121,
             "directTestFiles": 18,
             "traceabilityFlows": 2,
             "directTests": [
@@ -75292,16 +75323,16 @@
               "apps/web/tests/bff-route.test.ts",
               "apps/web/tests/clinical-data.test.ts",
               "apps/web/tests/dashboard-data.test.ts",
-              "apps/web/tests/health.required-dependency.test.ts",
-              "apps/web/tests/login.smoke.test.ts",
-              "apps/web/tests/offline-page.test.ts",
-              "apps/web/tests/workflow-runs-page.test.ts",
-              "apps/web/tests/workflows-list.test.ts",
               "apps/web/tests/developer-webhooks-page.test.ts",
+              "apps/web/tests/health.required-dependency.test.ts",
               "apps/web/tests/i18n.test.ts",
+              "apps/web/tests/login.smoke.test.ts",
               "apps/web/tests/notification-store.test.ts",
+              "apps/web/tests/offline-page.test.ts",
               "apps/web/tests/product-api.test.ts",
               "apps/web/tests/theme-provider.test.ts",
+              "apps/web/tests/workflow-runs-page.test.ts",
+              "apps/web/tests/workflows-list.test.ts",
               "tests/e2e/critical-routes.spec.ts",
               "tests/e2e/billing-premium.spec.ts"
             ],
@@ -75384,14 +75415,14 @@
     "bundleBaseline": {
       "path": "artifacts/performance/web-bundle-head.json",
       "data": {
-        "checkedAt": "2026-04-07T22:15:26.141Z",
+        "checkedAt": "2026-04-07T22:24:15.492Z",
         "status": "fresh",
         "sufficient": true,
         "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
         "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
         "stderr": "",
         "baseline": {
-          "generatedAt": "2026-04-07T22:15:26.085Z",
+          "generatedAt": "2026-04-07T22:24:15.476Z",
           "nextBuildDir": "apps/web/.next",
           "chunks": {
             "files": 44,
@@ -75453,13 +75484,13 @@
     "accessibility": {
       "path": "artifacts/accessibility/axe-report.json",
       "data": {
-        "checkedAt": "2026-04-07T22:15:48.672Z",
+        "checkedAt": "2026-04-07T22:24:24.912Z",
         "mode": "browser-dom-smoke",
         "requestedTool": "playwright",
         "sufficient": true,
         "browserPath": "C:\\Users\\Marks\\AppData\\Local\\ms-playwright\\chromium-1208\\chrome-win64\\chrome.exe",
-        "baseUrl": "http://127.0.0.1:3001",
-        "reusedExistingServer": true,
+        "baseUrl": "http://127.0.0.1:3101",
+        "reusedExistingServer": false,
         "routes": [
           "/",
           "/pricing",
@@ -75501,14 +75532,14 @@
           }
         ],
         "findings": [],
-        "stdout": "",
-        "stderr": ""
+        "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 590ms\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 805ms (next.js: 157ms, proxy.ts: 211ms, application-code: 436ms)\n GET / 200 in 118ms (next.js: 43ms, proxy.ts: 8ms, application-code: 67ms)\n GET /pricing 200 in 66ms (next.js: 5ms, proxy.ts: 7ms, application-code: 54ms)\n GET /legal/terms 200 in 129ms (next.js: 40ms, proxy.ts: 6ms, application-code: 83ms)\n GET /legal/privacy 200 in 136ms (next.js: 32ms, proxy.ts: 7ms, application-code: 98ms)\n",
+        "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n"
       }
     },
     "disasterRecovery": {
       "path": "artifacts/dr/latest-drill.json",
       "data": {
-        "checkedAt": "2026-04-07T22:15:48.675Z",
+        "checkedAt": "2026-04-07T22:24:25.006Z",
         "status": "missing-drill-record",
         "sufficient": false,
         "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
@@ -75525,25 +75556,42 @@
     "rlsProof": {
       "path": "artifacts/tenancy/rls-proof-head.json",
       "data": {
-        "checkedAt": "2026-04-07T22:15:49.887Z",
-        "adminDatabaseUrlConfigured": false,
-        "adminDatabaseUrlSource": "none",
-        "roleProvisioning": null,
+        "checkedAt": "2026-04-07T22:24:26.743Z",
+        "adminDatabaseUrlConfigured": true,
+        "adminDatabaseUrlSource": "embedded-postgres",
+        "roleProvisioning": {
+          "checkedAt": "2026-04-07T22:24:26.113Z",
+          "command": "node --import tsx packages/database/scripts/provision-rls-runtime-role.ts",
+          "databaseName": "postgres",
+          "exitCode": 0,
+          "roleExisted": true,
+          "roleName": "api_worker",
+          "runtimeDatabaseUrlRedacted": "postgresql://REDACTED:postgres@127.0.0.1:5432/postgres?schema=public&pgbouncer=true&connection_limit=10",
+          "runtimeRole": {
+            "currentUser": "api_worker",
+            "bypass": false,
+            "canLogin": true
+          },
+          "schemaName": "public",
+          "status": "ready",
+          "stderr": null,
+          "stdout": null
+        },
         "tenancyControl": {
           "command": "node --import tsx packages/database/scripts/check-tenancy-controls.ts",
           "exitCode": 0,
-          "stdout": "[2026-04-07 19:15:49.753 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS privacy_consents\\nPASS privacy_consent_events\\nPASS data_retention_policies\\nPASS data_retention_executions\\nPASS break_glass_grants\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_revisions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS patients\\nPASS pregnancy_records\\nPASS appointments\\nPASS clinical_notes\\nPASS neonatal_records\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
+          "stdout": "[2026-04-07 19:24:25.443 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS privacy_consents\\nPASS privacy_consent_events\\nPASS data_retention_policies\\nPASS data_retention_executions\\nPASS break_glass_grants\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_revisions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS patients\\nPASS pregnancy_records\\nPASS appointments\\nPASS clinical_notes\\nPASS neonatal_records\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
           "stderr": ""
         },
         "runtimeProof": {
           "command": "node --import tsx --test packages/database/test/rls.test.ts",
           "exitCode": 0,
-          "stdout": "",
+          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (98.8025ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 553.2661",
           "stderr": "",
-          "runtimeDatabaseUrlConfigured": false,
-          "status": "skipped-no-database"
+          "runtimeDatabaseUrlConfigured": true,
+          "status": "passed"
         },
-        "sufficient": false
+        "sufficient": true
       }
     }
   },

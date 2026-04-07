@@ -1,13 +1,12 @@
 # Top 15 VDI Backlog
 
-- Generated at: 2026-04-07T22:16:13.674Z
+- Generated at: 2026-04-07T22:24:37.996Z
 - Source report: `audit\auditor-prime-2026-04-07.json`
 
 ## Sprint 1 — Segurança + multi-tenancy
 
 | Item | Owner | Esforço | Dependências | Critério de aceite |
 | --- | --- | --- | --- | --- |
-| TD-089 Prova runtime de RLS por tenant ainda não fecha no runner soberano (`artifacts/tenancy/rls-proof-head.json`) | @platform-architecture | 1-3 dias | nenhuma | Prova de isolamento atualizada em `artifacts/tenancy/rls-proof-head.json`, controles de tenancy verificados e item rebaixado/removido na próxima auditoria. |
 | TD-029 Superfície crítica sem teste relacionado por heurística de nome (`apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx`) | @product-frontend | 1-3 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-030 Superfície crítica sem teste relacionado por heurística de nome (`apps/api/src/modules/privacy/consent.service.ts`) | @platform-api | 1-3 dias | TD-029 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-031 Chamada externa sem timeout ou abort path explícito (`apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx`) | @product-frontend | 0.5-2 dias | nenhuma | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
@@ -31,6 +30,7 @@
 | TD-003 Complexidade acima do limiar em deriveClinicalAlerts (`apps/api/src/modules/clinical/service.ts`) | @platform-api | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-004 Complexidade acima do limiar em PatientDetailPage (`apps/web/app/(dashboard)/patients/[id]/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 | TD-005 Complexidade acima do limiar em PatientsPage (`apps/web/app/(dashboard)/patients/page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
+| TD-006 Complexidade acima do limiar em PrivacySettingsPageClient (`apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx`) | @product-frontend | 2-5 dias | TD-001 | Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo. |
 
 ## Sprint 4 — Inovação somente após estabilização do core
 

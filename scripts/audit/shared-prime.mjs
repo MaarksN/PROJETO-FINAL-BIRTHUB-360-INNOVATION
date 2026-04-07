@@ -1,6 +1,6 @@
 import { execFileSync, spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -74,6 +74,69 @@ export function runGit(args) {
   }).trim();
 }
 
+function shouldSkipWorkspaceDirectory(relativeDir) {
+  const normalized = posixPath(relativeDir);
+  const segments = normalized.split("/").filter(Boolean);
+
+  if (segments.some((segment) => [".git", ".next", ".turbo", ".vercel", "node_modules"].includes(segment))) {
+    return true;
+  }
+
+  return [".tools/embedded-postgres-runtime", "audit/.auditor-prime"].some(
+    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`)
+  );
+}
+
+function isRelevantWorkspaceFile(relativeFilePath) {
+  const normalized = posixPath(relativeFilePath);
+  return (
+    /^(apps\/|packages\/|scripts\/|docs\/|infra\/|ops\/|artifacts\/|audit\/|\.github\/)/.test(
+      normalized
+    ) ||
+    [
+      "package.json",
+      "pnpm-lock.yaml",
+      "pnpm-workspace.yaml",
+      "tsconfig.json",
+      "tsconfig.base.json",
+      "turbo.json",
+      "eslint.config.mjs"
+    ].includes(normalized)
+  );
+}
+
+function listWorkspaceFilesFallback() {
+  const collected = [];
+  const pendingDirectories = [repoRoot];
+
+  while (pendingDirectories.length > 0) {
+    const currentDirectory = pendingDirectories.pop();
+    const relativeDirectory = posixPath(path.relative(repoRoot, currentDirectory));
+
+    if (relativeDirectory && shouldSkipWorkspaceDirectory(relativeDirectory)) {
+      continue;
+    }
+
+    for (const entry of readdirSync(currentDirectory, { withFileTypes: true })) {
+      const absolutePath = path.join(currentDirectory, entry.name);
+      const relativeEntryPath = posixPath(path.relative(repoRoot, absolutePath));
+
+      if (entry.isDirectory()) {
+        if (!shouldSkipWorkspaceDirectory(relativeEntryPath)) {
+          pendingDirectories.push(absolutePath);
+        }
+        continue;
+      }
+
+      if (entry.isFile() && isRelevantWorkspaceFile(relativeEntryPath)) {
+        collected.push(relativeEntryPath);
+      }
+    }
+  }
+
+  return collected.sort((left, right) => left.localeCompare(right));
+}
+
 function assertSafeRunCommand(command) {
   const normalized = String(command);
   const baseName = path.basename(normalized).toLowerCase();
@@ -88,38 +151,52 @@ function assertSafeRunCommand(command) {
 }
 
 export function listTrackedFiles() {
-  const output = runGit(["ls-files"]);
-  return output
-    .split(/\r?\n/)
-    .map((line) => posixPath(line.trim()))
-    .filter(Boolean)
-    .filter((entry) => existsSync(fromRepo(entry)));
+  try {
+    const output = runGit(["ls-files"]);
+    return output
+      .split(/\r?\n/)
+      .map((line) => posixPath(line.trim()))
+      .filter(Boolean)
+      .filter((entry) => existsSync(fromRepo(entry)));
+  } catch {
+    return listWorkspaceFilesFallback();
+  }
 }
 
 export function listUntrackedFiles() {
-  const output = runGit(["ls-files", "--others", "--exclude-standard"]);
-  return output
-    .split(/\r?\n/)
-    .map((line) => posixPath(line.trim()))
-    .filter(Boolean)
-    .filter((entry) => existsSync(fromRepo(entry)))
-    .filter(
-      (entry) =>
-        /^(apps\/|packages\/|scripts\/|docs\/|infra\/|ops\/|\.github\/workflows\/)/.test(entry)
+  try {
+    const output = runGit(["ls-files", "--others", "--exclude-standard"]);
+    return output
+      .split(/\r?\n/)
+      .map((line) => posixPath(line.trim()))
+      .filter(Boolean)
+      .filter((entry) => existsSync(fromRepo(entry)))
+      .filter(
+        (entry) =>
+          /^(apps\/|packages\/|scripts\/|docs\/|infra\/|ops\/|\.github\/workflows\/)/.test(entry)
+      );
+  } catch {
+    return listWorkspaceFilesFallback().filter((entry) =>
+      /^(apps\/|packages\/|scripts\/|docs\/|infra\/|ops\/|\.github\/workflows\/)/.test(entry)
     );
+  }
 }
 
 export function safeRun(command, args, options = {}) {
   assertSafeRunCommand(command);
+  const resolvedCommand =
+    String(command).toLowerCase() === "node" ? process.execPath : command;
   const requiresWindowsCmdWrapper =
-    process.platform === "win32" && /\.(cmd|bat)$/iu.test(command);
-  const spawnCommand = requiresWindowsCmdWrapper ? process.env.ComSpec ?? "cmd.exe" : command;
+    process.platform === "win32" && /\.(cmd|bat)$/iu.test(resolvedCommand);
+  const spawnCommand = requiresWindowsCmdWrapper
+    ? process.env.ComSpec ?? "cmd.exe"
+    : resolvedCommand;
   const spawnArgs = requiresWindowsCmdWrapper
     ? [
         "/d",
         "/s",
         "/c",
-        [command, ...args]
+        [resolvedCommand, ...args]
           .map((value) => (/\s/.test(value) ? `"${value.replace(/"/g, '\\"')}"` : value))
           .join(" ")
       ]

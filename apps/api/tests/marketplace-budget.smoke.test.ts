@@ -7,6 +7,7 @@ import request from "supertest";
 import { createApp } from "../src/app.js";
 import { budgetService } from "../src/modules/budget/budget.service.js";
 import { sha256 } from "../src/modules/auth/crypto.js";
+import { marketplaceService } from "../src/modules/marketplace/marketplace-service.js";
 import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
@@ -20,29 +21,92 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 const baseConfig = createTestApiConfig();
 
 void test("marketplace search returns facets and ranked agents", async () => {
-  const app = createApp({
-    config: baseConfig,
-    shouldExposeDocs: false
-  });
+  const restores = [
+    stubMethod(marketplaceService, "search", () =>
+      Promise.resolve({
+        facets: {
+          domain: ["sales"]
+        },
+        page: 1,
+        pageSize: 5,
+        results: [
+          {
+            manifest: {
+              agent: {
+                changelog: ["v1"],
+                description: "Sales-focused assistant",
+                id: "sales-pack",
+                name: "Sales Pack",
+                prompt: "Help with sales",
+                version: "1.0.0"
+              },
+              keywords: ["sales", "crm"],
+              policies: [],
+              tags: {
+                domain: ["sales"],
+                industry: ["saas"],
+                level: ["standard"],
+                persona: ["operator"],
+                useCase: ["pipeline"]
+              },
+              tools: [
+                {
+                  description: "Reads CRM data",
+                  id: "crm.read",
+                  name: "CRM Read"
+                }
+              ]
+            },
+            score: 0.99
+          }
+        ],
+        total: 1
+      })
+    ),
+    stubMethod(marketplaceService, "getApprovalStats", () =>
+      Promise.resolve(
+        new Map([
+          [
+            "sales-pack",
+            {
+              approvalRate: 0.95,
+              feedbackCount: 12
+            }
+          ]
+        ])
+      )
+    )
+  ];
 
-  const response = await request(app)
-    .get("/api/v1/agents/search?q=sales&page=1&pageSize=5")
-    .expect(200);
+  try {
+    const app = createApp({
+      config: baseConfig,
+      shouldExposeDocs: false
+    });
 
-  const body = response.body as {
-    facets: Record<string, unknown>;
-    results: unknown[];
-  };
+    const response = await request(app)
+      .get("/api/v1/agents/search?q=sales&page=1&pageSize=5")
+      .expect(200);
 
-  assert.ok(Array.isArray(body.results));
-  assert.ok(typeof body.facets === "object");
-  assert.ok(body.results.length >= 1);
-  assert.ok(response.headers.etag);
+    const body = response.body as {
+      facets: Record<string, unknown>;
+      results: unknown[];
+    };
 
-  await request(app)
-    .get("/api/v1/agents/search?q=sales&page=1&pageSize=5")
-    .set("If-None-Match", response.headers.etag)
-    .expect(304);
+    assert.ok(Array.isArray(body.results));
+    assert.ok(typeof body.facets === "object");
+    assert.ok(body.results.length >= 1);
+    assert.ok(response.headers.etag);
+
+    await request(app)
+      .get("/api/v1/agents/search?q=sales&page=1&pageSize=5")
+      .set("If-None-Match", response.headers.etag)
+      .expect(304);
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
 });
 
 void test("budget endpoints require an authenticated admin session", async () => {

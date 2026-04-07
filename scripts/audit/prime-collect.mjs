@@ -98,7 +98,12 @@ async function loadTypescript() {
 async function collectFileIndex(files) {
   const rows = [];
   for (const relativePathValue of files) {
-    const stats = await fs.stat(fromRepo(relativePathValue));
+    const absolutePath = fromRepo(relativePathValue);
+    if (!existsSync(absolutePath)) {
+      continue;
+    }
+
+    const stats = await fs.stat(absolutePath);
     const lineCount = classifyFile(relativePathValue) === "artifact" || classifyFile(relativePathValue) === "historical"
       ? 0
       : await countLines(relativePathValue).catch(() => 0);

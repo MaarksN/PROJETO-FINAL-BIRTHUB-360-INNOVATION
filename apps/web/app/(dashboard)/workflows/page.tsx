@@ -6,6 +6,8 @@ import {
 } from "../../../components/dashboard/page-fragments";
 import { CreateWorkflowButton } from "../../../components/workflows/CreateWorkflowButton";
 import { RunWorkflowButton } from "../../../components/workflows/RunWorkflowButton";
+import { formatDateTime, getDictionary, translateLabel } from "../../../lib/i18n";
+import { getRequestLocale } from "../../../lib/i18n.server";
 import { fetchProductJson } from "../../../lib/product-api.server";
 
 type WorkflowListPayload = {
@@ -24,6 +26,8 @@ type WorkflowListPayload = {
 };
 
 export default async function WorkflowsPage() {
+  const locale = await getRequestLocale();
+  const copy = getDictionary(locale);
   const data = await fetchProductJson<WorkflowListPayload>("/api/v1/workflows");
 
   return (
@@ -33,20 +37,20 @@ export default async function WorkflowsPage() {
           <div className="hero-actions">
             <CreateWorkflowButton />
             <Link className="ghost-button" href="/dashboard">
-              Voltar para home
+              {copy.workflowsPage.backHome}
             </Link>
           </div>
         }
-        badge="Lista canonica"
-        description="Lista central de fluxos com status, trigger, CTA principal e acesso rapido ao editor real."
-        title="Operar workflows sem URL manual"
+        badge={copy.workflowsPage.badge}
+        description={copy.workflowsPage.description}
+        title={copy.workflowsPage.title}
       />
 
       {data.items.length === 0 ? (
         <ProductEmptyState
           action={<CreateWorkflowButton />}
-          description="Crie o primeiro workflow para começar a operar a automacao pelo produto."
-          title="Nenhum workflow criado"
+          description={copy.workflowsPage.emptyDescription}
+          title={copy.workflowsPage.emptyTitle}
         />
       ) : (
         <section
@@ -67,13 +71,21 @@ export default async function WorkflowsPage() {
                 }}
               >
                 <strong>{workflow.name}</strong>
-                <span className="status-pill">{workflow.status}</span>
+                <span className="status-pill">
+                  {translateLabel(copy.workflowsPage.statusLabels, workflow.status)}
+                </span>
               </div>
               <p style={{ color: "var(--muted)", marginTop: 0 }}>
-                {workflow.triggerType} · {workflow._count.steps} etapas · {workflow._count.executions} execucoes
+                {translateLabel(copy.workflowsPage.triggerLabels, workflow.triggerType)} ·{" "}
+                {workflow._count.steps} {copy.workflowsPage.stepsLabel} ·{" "}
+                {workflow._count.executions} {copy.workflowsPage.executionsLabel}
               </p>
               <p style={{ color: "var(--muted)" }}>
-                Atualizado em {new Date(workflow.updatedAt).toLocaleString("pt-BR")}
+                {copy.workflowsPage.updatedAtLabel}{" "}
+                {formatDateTime(locale, workflow.updatedAt, {
+                  dateStyle: "medium",
+                  timeStyle: "short"
+                })}
               </p>
 
               <div style={{ display: "grid", gap: "0.75rem" }}>
@@ -81,18 +93,18 @@ export default async function WorkflowsPage() {
                   <RunWorkflowButton workflowId={workflow.id} />
                 ) : (
                   <Link className="action-button" href={`/workflows/${workflow.id}/edit`}>
-                    Continuar edicao
+                    {copy.workflowsPage.continueEditing}
                   </Link>
                 )}
                 <div className="hero-actions">
                   <Link className="ghost-button" href={`/workflows/${workflow.id}/edit`}>
-                    Abrir editor
+                    {copy.workflowsPage.openEditor}
                   </Link>
                   <Link className="ghost-button" href={`/workflows/${workflow.id}/runs`}>
-                    Ver execucoes
+                    {copy.workflowsPage.viewExecutions}
                   </Link>
                   <Link className="ghost-button" href={`/workflows/${workflow.id}/revisions`}>
-                    Revisoes
+                    {copy.workflowsPage.revisions}
                   </Link>
                 </div>
               </div>
