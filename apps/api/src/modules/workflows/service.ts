@@ -33,6 +33,12 @@ const WORKFLOW_LIST_LIMIT = 100;
 
 type PersistedWorkflow = Awaited<ReturnType<typeof getWorkflowById>>;
 type WorkflowWriteClient = Pick<typeof prisma, "workflowStep" | "workflowTransition">;
+type WorkflowTransactionClient = Prisma.TransactionClient;
+
+export const workflowQueueAdapter = {
+  enqueueWorkflowExecution,
+  enqueueWorkflowTrigger
+} as const;
 
 async function resolveScopedIdentity(tenantReference: string): Promise<ScopedIdentity> {
   const organization = await prisma.organization.findFirst({
@@ -536,6 +542,7 @@ async function buildResumeContext(input: {
 }
 
 async function cloneCheckpointResults(input: {
+  client: Pick<WorkflowTransactionClient, "stepResult">;
   executionId: string;
   fromExecutionId: string;
   fromStepKey: string;
@@ -563,9 +570,9 @@ async function cloneCheckpointResults(input: {
 
   const checkpointResults = sourceResults.slice(0, resumeIndex);
 
-  for (const result of checkpointResults) {
-    await prisma.stepResult.create({
-      data: {
+  if (checkpointResults.length > 0) {
+    await input.client.stepResult.createMany({
+      data: checkpointResults.map((result) => ({
         attempt: result.attempt,
         errorMessage: result.errorMessage,
         executionId: input.executionId,
@@ -581,7 +588,7 @@ async function cloneCheckpointResults(input: {
         stepId: result.stepId,
         tenantId: input.tenantId,
         workflowId: input.workflowId
-      }
+      }))
     });
   }
 
@@ -625,29 +632,37 @@ export async function runWorkflowNow(
       })
     : null;
 
-  const execution = await prisma.workflowExecution.create({
-    data: {
-      depth: resumeContext?.depth ?? 0,
-      organizationId: workflow.organizationId,
-      resumedFromExecutionId: resumeContext?.resumedFromExecutionId ?? null,
-      status: WorkflowExecutionStatus.RUNNING,
-      tenantId: workflow.tenantId,
-      triggerPayload: input.payload as Prisma.InputJsonValue,
-      triggerType,
-      workflowId: workflow.id
+  const execution = await prisma.$transaction(async (tx) => {
+    const createdExecution = await tx.workflowExecution.create({
+      data: {
+        depth: resumeContext?.depth ?? 0,
+        organizationId: workflow.organizationId,
+        resumedFromExecutionId: resumeContext?.resumedFromExecutionId ?? null,
+        status: WorkflowExecutionStatus.RUNNING,
+        tenantId: workflow.tenantId,
+        triggerPayload: input.payload as Prisma.InputJsonValue,
+        triggerType,
+        workflowId: workflow.id
+      }
+    });
+
+    if (resumeContext) {
+      await cloneCheckpointResults({
+        client: tx,
+        executionId: createdExecution.id,
+        fromExecutionId: resumeContext.resumedFromExecutionId,
+        fromStepKey: resumeContext.resumeStepKey,
+        organizationId: workflow.organizationId,
+        tenantId: workflow.tenantId,
+        workflowId: workflow.id
+      });
     }
+
+    return createdExecution;
   });
 
   if (resumeContext) {
-    await cloneCheckpointResults({
-      executionId: execution.id,
-      fromExecutionId: resumeContext.resumedFromExecutionId,
-      fromStepKey: resumeContext.resumeStepKey,
-      organizationId: workflow.organizationId,
-      tenantId: workflow.tenantId,
-      workflowId: workflow.id
-    });
-    await enqueueWorkflowExecution(config, {
+    await workflowQueueAdapter.enqueueWorkflowExecution(config, {
       attempt: 1,
       executionId: execution.id,
       organizationId: workflow.organizationId,
@@ -658,7 +673,7 @@ export async function runWorkflowNow(
       workflowId: workflow.id
     });
   } else if (triggerStep) {
-    await enqueueWorkflowExecution(config, {
+    await workflowQueueAdapter.enqueueWorkflowExecution(config, {
       attempt: 1,
       executionId: execution.id,
       organizationId: workflow.organizationId,
@@ -669,7 +684,7 @@ export async function runWorkflowNow(
       workflowId: workflow.id
     });
   } else {
-    await enqueueWorkflowTrigger(config, {
+    await workflowQueueAdapter.enqueueWorkflowTrigger(config, {
       organizationId: workflow.organizationId,
       tenantId: workflow.tenantId,
       triggerPayload: input.payload,
@@ -683,4 +698,77 @@ export async function runWorkflowNow(
     mode: input.async ? "async" : "sync",
     status: "accepted"
   };
+}
+
+export type WorkflowExecutionLineageNode = {
+  children: WorkflowExecutionLineageNode[];
+  completedAt: Date | null;
+  depth: number;
+  durationMs: number | null;
+  errorMessage: string | null;
+  id: string;
+  resumedFromExecutionId: string | null;
+  startedAt: Date;
+  status: WorkflowExecutionStatus;
+};
+
+export async function listWorkflowExecutionLineage(
+  workflowId: string,
+  tenantReference: string
+): Promise<WorkflowExecutionLineageNode[]> {
+  const identity = await resolveScopedIdentity(tenantReference);
+  const workflow = await prisma.workflow.findFirst({
+    where: {
+      id: workflowId,
+      tenantId: identity.tenantId
+    }
+  });
+
+  if (!workflow) {
+    throw new Error("WORKFLOW_NOT_FOUND");
+  }
+
+  const executions = await prisma.workflowExecution.findMany({
+    orderBy: {
+      startedAt: "asc"
+    },
+    where: {
+      organizationId: identity.organizationId,
+      tenantId: identity.tenantId,
+      workflowId
+    }
+  });
+
+  const nodesById = new Map<string, WorkflowExecutionLineageNode>();
+  for (const execution of executions) {
+    nodesById.set(execution.id, {
+      children: [],
+      completedAt: execution.completedAt,
+      depth: execution.depth,
+      durationMs: execution.durationMs,
+      errorMessage: execution.errorMessage,
+      id: execution.id,
+      resumedFromExecutionId: execution.resumedFromExecutionId,
+      startedAt: execution.startedAt,
+      status: execution.status
+    });
+  }
+
+  const roots: WorkflowExecutionLineageNode[] = [];
+  for (const node of nodesById.values()) {
+    if (!node.resumedFromExecutionId) {
+      roots.push(node);
+      continue;
+    }
+
+    const parent = nodesById.get(node.resumedFromExecutionId);
+    if (!parent) {
+      roots.push(node);
+      continue;
+    }
+
+    parent.children.push(node);
+  }
+
+  return roots;
 }

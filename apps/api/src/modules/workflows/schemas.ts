@@ -34,38 +34,6 @@ export const workflowRunSchema = z
   })
   .strict();
 
-export const workflowStepLintFindingSchema = z
-  .object({
-    code: z.enum([
-      "INCOMPATIBLE_ROUTE",
-      "INSECURE_HTTP_URL",
-      "LEGACY_STEP",
-      "MISSING_FAILURE_PATH",
-      "RISKY_CODE_TIMEOUT",
-      "UNSCOPED_CONNECTOR_ACCOUNT"
-    ]),
-    message: z.string().min(1),
-    risk: z.number().int().min(1),
-    severity: z.enum(["info", "warning", "critical"]),
-    stepKey: z.string().min(1),
-    stepType: z.string().min(1)
-  })
-  .strict();
-
-export const workflowStepLintResultSchema = z
-  .object({
-    findings: z.array(workflowStepLintFindingSchema),
-    score: z.number().int().min(0).max(100),
-    summary: z
-      .object({
-        critical: z.number().int().min(0),
-        info: z.number().int().min(0),
-        warning: z.number().int().min(0)
-      })
-      .strict()
-  })
-  .strict();
-
 export type WorkflowCreateInput = z.infer<typeof workflowCreateSchema>;
 export type WorkflowRunInput = z.infer<typeof workflowRunSchema>;
 export type WorkflowStepLintResult = z.infer<typeof workflowStepLintResultSchema>;

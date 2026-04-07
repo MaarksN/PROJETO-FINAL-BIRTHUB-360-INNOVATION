@@ -22,6 +22,7 @@ import {
   archiveWorkflow,
   createWorkflow,
   getWorkflowById,
+  listWorkflowExecutionLineage,
   listWorkflows,
   runWorkflowNow,
   updateWorkflow
@@ -94,6 +95,23 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
       response.status(201).json({
         requestId: request.context.requestId,
         workflow: withStepLint(workflow)
+      });
+    })
+  );
+
+  router.get(
+    "/api/v1/workflows/:id/executions/lineage",
+    requireAuthenticatedSession,
+    RequireRole(Role.ADMIN),
+    asyncHandler(async (request, response) => {
+      const tenantId = requireTenantId(request);
+      const workflowId = String(request.params.id ?? "");
+
+      const lineage = await listWorkflowExecutionLineage(workflowId, tenantId);
+      response.status(200).json({
+        lineage,
+        requestId: request.context.requestId,
+        workflowId
       });
     })
   );
