@@ -57,7 +57,7 @@ void test("parseAgentConfig filters malformed policies and normalizes runtime pr
 });
 
 void test("resolveManagedPolicies returns parsed policies for the installed agent", async () => {
-  const originalFindFirst = prisma.agent.findFirst;
+  const originalFindFirst = prisma.agent.findFirst.bind(prisma.agent);
 
   prisma.agent.findFirst = (async () =>
     ({

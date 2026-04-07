@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import type { AgentLearningRecord } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 
 import {
@@ -11,8 +10,8 @@ import {
 } from "./runtime.memory.js";
 
 void test("querySharedLearning merges runtime memory and audit log evidence by keyword", async () => {
-  const originalQuerySharedLearning = runtimeMemory.querySharedLearning;
-  const originalFindMany = prisma.auditLog.findMany;
+  const originalQuerySharedLearning = runtimeMemory.querySharedLearning.bind(runtimeMemory);
+  const originalFindMany = prisma.auditLog.findMany.bind(prisma.auditLog);
 
   runtimeMemory.querySharedLearning = (async () =>
     [
@@ -65,7 +64,7 @@ void test("querySharedLearning merges runtime memory and audit log evidence by k
 });
 
 void test("appendConversationMessage exits early when the session id is missing", async () => {
-  const originalAppend = runtimeMemory.appendConversationMessage;
+  const originalAppend = runtimeMemory.appendConversationMessage.bind(runtimeMemory);
   let called = false;
 
   runtimeMemory.appendConversationMessage = (async () => {

@@ -27,10 +27,11 @@ void test("setCacheStoreForTests overrides the active cache implementation", asy
   let writes = 0;
 
   setCacheStoreForTests({
-    del: async () => 0,
-    get: async () => "from-test-double",
+    del: async () => Promise.resolve(0),
+    get: async () => Promise.resolve("from-test-double"),
     set: async () => {
       writes += 1;
+      return Promise.resolve();
     }
   });
 

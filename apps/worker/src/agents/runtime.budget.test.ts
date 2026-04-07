@@ -64,9 +64,9 @@ void test("buildToolCostTable keeps base costs and weights custom tools by timeo
 });
 
 void test("ensureBudgetHeadroom blocks executions that would exceed the configured budget", async () => {
-  const originalUpsert = prisma.agentBudget.upsert;
-  const originalUpdate = prisma.agentBudget.update;
-  const originalCreate = prisma.agentBudgetEvent.create;
+  const originalUpsert = prisma.agentBudget.upsert.bind(prisma.agentBudget);
+  const originalUpdate = prisma.agentBudget.update.bind(prisma.agentBudget);
+  const originalCreate = prisma.agentBudgetEvent.create.bind(prisma.agentBudgetEvent);
   let budgetEventPayload: unknown = null;
 
   prisma.agentBudget.upsert = (async () =>

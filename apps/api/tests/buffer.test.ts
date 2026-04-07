@@ -57,7 +57,7 @@ void test("flushAuditBuffer returns zero when no events are queued", async () =>
 void test("enqueueAuditEvent flushes once the batch reaches the threshold", async () => {
   resetAuditBufferForTests();
   const originalSetInterval = globalThis.setInterval;
-  const originalCreateMany = prisma.auditLog.createMany;
+  const originalCreateMany = prisma.auditLog.createMany.bind(prisma.auditLog);
   const flushedBatches: number[] = [];
 
   globalThis.setInterval = (((

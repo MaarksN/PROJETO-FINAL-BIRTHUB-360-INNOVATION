@@ -5,11 +5,11 @@ import { prisma } from "@birthub/database";
 
 import { PackInstallerService } from "../src/modules/packs/pack-installer.service.js";
 
-function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
-  Reflect.set(target, key, value);
+function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
+  const original = target[key];
+  target[key] = value;
   return () => {
-    Reflect.set(target, key, original);
+    target[key] = original;
   };
 }
 
@@ -38,7 +38,7 @@ void test("getPackStatus paginates tenant agents and groups pack metadata", asyn
       status: "PAUSED"
     }
   ];
-  const restore = stubMethod(prisma.agent, "findMany", (args: Record<string, unknown>) => {
+  const restore = stubMethod(prisma.agent as unknown as Record<string, unknown>, "findMany", (args: Record<string, unknown>) => {
     calls.push(args);
     return Promise.resolve(calls.length === 1 ? firstPage : secondPage);
   });

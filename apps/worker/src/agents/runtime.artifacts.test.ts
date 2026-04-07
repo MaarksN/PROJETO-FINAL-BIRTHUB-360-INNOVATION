@@ -55,8 +55,8 @@ void test("buildLearningRecord truncates keywords to the shared learning limit",
 });
 
 void test("createOutputArtifact persists the output and corresponding audit log", async () => {
-  const originalCreateOutput = prisma.outputArtifact.create;
-  const originalCreateAudit = prisma.auditLog.create;
+  const originalCreateOutput = prisma.outputArtifact.create.bind(prisma.outputArtifact);
+  const originalCreateAudit = prisma.auditLog.create.bind(prisma.auditLog);
   let auditPayload: unknown = null;
 
   prisma.outputArtifact.create = (async () =>

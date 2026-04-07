@@ -10,7 +10,7 @@ void test("registerAuthAndCoreRoutes delegates auth and core route registration 
   const app = express();
   const config = createTestApiConfig();
   const calls: string[] = [];
-  const dependency = async () => ({ jobId: "job_1" });
+  const dependency = async () => Promise.resolve({ jobId: "job_1" });
 
   registerAuthAndCoreRoutes(app, config, {
     enqueueTask: dependency,

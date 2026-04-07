@@ -142,24 +142,6 @@ export function createBirthHubWorker(): WorkerRuntime {
       removeOnFailCount: 300
     })
   );
-  const workflowTriggerQueue = workerFactory.getQueue<WorkflowTriggerJobPayload>(
-    workflowQueueNames.trigger,
-    buildRetryableJobOptions({
-      attempts: 5,
-      delay: 1_000,
-      removeOnCompleteCount: 500,
-      removeOnFailCount: 500
-    })
-  );
-  const crmSyncQueue = workerFactory.getQueue<CrmSyncJobPayload>(
-    crmSyncQueueName,
-    buildRetryableJobOptions({
-      attempts: 5,
-      delay: 2_000,
-      removeOnCompleteCount: 200,
-      removeOnFailCount: 400
-    })
-  );
   const dynamicRateLimiter = new DynamicRateLimiter(connection);
   const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
     httpRequestRateLimiter: dynamicRateLimiter,
@@ -245,6 +227,7 @@ export function createBirthHubWorker(): WorkerRuntime {
     notificationDispatcher: {
       send: async (message) => {
         logger.info({ message }, "Workflow notification dispatched");
+        return Promise.resolve();
       }
     }
   });

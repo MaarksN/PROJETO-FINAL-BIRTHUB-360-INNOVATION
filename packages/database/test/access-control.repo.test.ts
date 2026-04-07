@@ -33,7 +33,7 @@ void test("hasRequiredRole respects the configured role priority", () => {
 
 void test("findMembershipForTenant queries the composite membership key", async () => {
   const membership = createMembership();
-  const original = prisma.membership.findUnique;
+  const original = prisma.membership.findUnique.bind(prisma.membership);
   let received: unknown = null;
 
   prisma.membership.findUnique = (async (args: unknown) => {
@@ -59,7 +59,7 @@ void test("findMembershipForTenant queries the composite membership key", async 
 });
 
 void test("requireMembershipForTenant throws when membership is missing", async () => {
-  const original = prisma.membership.findUnique;
+  const original = prisma.membership.findUnique.bind(prisma.membership);
 
   prisma.membership.findUnique = (async () => null) as unknown as typeof prisma.membership.findUnique;
 

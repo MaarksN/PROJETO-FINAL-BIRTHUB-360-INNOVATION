@@ -6,11 +6,11 @@ import { prisma } from "@birthub/database";
 import { persistAgentHandoff } from "./handoffs.js";
 
 void test("persistAgentHandoff creates thread, handoff and internal conversation message", async () => {
-  const originalFindOrganization = prisma.organization.findFirst;
-  const originalFindThread = prisma.conversationThread.findFirst;
-  const originalCreateThread = prisma.conversationThread.create;
-  const originalCreateHandoff = prisma.agentHandoff.create;
-  const originalCreateMessage = prisma.conversationMessage.create;
+  const originalFindOrganization = prisma.organization.findFirst.bind(prisma.organization);
+  const originalFindThread = prisma.conversationThread.findFirst.bind(prisma.conversationThread);
+  const originalCreateThread = prisma.conversationThread.create.bind(prisma.conversationThread);
+  const originalCreateHandoff = prisma.agentHandoff.create.bind(prisma.agentHandoff);
+  const originalCreateMessage = prisma.conversationMessage.create.bind(prisma.conversationMessage);
 
   let handoffPayload: unknown = null;
   let messagePayload: unknown = null;
