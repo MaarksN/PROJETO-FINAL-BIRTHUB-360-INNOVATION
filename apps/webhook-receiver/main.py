@@ -8,7 +8,6 @@ from fastapi import FastAPI, Header, HTTPException, Request
 from redis.asyncio import Redis
 from svix.webhooks import Webhook, WebhookVerificationError
 
-PAGERDUTY_EVENTS_URL = "https://events.pagerduty.com/v2/enqueue"
 PRIMARY_API_URL = os.getenv("PRIMARY_API_URL") or os.getenv("API_URL")
 API_GATEWAY_URL = os.getenv("API_GATEWAY_URL")
 INTERNAL_SERVICE_TOKEN = os.getenv("INTERNAL_SERVICE_TOKEN")
@@ -56,80 +55,6 @@ def _get_redis_client() -> Redis:
     if redis_client is None:
         redis_client = Redis.from_url(_resolve_redis_url(), decode_responses=True)
     return redis_client
-
-
-def _resolve_pagerduty_routing_key(severity: str) -> str | None:
-    normalized = severity.lower()
-    return os.getenv(f"PAGERDUTY_ROUTING_KEY_{normalized.upper()}") or os.getenv("PAGERDUTY_ROUTING_KEY")
-
-
-def _has_pagerduty_configuration() -> bool:
-    return any(_resolve_pagerduty_routing_key(level) for level in ("p0", "p1", "p2", "p3"))
-
-
-def _build_pagerduty_summary(severity: str, payload: dict[str, Any]) -> str:
-    summary = payload.get("commonAnnotations", {}).get("summary")
-    if isinstance(summary, str) and summary.strip():
-        return summary.strip()
-
-    alert_name = payload.get("commonLabels", {}).get("alertname")
-    if isinstance(alert_name, str) and alert_name.strip():
-        return alert_name.strip()
-
-    return f"BirthHub escalation {severity.upper()}"
-
-
-def _build_pagerduty_dedup_key(severity: str, payload: dict[str, Any]) -> str:
-    group_key = payload.get("groupKey")
-    if isinstance(group_key, str) and group_key.strip():
-        return group_key.strip()
-
-    alert_name = payload.get("commonLabels", {}).get("alertname")
-    if isinstance(alert_name, str) and alert_name.strip():
-        return f"birthhub-{severity}-{alert_name.strip()}"
-
-    return f"birthhub-{severity}-unkeyed"
-
-
-async def _forward_escalation_to_pagerduty(
-    severity: str, payload: dict[str, Any]
-) -> dict[str, Any]:
-    routing_key = _resolve_pagerduty_routing_key(severity)
-    if not routing_key:
-        return {"forwarded": False, "reason": "missing-routing-key"}
-
-    pagerduty_event = {
-        "dedup_key": _build_pagerduty_dedup_key(severity, payload),
-        "event_action": "resolve" if payload.get("status") == "resolved" else "trigger",
-        "payload": {
-            "custom_details": {
-                "alerts": payload.get("alerts", []),
-                "commonAnnotations": payload.get("commonAnnotations", {}),
-                "commonLabels": payload.get("commonLabels", {}),
-                "groupKey": payload.get("groupKey"),
-                "status": payload.get("status", "firing")
-            },
-            "severity": {
-                "p0": "critical",
-                "p1": "error",
-                "p2": "warning",
-                "p3": "info"
-            }.get(severity.lower(), "warning"),
-            "source": os.getenv("PAGERDUTY_SOURCE", "birthhub-alertmanager"),
-            "summary": _build_pagerduty_summary(severity, payload)
-        },
-        "routing_key": routing_key
-    }
-
-    async with httpx.AsyncClient(timeout=10) as client:
-        response = await client.post(PAGERDUTY_EVENTS_URL, json=pagerduty_event)
-        response.raise_for_status()
-
-    return {
-        "dedup_key": pagerduty_event["dedup_key"],
-        "event_action": pagerduty_event["event_action"],
-        "forwarded": True
-    }
 
 
 @asynccontextmanager
@@ -216,7 +141,6 @@ async def health() -> dict[str, Any]:
         "redis": {"status": "up"},
         "primaryApi": {"status": "up"},
         "compatApi": {"status": "up"},
-        "pagerDuty": {"status": "up" if _has_pagerduty_configuration() else "down"},
         "internalServiceToken": {"status": "up" if INTERNAL_SERVICE_TOKEN else "down"},
         "svixSecret": {"status": "up" if os.getenv("SVIX_WEBHOOK_SECRET") else "down"},
     }
@@ -258,13 +182,6 @@ async def health() -> dict[str, Any]:
         }
         status = "degraded"
 
-    if _is_strict_runtime() and not _has_pagerduty_configuration():
-        services["pagerDuty"] = {
-            "status": "down",
-            "message": "Configure PAGERDUTY_ROUTING_KEY or severity-specific routing keys."
-        }
-        status = "degraded"
-
     return {"status": status, "services": services}
 
 
@@ -293,24 +210,3 @@ async def receive_webhook(
 
     await _get_redis_client().xadd("events", {"type": event_type, "data": json.dumps(payload)})
     return {"accepted": True, "processed": True}
-
-
-@app.post("/escalation/{severity}")
-async def receive_escalation(severity: str, request: Request) -> dict[str, Any]:
-    normalized = severity.lower()
-    if normalized not in {"p0", "p1", "p2", "p3"}:
-        raise HTTPException(status_code=404, detail="Unknown escalation severity")
-
-    payload = await request.json()
-    pagerduty_result = await _forward_escalation_to_pagerduty(normalized, payload)
-
-    await _get_redis_client().xadd(
-        "alerts",
-        {
-            "payload": json.dumps(payload),
-            "severity": normalized,
-            "status": str(payload.get("status", "firing"))
-        },
-    )
-
-    return {"accepted": True, "processed": True, **pagerduty_result}

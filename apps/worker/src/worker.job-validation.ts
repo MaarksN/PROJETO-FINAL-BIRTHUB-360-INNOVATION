@@ -1,8 +1,4 @@
 import { taskJobSchema } from "@birthub/config";
-import {
-  resolveSecretCandidates,
-  verifyHmacSignatureWithCandidates
-} from "@birthub/security";
 import { createHash, createHmac } from "node:crypto";
 import { z } from "zod";
 
@@ -63,7 +59,6 @@ function serializeLegacyTaskSignaturePayload(input: {
 
 export function validateLegacyTaskJob(input: {
   fallbackSecret: string;
-  fallbackSecrets?: string[];
   jobId: string;
   payload: z.infer<typeof taskJobSchema>;
   tenantSecret?: string;
@@ -92,18 +87,12 @@ export function validateLegacyTaskJob(input: {
     context,
     payload: input.payload
   });
-  const candidates = input.tenantSecret
-    ? [input.tenantSecret]
-    : resolveSecretCandidates(input.fallbackSecret, input.fallbackSecrets);
+  const expectedSignature = signPayload(
+    signedPayload,
+    input.tenantSecret ?? input.fallbackSecret
+  );
 
-  if (
-    input.payload.signature !== "unsigned" &&
-    !verifyHmacSignatureWithCandidates({
-      candidates,
-      payload: signedPayload,
-      signature: input.payload.signature
-    })
-  ) {
+  if (input.payload.signature !== "unsigned" && expectedSignature !== input.payload.signature) {
     throw new Error("JOB_SIGNATURE_INVALID");
   }
 

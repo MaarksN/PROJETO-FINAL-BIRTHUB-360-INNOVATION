@@ -55,7 +55,7 @@ function extractAuthorizationToken(headerValue: string | undefined): {
 
 export function authenticationMiddleware(
   sessionCookieName: string,
-  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET" | "sessionSecretFallbacks">
+  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">
 ) {
   return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     try {
@@ -76,13 +76,8 @@ export function authenticationMiddleware(
 
       request.context.authType = authenticated.authType;
       request.context.apiKeyId = authenticated.apiKeyId;
-      request.context.breakGlassGrantId = authenticated.breakGlassGrantId;
-      request.context.breakGlassReason = authenticated.breakGlassReason;
-      request.context.breakGlassTicket = authenticated.breakGlassTicket;
-      request.context.impersonatedByUserId = authenticated.impersonatedByUserId;
       request.context.organizationId = authenticated.organizationId;
       request.context.role = authenticated.role;
-      request.context.sessionAccessMode = authenticated.sessionAccessMode;
       request.context.sessionId = authenticated.sessionId;
       request.context.tenantId = authenticated.tenantId;
       request.context.userId = authenticated.userId;

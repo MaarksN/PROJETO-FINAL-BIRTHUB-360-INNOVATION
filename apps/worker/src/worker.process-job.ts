@@ -93,7 +93,6 @@ async function resolveLegacyExecutionPayload(
     : null;
   const tenantId = validateLegacyTaskJob({
     fallbackSecret: input.config.JOB_HMAC_GLOBAL_SECRET,
-    fallbackSecrets: input.config.jobHmacGlobalSecretFallbacks,
     jobId,
     payload,
     ...(tenantSecret ? { tenantSecret } : {})

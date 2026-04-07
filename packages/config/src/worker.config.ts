@@ -3,7 +3,6 @@ import { cpus } from "node:os";
 import { z } from "zod";
 
 import {
-  commaSeparatedList,
   EnvValidationError,
   hasPlaceholderMarker,
   hasRequiredPostgresSsl,
@@ -37,7 +36,6 @@ export const workerEnvSchema = z.object({
   HUBSPOT_ACCESS_TOKEN: optionalNonEmptyString,
   HUBSPOT_BASE_URL: urlString.default("https://api.hubapi.com"),
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
-  JOB_HMAC_GLOBAL_SECRET_FALLBACKS: z.string().default(""),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
   NODE_ENV: nodeEnvSchema,
   QUEUE_NAME: nonEmptyString.default("birthub-cycle1"),
@@ -56,16 +54,12 @@ export const workerEnvSchema = z.object({
 });
 
 export type WorkerConfig = z.infer<typeof workerEnvSchema> & {
-  jobHmacGlobalSecretFallbacks: string[];
   WORKER_CONCURRENCY: number;
 };
 
 export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerConfig {
   const parsed = parseEnv("worker", workerEnvSchema, env);
   const resolvedConcurrency = parsed.WORKER_CONCURRENCY ?? Math.max(2, cpus().length);
-  const jobHmacGlobalSecretFallbacks = commaSeparatedList.parse(
-    parsed.JOB_HMAC_GLOBAL_SECRET_FALLBACKS
-  );
 
   if (parsed.NODE_ENV === "production") {
     const issues: string[] = [];
@@ -85,10 +79,6 @@ export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerCon
       issues.push("JOB_HMAC_GLOBAL_SECRET cannot use the development default in production.");
     }
 
-    if (jobHmacGlobalSecretFallbacks.some((value) => hasPlaceholderMarker(value))) {
-      issues.push("JOB_HMAC_GLOBAL_SECRET_FALLBACKS cannot contain placeholder values in production.");
-    }
-
     if (!parsed.SENTRY_DSN) {
       issues.push("SENTRY_DSN must be configured in production.");
     }
@@ -104,7 +94,6 @@ export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerCon
 
   return {
     ...parsed,
-    jobHmacGlobalSecretFallbacks,
     WORKER_CONCURRENCY: resolvedConcurrency
   };
 }

@@ -1,13 +1,13 @@
 # Environment Parity
 
-- Refreshed at: 2026-04-07T18:03:15.714Z
-- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.
+- Refreshed at: 2026-04-06T14:12:59.572Z
+- Source of truth: `auditor-prime-2026-04-06` evidence refresh over the current HEAD.
 
 ## Runtime Surfaces
 
 - Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)
 - Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)
-- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)
+- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)
 - Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`
 
 ## Release Preflight Evidence
@@ -26,5 +26,6 @@
 
 ## Known Gaps
 
-- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is not configured on this runner`.
+- Kubernetes manifests: present.
+- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is configured on this runner`.
 - This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.

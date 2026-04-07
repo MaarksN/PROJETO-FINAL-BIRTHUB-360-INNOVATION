@@ -52,35 +52,6 @@ function createUnauthorizedError(detail = "A valid authenticated session is requ
   });
 }
 
-function toAuthProblem(error: unknown): never {
-  const message = error instanceof Error ? error.message : "AUTH_FLOW_FAILED";
-
-  switch (message) {
-    case "INVALID_CREDENTIALS":
-      throw createUnauthorizedError("Invalid email, password or tenant reference.");
-    case "ACCOUNT_SUSPENDED":
-      throw new ProblemDetailsError({
-        detail: "This account is suspended.",
-        status: 403,
-        title: "Forbidden"
-      });
-    case "INVALID_MFA_CHALLENGE":
-    case "MFA_CHALLENGE_EXPIRED":
-    case "INVALID_MFA_CODE":
-    case "MFA_CODE_ALREADY_USED":
-    case "MFA_NOT_CONFIGURED":
-      throw createUnauthorizedError("The MFA challenge is invalid or has expired.");
-    case "MFA_LOCKED":
-      throw new ProblemDetailsError({
-        detail: "MFA is temporarily locked after repeated failures. Try again later.",
-        status: 423,
-        title: "Locked"
-      });
-    default:
-      throw error;
-  }
-}
-
 function readUserAgent(request: {
   header(name: string): string | undefined;
 }): string | null {
@@ -141,19 +112,14 @@ function registerLoginRoute(app: Express, config: ApiConfig): void {
         throw createUnauthorizedError("Invalid organization reference for login.");
       }
 
-      let login: Awaited<ReturnType<typeof loginWithPassword>>;
-      try {
-        login = await loginWithPassword({
-          config,
-          email: loginInput.email,
-          ipAddress: request.ip ?? null,
-          organizationId,
-          password: loginInput.password,
-          userAgent: readUserAgent(request)
-        });
-      } catch (error) {
-        toAuthProblem(error);
-      }
+      const login = await loginWithPassword({
+        config,
+        email: loginInput.email,
+        ipAddress: request.ip ?? null,
+        organizationId,
+        password: loginInput.password,
+        userAgent: readUserAgent(request)
+      });
 
       if (login.mfaRequired) {
         response
@@ -177,19 +143,14 @@ function registerMfaChallengeRoute(app: Express, config: ApiConfig): void {
     validateBody(mfaVerifyRequestSchema),
     asyncHandler(async (request, response) => {
       const body = request.body as z.infer<typeof mfaVerifyRequestSchema>;
-      let session: Awaited<ReturnType<typeof verifyMfaChallenge>>;
-      try {
-        session = await verifyMfaChallenge({
-          challengeToken: body.challengeToken,
-          config,
-          ipAddress: request.ip ?? null,
-          ...(body.recoveryCode ? { recoveryCode: body.recoveryCode } : {}),
-          ...(body.totpCode ? { totpCode: body.totpCode } : {}),
-          userAgent: readUserAgent(request)
-        });
-      } catch (error) {
-        toAuthProblem(error);
-      }
+      const session = await verifyMfaChallenge({
+        challengeToken: body.challengeToken,
+        config,
+        ipAddress: request.ip ?? null,
+        ...(body.recoveryCode ? { recoveryCode: body.recoveryCode } : {}),
+        ...(body.totpCode ? { totpCode: body.totpCode } : {}),
+        userAgent: readUserAgent(request)
+      });
 
       applySessionContext(request, session);
       setAuthCookies(response, config, session.tokens);

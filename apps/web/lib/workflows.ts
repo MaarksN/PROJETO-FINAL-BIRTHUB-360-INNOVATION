@@ -4,42 +4,7 @@ import type { WorkflowCanvas } from "@birthub/workflows-core";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
 
-export type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
-
-export interface WorkflowStepLintFinding {
-  code: string;
-  message: string;
-  risk: number;
-  severity: "critical" | "info" | "warning";
-  stepKey: string;
-  stepType: string;
-}
-
-export interface WorkflowStepLintResult {
-  findings: WorkflowStepLintFinding[];
-  score: number;
-  summary: {
-    critical: number;
-    info: number;
-    warning: number;
-  };
-}
-
-export interface WorkflowListItem {
-  _count: {
-    executions: number;
-    steps: number;
-  };
-  createdAt: string;
-  description: string | null;
-  id: string;
-  name: string;
-  status: WorkflowStatus;
-  stepLint: WorkflowStepLintResult | null;
-  triggerType: string;
-  updatedAt: string;
-  version: number;
-}
+type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
 
 export interface WorkflowExecutionSnapshot {
   completedAt: string | null;
@@ -66,14 +31,12 @@ export interface WorkflowExecutionSnapshot {
 }
 
 export interface WorkflowDetail {
-  createdAt?: string;
   definition: WorkflowCanvas | null;
   description: string | null;
   executions: WorkflowExecutionSnapshot[];
   id: string;
   name: string;
   status: WorkflowStatus;
-  stepLint?: WorkflowStepLintResult | null;
   steps: Array<{
     config: Record<string, unknown>;
     id: string;
@@ -89,8 +52,6 @@ export interface WorkflowDetail {
     targetStepId: string;
   }>;
   triggerType: string;
-  updatedAt?: string;
-  version?: number;
 }
 
 const WORKFLOWS_REQUEST_TIMEOUT_MS = 8_000;
@@ -125,18 +86,5 @@ export async function getWorkflowById(id: string): Promise<WorkflowDetail | null
     return payload.workflow;
   } catch {
     return null;
-  }
-}
-
-export async function listWorkflows(): Promise<WorkflowListItem[]> {
-  try {
-    const payload = await fetchJson<{
-      items: WorkflowListItem[];
-      requestId: string;
-    }>("/api/v1/workflows");
-
-    return payload.items;
-  } catch {
-    return [];
   }
 }

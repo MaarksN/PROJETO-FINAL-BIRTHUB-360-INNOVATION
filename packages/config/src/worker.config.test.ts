@@ -40,7 +40,6 @@ void test("worker config accepts hardened production settings", () => {
     BILLING_EXPORT_STORAGE_MODE: "s3",
     DATABASE_URL:
       "postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1?sslmode=require",
-    JOB_HMAC_GLOBAL_SECRET_FALLBACKS: "prev-worker-secret,older-worker-secret",
     JOB_HMAC_GLOBAL_SECRET: "prod-hmac-secret-123",
     NODE_ENV: "production",
     REDIS_URL: "rediss://localhost:6379",
@@ -50,8 +49,4 @@ void test("worker config accepts hardened production settings", () => {
   assert.equal(config.NODE_ENV, "production");
   assert.equal(config.BILLING_EXPORT_STORAGE_MODE, "s3");
   assert.equal(config.BILLING_EXPORT_S3_BUCKET, "birthub-billing-exports");
-  assert.deepEqual(config.jobHmacGlobalSecretFallbacks, [
-    "prev-worker-secret",
-    "older-worker-secret"
-  ]);
 });

@@ -14,29 +14,24 @@ const pnpmCli = existsSync(bundledPnpm)
     ? globalCorepackPnpm
     : null;
 const pnpmCommand = pnpmCli ? `node "${pnpmCli}" --filter @birthub/web dev` : "pnpm --filter @birthub/web dev";
-const remoteBaseUrl = process.env.E2E_BASE_URL?.trim();
-const baseURL = remoteBaseUrl && remoteBaseUrl.length > 0 ? remoteBaseUrl : "http://127.0.0.1:3001";
-const apiURL = process.env.E2E_API_URL?.trim() || baseURL;
 
 export default defineConfig({
   testDir: "./tests/e2e",
   timeout: 30_000,
   use: {
-    baseURL,
+    baseURL: "http://127.0.0.1:3001",
     trace: "retain-on-failure",
     video: "on",
   },
-  webServer: remoteBaseUrl
-    ? undefined
-    : {
-        command: pnpmCommand,
-        url: "http://127.0.0.1:3001/",
-        reuseExistingServer: true,
-        env: {
-          NEXT_PUBLIC_API_URL: apiURL,
-          NEXT_PUBLIC_APP_URL: baseURL,
-          NEXT_PUBLIC_ENVIRONMENT: "test",
-          WEB_PORT: "3001"
-        },
-      },
+  webServer: {
+    command: pnpmCommand,
+    url: "http://127.0.0.1:3001/",
+    reuseExistingServer: true,
+    env: {
+      NEXT_PUBLIC_API_URL: "http://127.0.0.1:3001",
+      NEXT_PUBLIC_APP_URL: "http://127.0.0.1:3001",
+      NEXT_PUBLIC_ENVIRONMENT: "test",
+      WEB_PORT: "3001"
+    },
+  },
 });

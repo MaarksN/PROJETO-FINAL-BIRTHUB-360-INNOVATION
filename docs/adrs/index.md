@@ -8,7 +8,6 @@ Qualquer decisão crítica (mudança de infraestrutura, escolha de provedor de n
 | 0001 | [Initial Monorepo Architecture](0001-initial-architecture.md) | 2026-03-01 | Aprovado | @birthub/core |
 | 0002 | [Uso do Prisma com Row Level Security (RLS)](ADR-008-rls-as-second-layer.md) | 2026-03-10 | Aprovado | @birthub/core |
 | 0003 | [Arquitetura Híbrida de Agentes](ADR-014-agent-engine.md) | 2026-03-12 | Aprovado | @birthub/core |
-| 0004 | [Deploy Canonico em GitHub Actions + Cloud Run](ADR-036-canonical-deploy-platform.md) | 2026-04-07 | Aprovado | @birthub/platform |
 
 ## Template
 Para criar um novo ADR, copie `.github/ISSUE_TEMPLATE/ADR_TEMPLATE.md` e inicie a proposta.

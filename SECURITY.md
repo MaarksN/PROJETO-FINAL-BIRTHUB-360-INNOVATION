@@ -4,7 +4,7 @@ Nós levamos a segurança do ecosistema **BirthHub 360** a sério. Mantemos uma 
 
 ## Versões Suportadas
 
-Aplicamos patches de seguranca com prioridade para as versoes atualmente rodando em nosso monorepo (principal branch `main` liberada pelo lane canonico `GitHub Actions + Cloud Run` e versoes estaveis das nossas APIs).
+Aplicamos patches de segurança com prioridade para as versões atualmente rodando em nosso monorepo (principal branch `main` implementada no Cloud Run e versões estáveis das nossas APIs).
 
 | Versão da API | Status de Suporte | Atualizações Críticas |
 | ------------- | ----------------- | --------------------- |

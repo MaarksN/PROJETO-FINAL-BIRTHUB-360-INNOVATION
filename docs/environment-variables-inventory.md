@@ -88,16 +88,3 @@ Abaixo estão listadas as variáveis separadas por aplicação e contexto, com a
 | `UPTIMEROBOT_API_TOKEN` | String | Opcional | |
 
 *Existem outras variáveis para timeouts, cache, e limites de rate, mas elas usam defaults seguros e não possuem regras rígidas exclusivas para produção documentadas neste schema.*
-
----
-
-## Operação e Escalonamento (`apps/webhook-receiver/main.py`)
-
-| Variável | Tipo / Validação | Obrigatória em Prod/Staging? | Observação |
-| :--- | :--- | :--- | :--- |
-| `PAGERDUTY_ROUTING_KEY` | String | Recomendado | Chave padrão para todos os alertas quando não houver override por severidade. |
-| `PAGERDUTY_ROUTING_KEY_P0` | String | Recomendado | Override para incidentes críticos. |
-| `PAGERDUTY_ROUTING_KEY_P1` | String | Opcional | Override para incidentes de alta prioridade. |
-| `PAGERDUTY_ROUTING_KEY_P2` | String | Opcional | Override para incidentes moderados. |
-| `PAGERDUTY_ROUTING_KEY_P3` | String | Opcional | Override para incidentes de baixa prioridade. |
-| `PAGERDUTY_SOURCE` | String | Opcional | Default: `birthhub-alertmanager`. Identifica a origem no evento do PagerDuty. |

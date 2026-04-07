@@ -15,7 +15,7 @@
 ## Versionamento
 Current Version: 1.0.0
 
-| Segredo/configuracao critica | Owner primario | Backup | Rotacao minima |
+| Segredo crítico | Owner primário | Backup | Rotação mínima |
 | --- | --- | --- | --- |
 | `DATABASE_URL` | `@platform-data` | `@platform-security` | 90 dias ou incidente |
 | `REDIS_URL` | `@platform-worker` | `@platform-api` | 90 dias ou incidente |
@@ -24,12 +24,8 @@ Current Version: 1.0.0
 | `JOB_HMAC_GLOBAL_SECRET` | `@platform-security` | `@platform-worker` | 60 dias ou incidente |
 | `STRIPE_SECRET_KEY` | `@platform-api` | `@platform-security` | 90 dias ou incidente |
 | `STRIPE_WEBHOOK_SECRET` | `@platform-api` | `@platform-security` | 90 dias ou incidente |
-| `GCP_WORKLOAD_IDENTITY_PROVIDER` | `@platform-devex` | `@platform-security` | troca de infra |
-| `GCP_SERVICE_ACCOUNT_EMAIL` | `@platform-devex` | `@platform-architecture` | troca de infra |
-| `CLOUD_RUN_REGION` | `@platform-devex` | `@platform-architecture` | troca de infra |
-| `CLOUD_RUN_API_SERVICE` | `@platform-devex` | `@platform-api` | troca de infra |
-| `CLOUD_RUN_WEB_SERVICE` | `@platform-devex` | `@platform-web` | troca de infra |
-| `CLOUD_RUN_WORKER_SERVICE` | `@platform-devex` | `@platform-worker` | troca de infra |
+| `RENDER_PRODUCTION_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | troca de infra |
+| `RENDER_STAGING_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | N/A |
 | `SENTRY_DSN` | `@platform-api` | `@platform-devex` | N/A |
 
 Tracking Ticket: https://jira.example.com/browse/BH-100

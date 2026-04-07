@@ -2,7 +2,6 @@ import type { ApiConfig } from "@birthub/config";
 import {
   MembershipStatus,
   Role,
-  SessionAccessMode,
   prisma
 } from "@birthub/database";
 
@@ -15,13 +14,8 @@ export type ApiKeyScope =
 export interface AuthenticatedContext {
   apiKeyId: string | null;
   authType: "api-key" | "session";
-  breakGlassGrantId: string | null;
-  breakGlassReason: string | null;
-  breakGlassTicket: string | null;
-  impersonatedByUserId: string | null;
   organizationId: string;
   role: Role | null;
-  sessionAccessMode: SessionAccessMode | null;
   sessionId: string | null;
   tenantId: string;
   userId: string;

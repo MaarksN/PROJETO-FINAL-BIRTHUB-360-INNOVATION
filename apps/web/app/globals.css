@@ -1,5 +1,4 @@
-:root,
-html[data-theme="light"] {
+:root {
   color-scheme: light;
   --font-sans: "IBM Plex Sans", "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
   --surface: #f7f3ea;
@@ -10,25 +9,7 @@ html[data-theme="light"] {
   --accent-strong: #0a3f45;
   --card: rgba(255, 255, 255, 0.8);
   --border: rgba(31, 29, 23, 0.1);
-  --overlay: rgba(18, 14, 8, 0.42);
-  --shadow-lg: 0 24px 80px rgba(19, 93, 102, 0.08);
-  --surface-elevated: rgba(255, 255, 255, 0.92);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
-  --surface: #081118;
-  --surface-strong: #10202a;
-  --text: #edf6f9;
-  --muted: #9bb0ba;
-  --accent: #55b7c3;
-  --accent-strong: #9be2ea;
-  --card: rgba(10, 23, 32, 0.82);
-  --border: rgba(155, 226, 234, 0.16);
-  --overlay: rgba(3, 9, 13, 0.7);
-  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.28);
-  --surface-elevated: rgba(8, 17, 24, 0.96);
 }
 
 * {
@@ -48,14 +29,6 @@ body {
     radial-gradient(circle at bottom right, rgba(255, 150, 94, 0.18), transparent 35%),
     linear-gradient(160deg, #fcfaf5 0%, var(--surface) 48%, #f4efe1 100%);
   color: var(--text);
-  transition: background 180ms ease, color 180ms ease;
-}
-
-html[data-theme="dark"] body {
-  background:
-    radial-gradient(circle at top left, rgba(85, 183, 195, 0.12), transparent 26%),
-    radial-gradient(circle at bottom right, rgba(255, 150, 94, 0.12), transparent 32%),
-    linear-gradient(160deg, #071017 0%, var(--surface) 48%, #10202a 100%);
 }
 
 a {
@@ -81,10 +54,6 @@ a {
   padding: 1rem 1.5rem 1.5rem;
 }
 
-html[data-theme="dark"] .legal-footer {
-  background: rgba(8, 17, 24, 0.82);
-}
-
 .legal-footer__row {
   align-items: center;
   display: flex;
@@ -108,7 +77,7 @@ html[data-theme="dark"] .legal-footer {
 .paywall-overlay {
   align-items: center;
   backdrop-filter: blur(6px);
-  background: var(--overlay);
+  background: rgba(18, 14, 8, 0.42);
   display: grid;
   inset: 0;
   justify-items: center;
@@ -130,12 +99,6 @@ html[data-theme="dark"] .legal-footer {
   width: min(100%, 520px);
 }
 
-html[data-theme="dark"] .paywall-modal {
-  background:
-    radial-gradient(circle at top right, rgba(85, 183, 195, 0.16), transparent 35%),
-    rgba(8, 17, 24, 0.96);
-}
-
 .paywall-actions {
   display: flex;
   flex-wrap: wrap;
@@ -151,20 +114,6 @@ html[data-theme="dark"] .paywall-modal {
   font-weight: 600;
   padding: 0.25rem 0.65rem;
   width: fit-content;
-}
-
-kbd {
-  background: rgba(15, 23, 42, 0.08);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-family: var(--font-sans), sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.18rem 0.5rem;
-}
-
-html[data-theme="dark"] kbd {
-  background: rgba(155, 226, 234, 0.08);
 }
 
 .hero-actions {
@@ -196,9 +145,4 @@ html[data-theme="dark"] kbd {
   color: var(--text);
   cursor: pointer;
   text-decoration: none;
-}
-
-html[data-theme="dark"] .ghost-button {
-  background: rgba(8, 17, 24, 0.9);
-  border-color: var(--border);
 }

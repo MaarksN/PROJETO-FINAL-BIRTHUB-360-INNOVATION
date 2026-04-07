@@ -1,5 +1,5 @@
 import type { ApiConfig } from "@birthub/config";
-import { prisma, Role, SessionAccessMode } from "@birthub/database";
+import { prisma, Role } from "@birthub/database";
 import { Router } from "express";
 import { z } from "zod";
 
@@ -79,9 +79,7 @@ export function createAdminRouter(config: ApiConfig): Router {
       const payload = impersonationSchema.parse(request.body);
       const target = await resolveImpersonationTarget(payload.tenantReference);
       const session = await createSession({
-        accessMode: SessionAccessMode.IMPERSONATION,
         config,
-        impersonatedByUserId: actorUserId,
         ipAddress: request.ip ?? null,
         organizationId: target.organization.id,
         tenantId: target.organization.tenantId,

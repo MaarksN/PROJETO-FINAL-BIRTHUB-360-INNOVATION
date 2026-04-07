@@ -1,7 +1,6 @@
 import type { ApiConfig } from "@birthub/config";
 import { BillingEventStatus, Prisma, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
-import { resolveSecretCandidates } from "@birthub/security";
 import type { Request } from "express";
 import Redlock from "redlock";
 import Stripe from "stripe";
@@ -184,32 +183,19 @@ export function constructStripeEvent(input: {
   const signature = ensureSignature(input.request);
   const body = ensureRawBody(input.request);
   const signatureTimestamp = parseStripeSignatureTimestamp(signature);
-  const secretCandidates = resolveSecretCandidates(
-    input.config.STRIPE_WEBHOOK_SECRET,
-    input.config.stripeWebhookSecretFallbacks
-  );
-  let event: Stripe.Event | null = null;
-  let lastError: unknown = null;
+  let event: Stripe.Event;
 
-  for (const secret of secretCandidates) {
-    try {
-      event = input.stripe.webhooks.constructEvent(
-        body,
-        signature,
-        secret,
-        Number.MAX_SAFE_INTEGER
-      );
-      lastError = null;
-      break;
-    } catch (error) {
-      lastError = error;
-    }
-  }
-
-  if (lastError || !event) {
+  try {
+    event = input.stripe.webhooks.constructEvent(
+      body,
+      signature,
+      input.config.STRIPE_WEBHOOK_SECRET,
+      Number.MAX_SAFE_INTEGER
+    );
+  } catch (error) {
     stripeWebhookLogger.warn(
       {
-        err: lastError,
+        err: error,
         event: "billing.webhook.signature.invalid"
       },
       "Stripe webhook rejected because the signature is invalid"
@@ -217,7 +203,7 @@ export function constructStripeEvent(input: {
 
     throw new ProblemDetailsError({
       detail: "Invalid Stripe webhook signature.",
-      errors: lastError instanceof Error ? lastError.message : "unknown_signature_error",
+      errors: error instanceof Error ? error.message : "unknown_signature_error",
       status: 400,
       title: "Bad Request"
     });

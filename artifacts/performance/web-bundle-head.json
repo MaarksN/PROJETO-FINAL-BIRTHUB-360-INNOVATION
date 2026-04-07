@@ -1,12 +1,12 @@
 {
-  "checkedAt": "2026-04-07T18:04:06.671Z",
+  "checkedAt": "2026-04-06T14:13:25.801Z",
   "status": "fresh",
   "sufficient": true,
   "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
   "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
   "stderr": "",
   "baseline": {
-    "generatedAt": "2026-04-07T18:04:06.625Z",
+    "generatedAt": "2026-04-06T14:13:25.788Z",
     "nextBuildDir": "apps/web/.next",
     "chunks": {
       "files": 44,

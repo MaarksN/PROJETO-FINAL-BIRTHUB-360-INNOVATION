@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/c7440821-1429-1e80-c0a8-a16f8993744f",
+  "documentNamespace": "https://birthub.local/spdx/570477d4-0578-f11b-4cc2-d9057449c563",
   "creationInfo": {
-    "created": "2026-04-07T18:19:23.764Z",
+    "created": "2026-04-06T15:38:16.833Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -495,36 +495,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-ca8d182240ecaa1b",
-      "name": "@stryker-mutator/core",
-      "versionInfo": "8.7.1",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fcore@8.7.1"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-a55cb08bb84f0737",
-      "name": "@stryker-mutator/typescript-checker",
-      "versionInfo": "8.7.1",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40stryker-mutator%2Ftypescript-checker@8.7.1"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-2f1b8650f1b3e770",
       "name": "@types/cors",
       "versionInfo": "2.8.19",
@@ -720,21 +690,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-8caa761caf880442",
-      "name": "c8",
-      "versionInfo": "10.1.3",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/c8@10.1.3"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-c7435d8f709189a6",
       "name": "cors",
       "versionInfo": "2.8.6",
@@ -926,21 +881,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/jsdom@29.0.1"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-bfb5f4e8a2b88c02",
-      "name": "knip",
-      "versionInfo": "5.88.1",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/knip@5.88.1"
         }
       ]
     },

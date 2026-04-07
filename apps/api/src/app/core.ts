@@ -19,7 +19,6 @@ import {
 import { asyncHandler, ProblemDetailsError } from "../lib/problem-details.js";
 import { contentTypeMiddleware } from "../middleware/content-type.js";
 import { csrfProtection } from "../middleware/csrf.js";
-import { breakGlassAuditMiddleware } from "../middleware/break-glass-audit.js";
 import { globalErrorHandler, notFoundMiddleware } from "../middleware/error-handler.js";
 import { authenticationMiddleware } from "../middleware/authentication.js";
 import { originValidationMiddleware } from "../middleware/origin-check.js";
@@ -31,7 +30,7 @@ import { metricsHandler, metricsMiddleware } from "../metrics.js";
 import { requestContextMiddleware } from "../middleware/request-context.js";
 import { sanitizeMutationInput } from "../middleware/sanitize-input.js";
 import { tenantContextMiddleware } from "../middlewares/tenantContext.js";
-import { startPrivacyRetentionScheduler } from "../modules/privacy/retention-scheduler.js";
+import { startOutputRetentionScheduler } from "../modules/outputs/output-retention.js";
 import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router.js";
 
@@ -136,7 +135,7 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
   configureCacheStore(config.REDIS_URL, config.NODE_ENV);
   if (config.NODE_ENV !== "test") {
     registerTenantCacheInvalidationMiddleware();
-    startPrivacyRetentionScheduler(config);
+    startOutputRetentionScheduler();
   }
   initializeWorkflowInternalEventBridge(config);
 
@@ -145,7 +144,6 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
   registerRequestLoggingMiddleware(app);
   app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));
   app.use(tenantContextMiddleware);
-  app.use(breakGlassAuditMiddleware);
   app.use(helmet(buildHelmetOptions()));
   app.use(cors(buildCorsOptions(config)));
 

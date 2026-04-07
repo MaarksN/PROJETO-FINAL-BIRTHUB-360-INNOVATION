@@ -24,7 +24,6 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   staging-preflight:
@@ -35,6 +34,8 @@ jobs:
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     concurrency:
       group: cd-staging-main
       cancel-in-progress: false
@@ -44,22 +45,14 @@ jobs:
       BILLING_EXPORT_S3_BUCKET: ${{ vars.BILLING_EXPORT_S3_BUCKET }}
       BILLING_EXPORT_STORAGE_MODE: ${{ vars.BILLING_EXPORT_STORAGE_MODE }}
       AUTH_MFA_ENCRYPTION_KEY: ${{ secrets.AUTH_MFA_ENCRYPTION_KEY }}
-      CLOUD_RUN_API_SERVICE: ${{ vars.CLOUD_RUN_API_SERVICE }}
-      CLOUD_RUN_REGION: ${{ vars.CLOUD_RUN_REGION }}
-      CLOUD_RUN_WEB_SERVICE: ${{ vars.CLOUD_RUN_WEB_SERVICE }}
-      CLOUD_RUN_WORKER_SERVICE: ${{ vars.CLOUD_RUN_WORKER_SERVICE }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      GCP_ARTIFACT_REGISTRY_REGION: ${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}
-      GCP_ARTIFACT_REGISTRY_REPOSITORY: ${{ vars.GCP_ARTIFACT_REGISTRY_REPOSITORY }}
-      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-      GCP_SERVICE_ACCOUNT_EMAIL: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-      GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
       JOB_HMAC_GLOBAL_SECRET: ${{ secrets.JOB_HMAC_GLOBAL_SECRET }}
       NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
       NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
       NEXT_PUBLIC_CSP_REPORT_ONLY: ${{ vars.NEXT_PUBLIC_CSP_REPORT_ONLY }}
       NEXT_PUBLIC_SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
       REDIS_URL: ${{ secrets.REDIS_URL }}
+      RENDER_STAGING_DEPLOY_HOOK_URL: ${{ secrets.RENDER_STAGING_DEPLOY_HOOK_URL }}
       REQUIRE_SECURE_COOKIES: ${{ vars.REQUIRE_SECURE_COOKIES }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
       SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
@@ -89,34 +82,87 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Mask configured secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for key in AUTH_MFA_ENCRYPTION_KEY DATABASE_URL JOB_HMAC_GLOBAL_SECRET REDIS_URL RENDER_STAGING_DEPLOY_HOOK_URL SENTRY_DSN SESSION_SECRET STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET; do
+            value="${!key:-}"
+            if [[ -n "${value}" ]]; then
+              echo "::add-mask::${value}"
+            fi
+          done
+
       - name: Validate required staging configuration
         shell: bash
         run: |
           set -euo pipefail
-          required_secrets=(DATABASE_URL REDIS_URL SESSION_SECRET JOB_HMAC_GLOBAL_SECRET AUTH_MFA_ENCRYPTION_KEY STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET SENTRY_DSN)
-          required_vars=(API_CORS_ORIGINS WEB_BASE_URL NEXT_PUBLIC_API_URL NEXT_PUBLIC_APP_URL NEXT_PUBLIC_SENTRY_DSN NEXT_PUBLIC_CSP_REPORT_ONLY REQUIRE_SECURE_COOKIES STRIPE_SUCCESS_URL STRIPE_CANCEL_URL BILLING_EXPORT_STORAGE_MODE GCP_PROJECT_ID GCP_WORKLOAD_IDENTITY_PROVIDER GCP_SERVICE_ACCOUNT_EMAIL GCP_ARTIFACT_REGISTRY_REGION GCP_ARTIFACT_REGISTRY_REPOSITORY CLOUD_RUN_REGION CLOUD_RUN_API_SERVICE CLOUD_RUN_WEB_SERVICE CLOUD_RUN_WORKER_SERVICE)
+
+          required_secrets=(
+            RENDER_STAGING_DEPLOY_HOOK_URL
+            DATABASE_URL
+            REDIS_URL
+            SESSION_SECRET
+            JOB_HMAC_GLOBAL_SECRET
+            AUTH_MFA_ENCRYPTION_KEY
+            STRIPE_SECRET_KEY
+            STRIPE_WEBHOOK_SECRET
+            SENTRY_DSN
+          )
+
+          required_vars=(
+            API_CORS_ORIGINS
+            WEB_BASE_URL
+            NEXT_PUBLIC_API_URL
+            NEXT_PUBLIC_APP_URL
+            NEXT_PUBLIC_SENTRY_DSN
+            NEXT_PUBLIC_CSP_REPORT_ONLY
+            REQUIRE_SECURE_COOKIES
+            STRIPE_SUCCESS_URL
+            STRIPE_CANCEL_URL
+            BILLING_EXPORT_STORAGE_MODE
+          )
+
           missing=()
+
           for key in "${required_secrets[@]}"; do
-            if [[ -z "${!key:-}" ]]; then missing+=("${key} (secret)"); fi
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("${key} (secret)")
+            fi
           done
+
           for key in "${required_vars[@]}"; do
-            if [[ -z "${!key:-}" ]]; then missing+=("${key} (variable)"); fi
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("${key} (variable)")
+            fi
           done
+
           if (( ${#missing[@]} > 0 )); then
             printf 'Missing required staging configuration:\n' >&2
             printf ' - %s\n' "${missing[@]}" >&2
+            echo "::error title=Missing staging configuration::Configure missing keys in Environment staging (Secrets/Variables)." >&2
             exit 1
           fi
+
+
           if [[ "${BILLING_EXPORT_STORAGE_MODE}" != "local" && "${BILLING_EXPORT_STORAGE_MODE}" != "s3" ]]; then
-            echo "BILLING_EXPORT_STORAGE_MODE must be local or s3." >&2
+            echo "::error title=Invalid variable::BILLING_EXPORT_STORAGE_MODE must be local or s3." >&2
             exit 1
           fi
+
           if [[ "${BILLING_EXPORT_STORAGE_MODE}" == "s3" && -z "${BILLING_EXPORT_S3_BUCKET:-}" ]]; then
-            echo "BILLING_EXPORT_S3_BUCKET must be set when BILLING_EXPORT_STORAGE_MODE=s3." >&2
+            echo "::error title=Missing variable::BILLING_EXPORT_S3_BUCKET must be set when BILLING_EXPORT_STORAGE_MODE=s3." >&2
             exit 1
           fi
-          if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" || "${REQUIRE_SECURE_COOKIES}" != "true" ]]; then
-            echo "Staging requires CSP enforcement and secure cookies." >&2
+
+
+          if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" ]]; then
+            echo "::error title=Invalid staging variable::NEXT_PUBLIC_CSP_REPORT_ONLY must be set to false in Environment staging variables." >&2
+            exit 1
+          fi
+
+          if [[ "${REQUIRE_SECURE_COOKIES}" != "true" ]]; then
+            echo "::error title=Invalid staging variable::REQUIRE_SECURE_COOKIES must be set to true in Environment staging variables." >&2
             exit 1
           fi
 
@@ -129,11 +175,75 @@ jobs:
           name: staging-preflight-evidence
           path: artifacts/release/staging-preflight-summary.*
 
+  release-sbom:
+    name: release-sbom
+    if: >
+      (github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main') ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.deploy_target == 'production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout release source from CI run
+        if: github.event_name == 'workflow_run'
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Checkout release source from manual dispatch
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate CycloneDX SBOM
+        run: pnpm release:sbom
+
+      - name: Materialize release bundle manifests
+        run: pnpm release:materialize -- --tag=v1.0.0
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-sbom
+          path: |
+            artifacts/sbom/bom.xml
+            artifacts/sbom/sbom.spdx.json
+
+      - name: Upload release manifests
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-manifests
+          path: |
+            artifacts/release/checksums-manifest.sha256
+            artifacts/release/release-artifact-catalog.json
+            releases/manifests/release_artifact_catalog.md
+            releases/notes/v1.0.0.md
+
   production-preflight:
     name: production-preflight
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -143,22 +253,14 @@ jobs:
       BILLING_EXPORT_S3_BUCKET: ${{ vars.BILLING_EXPORT_S3_BUCKET }}
       BILLING_EXPORT_STORAGE_MODE: ${{ vars.BILLING_EXPORT_STORAGE_MODE }}
       AUTH_MFA_ENCRYPTION_KEY: ${{ secrets.AUTH_MFA_ENCRYPTION_KEY }}
-      CLOUD_RUN_API_SERVICE: ${{ vars.CLOUD_RUN_API_SERVICE }}
-      CLOUD_RUN_REGION: ${{ vars.CLOUD_RUN_REGION }}
-      CLOUD_RUN_WEB_SERVICE: ${{ vars.CLOUD_RUN_WEB_SERVICE }}
-      CLOUD_RUN_WORKER_SERVICE: ${{ vars.CLOUD_RUN_WORKER_SERVICE }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      GCP_ARTIFACT_REGISTRY_REGION: ${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}
-      GCP_ARTIFACT_REGISTRY_REPOSITORY: ${{ vars.GCP_ARTIFACT_REGISTRY_REPOSITORY }}
-      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-      GCP_SERVICE_ACCOUNT_EMAIL: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-      GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
       JOB_HMAC_GLOBAL_SECRET: ${{ secrets.JOB_HMAC_GLOBAL_SECRET }}
       NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
       NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
       NEXT_PUBLIC_CSP_REPORT_ONLY: ${{ vars.NEXT_PUBLIC_CSP_REPORT_ONLY }}
       NEXT_PUBLIC_SENTRY_DSN: ${{ vars.NEXT_PUBLIC_SENTRY_DSN }}
       REDIS_URL: ${{ secrets.REDIS_URL }}
+      RENDER_PRODUCTION_DEPLOY_HOOK_URL: ${{ secrets.RENDER_PRODUCTION_DEPLOY_HOOK_URL }}
       REQUIRE_SECURE_COOKIES: ${{ vars.REQUIRE_SECURE_COOKIES }}
       SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
       SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
@@ -186,34 +288,85 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Mask configured secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          for key in AUTH_MFA_ENCRYPTION_KEY DATABASE_URL JOB_HMAC_GLOBAL_SECRET REDIS_URL RENDER_PRODUCTION_DEPLOY_HOOK_URL SENTRY_DSN SESSION_SECRET STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET; do
+            value="${!key:-}"
+            if [[ -n "${value}" ]]; then
+              echo "::add-mask::${value}"
+            fi
+          done
+
       - name: Validate required production configuration
         shell: bash
         run: |
           set -euo pipefail
-          required_secrets=(DATABASE_URL REDIS_URL SESSION_SECRET JOB_HMAC_GLOBAL_SECRET AUTH_MFA_ENCRYPTION_KEY STRIPE_SECRET_KEY STRIPE_WEBHOOK_SECRET SENTRY_DSN)
-          required_vars=(API_CORS_ORIGINS WEB_BASE_URL NEXT_PUBLIC_API_URL NEXT_PUBLIC_APP_URL NEXT_PUBLIC_SENTRY_DSN NEXT_PUBLIC_CSP_REPORT_ONLY REQUIRE_SECURE_COOKIES STRIPE_SUCCESS_URL STRIPE_CANCEL_URL BILLING_EXPORT_STORAGE_MODE GCP_PROJECT_ID GCP_WORKLOAD_IDENTITY_PROVIDER GCP_SERVICE_ACCOUNT_EMAIL GCP_ARTIFACT_REGISTRY_REGION GCP_ARTIFACT_REGISTRY_REPOSITORY CLOUD_RUN_REGION CLOUD_RUN_API_SERVICE CLOUD_RUN_WEB_SERVICE CLOUD_RUN_WORKER_SERVICE)
+
+          required_secrets=(
+            RENDER_PRODUCTION_DEPLOY_HOOK_URL
+            DATABASE_URL
+            REDIS_URL
+            SESSION_SECRET
+            JOB_HMAC_GLOBAL_SECRET
+            AUTH_MFA_ENCRYPTION_KEY
+            STRIPE_SECRET_KEY
+            STRIPE_WEBHOOK_SECRET
+            SENTRY_DSN
+          )
+
+          required_vars=(
+            API_CORS_ORIGINS
+            WEB_BASE_URL
+            NEXT_PUBLIC_API_URL
+            NEXT_PUBLIC_APP_URL
+            NEXT_PUBLIC_SENTRY_DSN
+            NEXT_PUBLIC_CSP_REPORT_ONLY
+            REQUIRE_SECURE_COOKIES
+            STRIPE_SUCCESS_URL
+            STRIPE_CANCEL_URL
+            BILLING_EXPORT_STORAGE_MODE
+          )
+
           missing=()
+
           for key in "${required_secrets[@]}"; do
-            if [[ -z "${!key:-}" ]]; then missing+=("${key} (secret)"); fi
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("${key} (secret)")
+            fi
           done
+
           for key in "${required_vars[@]}"; do
-            if [[ -z "${!key:-}" ]]; then missing+=("${key} (variable)"); fi
+            if [[ -z "${!key:-}" ]]; then
+              missing+=("${key} (variable)")
+            fi
           done
+
           if (( ${#missing[@]} > 0 )); then
             printf 'Missing required production configuration:\n' >&2
             printf ' - %s\n' "${missing[@]}" >&2
+            echo "::error title=Missing production configuration::Configure missing keys in Environment production (Secrets/Variables)." >&2
             exit 1
           fi
+
           if [[ "${BILLING_EXPORT_STORAGE_MODE}" != "local" && "${BILLING_EXPORT_STORAGE_MODE}" != "s3" ]]; then
-            echo "BILLING_EXPORT_STORAGE_MODE must be local or s3." >&2
+            echo "::error title=Invalid variable::BILLING_EXPORT_STORAGE_MODE must be local or s3." >&2
             exit 1
           fi
+
           if [[ "${BILLING_EXPORT_STORAGE_MODE}" == "s3" && -z "${BILLING_EXPORT_S3_BUCKET:-}" ]]; then
-            echo "BILLING_EXPORT_S3_BUCKET must be set when BILLING_EXPORT_STORAGE_MODE=s3." >&2
+            echo "::error title=Missing variable::BILLING_EXPORT_S3_BUCKET must be set when BILLING_EXPORT_STORAGE_MODE=s3." >&2
             exit 1
           fi
-          if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" || "${REQUIRE_SECURE_COOKIES}" != "true" ]]; then
-            echo "Production requires CSP enforcement and secure cookies." >&2
+
+          if [[ "${NEXT_PUBLIC_CSP_REPORT_ONLY}" != "false" ]]; then
+            echo "::error title=Invalid production variable::NEXT_PUBLIC_CSP_REPORT_ONLY must be set to false in Environment production variables." >&2
+            exit 1
+          fi
+
+          if [[ "${REQUIRE_SECURE_COOKIES}" != "true" ]]; then
+            echo "::error title=Invalid production variable::REQUIRE_SECURE_COOKIES must be set to true in Environment production variables." >&2
             exit 1
           fi
 
@@ -226,320 +379,20 @@ jobs:
           name: preflight-report
           path: artifacts/release/production-preflight-summary.*
 
-  release-sbom:
-    name: release-sbom
-    if: >
-      (github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main') ||
-      (github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.deploy_target == 'production')
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - name: Checkout release source from CI run
-        if: github.event_name == 'workflow_run'
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-
-      - name: Checkout release source from manual dispatch
-        if: github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Generate CycloneDX and SPDX SBOM
-        run: pnpm release:sbom
-
-      - name: Materialize release bundle manifests
-        run: pnpm release:materialize -- --tag=v1.0.0
-
-      - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-sbom
-          path: |
-            artifacts/sbom/bom.xml
-            artifacts/sbom/sbom.spdx.json
-
-      - name: Upload release manifests
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-manifests
-          path: |
-            artifacts/release/checksums-manifest.sha256
-            artifacts/release/release-artifact-catalog.json
-            releases/manifests/release_artifact_catalog.md
-            releases/notes/v1.0.0.md
-
-  build-staging-images:
-    name: build-staging-images
-    if: >
-      github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    environment: staging
-    needs:
-      - staging-preflight
-      - release-sbom
-    outputs:
-      api_image: ${{ steps.refs.outputs.api_image }}
-      web_image: ${{ steps.refs.outputs.web_image }}
-      worker_image: ${{ steps.refs.outputs.worker_image }}
-    steps:
-      - name: Checkout release source from CI run
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event.workflow_run.head_sha }}
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v3
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Compute image refs
-        id: refs
-        shell: bash
-        run: |
-          set -euo pipefail
-          SHORT_SHA="${{ github.event.workflow_run.head_sha }}"
-          SHORT_SHA="${SHORT_SHA:0:12}"
-          REGISTRY="${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPOSITORY }}"
-          echo "api_image=${REGISTRY}/birthub-api:${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-          echo "web_image=${REGISTRY}/birthub-web:${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-          echo "worker_image=${REGISTRY}/birthub-worker:${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-
-      - name: Configure Artifact Registry auth
-        shell: bash
-        run: gcloud auth configure-docker "${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev" --quiet
-
-      - name: Build and push API image
-        run: |
-          docker build -f apps/api/Dockerfile -t "${{ steps.refs.outputs.api_image }}" .
-          docker push "${{ steps.refs.outputs.api_image }}"
-
-      - name: Build and push Web image
-        run: |
-          docker build -f apps/web/Dockerfile -t "${{ steps.refs.outputs.web_image }}" .
-          docker push "${{ steps.refs.outputs.web_image }}"
-
-      - name: Build and push Worker image
-        run: |
-          docker build -f apps/worker/Dockerfile -t "${{ steps.refs.outputs.worker_image }}" .
-          docker push "${{ steps.refs.outputs.worker_image }}"
-
-  deploy-staging:
-    name: deploy-staging
-    if: >
-      github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    concurrency:
-      group: cd-staging-main
-      cancel-in-progress: false
-    environment: staging
-    needs:
-      - build-staging-images
-    steps:
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v3
-
-      - name: Deploy staging revisions
-        shell: bash
-        run: |
-          set -euo pipefail
-          REGION="${{ vars.CLOUD_RUN_REGION }}"
-          mkdir -p artifacts/release
-          : > artifacts/release/staging-rollout.tsv
-
-          while IFS='|' read -r component service image; do
-            before_json="artifacts/release/${component}-before.json"
-            after_json="artifacts/release/${component}-after.json"
-
-            if ! gcloud run services describe "$service" --region "$REGION" --format=json > "$before_json" 2>/dev/null; then
-              echo '{}' > "$before_json"
-            fi
-
-            previous_revision=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const active=traffic.find((item)=>Number(item.percent||0)>0); process.stdout.write(active?.revisionName||'');" "$before_json")
-
-            gcloud run deploy "$service" --image "$image" --region "$REGION" --platform managed --tag candidate --no-traffic --quiet
-            gcloud run services describe "$service" --region "$REGION" --format=json > "$after_json"
-
-            candidate_revision=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); process.stdout.write(data.status?.latestCreatedRevisionName||'');" "$after_json")
-            candidate_url=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const entry=traffic.find((item)=>item.tag==='candidate'); process.stdout.write(entry?.url||'');" "$after_json")
-
-            gcloud run services update-traffic "$service" --region "$REGION" --to-revisions "${candidate_revision}=100" --quiet
-            printf '%s\t%s\t%s\t%s\t%s\n' "$component" "$service" "$previous_revision" "$candidate_revision" "$candidate_url" >> artifacts/release/staging-rollout.tsv
-          done <<EOF
-          api|${{ vars.CLOUD_RUN_API_SERVICE }}|${{ needs.build-staging-images.outputs.api_image }}
-          web|${{ vars.CLOUD_RUN_WEB_SERVICE }}|${{ needs.build-staging-images.outputs.web_image }}
-          worker|${{ vars.CLOUD_RUN_WORKER_SERVICE }}|${{ needs.build-staging-images.outputs.worker_image }}
-          EOF
-
-          node <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-          const file = path.join(process.cwd(), 'artifacts', 'release', 'staging-rollout.tsv');
-          const lines = fs.readFileSync(file, 'utf8').trim().split(/\r?\n/).filter(Boolean);
-          const services = Object.fromEntries(lines.map((line) => {
-            const [component, service, previousRevision, candidateRevision, candidateUrl] = line.split('\t');
-            return [component, { service, previousRevision: previousRevision || null, candidateRevision, candidateUrl: candidateUrl || null }];
-          }));
-          fs.writeFileSync(
-            path.join(process.cwd(), 'artifacts', 'release', 'staging-rollout.json'),
-            JSON.stringify({ environment: 'staging', generatedAt: new Date().toISOString(), region: '${{ vars.CLOUD_RUN_REGION }}', services }, null, 2) + '\n',
-            'utf8'
-          );
-          NODE
-
-      - name: Upload staging rollout manifest
-        uses: actions/upload-artifact@v4
-        with:
-          name: staging-rollout-manifest
-          path: |
-            artifacts/release/staging-rollout.json
-            artifacts/release/staging-rollout.tsv
-
-  deploy-production-candidate:
-    name: deploy-production-candidate
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    concurrency:
-      group: cd-production
-      cancel-in-progress: false
-    environment: production
-    needs:
-      - build-production-images
-    outputs:
-      api_candidate_revision: ${{ steps.deploy.outputs.api_candidate_revision }}
-      api_previous_revision: ${{ steps.deploy.outputs.api_previous_revision }}
-      api_candidate_url: ${{ steps.deploy.outputs.api_candidate_url }}
-      web_candidate_revision: ${{ steps.deploy.outputs.web_candidate_revision }}
-      web_previous_revision: ${{ steps.deploy.outputs.web_previous_revision }}
-      web_candidate_url: ${{ steps.deploy.outputs.web_candidate_url }}
-      worker_candidate_revision: ${{ steps.deploy.outputs.worker_candidate_revision }}
-      worker_previous_revision: ${{ steps.deploy.outputs.worker_previous_revision }}
-    steps:
-      - name: Guard production deployment branch
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
-            echo "Production deploy can only run from main." >&2
-            exit 1
-          fi
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v3
-
-      - name: Deploy production candidate revisions
-        id: deploy
-        shell: bash
-        run: |
-          set -euo pipefail
-          REGION="${{ vars.CLOUD_RUN_REGION }}"
-          mkdir -p artifacts/release
-          : > artifacts/release/production-rollout.tsv
-
-          while IFS='|' read -r component service image; do
-            before_json="artifacts/release/${component}-before.json"
-            after_json="artifacts/release/${component}-after.json"
-
-            if ! gcloud run services describe "$service" --region "$REGION" --format=json > "$before_json" 2>/dev/null; then
-              echo '{}' > "$before_json"
-            fi
-
-            previous_revision=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const active=traffic.find((item)=>Number(item.percent||0)>0); process.stdout.write(active?.revisionName||'');" "$before_json")
-
-            gcloud run deploy "$service" --image "$image" --region "$REGION" --platform managed --tag candidate --no-traffic --quiet
-            gcloud run services describe "$service" --region "$REGION" --format=json > "$after_json"
-
-            candidate_revision=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); process.stdout.write(data.status?.latestCreatedRevisionName||'');" "$after_json")
-            candidate_url=$(node -e "const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const entry=traffic.find((item)=>item.tag==='candidate'); process.stdout.write(entry?.url||'');" "$after_json")
-
-            echo "${component}_previous_revision=${previous_revision}" >> "$GITHUB_OUTPUT"
-            echo "${component}_candidate_revision=${candidate_revision}" >> "$GITHUB_OUTPUT"
-            echo "${component}_candidate_url=${candidate_url}" >> "$GITHUB_OUTPUT"
-            printf '%s\t%s\t%s\t%s\t%s\n' "$component" "$service" "$previous_revision" "$candidate_revision" "$candidate_url" >> artifacts/release/production-rollout.tsv
-          done <<EOF
-          api|${{ vars.CLOUD_RUN_API_SERVICE }}|${{ needs.build-production-images.outputs.api_image }}
-          web|${{ vars.CLOUD_RUN_WEB_SERVICE }}|${{ needs.build-production-images.outputs.web_image }}
-          worker|${{ vars.CLOUD_RUN_WORKER_SERVICE }}|${{ needs.build-production-images.outputs.worker_image }}
-          EOF
-
-          node <<'NODE'
-          const fs = require('fs');
-          const path = require('path');
-          const file = path.join(process.cwd(), 'artifacts', 'release', 'production-rollout.tsv');
-          const lines = fs.readFileSync(file, 'utf8').trim().split(/\r?\n/).filter(Boolean);
-          const services = Object.fromEntries(lines.map((line) => {
-            const [component, service, previousRevision, candidateRevision, candidateUrl] = line.split('\t');
-            return [component, { service, previousRevision: previousRevision || null, candidateRevision, candidateUrl: candidateUrl || null }];
-          }));
-          fs.writeFileSync(
-            path.join(process.cwd(), 'artifacts', 'release', 'production-rollout.json'),
-            JSON.stringify({ environment: 'production', generatedAt: new Date().toISOString(), region: '${{ vars.CLOUD_RUN_REGION }}', services }, null, 2) + '\n',
-            'utf8'
-          );
-          NODE
-
-      - name: Upload production rollout manifest
-        uses: actions/upload-artifact@v4
-        with:
-          name: production-rollout-manifest
-          path: |
-            artifacts/release/production-rollout.json
-            artifacts/release/production-rollout.tsv
-
   release-smoke-gate:
     name: release-smoke-gate
+    # Executa apenas após aprovação do deploy manual na branch de produção
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    environment: production
+    timeout-minutes: 40
+    permissions:
+      contents: read
     needs:
-      - deploy-production-candidate
+      - deploy-production
     concurrency:
       group: cd-production
       cancel-in-progress: false
+    environment: production
     steps:
       - name: Checkout release source from manual dispatch
         uses: actions/checkout@v6
@@ -559,11 +412,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run candidate smoke gate
+      - name: Run release smoke gate
         run: pnpm release:smoke
-        env:
-          RELEASE_SMOKE_API_URL: ${{ needs.deploy-production-candidate.outputs.api_candidate_url }}
-          RELEASE_SMOKE_WEB_URL: ${{ needs.deploy-production-candidate.outputs.web_candidate_url }}
 
       - name: Upload smoke evidence
         uses: actions/upload-artifact@v4
@@ -573,16 +423,18 @@ jobs:
 
   release-e2e-gate:
     name: release-e2e-gate
+    # E2E test gate executa em produção logo após o smoke test (dependência imposta por `needs`)
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    environment: production
+    permissions:
+      contents: read
     needs:
-      - deploy-production-candidate
       - release-smoke-gate
     concurrency:
       group: cd-production
       cancel-in-progress: false
+    environment: production
     steps:
       - name: Checkout release source from manual dispatch
         uses: actions/checkout@v6
@@ -602,14 +454,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
-
       - name: Run release E2E gate
         run: pnpm test:e2e:release
-        env:
-          E2E_API_URL: ${{ needs.deploy-production-candidate.outputs.api_candidate_url }}
-          E2E_BASE_URL: ${{ needs.deploy-production-candidate.outputs.web_candidate_url }}
 
       - name: Upload E2E evidence
         if: always()
@@ -622,9 +468,12 @@ jobs:
 
   rollback-rehearsal-evidence-gate:
     name: rollback-rehearsal-evidence-gate
+    # Valida evidência de rollback controlado após todos os testes terem sucesso
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
     needs:
       - release-e2e-gate
     steps:
@@ -659,115 +508,115 @@ jobs:
             artifacts/release/production-rollback-evidence.txt
             artifacts/release/production-rollback-evidence.json
 
-  promote-production:
-    name: promote-production
+  deploy-staging:
+    name: deploy-staging
+    if: >
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    needs:
+      - staging-preflight
+      - release-sbom
+    concurrency:
+      group: cd-staging-main
+      cancel-in-progress: false
+    environment: staging
+    steps:
+      - name: Mask deploy hook
+        shell: bash
+        env:
+          RENDER_STAGING_DEPLOY_HOOK_URL: ${{ secrets.RENDER_STAGING_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${RENDER_STAGING_DEPLOY_HOOK_URL:-}" ]]; then
+            echo "::add-mask::${RENDER_STAGING_DEPLOY_HOOK_URL}"
+          fi
+
+      - name: Trigger Render deploy hook (staging)
+        shell: bash
+        env:
+          RENDER_STAGING_DEPLOY_HOOK_URL: ${{ secrets.RENDER_STAGING_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${RENDER_STAGING_DEPLOY_HOOK_URL:-}" ]]; then
+            echo "::error title=Missing secret::RENDER_STAGING_DEPLOY_HOOK_URL is not configured in Environment staging secrets." >&2
+            exit 1
+          fi
+
+          if ! [[ "${RENDER_STAGING_DEPLOY_HOOK_URL}" =~ ^https://[^[:space:]]+$ ]]; then
+            echo "::error title=Invalid secret::RENDER_STAGING_DEPLOY_HOOK_URL must be a valid HTTPS URL." >&2
+            exit 1
+          fi
+
+          curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_STAGING_DEPLOY_HOOK_URL}"
+
+  deploy-production:
+    name: deploy-production
+    # Ponto único de entrada do caminho de produção (após preflight e sbom)
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    environment: production
+    permissions:
+      contents: read
+    needs:
+      - release-sbom
+      - production-preflight
     concurrency:
       group: cd-production
       cancel-in-progress: false
-    needs:
-      - deploy-production-candidate
-      - rollback-rehearsal-evidence-gate
+    environment: production
     steps:
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v3
-
-      - name: Promote candidate revisions to 100%
+      - name: Guard production deployment branch
         shell: bash
         run: |
           set -euo pipefail
-          REGION="${{ vars.CLOUD_RUN_REGION }}"
-          gcloud run services update-traffic "${{ vars.CLOUD_RUN_API_SERVICE }}" --region "$REGION" --to-revisions "${{ needs.deploy-production-candidate.outputs.api_candidate_revision }}=100" --quiet
-          gcloud run services update-traffic "${{ vars.CLOUD_RUN_WEB_SERVICE }}" --region "$REGION" --to-revisions "${{ needs.deploy-production-candidate.outputs.web_candidate_revision }}=100" --quiet
-          gcloud run services update-traffic "${{ vars.CLOUD_RUN_WORKER_SERVICE }}" --region "$REGION" --to-revisions "${{ needs.deploy-production-candidate.outputs.worker_candidate_revision }}=100" --quiet
+          if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
+            echo "::error title=Invalid branch::Production deploy can only run from main." >&2
+            exit 1
+          fi
 
-      - name: Write deploy manifest
+      - name: Mask deploy hook
+        shell: bash
+        env:
+          RENDER_PRODUCTION_DEPLOY_HOOK_URL: ${{ secrets.RENDER_PRODUCTION_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          if [[ -n "${RENDER_PRODUCTION_DEPLOY_HOOK_URL:-}" ]]; then
+            echo "::add-mask::${RENDER_PRODUCTION_DEPLOY_HOOK_URL}"
+          fi
+
+      - name: Trigger Render deploy hook (production)
+        shell: bash
+        env:
+          RENDER_PRODUCTION_DEPLOY_HOOK_URL: ${{ secrets.RENDER_PRODUCTION_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+
+          if [[ -z "${RENDER_PRODUCTION_DEPLOY_HOOK_URL:-}" ]]; then
+            echo "::error title=Missing secret::RENDER_PRODUCTION_DEPLOY_HOOK_URL is not configured in Environment production secrets." >&2
+            exit 1
+          fi
+
+          if ! [[ "${RENDER_PRODUCTION_DEPLOY_HOOK_URL}" =~ ^https://[^[:space:]]+$ ]]; then
+            echo "::error title=Invalid secret::RENDER_PRODUCTION_DEPLOY_HOOK_URL must be a valid HTTPS URL." >&2
+            exit 1
+          fi
+
+          curl --fail --show-error --silent --retry 3 --retry-delay 5 --request POST "${RENDER_PRODUCTION_DEPLOY_HOOK_URL}"
+
+      - name: Generate deploy manifest
         shell: bash
         run: |
           mkdir -p artifacts/release
-          cat > artifacts/release/deploy-manifest.json <<EOF
-          {
-            "environment": "production",
-            "promotedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "region": "${{ vars.CLOUD_RUN_REGION }}",
-            "services": {
-              "api": "${{ needs.deploy-production-candidate.outputs.api_candidate_revision }}",
-              "web": "${{ needs.deploy-production-candidate.outputs.web_candidate_revision }}",
-              "worker": "${{ needs.deploy-production-candidate.outputs.worker_candidate_revision }}"
-            }
-          }
-          EOF
+          echo '{"status": "deployed", "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}' > artifacts/release/deploy-manifest.json
 
       - name: Upload deploy manifest
         uses: actions/upload-artifact@v4
         with:
           name: deploy-manifest
           path: artifacts/release/deploy-manifest.json
-
-  build-production-images:
-    name: build-production-images
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    environment: production
-    needs:
-      - production-preflight
-      - release-sbom
-    outputs:
-      api_image: ${{ steps.refs.outputs.api_image }}
-      web_image: ${{ steps.refs.outputs.web_image }}
-      worker_image: ${{ steps.refs.outputs.worker_image }}
-    steps:
-      - name: Checkout release source from manual dispatch
-        uses: actions/checkout@v6
-
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-      - name: Setup gcloud
-        uses: google-github-actions/setup-gcloud@v3
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Compute image refs
-        id: refs
-        shell: bash
-        run: |
-          set -euo pipefail
-          SHORT_SHA="${GITHUB_SHA:0:12}"
-          REGISTRY="${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_ARTIFACT_REGISTRY_REPOSITORY }}"
-          echo "api_image=${REGISTRY}/birthub-api:${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-          echo "web_image=${REGISTRY}/birthub-web:${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-          echo "worker_image=${REGISTRY}/birthub-worker:${SHORT_SHA}" >> "$GITHUB_OUTPUT"
-
-      - name: Configure Artifact Registry auth
-        shell: bash
-        run: gcloud auth configure-docker "${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev" --quiet
-
-      - name: Build and push API image
-        run: |
-          docker build -f apps/api/Dockerfile -t "${{ steps.refs.outputs.api_image }}" .
-          docker push "${{ steps.refs.outputs.api_image }}"
-
-      - name: Build and push Web image
-        run: |
-          docker build -f apps/web/Dockerfile -t "${{ steps.refs.outputs.web_image }}" .
-          docker push "${{ steps.refs.outputs.web_image }}"
-
-      - name: Build and push Worker image
-        run: |
-          docker build -f apps/worker/Dockerfile -t "${{ steps.refs.outputs.worker_image }}" .
-          docker push "${{ steps.refs.outputs.worker_image }}"

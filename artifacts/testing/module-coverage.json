@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-07T18:04:06.480Z",
+  "checkedAt": "2026-04-06T14:13:25.731Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -14,8 +14,8 @@
   "surfaces": [
     {
       "module": "apps/api",
-      "runtimeFiles": 150,
-      "directTestFiles": 40,
+      "runtimeFiles": 136,
+      "directTestFiles": 38,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -55,44 +55,34 @@
         "apps/api/tests/tenant-auth-hardening.test.ts",
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
-        "apps/api/tests/workflow-retry-lineage.integration.test.ts",
-        "apps/api/tests/clinical-router.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": []
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 115,
-      "directTestFiles": 13,
+      "runtimeFiles": 76,
+      "directTestFiles": 9,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/web/tests/auth-client.test.ts",
         "apps/web/tests/auth-session-route.test.ts",
         "apps/web/tests/bff-allowlist.test.ts",
         "apps/web/tests/bff-route.test.ts",
-        "apps/web/tests/dashboard-data.test.ts",
         "apps/web/tests/health.required-dependency.test.ts",
         "apps/web/tests/login.smoke.test.ts",
-        "apps/web/tests/offline-page.test.ts",
         "apps/web/tests/workflow-runs-page.test.ts",
-        "apps/web/tests/workflows-list.test.ts",
-        "apps/web/tests/clinical-data.test.ts",
         "tests/e2e/critical-routes.spec.ts",
         "tests/e2e/billing-premium.spec.ts"
       ],
       "gaps": [
-        "apps/web/app/(dashboard)/analytics/error.tsx",
-        "apps/web/app/(dashboard)/analytics/loading.tsx",
-        "apps/web/app/(dashboard)/dashboard/error.tsx",
-        "apps/web/app/(dashboard)/dashboard/loading.tsx",
-        "apps/web/app/(dashboard)/dashboard/page.data.ts"
+        "apps/web/app/(dashboard)/layout.tsx"
       ]
     },
     {
       "module": "apps/worker",
-      "runtimeFiles": 79,
-      "directTestFiles": 31,
+      "runtimeFiles": 78,
+      "directTestFiles": 30,
       "traceabilityFlows": 3,
       "directTests": [
         "apps/worker/src/agents/conversations.test.ts",
@@ -105,7 +95,6 @@
         "apps/worker/src/agents/runtime.memory.test.ts",
         "apps/worker/src/agents/runtime.resolution.test.ts",
         "apps/worker/src/agents/runtime.shared.test.ts",
-        "apps/worker/src/agents/runtime.tools.test.ts",
         "apps/worker/src/engine/runner.agent.smoke.test.ts",
         "apps/worker/src/engine/runner.cancel.test.ts",
         "apps/worker/src/engine/runner.db-integration.test.ts",
