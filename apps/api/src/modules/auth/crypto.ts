@@ -1,4 +1,5 @@
 import {
+  argon2 as argon2Callback,
   createCipheriv,
   createDecipheriv,
   createHash,
@@ -10,9 +11,18 @@ import {
 import { promisify } from "node:util";
 
 const scrypt = promisify(scryptCallback);
+const argon2 = promisify(argon2Callback);
 const AES_GCM_AUTH_TAG_LENGTH = 16;
+const ARGON2_SALT_BYTES = 16;
+const ARGON2_TAG_BYTES = 32;
 const SCRYPT_KEY_BYTES = 64;
 const ACCESS_TOKEN_ISSUER = "birthub360-api";
+
+export interface PasswordHashConfig {
+  memoryKiB: number;
+  parallelism: number;
+  passes: number;
+}
 
 export interface AccessTokenClaims {
   exp: number;
@@ -71,11 +81,114 @@ function isScryptHash(value: string): boolean {
   return value.startsWith("scrypt$");
 }
 
-async function hashWithScrypt(password: string, cost: number): Promise<string> {
-  const salt = randomBytes(16).toString("base64url");
-  const derivedKey = (await scrypt(password, salt, SCRYPT_KEY_BYTES)) as Buffer;
+function isArgon2idHash(value: string): boolean {
+  return value.startsWith("argon2id$");
+}
 
-  return `scrypt$${cost}$${salt}$${derivedKey.toString("base64url")}`;
+type ParsedArgon2Hash = {
+  hash: Buffer;
+  memoryKiB: number;
+  parallelism: number;
+  passes: number;
+  salt: Buffer;
+};
+
+function parseArgon2idHash(value: string): ParsedArgon2Hash | null {
+  const [algorithm, version, params, saltPart, hashPart] = value.split("$");
+
+  if (
+    algorithm !== "argon2id" ||
+    version !== "v=1" ||
+    !params ||
+    !saltPart ||
+    !hashPart
+  ) {
+    return null;
+  }
+
+  const attributes = Object.fromEntries(
+    params.split(",").map((segment) => {
+      const [key, rawValue] = segment.split("=");
+      return [key, Number(rawValue)];
+    })
+  );
+
+  const memoryKiB = attributes.m;
+  const passes = attributes.t;
+  const parallelism = attributes.p;
+
+  if (
+    !Number.isFinite(memoryKiB) ||
+    !Number.isFinite(passes) ||
+    !Number.isFinite(parallelism)
+  ) {
+    return null;
+  }
+
+  return {
+    hash: Buffer.from(hashPart, "base64url"),
+    memoryKiB,
+    parallelism,
+    passes,
+    salt: Buffer.from(saltPart, "base64url")
+  };
+}
+
+async function hashWithArgon2id(
+  password: string,
+  options: PasswordHashConfig
+): Promise<string> {
+  const salt = randomBytes(ARGON2_SALT_BYTES);
+  const derivedKey = await argon2("argon2id", {
+    memory: options.memoryKiB,
+    message: password,
+    nonce: salt,
+    parallelism: options.parallelism,
+    passes: options.passes,
+    tagLength: ARGON2_TAG_BYTES
+  });
+
+  return `argon2id$v=1$m=${options.memoryKiB},t=${options.passes},p=${options.parallelism}$${salt.toString("base64url")}$${Buffer.from(derivedKey).toString("base64url")}`;
+}
+
+async function verifyArgon2idHash(
+  password: string,
+  storedHash: string
+): Promise<{
+  config: PasswordHashConfig | null;
+  isValid: boolean;
+}> {
+  const parsed = parseArgon2idHash(storedHash);
+
+  if (!parsed) {
+    return {
+      config: null,
+      isValid: false
+    };
+  }
+
+  const derivedKey = await argon2("argon2id", {
+    memory: parsed.memoryKiB,
+    message: password,
+    nonce: parsed.salt,
+    parallelism: parsed.parallelism,
+    passes: parsed.passes,
+    tagLength: parsed.hash.length
+  });
+
+  const actualHash = Buffer.from(derivedKey);
+  const isValid =
+    actualHash.length === parsed.hash.length &&
+    timingSafeEqual(actualHash, parsed.hash);
+
+  return {
+    config: {
+      memoryKiB: parsed.memoryKiB,
+      parallelism: parsed.parallelism,
+      passes: parsed.passes
+    },
+    isValid
+  };
 }
 
 async function verifyScryptHash(password: string, storedHash: string): Promise<boolean> {
@@ -96,32 +209,34 @@ async function verifyScryptHash(password: string, storedHash: string): Promise<b
   return timingSafeEqual(actualHash, expectedBuffer);
 }
 
-function scryptCost(value: string): number | null {
-  if (!isScryptHash(value)) {
-    return null;
-  }
-
-  const [, cost] = value.split("$");
-  const parsed = Number(cost);
-  return Number.isFinite(parsed) ? parsed : null;
-}
-
-export async function hashPassword(password: string, saltRounds: number): Promise<string> {
-  const bcrypt = await loadOptionalBcryptModule();
-
-  if (bcrypt) {
-    const salt = await bcrypt.genSalt(saltRounds);
-    return bcrypt.hash(password, salt);
-  }
-
-  return hashWithScrypt(password, saltRounds);
+export async function hashPassword(
+  password: string,
+  config: PasswordHashConfig
+): Promise<string> {
+  return hashWithArgon2id(password, config);
 }
 
 export async function verifyPasswordHash(
   password: string,
   storedHash: string,
-  minimumSaltRounds: number
+  config: PasswordHashConfig
 ): Promise<{ isValid: boolean; needsRehash: boolean }> {
+  if (isArgon2idHash(storedHash)) {
+    const verified = await verifyArgon2idHash(password, storedHash);
+
+    return {
+      isValid: verified.isValid,
+      needsRehash:
+        verified.isValid &&
+        Boolean(
+          !verified.config ||
+            verified.config.memoryKiB < config.memoryKiB ||
+            verified.config.parallelism < config.parallelism ||
+            verified.config.passes < config.passes
+        )
+    };
+  }
+
   if (isBcryptHash(storedHash)) {
     const bcrypt = await loadOptionalBcryptModule();
 
@@ -137,17 +252,16 @@ export async function verifyPasswordHash(
 
     return {
       isValid,
-      needsRehash: isValid && currentCost !== null && currentCost < minimumSaltRounds
+      needsRehash: isValid
     };
   }
 
   if (isScryptHash(storedHash)) {
     const isValid = await verifyScryptHash(password, storedHash);
-    const currentCost = scryptCost(storedHash);
 
     return {
       isValid,
-      needsRehash: isValid && currentCost !== null && currentCost < minimumSaltRounds
+      needsRehash: isValid
     };
   }
 

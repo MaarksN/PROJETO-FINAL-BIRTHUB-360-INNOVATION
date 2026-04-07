@@ -128,7 +128,11 @@ export async function createOrganization(input: {
   const organizationSlug = resolveOrganizationSlug(input.name, input.slug);
   const passwordHash = await hashPassword(
     input.adminPassword,
-    config.AUTH_BCRYPT_SALT_ROUNDS
+    {
+      memoryKiB: config.AUTH_ARGON2_MEMORY_KIB,
+      parallelism: config.AUTH_ARGON2_PARALLELISM,
+      passes: config.AUTH_ARGON2_PASSES
+    }
   );
   const quotaWindow = buildCurrentQuotaWindow();
   const primaryDomain = input.adminEmail.includes("@")

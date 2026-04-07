@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import type { Role } from "@birthub/database";
+import type { Role, SessionAccessMode } from "@birthub/database";
 import { getActiveTraceContext, runWithLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
 
@@ -23,9 +23,14 @@ export interface RequestContext {
         status?: string | null;
       }
     | null;
+  breakGlassGrantId: string | null;
+  breakGlassReason: string | null;
+  breakGlassTicket: string | null;
+  impersonatedByUserId: string | null;
   organizationId: string | null;
   requestId: string;
   role: Role | null;
+  sessionAccessMode: SessionAccessMode | null;
   sessionId: string | null;
   tenantId: string | null;
   tenantSlug: string | null;
@@ -64,9 +69,14 @@ export function requestContextMiddleware(
     apiKeyId: null,
     authType: null,
     billingPlanStatus: null,
+    breakGlassGrantId: null,
+    breakGlassReason: null,
+    breakGlassTicket: null,
+    impersonatedByUserId: null,
     organizationId: null,
     requestId,
     role: null,
+    sessionAccessMode: null,
     sessionId: null,
     tenantId: null,
     tenantSlug: null,

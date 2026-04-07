@@ -1,9 +1,12 @@
+import { prisma } from "@birthub/database";
+
 import {
   asObject,
   buildFinanceRows,
   clampScore,
   type DashboardAgentStatuses,
   type DashboardBillingSummary,
+  type DashboardOnboarding,
   type DashboardMetrics,
   type DashboardRecentTasks,
   formatCurrencyFromCents,
@@ -12,7 +15,8 @@ import {
   loadOrganizationContext,
   readNumber,
   readString,
-  riskFromScore
+  riskFromScore,
+  updateOrganizationOnboardingFlag
 } from "./service.shared.js";
 
 export async function getDashboardMetrics(
@@ -158,4 +162,85 @@ export async function getDashboardBillingSummary(
       planStatus: context.snapshot.status
     })
   };
+}
+
+export async function getDashboardOnboarding(input: {
+  organizationId: string;
+  tenantId: string;
+  userId: string;
+}): Promise<DashboardOnboarding> {
+  const context = await loadOrganizationContext(input.organizationId, input.tenantId);
+  const [workflowCount, outputCount, notificationPreference] = await Promise.all([
+    prisma.workflow.count({
+      where: {
+        organizationId: input.organizationId,
+        tenantId: input.tenantId
+      }
+    }),
+    prisma.outputArtifact.count({
+      where: {
+        organizationId: input.organizationId,
+        tenantId: input.tenantId
+      }
+    }),
+    prisma.userPreference.findFirst({
+      where: {
+        organizationId: input.organizationId,
+        tenantId: input.tenantId,
+        userId: input.userId
+      }
+    })
+  ]);
+
+  const onboardingEnabled = asObject(context.organization.settings)?.onboarding !== false;
+
+  const items = [
+    {
+      complete: true,
+      ctaHref: "/dashboard",
+      ctaLabel: "Abrir home",
+      description: "Checar indicadores, billing e riscos operacionais.",
+      id: "dashboard-home",
+      title: "Explorar a home do dashboard"
+    },
+    {
+      complete: workflowCount > 0,
+      ctaHref: "/workflows",
+      ctaLabel: "Criar workflow",
+      description: "Publicar o primeiro fluxo operacional com trigger e CTA.",
+      id: "workflow-first",
+      title: "Criar ou revisar workflows"
+    },
+    {
+      complete: notificationPreference?.inAppNotifications ?? true,
+      ctaHref: "/notifications",
+      ctaLabel: "Configurar feed",
+      description: "Ativar o feed in-app e validar o sino de notificacoes.",
+      id: "notifications-feed",
+      title: "Configurar notificacoes"
+    },
+    {
+      complete: outputCount > 0,
+      ctaHref: "/reports",
+      ctaLabel: "Abrir reports",
+      description: "Visualizar artefatos exportaveis e validar integridade.",
+      id: "reports-review",
+      title: "Abrir reports e exports"
+    }
+  ];
+
+  return {
+    enabled: onboardingEnabled,
+    items,
+    nextHref: items.find((item) => !item.complete)?.ctaHref ?? "/dashboard",
+    progress: items.length === 0 ? 100 : Math.round((items.filter((item) => item.complete).length / items.length) * 100)
+  };
+}
+
+export async function setDashboardOnboardingEnabled(input: {
+  enabled: boolean;
+  organizationId: string;
+  tenantId: string;
+}) {
+  return updateOrganizationOnboardingFlag(input);
 }

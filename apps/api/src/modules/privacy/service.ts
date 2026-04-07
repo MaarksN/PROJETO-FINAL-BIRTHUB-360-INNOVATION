@@ -267,7 +267,11 @@ export async function deleteAccountAndPersonalData(input: {
   const anonymizedEmail = buildAnonymizedEmail(input.userId);
   const passwordHash = await hashPassword(
     randomToken(18),
-    input.config.AUTH_BCRYPT_SALT_ROUNDS
+    {
+      memoryKiB: input.config.AUTH_ARGON2_MEMORY_KIB,
+      parallelism: input.config.AUTH_ARGON2_PARALLELISM,
+      passes: input.config.AUTH_ARGON2_PASSES
+    }
   );
 
   await prisma.$transaction(async (tx) => {

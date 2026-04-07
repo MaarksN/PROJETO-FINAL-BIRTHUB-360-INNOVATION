@@ -6,6 +6,7 @@ import { CookieConsentBanner } from "../components/cookie-consent-banner";
 import { PaywallProvider } from "../components/paywall-provider";
 import { AnalyticsProvider } from "./AnalyticsProvider";
 import { EngagementProvider } from "./EngagementProvider";
+import { ThemeProvider } from "./ThemeProvider";
 
 function ServiceWorkerBootstrap() {
   useEffect(() => {
@@ -21,17 +22,18 @@ function ServiceWorkerBootstrap() {
 
 export function AppProviders({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <PaywallProvider>
-      <EngagementProvider>
-        <Suspense fallback={null}>
-          <AnalyticsProvider>
-            <ServiceWorkerBootstrap />
-            {children}
-            <CookieConsentBanner />
-          </AnalyticsProvider>
-        </Suspense>
-      </EngagementProvider>
-    </PaywallProvider>
+    <ThemeProvider>
+      <PaywallProvider>
+        <EngagementProvider>
+          <Suspense fallback={null}>
+            <AnalyticsProvider>
+              <ServiceWorkerBootstrap />
+              {children}
+              <CookieConsentBanner />
+            </AnalyticsProvider>
+          </Suspense>
+        </EngagementProvider>
+      </PaywallProvider>
+    </ThemeProvider>
   );
 }
-

@@ -196,6 +196,7 @@ jobs:
         run: pnpm db:generate
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
       - name: Enforce security guardrails
         run: pnpm ci:security-guardrails
@@ -203,6 +204,7 @@ jobs:
           API_CORS_ORIGINS: http://localhost:3001
           API_PORT: 3000
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
           NEXT_PUBLIC_API_URL: http://localhost:3000
           NEXT_PUBLIC_APP_URL: http://localhost:3001
           NEXT_PUBLIC_ENVIRONMENT: ci
@@ -280,12 +282,14 @@ jobs:
         run: pnpm db:generate
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
       - name: Bootstrap CI database
         if: ${{ matrix.task == 'test' || matrix.task == 'test:isolation' }}
         run: pnpm db:bootstrap:ci
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
       - name: Run ${{ matrix.task }}
         run: pnpm ci:task ${{ matrix.task }}
@@ -293,6 +297,7 @@ jobs:
           API_CORS_ORIGINS: http://localhost:3001
           API_PORT: 3000
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
           NEXT_PUBLIC_API_URL: http://localhost:3000
           NEXT_PUBLIC_APP_URL: http://localhost:3001
           NEXT_PUBLIC_ENVIRONMENT: ci
@@ -398,11 +403,13 @@ jobs:
         run: pnpm db:generate
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
       - name: Bootstrap CI database
         run: pnpm db:bootstrap:ci
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
       - name: Run workflow suite
         run: pnpm ci:task workflow-suite
@@ -410,6 +417,7 @@ jobs:
           API_CORS_ORIGINS: http://localhost:3001
           API_PORT: 3000
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
           NEXT_PUBLIC_API_URL: http://localhost:3000
           NEXT_PUBLIC_APP_URL: http://localhost:3001
           NEXT_PUBLIC_ENVIRONMENT: ci
@@ -440,6 +448,89 @@ jobs:
       command: pnpm test:e2e:release
       timeout_minutes: 20
 
+  coverage-gate:
+    name: coverage-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: birthub_coverage
+          POSTGRES_PASSWORD: postgrespassword
+          POSTGRES_USER: postgres
+        options: >-
+          --health-cmd "pg_isready -U postgres -d birthub_coverage"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7.2-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 6379:6379
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma client
+        run: pnpm db:generate
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage
+
+      - name: Bootstrap coverage database
+        run: pnpm db:bootstrap:ci
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage
+
+      - name: Enforce coverage gate
+        run: pnpm coverage:check
+        env:
+          API_CORS_ORIGINS: http://localhost:3001
+          API_PORT: 3000
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ENVIRONMENT: ci
+          NODE_ENV: test
+          QUEUE_NAME: birthub-coverage
+          REDIS_URL: redis://localhost:6379
+          SESSION_SECRET: ci-secret
+          WEB_BASE_URL: http://localhost:3001
+
+      - name: Upload coverage artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-artifacts
+          path: |
+            artifacts/coverage
+            docs/evidence/test-coverage-dashboard.md
+
   ci:
     name: ci
     runs-on: ubuntu-latest
@@ -460,6 +551,7 @@ jobs:
       - pack-tests
       - governance-gates
       - e2e-release
+      - coverage-gate
     steps:
       - name: Done
         run: echo "All required checks passed."

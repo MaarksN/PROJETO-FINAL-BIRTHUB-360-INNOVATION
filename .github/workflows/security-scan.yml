@@ -53,6 +53,52 @@ jobs:
       - name: Audit dependencies
         run: pnpm audit --audit-level=high
 
+  sbom-scan:
+    name: sbom + grype scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate SBOM
+        run: pnpm release:sbom
+
+      - name: Scan SBOM with Grype
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/sbom
+          docker run --rm \
+            -v "$PWD:/workspace" \
+            anchore/grype:latest \
+            sbom:/workspace/artifacts/sbom/sbom.spdx.json \
+            --add-cpes-if-none \
+            --fail-on high \
+            -o json > artifacts/sbom/grype-report.json
+
+      - name: Upload SBOM scan artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-scan-artifacts
+          path: artifacts/sbom
+
   python-security:
     name: python-security
     runs-on: ubuntu-latest
@@ -150,12 +196,14 @@ jobs:
         run: pnpm db:generate
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
 
       - name: Run RBAC tests
         run: pnpm test:rbac
         env:
           API_CORS_ORIGINS: http://localhost:3001
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
+          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
           NODE_ENV: test
           REDIS_URL: redis://localhost:6379
           SESSION_SECRET: ci-secret
@@ -182,6 +230,7 @@ jobs:
     needs:
       - semgrep
       - dependency-audit
+      - sbom-scan
       - python-security
       - rbac-suite
       - zap-baseline
@@ -211,6 +260,7 @@ jobs:
         run: pnpm security:report
         env:
           NPM_AUDIT_STATUS: ${{ needs.dependency-audit.result }}
+          SBOM_SCAN_STATUS: ${{ needs.sbom-scan.result }}
           PYTHON_SECURITY_STATUS: ${{ needs.python-security.result }}
           RBAC_STATUS: ${{ needs.rbac-suite.result }}
           SEMGREP_STATUS: ${{ needs.semgrep.result }}

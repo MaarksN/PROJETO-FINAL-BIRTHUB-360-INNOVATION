@@ -11,6 +11,11 @@ type SmokeCommand = {
   name: string;
 };
 
+type HttpSmokeCheck = {
+  name: string;
+  url: string;
+};
+
 const logger = createLogger("release-smoke");
 
 function parseFlag(name: string): string | undefined {
@@ -59,19 +64,56 @@ async function main() {
   const outputPath =
     parseFlag("--output") ??
     resolve(root, "artifacts", "release", "smoke-summary.json");
-  const commands: SmokeCommand[] = [
-    { args: ["lint:core"], cwd: root, name: "lint-core" },
-    { args: ["typecheck:core"], cwd: root, name: "typecheck-core" },
-    { args: ["test:core"], cwd: root, name: "test-core" },
-    { args: ["test:isolation"], cwd: root, name: "test-isolation" },
-    { args: ["release:migrate", "--", "--dry-run"], cwd: root, name: "release-migration-dry-run" },
-    { args: ["privacy:verify"], cwd: root, name: "privacy-anonymization" },
-    { args: ["test:e2e:release"], cwd: root, name: "playwright-release" }
-  ];
-
+  const smokeWebUrl = process.env.RELEASE_SMOKE_WEB_URL?.trim();
+  const smokeApiUrl = process.env.RELEASE_SMOKE_API_URL?.trim();
   const results = [];
-  for (const command of commands) {
-    results.push(await runCommand(command));
+
+  if (smokeWebUrl && smokeApiUrl) {
+    const checks: HttpSmokeCheck[] = [
+      { name: "web-health", url: new URL("/health", smokeWebUrl).toString() },
+      { name: "web-pricing", url: new URL("/pricing", smokeWebUrl).toString() },
+      { name: "api-health", url: new URL("/health", smokeApiUrl).toString() },
+      { name: "api-readiness", url: new URL("/health/readiness", smokeApiUrl).toString() }
+    ];
+
+    for (const check of checks) {
+      const startedAt = Date.now();
+      try {
+        const response = await fetch(check.url, {
+          headers: {
+            "user-agent": "birthhub-release-smoke/1.0"
+          }
+        });
+        const output = await response.text();
+        results.push({
+          code: response.ok ? 0 : response.status,
+          durationMs: Date.now() - startedAt,
+          name: check.name,
+          output: output.slice(0, 800)
+        });
+      } catch (error) {
+        results.push({
+          code: 1,
+          durationMs: Date.now() - startedAt,
+          name: check.name,
+          output: error instanceof Error ? error.message : String(error)
+        });
+      }
+    }
+  } else {
+    const commands: SmokeCommand[] = [
+      { args: ["lint:core"], cwd: root, name: "lint-core" },
+      { args: ["typecheck:core"], cwd: root, name: "typecheck-core" },
+      { args: ["test:core"], cwd: root, name: "test-core" },
+      { args: ["test:isolation"], cwd: root, name: "test-isolation" },
+      { args: ["release:migrate", "--", "--dry-run"], cwd: root, name: "release-migration-dry-run" },
+      { args: ["privacy:verify"], cwd: root, name: "privacy-anonymization" },
+      { args: ["test:e2e:release"], cwd: root, name: "playwright-release" }
+    ];
+
+    for (const command of commands) {
+      results.push(await runCommand(command));
+    }
   }
 
   const report = {
@@ -81,6 +123,7 @@ async function main() {
       durationMs: result.durationMs,
       name: result.name
     })),
+    mode: smokeWebUrl && smokeApiUrl ? "remote-http" : "local-core-suite",
     ok: results.every((result) => result.code === 0)
   };
 

@@ -31,15 +31,117 @@ export interface ScopedIdentity {
 }
 
 const WORKFLOW_LIST_LIMIT = 100;
+const WORKFLOW_REVISION_PAGE_LIMIT = 100;
+const STEP_RESULT_PAGE_LIMIT = 250;
 
 type PersistedWorkflow = Awaited<ReturnType<typeof getWorkflowById>>;
 type WorkflowWriteClient = Pick<typeof prisma, "workflowStep" | "workflowTransition">;
 type WorkflowTransactionClient = Prisma.TransactionClient;
+type StepResultWithStep = Prisma.StepResultGetPayload<{
+  include: {
+    step: true;
+  };
+}>;
 
 export const workflowQueueAdapter = {
   enqueueWorkflowExecution,
   enqueueWorkflowTrigger
 } as const;
+
+async function listWorkflowRevisionsPage(
+  tenantId: string,
+  workflowId: string,
+  cursorId?: string
+) {
+  return prisma.workflowRevision.findMany({
+    ...(cursorId
+      ? {
+          cursor: {
+            id: cursorId
+          },
+          skip: 1
+        }
+      : {}),
+    orderBy: [
+      {
+        version: "desc"
+      },
+      {
+        id: "desc"
+      }
+    ],
+    take: WORKFLOW_REVISION_PAGE_LIMIT,
+    where: {
+      tenantId,
+      workflowId
+    }
+  });
+}
+
+async function listWorkflowRevisions(tenantId: string, workflowId: string) {
+  const revisions: Awaited<ReturnType<typeof listWorkflowRevisionsPage>> = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await listWorkflowRevisionsPage(tenantId, workflowId, cursorId);
+    revisions.push(...page);
+
+    if (page.length < WORKFLOW_REVISION_PAGE_LIMIT) {
+      return revisions;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listExecutionStepResultsPage(
+  executionId: string,
+  workflowId: string,
+  cursorId?: string
+): Promise<StepResultWithStep[]> {
+  return prisma.stepResult.findMany({
+    ...(cursorId
+      ? {
+          cursor: {
+            id: cursorId
+          },
+          skip: 1
+        }
+      : {}),
+    include: {
+      step: true
+    },
+    orderBy: [
+      {
+        createdAt: "asc"
+      },
+      {
+        id: "asc"
+      }
+    ],
+    take: STEP_RESULT_PAGE_LIMIT,
+    where: {
+      executionId,
+      workflowId
+    }
+  });
+}
+
+async function listExecutionStepResults(executionId: string, workflowId: string) {
+  const results: StepResultWithStep[] = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await listExecutionStepResultsPage(executionId, workflowId, cursorId);
+    results.push(...page);
+
+    if (page.length < STEP_RESULT_PAGE_LIMIT) {
+      return results;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
 
 async function resolveScopedIdentity(tenantReference: string): Promise<ScopedIdentity> {
   const organization = await prisma.organization.findFirst({
@@ -425,15 +527,7 @@ export async function updateWorkflow(
 export async function getWorkflowRevisions(workflowId: string, tenantReference: string) {
   const identity = await resolveScopedIdentity(tenantReference);
 
-  return prisma.workflowRevision.findMany({
-    orderBy: {
-      version: "desc"
-    },
-    where: {
-      tenantId: identity.tenantId,
-      workflowId
-    }
-  });
+  return listWorkflowRevisions(identity.tenantId, workflowId);
 }
 
 export async function revertWorkflow(
@@ -582,18 +676,7 @@ async function buildResumeContext(input: {
     });
   }
 
-  const sourceResults = await prisma.stepResult.findMany({
-    include: {
-      step: true
-    },
-    orderBy: {
-      createdAt: "asc"
-    },
-    where: {
-      executionId: sourceExecution.id,
-      workflowId: input.workflowId
-    }
-  });
+  const sourceResults = await listExecutionStepResults(sourceExecution.id, input.workflowId);
 
   const resumeIndex = sourceResults.findIndex((result) => result.step.key === resumeStepKey);
   if (resumeIndex < 0) {
@@ -622,18 +705,7 @@ async function cloneCheckpointResults(input: {
   tenantId: string;
   workflowId: string;
 }): Promise<number> {
-  const sourceResults = await prisma.stepResult.findMany({
-    include: {
-      step: true
-    },
-    orderBy: {
-      createdAt: "asc"
-    },
-    where: {
-      executionId: input.fromExecutionId,
-      workflowId: input.workflowId
-    }
-  });
+  const sourceResults = await listExecutionStepResults(input.fromExecutionId, input.workflowId);
 
   const resumeIndex = sourceResults.findIndex((result) => result.step.key === input.fromStepKey);
   if (resumeIndex < 0) {

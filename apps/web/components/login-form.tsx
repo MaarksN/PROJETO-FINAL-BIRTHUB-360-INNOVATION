@@ -92,7 +92,7 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
         localStorage.removeItem("bh_refresh_token");
 
         setResult(`Sessao criada para ${payload.session.userId}`);
-        navigate("/settings/security");
+        navigate("/dashboard");
       } catch (submitError) {
         if (controller.signal.aborted) {
           return;

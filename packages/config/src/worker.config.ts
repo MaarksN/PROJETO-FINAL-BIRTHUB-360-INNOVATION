@@ -36,6 +36,7 @@ export const workerEnvSchema = z.object({
   HUBSPOT_ACCESS_TOKEN: optionalNonEmptyString,
   HUBSPOT_BASE_URL: urlString.default("https://api.hubapi.com"),
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
+  JOB_HMAC_GLOBAL_SECRET_FALLBACKS: z.string().default(""),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
   NODE_ENV: nodeEnvSchema,
   QUEUE_NAME: nonEmptyString.default("birthub-cycle1"),
@@ -54,6 +55,7 @@ export const workerEnvSchema = z.object({
 });
 
 export type WorkerConfig = z.infer<typeof workerEnvSchema> & {
+  jobHmacGlobalSecretFallbacks: string[];
   WORKER_CONCURRENCY: number;
 };
 
@@ -94,6 +96,10 @@ export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerCon
 
   return {
     ...parsed,
+    jobHmacGlobalSecretFallbacks: parsed.JOB_HMAC_GLOBAL_SECRET_FALLBACKS
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean),
     WORKER_CONCURRENCY: resolvedConcurrency
   };
 }

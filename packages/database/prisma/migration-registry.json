@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "generatedAt": "2026-04-07T18:00:00.000Z",
   "migrations": {
     "20260313000100_cycle1_foundation": {
       "environments": [
@@ -771,6 +771,126 @@
           "Validate the migration-state report and schema drift report.",
           "Restore the previous stable snapshot or reapply the former index/default definitions if alignment introduces regressions.",
           "Replay smoke tests and tenant isolation checks before reopening traffic."
+        ],
+        "testedEnvironments": [
+          "staging"
+        ]
+      },
+      "severity": "P1",
+      "strategy": {
+        "backwardCompatible": true,
+        "batching": {
+          "required": false
+        },
+        "expandContract": false,
+        "transactional": true
+      },
+      "validation": {
+        "driftChecked": true,
+        "rlsReviewed": true,
+        "rollbackTested": true,
+        "viewsAndRoutinesReviewed": true
+      }
+    },
+    "20260407000100_cycle13_maternal_domain": {
+      "environments": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "estimatedDurationMinutes": 15,
+      "impact": "medium",
+      "maintenanceWindowSlaMinutes": 30,
+      "notes": "Adds the maternal-infant clinical domain baseline with tenant-aware patient, pregnancy, appointment, clinical note and neonatal tables plus RLS coverage.",
+      "owner": "Platform Data",
+      "postMigrationChecklist": [
+        "drift_check",
+        "fk_index_audit",
+        "integrity_health_check",
+        "migration_state_report",
+        "release_smoke",
+        "rls_audit"
+      ],
+      "preProductionChecklist": [
+        "backup_confirmed",
+        "maintenance_window",
+        "rollback_validated",
+        "stakeholder_notice"
+      ],
+      "review": {
+        "approverRoles": [
+          "DBA",
+          "DB_LEAD"
+        ],
+        "reviewer": "Database Lead"
+      },
+      "rollback": {
+        "strategy": "Disable the clinical module in the application and restore the previous stable snapshot if the new domain tables or policies regress tenant isolation or CRUD flows.",
+        "steps": [
+          "Pause deploy and clinical traffic cutover.",
+          "Validate backup freshness and current migration state.",
+          "Restore the previous stable snapshot or replay the documented rollback SQL for the new clinical tables and enums.",
+          "Replay release smoke tests and tenant isolation checks before reopening traffic."
+        ],
+        "testedEnvironments": [
+          "staging"
+        ]
+      },
+      "severity": "P1",
+      "strategy": {
+        "backwardCompatible": true,
+        "batching": {
+          "required": false
+        },
+        "expandContract": true,
+        "transactional": true
+      },
+      "validation": {
+        "driftChecked": true,
+        "rlsReviewed": true,
+        "rollbackTested": false,
+        "viewsAndRoutinesReviewed": true
+      }
+    },
+    "20260407000100_workflow_revisions_rls_alignment": {
+      "environments": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "estimatedDurationMinutes": 5,
+      "impact": "low",
+      "maintenanceWindowSlaMinutes": 30,
+      "notes": "Complements the workflow orchestration RLS rollout by enabling and forcing tenant policies on workflow_revisions so revision history follows the same isolation contract as workflows.",
+      "owner": "Platform Data",
+      "postMigrationChecklist": [
+        "drift_check",
+        "fk_index_audit",
+        "integrity_health_check",
+        "migration_state_report",
+        "release_smoke",
+        "rls_audit"
+      ],
+      "preProductionChecklist": [
+        "backup_confirmed",
+        "maintenance_window",
+        "rollback_validated",
+        "stakeholder_notice"
+      ],
+      "review": {
+        "approverRoles": [
+          "DBA",
+          "DB_LEAD"
+        ],
+        "reviewer": "Database Lead"
+      },
+      "rollback": {
+        "strategy": "Drop the workflow_revisions tenant policy and restore the prior snapshot only if the added RLS enforcement breaks legitimate revision reads after deploy.",
+        "steps": [
+          "Pause deploy and traffic cutover.",
+          "Validate the runtime RLS proof and workflow revision read paths.",
+          "Drop the new workflow_revisions policy or restore the last stable snapshot if reads regress.",
+          "Replay tenant isolation checks before reopening traffic."
         ],
         "testedEnvironments": [
           "staging"

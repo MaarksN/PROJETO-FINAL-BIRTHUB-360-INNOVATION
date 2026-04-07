@@ -22,6 +22,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
   const analyticsRouter = { id: "analytics" };
   const dashboardRouter = { id: "dashboard" };
   const connectorsRouter = { id: "connectors" };
+  const conversationsRouter = { id: "conversations" };
   const billingRouter = { id: "billing" };
   const budgetRouter = { id: "budget" };
   const feedbackRouter = { id: "feedback" };
@@ -31,6 +32,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
   const packInstallerRouter = { id: "packs" };
   const outputsRouter = { id: "outputs" };
   const privacyRouter = { id: "privacy" };
+  const searchRouter = { id: "search" };
   const usersRouter = { id: "users" };
   const workflowsRouter = { id: "workflows" };
   const webhooksRouter = { id: "webhooks" };
@@ -58,6 +60,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
       assert.equal(receivedConfig, config);
       return connectorsRouter as never;
     },
+    createConversationsRouter: () => conversationsRouter as never,
     createDashboardRouter: () => dashboardRouter as never,
     createFeedbackRouter: () => feedbackRouter as never,
     createInstalledAgentsRouter: () => installedAgentsRouter as never,
@@ -71,6 +74,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
       assert.equal(receivedConfig, config);
       return privacyRouter as never;
     },
+    createSearchRouter: () => searchRouter as never,
     createSessionsRouter: (receivedConfig) => {
       assert.equal(receivedConfig, config);
       return sessionsRouter as never;
@@ -96,6 +100,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
     ["/api/v1/analytics", analyticsRouter],
     [dashboardRouter],
     ["/api/v1/connectors", connectorsRouter],
+    ["/api/v1", conversationsRouter],
     ["/api/v1/marketplace", marketplaceRouter],
     ["/api/v1/billing", billingRouter],
     ["/api/v1/budgets", budgetRouter],
@@ -106,6 +111,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
     ["/api/v1/packs", packInstallerRouter],
     ["/api/v1/outputs", outputsRouter],
     ["/api/v1/privacy", privacyRouter],
+    ["/api/v1", searchRouter],
     ["/api/v1", usersRouter],
     [workflowsRouter],
     [webhooksRouter]

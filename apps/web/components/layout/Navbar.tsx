@@ -2,14 +2,24 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Bell, BellOff, CheckCheck, ExternalLink } from "lucide-react";
+import { usePathname } from "next/navigation";
+import {
+  Bell,
+  BellOff,
+  CheckCheck,
+  ExternalLink,
+  MoonStar,
+  SunMedium
+} from "lucide-react";
 
-import { BrandLogo } from "../brand/BrandLogo";
+import { useThemeMode } from "../../providers/ThemeProvider";
 import {
   type NotificationItem,
   useNotificationStore
 } from "../../stores/notification-store";
 import { useUserPreferencesStore } from "../../stores/user-preferences-store";
+import { BrandLogo } from "../brand/BrandLogo";
+import { GlobalSearch } from "./GlobalSearch";
 
 function toDisplayDateLabel(value: string): string {
   const current = new Date();
@@ -52,9 +62,21 @@ function groupByDay(items: NotificationItem[]) {
   }, []);
 }
 
+const navItems = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/workflows", label: "Workflows" },
+  { href: "/notifications", label: "Notificacoes" },
+  { href: "/analytics", label: "Analytics" },
+  { href: "/conversations", label: "Conversations" },
+  { href: "/reports", label: "Reports" },
+  { href: "/onboarding", label: "Onboarding" }
+];
+
 export function Navbar() {
+  const pathname = usePathname();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
+  const { mode, toggleMode } = useThemeMode();
   const items = useNotificationStore((state) => state.items);
   const unreadCount = useNotificationStore((state) => state.unreadCount);
   const refresh = useNotificationStore((state) => state.refresh);
@@ -81,237 +103,154 @@ export function Navbar() {
 
   return (
     <>
-      <div className="dashboard-title">
-        <BrandLogo href="/billing" size="sm" theme="light" />
+      <div className="dashboard-topbar__identity">
+        <BrandLogo href="/dashboard" size="sm" theme={mode === "dark" ? "dark" : "light"} />
         <div className="dashboard-title__meta">
-          <span>Tenant Command Center</span>
+          <span>Central de Operacao</span>
+          <strong>Experiencia conectada ao produto</strong>
         </div>
       </div>
 
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          flex: 1,
-          gap: "1rem",
-          justifyContent: "space-between"
-        }}
-      >
-        <nav className="dashboard-nav" style={{ flex: 1 }}>
-          <Link href="/billing">Billing</Link>
-          <Link href="/marketplace">Marketplace</Link>
-          <Link href="/outputs">Outputs</Link>
-          <Link href="/settings/privacy">Privacidade</Link>
-          <Link href="/profile/notifications">Notificacoes</Link>
-          <Link href="/settings/developers/webhooks">Webhooks</Link>
-          <Link href="/admin/cs">CS</Link>
-          <Link href="/admin/dashboard">Master Admin</Link>
+      <div className="dashboard-topbar__content">
+        <nav className="dashboard-nav" aria-label="Navegacao principal">
+          {navItems.map((item) => {
+            const active =
+              pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
+
+            return (
+              <Link
+                aria-current={active ? "page" : undefined}
+                data-active={active ? "true" : "false"}
+                href={item.href}
+                key={item.href}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        <div ref={dropdownRef} style={{ position: "relative" }}>
+        <div className="dashboard-topbar__actions">
+          <GlobalSearch />
+
           <button
-            aria-expanded={open}
-            aria-label="Abrir central de notificacoes"
+            aria-label={mode === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
             className="ghost-button"
-            onClick={() => {
-              if (!open) {
-                void refresh();
-              }
-              setOpen((current) => !current);
-            }}
-            style={{
-              alignItems: "center",
-              borderRadius: "999px",
-              display: "inline-flex",
-              gap: "0.45rem",
-              position: "relative"
-            }}
+            onClick={toggleMode}
             type="button"
           >
-            {notificationsEnabled === false ? <BellOff size={18} /> : <Bell size={18} />}
-            <span style={{ fontWeight: 600 }}>Feed</span>
-            {notificationsEnabled !== false && unreadCount > 0 ? (
-              <span
-                style={{
-                  alignItems: "center",
-                  background: "#c81e1e",
-                  borderRadius: "999px",
-                  color: "#fff",
-                  display: "inline-flex",
-                  fontSize: "0.72rem",
-                  justifyContent: "center",
-                  minHeight: 20,
-                  minWidth: 20,
-                  padding: "0 0.35rem"
-                }}
-              >
-                {unreadCount > 99 ? "99+" : unreadCount}
-              </span>
-            ) : null}
+            {mode === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+            <span>{mode === "dark" ? "Claro" : "Escuro"}</span>
           </button>
 
-          {open ? (
-            <div
-              style={{
-                backdropFilter: "blur(16px)",
-                background: "rgba(255,255,255,0.96)",
-                border: "1px solid var(--border)",
-                borderRadius: 22,
-                boxShadow: "0 18px 48px rgba(15,23,42,0.18)",
-                display: "grid",
-                gap: "0.9rem",
-                maxHeight: 480,
-                overflow: "hidden",
-                padding: "1rem",
-                position: "absolute",
-                right: 0,
-                top: "calc(100% + 0.6rem)",
-                width: "min(92vw, 420px)",
-                zIndex: 300
+          <div ref={dropdownRef} style={{ position: "relative" }}>
+            <button
+              aria-expanded={open}
+              aria-label="Abrir central de notificacoes"
+              className="ghost-button"
+              onClick={() => {
+                if (!open) {
+                  void refresh();
+                }
+                setOpen((current) => !current);
               }}
+              style={{
+                alignItems: "center",
+                display: "inline-flex",
+                gap: "0.45rem",
+                position: "relative"
+              }}
+              type="button"
             >
-              <div
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "space-between"
-                }}
-              >
-                <div>
-                  <strong>Notificacoes</strong>
-                  <p style={{ color: "var(--muted)", margin: 0 }}>
-                    Ultimas 10 entradas com atualizacao leve a cada minuto.
-                  </p>
-                </div>
-                <button
-                  className="ghost-button"
-                  onClick={() => {
-                    void markAllAsRead();
-                  }}
-                  style={{
-                    alignItems: "center",
-                    display: "inline-flex",
-                    gap: "0.35rem",
-                    padding: "0.55rem 0.85rem"
-                  }}
-                  type="button"
-                >
-                  <CheckCheck size={16} />
-                  Ler tudo
-                </button>
-              </div>
+              {notificationsEnabled === false ? <BellOff size={18} /> : <Bell size={18} />}
+              <span>Feed</span>
+              {notificationsEnabled !== false && unreadCount > 0 ? (
+                <span className="notification-badge">{unreadCount > 99 ? "99+" : unreadCount}</span>
+              ) : null}
+            </button>
 
-              {notificationsEnabled === false ? (
-                <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
-                  <strong>Notificacoes in-app desativadas</strong>
-                  <p style={{ marginBottom: 0 }}>
-                    Reative no seu perfil para voltar a receber avisos no app.
-                  </p>
+            {open ? (
+              <div className="notification-dropdown">
+                <div className="notification-dropdown__header">
+                  <div>
+                    <strong>Notificacoes</strong>
+                    <p>Atualizacao leve em tempo real com persistencia no backend.</p>
+                  </div>
+                  <button
+                    className="ghost-button"
+                    onClick={() => {
+                      void markAllAsRead();
+                    }}
+                    type="button"
+                  >
+                    <CheckCheck size={16} />
+                    <span>Ler tudo</span>
+                  </button>
                 </div>
-              ) : grouped.length === 0 ? (
-                <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
-                  <strong>Feed vazio</strong>
-                  <p style={{ marginBottom: 0 }}>Nenhuma notificacao recente para este usuario.</p>
-                </div>
-              ) : (
-                <div
-                  style={{
-                    display: "grid",
-                    gap: "0.85rem",
-                    maxHeight: 320,
-                    overflowY: "auto",
-                    paddingRight: "0.25rem"
-                  }}
-                >
-                  {grouped.map((group) => (
-                    <section key={group.label} style={{ display: "grid", gap: "0.55rem" }}>
-                      <small
-                        style={{
-                          color: "var(--muted)",
-                          fontWeight: 700,
-                          letterSpacing: "0.08em",
-                          textTransform: "uppercase"
-                        }}
-                      >
-                        {group.label}
-                      </small>
-                      {group.items.map((item) => (
-                        <a
-                          href={item.link ?? "/profile/notifications"}
-                          key={item.id}
-                          onClick={() => {
-                            setOpen(false);
-                            if (!item.isRead) {
-                              void markAsRead(item.id);
-                            }
-                          }}
-                          style={{
-                            background: item.isRead
-                              ? "rgba(255,255,255,0.65)"
-                              : "rgba(19,93,102,0.08)",
-                            border: "1px solid rgba(31,29,23,0.08)",
-                            borderRadius: 18,
-                            color: "inherit",
-                            display: "grid",
-                            gap: "0.35rem",
-                            padding: "0.8rem",
-                            textDecoration: "none"
-                          }}
-                        >
-                          <div
-                            style={{
-                              alignItems: "center",
-                              display: "flex",
-                              gap: "0.45rem",
-                              justifyContent: "space-between"
+
+                {notificationsEnabled === false ? (
+                  <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
+                    <strong>Notificacoes in-app desativadas</strong>
+                    <p style={{ marginBottom: 0 }}>
+                      Reative em preferencias para voltar a receber avisos no app.
+                    </p>
+                  </div>
+                ) : grouped.length === 0 ? (
+                  <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
+                    <strong>Feed vazio</strong>
+                    <p style={{ marginBottom: 0 }}>Nenhuma notificacao recente para este usuario.</p>
+                  </div>
+                ) : (
+                  <div className="notification-dropdown__list">
+                    {grouped.map((group) => (
+                      <section className="notification-day-group" key={group.label}>
+                        <small>{group.label}</small>
+                        {group.items.map((item) => (
+                          <a
+                            className="notification-card"
+                            href={item.link ?? "/notifications"}
+                            key={item.id}
+                            onClick={() => {
+                              setOpen(false);
+                              if (!item.isRead) {
+                                void markAsRead(item.id);
+                              }
                             }}
                           >
-                            <strong style={{ fontSize: "0.95rem" }}>
-                              {item.type.replace(/_/g, " ")}
-                            </strong>
-                            <small style={{ color: "var(--muted)" }}>
-                              {new Date(item.createdAt).toLocaleTimeString("pt-BR", {
-                                hour: "2-digit",
-                                minute: "2-digit"
-                              })}
-                            </small>
-                          </div>
-                          <span>{item.content}</span>
-                          <span
-                            style={{
-                              alignItems: "center",
-                              color: "var(--accent-strong)",
-                              display: "inline-flex",
-                              gap: "0.3rem"
-                            }}
-                          >
-                            Abrir detalhe
-                            <ExternalLink size={14} />
-                          </span>
-                        </a>
-                      ))}
-                    </section>
-                  ))}
-                </div>
-              )}
+                            <div className="notification-card__title">
+                              <strong>{item.type.replace(/_/g, " ")}</strong>
+                              <small>
+                                {new Date(item.createdAt).toLocaleTimeString("pt-BR", {
+                                  hour: "2-digit",
+                                  minute: "2-digit"
+                                })}
+                              </small>
+                            </div>
+                            <span>{item.content}</span>
+                            <span className="notification-card__link">
+                              Abrir detalhe
+                              <ExternalLink size={14} />
+                            </span>
+                          </a>
+                        ))}
+                      </section>
+                    ))}
+                  </div>
+                )}
 
-              <div
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "space-between"
-                }}
-              >
-                <Link href="/profile/notifications" onClick={() => setOpen(false)}>
-                  Ver todas
-                </Link>
-                <Link href="/profile/notifications">Preferencias</Link>
+                <div className="notification-dropdown__footer">
+                  <Link href="/notifications" onClick={() => setOpen(false)}>
+                    Ver central
+                  </Link>
+                  <Link href="/profile/notifications" onClick={() => setOpen(false)}>
+                    Preferencias
+                  </Link>
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </div>
       </div>
     </>
   );
 }
-
