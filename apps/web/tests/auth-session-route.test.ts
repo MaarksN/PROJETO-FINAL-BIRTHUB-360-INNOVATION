@@ -31,7 +31,7 @@ void test("auth session POST proxies signin requests with cookies and response c
   let requestUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    requestUrl = typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as { url: string }).url;
+    requestUrl = input instanceof URL ? input.toString() : (input as string);
     requestInit = init;
     return Promise.resolve(
       new Response('{"ok":true}', {
@@ -84,7 +84,7 @@ void test("auth session GET forwards authorization headers to the upstream sessi
   let requestUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    requestUrl = typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as { url: string }).url;
+    requestUrl = input instanceof URL ? input.toString() : (input as string);
     requestInit = init;
     return Promise.resolve(
       new Response('{"items":[]}', {

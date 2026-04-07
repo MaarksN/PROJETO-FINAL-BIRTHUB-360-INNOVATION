@@ -60,7 +60,7 @@ void test("BFF route proxies allowed requests with forwarded headers and body", 
   let requestUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    requestUrl = typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as { url: string }).url;
+    requestUrl = input instanceof URL ? input.toString() : (input as string);
     requestInit = init;
     return Promise.resolve(
       new Response('{"ok":true}', {

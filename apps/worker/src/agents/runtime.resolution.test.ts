@@ -16,7 +16,7 @@ void test("resolveManagedPolicies returns an empty array when no installed agent
 });
 
 void test("resolveManagedPolicies returns an empty array when the installed agent is not found", async () => {
-  const originalFindFirst = prisma.agent.findFirst;
+  const originalFindFirst = prisma.agent.findFirst.bind(prisma.agent);
 
   prisma.agent.findFirst = (async () => null) as unknown as typeof prisma.agent.findFirst;
 

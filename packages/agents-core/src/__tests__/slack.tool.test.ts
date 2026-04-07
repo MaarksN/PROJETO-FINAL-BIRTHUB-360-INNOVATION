@@ -21,7 +21,14 @@ void test("slack tool propagates timeout through abort signal", async () => {
   globalThis.fetch = ((_: RequestInfo | URL, init?: RequestInit) =>
     new Promise<Response>((_resolve, reject) => {
       const abortHandler = () => {
-        reject(init?.signal?.reason ?? new Error("aborted"));
+        const reason = init?.signal?.reason;
+        if (reason instanceof Error) {
+          reject(reason);
+        } else if (typeof reason === "string") {
+          reject(new Error(reason));
+        } else {
+          reject(new Error("aborted"));
+        }
       };
 
       if (init?.signal?.aborted) {

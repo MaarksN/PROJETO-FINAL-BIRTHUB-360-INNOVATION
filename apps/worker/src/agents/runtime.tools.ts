@@ -81,10 +81,10 @@ export function createRuntimeTools(
   });
   const tools: Record<string, BaseTool<unknown, unknown>> = {
     "db-read": new DbReadTool({
-      executor: async ({ query, params, tenantId }) => {
+      executor: async ({ query, params }) => {
         const { prisma } = await import("@birthub/database");
         const results = await prisma.$queryRawUnsafe(query, ...params);
-        return Array.isArray(results) ? results : [results];
+        return (Array.isArray(results) ? results : Array.from(results as Iterable<unknown>)) as Record<string, unknown>[];
       },
       policyEngine
     }) as BaseTool<unknown, unknown>,

@@ -7,7 +7,7 @@ import { prisma } from "../src/client.js";
 import { listUsersByTenant, updateMembershipRole } from "../src/repositories/user-repository.js";
 
 void test("listUsersByTenant builds membership, status and search filters", async () => {
-  const originalFindMany = prisma.user.findMany;
+  const originalFindMany = prisma.user.findMany.bind(prisma.user);
   let received: unknown = null;
 
   prisma.user.findMany = (async (args: unknown) => {
@@ -65,7 +65,7 @@ void test("listUsersByTenant builds membership, status and search filters", asyn
 });
 
 void test("updateMembershipRole forwards the compound membership key", async () => {
-  const originalUpdate = prisma.membership.update;
+  const originalUpdate = prisma.membership.update.bind(prisma.membership);
   let received: unknown = null;
 
   prisma.membership.update = (async (args: unknown) => {

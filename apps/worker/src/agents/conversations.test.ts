@@ -9,8 +9,8 @@ import {
 } from "./conversations.js";
 
 void test("ensureConversationThread creates a thread when no existing record matches", async () => {
-  const originalFindFirst = prisma.conversationThread.findFirst;
-  const originalCreate = prisma.conversationThread.create;
+  const originalFindFirst = prisma.conversationThread.findFirst.bind(prisma.conversationThread);
+  const originalCreate = prisma.conversationThread.create.bind(prisma.conversationThread);
   let received: unknown = null;
 
   prisma.conversationThread.findFirst = (async () => null) as unknown as typeof prisma.conversationThread.findFirst;
@@ -57,7 +57,7 @@ void test("ensureConversationThread creates a thread when no existing record mat
 });
 
 void test("createConversationMessage stores a bounded preview for structured content", async () => {
-  const originalCreate = prisma.conversationMessage.create;
+  const originalCreate = prisma.conversationMessage.create.bind(prisma.conversationMessage);
   let received: unknown = null;
   const content = {
     text: "x".repeat(600)

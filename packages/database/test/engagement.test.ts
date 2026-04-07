@@ -48,8 +48,8 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
 });
 
 void test("createNotificationForUser skips persistence when in-app notifications are disabled", async () => {
-  const originalPreferenceUpsert = prisma.userPreference.upsert;
-  const originalCreate = prisma.notification.create;
+  const originalPreferenceUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
+  const originalCreate = prisma.notification.create.bind(prisma.notification);
   let createCalled = false;
 
   prisma.userPreference.upsert = (async () =>
@@ -79,8 +79,8 @@ void test("createNotificationForUser skips persistence when in-app notifications
 });
 
 void test("createNotificationForOrganizationRoles only creates notifications for users with enabled preference", async () => {
-  const originalFindMany = prisma.membership.findMany;
-  const originalCreateMany = prisma.notification.createMany;
+  const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
+  const originalCreateMany = prisma.notification.createMany.bind(prisma.notification);
   let createManyArgs: unknown = null;
 
   prisma.membership.findMany = (async () =>
@@ -146,7 +146,7 @@ void test("createNotificationForOrganizationRoles only creates notifications for
 });
 
 void test("createNotificationForOrganizationRoles caps membership reads", async () => {
-  const originalFindMany = prisma.membership.findMany;
+  const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
   let received: unknown = null;
 
   prisma.membership.findMany = (async (args: unknown) => {
@@ -170,8 +170,8 @@ void test("createNotificationForOrganizationRoles caps membership reads", async 
 });
 
 void test("listNotifications returns bounded items, next cursor and unread count", async () => {
-  const originalFindMany = prisma.notification.findMany;
-  const originalCount = prisma.notification.count;
+  const originalFindMany = prisma.notification.findMany.bind(prisma.notification);
+  const originalCount = prisma.notification.count.bind(prisma.notification);
 
   prisma.notification.findMany = (async () =>
     [
