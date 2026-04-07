@@ -17,6 +17,12 @@ type FeedbackPayload = {
   rating: -1 | 0 | 1;
 };
 
+const initialFeedback: FeedbackPayload = {
+  expectedOutput: "",
+  notes: "",
+  rating: 0
+};
+
 function buttonStyle(active: boolean, tone: "neutral" | "negative" | "positive"): CSSProperties {
   const color =
     tone === "positive"
@@ -37,13 +43,121 @@ function buttonStyle(active: boolean, tone: "neutral" | "negative" | "positive")
   };
 }
 
+function getErrorMessage(error: unknown, fallback: string): string {
+  return error instanceof Error ? error.message : fallback;
+}
+
+function normalizeFeedback(feedback?: FeedbackPayload | null): FeedbackPayload {
+  return {
+    expectedOutput: feedback?.expectedOutput ?? "",
+    notes: feedback?.notes ?? "",
+    rating: feedback?.rating ?? 0
+  };
+}
+
+async function fetchFeedback(executionId: string): Promise<FeedbackPayload> {
+  const response = await fetchWithSession(`/api/v1/executions/${encodeURIComponent(executionId)}/feedback`, {
+    cache: "no-store"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Falha ao carregar feedback (${response.status}).`);
+  }
+
+  const payload = (await response.json()) as {
+    feedback?: FeedbackPayload | null;
+  };
+
+  return normalizeFeedback(payload.feedback);
+}
+
+async function submitFeedback(executionId: string, payload: FeedbackPayload): Promise<void> {
+  const response = await fetchWithSession(`/api/v1/executions/${encodeURIComponent(executionId)}/feedback`, {
+    body: JSON.stringify(payload),
+    headers: {
+      "content-type": "application/json"
+    },
+    method: "POST"
+  });
+
+  if (!response.ok) {
+    throw new Error(`Falha ao salvar feedback (${response.status}).`);
+  }
+}
+
+interface CorrectiveFeedbackFormProps {
+  feedback: FeedbackPayload;
+  onClose: () => void;
+  onExpectedOutputChange: (value: string) => void;
+  onNotesChange: (value: string) => void;
+  onSubmit: () => void;
+  saving: boolean;
+}
+
+function CorrectiveFeedbackForm({
+  feedback,
+  onClose,
+  onExpectedOutputChange,
+  onNotesChange,
+  onSubmit,
+  saving
+}: Readonly<CorrectiveFeedbackFormProps>) {
+  return (
+    <div
+      style={{
+        background: "rgba(180,35,24,0.05)",
+        border: "1px solid rgba(180,35,24,0.12)",
+        borderRadius: 18,
+        display: "grid",
+        gap: "0.65rem",
+        padding: "0.95rem"
+      }}
+    >
+      <label style={{ display: "grid", gap: "0.3rem" }}>
+        <span>Como o LLM deveria ter respondido?</span>
+        <textarea
+          onChange={(event) => onExpectedOutputChange(event.target.value)}
+          placeholder="Descreva a resposta esperada para fortalecer o dataset RLHF."
+          rows={5}
+          style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "0.7rem" }}
+          value={feedback.expectedOutput ?? ""}
+        />
+      </label>
+      <label style={{ display: "grid", gap: "0.3rem" }}>
+        <span>Observacoes adicionais</span>
+        <textarea
+          onChange={(event) => onNotesChange(event.target.value)}
+          placeholder="Ex.: alucinou numeros, errou contexto, ignorou ferramenta."
+          rows={3}
+          style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "0.7rem" }}
+          value={feedback.notes ?? ""}
+        />
+      </label>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
+        <button
+          className="action-button"
+          disabled={saving}
+          onClick={onSubmit}
+          type="button"
+        >
+          Salvar feedback corretivo
+        </button>
+        <button
+          className="ghost-button"
+          disabled={saving}
+          onClick={onClose}
+          type="button"
+        >
+          Fechar
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
   const { track } = useAnalytics();
-  const [feedback, setFeedback] = useState<FeedbackPayload>({
-    expectedOutput: "",
-    notes: "",
-    rating: 0
-  });
+  const [feedback, setFeedback] = useState<FeedbackPayload>(initialFeedback);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,48 +166,45 @@ export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
   useEffect(() => {
     let active = true;
 
-    setLoading(true);
-    setError(null);
+    async function loadFeedback() {
+      setLoading(true);
+      setError(null);
 
-    void fetchWithSession(`/api/v1/executions/${encodeURIComponent(executionId)}/feedback`, {
-      cache: "no-store"
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error(`Falha ao carregar feedback (${response.status}).`);
+      try {
+        const nextFeedback = await fetchFeedback(executionId);
+
+        if (active) {
+          setFeedback(nextFeedback);
         }
-
-        const payload = (await response.json()) as {
-          feedback?: FeedbackPayload | null;
-        };
-
-        if (!active) {
-          return;
+      } catch (loadError) {
+        if (active) {
+          setError(getErrorMessage(loadError, "Falha ao carregar feedback."));
         }
-
-        setFeedback({
-          expectedOutput: payload.feedback?.expectedOutput ?? "",
-          notes: payload.feedback?.notes ?? "",
-          rating: payload.feedback?.rating ?? 0
-        });
-      })
-      .catch((loadError) => {
-        if (!active) {
-          return;
-        }
-
-        setError(loadError instanceof Error ? loadError.message : "Falha ao carregar feedback.");
-      })
-      .finally(() => {
+      } finally {
         if (active) {
           setLoading(false);
         }
-      });
+      }
+    }
+
+    void loadFeedback();
 
     return () => {
       active = false;
     };
   }, [executionId]);
+
+  function updateFeedback(patch: Partial<FeedbackPayload>) {
+    setFeedback((current) => ({
+      ...current,
+      ...patch
+    }));
+  }
+
+  function openCorrectiveFeedback() {
+    setModalOpen(true);
+    updateFeedback({ rating: -1 });
+  }
 
   async function submit(nextRating: -1 | 0 | 1) {
     setSaving(true);
@@ -105,32 +216,20 @@ export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
     };
 
     try {
-      const response = await fetchWithSession(
-        `/api/v1/executions/${encodeURIComponent(executionId)}/feedback`,
-        {
-          body: JSON.stringify(nextPayload),
-          headers: {
-            "content-type": "application/json"
-          },
-          method: "POST"
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Falha ao salvar feedback (${response.status}).`);
-      }
-
+      await submitFeedback(executionId, nextPayload);
       setFeedback(nextPayload);
       track("Agent Feedback Submitted", {
         executionId,
         rating: nextRating
       });
     } catch (submitError) {
-      setError(submitError instanceof Error ? submitError.message : "Falha ao salvar feedback.");
+      setError(getErrorMessage(submitError, "Falha ao salvar feedback."));
     } finally {
       setSaving(false);
     }
   }
+
+  const showCorrectiveFeedback = modalOpen || feedback.rating === -1;
 
   return (
     <section
@@ -166,11 +265,7 @@ export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
         <button
           disabled={loading || saving}
           onClick={() => {
-            setModalOpen(true);
-            setFeedback((current) => ({
-              ...current,
-              rating: -1
-            }));
+            openCorrectiveFeedback();
           }}
           style={buttonStyle(feedback.rating === -1, "negative")}
           type="button"
@@ -180,70 +275,23 @@ export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
         </button>
       </div>
 
-      {modalOpen || feedback.rating === -1 ? (
-        <div
-          style={{
-            background: "rgba(180,35,24,0.05)",
-            border: "1px solid rgba(180,35,24,0.12)",
-            borderRadius: 18,
-            display: "grid",
-            gap: "0.65rem",
-            padding: "0.95rem"
+      {showCorrectiveFeedback ? (
+        <CorrectiveFeedbackForm
+          feedback={feedback}
+          onClose={() => {
+            setModalOpen(false);
           }}
-        >
-          <label style={{ display: "grid", gap: "0.3rem" }}>
-            <span>Como o LLM deveria ter respondido?</span>
-            <textarea
-              onChange={(event) =>
-                setFeedback((current) => ({
-                  ...current,
-                  expectedOutput: event.target.value
-                }))
-              }
-              placeholder="Descreva a resposta esperada para fortalecer o dataset RLHF."
-              rows={5}
-              style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "0.7rem" }}
-              value={feedback.expectedOutput ?? ""}
-            />
-          </label>
-          <label style={{ display: "grid", gap: "0.3rem" }}>
-            <span>Observacoes adicionais</span>
-            <textarea
-              onChange={(event) =>
-                setFeedback((current) => ({
-                  ...current,
-                  notes: event.target.value
-                }))
-              }
-              placeholder="Ex.: alucinou numeros, errou contexto, ignorou ferramenta."
-              rows={3}
-              style={{ border: "1px solid var(--border)", borderRadius: 14, padding: "0.7rem" }}
-              value={feedback.notes ?? ""}
-            />
-          </label>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
-            <button
-              className="action-button"
-              disabled={saving}
-              onClick={() => {
-                void submit(-1);
-              }}
-              type="button"
-            >
-              Salvar feedback corretivo
-            </button>
-            <button
-              className="ghost-button"
-              disabled={saving}
-              onClick={() => {
-                setModalOpen(false);
-              }}
-              type="button"
-            >
-              Fechar
-            </button>
-          </div>
-        </div>
+          onExpectedOutputChange={(value) => {
+            updateFeedback({ expectedOutput: value });
+          }}
+          onNotesChange={(value) => {
+            updateFeedback({ notes: value });
+          }}
+          onSubmit={() => {
+            void submit(-1);
+          }}
+          saving={saving}
+        />
       ) : null}
 
       {error ? <p style={{ color: "#9b2f2f", margin: 0 }}>{error}</p> : null}
@@ -251,4 +299,3 @@ export function FeedbackWidget({ executionId }: Readonly<FeedbackWidgetProps>) {
     </section>
   );
 }
-
