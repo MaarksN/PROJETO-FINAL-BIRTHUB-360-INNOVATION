@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist Mestre - Finalização BirthHub 360</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background: #f9f9fb; }
+        h1, h2, h3 { color: #111; border-bottom: 1px solid #eaeaea; padding-bottom: 8px; }
+        .section { background: white; padding: 24px; margin-bottom: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .critical { border-left: 4px solid #e53e3e; }
+        .warning { border-left: 4px solid #dd6b20; }
+        .info { border-left: 4px solid #3182ce; }
+        .success { border-left: 4px solid #38a169; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { margin-bottom: 10px; display: flex; align-items: flex-start; }
+        input[type="checkbox"] { margin-right: 10px; margin-top: 5px; transform: scale(1.2); }
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; margin-right: 8px; }
+        .tag-td { background: #ebf8ff; color: #2b6cb0; }
+        .tag-ni { background: #f0fff4; color: #2f855a; }
+        .tag-p0 { background: #fed7d7; color: #c53030; }
+        .tag-p1 { background: #feebc8; color: #c05621; }
+        .tag-p2 { background: #e9d8fd; color: #975a16; }
+        code { background: #f4f4f5; padding: 2px 4px; border-radius: 4px; font-family: monospace; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <h1>Checklist Mestre - Finalização da Plataforma BirthHub 360</h1>
+    <p>Documento gerado para guiar a finalização, estabilização e lançamento comercial, unificando todos os roadmaps, dívidas técnicas e features pendentes.</p>
+
+    <div class="section critical">
+        <h2>🔴 O que permanece quebrado (Críticos)</h2>
+        <ul>
+            <li><label><input type="checkbox"> <b>Falha de RLS (Isolamento Cross-Tenant):</b> O Row-Level Security que garante que um tenant (cliente) não acesse dados de outro não está sendo validado com sucesso em runtime.</label></li>
+            <li><label><input type="checkbox"> <b>Drift de Schema no Banco de Dados:</b> Divergências entre o <code>schema.prisma</code> e o que foi efetivamente migrado, reprovando o checklist automático de pós-migração.</label></li>
+            <li><label><input type="checkbox"> <b>Sessão de Refresh Não Durável:</b> As sessões (refresh tokens) estão sendo armazenadas apenas na memória da aplicação (ex: um <code>Map</code>), caindo e deslogando todos os usuários sempre que o servidor for reiniciado.</label></li>
+        </ul>
+    </div>
+
+    <div class="section warning">
+        <h2>🟠 Top Bloqueadores de Arquitetura (Dívida Técnica)</h2>
+        <p>O roadmap exige a resolução imediata das seguintes dívidas técnicas de API:</p>
+        <ul>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-001</span> Reduzir o acoplamento de rotas no arquivo de bootstrap da API, separando a composição por domínio.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-002</span> Padronizar os contratos de erro usando o padrão <i>Problem Details</i> em 100% dos endpoints.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-003</span> Unificar middlewares duplicados de contexto de tenant em uma única implementação central.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-009</span> Reduzir dependências implícitas entre rotas de autenticação (<code>auth-routes</code>) e rotas de core (<code>core-routes</code>).</label></li>
+        </ul>
+    </div>
+
+    <div class="section info">
+        <h2>🟡 Melhorias de Documentação e Alertas</h2>
+        <ul>
+            <li><label><input type="checkbox"> Harmonizar a política de <b>Dead Letter Queue (DLQ)</b> (filas de mensagens mortas) entre a documentação de arquitetura e as regras reais de alertas de monitoramento.</label></li>
+        </ul>
+    </div>
+
+    <div class="section success">
+        <h2>✅ Proposta de Plano de Execução (Ordem Recomendada)</h2>
+        <ul>
+            <li><label><input type="checkbox"> <b>1. Estabilizar Isolamento de Dados (RLS):</b> Garantir a separação segura entre tenants.</label></li>
+            <li><label><input type="checkbox"> <b>2. Sanear Banco de Dados:</b> Resolver o Drift de Schema e arrumar as migrations.</label></li>
+            <li><label><input type="checkbox"> <b>3. Sessões Persistentes:</b> Migrar as sessões de memória para um local distribuído (PostgreSQL ou Redis).</label></li>
+            <li><label><input type="checkbox"> <b>4. Refatoração da API (Dívidas TD-001 a TD-009):</b> Unificar os middlewares, arrumar o bootstrap e padronizar erros.</label></li>
+            <li><label><input type="checkbox"> <b>5. Harmonização de Alertas/Observabilidade.</b></label></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🗓️ Plano Canônico Operacional (15 Ciclos)</h2>
+        <ul>
+            <li><label><input type="checkbox"> <span class="tag tag-p0">P0</span> <b>Ciclo 01:</b> Matriz de secrets, owners e preflight equivalente validado (F0, F6, F11).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p0">P0</span> <b>Ciclo 02:</b> Pipeline de produção endurecido com gates reais (F1, F11).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p0">P0</span> <b>Ciclo 03:</b> Governança documental realinhada ao cânon (F0, F10).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p0">P0</span> <b>Ciclo 04:</b> Health, readiness e alertas do core corrigidos (F7, F11).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p1">P1</span> <b>Ciclo 05:</b> Inventário de consumers de <code>packages/db</code> com plano de migração (F2, F8).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p1">P1</span> <b>Ciclo 06:</b> Migrações, contratos e data plane estabilizados (F8, F11).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p1">P1</span> <b>Ciclo 07:</b> Integrações jurídicas e DR com evidência material (F2, F6, F11).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p1">P1</span> <b>Ciclo 08:</b> SDR e leads fora do caminho legado (F2, F3).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p1">P1</span> <b>Ciclo 09:</b> Orquestração real consolidada em fluxo único (F3, F7).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p2">P2</span> <b>Ciclo 10:</b> CS e BI alinhados ao stack oficial (F2, F7).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p2">P2</span> <b>Ciclo 11:</b> Dashboard rebaixado e operadores migrados sem regressão (F2, F9).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p2">P2</span> <b>Ciclo 12:</b> Ruído estrutural reduzido e satélites classificados (F9, F10).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p2">P2</span> <b>Ciclo 13:</b> Contratos de agentes, prompts e instruções padronizados (F4, F10).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p3">P3</span> <b>Ciclo 14:</b> Rehearsal final com testes, performance e segurança (F5, F6, F7, F11).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-p0">P0</span> <b>Ciclo 15:</b> Pacote final de release e decisão go/no-go (F11).</label></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>🛠️ Features de Produto Não Iniciadas (Comercialização)</h2>
+        <ul>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-001</span> Implementar onboarding guiado em 5 passos com progresso salvo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-002</span> Adicionar trial automático com conversão para plano pago no app.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-003</span> Criar paywall contextual por recurso premium.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-004</span> Implementar fluxo self-service de upgrade/downgrade de plano.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-005</span> Adicionar gestão de método de pagamento no painel.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-006</span> Criar centro de faturamento com histórico e invoices.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-007</span> Implementar recuperação de churn com ofertas in-app.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-008</span> Adicionar cupom promocional com validade e limite de uso.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-009</span> Criar tela de limites de uso e consumo em tempo real.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-010</span> Implementar e-mails transacionais de cobrança e renovação.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-011</span> Implementar marketplace interno de agentes com filtros por caso de uso.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-012</span> Adicionar execução em lote de agentes por lista de tarefas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-013</span> Criar biblioteca de prompts versionados por equipe.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-014</span> Implementar comparação A/B de resposta entre modelos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-015</span> Adicionar memória de contexto por conta e por usuário.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-016</span> Criar painel de custo por execução de agente.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-017</span> Implementar aprovação humana opcional antes de ação sensível.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-018</span> Adicionar trilha de explicabilidade de decisões do agente.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-019</span> Criar templates de workflow com agentes prontos por vertical.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-020</span> Implementar fallback automático para modelo secundário.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-021</span> Implementar espaços de trabalho multi-time com permissões granulares.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-022</span> Adicionar comentários em execuções e artefatos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-023</span> Criar menções e notificações por evento relevante.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-024</span> Implementar compartilhamento seguro de relatórios por link expirável.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-025</span> Adicionar trilha de atividade por usuário e por time.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-026</span> Criar aprovação em duas etapas para ações críticas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-027</span> Implementar delegação temporária de acesso.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-028</span> Adicionar calendário de tarefas e automações recorrentes.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-029</span> Criar biblioteca de playbooks internos por equipe.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-030</span> Implementar exportação colaborativa para PDF e planilha.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-031</span> Implementar painel executivo com MRR, churn, ativação e retenção.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-032</span> Adicionar funil de onboarding com quedas por etapa.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-033</span> Criar coorte de uso por plano e segmento.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-034</span> Implementar previsão de consumo de quota por tenant.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-035</span> Adicionar alerta proativo de risco de churn.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-036</span> Criar score de saúde do cliente com ações recomendadas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-037</span> Implementar analytics de performance por agente/workflow.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-038</span> Adicionar benchmark interno entre equipes e unidades.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-039</span> Criar relatórios agendados enviados por e-mail.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-040</span> Implementar API de métricas para BI externo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-041</span> Implementar conector nativo com Salesforce.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-042</span> Adicionar conector nativo com HubSpot avançado (sync bidirecional).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-043</span> Criar integração com Slack para alertas e aprovações.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-044</span> Implementar integração com Microsoft Teams.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-045</span> Adicionar webhooks outbound configuráveis por evento.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-046</span> Criar integração com Google Sheets para import/export.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-047</span> Implementar integração com Stripe para billing avançado.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-048</span> Adicionar integração com Zendesk para suporte contextual.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-049</span> Criar catálogo de conectores com health status.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-050</span> Implementar SDK público para integrações customizadas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-051</span> Implementar autoscaling orientado por profundidade de fila.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-052</span> Adicionar fila prioritária para clientes enterprise.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-053</span> Criar limite dinâmico por tenant conforme plano contratado.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-054</span> Implementar replicação de leitura para consultas analíticas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-055</span> Adicionar cache distribuído para endpoints de alto volume.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-056</span> Criar modo degradado para manter operações essenciais.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-057</span> Implementar failover automatizado entre regiões.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-058</span> Adicionar chaos drills contínuos em serviços críticos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-059</span> Criar painel de capacidade e previsão de saturação.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-060</span> Implementar proteção de picos com buffer de ingestão.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-061</span> Implementar SSO SAML/OIDC para clientes corporativos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-062</span> Adicionar MFA obrigatório por política de tenant.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-063</span> Criar gestão de sessões ativas com revogação imediata.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-064</span> Implementar data residency por região de cliente.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-065</span> Adicionar trilha de auditoria exportável para compliance.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-066</span> Criar painel de postura de segurança por conta.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-067</span> Implementar DLP básico para dados sensíveis em prompts.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-068</span> Adicionar retenção configurável de dados por tenant.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-069</span> Criar mascaramento dinâmico para campos sensíveis na UI.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-070</span> Implementar consentimento granular por finalidade de uso.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-071</span> Implementar dashboard mobile-first para gestores.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-072</span> Adicionar command palette global com atalhos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-073</span> Criar onboarding contextual por tooltips progressivos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-074</span> Implementar central de notificações unificada.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-075</span> Adicionar tema escuro e preferências de acessibilidade.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-076</span> Criar assistente in-app para dúvidas frequentes.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-077</span> Implementar busca global semântica por conteúdo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-078</span> Adicionar autosave com histórico de versões.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-079</span> Criar modo foco para execução assistida de workflows.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-080</span> Implementar personalização de widgets do dashboard.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-081</span> Implementar portal de parceiros com gestão de contas vinculadas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-082</span> Adicionar modelo de revenda e comissionamento.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-083</span> Criar API keys com escopo e expiração configurável.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-084</span> Implementar sandbox para desenvolvedores terceiros.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-085</span> Adicionar documentação interativa de API com try-it.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-086</span> Criar programa de templates publicados por parceiros.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-087</span> Implementar webhook signing com rotação de segredo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-088</span> Adicionar painel de uso da API por aplicação.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-089</span> Criar fluxo de aprovação de apps de terceiros.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-090</span> Implementar faturamento separado por conta parceira.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-091</span> Implementar central de status da plataforma pública.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-092</span> Adicionar chat de suporte com contexto técnico automático.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-093</span> Criar base de conhecimento contextual por tela.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-094</span> Implementar coleta de NPS e CES dentro do produto.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-095</span> Adicionar roteamento inteligente de tickets por criticidade.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-096</span> Criar playbooks de suporte para incidentes de billing.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-097</span> Implementar diagnóstico automático de conta para suporte L1.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-098</span> Adicionar reexecução guiada de fluxos com falha.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-099</span> Criar painel de SLA de atendimento por segmento.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-ni">NI-100</span> Implementar relatórios semanais de adoção para customer success.</label></li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>⚙️ Backlog de Dívida Técnica Remanescente</h2>
+        <ul>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-004</span> Criar camada de versionamento explícito de API para evitar breaking changes silenciosas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-005</span> Adicionar limites de payload por rota com fallback observável.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-006</span> Eliminar lógica de regra de negócio dentro de controllers, movendo para services.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-007</span> Padronizar serialização/deserialização de datas para UTC em toda API.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-008</span> Adicionar validação de schema de resposta para endpoints críticos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-010</span> Criar contrato de idempotência para endpoints de escrita críticos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-011</span> Isolar orchestration engine em módulo puro para facilitar testes de regressão.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-012</span> Criar política unificada de retry/backoff por tipo de job.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-013</span> Implementar dead-letter queue com motivo padronizado por falha.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-014</span> Adicionar controle de concorrência por tenant para evitar noisy neighbor.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-015</span> Instrumentar tempo de fila versus tempo de execução em todas as filas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-016</span> Eliminar duplicidade de validações entre worker.job-validation e process-job.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-017</span> Criar timeout hard e soft por executor com cancelamento cooperativo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-018</span> Centralizar mapeamento de erros transitórios versus permanentes.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-019</span> Adicionar guardrail para jobs órfãos e reprocessamento seguro.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-020</span> Definir contrato de prioridade de jobs (alta/média/baixa) com fairness.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-021</span> Revisar índices compostos para consultas multi-tenant de alto volume.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-022</span> Padronizar paginação cursor-based em repositórios sensíveis a escala.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-023</span> Criar política de query budget por caso de uso e não só global.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-024</span> Migrar operações críticas para transações com timeout explícito.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-025</span> Adicionar trilha de auditoria de mudanças de status em entidades-chave.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-026</span> Criar estratégia de arquivamento para tabelas com crescimento contínuo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-027</span> Padronizar naming de migrations para rastreabilidade por domínio.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-028</span> Adicionar validação automática de isolamento tenant em novos repositórios.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-029</span> Reduzir uso de consultas ad-hoc em favor de repositórios tipados.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-030</span> Criar benchmark periódico de consultas top-N por latência.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-031</span> Padronizar convenção de nomes de métricas entre API, Web e Worker.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-032</span> Adicionar SLO formal para disponibilidade, latência e erro por serviço.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-033</span> Criar dashboards por jornada crítica (login, execução, billing, convite).</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-034</span> Garantir correlação de trace-id fim a fim entre web, api e worker.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-035</span> Instrumentar eventos de negócio com cardinalidade controlada.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-036</span> Adicionar alertas por budget de erro semanal e não só threshold absoluto.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-037</span> Criar runbook mínimo por alerta P1/P2 integrado ao monitoramento.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-038</span> Padronizar nível de severidade de logs estruturados.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-039</span> Adicionar healthchecks dependentes por componente externo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-040</span> Implementar relatório diário automático de incidentes e quase-incidentes.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-041</span> Completar matriz de autorização por papel e recurso em rotas protegidas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-042</span> Adicionar rotação automática de chaves para criptografia de dados sensíveis.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-043</span> Padronizar política de rate limit por risco de endpoint.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-044</span> Criar trilha de auditoria para ações administrativas críticas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-045</span> Adicionar detecção de anomalia para tentativas de login e convite.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-046</span> Implementar validação de origem e CORS baseada em ambiente.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-047</span> Reforçar sanitização server-side para entradas ricas em texto.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-048</span> Criar varredura contínua de segredos em commits e variáveis de ambiente.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-049</span> Adicionar evidência automatizada de consentimento e preferências de cookie.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-050</span> Padronizar hardening headers de segurança em todas respostas web/api.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-051</span> Reduzir acoplamento entre componentes de dashboard e APIs internas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-052</span> Criar biblioteca de estados de carregamento, vazio e erro reutilizável.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-053</span> Padronizar tratamento de sessão expirada com recuperação graciosa.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-054</span> Reduzir hidratação desnecessária em páginas de alto tráfego.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-055</span> Implementar orçamento de performance para rota inicial e dashboard.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-056</span> Adicionar acessibilidade AA em formulários e navegação por teclado.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-057</span> Padronizar telemetria de cliques e conversão por feature flag.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-058</span> Criar fallback offline básico para assets essenciais do PWA.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-059</span> Uniformizar validação de formulários entre client e server.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-060</span> Adicionar proteção anti-duplo clique em ações de escrita.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-061</span> Criar contrato único de erro para provedores externos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-062</span> Implementar circuit breaker por integração crítica.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-063</span> Adicionar replay seguro para webhooks recebidos com deduplicação.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-064</span> Padronizar assinatura e validação de payloads webhook.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-065</span> Criar tabela de mapeamento de campos versionada por conector.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-066</span> Adicionar monitor de SLA por provedor externo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-067</span> Implementar sandbox de testes para conectores sem impactar produção.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-068</span> Padronizar estratégia de paginação e sincronização incremental.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-069</span> Criar verificação automática de drift de contratos externos.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-070</span> Adicionar fallback de degradação funcional quando provedor estiver indisponível.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-071</span> Aumentar cobertura de testes de integração para fluxos cross-service.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-072</span> Padronizar fixtures e factories para reduzir flaky tests.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-073</span> Criar suíte de contract testing entre web-bff-api-worker.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-074</span> Adicionar testes de carga mínimos em pipeline noturno.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-075</span> Reduzir tempo de feedback da pipeline com paralelismo otimizado.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-076</span> Criar smoke suite de release focada em caminhos de receita.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-077</span> Adicionar validação de migração de banco em ambiente efêmero por PR.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-078</span> Padronizar tags de testes (unit/integration/slow) com enforcement.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-079</span> Criar métrica de confiabilidade de testes por pacote.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-080</span> Automatizar triagem de falhas recorrentes com classificação de causa.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-081</span> Reduzir complexidade de scripts de CI centralizando utilitários comuns.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-082</span> Padronizar convenção de boundaries entre pacotes do monorepo.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-083</span> Criar score de acoplamento entre módulos para guiar refactor.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-084</span> Adicionar validação automática de APIs internas não utilizadas.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-085</span> Definir política de depreciação com janela e comunicação automática.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-086</span> Padronizar templates de PR técnico com impacto operacional.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-087</span> Criar check de compatibilidade Node/pnpm pré-execução local.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-088</span> Adicionar blueprint de criação de novo serviço/pacote.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-089</span> Automatizar geração de changelog por domínio.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-090</span> Criar baseline de tempo de build/test por pacote para otimização contínua.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-091</span> Padronizar cálculo de quota entre API e Worker para evitar divergência.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-092</span> Criar reconciliação diária de billing com trilha de inconsistências.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-093</span> Adicionar idempotência nas rotinas de exportação financeira.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-094</span> Criar fallback operacional para falha na emissão de cobrança.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-095</span> Implementar travas de consistência em aceitação de convites.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-096</span> Padronizar estados de workflow com transições auditáveis.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-097</span> Criar monitor de abandono de onboarding com causa técnica.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-098</span> Adicionar proteção contra execução duplicada de workflow.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-099</span> Criar mecanismo de reprocessamento manual assistido para suporte.</label></li>
+            <li><label><input type="checkbox"> <span class="tag tag-td">TD-100</span> Padronizar KPIs de saúde de plataforma com threshold operacional.</label></li>
+        </ul>
+    </div>
+
+</body>
+</html>
