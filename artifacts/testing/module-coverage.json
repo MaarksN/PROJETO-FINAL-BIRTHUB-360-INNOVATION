@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T14:13:25.731Z",
+  "checkedAt": "2026-04-07T17:26:21.824Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -15,7 +15,7 @@
     {
       "module": "apps/api",
       "runtimeFiles": 136,
-      "directTestFiles": 38,
+      "directTestFiles": 39,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -55,13 +55,14 @@
         "apps/api/tests/tenant-auth-hardening.test.ts",
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
+        "apps/api/tests/workflow-retry-lineage.integration.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": []
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 76,
+      "runtimeFiles": 77,
       "directTestFiles": 9,
       "traceabilityFlows": 2,
       "directTests": [

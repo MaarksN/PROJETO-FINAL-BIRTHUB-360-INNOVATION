@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T14:13:36.441Z",
+  "checkedAt": "2026-04-07T17:26:29.471Z",
   "createdRoutines": [
     "get_current_tenant_id",
     "prevent_audit_log_mutation",
@@ -81,6 +81,13 @@
       "issues": [],
       "model": "WorkflowTransition",
       "table": "workflow_transitions"
+    },
+    {
+      "issues": [
+        "WorkflowRevision: missing RLS policy for table 'workflow_revisions'."
+      ],
+      "model": "WorkflowRevision",
+      "table": "workflow_revisions"
     },
     {
       "issues": [],
@@ -218,8 +225,10 @@
       "table": "agent_handoffs"
     }
   ],
-  "issues": [],
-  "ok": true,
+  "issues": [
+    "WorkflowRevision: missing RLS policy for table 'workflow_revisions'."
+  ],
+  "ok": false,
   "rlsTables": [
     "agent_budget_events",
     "agent_budgets",
@@ -280,6 +289,7 @@
     "workflows",
     "workflow_steps",
     "workflow_transitions",
+    "workflow_revisions",
     "workflow_executions",
     "step_results",
     "customers",

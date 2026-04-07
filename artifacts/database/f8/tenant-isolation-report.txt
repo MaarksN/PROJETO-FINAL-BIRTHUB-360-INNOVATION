@@ -1,4 +1,4 @@
-Tenant isolation audit: PASS
+Tenant isolation audit: FAIL
 PASS organizations
 PASS members
 PASS sessions
@@ -14,6 +14,7 @@ PASS output_artifacts
 PASS workflows
 PASS workflow_steps
 PASS workflow_transitions
+FAIL workflow_revisions
 PASS workflow_executions
 PASS step_results
 PASS customers
@@ -41,3 +42,5 @@ PASS connector_sync_cursors
 PASS conversation_threads
 PASS conversation_messages
 PASS agent_handoffs
+
+WorkflowRevision: missing RLS policy for table 'workflow_revisions'.
