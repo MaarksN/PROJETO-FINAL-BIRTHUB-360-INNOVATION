@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, readdirSync } from "node:fs";
+import { closeSync, existsSync, openSync, readdirSync, readSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -38,6 +38,18 @@ function uniquePathEntries(entries) {
 
 function resolveExistingDirectories(entries) {
   return entries.filter((entry) => entry && existsSync(entry));
+}
+
+function readFileHeaderBytes(filePath, length = 4) {
+  try {
+    const fd = openSync(filePath, "r");
+    const buffer = Buffer.alloc(length);
+    const bytesRead = readSync(fd, buffer, 0, length, 0);
+    closeSync(fd);
+    return buffer.subarray(0, bytesRead);
+  } catch {
+    return null;
+  }
 }
 
 function resolveGitHubDesktopGitEntries() {
@@ -206,9 +218,13 @@ export function resolvePnpmInvocation() {
   }
 
   if (npmExecPath && npmExecPath.toLowerCase().includes("pnpm")) {
+    const isScriptLike =
+      [".js", ".cjs", ".mjs"].includes(path.extname(npmExecPath).toLowerCase()) ||
+      (readFileHeaderBytes(npmExecPath, 2)?.toString("utf8").startsWith("#!") ?? false);
+
     return {
-      argsPrefix: [npmExecPath],
-      command: process.execPath,
+      argsPrefix: isScriptLike ? [npmExecPath] : [],
+      command: isScriptLike ? process.execPath : npmExecPath,
       env
     };
   }
