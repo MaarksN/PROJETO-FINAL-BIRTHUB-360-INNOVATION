@@ -5,6 +5,7 @@ import {
   prisma
 } from "@birthub/database";
 import type { ApiConfig } from "@birthub/config";
+import { resolveSecretCandidates } from "@birthub/security";
 
 import {
   sha256,
@@ -85,18 +86,20 @@ function resolveVerifiedSessionRole(input: {
   tenantId: string;
   token: string;
   userId: string;
+  fallbacks?: string[];
   secret?: string;
 }): Role | null {
   if (!input.secret) {
     return null;
   }
 
-  const claims = verifyAccessToken(input.token, input.secret);
-  if (!claims) {
-    return null;
-  }
+  const claims = resolveSecretCandidates(input.secret, input.fallbacks).reduce<ReturnType<typeof verifyAccessToken>>(
+    (resolvedClaims, candidate) => resolvedClaims ?? verifyAccessToken(input.token, candidate),
+    null
+  );
 
   if (
+    !claims ||
     claims.organizationId !== input.organizationId ||
     claims.sessionId !== input.sessionId ||
     claims.tenantId !== input.tenantId ||
@@ -148,6 +151,7 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
 async function authenticateSession(
   token: string,
   config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
+    Pick<ApiConfig, "sessionSecretFallbacks"> &
     Partial<Pick<ApiConfig, "SESSION_SECRET">>
 ): Promise<AuthenticatedContext | null> {
   const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
@@ -180,6 +184,7 @@ async function authenticateSession(
       organizationId: session.organizationId,
       ...(config?.SESSION_SECRET
         ? {
+            fallbacks: config.sessionSecretFallbacks,
             secret: config.SESSION_SECRET
           }
         : {}),
@@ -212,6 +217,7 @@ async function authenticateSession(
 export async function authenticateRequest(input: {
   apiKeyToken?: string | null;
   config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
+    Pick<ApiConfig, "sessionSecretFallbacks"> &
     Partial<Pick<ApiConfig, "SESSION_SECRET">>;
   sessionToken?: string | null;
 }): Promise<AuthenticatedContext | null> {
