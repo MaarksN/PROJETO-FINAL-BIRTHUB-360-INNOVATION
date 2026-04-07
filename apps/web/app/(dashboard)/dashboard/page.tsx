@@ -1,251 +1,280 @@
 import Link from "next/link";
 
-import { loadDashboardSnapshot, type DashboardSnapshot } from "../../../lib/dashboard";
-
-function riskClass(risk: string): string {
-  if (risk === "baixo") {
-    return "status-green";
-  }
-
-  if (risk === "médio") {
-    return "status-yellow";
-  }
-
-  return "status-red";
-}
-
-function averageHealthScore(snapshot: DashboardSnapshot): number {
-  if (snapshot.agentStatuses.healthScore.length === 0) {
-    return 0;
-  }
-
-  const total = snapshot.agentStatuses.healthScore.reduce((sum, item) => sum + item.score, 0);
-  return Math.round(total / snapshot.agentStatuses.healthScore.length);
-}
-
-function totalPipeline(snapshot: DashboardSnapshot): number {
-  return snapshot.metrics.pipeline.reduce((sum, item) => sum + item.value, 0);
-}
+import {
+  ProductEmptyState,
+  ProductPageHeader
+} from "../../../components/dashboard/page-fragments";
+import { loadDashboardHomePage, formatRiskTone } from "./page.data";
 
 export default async function DashboardHomePage() {
-  let snapshot: DashboardSnapshot | null = null;
-  let errorMessage: string | null = null;
-
-  try {
-    snapshot = await loadDashboardSnapshot();
-  } catch (error) {
-    errorMessage =
-      error instanceof Error
-        ? error.message
-        : "Falha ao carregar os indicadores administrativos do tenant.";
-  }
+  const data = await loadDashboardHomePage();
+  const usageEntries = Object.entries(data.billing.usage ?? {});
 
   return (
-    <>
-      <section className="hero-card">
-        <span className="badge">Home canonica</span>
-        <h1>Dashboard operacional do tenant</h1>
-        <p>
-          Entrada oficial pos-login para acompanhar financas, saude operacional, carteira e
-          workflows sem depender de URL manual ou rotas soltas.
-        </p>
-        <div className="hero-actions">
-          <Link href="/workflows">Ver workflows</Link>
-          <Link href="/agents">Acompanhar agentes</Link>
-          <Link href="/settings/privacy">Privacidade</Link>
-          <Link href="/profile/notifications">Notificacoes</Link>
-        </div>
+    <main className="dashboard-content">
+      <ProductPageHeader
+        actions={
+          <div className="hero-actions">
+            <Link href="/workflows">Abrir workflows</Link>
+            <Link href="/reports">Ver reports</Link>
+            <Link className="ghost-button" href={data.onboarding.nextHref}>
+              Continuar onboarding
+            </Link>
+          </div>
+        }
+        badge="Home do produto"
+        description="Resumo operacional da conta com acesso direto para as jornadas principais, sem depender de URL manual."
+        title="Central diaria de operacao"
+      />
+
+      {data.onboarding.enabled && data.onboarding.progress < 100 ? (
+        <section className="panel">
+          <div
+            style={{
+              alignItems: "center",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.85rem",
+              justifyContent: "space-between"
+            }}
+          >
+            <div style={{ display: "grid", gap: "0.3rem" }}>
+              <span className="badge">Onboarding guiado</span>
+              <strong>{data.onboarding.progress}% concluido</strong>
+              <span style={{ color: "var(--muted)" }}>
+                {data.onboarding.items.filter((item) => item.complete).length} de {data.onboarding.items.length} passos fechados.
+              </span>
+            </div>
+            <Link className="action-button" href={data.onboarding.nextHref}>
+              Continuar
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="stats-grid">
+        {data.metrics.finance.map((item) => (
+          <article key={item.label}>
+            <span className="badge">{item.label}</span>
+            <strong>{item.value}</strong>
+            <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.delta}</p>
+          </article>
+        ))}
+        {data.metrics.pipeline.map((item) => (
+          <article key={item.stage}>
+            <span className="badge">{item.stage}</span>
+            <strong>{item.value.toLocaleString("pt-BR")}</strong>
+            <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.trend}</p>
+          </article>
+        ))}
       </section>
 
-      {snapshot ? (
-        <>
-          <section className="stats-grid">
-            <article>
-              <span className="badge">Saude media</span>
-              <strong>{averageHealthScore(snapshot)}</strong>
-            </article>
-            <article>
-              <span className="badge">Fluxo em 30d</span>
-              <strong>{totalPipeline(snapshot).toLocaleString("pt-BR")}</strong>
-            </article>
-            <article>
-              <span className="badge">Clientes monitorados</span>
-              <strong>{snapshot.agentStatuses.healthScore.length.toLocaleString("pt-BR")}</strong>
-            </article>
-            <article>
-              <span className="badge">Receita rastreada</span>
-              <strong>{snapshot.billingSummary.finance[1]?.value ?? "R$ 0,00"}</strong>
-            </article>
-          </section>
-
-          <section className="panel">
-            <div
-              style={{
-                alignItems: "center",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.75rem",
-                justifyContent: "space-between"
-              }}
-            >
-              <div>
-                <h2>Resumo financeiro e pipeline</h2>
-                <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-                  Metricas reais do backend canonico de dashboard.
-                </p>
-              </div>
-              <Link href="/settings/billing">Abrir billing</Link>
+      <section
+        style={{
+          display: "grid",
+          gap: "1rem",
+          gridTemplateColumns: "minmax(0, 1.3fr) minmax(0, 0.9fr)"
+        }}
+      >
+        <article className="panel">
+          <div
+            style={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "0.9rem"
+            }}
+          >
+            <div>
+              <h2 style={{ marginBottom: "0.15rem" }}>Workflows em destaque</h2>
+              <p style={{ color: "var(--muted)", margin: 0 }}>
+                Acesso rapido para editar ou executar os fluxos mais recentes.
+              </p>
             </div>
+            <Link href="/workflows">Ver lista completa</Link>
+          </div>
 
-            <div className="stats-grid" style={{ marginTop: "1rem" }}>
-              {snapshot.metrics.finance.map((item) => (
-                <article key={item.label}>
-                  <span className="badge">{item.label}</span>
-                  <strong>{item.value}</strong>
-                  <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.delta}</p>
+          {data.workflows.items.length === 0 ? (
+            <ProductEmptyState
+              description="Nenhum workflow criado ainda. Comece pela lista de workflows para montar o primeiro fluxo."
+              title="Sem workflows ativos"
+            />
+          ) : (
+            <div style={{ display: "grid", gap: "0.75rem" }}>
+              {data.workflows.items.slice(0, 3).map((workflow) => (
+                <article
+                  key={workflow.id}
+                  style={{
+                    border: "1px solid var(--border)",
+                    borderRadius: 22,
+                    display: "grid",
+                    gap: "0.45rem",
+                    padding: "1rem"
+                  }}
+                >
+                  <div
+                    style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-between"
+                    }}
+                  >
+                    <strong>{workflow.name}</strong>
+                    <span className="status-pill">{workflow.status}</span>
+                  </div>
+                  <span style={{ color: "var(--muted)" }}>
+                    {workflow.triggerType} · {workflow._count.steps} etapas · {workflow._count.executions} execucoes
+                  </span>
+                  <div className="hero-actions">
+                    <Link href={`/workflows/${workflow.id}/edit`}>Abrir editor</Link>
+                    <Link className="ghost-button" href={`/workflows/${workflow.id}/runs`}>
+                      Ver execucoes
+                    </Link>
+                  </div>
                 </article>
               ))}
             </div>
+          )}
+        </article>
 
-            <div className="table-wrapper" style={{ marginTop: "1rem" }}>
+        <article className="panel">
+          <h2>Uso e plano</h2>
+          <p style={{ color: "var(--muted)" }}>
+            {data.billing.plan.name} · status {data.billing.status}
+          </p>
+          {usageEntries.length === 0 ? (
+            <ProductEmptyState
+              description="Ainda nao ha metricas de uso para a organizacao ativa."
+              title="Sem consumo registrado"
+            />
+          ) : (
+            <div style={{ display: "grid", gap: "0.85rem" }}>
+              {usageEntries.map(([metric, value]) => (
+                <div key={metric} style={{ display: "grid", gap: "0.35rem" }}>
+                  <div
+                    style={{
+                      alignItems: "center",
+                      display: "flex",
+                      justifyContent: "space-between"
+                    }}
+                  >
+                    <strong>{metric.replace(/_/g, " ")}</strong>
+                    <span>{value.toLocaleString("pt-BR")}</span>
+                  </div>
+                  <div className="meter" aria-hidden="true">
+                    <span style={{ width: `${Math.min(100, Math.max(12, value % 100))}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </article>
+      </section>
+
+      <section
+        style={{
+          display: "grid",
+          gap: "1rem",
+          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)"
+        }}
+      >
+        <article className="panel">
+          <h2>Saude de clientes</h2>
+          {data.health.healthScore.length === 0 ? (
+            <ProductEmptyState
+              description="Assim que houver clientes vinculados, a saude operacional aparecera aqui."
+              title="Sem saude calculada"
+            />
+          ) : (
+            <div className="table-wrapper">
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Stage</th>
-                    <th>Valor</th>
-                    <th>Tendência</th>
+                    <th>Cliente</th>
+                    <th>Score</th>
+                    <th>NPS</th>
+                    <th>Risco</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {snapshot.metrics.pipeline.map((item) => (
-                    <tr key={item.stage}>
-                      <td>{item.stage}</td>
-                      <td>{item.value.toLocaleString("pt-BR")}</td>
-                      <td>{item.trend}</td>
+                  {data.health.healthScore.map((item) => (
+                    <tr key={item.client}>
+                      <td>{item.client}</td>
+                      <td>{item.score}</td>
+                      <td>{item.nps}</td>
+                      <td className={formatRiskTone(item.risk)}>{item.risk}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </section>
+          )}
+        </article>
 
-          <section
-            style={{
-              display: "grid",
-              gap: "1rem",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))"
-            }}
-          >
-            <article className="panel">
-              <h2>Saude de clientes</h2>
-              <p style={{ color: "var(--muted)" }}>
-                Score, risco e NPS derivado do backend administrativo.
-              </p>
-
-              {snapshot.agentStatuses.healthScore.length === 0 ? (
-                <p style={{ marginBottom: 0 }}>Nenhum cliente monitorado para o tenant atual.</p>
-              ) : (
-                <div className="table-wrapper">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Cliente</th>
-                        <th>Score</th>
-                        <th>Risco</th>
-                        <th>NPS</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {snapshot.agentStatuses.healthScore.map((item) => (
-                        <tr key={item.client}>
-                          <td>{item.client}</td>
-                          <td>{item.score}</td>
-                          <td>
-                            <span className={`status-pill ${riskClass(item.risk)}`}>{item.risk}</span>
-                          </td>
-                          <td>{item.nps}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+        <article className="panel">
+          <h2>Contratos recentes</h2>
+          {data.recent.contracts.length === 0 ? (
+            <ProductEmptyState
+              description="Quando a organizacao tiver clientes ou contratos, eles aparecerao nesta lista."
+              title="Sem contratos recentes"
+            />
+          ) : (
+            <div style={{ display: "grid", gap: "0.75rem" }}>
+              {data.recent.contracts.map((contract) => (
+                <div
+                  key={`${contract.customer}-${contract.owner}`}
+                  style={{
+                    border: "1px solid var(--border)",
+                    borderRadius: 20,
+                    display: "grid",
+                    gap: "0.35rem",
+                    padding: "0.9rem"
+                  }}
+                >
+                  <strong>{contract.customer}</strong>
+                  <span style={{ color: "var(--muted)" }}>
+                    {contract.status} · {contract.owner}
+                  </span>
+                  <span>{contract.mrr}</span>
                 </div>
-              )}
-            </article>
+              ))}
+            </div>
+          )}
+        </article>
+      </section>
 
-            <article className="panel">
-              <h2>Carteira e aquisição</h2>
-              <p style={{ color: "var(--muted)" }}>
-                Contratos recentes e canais de origem mais ativos.
-              </p>
-
-              {snapshot.recentTasks.contracts.length === 0 ? (
-                <p>Nenhum contrato recente disponível.</p>
-              ) : (
-                <div className="table-wrapper" style={{ marginBottom: "1rem" }}>
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Cliente</th>
-                        <th>MRR</th>
-                        <th>Owner</th>
-                        <th>Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {snapshot.recentTasks.contracts.map((item) => (
-                        <tr key={`${item.customer}-${item.owner}`}>
-                          <td>{item.customer}</td>
-                          <td>{item.mrr}</td>
-                          <td>{item.owner}</td>
-                          <td>{item.status}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {snapshot.recentTasks.attribution.length === 0 ? (
-                <p style={{ marginBottom: 0 }}>Nenhuma fonte de aquisição consolidada ainda.</p>
-              ) : (
-                <div className="table-wrapper">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th>Fonte</th>
-                        <th>Leads</th>
-                        <th>Conversão</th>
-                        <th>CAC</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {snapshot.recentTasks.attribution.map((item) => (
-                        <tr key={item.source}>
-                          <td>{item.source}</td>
-                          <td>{item.leads}</td>
-                          <td>{item.conversion}</td>
-                          <td>{item.cac}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </article>
-          </section>
-        </>
-      ) : (
-        <section className="panel">
-          <h2>Visao administrativa indisponivel</h2>
-          <p>
-            A rota canonica do dashboard ja existe, mas os indicadores administrativos nao puderam
-            ser carregados para esta sessao.
-          </p>
-          <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-            Detalhe tecnico: {errorMessage ?? "Falha nao identificada."}
-          </p>
-        </section>
-      )}
-    </>
+      <section className="panel">
+        <h2>Attribution</h2>
+        {data.recent.attribution.length === 0 ? (
+          <ProductEmptyState
+            description="A origem dos leads aparecera aqui assim que a organizacao tiver dados de atribuicao."
+            title="Sem atribuicao suficiente"
+          />
+        ) : (
+          <div className="table-wrapper">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Origem</th>
+                  <th>Leads</th>
+                  <th>Conversao</th>
+                  <th>CAC</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.recent.attribution.map((item) => (
+                  <tr key={item.source}>
+                    <td>{item.source}</td>
+                    <td>{item.leads}</td>
+                    <td>{item.conversion}</td>
+                    <td>{item.cac}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+    </main>
   );
 }

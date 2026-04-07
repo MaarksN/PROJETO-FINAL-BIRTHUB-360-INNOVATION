@@ -1,10 +1,10 @@
-export default function DashboardLoading() {
+import { ProductLoadingShell } from "../../../components/dashboard/page-fragments";
+
+export default function DashboardHomeLoading() {
   return (
-    <section className="panel">
-      <h2>Carregando dashboard</h2>
-      <p style={{ marginBottom: 0 }}>
-        Buscando indicadores, saúde operacional e resumo financeiro do tenant.
-      </p>
-    </section>
+    <ProductLoadingShell
+      description="Montando indicadores, workflows e billing da conta ativa."
+      title="Carregando dashboard"
+    />
   );
 }
