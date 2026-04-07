@@ -2,6 +2,7 @@ import { createHmac } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";
 import { Role, WorkflowTriggerType } from "@birthub/database";
+import { lintWorkflowSteps, workflowCanvasSchema } from "@birthub/workflows-core";
 import type { Request } from "express";
 import { Router } from "express";
 
@@ -40,6 +41,23 @@ function requireTenantId(request: Request): string {
   return tenantId;
 }
 
+function withStepLint<T extends { definition: unknown }>(workflow: T): T & {
+  stepLint: ReturnType<typeof lintWorkflowSteps> | null;
+} {
+  const parsed = workflowCanvasSchema.safeParse(workflow.definition);
+  if (!parsed.success) {
+    return {
+      ...workflow,
+      stepLint: null
+    };
+  }
+
+  return {
+    ...workflow,
+    stepLint: lintWorkflowSteps(parsed.data)
+  };
+}
+
 export function createWorkflowsRouter(config: ApiConfig): Router {
   const router = Router();
 
@@ -51,7 +69,7 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
       const items = await listWorkflows(tenantId);
       response.status(200).json({
-        items,
+        items: items.map((item) => withStepLint(item)),
         requestId: request.context.requestId
       });
     })
@@ -67,9 +85,16 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
       const payload = workflowCreateSchema.parse(request.body);
 
       const workflow = await createWorkflow(config, tenantId, payload);
+      if (!workflow) {
+        throw new ProblemDetailsError({
+          detail: "Workflow not found after creation.",
+          status: 500,
+          title: "Internal Server Error"
+        });
+      }
       response.status(201).json({
         requestId: request.context.requestId,
-        workflow
+        workflow: withStepLint(workflow)
       });
     })
   );
@@ -109,7 +134,7 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
       response.status(200).json({
         requestId: request.context.requestId,
-        workflow
+        workflow: withStepLint(workflow)
       });
     })
   );
@@ -129,9 +154,16 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
         tenantId,
         workflowUpdateSchema.parse(request.body)
       );
+      if (!workflow) {
+        throw new ProblemDetailsError({
+          detail: "Workflow not found after update.",
+          status: 404,
+          title: "Not Found"
+        });
+      }
       response.status(200).json({
         requestId: request.context.requestId,
-        workflow
+        workflow: withStepLint(workflow)
       });
     })
   );

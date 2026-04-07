@@ -36,5 +36,5 @@ export const workflowRunSchema = z
 
 export type WorkflowCreateInput = z.infer<typeof workflowCreateSchema>;
 export type WorkflowRunInput = z.infer<typeof workflowRunSchema>;
+export type WorkflowStepLintResult = z.infer<typeof workflowStepLintResultSchema>;
 export type WorkflowUpdateInput = z.infer<typeof workflowUpdateSchema>;
-
