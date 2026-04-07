@@ -408,6 +408,186 @@ export async function archiveWorkflow(
   });
 }
 
+type ResumeCheckpoint = {
+  fromExecutionId: string;
+  fromStepKey?: string | undefined;
+};
+
+async function resolveResumeStepKey(input: {
+  execution: NonNullable<Awaited<ReturnType<typeof prisma.workflowExecution.findFirst>>>;
+  requestedStepKey?: string | undefined;
+  workflowId: string;
+}): Promise<string> {
+  if (input.requestedStepKey) {
+    return input.requestedStepKey;
+  }
+
+  const latestFailedStep = await prisma.stepResult.findFirst({
+    include: {
+      step: true
+    },
+    orderBy: {
+      createdAt: "desc"
+    },
+    where: {
+      executionId: input.execution.id,
+      status: "FAILED",
+      workflowId: input.workflowId
+    }
+  });
+
+  if (!latestFailedStep?.step.key) {
+    throw new ProblemDetailsError({
+      detail: "Execution has no failed step to resume from.",
+      status: 409,
+      title: "Conflict"
+    });
+  }
+
+  return latestFailedStep.step.key;
+}
+
+async function buildResumeContext(input: {
+  organizationId: string;
+  resume: ResumeCheckpoint;
+  tenantId: string;
+  workflowId: string;
+}): Promise<{
+  depth: number;
+  resumeStepKey: string;
+  resumedFromExecutionId: string;
+}> {
+  const sourceExecution = await prisma.workflowExecution.findFirst({
+    where: {
+      id: input.resume.fromExecutionId,
+      organizationId: input.organizationId,
+      tenantId: input.tenantId,
+      workflowId: input.workflowId
+    }
+  });
+
+  if (!sourceExecution) {
+    throw new ProblemDetailsError({
+      detail: "Source execution for retry was not found.",
+      status: 404,
+      title: "Not Found"
+    });
+  }
+
+  if (sourceExecution.status !== WorkflowExecutionStatus.FAILED) {
+    throw new ProblemDetailsError({
+      detail: "Only failed executions can be resumed from a checkpoint.",
+      status: 409,
+      title: "Conflict"
+    });
+  }
+
+  const resumeStepKey = await resolveResumeStepKey({
+    execution: sourceExecution,
+    requestedStepKey: input.resume.fromStepKey,
+    workflowId: input.workflowId
+  });
+
+  const resumeStep = await prisma.workflowStep.findFirst({
+    where: {
+      key: resumeStepKey,
+      tenantId: input.tenantId,
+      workflowId: input.workflowId
+    }
+  });
+
+  if (!resumeStep) {
+    throw new ProblemDetailsError({
+      detail: "Retry checkpoint step was not found in this workflow version.",
+      status: 404,
+      title: "Not Found"
+    });
+  }
+
+  const sourceResults = await prisma.stepResult.findMany({
+    include: {
+      step: true
+    },
+    orderBy: {
+      createdAt: "asc"
+    },
+    where: {
+      executionId: sourceExecution.id,
+      workflowId: input.workflowId
+    }
+  });
+
+  const resumeIndex = sourceResults.findIndex((result) => result.step.key === resumeStepKey);
+  if (resumeIndex < 0) {
+    throw new ProblemDetailsError({
+      detail: "Retry checkpoint was never executed in the source run.",
+      status: 409,
+      title: "Conflict"
+    });
+  }
+
+  const checkpointResults = sourceResults.slice(0, resumeIndex);
+
+  return {
+    depth: checkpointResults.length,
+    resumeStepKey,
+    resumedFromExecutionId: sourceExecution.id
+  };
+}
+
+async function cloneCheckpointResults(input: {
+  executionId: string;
+  fromExecutionId: string;
+  fromStepKey: string;
+  organizationId: string;
+  tenantId: string;
+  workflowId: string;
+}): Promise<number> {
+  const sourceResults = await prisma.stepResult.findMany({
+    include: {
+      step: true
+    },
+    orderBy: {
+      createdAt: "asc"
+    },
+    where: {
+      executionId: input.fromExecutionId,
+      workflowId: input.workflowId
+    }
+  });
+
+  const resumeIndex = sourceResults.findIndex((result) => result.step.key === input.fromStepKey);
+  if (resumeIndex < 0) {
+    return 0;
+  }
+
+  const checkpointResults = sourceResults.slice(0, resumeIndex);
+
+  for (const result of checkpointResults) {
+    await prisma.stepResult.create({
+      data: {
+        attempt: result.attempt,
+        errorMessage: result.errorMessage,
+        executionId: input.executionId,
+        externalPayloadUrl: result.externalPayloadUrl,
+        finishedAt: result.finishedAt,
+        input: result.input as Prisma.InputJsonValue,
+        organizationId: input.organizationId,
+        output: result.output as Prisma.InputJsonValue,
+        outputPreview: result.outputPreview,
+        outputSize: result.outputSize,
+        startedAt: result.startedAt,
+        status: result.status,
+        stepId: result.stepId,
+        tenantId: input.tenantId,
+        workflowId: input.workflowId
+      }
+    });
+  }
+
+  return checkpointResults.length;
+}
+
 export async function runWorkflowNow(
   config: ApiConfig,
   workflowId: string,
@@ -436,9 +616,20 @@ export async function runWorkflowNow(
       step.type === "TRIGGER_EVENT"
   );
 
+  const resumeContext = input.retry
+    ? await buildResumeContext({
+        organizationId: workflow.organizationId,
+        resume: input.retry,
+        tenantId: workflow.tenantId,
+        workflowId: workflow.id
+      })
+    : null;
+
   const execution = await prisma.workflowExecution.create({
     data: {
+      depth: resumeContext?.depth ?? 0,
       organizationId: workflow.organizationId,
+      resumedFromExecutionId: resumeContext?.resumedFromExecutionId ?? null,
       status: WorkflowExecutionStatus.RUNNING,
       tenantId: workflow.tenantId,
       triggerPayload: input.payload as Prisma.InputJsonValue,
@@ -447,7 +638,26 @@ export async function runWorkflowNow(
     }
   });
 
-  if (triggerStep) {
+  if (resumeContext) {
+    await cloneCheckpointResults({
+      executionId: execution.id,
+      fromExecutionId: resumeContext.resumedFromExecutionId,
+      fromStepKey: resumeContext.resumeStepKey,
+      organizationId: workflow.organizationId,
+      tenantId: workflow.tenantId,
+      workflowId: workflow.id
+    });
+    await enqueueWorkflowExecution(config, {
+      attempt: 1,
+      executionId: execution.id,
+      organizationId: workflow.organizationId,
+      stepKey: resumeContext.resumeStepKey,
+      tenantId: workflow.tenantId,
+      triggerPayload: input.payload,
+      triggerType,
+      workflowId: workflow.id
+    });
+  } else if (triggerStep) {
     await enqueueWorkflowExecution(config, {
       attempt: 1,
       executionId: execution.id,
