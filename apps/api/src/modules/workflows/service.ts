@@ -20,6 +20,7 @@ import {
 } from "./runnerQueue.js";
 import type {
   WorkflowCreateInput,
+  WorkflowRevertInput,
   WorkflowRunInput,
   WorkflowUpdateInput
 } from "./schemas.js";
@@ -270,6 +271,16 @@ export async function createWorkflow(
       }
     });
 
+    await tx.workflowRevision.create({
+      data: {
+        definition: input.canvas as Prisma.InputJsonValue,
+        organizationId: identity.organizationId,
+        tenantId: identity.tenantId,
+        version: created.version,
+        workflowId: created.id
+      }
+    });
+
     await persistCanvas(tx, identity, created.id, input.canvas);
     return created;
   });
@@ -356,6 +367,10 @@ export async function updateWorkflow(
       workflowUpdateData.triggerType = input.triggerType;
     }
 
+    if (input.canvas) {
+      workflowUpdateData.version = { increment: 1 };
+    }
+
     const workflow = await tx.workflow.update({
       data: workflowUpdateData,
       where: {
@@ -364,6 +379,16 @@ export async function updateWorkflow(
     });
 
     if (input.canvas) {
+      await tx.workflowRevision.create({
+        data: {
+          definition: input.canvas as Prisma.InputJsonValue,
+          organizationId: identity.organizationId,
+          tenantId: identity.tenantId,
+          version: workflow.version,
+          workflowId: workflow.id
+        }
+      });
+
       await tx.workflowTransition.deleteMany({
         where: {
           workflowId
@@ -395,6 +420,53 @@ export async function updateWorkflow(
   }
 
   return persisted;
+}
+
+export async function getWorkflowRevisions(workflowId: string, tenantReference: string) {
+  const identity = await resolveScopedIdentity(tenantReference);
+
+  return prisma.workflowRevision.findMany({
+    orderBy: {
+      version: "desc"
+    },
+    where: {
+      tenantId: identity.tenantId,
+      workflowId
+    }
+  });
+}
+
+export async function revertWorkflow(
+  config: ApiConfig,
+  workflowId: string,
+  tenantReference: string,
+  input: WorkflowRevertInput
+): Promise<PersistedWorkflow> {
+  const identity = await resolveScopedIdentity(tenantReference);
+  const existing = await getWorkflowById(workflowId, identity.tenantId);
+  if (!existing) {
+    throw new Error("WORKFLOW_NOT_FOUND");
+  }
+
+  const revision = await prisma.workflowRevision.findUnique({
+    where: {
+      workflowId_version: {
+        version: input.version,
+        workflowId
+      }
+    }
+  });
+
+  if (!revision || revision.tenantId !== identity.tenantId) {
+    throw new Error("WORKFLOW_REVISION_NOT_FOUND");
+  }
+
+  const canvas = revision.definition as unknown as WorkflowCanvas;
+
+  // We reuse updateWorkflow to bump version, persist canvas and create a NEW revision
+  return updateWorkflow(config, workflowId, tenantReference, {
+    canvas
+  });
 }
 
 export async function archiveWorkflow(
