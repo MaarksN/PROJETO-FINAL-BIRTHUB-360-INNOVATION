@@ -1,105 +1,83 @@
 # Test Coverage Dashboard
 
-- Generated at: 2026-03-23T02:43:14.868Z
-- Domains: 6
-- Threshold policy: Node native test coverage does not expose statement coverage separately; statements mirror line coverage for reporting and ratchet checks.
+- Generated at: 2026-04-07T18:26:57.335Z
+- Surfaces: 6
 - Status: FAIL
 
-## Billing
+## @birthub/api
 
-- Lines: 76.79%
-- Branches: 57.58%
-- Functions: 82.24%
-- Statements: 76.79%
-- Duration: 14190.19ms
-- Test files: 12
-- Critical modules: 3
+- Lines: 41.88%
+- Branches: 67.56%
+- Functions: 52.78%
+- Statements: 41.88%
+- Command: `pnpm --filter @birthub/api test`
+- Thresholds: lines 70% | branches 65% | functions 70% | statements 70%
 - Alerts:
-  - billing branches below threshold: 57.58% < 90.00%
-  - billing branches regressed below baseline: 57.58% < 90.00%
-  - billing functions below threshold: 82.24% < 90.00%
-  - billing functions regressed below baseline: 82.24% < 90.00%
-  - billing lines below threshold: 76.79% < 90.00%
-  - billing lines regressed below baseline: 76.79% < 90.00%
-  - billing statements below threshold: 76.79% < 90.00%
-  - billing statements regressed below baseline: 76.79% < 90.00%
+  - coverage command failed with exit code 1
+  - functions below minimum: 52.78% < 70.00%
+  - lines below minimum: 41.88% < 70.00%
+  - statements below minimum: 41.88% < 70.00%
 
-## Auth
+## @birthub/web
 
-- Lines: 72.40%
-- Branches: 76.04%
-- Functions: 68.18%
-- Statements: 72.40%
-- Duration: 16103.28ms
-- Test files: 5
-- Critical modules: 6
+- Lines: 6.98%
+- Branches: 48.44%
+- Functions: 41.66%
+- Statements: 6.98%
+- Command: `pnpm --filter @birthub/web test`
+- Thresholds: lines 55% | branches 45% | functions 55% | statements 55%
 - Alerts:
-  - auth branches below threshold: 76.04% < 90.00%
-  - auth branches regressed below baseline: 76.04% < 90.00%
-  - auth functions below threshold: 68.18% < 90.00%
-  - auth functions regressed below baseline: 68.18% < 90.00%
-  - auth lines below threshold: 72.40% < 90.00%
-  - auth lines regressed below baseline: 72.40% < 90.00%
-  - auth statements below threshold: 72.40% < 90.00%
-  - auth statements regressed below baseline: 72.40% < 90.00%
+  - coverage command failed with exit code 1
+  - functions below minimum: 41.66% < 55.00%
+  - lines below minimum: 6.98% < 55.00%
+  - statements below minimum: 6.98% < 55.00%
 
-## Agents Runtime
+## @birthub/worker
 
-- Lines: 77.80%
-- Branches: 82.17%
-- Functions: 74.04%
-- Statements: 77.80%
-- Duration: 4480.01ms
-- Test files: 13
-- Critical modules: 5
+- Lines: 39.19%
+- Branches: 71.84%
+- Functions: 53.92%
+- Statements: 39.19%
+- Command: `pnpm --filter @birthub/worker test`
+- Thresholds: lines 55% | branches 50% | functions 55% | statements 55%
 - Alerts:
-  - agents functions below threshold: 74.04% < 80.00%
-  - agents functions regressed below baseline: 74.04% < 80.00%
-  - agents lines below threshold: 77.80% < 80.00%
-  - agents lines regressed below baseline: 77.80% < 80.00%
-  - agents statements below threshold: 77.80% < 80.00%
-  - agents statements regressed below baseline: 77.80% < 80.00%
+  - coverage command failed with exit code 1
+  - functions below minimum: 53.92% < 55.00%
+  - lines below minimum: 39.19% < 55.00%
+  - statements below minimum: 39.19% < 55.00%
 
-## Worker
+## @birthub/database
 
-- Lines: 55.74%
-- Branches: 81.89%
-- Functions: 44.89%
-- Statements: 55.74%
-- Duration: 5871.58ms
-- Test files: 10
-- Critical modules: 1
+- Lines: 84.25%
+- Branches: 73.29%
+- Functions: 92.75%
+- Statements: 84.25%
+- Command: `pnpm --filter @birthub/database test`
+- Thresholds: lines 80% | branches 60% | functions 80% | statements 80%
 - Alerts:
-  - worker branches below threshold: 81.89% < 85.00%
-  - worker branches regressed below baseline: 81.89% < 85.00%
-  - worker functions below threshold: 44.89% < 85.00%
-  - worker functions regressed below baseline: 44.89% < 85.00%
-  - worker lines below threshold: 55.74% < 85.00%
-  - worker lines regressed below baseline: 55.74% < 85.00%
-  - worker statements below threshold: 55.74% < 85.00%
-  - worker statements regressed below baseline: 55.74% < 85.00%
+  - coverage command failed with exit code 1
 
-## Database
+## @birthub/auth
 
-- Lines: 91.60%
-- Branches: 80.85%
-- Functions: 83.33%
-- Statements: 91.60%
-- Duration: 682.58ms
-- Test files: 4
-- Critical modules: 3
+- Lines: n/a
+- Branches: n/a
+- Functions: n/a
+- Statements: n/a
+- Command: `pnpm --filter @birthub/auth test`
+- Thresholds: lines 80% | branches 70% | functions 80% | statements 80%
 - Alerts: none
 
-## API Gateway
+## @birthub/agents-core
 
-- Lines: 87.52%
-- Branches: 74.91%
-- Functions: 87.10%
-- Statements: 87.52%
-- Duration: 5763.24ms
-- Test files: 28
-- Critical modules: 1
+- Lines: 11.65%
+- Branches: 43.58%
+- Functions: 34.48%
+- Statements: 11.65%
+- Command: `pnpm --filter @birthub/agents-core test`
+- Thresholds: lines 75% | branches 60% | functions 75% | statements 75%
 - Alerts:
-  - api branches below threshold: 74.91% < 80.00%
-  - api branches regressed below baseline: 74.91% < 80.00%
+  - branches below minimum: 43.58% < 60.00%
+  - functions below minimum: 34.48% < 75.00%
+  - lines below minimum: 11.65% < 75.00%
+  - statements below minimum: 11.65% < 75.00%
 

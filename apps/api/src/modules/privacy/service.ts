@@ -18,7 +18,7 @@ function buildAnonymizedEmail(userId: string): string {
   return `deleted+${userId}@privacy.birthhub360.invalid`;
 }
 
-async function findOrganization(organizationReference: string) {
+export async function findOrganizationByReference(organizationReference: string) {
   return prisma.organization.findFirst({
     where: {
       OR: [{ id: organizationReference }, { tenantId: organizationReference }]
@@ -192,7 +192,7 @@ export async function recordTenantDataExport(input: {
   organizationReference: string;
   userId: string;
 }) {
-  const organization = await findOrganization(input.organizationReference);
+  const organization = await findOrganizationByReference(input.organizationReference);
 
   if (!organization) {
     return;
@@ -229,7 +229,7 @@ export async function deleteAccountAndPersonalData(input: {
     });
   }
 
-  const organization = await findOrganization(input.organizationReference);
+  const organization = await findOrganizationByReference(input.organizationReference);
 
   if (!organization) {
     throw new ProblemDetailsError({
@@ -267,7 +267,11 @@ export async function deleteAccountAndPersonalData(input: {
   const anonymizedEmail = buildAnonymizedEmail(input.userId);
   const passwordHash = await hashPassword(
     randomToken(18),
-    input.config.AUTH_BCRYPT_SALT_ROUNDS
+    {
+      memoryKiB: input.config.AUTH_ARGON2_MEMORY_KIB,
+      parallelism: input.config.AUTH_ARGON2_PARALLELISM,
+      passes: input.config.AUTH_ARGON2_PASSES
+    }
   );
 
   await prisma.$transaction(async (tx) => {

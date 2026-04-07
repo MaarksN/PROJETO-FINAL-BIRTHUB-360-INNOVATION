@@ -20,26 +20,27 @@ O método principal é manter temporariamente DUAS chaves válidas na origem, su
 - **Não apague a chave atual.** Crie uma nova versão do Segredo (ex: `OPENAI_API_KEY_V2`) ou gere um novo password no Banco de Dados.
 - Se a integração suporta Multi-Active Keys (como a Stripe, que aceita chaves Rolled/Secondary), gere a Chave Secundária.
 
-### 2. Atualização do Secret Manager (Cloud Provider)
+### 2. Atualização do Secret Store do lane canônico
 
-- Adicione a `Chave V2` no Google Secret Manager ou AWS Secrets Manager associando à mesma variável lógica que o container espera, atualizando a "Latest Version" da Secret.
+- Atualize a `Chave V2` no cofre corporativo e/ou no GitHub Environment Secret correspondente.
+- Propague a nova variavel para a revisao candidata do servico canonico no Cloud Run sem remover imediatamente a credencial anterior.
 
 ### 3. Deploy Gradual ("Rolling Update")
 
-- Trigger um novo Deploy da infraestrutura (Cloud Run / Kubernetes).
-- A orquestração da nuvem criará uma "Nova Revisão" (Revision B) dos Agentes Python ou do Gateway consumindo a nova versão da Secret no momento da subida.
-- **Tráfego Dividido**: A infraestrutura começará a drenar o tráfego da "Revisão A" (com chave antiga) gradualmente e enviará conexões novas para a "Revisão B" (chave nova). Nenhuma conexão da "Revisão A" é cortada abruptamente (Graceful Shutdown de requisições ativas).
+- Dispare o workflow `CD` ou o deploy controlado aprovado do servico no Cloud Run.
+- A nova revisao sobe consumindo a versao atualizada dos segredos sem invalidar automaticamente a revisao anterior.
+- **Sobreposicao controlada**: o trafego novo passa para a revisao atualizada somente apos gates de smoke/E2E, enquanto a revisao anterior permanece disponivel para rollback imediato caso a autenticacao falhe.
 
 ### 4. Teste e Monitoramento de Aceitação (O "Soak Time")
 
 - As novas instâncias começam a responder chamadas API ou a processar a Fila usando a Chave V2.
-- O engenheiro On-Call acompanha o Painel de **Metrics & Logs** (ADR-003). Monitora-se a taxa de erros HTTP 401/403 (Authentication Errors).
+- O engenheiro On-Call acompanha o painel de **Metrics & Logs**. Monitora-se a taxa de erros HTTP `401`/`403` e alertas críticos do Alertmanager/PagerDuty.
 - **Grace Period (Período de Tolerância):** Aguarde um mínimo de 1 a 2 horas (ou alguns dias em casos não urgentes) para se certificar de que nenhum job longo retido em Fila tente autenticar usando credenciais armazenadas estaticamente na memória velha.
 
 ### 5. Revogação e Expurgo
 
 - Uma vez confirmada a estabilidade com a Chave V2, entre no provedor original (Stripe, OpenAI, Supabase) e **Delete/Revogue a Chave V1**.
-- O evento será registrado no Audit Trail da infraestrutura. O processo foi concluído sem um único segundo de indisponibilidade de requisições.
+- O evento deve ser registrado no Audit Trail operacional. O processo é considerado concluído somente após a revisão nova permanecer estável e a revisão anterior ficar dispensável.
 
 ## Feature Flags Estáticas (Category A)
 

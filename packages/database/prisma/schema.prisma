@@ -34,6 +34,11 @@ model Organization {
   workflowRevisions  WorkflowRevision[]
   stepResults      StepResult[]
   customers        Customer[]
+  patients         Patient[]
+  pregnancyRecords PregnancyRecord[]
+  appointments     Appointment[]
+  clinicalNotes    ClinicalNote[]
+  neonatalRecords  NeonatalRecord[]
   invites          Invite[]
   subscriptions    Subscription[]
   invoices         Invoice[]
@@ -45,6 +50,11 @@ model Organization {
   quotaUsages      QuotaUsage[]      @relation("OrganizationQuotaUsages")
   apiKeys          ApiKey[]
   loginAlerts      LoginAlert[]
+  privacyConsents  PrivacyConsent[]
+  privacyConsentEvents PrivacyConsentEvent[]
+  retentionPolicies DataRetentionPolicy[]
+  retentionExecutions DataRetentionExecution[]
+  breakGlassGrants BreakGlassGrant[]
   mfaChallenges    MfaChallenge[]
   jobSecrets       JobSigningSecret[]
   notifications    Notification[]
@@ -84,6 +94,8 @@ model User {
   suspendedAt      DateTime?
   mfaEnabled       Boolean           @default(false)
   mfaSecret        String?
+  mfaFailedAttempts Int              @default(0) @map("mfa_failed_attempts")
+  mfaLockedUntil   DateTime?         @map("mfa_locked_until")
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   memberships      Membership[]
@@ -94,10 +106,13 @@ model User {
   mfaRecoveryCodes MfaRecoveryCode[]
   mfaChallenges    MfaChallenge[]
   loginAlerts      LoginAlert[]
+  privacyConsents  PrivacyConsent[]
+  privacyConsentEvents PrivacyConsentEvent[]
   notifications    Notification[]
   preferences      UserPreference[]
   agentExecutions  AgentExecution[]
   agentFeedback    AgentFeedback[]
+  authoredClinicalNotes ClinicalNote[] @relation("ClinicalNoteAuthor")
   createdWebhookEndpoints WebhookEndpoint[] @relation("CreatedWebhookEndpoints")
 
   @@id([id], map: "User_pkey")
@@ -139,7 +154,14 @@ model Session {
   revokedAt      DateTime?
   replacedBySessionId String?
   ipAddress      String?
+  ipHash         String?       @map("ip_hash")
   userAgent      String?
+  accessMode     SessionAccessMode @default(STANDARD) @map("access_mode")
+  breakGlassGrantId String?    @map("break_glass_grant_id")
+  breakGlassReason String?     @map("break_glass_reason")
+  breakGlassTicket String?     @map("break_glass_ticket")
+  breakGlassExpiresAt DateTime? @map("break_glass_expires_at")
+  impersonatedByUserId String? @map("impersonated_by_user_id")
   status         SessionStatus @default(ACTIVE)
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
@@ -155,8 +177,10 @@ model Session {
   @@index([organizationId])
   @@index([tenantId, status])
   @@index([expiresAt])
+  @@index([ipHash])
   @@index([revokedAt])
   @@index([replacedBySessionId])
+  @@index([accessMode])
   @@map("sessions")
 }
 
@@ -229,6 +253,7 @@ model LoginAlert {
   organizationId String
   userId         String
   ipAddress      String?
+  ipHash         String?       @map("ip_hash")
   userAgent      String?
   createdAt      DateTime     @default(now())
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
@@ -237,7 +262,121 @@ model LoginAlert {
   @@index([tenantId])
   @@index([organizationId])
   @@index([tenantId, userId, createdAt])
+  @@index([ipHash])
   @@map("login_alerts")
+}
+
+model PrivacyConsent {
+  id             String        @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  purpose        ConsentPurpose
+  status         ConsentStatus @default(PENDING)
+  lawfulBasis    LawfulBasis   @default(CONSENT) @map("lawful_basis")
+  source         ConsentSource @default(SETTINGS)
+  grantedAt      DateTime?     @map("granted_at")
+  revokedAt      DateTime?     @map("revoked_at")
+  lastChangedAt  DateTime      @default(now()) @map("last_changed_at")
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId, purpose])
+  @@index([tenantId])
+  @@index([tenantId, userId, purpose])
+  @@index([organizationId, updatedAt])
+  @@map("privacy_consents")
+}
+
+model PrivacyConsentEvent {
+  id             String        @id @default(cuid())
+  tenantId       String
+  organizationId String
+  userId         String
+  purpose        ConsentPurpose
+  lawfulBasis    LawfulBasis   @default(CONSENT) @map("lawful_basis")
+  source         ConsentSource @default(SETTINGS)
+  previousStatus ConsentStatus? @map("previous_status")
+  newStatus      ConsentStatus  @map("new_status")
+  metadata       Json?
+  createdAt      DateTime      @default(now())
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([tenantId, userId, createdAt])
+  @@index([organizationId, createdAt])
+  @@map("privacy_consent_events")
+}
+
+model DataRetentionPolicy {
+  id             String                @id @default(cuid())
+  tenantId       String
+  organizationId String
+  dataCategory   RetentionDataCategory @map("data_category")
+  action         RetentionAction
+  legalBasis     LawfulBasis           @default(LEGAL_OBLIGATION) @map("lawful_basis")
+  retentionDays  Int                   @map("retention_days")
+  enabled        Boolean               @default(true)
+  metadata       Json?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+  organization   Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  executions     DataRetentionExecution[]
+
+  @@unique([organizationId, dataCategory])
+  @@index([tenantId])
+  @@index([tenantId, enabled, dataCategory])
+  @@map("data_retention_policies")
+}
+
+model DataRetentionExecution {
+  id             String                 @id @default(cuid())
+  tenantId       String
+  organizationId String
+  policyId       String?                @map("policy_id")
+  dataCategory   RetentionDataCategory  @map("data_category")
+  action         RetentionAction
+  mode           RetentionExecutionMode @default(AUTOMATED)
+  scannedCount   Int                    @default(0) @map("scanned_count")
+  affectedCount  Int                    @default(0) @map("affected_count")
+  details        Json?
+  createdAt      DateTime               @default(now())
+  organization   Organization           @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  policy         DataRetentionPolicy?   @relation(fields: [policyId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([organizationId, createdAt])
+  @@index([policyId])
+  @@map("data_retention_executions")
+}
+
+model BreakGlassGrant {
+  id                 String       @id @default(cuid())
+  tenantId           String
+  organizationId     String
+  actorId            String
+  sessionId          String?      @map("session_id")
+  targetResourceType String       @map("target_resource_type")
+  targetResourceId   String?      @map("target_resource_id")
+  ticketId           String       @map("ticket_id")
+  reason             String
+  justification      String
+  expiresAt          DateTime
+  usedAt             DateTime?    @map("used_at")
+  revokedAt          DateTime?    @map("revoked_at")
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  organization       Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@index([organizationId, createdAt])
+  @@index([actorId, createdAt])
+  @@index([sessionId])
+  @@map("break_glass_grants")
 }
 
 model JobSigningSecret {
@@ -528,6 +667,183 @@ model Customer {
   @@map("customers")
 }
 
+model Patient {
+  id                  String              @id @default(cuid())
+  tenantId            String
+  organizationId      String
+  medicalRecordNumber String?             @map("medical_record_number")
+  fullName            String              @map("full_name")
+  preferredName       String?             @map("preferred_name")
+  birthDate           DateTime?           @map("birth_date")
+  email               String?
+  phone               String?
+  documentId          String?             @map("document_id")
+  bloodType           String?             @map("blood_type")
+  allergies           String[]            @default([])
+  chronicConditions   String[]            @default([]) @map("chronic_conditions")
+  status              PatientStatus       @default(ACTIVE)
+  notes               String?
+  deletedAt           DateTime?           @map("deleted_at")
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  organization        Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  pregnancyRecords    PregnancyRecord[]
+  appointments        Appointment[]
+  clinicalNotes       ClinicalNote[]
+  neonatalRecords     NeonatalRecord[]
+
+  @@unique([organizationId, medicalRecordNumber])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, fullName])
+  @@index([tenantId, status, deletedAt])
+  @@index([organizationId, createdAt])
+  @@map("patients")
+}
+
+model PregnancyRecord {
+  id                    String             @id @default(cuid())
+  tenantId              String
+  organizationId        String
+  patientId             String
+  status                PregnancyStatus    @default(ACTIVE)
+  riskLevel             PregnancyRiskLevel @default(LOW) @map("risk_level")
+  gravidity             Int                @default(1)
+  parity                Int                @default(0)
+  abortions             Int                @default(0)
+  previousCesareans     Int                @default(0) @map("previous_cesareans")
+  fetalCount            Int                @default(1) @map("fetal_count")
+  lastMenstrualPeriod   DateTime?          @map("last_menstrual_period")
+  estimatedDeliveryDate DateTime?          @map("estimated_delivery_date")
+  complications         String[]           @default([])
+  notes                 String?
+  outcome               PregnancyOutcome?
+  outcomeDate           DateTime?          @map("outcome_date")
+  deletedAt             DateTime?          @map("deleted_at")
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+  organization          Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patient               Patient            @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  appointments          Appointment[]
+  clinicalNotes         ClinicalNote[]
+  neonatalRecords       NeonatalRecord[]
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, patientId, status])
+  @@index([tenantId, riskLevel, status])
+  @@index([organizationId, estimatedDeliveryDate])
+  @@map("pregnancy_records")
+}
+
+model Appointment {
+  id                     String            @id @default(cuid())
+  tenantId               String
+  organizationId         String
+  patientId              String
+  pregnancyRecordId      String?           @map("pregnancy_record_id")
+  type                   AppointmentType   @default(PRENATAL)
+  status                 AppointmentStatus @default(SCHEDULED)
+  scheduledAt            DateTime          @map("scheduled_at")
+  durationMinutes        Int               @default(30) @map("duration_minutes")
+  location               String?
+  providerName           String?           @map("provider_name")
+  chiefComplaint         String?           @map("chief_complaint")
+  summary                String?
+  bloodPressureSystolic  Int?              @map("blood_pressure_systolic")
+  bloodPressureDiastolic Int?              @map("blood_pressure_diastolic")
+  weightKg               Float?            @map("weight_kg")
+  fetalHeartRateBpm      Int?              @map("fetal_heart_rate_bpm")
+  fetalWeightGrams       Int?              @map("fetal_weight_grams")
+  fundalHeightCm         Float?            @map("fundal_height_cm")
+  temperatureC           Float?            @map("temperature_c")
+  deletedAt              DateTime?         @map("deleted_at")
+  createdAt              DateTime          @default(now())
+  updatedAt              DateTime          @updatedAt
+  organization           Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patient                Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  pregnancyRecord        PregnancyRecord?  @relation(fields: [pregnancyRecordId], references: [id], onDelete: SetNull)
+  clinicalNotes          ClinicalNote[]
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, scheduledAt])
+  @@index([tenantId, patientId, scheduledAt])
+  @@index([tenantId, status, scheduledAt])
+  @@index([organizationId, pregnancyRecordId])
+  @@map("appointments")
+}
+
+model ClinicalNote {
+  id                String            @id @default(cuid())
+  noteGroupId       String            @map("note_group_id")
+  tenantId          String
+  organizationId    String
+  patientId         String
+  appointmentId     String?           @map("appointment_id")
+  pregnancyRecordId String?           @map("pregnancy_record_id")
+  authoredByUserId  String?           @map("authored_by_user_id")
+  kind              ClinicalNoteKind  @default(SOAP)
+  version           Int               @default(1)
+  isLatest          Boolean           @default(true) @map("is_latest")
+  previousVersionId String?           @map("previous_version_id")
+  title             String?
+  subjective        String?
+  objective         String?
+  assessment        String?
+  plan              String?
+  content           Json?
+  supersededAt      DateTime?         @map("superseded_at")
+  deletedAt         DateTime?         @map("deleted_at")
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  organization      Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patient           Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  appointment       Appointment?      @relation(fields: [appointmentId], references: [id], onDelete: SetNull)
+  pregnancyRecord   PregnancyRecord?  @relation(fields: [pregnancyRecordId], references: [id], onDelete: SetNull)
+  author            User?             @relation("ClinicalNoteAuthor", fields: [authoredByUserId], references: [id], onDelete: SetNull)
+  previousVersion   ClinicalNote?     @relation("ClinicalNoteVersion", fields: [previousVersionId], references: [id], onDelete: SetNull)
+  nextVersions      ClinicalNote[]    @relation("ClinicalNoteVersion")
+
+  @@unique([noteGroupId, version])
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, patientId, isLatest])
+  @@index([tenantId, appointmentId, isLatest])
+  @@index([tenantId, noteGroupId, deletedAt])
+  @@map("clinical_notes")
+}
+
+model NeonatalRecord {
+  id                  String           @id @default(cuid())
+  tenantId            String
+  organizationId      String
+  patientId           String
+  pregnancyRecordId   String?          @map("pregnancy_record_id")
+  newbornName         String?          @map("newborn_name")
+  sex                 NeonatalSex?
+  bornAt              DateTime         @map("born_at")
+  birthWeightGrams    Int?             @map("birth_weight_grams")
+  birthLengthCm       Float?           @map("birth_length_cm")
+  headCircumferenceCm Float?           @map("head_circumference_cm")
+  apgar1              Int?             @map("apgar_1")
+  apgar5              Int?             @map("apgar_5")
+  outcome             NeonatalOutcome  @default(ALIVE)
+  notes               String?
+  deletedAt           DateTime?        @map("deleted_at")
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  organization        Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  patient             Patient          @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  pregnancyRecord     PregnancyRecord? @relation(fields: [pregnancyRecordId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@index([tenantId, id])
+  @@index([tenantId, patientId, bornAt])
+  @@index([organizationId, outcome])
+  @@map("neonatal_records")
+}
+
 model Invite {
   id              String       @id @default(cuid())
   tenantId        String
@@ -792,6 +1108,10 @@ model UserPreference {
   marketingEmails     Boolean             @default(false) @map("marketing_emails")
   pushNotifications   Boolean             @default(false) @map("push_notifications")
   cookieConsent       CookieConsentStatus @default(PENDING) @map("cookie_consent")
+  lgpdConsentStatus   LgpdConsentStatus   @default(PENDING) @map("lgpd_consent_status")
+  lgpdLegalBasis      LgpdLegalBasis      @default(CONSENT) @map("lgpd_legal_basis")
+  lgpdConsentVersion  String              @default("2026-04") @map("lgpd_consent_version")
+  lgpdConsentedAt     DateTime?           @map("lgpd_consented_at")
   createdAt           DateTime            @default(now())
   updatedAt           DateTime            @updatedAt
   organization        Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
@@ -1134,6 +1454,12 @@ enum SessionStatus {
   EXPIRED
 }
 
+enum SessionAccessMode {
+  STANDARD
+  IMPERSONATION
+  BREAK_GLASS
+}
+
 enum AgentStatus {
   ACTIVE
   PAUSED
@@ -1208,6 +1534,67 @@ enum InviteStatus {
   EXPIRED
 }
 
+enum PatientStatus {
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+enum PregnancyStatus {
+  ACTIVE
+  DELIVERED
+  CLOSED
+}
+
+enum PregnancyRiskLevel {
+  LOW
+  MODERATE
+  HIGH
+}
+
+enum PregnancyOutcome {
+  LIVE_BIRTH
+  STILLBIRTH
+  MISCARRIAGE
+  ABORTION
+}
+
+enum AppointmentType {
+  PRENATAL
+  ULTRASOUND
+  EXAM
+  POSTPARTUM
+  VACCINATION
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CHECKED_IN
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum ClinicalNoteKind {
+  SOAP
+  EVOLUTION
+  TRIAGE
+  DISCHARGE
+}
+
+enum NeonatalSex {
+  FEMALE
+  MALE
+  UNDETERMINED
+}
+
+enum NeonatalOutcome {
+  ALIVE
+  ICU
+  STILLBIRTH
+  TRANSFERRED
+}
+
 enum SubscriptionStatus {
   trial
   active
@@ -1264,6 +1651,64 @@ enum CookieConsentStatus {
   PENDING
   ACCEPTED
   REJECTED
+}
+
+enum ConsentPurpose {
+  ANALYTICS
+  MARKETING
+  HEALTH_DATA_SHARING
+}
+
+enum ConsentStatus {
+  PENDING
+  GRANTED
+  REVOKED
+}
+
+enum ConsentSource {
+  BANNER
+  SETTINGS
+  API
+}
+
+enum LawfulBasis {
+  CONSENT
+  CONTRACT
+  LEGAL_OBLIGATION
+  LEGITIMATE_INTEREST
+}
+
+enum RetentionDataCategory {
+  OUTPUT_ARTIFACTS
+  LOGIN_ALERTS
+  MFA_CHALLENGES
+  MFA_RECOVERY_CODES
+  SUSPENDED_USERS
+}
+
+enum RetentionAction {
+  DELETE
+  ANONYMIZE
+}
+
+enum RetentionExecutionMode {
+  AUTOMATED
+  MANUAL
+  DRY_RUN
+}
+
+enum LgpdConsentStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum LgpdLegalBasis {
+  CONSENT
+  HEALTH_PROTECTION
+  LEGITIMATE_INTEREST
+  LEGAL_OBLIGATION
+  CONTRACT
 }
 
 enum AgentExecutionStatus {

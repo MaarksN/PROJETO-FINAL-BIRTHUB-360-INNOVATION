@@ -11,8 +11,10 @@ import {
   getDashboardAgentStatuses,
   getDashboardBillingSummary,
   getDashboardMetrics,
+  getDashboardOnboarding,
   getDashboardRecentTasks
 } from "./service.js";
+import { setDashboardOnboardingEnabled } from "./service.js";
 
 function requireContext(request: Request): {
   organizationId: string;
@@ -66,6 +68,57 @@ export function createDashboardRouter(): Router {
     asyncHandler(async (request, response) => {
       const { organizationId, tenantId } = requireContext(request);
       response.status(200).json(await getDashboardBillingSummary(organizationId, tenantId));
+    })
+  );
+
+  router.get(
+    "/api/v1/dashboard/onboarding",
+    asyncHandler(async (request, response) => {
+      const { organizationId, tenantId } = requireContext(request);
+      const userId = request.context.userId;
+
+      if (!userId) {
+        throw new ProblemDetailsError({
+          detail: "A valid authenticated user context is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      response.status(200).json(
+        await getDashboardOnboarding({
+          organizationId,
+          tenantId,
+          userId
+        })
+      );
+    })
+  );
+
+  router.patch(
+    "/api/v1/dashboard/onboarding",
+    asyncHandler(async (request, response) => {
+      const { organizationId, tenantId } = requireContext(request);
+      const payload = request.body as { enabled?: boolean };
+
+      if (typeof payload.enabled !== "boolean") {
+        throw new ProblemDetailsError({
+          detail: "An onboarding enabled flag is required.",
+          status: 400,
+          title: "Bad Request"
+        });
+      }
+
+      await setDashboardOnboardingEnabled({
+        enabled: payload.enabled,
+        organizationId,
+        tenantId
+      });
+
+      response.status(200).json({
+        enabled: payload.enabled,
+        requestId: request.context.requestId
+      });
     })
   );
 

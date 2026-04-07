@@ -485,7 +485,10 @@ void test("authenticateRequest rejects idle-expired session", async () => {
 
   try {
     const authenticated = await authenticateRequest({
-      config: { API_AUTH_IDLE_TIMEOUT_MINUTES: 30 },
+      config: {
+        API_AUTH_IDLE_TIMEOUT_MINUTES: 30,
+        sessionSecretFallbacks: []
+      },
       sessionToken: "atk_idle_expired"
     });
     assert.equal(authenticated, null);
@@ -495,4 +498,3 @@ void test("authenticateRequest rejects idle-expired session", async () => {
     }
   }
 });
-

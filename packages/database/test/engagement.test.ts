@@ -8,7 +8,8 @@ import {
   createNotificationForOrganizationRoles,
   createNotificationForUser,
   ensureUserPreference,
-  listNotifications
+  listNotifications,
+  updateUserPreference
 } from "../src/repositories/engagement.js";
 
 void test("ensureUserPreference upserts tenant-scoped preference data", async () => {
@@ -75,6 +76,59 @@ void test("createNotificationForUser skips persistence when in-app notifications
   } finally {
     prisma.userPreference.upsert = originalPreferenceUpsert;
     prisma.notification.create = originalCreate;
+  }
+});
+
+void test("updateUserPreference audits cookie consent transitions", async () => {
+  const originalFindUnique = prisma.userPreference.findUnique.bind(prisma.userPreference);
+  const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
+  const originalAuditCreate = prisma.auditLog.create.bind(prisma.auditLog);
+  let auditPayload: unknown = null;
+
+  prisma.userPreference.findUnique = (async () =>
+    ({
+      cookieConsent: "PENDING"
+    })) as unknown as typeof prisma.userPreference.findUnique;
+  prisma.userPreference.upsert = (async () =>
+    ({
+      cookieConsent: "ACCEPTED",
+      id: "pref_1"
+    })) as unknown as typeof prisma.userPreference.upsert;
+  prisma.auditLog.create = (async (args: unknown) => {
+    auditPayload = args;
+    return {} as never;
+  }) as unknown as typeof prisma.auditLog.create;
+
+  try {
+    const result = await updateUserPreference({
+      cookieConsent: "ACCEPTED",
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      userId: "user_1"
+    });
+
+    assert.equal(result.cookieConsent, "ACCEPTED");
+    assert.deepEqual(auditPayload, {
+      data: {
+        action: "user.cookie_consent_updated",
+        actorId: "user_1",
+        diff: {
+          after: {
+            cookieConsent: "ACCEPTED"
+          },
+          before: {
+            cookieConsent: "PENDING"
+          }
+        },
+        entityId: "pref_1",
+        entityType: "user_preference",
+        tenantId: "tenant_1"
+      }
+    });
+  } finally {
+    prisma.userPreference.findUnique = originalFindUnique;
+    prisma.userPreference.upsert = originalUpsert;
+    prisma.auditLog.create = originalAuditCreate;
   }
 });
 

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T14:13:25.719Z",
+  "checkedAt": "2026-04-07T18:04:06.455Z",
   "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
   "exitCode": 0,
   "status": "fresh",
@@ -28,11 +28,11 @@
     "scripts/audit/shared-prime.mjs"
   ],
   "summary": {
-    "findings": 16,
-    "errors": 0,
+    "findings": 18,
+    "errors": 12,
     "severities": {
       "ERROR": 0,
-      "WARNING": 6,
+      "WARNING": 8,
       "INFO": 10,
       "UNKNOWN": 0
     }
@@ -42,14 +42,14 @@
       "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
       "path": ".github/workflows/cd.yml",
       "start": {
-        "line": 65,
+        "line": 63,
         "col": 9,
-        "offset": 2153
+        "offset": 2049
       },
       "end": {
-        "line": 68,
+        "line": 66,
         "col": 57,
-        "offset": 2291
+        "offset": 2187
       },
       "extra": {
         "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -89,14 +89,61 @@
       "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
       "path": ".github/workflows/cd.yml",
       "start": {
-        "line": 191,
+        "line": 222,
         "col": 9,
-        "offset": 6299
+        "offset": 9247
       },
       "end": {
-        "line": 195,
+        "line": 226,
         "col": 57,
-        "offset": 6493
+        "offset": 9441
+      },
+      "extra": {
+        "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
+        "metadata": {
+          "category": "security",
+          "owasp": "A01:2017 - Injection",
+          "cwe": "CWE-913: Improper Control of Dynamically-Managed Code Resources",
+          "likelihood": "MEDIUM",
+          "impact": "MEDIUM",
+          "confidence": "MEDIUM",
+          "subcategory": [
+            "vuln"
+          ],
+          "references": [
+            "https://securitylab.github.com/research/github-actions-preventing-pwn-requests/",
+            "https://github.com/justinsteven/advisories/blob/master/2021_github_actions_checkspelling_token_leak_via_advice_symlink.md",
+            "https://www.legitsecurity.com/blog/github-privilege-escalation-vulnerability"
+          ],
+          "technology": [
+            "github-actions"
+          ],
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Code Injection"
+          ],
+          "source": "https://semgrep.dev/r/yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
+          "shortlink": "https://sg.run/A0p6"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "yaml.github-actions.security.workflow-run-target-code-checkout.workflow-run-target-code-checkout",
+      "path": ".github/workflows/cd.yml",
+      "start": {
+        "line": 288,
+        "col": 9,
+        "offset": 11268
+      },
+      "end": {
+        "line": 291,
+        "col": 57,
+        "offset": 11414
       },
       "extra": {
         "message": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request. When using `workflow_run`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
@@ -308,6 +355,58 @@
       },
       "extra": {
         "message": "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
+        "metadata": {
+          "owasp": [
+            "A05:2021 - Security Misconfiguration",
+            "A06:2017 - Security Misconfiguration",
+            "A02:2025 - Security Misconfiguration"
+          ],
+          "cwe": [
+            "CWE-1333: Inefficient Regular Expression Complexity"
+          ],
+          "references": [
+            "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
+          ],
+          "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
+          "category": "security",
+          "technology": [
+            "javascript"
+          ],
+          "subcategory": [
+            "vuln"
+          ],
+          "likelihood": "MEDIUM",
+          "impact": "MEDIUM",
+          "confidence": "LOW",
+          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+          "vulnerability_class": [
+            "Denial-of-Service (DoS)"
+          ],
+          "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+          "shortlink": "https://sg.run/gr65"
+        },
+        "severity": "WARNING",
+        "fingerprint": "requires login",
+        "lines": "requires login",
+        "validation_state": "NO_VALIDATOR",
+        "engine_kind": "OSS"
+      }
+    },
+    {
+      "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
+      "path": "scripts/audit/prime-refresh-evidence.mjs",
+      "start": {
+        "line": 97,
+        "col": 30,
+        "offset": 2271
+      },
+      "end": {
+        "line": 97,
+        "col": 66,
+        "offset": 2307
+      },
+      "extra": {
+        "message": "RegExp() called with a `flag` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
         "metadata": {
           "owasp": [
             "A05:2021 - Security Misconfiguration",
@@ -893,6 +992,777 @@
       }
     }
   ],
-  "errors": [],
+  "errors": [
+    {
+      "code": 2,
+      "level": "warn",
+      "type": "Internal matching error",
+      "rule_id": "yaml.github-actions.security.curl-eval.curl-eval",
+      "message": "Internal matching error when running yaml.github-actions.security.curl-eval.curl-eval on .github\\workflows\\cd.yml:\n An error occurred while invoking the Semgrep engine. Please help us fix this by creating an issue at https://github.com/semgrep/semgrep\n\nrule yaml.github-actions.security.curl-eval.curl-eval: metavariable-pattern failed when parsing $SHELL's content as Bash: set -euo pipefail\nREGION=\"${{ vars.CLOUD_RUN_REGION }}\"\nmkdir -p artifacts/release\n: > artifacts/release/production-rollout.tsv\n\nwhile IFS='|' read -r component service image; do\n  before_json=\"artifacts/release/${component}-before.json\"\n  after_json=\"artifacts/release/${component}-after.json\"\n\n  if ! gcloud run services describe \"$service\" --region \"$REGION\" --format=json > \"$before_json\" 2>/dev/null; then\n    echo '{}' > \"$before_json\"\n  fi\n\n  previous_revision=$(node -e \"const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const active=traffic.find((item)=>Number(item.percent||0)>0); process.stdout.write(active?.revisionName||'');\" \"$before_json\")\n\n  gcloud run deploy \"$service\" --image \"$image\" --region \"$REGION\" --platform managed --tag candidate --no-traffic --quiet\n  gcloud run services describe \"$service\" --region \"$REGION\" --format=json > \"$after_json\"\n\n  candidate_revision=$(node -e \"const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); process.stdout.write(data.status?.latestCreatedRevisionName||'');\" \"$after_json\")\n  candidate_url=$(node -e \"const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const entry=traffic.find((item)=>item.tag==='candidate'); process.stdout.write(entry?.url||'');\" \"$after_json\")\n\n  echo \"${component}_previous_revision=${previous_revision}\" >> \"$GITHUB_OUTPUT\"\n  echo \"${component}_candidate_revision=${candidate_revision}\" >> \"$GITHUB_OUTPUT\"\n  echo \"${component}_candidate_url=${candidate_url}\" >> \"$GITHUB_OUTPUT\"\n  printf '%s\\t%s\\t%s\\t%s\\t%s\\n' \"$component\" \"$service\" \"$previous_revision\" \"$candidate_revision\" \"$can... (truncated 1167 more characters)",
+      "path": ".github\\workflows\\cd.yml"
+    },
+    {
+      "code": 2,
+      "level": "warn",
+      "type": "Internal matching error",
+      "rule_id": "yaml.github-actions.security.curl-eval.curl-eval",
+      "message": "Internal matching error when running yaml.github-actions.security.curl-eval.curl-eval on .github\\workflows\\cd.yml:\n An error occurred while invoking the Semgrep engine. Please help us fix this by creating an issue at https://github.com/semgrep/semgrep\n\nrule yaml.github-actions.security.curl-eval.curl-eval: metavariable-pattern failed when parsing $SHELL's content as Bash: set -euo pipefail\nREGION=\"${{ vars.CLOUD_RUN_REGION }}\"\nmkdir -p artifacts/release\n: > artifacts/release/staging-rollout.tsv\n\nwhile IFS='|' read -r component service image; do\n  before_json=\"artifacts/release/${component}-before.json\"\n  after_json=\"artifacts/release/${component}-after.json\"\n\n  if ! gcloud run services describe \"$service\" --region \"$REGION\" --format=json > \"$before_json\" 2>/dev/null; then\n    echo '{}' > \"$before_json\"\n  fi\n\n  previous_revision=$(node -e \"const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const active=traffic.find((item)=>Number(item.percent||0)>0); process.stdout.write(active?.revisionName||'');\" \"$before_json\")\n\n  gcloud run deploy \"$service\" --image \"$image\" --region \"$REGION\" --platform managed --tag candidate --no-traffic --quiet\n  gcloud run services describe \"$service\" --region \"$REGION\" --format=json > \"$after_json\"\n\n  candidate_revision=$(node -e \"const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); process.stdout.write(data.status?.latestCreatedRevisionName||'');\" \"$after_json\")\n  candidate_url=$(node -e \"const fs=require('fs'); const data=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); const traffic=(data.status&&data.status.traffic)||[]; const entry=traffic.find((item)=>item.tag==='candidate'); process.stdout.write(entry?.url||'');\" \"$after_json\")\n\n  gcloud run services update-traffic \"$service\" --region \"$REGION\" --to-revisions \"${candidate_revision}=100\" --quiet\n  printf '%s\\t%s\\t%s\\t%s\\t%s\\n' \"$component\" \"$service\" \"$previous_revision\" \"$candidate_revision\" \"$candidate_url\" >> artifacts/release/staging-rollout.tsv\ndone <<EOF\napi|${{ vars.CLOUD_RUN_API_SERVICE }}|${{ needs.build-stag... (truncated 1024 more characters)",
+      "path": ".github\\workflows\\cd.yml"
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 309,
+              "col": 14,
+              "offset": 11907
+            },
+            "end": {
+              "line": 309,
+              "col": 50,
+              "offset": 11943
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 311,
+              "col": 13,
+              "offset": 11907
+            },
+            "end": {
+              "line": 311,
+              "col": 48,
+              "offset": 11942
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 311,
+              "col": 69,
+              "offset": 11907
+            },
+            "end": {
+              "line": 311,
+              "col": 90,
+              "offset": 11928
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 311,
+              "col": 96,
+              "offset": 11907
+            },
+            "end": {
+              "line": 311,
+              "col": 135,
+              "offset": 11946
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:309:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.event.workflow_run.head_sha` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 309,
+            "col": 14,
+            "offset": 11907
+          },
+          "end": {
+            "line": 309,
+            "col": 50,
+            "offset": 11943
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 311,
+            "col": 13,
+            "offset": 11907
+          },
+          "end": {
+            "line": 311,
+            "col": 48,
+            "offset": 11942
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 311,
+            "col": 69,
+            "offset": 11907
+          },
+          "end": {
+            "line": 311,
+            "col": 90,
+            "offset": 11928
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 311,
+            "col": 96,
+            "offset": 11907
+          },
+          "end": {
+            "line": 311,
+            "col": 135,
+            "offset": 11946
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 323,
+              "col": 16,
+              "offset": 12677
+            },
+            "end": {
+              "line": 323,
+              "col": 46,
+              "offset": 12707
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:323:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 323,
+            "col": 16,
+            "offset": 12677
+          },
+          "end": {
+            "line": 323,
+            "col": 46,
+            "offset": 12707
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 328,
+              "col": 16,
+              "offset": 12881
+            },
+            "end": {
+              "line": 328,
+              "col": 46,
+              "offset": 12911
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:328:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 328,
+            "col": 16,
+            "offset": 12881
+          },
+          "end": {
+            "line": 328,
+            "col": 46,
+            "offset": 12911
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 333,
+              "col": 16,
+              "offset": 13088
+            },
+            "end": {
+              "line": 333,
+              "col": 49,
+              "offset": 13121
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:333:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 333,
+            "col": 16,
+            "offset": 13088
+          },
+          "end": {
+            "line": 333,
+            "col": 49,
+            "offset": 13121
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 669,
+              "col": 11,
+              "offset": 27681
+            },
+            "end": {
+              "line": 669,
+              "col": 34,
+              "offset": 27704
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 670,
+              "col": 39,
+              "offset": 27681
+            },
+            "end": {
+              "line": 670,
+              "col": 67,
+              "offset": 27709
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 670,
+              "col": 109,
+              "offset": 27681
+            },
+            "end": {
+              "line": 670,
+              "col": 175,
+              "offset": 27747
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 671,
+              "col": 39,
+              "offset": 27681
+            },
+            "end": {
+              "line": 671,
+              "col": 67,
+              "offset": 27709
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 671,
+              "col": 109,
+              "offset": 27681
+            },
+            "end": {
+              "line": 671,
+              "col": 175,
+              "offset": 27747
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 672,
+              "col": 39,
+              "offset": 27681
+            },
+            "end": {
+              "line": 672,
+              "col": 70,
+              "offset": 27712
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 672,
+              "col": 112,
+              "offset": 27681
+            },
+            "end": {
+              "line": 672,
+              "col": 181,
+              "offset": 27750
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:669:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 669,
+            "col": 11,
+            "offset": 27681
+          },
+          "end": {
+            "line": 669,
+            "col": 34,
+            "offset": 27704
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 670,
+            "col": 39,
+            "offset": 27681
+          },
+          "end": {
+            "line": 670,
+            "col": 67,
+            "offset": 27709
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 670,
+            "col": 109,
+            "offset": 27681
+          },
+          "end": {
+            "line": 670,
+            "col": 175,
+            "offset": 27747
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 671,
+            "col": 39,
+            "offset": 27681
+          },
+          "end": {
+            "line": 671,
+            "col": 67,
+            "offset": 27709
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 671,
+            "col": 109,
+            "offset": 27681
+          },
+          "end": {
+            "line": 671,
+            "col": 175,
+            "offset": 27747
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 672,
+            "col": 39,
+            "offset": 27681
+          },
+          "end": {
+            "line": 672,
+            "col": 70,
+            "offset": 27712
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 672,
+            "col": 112,
+            "offset": 27681
+          },
+          "end": {
+            "line": 672,
+            "col": 181,
+            "offset": 27750
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 682,
+              "col": 16,
+              "offset": 28438
+            },
+            "end": {
+              "line": 682,
+              "col": 39,
+              "offset": 28461
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 684,
+              "col": 15,
+              "offset": 28438
+            },
+            "end": {
+              "line": 684,
+              "col": 81,
+              "offset": 28504
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 685,
+              "col": 15,
+              "offset": 28438
+            },
+            "end": {
+              "line": 685,
+              "col": 81,
+              "offset": 28504
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 686,
+              "col": 18,
+              "offset": 28438
+            },
+            "end": {
+              "line": 686,
+              "col": 87,
+              "offset": 28507
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:682:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.CLOUD_RUN_REGION` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 682,
+            "col": 16,
+            "offset": 28438
+          },
+          "end": {
+            "line": 682,
+            "col": 39,
+            "offset": 28461
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 684,
+            "col": 15,
+            "offset": 28438
+          },
+          "end": {
+            "line": 684,
+            "col": 81,
+            "offset": 28504
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 685,
+            "col": 15,
+            "offset": 28438
+          },
+          "end": {
+            "line": 685,
+            "col": 81,
+            "offset": 28504
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 686,
+            "col": 18,
+            "offset": 28438
+          },
+          "end": {
+            "line": 686,
+            "col": 87,
+            "offset": 28507
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 732,
+              "col": 13,
+              "offset": 30321
+            },
+            "end": {
+              "line": 732,
+              "col": 48,
+              "offset": 30356
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 732,
+              "col": 69,
+              "offset": 30321
+            },
+            "end": {
+              "line": 732,
+              "col": 90,
+              "offset": 30342
+            }
+          },
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 732,
+              "col": 96,
+              "offset": 30321
+            },
+            "end": {
+              "line": 732,
+              "col": 135,
+              "offset": 30360
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:732:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ vars.GCP_ARTIFACT_REGISTRY_REGION` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 732,
+            "col": 13,
+            "offset": 30321
+          },
+          "end": {
+            "line": 732,
+            "col": 48,
+            "offset": 30356
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 732,
+            "col": 69,
+            "offset": 30321
+          },
+          "end": {
+            "line": 732,
+            "col": 90,
+            "offset": 30342
+          }
+        },
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 732,
+            "col": 96,
+            "offset": 30321
+          },
+          "end": {
+            "line": 732,
+            "col": 135,
+            "offset": 30360
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 744,
+              "col": 16,
+              "offset": 31028
+            },
+            "end": {
+              "line": 744,
+              "col": 46,
+              "offset": 31058
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:744:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.api_image` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 744,
+            "col": 16,
+            "offset": 31028
+          },
+          "end": {
+            "line": 744,
+            "col": 46,
+            "offset": 31058
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 749,
+              "col": 16,
+              "offset": 31232
+            },
+            "end": {
+              "line": 749,
+              "col": 46,
+              "offset": 31262
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:749:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.web_image` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 749,
+            "col": 16,
+            "offset": 31232
+          },
+          "end": {
+            "line": 749,
+            "col": 46,
+            "offset": 31262
+          }
+        }
+      ]
+    },
+    {
+      "code": 3,
+      "level": "warn",
+      "type": [
+        "PartialParsing",
+        [
+          {
+            "path": ".github\\workflows\\cd.yml",
+            "start": {
+              "line": 754,
+              "col": 16,
+              "offset": 31439
+            },
+            "end": {
+              "line": 754,
+              "col": 49,
+              "offset": 31472
+            }
+          }
+        ]
+      ],
+      "message": "Syntax error at line .github\\workflows\\cd.yml:754:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ steps.refs.outputs.worker_image` was unexpected",
+      "path": ".github\\workflows\\cd.yml",
+      "spans": [
+        {
+          "file": ".github\\workflows\\cd.yml",
+          "start": {
+            "line": 754,
+            "col": 16,
+            "offset": 31439
+          },
+          "end": {
+            "line": 754,
+            "col": 49,
+            "offset": 31472
+          }
+        }
+      ]
+    }
+  ],
   "stderr": ""
 }

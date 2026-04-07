@@ -1,9 +1,11 @@
 import {
   UserStatus,
   Role,
+  SessionAccessMode,
   prisma
 } from "@birthub/database";
 import type { ApiConfig } from "@birthub/config";
+import { resolveSecretCandidates } from "@birthub/security";
 
 import {
   sha256,
@@ -84,18 +86,20 @@ function resolveVerifiedSessionRole(input: {
   tenantId: string;
   token: string;
   userId: string;
+  fallbacks?: string[];
   secret?: string;
 }): Role | null {
   if (!input.secret) {
     return null;
   }
 
-  const claims = verifyAccessToken(input.token, input.secret);
-  if (!claims) {
-    return null;
-  }
+  const claims = resolveSecretCandidates(input.secret, input.fallbacks).reduce<ReturnType<typeof verifyAccessToken>>(
+    (resolvedClaims, candidate) => resolvedClaims ?? verifyAccessToken(input.token, candidate),
+    null
+  );
 
   if (
+    !claims ||
     claims.organizationId !== input.organizationId ||
     claims.sessionId !== input.sessionId ||
     claims.tenantId !== input.tenantId ||
@@ -131,8 +135,13 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
   return {
     apiKeyId: apiKey.apiKeyId,
     authType: "api-key",
+    breakGlassGrantId: null,
+    breakGlassReason: null,
+    breakGlassTicket: null,
+    impersonatedByUserId: null,
     organizationId,
     role,
+    sessionAccessMode: null,
     sessionId: null,
     tenantId: apiKey.tenantId,
     userId: apiKey.userId
@@ -142,10 +151,19 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
 async function authenticateSession(
   token: string,
   config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
+    Pick<ApiConfig, "sessionSecretFallbacks"> &
     Partial<Pick<ApiConfig, "SESSION_SECRET">>
 ): Promise<AuthenticatedContext | null> {
   const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
   if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
+    return null;
+  }
+
+  if (
+    session.accessMode === SessionAccessMode.BREAK_GLASS &&
+    session.breakGlassExpiresAt &&
+    session.breakGlassExpiresAt.getTime() < Date.now()
+  ) {
     return null;
   }
 
@@ -166,6 +184,7 @@ async function authenticateSession(
       organizationId: session.organizationId,
       ...(config?.SESSION_SECRET
         ? {
+            fallbacks: config.sessionSecretFallbacks,
             secret: config.SESSION_SECRET
           }
         : {}),
@@ -182,8 +201,13 @@ async function authenticateSession(
   return {
     apiKeyId: null,
     authType: "session",
+    breakGlassGrantId: session.breakGlassGrantId ?? null,
+    breakGlassReason: session.breakGlassReason ?? null,
+    breakGlassTicket: session.breakGlassTicket ?? null,
+    impersonatedByUserId: session.impersonatedByUserId ?? null,
     organizationId: session.organizationId,
     role,
+    sessionAccessMode: session.accessMode,
     sessionId: session.id,
     tenantId: session.tenantId,
     userId: session.userId
@@ -193,6 +217,7 @@ async function authenticateSession(
 export async function authenticateRequest(input: {
   apiKeyToken?: string | null;
   config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
+    Pick<ApiConfig, "sessionSecretFallbacks"> &
     Partial<Pick<ApiConfig, "SESSION_SECRET">>;
   sessionToken?: string | null;
 }): Promise<AuthenticatedContext | null> {

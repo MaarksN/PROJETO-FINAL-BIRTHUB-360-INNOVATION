@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { promises as fs } from "node:fs";
-import { createServer } from "node:net";
+import { createConnection, createServer } from "node:net";
 import path from "node:path";
 
 import {
@@ -74,6 +74,51 @@ function normalizePathValue(value) {
   return String(value ?? "").replaceAll("\\", "/");
 }
 
+function normalizeEmbeddedPostgresHost(value) {
+  const normalized = String(value ?? "").replaceAll('"', "").trim();
+
+  if (!normalized || normalized === "*" || normalized === "::1" || normalized === "localhost") {
+    return "127.0.0.1";
+  }
+
+  return normalized;
+}
+
+function readEmbeddedPostgresPortFromPid(lines) {
+  const rawPort = Number(lines[3]?.trim() ?? "");
+  return Number.isInteger(rawPort) && rawPort > 0 ? rawPort : null;
+}
+
+function readEmbeddedPostgresHostFromPid(lines) {
+  return normalizeEmbeddedPostgresHost(lines[5]);
+}
+
+function readQuotedArg(source, flag) {
+  const match = source.match(new RegExp(`"${flag}"\\s+"([^"]+)"`));
+  return match?.[1] ?? null;
+}
+
+function readEmbeddedPostgresPortFromOptions(source) {
+  const explicitPort = Number(readQuotedArg(source, "-p") ?? "");
+  if (Number.isInteger(explicitPort) && explicitPort > 0) {
+    return explicitPort;
+  }
+
+  const fallbackMatch = source.match(/-p\s+(\d+)/);
+  const fallbackPort = Number(fallbackMatch?.[1] ?? "");
+  return Number.isInteger(fallbackPort) && fallbackPort > 0 ? fallbackPort : null;
+}
+
+function readEmbeddedPostgresHostFromOptions(source) {
+  const explicitHost = readQuotedArg(source, "-h");
+  if (explicitHost) {
+    return normalizeEmbeddedPostgresHost(explicitHost);
+  }
+
+  const listenMatch = source.match(/listen_addresses=([^"\s]+)/);
+  return normalizeEmbeddedPostgresHost(listenMatch?.[1]);
+}
+
 function semgrepTargets() {
   return [
     "apps/api",
@@ -110,6 +155,86 @@ function summarizeSemgrepResults(results) {
 
 async function wait(ms) {
   await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function isTcpReachable(host, port, timeoutMs = 1_500) {
+  return await new Promise((resolve) => {
+    const socket = createConnection({
+      host,
+      port
+    });
+
+    const finalize = (value) => {
+      socket.removeAllListeners();
+      socket.destroy();
+      resolve(value);
+    };
+
+    socket.setTimeout(timeoutMs);
+    socket.once("connect", () => finalize(true));
+    socket.once("error", () => finalize(false));
+    socket.once("timeout", () => finalize(false));
+  });
+}
+
+async function resolveEmbeddedPostgresAdminDatabaseUrl() {
+  const runtimeRoot = fromRepo(".tools/embedded-postgres-runtime");
+  if (!existsSync(runtimeRoot)) {
+    return "";
+  }
+
+  const passwordPath = path.join(runtimeRoot, "pw.txt");
+  const password = existsSync(passwordPath)
+    ? (await fs.readFile(passwordPath, "utf8")).trim() || "postgres"
+    : "postgres";
+
+  for (const dataDirName of ["data-runas", "data"]) {
+    const dataDir = path.join(runtimeRoot, dataDirName);
+    if (!existsSync(dataDir)) {
+      continue;
+    }
+
+    let host = "127.0.0.1";
+    let port = null;
+    const pidPath = path.join(dataDir, "postmaster.pid");
+    const optionsPath = path.join(dataDir, "postmaster.opts");
+
+    if (existsSync(pidPath)) {
+      const pidLines = (await fs.readFile(pidPath, "utf8")).split(/\r?\n/);
+      port = readEmbeddedPostgresPortFromPid(pidLines);
+      host = readEmbeddedPostgresHostFromPid(pidLines);
+    }
+
+    if ((!port || !host) && existsSync(optionsPath)) {
+      const options = await fs.readFile(optionsPath, "utf8");
+      port ??= readEmbeddedPostgresPortFromOptions(options);
+      host = host || readEmbeddedPostgresHostFromOptions(options);
+    }
+
+    if (!port || !(await isTcpReachable(host, port))) {
+      continue;
+    }
+
+    return `postgresql://postgres:${encodeURIComponent(password)}@${host}:${port}/postgres?schema=public&pgbouncer=true&connection_limit=10`;
+  }
+
+  return "";
+}
+
+async function resolveAdminDatabaseUrl() {
+  const explicitDatabaseUrl = process.env.DATABASE_URL?.trim() ?? "";
+  if (explicitDatabaseUrl) {
+    return {
+      databaseUrl: explicitDatabaseUrl,
+      source: "env"
+    };
+  }
+
+  const embeddedDatabaseUrl = await resolveEmbeddedPostgresAdminDatabaseUrl();
+  return {
+    databaseUrl: embeddedDatabaseUrl,
+    source: embeddedDatabaseUrl ? "embedded-postgres" : "none"
+  };
 }
 
 async function waitForHttp(url, timeoutMs = 180_000) {
@@ -260,7 +385,7 @@ async function writeEnvironmentParity() {
     "ops/release/sealed/.env.staging.sealed",
     "ops/release/sealed/.env.production.sealed"
   ].filter(fileExists);
-  const cloudRunFiles = ["infra/cloudrun/service.yaml"].filter(fileExists);
+  const canonicalDeployFiles = [".github/workflows/cd.yml"].filter(fileExists);
   const monitoringFiles = [
     "infra/monitoring/prometheus.yml",
     "infra/monitoring/alert.rules.yml",
@@ -277,7 +402,7 @@ async function writeEnvironmentParity() {
     "",
     `- Dockerfiles present: ${dockerfiles.length}/3 (${dockerfiles.map((entry) => `\`${entry}\``).join(", ")})`,
     `- Compose surfaces present: ${composeFiles.length}/2 (${composeFiles.map((entry) => `\`${entry}\``).join(", ")})`,
-    `- Cloud Run manifest: ${cloudRunFiles.length ? `present (\`${cloudRunFiles[0]}\`)` : "missing"}`,
+    `- Canonical deploy lane: ${canonicalDeployFiles.length ? `present (\`${canonicalDeployFiles[0]}\` -> Artifact Registry -> Cloud Run candidate promotion)` : "missing"}`,
     `- Monitoring stack refs: ${monitoringFiles.map((entry) => `\`${entry}\``).join(", ")}`,
     "",
     "## Release Preflight Evidence",
@@ -784,7 +909,8 @@ async function writeDisasterRecoverySnapshot() {
 }
 
 async function writeRlsSnapshot() {
-  const adminDatabaseUrl = process.env.DATABASE_URL?.trim() ?? "";
+  const { databaseUrl: adminDatabaseUrl, source: adminDatabaseUrlSource } =
+    await resolveAdminDatabaseUrl();
   const tenancyControl = safeRun(
     "node",
     ["--import", "tsx", "packages/database/scripts/check-tenancy-controls.ts"],
@@ -866,6 +992,7 @@ async function writeRlsSnapshot() {
   await writeJson(fromRepo("artifacts/tenancy/rls-proof-head.json"), {
     checkedAt: new Date().toISOString(),
     adminDatabaseUrlConfigured: Boolean(adminDatabaseUrl),
+    adminDatabaseUrlSource,
     roleProvisioning,
     tenancyControl: {
       command: tenancyControl.command,

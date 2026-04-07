@@ -231,6 +231,16 @@ export function resolvePnpmInvocation() {
     };
   }
 
+  const npmPath = findCommandInPath("npm", env);
+
+  if (npmPath) {
+    return {
+      argsPrefix: ["exec", "pnpm@9.1.0", "--"],
+      command: npmPath,
+      env
+    };
+  }
+
   throw new Error(
     "Unable to resolve pnpm. Run scripts/bootstrap/install-node-portable.ps1 or install pnpm/corepack in PATH."
   );

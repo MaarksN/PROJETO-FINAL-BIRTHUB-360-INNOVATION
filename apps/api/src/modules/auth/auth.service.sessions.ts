@@ -2,10 +2,12 @@ import type { ApiConfig } from "@birthub/config";
 import {
   MembershipStatus,
   Role,
+  SessionAccessMode,
   SessionStatus,
   prisma
 } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
+import { hashIpAddress, maskIpAddress } from "@birthub/security";
 
 import {
   createAccessToken,
@@ -79,7 +81,13 @@ async function enforceConcurrentSessionLimit(input: {
 }
 
 export async function createSession(input: {
+  accessMode?: SessionAccessMode;
+  breakGlassExpiresAt?: Date | null;
+  breakGlassGrantId?: string | null;
+  breakGlassReason?: string | null;
+  breakGlassTicket?: string | null;
   config: ApiConfig;
+  impersonatedByUserId?: string | null;
   ipAddress: string | null;
   organizationId: string;
   role?: Role;
@@ -88,6 +96,8 @@ export async function createSession(input: {
   userId: string;
 }): Promise<{ sessionId: string; tokens: SessionTokens }> {
   const sessionId = createSecureSessionId();
+  const maskedIpAddress = maskIpAddress(input.ipAddress);
+  const ipHash = hashIpAddress(input.ipAddress, input.config.SESSION_IP_HASH_SALT);
   const accessToken = createAccessToken({
     organizationId: input.organizationId,
     role: input.role ?? null,
@@ -104,10 +114,17 @@ export async function createSession(input: {
 
   const created = await prisma.session.create({
     data: {
+      accessMode: input.accessMode ?? SessionAccessMode.STANDARD,
+      breakGlassExpiresAt: input.breakGlassExpiresAt ?? null,
+      breakGlassGrantId: input.breakGlassGrantId ?? null,
+      breakGlassReason: input.breakGlassReason ?? null,
+      breakGlassTicket: input.breakGlassTicket ?? null,
       id: sessionId,
       csrfToken,
       expiresAt,
-      ipAddress: input.ipAddress,
+      impersonatedByUserId: input.impersonatedByUserId ?? null,
+      ipAddress: maskedIpAddress,
+      ipHash,
       organizationId: input.organizationId,
       refreshExpiresAt,
       refreshTokenHash: sha256(refreshToken),
@@ -203,11 +220,14 @@ async function tryResolveActiveMembershipRole(input: {
 
 export async function createNewDeviceAlert(input: {
   ipAddress: string | null;
+  ipHashSalt: string;
   organizationId: string;
   tenantId: string;
   userAgent: string | null;
   userId: string;
 }) {
+  const ipHash = hashIpAddress(input.ipAddress, input.ipHashSalt);
+  const maskedIpAddress = maskIpAddress(input.ipAddress);
   const latestSession = await prisma.session.findFirst({
     orderBy: {
       createdAt: "desc"
@@ -223,12 +243,13 @@ export async function createNewDeviceAlert(input: {
   }
 
   if (
-    latestSession.ipAddress !== input.ipAddress ||
+    latestSession.ipHash !== ipHash ||
     latestSession.userAgent !== input.userAgent
   ) {
     await prisma.loginAlert.create({
       data: {
-        ipAddress: input.ipAddress,
+        ipAddress: maskedIpAddress,
+        ipHash,
         organizationId: input.organizationId,
         tenantId: input.tenantId,
         userAgent: input.userAgent,
@@ -285,10 +306,13 @@ export async function refreshSession(input: {
     };
   }
 
+  const breakGlassExpiresAt = current.breakGlassExpiresAt ?? null;
+
   if (
     current.revokedAt ||
     !current.refreshExpiresAt ||
-    current.refreshExpiresAt.getTime() < Date.now()
+    current.refreshExpiresAt.getTime() < Date.now() ||
+    (breakGlassExpiresAt !== null && breakGlassExpiresAt.getTime() < Date.now())
   ) {
     return {
       breached: false
@@ -301,7 +325,13 @@ export async function refreshSession(input: {
   });
 
   const nextSession = await createSession({
+    accessMode: current.accessMode,
+    breakGlassExpiresAt,
+    breakGlassGrantId: current.breakGlassGrantId,
+    breakGlassReason: current.breakGlassReason,
+    breakGlassTicket: current.breakGlassTicket,
     config: input.config,
+    impersonatedByUserId: current.impersonatedByUserId,
     ipAddress: input.ipAddress,
     organizationId: current.organizationId,
     ...(membershipRole

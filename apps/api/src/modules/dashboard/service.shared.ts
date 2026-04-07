@@ -26,12 +26,57 @@ export type DashboardBillingSummary = {
   finance: FinanceItem[];
 };
 
+export type DashboardOnboarding = {
+  enabled: boolean;
+  items: Array<{
+    complete: boolean;
+    ctaHref: string;
+    ctaLabel: string;
+    description: string;
+    id: string;
+    title: string;
+  }>;
+  nextHref: string;
+  progress: number;
+};
+
 export function asObject(value: Prisma.JsonValue | null | undefined): Record<string, unknown> | null {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return null;
   }
 
   return value as Record<string, unknown>;
+}
+
+export async function updateOrganizationOnboardingFlag(input: {
+  enabled: boolean;
+  organizationId: string;
+  tenantId: string;
+}) {
+  const organization = await prisma.organization.findFirst({
+    where: {
+      id: input.organizationId,
+      tenantId: input.tenantId
+    }
+  });
+
+  if (!organization) {
+    throw new Error("DASHBOARD_ORGANIZATION_NOT_FOUND");
+  }
+
+  const currentSettings = asObject(organization.settings);
+
+  return prisma.organization.update({
+    data: {
+      settings: {
+        ...(currentSettings ?? {}),
+        onboarding: input.enabled
+      }
+    },
+    where: {
+      id: organization.id
+    }
+  });
 }
 
 export function readNumber(value: Record<string, unknown> | null, key: string): number | null {

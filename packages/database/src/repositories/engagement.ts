@@ -4,6 +4,13 @@ import { prisma } from "../client.js";
 
 type JsonObject = Prisma.InputJsonValue | undefined;
 const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;
+type CookieConsentStatus = "ACCEPTED" | "PENDING" | "REJECTED";
+
+function normalizeCookieConsent(
+  value: CookieConsentStatus | null | undefined
+): CookieConsentStatus {
+  return value ?? "PENDING";
+}
 
 export async function ensureUserPreference(input: {
   organizationId: string;
@@ -50,6 +57,18 @@ export async function updateUserPreference(input: {
   tenantId: string;
   userId: string;
 }) {
+  const previousPreference =
+    input.cookieConsent !== undefined
+      ? await prisma.userPreference.findUnique({
+          where: {
+            organizationId_userId: {
+              organizationId: input.organizationId,
+              userId: input.userId
+            }
+          }
+        })
+      : null;
+
   const createData: Prisma.UserPreferenceUncheckedCreateInput = {
     organizationId: input.organizationId,
     tenantId: input.tenantId,
@@ -76,7 +95,7 @@ export async function updateUserPreference(input: {
     createData.pushNotifications = input.pushNotifications;
   }
 
-  return prisma.userPreference.upsert({
+  const updatedPreference = await prisma.userPreference.upsert({
     create: createData,
     update: {
       ...(input.cookieConsent !== undefined ? { cookieConsent: input.cookieConsent } : {}),
@@ -100,6 +119,32 @@ export async function updateUserPreference(input: {
       }
     }
   });
+
+  if (input.cookieConsent !== undefined) {
+    const previousCookieConsent = normalizeCookieConsent(previousPreference?.cookieConsent);
+
+    if (previousCookieConsent !== updatedPreference.cookieConsent) {
+      await prisma.auditLog.create({
+        data: {
+          action: "user.cookie_consent_updated",
+          actorId: input.userId,
+          diff: {
+            after: {
+              cookieConsent: updatedPreference.cookieConsent
+            },
+            before: {
+              cookieConsent: previousCookieConsent
+            }
+          },
+          entityId: updatedPreference.id,
+          entityType: "user_preference",
+          tenantId: input.tenantId
+        }
+      });
+    }
+  }
+
+  return updatedPreference;
 }
 
 export async function createNotificationForUser(input: {

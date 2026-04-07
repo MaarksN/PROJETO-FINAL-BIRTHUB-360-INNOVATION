@@ -29,8 +29,8 @@ graph TD
   Worker --> CRM[CRM and external connectors]
   Api --> Redis[(Redis / BullMQ)]
   Worker --> Redis
-  GitHub[GitHub Actions] --> Render[Render deploy hooks]
-  GitHub --> CloudRun[Terraform and Cloud Run definitions]
+  GitHub[GitHub Actions] --> Registry[Artifact Registry]
+  Registry --> CloudRun[Cloud Run revisions]
 ```
 
 ## C4 - Container
@@ -144,13 +144,14 @@ graph TD
 | LLM providers | `apps/worker`, runtime packages | Agent execution and extraction | Covered by policy engine and runtime ADRs. |
 | Redis / BullMQ | `apps/api`, `apps/worker` | Queueing and async orchestration | Operationally critical for retries and backlog mitigation. |
 | Postgres / Prisma | `packages/database`, `apps/api`, `apps/worker` | Source of truth for transactional data | Backups and restore live in runbooks. |
-| Render deploy hooks | `.github/workflows/cd.yml` | Current deployment trigger | Active for staging and production workflow automation. |
-| GCP / Terraform / Cloud Run | `infra/terraform`, `infra/cloudrun` | Infrastructure definition and target hosting pattern | Maintained as infra source of truth for future or alternate deployment lanes. |
+| Cloud Run + Artifact Registry | `.github/workflows/cd.yml`, `infra/cloudrun/service.yaml` | Current deployment trigger | Active and mandatory for staging and production workflow automation. |
+| Terraform modules | `infra/terraform` | Reference for auxiliary cloud primitives and data-plane assets | Not an alternative application deployment lane. |
 
 ## Infrastructure and configuration map
 
 - App runtime configuration is defined in `.env.example`, `.env.vps.example` and release preflight scripts.
-- Infra declarations live in `infra/terraform` and `infra/cloudrun/service.yaml`.
+- The application deployment lane is versioned in `.github/workflows/cd.yml` and promotes candidate revisions in Cloud Run after Artifact Registry publication.
+- Terraform declarations in `infra/terraform` are supporting infrastructure references, not a second deploy route for the app.
 - Operational alerting assets live in `infra/monitoring` and `docs/observability-alerts.md`.
 - The current CD trigger path is versioned in `.github/workflows/cd.yml`.
 

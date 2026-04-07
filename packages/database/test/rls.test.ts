@@ -67,18 +67,49 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
       }
     });
 
+    const revisionB = await prisma.workflowRevision.create({
+      data: {
+        definition: {
+          version: 1
+        },
+        organizationId: organizationB.id,
+        tenantId: tenantIdB,
+        version: workflowB.version,
+        workflowId: workflowB.id
+      }
+    });
+
     // 4. Teste de Fogo: Tentamos acessar o Workflow B usando a sessão do Tenant A
-    const rows = await prisma.$transaction(async (tx) => {
+    const { revisionRows, workflowRows } = await prisma.$transaction(async (tx) => {
       // Configuramos a sessão do Postgres para o Tenant A
       await tx.$queryRaw`SELECT set_config('app.current_tenant_id', ${organizationA.tenantId}, true)`;
-      
+
       // Tentamos buscar o workflow que pertence ao Tenant B
       // O RLS deve fazer com que o Postgres retorne zero linhas, mesmo o ID existindo
-      return tx.$queryRaw<Array<{ id: string }>>`SELECT id FROM workflows WHERE id = ${workflowB.id}`;
+      const workflowRows = await tx.$queryRaw<Array<{ id: string }>>`
+        SELECT id FROM workflows WHERE id = ${workflowB.id}
+      `;
+      const revisionRows = await tx.$queryRaw<Array<{ id: string }>>`
+        SELECT id FROM workflow_revisions WHERE id = ${revisionB.id}
+      `;
+
+      return {
+        revisionRows,
+        workflowRows
+      };
     });
 
     // Validação: O array deve vir vazio porque o RLS barrou a visibilidade
-    assert.equal(rows.length, 0, "O RLS deveria ter bloqueado o acesso ao workflow do outro tenant");
+    assert.equal(
+      workflowRows.length,
+      0,
+      "O RLS deveria ter bloqueado o acesso ao workflow do outro tenant"
+    );
+    assert.equal(
+      revisionRows.length,
+      0,
+      "O RLS deveria ter bloqueado o acesso a revisoes de workflow do outro tenant"
+    );
 
   } catch (error) {
     console.error("Erro detalhado no teste:", error);

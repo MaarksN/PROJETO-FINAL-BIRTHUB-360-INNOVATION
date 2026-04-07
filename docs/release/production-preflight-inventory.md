@@ -13,13 +13,21 @@ Os itens abaixo sao a uniao do que o lane de release exige em `scripts/release/p
 | Chave | Tipo | Staging | Production | Criticidade |
 | --- | --- | --- | --- | --- |
 | `AUTH_MFA_ENCRYPTION_KEY` | Secret | Obrigatorio | Obrigatorio | Critico |
+| `CLOUD_RUN_API_SERVICE` | Variable | Obrigatorio | Obrigatorio | Critico |
+| `CLOUD_RUN_REGION` | Variable | Obrigatorio | Obrigatorio | Critico |
+| `CLOUD_RUN_WEB_SERVICE` | Variable | Obrigatorio | Obrigatorio | Critico |
+| `CLOUD_RUN_WORKER_SERVICE` | Variable | Obrigatorio | Obrigatorio | Critico |
 | `DATABASE_URL` | Secret | Obrigatorio | Obrigatorio | Critico |
+| `GCP_ARTIFACT_REGISTRY_REGION` | Variable | Obrigatorio | Obrigatorio | Alto |
+| `GCP_ARTIFACT_REGISTRY_REPOSITORY` | Variable | Obrigatorio | Obrigatorio | Alto |
+| `GCP_PROJECT_ID` | Variable | Obrigatorio | Obrigatorio | Critico |
+| `GCP_SERVICE_ACCOUNT_EMAIL` | Variable | Obrigatorio | Obrigatorio | Critico |
+| `GCP_WORKLOAD_IDENTITY_PROVIDER` | Variable | Obrigatorio | Obrigatorio | Critico |
 | `JOB_HMAC_GLOBAL_SECRET` | Secret | Obrigatorio | Obrigatorio | Critico |
 | `REDIS_URL` | Secret | Obrigatorio | Obrigatorio | Critico |
-| `RENDER_STAGING_DEPLOY_HOOK_URL` | Secret | Obrigatorio | N/A | Critico |
-| `RENDER_PRODUCTION_DEPLOY_HOOK_URL` | Secret | N/A | Obrigatorio | Critico |
 | `SENTRY_DSN` | Secret | Obrigatorio | Obrigatorio | Alto |
 | `SESSION_SECRET` | Secret | Obrigatorio | Obrigatorio | Critico |
+| `SESSION_IP_HASH_SALT` | Secret | Obrigatorio | Obrigatorio | Critico |
 | `STRIPE_SECRET_KEY` | Secret | Obrigatorio | Obrigatorio | Critico |
 | `STRIPE_WEBHOOK_SECRET` | Secret | Obrigatorio | Obrigatorio | Critico |
 | `API_CORS_ORIGINS` | Variable | Obrigatorio | Obrigatorio | Alto |
@@ -34,17 +42,22 @@ Os itens abaixo sao a uniao do que o lane de release exige em `scripts/release/p
 
 ## 2) Ownership matrix por segredo critico
 
-| Segredo critico | Owner primario | Backup owner | Rotacao minima | Evidencia obrigatoria |
+| Segredo/configuracao critica | Owner primario | Backup owner | Rotacao minima | Evidencia obrigatoria |
 | --- | --- | --- | --- | --- |
 | `DATABASE_URL` | `@platform-data` | `@platform-security` | 90 dias ou incidente | teste de conexao + preflight verde |
 | `REDIS_URL` | `@platform-worker` | `@platform-api` | 90 dias ou incidente | healthcheck fila + preflight verde |
 | `SESSION_SECRET` | `@platform-security` | `@platform-api` | 60 dias ou incidente | invalidacao controlada + preflight verde |
+| `SESSION_IP_HASH_SALT` | `@platform-security` | `@platform-api` | 60 dias ou incidente | hashing estavel de sessao validado |
 | `AUTH_MFA_ENCRYPTION_KEY` | `@platform-security` | `@platform-api` | 60 dias ou incidente | decrypt/encrypt check + preflight verde |
 | `JOB_HMAC_GLOBAL_SECRET` | `@platform-security` | `@platform-worker` | 60 dias ou incidente | assinatura/validacao em job de smoke |
 | `STRIPE_SECRET_KEY` | `@platform-api` | `@platform-security` | 90 dias ou incidente | smoke de billing verde |
 | `STRIPE_WEBHOOK_SECRET` | `@platform-api` | `@platform-security` | 90 dias ou incidente | webhook signature check verde |
-| `RENDER_PRODUCTION_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | em toda troca de infra | deploy hook dry-check + gate de branch |
-| `RENDER_STAGING_DEPLOY_HOOK_URL` | `@platform-devex` | `@platform-architecture` | N/A | N/A |
+| `GCP_WORKLOAD_IDENTITY_PROVIDER` | `@platform-devex` | `@platform-security` | em toda troca de infra | auth via OIDC validado em staging |
+| `GCP_SERVICE_ACCOUNT_EMAIL` | `@platform-devex` | `@platform-architecture` | em toda troca de infra | deploy candidato validado |
+| `CLOUD_RUN_REGION` | `@platform-devex` | `@platform-architecture` | em toda troca de infra | rollout manifest com regiao correta |
+| `CLOUD_RUN_API_SERVICE` | `@platform-devex` | `@platform-api` | em toda troca de infra | smoke `health` e rollout manifest |
+| `CLOUD_RUN_WEB_SERVICE` | `@platform-devex` | `@platform-web` | em toda troca de infra | smoke `/pricing` e rollout manifest |
+| `CLOUD_RUN_WORKER_SERVICE` | `@platform-devex` | `@platform-worker` | em toda troca de infra | rollout manifest com revisao candidata |
 | `SENTRY_DSN` | `@platform-api` | `@platform-devex` | N/A | N/A |
 
 > Referencia de ownership: `.github/CODEOWNERS`.
@@ -65,7 +78,7 @@ pnpm release:preflight:production -- --env-file=ops/env/.env.production.sealed.e
 
 ## 4) Evidencias esperadas para liberar producao
 
-Antes de executar `deploy-production`, a pipeline deve ter:
+Antes de executar `promote-production`, a pipeline deve ter:
 
 - `production-preflight` verde.
 - `release-smoke-gate` verde.

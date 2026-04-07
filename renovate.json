@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    "helpers:pinGitHubActionDigests"
+  ],
+  "labels": ["dependencies"],
+  "prHourlyLimit": 2,
+  "rangeStrategy": "replace",
+  "timezone": "America/Sao_Paulo",
+  "schedule": ["before 5am on monday"],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "labels": ["dependencies", "github-actions"]
+    },
+    {
+      "matchManagers": ["npm", "pnpm"],
+      "labels": ["dependencies", "npm"]
+    },
+    {
+      "matchUpdateTypes": ["digest", "pin", "patch"],
+      "automerge": true
+    }
+  ]
+}

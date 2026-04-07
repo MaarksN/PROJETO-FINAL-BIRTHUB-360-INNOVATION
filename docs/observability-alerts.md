@@ -65,3 +65,9 @@ A emissão de alerta inicia o runbook de investigação (`docs/runbooks/incident
 - `P0`: acionamento imediato de on-call.
 - `P1`: triagem em até 15 min.
 - `P2/P3`: fila operacional e correção programada.
+
+## Escalonamento operacional
+
+- O caminho canônico de alerta é `Prometheus -> Alertmanager -> webhook-receiver -> PagerDuty`.
+- As chaves `PAGERDUTY_ROUTING_KEY` ou `PAGERDUTY_ROUTING_KEY_P0..P3` definem a rota de escalonamento efetiva.
+- A ausência dessas chaves em runtime estrito deve aparecer como `degraded` no `/health` do `apps/webhook-receiver`.

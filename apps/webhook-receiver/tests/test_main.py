@@ -54,6 +54,7 @@ def test_health_reports_dependency_state_in_strict_runtime(monkeypatch):
     monkeypatch.setattr(webhook_main, "INTERNAL_SERVICE_TOKEN", "svc_test")
     monkeypatch.setattr(webhook_main, "PRIMARY_API_URL", "http://primary.local")
     monkeypatch.setattr(webhook_main, "API_GATEWAY_URL", "http://compat.local")
+    monkeypatch.setenv("PAGERDUTY_ROUTING_KEY", "pd_test")
     monkeypatch.setenv("SVIX_WEBHOOK_SECRET", "svix_test")
 
     with TestClient(webhook_main.app) as client:
@@ -64,6 +65,7 @@ def test_health_reports_dependency_state_in_strict_runtime(monkeypatch):
     assert payload["status"] == "ok"
     assert payload["services"]["primaryApi"]["status"] == "up"
     assert payload["services"]["compatApi"]["status"] == "up"
+    assert payload["services"]["pagerDuty"]["status"] == "up"
 
 
 def test_stripe_webhook_dispatches_internal_patch_and_records_event(monkeypatch):
@@ -127,3 +129,71 @@ def test_invalid_svix_signature_returns_401(monkeypatch):
         )
 
     assert response.status_code == 401
+
+
+def test_escalation_forwards_to_pagerduty_and_records_event(monkeypatch):
+    captured = {}
+    redis = DummyRedis()
+
+    class DummyResponse:
+        def raise_for_status(self):
+            return None
+
+    class DummyClient:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+        async def post(self, url, json):
+            captured["json"] = json
+            captured["url"] = url
+            return DummyResponse()
+
+    monkeypatch.setenv("PAGERDUTY_ROUTING_KEY_P0", "routing-key-p0")
+    monkeypatch.setenv("PAGERDUTY_SOURCE", "birthhub-platform")
+    monkeypatch.setattr(webhook_main.httpx, "AsyncClient", lambda timeout=10: DummyClient())
+    monkeypatch.setattr(webhook_main, "redis_client", redis)
+
+    with TestClient(webhook_main.app) as client:
+        response = client.post(
+            "/escalation/p0",
+            json={
+                "alerts": [{"status": "firing"}],
+                "commonAnnotations": {"summary": "API indisponivel"},
+                "commonLabels": {"alertname": "ApiUnavailable", "domain": "api"},
+                "groupKey": "group-1",
+                "status": "firing",
+            },
+        )
+
+    assert response.status_code == 200
+    assert response.json()["forwarded"] is True
+    assert response.json()["event_action"] == "trigger"
+    assert captured["url"] == webhook_main.PAGERDUTY_EVENTS_URL
+    assert captured["json"]["routing_key"] == "routing-key-p0"
+    assert captured["json"]["payload"]["severity"] == "critical"
+    assert captured["json"]["payload"]["source"] == "birthhub-platform"
+    assert redis.events[0]["stream"] == "alerts"
+    assert redis.events[0]["payload"]["severity"] == "p0"
+
+
+def test_escalation_is_accepted_when_pagerduty_is_not_configured(monkeypatch):
+    monkeypatch.delenv("PAGERDUTY_ROUTING_KEY", raising=False)
+    monkeypatch.delenv("PAGERDUTY_ROUTING_KEY_P1", raising=False)
+    monkeypatch.setattr(webhook_main, "redis_client", DummyRedis())
+
+    with TestClient(webhook_main.app) as client:
+        response = client.post(
+            "/escalation/p1",
+            json={
+                "commonAnnotations": {"summary": "Latencia elevada"},
+                "commonLabels": {"alertname": "ApiHighLatencyP95"},
+                "status": "firing",
+            },
+        )
+
+    assert response.status_code == 200
+    assert response.json()["forwarded"] is False
+    assert response.json()["reason"] == "missing-routing-key"

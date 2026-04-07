@@ -6,6 +6,11 @@ PASS api_keys
 PASS mfa_recovery_codes
 PASS mfa_challenges
 PASS login_alerts
+PASS privacy_consents
+PASS privacy_consent_events
+PASS data_retention_policies
+PASS data_retention_executions
+PASS break_glass_grants
 PASS job_signing_secrets
 PASS agents
 PASS agent_budgets
@@ -14,9 +19,15 @@ PASS output_artifacts
 PASS workflows
 PASS workflow_steps
 PASS workflow_transitions
+PASS workflow_revisions
 PASS workflow_executions
 PASS step_results
 PASS customers
+PASS patients
+PASS pregnancy_records
+PASS appointments
+PASS clinical_notes
+PASS neonatal_records
 PASS invites
 PASS audit_logs
 PASS quota_usage

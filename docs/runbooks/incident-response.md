@@ -6,7 +6,7 @@
   1. Revise PgBouncer active connections e status de Locks.
   2. Verifique Redis memory eviction policies (se OOM).
   3. Desabilite tarefas assíncronas não-críticas no Worker para aliviar carga.
-  4. Redimensione Verticalmente (Scale-up) instâncias na GCP Cloud Run.
+  4. Escale a capacidade do servico canonico no Cloud Run ou reduza carga assincrona antes de escalar novamente.
 
 ## Perda de Dados
 - Acionamento: Falha confirmada em DB Master ou Drop acidental.

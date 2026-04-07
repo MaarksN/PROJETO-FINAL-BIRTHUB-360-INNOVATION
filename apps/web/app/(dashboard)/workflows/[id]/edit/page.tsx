@@ -159,6 +159,7 @@ function WorkflowEditorCanvas({
   onShuffle: () => void;
   setWorkflowName: (name: string) => void;
   validationErrors: string[];
+  workflowId: string;
   workflowName: string;
   workflowId: string;
   workflowStatus: WorkflowStatus;

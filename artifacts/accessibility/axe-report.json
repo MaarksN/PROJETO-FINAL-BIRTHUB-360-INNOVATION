@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T14:13:35.884Z",
+  "checkedAt": "2026-04-07T18:04:29.104Z",
   "mode": "browser-dom-smoke",
   "requestedTool": "playwright",
   "sufficient": true,
@@ -47,6 +47,6 @@
     }
   ],
   "findings": [],
-  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 816ms\n\n GET /pricing 200 in 737ms (next.js: 117ms, proxy.ts: 204ms, application-code: 416ms)\n GET / 200 in 209ms (next.js: 105ms, proxy.ts: 7ms, application-code: 97ms)\n GET /pricing 200 in 111ms (next.js: 6ms, proxy.ts: 8ms, application-code: 97ms)\n GET /legal/terms 200 in 203ms (next.js: 54ms, proxy.ts: 10ms, application-code: 139ms)\n GET /legal/privacy 200 in 162ms (next.js: 46ms, proxy.ts: 10ms, application-code: 107ms)\n",
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 3.3s\n\n GET /pricing 200 in 1914ms (next.js: 329ms, proxy.ts: 613ms, application-code: 972ms)\n GET / 200 in 225ms (next.js: 61ms, proxy.ts: 14ms, application-code: 150ms)\n GET /pricing 200 in 229ms (next.js: 10ms, proxy.ts: 18ms, application-code: 201ms)\n GET /legal/terms 200 in 343ms (next.js: 130ms, proxy.ts: 42ms, application-code: 172ms)\n GET /legal/privacy 200 in 841ms (next.js: 167ms, proxy.ts: 106ms, application-code: 568ms)\n",
   "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from \"127.0.0.1\".\nCross-origin access to Next.js dev resources is blocked by default for safety.\n\nTo allow this host in development, add it to \"allowedDevOrigins\" in next.config.js and restart the dev server:\n\n// next.config.js\nmodule.exports = {\n  allowedDevOrigins: ['127.0.0.1'],\n}\n\nRead more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins\n"
 }

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-06T14:13:36.441Z",
+  "checkedAt": "2026-04-07T18:04:30.673Z",
   "createdRoutines": [
     "get_current_tenant_id",
     "prevent_audit_log_mutation",
@@ -44,6 +44,31 @@
     },
     {
       "issues": [],
+      "model": "PrivacyConsent",
+      "table": "privacy_consents"
+    },
+    {
+      "issues": [],
+      "model": "PrivacyConsentEvent",
+      "table": "privacy_consent_events"
+    },
+    {
+      "issues": [],
+      "model": "DataRetentionPolicy",
+      "table": "data_retention_policies"
+    },
+    {
+      "issues": [],
+      "model": "DataRetentionExecution",
+      "table": "data_retention_executions"
+    },
+    {
+      "issues": [],
+      "model": "BreakGlassGrant",
+      "table": "break_glass_grants"
+    },
+    {
+      "issues": [],
       "model": "JobSigningSecret",
       "table": "job_signing_secrets"
     },
@@ -84,6 +109,11 @@
     },
     {
       "issues": [],
+      "model": "WorkflowRevision",
+      "table": "workflow_revisions"
+    },
+    {
+      "issues": [],
       "model": "WorkflowExecution",
       "table": "workflow_executions"
     },
@@ -96,6 +126,31 @@
       "issues": [],
       "model": "Customer",
       "table": "customers"
+    },
+    {
+      "issues": [],
+      "model": "Patient",
+      "table": "patients"
+    },
+    {
+      "issues": [],
+      "model": "PregnancyRecord",
+      "table": "pregnancy_records"
+    },
+    {
+      "issues": [],
+      "model": "Appointment",
+      "table": "appointments"
+    },
+    {
+      "issues": [],
+      "model": "ClinicalNote",
+      "table": "clinical_notes"
+    },
+    {
+      "issues": [],
+      "model": "NeonatalRecord",
+      "table": "neonatal_records"
     },
     {
       "issues": [],
@@ -228,9 +283,12 @@
     "agent_handoffs",
     "agents",
     "api_keys",
+    "appointments",
     "audit_logs",
     "billing_credits",
     "billing_events",
+    "break_glass_grants",
+    "clinical_notes",
     "connector_accounts",
     "connector_credentials",
     "connector_sync_cursors",
@@ -238,6 +296,8 @@
     "conversation_threads",
     "crm_sync_events",
     "customers",
+    "data_retention_executions",
+    "data_retention_policies",
     "dataset_exports",
     "invites",
     "invoices",
@@ -246,10 +306,15 @@
     "members",
     "mfa_challenges",
     "mfa_recovery_codes",
+    "neonatal_records",
     "notifications",
     "organizations",
     "output_artifacts",
+    "patients",
     "payment_methods",
+    "pregnancy_records",
+    "privacy_consent_events",
+    "privacy_consents",
     "quota_usage",
     "sessions",
     "step_results",
@@ -260,6 +325,7 @@
     "webhook_deliveries",
     "webhook_endpoints",
     "workflow_executions",
+    "workflow_revisions",
     "workflow_steps",
     "workflow_transitions",
     "workflows"
@@ -272,6 +338,11 @@
     "mfa_recovery_codes",
     "mfa_challenges",
     "login_alerts",
+    "privacy_consents",
+    "privacy_consent_events",
+    "data_retention_policies",
+    "data_retention_executions",
+    "break_glass_grants",
     "job_signing_secrets",
     "agents",
     "agent_budgets",
@@ -280,9 +351,15 @@
     "workflows",
     "workflow_steps",
     "workflow_transitions",
+    "workflow_revisions",
     "workflow_executions",
     "step_results",
     "customers",
+    "patients",
+    "pregnancy_records",
+    "appointments",
+    "clinical_notes",
+    "neonatal_records",
     "invites",
     "audit_logs",
     "quota_usage",
