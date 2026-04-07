@@ -385,7 +385,7 @@ async function writeEnvironmentParity() {
     "ops/release/sealed/.env.staging.sealed",
     "ops/release/sealed/.env.production.sealed"
   ].filter(fileExists);
-  const cloudRunFiles = ["infra/cloudrun/service.yaml"].filter(fileExists);
+  const canonicalDeployFiles = [".github/workflows/cd.yml"].filter(fileExists);
   const monitoringFiles = [
     "infra/monitoring/prometheus.yml",
     "infra/monitoring/alert.rules.yml",
@@ -402,7 +402,7 @@ async function writeEnvironmentParity() {
     "",
     `- Dockerfiles present: ${dockerfiles.length}/3 (${dockerfiles.map((entry) => `\`${entry}\``).join(", ")})`,
     `- Compose surfaces present: ${composeFiles.length}/2 (${composeFiles.map((entry) => `\`${entry}\``).join(", ")})`,
-    `- Cloud Run manifest: ${cloudRunFiles.length ? `present (\`${cloudRunFiles[0]}\`)` : "missing"}`,
+    `- Canonical deploy lane: ${canonicalDeployFiles.length ? `present (\`${canonicalDeployFiles[0]}\` -> Render deploy hooks)` : "missing"}`,
     `- Monitoring stack refs: ${monitoringFiles.map((entry) => `\`${entry}\``).join(", ")}`,
     "",
     "## Release Preflight Evidence",

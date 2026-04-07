@@ -1,4 +1,7 @@
 import {
+  ConsentPurpose,
+  ConsentSource,
+  ConsentStatus,
   ensureUserPreference,
   listNotifications,
   markAllNotificationsAsRead,
@@ -8,6 +11,7 @@ import {
 } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { savePrivacyConsentDecisions } from "../privacy/consent.service.js";
 
 async function resolveOrganization(tenantReference: string) {
   const organization = await prisma.organization.findFirst({
@@ -94,7 +98,7 @@ export async function saveNotificationPreferences(input: {
   userId: string;
 }) {
   const organization = await resolveOrganization(input.tenantReference);
-  return updateUserPreference({
+  const preferences = await updateUserPreference({
     organizationId: organization.id,
     tenantId: organization.tenantId,
     userId: input.userId,
@@ -104,4 +108,37 @@ export async function saveNotificationPreferences(input: {
     ...(input.marketingEmails !== undefined ? { marketingEmails: input.marketingEmails } : {}),
     ...(input.pushNotifications !== undefined ? { pushNotifications: input.pushNotifications } : {})
   });
+
+  const decisions = [];
+
+  if (input.cookieConsent !== undefined) {
+    decisions.push({
+      purpose: ConsentPurpose.ANALYTICS,
+      source: ConsentSource.SETTINGS,
+      status:
+        input.cookieConsent === "ACCEPTED"
+          ? ConsentStatus.GRANTED
+          : input.cookieConsent === "REJECTED"
+            ? ConsentStatus.REVOKED
+            : ConsentStatus.PENDING
+    });
+  }
+
+  if (input.marketingEmails !== undefined) {
+    decisions.push({
+      purpose: ConsentPurpose.MARKETING,
+      source: ConsentSource.SETTINGS,
+      status: input.marketingEmails ? ConsentStatus.GRANTED : ConsentStatus.REVOKED
+    });
+  }
+
+  if (decisions.length > 0) {
+    await savePrivacyConsentDecisions({
+      decisions,
+      organizationReference: organization.id,
+      userId: input.userId
+    });
+  }
+
+  return preferences;
 }

@@ -1,3 +1,4 @@
+import { getWebConfig } from "@birthub/config";
 import Link from "next/link";
 
 import {
@@ -52,6 +53,7 @@ function toCurrency(cents: number): string {
 }
 
 export default async function AnalyticsPage() {
+  const config = getWebConfig();
   const [executive, cohort, active, usage] = await Promise.all([
     fetchProductJson<ExecutivePayload>("/api/v1/analytics/executive"),
     fetchProductJson<CohortPayload>("/api/v1/analytics/cohort"),
@@ -72,7 +74,7 @@ export default async function AnalyticsPage() {
       <ProductPageHeader
         actions={
           <div className="hero-actions">
-            <a href="/api/v1/analytics/billing/export">Exportar CSV</a>
+            <a href={`${config.NEXT_PUBLIC_API_URL}/api/v1/analytics/billing/export`}>Exportar CSV</a>
             <Link className="ghost-button" href="/reports">
               Ir para reports
             </Link>

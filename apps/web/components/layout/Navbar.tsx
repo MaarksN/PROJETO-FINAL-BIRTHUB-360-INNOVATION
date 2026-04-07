@@ -64,6 +64,8 @@ function groupByDay(items: NotificationItem[]) {
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/patients", label: "Pacientes" },
+  { href: "/appointments", label: "Agenda" },
   { href: "/workflows", label: "Workflows" },
   { href: "/notifications", label: "Notificacoes" },
   { href: "/analytics", label: "Analytics" },

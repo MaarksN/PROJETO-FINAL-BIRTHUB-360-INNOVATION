@@ -544,7 +544,7 @@ function collectCapabilities(files, schemaModels) {
   };
   const infra = {
     terraform: files.some((filePath) => filePath.startsWith("infra/terraform/") && filePath.endsWith(".tf")),
-    cloudRun: files.includes("infra/cloudrun/service.yaml"),
+    canonicalCdWorkflow: files.includes(".github/workflows/cd.yml"),
     k8sFiles: files.filter((filePath) => filePath.startsWith("infra/k8s/") && !filePath.endsWith(".gitkeep")),
     monitoringFiles: files.filter((filePath) => filePath.startsWith("infra/monitoring/")),
     dockerfiles: files.filter((filePath) => path.posix.basename(filePath).startsWith("Dockerfile") || filePath.endsWith("docker-compose.yml") || filePath.endsWith("docker-compose.prod.yml"))

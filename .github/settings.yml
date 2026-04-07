@@ -20,6 +20,8 @@ branches:
           - commitlint
           - lockfile-integrity
           - lockfile-corruption-simulation
+          - coverage-quality
+          - mutation-testing
           - "platform (lint)"
           - "platform (typecheck)"
           - ci
@@ -40,6 +42,8 @@ branches:
           - commitlint
           - lockfile-integrity
           - lockfile-corruption-simulation
+          - coverage-quality
+          - mutation-testing
           - "platform (lint)"
           - "platform (typecheck)"
           - ci

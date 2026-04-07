@@ -1,3 +1,4 @@
+import { getWebConfig } from "@birthub/config";
 import Link from "next/link";
 
 import {
@@ -21,6 +22,7 @@ export default async function ReportsPage({
 }: Readonly<{
   searchParams?: Promise<SearchParams>;
 }>) {
+  const config = getWebConfig();
   const resolvedParams = (await searchParams) ?? {};
   const typeFilter = readParam(resolvedParams.type);
   const executionId = readParam(resolvedParams.executionId);
@@ -37,7 +39,9 @@ export default async function ReportsPage({
       <ProductPageHeader
         actions={
           <div className="hero-actions">
-            <a href="/api/v1/analytics/billing/export">Exportar billing CSV</a>
+            <a href={`${config.NEXT_PUBLIC_API_URL}/api/v1/analytics/billing/export`}>
+              Exportar billing CSV
+            </a>
             <Link className="ghost-button" href="/outputs">
               Abrir outputs legacy
             </Link>
@@ -91,7 +95,10 @@ export default async function ReportsPage({
                         >
                           Detalhes
                         </Link>
-                        <a className="ghost-button" href={`/api/v1/outputs/${output.id}/export`}>
+                        <a
+                          className="ghost-button"
+                          href={`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${output.id}/export`}
+                        >
                           Exportar
                         </a>
                       </div>

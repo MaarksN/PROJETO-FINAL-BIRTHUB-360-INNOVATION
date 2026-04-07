@@ -7,6 +7,7 @@ import { createAnalyticsRouter } from "../modules/analytics/router.js";
 import { createApiKeysRouter } from "../modules/apikeys/router.js";
 import { createAuthRouter } from "../modules/auth/router.js";
 import { createBillingRouter } from "../modules/billing/index.js";
+import { createBreakGlassRouter } from "../modules/break-glass/router.js";
 import { createBudgetRouter } from "../modules/budget/budget-routes.js";
 import { createClinicalRouter } from "../modules/clinical/router.js";
 import { createConnectorsRouter } from "../modules/connectors/index.js";
@@ -32,6 +33,7 @@ type ModuleRouterDependencies = {
   createApiKeysRouter: typeof createApiKeysRouter;
   createAuthRouter: typeof createAuthRouter;
   createBillingRouter: typeof createBillingRouter;
+  createBreakGlassRouter: typeof createBreakGlassRouter;
   createBudgetRouter: typeof createBudgetRouter;
   createClinicalRouter: typeof createClinicalRouter;
   createConnectorsRouter: typeof createConnectorsRouter;
@@ -59,6 +61,7 @@ const defaultDependencies: ModuleRouterDependencies = {
   createApiKeysRouter,
   createAuthRouter,
   createBillingRouter,
+  createBreakGlassRouter,
   createBudgetRouter,
   createClinicalRouter,
   createConnectorsRouter,
@@ -100,6 +103,7 @@ export function mountModuleRouters(
   app.use("/api/v1", dependencies.createConversationsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);
   app.use("/api/v1/billing", dependencies.createBillingRouter(config));
+  app.use("/api/v1", dependencies.createBreakGlassRouter(config));
   app.use("/api/v1/budgets", dependencies.createBudgetRouter());
   app.use("/api/v1", dependencies.createClinicalRouter());
   app.use("/api/v1", dependencies.createFeedbackRouter());

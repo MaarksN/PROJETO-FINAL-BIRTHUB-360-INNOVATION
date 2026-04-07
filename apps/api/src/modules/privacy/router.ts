@@ -3,8 +3,17 @@ import {
   privacyDeleteRequestSchema,
   privacyDeleteResponseSchema
 } from "@birthub/config";
-import { Role } from "@birthub/database";
+import {
+  ConsentPurpose,
+  ConsentSource,
+  ConsentStatus,
+  RetentionAction,
+  RetentionDataCategory,
+  RetentionExecutionMode,
+  Role
+} from "@birthub/database";
 import { Router } from "express";
+import { z } from "zod";
 
 import {
   RequireRole,
@@ -15,11 +24,185 @@ import { validateBody } from "../../middleware/validate-body.js";
 import {
   deleteAccountAndPersonalData,
   exportTenantData,
+  findOrganizationByReference,
   recordTenantDataExport
 } from "./service.js";
+import {
+  listPrivacyConsents,
+  savePrivacyConsentDecisions
+} from "./consent.service.js";
+import {
+  listRetentionPolicies,
+  runRetentionSweep,
+  updateRetentionPolicies
+} from "./retention.service.js";
+
+const consentDecisionSchema = z
+  .object({
+    purpose: z.nativeEnum(ConsentPurpose),
+    source: z.nativeEnum(ConsentSource).default(ConsentSource.SETTINGS),
+    status: z.nativeEnum(ConsentStatus)
+  })
+  .strict();
+
+const consentUpdateSchema = z
+  .object({
+    decisions: z.array(consentDecisionSchema).min(1)
+  })
+  .strict();
+
+const retentionUpdateSchema = z
+  .object({
+    policies: z
+      .array(
+        z
+          .object({
+            action: z.nativeEnum(RetentionAction).optional(),
+            dataCategory: z.nativeEnum(RetentionDataCategory),
+            enabled: z.boolean().optional(),
+            retentionDays: z.coerce.number().int().positive().optional()
+          })
+          .strict()
+      )
+      .min(1)
+  })
+  .strict();
+
+const retentionRunSchema = z
+  .object({
+    mode: z.nativeEnum(RetentionExecutionMode).default(RetentionExecutionMode.DRY_RUN)
+  })
+  .strict();
 
 export function createPrivacyRouter(config: ApiConfig): Router {
   const router = Router();
+
+  router.get(
+    "/consents",
+    requireAuthenticatedSession,
+    asyncHandler(async (request, response) => {
+      const userId = request.context.userId;
+      const organizationReference = request.context.organizationId;
+
+      if (!userId || !organizationReference) {
+        throw new Error("Authenticated user and organization context are required.");
+      }
+
+      const payload = await listPrivacyConsents({
+        organizationReference,
+        userId
+      });
+
+      response.status(200).json({
+        ...payload,
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.put(
+    "/consents",
+    requireAuthenticatedSession,
+    validateBody(consentUpdateSchema),
+    asyncHandler(async (request, response) => {
+      const userId = request.context.userId;
+      const organizationReference = request.context.organizationId;
+
+      if (!userId || !organizationReference) {
+        throw new Error("Authenticated user and organization context are required.");
+      }
+
+      const body = consentUpdateSchema.parse(request.body);
+      await savePrivacyConsentDecisions({
+        decisions: body.decisions,
+        organizationReference,
+        userId
+      });
+
+      const payload = await listPrivacyConsents({
+        organizationReference,
+        userId
+      });
+
+      response.status(200).json({
+        ...payload,
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.get(
+    "/retention",
+    requireAuthenticatedSession,
+    RequireRole(Role.OWNER),
+    asyncHandler(async (request, response) => {
+      const organizationReference = request.context.organizationId;
+
+      if (!organizationReference) {
+        throw new Error("Active organization context is required.");
+      }
+
+      response.status(200).json({
+        ...(await listRetentionPolicies({ organizationReference })),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.put(
+    "/retention",
+    requireAuthenticatedSession,
+    RequireRole(Role.OWNER),
+    validateBody(retentionUpdateSchema),
+    asyncHandler(async (request, response) => {
+      const organizationReference = request.context.organizationId;
+
+      if (!organizationReference) {
+        throw new Error("Active organization context is required.");
+      }
+
+      const body = retentionUpdateSchema.parse(request.body);
+      response.status(200).json({
+        ...(await updateRetentionPolicies({
+          organizationReference,
+          policies: body.policies
+        })),
+        requestId: request.context.requestId
+      });
+    })
+  );
+
+  router.post(
+    "/retention/run",
+    requireAuthenticatedSession,
+    RequireRole(Role.OWNER),
+    validateBody(retentionRunSchema),
+    asyncHandler(async (request, response) => {
+      const organizationReference = request.context.organizationId;
+
+      if (!organizationReference) {
+        throw new Error("Active organization context is required.");
+      }
+
+      const body = retentionRunSchema.parse(request.body);
+      const organization = await findOrganizationByReference(organizationReference);
+
+      if (!organization) {
+        throw new Error("Organization not found for retention execution.");
+      }
+
+      const result = await runRetentionSweep({
+        config,
+        mode: body.mode,
+        organizationReference: organization.id
+      });
+
+      response.status(200).json({
+        items: result,
+        requestId: request.context.requestId
+      });
+    })
+  );
 
   router.get(
     "/export",

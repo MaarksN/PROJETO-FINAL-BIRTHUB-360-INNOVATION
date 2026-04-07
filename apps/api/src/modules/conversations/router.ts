@@ -66,15 +66,32 @@ export function createConversationsRouter(): Router {
         userId: request.context.userId
       });
       const query = conversationQuerySchema.parse(request.query);
-
-      const items = await listConversations({
-        channel: query.channel,
+      const filters: {
+        channel?: string;
+        limit?: number;
+        organizationId: string;
+        query?: string;
+        status?: string;
+        tenantId: string;
+      } = {
         limit: query.limit,
         organizationId: identity.organizationId,
-        query: query.q,
-        status: query.status,
         tenantId: identity.tenantId
-      });
+      };
+
+      if (query.channel) {
+        filters.channel = query.channel;
+      }
+
+      if (query.q) {
+        filters.query = query.q;
+      }
+
+      if (query.status) {
+        filters.status = query.status;
+      }
+
+      const items = await listConversations(filters);
 
       response.status(200).json({
         items,
@@ -124,12 +141,34 @@ export function createConversationsRouter(): Router {
         userId: request.context.userId
       });
       const payload = createConversationSchema.parse(request.body);
-      const conversation = await createConversation({
-        ...payload,
+      const nextConversation: {
+        channel?: string;
+        initialMessage?: string;
+        metadata?: Record<string, unknown>;
+        organizationId: string;
+        subject: string;
+        tenantId: string;
+        userId: string;
+      } = {
         organizationId: identity.organizationId,
+        subject: payload.subject,
         tenantId: identity.tenantId,
         userId: identity.userId
-      });
+      };
+
+      if (payload.channel) {
+        nextConversation.channel = payload.channel;
+      }
+
+      if (payload.initialMessage) {
+        nextConversation.initialMessage = payload.initialMessage;
+      }
+
+      if (payload.metadata) {
+        nextConversation.metadata = payload.metadata;
+      }
+
+      const conversation = await createConversation(nextConversation);
 
       response.status(201).json({
         conversation,

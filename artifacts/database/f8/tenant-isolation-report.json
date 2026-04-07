@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-07T17:52:23.018Z",
+  "checkedAt": "2026-04-07T18:04:30.673Z",
   "createdRoutines": [
     "get_current_tenant_id",
     "prevent_audit_log_mutation",
@@ -41,6 +41,31 @@
       "issues": [],
       "model": "LoginAlert",
       "table": "login_alerts"
+    },
+    {
+      "issues": [],
+      "model": "PrivacyConsent",
+      "table": "privacy_consents"
+    },
+    {
+      "issues": [],
+      "model": "PrivacyConsentEvent",
+      "table": "privacy_consent_events"
+    },
+    {
+      "issues": [],
+      "model": "DataRetentionPolicy",
+      "table": "data_retention_policies"
+    },
+    {
+      "issues": [],
+      "model": "DataRetentionExecution",
+      "table": "data_retention_executions"
+    },
+    {
+      "issues": [],
+      "model": "BreakGlassGrant",
+      "table": "break_glass_grants"
     },
     {
       "issues": [],
@@ -262,6 +287,7 @@
     "audit_logs",
     "billing_credits",
     "billing_events",
+    "break_glass_grants",
     "clinical_notes",
     "connector_accounts",
     "connector_credentials",
@@ -270,6 +296,8 @@
     "conversation_threads",
     "crm_sync_events",
     "customers",
+    "data_retention_executions",
+    "data_retention_policies",
     "dataset_exports",
     "invites",
     "invoices",
@@ -285,6 +313,8 @@
     "patients",
     "payment_methods",
     "pregnancy_records",
+    "privacy_consent_events",
+    "privacy_consents",
     "quota_usage",
     "sessions",
     "step_results",
@@ -308,6 +338,11 @@
     "mfa_recovery_codes",
     "mfa_challenges",
     "login_alerts",
+    "privacy_consents",
+    "privacy_consent_events",
+    "data_retention_policies",
+    "data_retention_executions",
+    "break_glass_grants",
     "job_signing_secrets",
     "agents",
     "agent_budgets",

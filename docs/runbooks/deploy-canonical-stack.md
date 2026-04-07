@@ -4,6 +4,11 @@
 
 Este runbook cobre somente `apps/web`, `apps/api`, `apps/worker` e `packages/database`.
 
+## Lane única
+
+O deploy canônico da aplicação é `GitHub Actions -> .github/workflows/cd.yml -> Render deploy hooks`.
+Qualquer rota manual fora desse fluxo é tratada como exceção operacional e não como estratégia oficial.
+
 ## Passos
 
 1. Confirmar `main` como branch fonte.
@@ -13,7 +18,7 @@ Este runbook cobre somente `apps/web`, `apps/api`, `apps/worker` e `packages/dat
 5. Validar `pnpm release:smoke`.
 6. Validar `pnpm test:e2e:release`.
 7. Executar o workflow `CD` em `workflow_dispatch`.
-8. Confirmar `deploy-production` concluído.
+8. Confirmar `deploy-production` concluído e o hook de produção do Render aceito.
 
 ## Evidências mínimas
 

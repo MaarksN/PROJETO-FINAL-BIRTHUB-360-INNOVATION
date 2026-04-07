@@ -165,15 +165,27 @@ export async function createConversation(input: {
   userId: string;
 }) {
   const created = await prisma.$transaction(async (tx) => {
+    const threadData: {
+      channel: string;
+      metadata?: Prisma.InputJsonValue;
+      organizationId: string;
+      status: string;
+      subject: string;
+      tenantId: string;
+    } = {
+      channel: input.channel ?? "internal",
+      organizationId: input.organizationId,
+      status: "open",
+      subject: input.subject,
+      tenantId: input.tenantId
+    };
+
+    if (input.metadata) {
+      threadData.metadata = toJsonValue(input.metadata);
+    }
+
     const thread = await tx.conversationThread.create({
-      data: {
-        channel: input.channel ?? "internal",
-        metadata: input.metadata ? toJsonValue(input.metadata) : undefined,
-        organizationId: input.organizationId,
-        status: "open",
-        subject: input.subject,
-        tenantId: input.tenantId
-      }
+      data: threadData
     });
 
     if (input.initialMessage && input.initialMessage.trim().length > 0) {
@@ -197,11 +209,21 @@ export async function createConversation(input: {
     return thread;
   });
 
-  return getConversationById({
+  const conversation = await getConversationById({
     conversationId: created.id,
     organizationId: input.organizationId,
     tenantId: input.tenantId
   });
+
+  if (!conversation) {
+    throw new ProblemDetailsError({
+      detail: "Conversation was created but could not be reloaded.",
+      status: 500,
+      title: "Conversation reload failed"
+    });
+  }
+
+  return conversation;
 }
 
 async function assertConversationScope(input: {

@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import { workflowCanvasSchema } from "@birthub/workflows-core";
+import {
+  type WorkflowStepLintResult as WorkflowCanvasStepLintResult,
+  workflowCanvasSchema
+} from "@birthub/workflows-core";
 
 export const workflowStateSchema = z.enum(["ARCHIVED", "DRAFT", "PUBLISHED"]);
 
@@ -19,6 +22,11 @@ export const workflowCreateSchema = z
   .strict();
 
 export const workflowUpdateSchema = workflowCreateSchema.partial().strict();
+export const workflowRevertSchema = z
+  .object({
+    version: z.number().int().min(1)
+  })
+  .strict();
 
 export const workflowRunSchema = z
   .object({
@@ -35,6 +43,7 @@ export const workflowRunSchema = z
   .strict();
 
 export type WorkflowCreateInput = z.infer<typeof workflowCreateSchema>;
+export type WorkflowRevertInput = z.infer<typeof workflowRevertSchema>;
 export type WorkflowRunInput = z.infer<typeof workflowRunSchema>;
-export type WorkflowStepLintResult = z.infer<typeof workflowStepLintResultSchema>;
+export type WorkflowStepLintResult = WorkflowCanvasStepLintResult;
 export type WorkflowUpdateInput = z.infer<typeof workflowUpdateSchema>;

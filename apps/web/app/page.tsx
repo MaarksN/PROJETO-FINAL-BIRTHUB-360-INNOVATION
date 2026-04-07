@@ -21,7 +21,16 @@ export default function HomePage() {
         padding: "2rem"
       }}
     >
-      <div className="panel" style={{ maxWidth: 420 }}>
+      <div
+        style={{
+          backdropFilter: "blur(12px)",
+          background: "var(--card)",
+          border: "1px solid var(--border)",
+          borderRadius: 24,
+          maxWidth: 420,
+          padding: "1.25rem"
+        }}
+      >
         <strong>Redirecionando...</strong>
         <p style={{ marginBottom: 0 }}>
           Estamos levando voce para a experiencia principal do produto.

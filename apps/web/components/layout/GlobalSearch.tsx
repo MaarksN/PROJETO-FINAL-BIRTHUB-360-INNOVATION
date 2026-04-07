@@ -51,7 +51,10 @@ export function GlobalSearch() {
   const deferredQuery = useDeferredValue(query);
 
   const shortcutHint = useMemo(
-    () => (navigator.platform.toLowerCase().includes("mac") ? "cmd+k" : "ctrl+k"),
+    () =>
+      typeof navigator !== "undefined" && navigator.platform.toLowerCase().includes("mac")
+        ? "cmd+k"
+        : "ctrl+k",
     []
   );
 

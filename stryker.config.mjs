@@ -3,7 +3,7 @@ export default {
   $schema: "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
   checkers: ["typescript"],
   commandRunner: {
-    command: "pnpm test:mutation:run"
+    command: "node scripts/ci/run-pnpm.mjs test:mutation:run"
   },
   coverageAnalysis: "off",
   mutate: [

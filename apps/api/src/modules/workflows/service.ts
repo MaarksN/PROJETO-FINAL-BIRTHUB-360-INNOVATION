@@ -31,6 +31,7 @@ export interface ScopedIdentity {
 }
 
 const WORKFLOW_LIST_LIMIT = 100;
+const WORKFLOW_EXECUTION_PAGE_LIMIT = 250;
 const WORKFLOW_REVISION_PAGE_LIMIT = 100;
 const STEP_RESULT_PAGE_LIMIT = 250;
 
@@ -88,6 +89,58 @@ async function listWorkflowRevisions(tenantId: string, workflowId: string) {
 
     if (page.length < WORKFLOW_REVISION_PAGE_LIMIT) {
       return revisions;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listWorkflowExecutionsPage(
+  organizationId: string,
+  tenantId: string,
+  workflowId: string,
+  cursorId?: string
+) {
+  return prisma.workflowExecution.findMany({
+    ...(cursorId
+      ? {
+          cursor: {
+            id: cursorId
+          },
+          skip: 1
+        }
+      : {}),
+    orderBy: [
+      {
+        startedAt: "asc"
+      },
+      {
+        id: "asc"
+      }
+    ],
+    take: WORKFLOW_EXECUTION_PAGE_LIMIT,
+    where: {
+      organizationId,
+      tenantId,
+      workflowId
+    }
+  });
+}
+
+async function listWorkflowExecutions(
+  organizationId: string,
+  tenantId: string,
+  workflowId: string
+) {
+  const executions: Awaited<ReturnType<typeof listWorkflowExecutionsPage>> = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await listWorkflowExecutionsPage(organizationId, tenantId, workflowId, cursorId);
+    executions.push(...page);
+
+    if (page.length < WORKFLOW_EXECUTION_PAGE_LIMIT) {
+      return executions;
     }
 
     cursorId = page.at(-1)?.id;
@@ -872,16 +925,11 @@ export async function listWorkflowExecutionLineage(
     throw new Error("WORKFLOW_NOT_FOUND");
   }
 
-  const executions = await prisma.workflowExecution.findMany({
-    orderBy: {
-      startedAt: "asc"
-    },
-    where: {
-      organizationId: identity.organizationId,
-      tenantId: identity.tenantId,
-      workflowId
-    }
-  });
+  const executions = await listWorkflowExecutions(
+    identity.organizationId,
+    identity.tenantId,
+    workflowId
+  );
 
   const nodesById = new Map<string, WorkflowExecutionLineageNode>();
   for (const execution of executions) {
