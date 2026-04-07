@@ -57,7 +57,7 @@ void test("fetchWithSession forwards session headers and absolute URL through th
   let requestUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    requestUrl = String(input);
+    requestUrl = typeof input === "string" ? input : input instanceof URL ? input.toString() : (input as { url: string }).url;
     requestInit = init;
     return Promise.resolve(
       new Response(JSON.stringify({ ok: true }), {
@@ -109,7 +109,8 @@ void test("fetchWithSession rejects with the configured timeout message when the
       init?.signal?.addEventListener(
         "abort",
         () => {
-          reject(init.signal?.reason ?? new Error("aborted"));
+          const err = init.signal?.reason instanceof Error ? init.signal.reason : new Error(String(init.signal?.reason ?? "aborted"));
+          reject(err);
         },
         { once: true }
       );

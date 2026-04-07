@@ -285,6 +285,8 @@ async function handleLiveExecution(
   job: WorkerQueueJob,
   payload: JobExecutionPayload
 ) {
+  // O Loop de Retorno (Fechando o Ciclo)
+  // Como orquestramos o Agent Runtime no Handoff, aqui ele é capturado da fila e executado:
   const runtimeResult = await executeManifestAgentRuntime({
     agentId: payload.agentId,
     catalogAgentId: payload.catalogAgentId,

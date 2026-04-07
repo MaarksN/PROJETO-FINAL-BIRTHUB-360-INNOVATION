@@ -9,16 +9,32 @@ import { getWorkerConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
 
 import { PlanExecutor } from "../executors/planExecutor.js";
-import { runtimeMemory } from "./runtime.memory.js";
+import {
+  buildLearningRecord,
+  createOutputArtifact
+} from "./runtime.artifacts.js";
+import {
+  consumeBudget,
+  ensureBudgetHeadroom
+} from "./runtime.budget.js";
+import {
+  appendConversationMessage,
+  querySharedLearning,
+  runtimeMemory
+} from "./runtime.memory.js";
+import {
+  resolveManagedPolicies,
+  resolveRuntimeAgent
+} from "./runtime.resolution.js";
+import {
+  readSessionId,
+  roundCurrency
+} from "./runtime.shared.js";
+import { createRuntimeTools } from "./runtime.tools.js";
 import type {
   RuntimeExecutionInput,
   RuntimeExecutionResult
 } from "./runtime.types.js";
-import { readSessionId, roundCurrency } from "./runtime.shared.js";
-import { resolveRuntimeAgent, resolveManagedPolicies } from "./runtime.catalog.js";
-import { querySharedLearning, appendConversationMessage, buildLearningRecord, createOutputArtifact } from "./runtime.telemetry.js";
-import { createRuntimeTools } from "./runtime.tools.js";
-import { ensureBudgetHeadroom, consumeBudget } from "./runtime.budget.js";
 
 export async function executeManifestAgentRuntime(
   input: RuntimeExecutionInput
@@ -96,7 +112,11 @@ export async function executeManifestAgentRuntime(
   await persistLogs();
 
   const plannedCostBrl = roundCurrency(
-    plan.toolCalls.reduce((total, call) => total + (toolCostTable[call.tool] ?? workerConfig.AGENT_DEFAULT_TOOL_COST_BRL), 0)
+    plan.toolCalls.reduce(
+      (total, call) =>
+        total + (toolCostTable[call.tool] ?? workerConfig.AGENT_DEFAULT_TOOL_COST_BRL),
+      0
+    )
   );
   await ensureBudgetHeadroom({
     actorId,
