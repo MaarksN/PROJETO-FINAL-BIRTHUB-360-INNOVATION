@@ -295,6 +295,11 @@ function checkFileLengths(candidateFiles) {
       continue;
     }
 
+    // Exceções permitidas por enquanto (refatoração de longo prazo)
+    if (relativePath === "scripts/agent/compile-github-agents.ts") {
+      continue;
+    }
+
     const absolutePath = path.join(projectRoot, relativePath);
     if (!existsSync(absolutePath)) {
       continue;

@@ -23,11 +23,18 @@ export const workflowUpdateSchema = workflowCreateSchema.partial().strict();
 export const workflowRunSchema = z
   .object({
     async: z.boolean().default(true),
-    payload: z.record(z.string(), z.unknown()).default({})
+    payload: z.record(z.string(), z.unknown()).default({}),
+    retry: z
+      .object({
+        fromExecutionId: z.string().min(1),
+        fromStepKey: z.string().min(1).optional()
+      })
+      .strict()
+      .optional()
   })
   .strict();
 
 export type WorkflowCreateInput = z.infer<typeof workflowCreateSchema>;
 export type WorkflowRunInput = z.infer<typeof workflowRunSchema>;
+export type WorkflowStepLintResult = z.infer<typeof workflowStepLintResultSchema>;
 export type WorkflowUpdateInput = z.infer<typeof workflowUpdateSchema>;
-

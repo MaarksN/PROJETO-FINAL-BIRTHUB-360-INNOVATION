@@ -131,10 +131,43 @@ export interface CompiledGithubAgentsSummary {
   totalCount: number;
 }
 
+export const KNOWN_TOOL_SCHEMAS: Record<string, unknown> = {
+  "db-read": {
+    type: "object",
+    properties: {
+      collection: { type: "string", description: "Nome da tabela/coleção (ex: leads, deals)." },
+      filters: { type: "object", description: "Filtros key-value para a busca." },
+      limit: { type: "number", default: 10 }
+    },
+    required: ["collection"]
+  },
+  "http-request": {
+    type: "object",
+    properties: {
+      url: { type: "string", format: "uri" },
+      method: { type: "string", enum: ["GET", "POST", "PUT"] },
+      body: { type: "object" }
+    },
+    required: ["url", "method"]
+  },
+  "handoff": {
+    type: "object",
+    properties: {
+      targetAgentId: { type: "string", description: "ID do agente de destino." },
+      reason: { type: "string", description: "Por que você está passando a bola?" },
+      context: { type: "object", description: "Dados relevantes para o próximo agente." }
+    },
+    required: ["targetAgentId", "context"]
+  }
+};
+
 export const KNOWN_TOOL_DESCRIPTIONS: Record<string, string> = {
   agent: "Delegar, coordenar ou consultar outro agente de forma governada.",
+  "db-read": "Lê registros do banco de dados do tenant atual.",
   edit: "Editar artefatos autorizados com rastreabilidade e controle.",
   execute: "Executar uma acao operacional governada dentro do runtime manifesto.",
+  handoff: "Passa a execução para outro agente especializado.",
+  "http-request": "Realiza chamadas de API externas autorizadas.",
   read: "Ler artefatos, contexto e evidencias necessarias para decisao.",
   search: "Pesquisar catalogos, contexto e sinais relevantes para o objetivo.",
   todo: "Gerenciar plano de execucao, backlog curto e acompanhamento de tarefas."

@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 # Validation Log
-=======
 <!-- [SOURCE] GOV-001 -->
 # Log de Validação do Agente
 
@@ -619,9 +617,7 @@
 
 ## Não executado
 
-<<<<<<< HEAD
 - Nenhum teste adicional foi executado nesta etapa; a auditoria consumiu evidências já existentes no workspace.
-=======
 ---
 
 ## [2026-03-20] | [CI-TS-001] | Codex | [SKIP]

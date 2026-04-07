@@ -31,6 +31,7 @@ model Organization {
   workflowSteps    WorkflowStep[]
   workflowTransitions WorkflowTransition[]
   workflowExecutions WorkflowExecution[]
+  workflowRevisions  WorkflowRevision[]
   stepResults      StepResult[]
   customers        Customer[]
   invites          Invite[]
@@ -356,6 +357,7 @@ model Workflow {
   steps          WorkflowStep[]
   transitions    WorkflowTransition[]
   executions     WorkflowExecution[]
+  revisions      WorkflowRevision[]
   stepResults    StepResult[]
 
   @@unique([tenantId, name])
@@ -421,6 +423,24 @@ model WorkflowTransition {
   @@map("workflow_transitions")
 }
 
+model WorkflowRevision {
+  id             String       @id @default(cuid())
+  tenantId       String
+  organizationId String
+  workflowId     String
+  version        Int
+  definition     Json
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  workflow       Workflow     @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@unique([workflowId, version])
+  @@index([tenantId])
+  @@index([organizationId])
+  @@index([workflowId])
+  @@map("workflow_revisions")
+}
+
 model WorkflowExecution {
   id                    String                  @id @default(cuid())
   tenantId              String
@@ -429,6 +449,7 @@ model WorkflowExecution {
   status                WorkflowExecutionStatus @default(RUNNING)
   triggerType           WorkflowTriggerType
   triggerPayload        Json?
+  isDryRun              Boolean                 @default(false)
   dedupeHash            String?
   depth                 Int                     @default(0)
   startedAt             DateTime                @default(now())

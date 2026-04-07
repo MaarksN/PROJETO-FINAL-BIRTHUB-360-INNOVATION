@@ -97,8 +97,9 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
   );
 
   const metrics = useMemo(() => {
-    const successes = runs.filter((run) => run.status === "SUCCESS").length;
-    const failures = runs.filter((run) => run.status === "FAILED").length;
+    const successes = runs.filter((run) => run.status === "SUCCESS" && !run.isDryRun).length;
+    const failures = runs.filter((run) => run.status === "FAILED" && !run.isDryRun).length;
+    const dryRunsCount = runs.filter((run) => run.isDryRun).length;
     const meanDuration =
       runs.reduce((sum, run) => sum + (run.durationMs ?? 0), 0) / Math.max(runs.length, 1);
 
@@ -120,6 +121,7 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
 
     return {
       bottleneck,
+      dryRunsCount,
       failures,
       meanDuration,
       successes
@@ -162,6 +164,10 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
           <div style={{ fontSize: 22, fontWeight: 700 }}>{metrics.failures}</div>
         </div>
         <div>
+          <small style={{ color: "#4f5d75" }}>Dry Runs</small>
+          <div style={{ fontSize: 22, fontWeight: 700, color: "#0284c7" }}>{metrics.dryRunsCount}</div>
+        </div>
+        <div>
           <small style={{ color: "#4f5d75" }}>Duracao media</small>
           <div style={{ fontSize: 22, fontWeight: 700 }}>{Math.round(metrics.meanDuration)} ms</div>
         </div>
@@ -193,8 +199,15 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
           </thead>
           <tbody>
             {runs.map((run) => (
-              <tr key={run.id}>
-                <td style={{ borderTop: "1px solid #e2e8f0", padding: "0.65rem" }}>{run.id}</td>
+              <tr key={run.id} style={{ background: run.isDryRun ? "#f0f9ff" : undefined }}>
+                <td style={{ borderTop: "1px solid #e2e8f0", padding: "0.65rem" }}>
+                  {run.id}
+                  {run.isDryRun && (
+                    <span style={{ marginLeft: 6, fontSize: 10, background: "#bae6fd", color: "#0369a1", padding: "2px 4px", borderRadius: 4 }}>
+                      DRY RUN
+                    </span>
+                  )}
+                </td>
                 <td style={{ borderTop: "1px solid #e2e8f0", padding: "0.65rem" }}>{run.status}</td>
                 <td style={{ borderTop: "1px solid #e2e8f0", padding: "0.65rem" }}>
                   {new Date(run.completedAt ?? run.startedAt).toLocaleString("pt-BR")}
@@ -218,7 +231,12 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
                         startTransition(() => {
                           void (async () => {
                             try {
-                              await retryWorkflowRun(id);
+                              await retryWorkflowRun({
+                                failedExecutionId: run.id,
+                                failedStepKey:
+                                  run.stepResults.find((result) => result.status === "FAILED")?.step.key,
+                                workflowId: id
+                              });
                               setError("Retry aceito. Recarregue em alguns segundos para ver a nova run.");
                             } catch (retryError) {
                               setError(

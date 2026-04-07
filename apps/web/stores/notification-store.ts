@@ -27,6 +27,20 @@ interface NotificationState {
   refresh: () => Promise<void>;
 }
 
+interface NotificationFeedPayload {
+  items: NotificationItem[];
+  nextCursor: string | null;
+  unreadCount: number;
+}
+
+type NotificationStoreFields = Pick<
+  NotificationState,
+  "error" | "initialized" | "isLoading" | "items" | "nextCursor" | "unreadCount"
+>;
+
+const INITIAL_PAGE_SIZE = 10;
+const LOAD_MORE_PAGE_SIZE = 20;
+
 function dedupeNotifications(items: NotificationItem[]): NotificationItem[] {
   const seen = new Set<string>();
   const deduped: NotificationItem[] = [];
@@ -45,7 +59,82 @@ function dedupeNotifications(items: NotificationItem[]): NotificationItem[] {
   );
 }
 
-async function fetchFeed(cursor?: string | null, limit = 10) {
+function getErrorMessage(error: unknown, fallback: string): string {
+  return error instanceof Error ? error.message : fallback;
+}
+
+function hasActiveSession(): boolean {
+  return Boolean(getStoredSession());
+}
+
+function createLoadingState(): Pick<NotificationStoreFields, "error" | "isLoading"> {
+  return {
+    error: null,
+    isLoading: true
+  };
+}
+
+function createAnonymousState(): NotificationStoreFields {
+  return {
+    error: null,
+    initialized: true,
+    isLoading: false,
+    items: [],
+    nextCursor: null,
+    unreadCount: 0
+  };
+}
+
+function createFeedState(
+  payload: NotificationFeedPayload,
+  items: NotificationItem[] = payload.items
+): NotificationStoreFields {
+  return {
+    error: null,
+    initialized: true,
+    isLoading: false,
+    items: dedupeNotifications(items),
+    nextCursor: payload.nextCursor,
+    unreadCount: payload.unreadCount
+  };
+}
+
+function createMarkAllAsReadState(
+  state: NotificationStoreFields
+): Pick<NotificationStoreFields, "error" | "items" | "unreadCount"> {
+  return {
+    error: null,
+    items: state.items.map((item) => ({
+      ...item,
+      isRead: true
+    })),
+    unreadCount: 0
+  };
+}
+
+function createMarkAsReadState(
+  state: NotificationStoreFields,
+  id: string
+): Pick<NotificationStoreFields, "items" | "unreadCount"> {
+  const unreadTarget = state.items.find((item) => item.id === id && !item.isRead);
+
+  return {
+    items: state.items.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            isRead: true
+          }
+        : item
+    ),
+    unreadCount: Math.max(0, state.unreadCount - (unreadTarget ? 1 : 0))
+  };
+}
+
+async function fetchFeed(
+  cursor?: string | null,
+  limit = INITIAL_PAGE_SIZE
+): Promise<NotificationFeedPayload> {
   const search = new URLSearchParams({
     limit: String(limit)
   });
@@ -62,11 +151,7 @@ async function fetchFeed(cursor?: string | null, limit = 10) {
     throw new Error(`Falha ao carregar notificacoes (${response.status}).`);
   }
 
-  return (await response.json()) as {
-    items: NotificationItem[];
-    nextCursor: string | null;
-    unreadCount: number;
-  };
+  return (await response.json()) as NotificationFeedPayload;
 }
 
 export const useNotificationStore = create<NotificationState>((set, get) => ({
@@ -77,35 +162,27 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
   nextCursor: null,
   unreadCount: 0,
   async loadMore() {
-    if (!getStoredSession() || !get().nextCursor || get().isLoading) {
+    const current = get();
+
+    if (!hasActiveSession() || !current.nextCursor || current.isLoading) {
       return;
     }
 
-    set({
-      error: null,
-      isLoading: true
-    });
+    set(createLoadingState());
 
     try {
-      const payload = await fetchFeed(get().nextCursor, 20);
+      const payload = await fetchFeed(current.nextCursor, LOAD_MORE_PAGE_SIZE);
 
-      set((state) => ({
-        error: null,
-        initialized: true,
-        isLoading: false,
-        items: dedupeNotifications([...state.items, ...payload.items]),
-        nextCursor: payload.nextCursor,
-        unreadCount: payload.unreadCount
-      }));
+      set((state) => createFeedState(payload, [...state.items, ...payload.items]));
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Falha ao carregar mais notificacoes.",
+        error: getErrorMessage(error, "Falha ao carregar mais notificacoes."),
         isLoading: false
       });
     }
   },
   async markAllAsRead() {
-    if (!getStoredSession()) {
+    if (!hasActiveSession()) {
       return;
     }
 
@@ -118,41 +195,21 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
         throw new Error(`Falha ao marcar notificacoes (${response.status}).`);
       }
 
-      set((state) => ({
-        error: null,
-        items: state.items.map((item) => ({
-          ...item,
-          isRead: true
-        })),
-        unreadCount: 0
-      }));
+      set((state) => createMarkAllAsReadState(state));
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Falha ao marcar notificacoes."
+        error: getErrorMessage(error, "Falha ao marcar notificacoes.")
       });
     }
   },
   async markAsRead(id) {
-    if (!getStoredSession()) {
+    if (!hasActiveSession()) {
       return;
     }
 
-    const before = get().items;
+    const snapshot = get();
 
-    set((state) => ({
-      items: state.items.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              isRead: true
-            }
-          : item
-      ),
-      unreadCount: Math.max(
-        0,
-        state.unreadCount - (state.items.some((item) => item.id === id && !item.isRead) ? 1 : 0)
-      )
-    }));
+    set((state) => createMarkAsReadState(state, id));
 
     try {
       const response = await fetchWithSession(`/api/v1/notifications/${encodeURIComponent(id)}/read`, {
@@ -164,47 +221,31 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
       }
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Falha ao marcar notificacao.",
-        items: before
+        error: getErrorMessage(error, "Falha ao marcar notificacao."),
+        items: snapshot.items,
+        unreadCount: snapshot.unreadCount
       });
       await get().refresh();
     }
   },
   async refresh() {
-    if (!getStoredSession()) {
-      set({
-        error: null,
-        initialized: true,
-        items: [],
-        nextCursor: null,
-        unreadCount: 0
-      });
+    if (!hasActiveSession()) {
+      set(createAnonymousState());
       return;
     }
 
-    set({
-      error: null,
-      isLoading: true
-    });
+    set(createLoadingState());
 
     try {
-      const payload = await fetchFeed(undefined, 10);
+      const payload = await fetchFeed(undefined, INITIAL_PAGE_SIZE);
 
-      set({
-        error: null,
-        initialized: true,
-        isLoading: false,
-        items: dedupeNotifications(payload.items),
-        nextCursor: payload.nextCursor,
-        unreadCount: payload.unreadCount
-      });
+      set(createFeedState(payload));
     } catch (error) {
       set({
-        error: error instanceof Error ? error.message : "Falha ao carregar notificacoes.",
+        error: getErrorMessage(error, "Falha ao carregar notificacoes."),
         initialized: true,
         isLoading: false
       });
     }
   }
 }));
-

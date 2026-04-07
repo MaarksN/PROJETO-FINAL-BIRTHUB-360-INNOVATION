@@ -114,12 +114,18 @@ void test("workflow runs helpers load and retry through the session-aware timeou
 
   try {
     const payload = await loadWorkflowRuns("workflow alpha");
-    await retryWorkflowRun("workflow alpha");
+    await retryWorkflowRun({
+      failedExecutionId: "exec_failed_1",
+      failedStepKey: "http_step",
+      workflowId: "workflow alpha"
+    });
 
     assert.equal(payload.workflow.name, "Workflow Alpha");
     assert.equal(calls[0]?.url, "https://api.birthub.test/api/v1/workflows/workflow%20alpha");
     assert.equal(calls[1]?.url, "https://api.birthub.test/api/v1/workflows/workflow%20alpha/run");
     assert.equal(calls[1]?.init?.method, "POST");
+    assert.match(String(calls[1]?.init?.body), /\"fromExecutionId\":\"exec_failed_1\"/);
+    assert.match(String(calls[1]?.init?.body), /\"fromStepKey\":\"http_step\"/);
     assert.equal(calls[0]?.init?.credentials, "include");
     assert.equal(calls[1]?.init?.credentials, "include");
   } finally {

@@ -239,6 +239,24 @@ async function executeWorkflowStep(
   payload: WorkflowExecutionJobPayload,
   dependencies: WorkflowRunnerDependencies
 ): Promise<unknown> {
+  if (payload.isDryRun) {
+    if (context.step.type === "AGENT_EXECUTE") {
+      return { answer: "[DRY RUN] Simulacao de resposta do agente" };
+    }
+    if (context.step.type === "AGENT_HANDOFF") {
+      return { status: "HANDOFF_SIMULADO" };
+    }
+    if (context.step.type === "SEND_NOTIFICATION") {
+      return { success: true, message: "[DRY RUN] Notificacao simulada" };
+    }
+    if (context.step.type === "HTTP_REQUEST") {
+      return { status: 200, body: { dryRun: true }, headers: {} };
+    }
+    if (context.step.type === "CRM_UPSERT" || context.step.type === "WHATSAPP_SEND" || context.step.type === "GOOGLE_EVENT" || context.step.type === "MS_EVENT") {
+      return { success: true, dryRun: true };
+    }
+  }
+
   if (context.step.type === "AGENT_EXECUTE") {
     await consumeSharedAgentBudget(payload.tenantId);
   }

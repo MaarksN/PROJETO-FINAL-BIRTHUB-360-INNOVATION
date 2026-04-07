@@ -14,6 +14,7 @@ import {
   type GithubAgentReadinessArtifact,
   type GithubAgentSource,
   KNOWN_TOOL_DESCRIPTIONS,
+  KNOWN_TOOL_SCHEMAS,
   STANDARD_POLICY_ACTIONS,
   firstMeaningfulLine,
   getGithubAgentCollectionRoot,
@@ -352,7 +353,7 @@ function buildTools(agentId: string, toolNames: string[]): AgentManifest["tools"
       KNOWN_TOOL_DESCRIPTIONS[toolName] ??
       `Executar a capacidade operacional '${toolName}' de forma governada e rastreavel.`,
     id: `${agentId}.tool.${slugify(toolName)}`,
-    inputSchema: { type: "object" },
+    inputSchema: (KNOWN_TOOL_SCHEMAS[toolName] as object) ?? { type: "object" },
     name: titleCase(toolName.replace(/[-_]/gu, " ")),
     outputSchema: { type: "object" },
     timeoutMs: 15_000
