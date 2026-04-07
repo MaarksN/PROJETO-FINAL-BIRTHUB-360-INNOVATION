@@ -109,7 +109,7 @@ void test("fetchWithSession rejects with the configured timeout message when the
       init?.signal?.addEventListener(
         "abort",
         () => {
-          const reason = init.signal?.reason;
+          const reason = init.signal?.reason as unknown;
           if (reason instanceof Error) {
             reject(reason);
           } else if (typeof reason === "string") {

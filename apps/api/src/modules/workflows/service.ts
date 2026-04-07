@@ -20,10 +20,11 @@ import {
 } from "./runnerQueue.js";
 import type {
   WorkflowCreateInput,
-  WorkflowRevertInput,
   WorkflowRunInput,
   WorkflowUpdateInput
 } from "./schemas.js";
+
+export type WorkflowRevertInput = { version: number };
 
 export interface ScopedIdentity {
   organizationId: string;

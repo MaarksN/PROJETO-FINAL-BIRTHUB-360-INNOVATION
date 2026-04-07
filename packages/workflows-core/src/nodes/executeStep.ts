@@ -130,16 +130,24 @@ const stepHandlers = {
       context,
       requireHandoffExecutor(dependencies)
     ),
-  AI_TEXT_EXTRACT: async (step, context) => executeAiTextExtractNode(step.config, context),
-  CODE: async (step, context) => executeCodeNode(step.config, context.steps, context),
-  CONDITION: async (step, context) => executeConditionNode(step.config, context),
+  AI_TEXT_EXTRACT: async (step, context) => {
+    return Promise.resolve(executeAiTextExtractNode(step.config, context));
+  },
+  CODE: async (step, context) => {
+    return Promise.resolve(executeCodeNode(step.config, context.steps, context));
+  },
+  CONDITION: async (step, context) => {
+    return Promise.resolve(executeConditionNode(step.config, context));
+  },
   CRM_UPSERT: async (step, context, dependencies) =>
     executeConnectorActionNode(
       buildCrmUpsertConfig(step.config),
       context,
       requireConnectorExecutor(dependencies)
     ),
-  DELAY: async (step) => executeDelayNode(step.config),
+  DELAY: async (step) => {
+    return Promise.resolve(executeDelayNode(step.config));
+  },
   GOOGLE_EVENT: async (step, context, dependencies) =>
     executeConnectorActionNode(
       buildCalendarEventConfig("GOOGLE_EVENT", step.config),
@@ -156,10 +164,18 @@ const stepHandlers = {
     ),
   SEND_NOTIFICATION: async (step, context, dependencies) =>
     executeNotificationNode(step.config, context, dependencies.notificationDispatcher),
-  TRANSFORMER: async (step, context) => executeTransformerNode(step.config, context),
-  TRIGGER_CRON: async (_step, context) => context.trigger.output,
-  TRIGGER_EVENT: async (_step, context) => context.trigger.output,
-  TRIGGER_WEBHOOK: async (_step, context) => context.trigger.output,
+  TRANSFORMER: async (step, context) => {
+    return Promise.resolve(executeTransformerNode(step.config, context));
+  },
+  TRIGGER_CRON: async (_step, context) => {
+    return Promise.resolve(context.trigger.output);
+  },
+  TRIGGER_EVENT: async (_step, context) => {
+    return Promise.resolve(context.trigger.output);
+  },
+  TRIGGER_WEBHOOK: async (_step, context) => {
+    return Promise.resolve(context.trigger.output);
+  },
   WHATSAPP_SEND: async (step, context, dependencies) =>
     executeConnectorActionNode(
       buildWhatsappSendConfig(step.config),

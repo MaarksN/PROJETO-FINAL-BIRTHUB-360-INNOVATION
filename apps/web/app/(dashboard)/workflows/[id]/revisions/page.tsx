@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useEffect, useMemo, useState, useTransition } from "react";
-import ReactFlow, { Background, MiniMap, type Edge, type Node } from "reactflow";
+import ReactFlow, { Background, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
 
 import type { WorkflowCanvas } from "@birthub/workflows-core";
@@ -9,7 +9,7 @@ import type { WorkflowCanvas } from "@birthub/workflows-core";
 import { fetchWithSession } from "../../../../../lib/auth-client";
 import { nodeTypes, canvasToFlow } from "../edit/workflow-editor-helpers";
 
-type WorkflowRevisionSnapshot = {
+export type WorkflowRevisionSnapshot = {
   id: string;
   version: number;
   definition: WorkflowCanvas;
@@ -33,13 +33,13 @@ export default function WorkflowRevisionsPage({ params }: { params: Promise<{ id
         if (!response.ok) {
           throw new Error("Falha ao carregar historico.");
         }
-        const payload = await response.json();
+        const payload = (await response.json()) as { items: WorkflowRevisionSnapshot[] };
         if (cancelled) {
           return;
         }
 
         setRevisions(payload.items);
-        if (payload.items.length > 0) {
+        if (payload.items.length > 0 && payload.items[0]) {
           setSelectedRevisionId(payload.items[0].id);
         }
       } catch (loadError) {
@@ -92,9 +92,9 @@ export default function WorkflowRevisionsPage({ params }: { params: Promise<{ id
           // Reload revisions
           const revisionsResponse = await fetchWithSession(`/api/v1/workflows/${id}/revisions`);
           if (revisionsResponse.ok) {
-             const payload = await revisionsResponse.json();
+             const payload = (await revisionsResponse.json()) as { items: WorkflowRevisionSnapshot[] };
              setRevisions(payload.items);
-             if (payload.items.length > 0) {
+             if (payload.items.length > 0 && payload.items[0]) {
                setSelectedRevisionId(payload.items[0].id);
              }
           }

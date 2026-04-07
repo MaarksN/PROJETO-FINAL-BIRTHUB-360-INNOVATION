@@ -140,6 +140,7 @@ function WorkflowEditorCanvas({
   onSave,
   onShuffle,
   validationErrors,
+  workflowId,
   workflowName,
   workflowStatus,
   setWorkflowName,
@@ -159,6 +160,7 @@ function WorkflowEditorCanvas({
   setWorkflowName: (name: string) => void;
   validationErrors: string[];
   workflowName: string;
+  workflowId: string;
   workflowStatus: WorkflowStatus;
   simulating: boolean;
   onSimulate: () => void;
@@ -205,7 +207,7 @@ function WorkflowEditorCanvas({
         </div>
         <div style={{ display: "flex", gap: 8 }}>
           <button
-            onClick={() => window.location.href = `/workflows/${id}/revisions`}
+            onClick={() => window.location.href = `/workflows/${workflowId}/revisions`}
             style={{ alignItems: "center", display: "inline-flex", gap: 6 }}
             type="button"
           >
@@ -415,7 +417,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
       const res = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}/run`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ async: false, dryRun: true, payload })
+        body: JSON.stringify({ async: false, payload })
       });
 
       if (!res.ok) {
@@ -499,6 +501,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         onShuffle={() => setNodes((currentNodes) => autoLayout(currentNodes))}
         setWorkflowName={setWorkflowName}
         validationErrors={validation.errors}
+        workflowId={id}
         workflowName={workflowName}
         workflowStatus={workflowStatus}
         simulating={simulating}
