@@ -306,12 +306,13 @@ export async function refreshSession(input: {
     };
   }
 
+  const breakGlassExpiresAt = current.breakGlassExpiresAt ?? null;
+
   if (
     current.revokedAt ||
     !current.refreshExpiresAt ||
     current.refreshExpiresAt.getTime() < Date.now() ||
-    (current.breakGlassExpiresAt !== null &&
-      current.breakGlassExpiresAt.getTime() < Date.now())
+    (breakGlassExpiresAt !== null && breakGlassExpiresAt.getTime() < Date.now())
   ) {
     return {
       breached: false
@@ -325,7 +326,7 @@ export async function refreshSession(input: {
 
   const nextSession = await createSession({
     accessMode: current.accessMode,
-    breakGlassExpiresAt: current.breakGlassExpiresAt,
+    breakGlassExpiresAt,
     breakGlassGrantId: current.breakGlassGrantId,
     breakGlassReason: current.breakGlassReason,
     breakGlassTicket: current.breakGlassTicket,

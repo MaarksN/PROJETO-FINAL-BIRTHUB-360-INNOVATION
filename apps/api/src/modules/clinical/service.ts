@@ -93,7 +93,7 @@ type AppointmentRecord = {
 type ClinicalNoteRecord = {
   appointmentId: string | null;
   assessment: string | null;
-  author: {
+  author?: {
     id: string;
     name: string;
   } | null;
@@ -215,6 +215,20 @@ function parseRequiredDate(value: string | null | undefined, fieldName: string):
   }
 
   return parsed;
+}
+
+function toPrismaJsonInput(
+  value: Prisma.JsonValue | null | undefined
+): Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (value === null) {
+    return Prisma.JsonNull;
+  }
+
+  return value as Prisma.InputJsonValue;
 }
 
 function toIsoString(value: Date | null): string | null {
@@ -531,7 +545,8 @@ function buildGrowthCurve(input: {
   activePregnancy: PregnancyRecordModel | null;
   appointments: AppointmentRecord[];
 }): GrowthCurvePoint[] {
-  if (!input.activePregnancy) {
+  const activePregnancy = input.activePregnancy;
+  if (!activePregnancy) {
     return [];
   }
 
@@ -539,8 +554,8 @@ function buildGrowthCurve(input: {
     .filter((appointment) => appointment.fetalWeightGrams !== null)
     .map((appointment) => {
       const gestationalAgeDays = calculateGestationalAgeDays({
-        estimatedDeliveryDate: calculateEstimatedDeliveryDate(input.activePregnancy),
-        lastMenstrualPeriod: input.activePregnancy.lastMenstrualPeriod,
+        estimatedDeliveryDate: calculateEstimatedDeliveryDate(activePregnancy),
+        lastMenstrualPeriod: activePregnancy.lastMenstrualPeriod,
         referenceDate: appointment.scheduledAt
       });
       const gestationalWeek = gestationalAgeDays ? Math.max(1, Math.round(gestationalAgeDays / 7)) : 0;
@@ -565,9 +580,9 @@ function buildGrowthCurve(input: {
 
 function buildPatientWhere(input: {
   organizationId: string;
-  riskLevel?: PregnancyRiskLevel;
-  search?: string;
-  status?: PatientStatus;
+  riskLevel?: PregnancyRiskLevel | undefined;
+  search?: string | undefined;
+  status?: PatientStatus | undefined;
   tenantId: string;
 }): Prisma.PatientWhereInput {
   const normalizedSearch = input.search?.trim();
@@ -831,6 +846,25 @@ async function findActivePregnancy(
       tenantId: context.tenantId
     }
   });
+}
+
+async function getClinicalNoteRecord(
+  tx: Prisma.TransactionClient,
+  context: ClinicalContext,
+  noteId: string
+): Promise<ClinicalNoteRecord> {
+  return assertFound(
+    await tx.clinicalNote.findFirst({
+      select: buildClinicalNoteSelect(),
+      where: {
+        deletedAt: null,
+        id: noteId,
+        organizationId: context.organizationId,
+        tenantId: context.tenantId
+      }
+    }),
+    "Clinical note could not be loaded for the active tenant."
+  );
 }
 
 async function getPatientDetailInternal(
@@ -1883,13 +1917,14 @@ export const clinicalService = {
         normalizeOptionalString(payload.pregnancyRecordId) || appointment?.pregnancyRecordId
           ? null
           : await findActivePregnancy(tx, context, payload.patientId);
+      const content = toPrismaJsonInput(payload.content);
 
-      const note = await tx.clinicalNote.create({
+      const createdNote = await tx.clinicalNote.create({
         data: {
           appointmentId: normalizeOptionalString(payload.appointmentId),
           assessment: normalizeOptionalString(payload.assessment),
           authoredByUserId: context.userId ?? null,
-          content: payload.content ?? null,
+          ...(content !== undefined ? { content } : {}),
           isLatest: true,
           kind: payload.kind ?? ClinicalNoteKind.SOAP,
           noteGroupId,
@@ -1907,8 +1942,11 @@ export const clinicalService = {
           title: normalizeOptionalString(payload.title),
           version: 1
         },
-        select: buildClinicalNoteSelect()
+        select: {
+          id: true
+        }
       });
+      const note = await getClinicalNoteRecord(tx, context, createdNote.id);
 
       return {
         note: serializeClinicalNote(note)
@@ -1975,8 +2013,12 @@ export const clinicalService = {
           tenantId: context.tenantId
         }
       });
+      const content =
+        payload.content !== undefined
+          ? toPrismaJsonInput(payload.content)
+          : toPrismaJsonInput(current.content);
 
-      const note = await tx.clinicalNote.create({
+      const createdNote = await tx.clinicalNote.create({
         data: {
           appointmentId:
             payload.appointmentId !== undefined
@@ -1987,7 +2029,7 @@ export const clinicalService = {
               ? normalizeOptionalString(payload.assessment)
               : current.assessment,
           authoredByUserId: context.userId ?? null,
-          content: payload.content !== undefined ? payload.content : current.content,
+          ...(content !== undefined ? { content } : {}),
           isLatest: true,
           kind: payload.kind ?? current.kind,
           noteGroupId,
@@ -2011,8 +2053,11 @@ export const clinicalService = {
           title: payload.title !== undefined ? normalizeOptionalString(payload.title) : current.title,
           version: current.version + 1
         },
-        select: buildClinicalNoteSelect()
+        select: {
+          id: true
+        }
       });
+      const note = await getClinicalNoteRecord(tx, context, createdNote.id);
 
       return {
         note: serializeClinicalNote(note)

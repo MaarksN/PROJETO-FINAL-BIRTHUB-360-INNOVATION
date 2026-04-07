@@ -248,7 +248,10 @@ export async function verifyMfaChallenge(input: {
     throw new Error("MFA_NOT_CONFIGURED");
   }
 
-  if (user.mfaLockedUntil && user.mfaLockedUntil.getTime() > Date.now()) {
+  const currentFailures = user.mfaFailedAttempts ?? 0;
+  const lockedUntil = user.mfaLockedUntil ?? null;
+
+  if (lockedUntil && lockedUntil.getTime() > Date.now()) {
     throw new Error("MFA_LOCKED");
   }
 
@@ -293,7 +296,7 @@ export async function verifyMfaChallenge(input: {
     await registerMfaFailure({
       challenge,
       config: input.config,
-      currentFailures: user.mfaFailedAttempts
+      currentFailures
     });
   }
 
@@ -311,15 +314,17 @@ export async function verifyMfaChallenge(input: {
     throw new Error("MFA_CODE_ALREADY_USED");
   }
 
-  await prisma.user.update({
-    data: {
-      mfaFailedAttempts: 0,
-      mfaLockedUntil: null
-    },
-    where: {
-      id: challenge.userId
-    }
-  });
+  if (currentFailures > 0 || lockedUntil) {
+    await prisma.user.update({
+      data: {
+        mfaFailedAttempts: 0,
+        mfaLockedUntil: null
+      },
+      where: {
+        id: challenge.userId
+      }
+    });
+  }
 
   const membershipRole = (
     await prisma.membership.findUnique({
@@ -446,8 +451,7 @@ export async function enableMfaForUser(input: {
   await prisma.user.update({
     data: {
       mfaFailedAttempts: 0,
-      mfaEnabled: true
-      ,
+      mfaEnabled: true,
       mfaLockedUntil: null
     },
     where: {

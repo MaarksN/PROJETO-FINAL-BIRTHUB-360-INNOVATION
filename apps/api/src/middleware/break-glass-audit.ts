@@ -6,11 +6,14 @@ export function breakGlassAuditMiddleware(
   response: Response,
   next: NextFunction
 ): void {
+  const tenantId = request.context.tenantId;
+  const actorId = request.context.impersonatedByUserId;
+
   if (
     request.context.authType !== "session" ||
     request.context.sessionAccessMode !== SessionAccessMode.BREAK_GLASS ||
-    !request.context.tenantId ||
-    !request.context.impersonatedByUserId
+    !tenantId ||
+    !actorId
   ) {
     next();
     return;
@@ -20,7 +23,7 @@ export function breakGlassAuditMiddleware(
     void prisma.auditLog.create({
       data: {
         action: "admin.break_glass.accessed",
-        actorId: request.context.impersonatedByUserId,
+        actorId,
         diff: {
           after: {
             breakGlassGrantId: request.context.breakGlassGrantId,
@@ -40,7 +43,7 @@ export function breakGlassAuditMiddleware(
           request.context.organizationId ??
           "break-glass",
         entityType: "break_glass_session",
-        tenantId: request.context.tenantId
+        tenantId
       }
     }).catch(() => undefined);
   });

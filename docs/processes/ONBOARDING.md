@@ -47,6 +47,6 @@ Se o Docker Desktop falhar ao subir `postgres` ou `redis`, habilite WSL2 e a fea
 
 ## Quando pedir ajuda
 
-- Bloqueio de acesso a segredos, Sentry ou deploy hook: acione Platform Engineering.
+- Bloqueio de acesso a segredos, Sentry ou credenciais de deploy GCP/Cloud Run: acione Platform Engineering.
 - Duvida sobre fronteira canonica x legado: consulte `docs/DEPRECACAO_E_CUTOVER.md`.
 - Falha de ambiente local: abra issue pelo template `documentation-gap` ou `bug-report`.

@@ -24,8 +24,11 @@ void test("mountModuleRouters wires module routers in the expected order and reu
   const connectorsRouter = { id: "connectors" };
   const conversationsRouter = { id: "conversations" };
   const billingRouter = { id: "billing" };
+  const breakGlassRouter = { id: "break-glass" };
   const budgetRouter = { id: "budget" };
+  const clinicalRouter = { id: "clinical" };
   const feedbackRouter = { id: "feedback" };
+  const fhirRouter = { id: "fhir" };
   const invitesRouter = { id: "invites" };
   const notificationsRouter = { id: "notifications" };
   const organizationsRouter = { id: "organizations" };
@@ -55,7 +58,12 @@ void test("mountModuleRouters wires module routers in the expected order and reu
       assert.equal(receivedConfig, config);
       return billingRouter as never;
     },
+    createBreakGlassRouter: (receivedConfig) => {
+      assert.equal(receivedConfig, config);
+      return breakGlassRouter as never;
+    },
     createBudgetRouter: () => budgetRouter as never,
+    createClinicalRouter: () => clinicalRouter as never,
     createConnectorsRouter: (receivedConfig) => {
       assert.equal(receivedConfig, config);
       return connectorsRouter as never;
@@ -63,6 +71,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
     createConversationsRouter: () => conversationsRouter as never,
     createDashboardRouter: () => dashboardRouter as never,
     createFeedbackRouter: () => feedbackRouter as never,
+    createFhirRouter: () => fhirRouter as never,
     createInstalledAgentsRouter: () => installedAgentsRouter as never,
     createInvitesRouter: () => invitesRouter as never,
     createMarketplaceRouter: () => marketplaceRouter as never,
@@ -103,8 +112,11 @@ void test("mountModuleRouters wires module routers in the expected order and reu
     ["/api/v1", conversationsRouter],
     ["/api/v1/marketplace", marketplaceRouter],
     ["/api/v1/billing", billingRouter],
+    ["/api/v1", breakGlassRouter],
     ["/api/v1/budgets", budgetRouter],
+    ["/api/v1", clinicalRouter],
     ["/api/v1", feedbackRouter],
+    [fhirRouter],
     ["/api/v1", invitesRouter],
     ["/api/v1", notificationsRouter],
     ["/api/v1", organizationsRouter],

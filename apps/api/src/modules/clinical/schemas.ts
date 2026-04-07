@@ -122,19 +122,20 @@ export const clinicalNoteQuerySchema = z
     message: "patientId or appointmentId is required."
   });
 
-export const clinicalNoteSchema = z
-  .object({
-    appointmentId: optionalTrimmedString,
-    assessment: optionalTrimmedString,
-    content: z.record(z.string(), z.unknown()).nullable().optional(),
-    kind: z.nativeEnum(ClinicalNoteKind).optional(),
-    objective: optionalTrimmedString,
-    patientId: z.string().trim().min(1),
-    plan: optionalTrimmedString,
-    pregnancyRecordId: optionalTrimmedString,
-    subjective: optionalTrimmedString,
-    title: optionalTrimmedString
-  })
+const clinicalNoteObjectSchema = z.object({
+  appointmentId: optionalTrimmedString,
+  assessment: optionalTrimmedString,
+  content: z.record(z.string(), z.unknown()).nullable().optional(),
+  kind: z.nativeEnum(ClinicalNoteKind).optional(),
+  objective: optionalTrimmedString,
+  patientId: z.string().trim().min(1),
+  plan: optionalTrimmedString,
+  pregnancyRecordId: optionalTrimmedString,
+  subjective: optionalTrimmedString,
+  title: optionalTrimmedString
+});
+
+export const clinicalNoteSchema = clinicalNoteObjectSchema
   .refine(
     (value) =>
       Boolean(
@@ -150,7 +151,7 @@ export const clinicalNoteSchema = z
     }
   );
 
-export const clinicalNoteUpdateSchema = clinicalNoteSchema
+export const clinicalNoteUpdateSchema = clinicalNoteObjectSchema
   .omit({ patientId: true })
   .partial()
   .refine((value) => Object.keys(value).length > 0, {

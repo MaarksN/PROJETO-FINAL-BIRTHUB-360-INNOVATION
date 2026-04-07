@@ -53,7 +53,9 @@ export function createClinicalRouter(): Router {
     "/patients",
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
-      const filters = patientListQuerySchema.parse(request.query);
+      const filters = patientListQuerySchema.parse(
+        request.query
+      ) as Parameters<typeof clinicalService.listPatients>[1];
       const payload = await clinicalService.listPatients(requireClinicalContext(request), filters);
 
       response.status(200).json({
@@ -80,7 +82,7 @@ export function createClinicalRouter(): Router {
       })(async (request, response) => {
         const payload = await clinicalService.createPatient(
           requireClinicalContext(request),
-          createPatientSchema.parse(request.body)
+          createPatientSchema.parse(request.body) as Parameters<typeof clinicalService.createPatient>[1]
         );
 
         response.status(201).json({
@@ -122,7 +124,7 @@ export function createClinicalRouter(): Router {
         const payload = await clinicalService.updatePatient(
           requireClinicalContext(request),
           patientId,
-          updatePatientSchema.parse(request.body)
+          updatePatientSchema.parse(request.body) as Parameters<typeof clinicalService.updatePatient>[2]
         );
 
         response.status(200).json({
@@ -175,7 +177,10 @@ export function createClinicalRouter(): Router {
         const patientId = requireStringValue(request.params.id, "A valid patient id is required.");
         const payload = await clinicalService.savePregnancyRecord(requireClinicalContext(request), {
           patientId,
-          payload: pregnancyRecordSchema.parse(request.body)
+          payload:
+            pregnancyRecordSchema.parse(request.body) as Parameters<
+              typeof clinicalService.savePregnancyRecord
+            >[1]["payload"]
         });
 
         response.status(200).json({
@@ -206,7 +211,10 @@ export function createClinicalRouter(): Router {
         );
         const payload = await clinicalService.savePregnancyRecord(requireClinicalContext(request), {
           patientId,
-          payload: pregnancyRecordSchema.parse(request.body),
+          payload:
+            pregnancyRecordSchema.parse(request.body) as Parameters<
+              typeof clinicalService.savePregnancyRecord
+            >[1]["payload"],
           recordId
         });
 
@@ -233,7 +241,10 @@ export function createClinicalRouter(): Router {
         const patientId = requireStringValue(request.params.id, "A valid patient id is required.");
         const payload = await clinicalService.saveNeonatalRecord(requireClinicalContext(request), {
           patientId,
-          payload: neonatalRecordSchema.parse(request.body)
+          payload:
+            neonatalRecordSchema.parse(request.body) as Parameters<
+              typeof clinicalService.saveNeonatalRecord
+            >[1]["payload"]
         });
 
         response.status(200).json({
@@ -264,7 +275,10 @@ export function createClinicalRouter(): Router {
         );
         const payload = await clinicalService.saveNeonatalRecord(requireClinicalContext(request), {
           patientId,
-          payload: neonatalRecordSchema.parse(request.body),
+          payload:
+            neonatalRecordSchema.parse(request.body) as Parameters<
+              typeof clinicalService.saveNeonatalRecord
+            >[1]["payload"],
           recordId
         });
 
@@ -282,12 +296,15 @@ export function createClinicalRouter(): Router {
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
       const filters = appointmentQuerySchema.parse(request.query);
-      const payload = await clinicalService.listAppointments(requireClinicalContext(request), {
-        anchorDate: filters.date,
-        patientId: filters.patientId,
-        status: filters.status,
-        view: filters.view
-      });
+      const payload = await clinicalService.listAppointments(
+        requireClinicalContext(request),
+        {
+          ...(filters.date ? { anchorDate: filters.date } : {}),
+          ...(filters.patientId ? { patientId: filters.patientId } : {}),
+          ...(filters.status ? { status: filters.status } : {}),
+          view: filters.view
+        } as Parameters<typeof clinicalService.listAppointments>[1]
+      );
 
       response.status(200).json({
         ...payload,
@@ -313,7 +330,9 @@ export function createClinicalRouter(): Router {
       })(async (request, response) => {
         const payload = await clinicalService.createAppointment(
           requireClinicalContext(request),
-          createAppointmentSchema.parse(request.body)
+          createAppointmentSchema.parse(request.body) as Parameters<
+            typeof clinicalService.createAppointment
+          >[1]
         );
 
         response.status(201).json({
@@ -364,7 +383,9 @@ export function createClinicalRouter(): Router {
         const payload = await clinicalService.updateAppointment(
           requireClinicalContext(request),
           appointmentId,
-          updateAppointmentSchema.parse(request.body)
+          updateAppointmentSchema.parse(request.body) as Parameters<
+            typeof clinicalService.updateAppointment
+          >[2]
         );
 
         response.status(200).json({
@@ -409,7 +430,9 @@ export function createClinicalRouter(): Router {
     "/clinical-notes",
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
-      const filters = clinicalNoteQuerySchema.parse(request.query);
+      const filters = clinicalNoteQuerySchema.parse(
+        request.query
+      ) as Parameters<typeof clinicalService.listClinicalNotes>[1];
       const payload = await clinicalService.listClinicalNotes(requireClinicalContext(request), filters);
 
       response.status(200).json({
@@ -456,7 +479,7 @@ export function createClinicalRouter(): Router {
       })(async (request, response) => {
         const payload = await clinicalService.createClinicalNote(
           requireClinicalContext(request),
-          clinicalNoteSchema.parse(request.body)
+          clinicalNoteSchema.parse(request.body) as Parameters<typeof clinicalService.createClinicalNote>[1]
         );
 
         response.status(201).json({
@@ -487,7 +510,9 @@ export function createClinicalRouter(): Router {
         const payload = await clinicalService.updateClinicalNote(
           requireClinicalContext(request),
           noteGroupId,
-          clinicalNoteUpdateSchema.parse(request.body)
+          clinicalNoteUpdateSchema.parse(request.body) as Parameters<
+            typeof clinicalService.updateClinicalNote
+          >[2]
         );
 
         response.status(200).json({

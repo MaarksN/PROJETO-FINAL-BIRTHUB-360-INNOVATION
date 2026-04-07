@@ -7,7 +7,7 @@
 
 - Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)
 - Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)
-- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Render deploy hooks)
+- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)
 - Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`
 
 ## Release Preflight Evidence

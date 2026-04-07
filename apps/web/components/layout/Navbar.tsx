@@ -101,6 +101,26 @@ export function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (notificationsEnabled === false) {
+      return;
+    }
+
+    void refresh();
+
+    const intervalId = window.setInterval(() => {
+      if (document.hidden) {
+        return;
+      }
+
+      void refresh();
+    }, 45_000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [notificationsEnabled, refresh]);
+
   const grouped = useMemo(() => groupByDay(items.slice(0, 10)), [items]);
 
   return (

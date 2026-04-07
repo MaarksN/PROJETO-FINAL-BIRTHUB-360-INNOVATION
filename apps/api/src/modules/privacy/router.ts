@@ -19,7 +19,10 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
-import { asyncHandler } from "../../lib/problem-details.js";
+import {
+  asyncHandler,
+  ProblemDetailsError
+} from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import {
   deleteAccountAndPersonalData,
@@ -85,7 +88,11 @@ export function createPrivacyRouter(config: ApiConfig): Router {
       const organizationReference = request.context.organizationId;
 
       if (!userId || !organizationReference) {
-        throw new Error("Authenticated user and organization context are required.");
+        throw new ProblemDetailsError({
+          detail: "Authenticated user and organization context are required.",
+          status: 401,
+          title: "Unauthorized"
+        });
       }
 
       const payload = await listPrivacyConsents({
@@ -109,7 +116,11 @@ export function createPrivacyRouter(config: ApiConfig): Router {
       const organizationReference = request.context.organizationId;
 
       if (!userId || !organizationReference) {
-        throw new Error("Authenticated user and organization context are required.");
+        throw new ProblemDetailsError({
+          detail: "Authenticated user and organization context are required.",
+          status: 401,
+          title: "Unauthorized"
+        });
       }
 
       const body = consentUpdateSchema.parse(request.body);
@@ -139,7 +150,11 @@ export function createPrivacyRouter(config: ApiConfig): Router {
       const organizationReference = request.context.organizationId;
 
       if (!organizationReference) {
-        throw new Error("Active organization context is required.");
+        throw new ProblemDetailsError({
+          detail: "Active organization context is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
       }
 
       response.status(200).json({
@@ -158,14 +173,25 @@ export function createPrivacyRouter(config: ApiConfig): Router {
       const organizationReference = request.context.organizationId;
 
       if (!organizationReference) {
-        throw new Error("Active organization context is required.");
+        throw new ProblemDetailsError({
+          detail: "Active organization context is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
       }
 
       const body = retentionUpdateSchema.parse(request.body);
       response.status(200).json({
         ...(await updateRetentionPolicies({
           organizationReference,
-          policies: body.policies
+          policies: body.policies.map((policy) => ({
+            dataCategory: policy.dataCategory,
+            ...(policy.action !== undefined ? { action: policy.action } : {}),
+            ...(policy.enabled !== undefined ? { enabled: policy.enabled } : {}),
+            ...(policy.retentionDays !== undefined
+              ? { retentionDays: policy.retentionDays }
+              : {})
+          }))
         })),
         requestId: request.context.requestId
       });
@@ -181,14 +207,22 @@ export function createPrivacyRouter(config: ApiConfig): Router {
       const organizationReference = request.context.organizationId;
 
       if (!organizationReference) {
-        throw new Error("Active organization context is required.");
+        throw new ProblemDetailsError({
+          detail: "Active organization context is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
       }
 
       const body = retentionRunSchema.parse(request.body);
       const organization = await findOrganizationByReference(organizationReference);
 
       if (!organization) {
-        throw new Error("Organization not found for retention execution.");
+        throw new ProblemDetailsError({
+          detail: "Organization not found for retention execution.",
+          status: 404,
+          title: "Not Found"
+        });
       }
 
       const result = await runRetentionSweep({

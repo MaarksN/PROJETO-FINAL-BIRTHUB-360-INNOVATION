@@ -21,20 +21,20 @@ Valores que dizem respeito à lógica interna do negócio ou características es
 
 Valores que **mudam** conforme o ambiente onde o software está sendo executado, garantindo a natureza _Environment Agnostic_ de nossa infraestrutura serveless (Twelve-Factor App).
 
-- **Onde reside:** Injetadas no OS (via `export`), arquivo `.env` para rodar localmente, GitHub Environment Variables e variáveis do serviço canônico no Render.
+- **Onde reside:** Injetadas no OS (via `export`), arquivo `.env` para rodar localmente, GitHub Environment Variables e configuracoes do runtime canonico no Cloud Run.
 - **Exemplos de Valores:**
   - `NODE_ENV=production` ou `ENV=staging`
   - `DATABASE_HOST=postgres-cluster.internal` (Não a senha completa!)
   - `REDIS_URL=redis://redis-server:6379`
   - `LOG_LEVEL=info` (ou `debug` em ambiente de testes).
   - Feature Toggles globais básicos: `ENABLE_EXPERIMENTAL_RAG=true`
-- **Justificativa:** Variam por deploy. O banco local tem um endpoint, o staging tem outro. São injetados pelo pipeline CI/CD diretamente no lane canônico (`GitHub Actions` -> `Render`). Seus vazamentos acidentais (ex: logando o host do banco de staging) trazem risco mitigado desde que as redes sejam privadas.
+- **Justificativa:** Variam por deploy. O banco local tem um endpoint, o staging tem outro. Sao injetados pelo pipeline CI/CD diretamente no lane canonico (`GitHub Actions` -> `Artifact Registry` -> `Cloud Run`). Seus vazamentos acidentais (ex: logando o host do banco de staging) trazem risco mitigado desde que as redes sejam privadas.
 
 ### Categoria C: Cofres de Segredos (Secrets Vaults - KMS)
 
 Valores críticos, estritamente confidenciais. Geralmente autenticação, tokens, senhas ou strings de conexão criptografadas com credenciais injetadas. Se caírem em domínio público resultam em _Incidentes Críticos de Segurança_.
 
-- **Onde reside:** GitHub Environment Secrets, cofre corporativo de segredos e configuração sensível do serviço canônico no Render. Eles NUNCA constam no `git` e jamais devem viver em arquivos `.env` reais versionados.
+- **Onde reside:** GitHub Environment Secrets, cofre corporativo de segredos e configuracao sensivel do runtime canonico no Cloud Run. Eles NUNCA constam no `git` e jamais devem viver em arquivos `.env` reais versionados.
 - **Exemplos de Valores:**
   - `DATABASE_URL` (com username e password string completa `postgres://user:pass@host/db`)
   - `OPENAI_API_KEY`, `STRIPE_SECRET_KEY`, `CLICKSIGN_TOKEN`

@@ -1,16 +1,49 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
-import { getStoredSession } from "../lib/auth-client";
+import {
+  fetchWithSession,
+  getStoredSession
+} from "../lib/auth-client";
 import { useUserPreferencesStore } from "../stores/user-preferences-store";
 
 export function CookieConsentBanner() {
   const hydrated = useUserPreferencesStore((state) => state.hydrated);
-  const isSaving = useUserPreferencesStore((state) => state.isSaving);
+  const hydratePreferences = useUserPreferencesStore((state) => state.hydrate);
   const preferences = useUserPreferencesStore((state) => state.preferences);
-  const update = useUserPreferencesStore((state) => state.update);
   const session = useMemo(() => getStoredSession(), []);
+  const [isSaving, setIsSaving] = useState(false);
+
+  async function saveBannerConsent(status: "GRANTED" | "REVOKED") {
+    setIsSaving(true);
+
+    try {
+      const response = await fetchWithSession("/api/v1/privacy/consents", {
+        body: JSON.stringify({
+          decisions: [
+            {
+              purpose: "ANALYTICS",
+              source: "BANNER",
+              status
+            }
+          ]
+        }),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "PUT"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Falha ao registrar consentimento (${response.status}).`);
+      }
+
+      await hydratePreferences();
+    } finally {
+      setIsSaving(false);
+    }
+  }
 
   if (!session || !hydrated || preferences.cookieConsent !== "PENDING") {
     return null;
@@ -48,9 +81,7 @@ export function CookieConsentBanner() {
           className="action-button"
           disabled={isSaving}
           onClick={() => {
-            void update({
-              cookieConsent: "ACCEPTED"
-            });
+            void saveBannerConsent("GRANTED");
           }}
           type="button"
         >
@@ -60,9 +91,7 @@ export function CookieConsentBanner() {
           className="ghost-button"
           disabled={isSaving}
           onClick={() => {
-            void update({
-              cookieConsent: "REJECTED"
-            });
+            void saveBannerConsent("REVOKED");
           }}
           style={{
             background: "rgba(255,255,255,0.08)",
@@ -77,4 +106,3 @@ export function CookieConsentBanner() {
     </aside>
   );
 }
-

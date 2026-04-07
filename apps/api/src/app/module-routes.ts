@@ -14,6 +14,7 @@ import { createConnectorsRouter } from "../modules/connectors/index.js";
 import { createConversationsRouter } from "../modules/conversations/index.js";
 import { createDashboardRouter } from "../modules/dashboard/router.js";
 import { createFeedbackRouter } from "../modules/feedback/index.js";
+import { createFhirRouter } from "../modules/fhir/router.js";
 import { createInvitesRouter } from "../modules/invites/router.js";
 import { createMarketplaceRouter } from "../modules/marketplace/marketplace-routes.js";
 import { createNotificationsRouter } from "../modules/notifications/index.js";
@@ -40,6 +41,7 @@ type ModuleRouterDependencies = {
   createConversationsRouter: typeof createConversationsRouter;
   createDashboardRouter: typeof createDashboardRouter;
   createFeedbackRouter: typeof createFeedbackRouter;
+  createFhirRouter: typeof createFhirRouter;
   createInstalledAgentsRouter: typeof createInstalledAgentsRouter;
   createInvitesRouter: typeof createInvitesRouter;
   createMarketplaceRouter: typeof createMarketplaceRouter;
@@ -68,6 +70,7 @@ const defaultDependencies: ModuleRouterDependencies = {
   createConversationsRouter,
   createDashboardRouter,
   createFeedbackRouter,
+  createFhirRouter,
   createInstalledAgentsRouter,
   createInvitesRouter,
   createMarketplaceRouter,
@@ -107,6 +110,7 @@ export function mountModuleRouters(
   app.use("/api/v1/budgets", dependencies.createBudgetRouter());
   app.use("/api/v1", dependencies.createClinicalRouter());
   app.use("/api/v1", dependencies.createFeedbackRouter());
+  app.use(dependencies.createFhirRouter());
   app.use("/api/v1", dependencies.createInvitesRouter());
   app.use("/api/v1", dependencies.createNotificationsRouter());
   app.use("/api/v1", dependencies.createOrganizationsRouter());

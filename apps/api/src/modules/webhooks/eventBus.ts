@@ -46,7 +46,6 @@ export function initializeWorkflowInternalEventBridge(config: ApiConfig): void {
           workflow.organizationId,
           {
             async: true,
-            dryRun: false,
             payload: event.payload
           },
           WorkflowTriggerType.EVENT

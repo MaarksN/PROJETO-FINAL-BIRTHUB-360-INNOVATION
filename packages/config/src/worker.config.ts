@@ -3,6 +3,7 @@ import { cpus } from "node:os";
 import { z } from "zod";
 
 import {
+  commaSeparatedList,
   EnvValidationError,
   hasPlaceholderMarker,
   hasRequiredPostgresSsl,
@@ -62,6 +63,9 @@ export type WorkerConfig = z.infer<typeof workerEnvSchema> & {
 export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerConfig {
   const parsed = parseEnv("worker", workerEnvSchema, env);
   const resolvedConcurrency = parsed.WORKER_CONCURRENCY ?? Math.max(2, cpus().length);
+  const jobHmacGlobalSecretFallbacks = commaSeparatedList.parse(
+    parsed.JOB_HMAC_GLOBAL_SECRET_FALLBACKS
+  );
 
   if (parsed.NODE_ENV === "production") {
     const issues: string[] = [];
@@ -81,6 +85,10 @@ export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerCon
       issues.push("JOB_HMAC_GLOBAL_SECRET cannot use the development default in production.");
     }
 
+    if (jobHmacGlobalSecretFallbacks.some((value) => hasPlaceholderMarker(value))) {
+      issues.push("JOB_HMAC_GLOBAL_SECRET_FALLBACKS cannot contain placeholder values in production.");
+    }
+
     if (!parsed.SENTRY_DSN) {
       issues.push("SENTRY_DSN must be configured in production.");
     }
@@ -96,10 +104,7 @@ export function getWorkerConfig(env: NodeJS.ProcessEnv = process.env): WorkerCon
 
   return {
     ...parsed,
-    jobHmacGlobalSecretFallbacks: parsed.JOB_HMAC_GLOBAL_SECRET_FALLBACKS
-      .split(",")
-      .map((value) => value.trim())
-      .filter(Boolean),
+    jobHmacGlobalSecretFallbacks,
     WORKER_CONCURRENCY: resolvedConcurrency
   };
 }

@@ -69,7 +69,7 @@ export function defaultPermissionsPolicy(): PermissionsPolicyDirectives {
     accelerometer: [],
     autoplay: ["self"],
     camera: [],
-    display-capture: [],
+    "display-capture": [],
     fullscreen: ["self"],
     geolocation: [],
     gyroscope: [],

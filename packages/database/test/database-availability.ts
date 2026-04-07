@@ -9,7 +9,10 @@ function isDatabaseUnavailableError(error: unknown): boolean {
     typeof error === "object" && error !== null ? (error as { code?: unknown; message?: unknown }) : null;
 
   const rawCode = errorWithCode?.code;
-  if (typeof rawCode === "string" && ["ECONNREFUSED", "P1001"].includes(rawCode.toUpperCase())) {
+  if (
+    typeof rawCode === "string" &&
+    ["3D000", "ECONNREFUSED", "P1001"].includes(rawCode.toUpperCase())
+  ) {
     return true;
   }
 
@@ -21,7 +24,9 @@ function isDatabaseUnavailableError(error: unknown): boolean {
 
   return (
     message.includes("econnrefused") ||
+    message.includes("3d000") ||
     message.includes("p1001") ||
+    (message.includes("database") && message.includes("does not exist")) ||
     message.includes("can't reach database server") ||
     message.includes("can't connect") ||
     message.includes("connection refused")

@@ -402,7 +402,7 @@ async function writeEnvironmentParity() {
     "",
     `- Dockerfiles present: ${dockerfiles.length}/3 (${dockerfiles.map((entry) => `\`${entry}\``).join(", ")})`,
     `- Compose surfaces present: ${composeFiles.length}/2 (${composeFiles.map((entry) => `\`${entry}\``).join(", ")})`,
-    `- Canonical deploy lane: ${canonicalDeployFiles.length ? `present (\`${canonicalDeployFiles[0]}\` -> Render deploy hooks)` : "missing"}`,
+    `- Canonical deploy lane: ${canonicalDeployFiles.length ? `present (\`${canonicalDeployFiles[0]}\` -> Artifact Registry -> Cloud Run candidate promotion)` : "missing"}`,
     `- Monitoring stack refs: ${monitoringFiles.map((entry) => `\`${entry}\``).join(", ")}`,
     "",
     "## Release Preflight Evidence",

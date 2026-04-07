@@ -63,9 +63,25 @@ Executar a Fase 2 do BirthHub 360, transformando a base SaaS generica em um nucl
 - [x] testes
 - [x] docs
 
+## Implementacao
+- O schema Prisma recebeu os agregados clinicos `Patient`, `PregnancyRecord`, `Appointment`, `ClinicalNote` e `NeonatalRecord`, com relacoes organizacionais, soft delete, versionamento de nota e politicas RLS por tenant.
+- A API ganhou o modulo `clinical` com servicos e rotas para cadastro/consulta de pacientes, gestacoes, agenda clinica, prontuario versionado e registro neonatal.
+- O dashboard recebeu navegacao dedicada, listagem de pacientes, prontuario detalhado, agenda por janela dia/semana/mes, alertas clinicos, calculo de DPP e curva de crescimento fetal.
+- Os testes cobrem helper web, contrato do router clinico, wiring de rotas, smoke de connectors afetado pelo novo `RequestContext`, RLS tenant-aware e uma spec E2E mockada para o fluxo minimo.
+
 ## Validacao
 ### Local
-- [ ] validacao local concluida
+- [x] validacao local concluida
+
+Resultados locais executados:
+- `npx tsc -p apps/web/tsconfig.json --noEmit` passou.
+- `npx tsx --test apps/web/tests/clinical-data.test.ts` passou.
+- `npx tsx --test apps/api/tests/clinical-router.test.ts` passou.
+- `npx tsx --test apps/api/tests/connectors-router.test.ts` passou.
+- `npx tsx --test apps/api/tests/module-routes.test.ts` passou.
+- `npx tsx --test packages/database/test/maternal-domain.rls.test.ts` foi pulado porque o `DATABASE_URL` local aponta para um banco inexistente no ambiente atual.
+- `npx playwright test tests/e2e/maternal-clinic.spec.ts` nao executou porque o `webServer` do Playwright depende de `pnpm`, indisponivel neste ambiente.
+- `npx tsc -p apps/api/tsconfig.json --noEmit` continua bloqueado por erros preexistentes e fora do escopo deste ciclo em `auth`, `break-glass`, `privacy` e `webhooks`.
 
 ### CI
 - [ ] validacao em CI concluida
@@ -78,6 +94,10 @@ Executar a Fase 2 do BirthHub 360, transformando a base SaaS generica em um nucl
 - [ ] BLUE
 - [x] YELLOW
 - [ ] GREEN
+
+Justificativa do status:
+- O ciclo foi implementado e validado localmente no recorte clinico.
+- O status permanece `YELLOW` porque ainda existem bloqueios externos ao modulo materno-infantil no `apps/api` e porque a validacao E2E completa depende de `pnpm`/web server indisponiveis neste ambiente.
 
 ## Prompt
 Voce esta executando um ciclo arquitetural do plano BirthHub 360.

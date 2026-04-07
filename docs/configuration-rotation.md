@@ -23,13 +23,13 @@ O método principal é manter temporariamente DUAS chaves válidas na origem, su
 ### 2. Atualização do Secret Store do lane canônico
 
 - Atualize a `Chave V2` no cofre corporativo e/ou no GitHub Environment Secret correspondente.
-- Propague a nova variável para o serviço canônico no Render sem remover imediatamente a credencial anterior.
+- Propague a nova variavel para a revisao candidata do servico canonico no Cloud Run sem remover imediatamente a credencial anterior.
 
 ### 3. Deploy Gradual ("Rolling Update")
 
-- Dispare o workflow `CD` ou o deploy controlado aprovado do serviço no Render.
-- A nova revisão sobe consumindo a versão atualizada dos segredos sem invalidar automaticamente a revisão anterior.
-- **Sobreposição controlada**: o tráfego novo passa para a revisão atualizada, enquanto a revisão anterior permanece disponível para rollback imediato caso a autenticação falhe.
+- Dispare o workflow `CD` ou o deploy controlado aprovado do servico no Cloud Run.
+- A nova revisao sobe consumindo a versao atualizada dos segredos sem invalidar automaticamente a revisao anterior.
+- **Sobreposicao controlada**: o trafego novo passa para a revisao atualizada somente apos gates de smoke/E2E, enquanto a revisao anterior permanece disponivel para rollback imediato caso a autenticacao falhe.
 
 ### 4. Teste e Monitoramento de Aceitação (O "Soak Time")
 
