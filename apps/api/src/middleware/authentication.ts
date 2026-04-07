@@ -55,7 +55,7 @@ function extractAuthorizationToken(headerValue: string | undefined): {
 
 export function authenticationMiddleware(
   sessionCookieName: string,
-  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET">
+  config: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES" | "SESSION_SECRET" | "sessionSecretFallbacks">
 ) {
   return async (request: Request, response: Response, next: NextFunction): Promise<void> => {
     try {
