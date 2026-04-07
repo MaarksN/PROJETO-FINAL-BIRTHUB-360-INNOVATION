@@ -76,8 +76,13 @@ export function authenticationMiddleware(
 
       request.context.authType = authenticated.authType;
       request.context.apiKeyId = authenticated.apiKeyId;
+      request.context.breakGlassGrantId = authenticated.breakGlassGrantId;
+      request.context.breakGlassReason = authenticated.breakGlassReason;
+      request.context.breakGlassTicket = authenticated.breakGlassTicket;
+      request.context.impersonatedByUserId = authenticated.impersonatedByUserId;
       request.context.organizationId = authenticated.organizationId;
       request.context.role = authenticated.role;
+      request.context.sessionAccessMode = authenticated.sessionAccessMode;
       request.context.sessionId = authenticated.sessionId;
       request.context.tenantId = authenticated.tenantId;
       request.context.userId = authenticated.userId;

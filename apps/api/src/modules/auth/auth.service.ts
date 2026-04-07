@@ -1,6 +1,7 @@
 import {
   UserStatus,
   Role,
+  SessionAccessMode,
   prisma
 } from "@birthub/database";
 import type { ApiConfig } from "@birthub/config";
@@ -131,8 +132,13 @@ async function authenticateApiKey(token: string): Promise<AuthenticatedContext |
   return {
     apiKeyId: apiKey.apiKeyId,
     authType: "api-key",
+    breakGlassGrantId: null,
+    breakGlassReason: null,
+    breakGlassTicket: null,
+    impersonatedByUserId: null,
     organizationId,
     role,
+    sessionAccessMode: null,
     sessionId: null,
     tenantId: apiKey.tenantId,
     userId: apiKey.userId
@@ -146,6 +152,14 @@ async function authenticateSession(
 ): Promise<AuthenticatedContext | null> {
   const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
   if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
+    return null;
+  }
+
+  if (
+    session.accessMode === SessionAccessMode.BREAK_GLASS &&
+    session.breakGlassExpiresAt &&
+    session.breakGlassExpiresAt.getTime() < Date.now()
+  ) {
     return null;
   }
 
@@ -182,8 +196,13 @@ async function authenticateSession(
   return {
     apiKeyId: null,
     authType: "session",
+    breakGlassGrantId: session.breakGlassGrantId ?? null,
+    breakGlassReason: session.breakGlassReason ?? null,
+    breakGlassTicket: session.breakGlassTicket ?? null,
+    impersonatedByUserId: session.impersonatedByUserId ?? null,
     organizationId: session.organizationId,
     role,
+    sessionAccessMode: session.accessMode,
     sessionId: session.id,
     tenantId: session.tenantId,
     userId: session.userId
