@@ -28,130 +28,151 @@ export interface StepExecutionDependencies {
   httpRequestRateLimiter?: { consume: (key: string, limit: number, windowSeconds: number) => Promise<void> };
 }
 
+type StepType = StepDefinition["type"];
+type StepOf<TType extends StepType> = Extract<StepDefinition, { type: TType }>;
+type StepHandler<TType extends StepType> = (
+  step: StepOf<TType>,
+  context: WorkflowRuntimeContext,
+  dependencies: StepExecutionDependencies
+) => Promise<unknown>;
+
+function requireAgentExecutor(dependencies: StepExecutionDependencies): AgentExecutor {
+  if (!dependencies.agentExecutor) {
+    throw new Error("AGENT_EXECUTOR_NOT_CONFIGURED");
+  }
+
+  return dependencies.agentExecutor;
+}
+
+function requireHandoffExecutor(dependencies: StepExecutionDependencies): HandoffExecutor {
+  if (!dependencies.handoffExecutor) {
+    throw new Error("HANDOFF_EXECUTOR_NOT_CONFIGURED");
+  }
+
+  return dependencies.handoffExecutor;
+}
+
+function requireConnectorExecutor(dependencies: StepExecutionDependencies): ConnectorExecutor {
+  if (!dependencies.connectorExecutor) {
+    throw new Error("CONNECTOR_EXECUTOR_NOT_CONFIGURED");
+  }
+
+  return dependencies.connectorExecutor;
+}
+
+function withConnectorAccountId(connectorAccountId?: string): { connectorAccountId?: string } {
+  return connectorAccountId ? { connectorAccountId } : {};
+}
+
+function withOptionalString<TKey extends string>(
+  key: TKey,
+  value?: string
+): Partial<Record<TKey, string>> {
+  return value ? { [key]: value } as Record<TKey, string> : {};
+}
+
+function buildHandoffConfig(config: StepOf<"AGENT_HANDOFF">["config"]) {
+  return {
+    context: config.context,
+    ...withOptionalString("correlationId", config.correlationId),
+    sourceAgentId: config.sourceAgentId,
+    summary: config.summary,
+    targetAgentId: config.targetAgentId,
+    ...withOptionalString("threadId", config.threadId)
+  };
+}
+
+function buildCrmUpsertConfig(config: StepOf<"CRM_UPSERT">["config"]) {
+  return {
+    kind: "CRM_UPSERT" as const,
+    ...withConnectorAccountId(config.connectorAccountId),
+    objectType: config.objectType,
+    operation: config.operation,
+    payload: config.payload,
+    provider: config.provider,
+    ...withOptionalString("scope", config.scope)
+  };
+}
+
+function buildWhatsappSendConfig(config: StepOf<"WHATSAPP_SEND">["config"]) {
+  return {
+    kind: "WHATSAPP_SEND" as const,
+    ...withConnectorAccountId(config.connectorAccountId),
+    message: config.message,
+    ...withOptionalString("template", config.template),
+    ...withOptionalString("threadId", config.threadId),
+    to: config.to
+  };
+}
+
+function buildCalendarEventConfig<TType extends "GOOGLE_EVENT" | "MS_EVENT">(
+  kind: TType,
+  config: StepOf<TType>["config"]
+) {
+  return {
+    kind,
+    attendees: config.attendees,
+    ...withOptionalString("calendarId", config.calendarId),
+    ...withConnectorAccountId(config.connectorAccountId),
+    ...withOptionalString("description", config.description),
+    end: config.end,
+    start: config.start,
+    title: config.title
+  };
+}
+
+const stepHandlers = {
+  AGENT_EXECUTE: async (step, context, dependencies) =>
+    executeAgentNode(step.config, context, requireAgentExecutor(dependencies)),
+  AGENT_HANDOFF: async (step, context, dependencies) =>
+    executeAgentHandoffNode(
+      buildHandoffConfig(step.config),
+      context,
+      requireHandoffExecutor(dependencies)
+    ),
+  AI_TEXT_EXTRACT: async (step, context) => executeAiTextExtractNode(step.config, context),
+  CODE: async (step, context) => executeCodeNode(step.config, context.steps, context),
+  CONDITION: async (step, context) => executeConditionNode(step.config, context),
+  CRM_UPSERT: async (step, context, dependencies) =>
+    executeConnectorActionNode(
+      buildCrmUpsertConfig(step.config),
+      context,
+      requireConnectorExecutor(dependencies)
+    ),
+  DELAY: async (step) => executeDelayNode(step.config),
+  GOOGLE_EVENT: async (step, context, dependencies) =>
+    executeConnectorActionNode(
+      buildCalendarEventConfig("GOOGLE_EVENT", step.config),
+      context,
+      requireConnectorExecutor(dependencies)
+    ),
+  HTTP_REQUEST: async (step, context, dependencies) =>
+    executeHttpRequestNode(step.config, context, dependencies.httpRequestRateLimiter),
+  MS_EVENT: async (step, context, dependencies) =>
+    executeConnectorActionNode(
+      buildCalendarEventConfig("MS_EVENT", step.config),
+      context,
+      requireConnectorExecutor(dependencies)
+    ),
+  SEND_NOTIFICATION: async (step, context, dependencies) =>
+    executeNotificationNode(step.config, context, dependencies.notificationDispatcher),
+  TRANSFORMER: async (step, context) => executeTransformerNode(step.config, context),
+  TRIGGER_CRON: async (_step, context) => context.trigger.output,
+  TRIGGER_EVENT: async (_step, context) => context.trigger.output,
+  TRIGGER_WEBHOOK: async (_step, context) => context.trigger.output,
+  WHATSAPP_SEND: async (step, context, dependencies) =>
+    executeConnectorActionNode(
+      buildWhatsappSendConfig(step.config),
+      context,
+      requireConnectorExecutor(dependencies)
+    )
+} satisfies { [TType in StepType]: StepHandler<TType> };
+
 export async function executeStep(
   step: StepDefinition,
   context: WorkflowRuntimeContext,
   dependencies: StepExecutionDependencies = {}
 ): Promise<unknown> {
-  switch (step.type) {
-    case "TRIGGER_WEBHOOK":
-    case "TRIGGER_CRON":
-    case "TRIGGER_EVENT":
-      return context.trigger.output;
-    case "HTTP_REQUEST":
-      return executeHttpRequestNode(step.config, context, dependencies.httpRequestRateLimiter);
-    case "CONDITION":
-      return executeConditionNode(step.config, context);
-    case "CODE":
-      return executeCodeNode(step.config, context.steps, context);
-    case "TRANSFORMER":
-      return executeTransformerNode(step.config, context);
-    case "SEND_NOTIFICATION":
-      return executeNotificationNode(
-        step.config,
-        context,
-        dependencies.notificationDispatcher
-      );
-    case "AGENT_EXECUTE":
-      if (!dependencies.agentExecutor) {
-        throw new Error("AGENT_EXECUTOR_NOT_CONFIGURED");
-      }
-      return executeAgentNode(step.config, context, dependencies.agentExecutor);
-    case "AGENT_HANDOFF":
-      if (!dependencies.handoffExecutor) {
-        throw new Error("HANDOFF_EXECUTOR_NOT_CONFIGURED");
-      }
-      return executeAgentHandoffNode(
-        {
-          context: step.config.context,
-          ...(step.config.correlationId ? { correlationId: step.config.correlationId } : {}),
-          sourceAgentId: step.config.sourceAgentId,
-          summary: step.config.summary,
-          targetAgentId: step.config.targetAgentId,
-          ...(step.config.threadId ? { threadId: step.config.threadId } : {})
-        },
-        context,
-        dependencies.handoffExecutor
-      );
-    case "CRM_UPSERT":
-      if (!dependencies.connectorExecutor) {
-        throw new Error("CONNECTOR_EXECUTOR_NOT_CONFIGURED");
-      }
-      return executeConnectorActionNode(
-        {
-          kind: "CRM_UPSERT",
-          ...(step.config.connectorAccountId
-            ? { connectorAccountId: step.config.connectorAccountId }
-            : {}),
-          ...step.config
-        },
-        context,
-        dependencies.connectorExecutor
-      );
-    case "WHATSAPP_SEND":
-      if (!dependencies.connectorExecutor) {
-        throw new Error("CONNECTOR_EXECUTOR_NOT_CONFIGURED");
-      }
-      return executeConnectorActionNode(
-        {
-          kind: "WHATSAPP_SEND",
-          ...(step.config.connectorAccountId
-            ? { connectorAccountId: step.config.connectorAccountId }
-            : {}),
-          message: step.config.message,
-          ...(step.config.template ? { template: step.config.template } : {}),
-          ...(step.config.threadId ? { threadId: step.config.threadId } : {}),
-          to: step.config.to
-        },
-        context,
-        dependencies.connectorExecutor
-      );
-    case "GOOGLE_EVENT":
-      if (!dependencies.connectorExecutor) {
-        throw new Error("CONNECTOR_EXECUTOR_NOT_CONFIGURED");
-      }
-      return executeConnectorActionNode(
-        {
-          kind: "GOOGLE_EVENT",
-          attendees: step.config.attendees,
-          ...(step.config.calendarId ? { calendarId: step.config.calendarId } : {}),
-          ...(step.config.connectorAccountId
-            ? { connectorAccountId: step.config.connectorAccountId }
-            : {}),
-          ...(step.config.description ? { description: step.config.description } : {}),
-          end: step.config.end,
-          start: step.config.start,
-          title: step.config.title
-        },
-        context,
-        dependencies.connectorExecutor
-      );
-    case "MS_EVENT":
-      if (!dependencies.connectorExecutor) {
-        throw new Error("CONNECTOR_EXECUTOR_NOT_CONFIGURED");
-      }
-      return executeConnectorActionNode(
-        {
-          kind: "MS_EVENT",
-          attendees: step.config.attendees,
-          ...(step.config.calendarId ? { calendarId: step.config.calendarId } : {}),
-          ...(step.config.connectorAccountId
-            ? { connectorAccountId: step.config.connectorAccountId }
-            : {}),
-          ...(step.config.description ? { description: step.config.description } : {}),
-          end: step.config.end,
-          start: step.config.start,
-          title: step.config.title
-        },
-        context,
-        dependencies.connectorExecutor
-      );
-    case "AI_TEXT_EXTRACT":
-      return executeAiTextExtractNode(step.config, context);
-    case "DELAY":
-      return executeDelayNode(step.config);
-    default:
-      throw new Error(`Unsupported step type: ${(step as { type: string }).type}`);
-  }
+  const handler = stepHandlers[step.type] as StepHandler<typeof step.type>;
+  return handler(step as StepOf<typeof step.type>, context, dependencies);
 }
-
