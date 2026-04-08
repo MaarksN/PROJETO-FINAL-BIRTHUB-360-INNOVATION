@@ -81,7 +81,8 @@ Resultados locais executados:
 - `npx tsx --test apps/api/tests/connectors-router.test.ts` passou.
 - `npx tsx --test apps/api/tests/module-routes.test.ts` passou.
 - `npx playwright test tests/e2e/maternal-clinic.spec.ts` passou.
-- `npx tsx --test packages/database/test/maternal-domain.rls.test.ts` foi pulado porque o `DATABASE_URL` local aponta para um banco inexistente no ambiente atual.
+- O banco local `birthub` foi criado e bootstrapado com as migrations do projeto.
+- `npx tsx --test packages/database/test/maternal-domain.rls.test.ts` passou usando a role runtime `api_worker`, validando o isolamento por tenant no dominio clinico.
 
 ### CI
 - [ ] validacao em CI concluida
@@ -92,12 +93,12 @@ Resultados locais executados:
 ## Status
 - [ ] RED
 - [ ] BLUE
-- [x] YELLOW
-- [ ] GREEN
+- [ ] YELLOW
+- [x] GREEN
 
 Justificativa do status:
-- O ciclo foi implementado e validado localmente no recorte clinico com typecheck completo de `web` e `api`, testes focados e smoke E2E do dashboard.
-- O status permanece `YELLOW` porque a validacao de RLS do dominio clinico depende de um banco local acessivel e o `DATABASE_URL` atual aponta para uma base inexistente neste ambiente.
+- O ciclo foi implementado e validado localmente no recorte clinico com typecheck completo de `web` e `api`, testes focados, smoke E2E do dashboard e validacao RLS contra banco real.
+- `CI` e `staging` seguem pendentes apenas como etapas de pipeline/ambiente, sem bloqueio tecnico aberto no escopo deste ciclo.
 
 ## Prompt
 Voce esta executando um ciclo arquitetural do plano BirthHub 360.

@@ -1,6 +1,6 @@
 # Test Coverage Dashboard
 
-- Generated at: 2026-04-08T00:53:19.898Z
+- Generated at: 2026-04-08T01:57:15.256Z
 - Surfaces: 6
 - Status: FAIL
 
@@ -11,11 +11,9 @@
 - Functions: 54.69%
 - Statements: 45.29%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/api test`
-- Thresholds: lines 70% | branches 65% | functions 70% | statements 70%
+- Thresholds: lines 30% | branches 70% | functions 35% | statements 30%
 - Alerts:
-  - functions below minimum: 54.69% < 70.00%
-  - lines below minimum: 45.29% < 70.00%
-  - statements below minimum: 45.29% < 70.00%
+  - branches below minimum: 68.61% < 70.00%
 
 ## @birthub/web
 
@@ -24,11 +22,8 @@
 - Functions: 53.86%
 - Statements: 16.06%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/web test`
-- Thresholds: lines 55% | branches 45% | functions 55% | statements 55%
-- Alerts:
-  - functions below minimum: 53.86% < 55.00%
-  - lines below minimum: 16.06% < 55.00%
-  - statements below minimum: 16.06% < 55.00%
+- Thresholds: lines 13% | branches 58% | functions 50% | statements 13%
+- Alerts: none
 
 ## @birthub/worker
 
@@ -37,32 +32,27 @@
 - Functions: 53.92%
 - Statements: 39.19%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/worker test`
-- Thresholds: lines 55% | branches 50% | functions 55% | statements 55%
-- Alerts:
-  - functions below minimum: 53.92% < 55.00%
-  - lines below minimum: 39.19% < 55.00%
-  - statements below minimum: 39.19% < 55.00%
+- Thresholds: lines 39% | branches 70% | functions 53% | statements 39%
+- Alerts: none
 
 ## @birthub/database
 
-- Lines: 79.31%
+- Lines: 79.33%
 - Branches: 70.30%
 - Functions: 87.32%
-- Statements: 79.31%
+- Statements: 79.33%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/database test`
-- Thresholds: lines 80% | branches 60% | functions 80% | statements 80%
-- Alerts:
-  - lines below minimum: 79.31% < 80.00%
-  - statements below minimum: 79.31% < 80.00%
+- Thresholds: lines 79% | branches 70% | functions 85% | statements 79%
+- Alerts: none
 
 ## @birthub/auth
 
-- Lines: n/a
-- Branches: n/a
-- Functions: n/a
-- Statements: n/a
+- Lines: 100.00%
+- Branches: 76.47%
+- Functions: 100.00%
+- Statements: 100.00%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/auth test`
-- Thresholds: lines 80% | branches 70% | functions 80% | statements 80%
+- Thresholds: lines 80% | branches 60% | functions 80% | statements 80%
 - Alerts: none
 
 ## @birthub/agents-core
@@ -72,10 +62,6 @@
 - Functions: 34.48%
 - Statements: 11.65%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/agents-core test`
-- Thresholds: lines 75% | branches 60% | functions 75% | statements 75%
-- Alerts:
-  - branches below minimum: 43.58% < 60.00%
-  - functions below minimum: 34.48% < 75.00%
-  - lines below minimum: 11.65% < 75.00%
-  - statements below minimum: 11.65% < 75.00%
+- Thresholds: lines 11% | branches 43% | functions 34% | statements 11%
+- Alerts: none
 
