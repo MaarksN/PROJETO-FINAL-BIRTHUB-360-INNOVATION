@@ -13,6 +13,8 @@ build
 **/build
 coverage
 **/coverage
+!scripts/coverage/
+!scripts/coverage/**
 playwright-report
 test-results
 node-compile-cache
