@@ -99,8 +99,8 @@ export function createDefaultCrisisNavigatorToolAdapters(): CrisisNavigatorToolA
       return CompetitorIntelSnapshotSchema.parse({
         aggressiveMover:
           deterministic(`${seed}:mover`, 0, 1) > 0.5
-            ? "vertical suite challenger with aggressive bundle pricing"
-            : "incumbent platform expanding via partner-led migration offers",
+            ? "payment and identity dependencies are amplifying customer-facing incident impact"
+            : "regional failover path is stable, but executive comms are lagging operational recovery",
         displacementPressurePct: Number(
           deterministic(`${seed}:pressure`, 18, 76).toFixed(2)
         ),
@@ -119,8 +119,8 @@ export function createDefaultCrisisNavigatorToolAdapters(): CrisisNavigatorToolA
         ),
         highestGapTheme:
           deterministic(`${seed}:theme`, 0, 1) > 0.5
-            ? "enterprise governance automation with auditable workflows"
-            : "AI-assisted onboarding speed with reduced time-to-value",
+            ? "runbooks do not fully cover cross-service failover and stakeholder escalation paths"
+            : "incident ownership is clear, but containment depends on fragile manual workarounds",
         parityCoveragePct: Number(deterministic(`${seed}:parity`, 22, 88).toFixed(2))
       });
     },

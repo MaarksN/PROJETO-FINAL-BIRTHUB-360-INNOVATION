@@ -16,9 +16,10 @@ export type QuotaSegment = z.infer<typeof QuotaSegmentSchema>;
 
 export const QuotaSectionSchema = z.enum([
   "capacity_model",
+  "conversion_risk",
   "coverage_gaps",
-  "incentive_alignment",
-  "ramp_risk",
+  "forecast_quality",
+  "stage_velocity",
   "territory_balance"
 ]);
 export type QuotaSection = z.infer<typeof QuotaSectionSchema>;
@@ -35,7 +36,7 @@ export const PipelineOracleInputSchema = z
     requestId: z.string().trim().min(1),
     sections: z.array(QuotaSectionSchema).min(1),
     segments: z.array(QuotaSegmentSchema).min(1),
-    targetQuotaAttainmentPct: z.number().positive(),
+    targetPipelineCoveragePct: z.number().positive(),
     tenantId: z.string().trim().min(1),
     window: z
       .object({
@@ -120,7 +121,7 @@ export const PipelineOracleContractSchema = z
   .strict();
 export type PipelineOracleContract = z.infer<typeof PipelineOracleContractSchema>;
 
-export const DEFAULT_QUOTAARCHITECT_CONTRACT: PipelineOracleContract = {
+export const DEFAULT_PIPELINEORACLE_CONTRACT: PipelineOracleContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -145,6 +146,7 @@ export const DEFAULT_QUOTAARCHITECT_CONTRACT: PipelineOracleContract = {
     "attainment-variance-feed"
   ]
 };
+export const DEFAULT_QUOTAARCHITECT_CONTRACT = DEFAULT_PIPELINEORACLE_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -195,12 +197,12 @@ export const PipelineOracleOutputSchema = z
         metrics: QuotaMetricsSchema
       })
       .strict(),
-    quotaBrief: z
+    pipelineBrief: z
       .object({
         actions: z.array(QuotaActionSchema),
         headline: z.string().min(1),
-        projectedAttainmentPct: z.number(),
-        recommendedQuotaDeltaPct: z.number(),
+        projectedPipelineCoveragePct: z.number(),
+        recommendedCoverageShiftPct: z.number(),
         riskSignals: z.array(QuotaRiskSchema),
         signals: z.array(QuotaSignalSchema)
       })

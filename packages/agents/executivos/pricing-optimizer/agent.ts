@@ -619,7 +619,7 @@ export class PricingOptimizerAgent {
       endDate: parsedInput.window.endDate,
       segments: parsedInput.segments,
       startDate: parsedInput.window.startDate,
-      targetWinRateLiftPct: parsedInput.targetWinRateLiftPct,
+      targetPricingLiftPct: parsedInput.targetPricingLiftPct,
       tenantId: parsedInput.tenantId
     };
 
@@ -627,17 +627,17 @@ export class PricingOptimizerAgent {
     let pricingBenchmark = null;
     let featureGap = null;
 
-    if (effectiveTools.includes("competitor-intel-feed")) {
+    if (effectiveTools.includes("price-elasticity-model")) {
       try {
         competitorIntel = CompetitorIntelSnapshotSchema.parse(
-          await runWithRetry("competitor-intel-feed", () =>
+          await runWithRetry("price-elasticity-model", () =>
             this.toolAdapters.fetchCompetitorIntel(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "competitor-intel-feed failed.";
-        fallbackReasons.push(`competitor-intel-feed: ${message}`);
+          error instanceof Error ? error.message : "price-elasticity-model failed.";
+        fallbackReasons.push(`price-elasticity-model: ${message}`);
       }
     }
 
@@ -655,17 +655,17 @@ export class PricingOptimizerAgent {
       }
     }
 
-    if (effectiveTools.includes("feature-gap-analyzer")) {
+    if (effectiveTools.includes("packaging-gap-analyzer")) {
       try {
         featureGap = FeatureGapSnapshotSchema.parse(
-          await runWithRetry("feature-gap-analyzer", () =>
+          await runWithRetry("packaging-gap-analyzer", () =>
             this.toolAdapters.fetchFeatureGap(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "feature-gap-analyzer failed.";
-        fallbackReasons.push(`feature-gap-analyzer: ${message}`);
+          error instanceof Error ? error.message : "packaging-gap-analyzer failed.";
+        fallbackReasons.push(`packaging-gap-analyzer: ${message}`);
       }
     }
 
@@ -702,7 +702,7 @@ export class PricingOptimizerAgent {
       parityCoveragePct: 0
     };
 
-    const projectedWinRateLiftPct = Number(
+    const projectedPricingLiftPct = Number(
       (
         safeFeature.differentiationScore * 0.3 +
         safePricing.premiumJustificationScore * 0.25 +
@@ -712,7 +712,7 @@ export class PricingOptimizerAgent {
       ).toFixed(2)
     );
 
-    const recommendedBattlefront =
+    const recommendedPricingMotion =
       safeFeature.differentiationScore >= safePricing.premiumJustificationScore
         ? safeFeature.highestGapTheme
         : safeIntel.aggressiveMover;
@@ -736,45 +736,45 @@ export class PricingOptimizerAgent {
 
     const output = PricingOptimizerOutputSchema.parse({
       agent: "PricingOptimizer",
-      competitorBrief: {
+      pricingBrief: {
         actions: [
           {
-            owner: "Sales Leadership",
+            owner: "Pricing Committee",
             priority: toPriority(safeIntel.strategicThreatIndex + safeIntel.displacementPressurePct),
             recommendation:
-              "Refresh battlecards weekly for top threat accounts with direct displacement proof points.",
+              "Tighten discount guardrails where elasticity is rising and move approvals back to named commercial owners.",
             targetDate: addDays(parsedInput.window.endDate, 4)
           },
           {
             owner: "Product Marketing",
             priority: toPriority(100 - safeFeature.differentiationScore + safeFeature.parityCoveragePct),
             recommendation:
-              "Package differentiated capabilities into scenario-based narratives by segment and competitor.",
+              "Repackage monetizable features into clearer tier boundaries and align value messaging to realized outcomes.",
             targetDate: addDays(parsedInput.window.endDate, 8)
           },
           {
-            owner: "Pricing Committee",
+            owner: "Revenue Ops",
             priority: toPriority(safePricing.priceElasticityRiskPct + Math.abs(safePricing.discountGapPct)),
             recommendation:
-              "Limit discount exceptions with ROI guardrails and competitor-specific concession playbooks.",
+              "Review price realization by segment and remove recurring concession patterns that are not backed by expansion upside.",
             targetDate: addDays(parsedInput.window.endDate, 11)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected win-rate lift ${projectedWinRateLiftPct.toFixed(
+        headline: `Projected pricing lift ${projectedPricingLiftPct.toFixed(
           2
-        )}% vs target ${parsedInput.targetWinRateLiftPct.toFixed(2)}%.`,
-        projectedWinRateLiftPct,
-        recommendedBattlefront,
+        )}% vs target ${parsedInput.targetPricingLiftPct.toFixed(2)}%.`,
+        projectedPricingLiftPct,
+        recommendedPricingMotion,
         riskSignals: [
           {
             mitigation:
-              "Escalate high-threat competitor motions to weekly GTM war-room with tracked counter-actions.",
+              "Escalate segments with high elasticity and weak premium justification into weekly pricing reviews.",
             severity: toPriority(safeIntel.strategicThreatIndex + safeIntel.displacementPressurePct),
             signal: safeIntel.aggressiveMover
           },
           {
             mitigation:
-              "Prioritize feature-proof and pricing-value messaging where elasticity risk exceeds threshold.",
+              "Prioritize packaging cleanup where monetization gaps and discount reliance are reinforcing each other.",
             severity: toPriority(safePricing.priceElasticityRiskPct + (100 - safeFeature.differentiationScore)),
             signal: safeFeature.highestGapTheme
           }
@@ -783,21 +783,21 @@ export class PricingOptimizerAgent {
           {
             confidence: toConfidence(100 - safeIntel.strategicThreatIndex),
             interpretation:
-              "Strategic threat index estimates displacement probability in active pipeline segments.",
-            metric: "Strategic Threat Index",
+              "Elasticity pressure estimates how quickly conversion quality deteriorates when pricing guardrails are relaxed.",
+            metric: "Elasticity Pressure Index",
             value: safeIntel.strategicThreatIndex
           },
           {
             confidence: toConfidence(safeFeature.differentiationScore),
             interpretation:
-              "Differentiation score measures how strongly our offer is perceived against top competitors.",
-            metric: "Differentiation Score",
+              "Packaging clarity score measures how much monetizable value is visible in the current tier structure.",
+            metric: "Packaging Clarity Score",
             value: safeFeature.differentiationScore
           },
           {
             confidence: toConfidence(100 - safePricing.priceElasticityRiskPct),
             interpretation:
-              "Price elasticity risk captures likelihood of losing deals due to pricing sensitivity.",
+              "Price elasticity risk captures how exposed current bookings are to discount-led conversion.",
             metric: "Price Elasticity Risk %",
             value: safePricing.priceElasticityRiskPct
           }
@@ -817,7 +817,7 @@ export class PricingOptimizerAgent {
       status,
       summary: fallbackApplied
         ? "PricingOptimizer generated under fallback mode due to tool failures."
-        : "PricingOptimizer generated with complete competitor, pricing, and feature-gap signal coverage."
+        : "PricingOptimizer generated with complete elasticity, pricing benchmark, and packaging coverage."
     });
 
     this.lastMetrics = {

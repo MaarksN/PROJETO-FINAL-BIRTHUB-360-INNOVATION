@@ -2,7 +2,7 @@
 name: PricingOptimizer
 domain: executivos
 cycle: 1
-description: Analisa inteligencia de concorrentes, gaps de features e benchmarks de preco para sugerir campos de batalha otimizados e aumentar taxas de conversao.
+description: Analisa elasticidade, realizacao de preco e gaps de empacotamento para recomendar movimentos de pricing com melhor retorno comercial.
 
 preconditions:
   - Input valido validado contra PricingOptimizerInputSchema.
@@ -20,7 +20,7 @@ input_schema:
       type: string
     requestId:
       type: string
-    targetWinRateLiftPct:
+    targetPricingLiftPct:
       type: number
     window:
       type: object
@@ -66,15 +66,15 @@ output_schema:
       type: string
     generatedAt:
       type: string
-    competitorBrief:
+    pricingBrief:
       type: object
       strict: true
       properties:
         headline:
           type: string
-        projectedWinRateLiftPct:
+        projectedPricingLiftPct:
           type: number
-        recommendedBattlefront:
+        recommendedPricingMotion:
           type: string
         signals:
           type: array

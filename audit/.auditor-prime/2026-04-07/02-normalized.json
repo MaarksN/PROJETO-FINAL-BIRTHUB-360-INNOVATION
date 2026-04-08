@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-08T00:38:35.502Z",
+    "generatedAt": "2026-04-08T00:53:13.836Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "2b8e909bd48841fc989b33570afe7c5d07b0e1da",
+    "headSha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -17,10 +17,10 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6254,
-      "coreTrackedFiles": 553,
-      "runtimeFiles": 1874,
-      "testFiles": 186,
+      "trackedFiles": 6259,
+      "coreTrackedFiles": 558,
+      "runtimeFiles": 1877,
+      "testFiles": 188,
       "modules": 302
     },
     "capabilities": {
@@ -1643,8 +1643,18 @@
       }
     },
     "git": {
-      "totalCommits": 1188,
+      "totalCommits": 1190,
       "last30Days": [
+        {
+          "sha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "c9db428e91951c73197283c6f0a5fc4817ca633e",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
         {
           "sha": "2b8e909bd48841fc989b33570afe7c5d07b0e1da",
           "date": "2026-04-07",
@@ -4597,6 +4607,16 @@
         "activeDays": 23,
         "placeholderMessages": [
           {
+            "sha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "c9db428e91951c73197283c6f0a5fc4817ca633e",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
             "sha": "2b8e909bd48841fc989b33570afe7c5d07b0e1da",
             "date": "2026-04-07",
             "subject": "1"
@@ -4710,16 +4730,6 @@
             "sha": "3bcbd44194e30a09b34dd7ec04d37e703ab018ba",
             "date": "2026-04-06",
             "subject": "1"
-          },
-          {
-            "sha": "5fbde0e28d4a63b55c45ca189404dca3b65dbdf3",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "9de4ef3d3faad002283179f5ce969c03a8007d99",
-            "date": "2026-04-06",
-            "subject": "1"
           }
         ]
       }
@@ -4815,6 +4825,43 @@
             "path": "apps/web/app/(dashboard)/conversations/page.tsx",
             "line": 50,
             "summary": "Complexidade=32; extensão=367 linhas."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "refactor-core"
+        ]
+      },
+      {
+        "dimension": "architecture",
+        "title": "Complexidade acima do limiar em createWorkflowsRouter",
+        "location": {
+          "path": "apps/api/src/modules/workflows/router.ts",
+          "lines": {
+            "start": 61,
+            "end": 279
+          }
+        },
+        "problem": "Identificado em apps/api/src/modules/workflows/router.ts:61 uma função com complexidade ciclomática 22, acima do limiar operacional recomendado (>10).",
+        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
+        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
+        "vdiFactors": {
+          "businessImpact": 4,
+          "securityRisk": 2,
+          "reverseEffort": 4,
+          "frequency": 3
+        },
+        "vdiScore": 3.25,
+        "effort": "2-5 dias",
+        "severity": "ALTO",
+        "phase": "Fase 2",
+        "confidence": 0.94,
+        "evidenceRefs": [
+          {
+            "path": "apps/api/src/modules/workflows/router.ts",
+            "line": 61,
+            "summary": "Complexidade=22; extensão=219 linhas."
           }
         ],
         "inference": false,
@@ -4926,43 +4973,6 @@
             "path": "apps/web/app/(dashboard)/patients/page.tsx",
             "line": 34,
             "summary": "Complexidade=26; extensão=242 linhas."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "refactor-core"
-        ]
-      },
-      {
-        "dimension": "architecture",
-        "title": "Complexidade acima do limiar em PrivacySettingsPageClient",
-        "location": {
-          "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-          "lines": {
-            "start": 165,
-            "end": 907
-          }
-        },
-        "problem": "Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:165 uma função com complexidade ciclomática 70, acima do limiar operacional recomendado (>10).",
-        "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
-        "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 4,
-          "frequency": 3
-        },
-        "vdiScore": 3.25,
-        "effort": "2-5 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.94,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-            "line": 165,
-            "summary": "Complexidade=70; extensão=743 linhas."
           }
         ],
         "inference": false,
@@ -5334,7 +5344,7 @@
           {
             "path": "packages/database/src/client.ts",
             "line": 49,
-            "summary": "9 leitura(s) direta(s) de env."
+            "summary": "10 leitura(s) direta(s) de env."
           }
         ],
         "inference": false,
@@ -5791,117 +5801,6 @@
     "security": [
       {
         "dimension": "security",
-        "title": "Superfície crítica sem teste relacionado por heurística de nome",
-        "location": {
-          "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx ausência de arquivo de teste relacionado por heurística de nome em uma superfície potencialmente sensível.",
-        "impact": "Sem cobertura direcionada, regressões de autenticação, autorização ou webhooks podem chegar ao lane principal sem sinal precoce.",
-        "recommendation": "Adicionar testes focados no boundary crítico e explicitamente vinculados ao módulo.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 4,
-          "reverseEffort": 3,
-          "frequency": 3
-        },
-        "vdiScore": 3.65,
-        "effort": "1-3 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.64,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-            "line": 1,
-            "summary": "Nenhum teste relacionado encontrado pela heurística de stem/module."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "security-tests"
-        ]
-      },
-      {
-        "dimension": "security",
-        "title": "Chamada externa sem timeout ou abort path explícito",
-        "location": {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-          "lines": {
-            "start": 417,
-            "end": 417
-          }
-        },
-        "problem": "Indício em apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417 de acesso externo sem timeout explícito no arquivo.",
-        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
-        "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 4,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.6,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-            "line": 417,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "security",
-        "title": "Chamada externa sem timeout ou abort path explícito",
-        "location": {
-          "path": "apps/web/public/sw.js",
-          "lines": {
-            "start": 28,
-            "end": 28
-          }
-        },
-        "problem": "Indício em apps/web/public/sw.js:28 de acesso externo sem timeout explícito no arquivo.",
-        "impact": "Além de risco de latência, integrações sem timeout ampliam superfície para exaustão de recursos e cascata de indisponibilidade.",
-        "recommendation": "Padronizar client HTTP com timeout, retry com backoff e métricas por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 4,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.6,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 1",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/public/sw.js",
-            "line": 28,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "security",
         "title": "Semgrep WARNING em cd.yml",
         "location": {
           "path": ".github/workflows/cd.yml",
@@ -6299,6 +6198,117 @@
         "dependencyHints": [
           "baseline-proof"
         ]
+      },
+      {
+        "dimension": "security",
+        "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6)",
+        "location": {
+          "path": ".github/workflows/security-scan.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.",
+        "impact": "Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.",
+        "recommendation": "Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": ".github/workflows/security-scan.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "security",
+        "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 7)",
+        "location": {
+          "path": ".github/workflows/security-scan.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.",
+        "impact": "Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.",
+        "recommendation": "Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": ".github/workflows/security-scan.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "security",
+        "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8)",
+        "location": {
+          "path": ".github/workflows/security-scan.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.",
+        "impact": "Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.",
+        "recommendation": "Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": ".github/workflows/security-scan.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
       }
     ],
     "tests_observability": [
@@ -6386,7 +6396,7 @@
             "end": 1
           }
         },
-        "problem": "O proxy de cobertura identifica 121 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.",
+        "problem": "O proxy de cobertura identifica 124 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.",
         "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
         "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
         "vdiFactors": {
@@ -6466,43 +6476,6 @@
         "dimension": "tests_observability",
         "title": "Módulo volumoso sem teste relacionado direto",
         "location": {
-          "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 2.65,
-        "effort": "0.5-2 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.68,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-            "line": 1,
-            "summary": "Heurística não encontrou arquivo de teste relacionado."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "test-harness"
-        ]
-      },
-      {
-        "dimension": "tests_observability",
-        "title": "Módulo volumoso sem teste relacionado direto",
-        "location": {
           "path": "apps/api/src/middleware/rate-limit.ts",
           "lines": {
             "start": 1,
@@ -6563,43 +6536,6 @@
         "evidenceRefs": [
           {
             "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
-            "line": 1,
-            "summary": "Heurística não encontrou arquivo de teste relacionado."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "test-harness"
-        ]
-      },
-      {
-        "dimension": "tests_observability",
-        "title": "Módulo volumoso sem teste relacionado direto",
-        "location": {
-          "path": "packages/database/prisma/seeds/shared-runtime.ts",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "Identificado em packages/database/prisma/seeds/shared-runtime.ts um módulo relevante sem teste relacionado por heurística de nome/stem no workspace atual.",
-        "impact": "A chance de regressão silenciosa cresce quando módulos grandes ou críticos não têm suite vinculada de forma óbvia.",
-        "recommendation": "Criar pelo menos um teste unitário ou integration diretamente associado ao boundary do arquivo.",
-        "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 2.65,
-        "effort": "0.5-2 dias",
-        "severity": "MÉDIO",
-        "phase": "Fase 1",
-        "confidence": 0.68,
-        "evidenceRefs": [
-          {
-            "path": "packages/database/prisma/seeds/shared-runtime.ts",
             "line": 1,
             "summary": "Heurística não encontrou arquivo de teste relacionado."
           }
@@ -6724,6 +6660,80 @@
       {
         "dimension": "tests_observability",
         "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3)",
+        "location": {
+          "path": "scripts/testing/generate-traceability-report.mjs",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há muitas suites de teste no monorepo, mas a auditoria não encontra uma matriz de cobertura unit/integration/e2e por módulo do core no formato atual.",
+        "impact": "Sem a decomposição por módulo, o risco de falso conforto sobre cobertura global aumenta.",
+        "recommendation": "Gerar um relatório de cobertura por módulo e anexar ao pipeline soberano.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "scripts/testing/generate-traceability-report.mjs",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "[DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 4)",
+        "location": {
+          "path": "infra/monitoring/alert.rules.yml",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há artefatos e regras de monitoramento versionados, mas não há evidência viva de dashboards/SLOs com budget consumido por janela.",
+        "impact": "A operação fica com sinais técnicos, mas sem indicador explícito de confiabilidade do serviço para decisão executiva.",
+        "recommendation": "Versionar a definição de SLO por fluxo crítico e anexar screenshot/export JSON dos dashboards vivos.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 1",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "infra/monitoring/alert.rules.yml",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "tests_observability",
+        "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 5)",
         "location": {
           "path": "scripts/testing/generate-traceability-report.mjs",
           "lines": {
@@ -7058,80 +7068,6 @@
       },
       {
         "dimension": "performance",
-        "title": "Integração externa sem deadline operacional explícito",
-        "location": {
-          "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-          "lines": {
-            "start": 417,
-            "end": 417
-          }
-        },
-        "problem": "Acesso externo em apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417 não expõe timeout/abort guard no arquivo atual.",
-        "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
-        "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-            "line": 417,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "performance",
-        "title": "Integração externa sem deadline operacional explícito",
-        "location": {
-          "path": "apps/web/public/sw.js",
-          "lines": {
-            "start": 28,
-            "end": 28
-          }
-        },
-        "problem": "Acesso externo em apps/web/public/sw.js:28 não expõe timeout/abort guard no arquivo atual.",
-        "impact": "Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.",
-        "recommendation": "Padronizar timeout, retry budget e instrumentação de latência por integração.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.74,
-        "evidenceRefs": [
-          {
-            "path": "apps/web/public/sw.js",
-            "line": 28,
-            "summary": "Operação externa sem timeout explícito no arquivo."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "integration-guardrails"
-        ]
-      },
-      {
-        "dimension": "performance",
         "title": "Bundle web fresco acima de 2 MiB (2264.32 KiB)",
         "location": {
           "path": "artifacts/performance/web-bundle-head.json",
@@ -7201,6 +7137,80 @@
             "path": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
             "line": 98,
             "summary": "Complexidade=120."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "web-performance"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "Página/estado web com complexidade alta (37)",
+        "location": {
+          "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+          "lines": {
+            "start": 17,
+            "end": 313
+          }
+        },
+        "problem": "Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17 um componente/página com complexidade 37.",
+        "impact": "Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.",
+        "recommendation": "Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 1,
+          "reverseEffort": 3,
+          "frequency": 3
+        },
+        "vdiScore": 2.4,
+        "effort": "1-3 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.89,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
+            "line": 17,
+            "summary": "Complexidade=37."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "web-performance"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "Página/estado web com complexidade alta (42)",
+        "location": {
+          "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
+          "lines": {
+            "start": 42,
+            "end": 361
+          }
+        },
+        "problem": "Identificado em apps/web/app/(dashboard)/patients/appointments-board.tsx:42 um componente/página com complexidade 42.",
+        "impact": "Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.",
+        "recommendation": "Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 1,
+          "reverseEffort": 3,
+          "frequency": 3
+        },
+        "vdiScore": 2.4,
+        "effort": "1-3 dias",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.89,
+        "evidenceRefs": [
+          {
+            "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
+            "line": 42,
+            "summary": "Complexidade=42."
           }
         ],
         "inference": false,
@@ -8074,48 +8084,6 @@
     "operations_multitenancy": [
       {
         "dimension": "operations_multitenancy",
-        "title": "Prova runtime de RLS por tenant ainda não fecha no runner soberano",
-        "location": {
-          "path": "artifacts/tenancy/rls-proof-head.json",
-          "lines": {
-            "start": 1,
-            "end": 1
-          }
-        },
-        "problem": "A evidência fresca marca a prova runtime de RLS como \"skipped-no-database\", apesar de o audit estático de tenancy passar.",
-        "impact": "Sem prova executada de isolamento no ciclo atual, o principal controle de multi-tenancy continua parcialmente presumido perto do lançamento.",
-        "recommendation": "Executar o teste de RLS contra Postgres efêmero acessível ao runner e anexar o artefato de sucesso ao pacote soberano.",
-        "vdiFactors": {
-          "businessImpact": 5,
-          "securityRisk": 5,
-          "reverseEffort": 3,
-          "frequency": 4
-        },
-        "vdiScore": 4.45,
-        "effort": "1-3 dias",
-        "severity": "CRÍTICO",
-        "phase": "Fase 0",
-        "confidence": 0.92,
-        "evidenceRefs": [
-          {
-            "path": "artifacts/tenancy/rls-proof-head.json",
-            "line": 1,
-            "summary": "runtimeProof=skipped-no-database"
-          },
-          {
-            "path": "packages/database/test/rls.test.ts",
-            "line": 1,
-            "summary": "Teste de RLS versionado no pacote database."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "tenant-proof"
-        ]
-      },
-      {
-        "dimension": "operations_multitenancy",
         "title": "Drill de disaster recovery não registrado no ciclo atual",
         "location": {
           "path": "artifacts/dr/latest-drill.json",
@@ -8511,6 +8479,43 @@
         "evidenceRefs": [
           {
             "path": "docs/operational/README.md",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "tenant-proof"
+        ]
+      },
+      {
+        "dimension": "operations_multitenancy",
+        "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 10)",
+        "location": {
+          "path": "packages/database/docs/BACKUP_RECOVERY.md",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há documentação e scripts ligados a backup/recovery, mas a auditoria soberana não encontra evidência fresca de drill executado para o ciclo atual.",
+        "impact": "A recuperabilidade real do sistema continua mais assumida do que comprovada.",
+        "recommendation": "Anexar evidência de drill de recuperação ao pacote operacional por release ou quarter.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 4,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.95,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 3",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "packages/database/docs/BACKUP_RECOVERY.md",
             "line": 1,
             "summary": "Evidência atual insuficiente para concluir o item."
           }

@@ -173,7 +173,8 @@ function createBasePrismaClient(
   normalizedDatabaseUrl: string,
   connectionLimit: number
 ): PrismaClient {
-  const log = process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"];
+  const log: Prisma.LogLevel[] =
+    process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"];
 
   try {
     return new PrismaClient({

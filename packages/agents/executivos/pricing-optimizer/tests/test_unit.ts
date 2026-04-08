@@ -9,7 +9,7 @@ import { PricingOptimizerAgent } from "../agent.js";
 import {
   type CompetitorEvent,
   type PricingOptimizerInput,
-  DEFAULT_COMPETITORXRAY_CONTRACT
+  DEFAULT_PRICINGOPTIMIZER_CONTRACT
 } from "../schemas.js";
 import type { PricingOptimizerToolAdapters } from "../tools.js";
 
@@ -20,9 +20,9 @@ const VALID_INPUT: PricingOptimizerInput = {
     maxActions: 4
   },
   requestId: "req-pricingoptimizer-unit-001",
-  sections: ["battlecards", "pricing_benchmarks", "feature_gaps"],
+  sections: ["discount_governance", "price_realization", "packaging_gaps"],
   segments: ["enterprise", "mid_market", "strategic_accounts"],
-  targetWinRateLiftPct: 22,
+  targetPricingLiftPct: 22,
   tenantId: "tenant_exec_demo",
   window: {
     endDate: "2026-03-31",
@@ -46,7 +46,8 @@ void test("PricingOptimizer returns success output on happy path", async () => {
 
   assert.equal(output.status, "success");
   assert.equal(output.fallback.applied, false);
-  assert.ok(output.competitorBrief.signals.length >= 2);
+  assert.ok(output.pricingBrief.signals.length >= 2);
+  assert.match(output.pricingBrief.headline, /pricing lift/i);
   assert.ok(output.observability.metrics.toolCalls >= 3);
   assert.ok(
     output.observability.events.some(
@@ -59,7 +60,7 @@ void test("PricingOptimizer returns error when contract mode is hard_fail", asyn
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "pricingoptimizer-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_COMPETITORXRAY_CONTRACT,
+    ...DEFAULT_PRICINGOPTIMIZER_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,

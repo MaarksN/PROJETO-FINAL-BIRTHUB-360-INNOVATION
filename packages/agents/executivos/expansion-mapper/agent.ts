@@ -750,46 +750,46 @@ export class ExpansionMapperAgent {
       status,
       summary: fallbackApplied
         ? "ExpansionMapper generated under fallback mode due to tool failures."
-        : "ExpansionMapper generated with complete trend and momentum signal coverage.",
+        : "ExpansionMapper generated with complete whitespace, momentum, and expansion signal coverage.",
       marketBrief: {
         actions: [
           {
-            owner: "CMO",
+            owner: "CPO",
             priority: toPriority(100 - safeMarketTrend.momentumIndex + safeCategoryGrowth.competitorPressurePct),
             recommendation:
-              "Prioritize fast-launch campaigns around the highest momentum trend cluster with weekly refresh.",
+              "Prioritize the highest-confidence whitespace bet for the next expansion cycle and assign product ownership now.",
             targetDate: addDays(parsedInput.window.endDate, 5)
           },
           {
             owner: "Growth",
             priority: toPriority(safeSocialSignal.engagementLiftPct + Math.abs(safeSocialSignal.sentimentShiftPct)),
             recommendation:
-              "Scale content formats that maximize engagement lift on emerging buyer narratives.",
+              "Scale the acquisition motion that best matches the strongest emerging expansion narrative.",
             targetDate: addDays(parsedInput.window.endDate, 9)
           },
           {
-            owner: "RevOps",
+            owner: "Partnerships",
             priority: toPriority(safeCategoryGrowth.whitespaceOpportunityPct + safeCategoryGrowth.competitorPressurePct),
             recommendation:
-              "Route whitespace opportunities to field teams with tighter win/loss trend instrumentation.",
+              "Map the whitespace opportunity into concrete channel, partner, or segment bets before the signal cools.",
             targetDate: addDays(parsedInput.window.endDate, 12)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected momentum ${projectedSignalConfidencePct.toFixed(
+        headline: `Projected expansion confidence ${projectedSignalConfidencePct.toFixed(
           2
-        )} against growth target ${parsedInput.targetSignalConfidencePct.toFixed(2)}%.`,
+        )}% against target ${parsedInput.targetSignalConfidencePct.toFixed(2)}%.`,
         projectedSignalConfidencePct,
         recommendedMonitoringFront,
         riskSignals: [
           {
             mitigation:
-              "Reallocate media and outbound focus to defend categories under high competitor pressure.",
+              "Sequence the next expansion bet so teams are not diluted across adjacent but weaker opportunities.",
             severity: toPriority(safeCategoryGrowth.competitorPressurePct + (100 - safeMarketTrend.momentumIndex)),
             signal: safeMarketTrend.dominantTheme
           },
           {
             mitigation:
-              "Deploy narrative testing to stabilize sentiment where velocity exceeds confidence.",
+              "Pressure-test the opportunity narrative with rapid validation before scaling investment.",
             severity: toPriority(Math.abs(safeSocialSignal.sentimentShiftPct) + safeMarketTrend.trendVelocityPct),
             signal: safeSocialSignal.emergingTopic
           }

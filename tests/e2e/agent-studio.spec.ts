@@ -8,9 +8,18 @@ test.describe("Agent Studio critical flow", () => {
     await page.goto("/agents");
     await expect(page.getByText("Agents")).toBeVisible();
     await expect(
-      page.getByText(
-        /Linha oficial de agentes instalados|Nenhum agente oficial instalado/
-      )
+      page.getByText("Linha oficial de agentes instalados", { exact: false })
     ).toBeVisible();
+
+    const emptyState = page.getByRole("heading", {
+      name: "Nenhum agente oficial instalado"
+    });
+
+    if (await emptyState.isVisible()) {
+      await expect(emptyState).toBeVisible();
+      return;
+    }
+
+    await expect(page.getByRole("link", { name: "Overview" }).first()).toBeVisible();
   });
 });

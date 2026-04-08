@@ -15,11 +15,11 @@ export const CompetitorSegmentSchema = z.enum([
 export type CompetitorSegment = z.infer<typeof CompetitorSegmentSchema>;
 
 export const CompetitorSectionSchema = z.enum([
-  "battlecards",
-  "feature_gaps",
-  "pricing_benchmarks",
-  "threat_signals",
-  "win_loss_patterns"
+  "discount_governance",
+  "elasticity_pressure",
+  "packaging_gaps",
+  "price_realization",
+  "value_metric_fit"
 ]);
 export type CompetitorSection = z.infer<typeof CompetitorSectionSchema>;
 
@@ -35,7 +35,7 @@ export const PricingOptimizerInputSchema = z
     requestId: z.string().trim().min(1),
     sections: z.array(CompetitorSectionSchema).min(1),
     segments: z.array(CompetitorSegmentSchema).min(1),
-    targetWinRateLiftPct: z.number().min(1).max(100),
+    targetPricingLiftPct: z.number().min(1).max(100),
     tenantId: z.string().trim().min(1),
     window: z
       .object({
@@ -120,7 +120,7 @@ export const PricingOptimizerContractSchema = z
   .strict();
 export type PricingOptimizerContract = z.infer<typeof PricingOptimizerContractSchema>;
 
-export const DEFAULT_COMPETITORXRAY_CONTRACT: PricingOptimizerContract = {
+export const DEFAULT_PRICINGOPTIMIZER_CONTRACT: PricingOptimizerContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -140,11 +140,12 @@ export const DEFAULT_COMPETITORXRAY_CONTRACT: PricingOptimizerContract = {
     maxAttempts: 3
   },
   toolIds: [
-    "competitor-intel-feed",
+    "price-elasticity-model",
     "pricing-benchmark-engine",
-    "feature-gap-analyzer"
+    "packaging-gap-analyzer"
   ]
 };
+export const DEFAULT_COMPETITORXRAY_CONTRACT = DEFAULT_PRICINGOPTIMIZER_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -180,12 +181,12 @@ export type CompetitorAction = z.infer<typeof CompetitorActionSchema>;
 export const PricingOptimizerOutputSchema = z
   .object({
     agent: z.literal("PricingOptimizer"),
-    competitorBrief: z
+    pricingBrief: z
       .object({
         actions: z.array(CompetitorActionSchema),
         headline: z.string().min(1),
-        projectedWinRateLiftPct: z.number(),
-        recommendedBattlefront: z.string().min(1),
+        projectedPricingLiftPct: z.number(),
+        recommendedPricingMotion: z.string().min(1),
         riskSignals: z.array(CompetitorRiskSchema),
         signals: z.array(CompetitorSignalSchema)
       })

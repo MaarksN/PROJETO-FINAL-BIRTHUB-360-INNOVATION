@@ -44,6 +44,7 @@ Executar a fase 5 de sustentacao de producao, consolidando um lane canonico de d
   - `.github/workflows/security-scan.yml`
   - `package.json`
   - `playwright.config.ts`
+  - `scripts/coverage/check.mjs`
   - `scripts/release/global-smoke.ts`
   - `scripts/ops/rollback-release.sh`
   - `docs/adrs/ADR-036-canonical-deploy-platform.md`
@@ -73,9 +74,24 @@ Executar a fase 5 de sustentacao de producao, consolidando um lane canonico de d
 - [x] testes
 - [x] docs
 
+## Implementacao
+- O lane canonico de deploy foi consolidado em `GitHub Actions -> Artifact Registry -> Cloud Run`, com candidate revisions, preflight, smoke, E2E e gate de rollback documentado.
+- A governanca continua de qualidade ficou materializada por `quality-governance.yml`, `renovate.yml`, baseline de coverage, `knip` para dead code e `Stryker` para mutacao.
+- O pipeline de SBOM e security scan ficou operacional com geracao CycloneDX/SPDX e varredura automatizada em workflow dedicado.
+- O script `scripts/coverage/check.mjs` foi endurecido para Windows, eliminando falsos negativos locais por cleanup, fallback de banco inadequado, `NEXT_PUBLIC_ENVIRONMENT` invalido no `web` e uso acidental do Node `25` fora da engine suportada quando o runtime portatil `24.14.0` estiver disponivel.
+- A documentacao operacional foi alinhada ao runtime canonico de Cloud Run, reduzindo ambiguidade entre lane oficial e alternativas antigas.
+
 ## Validacao
 ### Local
-- [ ] validacao local concluida
+- [x] validacao local concluida
+
+Resultados locais executados:
+- `pnpm release:sbom` passou e gerou `artifacts/sbom/bom.xml` e `artifacts/sbom/sbom.spdx.json`.
+- `powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap\install-node-portable.ps1` provisionou o Node portatil `24.14.0`, alinhando a validacao local com a engine suportada pelo repositorio.
+- `pnpm coverage:check` agora executa ate o fim tambem pelo comando normal do projeto, usando o runtime portatil para os subprocessos instrumentados; o gate segue reprovado por threshold real em `@birthub/api`, `@birthub/web`, `@birthub/worker`, `@birthub/database` e `@birthub/agents-core`.
+- `pnpm quality:dead-code` reprovou com achados reais de governanca, incluindo `125` arquivos nao usados, `21` dependencias nao usadas e `19` dependencias nao listadas, alem de hints de refinamento do `knip.json`.
+- `docs/evidence/test-coverage-dashboard.md` e `artifacts/coverage/summary.json` foram atualizados com o estado atual do baseline.
+- O host local continua em Node `v25.9.0`, mas isso deixou de bloquear o gate de cobertura apos a preferencia explicita pelo runtime portatil.
 
 ### CI
 - [ ] validacao em CI concluida
@@ -88,6 +104,10 @@ Executar a fase 5 de sustentacao de producao, consolidando um lane canonico de d
 - [ ] BLUE
 - [x] YELLOW
 - [ ] GREEN
+
+Justificativa do status:
+- O caminho canonico de deploy, SBOM, rollback e governanca de release esta definido e materializado.
+- O status permanece `YELLOW` porque os gates de coverage e dead code ainda falham por deficit real de cobertura e ruido/configuracao de monorepo, mesmo apos a remocao dos falsos negativos locais do gate de coverage.
 
 ## Prompt
 Voce esta executando um ciclo arquitetural do plano BirthHub 360.

@@ -10,9 +10,9 @@ const isoDateSchema = z
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
 export const BRANDGUARDIAN_TOOL_IDS = [
-  "brand-sentiment-feed",
-  "guideline-compliance-engine",
-  "pr-incident-monitor"
+  "employee-engagement-feed",
+  "leadership-alignment-engine",
+  "retention-risk-monitor"
 ] as const;
 export type BrandToolId = (typeof BRANDGUARDIAN_TOOL_IDS)[number];
 
@@ -79,14 +79,14 @@ export function normalizeBrandToolId(toolId: string): BrandToolId | null {
     .toLowerCase()
     .replace(/[_\s]+/g, "-");
 
-  if (normalized === "brand-sentiment-feed") {
-    return "brand-sentiment-feed";
+  if (normalized === "brand-sentiment-feed" || normalized === "employee-engagement-feed") {
+    return "employee-engagement-feed";
   }
-  if (normalized === "guideline-compliance-engine") {
-    return "guideline-compliance-engine";
+  if (normalized === "guideline-compliance-engine" || normalized === "leadership-alignment-engine") {
+    return "leadership-alignment-engine";
   }
-  if (normalized === "pr-incident-monitor") {
-    return "pr-incident-monitor";
+  if (normalized === "pr-incident-monitor" || normalized === "retention-risk-monitor") {
+    return "retention-risk-monitor";
   }
   return null;
 }
@@ -100,8 +100,8 @@ export function createDefaultCulturePulseToolAdapters(): CulturePulseToolAdapter
         currentSentimentPct: Number(deterministic(`${seed}:current`, 43, 89).toFixed(2)),
         dominantNarrative:
           deterministic(`${seed}:narrative`, 0, 1) > 0.5
-            ? "customer outcomes perceived as strong but support response speed is questioned"
-            : "brand considered innovative with mixed consistency across regional campaigns",
+            ? "teams report trust in immediate leadership but signal fatigue around cross-functional change load"
+            : "employee sentiment is resilient overall, with concern concentrated in customer-facing squads",
         volatilityPct: Number(deterministic(`${seed}:volatility`, 6, 38).toFixed(2))
       });
     },
@@ -115,8 +115,8 @@ export function createDefaultCulturePulseToolAdapters(): CulturePulseToolAdapter
         complianceScorePct: Number(deterministic(`${seed}:score`, 52, 96).toFixed(2)),
         driftDriver:
           deterministic(`${seed}:driver`, 0, 1) > 0.5
-            ? "localized social creatives bypassing global review"
-            : "partner co-marketing assets using outdated positioning language",
+            ? "manager expectations drift between headquarters and frontline team leads"
+            : "recent operating changes were rolled out with uneven leadership reinforcement",
         highRiskAssetsPct: Number(
           deterministic(`${seed}:${RISK_ASSETS_KEY}`, 3, 29).toFixed(2)
         )

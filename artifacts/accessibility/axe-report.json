@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-08T00:38:20.316Z",
+  "checkedAt": "2026-04-08T00:53:02.385Z",
   "mode": "browser-dom-smoke",
   "requestedTool": "playwright",
   "sufficient": true,
@@ -47,6 +47,6 @@
     }
   ],
   "findings": [],
-  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 2.2s\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 2.1s (next.js: 297ms, proxy.ts: 580ms, application-code: 1214ms)\n GET / 200 in 623ms (next.js: 110ms, proxy.ts: 8ms, application-code: 505ms)\n GET /pricing 200 in 836ms (next.js: 11ms, proxy.ts: 9ms, application-code: 816ms)\n○ Compiling /login ...\n GET /legal/terms 200 in 457ms (next.js: 63ms, proxy.ts: 14ms, application-code: 379ms)\n GET /legal/privacy 200 in 230ms (next.js: 63ms, proxy.ts: 11ms, application-code: 156ms)\n",
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 980ms\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 948ms (next.js: 174ms, proxy.ts: 303ms, application-code: 471ms)\n GET / 200 in 119ms (next.js: 40ms, proxy.ts: 8ms, application-code: 72ms)\n GET /pricing 200 in 73ms (next.js: 4ms, proxy.ts: 7ms, application-code: 62ms)\n GET /legal/terms 200 in 124ms (next.js: 37ms, proxy.ts: 7ms, application-code: 80ms)\n GET /legal/privacy 200 in 138ms (next.js: 34ms, proxy.ts: 6ms, application-code: 99ms)\n",
   "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n"
 }

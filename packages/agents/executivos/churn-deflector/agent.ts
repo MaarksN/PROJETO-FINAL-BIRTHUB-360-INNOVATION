@@ -619,7 +619,7 @@ export class ChurnDeflectorAgent {
       endDate: parsedInput.window.endDate,
       segments: parsedInput.segments,
       startDate: parsedInput.window.startDate,
-      targetCultureHealthPct: parsedInput.targetCultureHealthPct,
+      targetRetentionPct: parsedInput.targetRetentionPct,
       tenantId: parsedInput.tenantId
     };
 
@@ -627,24 +627,24 @@ export class ChurnDeflectorAgent {
     let compliance = null;
     let incidents = null;
 
-    if (effectiveTools.includes("brand-sentiment-feed")) {
+    if (effectiveTools.includes("account-health-feed")) {
       try {
         sentiment = BrandSentimentSnapshotSchema.parse(
-          await runWithRetry("brand-sentiment-feed", () =>
+          await runWithRetry("account-health-feed", () =>
             this.toolAdapters.fetchBrandSentiment(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "brand-sentiment-feed failed.";
-        fallbackReasons.push(`brand-sentiment-feed: ${message}`);
+          error instanceof Error ? error.message : "account-health-feed failed.";
+        fallbackReasons.push(`account-health-feed: ${message}`);
       }
     }
 
-    if (effectiveTools.includes("guideline-compliance-engine")) {
+    if (effectiveTools.includes("renewal-risk-engine")) {
       try {
         compliance = GuidelineComplianceSnapshotSchema.parse(
-          await runWithRetry("guideline-compliance-engine", () =>
+          await runWithRetry("renewal-risk-engine", () =>
             this.toolAdapters.fetchGuidelineCompliance(toolInput)
           )
         );
@@ -652,22 +652,22 @@ export class ChurnDeflectorAgent {
         const message =
           error instanceof Error
             ? error.message
-            : "guideline-compliance-engine failed.";
-        fallbackReasons.push(`guideline-compliance-engine: ${message}`);
+            : "renewal-risk-engine failed.";
+        fallbackReasons.push(`renewal-risk-engine: ${message}`);
       }
     }
 
-    if (effectiveTools.includes("pr-incident-monitor")) {
+    if (effectiveTools.includes("success-coverage-monitor")) {
       try {
         incidents = PRIncidentSnapshotSchema.parse(
-          await runWithRetry("pr-incident-monitor", () =>
+          await runWithRetry("success-coverage-monitor", () =>
             this.toolAdapters.fetchPRIncidents(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "pr-incident-monitor failed.";
-        fallbackReasons.push(`pr-incident-monitor: ${message}`);
+          error instanceof Error ? error.message : "success-coverage-monitor failed.";
+        fallbackReasons.push(`success-coverage-monitor: ${message}`);
       }
     }
 
@@ -704,15 +704,20 @@ export class ChurnDeflectorAgent {
       severityIndex: 0
     };
 
-    const projectedCultureHealthScore = Number(
+    const projectedRetentionPct = Number(
       (
-        safeSentiment.currentSentimentPct * 0.4 +
-        safeCompliance.complianceScorePct * 0.35 +
-        safeIncidents.responseReadinessPct * 0.25 -
-        safeIncidents.severityIndex * 0.2 -
-        safeCompliance.highRiskAssetsPct * 0.1
+        safeSentiment.currentSentimentPct * 0.3 +
+        safeCompliance.complianceScorePct * 0.25 +
+        safeIncidents.responseReadinessPct * 0.2 -
+        safeIncidents.severityIndex * 0.15 -
+        safeCompliance.highRiskAssetsPct * 0.15 -
+        safeSentiment.volatilityPct * 0.05
       ).toFixed(2)
     );
+    const recommendedInterventionFront =
+      safeIncidents.activeIncidentCount > 0
+        ? "executive save motions for accounts already showing escalation pressure"
+        : safeCompliance.driftDriver;
 
     const status: ChurnDeflectorOutput["status"] =
       fallbackApplied && fallbackMode === "hard_fail"
@@ -733,46 +738,47 @@ export class ChurnDeflectorAgent {
 
     const output = ChurnDeflectorOutputSchema.parse({
       agent: "ChurnDeflector",
-      cultureBrief: {
+      churnBrief: {
         actions: [
           {
-            owner: "CMO",
+            owner: "VP Customer Success",
             priority: toPriority(100 - safeSentiment.currentSentimentPct + safeSentiment.volatilityPct),
             recommendation:
-              "Align narrative by region and publish executive talking points for high-volatility topics.",
+              "Trigger save plans for the accounts with falling health score and near-term renewal exposure.",
             targetDate: addDays(parsedInput.window.endDate, 5)
           },
           {
-            owner: "Brand Ops",
+            owner: "Renewals",
             priority: toPriority(100 - safeCompliance.complianceScorePct + safeCompliance.highRiskAssetsPct),
             recommendation:
-              "Enforce preflight brand checks on partner and social assets before publication.",
+              "Standardize renewal playbooks and executive sponsor mapping for portfolios showing process drift.",
             targetDate: addDays(parsedInput.window.endDate, 9)
           },
           {
-            owner: "PR Lead",
+            owner: "CS Ops",
             priority: toPriority(safeIncidents.severityIndex + safeIncidents.activeIncidentCount * 10),
             recommendation:
-              "Run incident response drill and refresh response templates for top-risk scenarios.",
+              "Stand up a weekly intervention room for accounts with unresolved escalations and low recovery readiness.",
             targetDate: addDays(parsedInput.window.endDate, 12)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected brand health ${projectedCultureHealthScore.toFixed(
+        headline: `Projected retention ${projectedRetentionPct.toFixed(
           2
-        )} vs sentiment target ${parsedInput.targetCultureHealthPct.toFixed(2)}%.`,
-        projectedCultureHealthScore,
+        )}% vs target ${parsedInput.targetRetentionPct.toFixed(2)}%.`,
+        projectedRetentionPct,
+        recommendedInterventionFront,
         riskSignals: [
           {
             mitigation:
-              "Centralize message governance for localized campaigns with weekly QA sampling.",
+              "Assign named executive sponsors to the renewals most exposed to adoption and process drift.",
             severity: toPriority(safeSentiment.volatilityPct + safeCompliance.highRiskAssetsPct),
             signal: safeCompliance.driftDriver
           },
           {
             mitigation:
-              "Escalate active incidents with severity-based runbooks and stakeholder updates.",
+              "Escalate the high-risk accounts into a joint CS, Support, and Product review until readiness improves.",
             severity: toPriority(safeIncidents.severityIndex + safeIncidents.activeIncidentCount * 8),
-            signal: `${safeIncidents.activeIncidentCount} active PR incidents with severity index ${safeIncidents.severityIndex.toFixed(
+            signal: `${safeIncidents.activeIncidentCount} account cohorts currently need intervention, with severity index ${safeIncidents.severityIndex.toFixed(
               2
             )}.`
           }
@@ -781,22 +787,22 @@ export class ChurnDeflectorAgent {
           {
             confidence: toConfidence(safeSentiment.currentSentimentPct),
             interpretation:
-              safeSentiment.currentSentimentPct >= parsedInput.targetCultureHealthPct
-                ? "Current sentiment is aligned with strategic target."
-                : "Current sentiment is below target and needs corrective narrative actions.",
-            metric: "Current Sentiment %",
+              safeSentiment.currentSentimentPct >= parsedInput.targetRetentionPct
+                ? "Account health is consistent with the current retention target."
+                : "Account health is below the desired retention threshold and needs rapid intervention.",
+            metric: "Account Health %",
             value: safeSentiment.currentSentimentPct
           },
           {
             confidence: toConfidence(safeCompliance.complianceScorePct),
-            interpretation: "Guideline compliance indicates consistency of external brand execution.",
-            metric: "Compliance Score %",
+            interpretation: "Renewal execution score reflects how consistently success and renewal motions are being applied.",
+            metric: "Renewal Execution %",
             value: safeCompliance.complianceScorePct
           },
           {
             confidence: toConfidence(100 - safeIncidents.severityIndex),
-            interpretation: "PR incident severity captures exposure risk to brand trust.",
-            metric: "Incident Severity Index",
+            interpretation: "Escalation severity shows how much unresolved account friction is threatening retention.",
+            metric: "Escalation Severity Index",
             value: safeIncidents.severityIndex
           }
         ]
@@ -815,7 +821,7 @@ export class ChurnDeflectorAgent {
       status,
       summary: fallbackApplied
         ? "ChurnDeflector generated under fallback mode due to tool failures."
-        : "ChurnDeflector generated with complete brand risk and compliance signals."
+        : "ChurnDeflector generated with complete account health, renewal risk, and intervention coverage."
     });
 
     this.lastMetrics = {

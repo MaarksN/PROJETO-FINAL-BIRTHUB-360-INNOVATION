@@ -2,7 +2,7 @@
 name: ChurnDeflector
 domain: executivos
 cycle: 1
-description: Monitora saude cultural interna, riscos de engajamento e alinhamento de lideranca para orientar acoes de people e comunicacao executiva.
+description: Monitora saude de contas, risco de renovacao e cobertura executiva para priorizar acoes de retencao e reduzir churn evitavel.
 
 preconditions:
   - Input valido validado contra ChurnDeflectorInputSchema.
@@ -20,7 +20,7 @@ input_schema:
       type: string
     requestId:
       type: string
-    targetCultureHealthPct:
+    targetRetentionPct:
       type: number
     window:
       type: object
@@ -66,14 +66,16 @@ output_schema:
       type: string
     generatedAt:
       type: string
-    cultureBrief:
+    churnBrief:
       type: object
       strict: true
       properties:
         headline:
           type: string
-        projectedCultureHealthScore:
+        projectedRetentionPct:
           type: number
+        recommendedInterventionFront:
+          type: string
         signals:
           type: array
           items:

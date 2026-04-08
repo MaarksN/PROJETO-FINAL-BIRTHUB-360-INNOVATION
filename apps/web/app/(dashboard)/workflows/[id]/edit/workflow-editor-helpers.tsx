@@ -32,6 +32,16 @@ export type BuilderNodeData = {
 export type WorkflowResponse = {
   workflow: {
     definition: WorkflowCanvas | null;
+    executions?: Array<{
+      id: string;
+      status: string;
+      stepResults: Array<{
+        status: string;
+        step: {
+          key: string;
+        };
+      }>;
+    }>;
     name: string;
     status: "ARCHIVED" | "DRAFT" | "PUBLISHED";
   };
@@ -45,6 +55,12 @@ export type SidebarValues = {
 export type ValidationResult = {
   errors: string[];
   invalidNodeIds: string[];
+};
+
+export type WorkflowSimulationResult = {
+  executionId: string;
+  runStatus: "FAILED" | "SUCCESS";
+  stepStatuses: Record<string, "FAILED" | "SUCCESS" | "WAITING">;
 };
 
 export const FALLBACK_CANVAS: WorkflowCanvas = {
@@ -331,4 +347,74 @@ export async function saveWorkflowDefinition(
   }
 
   return (await response.json()) as WorkflowResponse;
+}
+
+export async function startWorkflowDryRun(
+  apiBaseUrl: string,
+  workflowId: string,
+  payload: Record<string, unknown>
+): Promise<{
+  executionId: string;
+}> {
+  const response = await fetchWithSession(
+    `${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(workflowId)}/run`,
+    {
+      body: JSON.stringify({
+        async: false,
+        dryRun: true,
+        payload
+      }),
+      headers: {
+        "content-type": "application/json"
+      },
+      method: "POST",
+      timeoutMessage: `Falha ao iniciar dry run dentro do limite de ${WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Erro: ${response.status}`);
+  }
+
+  return (await response.json()) as {
+    executionId: string;
+  };
+}
+
+export async function loadWorkflowSimulationResult(
+  apiBaseUrl: string,
+  workflowId: string,
+  executionId: string
+): Promise<WorkflowSimulationResult | null> {
+  const response = await fetchWithSession(
+    `${apiBaseUrl}/api/v1/workflows/${encodeURIComponent(workflowId)}`,
+    {
+      timeoutMessage: `Falha ao consultar dry run dentro do limite de ${WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS}ms.`,
+      timeoutMs: WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Falha ao consultar simulacao (${response.status}).`);
+  }
+
+  const payload = (await response.json()) as WorkflowResponse;
+  const run = payload.workflow.executions?.find((candidate) => candidate.id === executionId);
+
+  if (!run || (run.status !== "SUCCESS" && run.status !== "FAILED")) {
+    return null;
+  }
+
+  return {
+    executionId,
+    runStatus: run.status,
+    stepStatuses: run.stepResults.reduce<Record<string, "FAILED" | "SUCCESS" | "WAITING">>(
+      (accumulator, result) => ({
+        ...accumulator,
+        [result.step.key]: result.status as "FAILED" | "SUCCESS" | "WAITING"
+      }),
+      {}
+    )
+  };
 }

@@ -2,7 +2,7 @@
 name: PipelineOracle
 domain: executivos
 cycle: 1
-description: Analisa a cobertura de territorio e performance de vendas para sugerir realocacoes de metas e maximizar o atingimento de cotas.
+description: Analisa cobertura de pipeline, capacidade comercial e qualidade de forecast para orientar redistribuicoes de cobertura e reduzir risco de conversao.
 
 preconditions:
   - Input valido validado contra PipelineOracleInputSchema.
@@ -20,7 +20,7 @@ input_schema:
       type: string
     requestId:
       type: string
-    targetQuotaAttainmentPct:
+    targetPipelineCoveragePct:
       type: number
     window:
       type: object
@@ -66,15 +66,15 @@ output_schema:
       type: string
     generatedAt:
       type: string
-    quotaBrief:
+    pipelineBrief:
       type: object
       strict: true
       properties:
         headline:
           type: string
-        projectedAttainmentPct:
+        projectedPipelineCoveragePct:
           type: number
-        recommendedQuotaDeltaPct:
+        recommendedCoverageShiftPct:
           type: number
         signals:
           type: array

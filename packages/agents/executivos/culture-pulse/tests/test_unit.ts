@@ -9,7 +9,7 @@ import { CulturePulseAgent } from "../agent.js";
 import {
   type BrandEvent,
   type CulturePulseInput,
-  DEFAULT_BRANDGUARDIAN_CONTRACT
+  DEFAULT_CULTUREPULSE_CONTRACT
 } from "../schemas.js";
 import type { CulturePulseToolAdapters } from "../tools.js";
 
@@ -20,7 +20,7 @@ const VALID_INPUT: CulturePulseInput = {
     maxActions: 4
   },
   requestId: "req-culturepulse-unit-001",
-  sections: ["reputation_risk", "narrative_consistency", "pr_response"],
+  sections: ["engagement_heatmap", "leadership_alignment", "retention_intent"],
   segments: ["enterprise", "mid_market", "strategic_accounts"],
   targetCultureHealthPct: 74,
   tenantId: "tenant_exec_demo",
@@ -47,6 +47,7 @@ void test("CulturePulse returns success output on happy path", async () => {
   assert.equal(output.status, "success");
   assert.equal(output.fallback.applied, false);
   assert.ok(output.cultureBrief.signals.length >= 2);
+  assert.match(output.cultureBrief.headline, /culture health/i);
   assert.ok(output.observability.metrics.toolCalls >= 3);
   assert.ok(
     output.observability.events.some(
@@ -59,7 +60,7 @@ void test("CulturePulse returns error when contract mode is hard_fail", async ()
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "culturepulse-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_BRANDGUARDIAN_CONTRACT,
+    ...DEFAULT_CULTUREPULSE_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,

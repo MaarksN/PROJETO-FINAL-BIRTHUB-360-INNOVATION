@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-08T00:43:28.360Z",
+  "checkedAt": "2026-04-08T01:53:58.277Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -68,8 +68,8 @@
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 121,
-      "directTestFiles": 18,
+      "runtimeFiles": 124,
+      "directTestFiles": 20,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/web/tests/auth-client.test.ts",
@@ -88,6 +88,8 @@
         "apps/web/tests/theme-provider.test.ts",
         "apps/web/tests/workflow-runs-page.test.ts",
         "apps/web/tests/workflows-list.test.ts",
+        "apps/web/tests/privacy-settings-page.test.ts",
+        "apps/web/tests/workflow-editor-helpers.test.ts",
         "tests/e2e/critical-routes.spec.ts",
         "tests/e2e/billing-premium.spec.ts"
       ],

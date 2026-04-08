@@ -750,46 +750,46 @@ export class MarketSentinelAgent {
       status,
       summary: fallbackApplied
         ? "MarketSentinel generated under fallback mode due to tool failures."
-        : "MarketSentinel generated with complete trend and momentum signal coverage.",
+        : "MarketSentinel generated with complete monitoring, pressure, and market alert coverage.",
       marketBrief: {
         actions: [
           {
-            owner: "CMO",
+            owner: "Strategy",
             priority: toPriority(100 - safeMarketTrend.momentumIndex + safeCategoryGrowth.competitorPressurePct),
             recommendation:
-              "Prioritize fast-launch campaigns around the highest momentum trend cluster with weekly refresh.",
+              "Stand up a weekly market watch on the theme showing the fastest acceleration and highest external pressure.",
             targetDate: addDays(parsedInput.window.endDate, 5)
           },
           {
-            owner: "Growth",
+            owner: "PMM",
             priority: toPriority(safeSocialSignal.engagementLiftPct + Math.abs(safeSocialSignal.sentimentShiftPct)),
             recommendation:
-              "Scale content formats that maximize engagement lift on emerging buyer narratives.",
+              "Refresh external messaging and alerting when buyer sentiment shifts faster than internal confidence.",
             targetDate: addDays(parsedInput.window.endDate, 9)
           },
           {
             owner: "RevOps",
             priority: toPriority(safeCategoryGrowth.whitespaceOpportunityPct + safeCategoryGrowth.competitorPressurePct),
             recommendation:
-              "Route whitespace opportunities to field teams with tighter win/loss trend instrumentation.",
+              "Instrument the highest-risk market fronts with tighter watch thresholds and decision triggers.",
             targetDate: addDays(parsedInput.window.endDate, 12)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected momentum ${projectedSignalConfidencePct.toFixed(
+        headline: `Projected monitoring confidence ${projectedSignalConfidencePct.toFixed(
           2
-        )} against growth target ${parsedInput.targetSignalConfidencePct.toFixed(2)}%.`,
+        )}% against target ${parsedInput.targetSignalConfidencePct.toFixed(2)}%.`,
         projectedSignalConfidencePct,
         recommendedMonitoringFront,
         riskSignals: [
           {
             mitigation:
-              "Reallocate media and outbound focus to defend categories under high competitor pressure.",
+              "Escalate the monitored front to leadership if pressure continues rising for two consecutive review windows.",
             severity: toPriority(safeCategoryGrowth.competitorPressurePct + (100 - safeMarketTrend.momentumIndex)),
             signal: safeMarketTrend.dominantTheme
           },
           {
             mitigation:
-              "Deploy narrative testing to stabilize sentiment where velocity exceeds confidence.",
+              "Run rapid narrative checks and alert owners when social sentiment drifts faster than expected.",
             severity: toPriority(Math.abs(safeSocialSignal.sentimentShiftPct) + safeMarketTrend.trendVelocityPct),
             signal: safeSocialSignal.emergingTopic
           }

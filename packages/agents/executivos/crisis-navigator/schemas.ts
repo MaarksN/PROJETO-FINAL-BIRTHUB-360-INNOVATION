@@ -120,7 +120,7 @@ export const CrisisNavigatorContractSchema = z
   .strict();
 export type CrisisNavigatorContract = z.infer<typeof CrisisNavigatorContractSchema>;
 
-export const DEFAULT_COMPETITORXRAY_CONTRACT: CrisisNavigatorContract = {
+export const DEFAULT_CRISISNAVIGATOR_CONTRACT: CrisisNavigatorContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -145,6 +145,7 @@ export const DEFAULT_COMPETITORXRAY_CONTRACT: CrisisNavigatorContract = {
     "resilience-gap-analyzer"
   ]
 };
+export const DEFAULT_COMPETITORXRAY_CONTRACT = DEFAULT_CRISISNAVIGATOR_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 

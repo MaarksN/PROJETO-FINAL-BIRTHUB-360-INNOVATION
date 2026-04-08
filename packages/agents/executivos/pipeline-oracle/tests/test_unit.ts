@@ -7,7 +7,7 @@ import test from "node:test";
 
 import { PipelineOracleAgent } from "../agent.js";
 import {
-  DEFAULT_QUOTAARCHITECT_CONTRACT,
+  DEFAULT_PIPELINEORACLE_CONTRACT,
   type PipelineOracleInput,
   type QuotaEvent
 } from "../schemas.js";
@@ -20,9 +20,9 @@ const VALID_INPUT: PipelineOracleInput = {
     maxActions: 4
   },
   requestId: "req-pipelineoracle-unit-001",
-  sections: ["capacity_model", "territory_balance", "coverage_gaps"],
+  sections: ["capacity_model", "territory_balance", "forecast_quality"],
   segments: ["enterprise", "mid_market", "commercial"],
-  targetQuotaAttainmentPct: 102,
+  targetPipelineCoveragePct: 102,
   tenantId: "tenant_exec_demo",
   window: {
     endDate: "2026-03-31",
@@ -46,7 +46,8 @@ void test("PipelineOracle returns success output on happy path", async () => {
 
   assert.equal(output.status, "success");
   assert.equal(output.fallback.applied, false);
-  assert.ok(output.quotaBrief.signals.length >= 2);
+  assert.ok(output.pipelineBrief.signals.length >= 2);
+  assert.match(output.pipelineBrief.headline, /pipeline coverage/i);
   assert.ok(output.observability.metrics.toolCalls >= 3);
   assert.ok(
     output.observability.events.some(
@@ -59,7 +60,7 @@ void test("PipelineOracle returns error when contract mode is hard_fail", async 
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "pipelineoracle-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_QUOTAARCHITECT_CONTRACT,
+    ...DEFAULT_PIPELINEORACLE_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,

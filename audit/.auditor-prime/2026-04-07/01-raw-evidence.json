@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-08T00:38:35.502Z",
+    "generatedAt": "2026-04-08T00:53:13.836Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "2b8e909bd48841fc989b33570afe7c5d07b0e1da",
+    "headSha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -16,10 +16,10 @@
     }
   },
   "repo": {
-    "trackedFiles": 6254,
-    "coreTrackedFiles": 553,
-    "runtimeFiles": 1874,
-    "testFiles": 186,
+    "trackedFiles": 6259,
+    "coreTrackedFiles": 558,
+    "runtimeFiles": 1877,
+    "testFiles": 188,
     "modules": 302
   },
   "files": [
@@ -3345,13 +3345,13 @@
     },
     {
       "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-      "bytes": 30562,
-      "lines": 908,
+      "bytes": 2236,
+      "lines": 62,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "ef8c42ad307cd3774388b91a47b80d67c6c9ab06ed747e5ef9492d6f95b9a910"
+      "sha256": "9f1ef8c616ff309f4452d86c6978504f0612aad3a81cea8f51777db6fd08ec68"
     },
     {
       "path": "apps/web/app/(dashboard)/settings/security/page.tsx",
@@ -3385,23 +3385,23 @@
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-      "bytes": 17066,
-      "lines": 545,
+      "bytes": 16335,
+      "lines": 529,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "9b62fa1b25f5654248f498baa40dde1e4a1eb39ff589b21f15e53ec151b2c469"
+      "sha256": "d50dd0050c92c2212fe3285a9ba2b1b496de529e13f738890f7c79f756936d75"
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-      "bytes": 8585,
-      "lines": 335,
+      "bytes": 10868,
+      "lines": 421,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "f382f1512a85b322b4df207fc954dacf14e88ae1a1d4c76b93d4d07a1d53cd7e"
+      "sha256": "54afdb6da1f9bfe15ba74ff01bff2dc55a2c6dbc4a7f0925c089b9a1a00c6950"
     },
     {
       "path": "apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx",
@@ -4205,13 +4205,13 @@
     },
     {
       "path": "apps/web/public/sw.js",
-      "bytes": 1690,
-      "lines": 63,
+      "bytes": 2040,
+      "lines": 77,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "apps",
       "moduleBucket": "apps/web",
-      "sha256": "80cbb88dd14252659b2213f42768e77e0e558bc629a3ed5bd28e65c766ca15a9"
+      "sha256": "00fa8db7f51dc47915ebffdb338672a46d72bbd025597853b76ed1c86cebb807"
     },
     {
       "path": "apps/web/sentry.server.config.ts",
@@ -5345,13 +5345,13 @@
     },
     {
       "path": "artifacts/accessibility/axe-report.json",
-      "bytes": 2002,
+      "bytes": 1968,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/accessibility",
-      "sha256": "26a64a19cdae2182b7cc0fe61e958a8f51078fa07db9a11b360b33e4c8739258"
+      "sha256": "6bbf7c87767c31aa53481878300f2c19493e50815c329ddc45c594266f54de8b"
     },
     {
       "path": "artifacts/agent-readiness/agent-snapshot-2026-03-24.json",
@@ -5561,7 +5561,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/database",
-      "sha256": "5765623db05f79018d7926c34afa09f88ffda43d8e3c31ac74b1bfa8a995c808"
+      "sha256": "ddc1c836db1a9afa802af527c8689b7f26c53ec7cf19fdf8ec2aee25ec47c718"
     },
     {
       "path": "artifacts/database/f8/tenant-isolation-report.txt",
@@ -5601,7 +5601,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/dr",
-      "sha256": "41e0252e5b9a409a6c686f31c880a07867f11aa85b049d91ab9b2b285d7be954"
+      "sha256": "5139a7728b0c77ab83619ec674b8a8cfe789e2baddd4672bb207d4e9a667c0fc"
     },
     {
       "path": "artifacts/f11-closure-2026-03-22/EVIDENCE_INDEX.md",
@@ -6041,7 +6041,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/performance",
-      "sha256": "1d17bab1d76d80f26e8b4c5cbae25b3e0053139ba8e7b435561c005284d8bb4f"
+      "sha256": "79bd70f659959284f2a401b48d99fb9afc57e20d3bb76967480e86de41f34089"
     },
     {
       "path": "artifacts/privacy/anonymization-report.json",
@@ -6061,7 +6061,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "284d4015de48461efd8a2ea149f0424892a331b605169fd497d44950c0988416"
+      "sha256": "09932bc93ff9337666be0f06c1f82f665b7c3c01f9a90b9c62eb3b99c1e7c709"
     },
     {
       "path": "artifacts/quality/bundle/web-bundle-baseline.md",
@@ -6071,7 +6071,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/quality",
-      "sha256": "b8b836d97a8904a4afb57bcec1dd50e0db4bcfb8b7f015cccf6cf6ded154bf9d"
+      "sha256": "999bb1b5d85fa3c54a558ca7165feb51ca92569ff73b714d9f2450d91fa1a6f6"
     },
     {
       "path": "artifacts/quality/complexity/cyclomatic-baseline.json",
@@ -6361,17 +6361,17 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/security",
-      "sha256": "aa3bdd7c5e95fa1af75fb783f228401a9824cec7c6b1f8b507fc7fc7a52054b9"
+      "sha256": "67fa9d310bad0a09feab3322b25f93f82dc3f921447cb94039f4a4160fb5876e"
     },
     {
       "path": "artifacts/tenancy/rls-proof-head.json",
-      "bytes": 2907,
+      "bytes": 3697,
       "lines": 0,
       "language": "JSON",
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/tenancy",
-      "sha256": "8f7757fff686d897eb615b35e3b5d9640c8f96c60a5a7c74b5db6ce29db4e83f"
+      "sha256": "498a8b6ec0718d3128a539373870b7d8ed2b2e13796c9d47288778d7c60407fd"
     },
     {
       "path": "artifacts/testing/module-coverage.json",
@@ -6381,7 +6381,7 @@
       "kind": "artifact",
       "topLevel": "artifacts",
       "moduleBucket": "artifacts/testing",
-      "sha256": "219659ffe970340df736cfbe4decd4de993b88897c6c2ca6d607705367468667"
+      "sha256": "a4791a30f8fb70936158458c30e97f5ee073622ee3184bf5d1d5ada7746b2fe2"
     },
     {
       "path": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
@@ -6445,33 +6445,33 @@
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/01-raw-evidence.json",
-      "bytes": 2496800,
+      "bytes": 2665307,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "861cd1df737132414b79150c8ec20cd42e2eb54a63fd2b990a1151e6e5e61763"
+      "sha256": "1873c139f4f75fad7ff00c2b3a885e31747ea092929a298daea97d840a9f4b51"
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/02-normalized.json",
-      "bytes": 289340,
+      "bytes": 401844,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "ad44005e5cd35bf29aa9a670b8beb16bf91106ff669d81c6f60f1f203290047e"
+      "sha256": "aacfd3e828544398bacd4f164a96690993d2470b77df18248889fb66373dda4b"
     },
     {
       "path": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "bytes": 325288,
+      "bytes": 436758,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/.auditor-prime",
-      "sha256": "c3a8be6d6a29a7a3b555c6665bf6890d2e5703547f0e9c95ac284e613f21483c"
+      "sha256": "df4e640b6337a7b25c1b8d6ea98fd6ee12bfdd3db39b4aa25839ab073d3b9f88"
     },
     {
       "path": "audit/AUDITORIA_CODEX_RESULTADO_2026-03-29.md",
@@ -6635,83 +6635,83 @@
     },
     {
       "path": "audit/auditor-prime-2026-04-07.html",
-      "bytes": 403265,
+      "bytes": 480722,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.html",
-      "sha256": "6f36ca63a3f3d7fed73835330c903c2087c694e1d494bf111df7bbabc8342a01"
+      "sha256": "7be3a4b33b058d355c4fe1f66a9f74936861e79855cc8159ab56dbe4890336e6"
     },
     {
       "path": "audit/auditor-prime-2026-04-07.json",
-      "bytes": 325288,
+      "bytes": 436758,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.json",
-      "sha256": "c3a8be6d6a29a7a3b555c6665bf6890d2e5703547f0e9c95ac284e613f21483c"
+      "sha256": "df4e640b6337a7b25c1b8d6ea98fd6ee12bfdd3db39b4aa25839ab073d3b9f88"
     },
     {
       "path": "audit/auditor-prime-2026-04-07.md",
-      "bytes": 131771,
+      "bytes": 131418,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-2026-04-07.md",
-      "sha256": "c58124ca8d49e88a6311063c9d260a5e51548061c734da49dc2bbd82c5b120ef"
+      "sha256": "ef227039cf930dfeff80a2f023c971bc7fe7b1424ebb30639fdf672bd92bb08e"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.json",
-      "bytes": 7996,
+      "bytes": 8039,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.json",
-      "sha256": "1c4bddb82aa698952bc042571eaaaef02b337a4e185a946418fa4b0a3bb2cc11"
+      "sha256": "4602957a3160c6ec0e857e277637c327cfc99b01994e8d9c3f784d49123ef28b"
     },
     {
       "path": "audit/auditor-prime-latest.backlog.md",
-      "bytes": 4967,
+      "bytes": 5010,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.backlog.md",
-      "sha256": "3ef3da484c53ce8e386251ff469386baa453919ec72e95f5f7f6af168a169303"
+      "sha256": "7bb4679cfe0adcaaa2294d00e3eba2354288ad1a866526b07446776786815e60"
     },
     {
       "path": "audit/auditor-prime-latest.html",
-      "bytes": 403265,
+      "bytes": 480722,
       "lines": 0,
       "language": "HTML",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.html",
-      "sha256": "6f36ca63a3f3d7fed73835330c903c2087c694e1d494bf111df7bbabc8342a01"
+      "sha256": "7be3a4b33b058d355c4fe1f66a9f74936861e79855cc8159ab56dbe4890336e6"
     },
     {
       "path": "audit/auditor-prime-latest.json",
-      "bytes": 325288,
+      "bytes": 436758,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.json",
-      "sha256": "c3a8be6d6a29a7a3b555c6665bf6890d2e5703547f0e9c95ac284e613f21483c"
+      "sha256": "df4e640b6337a7b25c1b8d6ea98fd6ee12bfdd3db39b4aa25839ab073d3b9f88"
     },
     {
       "path": "audit/auditor-prime-latest.md",
-      "bytes": 131771,
+      "bytes": 131418,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/auditor-prime-latest.md",
-      "sha256": "c58124ca8d49e88a6311063c9d260a5e51548061c734da49dc2bbd82c5b120ef"
+      "sha256": "ef227039cf930dfeff80a2f023c971bc7fe7b1424ebb30639fdf672bd92bb08e"
     },
     {
       "path": "audit/autofix/manifest.json",
@@ -40035,23 +40035,23 @@
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-07.json",
-      "bytes": 7996,
+      "bytes": 8039,
       "lines": 0,
       "language": "JSON",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-07.json",
-      "sha256": "1c4bddb82aa698952bc042571eaaaef02b337a4e185a946418fa4b0a3bb2cc11"
+      "sha256": "4602957a3160c6ec0e857e277637c327cfc99b01994e8d9c3f784d49123ef28b"
     },
     {
       "path": "audit/top-15-vdi-backlog-2026-04-07.md",
-      "bytes": 4967,
+      "bytes": 5010,
       "lines": 0,
       "language": "Markdown",
       "kind": "historical",
       "topLevel": "audit",
       "moduleBucket": "audit/top-15-vdi-backlog-2026-04-07.md",
-      "sha256": "3ef3da484c53ce8e386251ff469386baa453919ec72e95f5f7f6af168a169303"
+      "sha256": "7bb4679cfe0adcaaa2294d00e3eba2354288ad1a866526b07446776786815e60"
     },
     {
       "path": "audit/traceability_matrix.md",
@@ -41505,13 +41505,13 @@
     },
     {
       "path": "docs/cycles/2026-04-07-fase-5-sustentacao-de-producao.md",
-      "bytes": 3889,
-      "lines": 102,
+      "bytes": 5739,
+      "lines": 120,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/cycles",
-      "sha256": "cdfc2480750926a7945ea3530b8126262d029bf8fc9206eec54fd80a1601fb2b"
+      "sha256": "dc984f003d79a15a1901ae7aa9bab3db050acb553c8737d8f82708e35f51cb4c"
     },
     {
       "path": "docs/database/migration-rollback-plan.md",
@@ -41745,13 +41745,13 @@
     },
     {
       "path": "docs/evidence/test-coverage-dashboard.md",
-      "bytes": 925,
-      "lines": 49,
+      "bytes": 2254,
+      "lines": 82,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/evidence",
-      "sha256": "a39c83f777836df83fb7e1bd3e560a7e18aad506ba2d038a04ea87eb89eb49fe"
+      "sha256": "ec5cc4269b75efa97060a99e7be7d4db216a35a10f0f443bc0c3d64113d81a60"
     },
     {
       "path": "docs/evidence/utils-esm-fix.md",
@@ -41795,13 +41795,13 @@
     },
     {
       "path": "docs/execution/CICLO_F0_F1_RASTREABILIDADE_2026-04-07.md",
-      "bytes": 5253,
-      "lines": 100,
+      "bytes": 6978,
+      "lines": 116,
       "language": "Markdown",
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/execution",
-      "sha256": "36ca44f28ba3ae3946d85d3b12a89bcea540e2e921ceab4d729666bc0a2a67ad"
+      "sha256": "a6cb6f43c8c95b1b37b18b3a97e2ef078f788e9c20764a6264d3420352598385"
     },
     {
       "path": "docs/execution/f0-freeze-communication-2026-03-22.md",
@@ -42121,7 +42121,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "eaeff8c600a2170f310fccecb33a165623c62e695a9e2bae5350e8e788b8e1bd"
+      "sha256": "1c740e81779d66b4cc5e0211f15b9036238dc57537a5924df67db61786a9b15a"
     },
     {
       "path": "docs/operations/f0-evidence-freshness-policy.md",
@@ -42171,7 +42171,7 @@
       "kind": "doc",
       "topLevel": "docs",
       "moduleBucket": "docs/operations",
-      "sha256": "aa27725092684688a13b75056a2bd5f796473f7b0a807e52956c789c1d9cbfa9"
+      "sha256": "7ce14c24b42431ed4d28362ed2811f844305082e81c63b2188f818cf194355eb"
     },
     {
       "path": "docs/performance/agent-slo.md",
@@ -57135,13 +57135,13 @@
     },
     {
       "path": "packages/agents/executivos/brand-guardian/agent.ts",
-      "bytes": 26039,
+      "bytes": 26050,
       "lines": 863,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "01f57cb29e6f842efdd2f2937935fcfc35e25f1f23f69bcc95681a30c02f6e7f"
+      "sha256": "ba189509e0cdca8e6139c85d71626a89e847b06edb5898e623ad3ffe7d9d39f8"
     },
     {
       "path": "packages/agents/executivos/brand-guardian/contract.yaml",
@@ -57225,13 +57225,13 @@
     },
     {
       "path": "packages/agents/executivos/budget-fluid/agent.ts",
-      "bytes": 25851,
+      "bytes": 25862,
       "lines": 864,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "1f6b666a4d8704d920bdd0f3fe5150a4868c2a027e71a6d85164fce98e0167f1"
+      "sha256": "3e24e82902ec83ffda061d09c04190419e872354acf7f147d07c0596db108c79"
     },
     {
       "path": "packages/agents/executivos/budget-fluid/contract.yaml",
@@ -57315,13 +57315,13 @@
     },
     {
       "path": "packages/agents/executivos/capital-allocator/agent.ts",
-      "bytes": 26156,
-      "lines": 864,
+      "bytes": 26179,
+      "lines": 866,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "1e70384ddf5795d81ce3454a01ce48408eadb2dfc57e7a58de6a4959336c71ab"
+      "sha256": "0af566bb6b03b31f7f7eec7cad04f525bde423f293e4ee846b1dcbf86e5ccc5a"
     },
     {
       "path": "packages/agents/executivos/capital-allocator/contract.yaml",
@@ -57335,13 +57335,13 @@
     },
     {
       "path": "packages/agents/executivos/capital-allocator/schemas.ts",
-      "bytes": 6163,
-      "lines": 209,
+      "bytes": 6247,
+      "lines": 210,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "9ad88b52cb2104318484af14186dceed8866135e2177a12964f1391152fa4090"
+      "sha256": "54ef87c451b18bb7db362af87a24ef15acee233278ae83be97114130614f5c9b"
     },
     {
       "path": "packages/agents/executivos/capital-allocator/seeds/dev_seed.json",
@@ -57405,13 +57405,13 @@
     },
     {
       "path": "packages/agents/executivos/churn-deflector/agent.ts",
-      "bytes": 26104,
+      "bytes": 26115,
       "lines": 863,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "e768c35dc7733e7b7da7d3bb5dcdf88792f14075e00a1762cf233b08ecc72c12"
+      "sha256": "53c201847ba2d506a4ebacbc9d1972595b627b73ddb2b7715109320af528bc75"
     },
     {
       "path": "packages/agents/executivos/churn-deflector/contract.yaml",
@@ -57425,13 +57425,13 @@
     },
     {
       "path": "packages/agents/executivos/churn-deflector/schemas.ts",
-      "bytes": 6025,
-      "lines": 208,
+      "bytes": 6160,
+      "lines": 214,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "a216c3168b129f9c5a0912764f89ec2461d847626678fa749436ac33a1f83c75"
+      "sha256": "edf26aac476a179ac57a8b93dbd01f3daab298e6678f42b15328e7cda550c759"
     },
     {
       "path": "packages/agents/executivos/churn-deflector/seeds/dev_seed.json",
@@ -57495,13 +57495,13 @@
     },
     {
       "path": "packages/agents/executivos/competitor-xray/agent.ts",
-      "bytes": 26365,
-      "lines": 863,
+      "bytes": 26388,
+      "lines": 865,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "c75d46b496b70fc1dbd2776158568a75c15f9ecf1b0e0873663f14614b573c80"
+      "sha256": "b80fc63d0ddec6943869d7c3a93286350146c22b220569c7a582f992689ce911"
     },
     {
       "path": "packages/agents/executivos/competitor-xray/contract.yaml",
@@ -57585,13 +57585,13 @@
     },
     {
       "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-      "bytes": 26407,
-      "lines": 863,
+      "bytes": 26430,
+      "lines": 865,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "a72b25d3b38885f4f2b842873eac941f09d5c264d615af46803a6695235f6b14"
+      "sha256": "c0b1efe0cbf81dff086466d5f057a9c24b8329f5e920e2273340616e7a7dac60"
     },
     {
       "path": "packages/agents/executivos/crisis-navigator/contract.yaml",
@@ -57605,13 +57605,13 @@
     },
     {
       "path": "packages/agents/executivos/crisis-navigator/schemas.ts",
-      "bytes": 6297,
-      "lines": 213,
+      "bytes": 6379,
+      "lines": 214,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "3b377a50019c44aaabcc874ee674538a00eb4afce58b6add3ccfa67dac65c42c"
+      "sha256": "819713790e991489a058e2b8a773d52b9cb92cffa53bc08e8a0ca72e2f05b3b8"
     },
     {
       "path": "packages/agents/executivos/crisis-navigator/seeds/dev_seed.json",
@@ -57675,13 +57675,13 @@
     },
     {
       "path": "packages/agents/executivos/culture-pulse/agent.ts",
-      "bytes": 25982,
+      "bytes": 25993,
       "lines": 863,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "543e7b0922165217eec895bd56663035794c7e63506fdb1a53c862706513cc36"
+      "sha256": "ecef3eb8888b671a2557db9f5ab55af3ad7daa20ce6a57b2eaa64e177b8ee69e"
     },
     {
       "path": "packages/agents/executivos/culture-pulse/contract.yaml",
@@ -57695,13 +57695,13 @@
     },
     {
       "path": "packages/agents/executivos/culture-pulse/schemas.ts",
-      "bytes": 5969,
-      "lines": 208,
+      "bytes": 6075,
+      "lines": 213,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "2de1970f78c85e99f059a0d172412eabcf1e4f85ff2869c5a09d2617ed1c9f04"
+      "sha256": "65b3aac25a656622c870fbd00aaa81b389ae686cc257ae806d51107d81372696"
     },
     {
       "path": "packages/agents/executivos/culture-pulse/seeds/dev_seed.json",
@@ -57765,13 +57765,13 @@
     },
     {
       "path": "packages/agents/executivos/expansion-mapper/agent.ts",
-      "bytes": 26236,
+      "bytes": 26247,
       "lines": 862,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "64b8b5bf7cdcddaf83610224bd5e6d0c4bc4d66497c60a68b811cab65ea2587d"
+      "sha256": "70b24763f93ad308d386060b62022473dec03f8caf292153e7641f880f003655"
     },
     {
       "path": "packages/agents/executivos/expansion-mapper/contract.yaml",
@@ -57785,13 +57785,13 @@
     },
     {
       "path": "packages/agents/executivos/expansion-mapper/schemas.ts",
-      "bytes": 6121,
-      "lines": 209,
+      "bytes": 6203,
+      "lines": 210,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "29810e12aaa752d89172280b016ea19999879e4a0bc10f7b8d81200f0c7edde4"
+      "sha256": "ce1ffd669e2a09a0938dad2b829f0c431e281a1a6ceb64d27bc6348c5190ddd6"
     },
     {
       "path": "packages/agents/executivos/expansion-mapper/seeds/dev_seed.json",
@@ -57855,13 +57855,13 @@
     },
     {
       "path": "packages/agents/executivos/market-sentinel/agent.ts",
-      "bytes": 26175,
+      "bytes": 26186,
       "lines": 862,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "4b8ba82b7c835106f1265be4b47c9b7949c5d03b1222acb46596f2797f9a02a8"
+      "sha256": "76af39b51785e02c1c51b37ab359fba1ac0c1f7d5d4c53e74712edcbe9e2d5bd"
     },
     {
       "path": "packages/agents/executivos/market-sentinel/contract.yaml",
@@ -57875,13 +57875,13 @@
     },
     {
       "path": "packages/agents/executivos/market-sentinel/schemas.ts",
-      "bytes": 6093,
-      "lines": 209,
+      "bytes": 6173,
+      "lines": 210,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "b4961f808ec12f57d78f19a6308e2e76da58a11436a0c41b65c4225ccd7fa541"
+      "sha256": "752fe636d172da77dd29ad3c1cc6a936deb63fb2345aa0c328a14329c8a0402a"
     },
     {
       "path": "packages/agents/executivos/market-sentinel/seeds/dev_seed.json",
@@ -57945,13 +57945,13 @@
     },
     {
       "path": "packages/agents/executivos/narrative-weaver/agent.ts",
-      "bytes": 26794,
+      "bytes": 26805,
       "lines": 878,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "be875735b15590bfb755a0d3d82e166148d179711bab49433c6c6406000fd58c"
+      "sha256": "500273e9d05724340ddf67fc425957444326fd638b0a7a5ae0767536a95df85b"
     },
     {
       "path": "packages/agents/executivos/narrative-weaver/contract.yaml",
@@ -58035,13 +58035,13 @@
     },
     {
       "path": "packages/agents/executivos/pipeline-oracle/agent.ts",
-      "bytes": 26347,
+      "bytes": 26358,
       "lines": 872,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "ab7ad3d6b4bd97634a49a18004b4327375bde70901af1a9720ae800c99e32d91"
+      "sha256": "433aa0a2814a97478c0d1ca225b0297d68b3d9ce5bbbe0ab2cd628f10b8d3d7d"
     },
     {
       "path": "packages/agents/executivos/pipeline-oracle/contract.yaml",
@@ -58055,13 +58055,13 @@
     },
     {
       "path": "packages/agents/executivos/pipeline-oracle/schemas.ts",
-      "bytes": 6067,
-      "lines": 213,
+      "bytes": 6183,
+      "lines": 215,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "1debb4cbb1f51f9ab44a66260b5ae67cf72476fda2b0f4f88f465f75fc6179e3"
+      "sha256": "f386a3a858224e498e1d3d9d9d92f8ed2fccf90cb6de37d50f9125c4fb3417ce"
     },
     {
       "path": "packages/agents/executivos/pipeline-oracle/seeds/dev_seed.json",
@@ -58125,13 +58125,13 @@
     },
     {
       "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-      "bytes": 26486,
-      "lines": 863,
+      "bytes": 26509,
+      "lines": 865,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "f3a14468117fad4eda86fdf77f0b1e443ffda55d39596fe2f5a2fd5b4c5d2805"
+      "sha256": "77bd6c83a5e069318c1ddc234d4a63f6020eff7c0d36e6096d4946bdda15c53f"
     },
     {
       "path": "packages/agents/executivos/pricing-optimizer/contract.yaml",
@@ -58145,13 +58145,13 @@
     },
     {
       "path": "packages/agents/executivos/pricing-optimizer/schemas.ts",
-      "bytes": 6333,
-      "lines": 213,
+      "bytes": 6432,
+      "lines": 214,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "12545bf88589d13d39cb48e12a9ff5e1d766f11636c350f2bc70a6d3d95fa09a"
+      "sha256": "9a19a75fc3a21f020fb0a922b5f47c75872cd706093f6247ad039d88a0e00ddb"
     },
     {
       "path": "packages/agents/executivos/pricing-optimizer/seeds/dev_seed.json",
@@ -58215,13 +58215,13 @@
     },
     {
       "path": "packages/agents/executivos/quota-architect/agent.ts",
-      "bytes": 26347,
+      "bytes": 26358,
       "lines": 872,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "89d1d4c847d5a880e11579447530ad2133ce290e3b748c3fe98539b942a3730f"
+      "sha256": "d68c7cb2900f993151de5d14631b00fa5eaffe832107e854ad4c0fbdc6b5082c"
     },
     {
       "path": "packages/agents/executivos/quota-architect/contract.yaml",
@@ -58305,13 +58305,13 @@
     },
     {
       "path": "packages/agents/executivos/trend-catcher/agent.ts",
-      "bytes": 25972,
+      "bytes": 25983,
       "lines": 862,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/agents",
-      "sha256": "9971a5ffd7041b55ae54110694a90cea7f6e943461471f2b28aaebfba496a831"
+      "sha256": "1274bb211cdc51de91b2283811bb9b37da06fe9bb7440d4b577646ff1e8965a9"
     },
     {
       "path": "packages/agents/executivos/trend-catcher/contract.yaml",
@@ -59315,13 +59315,13 @@
     },
     {
       "path": "packages/database/src/client.ts",
-      "bytes": 9871,
-      "lines": 357,
+      "bytes": 10798,
+      "lines": 396,
       "language": "TypeScript",
       "kind": "runtime",
       "topLevel": "packages",
       "moduleBucket": "packages/database",
-      "sha256": "d2e0979d18f7c1f0e24151589f6a6e6562933dfa7e4de62e965eab7785106b72"
+      "sha256": "88f0278e948c38ee5284c1706178bb30c444f1cb9e0f472d36a36d8191ff1033"
     },
     {
       "path": "packages/database/src/errors/cross-tenant-access.error.ts",
@@ -61215,13 +61215,13 @@
     },
     {
       "path": "scripts/audit/prime-refresh-evidence.mjs",
-      "bytes": 36577,
-      "lines": 1073,
+      "bytes": 36815,
+      "lines": 1078,
       "language": "JavaScript",
       "kind": "runtime",
       "topLevel": "scripts",
       "moduleBucket": "scripts/audit",
-      "sha256": "39ab0afb09918f549dbe35df0fd273c9711a5093c3d3258e67c440009fa15d5e"
+      "sha256": "8e90f8beaedd41131cda892f4ec228469c1be38d484e958d24ec9b57f525068e"
     },
     {
       "path": "scripts/audit/prime-render.mjs",
@@ -62365,13 +62365,13 @@
     },
     {
       "path": "tests/e2e/agent-studio.spec.ts",
-      "bytes": 529,
-      "lines": 17,
+      "bytes": 799,
+      "lines": 26,
       "language": "TypeScript",
       "kind": "test",
       "topLevel": "tests",
       "moduleBucket": "tests/e2e",
-      "sha256": "a3c55c139b48cd68dd066a600bb39d69765b2392f526e8e824775846aeabe8ee"
+      "sha256": "71292385a542b70788d1847bd1a68fb74aff4ea23a5a4538ed34f3be1226aa4e"
     },
     {
       "path": "tests/e2e/billing-premium.spec.ts",
@@ -62562,12 +62562,62 @@
       "topLevel": "turbo.json",
       "moduleBucket": "turbo.json",
       "sha256": "ca6935e25db4007415e391a0ebb673bda8adc1c2247b3928e1133fda5f28ff09"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.data.ts",
+      "bytes": 10274,
+      "lines": 376,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "d0a3359a08fcac99d8d196d58f186cec85b66b7af692ad7a9c9b8d1eb6545554"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts",
+      "bytes": 9851,
+      "lines": 331,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "ee3803e56799151eedfbc38410427de023500ab0ab54d810129df79dedee21cb"
+    },
+    {
+      "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.sections.tsx",
+      "bytes": 15694,
+      "lines": 455,
+      "language": "TypeScript",
+      "kind": "runtime",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "682b06f5689ced78763f149207598c7cf1ef3cde244296932156dd0feeea00bf"
+    },
+    {
+      "path": "apps/web/tests/privacy-settings-page.test.ts",
+      "bytes": 8917,
+      "lines": 273,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "164480d6dff7b94aece8aafa305e5b67f3d27f445b786e4586375823140ed2d4"
+    },
+    {
+      "path": "apps/web/tests/workflow-editor-helpers.test.ts",
+      "bytes": 4346,
+      "lines": 138,
+      "language": "TypeScript",
+      "kind": "test",
+      "topLevel": "apps",
+      "moduleBucket": "apps/web",
+      "sha256": "a01391dc94df0266c8ec91a4e77f88ac614cb8f6f1ac3333dd092391834a02ae"
     }
   ],
   "complexity": {
     "available": true,
-    "filesScanned": 742,
-    "functionsScanned": 5729,
+    "filesScanned": 747,
+    "functionsScanned": 5766,
     "modules": [
       {
         "module": "packages/agents-core",
@@ -62690,12 +62740,12 @@
       },
       {
         "module": "apps/web",
-        "functions": 1205,
-        "avgComplexity": 2.74,
+        "functions": 1240,
+        "avgComplexity": 2.66,
         "p95Complexity": 9,
         "maxComplexity": 120,
-        "functionsAtOrAbove10": 55,
-        "functionsAtOrAbove20": 9,
+        "functionsAtOrAbove10": 54,
+        "functionsAtOrAbove20": 7,
         "hotspots": [
           {
             "file": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
@@ -62705,15 +62755,6 @@
             "endLine": 694,
             "length": 597,
             "complexity": 120
-          },
-          {
-            "file": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-            "module": "apps/web",
-            "functionName": "PrivacySettingsPageClient",
-            "line": 165,
-            "endLine": 907,
-            "length": 743,
-            "complexity": 70
           },
           {
             "file": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
@@ -62770,15 +62811,6 @@
             "complexity": 22
           },
           {
-            "file": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-            "module": "apps/web",
-            "functionName": "WorkflowEditPage",
-            "line": 349,
-            "endLine": 544,
-            "length": 196,
-            "complexity": 21
-          },
-          {
             "file": "apps/web/app/(dashboard)/onboarding/page.tsx",
             "module": "apps/web",
             "functionName": "OnboardingPage",
@@ -62786,6 +62818,15 @@
             "endLine": 175,
             "length": 149,
             "complexity": 19
+          },
+          {
+            "file": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
+            "module": "apps/web",
+            "functionName": "WorkflowEditPage",
+            "line": 350,
+            "endLine": 528,
+            "length": 179,
+            "complexity": 18
           },
           {
             "file": "apps/web/components/agents/agent-run-panel.tsx",
@@ -62804,6 +62845,15 @@
             "endLine": 295,
             "length": 271,
             "complexity": 18
+          },
+          {
+            "file": "apps/web/app/(dashboard)/dashboard/page.tsx",
+            "module": "apps/web",
+            "functionName": "DashboardHomePage",
+            "line": 70,
+            "endLine": 531,
+            "length": 462,
+            "complexity": 17
           }
         ]
       },
@@ -62838,8 +62888,8 @@
             "file": "packages/agents/executivos/competitor-xray/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
-            "line": 487,
-            "endLine": 825,
+            "line": 489,
+            "endLine": 827,
             "length": 339,
             "complexity": 31
           },
@@ -62847,8 +62897,8 @@
             "file": "packages/agents/executivos/crisis-navigator/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
-            "line": 487,
-            "endLine": 825,
+            "line": 489,
+            "endLine": 827,
             "length": 339,
             "complexity": 31
           },
@@ -62901,8 +62951,8 @@
             "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
             "module": "packages/agents",
             "functionName": "run",
-            "line": 487,
-            "endLine": 825,
+            "line": 489,
+            "endLine": 827,
             "length": 339,
             "complexity": 31
           },
@@ -63047,11 +63097,11 @@
       },
       {
         "module": "packages/database",
-        "functions": 314,
-        "avgComplexity": 2.4,
+        "functions": 316,
+        "avgComplexity": 2.41,
         "p95Complexity": 8,
         "maxComplexity": 22,
-        "functionsAtOrAbove10": 13,
+        "functionsAtOrAbove10": 12,
         "functionsAtOrAbove20": 2,
         "hotspots": [
           {
@@ -63655,15 +63705,6 @@
         "complexity": 120
       },
       {
-        "file": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-        "module": "apps/web",
-        "functionName": "PrivacySettingsPageClient",
-        "line": 165,
-        "endLine": 907,
-        "length": 743,
-        "complexity": 70
-      },
-      {
         "file": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
         "module": "apps/web",
         "functionName": "AppointmentsBoard",
@@ -63712,8 +63753,8 @@
         "file": "packages/agents/executivos/competitor-xray/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
-        "line": 487,
-        "endLine": 825,
+        "line": 489,
+        "endLine": 827,
         "length": 339,
         "complexity": 31
       },
@@ -63721,8 +63762,8 @@
         "file": "packages/agents/executivos/crisis-navigator/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
-        "line": 487,
-        "endLine": 825,
+        "line": 489,
+        "endLine": 827,
         "length": 339,
         "complexity": 31
       },
@@ -63775,8 +63816,8 @@
         "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
-        "line": 487,
-        "endLine": 825,
+        "line": 489,
+        "endLine": 827,
         "length": 339,
         "complexity": 31
       },
@@ -63829,8 +63870,8 @@
         "file": "packages/agents/executivos/capital-allocator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "length": 104,
         "complexity": 30
       },
@@ -63838,8 +63879,8 @@
         "file": "packages/agents/executivos/capital-allocator/agent.ts",
         "module": "packages/agents",
         "functionName": "run",
-        "line": 487,
-        "endLine": 826,
+        "line": 489,
+        "endLine": 828,
         "length": 340,
         "complexity": 30
       },
@@ -63856,8 +63897,8 @@
         "file": "packages/agents/executivos/competitor-xray/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "length": 104,
         "complexity": 30
       },
@@ -63865,8 +63906,8 @@
         "file": "packages/agents/executivos/crisis-navigator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "length": 104,
         "complexity": 30
       },
@@ -63919,8 +63960,8 @@
         "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverridesFromObject",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "length": 104,
         "complexity": 30
       },
@@ -64042,15 +64083,6 @@
         "complexity": 22
       },
       {
-        "file": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-        "module": "apps/web",
-        "functionName": "WorkflowEditPage",
-        "line": 349,
-        "endLine": 544,
-        "length": 196,
-        "complexity": 21
-      },
-      {
         "file": "packages/agents/executivos/brand-guardian/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
@@ -64072,8 +64104,8 @@
         "file": "packages/agents/executivos/capital-allocator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "length": 99,
         "complexity": 21
       },
@@ -64090,8 +64122,8 @@
         "file": "packages/agents/executivos/competitor-xray/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "length": 99,
         "complexity": 21
       },
@@ -64099,8 +64131,8 @@
         "file": "packages/agents/executivos/crisis-navigator/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "length": 99,
         "complexity": 21
       },
@@ -64153,8 +64185,8 @@
         "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "module": "packages/agents",
         "functionName": "parseContractOverrides",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "length": 99,
         "complexity": 21
       },
@@ -64312,6 +64344,15 @@
         "complexity": 18
       },
       {
+        "file": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
+        "module": "apps/web",
+        "functionName": "WorkflowEditPage",
+        "line": 350,
+        "endLine": 528,
+        "length": 179,
+        "complexity": 18
+      },
+      {
         "file": "apps/web/components/agents/agent-run-panel.tsx",
         "module": "apps/web",
         "functionName": "AgentRunPanel",
@@ -64336,6 +64377,15 @@
         "line": 30,
         "endLine": 136,
         "length": 107,
+        "complexity": 18
+      },
+      {
+        "file": "packages/workflows-core/src/parser/dagValidator.ts",
+        "module": "packages/workflows-core",
+        "functionName": "validateDag",
+        "line": 125,
+        "endLine": 198,
+        "length": 74,
         "complexity": 18
       }
     ]
@@ -67312,8 +67362,18 @@
     }
   },
   "git": {
-    "totalCommits": 1188,
+    "totalCommits": 1190,
     "last30Days": [
+      {
+        "sha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
+        "date": "2026-04-07",
+        "subject": "1"
+      },
+      {
+        "sha": "c9db428e91951c73197283c6f0a5fc4817ca633e",
+        "date": "2026-04-07",
+        "subject": "1"
+      },
       {
         "sha": "2b8e909bd48841fc989b33570afe7c5d07b0e1da",
         "date": "2026-04-07",
@@ -70266,6 +70326,16 @@
       "activeDays": 23,
       "placeholderMessages": [
         {
+          "sha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "c9db428e91951c73197283c6f0a5fc4817ca633e",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
           "sha": "2b8e909bd48841fc989b33570afe7c5d07b0e1da",
           "date": "2026-04-07",
           "subject": "1"
@@ -70377,16 +70447,6 @@
         },
         {
           "sha": "3bcbd44194e30a09b34dd7ec04d37e703ab018ba",
-          "date": "2026-04-06",
-          "subject": "1"
-        },
-        {
-          "sha": "5fbde0e28d4a63b55c45ca189404dca3b65dbdf3",
-          "date": "2026-04-06",
-          "subject": "1"
-        },
-        {
-          "sha": "9de4ef3d3faad002283179f5ce969c03a8007d99",
           "date": "2026-04-06",
           "subject": "1"
         }
@@ -70581,13 +70641,6 @@
     "consoleOccurrences": [
       {
         "id": "console-runtime",
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-        "line": 458,
-        "text": "console.error(e);",
-        "summary": "Uso de console.* em superfície de runtime."
-      },
-      {
-        "id": "console-runtime",
         "path": "packages/agents-core/docs/assets/main.js",
         "line": 3,
         "text": "\"use strict\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnPropertyNames;var Xe=Object.getPrototypeOf,Ye=Object.prototype.hasOwnProperty;var et=(t,e)=>()=>(e||t((e={exports:{}}).exports,e),e.exports);var tt=(t,e,n,r)=>{if(e&&typeof e==\"object\"||typeof e==\"function\")for(let i of Ze(e))!Ye.call(t,i)&&i!==n&&he(t,i,{get:()=>e[i],enumerable:!(r=Ge(e,i))||r.enumerable});return t};var nt=(t,e,n)=>(n=t!=null?Ke(Xe(t)):{},tt(e||!t||!t.__esModule?he(n,\"default\",{value:t,enumerable:!0}):n,t));var ye=et((me,ge)=>{(function(){var t=function(e){var n=new t.Builder;return n.pipeline.add(t.trimmer,t.stopWordFilter,t.stemmer),n.searchPipeline.add(t.stemmer),e.call(n,n),n.build()};t.version=\"2.3.9\";t.utils={},t.utils.warn=(function(e){return function(n){e.console&&console.warn&&console.warn(n)}})(this),t.utils.asString=function(e){return e==null?\"\":e.toString()},t.utils.clone=function(e){if(e==null)return e;for(var n=Object.create(null),r=Object.keys(e),i=0;i<r.length;i++){var s=r[i],o=e[s];if(Array.isArray(o)){n[s]=o.slice();continue}if(typeof o==\"string\"||typeof o==\"number\"||typeof o==\"boolean\"){n[s]=o;continue}throw new TypeError(\"clone is not deep and does not support nested objects\")}return n},t.FieldRef=function(e,n,r){this.docRef=e,this.fieldName=n,this._stringValue=r},t.FieldRef.joiner=\"/\",t.FieldRef.fromString=function(e){var n=e.indexOf(t.FieldRef.joiner);if(n===-1)throw\"malformed field ref string\";var r=e.slice(0,n),i=e.slice(n+1);return new t.FieldRef(i,r,e)},t.FieldRef.prototype.toString=function(){return this._stringValue==null&&(this._stringValue=this.fieldName+t.FieldRef.joiner+this.docRef),this._stringValue};t.Set=function(e){if(this.elements=Object.create(null),e){this.length=e.length;for(var n=0;n<this.length;n++)this.elements[e[n]]=!0}else this.length=0},t.Set.complete={intersect:function(e){return e},union:function(){return this},contains:function(){return!0}},t.Set.empty={intersect:function(){return this},union:function(e){return e},contains:function(){return!1}},t.Set.prototype.contains=function(e){return!!this.elements[e]},t.Set.prototype.intersect=function(e){var n,r,i,s=[];if(e===t.Set.complete)return this;if(e===t.Set.empty)return e;this.length<e.length?(n=this,r=e):(n=e,r=this),i=Object.keys(n.elements);for(var o=0;o<i.length;o++){var a=i[o];a in r.elements&&s.push(a)}return new t.Set(s)},t.Set.prototype.union=function(e){return e===t.Set.complete?t.Set.complete:e===t.Set.empty?this:new t.Set(Object.keys(this.elements).concat(Object.keys(e.elements)))},t.idf=function(e,n){var r=0;for(var i in e)i!=\"_index\"&&(r+=Object.keys(e[i]).length);var s=(n-r+.5)/(r+.5);return Math.log(1+Math.abs(s))},t.Token=function(e,n){this.str=e||\"\",this.metadata=n||{}},t.Token.prototype.toString=function(){return this.str},t.Token.prototype.update=function(e){return this.str=e(this.str,this.metadata),this},t.Token.prototype.clone=function(e){return e=e||function(n){return n},new t.Token(e(this.str,this.metadata),this.metadata)};t.tokenizer=function(e,n){if(e==null||e==null)return[];if(Array.isArray(e))return e.map(function(f){return new t.Token(t.utils.asString(f).toLowerCase(),t.utils.clone(n))});for(var r=e.toString().toLowerCase(),i=r.length,s=[],o=0,a=0;o<=i;o++){var c=r.charAt(o),l=o-a;if(c.match(t.tokenizer.separator)||o==i){if(l>0){var d=t.utils.clone(n)||{};d.position=[a,l],d.index=s.length,s.push(new t.Token(r.slice(a,o),d))}a=o+1}}return s},t.tokenizer.separator=/[\\s\\-]+/;t.Pipeline=function(){this._stack=[]},t.Pipeline.registeredFunctions=Object.create(null),t.Pipeline.registerFunction=function(e,n){n in this.registeredFunctions&&t.utils.warn(\"Overwriting existing registered function: \"+n),e.label=n,t.Pipeline.registeredFunctions[e.label]=e},t.Pipeline.warnIfFunctionNotRegistered=function(e){var n=e.label&&e.label in this.registeredFunctions;n||t.utils.warn(`Function is not registered with pipeline. This may cause problems when serialising the index.",
@@ -70645,21 +70698,21 @@
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 513,
+        "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 515,
+        "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 517,
+        "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
@@ -70687,42 +70740,42 @@
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 513,
+        "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 515,
+        "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 517,
+        "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 513,
+        "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 515,
+        "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 517,
+        "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
@@ -70834,21 +70887,21 @@
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 513,
+        "line": 515,
         "text": "console.error(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 515,
+        "line": 517,
         "text": "console.warn(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
         "id": "console-runtime",
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 517,
+        "line": 519,
         "text": "console.log(payload);",
         "summary": "Uso de console.* em superfície de runtime."
       },
@@ -70906,6 +70959,13 @@
         "path": "packages/database/scripts/provision-rls-runtime-role.ts",
         "line": 178,
         "text": "console.error(",
+        "summary": "Uso de console.* em superfície de runtime."
+      },
+      {
+        "id": "console-runtime",
+        "path": "packages/database/src/client.ts",
+        "line": 188,
+        "text": "console.warn(",
         "summary": "Uso de console.* em superfície de runtime."
       },
       {
@@ -71298,35 +71358,42 @@
       {
         "id": "direct-env",
         "path": "packages/database/src/client.ts",
-        "line": 159,
+        "line": 158,
+        "text": "const nodeEnv = process.env.NODE_ENV ?? \"development\";",
+        "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
+      },
+      {
+        "id": "direct-env",
+        "path": "packages/database/src/client.ts",
+        "line": 176,
+        "text": "const log = process.env.NODE_ENV === \"development\" ? [\"warn\", \"error\"] : [\"error\"];",
+        "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
+      },
+      {
+        "id": "direct-env",
+        "path": "packages/database/src/client.ts",
+        "line": 201,
         "text": "options.databaseUrl ?? process.env.DATABASE_URL",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
       {
         "id": "direct-env",
         "path": "packages/database/src/client.ts",
-        "line": 166,
+        "line": 208,
         "text": "process.env.DATABASE_URL = normalizedDatabaseUrl;",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
       {
         "id": "direct-env",
         "path": "packages/database/src/client.ts",
-        "line": 171,
-        "text": "log: process.env.NODE_ENV === \"development\" ? [\"warn\", \"error\"] : [\"error\"]",
-        "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
-      },
-      {
-        "id": "direct-env",
-        "path": "packages/database/src/client.ts",
-        "line": 284,
+        "line": 323,
         "text": "Number(process.env.DATABASE_CONNECTION_LIMIT ?? DEFAULT_DATABASE_CONNECTION_LIMIT)",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
       {
         "id": "direct-env",
         "path": "packages/database/src/client.ts",
-        "line": 297,
+        "line": 336,
         "text": "if (process.env.NODE_ENV !== \"production\") {",
         "summary": "Leitura direta de process.env fora de superfície dedicada de configuração."
       },
@@ -71397,18 +71464,7 @@
     "todoOccurrences": [],
     "emptyCatchOccurrences": [],
     "rawQueryUnsafeOccurrences": [],
-    "networkWithoutTimeout": [
-      {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-        "line": 417,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      },
-      {
-        "path": "apps/web/public/sw.js",
-        "line": 28,
-        "summary": "Operação externa sem timeout explícito no arquivo."
-      }
-    ],
+    "networkWithoutTimeout": [],
     "findManyWithoutPagination": [
       {
         "path": "apps/api/src/modules/clinical/service.ts",
@@ -71619,7 +71675,7 @@
       },
       {
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 836,
+        "line": 838,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
@@ -71629,12 +71685,12 @@
       },
       {
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 835,
+        "line": 837,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 835,
+        "line": 837,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
@@ -71664,7 +71720,7 @@
       },
       {
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 835,
+        "line": 837,
         "summary": "Await detectado em loop síncrono/iterativo."
       },
       {
@@ -71984,8 +72040,8 @@
       {
         "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
         "line": 1,
-        "count": 212,
-        "summary": "212 linhas com strings textuais embutidas na UI."
+        "count": 6,
+        "summary": "6 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/settings/security/page.tsx",
@@ -72008,14 +72064,14 @@
       {
         "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
         "line": 2,
-        "count": 83,
-        "summary": "83 linhas com strings textuais embutidas na UI."
+        "count": 76,
+        "summary": "76 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
         "line": 8,
-        "count": 64,
-        "summary": "64 linhas com strings textuais embutidas na UI."
+        "count": 77,
+        "summary": "77 linhas com strings textuais embutidas na UI."
       },
       {
         "path": "apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx",
@@ -72202,6 +72258,12 @@
         "line": 1,
         "count": 9,
         "summary": "9 linhas com strings textuais embutidas na UI."
+      },
+      {
+        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.sections.tsx",
+        "line": 19,
+        "count": 91,
+        "summary": "91 linhas com strings textuais embutidas na UI."
       }
     ],
     "imageWithoutAlt": [],
@@ -72457,14 +72519,6 @@
         "complexity": 120
       },
       {
-        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-        "line": 165,
-        "endLine": 907,
-        "functionName": "PrivacySettingsPageClient",
-        "length": 743,
-        "complexity": 70
-      },
-      {
         "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
         "line": 42,
         "endLine": 361,
@@ -72506,16 +72560,16 @@
       },
       {
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 487,
-        "endLine": 825,
+        "line": 489,
+        "endLine": 827,
         "functionName": "run",
         "length": 339,
         "complexity": 31
       },
       {
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 487,
-        "endLine": 825,
+        "line": 489,
+        "endLine": 827,
         "functionName": "run",
         "length": 339,
         "complexity": 31
@@ -72562,8 +72616,8 @@
       },
       {
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 487,
-        "endLine": 825,
+        "line": 489,
+        "endLine": 827,
         "functionName": "run",
         "length": 339,
         "complexity": 31
@@ -72610,16 +72664,16 @@
       },
       {
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
         "length": 104,
         "complexity": 30
       },
       {
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 487,
-        "endLine": 826,
+        "line": 489,
+        "endLine": 828,
         "functionName": "run",
         "length": 340,
         "complexity": 30
@@ -72634,16 +72688,16 @@
       },
       {
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
         "length": 104,
         "complexity": 30
       },
       {
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
         "length": 104,
         "complexity": 30
@@ -72690,8 +72744,8 @@
       },
       {
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 203,
-        "endLine": 306,
+        "line": 205,
+        "endLine": 308,
         "functionName": "parseContractOverridesFromObject",
         "length": 104,
         "complexity": 30
@@ -72769,14 +72823,6 @@
         "complexity": 22
       },
       {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-        "line": 349,
-        "endLine": 544,
-        "functionName": "WorkflowEditPage",
-        "length": 196,
-        "complexity": 21
-      },
-      {
         "path": "packages/agents/executivos/brand-guardian/agent.ts",
         "line": 310,
         "endLine": 408,
@@ -72794,8 +72840,8 @@
       },
       {
         "path": "packages/agents/executivos/capital-allocator/agent.ts",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "functionName": "parseContractOverrides",
         "length": 99,
         "complexity": 21
@@ -72810,16 +72856,16 @@
       },
       {
         "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "functionName": "parseContractOverrides",
         "length": 99,
         "complexity": 21
       },
       {
         "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "functionName": "parseContractOverrides",
         "length": 99,
         "complexity": 21
@@ -72866,8 +72912,8 @@
       },
       {
         "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
-        "line": 308,
-        "endLine": 406,
+        "line": 310,
+        "endLine": 408,
         "functionName": "parseContractOverrides",
         "length": 99,
         "complexity": 21
@@ -72993,6 +73039,14 @@
         "complexity": 18
       },
       {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
+        "line": 350,
+        "endLine": 528,
+        "functionName": "WorkflowEditPage",
+        "length": 179,
+        "complexity": 18
+      },
+      {
         "path": "apps/web/components/agents/agent-run-panel.tsx",
         "line": 37,
         "endLine": 197,
@@ -73014,6 +73068,14 @@
         "endLine": 136,
         "functionName": "main",
         "length": 107,
+        "complexity": 18
+      },
+      {
+        "path": "packages/workflows-core/src/parser/dagValidator.ts",
+        "line": 125,
+        "endLine": 198,
+        "functionName": "validateDag",
+        "length": 74,
         "complexity": 18
       }
     ],
@@ -73064,11 +73126,6 @@
         "lines": 967
       },
       {
-        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-        "line": 1,
-        "lines": 908
-      },
-      {
         "path": "packages/agents/executivos/narrative-weaver/agent.ts",
         "line": 1,
         "lines": 878
@@ -73084,12 +73141,27 @@
         "lines": 872
       },
       {
-        "path": "packages/agents/executivos/budget-fluid/agent.ts",
+        "path": "packages/agents/executivos/capital-allocator/agent.ts",
         "line": 1,
-        "lines": 864
+        "lines": 866
       },
       {
-        "path": "packages/agents/executivos/capital-allocator/agent.ts",
+        "path": "packages/agents/executivos/competitor-xray/agent.ts",
+        "line": 1,
+        "lines": 865
+      },
+      {
+        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
+        "line": 1,
+        "lines": 865
+      },
+      {
+        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
+        "line": 1,
+        "lines": 865
+      },
+      {
+        "path": "packages/agents/executivos/budget-fluid/agent.ts",
         "line": 1,
         "lines": 864
       },
@@ -73104,22 +73176,7 @@
         "lines": 863
       },
       {
-        "path": "packages/agents/executivos/competitor-xray/agent.ts",
-        "line": 1,
-        "lines": 863
-      },
-      {
-        "path": "packages/agents/executivos/crisis-navigator/agent.ts",
-        "line": 1,
-        "lines": 863
-      },
-      {
         "path": "packages/agents/executivos/culture-pulse/agent.ts",
-        "line": 1,
-        "lines": 863
-      },
-      {
-        "path": "packages/agents/executivos/pricing-optimizer/agent.ts",
         "line": 1,
         "lines": 863
       },
@@ -73174,14 +73231,14 @@
         "lines": 557
       },
       {
-        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-        "line": 1,
-        "lines": 545
-      },
-      {
         "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
         "line": 1,
         "lines": 532
+      },
+      {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
+        "line": 1,
+        "lines": 529
       },
       {
         "path": "apps/api/src/modules/dashboard/service.ts",
@@ -73234,6 +73291,11 @@
         "lines": 457
       },
       {
+        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.sections.tsx",
+        "line": 1,
+        "lines": 455
+      },
+      {
         "path": "apps/api/src/modules/connectors/router.ts",
         "line": 1,
         "lines": 452
@@ -73252,6 +73314,11 @@
         "path": "apps/api/src/modules/budget/budget.service.ts",
         "line": 1,
         "lines": 425
+      },
+      {
+        "path": "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
+        "line": 1,
+        "lines": 421
       },
       {
         "path": "apps/web/app/(dashboard)/conversations/page.tsx",
@@ -73279,6 +73346,11 @@
         "lines": 397
       },
       {
+        "path": "packages/database/src/client.ts",
+        "line": 1,
+        "lines": 396
+      },
+      {
         "path": "apps/worker/src/worker.ts",
         "line": 1,
         "lines": 392
@@ -73304,37 +73376,19 @@
         "lines": 382
       },
       {
-        "path": "apps/api/src/modules/privacy/service.ts",
+        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.data.ts",
         "line": 1,
-        "lines": 363
-      },
-      {
-        "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
-        "line": 1,
-        "lines": 362
-      },
-      {
-        "path": "packages/shared-types/src/index.ts",
-        "line": 1,
-        "lines": 358
+        "lines": 376
       }
     ],
     "importCycles": [],
     "coverageGaps": [
-      {
-        "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx",
-        "relatedTests": []
-      },
       {
         "path": "apps/api/src/middleware/rate-limit.ts",
         "relatedTests": []
       },
       {
         "path": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
-        "relatedTests": []
-      },
-      {
-        "path": "packages/database/prisma/seeds/shared-runtime.ts",
         "relatedTests": []
       },
       {
@@ -73378,16 +73432,16 @@
   "evidenceArtifacts": {
     "environmentParity": {
       "path": "docs/operations/environment-parity.md",
-      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-08T00:36:37.966Z\n- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is not configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
+      "content": "# Environment Parity\n\n- Refreshed at: 2026-04-08T00:51:57.082Z\n- Source of truth: `auditor-prime-2026-04-07` evidence refresh over the current HEAD.\n\n## Runtime Surfaces\n\n- Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)\n- Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)\n- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)\n- Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`\n\n## Release Preflight Evidence\n\n- Staging preflight: PASS (`artifacts/release/staging-preflight-summary.json`)\n- Production preflight: PASS (`artifacts/release/production-preflight-summary.json`)\n- Sealed env files: 2/2 (`ops/release/sealed/.env.staging.sealed`, `ops/release/sealed/.env.production.sealed`)\n\n## Parity Snapshot\n\n| Surface | Dev | Staging | Production | Evidence |\n| --- | --- | --- | --- | --- |\n| API | containerized | preflight ok | preflight ok | `apps/api/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Web | containerized | preflight ok | preflight ok | `apps/web/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n| Worker | containerized | preflight ok | preflight ok | `apps/worker/Dockerfile`, `artifacts/release/staging-preflight-summary.json`, `artifacts/release/production-preflight-summary.json` |\n\n## Known Gaps\n\n- Kubernetes manifests: present.\n- Runtime parity is documented, but local proof still depends on machine-specific inputs because `DATABASE_URL is not configured on this runner`.\n- This snapshot is documentation-backed; it does not replace live staging/prod smoke execution beyond the recorded preflight summaries.\n\n"
     },
     "sla": {
       "path": "docs/operations/sla.md",
-      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-08T00:36:38.096Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
+      "content": "# SLA Operacional\n\n- Refreshed at: 2026-04-08T00:51:57.131Z\n- Canonical policy: `docs/operations/f0-sla-severity-policy.md`\n- Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`\n- Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`\n\n## Snapshot\n\n- Aderência Média Global P0: 99.97% (Meta: Atingida e Superada)\n- Policy review cadence: trimestral documentada.\n- Monitoring linkage: alert rules + dashboard versionados.\n\n## Source References\n\n- `docs/operations/f0-sla-severity-policy.md`\n- `docs/operations/f0-sla-adherence-baseline-90d.md`\n- `docs/runbooks/p1-alert-response-matrix.md`\n- `docs/runbooks/disaster-recovery.md`\n\n"
     },
     "semgrep": {
       "path": "artifacts/security/semgrep-head.json",
       "data": {
-        "checkedAt": "2026-04-08T00:37:51.725Z",
+        "checkedAt": "2026-04-08T00:52:48.558Z",
         "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
         "exitCode": 0,
         "status": "fresh",
@@ -75266,7 +75320,7 @@
     "moduleCoverage": {
       "path": "artifacts/testing/module-coverage.json",
       "data": {
-        "checkedAt": "2026-04-08T00:37:51.739Z",
+        "checkedAt": "2026-04-08T00:52:48.571Z",
         "mode": "static-coverage-proxy",
         "sufficient": false,
         "limitations": [
@@ -75306,6 +75360,7 @@
               "apps/api/tests/cache-store.test.ts",
               "apps/api/tests/clinical-router.test.ts",
               "apps/api/tests/connectors-router.test.ts",
+              "apps/api/tests/consent.service.test.ts",
               "apps/api/tests/conversations-router.test.ts",
               "apps/api/tests/core-business-routes.test.ts",
               "apps/api/tests/external-url.test.ts",
@@ -75328,14 +75383,13 @@
               "apps/api/tests/test-config.ts",
               "apps/api/tests/webhooks.security.test.ts",
               "apps/api/tests/workflow-retry-lineage.integration.test.ts",
-              "apps/api/tests/consent.service.test.ts",
               "tests/e2e/critical-routes.spec.ts"
             ],
             "gaps": []
           },
           {
             "module": "apps/web",
-            "runtimeFiles": 121,
+            "runtimeFiles": 124,
             "directTestFiles": 18,
             "traceabilityFlows": 2,
             "directTests": [
@@ -75437,14 +75491,14 @@
     "bundleBaseline": {
       "path": "artifacts/performance/web-bundle-head.json",
       "data": {
-        "checkedAt": "2026-04-08T00:37:51.824Z",
+        "checkedAt": "2026-04-08T00:52:48.644Z",
         "status": "fresh",
         "sufficient": true,
         "command": "node scripts/quality/generate-web-bundle-baseline.mjs",
         "stdout": "artifacts\\quality\\bundle\\web-bundle-baseline.json",
         "stderr": "",
         "baseline": {
-          "generatedAt": "2026-04-08T00:37:51.808Z",
+          "generatedAt": "2026-04-08T00:52:48.631Z",
           "nextBuildDir": "apps/web/.next",
           "chunks": {
             "files": 44,
@@ -75506,7 +75560,7 @@
     "accessibility": {
       "path": "artifacts/accessibility/axe-report.json",
       "data": {
-        "checkedAt": "2026-04-08T00:38:20.316Z",
+        "checkedAt": "2026-04-08T00:53:02.385Z",
         "mode": "browser-dom-smoke",
         "requestedTool": "playwright",
         "sufficient": true,
@@ -75554,14 +75608,14 @@
           }
         ],
         "findings": [],
-        "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 2.2s\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 2.1s (next.js: 297ms, proxy.ts: 580ms, application-code: 1214ms)\n GET / 200 in 623ms (next.js: 110ms, proxy.ts: 8ms, application-code: 505ms)\n GET /pricing 200 in 836ms (next.js: 11ms, proxy.ts: 9ms, application-code: 816ms)\n○ Compiling /login ...\n GET /legal/terms 200 in 457ms (next.js: 63ms, proxy.ts: 14ms, application-code: 379ms)\n GET /legal/privacy 200 in 230ms (next.js: 63ms, proxy.ts: 11ms, application-code: 156ms)\n",
+        "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 980ms\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 948ms (next.js: 174ms, proxy.ts: 303ms, application-code: 471ms)\n GET / 200 in 119ms (next.js: 40ms, proxy.ts: 8ms, application-code: 72ms)\n GET /pricing 200 in 73ms (next.js: 4ms, proxy.ts: 7ms, application-code: 62ms)\n GET /legal/terms 200 in 124ms (next.js: 37ms, proxy.ts: 7ms, application-code: 80ms)\n GET /legal/privacy 200 in 138ms (next.js: 34ms, proxy.ts: 6ms, application-code: 99ms)\n",
         "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n"
       }
     },
     "disasterRecovery": {
       "path": "artifacts/dr/latest-drill.json",
       "data": {
-        "checkedAt": "2026-04-08T00:38:20.555Z",
+        "checkedAt": "2026-04-08T00:53:02.466Z",
         "status": "missing-drill-record",
         "sufficient": false,
         "reason": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
@@ -75578,27 +75632,44 @@
     "rlsProof": {
       "path": "artifacts/tenancy/rls-proof-head.json",
       "data": {
-        "checkedAt": "2026-04-08T00:38:21.653Z",
-        "adminDatabaseUrlConfigured": false,
-        "adminDatabaseUrlSource": "none",
-        "roleProvisioning": null,
+        "checkedAt": "2026-04-08T00:53:04.624Z",
+        "adminDatabaseUrlConfigured": true,
+        "adminDatabaseUrlSource": "embedded-postgres",
+        "roleProvisioning": {
+          "checkedAt": "2026-04-08T00:53:03.812Z",
+          "command": "node --import tsx packages/database/scripts/provision-rls-runtime-role.ts",
+          "databaseName": "postgres",
+          "exitCode": 0,
+          "roleExisted": true,
+          "roleName": "api_worker",
+          "runtimeDatabaseUrlRedacted": "postgresql://REDACTED:postgres@127.0.0.1:5432/postgres?schema=public&pgbouncer=true&connection_limit=10",
+          "runtimeRole": {
+            "currentUser": "api_worker",
+            "bypass": false,
+            "canLogin": true
+          },
+          "schemaName": "public",
+          "status": "ready",
+          "stderr": null,
+          "stdout": null
+        },
         "tenancyControl": {
           "command": "node --import tsx packages/database/scripts/check-tenancy-controls.ts",
           "exitCode": 0,
-          "stdout": "[2026-04-07 21:38:21.409 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS privacy_consents\\nPASS privacy_consent_events\\nPASS data_retention_policies\\nPASS data_retention_executions\\nPASS break_glass_grants\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_revisions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS patients\\nPASS pregnancy_records\\nPASS appointments\\nPASS clinical_notes\\nPASS neonatal_records\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
+          "stdout": "[2026-04-07 21:53:02.891 -0300] \u001b[32mINFO\u001b[39m:\n    \u001b[35menvironment\u001b[39m: \"development\"\n    \u001b[35mservice\u001b[39m: \"db-check-tenancy-controls\"\n    \u001b[35mjobId\u001b[39m: null\n    \u001b[35mjob_id\u001b[39m: null\n    \u001b[35moperation\u001b[39m: null\n    \u001b[35mrequestId\u001b[39m: null\n    \u001b[35mrequest_id\u001b[39m: null\n    \u001b[35mspanId\u001b[39m: null\n    \u001b[35mspan_id\u001b[39m: null\n    \u001b[35mtenantId\u001b[39m: null\n    \u001b[35mtenant_id\u001b[39m: null\n    \u001b[35mtraceId\u001b[39m: null\n    \u001b[35mtrace_id\u001b[39m: null\n    \u001b[35muserId\u001b[39m: null\n    \u001b[35muser_id\u001b[39m: null\n    \u001b[35mmessage\u001b[39m: \"Tenant isolation audit: PASS\\nPASS organizations\\nPASS members\\nPASS sessions\\nPASS api_keys\\nPASS mfa_recovery_codes\\nPASS mfa_challenges\\nPASS login_alerts\\nPASS privacy_consents\\nPASS privacy_consent_events\\nPASS data_retention_policies\\nPASS data_retention_executions\\nPASS break_glass_grants\\nPASS job_signing_secrets\\nPASS agents\\nPASS agent_budgets\\nPASS agent_budget_events\\nPASS output_artifacts\\nPASS workflows\\nPASS workflow_steps\\nPASS workflow_transitions\\nPASS workflow_revisions\\nPASS workflow_executions\\nPASS step_results\\nPASS customers\\nPASS patients\\nPASS pregnancy_records\\nPASS appointments\\nPASS clinical_notes\\nPASS neonatal_records\\nPASS invites\\nPASS audit_logs\\nPASS quota_usage\\nPASS subscriptions\\nPASS invoices\\nPASS payment_methods\\nPASS usage_records\\nPASS billing_events\\nPASS billing_credits\\nPASS notifications\\nPASS user_preferences\\nPASS agent_executions\\nPASS agent_feedback\\nPASS tenant_activity_windows\\nPASS webhook_endpoints\\nPASS webhook_deliveries\\nPASS dataset_exports\\nPASS crm_sync_events\\nPASS connector_accounts\\nPASS connector_credentials\\nPASS connector_sync_cursors\\nPASS conversation_threads\\nPASS conversation_messages\\nPASS agent_handoffs\\n\\nArtifacts:\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.json\\n- C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\database\\f8\\tenant-isolation-report.txt\"",
           "stderr": ""
         },
         "runtimeProof": {
           "command": "node --import tsx --test packages/database/test/rls.test.ts",
           "exitCode": 0,
-          "stdout": "",
+          "stdout": "✔ RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A (126.7071ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 708.6711",
           "stderr": "",
-          "runtimeDatabaseUrlConfigured": false,
-          "status": "skipped-no-database",
+          "runtimeDatabaseUrlConfigured": true,
+          "status": "passed",
           "previousSuccessfulCheckAt": null
         },
         "previousSnapshotRetained": null,
-        "sufficient": false
+        "sufficient": true
       }
     }
   },

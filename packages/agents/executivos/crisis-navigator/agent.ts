@@ -687,7 +687,7 @@ export class CrisisNavigatorAgent {
     }
 
     const safeIntel = competitorIntel ?? {
-      aggressiveMover: "competitor signal unavailable",
+      aggressiveMover: "incident signal unavailable",
       displacementPressurePct: 0,
       strategicThreatIndex: 0
     };
@@ -698,7 +698,7 @@ export class CrisisNavigatorAgent {
     };
     const safeFeature = featureGap ?? {
       differentiationScore: 0,
-      highestGapTheme: "feature gap unavailable",
+      highestGapTheme: "resilience gap unavailable",
       parityCoveragePct: 0
     };
 
@@ -739,28 +739,28 @@ export class CrisisNavigatorAgent {
       crisisBrief: {
         actions: [
           {
-            owner: "Sales Leadership",
+            owner: "COO",
             priority: toPriority(safeIntel.strategicThreatIndex + safeIntel.displacementPressurePct),
             recommendation:
-              "Refresh battlecards weekly for top threat accounts with direct displacement proof points.",
+              "Activate the executive incident room and hold a fixed comms cadence until customer impact is contained.",
             targetDate: addDays(parsedInput.window.endDate, 4)
           },
           {
-            owner: "Product Marketing",
+            owner: "SRE Lead",
             priority: toPriority(100 - safeFeature.differentiationScore + safeFeature.parityCoveragePct),
             recommendation:
-              "Package differentiated capabilities into scenario-based narratives by segment and competitor.",
+              "Prioritize the resilience gaps that are blocking failover, rollback, or service isolation.",
             targetDate: addDays(parsedInput.window.endDate, 8)
           },
           {
-            owner: "Pricing Committee",
+            owner: "Legal / Comms",
             priority: toPriority(safePricing.priceElasticityRiskPct + Math.abs(safePricing.discountGapPct)),
             recommendation:
-              "Limit discount exceptions with ROI guardrails and competitor-specific concession playbooks.",
+              "Prepare customer, regulator, and board updates that match the current blast-radius assessment.",
             targetDate: addDays(parsedInput.window.endDate, 11)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected win-rate lift ${projectedRecoveryPct.toFixed(
+        headline: `Projected recovery ${projectedRecoveryPct.toFixed(
           2
         )}% vs target ${parsedInput.targetRecoveryPct.toFixed(2)}%.`,
         projectedRecoveryPct,
@@ -768,13 +768,13 @@ export class CrisisNavigatorAgent {
         riskSignals: [
           {
             mitigation:
-              "Escalate high-threat competitor motions to weekly GTM war-room with tracked counter-actions.",
+              "Escalate the highest-impact customer pathways into a dedicated containment workstream.",
             severity: toPriority(safeIntel.strategicThreatIndex + safeIntel.displacementPressurePct),
             signal: safeIntel.aggressiveMover
           },
           {
             mitigation:
-              "Prioritize feature-proof and pricing-value messaging where elasticity risk exceeds threshold.",
+              "Close the resilience gaps that are preventing clean failover and delaying recovery confidence.",
             severity: toPriority(safePricing.priceElasticityRiskPct + (100 - safeFeature.differentiationScore)),
             signal: safeFeature.highestGapTheme
           }
@@ -783,22 +783,22 @@ export class CrisisNavigatorAgent {
           {
             confidence: toConfidence(100 - safeIntel.strategicThreatIndex),
             interpretation:
-              "Strategic threat index estimates displacement probability in active pipeline segments.",
-            metric: "Strategic Threat Index",
+              "Threat index estimates how likely the current incident is to expand its blast radius.",
+            metric: "Incident Threat Index",
             value: safeIntel.strategicThreatIndex
           },
           {
             confidence: toConfidence(safeFeature.differentiationScore),
             interpretation:
-              "Differentiation score measures how strongly our offer is perceived against top competitors.",
-            metric: "Differentiation Score",
+              "Resilience score measures how ready the platform is to contain and recover from the active incident.",
+            metric: "Resilience Score",
             value: safeFeature.differentiationScore
           },
           {
             confidence: toConfidence(100 - safePricing.priceElasticityRiskPct),
             interpretation:
-              "Price elasticity risk captures likelihood of losing deals due to pricing sensitivity.",
-            metric: "Price Elasticity Risk %",
+              "Impact pressure captures how much customer or compliance exposure remains while recovery is underway.",
+            metric: "Impact Pressure %",
             value: safePricing.priceElasticityRiskPct
           }
         ]
@@ -817,7 +817,7 @@ export class CrisisNavigatorAgent {
       status,
       summary: fallbackApplied
         ? "CrisisNavigator generated under fallback mode due to tool failures."
-        : "CrisisNavigator generated with complete competitor, pricing, and feature-gap signal coverage."
+        : "CrisisNavigator generated with complete incident, impact, and resilience signal coverage."
     });
 
     this.lastMetrics = {

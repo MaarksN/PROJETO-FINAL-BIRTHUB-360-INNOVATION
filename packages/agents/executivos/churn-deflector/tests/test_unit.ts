@@ -9,7 +9,7 @@ import { ChurnDeflectorAgent } from "../agent.js";
 import {
   type BrandEvent,
   type ChurnDeflectorInput,
-  DEFAULT_BRANDGUARDIAN_CONTRACT
+  DEFAULT_CHURNDEFLECTOR_CONTRACT
 } from "../schemas.js";
 import type { ChurnDeflectorToolAdapters } from "../tools.js";
 
@@ -20,9 +20,9 @@ const VALID_INPUT: ChurnDeflectorInput = {
     maxActions: 4
   },
   requestId: "req-churndeflector-unit-001",
-  sections: ["reputation_risk", "narrative_consistency", "pr_response"],
+  sections: ["account_health", "renewal_risk", "exec_sponsorship"],
   segments: ["enterprise", "mid_market", "strategic_accounts"],
-  targetCultureHealthPct: 74,
+  targetRetentionPct: 74,
   tenantId: "tenant_exec_demo",
   window: {
     endDate: "2026-03-31",
@@ -46,7 +46,8 @@ void test("ChurnDeflector returns success output on happy path", async () => {
 
   assert.equal(output.status, "success");
   assert.equal(output.fallback.applied, false);
-  assert.ok(output.cultureBrief.signals.length >= 2);
+  assert.ok(output.churnBrief.signals.length >= 2);
+  assert.match(output.churnBrief.headline, /Projected retention/i);
   assert.ok(output.observability.metrics.toolCalls >= 3);
   assert.ok(
     output.observability.events.some(
@@ -59,7 +60,7 @@ void test("ChurnDeflector returns error when contract mode is hard_fail", async 
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "churndeflector-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_BRANDGUARDIAN_CONTRACT,
+    ...DEFAULT_CHURNDEFLECTOR_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,

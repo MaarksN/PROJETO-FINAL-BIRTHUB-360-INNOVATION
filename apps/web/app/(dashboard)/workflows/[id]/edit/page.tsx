@@ -27,9 +27,11 @@ import {
   autoLayout,
   buildValidation,
   decorateNodes,
+  loadWorkflowSimulationResult,
   loadWorkflowDefinition,
   nodeTypes,
   saveWorkflowDefinition,
+  startWorkflowDryRun,
   type BuilderNodeData,
   type SidebarValues
 } from "./workflow-editor-helpers";
@@ -37,15 +39,6 @@ import {
 type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
 
 const apiBaseUrl = getWebConfig().NEXT_PUBLIC_API_URL;
-const WORKFLOW_REQUEST_TIMEOUT_MS = 15_000;
-
-function fetchWorkflowRequest(input: RequestInfo | URL, init?: RequestInit) {
-  return fetch(input, {
-    ...init,
-    signal: AbortSignal.timeout(WORKFLOW_REQUEST_TIMEOUT_MS)
-  });
-}
-
 function useWorkflowForm(selectedNode: Node<BuilderNodeData> | null): UseFormReturn<SidebarValues> {
   const form = useForm<SidebarValues>({
     defaultValues: {
@@ -422,17 +415,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
 
     try {
       const payload = JSON.parse(simulationPayload) as Record<string, unknown>;
-      const res = await fetchWorkflowRequest(`/api/v1/workflows/${encodeURIComponent(id)}/run`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ async: false, dryRun: true, payload })
-      });
-
-      if (!res.ok) {
-        throw new Error(`Erro: ${res.status}`);
-      }
-
-      const { executionId } = (await res.json()) as { executionId: string };
+      const { executionId } = await startWorkflowDryRun(apiBaseUrl, id, payload);
 
       // Poll para pegar os resultados da execucao
       let attempts = 0;
@@ -446,24 +429,17 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         }
 
         try {
-          const runRes = await fetchWorkflowRequest(`/api/v1/workflows/${encodeURIComponent(id)}`);
-          if (runRes.ok) {
-            const data = (await runRes.json()) as { workflow: { executions: Array<{ id: string; status: string; stepResults: Array<{ step: { key: string }; status: string }> }> } };
-            const run = data.workflow.executions.find((e) => e.id === executionId);
-            if (run && (run.status === "SUCCESS" || run.status === "FAILED")) {
-              clearInterval(poll);
-              setSimulating(false);
-              setSaveMessage(`Dry Run Finalizado: ${run.status}`);
-
-              const results: Record<string, "SUCCESS" | "FAILED" | "WAITING"> = {};
-              run.stepResults.forEach((r) => {
-                results[r.step.key] = r.status as "SUCCESS" | "FAILED" | "WAITING";
-              });
-              setSimulatedResults(results);
-            }
+          const run = await loadWorkflowSimulationResult(apiBaseUrl, id, executionId);
+          if (run) {
+            clearInterval(poll);
+            setSimulating(false);
+            setSaveMessage(`Dry Run Finalizado: ${run.runStatus}`);
+            setSimulatedResults(run.stepStatuses);
           }
         } catch (e) {
-          console.error(e);
+          clearInterval(poll);
+          setSimulating(false);
+          setLoadingError(e instanceof Error ? e.message : "Falha ao carregar simulacao.");
         }
       }, 1000);
 

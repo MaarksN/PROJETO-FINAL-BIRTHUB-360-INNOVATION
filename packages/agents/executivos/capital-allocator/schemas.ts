@@ -120,7 +120,7 @@ export const CapitalAllocatorContractSchema = z
   .strict();
 export type CapitalAllocatorContract = z.infer<typeof CapitalAllocatorContractSchema>;
 
-export const DEFAULT_BUDGETFLUID_CONTRACT: CapitalAllocatorContract = {
+export const DEFAULT_CAPITALALLOCATOR_CONTRACT: CapitalAllocatorContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -141,6 +141,7 @@ export const DEFAULT_BUDGETFLUID_CONTRACT: CapitalAllocatorContract = {
   },
   toolIds: ["spend-telemetry-feed", "forecast-drift-engine", "scenario-stress-feed"]
 };
+export const DEFAULT_BUDGETFLUID_CONTRACT = DEFAULT_CAPITALALLOCATOR_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 

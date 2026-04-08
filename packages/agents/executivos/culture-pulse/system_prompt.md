@@ -27,7 +27,7 @@ Only derive cultural scoring and risks from the provided engagement and sentimen
 Respond ONLY with a valid JSON matching `CulturePulseOutputSchema`.
 
 ## Fallback Instructions
-If downstream tools (e.g., `brand-sentiment-feed`) fail, apply a `degraded_report` fallback mode. Retry up to 3 times with exponential backoff before emitting a degraded response. Do not fail entirely unless the `failureMode` is `hard_fail`.
+If downstream tools (e.g., `employee-engagement-feed`) fail, apply a `degraded_report` fallback mode. Retry up to 3 times with exponential backoff before emitting a degraded response. Do not fail entirely unless the `failureMode` is `hard_fail`.
 
 ## Few-Shot Example
 ```json

@@ -627,24 +627,24 @@ export class CulturePulseAgent {
     let compliance = null;
     let incidents = null;
 
-    if (effectiveTools.includes("brand-sentiment-feed")) {
+    if (effectiveTools.includes("employee-engagement-feed")) {
       try {
         sentiment = BrandSentimentSnapshotSchema.parse(
-          await runWithRetry("brand-sentiment-feed", () =>
+          await runWithRetry("employee-engagement-feed", () =>
             this.toolAdapters.fetchBrandSentiment(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "brand-sentiment-feed failed.";
-        fallbackReasons.push(`brand-sentiment-feed: ${message}`);
+          error instanceof Error ? error.message : "employee-engagement-feed failed.";
+        fallbackReasons.push(`employee-engagement-feed: ${message}`);
       }
     }
 
-    if (effectiveTools.includes("guideline-compliance-engine")) {
+    if (effectiveTools.includes("leadership-alignment-engine")) {
       try {
         compliance = GuidelineComplianceSnapshotSchema.parse(
-          await runWithRetry("guideline-compliance-engine", () =>
+          await runWithRetry("leadership-alignment-engine", () =>
             this.toolAdapters.fetchGuidelineCompliance(toolInput)
           )
         );
@@ -652,22 +652,22 @@ export class CulturePulseAgent {
         const message =
           error instanceof Error
             ? error.message
-            : "guideline-compliance-engine failed.";
-        fallbackReasons.push(`guideline-compliance-engine: ${message}`);
+            : "leadership-alignment-engine failed.";
+        fallbackReasons.push(`leadership-alignment-engine: ${message}`);
       }
     }
 
-    if (effectiveTools.includes("pr-incident-monitor")) {
+    if (effectiveTools.includes("retention-risk-monitor")) {
       try {
         incidents = PRIncidentSnapshotSchema.parse(
-          await runWithRetry("pr-incident-monitor", () =>
+          await runWithRetry("retention-risk-monitor", () =>
             this.toolAdapters.fetchPRIncidents(toolInput)
           )
         );
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : "pr-incident-monitor failed.";
-        fallbackReasons.push(`pr-incident-monitor: ${message}`);
+          error instanceof Error ? error.message : "retention-risk-monitor failed.";
+        fallbackReasons.push(`retention-risk-monitor: ${message}`);
       }
     }
 
@@ -736,43 +736,43 @@ export class CulturePulseAgent {
       cultureBrief: {
         actions: [
           {
-            owner: "CMO",
+            owner: "CHRO",
             priority: toPriority(100 - safeSentiment.currentSentimentPct + safeSentiment.volatilityPct),
             recommendation:
-              "Align narrative by region and publish executive talking points for high-volatility topics.",
+              "Run manager enablement in the teams with the steepest sentiment volatility and reinforce the current operating narrative.",
             targetDate: addDays(parsedInput.window.endDate, 5)
           },
           {
-            owner: "Brand Ops",
+            owner: "PeopleOps",
             priority: toPriority(100 - safeCompliance.complianceScorePct + safeCompliance.highRiskAssetsPct),
             recommendation:
-              "Enforce preflight brand checks on partner and social assets before publication.",
+              "Standardize leadership check-ins and decision logs where alignment drift is highest.",
             targetDate: addDays(parsedInput.window.endDate, 9)
           },
           {
-            owner: "PR Lead",
+            owner: "HRBP",
             priority: toPriority(safeIncidents.severityIndex + safeIncidents.activeIncidentCount * 10),
             recommendation:
-              "Run incident response drill and refresh response templates for top-risk scenarios.",
+              "Launch a targeted retention intervention plan for squads showing elevated attrition risk and low recovery readiness.",
             targetDate: addDays(parsedInput.window.endDate, 12)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected brand health ${projectedCultureHealthScore.toFixed(
+        headline: `Projected culture health ${projectedCultureHealthScore.toFixed(
           2
-        )} vs sentiment target ${parsedInput.targetCultureHealthPct.toFixed(2)}%.`,
+        )}% vs target ${parsedInput.targetCultureHealthPct.toFixed(2)}%.`,
         projectedCultureHealthScore,
         riskSignals: [
           {
             mitigation:
-              "Centralize message governance for localized campaigns with weekly QA sampling.",
+              "Create a weekly leadership alignment review until operating expectations stabilize across regions.",
             severity: toPriority(safeSentiment.volatilityPct + safeCompliance.highRiskAssetsPct),
             signal: safeCompliance.driftDriver
           },
           {
             mitigation:
-              "Escalate active incidents with severity-based runbooks and stakeholder updates.",
+              "Escalate the highest-risk teams into a focused retention watchlist with named executive sponsors.",
             severity: toPriority(safeIncidents.severityIndex + safeIncidents.activeIncidentCount * 8),
-            signal: `${safeIncidents.activeIncidentCount} active PR incidents with severity index ${safeIncidents.severityIndex.toFixed(
+            signal: `${safeIncidents.activeIncidentCount} teams flagged with attrition severity index ${safeIncidents.severityIndex.toFixed(
               2
             )}.`
           }
@@ -782,21 +782,21 @@ export class CulturePulseAgent {
             confidence: toConfidence(safeSentiment.currentSentimentPct),
             interpretation:
               safeSentiment.currentSentimentPct >= parsedInput.targetCultureHealthPct
-                ? "Current sentiment is aligned with strategic target."
-                : "Current sentiment is below target and needs corrective narrative actions.",
-            metric: "Current Sentiment %",
+                ? "Employee engagement is tracking within the expected cultural health band."
+                : "Employee engagement is below target and needs immediate manager-level intervention.",
+            metric: "Employee Engagement %",
             value: safeSentiment.currentSentimentPct
           },
           {
             confidence: toConfidence(safeCompliance.complianceScorePct),
-            interpretation: "Guideline compliance indicates consistency of external brand execution.",
-            metric: "Compliance Score %",
+            interpretation: "Leadership alignment score captures how consistently strategy is being reinforced by managers.",
+            metric: "Leadership Alignment %",
             value: safeCompliance.complianceScorePct
           },
           {
             confidence: toConfidence(100 - safeIncidents.severityIndex),
-            interpretation: "PR incident severity captures exposure risk to brand trust.",
-            metric: "Incident Severity Index",
+            interpretation: "Retention risk severity estimates how exposed the current org slice is to avoidable attrition.",
+            metric: "Attrition Risk Index",
             value: safeIncidents.severityIndex
           }
         ]
@@ -815,7 +815,7 @@ export class CulturePulseAgent {
       status,
       summary: fallbackApplied
         ? "CulturePulse generated under fallback mode due to tool failures."
-        : "CulturePulse generated with complete brand risk and compliance signals."
+        : "CulturePulse generated with complete engagement, alignment, and retention-risk coverage."
     });
 
     this.lastMetrics = {

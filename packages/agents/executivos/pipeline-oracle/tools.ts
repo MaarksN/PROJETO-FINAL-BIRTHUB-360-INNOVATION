@@ -21,7 +21,7 @@ export const QuotaToolInputSchema = z
     endDate: isoDateSchema,
     segments: z.array(QuotaSegmentSchema).min(1),
     startDate: isoDateSchema,
-    targetQuotaAttainmentPct: z.number().positive(),
+    targetPipelineCoveragePct: z.number().positive(),
     tenantId: z.string().trim().min(1)
   })
   .strict();
@@ -95,15 +95,15 @@ export function createDefaultPipelineOracleToolAdapters(): PipelineOracleToolAda
       input: QuotaToolInput
     ): Promise<AttainmentVarianceSnapshot> {
       QuotaToolInputSchema.parse(input);
-      const seed = `${input.tenantId}:${input.targetQuotaAttainmentPct}:attainment`;
+      const seed = `${input.tenantId}:${input.targetPipelineCoveragePct}:attainment`;
       const projected = Number(deterministic(`${seed}:projected`, 71, 126).toFixed(2));
       return AttainmentVarianceSnapshotSchema.parse({
         projectedAttainmentPct: projected,
         topVarianceDriver:
           deterministic(`${seed}:driver`, 0, 1) > 0.5
-            ? "quota loading mismatch across high-potential territories"
-            : "ramp underperformance in newly hired enterprise reps",
-        varianceToPlanPct: Number((projected - input.targetQuotaAttainmentPct).toFixed(2))
+            ? "late-stage coverage is thin in high-yield territories with healthy top-of-funnel volume"
+            : "stage velocity slowed after handoff friction between SDR and AE ownership",
+        varianceToPlanPct: Number((projected - input.targetPipelineCoveragePct).toFixed(2))
       });
     },
 

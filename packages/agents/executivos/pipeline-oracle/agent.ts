@@ -620,7 +620,7 @@ export class PipelineOracleAgent {
       endDate: parsedInput.window.endDate,
       segments: parsedInput.segments,
       startDate: parsedInput.window.startDate,
-      targetQuotaAttainmentPct: parsedInput.targetQuotaAttainmentPct,
+      targetPipelineCoveragePct: parsedInput.targetPipelineCoveragePct,
       tenantId: parsedInput.tenantId
     });
 
@@ -707,7 +707,7 @@ export class PipelineOracleAgent {
       varianceToPlanPct: 0
     };
 
-    const recommendedQuotaDeltaPct = Number(
+    const recommendedCoverageShiftPct = Number(
       (
         safeCoverage.coverageBalanceIndex * 0.12 +
         safeCapacity.availableSellingCapacityPct * 0.08 -
@@ -716,10 +716,10 @@ export class PipelineOracleAgent {
       ).toFixed(2)
     );
 
-    const projectedAttainmentPct = Number(
+    const projectedPipelineCoveragePct = Number(
       (
         safeAttainment.projectedAttainmentPct +
-        recommendedQuotaDeltaPct * 0.25 -
+        recommendedCoverageShiftPct * 0.25 -
         safeCapacity.rampRiskPct * 0.1
       ).toFixed(2)
     );
@@ -754,45 +754,45 @@ export class PipelineOracleAgent {
         events,
         metrics
       },
-      quotaBrief: {
+      pipelineBrief: {
         actions: [
           {
             owner: "CRO",
             priority: toPriority(100 - safeCoverage.coverageBalanceIndex + safeCoverage.overloadedTerritoriesPct),
             recommendation:
-              "Rebalance high-load territories and redistribute quota by whitespace potential.",
+              "Shift coverage toward the territories where top-of-funnel is healthy but late-stage support is thin.",
             targetDate: addDays(parsedInput.window.endDate, 7)
           },
           {
             owner: "Sales Ops",
             priority: toPriority(100 - safeCapacity.availableSellingCapacityPct + safeCapacity.rampRiskPct),
             recommendation:
-              "Align quota loading with confirmed ramp capacity before quarter rollover.",
+              "Realign pipeline review cadence with confirmed rep capacity before adding new demand pressure.",
             targetDate: addDays(parsedInput.window.endDate, 10)
           },
           {
             owner: "RevOps",
             priority: toPriority(Math.abs(safeAttainment.varianceToPlanPct) + safeCoverage.whitespacePressurePct),
             recommendation:
-              "Apply attainment variance guardrails and dynamic quota adjustment windows by segment.",
+              "Apply coverage-shift guardrails by segment and fix the slowest stage handoffs before pushing more pipeline in.",
             targetDate: addDays(parsedInput.window.endDate, 14)
           }
         ].slice(0, parsedInput.constraints.maxActions),
-        headline: `Projected quota attainment ${projectedAttainmentPct.toFixed(
+        headline: `Projected pipeline coverage ${projectedPipelineCoveragePct.toFixed(
           2
-        )}% vs target ${parsedInput.targetQuotaAttainmentPct.toFixed(2)}%.`,
-        projectedAttainmentPct,
-        recommendedQuotaDeltaPct,
+        )}% vs target ${parsedInput.targetPipelineCoveragePct.toFixed(2)}%.`,
+        projectedPipelineCoveragePct,
+        recommendedCoverageShiftPct,
         riskSignals: [
           {
             mitigation:
-              "Deploy interim overlays in overloaded territories until rebalance is completed.",
+              "Deploy interim deal-desk and pipeline inspection support in overloaded territories until coverage stabilizes.",
             severity: toPriority(safeCoverage.overloadedTerritoriesPct + (100 - safeCoverage.coverageBalanceIndex)),
             signal: safeAttainment.topVarianceDriver
           },
           {
             mitigation:
-              "Accelerate enablement and manager coaching for reps in ramp-sensitive cohorts.",
+              "Accelerate manager coaching for the cohorts where ramp risk is suppressing stage progression.",
             severity: toPriority(safeCapacity.rampRiskPct + (100 - safeCapacity.hiringReadinessPct)),
             signal: `Ramp risk at ${safeCapacity.rampRiskPct.toFixed(2)}%.`
           }
@@ -802,21 +802,21 @@ export class PipelineOracleAgent {
             confidence: toConfidence(safeCapacity.availableSellingCapacityPct),
             interpretation:
               safeCapacity.availableSellingCapacityPct >= 60
-                ? "Selling capacity supports planned quota load."
-                : "Selling capacity is constrained for current quota ambition.",
+                ? "Selling capacity can support the current pipeline coverage target."
+                : "Selling capacity is constraining the current pipeline coverage objective.",
             metric: "Available Selling Capacity %",
             value: safeCapacity.availableSellingCapacityPct
           },
           {
             confidence: toConfidence(safeCoverage.coverageBalanceIndex),
-            interpretation: "Coverage balance measures fairness and efficiency of quota distribution.",
+            interpretation: "Coverage balance measures how evenly live pipeline support is distributed across territories.",
             metric: "Coverage Balance Index",
             value: safeCoverage.coverageBalanceIndex
           },
           {
             confidence: toConfidence(100 - Math.abs(safeAttainment.varianceToPlanPct)),
-            interpretation: "Variance to plan shows projected attainment divergence risk.",
-            metric: "Variance To Plan %",
+            interpretation: "Variance to target shows where projected pipeline coverage is drifting away from plan.",
+            metric: "Variance To Target %",
             value: safeAttainment.varianceToPlanPct
           }
         ]
@@ -824,7 +824,7 @@ export class PipelineOracleAgent {
       status,
       summary: fallbackApplied
         ? "PipelineOracle generated under fallback mode due to tool failures."
-        : "PipelineOracle generated with complete quota planning coverage."
+        : "PipelineOracle generated with complete capacity, coverage, and forecast-quality coverage."
     });
 
     this.lastMetrics = {

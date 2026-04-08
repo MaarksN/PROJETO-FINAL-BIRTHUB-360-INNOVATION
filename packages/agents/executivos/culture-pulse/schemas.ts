@@ -15,11 +15,11 @@ export const BrandSegmentSchema = z.enum([
 export type BrandSegment = z.infer<typeof BrandSegmentSchema>;
 
 export const BrandSectionSchema = z.enum([
-  "campaign_exposure",
-  "guideline_drift",
-  "narrative_consistency",
-  "pr_response",
-  "reputation_risk"
+  "engagement_heatmap",
+  "leadership_alignment",
+  "manager_effectiveness",
+  "retention_intent",
+  "trust_index"
 ]);
 export type BrandSection = z.infer<typeof BrandSectionSchema>;
 
@@ -120,7 +120,7 @@ export const CulturePulseContractSchema = z
   .strict();
 export type CulturePulseContract = z.infer<typeof CulturePulseContractSchema>;
 
-export const DEFAULT_BRANDGUARDIAN_CONTRACT: CulturePulseContract = {
+export const DEFAULT_CULTUREPULSE_CONTRACT: CulturePulseContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -139,8 +139,13 @@ export const DEFAULT_BRANDGUARDIAN_CONTRACT: CulturePulseContract = {
     baseDelayMs: 500,
     maxAttempts: 3
   },
-  toolIds: ["brand-sentiment-feed", "guideline-compliance-engine", "pr-incident-monitor"]
+  toolIds: [
+    "employee-engagement-feed",
+    "leadership-alignment-engine",
+    "retention-risk-monitor"
+  ]
 };
+export const DEFAULT_BRANDGUARDIAN_CONTRACT = DEFAULT_CULTUREPULSE_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 

@@ -120,7 +120,7 @@ export const MarketSentinelContractSchema = z
   .strict();
 export type MarketSentinelContract = z.infer<typeof MarketSentinelContractSchema>;
 
-export const DEFAULT_TRENDCATCHER_CONTRACT: MarketSentinelContract = {
+export const DEFAULT_MARKETSENTINEL_CONTRACT: MarketSentinelContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -141,6 +141,7 @@ export const DEFAULT_TRENDCATCHER_CONTRACT: MarketSentinelContract = {
   },
   toolIds: ["market-sentinel-feed", "macro-signal-stream", "risk-opportunity-engine"]
 };
+export const DEFAULT_TRENDCATCHER_CONTRACT = DEFAULT_MARKETSENTINEL_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 

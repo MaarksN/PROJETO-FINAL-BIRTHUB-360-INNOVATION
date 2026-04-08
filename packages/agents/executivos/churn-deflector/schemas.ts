@@ -15,11 +15,11 @@ export const BrandSegmentSchema = z.enum([
 export type BrandSegment = z.infer<typeof BrandSegmentSchema>;
 
 export const BrandSectionSchema = z.enum([
-  "campaign_exposure",
-  "guideline_drift",
-  "narrative_consistency",
-  "pr_response",
-  "reputation_risk"
+  "account_health",
+  "escalation_pressure",
+  "exec_sponsorship",
+  "product_adoption",
+  "renewal_risk"
 ]);
 export type BrandSection = z.infer<typeof BrandSectionSchema>;
 
@@ -35,7 +35,7 @@ export const ChurnDeflectorInputSchema = z
     requestId: z.string().trim().min(1),
     sections: z.array(BrandSectionSchema).min(1),
     segments: z.array(BrandSegmentSchema).min(1),
-    targetCultureHealthPct: z.number().min(1).max(100),
+    targetRetentionPct: z.number().min(1).max(100),
     tenantId: z.string().trim().min(1),
     window: z
       .object({
@@ -120,7 +120,7 @@ export const ChurnDeflectorContractSchema = z
   .strict();
 export type ChurnDeflectorContract = z.infer<typeof ChurnDeflectorContractSchema>;
 
-export const DEFAULT_BRANDGUARDIAN_CONTRACT: ChurnDeflectorContract = {
+export const DEFAULT_CHURNDEFLECTOR_CONTRACT: ChurnDeflectorContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -139,8 +139,13 @@ export const DEFAULT_BRANDGUARDIAN_CONTRACT: ChurnDeflectorContract = {
     baseDelayMs: 500,
     maxAttempts: 3
   },
-  toolIds: ["brand-sentiment-feed", "guideline-compliance-engine", "pr-incident-monitor"]
+  toolIds: [
+    "account-health-feed",
+    "renewal-risk-engine",
+    "success-coverage-monitor"
+  ]
 };
+export const DEFAULT_BRANDGUARDIAN_CONTRACT = DEFAULT_CHURNDEFLECTOR_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -176,11 +181,12 @@ export type BrandAction = z.infer<typeof BrandActionSchema>;
 export const ChurnDeflectorOutputSchema = z
   .object({
     agent: z.literal("ChurnDeflector"),
-    cultureBrief: z
+    churnBrief: z
       .object({
         actions: z.array(BrandActionSchema),
         headline: z.string().min(1),
-        projectedCultureHealthScore: z.number(),
+        projectedRetentionPct: z.number(),
+        recommendedInterventionFront: z.string().min(1),
         riskSignals: z.array(BrandRiskSchema),
         signals: z.array(BrandSignalSchema)
       })

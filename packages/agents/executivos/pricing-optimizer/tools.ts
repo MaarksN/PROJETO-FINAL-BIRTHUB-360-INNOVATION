@@ -10,9 +10,9 @@ const isoDateSchema = z
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
 export const COMPETITORXRAY_TOOL_IDS = [
-  "competitor-intel-feed",
+  "price-elasticity-model",
   "pricing-benchmark-engine",
-  "feature-gap-analyzer"
+  "packaging-gap-analyzer"
 ] as const;
 export type CompetitorToolId = (typeof COMPETITORXRAY_TOOL_IDS)[number];
 
@@ -21,7 +21,7 @@ export const CompetitorToolInputSchema = z
     endDate: isoDateSchema,
     segments: z.array(CompetitorSegmentSchema).min(1),
     startDate: isoDateSchema,
-    targetWinRateLiftPct: z.number().min(1).max(100),
+    targetPricingLiftPct: z.number().min(1).max(100),
     tenantId: z.string().trim().min(1)
   })
   .strict();
@@ -77,14 +77,14 @@ export function normalizeCompetitorToolId(toolId: string): CompetitorToolId | nu
     .toLowerCase()
     .replace(/[_\s]+/g, "-");
 
-  if (normalized === "competitor-intel-feed") {
-    return "competitor-intel-feed";
+  if (normalized === "competitor-intel-feed" || normalized === "price-elasticity-model") {
+    return "price-elasticity-model";
   }
   if (normalized === "pricing-benchmark-engine") {
     return "pricing-benchmark-engine";
   }
-  if (normalized === "feature-gap-analyzer") {
-    return "feature-gap-analyzer";
+  if (normalized === "feature-gap-analyzer" || normalized === "packaging-gap-analyzer") {
+    return "packaging-gap-analyzer";
   }
   return null;
 }
@@ -99,8 +99,8 @@ export function createDefaultPricingOptimizerToolAdapters(): PricingOptimizerToo
       return CompetitorIntelSnapshotSchema.parse({
         aggressiveMover:
           deterministic(`${seed}:mover`, 0, 1) > 0.5
-            ? "vertical suite challenger with aggressive bundle pricing"
-            : "incumbent platform expanding via partner-led migration offers",
+            ? "elasticity rises sharply once discounting exceeds approved enterprise guardrails"
+            : "price realization improves when high-touch onboarding is bundled instead of discounted",
         displacementPressurePct: Number(
           deterministic(`${seed}:pressure`, 18, 76).toFixed(2)
         ),
@@ -119,8 +119,8 @@ export function createDefaultPricingOptimizerToolAdapters(): PricingOptimizerToo
         ),
         highestGapTheme:
           deterministic(`${seed}:theme`, 0, 1) > 0.5
-            ? "enterprise governance automation with auditable workflows"
-            : "AI-assisted onboarding speed with reduced time-to-value",
+            ? "packaging leaves premium governance features under-monetized in mid-market tiers"
+            : "value metrics are misaligned with realized onboarding and activation outcomes",
         parityCoveragePct: Number(deterministic(`${seed}:parity`, 22, 88).toFixed(2))
       });
     },
@@ -129,7 +129,7 @@ export function createDefaultPricingOptimizerToolAdapters(): PricingOptimizerToo
       input: CompetitorToolInput
     ): Promise<PricingBenchmarkSnapshot> {
       CompetitorToolInputSchema.parse(input);
-      const seed = `${input.tenantId}:${input.targetWinRateLiftPct}:pricing`;
+      const seed = `${input.tenantId}:${input.targetPricingLiftPct}:pricing`;
       return PricingBenchmarkSnapshotSchema.parse({
         discountGapPct: Number(deterministic(`${seed}:discount`, -19, 24).toFixed(2)),
         premiumJustificationScore: Number(

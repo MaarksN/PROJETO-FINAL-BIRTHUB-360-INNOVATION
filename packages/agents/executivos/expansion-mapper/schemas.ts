@@ -120,7 +120,7 @@ export const ExpansionMapperContractSchema = z
   .strict();
 export type ExpansionMapperContract = z.infer<typeof ExpansionMapperContractSchema>;
 
-export const DEFAULT_TRENDCATCHER_CONTRACT: ExpansionMapperContract = {
+export const DEFAULT_EXPANSIONMAPPER_CONTRACT: ExpansionMapperContract = {
   failureMode: "degraded_report",
   observability: {
     events: [
@@ -141,6 +141,7 @@ export const DEFAULT_TRENDCATCHER_CONTRACT: ExpansionMapperContract = {
   },
   toolIds: ["market-sentinel-feed", "macro-signal-stream", "risk-opportunity-engine"]
 };
+export const DEFAULT_TRENDCATCHER_CONTRACT = DEFAULT_EXPANSIONMAPPER_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
