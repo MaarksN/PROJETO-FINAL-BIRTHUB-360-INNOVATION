@@ -81,8 +81,9 @@ Resultados locais executados:
 - `npx tsx --test apps/api/tests/connectors-router.test.ts` passou.
 - `npx tsx --test apps/api/tests/module-routes.test.ts` passou.
 - `npx playwright test tests/e2e/maternal-clinic.spec.ts` passou.
-- O banco local `birthub` foi criado e bootstrapado com as migrations do projeto.
+- O banco local `birthub_cycle1` foi criado e bootstrapado com as migrations do projeto.
 - `npx tsx --test packages/database/test/maternal-domain.rls.test.ts` passou usando a role runtime `api_worker`, validando o isolamento por tenant no dominio clinico.
+- `node --import tsx --test packages/database/test/rls.test.ts` passou como prova basal de isolamento multi-tenant no mesmo banco local.
 
 ### CI
 - [ ] validacao em CI concluida

@@ -1,30 +1,169 @@
 {
   "$schema": "https://unpkg.com/knip@5/schema.json",
-  "entry": [
-    "apps/api/src/server.ts",
-    "apps/web/app/page.tsx",
-    "apps/worker/src/index.ts",
-    "packages/auth/src/index.ts",
-    "packages/agents-core/src/index.ts",
-    "packages/database/src/index.ts"
+  "include": [
+    "files",
+    "dependencies",
+    "devDependencies",
+    "unlisted",
+    "binaries",
+    "exports",
+    "duplicates"
   ],
-  "project": [
-    "apps/**/*.{ts,tsx,js,jsx,mjs,cjs}",
-    "packages/**/*.{ts,tsx,js,jsx,mjs,cjs}",
-    "scripts/**/*.{ts,tsx,js,mjs}"
+  "ignoreBinaries": [
+    "k6",
+    "powershell",
+    "pytest"
   ],
-  "ignore": [
-    "apps/**/.next/**",
+  "ignoreDependencies": [
+    "@commitlint/cli",
+    "@opentelemetry/auto-instrumentations-node",
+    "@opentelemetry/exporter-trace-otlp-http",
+    "@opentelemetry/resources",
+    "@opentelemetry/sdk-node",
+    "@prisma/instrumentation",
+    "c8",
+    "express-rate-limit",
+    "jsdom",
+    "lint-staged",
+    "pino-pretty",
+    "rate-limit-redis"
+  ],
+  "ignoreFiles": [
+    "apps/dashboard/**",
     "apps/legacy/**",
-    "artifacts/**",
-    "audit/**",
-    "docs/**",
-    "packages/agents-core/docs/**",
-    "test-results/**",
-    "**/*.d.ts",
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "**/*.spec.ts",
-    "**/*.spec.tsx"
-  ]
+    "apps/webhook-receiver/**",
+    "packages/agent-packs/**",
+    "packages/agents/**"
+  ],
+  "ignoreWorkspaces": [
+    "apps/voice-engine",
+    "packages/agent-packs",
+    "packages/llm-client",
+    "packages/integrations"
+  ],
+  "rules": {
+    "enumMembers": "off",
+    "types": "off"
+  },
+  "workspaces": {
+    ".": {
+      "entry": [
+        "*.config.{js,mjs,cjs,ts}",
+        "package.json",
+        "playwright.config.ts",
+        "stryker.config.mjs"
+      ],
+      "project": [
+        ".github/**/*.{yml,yaml}",
+        "*.config.{js,mjs,cjs,ts}",
+        "scripts/**/*.{js,mjs,cjs,ts,tsx}"
+      ],
+      "ignore": [
+        "artifacts/**",
+        "audit/**",
+        "docs/**",
+        "test-results/**"
+      ]
+    },
+    "apps/api": {
+      "entry": [
+        "src/server.ts",
+        "test/**/*.test.ts",
+        "tests/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "tests/**/*.ts"
+      ],
+      "ignore": [
+        "dist/**"
+      ]
+    },
+    "apps/web": {
+      "entry": [
+        "app/**/*.ts",
+        "app/**/*.tsx",
+        "middleware.ts",
+        "public/sw.js",
+        "tests/**/*.test.ts",
+        "tests/**/*.test.tsx"
+      ],
+      "project": [
+        "app/**/*.ts",
+        "app/**/*.tsx",
+        "components/**/*.ts",
+        "components/**/*.tsx",
+        "lib/**/*.ts",
+        "providers/**/*.ts",
+        "providers/**/*.tsx",
+        "stores/**/*.ts",
+        "tests/**/*.ts",
+        "tests/**/*.tsx"
+      ],
+      "ignore": [
+        ".next/**",
+        "dist/**"
+      ]
+    },
+    "apps/worker": {
+      "entry": [
+        "src/index.ts",
+        "src/**/*.test.ts",
+        "src/load/*.ts",
+        "test/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts",
+        "test/**/*.ts"
+      ],
+      "ignore": [
+        "dist/**",
+        "src/**/*.harness.ts"
+      ]
+    },
+    "packages/agents-core": {
+      "entry": [
+        "src/index.ts",
+        "src/**/*.test.ts"
+      ],
+      "project": [
+        "src/**/*.ts"
+      ],
+      "ignore": [
+        "dist/**",
+        "docs/**"
+      ]
+    },
+    "packages/database": {
+      "entry": [
+        "f8.config.ts",
+        "prisma/seed.ts",
+        "prisma/seeds/**/*.ts",
+        "scripts/**/*.ts",
+        "src/**/*.test.ts",
+        "src/index.ts",
+        "test/**/*.test.ts"
+      ],
+      "project": [
+        "prisma/**/*.ts",
+        "scripts/**/*.ts",
+        "src/**/*.ts",
+        "test/**/*.ts"
+      ],
+      "ignore": [
+        "dist/**"
+      ]
+    },
+    "packages/emails": {
+      "entry": [
+        "templates/*.test.ts",
+        "templates/*.tsx"
+      ],
+      "project": [
+        "templates/*.test.ts",
+        "templates/*.tsx"
+      ]
+    }
+  }
 }

@@ -1,11 +1,7 @@
 {
-  "generatedAt": "2026-04-08T01:54:22.385Z",
+  "generatedAt": "2026-04-08T02:11:19.618Z",
   "sourceReport": "audit\\auditor-prime-2026-04-07.json",
   "top15Ids": [
-    "TD-054",
-    "TD-055",
-    "TD-056",
-    "TD-057",
     "TD-001",
     "TD-002",
     "TD-003",
@@ -16,7 +12,11 @@
     "TD-008",
     "TD-089",
     "TD-029",
-    "TD-030"
+    "TD-030",
+    "TD-031",
+    "TD-032",
+    "TD-033",
+    "TD-015"
   ],
   "sprints": [
     {
@@ -34,77 +34,78 @@
         },
         {
           "id": "TD-029",
-          "title": "Semgrep WARNING em cd.yml",
+          "title": "Semgrep WARNING em generate-vps-env.mjs",
           "owner": "@platform-security",
           "effort": "0.5-2 dias",
           "dependencies": [],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": ".github/workflows/cd.yml"
+          "path": "scripts/ops/generate-vps-env.mjs"
         },
         {
           "id": "TD-030",
-          "title": "Semgrep WARNING em cd.yml",
+          "title": "Semgrep WARNING em prime-refresh-evidence.mjs",
           "owner": "@platform-security",
           "effort": "0.5-2 dias",
           "dependencies": [
             "TD-029"
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
-          "path": ".github/workflows/cd.yml"
+          "path": "scripts/audit/prime-refresh-evidence.mjs"
+        },
+        {
+          "id": "TD-031",
+          "title": "Semgrep WARNING em prisma-schema.ts",
+          "owner": "@platform-data",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "packages/database/scripts/lib/prisma-schema.ts"
+        },
+        {
+          "id": "TD-032",
+          "title": "Semgrep WARNING em runtime.shared.ts",
+          "owner": "@platform-automation",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/worker/src/agents/runtime.shared.ts"
+        },
+        {
+          "id": "TD-033",
+          "title": "Semgrep WARNING em worker.job-validation.test.ts",
+          "owner": "@platform-automation",
+          "effort": "0.5-2 dias",
+          "dependencies": [
+            "TD-029"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/worker/src/worker.job-validation.test.ts"
         }
       ]
     },
     {
       "sprint": 2,
       "theme": "Qualidade + observabilidade",
-      "items": []
+      "items": [
+        {
+          "id": "TD-015",
+          "title": "Uso recorrente de any em index.ts",
+          "owner": "@platform-architecture",
+          "effort": "2-5 dias",
+          "dependencies": [],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "packages/shared-types/src/index.ts"
+        }
+      ]
     },
     {
       "sprint": 3,
       "theme": "Performance + UX técnica",
       "items": [
-        {
-          "id": "TD-054",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
-          "effort": "0.5-2 dias",
-          "dependencies": [],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/clinical/service.ts"
-        },
-        {
-          "id": "TD-055",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/clinical/service.ts"
-        },
-        {
-          "id": "TD-056",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/clinical/service.ts"
-        },
-        {
-          "id": "TD-057",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/fhir/service.ts"
-        },
         {
           "id": "TD-001",
           "title": "Complexidade acima do limiar em AppointmentsBoard",

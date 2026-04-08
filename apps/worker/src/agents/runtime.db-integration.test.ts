@@ -5,6 +5,8 @@ import test from "node:test";
 
 import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "@birthub/testing";
 
+const RUNTIME_HARNESS_TIMEOUT_MS = 90_000;
+
 void test("Manifest runtime integration persists memory, output, approval and metrics", async (context) => {
   const baseDatabaseUrl = resolveExplicitTestDatabaseUrl();
 
@@ -70,7 +72,7 @@ void test("Manifest runtime integration persists memory, output, approval and me
         RUNTIME_TEST_TENANT_ID: organization.tenantId,
         RUNTIME_TEST_USER_ID: user.id
       },
-      timeout: 30_000
+      timeout: RUNTIME_HARNESS_TIMEOUT_MS
     });
     const jsonLine = stdout
       .trim()

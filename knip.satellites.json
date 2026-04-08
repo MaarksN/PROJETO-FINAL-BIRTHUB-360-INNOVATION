@@ -1,0 +1,65 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "include": [
+    "files",
+    "dependencies",
+    "devDependencies",
+    "unlisted",
+    "binaries",
+    "exports",
+    "duplicates"
+  ],
+  "ignoreBinaries": [
+    "pytest"
+  ],
+  "rules": {
+    "enumMembers": "off",
+    "types": "off"
+  },
+  "workspaces": {
+    ".": {
+      "entry": [
+        "package.json",
+        "scripts/ci/run-satellites.mjs",
+        "apps/webhook-receiver/src/server.ts",
+        "packages/agents/executivos/*/agent.ts"
+      ],
+      "project": [
+        "apps/webhook-receiver/**/*.py",
+        "apps/webhook-receiver/**/*.ts",
+        "packages/agents/executivos/**/*.{ts,js,mjs,cjs}",
+        "scripts/ci/run-satellites.mjs"
+      ],
+      "ignore": [
+        "docs/**",
+        "test-results/**"
+      ]
+    },
+    "apps/voice-engine": {
+      "entry": [
+        "src/**/*.ts"
+      ],
+      "project": [
+        "src/**/*.ts"
+      ],
+      "ignore": [
+        "dist/**"
+      ]
+    },
+    "packages/agent-packs": {
+      "entry": [
+        "source/**/*.{json,ts}",
+        "github-agents-v1/**/*.json"
+      ],
+      "project": [
+        "**/*.{json,ts}"
+      ],
+      "ignore": [
+        "**/collection-report.json",
+        "**/evidence.json",
+        "**/readiness-gate-report.json",
+        "**/readiness.json"
+      ]
+    }
+  }
+}

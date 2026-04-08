@@ -35,12 +35,13 @@
     <div class="hero">
       <div class="eyebrow">Auditoria Técnica de Finalidade + Orquestração de Agentes</div>
       <h1>BirthHub 360 e um SaaS de workflow governado real. Nao e, ainda, um sistema multi-agente autonomo real.</h1>
-      <p>O repositorio nao e prototipo puro. Existe monorepo funcional, API, worker, banco multi-tenant, health checks, observabilidade, workflow engine, catalogo de agentes e UI real. O problema central e de coerencia: a camada mais vendida como "AI multi-agent" ainda e, no codigo, um runtime deterministico guiado por manifesto, com tools sinteticas e handoffs sem ciclo fechado.</p>
+      <p>O repositorio nao e prototipo puro. Existe monorepo funcional, API, worker, banco multi-tenant, health checks, observabilidade, workflow engine, catalogo de agentes e UI real. O problema central e de coerencia: a camada mais vendida como "AI multi-agent" ainda e, no codigo, um runtime deterministico guiado por manifesto, com tools sinteticas e handoffs sem ciclo fechado. A validacao executada em 2026-04-07 reforcou essa leitura: os testes principais passam, mas os gates de qualidade do repo nao fecham.</p>
       <div class="chips">
         <span class="chip warn">⚠️ Status: Semi-funcional</span>
-        <span class="chip info">Data: 2026-04-06</span>
+        <span class="chip info">Data: 2026-04-07</span>
         <span class="chip info">378 manifests auditados</span>
         <span class="chip bad">378/378 com schemas genericos</span>
+        <span class="chip warn">Validacao real executada com Node 24 portatil</span>
       </div>
       <div class="grid g4" style="margin-top:16px">
         <div class="score"><div class="label">Score Geral</div><div class="value">56</div><div class="sub">Produto real, promessa agentic inflada.</div></div>
@@ -72,7 +73,27 @@
     </section>
 
     <section>
-      <h2 class="title">3. Finalidade Real vs Prometida</h2>
+      <h2 class="title">3. Validacao Executada em 2026-04-07</h2>
+      <div class="card panel">
+        <table>
+          <thead><tr><th>Comando</th><th>Status</th><th>Resultado</th><th>Leitura</th></tr></thead>
+          <tbody>
+            <tr><td><code>workspace:audit</code></td><td><span class="chip bad">Falhou</span></td><td><code>package.json</code> referencia <code>tests/workflow-retry-lineage.integration.test.ts</code>, arquivo inexistente.</td><td>O proprio gate do repo denuncia drift entre scripts e arvore real.</td></tr>
+            <tr><td><code>--filter @birthub/workflows-core test</code></td><td><span class="chip ok">Passou</span></td><td>11/11 testes.</td><td>O nucleo de workflow e a parte mais robusta da camada de execucao.</td></tr>
+            <tr><td><code>--filter @birthub/api test:auth</code></td><td><span class="chip ok">Passou</span></td><td>11/11 testes.</td><td>Auth local esta funcional no baseline auditado.</td></tr>
+            <tr><td><code>--filter @birthub/api test:rbac</code></td><td><span class="chip ok">Passou</span></td><td>1/1 teste.</td><td>RBAC basico passou no fluxo exercitado.</td></tr>
+            <tr><td><code>--filter @birthub/api test:security</code></td><td><span class="chip ok">Passou</span></td><td>3/3 testes.</td><td>Headers/origin/session guard responderam no caminho testado.</td></tr>
+            <tr><td><code>--filter @birthub/worker test</code></td><td><span class="chip ok">Passou</span></td><td>58 testes passaram, 3 foram pulados por dependerem de <code>DATABASE_URL</code> real.</td><td>Worker, runtime e workflow smoke estao vivos; a integracao DB-backed do runtime agentic continua parcialmente sem lastro local.</td></tr>
+            <tr><td><code>--filter @birthub/web test</code></td><td><span class="chip ok">Passou</span></td><td>34/34 testes.</td><td>Camada web e BFF estao saudaveis no escopo testado.</td></tr>
+            <tr><td><code>typecheck:core</code></td><td><span class="chip bad">Falhou</span></td><td><code>apps/api/src/modules/clinical/service.ts</code> quebra com erros de tipagem de cursor/paginacao e <code>apps/api/tests/clinical.service.test.ts</code> usa enum inexistente <code>COMPLETED</code>.</td><td>O gate estatico mais importante do core nao fecha.</td></tr>
+            <tr><td><code>lint:core</code></td><td><span class="chip bad">Falhou</span></td><td><code>packages/security/src/__tests__/security.test.ts</code> tem 10 erros <code>no-floating-promises</code>; <code>packages/workflows-core/src/nodes/executeStep.ts</code> ainda acumula 6 warnings <code>require-await</code>.</td><td>Higiene de qualidade nao acompanha a narrativa de prontidao.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="title">4. Finalidade Real vs Prometida</h2>
       <div class="card panel">
         <table>
           <thead><tr><th>Aspecto</th><th>Prometido</th><th>Implementado</th><th>Gap</th></tr></thead>
@@ -89,7 +110,7 @@
     </section>
 
     <section>
-      <h2 class="title">4. Arquitetura Geral</h2>
+      <h2 class="title">5. Arquitetura Geral</h2>
       <div class="grid g3">
         <div class="card panel"><h3>Forca</h3><p>Monorepo real com workspaces, turbo e separacao de dominios. Evidencia: <code>package.json:5-9</code>, <code>package.json:176-179</code>.</p></div>
         <div class="card panel"><h3>Incoerencia</h3><p>Pacotes paralelos e superficies residuais: <code>packages/agent-runtime</code> sem uso principal, <code>agents-registry</code> pouco usado, docs citam apps legacy inexistentes.</p></div>
@@ -98,7 +119,7 @@
     </section>
 
     <section>
-      <h2 class="title">5. Analise dos Agentes</h2>
+      <h2 class="title">6. Analise dos Agentes</h2>
       <p>Foram encontrados <strong>376 agentes</strong> e <strong>2 descriptors</strong>. A analise profunda foi feita no runtime comum, nos agentes que explicitamente prometem orquestracao e nas duas grandes coortes do catalogo. Isso e o metodo correto aqui porque todos passam pelo mesmo <code>manifest-runtime</code>.</p>
       <div class="controls">
         <input id="agentSearch" type="search" placeholder="Filtrar agente/coorte por nome, pack ou risco">
@@ -117,7 +138,7 @@
     </section>
 
     <section>
-      <h2 class="title">6. Criticas Brutais</h2>
+      <h2 class="title">7. Criticas Brutais</h2>
       <div class="controls">
         <input id="issueSearch" type="search" placeholder="Filtrar critica por problema, impacto ou arquivo">
         <button class="chip btn active" data-s="all">Todas</button>
@@ -129,7 +150,7 @@
     </section>
 
     <section>
-      <h2 class="title">7. Meritos Reais</h2>
+      <h2 class="title">8. Meritos Reais</h2>
       <div class="card panel">
         <table><thead><tr><th>Merito</th><th>Onde</th><th>Por que importa</th></tr></thead><tbody>
           <tr><td>Workflow engine tem substancia</td><td><code>packages/workflows-core/src/parser/dagValidator.ts</code>, <code>apps/worker/src/engine/*.test.ts</code></td><td>Isso sustenta um produto real de automacao.</td></tr>
@@ -137,25 +158,26 @@
           <tr><td>API tem boa base de seguranca</td><td><code>apps/api/src/app/core.ts:147-249</code>, <code>require-role.ts:9-28</code></td><td>Helmet, CSRF, rate limit, RBAC e metrics ajudam operacao real.</td></tr>
           <tr><td>Worker tem readiness/metrics</td><td><code>apps/worker/src/index.ts:110-277</code></td><td>Fila nao esta rodando no escuro.</td></tr>
           <tr><td>HTTP tool foi pensada com prudencia</td><td><code>packages/agents-core/src/tools/httpTool.ts:82-163</code></td><td>Timeout, retry, allowlist e SSRF guard sao bons sinais.</td></tr>
+          <tr><td>As suites funcionais principais passaram quando executadas</td><td><code>@birthub/workflows-core test</code>, <code>@birthub/api test:auth|rbac|security</code>, <code>@birthub/worker test</code>, <code>@birthub/web test</code></td><td>Ha produto real sendo exercitado; o problema esta mais nos gates de qualidade e no overclaim agentic do que em ausencia total de software.</td></tr>
         </tbody></table>
       </div>
     </section>
 
     <section>
-      <h2 class="title">8. Gaps Criticos</h2>
+      <h2 class="title">9. Gaps Criticos</h2>
       <div id="gaps"></div>
     </section>
 
     <section>
-      <h2 class="title">9. Roadmap de Correcao</h2>
-      <details open><summary>FASE 1 - SOBREVIVENCIA</summary><div class="panel small"><p>1. Resolver <code>.gitattributes</code> quebrado e alinhar docs com o HEAD atual.</p><p>2. Parar de vender multi-agent autonomy enquanto <code>buildAgentRuntimePlan</code> continuar linear e <code>ManifestCapabilityTool</code> sintetico.</p><p>3. Remover duplicidade entre <code>runtime.ts</code> e <code>runtime.orchestration.ts</code>.</p></div></details>
+      <h2 class="title">10. Roadmap de Correcao</h2>
+      <details open><summary>FASE 1 - SOBREVIVENCIA</summary><div class="panel small"><p>1. Corrigir imediatamente <code>workspace:audit</code>, <code>typecheck:core</code> e <code>lint:core</code>.</p><p>2. Resolver <code>.gitattributes</code> quebrado e alinhar docs com o HEAD atual.</p><p>3. Parar de vender multi-agent autonomy enquanto <code>buildAgentRuntimePlan</code> continuar linear e <code>ManifestCapabilityTool</code> sintetico.</p><p>4. Remover duplicidade entre <code>runtime.ts</code> e <code>runtime.orchestration.ts</code>.</p></div></details>
       <details open><summary>FASE 2 - ESTRUTURACAO</summary><div class="panel small"><p>1. Canonicalizar um unico agent runtime core.</p><p>2. Exigir schemas reais por agente e por tool.</p><p>3. Integrar <code>agents-registry</code> de verdade ou aposentar a narrativa.</p><p>4. Reduzir catalogo e aumentar profundidade real.</p></div></details>
       <details open><summary>FASE 3 - INTELIGENCIA REAL</summary><div class="panel small"><p>1. Introduzir planner real com LLM e selecao dinamica de tools.</p><p>2. Implementar adapters concretos para tools declaradas.</p><p>3. Fechar o loop de handoff com enfileiramento e execucao do agente alvo.</p><p>4. Criar approval engine real.</p></div></details>
       <details open><summary>FASE 4 - ESCALA</summary><div class="panel small"><p>1. Suite E2E com Redis + Postgres + worker reais.</p><p>2. Tracing distribuido por execution/workflow/handoff.</p><p>3. Quotas e budgets por tenant/connectors/agentes.</p><p>4. Testes de carga focados em workflow + runtime agentic.</p></div></details>
     </section>
 
     <section>
-      <h2 class="title">10. Mapa de Arquitetura Alvo</h2>
+      <h2 class="title">11. Mapa de Arquitetura Alvo</h2>
       <div class="grid g2">
         <div class="card panel"><pre>[apps/web]
   |
@@ -196,22 +218,23 @@ packages/
     </section>
 
     <section>
-      <h2 class="title">11. Veredito Final</h2>
+      <h2 class="title">12. Veredito Final</h2>
       <div class="card panel">
         <p><strong>Isso e um sistema real?</strong> Sim, como plataforma SaaS/workflow governada.</p>
         <p><strong>Isso e um sistema multi-agente autonomo real?</strong> Nao.</p>
-        <p><strong>Isso esta pronto?</strong> Nao para a promessa atual; no maximo para beta controlado.</p>
+        <p><strong>Isso esta pronto?</strong> Nao. Mesmo no perimetro SaaS/workflow, o repo ainda falha em <code>workspace:audit</code>, <code>lint:core</code> e <code>typecheck:core</code>.</p>
         <p><strong>Isso e vendavel?</strong> So como "workflow platform com catalogo de agentes governados". Vender como "autonomous multi-agent SaaS" hoje seria tecnicamente desonesto.</p>
       </div>
     </section>
 
     <section>
-      <h2 class="title">12. Metodologia e Limites</h2>
+      <h2 class="title">13. Metodologia e Limites</h2>
       <div class="card panel">
         <p>Baseado em leitura direta de codigo, schema, migrations, testes, UI e scripts. As afirmacoes centrais estao ancoradas em arquivos do repo.</p>
         <p><strong>Evidencias principais:</strong> <code>packages/agents-core/src/runtime/manifestRuntime.ts</code>, <code>apps/worker/src/agents/runtime.tools.ts</code>, <code>apps/worker/src/executors/planExecutor.defaults.ts</code>, <code>packages/workflows-core/src/parser/dagValidator.ts</code>, <code>apps/worker/src/engine/runner.db-integration.test.ts</code>, <code>packages/database/src/client.ts</code>, <code>apps/api/src/app/core.ts</code>, <code>apps/worker/src/index.ts</code>.</p>
-        <p><strong>Limitacao desta execucao:</strong> a suite completa nao foi rodada neste ambiente porque o repo declara <code>pnpm@9.1.0</code> e <code>node &gt;=24 &lt;25</code> em <code>package.json:5-9</code>, enquanto esta maquina tinha <code>node.exe 25.9.0.0</code> e sem <code>pnpm/corepack</code>. Isso foi tratado como limite de verificacao, nao mascarado como "tests passing".</p>
-        <p class="foot">Ponto-chave: o veredito nao depende de teste para ser percebido. O gap mais grave aparece no desenho do runtime, no planner e na natureza sintetica das tools declaradas.</p>
+        <p><strong>Validacao executada:</strong> o repo foi rodado com <code>.tools/node-v24.14.0-win-x64/node.exe</code> e <code>corepack/pnpm</code> local. O sandbox bloqueava <code>spawn</code> de workers de teste, entao as suites reais foram rerodadas fora do sandbox.</p>
+        <p><strong>Limite atual:</strong> nao rodei <code>ci:full</code>, packs, E2E, satellites nem a trilha completa DB-backed do runtime agentic. O proprio worker reportou skips quando faltou <code>DATABASE_URL</code> real para alguns testes de integracao.</p>
+        <p class="foot">Ponto-chave: agora o veredito tem duas bases ao mesmo tempo. O gap mais grave continua visivel no desenho do runtime/planner, e os gates reais de qualidade provaram que o core ainda nao fecha como baseline de producao.</p>
       </div>
     </section>
   </div>
@@ -232,6 +255,9 @@ packages/
       {sev:"high",t:"Handoff entre agentes para em persistencia queued",w:"apps/worker/src/agents/handoffs.ts:52-97 e apps/worker/src/worker.ts:230-243",i:"Nao existe sistema multi-agente fechado.",d:"O worker persiste o handoff, mas nao executa automaticamente o targetAgent."},
       {sev:"high",t:"Planner default do executor e um MockPlanBuilder",w:"apps/worker/src/executors/planExecutor.defaults.ts:21-39",i:"A propria implementacao admite que o planejamento ainda nao e um planner de produto.",d:"Ou reaproveita toolCalls de entrada ou retorna vazio."},
       {sev:"high",t:"Client de LLM existe, mas nao aparece no caminho principal",w:"packages/llm-client/src/index.ts + grep repo-wide = NO_MATCHES",i:"A narrativa de IA fica sem lastro claro no core runtime.",d:"Sem uso real do LLM client, a camada agentic vira runtime governado com templates."},
+      {sev:"high",t:"workspace:audit falha no proprio repositório canônico",w:"package.json -> script test:integration -> tests/workflow-retry-lineage.integration.test.ts",i:"O baseline de governanca do monorepo nao fecha nem no auto-check declarado pelo projeto.",d:"Script aponta para arquivo inexistente, logo o gate de workspace ja nasce vermelho."},
+      {sev:"high",t:"typecheck:core quebra no modulo clinico da API",w:"apps/api/src/modules/clinical/service.ts e apps/api/tests/clinical.service.test.ts",i:"O core nao esta tipado de ponta a ponta, entao regressao estrutural pode entrar sem bloqueio efetivo.",d:"Erros reais em cursor/paginacao com exactOptionalPropertyTypes e enum COMPLETED inexistente nos testes."},
+      {sev:"medium",t:"lint:core falha em pacote de seguranca e acumula warnings no workflow core",w:"packages/security/src/__tests__/security.test.ts e packages/workflows-core/src/nodes/executeStep.ts",i:"A disciplina de qualidade esta abaixo do discurso de prod-ready.",d:"Ha 10 erros no-floating-promises e 6 warnings require-await na base central."},
       {sev:"high",t:"Ha duplicidade de implementacao no runtime de agentes",w:"apps/worker/src/agents/runtime.ts e runtime.orchestration.ts",i:"Drift, manutencao pior e risco de divergencia.",d:"Ambos exportam executeManifestAgentRuntime com pipeline muito parecido."},
       {sev:"high",t:"O catalogo foi industrializado mais rapido do que a capacidade de execucao",w:"packages/agent-packs/**/manifest.json e scripts/agent/compile-github-agents.ts",i:"Risco comercial e tecnico de overclaim.",d:"335 agentes compilados automaticamente; 378/378 manifests com schemas genericos."},
       {sev:"medium",t:"Documentacao canonica diverge do HEAD",w:"README.md:9-24, docs/service-catalog.md:17-27, apps/",i:"Onboarding e governanca ficam ambiguos.",d:"README/service catalog citam apps legacy inexistentes e omitem apps/dashboard."},

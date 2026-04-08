@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-08T01:54:21.689Z",
+    "generatedAt": "2026-04-08T02:11:18.190Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "c0fbc5afe263bfdf4084e41c6de3027b46a9bff2",
+    "headSha": "66aa3c45539768273a8488840729c65655590e04",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -17,11 +17,11 @@
   },
   "evidenceSummary": {
     "repo": {
-      "trackedFiles": 6259,
-      "coreTrackedFiles": 558,
-      "runtimeFiles": 1877,
-      "testFiles": 188,
-      "modules": 302
+      "trackedFiles": 6270,
+      "coreTrackedFiles": 561,
+      "runtimeFiles": 1883,
+      "testFiles": 192,
+      "modules": 303
     },
     "capabilities": {
       "apiModules": [
@@ -1600,7 +1600,8 @@
         "fhirFiles": [
           "apps/api/src/modules/fhir/router.ts",
           "apps/api/src/modules/fhir/service.ts",
-          "apps/api/tests/fhir-router.test.ts"
+          "apps/api/tests/fhir-router.test.ts",
+          "apps/api/tests/fhir.service.test.ts"
         ]
       },
       "infra": {
@@ -1643,8 +1644,48 @@
       }
     },
     "git": {
-      "totalCommits": 1191,
+      "totalCommits": 1200,
       "last30Days": [
+        {
+          "sha": "66aa3c45539768273a8488840729c65655590e04",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "5a266ec96c3f7794b44268591708429417c160f7",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "ea6eec3a38a40c70361968f31fdc4cc3c9e3797d",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "2549e54fd7fab8984556b9b882dbd97f9b1848ce",
+          "date": "2026-04-07",
+          "subject": "Merge remote-tracking branch 'origin/codex/fix-ci-failing-tests'"
+        },
+        {
+          "sha": "df3300788b857c1cf9da352960ce32c481a4ea30",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "0fe94fb33fec54f830cebbacef2e08b323bd1bc3",
+          "date": "2026-04-07",
+          "subject": "Create CICLO_F3_F5_RASTREABILIDADE_2026-04-08.md"
+        },
+        {
+          "sha": "c932442660a7d19cd024a644466639dcfe89b512",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
+        {
+          "sha": "91c63b32175dfd5e8576492babfa010a8517f16a",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
         {
           "sha": "c0fbc5afe263bfdf4084e41c6de3027b46a9bff2",
           "date": "2026-04-07",
@@ -4608,9 +4649,39 @@
       ],
       "deploymentFrequencyProxy": {
         "windowDays": 30,
-        "mergeCommits": 256,
+        "mergeCommits": 257,
         "activeDays": 23,
         "placeholderMessages": [
+          {
+            "sha": "66aa3c45539768273a8488840729c65655590e04",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "5a266ec96c3f7794b44268591708429417c160f7",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "ea6eec3a38a40c70361968f31fdc4cc3c9e3797d",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "df3300788b857c1cf9da352960ce32c481a4ea30",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "c932442660a7d19cd024a644466639dcfe89b512",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
+            "sha": "91c63b32175dfd5e8576492babfa010a8517f16a",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
           {
             "sha": "c0fbc5afe263bfdf4084e41c6de3027b46a9bff2",
             "date": "2026-04-07",
@@ -4704,36 +4775,6 @@
           {
             "sha": "ceafd9c54387ca9ff6e7f2adbf16d4f2117dde2f",
             "date": "2026-04-07",
-            "subject": "1"
-          },
-          {
-            "sha": "73421ddc869801f792bb59e8c9a09b973b2ce4e1",
-            "date": "2026-04-07",
-            "subject": "1"
-          },
-          {
-            "sha": "f84006ff40e013d2c453b98c4a0acd2f6c5d3240",
-            "date": "2026-04-07",
-            "subject": "1"
-          },
-          {
-            "sha": "3fc4c11f11c9e5f94b004994eeb647bf833ac2be",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "8279d32c4407337281c597fd671a2dfc6e7c6ff8",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "09fa82367af7f90747cbc743c5e708837f624b27",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
-            "date": "2026-04-06",
             "subject": "1"
           }
         ]
@@ -4881,11 +4922,11 @@
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 438,
-            "end": 542
+            "start": 442,
+            "end": 546
           }
         },
-        "problem": "Identificado em apps/api/src/modules/clinical/service.ts:438 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).",
+        "problem": "Identificado em apps/api/src/modules/clinical/service.ts:442 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).",
         "impact": "Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.",
         "recommendation": "Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.",
         "vdiFactors": {
@@ -4902,7 +4943,7 @@
         "evidenceRefs": [
           {
             "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 438,
+            "line": 442,
             "summary": "Complexidade=23; extensão=105 linhas."
           }
         ],
@@ -5136,7 +5177,7 @@
       },
       {
         "dimension": "architecture",
-        "title": "Arquivo grande demais para o boundary atual (2110 linhas)",
+        "title": "Arquivo grande demais para o boundary atual (2233 linhas)",
         "location": {
           "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
@@ -5144,7 +5185,7 @@
             "end": 1
           }
         },
-        "problem": "Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2110 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
+        "problem": "Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2233 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.",
         "impact": "Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.",
         "recommendation": "Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.",
         "vdiFactors": {
@@ -5162,7 +5203,7 @@
           {
             "path": "apps/api/src/modules/clinical/service.ts",
             "line": 1,
-            "summary": "2110 linhas no arquivo."
+            "summary": "2233 linhas no arquivo."
           }
         ],
         "inference": false,
@@ -5732,6 +5773,43 @@
         "dimension": "code_quality",
         "title": "Logging ad-hoc com console.* em runtime",
         "location": {
+          "path": "packages/agents/executivos/boardprep-ai/agent.ts",
+          "lines": {
+            "start": 431,
+            "end": 431
+          }
+        },
+        "problem": "Identificado em packages/agents/executivos/boardprep-ai/agent.ts:431 uso de console.* em uma superfície de runtime do core.",
+        "impact": "Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.",
+        "recommendation": "Migrar o módulo para o logger estruturado do workspace e eliminar saídas diretas via console.",
+        "vdiFactors": {
+          "businessImpact": 2,
+          "securityRisk": 3,
+          "reverseEffort": 2,
+          "frequency": 4
+        },
+        "vdiScore": 2.6,
+        "effort": "0.5-1 dia",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.92,
+        "evidenceRefs": [
+          {
+            "path": "packages/agents/executivos/boardprep-ai/agent.ts",
+            "line": 431,
+            "summary": "3 ocorrência(s) de console.*."
+          }
+        ],
+        "inference": false,
+        "insufficient": false,
+        "dependencyHints": [
+          "observability-foundation"
+        ]
+      },
+      {
+        "dimension": "code_quality",
+        "title": "Logging ad-hoc com console.* em runtime",
+        "location": {
           "path": "packages/agents/executivos/brand-guardian/agent.ts",
           "lines": {
             "start": 515,
@@ -5764,57 +5842,20 @@
         "dependencyHints": [
           "observability-foundation"
         ]
-      },
-      {
-        "dimension": "code_quality",
-        "title": "Logging ad-hoc com console.* em runtime",
-        "location": {
-          "path": "packages/agents/executivos/budget-fluid/agent.ts",
-          "lines": {
-            "start": 513,
-            "end": 513
-          }
-        },
-        "problem": "Identificado em packages/agents/executivos/budget-fluid/agent.ts:513 uso de console.* em uma superfície de runtime do core.",
-        "impact": "Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.",
-        "recommendation": "Migrar o módulo para o logger estruturado do workspace e eliminar saídas diretas via console.",
-        "vdiFactors": {
-          "businessImpact": 2,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 2.6,
-        "effort": "0.5-1 dia",
-        "severity": "MÉDIO",
-        "phase": "Fase 2",
-        "confidence": 0.92,
-        "evidenceRefs": [
-          {
-            "path": "packages/agents/executivos/budget-fluid/agent.ts",
-            "line": 513,
-            "summary": "3 ocorrência(s) de console.*."
-          }
-        ],
-        "inference": false,
-        "insufficient": false,
-        "dependencyHints": [
-          "observability-foundation"
-        ]
       }
     ],
     "security": [
       {
         "dimension": "security",
-        "title": "Semgrep WARNING em cd.yml",
+        "title": "Semgrep WARNING em generate-vps-env.mjs",
         "location": {
-          "path": ".github/workflows/cd.yml",
+          "path": "scripts/ops/generate-vps-env.mjs",
           "lines": {
-            "start": 72,
-            "end": 72
+            "start": 70,
+            "end": 70
           }
         },
-        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:72 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
+        "problem": "Semgrep sinalizou em scripts/ops/generate-vps-env.mjs:70 o padrão \"RegExp() called with a `key` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread\".",
         "impact": "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
         "recommendation": "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.",
         "vdiFactors": {
@@ -5830,9 +5871,9 @@
         "confidence": 0.83,
         "evidenceRefs": [
           {
-            "path": ".github/workflows/cd.yml",
-            "line": 72,
-            "summary": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request"
+            "path": "scripts/ops/generate-vps-env.mjs",
+            "line": 70,
+            "summary": "RegExp() called with a `key` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread"
           },
           {
             "path": "artifacts/security/semgrep-head.json",
@@ -5849,15 +5890,15 @@
       },
       {
         "dimension": "security",
-        "title": "Semgrep WARNING em cd.yml",
+        "title": "Semgrep WARNING em prime-refresh-evidence.mjs",
         "location": {
-          "path": ".github/workflows/cd.yml",
+          "path": "scripts/audit/prime-refresh-evidence.mjs",
           "lines": {
-            "start": 240,
-            "end": 240
+            "start": 96,
+            "end": 96
           }
         },
-        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:240 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
+        "problem": "Semgrep sinalizou em scripts/audit/prime-refresh-evidence.mjs:96 o padrão \"RegExp() called with a `flag` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread\".",
         "impact": "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
         "recommendation": "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.",
         "vdiFactors": {
@@ -5873,9 +5914,9 @@
         "confidence": 0.83,
         "evidenceRefs": [
           {
-            "path": ".github/workflows/cd.yml",
-            "line": 240,
-            "summary": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request"
+            "path": "scripts/audit/prime-refresh-evidence.mjs",
+            "line": 96,
+            "summary": "RegExp() called with a `flag` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread"
           },
           {
             "path": "artifacts/security/semgrep-head.json",
@@ -5892,15 +5933,15 @@
       },
       {
         "dimension": "security",
-        "title": "Semgrep WARNING em cd.yml",
+        "title": "Semgrep WARNING em prisma-schema.ts",
         "location": {
-          "path": ".github/workflows/cd.yml",
+          "path": "packages/database/scripts/lib/prisma-schema.ts",
           "lines": {
-            "start": 306,
-            "end": 306
+            "start": 40,
+            "end": 40
           }
         },
-        "problem": "Semgrep sinalizou em .github/workflows/cd.yml:306 o padrão \"This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request\".",
+        "problem": "Semgrep sinalizou em packages/database/scripts/lib/prisma-schema.ts:40 o padrão \"RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread\".",
         "impact": "Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.",
         "recommendation": "Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.",
         "vdiFactors": {
@@ -5916,9 +5957,9 @@
         "confidence": 0.83,
         "evidenceRefs": [
           {
-            "path": ".github/workflows/cd.yml",
-            "line": 306,
-            "summary": "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request"
+            "path": "packages/database/scripts/lib/prisma-schema.ts",
+            "line": 40,
+            "summary": "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread"
           },
           {
             "path": "artifacts/security/semgrep-head.json",
@@ -6358,13 +6399,13 @@
         "dimension": "tests_observability",
         "title": "Observabilidade inconsistente por uso de console em runtime",
         "location": {
-          "path": "packages/agents/executivos/brand-guardian/agent.ts",
+          "path": "packages/agents/executivos/boardprep-ai/agent.ts",
           "lines": {
-            "start": 515,
-            "end": 515
+            "start": 431,
+            "end": 431
           }
         },
-        "problem": "Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 logging ad-hoc fora da cadeia estruturada de observabilidade.",
+        "problem": "Identificado em packages/agents/executivos/boardprep-ai/agent.ts:431 logging ad-hoc fora da cadeia estruturada de observabilidade.",
         "impact": "Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.",
         "recommendation": "Alinhar o módulo ao logger estruturado e adicionar contexto de tenant/trace nas saídas relevantes.",
         "vdiFactors": {
@@ -6380,8 +6421,8 @@
         "confidence": 0.91,
         "evidenceRefs": [
           {
-            "path": "packages/agents/executivos/brand-guardian/agent.ts",
-            "line": 515,
+            "path": "packages/agents/executivos/boardprep-ai/agent.ts",
+            "line": 431,
             "summary": "3 ocorrência(s) de console.*."
           }
         ],
@@ -6777,154 +6818,6 @@
     "performance": [
       {
         "dimension": "performance",
-        "title": "Consulta findMany sem paginação explícita",
-        "location": {
-          "path": "apps/api/src/modules/clinical/service.ts",
-          "lines": {
-            "start": 924,
-            "end": 924
-          }
-        },
-        "problem": "Indício em apps/api/src/modules/clinical/service.ts:924 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-        "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.72,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 924,
-            "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "query-budget"
-        ]
-      },
-      {
-        "dimension": "performance",
-        "title": "Consulta findMany sem paginação explícita",
-        "location": {
-          "path": "apps/api/src/modules/clinical/service.ts",
-          "lines": {
-            "start": 1539,
-            "end": 1539
-          }
-        },
-        "problem": "Indício em apps/api/src/modules/clinical/service.ts:1539 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-        "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.72,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 1539,
-            "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "query-budget"
-        ]
-      },
-      {
-        "dimension": "performance",
-        "title": "Consulta findMany sem paginação explícita",
-        "location": {
-          "path": "apps/api/src/modules/clinical/service.ts",
-          "lines": {
-            "start": 1842,
-            "end": 1842
-          }
-        },
-        "problem": "Indício em apps/api/src/modules/clinical/service.ts:1842 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-        "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.72,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/clinical/service.ts",
-            "line": 1842,
-            "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "query-budget"
-        ]
-      },
-      {
-        "dimension": "performance",
-        "title": "Consulta findMany sem paginação explícita",
-        "location": {
-          "path": "apps/api/src/modules/fhir/service.ts",
-          "lines": {
-            "start": 411,
-            "end": 411
-          }
-        },
-        "problem": "Indício em apps/api/src/modules/fhir/service.ts:411 de uso de findMany sem take/skip/cursor nas linhas adjacentes.",
-        "impact": "Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.",
-        "recommendation": "Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.",
-        "vdiFactors": {
-          "businessImpact": 4,
-          "securityRisk": 3,
-          "reverseEffort": 2,
-          "frequency": 4
-        },
-        "vdiScore": 3.3,
-        "effort": "0.5-2 dias",
-        "severity": "ALTO",
-        "phase": "Fase 2",
-        "confidence": 0.72,
-        "evidenceRefs": [
-          {
-            "path": "apps/api/src/modules/fhir/service.ts",
-            "line": 411,
-            "summary": "Consulta findMany sem paginação evidente nas linhas adjacentes."
-          }
-        ],
-        "inference": true,
-        "insufficient": false,
-        "dependencyHints": [
-          "query-budget"
-        ]
-      },
-      {
-        "dimension": "performance",
         "title": "Await serial em loop de runtime",
         "location": {
           "path": "apps/api/src/modules/billing/sync-plans.ts",
@@ -6964,13 +6857,13 @@
         "dimension": "performance",
         "title": "Await serial em loop de runtime",
         "location": {
-          "path": "apps/api/src/modules/packs/pack-installer.service.ts",
+          "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 91,
-            "end": 91
+            "start": 856,
+            "end": 856
           }
         },
-        "problem": "Indício em apps/api/src/modules/packs/pack-installer.service.ts:91 de await dentro de loop sequencial.",
+        "problem": "Indício em apps/api/src/modules/clinical/service.ts:856 de await dentro de loop sequencial.",
         "impact": "Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.",
         "recommendation": "Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.",
         "vdiFactors": {
@@ -6986,8 +6879,8 @@
         "confidence": 0.7,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/packs/pack-installer.service.ts",
-            "line": 91,
+            "path": "apps/api/src/modules/clinical/service.ts",
+            "line": 856,
             "summary": "Await detectado em loop síncrono/iterativo."
           }
         ],
@@ -7001,13 +6894,13 @@
         "dimension": "performance",
         "title": "Await serial em loop de runtime",
         "location": {
-          "path": "apps/api/src/modules/packs/pack-installer.service.ts",
+          "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 135,
-            "end": 135
+            "start": 892,
+            "end": 892
           }
         },
-        "problem": "Indício em apps/api/src/modules/packs/pack-installer.service.ts:135 de await dentro de loop sequencial.",
+        "problem": "Indício em apps/api/src/modules/clinical/service.ts:892 de await dentro de loop sequencial.",
         "impact": "Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.",
         "recommendation": "Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.",
         "vdiFactors": {
@@ -7023,8 +6916,8 @@
         "confidence": 0.7,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/packs/pack-installer.service.ts",
-            "line": 135,
+            "path": "apps/api/src/modules/clinical/service.ts",
+            "line": 892,
             "summary": "Await detectado em loop síncrono/iterativo."
           }
         ],
@@ -7038,13 +6931,13 @@
         "dimension": "performance",
         "title": "Await serial em loop de runtime",
         "location": {
-          "path": "apps/api/src/modules/packs/pack-installer.service.ts",
+          "path": "apps/api/src/modules/clinical/service.ts",
           "lines": {
-            "start": 418,
-            "end": 418
+            "start": 930,
+            "end": 930
           }
         },
-        "problem": "Indício em apps/api/src/modules/packs/pack-installer.service.ts:418 de await dentro de loop sequencial.",
+        "problem": "Indício em apps/api/src/modules/clinical/service.ts:930 de await dentro de loop sequencial.",
         "impact": "Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.",
         "recommendation": "Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.",
         "vdiFactors": {
@@ -7060,8 +6953,8 @@
         "confidence": 0.7,
         "evidenceRefs": [
           {
-            "path": "apps/api/src/modules/packs/pack-installer.service.ts",
-            "line": 418,
+            "path": "apps/api/src/modules/clinical/service.ts",
+            "line": 930,
             "summary": "Await detectado em loop síncrono/iterativo."
           }
         ],
@@ -7222,6 +7115,154 @@
         "insufficient": false,
         "dependencyHints": [
           "web-performance"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD",
+        "location": {
+          "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.",
+        "impact": "Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.",
+        "recommendation": "Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "[DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2)",
+        "location": {
+          "path": "package.json",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há scripts de stress e overload, mas a auditoria soberana não possui uma execução recente associada ao HEAD auditado.",
+        "impact": "Capacidade e backpressure podem ser superestimados perto do lançamento.",
+        "recommendation": "Executar pelo menos um teste de carga rápido para API e worker no collect de release candidate.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "package.json",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD (complementar 3)",
+        "location": {
+          "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.",
+        "impact": "Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.",
+        "recommendation": "Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "scripts/quality/generate-web-bundle-baseline.mjs",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
+        ]
+      },
+      {
+        "dimension": "performance",
+        "title": "[DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 4)",
+        "location": {
+          "path": "package.json",
+          "lines": {
+            "start": 1,
+            "end": 1
+          }
+        },
+        "problem": "Há scripts de stress e overload, mas a auditoria soberana não possui uma execução recente associada ao HEAD auditado.",
+        "impact": "Capacidade e backpressure podem ser superestimados perto do lançamento.",
+        "recommendation": "Executar pelo menos um teste de carga rápido para API e worker no collect de release candidate.",
+        "vdiFactors": {
+          "businessImpact": 3,
+          "securityRisk": 2,
+          "reverseEffort": 2,
+          "frequency": 2
+        },
+        "vdiScore": 2.35,
+        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "severity": "MÉDIO",
+        "phase": "Fase 2",
+        "confidence": 0.42,
+        "evidenceRefs": [
+          {
+            "path": "package.json",
+            "line": 1,
+            "summary": "Evidência atual insuficiente para concluir o item."
+          }
+        ],
+        "inference": false,
+        "insufficient": true,
+        "dependencyHints": [
+          "baseline-proof"
         ]
       }
     ],
@@ -7945,7 +7986,7 @@
             "end": 6
           }
         },
-        "problem": "Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 100 linhas com texto hardcoded na UI.",
+        "problem": "Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 19 linhas com texto hardcoded na UI.",
         "impact": "Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.",
         "recommendation": "Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.",
         "vdiFactors": {
@@ -7963,7 +8004,7 @@
           {
             "path": "apps/web/app/(dashboard)/dashboard/page.tsx",
             "line": 6,
-            "summary": "100 linhas com strings textuais embutidas na UI."
+            "summary": "19 linhas com strings textuais embutidas na UI."
           }
         ],
         "inference": false,
@@ -8013,76 +8054,76 @@
       },
       {
         "dimension": "product_ux",
-        "title": "[DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend",
+        "title": "A11y automatizada sinaliza input-label",
         "location": {
-          "path": "apps/web/package.json",
+          "path": "apps/web/app/(dashboard)/conversations/page.tsx",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 185,
+            "end": 185
           }
         },
-        "problem": "Sem uma execução automatizada de acessibilidade ou teste manual documentado, a avaliação WCAG permanece parcial.",
-        "impact": "Problemas de semântica, contraste e navegação por teclado podem sobreviver ao release.",
-        "recommendation": "Adicionar axe/playwright accessibility checks no lane do web.",
+        "problem": "A evidência automatizada de acessibilidade encontrou input-label em apps/web/app/(dashboard)/conversations/page.tsx:185.",
+        "impact": "Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.",
+        "recommendation": "Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.",
         "vdiFactors": {
           "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 2
+          "securityRisk": 1,
+          "reverseEffort": 1,
+          "frequency": 3
         },
-        "vdiScore": 2.35,
-        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
+        "vdiScore": 2,
+        "effort": "<2h",
         "severity": "MÉDIO",
         "phase": "Fase 2",
-        "confidence": 0.42,
+        "confidence": 0.88,
         "evidenceRefs": [
           {
-            "path": "apps/web/package.json",
+            "path": "artifacts/accessibility/axe-report.json",
             "line": 1,
-            "summary": "Evidência atual insuficiente para concluir o item."
+            "summary": "Potential input without associated label or aria label in the same file."
           }
         ],
         "inference": false,
-        "insufficient": true,
+        "insufficient": false,
         "dependencyHints": [
-          "baseline-proof"
+          "a11y-foundation"
         ]
       },
       {
         "dimension": "product_ux",
-        "title": "[DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2)",
+        "title": "A11y automatizada sinaliza table-caption",
         "location": {
-          "path": "playwright.config.ts",
+          "path": "apps/web/app/(dashboard)/agents/page.tsx",
           "lines": {
-            "start": 1,
-            "end": 1
+            "start": 92,
+            "end": 92
           }
         },
-        "problem": "Não há evidência recente de baseline cross-browser anexada à auditoria do frontend.",
-        "impact": "Falhas específicas de Safari/Firefox podem aparecer apenas em produção.",
-        "recommendation": "Adicionar smoke cross-browser mínimo ao pacote de evidência soberana.",
+        "problem": "A evidência automatizada de acessibilidade encontrou table-caption em apps/web/app/(dashboard)/agents/page.tsx:92.",
+        "impact": "Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.",
+        "recommendation": "Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.",
         "vdiFactors": {
-          "businessImpact": 3,
-          "securityRisk": 2,
-          "reverseEffort": 2,
-          "frequency": 2
+          "businessImpact": 2,
+          "securityRisk": 1,
+          "reverseEffort": 1,
+          "frequency": 3
         },
-        "vdiScore": 2.35,
-        "effort": "0.5-1 dia para materializar a evidência; maior se a capacidade não existir.",
-        "severity": "MÉDIO",
+        "vdiScore": 1.65,
+        "effort": "<2h",
+        "severity": "BAIXO",
         "phase": "Fase 2",
-        "confidence": 0.42,
+        "confidence": 0.88,
         "evidenceRefs": [
           {
-            "path": "playwright.config.ts",
+            "path": "artifacts/accessibility/axe-report.json",
             "line": 1,
-            "summary": "Evidência atual insuficiente para concluir o item."
+            "summary": "Table rendered without an in-file caption element."
           }
         ],
         "inference": false,
-        "insufficient": true,
+        "insufficient": false,
         "dependencyHints": [
-          "baseline-proof"
+          "a11y-foundation"
         ]
       }
     ],

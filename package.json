@@ -126,6 +126,7 @@
     "quality:complexity": "node scripts/quality/generate-cyclomatic-baseline.mjs",
     "quality:web-bundle": "node scripts/quality/generate-web-bundle-baseline.mjs",
     "quality:dead-code": "node scripts/ci/run-pnpm.mjs exec knip --config knip.json",
+    "quality:dead-code:satellites": "node scripts/ci/run-pnpm.mjs exec knip --config knip.satellites.json",
     "test:mutation:run": "node scripts/ci/run-pnpm.mjs --filter @birthub/auth test && node scripts/ci/run-pnpm.mjs --filter @birthub/agents-core test && node scripts/ci/run-pnpm.mjs test:auth",
     "test:mutation": "node scripts/ci/run-pnpm.mjs exec stryker run",
     "smoke:satellites": "node scripts/ci/run-satellites.mjs smoke",
@@ -164,6 +165,12 @@
     "release:origin:ensure": "bash ./scripts/release/configure-origin-remote.sh"
   },
   "devDependencies": {
+    "@birthub/agents-core": "workspace:*",
+    "@birthub/config": "workspace:*",
+    "@birthub/database": "workspace:*",
+    "@birthub/logger": "workspace:*",
+    "@stryker-mutator/api": "^8.7.1",
+    "@stryker-mutator/command-runner": "^8.7.1",
     "@stryker-mutator/core": "^8.7.1",
     "@stryker-mutator/typescript-checker": "^8.7.1",
     "@commitlint/cli": "^20.5.0",
@@ -172,6 +179,7 @@
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.2",
     "c8": "^10.1.3",
+    "bullmq": "^5.73.0",
     "eslint": "^10.0.3",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
@@ -180,6 +188,7 @@
     "knip": "^5.64.0",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
+    "ioredis": "^5.10.1",
     "tsx": "^4.21.0",
     "turbo": "^2.8.16",
     "typescript": "^5.9.3",
@@ -218,7 +227,6 @@
     "zod": "^4.3.6"
   },
   "description": "Repositório canônico da plataforma SaaS BirthHub 360.",
-  "main": "index.js",
   "directories": {
     "doc": "docs",
     "test": "tests"

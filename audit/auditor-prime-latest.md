@@ -3,16 +3,16 @@
 ## 1. EXECUTIVE SUMMARY
 
 - Score geral de saúde técnica: 55/100
-- Estimativa de custo de não-ação: 8.1 semanas de engenharia perdidas/mês
+- Estimativa de custo de não-ação: 7.9 semanas de engenharia perdidas/mês
 - Viabilidade de lançamento: CONDICIONAL — O lançamento depende de fechamento disciplinado dos itens VDI 4.0+ nas fases 0 e 1.
 
 ### Top 5 riscos críticos
 
-- TD-054 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/clinical/service.ts:924
-- TD-055 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/clinical/service.ts:1539
-- TD-056 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/clinical/service.ts:1842
-- TD-057 | Consulta findMany sem paginação explícita | Dimensão 5 — Performance e Escalabilidade | VDI 3.3 | apps/api/src/modules/fhir/service.ts:411
 - TD-001 | Complexidade acima do limiar em AppointmentsBoard | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/app/(dashboard)/patients/appointments-board.tsx:42
+- TD-002 | Complexidade acima do limiar em ConversationsPage | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/app/(dashboard)/conversations/page.tsx:50
+- TD-003 | Complexidade acima do limiar em createWorkflowsRouter | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/api/src/modules/workflows/router.ts:61
+- TD-004 | Complexidade acima do limiar em deriveClinicalAlerts | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/api/src/modules/clinical/service.ts:442
+- TD-005 | Complexidade acima do limiar em PatientDetailPage | Dimensão 1 — Saúde Arquitetural | VDI 3.25 | apps/web/app/(dashboard)/patients/[id]/page.tsx:98
 
 ### Análise Pendente
 
@@ -30,6 +30,10 @@
 - TD-051 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3) | requer: cobertura por módulo
 - TD-052 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 4) | requer: SLO dashboards vivos
 - TD-053 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 5) | requer: cobertura por módulo
+- TD-062 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD | requer: bundle baseline fresco
+- TD-063 | [DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2) | requer: load test recente
+- TD-064 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD (complementar 3) | requer: bundle baseline fresco
+- TD-065 | [DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 4) | requer: load test recente
 - TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
 - TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
 - TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
@@ -37,8 +41,6 @@
 - TD-075 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 5) | requer: inventário de ambientes
 - TD-076 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 6) | requer: lead time por PR
 - TD-077 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7) | requer: inventário de ambientes
-- TD-087 | [DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend | requer: auditoria a11y automatizada
-- TD-088 | [DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2) | requer: baseline de cross-browser
 - TD-091 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant | requer: SLA versionado
 - TD-092 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2) | requer: evidência de DR drill
 - TD-093 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3) | requer: SLA versionado
@@ -79,8 +81,8 @@
   Esforço: 2-5 dias
 
 - TD-004 | Complexidade acima do limiar em deriveClinicalAlerts
-  Localização: apps/api/src/modules/clinical/service.ts:438
-  Problema: Identificado em apps/api/src/modules/clinical/service.ts:438 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).
+  Localização: apps/api/src/modules/clinical/service.ts:442
+  Problema: Identificado em apps/api/src/modules/clinical/service.ts:442 uma função com complexidade ciclomática 23, acima do limiar operacional recomendado (>10).
   Impacto: Hotspots assim aumentam risco de regressão, dificultam revisão e ampliam o custo de mudança em fluxos centrais.
   Solução recomendada: Fatiar a função em sub-rotinas orientadas por decisão e isolar políticas/branches em helpers com testes diretos.
   VDI: 3.25 (ALTO)
@@ -134,9 +136,9 @@
   VDI: 2.75 (MÉDIO)
   Esforço: 2-5 dias
 
-- TD-011 | Arquivo grande demais para o boundary atual (2110 linhas)
+- TD-011 | Arquivo grande demais para o boundary atual (2233 linhas)
   Localização: apps/api/src/modules/clinical/service.ts:1
-  Problema: Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2110 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
+  Problema: Identificado em apps/api/src/modules/clinical/service.ts um arquivo com 2233 linhas dentro do core, sinal típico de boundary inchado ou múltiplas responsabilidades.
   Impacto: Arquivos extensos concentram conhecimento, elevam custo de merge e pioram isolamento de testes.
   Solução recomendada: Separar orchestration, adapters e regras de negócio em módulos menores alinhados ao boundary funcional.
   VDI: 2.75 (MÉDIO)
@@ -265,6 +267,14 @@
   Esforço: 0.5-1 dia
 
 - TD-027 | Logging ad-hoc com console.* em runtime
+  Localização: packages/agents/executivos/boardprep-ai/agent.ts:431
+  Problema: Identificado em packages/agents/executivos/boardprep-ai/agent.ts:431 uso de console.* em uma superfície de runtime do core.
+  Impacto: Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.
+  Solução recomendada: Migrar o módulo para o logger estruturado do workspace e eliminar saídas diretas via console.
+  VDI: 2.6 (MÉDIO)
+  Esforço: 0.5-1 dia
+
+- TD-028 | Logging ad-hoc com console.* em runtime
   Localização: packages/agents/executivos/brand-guardian/agent.ts:515
   Problema: Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 uso de console.* em uma superfície de runtime do core.
   Impacto: Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.
@@ -272,35 +282,27 @@
   VDI: 2.6 (MÉDIO)
   Esforço: 0.5-1 dia
 
-- TD-028 | Logging ad-hoc com console.* em runtime
-  Localização: packages/agents/executivos/budget-fluid/agent.ts:513
-  Problema: Identificado em packages/agents/executivos/budget-fluid/agent.ts:513 uso de console.* em uma superfície de runtime do core.
-  Impacto: Esse padrão dificulta padronização de logs, correlação por trace id e aplicação consistente de redaction.
-  Solução recomendada: Migrar o módulo para o logger estruturado do workspace e eliminar saídas diretas via console.
-  VDI: 2.6 (MÉDIO)
-  Esforço: 0.5-1 dia
-
 ### Dimensão 3 — Segurança
 
-- TD-029 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:72
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:72 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
+- TD-029 | Semgrep WARNING em generate-vps-env.mjs
+  Localização: scripts/ops/generate-vps-env.mjs:70
+  Problema: Semgrep sinalizou em scripts/ops/generate-vps-env.mjs:70 o padrão "RegExp() called with a `key` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
   Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-030 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:240
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:240 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
+- TD-030 | Semgrep WARNING em prime-refresh-evidence.mjs
+  Localização: scripts/audit/prime-refresh-evidence.mjs:96
+  Problema: Semgrep sinalizou em scripts/audit/prime-refresh-evidence.mjs:96 o padrão "RegExp() called with a `flag` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
   Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
   VDI: 3.1 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-031 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:306
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:306 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
+- TD-031 | Semgrep WARNING em prisma-schema.ts
+  Localização: packages/database/scripts/lib/prisma-schema.ts:40
+  Problema: Semgrep sinalizou em packages/database/scripts/lib/prisma-schema.ts:40 o padrão "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
   Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
   Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
   VDI: 3.1 (ALTO)
@@ -397,8 +399,8 @@
   Esforço: 0.5-1 dia
 
 - TD-043 | Observabilidade inconsistente por uso de console em runtime
-  Localização: packages/agents/executivos/brand-guardian/agent.ts:515
-  Problema: Identificado em packages/agents/executivos/brand-guardian/agent.ts:515 logging ad-hoc fora da cadeia estruturada de observabilidade.
+  Localização: packages/agents/executivos/boardprep-ai/agent.ts:431
+  Problema: Identificado em packages/agents/executivos/boardprep-ai/agent.ts:431 logging ad-hoc fora da cadeia estruturada de observabilidade.
   Impacto: Sinais operacionais ficam parciais e dificultam correlação entre logs, métricas e traces durante incidentes.
   Solução recomendada: Alinhar o módulo ao logger estruturado e adicionar contexto de tenant/trace nas saídas relevantes.
   VDI: 2.95 (MÉDIO)
@@ -486,39 +488,7 @@
 
 ### Dimensão 5 — Performance e Escalabilidade
 
-- TD-054 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/clinical/service.ts:924
-  Problema: Indício em apps/api/src/modules/clinical/service.ts:924 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-055 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/clinical/service.ts:1539
-  Problema: Indício em apps/api/src/modules/clinical/service.ts:1539 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-056 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/clinical/service.ts:1842
-  Problema: Indício em apps/api/src/modules/clinical/service.ts:1842 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-057 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/fhir/service.ts:411
-  Problema: Indício em apps/api/src/modules/fhir/service.ts:411 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-058 | Await serial em loop de runtime
+- TD-054 | Await serial em loop de runtime
   Localização: apps/api/src/modules/billing/sync-plans.ts:62
   Problema: Indício em apps/api/src/modules/billing/sync-plans.ts:62 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -526,31 +496,31 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-059 | Await serial em loop de runtime
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:91
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:91 de await dentro de loop sequencial.
+- TD-055 | Await serial em loop de runtime
+  Localização: apps/api/src/modules/clinical/service.ts:856
+  Problema: Indício em apps/api/src/modules/clinical/service.ts:856 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
   Solução recomendada: Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-060 | Await serial em loop de runtime
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:135
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:135 de await dentro de loop sequencial.
+- TD-056 | Await serial em loop de runtime
+  Localização: apps/api/src/modules/clinical/service.ts:892
+  Problema: Indício em apps/api/src/modules/clinical/service.ts:892 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
   Solução recomendada: Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-061 | Await serial em loop de runtime
-  Localização: apps/api/src/modules/packs/pack-installer.service.ts:418
-  Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:418 de await dentro de loop sequencial.
+- TD-057 | Await serial em loop de runtime
+  Localização: apps/api/src/modules/clinical/service.ts:930
+  Problema: Indício em apps/api/src/modules/clinical/service.ts:930 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
   Solução recomendada: Avaliar paralelização controlada, batching ou filas dedicadas com limites explícitos.
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-062 | Bundle web fresco acima de 2 MiB (2264.32 KiB)
+- TD-058 | Bundle web fresco acima de 2 MiB (2264.32 KiB)
   Localização: artifacts/performance/web-bundle-head.json:1
   Problema: A baseline fresca do bundle registrou 2264.32 KiB distribuídos em 44 arquivos, com chunk líder de 514549 bytes.
   Impacto: Bundles desse porte pressionam LCP/TTI, aumentam custo de download e tendem a penalizar dispositivos móveis em jornadas críticas.
@@ -558,7 +528,7 @@
   VDI: 2.9 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-063 | Página/estado web com complexidade alta (120)
+- TD-059 | Página/estado web com complexidade alta (120)
   Localização: apps/web/app/(dashboard)/patients/[id]/page.tsx:98
   Problema: Identificado em apps/web/app/(dashboard)/patients/[id]/page.tsx:98 um componente/página com complexidade 120.
   Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
@@ -566,7 +536,7 @@
   VDI: 2.4 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-064 | Página/estado web com complexidade alta (37)
+- TD-060 | Página/estado web com complexidade alta (37)
   Localização: apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17
   Problema: Identificado em apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx:17 um componente/página com complexidade 37.
   Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
@@ -574,13 +544,45 @@
   VDI: 2.4 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-065 | Página/estado web com complexidade alta (42)
+- TD-061 | Página/estado web com complexidade alta (42)
   Localização: apps/web/app/(dashboard)/patients/appointments-board.tsx:42
   Problema: Identificado em apps/web/app/(dashboard)/patients/appointments-board.tsx:42 um componente/página com complexidade 42.
   Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
   Solução recomendada: Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.
   VDI: 2.4 (MÉDIO)
   Esforço: 1-3 dias
+
+- TD-062 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD
+  Localização: scripts/quality/generate-web-bundle-baseline.mjs:1
+  Problema: O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.
+  Impacto: Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.
+  Solução recomendada: Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-063 | [DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2)
+  Localização: package.json:1
+  Problema: Há scripts de stress e overload, mas a auditoria soberana não possui uma execução recente associada ao HEAD auditado.
+  Impacto: Capacidade e backpressure podem ser superestimados perto do lançamento.
+  Solução recomendada: Executar pelo menos um teste de carga rápido para API e worker no collect de release candidate.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-064 | [DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD (complementar 3)
+  Localização: scripts/quality/generate-web-bundle-baseline.mjs:1
+  Problema: O monorepo inclui script de baseline de bundle, mas sem uma execução fresca o risco de regressão de peso no frontend continua inconclusivo.
+  Impacto: Sem esse número, LCP e TTI podem piorar sem gatilho visível no release lane.
+  Solução recomendada: Executar a baseline de bundle durante a coleta do auditor-prime e anexar o resultado ao suporte da auditoria.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-065 | [DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 4)
+  Localização: package.json:1
+  Problema: Há scripts de stress e overload, mas a auditoria soberana não possui uma execução recente associada ao HEAD auditado.
+  Impacto: Capacidade e backpressure podem ser superestimados perto do lançamento.
+  Solução recomendada: Executar pelo menos um teste de carga rápido para API e worker no collect de release candidate.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
 ### Dimensão 6 — Infraestrutura e DevOps
 
@@ -740,7 +742,7 @@
 
 - TD-085 | Strings de interface hardcoded em superfície web
   Localização: apps/web/app/(dashboard)/dashboard/page.tsx:6
-  Problema: Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 100 linhas com texto hardcoded na UI.
+  Problema: Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 19 linhas com texto hardcoded na UI.
   Impacto: Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.
   Solução recomendada: Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.
   VDI: 2.55 (MÉDIO)
@@ -754,21 +756,21 @@
   VDI: 2.55 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-087 | [DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend
-  Localização: apps/web/package.json:1
-  Problema: Sem uma execução automatizada de acessibilidade ou teste manual documentado, a avaliação WCAG permanece parcial.
-  Impacto: Problemas de semântica, contraste e navegação por teclado podem sobreviver ao release.
-  Solução recomendada: Adicionar axe/playwright accessibility checks no lane do web.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+- TD-087 | A11y automatizada sinaliza input-label
+  Localização: apps/web/app/(dashboard)/conversations/page.tsx:185
+  Problema: A evidência automatizada de acessibilidade encontrou input-label em apps/web/app/(dashboard)/conversations/page.tsx:185.
+  Impacto: Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.
+  Solução recomendada: Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.
+  VDI: 2 (MÉDIO)
+  Esforço: <2h
 
-- TD-088 | [DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2)
-  Localização: playwright.config.ts:1
-  Problema: Não há evidência recente de baseline cross-browser anexada à auditoria do frontend.
-  Impacto: Falhas específicas de Safari/Firefox podem aparecer apenas em produção.
-  Solução recomendada: Adicionar smoke cross-browser mínimo ao pacote de evidência soberana.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+- TD-088 | A11y automatizada sinaliza table-caption
+  Localização: apps/web/app/(dashboard)/agents/page.tsx:92
+  Problema: A evidência automatizada de acessibilidade encontrou table-caption em apps/web/app/(dashboard)/agents/page.tsx:92.
+  Impacto: Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.
+  Solução recomendada: Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.
+  VDI: 1.65 (BAIXO)
+  Esforço: <2h
 
 ### Dimensão 8 — Maturidade Operacional e Multi-tenancy
 
@@ -1734,11 +1736,8 @@
 
 - Caminho crítico: TD-029 -> TD-001 -> TD-089
 - Nós mapeados: 22
-- Arestas mapeadas: 20
+- Arestas mapeadas: 19
 
-- TD-054 -> TD-055 (Debt dependency)
-- TD-054 -> TD-056 (Debt dependency)
-- TD-054 -> TD-057 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
 - TD-001 -> TD-003 (Debt dependency)
 - TD-001 -> TD-004 (Debt dependency)
@@ -1746,6 +1745,8 @@
 - TD-001 -> TD-006 (Debt dependency)
 - TD-001 -> TD-007 (Debt dependency)
 - TD-001 -> TD-008 (Debt dependency)
+- TD-029 -> TD-030 (Debt dependency)
+- TD-029 -> TD-031 (Debt dependency)
 - TD-089 -> IN-001 (Scale foundation before innovation)
 - TD-089 -> IN-002 (Scale foundation before innovation)
 - TD-089 -> IN-003 (Scale foundation before innovation)
