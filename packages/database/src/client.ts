@@ -154,6 +154,48 @@ function createPrismaAdapter(databaseUrl: string, connectionLimit: number): Pris
   );
 }
 
+function shouldFallbackToDatasourceClient(error: unknown): boolean {
+  const nodeEnv = process.env.NODE_ENV ?? "development";
+  if (nodeEnv !== "development" && nodeEnv !== "test") {
+    return false;
+  }
+
+  if (!(error instanceof Error)) {
+    return false;
+  }
+
+  return (
+    error.message.includes("adapter option") && error.message.includes("run with `--no-engine`")
+  );
+}
+
+function createBasePrismaClient(
+  normalizedDatabaseUrl: string,
+  connectionLimit: number
+): PrismaClient {
+  const log = process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"];
+
+  try {
+    return new PrismaClient({
+      adapter: createPrismaAdapter(normalizedDatabaseUrl, connectionLimit),
+      log
+    });
+  } catch (error) {
+    if (!shouldFallbackToDatasourceClient(error)) {
+      throw error;
+    }
+
+    console.warn(
+      "[birthub/database] Prisma adapter unavailable in local runtime; falling back to datasourceUrl client."
+    );
+
+    return new PrismaClient({
+      datasourceUrl: normalizedDatabaseUrl,
+      log
+    });
+  }
+}
+
 export function createPrismaClient(options: { databaseUrl?: string } = {}): PrismaClient {
   const runtimeDatabaseUrl = resolveRuntimeDatabaseUrl(
     options.databaseUrl ?? process.env.DATABASE_URL
@@ -166,10 +208,7 @@ export function createPrismaClient(options: { databaseUrl?: string } = {}): Pris
     process.env.DATABASE_URL = normalizedDatabaseUrl;
   }
 
-  const baseClient = new PrismaClient({
-    adapter: createPrismaAdapter(normalizedDatabaseUrl, connectionLimit),
-    log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"]
-  });
+  const baseClient = createBasePrismaClient(normalizedDatabaseUrl, connectionLimit);
 
   return baseClient.$extends({
     name: "birthub-query-observability",

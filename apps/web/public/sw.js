@@ -1,6 +1,20 @@
 const CACHE_NAME = "birthhub-pwa-v2";
 const PRECACHE_URLS = ["/", "/offline", "/manifest.json", "/brand/birthhub360-mark.svg"];
 const STATIC_ASSET_PATTERN = /\.(?:css|ico|js|mjs|png|svg|webp)$/;
+const FETCH_TIMEOUT_MS = 8_000;
+
+async function fetchWithTimeout(request) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    return await fetch(request, {
+      signal: controller.signal
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -25,7 +39,7 @@ async function cacheFirst(request) {
     return cached;
   }
 
-  const response = await fetch(request);
+  const response = await fetchWithTimeout(request);
   const cache = await caches.open(CACHE_NAME);
   cache.put(request, response.clone());
   return response;
@@ -33,7 +47,7 @@ async function cacheFirst(request) {
 
 async function networkFirst(request) {
   try {
-    const response = await fetch(request);
+    const response = await fetchWithTimeout(request);
     const cache = await caches.open(CACHE_NAME);
     cache.put(request, response.clone());
     return response;

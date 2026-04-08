@@ -177,6 +177,92 @@ async function isTcpReachable(host, port, timeoutMs = 1_500) {
   });
 }
 
+function resolveEmbeddedPostgresBinary(runtimeRoot) {
+  const candidates =
+    process.platform === "win32"
+      ? [
+          path.join(
+            runtimeRoot,
+            "node_modules",
+            "@embedded-postgres",
+            "windows-x64",
+            "native",
+            "bin",
+            "postgres.exe"
+          )
+        ]
+      : [
+          path.join(
+            runtimeRoot,
+            "node_modules",
+            "@embedded-postgres",
+            "linux-x64",
+            "native",
+            "bin",
+            "postgres"
+          ),
+          path.join(
+            runtimeRoot,
+            "node_modules",
+            "@embedded-postgres",
+            "darwin-x64",
+            "native",
+            "bin",
+            "postgres"
+          ),
+          path.join(
+            runtimeRoot,
+            "node_modules",
+            "@embedded-postgres",
+            "darwin-arm64",
+            "native",
+            "bin",
+            "postgres"
+          )
+        ];
+
+  return candidates.find((candidate) => existsSync(candidate)) ?? "";
+}
+
+async function startEmbeddedPostgres(input) {
+  const postgresBinary = resolveEmbeddedPostgresBinary(input.runtimeRoot);
+  if (!postgresBinary) {
+    return false;
+  }
+
+  try {
+    const args = ["-D", input.dataDir];
+
+    if (input.port) {
+      args.push("-p", String(input.port));
+    }
+
+    if (input.host) {
+      args.push("-c", `listen_addresses=${input.host}`);
+    }
+
+    const child = spawn(postgresBinary, args, {
+      cwd: input.runtimeRoot,
+      detached: true,
+      shell: false,
+      stdio: "ignore",
+      windowsHide: true
+    });
+    child.unref();
+
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      await wait(500);
+      if (await isTcpReachable(input.host, input.port)) {
+        return true;
+      }
+    }
+  } catch {
+    return false;
+  }
+
+  return false;
+}
+
 async function resolveEmbeddedPostgresAdminDatabaseUrl() {
   const runtimeRoot = fromRepo(".tools/embedded-postgres-runtime");
   if (!existsSync(runtimeRoot)) {
@@ -211,7 +297,18 @@ async function resolveEmbeddedPostgresAdminDatabaseUrl() {
       host = host || readEmbeddedPostgresHostFromOptions(options);
     }
 
-    if (!port || !(await isTcpReachable(host, port))) {
+    port ||= 5432;
+    host ||= "127.0.0.1";
+
+    if (
+      !(await isTcpReachable(host, port)) &&
+      !(await startEmbeddedPostgres({
+        dataDir,
+        host,
+        port,
+        runtimeRoot
+      }))
+    ) {
       continue;
     }
 

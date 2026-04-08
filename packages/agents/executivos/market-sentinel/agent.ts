@@ -46,14 +46,14 @@ const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "packages",
   "agents",
-  "executives",
-  "MarketSentinel",
+  "executivos",
+  "market-sentinel",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   process.cwd(),
-  "executives",
-  "MarketSentinel",
+  "executivos",
+  "market-sentinel",
   "contract.yaml"
 );
 const DEFAULT_CONTRACT_PATHS = [
@@ -194,10 +194,10 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   }
   if (
     normalized.endsWith(
-      path.join("executives", "MarketSentinel", "contract.yaml").toLowerCase()
+      path.join("executivos", "market-sentinel", "contract.yaml").toLowerCase()
     )
   ) {
-    return "file";
+    return "package_file";
   }
   return "custom_file";
 }

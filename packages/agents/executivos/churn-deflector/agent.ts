@@ -46,14 +46,14 @@ const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "packages",
   "agents",
-  "executives",
-  "ChurnDeflector",
+  "executivos",
+  "churn-deflector",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   process.cwd(),
-  "executives",
-  "ChurnDeflector",
+  "executivos",
+  "churn-deflector",
   "contract.yaml"
 );
 const DEFAULT_CONTRACT_PATHS = [
@@ -194,10 +194,10 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   }
   if (
     normalized.endsWith(
-      path.join("executives", "ChurnDeflector", "contract.yaml").toLowerCase()
+      path.join("executivos", "churn-deflector", "contract.yaml").toLowerCase()
     )
   ) {
-    return "file";
+    return "package_file";
   }
   return "custom_file";
 }

@@ -46,14 +46,14 @@ const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
   "packages",
   "agents",
-  "executives",
-  "CapitalAllocator",
+  "executivos",
+  "capital-allocator",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
   process.cwd(),
-  "executives",
-  "CapitalAllocator",
+  "executivos",
+  "capital-allocator",
   "contract.yaml"
 );
 const DEFAULT_CONTRACT_PATHS = [
@@ -193,9 +193,11 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
     return "audit_file";
   }
   if (
-    normalized.endsWith(path.join("executives", "CapitalAllocator", "contract.yaml").toLowerCase())
+    normalized.endsWith(
+      path.join("executivos", "capital-allocator", "contract.yaml").toLowerCase()
+    )
   ) {
-    return "file";
+    return "package_file";
   }
   return "custom_file";
 }

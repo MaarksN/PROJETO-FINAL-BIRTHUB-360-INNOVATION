@@ -37,6 +37,14 @@ import {
 type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
 
 const apiBaseUrl = getWebConfig().NEXT_PUBLIC_API_URL;
+const WORKFLOW_REQUEST_TIMEOUT_MS = 15_000;
+
+function fetchWorkflowRequest(input: RequestInfo | URL, init?: RequestInit) {
+  return fetch(input, {
+    ...init,
+    signal: AbortSignal.timeout(WORKFLOW_REQUEST_TIMEOUT_MS)
+  });
+}
 
 function useWorkflowForm(selectedNode: Node<BuilderNodeData> | null): UseFormReturn<SidebarValues> {
   const form = useForm<SidebarValues>({
@@ -414,7 +422,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
 
     try {
       const payload = JSON.parse(simulationPayload) as Record<string, unknown>;
-      const res = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}/run`, {
+      const res = await fetchWorkflowRequest(`/api/v1/workflows/${encodeURIComponent(id)}/run`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ async: false, dryRun: true, payload })
@@ -438,7 +446,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         }
 
         try {
-          const runRes = await fetch(`/api/v1/workflows/${encodeURIComponent(id)}`);
+          const runRes = await fetchWorkflowRequest(`/api/v1/workflows/${encodeURIComponent(id)}`);
           if (runRes.ok) {
             const data = (await runRes.json()) as { workflow: { executions: Array<{ id: string; status: string; stepResults: Array<{ step: { key: string }; status: string }> }> } };
             const run = data.workflow.executions.find((e) => e.id === executionId);
