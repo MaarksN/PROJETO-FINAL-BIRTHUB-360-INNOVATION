@@ -53,32 +53,12 @@ export function CookieConsentBanner() {
   }
 
   return (
-    <aside
-      style={{
-        backdropFilter: "blur(14px)",
-        background: "rgba(16,42,67,0.94)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        borderRadius: 24,
-        bottom: 20,
-        color: "#f8fafc",
-        display: "grid",
-        gap: "0.9rem",
-        left: 20,
-        maxWidth: 520,
-        padding: "1rem 1.1rem",
-        position: "fixed",
-        right: 20,
-        width: "min(100% - 40px, 520px)",
-        zIndex: 1200
-      }}
-    >
-      <div style={{ display: "grid", gap: "0.35rem" }}>
+    <aside className="cookie-consent-banner">
+      <div className="cookie-consent-banner__copy">
         <strong>{copy.consentBanner.title}</strong>
-        <p style={{ color: "rgba(226,232,240,0.9)", margin: 0 }}>
-          {copy.consentBanner.description}
-        </p>
+        <p className="cookie-consent-banner__description">{copy.consentBanner.description}</p>
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+      <div className="cookie-consent-banner__actions">
         <button
           className="action-button"
           disabled={isSaving}
@@ -90,30 +70,16 @@ export function CookieConsentBanner() {
           {copy.consentBanner.accept}
         </button>
         <button
-          className="ghost-button"
+          className="ghost-button ghost-button--inverse"
           disabled={isSaving}
           onClick={() => {
             void saveBannerConsent("REVOKED");
-          }}
-          style={{
-            background: "rgba(255,255,255,0.08)",
-            borderColor: "rgba(255,255,255,0.18)",
-            color: "#f8fafc"
           }}
           type="button"
         >
           {copy.consentBanner.reject}
         </button>
-        <Link
-          href="/settings/privacy"
-          style={{
-            alignItems: "center",
-            color: "#f8fafc",
-            display: "inline-flex",
-            fontWeight: 600,
-            textDecoration: "none"
-          }}
-        >
+        <Link className="cookie-consent-banner__link" href="/settings/privacy">
           {copy.consentBanner.settings}
         </Link>
       </div>

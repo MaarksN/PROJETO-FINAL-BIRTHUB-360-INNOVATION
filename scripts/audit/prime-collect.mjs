@@ -309,7 +309,7 @@ async function collectFilePredicates(files) {
       for (let index = 0; index < lines.length; index += 1) {
         if (!lines[index].includes("findMany(")) continue;
         if (/^\s*(?:async\s+)?findMany\s*\(/.test(lines[index])) continue;
-        const window = lines.slice(index, index + 18).join("\n");
+        const window = lines.slice(index, index + 30).join("\n");
         if (!/(take\s*[:,]|skip\s*[:,]|cursor\s*:|pageSize|limit\s*:)/.test(window)) {
           findManyWithoutPagination.push({
             path: filePath,

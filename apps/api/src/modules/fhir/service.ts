@@ -13,6 +13,8 @@ export type FhirContext = {
   userId: string;
 };
 
+const FHIR_PATIENT_SEARCH_LIMIT = 25;
+
 type PatientRecord = {
   birthDate: Date | null;
   bloodType: string | null;
@@ -412,6 +414,7 @@ export const fhirService = {
       orderBy: {
         updatedAt: "desc"
       },
+      take: FHIR_PATIENT_SEARCH_LIMIT,
       select: {
         birthDate: true,
         bloodType: true,
@@ -426,7 +429,6 @@ export const fhirService = {
         status: true,
         updatedAt: true
       },
-      take: 25,
       where: {
         deletedAt: null,
         organizationId: context.organizationId,

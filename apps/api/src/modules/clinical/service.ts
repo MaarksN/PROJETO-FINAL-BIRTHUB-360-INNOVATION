@@ -25,6 +25,10 @@ type ClinicalContext = {
 
 type DateWindowView = "day" | "month" | "week";
 
+const CLINICAL_APPOINTMENT_PAGE_LIMIT = 250;
+const CLINICAL_NOTE_HISTORY_PAGE_LIMIT = 100;
+const CLINICAL_RECORD_PAGE_LIMIT = 100;
+
 type PatientRecord = {
   allergies: string[];
   birthDate: Date | null;
@@ -830,6 +834,161 @@ function buildDateWindow(anchorDate: string | undefined, view: DateWindowView) {
   };
 }
 
+function buildIdCursor(cursorId?: string) {
+  return cursorId
+    ? {
+        cursor: {
+          id: cursorId
+        },
+        skip: 1
+      }
+    : {};
+}
+
+async function listPregnancyRecords(
+  tx: Prisma.TransactionClient,
+  context: ClinicalContext,
+  patientId: string
+): Promise<PregnancyRecordModel[]> {
+  const records: PregnancyRecordModel[] = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await tx.pregnancyRecord.findMany({
+      ...buildIdCursor(cursorId),
+      orderBy: [
+        { status: "asc" },
+        { estimatedDeliveryDate: "desc" },
+        { createdAt: "desc" },
+        { id: "desc" }
+      ],
+      select: buildPregnancySelect(),
+      take: CLINICAL_RECORD_PAGE_LIMIT,
+      where: {
+        deletedAt: null,
+        organizationId: context.organizationId,
+        patientId,
+        tenantId: context.tenantId
+      }
+    });
+    records.push(...page);
+
+    if (page.length < CLINICAL_RECORD_PAGE_LIMIT) {
+      return records;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listNeonatalRecords(
+  tx: Prisma.TransactionClient,
+  context: ClinicalContext,
+  patientId: string
+): Promise<NeonatalRecordModel[]> {
+  const records: NeonatalRecordModel[] = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await tx.neonatalRecord.findMany({
+      ...buildIdCursor(cursorId),
+      orderBy: [{ bornAt: "desc" }, { id: "desc" }],
+      select: buildNeonatalSelect(),
+      take: CLINICAL_RECORD_PAGE_LIMIT,
+      where: {
+        deletedAt: null,
+        organizationId: context.organizationId,
+        patientId,
+        tenantId: context.tenantId
+      }
+    });
+    records.push(...page);
+
+    if (page.length < CLINICAL_RECORD_PAGE_LIMIT) {
+      return records;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listAppointmentsInWindow(
+  tx: Prisma.TransactionClient,
+  context: ClinicalContext,
+  filters: {
+    patientId?: string;
+    status?: AppointmentStatus;
+  },
+  window: {
+    from: Date;
+    to: Date;
+  }
+): Promise<AppointmentRecord[]> {
+  const items: AppointmentRecord[] = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await tx.appointment.findMany({
+      ...buildIdCursor(cursorId),
+      orderBy: [{ scheduledAt: "asc" }, { createdAt: "asc" }, { id: "asc" }],
+      select: buildAppointmentSelect(true),
+      take: CLINICAL_APPOINTMENT_PAGE_LIMIT,
+      where: {
+        deletedAt: null,
+        organizationId: context.organizationId,
+        scheduledAt: {
+          gte: window.from,
+          lt: window.to
+        },
+        tenantId: context.tenantId,
+        ...(filters.patientId ? { patientId: filters.patientId } : {}),
+        ...(filters.status ? { status: filters.status } : {}),
+        patient: {
+          deletedAt: null
+        }
+      }
+    });
+    items.push(...page);
+
+    if (page.length < CLINICAL_APPOINTMENT_PAGE_LIMIT) {
+      return items;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
+async function listClinicalNoteHistoryRecords(
+  tx: Prisma.TransactionClient,
+  context: ClinicalContext,
+  noteGroupId: string
+): Promise<ClinicalNoteRecord[]> {
+  const items: ClinicalNoteRecord[] = [];
+  let cursorId: string | undefined;
+
+  while (true) {
+    const page = await tx.clinicalNote.findMany({
+      ...buildIdCursor(cursorId),
+      orderBy: [{ version: "desc" }, { id: "desc" }],
+      select: buildClinicalNoteSelect(),
+      take: CLINICAL_NOTE_HISTORY_PAGE_LIMIT,
+      where: {
+        deletedAt: null,
+        noteGroupId,
+        organizationId: context.organizationId,
+        tenantId: context.tenantId
+      }
+    });
+    items.push(...page);
+
+    if (page.length < CLINICAL_NOTE_HISTORY_PAGE_LIMIT) {
+      return items;
+    }
+
+    cursorId = page.at(-1)?.id;
+  }
+}
+
 async function findActivePregnancy(
   tx: Prisma.TransactionClient,
   context: ClinicalContext,
@@ -885,16 +1044,7 @@ async function getPatientDetailInternal(
     "Patient was not found for the active tenant."
   );
 
-  const pregnancyRecords = await tx.pregnancyRecord.findMany({
-    orderBy: [{ status: "asc" }, { estimatedDeliveryDate: "desc" }, { createdAt: "desc" }],
-    select: buildPregnancySelect(),
-    where: {
-      deletedAt: null,
-      organizationId: context.organizationId,
-      patientId,
-      tenantId: context.tenantId
-    }
-  });
+  const pregnancyRecords = await listPregnancyRecords(tx, context, patientId);
 
   const appointments = await tx.appointment.findMany({
     orderBy: { scheduledAt: "desc" },
@@ -921,16 +1071,7 @@ async function getPatientDetailInternal(
     }
   });
 
-  const neonatalRecords = await tx.neonatalRecord.findMany({
-    orderBy: { bornAt: "desc" },
-    select: buildNeonatalSelect(),
-    where: {
-      deletedAt: null,
-      organizationId: context.organizationId,
-      patientId,
-      tenantId: context.tenantId
-    }
-  });
+  const neonatalRecords = await listNeonatalRecords(tx, context, patientId);
 
   const activePregnancy = pregnancyRecords.find((item) => item.status === PregnancyStatus.ACTIVE) ?? null;
   const latestAppointment = appointments[0] ?? null;
@@ -1536,24 +1677,15 @@ export const clinicalService = {
   ) {
     return withTenantDatabaseContext(async (tx) => {
       const window = buildDateWindow(filters.anchorDate, filters.view);
-      const items = await tx.appointment.findMany({
-        orderBy: [{ scheduledAt: "asc" }, { createdAt: "asc" }],
-        select: buildAppointmentSelect(true),
-        where: {
-          deletedAt: null,
-          organizationId: context.organizationId,
-          scheduledAt: {
-            gte: window.from,
-            lt: window.to
-          },
-          tenantId: context.tenantId,
-          ...(filters.patientId ? { patientId: filters.patientId } : {}),
-          ...(filters.status ? { status: filters.status } : {}),
-          patient: {
-            deletedAt: null
-          }
-        }
-      });
+      const items = await listAppointmentsInWindow(
+        tx,
+        context,
+        {
+          patientId: filters.patientId,
+          status: filters.status
+        },
+        window
+      );
 
       const summary = items.reduce(
         (accumulator, item) => {
@@ -1839,16 +1971,7 @@ export const clinicalService = {
 
   async getClinicalNoteHistory(context: ClinicalContext, noteGroupId: string) {
     return withTenantDatabaseContext(async (tx) => {
-      const items = await tx.clinicalNote.findMany({
-        orderBy: { version: "desc" },
-        select: buildClinicalNoteSelect(),
-        where: {
-          deletedAt: null,
-          noteGroupId,
-          organizationId: context.organizationId,
-          tenantId: context.tenantId
-        }
-      });
+      const items = await listClinicalNoteHistoryRecords(tx, context, noteGroupId);
 
       if (items.length === 0) {
         throw new ProblemDetailsError({

@@ -53,34 +53,21 @@ export default async function WorkflowsPage() {
           title={copy.workflowsPage.emptyTitle}
         />
       ) : (
-        <section
-          style={{
-            display: "grid",
-            gap: "1rem",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))"
-          }}
-        >
+        <section className="workflow-list-grid">
           {data.items.map((workflow) => (
             <article className="panel" key={workflow.id}>
-              <div
-                style={{
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  marginBottom: "0.65rem"
-                }}
-              >
+              <div className="workflow-card__header">
                 <strong>{workflow.name}</strong>
                 <span className="status-pill">
                   {translateLabel(copy.workflowsPage.statusLabels, workflow.status)}
                 </span>
               </div>
-              <p style={{ color: "var(--muted)", marginTop: 0 }}>
+              <p className="workflow-card__meta">
                 {translateLabel(copy.workflowsPage.triggerLabels, workflow.triggerType)} ·{" "}
                 {workflow._count.steps} {copy.workflowsPage.stepsLabel} ·{" "}
                 {workflow._count.executions} {copy.workflowsPage.executionsLabel}
               </p>
-              <p style={{ color: "var(--muted)" }}>
+              <p className="workflow-card__updated">
                 {copy.workflowsPage.updatedAtLabel}{" "}
                 {formatDateTime(locale, workflow.updatedAt, {
                   dateStyle: "medium",
@@ -88,7 +75,7 @@ export default async function WorkflowsPage() {
                 })}
               </p>
 
-              <div style={{ display: "grid", gap: "0.75rem" }}>
+              <div className="workflow-card__stack">
                 {workflow.status === "PUBLISHED" ? (
                   <RunWorkflowButton workflowId={workflow.id} />
                 ) : (

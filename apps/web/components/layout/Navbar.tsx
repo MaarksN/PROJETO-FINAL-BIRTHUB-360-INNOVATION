@@ -176,24 +176,18 @@ export function Navbar() {
             <span>{mode === "dark" ? copy.navbar.lightModeLabel : copy.navbar.darkModeLabel}</span>
           </button>
 
-          <div ref={dropdownRef} style={{ position: "relative" }}>
+          <div className="navbar-dropdown-anchor" ref={dropdownRef}>
             <button
               aria-expanded={open}
               aria-label={copy.navbar.openNotifications}
-              className="ghost-button"
+              className="ghost-button navbar-feed-button"
+              type="button"
               onClick={() => {
                 if (!open) {
                   void refresh();
                 }
                 setOpen((current) => !current);
               }}
-              style={{
-                alignItems: "center",
-                display: "inline-flex",
-                gap: "0.45rem",
-                position: "relative"
-              }}
-              type="button"
             >
               {notificationsEnabled === false ? <BellOff size={18} /> : <Bell size={18} />}
               <span>{copy.navbar.feedLabel}</span>
@@ -222,14 +216,14 @@ export function Navbar() {
                 </div>
 
                 {notificationsEnabled === false ? (
-                  <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
+                  <div className="panel panel--compact">
                     <strong>{copy.navbar.notificationsDisabledTitle}</strong>
-                    <p style={{ marginBottom: 0 }}>{copy.navbar.notificationsDisabledDescription}</p>
+                    <p className="panel-copy">{copy.navbar.notificationsDisabledDescription}</p>
                   </div>
                 ) : grouped.length === 0 ? (
-                  <div className="panel" style={{ borderRadius: 18, padding: "0.9rem" }}>
+                  <div className="panel panel--compact">
                     <strong>{copy.navbar.emptyTitle}</strong>
-                    <p style={{ marginBottom: 0 }}>{copy.navbar.emptyDescription}</p>
+                    <p className="panel-copy">{copy.navbar.emptyDescription}</p>
                   </div>
                 ) : (
                   <div className="notification-dropdown__list">

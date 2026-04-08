@@ -72,7 +72,7 @@ jobs:
       - name: Checkout source from CI run
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: refs/heads/main
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v5
@@ -241,7 +241,7 @@ jobs:
         if: github.event_name == 'workflow_run'
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: refs/heads/main
 
       - name: Checkout release source from manual dispatch
         if: github.event_name == 'workflow_dispatch'
@@ -306,7 +306,7 @@ jobs:
       - name: Checkout release source from CI run
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: refs/heads/main
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2

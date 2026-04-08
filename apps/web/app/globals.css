@@ -202,3 +202,51 @@ html[data-theme="dark"] .ghost-button {
   background: rgba(8, 17, 24, 0.9);
   border-color: var(--border);
 }
+
+.ghost-button--inverse {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f8fafc;
+}
+
+.cookie-consent-banner {
+  backdrop-filter: blur(14px);
+  background: rgba(16, 42, 67, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  bottom: 20px;
+  color: #f8fafc;
+  display: grid;
+  gap: 0.9rem;
+  left: 20px;
+  max-width: 520px;
+  padding: 1rem 1.1rem;
+  position: fixed;
+  right: 20px;
+  width: min(100% - 40px, 520px);
+  z-index: 1200;
+}
+
+.cookie-consent-banner__copy {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.cookie-consent-banner__description {
+  color: rgba(226, 232, 240, 0.9);
+  margin: 0;
+}
+
+.cookie-consent-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.cookie-consent-banner__link {
+  align-items: center;
+  color: #f8fafc;
+  display: inline-flex;
+  font-weight: 600;
+  text-decoration: none;
+}

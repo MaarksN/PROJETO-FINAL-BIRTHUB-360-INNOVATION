@@ -1,26 +1,26 @@
 # Test Coverage Dashboard
 
-- Generated at: 2026-04-08T01:57:15.256Z
+- Generated at: 2026-04-08T02:04:13.308Z
 - Surfaces: 6
 - Status: FAIL
 
 ## @birthub/api
 
-- Lines: 45.29%
-- Branches: 68.61%
-- Functions: 54.69%
-- Statements: 45.29%
+- Lines: 47.74%
+- Branches: 68.19%
+- Functions: 58.06%
+- Statements: 47.74%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/api test`
-- Thresholds: lines 30% | branches 70% | functions 35% | statements 30%
+- Thresholds: lines 45% | branches 68% | functions 51% | statements 45%
 - Alerts:
-  - branches below minimum: 68.61% < 70.00%
+  - coverage command failed with exit code 1
 
 ## @birthub/web
 
-- Lines: 16.06%
+- Lines: 16.21%
 - Branches: 60.06%
 - Functions: 53.86%
-- Statements: 16.06%
+- Statements: 16.21%
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/web test`
 - Thresholds: lines 13% | branches 58% | functions 50% | statements 13%
 - Alerts: none

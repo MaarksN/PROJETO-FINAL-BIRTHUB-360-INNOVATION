@@ -93,26 +93,12 @@ export default async function DashboardHomePage() {
       />
 
       {consentNeedsAttention ? (
-        <section
-          className="panel"
-          style={{
-            border: "1px solid rgba(180, 83, 9, 0.22)",
-            boxShadow: "0 18px 48px rgba(180, 83, 9, 0.08)"
-          }}
-        >
-          <div
-            style={{
-              alignItems: "center",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.85rem",
-              justifyContent: "space-between"
-            }}
-          >
-            <div style={{ display: "grid", gap: "0.3rem" }}>
+        <section className="panel dashboard-callout dashboard-callout--warning">
+          <div className="dashboard-callout__row">
+            <div className="dashboard-callout__copy">
               <span className="badge">{copy.dashboardHome.consentBadge}</span>
               <strong>{copy.dashboardHome.consentAttentionTitle}</strong>
-              <span style={{ color: "var(--muted)" }}>
+              <span className="dashboard-muted">
                 {formatConsentSummary(
                   locale,
                   {
@@ -132,20 +118,12 @@ export default async function DashboardHomePage() {
       ) : null}
 
       {data.onboarding.enabled && data.onboarding.progress < 100 ? (
-        <section className="panel">
-          <div
-            style={{
-              alignItems: "center",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.85rem",
-              justifyContent: "space-between"
-            }}
-          >
-            <div style={{ display: "grid", gap: "0.3rem" }}>
+        <section className="panel dashboard-callout">
+          <div className="dashboard-callout__row">
+            <div className="dashboard-callout__copy">
               <span className="badge">{copy.dashboardHome.onboardingBadge}</span>
               <strong>{formatOnboardingProgress(locale, data.onboarding.progress)}</strong>
-              <span style={{ color: "var(--muted)" }}>
+              <span className="dashboard-muted">
                 {formatOnboardingSummary(
                   locale,
                   completedOnboardingSteps,
@@ -165,49 +143,34 @@ export default async function DashboardHomePage() {
           <article key={item.label}>
             <span className="badge">{item.label}</span>
             <strong>{item.value}</strong>
-            <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.delta}</p>
+            <p className="dashboard-muted dashboard-muted--compact">{item.delta}</p>
           </article>
         ))}
         {data.metrics.pipeline.map((item) => (
           <article key={item.stage}>
             <span className="badge">{item.stage}</span>
             <strong>{formatNumber(locale, item.value)}</strong>
-            <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.trend}</p>
+            <p className="dashboard-muted dashboard-muted--compact">{item.trend}</p>
           </article>
         ))}
       </section>
 
-      <section
-        style={{
-          display: "grid",
-          gap: "1rem",
-          gridTemplateColumns: "minmax(0, 1.1fr) minmax(0, 0.9fr)"
-        }}
-      >
+      <section className="dashboard-grid dashboard-grid--primary">
         <article className="panel">
-          <div
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "0.9rem"
-            }}
-          >
-            <div>
-              <h2 style={{ marginBottom: "0.15rem" }}>{copy.dashboardHome.clinicalHeading}</h2>
-              <p style={{ color: "var(--muted)", margin: 0 }}>
-                {copy.dashboardHome.clinicalDescription}
-              </p>
+          <div className="dashboard-panel__header">
+            <div className="dashboard-panel__copy">
+              <h2>{copy.dashboardHome.clinicalHeading}</h2>
+              <p className="dashboard-muted">{copy.dashboardHome.clinicalDescription}</p>
             </div>
             <Link href="/patients">{copy.dashboardHome.openClinicalModule}</Link>
           </div>
 
-          <section className="stats-grid" style={{ marginBottom: "1rem" }}>
+          <section className="stats-grid dashboard-stats-grid">
             {data.clinical.metrics.map((item) => (
               <article key={item.label}>
                 <span className="badge">{item.label}</span>
                 <strong>{formatNumber(locale, item.value)}</strong>
-                <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.delta}</p>
+                <p className="dashboard-muted dashboard-muted--compact">{item.delta}</p>
               </article>
             ))}
           </section>
@@ -218,32 +181,17 @@ export default async function DashboardHomePage() {
               title={copy.dashboardHome.noClinicalSpotlightTitle}
             />
           ) : (
-            <div style={{ display: "grid", gap: "0.75rem" }}>
+            <div className="dashboard-card-list">
               {data.clinical.spotlight.map((patient) => (
-                <article
-                  key={patient.patientId}
-                  style={{
-                    border: "1px solid var(--border)",
-                    borderRadius: 22,
-                    display: "grid",
-                    gap: "0.4rem",
-                    padding: "1rem"
-                  }}
-                >
-                  <div
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "space-between"
-                    }}
-                  >
+                <article className="dashboard-record-card" key={patient.patientId}>
+                  <div className="dashboard-card__header">
                     <strong>{patient.patientName}</strong>
                     <span className="status-pill">
                       {translateLabel(copy.dashboardHome.clinicalRiskLabels, patient.riskLevel)} ·{" "}
                       {translateLabel(copy.dashboardHome.clinicalStatusLabels, patient.status)}
                     </span>
                   </div>
-                  <span style={{ color: "var(--muted)" }}>
+                  <span className="dashboard-record-card__meta">
                     {patient.gestationalAgeLabel ?? copy.dashboardHome.gestationalAgeUnknown} ·{" "}
                     {patient.nextAppointmentAt
                       ? `${copy.dashboardHome.returnPrefix} ${formatDateTime(
@@ -256,7 +204,7 @@ export default async function DashboardHomePage() {
                         )}`
                       : copy.dashboardHome.noReturnScheduled}
                   </span>
-                  <span style={{ color: "var(--muted)" }}>
+                  <span className="dashboard-record-card__meta">
                     {patient.latestNoteTitle ?? copy.dashboardHome.noClinicalNote}
                   </span>
                   <div className="hero-actions">
@@ -279,31 +227,16 @@ export default async function DashboardHomePage() {
               title={copy.dashboardHome.noClinicalAlertsTitle}
             />
           ) : (
-            <div style={{ display: "grid", gap: "0.75rem" }}>
+            <div className="dashboard-card-list">
               {data.clinical.alerts.map((alert) => (
-                <article
-                  key={alert.id}
-                  style={{
-                    border: "1px solid var(--border)",
-                    borderRadius: 22,
-                    display: "grid",
-                    gap: "0.35rem",
-                    padding: "1rem"
-                  }}
-                >
-                  <div
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "space-between"
-                    }}
-                  >
+                <article className="dashboard-alert-card" key={alert.id}>
+                  <div className="dashboard-card__header">
                     <strong>{alert.title}</strong>
                     <span className={`status-pill status-${alert.severity === "high" ? "red" : alert.severity === "medium" ? "yellow" : "green"}`}>
                       {translateLabel(copy.dashboardHome.alertSeverityLabels, alert.severity)}
                     </span>
                   </div>
-                  <p style={{ color: "var(--muted)", marginBottom: 0 }}>{alert.description}</p>
+                  <p className="dashboard-muted dashboard-muted--compact">{alert.description}</p>
                   <Link href={alert.href}>{copy.dashboardHome.openQueue}</Link>
                 </article>
               ))}
@@ -312,29 +245,12 @@ export default async function DashboardHomePage() {
         </article>
       </section>
 
-      <section
-        style={{
-          display: "grid",
-          gap: "1rem",
-          gridTemplateColumns: "minmax(0, 1.3fr) minmax(0, 0.9fr)"
-        }}
-      >
+      <section className="dashboard-grid dashboard-grid--secondary">
         <article className="panel">
-          <div
-            style={{
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "0.9rem"
-            }}
-          >
-            <div>
-              <h2 style={{ marginBottom: "0.15rem" }}>
-                {copy.dashboardHome.highlightedWorkflowsHeading}
-              </h2>
-              <p style={{ color: "var(--muted)", margin: 0 }}>
-                {copy.dashboardHome.highlightedWorkflowsDescription}
-              </p>
+          <div className="dashboard-panel__header">
+            <div className="dashboard-panel__copy">
+              <h2>{copy.dashboardHome.highlightedWorkflowsHeading}</h2>
+              <p className="dashboard-muted">{copy.dashboardHome.highlightedWorkflowsDescription}</p>
             </div>
             <Link href="/workflows">{copy.dashboardHome.viewFullWorkflowList}</Link>
           </div>
@@ -345,31 +261,16 @@ export default async function DashboardHomePage() {
               title={copy.dashboardHome.noWorkflowsTitle}
             />
           ) : (
-            <div style={{ display: "grid", gap: "0.75rem" }}>
+            <div className="dashboard-card-list">
               {data.workflows.items.slice(0, 3).map((workflow) => (
-                <article
-                  key={workflow.id}
-                  style={{
-                    border: "1px solid var(--border)",
-                    borderRadius: 22,
-                    display: "grid",
-                    gap: "0.45rem",
-                    padding: "1rem"
-                  }}
-                >
-                  <div
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "space-between"
-                    }}
-                  >
+                <article className="dashboard-record-card" key={workflow.id}>
+                  <div className="dashboard-card__header">
                     <strong>{workflow.name}</strong>
                     <span className="status-pill">
                       {translateLabel(copy.dashboardHome.workflowStatusLabels, workflow.status)}
                     </span>
                   </div>
-                  <span style={{ color: "var(--muted)" }}>
+                  <span className="dashboard-record-card__meta">
                     {translateLabel(copy.dashboardHome.workflowTriggerLabels, workflow.triggerType)} ·{" "}
                     {workflow._count.steps} {copy.dashboardHome.stepsLabel} ·{" "}
                     {workflow._count.executions} {copy.dashboardHome.executionsLabel}
@@ -390,7 +291,7 @@ export default async function DashboardHomePage() {
 
         <article className="panel">
           <h2>{copy.dashboardHome.usageHeading}</h2>
-          <p style={{ color: "var(--muted)" }}>
+          <p className="dashboard-muted">
             {data.billing.plan.name} · {copy.dashboardHome.planStatusLabel} {data.billing.status}
           </p>
           {usageEntries.length === 0 ? (
@@ -399,22 +300,19 @@ export default async function DashboardHomePage() {
               title={copy.dashboardHome.noUsageTitle}
             />
           ) : (
-            <div style={{ display: "grid", gap: "0.85rem" }}>
+            <div className="dashboard-usage">
               {usageEntries.map(([metric, value]) => (
-                <div key={metric} style={{ display: "grid", gap: "0.35rem" }}>
-                  <div
-                    style={{
-                      alignItems: "center",
-                      display: "flex",
-                      justifyContent: "space-between"
-                    }}
-                  >
+                <div className="dashboard-usage__item" key={metric}>
+                  <div className="dashboard-usage__row">
                     <strong>{metric.replace(/_/g, " ")}</strong>
                     <span>{formatNumber(locale, value)}</span>
                   </div>
-                  <div className="meter" aria-hidden="true">
-                    <span style={{ width: `${Math.min(100, Math.max(12, value % 100))}%` }} />
-                  </div>
+                  <progress
+                    aria-hidden="true"
+                    className="dashboard-meter"
+                    max={100}
+                    value={Math.min(100, Math.max(12, value % 100))}
+                  />
                 </div>
               ))}
             </div>
@@ -422,13 +320,7 @@ export default async function DashboardHomePage() {
         </article>
       </section>
 
-      <section
-        style={{
-          display: "grid",
-          gap: "1rem",
-          gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)"
-        }}
-      >
+      <section className="dashboard-grid dashboard-grid--equal">
         <article className="panel">
           <h2>{copy.dashboardHome.customerHealthHeading}</h2>
           {data.health.healthScore.length === 0 ? (
@@ -470,20 +362,11 @@ export default async function DashboardHomePage() {
               title={copy.dashboardHome.noRecentContractsTitle}
             />
           ) : (
-            <div style={{ display: "grid", gap: "0.75rem" }}>
+            <div className="dashboard-contract-list">
               {data.recent.contracts.map((contract) => (
-                <div
-                  key={`${contract.customer}-${contract.owner}`}
-                  style={{
-                    border: "1px solid var(--border)",
-                    borderRadius: 20,
-                    display: "grid",
-                    gap: "0.35rem",
-                    padding: "0.9rem"
-                  }}
-                >
+                <div className="dashboard-contract-card" key={`${contract.customer}-${contract.owner}`}>
                   <strong>{contract.customer}</strong>
-                  <span style={{ color: "var(--muted)" }}>
+                  <span className="dashboard-record-card__meta">
                     {contract.status} · {contract.owner}
                   </span>
                   <span>{contract.mrr}</span>
