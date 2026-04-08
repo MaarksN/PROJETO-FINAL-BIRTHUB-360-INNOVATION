@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-04-08T00:53:13.836Z",
+    "generatedAt": "2026-04-08T01:54:21.689Z",
     "reportDate": "2026-04-07",
     "slug": "auditor-prime-2026-04-07",
     "auditMode": "soberano",
     "repoRoot": "C:/Users/Marks/Documents/GitHub/PROJETO-FINAL-BIRTHUB-360-INNOVATION",
-    "headSha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
+    "headSha": "c0fbc5afe263bfdf4084e41c6de3027b46a9bff2",
     "branch": "main",
     "assumptions": {
       "stage": "Produção inicial",
@@ -1933,7 +1933,7 @@
           "end": 1
         }
       },
-      "problem": "O proxy de cobertura identifica 124 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.",
+      "problem": "O proxy de cobertura identifica 124 arquivos de runtime para apps/web, mas apenas 20 arquivos de teste diretos e 4 gaps principais.",
       "impact": "Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.",
       "recommendation": "Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.",
       "vdiFactors": {
@@ -1956,7 +1956,7 @@
         {
           "path": "artifacts/testing/module-coverage.json",
           "line": 1,
-          "summary": "apps/web: 18 testes diretos, 4 gaps."
+          "summary": "apps/web: 20 testes diretos, 4 gaps."
         }
       ],
       "inference": false,
@@ -8980,8 +8980,13 @@
       }
     },
     "git": {
-      "totalCommits": 1190,
+      "totalCommits": 1191,
       "last30Days": [
+        {
+          "sha": "c0fbc5afe263bfdf4084e41c6de3027b46a9bff2",
+          "date": "2026-04-07",
+          "subject": "1"
+        },
         {
           "sha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
           "date": "2026-04-07",
@@ -11944,6 +11949,11 @@
         "activeDays": 23,
         "placeholderMessages": [
           {
+            "sha": "c0fbc5afe263bfdf4084e41c6de3027b46a9bff2",
+            "date": "2026-04-07",
+            "subject": "1"
+          },
+          {
             "sha": "ef6ddc07e5de76928e95c526575c4649136f0c3c",
             "date": "2026-04-07",
             "subject": "1"
@@ -12060,11 +12070,6 @@
           },
           {
             "sha": "afb1f71bcbd1dbc25f34e9fc1c01cb63093482f4",
-            "date": "2026-04-06",
-            "subject": "1"
-          },
-          {
-            "sha": "3bcbd44194e30a09b34dd7ec04d37e703ab018ba",
             "date": "2026-04-06",
             "subject": "1"
           }

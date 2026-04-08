@@ -406,7 +406,7 @@
 
 - TD-044 | Cobertura estrutural baixa em apps/web
   Localização: apps/web/app/(dashboard)/analytics/error.tsx:1
-  Problema: O proxy de cobertura identifica 124 arquivos de runtime para apps/web, mas apenas 18 arquivos de teste diretos e 4 gaps principais.
+  Problema: O proxy de cobertura identifica 124 arquivos de runtime para apps/web, mas apenas 20 arquivos de teste diretos e 4 gaps principais.
   Impacto: Com poucos testes diretos para módulos extensos, regressões operacionais e de observabilidade tendem a aparecer tarde no ciclo.
   Solução recomendada: Priorizar suites unit/integration nos primeiros arquivos do gap e anexar cobertura quantitativa real ao lane soberano.
   VDI: 2.85 (MÉDIO)
