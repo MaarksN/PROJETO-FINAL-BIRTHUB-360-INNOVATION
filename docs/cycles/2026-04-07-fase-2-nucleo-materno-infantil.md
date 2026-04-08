@@ -75,13 +75,13 @@ Executar a Fase 2 do BirthHub 360, transformando a base SaaS generica em um nucl
 
 Resultados locais executados:
 - `npx tsc -p apps/web/tsconfig.json --noEmit` passou.
+- `npx tsc -p apps/api/tsconfig.json --noEmit` passou.
 - `npx tsx --test apps/web/tests/clinical-data.test.ts` passou.
 - `npx tsx --test apps/api/tests/clinical-router.test.ts` passou.
 - `npx tsx --test apps/api/tests/connectors-router.test.ts` passou.
 - `npx tsx --test apps/api/tests/module-routes.test.ts` passou.
+- `npx playwright test tests/e2e/maternal-clinic.spec.ts` passou.
 - `npx tsx --test packages/database/test/maternal-domain.rls.test.ts` foi pulado porque o `DATABASE_URL` local aponta para um banco inexistente no ambiente atual.
-- `npx playwright test tests/e2e/maternal-clinic.spec.ts` nao executou porque o `webServer` do Playwright depende de `pnpm`, indisponivel neste ambiente.
-- `npx tsc -p apps/api/tsconfig.json --noEmit` continua bloqueado por erros preexistentes e fora do escopo deste ciclo em `auth`, `break-glass`, `privacy` e `webhooks`.
 
 ### CI
 - [ ] validacao em CI concluida
@@ -96,8 +96,8 @@ Resultados locais executados:
 - [ ] GREEN
 
 Justificativa do status:
-- O ciclo foi implementado e validado localmente no recorte clinico.
-- O status permanece `YELLOW` porque ainda existem bloqueios externos ao modulo materno-infantil no `apps/api` e porque a validacao E2E completa depende de `pnpm`/web server indisponiveis neste ambiente.
+- O ciclo foi implementado e validado localmente no recorte clinico com typecheck completo de `web` e `api`, testes focados e smoke E2E do dashboard.
+- O status permanece `YELLOW` porque a validacao de RLS do dominio clinico depende de um banco local acessivel e o `DATABASE_URL` atual aponta para uma base inexistente neste ambiente.
 
 ## Prompt
 Voce esta executando um ciclo arquitetural do plano BirthHub 360.

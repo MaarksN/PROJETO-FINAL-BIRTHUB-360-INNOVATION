@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:c7440821-1429-1e80-c0a8-a16f8993744f" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:1d7e797b-faea-4380-aa90-3e1589e0351e" version="1">
   <metadata>
-    <timestamp>2026-04-07T18:19:23.760Z</timestamp>
+    <timestamp>2026-04-08T00:37:56.686Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -65,6 +65,11 @@
       <name>@birthub/logger</name>
       <version>link:../logger</version>
       <purl>pkg:npm/%40birthub%2Flogger@link%3A..%2Flogger</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40birthub%2Fsecurity@link%3A..%2F..%2Fpackages%2Fsecurity">
+      <name>@birthub/security</name>
+      <version>link:../../packages/security</version>
+      <purl>pkg:npm/%40birthub%2Fsecurity@link%3A..%2F..%2Fpackages%2Fsecurity</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fshared-types@link%3A..%2Fshared-types">
       <name>@birthub/shared-types</name>

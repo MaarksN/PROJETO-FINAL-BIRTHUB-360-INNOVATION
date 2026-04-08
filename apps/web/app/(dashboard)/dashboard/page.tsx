@@ -4,28 +4,92 @@ import {
   ProductEmptyState,
   ProductPageHeader
 } from "../../../components/dashboard/page-fragments";
+import {
+  formatDateTime,
+  formatNumber,
+  getDictionary,
+  translateLabel,
+  type SupportedLocale
+} from "../../../lib/i18n";
+import { getRequestLocale } from "../../../lib/i18n.server";
 import { loadDashboardHomePage, formatRiskTone } from "./page.data";
 
+function formatOnboardingSummary(
+  locale: SupportedLocale,
+  completedSteps: number,
+  totalSteps: number
+): string {
+  if (locale === "pt-BR") {
+    return `${completedSteps} de ${totalSteps} passos fechados.`;
+  }
+
+  return `${completedSteps} of ${totalSteps} steps completed.`;
+}
+
+function formatConsentSummary(
+  locale: SupportedLocale,
+  input: {
+    legalBasis: string;
+    status: string;
+    version: string;
+  },
+  labels: {
+    consentLegalBasisLabels: Record<string, string>;
+    consentStatusLabels: Record<string, string>;
+  }
+): string {
+  const statusLabel = translateLabel(labels.consentStatusLabels, input.status);
+  const legalBasisLabel = translateLabel(labels.consentLegalBasisLabels, input.legalBasis);
+
+  if (locale === "pt-BR") {
+    return `Status atual: ${statusLabel} · base legal ${legalBasisLabel} · versao ${input.version}.`;
+  }
+
+  return `Current status: ${statusLabel} · legal basis ${legalBasisLabel} · version ${input.version}.`;
+}
+
+function formatOnboardingProgress(locale: SupportedLocale, progress: number): string {
+  return locale === "pt-BR" ? `${progress}% concluido` : `${progress}% complete`;
+}
+
+function formatHealthRisk(locale: SupportedLocale, risk: string): string {
+  if (locale === "pt-BR") {
+    return risk;
+  }
+
+  const labels: Record<string, string> = {
+    alto: "High",
+    baixo: "Low",
+    medio: "Medium",
+    moderado: "Moderate"
+  };
+
+  return labels[risk.toLowerCase()] ?? risk;
+}
+
 export default async function DashboardHomePage() {
+  const locale = await getRequestLocale();
+  const copy = getDictionary(locale);
   const data = await loadDashboardHomePage();
   const usageEntries = Object.entries(data.billing.usage ?? {});
   const consentNeedsAttention = data.consents.preferences.lgpdConsentStatus === "PENDING";
+  const completedOnboardingSteps = data.onboarding.items.filter((item) => item.complete).length;
 
   return (
     <main className="dashboard-content">
       <ProductPageHeader
         actions={
           <div className="hero-actions">
-            <Link href="/workflows">Abrir workflows</Link>
-            <Link href="/reports">Ver reports</Link>
+            <Link href="/workflows">{copy.dashboardHome.openWorkflows}</Link>
+            <Link href="/reports">{copy.dashboardHome.viewReports}</Link>
             <Link className="ghost-button" href={data.onboarding.nextHref}>
-              Continuar onboarding
+              {copy.dashboardHome.continueOnboarding}
             </Link>
           </div>
         }
-        badge="Home do produto"
-        description="Resumo operacional da conta com acesso direto para as jornadas principais, sem depender de URL manual."
-        title="Central diaria de operacao"
+        badge={copy.dashboardHome.badge}
+        description={copy.dashboardHome.description}
+        title={copy.dashboardHome.title}
       />
 
       {consentNeedsAttention ? (
@@ -46,16 +110,22 @@ export default async function DashboardHomePage() {
             }}
           >
             <div style={{ display: "grid", gap: "0.3rem" }}>
-              <span className="badge">LGPD pendente</span>
-              <strong>O centro de consentimento ainda precisa de atencao antes do go-live.</strong>
+              <span className="badge">{copy.dashboardHome.consentBadge}</span>
+              <strong>{copy.dashboardHome.consentAttentionTitle}</strong>
               <span style={{ color: "var(--muted)" }}>
-                Status atual: {data.consents.preferences.lgpdConsentStatus} · base legal{" "}
-                {data.consents.preferences.lgpdLegalBasis.toLowerCase().replaceAll("_", " ")} ·
-                versao {data.consents.preferences.lgpdConsentVersion}.
+                {formatConsentSummary(
+                  locale,
+                  {
+                    legalBasis: data.consents.preferences.lgpdLegalBasis,
+                    status: data.consents.preferences.lgpdConsentStatus,
+                    version: data.consents.preferences.lgpdConsentVersion
+                  },
+                  copy.dashboardHome
+                )}
               </span>
             </div>
             <Link className="action-button" href="/settings/privacy">
-              Revisar consentimentos
+              {copy.dashboardHome.reviewConsents}
             </Link>
           </div>
         </section>
@@ -73,14 +143,18 @@ export default async function DashboardHomePage() {
             }}
           >
             <div style={{ display: "grid", gap: "0.3rem" }}>
-              <span className="badge">Onboarding guiado</span>
-              <strong>{data.onboarding.progress}% concluido</strong>
+              <span className="badge">{copy.dashboardHome.onboardingBadge}</span>
+              <strong>{formatOnboardingProgress(locale, data.onboarding.progress)}</strong>
               <span style={{ color: "var(--muted)" }}>
-                {data.onboarding.items.filter((item) => item.complete).length} de {data.onboarding.items.length} passos fechados.
+                {formatOnboardingSummary(
+                  locale,
+                  completedOnboardingSteps,
+                  data.onboarding.items.length
+                )}
               </span>
             </div>
             <Link className="action-button" href={data.onboarding.nextHref}>
-              Continuar
+              {copy.dashboardHome.continueLabel}
             </Link>
           </div>
         </section>
@@ -97,7 +171,7 @@ export default async function DashboardHomePage() {
         {data.metrics.pipeline.map((item) => (
           <article key={item.stage}>
             <span className="badge">{item.stage}</span>
-            <strong>{item.value.toLocaleString("pt-BR")}</strong>
+            <strong>{formatNumber(locale, item.value)}</strong>
             <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.trend}</p>
           </article>
         ))}
@@ -120,19 +194,19 @@ export default async function DashboardHomePage() {
             }}
           >
             <div>
-              <h2 style={{ marginBottom: "0.15rem" }}>Resumo clinico</h2>
+              <h2 style={{ marginBottom: "0.15rem" }}>{copy.dashboardHome.clinicalHeading}</h2>
               <p style={{ color: "var(--muted)", margin: 0 }}>
-                Baseline materno-infantil com gestacoes ativas, agenda e spotlight operacional.
+                {copy.dashboardHome.clinicalDescription}
               </p>
             </div>
-            <Link href="/patients">Abrir modulo clinico</Link>
+            <Link href="/patients">{copy.dashboardHome.openClinicalModule}</Link>
           </div>
 
           <section className="stats-grid" style={{ marginBottom: "1rem" }}>
             {data.clinical.metrics.map((item) => (
               <article key={item.label}>
                 <span className="badge">{item.label}</span>
-                <strong>{item.value.toLocaleString("pt-BR")}</strong>
+                <strong>{formatNumber(locale, item.value)}</strong>
                 <p style={{ color: "var(--muted)", marginBottom: 0 }}>{item.delta}</p>
               </article>
             ))}
@@ -140,8 +214,8 @@ export default async function DashboardHomePage() {
 
           {data.clinical.spotlight.length === 0 ? (
             <ProductEmptyState
-              description="Assim que o tenant tiver pacientes, consultas e notas clinicas, o spotlight aparece aqui."
-              title="Sem spotlight clinico"
+              description={copy.dashboardHome.noClinicalSpotlightDescription}
+              title={copy.dashboardHome.noClinicalSpotlightTitle}
             />
           ) : (
             <div style={{ display: "grid", gap: "0.75rem" }}>
@@ -165,22 +239,30 @@ export default async function DashboardHomePage() {
                   >
                     <strong>{patient.patientName}</strong>
                     <span className="status-pill">
-                      {patient.riskLevel} · {patient.status}
+                      {translateLabel(copy.dashboardHome.clinicalRiskLabels, patient.riskLevel)} ·{" "}
+                      {translateLabel(copy.dashboardHome.clinicalStatusLabels, patient.status)}
                     </span>
                   </div>
                   <span style={{ color: "var(--muted)" }}>
-                    {patient.gestationalAgeLabel ?? "Idade gestacional nao calculada"} ·
+                    {patient.gestationalAgeLabel ?? copy.dashboardHome.gestationalAgeUnknown} ·{" "}
                     {patient.nextAppointmentAt
-                      ? ` retorno ${new Date(patient.nextAppointmentAt).toLocaleString("pt-BR")}`
-                      : " sem retorno agendado"}
+                      ? `${copy.dashboardHome.returnPrefix} ${formatDateTime(
+                          locale,
+                          patient.nextAppointmentAt,
+                          {
+                            dateStyle: "medium",
+                            timeStyle: "short"
+                          }
+                        )}`
+                      : copy.dashboardHome.noReturnScheduled}
                   </span>
                   <span style={{ color: "var(--muted)" }}>
-                    {patient.latestNoteTitle ?? "Sem nota clinica versionada"}
+                    {patient.latestNoteTitle ?? copy.dashboardHome.noClinicalNote}
                   </span>
                   <div className="hero-actions">
-                    <Link href={`/patients/${patient.patientId}`}>Abrir paciente</Link>
+                    <Link href={`/patients/${patient.patientId}`}>{copy.dashboardHome.openPatient}</Link>
                     <Link className="ghost-button" href="/appointments">
-                      Ver agenda
+                      {copy.dashboardHome.viewSchedule}
                     </Link>
                   </div>
                 </article>
@@ -190,11 +272,11 @@ export default async function DashboardHomePage() {
         </article>
 
         <article className="panel">
-          <h2>Alertas de go-live</h2>
+          <h2>{copy.dashboardHome.goLiveAlertsHeading}</h2>
           {data.clinical.alerts.length === 0 ? (
             <ProductEmptyState
-              description="Nenhum alerta clinico critico detectado no tenant ativo."
-              title="Sem alertas clinicos"
+              description={copy.dashboardHome.noClinicalAlertsDescription}
+              title={copy.dashboardHome.noClinicalAlertsTitle}
             />
           ) : (
             <div style={{ display: "grid", gap: "0.75rem" }}>
@@ -218,11 +300,11 @@ export default async function DashboardHomePage() {
                   >
                     <strong>{alert.title}</strong>
                     <span className={`status-pill status-${alert.severity === "high" ? "red" : alert.severity === "medium" ? "yellow" : "green"}`}>
-                      {alert.severity}
+                      {translateLabel(copy.dashboardHome.alertSeverityLabels, alert.severity)}
                     </span>
                   </div>
                   <p style={{ color: "var(--muted)", marginBottom: 0 }}>{alert.description}</p>
-                  <Link href={alert.href}>Abrir fila correspondente</Link>
+                  <Link href={alert.href}>{copy.dashboardHome.openQueue}</Link>
                 </article>
               ))}
             </div>
@@ -247,18 +329,20 @@ export default async function DashboardHomePage() {
             }}
           >
             <div>
-              <h2 style={{ marginBottom: "0.15rem" }}>Workflows em destaque</h2>
+              <h2 style={{ marginBottom: "0.15rem" }}>
+                {copy.dashboardHome.highlightedWorkflowsHeading}
+              </h2>
               <p style={{ color: "var(--muted)", margin: 0 }}>
-                Acesso rapido para editar ou executar os fluxos mais recentes.
+                {copy.dashboardHome.highlightedWorkflowsDescription}
               </p>
             </div>
-            <Link href="/workflows">Ver lista completa</Link>
+            <Link href="/workflows">{copy.dashboardHome.viewFullWorkflowList}</Link>
           </div>
 
           {data.workflows.items.length === 0 ? (
             <ProductEmptyState
-              description="Nenhum workflow criado ainda. Comece pela lista de workflows para montar o primeiro fluxo."
-              title="Sem workflows ativos"
+              description={copy.dashboardHome.noWorkflowsDescription}
+              title={copy.dashboardHome.noWorkflowsTitle}
             />
           ) : (
             <div style={{ display: "grid", gap: "0.75rem" }}>
@@ -281,15 +365,21 @@ export default async function DashboardHomePage() {
                     }}
                   >
                     <strong>{workflow.name}</strong>
-                    <span className="status-pill">{workflow.status}</span>
+                    <span className="status-pill">
+                      {translateLabel(copy.dashboardHome.workflowStatusLabels, workflow.status)}
+                    </span>
                   </div>
                   <span style={{ color: "var(--muted)" }}>
-                    {workflow.triggerType} · {workflow._count.steps} etapas · {workflow._count.executions} execucoes
+                    {translateLabel(copy.dashboardHome.workflowTriggerLabels, workflow.triggerType)} ·{" "}
+                    {workflow._count.steps} {copy.dashboardHome.stepsLabel} ·{" "}
+                    {workflow._count.executions} {copy.dashboardHome.executionsLabel}
                   </span>
                   <div className="hero-actions">
-                    <Link href={`/workflows/${workflow.id}/edit`}>Abrir editor</Link>
+                    <Link href={`/workflows/${workflow.id}/edit`}>
+                      {copy.dashboardHome.openEditor}
+                    </Link>
                     <Link className="ghost-button" href={`/workflows/${workflow.id}/runs`}>
-                      Ver execucoes
+                      {copy.dashboardHome.viewExecutions}
                     </Link>
                   </div>
                 </article>
@@ -299,14 +389,14 @@ export default async function DashboardHomePage() {
         </article>
 
         <article className="panel">
-          <h2>Uso e plano</h2>
+          <h2>{copy.dashboardHome.usageHeading}</h2>
           <p style={{ color: "var(--muted)" }}>
-            {data.billing.plan.name} · status {data.billing.status}
+            {data.billing.plan.name} · {copy.dashboardHome.planStatusLabel} {data.billing.status}
           </p>
           {usageEntries.length === 0 ? (
             <ProductEmptyState
-              description="Ainda nao ha metricas de uso para a organizacao ativa."
-              title="Sem consumo registrado"
+              description={copy.dashboardHome.noUsageDescription}
+              title={copy.dashboardHome.noUsageTitle}
             />
           ) : (
             <div style={{ display: "grid", gap: "0.85rem" }}>
@@ -320,7 +410,7 @@ export default async function DashboardHomePage() {
                     }}
                   >
                     <strong>{metric.replace(/_/g, " ")}</strong>
-                    <span>{value.toLocaleString("pt-BR")}</span>
+                    <span>{formatNumber(locale, value)}</span>
                   </div>
                   <div className="meter" aria-hidden="true">
                     <span style={{ width: `${Math.min(100, Math.max(12, value % 100))}%` }} />
@@ -340,21 +430,21 @@ export default async function DashboardHomePage() {
         }}
       >
         <article className="panel">
-          <h2>Saude de clientes</h2>
+          <h2>{copy.dashboardHome.customerHealthHeading}</h2>
           {data.health.healthScore.length === 0 ? (
             <ProductEmptyState
-              description="Assim que houver clientes vinculados, a saude operacional aparecera aqui."
-              title="Sem saude calculada"
+              description={copy.dashboardHome.noCustomerHealthDescription}
+              title={copy.dashboardHome.noCustomerHealthTitle}
             />
           ) : (
             <div className="table-wrapper">
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Cliente</th>
-                    <th>Score</th>
-                    <th>NPS</th>
-                    <th>Risco</th>
+                    <th>{copy.dashboardHome.customerColumn}</th>
+                    <th>{copy.dashboardHome.scoreColumn}</th>
+                    <th>{copy.dashboardHome.npsColumn}</th>
+                    <th>{copy.dashboardHome.riskColumn}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -363,7 +453,7 @@ export default async function DashboardHomePage() {
                       <td>{item.client}</td>
                       <td>{item.score}</td>
                       <td>{item.nps}</td>
-                      <td className={formatRiskTone(item.risk)}>{item.risk}</td>
+                      <td className={formatRiskTone(item.risk)}>{formatHealthRisk(locale, item.risk)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -373,11 +463,11 @@ export default async function DashboardHomePage() {
         </article>
 
         <article className="panel">
-          <h2>Contratos recentes</h2>
+          <h2>{copy.dashboardHome.recentContractsHeading}</h2>
           {data.recent.contracts.length === 0 ? (
             <ProductEmptyState
-              description="Quando a organizacao tiver clientes ou contratos, eles aparecerao nesta lista."
-              title="Sem contratos recentes"
+              description={copy.dashboardHome.noRecentContractsDescription}
+              title={copy.dashboardHome.noRecentContractsTitle}
             />
           ) : (
             <div style={{ display: "grid", gap: "0.75rem" }}>
@@ -405,21 +495,21 @@ export default async function DashboardHomePage() {
       </section>
 
       <section className="panel">
-        <h2>Attribution</h2>
+        <h2>{copy.dashboardHome.attributionHeading}</h2>
         {data.recent.attribution.length === 0 ? (
           <ProductEmptyState
-            description="A origem dos leads aparecera aqui assim que a organizacao tiver dados de atribuicao."
-            title="Sem atribuicao suficiente"
+            description={copy.dashboardHome.noAttributionDescription}
+            title={copy.dashboardHome.noAttributionTitle}
           />
         ) : (
           <div className="table-wrapper">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Origem</th>
-                  <th>Leads</th>
-                  <th>Conversao</th>
-                  <th>CAC</th>
+                  <th>{copy.dashboardHome.sourceColumn}</th>
+                  <th>{copy.dashboardHome.leadsColumn}</th>
+                  <th>{copy.dashboardHome.conversionColumn}</th>
+                  <th>{copy.dashboardHome.cacColumn}</th>
                 </tr>
               </thead>
               <tbody>

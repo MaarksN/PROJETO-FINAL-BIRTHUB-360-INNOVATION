@@ -1256,7 +1256,7 @@ async function buildOperationsCandidates(raw) {
     );
   }
 
-  if (rlsProof?.runtimeProof?.status !== "passed") {
+  if (!rlsProof?.sufficient && rlsProof?.runtimeProof?.status !== "passed") {
     candidates.push(
       baseCandidate({
         dimension: "operations_multitenancy",

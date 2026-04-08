@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-07T22:25:26.343Z",
+  "checkedAt": "2026-04-08T00:37:51.739Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -15,7 +15,7 @@
     {
       "module": "apps/api",
       "runtimeFiles": 152,
-      "directTestFiles": 44,
+      "directTestFiles": 45,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -61,6 +61,7 @@
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
         "apps/api/tests/workflow-retry-lineage.integration.test.ts",
+        "apps/api/tests/consent.service.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": []

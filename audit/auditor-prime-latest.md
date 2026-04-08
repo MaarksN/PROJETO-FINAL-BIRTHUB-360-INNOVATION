@@ -17,21 +17,25 @@
 ### Análise Pendente
 
 - TD-014 | [DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core | requer: docs/architecture/c4-context.md
-- TD-038 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
-- TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
-- TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
-- TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4) | requer: DAST/ZAP report
+- TD-033 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual | requer: semgrep --json
+- TD-034 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2) | requer: DAST/ZAP report
+- TD-035 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3) | requer: semgrep --json
+- TD-036 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4) | requer: DAST/ZAP report
+- TD-037 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5) | requer: semgrep --json
+- TD-038 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6) | requer: DAST/ZAP report
+- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 7) | requer: semgrep --json
+- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8) | requer: DAST/ZAP report
+- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 9) | requer: semgrep --json
 - TD-052 | [DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada | requer: cobertura por módulo
 - TD-053 | [DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2) | requer: SLO dashboards vivos
-- TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
-- TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
-- TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
-- TD-074 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 4) | requer: lead time por PR
-- TD-075 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 5) | requer: inventário de ambientes
-- TD-076 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 6) | requer: lead time por PR
-- TD-077 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7) | requer: inventário de ambientes
-- TD-087 | [DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend | requer: auditoria a11y automatizada
-- TD-088 | [DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2) | requer: baseline de cross-browser
+- TD-070 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod | requer: inventário de ambientes
+- TD-071 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2) | requer: lead time por PR
+- TD-072 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3) | requer: inventário de ambientes
+- TD-073 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 4) | requer: lead time por PR
+- TD-074 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 5) | requer: inventário de ambientes
+- TD-075 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 6) | requer: lead time por PR
+- TD-076 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7) | requer: inventário de ambientes
+- TD-077 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 8) | requer: lead time por PR
 - TD-091 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant | requer: SLA versionado
 - TD-092 | [DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2) | requer: evidência de DR drill
 - TD-093 | [DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3) | requer: SLA versionado
@@ -178,6 +182,14 @@
   Esforço: 0.5-2 dias
 
 - TD-017 | Acesso direto a process.env fora da camada de configuração
+  Localização: packages/logger/dist/src/index.js:44
+  Problema: Identificado em packages/logger/dist/src/index.js:44 acesso direto a process.env em runtime fora de um boundary dedicado de config.
+  Impacto: Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.
+  Solução recomendada: Encapsular leituras em surface única de configuração com validação e defaults explícitos.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-2 dias
+
+- TD-018 | Acesso direto a process.env fora da camada de configuração
   Localização: packages/logger/src/index.ts:61
   Problema: Identificado em packages/logger/src/index.ts:61 acesso direto a process.env em runtime fora de um boundary dedicado de config.
   Impacto: Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.
@@ -185,7 +197,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-018 | Acesso direto a process.env fora da camada de configuração
+- TD-019 | Acesso direto a process.env fora da camada de configuração
   Localização: packages/database/scripts/check-schema-drift.ts:9
   Problema: Identificado em packages/database/scripts/check-schema-drift.ts:9 acesso direto a process.env em runtime fora de um boundary dedicado de config.
   Impacto: Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.
@@ -193,17 +205,9 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-019 | Acesso direto a process.env fora da camada de configuração
+- TD-020 | Acesso direto a process.env fora da camada de configuração
   Localização: apps/worker/src/agents/runtime.db-integration.harness.ts:51
   Problema: Identificado em apps/worker/src/agents/runtime.db-integration.harness.ts:51 acesso direto a process.env em runtime fora de um boundary dedicado de config.
-  Impacto: Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.
-  Solução recomendada: Encapsular leituras em surface única de configuração com validação e defaults explícitos.
-  VDI: 2.95 (MÉDIO)
-  Esforço: 0.5-2 dias
-
-- TD-020 | Acesso direto a process.env fora da camada de configuração
-  Localização: apps/worker/src/engine/runner.db-integration.harness.ts:4
-  Problema: Identificado em apps/worker/src/engine/runner.db-integration.harness.ts:4 acesso direto a process.env em runtime fora de um boundary dedicado de config.
   Impacto: Isso dispersa contrato de configuração, dificulta validação centralizada e fragiliza testes/observabilidade.
   Solução recomendada: Encapsular leituras em surface única de configuração com validação e defaults explícitos.
   VDI: 2.95 (MÉDIO)
@@ -307,47 +311,7 @@
   VDI: 3.6 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-033 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:72
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:72 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
-  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
-  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-034 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:240
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:240 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
-  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
-  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-035 | Semgrep WARNING em cd.yml
-  Localização: .github/workflows/cd.yml:306
-  Problema: Semgrep sinalizou em .github/workflows/cd.yml:306 o padrão "This GitHub Actions workflow file uses `workflow_run` and checks out code from the incoming pull request".
-  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
-  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-036 | Semgrep WARNING em runtime.shared.ts
-  Localização: apps/worker/src/agents/runtime.shared.ts:113
-  Problema: Semgrep sinalizou em apps/worker/src/agents/runtime.shared.ts:113 o padrão "RegExp() called with a `pattern` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread".
-  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
-  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-037 | Semgrep WARNING em worker.job-validation.test.ts
-  Localização: apps/worker/src/worker.job-validation.test.ts:47
-  Problema: Semgrep sinalizou em apps/worker/src/worker.job-validation.test.ts:47 o padrão "Detected a hardcoded hmac key".
-  Impacto: Esse tipo de finding amplia a superfície de exploração e indica controles de segurança ainda incompletos no HEAD atual.
-  Solução recomendada: Endereçar o padrão sinalizado pelo Semgrep e adicionar cobertura de regressão para o fluxo afetado.
-  VDI: 3.1 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-038 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
+- TD-033 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
@@ -355,7 +319,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-039 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
+- TD-034 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)
   Localização: .github/workflows/security-scan.yml:1
   Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
   Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
@@ -363,7 +327,7 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-040 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
+- TD-035 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)
   Localização: .github/workflows/security-scan.yml:1
   Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
   Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
@@ -371,11 +335,51 @@
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-041 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)
+- TD-036 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)
   Localização: .github/workflows/security-scan.yml:1
   Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
   Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
   Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-037 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-038 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
+  Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
+  Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-039 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 7)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-040 | [DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: A superfície de segurança documenta guardrails estáticos, mas não há evidência dinâmica recente anexada ao pipeline soberano para validar ataques em runtime.
+  Impacto: Controles podem existir no código e ainda assim falhar por composição, headers ou edge behavior.
+  Solução recomendada: Anexar relatório DAST mínimo por release candidate ao pacote de evidências da auditoria.
+  VDI: 2.95 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-041 | [DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 9)
+  Localização: .github/workflows/security-scan.yml:1
+  Problema: Existe trilha histórica de segurança, mas sem uma execução SAST fresca do HEAD atual a classificação OWASP/STRIDE fica parcialmente dependente de contexto anterior.
+  Impacto: Falhas novas podem escapar da priorização se não houver uma fotografia recente do código.
+  Solução recomendada: Executar Semgrep como insumo do coletor soberano e registrar findings com path e line.
   VDI: 2.95 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -511,15 +515,7 @@
   VDI: 3.3 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-058 | Consulta findMany sem paginação explícita
-  Localização: apps/api/src/modules/privacy/consent.service.ts:303
-  Problema: Indício em apps/api/src/modules/privacy/consent.service.ts:303 de uso de findMany sem take/skip/cursor nas linhas adjacentes.
-  Impacto: Consultas amplas degradam latência, aumentam custo de banco e pioram risco de DoS por leitura excessiva.
-  Solução recomendada: Adicionar paginação explícita, limites defensivos e métricas por rota/serviço que consome a query.
-  VDI: 3.3 (ALTO)
-  Esforço: 0.5-2 dias
-
-- TD-059 | Await serial em loop de runtime
+- TD-058 | Await serial em loop de runtime
   Localização: apps/api/src/modules/billing/sync-plans.ts:62
   Problema: Indício em apps/api/src/modules/billing/sync-plans.ts:62 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -527,7 +523,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-060 | Await serial em loop de runtime
+- TD-059 | Await serial em loop de runtime
   Localização: apps/api/src/modules/packs/pack-installer.service.ts:91
   Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:91 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -535,7 +531,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-061 | Await serial em loop de runtime
+- TD-060 | Await serial em loop de runtime
   Localização: apps/api/src/modules/packs/pack-installer.service.ts:135
   Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:135 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -543,7 +539,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-062 | Await serial em loop de runtime
+- TD-061 | Await serial em loop de runtime
   Localização: apps/api/src/modules/packs/pack-installer.service.ts:418
   Problema: Indício em apps/api/src/modules/packs/pack-installer.service.ts:418 de await dentro de loop sequencial.
   Impacto: Esse padrão alonga tempo de resposta e throughput do worker/API, principalmente sob carga ou fan-out externo.
@@ -551,7 +547,7 @@
   VDI: 3.05 (ALTO)
   Esforço: 1-3 dias
 
-- TD-063 | Integração externa sem deadline operacional explícito
+- TD-062 | Integração externa sem deadline operacional explícito
   Localização: apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417
   Problema: Acesso externo em apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:417 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
@@ -559,7 +555,7 @@
   VDI: 3 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-064 | Integração externa sem deadline operacional explícito
+- TD-063 | Integração externa sem deadline operacional explícito
   Localização: apps/web/public/sw.js:28
   Problema: Acesso externo em apps/web/public/sw.js:28 não expõe timeout/abort guard no arquivo atual.
   Impacto: Deadlines ausentes permitem latência aberta, saturação de worker thread e aumento de fila em cascata.
@@ -567,7 +563,7 @@
   VDI: 3 (ALTO)
   Esforço: 0.5-2 dias
 
-- TD-065 | Bundle web fresco acima de 2 MiB (2264.32 KiB)
+- TD-064 | Bundle web fresco acima de 2 MiB (2264.32 KiB)
   Localização: artifacts/performance/web-bundle-head.json:1
   Problema: A baseline fresca do bundle registrou 2264.32 KiB distribuídos em 44 arquivos, com chunk líder de 514549 bytes.
   Impacto: Bundles desse porte pressionam LCP/TTI, aumentam custo de download e tendem a penalizar dispositivos móveis em jornadas críticas.
@@ -575,17 +571,17 @@
   VDI: 2.9 (MÉDIO)
   Esforço: 1-3 dias
 
+- TD-065 | Página/estado web com complexidade alta (120)
+  Localização: apps/web/app/(dashboard)/patients/[id]/page.tsx:98
+  Problema: Identificado em apps/web/app/(dashboard)/patients/[id]/page.tsx:98 um componente/página com complexidade 120.
+  Impacto: Componentes muito complexos prejudicam rendering predictability, manutenção de loading/error states e otimização futura de bundle.
+  Solução recomendada: Separar data-loading, rendering e actions do componente em camadas menores e mais previsíveis.
+  VDI: 2.4 (MÉDIO)
+  Esforço: 1-3 dias
+
 ### Dimensão 6 — Infraestrutura e DevOps
 
-- TD-066 | Histórico recente contém mensagens de commit placeholder
-  Localização: package.json:1
-  Problema: O histórico local dos últimos 30 dias inclui mensagens placeholder como "1", degradando rastreabilidade de mudança e auditoria operacional.
-  Impacto: Commit history fraco dificulta RCA, medição DORA e recuperação de contexto durante incidentes ou auditorias.
-  Solução recomendada: Fazer hard fail para mensagens placeholder no lane principal e limpar exceções históricas com política explícita.
-  VDI: 2.8 (MÉDIO)
-  Esforço: 0.5-1 dia
-
-- TD-067 | Dockerfile sem evidência de multi-stage build
+- TD-066 | Dockerfile sem evidência de multi-stage build
   Localização: audit/files_analysis/apps/api/Dockerfile.md:1
   Problema: Identificado em audit/files_analysis/apps/api/Dockerfile.md apenas 0 instrução(ões) FROM.
   Impacto: Imagens single-stage tendem a carregar toolchain desnecessária, elevar superfície de ataque e aumentar tempo de pull/deploy.
@@ -593,7 +589,7 @@
   VDI: 2.8 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-068 | Dockerfile sem evidência de multi-stage build
+- TD-067 | Dockerfile sem evidência de multi-stage build
   Localização: audit/files_analysis/apps/web/Dockerfile.md:1
   Problema: Identificado em audit/files_analysis/apps/web/Dockerfile.md apenas 0 instrução(ões) FROM.
   Impacto: Imagens single-stage tendem a carregar toolchain desnecessária, elevar superfície de ataque e aumentar tempo de pull/deploy.
@@ -601,7 +597,7 @@
   VDI: 2.8 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-069 | Dockerfile sem evidência de multi-stage build
+- TD-068 | Dockerfile sem evidência de multi-stage build
   Localização: audit/files_analysis/apps/worker/Dockerfile.md:1
   Problema: Identificado em audit/files_analysis/apps/worker/Dockerfile.md apenas 0 instrução(ões) FROM.
   Impacto: Imagens single-stage tendem a carregar toolchain desnecessária, elevar superfície de ataque e aumentar tempo de pull/deploy.
@@ -609,7 +605,7 @@
   VDI: 2.8 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-070 | Diretório Kubernetes existe sem manifests ativos
+- TD-069 | Diretório Kubernetes existe sem manifests ativos
   Localização: infra/k8s/.gitkeep:1
   Problema: O repositório reserva uma superfície `infra/k8s`, mas sem manifests ativos além do placeholder.
   Impacto: Esse estado sugere infraestrutura parcialmente planejada, o que pode confundir estratégia real de runtime e disaster recovery.
@@ -617,7 +613,7 @@
   VDI: 2.5 (MÉDIO)
   Esforço: 0.5-2 dias
 
-- TD-071 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod
+- TD-070 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod
   Localização: docs/release/release-process.md:1
   Problema: A documentação de release descreve preflights e segredos selados, mas não há um inventário consolidado das diferenças aceitáveis entre ambientes.
   Impacto: Diferenças silenciosas entre staging e produção seguem difíceis de auditar antes do go-live.
@@ -625,7 +621,7 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-072 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2)
+- TD-071 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2)
   Localização: .github/workflows/cd.yml:1
   Problema: O histórico Git local permite proxy de frequência, mas não mede com precisão o lead time PR->produção sem dados externos ou metadados adicionais.
   Impacto: A priorização de gargalos de entrega pode superestimar ou subestimar o custo real do fluxo de mudança.
@@ -633,7 +629,7 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-073 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3)
+- TD-072 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3)
   Localização: docs/release/release-process.md:1
   Problema: A documentação de release descreve preflights e segredos selados, mas não há um inventário consolidado das diferenças aceitáveis entre ambientes.
   Impacto: Diferenças silenciosas entre staging e produção seguem difíceis de auditar antes do go-live.
@@ -641,7 +637,7 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-074 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 4)
+- TD-073 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 4)
   Localização: .github/workflows/cd.yml:1
   Problema: O histórico Git local permite proxy de frequência, mas não mede com precisão o lead time PR->produção sem dados externos ou metadados adicionais.
   Impacto: A priorização de gargalos de entrega pode superestimar ou subestimar o custo real do fluxo de mudança.
@@ -649,7 +645,7 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-075 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 5)
+- TD-074 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 5)
   Localização: docs/release/release-process.md:1
   Problema: A documentação de release descreve preflights e segredos selados, mas não há um inventário consolidado das diferenças aceitáveis entre ambientes.
   Impacto: Diferenças silenciosas entre staging e produção seguem difíceis de auditar antes do go-live.
@@ -657,7 +653,7 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-076 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 6)
+- TD-075 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 6)
   Localização: .github/workflows/cd.yml:1
   Problema: O histórico Git local permite proxy de frequência, mas não mede com precisão o lead time PR->produção sem dados externos ou metadados adicionais.
   Impacto: A priorização de gargalos de entrega pode superestimar ou subestimar o custo real do fluxo de mudança.
@@ -665,11 +661,19 @@
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
-- TD-077 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7)
+- TD-076 | [DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7)
   Localização: docs/release/release-process.md:1
   Problema: A documentação de release descreve preflights e segredos selados, mas não há um inventário consolidado das diferenças aceitáveis entre ambientes.
   Impacto: Diferenças silenciosas entre staging e produção seguem difíceis de auditar antes do go-live.
   Solução recomendada: Versionar uma matriz de paridade de ambientes com owners e campos obrigatórios.
+  VDI: 2.35 (MÉDIO)
+  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+
+- TD-077 | [DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 8)
+  Localização: .github/workflows/cd.yml:1
+  Problema: O histórico Git local permite proxy de frequência, mas não mede com precisão o lead time PR->produção sem dados externos ou metadados adicionais.
+  Impacto: A priorização de gargalos de entrega pode superestimar ou subestimar o custo real do fluxo de mudança.
+  Solução recomendada: Conectar a auditoria soberana a metadados de PR/deploy ou exportar esses dados para suporte local.
   VDI: 2.35 (MÉDIO)
   Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
 
@@ -733,7 +737,7 @@
 
 - TD-085 | Strings de interface hardcoded em superfície web
   Localização: apps/web/app/(dashboard)/dashboard/page.tsx:6
-  Problema: Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 109 linhas com texto hardcoded na UI.
+  Problema: Identificado em apps/web/app/(dashboard)/dashboard/page.tsx:6 um cluster de 94 linhas com texto hardcoded na UI.
   Impacto: Esse padrão reduz prontidão para i18n, dificulta consistência editorial e aumenta custo de manutenção de UX.
   Solução recomendada: Extrair strings para camada de mensagens/localização com organização por rota e contexto de uso.
   VDI: 2.55 (MÉDIO)
@@ -747,21 +751,21 @@
   VDI: 2.55 (MÉDIO)
   Esforço: 1-3 dias
 
-- TD-087 | [DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend
-  Localização: apps/web/package.json:1
-  Problema: Sem uma execução automatizada de acessibilidade ou teste manual documentado, a avaliação WCAG permanece parcial.
-  Impacto: Problemas de semântica, contraste e navegação por teclado podem sobreviver ao release.
-  Solução recomendada: Adicionar axe/playwright accessibility checks no lane do web.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+- TD-087 | A11y automatizada sinaliza input-label
+  Localização: apps/web/app/(dashboard)/conversations/page.tsx:185
+  Problema: A evidência automatizada de acessibilidade encontrou input-label em apps/web/app/(dashboard)/conversations/page.tsx:185.
+  Impacto: Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.
+  Solução recomendada: Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.
+  VDI: 2 (MÉDIO)
+  Esforço: <2h
 
-- TD-088 | [DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2)
-  Localização: playwright.config.ts:1
-  Problema: Não há evidência recente de baseline cross-browser anexada à auditoria do frontend.
-  Impacto: Falhas específicas de Safari/Firefox podem aparecer apenas em produção.
-  Solução recomendada: Adicionar smoke cross-browser mínimo ao pacote de evidência soberana.
-  VDI: 2.35 (MÉDIO)
-  Esforço: 0.5-1 dia para materializar a evidência; maior se a capacidade não existir.
+- TD-088 | A11y automatizada sinaliza table-caption
+  Localização: apps/web/app/(dashboard)/agents/page.tsx:92
+  Problema: A evidência automatizada de acessibilidade encontrou table-caption em apps/web/app/(dashboard)/agents/page.tsx:92.
+  Impacto: Esse tipo de falha compromete navegação assistiva, semântica e prontidão WCAG em fluxos já renderizados.
+  Solução recomendada: Corrigir o elemento sinalizado e adicionar regressão automatizada para a rota/superfície afetada.
+  VDI: 1.65 (BAIXO)
+  Esforço: <2h
 
 ### Dimensão 8 — Maturidade Operacional e Multi-tenancy
 
@@ -1706,7 +1710,7 @@
 - Objetivo: Refactor de hotspots, performance, experiência do usuário e observabilidade end-to-end.
 - Itens de dívida: 51
 - Itens de inovação: 8
-- Headcount recomendado: 7 (excede o time disponível de 2-4 pessoas)
+- Headcount recomendado: 6 (excede o time disponível de 2-4 pessoas)
 
 ### Fase 3 — Escala (Semanas 17-24)
 
@@ -1734,9 +1738,9 @@
 - TD-054 -> TD-055 (Debt dependency)
 - TD-054 -> TD-056 (Debt dependency)
 - TD-054 -> TD-057 (Debt dependency)
-- TD-054 -> TD-058 (Debt dependency)
 - TD-001 -> TD-002 (Debt dependency)
 - TD-001 -> TD-003 (Debt dependency)
+- TD-001 -> TD-004 (Debt dependency)
 - TD-089 -> IN-001 (Scale foundation before innovation)
 - TD-089 -> IN-002 (Scale foundation before innovation)
 - TD-089 -> IN-003 (Scale foundation before innovation)

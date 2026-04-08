@@ -15,6 +15,7 @@ export type Dictionary = {
   dashboardHome: {
     alertSeverityLabels: Record<string, string>;
     attributionHeading: string;
+    badge: string;
     cacColumn: string;
     clinicalDescription: string;
     clinicalHeading: string;
@@ -30,6 +31,7 @@ export type Dictionary = {
     customerColumn: string;
     customerHealthHeading: string;
     description: string;
+    executionsLabel: string;
     gestationalAgeUnknown: string;
     goLiveAlertsHeading: string;
     highlightedWorkflowsDescription: string;
@@ -157,6 +159,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
         medium: "Media"
       },
       attributionHeading: "Attribution",
+      badge: "Home do produto",
       cacColumn: "CAC",
       clinicalDescription:
         "Baseline materno-infantil com gestacoes ativas, agenda e spotlight operacional.",
@@ -193,6 +196,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       customerHealthHeading: "Saude de clientes",
       description:
         "Resumo operacional da conta com acesso direto para as jornadas principais, sem depender de URL manual.",
+      executionsLabel: "execucoes",
       gestationalAgeUnknown: "Idade gestacional nao calculada",
       goLiveAlertsHeading: "Alertas de go-live",
       highlightedWorkflowsDescription:
@@ -333,6 +337,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
         medium: "Medium"
       },
       attributionHeading: "Attribution",
+      badge: "Product home",
       cacColumn: "CAC",
       clinicalDescription:
         "Maternal-infant baseline with active pregnancies, scheduling, and operational spotlight.",
@@ -368,6 +373,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       customerHealthHeading: "Customer health",
       description:
         "Operational account summary with direct entry points into the main journeys, without relying on manual URLs.",
+      executionsLabel: "executions",
       gestationalAgeUnknown: "Gestational age not calculated",
       goLiveAlertsHeading: "Go-live alerts",
       highlightedWorkflowsDescription: "Quick access to edit or run the latest flows.",

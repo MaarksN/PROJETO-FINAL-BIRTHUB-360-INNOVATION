@@ -17,6 +17,7 @@ const DEFAULT_CONSENT_PURPOSES = [
   ConsentPurpose.HEALTH_DATA_SHARING
 ] as const;
 const CONSENT_VERSION = "2026-04";
+const CONSENT_PURPOSE_LIST_LIMIT = DEFAULT_CONSENT_PURPOSES.length;
 
 type ConsentSnapshot = {
   purpose: ConsentPurpose;
@@ -120,6 +121,7 @@ export async function listPrivacyConsents(input: {
       orderBy: {
         purpose: "asc"
       },
+      take: CONSENT_PURPOSE_LIST_LIMIT,
       where: {
         organizationId: organization.id,
         userId: input.userId
@@ -301,10 +303,14 @@ export async function savePrivacyConsentDecisions(input: {
     }
 
     const currentItems = await tx.privacyConsent.findMany({
+      orderBy: {
+        purpose: "asc"
+      },
       select: {
         purpose: true,
         status: true
       },
+      take: CONSENT_PURPOSE_LIST_LIMIT,
       where: {
         organizationId: organization.id,
         userId: input.userId

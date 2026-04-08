@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/c7440821-1429-1e80-c0a8-a16f8993744f",
+  "documentNamespace": "https://birthub.local/spdx/1d7e797b-faea-4380-aa90-3e1589e0351e",
   "creationInfo": {
-    "created": "2026-04-07T18:19:23.764Z",
+    "created": "2026-04-08T00:37:56.694Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -176,6 +176,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40birthub%2Flogger@link%3A..%2Flogger"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-7946de22d243fa03",
+      "name": "@birthub/security",
+      "versionInfo": "link:../../packages/security",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Fsecurity@link%3A..%2F..%2Fpackages%2Fsecurity"
         }
       ]
     },

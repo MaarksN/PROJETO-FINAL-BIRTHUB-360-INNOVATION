@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-07T22:24:37.996Z",
+  "generatedAt": "2026-04-08T00:36:35.806Z",
   "sourceReport": "audit\\auditor-prime-2026-04-07.json",
   "top15Ids": [
     "TD-029",
@@ -10,13 +10,13 @@
     "TD-055",
     "TD-056",
     "TD-057",
-    "TD-058",
     "TD-001",
     "TD-002",
     "TD-003",
     "TD-004",
     "TD-005",
-    "TD-006"
+    "TD-006",
+    "TD-007"
   ],
   "sprints": [
     {
@@ -117,17 +117,6 @@
           "path": "apps/api/src/modules/fhir/service.ts"
         },
         {
-          "id": "TD-058",
-          "title": "Consulta findMany sem paginação explícita",
-          "owner": "@platform-api",
-          "effort": "0.5-2 dias",
-          "dependencies": [
-            "TD-054"
-          ],
-          "acceptanceCriteria": "Hotspot segmentado sem regressão funcional, com baseline atualizada e critério de experiência/performance validado.",
-          "path": "apps/api/src/modules/privacy/consent.service.ts"
-        },
-        {
           "id": "TD-001",
           "title": "Complexidade acima do limiar em AppointmentsBoard",
           "owner": "@product-frontend",
@@ -190,6 +179,17 @@
           ],
           "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
           "path": "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx"
+        },
+        {
+          "id": "TD-007",
+          "title": "Complexidade acima do limiar em WorkflowRevisionsPage",
+          "owner": "@product-frontend",
+          "effort": "2-5 dias",
+          "dependencies": [
+            "TD-001"
+          ],
+          "acceptanceCriteria": "Correção aplicada, dependências fechadas, evidência regenerada e item reavaliado pelo auditor-prime no próximo ciclo.",
+          "path": "apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx"
         }
       ]
     },
