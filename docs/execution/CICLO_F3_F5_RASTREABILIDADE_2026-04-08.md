@@ -21,8 +21,8 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 | Dark mode persistido e cliente de produto coberto por testes | Fase 4 | `apps/web/providers/ThemeProvider.tsx`, `apps/web/tests/theme-provider.test.ts`, `apps/web/tests/product-api.test.ts` | resolvido | Persistencia foi validada localmente; falta revalidar em navegadores reais na trilha de release |
 | Deploy canonico em Cloud Run com preflight, smoke, E2E e rollback gate | Fase 5 | `.github/workflows/cd.yml`, `infra/cloudrun/service.yaml`, `docs/runbooks/deploy-canonical-stack.md`, `docs/runbooks/rollback-canonical-stack.md` | mitigado | A trilha esta definida, mas staging e producao ainda nao foram revalidados neste ciclo com evidencia nova |
 | SBOM, security scan e Renovate | Fase 5 | `.github/workflows/security-scan.yml`, `scripts/release/generate-sbom.mjs`, `renovate.json`, `.github/workflows/renovate.yml` | resolvido | Parte do valor real continua dependente da execucao recorrente em CI e das credenciais do ambiente |
-| Coverage gate e baseline de qualidade | Fase 5 | `scripts/coverage/baseline.json`, `scripts/coverage/check.mjs`, `artifacts/coverage/summary.json`, `docs/evidence/test-coverage-dashboard.md` | mitigado | O gate agora executa ate o fim, mas falha por threshold em `@birthub/api`, `@birthub/web`, `@birthub/worker`, `@birthub/database` e `@birthub/agents-core` |
-| Dead code e governanca de monorepo | Fase 5 | `knip.json`, `package.json`, `.github/workflows/quality-governance.yml` | aberto | `pnpm quality:dead-code` ainda retorna muito ruido e achados reais, sem segmentacao suficiente por workspace |
+| Coverage gate e baseline de qualidade | Fase 5 | `scripts/coverage/baseline.json`, `scripts/coverage/check.mjs`, `artifacts/coverage/summary.json`, `docs/evidence/test-coverage-dashboard.md` | mitigado | O dashboard local voltou a `PASS`, mas `scripts/coverage/check.mjs` ainda sinaliza `module coverage sufficiency: WARN` em modo `static-coverage-proxy`, exigindo revalidacao antes do proximo gate de release |
+| Dead code e governanca de monorepo | Fase 5 | `knip.json`, `knip.satellites.json`, `package.json`, `apps/api/package.json`, `packages/agents-core/package.json`, `packages/emails/package.json`, `.github/workflows/quality-governance.yml` | mitigado | O lane core de `pnpm quality:dead-code` agora ficou concentrado em `34` arquivos nao referenciados, `68` exports nao usados, `1` duplicate export e apenas `4` hints de configuracao; o lane satelite foi separado e ainda mostra backlog proprio com `29` arquivos nao usados e inconsistencias de dependencias/exportacoes |
 
 ## Checklist mestre atual
 ### Gate para sair de RED
@@ -51,30 +51,29 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 ## Leitura do estado atual
 - O projeto ja saiu dos bloqueadores estruturais de dominio, UX central e seguranca basica.
 - O estado atual do monorepo mostra um produto funcional e um lane canonico de deploy definido, com evidencias materiais em codigo, workflows e docs.
-- O que ainda segura o projeto em `YELLOW` nao e mais ausencia de implementacao principal, e sim maturidade operacional e governanca: coverage abaixo do baseline, `knip` com ruido e pendencias reais, validacao de staging/rollback/backups ainda sem evidencia nova.
+- O que ainda segura o projeto em `YELLOW` nao e mais ausencia de implementacao principal, e sim maturidade operacional e governanca: o lane de coverage local passou a baseline numerica, mas ainda precisa revalidacao confiavel fora do modo `static-coverage-proxy`; o `knip` do core foi limpo, porem restam arquivos/exportacoes realmente orfaos; staging/rollback/backups seguem sem evidencia nova.
 - O proximo plano logico deixou de ser "construir features" e passou a ser "fechar residual operacional com priorizacao e rastreabilidade".
 
 ## Decisoes arquiteturais
 - Consolidar a rastreabilidade das Fases 3 a 5 em um documento unico de execucao, em vez de espalhar o estado atual entre multiplos ciclos sem visao residual.
 - Classificar os itens como `resolvido`, `mitigado` ou `aberto`, para separar lacunas de implementacao de lacunas de rollout/governanca.
-- Tratar `coverage:check` como gate valido agora que a falha estrutural de limpeza no Windows foi removida; o problema restante passa a ser de threshold, nao de ferramenta.
-- Manter `quality:dead-code` como gate vermelho util, mas registrar explicitamente que o proximo ciclo deve reduzir ruido de configuracao do `knip` antes de converter todo achado em backlog de codigo.
+- Tratar `coverage:check` como gate local aceitavel para baseline, mas registrar explicitamente o risco residual do modo `static-coverage-proxy` antes de usar o resultado como criterio final de release.
+- Separar a governanca de dead code entre lane core e lane satelite, para que o go-live do nucleo nao continue contaminado por sinais de dominos paralelos e artefatos de authoring.
+- Manter `quality:dead-code` como gate vermelho util, reduzindo primeiro o ruido configuracional do `knip` para que o backlog residual passe a refletir majoritariamente achados reais.
 
 ## Plano executavel
-- passo 1: estabilizar a governanca de qualidade, refinando `knip` por workspace e convertendo os maiores achados em backlog rastreavel
-- passo 2: elevar coverage nos cinco alvos reprovados, priorizando `@birthub/web`, `@birthub/api` e `@birthub/agents-core`
+- passo 1: converter os `34` arquivos nao usados, os `68` exports nao usados e o `1` duplicate export restantes do lane core em backlog rastreavel de remocao ou reintegracao
+- passo 2: revalidar coverage fora do modo `static-coverage-proxy`, preservando o baseline numerico atual
 - passo 3: reexecutar a trilha canonica em staging com evidencia de preflight, smoke, E2E, rollback e backup/restore
 - passo 4: reclassificar o gate mestre de `YELLOW` para `GREEN` somente apos coverage, dead code e validacao operacional convergirem
 
 ## Backlog residual priorizado
 ### P0
-- Refinar `knip.json` para reduzir falso positivo estrutural e separar melhor os workspaces do monorepo.
-- Subir o coverage de `@birthub/web` acima de `55%` em linhas, statements e functions.
-- Subir o coverage de `@birthub/api` acima de `70%` em linhas, statements e functions.
-- Corrigir a folga de `@birthub/database`, hoje em `79.31%`, para ultrapassar o baseline de `80%`.
+- Atacar os `34` arquivos nao usados, os `68` exports nao usados e o `1` duplicate export que restaram no lane core apos o ajuste por workspace do `knip`.
+- Revalidar `coverage:check` em modo confiavel fora do `static-coverage-proxy`, preservando o dashboard local hoje em `PASS`.
 
 ### P1
-- Subir o coverage de `@birthub/worker` e `@birthub/agents-core`, hoje abaixo do baseline definido.
+- Reduzir o backlog do lane satelite (`29` arquivos nao usados, `5` dependencias nao usadas, `4` devDependencies nao usadas, `32` unlisted dependencies e `86` exports nao usados).
 - Materializar evidencia nova de staging para preflight, smoke, E2E critico e rollback rehearsal.
 - Executar e registrar backup/restore com evidencia operacional vinculada ao lane canonico.
 
@@ -86,7 +85,12 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 - criar:
   - `docs/execution/CICLO_F3_F5_RASTREABILIDADE_2026-04-08.md`
 - alterar:
-  - nenhum
+  - `knip.json`
+  - `knip.satellites.json`
+  - `package.json`
+  - `apps/api/package.json`
+  - `packages/agents-core/package.json`
+  - `packages/emails/package.json`
 - remover:
   - nenhum
 
@@ -105,8 +109,10 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 
 Resultados locais considerados nesta consolidacao:
 - `pnpm release:sbom` passou.
-- `pnpm coverage:check` executou ate o fim e gerou `artifacts/coverage/summary.json`.
-- `pnpm quality:dead-code` falhou com achados reais e ruido configuracional, servindo como entrada do backlog residual.
+- `node scripts/coverage/check.mjs` executou ate o fim; `docs/evidence/test-coverage-dashboard.md` ficou em `PASS`, mas o runner ainda reportou `module coverage sufficiency: WARN`.
+- `pnpm quality:dead-code` continua falhando, mas o sinal do lane core melhorou para `34` arquivos nao usados, `68` exports nao usados, `1` duplicate export e apenas `4` hints de configuracao.
+- `pnpm quality:dead-code:satellites` passou a existir em configuracao separada e revelou backlog proprio com `29` arquivos nao usados, `5` dependencias nao usadas, `4` devDependencies nao usadas, `32` unlisted dependencies, `86` exports nao usados e `8` duplicate exports.
+- As `3` unlisted dependencies restantes do pacote de emails foram eliminadas ao declarar `react` em `packages/emails/package.json`.
 
 ### CI
 - [ ] validacao em CI concluida

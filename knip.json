@@ -28,13 +28,7 @@
     "pino-pretty",
     "rate-limit-redis"
   ],
-  "ignoreFiles": [
-    "apps/dashboard/**",
-    "apps/legacy/**",
-    "apps/webhook-receiver/**",
-    "packages/agent-packs/**",
-    "packages/agents/**"
-  ],
+  "ignoreFiles": [],
   "ignoreWorkspaces": [
     "apps/voice-engine",
     "packages/agent-packs",
@@ -49,9 +43,7 @@
     ".": {
       "entry": [
         "*.config.{js,mjs,cjs,ts}",
-        "package.json",
-        "playwright.config.ts",
-        "stryker.config.mjs"
+        "package.json"
       ],
       "project": [
         ".github/**/*.{yml,yaml}",
@@ -59,15 +51,11 @@
         "scripts/**/*.{js,mjs,cjs,ts,tsx}"
       ],
       "ignore": [
-        "artifacts/**",
-        "audit/**",
-        "docs/**",
-        "test-results/**"
+        "audit/**"
       ]
     },
     "apps/api": {
       "entry": [
-        "src/server.ts",
         "test/**/*.test.ts",
         "tests/**/*.test.ts"
       ],
@@ -75,40 +63,27 @@
         "src/**/*.ts",
         "test/**/*.ts",
         "tests/**/*.ts"
-      ],
-      "ignore": [
-        "dist/**"
       ]
     },
     "apps/web": {
       "entry": [
         "app/**/*.ts",
         "app/**/*.tsx",
-        "middleware.ts",
         "public/sw.js",
-        "tests/**/*.test.ts",
-        "tests/**/*.test.tsx"
+        "tests/**/*.test.ts"
       ],
       "project": [
         "app/**/*.ts",
         "app/**/*.tsx",
-        "components/**/*.ts",
         "components/**/*.tsx",
         "lib/**/*.ts",
-        "providers/**/*.ts",
         "providers/**/*.tsx",
         "stores/**/*.ts",
-        "tests/**/*.ts",
-        "tests/**/*.tsx"
-      ],
-      "ignore": [
-        ".next/**",
-        "dist/**"
+        "tests/**/*.ts"
       ]
     },
     "apps/worker": {
       "entry": [
-        "src/index.ts",
         "src/**/*.test.ts",
         "src/load/*.ts",
         "test/**/*.test.ts"
@@ -117,32 +92,23 @@
         "src/**/*.ts",
         "test/**/*.ts"
       ],
-      "ignore": [
-        "dist/**",
+      "ignoreFiles": [
         "src/**/*.harness.ts"
       ]
     },
     "packages/agents-core": {
       "entry": [
-        "src/index.ts",
         "src/**/*.test.ts"
       ],
       "project": [
         "src/**/*.ts"
-      ],
-      "ignore": [
-        "dist/**",
-        "docs/**"
       ]
     },
     "packages/database": {
       "entry": [
         "f8.config.ts",
-        "prisma/seed.ts",
         "prisma/seeds/**/*.ts",
         "scripts/**/*.ts",
-        "src/**/*.test.ts",
-        "src/index.ts",
         "test/**/*.test.ts"
       ],
       "project": [
@@ -150,9 +116,6 @@
         "scripts/**/*.ts",
         "src/**/*.ts",
         "test/**/*.ts"
-      ],
-      "ignore": [
-        "dist/**"
       ]
     },
     "packages/emails": {
