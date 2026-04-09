@@ -15,7 +15,7 @@ export default {
   commandRunner: {
     command: mutationSuiteCommand
   },
-  concurrency: 2,
+  concurrency: 4,
   coverageAnalysis: "off",
   htmlReporter: {
     fileName: "artifacts/stryker/mutation.html"
@@ -53,7 +53,7 @@ export default {
   ],
   reporters: ["clear-text", "html", "json"],
   symlinkNodeModules: process.platform !== "win32",
-  tempDirName: "artifacts/stryker/.stryker-tmp",
+  tempDirName: ".tools/stryker-tmp",
   testRunner: "command",
   thresholds: {
     break: 60,

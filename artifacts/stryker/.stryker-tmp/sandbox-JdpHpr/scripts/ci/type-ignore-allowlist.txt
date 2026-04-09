@@ -1,3 +1,0 @@
-# One entry per line in the format: relative/path.py:line
-# Example:
-# agents/shared/example.py:42
