@@ -71,7 +71,7 @@
     "test": "corepack pnpm test:core",
     "test:agents:packages": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run test",
     "test:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run test",
-    "test:integration": "corepack pnpm --filter @birthub/api exec node --import tsx --test test/performance.test.ts tests/workflow-retry-lineage.integration.test.ts && corepack pnpm --filter @birthub/worker exec node --import tsx --test src/runtime.integration.test.ts src/agents/runtime.db-integration.test.ts src/engine/runner.db-integration.test.ts",
+    "test:integration": "corepack pnpm --filter @birthub/api exec node --import tsx --test test/performance.test.ts apps/api/tests/workflow-retry-lineage.integration.test.ts && corepack pnpm --filter @birthub/worker exec node --import tsx --test src/runtime.integration.test.ts src/agents/runtime.db-integration.test.ts src/engine/runner.db-integration.test.ts",
     "test:satellites": "node scripts/ci/run-satellites.mjs test",
     "test:workspace": "turbo run test",
     "test:isolation": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/api --filter=@birthub/worker run test:isolation",

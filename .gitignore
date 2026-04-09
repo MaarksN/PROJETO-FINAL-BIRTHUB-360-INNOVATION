@@ -54,7 +54,8 @@ artifacts/**/*.zip
 tmp-codex-write-test.txt
 rg.exe
 rg.cmd
-logs/ci-runs/*.zip
+logs/ci-runs/
+logs/releases/
 artifacts/quality/jscpd/html/
 artifacts/f0-freeze-2026-03-22/metrics/
 .github/agents/

@@ -16,6 +16,7 @@ void test("pt-BR dictionary exposes canonical product navigation and consent cop
   assert.equal(copy.navbar.identityTitle, "Central de Operacao");
   assert.equal(copy.navbar.items[0]?.href, "/dashboard");
   assert.equal(copy.navbar.items[6]?.label, "Conversas");
+  assert.equal(copy.navbar.items.at(-1)?.href, "/sales-os");
   assert.equal(copy.consentBanner.settings, "Abrir central LGPD");
   assert.equal(copy.dashboardHome.badge, "Home do produto");
   assert.equal(copy.notificationPreferencesPage.interfaceLanguageHeading, "Idioma da interface");
@@ -46,6 +47,7 @@ void test("en-US dictionary exposes translated navigation and dashboard copy", (
 
   assert.equal(copy.navbar.identityTitle, "Operations Hub");
   assert.equal(copy.navbar.items[1]?.label, "Patients");
+  assert.equal(copy.navbar.items.at(-1)?.label, "Sales OS");
   assert.equal(copy.workflowsPage.backHome, "Back to home");
   assert.equal(copy.dashboardHome.noUsageTitle, "No recorded usage");
   assert.equal(copy.notificationPreferencesPage.interfaceLanguageLabel, "Language");

@@ -173,7 +173,8 @@ const sharedNavbarItems = [
   { href: "/analytics", label: { "en-US": "Analytics", "pt-BR": "Analytics" } },
   { href: "/conversations", label: { "en-US": "Conversations", "pt-BR": "Conversas" } },
   { href: "/reports", label: { "en-US": "Reports", "pt-BR": "Relatorios" } },
-  { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } }
+  { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } },
+  { href: "/sales-os", label: { "en-US": "Sales OS", "pt-BR": "Sales OS" } }
 ] as const;
 
 const dictionaries: Record<SupportedLocale, Dictionary> = {

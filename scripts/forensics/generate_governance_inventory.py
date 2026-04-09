@@ -276,8 +276,6 @@ def include_primary(rel: str) -> bool:
         return True
     if rel_lower == "ops/release-secrets-inventory-2026-03-24.md":
         return True
-    if rel_lower.startswith("logs/ci-runs/"):
-        return True
     if rel_lower.startswith(PACK_ROOT):
         parts = rel_lower.split("/")
         if len(parts) == 4 and parts[-1] in {"manifest.json", "collection-report.json", "readiness-gate-report.json"}:

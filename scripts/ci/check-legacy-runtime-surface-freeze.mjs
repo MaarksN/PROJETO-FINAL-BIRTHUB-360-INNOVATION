@@ -64,14 +64,6 @@ const violations = changed.filter(({ fromPath, path, status }) => {
     return false;
   }
 
-  if (
-    status.startsWith("R") &&
-    fromPath.startsWith("apps/dashboard/") &&
-    path.startsWith("apps/legacy/dashboard/")
-  ) {
-    return false;
-  }
-
   return legacyRoots.some((root) => path.startsWith(root));
 });
 

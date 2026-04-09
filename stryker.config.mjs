@@ -27,7 +27,6 @@ export default {
     ".tools/**",
     ".turbo/**",
     "**/dist/**",
-    "apps/dashboard/**",
     "apps/legacy/**",
     "artifacts/**",
     "audit/**",

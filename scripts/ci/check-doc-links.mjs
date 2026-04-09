@@ -12,7 +12,7 @@ const alwaysCheckedFiles = [
   "CONTRIBUTING.md",
   "docs/README.md",
   "artifacts/README.md",
-  ".github/pull_request_template.md"
+  ".github/PULL_REQUEST_TEMPLATE.md"
 ];
 
 function gitCapture(args, allowFailure = false) {
