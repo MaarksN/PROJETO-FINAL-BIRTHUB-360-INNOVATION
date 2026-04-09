@@ -10,6 +10,8 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 
 export const repoRoot = path.resolve(scriptDir, "..", "..");
 export const auditRoot = path.join(repoRoot, "audit");
+export const derivedAuditRoot = path.join(repoRoot, "artifacts", "audit", "files_analysis");
+export const derivedAuditRootRelative = "artifacts/audit/files_analysis/";
 export const defaultBackupRoot = path.resolve(
   repoRoot,
   "..",
@@ -114,6 +116,7 @@ export function listTrackedExistingFiles() {
     .split(/\r?\n/)
     .map((line) => toPosix(line.trim()))
     .filter(Boolean)
+    .filter((relativePath) => !relativePath.startsWith(derivedAuditRootRelative))
     .filter((relativePath) => pathExists(fromRepo(relativePath)));
 }
 
@@ -287,10 +290,10 @@ export function getTopLevel(relativePath) {
 
 export function analysisOutputPath(relativePath) {
   if (!relativePath.includes("/")) {
-    return toPosix(path.join("audit", "files_analysis", "_root", `${path.basename(relativePath)}.md`));
+    return toPosix(path.join("artifacts", "audit", "files_analysis", "_root", `${path.basename(relativePath)}.md`));
   }
 
-  return toPosix(path.join("audit", "files_analysis", `${relativePath}.md`));
+  return toPosix(path.join("artifacts", "audit", "files_analysis", `${relativePath}.md`));
 }
 
 export function summarizeList(values, limit = 8) {

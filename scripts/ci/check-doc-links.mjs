@@ -18,7 +18,7 @@ const ignoredDirectoryNames = new Set([
   "node_modules",
   "test-results"
 ]);
-const skippedMarkdownPrefixes = ["docs/product/"];
+const skippedMarkdownPrefixes = [".tools/", "docs/product/", "artifacts/audit/files_analysis/", "artifacts/stryker/"];
 const alwaysCheckedFiles = [
   "README.md",
   "CONTRIBUTING.md",
@@ -109,7 +109,8 @@ function listMarkdownFiles() {
       .split(/\r?\n/u)
       .map((line) => line.trim())
       .filter((line) => line.endsWith(".md"))
-      .filter((line) => !skippedMarkdownPrefixes.some((prefix) => line.startsWith(prefix)));
+      .filter((line) => !skippedMarkdownPrefixes.some((prefix) => line.startsWith(prefix)))
+      .filter((line) => existsSync(path.join(projectRoot, line)));
 
     return trackedMarkdownFiles.length > 0 ? trackedMarkdownFiles : walkMarkdownFiles();
   }

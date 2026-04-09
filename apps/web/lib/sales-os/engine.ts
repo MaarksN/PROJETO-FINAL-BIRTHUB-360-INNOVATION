@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { findSalesOsTool, salesOsModuleMap } from "./catalog";
 import type { SalesOsChatMessage, SalesOsModuleId, SalesOsTool } from "./types";
 

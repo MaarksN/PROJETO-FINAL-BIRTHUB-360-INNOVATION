@@ -7,6 +7,7 @@ import {
   auditRoot,
   classifyKind,
   countMatches,
+  derivedAuditRoot,
   detectLanguage,
   ensureDirectory,
   fromRepo,
@@ -824,6 +825,7 @@ async function writeAutofixArtifacts() {
 
 async function generateAudit() {
   await fs.rm(auditRoot, { force: true, recursive: true });
+  await fs.rm(derivedAuditRoot, { force: true, recursive: true });
   await fs.mkdir(auditRoot, { recursive: true });
 
   const trackedFiles = listTrackedExistingFiles();

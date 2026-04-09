@@ -155,7 +155,7 @@ const inventory = [
   ["Autofix manifest", "manifesto de evidência", ["audit/autofix/manifest.json"].filter(exists), "✔ EVIDÊNCIA", "Âncora explícita dos snapshots de autofix."],
   ["Autofix notes", "nota de evidência", listPrefix("audit/autofix/notes/"), "✔ EVIDÊNCIA", "Notas explicativas associadas ao autofix."],
   ["Autofix snapshots", "snapshot", listPrefix("audit/autofix/snapshots/"), "✔ EVIDÊNCIA", "Snapshots versionados associados ao manifest."],
-  ["Files analysis massivo", "análise derivada", listPrefix("audit/files_analysis/"), "❌ ÓRFÃO", "Volume derivado sem papel canônico no fluxo de operação, auditoria ou release."],
+  ["Files analysis massivo", "análise derivada", listPrefix("artifacts/audit/files_analysis/"), "❌ ÓRFÃO", "Volume derivado arquivado fora da área canônica de auditoria."],
   ["Artefatos legados de auditoria", "output de auditoria legado", ["audit/checks.json", "audit/inventory.json", "audit/report.html", "audit/saas_maturity_score.md", "audit/target_architecture.md", "audit/gaps.md"].filter(exists), "⚠ AMBÍGUO", "Outputs coexistentes fora do conjunto canônico recém-estabelecido."],
   ["Estrutura canônica de release", "índice de release", listPrefix("releases/"), "✔ RELEASE", "Estrutura padrão para manifests, evidências e notas."]
 ].filter(([, , arr]) => arr.length > 0);

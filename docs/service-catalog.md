@@ -14,7 +14,7 @@ Este documento é a **fonte única** para fronteiras operacionais entre core, le
 
 | Camada | Superfície | Tipo | Estado operacional | Dono sugerido | Evidência de runtime |
 |---|---|---|---|---|---|
-| Core | `apps/web` | Front-end | 🟢 Default para experiência do produto | Product Frontend | `apps/web/package.json` |
+| Core | `apps/web` | Front-end | 🟢 Default para experiência do produto, incluindo a superfície canônica `/sales-os` | Product Frontend | `apps/web/package.json` |
 | Core | `apps/api` | API | 🟢 Default para tráfego de negócio | Platform/API | `apps/api/src/server.ts` |
 | Core | `apps/worker` | Worker | 🟢 Default para filas e processamento assíncrono | Platform/Automation | `apps/worker/src/index.ts` |
 | Core | `packages/database` | Data layer | 🟢 Default para schema, client Prisma e migrações | Platform/Data | `packages/database/package.json` |

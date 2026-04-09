@@ -95,7 +95,7 @@ export const SALES_OS_MODULES: SalesOsModuleDefinition[] = [
   }
 ];
 
-export const salesOsTools = TOOLS as SalesOsTool[];
+export const salesOsTools: SalesOsTool[] = TOOLS;
 
 export const salesOsModuleMap = SALES_OS_MODULES.reduce<Record<SalesOsModuleId, SalesOsModuleDefinition>>(
   (accumulator, moduleDefinition) => {

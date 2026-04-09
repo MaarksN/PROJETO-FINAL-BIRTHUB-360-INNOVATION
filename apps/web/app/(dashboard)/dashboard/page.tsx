@@ -5,6 +5,7 @@ import {
   ProductEmptyState,
   ProductPageHeader
 } from "../../../components/dashboard/page-fragments";
+import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
 import {
   formatDateTime,
   formatNumber,
@@ -72,6 +73,9 @@ export default async function DashboardHomePage() {
   const locale = await getRequestLocale();
   const copy = getDictionary(locale);
   const data = await loadDashboardHomePage();
+  const salesOsModuleCount = SALES_OS_MODULES.length;
+  const salesOsToolCount = salesOsTools.length;
+  const salesOsRoleplayCount = salesOsTools.filter((tool) => tool.isChat).length;
   const usageEntries = Object.entries(data.billing.usage ?? {});
   const consentNeedsAttention = data.consents.preferences.lgpdConsentStatus === "PENDING";
   const completedOnboardingSteps = data.onboarding.items.filter((item) => item.complete).length;
@@ -154,6 +158,77 @@ export default async function DashboardHomePage() {
             <p className="dashboard-muted dashboard-muted--compact">{item.trend}</p>
           </article>
         ))}
+      </section>
+
+      <section className="dashboard-grid dashboard-grid--equal">
+        <article className="hero-card">
+          <div className="dashboard-panel__header">
+            <div className="dashboard-panel__copy">
+              <span className="badge">{locale === "pt-BR" ? "Sales OS" : "Sales OS"}</span>
+              <h2>{locale === "pt-BR" ? "Cockpit comercial unificado" : "Unified commercial cockpit"}</h2>
+              <p className="dashboard-muted">
+                {locale === "pt-BR"
+                  ? "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie."
+                  : "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface."}
+              </p>
+            </div>
+            <Link href="/sales-os">{locale === "pt-BR" ? "Abrir Sales OS" : "Open Sales OS"}</Link>
+          </div>
+
+          <section className="stats-grid dashboard-stats-grid">
+            <article>
+              <span className="badge">{locale === "pt-BR" ? "Modulos" : "Modules"}</span>
+              <strong>{formatNumber(locale, salesOsModuleCount)}</strong>
+              <p className="dashboard-muted dashboard-muted--compact">
+                {locale === "pt-BR" ? "Estruturas operacionais disponiveis" : "Available operating structures"}
+              </p>
+            </article>
+            <article>
+              <span className="badge">{locale === "pt-BR" ? "Ferramentas" : "Tools"}</span>
+              <strong>{formatNumber(locale, salesOsToolCount)}</strong>
+              <p className="dashboard-muted dashboard-muted--compact">
+                {locale === "pt-BR" ? "Protocolos importados do blueprint" : "Protocols imported from the blueprint"}
+              </p>
+            </article>
+            <article>
+              <span className="badge">{locale === "pt-BR" ? "Roleplays" : "Roleplays"}</span>
+              <strong>{formatNumber(locale, salesOsRoleplayCount)}</strong>
+              <p className="dashboard-muted dashboard-muted--compact">
+                {locale === "pt-BR" ? "Simulacoes para objecoes e negociacao" : "Simulations for objections and negotiation"}
+              </p>
+            </article>
+          </section>
+        </article>
+
+        <article className="panel">
+          <h2>{locale === "pt-BR" ? "Entradas mais fortes" : "Best entry points"}</h2>
+          <div className="dashboard-card-list">
+            <article className="dashboard-record-card">
+              <strong>{locale === "pt-BR" ? "Pesquisa e prospeccao" : "Research and prospecting"}</strong>
+              <span className="dashboard-record-card__meta">
+                {locale === "pt-BR"
+                  ? "Use BDR, SDR e LDR para mapear contas, enriquecer contexto e preparar outreach."
+                  : "Use BDR, SDR, and LDR to map accounts, enrich context, and prepare outreach."}
+              </span>
+            </article>
+            <article className="dashboard-record-card">
+              <strong>{locale === "pt-BR" ? "Roleplay e negociacao" : "Roleplay and negotiation"}</strong>
+              <span className="dashboard-record-card__meta">
+                {locale === "pt-BR"
+                  ? "Simule gatekeepers, CFOs e cenarios tensos antes de entrar na call real."
+                  : "Simulate gatekeepers, CFOs, and tense scenarios before the live call."}
+              </span>
+            </article>
+            <article className="dashboard-record-card">
+              <strong>{locale === "pt-BR" ? "Mentoria contextual" : "Contextual mentoring"}</strong>
+              <span className="dashboard-record-card__meta">
+                {locale === "pt-BR"
+                  ? "Abra o mentor para transformar contexto disperso em proximo passo comercial."
+                  : "Open the mentor to turn scattered context into the next commercial move."}
+              </span>
+            </article>
+          </div>
+        </article>
       </section>
 
       <section className="dashboard-grid dashboard-grid--primary">

@@ -32,6 +32,16 @@ type SearchGroup = {
   label: string;
 };
 
+const localShortcuts = [
+  {
+    href: "/sales-os",
+    id: "shortcut-sales-os",
+    subtitle: "BirthHub Sales OS unificado com modulos, roleplays e mentor contextual.",
+    title: "Sales OS",
+    type: "shortcut"
+  }
+] as const;
+
 const iconByGroup: Record<string, LucideIcon> = {
   conversations: Sparkles,
   notifications: Sparkles,
@@ -113,6 +123,40 @@ export function GlobalSearch() {
     };
   }, [deferredQuery, open, pathname]);
 
+  const mergedGroups = useMemo(() => {
+    const normalizedQuery = deferredQuery.trim().toLowerCase();
+    const matchedShortcuts = localShortcuts.filter((item) => {
+      if (!normalizedQuery) {
+        return true;
+      }
+
+      const haystack = `${item.title} ${item.subtitle} ${item.type}`.toLowerCase();
+      return haystack.includes(normalizedQuery);
+    });
+
+    if (matchedShortcuts.length === 0) {
+      return groups;
+    }
+
+    const existingShortcuts = groups.find((group) => group.id === "shortcuts");
+    const mergedShortcutItems = [
+      ...(existingShortcuts?.items ?? []),
+      ...matchedShortcuts.filter(
+        (shortcut) => !(existingShortcuts?.items ?? []).some((item) => item.href === shortcut.href)
+      )
+    ];
+    const otherGroups = groups.filter((group) => group.id !== "shortcuts");
+
+    return [
+      {
+        id: "shortcuts",
+        items: mergedShortcutItems,
+        label: existingShortcuts?.label ?? "Atalhos"
+      },
+      ...otherGroups
+    ];
+  }, [deferredQuery, groups]);
+
   return (
     <>
       <button
@@ -148,7 +192,7 @@ export function GlobalSearch() {
                     setQuery(event.target.value);
                   });
                 }}
-                placeholder="Buscar workflows, reports, notificacoes e conversations"
+                placeholder="Buscar workflows, reports, notificacoes, conversations e Sales OS"
                 ref={inputRef}
                 value={query}
               />
@@ -157,11 +201,11 @@ export function GlobalSearch() {
             <div className="search-dialog__body">
               {error ? <p className="search-error">{error}</p> : null}
               {isLoading ? <p className="search-muted">Buscando resultados...</p> : null}
-              {!isLoading && groups.length === 0 ? (
+              {!isLoading && mergedGroups.length === 0 ? (
                 <p className="search-muted">Nenhum resultado encontrado.</p>
               ) : null}
 
-              {groups.map((group) => {
+              {mergedGroups.map((group) => {
                 const Icon = iconByGroup[group.id] ?? Search;
 
                 return (

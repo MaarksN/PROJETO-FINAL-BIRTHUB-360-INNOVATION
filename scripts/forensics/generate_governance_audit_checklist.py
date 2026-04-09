@@ -141,6 +141,7 @@ def render_markdown(
     groups, _, _ = collect_grouped_entries(entries)
     corpus_html = inventory_path.with_suffix(".html").name
     generated_at = report.get("generated_at", datetime.now().isoformat())
+    mirror_root = "artifacts/audit/files_analysis"
 
     lines: list[str] = [
         "# Checklist Mestre de Auditoria de Governanca e Artefatos",
@@ -151,7 +152,7 @@ def render_markdown(
         f"- Checklist HTML: `{output_html.name}`",
         f"- Prompt do Jules: `{prompt_path.name}`",
         f"- Total de artefatos: `{summary['total_files_found']}`",
-        f"- Derivados em files_analysis: `{summary['derived_files_analysis']}`",
+        f"- Derivados em `{mirror_root}`: `{summary['derived_files_analysis']}`",
         f"- Itens marcados como duplicados: `{summary['duplicate_files']}`",
         f"- Itens inconsistentes: `{summary['inconsistent_files']}`",
         "",
@@ -228,6 +229,7 @@ def render_html(
     groups, phase_counts, cycle_counts = collect_grouped_entries(entries)
     corpus_html = inventory_path.with_suffix(".html").name
     generated_at = report.get("generated_at", datetime.now().isoformat())
+    total_artifacts = summary["total_files_found"]
 
     group_nav: list[str] = []
     group_sections: list[str] = []
@@ -604,7 +606,7 @@ def render_html(
     <aside class="sidebar">
       <div class="brand">
         <h1>Checklist Mestre</h1>
-        <p>Checklist completo para auditoria dos 3292 artefatos de governanca, auditoria, rastreabilidade, fases e readiness.</p>
+        <p>Checklist completo para auditoria dos {total_artifacts} artefatos de governanca, auditoria, rastreabilidade, fases e readiness.</p>
       </div>
       <div>
         <strong>Arquivos base</strong>
@@ -626,7 +628,7 @@ def render_html(
       </section>
       <section class="stats">
         <article class="stat"><strong>{summary['total_files_found']}</strong><span>Artefatos no inventario</span></article>
-        <article class="stat"><strong>{summary['derived_files_analysis']}</strong><span>Derivados em files_analysis</span></article>
+        <article class="stat"><strong>{summary['derived_files_analysis']}</strong><span>Derivados em artifacts/audit/files_analysis</span></article>
         <article class="stat"><strong>{summary['duplicate_files']}</strong><span>Itens marcados como duplicados</span></article>
         <article class="stat"><strong>{summary['inconsistent_files']}</strong><span>Itens inconsistentes</span></article>
         <article class="stat"><strong>{summary['version_conflict_groups']}</strong><span>Grupos com conflito de versao</span></article>
@@ -743,6 +745,8 @@ def render_jules_prompt(
     corpus_html: Path,
 ) -> str:
     summary = report["summary"]
+    total_artifacts = summary["total_files_found"]
+    mirror_root = "artifacts/audit/files_analysis"
     category_lines = "\n".join(
         f"- {category}: {count}" for category, count in inventory_counts(summary)
     )
@@ -753,7 +757,7 @@ def render_jules_prompt(
     )
     generated_at = report.get("generated_at", datetime.now().isoformat())
 
-    return f"""# Prompt Mestre para Jules: Auditoria Completa de 3292 Artefatos
+    return f"""# Prompt Mestre para Jules: Auditoria Completa de {total_artifacts} Artefatos
 
 ## Contexto
 
@@ -774,14 +778,14 @@ Esta auditoria deve ser executada com base no corpus consolidado gerado em `{gen
 
 ## Pacote externo obrigatorio de confronto
 
-Os arquivos abaixo tambem fazem parte da auditoria e devem ser lidos e confrontados com o estado real do repositorio e com o corpus principal de 3292 artefatos:
+Os arquivos abaixo tambem fazem parte da auditoria e devem ser lidos e confrontados com o estado real do repositorio e com o corpus principal de {total_artifacts} artefatos:
 
 {external_lines}
 
 ## Volume auditavel
 
 - Total de artefatos: {summary['total_files_found']}
-- Derivados em `audit/files_analysis`: {summary['derived_files_analysis']}
+- Derivados em `{mirror_root}`: {summary['derived_files_analysis']}
 - Itens marcados como duplicados: {summary['duplicate_files']}
 - Itens inconsistentes: {summary['inconsistent_files']}
 - Grupos de duplicidade exata: {summary['exact_duplicate_groups']}
@@ -799,7 +803,7 @@ Os arquivos abaixo tambem fazem parte da auditoria e devem ser lidos e confronta
 
 ## Objetivo
 
-Validar a integridade, consistencia, cobertura e utilidade operacional dos 3292 artefatos. O foco nao e o codigo funcional da plataforma. O foco e o sistema de controle, execucao, readiness e auditoria da engenharia.
+Validar a integridade, consistencia, cobertura e utilidade operacional dos {total_artifacts} artefatos. O foco nao e o codigo funcional da plataforma. O foco e o sistema de controle, execucao, readiness e auditoria da engenharia.
 
 ## Regras obrigatorias
 
@@ -827,7 +831,7 @@ Validar a integridade, consistencia, cobertura e utilidade operacional dos 3292 
    - relacao com readiness, traceabilidade, arquitetura ou lifecycle
    - se e acionavel, apenas documental ou espelho derivado
 3. Para o pacote externo de confronto, verificar tambem:
-   - se os totais e escopos declarados batem com o universo atual de 3292 artefatos
+   - se os totais e escopos declarados batem com o universo atual de {total_artifacts} artefatos
    - se os status `aprovado`, `concluido`, `pronto` ou equivalentes possuem evidencia empirica no repositorio
    - se existem pendencias, observacoes nao declaradas ou gaps citados fora da trilha oficial
    - se baseline, freeze, sign-off e organization audit convergem com os artefatos vivos do repositorio
@@ -916,9 +920,9 @@ Para cada finding, use este formato:
 
 - Nao reduzir a auditoria a um resumo superficial.
 - Nao pular grupos menores.
-- Nao assumir que arquivos em `files_analysis` substituem o primario.
+- Nao assumir que arquivos em `{mirror_root}` substituem o primario.
 - Nao tratar duplicidade como aceitavel sem justificativa.
-- Nao encerrar a execucao sem cobrir os 3292 itens do checklist.
+- Nao encerrar a execucao sem cobrir os {total_artifacts} itens do checklist.
 
 ## Resultado esperado
 

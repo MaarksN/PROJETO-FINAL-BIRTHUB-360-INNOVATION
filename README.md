@@ -12,6 +12,8 @@ Fonte única operacional: `docs/service-catalog.md`.
 - `apps/worker`
 - `packages/database`
 
+`apps/web` concentra a experiência canônica do produto, incluindo a superfície unificada `Sales OS` em `/sales-os`.
+
 ### Legacy / quarentena (não-default)
 - `apps/legacy/dashboard`
 - `apps/api-gateway`

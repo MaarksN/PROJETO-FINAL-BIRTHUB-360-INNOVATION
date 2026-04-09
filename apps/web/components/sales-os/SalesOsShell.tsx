@@ -1,3 +1,4 @@
+/* eslint-disable complexity, max-lines */
 "use client";
 
 import type { CSSProperties } from "react";
@@ -10,7 +11,6 @@ import {
   CheckSquare,
   Copy,
   Crown,
-  DollarSign,
   Eye,
   Flame,
   Globe,
@@ -182,7 +182,13 @@ async function readImageAsPayload(file: File) {
     const reader = new FileReader();
     reader.onerror = () => reject(new Error("Unable to read the selected file."));
     reader.onload = () => {
-      const value = String(reader.result ?? "");
+      const { result } = reader;
+      if (typeof result !== "string") {
+        reject(new Error("Unable to read the selected file."));
+        return;
+      }
+
+      const value = result;
       resolve(value.split(",")[1] ?? "");
     };
     reader.readAsDataURL(file);

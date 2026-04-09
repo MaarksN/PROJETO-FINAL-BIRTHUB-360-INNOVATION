@@ -20,7 +20,8 @@ OUTPUT_MD = AUDIT_DIR / f"{OUTPUT_BASENAME}.md"
 OUTPUT_NAMES = {OUTPUT_JSON.name.lower(), OUTPUT_MD.name.lower()}
 
 EXCLUDE_PARTS = {".git", "node_modules", ".tools", "__pycache__", ".venv"}
-MIRROR_ROOT = "audit/files_analysis/"
+MIRROR_ROOT = "artifacts/audit/files_analysis/"
+MIRROR_ROOT_DISPLAY = MIRROR_ROOT.rstrip("/")
 
 CATEGORY_GOVERNANCE = "Governance & Audit Artifacts"
 CATEGORY_CONTROL = "Control & Verification (checklists, checks.json)"
@@ -222,8 +223,8 @@ def starts_with_any(value: str, prefixes: set[str]) -> bool:
 
 def mirror_path_for_primary(rel: str) -> str:
     if "/" not in rel:
-        return f"audit/files_analysis/_root/{rel}.md"
-    return f"audit/files_analysis/{rel}.md"
+        return f"{MIRROR_ROOT}_root/{rel}.md"
+    return f"{MIRROR_ROOT}{rel}.md"
 
 
 def original_from_mirror(rel: str) -> str | None:
@@ -259,7 +260,7 @@ def include_doc_by_keyword(rel_lower: str) -> bool:
 
 def include_primary(rel: str) -> bool:
     rel_lower = rel.lower()
-    if rel_lower.startswith("audit/files_analysis/"):
+    if rel_lower.startswith(MIRROR_ROOT):
         return False
 
     if rel in ROOT_FILES:
@@ -675,7 +676,7 @@ def category_for(rel: str, origin: str, original_rel: str | None = None) -> str:
 def description_for(rel: str, tech_type: str, origin: str, original_rel: str | None = None) -> str:
     target = original_rel if origin.startswith("Derivado") and original_rel else rel
     if origin.startswith("Derivado"):
-        return f"Espelho analitico em Markdown do artefato `{original_rel}` preservado em `audit/files_analysis`."
+        return f"Espelho analitico em Markdown do artefato `{original_rel}` preservado em `{MIRROR_ROOT_DISPLAY}`."
     if tech_type == "agent pack manifest":
         pack = Path(target).parent.name
         return f"Manifesto compilado do pack `{pack}`, com identidade do agente, politicas, skills e ferramentas."
@@ -970,7 +971,7 @@ def build_coverage(entries_by_path: dict[str, Entry]) -> list[dict[str, str]]:
     gap = pick("audit/gaps.md", "docs/technical-debt/tracker.json")
     maturity = pick("audit/saas_maturity_score.md")
     architecture = pick("audit/target_architecture.md", "docs/ARCHITECTURE.md")
-    lifecycle = pick("docs/execution/f1-kickoff-2026-03-25.md", "audit/files_analysis/.github/agents/RELATORIO_CONFORMIDADE_F1_F5.md.md")
+    lifecycle = pick("docs/execution/f1-kickoff-2026-03-25.md", f"{MIRROR_ROOT}.github/agents/RELATORIO_CONFORMIDADE_F1_F5.md.md")
     release = pick("docs/release/V1_PRODUCTION_GATE.md", "artifacts/release/scorecard.md")
 
     return [
@@ -998,7 +999,7 @@ def build_alerts(
         alerts.append("Falta artefato essencial de checklist mestre no workspace `audit/`.")
     if orphan_mirrors:
         alerts.append(
-            f"Ha {len(orphan_mirrors)} espelhos em `audit/files_analysis` cujo artefato primario nao existe mais na arvore viva."
+            f"Ha {len(orphan_mirrors)} espelhos em `{MIRROR_ROOT_DISPLAY}` cujo artefato primario nao existe mais na arvore viva."
         )
     if missing_source_refs:
         alerts.append(
@@ -1097,12 +1098,12 @@ def render_markdown(
     else:
         lines.append("- Nenhum grupo de versoes conflitantes detectado por nome normalizado.")
     lines.append("")
-    lines.append("### Arquivos espelhados em `/files_analysis`")
+    lines.append(f"### Arquivos espelhados em `{MIRROR_ROOT_DISPLAY}`")
     if mirror_pairs:
         for entry in sorted(mirror_pairs, key=lambda item: item.path.lower()):
             lines.append(f"- Espelho: `{entry.path}` -> Primario: `{entry.related_primary}`")
     else:
-        lines.append("- Nenhum espelho relevante em `audit/files_analysis`.")
+        lines.append(f"- Nenhum espelho relevante em `{MIRROR_ROOT_DISPLAY}`.")
     lines.append("")
     lines.append("### Espelhos orfaos")
     if orphan_mirrors:

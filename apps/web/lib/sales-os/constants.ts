@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Tool } from './types';
 
 export const TOOLS: Tool[] = [

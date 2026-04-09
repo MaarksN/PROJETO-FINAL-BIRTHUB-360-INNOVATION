@@ -7,6 +7,7 @@ Esta pasta guarda somente saídas versionadas que fazem parte da evidência form
 - `artifacts/baseline/`: snapshots e manifestos de baseline auditável.
 - `artifacts/release/`: preflight, smoke, rollback, catálogos e logs arquivados de release.
 - `artifacts/quality/`, `artifacts/security/`, `artifacts/privacy/`: relatórios e baselines por domínio.
+- `artifacts/audit/`: espelhos derivados e saídas analíticas pesadas que não pertencem à área canônica de `audit/`.
 - `artifacts/f11-*`, `artifacts/ownership-governance/`, `artifacts/materialization/`: evidências históricas deliberadamente preservadas.
 
 ## O que não fica aqui
