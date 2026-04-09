@@ -11,7 +11,7 @@ O lancamento de `2026-03-20` considera apenas o **core canonico**:
 
 Ficam fora do criterio de pronto, salvo promocao explicita:
 
-- `apps/dashboard`
+- `apps/legacy/dashboard`
 - `packages/db`
 - `apps/api-gateway`
 - `apps/agent-orchestrator`
@@ -26,7 +26,7 @@ Ficam fora do criterio de pronto, salvo promocao explicita:
 - qualquer falha em `pnpm lint:core`, `pnpm typecheck:core`, `pnpm test:core`, `pnpm test:isolation` ou `pnpm build:core`
 - qualquer falha em `pnpm test:e2e:release`
 - qualquer falha em `pnpm release:preflight:staging` ou `pnpm release:preflight:production`
-- qualquer dependencia operacional do core em `apps/dashboard` ou `packages/db`
+- qualquer dependencia operacional do core em `apps/legacy/dashboard` ou `packages/db`
 
 ## Status atual em 2026-03-17
 

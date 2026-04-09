@@ -65,12 +65,12 @@ Cada etapa roda com defaults compativeis com CI e encerra com dirty-tree check.
 - `apps/voice-engine`: gate suportado em `lint`, `typecheck`, `test` e `build`.
 - `apps/agent-orchestrator`: gate suportado em contrato TS (`test`) e smokes Python (`pytest`) para `/health`, `/events/run` e `/events/metrics`.
 - `apps/webhook-receiver`: gate suportado em smokes Python (`pytest`) para `/health` e `/webhooks/{provider}`; `src/server.ts` permanece apenas como stub legado.
-- `apps/dashboard`: superficie secundaria/legada; nesta fase participa apenas do smoke lane.
+- `apps/legacy/dashboard`: marcador documental de quarentena; nao participa mais de lane executavel de CI.
 - `agents/*`: superficie Python legada fora do gate canonico de release; permanece executavel sob demanda em `pnpm ci:legacy-agents`.
 
 ## Divida legada fora do gate bloqueante
 
-- `apps/dashboard`: `lint`, `typecheck` e `build` seguem com divida estrutural anterior a este hardening.
+- `apps/legacy/dashboard`: permanece apenas como marcador de quarentena, sem `lint`, `typecheck` ou `build` suportados.
 - `apps/api-gateway`: `typecheck` e `build` seguem dependentes de saneamento legado fora do escopo desta fase.
 - `apps/agent-orchestrator`: `lint`, `typecheck` e `build` seguem dependentes de saneamento legado fora do escopo desta fase.
 - O status consolidado desses bloqueios fica registrado em `docs/release/platform-hardening-readiness-2026-03-15.md`.

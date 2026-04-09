@@ -20,12 +20,6 @@
     },
     {
       "lane": "legacy",
-      "packageName": "@birthub/dashboard",
-      "purpose": "Legacy CRM cockpit on the canonical @birthub/database contract and excluded from the core release lane.",
-      "root": "apps/legacy/dashboard"
-    },
-    {
-      "lane": "legacy",
       "packageName": "orchestrator-worker",
       "purpose": "Legacy orchestration worker overlay limited to worker.ts and supported separately.",
       "root": "apps/agent-orchestrator"
@@ -44,14 +38,13 @@
     {
       "allowedRoots": [
         "apps/api",
-        "apps/legacy/dashboard",
         "packages/db",
         "apps/web",
         "apps/worker",
         "packages/database",
         "packages/testing"
       ],
-      "description": "@birthub/database is the multi-tenant SaaS schema and must not leak into legacy CRM workspaces.",
+      "description": "@birthub/database is the multi-tenant SaaS schema and must stay inside the canonical runtime and approved database layers.",
       "packageName": "@birthub/database"
     }
   ],

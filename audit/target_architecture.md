@@ -6,6 +6,7 @@
 - apps/worker exists as the asynchronous execution and notification runtime.
 - packages/* contains shared capabilities including auth, config, database, logger, queue and workflows.
 - agents/* and packages/agent-* coexist as agent runtime/control-plane surfaces.
+- apps/legacy/dashboard remains only as a quarantined historical marker and is not part of the supported runtime lane.
 - Postgres + Prisma + RLS migrations are present in packages/database.
 - Redis + BullMQ are present in apps/api, apps/worker and packages/queue.
 - OpenTelemetry, Prometheus-style metrics and Sentry are present in core apps.
@@ -17,6 +18,7 @@
 - packages/database owns tenant context, RLS-safe repositories, migrations and seed/runtime DB contracts.
 - packages/logger, packages/queue and packages/config remain the mandatory observability/runtime primitives for every executable surface.
 - agents/* and packages/agent-* are treated as isolated domain workers behind the same queue, auth and telemetry contract.
+- quarantined legacy surfaces stay outside release evidence and outside the default developer topology.
 
 ## Textual Diagram
 ```text
@@ -26,6 +28,8 @@
             |                        |
             |                        +-> [notifications/webhooks]
             +-> [metrics + traces + sentry]
+
+[legacy/dashboard marker] -x-> [canonical runtime]
 ```
 
 ## Current vs Ideal
@@ -37,3 +41,4 @@
 | Data | Prisma + Postgres + RLS migrations exist | Keep Postgres as system of record and require DB-backed proof in audits |
 | Observability | Logger, OTEL, metrics and Sentry exist in core apps | Extend the same contract to legacy agent workers and all outbound integrations |
 | Security | Auth, CSRF, rate limit, RLS and security CI exist | Keep and make DB-backed proof mandatory in repeatable audit runs |
+| Legacy dashboard | Quarantine marker only | Remove from operational assumptions and release checklists |

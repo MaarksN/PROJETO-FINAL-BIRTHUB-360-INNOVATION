@@ -6,6 +6,10 @@ O repositório é segmentado em diferentes aplicações, cada uma com sua respon
 - **`apps/api` (Node.js/Express/Fastify):** Realiza operações CRUD síncronas, regras de negócios imediatas e autenticação. Acesso direto ao Prisma Client.
 - **`apps/worker` (Node.js background):** Responsável pelo processamento de LLMs, execução de filas assíncronas (Redis/BullMQ) e operações custosas (como faturamento).
 - **`packages/agents-core` + `packages/workflows-core`:** Contratos canônicos de agentes, catálogos, handoffs, steps de workflow, conectores e política de execução.
-- **`apps/api-gateway` + `apps/agent-orchestrator` + serviços Python:** Trilha legada mantida como ponte de migração; novas features devem priorizar `apps/api` e `apps/worker`.
+- **`apps/legacy/dashboard` + `apps/api-gateway` + `apps/agent-orchestrator`:** Superfícies legadas mantidas apenas como referência/quarentena; novas features devem priorizar `apps/web`, `apps/api` e `apps/worker`.
 
-Para o mapa operacional do stack canônico, conectores, bootstrap e readiness, consulte `docs/canonical-stack-connectors.md`.
+Para o mapa operacional do stack canônico, consulte:
+
+- `docs/architecture/c4-context.md`
+- `docs/f10/architecture.md`
+- `docs/canonical-stack-connectors.md`

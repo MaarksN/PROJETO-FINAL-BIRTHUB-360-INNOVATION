@@ -4,6 +4,7 @@ import { randomUUID } from "node:crypto";
 import type { ManagedAgentPolicy } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 
+import { hasExplicitDatabaseUrl } from "../../lib/database-availability.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { marketplaceService } from "../marketplace/marketplace-service.js";
 import {
@@ -31,7 +32,7 @@ export type { InstalledAgentSnapshot } from "./service.types.js";
 
 class InstalledAgentsService {
   async listInstalledAgents(tenantReference: string): Promise<InstalledAgentSnapshot[]> {
-    if (!process.env.DATABASE_URL) {
+    if (!hasExplicitDatabaseUrl()) {
       return [];
     }
 
