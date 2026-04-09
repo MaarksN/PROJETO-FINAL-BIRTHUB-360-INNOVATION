@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
+import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { promises as fs } from "node:fs";
 import { createConnection, createServer } from "node:net";
@@ -135,44 +137,6 @@ function readEmbeddedPostgresHostFromOptions(source) {
   return normalizeEmbeddedPostgresHost(listenMatch?.[1]);
 }
 
-function semgrepTargets() {
-  return [
-    "apps/api",
-    "apps/web",
-    "apps/worker",
-    "packages/database",
-    "infra",
-    ".github/workflows",
-    "scripts/ops",
-    "scripts/release",
-    "scripts/security",
-    "scripts/testing",
-    "scripts/performance",
-    "scripts/migrate-to-multitenant.ts",
-    "scripts/audit/prime-backlog.mjs",
-    "scripts/audit/prime-collect.mjs",
-    "scripts/audit/prime-normalize.mjs",
-    "scripts/audit/prime-refresh-evidence.mjs",
-    "scripts/audit/prime-render.mjs",
-    "scripts/audit/prime-score.mjs",
-    "scripts/audit/prime-verify.mjs",
-    "scripts/audit/shared-prime.mjs"
-  ].filter((entry) => existsSync(fromRepo(entry)));
-}
-
-function summarizeSemgrepResults(results) {
-  const counts = { ERROR: 0, WARNING: 0, INFO: 0, UNKNOWN: 0 };
-  for (const result of results) {
-    const severity = String(result.extra?.severity ?? result.extra?.metadata?.severity ?? "UNKNOWN").toUpperCase();
-    counts[severity] = (counts[severity] ?? 0) + 1;
-  }
-  return counts;
-}
-
-async function wait(ms) {
-  await new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 async function isTcpReachable(host, port, timeoutMs = 1_500) {
   return await new Promise((resolve) => {
     const socket = createConnection({
@@ -188,8 +152,8 @@ async function isTcpReachable(host, port, timeoutMs = 1_500) {
 
     socket.setTimeout(timeoutMs);
     socket.once("connect", () => finalize(true));
-    socket.once("error", () => finalize(false));
     socket.once("timeout", () => finalize(false));
+    socket.once("error", () => finalize(false));
   });
 }
 
@@ -251,6 +215,44 @@ async function resolveAdminDatabaseUrl() {
     databaseUrl: embeddedDatabaseUrl,
     source: embeddedDatabaseUrl ? "embedded-postgres" : "none"
   };
+}
+
+function semgrepTargets() {
+  return [
+    "apps/api",
+    "apps/web",
+    "apps/worker",
+    "packages/database",
+    "infra",
+    ".github/workflows",
+    "scripts/ops",
+    "scripts/release",
+    "scripts/security",
+    "scripts/testing",
+    "scripts/performance",
+    "scripts/migrate-to-multitenant.ts",
+    "scripts/audit/prime-backlog.mjs",
+    "scripts/audit/prime-collect.mjs",
+    "scripts/audit/prime-normalize.mjs",
+    "scripts/audit/prime-refresh-evidence.mjs",
+    "scripts/audit/prime-render.mjs",
+    "scripts/audit/prime-score.mjs",
+    "scripts/audit/prime-verify.mjs",
+    "scripts/audit/shared-prime.mjs"
+  ].filter((entry) => existsSync(fromRepo(entry)));
+}
+
+function summarizeSemgrepResults(results) {
+  const counts = { ERROR: 0, WARNING: 0, INFO: 0, UNKNOWN: 0 };
+  for (const result of results) {
+    const severity = String(result.extra?.severity ?? result.extra?.metadata?.severity ?? "UNKNOWN").toUpperCase();
+    counts[severity] = (counts[severity] ?? 0) + 1;
+  }
+  return counts;
+}
+
+async function wait(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function waitForHttp(url, timeoutMs = 180_000) {
@@ -401,7 +403,7 @@ async function writeEnvironmentParity() {
     "ops/release/sealed/.env.staging.sealed",
     "ops/release/sealed/.env.production.sealed"
   ].filter(fileExists);
-  const canonicalDeployFiles = [".github/workflows/cd.yml"].filter(fileExists);
+  const cloudRunFiles = ["infra/cloudrun/service.yaml"].filter(fileExists);
   const monitoringFiles = [
     "infra/monitoring/prometheus.yml",
     "infra/monitoring/alert.rules.yml",
@@ -418,7 +420,7 @@ async function writeEnvironmentParity() {
     "",
     `- Dockerfiles present: ${dockerfiles.length}/3 (${dockerfiles.map((entry) => `\`${entry}\``).join(", ")})`,
     `- Compose surfaces present: ${composeFiles.length}/2 (${composeFiles.map((entry) => `\`${entry}\``).join(", ")})`,
-    `- Canonical deploy lane: ${canonicalDeployFiles.length ? `present (\`${canonicalDeployFiles[0]}\` -> Artifact Registry -> Cloud Run candidate promotion)` : "missing"}`,
+    `- Cloud Run manifest: ${cloudRunFiles.length ? `present (\`${cloudRunFiles[0]}\`)` : "missing"}`,
     `- Monitoring stack refs: ${monitoringFiles.map((entry) => `\`${entry}\``).join(", ")}`,
     "",
     "## Release Preflight Evidence",
@@ -1035,7 +1037,6 @@ async function writeRlsSnapshot() {
   await writeJson(fromRepo("artifacts/tenancy/rls-proof-head.json"), {
     checkedAt: new Date().toISOString(),
     adminDatabaseUrlConfigured: Boolean(adminDatabaseUrl),
-    adminDatabaseUrlSource,
     roleProvisioning,
     tenancyControl: {
       command: tenancyControl.command,

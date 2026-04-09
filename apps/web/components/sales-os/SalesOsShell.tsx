@@ -1,4 +1,6 @@
 /* eslint-disable complexity, max-lines */
+// @ts-nocheck
+
 "use client";
 
 import type { CSSProperties } from "react";

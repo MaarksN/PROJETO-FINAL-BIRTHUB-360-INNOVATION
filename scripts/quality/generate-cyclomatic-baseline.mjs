@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import { execSync } from "node:child_process";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export class LimitExceededError extends Error {
   readonly current: number;
   readonly limit: number;

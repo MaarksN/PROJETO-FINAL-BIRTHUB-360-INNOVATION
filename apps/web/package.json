@@ -13,7 +13,6 @@
   "dependencies": {
     "@birthub/config": "workspace:*",
     "@birthub/logger": "workspace:*",
-    "@birthub/security": "workspace:*",
     "@birthub/workflows-core": "workspace:*",
     "@sentry/nextjs": "^10.45.0",
     "isomorphic-dompurify": "^3.7.1",

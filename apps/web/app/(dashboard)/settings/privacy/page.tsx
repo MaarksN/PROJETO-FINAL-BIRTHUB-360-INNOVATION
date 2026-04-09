@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import PrivacySettingsPageClient from "./privacy-settings-page";
 
 export default function PrivacySettingsPage() {

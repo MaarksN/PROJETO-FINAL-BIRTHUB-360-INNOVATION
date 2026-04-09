@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export class BudgetExceededError extends Error {
   readonly agentId: string;
   readonly consumed: number;

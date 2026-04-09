@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import fs from 'node:fs';
 import { spawnSync } from 'node:child_process';
 

@@ -4,7 +4,7 @@
 - Surfaces: 6
 - Status: PASS
 
-## @birthub/api
+## Billing
 
 - Lines: 47.78%
 - Branches: 69.20%
@@ -14,7 +14,7 @@
 - Thresholds: lines 45% | branches 68% | functions 51% | statements 45%
 - Alerts: none
 
-## @birthub/web
+## Auth
 
 - Lines: 16.21%
 - Branches: 60.06%
@@ -24,7 +24,7 @@
 - Thresholds: lines 13% | branches 58% | functions 50% | statements 13%
 - Alerts: none
 
-## @birthub/worker
+## Agents Runtime
 
 - Lines: 39.19%
 - Branches: 71.84%
@@ -34,7 +34,7 @@
 - Thresholds: lines 39% | branches 70% | functions 53% | statements 39%
 - Alerts: none
 
-## @birthub/database
+## Worker
 
 - Lines: 79.33%
 - Branches: 70.30%
@@ -44,7 +44,7 @@
 - Thresholds: lines 79% | branches 70% | functions 85% | statements 79%
 - Alerts: none
 
-## @birthub/auth
+## Database
 
 - Lines: 100.00%
 - Branches: 76.47%
@@ -54,7 +54,7 @@
 - Thresholds: lines 80% | branches 60% | functions 80% | statements 80%
 - Alerts: none
 
-## @birthub/agents-core
+## API Gateway
 
 - Lines: 11.65%
 - Branches: 43.58%
@@ -63,4 +63,3 @@
 - Command: `node scripts/ci/run-pnpm.mjs --filter @birthub/agents-core test`
 - Thresholds: lines 11% | branches 43% | functions 34% | statements 11%
 - Alerts: none
-

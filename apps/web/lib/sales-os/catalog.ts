@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TOOLS } from "./constants";
 import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types";
 

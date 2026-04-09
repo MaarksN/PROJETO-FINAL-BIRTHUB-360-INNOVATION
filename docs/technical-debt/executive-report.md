@@ -92,4 +92,3 @@ O repositorio esta bem controlado em governanca, mas ainda carrega debitos impor
 
 ## Velocidade de Encerramento (Burn Rate)
 A dívida histórica do monorepo tem sido agressivamente resolvida pelas execuções em série de `Codex` e `Jules` (F1 até F11). 100% dos pacotes agora possuem scripts padronizados (lint, typecheck, test, build).
->>>>>>> origin/jules-f8-database-integrity-16939282469267761297

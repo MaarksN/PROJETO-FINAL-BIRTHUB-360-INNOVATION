@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export type Conversation = {
   id: string;
   organizationId: string;

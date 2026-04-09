@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 module.exports = {
   semi: true,
   singleQuote: false,

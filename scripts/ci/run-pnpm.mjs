@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import { runPnpm } from './shared.mjs';
 
 const args = process.argv.slice(2);

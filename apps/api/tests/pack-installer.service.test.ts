@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -70,5 +71,103 @@ void test("getPackStatus paginates tenant agents and groups pack metadata", asyn
     ]);
   } finally {
     restore();
+  }
+});
+
+void test("updatePackVersion updates every matching agent config and writes an audit log", async () => {
+  const originalFindMany = prisma.agent.findMany.bind(prisma.agent);
+  const originalTransaction = prisma.$transaction.bind(prisma);
+  const updateCalls: Array<Record<string, unknown>> = [];
+  let auditPayload: unknown = null;
+
+  prisma.agent.findMany = (async () =>
+    [
+      {
+        config: {
+          installedVersion: "1.0.0",
+          latestAvailableVersion: "1.0.0",
+          packId: "pack_alpha"
+        },
+        id: "agent_1",
+        status: "ACTIVE"
+      },
+      {
+        config: {
+          installedVersion: "1.0.0",
+          latestAvailableVersion: "1.0.0",
+          packId: "pack_alpha"
+        },
+        id: "agent_2",
+        status: "PAUSED"
+      },
+      {
+        config: {
+          installedVersion: "1.0.0",
+          latestAvailableVersion: "1.0.0",
+          packId: "pack_beta"
+        },
+        id: "agent_3",
+        status: "ACTIVE"
+      }
+    ]) as unknown as typeof prisma.agent.findMany;
+  prisma.$transaction = (async (callback: (tx: {
+    agent: {
+      update: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
+    };
+    auditLog: {
+      create: (args: Record<string, unknown>) => Promise<Record<string, unknown>>;
+    };
+  }) => Promise<unknown>) =>
+    callback({
+      agent: {
+        update: async (args: Record<string, unknown>) => {
+          updateCalls.push(args);
+          return args;
+        }
+      },
+      auditLog: {
+        create: async (args: Record<string, unknown>) => {
+          auditPayload = args;
+          return args;
+        }
+      }
+    })) as unknown as typeof prisma.$transaction;
+
+  try {
+    const service = new PackInstallerService();
+    const result = await service.updatePackVersion({
+      actorId: "user_1",
+      latestAvailableVersion: "1.2.0",
+      packId: "pack_alpha",
+      tenantId: "tenant_alpha"
+    });
+
+    assert.equal(updateCalls.length, 2);
+    assert.deepEqual(
+      updateCalls.map((entry) => entry.where),
+      [{ id: "agent_1" }, { id: "agent_2" }]
+    );
+    assert.deepEqual(auditPayload, {
+      data: {
+        action: "PACK_VERSION_UPDATED",
+        actorId: "user_1",
+        diff: {
+          affectedAgents: 2,
+          latestAvailableVersion: "1.2.0",
+          packId: "pack_alpha"
+        },
+        entityId: "pack_alpha",
+        entityType: "agent_pack",
+        tenantId: "tenant_alpha"
+      }
+    });
+    assert.deepEqual(result, {
+      affectedAgents: 2,
+      latestAvailableVersion: "1.2.0",
+      packId: "pack_alpha"
+    });
+  } finally {
+    prisma.agent.findMany = originalFindMany;
+    prisma.$transaction = originalTransaction;
   }
 });

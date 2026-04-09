@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import {
   ApiKeyStatus,
@@ -19,12 +20,16 @@ function buildAnonymizedEmail(userId: string): string {
   return `deleted+${userId}@privacy.birthhub360.invalid`;
 }
 
-export async function findOrganizationByReference(organizationReference: string) {
+async function findOrganization(organizationReference: string) {
   return prisma.organization.findFirst({
     where: {
       OR: [{ id: organizationReference }, { tenantId: organizationReference }]
     }
   });
+}
+
+export async function findOrganizationByReference(organizationReference: string) {
+  return findOrganization(organizationReference);
 }
 
 export async function exportTenantData(input: {
@@ -193,7 +198,7 @@ export async function recordTenantDataExport(input: {
   organizationReference: string;
   userId: string;
 }) {
-  const organization = await findOrganizationByReference(input.organizationReference);
+  const organization = await findOrganization(input.organizationReference);
 
   if (!organization) {
     return;
@@ -230,7 +235,7 @@ export async function deleteAccountAndPersonalData(input: {
     });
   }
 
-  const organization = await findOrganizationByReference(input.organizationReference);
+  const organization = await findOrganization(input.organizationReference);
 
   if (!organization) {
     throw new ProblemDetailsError({
@@ -268,11 +273,7 @@ export async function deleteAccountAndPersonalData(input: {
   const anonymizedEmail = buildAnonymizedEmail(input.userId);
   const passwordHash = await hashPassword(
     randomToken(18),
-    {
-      memoryKiB: input.config.AUTH_ARGON2_MEMORY_KIB,
-      parallelism: input.config.AUTH_ARGON2_PARALLELISM,
-      passes: input.config.AUTH_ARGON2_PASSES
-    }
+    input.config.AUTH_BCRYPT_SALT_ROUNDS
   );
 
   await prisma.$transaction(async (tx) => {

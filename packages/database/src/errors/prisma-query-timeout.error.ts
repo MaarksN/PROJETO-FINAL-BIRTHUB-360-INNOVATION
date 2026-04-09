@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export class PrismaQueryTimeoutError extends Error {
   public readonly model: string | undefined;
   public readonly operation: string;

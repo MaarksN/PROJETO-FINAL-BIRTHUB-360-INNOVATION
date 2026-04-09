@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("worker-fail-rate-alert");

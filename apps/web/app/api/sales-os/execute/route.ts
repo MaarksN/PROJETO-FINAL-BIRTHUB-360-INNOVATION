@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { NextResponse } from "next/server";
 
 import { executeSalesOsTool } from "../../../../lib/sales-os/engine";

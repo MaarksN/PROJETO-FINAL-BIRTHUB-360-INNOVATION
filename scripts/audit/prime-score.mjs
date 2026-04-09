@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import path from "node:path";
 
 import { readText, reportDateParts, supportRoot, writeJson } from "./shared-prime.mjs";

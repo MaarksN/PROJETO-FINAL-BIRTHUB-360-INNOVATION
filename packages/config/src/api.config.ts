@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { z } from "zod";
 
 import {
@@ -27,9 +28,6 @@ export const apiEnvSchema = z.object({
   API_AUTH_ROTATION_GRACE_HOURS: z.coerce.number().int().positive().default(24),
   API_AUTH_SESSION_TTL_HOURS: z.coerce.number().int().positive().default(24),
   API_AUTH_TOKEN_TTL_MINUTES: z.coerce.number().int().positive().default(15),
-  AUTH_ARGON2_MEMORY_KIB: z.coerce.number().int().positive().default(65_536),
-  AUTH_ARGON2_PARALLELISM: z.coerce.number().int().min(2).default(4),
-  AUTH_ARGON2_PASSES: z.coerce.number().int().min(2).default(3),
   AUTH_BCRYPT_SALT_ROUNDS: z.coerce.number().int().positive().default(12),
   API_CORS_ORIGINS: z.string().default("http://localhost:3001"),
   API_CSRF_COOKIE_NAME: nonEmptyString.default("bh360_csrf"),
@@ -50,10 +48,7 @@ export const apiEnvSchema = z.object({
   AUTH_MFA_CLOCK_SKEW_WINDOWS: z.coerce.number().int().positive().default(1),
   AUTH_MFA_ENCRYPTION_KEY: nonEmptyString.default("dev-mfa-encryption-key"),
   AUTH_MFA_ISSUER: nonEmptyString.default("BirthHub360"),
-  AUTH_MFA_LOCKOUT_MINUTES: z.coerce.number().int().positive().default(15),
-  AUTH_MFA_MAX_FAILURES: z.coerce.number().int().positive().default(5),
   BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
-  BREAK_GLASS_SESSION_TTL_MINUTES: z.coerce.number().int().positive().default(30),
   DATABASE_URL: urlString,
   EXTERNAL_HEALTHCHECK_URLS: z.string().default(""),
   GOOGLE_CLIENT_ID: optionalNonEmptyString,
@@ -63,7 +58,6 @@ export const apiEnvSchema = z.object({
   HUBSPOT_CLIENT_SECRET: optionalNonEmptyString,
   HUBSPOT_REDIRECT_URI: optionalUrlString,
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
-  JOB_HMAC_GLOBAL_SECRET_FALLBACKS: z.string().default(""),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
   MICROSOFT_CLIENT_ID: optionalNonEmptyString,
   MICROSOFT_CLIENT_SECRET: optionalNonEmptyString,
@@ -75,13 +69,11 @@ export const apiEnvSchema = z.object({
   QUEUE_BACKPRESSURE_THRESHOLD: z.coerce.number().int().positive().default(10_000),
   QUEUE_NAME: nonEmptyString.default("birthub-cycle1"),
   REDIS_URL: urlString,
-  SESSION_IP_HASH_SALT: nonEmptyString.default("dev-session-ip-hash-salt"),
   TENANT_QUEUE_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(120),
   TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().positive().default(60),
   SENTRY_DSN: optionalUrlString,
   SENTRY_ENVIRONMENT: optionalNonEmptyString,
   SESSION_SECRET: nonEmptyString.default("dev-session-secret"),
-  SESSION_SECRET_FALLBACKS: z.string().default(""),
   STRIPE_CANCEL_URL: urlString.default("http://localhost:3001/billing/cancel"),
   STRIPE_DECLINE_BAN_THRESHOLD: z.coerce.number().int().positive().default(5),
   STRIPE_PORTAL_RETURN_URL: urlString.default("http://localhost:3001/settings/billing"),
@@ -90,7 +82,6 @@ export const apiEnvSchema = z.object({
   STRIPE_TEMP_BAN_SECONDS: z.coerce.number().int().positive().default(15 * 60),
   STRIPE_WEBHOOK_TOLERANCE_SECONDS: z.coerce.number().int().positive().default(300),
   STRIPE_WEBHOOK_SECRET: nonEmptyString.default("whsec_birthub360"),
-  STRIPE_WEBHOOK_SECRET_FALLBACKS: z.string().default(""),
   UPTIMEROBOT_API_TOKEN: optionalNonEmptyString,
   WEB_BASE_URL: urlString.default("http://localhost:3001")
 });
@@ -98,10 +89,8 @@ export const apiEnvSchema = z.object({
 export type ApiConfig = z.infer<typeof apiEnvSchema> & {
   corsOrigins: string[];
   externalHealthcheckUrls: string[];
-  jobHmacGlobalSecretFallbacks: string[];
-  sessionSecretFallbacks: string[];
-  stripeWebhookSecretFallbacks: string[];
 };
+
 
 function collectProductionSecretIssues(parsed: z.infer<typeof apiEnvSchema>) {
   const issues: string[] = [];
@@ -110,11 +99,9 @@ function collectProductionSecretIssues(parsed: z.infer<typeof apiEnvSchema>) {
     parsed.SESSION_SECRET === "dev-session-secret" ||
     parsed.JOB_HMAC_GLOBAL_SECRET === "dev-job-hmac-secret" ||
     parsed.AUTH_MFA_ENCRYPTION_KEY === "dev-mfa-encryption-key" ||
-    parsed.SESSION_IP_HASH_SALT === "dev-session-ip-hash-salt" ||
     hasPlaceholderMarker(parsed.SESSION_SECRET) ||
     hasPlaceholderMarker(parsed.JOB_HMAC_GLOBAL_SECRET) ||
-    hasPlaceholderMarker(parsed.AUTH_MFA_ENCRYPTION_KEY) ||
-    hasPlaceholderMarker(parsed.SESSION_IP_HASH_SALT)
+    hasPlaceholderMarker(parsed.AUTH_MFA_ENCRYPTION_KEY)
   ) {
     issues.push("Production secrets cannot use development defaults.");
   }
@@ -125,20 +112,6 @@ function collectProductionSecretIssues(parsed: z.infer<typeof apiEnvSchema>) {
 
   if (hasPlaceholderMarker(parsed.STRIPE_WEBHOOK_SECRET)) {
     issues.push("STRIPE_WEBHOOK_SECRET cannot use placeholder values in production.");
-  }
-
-  if (
-    commaSeparatedList
-      .parse(parsed.SESSION_SECRET_FALLBACKS)
-      .some((value) => hasPlaceholderMarker(value)) ||
-    commaSeparatedList
-      .parse(parsed.JOB_HMAC_GLOBAL_SECRET_FALLBACKS)
-      .some((value) => hasPlaceholderMarker(value)) ||
-    commaSeparatedList
-      .parse(parsed.STRIPE_WEBHOOK_SECRET_FALLBACKS)
-      .some((value) => hasPlaceholderMarker(value))
-  ) {
-    issues.push("Secret fallback lists cannot contain placeholder values in production.");
   }
 
   return issues;
@@ -178,14 +151,6 @@ function collectProductionInfrastructureIssues(
     issues.push("AUTH_BCRYPT_SALT_ROUNDS must be >= 12 in production.");
   }
 
-  if (parsed.AUTH_ARGON2_MEMORY_KIB < 32_768) {
-    issues.push("AUTH_ARGON2_MEMORY_KIB must be >= 32768 in production.");
-  }
-
-  if (parsed.AUTH_ARGON2_PASSES < 3) {
-    issues.push("AUTH_ARGON2_PASSES must be >= 3 in production.");
-  }
-
   if (!hasRequiredPostgresSsl(parsed.DATABASE_URL)) {
     issues.push("DATABASE_URL must include sslmode=require (or stronger) in production.");
   }
@@ -209,11 +174,7 @@ function collectProductionInfrastructureIssues(
   return issues;
 }
 
-function validateProductionApiConfig(
-  parsed: z.infer<typeof apiEnvSchema>,
-  corsOrigins: string[],
-  deploymentEnvironment: string
-) {
+function validateProductionApiConfig(parsed: z.infer<typeof apiEnvSchema>, corsOrigins: string[], deploymentEnvironment: string) {
   const issues = [
     ...collectProductionInfrastructureIssues(parsed, deploymentEnvironment),
     ...collectProductionSecretIssues(parsed),
@@ -229,13 +190,6 @@ export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
   const parsed = parseEnv("api", apiEnvSchema, env);
   const corsOrigins = commaSeparatedList.parse(parsed.API_CORS_ORIGINS);
   const externalHealthcheckUrls = commaSeparatedList.parse(parsed.EXTERNAL_HEALTHCHECK_URLS);
-  const sessionSecretFallbacks = commaSeparatedList.parse(parsed.SESSION_SECRET_FALLBACKS);
-  const jobHmacGlobalSecretFallbacks = commaSeparatedList.parse(
-    parsed.JOB_HMAC_GLOBAL_SECRET_FALLBACKS
-  );
-  const stripeWebhookSecretFallbacks = commaSeparatedList.parse(
-    parsed.STRIPE_WEBHOOK_SECRET_FALLBACKS
-  );
   const deploymentEnvironment =
     env.DEPLOYMENT_ENVIRONMENT === "staging"
       ? "staging"
@@ -251,9 +205,6 @@ export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
     ...parsed,
     corsOrigins,
     externalHealthcheckUrls,
-    jobHmacGlobalSecretFallbacks,
-    sessionSecretFallbacks,
-    SENTRY_ENVIRONMENT: parsed.SENTRY_ENVIRONMENT ?? parsed.NODE_ENV,
-    stripeWebhookSecretFallbacks
+    SENTRY_ENVIRONMENT: parsed.SENTRY_ENVIRONMENT ?? parsed.NODE_ENV
   };
 }

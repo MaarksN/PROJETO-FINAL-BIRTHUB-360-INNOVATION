@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-04-07T18:20:48.345Z",
-  "envFile": "ops/env/.env.production.sealed.example",
+  "checkedAt": "2026-03-25T19:21:33.342Z",
+  "envFile": null,
   "ok": true,
   "requiredKeys": [
     {
@@ -13,7 +13,6 @@
         "REDIS_URL",
         "SENTRY_DSN",
         "SESSION_SECRET",
-        "SESSION_IP_HASH_SALT",
         "STRIPE_SECRET_KEY",
         "STRIPE_WEBHOOK_SECRET",
         "WEB_BASE_URL"

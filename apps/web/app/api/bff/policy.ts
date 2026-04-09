@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export const ALLOWED_BFF_PREFIXES = [
   "api/v1/auth",
   "api/v1/billing",

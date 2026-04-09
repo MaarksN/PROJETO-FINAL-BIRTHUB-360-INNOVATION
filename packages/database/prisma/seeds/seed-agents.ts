@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { PrismaClient } from "@prisma/client";
 
 import { developmentTenants, ensureAgents, ensureOrganization, seedPlanCatalog, type TenantSeed } from "./shared.js";

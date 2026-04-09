@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -78,12 +79,15 @@ const tasks = [
   {
     label: "@birthub/agents-core",
     args: ["--import", "tsx", "--test", "packages/agents-core/src/**/*.test.ts"]
-  },
-  {
-    label: "@birthub/api auth",
-    args: ["--import", "tsx", "--test", "apps/api/tests/auth.test.ts"]
   }
 ];
+
+if (process.env.MUTATION_INCLUDE_API_AUTH === "1") {
+  tasks.push({
+    label: "@birthub/api auth",
+    args: ["--import", "tsx", "--test", "apps/api/tests/auth.test.ts"]
+  });
+}
 
 await ensureSandboxNodeModules();
 

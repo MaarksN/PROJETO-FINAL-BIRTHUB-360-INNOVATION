@@ -592,7 +592,6 @@
 - Data: `2026-03-20T12:04:40Z` | Item: `GOV-002` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: criacao dos artefatos `audit/pending_review/GOV-001_codex.md` ate `audit/pending_review/GOV-006_codex.md` com evidencias reais de execucao.
 
 - Data: `2026-03-20T12:04:40Z` | Item: `GOV-003` | Executor: `CODEX` | Validador: `JULES` | Resultado: `CONCLUIDO PARA REVISAO` | Evidencia: `billing_lock_ci_block.md` ausente/removido; `contract_runtime_decision` confirmado na Opcao B (`audit/human_required/contract_runtime_decision.md` e `audit/state/contract_runtime_decision.env`); bloqueios humanos ativos listados: `cd_env_config.md`, `cd_origin_not_found.md`, `CI-TS-004_dashboard_logic_conflict.md`, `GAP-SEC-004_backlog_missing.md`, `S-003_syncLegacyBilling_technical_findings.md`, `validation_log_history_missing.md`.
->>>>>>> origin/jules-f8-database-integrity-16939282469267761297
 
 ## Coleta executada
 
@@ -1342,4 +1341,3 @@ PRÓXIMOS PASSOS PARA O HUMANO
 2026-03-21 | F9 | Jules | APROVADO | Naming conventions, eslint rules, artifacts rules e hygiene do monorepo executados.
 2026-03-21 | F10 | Jules | APROVADO | C4 Models, Bounded Contexts, Runbooks de Incidentes e ADRs documentados.
 2026-03-21 | F11 | Jules | APROVADO | Final Release Gates, PRR checklists e relatórios executivos finais F0-F11 arquivados em artifacts e docs.
->>>>>>> origin/jules-f8-database-integrity-16939282469267761297

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { isInstallableManifest } from "@birthub/agents-core";
 import { Prisma, prisma } from "@birthub/database";
 
@@ -82,105 +83,101 @@ function resolveRequestedAgentId(input: InstallPackInput): string {
   return candidate;
 }
 
-async function listTenantAgentSummaries(
-  client: PackInstallerDatabaseClient,
-  tenantId: string
-): Promise<PackAgentSummary[]> {
-  const agents: PackAgentSummary[] = [];
-  let cursor: string | null = null;
-
-  while (true) {
-    const page: PackAgentSummary[] = await client.agent.findMany({
-      ...(cursor
-        ? {
-            cursor: {
-              id: cursor
-            },
-            skip: 1
-          }
-        : {}),
-      orderBy: {
-        id: "asc"
-      },
-      select: {
-        config: true,
-        id: true,
-        status: true
-      },
-      take: PACK_AGENT_PAGE_SIZE,
-      where: {
-        tenantId
+function buildCursorArgs(cursor: string | null) {
+  return cursor
+    ? {
+        cursor: {
+          id: cursor
+        },
+        skip: 1
       }
-    });
-
-    agents.push(...page);
-
-    if (page.length < PACK_AGENT_PAGE_SIZE) {
-      break;
-    }
-
-    cursor = page[page.length - 1]?.id ?? null;
-
-    if (!cursor) {
-      break;
-    }
-  }
-
-  return agents;
+    : {};
 }
 
-async function listActiveWorkflowDependencies(tenantId: string): Promise<WorkflowDependencyStep[]> {
-  const steps: WorkflowDependencyStep[] = [];
-  let cursor: string | null = null;
-
-  while (true) {
-    const page: WorkflowDependencyStep[] = await prisma.workflowStep.findMany({
-      ...(cursor
-        ? {
-            cursor: {
-              id: cursor
-            },
-            skip: 1
-          }
-        : {}),
-      orderBy: {
-        id: "asc"
-      },
-      select: {
-        config: true,
-        id: true,
-        workflow: {
-          select: {
-            name: true
-          }
-        }
-      },
-      take: PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE,
-      where: {
-        tenantId,
-        type: "AGENT_EXECUTE",
-        workflow: {
-          status: {
-            in: ["PUBLISHED", "DRAFT"]
-          }
-        }
-      }
-    });
-
-    steps.push(...page);
-
-    if (page.length < PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE) {
-      break;
+async function listTenantAgentSummaries(
+  client: PackInstallerDatabaseClient,
+  tenantId: string,
+  cursor: string | null = null
+): Promise<PackAgentSummary[]> {
+  const page: PackAgentSummary[] = await client.agent.findMany({
+    ...buildCursorArgs(cursor),
+    orderBy: {
+      id: "asc"
+    },
+    select: {
+      config: true,
+      id: true,
+      status: true
+    },
+    take: PACK_AGENT_PAGE_SIZE,
+    where: {
+      tenantId
     }
+  });
 
-    cursor = page[page.length - 1]?.id ?? null;
-
-    if (!cursor) {
-      break;
-    }
+  if (page.length < PACK_AGENT_PAGE_SIZE) {
+    return page;
   }
 
-  return steps;
+  const nextCursor = page.at(-1)?.id ?? null;
+
+  if (!nextCursor) {
+    return page;
+  }
+
+  return [...page, ...(await listTenantAgentSummaries(client, tenantId, nextCursor))];
+}
+
+async function listActiveWorkflowDependencies(
+  tenantId: string,
+  cursor: string | null = null
+): Promise<WorkflowDependencyStep[]> {
+  const page: WorkflowDependencyStep[] = await prisma.workflowStep.findMany({
+    ...buildCursorArgs(cursor),
+    orderBy: {
+      id: "asc"
+    },
+    select: {
+      config: true,
+      id: true,
+      workflow: {
+        select: {
+          name: true
+        }
+      }
+    },
+    take: PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE,
+    where: {
+      tenantId,
+      type: "AGENT_EXECUTE",
+      workflow: {
+        status: {
+          in: ["PUBLISHED", "DRAFT"]
+        }
+      }
+    }
+  });
+
+  if (page.length < PACK_WORKFLOW_DEPENDENCY_PAGE_SIZE) {
+    return page;
+  }
+
+  const nextCursor = page.at(-1)?.id ?? null;
+
+  if (!nextCursor) {
+    return page;
+  }
+
+  return [...page, ...(await listActiveWorkflowDependencies(tenantId, nextCursor))];
+}
+
+function buildPackVersionConfig(config: Prisma.JsonValue | null, latestAvailableVersion: string) {
+  const currentConfig = config && typeof config === "object" ? config : {};
+
+  return toPrismaJsonValue({
+    ...(currentConfig as Record<string, unknown>),
+    latestAvailableVersion
+  }) as Prisma.InputJsonObject;
 }
 
 export class PackInstallerService {
@@ -416,21 +413,18 @@ export class PackInstallerService {
     const idsToUpdate = agentsToUpdate.map((agent) => agent.id);
 
     await prisma.$transaction(async (tx) => {
-      for (const agent of agentsToUpdate) {
-        const currentConfig = agent.config && typeof agent.config === "object" ? agent.config : {};
-
-        await tx.agent.update({
-          data: {
-            config: toPrismaJsonValue({
-              ...(currentConfig as Record<string, unknown>),
-              latestAvailableVersion: input.latestAvailableVersion
-            }) as Prisma.InputJsonObject
-          },
-          where: {
-            id: agent.id
-          }
-        });
-      }
+      await Promise.all(
+        agentsToUpdate.map((agent) =>
+          tx.agent.update({
+            data: {
+              config: buildPackVersionConfig(agent.config, input.latestAvailableVersion)
+            },
+            where: {
+              id: agent.id
+            }
+          })
+        )
+      );
 
       await tx.auditLog.create({
         data: {

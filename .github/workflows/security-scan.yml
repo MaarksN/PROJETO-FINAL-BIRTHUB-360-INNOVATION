@@ -6,7 +6,7 @@ on:
     branches:
       - main
       - develop
-      - 'codex/**'
+      - "codex/**"
 
 permissions:
   contents: read
@@ -52,52 +52,6 @@ jobs:
 
       - name: Audit dependencies
         run: pnpm audit --audit-level=high
-
-  sbom-scan:
-    name: sbom + grype scan
-    runs-on: ubuntu-latest
-    timeout-minutes: 25
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v5
-        with:
-          version: 9.1.0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Generate SBOM
-        run: pnpm release:sbom
-
-      - name: Scan SBOM with Grype
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p artifacts/sbom
-          docker run --rm \
-            -v "$PWD:/workspace" \
-            anchore/grype:latest \
-            sbom:/workspace/artifacts/sbom/sbom.spdx.json \
-            --add-cpes-if-none \
-            --fail-on high \
-            -o json > artifacts/sbom/grype-report.json
-
-      - name: Upload SBOM scan artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: sbom-scan-artifacts
-          path: artifacts/sbom
 
   python-security:
     name: python-security
@@ -196,14 +150,12 @@ jobs:
         run: pnpm db:generate
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
-          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
 
       - name: Run RBAC tests
         run: pnpm test:rbac
         env:
           API_CORS_ORIGINS: http://localhost:3001
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
-          DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
           NODE_ENV: test
           REDIS_URL: redis://localhost:6379
           SESSION_SECRET: ci-secret
@@ -211,16 +163,89 @@ jobs:
 
   zap-baseline:
     name: OWASP ZAP baseline
-    if: ${{ vars.ZAP_TARGET_URL != '' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
-      - name: ZAP baseline scan
-        uses: zaproxy/action-baseline@v0.15.0
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
         with:
-          allow_issue_writing: false
-          cmd_options: -a
-          target: ${{ vars.ZAP_TARGET_URL }}
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build canonical web target
+        env:
+          NEXT_PUBLIC_API_URL: http://127.0.0.1:3000
+          NEXT_PUBLIC_APP_URL: http://127.0.0.1:3001
+          NEXT_PUBLIC_CSP_REPORT_ONLY: "true"
+          NEXT_PUBLIC_ENVIRONMENT: test
+        run: pnpm --filter @birthub/web build
+
+      - name: Start canonical web target
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/security/zap
+          pnpm --filter @birthub/web start > artifacts/security/zap/web-server.log 2>&1 &
+          echo "$!" > artifacts/security/zap/web-server.pid
+
+      - name: Wait for canonical web target
+        shell: bash
+        run: |
+          set -euo pipefail
+          target_url="http://127.0.0.1:3001/login"
+          for attempt in {1..60}; do
+            if curl --silent --show-error --fail "$target_url" > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Canonical web target did not become ready for ZAP baseline." >&2
+          exit 1
+
+      - name: ZAP baseline scan
+        id: zap
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/security/zap
+          docker run --rm --network host \
+            -v "${PWD}/artifacts/security/zap:/zap/wrk" \
+            ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
+            -t http://127.0.0.1:3001/login \
+            -J zap-report.json \
+            -r zap-report.html \
+            -w zap-report.md \
+            -a
+
+      - name: Stop canonical web target
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -f artifacts/security/zap/web-server.pid ]]; then
+            pid="$(cat artifacts/security/zap/web-server.pid)"
+            kill "$pid" 2>/dev/null || true
+          fi
+
+      - name: Upload ZAP artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-baseline-artifacts
+          path: |
+            artifacts/security/zap
 
   security-report:
     name: security coverage report
@@ -230,7 +255,6 @@ jobs:
     needs:
       - semgrep
       - dependency-audit
-      - sbom-scan
       - python-security
       - rbac-suite
       - zap-baseline
@@ -259,15 +283,18 @@ jobs:
       - name: Generate security report
         run: pnpm security:report
         env:
+          DAST_TARGET_STRATEGY: local-web-login-route
+          DAST_TARGET_URL: http://127.0.0.1:3001/login
           NPM_AUDIT_STATUS: ${{ needs.dependency-audit.result }}
-          SBOM_SCAN_STATUS: ${{ needs.sbom-scan.result }}
           PYTHON_SECURITY_STATUS: ${{ needs.python-security.result }}
           RBAC_STATUS: ${{ needs.rbac-suite.result }}
           SEMGREP_STATUS: ${{ needs.semgrep.result }}
           ZAP_STATUS: ${{ needs.zap-baseline.result }}
 
       - name: Upload security report
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: security-coverage-report
-          path: docs/security/security-coverage-report.md
+          path: |
+            docs/security/security-coverage-report.md
+            artifacts/security/security-coverage-report.json

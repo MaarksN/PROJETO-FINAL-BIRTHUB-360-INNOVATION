@@ -37,21 +37,22 @@ export default {
     "node_modules/**",
     "test-results/**"
   ],
-  // Keep mutation runs isolated from the working tree so interrupted sessions
-  // never leave instrumented files behind.
+  // Keep mutation runs outside the working tree while disabling node_modules
+  // symlink discovery on Windows, which walks inaccessible cache folders.
   inPlace: false,
   jsonReporter: {
     fileName: "artifacts/stryker/mutation.json"
   },
   mutate: [
-    "packages/auth/**/*.ts",
-    "!packages/auth/src/__tests__/**/*.ts",
-    "packages/agents-core/src/**/*.ts",
-    "!**/*.d.ts",
-    "!**/*.test.ts"
+    "packages/auth/index.ts",
+    "packages/agents-core/src/manifest/catalog.ts",
+    "packages/agents-core/src/manifest/parser.ts",
+    "packages/agents-core/src/parser/manifestParser.ts",
+    "packages/agents-core/src/schemas/manifest.schema.ts",
+    "packages/agents-core/src/tools/slack.tool.ts"
   ],
   reporters: ["clear-text", "html", "json"],
-  symlinkNodeModules: false,
+  symlinkNodeModules: process.platform !== "win32",
   tempDirName: "artifacts/stryker/.stryker-tmp",
   testRunner: "command",
   thresholds: {

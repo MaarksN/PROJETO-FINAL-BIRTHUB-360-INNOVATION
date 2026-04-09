@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { Redis } from "ioredis";
 import { createLogger } from "@birthub/logger";
 
@@ -127,7 +128,7 @@ function useFallbackStore(): void {
 
 export function configureCacheStore(
   redisUrl: string | undefined,
-  nodeEnv = process.env.NODE_ENV ?? "development"
+  nodeEnv: string
 ): void {
   strictCacheMode = nodeEnv === "production";
 

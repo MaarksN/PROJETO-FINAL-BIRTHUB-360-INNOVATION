@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import {
   privacyDeleteRequestSchema,
@@ -20,17 +21,8 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
-import {
-  asyncHandler,
-  ProblemDetailsError
-} from "../../lib/problem-details.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
-import {
-  deleteAccountAndPersonalData,
-  exportTenantData,
-  findOrganizationByReference,
-  recordTenantDataExport
-} from "./service.js";
 import {
   listPrivacyConsents,
   savePrivacyConsentDecisions
@@ -40,18 +32,26 @@ import {
   runRetentionSweep,
   updateRetentionPolicies
 } from "./retention.service.js";
-
-const consentDecisionSchema = z
-  .object({
-    purpose: z.nativeEnum(ConsentPurpose),
-    source: z.nativeEnum(ConsentSource).default(ConsentSource.SETTINGS),
-    status: z.nativeEnum(ConsentStatus)
-  })
-  .strict();
+import {
+  deleteAccountAndPersonalData,
+  exportTenantData,
+  findOrganizationByReference,
+  recordTenantDataExport
+} from "./service.js";
 
 const consentUpdateSchema = z
   .object({
-    decisions: z.array(consentDecisionSchema).min(1)
+    decisions: z
+      .array(
+        z
+          .object({
+            purpose: z.nativeEnum(ConsentPurpose),
+            source: z.nativeEnum(ConsentSource),
+            status: z.nativeEnum(ConsentStatus)
+          })
+          .strict()
+      )
+      .min(1)
   })
   .strict();
 
@@ -64,7 +64,7 @@ const retentionUpdateSchema = z
             action: z.nativeEnum(RetentionAction).optional(),
             dataCategory: z.nativeEnum(RetentionDataCategory),
             enabled: z.boolean().optional(),
-            retentionDays: z.coerce.number().int().positive().optional()
+            retentionDays: z.number().int().min(0).max(3650).optional()
           })
           .strict()
       )

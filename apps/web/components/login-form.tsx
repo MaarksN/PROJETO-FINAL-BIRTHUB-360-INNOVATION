@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 "use client";
 
 import React, { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
@@ -95,7 +96,7 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
 
         await useUserPreferencesStore.getState().hydrate();
         setResult(`Sessao criada para ${payload.session.userId}`);
-        navigate("/dashboard");
+        navigate("/settings/security");
       } catch (submitError) {
         if (controller.signal.aborted) {
           return;

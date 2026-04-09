@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";

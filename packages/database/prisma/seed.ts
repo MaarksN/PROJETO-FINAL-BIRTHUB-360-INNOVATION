@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { tenants } from "./seed/data.js";
 import {
   disconnectSeedClient,

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { getApiConfig } from "@birthub/config";
 import { prisma, Prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
@@ -46,6 +47,45 @@ function parseLimitsMetadata(raw: string | undefined): Prisma.InputJsonValue {
   };
 }
 
+function buildRecurringPriceByProduct(prices: Array<Record<string, unknown>>) {
+  const recurringPriceByProduct = new Map<string, Record<string, unknown>>();
+
+  for (const price of prices) {
+    const productId = typeof price.product === "string" ? price.product : null;
+
+    if (!productId || recurringPriceByProduct.has(productId)) {
+      continue;
+    }
+
+    recurringPriceByProduct.set(productId, price);
+  }
+
+  return recurringPriceByProduct;
+}
+
+function buildPlanRecord(product: Record<string, unknown>, recurringPrice: Record<string, unknown>) {
+  const code =
+    typeof product.metadata?.code === "string" && product.metadata.code.trim().length > 0
+      ? product.metadata.code.trim().toLowerCase()
+      : slugify(String(product.name ?? ""));
+
+  return {
+    code,
+    planData: {
+      active: true,
+      currency: recurringPrice.currency,
+      description: product.description ?? null,
+      limits: parseLimitsMetadata(product.metadata?.limits_json),
+      monthlyPriceCents: recurringPrice.unit_amount ?? 0,
+      name: product.name,
+      stripePriceId: recurringPrice.id,
+      stripeProductId: product.id,
+      yearlyPriceCents:
+        recurringPrice.recurring?.interval === "year" ? recurringPrice.unit_amount ?? 0 : null
+    }
+  };
+}
+
 async function main(): Promise<void> {
   const config = getApiConfig();
   const stripe = createStripeClient(config);
@@ -58,54 +98,33 @@ async function main(): Promise<void> {
     limit: 100,
     type: "recurring"
   });
-  let synchronized = 0;
-
-  for (const product of products.data) {
-    const recurringPrice = prices.data.find(
-      (price) => typeof price.product === "string" && price.product === product.id
-    );
+  const recurringPriceByProduct = buildRecurringPriceByProduct(prices.data);
+  const planRecords = products.data.flatMap((product) => {
+    const recurringPrice = recurringPriceByProduct.get(product.id);
 
     if (!recurringPrice) {
-      continue;
+      return [];
     }
 
-    const code = product.metadata.code?.trim().toLowerCase() || slugify(product.name);
-    await prisma.plan.upsert({
-      create: {
-        active: true,
-        code,
-        currency: recurringPrice.currency,
-        description: product.description ?? null,
-        limits: parseLimitsMetadata(product.metadata.limits_json),
-        monthlyPriceCents: recurringPrice.unit_amount ?? 0,
-        name: product.name,
-        stripePriceId: recurringPrice.id,
-        stripeProductId: product.id,
-        yearlyPriceCents:
-          recurringPrice.recurring?.interval === "year"
-            ? recurringPrice.unit_amount ?? 0
-            : null
-      },
-      update: {
-        active: true,
-        currency: recurringPrice.currency,
-        description: product.description ?? null,
-        limits: parseLimitsMetadata(product.metadata.limits_json),
-        monthlyPriceCents: recurringPrice.unit_amount ?? 0,
-        name: product.name,
-        stripePriceId: recurringPrice.id,
-        stripeProductId: product.id,
-        yearlyPriceCents:
-          recurringPrice.recurring?.interval === "year"
-            ? recurringPrice.unit_amount ?? 0
-            : null
-      },
-      where: {
-        code
-      }
-    });
-    synchronized += 1;
-  }
+    return [buildPlanRecord(product, recurringPrice)];
+  });
+
+  await Promise.all(
+    planRecords.map(({ code, planData }) =>
+      prisma.plan.upsert({
+        create: {
+          code,
+          ...planData
+        },
+        update: planData,
+        where: {
+          code
+        }
+      })
+    )
+  );
+
+  const synchronized = planRecords.length;
 
   logger.info({ synchronized }, "Stripe products/prices synced into local plans table");
 }

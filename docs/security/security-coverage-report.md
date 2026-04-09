@@ -1,10 +1,19 @@
 # Security Coverage Report
 
-- generatedAt: 2026-03-30T16:50:31.292Z
-- semgrep: unknown
-- dependency_scan: unknown
-- rbac_suite: unknown
-- zap_baseline: unknown
+- generatedAt: 2026-04-09T17:25:46.785Z
+- overall_status: fail
+- dast_target_strategy: local-web-login-route
+- dast_target_url: n/a
+
+## Checks
+
+| Check | Status | Artifact | Description |
+| --- | --- | --- | --- |
+| semgrep | unknown | `artifacts/security/semgrep-head.json` | Semgrep baseline for TypeScript and Express surfaces. |
+| dependency audit | unknown | - | High-severity npm audit gate. |
+| python security | unknown | - | Bandit, pip-audit and Safety lane for Python surfaces. |
+| RBAC suite | unknown | - | RBAC regression suite on critical API endpoints. |
+| ZAP baseline | unknown | `artifacts/security/zap` | OWASP ZAP baseline against the canonical local web login route. |
 
 ## Modules
 

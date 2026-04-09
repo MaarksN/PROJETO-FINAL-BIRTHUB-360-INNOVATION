@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { resolve } from "node:path";
 
 import { databasePackageRoot, schemaPath } from "./lib/paths.js";

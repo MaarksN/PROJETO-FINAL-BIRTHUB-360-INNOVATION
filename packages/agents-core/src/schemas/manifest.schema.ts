@@ -5,7 +5,7 @@ const semanticVersionRegex =
 
 export const SUPPORTED_AGENT_API_VERSION = "1.0.0";
 
-export const semanticVersionSchema = z
+const semanticVersionSchema = z
   .string()
   .regex(semanticVersionRegex, "Expected semantic version (major.minor.patch)");
 

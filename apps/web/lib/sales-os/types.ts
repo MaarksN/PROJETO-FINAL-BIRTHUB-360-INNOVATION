@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type SalesOsModuleId =
   | "exec"
   | "presales"

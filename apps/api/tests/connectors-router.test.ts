@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -32,14 +33,9 @@ function createConnectorsTestApp() {
       apiKeyId: null,
       authType: "session",
       billingPlanStatus: null,
-      breakGlassGrantId: null,
-      breakGlassReason: null,
-      breakGlassTicket: null,
-      impersonatedByUserId: null,
       organizationId: "org_1",
       requestId: "req_1",
       role: Role.ADMIN,
-      sessionAccessMode: null,
       sessionId: "session_1",
       tenantId: "tenant_1",
       tenantSlug: "tenant-one",

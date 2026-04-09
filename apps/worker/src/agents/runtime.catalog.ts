@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { prisma } from "@birthub/database";
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -40,7 +41,7 @@ let manifestCatalogCache:
     }
   | null = null;
 
-export async function getManifestCatalog(): Promise<ManifestCatalogEntry[]> {
+async function getManifestCatalog(): Promise<ManifestCatalogEntry[]> {
   const now = Date.now();
   if (manifestCatalogCache && now - manifestCatalogCache.loadedAt < 60_000) {
     return manifestCatalogCache.entries;

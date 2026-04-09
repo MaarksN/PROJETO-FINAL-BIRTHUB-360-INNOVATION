@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { existsSync } from "node:fs";
 import path from "node:path";
 
@@ -18,7 +19,7 @@ export const DEFAULT_AGENT_BUDGET_LIMIT_BRL = 100;
 export const MINIMUM_APPROVED_LEARNING_CONFIDENCE = 0.7;
 export const SHARED_LEARNING_LIMIT = 8;
 
-export function resolveCatalogRoot(): string {
+function resolveCatalogRoot(): string {
   const candidates = [
     path.join(process.cwd(), "packages", "agent-packs"),
     path.join(process.cwd(), "..", "..", "packages", "agent-packs"),

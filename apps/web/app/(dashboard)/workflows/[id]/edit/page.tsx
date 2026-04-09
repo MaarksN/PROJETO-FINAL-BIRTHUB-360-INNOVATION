@@ -1,6 +1,8 @@
 /* eslint-disable max-lines */
 // @ts-nocheck
 
+// 
+
 "use client";
 
 import "reactflow/dist/style.css";
@@ -162,8 +164,8 @@ function WorkflowEditorCanvas({
   onShuffle: () => void;
   setWorkflowName: (name: string) => void;
   validationErrors: string[];
-  workflowId: string;
   workflowName: string;
+  workflowId: string;
   workflowStatus: WorkflowStatus;
   simulating: boolean;
   onSimulate: () => void;

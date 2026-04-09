@@ -1,10 +1,11 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import { Queue } from "bullmq";
 
 import { getBullConnection } from "../../lib/redis.js";
 
-export const engagementQueueNames = {
+const engagementQueueNames = {
   crmSync: "engagement.crm-sync",
   outboundWebhook: "engagement.outbound-webhook"
 } as const;

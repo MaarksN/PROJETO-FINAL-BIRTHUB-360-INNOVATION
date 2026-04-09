@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { postJson } from "./http";
 
 export interface PaymentCustomer {
@@ -36,6 +37,34 @@ export interface IPaymentsClient {
   ): Promise<PaymentResponse>;
 
   confirmPayment(paymentId: string, tenantId: string): Promise<PaymentResponse>;
+}
+
+type PagarmeLastTransaction = {
+  line?: string | null;
+  qr_code?: string | null;
+  qr_code_url?: string | null;
+  url?: string | null;
+};
+
+type PagarmeCharge = {
+  id: string;
+  last_transaction?: PagarmeLastTransaction | null;
+  status: string;
+};
+
+type PagarmeOrderResponse = {
+  charges: PagarmeCharge[];
+  id: string;
+};
+
+function getPrimaryCharge(response: PagarmeOrderResponse): PagarmeCharge {
+  const charge = response.charges[0];
+
+  if (!charge) {
+    throw new Error("Pagar.me response did not include any charges.");
+  }
+
+  return charge;
 }
 
 export class PagarmeClient implements IPaymentsClient {
@@ -85,7 +114,7 @@ export class PagarmeClient implements IPaymentsClient {
       },
     };
 
-    const response = await postJson<any>(`${this.baseUrl}/orders`, payload, {
+    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, {
       apiKey: this.apiKey, // Uses Basic Auth actually, but let's assume Bearer or header injection in postJson handles it if adapted.
       // Pagar.me uses Basic Auth with API Key as username and empty password.
       // postJson uses Bearer. I might need to adjust or override headers.
@@ -94,16 +123,16 @@ export class PagarmeClient implements IPaymentsClient {
       },
     });
 
-    const charge = response.charges[0];
-    const txn = charge.last_transaction;
+    const charge = getPrimaryCharge(response);
+    const txn = charge.last_transaction ?? {};
 
     return {
       id: response.id,
       gatewayId: charge.id,
       status: charge.status,
       amount: amount,
-      qrCode: txn.qr_code,
-      qrCodeUrl: txn.qr_code_url,
+      qrCode: txn.qr_code ?? undefined,
+      qrCodeUrl: txn.qr_code_url ?? undefined
     };
   }
 
@@ -143,22 +172,22 @@ export class PagarmeClient implements IPaymentsClient {
       },
     };
 
-    const response = await postJson<any>(`${this.baseUrl}/orders`, payload, {
+    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, {
       headers: {
         Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
       },
     });
 
-    const charge = response.charges[0];
-    const txn = charge.last_transaction;
+    const charge = getPrimaryCharge(response);
+    const txn = charge.last_transaction ?? {};
 
     return {
       id: response.id,
       gatewayId: charge.id,
       status: charge.status,
       amount: amount,
-      boletoUrl: txn.url,
-      barCode: txn.line,
+      boletoUrl: txn.url ?? undefined,
+      barCode: txn.line ?? undefined
     };
   }
 

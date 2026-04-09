@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import {
   buildAgentRuntimeOutput,
   buildAgentRuntimePlan,
@@ -67,7 +68,11 @@ export async function executeManifestAgentRuntime(
   const { costs: toolCostTable, tools: runtimeTools } = createRuntimeTools(
     resolved.manifest,
     policyEngine,
-    workerConfig.AGENT_DEFAULT_TOOL_COST_BRL
+    workerConfig.AGENT_DEFAULT_TOOL_COST_BRL,
+    {
+      sendEmailApiKey: workerConfig.SENDGRID_API_KEY,
+      sendEmailFromEmail: workerConfig.EMAIL_FROM_ADDRESS
+    }
   );
 
   const persistLogs = async (): Promise<void> => {

@@ -14,3 +14,4 @@ pnpm release:bundle
 - O pacote `@birthub/database` usa `@prisma/client@6.19.2` com `prisma@7.6.0`, com compatibilidade de runtime aplicada por `scripts/prisma-runtime-compat.mjs` antes do `prisma generate`.
 - `postinstall` já executa `db:generate`; o passo explícito acima garante rastreabilidade operacional durante auditoria.
 - `release:bundle` executa `release:sbom` e `release:materialize`, gerando SBOM, checksums e catálogo auditável.
+- O workflow de CD agora materializa `artifacts/release/source-manifest.json`, prendendo o bundle e os gates subsequentes ao mesmo commit SHA imutável.

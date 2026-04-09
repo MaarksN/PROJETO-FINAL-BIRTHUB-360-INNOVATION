@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 // [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -486,10 +487,7 @@ void test("authenticateRequest rejects idle-expired session", async () => {
 
   try {
     const authenticated = await authenticateRequest({
-      config: {
-        API_AUTH_IDLE_TIMEOUT_MINUTES: 30,
-        sessionSecretFallbacks: []
-      },
+      config: { API_AUTH_IDLE_TIMEOUT_MINUTES: 30 },
       sessionToken: "atk_idle_expired"
     });
     assert.equal(authenticated, null);

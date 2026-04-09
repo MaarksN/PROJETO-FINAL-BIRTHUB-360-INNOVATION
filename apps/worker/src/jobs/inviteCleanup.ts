@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { prisma } from "@birthub/database";
 
 export async function inviteCleanupJob() {

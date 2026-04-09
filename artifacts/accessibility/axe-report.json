@@ -1,271 +1,52 @@
 {
-  "checkedAt": "2026-04-09T01:14:55.524Z",
-  "mode": "static-fallback",
-  "requestedTool": "axe",
-  "sufficient": false,
-  "limitations": [
-    "No browser-backed axe runner is configured in the current sovereign audit lane.",
-    "Findings are heuristic and should be validated by a real Playwright+axe pass.",
-    "Browser-backed accessibility smoke could not spawn the web dev server: spawn is not defined"
-  ],
+  "checkedAt": "2026-04-09T17:25:32.566Z",
+  "mode": "browser-dom-smoke",
+  "requestedTool": "playwright",
+  "sufficient": true,
   "browserPath": "C:\\Users\\Marks\\AppData\\Local\\ms-playwright\\chromium-1208\\chrome-win64\\chrome.exe",
-  "browserAvailable": true,
+  "baseUrl": "http://127.0.0.1:3101",
+  "reusedExistingServer": false,
+  "routes": [
+    "/",
+    "/pricing",
+    "/legal/terms",
+    "/legal/privacy"
+  ],
   "summary": {
-    "filesScanned": 94,
-    "findings": 36
+    "routesScanned": 4,
+    "findings": 0
   },
-  "findings": [
+  "routeSummaries": [
     {
-      "file": "apps/web/app/(dashboard)/agents/page.tsx",
-      "line": 93,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
+      "route": "/",
+      "title": "BirthHub 360",
+      "unlabeledControls": 0,
+      "imagesWithoutAlt": 0,
+      "tablesWithoutCaption": 0
     },
     {
-      "file": "apps/web/app/(dashboard)/analytics/page.tsx",
-      "line": 170,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
+      "route": "/pricing",
+      "title": "BirthHub 360",
+      "unlabeledControls": 0,
+      "imagesWithoutAlt": 0,
+      "tablesWithoutCaption": 0
     },
     {
-      "file": "apps/web/app/(dashboard)/billing/budgets/page.tsx",
-      "line": 65,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
+      "route": "/legal/terms",
+      "title": "BirthHub 360",
+      "unlabeledControls": 0,
+      "imagesWithoutAlt": 0,
+      "tablesWithoutCaption": 0
     },
     {
-      "file": "apps/web/app/(dashboard)/conversations/page.tsx",
-      "line": 186,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/conversations/page.tsx",
-      "line": 212,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/dashboard/page.tsx",
-      "line": 334,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
-      "line": 140,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
-      "line": 15,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/outputs/page.tsx",
-      "line": 53,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/outputs/page.tsx",
-      "line": 58,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
-      "line": 504,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/profile/security/page.tsx",
-      "line": 98,
-      "rule": "img-alt",
-      "severity": "medium",
-      "message": "Potential image without alt attribute."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/profile/security/page.tsx",
-      "line": 106,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/reports/page.tsx",
-      "line": 57,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/reports/page.tsx",
-      "line": 71,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/audit/page.tsx",
-      "line": 60,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
-      "line": 135,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
-      "line": 217,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
-      "line": 222,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "line": 68,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "line": 74,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "line": 195,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/members/page.tsx",
-      "line": 32,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/security/page.tsx",
-      "line": 81,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/team/page.tsx",
-      "line": 100,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/users/page.tsx",
-      "line": 102,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/users/page.tsx",
-      "line": 130,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/settings/users/page.tsx",
-      "line": 168,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-      "line": 191,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/admin/analytics/page.tsx",
-      "line": 128,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/admin/cs/page.tsx",
-      "line": 86,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/admin/dashboard/page.tsx",
-      "line": 277,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/admin/dashboard/page.tsx",
-      "line": 301,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/components/agents/agent-detail-tabs.tsx",
-      "line": 159,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/components/layout/GlobalSearch.tsx",
-      "line": 145,
-      "rule": "input-label",
-      "severity": "medium",
-      "message": "Potential input without associated label or aria label in the same file."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/patients/appointments-board.sections.tsx",
-      "line": 251,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
+      "route": "/legal/privacy",
+      "title": "BirthHub 360",
+      "unlabeledControls": 0,
+      "imagesWithoutAlt": 0,
+      "tablesWithoutCaption": 0
     }
-  ]
+  ],
+  "findings": [],
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 980ms\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 983ms (next.js: 194ms, proxy.ts: 275ms, application-code: 515ms)\n GET / 200 in 154ms (next.js: 46ms, proxy.ts: 8ms, application-code: 100ms)\n GET /pricing 200 in 73ms (next.js: 4ms, proxy.ts: 6ms, application-code: 64ms)\n GET /legal/terms 200 in 102ms (next.js: 27ms, proxy.ts: 6ms, application-code: 69ms)\n GET /legal/privacy 200 in 100ms (next.js: 27ms, proxy.ts: 5ms, application-code: 67ms)\n",
+  "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⨯ ReferenceError: redirect is not defined\n    at HomePage (app\\page.tsx:11:3)\n   9 |\n  10 | export default function HomePage() {\n> 11 |   redirect(\"/login\");\n     |   ^\n  12 | } {\n  digest: '1344941868'\n}\n"
 }

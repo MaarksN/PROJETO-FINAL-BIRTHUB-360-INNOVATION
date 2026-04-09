@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-09T01:14:53.811Z",
+  "checkedAt": "2026-04-09T17:25:23.994Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -15,7 +15,7 @@
     {
       "module": "apps/api",
       "runtimeFiles": 145,
-      "directTestFiles": 48,
+      "directTestFiles": 49,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -44,6 +44,7 @@
         "apps/api/tests/consent.service.test.ts",
         "apps/api/tests/conversations-router.test.ts",
         "apps/api/tests/core-business-routes.test.ts",
+        "apps/api/tests/database-availability.test.ts",
         "apps/api/tests/external-url.test.ts",
         "apps/api/tests/fhir-router.test.ts",
         "apps/api/tests/fhir.service.test.ts",
@@ -71,10 +72,11 @@
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 126,
-      "directTestFiles": 22,
+      "runtimeFiles": 137,
+      "directTestFiles": 23,
       "traceabilityFlows": 2,
       "directTests": [
+        "apps/web/tests/appointments-board-model.test.ts",
         "apps/web/tests/auth-client.test.ts",
         "apps/web/tests/auth-session-route.test.ts",
         "apps/web/tests/bff-allowlist.test.ts",
@@ -89,12 +91,12 @@
         "apps/web/tests/offline-page.test.ts",
         "apps/web/tests/privacy-settings-page.test.ts",
         "apps/web/tests/product-api.test.ts",
+        "apps/web/tests/sales-os.catalog.test.ts",
         "apps/web/tests/theme-provider.test.ts",
+        "apps/web/tests/user-preferences-store.test.ts",
         "apps/web/tests/workflow-editor-helpers.test.ts",
         "apps/web/tests/workflow-runs-page.test.ts",
         "apps/web/tests/workflows-list.test.ts",
-        "apps/web/tests/appointments-board-model.test.ts",
-        "apps/web/tests/user-preferences-store.test.ts",
         "tests/e2e/critical-routes.spec.ts",
         "tests/e2e/billing-premium.spec.ts"
       ],
@@ -107,8 +109,8 @@
     },
     {
       "module": "apps/worker",
-      "runtimeFiles": 77,
-      "directTestFiles": 31,
+      "runtimeFiles": 79,
+      "directTestFiles": 32,
       "traceabilityFlows": 3,
       "directTests": [
         "apps/worker/src/agents/conversations.test.ts",
@@ -140,6 +142,7 @@
         "apps/worker/test/queue.isolation.test.ts",
         "apps/worker/test/readiness.required-dependency.test.ts",
         "apps/worker/test/userCleanup.test.ts",
+        "apps/worker/src/engine/runner.db-integration.config.test.ts",
         "tests/e2e/workflow-editor-evidence.spec.ts",
         "tests/e2e/workflow-agent-output.spec.ts"
       ],
@@ -150,7 +153,7 @@
     {
       "module": "packages/database",
       "runtimeFiles": 13,
-      "directTestFiles": 15,
+      "directTestFiles": 17,
       "traceabilityFlows": 0,
       "directTests": [
         "packages/database/test/access-control.repo.test.ts",
@@ -167,7 +170,9 @@
         "packages/database/test/query-budget.test.ts",
         "packages/database/test/rls.test.ts",
         "packages/database/test/tenant-required.error.test.ts",
-        "packages/database/test/user-repository.test.ts"
+        "packages/database/test/user-repository.test.ts",
+        "packages/database/test/prisma-schema.test.ts",
+        "packages/database/test/schema-drift-environment.test.ts"
       ],
       "gaps": []
     }

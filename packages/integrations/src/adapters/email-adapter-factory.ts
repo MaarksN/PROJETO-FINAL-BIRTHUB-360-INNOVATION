@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export interface EmailAdapter {
   send(tenantId: string, input: { to: string; subject: string; html: string }): Promise<{ provider: string }>;
 }

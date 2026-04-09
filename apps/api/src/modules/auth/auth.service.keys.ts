@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import {
   ApiKeyStatus,
@@ -217,13 +218,4 @@ export async function introspectApiKey(rawToken: string): Promise<{
     tenantId: apiKey.tenantId,
     userId: apiKey.userId
   };
-}
-
-export async function verifyApiKeyScope(input: {
-  requiredScope: ApiKeyScope;
-  token: string;
-}): Promise<boolean> {
-  const introspection = await introspectApiKey(input.token);
-
-  return introspection.active && introspection.scopes.includes(input.requiredScope);
 }

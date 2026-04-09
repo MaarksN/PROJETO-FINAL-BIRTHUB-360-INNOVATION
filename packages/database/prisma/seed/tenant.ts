@@ -1,21 +1,13 @@
 // @ts-nocheck
+// 
 import {
-  AppointmentStatus,
-  AppointmentType,
   AgentStatus,
-  ClinicalNoteKind,
   InviteStatus,
-  InvoiceStatus,
   MembershipStatus,
-  NeonatalOutcome,
-  NeonatalSex,
-  PatientStatus,
-  PregnancyOutcome,
-  PregnancyRiskLevel,
-  PregnancyStatus,
   QuotaResourceType,
   SessionStatus,
-  SubscriptionStatus
+  SubscriptionStatus,
+  InvoiceStatus
 } from "@prisma/client";
 import { createHash } from "node:crypto";
 
@@ -514,11 +506,6 @@ export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Pr
     tenantId: organization.tenantId,
     users
   });
-  await seedUserPreferences({
-    organizationId: organization.id,
-    tenantId: organization.tenantId,
-    users
-  });
 
   await Promise.all(
     seed.agents.map((agentName, index) =>
@@ -548,11 +535,6 @@ export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Pr
       })
     )
   );
-  await seedClinicalDomain({
-    authorUserId: users[0]?.id ?? null,
-    organizationId: organization.id,
-    tenantId: organization.tenantId
-  });
 
   const workflows = await Promise.all(
     buildTenantWorkflows(organization.tenantId).map((workflow) =>

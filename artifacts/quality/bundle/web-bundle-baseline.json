@@ -1,50 +1,50 @@
 {
-  "generatedAt": "2026-04-09T01:04:11.971Z",
+  "generatedAt": "2026-04-09T17:25:24.092Z",
   "nextBuildDir": "apps/web/.next",
   "chunks": {
-    "files": 44,
-    "totalBytes": 2318662,
-    "totalKiB": 2264.32,
+    "files": 65,
+    "totalBytes": 2502614,
+    "totalKiB": 2443.96,
     "top10": [
       {
-        "file": "apps/web/.next/static/chunks/0juvkggxd51sz.js",
-        "bytes": 514549
+        "file": "apps/web/.next/static/chunks/00ips7qyaykx..js",
+        "bytes": 480605
       },
       {
-        "file": "apps/web/.next/static/chunks/1491hd.k7-gyh.js",
-        "bytes": 341830
+        "file": "apps/web/.next/static/chunks/143rtfl_og1ea.js",
+        "bytes": 341940
       },
       {
-        "file": "apps/web/.next/static/chunks/0~otl2ac6088e.js",
-        "bytes": 283202
+        "file": "apps/web/.next/static/chunks/0v3fmjtn~--dg.js",
+        "bytes": 283971
       },
       {
-        "file": "apps/web/.next/static/chunks/0wqu_f0fj5ka7.js",
-        "bytes": 232345
+        "file": "apps/web/.next/static/chunks/0zyezri2c2-vz.js",
+        "bytes": 233260
       },
       {
-        "file": "apps/web/.next/static/chunks/0m5gear2kenii.js",
-        "bytes": 231026
+        "file": "apps/web/.next/static/chunks/0mtgy38zy7t80.js",
+        "bytes": 231141
       },
       {
-        "file": "apps/web/.next/static/chunks/14djqq0ow71a2.js",
-        "bytes": 139409
+        "file": "apps/web/.next/static/chunks/0h485_91g1mxt.js",
+        "bytes": 139427
       },
       {
-        "file": "apps/web/.next/static/chunks/0w7aknc.w_blt.js",
-        "bytes": 122968
+        "file": "apps/web/.next/static/chunks/0v684sm8n5.zu.js",
+        "bytes": 123198
       },
       {
         "file": "apps/web/.next/static/chunks/03~yq9q893hmn.js",
         "bytes": 112594
       },
       {
-        "file": "apps/web/.next/static/chunks/0ipvu-jqklq7o.js",
-        "bytes": 52141
+        "file": "apps/web/.next/static/chunks/15u1wj-_le455.js",
+        "bytes": 52265
       },
       {
-        "file": "apps/web/.next/static/chunks/0eqai92zx~ez-.js",
-        "bytes": 44841
+        "file": "apps/web/.next/static/chunks/041ph_j_16wq2.js",
+        "bytes": 44925
       }
     ]
   },

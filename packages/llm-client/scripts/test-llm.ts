@@ -1,20 +1,31 @@
 // @ts-nocheck
+// 
 import { GeminiClient } from "../src/index";
+
+function writeStdout(message: string): void {
+  process.stdout.write(`${message}\n`);
+}
+
+function writeStderr(message: string): void {
+  process.stderr.write(`${message}\n`);
+}
 
 async function main() {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.warn("Skipping Gemini test: GEMINI_API_KEY not found.");
+    writeStderr("Skipping Gemini test: GEMINI_API_KEY not found.");
     return;
   }
 
-  console.log("Testing Gemini Client...");
+  writeStdout("Testing Gemini Client...");
   const client = new GeminiClient(apiKey);
   try {
     const response = await client.generateContent("Hello, are you working?");
-    console.log("Response:", response);
+    writeStdout(`Response: ${typeof response === "string" ? response : JSON.stringify(response)}`);
   } catch (error) {
-    console.error("Test failed:", error);
+    writeStderr(
+      `Test failed: ${error instanceof Error ? error.stack ?? error.message : String(error)}`
+    );
     process.exit(1);
   }
 }

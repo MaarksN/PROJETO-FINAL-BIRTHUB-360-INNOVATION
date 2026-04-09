@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { createLogger } from "@birthub/logger";
 import { prisma } from "@birthub/database";
 
@@ -112,7 +113,7 @@ async function upsertBudgetRecord(input: {
   });
 }
 
-export class BudgetService {
+class BudgetService {
   async setLimit(
     organizationId: string,
     tenantId: string,

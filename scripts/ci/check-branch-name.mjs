@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import { execSync } from "node:child_process";
 
 import { projectRoot } from "./shared.mjs";

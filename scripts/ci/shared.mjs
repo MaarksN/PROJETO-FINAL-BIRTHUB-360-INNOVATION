@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { spawnSync } from "node:child_process";
 import { closeSync, existsSync, openSync, readdirSync, readSync } from "node:fs";
 import path from "node:path";
@@ -330,7 +331,6 @@ export function resolvePnpmInvocation() {
       env
     };
   }
-
   throw new Error(
     "Unable to resolve pnpm. Run scripts/bootstrap/install-node-portable.ps1 or install pnpm/corepack in PATH."
   );

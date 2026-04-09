@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import { taskJobSchema } from "@birthub/config";
 import { Queue } from "bullmq";
@@ -35,7 +36,7 @@ export class TenantQueueRateLimitError extends Error {
   }
 }
 
-export function getTaskQueue(config: ApiConfig): TaskQueue {
+function getTaskQueue(config: ApiConfig): TaskQueue {
   const existingQueue = queueCache.get(config.QUEUE_NAME);
 
   if (existingQueue) {

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { fetchComparisonMatrix } from "../../../../lib/marketplace-api.server";
 
 export default async function MarketplaceComparePage() {

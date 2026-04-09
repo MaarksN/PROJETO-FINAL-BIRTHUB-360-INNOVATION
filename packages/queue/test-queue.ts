@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { createQueue, createWorker } from './src/index';
 
 console.log('Testing Queue module exports...');

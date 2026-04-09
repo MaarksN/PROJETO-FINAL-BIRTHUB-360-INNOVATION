@@ -1,52 +1,71 @@
 // @ts-nocheck
+// 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { getWebConfig } from "@birthub/config/nextjs";
-import { buildSecurityHeaders } from "@birthub/security";
-
-const webConfig = getWebConfig(process.env);
+const nextPublicApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
+const cspReportUri = process.env.CSP_REPORT_URI;
 const immutableAssetCache = "public, max-age=31536000, immutable";
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+const nextPublicEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT ?? "development";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const isWindows = process.platform === "win32";
 const isDevelopmentLike =
-  webConfig.NEXT_PUBLIC_ENVIRONMENT === "development" ||
-  webConfig.NEXT_PUBLIC_ENVIRONMENT === "test" ||
-  webConfig.NEXT_PUBLIC_ENVIRONMENT === "ci" ||
-  webConfig.NEXT_PUBLIC_ENVIRONMENT === "ci-local";
-const cspReportOnly = isDevelopmentLike ? webConfig.NEXT_PUBLIC_CSP_REPORT_ONLY : false;
-const connectSrc = [
-  "'self'",
-  webConfig.NEXT_PUBLIC_API_URL,
-  "https://*.ingest.sentry.io",
-  ...(webConfig.NEXT_PUBLIC_POSTHOG_HOST ? [webConfig.NEXT_PUBLIC_POSTHOG_HOST] : []),
-  ...(isDevelopmentLike ? ["ws:", "wss:"] : [])
-];
-const contentSecurityPolicy = {
-  "base-uri": ["'self'"],
-  "connect-src": connectSrc,
-  "default-src": ["'self'"],
-  "font-src": ["'self'", "data:"],
-  "form-action": ["'self'"],
-  "frame-ancestors": ["'none'"],
-  "frame-src": ["'none'"],
-  "img-src": ["'self'", "data:", "blob:", "https:"],
-  "manifest-src": ["'self'"],
-  "object-src": ["'none'"],
-  "script-src": ["'self'", "'unsafe-inline'"],
-  "style-src": ["'self'", "'unsafe-inline'"],
-  "worker-src": ["'self'", "blob:"],
-  ...(webConfig.CSP_REPORT_URI ? { "report-uri": [webConfig.CSP_REPORT_URI] } : {})
-};
-const securityHeaders = buildSecurityHeaders({
-  contentSecurityPolicy,
-  reportOnly: cspReportOnly
-});
+  nextPublicEnvironment === "development" ||
+  nextPublicEnvironment === "test" ||
+  nextPublicEnvironment === "ci" ||
+  nextPublicEnvironment === "ci-local";
+const cspReportOnly =
+  isDevelopmentLike && (process.env.NEXT_PUBLIC_CSP_REPORT_ONLY ?? "true") === "true";
+
 const turbopackAliases = {
   "@birthub/config": "@birthub/config/nextjs",
   "@birthub/logger": "@birthub/logger/nextjs",
   "@birthub/workflows-core": "@birthub/workflows-core/nextjs"
 };
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "img-src 'self' data: blob: https:",
+  `connect-src 'self' ${nextPublicApiUrl} https://*.ingest.sentry.io ${posthogHost ?? ""} ${
+    isDevelopmentLike ? "ws: wss:" : ""
+  }`,
+  "font-src 'self' data:",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "script-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline'",
+  "worker-src 'self' blob:",
+  cspReportUri ? `report-uri ${cspReportUri}` : ""
+]
+  .filter(Boolean)
+  .join("; ");
+
+const securityHeaders = [
+  {
+    key: cspReportOnly ? "Content-Security-Policy-Report-Only" : "Content-Security-Policy",
+    value: contentSecurityPolicy
+  },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload"
+  },
+  {
+    key: "X-Content-Type-Options",
+    value: "nosniff"
+  },
+  {
+    key: "X-Frame-Options",
+    value: "DENY"
+  },
+  {
+    key: "Referrer-Policy",
+    value: "strict-origin-when-cross-origin"
+  }
+];
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -58,15 +77,15 @@ const nextConfig = {
       algorithm: "sha384"
     }
   },
+  turbopack: {
+    resolveAlias: turbopackAliases
+  },
   output: isWindows ? undefined : "standalone",
   outputFileTracingRoot: path.join(__dirname, "../.."),
   poweredByHeader: false,
   reactStrictMode: true,
-  turbopack: {
-    resolveAlias: turbopackAliases
-  },
-  async headers() {
-    return [
+  headers() {
+    return Promise.resolve([
       {
         headers: [
           {
@@ -86,19 +105,10 @@ const nextConfig = {
         source: "/(.*\\.(?:avif|css|gif|ico|jpg|jpeg|js|mjs|otf|png|svg|ttf|webp|woff|woff2))"
       },
       {
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=3600"
-          }
-        ],
-        source: "/.well-known/security.txt"
-      },
-      {
         headers: securityHeaders,
         source: "/(.*)"
       }
-    ];
+    ]);
   }
 };
 

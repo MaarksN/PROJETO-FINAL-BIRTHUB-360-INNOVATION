@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { Prisma, prisma } from "@birthub/database";
 
 import { getBillingSnapshot } from "../billing/service.js";
@@ -70,37 +71,6 @@ export function asObject(value: Prisma.JsonValue | null | undefined): Record<str
   }
 
   return value as Record<string, unknown>;
-}
-
-export async function updateOrganizationOnboardingFlag(input: {
-  enabled: boolean;
-  organizationId: string;
-  tenantId: string;
-}) {
-  const organization = await prisma.organization.findFirst({
-    where: {
-      id: input.organizationId,
-      tenantId: input.tenantId
-    }
-  });
-
-  if (!organization) {
-    throw new Error("DASHBOARD_ORGANIZATION_NOT_FOUND");
-  }
-
-  const currentSettings = asObject(organization.settings);
-
-  return prisma.organization.update({
-    data: {
-      settings: {
-        ...(currentSettings ?? {}),
-        onboarding: input.enabled
-      }
-    },
-    where: {
-      id: organization.id
-    }
-  });
 }
 
 export function readNumber(value: Record<string, unknown> | null, key: string): number | null {

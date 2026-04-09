@@ -14,7 +14,7 @@ Acionar rollback quando houver falha de release, regressão crítica ou quebra d
 
 1. Isolar o deploy com falha.
 2. Validar a última evidência de rollback registrada.
-3. Reverter o deploy no Cloud Run usando `scripts/ops/rollback-release.sh production artifacts/release/production-rollout.json`.
+3. Reverter o deploy via workflow ou mecanismo de infra aprovado.
 4. Reapontar serviços dependentes para o estado anterior.
 5. Validar `health`, `health/deep`, filas e autenticação.
 6. Registrar o incidente e anexar evidência pós-rollback.

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export * from "./baseTool.js";
 export * from "./calendar.tool.js";
 export * from "./crm.tool.js";

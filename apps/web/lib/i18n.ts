@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export const supportedLocales = ["pt-BR", "en-US"] as const;
 export const LOCALE_COOKIE_NAME = "bh360_locale";
 

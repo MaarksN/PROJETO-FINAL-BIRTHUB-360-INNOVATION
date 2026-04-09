@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { Queue, type JobsOptions } from "bullmq";
 import type { Redis } from "ioredis";
 
@@ -35,7 +36,7 @@ export interface AgentQueuePayload {
   }>;
 }
 
-export class AgentQueueRouter {
+class AgentQueueRouter {
   private readonly queues = new Map<string, Queue<AgentQueuePayload>>();
 
   constructor(private readonly connection: Redis) {}

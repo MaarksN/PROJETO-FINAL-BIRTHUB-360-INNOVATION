@@ -22,7 +22,8 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 | Deploy canonico em Cloud Run com preflight, smoke, E2E e rollback gate | Fase 5 | `.github/workflows/cd.yml`, `infra/cloudrun/service.yaml`, `docs/runbooks/deploy-canonical-stack.md`, `docs/runbooks/rollback-canonical-stack.md` | mitigado | A trilha esta definida, mas staging e producao ainda nao foram revalidados neste ciclo com evidencia nova |
 | SBOM, security scan e Renovate | Fase 5 | `.github/workflows/security-scan.yml`, `scripts/release/generate-sbom.mjs`, `renovate.json`, `.github/workflows/renovate.yml` | resolvido | Parte do valor real continua dependente da execucao recorrente em CI e das credenciais do ambiente |
 | Coverage gate e baseline de qualidade | Fase 5 | `scripts/coverage/baseline.json`, `scripts/coverage/check.mjs`, `artifacts/coverage/summary.json`, `docs/evidence/test-coverage-dashboard.md` | mitigado | O dashboard local voltou a `PASS`, mas `scripts/coverage/check.mjs` ainda sinaliza `module coverage sufficiency: WARN` em modo `static-coverage-proxy`, exigindo revalidacao antes do proximo gate de release |
-| Dead code e governanca de monorepo | Fase 5 | `knip.json`, `knip.satellites.json`, `package.json`, `apps/api/package.json`, `packages/agents-core/package.json`, `packages/emails/package.json`, `.github/workflows/quality-governance.yml` | mitigado | O lane core de `pnpm quality:dead-code` agora ficou concentrado em `34` arquivos nao referenciados, `68` exports nao usados, `1` duplicate export e apenas `4` hints de configuracao; o lane satelite foi separado e ainda mostra backlog proprio com `29` arquivos nao usados e inconsistencias de dependencias/exportacoes |
+| Dead code e governanca de monorepo | Fase 5 | `knip.json`, `knip.satellites.json`, `scripts/quality/check-dead-code.mjs`, `artifacts/quality/knip-baseline.json`, `docs/evidence/dead-code-report.md`, `.github/workflows/quality-governance.yml` | resolvido | O lane core de `pnpm quality:dead-code` agora roda contra baseline versionado e concluiu localmente sem achados (`0` arquivos, `0` exports e `0` duplicates no snapshot atual); o lane satelite segue separado com backlog proprio fora do gate canonico |
+| Mutation lane focal | Fase 5 | `stryker.config.mjs`, `scripts/quality/run-mutation-suite.mjs`, `.github/workflows/quality-governance.yml`, `docs/testing/F5_TRACEABILITY.md` | mitigado | A suite focal de mutacao agora existe e passa localmente no recorte default; a expansao com `apps/api/tests/auth.test.ts` ficou opcional e o `pnpm test:mutation` completo ainda precisa mais budget local antes de virar evidencia verde do ciclo |
 
 ## Checklist mestre atual
 ### Gate para sair de RED
@@ -51,7 +52,7 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 ## Leitura do estado atual
 - O projeto ja saiu dos bloqueadores estruturais de dominio, UX central e seguranca basica.
 - O estado atual do monorepo mostra um produto funcional e um lane canonico de deploy definido, com evidencias materiais em codigo, workflows e docs.
-- O que ainda segura o projeto em `YELLOW` nao e mais ausencia de implementacao principal, e sim maturidade operacional e governanca: o lane de coverage local passou a baseline numerica, mas ainda precisa revalidacao confiavel fora do modo `static-coverage-proxy`; o `knip` do core foi limpo, porem restam arquivos/exportacoes realmente orfaos; staging/rollback/backups seguem sem evidencia nova.
+- O que ainda segura o projeto em `YELLOW` nao e mais ausencia de implementacao principal, e sim maturidade operacional e governanca: o lane de coverage local passou a baseline numerica, mas ainda precisa revalidacao confiavel fora do modo `static-coverage-proxy`; o `knip` do core virou gate regressivo e hoje conclui zerado; a lane de mutacao ficou focal e executavel, porem ainda nao fechou evidencia completa do `pnpm test:mutation`; staging/rollback/backups seguem sem evidencia nova.
 - O proximo plano logico deixou de ser "construir features" e passou a ser "fechar residual operacional com priorizacao e rastreabilidade".
 
 ## Decisoes arquiteturais
@@ -59,18 +60,21 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 - Classificar os itens como `resolvido`, `mitigado` ou `aberto`, para separar lacunas de implementacao de lacunas de rollout/governanca.
 - Tratar `coverage:check` como gate local aceitavel para baseline, mas registrar explicitamente o risco residual do modo `static-coverage-proxy` antes de usar o resultado como criterio final de release.
 - Separar a governanca de dead code entre lane core e lane satelite, para que o go-live do nucleo nao continue contaminado por sinais de dominos paralelos e artefatos de authoring.
-- Manter `quality:dead-code` como gate vermelho util, reduzindo primeiro o ruido configuracional do `knip` para que o backlog residual passe a refletir majoritariamente achados reais.
+- Manter `quality:dead-code` como gate regressivo com baseline versionado, para impedir piora do core enquanto o backlog historico e reduzido em lotes rastreaveis.
+- Iniciar a governanca de mutacao por escopo focal, com recorte pequeno o bastante para rodar de forma repetivel antes de ampliar para billing, webhooks e worker.
 
 ## Plano executavel
-- passo 1: converter os `34` arquivos nao usados, os `68` exports nao usados e o `1` duplicate export restantes do lane core em backlog rastreavel de remocao ou reintegracao
+- passo 1: manter o lane core de dead code em `0` achados e impedir regressao enquanto o backlog satelite segue em trilha separada
 - passo 2: revalidar coverage fora do modo `static-coverage-proxy`, preservando o baseline numerico atual
-- passo 3: reexecutar a trilha canonica em staging com evidencia de preflight, smoke, E2E, rollback e backup/restore
-- passo 4: reclassificar o gate mestre de `YELLOW` para `GREEN` somente apos coverage, dead code e validacao operacional convergirem
+- passo 3: ampliar a lane focal de mutacao para billing/webhooks e auth de API somente apos estabilizar tempo de execucao do `pnpm test:mutation`
+- passo 4: reexecutar a trilha canonica em staging com evidencia de preflight, smoke, E2E, rollback e backup/restore
+- passo 5: reclassificar o gate mestre de `YELLOW` para `GREEN` somente apos coverage, dead code, mutacao e validacao operacional convergirem
 
 ## Backlog residual priorizado
 ### P0
-- Atacar os `34` arquivos nao usados, os `68` exports nao usados e o `1` duplicate export que restaram no lane core apos o ajuste por workspace do `knip`.
 - Revalidar `coverage:check` em modo confiavel fora do `static-coverage-proxy`, preservando o dashboard local hoje em `PASS`.
+- Estabilizar o tempo de execucao do `pnpm test:mutation` completo antes de ampliar a cobertura de mutacao para billing/webhooks e worker.
+- Reexecutar staging, smoke, rollback e backup/restore com evidencia fresca do ciclo.
 
 ### P1
 - Reduzir o backlog do lane satelite (`29` arquivos nao usados, `5` dependencias nao usadas, `4` devDependencies nao usadas, `32` unlisted dependencies e `86` exports nao usados).
@@ -110,9 +114,11 @@ Consolidar a rastreabilidade das Fases 3, 4 e 5 no estado real do repositorio, c
 Resultados locais considerados nesta consolidacao:
 - `pnpm release:sbom` passou.
 - `node scripts/coverage/check.mjs` executou ate o fim; `docs/evidence/test-coverage-dashboard.md` ficou em `PASS`, mas o runner ainda reportou `module coverage sufficiency: WARN`.
-- `pnpm quality:dead-code` continua falhando, mas o sinal do lane core melhorou para `34` arquivos nao usados, `68` exports nao usados, `1` duplicate export e apenas `4` hints de configuracao.
+- `node scripts/quality/check-dead-code.mjs` concluiu com `baseline=0`, `current=0`, `regressions=0` e `improvements=0`.
 - `pnpm quality:dead-code:satellites` passou a existir em configuracao separada e revelou backlog proprio com `29` arquivos nao usados, `5` dependencias nao usadas, `4` devDependencies nao usadas, `32` unlisted dependencies, `86` exports nao usados e `8` duplicate exports.
-- As `3` unlisted dependencies restantes do pacote de emails foram eliminadas ao declarar `react` em `packages/emails/package.json`.
+- `node scripts/quality/run-mutation-suite.mjs` passou no recorte default (`@birthub/auth` e `@birthub/agents-core`).
+- `MUTATION_INCLUDE_API_AUTH=1 node scripts/quality/run-mutation-suite.mjs` tambem passou como expansao opcional do recorte focal.
+- `pnpm test:mutation` deixou de falhar por erro de filesystem no Windows, mas ainda nao concluiu dentro da janela local usada nesta rodada.
 
 ### CI
 - [ ] validacao em CI concluida

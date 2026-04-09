@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
@@ -116,7 +117,6 @@ function buildRequiredKeyReport(env: NodeJS.ProcessEnv) {
       "REDIS_URL",
       "SENTRY_DSN",
       "SESSION_SECRET",
-      "SESSION_IP_HASH_SALT",
       "STRIPE_SECRET_KEY",
       "STRIPE_WEBHOOK_SECRET",
       "WEB_BASE_URL"

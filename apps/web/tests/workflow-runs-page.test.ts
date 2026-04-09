@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -125,8 +126,11 @@ void test("workflow runs helpers load and retry through the session-aware timeou
     assert.equal(calls[0]?.url, "https://api.birthub.test/api/v1/workflows/workflow%20alpha");
     assert.equal(calls[1]?.url, "https://api.birthub.test/api/v1/workflows/workflow%20alpha/run");
     assert.equal(calls[1]?.init?.method, "POST");
-    assert.match(String(calls[1]?.init?.body), /\"fromExecutionId\":\"exec_failed_1\"/);
-    assert.match(String(calls[1]?.init?.body), /\"fromStepKey\":\"http_step\"/);
+
+    const bodyStr = calls[1]?.init?.body as string | undefined;
+    assert.match(bodyStr || "", /"fromExecutionId":"exec_failed_1"/);
+    assert.match(bodyStr || "", /"fromStepKey":"http_step"/);
+
     assert.equal(calls[0]?.init?.credentials, "include");
     assert.equal(calls[1]?.init?.credentials, "include");
   } finally {

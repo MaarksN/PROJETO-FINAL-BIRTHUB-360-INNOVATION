@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import {
   Prisma,
   SubscriptionStatus,
@@ -123,7 +124,7 @@ export interface StripeBillingEventContext {
   tenantId?: string;
 }
 
-export function normalizePlanCode(code: string): string {
+function normalizePlanCode(code: string): string {
   const normalized = code.trim().toLowerCase();
   return PLAN_CODE_ALIASES[normalized] ?? normalized;
 }

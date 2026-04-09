@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import {
   MembershipStatus,
@@ -10,8 +11,7 @@ import {
   hashPassword,
   randomToken,
   sha256,
-  verifyPasswordHash,
-  type PasswordHashConfig
+  verifyPasswordHash
 } from "./crypto.js";
 import {
   createNewDeviceAlert,
@@ -28,68 +28,6 @@ import {
   verifyTotpCode
 } from "./mfa.service.js";
 import type { SessionTokens } from "./auth.service.shared.js";
-
-function resolvePasswordHashConfig(
-  config: Pick<ApiConfig, "AUTH_ARGON2_MEMORY_KIB" | "AUTH_ARGON2_PARALLELISM" | "AUTH_ARGON2_PASSES">
-): PasswordHashConfig {
-  return {
-    memoryKiB: config.AUTH_ARGON2_MEMORY_KIB,
-    parallelism: config.AUTH_ARGON2_PARALLELISM,
-    passes: config.AUTH_ARGON2_PASSES
-  };
-}
-
-async function registerMfaFailure(input: {
-  challenge: {
-    id: string;
-    organizationId: string;
-    tenantId: string;
-    userId: string;
-  };
-  config: Pick<ApiConfig, "AUTH_MFA_LOCKOUT_MINUTES" | "AUTH_MFA_MAX_FAILURES">;
-  currentFailures: number;
-}) {
-  const failedAttempts = input.currentFailures + 1;
-  const shouldLock = failedAttempts >= input.config.AUTH_MFA_MAX_FAILURES;
-  const lockedUntil = shouldLock
-    ? new Date(Date.now() + input.config.AUTH_MFA_LOCKOUT_MINUTES * 60_000)
-    : null;
-
-  await prisma.user.update({
-    data: {
-      mfaFailedAttempts: shouldLock ? 0 : failedAttempts,
-      mfaLockedUntil: lockedUntil
-    },
-    where: {
-      id: input.challenge.userId
-    }
-  });
-
-  await prisma.auditLog.create({
-    data: {
-      action: shouldLock ? "auth.mfa_locked" : "auth.mfa_failed",
-      actorId: input.challenge.userId,
-      diff: {
-        after: {
-          failedAttempts,
-          lockedUntil: lockedUntil?.toISOString() ?? null
-        },
-        before: {
-          failedAttempts: input.currentFailures
-        }
-      },
-      entityId: input.challenge.id,
-      entityType: "mfa_challenge",
-      tenantId: input.challenge.tenantId
-    }
-  });
-
-  if (shouldLock) {
-    throw new Error("MFA_LOCKED");
-  }
-
-  throw new Error("INVALID_MFA_CODE");
-}
 
 export async function loginWithPassword(input: {
   config: ApiConfig;
@@ -137,7 +75,7 @@ export async function loginWithPassword(input: {
   const passwordCheck = await verifyPasswordHash(
     input.password,
     membership.user.passwordHash,
-    resolvePasswordHashConfig(input.config)
+    input.config.AUTH_BCRYPT_SALT_ROUNDS
   );
 
   if (!passwordCheck.isValid) {
@@ -147,7 +85,10 @@ export async function loginWithPassword(input: {
   if (passwordCheck.needsRehash) {
     await prisma.user.update({
       data: {
-        passwordHash: await hashPassword(input.password, resolvePasswordHashConfig(input.config))
+        passwordHash: await hashPassword(
+          input.password,
+          input.config.AUTH_BCRYPT_SALT_ROUNDS
+        )
       },
       where: {
         id: membership.userId
@@ -157,7 +98,6 @@ export async function loginWithPassword(input: {
 
   await createNewDeviceAlert({
     ipAddress: input.ipAddress,
-    ipHashSalt: input.config.SESSION_IP_HASH_SALT,
     organizationId: input.organizationId,
     tenantId: membership.tenantId,
     userAgent: input.userAgent,
@@ -165,10 +105,6 @@ export async function loginWithPassword(input: {
   });
 
   if (membership.user.mfaEnabled) {
-    if (membership.user.mfaLockedUntil && membership.user.mfaLockedUntil.getTime() > Date.now()) {
-      throw new Error("MFA_LOCKED");
-    }
-
     const challengeToken = `mfa_${randomToken(36)}`;
     const challengeExpiresAt = new Date(
       Date.now() + input.config.AUTH_MFA_CHALLENGE_TTL_SECONDS * 1000
@@ -249,13 +185,6 @@ export async function verifyMfaChallenge(input: {
     throw new Error("MFA_NOT_CONFIGURED");
   }
 
-  const currentFailures = user.mfaFailedAttempts ?? 0;
-  const lockedUntil = user.mfaLockedUntil ?? null;
-
-  if (lockedUntil && lockedUntil.getTime() > Date.now()) {
-    throw new Error("MFA_LOCKED");
-  }
-
   let verified = false;
 
   if (input.totpCode) {
@@ -294,11 +223,7 @@ export async function verifyMfaChallenge(input: {
   }
 
   if (!verified) {
-    await registerMfaFailure({
-      challenge,
-      config: input.config,
-      currentFailures
-    });
+    throw new Error("INVALID_MFA_CODE");
   }
 
   const consumed = await prisma.mfaChallenge.updateMany({
@@ -313,18 +238,6 @@ export async function verifyMfaChallenge(input: {
 
   if (consumed.count !== 1) {
     throw new Error("MFA_CODE_ALREADY_USED");
-  }
-
-  if (currentFailures > 0 || lockedUntil) {
-    await prisma.user.update({
-      data: {
-        mfaFailedAttempts: 0,
-        mfaLockedUntil: null
-      },
-      where: {
-        id: challenge.userId
-      }
-    });
   }
 
   const membershipRole = (
@@ -389,9 +302,7 @@ export async function setupMfaForUser(input: {
   await prisma.$transaction([
     prisma.user.update({
       data: {
-        mfaFailedAttempts: 0,
         mfaEnabled: false,
-        mfaLockedUntil: null,
         mfaSecret: encryptedSecret
       },
       where: {
@@ -451,9 +362,7 @@ export async function enableMfaForUser(input: {
 
   await prisma.user.update({
     data: {
-      mfaFailedAttempts: 0,
-      mfaEnabled: true,
-      mfaLockedUntil: null
+      mfaEnabled: true
     },
     where: {
       id: input.userId

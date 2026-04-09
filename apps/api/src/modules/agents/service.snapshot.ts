@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { createHash } from "node:crypto";
 
 import type { AgentManifest } from "@birthub/agents-core";

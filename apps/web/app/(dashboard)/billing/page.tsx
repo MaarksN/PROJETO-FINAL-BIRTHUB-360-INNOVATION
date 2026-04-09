@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 const quotaCards = [
   { current: 742, label: "AI prompts", limit: 1000 },
   { current: 1860, label: "Emails enviados", limit: 2500 },

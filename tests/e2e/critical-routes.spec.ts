@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { test, expect } from "@playwright/test";
 
 test("critical routes are reachable", async ({ request }) => {

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import { access, copyFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createRequire } from 'node:module';

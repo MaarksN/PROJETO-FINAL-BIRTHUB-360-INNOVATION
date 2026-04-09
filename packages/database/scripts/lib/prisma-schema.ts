@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { readFile } from "node:fs/promises";
 
 import { schemaPath } from "./paths.js";
@@ -38,16 +39,23 @@ function splitFieldList(rawList: string): string[] {
 }
 
 function parseModelLevelFields(rawBlock: string, attribute: "@@id" | "@@index" | "@@unique"): string[][] {
-  const expression =
-    attribute === "@@id"
-      ? /@@id\(\[([^\]]+)\]/g
-      : attribute === "@@index"
-        ? /@@index\(\[([^\]]+)\]/g
-        : /@@unique\(\[([^\]]+)\]/g;
   const fields: string[][] = [];
 
-  for (const match of rawBlock.matchAll(expression)) {
-    const fieldList = match[1];
+  for (const rawLine of rawBlock.split(/\r?\n/)) {
+    const line = rawLine.trim();
+
+    if (!line.startsWith(attribute)) {
+      continue;
+    }
+
+    const openBracket = line.indexOf("[");
+    const closeBracket = line.indexOf("]", openBracket + 1);
+
+    if (openBracket === -1 || closeBracket === -1) {
+      continue;
+    }
+
+    const fieldList = line.slice(openBracket + 1, closeBracket);
 
     if (!fieldList) {
       continue;

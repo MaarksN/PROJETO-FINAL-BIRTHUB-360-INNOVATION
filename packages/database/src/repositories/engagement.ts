@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { Prisma, Role, type Membership, type Notification, type NotificationType } from "@prisma/client";
 
 import { prisma } from "../client.js";
@@ -8,10 +9,84 @@ const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;
 type CookieConsentStatus = "ACCEPTED" | "PENDING" | "REJECTED";
 type SupportedLocalePreference = "en-US" | "pt-BR";
 
+type UserPreferenceInput = {
+  cookieConsent?: CookieConsentStatus;
+  emailNotifications?: boolean;
+  inAppNotifications?: boolean;
+  lgpdConsentedAt?: Date | null;
+  lgpdConsentStatus?: CookieConsentStatus;
+  lgpdConsentVersion?: string;
+  lgpdLegalBasis?:
+    | "CONSENT"
+    | "CONTRACT"
+    | "HEALTH_PROTECTION"
+    | "LEGAL_OBLIGATION"
+    | "LEGITIMATE_INTEREST";
+  locale?: SupportedLocalePreference;
+  marketingEmails?: boolean;
+  organizationId: string;
+  pushNotifications?: boolean;
+  tenantId: string;
+  userId: string;
+};
+
 function normalizeCookieConsent(
   value: CookieConsentStatus | null | undefined
 ): CookieConsentStatus {
   return value ?? "PENDING";
+}
+
+function buildUserPreferenceCreateData(
+  input: UserPreferenceInput
+): Prisma.UserPreferenceUncheckedCreateInput {
+  return {
+    organizationId: input.organizationId,
+    tenantId: input.tenantId,
+    userId: input.userId,
+    ...(input.cookieConsent !== undefined ? { cookieConsent: input.cookieConsent } : {}),
+    ...(input.emailNotifications !== undefined
+      ? { emailNotifications: input.emailNotifications }
+      : {}),
+    ...(input.inAppNotifications !== undefined
+      ? { inAppNotifications: input.inAppNotifications }
+      : {}),
+    ...(input.locale !== undefined ? { locale: input.locale } : {}),
+    ...(input.lgpdConsentedAt !== undefined ? { lgpdConsentedAt: input.lgpdConsentedAt } : {}),
+    ...(input.lgpdConsentStatus !== undefined
+      ? { lgpdConsentStatus: input.lgpdConsentStatus }
+      : {}),
+    ...(input.lgpdConsentVersion !== undefined
+      ? { lgpdConsentVersion: input.lgpdConsentVersion }
+      : {}),
+    ...(input.lgpdLegalBasis !== undefined ? { lgpdLegalBasis: input.lgpdLegalBasis } : {}),
+    ...(input.marketingEmails !== undefined ? { marketingEmails: input.marketingEmails } : {}),
+    ...(input.pushNotifications !== undefined ? { pushNotifications: input.pushNotifications } : {})
+  };
+}
+
+function buildUserPreferenceUpdateData(
+  input: UserPreferenceInput
+): Prisma.UserPreferenceUncheckedUpdateInput {
+  return {
+    ...(input.cookieConsent !== undefined ? { cookieConsent: input.cookieConsent } : {}),
+    ...(input.emailNotifications !== undefined
+      ? { emailNotifications: input.emailNotifications }
+      : {}),
+    ...(input.inAppNotifications !== undefined
+      ? { inAppNotifications: input.inAppNotifications }
+      : {}),
+    ...(input.locale !== undefined ? { locale: input.locale } : {}),
+    ...(input.lgpdConsentedAt !== undefined ? { lgpdConsentedAt: input.lgpdConsentedAt } : {}),
+    ...(input.lgpdConsentStatus !== undefined
+      ? { lgpdConsentStatus: input.lgpdConsentStatus }
+      : {}),
+    ...(input.lgpdConsentVersion !== undefined
+      ? { lgpdConsentVersion: input.lgpdConsentVersion }
+      : {}),
+    ...(input.lgpdLegalBasis !== undefined ? { lgpdLegalBasis: input.lgpdLegalBasis } : {}),
+    ...(input.marketingEmails !== undefined ? { marketingEmails: input.marketingEmails } : {}),
+    ...(input.pushNotifications !== undefined ? { pushNotifications: input.pushNotifications } : {})
+  };
 }
 
 export async function ensureUserPreference(input: {
@@ -35,26 +110,7 @@ export async function ensureUserPreference(input: {
   });
 }
 
-export async function updateUserPreference(input: {
-  cookieConsent?: "ACCEPTED" | "PENDING" | "REJECTED";
-  emailNotifications?: boolean;
-  inAppNotifications?: boolean;
-  lgpdConsentedAt?: Date | null;
-  lgpdConsentStatus?: "ACCEPTED" | "PENDING" | "REJECTED";
-  lgpdConsentVersion?: string;
-  lgpdLegalBasis?:
-    | "CONSENT"
-    | "CONTRACT"
-    | "HEALTH_PROTECTION"
-    | "LEGAL_OBLIGATION"
-    | "LEGITIMATE_INTEREST";
-  locale?: SupportedLocalePreference;
-  marketingEmails?: boolean;
-  organizationId: string;
-  pushNotifications?: boolean;
-  tenantId: string;
-  userId: string;
-}) {
+export async function updateUserPreference(input: UserPreferenceInput) {
   const previousPreference =
     input.cookieConsent !== undefined
       ? await prisma.userPreference.findUnique({
@@ -67,78 +123,9 @@ export async function updateUserPreference(input: {
         })
       : null;
 
-  const createData: Prisma.UserPreferenceUncheckedCreateInput = {
-    organizationId: input.organizationId,
-    tenantId: input.tenantId,
-    userId: input.userId
-  };
-
-  if (input.cookieConsent !== undefined) {
-    createData.cookieConsent = input.cookieConsent;
-  }
-
-  if (input.emailNotifications !== undefined) {
-    createData.emailNotifications = input.emailNotifications;
-  }
-
-  if (input.inAppNotifications !== undefined) {
-    createData.inAppNotifications = input.inAppNotifications;
-  }
-
-  if (input.locale !== undefined) {
-    createData.locale = input.locale;
-  }
-
-  if (input.lgpdConsentedAt !== undefined) {
-    createData.lgpdConsentedAt = input.lgpdConsentedAt;
-  }
-
-  if (input.lgpdConsentStatus !== undefined) {
-    createData.lgpdConsentStatus = input.lgpdConsentStatus;
-  }
-
-  if (input.lgpdConsentVersion !== undefined) {
-    createData.lgpdConsentVersion = input.lgpdConsentVersion;
-  }
-
-  if (input.lgpdLegalBasis !== undefined) {
-    createData.lgpdLegalBasis = input.lgpdLegalBasis;
-  }
-
-  if (input.marketingEmails !== undefined) {
-    createData.marketingEmails = input.marketingEmails;
-  }
-
-  if (input.pushNotifications !== undefined) {
-    createData.pushNotifications = input.pushNotifications;
-  }
-
   const updatedPreference = await prisma.userPreference.upsert({
-    create: createData,
-    update: {
-      ...(input.cookieConsent !== undefined ? { cookieConsent: input.cookieConsent } : {}),
-      ...(input.emailNotifications !== undefined
-        ? { emailNotifications: input.emailNotifications }
-        : {}),
-      ...(input.inAppNotifications !== undefined
-        ? { inAppNotifications: input.inAppNotifications }
-        : {}),
-      ...(input.locale !== undefined ? { locale: input.locale } : {}),
-      ...(input.lgpdConsentedAt !== undefined ? { lgpdConsentedAt: input.lgpdConsentedAt } : {}),
-      ...(input.lgpdConsentStatus !== undefined
-        ? { lgpdConsentStatus: input.lgpdConsentStatus }
-        : {}),
-      ...(input.lgpdConsentVersion !== undefined
-        ? { lgpdConsentVersion: input.lgpdConsentVersion }
-        : {}),
-      ...(input.lgpdLegalBasis !== undefined ? { lgpdLegalBasis: input.lgpdLegalBasis } : {}),
-      ...(input.marketingEmails !== undefined
-        ? { marketingEmails: input.marketingEmails }
-        : {}),
-      ...(input.pushNotifications !== undefined
-        ? { pushNotifications: input.pushNotifications }
-        : {})
-    },
+    create: buildUserPreferenceCreateData(input),
+    update: buildUserPreferenceUpdateData(input),
     where: {
       organizationId_userId: {
         organizationId: input.organizationId,
@@ -148,7 +135,9 @@ export async function updateUserPreference(input: {
   });
 
   if (input.cookieConsent !== undefined) {
-    const previousCookieConsent = normalizeCookieConsent(previousPreference?.cookieConsent);
+    const previousCookieConsent = normalizeCookieConsent(
+      previousPreference?.cookieConsent as CookieConsentStatus | null | undefined
+    );
 
     if (previousCookieConsent !== updatedPreference.cookieConsent) {
       await prisma.auditLog.create({

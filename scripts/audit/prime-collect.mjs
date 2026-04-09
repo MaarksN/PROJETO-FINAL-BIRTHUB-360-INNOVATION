@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 import path from "node:path";
 import { promises as fs } from "node:fs";
 import { existsSync } from "node:fs";
@@ -263,7 +264,9 @@ async function collectLineOccurrences(files, { id, regex, filter, summary }) {
     const lines = await readLines(filePath).catch(() => []);
     for (let index = 0; index < lines.length; index += 1) {
       const line = lines[index];
-      if (!regex.test(line)) continue;
+      const matcher = new RegExp(regex.source, regex.flags);
+      matcher.lastIndex = 0;
+      if (!matcher.test(line)) continue;
       results.push({
         id,
         path: filePath,
@@ -310,7 +313,9 @@ async function collectFilePredicates(files) {
       for (let index = 0; index < lines.length; index += 1) {
         if (!lines[index].includes("findMany(")) continue;
         if (/^\s*(?:async\s+)?findMany\s*\(/.test(lines[index])) continue;
-        const window = lines.slice(index, index + 30).join("\n");
+        const windowStart = Math.max(0, index - 25);
+        const windowEnd = Math.min(lines.length, index + 26);
+        const window = lines.slice(windowStart, windowEnd).join("\n");
         if (!/(take\s*[:,]|skip\s*[:,]|cursor\s*:|pageSize|limit\s*:)/.test(window)) {
           findManyWithoutPagination.push({
             path: filePath,
@@ -550,7 +555,7 @@ function collectCapabilities(files, schemaModels) {
   };
   const infra = {
     terraform: files.some((filePath) => filePath.startsWith("infra/terraform/") && filePath.endsWith(".tf")),
-    canonicalCdWorkflow: files.includes(".github/workflows/cd.yml"),
+    cloudRun: files.includes("infra/cloudrun/service.yaml"),
     k8sFiles: files.filter((filePath) => filePath.startsWith("infra/k8s/") && !filePath.endsWith(".gitkeep")),
     monitoringFiles: files.filter((filePath) => filePath.startsWith("infra/monitoring/")),
     dockerfiles: files.filter((filePath) => path.posix.basename(filePath).startsWith("Dockerfile") || filePath.endsWith("docker-compose.yml") || filePath.endsWith("docker-compose.prod.yml"))

@@ -1,5 +1,7 @@
 // @ts-nocheck
+// 
 import { getPrismaCommand, runCommand } from "./lib/process.js";
+import { getSchemaDriftEnvironment } from "./lib/env.js";
 import { schemaPath } from "./lib/paths.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
@@ -7,7 +9,9 @@ import { createLogger } from "@birthub/logger";
 const logger = createLogger("db-check-schema-drift");
 
 async function main(): Promise<void> {
-  if (!process.env.DATABASE_URL) {
+  const environment = getSchemaDriftEnvironment();
+
+  if (!environment.databaseUrl) {
     const report = {
       checkedAt: new Date().toISOString(),
       ok: true,
@@ -32,13 +36,13 @@ async function main(): Promise<void> {
     "diff",
     "--exit-code",
     "--from-url",
-    process.env.DATABASE_URL,
+    environment.databaseUrl,
     "--to-schema-datamodel",
     schemaPath
   ];
 
-  if (process.env.SHADOW_DATABASE_URL) {
-    args.push("--shadow-database-url", process.env.SHADOW_DATABASE_URL);
+  if (environment.shadowDatabaseUrl) {
+    args.push("--shadow-database-url", environment.shadowDatabaseUrl);
   }
 
   const result = await runCommand(prisma.command, args);

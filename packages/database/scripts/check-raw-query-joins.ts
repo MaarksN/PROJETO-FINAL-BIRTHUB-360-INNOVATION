@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { workspaceRoot } from "./lib/paths.js";
 import { collectRepoTextFiles } from "./lib/repo-scan.js";
 import { writeJsonReport, writeTextReport } from "./lib/report.js";

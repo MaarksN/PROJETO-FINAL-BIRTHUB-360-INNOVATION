@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 const command = process.argv[2] ?? "legacy-command";
 
 console.error(

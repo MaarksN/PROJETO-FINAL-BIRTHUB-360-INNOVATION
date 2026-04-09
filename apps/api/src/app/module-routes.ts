@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { ApiConfig } from "@birthub/config";
 import type { Express } from "express";
 
@@ -10,12 +11,10 @@ import { createAuthRouter } from "../modules/auth/router.js";
 import { createBillingRouter } from "../modules/billing/index.js";
 import { createBreakGlassRouter } from "../modules/break-glass/router.js";
 import { createBudgetRouter } from "../modules/budget/budget-routes.js";
-import { createClinicalRouter } from "../modules/clinical/router.js";
 import { createConnectorsRouter } from "../modules/connectors/index.js";
 import { createConversationsRouter } from "../modules/conversations/index.js";
 import { createDashboardRouter } from "../modules/dashboard/router.js";
 import { createFeedbackRouter } from "../modules/feedback/index.js";
-import { createFhirRouter } from "../modules/fhir/router.js";
 import { createInvitesRouter } from "../modules/invites/router.js";
 import { createMarketplaceRouter } from "../modules/marketplace/marketplace-routes.js";
 import { createNotificationsRouter } from "../modules/notifications/index.js";
@@ -37,12 +36,10 @@ type ModuleRouterDependencies = {
   createBillingRouter: typeof createBillingRouter;
   createBreakGlassRouter: typeof createBreakGlassRouter;
   createBudgetRouter: typeof createBudgetRouter;
-  createClinicalRouter: typeof createClinicalRouter;
   createConnectorsRouter: typeof createConnectorsRouter;
   createConversationsRouter: typeof createConversationsRouter;
   createDashboardRouter: typeof createDashboardRouter;
   createFeedbackRouter: typeof createFeedbackRouter;
-  createFhirRouter: typeof createFhirRouter;
   createInstalledAgentsRouter: typeof createInstalledAgentsRouter;
   createInvitesRouter: typeof createInvitesRouter;
   createMarketplaceRouter: typeof createMarketplaceRouter;
@@ -66,12 +63,10 @@ const defaultDependencies: ModuleRouterDependencies = {
   createBillingRouter,
   createBreakGlassRouter,
   createBudgetRouter,
-  createClinicalRouter,
   createConnectorsRouter,
   createConversationsRouter,
   createDashboardRouter,
   createFeedbackRouter,
-  createFhirRouter,
   createInstalledAgentsRouter,
   createInvitesRouter,
   createMarketplaceRouter,
@@ -99,6 +94,7 @@ export function mountModuleRouters(
   app.use("/api/v1/auth", dependencies.createAuthRouter(config));
   app.use("/api/v1", dependencies.createSessionsRouter(config));
   app.use("/api/v1/apikeys", dependencies.createApiKeysRouter(config));
+  app.use("/api/v1", dependencies.createBreakGlassRouter(config));
   app.use("/api/v1/agents", installedAgentsRouter);
   app.use("/api/v1/agents", marketplaceRouter);
   app.use("/api/v1/analytics", dependencies.createAnalyticsRouter());
@@ -107,11 +103,8 @@ export function mountModuleRouters(
   app.use("/api/v1", dependencies.createConversationsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);
   app.use("/api/v1/billing", dependencies.createBillingRouter(config));
-  app.use("/api/v1", dependencies.createBreakGlassRouter(config));
   app.use("/api/v1/budgets", dependencies.createBudgetRouter());
-  app.use("/api/v1", dependencies.createClinicalRouter());
   app.use("/api/v1", dependencies.createFeedbackRouter());
-  app.use(dependencies.createFhirRouter());
   app.use("/api/v1", dependencies.createInvitesRouter());
   app.use("/api/v1", dependencies.createNotificationsRouter());
   app.use("/api/v1", dependencies.createOrganizationsRouter());

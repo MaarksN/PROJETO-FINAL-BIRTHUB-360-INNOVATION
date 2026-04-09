@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import {
   ILLMClient,
   Message,
@@ -19,6 +20,22 @@ export interface LLMConfig {
     gemini?: { apiKey: string; model?: string };
   };
   fallbackOrder?: LLMProvider[];
+}
+
+function normalizeProviderError(error: unknown): Error {
+  if (error instanceof Error) {
+    return error;
+  }
+
+  if (typeof error === "string" && error.trim().length > 0) {
+    return new Error(error);
+  }
+
+  try {
+    return new Error(JSON.stringify(error));
+  } catch {
+    return new Error("Unknown LLM provider error.");
+  }
 }
 
 export class LLMClient implements ILLMClient {
@@ -56,7 +73,7 @@ export class LLMClient implements ILLMClient {
     messages: Message[],
     options?: CompletionOptions,
   ): Promise<CompletionResponse> {
-    let lastError: any;
+    let lastError: Error | null = null;
 
     for (const provider of this.fallbackOrder) {
       const client = this.clients[provider];
@@ -67,19 +84,19 @@ export class LLMClient implements ILLMClient {
         const result = await client.chat(messages, options);
         return result;
       } catch (error) {
-        logger.warn(`LLM call failed with provider ${provider}:`, error);
-        lastError = error;
+        lastError = normalizeProviderError(error);
+        logger.warn(`LLM call failed with provider ${provider}: ${lastError.message}`);
       }
     }
 
-    throw lastError || new Error("All LLM providers failed or not configured.");
+    throw lastError ?? new Error("All LLM providers failed or not configured.");
   }
 
   async *stream(
     messages: Message[],
     options?: CompletionOptions,
   ): AsyncGenerator<string, void, unknown> {
-    let lastError: any;
+    let lastError: Error | null = null;
 
     for (const provider of this.fallbackOrder) {
       const client = this.clients[provider];
@@ -92,11 +109,11 @@ export class LLMClient implements ILLMClient {
         }
         return;
       } catch (error) {
-        logger.warn(`LLM stream failed with provider ${provider}:`, error);
-        lastError = error;
+        lastError = normalizeProviderError(error);
+        logger.warn(`LLM stream failed with provider ${provider}: ${lastError.message}`);
       }
     }
 
-    throw lastError || new Error("All LLM providers failed or not configured.");
+    throw lastError ?? new Error("All LLM providers failed or not configured.");
   }
 }

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import type { PrismaClient } from "@prisma/client";
 
 import { F8_CONFIG } from "../f8.config.js";

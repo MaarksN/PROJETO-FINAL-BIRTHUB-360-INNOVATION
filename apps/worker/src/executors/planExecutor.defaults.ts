@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { createHash } from "node:crypto";
 
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";
@@ -90,6 +91,9 @@ export function createDefaultTools(): Record<string, BaseTool<unknown, unknown>>
       policyEngine
     }) as BaseTool<unknown, unknown>,
     http: new HttpTool({ policyEngine }) as BaseTool<unknown, unknown>,
-    "send-email": new SendEmailTool({ policyEngine }) as BaseTool<unknown, unknown>
+    "send-email": new SendEmailTool({
+      fromEmail: "noreply@birthhub.local",
+      policyEngine
+    }) as BaseTool<unknown, unknown>
   };
 }

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 const memoryCache = new Map<string, { value: string; expiresAt: number }>();
 
 export async function getCached<T>(key: string): Promise<T | null> {

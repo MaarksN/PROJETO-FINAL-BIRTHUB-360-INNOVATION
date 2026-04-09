@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import {
   AppointmentStatus,
   PregnancyRiskLevel,
@@ -22,8 +23,7 @@ import {
   loadOrganizationContext,
   readNumber,
   readString,
-  riskFromScore,
-  updateOrganizationOnboardingFlag
+  riskFromScore
 } from "./service.shared.js";
 
 function startOfDay(value: Date): Date {
@@ -66,6 +66,40 @@ function calculateGestationalAgeLabel(input: {
   const weeks = Math.floor(gestationalAgeDays / 7);
   const days = gestationalAgeDays % 7;
   return `${weeks} sem ${days} d`;
+}
+
+async function updateOrganizationOnboardingFlag(input: {
+  enabled: boolean;
+  organizationId: string;
+  tenantId: string;
+}) {
+  const organization = await prisma.organization.findFirst({
+    select: {
+      settings: true
+    },
+    where: {
+      id: input.organizationId,
+      tenantId: input.tenantId
+    }
+  });
+
+  if (!organization) {
+    throw new Error("DASHBOARD_ORGANIZATION_NOT_FOUND");
+  }
+
+  const settings = asObject(organization.settings) ?? {};
+
+  return prisma.organization.update({
+    data: {
+      settings: {
+        ...settings,
+        onboarding: input.enabled
+      }
+    },
+    where: {
+      id: input.organizationId
+    }
+  });
 }
 
 export async function getDashboardMetrics(

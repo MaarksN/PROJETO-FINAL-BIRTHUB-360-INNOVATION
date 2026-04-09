@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 export const dimensionConfig = [
   { key: "architecture", label: "Dimensão 1 — Saúde Arquitetural", target: 14 },
   { key: "code_quality", label: "Dimensão 2 — Qualidade de Código", target: 14 },

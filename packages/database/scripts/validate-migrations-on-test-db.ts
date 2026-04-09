@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { resolve } from "node:path";
 
 import { getPrismaCommand, runCommand } from "./lib/process.js";

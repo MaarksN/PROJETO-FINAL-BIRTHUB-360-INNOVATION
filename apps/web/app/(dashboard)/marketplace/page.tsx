@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { getWebConfig } from "@birthub/config";
 import Link from "next/link";
 

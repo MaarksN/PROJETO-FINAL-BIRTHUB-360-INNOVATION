@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -44,29 +45,17 @@ void test("api config accepts hardened staging settings with Stripe test credent
   const config = getApiConfig({
     ...baseEnv,
     AUTH_MFA_ENCRYPTION_KEY: "staging-mfa-encryption-key-123",
-    AUTH_ARGON2_MEMORY_KIB: "65536",
-    AUTH_ARGON2_PASSES: "3",
     DEPLOYMENT_ENVIRONMENT: "staging",
     JOB_HMAC_GLOBAL_SECRET: "staging-job-hmac-secret-123",
-    JOB_HMAC_GLOBAL_SECRET_FALLBACKS: "prev-job-secret,older-job-secret",
     SENTRY_DSN: "https://public@example.ingest.sentry.io/123456",
-    SESSION_IP_HASH_SALT: "staging-ip-hash-salt-123",
     SESSION_SECRET: "staging-session-secret-123",
-    SESSION_SECRET_FALLBACKS: "previous-session-secret",
     STRIPE_SECRET_KEY: "sk_test_birthhub360_staging",
     STRIPE_WEBHOOK_SECRET: "whsec_staging_birthhub360",
-    STRIPE_WEBHOOK_SECRET_FALLBACKS: "whsec_staging_previous",
     WEB_BASE_URL: "https://staging.birthhub360.com"
   });
 
   assert.equal(config.NODE_ENV, "production");
   assert.equal(config.STRIPE_SECRET_KEY, "sk_test_birthhub360_staging");
-  assert.deepEqual(config.jobHmacGlobalSecretFallbacks, [
-    "prev-job-secret",
-    "older-job-secret"
-  ]);
-  assert.deepEqual(config.sessionSecretFallbacks, ["previous-session-secret"]);
-  assert.deepEqual(config.stripeWebhookSecretFallbacks, ["whsec_staging_previous"]);
   assert.equal(config.STRIPE_WEBHOOK_TOLERANCE_SECONDS, 300);
 });
 
@@ -74,11 +63,8 @@ void test("api config accepts hardened production settings", () => {
   const config = getApiConfig({
     ...baseEnv,
     AUTH_MFA_ENCRYPTION_KEY: "prod-mfa-encryption-key-123",
-    AUTH_ARGON2_MEMORY_KIB: "65536",
-    AUTH_ARGON2_PASSES: "3",
     JOB_HMAC_GLOBAL_SECRET: "prod-job-hmac-secret-123",
     SENTRY_DSN: "https://public@example.ingest.sentry.io/123456",
-    SESSION_IP_HASH_SALT: "prod-ip-hash-salt-123",
     SESSION_SECRET: "prod-session-secret-123",
     STRIPE_SECRET_KEY: "sk_live_birthhub360",
     STRIPE_WEBHOOK_SECRET: "whsec_live_birthhub360"

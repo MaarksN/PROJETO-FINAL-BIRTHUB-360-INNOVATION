@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { execSync } from "node:child_process";
 
 function run(command) {

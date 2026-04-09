@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
@@ -29,7 +30,7 @@ export class LocalBillingExportStorage implements BillingExportStorage {
   }
 }
 
-export class S3BillingExportStorage implements BillingExportStorage {
+class S3BillingExportStorage implements BillingExportStorage {
   private readonly bucket: string;
   private readonly client: S3Client;
 

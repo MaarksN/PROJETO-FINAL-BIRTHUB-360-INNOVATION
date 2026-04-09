@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import {
   findManifestCatalogEntryByAgentId,
   type ManagedAgentPolicy
@@ -11,7 +12,7 @@ import {
 } from "./runtime.shared.js";
 import type { RuntimeAgentResolution } from "./runtime.types.js";
 
-export async function resolveRuntimeAgent(input: {
+async function resolveRuntimeAgent(input: {
   agentId: string;
   catalogAgentId?: string | null;
   tenantId: string;

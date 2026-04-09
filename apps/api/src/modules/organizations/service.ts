@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { getApiConfig } from "@birthub/config";
 import {
   Prisma,
@@ -129,11 +130,7 @@ export async function createOrganization(input: {
   const organizationSlug = resolveOrganizationSlug(input.name, input.slug);
   const passwordHash = await hashPassword(
     input.adminPassword,
-    {
-      memoryKiB: config.AUTH_ARGON2_MEMORY_KIB,
-      parallelism: config.AUTH_ARGON2_PARALLELISM,
-      passes: config.AUTH_ARGON2_PASSES
-    }
+    config.AUTH_BCRYPT_SALT_ROUNDS
   );
   const quotaWindow = buildCurrentQuotaWindow();
   const primaryDomain = input.adminEmail.includes("@")

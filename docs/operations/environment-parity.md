@@ -1,13 +1,13 @@
 # Environment Parity
 
-- Refreshed at: 2026-04-09T01:13:39.011Z
-- Source of truth: `auditor-prime-2026-04-08` evidence refresh over the current HEAD.
+- Refreshed at: 2026-04-09T17:24:24.002Z
+- Source of truth: `auditor-prime-2026-04-09` evidence refresh over the current HEAD.
 
 ## Runtime Surfaces
 
 - Dockerfiles present: 3/3 (`apps/api/Dockerfile`, `apps/web/Dockerfile`, `apps/worker/Dockerfile`)
 - Compose surfaces present: 2/2 (`docker-compose.yml`, `docker-compose.prod.yml`)
-- Canonical deploy lane: present (`.github/workflows/cd.yml` -> Artifact Registry -> Cloud Run candidate promotion)
+- Cloud Run manifest: present (`infra/cloudrun/service.yaml`)
 - Monitoring stack refs: `infra/monitoring/prometheus.yml`, `infra/monitoring/alert.rules.yml`, `infra/monitoring/grafana-dashboard.json`
 
 ## Release Preflight Evidence

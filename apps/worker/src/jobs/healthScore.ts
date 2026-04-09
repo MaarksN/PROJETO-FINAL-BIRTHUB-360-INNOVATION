@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import {
   createNotificationForOrganizationRoles,
   NotificationType,
@@ -20,7 +21,7 @@ export interface HealthScoreInputs {
   workflowRuns: number;
 }
 
-export function clampHealthScore(value: number): number {
+function clampHealthScore(value: number): number {
   return Math.max(0, Math.min(100, value));
 }
 
@@ -179,7 +180,7 @@ async function buildActivityWindow(input: {
   return record;
 }
 
-export async function refreshTenantActivityWindows(organizationId?: string) {
+async function refreshTenantActivityWindows(organizationId?: string) {
   const organizations = organizationId
     ? await prisma.organization.findMany({
         where: {

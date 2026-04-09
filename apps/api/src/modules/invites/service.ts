@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 import { randomBytes } from "node:crypto";
 
 import { prisma, Role, withTenantDatabaseContext } from "@birthub/database";
@@ -210,7 +211,7 @@ export async function listInvites(input: {
   });
 }
 
-export async function cleanupExpiredInvites() {
+async function cleanupExpiredInvites() {
   return prisma.invite.deleteMany({
     where: {
       expiresAt: {

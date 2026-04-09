@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // @ts-nocheck
+// 
 // [SOURCE] checklist Agent Pack — GAP-005
 
 import fs from "node:fs";

@@ -1,4 +1,5 @@
 // @ts-nocheck
+// 
 function parseFlag(name: string): string | undefined {
   const flag = process.argv.find((item) => item.startsWith(`${name}=`));
   return flag ? flag.slice(name.length + 1) : undefined;
