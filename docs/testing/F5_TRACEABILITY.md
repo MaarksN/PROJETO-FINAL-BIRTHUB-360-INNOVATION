@@ -1,6 +1,6 @@
 # F5 Traceability Matrix
 
-- Generated at: 2026-04-09T14:40:00-03:00
+- Generated at: 2026-04-09T15:37:41-03:00
 - Source: F5.html plus local revalidation of the quality-governance lane
 
 ## Billing and Stripe webhooks
@@ -33,7 +33,7 @@ Functional gaps:
 | tenant hardening and security edge cases | apps/api/tests/tenant-auth-hardening.test.ts<br>apps/api/tests/security.test.ts |
 
 Functional gaps:
-- A focused mutation lane now covers `packages/auth`; the slower API auth expansion is available via `MUTATION_INCLUDE_API_AUTH=1`, but it is not part of the default lane yet.
+- The shared focused mutation lane now closes locally with score `60.85%` against `break=60`; `packages/auth` is inside the default slice, while the slower API auth expansion via `MUTATION_INCLUDE_API_AUTH=1` remains optional.
 - Lockout counters and broader API auth modules still need expanded mutation scope.
 - Tagged slow/e2e auth flows remain separated from the critical coverage lane.
 
@@ -49,7 +49,7 @@ Functional gaps:
 | agent execution, retries and runtime smoke path | apps/worker/src/engine/runner.agent.smoke.test.ts<br>apps/worker/src/engine/runner.cancel.test.ts<br>apps/worker/src/engine/runner.transitions.test.ts |
 
 Functional gaps:
-- A focused mutation lane now covers manifest parsing, catalog lookup and Slack tool paths in `packages/agents-core`.
+- The shared focused mutation lane now covers manifest parsing, catalog lookup and Slack tool paths in `packages/agents-core`, with the local Stryker artifact materialized in `artifacts/stryker/mutation.json`.
 - Dead-letter-path assertions still depend on broader orchestrator/python suites.
 
 ## Worker boot, processing and overload behavior
@@ -80,6 +80,6 @@ Functional gaps:
 
 ## Functional vs Code Coverage Gaps
 
-- The workspace now has a mutation lane for `packages/auth` and the critical `packages/agents-core` parsing/tooling slice, but billing/webhooks, worker runtime and broader API auth remain outside the default mutated scope.
+- The workspace now has a green focused mutation lane (`60.85%` vs `break=60`) for `packages/auth` and the critical `packages/agents-core` parsing/tooling slice, but billing/webhooks, worker runtime and broader API auth remain outside the default mutated scope.
 - Chaos, resilience and soak executions are modeled by scripts and environment gates, not by every default CI run.
 - Python orchestration runtime remains partially outside the TS/JS coverage dashboard and is tracked separately by pytest coverage.

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-09T17:25:32.566Z",
+  "checkedAt": "2026-04-09T18:39:09.506Z",
   "mode": "browser-dom-smoke",
   "requestedTool": "playwright",
   "sufficient": true,
@@ -47,6 +47,6 @@
     }
   ],
   "findings": [],
-  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 980ms\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 983ms (next.js: 194ms, proxy.ts: 275ms, application-code: 515ms)\n GET / 200 in 154ms (next.js: 46ms, proxy.ts: 8ms, application-code: 100ms)\n GET /pricing 200 in 73ms (next.js: 4ms, proxy.ts: 6ms, application-code: 64ms)\n GET /legal/terms 200 in 102ms (next.js: 27ms, proxy.ts: 6ms, application-code: 69ms)\n GET /legal/privacy 200 in 100ms (next.js: 27ms, proxy.ts: 5ms, application-code: 67ms)\n",
-  "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⨯ ReferenceError: redirect is not defined\n    at HomePage (app\\page.tsx:11:3)\n   9 |\n  10 | export default function HomePage() {\n> 11 |   redirect(\"/login\");\n     |   ^\n  12 | } {\n  digest: '1344941868'\n}\n"
+  "stdout": "▲ Next.js 16.2.1 (Turbopack)\n- Local:         http://localhost:3101\n- Network:       http://192.168.0.179:3101\n✓ Ready in 553ms\n- Experiments (use with caution):\n  · sri\n\n GET /pricing 200 in 625ms (next.js: 109ms, proxy.ts: 168ms, application-code: 347ms)\n GET / 200 in 118ms (next.js: 28ms, proxy.ts: 5ms, application-code: 84ms)\n GET /pricing 200 in 69ms (next.js: 3ms, proxy.ts: 5ms, application-code: 60ms)\n GET /legal/terms 200 in 93ms (next.js: 25ms, proxy.ts: 5ms, application-code: 63ms)\n GET /legal/privacy 200 in 86ms (next.js: 23ms, proxy.ts: 5ms, application-code: 58ms)\n",
+  "stderr": "Warning: Custom Cache-Control headers detected for the following routes:\n  - /_next/static/(.*)\n\nSetting a custom Cache-Control header can break Next.js development behavior.\n⨯ ReferenceError: redirect is not defined\n    at HomePage (app\\page.tsx:11:3)\n   9 |\n  10 | export default function HomePage() {\n> 11 |   redirect(\"/login\");\n     |   ^\n  12 | } {\n  digest: '1638656460'\n}\n"
 }

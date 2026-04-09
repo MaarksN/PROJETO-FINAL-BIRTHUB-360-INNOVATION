@@ -28,6 +28,7 @@
 - [Environment inventory](operations/environment-inventory.md)
 - [Go-live runbook](release/2026-03-20-go-live-runbook.md)
 - [Release process](release/release-process.md)
+- [Release scorecard process](processes/RELEASE_SCORECARD.md)
 - [Database migration rollback plan](database/migration-rollback-plan.md)
 - [Incident response](runbooks/critical-incidents.md)
 - [Critical incident runbook](runbooks/critical-incidents.md)
@@ -38,6 +39,8 @@
 - [Testing standard](standards/testing.md)
 - [Linting standard](standards/linting.md)
 - [Repository naming standard](standards/repository-naming.md)
+- [Mutation evidence report](evidence/mutation-report.md)
+- [Dead code report](evidence/dead-code-report.md)
 
 ## Security and governance
 

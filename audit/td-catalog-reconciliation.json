@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-04-09T01:03:38.071Z",
+  "generatedAt": "2026-04-09T18:38:35.320Z",
   "latestPrimeReport": {
-    "absolutePath": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\audit\\.auditor-prime\\2026-04-07\\03-scored-report.json",
-    "dateOnly": "2026-04-07",
-    "relativePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json"
+    "absolutePath": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\audit\\.auditor-prime\\2026-04-09\\03-scored-report.json",
+    "dateOnly": "2026-04-09",
+    "relativePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json"
   },
   "policy": {
     "bareIdsAllowedInNewReferences": false,
@@ -33,7 +33,7 @@
     {
       "label": "Auditor Prime",
       "namespace": "APR",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "count": 100,
       "firstId": "TD-001",
       "lastId": "TD-100"
@@ -67,8 +67,8 @@
           "canonicalId": "APR-TD-001",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em AppointmentsBoard"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Complexidade acima do limiar em DashboardHomePage"
         }
       ]
     },
@@ -99,8 +99,8 @@
           "canonicalId": "APR-TD-002",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em ConversationsPage"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Complexidade acima do limiar em GlobalSearch"
         }
       ]
     },
@@ -131,8 +131,8 @@
           "canonicalId": "APR-TD-003",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em createWorkflowsRouter"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Complexidade acima do limiar em main"
         }
       ]
     },
@@ -163,8 +163,8 @@
           "canonicalId": "APR-TD-004",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em deriveClinicalAlerts"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Complexidade acima do limiar em Navbar"
         }
       ]
     },
@@ -195,8 +195,8 @@
           "canonicalId": "APR-TD-005",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em PatientDetailPage"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Complexidade acima do limiar em SalesOsShell"
         }
       ]
     },
@@ -227,8 +227,8 @@
           "canonicalId": "APR-TD-006",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em PatientsPage"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Complexidade acima do limiar em usePatientDetailModel"
         }
       ]
     },
@@ -259,8 +259,8 @@
           "canonicalId": "APR-TD-007",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em WorkflowRevisionsPage"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Superfície legacy ainda versionada ao lado do core canônico"
         }
       ]
     },
@@ -283,8 +283,8 @@
           "canonicalId": "APR-TD-008",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Complexidade acima do limiar em WorkflowRunsPage"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Arquivo grande demais para o boundary atual (1287 linhas)"
         }
       ]
     },
@@ -307,8 +307,8 @@
           "canonicalId": "APR-TD-009",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Superfície legacy ainda versionada ao lado do core canônico"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Arquivo grande demais para o boundary atual (2345 linhas)"
         }
       ]
     },
@@ -331,8 +331,8 @@
           "canonicalId": "APR-TD-010",
           "domain": "Dimensão 1 — Saúde Arquitetural",
           "source": "Auditor Prime",
-          "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-          "title": "Arquivo grande demais para o boundary atual (1731 linhas)"
+          "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+          "title": "Arquivo grande demais para o boundary atual (6945 linhas)"
         }
       ]
     }
@@ -550,9 +550,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Complexidade acima do limiar em AppointmentsBoard"
+      "title": "Complexidade acima do limiar em DashboardHomePage"
     },
     {
       "canonicalId": "APR-TD-002",
@@ -562,9 +562,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Complexidade acima do limiar em ConversationsPage"
+      "title": "Complexidade acima do limiar em GlobalSearch"
     },
     {
       "canonicalId": "APR-TD-003",
@@ -574,9 +574,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Complexidade acima do limiar em createWorkflowsRouter"
+      "title": "Complexidade acima do limiar em main"
     },
     {
       "canonicalId": "APR-TD-004",
@@ -586,9 +586,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Complexidade acima do limiar em deriveClinicalAlerts"
+      "title": "Complexidade acima do limiar em Navbar"
     },
     {
       "canonicalId": "APR-TD-005",
@@ -598,9 +598,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Complexidade acima do limiar em PatientDetailPage"
+      "title": "Complexidade acima do limiar em SalesOsShell"
     },
     {
       "canonicalId": "APR-TD-006",
@@ -610,33 +610,33 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Complexidade acima do limiar em PatientsPage"
+      "title": "Complexidade acima do limiar em usePatientDetailModel"
     },
     {
       "canonicalId": "APR-TD-007",
       "domain": "Dimensão 1 — Saúde Arquitetural",
       "legacyId": "TD-007",
       "owner": null,
-      "priority": "ALTO",
+      "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "ALTO",
-      "title": "Complexidade acima do limiar em WorkflowRevisionsPage"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "MÉDIO",
+      "title": "Superfície legacy ainda versionada ao lado do core canônico"
     },
     {
       "canonicalId": "APR-TD-008",
       "domain": "Dimensão 1 — Saúde Arquitetural",
       "legacyId": "TD-008",
       "owner": null,
-      "priority": "ALTO",
+      "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "ALTO",
-      "title": "Complexidade acima do limiar em WorkflowRunsPage"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "MÉDIO",
+      "title": "Arquivo grande demais para o boundary atual (1287 linhas)"
     },
     {
       "canonicalId": "APR-TD-009",
@@ -646,9 +646,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Superfície legacy ainda versionada ao lado do core canônico"
+      "title": "Arquivo grande demais para o boundary atual (2345 linhas)"
     },
     {
       "canonicalId": "APR-TD-010",
@@ -658,9 +658,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Arquivo grande demais para o boundary atual (1731 linhas)"
+      "title": "Arquivo grande demais para o boundary atual (6945 linhas)"
     },
     {
       "canonicalId": "APR-TD-011",
@@ -670,9 +670,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Arquivo grande demais para o boundary atual (2233 linhas)"
+      "title": "Arquivo grande demais para o boundary atual (976 linhas)"
     },
     {
       "canonicalId": "APR-TD-012",
@@ -682,9 +682,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Arquivo grande demais para o boundary atual (967 linhas)"
+      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core"
     },
     {
       "canonicalId": "APR-TD-013",
@@ -694,9 +694,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Arquivo grande demais para o boundary atual (977 linhas)"
+      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/dependency-boundaries.md] Matriz explícita de dependências permitidas (complementar 2)"
     },
     {
       "canonicalId": "APR-TD-014",
@@ -706,21 +706,21 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core"
+      "title": "[DADOS INSUFICIENTES — REQUER: docs/architecture/c4-context.md] Diagrama C4 versionado do core (complementar 3)"
     },
     {
       "canonicalId": "APR-TD-015",
       "domain": "Dimensão 2 — Qualidade de Código",
       "legacyId": "TD-015",
       "owner": null,
-      "priority": "ALTO",
+      "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "ALTO",
-      "title": "Uso recorrente de any em index.ts"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "MÉDIO",
+      "title": "Acesso direto a process.env fora da camada de configuração"
     },
     {
       "canonicalId": "APR-TD-016",
@@ -730,7 +730,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Acesso direto a process.env fora da camada de configuração"
     },
@@ -742,7 +742,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Acesso direto a process.env fora da camada de configuração"
     },
@@ -754,7 +754,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Acesso direto a process.env fora da camada de configuração"
     },
@@ -766,7 +766,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Acesso direto a process.env fora da camada de configuração"
     },
@@ -778,9 +778,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Acesso direto a process.env fora da camada de configuração"
+      "title": "Uso recorrente de any em agent.ts"
     },
     {
       "canonicalId": "APR-TD-021",
@@ -790,9 +790,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Uso recorrente de any em fiscal.ts"
+      "title": "Uso recorrente de any em encryption.ts"
     },
     {
       "canonicalId": "APR-TD-022",
@@ -802,7 +802,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Uso recorrente de any em index.ts"
     },
@@ -814,9 +814,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Uso recorrente de any em index.ts"
+      "title": "Uso recorrente de any em main.js"
     },
     {
       "canonicalId": "APR-TD-024",
@@ -826,9 +826,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "Uso recorrente de any em payments-br.ts"
+      "title": "Uso recorrente de any em pack-installer.service.ts"
     },
     {
       "canonicalId": "APR-TD-025",
@@ -838,7 +838,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Uso recorrente de any em signatures.ts"
     },
@@ -850,7 +850,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Logging ad-hoc com console.* em runtime"
     },
@@ -862,7 +862,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Logging ad-hoc com console.* em runtime"
     },
@@ -874,7 +874,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Logging ad-hoc com console.* em runtime"
     },
@@ -886,9 +886,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Semgrep WARNING em generate-vps-env.mjs"
+      "title": "Uso de raw query insegura no acesso a dados"
     },
     {
       "canonicalId": "APR-TD-030",
@@ -898,9 +898,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Semgrep WARNING em prime-refresh-evidence.mjs"
+      "title": "Chamada externa sem timeout ou abort path explícito"
     },
     {
       "canonicalId": "APR-TD-031",
@@ -910,9 +910,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Semgrep WARNING em prisma-schema.ts"
+      "title": "Configuração sensível dispersa em módulo crítico"
     },
     {
       "canonicalId": "APR-TD-032",
@@ -922,9 +922,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Semgrep WARNING em runtime.shared.ts"
+      "title": "Configuração sensível dispersa em módulo crítico"
     },
     {
       "canonicalId": "APR-TD-033",
@@ -934,9 +934,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Semgrep WARNING em worker.job-validation.test.ts"
+      "title": "Semgrep WARNING em prime-collect.mjs"
     },
     {
       "canonicalId": "APR-TD-034",
@@ -946,9 +946,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual"
+      "title": "Semgrep INFO em service.yaml"
     },
     {
       "canonicalId": "APR-TD-035",
@@ -958,9 +958,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)"
+      "title": "Semgrep INFO em shared-prime.mjs"
     },
     {
       "canonicalId": "APR-TD-036",
@@ -970,9 +970,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)"
+      "title": "Semgrep INFO em shared-prime.mjs"
     },
     {
       "canonicalId": "APR-TD-037",
@@ -982,9 +982,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)"
+      "title": "Semgrep INFO em shared-prime.mjs"
     },
     {
       "canonicalId": "APR-TD-038",
@@ -994,9 +994,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 5)"
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual"
     },
     {
       "canonicalId": "APR-TD-039",
@@ -1006,9 +1006,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 6)"
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 2)"
     },
     {
       "canonicalId": "APR-TD-040",
@@ -1018,9 +1018,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 7)"
+      "title": "[DADOS INSUFICIENTES — REQUER: semgrep --json] Linha de base SAST fresca para o HEAD atual (complementar 3)"
     },
     {
       "canonicalId": "APR-TD-041",
@@ -1030,9 +1030,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 8)"
+      "title": "[DADOS INSUFICIENTES — REQUER: DAST/ZAP report] Cobertura dinâmica de SSRF/XSS/autenticação (complementar 4)"
     },
     {
       "canonicalId": "APR-TD-042",
@@ -1042,7 +1042,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Observabilidade inconsistente por uso de console em runtime"
     },
@@ -1054,7 +1054,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Observabilidade inconsistente por uso de console em runtime"
     },
@@ -1066,7 +1066,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Cobertura estrutural baixa em apps/web"
     },
@@ -1078,7 +1078,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Cobertura estrutural baixa em apps/worker"
     },
@@ -1090,7 +1090,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Módulo volumoso sem teste relacionado direto"
     },
@@ -1102,7 +1102,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Módulo volumoso sem teste relacionado direto"
     },
@@ -1114,7 +1114,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Módulo volumoso sem teste relacionado direto"
     },
@@ -1126,9 +1126,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada"
+      "title": "Módulo volumoso sem teste relacionado direto"
     },
     {
       "canonicalId": "APR-TD-050",
@@ -1138,9 +1138,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2)"
+      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada"
     },
     {
       "canonicalId": "APR-TD-051",
@@ -1150,9 +1150,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3)"
+      "title": "[DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 2)"
     },
     {
       "canonicalId": "APR-TD-052",
@@ -1162,9 +1162,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 4)"
+      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 3)"
     },
     {
       "canonicalId": "APR-TD-053",
@@ -1174,9 +1174,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: cobertura por módulo] Cobertura quantitativa por camada (complementar 5)"
+      "title": "[DADOS INSUFICIENTES — REQUER: SLO dashboards vivos] SLO/SLA com erro budget operacional (complementar 4)"
     },
     {
       "canonicalId": "APR-TD-054",
@@ -1186,9 +1186,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Await serial em loop de runtime"
+      "title": "Consulta findMany sem paginação explícita"
     },
     {
       "canonicalId": "APR-TD-055",
@@ -1198,9 +1198,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Await serial em loop de runtime"
+      "title": "Consulta findMany sem paginação explícita"
     },
     {
       "canonicalId": "APR-TD-056",
@@ -1210,9 +1210,9 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Await serial em loop de runtime"
+      "title": "Consulta findMany sem paginação explícita"
     },
     {
       "canonicalId": "APR-TD-057",
@@ -1222,69 +1222,69 @@
       "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
-      "title": "Await serial em loop de runtime"
+      "title": "Consulta findMany sem paginação explícita"
     },
     {
       "canonicalId": "APR-TD-058",
       "domain": "Dimensão 5 — Performance e Escalabilidade",
       "legacyId": "TD-058",
       "owner": null,
-      "priority": "MÉDIO",
+      "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "MÉDIO",
-      "title": "Bundle web fresco acima de 2 MiB (2264.32 KiB)"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "ALTO",
+      "title": "Await serial em loop de runtime"
     },
     {
       "canonicalId": "APR-TD-059",
       "domain": "Dimensão 5 — Performance e Escalabilidade",
       "legacyId": "TD-059",
       "owner": null,
-      "priority": "MÉDIO",
+      "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "MÉDIO",
-      "title": "Página/estado web com complexidade alta (120)"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "ALTO",
+      "title": "Await serial em loop de runtime"
     },
     {
       "canonicalId": "APR-TD-060",
       "domain": "Dimensão 5 — Performance e Escalabilidade",
       "legacyId": "TD-060",
       "owner": null,
-      "priority": "MÉDIO",
+      "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "MÉDIO",
-      "title": "Página/estado web com complexidade alta (37)"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "ALTO",
+      "title": "Await serial em loop de runtime"
     },
     {
       "canonicalId": "APR-TD-061",
       "domain": "Dimensão 5 — Performance e Escalabilidade",
       "legacyId": "TD-061",
       "owner": null,
-      "priority": "MÉDIO",
+      "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "MÉDIO",
-      "title": "Página/estado web com complexidade alta (42)"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "ALTO",
+      "title": "Await serial em loop de runtime"
     },
     {
       "canonicalId": "APR-TD-062",
       "domain": "Dimensão 5 — Performance e Escalabilidade",
       "legacyId": "TD-062",
       "owner": null,
-      "priority": "MÉDIO",
+      "priority": "ALTO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "ALTO",
+      "title": "Integração externa sem deadline operacional explícito"
     },
     {
       "canonicalId": "APR-TD-063",
@@ -1294,9 +1294,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 2)"
+      "title": "Bundle web fresco acima de 2 MiB (2443.96 KiB)"
     },
     {
       "canonicalId": "APR-TD-064",
@@ -1306,9 +1306,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: bundle baseline fresco] Tamanho real do bundle web no HEAD (complementar 3)"
+      "title": "Página/estado web com complexidade alta (34)"
     },
     {
       "canonicalId": "APR-TD-065",
@@ -1318,9 +1318,9 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "[DADOS INSUFICIENTES — REQUER: load test recente] Prova de throughput sob stress no core (complementar 4)"
+      "title": "Página/estado web com complexidade alta (44)"
     },
     {
       "canonicalId": "APR-TD-066",
@@ -1330,7 +1330,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Histórico recente contém mensagens de commit placeholder"
     },
@@ -1342,7 +1342,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Dockerfile sem evidência de multi-stage build"
     },
@@ -1354,7 +1354,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Dockerfile sem evidência de multi-stage build"
     },
@@ -1366,7 +1366,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Dockerfile sem evidência de multi-stage build"
     },
@@ -1378,7 +1378,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Diretório Kubernetes existe sem manifests ativos"
     },
@@ -1390,7 +1390,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod"
     },
@@ -1402,7 +1402,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 2)"
     },
@@ -1414,7 +1414,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 3)"
     },
@@ -1426,7 +1426,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 4)"
     },
@@ -1438,7 +1438,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 5)"
     },
@@ -1450,7 +1450,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: lead time por PR] Métrica DORA completa de mudança (complementar 6)"
     },
@@ -1462,7 +1462,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 1",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: inventário de ambientes] Paridade real dev/staging/prod (complementar 7)"
     },
@@ -1474,7 +1474,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Rota sem estados auxiliares dedicados (loading.tsx + error.tsx)"
     },
@@ -1486,7 +1486,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Rota sem estados auxiliares dedicados (loading.tsx + error.tsx)"
     },
@@ -1498,7 +1498,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Rota sem estados auxiliares dedicados (loading.tsx + error.tsx)"
     },
@@ -1510,7 +1510,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Strings de interface hardcoded em superfície web"
     },
@@ -1522,7 +1522,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Strings de interface hardcoded em superfície web"
     },
@@ -1534,7 +1534,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Strings de interface hardcoded em superfície web"
     },
@@ -1546,7 +1546,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Strings de interface hardcoded em superfície web"
     },
@@ -1558,7 +1558,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Strings de interface hardcoded em superfície web"
     },
@@ -1570,7 +1570,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Strings de interface hardcoded em superfície web"
     },
@@ -1582,21 +1582,21 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
-      "title": "A11y automatizada sinaliza input-label"
+      "title": "[DADOS INSUFICIENTES — REQUER: auditoria a11y automatizada] Conformidade WCAG do frontend"
     },
     {
       "canonicalId": "APR-TD-088",
       "domain": "Dimensão 7 — Dívida de Produto e UX Técnica",
       "legacyId": "TD-088",
       "owner": null,
-      "priority": "BAIXO",
+      "priority": "MÉDIO",
       "residualRisk": "Fase 2",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
-      "status": "BAIXO",
-      "title": "A11y automatizada sinaliza table-caption"
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
+      "status": "MÉDIO",
+      "title": "[DADOS INSUFICIENTES — REQUER: baseline de cross-browser] Compatibilidade real entre navegadores (complementar 2)"
     },
     {
       "canonicalId": "APR-TD-089",
@@ -1606,7 +1606,7 @@
       "priority": "ALTO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "ALTO",
       "title": "Drill de disaster recovery não registrado no ciclo atual"
     },
@@ -1618,7 +1618,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "Playbook explícito de on-call não encontrado"
     },
@@ -1630,7 +1630,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant"
     },
@@ -1642,7 +1642,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 2)"
     },
@@ -1654,7 +1654,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 3)"
     },
@@ -1666,7 +1666,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 4)"
     },
@@ -1678,7 +1678,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 5)"
     },
@@ -1690,7 +1690,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 6)"
     },
@@ -1702,7 +1702,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 7)"
     },
@@ -1714,7 +1714,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 8)"
     },
@@ -1726,7 +1726,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: SLA versionado] Compromissos operacionais por tenant (complementar 9)"
     },
@@ -1738,7 +1738,7 @@
       "priority": "MÉDIO",
       "residualRisk": "Fase 3",
       "source": "auditor_prime",
-      "sourcePath": "audit/.auditor-prime/2026-04-07/03-scored-report.json",
+      "sourcePath": "audit/.auditor-prime/2026-04-09/03-scored-report.json",
       "status": "MÉDIO",
       "title": "[DADOS INSUFICIENTES — REQUER: evidência de DR drill] Exercício periódico de disaster recovery (complementar 10)"
     }

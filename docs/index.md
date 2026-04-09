@@ -21,6 +21,9 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 - [Rollout de Autenticação e Multitenant](runbooks/auth-tenant-rollout-canary.md)
 
 ## 4. Deploy e Releases
+- [Processo de Release Scorecard](processes/RELEASE_SCORECARD.md)
+- [Relatorio de Mutacao](evidence/mutation-report.md)
+- [Relatorio de Dead Code](evidence/dead-code-report.md)
 
 ## 5. Operações e Resposta a Incidentes
 - [Inventário de Ambientes](operations/environment-inventory.md)
