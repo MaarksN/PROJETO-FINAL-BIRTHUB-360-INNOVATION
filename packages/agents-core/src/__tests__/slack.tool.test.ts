@@ -16,6 +16,141 @@ void test("slack tool simulates by default", async () => {
   assert.ok(result.ts.length > 0);
 });
 
+void test("slack tool requires webhookUrl for webhook mode when simulation is disabled", async () => {
+  await assert.rejects(
+    () =>
+      postSlackMessage(
+        {
+          channel: "ops-alerts",
+          mode: "webhook",
+          text: "hello"
+        },
+        {
+          simulate: false
+        }
+      ),
+    /webhookUrl is required/i
+  );
+});
+
+void test("slack tool posts webhook payload and rejects non-ok webhook responses", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls: Array<{ init?: RequestInit; url: RequestInfo | URL }> = [];
+
+  globalThis.fetch = (async (url: RequestInfo | URL, init?: RequestInit) => {
+    calls.push({ init, url });
+    return new Response("boom", { status: 500 });
+  }) as typeof fetch;
+
+  try {
+    await assert.rejects(
+      () =>
+        postSlackMessage(
+          {
+            channel: "ops-alerts",
+            mode: "webhook",
+            text: "hello",
+            webhookUrl: "https://hooks.slack.test/services/abc"
+          },
+          {
+            simulate: false
+          }
+        ),
+      /Slack webhook failed with status 500/i
+    );
+
+    assert.equal(calls.length, 1);
+    assert.equal(String(calls[0]?.url), "https://hooks.slack.test/services/abc");
+    assert.equal(calls[0]?.init?.method, "POST");
+    assert.equal(calls[0]?.init?.headers?.["content-type"], "application/json");
+    assert.deepEqual(JSON.parse(String(calls[0]?.init?.body)), {
+      channel: "ops-alerts",
+      text: "hello"
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+void test("slack tool posts API payload with bearer token and returns success on ok response", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls: Array<{ init?: RequestInit; url: RequestInfo | URL }> = [];
+
+  globalThis.fetch = (async (url: RequestInfo | URL, init?: RequestInit) => {
+    calls.push({ init, url });
+    return new Response("ok", { status: 200 });
+  }) as typeof fetch;
+
+  try {
+    const result = await postSlackMessage(
+      {
+        channel: "ops-alerts",
+        mode: "api",
+        text: "hello",
+        token: "token-123"
+      },
+      {
+        simulate: false
+      }
+    );
+
+    assert.equal(result.mode, "api");
+    assert.equal(result.ok, true);
+    assert.ok(result.ts.length > 0);
+    assert.equal(calls.length, 1);
+    assert.equal(String(calls[0]?.url), "https://slack.com/api/chat.postMessage");
+    assert.equal(calls[0]?.init?.method, "POST");
+    assert.equal(calls[0]?.init?.headers?.authorization, "Bearer token-123");
+    assert.deepEqual(JSON.parse(String(calls[0]?.init?.body)), {
+      channel: "ops-alerts",
+      text: "hello"
+    });
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+void test("slack tool requires API token and rejects non-ok API responses", async () => {
+  await assert.rejects(
+    () =>
+      postSlackMessage(
+        {
+          channel: "ops-alerts",
+          mode: "api",
+          text: "hello"
+        },
+        {
+          simulate: false
+        }
+      ),
+    /token is required/i
+  );
+
+  const originalFetch = globalThis.fetch;
+
+  globalThis.fetch = (async () => new Response("nope", { status: 401 })) as typeof fetch;
+
+  try {
+    await assert.rejects(
+      () =>
+        postSlackMessage(
+          {
+            channel: "ops-alerts",
+            mode: "api",
+            text: "hello",
+            token: "token-123"
+          },
+          {
+            simulate: false
+          }
+        ),
+      /Slack API failed with status 401/i
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 void test("slack tool propagates timeout through abort signal", async () => {
   const originalFetch = globalThis.fetch;
 

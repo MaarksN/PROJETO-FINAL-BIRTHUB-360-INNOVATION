@@ -22,6 +22,7 @@
     "@opentelemetry/exporter-trace-otlp-http",
     "@opentelemetry/resources",
     "@opentelemetry/sdk-node",
+    "@prisma/client",
     "@prisma/instrumentation",
     "c8",
     "express-rate-limit",
@@ -47,6 +48,7 @@
       "entry": [
         "*.config.{js,mjs,cjs,ts}",
         "package.json",
+        "scripts/**/*.{js,mjs,cjs,ts,tsx}",
         "scripts/agent/**/*.{js,mjs,cjs,ts,tsx}",
         "scripts/ai/export-finetune.ts",
         "scripts/audit/**/*.{js,mjs,cjs,ts,tsx}",
