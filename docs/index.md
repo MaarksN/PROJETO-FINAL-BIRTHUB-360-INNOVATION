@@ -5,6 +5,7 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 ## 1. Padrões de Código e Arquitetura
 - [Naming Conventions & Monorepo](standards/naming-conventions.md)
 - [Política de Artefatos](standards/artifacts-policy.md)
+- [C4 Contexto Canônico](architecture/c4-context.md)
 - [Modelo C4 de Arquitetura (Context/Containers/Components)](architecture/c4-model.md)
 - [Bounded Contexts e Limites de Domínio (Auth, Billing, Agents)](architecture/bounded-contexts.md)
 - [ADRs - Architectural Decision Records](adrs/index.md)
@@ -22,6 +23,7 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 ## 4. Deploy e Releases
 
 ## 5. Operações e Resposta a Incidentes
+- [Inventário de Ambientes](operations/environment-inventory.md)
 - [Post-Mortems e Resposta a Incidentes (Outage/Security)](runbooks/incident-response.md)
 - [Incidentes Críticos](runbooks/critical-incidents.md)
 - [Investigação de Queries Lentas](runbooks/slow-query-investigation.md)

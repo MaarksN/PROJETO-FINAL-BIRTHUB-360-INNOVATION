@@ -9,16 +9,14 @@ Este documento consolida o que um novo engenheiro precisa para entender o stack 
 - `apps/worker`: execucao assincrona, filas e jobs operacionais.
 - `packages/database`: schema Prisma e migrations.
 - `packages/*`: contratos, utilitarios, runtime e componentes compartilhados.
-- `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`: superficies legadas de compatibilidade e transicao.
+- `apps/legacy/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator`: superficies legadas de quarentena e referencia historica, fora da lane de runtime.
 
 ## C4 - Context
 
 ```mermaid
 graph TD
   Users[Users and internal operators] --> Web[apps/web]
-  Users --> Dashboard[apps/dashboard legacy]
   Web --> Api[apps/api]
-  Dashboard --> ApiGateway[apps/api-gateway legacy]
   Api --> Worker[apps/worker]
   Api --> Database[(packages/database / Postgres)]
   Worker --> Database
@@ -133,7 +131,7 @@ graph TD
 | Workflows and orchestration | `apps/api/src/modules/workflows`, `packages/workflows-core`, `apps/worker` | HTTP entrypoint stays in API, execution stays in worker. |
 | Agents and marketplace | `apps/api/src/modules/agents`, `packages/agent-packs`, `packages/agents/*` | Manifest governance and execution policy must stay versioned together. |
 | Notifications and outputs | `apps/api/src/modules/notifications`, `apps/api/src/modules/outputs`, `packages/emails` | Delivery policies must be separated from workflow logic. |
-| Legacy compatibility | `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` | No new product behavior without RFC and explicit cutover decision. |
+| Legacy compatibility | `apps/legacy/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` | No new product behavior without RFC and explicit cutover decision. |
 
 ## External integrations
 

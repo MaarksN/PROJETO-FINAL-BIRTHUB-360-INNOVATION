@@ -18,12 +18,14 @@
 ## Architecture
 
 - [Canonical architecture](f10/architecture.md)
+- [C4 context](architecture/c4-context.md)
 - [Folder structure](architecture/folder-structure.md)
 - [ADR registry](adrs/ADR-031-monorepo-source-of-truth.md)
 
 ## Release and operations
 
 - [Operational runbook hub](operational/README.md)
+- [Environment inventory](operations/environment-inventory.md)
 - [Go-live runbook](release/2026-03-20-go-live-runbook.md)
 - [Release process](release/release-process.md)
 - [Database migration rollback plan](database/migration-rollback-plan.md)
