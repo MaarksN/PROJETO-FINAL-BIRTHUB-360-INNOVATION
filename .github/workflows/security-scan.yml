@@ -241,7 +241,7 @@ jobs:
 
       - name: Upload ZAP artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: zap-baseline-artifacts
           path: |
@@ -292,7 +292,7 @@ jobs:
           ZAP_STATUS: ${{ needs.zap-baseline.result }}
 
       - name: Upload security report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: security-coverage-report
           path: |
