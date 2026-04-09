@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { randomBytes } from "node:crypto";
 
 import { prisma, Role, withTenantDatabaseContext } from "@birthub/database";

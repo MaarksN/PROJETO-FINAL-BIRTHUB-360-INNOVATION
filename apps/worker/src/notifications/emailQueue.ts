@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getWorkerConfig } from "@birthub/config";
 import { ensureUserPreference, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";

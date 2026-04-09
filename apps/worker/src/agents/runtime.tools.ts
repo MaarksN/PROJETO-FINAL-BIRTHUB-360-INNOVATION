@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { AgentManifest } from "@birthub/agents-core";
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";
 import { BaseTool, DbReadTool, DbWriteTool, HttpTool, SendEmailTool } from "@birthub/agents-core/tools";

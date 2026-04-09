@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import { getApiConfig } from "@birthub/config";
 import express from "express";

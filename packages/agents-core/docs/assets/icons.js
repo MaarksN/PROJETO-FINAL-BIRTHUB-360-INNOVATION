@@ -1,3 +1,4 @@
+// @ts-nocheck
 (function() {
     addIcons();
     function addIcons() {

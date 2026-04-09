@@ -13,6 +13,7 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 - [Glossário do Negócio e Agentes Comerciais](knowledge/glossary.md)
 - [Guia de Onboarding Técnico (Primeiro Dia, Ambientes)](runbooks/onboarding-guide.md)
 - [Relatório Executivo de Saúde Técnica e Dívida](technical-debt/executive-report.md)
+- [Catalogo Compilado de 334 GitHub Agents](agent-packs/github-agents-v1-catalog.mdx)
 
 ## 3. Playbooks e Runbooks (Engenharia de Dados e Backend)
 - [Disaster Recovery e Backups](runbooks/db-backup-restore.md)

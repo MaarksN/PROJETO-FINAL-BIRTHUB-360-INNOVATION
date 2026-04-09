@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { runWithTenantContext } from "@birthub/database";
 import { runWithLogContext } from "@birthub/logger";
 

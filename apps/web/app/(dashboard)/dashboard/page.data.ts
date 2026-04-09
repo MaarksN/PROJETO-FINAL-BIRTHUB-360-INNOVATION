@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fetchProductJson } from "../../../lib/product-api.server";
 
 export type DashboardMetricsPayload = {

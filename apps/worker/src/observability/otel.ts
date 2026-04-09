@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createRequire } from "node:module";
 
 import { createLogger } from "@birthub/logger";

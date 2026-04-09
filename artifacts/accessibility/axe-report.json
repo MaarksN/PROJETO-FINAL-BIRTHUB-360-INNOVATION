@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-08T02:10:01.387Z",
+  "checkedAt": "2026-04-09T01:14:55.524Z",
   "mode": "static-fallback",
   "requestedTool": "axe",
   "sufficient": false,
@@ -11,261 +11,261 @@
   "browserPath": "C:\\Users\\Marks\\AppData\\Local\\ms-playwright\\chromium-1208\\chrome-win64\\chrome.exe",
   "browserAvailable": true,
   "summary": {
-    "filesScanned": 93,
+    "filesScanned": 94,
     "findings": 36
   },
   "findings": [
     {
       "file": "apps/web/app/(dashboard)/agents/page.tsx",
-      "line": 92,
+      "line": 93,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/analytics/page.tsx",
-      "line": 169,
+      "line": 170,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/billing/budgets/page.tsx",
-      "line": 64,
+      "line": 65,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/conversations/page.tsx",
-      "line": 185,
+      "line": 186,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/conversations/page.tsx",
-      "line": 211,
+      "line": 212,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/dashboard/page.tsx",
-      "line": 333,
+      "line": 334,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/developers/apikeys/page.tsx",
-      "line": 139,
+      "line": 140,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/marketplace/compare/page.tsx",
-      "line": 14,
+      "line": 15,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/outputs/page.tsx",
-      "line": 52,
+      "line": 53,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/outputs/page.tsx",
-      "line": 57,
+      "line": 58,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/patients/[id]/page.tsx",
-      "line": 503,
-      "rule": "table-caption",
-      "severity": "low",
-      "message": "Table rendered without an in-file caption element."
-    },
-    {
-      "file": "apps/web/app/(dashboard)/patients/appointments-board.tsx",
-      "line": 305,
+      "line": 504,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/profile/security/page.tsx",
-      "line": 97,
+      "line": 98,
       "rule": "img-alt",
       "severity": "medium",
       "message": "Potential image without alt attribute."
     },
     {
       "file": "apps/web/app/(dashboard)/profile/security/page.tsx",
-      "line": 105,
+      "line": 106,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/reports/page.tsx",
-      "line": 56,
+      "line": 57,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/reports/page.tsx",
-      "line": 70,
+      "line": 71,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/audit/page.tsx",
-      "line": 59,
+      "line": 60,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
-      "line": 134,
+      "line": 135,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
-      "line": 216,
+      "line": 217,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/billing/billing-sections.tsx",
-      "line": 221,
+      "line": 222,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "line": 67,
+      "line": 68,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "line": 73,
+      "line": 74,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/developers/webhooks/page.sections.tsx",
-      "line": 194,
+      "line": 195,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/members/page.tsx",
-      "line": 31,
+      "line": 32,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/security/page.tsx",
-      "line": 80,
+      "line": 81,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/team/page.tsx",
-      "line": 99,
+      "line": 100,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/users/page.tsx",
-      "line": 101,
+      "line": 102,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/users/page.tsx",
-      "line": 129,
+      "line": 130,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/(dashboard)/settings/users/page.tsx",
-      "line": 167,
+      "line": 168,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/(dashboard)/workflows/[id]/runs/page.tsx",
-      "line": 190,
+      "line": 191,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/admin/analytics/page.tsx",
-      "line": 127,
+      "line": 128,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/admin/cs/page.tsx",
-      "line": 85,
+      "line": 86,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/app/admin/dashboard/page.tsx",
-      "line": 276,
+      "line": 277,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
     },
     {
       "file": "apps/web/app/admin/dashboard/page.tsx",
-      "line": 300,
+      "line": 301,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/components/agents/agent-detail-tabs.tsx",
-      "line": 158,
+      "line": 159,
       "rule": "table-caption",
       "severity": "low",
       "message": "Table rendered without an in-file caption element."
     },
     {
       "file": "apps/web/components/layout/GlobalSearch.tsx",
-      "line": 144,
+      "line": 145,
       "rule": "input-label",
       "severity": "medium",
       "message": "Potential input without associated label or aria label in the same file."
+    },
+    {
+      "file": "apps/web/app/(dashboard)/patients/appointments-board.sections.tsx",
+      "line": 251,
+      "rule": "table-caption",
+      "severity": "low",
+      "message": "Table rendered without an in-file caption element."
     }
   ]
 }

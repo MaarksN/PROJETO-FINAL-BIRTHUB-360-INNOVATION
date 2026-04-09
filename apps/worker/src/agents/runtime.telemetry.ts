@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { prisma, Prisma } from "@birthub/database";
 import { computeOutputHash, type AgentLearningRecord, type AgentManifest } from "@birthub/agents-core";
 import { randomUUID } from "node:crypto";

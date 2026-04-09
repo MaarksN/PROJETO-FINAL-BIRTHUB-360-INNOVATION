@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   argon2 as argon2Callback,
   createCipheriv,

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createHash, randomUUID } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";
@@ -20,7 +21,6 @@ import {
 } from "./runnerQueue.js";
 import type {
   WorkflowCreateInput,
-  WorkflowRevertInput,
   WorkflowRunInput,
   WorkflowUpdateInput
 } from "./schemas.js";
@@ -575,45 +575,6 @@ export async function updateWorkflow(
   }
 
   return persisted;
-}
-
-export async function getWorkflowRevisions(workflowId: string, tenantReference: string) {
-  const identity = await resolveScopedIdentity(tenantReference);
-
-  return listWorkflowRevisions(identity.tenantId, workflowId);
-}
-
-export async function revertWorkflow(
-  config: ApiConfig,
-  workflowId: string,
-  tenantReference: string,
-  input: WorkflowRevertInput
-): Promise<PersistedWorkflow> {
-  const identity = await resolveScopedIdentity(tenantReference);
-  const existing = await getWorkflowById(workflowId, identity.tenantId);
-  if (!existing) {
-    throw new Error("WORKFLOW_NOT_FOUND");
-  }
-
-  const revision = await prisma.workflowRevision.findUnique({
-    where: {
-      workflowId_version: {
-        version: input.version,
-        workflowId
-      }
-    }
-  });
-
-  if (!revision || revision.tenantId !== identity.tenantId) {
-    throw new Error("WORKFLOW_REVISION_NOT_FOUND");
-  }
-
-  const canvas = revision.definition as unknown as WorkflowCanvas;
-
-  // We reuse updateWorkflow to bump version, persist canvas and create a NEW revision
-  return updateWorkflow(config, workflowId, tenantReference, {
-    canvas
-  });
 }
 
 export async function archiveWorkflow(

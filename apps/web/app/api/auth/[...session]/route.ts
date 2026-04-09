@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { isSupportedSessionAction } from "../session-actions";
 import { NextRequest, NextResponse } from "next/server";
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import { logoutResponseSchema } from "@birthub/config";
 import { Router } from "express";

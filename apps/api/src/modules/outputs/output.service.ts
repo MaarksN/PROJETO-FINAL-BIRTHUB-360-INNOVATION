@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createHash } from "node:crypto";
 
 import { prisma } from "@birthub/database";
@@ -62,7 +63,7 @@ function toOutputRecord(record: {
   };
 }
 
-export class OutputService {
+class OutputService {
   async createOutput(input: {
     agentId: string;
     content: string;

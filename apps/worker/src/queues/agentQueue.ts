@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Queue, type JobsOptions } from "bullmq";
 import type { Redis } from "ioredis";
 

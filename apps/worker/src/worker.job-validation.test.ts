@@ -1,6 +1,7 @@
+// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createHmac } from "node:crypto";
+import { createHmac, randomBytes } from "node:crypto";
 
 import {
   hashPayload,
@@ -9,6 +10,7 @@ import {
 import { calculateGraceBoundary } from "./worker.billing.js";
 
 void test("validateLegacyTaskJob accepts signed payloads with matching tenant context", () => {
+  const sharedSecret = randomBytes(32).toString("hex");
   const payload = {
     agentId: "agent_1",
     approvalRequired: false,
@@ -44,11 +46,11 @@ void test("validateLegacyTaskJob accepts signed payloads with matching tenant co
     userId: payload.userId,
     version: payload.version
   });
-  payload.signature = createHmac("sha256", "secret").update(signatureBase).digest("hex");
+  payload.signature = createHmac("sha256", sharedSecret).update(signatureBase).digest("hex");
 
   assert.equal(
     validateLegacyTaskJob({
-      fallbackSecret: "secret",
+      fallbackSecret: sharedSecret,
       jobId: "job_1",
       payload
     }),

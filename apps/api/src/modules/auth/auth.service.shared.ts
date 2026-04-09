@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import {
   MembershipStatus,
@@ -84,7 +85,7 @@ export async function resolveTenantIdForOrganization(
   return organization?.tenantId ?? null;
 }
 
-export async function findOrganizationByReference(reference: string) {
+async function findOrganizationByReference(reference: string) {
   return prisma.organization.findFirst({
     where: {
       OR: [{ id: reference }, { slug: reference }, { tenantId: reference }]

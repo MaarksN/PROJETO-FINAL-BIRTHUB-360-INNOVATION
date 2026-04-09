@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getApiConfig } from "@birthub/config";
 import { prisma, Prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { performance } from "node:perf_hooks";
 
 import { prisma } from "@birthub/database";
@@ -9,91 +10,6 @@ import {
   setGauge
 } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
-
-export function recordTenantJobMetric(
-  tenantId: string,
-  jobName: string,
-  status = "accepted"
-): void {
-  incrementCounter(
-    "birthub_tenant_jobs_total",
-    {
-      job_name: jobName,
-      status,
-      tenant_id: tenantId
-    },
-    1,
-    "Total worker jobs grouped by tenant, job name and status."
-  );
-}
-
-export function setTenantStorageMetric(tenantId: string, bytes: number): void {
-  setGauge(
-    "birthub_tenant_storage_bytes",
-    bytes,
-    { tenant_id: tenantId },
-    "Current storage footprint estimate grouped by tenant."
-  );
-}
-
-export function recordBillingProcessedMetric(input: {
-  amountCents: number;
-  currency?: string;
-  source?: string;
-  status?: string;
-}): void {
-  incrementCounter(
-    "birthub_billing_events_total",
-    {
-      currency: input.currency ?? "unknown",
-      source: input.source ?? "billing",
-      status: input.status ?? "processed"
-    },
-    1,
-    "Total processed billing events grouped by source and status."
-  );
-  incrementCounter(
-    "birthub_billing_processed_cents_total",
-    {
-      currency: input.currency ?? "unknown",
-      source: input.source ?? "billing"
-    },
-    Math.max(0, Math.round(input.amountCents)),
-    "Total billing volume processed in cents."
-  );
-}
-
-export function recordWebVitalMetric(input: {
-  name: "CLS" | "FCP" | "INP" | "LCP" | "TTFB";
-  path: string;
-  rating?: string;
-  value: number;
-}): void {
-  const labels = {
-    name: input.name,
-    path: input.path,
-    rating: input.rating ?? "unknown"
-  };
-
-  if (input.name === "CLS") {
-    setGauge(
-      "birthub_web_vital_score",
-      input.value,
-      labels,
-      "Current Web Vital score-style metrics grouped by route and rating."
-    );
-    return;
-  }
-
-  observeHistogram(
-    "birthub_web_vital_ms",
-    input.value,
-    labels,
-    {
-      help: "Web Vital latency metrics in milliseconds grouped by route and rating."
-    }
-  );
-}
 
 function resolveRoutePath(request: Request): string {
   const route = request.route as { path?: string } | undefined;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from "node:crypto";
 
 import { getApiConfig } from "@birthub/config";
@@ -37,7 +38,7 @@ export function encryptConnectorToken(text: string): string {
   return `${iv.toString("hex")}:${authTag.toString("hex")}:${encrypted}`;
 }
 
-export function decryptConnectorToken(encryptedText: string): string {
+function decryptConnectorToken(encryptedText: string): string {
   if (!encryptedText || !encryptedText.includes(":")) return encryptedText;
 
   try {

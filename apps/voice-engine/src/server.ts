@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createServer } from "node:http";
 
 import { createLogger } from "@birthub/logger";

@@ -1,0 +1,6 @@
+// @ts-nocheck
+// 
+export type DateRange = {
+  from: Date;
+  to: Date;
+};

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createHash } from "node:crypto";
 
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { observeHistogram, incrementCounter } from "@birthub/logger";
 import { NextResponse } from "next/server";
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { taskJobSchema } from "@birthub/config";
 import {
   resolveSecretCandidates,

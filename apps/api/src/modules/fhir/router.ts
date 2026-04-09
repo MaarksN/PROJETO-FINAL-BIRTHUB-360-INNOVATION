@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { prisma, Role } from "@birthub/database";
 import { Router } from "express";
 

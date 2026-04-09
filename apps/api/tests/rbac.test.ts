@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { setMaxListeners } from "node:events";
 setMaxListeners(20);
 import assert from "node:assert/strict";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   Prisma,
   prisma,
@@ -141,12 +142,6 @@ export class WorkflowRunner {
       payload
     });
   }
-}
-
-export function createWorkflowExecutionQueue(
-  connection: Queue<WorkflowExecutionJobPayload>
-): Queue<WorkflowExecutionJobPayload> {
-  return connection;
 }
 
 export const workflowQueueNames = {

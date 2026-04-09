@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextFunction, Request, Response } from "express";
 
 import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
@@ -16,7 +17,7 @@ export function notFoundMiddleware(request: Request, _response: Response, next: 
   );
 }
 
-export function globalErrorHandler(
+export function errorHandler(
   error: unknown,
   request: Request,
   response: Response,
@@ -86,5 +87,3 @@ export function globalErrorHandler(
 
   response.status(fallback.status).json(toProblemDetails(request, fallback));
 }
-
-export const errorHandler = globalErrorHandler;

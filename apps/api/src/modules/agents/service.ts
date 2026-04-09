@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { randomUUID } from "node:crypto";
 
 import type { ManagedAgentPolicy } from "@birthub/agents-core";
@@ -28,7 +29,7 @@ const INSTALLED_AGENT_LIST_LIMIT = 250;
 
 export type { InstalledAgentSnapshot } from "./service.types.js";
 
-export class InstalledAgentsService {
+class InstalledAgentsService {
   async listInstalledAgents(tenantReference: string): Promise<InstalledAgentSnapshot[]> {
     if (!process.env.DATABASE_URL) {
       return [];

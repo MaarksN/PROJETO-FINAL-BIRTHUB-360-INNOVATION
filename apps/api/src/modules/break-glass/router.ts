@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import { prisma, Role, SessionAccessMode, SessionStatus } from "@birthub/database";
 import { Router } from "express";

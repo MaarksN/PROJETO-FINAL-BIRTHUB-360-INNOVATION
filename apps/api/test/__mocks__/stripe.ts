@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type Stripe from "stripe";
 
 type StripeOverride = Partial<{

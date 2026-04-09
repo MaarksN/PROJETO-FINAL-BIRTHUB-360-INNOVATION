@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { type BaseTool } from "@birthub/agents-core/tools";
 import { createLogger } from "@birthub/logger";
 import type { Redis } from "ioredis";

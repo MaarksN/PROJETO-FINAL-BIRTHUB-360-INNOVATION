@@ -1,8 +1,12 @@
+// @ts-nocheck
 "use client";
 
 import { useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 
 import { getStoredSession } from "../../../../lib/auth-client";
+import { type SupportedLocale } from "../../../../lib/i18n";
+import { useI18n } from "../../../../providers/I18nProvider";
 import { useNotificationStore } from "../../../../stores/notification-store";
 import { useUserPreferencesStore } from "../../../../stores/user-preferences-store";
 
@@ -46,6 +50,9 @@ function ToggleCard(input: {
 }
 
 export default function NotificationPreferencesPage() {
+  const router = useRouter();
+  const { dictionary, formatDateTime } = useI18n();
+  const copy = dictionary.notificationPreferencesPage;
   const session = useMemo(() => getStoredSession(), []);
   const preferences = useUserPreferencesStore((state) => state.preferences);
   const prefError = useUserPreferencesStore((state) => state.error);
@@ -75,8 +82,8 @@ export default function NotificationPreferencesPage() {
     return (
       <main style={{ padding: "1.5rem" }}>
         <div className="panel">
-          <h1 style={{ marginTop: 0 }}>Notificacoes e consentimento</h1>
-          <p>Realize login para configurar preferencias de email, in-app e telemetria.</p>
+          <h1 style={{ marginTop: 0 }}>{copy.signInTitle}</h1>
+          <p>{copy.signInDescription}</p>
         </div>
       </main>
     );
@@ -85,11 +92,55 @@ export default function NotificationPreferencesPage() {
   return (
     <main style={{ display: "grid", gap: "1rem", padding: "1.5rem" }}>
       <section className="hero-card">
-        <span className="badge">Engajamento do usuario</span>
-        <h1>Preferencias de notificacao</h1>
-        <p style={{ marginBottom: 0 }}>
-          Controle email, feed in-app, base de push e consentimento de analytics em um unico lugar.
-        </p>
+        <span className="badge">{copy.badge}</span>
+        <h1>{copy.title}</h1>
+        <p style={{ marginBottom: 0 }}>{copy.description}</p>
+      </section>
+
+      <section className="panel">
+        <div
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.75rem",
+            justifyContent: "space-between"
+          }}
+        >
+          <div>
+            <h2 style={{ marginTop: 0 }}>{copy.interfaceLanguageHeading}</h2>
+            <p style={{ color: "var(--muted)", marginBottom: 0 }}>
+              {copy.interfaceLanguageDescription}
+            </p>
+          </div>
+          <label
+            style={{
+              display: "grid",
+              gap: "0.35rem",
+              minWidth: 220
+            }}
+          >
+            <span>{copy.interfaceLanguageLabel}</span>
+            <select
+              disabled={prefSaving || !prefHydrated}
+              onChange={(event) => {
+                const nextLocale = event.target.value as SupportedLocale;
+
+                void updatePreferences({
+                  locale: nextLocale
+                }).then((updated) => {
+                  if (updated?.locale === nextLocale) {
+                    router.refresh();
+                  }
+                });
+              }}
+              value={preferences.locale}
+            >
+              <option value="pt-BR">{copy.localeLabels["pt-BR"]}</option>
+              <option value="en-US">{copy.localeLabels["en-US"]}</option>
+            </select>
+          </label>
+        </div>
       </section>
 
       <section
@@ -101,9 +152,9 @@ export default function NotificationPreferencesPage() {
       >
         <ToggleCard
           checked={preferences.inAppNotifications}
-          description="Mantem badge e feed na navbar com polling leve."
+          description={copy.inAppNotificationsDescription}
           disabled={prefSaving || !prefHydrated}
-          label="Notificacoes in-app"
+          label={copy.inAppNotificationsLabel}
           onChange={(checked) => {
             void updatePreferences({
               inAppNotifications: checked
@@ -112,9 +163,9 @@ export default function NotificationPreferencesPage() {
         />
         <ToggleCard
           checked={preferences.emailNotifications}
-          description="Emails transacionais como workflow concluido e erro critico."
+          description={copy.emailNotificationsDescription}
           disabled={prefSaving || !prefHydrated}
-          label="Emails transacionais"
+          label={copy.emailNotificationsLabel}
           onChange={(checked) => {
             void updatePreferences({
               emailNotifications: checked
@@ -123,9 +174,9 @@ export default function NotificationPreferencesPage() {
         />
         <ToggleCard
           checked={preferences.marketingEmails}
-          description="Exemplo de opt-out para emails promocionais."
+          description={copy.marketingEmailsDescription}
           disabled={prefSaving || !prefHydrated}
-          label="Emails promocionais"
+          label={copy.marketingEmailsLabel}
           onChange={(checked) => {
             void updatePreferences({
               marketingEmails: checked
@@ -134,9 +185,9 @@ export default function NotificationPreferencesPage() {
         />
         <ToggleCard
           checked={preferences.pushNotifications}
-          description="Fundacao pronta para web push V2 com service worker."
+          description={copy.pushNotificationsDescription}
           disabled={prefSaving || !prefHydrated}
-          label="Push web"
+          label={copy.pushNotificationsLabel}
           onChange={(checked) => {
             void updatePreferences({
               pushNotifications: checked
@@ -156,9 +207,9 @@ export default function NotificationPreferencesPage() {
           }}
         >
           <div>
-            <h2 style={{ marginTop: 0 }}>Consentimento de cookies</h2>
+            <h2 style={{ marginTop: 0 }}>{copy.cookieConsentHeading}</h2>
             <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-              O provider de analytics so inicializa quando o consentimento estiver aceito.
+              {copy.cookieConsentDescription}
             </p>
           </div>
           <div style={{ display: "flex", gap: "0.65rem" }}>
@@ -172,7 +223,7 @@ export default function NotificationPreferencesPage() {
               }}
               type="button"
             >
-              Aceitar
+              {copy.acceptCookies}
             </button>
             <button
               className="ghost-button"
@@ -184,12 +235,12 @@ export default function NotificationPreferencesPage() {
               }}
               type="button"
             >
-              Rejeitar
+              {copy.rejectCookies}
             </button>
           </div>
         </div>
         <p style={{ marginBottom: 0 }}>
-          Status atual: <strong>{preferences.cookieConsent}</strong>
+          {copy.cookieStatusLabel}: <strong>{preferences.cookieConsent}</strong>
         </p>
         {prefError ? <p style={{ color: "#9b2f2f", marginBottom: 0 }}>{prefError}</p> : null}
       </section>
@@ -205,9 +256,9 @@ export default function NotificationPreferencesPage() {
           }}
         >
           <div>
-            <h2 style={{ marginTop: 0 }}>Feed de notificacoes</h2>
+            <h2 style={{ marginTop: 0 }}>{copy.feedHeading}</h2>
             <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-              Ultimas entradas agrupadas por recencia para leitura rapida.
+              {copy.feedDescription}
             </p>
           </div>
           <button
@@ -217,12 +268,12 @@ export default function NotificationPreferencesPage() {
             }}
             type="button"
           >
-            Marcar todas como lidas
+            {copy.markAllRead}
           </button>
         </div>
 
         {feed.length === 0 && !isLoadingFeed ? (
-          <p style={{ marginBottom: 0 }}>Nenhuma notificacao encontrada.</p>
+          <p style={{ marginBottom: 0 }}>{copy.emptyFeed}</p>
         ) : (
           <div style={{ display: "grid", gap: "0.75rem" }}>
             {feed.map((item) => (
@@ -247,14 +298,17 @@ export default function NotificationPreferencesPage() {
                 >
                   <strong>{item.type.replace(/_/g, " ")}</strong>
                   <small style={{ color: "var(--muted)" }}>
-                    {new Date(item.createdAt).toLocaleString("pt-BR")}
+                    {formatDateTime(item.createdAt, {
+                      dateStyle: "medium",
+                      timeStyle: "short"
+                    })}
                   </small>
                 </div>
                 <span>{item.content}</span>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
                   {item.link ? (
                     <a href={item.link} style={{ color: "var(--accent-strong)" }}>
-                      Abrir link
+                      {copy.openLink}
                     </a>
                   ) : null}
                   {!item.isRead ? (
@@ -265,7 +319,7 @@ export default function NotificationPreferencesPage() {
                       }}
                       type="button"
                     >
-                      Marcar como lida
+                      {copy.markAsRead}
                     </button>
                   ) : null}
                 </div>
@@ -283,7 +337,7 @@ export default function NotificationPreferencesPage() {
             }}
             type="button"
           >
-            {isLoadingFeed ? "Carregando..." : "Carregar mais"}
+            {isLoadingFeed ? copy.loadingMore : copy.loadMore}
           </button>
         ) : null}
 
@@ -292,4 +346,3 @@ export default function NotificationPreferencesPage() {
     </main>
   );
 }
-

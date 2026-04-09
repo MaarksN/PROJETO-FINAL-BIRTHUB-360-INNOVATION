@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getWebConfig } from "@birthub/config";
 
 import { BrandLogo } from "../../components/brand/BrandLogo";

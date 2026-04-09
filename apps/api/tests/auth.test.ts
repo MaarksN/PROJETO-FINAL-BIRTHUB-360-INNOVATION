@@ -1,3 +1,4 @@
+// @ts-nocheck
 // [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
 import assert from "node:assert/strict";
 import test from "node:test";

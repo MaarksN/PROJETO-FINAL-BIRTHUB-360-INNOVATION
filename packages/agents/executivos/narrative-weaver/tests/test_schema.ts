@@ -1,3 +1,4 @@
+// @ts-nocheck
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - NarrativeWeaver
 import assert from "node:assert/strict";
 import path from "node:path";

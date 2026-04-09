@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-08T02:09:55.301Z",
+  "checkedAt": "2026-04-09T01:14:53.811Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -14,7 +14,7 @@
   "surfaces": [
     {
       "module": "apps/api",
-      "runtimeFiles": 152,
+      "runtimeFiles": 145,
       "directTestFiles": 48,
       "traceabilityFlows": 2,
       "directTests": [
@@ -71,8 +71,8 @@
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 124,
-      "directTestFiles": 20,
+      "runtimeFiles": 126,
+      "directTestFiles": 22,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/web/tests/auth-client.test.ts",
@@ -93,6 +93,8 @@
         "apps/web/tests/workflow-editor-helpers.test.ts",
         "apps/web/tests/workflow-runs-page.test.ts",
         "apps/web/tests/workflows-list.test.ts",
+        "apps/web/tests/appointments-board-model.test.ts",
+        "apps/web/tests/user-preferences-store.test.ts",
         "tests/e2e/critical-routes.spec.ts",
         "tests/e2e/billing-premium.spec.ts"
       ],
@@ -105,7 +107,7 @@
     },
     {
       "module": "apps/worker",
-      "runtimeFiles": 79,
+      "runtimeFiles": 77,
       "directTestFiles": 31,
       "traceabilityFlows": 3,
       "directTests": [

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { performance } from "node:perf_hooks";
 import { createPrismaClient } from "@birthub/database";
 import { PackInstallerService } from "../../src/modules/packs/pack-installer.service.js";

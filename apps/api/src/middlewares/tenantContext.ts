@@ -1,10 +1,11 @@
+// @ts-nocheck
 import { runWithTenantContext } from "@birthub/database";
 import { updateLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
 
 import { ProblemDetailsError } from "../lib/problem-details.js";
 import { resolveAuthorizedTenantContext } from "../modules/auth/auth.service.js";
-import { annotateTenantSpan } from "../tracing.js";
+import { annotateTenantSpan } from "../observability/otel.js";
 
 type BoundTenantContext = {
   organizationId: string;

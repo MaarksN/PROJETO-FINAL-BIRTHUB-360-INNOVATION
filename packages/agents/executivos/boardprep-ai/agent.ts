@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 

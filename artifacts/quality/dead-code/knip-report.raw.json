@@ -1,0 +1,399 @@
+{
+  "files": [
+    "scripts/fix-internal-package-exports.mjs",
+    "scripts/generate-official-collection.ts",
+    "scripts/generate-pack-docs.ts",
+    "scripts/migrate-to-multitenant.ts",
+    "scripts/sync-birthhub-html.ts",
+    "scripts/validate-packs.ts",
+    "scripts/ci/audit-scripts.mjs",
+    "scripts/ci/check-doc-links.mjs",
+    "scripts/ci/f3-hotspot-metrics.mjs",
+    "scripts/ci/generate_mock_agents.js"
+  ],
+  "issues": [
+    {
+      "file": "apps/worker/src/agents/runtime.shared.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "resolveCatalogRoot",
+          "line": 21,
+          "col": 17,
+          "pos": 502
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/agents/runtime.catalog.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "getManifestCatalog",
+          "line": 43,
+          "col": 23,
+          "pos": 1222
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/agents/runtime.resolution.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "resolveRuntimeAgent",
+          "line": 14,
+          "col": 23,
+          "pos": 332
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/jobs/billingExportStorage.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "S3BillingExportStorage",
+          "line": 32,
+          "col": 14,
+          "pos": 925
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/jobs/healthScore.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "clampHealthScore",
+          "line": 23,
+          "col": 17,
+          "pos": 559
+        },
+        {
+          "name": "refreshTenantActivityWindows",
+          "line": 182,
+          "col": 23,
+          "pos": 3788
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/integrations/hubspot.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "HubspotRateLimitError",
+          "line": 11,
+          "col": 14,
+          "pos": 360
+        },
+        {
+          "name": "MissingHubspotCredentialsError",
+          "line": 18,
+          "col": 14,
+          "pos": 540
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/queues/agentQueue.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "AgentQueueRouter",
+          "line": 38,
+          "col": 14,
+          "pos": 768
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/auth/crypto.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "signPayload",
+          "line": 473,
+          "col": 17,
+          "pos": 11675
+        },
+        {
+          "name": "verifyPayloadSignature",
+          "line": 477,
+          "col": 17,
+          "pos": 11818
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/budget/budget.service.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "BudgetService",
+          "line": 115,
+          "col": 14,
+          "pos": 2748
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/lib/queue.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "getTaskQueue",
+          "line": 38,
+          "col": 17,
+          "pos": 1132
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/billing/service.shared.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "normalizePlanCode",
+          "line": 126,
+          "col": 17,
+          "pos": 2898
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/engagement/queues.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "engagementQueueNames",
+          "line": 7,
+          "col": 14,
+          "pos": 168
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/invites/service.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "cleanupExpiredInvites",
+          "line": 213,
+          "col": 23,
+          "pos": 4817
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/web/lib/workflows.ts",
+      "owners": [
+        {
+          "name": "@birthub/frontend"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "getWorkflowById",
+          "line": 120,
+          "col": 23,
+          "pos": 3049
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "packages/agents-core/src/schemas/manifest.schema.ts",
+      "owners": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "semanticVersionSchema",
+          "line": 8,
+          "col": 14,
+          "pos": 211
+        }
+      ],
+      "duplicates": []
+    }
+  ]
+}

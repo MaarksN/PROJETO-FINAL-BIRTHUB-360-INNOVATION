@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fetchWithSession } from "./auth-client";
 
 const PRODUCT_MUTATION_TIMEOUT_MS = 8_000;

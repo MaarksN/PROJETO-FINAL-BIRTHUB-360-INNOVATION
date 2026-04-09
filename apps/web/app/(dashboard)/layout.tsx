@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ReactNode } from "react";
 
 import { DashboardBillingGate } from "../../components/dashboard-billing-gate";

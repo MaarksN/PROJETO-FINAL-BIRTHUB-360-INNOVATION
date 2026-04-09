@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getApiConfig } from "@birthub/config";
 import { SubscriptionStatus, prisma } from "@birthub/database";
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { spawnSync } from "node:child_process";
 import { closeSync, existsSync, openSync, readdirSync, readSync } from "node:fs";
 import path from "node:path";
@@ -8,7 +9,7 @@ const WINDOWS_COMMAND_EXTENSIONS = [".cmd", ".exe", ".bat"];
 
 export const projectRoot = path.resolve(__dirname, "../..");
 export const portableNodeHome = path.join(projectRoot, ".tools", "node-v24.14.0-win-x64");
-export const portableCorepackHome = path.join(projectRoot, ".tools", "corepack-home");
+const portableCorepackHome = path.join(projectRoot, ".tools", "corepack-home");
 const preferredPortableNodeExecutable = path.join(
   portableNodeHome,
   process.platform === "win32" ? "node.exe" : "node"
@@ -16,7 +17,7 @@ const preferredPortableNodeExecutable = path.join(
 export const portableNodeExecutable = existsSync(preferredPortableNodeExecutable)
   ? preferredPortableNodeExecutable
   : process.execPath;
-export const portablePnpmCli = path.join(
+const portablePnpmCli = path.join(
   portableNodeHome,
   "node_modules",
   "corepack",

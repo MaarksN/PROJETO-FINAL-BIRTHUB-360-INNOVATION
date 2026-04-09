@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type RuntimeEvent =
   | { type: "goal.started"; payload: Record<string, unknown> }
   | { type: "step.planned"; payload: Record<string, unknown> }

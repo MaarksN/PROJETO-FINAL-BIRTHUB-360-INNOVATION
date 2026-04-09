@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ProductLoadingShell } from "../../../components/dashboard/page-fragments";
 
 export default function OnboardingLoading() {

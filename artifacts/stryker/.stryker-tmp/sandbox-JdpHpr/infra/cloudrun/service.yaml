@@ -1,0 +1,102 @@
+# Canonical Cloud Run reference manifest for BirthHub 360.
+# Traffic promotion stays in `.github/workflows/cd.yml`.
+# Replace PROJECT_ID, REGION and REPOSITORY placeholders through approved infra automation.
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: birthhub-api
+  labels:
+    app.kubernetes.io/name: birthhub-api
+    app.kubernetes.io/part-of: birthhub360
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "10"
+        autoscaling.knative.dev/minScale: "1"
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containerConcurrency: 80
+      serviceAccountName: birthhub-runtime@PROJECT_ID.iam.gserviceaccount.com
+      timeoutSeconds: 300
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/REPOSITORY/birthub-api:latest
+          ports:
+            - name: http1
+              containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: DEPLOYMENT_ENVIRONMENT
+              value: production
+            - name: API_PORT
+              value: "3000"
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: birthhub-web
+  labels:
+    app.kubernetes.io/name: birthhub-web
+    app.kubernetes.io/part-of: birthhub360
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "10"
+        autoscaling.knative.dev/minScale: "1"
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containerConcurrency: 80
+      serviceAccountName: birthhub-runtime@PROJECT_ID.iam.gserviceaccount.com
+      timeoutSeconds: 300
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/REPOSITORY/birthub-web:latest
+          ports:
+            - name: http1
+              containerPort: 3001
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: DEPLOYMENT_ENVIRONMENT
+              value: production
+            - name: WEB_PORT
+              value: "3001"
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: birthhub-worker
+  labels:
+    app.kubernetes.io/name: birthhub-worker
+    app.kubernetes.io/part-of: birthhub360
+  annotations:
+    run.googleapis.com/ingress: all
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: "6"
+        autoscaling.knative.dev/minScale: "1"
+        run.googleapis.com/execution-environment: gen2
+    spec:
+      containerConcurrency: 20
+      serviceAccountName: birthhub-runtime@PROJECT_ID.iam.gserviceaccount.com
+      timeoutSeconds: 900
+      containers:
+        - image: REGION-docker.pkg.dev/PROJECT_ID/REPOSITORY/birthub-worker:latest
+          ports:
+            - name: http1
+              containerPort: 3002
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: DEPLOYMENT_ENVIRONMENT
+              value: production
+            - name: WORKER_HEALTH_PORT
+              value: "3002"

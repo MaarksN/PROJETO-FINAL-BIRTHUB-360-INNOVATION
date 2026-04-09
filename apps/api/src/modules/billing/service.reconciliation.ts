@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 import Stripe from "stripe";

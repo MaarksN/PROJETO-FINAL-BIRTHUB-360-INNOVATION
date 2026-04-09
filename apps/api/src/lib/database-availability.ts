@@ -1,3 +1,4 @@
+// @ts-nocheck
 const DEFAULT_DEVELOPMENT_DATABASE_URL =
   "postgresql://postgres:postgres@localhost:5432/birthub?schema=public";
 

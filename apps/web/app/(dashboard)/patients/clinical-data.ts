@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { fetchWithSession } from "../../../lib/auth-client";

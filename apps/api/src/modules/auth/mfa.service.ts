@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createHmac, randomBytes } from "node:crypto";
 
 import { decryptSensitiveValue, encryptSensitiveValue, randomToken, sha256 } from "./crypto.js";

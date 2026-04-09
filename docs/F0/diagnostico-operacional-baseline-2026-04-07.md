@@ -201,11 +201,11 @@ Leitura:
 - A leitura anterior de “workflow list ausente” está superada.
 - A leitura anterior de “domínio materno-infantil ausente do schema” está superada.
 - A leitura anterior de “refresh token em memória bloqueando o runtime principal” não se sustenta com a arquitetura atualmente ligada no core.
-- A colisão de IDs `TD-001` a `TD-008` entre catálogos continua real e ainda distorce priorização.
+- A colisão histórica de IDs `TD-001` a `TD-010` entre catálogos permanece real no legado, mas agora está explicitamente mapeada por namespace.
 
 ### 7. O que bloqueia avanço imediato
 
-- Não existe ainda uma tabela oficial de mapeamento entre relatório master e auditor-prime.
+- A colisão histórica de IDs entre catálogos já está mapeada, mas a disciplina de uso do namespace ainda precisa ser absorvida pelos próximos ciclos.
 - `cd.yml` continua com pontos de endurecimento pendentes.
 - O baseline de DAST ainda depende de configuração opcional e não fecha evidência invariável do ciclo.
 - Parte da evidência de maturidade continua dispersa entre artefatos, docs e workflows.
@@ -264,7 +264,6 @@ Leitura:
 ### Definição clara do que impede sair de YELLOW para GREEN
 
 Para sair de `YELLOW`, o repositório precisa fechar simultaneamente:
-- tabela oficial de mapeamento ou renumeração única dos TDs
 - endurecimento de `cd.yml`
 - baseline de segurança menos condicional, com evidência fresca de ciclo
 - saneamento ou depreciação explícita de `packages/auth`
@@ -287,11 +286,10 @@ Para sair de `YELLOW`, o repositório precisa fechar simultaneamente:
    - validar ponta a ponta API/UI/testes para pacientes, gestação, consultas e notas
 
 Sequência exata recomendada:
-1. governança de catálogo TD
-2. segurança de release/CD
-3. saneamento de `packages/auth`
-4. consolidação clínica ponta a ponta
-5. backlog estrutural de complexidade e `any`
+1. segurança de release/CD
+2. saneamento de `packages/auth`
+3. consolidação clínica ponta a ponta
+4. backlog estrutural de complexidade e `any`
 
 ## D. Implementação
 
@@ -331,7 +329,7 @@ Observação:
 | Risco de segurança | MÉDIO | RLS fechou no runtime atual, mas CD/DAST e baseline canônica de segurança ainda precisam endurecimento |
 | Risco regulatório | MÉDIO | LGPD e isolamento multi-tenant estão melhor posicionados, porém sem fechamento fresco de staging |
 | Risco de produto | MÉDIO | domínio clínico, dashboard e workflows já existem; o gap agora é profundidade, cobertura e maturidade |
-| Risco operacional | ALTO | colisão de IDs de dívida e evidência ainda dispersa continuam atrapalhando priorização e governança |
+| Risco operacional | MÉDIO | a colisão de IDs agora está mapeada, mas ainda há evidência dispersa e necessidade de adoção do namespace oficial |
 
 ## F. Status
 - [ ] RED
@@ -343,4 +341,4 @@ Resumo final:
 - O monorepo continua grande, real e operacional.
 - O core canônico está mais maduro do que a leitura anterior indicava.
 - Tenancy, auth durável do runtime principal, dashboard home, workflow list e domínio clínico inicial já não sustentam status `RED`.
-- O gargalo atual está em governança de dívida, evidência de segurança/release e consolidação do que já entrou no produto.
+- O gargalo atual saiu de governança de IDs e ficou concentrado em evidência de segurança/release e consolidação do que já entrou no produto.

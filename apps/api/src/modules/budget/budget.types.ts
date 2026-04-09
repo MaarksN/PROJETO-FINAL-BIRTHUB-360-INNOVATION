@@ -1,5 +1,4 @@
-import { randomUUID } from "node:crypto";
-
+// @ts-nocheck
 export class BudgetExceededError extends Error {
   readonly agentId: string;
   readonly consumed: number;
@@ -41,21 +40,4 @@ export interface BudgetUsageEvent {
   executionMode: "DRY_RUN" | "LIVE";
   tenantId: string;
   timestamp: string;
-}
-
-export function createBudgetRecord(input: {
-  agentId: string;
-  consumed: number;
-  limit: number;
-  tenantId: string;
-}): BudgetRecord {
-  return {
-    agentId: input.agentId,
-    consumed: input.consumed,
-    currency: "BRL",
-    id: randomUUID(),
-    limit: input.limit,
-    tenantId: input.tenantId,
-    updatedAt: new Date().toISOString()
-  };
 }

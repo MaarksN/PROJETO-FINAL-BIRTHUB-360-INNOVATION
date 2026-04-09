@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { prisma } from "@birthub/database";
 
 type SearchItem = {

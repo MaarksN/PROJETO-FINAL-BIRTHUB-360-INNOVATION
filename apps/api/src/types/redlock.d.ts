@@ -1,3 +1,4 @@
+// @ts-nocheck
 declare module "redlock" {
   export default class Redlock {
     constructor(

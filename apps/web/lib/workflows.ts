@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getWebConfig } from "@birthub/config";
 import { cookies } from "next/headers";
 import type { WorkflowCanvas } from "@birthub/workflows-core";

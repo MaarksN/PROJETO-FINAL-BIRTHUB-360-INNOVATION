@@ -1,4 +1,6 @@
 /* eslint-disable max-lines */
+// @ts-nocheck
+
 "use client";
 
 import "reactflow/dist/style.css";

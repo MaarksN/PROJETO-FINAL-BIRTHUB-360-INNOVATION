@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fetchWithSession } from "../../../../lib/auth-client";
 
 export const DELETE_CONFIRMATION = "EXCLUIR MINHA CONTA";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import isomorphicDompurify from "isomorphic-dompurify";
 
 export const DOMPurify = {

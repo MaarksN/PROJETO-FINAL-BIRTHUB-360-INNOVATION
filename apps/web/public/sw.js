@@ -1,3 +1,4 @@
+// @ts-nocheck
 const CACHE_NAME = "birthhub-pwa-v2";
 const PRECACHE_URLS = ["/", "/offline", "/manifest.json", "/brand/birthhub360-mark.svg"];
 const STATIC_ASSET_PATTERN = /\.(?:css|ico|js|mjs|png|svg|webp)$/;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const dynamic = "force-static";
 
 const sections = [

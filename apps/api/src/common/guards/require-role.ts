@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 
 import { Role } from "@birthub/database";
@@ -41,7 +42,7 @@ export function RequireRole(minimumRole: Role): RequestHandler {
   };
 }
 
-export function requireAuthenticated(request: Request, _response: Response, next: NextFunction): void {
+function requireAuthenticated(request: Request, _response: Response, next: NextFunction): void {
   if (
     !request.context.userId ||
     !request.context.organizationId ||

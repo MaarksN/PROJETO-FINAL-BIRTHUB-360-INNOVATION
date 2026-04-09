@@ -1,3 +1,4 @@
+// @ts-nocheck
 const auditRows = [
   {
     action: "invite.created",

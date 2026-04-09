@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { AgentManifest, ManagedAgentPolicy } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 

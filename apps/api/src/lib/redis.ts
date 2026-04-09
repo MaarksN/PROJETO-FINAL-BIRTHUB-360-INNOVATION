@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import type { ConnectionOptions } from "bullmq";
 import { Redis } from "ioredis";

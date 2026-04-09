@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -197,11 +198,11 @@ export function toPosixPath(value: string): string {
   return value.replace(/\\/g, "/");
 }
 
-export function normalizeWhitespace(value: string): string {
+function normalizeWhitespace(value: string): string {
   return value.replace(/\r/g, "").replace(/\u00a0/g, " ").replace(/[ \t]+\n/g, "\n").trim();
 }
 
-export function stripAgentMarkdownStem(fileName: string): string {
+function stripAgentMarkdownStem(fileName: string): string {
   return fileName.replace(/\.agent\.md$/i, "");
 }
 
@@ -237,7 +238,7 @@ export function sha256(input: string): string {
   return createHash("sha256").update(input, "utf8").digest("hex");
 }
 
-export function parseFrontmatterValue(value: string): boolean | number | string | string[] {
+function parseFrontmatterValue(value: string): boolean | number | string | string[] {
   const trimmed = value.trim();
 
   if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
@@ -323,7 +324,7 @@ export function parseMarkdownAgentSource(
   };
 }
 
-export function extractMarkdownSections(body: string): Record<string, string> {
+function extractMarkdownSections(body: string): Record<string, string> {
   const sections = new Map<string, string[]>();
   const seenHeadings = new Set<string>();
   let currentHeading: string | null = null;

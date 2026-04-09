@@ -3,7 +3,7 @@ import { createHmac } from "node:crypto";
 import type { ApiConfig } from "@birthub/config";
 import { Role, WorkflowTriggerType } from "@birthub/database";
 import { lintWorkflowSteps, workflowCanvasSchema } from "@birthub/workflows-core";
-import type { Request } from "express";
+import type { Request, Response } from "express";
 import { Router } from "express";
 
 import {
@@ -41,6 +41,10 @@ function requireTenantId(request: Request): string {
   return tenantId;
 }
 
+function readWorkflowId(request: Request): string {
+  return String(request.params.id ?? "");
+}
+
 function withStepLint<T extends { definition: unknown }>(workflow: T): T & {
   stepLint: ReturnType<typeof lintWorkflowSteps> | null;
 } {
@@ -58,23 +62,35 @@ function withStepLint<T extends { definition: unknown }>(workflow: T): T & {
   };
 }
 
-export function createWorkflowsRouter(config: ApiConfig): Router {
-  const router = Router();
+function respondWithWorkflow(
+  response: Response,
+  requestId: string,
+  workflow: { definition: unknown } & Record<string, unknown>,
+  status = 200
+) {
+  response.status(status).json({
+    requestId,
+    workflow: withStepLint(workflow)
+  });
+}
 
+function registerListWorkflowsRoute(router: Router): void {
   router.get(
     "/api/v1/workflows",
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-
       const items = await listWorkflows(tenantId);
+
       response.status(200).json({
         items: items.map((item) => withStepLint(item)),
         requestId: request.context.requestId
       });
     })
   );
+}
 
+function registerCreateWorkflowRoute(router: Router, config: ApiConfig): void {
   router.post(
     "/api/v1/workflows",
     requireAuthenticatedSession,
@@ -83,8 +99,8 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
       const payload = workflowCreateSchema.parse(request.body);
-
       const workflow = await createWorkflow(config, tenantId, payload);
+
       if (!workflow) {
         throw new ProblemDetailsError({
           detail: "Workflow not found after creation.",
@@ -92,22 +108,22 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
           title: "Internal Server Error"
         });
       }
-      response.status(201).json({
-        requestId: request.context.requestId,
-        workflow: withStepLint(workflow)
-      });
+
+      respondWithWorkflow(response, request.context.requestId, workflow, 201);
     })
   );
+}
 
+function registerWorkflowLineageRoute(router: Router): void {
   router.get(
     "/api/v1/workflows/:id/executions/lineage",
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-      const workflowId = String(request.params.id ?? "");
-
+      const workflowId = readWorkflowId(request);
       const lineage = await listWorkflowExecutionLineage(workflowId, tenantId);
+
       response.status(200).json({
         lineage,
         requestId: request.context.requestId,
@@ -115,15 +131,16 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
       });
     })
   );
+}
 
+function registerGetWorkflowRoute(router: Router): void {
   router.get(
     "/api/v1/workflows/:id",
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-      const workflowId = String(request.params.id ?? "");
+      const workflow = await getWorkflowById(readWorkflowId(request), tenantId);
 
-      const workflow = await getWorkflowById(workflowId, tenantId);
       if (!workflow) {
         throw new ProblemDetailsError({
           detail: "Workflow not found.",
@@ -132,13 +149,12 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
         });
       }
 
-      response.status(200).json({
-        requestId: request.context.requestId,
-        workflow: withStepLint(workflow)
-      });
+      respondWithWorkflow(response, request.context.requestId, workflow);
     })
   );
+}
 
+function registerUpdateWorkflowRoute(router: Router, config: ApiConfig): void {
   router.put(
     "/api/v1/workflows/:id",
     requireAuthenticatedSession,
@@ -146,14 +162,13 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     validateBody(workflowUpdateSchema),
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-      const workflowId = String(request.params.id ?? "");
-
       const workflow = await updateWorkflow(
         config,
-        workflowId,
+        readWorkflowId(request),
         tenantId,
         workflowUpdateSchema.parse(request.body)
       );
+
       if (!workflow) {
         throw new ProblemDetailsError({
           detail: "Workflow not found after update.",
@@ -161,26 +176,26 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
           title: "Not Found"
         });
       }
-      response.status(200).json({
-        requestId: request.context.requestId,
-        workflow: withStepLint(workflow)
-      });
+
+      respondWithWorkflow(response, request.context.requestId, workflow);
     })
   );
+}
 
+function registerDeleteWorkflowRoute(router: Router): void {
   router.delete(
     "/api/v1/workflows/:id",
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-      const workflowId = String(request.params.id ?? "");
-
-      await archiveWorkflow(workflowId, tenantId);
+      await archiveWorkflow(readWorkflowId(request), tenantId);
       response.status(204).send();
     })
   );
+}
 
+function registerRunWorkflowRoute(router: Router, config: ApiConfig): void {
   router.post(
     "/api/v1/workflows/:id/run",
     requireAuthenticatedSession,
@@ -188,16 +203,16 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
     validateBody(workflowRunSchema),
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-      const workflowId = String(request.params.id ?? "");
 
       try {
         const result = await runWorkflowNow(
           config,
-          workflowId,
+          readWorkflowId(request),
           tenantId,
           workflowRunSchema.parse(request.body),
           WorkflowTriggerType.MANUAL
         );
+
         response.status(result.mode === "async" ? 202 : 200).json({
           requestId: request.context.requestId,
           ...result
@@ -215,16 +230,30 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
       }
     })
   );
+}
 
+function buildWebhookUrl(request: Request, workflowId: string): string {
+  const host = request.header("x-forwarded-host") ?? request.header("host") ?? "localhost:3000";
+  const protocol = request.header("x-forwarded-proto") ?? "http";
+  return `${protocol}://${host}/webhooks/trigger/${workflowId}`;
+}
+
+function buildSampleSignature(secret: string): string {
+  return createHmac("sha256", secret)
+    .update(JSON.stringify({ hello: "world" }))
+    .digest("hex");
+}
+
+function registerWebhookUrlRoute(router: Router, config: ApiConfig): void {
   router.get(
     "/api/v1/workflows/:id/webhook-url",
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
-      const workflowId = String(request.params.id ?? "");
-
+      const workflowId = readWorkflowId(request);
       const workflow = await getWorkflowById(workflowId, tenantId);
+
       if (!workflow || workflow.triggerType !== WorkflowTriggerType.WEBHOOK) {
         throw new ProblemDetailsError({
           detail: "Webhook workflow not found.",
@@ -233,31 +262,23 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
         });
       }
 
-      const host = request.header("x-forwarded-host") ?? request.header("host") ?? "localhost:3000";
-      const protocol = request.header("x-forwarded-proto") ?? "http";
-      const webhookUrl = `${protocol}://${host}/webhooks/trigger/${workflow.id}`;
-
-      const signatureSeed = JSON.stringify({ hello: "world" });
-      const sampleSignature = createHmac(
-        "sha256",
-        workflow.webhookSecret ?? config.JOB_HMAC_GLOBAL_SECRET
-      )
-        .update(signatureSeed)
-        .digest("hex");
-
       response.status(200).json({
         requestId: request.context.requestId,
-        sampleSignature,
-        webhookUrl
+        sampleSignature: buildSampleSignature(
+          workflow.webhookSecret ?? config.JOB_HMAC_GLOBAL_SECRET
+        ),
+        webhookUrl: buildWebhookUrl(request, workflow.id)
       });
     })
   );
+}
 
+function registerWorkflowEventRoute(router: Router): void {
   router.post(
     "/api/v1/workflows/events/:topic",
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
-    asyncHandler((request, response) => {
+    asyncHandler(async (request, response) => {
       const tenantId = requireTenantId(request);
       const topic = String(request.params.topic ?? "");
 
@@ -274,6 +295,20 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
       });
     })
   );
+}
+
+export function createWorkflowsRouter(config: ApiConfig): Router {
+  const router = Router();
+
+  registerListWorkflowsRoute(router);
+  registerCreateWorkflowRoute(router, config);
+  registerWorkflowLineageRoute(router);
+  registerGetWorkflowRoute(router);
+  registerUpdateWorkflowRoute(router, config);
+  registerDeleteWorkflowRoute(router);
+  registerRunWorkflowRoute(router, config);
+  registerWebhookUrlRoute(router, config);
+  registerWorkflowEventRoute(router);
 
   return router;
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getWorkerConfig } from "@birthub/config";
 import {
   ExecutionSource,

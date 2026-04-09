@@ -11,6 +11,8 @@ Programa central de rastreabilidade de divida tecnica do monorepo.
 - Relatorio executivo: `docs/technical-debt/executive-report.md`
 - Checklist HTML de execucao: `docs/technical-debt/checklist.html`
 - Changelog tecnico: `docs/technical-debt/CHANGELOG.md`
+- Governanca de IDs: `docs/technical-debt/td-id-governance.md`
+- Reconciliacao entre catalogos: `audit/td-catalog-reconciliation.md`
 
 ## Matriz atual
 
@@ -29,8 +31,10 @@ Programa central de rastreabilidade de divida tecnica do monorepo.
 1. Abrir issue usando `.github/ISSUE_TEMPLATE/tech-debt.yml`.
 2. Definir owner, prioridade, prazo e risco residual.
 3. Atualizar `docs/technical-debt/tracker.json` quando a divida mudar de estado.
-4. Rodar `pnpm docs:health` para regenerar dashboard, velocidade e relatorio executivo.
-5. Referenciar a evidencia em changelog tecnico e no PR correspondente.
+4. Referenciar o item com namespace oficial (`PROGRAM-TD-*`, `MASTER-TD-*`, `APR-TD-*`) em qualquer documento novo.
+5. Rodar `pnpm audit:td-catalog` para regenerar a reconciliacao entre catalogos.
+6. Rodar `pnpm docs:health` para regenerar dashboard, velocidade e relatorio executivo.
+7. Referenciar a evidencia em changelog tecnico e no PR correspondente.
 
 ## Prioridade e SLA interno
 
@@ -41,4 +45,5 @@ Programa central de rastreabilidade de divida tecnica do monorepo.
 ## Automacao
 
 - `pnpm docs:health` atualiza o dashboard tecnico e os relatorios derivados.
+- `pnpm audit:td-catalog` materializa a reconciliacao e colisao entre IDs de divida.
 - O workflow de CI executa `pnpm docs:verify` e publica o dashboard como artefato.

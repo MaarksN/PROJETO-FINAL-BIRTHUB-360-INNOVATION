@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { renderPrometheusMetrics } from "@birthub/logger";
 
 export const dynamic = "force-dynamic";

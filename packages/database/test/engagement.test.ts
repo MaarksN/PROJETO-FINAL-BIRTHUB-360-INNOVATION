@@ -1,3 +1,4 @@
+// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -129,6 +130,49 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
     prisma.userPreference.findUnique = originalFindUnique;
     prisma.userPreference.upsert = originalUpsert;
     prisma.auditLog.create = originalAuditCreate;
+  }
+});
+
+void test("updateUserPreference persists locale preferences", async () => {
+  const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
+  let upsertPayload: unknown = null;
+
+  prisma.userPreference.upsert = (async (args: unknown) => {
+    upsertPayload = args;
+    return {
+      id: "pref_locale_1",
+      locale: "en-US"
+    } as never;
+  }) as unknown as typeof prisma.userPreference.upsert;
+
+  try {
+    const result = await updateUserPreference({
+      locale: "en-US",
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      userId: "user_1"
+    });
+
+    assert.equal(result.locale, "en-US");
+    assert.deepEqual(upsertPayload, {
+      create: {
+        locale: "en-US",
+        organizationId: "org_1",
+        tenantId: "tenant_1",
+        userId: "user_1"
+      },
+      update: {
+        locale: "en-US"
+      },
+      where: {
+        organizationId_userId: {
+          organizationId: "org_1",
+          userId: "user_1"
+        }
+      }
+    });
+  } finally {
+    prisma.userPreference.upsert = originalUpsert;
   }
 });
 

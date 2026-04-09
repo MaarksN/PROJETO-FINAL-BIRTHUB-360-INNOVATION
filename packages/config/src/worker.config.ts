@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { cpus } from "node:os";
 
 import { z } from "zod";

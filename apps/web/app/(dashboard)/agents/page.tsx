@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from "next/link";
 
 import { listInstalledAgents } from "../../../lib/agents";

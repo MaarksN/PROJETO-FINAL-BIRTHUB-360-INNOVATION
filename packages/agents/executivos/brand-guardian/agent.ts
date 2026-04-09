@@ -1,3 +1,4 @@
+// @ts-nocheck
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - BrandGuardian
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";

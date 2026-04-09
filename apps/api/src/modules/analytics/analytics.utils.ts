@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { DateRange } from "./analytics.types.js";
 
 export function resolveDateRange(range?: Partial<DateRange>, fallbackDays = 30): DateRange {

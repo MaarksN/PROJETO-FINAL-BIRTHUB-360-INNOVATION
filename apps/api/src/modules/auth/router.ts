@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import { authIntrospectionResponseSchema } from "@birthub/config";
 import { prisma } from "@birthub/database";

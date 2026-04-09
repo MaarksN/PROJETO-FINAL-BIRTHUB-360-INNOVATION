@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-08T02:09:55.278Z",
+  "checkedAt": "2026-04-09T01:14:53.786Z",
   "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
   "exitCode": 0,
   "status": "fresh",
@@ -28,123 +28,16 @@
     "scripts/audit/shared-prime.mjs"
   ],
   "summary": {
-    "findings": 17,
+    "findings": 12,
     "errors": 12,
     "severities": {
       "ERROR": 0,
-      "WARNING": 5,
+      "WARNING": 0,
       "INFO": 12,
       "UNKNOWN": 0
     }
   },
   "results": [
-    {
-      "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-      "path": "apps/worker/src/agents/runtime.shared.ts",
-      "start": {
-        "line": 113,
-        "col": 10,
-        "offset": 3443
-      },
-      "end": {
-        "line": 113,
-        "col": 59,
-        "offset": 3492
-      },
-      "extra": {
-        "message": "RegExp() called with a `pattern` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
-        "metadata": {
-          "owasp": [
-            "A05:2021 - Security Misconfiguration",
-            "A06:2017 - Security Misconfiguration",
-            "A02:2025 - Security Misconfiguration"
-          ],
-          "cwe": [
-            "CWE-1333: Inefficient Regular Expression Complexity"
-          ],
-          "references": [
-            "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
-          ],
-          "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
-          "category": "security",
-          "technology": [
-            "javascript"
-          ],
-          "subcategory": [
-            "vuln"
-          ],
-          "likelihood": "MEDIUM",
-          "impact": "MEDIUM",
-          "confidence": "LOW",
-          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-          "vulnerability_class": [
-            "Denial-of-Service (DoS)"
-          ],
-          "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-          "shortlink": "https://sg.run/gr65"
-        },
-        "severity": "WARNING",
-        "fingerprint": "requires login",
-        "lines": "requires login",
-        "validation_state": "NO_VALIDATOR",
-        "engine_kind": "OSS"
-      }
-    },
-    {
-      "check_id": "javascript.lang.security.audit.hardcoded-hmac-key.hardcoded-hmac-key",
-      "path": "apps/worker/src/worker.job-validation.test.ts",
-      "start": {
-        "line": 47,
-        "col": 23,
-        "offset": 1317
-      },
-      "end": {
-        "line": 47,
-        "col": 53,
-        "offset": 1347
-      },
-      "extra": {
-        "message": "Detected a hardcoded hmac key. Avoid hardcoding secrets and consider using an alternate option such as reading the secret from a config file or using an environment variable.",
-        "metadata": {
-          "interfile": true,
-          "category": "security",
-          "technology": [
-            "crypto",
-            "hmac"
-          ],
-          "references": [
-            "https://rules.sonarsource.com/javascript/RSPEC-2068",
-            "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-management"
-          ],
-          "owasp": [
-            "A07:2021 - Identification and Authentication Failures",
-            "A07:2025 - Authentication Failures"
-          ],
-          "cwe": [
-            "CWE-798: Use of Hard-coded Credentials"
-          ],
-          "cwe2022-top25": true,
-          "cwe2021-top25": true,
-          "subcategory": [
-            "audit"
-          ],
-          "likelihood": "LOW",
-          "impact": "LOW",
-          "confidence": "LOW",
-          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-          "vulnerability_class": [
-            "Hard-coded Secrets"
-          ],
-          "source": "https://semgrep.dev/r/javascript.lang.security.audit.hardcoded-hmac-key.hardcoded-hmac-key",
-          "shortlink": "https://sg.run/K9bn"
-        },
-        "severity": "WARNING",
-        "fingerprint": "requires login",
-        "lines": "requires login",
-        "validation_state": "NO_VALIDATOR",
-        "engine_kind": "OSS"
-      }
-    },
     {
       "check_id": "yaml.kubernetes.security.run-as-non-root.run-as-non-root",
       "path": "infra/cloudrun/service.yaml",
@@ -308,121 +201,17 @@
       }
     },
     {
-      "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-      "path": "packages/database/scripts/lib/prisma-schema.ts",
-      "start": {
-        "line": 40,
-        "col": 22,
-        "offset": 931
-      },
-      "end": {
-        "line": 40,
-        "col": 71,
-        "offset": 980
-      },
-      "extra": {
-        "message": "RegExp() called with a `attribute` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
-        "metadata": {
-          "owasp": [
-            "A05:2021 - Security Misconfiguration",
-            "A06:2017 - Security Misconfiguration",
-            "A02:2025 - Security Misconfiguration"
-          ],
-          "cwe": [
-            "CWE-1333: Inefficient Regular Expression Complexity"
-          ],
-          "references": [
-            "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
-          ],
-          "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
-          "category": "security",
-          "technology": [
-            "javascript"
-          ],
-          "subcategory": [
-            "vuln"
-          ],
-          "likelihood": "MEDIUM",
-          "impact": "MEDIUM",
-          "confidence": "LOW",
-          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-          "vulnerability_class": [
-            "Denial-of-Service (DoS)"
-          ],
-          "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-          "shortlink": "https://sg.run/gr65"
-        },
-        "severity": "WARNING",
-        "fingerprint": "requires login",
-        "lines": "requires login",
-        "validation_state": "NO_VALIDATOR",
-        "engine_kind": "OSS"
-      }
-    },
-    {
-      "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-      "path": "scripts/audit/prime-refresh-evidence.mjs",
-      "start": {
-        "line": 96,
-        "col": 30,
-        "offset": 2227
-      },
-      "end": {
-        "line": 96,
-        "col": 66,
-        "offset": 2263
-      },
-      "extra": {
-        "message": "RegExp() called with a `flag` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
-        "metadata": {
-          "owasp": [
-            "A05:2021 - Security Misconfiguration",
-            "A06:2017 - Security Misconfiguration",
-            "A02:2025 - Security Misconfiguration"
-          ],
-          "cwe": [
-            "CWE-1333: Inefficient Regular Expression Complexity"
-          ],
-          "references": [
-            "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
-          ],
-          "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
-          "category": "security",
-          "technology": [
-            "javascript"
-          ],
-          "subcategory": [
-            "vuln"
-          ],
-          "likelihood": "MEDIUM",
-          "impact": "MEDIUM",
-          "confidence": "LOW",
-          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-          "vulnerability_class": [
-            "Denial-of-Service (DoS)"
-          ],
-          "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-          "shortlink": "https://sg.run/gr65"
-        },
-        "severity": "WARNING",
-        "fingerprint": "requires login",
-        "lines": "requires login",
-        "validation_state": "NO_VALIDATOR",
-        "engine_kind": "OSS"
-      }
-    },
-    {
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 383,
+        "line": 384,
         "col": 10,
-        "offset": 11517
+        "offset": 11532
       },
       "end": {
-        "line": 384,
+        "line": 385,
         "col": 30,
-        "offset": 11560
+        "offset": 11575
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -470,14 +259,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 383,
+        "line": 384,
         "col": 10,
-        "offset": 11517
+        "offset": 11532
       },
       "end": {
-        "line": 385,
+        "line": 386,
         "col": 29,
-        "offset": 11589
+        "offset": 11604
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -525,14 +314,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 383,
+        "line": 384,
         "col": 10,
-        "offset": 11517
+        "offset": 11532
       },
       "end": {
-        "line": 386,
+        "line": 387,
         "col": 29,
-        "offset": 11618
+        "offset": 11633
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -580,14 +369,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/audit/shared-prime.mjs",
       "start": {
-        "line": 383,
+        "line": 384,
         "col": 10,
-        "offset": 11517
+        "offset": 11532
       },
       "end": {
-        "line": 387,
+        "line": 388,
         "col": 31,
-        "offset": 11649
+        "offset": 11664
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `String(value)\n    .replaceAll(\"&\", \"&amp;\")\n    .replaceAll(\"<\", \"&lt;\")\n    .replaceAll(\">\", \"&gt;\")`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -632,69 +421,17 @@
       }
     },
     {
-      "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-      "path": "scripts/ops/generate-vps-env.mjs",
-      "start": {
-        "line": 70,
-        "col": 19,
-        "offset": 1815
-      },
-      "end": {
-        "line": 70,
-        "col": 49,
-        "offset": 1845
-      },
-      "extra": {
-        "message": "RegExp() called with a `key` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
-        "metadata": {
-          "owasp": [
-            "A05:2021 - Security Misconfiguration",
-            "A06:2017 - Security Misconfiguration",
-            "A02:2025 - Security Misconfiguration"
-          ],
-          "cwe": [
-            "CWE-1333: Inefficient Regular Expression Complexity"
-          ],
-          "references": [
-            "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
-          ],
-          "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
-          "category": "security",
-          "technology": [
-            "javascript"
-          ],
-          "subcategory": [
-            "vuln"
-          ],
-          "likelihood": "MEDIUM",
-          "impact": "MEDIUM",
-          "confidence": "LOW",
-          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-          "vulnerability_class": [
-            "Denial-of-Service (DoS)"
-          ],
-          "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-          "shortlink": "https://sg.run/gr65"
-        },
-        "severity": "WARNING",
-        "fingerprint": "requires login",
-        "lines": "requires login",
-        "validation_state": "NO_VALIDATOR",
-        "engine_kind": "OSS"
-      }
-    },
-    {
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/release/generate-sbom.mjs",
       "start": {
-        "line": 14,
+        "line": 15,
         "col": 10,
-        "offset": 432
+        "offset": 447
       },
       "end": {
-        "line": 15,
+        "line": 16,
         "col": 30,
-        "offset": 467
+        "offset": 482
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -742,14 +479,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/release/generate-sbom.mjs",
       "start": {
-        "line": 14,
+        "line": 15,
         "col": 10,
-        "offset": 432
+        "offset": 447
       },
       "end": {
-        "line": 16,
+        "line": 17,
         "col": 29,
-        "offset": 496
+        "offset": 511
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -797,14 +534,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/release/generate-sbom.mjs",
       "start": {
-        "line": 14,
+        "line": 15,
         "col": 10,
-        "offset": 432
+        "offset": 447
       },
       "end": {
-        "line": 17,
+        "line": 18,
         "col": 29,
-        "offset": 525
+        "offset": 540
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')\n    .replaceAll('<', '&lt;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -852,14 +589,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/release/generate-sbom.mjs",
       "start": {
-        "line": 14,
+        "line": 15,
         "col": 10,
-        "offset": 432
+        "offset": 447
       },
       "end": {
-        "line": 18,
+        "line": 19,
         "col": 31,
-        "offset": 556
+        "offset": 571
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')\n    .replaceAll('<', '&lt;')\n    .replaceAll('>', '&gt;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",
@@ -907,14 +644,14 @@
       "check_id": "javascript.audit.detect-replaceall-sanitization.detect-replaceall-sanitization",
       "path": "scripts/release/generate-sbom.mjs",
       "start": {
-        "line": 14,
+        "line": 15,
         "col": 10,
-        "offset": 432
+        "offset": 447
       },
       "end": {
-        "line": 19,
+        "line": 20,
         "col": 31,
-        "offset": 587
+        "offset": 602
       },
       "extra": {
         "message": "Detected a call to `replaceAll()` in an attempt to HTML escape the string `value\n    .replaceAll('&', '&amp;')\n    .replaceAll('<', '&lt;')\n    .replaceAll('>', '&gt;')\n    .replaceAll('\"', '&quot;')`. Manually sanitizing input through a manually built list can be circumvented in many situations, and it's better to use a well known sanitization library such as `sanitize-html` or `DOMPurify`.",

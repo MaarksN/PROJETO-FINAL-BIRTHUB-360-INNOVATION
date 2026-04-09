@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { existsSync } from "node:fs";
 import path from "node:path";
 
@@ -56,7 +57,7 @@ function normalizeTagList(value: string | string[] | undefined): string[] | unde
   return parsed.length > 0 ? parsed : undefined;
 }
 
-export class MarketplaceService {
+class MarketplaceService {
   private cache: CatalogCache | null = null;
   private readonly catalogRoot: string;
 

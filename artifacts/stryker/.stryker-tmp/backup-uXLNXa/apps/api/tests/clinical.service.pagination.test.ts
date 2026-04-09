@@ -1,0 +1,240 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+import {
+  AppointmentStatus,
+  ClinicalNoteKind,
+  NeonatalOutcome,
+  prisma,
+  PregnancyStatus,
+  runWithTenantContext
+} from "@birthub/database";
+
+import { clinicalService } from "../src/modules/clinical/service.js";
+
+function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
+  const original = target[key];
+  target[key] = value;
+  return () => {
+    target[key] = original;
+  };
+}
+
+const clinicalContext = {
+  organizationId: "org_alpha",
+  tenantId: "tenant_alpha",
+  userId: "user_alpha"
+} as const;
+
+void test("getPatientDetail bounds pregnancy and neonatal history reads", async () => {
+  const pregnancyCalls: Array<Record<string, unknown>> = [];
+  const neonatalCalls: Array<Record<string, unknown>> = [];
+  const transactionClient = {
+    $executeRaw: () => Promise.resolve(undefined),
+    appointment: {
+      findMany: () => Promise.resolve([])
+    },
+    clinicalNote: {
+      findMany: () => Promise.resolve([])
+    },
+    neonatalRecord: {
+      findMany: (args: Record<string, unknown>) => {
+        neonatalCalls.push(args);
+        return Promise.resolve([
+          {
+            apgar1: null,
+            apgar5: null,
+            birthLengthCm: null,
+            birthWeightGrams: null,
+            bornAt: new Date("2026-04-07T10:00:00.000Z"),
+            createdAt: new Date("2026-04-07T10:00:00.000Z"),
+            headCircumferenceCm: null,
+            id: "neo_1",
+            newbornName: "Baby Alpha",
+            notes: null,
+            outcome: NeonatalOutcome.ALIVE,
+            sex: null,
+            updatedAt: new Date("2026-04-07T10:00:00.000Z")
+          }
+        ]);
+      }
+    },
+    patient: {
+      findFirst: () =>
+        Promise.resolve({
+          allergies: [],
+          birthDate: new Date("1990-01-01T00:00:00.000Z"),
+          bloodType: null,
+          chronicConditions: [],
+          createdAt: new Date("2026-04-07T10:00:00.000Z"),
+          documentId: null,
+          email: null,
+          fullName: "Patient Alpha",
+          id: "patient_alpha",
+          medicalRecordNumber: "MRN-001",
+          notes: null,
+          phone: null,
+          preferredName: null,
+          status: "ACTIVE",
+          updatedAt: new Date("2026-04-07T10:00:00.000Z")
+        })
+    },
+    pregnancyRecord: {
+      findMany: (args: Record<string, unknown>) => {
+        pregnancyCalls.push(args);
+        return Promise.resolve([
+          {
+            abortions: 0,
+            complications: [],
+            createdAt: new Date("2026-04-07T10:00:00.000Z"),
+            estimatedDeliveryDate: new Date("2026-09-07T10:00:00.000Z"),
+            fetalCount: 1,
+            gravidity: 1,
+            id: "pregnancy_1",
+            lastMenstrualPeriod: new Date("2026-01-07T10:00:00.000Z"),
+            notes: null,
+            outcome: null,
+            outcomeDate: null,
+            parity: 0,
+            previousCesareans: 0,
+            riskLevel: "LOW",
+            status: PregnancyStatus.ACTIVE,
+            updatedAt: new Date("2026-04-07T10:00:00.000Z")
+          }
+        ]);
+      }
+    }
+  };
+  const restores = [
+    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
+      if (typeof callback === "function") {
+        return callback(transactionClient);
+      }
+
+      return Promise.resolve(callback);
+    })
+  ];
+
+  try {
+    const payload = await runWithTenantContext(
+      {
+        source: "authenticated",
+        tenantId: clinicalContext.tenantId,
+        userId: clinicalContext.userId
+      },
+      () => clinicalService.getPatientDetail(clinicalContext, "patient_alpha")
+    );
+
+    assert.equal(payload.patient.id, "patient_alpha");
+    assert.equal(pregnancyCalls[0]?.take, 100);
+    assert.equal(neonatalCalls[0]?.take, 100);
+  } finally {
+    restores.reverse().forEach((restore) => restore());
+  }
+});
+
+void test("listAppointments and getClinicalNoteHistory apply explicit limits", async () => {
+  const appointmentCalls: Array<Record<string, unknown>> = [];
+  const noteHistoryCalls: Array<Record<string, unknown>> = [];
+  const transactionClient = {
+    $executeRaw: () => Promise.resolve(undefined),
+    appointment: {
+      findMany: (args: Record<string, unknown>) => {
+        appointmentCalls.push(args);
+        return Promise.resolve([
+          {
+            bloodPressureDiastolic: null,
+            bloodPressureSystolic: null,
+            chiefComplaint: null,
+            createdAt: new Date("2026-04-07T10:00:00.000Z"),
+            durationMinutes: 30,
+            fetalHeartRateBpm: null,
+            fetalWeightGrams: null,
+            fundalHeightCm: null,
+            id: "appointment_1",
+            location: null,
+            patient: {
+              fullName: "Patient Alpha",
+              id: "patient_alpha",
+              preferredName: null
+            },
+            patientId: "patient_alpha",
+            pregnancyRecordId: null,
+            providerName: null,
+            scheduledAt: new Date("2026-04-07T10:00:00.000Z"),
+            status: AppointmentStatus.SCHEDULED,
+            summary: null,
+            temperatureC: null,
+            type: "PRENATAL",
+            updatedAt: new Date("2026-04-07T10:00:00.000Z"),
+            weightKg: null
+          }
+        ]);
+      }
+    },
+    clinicalNote: {
+      findMany: (args: Record<string, unknown>) => {
+        noteHistoryCalls.push(args);
+        return Promise.resolve([
+          {
+            appointmentId: null,
+            author: null,
+            assessment: null,
+            content: null,
+            createdAt: new Date("2026-04-07T10:00:00.000Z"),
+            id: "note_1",
+            isLatest: true,
+            kind: ClinicalNoteKind.SOAP,
+            noteGroupId: "group_1",
+            objective: null,
+            patientId: "patient_alpha",
+            plan: null,
+            pregnancyRecordId: null,
+            subjective: null,
+            title: "Initial note",
+            updatedAt: new Date("2026-04-07T10:00:00.000Z"),
+            version: 1
+          }
+        ]);
+      }
+    }
+  };
+  const restores = [
+    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
+      if (typeof callback === "function") {
+        return callback(transactionClient);
+      }
+
+      return Promise.resolve(callback);
+    })
+  ];
+
+  try {
+    const appointmentPayload = await runWithTenantContext(
+      {
+        source: "authenticated",
+        tenantId: clinicalContext.tenantId,
+        userId: clinicalContext.userId
+      },
+      () =>
+        clinicalService.listAppointments(clinicalContext, {
+          view: "week"
+        })
+    );
+    const notePayload = await runWithTenantContext(
+      {
+        source: "authenticated",
+        tenantId: clinicalContext.tenantId,
+        userId: clinicalContext.userId
+      },
+      () => clinicalService.getClinicalNoteHistory(clinicalContext, "group_1")
+    );
+
+    assert.equal(appointmentPayload.items.length, 1);
+    assert.equal(notePayload.items.length, 1);
+    assert.equal(appointmentCalls[0]?.take, 250);
+    assert.equal(noteHistoryCalls[0]?.take, 100);
+  } finally {
+    restores.reverse().forEach((restore) => restore());
+  }
+});

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { randomBytes } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";

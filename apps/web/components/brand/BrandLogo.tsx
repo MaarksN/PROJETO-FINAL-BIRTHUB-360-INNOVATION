@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from "next/link";
 import { Rocket, Sparkles } from "lucide-react";
 

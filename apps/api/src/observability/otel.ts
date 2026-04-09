@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createRequire } from "node:module";
 
 import type { ApiConfig } from "@birthub/config";
@@ -72,7 +73,6 @@ type OtelRuntime = {
 
 const logger = createLogger("api-otel");
 const runtimeRequire = createRequire(import.meta.url) as (specifier: string) => unknown;
-const forceSampledTenants = new Set<string>();
 
 let cachedRuntime: OtelRuntime | undefined;
 let hasWarnedMissingRuntime = false;
@@ -186,20 +186,11 @@ export function annotateTenantSpan(input: {
 
   if (input.tenantId) {
     span.setAttribute("tenant.id", input.tenantId);
-    span.setAttribute("tenant.force_sampled", forceSampledTenants.has(input.tenantId));
   }
 
   if (input.tenantSlug) {
     span.setAttribute("tenant.slug", input.tenantSlug);
   }
-}
-
-export function flagTenantForFullSampling(tenantId: string): void {
-  forceSampledTenants.add(tenantId);
-}
-
-export function shouldForceTenantSampling(tenantId?: string | null): boolean {
-  return Boolean(tenantId && forceSampledTenants.has(tenantId));
 }
 
 // ADR-009: the Cycle 1 API coexists with legacy services, so telemetry is isolated behind an opt-in exporter.

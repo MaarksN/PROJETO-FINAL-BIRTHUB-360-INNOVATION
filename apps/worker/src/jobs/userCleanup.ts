@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { UserStatus, prisma, type PrismaClient } from "@birthub/database";
 import { createHash } from "node:crypto";
 

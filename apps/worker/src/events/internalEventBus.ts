@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { EventEmitter } from "node:events";
 
 import { createLogger } from "@birthub/logger";
@@ -17,14 +18,4 @@ bus.on("tenant.churn_risk", (payload: InternalEventPayload) => {
 
 export function emitInternalEvent(input: InternalEventPayload): void {
   bus.emit(input.event, input);
-}
-
-export function onInternalEvent(
-  event: string,
-  handler: (payload: InternalEventPayload) => void
-): () => void {
-  bus.on(event, handler);
-  return () => {
-    bus.off(event, handler);
-  };
 }

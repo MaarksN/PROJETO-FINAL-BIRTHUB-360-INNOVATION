@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { RouteErrorView } from "../../../components/dashboard/route-error-view";

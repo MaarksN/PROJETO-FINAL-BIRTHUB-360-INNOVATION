@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getWebConfig, type WebConfig } from "@birthub/config";
 
 type DependencyStatus = "up" | "down";

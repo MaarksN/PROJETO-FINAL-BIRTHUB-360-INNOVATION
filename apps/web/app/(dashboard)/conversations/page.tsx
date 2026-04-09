@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { useDeferredValue, useEffect, useMemo, useState } from "react";

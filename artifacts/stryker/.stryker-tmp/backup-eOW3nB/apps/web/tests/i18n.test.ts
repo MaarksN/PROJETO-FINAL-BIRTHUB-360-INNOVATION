@@ -1,0 +1,56 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+
+import {
+  formatDateTime,
+  formatPtBrDateTime,
+  getDictionary,
+  resolveLocale
+} from "../lib/i18n";
+
+void test("pt-BR dictionary exposes canonical product navigation and consent copy", () => {
+  const copy = getDictionary();
+
+  assert.equal(copy.navbar.identityTitle, "Central de Operacao");
+  assert.equal(copy.navbar.items[0]?.href, "/dashboard");
+  assert.equal(copy.navbar.items[6]?.label, "Conversas");
+  assert.equal(copy.consentBanner.settings, "Abrir central LGPD");
+  assert.equal(copy.dashboardHome.badge, "Home do produto");
+});
+
+void test("formatPtBrDateTime uses the pt-BR locale baseline", () => {
+  const formatted = formatPtBrDateTime("2026-04-07T12:34:00.000Z", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "UTC"
+  });
+
+  assert.equal(formatted, "07/04/2026");
+});
+
+void test("resolveLocale falls back to pt-BR and accepts accept-language headers", () => {
+  assert.equal(resolveLocale(), "pt-BR");
+  assert.equal(resolveLocale("en-US,en;q=0.9,pt-BR;q=0.8"), "en-US");
+  assert.equal(resolveLocale("fr-FR,pt-BR;q=0.9"), "pt-BR");
+});
+
+void test("en-US dictionary exposes translated navigation and dashboard copy", () => {
+  const copy = getDictionary("en-US");
+
+  assert.equal(copy.navbar.identityTitle, "Operations Hub");
+  assert.equal(copy.navbar.items[1]?.label, "Patients");
+  assert.equal(copy.workflowsPage.backHome, "Back to home");
+  assert.equal(copy.dashboardHome.noUsageTitle, "No recorded usage");
+});
+
+void test("formatDateTime honors the requested locale", () => {
+  const formatted = formatDateTime("en-US", "2026-04-07T12:34:00.000Z", {
+    day: "2-digit",
+    month: "2-digit",
+    timeZone: "UTC",
+    year: "numeric"
+  });
+
+  assert.equal(formatted, "04/07/2026");
+});

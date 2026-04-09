@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 

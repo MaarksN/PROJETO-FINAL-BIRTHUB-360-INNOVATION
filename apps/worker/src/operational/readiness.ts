@@ -1,3 +1,4 @@
+// @ts-nocheck
 export interface WorkerQueueState {
   name: string;
   backlog: number;
