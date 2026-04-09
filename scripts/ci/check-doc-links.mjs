@@ -1,12 +1,24 @@
 #!/usr/bin/env node
 // @ts-nocheck
-import { execSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 
-import { projectRoot } from "./shared.mjs";
+import { projectRoot, runCapture } from "./shared.mjs";
 
-const markdownLinkPattern = /!?\[[^\]]*]\(([^)]+)\)/gu;
+const markdownLinkPattern = /!?\[[^\]]*\]\(([^)]+)\)/gu;
+const ignoredDirectoryNames = new Set([
+  ".git",
+  ".next",
+  ".pytest_cache",
+  ".stryker-tmp",
+  ".tools",
+  ".turbo",
+  "coverage",
+  "dist",
+  "node_modules",
+  "test-results"
+]);
+const skippedMarkdownPrefixes = ["docs/product/"];
 const alwaysCheckedFiles = [
   "README.md",
   "CONTRIBUTING.md",
@@ -16,21 +28,61 @@ const alwaysCheckedFiles = [
 ];
 
 function gitCapture(args, allowFailure = false) {
-  try {
-    return execSync(`git ${args.join(" ")}`, {
-      cwd: projectRoot,
-      encoding: "utf8"
-    }).trim();
-  } catch (error) {
-    if (allowFailure) {
-      return "";
-    }
-    throw error;
+  const result = runCapture("git", args, { cwd: projectRoot });
+
+  if ((result.status ?? 1) === 0) {
+    return (result.stdout ?? "").trim();
   }
+
+  if (allowFailure) {
+    return "";
+  }
+
+  const errorOutput = (result.stderr ?? result.stdout ?? "").trim();
+  throw new Error(errorOutput || `git ${args.join(" ")} failed`);
 }
 
 function hasRef(ref) {
   return Boolean(gitCapture(["rev-parse", "--verify", ref], true));
+}
+
+function walkMarkdownFiles(rootRelativePath = ".") {
+  const rootDirectory = path.join(projectRoot, rootRelativePath);
+  if (!existsSync(rootDirectory)) {
+    return [];
+  }
+
+  const collectedFiles = [];
+  const queue = [rootDirectory];
+
+  while (queue.length > 0) {
+    const current = queue.pop();
+    if (!current) {
+      continue;
+    }
+
+    for (const entry of readdirSync(current, { withFileTypes: true })) {
+      const fullPath = path.join(current, entry.name);
+
+      if (entry.isDirectory()) {
+        if (!ignoredDirectoryNames.has(entry.name)) {
+          queue.push(fullPath);
+        }
+        continue;
+      }
+
+      if (!entry.isFile() || !entry.name.endsWith(".md")) {
+        continue;
+      }
+
+      const relativePath = path.relative(projectRoot, fullPath).replaceAll("\\", "/");
+      if (!skippedMarkdownPrefixes.some((prefix) => relativePath.startsWith(prefix))) {
+        collectedFiles.push(relativePath);
+      }
+    }
+  }
+
+  return collectedFiles;
 }
 
 function resolveBaseRef() {
@@ -53,10 +105,13 @@ function resolveBaseRef() {
 function listMarkdownFiles() {
   if (process.argv.includes("--all")) {
     const tracked = gitCapture(["ls-files"], true);
-    return tracked
+    const trackedMarkdownFiles = tracked
       .split(/\r?\n/u)
       .map((line) => line.trim())
-      .filter((line) => line.endsWith(".md"));
+      .filter((line) => line.endsWith(".md"))
+      .filter((line) => !skippedMarkdownPrefixes.some((prefix) => line.startsWith(prefix)));
+
+    return trackedMarkdownFiles.length > 0 ? trackedMarkdownFiles : walkMarkdownFiles();
   }
 
   const baseRef = resolveBaseRef();

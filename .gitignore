@@ -44,6 +44,8 @@ artifacts/**/*.sqlite
 artifacts/**/*.swp
 artifacts/**/*.tmp
 artifacts/**/*.zip
+!artifacts/release/logs/
+!artifacts/release/logs/**
 !artifacts/audit/
 !artifacts/untracked_agents_snapshot/
 

@@ -13,18 +13,18 @@ Operar o core canonico sem GCP pago:
 
 - Um unico VPS Linux hospeda `web`, `api`, `worker` e `Caddy`.
 - PostgreSQL e Redis ficam em provedores externos com SSL/TLS.
-- O deploy usa [`docker-compose.prod.yml`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/docker-compose.prod.yml).
+- O deploy usa [`docker-compose.prod.yml`](../../docker-compose.prod.yml).
 - Os segredos vivem apenas em `.env.vps` no servidor.
 
 ## Arquivos entregues
 
-- Compose do stack VPS: [`docker-compose.prod.yml`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/docker-compose.prod.yml)
-- Exemplo de ambiente: [`.env.vps.example`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/.env.vps.example)
-- Checklist de preenchimento: [`2026-03-17-vps-env-checklist.md`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/docs/release/2026-03-17-vps-env-checklist.md)
-- Proxy HTTPS: [`ops/vps/Caddyfile`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/ops/vps/Caddyfile)
-- Deploy: [`deploy-vps.sh`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ops/deploy-vps.sh)
-- Backup: [`backup-postgres.sh`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ops/backup-postgres.sh)
-- Restore: [`restore-postgres.sh`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ops/restore-postgres.sh)
+- Compose do stack VPS: [`docker-compose.prod.yml`](../../docker-compose.prod.yml)
+- Exemplo de ambiente: [`.env.vps.example`](../../.env.vps.example)
+- Checklist de preenchimento: usar `.env.vps.example` como base e validar tudo com `pnpm ops:vps:preflight`.
+- Proxy HTTPS: [`ops/vps/Caddyfile`](../../ops/vps/Caddyfile)
+- Deploy: [`deploy-vps.sh`](../../scripts/ops/deploy-vps.sh)
+- Backup: [`backup-postgres.sh`](../../scripts/ops/backup-postgres.sh)
+- Restore: [`restore-postgres.sh`](../../scripts/ops/restore-postgres.sh)
 
 ## Sequencia de cutover barato
 

@@ -10,7 +10,7 @@ O monorepo hoje contém superfícies "core" e "legadas" convivendo lado a lado. 
 Sem uma decisão explícita, a base cresce com deriva estrutural: imports cruzados, scripts quebrados e deploys apontando para superfícies erradas.
 
 ## Decisão
-Adotamos um contrato de fonte de verdade executável em [`scripts/ci/workspace-contract.json`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ci/workspace-contract.json), fiscalizado por [`scripts/ci/workspace-audit.mjs`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/scripts/ci/workspace-audit.mjs).
+Adotamos um contrato de fonte de verdade executável em [`scripts/ci/workspace-contract.json`](../../scripts/ci/workspace-contract.json), fiscalizado por [`scripts/ci/workspace-audit.mjs`](../../scripts/ci/workspace-audit.mjs).
 
 As decisões formais são:
 

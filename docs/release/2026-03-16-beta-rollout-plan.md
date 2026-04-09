@@ -5,7 +5,7 @@ Sair de staging validado para um beta controlado, com canario e rollback definid
 
 ## Pre-condicoes
 
-- [`docs/release/2026-03-16-staging-validation-runbook.md`](C:/Users/Marks/Documents/GitHub/BIRTHUB-360-INNOVATION/docs/release/2026-03-16-staging-validation-runbook.md) concluido.
+- runbook de validacao de staging concluido.
 - `release:preflight:production` executado com segredos reais e sem bloqueios.
 - rollback de banco e de app testado em staging.
 
