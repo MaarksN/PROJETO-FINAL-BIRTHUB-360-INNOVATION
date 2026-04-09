@@ -41,7 +41,7 @@ Este documento concentra os itens de transferencia de conhecimento do F10. O que
 
 ## Common anti-patterns
 
-- Criar feature nova no `apps/dashboard` em vez de priorizar `apps/web`.
+- Criar feature nova em `apps/legacy/dashboard` em vez de priorizar `apps/web`.
 - Fazer logica pesada ou IO lento diretamente na API em vez de enfileirar para o worker.
 - Criar dependencias diretas no legado (`apps/api-gateway`, `packages/db`) sem RFC.
 - Promover integracao externa sem timeout, retry, fallback e evidencias operacionais.

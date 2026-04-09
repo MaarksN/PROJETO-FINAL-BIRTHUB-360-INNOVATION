@@ -49,4 +49,4 @@ pnpm test:e2e:release
 
 - Não promover superfície legada para fluxo principal sem ADR e aprovação explícita.
 - Não executar rollback de schema sem evidência de backup e validação do rehearsal.
-- Não usar `apps/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` ou `packages/db` como prova de pronto do core canônico.
+- Não usar `apps/legacy/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` ou `packages/db` como prova de pronto do core canônico.

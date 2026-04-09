@@ -59,5 +59,6 @@ rg.cmd
 logs/ci-runs/
 logs/releases/
 artifacts/quality/jscpd/html/
+artifacts/stryker/
 artifacts/f0-freeze-2026-03-22/metrics/
 .github/agents/

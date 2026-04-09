@@ -6,7 +6,7 @@ O ecossistema financeiro do BirthHub360 não pode ficar longos períodos quebrad
 
 O *Smoke Test* de faturamento é um *Synthetic Monitor* automatizado que simula a jornada do usuário de ponta a ponta em um ambiente vivo.
 
-- **Deploy Trigger:** O smoke test roda obrigatoriamente logo após todo deploy que envolva mudanças na pasta `apps/dashboard/src/app/billing` (Frontend) ou no `webhook-receiver` (Backend).
+- **Deploy Trigger:** O smoke test roda obrigatoriamente logo após todo deploy que envolva mudanças nas superfícies canônicas de billing em `apps/web` ou `apps/api`, ou no `webhook-receiver` quando ele fizer parte do fluxo operacional validado.
 - **Scheduled Ping:** Além do deploy, ele roda de hora em hora (via cronjob no GitHub Actions ou AWS CloudWatch Synthetics) para garantir que a API do Stripe não esteja sofrendo instabilidades.
 
 ## 2. O que o Smoke Test Valida?

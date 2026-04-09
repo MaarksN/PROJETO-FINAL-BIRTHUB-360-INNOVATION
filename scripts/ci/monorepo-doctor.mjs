@@ -78,6 +78,35 @@ function isWithinAllowedRoots(file, allowedRoots){
   return allowedRoots.some((allowedRoot) => file === allowedRoot || file.startsWith(`${allowedRoot}/`));
 }
 
+function isIntentionalJavascriptShim(file){
+  if(!/^packages\/[^/]+\/index\.js$/.test(file)){
+    return false;
+  }
+
+  const siblingTypeScriptEntry = file.replace(/\.js$/, '.ts');
+  if(!files.includes(siblingTypeScriptEntry)){
+    return false;
+  }
+
+  const packageJsonPath = path.join(projectRoot, path.dirname(file), 'package.json');
+  if(!fs.existsSync(packageJsonPath)){
+    return false;
+  }
+
+  try {
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    const rootExport = pkg.exports?.['.'];
+    const importTarget =
+      typeof rootExport === 'string'
+        ? rootExport
+        : rootExport?.import ?? rootExport?.default ?? null;
+
+    return pkg.main === './index.js' && pkg.types === './index.ts' && importTarget === './index.js';
+  } catch {
+    return false;
+  }
+}
+
 const tracked=trackedFiles();
 const files=tracked.files.filter((file) => fs.existsSync(path.join(projectRoot, file)));
 const workspaceContract = readWorkspaceContract();
@@ -134,7 +163,14 @@ if(legacyImportQuarantine.length) {
 if(tracked.source === 'git'){
   const generated=files.filter((f)=>
     fs.existsSync(path.join(projectRoot, f)) &&
-    (f.endsWith('.tsbuildinfo') || (f.endsWith('.js') && files.includes(f.replace(/\.js$/,'.ts'))))
+    (
+      f.endsWith('.tsbuildinfo') ||
+      (
+        f.endsWith('.js') &&
+        files.includes(f.replace(/\.js$/,'.ts')) &&
+        !isIntentionalJavascriptShim(f)
+      )
+    )
   );
   if(generated.length) critical.push(`Generated artifacts tracked: ${generated.join(', ')}`);
 }

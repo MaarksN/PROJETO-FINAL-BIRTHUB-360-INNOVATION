@@ -34,7 +34,7 @@ Trade-offs:
 
 - Legacy CRM workers (`sdr`/`ldr`) are no longer runnable from `apps/agent-orchestrator`.
 - Legacy agent log endpoint no longer returns historical payloads and requires migration to canonical telemetry APIs.
-- `apps/dashboard` remains quarantined legacy until a dedicated migration stage.
+- `apps/legacy/dashboard` remains quarantined legacy until a dedicated migration stage.
 
 ## Follow-up
 

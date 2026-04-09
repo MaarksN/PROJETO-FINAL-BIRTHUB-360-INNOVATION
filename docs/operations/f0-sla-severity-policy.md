@@ -82,7 +82,7 @@ Classifique como P3 para itens sem impacto operacional imediato:
 
 Exemplos reais do stack:
 
-- ajustes de layout em paginas do `apps/web` ou `apps/dashboard`;
+- ajustes de layout em paginas do `apps/web` ou em material de quarentena como `apps/legacy/dashboard`;
 - refatoracao interna sem impacto de runtime;
 - melhorias de documentacao/runbook.
 
