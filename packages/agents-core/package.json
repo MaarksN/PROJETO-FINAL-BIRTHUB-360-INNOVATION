@@ -12,7 +12,8 @@
     "docs": "typedoc --out docs src/index.ts"
   },
   "dependencies": {
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "@birthub/logger": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",
