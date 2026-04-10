@@ -21,11 +21,13 @@ import {
 const supplementalEvidencePaths = [
   "docs/operations/environment-parity.md",
   "docs/operations/sla.md",
+  "artifacts/backups/backup-health.json",
   "artifacts/security/semgrep-head.json",
   "artifacts/testing/module-coverage.json",
   "artifacts/performance/web-bundle-head.json",
   "artifacts/accessibility/axe-report.json",
   "artifacts/dr/latest-drill.json",
+  "artifacts/dr/readiness-report.json",
   "artifacts/tenancy/rls-proof-head.json"
 ];
 

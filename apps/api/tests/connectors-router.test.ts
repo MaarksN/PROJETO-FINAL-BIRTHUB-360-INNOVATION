@@ -4,63 +4,24 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { Role } from "@birthub/database";
-import express from "express";
 import request from "supertest";
-import { ZodError } from "zod";
 
-import {
-  ProblemDetailsError,
-  fromZodError,
-  toProblemDetails
-} from "../src/lib/problem-details.js";
 import { createConnectorsRouter } from "../src/modules/connectors/router.js";
 import { connectorsService } from "../src/modules/connectors/service.js";
+import {
+  createAuthenticatedApiTestApp,
+  stubMethod
+} from "./http-test-helpers.js";
 import { createTestApiConfig } from "./test-config.js";
 
-function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original: unknown = Reflect.get(target, key) as unknown;
-  Reflect.set(target, key, value);
-  return () => {
-    Reflect.set(target, key, original);
-  };
-}
-
 function createConnectorsTestApp() {
-  const app = express();
-  app.use(express.json());
-  app.use((request, _response, next) => {
-    request.context = {
-      apiKeyId: null,
-      authType: "session",
-      billingPlanStatus: null,
-      organizationId: "org_1",
-      requestId: "req_1",
-      role: Role.ADMIN,
-      sessionId: "session_1",
-      tenantId: "tenant_1",
-      tenantSlug: "tenant-one",
-      traceId: "trace_1",
-      userId: "user_1"
-    };
-    next();
+  return createAuthenticatedApiTestApp({
+    contextOverrides: {
+      role: Role.ADMIN
+    },
+    mountPath: "/api/v1/connectors",
+    router: createConnectorsRouter(createTestApiConfig())
   });
-  app.use("/api/v1/connectors", createConnectorsRouter(createTestApiConfig()));
-  app.use((error: unknown, request: express.Request, response: express.Response, _next: express.NextFunction) => {
-    const problem =
-      error instanceof ZodError
-        ? fromZodError(error)
-        : error instanceof ProblemDetailsError
-          ? error
-          : new ProblemDetailsError({
-              detail: error instanceof Error ? error.message : "Unexpected internal server error.",
-              status: 500,
-              title: "Internal Server Error"
-            });
-
-    response.status(problem.status).json(toProblemDetails(request, problem));
-  });
-
-  return app;
 }
 
 void test("connectors router lists connectors for the authenticated organization", async () => {

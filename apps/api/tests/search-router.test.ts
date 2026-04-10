@@ -4,64 +4,29 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { prisma, Role } from "@birthub/database";
-import express from "express";
 import request from "supertest";
-import { ZodError } from "zod";
 
-import {
-  ProblemDetailsError,
-  fromZodError,
-  toProblemDetails
-} from "../src/lib/problem-details.js";
 import { createSearchRouter } from "../src/modules/search/router.js";
-
-function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
-  Reflect.set(target, key, value);
-  return () => {
-    Reflect.set(target, key, original);
-  };
-}
+import {
+  createAuthenticatedApiTestApp,
+  stubMethod
+} from "./http-test-helpers.js";
 
 function createSearchTestApp() {
-  const app = express();
-  app.use((request, _response, next) => {
-    request.context = {
-      apiKeyId: null,
-      authType: "session",
-      billingPlanStatus: null,
-      breakGlassGrantId: null,
-      breakGlassReason: null,
-      breakGlassTicket: null,
-      impersonatedByUserId: null,
+  return createAuthenticatedApiTestApp({
+    contextOverrides: {
       organizationId: "org_product",
       requestId: "req_search",
       role: Role.MEMBER,
-      sessionAccessMode: null,
       sessionId: "session_product",
       tenantId: "tenant_product",
       tenantSlug: "tenant-product",
       traceId: "trace_search",
       userId: "user_product"
-    };
-    next();
+    },
+    mountPath: "/api/v1",
+    router: createSearchRouter()
   });
-  app.use("/api/v1", createSearchRouter());
-  app.use((error: unknown, req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    const problem =
-      error instanceof ZodError
-        ? fromZodError(error)
-        : error instanceof ProblemDetailsError
-          ? error
-          : new ProblemDetailsError({
-              detail: error instanceof Error ? error.message : "Unexpected internal server error.",
-              status: 500,
-              title: "Internal Server Error"
-            });
-
-    res.status(problem.status).json(toProblemDetails(req, problem));
-  });
-  return app;
 }
 
 void test("search router returns tenant-aware grouped results from real backing queries", async () => {

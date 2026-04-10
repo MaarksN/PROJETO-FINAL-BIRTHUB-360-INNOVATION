@@ -2,20 +2,9 @@
 // 
 import type { ApiConfig } from "@birthub/config";
 import {
-  privacyDeleteRequestSchema,
-  privacyDeleteResponseSchema
-} from "@birthub/config";
-import {
-  ConsentPurpose,
-  ConsentSource,
-  ConsentStatus,
-  RetentionAction,
-  RetentionDataCategory,
-  RetentionExecutionMode,
   Role
 } from "@birthub/database";
 import { Router } from "express";
-import { z } from "zod";
 
 import {
   RequireRole,
@@ -33,50 +22,18 @@ import {
   updateRetentionPolicies
 } from "./retention.service.js";
 import {
+  consentUpdateSchema,
+  privacyDeleteRequestSchema,
+  privacyDeleteResponseSchema,
+  retentionRunSchema,
+  retentionUpdateSchema
+} from "./schemas.js";
+import {
   deleteAccountAndPersonalData,
   exportTenantData,
   findOrganizationByReference,
   recordTenantDataExport
 } from "./service.js";
-
-const consentUpdateSchema = z
-  .object({
-    decisions: z
-      .array(
-        z
-          .object({
-            purpose: z.nativeEnum(ConsentPurpose),
-            source: z.nativeEnum(ConsentSource),
-            status: z.nativeEnum(ConsentStatus)
-          })
-          .strict()
-      )
-      .min(1)
-  })
-  .strict();
-
-const retentionUpdateSchema = z
-  .object({
-    policies: z
-      .array(
-        z
-          .object({
-            action: z.nativeEnum(RetentionAction).optional(),
-            dataCategory: z.nativeEnum(RetentionDataCategory),
-            enabled: z.boolean().optional(),
-            retentionDays: z.number().int().min(0).max(3650).optional()
-          })
-          .strict()
-      )
-      .min(1)
-  })
-  .strict();
-
-const retentionRunSchema = z
-  .object({
-    mode: z.nativeEnum(RetentionExecutionMode).default(RetentionExecutionMode.DRY_RUN)
-  })
-  .strict();
 
 export function createPrivacyRouter(config: ApiConfig): Router {
   const router = Router();

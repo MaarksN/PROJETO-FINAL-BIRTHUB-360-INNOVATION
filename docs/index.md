@@ -24,6 +24,7 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 - [Processo de Release Scorecard](processes/RELEASE_SCORECARD.md)
 - [Relatorio de Mutacao](evidence/mutation-report.md)
 - [Relatorio de Dead Code](evidence/dead-code-report.md)
+- [Relatorio de Disaster Recovery](evidence/disaster-recovery-report.md)
 
 ## 5. Operações e Resposta a Incidentes
 - [Inventário de Ambientes](operations/environment-inventory.md)

@@ -1,6 +1,6 @@
 # SLA Operacional
 
-- Refreshed at: 2026-04-09T18:38:36.339Z
+- Refreshed at: 2026-04-10T13:29:17.100Z
 - Canonical policy: `docs/operations/f0-sla-severity-policy.md`
 - Baseline 90d: `docs/operations/f0-sla-adherence-baseline-90d.md`
 - Disaster recovery runbook: `docs/runbooks/disaster-recovery.md`

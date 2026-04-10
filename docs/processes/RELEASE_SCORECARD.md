@@ -16,12 +16,16 @@ Comando: `pnpm release:scorecard`
 - baseline de SLO documentada
 - lane focal de mutacao a partir de `artifacts/stryker/mutation.json`
 - gate regressivo de dead code a partir de `artifacts/quality/dead-code/knip-report.json`
-- evidencia de disaster recovery a partir de `artifacts/dr/latest-drill.json`
+- health de backups a partir de `artifacts/backups/backup-health.json`
+- evidencia de rollback a partir de `artifacts/release/production-rollback-evidence.json`
+- drill de disaster recovery a partir de `artifacts/backups/drill-rto-rpo.json`
 
 ## Evidencias materializadas
 
 - `pnpm quality:mutation:evidence` gera `artifacts/quality/mutation-summary.json` e `docs/evidence/mutation-report.md`.
 - `pnpm quality:dead-code` atualiza `artifacts/quality/dead-code/knip-report.json` e `docs/evidence/dead-code-report.md`.
+- `pnpm ops:backup:health` gera `artifacts/backups/backup-health.json` e `artifacts/backups/backup-health.txt`.
+- `pnpm ops:dr:report` gera `artifacts/dr/readiness-report.json` e `docs/evidence/disaster-recovery-report.md`.
 - `pnpm release:scorecard` agora publica `artifacts/release/scorecard.md` e `artifacts/release/scorecard.json`.
 
 ## Observacao
@@ -42,3 +46,5 @@ Saidas:
 
 - `artifacts/release/scorecard.md`
 - `artifacts/release/scorecard.json`
+- `artifacts/dr/readiness-report.json`
+- `docs/evidence/disaster-recovery-report.md`

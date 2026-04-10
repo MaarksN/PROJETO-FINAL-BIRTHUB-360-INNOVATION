@@ -1,6 +1,6 @@
 # F5 Traceability Matrix
 
-- Generated at: 2026-04-09T15:37:41-03:00
+- Generated at: 2026-04-10T00:00:00-03:00
 - Source: F5.html plus local revalidation of the quality-governance lane
 
 ## Billing and Stripe webhooks
@@ -67,6 +67,21 @@ Functional gaps:
 Functional gaps:
 - Soak and chaos execution require provisioned Redis/API dependencies.
 - Worker modularization evidence is still script-driven, not a single node:test lane.
+
+## Dashboard, privacy and workflow API contracts
+
+- Threshold target: 85%
+- Critical modules: 3
+
+| Critical flow | Test suites |
+| --- | --- |
+| dashboard onboarding contract and tenant-scoped flag persistence | apps/api/tests/dashboard-router.test.ts |
+| privacy retention default mode, enum validation and not-found guard | apps/api/tests/privacy-router.test.ts<br>apps/api/tests/retention.service.test.ts |
+| workflow revision listing and revert consistency | apps/api/tests/workflows-router.test.ts<br>apps/api/tests/workflow-retry-lineage.integration.test.ts |
+
+Functional gaps:
+- The local contract lane is green for dashboard, privacy and workflow revision routes, but authenticated smoke in staging is still outside this batch.
+- Retention dry-run evidence in staging and restore rehearsal remain operational gaps beyond the route layer.
 
 ## Critical Regressions
 

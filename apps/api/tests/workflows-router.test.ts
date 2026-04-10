@@ -4,25 +4,14 @@ import test from "node:test";
 
 import { prisma, Role, WorkflowTriggerType } from "@birthub/database";
 import { workflowCanvasSchema } from "@birthub/workflows-core";
-import express from "express";
 import request from "supertest";
-import { ZodError } from "zod";
 
-import {
-  ProblemDetailsError,
-  fromZodError,
-  toProblemDetails
-} from "../src/lib/problem-details.js";
 import { createWorkflowsRouter } from "../src/modules/workflows/router.js";
+import {
+  createAuthenticatedApiTestApp,
+  stubMethod
+} from "./http-test-helpers.js";
 import { createTestApiConfig } from "./test-config.js";
-
-function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original: unknown = Reflect.get(target, key) as unknown;
-  Reflect.set(target, key, value);
-  return () => {
-    Reflect.set(target, key, original);
-  };
-}
 
 function createWorkflowCanvas() {
   return workflowCanvasSchema.parse({
@@ -43,41 +32,12 @@ function createWorkflowCanvas() {
 }
 
 function createWorkflowsTestApp() {
-  const app = express();
-  app.use(express.json());
-  app.use((request, _response, next) => {
-    request.context = {
-      apiKeyId: null,
-      authType: "session",
-      billingPlanStatus: null,
-      organizationId: "org_1",
-      requestId: "req_1",
-      role: Role.ADMIN,
-      sessionId: "session_1",
-      tenantId: "tenant_1",
-      tenantSlug: "tenant-one",
-      traceId: "trace_1",
-      userId: "user_1"
-    };
-    next();
+  return createAuthenticatedApiTestApp({
+    contextOverrides: {
+      role: Role.ADMIN
+    },
+    router: createWorkflowsRouter(createTestApiConfig())
   });
-  app.use(createWorkflowsRouter(createTestApiConfig()));
-  app.use((error: unknown, request: express.Request, response: express.Response, _next: express.NextFunction) => {
-    const problem =
-      error instanceof ZodError
-        ? fromZodError(error)
-        : error instanceof ProblemDetailsError
-          ? error
-          : new ProblemDetailsError({
-              detail: error instanceof Error ? error.message : "Unexpected internal server error.",
-              status: 500,
-              title: "Internal Server Error"
-            });
-
-    response.status(problem.status).json(toProblemDetails(request, problem));
-  });
-
-  return app;
 }
 
 void test("workflows router lists revisions for the active tenant", async () => {
@@ -116,9 +76,15 @@ void test("workflows router lists revisions for the active tenant", async () => 
       }
     });
     assert.deepEqual(receivedRevisionLookup, {
-      orderBy: {
-        version: "desc"
-      },
+      orderBy: [
+        {
+          version: "desc"
+        },
+        {
+          id: "desc"
+        }
+      ],
+      take: 100,
       where: {
         tenantId: "tenant_1",
         workflowId: "wf_1"
@@ -145,6 +111,8 @@ void test("workflows router reverts a revision using the authenticated tenant sc
   let receivedTransactionCreate: unknown = null;
   let receivedTransitionDelete: unknown = null;
   let receivedStepDelete: unknown = null;
+  const receivedStepCreates: unknown[] = [];
+  let transitionCreateCount = 0;
   const restores = [
     stubMethod(prisma.organization, "findFirst", () => {
       organizationLookupCount += 1;
@@ -202,7 +170,8 @@ void test("workflows router reverts a revision using the authenticated tenant sc
               id: "wf_1",
               organizationId: "org_1",
               tenantId: "tenant_1",
-              triggerType: WorkflowTriggerType.MANUAL
+              triggerType: WorkflowTriggerType.MANUAL,
+              version: 3
             };
           }
         },
@@ -213,12 +182,22 @@ void test("workflows router reverts a revision using the authenticated tenant sc
           }
         },
         workflowStep: {
+          create: async (args: unknown) => {
+            receivedStepCreates.push(args);
+            return {
+              id: `step_${receivedStepCreates.length}`
+            };
+          },
           deleteMany: async (args: unknown) => {
             receivedStepDelete = args;
             return {};
           }
         },
         workflowTransition: {
+          create: async () => {
+            transitionCreateCount += 1;
+            return {};
+          },
           deleteMany: async (args: unknown) => {
             receivedTransitionDelete = args;
             return {};
@@ -248,6 +227,7 @@ void test("workflows router reverts a revision using the authenticated tenant sc
     });
     assert.deepEqual(receivedTransactionUpdate, {
       data: {
+        archivedAt: null,
         definition: workflowCanvas,
         publishedAt: null,
         status: "DRAFT",
@@ -268,6 +248,24 @@ void test("workflows router reverts a revision using the authenticated tenant sc
         workflowId: "wf_1"
       }
     });
+    assert.deepEqual(receivedStepCreates, [
+      {
+        data: {
+          config: {
+            method: "POST",
+            path: "/webhooks/trigger/onboarding"
+          },
+          isTrigger: true,
+          key: "trigger_webhook",
+          name: "Webhook Trigger",
+          organizationId: "org_1",
+          tenantId: "tenant_1",
+          type: "TRIGGER_WEBHOOK",
+          workflowId: "wf_1"
+        }
+      }
+    ]);
+    assert.equal(transitionCreateCount, 0);
     assert.deepEqual(receivedTransitionDelete, {
       where: {
         workflowId: "wf_1"
@@ -283,6 +281,76 @@ void test("workflows router reverts a revision using the authenticated tenant sc
     assert.equal(response.body.workflow.status, "DRAFT");
     assert.equal(response.body.workflow.name, "Onboarding Workflow");
     assert.ok(response.body.workflow.stepLint);
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
+});
+
+void test("workflows router returns not found when reverting an unknown workflow", async () => {
+  const restores = [
+    stubMethod(prisma.organization, "findFirst", () =>
+      Promise.resolve({
+        id: "org_1",
+        tenantId: "tenant_1"
+      })
+    ),
+    stubMethod(prisma.workflow, "findFirst", () => Promise.resolve(null))
+  ];
+
+  try {
+    const response = await request(createWorkflowsTestApp())
+      .post("/api/v1/workflows/wf_missing/revert")
+      .send({
+        version: 3
+      })
+      .expect(404);
+
+    assert.equal(response.body.status, 404);
+    assert.equal(response.body.title, "Not Found");
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
+});
+
+void test("workflows router returns not found when the requested revision does not exist", async () => {
+  const workflowCanvas = createWorkflowCanvas();
+  const restores = [
+    stubMethod(prisma.organization, "findFirst", () =>
+      Promise.resolve({
+        id: "org_1",
+        tenantId: "tenant_1"
+      })
+    ),
+    stubMethod(prisma.workflow, "findFirst", () =>
+      Promise.resolve({
+        definition: workflowCanvas,
+        executions: [],
+        id: "wf_1",
+        organizationId: "org_1",
+        status: "PUBLISHED",
+        steps: [],
+        tenantId: "tenant_1",
+        transitions: [],
+        triggerType: WorkflowTriggerType.MANUAL
+      })
+    ),
+    stubMethod(prisma.workflowRevision, "findUnique", () => Promise.resolve(null))
+  ];
+
+  try {
+    const response = await request(createWorkflowsTestApp())
+      .post("/api/v1/workflows/wf_1/revert")
+      .send({
+        version: 99
+      })
+      .expect(404);
+
+    assert.equal(response.body.status, 404);
+    assert.equal(response.body.title, "Not Found");
   } finally {
     for (const restore of restores.reverse()) {
       restore();

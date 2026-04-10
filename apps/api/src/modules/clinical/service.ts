@@ -29,6 +29,8 @@ type DateWindowView = "day" | "month" | "week";
 const CLINICAL_APPOINTMENT_PAGE_LIMIT = 250;
 const CLINICAL_NOTE_HISTORY_PAGE_LIMIT = 100;
 const CLINICAL_RECORD_PAGE_LIMIT = 100;
+const CLINICAL_NOTE_LIST_PAGE_LIMIT = 50;
+const CLINICAL_PATIENT_LIST_PAGE_LIMIT = 100;
 
 type PatientRecord = {
   allergies: string[];
@@ -118,6 +120,13 @@ type ClinicalNoteRecord = {
   version: number;
 };
 
+type ClinicalAlert = {
+  description: string;
+  id: string;
+  severity: "high" | "low" | "medium";
+  title: string;
+};
+
 type NeonatalRecordModel = {
   apgar1: number | null;
   apgar5: number | null;
@@ -167,6 +176,14 @@ function assertFound<T>(value: T | null, detail: string): T {
   }
 
   return value;
+}
+
+function resolvePageLimit(requested: number | undefined, max: number): number {
+  if (!requested || Number.isNaN(requested) || requested <= 0) {
+    return max;
+  }
+
+  return Math.min(requested, max);
 }
 
 function startOfDay(date: Date): Date {
@@ -440,110 +457,186 @@ function serializeNeonatalRecord(record: NeonatalRecordModel) {
   };
 }
 
+function createClinicalAlert(alert: ClinicalAlert): ClinicalAlert {
+  return alert;
+}
+
+function deriveRiskAlerts(activePregnancy: PregnancyRecordModel | null): ClinicalAlert[] {
+  if (activePregnancy?.riskLevel !== PregnancyRiskLevel.HIGH) {
+    return [];
+  }
+
+  return [
+    createClinicalAlert({
+      description: "A gestacao ativa esta marcada como alto risco e precisa de acompanhamento prioritario.",
+      id: "high-risk-pregnancy",
+      severity: "high",
+      title: "Gestacao de alto risco"
+    })
+  ];
+}
+
+function deriveDueDateAlerts(
+  activePregnancy: PregnancyRecordModel | null,
+  now: Date
+): ClinicalAlert[] {
+  const dueDate = calculateEstimatedDeliveryDate(activePregnancy ?? {});
+  const daysUntilDueDate = calculateDaysUntil(now, dueDate);
+
+  if (daysUntilDueDate === null) {
+    return [];
+  }
+
+  if (daysUntilDueDate < 0) {
+    return [
+      createClinicalAlert({
+        description: "A data provavel do parto ja passou e ainda nao existe desfecho registrado.",
+        id: "overdue-dpp",
+        severity: "high",
+        title: "DPP ultrapassada"
+      })
+    ];
+  }
+
+  if (daysUntilDueDate <= 14) {
+    return [
+      createClinicalAlert({
+        description: "A paciente entrou na janela final da gestacao e vale revisar plano de parto e sinais de alerta.",
+        id: "near-dpp",
+        severity: "medium",
+        title: "DPP nas proximas duas semanas"
+      })
+    ];
+  }
+
+  return [];
+}
+
+function deriveAppointmentAlerts(
+  latestAppointment: AppointmentRecord | null,
+  activePregnancy: PregnancyRecordModel | null,
+  now: Date
+): ClinicalAlert[] {
+  if (!latestAppointment) {
+    return activePregnancy
+      ? [
+          createClinicalAlert({
+            description: "Existe gestacao ativa, mas ainda nao ha consulta registrada no modulo clinico.",
+            id: "missing-follow-up",
+            severity: "medium",
+            title: "Sem consultas registradas"
+          })
+        ]
+      : [];
+  }
+
+  const alerts: ClinicalAlert[] = [];
+  const daysSinceLastAppointment = calculateDaysUntil(latestAppointment.scheduledAt, now);
+
+  if (daysSinceLastAppointment !== null && daysSinceLastAppointment > 28) {
+    alerts.push(
+      createClinicalAlert({
+        description: "Nao ha consulta recente registrada nas ultimas quatro semanas.",
+        id: "follow-up-delay",
+        severity: "medium",
+        title: "Seguimento prenatal em atraso"
+      })
+    );
+  }
+
+  const systolic = latestAppointment.bloodPressureSystolic ?? 0;
+  const diastolic = latestAppointment.bloodPressureDiastolic ?? 0;
+  if (systolic >= 140 || diastolic >= 90) {
+    alerts.push(
+      createClinicalAlert({
+        description: "A ultima consulta registrou pressao arterial em faixa de atencao.",
+        id: "blood-pressure-alert",
+        severity: "high",
+        title: "Pressao arterial elevada"
+      })
+    );
+  }
+
+  const fetalHeartRate = latestAppointment.fetalHeartRateBpm ?? null;
+  if (fetalHeartRate !== null && (fetalHeartRate < 110 || fetalHeartRate > 160)) {
+    alerts.push(
+      createClinicalAlert({
+        description: "A frequencia cardiaca fetal registrada ficou fora da faixa usada pela tela.",
+        id: "fetal-heart-rate-alert",
+        severity: "medium",
+        title: "FCF fora da faixa"
+      })
+    );
+  }
+
+  return alerts;
+}
+
+function deriveMissingClinicalCoverageAlerts(
+  activePregnancy: PregnancyRecordModel | null,
+  nextAppointment: AppointmentRecord | null,
+  latestClinicalNote: ClinicalNoteRecord | null
+): ClinicalAlert[] {
+  if (!activePregnancy) {
+    return [];
+  }
+
+  const alerts: ClinicalAlert[] = [];
+
+  if (!nextAppointment) {
+    alerts.push(
+      createClinicalAlert({
+        description: "Nao existe consulta futura agendada para a gestacao ativa.",
+        id: "missing-next-appointment",
+        severity: "low",
+        title: "Agenda futura ausente"
+      })
+    );
+  }
+
+  if (!latestClinicalNote) {
+    alerts.push(
+      createClinicalAlert({
+        description: "Ainda nao existe nota clinica versionada para esta paciente.",
+        id: "missing-clinical-note",
+        severity: "low",
+        title: "Sem nota clinica"
+      })
+    );
+  }
+
+  return alerts;
+}
+
+function findNextAppointment(
+  appointments: AppointmentRecord[],
+  now: Date = new Date()
+): AppointmentRecord | null {
+  return (
+    [...appointments]
+      .filter((appointment) => appointment.scheduledAt >= now)
+      .sort((left, right) => left.scheduledAt.getTime() - right.scheduledAt.getTime())[0] ?? null
+  );
+}
+
 function deriveClinicalAlerts(input: {
   activePregnancy: PregnancyRecordModel | null;
   latestAppointment: AppointmentRecord | null;
   latestClinicalNote: ClinicalNoteRecord | null;
   nextAppointment: AppointmentRecord | null;
 }) {
-  const alerts: Array<{
-    description: string;
-    id: string;
-    severity: "high" | "low" | "medium";
-    title: string;
-  }> = [];
   const now = new Date();
 
-  if (input.activePregnancy?.riskLevel === PregnancyRiskLevel.HIGH) {
-    alerts.push({
-      description: "A gestacao ativa esta marcada como alto risco e precisa de acompanhamento prioritario.",
-      id: "high-risk-pregnancy",
-      severity: "high",
-      title: "Gestacao de alto risco"
-    });
-  }
-
-  const dueDate = calculateEstimatedDeliveryDate(input.activePregnancy ?? {});
-  const daysUntilDueDate = calculateDaysUntil(now, dueDate);
-  if (daysUntilDueDate !== null && daysUntilDueDate < 0) {
-    alerts.push({
-      description: "A data provavel do parto ja passou e ainda nao existe desfecho registrado.",
-      id: "overdue-dpp",
-      severity: "high",
-      title: "DPP ultrapassada"
-    });
-  } else if (daysUntilDueDate !== null && daysUntilDueDate <= 14) {
-    alerts.push({
-      description: "A paciente entrou na janela final da gestacao e vale revisar plano de parto e sinais de alerta.",
-      id: "near-dpp",
-      severity: "medium",
-      title: "DPP nas proximas duas semanas"
-    });
-  }
-
-  if (input.latestAppointment) {
-    const daysSinceLastAppointment = calculateDaysUntil(
-      input.latestAppointment.scheduledAt,
-      now
-    );
-
-    if (daysSinceLastAppointment !== null && daysSinceLastAppointment > 28) {
-      alerts.push({
-        description: "Nao ha consulta recente registrada nas ultimas quatro semanas.",
-        id: "follow-up-delay",
-        severity: "medium",
-        title: "Seguimento prenatal em atraso"
-      });
-    }
-
-    const systolic = input.latestAppointment.bloodPressureSystolic ?? 0;
-    const diastolic = input.latestAppointment.bloodPressureDiastolic ?? 0;
-    if (systolic >= 140 || diastolic >= 90) {
-      alerts.push({
-        description: "A ultima consulta registrou pressao arterial em faixa de atencao.",
-        id: "blood-pressure-alert",
-        severity: "high",
-        title: "Pressao arterial elevada"
-      });
-    }
-
-    const fetalHeartRate = input.latestAppointment.fetalHeartRateBpm ?? null;
-    if (fetalHeartRate !== null && (fetalHeartRate < 110 || fetalHeartRate > 160)) {
-      alerts.push({
-        description: "A frequencia cardiaca fetal registrada ficou fora da faixa usada pela tela.",
-        id: "fetal-heart-rate-alert",
-        severity: "medium",
-        title: "FCF fora da faixa"
-      });
-    }
-  } else if (input.activePregnancy) {
-    alerts.push({
-      description: "Existe gestacao ativa, mas ainda nao ha consulta registrada no modulo clinico.",
-      id: "missing-follow-up",
-      severity: "medium",
-      title: "Sem consultas registradas"
-    });
-  }
-
-  if (!input.nextAppointment && input.activePregnancy) {
-    alerts.push({
-      description: "Nao existe consulta futura agendada para a gestacao ativa.",
-      id: "missing-next-appointment",
-      severity: "low",
-      title: "Agenda futura ausente"
-    });
-  }
-
-  if (!input.latestClinicalNote && input.activePregnancy) {
-    alerts.push({
-      description: "Ainda nao existe nota clinica versionada para esta paciente.",
-      id: "missing-clinical-note",
-      severity: "low",
-      title: "Sem nota clinica"
-    });
-  }
-
-  return alerts;
+  return [
+    ...deriveRiskAlerts(input.activePregnancy),
+    ...deriveDueDateAlerts(input.activePregnancy, now),
+    ...deriveAppointmentAlerts(input.latestAppointment, input.activePregnancy, now),
+    ...deriveMissingClinicalCoverageAlerts(
+      input.activePregnancy,
+      input.nextAppointment,
+      input.latestClinicalNote
+    )
+  ];
 }
 
 function buildGrowthCurve(input: {
@@ -1089,10 +1182,7 @@ async function getPatientDetailInternal(
 
   const activePregnancy = pregnancyRecords.find((item) => item.status === PregnancyStatus.ACTIVE) ?? null;
   const latestAppointment = appointments[0] ?? null;
-  const nextAppointment =
-    [...appointments]
-      .filter((appointment) => appointment.scheduledAt >= new Date())
-      .sort((left, right) => left.scheduledAt.getTime() - right.scheduledAt.getTime())[0] ?? null;
+  const nextAppointment = findNextAppointment(appointments);
   const latestClinicalNote = clinicalNotes[0] ?? null;
 
   return {
@@ -1196,12 +1286,17 @@ export const clinicalService = {
   async listPatients(
     context: ClinicalContext,
     filters: {
+      limit?: number;
       riskLevel?: PregnancyRiskLevel;
       search?: string;
       status?: PatientStatus;
     }
   ) {
     return withTenantDatabaseContext(async (tx) => {
+      const patientPageLimit = resolvePageLimit(
+        filters.limit,
+        CLINICAL_PATIENT_LIST_PAGE_LIMIT
+      );
       const patients = await tx.patient.findMany({
         include: {
           appointments: {
@@ -1239,7 +1334,7 @@ export const clinicalService = {
           ...buildPatientSelect()
         },
         orderBy: [{ createdAt: "desc" }, { fullName: "asc" }],
-        take: 100,
+        take: patientPageLimit,
         where: buildPatientWhere({
           organizationId: context.organizationId,
           riskLevel: filters.riskLevel,
@@ -1253,10 +1348,7 @@ export const clinicalService = {
         items: patients.map((patient) => {
           const activePregnancy =
             patient.pregnancyRecords.find((record) => record.status === PregnancyStatus.ACTIVE) ?? null;
-          const nextAppointment =
-            [...patient.appointments]
-              .filter((appointment) => appointment.scheduledAt >= new Date())
-              .sort((left, right) => left.scheduledAt.getTime() - right.scheduledAt.getTime())[0] ?? null;
+          const nextAppointment = findNextAppointment(patient.appointments);
           const latestAppointment = patient.appointments[0] ?? null;
           const latestClinicalNote = patient.clinicalNotes[0] ?? null;
           const alerts = deriveClinicalAlerts({
@@ -1272,7 +1364,8 @@ export const clinicalService = {
             nextAppointment: nextAppointment ? serializeAppointment(nextAppointment) : null,
             patient: serializePatient(patient)
           };
-        })
+        }),
+        pageSize: patientPageLimit
       };
     }, prisma);
   },
@@ -1964,14 +2057,16 @@ export const clinicalService = {
     context: ClinicalContext,
     filters: {
       appointmentId?: string;
+      limit?: number;
       patientId?: string;
     }
   ) {
     return withTenantDatabaseContext(async (tx) => {
+      const notePageLimit = resolvePageLimit(filters.limit, CLINICAL_NOTE_LIST_PAGE_LIMIT);
       const items = await tx.clinicalNote.findMany({
         orderBy: [{ updatedAt: "desc" }, { version: "desc" }],
         select: buildClinicalNoteSelect(),
-        take: 50,
+        take: notePageLimit,
         where: {
           deletedAt: null,
           isLatest: true,
@@ -1983,7 +2078,8 @@ export const clinicalService = {
       });
 
       return {
-        items: items.map((item) => serializeClinicalNote(item))
+        items: items.map((item) => serializeClinicalNote(item)),
+        pageSize: notePageLimit
       };
     }, prisma);
   },

@@ -41,6 +41,7 @@
 - [Repository naming standard](standards/repository-naming.md)
 - [Mutation evidence report](evidence/mutation-report.md)
 - [Dead code report](evidence/dead-code-report.md)
+- [Disaster recovery report](evidence/disaster-recovery-report.md)
 
 ## Security and governance
 

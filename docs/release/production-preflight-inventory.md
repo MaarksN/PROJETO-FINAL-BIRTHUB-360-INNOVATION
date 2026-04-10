@@ -70,6 +70,8 @@ Antes de executar `deploy-production`, a pipeline deve ter:
 - `production-preflight` verde.
 - `release-smoke-gate` verde.
 - `release-e2e-gate` verde.
+- `backup-health-gate` verde.
 - `rollback-rehearsal-evidence-gate` verde, com referencia rastreavel de rehearsal.
+- `dr-readiness-gate` verde, agregando backup health, rollback evidence e drill.
 
-Sem essas quatro evidencias, deploy em producao permanece bloqueado.
+Sem essas seis evidencias, deploy em producao permanece bloqueado.

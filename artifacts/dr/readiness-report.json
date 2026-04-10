@@ -1,0 +1,64 @@
+{
+  "backupHealth": {
+    "backup": {
+      "directory": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
+      "exists": false,
+      "latest": null
+    },
+    "checkedAt": "2026-04-10T13:28:52.487Z",
+    "directories": {
+      "backupsDir": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
+      "walDir": null
+    },
+    "issues": [
+      "Backup directory is missing: C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups."
+    ],
+    "ok": false,
+    "status": "fail",
+    "thresholds": {
+      "maxBackupAgeMinutes": 1440,
+      "maxWalLagMinutes": 5
+    },
+    "wal": {
+      "directory": null,
+      "exists": false,
+      "latest": null
+    }
+  },
+  "blockers": [
+    "Backup directory is missing: C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
+    "Missing or insufficient artifacts/backups/drill-rto-rpo.json."
+  ],
+  "checks": [
+    {
+      "artifactPath": "artifacts/backups/backup-health.json",
+      "detail": "Backup directory is missing: C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
+      "id": "backup_health",
+      "label": "backup health",
+      "status": "fail"
+    },
+    {
+      "artifactPath": "artifacts/release/production-rollback-evidence.json",
+      "detail": "Rollback rehearsal evidence recorded for production at 2026-03-24T14:37:26.498Z",
+      "id": "rollback_evidence",
+      "label": "rollback evidence",
+      "status": "pass"
+    },
+    {
+      "artifactPath": "artifacts/backups/drill-rto-rpo.json",
+      "detail": "Missing or insufficient artifacts/backups/drill-rto-rpo.json.",
+      "id": "drill",
+      "label": "disaster recovery drill",
+      "status": "fail"
+    }
+  ],
+  "drill": null,
+  "generatedAt": "2026-04-10T13:28:52.718Z",
+  "overallStatus": "fail",
+  "rollbackEvidence": {
+    "checkedAt": "2026-03-24T14:37:26.498Z",
+    "evidence": "JIRA-REL-2026-031-rollback-drill",
+    "ok": true,
+    "target": "production"
+  }
+}

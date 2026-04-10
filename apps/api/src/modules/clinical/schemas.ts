@@ -17,8 +17,11 @@ const optionalStringArray = z.array(z.string().trim().min(1)).optional().default
 const optionalDateString = z.string().trim().min(4).optional();
 const optionalNumber = z.coerce.number().optional();
 const optionalInteger = z.coerce.number().int().optional();
+const PATIENT_LIST_PAGE_LIMIT = 100;
+const CLINICAL_NOTE_LIST_PAGE_LIMIT = 50;
 
 export const patientListQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(PATIENT_LIST_PAGE_LIMIT).optional(),
   riskLevel: z.nativeEnum(PregnancyRiskLevel).optional(),
   search: z.string().trim().optional(),
   status: z.nativeEnum(PatientStatus).optional()
@@ -120,6 +123,7 @@ export const updateAppointmentSchema = z
 export const clinicalNoteQuerySchema = z
   .object({
     appointmentId: z.string().trim().optional(),
+    limit: z.coerce.number().int().min(1).max(CLINICAL_NOTE_LIST_PAGE_LIMIT).optional(),
     patientId: z.string().trim().optional()
   })
   .refine((value) => Boolean(value.appointmentId || value.patientId), {

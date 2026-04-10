@@ -18,15 +18,16 @@ function normalizeEvidence(evidence) {
 
 function gate(name, pass, detail, evidence = []) {
   gates.push({
-    name,
-    pass,
     detail,
-    evidence: normalizeEvidence(evidence)
+    evidence: normalizeEvidence(evidence),
+    name,
+    pass
   });
 }
 
-function runNodeScript(relativePath, args = []) {
-  return spawnSync(process.execPath, [relativePath, ...args], {
+function runNodeScript(relativePath, args = [], options = {}) {
+  const commandArgs = options.useTsx ? ["--import", "tsx", relativePath, ...args] : [relativePath, ...args];
+  return spawnSync(process.execPath, commandArgs, {
     cwd: projectRoot,
     encoding: "utf8",
     env: buildEnv(),
@@ -50,6 +51,10 @@ function readJsonIfExists(relativePath) {
 
 function formatEvidenceMarkdown(evidence) {
   return evidence.length > 0 ? evidence.map((item) => `\`${item}\``).join(", ") : "-";
+}
+
+function detailForCheck(report, id, fallbackDetail) {
+  return report?.checks?.find((check) => check.id === id)?.detail ?? fallbackDetail;
 }
 
 try {
@@ -141,20 +146,62 @@ gate(
   ]
 );
 
-const disasterRecovery = readJsonIfExists("artifacts/dr/latest-drill.json");
-const disasterRecoveryReadable =
-  disasterRecovery && !disasterRecovery.__parseError ? disasterRecovery : null;
+const backupHealthRun = runNodeScript("scripts/ops/check-backup-health.ts", [], { useTsx: true });
+const disasterRecoveryReportRun = runNodeScript("scripts/ops/generate-disaster-recovery-report.ts", [], {
+  useTsx: true
+});
+const disasterRecoveryReport = readJsonIfExists("artifacts/dr/readiness-report.json");
+const disasterRecoveryReportReadable =
+  disasterRecoveryReport && !disasterRecoveryReport.__parseError ? disasterRecoveryReport : null;
+
+gate(
+  "Backup health",
+  (backupHealthRun.status ?? 1) === 0 &&
+    disasterRecoveryReportReadable?.checks?.some(
+      (check) => check.id === "backup_health" && check.status === "pass"
+    ) === true,
+  detailForCheck(
+    disasterRecoveryReportReadable,
+    "backup_health",
+    disasterRecoveryReport?.__parseError
+      ? `DR readiness report unreadable: ${disasterRecoveryReport.__parseError}`
+      : "Missing artifacts/backups/backup-health.json."
+  ),
+  ["artifacts/backups/backup-health.json", "artifacts/dr/readiness-report.json"]
+);
+
+gate(
+  "Rollback evidence",
+  disasterRecoveryReportReadable?.checks?.some(
+    (check) => check.id === "rollback_evidence" && check.status === "pass"
+  ) === true,
+  detailForCheck(
+    disasterRecoveryReportReadable,
+    "rollback_evidence",
+    disasterRecoveryReport?.__parseError
+      ? `DR readiness report unreadable: ${disasterRecoveryReport.__parseError}`
+      : "Missing artifacts/release/production-rollback-evidence.json."
+  ),
+  ["artifacts/release/production-rollback-evidence.json", "artifacts/dr/readiness-report.json"]
+);
+
 gate(
   "Disaster recovery drill",
-  disasterRecoveryReadable?.sufficient === true,
-  disasterRecoveryReadable
-    ? disasterRecoveryReadable.sufficient
-      ? `Drill recorded at ${disasterRecoveryReadable.checkedAt}`
-      : disasterRecoveryReadable.reason ?? `Status ${disasterRecoveryReadable.status}`
-    : disasterRecovery?.__parseError
-      ? `DR artifact unreadable: ${disasterRecovery.__parseError}`
-      : "Missing artifacts/dr/latest-drill.json",
-  ["artifacts/dr/latest-drill.json", "docs/runbooks/disaster-recovery.md"]
+  (disasterRecoveryReportRun.status ?? 1) === 0 &&
+    disasterRecoveryReportReadable?.checks?.some((check) => check.id === "drill" && check.status === "pass") ===
+      true,
+  detailForCheck(
+    disasterRecoveryReportReadable,
+    "drill",
+    disasterRecoveryReport?.__parseError
+      ? `DR readiness report unreadable: ${disasterRecoveryReport.__parseError}`
+      : "Missing artifacts/backups/drill-rto-rpo.json."
+  ),
+  [
+    "artifacts/backups/drill-rto-rpo.json",
+    "artifacts/dr/readiness-report.json",
+    "docs/evidence/disaster-recovery-report.md"
+  ]
 );
 
 if (!Number.isInteger(minimumScore) || minimumScore < 0 || minimumScore > 100) {
@@ -178,12 +225,12 @@ gate(
 );
 
 const payload = {
+  gates,
   generatedAt: new Date().toISOString(),
   minimumScore,
-  score,
   passedGates,
-  totalGates,
-  gates
+  score,
+  totalGates
 };
 
 const md = [

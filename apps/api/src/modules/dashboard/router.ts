@@ -9,6 +9,8 @@ import {
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { validateBody } from "../../middleware/validate-body.js";
+import { dashboardOnboardingUpdateSchema } from "./schemas.js";
 import {
   getDashboardAgentStatuses,
   getDashboardBillingSummary,
@@ -108,17 +110,10 @@ export function createDashboardRouter(): Router {
 
   router.patch(
     "/api/v1/dashboard/onboarding",
+    validateBody(dashboardOnboardingUpdateSchema),
     asyncHandler(async (request, response) => {
       const { organizationId, tenantId } = requireContext(request);
-      const payload = request.body as { enabled?: boolean };
-
-      if (typeof payload.enabled !== "boolean") {
-        throw new ProblemDetailsError({
-          detail: "An onboarding enabled flag is required.",
-          status: 400,
-          title: "Bad Request"
-        });
-      }
+      const payload = dashboardOnboardingUpdateSchema.parse(request.body);
 
       await setDashboardOnboardingEnabled({
         enabled: payload.enabled,

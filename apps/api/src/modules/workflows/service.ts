@@ -33,8 +33,12 @@ export interface ScopedIdentity {
 }
 
 const WORKFLOW_LIST_LIMIT = 100;
+const STEP_RESULT_PAGE_SIZE = 200;
+const WORKFLOW_EXECUTION_PAGE_SIZE = 200;
+const WORKFLOW_REVISION_PAGE_SIZE = 100;
 
 type PersistedWorkflow = Awaited<ReturnType<typeof getWorkflowById>>;
+type WorkflowRecord = NonNullable<PersistedWorkflow>;
 type WorkflowWriteClient = Pick<typeof prisma, "workflowStep" | "workflowTransition">;
 type WorkflowTransactionClient = Prisma.TransactionClient;
 
@@ -42,6 +46,121 @@ export const workflowQueueAdapter = {
   enqueueWorkflowExecution,
   enqueueWorkflowTrigger
 } as const;
+
+async function listStepResultsForExecution(
+  executionId: string,
+  workflowId: string,
+  cursorId?: string
+) {
+  const page = await prisma.stepResult.findMany({
+    ...(cursorId
+      ? {
+          cursor: {
+            id: cursorId
+          },
+          skip: 1
+        }
+      : {}),
+    include: {
+      step: true
+    },
+    orderBy: [
+      {
+        createdAt: "asc"
+      },
+      {
+        id: "asc"
+      }
+    ],
+    take: STEP_RESULT_PAGE_SIZE,
+    where: {
+      executionId,
+      workflowId
+    }
+  });
+
+  const lastResult = page.at(-1);
+  if (!lastResult || page.length < STEP_RESULT_PAGE_SIZE) {
+    return page;
+  }
+
+  return page.concat(await listStepResultsForExecution(executionId, workflowId, lastResult.id));
+}
+
+async function listWorkflowExecutionPages(
+  identity: ScopedIdentity,
+  workflowId: string,
+  cursorId?: string
+) {
+  const page = await prisma.workflowExecution.findMany({
+    ...(cursorId
+      ? {
+          cursor: {
+            id: cursorId
+          },
+          skip: 1
+        }
+      : {}),
+    orderBy: [
+      {
+        startedAt: "asc"
+      },
+      {
+        id: "asc"
+      }
+    ],
+    take: WORKFLOW_EXECUTION_PAGE_SIZE,
+    where: {
+      organizationId: identity.organizationId,
+      tenantId: identity.tenantId,
+      workflowId
+    }
+  });
+
+  const lastExecution = page.at(-1);
+  if (!lastExecution || page.length < WORKFLOW_EXECUTION_PAGE_SIZE) {
+    return page;
+  }
+
+  return page.concat(await listWorkflowExecutionPages(identity, workflowId, lastExecution.id));
+}
+
+async function listWorkflowRevisionPages(
+  tenantId: string,
+  workflowId: string,
+  cursorId?: string
+) {
+  const page = await prisma.workflowRevision.findMany({
+    ...(cursorId
+      ? {
+          cursor: {
+            id: cursorId
+          },
+          skip: 1
+        }
+      : {}),
+    orderBy: [
+      {
+        version: "desc"
+      },
+      {
+        id: "desc"
+      }
+    ],
+    take: WORKFLOW_REVISION_PAGE_SIZE,
+    where: {
+      tenantId,
+      workflowId
+    }
+  });
+
+  const lastRevision = page.at(-1);
+  if (!lastRevision || page.length < WORKFLOW_REVISION_PAGE_SIZE) {
+    return page;
+  }
+
+  return page.concat(await listWorkflowRevisionPages(tenantId, workflowId, lastRevision.id));
+}
 
 async function resolveScopedIdentity(tenantReference: string): Promise<ScopedIdentity> {
   const organization = await prisma.organization.findFirst({
@@ -241,7 +360,7 @@ export async function createWorkflow(
   config: ApiConfig,
   tenantReference: string,
   input: WorkflowCreateInput
-): Promise<PersistedWorkflow> {
+): Promise<WorkflowRecord> {
   const identity = await resolveScopedIdentity(tenantReference);
   await assertWorkflowLimit(identity);
   ensureCanvasIsDag(input.canvas);
@@ -304,14 +423,14 @@ export async function createWorkflow(
   return persisted;
 }
 
-export async function updateWorkflow(
+async function updateWorkflowInScope(
   config: ApiConfig,
   workflowId: string,
-  tenantReference: string,
-  input: WorkflowUpdateInput
-): Promise<PersistedWorkflow> {
-  const identity = await resolveScopedIdentity(tenantReference);
-  const existing = await getWorkflowById(workflowId, identity.tenantId);
+  identity: ScopedIdentity,
+  input: WorkflowUpdateInput,
+  existingWorkflow?: WorkflowRecord
+): Promise<WorkflowRecord> {
+  const existing = existingWorkflow ?? (await getWorkflowById(workflowId, identity.tenantId));
   if (!existing) {
     throw new Error("WORKFLOW_NOT_FOUND");
   }
@@ -422,6 +541,16 @@ export async function updateWorkflow(
   }
 
   return persisted;
+}
+
+export async function updateWorkflow(
+  config: ApiConfig,
+  workflowId: string,
+  tenantReference: string,
+  input: WorkflowUpdateInput
+): Promise<WorkflowRecord> {
+  const identity = await resolveScopedIdentity(tenantReference);
+  return updateWorkflowInScope(config, workflowId, identity, input);
 }
 
 export async function archiveWorkflow(
@@ -537,18 +666,7 @@ async function buildResumeContext(input: {
     });
   }
 
-  const sourceResults = await prisma.stepResult.findMany({
-    include: {
-      step: true
-    },
-    orderBy: {
-      createdAt: "asc"
-    },
-    where: {
-      executionId: sourceExecution.id,
-      workflowId: input.workflowId
-    }
-  });
+  const sourceResults = await listStepResultsForExecution(sourceExecution.id, input.workflowId);
 
   const resumeIndex = sourceResults.findIndex((result) => result.step.key === resumeStepKey);
   if (resumeIndex < 0) {
@@ -577,18 +695,7 @@ async function cloneCheckpointResults(input: {
   tenantId: string;
   workflowId: string;
 }): Promise<number> {
-  const sourceResults = await prisma.stepResult.findMany({
-    include: {
-      step: true
-    },
-    orderBy: {
-      createdAt: "asc"
-    },
-    where: {
-      executionId: input.fromExecutionId,
-      workflowId: input.workflowId
-    }
-  });
+  const sourceResults = await listStepResultsForExecution(input.fromExecutionId, input.workflowId);
 
   const resumeIndex = sourceResults.findIndex((result) => result.step.key === input.fromStepKey);
   if (resumeIndex < 0) {
@@ -755,16 +862,7 @@ export async function listWorkflowExecutionLineage(
     throw new Error("WORKFLOW_NOT_FOUND");
   }
 
-  const executions = await prisma.workflowExecution.findMany({
-    orderBy: {
-      startedAt: "asc"
-    },
-    where: {
-      organizationId: identity.organizationId,
-      tenantId: identity.tenantId,
-      workflowId
-    }
-  });
+  const executions = await listWorkflowExecutionPages(identity, workflowId);
 
   const nodesById = new Map<string, WorkflowExecutionLineageNode>();
   for (const execution of executions) {
@@ -803,15 +901,7 @@ export async function listWorkflowExecutionLineage(
 export async function getWorkflowRevisions(workflowId: string, tenantReference: string) {
   const identity = await resolveScopedIdentity(tenantReference);
 
-  return prisma.workflowRevision.findMany({
-    orderBy: {
-      version: "desc"
-    },
-    where: {
-      tenantId: identity.tenantId,
-      workflowId
-    }
-  });
+  return listWorkflowRevisionPages(identity.tenantId, workflowId);
 }
 
 export async function revertWorkflow(
@@ -819,11 +909,15 @@ export async function revertWorkflow(
   workflowId: string,
   tenantReference: string,
   input: WorkflowRevertInput
-): Promise<PersistedWorkflow> {
+): Promise<WorkflowRecord> {
   const identity = await resolveScopedIdentity(tenantReference);
   const existing = await getWorkflowById(workflowId, identity.tenantId);
   if (!existing) {
-    throw new Error("WORKFLOW_NOT_FOUND");
+    throw new ProblemDetailsError({
+      detail: "Workflow not found for this tenant.",
+      status: 404,
+      title: "Not Found"
+    });
   }
 
   const revision = await prisma.workflowRevision.findUnique({
@@ -836,13 +930,17 @@ export async function revertWorkflow(
   });
 
   if (!revision || revision.tenantId !== identity.tenantId) {
-    throw new Error("WORKFLOW_REVISION_NOT_FOUND");
+    throw new ProblemDetailsError({
+      detail: "Workflow revision not found for this tenant.",
+      status: 404,
+      title: "Not Found"
+    });
   }
 
   const canvas = revision.definition as WorkflowCanvas;
 
-  return updateWorkflow(config, workflowId, tenantReference, {
+  return updateWorkflowInScope(config, workflowId, identity, {
     canvas,
     status: WorkflowStatus.DRAFT
-  });
+  }, existing);
 }

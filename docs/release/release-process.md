@@ -3,7 +3,7 @@
 ## Fonte canônica
 
 - Workflow: `.github/workflows/cd.yml`
-- Gates locais: `scripts/release/preflight-env.ts`, `scripts/release/verify-rollback-evidence.ts`
+- Gates locais: `scripts/release/preflight-env.ts`, `scripts/release/verify-rollback-evidence.ts`, `scripts/ops/check-backup-health.ts`, `scripts/ops/generate-disaster-recovery-report.ts`
 - Materialização local: `scripts/release/generate-sbom.mjs`, `scripts/release/materialize-release.ts`
 
 ## Pipeline
@@ -14,15 +14,20 @@
 4. `production-preflight` valida configuração de produção.
 5. `release-smoke-gate` executa smoke do core canônico.
 6. `release-e2e-gate` executa E2E de release.
-7. `rollback-rehearsal-evidence-gate` exige prova verificável de rollback.
-8. `deploy-production` dispara o hook de produção.
+7. `backup-health-gate` valida frescor e presença do backup operacional.
+8. `rollback-rehearsal-evidence-gate` exige prova verificável de rollback.
+9. `dr-readiness-gate` agrega backup health, rollback evidence e drill de DR.
+10. `deploy-production` dispara o hook de produção.
 
 ## Evidências obrigatórias
 
 - `artifacts/release/staging-preflight-summary.json`
 - `artifacts/release/production-preflight-summary.json`
 - `artifacts/release/smoke-summary.json`
+- `artifacts/backups/backup-health.json`
 - `artifacts/release/production-rollback-evidence.json`
+- `artifacts/backups/drill-rto-rpo.json`
+- `artifacts/dr/readiness-report.json`
 - `artifacts/release/checksums-manifest.sha256`
 - `artifacts/release/release-artifact-catalog.json`
 

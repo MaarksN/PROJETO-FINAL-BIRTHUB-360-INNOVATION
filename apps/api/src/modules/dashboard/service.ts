@@ -25,6 +25,7 @@ import {
   readString,
   riskFromScore
 } from "./service.shared.js";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 
 function startOfDay(value: Date): Date {
   const next = new Date(value);
@@ -84,7 +85,11 @@ async function updateOrganizationOnboardingFlag(input: {
   });
 
   if (!organization) {
-    throw new Error("DASHBOARD_ORGANIZATION_NOT_FOUND");
+    throw new ProblemDetailsError({
+      detail: "Organization not found for dashboard onboarding settings.",
+      status: 404,
+      title: "Not Found"
+    });
   }
 
   const settings = asObject(organization.settings) ?? {};

@@ -1,6 +1,6 @@
 # Mutation Report
 
-- Generated at: 2026-04-09T18:38:37.263Z
+- Generated at: 2026-04-10T13:29:22.015Z
 - Source artifact: `artifacts\stryker\mutation.json`
 - Source artifact updated at: 2026-04-09T18:29:02.571Z
 - HTML report: `artifacts\stryker\mutation.html`

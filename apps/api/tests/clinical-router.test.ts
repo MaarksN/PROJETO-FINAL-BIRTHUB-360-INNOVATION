@@ -70,7 +70,8 @@ void test("clinical router lists patients with search and risk filters", async (
   const restore = stubMethod(clinicalService, "listPatients", (context: unknown, filters: unknown) => {
     received = { context, filters };
     return Promise.resolve({
-      items: []
+      items: [],
+      pageSize: 25
     });
   });
 
@@ -78,6 +79,7 @@ void test("clinical router lists patients with search and risk filters", async (
     const response = await request(createClinicalTestApp())
       .get("/api/v1/patients")
       .query({
+        limit: "25",
         riskLevel: "HIGH",
         search: "Maria",
         status: "ACTIVE"
@@ -91,6 +93,7 @@ void test("clinical router lists patients with search and risk filters", async (
         userId: "user_clinic"
       },
       filters: {
+        limit: 25,
         riskLevel: "HIGH",
         search: "Maria",
         status: "ACTIVE"
@@ -98,6 +101,7 @@ void test("clinical router lists patients with search and risk filters", async (
     });
     assert.deepEqual(response.body, {
       items: [],
+      pageSize: 25,
       requestId: "req_clinic"
     });
   } finally {

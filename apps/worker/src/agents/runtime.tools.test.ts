@@ -41,3 +41,15 @@ void test("buildDbReadQueryTemplate rejects sparse placeholders", () => {
     /contiguous and start at \$1/i
   );
 });
+
+void test("buildDbReadQueryTemplate rejects multiple SQL statements", () => {
+  assert.throws(
+    () =>
+      buildDbReadQueryTemplate(
+        "SELECT id FROM workflows WHERE id = $1; DELETE FROM workflows WHERE id = $1",
+        ["wf_1", "tenant_1"],
+        "tenant_1"
+      ),
+    /multiple SQL statements/i
+  );
+});

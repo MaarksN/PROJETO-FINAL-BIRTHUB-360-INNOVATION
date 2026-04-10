@@ -1,7 +1,7 @@
 # Environment Parity
 
-- Refreshed at: 2026-04-09T18:38:36.320Z
-- Source of truth: `auditor-prime-2026-04-09` evidence refresh over the current HEAD.
+- Refreshed at: 2026-04-10T13:29:16.427Z
+- Source of truth: `auditor-prime-2026-04-10` evidence refresh over the current HEAD.
 
 ## Runtime Surfaces
 

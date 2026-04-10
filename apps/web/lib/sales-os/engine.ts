@@ -1,6 +1,8 @@
 /* eslint-disable max-lines */
 // @ts-nocheck
 
+import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
+
 import { findSalesOsTool, salesOsModuleMap } from "./catalog";
 import type { SalesOsChatMessage, SalesOsModuleId, SalesOsTool } from "./types";
 
@@ -39,6 +41,7 @@ type ChatExecutionInput = {
 const OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta";
+const SALES_OS_PROVIDER_TIMEOUT_MS = 15_000;
 
 function getConfiguredProviders() {
   const providers: Array<{
@@ -104,7 +107,11 @@ async function callJson<T>(
     headers?: Record<string, string>;
   }
 ): Promise<T> {
-  const response = await fetch(url, init);
+  const response = await fetchWithTimeout(url, {
+    ...init,
+    timeoutMessage: `Sales OS provider request exceeded the ${SALES_OS_PROVIDER_TIMEOUT_MS}ms timeout budget.`,
+    timeoutMs: SALES_OS_PROVIDER_TIMEOUT_MS
+  });
 
   if (!response.ok) {
     const errorText = await response.text();
