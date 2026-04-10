@@ -424,6 +424,30 @@ body::before {
 /* Animations */
 @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
 .cycle-block { animation: fadeIn 0.3s ease both; }
+
+/* New Status Colors */
+.item.status-done { background: rgba(16, 185, 129, 0.1) !important; border-left: 3px solid var(--emerald) !important; }
+.item.status-todo { background: rgba(244, 63, 94, 0.1) !important; border-left: 3px solid var(--rose) !important; }
+.item.status-wip { background: rgba(245, 158, 11, 0.1) !important; border-left: 3px solid var(--amber) !important; }
+/* Override checkbox */
+.item.status-done input[type="checkbox"],
+.item.status-todo input[type="checkbox"],
+.item.status-wip input[type="checkbox"] {
+  display: none;
+}
+/* Visual indicator replacing checkbox */
+.item.status-done::before { content: "✅"; margin-right: 8px; font-size: 14px; }
+.item.status-todo::before { content: "❌"; margin-right: 8px; font-size: 14px; }
+.item.status-wip::before { content: "⚠️"; margin-right: 8px; font-size: 14px; }
+
+
+.audit-item.status-done input[type="checkbox"],
+.audit-item.status-todo input[type="checkbox"],
+.audit-item.status-wip input[type="checkbox"] { display: none; }
+.audit-item.status-done::before { content: "✅"; margin-right: 8px; font-size: 14px; }
+.audit-item.status-todo::before { content: "❌"; margin-right: 8px; font-size: 14px; }
+.audit-item.status-wip::before { content: "⚠️"; margin-right: 8px; font-size: 14px; }
+
 </style>
 </head>
 <body>
@@ -911,8 +935,231 @@ const AUDITS = [
   ]},
 ];
 
+let S_DEFAULT =  {
+  "c0_1": "done",
+  "c0_2": "todo",
+  "c0_3": "todo",
+  "c0_4": "done",
+  "c0_5": "done",
+  "c0_6": "done",
+  "c1_1": "done",
+  "c1_2": "done",
+  "c1_3": "todo",
+  "c1_4": "done",
+  "c1_5": "todo",
+  "c1_6": "wip",
+  "c1_7": "todo",
+  "c1_8": "todo",
+  "c1_9": "wip",
+  "c1_10": "todo",
+  "c1_11": "todo",
+  "c1_12": "todo",
+  "c1_13": "todo",
+  "c1_14": "todo",
+  "c1_15": "todo",
+  "c1_16": "todo",
+  "c1_17": "done",
+  "c1_18": "todo",
+  "c1_19": "todo",
+  "c1_20": "done",
+  "c1_21": "done",
+  "c1_22": "todo",
+  "c1_23": "todo",
+  "c1_24": "done",
+  "c1_25": "todo",
+  "c1_26": "todo",
+  "c1_27": "todo",
+  "c1_28": "todo",
+  "c1_29": "todo",
+  "c1_30": "todo",
+  "c1_31": "todo",
+  "c1_32": "todo",
+  "c2_1": "done",
+  "c2_2": "todo",
+  "c2_3": "todo",
+  "c2_4": "todo",
+  "c2_5": "done",
+  "c2_6": "todo",
+  "c2_7": "todo",
+  "c2_8": "todo",
+  "c2_9": "todo",
+  "c2_10": "todo",
+  "c2_11": "todo",
+  "c2_12": "done",
+  "c2_13": "todo",
+  "c2_14": "todo",
+  "c2_15": "todo",
+  "c2_16": "todo",
+  "c2_17": "todo",
+  "c2_18": "todo",
+  "c2_19": "todo",
+  "c2_20": "todo",
+  "c2_21": "todo",
+  "c3_1": "todo",
+  "c3_2": "todo",
+  "c3_3": "todo",
+  "c3_4": "todo",
+  "c3_5": "todo",
+  "c3_6": "todo",
+  "c3_7": "todo",
+  "c3_8": "todo",
+  "c3_9": "todo",
+  "c3_10": "todo",
+  "c3_11": "todo",
+  "c3_12": "todo",
+  "c3_13": "todo",
+  "c3_14": "todo",
+  "c3_15": "todo",
+  "c3_16": "todo",
+  "c3_17": "todo",
+  "c3_18": "todo",
+  "c3_19": "todo",
+  "c3_20": "todo",
+  "c3_21": "todo",
+  "c3_22": "todo",
+  "c3_23": "done",
+  "c3_24": "todo",
+  "c3_25": "todo",
+  "c3_26": "todo",
+  "c3_27": "todo",
+  "c3_28": "todo",
+  "c3_29": "todo",
+  "c3_30": "todo",
+  "c3_31": "todo",
+  "c3_32": "todo",
+  "c3_33": "todo",
+  "c3_34": "todo",
+  "c3_35": "todo",
+  "c3_36": "todo",
+  "c3_37": "todo",
+  "c4_1": "todo",
+  "c4_2": "todo",
+  "c4_3": "todo",
+  "c4_4": "todo",
+  "c4_5": "todo",
+  "c4_6": "todo",
+  "c4_7": "todo",
+  "c4_8": "todo",
+  "c4_9": "todo",
+  "c4_10": "done",
+  "c4_11": "todo",
+  "c4_12": "todo",
+  "c4_13": "todo",
+  "c4_14": "todo",
+  "c4_15": "todo",
+  "c4_16": "todo",
+  "c4_17": "todo",
+  "c4_18": "todo",
+  "c5_1": "todo",
+  "c5_2": "todo",
+  "c5_3": "todo",
+  "c5_4": "todo",
+  "c5_5": "todo",
+  "c5_6": "todo",
+  "c5_7": "todo",
+  "c5_8": "todo",
+  "c5_9": "todo",
+  "c5_10": "todo",
+  "c5_11": "todo",
+  "c5_12": "todo",
+  "c5_13": "todo",
+  "c5_14": "todo",
+  "c5_15": "todo",
+  "c5_16": "todo",
+  "c5_17": "todo",
+  "c5_18": "todo",
+  "c5_19": "todo",
+  "c5_20": "todo",
+  "c5_21": "todo",
+  "c6_1": "todo",
+  "c6_2": "todo",
+  "c6_3": "todo",
+  "c6_4": "todo",
+  "c6_5": "todo",
+  "c6_6": "todo",
+  "c6_7": "todo",
+  "c6_8": "todo",
+  "c6_9": "todo",
+  "c6_10": "todo",
+  "c6_11": "todo",
+  "c6_12": "todo",
+  "c6_13": "todo",
+  "c6_14": "todo",
+  "c6_15": "todo",
+  "c6_16": "todo",
+  "c6_17": "todo",
+  "c6_18": "todo",
+  "c6_19": "todo",
+  "c6_20": "todo",
+  "c6_21": "todo",
+  "c6_22": "todo",
+  "c6_23": "todo",
+  "c6_24": "todo",
+  "c6_25": "todo",
+  "c6_26": "todo",
+  "c6_27": "todo",
+  "c6_28": "todo",
+  "c7_1": "todo",
+  "c7_2": "todo",
+  "c7_3": "todo",
+  "c7_4": "todo",
+  "c7_5": "todo",
+  "c7_6": "todo",
+  "c7_7": "todo",
+  "c7_8": "todo",
+  "c7_9": "todo",
+  "c7_10": "todo",
+  "c7_11": "todo",
+  "c7_12": "todo",
+  "c7_13": "todo",
+  "c7_14": "todo",
+  "c7_15": "todo",
+  "c7_16": "todo",
+  "c7_17": "todo",
+  "c7_18": "todo",
+  "c7_19": "todo",
+  "c7_20": "todo",
+  "c8_1": "todo",
+  "c8_2": "todo",
+  "c8_3": "todo",
+  "c8_4": "todo",
+  "c8_5": "todo",
+  "c8_6": "todo",
+  "c8_7": "todo",
+  "c8_8": "todo",
+  "c8_9": "todo",
+  "c8_10": "todo",
+  "c8_11": "todo",
+  "c8_12": "todo",
+  "c8_13": "done",
+  "c8_14": "done",
+  "c8_15": "todo",
+  "c9_1": "done",
+  "c9_2": "done",
+  "c9_3": "todo",
+  "c9_4": "done",
+  "c9_5": "todo",
+  "c9_6": "todo",
+  "c9_7": "done",
+  "c9_8": "todo",
+  "c9_9": "todo",
+  "c9_10": "todo",
+  "c9_11": "todo",
+  "c9_12": "todo",
+  "c9_13": "todo",
+  "c9_14": "todo",
+  "c9_15": "todo",
+  "c9_16": "todo"
+}
+;
+
 let S = {};
-try { S = JSON.parse(localStorage.getItem('bh360_v2')) || {}; } catch(e){}
+try {
+  const stored = JSON.parse(localStorage.getItem('bh360_v2'));
+  S = stored || S_DEFAULT;
+} catch(e) {
+  S = S_DEFAULT;
+}
 
 function save() { try { localStorage.setItem('bh360_v2', JSON.stringify(S)); } catch(e){} }
 
@@ -922,7 +1169,7 @@ function allItemIds() {
 
 function updateGlobal() {
   const all = allItemIds();
-  const done = all.filter(id => S[id]).length;
+  const done = all.filter(id => S[id] === 'done' || S[id] === true).length;
   const pct = Math.round((done / all.length) * 100);
   document.getElementById('gp-fill').style.width = pct + '%';
   document.getElementById('gp-pct').textContent = pct + '%';
@@ -931,7 +1178,7 @@ function updateGlobal() {
   // Update cycle mini bars + timeline bars
   CYCLES.forEach(c => {
     const ids = c.phases.flatMap(p => p.items.map(i => i.id));
-    const cdone = ids.filter(id => S[id]).length;
+    const cdone = ids.filter(id => S[id] === 'done' || S[id] === true).length;
     const cpct = ids.length ? Math.round((cdone/ids.length)*100) : 0;
     const mf = document.getElementById('cmf-'+c.id);
     if(mf) mf.style.width = cpct + '%';
@@ -943,7 +1190,7 @@ function updateGlobal() {
   // Update audit bars
   AUDITS.forEach(a => {
     const total = a.items.length;
-    const done2 = a.items.filter((_,i) => S[`audit_${a.cycle}_${i}`]).length;
+    const done2 = a.items.filter((_,i) => S[`audit_${a.cycle}_${i}`] === 'done' || S[`audit_${a.cycle}_${i}`] === true).length;
     const pct2 = Math.round((done2/total)*100);
     const af = document.getElementById('apf-'+a.cycle);
     if(af) af.style.width = pct2 + '%';
@@ -953,21 +1200,41 @@ function updateGlobal() {
 }
 
 function onCheck(id) {
-  S[id] = !S[id];
-  const cb = document.getElementById('cb-'+id);
+  const current = S[id];
+  let nextState;
+  if (current === 'todo' || current === false || current === undefined) nextState = 'wip';
+  else if (current === 'wip') nextState = 'done';
+  else nextState = 'todo'; // from done or true
+
+  S[id] = nextState;
+
   const item = document.getElementById('item-'+id);
-  if(cb) cb.checked = !!S[id];
-  if(item) item.classList.toggle('done', !!S[id]);
+  if (item) {
+    item.classList.remove('status-todo', 'status-wip', 'status-done', 'done');
+    item.classList.add('status-' + nextState);
+    if (nextState === 'done') item.classList.add('done');
+  }
+
   save(); updateGlobal();
 }
 
 function onAuditCheck(cycle, i) {
   const key = `audit_${cycle}_${i}`;
-  S[key] = !S[key];
-  const cb = document.getElementById('acb-'+cycle+'-'+i);
+  const current = S[key];
+  let nextState;
+  if (current === 'todo' || current === false || current === undefined) nextState = 'wip';
+  else if (current === 'wip') nextState = 'done';
+  else nextState = 'todo';
+
+  S[key] = nextState;
+
   const wrap = document.getElementById('aw-'+cycle+'-'+i);
-  if(cb) cb.checked = !!S[key];
-  if(wrap) wrap.classList.toggle('done', !!S[key]);
+  if (wrap) {
+    wrap.classList.remove('status-todo', 'status-wip', 'status-done', 'done');
+    wrap.classList.add('status-' + nextState);
+    if (nextState === 'done') wrap.classList.add('done');
+  }
+
   save(); updateGlobal();
 }
 
@@ -981,14 +1248,15 @@ function toggleCycle(id) {
 function expandAll() { CYCLES.forEach(c => { document.getElementById('cb-body-'+c.id).classList.add('open'); document.getElementById('chev-'+c.id).classList.add('open'); }); }
 function collapseAll() { CYCLES.forEach(c => { document.getElementById('cb-body-'+c.id).classList.remove('open'); document.getElementById('chev-'+c.id).classList.remove('open'); }); }
 function markC0() {
-  CYCLES[0].phases.forEach(p => p.items.forEach(it => { S[it.id] = true; const cb=document.getElementById('cb-'+it.id); const el=document.getElementById('item-'+it.id); if(cb) cb.checked=true; if(el) el.classList.add('done'); }));
+  CYCLES[0].phases.forEach(p => p.items.forEach(it => { S[it.id] = 'done'; const cb=document.getElementById('cb-'+it.id); const el=document.getElementById('item-'+it.id); if(cb) cb.checked=true; if(el) { el.classList.remove('status-todo', 'status-wip', 'status-done'); el.classList.add('status-done', 'done'); } }));
   save(); updateGlobal();
 }
 function clearAll() {
   if(!confirm('Limpar todo o progresso?')) return;
-  S = {}; save();
+  S = {};
+  save();
   document.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked=false);
-  document.querySelectorAll('.done').forEach(el => el.classList.remove('done'));
+  document.querySelectorAll('.done, .status-todo, .status-wip, .status-done').forEach(el => { el.classList.remove('done', 'status-todo', 'status-wip', 'status-done'); });
   updateGlobal();
 }
 function scrollTo(id) {
@@ -1019,8 +1287,15 @@ function buildCycles() {
     const ids = c.phases.flatMap(p => p.items.map(i => i.id));
     let phasesHTML = c.phases.map(p => {
       let itemsHTML = p.items.map(it => {
-        const isChecked = S[it.id] ? 'checked' : '';
-        const doneClass = S[it.id] ? 'done' : '';
+
+        let statusClass = '';
+        let isChecked = '';
+        if (S[it.id] === 'done' || S[it.id] === true) { statusClass = 'status-done'; isChecked = 'checked'; }
+        else if (S[it.id] === 'todo' || S[it.id] === false) { statusClass = 'status-todo'; }
+        else if (S[it.id] === 'wip') { statusClass = 'status-wip'; }
+        else if (S[it.id]) { statusClass = 'done'; isChecked = 'checked'; }
+        const doneClass = statusClass + (S[it.id] === 'done' || S[it.id] === true ? ' done' : '');
+
         let tags = `<div class="item-tags"><span class="tag tag-${it.t === 'M' ? 'm' : 'n'}">${it.t}</span>`;
         if(it.crit) tags += `<span class="tag tag-crit">🔴</span>`;
         if(it.ia) tags += `<span class="tag tag-ia">IA</span>`;
@@ -1064,8 +1339,15 @@ function buildAudit() {
   AUDITS.forEach(a => {
     let itemsHTML = a.items.map((it,i) => {
       const key = `audit_${a.cycle}_${i}`;
-      const isChecked = S[key] ? 'checked' : '';
-      const doneClass = S[key] ? 'done' : '';
+
+      let statusClass = '';
+      let isChecked = '';
+      if (S[key] === 'done' || S[key] === true) { statusClass = 'status-done'; isChecked = 'checked'; }
+      else if (S[key] === 'todo' || S[key] === false) { statusClass = 'status-todo'; }
+      else if (S[key] === 'wip') { statusClass = 'status-wip'; }
+      else if (S[key]) { statusClass = 'done'; isChecked = 'checked'; }
+      const doneClass = statusClass + (S[key] === 'done' || S[key] === true ? ' done' : '');
+
       return `<div class="audit-item ${doneClass}" id="aw-${a.cycle}-${i}" onclick="onAuditCheck(${a.cycle},${i})">
         <input type="checkbox" id="acb-${a.cycle}-${i}" ${isChecked} onclick="event.stopPropagation();onAuditCheck(${a.cycle},${i})">
         <label onclick="event.preventDefault()">${it}</label>

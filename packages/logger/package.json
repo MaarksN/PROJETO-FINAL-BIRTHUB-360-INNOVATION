@@ -24,7 +24,6 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@opentelemetry/api": "^1.9.0",
     "pino": "^10.3.1",
     "pino-pretty": "^13.1.3"
   },
