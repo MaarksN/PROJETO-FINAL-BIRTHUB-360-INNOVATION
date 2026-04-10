@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-09T18:39:03.344Z",
+  "checkedAt": "2026-04-10T13:37:36.440Z",
   "command": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\.tools\\semgrep-venv\\Scripts\\semgrep.exe scan --config auto --json --quiet apps/api apps/web apps/worker packages/database infra .github/workflows scripts/ops scripts/release scripts/security scripts/testing scripts/performance scripts/migrate-to-multitenant.ts scripts/audit/prime-backlog.mjs scripts/audit/prime-collect.mjs scripts/audit/prime-normalize.mjs scripts/audit/prime-refresh-evidence.mjs scripts/audit/prime-render.mjs scripts/audit/prime-score.mjs scripts/audit/prime-verify.mjs scripts/audit/shared-prime.mjs",
   "exitCode": 0,
   "status": "fresh",
@@ -28,11 +28,11 @@
     "scripts/audit/shared-prime.mjs"
   ],
   "summary": {
-    "findings": 11,
+    "findings": 10,
     "errors": 8,
     "severities": {
       "ERROR": 0,
-      "WARNING": 1,
+      "WARNING": 0,
       "INFO": 10,
       "UNKNOWN": 0
     }
@@ -86,58 +86,6 @@
           "shortlink": "https://sg.run/dgP5"
         },
         "severity": "INFO",
-        "fingerprint": "requires login",
-        "lines": "requires login",
-        "validation_state": "NO_VALIDATOR",
-        "engine_kind": "OSS"
-      }
-    },
-    {
-      "check_id": "javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-      "path": "scripts/audit/prime-collect.mjs",
-      "start": {
-        "line": 267,
-        "col": 23,
-        "offset": 7880
-      },
-      "end": {
-        "line": 267,
-        "col": 60,
-        "offset": 7917
-      },
-      "extra": {
-        "message": "RegExp() called with a `{ id, regex, filter, summary }` function argument, this might allow an attacker to cause a Regular Expression Denial-of-Service (ReDoS) within your application as RegExP blocks the main thread. For this reason, it is recommended to use hardcoded regexes instead. If your regex is run on user-controlled input, consider performing input validation or use a regex checking/sanitization library such as https://www.npmjs.com/package/recheck to verify that the regex does not appear vulnerable to ReDoS.",
-        "metadata": {
-          "owasp": [
-            "A05:2021 - Security Misconfiguration",
-            "A06:2017 - Security Misconfiguration",
-            "A02:2025 - Security Misconfiguration"
-          ],
-          "cwe": [
-            "CWE-1333: Inefficient Regular Expression Complexity"
-          ],
-          "references": [
-            "https://owasp.org/www-community/attacks/Regular_expression_Denial_of_Service_-_ReDoS"
-          ],
-          "source-rule-url": "https://github.com/nodesecurity/eslint-plugin-security/blob/master/rules/detect-non-literal-regexp.js",
-          "category": "security",
-          "technology": [
-            "javascript"
-          ],
-          "subcategory": [
-            "vuln"
-          ],
-          "likelihood": "MEDIUM",
-          "impact": "MEDIUM",
-          "confidence": "LOW",
-          "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
-          "vulnerability_class": [
-            "Denial-of-Service (DoS)"
-          ],
-          "source": "https://semgrep.dev/r/javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp",
-          "shortlink": "https://sg.run/gr65"
-        },
-        "severity": "WARNING",
         "fingerprint": "requires login",
         "lines": "requires login",
         "validation_state": "NO_VALIDATOR",

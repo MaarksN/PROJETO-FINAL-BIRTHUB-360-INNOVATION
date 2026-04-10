@@ -8,6 +8,7 @@ import {
   fromZodError,
   toProblemDetails
 } from "../src/lib/problem-details.js";
+import type { RequestContext } from "../src/middleware/request-context.js";
 
 export function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;
@@ -30,7 +31,7 @@ export function createAuthenticatedApiTestApp(input: {
   }
 
   app.use((request, _response, next) => {
-    request.context = {
+    const baseContext: RequestContext = {
       apiKeyId: null,
       authType: "session",
       billingPlanStatus: null,
@@ -46,7 +47,11 @@ export function createAuthenticatedApiTestApp(input: {
       tenantId: "tenant_1",
       tenantSlug: "tenant-one",
       traceId: "trace_1",
-      userId: "user_1",
+      userId: "user_1"
+    };
+
+    request.context = {
+      ...baseContext,
       ...(input.contextOverrides ?? {})
     };
     next();

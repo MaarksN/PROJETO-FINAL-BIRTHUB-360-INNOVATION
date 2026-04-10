@@ -55,6 +55,33 @@ test("buildDisasterRecoveryReadinessReport fails when drill is missing", () => {
   assert.match(report.blockers[0], /Missing or insufficient/i);
 });
 
+test("buildDisasterRecoveryReadinessReport flags legacy drill artifacts as insufficient", () => {
+  const report = buildDisasterRecoveryReadinessReport({
+    backupHealth: {
+      issues: [],
+      ok: true,
+      backup: { latest: { name: "backup-001.dump" } }
+    },
+    drill: {
+      evidence: "JIRA-REL-LEGACY-001",
+      notes: "legacy-drill",
+      owner: "platform",
+      recordedAt: "2026-04-10T12:00:00.000Z",
+      rpoMinutes: 15,
+      rtoMinutes: 60,
+      target: "production"
+    },
+    rollbackEvidence: {
+      checkedAt: "2026-04-10T12:00:00.000Z",
+      ok: true,
+      target: "production"
+    }
+  });
+
+  assert.equal(report.overallStatus, "fail");
+  assert.match(report.blockers[0], /insufficient for auditability/i);
+});
+
 test("writeDisasterRecoveryReadinessReport persists markdown and json outputs", () => {
   const rootDirectory = mkdtempSync(join(tmpdir(), "birthub-dr-report-"));
 

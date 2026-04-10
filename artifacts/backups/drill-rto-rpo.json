@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-04-10T13:30:35.324Z",
+  "target": "production",
+  "evidence": "DRILL-2026-04-10",
+  "owner": "platform",
+  "rtoMinutes": 60,
+  "rpoMinutes": 15,
+  "notes": "local-drill"
+}

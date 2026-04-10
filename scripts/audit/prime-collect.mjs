@@ -264,9 +264,8 @@ async function collectLineOccurrences(files, { id, regex, filter, summary }) {
     const lines = await readLines(filePath).catch(() => []);
     for (let index = 0; index < lines.length; index += 1) {
       const line = lines[index];
-      const matcher = new RegExp(regex.source, regex.flags);
-      matcher.lastIndex = 0;
-      if (!matcher.test(line)) continue;
+      regex.lastIndex = 0;
+      if (!regex.test(line)) continue;
       results.push({
         id,
         path: filePath,
@@ -276,6 +275,7 @@ async function collectLineOccurrences(files, { id, regex, filter, summary }) {
       });
     }
   }
+  regex.lastIndex = 0;
   return results;
 }
 

@@ -1,6 +1,6 @@
 # Documentation Link Check
 
-Files scanned: 396
+Files scanned: 398
 Broken links: 0
 Warnings: 0
 

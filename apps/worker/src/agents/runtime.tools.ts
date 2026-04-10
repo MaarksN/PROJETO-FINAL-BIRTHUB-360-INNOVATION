@@ -1,16 +1,21 @@
 // @ts-nocheck
-// 
+//
 import type { AgentManifest } from "@birthub/agents-core";
+import {
+  buildMemoryKey,
+  buildRecommendedActions,
+  inferCapabilityType,
+  inferSegmentProfile,
+  readNumericSignals,
+  readTextSignals,
+  summarizeNumericSignals
+} from "@birthub/agents-core";
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";
 import { BaseTool, DbReadTool, DbWriteTool, HttpTool, SendEmailTool } from "@birthub/agents-core/tools";
 import { createLogger } from "@birthub/logger";
 import { z } from "zod";
 
 import { buildToolCostTable } from "./runtime.budget.js";
-import {
-  readNumbers,
-  readStrings
-} from "./runtime.shared.js";
 
 const logger = createLogger("agent-runtime");
 const TENANT_SCOPE_COMMENT_PREFIX = "-- tenant_scope:";
@@ -36,6 +41,14 @@ function validateDbReadQuery(query: string): void {
   if (/[;](?=\s*\S)/.test(query)) {
     throw new Error("db-read does not allow multiple SQL statements.");
   }
+}
+
+function readCollaborationTargets(input: Record<string, unknown>): string[] {
+  if (!Array.isArray(input.collaborationTargets)) {
+    return [];
+  }
+
+  return input.collaborationTargets.filter((item): item is string => typeof item === "string").slice(0, 4);
 }
 
 export function buildDbReadQueryTemplate(
@@ -113,6 +126,7 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
       id: string;
       name: string;
     },
+    private readonly tags: AgentManifest["tags"] | undefined,
     options?: {
       policyEngine?: PolicyEngine;
       timeoutMs?: number;
@@ -136,25 +150,54 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
       traceId: string;
     }
   ): Promise<Record<string, unknown>> {
-    const flattenedNumbers = readNumbers(input.sourcePayload ?? input);
-    const flattenedStrings = readStrings(input.sourcePayload ?? input).slice(0, 6);
-    const average =
+    const sourcePayload = (input.sourcePayload as Record<string, unknown> | undefined) ?? input;
+    const flattenedNumbers = readNumericSignals(sourcePayload);
+    const flattenedStrings = readTextSignals(sourcePayload, 8);
+    const numericSummary = summarizeNumericSignals(flattenedNumbers);
+    const segmentProfile = inferSegmentProfile(sourcePayload, this.tags);
+    const collaborationTargets = readCollaborationTargets(input);
+    const capabilityType = inferCapabilityType(this.capability);
+    const recommendedActions = buildRecommendedActions({
+      capabilityType,
+      collaborationTargets,
+      numericSummary,
+      objective: typeof input.objective === "string" ? input.objective : null,
+      segmentProfile,
+      textSignals: flattenedStrings
+    });
+    const memoryWriteback = {
+      key: buildMemoryKey(context.agentId, segmentProfile, this.capability.name),
+      summary: `${this.capability.name} preservou contexto operacional reutilizavel.`,
+      ttlHours: 24 * 14
+    };
+    const suggestedHandoffs = collaborationTargets.slice(0, 2).map((target) => ({
+      payloadFocus: `${segmentProfile.industry} ${segmentProfile.clientSegment}`.trim(),
+      reason: `${this.capability.name} pode acelerar a resolucao com contexto estruturado.`,
+      target
+    }));
+    const confidence =
       flattenedNumbers.length > 0
-        ? Math.round(
-            (flattenedNumbers.reduce((total, value) => total + value, 0) /
-              flattenedNumbers.length) *
-              100
-          ) / 100
-        : 0;
+        ? segmentProfile.confidence === "high"
+          ? "high"
+          : "medium"
+        : flattenedStrings.length > 0
+          ? "medium"
+          : "low";
 
     return Promise.resolve({
       agentId: context.agentId,
       capability: this.capability.name,
       capabilityId: this.capability.id,
-      confidence: flattenedNumbers.length > 0 ? "medium" : "high",
+      capabilityType,
+      confidence,
       evidence: flattenedStrings,
-      observedAverage: average,
-      summary: `${this.capability.name} executada com ${flattenedNumbers.length} sinal(is) numerico(s) e ${flattenedStrings.length} evidencia(s) textual(is).`,
+      memoryWriteback,
+      numericSummary,
+      observedAverage: numericSummary.average,
+      recommendedActions,
+      segmentProfile,
+      suggestedHandoffs,
+      summary: `${this.capability.name} executada com ${numericSummary.count} sinal(is) numerico(s), ${flattenedStrings.length} evidencia(s) textual(is) e adaptacao para ${segmentProfile.industry}/${segmentProfile.clientSegment}.`,
       tenantId: context.tenantId,
       traceId: context.traceId
     });
@@ -203,12 +246,13 @@ export function createRuntimeTools(
       fromEmail: options.sendEmailFromEmail,
       policyEngine
     }) as BaseTool<unknown, unknown>,
-    "handoff": new ManifestCapabilityTool(
+    handoff: new ManifestCapabilityTool(
       {
-        description: "Delega a execução para outro especialista ou transfere o controle.",
+        description: "Delega a execucao para outro especialista ou transfere o controle.",
         id: "handoff",
         name: "Handoff"
       },
+      manifest.tags,
       { policyEngine }
     ) as BaseTool<unknown, unknown>
   };
@@ -220,6 +264,7 @@ export function createRuntimeTools(
         id: tool.id,
         name: tool.name
       },
+      manifest.tags,
       {
         policyEngine,
         timeoutMs: tool.timeoutMs

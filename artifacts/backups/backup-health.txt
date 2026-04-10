@@ -1,6 +1,6 @@
-Checked at: 2026-04-10T13:28:52.487Z
+Checked at: 2026-04-10T13:34:38.605Z
 Status: FAIL
 Backups dir: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\artifacts\backups
 Latest backup: missing
 Issues:
-- Backup directory is missing: C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\artifacts\backups.
+- No backup files found in C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\artifacts\backups.

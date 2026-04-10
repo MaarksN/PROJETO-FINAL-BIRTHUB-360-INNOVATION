@@ -1,8 +1,18 @@
 import type { AgentManifest } from "../manifest/schema.js";
-import type {
-  AgentLearningRecord,
-  JsonValue
-} from "../types/index.js";
+import type { AgentLearningRecord, JsonValue } from "../types/index.js";
+import {
+  buildMemoryKey,
+  buildRecommendedActions,
+  buildSegmentKeywords,
+  describeCapabilityIntent,
+  inferCapabilityType,
+  inferCollaborationTargets,
+  inferSegmentProfile,
+  readNumericSignals,
+  readTextSignals,
+  summarizeNumericSignals,
+  type SegmentProfile
+} from "./intelligence.js";
 
 export interface ManagedAgentPolicy {
   actions: string[];
@@ -56,6 +66,7 @@ export interface AgentRuntimeOutputInput {
 }
 
 export interface AgentRuntimeOutput {
+  agent_id: string;
   approvals_or_dependencies: string[];
   confidence: "high" | "low" | "medium";
   decisions_to_anticipate: Array<{
@@ -73,6 +84,12 @@ export interface AgentRuntimeOutput {
     id: string;
     summary: string;
   }>;
+  memory_writeback: {
+    key: string;
+    reason: string;
+    ttlHours: number;
+    value_preview: string;
+  };
   next_checkpoint: string;
   opportunities_to_capture: string[];
   preventive_action_plan: Array<{
@@ -82,8 +99,15 @@ export interface AgentRuntimeOutput {
     expected_impact: string;
     owner: string;
   }>;
+  segment_profile: SegmentProfile;
   sharedLearningCount: number;
+  specialist_deliverables: string[];
   status: "critical" | "stable" | "watch";
+  suggested_handoffs: Array<{
+    payload_focus: string;
+    reason: string;
+    target: string;
+  }>;
   summary: string;
   tool_results: Array<{
     finishedAt: string;
@@ -101,6 +125,23 @@ export interface OutputGovernanceDecision {
 
 function readString(value: unknown): string | null {
   return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;
+}
+
+function uniqueStrings(values: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const value of values.map((item) => item.trim()).filter(Boolean)) {
+    const normalized = value.toLowerCase();
+    if (seen.has(normalized)) {
+      continue;
+    }
+
+    seen.add(normalized);
+    result.push(value);
+  }
+
+  return result;
 }
 
 function readObjective(input: Record<string, unknown>): string {
@@ -198,9 +239,7 @@ function normalizePolicyAction(action: string): string {
   return trimmed.replace(/:/g, ".");
 }
 
-function buildRuntimePolicyRulesFromManifest(
-  manifest: AgentManifest
-): RuntimePolicyRule[] {
+function buildRuntimePolicyRulesFromManifest(manifest: AgentManifest): RuntimePolicyRule[] {
   const rules: RuntimePolicyRule[] = [];
 
   for (const policy of manifest.policies) {
@@ -260,6 +299,59 @@ function summarizeLearning(records: AgentLearningRecord[] = []): Array<{
   }));
 }
 
+function deriveSpecialistDeliverables(manifest: AgentManifest): string[] {
+  return uniqueStrings([
+    ...manifest.skills.map((skill) => skill.name),
+    ...manifest.tags["use-case"].map((tag) => tag.replace(/-/g, " ")),
+    ...manifest.tags.domain.map((domain) => `${domain} recommendation`)
+  ]).slice(0, 6);
+}
+
+function buildSuggestedHandoffs(
+  manifest: AgentManifest,
+  collaborationTargets: string[],
+  segmentProfile: SegmentProfile
+): AgentRuntimeOutput["suggested_handoffs"] {
+  const manifestSupportsHandoff = manifest.tools.some((tool) =>
+    /(agent|handoff|delegate)/i.test(`${tool.id} ${tool.name}`)
+  );
+
+  if (!manifestSupportsHandoff && collaborationTargets.length === 0) {
+    return [];
+  }
+
+  const targets = collaborationTargets.length > 0
+    ? collaborationTargets
+    : manifest.tags.domain.map((domain) => `${domain}-specialist`);
+
+  return uniqueStrings(targets).slice(0, 3).map((target) => ({
+    payload_focus: `${segmentProfile.industry} ${segmentProfile.clientSegment}`.trim(),
+    reason: `Compartilhar contexto do segmento ${segmentProfile.clientSegment} e preservar continuidade da execucao.`,
+    target
+  }));
+}
+
+function buildStatus(input: {
+  governance: OutputGovernanceDecision;
+  numericOutliers: number;
+  segmentConfidence: SegmentProfile["confidence"];
+  sharedLearningCount: number;
+}): AgentRuntimeOutput["status"] {
+  if (input.governance.requireApproval && input.numericOutliers > 0) {
+    return "critical";
+  }
+
+  if (
+    input.governance.requireApproval ||
+    input.numericOutliers > 0 ||
+    input.segmentConfidence === "low"
+  ) {
+    return "watch";
+  }
+
+  return input.sharedLearningCount > 0 ? "stable" : "watch";
+}
+
 function toolIsSensitive(toolId: string): boolean {
   const normalized = toolId.toLowerCase();
   return (
@@ -291,27 +383,46 @@ export function buildRuntimePolicyRules(
 export function buildAgentRuntimePlan(input: AgentRuntimePlanInput): AgentRuntimePlan {
   const objective = readObjective(input.input);
   const sharedLearning = input.sharedLearning ?? [];
+  const segmentProfile = inferSegmentProfile(input.input, input.manifest.tags);
+  const numericSummary = summarizeNumericSignals(readNumericSignals(input.input));
+  const textSignals = readTextSignals(input.input, 10);
+  const collaborationTargets = inferCollaborationTargets(input.manifest);
   const logs = [
     `Resolved manifest ${input.manifest.agent.id}@${input.manifest.agent.version}.`,
     `Planning live execution for tenant ${input.tenantId}.`,
-    `Loaded ${sharedLearning.length} shared learning record(s).`
+    `Loaded ${sharedLearning.length} shared learning record(s).`,
+    `Segment profile inferred: ${buildSegmentKeywords(segmentProfile).join(", ")}.`,
+    `Prepared ${numericSummary.count} numeric signal(s) and ${textSignals.length} text signal(s) for execution.`
   ];
 
-  const toolCalls = input.manifest.tools.map((tool, index) => ({
-    input: {
-      contextSummary: input.contextSummary ?? null,
-      objective,
-      sequence: index + 1,
-      sharedLearning: summarizeLearning(sharedLearning),
-      sourcePayload: input.input,
-      toolDescription: tool.description,
-      toolName: tool.name
-    },
-    rationale: `Executar ${tool.name} para avancar o objetivo '${objective}'.`,
-    tool: tool.id
-  }));
+  const toolCalls = input.manifest.tools.map((tool, index) => {
+    const capabilityType = inferCapabilityType(tool);
 
-  logs.push(`Built ${toolCalls.length} manifest-native tool call(s).`);
+    return {
+      input: {
+        collaborationTargets,
+        contextSummary: input.contextSummary ?? null,
+        dataSummary: numericSummary,
+        memoryHints: {
+          memoryKey: buildMemoryKey(input.manifest.agent.id, segmentProfile, tool.name),
+          saveSummary: capabilityType === "memory" || index === input.manifest.tools.length - 1
+        },
+        objective,
+        segmentProfile,
+        sequence: index + 1,
+        sharedLearning: summarizeLearning(sharedLearning),
+        sourcePayload: input.input,
+        textSignals,
+        toolDescription: tool.description,
+        toolIntent: describeCapabilityIntent(capabilityType),
+        toolName: tool.name
+      },
+      rationale: `Executar ${tool.name} para ${describeCapabilityIntent(capabilityType)} dentro do objetivo '${objective}'.`,
+      tool: tool.id
+    };
+  });
+
+  logs.push(`Built ${toolCalls.length} market-grade tool call(s).`);
 
   return {
     logs,
@@ -341,68 +452,130 @@ export function inferOutputGovernance(input: {
 
 export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRuntimeOutput {
   const owner = readPrimaryOwner(input.input);
+  const objective = readObjective(input.input);
   const sharedLearning = input.sharedLearning ?? [];
   const governance = inferOutputGovernance({
     manifest: input.manifest,
     plan: input.plan
   });
-  const status: AgentRuntimeOutput["status"] = governance.requireApproval
-    ? "watch"
-    : sharedLearning.length > 0
-      ? "stable"
-      : "watch";
+  const segmentProfile = inferSegmentProfile(input.input, input.manifest.tags);
+  const combinedNumericSignals = readNumericSignals([input.input, ...input.steps.map((step) => step.output)]);
+  const combinedTextSignals = readTextSignals([input.input, ...input.steps.map((step) => step.output)], 12);
+  const numericSummary = summarizeNumericSignals(combinedNumericSignals);
+  const collaborationTargets = inferCollaborationTargets(input.manifest);
+  const suggestedHandoffs = buildSuggestedHandoffs(
+    input.manifest,
+    collaborationTargets,
+    segmentProfile
+  );
+  const specialistDeliverables = deriveSpecialistDeliverables(input.manifest);
+  const recommendedActions = buildRecommendedActions({
+    capabilityType: "recommendation",
+    collaborationTargets,
+    numericSummary,
+    objective,
+    segmentProfile,
+    textSignals: combinedTextSignals
+  });
+  const status = buildStatus({
+    governance,
+    numericOutliers: numericSummary.outlierCount,
+    segmentConfidence: segmentProfile.confidence,
+    sharedLearningCount: sharedLearning.length
+  });
   const tool_results = input.steps.map((step) => ({
     finishedAt: step.finishedAt,
     output: normalizeJsonValue(step.output),
     startedAt: step.startedAt,
     tool: step.call.tool
   }));
-  const summary =
-    governance.requireApproval
-      ? `${input.manifest.agent.name} concluiu a execucao live e abriu governanca adicional antes da publicacao final.`
-      : `${input.manifest.agent.name} concluiu a execucao live com ${tool_results.length} ferramenta(s) do manifesto.`;
+  const summary = `${input.manifest.agent.name} concluiu a execucao live para ${segmentProfile.industry}/${segmentProfile.clientSegment}, processou ${numericSummary.count} sinal(is) numerico(s), capturou ${combinedTextSignals.length} evidencia(s) textual(is) e deixou memoria pronta para reutilizacao.`;
+  const nextCheckpoint = new Date(Date.now() + 60 * 60 * 1000).toISOString();
+  const memoryWriteback = {
+    key: buildMemoryKey(input.manifest.agent.id, segmentProfile, "latest-output"),
+    reason: "Persistir resumo executivo, perfil de segmento e proximo checkpoint para continuidade entre agentes.",
+    ttlHours: 24 * 30,
+    value_preview: summary.slice(0, 220)
+  };
 
   return {
+    agent_id: input.manifest.agent.id,
     approvals_or_dependencies: governance.requireApproval
       ? ["Aprovacao humana recomendada antes de compartilhar externamente."]
       : [],
-    confidence: sharedLearning.length > 0 ? "high" : "medium",
+    confidence:
+      segmentProfile.confidence === "high" && sharedLearning.length > 0
+        ? "high"
+        : numericSummary.count > 0
+          ? "medium"
+          : "low",
     decisions_to_anticipate: [
       {
         decision: "Publicar ou acionar o proximo passo recomendado",
         due_window: "Proxima janela operacional",
         owner,
-        recommended_action: governance.requireApproval
-          ? "Revisar o output e aprovar a acao sensivel."
-          : "Executar o proximo passo priorizado pelo agente.",
+        recommended_action: recommendedActions[0]?.action ?? "Executar o proximo passo priorizado pelo agente.",
         why_now: "A execucao terminou com sinais suficientes para uma decisao operacional."
-      }
+      },
+      ...(suggestedHandoffs[0]
+        ? [
+            {
+              decision: `Definir se o fluxo deve seguir para ${suggestedHandoffs[0].target}`,
+              due_window: "Ainda neste ciclo",
+              owner,
+              recommended_action: `Enviar handoff com foco em ${suggestedHandoffs[0].payload_focus}.`,
+              why_now: suggestedHandoffs[0].reason
+            }
+          ]
+        : [])
     ],
-    emerging_risks: governance.requireApproval
-      ? ["O output envolve acao ou artefato sensivel que pede dupla checagem."]
-      : [],
+    emerging_risks: uniqueStrings([
+      governance.requireApproval ? "O output envolve acao ou artefato sensivel que pede dupla checagem." : "",
+      numericSummary.outlierCount > 0
+        ? `Foram detectados ${numericSummary.outlierCount} outlier(s) relevantes nos sinais avaliados.`
+        : "",
+      segmentProfile.confidence === "low"
+        ? "O perfil de segmento foi inferido com baixa confianca e pode precisar de refinamento manual."
+        : ""
+    ]),
     executionMode: "LIVE",
-    leading_indicators: input.plan.toolCalls.map((call) => `tool-ready:${call.tool}`),
+    leading_indicators: uniqueStrings([
+      ...input.plan.toolCalls.map((call) => `tool-ready:${call.tool}`),
+      `segment:${segmentProfile.clientSegment}`,
+      `industry:${segmentProfile.industry}`,
+      `trend:${numericSummary.trend}`,
+      numericSummary.count > 0 ? `signal-count:${numericSummary.count}` : ""
+    ]).slice(0, 8),
     learning_used: summarizeLearning(sharedLearning),
-    next_checkpoint: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
-    opportunities_to_capture: [
-      "Reaproveitar o plano e os aprendizados compartilhados em execucoes correlatas."
-    ],
-    preventive_action_plan: [
-      {
-        action: governance.requireApproval
-          ? "Concluir revisao humana do output"
-          : "Propagar o resultado para o proximo fluxo de trabalho",
-        checkpoint: "1h",
-        deadline: new Date(Date.now() + 2 * 60 * 60 * 1000).toISOString(),
-        expected_impact: governance.requireApproval
-          ? "Reduzir risco operacional antes da entrega final."
-          : "Ganhar velocidade com rastreabilidade.",
-        owner
-      }
-    ],
+    memory_writeback: memoryWriteback,
+    next_checkpoint: nextCheckpoint,
+    opportunities_to_capture: uniqueStrings([
+      `Adaptar o plano para ${segmentProfile.industry} com linguagem especifica de ${segmentProfile.clientSegment}.`,
+      suggestedHandoffs.length > 0
+        ? `Acelerar resolucao com handoff para ${suggestedHandoffs[0]?.target}.`
+        : "",
+      sharedLearning.length > 0
+        ? "Reaproveitar aprendizado compartilhado validado no mesmo tenant."
+        : "Registrar aprendizado novo para fortalecer os proximos ciclos.",
+      numericSummary.trend === "up"
+        ? "Capturar a tendencia positiva antes que a janela competitiva feche."
+        : ""
+    ]).slice(0, 4),
+    preventive_action_plan: recommendedActions.map((item, index) => ({
+      action: item.action,
+      checkpoint: index === 0 ? "30m" : "2h",
+      deadline: new Date(Date.now() + (index + 1) * 2 * 60 * 60 * 1000).toISOString(),
+      expected_impact:
+        item.priority === "now"
+          ? "Reduzir risco e acelerar decisao com alto impacto."
+          : "Aumentar qualidade da execucao e preservar continuidade.",
+      owner
+    })),
+    segment_profile: segmentProfile,
     sharedLearningCount: sharedLearning.length,
+    specialist_deliverables: specialistDeliverables,
     status,
+    suggested_handoffs: suggestedHandoffs,
     summary,
     tool_results
   };

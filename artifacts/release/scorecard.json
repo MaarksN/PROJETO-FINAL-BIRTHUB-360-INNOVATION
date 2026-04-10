@@ -1,84 +1,103 @@
 {
-  "generatedAt": "2026-04-09T18:38:46.052Z",
-  "minimumScore": 100,
-  "score": 88,
-  "passedGates": 7,
-  "totalGates": 8,
   "gates": [
     {
-      "name": "Workspace audit",
-      "pass": true,
       "detail": "Workspace contract matches the canonical core lane",
       "evidence": [
         "scripts/ci/workspace-audit.mjs"
-      ]
+      ],
+      "name": "Workspace audit",
+      "pass": true
     },
     {
-      "name": "Monorepo doctor",
-      "pass": true,
       "detail": "No critical findings in the canonical go-live scope",
       "evidence": [
         "scripts/ci/monorepo-doctor.mjs"
-      ]
+      ],
+      "name": "Monorepo doctor",
+      "pass": true
     },
     {
-      "name": "Security baseline report",
-      "pass": true,
       "detail": "Report present",
       "evidence": [
         "docs/security/security-coverage-report.md"
-      ]
+      ],
+      "name": "Security baseline report",
+      "pass": true
     },
     {
-      "name": "Schema migration lock",
-      "pass": true,
       "detail": "Prisma lock present",
       "evidence": [
         "packages/database/prisma/migrations/migration_lock.toml"
-      ]
+      ],
+      "name": "Schema migration lock",
+      "pass": true
     },
     {
-      "name": "SLO baseline",
-      "pass": true,
       "detail": "SLO documentation present",
       "evidence": [
         "docs/OBSERVABILIDADE_E_SLOS.md"
-      ]
+      ],
+      "name": "SLO baseline",
+      "pass": true
     },
     {
-      "name": "Mutation lane",
-      "pass": true,
       "detail": "Score 60.85% vs threshold 60 on 470 mutants",
       "evidence": [
         "artifacts/quality/mutation-summary.json",
         "docs/evidence/mutation-report.md",
         "artifacts/stryker/mutation.json"
-      ]
+      ],
+      "name": "Mutation lane",
+      "pass": true
     },
     {
-      "name": "Dead code regression",
-      "pass": true,
       "detail": "Current=0, regressions=0",
       "evidence": [
         "artifacts/quality/dead-code/knip-report.json",
         "docs/evidence/dead-code-report.md",
         "artifacts/quality/knip-baseline.json"
-      ]
+      ],
+      "name": "Dead code regression",
+      "pass": true
     },
     {
-      "name": "Disaster recovery drill",
-      "pass": false,
-      "detail": "No disaster-recovery drill artifact is currently versioned in artifacts/backups/.",
+      "detail": "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
       "evidence": [
-        "artifacts/dr/latest-drill.json",
-        "docs/runbooks/disaster-recovery.md"
-      ]
+        "artifacts/backups/backup-health.json",
+        "artifacts/dr/readiness-report.json"
+      ],
+      "name": "Backup health",
+      "pass": false
     },
     {
+      "detail": "Rollback rehearsal evidence recorded for production at 2026-03-24T14:37:26.498Z",
+      "evidence": [
+        "artifacts/release/production-rollback-evidence.json",
+        "artifacts/dr/readiness-report.json"
+      ],
+      "name": "Rollback evidence",
+      "pass": true
+    },
+    {
+      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m).",
+      "evidence": [
+        "artifacts/backups/drill-rto-rpo.json",
+        "artifacts/dr/readiness-report.json",
+        "docs/evidence/disaster-recovery-report.md"
+      ],
+      "name": "Disaster recovery drill",
+      "pass": false
+    },
+    {
+      "detail": "Score 80 is below minimum 100",
+      "evidence": [],
       "name": "Score threshold",
-      "pass": false,
-      "detail": "Score 88 is below minimum 100",
-      "evidence": []
+      "pass": false
     }
-  ]
+  ],
+  "generatedAt": "2026-04-10T13:34:39.168Z",
+  "minimumScore": 100,
+  "passedGates": 8,
+  "score": 80,
+  "totalGates": 10
 }

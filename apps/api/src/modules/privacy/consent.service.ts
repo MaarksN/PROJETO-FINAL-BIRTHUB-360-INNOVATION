@@ -72,6 +72,135 @@ function deriveLgpdPreferenceState(
   };
 }
 
+async function applyConsentDecision(input: {
+  decision: {
+    purpose: ConsentPurpose;
+    source: ConsentSource;
+    status: ConsentStatus;
+  };
+  organization: {
+    id: string;
+    tenantId: string;
+  };
+  tx: Parameters<Parameters<typeof prisma.$transaction>[0]>[0];
+  userId: string;
+}) {
+  const current = await input.tx.privacyConsent.findUnique({
+    where: {
+      organizationId_userId_purpose: {
+        organizationId: input.organization.id,
+        purpose: input.decision.purpose,
+        userId: input.userId
+      }
+    }
+  });
+
+  if (!current) {
+    throw new ProblemDetailsError({
+      detail: "Consent state was not initialized for this user.",
+      status: 409,
+      title: "Conflict"
+    });
+  }
+
+  const nextGrantedAt =
+    input.decision.status === ConsentStatus.GRANTED ? new Date() : current.grantedAt;
+  const nextRevokedAt =
+    input.decision.status === ConsentStatus.REVOKED ? new Date() : null;
+
+  const updated = await input.tx.privacyConsent.update({
+    data: {
+      grantedAt: input.decision.status === ConsentStatus.GRANTED ? nextGrantedAt : null,
+      lastChangedAt: new Date(),
+      revokedAt: nextRevokedAt,
+      source: input.decision.source,
+      status: input.decision.status
+    },
+    where: {
+      id: current.id
+    }
+  });
+
+  if (current.status !== input.decision.status || current.source !== input.decision.source) {
+    await Promise.all([
+      input.tx.privacyConsentEvent.create({
+        data: {
+          lawfulBasis: LawfulBasis.CONSENT,
+          newStatus: input.decision.status,
+          organizationId: input.organization.id,
+          previousStatus: current.status,
+          purpose: input.decision.purpose,
+          source: input.decision.source,
+          tenantId: input.organization.tenantId,
+          userId: input.userId
+        }
+      }),
+      input.tx.auditLog.create({
+        data: {
+          action: "privacy.consent.updated",
+          actorId: input.userId,
+          diff: {
+            after: {
+              purpose: input.decision.purpose,
+              source: input.decision.source,
+              status: input.decision.status
+            },
+            before: {
+              source: current.source,
+              status: current.status
+            }
+          },
+          entityId: current.id,
+          entityType: "privacy_consent",
+          tenantId: input.organization.tenantId
+        }
+      })
+    ]);
+  }
+
+  if (input.decision.purpose === ConsentPurpose.ANALYTICS) {
+    await input.tx.userPreference.upsert({
+      create: {
+        cookieConsent: mapAnalyticsConsent(input.decision.status),
+        organizationId: input.organization.id,
+        tenantId: input.organization.tenantId,
+        userId: input.userId
+      },
+      update: {
+        cookieConsent: mapAnalyticsConsent(input.decision.status)
+      },
+      where: {
+        organizationId_userId: {
+          organizationId: input.organization.id,
+          userId: input.userId
+        }
+      }
+    });
+  }
+
+  if (input.decision.purpose === ConsentPurpose.MARKETING) {
+    await input.tx.userPreference.upsert({
+      create: {
+        marketingEmails: input.decision.status === ConsentStatus.GRANTED,
+        organizationId: input.organization.id,
+        tenantId: input.organization.tenantId,
+        userId: input.userId
+      },
+      update: {
+        marketingEmails: input.decision.status === ConsentStatus.GRANTED
+      },
+      where: {
+        organizationId_userId: {
+          organizationId: input.organization.id,
+          userId: input.userId
+        }
+      }
+    });
+  }
+
+  return updated;
+}
+
 export async function ensurePrivacyConsents(input: {
   organizationReference: string;
   userId: string;
@@ -177,7 +306,6 @@ export async function savePrivacyConsentDecisions(input: {
   });
 
   const updatedItems = await prisma.$transaction(async (tx) => {
-    const results = [];
     const currentPreference = await tx.userPreference.findUnique({
       where: {
         organizationId_userId: {
@@ -186,122 +314,16 @@ export async function savePrivacyConsentDecisions(input: {
         }
       }
     });
-
-    for (const decision of input.decisions) {
-      const current = await tx.privacyConsent.findUnique({
-        where: {
-          organizationId_userId_purpose: {
-            organizationId: organization.id,
-            purpose: decision.purpose,
-            userId: input.userId
-          }
-        }
-      });
-
-      if (!current) {
-        throw new ProblemDetailsError({
-          detail: "Consent state was not initialized for this user.",
-          status: 409,
-          title: "Conflict"
-        });
-      }
-
-      const nextGrantedAt =
-        decision.status === ConsentStatus.GRANTED ? new Date() : current.grantedAt;
-      const nextRevokedAt =
-        decision.status === ConsentStatus.REVOKED ? new Date() : null;
-
-      const updated = await tx.privacyConsent.update({
-        data: {
-          grantedAt: decision.status === ConsentStatus.GRANTED ? nextGrantedAt : null,
-          lastChangedAt: new Date(),
-          revokedAt: nextRevokedAt,
-          source: decision.source,
-          status: decision.status
-        },
-        where: {
-          id: current.id
-        }
-      });
-
-      if (current.status !== decision.status || current.source !== decision.source) {
-        await tx.privacyConsentEvent.create({
-          data: {
-            lawfulBasis: LawfulBasis.CONSENT,
-            newStatus: decision.status,
-            organizationId: organization.id,
-            previousStatus: current.status,
-            purpose: decision.purpose,
-            source: decision.source,
-            tenantId: organization.tenantId,
-            userId: input.userId
-          }
-        });
-
-        await tx.auditLog.create({
-          data: {
-            action: "privacy.consent.updated",
-            actorId: input.userId,
-            diff: {
-              after: {
-                purpose: decision.purpose,
-                source: decision.source,
-                status: decision.status
-              },
-              before: {
-                source: current.source,
-                status: current.status
-              }
-            },
-            entityId: current.id,
-            entityType: "privacy_consent",
-            tenantId: organization.tenantId
-          }
-        });
-      }
-
-      if (decision.purpose === ConsentPurpose.ANALYTICS) {
-        await tx.userPreference.upsert({
-          create: {
-            cookieConsent: mapAnalyticsConsent(decision.status),
-            organizationId: organization.id,
-            tenantId: organization.tenantId,
-            userId: input.userId
-          },
-          update: {
-            cookieConsent: mapAnalyticsConsent(decision.status)
-          },
-          where: {
-            organizationId_userId: {
-              organizationId: organization.id,
-              userId: input.userId
-            }
-          }
-        });
-      }
-
-      if (decision.purpose === ConsentPurpose.MARKETING) {
-        await tx.userPreference.upsert({
-          create: {
-            marketingEmails: decision.status === ConsentStatus.GRANTED,
-            organizationId: organization.id,
-            tenantId: organization.tenantId,
-            userId: input.userId
-          },
-          update: {
-            marketingEmails: decision.status === ConsentStatus.GRANTED
-          },
-          where: {
-            organizationId_userId: {
-              organizationId: organization.id,
-              userId: input.userId
-            }
-          }
-        });
-      }
-
-      results.push(updated);
-    }
+    const results = await Promise.all(
+      input.decisions.map((decision) =>
+        applyConsentDecision({
+          decision,
+          organization,
+          tx,
+          userId: input.userId
+        })
+      )
+    );
 
     const currentItems = await tx.privacyConsent.findMany({
       orderBy: {

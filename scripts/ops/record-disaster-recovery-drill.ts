@@ -34,6 +34,13 @@ export type DisasterRecoveryDrillReport = {
   targetPoint: string;
 };
 
+type LatestDrillSnapshot = {
+  checkedAt: string;
+  status: "recorded";
+  sufficient: true;
+  drill: DisasterRecoveryDrillReport;
+};
+
 type BuildDisasterRecoveryDrillOptions = {
   backupArtifact: string;
   checkedAt?: Date;
@@ -174,6 +181,15 @@ export function buildDisasterRecoveryDrillReport(
   };
 }
 
+export function buildLatestDrillSnapshot(report: DisasterRecoveryDrillReport): LatestDrillSnapshot {
+  return {
+    checkedAt: report.checkedAt,
+    status: "recorded",
+    sufficient: true,
+    drill: report
+  };
+}
+
 export function renderDisasterRecoveryDrillText(report: DisasterRecoveryDrillReport): string {
   const lines = [
     `Checked at: ${report.checkedAt}`,
@@ -225,6 +241,11 @@ export function writeDisasterRecoveryDrillReport(
   };
 }
 
+function writeJson(filePath: string, payload: unknown) {
+  mkdirSync(dirname(filePath), { recursive: true });
+  writeFileSync(filePath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+}
+
 function isExecutedAsScript(): boolean {
   const entryPoint = process.argv[1];
   return Boolean(entryPoint) && resolve(entryPoint) === fileURLToPath(import.meta.url);
@@ -248,9 +269,14 @@ if (isExecutedAsScript()) {
   });
   const outputPath =
     parseFlag("--output") ?? resolve(process.cwd(), "artifacts", "backups", "drill-rto-rpo.json");
+  const latestPath =
+    parseFlag("--latest-output") ?? resolve(process.cwd(), "artifacts", "dr", "latest-drill.json");
   const paths = writeDisasterRecoveryDrillReport(report, outputPath);
+
+  writeJson(latestPath, buildLatestDrillSnapshot(report));
 
   console.log(JSON.stringify(report, null, 2));
   console.log(`DR drill artifact generated at ${paths.jsonPath}`);
   console.log(`DR drill text summary generated at ${paths.textPath}`);
+  console.log(`Latest DR snapshot updated at ${latestPath}`);
 }

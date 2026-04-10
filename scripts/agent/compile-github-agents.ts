@@ -65,18 +65,23 @@ const DEFAULT_CHECKLIST = [
   "separar fato, inferencia e ausencia de informacao",
   "deixar proximo passo objetivo",
   "garantir rastreabilidade da recomendacao",
-  "preservar seguranca e governanca"
+  "preservar seguranca e governanca",
+  "adaptar a resposta ao segmento do cliente",
+  "salvar memoria operacional reutilizavel"
 ];
 
 const DEFAULT_AUTONOMOUS_BLOCK = [
   "operar de forma autonoma dentro do escopo permitido, sem degradar governanca",
   "monitorar sinais, dependencias e riscos antes de agir",
-  "escalar quando a decisao exigir aprovacao humana"
+  "escalar quando a decisao exigir aprovacao humana",
+  "registrar memoria operacional e preparar handoff quando isso acelerar a resolucao"
 ];
 
 const DEFAULT_REASONING_BLOCK = [
   "interpretar o objetivo real antes de agir",
   "consultar contexto disponivel e artefatos relevantes",
+  "processar sinais numericos e textuais para separar tendencia, outlier e urgencia",
+  "adaptar a analise para o segmento, maturidade e contexto do cliente",
   "priorizar qualidade, rastreabilidade e proximo passo claro",
   "agir somente dentro de ferramentas, politicas e aprovacoes permitidas"
 ];
@@ -84,6 +89,7 @@ const DEFAULT_REASONING_BLOCK = [
 const DEFAULT_MONITORING_BLOCK = [
   "comparar baseline, tendencia e desvio observado",
   "mapear gargalos, riscos emergentes e oportunidades",
+  "registrar o que deve ser salvo em memoria e o que precisa de handoff multiagente",
   "nunca esperar um risco relevante virar incidente para alertar",
   "reavaliar no checkpoint mais proximo com impacto material"
 ];
@@ -104,7 +110,24 @@ const DEFAULT_SHARED_LEARNING_BLOCK = [
   "Todo agente aprende com todo agente.",
   "Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.",
   "Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.",
+  "Ao reaproveitar aprendizado, adaptar a recomendacao ao segmento atual do cliente.",
   "Nunca reutilize aprendizado de outro tenant."
+];
+
+const MARKET_GRADE_KEYWORDS = [
+  "data processing",
+  "prescriptive recommendations",
+  "operational memory",
+  "segment adaptation",
+  "multi-agent collaboration"
+];
+
+const MARKET_GRADE_SKILLS = [
+  "Processar sinais numericos e textuais com criterio decisorio",
+  "Gerar recomendacoes prescritivas priorizadas",
+  "Salvar memoria operacional reutilizavel",
+  "Adaptar a resposta ao segmento do cliente",
+  "Preparar handoff multiagente com contexto estruturado"
 ];
 
 async function listGithubAgentMarkdownFiles(rootDir: string): Promise<string[]> {
@@ -314,7 +337,10 @@ function deriveOutputs(source: GithubAgentSource, objectives: string[]): string[
     "alertas preventivos priorizados",
     "decisoes que precisam ser antecipadas",
     "plano preventivo com dono, prazo e checkpoint",
-    "proximo passo recomendado"
+    "proximo passo recomendado",
+    "perfil de segmento do cliente",
+    "recomendacoes prescritivas priorizadas",
+    "memoria operacional salva para reutilizacao"
   ]).slice(0, 8);
 }
 
@@ -336,7 +362,7 @@ function deriveQualityChecklist(source: GithubAgentSource): string[] {
 }
 
 function buildSkills(agentId: string, objectives: string[]): AgentManifest["skills"] {
-  const selected = objectives.slice(0, 6);
+  const selected = uniqueStrings([...objectives, ...MARKET_GRADE_SKILLS]).slice(0, 8);
 
   return selected.map((objective, index) => ({
     description: objective,
@@ -498,6 +524,7 @@ function buildManifest(source: GithubAgentSource, agentId: string): AgentManifes
       ...source.tools,
       ...source.collaborators,
       ...objectives.map((item) => item.toLowerCase()),
+      ...MARKET_GRADE_KEYWORDS,
       "github agents",
       "compiled manifest",
       "manifest runtime"
@@ -517,7 +544,13 @@ function buildManifest(source: GithubAgentSource, agentId: string): AgentManifes
       industry: inferIndustryTags(domainTags),
       level: inferLevelTags(source, domainTags),
       persona: [persona || slugify(source.outputStem)],
-      "use-case": uniqueStrings([persona || slugify(source.outputStem), "github-source-compiled"]).slice(0, 4)
+      "use-case": uniqueStrings([
+        persona || slugify(source.outputStem),
+        "github-source-compiled",
+        "data-processing",
+        "segment-adaptation",
+        "memory-writeback"
+      ]).slice(0, 6)
     },
     tools
   };

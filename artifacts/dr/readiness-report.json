@@ -2,16 +2,16 @@
   "backupHealth": {
     "backup": {
       "directory": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
-      "exists": false,
+      "exists": true,
       "latest": null
     },
-    "checkedAt": "2026-04-10T13:28:52.487Z",
+    "checkedAt": "2026-04-10T13:34:38.605Z",
     "directories": {
       "backupsDir": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
       "walDir": null
     },
     "issues": [
-      "Backup directory is missing: C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups."
+      "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups."
     ],
     "ok": false,
     "status": "fail",
@@ -26,13 +26,13 @@
     }
   },
   "blockers": [
-    "Backup directory is missing: C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
-    "Missing or insufficient artifacts/backups/drill-rto-rpo.json."
+    "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
+    "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m)."
   ],
   "checks": [
     {
       "artifactPath": "artifacts/backups/backup-health.json",
-      "detail": "Backup directory is missing: C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
+      "detail": "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
       "id": "backup_health",
       "label": "backup health",
       "status": "fail"
@@ -46,14 +46,39 @@
     },
     {
       "artifactPath": "artifacts/backups/drill-rto-rpo.json",
-      "detail": "Missing or insufficient artifacts/backups/drill-rto-rpo.json.",
+      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m).",
       "id": "drill",
       "label": "disaster recovery drill",
       "status": "fail"
     }
   ],
-  "drill": null,
-  "generatedAt": "2026-04-10T13:28:52.718Z",
+  "drill": {
+    "recordedAt": "2026-04-10T13:30:35.324Z",
+    "target": "production",
+    "evidence": {
+      "backupArtifact": "legacy-untracked",
+      "notes": "local-drill",
+      "rollbackEvidence": "DRILL-2026-04-10",
+      "validationArtifact": null
+    },
+    "owner": "platform",
+    "rtoMinutes": 60,
+    "rpoMinutes": 15,
+    "notes": "local-drill",
+    "checkedAt": "2026-04-10T13:30:35.324Z",
+    "environment": "production",
+    "objectives": {
+      "allMet": null,
+      "rpoMet": null,
+      "rpoMinutes": null,
+      "rtoMet": null,
+      "rtoMinutes": null
+    },
+    "scenario": "legacy-unclassified",
+    "status": "warn",
+    "sufficient": false
+  },
+  "generatedAt": "2026-04-10T13:34:39.141Z",
   "overallStatus": "fail",
   "rollbackEvidence": {
     "checkedAt": "2026-03-24T14:37:26.498Z",

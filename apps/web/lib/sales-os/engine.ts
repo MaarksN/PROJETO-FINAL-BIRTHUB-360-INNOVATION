@@ -4,6 +4,7 @@
 import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
 
 import { findSalesOsTool, salesOsModuleMap } from "./catalog";
+import { resolveGeminiVisionConfig, resolveSalesOsProviders } from "./config";
 import type { SalesOsChatMessage, SalesOsModuleId, SalesOsTool } from "./types";
 
 type ChatRole = "assistant" | "system" | "user";
@@ -44,37 +45,7 @@ const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta";
 const SALES_OS_PROVIDER_TIMEOUT_MS = 15_000;
 
 function getConfiguredProviders() {
-  const providers: Array<{
-    apiKey: string;
-    model: string;
-    name: "anthropic" | "gemini" | "openai";
-  }> = [];
-
-  if (process.env.OPENAI_API_KEY) {
-    providers.push({
-      apiKey: process.env.OPENAI_API_KEY,
-      model: process.env.OPENAI_MODEL ?? "gpt-4o-mini",
-      name: "openai"
-    });
-  }
-
-  if (process.env.ANTHROPIC_API_KEY) {
-    providers.push({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-      model: process.env.ANTHROPIC_MODEL ?? "claude-3-5-sonnet-latest",
-      name: "anthropic"
-    });
-  }
-
-  if (process.env.GEMINI_API_KEY) {
-    providers.push({
-      apiKey: process.env.GEMINI_API_KEY,
-      model: process.env.GEMINI_MODEL ?? "gemini-1.5-pro",
-      name: "gemini"
-    });
-  }
-
-  return providers;
+  return resolveSalesOsProviders();
 }
 
 function normalizeWhitespace(value: string): string {
@@ -366,6 +337,7 @@ function buildChatFallback(input: ChatExecutionInput, tool?: SalesOsTool): strin
 
 export async function executeSalesOsTool(input: ToolExecutionInput) {
   const tool = findSalesOsTool(input.toolId);
+  const geminiVisionConfig = resolveGeminiVisionConfig();
 
   if (!tool) {
     throw new Error("Ferramenta Sales OS nao encontrada.");
@@ -413,7 +385,7 @@ export async function executeSalesOsTool(input: ToolExecutionInput) {
     };
   }
 
-  if (tool.acceptsImage && input.image?.data && process.env.GEMINI_API_KEY) {
+  if (tool.acceptsImage && input.image?.data && geminiVisionConfig) {
     const prompt = [
       `Ferramenta: ${tool.name}`,
       `Objetivo: ${tool.prompt}`,
@@ -428,8 +400,8 @@ export async function executeSalesOsTool(input: ToolExecutionInput) {
       const text = await generateWithGeminiVision(
         prompt,
         input.image,
-        process.env.GEMINI_MODEL ?? "gemini-1.5-pro",
-        process.env.GEMINI_API_KEY
+        geminiVisionConfig.model,
+        geminiVisionConfig.apiKey
       );
 
       return {

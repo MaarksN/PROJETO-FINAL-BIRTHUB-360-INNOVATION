@@ -919,9 +919,23 @@ async function writeAccessibilitySnapshot(files) {
 
 async function writeDisasterRecoverySnapshot() {
   const liveDrill = await readJsonIfExists("artifacts/backups/drill-rto-rpo.json");
+  const readinessReport = await readJsonIfExists("artifacts/dr/readiness-report.json");
   const rollbackEvidence = await readJsonIfExists("artifacts/release/production-rollback-evidence.json");
 
-  if (liveDrill) {
+  if (readinessReport) {
+    await writeJson(fromRepo("artifacts/dr/latest-drill.json"), {
+      checkedAt: new Date().toISOString(),
+      status: readinessReport.overallStatus === "pass" ? "recorded" : "blocked",
+      sufficient: readinessReport.overallStatus === "pass",
+      blockers: readinessReport.blockers ?? [],
+      checks: readinessReport.checks ?? [],
+      drill: liveDrill,
+      readinessReport
+    });
+    return;
+  }
+
+  if (liveDrill?.sufficient === true && liveDrill?.status === "pass") {
     await writeJson(fromRepo("artifacts/dr/latest-drill.json"), {
       checkedAt: new Date().toISOString(),
       status: "recorded",

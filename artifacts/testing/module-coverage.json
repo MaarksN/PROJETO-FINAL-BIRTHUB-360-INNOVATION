@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-09T18:39:03.354Z",
+  "checkedAt": "2026-04-10T13:37:36.458Z",
   "mode": "static-coverage-proxy",
   "sufficient": false,
   "limitations": [
@@ -14,8 +14,8 @@
   "surfaces": [
     {
       "module": "apps/api",
-      "runtimeFiles": 145,
-      "directTestFiles": 49,
+      "runtimeFiles": 147,
+      "directTestFiles": 53,
       "traceabilityFlows": 2,
       "directTests": [
         "apps/api/tests/analytics.utils.test.ts",
@@ -44,18 +44,21 @@
         "apps/api/tests/consent.service.test.ts",
         "apps/api/tests/conversations-router.test.ts",
         "apps/api/tests/core-business-routes.test.ts",
+        "apps/api/tests/dashboard-router.test.ts",
         "apps/api/tests/database-availability.test.ts",
         "apps/api/tests/external-url.test.ts",
         "apps/api/tests/fhir-router.test.ts",
         "apps/api/tests/fhir.service.test.ts",
         "apps/api/tests/health.smoke.test.ts",
         "apps/api/tests/http-cache.test.ts",
+        "apps/api/tests/http-test-helpers.ts",
         "apps/api/tests/installed-agents-helpers.test.ts",
         "apps/api/tests/marketplace-budget.smoke.test.ts",
         "apps/api/tests/metrics.service.test.ts",
         "apps/api/tests/module-routes.test.ts",
         "apps/api/tests/pack-installer.service.test.ts",
         "apps/api/tests/prisma-cache-invalidation.test.ts",
+        "apps/api/tests/privacy-router.test.ts",
         "apps/api/tests/queue-backpressure.test.ts",
         "apps/api/tests/rbac.test.ts",
         "apps/api/tests/redis.test.ts",
@@ -66,13 +69,14 @@
         "apps/api/tests/test-config.ts",
         "apps/api/tests/webhooks.security.test.ts",
         "apps/api/tests/workflow-retry-lineage.integration.test.ts",
+        "apps/api/tests/workflows-router.test.ts",
         "tests/e2e/critical-routes.spec.ts"
       ],
       "gaps": []
     },
     {
       "module": "apps/web",
-      "runtimeFiles": 137,
+      "runtimeFiles": 138,
       "directTestFiles": 23,
       "traceabilityFlows": 2,
       "directTests": [

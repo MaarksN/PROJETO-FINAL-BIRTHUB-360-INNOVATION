@@ -1,10 +1,12 @@
 // @ts-nocheck
 // 
 import {
+  buildSegmentKeywords,
   buildAgentRuntimeOutput,
   buildAgentRuntimePlan,
   buildRuntimePolicyRules,
-  computeOutputHash
+  computeOutputHash,
+  inferSegmentProfile
 } from "@birthub/agents-core";
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";
 import { getWorkerConfig } from "@birthub/config";
@@ -47,8 +49,13 @@ export async function executeManifestAgentRuntime(
   }
 
   const workerConfig = getWorkerConfig();
+  const sessionId = readSessionId(input.input);
+  const segmentProfile = inferSegmentProfile(input.input, resolved.manifest.tags);
+  const sharedLearningKeywords = Array.from(
+    new Set([...resolved.manifest.keywords, ...buildSegmentKeywords(segmentProfile)])
+  );
   const sharedLearning = await querySharedLearning({
-    keywords: resolved.manifest.keywords,
+    keywords: sharedLearningKeywords,
     tenantId: input.tenantId
   });
   const managedPolicies = await resolveManagedPolicies({
@@ -94,7 +101,7 @@ export async function executeManifestAgentRuntime(
     correlationId: input.executionId,
     organizationId,
     role: "user",
-    sessionId: readSessionId(input.input),
+    sessionId,
     tenantId: input.tenantId
   }).catch(() => undefined);
 
@@ -170,6 +177,8 @@ export async function executeManifestAgentRuntime(
     agentId: resolved.runtimeAgentId,
     manifest: resolved.manifest,
     outputPreview: JSON.stringify(output).slice(0, 400),
+    outputSummary: output.summary,
+    segmentKeywords: buildSegmentKeywords(segmentProfile),
     tenantId: input.tenantId
   });
   const governanceRequireApproval = output.approvals_or_dependencies.length > 0;
@@ -196,17 +205,55 @@ export async function executeManifestAgentRuntime(
     }
   });
   await runtimeMemory.publishSharedLearning(input.tenantId, learningRecord);
+  await Promise.allSettled([
+    runtimeMemory.store(
+      input.tenantId,
+      resolved.runtimeAgentId,
+      `segment-profile:${sessionId ?? input.executionId}`,
+      output.segment_profile,
+      30 * 24 * 60 * 60
+    ),
+    runtimeMemory.store(
+      input.tenantId,
+      resolved.runtimeAgentId,
+      `latest-output:${input.executionId}`,
+      {
+        nextCheckpoint: output.next_checkpoint,
+        outputArtifactId,
+        segmentProfile: output.segment_profile,
+        status: output.status,
+        suggestedHandoffs: output.suggested_handoffs,
+        summary: output.summary
+      },
+      30 * 24 * 60 * 60
+    ),
+    runtimeMemory.store(
+      input.tenantId,
+      resolved.runtimeAgentId,
+      output.memory_writeback.key,
+      {
+        objective: input.input.objective ?? input.input.task ?? null,
+        outputArtifactId,
+        segmentProfile: output.segment_profile,
+        specialistDeliverables: output.specialist_deliverables,
+        summary: output.summary,
+        toolResultsCount: execution.steps.length
+      },
+      output.memory_writeback.ttlHours * 60 * 60
+    )
+  ]);
   await appendConversationMessage({
     agentId: resolved.runtimeAgentId,
     content: output.summary,
     correlationId: input.executionId,
     organizationId,
     role: "assistant",
-    sessionId: readSessionId(input.input),
+    sessionId,
     tenantId: input.tenantId
   }).catch(() => undefined);
 
   logs.push(`Shared learning ${learningRecord.id} publicado.`);
+  logs.push(`Segment memory persisted for ${output.segment_profile.industry}/${output.segment_profile.clientSegment}.`);
   logs.push(`Output artifact ${outputArtifactId} criado automaticamente.`);
   logs.push(
     `Budget consumido: R$ ${execution.estimatedCostBrlTotal.toFixed(2)} (saldo ${budgetState.consumedBrl.toFixed(2)}/${budgetState.limitBrl.toFixed(2)}).`

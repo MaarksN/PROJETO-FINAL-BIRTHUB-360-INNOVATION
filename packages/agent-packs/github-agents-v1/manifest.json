@@ -1,15 +1,16 @@
 {
   "agent": {
     "changelog": [
+      "1.1.0 - Market-grade upgrade for segment adaptation, memory writeback and prescriptive recommendations",
       "1.0.0 - Descriptor updated for 334 compiled GitHub agents"
     ],
     "description": "Catalog descriptor for the compiled .github/agents collection routed through manifest-runtime.",
     "id": "github-agents-v1-catalog",
     "kind": "catalog",
     "name": "GitHub Agents Compiled Collection",
-    "prompt": "Expose, segment and document the compiled GitHub agents collection with manifest, readiness and dry-run evidence.",
+    "prompt": "Expose, segment and document the compiled GitHub agents collection with manifest, readiness and dry-run evidence.\n\nMarket-grade runtime features: segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.",
     "tenantId": "catalog",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "keywords": [
     "github agents",
@@ -17,7 +18,11 @@
     "manifest runtime",
     "catalog",
     "readiness",
-    "dry run evidence"
+    "dry run evidence",
+    "market grade",
+    "segment adaptation",
+    "operational memory",
+    "multi-agent collaboration"
   ],
   "manifestVersion": "1.0.0",
   "policies": [
@@ -48,9 +53,6 @@
     "domain": [
       "governance"
     ],
-    "industry": [
-      "cross-industry"
-    ],
     "level": [
       "suite"
     ],
@@ -60,6 +62,9 @@
     "use-case": [
       "discover",
       "compiled-github-agents"
+    ],
+    "industry": [
+      "cross-industry"
     ]
   },
   "tools": [

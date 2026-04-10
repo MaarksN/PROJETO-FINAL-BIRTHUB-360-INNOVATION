@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 export const GITHUB_AGENT_COLLECTION_DIRNAME = "github-agents-v1";
 export const GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID = "github-agents-v1-catalog";
 export const GITHUB_AGENT_COLLECTION_NAME = "GitHub Agents Compiled Collection";
-export const GITHUB_AGENT_COLLECTION_VERSION = "1.0.0";
+export const GITHUB_AGENT_COLLECTION_VERSION = "1.1.0";
 
 export const REQUIRED_PROMPT_SECTIONS = [
   "IDENTIDADE E MISSAO",
@@ -160,18 +160,54 @@ export const KNOWN_TOOL_SCHEMAS: Record<string, unknown> = {
       context: { type: "object", description: "Dados relevantes para o próximo agente." }
     },
     required: ["targetAgentId", "context"]
+  },
+  "data-processor": {
+    type: "object",
+    properties: {
+      metrics: { type: "array", items: { type: "number" } },
+      context: { type: "object" },
+      objective: { type: "string" }
+    }
+  },
+  "memory-vault": {
+    type: "object",
+    properties: {
+      key: { type: "string" },
+      value: { type: "object" },
+      ttlHours: { type: "number" }
+    },
+    required: ["key", "value"]
+  },
+  "recommendation-engine": {
+    type: "object",
+    properties: {
+      objective: { type: "string" },
+      signals: { type: "object" },
+      segmentProfile: { type: "object" }
+    }
+  },
+  "segment-adapter": {
+    type: "object",
+    properties: {
+      content: { type: "object" },
+      segmentProfile: { type: "object" }
+    }
   }
 };
 
 export const KNOWN_TOOL_DESCRIPTIONS: Record<string, string> = {
   agent: "Delegar, coordenar ou consultar outro agente de forma governada.",
+  "data-processor": "Processar sinais numericos e textuais para separar padroes, outliers e tendencias.",
   "db-read": "Lê registros do banco de dados do tenant atual.",
   edit: "Editar artefatos autorizados com rastreabilidade e controle.",
   execute: "Executar uma acao operacional governada dentro do runtime manifesto.",
   handoff: "Passa a execução para outro agente especializado.",
   "http-request": "Realiza chamadas de API externas autorizadas.",
+  "memory-vault": "Salvar memoria operacional reutilizavel com contexto, decisao e checkpoint.",
   read: "Ler artefatos, contexto e evidencias necessarias para decisao.",
+  "recommendation-engine": "Gerar recomendacoes prescritivas priorizadas com racional claro.",
   search: "Pesquisar catalogos, contexto e sinais relevantes para o objetivo.",
+  "segment-adapter": "Adaptar a analise e a linguagem ao segmento, vertical e maturidade do cliente.",
   todo: "Gerenciar plano de execucao, backlog curto e acompanhamento de tarefas."
 };
 

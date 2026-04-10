@@ -1,7 +1,13 @@
 // @ts-nocheck
 // 
 import { prisma, Prisma } from "@birthub/database";
-import { computeOutputHash, type AgentLearningRecord, type AgentManifest } from "@birthub/agents-core";
+import {
+  buildSegmentKeywords,
+  computeOutputHash,
+  inferSegmentProfile,
+  type AgentLearningRecord,
+  type AgentManifest
+} from "@birthub/agents-core";
 import { randomUUID } from "node:crypto";
 import { runtimeMemory } from "./runtime.memory.js";
 import { ensureConversationThread, createConversationMessage } from "./conversations.js";
@@ -9,23 +15,64 @@ import { ensureConversationThread, createConversationMessage } from "./conversat
 const MINIMUM_APPROVED_LEARNING_CONFIDENCE = 0.7;
 const SHARED_LEARNING_LIMIT = 8;
 
+function uniqueStrings(values: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const value of values.map((item) => item.trim()).filter(Boolean)) {
+    const normalized = value.toLowerCase();
+    if (seen.has(normalized)) {
+      continue;
+    }
+
+    seen.add(normalized);
+    result.push(value);
+  }
+
+  return result;
+}
+
 export function buildLearningRecord(input: {
   agentId: string;
   manifest: AgentManifest;
   outputPreview: string;
+  outputSummary?: string;
+  segmentKeywords?: string[];
   tenantId: string;
 }): AgentLearningRecord {
+  const profileFromKeywords = inferSegmentProfile(
+    {
+      industry: input.segmentKeywords?.[0],
+      segment: input.segmentKeywords?.[1],
+      region: input.segmentKeywords?.[3]
+    },
+    input.manifest.tags
+  );
+  const learningKeywords = uniqueStrings([
+    ...input.manifest.keywords,
+    ...input.manifest.tags.domain,
+    ...input.manifest.tags["use-case"],
+    ...(input.segmentKeywords ?? []),
+    ...buildSegmentKeywords(profileFromKeywords)
+  ]).slice(0, SHARED_LEARNING_LIMIT);
+
   return {
     approved: true,
-    appliesTo: [input.manifest.agent.id],
+    appliesTo: uniqueStrings([
+      input.manifest.agent.id,
+      ...input.manifest.tags.domain,
+      profileFromKeywords.clientSegment
+    ]).slice(0, 4),
     confidence: 0.82,
     createdAt: new Date().toISOString(),
     evidence: [input.outputPreview],
     id: randomUUID(),
-    keywords: input.manifest.keywords.slice(0, SHARED_LEARNING_LIMIT),
+    keywords: learningKeywords,
     lessonType: "execution-pattern",
     sourceAgentId: input.agentId,
-    summary: `${input.manifest.agent.name} executou um fluxo live governado e publicou aprendizado reutilizavel.`,
+    summary:
+      input.outputSummary ??
+      `${input.manifest.agent.name} executou um fluxo live governado e publicou aprendizado reutilizavel.`,
     tenantId: input.tenantId
   };
 }

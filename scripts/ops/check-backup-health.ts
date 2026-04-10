@@ -43,6 +43,13 @@ type BuildBackupHealthOptions = {
   walDir?: string;
 };
 
+const IGNORED_BACKUP_METADATA_FILES = new Set([
+  "backup-health.json",
+  "backup-health.txt",
+  "drill-rto-rpo.json",
+  "drill-rto-rpo.txt"
+]);
+
 function resolveInputPath(rootDirectory: string, value: string | undefined): string | null {
   if (!value) {
     return null;
@@ -66,7 +73,7 @@ function newestFileSnapshot(directory: string, now: Date): BackupFileSnapshot | 
   }
 
   const entries = readdirSync(directory, { withFileTypes: true })
-    .filter((entry) => entry.isFile())
+    .filter((entry) => entry.isFile() && !IGNORED_BACKUP_METADATA_FILES.has(entry.name))
     .map((entry) => toSnapshot(resolve(directory, entry.name), now))
     .sort((left, right) => right.modifiedAt.localeCompare(left.modifiedAt));
 

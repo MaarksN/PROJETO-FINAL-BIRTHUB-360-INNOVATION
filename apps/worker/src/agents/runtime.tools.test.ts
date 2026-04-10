@@ -2,6 +2,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { MANIFEST_VERSION, PolicyEngine } from "@birthub/agents-core";
+
+import { createRuntimeTools } from "./runtime.tools.js";
 import { buildDbReadQueryTemplate } from "./runtime.tools.js";
 
 void test("buildDbReadQueryTemplate removes the synthetic tenant param when the query does not reference it", () => {
@@ -52,4 +55,88 @@ void test("buildDbReadQueryTemplate rejects multiple SQL statements", () => {
       ),
     /multiple SQL statements/i
   );
+});
+
+void test("manifest capability tools emit segment-aware recommendations and memory metadata", async () => {
+  const manifest = {
+    agent: {
+      changelog: [],
+      description: "Runtime tool manifest test",
+      id: "runtime.tools.demo",
+      kind: "agent",
+      name: "Runtime Tools Demo",
+      prompt: "Execute runtime tools demo",
+      tenantId: "catalog",
+      version: "1.0.0"
+    },
+    keywords: ["runtime", "tools", "demo", "segment", "memory", "handoff", "data", "recommendation"],
+    manifestVersion: MANIFEST_VERSION,
+    policies: [
+      {
+        actions: ["tool:execute", "memory:read", "memory:write", "learning:read", "learning:write"],
+        effect: "allow",
+        id: "runtime.tools.demo.policy.standard",
+        name: "Standard"
+      }
+    ],
+    skills: [
+      {
+        description: "Analyze data",
+        id: "runtime.tools.demo.skill.analyze",
+        inputSchema: { type: "object" },
+        name: "Analyze",
+        outputSchema: { type: "object" }
+      }
+    ],
+    tags: {
+      domain: ["finance"],
+      industry: ["fintech"],
+      level: ["specialist"],
+      persona: ["analyst"],
+      "use-case": ["forecasting"]
+    },
+    tools: [
+      {
+        description: "Process data and recommend next action",
+        id: "runtime.tools.demo.tool.data-processor",
+        inputSchema: { type: "object" },
+        name: "Data Processor",
+        outputSchema: { type: "object" },
+        timeoutMs: 15000
+      }
+    ]
+  };
+
+  const policyEngine = new PolicyEngine([
+    {
+      action: "tool.*",
+      agentId: manifest.agent.id,
+      effect: "allow",
+      id: "allow-all",
+      tenantId: "tenant-1"
+    }
+  ]);
+  const { tools } = createRuntimeTools(manifest, policyEngine, 0.15);
+  const result = await tools["runtime.tools.demo.tool.data-processor"]!.run(
+    {
+      collaborationTargets: ["finance specialist"],
+      industry: "Fintech",
+      objective: "Protect renewal margin",
+      region: "Brazil",
+      segment: "Enterprise",
+      values: [30, 40, 50],
+      notes: ["margin drift", "renewal risk"]
+    },
+    {
+      agentId: manifest.agent.id,
+      tenantId: "tenant-1",
+      traceId: "trace-1"
+    }
+  );
+
+  assert.equal(result.capabilityType, "data-processing");
+  assert.equal(result.numericSummary.average, 40);
+  assert.equal(result.segmentProfile.industry, "fintech");
+  assert.equal(result.recommendedActions.length > 0, true);
+  assert.equal(result.memoryWriteback.key.includes("runtime-tools-demo"), true);
 });

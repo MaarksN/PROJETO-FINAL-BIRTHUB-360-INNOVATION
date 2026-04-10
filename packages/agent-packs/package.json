@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "compile:github": "node --import tsx ../../scripts/agent/compile-github-agents.ts",
+    "upgrade:github": "node --import tsx ../../scripts/agent/upgrade-github-agent-manifests.ts",
     "readiness:github": "node --import tsx ../../scripts/agent/check-github-agent-readiness.ts",
     "validate": "node --import tsx ../../scripts/validate-packs.ts",
     "test": "node --import tsx --test test/**/*.test.ts",

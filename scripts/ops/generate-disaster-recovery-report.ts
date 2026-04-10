@@ -52,6 +52,30 @@ function normalizeLegacyDrill(drill: any): any {
     return drill;
   }
 
+  if (drill.recordedAt && Number.isInteger(drill.rtoMinutes) && Number.isInteger(drill.rpoMinutes)) {
+    return {
+      ...drill,
+      checkedAt: drill.recordedAt,
+      environment: drill.target === "staging" ? "staging" : "production",
+      evidence: {
+        backupArtifact: "legacy-untracked",
+        notes: drill.notes ?? null,
+        rollbackEvidence: typeof drill.evidence === "string" ? drill.evidence : null,
+        validationArtifact: null
+      },
+      objectives: {
+        allMet: null,
+        rpoMet: null,
+        rpoMinutes: null,
+        rtoMet: null,
+        rtoMinutes: null
+      },
+      scenario: "legacy-unclassified",
+      status: "warn",
+      sufficient: false
+    };
+  }
+
   if (drill.checkedAt && Number.isInteger(drill.rtoMinutes) && Number.isInteger(drill.rpoMinutes)) {
     return {
       ...drill,
@@ -130,7 +154,7 @@ function buildChecks(
     : drillPass
       ? `DR drill ${drill.scenario} owned by ${drill.owner} recorded at ${drill.checkedAt}`
       : drill?.status === "warn"
-        ? `DR drill recorded but objectives were missed (RTO=${drill.rtoMinutes}m, RPO=${drill.rpoMinutes}m).`
+        ? `DR drill artifact exists but is insufficient for auditability (scenario=${drill.scenario}, backupArtifact=${drill.evidence?.backupArtifact ?? "missing"}, RTO=${drill.rtoMinutes}m, RPO=${drill.rpoMinutes}m).`
         : "Missing or insufficient artifacts/backups/drill-rto-rpo.json.";
   checks.push({
     artifactPath: "artifacts/backups/drill-rto-rpo.json",

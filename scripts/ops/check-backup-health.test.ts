@@ -66,3 +66,23 @@ test("writeBackupHealthReport persists json and text outputs", () => {
     rmSync(rootDirectory, { force: true, recursive: true });
   }
 });
+
+test("buildBackupHealthReport ignores self-generated metadata files", () => {
+  const rootDirectory = join(tmpdir(), `birthub-backup-health-ignore-${Date.now()}`);
+  const backupsDir = join(rootDirectory, "artifacts", "backups");
+  mkdirSync(backupsDir, { recursive: true });
+  writeFileSync(join(backupsDir, "backup-health.json"), "{}", "utf8");
+  writeFileSync(join(backupsDir, "backup-health.txt"), "status", "utf8");
+  writeFileSync(join(backupsDir, "drill-rto-rpo.json"), "{}", "utf8");
+
+  try {
+    const report = buildBackupHealthReport({
+      rootDirectory
+    });
+
+    assert.equal(report.ok, false);
+    assert.match(report.issues[0], /No backup files found/i);
+  } finally {
+    rmSync(rootDirectory, { force: true, recursive: true });
+  }
+});

@@ -109,24 +109,21 @@ async function listRetentionPoliciesPage(input: {
 async function listRetentionPoliciesForOrganization(input: {
   enabled?: boolean | undefined;
   organizationId: string;
+  cursorId?: string | undefined;
 }) {
-  const items: Awaited<ReturnType<typeof listRetentionPoliciesPage>> = [];
-  let cursorId: string | undefined;
+  const page = await listRetentionPoliciesPage(input);
+  const lastPolicy = page.at(-1);
 
-  while (true) {
-    const page = await listRetentionPoliciesPage({
-      organizationId: input.organizationId,
-      ...(input.enabled !== undefined ? { enabled: input.enabled } : {}),
-      ...(cursorId ? { cursorId } : {})
-    });
-    items.push(...page);
-
-    if (page.length < RETENTION_POLICY_PAGE_SIZE) {
-      return sortPolicies(items);
-    }
-
-    cursorId = page.at(-1)?.id;
+  if (!lastPolicy || page.length < RETENTION_POLICY_PAGE_SIZE) {
+    return input.cursorId ? page : sortPolicies(page);
   }
+
+  const nextPage = await listRetentionPoliciesForOrganization({
+    ...input,
+    cursorId: lastPolicy.id
+  });
+
+  return input.cursorId ? page.concat(nextPage) : sortPolicies(page.concat(nextPage));
 }
 
 async function listOrganizationsPage(cursorId?: string) {
@@ -158,20 +155,15 @@ async function listOrganizationsPage(cursorId?: string) {
   });
 }
 
-async function listOrganizationsForRetentionSweep() {
-  const organizations: Awaited<ReturnType<typeof listOrganizationsPage>> = [];
-  let cursorId: string | undefined;
+async function listOrganizationsForRetentionSweep(cursorId?: string) {
+  const page = await listOrganizationsPage(cursorId);
+  const lastOrganization = page.at(-1);
 
-  while (true) {
-    const page = await listOrganizationsPage(cursorId);
-    organizations.push(...page);
-
-    if (page.length < RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE) {
-      return organizations;
-    }
-
-    cursorId = page.at(-1)?.id;
+  if (!lastOrganization || page.length < RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE) {
+    return page;
   }
+
+  return page.concat(await listOrganizationsForRetentionSweep(lastOrganization.id));
 }
 
 async function listSuspendedUsersPage(input: {
@@ -223,24 +215,21 @@ async function listSuspendedUsersPage(input: {
 async function listSuspendedUsersForRetention(input: {
   organizationId: string;
   cutoff: Date;
+  cursorId?: string | undefined;
 }) {
-  const users: Awaited<ReturnType<typeof listSuspendedUsersPage>> = [];
-  let cursorId: string | undefined;
+  const page = await listSuspendedUsersPage(input);
+  const lastUser = page.at(-1);
 
-  while (true) {
-    const page = await listSuspendedUsersPage({
-      organizationId: input.organizationId,
-      cutoff: input.cutoff,
-      ...(cursorId ? { cursorId } : {})
-    });
-    users.push(...page);
-
-    if (page.length < RETENTION_SUSPENDED_USER_PAGE_SIZE) {
-      return users;
-    }
-
-    cursorId = page.at(-1)?.id;
+  if (!lastUser || page.length < RETENTION_SUSPENDED_USER_PAGE_SIZE) {
+    return page;
   }
+
+  return page.concat(
+    await listSuspendedUsersForRetention({
+      ...input,
+      cursorId: lastUser.id
+    })
+  );
 }
 
 async function ensureDefaultPolicies(input: {
@@ -384,26 +373,28 @@ async function executePolicy(input: {
       scannedCount = users.length;
 
       if (input.mode !== RetentionExecutionMode.DRY_RUN && users.length > 0) {
-        for (const user of users) {
-          await prisma.user.update({
-            data: {
-              email: anonymizedEmail(user.id),
-              mfaEnabled: false,
-              mfaFailedAttempts: 0,
-              mfaLockedUntil: null,
-              mfaSecret: null,
-              name: "Deleted User",
-              passwordHash: await hashPassword(randomToken(18), {
-                memoryKiB: input.config.AUTH_ARGON2_MEMORY_KIB,
-                parallelism: input.config.AUTH_ARGON2_PARALLELISM,
-                passes: input.config.AUTH_ARGON2_PASSES
-              })
-            },
-            where: {
-              id: user.id
-            }
-          });
-        }
+        await Promise.all(
+          users.map(async (user) => {
+            await prisma.user.update({
+              data: {
+                email: anonymizedEmail(user.id),
+                mfaEnabled: false,
+                mfaFailedAttempts: 0,
+                mfaLockedUntil: null,
+                mfaSecret: null,
+                name: "Deleted User",
+                passwordHash: await hashPassword(randomToken(18), {
+                  memoryKiB: input.config.AUTH_ARGON2_MEMORY_KIB,
+                  parallelism: input.config.AUTH_ARGON2_PARALLELISM,
+                  passes: input.config.AUTH_ARGON2_PASSES
+                })
+              },
+              where: {
+                id: user.id
+              }
+            });
+          })
+        );
         affectedCount = users.length;
       }
       break;

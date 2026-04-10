@@ -40,6 +40,14 @@ async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, "utf8"));
 }
 
+async function readJsonWithFallback(primaryPath, fallbackPath) {
+  try {
+    return await readJson(primaryPath);
+  } catch {
+    return readJson(fallbackPath);
+  }
+}
+
 async function loadInstallableAgents(collectionRoot) {
   const entries = await readdir(collectionRoot, { withFileTypes: true });
   const agents = [];
@@ -143,7 +151,7 @@ function renderMarkdown({
     "",
     "## Sources",
     `- descriptor: \`${toPosixPath(path.join("packages", "agent-packs", "github-agents-v1", "manifest.json"))}\``,
-    `- readiness: \`${toPosixPath(path.join("packages", "agent-packs", "github-agents-v1", "readiness-gate-report.json"))}\``,
+    `- readiness: \`${toPosixPath(path.join("artifacts", "agent-readiness", "github-agents-v1-readiness-report.json"))}\``,
     `- collection report: \`${toPosixPath(path.join("packages", "agent-packs", "github-agents-v1", "collection-report.json"))}\``
   );
 
@@ -156,11 +164,17 @@ async function main() {
   const docsRoot = path.join(workspaceRoot, "docs", "agent-packs");
   const descriptorPath = path.join(collectionRoot, "manifest.json");
   const readinessPath = path.join(collectionRoot, "readiness-gate-report.json");
+  const readinessArtifactPath = path.join(
+    workspaceRoot,
+    "artifacts",
+    "agent-readiness",
+    "github-agents-v1-readiness-report.json"
+  );
   const outputDocPath = path.join(docsRoot, "github-agents-v1-catalog.mdx");
   const outputJsonPath = path.join(docsRoot, "github-agents-v1-installables.json");
 
   const descriptor = await readJson(descriptorPath);
-  const readinessReport = await readJson(readinessPath);
+  const readinessReport = await readJsonWithFallback(readinessArtifactPath, readinessPath);
   const installableAgents = await loadInstallableAgents(collectionRoot);
   const domainSummary = Array.from(groupBy(installableAgents, (entry) => entry.domain).entries())
     .map(([domain, agents]) => ({
