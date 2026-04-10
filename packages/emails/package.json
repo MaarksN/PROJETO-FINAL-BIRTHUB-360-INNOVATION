@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "dependencies": {
-    "react": "^19.2.4"
-  },
   "scripts": {
     "lint": "echo 'email templates linted'",
     "typecheck": "tsc --noEmit",
