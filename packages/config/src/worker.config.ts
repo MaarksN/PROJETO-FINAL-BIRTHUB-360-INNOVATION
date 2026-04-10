@@ -40,6 +40,8 @@ export const workerEnvSchema = z.object({
   JOB_HMAC_GLOBAL_SECRET: nonEmptyString.default("dev-job-hmac-secret"),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]).default("info"),
   NODE_ENV: nodeEnvSchema,
+  OTEL_EXPORTER_OTLP_ENDPOINT: optionalUrlString,
+  OTEL_SERVICE_NAME: nonEmptyString.default("birthub-worker"),
   QUEUE_NAME: nonEmptyString.default("birthub-cycle1"),
   REDIS_URL: urlString,
   SENTRY_DSN: optionalUrlString,

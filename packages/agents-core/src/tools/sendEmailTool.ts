@@ -59,9 +59,9 @@ export class SendEmailTool extends BaseTool<SendEmailInput, SendEmailOutput> {
       options
     );
 
-    this.apiKey = options.apiKey ?? process.env.SENDGRID_API_KEY;
+    this.apiKey = options.apiKey;
     this.fetchImpl = options.fetchImpl ?? fetch;
-    this.fromEmail = options.fromEmail ?? process.env.SENDGRID_FROM_EMAIL;
+    this.fromEmail = options.fromEmail;
   }
 
   protected async execute(input: SendEmailInput, context: ToolExecutionContext): Promise<SendEmailOutput> {

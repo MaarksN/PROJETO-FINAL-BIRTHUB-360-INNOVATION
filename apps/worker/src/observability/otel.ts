@@ -1,5 +1,6 @@
 // @ts-nocheck
 // 
+import type { WorkerConfig } from "@birthub/config";
 import { createRequire } from "node:module";
 
 import { createLogger } from "@birthub/logger";
@@ -121,8 +122,10 @@ function buildMetricReader(runtime: WorkerOtelRuntime, endpoint: string): unknow
   });
 }
 
-export function initializeWorkerOpenTelemetry(): void {
-  const otlpUrl = process.env.OTEL_EXPORTER_OTLP_ENDPOINT;
+export function initializeWorkerOpenTelemetry(
+  config: Pick<WorkerConfig, "OTEL_EXPORTER_OTLP_ENDPOINT" | "OTEL_SERVICE_NAME">
+): void {
+  const otlpUrl = config.OTEL_EXPORTER_OTLP_ENDPOINT;
 
   if (sdk || !otlpUrl) {
     return;
@@ -147,7 +150,7 @@ export function initializeWorkerOpenTelemetry(): void {
     ],
     ...(metricReader ? { metricReader } : {}),
     resource: runtime.resources.resourceFromAttributes({
-      "service.name": process.env.OTEL_SERVICE_NAME ?? "birthub-worker"
+      "service.name": config.OTEL_SERVICE_NAME
     }),
     traceExporter: new runtime.traceExporter.OTLPTraceExporter({
       url: `${endpoint}/v1/traces`

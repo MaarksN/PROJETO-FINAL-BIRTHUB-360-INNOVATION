@@ -17,9 +17,8 @@ import { createBirthHubWorker } from "./worker.js";
 import { initializeWorkerOpenTelemetry, shutdownWorkerOpenTelemetry } from "./observability/otel.js";
 import { evaluateWorkerReadiness, type WorkerQueueState } from "./operational/readiness.js";
 
-initializeWorkerOpenTelemetry();
-
 const config = getWorkerConfig();
+initializeWorkerOpenTelemetry(config);
 const logger = createLogger("worker-bootstrap");
 const runtime = createBirthHubWorker();
 const cleanupIntervalMs = 24 * 60 * 60 * 1000;

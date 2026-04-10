@@ -52,3 +52,10 @@ void test("worker config accepts hardened production settings", () => {
   assert.equal(config.BILLING_EXPORT_STORAGE_MODE, "s3");
   assert.equal(config.BILLING_EXPORT_S3_BUCKET, "birthub-billing-exports");
 });
+
+void test("worker config exposes OTEL defaults without requiring process.env reads in runtime code", () => {
+  const config = getWorkerConfig(baseEnv);
+
+  assert.equal(config.OTEL_EXPORTER_OTLP_ENDPOINT, undefined);
+  assert.equal(config.OTEL_SERVICE_NAME, "birthub-worker");
+});
