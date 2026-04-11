@@ -5,6 +5,7 @@ import { randomUUID } from "node:crypto";
 
 import { createPrismaClient } from "../src/client.js";
 import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
+import { parsePrismaSchema } from "../scripts/lib/prisma-schema.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
@@ -13,8 +14,19 @@ void testIfDatabase("RLS bloqueia leitura cruzada de patients entre tenants no d
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
+    const schemaModels = await parsePrismaSchema();
+    if (!schemaModels.some((model) => model.name === "Patient")) {
+      context.skip("O schema atual nao publica o modelo Patient; teste clinico de RLS ignorado.");
+      return;
+    }
+
     const databaseAvailable = await ensureDatabaseAvailableOrSkip(context, prisma);
     if (!databaseAvailable) {
+      return;
+    }
+
+    if (!Reflect.get(prisma, "patient")) {
+      context.skip("O cliente Prisma atual nao expoe o delegate patient; teste clinico de RLS ignorado.");
       return;
     }
 

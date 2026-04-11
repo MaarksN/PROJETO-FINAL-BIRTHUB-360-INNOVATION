@@ -17,7 +17,7 @@ Workspace auditado: `C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-I
 
 ## Base usada
 
-Os arquivos-base exigidos no prompt não existem no repositório com esses nomes. Em vez de forçar um mapeamento fictício, a execução usou:
+Os arquivos-base exigidos no prompt não existem integralmente no repositório com esses nomes. Em vez de forçar um mapeamento fictício, a execução usou:
 
 - `audit/README.md`
 - `audit/STATUS_FINAL_PRONTIDAO.md`
@@ -26,6 +26,9 @@ Os arquivos-base exigidos no prompt não existem no repositório com esses nomes
 - `audit/td-catalog-reconciliation.md`
 - `audit/final_governance_report.md`
 - `audit/final_validation_report.md`
+- `audit/cycle4_execution_summary.md`
+- `audit/cycle5_execution_summary.md`
+- `audit/cycle6_execution_summary.md`
 - `docs/release/release-process.md`
 - `docs/operational/runbooks/production-release-runbook.md`
 - `.github/workflows/ci.yml`
@@ -96,6 +99,7 @@ Os arquivos-base exigidos no prompt não existem no repositório com esses nomes
 - parte da evidência de tenancy é preservada de execução anterior, não reexecutada com banco configurado nesta rodada.
 - artefatos históricos de release e reprodução continuam presentes e podem induzir leitura otimista se usados sem data/contexto.
 - a base documental do prompt não coincide com a base canônica real de `audit/README.md`.
+- os ciclos 4, 5 e 6 existentes reforçam maturidade incompleta do frontend, dos agentes executivos e do billing operacional.
 
 ## Arquivos gerados neste ciclo
 

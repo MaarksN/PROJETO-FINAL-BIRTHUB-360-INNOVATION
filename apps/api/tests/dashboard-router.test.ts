@@ -120,3 +120,13 @@ void test("dashboard router returns not found when onboarding settings target an
     restore();
   }
 });
+
+void test("dashboard router returns service unavailable when clinical delegates are absent from Prisma runtime", async () => {
+  const response = await request(createDashboardTestApp())
+    .get("/api/v1/dashboard/clinical-summary")
+    .expect(503);
+
+  assert.equal(response.body.status, 503);
+  assert.equal(response.body.title, "Service Unavailable");
+  assert.match(String(response.body.detail ?? ""), /patient/i);
+});

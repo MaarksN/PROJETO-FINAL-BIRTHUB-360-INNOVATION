@@ -99,13 +99,25 @@ Motivo para bloquear:
 
 - o pacote local não fica preso a um SHA imutável, reduzindo rastreabilidade e reprodutibilidade do release.
 
+### 7. A leitura consolidada dos ciclos 4, 5 e 6 ainda aponta maturidade incompleta do produto
+
+Evidência:
+
+- `audit/cycle4_execution_summary.md` ainda deixa frontend com lint vermelho, dívida ampla de `@ts-nocheck` e ausência de prova E2E auth/tenant completa.
+- `audit/cycle5_execution_summary.md` conclui que nenhum dos 15 agentes executivos atingiu maturidade `operacional`.
+- `audit/cycle6_execution_summary.md` conclui que a prontidão comercial é apenas `operacional limitada`.
+
+Motivo para bloquear:
+
+- mesmo que o pipeline de release estivesse perfeito, a leitura consolidada do produto continua abaixo do nível esperado para um go-live amplo e honesto.
+
 ## Riscos finais toleráveis
 
 Os itens abaixo reduzem excelência e maturidade, mas não são a principal razão do parecer `não apto`:
 
 - versões `0.0.0` e `0.1.0` em pacotes fora do núcleo direto da release, desde que o escopo oficial continue explícito;
 - SBOM limitado a inventário de dependências, sem proveniência completa de build e imagens;
-- descompasso entre os nomes de arquivos-base pedidos no prompt e os nomes reais da área `audit/`;
+- descompasso entre os nomes de arquivos-base pedidos no prompt e os nomes reais da área `audit/`, com parte dos ciclos reais existindo sob nomenclatura diferente;
 - preservação de artefatos históricos antigos, desde que não sejam usados como prova única de pronto.
 
 ## O que impede lançamento agora

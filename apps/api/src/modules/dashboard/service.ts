@@ -20,11 +20,26 @@ import {
   readString,
   riskFromScore
 } from "./service.shared.js";
+import { assertPrismaModelsAvailable } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 
 const ACTIVE_PREGNANCY_STATUS = "ACTIVE";
 const HIGH_PREGNANCY_RISK = "HIGH";
 const APPOINTMENT_STATUSES_IN_PROGRESS = ["CHECKED_IN", "SCHEDULED"] as const;
+const DASHBOARD_CLINICAL_RUNTIME_MODELS = [
+  "appointment",
+  "neonatalRecord",
+  "patient",
+  "pregnancyRecord"
+] as const;
+
+function ensureDashboardClinicalRuntimeAvailable(): void {
+  assertPrismaModelsAvailable(
+    prisma,
+    DASHBOARD_CLINICAL_RUNTIME_MODELS,
+    "the dashboard clinical summary"
+  );
+}
 
 function startOfDay(value: Date): Date {
   const next = new Date(value);
@@ -255,6 +270,8 @@ export async function getDashboardClinicalSummary(
   organizationId: string,
   tenantId: string
 ): Promise<DashboardClinicalSummary> {
+  ensureDashboardClinicalRuntimeAvailable();
+
   const now = new Date();
   const today = startOfDay(now);
   const nextTwoWeeks = addDays(today, 14);

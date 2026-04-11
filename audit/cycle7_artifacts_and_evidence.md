@@ -7,6 +7,22 @@ Há um descompasso formal entre o prompt e o workspace:
 - os arquivos-base exigidos no prompt não existem;
 - `audit/README.md:7-14` aponta outro conjunto como base canônica da auditoria.
 
+Ao longo da execução, também foi confirmado que existem:
+
+- `audit/cycle4_execution_summary.md`
+- `audit/cycle5_execution_summary.md`
+- `audit/cycle6_execution_summary.md`
+
+e continuam ausentes:
+
+- `audit/source_of_truth.md`
+- `audit/master_backlog_revalidated.md`
+- `audit/readiness_matrix.md`
+- `audit/reconciliation_report.md`
+- `audit/phase1_execution_summary.md`
+- `audit/cycle2_execution_summary.md`
+- `audit/cycle3_execution_summary.md`
+
 Isso não impede a revisão, mas é um **gap de governança e rastreabilidade documental** que precisa ser registrado.
 
 ## Artefatos revisados
@@ -40,6 +56,9 @@ Isso não impede a revisão, mas é um **gap de governança e rastreabilidade do
 - `artifacts/database/f8/schema-drift-report.json`
 - `artifacts/database/f8/migration-state-report.json`
 - `artifacts/database/f8/tenant-isolation-report.json`
+- `audit/cycle4_execution_summary.md`
+- `audit/cycle5_execution_summary.md`
+- `audit/cycle6_execution_summary.md`
 
 ## O que é evidência real
 
@@ -51,6 +70,12 @@ Isso não impede a revisão, mas é um **gap de governança e rastreabilidade do
 - `pnpm release:bundle` passou em `2026-04-11`.
 - `scripts/release/preflight-env.ts` passou para staging e production em `2026-04-11`.
 - A revalidação de checksums mostrou falha real do manifesto para o próprio arquivo `checksums-manifest.sha256`.
+
+### Evidência real de ciclos anteriores imediatos
+
+- `audit/cycle4_execution_summary.md` fornece evidência de endurecimento real do frontend, mas também confirma que `web lint` ainda falha.
+- `audit/cycle5_execution_summary.md` fornece evidência real de governança de agentes, mas também conclui que 15/15 agentes permanecem `estrutural`.
+- `audit/cycle6_execution_summary.md` fornece evidência real de billing recorrente básico, mas classifica a prontidão comercial como `operacional limitada`.
 
 ### Evidência real, mas negativa
 

@@ -2,7 +2,7 @@
 
 ## Escopo e base efetiva
 
-Os arquivos mandatórios do prompt não existem com esses nomes no workspace:
+Os seguintes arquivos mandatórios do prompt não existem com esses nomes no workspace:
 
 - `audit/source_of_truth.md`
 - `audit/master_backlog_revalidated.md`
@@ -15,6 +15,22 @@ Os arquivos mandatórios do prompt não existem com esses nomes no workspace:
 - `audit/cycle5_execution_summary.md`
 - `audit/cycle6_execution_summary.md`
 
+Além disso, durante a execução apareceram evidências reais para parte dos ciclos finais:
+
+- `audit/cycle4_execution_summary.md`
+- `audit/cycle5_execution_summary.md`
+- `audit/cycle6_execution_summary.md`
+
+Ainda permanecem sem correspondente local rastreável:
+
+- `audit/source_of_truth.md`
+- `audit/master_backlog_revalidated.md`
+- `audit/readiness_matrix.md`
+- `audit/reconciliation_report.md`
+- `audit/phase1_execution_summary.md`
+- `audit/cycle2_execution_summary.md`
+- `audit/cycle3_execution_summary.md`
+
 Para não inventar uma base inexistente, esta revisão usou os equivalentes materiais encontrados no repositório:
 
 - `audit/README.md`
@@ -24,6 +40,9 @@ Para não inventar uma base inexistente, esta revisão usou os equivalentes mate
 - `audit/td-catalog-reconciliation.md`
 - `audit/final_governance_report.md`
 - `audit/final_validation_report.md`
+- `audit/cycle4_execution_summary.md`
+- `audit/cycle5_execution_summary.md`
+- `audit/cycle6_execution_summary.md`
 - `docs/release/release-process.md`
 - `docs/operational/runbooks/production-release-runbook.md`
 - `.github/workflows/cd.yml`
@@ -125,6 +144,28 @@ Implicação:
 
 Classificação: **falha de controle**
 
+### 6. Os ciclos anteriores reforçam que o produto ainda não fechou o endurecimento do core operacional
+
+Evidência:
+
+- `audit/cycle4_execution_summary.md` registra:
+  - `pnpm --filter @birthub/web lint` = FAIL
+  - web com grande volume remanescente de `@ts-nocheck`
+  - ausência de suíte E2E auth/tenant completa
+- `audit/cycle5_execution_summary.md` registra:
+  - 15/15 agentes executivos ainda classificados como `estrutural`
+  - 15/15 com `console.*`
+  - 14/15 `agent.ts` ainda com `@ts-nocheck`
+- `audit/cycle6_execution_summary.md` registra:
+  - prontidão comercial apenas `operacional limitada`
+  - ausência de base confiável para billing por uso
+
+Implicação:
+
+- Mesmo fora dos blockers centrais de pipeline, os ciclos recentes não descrevem um produto estabilizado; descrevem uma plataforma ainda em endurecimento.
+
+Classificação: **risco sistêmico adicional**
+
 ## Pontos positivos reais
 
 - `pnpm release:bundle` passou sob Node `24.14.0`.
@@ -134,6 +175,7 @@ Classificação: **falha de controle**
 - `pnpm workspace:audit` passou.
 - `pnpm monorepo:doctor` passou sem achados críticos.
 - SBOM foi regenerado com sucesso em CycloneDX e SPDX.
+- Os ciclos 4, 5 e 6 mostram progresso real em auth web, governança de agentes e billing, ainda que insuficiente para fechar prontidão total.
 
 ## Conclusão
 
