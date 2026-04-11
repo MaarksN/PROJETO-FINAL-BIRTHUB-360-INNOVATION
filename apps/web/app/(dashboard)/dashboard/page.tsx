@@ -259,95 +259,97 @@ export default async function DashboardHomePage() {
         </article>
       </section>
 
-      <section className="dashboard-grid dashboard-grid--primary">
-        <article className="panel">
-          <div className="dashboard-panel__header">
-            <div className="dashboard-panel__copy">
-              <h2>{copy.dashboardHome.clinicalHeading}</h2>
-              <p className="dashboard-muted">{copy.dashboardHome.clinicalDescription}</p>
+      {data.capabilities.clinicalWorkspaceEnabled && data.clinical ? (
+        <section className="dashboard-grid dashboard-grid--primary">
+          <article className="panel">
+            <div className="dashboard-panel__header">
+              <div className="dashboard-panel__copy">
+                <h2>{copy.dashboardHome.clinicalHeading}</h2>
+                <p className="dashboard-muted">{copy.dashboardHome.clinicalDescription}</p>
+              </div>
+              <Link href="/patients">{copy.dashboardHome.openClinicalModule}</Link>
             </div>
-            <Link href="/patients">{copy.dashboardHome.openClinicalModule}</Link>
-          </div>
 
-          <section className="stats-grid dashboard-stats-grid">
-            {data.clinical.metrics.map((item) => (
-              <article key={item.label}>
-                <span className="badge">{item.label}</span>
-                <strong>{formatNumber(locale, item.value)}</strong>
-                <p className="dashboard-muted dashboard-muted--compact">{item.delta}</p>
-              </article>
-            ))}
-          </section>
-
-          {data.clinical.spotlight.length === 0 ? (
-            <ProductEmptyState
-              description={copy.dashboardHome.noClinicalSpotlightDescription}
-              title={copy.dashboardHome.noClinicalSpotlightTitle}
-            />
-          ) : (
-            <div className="dashboard-card-list">
-              {data.clinical.spotlight.map((patient) => (
-                <article className="dashboard-record-card" key={patient.patientId}>
-                  <div className="dashboard-card__header">
-                    <strong>{patient.patientName}</strong>
-                    <span className="status-pill">
-                      {translateLabel(copy.dashboardHome.clinicalRiskLabels, patient.riskLevel)} ·{" "}
-                      {translateLabel(copy.dashboardHome.clinicalStatusLabels, patient.status)}
-                    </span>
-                  </div>
-                  <span className="dashboard-record-card__meta">
-                    {patient.gestationalAgeLabel ?? copy.dashboardHome.gestationalAgeUnknown} ·{" "}
-                    {patient.nextAppointmentAt
-                      ? `${copy.dashboardHome.returnPrefix} ${formatDateTime(
-                          locale,
-                          patient.nextAppointmentAt,
-                          {
-                            dateStyle: "medium",
-                            timeStyle: "short"
-                          }
-                        )}`
-                      : copy.dashboardHome.noReturnScheduled}
-                  </span>
-                  <span className="dashboard-record-card__meta">
-                    {patient.latestNoteTitle ?? copy.dashboardHome.noClinicalNote}
-                  </span>
-                  <div className="hero-actions">
-                    <Link href={`/patients/${patient.patientId}`}>{copy.dashboardHome.openPatient}</Link>
-                    <Link className="ghost-button" href="/appointments">
-                      {copy.dashboardHome.viewSchedule}
-                    </Link>
-                  </div>
+            <section className="stats-grid dashboard-stats-grid">
+              {data.clinical.metrics.map((item) => (
+                <article key={item.label}>
+                  <span className="badge">{item.label}</span>
+                  <strong>{formatNumber(locale, item.value)}</strong>
+                  <p className="dashboard-muted dashboard-muted--compact">{item.delta}</p>
                 </article>
               ))}
-            </div>
-          )}
-        </article>
+            </section>
 
-        <article className="panel">
-          <h2>{copy.dashboardHome.goLiveAlertsHeading}</h2>
-          {data.clinical.alerts.length === 0 ? (
-            <ProductEmptyState
-              description={copy.dashboardHome.noClinicalAlertsDescription}
-              title={copy.dashboardHome.noClinicalAlertsTitle}
-            />
-          ) : (
-            <div className="dashboard-card-list">
-              {data.clinical.alerts.map((alert) => (
-                <article className="dashboard-alert-card" key={alert.id}>
-                  <div className="dashboard-card__header">
-                    <strong>{alert.title}</strong>
-                    <span className={`status-pill status-${alert.severity === "high" ? "red" : alert.severity === "medium" ? "yellow" : "green"}`}>
-                      {translateLabel(copy.dashboardHome.alertSeverityLabels, alert.severity)}
+            {data.clinical.spotlight.length === 0 ? (
+              <ProductEmptyState
+                description={copy.dashboardHome.noClinicalSpotlightDescription}
+                title={copy.dashboardHome.noClinicalSpotlightTitle}
+              />
+            ) : (
+              <div className="dashboard-card-list">
+                {data.clinical.spotlight.map((patient) => (
+                  <article className="dashboard-record-card" key={patient.patientId}>
+                    <div className="dashboard-card__header">
+                      <strong>{patient.patientName}</strong>
+                      <span className="status-pill">
+                        {translateLabel(copy.dashboardHome.clinicalRiskLabels, patient.riskLevel)} ·{" "}
+                        {translateLabel(copy.dashboardHome.clinicalStatusLabels, patient.status)}
+                      </span>
+                    </div>
+                    <span className="dashboard-record-card__meta">
+                      {patient.gestationalAgeLabel ?? copy.dashboardHome.gestationalAgeUnknown} ·{" "}
+                      {patient.nextAppointmentAt
+                        ? `${copy.dashboardHome.returnPrefix} ${formatDateTime(
+                            locale,
+                            patient.nextAppointmentAt,
+                            {
+                              dateStyle: "medium",
+                              timeStyle: "short"
+                            }
+                          )}`
+                        : copy.dashboardHome.noReturnScheduled}
                     </span>
-                  </div>
-                  <p className="dashboard-muted dashboard-muted--compact">{alert.description}</p>
-                  <Link href={alert.href}>{copy.dashboardHome.openQueue}</Link>
-                </article>
-              ))}
-            </div>
-          )}
-        </article>
-      </section>
+                    <span className="dashboard-record-card__meta">
+                      {patient.latestNoteTitle ?? copy.dashboardHome.noClinicalNote}
+                    </span>
+                    <div className="hero-actions">
+                      <Link href={`/patients/${patient.patientId}`}>{copy.dashboardHome.openPatient}</Link>
+                      <Link className="ghost-button" href="/appointments">
+                        {copy.dashboardHome.viewSchedule}
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </article>
+
+          <article className="panel">
+            <h2>{copy.dashboardHome.goLiveAlertsHeading}</h2>
+            {data.clinical.alerts.length === 0 ? (
+              <ProductEmptyState
+                description={copy.dashboardHome.noClinicalAlertsDescription}
+                title={copy.dashboardHome.noClinicalAlertsTitle}
+              />
+            ) : (
+              <div className="dashboard-card-list">
+                {data.clinical.alerts.map((alert) => (
+                  <article className="dashboard-alert-card" key={alert.id}>
+                    <div className="dashboard-card__header">
+                      <strong>{alert.title}</strong>
+                      <span className={`status-pill status-${alert.severity === "high" ? "red" : alert.severity === "medium" ? "yellow" : "green"}`}>
+                        {translateLabel(copy.dashboardHome.alertSeverityLabels, alert.severity)}
+                      </span>
+                    </div>
+                    <p className="dashboard-muted dashboard-muted--compact">{alert.description}</p>
+                    <Link href={alert.href}>{copy.dashboardHome.openQueue}</Link>
+                  </article>
+                ))}
+              </div>
+            )}
+          </article>
+        </section>
+      ) : null}
 
       <section className="dashboard-grid dashboard-grid--secondary">
         <article className="panel">
