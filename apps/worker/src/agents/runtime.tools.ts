@@ -16,6 +16,8 @@ import { createLogger } from "@birthub/logger";
 import { z } from "zod";
 
 import { buildToolCostTable } from "./runtime.budget.js";
+import { getRuntimeManifestCatalog } from "./runtime.catalog.js";
+import { AGENT_MESH_ORCHESTRATOR_ID, buildAgentMeshExecutionBlueprint } from "./runtime.mesh.js";
 
 const logger = createLogger("agent-runtime");
 const TENANT_SCOPE_COMMENT_PREFIX = "-- tenant_scope:";
@@ -49,6 +51,11 @@ function readCollaborationTargets(input: Record<string, unknown>): string[] {
   }
 
   return input.collaborationTargets.filter((item): item is string => typeof item === "string").slice(0, 4);
+}
+
+function isAgentMeshContext(agentId: string, capabilityId: string, capabilityName: string): boolean {
+  const corpus = `${agentId} ${capabilityId} ${capabilityName}`.toLowerCase();
+  return corpus.includes(AGENT_MESH_ORCHESTRATOR_ID) || corpus.includes("segment router") || corpus.includes("agent registry");
 }
 
 export function buildDbReadQueryTemplate(
@@ -184,7 +191,7 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
           ? "medium"
           : "low";
 
-    return Promise.resolve({
+    const buildDefaultResult = () => ({
       agentId: context.agentId,
       capability: this.capability.name,
       capabilityId: this.capability.id,
@@ -200,6 +207,39 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
       summary: `${this.capability.name} executada com ${numericSummary.count} sinal(is) numerico(s), ${flattenedStrings.length} evidencia(s) textual(is) e adaptacao para ${segmentProfile.industry}/${segmentProfile.clientSegment}.`,
       tenantId: context.tenantId,
       traceId: context.traceId
+    });
+
+    if (!isAgentMeshContext(context.agentId, this.capability.id, this.capability.name)) {
+      return Promise.resolve(buildDefaultResult());
+    }
+
+    return getRuntimeManifestCatalog().then((catalog) => {
+      const blueprint = buildAgentMeshExecutionBlueprint({
+        catalog,
+        objective:
+          (typeof input.objective === "string" && input.objective) ||
+          (typeof input.toolIntent === "string" && input.toolIntent) ||
+          "orquestrar especialistas",
+        segmentProfile,
+        textSignals: flattenedStrings
+      });
+      const lowerName = this.capability.name.toLowerCase();
+
+      return {
+        ...buildDefaultResult(),
+        approvalRecommendation: blueprint.approvalRecommendation,
+        focusDomains: blueprint.focusDomains,
+        handoffPackages:
+          lowerName.includes("handoff") ? blueprint.handoffPackages : blueprint.handoffPackages.slice(0, 1),
+        specialistLineup:
+          lowerName.includes("registry") || lowerName.includes("router") || lowerName.includes("planner")
+            ? blueprint.specialistLineup
+            : blueprint.specialistLineup.slice(0, 3),
+        workflowPlan:
+          lowerName.includes("planner") || lowerName.includes("router")
+            ? blueprint.workflowPlan
+            : blueprint.workflowPlan.slice(0, 2)
+      };
     });
   }
 }
