@@ -38,10 +38,9 @@ function installSessionDom() {
   const dom = new JSDOM("", {
     url: "https://app.birthub.test/settings/privacy"
   });
-  dom.window.localStorage.setItem("bh_access_token", "atk_privacy");
-  dom.window.localStorage.setItem("bh_csrf_token", "csrf_privacy");
-  dom.window.localStorage.setItem("bh_tenant_id", "tenant_privacy");
-  dom.window.localStorage.setItem("bh_user_id", "user_privacy");
+  dom.window.document.cookie = "bh360_csrf=csrf_privacy";
+  dom.window.document.cookie = "bh_active_tenant=tenant_privacy";
+  dom.window.document.cookie = "bh_user_id=user_privacy";
 
   Object.defineProperty(globalThis, "window", { configurable: true, value: dom.window });
   Object.defineProperty(globalThis, "document", { configurable: true, value: dom.window.document });
@@ -59,6 +58,18 @@ function installSessionDom() {
     });
     dom.window.close();
   };
+}
+
+function getRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
 }
 
 function createJsonResponse(payload: unknown, status = 200): Response {
@@ -88,7 +99,7 @@ test("privacy page helpers load privacy state through the session-aware client",
 
   const requests: Array<{ headers: Headers; method: string; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = getRequestUrl(input);
     requests.push({
       headers: new Headers(init?.headers),
       method: init?.method ?? "GET",
@@ -157,8 +168,9 @@ test("privacy page helpers load privacy state through the session-aware client",
     assert.equal(state.consentHistory.length, 1);
     assert.equal(state.retentionAccessDenied, true);
     assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/privacy/consents");
-    assert.equal(requests[0]?.headers.get("authorization"), "Bearer atk_privacy");
+    assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_privacy");
+    assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_privacy");
   } finally {
     globalThis.fetch = originalFetch;
     cleanupDom();
@@ -178,7 +190,7 @@ test("privacy page helpers persist consent, retention, export and deletion reque
 
   const calls: Array<{ body: string | null; method: string; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = getRequestUrl(input);
     calls.push({
       body: typeof init?.body === "string" ? init.body : null,
       method: init?.method ?? "GET",

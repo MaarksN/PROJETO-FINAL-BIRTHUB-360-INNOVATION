@@ -14,6 +14,18 @@ function restoreEnvValue(key: string, value: string | undefined) {
   process.env[key] = value;
 }
 
+function getRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
+}
+
 void test("auth client resolves relative API paths from centralized web config", () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
@@ -60,7 +72,7 @@ void test("fetchWithSession forwards CSRF and active tenant headers through the 
   let requestUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    requestUrl = input instanceof URL ? input.toString() : (input as string);
+    requestUrl = getRequestUrl(input);
     requestInit = init;
     return Promise.resolve(
       new Response(JSON.stringify({ ok: true }), {
@@ -105,7 +117,7 @@ void test("fetchWithSession preserves internal web BFF routes", async () => {
 
   let requestUrl = "";
   globalThis.fetch = ((input: RequestInfo | URL) => {
-    requestUrl = input instanceof URL ? input.toString() : String(input);
+    requestUrl = getRequestUrl(input);
     return Promise.resolve(new Response(JSON.stringify({ ok: true }), { status: 200 }));
   }) as typeof fetch;
 

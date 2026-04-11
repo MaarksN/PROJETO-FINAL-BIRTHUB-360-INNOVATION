@@ -3,17 +3,28 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import {
-  ConsentPurpose,
-  ConsentSource,
-  ConsentStatus,
-  prisma
-} from "@birthub/database";
+import { prisma } from "@birthub/database";
 
 import {
   ensurePrivacyConsents,
   savePrivacyConsentDecisions
 } from "../src/modules/privacy/consent.service.js";
+
+const CONSENT_PURPOSE = {
+  ANALYTICS: "ANALYTICS",
+  HEALTH_DATA_SHARING: "HEALTH_DATA_SHARING",
+  MARKETING: "MARKETING"
+} as const;
+
+const CONSENT_SOURCE = {
+  SETTINGS: "SETTINGS"
+} as const;
+
+const CONSENT_STATUS = {
+  GRANTED: "GRANTED",
+  PENDING: "PENDING",
+  REVOKED: "REVOKED"
+} as const;
 
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];
@@ -25,7 +36,7 @@ function stubMethod(target: Record<string, unknown>, key: string, value: unknown
 
 type PrivacyConsentUpsertCall = Record<string, unknown> & {
   create?: {
-    purpose?: ConsentPurpose;
+    purpose?: string;
   };
 };
 
@@ -35,17 +46,18 @@ void test("ensurePrivacyConsents initializes the canonical consent purposes", as
     tenantId: "tenant_alpha"
   };
   const upsertCalls: PrivacyConsentUpsertCall[] = [];
+  const originalPrivacyConsentModel = Reflect.get(prisma, "privacyConsent");
+
+  Reflect.set(prisma, "privacyConsent", {
+    upsert: (args: PrivacyConsentUpsertCall) => {
+      upsertCalls.push(args);
+      return Promise.resolve({});
+    }
+  });
+
   const restores = [
     stubMethod(prisma.organization as unknown as Record<string, unknown>, "findFirst", () =>
       Promise.resolve(organization)
-    ),
-    stubMethod(
-      prisma.privacyConsent as unknown as Record<string, unknown>,
-      "upsert",
-      (args: PrivacyConsentUpsertCall) => {
-      upsertCalls.push(args);
-      return Promise.resolve({});
-      }
     ),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (input: unknown) =>
       Array.isArray(input) ? Promise.all(input) : Promise.resolve(input)
@@ -63,13 +75,14 @@ void test("ensurePrivacyConsents initializes the canonical consent purposes", as
     assert.deepEqual(
       upsertCalls.map((call) => call.create?.purpose),
       [
-        ConsentPurpose.ANALYTICS,
-        ConsentPurpose.MARKETING,
-        ConsentPurpose.HEALTH_DATA_SHARING
+        CONSENT_PURPOSE.ANALYTICS,
+        CONSENT_PURPOSE.MARKETING,
+        CONSENT_PURPOSE.HEALTH_DATA_SHARING
       ]
     );
   } finally {
     restores.reverse().forEach((restore) => restore());
+    Reflect.set(prisma, "privacyConsent", originalPrivacyConsentModel);
   }
 });
 
@@ -79,6 +92,12 @@ void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD
     tenantId: "tenant_alpha"
   };
   const consentSnapshotCalls: Array<Record<string, unknown>> = [];
+  const originalPrivacyConsentModel = Reflect.get(prisma, "privacyConsent");
+
+  Reflect.set(prisma, "privacyConsent", {
+    upsert: () => Promise.resolve({})
+  });
+
   const transactionClient = {
     auditLog: {
       create: () => Promise.resolve({})
@@ -88,16 +107,16 @@ void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD
         consentSnapshotCalls.push(args);
         return Promise.resolve([
           {
-            purpose: ConsentPurpose.ANALYTICS,
-            status: ConsentStatus.GRANTED
+            purpose: CONSENT_PURPOSE.ANALYTICS,
+            status: CONSENT_STATUS.GRANTED
           },
           {
-            purpose: ConsentPurpose.MARKETING,
-            status: ConsentStatus.PENDING
+            purpose: CONSENT_PURPOSE.MARKETING,
+            status: CONSENT_STATUS.PENDING
           },
           {
-            purpose: ConsentPurpose.HEALTH_DATA_SHARING,
-            status: ConsentStatus.PENDING
+            purpose: CONSENT_PURPOSE.HEALTH_DATA_SHARING,
+            status: CONSENT_STATUS.PENDING
           }
         ]);
       },
@@ -105,15 +124,15 @@ void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD
         Promise.resolve({
           grantedAt: null,
           id: "consent_analytics",
-          source: ConsentSource.SETTINGS,
-          status: ConsentStatus.PENDING
+          source: CONSENT_SOURCE.SETTINGS,
+          status: CONSENT_STATUS.PENDING
         }),
       update: () =>
         Promise.resolve({
           id: "consent_analytics",
-          purpose: ConsentPurpose.ANALYTICS,
-          source: ConsentSource.SETTINGS,
-          status: ConsentStatus.GRANTED
+          purpose: CONSENT_PURPOSE.ANALYTICS,
+          source: CONSENT_SOURCE.SETTINGS,
+          status: CONSENT_STATUS.GRANTED
         })
     },
     privacyConsentEvent: {
@@ -128,9 +147,6 @@ void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD
     stubMethod(prisma.organization as unknown as Record<string, unknown>, "findFirst", () =>
       Promise.resolve(organization)
     ),
-    stubMethod(prisma.privacyConsent as unknown as Record<string, unknown>, "upsert", () =>
-      Promise.resolve({})
-    ),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (input: unknown) => {
       if (typeof input === "function") {
         return input(transactionClient);
@@ -144,9 +160,9 @@ void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD
     const result = await savePrivacyConsentDecisions({
       decisions: [
         {
-          purpose: ConsentPurpose.ANALYTICS,
-          source: ConsentSource.SETTINGS,
-          status: ConsentStatus.GRANTED
+          purpose: CONSENT_PURPOSE.ANALYTICS,
+          source: CONSENT_SOURCE.SETTINGS,
+          status: CONSENT_STATUS.GRANTED
         }
       ],
       organizationReference: organization.id,
@@ -161,5 +177,6 @@ void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD
     });
   } finally {
     restores.reverse().forEach((restore) => restore());
+    Reflect.set(prisma, "privacyConsent", originalPrivacyConsentModel);
   }
 });

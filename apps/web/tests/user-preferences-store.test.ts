@@ -32,7 +32,6 @@ function resetUserPreferencesStore() {
 }
 
 function installDomSession(session: {
-  accessToken?: string;
   csrfToken?: string;
   tenantId?: string;
   userId?: string;
@@ -45,20 +44,16 @@ function installDomSession(session: {
     url: "https://app.birthub.test/dashboard/profile/notifications"
   });
 
-  if (session.accessToken) {
-    dom.window.localStorage.setItem("bh_access_token", session.accessToken);
-  }
-
   if (session.csrfToken) {
-    dom.window.localStorage.setItem("bh_csrf_token", session.csrfToken);
+    dom.window.document.cookie = `bh360_csrf=${session.csrfToken}`;
   }
 
   if (session.tenantId) {
-    dom.window.localStorage.setItem("bh_tenant_id", session.tenantId);
+    dom.window.document.cookie = `bh_active_tenant=${session.tenantId}`;
   }
 
   if (session.userId) {
-    dom.window.localStorage.setItem("bh_user_id", session.userId);
+    dom.window.document.cookie = `bh_user_id=${session.userId}`;
   }
 
   Object.defineProperty(globalThis, "window", { configurable: true, value: dom.window });
@@ -79,6 +74,18 @@ function installDomSession(session: {
   };
 }
 
+function getRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
+}
+
 function createJsonResponse(payload: unknown, status = 200): Response {
   return new Response(JSON.stringify(payload), {
     headers: {
@@ -93,7 +100,6 @@ test("user preferences hydrate loads locale from the API and syncs the SSR cooki
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
   const cleanupDom = installDomSession({
-    accessToken: "atk_preferences",
     csrfToken: "csrf_preferences",
     tenantId: "tenant_preferences",
     userId: "user_preferences"
@@ -105,7 +111,7 @@ test("user preferences hydrate loads locale from the API and syncs the SSR cooki
 
   const requests: Array<{ headers: Headers; method: string; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = getRequestUrl(input);
     const headers = new Headers(init?.headers);
     requests.push({
       headers,
@@ -140,8 +146,9 @@ test("user preferences hydrate loads locale from the API and syncs the SSR cooki
     assert.match(document.cookie, /bh360_locale=en-US/);
     assert.equal(requests[0]?.method, "GET");
     assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/notifications/preferences");
-    assert.equal(requests[0]?.headers.get("authorization"), "Bearer atk_preferences");
+    assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_preferences");
+    assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_preferences");
   } finally {
     globalThis.fetch = originalFetch;
     cleanupDom();
@@ -156,7 +163,6 @@ test("user preferences update persists locale changes and returns the normalized
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
   const cleanupDom = installDomSession({
-    accessToken: "atk_preferences",
     csrfToken: "csrf_preferences",
     tenantId: "tenant_preferences",
     userId: "user_preferences"
@@ -168,7 +174,7 @@ test("user preferences update persists locale changes and returns the normalized
 
   let requestBody = "";
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = getRequestUrl(input);
 
     if (url.endsWith("/api/v1/notifications/preferences")) {
       requestBody = String(init?.body ?? "");

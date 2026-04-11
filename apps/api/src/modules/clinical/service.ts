@@ -2,20 +2,12 @@
 import { randomUUID } from "node:crypto";
 
 import {
-  AppointmentStatus,
-  AppointmentType,
-  ClinicalNoteKind,
-  NeonatalOutcome,
-  NeonatalSex,
-  PatientStatus,
-  PregnancyOutcome,
-  PregnancyRiskLevel,
-  PregnancyStatus,
   Prisma,
   prisma,
   withTenantDatabaseContext
 } from "@birthub/database";
 
+import { assertPrismaModelsAvailable } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 
 type ClinicalContext = {
@@ -31,6 +23,58 @@ const CLINICAL_NOTE_HISTORY_PAGE_LIMIT = 100;
 const CLINICAL_RECORD_PAGE_LIMIT = 100;
 const CLINICAL_NOTE_LIST_PAGE_LIMIT = 50;
 const CLINICAL_PATIENT_LIST_PAGE_LIMIT = 100;
+const CLINICAL_RUNTIME_MODELS = [
+  "appointment",
+  "clinicalNote",
+  "neonatalRecord",
+  "patient",
+  "pregnancyRecord"
+] as const;
+
+const PREGNANCY_RISK_LEVEL = {
+  HIGH: "HIGH"
+} as const;
+
+const PREGNANCY_STATUS = {
+  ACTIVE: "ACTIVE",
+  CLOSED: "CLOSED",
+  DELIVERED: "DELIVERED"
+} as const;
+
+const PATIENT_STATUS = {
+  ACTIVE: "ACTIVE",
+  ARCHIVED: "ARCHIVED"
+} as const;
+
+const APPOINTMENT_STATUS = {
+  CANCELLED: "CANCELLED",
+  CHECKED_IN: "CHECKED_IN",
+  COMPLETED: "COMPLETED",
+  NO_SHOW: "NO_SHOW",
+  SCHEDULED: "SCHEDULED"
+} as const;
+
+const APPOINTMENT_TYPE = {
+  PRENATAL: "PRENATAL"
+} as const;
+
+const NEONATAL_OUTCOME = {
+  ALIVE: "ALIVE",
+  STILLBIRTH: "STILLBIRTH"
+} as const;
+
+const PREGNANCY_OUTCOME = {
+  LIVE_BIRTH: "LIVE_BIRTH",
+  STILLBIRTH: "STILLBIRTH"
+} as const;
+
+const CLINICAL_NOTE_KIND = {
+  SOAP: "SOAP"
+} as const;
+
+function ensureClinicalRuntimeAvailable(): void {
+  assertPrismaModelsAvailable(prisma, CLINICAL_RUNTIME_MODELS, "the clinical module");
+}
 
 type PatientRecord = {
   allergies: string[];
@@ -462,7 +506,7 @@ function createClinicalAlert(alert: ClinicalAlert): ClinicalAlert {
 }
 
 function deriveRiskAlerts(activePregnancy: PregnancyRecordModel | null): ClinicalAlert[] {
-  if (activePregnancy?.riskLevel !== PregnancyRiskLevel.HIGH) {
+  if (activePregnancy?.riskLevel !== PREGNANCY_RISK_LEVEL.HIGH) {
     return [];
   }
 
@@ -696,7 +740,7 @@ function buildPatientWhere(input: {
             some: {
               deletedAt: null,
               riskLevel: input.riskLevel,
-              status: PregnancyStatus.ACTIVE
+              status: PREGNANCY_STATUS.ACTIVE
             }
           }
         }
@@ -1108,7 +1152,7 @@ async function findActivePregnancy(
       deletedAt: null,
       organizationId: context.organizationId,
       patientId,
-      status: PregnancyStatus.ACTIVE,
+      status: PREGNANCY_STATUS.ACTIVE,
       tenantId: context.tenantId
     }
   });
@@ -1180,7 +1224,7 @@ async function getPatientDetailInternal(
 
   const neonatalRecords = await listNeonatalRecords(tx, context, patientId);
 
-  const activePregnancy = pregnancyRecords.find((item) => item.status === PregnancyStatus.ACTIVE) ?? null;
+  const activePregnancy = pregnancyRecords.find((item) => item.status === PREGNANCY_STATUS.ACTIVE) ?? null;
   const latestAppointment = appointments[0] ?? null;
   const nextAppointment = findNextAppointment(appointments);
   const latestClinicalNote = clinicalNotes[0] ?? null;
@@ -1243,6 +1287,8 @@ export const clinicalService = {
       status?: PatientStatus;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     const patientId = await withTenantDatabaseContext(async (tx) => {
       const patient = await tx.patient.create({
         data: {
@@ -1258,7 +1304,7 @@ export const clinicalService = {
           organizationId: context.organizationId,
           phone: normalizeOptionalString(payload.phone),
           preferredName: normalizeOptionalString(payload.preferredName),
-          status: payload.status ?? PatientStatus.ACTIVE,
+          status: payload.status ?? PATIENT_STATUS.ACTIVE,
           tenantId: context.tenantId
         },
         select: {
@@ -1292,6 +1338,8 @@ export const clinicalService = {
       status?: PatientStatus;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const patientPageLimit = resolvePageLimit(
         filters.limit,
@@ -1347,7 +1395,7 @@ export const clinicalService = {
       return {
         items: patients.map((patient) => {
           const activePregnancy =
-            patient.pregnancyRecords.find((record) => record.status === PregnancyStatus.ACTIVE) ?? null;
+            patient.pregnancyRecords.find((record) => record.status === PREGNANCY_STATUS.ACTIVE) ?? null;
           const nextAppointment = findNextAppointment(patient.appointments);
           const latestAppointment = patient.appointments[0] ?? null;
           const latestClinicalNote = patient.clinicalNotes[0] ?? null;
@@ -1371,6 +1419,8 @@ export const clinicalService = {
   },
 
   async getPatientDetail(context: ClinicalContext, patientId: string) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(
       async (tx) => getPatientDetailInternal(tx, context, patientId),
       prisma
@@ -1395,6 +1445,8 @@ export const clinicalService = {
       status?: PatientStatus;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     await withTenantDatabaseContext(async (tx) => {
       assertFound(
         await tx.patient.findFirst({
@@ -1449,6 +1501,8 @@ export const clinicalService = {
   },
 
   async deletePatient(context: ClinicalContext, patientId: string) {
+    ensureClinicalRuntimeAvailable();
+
     const deletedAt = new Date();
 
     return withTenantDatabaseContext(async (tx) => {
@@ -1471,7 +1525,7 @@ export const clinicalService = {
         tx.patient.updateMany({
           data: {
             deletedAt,
-            status: PatientStatus.ARCHIVED
+            status: PATIENT_STATUS.ARCHIVED
           },
           where: {
             deletedAt: null,
@@ -1483,7 +1537,7 @@ export const clinicalService = {
         tx.pregnancyRecord.updateMany({
           data: {
             deletedAt,
-            status: PregnancyStatus.CLOSED
+            status: PREGNANCY_STATUS.CLOSED
           },
           where: {
             deletedAt: null,
@@ -1495,7 +1549,7 @@ export const clinicalService = {
         tx.appointment.updateMany({
           data: {
             deletedAt,
-            status: AppointmentStatus.CANCELLED
+            status: APPOINTMENT_STATUS.CANCELLED
           },
           where: {
             deletedAt: null,
@@ -1559,6 +1613,8 @@ export const clinicalService = {
       recordId?: string;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     await withTenantDatabaseContext(async (tx) => {
       assertFound(
         await tx.patient.findFirst({
@@ -1592,10 +1648,10 @@ export const clinicalService = {
           "Pregnancy record was not found."
         );
 
-        if (input.payload.status === PregnancyStatus.ACTIVE) {
+        if (input.payload.status === PREGNANCY_STATUS.ACTIVE) {
           await tx.pregnancyRecord.updateMany({
             data: {
-              status: PregnancyStatus.CLOSED
+              status: PREGNANCY_STATUS.CLOSED
             },
             where: {
               deletedAt: null,
@@ -1604,7 +1660,7 @@ export const clinicalService = {
               },
               organizationId: context.organizationId,
               patientId: input.patientId,
-              status: PregnancyStatus.ACTIVE,
+              status: PREGNANCY_STATUS.ACTIVE,
               tenantId: context.tenantId
             }
           });
@@ -1621,16 +1677,16 @@ export const clinicalService = {
           }
         });
       } else {
-        if ((input.payload.status ?? PregnancyStatus.ACTIVE) === PregnancyStatus.ACTIVE) {
+        if ((input.payload.status ?? PREGNANCY_STATUS.ACTIVE) === PREGNANCY_STATUS.ACTIVE) {
           await tx.pregnancyRecord.updateMany({
             data: {
-              status: PregnancyStatus.CLOSED
+              status: PREGNANCY_STATUS.CLOSED
             },
             where: {
               deletedAt: null,
               organizationId: context.organizationId,
               patientId: input.patientId,
-              status: PregnancyStatus.ACTIVE,
+              status: PREGNANCY_STATUS.ACTIVE,
               tenantId: context.tenantId
             }
           });
@@ -1641,7 +1697,7 @@ export const clinicalService = {
             ...buildPregnancyMutation(input.payload),
             organizationId: context.organizationId,
             patientId: input.patientId,
-            status: input.payload.status ?? PregnancyStatus.ACTIVE,
+            status: input.payload.status ?? PREGNANCY_STATUS.ACTIVE,
             tenantId: context.tenantId
           }
         });
@@ -1671,6 +1727,8 @@ export const clinicalService = {
       recordId?: string;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     await withTenantDatabaseContext(async (tx) => {
       assertFound(
         await tx.patient.findFirst({
@@ -1753,11 +1811,11 @@ export const clinicalService = {
         await tx.pregnancyRecord.updateMany({
           data: {
             outcome:
-              (input.payload.outcome ?? NeonatalOutcome.ALIVE) === NeonatalOutcome.STILLBIRTH
-                ? PregnancyOutcome.STILLBIRTH
-                : PregnancyOutcome.LIVE_BIRTH,
+              (input.payload.outcome ?? NEONATAL_OUTCOME.ALIVE) === NEONATAL_OUTCOME.STILLBIRTH
+                ? PREGNANCY_OUTCOME.STILLBIRTH
+                : PREGNANCY_OUTCOME.LIVE_BIRTH,
             outcomeDate: parseRequiredDate(input.payload.bornAt, "bornAt"),
-            status: PregnancyStatus.DELIVERED
+            status: PREGNANCY_STATUS.DELIVERED
           },
           where: {
             deletedAt: null,
@@ -1782,6 +1840,8 @@ export const clinicalService = {
       view: DateWindowView;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const window = buildDateWindow(filters.anchorDate, filters.view);
       const appointmentFilters: {
@@ -1802,13 +1862,13 @@ export const clinicalService = {
       const summary = items.reduce(
         (accumulator, item) => {
           accumulator.total += 1;
-          if (item.status === AppointmentStatus.SCHEDULED || item.status === AppointmentStatus.CHECKED_IN) {
+          if (item.status === APPOINTMENT_STATUS.SCHEDULED || item.status === APPOINTMENT_STATUS.CHECKED_IN) {
             accumulator.scheduled += 1;
           }
-          if (item.status === AppointmentStatus.COMPLETED) {
+          if (item.status === APPOINTMENT_STATUS.COMPLETED) {
             accumulator.completed += 1;
           }
-          if (item.status === AppointmentStatus.CANCELLED || item.status === AppointmentStatus.NO_SHOW) {
+          if (item.status === APPOINTMENT_STATUS.CANCELLED || item.status === APPOINTMENT_STATUS.NO_SHOW) {
             accumulator.cancelled += 1;
           }
           return accumulator;
@@ -1836,6 +1896,8 @@ export const clinicalService = {
   },
 
   async getAppointment(context: ClinicalContext, appointmentId: string) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const appointment = assertFound(
         await tx.appointment.findFirst({
@@ -1878,6 +1940,8 @@ export const clinicalService = {
       weightKg?: number;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     const appointmentId = await withTenantDatabaseContext(async (tx) => {
       assertFound(
         await tx.patient.findFirst({
@@ -1919,10 +1983,10 @@ export const clinicalService = {
           pregnancyRecordId: normalizeOptionalString(payload.pregnancyRecordId) ?? activePregnancy?.id ?? null,
           providerName: normalizeOptionalString(payload.providerName),
           scheduledAt: parseRequiredDate(payload.scheduledAt, "scheduledAt"),
-          status: payload.status ?? AppointmentStatus.SCHEDULED,
+          status: payload.status ?? APPOINTMENT_STATUS.SCHEDULED,
           summary: normalizeOptionalString(payload.summary),
           tenantId: context.tenantId,
-          type: payload.type ?? AppointmentType.PRENATAL
+          type: payload.type ?? APPOINTMENT_TYPE.PRENATAL
         },
         select: {
           id: true
@@ -1957,6 +2021,8 @@ export const clinicalService = {
       weightKg?: number;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     await withTenantDatabaseContext(async (tx) => {
       assertFound(
         await tx.appointment.findFirst({
@@ -2017,6 +2083,8 @@ export const clinicalService = {
   },
 
   async deleteAppointment(context: ClinicalContext, appointmentId: string) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       assertFound(
         await tx.appointment.findFirst({
@@ -2036,7 +2104,7 @@ export const clinicalService = {
       await tx.appointment.updateMany({
         data: {
           deletedAt: new Date(),
-          status: AppointmentStatus.CANCELLED
+          status: APPOINTMENT_STATUS.CANCELLED
         },
         where: {
           deletedAt: null,
@@ -2061,6 +2129,8 @@ export const clinicalService = {
       patientId?: string;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const notePageLimit = resolvePageLimit(filters.limit, CLINICAL_NOTE_LIST_PAGE_LIMIT);
       const items = await tx.clinicalNote.findMany({
@@ -2085,6 +2155,8 @@ export const clinicalService = {
   },
 
   async getClinicalNoteHistory(context: ClinicalContext, noteGroupId: string) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const items = await listClinicalNoteHistoryRecords(tx, context, noteGroupId);
 
@@ -2117,6 +2189,8 @@ export const clinicalService = {
       title?: string | null;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     const noteGroupId = randomUUID();
 
     return withTenantDatabaseContext(async (tx) => {
@@ -2164,7 +2238,7 @@ export const clinicalService = {
           authoredByUserId: context.userId ?? null,
           ...(content !== undefined ? { content } : {}),
           isLatest: true,
-          kind: payload.kind ?? ClinicalNoteKind.SOAP,
+          kind: payload.kind ?? CLINICAL_NOTE_KIND.SOAP,
           noteGroupId,
           objective: normalizeOptionalString(payload.objective),
           organizationId: context.organizationId,
@@ -2207,6 +2281,8 @@ export const clinicalService = {
       title?: string | null;
     }
   ) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const current = assertFound(
         await tx.clinicalNote.findFirst({
@@ -2304,6 +2380,8 @@ export const clinicalService = {
   },
 
   async deleteClinicalNote(context: ClinicalContext, noteGroupId: string) {
+    ensureClinicalRuntimeAvailable();
+
     return withTenantDatabaseContext(async (tx) => {
       const existing = await tx.clinicalNote.findFirst({
         select: {

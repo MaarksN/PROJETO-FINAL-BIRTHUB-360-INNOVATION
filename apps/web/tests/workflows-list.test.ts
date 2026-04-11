@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -22,6 +21,18 @@ function restoreWindow(hadWindow: boolean, value: unknown) {
   Reflect.deleteProperty(globalThis, "window");
 }
 
+function getRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
+}
+
 void test("workflow list helper loads canonical inventory endpoint", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
@@ -35,7 +46,7 @@ void test("workflow list helper loads canonical inventory endpoint", async () =>
 
   const calls: Array<{ init?: RequestInit; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = getRequestUrl(input);
     calls.push({
       ...(init ? { init } : {}),
       url

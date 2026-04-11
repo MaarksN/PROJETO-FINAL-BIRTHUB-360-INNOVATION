@@ -35,8 +35,9 @@ function installSessionDom() {
   const dom = new JSDOM("", {
     url: "https://app.birthub.test/settings/developers/webhooks"
   });
-  dom.window.localStorage.setItem("bh_access_token", "atk_webhooks");
-  dom.window.localStorage.setItem("bh_csrf_token", "csrf_webhooks");
+  dom.window.document.cookie = "bh360_csrf=csrf_webhooks";
+  dom.window.document.cookie = "bh_active_tenant=tenant_webhooks";
+  dom.window.document.cookie = "bh_user_id=user_webhooks";
 
   Object.defineProperty(globalThis, "window", { configurable: true, value: dom.window });
   Object.defineProperty(globalThis, "document", { configurable: true, value: dom.window.document });
@@ -54,6 +55,18 @@ function installSessionDom() {
     });
     dom.window.close();
   };
+}
+
+function getRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
 }
 
 function createJsonResponse(payload: unknown, status = 200): Response {
@@ -108,7 +121,7 @@ test("webhook page data helpers use the session-aware API client for CRUD and re
 
   const requests: Array<{ body: string | null; headers: Headers; method: string; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = getRequestUrl(input);
     requests.push({
       body: typeof init?.body === "string" ? init.body : null,
       headers: new Headers(init?.headers),
@@ -199,8 +212,9 @@ test("webhook page data helpers use the session-aware API client for CRUD and re
     assert.equal(created.id, "endpoint_created");
     assert.equal(updated.status, "DISABLED");
     assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/settings/webhooks");
-    assert.equal(requests[0]?.headers.get("authorization"), "Bearer atk_webhooks");
+    assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_webhooks");
+    assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_webhooks");
     assert.equal(requests[2]?.method, "POST");
     assert.match(requests[2]?.body ?? "", /https:\/\/created\.example\.com/);
     assert.equal(requests[3]?.method, "PATCH");

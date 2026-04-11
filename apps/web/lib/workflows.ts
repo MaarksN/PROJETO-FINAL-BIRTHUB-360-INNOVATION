@@ -1,12 +1,34 @@
-// @ts-nocheck
-// 
 import { getWebConfig } from "@birthub/config";
-import { cookies } from "next/headers";
 import type { WorkflowCanvas } from "@birthub/workflows-core";
+import { cookies } from "next/headers";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
 
 type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
+
+export interface WorkflowListItem {
+  _count: {
+    executions: number;
+    steps: number;
+  };
+  createdAt: string;
+  description: string | null;
+  id: string;
+  name: string;
+  status: WorkflowStatus;
+  stepLint?: {
+    findings: unknown[];
+    score: number;
+    summary: {
+      critical: number;
+      info: number;
+      warning: number;
+    };
+  } | null;
+  triggerType: string;
+  updatedAt: string;
+  version: number;
+}
 
 export interface WorkflowExecutionSnapshot {
   completedAt: string | null;
@@ -79,7 +101,16 @@ async function fetchJson<T>(path: string): Promise<T> {
   return (await response.json()) as T;
 }
 
-async function getWorkflowById(id: string): Promise<WorkflowDetail | null> {
+export async function listWorkflows(): Promise<WorkflowListItem[]> {
+  const payload = await fetchJson<{
+    items?: WorkflowListItem[];
+    requestId?: string;
+  }>("/api/v1/workflows");
+
+  return payload.items ?? [];
+}
+
+export async function getWorkflowById(id: string): Promise<WorkflowDetail | null> {
   try {
     const payload = await fetchJson<{
       requestId: string;

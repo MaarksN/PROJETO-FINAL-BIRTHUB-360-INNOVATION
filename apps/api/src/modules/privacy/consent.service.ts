@@ -40,6 +40,20 @@ type ConsentStatus = (typeof CONSENT_STATUS)[keyof typeof CONSENT_STATUS];
 type CookieConsentStatus = (typeof COOKIE_CONSENT_STATUS)[keyof typeof COOKIE_CONSENT_STATUS];
 type LawfulBasis = (typeof LAWFUL_BASIS)[keyof typeof LAWFUL_BASIS];
 
+function readPrivacyModel(name: "privacyConsent" | "privacyConsentEvent") {
+  const model = Reflect.get(prisma, name);
+
+  if (!model) {
+    throw new ProblemDetailsError({
+      detail: `Privacy storage '${name}' is unavailable in the current Prisma client.`,
+      status: 503,
+      title: "Service Unavailable"
+    });
+  }
+
+  return model;
+}
+
 const DEFAULT_CONSENT_PURPOSES = [
   CONSENT_PURPOSE.ANALYTICS,
   CONSENT_PURPOSE.MARKETING,
@@ -233,6 +247,7 @@ export async function ensurePrivacyConsents(input: {
   organizationReference: string;
   userId: string;
 }) {
+  const privacyConsentModel = readPrivacyModel("privacyConsent");
   const organization = await findOrganizationByReference(input.organizationReference);
 
   if (!organization) {
@@ -245,7 +260,7 @@ export async function ensurePrivacyConsents(input: {
 
   await prisma.$transaction(
     DEFAULT_CONSENT_PURPOSES.map((purpose) =>
-      prisma.privacyConsent.upsert({
+      privacyConsentModel.upsert({
         create: {
           lawfulBasis: LAWFUL_BASIS.CONSENT,
           organizationId: organization.id,
@@ -273,9 +288,11 @@ export async function listPrivacyConsents(input: {
   organizationReference: string;
   userId: string;
 }) {
+  const privacyConsentModel = readPrivacyModel("privacyConsent");
+  const privacyConsentEventModel = readPrivacyModel("privacyConsentEvent");
   const organization = await ensurePrivacyConsents(input);
   const [items, history, preferences] = await Promise.all([
-    prisma.privacyConsent.findMany({
+    privacyConsentModel.findMany({
       orderBy: {
         purpose: "asc"
       },
@@ -285,7 +302,7 @@ export async function listPrivacyConsents(input: {
         userId: input.userId
       }
     }),
-    prisma.privacyConsentEvent.findMany({
+    privacyConsentEventModel.findMany({
       orderBy: {
         createdAt: "desc"
       },

@@ -40,6 +40,20 @@ type RetentionDataCategory = (typeof RETENTION_DATA_CATEGORY)[keyof typeof RETEN
 type RetentionExecutionMode = "DRY_RUN" | "EXECUTE";
 type UserStatus = (typeof USER_STATUS)[keyof typeof USER_STATUS];
 
+function readRetentionModel(name: "dataRetentionExecution" | "dataRetentionPolicy") {
+  const model = Reflect.get(prisma, name);
+
+  if (!model) {
+    throw new ProblemDetailsError({
+      detail: `Privacy retention storage '${name}' is unavailable in the current Prisma client.`,
+      status: 503,
+      title: "Service Unavailable"
+    });
+  }
+
+  return model;
+}
+
 const REDACTED_OUTPUT_CONTENT = "[REDACTED BY RETENTION POLICY]";
 const RETENTION_POLICY_PAGE_SIZE = 25;
 const RETENTION_SWEEP_ORGANIZATION_PAGE_SIZE = 100;
@@ -103,13 +117,14 @@ async function listRetentionPoliciesPage(input: {
   organizationId: string;
   cursorId?: string | undefined;
 }) {
+  const retentionPolicyModel = readRetentionModel("dataRetentionPolicy");
   const where = {
     organizationId: input.organizationId,
     ...(input.enabled !== undefined ? { enabled: input.enabled } : {})
   };
 
   if (input.cursorId) {
-    return prisma.dataRetentionPolicy.findMany({
+    return retentionPolicyModel.findMany({
       cursor: {
         id: input.cursorId
       },
@@ -122,7 +137,7 @@ async function listRetentionPoliciesPage(input: {
     });
   }
 
-  return prisma.dataRetentionPolicy.findMany({
+  return retentionPolicyModel.findMany({
     orderBy: {
       id: "asc"
     },
@@ -261,9 +276,10 @@ async function ensureDefaultPolicies(input: {
   organizationId: string;
   tenantId: string;
 }) {
+  const retentionPolicyModel = readRetentionModel("dataRetentionPolicy");
   await prisma.$transaction(
     DEFAULT_RETENTION_POLICIES.map((policy) =>
-      prisma.dataRetentionPolicy.upsert({
+      retentionPolicyModel.upsert({
         create: {
           action: policy.action,
           dataCategory: policy.dataCategory,
@@ -307,9 +323,15 @@ async function executePolicy(input: {
   config: ApiConfig;
   mode: RetentionExecutionMode;
   organizationId: string;
-  policy: Awaited<ReturnType<typeof prisma.dataRetentionPolicy.findFirstOrThrow>>;
+  policy: {
+    action: RetentionAction;
+    dataCategory: RetentionDataCategory;
+    id: string;
+    retentionDays: number;
+  };
   tenantId: string;
 }) {
+  const retentionExecutionModel = readRetentionModel("dataRetentionExecution");
   const cutoff = new Date(Date.now() - input.policy.retentionDays * 24 * 60 * 60 * 1000);
   let affectedCount = 0;
   let scannedCount = 0;
@@ -428,7 +450,7 @@ async function executePolicy(input: {
       break;
   }
 
-  const execution = await prisma.dataRetentionExecution.create({
+  const execution = await retentionExecutionModel.create({
     data: {
       action: input.policy.action,
       dataCategory: input.policy.dataCategory,
@@ -471,6 +493,7 @@ async function executePolicy(input: {
 export async function listRetentionPolicies(input: {
   organizationReference: string;
 }) {
+  const retentionExecutionModel = readRetentionModel("dataRetentionExecution");
   const organization = await resolveOrganization({
     organizationReference: input.organizationReference
   });
@@ -479,7 +502,7 @@ export async function listRetentionPolicies(input: {
     listRetentionPoliciesForOrganization({
       organizationId: organization.id
     }),
-    prisma.dataRetentionExecution.findMany({
+    retentionExecutionModel.findMany({
       orderBy: {
         createdAt: "desc"
       },
@@ -511,7 +534,7 @@ export async function updateRetentionPolicies(input: {
 
   await prisma.$transaction(
     input.policies.map((policy) =>
-      prisma.dataRetentionPolicy.update({
+      readRetentionModel("dataRetentionPolicy").update({
         data: {
           ...(policy.action !== undefined ? { action: policy.action } : {}),
           ...(policy.enabled !== undefined ? { enabled: policy.enabled } : {}),

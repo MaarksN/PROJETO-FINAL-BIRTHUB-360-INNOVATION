@@ -4,15 +4,32 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  AppointmentStatus,
-  ClinicalNoteKind,
-  NeonatalOutcome,
   prisma,
-  PregnancyStatus,
   runWithTenantContext
 } from "@birthub/database";
 
 import { clinicalService } from "../src/modules/clinical/service.js";
+import { injectPrismaDelegates } from "./prisma-runtime-test-helpers.js";
+
+const CLINICAL_RUNTIME_DELEGATES = [
+  "appointment",
+  "clinicalNote",
+  "neonatalRecord",
+  "patient",
+  "pregnancyRecord"
+] as const;
+const APPOINTMENT_STATUS = {
+  SCHEDULED: "SCHEDULED"
+} as const;
+const CLINICAL_NOTE_KIND = {
+  SOAP: "SOAP"
+} as const;
+const NEONATAL_OUTCOME = {
+  ALIVE: "ALIVE"
+} as const;
+const PREGNANCY_STATUS = {
+  ACTIVE: "ACTIVE"
+} as const;
 
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];
@@ -54,7 +71,7 @@ void test("getPatientDetail bounds pregnancy and neonatal history reads", async 
             id: "neo_1",
             newbornName: "Baby Alpha",
             notes: null,
-            outcome: NeonatalOutcome.ALIVE,
+            outcome: NEONATAL_OUTCOME.ALIVE,
             sex: null,
             updatedAt: new Date("2026-04-07T10:00:00.000Z")
           }
@@ -100,7 +117,7 @@ void test("getPatientDetail bounds pregnancy and neonatal history reads", async 
             parity: 0,
             previousCesareans: 0,
             riskLevel: "LOW",
-            status: PregnancyStatus.ACTIVE,
+            status: PREGNANCY_STATUS.ACTIVE,
             updatedAt: new Date("2026-04-07T10:00:00.000Z")
           }
         ]);
@@ -108,6 +125,7 @@ void test("getPatientDetail bounds pregnancy and neonatal history reads", async 
     }
   };
   const restores = [
+    injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
       if (typeof callback === "function") {
         return callback(transactionClient);
@@ -164,7 +182,7 @@ void test("listAppointments and getClinicalNoteHistory apply explicit limits", a
             pregnancyRecordId: null,
             providerName: null,
             scheduledAt: new Date("2026-04-07T10:00:00.000Z"),
-            status: AppointmentStatus.SCHEDULED,
+            status: APPOINTMENT_STATUS.SCHEDULED,
             summary: null,
             temperatureC: null,
             type: "PRENATAL",
@@ -186,7 +204,7 @@ void test("listAppointments and getClinicalNoteHistory apply explicit limits", a
             createdAt: new Date("2026-04-07T10:00:00.000Z"),
             id: "note_1",
             isLatest: true,
-            kind: ClinicalNoteKind.SOAP,
+            kind: CLINICAL_NOTE_KIND.SOAP,
             noteGroupId: "group_1",
             objective: null,
             patientId: "patient_alpha",
@@ -202,6 +220,7 @@ void test("listAppointments and getClinicalNoteHistory apply explicit limits", a
     }
   };
   const restores = [
+    injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
       if (typeof callback === "function") {
         return callback(transactionClient);
@@ -261,7 +280,7 @@ void test("listPatients and listClinicalNotes respect requested limits", async (
             createdAt: new Date("2026-04-07T10:00:00.000Z"),
             id: "note_1",
             isLatest: true,
-            kind: ClinicalNoteKind.SOAP,
+            kind: CLINICAL_NOTE_KIND.SOAP,
             noteGroupId: "group_1",
             objective: null,
             patientId: "patient_alpha",
@@ -310,6 +329,7 @@ void test("listPatients and listClinicalNotes respect requested limits", async (
     }
   };
   const restores = [
+    injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
       if (typeof callback === "function") {
         return callback(transactionClient);
