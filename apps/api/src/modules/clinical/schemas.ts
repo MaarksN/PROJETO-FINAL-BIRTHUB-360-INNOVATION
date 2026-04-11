@@ -1,15 +1,4 @@
 // @ts-nocheck
-import {
-  AppointmentStatus,
-  AppointmentType,
-  ClinicalNoteKind,
-  NeonatalOutcome,
-  NeonatalSex,
-  PatientStatus,
-  PregnancyOutcome,
-  PregnancyRiskLevel,
-  PregnancyStatus
-} from "@prisma/client";
 import { z } from "zod";
 
 const optionalTrimmedString = z.string().trim().min(1).optional();
@@ -17,14 +6,16 @@ const optionalStringArray = z.array(z.string().trim().min(1)).optional().default
 const optionalDateString = z.string().trim().min(4).optional();
 const optionalNumber = z.coerce.number().optional();
 const optionalInteger = z.coerce.number().int().optional();
+const optionalEnumString = z.string().trim().min(1).optional();
+const optionalNullableEnumString = z.string().trim().min(1).nullable().optional();
 const PATIENT_LIST_PAGE_LIMIT = 100;
 const CLINICAL_NOTE_LIST_PAGE_LIMIT = 50;
 
 export const patientListQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(PATIENT_LIST_PAGE_LIMIT).optional(),
-  riskLevel: z.nativeEnum(PregnancyRiskLevel).optional(),
+  riskLevel: optionalEnumString,
   search: z.string().trim().optional(),
-  status: z.nativeEnum(PatientStatus).optional()
+  status: optionalEnumString
 });
 
 export const pregnancyRecordSchema = z.object({
@@ -35,12 +26,12 @@ export const pregnancyRecordSchema = z.object({
   gravidity: z.coerce.number().int().min(0).optional(),
   lastMenstrualPeriod: optionalDateString,
   notes: optionalTrimmedString,
-  outcome: z.nativeEnum(PregnancyOutcome).nullable().optional(),
+  outcome: optionalNullableEnumString,
   outcomeDate: optionalDateString,
   parity: z.coerce.number().int().min(0).optional(),
   previousCesareans: z.coerce.number().int().min(0).optional(),
-  riskLevel: z.nativeEnum(PregnancyRiskLevel).optional(),
-  status: z.nativeEnum(PregnancyStatus).optional()
+  riskLevel: optionalEnumString,
+  status: optionalEnumString
 });
 
 export const createPatientSchema = z.object({
@@ -56,7 +47,7 @@ export const createPatientSchema = z.object({
   phone: optionalTrimmedString,
   preferredName: optionalTrimmedString,
   pregnancyRecord: pregnancyRecordSchema.optional(),
-  status: z.nativeEnum(PatientStatus).optional()
+  status: optionalEnumString
 });
 
 export const updatePatientSchema = createPatientSchema.partial().refine(
@@ -75,15 +66,15 @@ export const neonatalRecordSchema = z.object({
   headCircumferenceCm: optionalNumber,
   newbornName: optionalTrimmedString,
   notes: optionalTrimmedString,
-  outcome: z.nativeEnum(NeonatalOutcome).optional(),
+  outcome: optionalEnumString,
   pregnancyRecordId: optionalTrimmedString,
-  sex: z.nativeEnum(NeonatalSex).nullable().optional()
+  sex: optionalNullableEnumString
 });
 
 export const appointmentQuerySchema = z.object({
   date: z.string().trim().optional(),
   patientId: z.string().trim().optional(),
-  status: z.nativeEnum(AppointmentStatus).optional(),
+  status: optionalEnumString,
   view: z.enum(["day", "week", "month"]).default("week")
 });
 
@@ -100,10 +91,10 @@ export const createAppointmentSchema = z.object({
   pregnancyRecordId: optionalTrimmedString,
   providerName: optionalTrimmedString,
   scheduledAt: z.string().trim().min(4),
-  status: z.nativeEnum(AppointmentStatus).optional(),
+  status: optionalEnumString,
   summary: optionalTrimmedString,
   temperatureC: optionalNumber,
-  type: z.nativeEnum(AppointmentType).optional(),
+  type: optionalEnumString,
   weightKg: optionalNumber
 });
 
@@ -134,7 +125,7 @@ const clinicalNoteObjectSchema = z.object({
   appointmentId: optionalTrimmedString,
   assessment: optionalTrimmedString,
   content: z.record(z.string(), z.unknown()).nullable().optional(),
-  kind: z.nativeEnum(ClinicalNoteKind).optional(),
+  kind: optionalEnumString,
   objective: optionalTrimmedString,
   patientId: z.string().trim().min(1),
   plan: optionalTrimmedString,

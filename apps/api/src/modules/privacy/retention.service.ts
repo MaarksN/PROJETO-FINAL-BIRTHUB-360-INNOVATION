@@ -2,18 +2,57 @@
 import { createHash } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";
-import {
-  LawfulBasis,
-  RetentionAction,
-  RetentionDataCategory,
-  RetentionExecutionMode,
-  UserStatus
-} from "@prisma/client";
 import { prisma } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { hashPassword, randomToken } from "../auth/crypto.js";
 import { findOrganizationByReference } from "./service.js";
+
+const LAWFUL_BASIS = {
+  LEGAL_OBLIGATION: "LEGAL_OBLIGATION",
+  LEGITIMATE_INTEREST: "LEGITIMATE_INTEREST"
+} as const;
+
+const RETENTION_ACTION = {
+  ANONYMIZE: "ANONYMIZE",
+  DELETE: "DELETE"
+} as const;
+
+const RETENTION_DATA_CATEGORY = {
+  LOGIN_ALERTS: "LOGIN_ALERTS",
+  MFA_CHALLENGES: "MFA_CHALLENGES",
+  MFA_RECOVERY_CODES: "MFA_RECOVERY_CODES",
+  OUTPUT_ARTIFACTS: "OUTPUT_ARTIFACTS",
+  SUSPENDED_USERS: "SUSPENDED_USERS"
+} as const;
+
+const RETENTION_EXECUTION_MODE = {
+  DRY_RUN: "DRY_RUN"
+} as const;
+
+const USER_STATUS = {
+  SUSPENDED: "SUSPENDED"
+} as const;
+
+type LawfulBasis = (typeof LAWFUL_BASIS)[keyof typeof LAWFUL_BASIS];
+type RetentionAction = (typeof RETENTION_ACTION)[keyof typeof RETENTION_ACTION];
+type RetentionDataCategory = (typeof RETENTION_DATA_CATEGORY)[keyof typeof RETENTION_DATA_CATEGORY];
+type RetentionExecutionMode = "DRY_RUN" | "EXECUTE";
+type UserStatus = (typeof USER_STATUS)[keyof typeof USER_STATUS];
+
+function readRetentionModel(name: "dataRetentionExecution" | "dataRetentionPolicy") {
+  const model = Reflect.get(prisma, name);
+
+  if (!model) {
+    throw new ProblemDetailsError({
+      detail: `Privacy retention storage '${name}' is unavailable in the current Prisma client.`,
+      status: 503,
+      title: "Service Unavailable"
+    });
+  }
+
+  return model;
+}
 
 const REDACTED_OUTPUT_CONTENT = "[REDACTED BY RETENTION POLICY]";
 const RETENTION_POLICY_PAGE_SIZE = 25;
@@ -27,33 +66,33 @@ const DEFAULT_RETENTION_POLICIES: Array<{
   retentionDays: number;
 }> = [
   {
-    action: RetentionAction.ANONYMIZE,
-    dataCategory: RetentionDataCategory.OUTPUT_ARTIFACTS,
-    legalBasis: LawfulBasis.LEGITIMATE_INTEREST,
+    action: RETENTION_ACTION.ANONYMIZE,
+    dataCategory: RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS,
+    legalBasis: LAWFUL_BASIS.LEGITIMATE_INTEREST,
     retentionDays: 30
   },
   {
-    action: RetentionAction.DELETE,
-    dataCategory: RetentionDataCategory.LOGIN_ALERTS,
-    legalBasis: LawfulBasis.LEGITIMATE_INTEREST,
+    action: RETENTION_ACTION.DELETE,
+    dataCategory: RETENTION_DATA_CATEGORY.LOGIN_ALERTS,
+    legalBasis: LAWFUL_BASIS.LEGITIMATE_INTEREST,
     retentionDays: 90
   },
   {
-    action: RetentionAction.DELETE,
-    dataCategory: RetentionDataCategory.MFA_CHALLENGES,
-    legalBasis: LawfulBasis.LEGITIMATE_INTEREST,
+    action: RETENTION_ACTION.DELETE,
+    dataCategory: RETENTION_DATA_CATEGORY.MFA_CHALLENGES,
+    legalBasis: LAWFUL_BASIS.LEGITIMATE_INTEREST,
     retentionDays: 7
   },
   {
-    action: RetentionAction.DELETE,
-    dataCategory: RetentionDataCategory.MFA_RECOVERY_CODES,
-    legalBasis: LawfulBasis.LEGAL_OBLIGATION,
+    action: RETENTION_ACTION.DELETE,
+    dataCategory: RETENTION_DATA_CATEGORY.MFA_RECOVERY_CODES,
+    legalBasis: LAWFUL_BASIS.LEGAL_OBLIGATION,
     retentionDays: 180
   },
   {
-    action: RetentionAction.ANONYMIZE,
-    dataCategory: RetentionDataCategory.SUSPENDED_USERS,
-    legalBasis: LawfulBasis.LEGAL_OBLIGATION,
+    action: RETENTION_ACTION.ANONYMIZE,
+    dataCategory: RETENTION_DATA_CATEGORY.SUSPENDED_USERS,
+    legalBasis: LAWFUL_BASIS.LEGAL_OBLIGATION,
     retentionDays: 90
   }
 ];
@@ -78,13 +117,14 @@ async function listRetentionPoliciesPage(input: {
   organizationId: string;
   cursorId?: string | undefined;
 }) {
+  const retentionPolicyModel = readRetentionModel("dataRetentionPolicy");
   const where = {
     organizationId: input.organizationId,
     ...(input.enabled !== undefined ? { enabled: input.enabled } : {})
   };
 
   if (input.cursorId) {
-    return prisma.dataRetentionPolicy.findMany({
+    return retentionPolicyModel.findMany({
       cursor: {
         id: input.cursorId
       },
@@ -97,7 +137,7 @@ async function listRetentionPoliciesPage(input: {
     });
   }
 
-  return prisma.dataRetentionPolicy.findMany({
+  return retentionPolicyModel.findMany({
     orderBy: {
       id: "asc"
     },
@@ -177,7 +217,7 @@ async function listSuspendedUsersPage(input: {
         organizationId: input.organizationId
       }
     },
-    status: UserStatus.SUSPENDED,
+    status: USER_STATUS.SUSPENDED,
     suspendedAt: {
       lte: input.cutoff
     }
@@ -236,9 +276,10 @@ async function ensureDefaultPolicies(input: {
   organizationId: string;
   tenantId: string;
 }) {
+  const retentionPolicyModel = readRetentionModel("dataRetentionPolicy");
   await prisma.$transaction(
     DEFAULT_RETENTION_POLICIES.map((policy) =>
-      prisma.dataRetentionPolicy.upsert({
+      retentionPolicyModel.upsert({
         create: {
           action: policy.action,
           dataCategory: policy.dataCategory,
@@ -282,15 +323,21 @@ async function executePolicy(input: {
   config: ApiConfig;
   mode: RetentionExecutionMode;
   organizationId: string;
-  policy: Awaited<ReturnType<typeof prisma.dataRetentionPolicy.findFirstOrThrow>>;
+  policy: {
+    action: RetentionAction;
+    dataCategory: RetentionDataCategory;
+    id: string;
+    retentionDays: number;
+  };
   tenantId: string;
 }) {
+  const retentionExecutionModel = readRetentionModel("dataRetentionExecution");
   const cutoff = new Date(Date.now() - input.policy.retentionDays * 24 * 60 * 60 * 1000);
   let affectedCount = 0;
   let scannedCount = 0;
 
   switch (input.policy.dataCategory) {
-    case RetentionDataCategory.OUTPUT_ARTIFACTS: {
+    case RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS: {
       const where = {
         createdAt: {
           lt: cutoff
@@ -299,7 +346,7 @@ async function executePolicy(input: {
       };
       scannedCount = await prisma.outputArtifact.count({ where });
 
-      if (input.mode !== RetentionExecutionMode.DRY_RUN && scannedCount > 0) {
+      if (input.mode !== RETENTION_EXECUTION_MODE.DRY_RUN && scannedCount > 0) {
         const result = await prisma.outputArtifact.updateMany({
           data: {
             content: REDACTED_OUTPUT_CONTENT,
@@ -311,7 +358,7 @@ async function executePolicy(input: {
       }
       break;
     }
-    case RetentionDataCategory.LOGIN_ALERTS: {
+    case RETENTION_DATA_CATEGORY.LOGIN_ALERTS: {
       const where = {
         createdAt: {
           lt: cutoff
@@ -320,13 +367,13 @@ async function executePolicy(input: {
       };
       scannedCount = await prisma.loginAlert.count({ where });
 
-      if (input.mode !== RetentionExecutionMode.DRY_RUN && scannedCount > 0) {
+      if (input.mode !== RETENTION_EXECUTION_MODE.DRY_RUN && scannedCount > 0) {
         const result = await prisma.loginAlert.deleteMany({ where });
         affectedCount = result.count;
       }
       break;
     }
-    case RetentionDataCategory.MFA_CHALLENGES: {
+    case RETENTION_DATA_CATEGORY.MFA_CHALLENGES: {
       const where = {
         createdAt: {
           lt: cutoff
@@ -335,13 +382,13 @@ async function executePolicy(input: {
       };
       scannedCount = await prisma.mfaChallenge.count({ where });
 
-      if (input.mode !== RetentionExecutionMode.DRY_RUN && scannedCount > 0) {
+      if (input.mode !== RETENTION_EXECUTION_MODE.DRY_RUN && scannedCount > 0) {
         const result = await prisma.mfaChallenge.deleteMany({ where });
         affectedCount = result.count;
       }
       break;
     }
-    case RetentionDataCategory.MFA_RECOVERY_CODES: {
+    case RETENTION_DATA_CATEGORY.MFA_RECOVERY_CODES: {
       const where = {
         OR: [
           {
@@ -359,20 +406,20 @@ async function executePolicy(input: {
       };
       scannedCount = await prisma.mfaRecoveryCode.count({ where });
 
-      if (input.mode !== RetentionExecutionMode.DRY_RUN && scannedCount > 0) {
+      if (input.mode !== RETENTION_EXECUTION_MODE.DRY_RUN && scannedCount > 0) {
         const result = await prisma.mfaRecoveryCode.deleteMany({ where });
         affectedCount = result.count;
       }
       break;
     }
-    case RetentionDataCategory.SUSPENDED_USERS: {
+    case RETENTION_DATA_CATEGORY.SUSPENDED_USERS: {
       const users = await listSuspendedUsersForRetention({
         organizationId: input.organizationId,
         cutoff
       });
       scannedCount = users.length;
 
-      if (input.mode !== RetentionExecutionMode.DRY_RUN && users.length > 0) {
+      if (input.mode !== RETENTION_EXECUTION_MODE.DRY_RUN && users.length > 0) {
         await Promise.all(
           users.map(async (user) => {
             await prisma.user.update({
@@ -403,7 +450,7 @@ async function executePolicy(input: {
       break;
   }
 
-  const execution = await prisma.dataRetentionExecution.create({
+  const execution = await retentionExecutionModel.create({
     data: {
       action: input.policy.action,
       dataCategory: input.policy.dataCategory,
@@ -446,6 +493,7 @@ async function executePolicy(input: {
 export async function listRetentionPolicies(input: {
   organizationReference: string;
 }) {
+  const retentionExecutionModel = readRetentionModel("dataRetentionExecution");
   const organization = await resolveOrganization({
     organizationReference: input.organizationReference
   });
@@ -454,7 +502,7 @@ export async function listRetentionPolicies(input: {
     listRetentionPoliciesForOrganization({
       organizationId: organization.id
     }),
-    prisma.dataRetentionExecution.findMany({
+    retentionExecutionModel.findMany({
       orderBy: {
         createdAt: "desc"
       },
@@ -486,7 +534,7 @@ export async function updateRetentionPolicies(input: {
 
   await prisma.$transaction(
     input.policies.map((policy) =>
-      prisma.dataRetentionPolicy.update({
+      readRetentionModel("dataRetentionPolicy").update({
         data: {
           ...(policy.action !== undefined ? { action: policy.action } : {}),
           ...(policy.enabled !== undefined ? { enabled: policy.enabled } : {}),

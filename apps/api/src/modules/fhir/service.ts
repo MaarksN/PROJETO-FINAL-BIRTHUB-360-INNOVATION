@@ -1,11 +1,7 @@
 // @ts-nocheck
-import {
-  AppointmentStatus,
-  AppointmentType,
-  Prisma,
-  prisma
-} from "@birthub/database";
+import { Prisma, prisma } from "@birthub/database";
 
+import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 
 export type FhirContext = {
@@ -15,6 +11,15 @@ export type FhirContext = {
 };
 
 const FHIR_PATIENT_SEARCH_LIMIT = 25;
+const APPOINTMENT_STATUS = {
+  CANCELLED: "CANCELLED",
+  CHECKED_IN: "CHECKED_IN",
+  COMPLETED: "COMPLETED",
+  NO_SHOW: "NO_SHOW"
+} as const;
+
+type AppointmentStatus = (typeof APPOINTMENT_STATUS)[keyof typeof APPOINTMENT_STATUS];
+type AppointmentType = string;
 
 type PatientRecord = {
   birthDate: Date | null;
@@ -91,13 +96,13 @@ function mapAppointmentStatus(status: AppointmentStatus):
   | "fulfilled"
   | "noshow" {
   switch (status) {
-    case AppointmentStatus.CANCELLED:
+    case APPOINTMENT_STATUS.CANCELLED:
       return "cancelled";
-    case AppointmentStatus.CHECKED_IN:
+    case APPOINTMENT_STATUS.CHECKED_IN:
       return "checked-in";
-    case AppointmentStatus.COMPLETED:
+    case APPOINTMENT_STATUS.COMPLETED:
       return "fulfilled";
-    case AppointmentStatus.NO_SHOW:
+    case APPOINTMENT_STATUS.NO_SHOW:
       return "noshow";
     default:
       return "booked";
@@ -257,6 +262,10 @@ function toBundle(baseUrl: string, resourceType: "Appointment" | "Patient", item
   };
 }
 
+function readFhirModel(name: "appointment" | "patient") {
+  return readPrismaModel(prisma, name, "the FHIR facade");
+}
+
 export const fhirService = {
   metadata(baseUrl: string) {
     return {
@@ -329,7 +338,8 @@ export const fhirService = {
   },
 
   async getPatient(context: FhirContext, patientId: string) {
-    const patient = await prisma.patient.findFirst({
+    const patientModel = readFhirModel("patient");
+    const patient = await patientModel.findFirst({
       select: {
         birthDate: true,
         bloodType: true,
@@ -411,7 +421,8 @@ export const fhirService = {
       );
     }
 
-    const items = await prisma.patient.findMany({
+    const patientModel = readFhirModel("patient");
+    const items = await patientModel.findMany({
       orderBy: {
         updatedAt: "desc"
       },
@@ -446,7 +457,8 @@ export const fhirService = {
   },
 
   async getAppointment(context: FhirContext, appointmentId: string) {
-    const appointment = await prisma.appointment.findFirst({
+    const appointmentModel = readFhirModel("appointment");
+    const appointment = await appointmentModel.findFirst({
       select: {
         chiefComplaint: true,
         durationMinutes: true,

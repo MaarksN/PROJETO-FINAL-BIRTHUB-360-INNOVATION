@@ -4,16 +4,40 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-  AppointmentStatus,
-  AppointmentType,
-  PatientStatus,
-  PregnancyRiskLevel,
-  PregnancyStatus,
   prisma,
   runWithTenantContext
 } from "@birthub/database";
 
 import { clinicalService } from "../src/modules/clinical/service.js";
+import { injectPrismaDelegates } from "./prisma-runtime-test-helpers.js";
+
+const CLINICAL_RUNTIME_DELEGATES = [
+  "appointment",
+  "clinicalNote",
+  "neonatalRecord",
+  "patient",
+  "pregnancyRecord"
+] as const;
+const APPOINTMENT_STATUS = {
+  COMPLETED: "COMPLETED",
+  SCHEDULED: "SCHEDULED"
+} as const;
+const APPOINTMENT_TYPE = {
+  PRENATAL: "PRENATAL"
+} as const;
+const PATIENT_STATUS = {
+  ACTIVE: "ACTIVE"
+} as const;
+const PREGNANCY_RISK_LEVEL = {
+  LOW: "LOW"
+} as const;
+const PREGNANCY_STATUS = {
+  ACTIVE: "ACTIVE",
+  DELIVERED: "DELIVERED"
+} as const;
+
+type AppointmentStatus = (typeof APPOINTMENT_STATUS)[keyof typeof APPOINTMENT_STATUS];
+type PregnancyStatus = (typeof PREGNANCY_STATUS)[keyof typeof PREGNANCY_STATUS];
 
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];
@@ -38,7 +62,7 @@ function createPatientRecord(id: string) {
     notes: null,
     phone: null,
     preferredName: "Maria",
-    status: PatientStatus.ACTIVE,
+    status: PATIENT_STATUS.ACTIVE,
     updatedAt: new Date("2026-04-01T00:00:00.000Z")
   };
 }
@@ -58,7 +82,7 @@ function createPregnancyRecord(id: string, status: PregnancyStatus) {
     outcomeDate: null,
     parity: 0,
     previousCesareans: 0,
-    riskLevel: PregnancyRiskLevel.LOW,
+    riskLevel: PREGNANCY_RISK_LEVEL.LOW,
     status,
     updatedAt: new Date("2026-04-01T00:00:00.000Z")
   };
@@ -106,7 +130,7 @@ function createAppointment(id: string, scheduledAt: string, status: AppointmentS
     status,
     summary: null,
     temperatureC: null,
-    type: AppointmentType.PRENATAL,
+    type: APPOINTMENT_TYPE.PRENATAL,
     updatedAt: new Date(scheduledAt),
     weightKg: null
   };
@@ -165,10 +189,10 @@ void test("clinicalService.getPatientDetail paginates pregnancy and neonatal rec
     Array.from({ length: 100 }, (_, index) =>
       createPregnancyRecord(
         `preg_${index.toString().padStart(3, "0")}`,
-        index === 0 ? PregnancyStatus.ACTIVE : PregnancyStatus.DELIVERED
+        index === 0 ? PREGNANCY_STATUS.ACTIVE : PREGNANCY_STATUS.DELIVERED
       )
     ),
-    [createPregnancyRecord("preg_100", PregnancyStatus.DELIVERED)]
+    [createPregnancyRecord("preg_100", PREGNANCY_STATUS.DELIVERED)]
   ];
   const neonatalPages = [
     Array.from({ length: 100 }, (_, index) =>
@@ -196,9 +220,12 @@ void test("clinicalService.getPatientDetail paginates pregnancy and neonatal rec
       }
     }
   });
-  const restore = stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: (value: unknown) => Promise<unknown>) =>
-    callback(tx)
-  );
+  const restores = [
+    injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
+    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: (value: unknown) => Promise<unknown>) =>
+      callback(tx)
+    )
+  ];
 
   try {
     const result = await runWithTenantContext(
@@ -229,7 +256,7 @@ void test("clinicalService.getPatientDetail paginates pregnancy and neonatal rec
       id: "neo_099"
     });
   } finally {
-    restore();
+    restores.reverse().forEach((restore) => restore());
   }
 });
 
@@ -241,10 +268,10 @@ void test("clinicalService.listAppointments paginates the windowed appointment l
       createAppointment(
         `appt_${index.toString().padStart(3, "0")}`,
         `2026-04-0${(index % 5) + 1}T09:00:00.000Z`,
-        AppointmentStatus.SCHEDULED
+        APPOINTMENT_STATUS.SCHEDULED
       )
     ),
-    [createAppointment("appt_250", "2026-04-06T09:00:00.000Z", AppointmentStatus.COMPLETED)]
+    [createAppointment("appt_250", "2026-04-06T09:00:00.000Z", APPOINTMENT_STATUS.COMPLETED)]
   ];
   const tx = createTransactionMock({
     appointment: {
@@ -254,9 +281,12 @@ void test("clinicalService.listAppointments paginates the windowed appointment l
       }
     }
   });
-  const restore = stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: (value: unknown) => Promise<unknown>) =>
-    callback(tx)
-  );
+  const restores = [
+    injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
+    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: (value: unknown) => Promise<unknown>) =>
+      callback(tx)
+    )
+  ];
 
   try {
     const result = await runWithTenantContext(
@@ -288,7 +318,7 @@ void test("clinicalService.listAppointments paginates the windowed appointment l
       id: "appt_249"
     });
   } finally {
-    restore();
+    restores.reverse().forEach((restore) => restore());
   }
 });
 
@@ -307,9 +337,12 @@ void test("clinicalService.getClinicalNoteHistory paginates the note timeline", 
       }
     }
   });
-  const restore = stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: (value: unknown) => Promise<unknown>) =>
-    callback(tx)
-  );
+  const restores = [
+    injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
+    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: (value: unknown) => Promise<unknown>) =>
+      callback(tx)
+    )
+  ];
 
   try {
     const result = await runWithTenantContext(
@@ -335,6 +368,6 @@ void test("clinicalService.getClinicalNoteHistory paginates the note timeline", 
       id: "note_99"
     });
   } finally {
-    restore();
+    restores.reverse().forEach((restore) => restore());
   }
 });

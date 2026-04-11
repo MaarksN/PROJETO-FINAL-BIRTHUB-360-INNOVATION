@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -33,8 +31,9 @@ void test("product api search helper calls the canonical search endpoint with se
   const dom = new JSDOM("", {
     url: "https://app.birthhub.test/dashboard"
   });
-  dom.window.localStorage.setItem("bh_access_token", "atk_456");
-  dom.window.localStorage.setItem("bh_csrf_token", "csrf_456");
+  dom.window.document.cookie = "bh360_csrf=csrf_456";
+  dom.window.document.cookie = "bh_active_tenant=tenant_456";
+  dom.window.document.cookie = "bh_user_id=user_456";
   Object.defineProperty(globalThis, "window", { configurable: true, value: dom.window });
   Object.defineProperty(globalThis, "document", { configurable: true, value: dom.window.document });
   Object.defineProperty(globalThis, "localStorage", {
@@ -74,7 +73,8 @@ void test("product api search helper calls the canonical search endpoint with se
 
     assert.equal(requestUrl, "https://api.birthhub.test/api/v1/search?q=workflow");
     assert.equal(requestInit?.credentials, "include");
-    assert.equal(headers.get("authorization"), "Bearer atk_456");
+    assert.equal(headers.get("authorization"), null);
+    assert.equal(headers.get("x-active-tenant"), "tenant_456");
     assert.equal(headers.get("x-csrf-token"), "csrf_456");
     assert.equal(payload.groups[0]?.label, "Atalhos");
   } finally {
@@ -105,6 +105,7 @@ void test("product api conversation list helper omits a dangling query string wh
   const dom = new JSDOM("", {
     url: "https://app.birthhub.test/conversations"
   });
+  dom.window.document.cookie = "bh360_csrf=csrf_789";
   Object.defineProperty(globalThis, "window", { configurable: true, value: dom.window });
   Object.defineProperty(globalThis, "document", { configurable: true, value: dom.window.document });
   Object.defineProperty(globalThis, "localStorage", {

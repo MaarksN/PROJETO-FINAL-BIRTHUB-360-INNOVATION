@@ -3,18 +3,30 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import {
-  LawfulBasis,
-  RetentionAction,
-  RetentionDataCategory,
-  RetentionExecutionMode,
-  prisma
-} from "@birthub/database";
+import { prisma } from "@birthub/database";
 
 import {
   listRetentionPolicies,
   runRetentionSweep
 } from "../src/modules/privacy/retention.service.js";
+
+const LAWFUL_BASIS = {
+  LEGAL_OBLIGATION: "LEGAL_OBLIGATION",
+  LEGITIMATE_INTEREST: "LEGITIMATE_INTEREST"
+} as const;
+
+const RETENTION_ACTION = {
+  ANONYMIZE: "ANONYMIZE"
+} as const;
+
+const RETENTION_DATA_CATEGORY = {
+  OUTPUT_ARTIFACTS: "OUTPUT_ARTIFACTS",
+  SUSPENDED_USERS: "SUSPENDED_USERS"
+} as const;
+
+const RETENTION_EXECUTION_MODE = {
+  DRY_RUN: "DRY_RUN"
+} as const;
 
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];
@@ -24,14 +36,14 @@ function stubMethod(target: Record<string, unknown>, key: string, value: unknown
   };
 }
 
-function createPolicy(id: string, organizationId: string, dataCategory: RetentionDataCategory) {
+function createPolicy(id: string, organizationId: string, dataCategory: string) {
   return {
-    action: RetentionAction.ANONYMIZE,
+    action: RETENTION_ACTION.ANONYMIZE,
     createdAt: new Date("2026-04-07T00:00:00.000Z"),
     dataCategory,
     enabled: true,
     id,
-    legalBasis: LawfulBasis.LEGITIMATE_INTEREST,
+    legalBasis: LAWFUL_BASIS.LEGITIMATE_INTEREST,
     metadata: null,
     organizationId,
     retentionDays: 30,
@@ -52,15 +64,25 @@ void test("listRetentionPolicies paginates policy lookups for the organization",
     tenantId: "tenant_alpha"
   };
   const policyCalls: Array<Record<string, unknown>> = [];
+  const originalRetentionPolicyModel = Reflect.get(prisma, "dataRetentionPolicy");
+
+  Reflect.set(prisma, "dataRetentionPolicy", {
+    findMany: (args: Record<string, unknown>) => {
+      policyCalls.push(args);
+      return Promise.resolve(policyPages[policyPageIndex++] ?? []);
+    },
+    upsert: () => Promise.resolve({})
+  });
+
   const policyPages = [
     Array.from({ length: 25 }, (_, index) =>
       createPolicy(
         `policy_${index.toString().padStart(3, "0")}`,
         organization.id,
-        RetentionDataCategory.OUTPUT_ARTIFACTS
+        RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS
       )
     ),
-    [createPolicy("policy_025", organization.id, RetentionDataCategory.SUSPENDED_USERS)]
+    [createPolicy("policy_025", organization.id, RETENTION_DATA_CATEGORY.SUSPENDED_USERS)]
   ];
   let policyPageIndex = 0;
   const restores = [
@@ -68,16 +90,13 @@ void test("listRetentionPolicies paginates policy lookups for the organization",
       Promise.resolve(organization)
     ),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", () => Promise.resolve([])),
-    stubMethod(prisma.dataRetentionPolicy as unknown as Record<string, unknown>, "upsert", () =>
-      Promise.resolve({})
-    ),
-    stubMethod(prisma.dataRetentionPolicy as unknown as Record<string, unknown>, "findMany", (args: Record<string, unknown>) => {
-      policyCalls.push(args);
-      return Promise.resolve(policyPages[policyPageIndex++] ?? []);
-    }),
-    stubMethod(prisma.dataRetentionExecution as unknown as Record<string, unknown>, "findMany", () =>
-      Promise.resolve([])
-    )
+    (() => {
+      const original = Reflect.get(prisma, "dataRetentionExecution");
+      Reflect.set(prisma, "dataRetentionExecution", {
+        findMany: () => Promise.resolve([])
+      });
+      return () => Reflect.set(prisma, "dataRetentionExecution", original);
+    })()
   ];
 
   try {
@@ -98,11 +117,19 @@ void test("listRetentionPolicies paginates policy lookups for the organization",
     );
   } finally {
     restores.reverse().forEach((restore) => restore());
+    Reflect.set(prisma, "dataRetentionPolicy", originalRetentionPolicyModel);
   }
 });
 
 void test("runRetentionSweep paginates organizations before iterating the sweep", async () => {
   const organizationCalls: Array<Record<string, unknown>> = [];
+  const originalRetentionPolicyModel = Reflect.get(prisma, "dataRetentionPolicy");
+
+  Reflect.set(prisma, "dataRetentionPolicy", {
+    findMany: () => Promise.resolve([]),
+    upsert: () => Promise.resolve({})
+  });
+
   const firstPage = Array.from({ length: 100 }, (_, index) => ({
     id: `org_${index.toString().padStart(3, "0")}`,
     tenantId: `tenant_${index.toString().padStart(3, "0")}`
@@ -119,19 +146,13 @@ void test("runRetentionSweep paginates organizations before iterating the sweep"
       organizationCalls.push(args);
       return Promise.resolve(organizationPageIndex++ === 0 ? firstPage : secondPage);
     }),
-    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", () => Promise.resolve([])),
-    stubMethod(prisma.dataRetentionPolicy as unknown as Record<string, unknown>, "upsert", () =>
-      Promise.resolve({})
-    ),
-    stubMethod(prisma.dataRetentionPolicy as unknown as Record<string, unknown>, "findMany", () =>
-      Promise.resolve([])
-    )
+    stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", () => Promise.resolve([]))
   ];
 
   try {
     const results = await runRetentionSweep({
       config: testConfig,
-      mode: RetentionExecutionMode.DRY_RUN
+      mode: RETENTION_EXECUTION_MODE.DRY_RUN
     });
 
     assert.deepEqual(results, []);
@@ -143,6 +164,7 @@ void test("runRetentionSweep paginates organizations before iterating the sweep"
     assert.equal(organizationCalls[1]?.skip, 1);
   } finally {
     restores.reverse().forEach((restore) => restore());
+    Reflect.set(prisma, "dataRetentionPolicy", originalRetentionPolicyModel);
   }
 });
 
@@ -152,6 +174,24 @@ void test("runRetentionSweep paginates suspended users in dry-run mode", async (
     tenantId: "tenant_alpha"
   };
   const userCalls: Array<Record<string, unknown>> = [];
+  const originalRetentionPolicyModel = Reflect.get(prisma, "dataRetentionPolicy");
+  const originalRetentionExecutionModel = Reflect.get(prisma, "dataRetentionExecution");
+
+  Reflect.set(prisma, "dataRetentionPolicy", {
+    findMany: () =>
+      Promise.resolve([
+        createPolicy("policy_suspended", organization.id, RETENTION_DATA_CATEGORY.SUSPENDED_USERS)
+      ]),
+    upsert: () => Promise.resolve({})
+  });
+
+  Reflect.set(prisma, "dataRetentionExecution", {
+    create: () =>
+      Promise.resolve({
+        id: `execution_${executionCount++}`
+      })
+  });
+
   const firstPage = Array.from({ length: 100 }, (_, index) => ({
     id: `user_${index.toString().padStart(3, "0")}`
   }));
@@ -167,23 +207,10 @@ void test("runRetentionSweep paginates suspended users in dry-run mode", async (
       Promise.resolve([organization])
     ),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", () => Promise.resolve([])),
-    stubMethod(prisma.dataRetentionPolicy as unknown as Record<string, unknown>, "upsert", () =>
-      Promise.resolve({})
-    ),
-    stubMethod(prisma.dataRetentionPolicy as unknown as Record<string, unknown>, "findMany", () =>
-      Promise.resolve([
-        createPolicy("policy_suspended", organization.id, RetentionDataCategory.SUSPENDED_USERS)
-      ])
-    ),
     stubMethod(prisma.user as unknown as Record<string, unknown>, "findMany", (args: Record<string, unknown>) => {
       userCalls.push(args);
       return Promise.resolve(userPageIndex++ === 0 ? firstPage : secondPage);
     }),
-    stubMethod(prisma.dataRetentionExecution as unknown as Record<string, unknown>, "create", () =>
-      Promise.resolve({
-        id: `execution_${executionCount++}`
-      })
-    ),
     stubMethod(prisma.auditLog as unknown as Record<string, unknown>, "create", () =>
       Promise.resolve({})
     )
@@ -192,7 +219,7 @@ void test("runRetentionSweep paginates suspended users in dry-run mode", async (
   try {
     const results = await runRetentionSweep({
       config: testConfig,
-      mode: RetentionExecutionMode.DRY_RUN
+      mode: RETENTION_EXECUTION_MODE.DRY_RUN
     });
 
     assert.equal(userCalls.length, 2);
@@ -204,8 +231,10 @@ void test("runRetentionSweep paginates suspended users in dry-run mode", async (
     assert.equal(results.length, 1);
     assert.equal(results[0]?.affectedCount, 0);
     assert.equal(results[0]?.scannedCount, 101);
-    assert.equal(results[0]?.dataCategory, RetentionDataCategory.SUSPENDED_USERS);
+    assert.equal(results[0]?.dataCategory, RETENTION_DATA_CATEGORY.SUSPENDED_USERS);
   } finally {
     restores.reverse().forEach((restore) => restore());
+    Reflect.set(prisma, "dataRetentionPolicy", originalRetentionPolicyModel);
+    Reflect.set(prisma, "dataRetentionExecution", originalRetentionExecutionModel);
   }
 });

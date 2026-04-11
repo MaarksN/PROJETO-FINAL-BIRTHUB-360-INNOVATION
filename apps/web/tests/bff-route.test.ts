@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -82,7 +80,9 @@ void test("BFF route proxies allowed requests with forwarded headers and body", 
         authorization: "Bearer atk_123",
         cookie: "bh360_session=current",
         "content-type": "application/json",
-        "x-correlation-id": "corr_123"
+        "x-correlation-id": "corr_123",
+        "x-active-tenant": "tenant_123",
+        "x-csrf-token": "csrf_123"
       },
       method: "POST"
     });
@@ -99,7 +99,9 @@ void test("BFF route proxies allowed requests with forwarded headers and body", 
     assert.equal(requestInit?.body, '{"async":true}');
     assert.equal(headers.get("authorization"), "Bearer atk_123");
     assert.equal(headers.get("cookie"), "bh360_session=current");
+    assert.equal(headers.get("x-active-tenant"), "tenant_123");
     assert.equal(headers.get("x-correlation-id"), "corr_123");
+    assert.equal(headers.get("x-csrf-token"), "csrf_123");
     assert.equal(response.headers.get("set-cookie"), "bh360_session=rotated; Path=/; HttpOnly");
     assert.equal(response.status, 202);
     assert.equal(await response.text(), '{"ok":true}');

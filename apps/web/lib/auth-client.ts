@@ -54,6 +54,13 @@ export function getStoredSession(): StoredSession | null {
     ...(tenantId ? { tenantId } : {}),
     ...(userId ? { userId } : {})
   });
+
+  if (normalizedSession) {
+    return normalizedSession;
+  }
+
+  const csrfToken = getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
+  return csrfToken ? {} : null;
 }
 
 export function getCookieValue(name: string): string | null {
@@ -137,7 +144,10 @@ function getClientCsrfToken(): string | null {
     return null;
   }
 
-  return getCookieValue(API_CSRF_COOKIE_NAME) ?? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY);
+  const legacyCsrfToken =
+    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
+
+  return getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
 }
 
 export async function fetchWithSession(

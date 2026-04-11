@@ -45,7 +45,11 @@ async function proxyApi(request: NextRequest, path: string, init: RequestInit): 
 
   const responseBody = await response.text();
   const nextResponse = new NextResponse(responseBody, { status: response.status });
+  const contentType = response.headers.get("content-type");
   const setCookie = response.headers.get("set-cookie");
+  if (contentType) {
+    nextResponse.headers.set("content-type", contentType);
+  }
   if (setCookie) {
     nextResponse.headers.set("set-cookie", setCookie);
   }

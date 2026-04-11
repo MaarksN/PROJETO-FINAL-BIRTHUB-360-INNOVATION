@@ -2,13 +2,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import {
-  RetentionAction,
-  RetentionDataCategory,
-  RetentionExecutionMode,
-  Role,
-  prisma
-} from "@birthub/database";
+import { Role, prisma } from "@birthub/database";
 import request from "supertest";
 
 import { createPrivacyRouter } from "../src/modules/privacy/router.js";
@@ -17,6 +11,18 @@ import {
   stubMethod
 } from "./http-test-helpers.js";
 import { createTestApiConfig } from "./test-config.js";
+
+const RETENTION_ACTION = {
+  ANONYMIZE: "ANONYMIZE"
+} as const;
+
+const RETENTION_DATA_CATEGORY = {
+  OUTPUT_ARTIFACTS: "OUTPUT_ARTIFACTS"
+} as const;
+
+const RETENTION_EXECUTION_MODE = {
+  DRY_RUN: "DRY_RUN"
+} as const;
 
 function createPrivacyTestApp() {
   return createAuthenticatedApiTestApp({
@@ -35,6 +41,36 @@ void test("privacy router runs retention with dry-run as the default execution m
   let receivedOutputArtifactCount: unknown = null;
   let receivedExecutionCreate: unknown = null;
   let receivedAuditLogCreate: unknown = null;
+  const originalRetentionPolicyModel = Reflect.get(prisma, "dataRetentionPolicy");
+  const originalRetentionExecutionModel = Reflect.get(prisma, "dataRetentionExecution");
+
+  Reflect.set(prisma, "dataRetentionPolicy", {
+    findMany: (args: unknown) => {
+      receivedPolicyLookup = args;
+      return Promise.resolve([
+        {
+          action: RETENTION_ACTION.ANONYMIZE,
+          dataCategory: RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS,
+          id: "policy_1",
+          retentionDays: 30
+        }
+      ]);
+    },
+    upsert: (args: unknown) => {
+      policyUpserts.push(args);
+      return Promise.resolve({});
+    }
+  });
+
+  Reflect.set(prisma, "dataRetentionExecution", {
+    create: (args: unknown) => {
+      receivedExecutionCreate = args;
+      return Promise.resolve({
+        id: "ret_exec_1"
+      });
+    }
+  });
+
   const restores = [
     stubMethod(prisma.organization, "findFirst", (args: unknown) => {
       organizationLookups.push(args);
@@ -43,30 +79,9 @@ void test("privacy router runs retention with dry-run as the default execution m
         tenantId: "tenant_1"
       });
     }),
-    stubMethod(prisma.dataRetentionPolicy, "upsert", (args: unknown) => {
-      policyUpserts.push(args);
-      return Promise.resolve({});
-    }),
-    stubMethod(prisma.dataRetentionPolicy, "findMany", (args: unknown) => {
-      receivedPolicyLookup = args;
-      return Promise.resolve([
-        {
-          action: RetentionAction.ANONYMIZE,
-          dataCategory: RetentionDataCategory.OUTPUT_ARTIFACTS,
-          id: "policy_1",
-          retentionDays: 30
-        }
-      ]);
-    }),
     stubMethod(prisma.outputArtifact, "count", (args: unknown) => {
       receivedOutputArtifactCount = args;
       return Promise.resolve(4);
-    }),
-    stubMethod(prisma.dataRetentionExecution, "create", (args: unknown) => {
-      receivedExecutionCreate = args;
-      return Promise.resolve({
-        id: "ret_exec_1"
-      });
     }),
     stubMethod(prisma.auditLog, "create", (args: unknown) => {
       receivedAuditLogCreate = args;
@@ -113,10 +128,10 @@ void test("privacy router runs retention with dry-run as the default execution m
     assert.ok(receivedOutputArtifactCount.where.createdAt.lt instanceof Date);
     assert.deepEqual(receivedExecutionCreate, {
       data: {
-        action: RetentionAction.ANONYMIZE,
+        action: RETENTION_ACTION.ANONYMIZE,
         affectedCount: 0,
-        dataCategory: RetentionDataCategory.OUTPUT_ARTIFACTS,
-        mode: RetentionExecutionMode.DRY_RUN,
+        dataCategory: RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS,
+        mode: RETENTION_EXECUTION_MODE.DRY_RUN,
         organizationId: "org_1",
         policyId: "policy_1",
         scannedCount: 4,
@@ -128,10 +143,10 @@ void test("privacy router runs retention with dry-run as the default execution m
         action: "privacy.retention.executed",
         diff: {
           after: {
-            action: RetentionAction.ANONYMIZE,
+            action: RETENTION_ACTION.ANONYMIZE,
             affectedCount: 0,
-            dataCategory: RetentionDataCategory.OUTPUT_ARTIFACTS,
-            mode: RetentionExecutionMode.DRY_RUN,
+            dataCategory: RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS,
+            mode: RETENTION_EXECUTION_MODE.DRY_RUN,
             scannedCount: 4
           },
           before: {}
@@ -145,7 +160,7 @@ void test("privacy router runs retention with dry-run as the default execution m
       items: [
         {
           affectedCount: 0,
-          dataCategory: RetentionDataCategory.OUTPUT_ARTIFACTS,
+          dataCategory: RETENTION_DATA_CATEGORY.OUTPUT_ARTIFACTS,
           executionId: "ret_exec_1",
           scannedCount: 4
         }
@@ -156,6 +171,8 @@ void test("privacy router runs retention with dry-run as the default execution m
     for (const restore of restores.reverse()) {
       restore();
     }
+    Reflect.set(prisma, "dataRetentionPolicy", originalRetentionPolicyModel);
+    Reflect.set(prisma, "dataRetentionExecution", originalRetentionExecutionModel);
   }
 });
 
