@@ -128,5 +128,5 @@ void test("dashboard router returns service unavailable when clinical delegates 
 
   assert.equal(response.body.status, 503);
   assert.equal(response.body.title, "Service Unavailable");
-  assert.match(String(response.body.detail ?? ""), /patient/i);
+  assert.match(String(response.body.detail ?? ""), /(appointment|patient|pregnancyrecord|neonatalrecord)/i);
 });

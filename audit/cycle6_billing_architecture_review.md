@@ -169,3 +169,13 @@ Operação real identificável:
 
 ## Veredito deste bloco
 A arquitetura de billing é suficiente para uma operação limitada de assinatura recorrente fixa, mas não sustenta a promessa de monetização híbrida ou usage-based. O domínio existe em código, porém ainda mistura boa estrutura de webhook e persistência com lacunas importantes de reconciliação, cancelamento exposto, dunning e governança técnica.
+
+## Ancoras de evidencia
+- Pacote morto e dominio canônico: `packages/billing/README.md:1`, `packages/billing/README.md:8`, `packages/billing/README.md:11`
+- Catalogo default e alias de plano: `apps/api/src/modules/billing/service.shared.ts:14`, `apps/api/src/modules/billing/service.shared.ts:47`, `apps/api/src/modules/billing/service.shared.ts:70`, `apps/api/src/modules/billing/service.shared.ts:93`
+- Trial e bootstrap inicial: `apps/api/src/modules/organizations/service.ts:24`, `apps/api/src/modules/organizations/service.ts:25`, `apps/api/src/modules/organizations/service.ts:26`, `apps/api/src/modules/organizations/service.ts:195`, `apps/api/src/modules/organizations/service.ts:198`, `apps/api/src/modules/organizations/service.ts:206`
+- Endpoints reais de billing: `apps/api/src/modules/billing/router.ts:36`, `apps/api/src/modules/billing/router.ts:56`, `apps/api/src/modules/billing/router.ts:112`, `apps/api/src/modules/billing/router.ts:129`, `apps/api/src/modules/billing/router.ts:160`
+- Checkout, portal, leitura de uso e cancelamento em service: `apps/api/src/modules/billing/service.checkout.ts:112`, `apps/api/src/modules/billing/service.checkout.ts:145`, `apps/api/src/modules/billing/service.checkout.ts:231`, `apps/api/src/modules/billing/service.checkout.ts:242`, `apps/api/src/modules/billing/service.checkout.ts:266`
+- Gate operacional do webhook Stripe: `apps/api/src/app/core.ts:154`, `apps/api/src/app/core.ts:155`, `apps/api/src/app/core.ts:159`
+- Risco de periodo incorreto via checkout: `apps/api/src/modules/billing/service.reconciliation.handlers.ts:79`
+- Grace period e `past_due`: `apps/api/src/modules/billing/service.reconciliation.handlers.ts:228`, `apps/api/src/modules/billing/service.reconciliation.handlers.ts:244`, `apps/api/src/modules/billing/service.reconciliation.handlers.ts:245`

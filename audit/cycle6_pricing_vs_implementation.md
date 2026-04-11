@@ -118,3 +118,13 @@ Conclusão:
 
 ## Julgamento deste bloco
 Existe pricing implementado para três planos com cobrança recorrente mensal/anual em cents, mas a camada comercial não está alinhada com a implementação. O produto hoje consegue sustentar apenas a narrativa de planos fixos básicos. A narrativa de limites comerciais mais amplos, full lead-to-cash e automação financeira está acima do que o código efetivamente entrega.
+
+## Ancoras de evidencia
+- Catalogo canônico e alias: `apps/api/src/modules/billing/service.shared.ts:14`, `apps/api/src/modules/billing/service.shared.ts:47`, `apps/api/src/modules/billing/service.shared.ts:51`, `apps/api/src/modules/billing/service.shared.ts:70`, `apps/api/src/modules/billing/service.shared.ts:74`, `apps/api/src/modules/billing/service.shared.ts:93`, `apps/api/src/modules/billing/service.shared.ts:97`
+- Limites starter e pro em código: `apps/api/src/modules/billing/service.shared.ts:57`, `apps/api/src/modules/billing/service.shared.ts:66`, `apps/api/src/modules/billing/service.shared.ts:80`, `apps/api/src/modules/billing/service.shared.ts:89`
+- Quotas bootstrap divergentes: `apps/api/src/modules/organizations/service.ts:25`, `apps/api/src/modules/organizations/service.ts:26`, `apps/api/src/modules/organizations/service.ts:27`
+- Reset mensal divergente: `apps/worker/src/jobs/quotaReset.ts:6`, `apps/worker/src/jobs/quotaReset.ts:7`, `apps/worker/src/jobs/quotaReset.ts:8`, `apps/worker/src/jobs/quotaReset.ts:9`, `apps/worker/src/jobs/quotaReset.ts:10`
+- Fallback `professional` e checkout da UI: `apps/web/app/pricing/page.tsx:38`, `apps/web/app/pricing/page.tsx:40`, `apps/web/app/pricing/page.tsx:127`
+- Preco anual calculado no frontend: `apps/web/app/pricing/page.tsx:179`
+- Escopo reduzido da exibicao comercial: `apps/web/app/pricing/page.tsx:194`, `apps/web/app/pricing/page.tsx:195`, `apps/web/app/pricing/page.tsx:197`, `apps/web/app/pricing/page.tsx:199`
+- Promessas comerciais acima do enforcement real: `docs/CORPORATE_IDENTITY.md:21`, `docs/CORPORATE_IDENTITY.md:80`, `docs/CORPORATE_IDENTITY.md:89`, `docs/CORPORATE_IDENTITY.md:90`, `docs/CORPORATE_IDENTITY.md:97`, `docs/CORPORATE_IDENTITY.md:98`, `docs/CORPORATE_IDENTITY.md:107`

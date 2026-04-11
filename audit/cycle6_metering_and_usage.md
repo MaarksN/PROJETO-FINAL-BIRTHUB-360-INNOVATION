@@ -112,3 +112,14 @@ O produto não possui:
 Classificação específica de metering:
 - maturidade `estrutural` para usage-based billing
 - maturidade `parcial` apenas para algumas travas internas de consumo
+
+## Ancoras de evidencia
+- Leitura de `UsageRecord` no billing: `apps/api/src/modules/billing/service.checkout.ts:231`, `apps/api/src/modules/billing/service.checkout.ts:242`
+- Escrita de `UsageRecord` encontrada apenas em seeds: `packages/database/prisma/seed/tenant.ts:421`, `packages/database/prisma/seeds/shared-ops.ts:137`
+- Bootstrap de quotas: `apps/api/src/modules/organizations/service.ts:24`, `apps/api/src/modules/organizations/service.ts:25`, `apps/api/src/modules/organizations/service.ts:26`, `apps/api/src/modules/organizations/service.ts:27`, `apps/api/src/modules/organizations/service.ts:206`
+- Reset mensal hardcoded: `apps/worker/src/jobs/quotaReset.ts:6`, `apps/worker/src/jobs/quotaReset.ts:7`, `apps/worker/src/jobs/quotaReset.ts:8`, `apps/worker/src/jobs/quotaReset.ts:9`, `apps/worker/src/jobs/quotaReset.ts:10`, `apps/worker/src/jobs/quotaReset.ts:35`
+- Consumo real observado so para `AI_PROMPTS`: `apps/worker/src/engine/runner.shared.ts:92`, `apps/worker/src/engine/runner.shared.ts:101`, `apps/worker/src/engine/runner.shared.ts:102`, `apps/worker/src/engine/runner.shared.ts:108`
+- Orcamento heuristico por agente: `apps/api/src/modules/budget/budget.service.ts:373`, `apps/api/src/modules/budget/budget.service.ts:383`, `apps/api/src/modules/budget/budget.service.ts:384`, `apps/api/src/modules/budget/budget.service.ts:385`
+- Painel de quotas ainda aspiracional: `apps/web/app/(dashboard)/billing/page.tsx:3`, `apps/web/app/(dashboard)/billing/page.tsx:18`
+- Mismatch de payload de `usage` no dashboard: `apps/web/app/(dashboard)/dashboard/page.data.ts:47`, `apps/web/app/(dashboard)/dashboard/page.data.ts:139`
+- Promessa aspiracional de metered billing: `docs/adrs/ADR-025-billing-baseado-em-uso.md:10`, `docs/adrs/ADR-025-billing-baseado-em-uso.md:14`, `docs/adrs/ADR-025-billing-baseado-em-uso.md:18`

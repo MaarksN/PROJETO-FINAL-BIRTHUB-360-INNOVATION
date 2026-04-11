@@ -3,7 +3,16 @@
 import { prisma } from "@birthub/database";
 import { existsSync } from "node:fs";
 import path from "node:path";
-import { findManifestCatalogEntryByAgentId, loadManifestCatalog, type ManifestCatalogEntry, type AgentManifest, type ManagedAgentPolicy } from "@birthub/agents-core";
+import {
+  findManifestCatalogEntryByAgentId,
+  loadManifestCatalog,
+  recommendAgentsForTenant,
+  searchManifestCatalog,
+  type AgentManifest,
+  type ManagedAgentPolicy,
+  type ManifestCatalogEntry,
+  type ManifestSearchFilters
+} from "@birthub/agents-core";
 
 export interface AgentConfigSnapshot {
   managedPolicies: ManagedAgentPolicy[];
@@ -54,6 +63,37 @@ async function getManifestCatalog(): Promise<ManifestCatalogEntry[]> {
   };
 
   return entries;
+}
+
+export async function getRuntimeManifestCatalog(): Promise<ManifestCatalogEntry[]> {
+  return getManifestCatalog();
+}
+
+export async function searchRuntimeManifestCatalog(input: {
+  filters?: ManifestSearchFilters;
+  includeCatalogEntries?: boolean;
+  limit?: number;
+  query?: string;
+}): Promise<Array<ManifestCatalogEntry & { score: number }>> {
+  const catalog = await getManifestCatalog();
+  const pageSize = Math.min(Math.max(input.limit ?? 6, 1), 25);
+  const search = searchManifestCatalog(catalog, {
+    filters: input.filters,
+    includeCatalogEntries: input.includeCatalogEntries,
+    page: 1,
+    pageSize,
+    query: input.query
+  });
+
+  return search.results;
+}
+
+export async function recommendRuntimeManifestAgents(input: {
+  limit?: number;
+  tenantIndustry: string;
+}): Promise<Array<ManifestCatalogEntry & { recommendationScore: number }>> {
+  const catalog = await getManifestCatalog();
+  return recommendAgentsForTenant(catalog, input.tenantIndustry, input.limit ?? 6);
 }
 
 export function parseAgentConfig(config: unknown): AgentConfigSnapshot {

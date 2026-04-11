@@ -85,3 +85,11 @@ O produto não deve ser descrito como comercialmente pronto. A formulação mais
 - ligar uso medido a invoice line item ou Stripe metering real
 - corrigir divergências entre UI de pricing, catálogo backend e documentação comercial
 - retirar `@ts-nocheck` do domínio de billing/metering e estabilizar lint
+
+## Evidência rápida para revisão executiva
+- Billing recorrente real: `apps/api/src/modules/billing/router.ts:56`, `apps/api/src/modules/billing/service.checkout.ts:112`, `apps/api/src/modules/billing/service.reconciliation.handlers.ts:245`
+- Trial e quotas reais no onboarding: `apps/api/src/modules/organizations/service.ts:195`, `apps/api/src/modules/organizations/service.ts:198`, `apps/api/src/modules/organizations/service.ts:206`
+- Quotas divergentes do plano: `apps/api/src/modules/billing/service.shared.ts:80`, `apps/api/src/modules/organizations/service.ts:26`, `apps/worker/src/jobs/quotaReset.ts:6`
+- Uso por runtime insuficiente para faturamento: `apps/api/src/modules/billing/service.checkout.ts:242`, `apps/worker/src/engine/runner.shared.ts:108`
+- Promessa aspiracional de usage billing: `docs/adrs/ADR-025-billing-baseado-em-uso.md:10`, `docs/adrs/ADR-025-billing-baseado-em-uso.md:18`
+- Promessa comercial acima do código: `docs/CORPORATE_IDENTITY.md:21`, `docs/CORPORATE_IDENTITY.md:80`, `docs/CORPORATE_IDENTITY.md:89`, `docs/CORPORATE_IDENTITY.md:98`, `docs/CORPORATE_IDENTITY.md:107`

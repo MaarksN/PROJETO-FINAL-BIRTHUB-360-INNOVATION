@@ -74,3 +74,11 @@ Condições implícitas para esse uso limitado:
 
 ## Julgamento final
 O produto está acima de um estágio meramente estrutural porque já cobra assinatura recorrente e reconcilia eventos centrais de Stripe. Ainda assim, a monetização está longe de ser comercialmente pronta. O estado mais fiel é `operacional limitada`: existe base para operar planos fixos com forte contenção de escopo, mas não existe base para comercialização ampla, enterprise ou usage-based sem risco elevado de inconsistência de cobrança e quebra de promessa comercial.
+
+## Criterios objetivos para sair de `operacional limitada`
+- Todo limite comercial ativo deve ser derivado do plano contratado, sem hardcodes paralelos em onboarding e reset.
+- Cada evento de consumo faturavel deve gerar trilha auditavel de escrita no runtime, com agregacao reprodutivel por tenant e periodo.
+- Se houver promessa de billing por uso, o produto precisa integrar consumo medido com faturamento Stripe ou mecanismo equivalente de invoice line item.
+- A UI de pricing deve consumir o catalogo canônico sem aliases improvisados nem calculo local de preco anual.
+- A narrativa comercial precisa ser reduzida ao que o codigo efetivamente controla ou, alternativamente, o enforcement tecnico precisa ser implementado.
+- O dominio de billing e metering precisa passar em lint sem dependencia massiva de `@ts-nocheck`.
