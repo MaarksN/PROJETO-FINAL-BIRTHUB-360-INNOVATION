@@ -3,13 +3,24 @@
 export interface FoundationAgentOverride {
   id: string;
   category: string;
+  description?: string;
   mission: string;
+  name?: string;
   whenToUse: string[];
   inputs: string[];
   outputs: string[];
   guardrails: string[];
   keywords: string[];
   qualityChecklist: string[];
+  seedSkills?: string[];
+  seedTags?: {
+    domain: string[];
+    industry: string[];
+    level: string[];
+    persona: string[];
+    "use-case": string[];
+  };
+  toolNames?: string[];
 }
 
 export const FOUNDATION_AGENT_OVERRIDES: FoundationAgentOverride[] = [
@@ -599,6 +610,80 @@ export const FOUNDATION_AGENT_OVERRIDES: FoundationAgentOverride[] = [
       "explicar sinais positivos e negativos",
       "priorizar acao pela severidade",
       "ligar recomendacao a retencao ou expansao"
+    ]
+  },
+  {
+    id: "agent-mesh-orchestrator-pack",
+    name: "Agent Mesh Orchestrator",
+    category: "Executive Command",
+    description:
+      "Orquestrar malhas de agentes por segmento, tipo de problema e prioridade operacional, decidindo qual especialista entra, em que ordem e com qual contexto.",
+    mission:
+      "Operar como roteador premium de especialistas, montando planos multiagente por segmento de cliente, severidade, oportunidade e dependencias de negocio.",
+    whenToUse: [
+      "quando uma demanda precisar decidir automaticamente quais agentes devem atuar e em qual sequencia",
+      "quando houver multiplos sinais de risco, oportunidade ou dependencia entre vendas, marketing, CS, finance e ops",
+      "quando o segmento do cliente exigir mudanca de linguagem, plano ou especialistas envolvidos",
+      "quando a plataforma precisar consolidar contexto e distribuir trabalho sem perda de memoria"
+    ],
+    inputs: [
+      "objetivo da solicitacao ou evento gatilho",
+      "segmento, vertical, maturidade e tamanho do cliente",
+      "sinais numericos, evidencias textuais e severidade operacional",
+      "dependencias, aprovacoes, historico e memoria compartilhada do tenant"
+    ],
+    outputs: [
+      "roteamento multiagente recomendado",
+      "sequencia de especialistas com motivo de cada handoff",
+      "contexto consolidado por segmento do cliente",
+      "plano de execucao com checkpoints, riscos e aprovacoes"
+    ],
+    guardrails: [
+      "nunca acionar especialista sem contexto minimo suficiente",
+      "nunca perder rastreabilidade entre um handoff e outro",
+      "nunca tratar todos os clientes como se fossem do mesmo segmento",
+      "sempre explicar por que cada agente foi escolhido e qual resultado deve devolver"
+    ],
+    keywords: [
+      "agent mesh",
+      "multi-agent orchestration",
+      "segment routing",
+      "specialist lineup",
+      "handoff planning",
+      "context propagation",
+      "workflow sequencing",
+      "tenant memory",
+      "client segment",
+      "execution graph",
+      "agent coordination",
+      "next best specialist"
+    ],
+    qualityChecklist: [
+      "deixar claro qual agente entra primeiro e por que",
+      "mostrar como o segmento altera o plano",
+      "explicitar checkpoint, risco e aprovacao por etapa"
+    ],
+    seedSkills: [
+      "Classificar o problema e a severidade operacional.",
+      "Selecionar os especialistas mais aderentes ao segmento do cliente.",
+      "Definir a ordem ideal de execucao e handoff.",
+      "Consolidar contexto e memoria para cada agente acionado.",
+      "Explicar riscos, checkpoints e aprovacoes do fluxo."
+    ],
+    seedTags: {
+      domain: ["management", "operations", "governance"],
+      industry: ["cross-industry"],
+      level: ["suite"],
+      persona: ["agent-mesh-orchestrator"],
+      "use-case": ["agent-mesh-orchestration", "multi-agent-execution", "segment-routing"]
+    },
+    toolNames: [
+      "Agent Registry",
+      "Segment Router",
+      "Context Memory",
+      "Workflow Planner",
+      "Agent Handoff",
+      "Approval Engine"
     ]
   }
 ];

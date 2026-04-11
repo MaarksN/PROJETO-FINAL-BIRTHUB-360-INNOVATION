@@ -1,13 +1,13 @@
-// @ts-nocheck
 import { getWebConfig } from "@birthub/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+import { ACTIVE_TENANT_COOKIE_NAME } from "./session-context";
 
 const PRODUCT_API_TIMEOUT_MS = 8_000;
 
-class ProductApiError extends Error {
+export class ProductApiError extends Error {
   constructor(
     message: string,
     readonly status: number
@@ -20,13 +20,19 @@ class ProductApiError extends Error {
 export async function fetchProductJson<T>(path: string, init?: RequestInit): Promise<T> {
   const config = getWebConfig();
   const cookieStore = await cookies();
+  const requestHeaders = new Headers(init?.headers);
+  const activeTenant = cookieStore.get(ACTIVE_TENANT_COOKIE_NAME)?.value?.trim();
+
+  requestHeaders.set("cookie", cookieStore.toString());
+
+  if (activeTenant) {
+    requestHeaders.set("x-active-tenant", activeTenant);
+  }
+
   const response = await fetchWithTimeout(`${config.NEXT_PUBLIC_API_URL}${path}`, {
     ...init,
     cache: "no-store",
-    headers: {
-      cookie: cookieStore.toString(),
-      ...(init?.headers ?? {})
-    },
+    headers: requestHeaders,
     timeoutMessage: `Product API exceeded the ${PRODUCT_API_TIMEOUT_MS}ms timeout budget for ${path}.`,
     timeoutMs: PRODUCT_API_TIMEOUT_MS
   });

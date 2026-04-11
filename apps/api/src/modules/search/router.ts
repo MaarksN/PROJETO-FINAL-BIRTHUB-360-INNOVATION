@@ -1,14 +1,10 @@
 // @ts-nocheck
 import { Router } from "express";
-import { z } from "zod";
 
 import { requireAuthenticatedSession } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { searchQuerySchema } from "./schemas.js";
 import { searchWorkspace } from "./service.js";
-
-const searchQuerySchema = z.object({
-  q: z.string().trim().max(80).default("")
-});
 
 function requireIdentity(input: {
   organizationId: string | null;

@@ -5,7 +5,7 @@
       "exists": true,
       "latest": null
     },
-    "checkedAt": "2026-04-10T13:34:38.605Z",
+    "checkedAt": "2026-04-11T16:44:38.742Z",
     "directories": {
       "backupsDir": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
       "walDir": null
@@ -78,7 +78,7 @@
     "status": "warn",
     "sufficient": false
   },
-  "generatedAt": "2026-04-10T13:34:39.141Z",
+  "generatedAt": "2026-04-11T16:44:39.983Z",
   "overallStatus": "fail",
   "rollbackEvidence": {
     "checkedAt": "2026-03-24T14:37:26.498Z",

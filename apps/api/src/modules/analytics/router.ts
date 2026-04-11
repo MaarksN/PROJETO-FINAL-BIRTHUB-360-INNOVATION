@@ -2,30 +2,14 @@
 // 
 import { Role } from "@birthub/database";
 import { Router } from "express";
-import { z } from "zod";
 
 import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
 import { asyncHandler } from "../../lib/problem-details.js";
-import {
-  exportBillingCsv,
-  getCsRiskAccounts,
-  getGlobalAgentPerformance,
-  getActiveTenantsMetrics,
-  getCohortMetrics,
-  getExecutiveMetrics,
-  getMasterAdminDashboard,
-  getOperationsDashboard,
-  getQualityReport,
-  getUsageMetrics
-} from "./service.js";
-
-const dateRangeSchema = z.object({
-  from: z.string().datetime().optional(),
-  to: z.string().datetime().optional()
-});
+import { dateRangeSchema } from "./schemas.js";
+import { analyticsRouterService } from "./service.js";
 
 export function createAnalyticsRouter(): Router {
   const router = Router();
@@ -36,7 +20,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
-      const usage = await getUsageMetrics({
+      const usage = await analyticsRouterService.getUsageMetrics({
         ...(range.from ? { from: new Date(range.from) } : {}),
         ...(range.to ? { to: new Date(range.to) } : {})
       });
@@ -54,7 +38,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        metrics: await getExecutiveMetrics(),
+        metrics: await analyticsRouterService.getExecutiveMetrics(),
         requestId: request.context.requestId
       });
     })
@@ -66,7 +50,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        items: await getCohortMetrics(),
+        items: await analyticsRouterService.getCohortMetrics(),
         requestId: request.context.requestId
       });
     })
@@ -78,7 +62,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
-      const csv = await exportBillingCsv({
+      const csv = await analyticsRouterService.exportBillingCsv({
         ...(range.from ? { from: new Date(range.from) } : {}),
         ...(range.to ? { to: new Date(range.to) } : {})
       });
@@ -94,7 +78,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        metrics: await getActiveTenantsMetrics(),
+        metrics: await analyticsRouterService.getActiveTenantsMetrics(),
         requestId: request.context.requestId
       });
     })
@@ -106,7 +90,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        items: await getCsRiskAccounts(),
+        items: await analyticsRouterService.getCsRiskAccounts(),
         requestId: request.context.requestId
       });
     })
@@ -118,7 +102,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        items: await getQualityReport(),
+        items: await analyticsRouterService.getQualityReport(),
         requestId: request.context.requestId
       });
     })
@@ -130,7 +114,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        metrics: await getGlobalAgentPerformance(),
+        metrics: await analyticsRouterService.getGlobalAgentPerformance(),
         requestId: request.context.requestId
       });
     })
@@ -142,7 +126,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        metrics: await getMasterAdminDashboard(),
+        metrics: await analyticsRouterService.getMasterAdminDashboard(),
         requestId: request.context.requestId
       });
     })
@@ -154,7 +138,7 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.SUPER_ADMIN),
     asyncHandler(async (request, response) => {
       response.status(200).json({
-        metrics: await getOperationsDashboard(),
+        metrics: await analyticsRouterService.getOperationsDashboard(),
         requestId: request.context.requestId
       });
     })

@@ -3,66 +3,30 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { Role } from "@birthub/database";
-import express from "express";
 import request from "supertest";
-import { ZodError } from "zod";
 
-import {
-  ProblemDetailsError,
-  fromZodError,
-  toProblemDetails
-} from "../src/lib/problem-details.js";
 import { createClinicalRouter } from "../src/modules/clinical/router.js";
 import { clinicalService } from "../src/modules/clinical/service.js";
-
-function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
-  Reflect.set(target, key, value);
-  return () => {
-    Reflect.set(target, key, original);
-  };
-}
+import {
+  createAuthenticatedApiTestApp,
+  stubMethod
+} from "./http-test-helpers.js";
 
 function createClinicalTestApp() {
-  const app = express();
-  app.use(express.json());
-  app.use((request, _response, next) => {
-    request.context = {
-      apiKeyId: null,
-      authType: "session",
-      billingPlanStatus: null,
-      breakGlassGrantId: null,
-      breakGlassReason: null,
-      breakGlassTicket: null,
-      impersonatedByUserId: null,
+  return createAuthenticatedApiTestApp({
+    contextOverrides: {
       organizationId: "org_clinic",
       requestId: "req_clinic",
       role: Role.MEMBER,
-      sessionAccessMode: null,
       sessionId: "session_clinic",
       tenantId: "tenant_clinic",
       tenantSlug: "tenant-clinic",
       traceId: "trace_clinic",
       userId: "user_clinic"
-    };
-    next();
+    },
+    mountPath: "/api/v1",
+    router: createClinicalRouter()
   });
-  app.use("/api/v1", createClinicalRouter());
-  app.use((error: unknown, req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    const problem =
-      error instanceof ZodError
-        ? fromZodError(error)
-        : error instanceof ProblemDetailsError
-          ? error
-          : new ProblemDetailsError({
-              detail: error instanceof Error ? error.message : "Unexpected internal server error.",
-              status: 500,
-              title: "Internal Server Error"
-            });
-
-    res.status(problem.status).json(toProblemDetails(req, problem));
-  });
-  return app;
 }
 
 void test("clinical router lists patients with search and risk filters", async () => {

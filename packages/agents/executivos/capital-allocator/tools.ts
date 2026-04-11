@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const BUDGETFLUID_TOOL_IDS = [
+export const CAPITALALLOCATOR_TOOL_IDS = [
   "spend-telemetry-feed",
   "forecast-drift-engine",
   "scenario-stress-feed"
 ] as const;
-export type BudgetToolId = (typeof BUDGETFLUID_TOOL_IDS)[number];
+export type BudgetToolId = (typeof CAPITALALLOCATOR_TOOL_IDS)[number];
 
 export const BudgetToolInputSchema = z
   .object({
@@ -123,3 +123,4 @@ export function createDefaultCapitalAllocatorToolAdapters(): CapitalAllocatorToo
     }
   };
 }
+

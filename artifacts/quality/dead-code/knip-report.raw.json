@@ -1,4 +1,327 @@
 {
-  "files": [],
-  "issues": []
+  "files": [
+    "apps/web/lib/web-session.ts"
+  ],
+  "issues": [
+    {
+      "file": "packages/agents-core/package.json",
+      "owners": [],
+      "dependencies": [
+        {
+          "name": "@birthub/logger",
+          "line": 15,
+          "col": 6,
+          "pos": 367
+        }
+      ],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "packages/database/package.json",
+      "owners": [
+        {
+          "name": "@birthub/data-engineering"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "zod",
+          "line": 47,
+          "col": 6,
+          "pos": 2251
+        }
+      ],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "stryker.config.mjs",
+      "owners": [
+        {
+          "name": "@birthub/core-maintainers"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [
+        {
+          "name": "@stryker-mutator/api",
+          "line": 1,
+          "col": 31,
+          "pos": 29
+        }
+      ],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "packages/emails/templates/critical-error.tsx",
+      "owners": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [
+        {
+          "name": "react",
+          "line": 3,
+          "col": 25,
+          "pos": 42
+        }
+      ],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "packages/emails/templates/org-invite.tsx",
+      "owners": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [
+        {
+          "name": "react",
+          "line": 3,
+          "col": 25,
+          "pos": 42
+        }
+      ],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "packages/emails/templates/workflow-finished.tsx",
+      "owners": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [
+        {
+          "name": "react",
+          "line": 3,
+          "col": 25,
+          "pos": 42
+        }
+      ],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "packages/logger/src/otel.ts",
+      "owners": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [
+        {
+          "name": "@opentelemetry/api",
+          "line": 50,
+          "col": 12,
+          "pos": 1318
+        }
+      ],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/agents/runtime.shared.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "readNumbers",
+          "line": 184,
+          "col": 17,
+          "pos": 5118
+        },
+        {
+          "name": "readStrings",
+          "line": 200,
+          "col": 17,
+          "pos": 5485
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/notifications/service.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "getNotificationFeed",
+          "line": 32,
+          "col": 23,
+          "pos": 738
+        },
+        {
+          "name": "markNotificationReadForUser",
+          "line": 53,
+          "col": 23,
+          "pos": 1321
+        },
+        {
+          "name": "markAllNotificationsReadForUser",
+          "line": 66,
+          "col": 23,
+          "pos": 1664
+        },
+        {
+          "name": "getNotificationPreferences",
+          "line": 77,
+          "col": 23,
+          "pos": 1959
+        },
+        {
+          "name": "saveNotificationPreferences",
+          "line": 89,
+          "col": 23,
+          "pos": 2280
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/analytics/dashboard.service.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "getMasterAdminDashboard",
+          "line": 14,
+          "col": 23,
+          "pos": 488
+        },
+        {
+          "name": "getOperationsDashboard",
+          "line": 124,
+          "col": 23,
+          "pos": 3527
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/connectors/schemas.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "credentialSchema",
+          "line": 13,
+          "col": 14,
+          "pos": 205
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/web/lib/auth-client.ts",
+      "owners": [
+        {
+          "name": "@birthub/frontend"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "persistStoredSession",
+          "line": 87,
+          "col": 17,
+          "pos": 2373
+        },
+        {
+          "name": "clearStoredSession",
+          "line": 115,
+          "col": 17,
+          "pos": 3189
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/web/lib/product-api.server.ts",
+      "owners": [
+        {
+          "name": "@birthub/frontend"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "ProductApiError",
+          "line": 10,
+          "col": 14,
+          "pos": 319
+        }
+      ],
+      "duplicates": []
+    }
+  ]
 }

@@ -1,5 +1,5 @@
-// @ts-nocheck
-// 
+const supportedSessionActions = ["signin", "signout", "refresh", "mfa", "session"] as const;
+
 export function isSupportedSessionAction(action: string | undefined): boolean {
-  return ["signin", "signout", "refresh", "mfa", "session"].includes(action ?? "");
+  return supportedSessionActions.includes((action ?? "") as (typeof supportedSessionActions)[number]);
 }

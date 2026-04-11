@@ -1,12 +1,25 @@
-// @ts-nocheck
-// 
-export type RuntimeEvent =
-  | { type: "goal.started"; payload: Record<string, unknown> }
-  | { type: "step.planned"; payload: Record<string, unknown> }
-  | { type: "step.executed"; payload: Record<string, unknown> }
-  | { type: "step.evaluated"; payload: Record<string, unknown> }
-  | { type: "goal.completed"; payload: Record<string, unknown> }
-  | { type: "goal.failed"; payload: Record<string, unknown> };
+export type RuntimeEventType =
+  | "goal.started"
+  | "step.planned"
+  | "step.executed"
+  | "step.evaluated"
+  | "goal.completed"
+  | "goal.failed";
+
+export interface RuntimeEventMetadata {
+  agentId?: string;
+  executionId?: string;
+  requestId?: string;
+  stepId?: string;
+  timestamp?: string;
+  toolId?: string;
+}
+
+export interface RuntimeEvent {
+  meta?: RuntimeEventMetadata;
+  payload: Record<string, unknown>;
+  type: RuntimeEventType;
+}
 
 export type RuntimeStep = {
   id: string;
@@ -18,6 +31,12 @@ export class RuntimeGraph {
   private readonly steps = new Map<string, RuntimeStep>();
 
   addStep(step: RuntimeStep): void {
+    if (this.steps.has(step.id)) {
+      throw new Error(`duplicate_step:${step.id}`);
+    }
+    if (step.dependsOn.includes(step.id)) {
+      throw new Error(`self_dependency:${step.id}`);
+    }
     this.steps.set(step.id, step);
   }
 

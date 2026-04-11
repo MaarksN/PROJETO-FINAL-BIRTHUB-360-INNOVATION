@@ -1,11 +1,4 @@
-// @ts-nocheck
-// 
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
-import { getStoredSession } from "../lib/auth-client";
+import { redirect } from "next/navigation";
 
 export default function HomePage() {
   redirect("/login");

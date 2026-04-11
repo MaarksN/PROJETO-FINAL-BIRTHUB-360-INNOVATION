@@ -4,65 +4,29 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { prisma, Role } from "@birthub/database";
-import express from "express";
 import request from "supertest";
-import { ZodError } from "zod";
 
-import {
-  ProblemDetailsError,
-  fromZodError,
-  toProblemDetails
-} from "../src/lib/problem-details.js";
 import { createConversationsRouter } from "../src/modules/conversations/router.js";
-
-function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
-  Reflect.set(target, key, value);
-  return () => {
-    Reflect.set(target, key, original);
-  };
-}
+import {
+  createAuthenticatedApiTestApp,
+  stubMethod
+} from "./http-test-helpers.js";
 
 function createConversationsTestApp() {
-  const app = express();
-  app.use(express.json());
-  app.use((request, _response, next) => {
-    request.context = {
-      apiKeyId: null,
-      authType: "session",
-      billingPlanStatus: null,
-      breakGlassGrantId: null,
-      breakGlassReason: null,
-      breakGlassTicket: null,
-      impersonatedByUserId: null,
+  return createAuthenticatedApiTestApp({
+    contextOverrides: {
       organizationId: "org_product",
       requestId: "req_conversations",
       role: Role.MEMBER,
-      sessionAccessMode: null,
       sessionId: "session_product",
       tenantId: "tenant_product",
       tenantSlug: "tenant-product",
       traceId: "trace_conversations",
       userId: "user_product"
-    };
-    next();
+    },
+    mountPath: "/api/v1",
+    router: createConversationsRouter()
   });
-  app.use("/api/v1", createConversationsRouter());
-  app.use((error: unknown, req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    const problem =
-      error instanceof ZodError
-        ? fromZodError(error)
-        : error instanceof ProblemDetailsError
-          ? error
-          : new ProblemDetailsError({
-              detail: error instanceof Error ? error.message : "Unexpected internal server error.",
-              status: 500,
-              title: "Internal Server Error"
-            });
-
-    res.status(problem.status).json(toProblemDetails(req, problem));
-  });
-  return app;
 }
 
 void test("conversations router lists scoped threads with filters and previews", async () => {
@@ -254,4 +218,77 @@ void test("conversations router validates subject before creating a thread", asy
     .expect(400);
 
   assert.match(String(response.body.detail ?? ""), /invalid/i);
+});
+
+void test("conversations router returns not found when the requested thread does not exist", async () => {
+  const restore = stubMethod(prisma.conversationThread, "findFirst", () => Promise.resolve(null));
+
+  try {
+    const response = await request(createConversationsTestApp())
+      .get("/api/v1/conversations/thread_missing")
+      .expect(404);
+
+    assert.equal(response.body.status, 404);
+    assert.equal(response.body.title, "Not Found");
+  } finally {
+    restore();
+  }
+});
+
+void test("conversations router updates status inside the authenticated tenant scope", async () => {
+  let receivedScopeLookup: unknown = null;
+  let receivedUpdateArgs: unknown = null;
+  const restores = [
+    stubMethod(prisma.conversationThread, "findFirst", (args: unknown) => {
+      receivedScopeLookup = args;
+      return Promise.resolve({
+        id: "thread_1"
+      });
+    }),
+    stubMethod(prisma.conversationThread, "update", (args: unknown) => {
+      receivedUpdateArgs = args;
+      return Promise.resolve({
+        id: "thread_1",
+        status: "closed",
+        updatedAt: new Date("2026-04-08T10:30:00.000Z")
+      });
+    })
+  ];
+
+  try {
+    const response = await request(createConversationsTestApp())
+      .patch("/api/v1/conversations/thread_1/status")
+      .send({
+        status: "closed"
+      })
+      .expect(200);
+
+    assert.deepEqual(receivedScopeLookup, {
+      where: {
+        id: "thread_1",
+        organizationId: "org_product",
+        tenantId: "tenant_product"
+      }
+    });
+    assert.deepEqual(receivedUpdateArgs, {
+      data: {
+        status: "closed"
+      },
+      where: {
+        id: "thread_1"
+      }
+    });
+    assert.deepEqual(response.body, {
+      conversation: {
+        id: "thread_1",
+        status: "closed",
+        updatedAt: "2026-04-08T10:30:00.000Z"
+      },
+      requestId: "req_conversations"
+    });
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
 });

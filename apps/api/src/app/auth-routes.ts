@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import type { z } from "zod";
 import {
@@ -22,8 +20,10 @@ import {
   listActiveSessions,
   loginWithPassword,
   refreshSession,
+  revokeAllSessions,
   resolveOrganizationId,
   revokeCurrentSession,
+  revokeSessionById,
   verifyMfaChallenge
 } from "../modules/auth/auth.service.js";
 import { clearAuthCookies, setAuthCookies } from "../modules/auth/cookies.js";
@@ -58,6 +58,10 @@ function readUserAgent(request: {
   header(name: string): string | undefined;
 }): string | null {
   return request.header("user-agent") ?? null;
+}
+
+function readSingularPathParam(value: string | string[] | undefined): string {
+  return typeof value === "string" ? value.trim() : "";
 }
 
 function applySessionContext(
@@ -261,10 +265,75 @@ function registerSessionListRoute(app: Express): void {
   );
 }
 
+function registerSessionMutationRoutes(app: Express, config: ApiConfig): void {
+  app.delete(
+    "/api/v1/sessions/:sessionId",
+    requireAuthenticatedSession,
+    asyncHandler(async (request, response) => {
+      if (!request.context.organizationId || !request.context.userId) {
+        throw createUnauthorizedError();
+      }
+
+      const sessionId = readSingularPathParam(request.params.sessionId);
+
+      if (!sessionId) {
+        throw new ProblemDetailsError({
+          detail: "A valid session id is required.",
+          status: 400,
+          title: "Bad Request"
+        });
+      }
+
+      if (request.context.sessionId === sessionId) {
+        await revokeCurrentSession(sessionId);
+        clearAuthCookies(response, config);
+        response.status(200).json({
+          requestId: request.context.requestId,
+          revokedSessions: 1
+        });
+        return;
+      }
+
+      const revokedSessions = await revokeSessionById({
+        organizationId: request.context.organizationId,
+        sessionId,
+        userId: request.context.userId
+      });
+
+      response.status(200).json({
+        requestId: request.context.requestId,
+        revokedSessions
+      });
+    })
+  );
+
+  app.post(
+    "/api/v1/sessions/logout-all",
+    requireAuthenticatedSession,
+    asyncHandler(async (request, response) => {
+      if (!request.context.organizationId || !request.context.userId) {
+        throw createUnauthorizedError();
+      }
+
+      const revokedSessions = await revokeAllSessions({
+        organizationId: request.context.organizationId,
+        userId: request.context.userId
+      });
+
+      clearAuthCookies(response, config);
+      response.status(200).json({
+        requestId: request.context.requestId,
+        revokedSessions
+      });
+    })
+  );
+}
+
 export function registerAuthRoutes(app: Express, config: ApiConfig): void {
   registerLoginRoute(app, config);
   registerMfaChallengeRoute(app, config);
   registerRefreshRoute(app, config);
   registerLogoutRoute(app, config);
   registerSessionListRoute(app);
+  registerSessionMutationRoutes(app, config);
 }

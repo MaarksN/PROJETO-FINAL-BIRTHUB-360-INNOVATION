@@ -23,11 +23,11 @@ void test("dry-run smoke execution works for every manifest", async () => {
   const officialInstallableCatalog = officialCatalog.filter((entry) => isInstallableManifest(entry.manifest));
   const officialCatalogDescriptors = officialCatalog.filter((entry) => !isInstallableManifest(entry.manifest));
 
-  assert.ok(catalog.length >= 43);
-  assert.ok(installableCatalog.length >= 42);
+  assert.ok(catalog.length >= 44);
+  assert.ok(installableCatalog.length >= 43);
   assert.ok(catalogDescriptors.length >= 1);
-  assert.equal(officialCatalog.length, 43);
-  assert.equal(officialInstallableCatalog.length, 42);
+  assert.equal(officialCatalog.length, 44);
+  assert.equal(officialInstallableCatalog.length, 43);
   assert.equal(officialCatalogDescriptors.length, 1);
 
   for (const entry of catalog) {

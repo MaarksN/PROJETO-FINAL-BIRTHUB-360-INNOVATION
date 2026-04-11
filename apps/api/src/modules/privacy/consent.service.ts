@@ -4,7 +4,9 @@ import {
   ConsentSource,
   ConsentStatus,
   CookieConsentStatus,
-  LawfulBasis,
+  LawfulBasis
+} from "@prisma/client";
+import {
   ensureUserPreference,
   prisma
 } from "@birthub/database";

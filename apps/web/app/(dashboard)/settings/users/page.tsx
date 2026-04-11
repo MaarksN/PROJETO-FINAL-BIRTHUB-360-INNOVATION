@@ -1,10 +1,6 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useState } from "react";
-
-import { getWebConfig } from "@birthub/config";
 
 import { fetchWithSession } from "../../../../lib/auth-client";
 
@@ -18,8 +14,6 @@ interface UserItem {
   role: Role;
   status: UserStatus;
 }
-
-const webConfig = getWebConfig();
 
 export default function UsersAdminPage() {
   const [filters, setFilters] = useState({
@@ -50,7 +44,7 @@ export default function UsersAdminPage() {
       }
 
       const response = await fetchWithSession(
-        `${webConfig.NEXT_PUBLIC_API_URL}/api/v1/users?${params.toString()}`
+        `/api/bff/api/v1/users${params.toString() ? `?${params.toString()}` : ""}`
       );
 
       if (!response.ok) {
@@ -69,7 +63,7 @@ export default function UsersAdminPage() {
   }, [filters.role, filters.search, filters.status]);
 
   const suspendUser = async (userId: string) => {
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/users/${userId}/suspend`, {
+    await fetchWithSession(`/api/bff/api/v1/users/${userId}/suspend`, {
       method: "PATCH"
     });
     await loadUsers();
@@ -81,7 +75,7 @@ export default function UsersAdminPage() {
       return;
     }
 
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/users/${userId}`, {
+    await fetchWithSession(`/api/bff/api/v1/users/${userId}`, {
       method: "DELETE"
     });
 
@@ -185,4 +179,3 @@ export default function UsersAdminPage() {
     </section>
   );
 }
-

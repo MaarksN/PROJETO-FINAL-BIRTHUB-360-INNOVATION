@@ -143,7 +143,6 @@ export const DEFAULT_EXPANSIONMAPPER_CONTRACT: ExpansionMapperContract = {
   },
   toolIds: ["market-sentinel-feed", "macro-signal-stream", "risk-opportunity-engine"]
 };
-export const DEFAULT_TRENDCATCHER_CONTRACT = DEFAULT_EXPANSIONMAPPER_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -209,3 +208,4 @@ export const ExpansionMapperOutputSchema = z
   })
   .strict();
 export type ExpansionMapperOutput = z.infer<typeof ExpansionMapperOutputSchema>;
+

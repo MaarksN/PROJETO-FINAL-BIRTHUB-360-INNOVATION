@@ -1,10 +1,6 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useState } from "react";
-
-import { getWebConfig } from "@birthub/config";
 
 import { fetchWithSession } from "../../../../lib/auth-client";
 
@@ -14,8 +10,6 @@ interface SessionItem {
   lastActivityAt: string;
   userAgent: string | null;
 }
-
-const webConfig = getWebConfig();
 
 export default function SecuritySessionsPage() {
   const [sessions, setSessions] = useState<SessionItem[]>([]);
@@ -27,7 +21,7 @@ export default function SecuritySessionsPage() {
       setError(null);
       setIsLoading(true);
 
-      const response = await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/sessions`);
+      const response = await fetchWithSession("/api/bff/api/v1/sessions");
 
       if (!response.ok) {
         throw new Error(`Falha ao carregar sessoes (${response.status})`);
@@ -47,14 +41,14 @@ export default function SecuritySessionsPage() {
   }, []);
 
   const revokeSession = async (sessionId: string) => {
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/sessions/${sessionId}`, {
+    await fetchWithSession(`/api/bff/api/v1/sessions/${sessionId}`, {
       method: "DELETE"
     });
     await loadSessions();
   };
 
   const logoutAll = async () => {
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/sessions/logout-all`, {
+    await fetchWithSession("/api/bff/api/v1/sessions/logout-all", {
       method: "POST"
     });
     await loadSessions();
@@ -122,4 +116,3 @@ export default function SecuritySessionsPage() {
     </section>
   );
 }
-

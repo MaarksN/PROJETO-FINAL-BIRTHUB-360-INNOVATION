@@ -50,6 +50,9 @@ interface GeneratedAgentSource {
   prompt: string;
 }
 
+const OFFICIAL_COLLECTION_VERSION = "2.2.0";
+const OFFICIAL_INSTALLABLE_COUNT = 43;
+
 const AUTONOMOUS_KEYWORDS = [
   "automacao preventiva",
   "analise proativa",
@@ -200,6 +203,67 @@ async function readCurrentManifest(rootDir: string, agentId: string): Promise<Ag
   const manifestPath = toManifestPath(rootDir, agentId);
   const raw = await readFile(manifestPath, "utf8");
   return JSON.parse(raw) as AgentManifest;
+}
+
+function buildFoundationSeedManifest(override: FoundationAgentOverride): AgentManifest {
+  const agentName = override.name ?? titleCase(override.id.replace(/-pack$/u, "").replace(/-/gu, " "));
+  const skillDescriptions = uniqueStrings(override.seedSkills ?? override.outputs).slice(0, 8);
+  const toolNames = uniqueStrings(
+    override.toolNames ?? ["Agent Registry", "Context Memory", "Workflow Planner", "Agent Handoff"]
+  ).slice(0, 6);
+  const tags = enrichTags(
+    override.seedTags ?? {
+      domain: ["management"],
+      industry: ["cross-industry"],
+      level: ["suite"],
+      persona: [slugify(agentName)],
+      "use-case": [override.id.replace(/-pack$/u, "")]
+    }
+  );
+
+  return {
+    agent: {
+      changelog: [
+        `${OFFICIAL_COLLECTION_VERSION} - Seed manifest generated for official foundation agent`
+      ],
+      description: override.description ?? override.mission,
+      id: override.id,
+      kind: "agent",
+      name: agentName,
+      prompt: override.mission,
+      tenantId: "catalog",
+      version: OFFICIAL_COLLECTION_VERSION
+    },
+    keywords: enrichKeywords(override.keywords, [slugify(agentName), "foundation seed"]),
+    manifestVersion: "1.0.0",
+    policies: [buildPolicy(override.id, override.guardrails, toolNames)],
+    skills: buildSkillEntries(
+      override.id,
+      skillDescriptions.map((description) => ({
+        description,
+        name: titleCase(description.replace(/[.:]/gu, ""))
+      }))
+    ),
+    tags,
+    tools: buildToolEntries(
+      override.id,
+      toolNames.map((name) => ({
+        description: `Ferramenta operacional ${name} necessaria para ${agentName} funcionar com rastreabilidade e controle.`,
+        name
+      }))
+    )
+  };
+}
+
+async function resolveFoundationManifest(
+  rootDir: string,
+  override: FoundationAgentOverride
+): Promise<AgentManifest> {
+  try {
+    return await readCurrentManifest(rootDir, override.id);
+  } catch {
+    return buildFoundationSeedManifest(override);
+  }
 }
 
 function inferHtmlAgentId(record: HtmlAgentRecord): string {
@@ -597,7 +661,7 @@ function buildFoundationAgent(
 
   return {
     category: override.category,
-    description: `${manifest.agent.description} Opera com padrao premium de governanca, qualidade, antecipacao de decisoes e aprendizado cruzado.`,
+    description: `${override.description ?? manifest.agent.description} Opera com padrao premium de governanca, qualidade, antecipacao de decisoes e aprendizado cruzado.`,
     guardrails: enrichedGuardrails,
     id: override.id,
     inputs: enrichedInputs,
@@ -654,7 +718,7 @@ function toManifest(source: GeneratedAgentSource): AgentManifest {
   return {
     agent: {
       changelog: [
-        "2.1.0 - BirthHub 360 collection upgraded with autonomous preventive operation, decision anticipation and stronger shared learning"
+        `${OFFICIAL_COLLECTION_VERSION} - BirthHub 360 collection upgraded with autonomous preventive operation, segment adaptation and stronger shared learning`
       ],
       description: source.description,
       id: source.id,
@@ -662,7 +726,7 @@ function toManifest(source: GeneratedAgentSource): AgentManifest {
       name: source.name,
       prompt: source.prompt,
       tenantId: "catalog",
-      version: "2.1.0"
+      version: OFFICIAL_COLLECTION_VERSION
     },
     keywords: source.keywords,
     manifestVersion: "1.0.0",
@@ -673,11 +737,11 @@ function toManifest(source: GeneratedAgentSource): AgentManifest {
   };
 }
 
-function buildCollectionDescriptor(): AgentManifest {
+function buildCollectionDescriptor(installableCount: number): AgentManifest {
   return {
     agent: {
       changelog: [
-        "2.1.0 - BirthHub 360 descriptor updated for the autonomous preventive 42-agent official lineup"
+        `${OFFICIAL_COLLECTION_VERSION} - BirthHub 360 descriptor updated for the autonomous preventive ${installableCount}-agent official lineup`
       ],
       description:
         "Collection descriptor for the unified BirthHub 360 official lineup of governed, preventive and high-performance autonomous agents.",
@@ -685,9 +749,9 @@ function buildCollectionDescriptor(): AgentManifest {
       kind: "catalog",
       name: "BirthHub 360 Official Collection",
       prompt:
-        "Coordinate and expose the full BirthHub 360 official collection, separating collection governance from installable agents and highlighting the autonomous preventive operating model.",
+        "Coordinate and expose the full BirthHub 360 official collection, separating collection governance from installable agents and highlighting the autonomous preventive operating model and agent mesh routing.",
       tenantId: "catalog",
-      version: "2.1.0"
+      version: OFFICIAL_COLLECTION_VERSION
     },
     keywords: [
       "birthhub 360",
@@ -765,7 +829,7 @@ async function main(): Promise<void> {
   const htmlAgents = JSON.parse(await readFile(htmlSourcePath, "utf8")) as HtmlAgentRecord[];
   const foundationAgents = await Promise.all(
     FOUNDATION_AGENT_OVERRIDES.map(async (override) =>
-      buildFoundationAgent(await readCurrentManifest(collectionRoot, override.id), override)
+      buildFoundationAgent(await resolveFoundationManifest(collectionRoot, override), override)
     )
   );
   const htmlGeneratedAgents = htmlAgents.map(buildHtmlAgent);
@@ -773,8 +837,8 @@ async function main(): Promise<void> {
     left.name.localeCompare(right.name)
   );
 
-  if (combinedAgents.length !== 42) {
-    throw new Error(`Expected 42 installable agents, found ${combinedAgents.length}.`);
+  if (combinedAgents.length !== OFFICIAL_INSTALLABLE_COUNT) {
+    throw new Error(`Expected ${OFFICIAL_INSTALLABLE_COUNT} installable agents, found ${combinedAgents.length}.`);
   }
 
   const keptIds = new Set<string>(combinedAgents.map((agent) => agent.id));
@@ -795,7 +859,7 @@ async function main(): Promise<void> {
 
   await writeFile(
     path.join(collectionRoot, "manifest.json"),
-    `${JSON.stringify(buildCollectionDescriptor(), null, 2)}\n`,
+    `${JSON.stringify(buildCollectionDescriptor(combinedAgents.length), null, 2)}\n`,
     "utf8"
   );
 
@@ -808,7 +872,7 @@ async function main(): Promise<void> {
           installableCount: combinedAgents.length,
           manifestDescriptorId: "corporate-v1-catalog",
           name: "BirthHub 360 Official Collection",
-          version: "2.1.0"
+          version: OFFICIAL_COLLECTION_VERSION
         },
         generatedAt: new Date().toISOString(),
         agents: combinedAgents

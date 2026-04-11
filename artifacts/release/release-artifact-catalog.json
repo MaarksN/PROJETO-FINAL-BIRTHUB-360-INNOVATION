@@ -1,13 +1,23 @@
 {
-  "generatedAt": "2026-03-30T12:11:10.799Z",
-  "logPath": "logs/releases/release-1.0.0-2026-03-30T12-11-10.799Z.log",
+  "generatedAt": "2026-04-11T16:45:35.768Z",
+  "logPath": "logs/releases/release-1.0.0-2026-04-11T16-45-35.768Z.log",
   "releaseVersion": "1.0.0",
   "semverTag": "v1.0.0",
   "artifacts": [
     {
       "path": "artifacts/release/checksums-manifest.sha256",
-      "sha256": "f478c877755838f6f83d2c04514941ab0554b1a7cedca19054ce06a896766391",
+      "sha256": "a6c233e6b1fb80dc074bfef2e4a535fba217e183586a28ea728b5c5392aa8574",
       "sizeBytes": 1527
+    },
+    {
+      "path": "artifacts/release/cycle0-flow-summary.json",
+      "sha256": "8a6f2f86cc16d385300b9777044d2498a2461093e990057cec6b7b201006c086",
+      "sizeBytes": 153
+    },
+    {
+      "path": "artifacts/release/cycle0-flow-summary.txt",
+      "sha256": "ec5c452e8d5b21c2f8c2ff1ecfd7131bea2957a9531d114b1bd550efbaea465d",
+      "sizeBytes": 99
     },
     {
       "path": "artifacts/release/final-data-migration-report.json",
@@ -15,13 +25,18 @@
       "sizeBytes": 263
     },
     {
+      "path": "artifacts/release/logs/release-1.0.0-2026-04-07T18-21-15.355Z.log",
+      "sha256": "aa8bb3fbade6df2e22cffaf4c3dbf80c14f0cad5987facd9da3a1cd16dfd0aae",
+      "sizeBytes": 2235
+    },
+    {
       "path": "artifacts/release/production-preflight-summary.json",
-      "sha256": "b7584f061dae08c9cf338a9c89d262af78f8c24be8f67bb9faf4cc2798d142bc",
-      "sizeBytes": 1112
+      "sha256": "0e083edad315d1c16560f050a7d4b7ef4e6527568cea97cd8147e8c09fb63cb8",
+      "sizeBytes": 1151
     },
     {
       "path": "artifacts/release/production-preflight-summary.txt",
-      "sha256": "275c7465b2751ccdc792f4efa7158f7e25316e6347d4fcd31d52eebc4946f5e6",
+      "sha256": "33e4ec844df9eacc316be52ec7c4a44fc9a469ebce486c81b2bb2aa415ace53b",
       "sizeBytes": 88
     },
     {
@@ -36,13 +51,18 @@
     },
     {
       "path": "artifacts/release/release-artifact-catalog.json",
-      "sha256": "b5dcc80e88c6650fae0f189fb874ec28801a535d4bbcd0d0cbd61c40f03f7360",
+      "sha256": "f37b324cf855059166321270d7eebe8dc6978689de1c8b63d5010cc62ed9a97a",
       "sizeBytes": 2722
     },
     {
+      "path": "artifacts/release/scorecard.json",
+      "sha256": "3dfda4e432d266033dd5597c0ccd27e1688a9651212eff7a9ac4b4f8ac5f5280",
+      "sizeBytes": 2889
+    },
+    {
       "path": "artifacts/release/scorecard.md",
-      "sha256": "5ceba2d2652db246cd4dfe69b6bc0c53e27be3e6633b34efef13efe867b583d4",
-      "sizeBytes": 708
+      "sha256": "9f5c733176df0bc0e292fd7b404efbe311d4b114f76a51fee426d2d405e3c282",
+      "sizeBytes": 2044
     },
     {
       "path": "artifacts/release/smoke-summary.json",
@@ -56,23 +76,23 @@
     },
     {
       "path": "artifacts/release/staging-preflight-summary.json",
-      "sha256": "a55f7d60bc680fe1c83a188db62fdebaf344973b5aaf9f5d12e2f9b79194728a",
+      "sha256": "e7dd5d7604026da9ed3bc2a1bc15ac4c0d56e015ef01a0bfc625b897a6cfc33a",
       "sizeBytes": 1145
     },
     {
       "path": "artifacts/release/staging-preflight-summary.txt",
-      "sha256": "9a6b83ea178ad7e5aefee5ed433eae242f720947c88d88d27ad7e7aace20a316",
+      "sha256": "ad7970047cf9a90b5c6c0ab7be05326122518e11f671774beb8440bbbb16b252",
       "sizeBytes": 85
     },
     {
       "path": "artifacts/sbom/bom.xml",
-      "sha256": "57c17e74b199b040c45a6414e3c50883ac52b8e8116e5a6093ef7ee337658e74",
-      "sizeBytes": 19924
+      "sha256": "13180d68bdb30208ac6039206d814c08932c9559522c8c96a12db60dba36d6c4",
+      "sizeBytes": 21116
     },
     {
       "path": "artifacts/sbom/sbom.spdx.json",
-      "sha256": "15cdfc1e58a38fc8461c58724b3bacde7e7660f42b543ab4e6cef5abdf43fd1f",
-      "sizeBytes": 40540
+      "sha256": "8bc6c6d243827dc80ca500d82d007afc5616a16a187ad3ae9836ab24cf01b7f5",
+      "sizeBytes": 42805
     }
   ]
 }

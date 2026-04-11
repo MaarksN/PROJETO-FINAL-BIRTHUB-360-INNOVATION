@@ -147,7 +147,6 @@ export const DEFAULT_PRICINGOPTIMIZER_CONTRACT: PricingOptimizerContract = {
     "packaging-gap-analyzer"
   ]
 };
-export const DEFAULT_COMPETITORXRAY_CONTRACT = DEFAULT_PRICINGOPTIMIZER_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -213,3 +212,4 @@ export const PricingOptimizerOutputSchema = z
   })
   .strict();
 export type PricingOptimizerOutput = z.infer<typeof PricingOptimizerOutputSchema>;
+

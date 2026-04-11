@@ -5,7 +5,7 @@ import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import {
-  DEFAULT_QUOTAARCHITECT_CONTRACT,
+  DEFAULT_PIPELINEORACLE_CONTRACT,
   type PipelineOracleContract,
   PipelineOracleContractSchema,
   type PipelineOracleInput,
@@ -21,7 +21,7 @@ import {
   CapacityPlannerSnapshotSchema,
   createDefaultPipelineOracleToolAdapters,
   normalizeQuotaToolId,
-  QUOTAARCHITECT_TOOL_IDS,
+  PIPELINEORACLE_TOOL_IDS,
   type PipelineOracleToolAdapters,
   type QuotaToolId,
   type QuotaToolInput,
@@ -179,7 +179,7 @@ function extractFirstNumber(text: string, patterns: RegExp[]): number | undefine
 
 function clampMaxAttempts(value: number): number {
   if (!Number.isFinite(value)) {
-    return DEFAULT_QUOTAARCHITECT_CONTRACT.retry.maxAttempts;
+    return DEFAULT_PIPELINEORACLE_CONTRACT.retry.maxAttempts;
   }
   return Math.min(3, Math.max(1, Math.trunc(value)));
 }
@@ -253,7 +253,7 @@ function parseContractOverridesFromObject(
     }
     if (Object.keys(retryOverride).length > 0) {
       overrides.retry = {
-        ...DEFAULT_QUOTAARCHITECT_CONTRACT.retry,
+        ...DEFAULT_PIPELINEORACLE_CONTRACT.retry,
         ...retryOverride
       };
     }
@@ -284,13 +284,13 @@ function parseContractOverridesFromObject(
     if (events || metrics) {
       const filteredEvents = events?.filter(
         (entry): entry is PipelineOracleContract["observability"]["events"][number] =>
-          DEFAULT_QUOTAARCHITECT_CONTRACT.observability.events.includes(
+          DEFAULT_PIPELINEORACLE_CONTRACT.observability.events.includes(
             entry as PipelineOracleContract["observability"]["events"][number]
           )
       );
       const filteredMetrics = metrics?.filter(
         (entry): entry is PipelineOracleContract["observability"]["metrics"][number] =>
-          DEFAULT_QUOTAARCHITECT_CONTRACT.observability.metrics.includes(
+          DEFAULT_PIPELINEORACLE_CONTRACT.observability.metrics.includes(
             entry as PipelineOracleContract["observability"]["metrics"][number]
           )
       );
@@ -298,11 +298,11 @@ function parseContractOverridesFromObject(
         events:
           filteredEvents && filteredEvents.length > 0
             ? filteredEvents
-            : DEFAULT_QUOTAARCHITECT_CONTRACT.observability.events,
+            : DEFAULT_PIPELINEORACLE_CONTRACT.observability.events,
         metrics:
           filteredMetrics && filteredMetrics.length > 0
             ? filteredMetrics
-            : DEFAULT_QUOTAARCHITECT_CONTRACT.observability.metrics
+            : DEFAULT_PIPELINEORACLE_CONTRACT.observability.metrics
       };
     }
   }
@@ -340,7 +340,7 @@ function parseContractOverrides(rawText: string): Partial<PipelineOracleContract
 
   if (maxAttempts !== undefined || baseDelayMs !== undefined) {
     overrides.retry = {
-      ...DEFAULT_QUOTAARCHITECT_CONTRACT.retry,
+      ...DEFAULT_PIPELINEORACLE_CONTRACT.retry,
       ...(maxAttempts !== undefined
         ? { maxAttempts: clampMaxAttempts(maxAttempts) }
         : {}),
@@ -385,13 +385,13 @@ function parseContractOverrides(rawText: string): Partial<PipelineOracleContract
   if (events || metrics) {
     const filteredEvents = events?.filter(
       (entry): entry is PipelineOracleContract["observability"]["events"][number] =>
-        DEFAULT_QUOTAARCHITECT_CONTRACT.observability.events.includes(
+        DEFAULT_PIPELINEORACLE_CONTRACT.observability.events.includes(
           entry as PipelineOracleContract["observability"]["events"][number]
         )
     );
     const filteredMetrics = metrics?.filter(
       (entry): entry is PipelineOracleContract["observability"]["metrics"][number] =>
-        DEFAULT_QUOTAARCHITECT_CONTRACT.observability.metrics.includes(
+        DEFAULT_PIPELINEORACLE_CONTRACT.observability.metrics.includes(
           entry as PipelineOracleContract["observability"]["metrics"][number]
         )
     );
@@ -399,11 +399,11 @@ function parseContractOverrides(rawText: string): Partial<PipelineOracleContract
       events:
         filteredEvents && filteredEvents.length > 0
           ? filteredEvents
-          : DEFAULT_QUOTAARCHITECT_CONTRACT.observability.events,
+          : DEFAULT_PIPELINEORACLE_CONTRACT.observability.events,
       metrics:
         filteredMetrics && filteredMetrics.length > 0
           ? filteredMetrics
-          : DEFAULT_QUOTAARCHITECT_CONTRACT.observability.metrics
+          : DEFAULT_PIPELINEORACLE_CONTRACT.observability.metrics
     };
   }
 
@@ -545,7 +545,7 @@ export class PipelineOracleAgent {
 
     const mappedTools = this.resolveToolIds(loadedContract.contract.toolIds);
     const effectiveTools =
-      mappedTools.length > 0 ? mappedTools : [...QUOTAARCHITECT_TOOL_IDS];
+      mappedTools.length > 0 ? mappedTools : [...PIPELINEORACLE_TOOL_IDS];
 
     const runWithRetry = async <T>(
       toolId: QuotaToolId,
@@ -854,7 +854,7 @@ export class PipelineOracleAgent {
         const content = await readFile(contractPath, "utf8");
         const merged = mergeContract(
           parseContractOverrides(content),
-          DEFAULT_QUOTAARCHITECT_CONTRACT
+          DEFAULT_PIPELINEORACLE_CONTRACT
         );
         return {
           contract: merged,
@@ -866,8 +866,9 @@ export class PipelineOracleAgent {
     }
 
     return {
-      contract: DEFAULT_QUOTAARCHITECT_CONTRACT,
+      contract: DEFAULT_PIPELINEORACLE_CONTRACT,
       source: "default"
     };
   }
 }
+

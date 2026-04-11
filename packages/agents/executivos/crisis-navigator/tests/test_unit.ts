@@ -11,7 +11,7 @@ import { CrisisNavigatorAgent } from "../agent.js";
 import {
   type CompetitorEvent,
   type CrisisNavigatorInput,
-  DEFAULT_COMPETITORXRAY_CONTRACT
+  DEFAULT_CRISISNAVIGATOR_CONTRACT
 } from "../schemas.js";
 import type { CrisisNavigatorToolAdapters } from "../tools.js";
 
@@ -61,7 +61,7 @@ void test("CrisisNavigator returns error when contract mode is hard_fail", async
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "crisisnavigator-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_COMPETITORXRAY_CONTRACT,
+    ...DEFAULT_CRISISNAVIGATOR_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,
@@ -104,3 +104,4 @@ void test("CrisisNavigator returns error when contract mode is hard_fail", async
     await rm(tempDir, { force: true, recursive: true });
   }
 });
+

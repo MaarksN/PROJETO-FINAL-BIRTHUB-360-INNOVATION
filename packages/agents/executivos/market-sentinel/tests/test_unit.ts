@@ -9,7 +9,7 @@ import test from "node:test";
 
 import { MarketSentinelAgent } from "../agent.js";
 import {
-  DEFAULT_TRENDCATCHER_CONTRACT,
+  DEFAULT_MARKETSENTINEL_CONTRACT,
   type MarketSentinelInput,
   type MarketEvent
 } from "../schemas.js";
@@ -61,7 +61,7 @@ void test("MarketSentinel returns error when contract mode is hard_fail", async 
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "marketsentinel-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_TRENDCATCHER_CONTRACT,
+    ...DEFAULT_MARKETSENTINEL_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,
@@ -104,3 +104,4 @@ void test("MarketSentinel returns error when contract mode is hard_fail", async 
     await rm(tempDir, { force: true, recursive: true });
   }
 });
+

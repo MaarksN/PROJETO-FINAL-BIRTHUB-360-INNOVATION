@@ -2,14 +2,6 @@ import {
   privacyDeleteRequestSchema,
   privacyDeleteResponseSchema
 } from "@birthub/config";
-import {
-  ConsentPurpose,
-  ConsentSource,
-  ConsentStatus,
-  RetentionAction,
-  RetentionDataCategory,
-  RetentionExecutionMode
-} from "@birthub/database";
 import { z } from "zod";
 
 export {
@@ -17,15 +9,49 @@ export {
   privacyDeleteResponseSchema
 };
 
+const consentPurposeSchema = z.enum([
+  "ANALYTICS",
+  "MARKETING",
+  "HEALTH_DATA_SHARING"
+]);
+
+const consentSourceSchema = z.enum([
+  "SETTINGS"
+]);
+
+const consentStatusSchema = z.enum([
+  "GRANTED",
+  "PENDING",
+  "REVOKED"
+]);
+
+const retentionActionSchema = z.enum([
+  "ANONYMIZE",
+  "DELETE"
+]);
+
+const retentionDataCategorySchema = z.enum([
+  "OUTPUT_ARTIFACTS",
+  "LOGIN_ALERTS",
+  "MFA_CHALLENGES",
+  "MFA_RECOVERY_CODES",
+  "SUSPENDED_USERS"
+]);
+
+const retentionExecutionModeSchema = z.enum([
+  "DRY_RUN",
+  "EXECUTE"
+]);
+
 export const consentUpdateSchema = z
   .object({
     decisions: z
       .array(
         z
           .object({
-            purpose: z.nativeEnum(ConsentPurpose),
-            source: z.nativeEnum(ConsentSource),
-            status: z.nativeEnum(ConsentStatus)
+            purpose: consentPurposeSchema,
+            source: consentSourceSchema,
+            status: consentStatusSchema
           })
           .strict()
       )
@@ -39,8 +65,8 @@ export const retentionUpdateSchema = z
       .array(
         z
           .object({
-            action: z.nativeEnum(RetentionAction).optional(),
-            dataCategory: z.nativeEnum(RetentionDataCategory),
+            action: retentionActionSchema.optional(),
+            dataCategory: retentionDataCategorySchema,
             enabled: z.boolean().optional(),
             retentionDays: z.number().int().min(0).max(3650).optional()
           })
@@ -52,6 +78,6 @@ export const retentionUpdateSchema = z
 
 export const retentionRunSchema = z
   .object({
-    mode: z.nativeEnum(RetentionExecutionMode).default(RetentionExecutionMode.DRY_RUN)
+    mode: retentionExecutionModeSchema.default("DRY_RUN")
   })
   .strict();

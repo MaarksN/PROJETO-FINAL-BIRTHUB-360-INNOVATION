@@ -9,8 +9,8 @@ import { isInstallableManifest, loadManifestCatalog } from "@birthub/agents-core
 import { parseAgentManifest } from "@birthub/agents-core";
 
 const OFFICIAL_COLLECTION_DESCRIPTOR_ID = "corporate-v1-catalog";
-const OFFICIAL_INSTALLABLE_COUNT = 42;
-const OFFICIAL_TOTAL_COUNT = 43;
+const OFFICIAL_INSTALLABLE_COUNT = 43;
+const OFFICIAL_TOTAL_COUNT = 44;
 
 void test("official agent pack catalog remains canonical and loadable", async () => {
   const currentFile = fileURLToPath(import.meta.url);
@@ -20,13 +20,16 @@ void test("official agent pack catalog remains canonical and loadable", async ()
   const installableCatalog = catalog.filter((entry) => isInstallableManifest(entry.manifest));
   const descriptor = catalog.find((entry) => entry.manifest.agent.id === OFFICIAL_COLLECTION_DESCRIPTOR_ID);
   const maestro = catalog.find((entry) => entry.manifest.agent.id === "maestro-orchestrator-pack");
+  const agentMesh = catalog.find((entry) => entry.manifest.agent.id === "agent-mesh-orchestrator-pack");
 
   assert.equal(catalog.length, OFFICIAL_TOTAL_COUNT);
   assert.equal(installableCatalog.length, OFFICIAL_INSTALLABLE_COUNT);
   assert.ok(descriptor, "Expected official collection descriptor manifest.");
   assert.ok(maestro, "Expected maestro-orchestrator-pack in the official collection.");
+  assert.ok(agentMesh, "Expected agent-mesh-orchestrator-pack in the official collection.");
   assert.match(maestro.manifest.agent.prompt, /IDENTIDADE E MISSAO/);
   assert.match(maestro.manifest.agent.prompt, /FORMATO DE SAIDA/);
+  assert.match(agentMesh.manifest.agent.prompt, /segmento/i);
 });
 
 void test("official manifests remain parseable from disk", async () => {

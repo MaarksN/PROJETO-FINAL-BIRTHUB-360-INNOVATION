@@ -11,7 +11,7 @@ import { CapitalAllocatorAgent } from "../agent.js";
 import {
   type BudgetEvent,
   type CapitalAllocatorInput,
-  DEFAULT_BUDGETFLUID_CONTRACT
+  DEFAULT_CAPITALALLOCATOR_CONTRACT
 } from "../schemas.js";
 import type { CapitalAllocatorToolAdapters } from "../tools.js";
 
@@ -61,7 +61,7 @@ void test("CapitalAllocator returns error when contract mode is hard_fail", asyn
   const tempDir = await mkdtemp(path.join(os.tmpdir(), "capitalallocator-contract-"));
   const contractPath = path.join(tempDir, "contract.yaml");
   const contract = {
-    ...DEFAULT_BUDGETFLUID_CONTRACT,
+    ...DEFAULT_CAPITALALLOCATOR_CONTRACT,
     failureMode: "hard_fail",
     retry: {
       baseDelayMs: 1,
@@ -104,3 +104,4 @@ void test("CapitalAllocator returns error when contract mode is hard_fail", asyn
     await rm(tempDir, { force: true, recursive: true });
   }
 });
+

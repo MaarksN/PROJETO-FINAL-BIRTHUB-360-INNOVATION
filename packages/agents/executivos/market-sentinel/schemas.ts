@@ -143,7 +143,6 @@ export const DEFAULT_MARKETSENTINEL_CONTRACT: MarketSentinelContract = {
   },
   toolIds: ["market-sentinel-feed", "macro-signal-stream", "risk-opportunity-engine"]
 };
-export const DEFAULT_TRENDCATCHER_CONTRACT = DEFAULT_MARKETSENTINEL_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -209,3 +208,4 @@ export const MarketSentinelOutputSchema = z
   })
   .strict();
 export type MarketSentinelOutput = z.infer<typeof MarketSentinelOutputSchema>;
+

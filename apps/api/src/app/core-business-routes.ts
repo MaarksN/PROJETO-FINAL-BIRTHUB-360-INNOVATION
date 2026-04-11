@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import type { z } from "zod";
 import {
@@ -106,6 +104,8 @@ export function registerCoreBusinessRoutes(
         requestId: request.context.requestId,
         user: {
           id: request.context.userId,
+          organizationId: request.context.organizationId,
+          role: request.context.role,
           tenantId: request.context.tenantId
         }
       });

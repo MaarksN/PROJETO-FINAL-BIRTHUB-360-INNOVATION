@@ -14,10 +14,10 @@ import {
   type CulturePulseOutput,
   CulturePulseOutputSchema,
   type BrandMetrics,
-  DEFAULT_BRANDGUARDIAN_CONTRACT
+  DEFAULT_CULTUREPULSE_CONTRACT
 } from "./schemas.js";
 import {
-  BRANDGUARDIAN_TOOL_IDS,
+  CULTUREPULSE_TOOL_IDS,
   BrandSentimentSnapshotSchema,
   type CulturePulseToolAdapters,
   type BrandToolId,
@@ -178,7 +178,7 @@ function extractFirstNumber(text: string, patterns: RegExp[]): number | undefine
 
 function clampMaxAttempts(value: number): number {
   if (!Number.isFinite(value)) {
-    return DEFAULT_BRANDGUARDIAN_CONTRACT.retry.maxAttempts;
+    return DEFAULT_CULTUREPULSE_CONTRACT.retry.maxAttempts;
   }
   return Math.min(3, Math.max(1, Math.trunc(value)));
 }
@@ -252,7 +252,7 @@ function parseContractOverridesFromObject(
     }
     if (Object.keys(retryOverride).length > 0) {
       overrides.retry = {
-        ...DEFAULT_BRANDGUARDIAN_CONTRACT.retry,
+        ...DEFAULT_CULTUREPULSE_CONTRACT.retry,
         ...retryOverride
       };
     }
@@ -283,13 +283,13 @@ function parseContractOverridesFromObject(
     if (events || metrics) {
       const filteredEvents = events?.filter(
         (entry): entry is CulturePulseContract["observability"]["events"][number] =>
-          DEFAULT_BRANDGUARDIAN_CONTRACT.observability.events.includes(
+          DEFAULT_CULTUREPULSE_CONTRACT.observability.events.includes(
             entry as CulturePulseContract["observability"]["events"][number]
           )
       );
       const filteredMetrics = metrics?.filter(
         (entry): entry is CulturePulseContract["observability"]["metrics"][number] =>
-          DEFAULT_BRANDGUARDIAN_CONTRACT.observability.metrics.includes(
+          DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics.includes(
             entry as CulturePulseContract["observability"]["metrics"][number]
           )
       );
@@ -297,11 +297,11 @@ function parseContractOverridesFromObject(
         events:
           filteredEvents && filteredEvents.length > 0
             ? filteredEvents
-            : DEFAULT_BRANDGUARDIAN_CONTRACT.observability.events,
+            : DEFAULT_CULTUREPULSE_CONTRACT.observability.events,
         metrics:
           filteredMetrics && filteredMetrics.length > 0
             ? filteredMetrics
-            : DEFAULT_BRANDGUARDIAN_CONTRACT.observability.metrics
+            : DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics
       };
     }
   }
@@ -339,7 +339,7 @@ function parseContractOverrides(rawText: string): Partial<CulturePulseContract> 
 
   if (maxAttempts !== undefined || baseDelayMs !== undefined) {
     overrides.retry = {
-      ...DEFAULT_BRANDGUARDIAN_CONTRACT.retry,
+      ...DEFAULT_CULTUREPULSE_CONTRACT.retry,
       ...(maxAttempts !== undefined
         ? { maxAttempts: clampMaxAttempts(maxAttempts) }
         : {}),
@@ -384,13 +384,13 @@ function parseContractOverrides(rawText: string): Partial<CulturePulseContract> 
   if (events || metrics) {
     const filteredEvents = events?.filter(
       (entry): entry is CulturePulseContract["observability"]["events"][number] =>
-        DEFAULT_BRANDGUARDIAN_CONTRACT.observability.events.includes(
+        DEFAULT_CULTUREPULSE_CONTRACT.observability.events.includes(
           entry as CulturePulseContract["observability"]["events"][number]
         )
     );
     const filteredMetrics = metrics?.filter(
       (entry): entry is CulturePulseContract["observability"]["metrics"][number] =>
-        DEFAULT_BRANDGUARDIAN_CONTRACT.observability.metrics.includes(
+        DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics.includes(
           entry as CulturePulseContract["observability"]["metrics"][number]
         )
     );
@@ -398,11 +398,11 @@ function parseContractOverrides(rawText: string): Partial<CulturePulseContract> 
       events:
         filteredEvents && filteredEvents.length > 0
           ? filteredEvents
-          : DEFAULT_BRANDGUARDIAN_CONTRACT.observability.events,
+          : DEFAULT_CULTUREPULSE_CONTRACT.observability.events,
       metrics:
         filteredMetrics && filteredMetrics.length > 0
           ? filteredMetrics
-          : DEFAULT_BRANDGUARDIAN_CONTRACT.observability.metrics
+          : DEFAULT_CULTUREPULSE_CONTRACT.observability.metrics
     };
   }
 
@@ -544,7 +544,7 @@ export class CulturePulseAgent {
 
     const mappedTools = this.resolveToolIds(loadedContract.contract.toolIds);
     const effectiveTools =
-      mappedTools.length > 0 ? mappedTools : [...BRANDGUARDIAN_TOOL_IDS];
+      mappedTools.length > 0 ? mappedTools : [...CULTUREPULSE_TOOL_IDS];
 
     const runWithRetry = async <T>(
       toolId: BrandToolId,
@@ -845,7 +845,7 @@ export class CulturePulseAgent {
         const content = await readFile(contractPath, "utf8");
         const merged = mergeContract(
           parseContractOverrides(content),
-          DEFAULT_BRANDGUARDIAN_CONTRACT
+          DEFAULT_CULTUREPULSE_CONTRACT
         );
         return {
           contract: merged,
@@ -857,8 +857,9 @@ export class CulturePulseAgent {
     }
 
     return {
-      contract: DEFAULT_BRANDGUARDIAN_CONTRACT,
+      contract: DEFAULT_CULTUREPULSE_CONTRACT,
       source: "default"
     };
   }
 }
+

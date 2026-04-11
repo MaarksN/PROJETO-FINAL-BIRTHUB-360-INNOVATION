@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -35,7 +33,7 @@ export default function CustomerSuccessRiskPage() {
       return;
     }
 
-    void fetchWithSession("/api/v1/analytics/cs-risk", {
+    void fetchWithSession("/api/bff/api/v1/analytics/cs-risk", {
       cache: "no-store"
     })
       .then(async (response) => {
@@ -132,4 +130,3 @@ export default function CustomerSuccessRiskPage() {
     </main>
   );
 }
-

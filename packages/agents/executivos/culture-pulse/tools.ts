@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const BRANDGUARDIAN_TOOL_IDS = [
+export const CULTUREPULSE_TOOL_IDS = [
   "employee-engagement-feed",
   "leadership-alignment-engine",
   "retention-risk-monitor"
 ] as const;
-export type BrandToolId = (typeof BRANDGUARDIAN_TOOL_IDS)[number];
+export type BrandToolId = (typeof CULTUREPULSE_TOOL_IDS)[number];
 
 export const BrandToolInputSchema = z
   .object({
@@ -136,3 +136,4 @@ export function createDefaultCulturePulseToolAdapters(): CulturePulseToolAdapter
     }
   };
 }
+

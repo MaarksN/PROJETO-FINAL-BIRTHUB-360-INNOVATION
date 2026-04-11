@@ -1,10 +1,6 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useState } from "react";
-
-import { getWebConfig } from "@birthub/config";
 
 import { fetchWithSession, getStoredSession } from "../../../../lib/auth-client";
 
@@ -17,8 +13,6 @@ interface MemberItem {
   role: Role;
   status: "ACTIVE" | "SUSPENDED";
 }
-
-const webConfig = getWebConfig();
 
 function canChangeRole(actorRole: Role, currentRole: Role, targetRole: Role): boolean {
   if (actorRole === "OWNER") {
@@ -45,7 +39,7 @@ export default function TeamRolesPage() {
       setError(null);
       setIsLoading(true);
 
-      const response = await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/team/members`);
+      const response = await fetchWithSession("/api/bff/api/v1/team/members");
 
       if (!response.ok) {
         throw new Error(`Falha ao carregar membros (${response.status})`);
@@ -73,7 +67,7 @@ export default function TeamRolesPage() {
       return;
     }
 
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/team/members/${member.id}/role`, {
+    await fetchWithSession(`/api/bff/api/v1/team/members/${member.id}/role`, {
       body: JSON.stringify({ role: nextRole }),
       headers: {
         "content-type": "application/json"
@@ -148,4 +142,3 @@ export default function TeamRolesPage() {
     </section>
   );
 }
-

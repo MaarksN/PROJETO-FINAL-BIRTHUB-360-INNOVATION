@@ -1,28 +1,25 @@
-// @ts-nocheck
-// 
 "use client";
 
 import React, { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+import { persistStoredSession } from "../lib/auth-client";
 import { useUserPreferencesStore } from "../stores/user-preferences-store";
 
 export interface LoginFormProps {
-  apiUrl: string;
   initialRequestId: string;
   navigate?: (href: string) => void;
 }
 
 type LoginFormContentProps = Readonly<{
-  apiUrl: string;
   initialRequestId: string;
   navigate: (href: string) => void;
 }>;
 
 const LOGIN_REQUEST_TIMEOUT_MS = 8_000;
 
-function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormContentProps) {
+function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps) {
   const [error, setError] = useState<string | null>(null);
   const [requestId] = useState(initialRequestId);
   const [result, setResult] = useState<string | null>(null);
@@ -50,7 +47,7 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
       submitControllerRef.current = controller;
 
       try {
-        const response = await fetchWithTimeout(`${apiUrl}/api/v1/auth/login`, {
+        const response = await fetchWithTimeout("/api/auth/signin", {
           body: JSON.stringify(formValues),
           credentials: "include",
           headers: {
@@ -88,11 +85,10 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
           throw new Error("Sessao nao retornada pela API.");
         }
 
-        localStorage.setItem("bh_csrf_token", payload.session.csrfToken);
-        localStorage.setItem("bh_tenant_id", payload.session.tenantId);
-        localStorage.setItem("bh_user_id", payload.session.userId);
-        localStorage.removeItem("bh_access_token");
-        localStorage.removeItem("bh_refresh_token");
+        persistStoredSession({
+          tenantId: payload.session.tenantId,
+          userId: payload.session.userId
+        });
 
         await useUserPreferencesStore.getState().hydrate();
         setResult(`Sessao criada para ${payload.session.userId}`);
@@ -217,11 +213,10 @@ function LoginFormContent({ apiUrl, initialRequestId, navigate }: LoginFormConte
   );
 }
 
-export function LoginForm({ apiUrl, initialRequestId, navigate }: Readonly<LoginFormProps>) {
+export function LoginForm({ initialRequestId, navigate }: Readonly<LoginFormProps>) {
   if (navigate) {
     return (
       <LoginFormContent
-        apiUrl={apiUrl}
         initialRequestId={initialRequestId}
         navigate={navigate}
       />
@@ -231,7 +226,6 @@ export function LoginForm({ apiUrl, initialRequestId, navigate }: Readonly<Login
   const router = useRouter();
   return (
     <LoginFormContent
-      apiUrl={apiUrl}
       initialRequestId={initialRequestId}
       navigate={(href) => router.push(href)}
     />

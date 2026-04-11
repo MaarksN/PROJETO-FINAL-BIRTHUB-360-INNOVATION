@@ -147,7 +147,6 @@ export const DEFAULT_CRISISNAVIGATOR_CONTRACT: CrisisNavigatorContract = {
     "resilience-gap-analyzer"
   ]
 };
-export const DEFAULT_COMPETITORXRAY_CONTRACT = DEFAULT_CRISISNAVIGATOR_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -213,3 +212,4 @@ export const CrisisNavigatorOutputSchema = z
   })
   .strict();
 export type CrisisNavigatorOutput = z.infer<typeof CrisisNavigatorOutputSchema>;
+

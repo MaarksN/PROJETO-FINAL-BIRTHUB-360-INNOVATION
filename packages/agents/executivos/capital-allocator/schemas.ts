@@ -143,7 +143,6 @@ export const DEFAULT_CAPITALALLOCATOR_CONTRACT: CapitalAllocatorContract = {
   },
   toolIds: ["spend-telemetry-feed", "forecast-drift-engine", "scenario-stress-feed"]
 };
-export const DEFAULT_BUDGETFLUID_CONTRACT = DEFAULT_CAPITALALLOCATOR_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -209,3 +208,5 @@ export const CapitalAllocatorOutputSchema = z
   })
   .strict();
 export type CapitalAllocatorOutput = z.infer<typeof CapitalAllocatorOutputSchema>;
+
+

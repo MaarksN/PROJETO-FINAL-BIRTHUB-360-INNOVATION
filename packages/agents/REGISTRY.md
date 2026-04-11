@@ -6,7 +6,7 @@ Escopo deste índice: inventario atual dos agentes em `packages/agents/executivo
 
 | name | domain | cycle | path | status |
 | --- | --- | --- | --- | --- |
-| BoardPrep AI | executivos | 1 | packages/agents/executivos/boardprep-ai | contract_only |
+| BoardPrep AI | executivos | 1 | packages/agents/executivos/boardprep-ai | source_present |
 | BrandGuardian | executivos | 1 | packages/agents/executivos/brand-guardian | source_present |
 | BudgetFluid | executivos | 1 | packages/agents/executivos/budget-fluid | source_present |
 | CapitalAllocator | executivos | 1 | packages/agents/executivos/capital-allocator | source_present |

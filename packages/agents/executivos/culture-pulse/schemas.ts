@@ -147,7 +147,6 @@ export const DEFAULT_CULTUREPULSE_CONTRACT: CulturePulseContract = {
     "retention-risk-monitor"
   ]
 };
-export const DEFAULT_BRANDGUARDIAN_CONTRACT = DEFAULT_CULTUREPULSE_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -212,3 +211,4 @@ export const CulturePulseOutputSchema = z
   })
   .strict();
 export type CulturePulseOutput = z.infer<typeof CulturePulseOutputSchema>;
+

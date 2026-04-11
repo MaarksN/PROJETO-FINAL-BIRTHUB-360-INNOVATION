@@ -1,22 +1,30 @@
-// @ts-nocheck
-// 
 import { getWebConfig } from "@birthub/config";
 import {
   fetchWithTimeout,
   type FetchWithTimeoutInit
 } from "../../../packages/utils/src/fetch";
-
-export interface StoredSession {
-  accessToken?: string;
-  csrfToken?: string;
-  tenantId?: string;
-  userId?: string;
-}
+import {
+  ACTIVE_TENANT_COOKIE_NAME,
+  API_CSRF_COOKIE_NAME,
+  LEGACY_ACCESS_TOKEN_STORAGE_KEY,
+  LEGACY_CSRF_STORAGE_KEY,
+  LEGACY_REFRESH_TOKEN_STORAGE_KEY,
+  LEGACY_TENANT_STORAGE_KEY,
+  LEGACY_USER_ID_STORAGE_KEY,
+  normalizeStoredSession,
+  readCookieValueFromHeader,
+  type StoredSession,
+  USER_ID_COOKIE_NAME
+} from "./session-context";
 
 const SESSION_FETCH_TIMEOUT_MS = 10_000;
 
 function isAbsoluteUrl(value: string): boolean {
   return /^https?:\/\//i.test(value);
+}
+
+function isInternalWebPath(value: string): boolean {
+  return value.startsWith("/api/auth") || value.startsWith("/api/bff");
 }
 
 export function resolveApiBaseUrl(env: NodeJS.ProcessEnv = process.env): string {
@@ -27,7 +35,7 @@ export function resolveApiBaseUrl(env: NodeJS.ProcessEnv = process.env): string 
 }
 
 export function toApiUrl(input: string, env: NodeJS.ProcessEnv = process.env): string {
-  if (!input.startsWith("/") || isAbsoluteUrl(input)) {
+  if (!input.startsWith("/") || isAbsoluteUrl(input) || isInternalWebPath(input)) {
     return input;
   }
 
@@ -39,21 +47,11 @@ export function getStoredSession(): StoredSession | null {
     return null;
   }
 
-  const accessToken = localStorage.getItem("bh_access_token");
-  const csrfToken = localStorage.getItem("bh_csrf_token");
-  const tenantId = localStorage.getItem("bh_tenant_id");
-  const userId = localStorage.getItem("bh_user_id");
-
-  if (!accessToken && !csrfToken && !tenantId && !userId) {
-    return null;
-  }
-
-  return {
-    ...(accessToken ? { accessToken } : {}),
-    ...(csrfToken ? { csrfToken } : {}),
-    ...(tenantId ? { tenantId } : {}),
-    ...(userId ? { userId } : {})
-  };
+  return normalizeStoredSession({
+    tenantId:
+      getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ?? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY) ?? undefined,
+    userId: getCookieValue(USER_ID_COOKIE_NAME) ?? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY) ?? undefined
+  });
 }
 
 export function getCookieValue(name: string): string | null {
@@ -61,12 +59,7 @@ export function getCookieValue(name: string): string | null {
     return null;
   }
 
-  const match = document.cookie
-    .split(";")
-    .map((part) => part.trim())
-    .find((part) => part.startsWith(`${name}=`));
-
-  return match ? decodeURIComponent(match.slice(name.length + 1)) : null;
+  return readCookieValueFromHeader(document.cookie, name);
 }
 
 export function setCookieValue(
@@ -94,6 +87,57 @@ export function setCookieValue(
   document.cookie = segments.join("; ");
 }
 
+export function persistStoredSession(session: StoredSession): void {
+  const normalized = normalizeStoredSession(session);
+
+  if (!normalized) {
+    clearStoredSession();
+    return;
+  }
+
+  if (normalized.tenantId) {
+    setCookieValue(ACTIVE_TENANT_COOKIE_NAME, normalized.tenantId);
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(LEGACY_TENANT_STORAGE_KEY, normalized.tenantId);
+    }
+  }
+
+  if (normalized.userId) {
+    setCookieValue(USER_ID_COOKIE_NAME, normalized.userId);
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(LEGACY_USER_ID_STORAGE_KEY, normalized.userId);
+    }
+  }
+
+  if (typeof localStorage !== "undefined") {
+    localStorage.removeItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_REFRESH_TOKEN_STORAGE_KEY);
+  }
+}
+
+export function clearStoredSession(): void {
+  setCookieValue(ACTIVE_TENANT_COOKIE_NAME, "", { maxAgeSeconds: 0 });
+  setCookieValue(USER_ID_COOKIE_NAME, "", { maxAgeSeconds: 0 });
+
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+
+  localStorage.removeItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY);
+  localStorage.removeItem(LEGACY_REFRESH_TOKEN_STORAGE_KEY);
+  localStorage.removeItem(LEGACY_CSRF_STORAGE_KEY);
+  localStorage.removeItem(LEGACY_TENANT_STORAGE_KEY);
+  localStorage.removeItem(LEGACY_USER_ID_STORAGE_KEY);
+}
+
+function getClientCsrfToken(): string | null {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  return getCookieValue(API_CSRF_COOKIE_NAME) ?? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY);
+}
+
 export async function fetchWithSession(
   input: RequestInfo | URL,
   init: FetchWithTimeoutInit = {}
@@ -101,14 +145,13 @@ export async function fetchWithSession(
   const session = getStoredSession();
 
   const headers = new Headers(init.headers);
-
-  if (session?.accessToken) {
-    headers.set("Authorization", `Bearer ${session.accessToken}`);
-  }
-
-  const csrfToken = session?.csrfToken ?? getCookieValue("bh360_csrf");
+  const csrfToken = getClientCsrfToken();
   if (csrfToken) {
     headers.set("x-csrf-token", csrfToken);
+  }
+
+  if (session?.tenantId) {
+    headers.set("x-active-tenant", session.tenantId);
   }
 
   const nextInit: FetchWithTimeoutInit = {

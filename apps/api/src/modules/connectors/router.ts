@@ -3,7 +3,6 @@
 import type { ApiConfig } from "@birthub/config";
 import { Role } from "@birthub/database";
 import { Router } from "express";
-import { z } from "zod";
 
 import {
   RequireRole,
@@ -11,69 +10,21 @@ import {
 } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
+  callbackSchema,
+  connectSchema,
+  providerSchema,
+  syncSchema,
+  type CallbackPayload,
+  type ConnectPayload,
+  type SyncPayload,
+  type UpsertConnectorPayload,
+  upsertConnectorSchema
+} from "./schemas.js";
+import {
   connectorsService,
   parseConnectorOauthState,
   type ConnectorProvider
 } from "./service.js";
-
-const providerSchema = z.enum([
-  "hubspot",
-  "google-workspace",
-  "microsoft-graph",
-  "salesforce",
-  "pipedrive",
-  "twilio-whatsapp"
-]);
-
-const credentialSchema = z
-  .object({
-    expiresAt: z.string().datetime().optional(),
-    value: z.string().min(1)
-  })
-  .strict();
-
-const upsertConnectorSchema = z
-  .object({
-    accountKey: z.string().min(1).optional(),
-    authType: z.string().min(1).optional(),
-    credentials: z.record(z.string(), credentialSchema).optional(),
-    displayName: z.string().min(1).optional(),
-    externalAccountId: z.string().min(1).optional(),
-    metadata: z.record(z.string(), z.unknown()).optional(),
-    provider: providerSchema,
-    scopes: z.array(z.string().min(1)).optional(),
-    status: z.string().min(1).optional()
-  })
-  .strict();
-
-const connectSchema = z
-  .object({
-    accountKey: z.string().min(1).optional(),
-    scopes: z.array(z.string().min(1)).optional()
-  })
-  .strict();
-
-const callbackSchema = z
-  .object({
-    accessToken: z.string().min(1).optional(),
-    accountKey: z.string().min(1).optional(),
-    code: z.string().min(1).optional(),
-    displayName: z.string().min(1).optional(),
-    expiresAt: z.string().datetime().optional(),
-    externalAccountId: z.string().min(1).optional(),
-    refreshToken: z.string().min(1).optional(),
-    scopes: z.array(z.string().min(1)).optional(),
-    state: z.string().min(1)
-  })
-  .strict();
-
-const syncSchema = z
-  .object({
-    accountKey: z.string().min(1).optional(),
-    cursor: z.record(z.string(), z.unknown()).optional(),
-    scope: z.string().min(1).optional()
-  })
-  .strict();
 
 type AuthenticatedConnectorRequest = {
   context: {
@@ -199,7 +150,7 @@ function resolveCallbackContext(input: {
 }
 
 function buildUpsertConnectorInput(
-  payload: z.infer<typeof upsertConnectorSchema>,
+  payload: UpsertConnectorPayload,
   context: ConnectorRequestContext
 ) {
   return {
@@ -220,7 +171,7 @@ function buildUpsertConnectorInput(
 function buildConnectSessionInput(input: {
   config: ApiConfig;
   context: ConnectorRequestContext;
-  payload: z.infer<typeof connectSchema>;
+  payload: ConnectPayload;
   provider: ConnectorProvider;
 }) {
   return {
@@ -237,7 +188,7 @@ function buildConnectSessionInput(input: {
 
 function buildFinalizeConnectSessionInput(input: {
   callbackContext: ReturnType<typeof resolveCallbackContext>;
-  payload: z.infer<typeof callbackSchema>;
+  payload: CallbackPayload;
   provider: ConnectorProvider;
 }) {
   return {
@@ -261,7 +212,7 @@ function buildFinalizeConnectSessionInput(input: {
 function buildTriggerSyncInput(input: {
   config: ApiConfig;
   context: ConnectorRequestContext;
-  payload: z.infer<typeof syncSchema>;
+  payload: SyncPayload;
   provider: ConnectorProvider;
 }) {
   return {
@@ -288,7 +239,7 @@ async function handleConnectorCallbackResponse(input: {
     json(body: unknown): void;
     status(code: number): { json(body: unknown): void };
   };
-  payload: z.infer<typeof callbackSchema>;
+  payload: CallbackPayload;
 }) {
   const callbackContext = resolveCallbackContext({
     organizationId: input.request.context.organizationId,

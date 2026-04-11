@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const COMPETITORXRAY_TOOL_IDS = [
+export const CRISISNAVIGATOR_TOOL_IDS = [
   "incident-intel-feed",
   "impact-benchmark-engine",
   "resilience-gap-analyzer"
 ] as const;
-export type CompetitorToolId = (typeof COMPETITORXRAY_TOOL_IDS)[number];
+export type CompetitorToolId = (typeof CRISISNAVIGATOR_TOOL_IDS)[number];
 
 export const CompetitorToolInputSchema = z
   .object({
@@ -144,3 +144,4 @@ export function createDefaultCrisisNavigatorToolAdapters(): CrisisNavigatorToolA
     }
   };
 }
+

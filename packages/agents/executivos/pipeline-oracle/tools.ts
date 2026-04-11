@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const QUOTAARCHITECT_TOOL_IDS = [
+export const PIPELINEORACLE_TOOL_IDS = [
   "capacity-planner-feed",
   "territory-coverage-engine",
   "attainment-variance-feed"
 ] as const;
-export type QuotaToolId = (typeof QUOTAARCHITECT_TOOL_IDS)[number];
+export type QuotaToolId = (typeof PIPELINEORACLE_TOOL_IDS)[number];
 
 export const QuotaToolInputSchema = z
   .object({
@@ -138,3 +138,4 @@ export function createDefaultPipelineOracleToolAdapters(): PipelineOracleToolAda
     }
   };
 }
+

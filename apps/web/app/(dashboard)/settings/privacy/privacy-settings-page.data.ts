@@ -1,6 +1,4 @@
-// @ts-nocheck
-// 
-import { fetchWithSession } from "../../../../lib/auth-client";
+import { clearStoredSession, fetchWithSession } from "../../../../lib/auth-client";
 
 export const DELETE_CONFIRMATION = "EXCLUIR MINHA CONTA";
 export const PRIVACY_REQUEST_TIMEOUT_MS = 10_000;
@@ -365,13 +363,5 @@ export async function requestPrivacyAccountDeletion(confirmationText: string): P
 }
 
 export function clearStoredPrivacySession(): void {
-  if (typeof localStorage === "undefined") {
-    return;
-  }
-
-  localStorage.removeItem("bh_access_token");
-  localStorage.removeItem("bh_refresh_token");
-  localStorage.removeItem("bh_csrf_token");
-  localStorage.removeItem("bh_tenant_id");
-  localStorage.removeItem("bh_user_id");
+  clearStoredSession();
 }

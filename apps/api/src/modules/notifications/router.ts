@@ -1,32 +1,14 @@
 // @ts-nocheck
 // 
 import { Router } from "express";
-import { z } from "zod";
 
 import { requireAuthenticatedSession } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
-  getNotificationFeed,
-  getNotificationPreferences,
-  markAllNotificationsReadForUser,
-  markNotificationReadForUser,
-  saveNotificationPreferences
-} from "./service.js";
-
-const notificationQuerySchema = z.object({
-  cursor: z.string().min(1).optional(),
-  limit: z.coerce.number().int().min(1).max(50).default(10)
-});
-
-const notificationPreferencesSchema = z
-  .object({
-    cookieConsent: z.enum(["ACCEPTED", "PENDING", "REJECTED"]).optional(),
-    emailNotifications: z.boolean().optional(),
-    inAppNotifications: z.boolean().optional(),
-    marketingEmails: z.boolean().optional(),
-    pushNotifications: z.boolean().optional()
-  })
-  .strict();
+  notificationPreferencesSchema,
+  notificationQuerySchema
+} from "./schemas.js";
+import { notificationsRouterService } from "./service.js";
 
 function requireUserContext(input: {
   tenantId: string | null;
@@ -58,7 +40,7 @@ export function createNotificationsRouter(): Router {
         userId: request.context.userId
       });
       const query = notificationQuerySchema.parse(request.query);
-      const feed = await getNotificationFeed({
+      const feed = await notificationsRouterService.getNotificationFeed({
         limit: query.limit,
         tenantReference: identity.tenantId,
         userId: identity.userId,
@@ -82,7 +64,7 @@ export function createNotificationsRouter(): Router {
         tenantId: request.context.tenantId,
         userId: request.context.userId
       });
-      const result = await markAllNotificationsReadForUser({
+      const result = await notificationsRouterService.markAllNotificationsReadForUser({
         tenantReference: identity.tenantId,
         userId: identity.userId
       });
@@ -102,7 +84,7 @@ export function createNotificationsRouter(): Router {
         tenantId: request.context.tenantId,
         userId: request.context.userId
       });
-      const result = await markNotificationReadForUser({
+      const result = await notificationsRouterService.markNotificationReadForUser({
         notificationId: String(request.params.id ?? ""),
         tenantReference: identity.tenantId,
         userId: identity.userId
@@ -123,7 +105,7 @@ export function createNotificationsRouter(): Router {
         tenantId: request.context.tenantId,
         userId: request.context.userId
       });
-      const preferences = await getNotificationPreferences({
+      const preferences = await notificationsRouterService.getNotificationPreferences({
         tenantReference: identity.tenantId,
         userId: identity.userId
       });
@@ -144,7 +126,7 @@ export function createNotificationsRouter(): Router {
         userId: request.context.userId
       });
       const payload = notificationPreferencesSchema.parse(request.body);
-      const preferences = await saveNotificationPreferences({
+      const preferences = await notificationsRouterService.saveNotificationPreferences({
         tenantReference: identity.tenantId,
         userId: identity.userId,
         ...(payload.cookieConsent !== undefined ? { cookieConsent: payload.cookieConsent } : {}),

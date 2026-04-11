@@ -1,9 +1,14 @@
 // @ts-nocheck
 import { Router } from "express";
-import { z } from "zod";
 
 import { requireAuthenticatedSession } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import {
+  appendMessageSchema,
+  conversationQuerySchema,
+  createConversationSchema,
+  updateStatusSchema
+} from "./schemas.js";
 import {
   appendConversationMessage,
   createConversation,
@@ -11,28 +16,6 @@ import {
   listConversations,
   updateConversationStatus
 } from "./service.js";
-
-const conversationQuerySchema = z.object({
-  channel: z.string().trim().min(1).optional(),
-  limit: z.coerce.number().int().min(1).max(50).default(24),
-  q: z.string().trim().min(1).optional(),
-  status: z.string().trim().min(1).optional()
-});
-
-const createConversationSchema = z.object({
-  channel: z.string().trim().min(1).optional(),
-  initialMessage: z.string().trim().min(1).max(5_000).optional(),
-  metadata: z.record(z.string(), z.unknown()).optional(),
-  subject: z.string().trim().min(1).max(160)
-});
-
-const appendMessageSchema = z.object({
-  content: z.string().trim().min(1).max(5_000)
-});
-
-const updateStatusSchema = z.object({
-  status: z.string().trim().min(1).max(40)
-});
 
 function requireIdentity(input: {
   organizationId: string | null;

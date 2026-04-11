@@ -7,9 +7,9 @@ import {
   RetentionAction,
   RetentionDataCategory,
   RetentionExecutionMode,
-  UserStatus,
-  prisma
-} from "@birthub/database";
+  UserStatus
+} from "@prisma/client";
+import { prisma } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { hashPassword, randomToken } from "../auth/crypto.js";

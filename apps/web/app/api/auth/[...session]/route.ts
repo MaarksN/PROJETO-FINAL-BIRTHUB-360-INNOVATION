@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { isSupportedSessionAction } from "../session-actions";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,13 +6,35 @@ import { fetchWithTimeout } from "../../../../../../packages/utils/src/fetch";
 import { resolveApiBaseUrl } from "../../../../lib/auth-client";
 
 const AUTH_SESSION_PROXY_TIMEOUT_MS = 5_000;
+type RouteContext = { params: Promise<{ session: string[] }> };
+
+function buildProxyHeaders(request: NextRequest, initHeaders?: RequestInit["headers"]): Headers {
+  const headers = new Headers(initHeaders);
+
+  const forwardedHeaderNames = [
+    "authorization",
+    "cookie",
+    "x-active-tenant",
+    "x-csrf-token",
+    "x-request-id"
+  ];
+
+  for (const headerName of forwardedHeaderNames) {
+    const value = request.headers.get(headerName);
+
+    if (value && !headers.has(headerName)) {
+      headers.set(headerName, value);
+    }
+  }
+
+  return headers;
+}
 
 async function proxyApi(request: NextRequest, path: string, init: RequestInit): Promise<NextResponse> {
-  const headers = new Headers(init.headers);
+  const headers = buildProxyHeaders(request, init.headers);
   if (init.body && !headers.has("content-type")) {
     headers.set("content-type", "application/json");
   }
-  headers.set("cookie", request.headers.get("cookie") ?? "");
 
   const response = await fetchWithTimeout(`${resolveApiBaseUrl()}${path}`, {
     ...init,
@@ -34,7 +54,7 @@ async function proxyApi(request: NextRequest, path: string, init: RequestInit): 
 
 export async function POST(
   request: NextRequest,
-  context: { params: Promise<{ session: string[] }> }
+  context: RouteContext
 ): Promise<NextResponse> {
   const params = await context.params;
   const action = params.session?.[0];
@@ -65,14 +85,13 @@ export async function POST(
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ session: string[] }> }
+  context: RouteContext
 ): Promise<NextResponse> {
   const params = await context.params;
   const action = params.session?.[0];
 
   if (action === "session") {
     return proxyApi(request, "/api/v1/sessions", {
-      headers: { authorization: request.headers.get("authorization") ?? "" },
       method: "GET"
     });
   }

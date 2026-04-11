@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const COMPETITORXRAY_TOOL_IDS = [
+export const PRICINGOPTIMIZER_TOOL_IDS = [
   "price-elasticity-model",
   "pricing-benchmark-engine",
   "packaging-gap-analyzer"
 ] as const;
-export type CompetitorToolId = (typeof COMPETITORXRAY_TOOL_IDS)[number];
+export type CompetitorToolId = (typeof PRICINGOPTIMIZER_TOOL_IDS)[number];
 
 export const CompetitorToolInputSchema = z
   .object({
@@ -144,3 +144,4 @@ export function createDefaultPricingOptimizerToolAdapters(): PricingOptimizerToo
     }
   };
 }
+

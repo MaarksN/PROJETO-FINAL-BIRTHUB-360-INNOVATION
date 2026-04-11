@@ -9,7 +9,7 @@ import {
   PregnancyOutcome,
   PregnancyRiskLevel,
   PregnancyStatus
-} from "@birthub/database";
+} from "@prisma/client";
 import { z } from "zod";
 
 const optionalTrimmedString = z.string().trim().min(1).optional();

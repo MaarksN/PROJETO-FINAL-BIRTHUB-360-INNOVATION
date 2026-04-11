@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -51,9 +49,9 @@ export default function AdminAnalyticsPage() {
 
   useEffect(() => {
     void Promise.all([
-      fetchWithSession("/api/v1/analytics/executive"),
-      fetchWithSession("/api/v1/analytics/cohort"),
-      fetchWithSession("/api/v1/analytics/active-tenants")
+      fetchWithSession("/api/bff/api/v1/analytics/executive"),
+      fetchWithSession("/api/bff/api/v1/analytics/cohort"),
+      fetchWithSession("/api/bff/api/v1/analytics/active-tenants")
     ])
       .then(async ([executiveResponse, cohortResponse, activeResponse]) => {
         if (executiveResponse.ok) {
@@ -153,4 +151,3 @@ export default function AdminAnalyticsPage() {
     </main>
   );
 }
-

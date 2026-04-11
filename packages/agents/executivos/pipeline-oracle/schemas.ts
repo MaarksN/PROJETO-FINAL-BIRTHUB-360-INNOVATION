@@ -148,7 +148,6 @@ export const DEFAULT_PIPELINEORACLE_CONTRACT: PipelineOracleContract = {
     "attainment-variance-feed"
   ]
 };
-export const DEFAULT_QUOTAARCHITECT_CONTRACT = DEFAULT_PIPELINEORACLE_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -214,3 +213,4 @@ export const PipelineOracleOutputSchema = z
   })
   .strict();
 export type PipelineOracleOutput = z.infer<typeof PipelineOracleOutputSchema>;
+

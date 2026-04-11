@@ -3,9 +3,9 @@
 import {
   AppointmentStatus,
   PregnancyRiskLevel,
-  PregnancyStatus,
-  prisma
-} from "@birthub/database";
+  PregnancyStatus
+} from "@prisma/client";
+import { prisma } from "@birthub/database";
 
 import {
   asObject,

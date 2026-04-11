@@ -14,10 +14,10 @@ import {
   type CapitalAllocatorOutput,
   CapitalAllocatorOutputSchema,
   type BudgetMetrics,
-  DEFAULT_BUDGETFLUID_CONTRACT
+  DEFAULT_CAPITALALLOCATOR_CONTRACT
 } from "./schemas.js";
 import {
-  BUDGETFLUID_TOOL_IDS,
+  CAPITALALLOCATOR_TOOL_IDS,
   type CapitalAllocatorToolAdapters,
   type BudgetToolId,
   type BudgetToolInput,
@@ -178,7 +178,7 @@ function extractFirstNumber(text: string, patterns: RegExp[]): number | undefine
 
 function clampMaxAttempts(value: number): number {
   if (!Number.isFinite(value)) {
-    return DEFAULT_BUDGETFLUID_CONTRACT.retry.maxAttempts;
+    return DEFAULT_CAPITALALLOCATOR_CONTRACT.retry.maxAttempts;
   }
   return Math.min(3, Math.max(1, Math.trunc(value)));
 }
@@ -252,7 +252,7 @@ function parseContractOverridesFromObject(
     }
     if (Object.keys(retryOverride).length > 0) {
       overrides.retry = {
-        ...DEFAULT_BUDGETFLUID_CONTRACT.retry,
+        ...DEFAULT_CAPITALALLOCATOR_CONTRACT.retry,
         ...retryOverride
       };
     }
@@ -283,13 +283,13 @@ function parseContractOverridesFromObject(
     if (events || metrics) {
       const filteredEvents = events?.filter(
         (entry): entry is CapitalAllocatorContract["observability"]["events"][number] =>
-          DEFAULT_BUDGETFLUID_CONTRACT.observability.events.includes(
+          DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.events.includes(
             entry as CapitalAllocatorContract["observability"]["events"][number]
           )
       );
       const filteredMetrics = metrics?.filter(
         (entry): entry is CapitalAllocatorContract["observability"]["metrics"][number] =>
-          DEFAULT_BUDGETFLUID_CONTRACT.observability.metrics.includes(
+          DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.metrics.includes(
             entry as CapitalAllocatorContract["observability"]["metrics"][number]
           )
       );
@@ -297,11 +297,11 @@ function parseContractOverridesFromObject(
         events:
           filteredEvents && filteredEvents.length > 0
             ? filteredEvents
-            : DEFAULT_BUDGETFLUID_CONTRACT.observability.events,
+            : DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.events,
         metrics:
           filteredMetrics && filteredMetrics.length > 0
             ? filteredMetrics
-            : DEFAULT_BUDGETFLUID_CONTRACT.observability.metrics
+            : DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.metrics
       };
     }
   }
@@ -339,7 +339,7 @@ function parseContractOverrides(rawText: string): Partial<CapitalAllocatorContra
 
   if (maxAttempts !== undefined || baseDelayMs !== undefined) {
     overrides.retry = {
-      ...DEFAULT_BUDGETFLUID_CONTRACT.retry,
+      ...DEFAULT_CAPITALALLOCATOR_CONTRACT.retry,
       ...(maxAttempts !== undefined
         ? { maxAttempts: clampMaxAttempts(maxAttempts) }
         : {}),
@@ -384,13 +384,13 @@ function parseContractOverrides(rawText: string): Partial<CapitalAllocatorContra
   if (events || metrics) {
     const filteredEvents = events?.filter(
       (entry): entry is CapitalAllocatorContract["observability"]["events"][number] =>
-        DEFAULT_BUDGETFLUID_CONTRACT.observability.events.includes(
+        DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.events.includes(
           entry as CapitalAllocatorContract["observability"]["events"][number]
         )
     );
     const filteredMetrics = metrics?.filter(
       (entry): entry is CapitalAllocatorContract["observability"]["metrics"][number] =>
-        DEFAULT_BUDGETFLUID_CONTRACT.observability.metrics.includes(
+        DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.metrics.includes(
           entry as CapitalAllocatorContract["observability"]["metrics"][number]
         )
     );
@@ -398,11 +398,11 @@ function parseContractOverrides(rawText: string): Partial<CapitalAllocatorContra
       events:
         filteredEvents && filteredEvents.length > 0
           ? filteredEvents
-          : DEFAULT_BUDGETFLUID_CONTRACT.observability.events,
+          : DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.events,
       metrics:
         filteredMetrics && filteredMetrics.length > 0
           ? filteredMetrics
-          : DEFAULT_BUDGETFLUID_CONTRACT.observability.metrics
+          : DEFAULT_CAPITALALLOCATOR_CONTRACT.observability.metrics
     };
   }
 
@@ -544,7 +544,7 @@ export class CapitalAllocatorAgent {
 
     const mappedTools = this.resolveToolIds(loadedContract.contract.toolIds);
     const effectiveTools =
-      mappedTools.length > 0 ? mappedTools : [...BUDGETFLUID_TOOL_IDS];
+      mappedTools.length > 0 ? mappedTools : [...CAPITALALLOCATOR_TOOL_IDS];
 
     const runWithRetry = async <T>(
       toolId: BudgetToolId,
@@ -848,7 +848,7 @@ export class CapitalAllocatorAgent {
         const content = await readFile(contractPath, "utf8");
         const merged = mergeContract(
           parseContractOverrides(content),
-          DEFAULT_BUDGETFLUID_CONTRACT
+          DEFAULT_CAPITALALLOCATOR_CONTRACT
         );
         return {
           contract: merged,
@@ -860,8 +860,9 @@ export class CapitalAllocatorAgent {
     }
 
     return {
-      contract: DEFAULT_BUDGETFLUID_CONTRACT,
+      contract: DEFAULT_CAPITALALLOCATOR_CONTRACT,
       source: "default"
     };
   }
 }
+

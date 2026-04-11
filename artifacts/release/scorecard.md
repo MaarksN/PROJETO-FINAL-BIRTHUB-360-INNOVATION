@@ -1,7 +1,7 @@
 # Release Scorecard
-Generated at: 2026-04-10T13:34:39.168Z
+Generated at: 2026-04-11T16:44:40.077Z
 Minimum score threshold: 100
-Score: 80
+Score: 70
 
 Canonical go-live scope: `apps/web`, `apps/api`, `apps/worker`, `packages/database`.
 Legacy and satellite surfaces stay outside the 2026-03-20 launch gate unless promoted explicitly.
@@ -14,8 +14,8 @@ Legacy and satellite surfaces stay outside the 2026-03-20 launch gate unless pro
 | Schema migration lock | PASS | Prisma lock present | `packages/database/prisma/migrations/migration_lock.toml` |
 | SLO baseline | PASS | SLO documentation present | `docs/OBSERVABILIDADE_E_SLOS.md` |
 | Mutation lane | PASS | Score 60.85% vs threshold 60 on 470 mutants | `artifacts/quality/mutation-summary.json`, `docs/evidence/mutation-report.md`, `artifacts/stryker/mutation.json` |
-| Dead code regression | PASS | Current=0, regressions=0 | `artifacts/quality/dead-code/knip-report.json`, `docs/evidence/dead-code-report.md`, `artifacts/quality/knip-baseline.json` |
+| Dead code regression | FAIL | Current=21, regressions=21 | `artifacts/quality/dead-code/knip-report.json`, `docs/evidence/dead-code-report.md`, `artifacts/quality/knip-baseline.json` |
 | Backup health | FAIL | No backup files found in C:\Users\Marks\Documents\GitHub\PROJETO-FINAL-BIRTHUB-360-INNOVATION\artifacts\backups. | `artifacts/backups/backup-health.json`, `artifacts/dr/readiness-report.json` |
 | Rollback evidence | PASS | Rollback rehearsal evidence recorded for production at 2026-03-24T14:37:26.498Z | `artifacts/release/production-rollback-evidence.json`, `artifacts/dr/readiness-report.json` |
 | Disaster recovery drill | FAIL | DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m). | `artifacts/backups/drill-rto-rpo.json`, `artifacts/dr/readiness-report.json`, `docs/evidence/disaster-recovery-report.md` |
-| Score threshold | FAIL | Score 80 is below minimum 100 | - |
+| Score threshold | FAIL | Score 70 is below minimum 100 | - |

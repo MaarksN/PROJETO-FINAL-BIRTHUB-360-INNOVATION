@@ -5,7 +5,7 @@ import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
 import {
-  DEFAULT_TRENDCATCHER_CONTRACT,
+  DEFAULT_EXPANSIONMAPPER_CONTRACT,
   type ExpansionMapperContract,
   ExpansionMapperContractSchema,
   type ExpansionMapperInput,
@@ -22,7 +22,7 @@ import {
   MarketTrendSnapshotSchema,
   normalizeTrendToolId,
   SocialSignalSnapshotSchema,
-  TRENDCATCHER_TOOL_IDS,
+  EXPANSIONMAPPER_TOOL_IDS,
   type ExpansionMapperToolAdapters,
   type TrendToolId,
   type TrendToolInput
@@ -178,7 +178,7 @@ function extractFirstNumber(text: string, patterns: RegExp[]): number | undefine
 
 function clampMaxAttempts(value: number): number {
   if (!Number.isFinite(value)) {
-    return DEFAULT_TRENDCATCHER_CONTRACT.retry.maxAttempts;
+    return DEFAULT_EXPANSIONMAPPER_CONTRACT.retry.maxAttempts;
   }
   return Math.min(3, Math.max(1, Math.trunc(value)));
 }
@@ -252,7 +252,7 @@ function parseContractOverridesFromObject(
     }
     if (Object.keys(retryOverride).length > 0) {
       overrides.retry = {
-        ...DEFAULT_TRENDCATCHER_CONTRACT.retry,
+        ...DEFAULT_EXPANSIONMAPPER_CONTRACT.retry,
         ...retryOverride
       };
     }
@@ -283,13 +283,13 @@ function parseContractOverridesFromObject(
     if (events || metrics) {
       const filteredEvents = events?.filter(
         (entry): entry is ExpansionMapperContract["observability"]["events"][number] =>
-          DEFAULT_TRENDCATCHER_CONTRACT.observability.events.includes(
+          DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.events.includes(
             entry as ExpansionMapperContract["observability"]["events"][number]
           )
       );
       const filteredMetrics = metrics?.filter(
         (entry): entry is ExpansionMapperContract["observability"]["metrics"][number] =>
-          DEFAULT_TRENDCATCHER_CONTRACT.observability.metrics.includes(
+          DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.metrics.includes(
             entry as ExpansionMapperContract["observability"]["metrics"][number]
           )
       );
@@ -297,11 +297,11 @@ function parseContractOverridesFromObject(
         events:
           filteredEvents && filteredEvents.length > 0
             ? filteredEvents
-            : DEFAULT_TRENDCATCHER_CONTRACT.observability.events,
+            : DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.events,
         metrics:
           filteredMetrics && filteredMetrics.length > 0
             ? filteredMetrics
-            : DEFAULT_TRENDCATCHER_CONTRACT.observability.metrics
+            : DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.metrics
       };
     }
   }
@@ -339,7 +339,7 @@ function parseContractOverrides(rawText: string): Partial<ExpansionMapperContrac
 
   if (maxAttempts !== undefined || baseDelayMs !== undefined) {
     overrides.retry = {
-      ...DEFAULT_TRENDCATCHER_CONTRACT.retry,
+      ...DEFAULT_EXPANSIONMAPPER_CONTRACT.retry,
       ...(maxAttempts !== undefined
         ? { maxAttempts: clampMaxAttempts(maxAttempts) }
         : {}),
@@ -384,13 +384,13 @@ function parseContractOverrides(rawText: string): Partial<ExpansionMapperContrac
   if (events || metrics) {
     const filteredEvents = events?.filter(
       (entry): entry is ExpansionMapperContract["observability"]["events"][number] =>
-        DEFAULT_TRENDCATCHER_CONTRACT.observability.events.includes(
+        DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.events.includes(
           entry as ExpansionMapperContract["observability"]["events"][number]
         )
     );
     const filteredMetrics = metrics?.filter(
       (entry): entry is ExpansionMapperContract["observability"]["metrics"][number] =>
-        DEFAULT_TRENDCATCHER_CONTRACT.observability.metrics.includes(
+        DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.metrics.includes(
           entry as ExpansionMapperContract["observability"]["metrics"][number]
         )
     );
@@ -398,11 +398,11 @@ function parseContractOverrides(rawText: string): Partial<ExpansionMapperContrac
       events:
         filteredEvents && filteredEvents.length > 0
           ? filteredEvents
-          : DEFAULT_TRENDCATCHER_CONTRACT.observability.events,
+          : DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.events,
       metrics:
         filteredMetrics && filteredMetrics.length > 0
           ? filteredMetrics
-          : DEFAULT_TRENDCATCHER_CONTRACT.observability.metrics
+          : DEFAULT_EXPANSIONMAPPER_CONTRACT.observability.metrics
     };
   }
 
@@ -544,7 +544,7 @@ export class ExpansionMapperAgent {
 
     const mappedTools = this.resolveToolIds(loadedContract.contract.toolIds);
     const effectiveTools =
-      mappedTools.length > 0 ? mappedTools : [...TRENDCATCHER_TOOL_IDS];
+      mappedTools.length > 0 ? mappedTools : [...EXPANSIONMAPPER_TOOL_IDS];
 
     const runWithRetry = async <T>(
       toolId: TrendToolId,
@@ -844,7 +844,7 @@ export class ExpansionMapperAgent {
         const content = await readFile(contractPath, "utf8");
         const merged = mergeContract(
           parseContractOverrides(content),
-          DEFAULT_TRENDCATCHER_CONTRACT
+          DEFAULT_EXPANSIONMAPPER_CONTRACT
         );
         return {
           contract: merged,
@@ -856,8 +856,9 @@ export class ExpansionMapperAgent {
     }
 
     return {
-      contract: DEFAULT_TRENDCATCHER_CONTRACT,
+      contract: DEFAULT_EXPANSIONMAPPER_CONTRACT,
       source: "default"
     };
   }
 }
+

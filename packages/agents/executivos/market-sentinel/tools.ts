@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const TRENDCATCHER_TOOL_IDS = [
+export const MARKETSENTINEL_TOOL_IDS = [
   "market-sentinel-feed",
   "macro-signal-stream",
   "risk-opportunity-engine"
 ] as const;
-export type TrendToolId = (typeof TRENDCATCHER_TOOL_IDS)[number];
+export type TrendToolId = (typeof MARKETSENTINEL_TOOL_IDS)[number];
 
 export const TrendToolInputSchema = z
   .object({
@@ -130,3 +130,4 @@ export function createDefaultMarketSentinelToolAdapters(): MarketSentinelToolAda
     }
   };
 }
+

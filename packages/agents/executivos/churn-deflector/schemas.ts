@@ -147,7 +147,6 @@ export const DEFAULT_CHURNDEFLECTOR_CONTRACT: ChurnDeflectorContract = {
     "success-coverage-monitor"
   ]
 };
-export const DEFAULT_BRANDGUARDIAN_CONTRACT = DEFAULT_CHURNDEFLECTOR_CONTRACT;
 
 const PrioritySchema = z.enum(["critical", "high", "medium", "low"]);
 
@@ -213,3 +212,4 @@ export const ChurnDeflectorOutputSchema = z
   })
   .strict();
 export type ChurnDeflectorOutput = z.infer<typeof ChurnDeflectorOutputSchema>;
+

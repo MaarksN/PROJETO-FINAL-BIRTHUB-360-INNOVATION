@@ -11,12 +11,12 @@ const isoDateSchema = z
   .string()
   .regex(/^\d{4}-\d{2}-\d{2}$/, "Expected date in YYYY-MM-DD format.");
 
-export const BRANDGUARDIAN_TOOL_IDS = [
+export const CHURNDEFLECTOR_TOOL_IDS = [
   "account-health-feed",
   "renewal-risk-engine",
   "success-coverage-monitor"
 ] as const;
-export type BrandToolId = (typeof BRANDGUARDIAN_TOOL_IDS)[number];
+export type BrandToolId = (typeof CHURNDEFLECTOR_TOOL_IDS)[number];
 
 export const BrandToolInputSchema = z
   .object({
@@ -136,3 +136,4 @@ export function createDefaultChurnDeflectorToolAdapters(): ChurnDeflectorToolAda
     }
   };
 }
+

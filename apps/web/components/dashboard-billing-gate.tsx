@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { type ReactNode, useEffect, useMemo, useState } from "react";
@@ -34,7 +32,7 @@ export function DashboardBillingGate({ children }: Readonly<{ children: ReactNod
   useEffect(() => {
     const controller = new AbortController();
 
-    void fetchWithSession("/api/v1/me", {
+    void fetchWithSession("/api/bff/api/v1/me", {
       signal: controller.signal
     })
       .then(async (response) => {
@@ -48,7 +46,9 @@ export function DashboardBillingGate({ children }: Readonly<{ children: ReactNod
           setProfile(data);
         }
       })
-      .catch(() => undefined);
+      .catch(() => {
+        setProfile(null);
+      });
 
     return () => {
       controller.abort();
@@ -85,4 +85,3 @@ export function DashboardBillingGate({ children }: Readonly<{ children: ReactNod
     </>
   );
 }
-

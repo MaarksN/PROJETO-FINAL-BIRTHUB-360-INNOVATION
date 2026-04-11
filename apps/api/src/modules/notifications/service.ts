@@ -107,3 +107,11 @@ export async function saveNotificationPreferences(input: {
     ...(input.pushNotifications !== undefined ? { pushNotifications: input.pushNotifications } : {})
   });
 }
+
+export const notificationsRouterService = {
+  getNotificationFeed,
+  getNotificationPreferences,
+  markAllNotificationsReadForUser,
+  markNotificationReadForUser,
+  saveNotificationPreferences
+} as const;

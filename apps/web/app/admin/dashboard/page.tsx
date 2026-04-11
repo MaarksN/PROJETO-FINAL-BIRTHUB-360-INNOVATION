@@ -1,10 +1,13 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import { fetchWithSession, getStoredSession } from "../../../lib/auth-client";
+import {
+  fetchWithSession,
+  getStoredSession,
+  persistStoredSession
+} from "../../../lib/auth-client";
 
 type MasterDashboardMetrics = {
   llmApiCalls: number;
@@ -333,6 +336,7 @@ function QualityTable({ error, qualityRows }: { error: string | null; qualityRow
 }
 
 export default function MasterAdminDashboardPage() {
+  const router = useRouter();
   const session = useMemo(() => getStoredSession(), []);
   const [metrics, setMetrics] = useState<MasterDashboardMetrics | null>(null);
   const [performance, setPerformance] = useState<{
@@ -354,10 +358,10 @@ export default function MasterAdminDashboardPage() {
     }
 
     void Promise.all([
-      fetchWithSession("/api/v1/analytics/master-dashboard", { cache: "no-store" }),
-      fetchWithSession("/api/v1/analytics/agent-performance", { cache: "no-store" }),
-      fetchWithSession("/api/v1/analytics/quality-report", { cache: "no-store" }),
-      fetchWithSession("/api/v1/analytics/operations", { cache: "no-store" })
+      fetchWithSession("/api/bff/api/v1/analytics/master-dashboard", { cache: "no-store" }),
+      fetchWithSession("/api/bff/api/v1/analytics/agent-performance", { cache: "no-store" }),
+      fetchWithSession("/api/bff/api/v1/analytics/quality-report", { cache: "no-store" }),
+      fetchWithSession("/api/bff/api/v1/analytics/operations", { cache: "no-store" })
     ])
       .then(async ([metricsResponse, performanceResponse, qualityResponse, operationsResponse]) => {
         if (!metricsResponse.ok || !performanceResponse.ok || !qualityResponse.ok || !operationsResponse.ok) {
@@ -394,7 +398,7 @@ export default function MasterAdminDashboardPage() {
     setError(null);
 
     try {
-      const response = await fetchWithSession("/api/v1/admin/impersonations", {
+      const response = await fetchWithSession("/api/bff/api/v1/admin/impersonations", {
         body: JSON.stringify({
           tenantReference: tenantToImpersonate
         }),
@@ -409,12 +413,12 @@ export default function MasterAdminDashboardPage() {
       }
 
       const payload = (await response.json()) as ImpersonationResult;
-      localStorage.setItem("bh_csrf_token", payload.tokens.csrfToken);
-      localStorage.setItem("bh_tenant_id", payload.tenantId);
-      localStorage.setItem("bh_user_id", payload.userId);
-      localStorage.removeItem("bh_access_token");
-      localStorage.removeItem("bh_refresh_token");
+      persistStoredSession({
+        tenantId: payload.tenantId,
+        userId: payload.userId
+      });
       setImpersonation(payload);
+      router.replace("/dashboard");
     } catch (impersonationError) {
       setError(impersonationError instanceof Error ? impersonationError.message : "Falha ao gerar impersonation.");
     }
