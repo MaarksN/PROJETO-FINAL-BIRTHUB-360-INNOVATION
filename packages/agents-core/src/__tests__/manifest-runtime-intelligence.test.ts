@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { MANIFEST_VERSION } from "../manifest/schema.js";
+import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema.js";
 import {
   buildAgentRuntimeOutput,
   buildAgentRuntimePlan,
@@ -9,7 +9,7 @@ import {
   summarizeNumericSignals
 } from "../runtime/index.js";
 
-const manifest = {
+const manifest: AgentManifest = {
   agent: {
     changelog: [],
     description: "Agent for runtime intelligence tests",
@@ -123,10 +123,14 @@ void test("runtime plan and output include segment adaptation, memory and handof
     ],
     tenantId: "tenant-1"
   });
+  const firstToolCall = plan.toolCalls[0]!;
 
   assert.equal(plan.toolCalls.length, 2);
-  assert.equal(plan.toolCalls[0]?.input.segmentProfile.industry, "fintech");
-  assert.equal(plan.toolCalls[0]?.input.dataSummary.trend, "up");
+  assert.equal(
+    (firstToolCall.input.segmentProfile as { industry: string }).industry,
+    "fintech"
+  );
+  assert.equal((firstToolCall.input.dataSummary as { trend: string }).trend, "up");
 
   const output = buildAgentRuntimeOutput({
     input,
@@ -151,18 +155,39 @@ void test("runtime plan and output include segment adaptation, memory and handof
     steps: [
       {
         call: {
-          input: plan.toolCalls[0]?.input ?? {},
+          input: firstToolCall.input,
           tool: manifest.tools[0]!.id
         },
         finishedAt: new Date().toISOString(),
         output: {
+          approvalRecommendation: {
+            reason: "Finance and executive alignment required.",
+            required: true
+          },
           evidence: ["renewal cohort drift"],
           numericSummary: {
             average: 105,
             count: 3,
             outlierCount: 1,
             trend: "up"
-          }
+          },
+          specialistLineup: [
+            {
+              agentId: "cro-pack",
+              domain: "sales",
+              name: "CRO Pack",
+              reason: "Revenue escalation required.",
+              useCase: "forecasting"
+            }
+          ],
+          workflowPlan: [
+            {
+              agentId: "cro-pack",
+              expectedOutcome: "Stabilize renewal forecast.",
+              order: 1,
+              reason: "Revenue risk."
+            }
+          ]
         },
         startedAt: new Date().toISOString()
       }
@@ -175,4 +200,6 @@ void test("runtime plan and output include segment adaptation, memory and handof
   assert.equal(output.specialist_deliverables.length > 0, true);
   assert.equal(output.suggested_handoffs.length > 0, true);
   assert.equal(output.leading_indicators.some((item) => item === "industry:fintech"), true);
+  assert.equal(output.orchestration_plan?.recommended_agents[0]?.agent_id, "cro-pack");
+  assert.equal(output.orchestration_plan?.approval_required, true);
 });

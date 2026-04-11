@@ -51,6 +51,11 @@ void test("CapitalAllocator returns success output on happy path", async () => {
   assert.ok(output.budgetBrief.signals.length >= 2);
   assert.ok(output.observability.metrics.toolCalls >= 3);
   assert.ok(
+    output.observability.events.every(
+      (event: BudgetEvent) => event.details.requestId === VALID_INPUT.requestId
+    )
+  );
+  assert.ok(
     output.observability.events.some(
       (event: BudgetEvent) => event.name === "capitalallocator.response.generated"
     )

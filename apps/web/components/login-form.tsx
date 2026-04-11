@@ -19,6 +19,26 @@ type LoginFormContentProps = Readonly<{
 
 const LOGIN_REQUEST_TIMEOUT_MS = 8_000;
 
+interface AuthenticatedSessionPayload {
+  csrfToken: string;
+  refreshToken: string;
+  tenantId: string;
+  token: string;
+  userId: string;
+}
+
+interface AuthProxyPayload {
+  challengeExpiresAt?: string;
+  challengeToken?: string;
+  mfaRequired: boolean;
+  session?: AuthenticatedSessionPayload;
+}
+
+interface MfaChallengeState {
+  challengeExpiresAt: string | null;
+  challengeToken: string;
+}
+
 function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps) {
   const [error, setError] = useState<string | null>(null);
   const [requestId] = useState(initialRequestId);
@@ -30,6 +50,11 @@ function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps)
     password: "",
     tenantId: ""
   });
+  const [mfaChallenge, setMfaChallenge] = useState<MfaChallengeState | null>(null);
+  const [mfaValues, setMfaValues] = useState({
+    recoveryCode: "",
+    totpCode: ""
+  });
 
   useEffect(() => {
     return () => {
@@ -37,9 +62,50 @@ function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps)
     };
   }, []);
 
+  async function finalizeAuthenticatedSession(session: AuthenticatedSessionPayload) {
+    persistStoredSession({
+      tenantId: session.tenantId,
+      userId: session.userId
+    });
+
+    setMfaChallenge(null);
+    setMfaValues({
+      recoveryCode: "",
+      totpCode: ""
+    });
+    await useUserPreferencesStore.getState().hydrate();
+    setResult(`Sessao criada para ${session.userId}`);
+    navigate("/dashboard");
+  }
+
+  function buildMfaBody(challenge: MfaChallengeState): string {
+    const recoveryCode = mfaValues.recoveryCode.trim();
+    const totpCode = mfaValues.totpCode.trim();
+
+    if (!recoveryCode && !totpCode) {
+      throw new Error("Informe um codigo TOTP ou um recovery code.");
+    }
+
+    return JSON.stringify({
+      challengeToken: challenge.challengeToken,
+      ...(recoveryCode ? { recoveryCode } : {}),
+      ...(totpCode ? { totpCode } : {})
+    });
+  }
+
+  function resetMfaChallenge(): void {
+    setMfaChallenge(null);
+    setMfaValues({
+      recoveryCode: "",
+      totpCode: ""
+    });
+    setResult(null);
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setResult(null);
 
     const submit = async () => {
       submitControllerRef.current?.abort();
@@ -47,37 +113,38 @@ function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps)
       submitControllerRef.current = controller;
 
       try {
-        const response = await fetchWithTimeout("/api/auth/signin", {
-          body: JSON.stringify(formValues),
-          credentials: "include",
-          headers: {
-            "content-type": "application/json",
-            "x-request-id": requestId
-          },
-          method: "POST",
-          signal: controller.signal,
-          timeoutMessage: `Falha ao autenticar dentro do limite de ${LOGIN_REQUEST_TIMEOUT_MS}ms.`,
-          timeoutMs: LOGIN_REQUEST_TIMEOUT_MS
-        });
+        const response = await fetchWithTimeout(
+          mfaChallenge ? "/api/auth/mfa" : "/api/auth/signin",
+          {
+            body: mfaChallenge ? buildMfaBody(mfaChallenge) : JSON.stringify(formValues),
+            credentials: "include",
+            headers: {
+              "content-type": "application/json",
+              "x-request-id": requestId
+            },
+            method: "POST",
+            signal: controller.signal,
+            timeoutMessage: `Falha ao autenticar dentro do limite de ${LOGIN_REQUEST_TIMEOUT_MS}ms.`,
+            timeoutMs: LOGIN_REQUEST_TIMEOUT_MS
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`Falha ao autenticar (${response.status})`);
         }
 
-        const payload = (await response.json()) as {
-          challengeToken?: string;
-          mfaRequired: boolean;
-          session?: {
-            csrfToken: string;
-            refreshToken: string;
-            tenantId: string;
-            token: string;
-            userId: string;
-          };
-        };
+        const payload = (await response.json()) as AuthProxyPayload;
 
         if (payload.mfaRequired) {
-          setResult("MFA requerido. Finalize o desafio antes de entrar no dashboard.");
+          if (!payload.challengeToken) {
+            throw new Error("A API exigiu MFA, mas nao retornou challengeToken.");
+          }
+
+          setMfaChallenge({
+            challengeExpiresAt: payload.challengeExpiresAt ?? null,
+            challengeToken: payload.challengeToken
+          });
+          setResult("MFA requerido. Informe um codigo TOTP ou um recovery code.");
           return;
         }
 
@@ -85,14 +152,7 @@ function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps)
           throw new Error("Sessao nao retornada pela API.");
         }
 
-        persistStoredSession({
-          tenantId: payload.session.tenantId,
-          userId: payload.session.userId
-        });
-
-        await useUserPreferencesStore.getState().hydrate();
-        setResult(`Sessao criada para ${payload.session.userId}`);
-        navigate("/settings/security");
+        await finalizeAuthenticatedSession(payload.session);
       } catch (submitError) {
         if (controller.signal.aborted) {
           return;
@@ -148,39 +208,94 @@ function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps)
           padding: "1.5rem"
         }}
       >
-        <label style={{ display: "grid", gap: "0.35rem" }}>
-          <span>Email</span>
-          <input
-            autoComplete="username"
-            onChange={(event) => setFormValues((current) => ({ ...current, email: event.target.value }))}
-            placeholder="voce@empresa.com"
-            type="email"
-            value={formValues.email}
-          />
-        </label>
-        <label style={{ display: "grid", gap: "0.35rem" }}>
-          <span>Senha</span>
-          <input
-            autoComplete="current-password"
-            onChange={(event) =>
-              setFormValues((current) => ({ ...current, password: event.target.value }))
-            }
-            placeholder="Sua senha"
-            type="password"
-            value={formValues.password}
-          />
-        </label>
-        <label style={{ display: "grid", gap: "0.35rem" }}>
-          <span>Tenant</span>
-          <input
-            onChange={(event) =>
-              setFormValues((current) => ({ ...current, tenantId: event.target.value }))
-            }
-            placeholder="slug, tenantId ou organizationId"
-            type="text"
-            value={formValues.tenantId}
-          />
-        </label>
+        {mfaChallenge ? (
+          <>
+            <div
+              style={{
+                background: "rgba(19, 93, 102, 0.08)",
+                border: "1px solid var(--border)",
+                borderRadius: "1rem",
+                display: "grid",
+                gap: "0.35rem",
+                padding: "0.9rem"
+              }}
+            >
+              <strong>Validacao MFA em andamento</strong>
+              <span style={{ color: "var(--muted)" }}>
+                Use um codigo de 6 digitos do autenticador ou um recovery code.
+              </span>
+              {mfaChallenge.challengeExpiresAt ? (
+                <small style={{ color: "var(--muted)" }}>
+                  Expira em {new Date(mfaChallenge.challengeExpiresAt).toLocaleString("pt-BR")}.
+                </small>
+              ) : null}
+            </div>
+            <label style={{ display: "grid", gap: "0.35rem" }}>
+              <span>Codigo TOTP</span>
+              <input
+                autoComplete="one-time-code"
+                inputMode="numeric"
+                maxLength={6}
+                onChange={(event) =>
+                  setMfaValues((current) => ({ ...current, totpCode: event.target.value }))
+                }
+                pattern="[0-9]{6}"
+                placeholder="123456"
+                type="text"
+                value={mfaValues.totpCode}
+              />
+            </label>
+            <label style={{ display: "grid", gap: "0.35rem" }}>
+              <span>Recovery code</span>
+              <input
+                onChange={(event) =>
+                  setMfaValues((current) => ({ ...current, recoveryCode: event.target.value }))
+                }
+                placeholder="Informe o recovery code se necessario"
+                type="text"
+                value={mfaValues.recoveryCode}
+              />
+            </label>
+          </>
+        ) : (
+          <>
+            <label style={{ display: "grid", gap: "0.35rem" }}>
+              <span>Email</span>
+              <input
+                autoComplete="username"
+                onChange={(event) =>
+                  setFormValues((current) => ({ ...current, email: event.target.value }))
+                }
+                placeholder="voce@empresa.com"
+                type="email"
+                value={formValues.email}
+              />
+            </label>
+            <label style={{ display: "grid", gap: "0.35rem" }}>
+              <span>Senha</span>
+              <input
+                autoComplete="current-password"
+                onChange={(event) =>
+                  setFormValues((current) => ({ ...current, password: event.target.value }))
+                }
+                placeholder="Sua senha"
+                type="password"
+                value={formValues.password}
+              />
+            </label>
+            <label style={{ display: "grid", gap: "0.35rem" }}>
+              <span>Tenant</span>
+              <input
+                onChange={(event) =>
+                  setFormValues((current) => ({ ...current, tenantId: event.target.value }))
+                }
+                placeholder="slug, tenantId ou organizationId"
+                type="text"
+                value={formValues.tenantId}
+              />
+            </label>
+          </>
+        )}
         <div
           style={{
             alignItems: "center",
@@ -190,21 +305,28 @@ function LoginFormContent({ initialRequestId, navigate }: LoginFormContentProps)
           }}
         >
           <code>{requestId}</code>
-          <button
-            disabled={isPending}
-            style={{
-              background: "var(--accent)",
-              border: "none",
-              borderRadius: "999px",
-              color: "white",
-              cursor: "pointer",
-              fontWeight: 700,
-              padding: "0.9rem 1.4rem"
-            }}
-            type="submit"
-          >
-            {isPending ? "Entrando..." : "Entrar"}
-          </button>
+          <div style={{ display: "flex", gap: "0.75rem" }}>
+            {mfaChallenge ? (
+              <button onClick={resetMfaChallenge} type="button">
+                Voltar
+              </button>
+            ) : null}
+            <button
+              disabled={isPending}
+              style={{
+                background: "var(--accent)",
+                border: "none",
+                borderRadius: "999px",
+                color: "white",
+                cursor: "pointer",
+                fontWeight: 700,
+                padding: "0.9rem 1.4rem"
+              }}
+              type="submit"
+            >
+              {isPending ? "Entrando..." : mfaChallenge ? "Validar MFA" : "Entrar"}
+            </button>
+          </div>
         </div>
         {error ? <p style={{ color: "#a11d2d", margin: 0 }}>{error}</p> : null}
         {result ? <p style={{ color: "var(--accent-strong)", margin: 0 }}>{result}</p> : null}

@@ -77,6 +77,7 @@ export const QuotaEventSchema = z
         errorCode: z.string().min(1).optional(),
         fallbackMode: QuotaFailureModeSchema.optional(),
         maxAttempts: z.number().int().min(1).optional(),
+        requestId: z.string().min(1).optional(),
         source: z.string().min(1).optional(),
         toolId: z.string().min(1).optional()
       })

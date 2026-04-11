@@ -3,6 +3,7 @@ import {
   fetchWithTimeout,
   type FetchWithTimeoutInit
 } from "../../../packages/utils/src/fetch";
+import { resolveBrowserBffPath } from "./bff-policy";
 import {
   ACTIVE_TENANT_COOKIE_NAME,
   API_CSRF_COOKIE_NAME,
@@ -47,10 +48,17 @@ export function getStoredSession(): StoredSession | null {
     return null;
   }
 
-  const tenantId = getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ?? (typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY) : null);
-  const userId = getCookieValue(USER_ID_COOKIE_NAME) ?? (typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY) : null);
-
-  return normalizeStoredSession({
+  const tenantId =
+    getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ??
+    (typeof localStorage !== "undefined"
+      ? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY)
+      : null);
+  const userId =
+    getCookieValue(USER_ID_COOKIE_NAME) ??
+    (typeof localStorage !== "undefined"
+      ? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY)
+      : null);
+  const normalizedSession = normalizeStoredSession({
     ...(tenantId ? { tenantId } : {}),
     ...(userId ? { userId } : {})
   });
@@ -59,6 +67,8 @@ export function getStoredSession(): StoredSession | null {
     return normalizedSession;
   }
 
+  const legacyCsrfToken =
+    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
   const csrfToken = getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
   return csrfToken ? {} : null;
 }
@@ -179,7 +189,9 @@ export async function fetchWithSession(
   };
 
   if (typeof input === "string") {
-    return fetchWithTimeout(toApiUrl(input), nextInit);
+    const runtimeUrl =
+      typeof window !== "undefined" ? resolveBrowserBffPath(input) : input;
+    return fetchWithTimeout(toApiUrl(runtimeUrl), nextInit);
   }
 
   return fetchWithTimeout(input, nextInit);

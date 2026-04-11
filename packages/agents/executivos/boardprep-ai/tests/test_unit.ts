@@ -95,6 +95,11 @@ void test("BoardPrepAI returns success output on happy path", async () => {
   assert.ok(output.boardBrief.summary_report.includes("## 1. Resumo Executivo"));
   assert.ok(output.observability.metrics.toolCalls >= 3);
   assert.ok(
+    output.observability.events.every(
+      (event: BoardPrepEvent) => event.details.requestId === VALID_INPUT.requestId
+    )
+  );
+  assert.ok(
     output.observability.events.some(
       (event: BoardPrepEvent) => event.name === "boardprepai.response.generated"
     )

@@ -76,6 +76,7 @@ export const BrandEventSchema = z
         errorCode: z.string().min(1).optional(),
         fallbackMode: BrandFailureModeSchema.optional(),
         maxAttempts: z.number().int().min(1).optional(),
+        requestId: z.string().min(1).optional(),
         source: z.string().min(1).optional(),
         toolId: z.string().min(1).optional()
       })

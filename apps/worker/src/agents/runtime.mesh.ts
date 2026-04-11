@@ -134,6 +134,53 @@ function buildApprovalRecommendation(lineup: AgentMeshLineupEntry[], objective: 
   };
 }
 
+function findDomainMatches(input: {
+  catalog: ManifestCatalogEntry[];
+  domain: string;
+  objective: string;
+  segmentProfile: SegmentProfile;
+  textSignals: string[];
+}): Array<ManifestCatalogEntry & { score: number }> {
+  const queries = uniqueStrings([
+    `${input.domain} ${input.segmentProfile.industry}`,
+    input.textSignals[0] ?? "",
+    input.objective,
+    input.domain,
+    input.segmentProfile.industry
+  ]);
+
+  for (const query of queries) {
+    const results = searchManifestCatalog(input.catalog, {
+      filters: {
+        domains: [input.domain],
+        industries: [input.segmentProfile.industry, "cross-industry", "sales", "saas"]
+      },
+      page: 1,
+      pageSize: 4,
+      query
+    }).results;
+
+    if (results.length > 0) {
+      return results;
+    }
+  }
+
+  return input.catalog
+    .filter(
+      (entry) =>
+        isInstallableManifest(entry.manifest) &&
+        entry.manifest.tags.domain.includes(input.domain) &&
+        [input.segmentProfile.industry, "cross-industry", "sales", "saas"].some((industry) =>
+          entry.manifest.tags.industry.includes(industry)
+        )
+    )
+    .map((entry, index) => ({
+      ...entry,
+      score: Math.max(1, 10 - index)
+    }))
+    .slice(0, 4);
+}
+
 export function buildAgentMeshExecutionBlueprint(input: {
   catalog: ManifestCatalogEntry[];
   objective: string;
@@ -148,15 +195,13 @@ export function buildAgentMeshExecutionBlueprint(input: {
   const shortlist = new Map<string, AgentMeshLineupEntry>();
 
   for (const domain of focusDomains) {
-    const results = searchManifestCatalog(input.catalog, {
-      filters: {
-        domains: [domain],
-        industries: [input.segmentProfile.industry, "cross-industry", "sales", "saas"]
-      },
-      page: 1,
-      pageSize: 4,
-      query: `${input.objective} ${input.segmentProfile.industry} ${input.segmentProfile.clientSegment}`
-    }).results;
+    const results = findDomainMatches({
+      catalog: input.catalog,
+      domain,
+      objective: input.objective,
+      segmentProfile: input.segmentProfile,
+      textSignals: input.textSignals
+    });
 
     for (const result of results) {
       if (!isInstallableManifest(result.manifest)) {

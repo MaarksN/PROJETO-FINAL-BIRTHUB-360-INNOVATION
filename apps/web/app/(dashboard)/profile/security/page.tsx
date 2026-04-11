@@ -1,15 +1,9 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useState } from "react";
 
-import { getWebConfig } from "@birthub/config";
-
 import { fetchWithSession } from "../../../../lib/auth-client";
 import { DOMPurify } from "../../../../lib/dompurify";
-
-const webConfig = getWebConfig();
 
 interface MfaSetupPayload {
   otpauthUrl: string;
@@ -21,39 +15,60 @@ export default function ProfileSecurityPage() {
   const [setup, setSetup] = useState<MfaSetupPayload | null>(null);
   const [totpCode, setTotpCode] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
+  const [isSettingUp, setIsSettingUp] = useState(false);
+  const [isEnabling, setIsEnabling] = useState(false);
   const [richNotes, setRichNotes] = useState("<b>Salve os recovery codes em local seguro.</b>");
+  const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const startSetup = async () => {
     setError(null);
-    const response = await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/auth/mfa/setup`, {
-      method: "POST"
-    });
+    setNotice(null);
+    setIsSettingUp(true);
 
-    if (!response.ok) {
-      setError(`Falha ao iniciar setup MFA (${response.status})`);
-      return;
+    try {
+      const response = await fetchWithSession("/api/v1/auth/mfa/setup", {
+        method: "POST"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Falha ao iniciar setup MFA (${response.status})`);
+      }
+
+      setSetup((await response.json()) as MfaSetupPayload);
+      setIsEnabled(false);
+    } catch (setupError) {
+      setError(setupError instanceof Error ? setupError.message : "Falha ao iniciar setup MFA.");
+    } finally {
+      setIsSettingUp(false);
     }
-
-    setSetup((await response.json()) as MfaSetupPayload);
   };
 
   const enableMfa = async () => {
     setError(null);
-    const response = await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/auth/mfa/enable`, {
-      body: JSON.stringify({ totpCode }),
-      headers: {
-        "content-type": "application/json"
-      },
-      method: "POST"
-    });
+    setNotice(null);
+    setIsEnabling(true);
 
-    if (!response.ok) {
-      setError(`Codigo invalido (${response.status})`);
-      return;
+    try {
+      const response = await fetchWithSession("/api/v1/auth/mfa/enable", {
+        body: JSON.stringify({ totpCode }),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "POST"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Codigo invalido (${response.status})`);
+      }
+
+      setIsEnabled(true);
+      setNotice("MFA habilitado com sucesso.");
+    } catch (enableError) {
+      setError(enableError instanceof Error ? enableError.message : "Falha ao habilitar MFA.");
+    } finally {
+      setIsEnabling(false);
     }
-
-    setIsEnabled(true);
   };
 
   const downloadRecoveryCodes = () => {
@@ -68,6 +83,7 @@ export default function ProfileSecurityPage() {
     anchor.download = "birthhub360-recovery-codes.txt";
     anchor.click();
     URL.revokeObjectURL(url);
+    setNotice("Recovery codes exportados. Armazene-os fora do navegador.");
   };
 
   return (
@@ -79,8 +95,8 @@ export default function ProfileSecurityPage() {
         </p>
       </header>
 
-      <button onClick={() => void startSetup()} type="button">
-        Iniciar setup MFA
+      <button disabled={isSettingUp || isEnabling} onClick={() => void startSetup()} type="button">
+        {isSettingUp ? "Iniciando..." : "Iniciar setup MFA"}
       </button>
 
       {setup ? (
@@ -106,12 +122,17 @@ export default function ProfileSecurityPage() {
           <div style={{ display: "flex", gap: "0.5rem" }}>
             <input
               maxLength={6}
+              onBlur={() => setTotpCode((current) => current.trim())}
               onChange={(event) => setTotpCode(event.target.value)}
               placeholder="123456"
               value={totpCode}
             />
-            <button onClick={() => void enableMfa()} type="button">
-              Confirmar codigo
+            <button
+              disabled={isSettingUp || isEnabling || totpCode.trim().length !== 6}
+              onClick={() => void enableMfa()}
+              type="button"
+            >
+              {isEnabling ? "Validando..." : "Confirmar codigo"}
             </button>
           </div>
 
@@ -147,9 +168,9 @@ export default function ProfileSecurityPage() {
         />
       </article>
 
+      {notice ? <p style={{ color: "var(--accent-strong)" }}>{notice}</p> : null}
       {isEnabled ? <p style={{ color: "var(--accent-strong)" }}>MFA habilitado com sucesso.</p> : null}
       {error ? <p style={{ color: "#a11d2d", margin: 0 }}>{error}</p> : null}
     </section>
   );
 }
-

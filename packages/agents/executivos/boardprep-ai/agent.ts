@@ -419,13 +419,19 @@ export class BoardPrepAIAgent {
     ): void => {
       const normalized: BoardPrepEvent = {
         ...event,
+        details: {
+          ...event.details,
+          requestId: event.details.requestId ?? parsedInput.requestId
+        },
         timestamp: event.timestamp ?? this.now().toISOString()
       };
       events.push(normalized);
       const payload = JSON.stringify({
+        details: normalized.details,
         level: normalized.level,
         message: normalized.message,
-        name: normalized.name
+        name: normalized.name,
+        requestId: normalized.details.requestId
       });
       if (normalized.level === "error") {
         console.error(payload);
@@ -839,6 +845,11 @@ export class BoardPrepAIAgent {
         title: "Required Decisions"
       }
     ];
+    const primaryKpiTable = dataTables[0] ?? {
+      columns: ["Metric", "Value", "Status", "Confidence"],
+      rows: [["No KPI data", "n/a", "n/a", "low"]],
+      title: "Key KPIs"
+    };
 
     const summaryReport = [
       `# Board Prep - ${parsedInput.dateRange.label}`,
@@ -847,7 +858,7 @@ export class BoardPrepAIAgent {
       resumoExecutivo,
       "",
       "## 2. KPIs Chave",
-      toMarkdownTable(dataTables[0].columns, dataTables[0].rows),
+      toMarkdownTable(primaryKpiTable.columns, primaryKpiTable.rows),
       "",
       "## 3. Riscos",
       riscos.length > 0

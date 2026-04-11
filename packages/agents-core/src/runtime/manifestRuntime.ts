@@ -91,6 +91,24 @@ export interface AgentRuntimeOutput {
     value_preview: string;
   };
   next_checkpoint: string;
+  orchestration_plan: null | {
+    approval_reason: string;
+    approval_required: boolean;
+    focus_domains: string[];
+    recommended_agents: Array<{
+      agent_id: string;
+      domain: string;
+      name: string;
+      reason: string;
+      use_case: string;
+    }>;
+    workflow_steps: Array<{
+      agent_id: string;
+      expected_outcome: string;
+      order: number;
+      reason: string;
+    }>;
+  };
   opportunities_to_capture: string[];
   preventive_action_plan: Array<{
     action: string;
@@ -122,6 +140,8 @@ export interface OutputGovernanceDecision {
   requireApproval: boolean;
   type: "executive-report" | "technical-log";
 }
+
+type AgentOrchestrationPlan = NonNullable<AgentRuntimeOutput["orchestration_plan"]>;
 
 function readString(value: unknown): string | null {
   return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;
@@ -307,6 +327,110 @@ function deriveSpecialistDeliverables(manifest: AgentManifest): string[] {
   ]).slice(0, 6);
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function readMeshBlueprint(
+  steps: AgentRuntimeOutputInput["steps"]
+): AgentRuntimeOutput["orchestration_plan"] {
+  const focusDomains: string[] = [];
+  const recommendedAgents: AgentOrchestrationPlan["recommended_agents"] = [];
+  const workflowSteps: AgentOrchestrationPlan["workflow_steps"] = [];
+  let approvalRequired = false;
+  let approvalReason = "";
+
+  for (const step of steps) {
+    if (!isRecord(step.output)) {
+      continue;
+    }
+
+    if (Array.isArray(step.output.focusDomains)) {
+      for (const value of step.output.focusDomains) {
+        if (typeof value === "string") {
+          focusDomains.push(value);
+        }
+      }
+    }
+
+    if (Array.isArray(step.output.specialistLineup)) {
+      for (const value of step.output.specialistLineup) {
+        if (!isRecord(value)) {
+          continue;
+        }
+
+        if (
+          typeof value.agentId === "string" &&
+          typeof value.name === "string" &&
+          typeof value.reason === "string"
+        ) {
+          recommendedAgents.push({
+            agent_id: value.agentId,
+            domain: typeof value.domain === "string" ? value.domain : "unknown",
+            name: value.name,
+            reason: value.reason,
+            use_case: typeof value.useCase === "string" ? value.useCase : "general"
+          });
+        }
+      }
+    }
+
+    if (Array.isArray(step.output.workflowPlan)) {
+      for (const value of step.output.workflowPlan) {
+        if (!isRecord(value) || typeof value.agentId !== "string") {
+          continue;
+        }
+
+        workflowSteps.push({
+          agent_id: value.agentId,
+          expected_outcome:
+            typeof value.expectedOutcome === "string"
+              ? value.expectedOutcome
+              : "Executar a etapa especializada.",
+          order: typeof value.order === "number" ? value.order : workflowSteps.length + 1,
+          reason: typeof value.reason === "string" ? value.reason : "Etapa sugerida pelo agent mesh."
+        });
+      }
+    }
+
+    if (isRecord(step.output.approvalRecommendation)) {
+      approvalRequired =
+        approvalRequired || Boolean(step.output.approvalRecommendation.required);
+      if (!approvalReason && typeof step.output.approvalRecommendation.reason === "string") {
+        approvalReason = step.output.approvalRecommendation.reason;
+      }
+    }
+  }
+
+  if (recommendedAgents.length === 0 && workflowSteps.length === 0) {
+    return null;
+  }
+
+  return {
+    approval_reason: approvalReason || "Fluxo multiagente sem necessidade adicional de aprovacao.",
+    approval_required: approvalRequired,
+    focus_domains: uniqueStrings(focusDomains).slice(0, 5),
+    recommended_agents: uniqueStrings(
+      recommendedAgents.map((item: AgentOrchestrationPlan["recommended_agents"][number]) => `${item.agent_id}:${item.name}`)
+    )
+      .map((key) => {
+        const [agentId] = key.split(":");
+        return recommendedAgents.find(
+          (item: AgentOrchestrationPlan["recommended_agents"][number]) => item.agent_id === agentId
+        )!;
+      })
+      .slice(0, 5),
+    workflow_steps: workflowSteps
+      .sort(
+        (
+          left: AgentOrchestrationPlan["workflow_steps"][number],
+          right: AgentOrchestrationPlan["workflow_steps"][number]
+        ) => left.order - right.order
+      )
+      .slice(0, 5)
+  };
+}
+
 function buildSuggestedHandoffs(
   manifest: AgentManifest,
   collaborationTargets: string[],
@@ -463,12 +587,19 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
   const combinedTextSignals = readTextSignals([input.input, ...input.steps.map((step) => step.output)], 12);
   const numericSummary = summarizeNumericSignals(combinedNumericSignals);
   const collaborationTargets = inferCollaborationTargets(input.manifest);
+  const orchestrationPlan = readMeshBlueprint(input.steps);
   const suggestedHandoffs = buildSuggestedHandoffs(
     input.manifest,
     collaborationTargets,
     segmentProfile
   );
-  const specialistDeliverables = deriveSpecialistDeliverables(input.manifest);
+  const specialistDeliverables =
+    orchestrationPlan?.workflow_steps.length
+      ? uniqueStrings([
+          ...orchestrationPlan.workflow_steps.map((step) => `${step.order}. ${step.agent_id}`),
+          ...deriveSpecialistDeliverables(input.manifest)
+        ]).slice(0, 6)
+      : deriveSpecialistDeliverables(input.manifest);
   const recommendedActions = buildRecommendedActions({
     capabilityType: "recommendation",
     collaborationTargets,
@@ -541,6 +672,7 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     executionMode: "LIVE",
     leading_indicators: uniqueStrings([
       ...input.plan.toolCalls.map((call) => `tool-ready:${call.tool}`),
+      ...(orchestrationPlan?.focus_domains.map((domain) => `domain:${domain}`) ?? []),
       `segment:${segmentProfile.clientSegment}`,
       `industry:${segmentProfile.industry}`,
       `trend:${numericSummary.trend}`,
@@ -549,6 +681,7 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     learning_used: summarizeLearning(sharedLearning),
     memory_writeback: memoryWriteback,
     next_checkpoint: nextCheckpoint,
+    orchestration_plan: orchestrationPlan,
     opportunities_to_capture: uniqueStrings([
       `Adaptar o plano para ${segmentProfile.industry} com linguagem especifica de ${segmentProfile.clientSegment}.`,
       suggestedHandoffs.length > 0

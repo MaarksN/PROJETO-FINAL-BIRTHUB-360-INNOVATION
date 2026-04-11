@@ -505,13 +505,19 @@ export class ChurnDeflectorAgent {
     ): void => {
       const normalized: BrandEvent = {
         ...event,
+        details: {
+          ...event.details,
+          requestId: event.details.requestId ?? parsedInput.requestId
+        },
         timestamp: event.timestamp ?? this.now().toISOString()
       };
       events.push(normalized);
       const payload = JSON.stringify({
+        details: normalized.details,
         level: normalized.level,
         message: normalized.message,
-        name: normalized.name
+        name: normalized.name,
+        requestId: normalized.details.requestId
       });
       if (normalized.level === "error") {
         console.error(payload);

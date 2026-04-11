@@ -1,10 +1,6 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useEffect, useState } from "react";
-
-import { getWebConfig } from "@birthub/config";
 
 import { fetchWithSession } from "../../../../lib/auth-client";
 
@@ -19,6 +15,11 @@ interface ApiKeyItem {
   status: "ACTIVE" | "REVOKED";
 }
 
+interface ApiKeyMutationResponse {
+  apiKey: string;
+  id: string;
+}
+
 const allScopes: ApiKeyScope[] = [
   "agents:read",
   "agents:write",
@@ -26,26 +27,37 @@ const allScopes: ApiKeyScope[] = [
   "webhooks:receive"
 ];
 
-const webConfig = getWebConfig();
-
 export default function ApiKeysPage() {
   const [items, setItems] = useState<ApiKeyItem[]>([]);
   const [label, setLabel] = useState("Integration Key");
   const [scopes, setScopes] = useState<ApiKeyScope[]>(["agents:read"]);
   const [createdKey, setCreatedKey] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isCreating, setIsCreating] = useState(false);
+  const [activeItemId, setActiveItemId] = useState<string | null>(null);
 
   const load = async () => {
     setError(null);
-    const response = await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/apikeys`);
+    setIsLoading(true);
 
-    if (!response.ok) {
-      setError(`Falha ao carregar API keys (${response.status})`);
-      return;
+    try {
+      const response = await fetchWithSession("/api/v1/apikeys", {
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Falha ao carregar API keys (${response.status})`);
+      }
+
+      const payload = (await response.json()) as { items: ApiKeyItem[] };
+      setItems(payload.items);
+    } catch (loadError) {
+      setError(loadError instanceof Error ? loadError.message : "Falha ao carregar API keys.");
+    } finally {
+      setIsLoading(false);
     }
-
-    const payload = (await response.json()) as { items: ApiKeyItem[] };
-    setItems(payload.items);
   };
 
   useEffect(() => {
@@ -54,36 +66,83 @@ export default function ApiKeysPage() {
 
   const createKey = async () => {
     setError(null);
-    const response = await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/apikeys`, {
-      body: JSON.stringify({ label, scopes }),
-      headers: {
-        "content-type": "application/json"
-      },
-      method: "POST"
-    });
+    setNotice(null);
+    setIsCreating(true);
 
-    if (!response.ok) {
-      setError(`Falha ao criar key (${response.status})`);
-      return;
+    try {
+      const response = await fetchWithSession("/api/v1/apikeys", {
+        body: JSON.stringify({ label, scopes }),
+        headers: {
+          "content-type": "application/json"
+        },
+        method: "POST"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Falha ao criar key (${response.status})`);
+      }
+
+      const payload = (await response.json()) as ApiKeyMutationResponse;
+      setCreatedKey(payload.apiKey);
+      setNotice("API key criada. Ela so sera exibida uma vez.");
+      await load();
+    } catch (createError) {
+      setError(createError instanceof Error ? createError.message : "Falha ao criar API key.");
+    } finally {
+      setIsCreating(false);
     }
-
-    const payload = (await response.json()) as { apiKey: string };
-    setCreatedKey(payload.apiKey);
-    await load();
   };
 
   const rotateKey = async (id: string) => {
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/apikeys/${id}/rotate`, {
-      method: "POST"
-    });
-    await load();
+    setError(null);
+    setNotice(null);
+    setActiveItemId(id);
+
+    try {
+      const response = await fetchWithSession(`/api/v1/apikeys/${id}/rotate`, {
+        method: "POST"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Falha ao rotacionar key (${response.status})`);
+      }
+
+      const payload = (await response.json()) as ApiKeyMutationResponse;
+      setCreatedKey(payload.apiKey);
+      setNotice("API key rotacionada. Guarde a nova chave imediatamente.");
+      await load();
+    } catch (rotateError) {
+      setError(rotateError instanceof Error ? rotateError.message : "Falha ao rotacionar API key.");
+    } finally {
+      setActiveItemId(null);
+    }
   };
 
   const revokeKey = async (id: string) => {
-    await fetchWithSession(`${webConfig.NEXT_PUBLIC_API_URL}/api/v1/apikeys/${id}`, {
-      method: "DELETE"
-    });
-    await load();
+    if (!window.confirm("Revogar esta API key imediatamente?")) {
+      return;
+    }
+
+    setError(null);
+    setNotice(null);
+    setActiveItemId(id);
+
+    try {
+      const response = await fetchWithSession(`/api/v1/apikeys/${id}`, {
+        method: "DELETE"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Falha ao revogar key (${response.status})`);
+      }
+
+      setNotice("API key revogada.");
+      await load();
+    } catch (revokeError) {
+      setError(revokeError instanceof Error ? revokeError.message : "Falha ao revogar API key.");
+    } finally {
+      setActiveItemId(null);
+    }
   };
 
   return (
@@ -115,7 +174,7 @@ export default function ApiKeysPage() {
                 onChange={(event) =>
                   setScopes((current) =>
                     event.target.checked
-                      ? [...current, scope]
+                      ? [...new Set([...current, scope])]
                       : current.filter((currentScope) => currentScope !== scope)
                   )
                 }
@@ -125,8 +184,8 @@ export default function ApiKeysPage() {
             </label>
           ))}
         </div>
-        <button onClick={() => void createKey()} type="button">
-          Criar key
+        <button disabled={isCreating || isLoading} onClick={() => void createKey()} type="button">
+          {isCreating ? "Criando..." : "Criar key"}
         </button>
         {createdKey ? (
           <p style={{ margin: 0 }}>
@@ -135,7 +194,9 @@ export default function ApiKeysPage() {
         ) : null}
       </article>
 
+      {notice ? <p style={{ color: "var(--accent-strong)", margin: 0 }}>{notice}</p> : null}
       {error ? <p style={{ color: "#a11d2d", margin: 0 }}>{error}</p> : null}
+      {isLoading ? <p>Carregando...</p> : null}
 
       <div style={{ border: "1px solid var(--border)", borderRadius: "1rem", overflow: "hidden" }}>
         <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -159,30 +220,40 @@ export default function ApiKeysPage() {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{item.label}</td>
-                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{item.last4}</td>
-                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
-                  {item.scopes.join(", ")}
-                </td>
-                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{item.status}</td>
-                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <button onClick={() => void rotateKey(item.id)} type="button">
-                      Rotate
-                    </button>
-                    <button onClick={() => void revokeKey(item.id)} type="button">
-                      Revoke
-                    </button>
-                  </div>
+            {!isLoading && items.length === 0 ? (
+              <tr>
+                <td colSpan={5} style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
+                  Nenhuma API key cadastrada para este tenant.
                 </td>
               </tr>
-            ))}
+            ) : null}
+            {items.map((item) => {
+              const isMutating = activeItemId === item.id;
+
+              return (
+                <tr key={item.id}>
+                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{item.label}</td>
+                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{item.last4}</td>
+                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
+                    {item.scopes.join(", ")}
+                  </td>
+                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{item.status}</td>
+                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
+                    <div style={{ display: "flex", gap: "0.5rem" }}>
+                      <button disabled={isMutating || isCreating} onClick={() => void rotateKey(item.id)} type="button">
+                        {isMutating ? "Processando..." : "Rotate"}
+                      </button>
+                      <button disabled={isMutating || isCreating} onClick={() => void revokeKey(item.id)} type="button">
+                        {isMutating ? "Processando..." : "Revoke"}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
     </section>
   );
 }
-
