@@ -1,10 +1,5 @@
 // @ts-nocheck
 // 
-import {
-  AppointmentStatus,
-  PregnancyRiskLevel,
-  PregnancyStatus
-} from "@prisma/client";
 import { prisma } from "@birthub/database";
 
 import {
@@ -26,6 +21,10 @@ import {
   riskFromScore
 } from "./service.shared.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
+
+const ACTIVE_PREGNANCY_STATUS = "ACTIVE";
+const HIGH_PREGNANCY_RISK = "HIGH";
+const APPOINTMENT_STATUSES_IN_PROGRESS = ["CHECKED_IN", "SCHEDULED"] as const;
 
 function startOfDay(value: Date): Date {
   const next = new Date(value);
@@ -281,7 +280,7 @@ export async function getDashboardClinicalSummary(
       where: {
         deletedAt: null,
         organizationId,
-        status: PregnancyStatus.ACTIVE,
+        status: ACTIVE_PREGNANCY_STATUS,
         tenantId
       }
     }),
@@ -289,8 +288,8 @@ export async function getDashboardClinicalSummary(
       where: {
         deletedAt: null,
         organizationId,
-        riskLevel: PregnancyRiskLevel.HIGH,
-        status: PregnancyStatus.ACTIVE,
+        riskLevel: HIGH_PREGNANCY_RISK,
+        status: ACTIVE_PREGNANCY_STATUS,
         tenantId
       }
     }),
@@ -302,7 +301,7 @@ export async function getDashboardClinicalSummary(
           lte: nextTwoWeeks
         },
         organizationId,
-        status: PregnancyStatus.ACTIVE,
+        status: ACTIVE_PREGNANCY_STATUS,
         tenantId
       }
     }),
@@ -314,7 +313,7 @@ export async function getDashboardClinicalSummary(
           gte: now
         },
         status: {
-          in: [AppointmentStatus.CHECKED_IN, AppointmentStatus.SCHEDULED]
+          in: APPOINTMENT_STATUSES_IN_PROGRESS
         },
         tenantId
       }
@@ -360,7 +359,7 @@ export async function getDashboardClinicalSummary(
               gte: now
             },
             status: {
-              in: [AppointmentStatus.CHECKED_IN, AppointmentStatus.SCHEDULED]
+              in: APPOINTMENT_STATUSES_IN_PROGRESS
             }
           }
         },
@@ -377,7 +376,7 @@ export async function getDashboardClinicalSummary(
           take: 1,
           where: {
             deletedAt: null,
-            status: PregnancyStatus.ACTIVE
+            status: ACTIVE_PREGNANCY_STATUS
           }
         }
       },

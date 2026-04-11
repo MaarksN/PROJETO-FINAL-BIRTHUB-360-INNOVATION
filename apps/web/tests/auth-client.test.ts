@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -26,6 +24,8 @@ void test("auth client resolves relative API paths from centralized web config",
   try {
     assert.equal(resolveApiBaseUrl(), "https://api.birthub.test");
     assert.equal(toApiUrl("/api/v1/me"), "https://api.birthub.test/api/v1/me");
+    assert.equal(toApiUrl("/api/auth/signin"), "/api/auth/signin");
+    assert.equal(toApiUrl("/api/bff/api/v1/me"), "/api/bff/api/v1/me");
     assert.equal(toApiUrl("https://external.example.com/health"), "https://external.example.com/health");
   } finally {
     restoreEnvValue("NEXT_PUBLIC_API_URL", originalApiUrl);
@@ -33,7 +33,7 @@ void test("auth client resolves relative API paths from centralized web config",
   }
 });
 
-void test("fetchWithSession forwards session headers and absolute URL through the shared timeout helper", async () => {
+void test("fetchWithSession forwards CSRF and active tenant headers through the shared timeout helper", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -47,8 +47,9 @@ void test("fetchWithSession forwards session headers and absolute URL through th
   const dom = new JSDOM("", {
     url: "https://app.birthub.test/dashboard"
   });
-  dom.window.localStorage.setItem("bh_access_token", "atk_123");
-  dom.window.localStorage.setItem("bh_csrf_token", "csrf_local");
+  dom.window.document.cookie = "bh360_csrf=csrf_cookie";
+  dom.window.document.cookie = "bh_active_tenant=tenant_123";
+  dom.window.document.cookie = "bh_user_id=user_123";
   Object.defineProperty(globalThis, "window", { configurable: true, value: dom.window });
   Object.defineProperty(globalThis, "document", { configurable: true, value: dom.window.document });
   Object.defineProperty(globalThis, "localStorage", {
@@ -81,8 +82,9 @@ void test("fetchWithSession forwards session headers and absolute URL through th
     assert.equal(response.status, 200);
     assert.equal(requestUrl, "https://api.birthub.test/api/v1/me");
     assert.equal(requestInit?.credentials, "include");
-    assert.equal(headers.get("authorization"), "Bearer atk_123");
-    assert.equal(headers.get("x-csrf-token"), "csrf_local");
+    assert.equal(headers.get("authorization"), null);
+    assert.equal(headers.get("x-active-tenant"), "tenant_123");
+    assert.equal(headers.get("x-csrf-token"), "csrf_cookie");
     assert.ok(requestInit?.signal);
   } finally {
     globalThis.fetch = originalFetch;
@@ -95,6 +97,23 @@ void test("fetchWithSession forwards session headers and absolute URL through th
     dom.window.close();
     restoreEnvValue("NEXT_PUBLIC_API_URL", originalApiUrl);
     restoreEnvValue("NEXT_PUBLIC_ENVIRONMENT", originalEnvironment);
+  }
+});
+
+void test("fetchWithSession preserves internal web BFF routes", async () => {
+  const originalFetch = globalThis.fetch;
+
+  let requestUrl = "";
+  globalThis.fetch = ((input: RequestInfo | URL) => {
+    requestUrl = input instanceof URL ? input.toString() : String(input);
+    return Promise.resolve(new Response(JSON.stringify({ ok: true }), { status: 200 }));
+  }) as typeof fetch;
+
+  try {
+    await fetchWithSession("/api/bff/api/v1/me");
+    assert.equal(requestUrl, "/api/bff/api/v1/me");
+  } finally {
+    globalThis.fetch = originalFetch;
   }
 });
 

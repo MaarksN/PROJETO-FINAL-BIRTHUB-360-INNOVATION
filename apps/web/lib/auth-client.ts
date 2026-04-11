@@ -47,11 +47,25 @@ export function getStoredSession(): StoredSession | null {
     return null;
   }
 
-  return normalizeStoredSession({
-    tenantId:
-      getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ?? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY) ?? undefined,
-    userId: getCookieValue(USER_ID_COOKIE_NAME) ?? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY) ?? undefined
+  const legacyTenantId =
+    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY) : null;
+  const legacyUserId =
+    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY) : null;
+  const legacyCsrfToken =
+    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
+  const tenantId = getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ?? legacyTenantId ?? null;
+  const userId = getCookieValue(USER_ID_COOKIE_NAME) ?? legacyUserId ?? null;
+  const normalizedSession = normalizeStoredSession({
+    ...(tenantId ? { tenantId } : {}),
+    ...(userId ? { userId } : {})
   });
+
+  if (normalizedSession) {
+    return normalizedSession;
+  }
+
+  const csrfToken = getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
+  return csrfToken ? {} : null;
 }
 
 export function getCookieValue(name: string): string | null {
@@ -135,7 +149,10 @@ function getClientCsrfToken(): string | null {
     return null;
   }
 
-  return getCookieValue(API_CSRF_COOKIE_NAME) ?? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY);
+  const legacyCsrfToken =
+    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
+
+  return getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
 }
 
 export async function fetchWithSession(

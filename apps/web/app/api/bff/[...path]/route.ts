@@ -59,7 +59,11 @@ async function proxy(request: NextRequest, path: string): Promise<NextResponse> 
   });
 
   const nextResponse = new NextResponse(await response.text(), { status: response.status });
+  const contentType = response.headers.get("content-type");
   const setCookie = response.headers.get("set-cookie");
+  if (contentType) {
+    nextResponse.headers.set("content-type", contentType);
+  }
   if (setCookie) {
     nextResponse.headers.set("set-cookie", setCookie);
   }

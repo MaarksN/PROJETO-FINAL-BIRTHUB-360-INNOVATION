@@ -1,12 +1,5 @@
 // @ts-nocheck
 import {
-  ConsentPurpose,
-  ConsentSource,
-  ConsentStatus,
-  CookieConsentStatus,
-  LawfulBasis
-} from "@prisma/client";
-import {
   ensureUserPreference,
   prisma
 } from "@birthub/database";
@@ -14,10 +7,43 @@ import {
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { findOrganizationByReference } from "./service.js";
 
+const CONSENT_PURPOSE = {
+  ANALYTICS: "ANALYTICS",
+  HEALTH_DATA_SHARING: "HEALTH_DATA_SHARING",
+  MARKETING: "MARKETING"
+} as const;
+
+const CONSENT_SOURCE = {
+  SETTINGS: "SETTINGS"
+} as const;
+
+const CONSENT_STATUS = {
+  GRANTED: "GRANTED",
+  PENDING: "PENDING",
+  REVOKED: "REVOKED"
+} as const;
+
+const COOKIE_CONSENT_STATUS = {
+  ACCEPTED: "ACCEPTED",
+  PENDING: "PENDING",
+  REJECTED: "REJECTED"
+} as const;
+
+const LAWFUL_BASIS = {
+  CONSENT: "CONSENT",
+  HEALTH_PROTECTION: "HEALTH_PROTECTION"
+} as const;
+
+type ConsentPurpose = (typeof CONSENT_PURPOSE)[keyof typeof CONSENT_PURPOSE];
+type ConsentSource = (typeof CONSENT_SOURCE)[keyof typeof CONSENT_SOURCE];
+type ConsentStatus = (typeof CONSENT_STATUS)[keyof typeof CONSENT_STATUS];
+type CookieConsentStatus = (typeof COOKIE_CONSENT_STATUS)[keyof typeof COOKIE_CONSENT_STATUS];
+type LawfulBasis = (typeof LAWFUL_BASIS)[keyof typeof LAWFUL_BASIS];
+
 const DEFAULT_CONSENT_PURPOSES = [
-  ConsentPurpose.ANALYTICS,
-  ConsentPurpose.MARKETING,
-  ConsentPurpose.HEALTH_DATA_SHARING
+  CONSENT_PURPOSE.ANALYTICS,
+  CONSENT_PURPOSE.MARKETING,
+  CONSENT_PURPOSE.HEALTH_DATA_SHARING
 ] as const;
 const CONSENT_VERSION = "2026-04";
 const CONSENT_PURPOSE_LIST_LIMIT = DEFAULT_CONSENT_PURPOSES.length;
@@ -41,12 +67,12 @@ type LgpdPreferenceState = {
 
 function mapAnalyticsConsent(status: ConsentStatus): CookieConsentStatus {
   switch (status) {
-    case ConsentStatus.GRANTED:
-      return CookieConsentStatus.ACCEPTED;
-    case ConsentStatus.REVOKED:
-      return CookieConsentStatus.REJECTED;
+    case CONSENT_STATUS.GRANTED:
+      return COOKIE_CONSENT_STATUS.ACCEPTED;
+    case CONSENT_STATUS.REVOKED:
+      return COOKIE_CONSENT_STATUS.REJECTED;
     default:
-      return CookieConsentStatus.PENDING;
+      return COOKIE_CONSENT_STATUS.PENDING;
   }
 }
 
@@ -56,19 +82,19 @@ function deriveLgpdPreferenceState(
 ): LgpdPreferenceState {
   const byPurpose = new Map(items.map((item) => [item.purpose, item.status]));
   const statuses = DEFAULT_CONSENT_PURPOSES.map(
-    (purpose) => byPurpose.get(purpose) ?? ConsentStatus.PENDING
+    (purpose) => byPurpose.get(purpose) ?? CONSENT_STATUS.PENDING
   );
-  const status = statuses.some((value) => value === ConsentStatus.PENDING)
+  const status = statuses.some((value) => value === CONSENT_STATUS.PENDING)
     ? "PENDING"
-    : statuses.every((value) => value === ConsentStatus.REVOKED)
+    : statuses.every((value) => value === CONSENT_STATUS.REVOKED)
       ? "REJECTED"
       : "ACCEPTED";
   const healthDataGranted =
-    byPurpose.get(ConsentPurpose.HEALTH_DATA_SHARING) === ConsentStatus.GRANTED;
+    byPurpose.get(CONSENT_PURPOSE.HEALTH_DATA_SHARING) === CONSENT_STATUS.GRANTED;
 
   return {
     consentedAt: status === "ACCEPTED" ? currentConsentedAt ?? new Date() : null,
-    legalBasis: healthDataGranted ? "HEALTH_PROTECTION" : "CONSENT",
+    legalBasis: healthDataGranted ? LAWFUL_BASIS.HEALTH_PROTECTION : LAWFUL_BASIS.CONSENT,
     status,
     version: CONSENT_VERSION
   };
@@ -106,13 +132,13 @@ async function applyConsentDecision(input: {
   }
 
   const nextGrantedAt =
-    input.decision.status === ConsentStatus.GRANTED ? new Date() : current.grantedAt;
+    input.decision.status === CONSENT_STATUS.GRANTED ? new Date() : current.grantedAt;
   const nextRevokedAt =
-    input.decision.status === ConsentStatus.REVOKED ? new Date() : null;
+    input.decision.status === CONSENT_STATUS.REVOKED ? new Date() : null;
 
   const updated = await input.tx.privacyConsent.update({
     data: {
-      grantedAt: input.decision.status === ConsentStatus.GRANTED ? nextGrantedAt : null,
+      grantedAt: input.decision.status === CONSENT_STATUS.GRANTED ? nextGrantedAt : null,
       lastChangedAt: new Date(),
       revokedAt: nextRevokedAt,
       source: input.decision.source,
@@ -127,7 +153,7 @@ async function applyConsentDecision(input: {
     await Promise.all([
       input.tx.privacyConsentEvent.create({
         data: {
-          lawfulBasis: LawfulBasis.CONSENT,
+          lawfulBasis: LAWFUL_BASIS.CONSENT,
           newStatus: input.decision.status,
           organizationId: input.organization.id,
           previousStatus: current.status,
@@ -160,7 +186,7 @@ async function applyConsentDecision(input: {
     ]);
   }
 
-  if (input.decision.purpose === ConsentPurpose.ANALYTICS) {
+  if (input.decision.purpose === CONSENT_PURPOSE.ANALYTICS) {
     await input.tx.userPreference.upsert({
       create: {
         cookieConsent: mapAnalyticsConsent(input.decision.status),
@@ -180,16 +206,16 @@ async function applyConsentDecision(input: {
     });
   }
 
-  if (input.decision.purpose === ConsentPurpose.MARKETING) {
+  if (input.decision.purpose === CONSENT_PURPOSE.MARKETING) {
     await input.tx.userPreference.upsert({
       create: {
-        marketingEmails: input.decision.status === ConsentStatus.GRANTED,
+        marketingEmails: input.decision.status === CONSENT_STATUS.GRANTED,
         organizationId: input.organization.id,
         tenantId: input.organization.tenantId,
         userId: input.userId
       },
       update: {
-        marketingEmails: input.decision.status === ConsentStatus.GRANTED
+        marketingEmails: input.decision.status === CONSENT_STATUS.GRANTED
       },
       where: {
         organizationId_userId: {
@@ -221,10 +247,10 @@ export async function ensurePrivacyConsents(input: {
     DEFAULT_CONSENT_PURPOSES.map((purpose) =>
       prisma.privacyConsent.upsert({
         create: {
-          lawfulBasis: LawfulBasis.CONSENT,
+          lawfulBasis: LAWFUL_BASIS.CONSENT,
           organizationId: organization.id,
           purpose,
-          source: ConsentSource.SETTINGS,
+          source: CONSENT_SOURCE.SETTINGS,
           tenantId: organization.tenantId,
           userId: input.userId
         },

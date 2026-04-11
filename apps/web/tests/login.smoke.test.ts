@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -12,7 +10,6 @@ void test("login page hydrates without mismatch", async () => {
   const { LoginForm } = await import("../components/login-form.js");
   const markup = renderToString(
     React.createElement(LoginForm, {
-      apiUrl: "http://localhost:3000",
       initialRequestId: "req_test",
       navigate: () => undefined
     })
@@ -44,7 +41,6 @@ void test("login page hydrates without mismatch", async () => {
   const root = hydrateRoot(
     container,
     React.createElement(LoginForm, {
-      apiUrl: "http://localhost:3000",
       initialRequestId: "req_test",
       navigate: () => undefined
     })
