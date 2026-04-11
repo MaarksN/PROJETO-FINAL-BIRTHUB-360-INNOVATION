@@ -223,7 +223,7 @@
   },
   "dependencies": {
     "@types/opossum": "^8.1.9",
-    "lru-cache": "^11.2.7",
+    "lru-cache": "^11.3.3",
     "opossum": "^9.0.0"
   },
   "description": "Repositório canônico da plataforma SaaS BirthHub 360.",
