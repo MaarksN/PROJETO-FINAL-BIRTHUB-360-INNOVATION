@@ -77,8 +77,26 @@ export default async function DashboardHomePage() {
   const salesOsToolCount = salesOsTools.length;
   const salesOsRoleplayCount = salesOsTools.filter((tool) => tool.isChat).length;
   const usageEntries = Object.entries(data.billing.usage ?? {});
-  const consentNeedsAttention = data.consents.preferences.lgpdConsentStatus === "PENDING";
+  const consentNeedsAttention =
+    data.capabilities.privacyAdvancedEnabled &&
+    data.consents?.preferences.lgpdConsentStatus === "PENDING";
   const completedOnboardingSteps = data.onboarding.items.filter((item) => item.complete).length;
+  const showProductAlignmentNotice =
+    !data.capabilities.clinicalWorkspaceEnabled || !data.capabilities.privacyAdvancedEnabled;
+  const productAlignmentCopy =
+    locale === "pt-BR"
+      ? {
+          badge: "Alinhamento de dominio",
+          description:
+            "Superficies clinicas, FHIR e privacy avançada foram retiradas do fluxo principal desta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service.",
+          title: "Capacidades nao sustentadas ficaram explicitamente desativadas"
+        }
+      : {
+          badge: "Domain alignment",
+          description:
+            "Clinical, FHIR, and advanced privacy surfaces were removed from the main product flow for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active.",
+          title: "Unsupported capabilities were explicitly disabled"
+        };
 
   return (
     <main className="dashboard-content">
@@ -97,6 +115,16 @@ export default async function DashboardHomePage() {
         title={copy.dashboardHome.title}
       />
 
+      {showProductAlignmentNotice ? (
+        <section className="panel dashboard-callout">
+          <div className="dashboard-callout__copy">
+            <span className="badge">{productAlignmentCopy.badge}</span>
+            <strong>{productAlignmentCopy.title}</strong>
+            <span className="dashboard-muted">{productAlignmentCopy.description}</span>
+          </div>
+        </section>
+      ) : null}
+
       {consentNeedsAttention ? (
         <section className="panel dashboard-callout dashboard-callout--warning">
           <div className="dashboard-callout__row">
@@ -107,9 +135,9 @@ export default async function DashboardHomePage() {
                 {formatConsentSummary(
                   locale,
                   {
-                    legalBasis: data.consents.preferences.lgpdLegalBasis,
-                    status: data.consents.preferences.lgpdConsentStatus,
-                    version: data.consents.preferences.lgpdConsentVersion
+                    legalBasis: data.consents!.preferences.lgpdLegalBasis,
+                    status: data.consents!.preferences.lgpdConsentStatus,
+                    version: data.consents!.preferences.lgpdConsentVersion
                   },
                   copy.dashboardHome
                 )}

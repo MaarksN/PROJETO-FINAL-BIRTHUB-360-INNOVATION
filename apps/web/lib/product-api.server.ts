@@ -7,7 +7,7 @@ import { ACTIVE_TENANT_COOKIE_NAME } from "./session-context";
 
 const PRODUCT_API_TIMEOUT_MS = 8_000;
 
-export class ProductApiError extends Error {
+class ProductApiError extends Error {
   constructor(
     message: string,
     readonly status: number

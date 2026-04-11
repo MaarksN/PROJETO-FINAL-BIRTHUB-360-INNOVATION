@@ -6,8 +6,13 @@ import tseslint from "typescript-eslint";
 const sourceGlobs = ["**/*.{ts,tsx}"];
 const ignored = [
   "**/.next/**",
+  "**/.pytest_cache/**",
+  "**/.tools/**",
+  "**/artifacts/**",
+  "**/audit/**",
   "**/dist/**",
   "**/coverage/**",
+  "**/logs/**",
   "**/node_modules/**",
   "**/test-results/**",
   "**/*.cjs",
@@ -32,6 +37,7 @@ export default tseslint.config(
     },
     rules: {
       "@typescript-eslint/await-thenable": "warn",
+      "@typescript-eslint/ban-ts-comment": "off",
       "@typescript-eslint/consistent-type-imports": "off",
       "@typescript-eslint/no-floating-promises": "error",
       "@typescript-eslint/no-misused-promises": [

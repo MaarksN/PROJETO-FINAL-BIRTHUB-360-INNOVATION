@@ -11,7 +11,7 @@ const MASTER_DASHBOARD_SUBSCRIPTION_LIMIT = 5_000;
 const DASHBOARD_TENANT_SNAPSHOT_LIMIT = 2_000;
 const DASHBOARD_USAGE_ROW_LIMIT = 10_000;
 
-export async function getMasterAdminDashboard() {
+async function getMasterAdminDashboard() {
   const now = new Date();
   const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
   const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
@@ -121,7 +121,7 @@ export async function getMasterAdminDashboard() {
   };
 }
 
-export async function getOperationsDashboard() {
+async function getOperationsDashboard() {
   const since = new Date(Date.now() - 5 * 60 * 1000);
   const tenantRows = await prisma.agentExecution.findMany({
     distinct: ["tenantId"],
@@ -206,3 +206,8 @@ export async function getOperationsDashboard() {
     }))
   };
 }
+
+export const analyticsDashboardService = {
+  getMasterAdminDashboard,
+  getOperationsDashboard
+} as const;

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { fetchProductJson } from "../../../lib/product-api.server";
+import { getProductCapabilities } from "../../../lib/product-capabilities";
 
 export type DashboardMetricsPayload = {
   finance: Array<{
@@ -131,6 +132,7 @@ export function formatRiskTone(risk: string): "status-green" | "status-red" | "s
 }
 
 export async function loadDashboardHomePage() {
+  const capabilities = getProductCapabilities();
   const [metrics, health, recent, billing, workflows, onboarding, clinical, consents] =
     await Promise.all([
     fetchProductJson<DashboardMetricsPayload>("/api/v1/dashboard/metrics"),
@@ -139,12 +141,17 @@ export async function loadDashboardHomePage() {
     fetchProductJson<BillingUsagePayload>("/api/v1/billing/usage"),
     fetchProductJson<WorkflowListPayload>("/api/v1/workflows"),
     fetchProductJson<OnboardingPayload>("/api/v1/dashboard/onboarding"),
-    fetchProductJson<DashboardClinicalSummaryPayload>("/api/v1/dashboard/clinical-summary"),
-    fetchProductJson<PrivacyConsentPayload>("/api/v1/privacy/consents")
+    capabilities.clinicalWorkspaceEnabled
+      ? fetchProductJson<DashboardClinicalSummaryPayload>("/api/v1/dashboard/clinical-summary")
+      : Promise.resolve(null),
+    capabilities.privacyAdvancedEnabled
+      ? fetchProductJson<PrivacyConsentPayload>("/api/v1/privacy/consents")
+      : Promise.resolve(null)
   ]);
 
   return {
     billing,
+    capabilities,
     clinical,
     consents,
     health,

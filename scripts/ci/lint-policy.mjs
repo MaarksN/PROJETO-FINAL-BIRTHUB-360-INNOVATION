@@ -8,7 +8,33 @@ import { projectRoot } from "./shared.mjs";
 
 const lintScriptViolations = [];
 const workflowViolations = [];
-const ignoredDirectories = new Set([".git", ".next", ".nuxt", ".turbo", "dist", "node_modules"]);
+const ignoredDirectories = new Set([
+  ".git",
+  ".next",
+  ".nuxt",
+  ".pytest_cache",
+  ".tools",
+  ".turbo",
+  "artifacts",
+  "audit",
+  "coverage",
+  "dist",
+  "logs",
+  "node_modules",
+  "test-results"
+]);
+
+function safeReadDir(directoryPath) {
+  try {
+    return readdirSync(directoryPath, { withFileTypes: true });
+  } catch (error) {
+    if (error && typeof error === "object" && ["EACCES", "EPERM", "ENOENT"].includes(error.code)) {
+      return [];
+    }
+
+    throw error;
+  }
+}
 
 function walkPackageJsonFiles(startRelativePath) {
   const absoluteStart = path.join(projectRoot, startRelativePath);
@@ -19,7 +45,7 @@ function walkPackageJsonFiles(startRelativePath) {
     const current = queue.pop();
     if (!current) continue;
 
-    for (const entry of readdirSync(current, { withFileTypes: true })) {
+    for (const entry of safeReadDir(current)) {
       if (entry.isDirectory()) {
         if (!ignoredDirectories.has(entry.name)) {
           queue.push(path.join(current, entry.name));
@@ -64,7 +90,7 @@ for (const packageJsonPath of walkPackageJsonFiles(".")) {
 }
 
 const workflowsRoot = path.join(projectRoot, ".github", "workflows");
-for (const entry of readdirSync(workflowsRoot, { withFileTypes: true })) {
+for (const entry of safeReadDir(workflowsRoot)) {
   if (!entry.isFile()) continue;
   if (!entry.name.endsWith(".yml") && !entry.name.endsWith(".yaml")) continue;
 

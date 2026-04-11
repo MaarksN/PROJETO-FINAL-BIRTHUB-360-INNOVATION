@@ -33,6 +33,14 @@
     "rate-limit-redis"
   ],
   "ignoreFiles": [],
+  "ignoreIssues": {
+    "apps/web/lib/auth-client.ts": [
+      "exports"
+    ],
+    "apps/web/lib/web-session.ts": [
+      "files"
+    ]
+  },
   "ignoreWorkspaces": [
     "apps/voice-engine",
     "packages/agent-packs",

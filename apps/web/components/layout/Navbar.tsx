@@ -23,6 +23,12 @@ import { useUserPreferencesStore } from "../../stores/user-preferences-store";
 import { useI18n } from "../../providers/I18nProvider";
 import { BrandLogo } from "../brand/BrandLogo";
 import { GlobalSearch } from "./GlobalSearch";
+import {
+  getProductCapabilities,
+  isDashboardNavigationItemEnabled
+} from "../../lib/product-capabilities";
+
+const productCapabilities = getProductCapabilities();
 
 function toDisplayDateLabel(
   locale: string,
@@ -135,6 +141,13 @@ export function Navbar() {
     () => groupByDay(locale, copy.navbar, items.slice(0, 10)),
     [copy.navbar, items, locale]
   );
+  const navigationItems = useMemo(
+    () =>
+      copy.navbar.items.filter((item) =>
+        isDashboardNavigationItemEnabled(item.href, productCapabilities)
+      ),
+    [copy.navbar.items]
+  );
 
   return (
     <>
@@ -148,7 +161,7 @@ export function Navbar() {
 
       <div className="dashboard-topbar__content">
         <nav className="dashboard-nav" aria-label={copy.navbar.navigationAriaLabel}>
-          {copy.navbar.items.map((item) => {
+          {navigationItems.map((item) => {
             const active =
               pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href));
 

@@ -181,7 +181,7 @@ export function readSessionId(input: Record<string, unknown>): string | null {
   return null;
 }
 
-export function readNumbers(value: unknown): number[] {
+function readNumbers(value: unknown): number[] {
   if (typeof value === "number" && Number.isFinite(value)) {
     return [value];
   }
@@ -197,7 +197,7 @@ export function readNumbers(value: unknown): number[] {
   return [];
 }
 
-export function readStrings(value: unknown): string[] {
+function readStrings(value: unknown): string[] {
   if (typeof value === "string" && value.trim().length > 0) {
     return [value.trim()];
   }

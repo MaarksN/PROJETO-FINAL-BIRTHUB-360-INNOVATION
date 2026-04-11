@@ -29,7 +29,7 @@ async function resolveOrganization(tenantReference: string) {
   return organization;
 }
 
-export async function getNotificationFeed(input: {
+async function getNotificationFeed(input: {
   cursor?: string;
   limit?: number;
   tenantReference: string;
@@ -50,7 +50,7 @@ export async function getNotificationFeed(input: {
   });
 }
 
-export async function markNotificationReadForUser(input: {
+async function markNotificationReadForUser(input: {
   notificationId: string;
   tenantReference: string;
   userId: string;
@@ -63,7 +63,7 @@ export async function markNotificationReadForUser(input: {
   });
 }
 
-export async function markAllNotificationsReadForUser(input: {
+async function markAllNotificationsReadForUser(input: {
   tenantReference: string;
   userId: string;
 }) {
@@ -74,7 +74,7 @@ export async function markAllNotificationsReadForUser(input: {
   });
 }
 
-export async function getNotificationPreferences(input: {
+async function getNotificationPreferences(input: {
   tenantReference: string;
   userId: string;
 }) {
@@ -86,7 +86,7 @@ export async function getNotificationPreferences(input: {
   });
 }
 
-export async function saveNotificationPreferences(input: {
+async function saveNotificationPreferences(input: {
   cookieConsent?: "ACCEPTED" | "PENDING" | "REJECTED";
   emailNotifications?: boolean;
   inAppNotifications?: boolean;
