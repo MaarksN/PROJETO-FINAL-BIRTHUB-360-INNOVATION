@@ -40,7 +40,6 @@ function requireContext(request: Request): {
   };
 }
 
-export function createDashboardRouter(): Router {
 export function createDashboardRouter(config: ApiConfig): Router {
   const router = Router();
 

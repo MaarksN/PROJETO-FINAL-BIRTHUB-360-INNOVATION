@@ -73,7 +73,6 @@ export function getWebConfig(env: NodeJS.ProcessEnv = process.env): WebConfig {
     }
   }
 
-  return parsed;
   return {
     ...parsed,
     ...capabilities
