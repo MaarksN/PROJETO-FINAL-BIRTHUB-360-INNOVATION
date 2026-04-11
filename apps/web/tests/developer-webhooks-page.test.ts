@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -78,7 +76,7 @@ function createJsonResponse(payload: unknown, status = 200): Response {
   });
 }
 
-test("webhook page data helpers normalize topics and endpoint selection updates", () => {
+void test("webhook page data helpers normalize topics and endpoint selection updates", () => {
   const endpointA = {
     createdAt: "2026-04-07T10:00:00.000Z",
     id: "endpoint_a",
@@ -110,7 +108,7 @@ test("webhook page data helpers normalize topics and endpoint selection updates"
   assert.equal(replaceEndpoint([endpointA, endpointB], { ...endpointB, status: "ACTIVE" })[1]?.status, "ACTIVE");
 });
 
-test("webhook page data helpers use the session-aware API client for CRUD and retry flows", async () => {
+void test("webhook page data helpers use the session-aware API client for CRUD and retry flows", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -211,7 +209,7 @@ test("webhook page data helpers use the session-aware API client for CRUD and re
     assert.equal(deliveries[0]?.id, "delivery_1");
     assert.equal(created.id, "endpoint_created");
     assert.equal(updated.status, "DISABLED");
-    assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/settings/webhooks");
+    assert.equal(requests[0]?.url, "/api/bff/api/v1/settings/webhooks");
     assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_webhooks");
     assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_webhooks");

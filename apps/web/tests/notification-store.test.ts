@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -97,7 +95,7 @@ function createJsonResponse(payload: unknown, status = 200): Response {
   });
 }
 
-test("notification store refreshes, paginates and marks feed items through the session-aware client", async () => {
+void test("notification store refreshes, paginates and marks feed items through the session-aware client", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -206,7 +204,7 @@ test("notification store refreshes, paginates and marks feed items through the s
 
     assert.equal(state.unreadCount, 0);
     assert.equal(state.items.every((item) => item.isRead), true);
-    assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/notifications?limit=10");
+    assert.equal(requests[0]?.url, "/api/bff/api/v1/notifications?limit=10");
     assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_notification");
     assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_notification");
@@ -219,7 +217,7 @@ test("notification store refreshes, paginates and marks feed items through the s
   }
 });
 
-test("notification store falls back to the anonymous empty state when there is no active session", async () => {
+void test("notification store falls back to the anonymous empty state when there is no active session", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const cleanupDom = installDomSession();

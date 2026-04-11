@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -81,14 +79,14 @@ function createJsonResponse(payload: unknown, status = 200): Response {
   });
 }
 
-test("privacy page helpers format consent and retention labels", () => {
+void test("privacy page helpers format consent and retention labels", () => {
   assert.equal(formatDate(null), "Nao registrado");
   assert.equal(formatConsentStatus("GRANTED"), "Concedido");
   assert.equal(formatRetentionAction("ANONYMIZE"), "Anonimizar");
   assert.equal(formatExecutionMode("DRY_RUN"), "Dry-run");
 });
 
-test("privacy page helpers load privacy state through the session-aware client", async () => {
+void test("privacy page helpers load privacy state through the session-aware client", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -167,7 +165,7 @@ test("privacy page helpers load privacy state through the session-aware client",
     assert.equal(state.consents.length, 1);
     assert.equal(state.consentHistory.length, 1);
     assert.equal(state.retentionAccessDenied, true);
-    assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/privacy/consents");
+    assert.equal(requests[0]?.url, "/api/bff/api/v1/privacy/consents");
     assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_privacy");
     assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_privacy");
@@ -179,7 +177,7 @@ test("privacy page helpers load privacy state through the session-aware client",
   }
 });
 
-test("privacy page helpers persist consent, retention, export and deletion requests", async () => {
+void test("privacy page helpers persist consent, retention, export and deletion requests", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;

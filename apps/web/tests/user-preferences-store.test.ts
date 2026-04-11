@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -86,6 +85,10 @@ function getRequestUrl(input: RequestInfo | URL): string {
   return input.url;
 }
 
+function getRequestBody(body: BodyInit | null | undefined): string {
+  return typeof body === "string" ? body : "";
+}
+
 function createJsonResponse(payload: unknown, status = 200): Response {
   return new Response(JSON.stringify(payload), {
     headers: {
@@ -95,7 +98,7 @@ function createJsonResponse(payload: unknown, status = 200): Response {
   });
 }
 
-test("user preferences hydrate loads locale from the API and syncs the SSR cookie", async () => {
+void test("user preferences hydrate loads locale from the API and syncs the SSR cookie", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -145,7 +148,7 @@ test("user preferences hydrate loads locale from the API and syncs the SSR cooki
     assert.equal(state.preferences.locale, "en-US");
     assert.match(document.cookie, /bh360_locale=en-US/);
     assert.equal(requests[0]?.method, "GET");
-    assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/notifications/preferences");
+    assert.equal(requests[0]?.url, "/api/bff/api/v1/notifications/preferences");
     assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_preferences");
     assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_preferences");
@@ -158,7 +161,7 @@ test("user preferences hydrate loads locale from the API and syncs the SSR cooki
   }
 });
 
-test("user preferences update persists locale changes and returns the normalized payload", async () => {
+void test("user preferences update persists locale changes and returns the normalized payload", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -177,7 +180,7 @@ test("user preferences update persists locale changes and returns the normalized
     const url = getRequestUrl(input);
 
     if (url.endsWith("/api/v1/notifications/preferences")) {
-      requestBody = String(init?.body ?? "");
+      requestBody = getRequestBody(init?.body);
       return Promise.resolve(
         createJsonResponse({
           preferences: {
