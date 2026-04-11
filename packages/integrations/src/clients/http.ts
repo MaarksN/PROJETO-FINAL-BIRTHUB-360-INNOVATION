@@ -1,6 +1,12 @@
-// @ts-nocheck
+
 // 
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("integrations-http");
+
 export interface HttpRequestOptions {
+  idempotencyKey?: string;
+  providerName?: string;
   apiKey?: string;
   timeoutMs?: number;
   retries?: number;
@@ -30,6 +36,8 @@ export async function postJson<T>(
     const abortController = new AbortController();
     const timeout = setTimeout(() => abortController.abort(), timeoutMs);
 
+
+    logger.info({ url, attempt, provider: options.providerName ?? "unknown" }, "Starting external API call");
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -38,6 +46,7 @@ export async function postJson<T>(
           "user-agent": "birthub-integrations/1.0",
           ...(options.apiKey ? { authorization: `Bearer ${options.apiKey}` } : {}),
           ...(options.headers ?? {}),
+          ...(options.idempotencyKey ? { "Idempotency-Key": options.idempotencyKey } : {})
         },
         body: JSON.stringify(payload),
         signal: abortController.signal,
@@ -55,6 +64,9 @@ export async function postJson<T>(
 
       return response.json() as Promise<T>;
     } catch (error) {
+
+      logger.error({ url, attempt, error: error instanceof Error ? error.message : "Unknown error", provider: options.providerName ?? "unknown" }, "External API call failed");
+
       lastError = error;
       if (attempt < retries) {
         await sleep(retryDelayMs * (attempt + 1));

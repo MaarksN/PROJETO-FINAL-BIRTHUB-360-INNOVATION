@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 // 
 import vm from "node:vm";
 
