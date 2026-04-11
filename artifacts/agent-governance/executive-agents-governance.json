@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-04-11T16:49:34.655Z",
+  "generatedAt": "2026-04-11T23:20:36.155Z",
   "source": "scripts/audit/executive-agents-governance.mjs",
   "summary": {
     "agentCount": 15,
     "maturityCounts": {
-      "estrutural": 15,
+      "estrutural": 14,
       "frágil": 0,
       "operacional": 0,
-      "parcial": 0
+      "parcial": 1
     },
     "topRisks": [
       {
@@ -31,28 +31,6 @@
         "id": "typed-surface-suppressed",
         "severity": "high",
         "title": "Superfície crítica ainda protegida por @ts-nocheck."
-      },
-      {
-        "affectedAgents": [
-          "boardprep-ai",
-          "brand-guardian",
-          "budget-fluid",
-          "capital-allocator",
-          "churn-deflector",
-          "competitor-xray",
-          "crisis-navigator",
-          "culture-pulse",
-          "expansion-mapper",
-          "market-sentinel",
-          "narrative-weaver",
-          "pipeline-oracle",
-          "pricing-optimizer",
-          "quota-architect",
-          "trend-catcher"
-        ],
-        "id": "request-id-not-propagated",
-        "severity": "high",
-        "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
       },
       {
         "affectedAgents": [
@@ -96,14 +74,6 @@
         "id": "console-based-observability",
         "severity": "medium",
         "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
-      },
-      {
-        "affectedAgents": [
-          "boardprep-ai"
-        ],
-        "id": "schema-test-missing",
-        "severity": "medium",
-        "title": "Nao ha teste de schema dedicado para defender o contrato publico do agente."
       }
     ]
   },
@@ -120,7 +90,7 @@
         "hasOutputSchema": true,
         "hasRequestIdInSchema": true,
         "hasRetryBudget": true,
-        "hasSchemaTests": false,
+        "hasSchemaTests": true,
         "hasStructuredObservability": true,
         "hasTsNoCheckAgent": false,
         "hasTsNoCheckSchema": true,
@@ -129,7 +99,7 @@
         "runtimeEnforcementGap": false,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_BOARDPREPAI_CONTRACT",
         "importedToolIds": "BOARDPREPAI_TOOL_IDS"
@@ -138,9 +108,9 @@
       "expectedToolIds": "BOARDPREPAI_TOOL_IDS",
       "importedDefaultContract": "DEFAULT_BOARDPREPAI_CONTRACT",
       "importedToolIds": "BOARDPREPAI_TOOL_IDS",
-      "maturity": "estrutural",
+      "maturity": "parcial",
       "path": "packages/agents/executivos/boardprep-ai",
-      "riskCount": 4,
+      "riskCount": 2,
       "risks": [
         {
           "evidence": [
@@ -160,41 +130,16 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/boardprep-ai/schemas.ts",
-              "line": 79
-            },
-            {
               "file": "packages/agents/executivos/boardprep-ai/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
-              "file": "packages/agents/executivos/boardprep-ai/agent.ts",
-              "line": 431
+              "line": 437
             }
           ],
           "id": "console-based-observability",
           "severity": "medium",
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
-        },
-        {
-          "evidence": [
-            {
-              "file": "packages/agents/executivos/boardprep-ai/tests/test_schema.ts"
-            }
-          ],
-          "id": "schema-test-missing",
-          "severity": "medium",
-          "title": "Nao ha teste de schema dedicado para defender o contrato publico do agente."
         }
       ],
-      "score": 50
+      "score": 72
     },
     {
       "agentId": "brand-guardian",
@@ -217,7 +162,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_BRANDGUARDIAN_CONTRACT",
         "importedToolIds": "BRANDGUARDIAN_TOOL_IDS"
@@ -228,7 +173,7 @@
       "importedToolIds": "BRANDGUARDIAN_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/brand-guardian",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -252,21 +197,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/brand-guardian/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/brand-guardian/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/brand-guardian/contract.yaml",
               "line": 191
             },
@@ -283,7 +213,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/brand-guardian/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -291,7 +221,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "budget-fluid",
@@ -314,7 +244,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_BUDGETFLUID_CONTRACT",
         "importedToolIds": "BUDGETFLUID_TOOL_IDS"
@@ -325,7 +255,7 @@
       "importedToolIds": "BUDGETFLUID_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/budget-fluid",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -349,21 +279,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/budget-fluid/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/budget-fluid/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/budget-fluid/contract.yaml",
               "line": 193
             },
@@ -380,7 +295,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/budget-fluid/agent.ts",
-              "line": 515
+              "line": 521
             }
           ],
           "id": "console-based-observability",
@@ -388,7 +303,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "capital-allocator",
@@ -411,7 +326,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_CAPITALALLOCATOR_CONTRACT",
         "importedToolIds": "CAPITALALLOCATOR_TOOL_IDS"
@@ -422,7 +337,7 @@
       "importedToolIds": "CAPITALALLOCATOR_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/capital-allocator",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -446,21 +361,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/capital-allocator/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/capital-allocator/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/capital-allocator/contract.yaml",
               "line": 193
             },
@@ -477,7 +377,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/capital-allocator/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -485,7 +385,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "churn-deflector",
@@ -508,7 +408,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_CHURNDEFLECTOR_CONTRACT",
         "importedToolIds": "CHURNDEFLECTOR_TOOL_IDS"
@@ -519,7 +419,7 @@
       "importedToolIds": "CHURNDEFLECTOR_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/churn-deflector",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -543,21 +443,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/churn-deflector/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/churn-deflector/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/churn-deflector/contract.yaml",
               "line": 193
             },
@@ -574,7 +459,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/churn-deflector/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -582,7 +467,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "competitor-xray",
@@ -605,7 +490,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_COMPETITORXRAY_CONTRACT",
         "importedToolIds": "COMPETITORXRAY_TOOL_IDS"
@@ -616,7 +501,7 @@
       "importedToolIds": "COMPETITORXRAY_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/competitor-xray",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -640,21 +525,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/competitor-xray/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/competitor-xray/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/competitor-xray/contract.yaml",
               "line": 193
             },
@@ -671,7 +541,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/competitor-xray/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -679,7 +549,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "crisis-navigator",
@@ -702,7 +572,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_CRISISNAVIGATOR_CONTRACT",
         "importedToolIds": "CRISISNAVIGATOR_TOOL_IDS"
@@ -713,7 +583,7 @@
       "importedToolIds": "CRISISNAVIGATOR_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/crisis-navigator",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -737,21 +607,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/crisis-navigator/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/crisis-navigator/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/crisis-navigator/contract.yaml",
               "line": 193
             },
@@ -768,7 +623,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/crisis-navigator/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -776,7 +631,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "culture-pulse",
@@ -799,7 +654,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_CULTUREPULSE_CONTRACT",
         "importedToolIds": "CULTUREPULSE_TOOL_IDS"
@@ -810,7 +665,7 @@
       "importedToolIds": "CULTUREPULSE_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/culture-pulse",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -834,21 +689,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/culture-pulse/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/culture-pulse/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/culture-pulse/contract.yaml",
               "line": 191
             },
@@ -865,7 +705,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/culture-pulse/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -873,7 +713,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "expansion-mapper",
@@ -896,7 +736,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_EXPANSIONMAPPER_CONTRACT",
         "importedToolIds": "EXPANSIONMAPPER_TOOL_IDS"
@@ -907,7 +747,7 @@
       "importedToolIds": "EXPANSIONMAPPER_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/expansion-mapper",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -931,21 +771,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/expansion-mapper/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/expansion-mapper/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/expansion-mapper/contract.yaml",
               "line": 193
             },
@@ -962,7 +787,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/expansion-mapper/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -970,7 +795,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "market-sentinel",
@@ -993,7 +818,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_MARKETSENTINEL_CONTRACT",
         "importedToolIds": "MARKETSENTINEL_TOOL_IDS"
@@ -1004,7 +829,7 @@
       "importedToolIds": "MARKETSENTINEL_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/market-sentinel",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -1028,21 +853,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/market-sentinel/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/market-sentinel/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/market-sentinel/contract.yaml",
               "line": 193
             },
@@ -1059,7 +869,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/market-sentinel/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -1067,7 +877,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "narrative-weaver",
@@ -1090,7 +900,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_NARRATIVEWEAVER_CONTRACT",
         "importedToolIds": "NARRATIVEWEAVER_TOOL_IDS"
@@ -1101,7 +911,7 @@
       "importedToolIds": "NARRATIVEWEAVER_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/narrative-weaver",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -1125,21 +935,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/narrative-weaver/schemas.ts",
-              "line": 38
-            },
-            {
-              "file": "packages/agents/executivos/narrative-weaver/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/narrative-weaver/contract.yaml",
               "line": 193
             },
@@ -1156,7 +951,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/narrative-weaver/agent.ts",
-              "line": 525
+              "line": 531
             }
           ],
           "id": "console-based-observability",
@@ -1164,7 +959,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "pipeline-oracle",
@@ -1187,7 +982,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_PIPELINEORACLE_CONTRACT",
         "importedToolIds": "PIPELINEORACLE_TOOL_IDS"
@@ -1198,7 +993,7 @@
       "importedToolIds": "PIPELINEORACLE_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/pipeline-oracle",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -1222,21 +1017,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/pipeline-oracle/schemas.ts",
-              "line": 38
-            },
-            {
-              "file": "packages/agents/executivos/pipeline-oracle/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/pipeline-oracle/contract.yaml",
               "line": 193
             },
@@ -1253,7 +1033,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/pipeline-oracle/agent.ts",
-              "line": 518
+              "line": 524
             }
           ],
           "id": "console-based-observability",
@@ -1261,7 +1041,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "pricing-optimizer",
@@ -1284,7 +1064,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_PRICINGOPTIMIZER_CONTRACT",
         "importedToolIds": "PRICINGOPTIMIZER_TOOL_IDS"
@@ -1295,7 +1075,7 @@
       "importedToolIds": "PRICINGOPTIMIZER_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/pricing-optimizer",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -1319,21 +1099,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/pricing-optimizer/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/pricing-optimizer/contract.yaml",
               "line": 193
             },
@@ -1350,7 +1115,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/pricing-optimizer/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -1358,7 +1123,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "quota-architect",
@@ -1381,7 +1146,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_QUOTAARCHITECT_CONTRACT",
         "importedToolIds": "QUOTAARCHITECT_TOOL_IDS"
@@ -1392,7 +1157,7 @@
       "importedToolIds": "QUOTAARCHITECT_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/quota-architect",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -1416,21 +1181,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/quota-architect/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/quota-architect/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/quota-architect/contract.yaml",
               "line": 193
             },
@@ -1447,7 +1197,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/quota-architect/agent.ts",
-              "line": 518
+              "line": 524
             }
           ],
           "id": "console-based-observability",
@@ -1455,7 +1205,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     },
     {
       "agentId": "trend-catcher",
@@ -1478,7 +1228,7 @@
         "runtimeEnforcementGap": true,
         "toolConstMismatch": false,
         "usesConsoleLogging": true,
-        "usesRequestIdInRuntime": false,
+        "usesRequestIdInRuntime": true,
         "validatesToolInputsAndOutputs": true,
         "importedDefaultContract": "DEFAULT_TRENDCATCHER_CONTRACT",
         "importedToolIds": "TRENDCATCHER_TOOL_IDS"
@@ -1489,7 +1239,7 @@
       "importedToolIds": "TRENDCATCHER_TOOL_IDS",
       "maturity": "estrutural",
       "path": "packages/agents/executivos/trend-catcher",
-      "riskCount": 4,
+      "riskCount": 3,
       "risks": [
         {
           "evidence": [
@@ -1513,21 +1263,6 @@
         {
           "evidence": [
             {
-              "file": "packages/agents/executivos/trend-catcher/schemas.ts",
-              "line": 37
-            },
-            {
-              "file": "packages/agents/executivos/trend-catcher/agent.ts",
-              "line": 1
-            }
-          ],
-          "id": "request-id-not-propagated",
-          "severity": "high",
-          "title": "Contrato exige requestId, mas o runtime nao o propaga para eventos nem lineage operacional."
-        },
-        {
-          "evidence": [
-            {
               "file": "packages/agents/executivos/trend-catcher/contract.yaml",
               "line": 193
             },
@@ -1544,7 +1279,7 @@
           "evidence": [
             {
               "file": "packages/agents/executivos/trend-catcher/agent.ts",
-              "line": 517
+              "line": 523
             }
           ],
           "id": "console-based-observability",
@@ -1552,7 +1287,7 @@
           "title": "Observabilidade depende de console.* local, sem sink estruturado, correlacao ou roteamento operacional."
         }
       ],
-      "score": 25
+      "score": 42
     }
   ]
 }

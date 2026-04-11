@@ -92,7 +92,7 @@ void test("fetchWithSession forwards CSRF and active tenant headers through the 
     const headers = new Headers(requestInit?.headers);
 
     assert.equal(response.status, 200);
-    assert.equal(requestUrl, "https://api.birthub.test/api/v1/me");
+    assert.equal(requestUrl, "/api/bff/api/v1/me");
     assert.equal(requestInit?.credentials, "include");
     assert.equal(headers.get("authorization"), null);
     assert.equal(headers.get("x-active-tenant"), "tenant_123");
