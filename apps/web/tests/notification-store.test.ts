@@ -43,6 +43,8 @@ function installDomSession(session: {
 
   if (session.accessToken) {
     dom.window.localStorage.setItem("bh_access_token", session.accessToken);
+    dom.window.localStorage.setItem("bh_tenant_id", "t_1");
+    dom.window.localStorage.setItem("bh_user_id", "u_1");
   }
 
   if (session.csrfToken) {

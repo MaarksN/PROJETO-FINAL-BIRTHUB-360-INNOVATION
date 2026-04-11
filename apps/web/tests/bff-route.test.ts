@@ -31,12 +31,12 @@ void test("BFF route rejects blocked paths before proxying upstream", async () =
   }) as typeof fetch;
 
   try {
-    const request = new NextRequest("https://app.birthub.test/api/bff/api/v1/admin/users", {
+    const request = new NextRequest("https://app.birthub.test/api/bff/api/v1/blocked/users", {
       method: "GET"
     });
     const response = await GET(request, {
       params: Promise.resolve({
-        path: ["api", "v1", "admin", "users"]
+        path: ["api", "v1", "blocked", "users"]
       })
     });
     const payload = (await response.json()) as { error?: string };
