@@ -9,11 +9,11 @@
 - Agentes avaliados: 15
 - Retry budget presente: 15/15
 - Fallback handling presente: 15/15
-- `requestId` declarado, mas nao propagado no runtime: 15/15
+- `requestId` declarado e propagado na trilha local de eventos: 15/15
 - `runtime_enforcement` declarado no contrato: 14/15
 - `runtime_enforcement` realmente aplicado: 0/14
 - Logging via `console.*`: 15/15
-- Maturidade real segundo o snapshot: 15/15 `estrutural`, 0 `operacional`, 0 `parcial`, 0 `fragil`
+- Maturidade real segundo o snapshot: 14/15 `estrutural`, 1/15 `parcial`, 0 `operacional`, 0 `fragil`
 
 ## Leitura de execucao
 
@@ -40,17 +40,18 @@ Pontos que impedem classificacao operacional:
 - O teto de governanca de runtime continua local ao agente e nao ao runtime compartilhado.
 - `runtime_enforcement` e `runtime_cycle` sao declarados e ignorados no caminho de execucao.
 - O fallback nao vira trilha operacional centralizada com correlacao, fila ou politica comum de escalacao.
-- O `requestId` nao e carregado para os eventos emitidos, o que quebra lineage operacional entre chamada, tool e resposta.
+- O `requestId` agora correlaciona os eventos emitidos, mas essa correlacao ainda nao alimenta um runtime compartilhado nem um sink central.
 
 ## Classificacao de maturidade
 
 | Classe | Quantidade | Agentes | Justificativa |
 | --- | --- | --- | --- |
-| estrutural | 15 | `boardprep-ai`, `brand-guardian`, `budget-fluid`, `capital-allocator`, `churn-deflector`, `competitor-xray`, `crisis-navigator`, `culture-pulse`, `expansion-mapper`, `market-sentinel`, `narrative-weaver`, `pipeline-oracle`, `pricing-optimizer`, `quota-architect`, `trend-catcher` | Todos possuem contrato, schema, retry, fallback e testes; nenhum possui governanca de runtime aplicavel de forma controlavel e rastreavel ponta a ponta. |
+| parcial | 1 | `boardprep-ai` | O agente passou a propagar `requestId`, fechou o teste de schema e reduziu o numero de gaps graves, mas ainda depende de `console.*` e de superficies sob `@ts-nocheck`. |
+| estrutural | 14 | `brand-guardian`, `budget-fluid`, `capital-allocator`, `churn-deflector`, `competitor-xray`, `crisis-navigator`, `culture-pulse`, `expansion-mapper`, `market-sentinel`, `narrative-weaver`, `pipeline-oracle`, `pricing-optimizer`, `quota-architect`, `trend-catcher` | Todos possuem contrato, schema, retry, fallback e testes; todos ainda acumulam governanca de runtime nao aplicada e dependencia forte de `@ts-nocheck` e `console.*`. |
 
 Nenhum agente foi classificado como `operacional` porque nao ha evidencia de execucao governada com:
 
-- correlacao por `requestId`;
+- correlacao por `requestId` roteada para uma infraestrutura de plataforma;
 - enforcement de runtime declarado;
 - observabilidade roteada para um sink operacional;
 - gate de validacao global verde.
@@ -70,23 +71,14 @@ Comandos executados neste ciclo:
   - Falhou no workspace atual porque o script depende de `corepack`, que nao esta disponivel no ambiente; o comando tambem acusou `Unsupported engine` para Node `v25.9.0` quando o repo pede `>=24 <25`.
 - `pnpm lint`
   - Falhou pelo mesmo motivo: `corepack` ausente e engine fora da faixa desejada.
-- Testes direcionados de runtime/agentes
+- Testes dos agentes executivos
   - `node --import tsx --test ...`
-  - Resultado: `38 pass`, `0 fail`.
+  - Resultado: `61 pass`, `0 fail`.
 
-Pacotes cobertos nos testes direcionados desta rodada:
+Familia coberta nos testes desta rodada:
 
-- `packages/agent-runtime`
-- `boardprep-ai`
-- `capital-allocator`
-- `churn-deflector`
-- `crisis-navigator`
-- `culture-pulse`
-- `expansion-mapper`
-- `market-sentinel`
-- `pipeline-oracle`
-- `pricing-optimizer`
+- todos os 15 agentes executivos sob `packages/agents/executivos/*/tests/*.ts`
 
 ## Conclusao honesta
 
-O sistema executivo nao esta quebrado no sentido funcional local. Ele esta estrutural: roda, reage a erro e produz output consistente sob teste. O que falta e governanca de execucao compartilhada, auditavel e aplicavel. Sem isso, o sistema continua controlavel apenas no nivel do codigo do agente, nao no nivel da plataforma.
+O sistema executivo nao esta quebrado no sentido funcional local. Ele melhorou de forma real neste ciclo e ja tem 1 agente em estado `parcial`, mas o portfolio ainda nao ultrapassa a fronteira da governanca local por agente. Sem enforcement compartilhado e sem sink operacional, a familia continua controlavel mais pelo codigo do agente do que pela plataforma.

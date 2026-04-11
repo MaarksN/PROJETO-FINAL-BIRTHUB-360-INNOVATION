@@ -24,9 +24,10 @@ Por isso, o Ciclo 5 foi reconciliado contra as fontes canonicas locais listadas 
 
 - Todos os 15 agentes possuem `input_schema` e `output_schema` materializados em Zod e associados a `contract.yaml`.
 - O endurecimento de coerencia entre contrato e implementacao melhorou: o snapshot atual aponta `contractAliasMismatch: 0` e `toolConstMismatch: 0`.
-- O endurecimento continua parcial: `requestId` e obrigatorio em 15/15 contratos, mas nao e propagado pelo runtime; 14/15 agentes declaram `runtime_enforcement` e `runtime_cycle`, mas 0/14 aplicam esses campos no `agent.ts`.
+- O endurecimento continua parcial: `requestId` agora e propagado em 15/15 trilhas locais de evento, mas 14/15 agentes ainda declaram `runtime_enforcement` e `runtime_cycle` sem aplicar esses campos no `agent.ts`.
 - A superficie continua frouxa para auditoria: 14/15 `agent.ts`, 15/15 `schemas.ts` e 15/15 `tools.ts` ainda usam `// @ts-nocheck`.
 - `any` literal nao foi reduzido de forma material e comprovavel dentro dos agentes executivos. A reducao concreta desta rodada foi de supressoes `@ts-nocheck` em `packages/agent-runtime`, em seu teste e em exports de `packages/agents-core`.
+- O snapshot pos-hardening saiu de `15 estrutural` para `14 estrutural` e `1 parcial` (`boardprep-ai`).
 
 ## Hardening materializado nesta rodada
 
@@ -47,6 +48,12 @@ Por isso, o Ciclo 5 foi reconciliado contra as fontes canonicas locais listadas 
   - Nova auditoria automatizada de contratos, fallback, observabilidade e maturidade dos agentes executivos.
 - `package.json`
   - Novo script `audit:agents:governance`.
+- `packages/agents/executivos/*/schemas.ts`
+  - Os 15 contratos de evento agora aceitam `requestId` como correlacao no bloco `details`.
+- `packages/agents/executivos/*/agent.ts`
+  - Os 15 agentes agora injetam `requestId` em todos os eventos emitidos e no payload estruturado enviado ao sink local.
+- `packages/agents/executivos/boardprep-ai/tests/test_schema.ts`
+  - O unico gap de teste dedicado de schema da familia executiva foi eliminado.
 - Contrato/default/tool identity normalizados nos agentes:
   - `capital-allocator`
   - `churn-deflector`
@@ -65,9 +72,9 @@ Por isso, o Ciclo 5 foi reconciliado contra as fontes canonicas locais listadas 
 | Presenca de `output_schema` | 15/15 ok | `contract.yaml` + `*OutputSchema` | A resposta publica esta formalizada em todos os agentes. |
 | Coerencia de default contract importado | 15/15 ok | snapshot de governanca | Os aliases frouxos de contrato foram eliminados no estado atual. |
 | Coerencia de tool ids importados | 15/15 ok | snapshot de governanca | O risco de copy-paste entre `*_TOOL_IDS` caiu para zero no snapshot atual. |
-| `requestId` declarado e usado | 0/15 ok | `requestId` em schema; ausencia no runtime; snapshot | O contrato exige rastreabilidade, mas a execucao nao a materializa. |
+| `requestId` declarado e usado | 15/15 ok | `requestId` em schema; eventos emitidos; snapshot | A correlacao local por request agora existe no output observavel dos agentes. |
 | `runtime_enforcement` / `runtime_cycle` declarados e aplicados | 0/14 ok | `contract.yaml` vs `agent.ts`; snapshot | A governanca existe como metadado morto, nao como regra operacional. |
-| Teste dedicado de schema | 14/15 ok | ausencia de `boardprep-ai/tests/test_schema.ts` | O contrato publico de `boardprep-ai` esta menos defendido contra regressao. |
+| Teste dedicado de schema | 15/15 ok | suites em `packages/agents/executivos/*/tests/test_schema.ts` | O contrato publico de todos os agentes agora tem defesa dedicada de schema. |
 | Superficie tipada sem supressao | 0/15 ok | `// @ts-nocheck` em `agent.ts`/`schemas.ts`/`tools.ts` | A auditoria estatica do contrato ainda depende de supressao generalizada. |
 
 ## Coerencia F1-F5
@@ -83,18 +90,18 @@ Nao ha marcacao explicita de fases F1-F5 nos contratos dos agentes executivos. A
 Essa sequencia e observavel, mas nao e auditavel por fase de forma soberana porque:
 
 - nao existe marcador F1-F5 nos YAMLs;
-- nao existe telemetria por fase com `requestId`;
+- nao existe marcador formal de fase nos eventos, mesmo com `requestId` agora propagado;
 - nao existe policy runtime comum que valide a transicao entre fases.
 
 Conclusao: a coerencia F1-F5 e apenas parcial e nao suporta declaracao de prontidao operacional.
 
 ## Contratos ainda frouxos ou incompletos
 
-- `requestId` e tratado como requisito de contrato, mas nao como correlacao real de runtime.
+- `requestId` agora e parte da trilha local de evento, mas ainda nao alimenta um runtime compartilhado ou um sink soberano.
 - `runtime_enforcement` e `runtime_cycle` aparecem em 14 contratos e nao dirigem comportamento executavel.
 - `human_handoff` existe como modo de falha, mas nao sustenta governanca centralizada de execucao por si so.
 - As superficies principais continuam sob `@ts-nocheck`, o que reduz a confianca na aderencia entre contrato e implementacao.
 
 ## Conclusao honesta
 
-O sistema de contratos dos agentes executivos esta melhor do que no ciclo anterior em coerencia nominal e em guardrails do runtime compartilhado, mas ainda nao esta duro o suficiente para auditoria operacional. O estado atual e de contrato estruturalmente definido, porem nao plenamente rastreavel, nao plenamente tipado e nao plenamente governado em execucao.
+O sistema de contratos dos agentes executivos melhorou de forma verificavel neste ciclo: a correlacao por `requestId` saiu do contrato e entrou na execucao local, e a familia fechou 15/15 testes dedicados de schema. Ainda assim, o portfolio nao esta duro o suficiente para auditoria operacional porque a correlacao nao chega a uma governanca compartilhada e o enforcement declarado continua sem execucao.

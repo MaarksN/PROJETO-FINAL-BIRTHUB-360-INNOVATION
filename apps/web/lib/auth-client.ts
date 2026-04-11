@@ -28,6 +28,22 @@ function isInternalWebPath(value: string): boolean {
   return value.startsWith("/api/auth") || value.startsWith("/api/bff");
 }
 
+function getBrowserStorage(): Pick<Storage, "getItem" | "removeItem" | "setItem"> | null {
+  if (typeof localStorage === "undefined") {
+    return null;
+  }
+
+  if (
+    typeof localStorage.getItem !== "function" ||
+    typeof localStorage.setItem !== "function" ||
+    typeof localStorage.removeItem !== "function"
+  ) {
+    return null;
+  }
+
+  return localStorage;
+}
+
 export function resolveApiBaseUrl(env: NodeJS.ProcessEnv = process.env): string {
   return getWebConfig({
     ...env,
@@ -48,16 +64,15 @@ export function getStoredSession(): StoredSession | null {
     return null;
   }
 
+  const storage = getBrowserStorage();
   const tenantId =
     getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ??
-    (typeof localStorage !== "undefined"
-      ? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY)
-      : null);
+    storage?.getItem(LEGACY_TENANT_STORAGE_KEY) ??
+    null;
   const userId =
     getCookieValue(USER_ID_COOKIE_NAME) ??
-    (typeof localStorage !== "undefined"
-      ? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY)
-      : null);
+    storage?.getItem(LEGACY_USER_ID_STORAGE_KEY) ??
+    null;
   const normalizedSession = normalizeStoredSession({
     ...(tenantId ? { tenantId } : {}),
     ...(userId ? { userId } : {})
@@ -67,8 +82,7 @@ export function getStoredSession(): StoredSession | null {
     return normalizedSession;
   }
 
-  const legacyCsrfToken =
-    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
+  const legacyCsrfToken = storage?.getItem(LEGACY_CSRF_STORAGE_KEY) ?? null;
   const csrfToken = getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
   return csrfToken ? {} : null;
 }
@@ -108,6 +122,7 @@ export function setCookieValue(
 
 export function persistStoredSession(session: StoredSession): void {
   const normalized = normalizeStoredSession(session);
+  const storage = getBrowserStorage();
 
   if (!normalized) {
     clearStoredSession();
@@ -116,21 +131,21 @@ export function persistStoredSession(session: StoredSession): void {
 
   if (normalized.tenantId) {
     setCookieValue(ACTIVE_TENANT_COOKIE_NAME, normalized.tenantId);
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem(LEGACY_TENANT_STORAGE_KEY, normalized.tenantId);
+    if (storage) {
+      storage.setItem(LEGACY_TENANT_STORAGE_KEY, normalized.tenantId);
     }
   }
 
   if (normalized.userId) {
     setCookieValue(USER_ID_COOKIE_NAME, normalized.userId);
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem(LEGACY_USER_ID_STORAGE_KEY, normalized.userId);
+    if (storage) {
+      storage.setItem(LEGACY_USER_ID_STORAGE_KEY, normalized.userId);
     }
   }
 
-  if (typeof localStorage !== "undefined") {
-    localStorage.removeItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY);
-    localStorage.removeItem(LEGACY_REFRESH_TOKEN_STORAGE_KEY);
+  if (storage) {
+    storage.removeItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY);
+    storage.removeItem(LEGACY_REFRESH_TOKEN_STORAGE_KEY);
   }
 }
 
@@ -138,15 +153,16 @@ export function clearStoredSession(): void {
   setCookieValue(ACTIVE_TENANT_COOKIE_NAME, "", { maxAgeSeconds: 0 });
   setCookieValue(USER_ID_COOKIE_NAME, "", { maxAgeSeconds: 0 });
 
-  if (typeof localStorage === "undefined") {
+  const storage = getBrowserStorage();
+  if (!storage) {
     return;
   }
 
-  localStorage.removeItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY);
-  localStorage.removeItem(LEGACY_REFRESH_TOKEN_STORAGE_KEY);
-  localStorage.removeItem(LEGACY_CSRF_STORAGE_KEY);
-  localStorage.removeItem(LEGACY_TENANT_STORAGE_KEY);
-  localStorage.removeItem(LEGACY_USER_ID_STORAGE_KEY);
+  storage.removeItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY);
+  storage.removeItem(LEGACY_REFRESH_TOKEN_STORAGE_KEY);
+  storage.removeItem(LEGACY_CSRF_STORAGE_KEY);
+  storage.removeItem(LEGACY_TENANT_STORAGE_KEY);
+  storage.removeItem(LEGACY_USER_ID_STORAGE_KEY);
 }
 
 function getClientCsrfToken(): string | null {
@@ -154,8 +170,7 @@ function getClientCsrfToken(): string | null {
     return null;
   }
 
-  const legacyCsrfToken =
-    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
+  const legacyCsrfToken = getBrowserStorage()?.getItem(LEGACY_CSRF_STORAGE_KEY) ?? null;
 
   return getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;
 }
@@ -174,11 +189,6 @@ export async function fetchWithSession(
 
   if (session?.tenantId) {
     headers.set("x-active-tenant", session.tenantId);
-  }
-
-  const legacyAccessToken = typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY) : null;
-  if (legacyAccessToken && !headers.has("authorization")) {
-    headers.set("authorization", `Bearer ${legacyAccessToken}`);
   }
 
   const nextInit: FetchWithTimeoutInit = {

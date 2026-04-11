@@ -17,6 +17,18 @@ function restoreEnvValue(key: string, value: string | undefined) {
   process.env[key] = value;
 }
 
+function getRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
+}
+
 void test("product api search helper calls the canonical search endpoint with session credentials", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
@@ -44,7 +56,7 @@ void test("product api search helper calls the canonical search endpoint with se
   let requestUrl = "";
   let requestInit: RequestInit | undefined;
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    requestUrl = input instanceof URL ? input.toString() : String(input);
+    requestUrl = getRequestUrl(input);
     requestInit = init;
     return Promise.resolve(
       new Response(
@@ -71,7 +83,7 @@ void test("product api search helper calls the canonical search endpoint with se
     const payload = await fetchSearchResults("workflow");
     const headers = new Headers(requestInit?.headers);
 
-    assert.equal(requestUrl, "https://api.birthhub.test/api/v1/search?q=workflow");
+    assert.equal(requestUrl, "/api/bff/api/v1/search?q=workflow");
     assert.equal(requestInit?.credentials, "include");
     assert.equal(headers.get("authorization"), null);
     assert.equal(headers.get("x-active-tenant"), "tenant_456");
@@ -115,7 +127,7 @@ void test("product api conversation list helper omits a dangling query string wh
 
   const urls: string[] = [];
   globalThis.fetch = ((input: RequestInfo | URL) => {
-    urls.push(input instanceof URL ? input.toString() : String(input));
+    urls.push(getRequestUrl(input));
     return Promise.resolve(
       new Response(
         JSON.stringify({
