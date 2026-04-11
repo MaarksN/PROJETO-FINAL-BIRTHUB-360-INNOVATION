@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -104,7 +104,7 @@ void test("voice-engine health and websocket handshake publish runtime events", 
     assert.equal(healthPayload.status, "ok");
     assert.equal(healthPayload.redis, true);
 
-    socket = new WebSocket(`ws://127.0.0.1:${port}/ws/calls`);
+    socket = new WebSocket(`ws://127.0.0.1:${port}/ws/calls`, { headers: { authorization: "Bearer twilio_secret" } });
     await new Promise<void>((resolve, reject) => {
       socket?.once("open", () => resolve());
       socket?.once("error", (error) => reject(error));
