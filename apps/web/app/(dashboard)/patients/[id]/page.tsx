@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState, useTransition } from "react";
 
+import { ClinicalWorkspaceDisabledState } from "../../../../components/dashboard/ClinicalWorkspaceDisabledState";
+import { getProductCapabilities } from "../../../../lib/product-capabilities";
 import {
   buildGrowthCurvePath,
   calculateDueDateFromLmp,
@@ -18,6 +20,8 @@ import {
   updatePatient,
   type PatientDetailResponse
 } from "../clinical-data";
+
+const productCapabilities = getProductCapabilities();
 
 type PatientFormState = {
   allergies: string;
@@ -97,6 +101,14 @@ const initialNeonatalForm: NeonatalFormState = {
 };
 
 export default function PatientDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  if (!productCapabilities.clinicalWorkspaceEnabled) {
+    return <ClinicalWorkspaceDisabledState />;
+  }
+
+  return <PatientDetailPageEnabled params={params} />;
+}
+
+function PatientDetailPageEnabled({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
   const [detail, setDetail] = useState<PatientDetailResponse | null>(null);

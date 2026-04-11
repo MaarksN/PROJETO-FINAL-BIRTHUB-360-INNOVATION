@@ -4,6 +4,8 @@
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 
+import { ClinicalWorkspaceDisabledState } from "../../../components/dashboard/ClinicalWorkspaceDisabledState";
+import { getProductCapabilities } from "../../../lib/product-capabilities";
 import {
   createPatient,
   loadPatients,
@@ -32,7 +34,17 @@ const initialCreateForm: CreatePatientForm = {
   riskLevel: ""
 };
 
+const productCapabilities = getProductCapabilities();
+
 export default function PatientsPage() {
+  if (!productCapabilities.clinicalWorkspaceEnabled) {
+    return <ClinicalWorkspaceDisabledState />;
+  }
+
+  return <PatientsPageEnabled />;
+}
+
+function PatientsPageEnabled() {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("");
   const [riskLevel, setRiskLevel] = useState("");
