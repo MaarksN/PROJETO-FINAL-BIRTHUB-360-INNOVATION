@@ -114,8 +114,8 @@ export class PagarmeClient implements IPaymentsClient {
       },
     };
 
-    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, {
-      apiKey: this.apiKey, // Uses Basic Auth actually, but let's assume Bearer or header injection in postJson handles it if adapted.
+    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, { idempotencyKey: `pix_${customer.document}_${amount}_${Date.now()}`, providerName: "pagarme",
+      idempotencyKey: `pix_${customer.document}_${amount}_${Date.now()}`, providerName: "pagarme", apiKey: this.apiKey, // Uses Basic Auth
       // Pagar.me uses Basic Auth with API Key as username and empty password.
       // postJson uses Bearer. I might need to adjust or override headers.
       headers: {
@@ -131,8 +131,8 @@ export class PagarmeClient implements IPaymentsClient {
       gatewayId: charge.id,
       status: charge.status,
       amount: amount,
-      qrCode: txn.qr_code ?? undefined,
-      qrCodeUrl: txn.qr_code_url ?? undefined
+      ...(txn.qr_code ? { qrCode: txn.qr_code } : {}),
+      ...(txn.qr_code_url ? { qrCodeUrl: txn.qr_code_url } : {})
     };
   }
 
@@ -172,11 +172,7 @@ export class PagarmeClient implements IPaymentsClient {
       },
     };
 
-    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, {
-      headers: {
-        Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
-      },
-    });
+    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, { idempotencyKey: `boleto_${customer.document}_${amount}_${dueDate.getTime()}`, providerName: "pagarme", headers: { Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}` } });
 
     const charge = getPrimaryCharge(response);
     const txn = charge.last_transaction ?? {};
@@ -186,8 +182,8 @@ export class PagarmeClient implements IPaymentsClient {
       gatewayId: charge.id,
       status: charge.status,
       amount: amount,
-      boletoUrl: txn.url ?? undefined,
-      barCode: txn.line ?? undefined
+      ...(txn.url ? { boletoUrl: txn.url } : {}),
+      ...(txn.line ? { barCode: txn.line } : {})
     };
   }
 

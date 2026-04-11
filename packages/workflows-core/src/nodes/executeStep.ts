@@ -259,11 +259,21 @@ const stepHandlers = {
   WHATSAPP_SEND: executeWhatsappSendStep
 } satisfies { [TType in StepType]: StepHandler<TType> };
 
+import { createLogger } from "@birthub/logger";
+const logger = createLogger("workflows-core:execute-step");
+
 export async function executeStep(
   step: StepDefinition,
   context: WorkflowRuntimeContext,
   dependencies: StepExecutionDependencies = {}
 ): Promise<unknown> {
   const handler = stepHandlers[step.type] as StepHandler<typeof step.type>;
-  return handler(step as StepOf<typeof step.type>, context, dependencies);
+  logger.info({ stepId: step.id, stepType: step.type, workflowId: context.workflowId }, "Executing workflow step");
+  try {
+    const result = await handler(step as StepOf<typeof step.type>, context, dependencies);
+    return result;
+  } catch (error) {
+    logger.error({ error, stepId: step.id, stepType: step.type, workflowId: context.workflowId }, "Workflow step execution failed");
+    throw error;
+  }
 }

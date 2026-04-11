@@ -9,9 +9,11 @@ import {
   summarizeNumericSignals
 } from "../runtime/index.js";
 
-const manifest = {
+import type { AgentManifest } from "../manifest/schema.js";
+
+const manifest: AgentManifest = {
   agent: {
-    changelog: [],
+    changelog: [] as string[],
     description: "Agent for runtime intelligence tests",
     id: "runtime-intelligence.demo",
     kind: "agent",
@@ -125,8 +127,9 @@ void test("runtime plan and output include segment adaptation, memory and handof
   });
 
   assert.equal(plan.toolCalls.length, 2);
-  assert.equal(plan.toolCalls[0]?.input.segmentProfile.industry, "fintech");
-  assert.equal(plan.toolCalls[0]?.input.dataSummary.trend, "up");
+  const firstCallInput = plan.toolCalls[0]?.input as { segmentProfile?: { industry?: string }; dataSummary?: { trend?: string } } | undefined;
+  assert.equal(firstCallInput?.segmentProfile?.industry, "fintech");
+  assert.equal(firstCallInput?.dataSummary?.trend, "up");
 
   const output = buildAgentRuntimeOutput({
     input,

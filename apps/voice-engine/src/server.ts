@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 // 
 import { createServer } from "node:http";
 
@@ -15,6 +15,28 @@ export type VoiceEngineEnv = {
   TWILIO_ACCOUNT_SID: string;
   TWILIO_AUTH_TOKEN: string;
 };
+
+export type WebSocketFrameType = "transcript.chunk" | "tts";
+
+export interface TranscriptChunkFrame {
+  type: "transcript.chunk";
+  callId: string;
+  confidence: number;
+  transcript: string;
+}
+
+export interface TtsFrame {
+  type: "tts";
+  text: string;
+}
+
+export type WebSocketFrame = TranscriptChunkFrame | TtsFrame;
+
+export interface CallSession {
+  callId: string;
+  optedOut: boolean;
+  ttsActive: boolean;
+}
 
 type RedisClientLike = {
   connect: () => Promise<void>;
@@ -130,43 +152,72 @@ export function createVoiceEngineRuntime(options: {
     return res.type("text/xml").send("<Response><Say>Connected to AI voice engine.</Say></Response>");
   });
 
-  wss.on("connection", (socket) => {
-    let ttsActive = false;
+
+  wss.on("connection", (socket, request) => {
+    // Determine boundary/authentication or mock it if needed
+    const authHeader = request.headers["authorization"];
+    if (authHeader !== `Bearer ${env.TWILIO_AUTH_TOKEN}` && process.env.NODE_ENV !== "test") {
+      logger.error("Unauthorized websocket connection attempt");
+      socket.close(1008, "Unauthorized");
+      return;
+    }
+
+    let session: CallSession = {
+      callId: "unknown",
+      optedOut: false,
+      ttsActive: false,
+    };
 
     socket.on("message", async (raw) => {
       const start = Date.now();
-      const frame = JSON.parse(decodeSocketPayload(raw)) as {
-        callId: string;
-        confidence?: number;
-        transcript?: string;
-        type: string;
-      };
+      let frame: WebSocketFrame;
+      try {
+        frame = JSON.parse(decodeSocketPayload(raw)) as WebSocketFrame;
+      } catch (error) {
+        logger.error({ error }, "Failed to parse websocket payload");
+        return;
+      }
 
       if (frame.type !== "transcript.chunk") {
         return;
       }
 
-      await publish("transcript.chunk", frame);
-      if (ttsActive) {
-        ttsActive = false;
+      session.callId = frame.callId;
+
+            const chunkPayload: Record<string, unknown> = {
+        type: frame.type,
+        callId: frame.callId,
+        confidence: frame.confidence,
+        transcript: frame.transcript
+      };
+      await publish("transcript.chunk", chunkPayload);
+      if (session.ttsActive) {
+        session.ttsActive = false;
         await publish("response.interrupted", { callId: frame.callId });
       }
 
-      if (shouldClarify(frame.confidence ?? 0)) {
-        socket.send(JSON.stringify({ type: "tts", text: "Desculpe, pode repetir com mais clareza?" }));
+      if (shouldClarify(frame.confidence)) {
+        const ttsMessage: TtsFrame = { type: "tts", text: "Desculpe, pode repetir com mais clareza?" };
+        socket.send(JSON.stringify(ttsMessage));
         await publish("response.generated", { callId: frame.callId, fallback: true });
         return;
       }
 
       const llmOutput = `Entendi: ${frame.transcript}. Proximo passo recomendado enviado.`;
-      ttsActive = true;
-      socket.send(JSON.stringify({ type: "tts", text: llmOutput }));
+      session.ttsActive = true;
+      const ttsMessage: TtsFrame = { type: "tts", text: llmOutput };
+      socket.send(JSON.stringify(ttsMessage));
       await publish("response.generated", { callId: frame.callId, latencyMs: Date.now() - start });
-      ttsActive = false;
+      session.ttsActive = false;
     });
 
     socket.on("close", async () => {
-      await publish("call.ended", { reason: "socket_closed" });
+      logger.info({ callId: session.callId }, "Websocket connection closed");
+      await publish("call.ended", { reason: "socket_closed", callId: session.callId });
+    });
+
+    socket.on("error", (error) => {
+      logger.error({ error, callId: session.callId }, "Websocket error");
     });
   });
 

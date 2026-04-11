@@ -78,8 +78,7 @@ export class ENotasClient implements IFiscalClient {
       `${this.baseUrl}/empresas/{empresaId}/nfs-e`,
       payload,
       {
-        headers: {
-          Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
+        providerName: "enotas", idempotencyKey: invoice.referenceId, headers: { Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
         },
       },
     );
@@ -87,8 +86,8 @@ export class ENotasClient implements IFiscalClient {
     return {
       id: response.id,
       status: response.status,
-      nfeUrl: response.linkPdf ?? undefined,
-      xmlUrl: response.linkXml ?? undefined,
+      ...(response.linkPdf ? { nfeUrl: response.linkPdf } : {}),
+      ...(response.linkXml ? { xmlUrl: response.linkXml } : {}),
     };
   }
 
@@ -99,9 +98,7 @@ export class ENotasClient implements IFiscalClient {
       `${this.baseUrl}/nfs-e/${id}`,
       { motivo: reason }, // Usually delete or specific endpoint
       {
-        headers: {
-          Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
-        },
+        providerName: "enotas", headers: { Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`, },
       },
     );
     return {
