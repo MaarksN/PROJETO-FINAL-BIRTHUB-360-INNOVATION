@@ -39,13 +39,15 @@ Used instead:
 - added SSR auth/role guards for dashboard, admin and settings areas
 - introduced `apps/web/lib/web-session.ts` as the canonical session/role parser
 - removed browser bearer-token use from the session-aware client
+- completed the MFA challenge flow in the login UI
 - moved login to same-origin auth proxying
-- expanded `/api/v1/me` so the web can actually reason about role and organization
+- expanded `/api/v1/me` so the web can reason about role and organization
 - added missing backend session-revocation routes used by the web
 
 ### Multi-tenant
 
 - standardized browser session context with tenant/user cookies
+- added browser-side rewrite of allowlisted `/api/v1/*` calls to same-origin BFF
 - forwarded tenant context through SSR product API calls
 - forwarded tenant context through BFF/auth proxy handlers
 - aligned admin impersonation with the shared browser session contract
@@ -54,6 +56,7 @@ Used instead:
 
 - reduced `@ts-nocheck` in the hardened auth/runtime slice
 - updated critical settings/admin pages to use BFF paths
+- pulled `profile/security` and `developers/apikeys` into the same hardened session path
 - validated notification/preferences/privacy/workflow helper behavior against the new auth model
 - repaired the workflow inventory helper export discovered during validation
 
@@ -62,6 +65,7 @@ Used instead:
 ### Web foundation and guards
 
 - `apps/web/lib/session-context.ts`
+- `apps/web/lib/bff-policy.ts`
 - `apps/web/lib/auth-client.ts`
 - `apps/web/lib/product-api.server.ts`
 - `apps/web/lib/web-session.ts`
@@ -94,6 +98,8 @@ Used instead:
 - `apps/web/app/(dashboard)/settings/security/page.tsx`
 - `apps/web/app/(dashboard)/settings/users/page.tsx`
 - `apps/web/app/(dashboard)/settings/team/page.tsx`
+- `apps/web/app/(dashboard)/profile/security/page.tsx`
+- `apps/web/app/(dashboard)/developers/apikeys/page.tsx`
 
 ### API contract support
 
@@ -103,6 +109,7 @@ Used instead:
 ### Updated tests
 
 - `apps/web/tests/auth-client.test.ts`
+- `apps/web/tests/auth-session-route.test.ts`
 - `apps/web/tests/product-api.test.ts`
 - `apps/web/tests/bff-route.test.ts`
 - `apps/web/tests/bff-allowlist.test.ts`
@@ -115,9 +122,10 @@ Used instead:
 
 ## Metrics requested by the prompt
 
-- `any` reduced: 0 explicit `any` removals in the hardened slice
-- `@ts-nocheck` removed: 24 files in the hardened slice
-- remaining `@ts-nocheck` in `apps/web/{app,components,lib,providers,stores,tests}`: 131
+- `any` reduced: 0 explicit `any` removals
+- `@ts-nocheck` reduced in scoped web directories (`app/components/lib/providers/stores/tests`): 156 -> 122
+- net reduction of `@ts-nocheck` in scoped web directories during Cycle 4: 34 files
+- remaining `@ts-nocheck` in `apps/web/{app,components,lib,providers,stores,tests}`: 122
 
 ## Critical auth gaps after Cycle 4
 
@@ -128,10 +136,10 @@ Used instead:
 - browser bearer-token storage
 - nonexistent backend routes behind session management UI
 - missing role in `/api/v1/me`
+- incomplete MFA login branch
 
 ### Still open
 
-- MFA completion UX is not implemented
 - not all privileged affordances are derived from a canonical server capability model
 - no end-to-end auth regression suite
 
@@ -152,15 +160,15 @@ Used instead:
 ## Top 10 remaining frontend risks
 
 1. Broad legacy `@ts-nocheck` debt still hides compile-time regressions across the web app.
-2. MFA login is incomplete in the user-facing web flow.
-3. Not all operational pages use same-origin BFF transport.
-4. Several privileged UI affordances still depend on local page logic instead of server-derived capabilities.
-5. Session/security screens still lack action-level pending, retry and confirmation discipline.
-6. Admin impersonation lacks an explicit audited return-to-original-session flow.
-7. Workflow editor and other legacy pages still call direct API-base paths.
-8. Web lint is still far from green, reducing trust in future frontend changes.
-9. API auth tests are blocked by an environment/package export issue, leaving a gap in automated backend auth evidence.
-10. The requested audit baseline files do not exist with stable names, weakening traceability.
+2. Not all operational pages use same-origin BFF transport yet.
+3. Several privileged UI affordances still depend on local page logic instead of server-derived capabilities.
+4. Session/security screens still lack action-level pending, retry and confirmation discipline.
+5. Admin impersonation lacks an explicit audited return-to-original-session flow.
+6. Workflow editor and other legacy pages still call direct API-base paths.
+7. Web lint is still far from green.
+8. API auth tests are blocked by an environment/package export issue, leaving a gap in automated backend auth evidence.
+9. The requested audit baseline files do not exist with stable names, weakening traceability.
+10. MFA/auth and tenant-switch flows still lack e2e proof.
 
 ## Validation status
 
@@ -169,18 +177,18 @@ Used instead:
 | `pnpm --filter @birthub/web typecheck` | PASS |
 | `pnpm --filter @birthub/web lint` | FAIL |
 | `pnpm --filter @birthub/web build` | PASS |
-| `pnpm --filter @birthub/web test` | PASS (41/41) |
+| `pnpm --filter @birthub/web test` | PASS (42/42) |
 | `pnpm --filter @birthub/api typecheck` | PASS |
 | `pnpm --filter @birthub/api test:auth` | FAIL before test logic due `SessionAccessMode` export mismatch |
 
 ## Honest current-state assessment
 
-The web is in a better place than it was at the start of Cycle 4. Critical auth and tenant boundaries now have real server-side enforcement and the browser no longer carries bearer state as a primary mechanism. That said, the frontend is not yet "finished" or "production-clean". It is now a partially hardened product surface sitting beside a still-large legacy surface with lint debt, `@ts-nocheck`, incomplete MFA UX and mixed transport patterns.
+The web is in a better place than it was at the start of Cycle 4. Critical auth and tenant boundaries now have real server-side enforcement and the browser no longer carries bearer state as a primary mechanism. That said, the frontend is not yet "finished" or "production-clean". It is now a partially hardened product surface sitting beside a still-large legacy surface with lint debt, `@ts-nocheck`, mixed transport patterns and missing e2e proof.
 
 The honest label is:
 
 - auth boundary: materially improved
 - multi-tenant boundary: improved but not uniform
 - runtime trustworthiness: improved
-- operational UX: functional in critical paths, not yet mature
+- operational UX: functional in critical paths, closer to operator-grade but not yet mature
 - overall web readiness: moving from fragile to controlled, but not ready to be called fully hardened

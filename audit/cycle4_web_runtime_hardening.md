@@ -9,7 +9,12 @@ Date: 2026-04-11
 - `apps/web/lib/auth-client.ts`
   - removed browser bearer-token injection
   - now sends `x-csrf-token` and `x-active-tenant`
-  - preserves same-origin internal auth/BFF paths
+  - rewrites allowlisted browser `/api/v1/*` calls to same-origin `/api/bff/api/v1/*`
+  - preserves internal auth/BFF paths
+  - is now resilient to partial/malformed `localStorage` objects
+
+- `apps/web/lib/bff-policy.ts`
+  - shared BFF allowlist for browser routing and route policy enforcement
 
 - `apps/web/lib/product-api.server.ts`
   - forwards cookie-backed tenant context for SSR calls
@@ -30,11 +35,19 @@ Date: 2026-04-11
 
 - `apps/web/app/api/auth/[...session]/route.ts`
   - same-origin auth proxy hardened with header/cookie forwarding
+  - covers login, logout, refresh and MFA verification
 
 ### Critical screens and stores
 
 - `apps/web/app/(dashboard)/settings/security/page.tsx`
   - real session list + revoke + logout-all through BFF
+
+- `apps/web/app/(dashboard)/profile/security/page.tsx`
+  - MFA setup/enable now use the same session-aware, same-origin path
+
+- `apps/web/app/(dashboard)/developers/apikeys/page.tsx`
+  - API key CRUD/rotate/revoke now use the same session-aware, same-origin path
+  - destructive revoke now has explicit confirmation
 
 - `apps/web/app/(dashboard)/settings/users/page.tsx`
   - user administration moved to BFF
@@ -49,6 +62,7 @@ Date: 2026-04-11
 - `apps/web/stores/notification-store.ts`
 - `apps/web/stores/user-preferences-store.ts`
   - validated against the new cookie-first session model
+  - `@ts-nocheck` removed
 
 ### Functional repair discovered during validation
 
@@ -57,11 +71,12 @@ Date: 2026-04-11
 
 ## Type/runtime debt movement
 
-- `@ts-nocheck` removed in Cycle 4 hardened paths: 24 files
-- explicit `any` removed in Cycle 4 hardened paths: 0
+- explicit `any` removed in Cycle 4: 0
   - the dominant debt here was not explicit `any`
   - it was hidden typing debt under `@ts-nocheck` and untyped payload boundaries
-- remaining `@ts-nocheck` count in `apps/web/{app,components,lib,providers,stores,tests}`: 131
+- `@ts-nocheck` reduced in scoped web directories (`app/components/lib/providers/stores/tests`): 156 -> 122
+- effective reduction in scoped web directories during Cycle 4: 34 files
+- remaining `@ts-nocheck` count in `apps/web/{app,components,lib,providers,stores,tests}`: 122
 
 ## Validation results
 
@@ -69,8 +84,8 @@ Date: 2026-04-11
 | --- | --- | --- |
 | `pnpm --filter @birthub/web typecheck` | PASS | No TS regressions in the hardened web package. |
 | `pnpm --filter @birthub/web build` | PASS | Next build completed and emitted the guarded routes. |
-| `pnpm --filter @birthub/web test` | PASS | 41/41 tests passing after updating auth/BFF expectations. |
-| `pnpm --filter @birthub/web lint` | FAIL | 172 errors, 139 warnings. Most errors are pre-existing `@ts-nocheck` and unsafe/complex legacy files outside the narrowed Cycle 4 write scope. |
+| `pnpm --filter @birthub/web test` | PASS | 42/42 tests passing after updating auth/BFF expectations and MFA auth proxy coverage. |
+| `pnpm --filter @birthub/web lint` | FAIL | 151 errors, 139 warnings. Most errors are still pre-existing `@ts-nocheck` and unsafe/complex legacy files outside the narrowed Cycle 4 write scope. |
 | `pnpm --filter @birthub/api typecheck` | PASS | API contract changes compile cleanly. |
 | `pnpm --filter @birthub/api test:auth` | FAIL | Blocked by `SessionAccessMode` export mismatch in `@birthub/database` under the current environment. |
 
