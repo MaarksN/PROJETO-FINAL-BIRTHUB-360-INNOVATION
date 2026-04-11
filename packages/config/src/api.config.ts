@@ -3,6 +3,11 @@
 import { z } from "zod";
 
 import {
+  apiProductCapabilityEnvSchema,
+  mapApiProductCapabilities,
+  type ProductCapabilities
+} from "./product-capabilities.js";
+import {
   commaSeparatedList,
   envBoolean,
   EnvValidationError,
@@ -49,6 +54,7 @@ export const apiEnvSchema = z.object({
   AUTH_MFA_ENCRYPTION_KEY: nonEmptyString.default("dev-mfa-encryption-key"),
   AUTH_MFA_ISSUER: nonEmptyString.default("BirthHub360"),
   BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
+  ...apiProductCapabilityEnvSchema,
   DATABASE_URL: urlString,
   EXTERNAL_HEALTHCHECK_URLS: z.string().default(""),
   GOOGLE_CLIENT_ID: optionalNonEmptyString,
@@ -89,7 +95,7 @@ export const apiEnvSchema = z.object({
 export type ApiConfig = z.infer<typeof apiEnvSchema> & {
   corsOrigins: string[];
   externalHealthcheckUrls: string[];
-};
+} & ProductCapabilities;
 
 
 function collectProductionSecretIssues(parsed: z.infer<typeof apiEnvSchema>) {
@@ -190,6 +196,7 @@ export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
   const parsed = parseEnv("api", apiEnvSchema, env);
   const corsOrigins = commaSeparatedList.parse(parsed.API_CORS_ORIGINS);
   const externalHealthcheckUrls = commaSeparatedList.parse(parsed.EXTERNAL_HEALTHCHECK_URLS);
+  const capabilities = mapApiProductCapabilities(parsed);
   const deploymentEnvironment =
     env.DEPLOYMENT_ENVIRONMENT === "staging"
       ? "staging"
@@ -203,6 +210,7 @@ export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
 
   return {
     ...parsed,
+    ...capabilities,
     corsOrigins,
     externalHealthcheckUrls,
     SENTRY_ENVIRONMENT: parsed.SENTRY_ENVIRONMENT ?? parsed.NODE_ENV

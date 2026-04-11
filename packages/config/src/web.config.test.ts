@@ -54,6 +54,10 @@ void test("web config accepts hardened production settings", () => {
 
   assert.equal(config.NEXT_PUBLIC_ENVIRONMENT, "production");
   assert.equal(config.NEXTAUTH_SECRET, "prod-nextauth-secret-123");
+  assert.equal(config.clinicalWorkspaceEnabled, false);
+  assert.equal(config.fhirFacadeEnabled, false);
+  assert.equal(config.privacyAdvancedEnabled, false);
+  assert.equal(config.privacySelfServiceEnabled, true);
 });
 
 void test("web config accepts staging label with production-grade guardrails", () => {
@@ -67,4 +71,21 @@ void test("web config accepts staging label with production-grade guardrails", (
   });
 
   assert.equal(config.NEXT_PUBLIC_ENVIRONMENT, "staging");
+});
+
+void test("web config maps public capability flags into product capabilities", () => {
+  const config = getWebConfig({
+    NEXT_PUBLIC_API_URL: "https://api.birthhub360.com",
+    NEXT_PUBLIC_APP_URL: "https://app.birthhub360.com",
+    NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE: "true",
+    NEXT_PUBLIC_ENABLE_FHIR_FACADE: "true",
+    NEXT_PUBLIC_ENABLE_PRIVACY_ADVANCED: "true",
+    NEXT_PUBLIC_ENABLE_PRIVACY_SELF_SERVICE: "false",
+    NEXT_PUBLIC_ENVIRONMENT: "development"
+  });
+
+  assert.equal(config.clinicalWorkspaceEnabled, true);
+  assert.equal(config.fhirFacadeEnabled, true);
+  assert.equal(config.privacyAdvancedEnabled, true);
+  assert.equal(config.privacySelfServiceEnabled, false);
 });

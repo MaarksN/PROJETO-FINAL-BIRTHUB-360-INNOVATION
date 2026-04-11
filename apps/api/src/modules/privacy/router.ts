@@ -35,6 +35,19 @@ import {
   recordTenantDataExport
 } from "./service.js";
 
+function assertPrivacyAdvancedEnabled(config: ApiConfig): void {
+  if (config.privacyAdvancedEnabled) {
+    return;
+  }
+
+  throw new ProblemDetailsError({
+    detail:
+      "Advanced privacy controls are disabled for this deployment because the active schema does not sustain consent and retention domain models.",
+    status: 404,
+    title: "Not Found"
+  });
+}
+
 export function createPrivacyRouter(config: ApiConfig): Router {
   const router = Router();
 
@@ -42,6 +55,7 @@ export function createPrivacyRouter(config: ApiConfig): Router {
     "/consents",
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
+      assertPrivacyAdvancedEnabled(config);
       const userId = request.context.userId;
       const organizationReference = request.context.organizationId;
 
@@ -70,6 +84,7 @@ export function createPrivacyRouter(config: ApiConfig): Router {
     requireAuthenticatedSession,
     validateBody(consentUpdateSchema),
     asyncHandler(async (request, response) => {
+      assertPrivacyAdvancedEnabled(config);
       const userId = request.context.userId;
       const organizationReference = request.context.organizationId;
 
@@ -105,6 +120,7 @@ export function createPrivacyRouter(config: ApiConfig): Router {
     requireAuthenticatedSession,
     RequireRole(Role.OWNER),
     asyncHandler(async (request, response) => {
+      assertPrivacyAdvancedEnabled(config);
       const organizationReference = request.context.organizationId;
 
       if (!organizationReference) {
@@ -128,6 +144,7 @@ export function createPrivacyRouter(config: ApiConfig): Router {
     RequireRole(Role.OWNER),
     validateBody(retentionUpdateSchema),
     asyncHandler(async (request, response) => {
+      assertPrivacyAdvancedEnabled(config);
       const organizationReference = request.context.organizationId;
 
       if (!organizationReference) {
@@ -166,6 +183,7 @@ export function createPrivacyRouter(config: ApiConfig): Router {
     RequireRole(Role.OWNER),
     validateBody(retentionRunSchema),
     asyncHandler(async (request, response) => {
+      assertPrivacyAdvancedEnabled(config);
       const organizationReference = request.context.organizationId;
 
       if (!organizationReference) {

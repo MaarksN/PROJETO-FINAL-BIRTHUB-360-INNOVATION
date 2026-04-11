@@ -3,6 +3,11 @@
 import { z } from "zod";
 
 import {
+  mapWebProductCapabilities,
+  type ProductCapabilities,
+  webProductCapabilityEnvSchema
+} from "./product-capabilities.js";
+import {
   deploymentEnvironmentSchema,
   envBoolean,
   EnvValidationError,
@@ -22,6 +27,7 @@ export const webEnvSchema = z.object({
   NEXT_PUBLIC_APP_URL: urlString.default("http://localhost:3001"),
   NEXT_PUBLIC_CSP_REPORT_ONLY: envBoolean.default(true),
   NEXT_PUBLIC_ENVIRONMENT: deploymentEnvironmentSchema,
+  ...webProductCapabilityEnvSchema,
   NEXT_PUBLIC_POSTHOG_HOST: optionalUrlString,
   NEXT_PUBLIC_POSTHOG_KEY: optionalNonEmptyString,
   NEXT_PUBLIC_SENTRY_DSN: optionalUrlString,
@@ -30,10 +36,11 @@ export const webEnvSchema = z.object({
   WEB_PORT: z.coerce.number().int().positive().default(3001)
 });
 
-export type WebConfig = z.infer<typeof webEnvSchema>;
+export type WebConfig = z.infer<typeof webEnvSchema> & ProductCapabilities;
 
 export function getWebConfig(env: NodeJS.ProcessEnv = process.env): WebConfig {
   const parsed = parseEnv("web", webEnvSchema, env);
+  const capabilities = mapWebProductCapabilities(parsed);
 
   if (
     parsed.NEXT_PUBLIC_ENVIRONMENT === "production" ||
@@ -67,4 +74,8 @@ export function getWebConfig(env: NodeJS.ProcessEnv = process.env): WebConfig {
   }
 
   return parsed;
+  return {
+    ...parsed,
+    ...capabilities
+  };
 }

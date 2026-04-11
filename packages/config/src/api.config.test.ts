@@ -57,6 +57,10 @@ void test("api config accepts hardened staging settings with Stripe test credent
   assert.equal(config.NODE_ENV, "production");
   assert.equal(config.STRIPE_SECRET_KEY, "sk_test_birthhub360_staging");
   assert.equal(config.STRIPE_WEBHOOK_TOLERANCE_SECONDS, 300);
+  assert.equal(config.clinicalWorkspaceEnabled, false);
+  assert.equal(config.fhirFacadeEnabled, false);
+  assert.equal(config.privacyAdvancedEnabled, false);
+  assert.equal(config.privacySelfServiceEnabled, true);
 });
 
 void test("api config accepts hardened production settings", () => {
@@ -74,4 +78,8 @@ void test("api config accepts hardened production settings", () => {
   assert.equal(config.STRIPE_SECRET_KEY, "sk_live_birthhub360");
   assert.equal(config.SENTRY_DSN, "https://public@example.ingest.sentry.io/123456");
   assert.equal(config.STRIPE_WEBHOOK_TOLERANCE_SECONDS, 300);
+  assert.equal(config.clinicalWorkspaceEnabled, false);
+  assert.equal(config.fhirFacadeEnabled, false);
+  assert.equal(config.privacyAdvancedEnabled, false);
+  assert.equal(config.privacySelfServiceEnabled, true);
 });

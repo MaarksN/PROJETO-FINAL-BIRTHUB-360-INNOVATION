@@ -1,5 +1,6 @@
 // @ts-nocheck
-// 
+//
+import type { ApiConfig } from "@birthub/config";
 import { Role } from "@birthub/database";
 import { Router } from "express";
 import type { Request } from "express";
@@ -40,6 +41,7 @@ function requireContext(request: Request): {
 }
 
 export function createDashboardRouter(): Router {
+export function createDashboardRouter(config: ApiConfig): Router {
   const router = Router();
 
   router.use("/api/v1/dashboard", requireAuthenticatedSession, RequireRole(Role.ADMIN));
@@ -79,6 +81,15 @@ export function createDashboardRouter(): Router {
   router.get(
     "/api/v1/dashboard/clinical-summary",
     asyncHandler(async (request, response) => {
+      if (!config.clinicalWorkspaceEnabled) {
+        throw new ProblemDetailsError({
+          detail:
+            "The clinical workspace is disabled for this deployment because the active schema does not sustain the clinical domain.",
+          status: 404,
+          title: "Not Found"
+        });
+      }
+
       const { organizationId, tenantId } = requireContext(request);
       response.status(200).json(await getDashboardClinicalSummary(organizationId, tenantId));
     })

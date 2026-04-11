@@ -138,7 +138,9 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
   configureCacheStore(config.REDIS_URL, config.NODE_ENV);
   if (config.NODE_ENV !== "test") {
     registerTenantCacheInvalidationMiddleware();
-    startPrivacyRetentionScheduler(config);
+    if (config.privacyAdvancedEnabled) {
+      startPrivacyRetentionScheduler(config);
+    }
   }
   initializeWorkflowInternalEventBridge(config);
 

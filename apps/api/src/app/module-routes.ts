@@ -98,7 +98,7 @@ export function mountModuleRouters(
   app.use("/api/v1/agents", installedAgentsRouter);
   app.use("/api/v1/agents", marketplaceRouter);
   app.use("/api/v1/analytics", dependencies.createAnalyticsRouter());
-  app.use(dependencies.createDashboardRouter());
+  app.use(dependencies.createDashboardRouter(config));
   app.use("/api/v1/connectors", dependencies.createConnectorsRouter(config));
   app.use("/api/v1", dependencies.createConversationsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);
