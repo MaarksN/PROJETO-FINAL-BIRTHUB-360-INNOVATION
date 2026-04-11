@@ -1,6 +1,11 @@
 // @ts-nocheck
 // 
-import { postJson } from "./http";
+import { postJson, type HttpRequestOptions } from "./http";
+import { withCircuitBreaker } from "./circuit-breaker";
+
+const geminiCb = withCircuitBreaker("llm:gemini", (url: string, payload: unknown) => postJson<GeminiGenerateResponse>(url, payload));
+const openaiCb = withCircuitBreaker("llm:openai", (url: string, payload: unknown, options: HttpRequestOptions) => postJson<OpenAICompletionResponse>(url, payload, options));
+const anthropicCb = withCircuitBreaker("llm:anthropic", (url: string, payload: unknown, options: HttpRequestOptions) => postJson<AnthropicCompletionResponse>(url, payload, options));
 
 export interface Message {
   role: "system" | "user" | "assistant";
@@ -90,7 +95,7 @@ export class GeminiClient implements ILLMClient {
       },
     };
 
-    const response = await postJson<GeminiGenerateResponse>(
+    const response = await geminiCb(
       `${this.baseUrl}/models/${this.model}:generateContent?key=${this.apiKey}`,
       payload,
     );
@@ -154,7 +159,7 @@ export class OpenAIClient implements ILLMClient {
       stop: options?.stop,
     };
 
-    const response = await postJson<OpenAICompletionResponse>(
+    const response = await openaiCb(
       `${this.baseUrl}/chat/completions`,
       payload,
       {
@@ -219,7 +224,7 @@ export class AnthropicClient implements ILLMClient {
       stop_sequences: options?.stop,
     };
 
-    const response = await postJson<AnthropicCompletionResponse>(
+    const response = await anthropicCb(
       `${this.baseUrl}/messages`,
       payload,
       {

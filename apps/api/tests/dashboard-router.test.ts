@@ -10,13 +10,14 @@ import {
   createAuthenticatedApiTestApp,
   stubMethod
 } from "./http-test-helpers.js";
+import { createTestApiConfig } from "./test-config.js";
 
-function createDashboardTestApp() {
+function createDashboardTestApp(config = createTestApiConfig()) {
   return createAuthenticatedApiTestApp({
     contextOverrides: {
       role: Role.ADMIN
     },
-    router: createDashboardRouter()
+    router: createDashboardRouter(config)
   });
 }
 
@@ -121,8 +122,23 @@ void test("dashboard router returns not found when onboarding settings target an
   }
 });
 
-void test("dashboard router returns service unavailable when clinical delegates are absent from Prisma runtime", async () => {
+void test("dashboard router disables the clinical summary route when the clinical workspace capability is off", async () => {
   const response = await request(createDashboardTestApp())
+    .get("/api/v1/dashboard/clinical-summary")
+    .expect(404);
+
+  assert.equal(response.body.status, 404);
+  assert.equal(response.body.title, "Not Found");
+  assert.match(String(response.body.detail ?? ""), /clinical workspace is disabled/i);
+});
+
+void test("dashboard router still returns service unavailable when the clinical workspace is re-enabled without Prisma delegates", async () => {
+  const response = await request(
+    createDashboardTestApp({
+      ...createTestApiConfig(),
+      clinicalWorkspaceEnabled: true
+    })
+  )
     .get("/api/v1/dashboard/clinical-summary")
     .expect(503);
 

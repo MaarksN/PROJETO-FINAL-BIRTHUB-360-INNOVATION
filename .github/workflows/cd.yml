@@ -275,23 +275,16 @@ jobs:
         run: pnpm release:sbom
 
       - name: Materialize release bundle manifests
-        run: pnpm release:materialize -- --tag=v1.0.0
-
-      - name: Generate release source manifest
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p artifacts/release
-          cat > artifacts/release/source-manifest.json <<EOF
-          {
-            "generatedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
-            "sourceEvent": "${{ needs.resolve-release-source.outputs.source_event }}",
-            "sourceRef": "${{ needs.resolve-release-source.outputs.source_ref }}",
-            "sourceSha": "${{ needs.resolve-release-source.outputs.source_sha }}",
-            "workflow": "${{ github.workflow }}",
-            "runId": "${{ github.run_id }}"
-          }
-          EOF
+          pnpm release:materialize -- \
+            --tag=v1.0.0 \
+            --source-event="${{ needs.resolve-release-source.outputs.source_event }}" \
+            --source-ref="${{ needs.resolve-release-source.outputs.source_ref }}" \
+            --source-sha="${{ needs.resolve-release-source.outputs.source_sha }}" \
+            --workflow="${{ github.workflow }}" \
+            --run-id="${{ github.run_id }}"
 
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v7
@@ -610,9 +603,56 @@ jobs:
             artifacts/release/staging-rollout.json
             artifacts/release/staging-rollout.tsv
 
+  backup-health-gate:
+    name: backup-health-gate
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    needs:
+      - resolve-release-source
+      - production-preflight
+      - release-sbom
+    concurrency:
+      group: cd-production
+      cancel-in-progress: false
+    environment: production
+    steps:
+      - name: Checkout immutable release source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.resolve-release-source.outputs.source_ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run backup health gate
+        run: pnpm ops:backup:health
+
+      - name: Upload backup health evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: backup-health-report
+          path: |
+            artifacts/backups/backup-health.json
+            artifacts/backups/backup-health.txt
+
   release-smoke-gate:
     name: release-smoke-gate
-    # Executa apenas após aprovação do deploy manual na branch de produção
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
@@ -620,7 +660,8 @@ jobs:
       contents: read
     needs:
       - resolve-release-source
-      - deploy-production
+      - production-preflight
+      - release-sbom
     concurrency:
       group: cd-production
       cancel-in-progress: false
@@ -657,7 +698,6 @@ jobs:
 
   release-e2e-gate:
     name: release-e2e-gate
-    # E2E test gate executa em produção logo após o smoke test (dependência imposta por `needs`)
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 40
@@ -705,7 +745,6 @@ jobs:
 
   rollback-rehearsal-evidence-gate:
     name: rollback-rehearsal-evidence-gate
-    # Valida evidência de rollback controlado após todos os testes terem sucesso
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -748,9 +787,69 @@ jobs:
             artifacts/release/production-rollback-evidence.txt
             artifacts/release/production-rollback-evidence.json
 
+  dr-readiness-gate:
+    name: dr-readiness-gate
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    needs:
+      - resolve-release-source
+      - backup-health-gate
+      - rollback-rehearsal-evidence-gate
+    concurrency:
+      group: cd-production
+      cancel-in-progress: false
+    environment: production
+    steps:
+      - name: Checkout immutable release source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.resolve-release-source.outputs.source_ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download rollback rehearsal evidence
+        uses: actions/download-artifact@v6
+        with:
+          name: rollback-rehearsal-report
+          path: artifacts/release
+
+      - name: Rebuild backup and DR readiness evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm ops:backup:health
+          pnpm ops:dr:report
+
+      - name: Upload disaster recovery readiness evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: dr-readiness-report
+          path: |
+            artifacts/backups/backup-health.json
+            artifacts/backups/backup-health.txt
+            artifacts/dr/readiness-report.json
+            docs/evidence/disaster-recovery-report.md
+
   deploy-production:
     name: deploy-production
-    # Ponto único de entrada do caminho de produção (após preflight e sbom)
+    # Ponto único de entrada do caminho de produção, liberado apenas após todos os gates prévios
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_target == 'production'
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -760,6 +859,11 @@ jobs:
       - resolve-release-source
       - release-sbom
       - production-preflight
+      - backup-health-gate
+      - release-smoke-gate
+      - release-e2e-gate
+      - rollback-rehearsal-evidence-gate
+      - dr-readiness-gate
     concurrency:
       group: cd-production
       cancel-in-progress: false

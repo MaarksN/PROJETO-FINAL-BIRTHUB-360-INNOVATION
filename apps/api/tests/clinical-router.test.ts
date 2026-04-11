@@ -2,164 +2,20 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { Role } from "@birthub/database";
 import request from "supertest";
 
-import { createClinicalRouter } from "../src/modules/clinical/router.js";
-import { clinicalService } from "../src/modules/clinical/service.js";
-import {
-  createAuthenticatedApiTestApp,
-  stubMethod
-} from "./http-test-helpers.js";
+import { createApp } from "../src/app.js";
+import { createTestApiConfig } from "./test-config.js";
 
-function createClinicalTestApp() {
-  return createAuthenticatedApiTestApp({
-    contextOverrides: {
-      organizationId: "org_clinic",
-      requestId: "req_clinic",
-      role: Role.MEMBER,
-      sessionId: "session_clinic",
-      tenantId: "tenant_clinic",
-      tenantSlug: "tenant-clinic",
-      traceId: "trace_clinic",
-      userId: "user_clinic"
-    },
-    mountPath: "/api/v1",
-    router: createClinicalRouter()
-  });
-}
+void test("clinical routes are not mounted in the main API surface while the clinical workspace is disabled", async () => {
+  const response = await request(
+    createApp({
+      config: createTestApiConfig()
+    })
+  )
+    .get("/api/v1/patients")
+    .expect(404);
 
-void test("clinical router lists patients with search and risk filters", async () => {
-  let received: unknown = null;
-  const restore = stubMethod(clinicalService, "listPatients", (context: unknown, filters: unknown) => {
-    received = { context, filters };
-    return Promise.resolve({
-      items: [],
-      pageSize: 25
-    });
-  });
-
-  try {
-    const response = await request(createClinicalTestApp())
-      .get("/api/v1/patients")
-      .query({
-        limit: "25",
-        riskLevel: "HIGH",
-        search: "Maria",
-        status: "ACTIVE"
-      })
-      .expect(200);
-
-    assert.deepEqual(received, {
-      context: {
-        organizationId: "org_clinic",
-        tenantId: "tenant_clinic",
-        userId: "user_clinic"
-      },
-      filters: {
-        limit: 25,
-        riskLevel: "HIGH",
-        search: "Maria",
-        status: "ACTIVE"
-      }
-    });
-    assert.deepEqual(response.body, {
-      items: [],
-      pageSize: 25,
-      requestId: "req_clinic"
-    });
-  } finally {
-    restore();
-  }
-});
-
-void test("clinical router creates appointments with validated payload", async () => {
-  let received: unknown = null;
-  const restore = stubMethod(clinicalService, "createAppointment", (context: unknown, payload: unknown) => {
-    received = { context, payload };
-    return Promise.resolve({
-      appointment: {
-        id: "appt_1"
-      }
-    });
-  });
-
-  try {
-    const response = await request(createClinicalTestApp())
-      .post("/api/v1/appointments")
-      .send({
-        bloodPressureSystolic: 138,
-        patientId: "patient_1",
-        scheduledAt: "2026-04-07T14:00",
-        type: "PRENATAL"
-      })
-      .expect(201);
-
-    assert.deepEqual(received, {
-      context: {
-        organizationId: "org_clinic",
-        tenantId: "tenant_clinic",
-        userId: "user_clinic"
-      },
-      payload: {
-        bloodPressureSystolic: 138,
-        patientId: "patient_1",
-        scheduledAt: "2026-04-07T14:00",
-        type: "PRENATAL"
-      }
-    });
-    assert.deepEqual(response.body, {
-      appointment: {
-        id: "appt_1"
-      },
-      requestId: "req_clinic"
-    });
-  } finally {
-    restore();
-  }
-});
-
-void test("clinical router versions a clinical note via PATCH", async () => {
-  let received: unknown = null;
-  const restore = stubMethod(clinicalService, "updateClinicalNote", (context: unknown, noteGroupId: unknown, payload: unknown) => {
-    received = { context, noteGroupId, payload };
-    return Promise.resolve({
-      note: {
-        noteGroupId: "note-group-1",
-        version: 2
-      }
-    });
-  });
-
-  try {
-    const response = await request(createClinicalTestApp())
-      .patch("/api/v1/clinical-notes/note-group-1")
-      .send({
-        assessment: "Sem sinais de alarme.",
-        title: "Evolucao de retorno"
-      })
-      .expect(200);
-
-    assert.deepEqual(received, {
-      context: {
-        organizationId: "org_clinic",
-        tenantId: "tenant_clinic",
-        userId: "user_clinic"
-      },
-      noteGroupId: "note-group-1",
-      payload: {
-        assessment: "Sem sinais de alarme.",
-        title: "Evolucao de retorno"
-      }
-    });
-    assert.deepEqual(response.body, {
-      note: {
-        noteGroupId: "note-group-1",
-        version: 2
-      },
-      requestId: "req_clinic"
-    });
-  } finally {
-    restore();
-  }
+  assert.equal(response.body.status, 404);
+  assert.equal(response.body.title, "Not Found");
 });

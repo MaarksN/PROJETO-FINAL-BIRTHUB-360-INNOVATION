@@ -80,8 +80,11 @@ export function errorHandler(
     "Unhandled API exception"
   );
 
+  const isProduction = process.env.NODE_ENV === "production";
+  const fallbackDetail = error instanceof Error && !isProduction ? error.message : "Unexpected internal server error.";
+
   const fallback = new ProblemDetailsError({
-    detail: error instanceof Error ? error.message : "Unexpected internal server error.",
+    detail: fallbackDetail,
     status: 500,
     title: "Internal Server Error"
   });

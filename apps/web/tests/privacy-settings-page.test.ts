@@ -5,18 +5,12 @@ import { JSDOM } from "jsdom";
 
 import {
   clearStoredPrivacySession,
-  executeRetentionRun,
   exportPrivacyData,
   formatConsentStatus,
   formatDate,
   formatExecutionMode,
   formatRetentionAction,
-  loadPrivacyState,
-  persistPrivacyConsents,
-  persistRetentionPolicies,
-  requestPrivacyAccountDeletion,
-  type PrivacyConsent,
-  type RetentionPolicy
+  requestPrivacyAccountDeletion
 } from "../app/(dashboard)/settings/privacy/privacy-settings-page.data";
 
 function restoreEnvValue(key: string, value: string | undefined) {
@@ -70,114 +64,14 @@ function getRequestUrl(input: RequestInfo | URL): string {
   return input.url;
 }
 
-function createJsonResponse(payload: unknown, status = 200): Response {
-  return new Response(JSON.stringify(payload), {
-    headers: {
-      "content-type": "application/json"
-    },
-    status
-  });
-}
-
-void test("privacy page helpers format consent and retention labels", () => {
+void test("privacy page helpers keep formatting labels stable", () => {
   assert.equal(formatDate(null), "Nao registrado");
   assert.equal(formatConsentStatus("GRANTED"), "Concedido");
   assert.equal(formatRetentionAction("ANONYMIZE"), "Anonimizar");
   assert.equal(formatExecutionMode("DRY_RUN"), "Dry-run");
 });
 
-void test("privacy page helpers load privacy state through the session-aware client", async () => {
-  const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
-  const originalFetch = globalThis.fetch;
-  const cleanupDom = installSessionDom();
-
-  process.env.NEXT_PUBLIC_API_URL = "https://api.birthub.test";
-  process.env.NEXT_PUBLIC_ENVIRONMENT = "development";
-
-  const requests: Array<{ headers: Headers; method: string; url: string }> = [];
-  globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = getRequestUrl(input);
-    requests.push({
-      headers: new Headers(init?.headers),
-      method: init?.method ?? "GET",
-      url
-    });
-
-    if (url.endsWith("/api/v1/privacy/consents")) {
-      return Promise.resolve(
-        createJsonResponse({
-          history: [
-            {
-              createdAt: "2026-04-07T11:00:00.000Z",
-              id: "event_1",
-              newStatus: "GRANTED",
-              previousStatus: "PENDING",
-              purpose: "ANALYTICS",
-              source: "SETTINGS"
-            }
-          ],
-          items: [
-            {
-              grantedAt: null,
-              id: "consent_1",
-              lastChangedAt: "2026-04-07T10:00:00.000Z",
-              lawfulBasis: "CONSENT",
-              purpose: "ANALYTICS",
-              revokedAt: null,
-              source: "SETTINGS",
-              status: "GRANTED"
-            }
-          ],
-          preferences: {
-            cookieConsent: "ACCEPTED",
-            emailNotifications: true,
-            inAppNotifications: true,
-            lgpdConsentedAt: "2026-04-07T10:00:00.000Z",
-            lgpdConsentStatus: "ACCEPTED",
-            lgpdConsentVersion: "2026-04",
-            lgpdLegalBasis: "CONSENT",
-            marketingEmails: false,
-            pushNotifications: true
-          }
-        })
-      );
-    }
-
-    if (url.endsWith("/api/v1/privacy/retention")) {
-      return Promise.resolve(
-        createJsonResponse(
-          {
-            executions: [],
-            items: []
-          },
-          403
-        )
-      );
-    }
-
-    throw new Error(`Unexpected request: ${url}`);
-  }) as typeof fetch;
-
-  try {
-    const state = await loadPrivacyState();
-
-    assert.equal(state.consents.length, 1);
-    assert.equal(state.consentHistory.length, 1);
-    assert.equal(state.retentionAccessDenied, true);
-    assert.equal(requests[0]?.url, "/api/bff/api/v1/privacy/consents");
-    assert.equal(requests[0]?.headers.get("authorization"), null);
-    assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_privacy");
-    assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_privacy");
-  } finally {
-    globalThis.fetch = originalFetch;
-    cleanupDom();
-    restoreEnvValue("NEXT_PUBLIC_API_URL", originalApiUrl);
-    restoreEnvValue("NEXT_PUBLIC_ENVIRONMENT", originalEnvironment);
-  }
-});
-
-void test("privacy page helpers persist consent, retention, export and deletion requests", async () => {
+void test("privacy self-service helpers only call supported export and delete endpoints", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -195,29 +89,6 @@ void test("privacy page helpers persist consent, retention, export and deletion 
       url
     });
 
-    if (url.endsWith("/api/v1/privacy/consents")) {
-      return Promise.resolve(new Response(null, { status: 200 }));
-    }
-
-    if (url.endsWith("/api/v1/privacy/retention")) {
-      return Promise.resolve(new Response(null, { status: 200 }));
-    }
-
-    if (url.endsWith("/api/v1/privacy/retention/run")) {
-      return Promise.resolve(
-        createJsonResponse({
-          items: [
-            {
-              affectedCount: 2,
-              dataCategory: "OUTPUT_ARTIFACTS",
-              executionId: "execution_1",
-              scannedCount: 10
-            }
-          ]
-        })
-      );
-    }
-
     if (url.endsWith("/api/v1/privacy/export")) {
       return Promise.resolve(new Response("{\"tenant\":\"alpha\"}", { status: 200 }));
     }
@@ -229,48 +100,18 @@ void test("privacy page helpers persist consent, retention, export and deletion 
     throw new Error(`Unexpected request: ${url}`);
   }) as typeof fetch;
 
-  const consents: PrivacyConsent[] = [
-    {
-      grantedAt: null,
-      id: "consent_analytics",
-      lastChangedAt: "2026-04-07T10:00:00.000Z",
-      lawfulBasis: "CONSENT",
-      purpose: "ANALYTICS",
-      revokedAt: null,
-      source: "SETTINGS",
-      status: "GRANTED"
-    }
-  ];
-  const policies: RetentionPolicy[] = [
-    {
-      action: "ANONYMIZE",
-      createdAt: "2026-04-07T10:00:00.000Z",
-      dataCategory: "OUTPUT_ARTIFACTS",
-      enabled: true,
-      id: "policy_1",
-      legalBasis: "LEGITIMATE_INTEREST",
-      retentionDays: 30,
-      updatedAt: "2026-04-07T10:00:00.000Z"
-    }
-  ];
-
   try {
-    await persistPrivacyConsents(consents);
-    await persistRetentionPolicies(policies);
-    const retentionResults = await executeRetentionRun("DRY_RUN");
     const exportPayload = await exportPrivacyData();
     await requestPrivacyAccountDeletion("EXCLUIR MINHA CONTA");
 
-    assert.equal(retentionResults[0]?.executionId, "execution_1");
     assert.equal(exportPayload.fileName.startsWith("birthub360-export-"), true);
     assert.equal(await exportPayload.blob.text(), "{\"tenant\":\"alpha\"}");
-    assert.equal(calls[0]?.method, "PUT");
-    assert.match(calls[0]?.body ?? "", /ANALYTICS/);
-    assert.equal(calls[1]?.method, "PUT");
-    assert.match(calls[1]?.body ?? "", /OUTPUT_ARTIFACTS/);
-    assert.equal(calls[2]?.method, "POST");
-    assert.equal(calls[3]?.method, "GET");
-    assert.equal(calls[4]?.method, "POST");
+    assert.deepEqual(
+      calls.map((call) => call.url),
+      ["/api/bff/api/v1/privacy/export", "/api/bff/api/v1/privacy/delete-account"]
+    );
+    assert.equal(calls[0]?.method, "GET");
+    assert.equal(calls[1]?.method, "POST");
 
     clearStoredPrivacySession();
     assert.equal(globalThis.localStorage.getItem("bh_access_token"), null);

@@ -1,6 +1,10 @@
 // @ts-nocheck
 // 
-import { postJson } from "./http";
+import { postJson, getJson, type HttpRequestOptions } from "./http";
+import { withCircuitBreaker } from "./circuit-breaker";
+
+const pagarmePostCb = withCircuitBreaker("payments:pagarme", (url: string, payload: unknown, options: HttpRequestOptions) => postJson<PagarmeOrderResponse>(url, payload, options));
+const pagarmeGetCb = withCircuitBreaker("payments:pagarme:get", (url: string, options: HttpRequestOptions) => getJson<PagarmeOrderResponse>(url, options));
 
 export interface PaymentCustomer {
   name: string;
@@ -114,14 +118,14 @@ export class PagarmeClient implements IPaymentsClient {
       },
     };
 
-    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, {
+    const response = await pagarmePostCb(`${this.baseUrl}/orders`, payload, {
       apiKey: this.apiKey, // Uses Basic Auth actually, but let's assume Bearer or header injection in postJson handles it if adapted.
       // Pagar.me uses Basic Auth with API Key as username and empty password.
       // postJson uses Bearer. I might need to adjust or override headers.
       headers: {
         Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
       },
-    });
+    );
 
     const charge = getPrimaryCharge(response);
     const txn = charge.last_transaction ?? {};
@@ -172,11 +176,11 @@ export class PagarmeClient implements IPaymentsClient {
       },
     };
 
-    const response = await postJson<PagarmeOrderResponse>(`${this.baseUrl}/orders`, payload, {
+    const response = await pagarmePostCb(`${this.baseUrl}/orders`, payload, {
       headers: {
         Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
       },
-    });
+    );
 
     const charge = getPrimaryCharge(response);
     const txn = charge.last_transaction ?? {};
@@ -195,11 +199,20 @@ export class PagarmeClient implements IPaymentsClient {
     paymentId: string,
     tenantId: string,
   ): Promise<PaymentResponse> {
-    // Usually via Webhook, but if manual check is needed:
-    // GET /orders/{id}
-    // postJson only supports POST. I might need getJson in http.ts or just fetch here.
-    // For now, I'll simulate or skip.
-    // Assuming we implement GET support later.
-    throw new Error("Method not implemented.");
+    const response = await pagarmeGetCb(`${this.baseUrl}/orders/${paymentId}`, {
+      headers: {
+        Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
+      },
+    });
+
+    const charge = getPrimaryCharge(response);
+    const txn = charge.last_transaction ?? {};
+
+    return {
+      id: response.id,
+      gatewayId: charge.id,
+      status: charge.status,
+      amount: 0,
+    };
   }
 }

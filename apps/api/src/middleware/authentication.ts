@@ -89,9 +89,11 @@ export function authenticationMiddleware(
         userId: authenticated.userId
       });
 
-      response.setHeader("x-organization-id", authenticated.organizationId);
-      response.setHeader("x-tenant-id", authenticated.tenantId);
-      response.setHeader("x-user-id", authenticated.userId);
+      if (process.env.NODE_ENV !== "production") {
+        response.setHeader("x-organization-id", authenticated.organizationId);
+        response.setHeader("x-tenant-id", authenticated.tenantId);
+        response.setHeader("x-user-id", authenticated.userId);
+      }
       next();
     } catch (error) {
       next(error);

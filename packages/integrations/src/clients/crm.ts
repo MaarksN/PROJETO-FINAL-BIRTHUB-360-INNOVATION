@@ -1,6 +1,22 @@
 // @ts-nocheck
 // 
 import { postJson } from "./http";
+import { withCircuitBreaker } from "./circuit-breaker";
+
+const hubspotCb = withCircuitBreaker("hubspot:api", (url: string, token: string, payload: Record<string, unknown>) => {
+  return postJson(url, payload, {
+    apiKey: token,
+    timeoutMs: 10_000,
+    retries: 2,
+  });
+});
+
+const pipedriveCb = withCircuitBreaker("pipedrive:api", (url: string, payload: Record<string, unknown>) => {
+  return postJson(url, payload, {
+    timeoutMs: 10_000,
+    retries: 2,
+  });
+});
 
 export class HubspotClient {
   constructor(
@@ -9,11 +25,7 @@ export class HubspotClient {
   ) {}
 
   createContact(payload: Record<string, unknown>) {
-    return postJson(`${this.baseUrl}/crm/v3/objects/contacts`, payload, {
-      apiKey: this.token,
-      timeoutMs: 10_000,
-      retries: 2,
-    });
+    return hubspotCb(`${this.baseUrl}/crm/v3/objects/contacts`, this.token, payload);
   }
 }
 
@@ -24,9 +36,6 @@ export class PipedriveClient {
   ) {}
 
   createPerson(payload: Record<string, unknown>) {
-    return postJson(`${this.baseUrl}/persons?api_token=${this.token}`, payload, {
-      timeoutMs: 10_000,
-      retries: 2,
-    });
+    return pipedriveCb(`${this.baseUrl}/persons?api_token=${this.token}`, payload);
   }
 }

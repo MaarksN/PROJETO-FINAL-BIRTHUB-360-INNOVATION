@@ -6,6 +6,7 @@ import { getStoredSession } from "../../../../lib/auth-client";
 
 import {
   DELETE_CONFIRMATION,
+  clearStoredPrivacySession,
   exportPrivacyData,
   getErrorMessage,
   requestPrivacyAccountDeletion
@@ -53,6 +54,7 @@ export default function PrivacySelfServicePageClient() {
           setNotice("Processando exclusao e anonimizacao da conta...");
 
           await requestPrivacyAccountDeletion(confirmation);
+          clearStoredPrivacySession();
           window.location.assign("/login");
         } catch (requestError) {
           setError(getErrorMessage(requestError, "Falha ao excluir conta."));

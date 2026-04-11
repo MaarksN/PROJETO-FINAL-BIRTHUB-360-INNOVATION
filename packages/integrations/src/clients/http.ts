@@ -67,3 +67,52 @@ export async function postJson<T>(
 
   throw lastError instanceof Error ? lastError : new Error("Failed to call external API");
 }
+
+export async function getJson<T>(
+  url: string,
+  options: HttpRequestOptions = {},
+): Promise<T> {
+  const timeoutMs = options.timeoutMs ?? 10_000;
+  const retries = options.retries ?? 2;
+  const retryDelayMs = options.retryDelayMs ?? 250;
+
+  let lastError: unknown;
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    const abortController = new AbortController();
+    const timeout = setTimeout(() => abortController.abort(), timeoutMs);
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "user-agent": "birthub-integrations/1.0",
+          ...(options.apiKey ? { authorization: `Bearer ${options.apiKey}` } : {}),
+          ...(options.headers ?? {}),
+        },
+        signal: abortController.signal,
+      });
+
+      if (!response.ok) {
+        const body = await response.text();
+        const error = new Error(`HTTP ${response.status}: ${body}`);
+        if (attempt < retries && isRetryableStatus(response.status)) {
+          await sleep(retryDelayMs * (attempt + 1));
+          continue;
+        }
+        throw error;
+      }
+
+      return response.json() as Promise<T>;
+    } catch (error) {
+      lastError = error;
+      if (attempt < retries) {
+        await sleep(retryDelayMs * (attempt + 1));
+        continue;
+      }
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  throw lastError instanceof Error ? lastError : new Error("Failed to call external API");
+}

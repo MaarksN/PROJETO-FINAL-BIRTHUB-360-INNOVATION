@@ -12,3 +12,5 @@ export * from "./clients/calendar";
 export * from "./adapters/crm-adapter-factory";
 export * from "./adapters/email-adapter-factory";
 export * from "./adapters/webhook-registry";
+
+export * from "./clients/circuit-breaker";

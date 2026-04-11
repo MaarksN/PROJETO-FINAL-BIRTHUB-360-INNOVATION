@@ -102,6 +102,7 @@ export function setCookieValue(
     maxAgeSeconds?: number;
     path?: string;
     sameSite?: "lax" | "none" | "strict";
+    secure?: boolean;
   } = {}
 ): void {
   if (typeof document === "undefined") {
@@ -112,6 +113,11 @@ export function setCookieValue(
   const sameSite = options.sameSite ?? "lax";
   segments.push(`Path=${options.path ?? "/"}`);
   segments.push(`SameSite=${sameSite.charAt(0).toUpperCase()}${sameSite.slice(1)}`);
+
+  const isSecure = options.secure ?? window.location.protocol === "https:";
+  if (isSecure) {
+    segments.push("Secure");
+  }
 
   if (options.maxAgeSeconds !== undefined) {
     segments.push(`Max-Age=${Math.max(0, Math.floor(options.maxAgeSeconds))}`);
