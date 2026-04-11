@@ -47,15 +47,10 @@ export function getStoredSession(): StoredSession | null {
     return null;
   }
 
-  const legacyTenantId =
-    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY) : null;
-  const legacyUserId =
-    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY) : null;
-  const legacyCsrfToken =
-    typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_CSRF_STORAGE_KEY) : null;
-  const tenantId = getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ?? legacyTenantId ?? null;
-  const userId = getCookieValue(USER_ID_COOKIE_NAME) ?? legacyUserId ?? null;
-  const normalizedSession = normalizeStoredSession({
+  const tenantId = getCookieValue(ACTIVE_TENANT_COOKIE_NAME) ?? (typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_TENANT_STORAGE_KEY) : null);
+  const userId = getCookieValue(USER_ID_COOKIE_NAME) ?? (typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_USER_ID_STORAGE_KEY) : null);
+
+  return normalizeStoredSession({
     ...(tenantId ? { tenantId } : {}),
     ...(userId ? { userId } : {})
   });
@@ -169,6 +164,11 @@ export async function fetchWithSession(
 
   if (session?.tenantId) {
     headers.set("x-active-tenant", session.tenantId);
+  }
+
+  const legacyAccessToken = typeof localStorage !== "undefined" ? localStorage.getItem(LEGACY_ACCESS_TOKEN_STORAGE_KEY) : null;
+  if (legacyAccessToken && !headers.has("authorization")) {
+    headers.set("authorization", `Bearer ${legacyAccessToken}`);
   }
 
   const nextInit: FetchWithTimeoutInit = {

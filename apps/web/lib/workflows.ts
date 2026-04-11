@@ -121,3 +121,16 @@ export async function getWorkflowById(id: string): Promise<WorkflowDetail | null
     return null;
   }
 }
+
+
+export async function listWorkflows(): Promise<any[]> {
+  try {
+    const payload = await fetchJson<{
+      requestId: string;
+      items: any[];
+    }>(`/api/v1/workflows`);
+    return payload.items;
+  } catch {
+    return [];
+  }
+}

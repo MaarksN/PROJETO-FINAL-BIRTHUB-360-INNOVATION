@@ -40,6 +40,12 @@ function installDomSession(session: {
     url: "https://app.birthub.test/dashboard"
   });
 
+  if (session.accessToken) {
+    dom.window.localStorage.setItem("bh_access_token", session.accessToken);
+    dom.window.localStorage.setItem("bh_tenant_id", "t_1");
+    dom.window.localStorage.setItem("bh_user_id", "u_1");
+  }
+
   if (session.csrfToken) {
     dom.window.document.cookie = `bh360_csrf=${session.csrfToken}`;
   }

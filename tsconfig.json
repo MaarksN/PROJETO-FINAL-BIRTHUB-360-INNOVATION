@@ -15,8 +15,9 @@
   ],
   "exclude": [
     "node_modules",
+    "**/.next/**",
     "dist",
-    ".next",
+    "build",
     ".turbo"
   ]
 }
