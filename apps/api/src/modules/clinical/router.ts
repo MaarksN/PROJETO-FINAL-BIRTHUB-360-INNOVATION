@@ -1,4 +1,5 @@
 // @ts-nocheck
+import type { ApiConfig } from "@birthub/config";
 import { Role } from "@birthub/database";
 import { Router } from "express";
 
@@ -48,7 +49,27 @@ function requireClinicalContext(request: {
 }
 
 export function createClinicalRouter(): Router {
+export function createClinicalRouter(
+  config?: Pick<ApiConfig, "clinicalWorkspaceEnabled">
+): Router {
   const router = Router();
+  const clinicalWorkspaceEnabled = config?.clinicalWorkspaceEnabled === true;
+
+  router.use((request, _response, next) => {
+    if (clinicalWorkspaceEnabled) {
+      next();
+      return;
+    }
+
+    next(
+      new ProblemDetailsError({
+        detail:
+          "The clinical workspace router is disabled because the clinical domain remains outside the active product until schema support is reintroduced.",
+        status: 404,
+        title: "Not Found"
+      })
+    );
+  });
 
   router.get(
     "/patients",

@@ -1,4 +1,5 @@
 // @ts-nocheck
+import type { ApiConfig } from "@birthub/config";
 import { prisma, Role } from "@birthub/database";
 import { Router } from "express";
 
@@ -24,6 +25,7 @@ type FhirAuditInput = {
 };
 
 export interface FhirRouterDependencies {
+  config?: Pick<ApiConfig, "fhirFacadeEnabled">;
   recordAudit?: (input: FhirAuditInput) => Promise<void>;
   service?: typeof fhirService;
 }
@@ -83,8 +85,25 @@ export function createFhirRouter(
   dependencies: FhirRouterDependencies = {}
 ): Router {
   const router = Router();
+  const fhirFacadeEnabled = dependencies.config?.fhirFacadeEnabled === true;
   const service = dependencies.service ?? fhirService;
   const recordAudit = dependencies.recordAudit ?? defaultRecordAudit;
+
+  router.use((request, _response, next) => {
+    if (fhirFacadeEnabled) {
+      next();
+      return;
+    }
+
+    next(
+      new ProblemDetailsError({
+        detail:
+          "The FHIR facade router is disabled because interoperability remains outside the active product until schema support is reintroduced.",
+        status: 404,
+        title: "Not Found"
+      })
+    );
+  });
 
   router.use("/api/fhir/R4", requireAuthenticatedSession, RequireRole(Role.MEMBER));
 
