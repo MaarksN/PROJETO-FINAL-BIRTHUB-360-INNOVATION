@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 // 
 import { postJson } from "./http";
 
@@ -73,7 +73,7 @@ export class ClickSignClient implements ISignaturesClient {
     // Note: ClickSign API is more complex (upload doc, add signers to list, add list to doc).
     // This is a simplified abstraction.
 
-    const response = await postJson<any>(
+    const response = await postJson<{ document: { key: string; filename: string; status: string } }>(
       `${this.baseUrl}/documents?access_token=${this.accessToken}`,
       payload,
     );
@@ -90,12 +90,12 @@ export class ClickSignClient implements ISignaturesClient {
     );
   }
 
-  async getStatus(documentId: string): Promise<SignatureDocument> {
+  async getStatus(_documentId: string): Promise<SignatureDocument> {
     // Need GET request
     throw new Error("Method not implemented.");
   }
 
-  private _mapResponse(doc: any): SignatureDocument {
+  private _mapResponse(doc: { key: string; filename: string; status: string }): SignatureDocument {
     return {
       id: doc.key,
       name: doc.filename,

@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 // 
 import {
   createHash,
@@ -23,7 +23,12 @@ export function createRateLimiter(max: number, windowMs: number) {
   };
 }
 
-const secretPatterns = [/AKIA[0-9A-Z]{16}/, /sk_live_[A-Za-z0-9]{20,}/, /-----BEGIN (RSA|EC|OPENSSH) PRIVATE KEY-----/, /AIza[0-9A-Za-z\-_]{35}/];
+const secretPatterns = [
+  /AKIA[0-9A-Z]{16}/,
+  /sk_live_[a-zA-Z0-9]{20,}/,
+  /-----BEGIN (?:RSA|EC|OPENSSH) PRIVATE KEY-----/,
+  /AIza[a-zA-Z0-9\-_]{35}/
+];
 export function scanSecrets(content: string): void {
   for (const pattern of secretPatterns) {
     if (pattern.test(content)) throw new Error(`secret_pattern_detected:${pattern}`);

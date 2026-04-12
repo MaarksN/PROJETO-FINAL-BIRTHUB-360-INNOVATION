@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 import { postJson } from "./http";
 
@@ -108,76 +107,9 @@ export class GeminiClient implements ILLMClient {
     };
   }
 
-  async *stream(
-    messages: Message[],
-    options?: CompletionOptions,
-  ): AsyncGenerator<string, void, unknown> {
-    // Streaming not supported via simple postJson (which awaits full body).
-    // Would need fetch with reader.
-    throw new Error("Streaming not implemented in GeminiClient");
-  }
-}
-
-// ─── OPENAI IMPLEMENTATION ───────────────────────────────────────────────────
-
-interface OpenAICompletionResponse {
-  id: string;
-  choices: Array<{
-    message: {
-      content: string;
-    };
-  }>;
-  usage: {
-    prompt_tokens: number;
-    completion_tokens: number;
-    total_tokens: number;
-  };
-}
-
-export class OpenAIClient implements ILLMClient {
-  constructor(
-    private readonly apiKey: string,
-    private readonly model = "gpt-4o",
-    private readonly baseUrl = "https://api.openai.com/v1",
-  ) {}
-
-  async chat(
-    messages: Message[],
-    options?: CompletionOptions,
-  ): Promise<CompletionResponse> {
-    const payload = {
-      model: this.model,
-      messages: messages,
-      temperature: options?.temperature,
-      max_tokens: options?.maxTokens,
-      top_p: options?.topP,
-      stop: options?.stop,
-    };
-
-    const response = await postJson<OpenAICompletionResponse>(
-      `${this.baseUrl}/chat/completions`,
-      payload,
-      {
-        headers: { Authorization: `Bearer ${this.apiKey}` },
-      },
-    );
-
-    return {
-      content: response.choices[0]?.message?.content ?? "",
-      model: this.model,
-      usage: {
-        promptTokens: response.usage.prompt_tokens,
-        completionTokens: response.usage.completion_tokens,
-        totalTokens: response.usage.total_tokens,
-      },
-    };
-  }
-
-  async *stream(
-    messages: Message[],
-    options?: CompletionOptions,
-  ): AsyncGenerator<string, void, unknown> {
-    throw new Error("Streaming not implemented in OpenAIClient");
+  async *stream(_messages: Message[], _options?: CompletionOptions): AsyncGenerator<string, void, unknown> {
+    yield "";
+    throw new Error("Streaming not implemented");
   }
 }
 
@@ -242,10 +174,8 @@ export class AnthropicClient implements ILLMClient {
     };
   }
 
-  async *stream(
-    messages: Message[],
-    options?: CompletionOptions,
-  ): AsyncGenerator<string, void, unknown> {
-    throw new Error("Streaming not implemented in AnthropicClient");
+  async *stream(_messages: Message[], _options?: CompletionOptions): AsyncGenerator<string, void, unknown> {
+    yield "";
+    throw new Error("Streaming not implemented");
   }
 }

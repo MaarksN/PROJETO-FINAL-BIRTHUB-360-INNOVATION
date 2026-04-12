@@ -1,4 +1,3 @@
-// @ts-nocheck
 //
 import { postJson } from "./http";
 
@@ -78,6 +77,8 @@ export class ENotasClient implements IFiscalClient {
       `${this.baseUrl}/empresas/{empresaId}/nfs-e`,
       payload,
       {
+        providerName: "enotas",
+        idempotencyKey: invoice.referenceId,
         headers: {
           Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
         },
@@ -87,8 +88,8 @@ export class ENotasClient implements IFiscalClient {
     return {
       id: response.id,
       status: response.status,
-      nfeUrl: response.linkPdf ?? undefined,
-      xmlUrl: response.linkXml ?? undefined,
+      ...(response.linkPdf ? { nfeUrl: response.linkPdf } : {}),
+      ...(response.linkXml ? { xmlUrl: response.linkXml } : {}),
     };
   }
 
@@ -99,6 +100,7 @@ export class ENotasClient implements IFiscalClient {
       `${this.baseUrl}/nfs-e/${id}`,
       { motivo: reason }, // Usually delete or specific endpoint
       {
+        providerName: "enotas",
         headers: {
           Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
         },
@@ -110,7 +112,7 @@ export class ENotasClient implements IFiscalClient {
     };
   }
 
-  async getStatus(id: string): Promise<FiscalResponse> {
+  async getStatus(_id: string): Promise<FiscalResponse> {
     // Implement status check logic (GET)
     // For now, mock or throw
     throw new Error("Method not implemented.");

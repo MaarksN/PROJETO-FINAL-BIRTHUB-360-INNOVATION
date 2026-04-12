@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 import { postJson } from "./http";
 
@@ -131,8 +130,8 @@ export class PagarmeClient implements IPaymentsClient {
       gatewayId: charge.id,
       status: charge.status,
       amount: amount,
-      qrCode: txn.qr_code ?? undefined,
-      qrCodeUrl: txn.qr_code_url ?? undefined
+      ...(txn.qr_code ? { qrCode: txn.qr_code } : {}),
+      ...(txn.qr_code_url ? { qrCodeUrl: txn.qr_code_url } : {})
     };
   }
 
@@ -186,14 +185,14 @@ export class PagarmeClient implements IPaymentsClient {
       gatewayId: charge.id,
       status: charge.status,
       amount: amount,
-      boletoUrl: txn.url ?? undefined,
-      barCode: txn.line ?? undefined
+      ...(txn.url ? { boletoUrl: txn.url } : {}),
+      ...(txn.line ? { barCode: txn.line } : {})
     };
   }
 
   async confirmPayment(
-    paymentId: string,
-    tenantId: string,
+    _paymentId: string,
+    _tenantId: string,
   ): Promise<PaymentResponse> {
     // Usually via Webhook, but if manual check is needed:
     // GET /orders/{id}
