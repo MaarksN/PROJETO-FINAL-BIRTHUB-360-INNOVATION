@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 export class CrossTenantAccessError extends Error {
   public readonly contextTenantId: string;
   public readonly model: string | undefined;

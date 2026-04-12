@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 export class ExceededQuotaError extends Error {
   public readonly current: number;
   public readonly limit: number;
