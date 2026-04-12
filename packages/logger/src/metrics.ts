@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 export type MetricLabelValue = string | number | boolean | null | undefined;
 export type MetricLabels = Record<string, MetricLabelValue>;
 
