@@ -73,9 +73,26 @@ function inferFocusDomains(input: {
   pushIf(/support|success|churn|health|onboarding|ticket|nps|qbr/.test(corpus), "customer-success");
   pushIf(/compliance|aml|kyc|fraud|policy|audit|regulatory/.test(corpus), "compliance");
   pushIf(/risk|workflow|handoff|capacity|bottleneck|process|ops|incident/.test(corpus), "operations");
+  pushIf(/incident|security|breach|outage|patch|sev[ -]?1|sev[ -]?2/.test(corpus), "security");
   pushIf(/board|executive|ceo|cfo|cro|cmo|strategy/.test(corpus), "management");
   pushIf(/product|feature|journey|activation|roadmap/.test(corpus), "product");
   pushIf(/data|analytics|sql|cohort|forecast|attribution/.test(corpus), "analytics");
+
+  if (/new lead|lead created|inbound lead|outbound lead/.test(corpus)) {
+    domains.push("sales", "marketing", "operations");
+  }
+
+  if (/critical ticket|urgent ticket|priority 1|sev[ -]?1|support escalation/.test(corpus)) {
+    domains.push("customer-success", "operations", "management");
+  }
+
+  if (/renewal at risk|renewal risk|churn risk|renewal escalation/.test(corpus)) {
+    domains.push("customer-success", "sales", "finance");
+  }
+
+  if (/operational incident|incident opened|major incident|service outage/.test(corpus)) {
+    domains.push("operations", "security", "management");
+  }
 
   if (domains.length === 0) {
     domains.push("operations");

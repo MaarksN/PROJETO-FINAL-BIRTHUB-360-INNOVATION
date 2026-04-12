@@ -202,4 +202,6 @@ void test("runtime plan and output include segment adaptation, memory and handof
   assert.equal(output.leading_indicators.some((item) => item === "industry:fintech"), true);
   assert.equal(output.orchestration_plan?.recommended_agents[0]?.agent_id, "cro-pack");
   assert.equal(output.orchestration_plan?.approval_required, true);
+  assert.equal(output.premium_layers.length, 10);
+  assert.equal(output.premium_score > 0, true);
 });

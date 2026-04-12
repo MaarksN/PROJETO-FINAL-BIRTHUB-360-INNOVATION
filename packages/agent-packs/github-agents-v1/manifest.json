@@ -1,6 +1,7 @@
 {
   "agent": {
     "changelog": [
+      "1.2.0 - 10 premium layers, trigger readiness and stronger mesh-grade operating intelligence",
       "1.1.0 - Market-grade upgrade for segment adaptation, memory writeback and prescriptive recommendations",
       "1.0.0 - Descriptor updated for 334 compiled GitHub agents"
     ],
@@ -8,9 +9,9 @@
     "id": "github-agents-v1-catalog",
     "kind": "catalog",
     "name": "GitHub Agents Compiled Collection",
-    "prompt": "Expose, segment and document the compiled GitHub agents collection with manifest, readiness and dry-run evidence.\n\nMarket-grade runtime features: segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.",
+    "prompt": "Expose, segment and document the compiled GitHub agents collection with manifest, readiness and dry-run evidence.\n\nMarket-grade runtime features: segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.\n\nMarket-grade runtime features: 10 premium layers, trigger readiness, segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.\n\nMarket-grade runtime features: 10 premium layers, trigger readiness, segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.",
     "tenantId": "catalog",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "keywords": [
     "github agents",
@@ -22,7 +23,9 @@
     "market grade",
     "segment adaptation",
     "operational memory",
-    "multi-agent collaboration"
+    "multi-agent collaboration",
+    "10 premium layers",
+    "trigger readiness"
   ],
   "manifestVersion": "1.0.0",
   "policies": [

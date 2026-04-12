@@ -8,6 +8,7 @@ import {
 
 void test("web product capabilities default to the supported product surface", () => {
   const capabilities = getProductCapabilities({
+    NODE_ENV: "test",
     NEXT_PUBLIC_ENVIRONMENT: "development"
   });
 
@@ -19,6 +20,7 @@ void test("web product capabilities default to the supported product surface", (
 
 void test("dashboard navigation hides clinical entries while the workspace is disabled", () => {
   const capabilities = getProductCapabilities({
+    NODE_ENV: "test",
     NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE: "false",
     NEXT_PUBLIC_ENVIRONMENT: "development"
   });

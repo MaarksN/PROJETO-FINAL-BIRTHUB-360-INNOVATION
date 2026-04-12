@@ -116,18 +116,32 @@ const DEFAULT_SHARED_LEARNING_BLOCK = [
 
 const MARKET_GRADE_KEYWORDS = [
   "data processing",
+  "cross-signal fusion",
+  "segment intelligence",
+  "memory grid",
   "prescriptive recommendations",
+  "risk radar",
+  "opportunity radar",
   "operational memory",
+  "governance shield",
   "segment adaptation",
-  "multi-agent collaboration"
+  "multi-agent collaboration",
+  "workflow trigger readiness"
 ];
 
 const MARKET_GRADE_SKILLS = [
   "Processar sinais numericos e textuais com criterio decisorio",
+  "Fundir sinais de varias fontes em um unico quadro operacional",
+  "Modelar o plano pelo segmento, maturidade e geografia do cliente",
+  "Salvar memoria operacional em grade reutilizavel por tenant",
   "Gerar recomendacoes prescritivas priorizadas",
+  "Detectar cedo riscos emergentes e sinais lideres",
+  "Capturar oportunidades antes da janela fechar",
+  "Proteger governanca, aprovacoes e rastreabilidade",
   "Salvar memoria operacional reutilizavel",
   "Adaptar a resposta ao segmento do cliente",
-  "Preparar handoff multiagente com contexto estruturado"
+  "Preparar handoff multiagente com contexto estruturado",
+  "Transformar eventos reais de entrada em execucao governada"
 ];
 
 async function listGithubAgentMarkdownFiles(rootDir: string): Promise<string[]> {
@@ -405,6 +419,8 @@ ${deliverables}
   ],
   "approvals_or_dependencies": [],
   "next_checkpoint": "",
+  "premium_layers": [],
+  "premium_score": 0,
   "confidence": "low | medium | high"
 }`;
 }

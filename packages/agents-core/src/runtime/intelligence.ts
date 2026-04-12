@@ -35,6 +35,46 @@ export interface RecommendedAction {
   reason: string;
 }
 
+export type PremiumLayerStatus = "elite" | "strong" | "watch";
+
+export interface PremiumLayerAssessment {
+  id:
+    | "adaptive-learning-loop"
+    | "collaboration-graph"
+    | "governance-shield"
+    | "memory-grid"
+    | "opportunity-radar"
+    | "recommendation-engine"
+    | "risk-radar"
+    | "segment-modeling"
+    | "signal-fusion"
+    | "workflow-automation";
+  name: string;
+  nextAction: string;
+  score: number;
+  status: PremiumLayerStatus;
+  summary: string;
+}
+
+export interface PremiumLayerAssessmentInput {
+  collaborationTargets?: string[];
+  governanceRequired?: boolean;
+  hasMemoryWriteback?: boolean;
+  numericSummary: NumericSignalSummary;
+  objective?: string | null;
+  segmentProfile: SegmentProfile;
+  sharedLearningCount?: number;
+  textSignals?: string[];
+  triggerSource?: string | null;
+  workflowReady?: boolean;
+}
+
+export interface PremiumLayerOverview {
+  needsAttention: string[];
+  overallScore: number;
+  standoutLayers: string[];
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -519,6 +559,185 @@ export function buildRecommendedActions(input: {
   }
 
   return actions.slice(0, 4);
+}
+
+function clampScore(value: number): number {
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+function toPremiumLayerStatus(score: number): PremiumLayerStatus {
+  if (score >= 85) {
+    return "elite";
+  }
+
+  if (score >= 70) {
+    return "strong";
+  }
+
+  return "watch";
+}
+
+function containsOpportunitySignal(signals: string[]): boolean {
+  return signals.some((signal) =>
+    /(upsell|cross[- ]sell|expansion|pipeline|lead|roi|growth|efficien|win|upgrade|adoption|campaign)/i.test(
+      signal
+    )
+  );
+}
+
+function containsRiskSignal(signals: string[]): boolean {
+  return signals.some((signal) =>
+    /(risk|churn|incident|critical|breach|drop|delay|blocked|escalat|fraud|complaint|ticket|outage)/i.test(
+      signal
+    )
+  );
+}
+
+export function buildPremiumLayersAssessment(
+  input: PremiumLayerAssessmentInput
+): PremiumLayerAssessment[] {
+  const collaborationTargets = input.collaborationTargets ?? [];
+  const textSignals = input.textSignals ?? [];
+  const sharedLearningCount = input.sharedLearningCount ?? 0;
+  const governanceRequired = input.governanceRequired ?? false;
+  const workflowReady = input.workflowReady ?? false;
+  const hasMemoryWriteback = input.hasMemoryWriteback ?? false;
+  const objective = input.objective?.trim() ?? "";
+  const segmentConfidenceScore =
+    input.segmentProfile.confidence === "high"
+      ? 94
+      : input.segmentProfile.confidence === "medium"
+        ? 82
+        : 68;
+  const regulatedBonus = /regulated/.test(input.segmentProfile.regulation) ? 6 : 0;
+  const recommendationSignals = input.numericSummary.count + textSignals.length;
+  const riskSignalsDetected =
+    containsRiskSignal(textSignals) || input.numericSummary.outlierCount > 0;
+  const opportunitySignalsDetected =
+    containsOpportunitySignal(textSignals) || input.numericSummary.trend === "up";
+
+  const layers: PremiumLayerAssessment[] = [
+    {
+      id: "signal-fusion",
+      name: "Signal Fusion",
+      nextAction: "Cruzar mais sinais textuais e numericos antes da proxima decisao sensivel.",
+      score: clampScore(
+        58 +
+          Math.min(input.numericSummary.count * 7, 21) +
+          Math.min(textSignals.length * 4, 16) +
+          (input.numericSummary.outlierCount > 0 ? 5 : 0)
+      ),
+      status: "watch",
+      summary: `Une ${input.numericSummary.count} sinal(is) numerico(s) e ${textSignals.length} evidencia(s) textual(is) para separar ruido de sinal.`
+    },
+    {
+      id: "segment-modeling",
+      name: "Segment Modeling",
+      nextAction: "Refinar ainda mais o ICP, maturidade e geografia do cliente para respostas mais precisas.",
+      score: clampScore(segmentConfidenceScore + regulatedBonus),
+      status: "watch",
+      summary: `Modela a execucao para ${input.segmentProfile.industry}/${input.segmentProfile.clientSegment} com confianca ${input.segmentProfile.confidence}.`
+    },
+    {
+      id: "memory-grid",
+      name: "Memory Grid",
+      nextAction: "Persistir mais contexto reutilizavel de decisoes, checkpoints e excecoes criticas.",
+      score: clampScore(56 + (hasMemoryWriteback ? 22 : 0) + Math.min(sharedLearningCount * 6, 18)),
+      status: "watch",
+      summary: "Preserva memoria operacional, reaproveita contexto e reduz perda de continuidade entre ciclos."
+    },
+    {
+      id: "recommendation-engine",
+      name: "Recommendation Engine",
+      nextAction: "Continuar elevando a qualidade prescritiva com razao, prioridade e checkpoint por acao.",
+      score: clampScore(60 + (objective ? 12 : 0) + Math.min(recommendationSignals * 3, 24)),
+      status: "watch",
+      summary: "Transforma diagnostico em recomendacoes acionaveis, priorizadas e contextualizadas."
+    },
+    {
+      id: "risk-radar",
+      name: "Risk Radar",
+      nextAction: "Aprofundar sinais lideres e thresholds para antecipar degradacoes antes do impacto material.",
+      score: clampScore(
+        57 +
+          (riskSignalsDetected ? 18 : 8) +
+          Math.min(input.numericSummary.outlierCount * 9, 18) +
+          (governanceRequired ? 7 : 0)
+      ),
+      status: "watch",
+      summary: "Monitora anomalias, escalacoes e sinais lideres de perda, falha ou incidente."
+    },
+    {
+      id: "opportunity-radar",
+      name: "Opportunity Radar",
+      nextAction: "Expandir leitura de sinais comerciais e de adocao para capturar crescimento mais cedo.",
+      score: clampScore(54 + (opportunitySignalsDetected ? 20 : 10) + (input.numericSummary.trend === "up" ? 10 : 0)),
+      status: "watch",
+      summary: "Procura janela de ganho, expansao, eficiencia ou upside antes que ela feche."
+    },
+    {
+      id: "collaboration-graph",
+      name: "Collaboration Graph",
+      nextAction: "Aumentar handoffs estruturados entre especialistas sempre que houver ganho real de velocidade ou qualidade.",
+      score: clampScore(55 + Math.min(collaborationTargets.length * 10, 30) + (workflowReady ? 10 : 0)),
+      status: "watch",
+      summary: `Coordena ${Math.max(collaborationTargets.length, 1)} rota(s) de colaboracao e reduz perda de contexto multiagente.`
+    },
+    {
+      id: "governance-shield",
+      name: "Governance Shield",
+      nextAction: "Manter dupla checagem humana e politicas fortes em decisoes com risco financeiro, legal ou reputacional.",
+      score: clampScore(72 + (governanceRequired ? 16 : 6) + regulatedBonus),
+      status: "watch",
+      summary: "Controla aprovacoes, politicas sensiveis, rastreabilidade e limites de execucao."
+    },
+    {
+      id: "workflow-automation",
+      name: "Workflow Automation",
+      nextAction: "Conectar mais entradas operacionais a workflows e checkpoints automaticos reutilizaveis.",
+      score: clampScore(55 + (workflowReady ? 24 : 8) + (input.triggerSource ? 10 : 0)),
+      status: "watch",
+      summary: "Converte sinais operacionais em acionamento estruturado, repetivel e pronto para orquestracao."
+    },
+    {
+      id: "adaptive-learning-loop",
+      name: "Adaptive Learning Loop",
+      nextAction: "Publicar e reutilizar mais aprendizado validado por tenant para elevar a qualidade dos proximos ciclos.",
+      score: clampScore(56 + Math.min(sharedLearningCount * 9, 27) + (segmentConfidenceScore >= 82 ? 8 : 0)),
+      status: "watch",
+      summary: "Fecha o ciclo entre memoria, aprendizado compartilhado e ajuste continuo da execucao."
+    }
+  ];
+
+  return layers.map((layer) => ({
+    ...layer,
+    status: toPremiumLayerStatus(layer.score)
+  }));
+}
+
+export function summarizePremiumLayers(layers: PremiumLayerAssessment[]): PremiumLayerOverview {
+  if (layers.length === 0) {
+    return {
+      needsAttention: [],
+      overallScore: 0,
+      standoutLayers: []
+    };
+  }
+
+  const overallScore =
+    layers.reduce((total, layer) => total + layer.score, 0) / Math.max(layers.length, 1);
+
+  return {
+    needsAttention: layers
+      .filter((layer) => layer.status === "watch")
+      .map((layer) => layer.name)
+      .slice(0, 4),
+    overallScore: clampScore(overallScore),
+    standoutLayers: layers
+      .filter((layer) => layer.status === "elite")
+      .map((layer) => layer.name)
+      .slice(0, 4)
+  };
 }
 
 export function buildMemoryKey(agentId: string, segmentProfile: SegmentProfile, suffix: string): string {

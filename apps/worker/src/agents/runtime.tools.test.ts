@@ -139,4 +139,7 @@ void test("manifest capability tools emit segment-aware recommendations and memo
   assert.equal(result.segmentProfile.industry, "fintech");
   assert.equal(result.recommendedActions.length > 0, true);
   assert.equal(result.memoryWriteback.key.includes("runtime-tools-demo"), true);
+  assert.equal(Array.isArray(result.premiumLayers), true);
+  assert.equal(result.premiumLayers.length, 10);
+  assert.equal(typeof result.premiumOverallScore, "number");
 });

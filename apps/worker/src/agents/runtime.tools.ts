@@ -2,12 +2,14 @@
 //
 import type { AgentManifest } from "@birthub/agents-core";
 import {
+  buildPremiumLayersAssessment,
   buildMemoryKey,
   buildRecommendedActions,
   inferCapabilityType,
   inferSegmentProfile,
   readNumericSignals,
   readTextSignals,
+  summarizePremiumLayers,
   summarizeNumericSignals
 } from "@birthub/agents-core";
 import { PolicyEngine } from "@birthub/agents-core/policy/engine";
@@ -56,6 +58,39 @@ function readCollaborationTargets(input: Record<string, unknown>): string[] {
 function isAgentMeshContext(agentId: string, capabilityId: string, capabilityName: string): boolean {
   const corpus = `${agentId} ${capabilityId} ${capabilityName}`.toLowerCase();
   return corpus.includes(AGENT_MESH_ORCHESTRATOR_ID) || corpus.includes("segment router") || corpus.includes("agent registry");
+}
+
+function readTriggerSource(input: Record<string, unknown>): string | null {
+  const candidates = [
+    input.sourceSystem,
+    input.triggerSource,
+    input.source,
+    typeof input.trigger === "object" && input.trigger !== null
+      ? (input.trigger as Record<string, unknown>).sourceSystem
+      : null,
+    typeof input.trigger === "object" && input.trigger !== null
+      ? (input.trigger as Record<string, unknown>).source
+      : null
+  ];
+
+  for (const candidate of candidates) {
+    if (typeof candidate === "string" && candidate.trim()) {
+      return candidate.trim();
+    }
+  }
+
+  return null;
+}
+
+function hasWorkflowReadiness(input: Record<string, unknown>): boolean {
+  return Boolean(
+    (typeof input.workflowContextSummary === "string" && input.workflowContextSummary.trim()) ||
+      (typeof input.contextSummary === "string" && input.contextSummary.trim()) ||
+      (typeof input.trigger === "object" &&
+        input.trigger !== null &&
+        typeof (input.trigger as Record<string, unknown>).type === "string" &&
+        ((input.trigger as Record<string, unknown>).type as string).trim())
+  );
 }
 
 export function buildDbReadQueryTemplate(
@@ -172,6 +207,22 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
       segmentProfile,
       textSignals: flattenedStrings
     });
+    const premiumLayers = buildPremiumLayersAssessment({
+      collaborationTargets,
+      governanceRequired:
+        capabilityType === "memory" ||
+        capabilityType === "collaboration" ||
+        /approval|governance|audit/i.test(this.capability.name),
+      hasMemoryWriteback: true,
+      numericSummary,
+      objective: typeof input.objective === "string" ? input.objective : null,
+      segmentProfile,
+      sharedLearningCount: Array.isArray(input.sharedLearning) ? input.sharedLearning.length : 0,
+      textSignals: flattenedStrings,
+      triggerSource: readTriggerSource(input),
+      workflowReady: hasWorkflowReadiness(input)
+    });
+    const premiumOverview = summarizePremiumLayers(premiumLayers);
     const memoryWriteback = {
       key: buildMemoryKey(context.agentId, segmentProfile, this.capability.name),
       summary: `${this.capability.name} preservou contexto operacional reutilizavel.`,
@@ -204,7 +255,11 @@ class ManifestCapabilityTool extends BaseTool<Record<string, unknown>, Record<st
       recommendedActions,
       segmentProfile,
       suggestedHandoffs,
-      summary: `${this.capability.name} executada com ${numericSummary.count} sinal(is) numerico(s), ${flattenedStrings.length} evidencia(s) textual(is) e adaptacao para ${segmentProfile.industry}/${segmentProfile.clientSegment}.`,
+      premiumLayers,
+      premiumNeedsAttention: premiumOverview.needsAttention,
+      premiumOverallScore: premiumOverview.overallScore,
+      premiumStandoutLayers: premiumOverview.standoutLayers,
+      summary: `${this.capability.name} executada com ${numericSummary.count} sinal(is) numerico(s), ${flattenedStrings.length} evidencia(s) textual(is), adaptacao para ${segmentProfile.industry}/${segmentProfile.clientSegment} e score premium ${premiumOverview.overallScore}/100.`,
       tenantId: context.tenantId,
       traceId: context.traceId
     });

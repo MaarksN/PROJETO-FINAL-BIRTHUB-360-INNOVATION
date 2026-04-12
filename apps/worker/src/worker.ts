@@ -7,6 +7,7 @@ import { Queue, Worker, type JobsOptions } from "bullmq";
 import { Redis } from "ioredis";
 
 import { persistAgentHandoff } from "./agents/handoffs.js";
+import { initializeAgentMeshIngressBridge } from "./agents/runtime.ingress.js";
 import { executeManifestAgentRuntime } from "./agents/runtime.orchestration.js";
 import {
   WorkflowRunner,
@@ -336,6 +337,23 @@ export function createBirthHubWorker(): WorkerRuntime {
       });
     }
   });
+  const agentMeshIngressBridge = initializeAgentMeshIngressBridge({
+    enqueueAgentExecution: async ({ payload, priority }) => {
+      const queue = workerFactory.getQueue(
+        getQueueNameForPriority(priority)
+      );
+
+      await queue.add("agent-execution", payload, {
+        jobId: `${payload.tenantId}:${payload.executionId}`,
+        priority: priority === "high" ? 1 : 5
+      });
+    },
+    enqueueWorkflowTrigger: async (payload) => {
+      await workflowTriggerWorker.queue.add("workflow-trigger", payload, {
+        jobId: `${payload.workflowId}:${payload.tenantId}:${Date.now()}`
+      });
+    }
+  });
   const tenantTaskQueues = tenantTaskWorkers.map((managedWorker) => managedWorker.queue);
   const workers = workerFactory.getWorkers();
 
@@ -372,6 +390,7 @@ export function createBirthHubWorker(): WorkerRuntime {
   });
 
   const close = async (): Promise<void> => {
+    agentMeshIngressBridge.close();
     await workerFactory.close();
     await connection.quit();
   };

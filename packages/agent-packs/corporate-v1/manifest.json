@@ -1,7 +1,7 @@
 {
   "agent": {
     "changelog": [
-      "2.2.0 - BirthHub 360 descriptor updated for the autonomous preventive 43-agent official lineup"
+      "2.3.0 - BirthHub 360 descriptor updated for the autonomous preventive 43-agent official lineup"
     ],
     "description": "Collection descriptor for the unified BirthHub 360 official lineup of governed, preventive and high-performance autonomous agents.",
     "id": "corporate-v1-catalog",
@@ -9,7 +9,7 @@
     "name": "BirthHub 360 Official Collection",
     "prompt": "Coordinate and expose the full BirthHub 360 official collection, separating collection governance from installable agents and highlighting the autonomous preventive operating model and agent mesh routing.",
     "tenantId": "catalog",
-    "version": "2.2.0"
+    "version": "2.3.0"
   },
   "keywords": [
     "birthhub 360",

@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 export const GITHUB_AGENT_COLLECTION_DIRNAME = "github-agents-v1";
 export const GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID = "github-agents-v1-catalog";
 export const GITHUB_AGENT_COLLECTION_NAME = "GitHub Agents Compiled Collection";
-export const GITHUB_AGENT_COLLECTION_VERSION = "1.1.0";
+export const GITHUB_AGENT_COLLECTION_VERSION = "1.2.0";
 
 export const REQUIRED_PROMPT_SECTIONS = [
   "IDENTIDADE E MISSAO",
@@ -192,6 +192,22 @@ export const KNOWN_TOOL_SCHEMAS: Record<string, unknown> = {
       content: { type: "object" },
       segmentProfile: { type: "object" }
     }
+  },
+  "premium-layer-engine": {
+    type: "object",
+    properties: {
+      objective: { type: "string" },
+      premiumLayers: { type: "array", items: { type: "object" } },
+      score: { type: "number" }
+    }
+  },
+  "workflow-trigger-router": {
+    type: "object",
+    properties: {
+      event: { type: "string" },
+      payload: { type: "object" },
+      priority: { type: "string", enum: ["high", "normal"] }
+    }
   }
 };
 
@@ -208,7 +224,9 @@ export const KNOWN_TOOL_DESCRIPTIONS: Record<string, string> = {
   "recommendation-engine": "Gerar recomendacoes prescritivas priorizadas com racional claro.",
   search: "Pesquisar catalogos, contexto e sinais relevantes para o objetivo.",
   "segment-adapter": "Adaptar a analise e a linguagem ao segmento, vertical e maturidade do cliente.",
-  todo: "Gerenciar plano de execucao, backlog curto e acompanhamento de tarefas."
+  "premium-layer-engine": "Avaliar e elevar as 10 camadas premium compartilhadas de operacao do agente.",
+  todo: "Gerenciar plano de execucao, backlog curto e acompanhamento de tarefas.",
+  "workflow-trigger-router": "Transformar eventos reais de entrada em acionamento governado do mesh e de workflows."
 };
 
 export function getWorkspaceRoot(): string {

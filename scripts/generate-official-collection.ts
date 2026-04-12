@@ -50,7 +50,7 @@ interface GeneratedAgentSource {
   prompt: string;
 }
 
-const OFFICIAL_COLLECTION_VERSION = "2.2.0";
+const OFFICIAL_COLLECTION_VERSION = "2.3.0";
 const OFFICIAL_INSTALLABLE_COUNT = 43;
 
 const AUTONOMOUS_KEYWORDS = [
@@ -63,7 +63,9 @@ const AUTONOMOUS_KEYWORDS = [
   "mitigacao preventiva",
   "next best action",
   "scenario planning",
-  "risk radar"
+  "risk radar",
+  "10 premium layers",
+  "trigger ingress"
 ];
 
 const AUTONOMOUS_SKILLS = [
@@ -566,11 +568,13 @@ function buildDefaultOutputFormat(agentId: string, outputs: string[]): string {
           expected_impact: ""
         }
       ],
-      specialist_deliverables: outputs.slice(0, 6),
-      approvals_or_dependencies: [],
-      next_checkpoint: "",
-      confidence: "low | medium | high"
-    },
+        specialist_deliverables: outputs.slice(0, 6),
+        approvals_or_dependencies: [],
+        next_checkpoint: "",
+        premium_layers: [],
+        premium_score: 0,
+        confidence: "low | medium | high"
+      },
     null,
     2
   );

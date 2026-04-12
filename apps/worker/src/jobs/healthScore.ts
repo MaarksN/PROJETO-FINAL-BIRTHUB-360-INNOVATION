@@ -254,11 +254,17 @@ export async function computeAndPersistHealthScores() {
 
     if (shouldEmitChurnRisk(organization.healthScore, nextScore)) {
       emitInternalEvent({
-        event: "tenant.churn_risk",
+        event: "customer.renewal_at_risk",
+        organizationId: organization.id,
         payload: {
           healthScore: nextScore,
-          organizationId: organization.id
+          previousHealthScore: organization.healthScore,
+          organizationId: organization.id,
+          reason: "health-score-threshold-crossed",
+          riskLevel: nextScore < 25 ? "critical" : "high",
+          sourceSystem: "health-score-job"
         },
+        source: "health-score-job",
         tenantId: organization.tenantId
       });
 

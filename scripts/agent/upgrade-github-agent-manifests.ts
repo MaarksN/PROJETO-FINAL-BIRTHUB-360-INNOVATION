@@ -11,7 +11,7 @@ import {
   getWorkspaceRoot
 } from "./github-agent-collection.js";
 
-const MARKET_GRADE_VERSION = "1.1.0";
+const MARKET_GRADE_VERSION = "1.2.0";
 
 const PROMPT_SECTIONS = [
   "IDENTIDADE E MISSAO",
@@ -37,6 +37,14 @@ const MARKET_GRADE_SKILLS = [
     name: "Data Processing Excellence"
   },
   {
+    description: "Fundir sinais de varias fontes em uma leitura unica para decidir com mais confianca e menos ruido.",
+    name: "Cross-Signal Fusion"
+  },
+  {
+    description: "Modelar linguagem, risco e plano de execucao pelo segmento, maturidade e geografia do cliente.",
+    name: "Segment Intelligence"
+  },
+  {
     description: "Converter diagnostico em recomendacoes prescritivas, priorizadas e com proximo passo claro.",
     name: "Prescriptive Recommendation Engine"
   },
@@ -45,21 +53,43 @@ const MARKET_GRADE_SKILLS = [
     name: "Operational Memory Writeback"
   },
   {
+    description: "Detectar cedo sinais lideres, gargalos e anomalias antes que virem perda material ou incidente.",
+    name: "Risk Radar"
+  },
+  {
+    description: "Encontrar crescimento, expansao, ganho de eficiencia e upside antes da janela fechar.",
+    name: "Opportunity Radar"
+  },
+  {
     description: "Adaptar linguagem, pitch, plano e criterio de decisao ao segmento e maturidade do cliente.",
     name: "Client Segment Adaptation"
   },
   {
     description: "Preparar contexto estruturado para handoff entre especialistas sem perda de continuidade.",
     name: "Agent Mesh Collaboration"
+  },
+  {
+    description: "Aplicar governanca, aprovacao e rastreabilidade reforcadas em fluxos sensiveis.",
+    name: "Governance Shield"
+  },
+  {
+    description: "Transformar eventos reais de entrada em execucao governada, pronta para workflows e orquestracao.",
+    name: "Workflow Trigger Readiness"
   }
 ];
 
 const MARKET_GRADE_KEYWORDS = [
   "data processing",
+  "cross-signal fusion",
+  "segment intelligence",
   "prescriptive recommendations",
   "operational memory",
+  "risk radar",
+  "opportunity radar",
+  "governance shield",
   "segment adaptation",
   "multi-agent collaboration",
+  "workflow trigger readiness",
   "client segment",
   "next best action",
   "shared context"
@@ -67,46 +97,60 @@ const MARKET_GRADE_KEYWORDS = [
 
 const MARKET_GRADE_USE_CASES = [
   "data-processing",
+  "cross-signal-fusion",
+  "segment-intelligence",
   "prescriptive-recommendations",
   "memory-writeback",
+  "risk-radar",
+  "opportunity-radar",
+  "governance-shield",
   "segment-adaptation",
-  "multi-agent-collaboration"
+  "multi-agent-collaboration",
+  "workflow-trigger-readiness"
 ];
 
 const SECTION_UPGRADES: Record<string, string[]> = {
   "RACIOCINIO OPERACIONAL ESPERADO": [
     "processar dados quantitativos e qualitativos para separar sinal, ruido, outlier e tendencia",
+    "fundir sinais de varias fontes em uma leitura premium unica antes da recomendacao final",
     "moldar a recomendacao para o segmento, maturidade e contexto comercial do cliente"
   ],
   "MODO DE OPERACAO AUTONOMA": [
     "salvar memoria operacional reutilizavel ao final de cada execucao relevante",
-    "preparar contexto de handoff para outros agentes quando isso aumentar a qualidade ou a velocidade"
+    "preparar contexto de handoff para outros agentes quando isso aumentar a qualidade ou a velocidade",
+    "aceitar eventos reais de entrada e transformar isso em execucao governada quando houver trigger relevante"
   ],
   "ROTINA DE MONITORAMENTO E ANTECIPACAO": [
     "observar variacao de comportamento, gargalos, riscos emergentes e oportunidades ocultas",
-    "reavaliar o plano conforme o segmento do cliente e os sinais mais recentes"
+    "reavaliar o plano conforme o segmento do cliente e os sinais mais recentes",
+    "ativar as 10 camadas premium de operacao para risco, oportunidade, memoria, recomendacao e governanca"
   ],
   "OBJETIVOS PRIORITARIOS": [
     "processar sinais com qualidade decisoria de mercado",
-    "sugerir a proxima melhor acao com justificativa e prioridade"
+    "sugerir a proxima melhor acao com justificativa e prioridade",
+    "operar com 10 camadas premium compartilhadas entre inteligencia, memoria, handoff, risco e automacao"
   ],
   "SAIDAS OBRIGATORIAS": [
     "perfil de segmento do cliente",
     "recomendacoes prescritivas priorizadas",
     "memoria operacional salva para reutilizacao",
-    "contexto pronto para handoff entre agentes"
+    "contexto pronto para handoff entre agentes",
+    "score premium consolidado e leitura das 10 camadas premium"
   ],
   GUARDRAILS: [
     "nunca perder contexto critico entre uma etapa e outra",
-    "nunca reutilizar memoria ou aprendizado de outro tenant"
+    "nunca reutilizar memoria ou aprendizado de outro tenant",
+    "nunca tratar evento real de entrada sem classificar prioridade, segmento e risco antes de agir"
   ],
   "CHECKLIST DE QUALIDADE": [
     "adaptar a recomendacao ao segmento do cliente antes de concluir",
-    "salvar memoria operacional e deixar handoff claro quando fizer sentido"
+    "salvar memoria operacional e deixar handoff claro quando fizer sentido",
+    "validar se as 10 camadas premium foram acionadas no nivel esperado para o caso"
   ],
   "APRENDIZADO COMPARTILHADO": [
     "publicar memoria reutilizavel com foco em padroes validos para o mesmo segmento de cliente",
-    "ao reaproveitar aprendizado, ajustar linguagem, risco e recomendacao ao segmento atual"
+    "ao reaproveitar aprendizado, ajustar linguagem, risco e recomendacao ao segmento atual",
+    "registrar sinais que melhoram a leitura futura das camadas premium e dos gatilhos de entrada"
   ]
 };
 
@@ -125,6 +169,14 @@ function uniqueStrings(values: string[]): string[] {
   }
 
   return result;
+}
+
+function prioritizeDomainTags(values: string[]): string[] {
+  const normalized = uniqueStrings(values);
+  const nonExecutive = normalized.filter((value) => value !== "executive");
+  const executive = normalized.filter((value) => value === "executive");
+
+  return [...nonExecutive, ...executive];
 }
 
 function slugify(value: string): string {
@@ -283,13 +335,15 @@ async function main(): Promise<void> {
       if (descriptor.agent.id === GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID) {
         descriptor.agent.version = MARKET_GRADE_VERSION;
         descriptor.agent.changelog = uniqueStrings([
-          `${MARKET_GRADE_VERSION} - Market-grade upgrade for segment adaptation, memory writeback and prescriptive recommendations`,
+          `${MARKET_GRADE_VERSION} - 10 premium layers, trigger readiness and stronger mesh-grade operating intelligence`,
           ...descriptor.agent.changelog
         ]);
-        descriptor.agent.prompt = `${descriptor.agent.prompt}\n\nMarket-grade runtime features: segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.`;
+        descriptor.agent.prompt = `${descriptor.agent.prompt}\n\nMarket-grade runtime features: 10 premium layers, trigger readiness, segment adaptation, operational memory, prescriptive recommendations and multi-agent collaboration.`;
         descriptor.keywords = uniqueStrings([
           ...descriptor.keywords,
           "market grade",
+          "10 premium layers",
+          "trigger readiness",
           "segment adaptation",
           "operational memory",
           "multi-agent collaboration"
@@ -302,7 +356,7 @@ async function main(): Promise<void> {
     const manifest = entry.manifest;
     manifest.agent.version = MARKET_GRADE_VERSION;
     manifest.agent.changelog = uniqueStrings([
-      `${MARKET_GRADE_VERSION} - Market-grade upgrade for data processing, segment adaptation, memory writeback and multi-agent collaboration`,
+      `${MARKET_GRADE_VERSION} - 10 premium layers, trigger readiness, memory grid and mesh-grade prescriptive execution`,
       ...manifest.agent.changelog
     ]);
     manifest.agent.prompt = upgradePrompt(manifest.agent.prompt);
@@ -310,7 +364,7 @@ async function main(): Promise<void> {
     manifest.keywords = uniqueStrings([...manifest.keywords, ...MARKET_GRADE_KEYWORDS]).slice(0, 32);
     manifest.tags = {
       ...manifest.tags,
-      domain: uniqueStrings([
+      domain: prioritizeDomainTags([
         ...inferDomainTags(manifest),
         ...manifest.tags.domain
       ]).slice(0, 3),

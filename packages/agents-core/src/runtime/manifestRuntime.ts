@@ -2,6 +2,7 @@ import type { AgentManifest } from "../manifest/schema.js";
 import type { AgentLearningRecord, JsonValue } from "../types/index.js";
 import {
   buildMemoryKey,
+  buildPremiumLayersAssessment,
   buildRecommendedActions,
   buildSegmentKeywords,
   describeCapabilityIntent,
@@ -10,7 +11,9 @@ import {
   inferSegmentProfile,
   readNumericSignals,
   readTextSignals,
+  summarizePremiumLayers,
   summarizeNumericSignals,
+  type PremiumLayerAssessment,
   type SegmentProfile
 } from "./intelligence.js";
 
@@ -110,6 +113,8 @@ export interface AgentRuntimeOutput {
     }>;
   };
   opportunities_to_capture: string[];
+  premium_layers: PremiumLayerAssessment[];
+  premium_score: number;
   preventive_action_plan: Array<{
     action: string;
     checkpoint: string;
@@ -331,6 +336,33 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+function readTriggerSource(input: Record<string, unknown>): string | null {
+  const directCandidates = [
+    input.sourceSystem,
+    input.triggerSource,
+    input.source,
+    isRecord(input.trigger) ? input.trigger.sourceSystem : null,
+    isRecord(input.trigger) ? input.trigger.source : null
+  ];
+
+  for (const candidate of directCandidates) {
+    const value = readString(candidate);
+    if (value) {
+      return value;
+    }
+  }
+
+  return null;
+}
+
+function hasWorkflowContext(input: Record<string, unknown>): boolean {
+  return Boolean(
+    readString(input.workflowContextSummary) ||
+      readString(input.contextSummary) ||
+      (isRecord(input.trigger) && readString(input.trigger.type))
+  );
+}
+
 function readMeshBlueprint(
   steps: AgentRuntimeOutputInput["steps"]
 ): AgentRuntimeOutput["orchestration_plan"] {
@@ -511,12 +543,26 @@ export function buildAgentRuntimePlan(input: AgentRuntimePlanInput): AgentRuntim
   const numericSummary = summarizeNumericSignals(readNumericSignals(input.input));
   const textSignals = readTextSignals(input.input, 10);
   const collaborationTargets = inferCollaborationTargets(input.manifest);
+  const premiumLayers = buildPremiumLayersAssessment({
+    collaborationTargets,
+    governanceRequired: input.manifest.tools.some((tool) => toolIsSensitive(tool.id)),
+    hasMemoryWriteback: true,
+    numericSummary,
+    objective,
+    segmentProfile,
+    sharedLearningCount: sharedLearning.length,
+    textSignals,
+    triggerSource: readTriggerSource(input.input),
+    workflowReady: hasWorkflowContext(input.input)
+  });
+  const premiumOverview = summarizePremiumLayers(premiumLayers);
   const logs = [
     `Resolved manifest ${input.manifest.agent.id}@${input.manifest.agent.version}.`,
     `Planning live execution for tenant ${input.tenantId}.`,
     `Loaded ${sharedLearning.length} shared learning record(s).`,
     `Segment profile inferred: ${buildSegmentKeywords(segmentProfile).join(", ")}.`,
-    `Prepared ${numericSummary.count} numeric signal(s) and ${textSignals.length} text signal(s) for execution.`
+    `Prepared ${numericSummary.count} numeric signal(s) and ${textSignals.length} text signal(s) for execution.`,
+    `Premium operating model scored ${premiumOverview.overallScore}/100 across ${premiumLayers.length} shared layers.`
   ];
 
   const toolCalls = input.manifest.tools.map((tool, index) => {
@@ -532,6 +578,13 @@ export function buildAgentRuntimePlan(input: AgentRuntimePlanInput): AgentRuntim
           saveSummary: capabilityType === "memory" || index === input.manifest.tools.length - 1
         },
         objective,
+        premiumLayers,
+        premiumOperatingModel: {
+          needsAttention: premiumOverview.needsAttention,
+          overallScore: premiumOverview.overallScore,
+          standoutLayers: premiumOverview.standoutLayers,
+          tier: "market-premium-10"
+        },
         segmentProfile,
         sequence: index + 1,
         sharedLearning: summarizeLearning(sharedLearning),
@@ -608,6 +661,20 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     segmentProfile,
     textSignals: combinedTextSignals
   });
+  const premiumLayers = buildPremiumLayersAssessment({
+    collaborationTargets,
+    governanceRequired: governance.requireApproval || Boolean(orchestrationPlan?.approval_required),
+    hasMemoryWriteback: true,
+    numericSummary,
+    objective,
+    segmentProfile,
+    sharedLearningCount: sharedLearning.length,
+    textSignals: combinedTextSignals,
+    triggerSource: readTriggerSource(input.input),
+    workflowReady:
+      Boolean(orchestrationPlan?.workflow_steps.length) || hasWorkflowContext(input.input)
+  });
+  const premiumOverview = summarizePremiumLayers(premiumLayers);
   const status = buildStatus({
     governance,
     numericOutliers: numericSummary.outlierCount,
@@ -620,7 +687,7 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     startedAt: step.startedAt,
     tool: step.call.tool
   }));
-  const summary = `${input.manifest.agent.name} concluiu a execucao live para ${segmentProfile.industry}/${segmentProfile.clientSegment}, processou ${numericSummary.count} sinal(is) numerico(s), capturou ${combinedTextSignals.length} evidencia(s) textual(is) e deixou memoria pronta para reutilizacao.`;
+  const summary = `${input.manifest.agent.name} concluiu a execucao live para ${segmentProfile.industry}/${segmentProfile.clientSegment}, processou ${numericSummary.count} sinal(is) numerico(s), capturou ${combinedTextSignals.length} evidencia(s) textual(is), deixou memoria pronta para reutilizacao e ativou um operating score premium de ${premiumOverview.overallScore}/100.`;
   const nextCheckpoint = new Date(Date.now() + 60 * 60 * 1000).toISOString();
   const memoryWriteback = {
     key: buildMemoryKey(input.manifest.agent.id, segmentProfile, "latest-output"),
@@ -665,6 +732,9 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
       numericSummary.outlierCount > 0
         ? `Foram detectados ${numericSummary.outlierCount} outlier(s) relevantes nos sinais avaliados.`
         : "",
+      premiumOverview.needsAttention.length > 0
+        ? `Camadas premium pedindo reforco: ${premiumOverview.needsAttention.join(", ")}.`
+        : "",
       segmentProfile.confidence === "low"
         ? "O perfil de segmento foi inferido com baixa confianca e pode precisar de refinamento manual."
         : ""
@@ -673,6 +743,7 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     leading_indicators: uniqueStrings([
       ...input.plan.toolCalls.map((call) => `tool-ready:${call.tool}`),
       ...(orchestrationPlan?.focus_domains.map((domain) => `domain:${domain}`) ?? []),
+      `premium-score:${premiumOverview.overallScore}`,
       `segment:${segmentProfile.clientSegment}`,
       `industry:${segmentProfile.industry}`,
       `trend:${numericSummary.trend}`,
@@ -687,6 +758,9 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
       suggestedHandoffs.length > 0
         ? `Acelerar resolucao com handoff para ${suggestedHandoffs[0]?.target}.`
         : "",
+      premiumOverview.standoutLayers.length > 0
+        ? `Escalar as camadas premium mais fortes: ${premiumOverview.standoutLayers.join(", ")}.`
+        : "",
       sharedLearning.length > 0
         ? "Reaproveitar aprendizado compartilhado validado no mesmo tenant."
         : "Registrar aprendizado novo para fortalecer os proximos ciclos.",
@@ -694,6 +768,8 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
         ? "Capturar a tendencia positiva antes que a janela competitiva feche."
         : ""
     ]).slice(0, 4),
+    premium_layers: premiumLayers,
+    premium_score: premiumOverview.overallScore,
     preventive_action_plan: recommendedActions.map((item, index) => ({
       action: item.action,
       checkpoint: index === 0 ? "30m" : "2h",
