@@ -1,6 +1,6 @@
 # Cycle 7 Domain Alignment Disablement
 
-Date: 2026-04-11
+Date: 2026-04-12
 
 ## Objective
 
@@ -45,6 +45,7 @@ Eliminar o estado hibrido em que partes do produto ainda presumiam dominio clini
 
 - Router/module `clinical` da API existe, mas nao e montado na app principal
 - Router/module `fhir` da API existe, mas nao e montado na app principal
+- Os routers standalone de `clinical` e `fhir` agora tambem devolvem `404` por padrao quando chamados fora de uma reintroducao explicita por flag
 - Services e testes unitarios de dominio clinico/FHIR/privacidade avancada foram mantidos como base de futura reintroducao, mas deixaram de representar superficie ativa do produto
 
 ### Deve continuar desabilitado ate reintroducao formal
@@ -66,6 +67,7 @@ Eliminar o estado hibrido em que partes do produto ainda presumiam dominio clini
 - Feed de notificacoes agora neutraliza links clinicos quando o workspace esta desligado
 - BFF agora aceita apenas `privacy/export` e `privacy/delete-account` por default
 - Testes HTTP/web atualizados para refletir disablement em vez de feature ativa
+- Routers standalone de clinical e FHIR blindados para negar trafego por default, mesmo fora da app principal
 - Testes unitarios de clinical, FHIR e privacy advanced ficaram explicitamente em `skip` enquanto esses dominios permanecerem fora do produto ativo
 
 ## O que permaneceu ativo
