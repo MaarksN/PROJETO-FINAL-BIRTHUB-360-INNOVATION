@@ -29,9 +29,28 @@ export function isDashboardNavigationItemEnabled(
   href: string,
   capabilities: ProductCapabilities = getProductCapabilities()
 ): boolean {
-  if ((href === "/patients" || href === "/appointments") && !capabilities.clinicalWorkspaceEnabled) {
+  if (isClinicalWorkspacePath(href) && !capabilities.clinicalWorkspaceEnabled) {
     return false;
   }
 
   return true;
+}
+
+export function isClinicalWorkspacePath(path: string): boolean {
+  return path === "/patients" || path.startsWith("/patients/") || path === "/appointments" || path.startsWith("/appointments/");
+}
+
+export function sanitizeCapabilityScopedLink(
+  path: string | null,
+  capabilities: ProductCapabilities = getProductCapabilities()
+): string | null {
+  if (!path) {
+    return null;
+  }
+
+  if (isClinicalWorkspacePath(path) && !capabilities.clinicalWorkspaceEnabled) {
+    return null;
+  }
+
+  return path;
 }

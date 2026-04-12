@@ -3,6 +3,7 @@
 import { create } from "zustand";
 
 import { fetchWithSession, getStoredSession } from "../lib/auth-client";
+import { sanitizeCapabilityScopedLink } from "../lib/product-capabilities";
 
 export interface NotificationItem {
   content: string;
@@ -102,7 +103,12 @@ function createFeedState(
     error: null,
     initialized: true,
     isLoading: false,
-    items: dedupeNotifications(items),
+    items: dedupeNotifications(
+      items.map((item) => ({
+        ...item,
+        link: sanitizeCapabilityScopedLink(item.link)
+      }))
+    ),
     nextCursor: payload.nextCursor,
     unreadCount: payload.unreadCount
   };

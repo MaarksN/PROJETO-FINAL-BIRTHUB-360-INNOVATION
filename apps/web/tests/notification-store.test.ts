@@ -185,6 +185,7 @@ void test("notification store refreshes, paginates and marks feed items through 
     assert.equal(state.items.length, 2);
     assert.equal(state.items[0]?.id, "notif_2");
     assert.equal(state.items[1]?.id, "notif_1");
+    assert.equal(state.items[1]?.link, null);
     assert.equal(state.nextCursor, null);
 
     await useNotificationStore.getState().markAsRead("notif_1");
