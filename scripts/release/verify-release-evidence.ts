@@ -1,5 +1,3 @@
-// @ts-nocheck
-//
 import { createHash } from "node:crypto";
 import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";

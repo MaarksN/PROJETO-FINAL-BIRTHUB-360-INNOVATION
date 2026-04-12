@@ -198,7 +198,7 @@ void test("notification store refreshes, paginates and marks feed items through 
 
     assert.equal(state.unreadCount, 0);
     assert.equal(state.items.every((item) => item.isRead), true);
-    assert.equal(requests[0]?.url, "/api/bff/api/v1/notifications?limit=10");
+    assert.equal(requests[0]?.url, "https://api.birthub.test/api/v1/notifications?limit=10");
     assert.equal(requests[0]?.headers.get("authorization"), null);
     assert.equal(requests[0]?.headers.get("x-csrf-token"), "csrf_notification");
     assert.equal(requests[0]?.headers.get("x-active-tenant"), "tenant_notification");

@@ -83,7 +83,7 @@ void test("product api search helper calls the canonical search endpoint with se
     const payload = await fetchSearchResults("workflow");
     const headers = new Headers(requestInit?.headers);
 
-    assert.equal(requestUrl, "/api/bff/api/v1/search?q=workflow");
+    assert.equal(requestUrl, "https://api.birthhub.test/api/v1/search?q=workflow");
     assert.equal(requestInit?.credentials, "include");
     assert.equal(headers.get("authorization"), null);
     assert.equal(headers.get("x-active-tenant"), "tenant_456");
