@@ -66,6 +66,7 @@ Eliminar o estado hibrido em que partes do produto ainda presumiam dominio clini
 - Feed de notificacoes agora neutraliza links clinicos quando o workspace esta desligado
 - BFF agora aceita apenas `privacy/export` e `privacy/delete-account` por default
 - Testes HTTP/web atualizados para refletir disablement em vez de feature ativa
+- Testes unitarios de clinical, FHIR e privacy advanced ficaram explicitamente em `skip` enquanto esses dominios permanecerem fora do produto ativo
 
 ## O que permaneceu ativo
 

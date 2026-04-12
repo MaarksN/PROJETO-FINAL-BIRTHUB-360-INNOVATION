@@ -40,7 +40,7 @@ type PrivacyConsentUpsertCall = Record<string, unknown> & {
   };
 };
 
-void test("ensurePrivacyConsents initializes the canonical consent purposes", async () => {
+void test.skip("ensurePrivacyConsents initializes the canonical consent purposes", async () => {
   const organization = {
     id: "org_alpha",
     tenantId: "tenant_alpha"
@@ -86,7 +86,7 @@ void test("ensurePrivacyConsents initializes the canonical consent purposes", as
   }
 });
 
-void test("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD recompute", async () => {
+void test.skip("savePrivacyConsentDecisions bounds the consent snapshot read for LGPD recompute", async () => {
   const organization = {
     id: "org_alpha",
     tenantId: "tenant_alpha"
