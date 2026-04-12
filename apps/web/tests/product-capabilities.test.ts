@@ -3,7 +3,8 @@ import test from "node:test";
 
 import {
   getProductCapabilities,
-  isDashboardNavigationItemEnabled
+  isDashboardNavigationItemEnabled,
+  sanitizeCapabilityScopedLink
 } from "../lib/product-capabilities";
 
 void test("web product capabilities default to the supported product surface", () => {
@@ -28,4 +29,7 @@ void test("dashboard navigation hides clinical entries while the workspace is di
   assert.equal(isDashboardNavigationItemEnabled("/dashboard", capabilities), true);
   assert.equal(isDashboardNavigationItemEnabled("/patients", capabilities), false);
   assert.equal(isDashboardNavigationItemEnabled("/appointments", capabilities), false);
+  assert.equal(sanitizeCapabilityScopedLink("/patients/patient_1", capabilities), null);
+  assert.equal(sanitizeCapabilityScopedLink("/appointments?view=week", capabilities), null);
+  assert.equal(sanitizeCapabilityScopedLink("/notifications", capabilities), "/notifications");
 });
