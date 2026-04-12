@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { use, useEffect, useState, useTransition } from "react";
 
 import { ClinicalWorkspaceDisabledState } from "../../../../components/dashboard/ClinicalWorkspaceDisabledState";
+import { ClinicalWorkspaceNotice } from "../../../../components/dashboard/ClinicalWorkspaceNotice";
 import { getProductCapabilities } from "../../../../lib/product-capabilities";
 import {
   buildGrowthCurvePath,
@@ -298,13 +299,14 @@ function PatientDetailPageEnabled({ params }: { params: Promise<{ id: string }> 
 
   return (
     <section style={{ display: "grid", gap: "1rem" }}>
+      <ClinicalWorkspaceNotice />
       {error ? <p style={{ color: "#9d0208", margin: 0 }}>{error}</p> : null}
       {isLoading || !detail || !patientForm || !pregnancyForm ? <p>Carregando prontuario...</p> : null}
 
       {!isLoading && detail && patientForm && pregnancyForm ? (
         <>
           <header className="hero-card">
-            <span className="badge">Prontuario clinico</span>
+            <span className="badge">Prontuario clinico preservado</span>
             <h1 style={{ marginBottom: "0.4rem" }}>{detail.patient.fullName}</h1>
             <p style={{ marginBottom: 0 }}>
               {detail.patient.medicalRecordNumber ?? "Sem prontuario"} · {detail.patient.phone ?? "Sem telefone"} ·{" "}

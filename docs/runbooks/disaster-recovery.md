@@ -21,7 +21,7 @@ Recuperação de desastre do core canônico com base em backup/restore e failove
 3. Validar backup íntegro mais recente.
 4. Executar restore ou failover conforme o cenário aprovado.
 5. Revalidar aplicação, banco, filas e observabilidade.
-6. Registrar drill ou incidente com timestamp e owner.
+6. Materializar drill ou incidente com timestamp, owner e artefatos padronizados de evidência.
 
 ## Materialização recomendada
 
@@ -29,7 +29,9 @@ Antes de declarar o rehearsal como concluído:
 
 ```bash
 pnpm ops:backup:health
-pnpm release:rollback:evidence -- --evidence=<ticket-ou-artifact>
-pnpm ops:dr:record -- --environment=staging --scenario="backup restore rehearsal" --owner=platform-ops --backup-artifact=artifacts/backups/backup-health.json --rollback-evidence=artifacts/release/production-rollback-evidence.json --validation-artifact=artifacts/release/smoke-summary.json --started-at=<ISO> --restored-at=<ISO> --target-point=<ISO> --recovered-point=<ISO>
+pnpm release:rollback:evidence:auto -- --target=production
+pnpm ops:dr:record:auto -- --environment=staging --owner=platform-ops --scenario="automated release readiness rehearsal"
 pnpm ops:dr:report
 ```
+
+Use `pnpm release:rollback:evidence -- --target=production --evidence=<ticket-ou-artifact>` apenas como fallback manual fora da pipeline padrão.

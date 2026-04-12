@@ -1,6 +1,75 @@
 {
-  "checkedAt": "2026-03-24T14:37:26.498Z",
-  "evidence": "JIRA-REL-2026-031-rollback-drill",
-  "ok": true,
+  "checkedAt": "2026-04-12T21:25:04.389Z",
+  "checks": [
+    {
+      "detail": "json ok=true",
+      "id": "preflight",
+      "ok": true,
+      "path": "artifacts/release/production-preflight-summary.json"
+    },
+    {
+      "detail": "json ok=true",
+      "id": "smoke",
+      "ok": true,
+      "path": "artifacts/release/smoke-summary.json"
+    },
+    {
+      "detail": "missing",
+      "id": "source_manifest",
+      "ok": false,
+      "path": "artifacts/release/source-manifest.json"
+    },
+    {
+      "detail": "present",
+      "id": "checksum_manifest",
+      "ok": true,
+      "path": "artifacts/release/checksums-manifest.sha256"
+    },
+    {
+      "detail": "present",
+      "id": "release_catalog_json",
+      "ok": true,
+      "path": "artifacts/release/release-artifact-catalog.json"
+    },
+    {
+      "detail": "present",
+      "id": "sbom_xml",
+      "ok": true,
+      "path": "artifacts/sbom/bom.xml"
+    },
+    {
+      "detail": "present",
+      "id": "sbom_spdx",
+      "ok": true,
+      "path": "artifacts/sbom/sbom.spdx.json"
+    },
+    {
+      "detail": "present",
+      "id": "release_catalog_markdown",
+      "ok": true,
+      "path": "releases/manifests/release_artifact_catalog.md"
+    },
+    {
+      "detail": "present",
+      "id": "release_notes",
+      "ok": true,
+      "path": "releases/notes/v1.0.0.md"
+    }
+  ],
+  "evidenceArtifacts": [
+    "artifacts/release/production-preflight-summary.json",
+    "artifacts/release/smoke-summary.json",
+    "artifacts/release/checksums-manifest.sha256",
+    "artifacts/release/release-artifact-catalog.json",
+    "artifacts/sbom/bom.xml",
+    "artifacts/sbom/sbom.spdx.json",
+    "releases/manifests/release_artifact_catalog.md",
+    "releases/notes/v1.0.0.md"
+  ],
+  "mode": "automated_release_rehearsal",
+  "notes": null,
+  "ok": false,
+  "source": null,
+  "summary": "Rollback rehearsal evidence is incomplete; at least one prerequisite artifact is missing or invalid.",
   "target": "production"
 }

@@ -17,22 +17,22 @@ export function ClinicalWorkspaceDisabledState() {
           actionSecondary: "Abrir workflows",
           badge: "Workspace clinico desativado",
           description:
-            "Pacientes, agenda, prontuarios e integrações FHIR foram retirados do fluxo principal desta implantacao porque o schema e os fluxos ativos nao sustentam esse dominio hoje.",
+            "Pacientes, agenda, prontuarios e integrações FHIR permanecem fora do produto ativo nesta implantacao e so voltam por decisao explicita de reavaliacao controlada.",
           emptyDescription:
-            "O modulo foi preservado no codigo, mas ficou explicitamente fora da navegacao e das rotas principais ate que o schema clinico e de interoperabilidade volte a existir de ponta a ponta.",
-          emptyTitle: "Superficie clinica fora do produto ativo",
-          title: "Modulo clinico temporariamente indisponivel"
+            "O modulo foi preservado no codigo como superficie controlada, sem navegacao default e sem compromisso de suporte continuo no fluxo principal.",
+          emptyTitle: "Superficie clinica preservada fora do produto ativo",
+          title: "Modulo clinico indisponivel no caminho padrao"
         }
       : {
           actionPrimary: "Back to dashboard",
           actionSecondary: "Open workflows",
           badge: "Clinical workspace disabled",
           description:
-            "Patients, scheduling, clinical records, and FHIR surfaces were removed from the main product flow because the active schema and runtime do not sustain that domain today.",
+            "Patients, scheduling, clinical records, and FHIR surfaces remain outside the active product for this deployment and only return through an explicit controlled-evaluation decision.",
           emptyDescription:
-            "The module was kept in code, but it is now explicitly outside navigation and the main routes until the clinical and interoperability schema returns end to end.",
-          emptyTitle: "Clinical surface is outside the active product",
-          title: "Clinical module is temporarily unavailable"
+            "The module was kept in code as a controlled surface, without default navigation and without ongoing support commitment in the main path.",
+          emptyTitle: "Clinical surface preserved outside the active product",
+          title: "Clinical module unavailable in the default path"
         };
 
   return (

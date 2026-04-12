@@ -53,10 +53,50 @@ function toRepoRelativePath(absolutePath) {
   return path.relative(projectRoot, absolutePath).replaceAll("\\", "/");
 }
 
+function parsePnpmWorkspacePatterns() {
+  const workspacePath = path.join(projectRoot, "pnpm-workspace.yaml");
+  const raw = readFileSync(workspacePath, "utf8");
+  const patterns = [];
+
+  for (const line of raw.split(/\r?\n/u)) {
+    const match = line.match(/^\s*-\s*['"]?([^'"]+)['"]?\s*$/u);
+    if (match?.[1]) {
+      patterns.push(match[1]);
+    }
+  }
+
+  return patterns;
+}
+
+function normalizeWorkspacePatterns(patterns) {
+  return [...new Set(patterns.map((pattern) => String(pattern).trim()).filter(Boolean))].sort();
+}
+
 function collectSourceFiles() {
   return ["apps", "packages"].flatMap((rootRelativePath) =>
     walkFiles(rootRelativePath).filter((absolutePath) => /\.(?:[cm]?[jt]sx?|json)$/.test(absolutePath))
   );
+}
+
+function collectWorkspaceTopologyIssues(rootPackage) {
+  const issues = [];
+  const packagePatterns = normalizeWorkspacePatterns(rootPackage.workspaces ?? []);
+  const pnpmPatterns = normalizeWorkspacePatterns(parsePnpmWorkspacePatterns());
+
+  if (packagePatterns.join("\n") !== pnpmPatterns.join("\n")) {
+    issues.push(
+      `Workspace manifests diverge. package.json=${packagePatterns.join(", ") || "(empty)"}; pnpm-workspace.yaml=${pnpmPatterns.join(", ") || "(empty)"}.`
+    );
+  }
+
+  const unexpectedLegacyPattern = pnpmPatterns.find((pattern) => pattern.startsWith("apps/legacy/"));
+  if (unexpectedLegacyPattern) {
+    issues.push(
+      `pnpm-workspace.yaml must not include legacy pattern ${unexpectedLegacyPattern}; legacy surfaces stay outside the active workspace.`
+    );
+  }
+
+  return issues;
 }
 
 function collectScriptPathIssues(rootPackage) {
@@ -105,6 +145,27 @@ function collectImportBoundaryIssues() {
       if (!isAllowed) {
         issues.push(`${relativePath} imports ${rule.packageName}. ${rule.description}`);
       }
+    }
+  }
+
+  return issues;
+}
+
+function collectLegacyIsolationIssues() {
+  const issues = [];
+
+  for (const absolutePath of collectSourceFiles()) {
+    const relativePath = toRepoRelativePath(absolutePath);
+    const content = readFileSync(absolutePath, "utf8");
+
+    if (relativePath.startsWith("apps/legacy/")) {
+      continue;
+    }
+
+    if (content.includes("apps/legacy/")) {
+      issues.push(
+        `${relativePath} references apps/legacy/. Legacy surfaces must stay outside the active dependency graph.`
+      );
     }
   }
 
@@ -180,8 +241,10 @@ function main() {
   const rootPackagePath = path.join(projectRoot, "package.json");
   const rootPackage = JSON.parse(readFileSync(rootPackagePath, "utf8"));
   const issues = [
+    ...collectWorkspaceTopologyIssues(rootPackage),
     ...collectScriptPathIssues(rootPackage),
     ...collectImportBoundaryIssues(),
+    ...collectLegacyIsolationIssues(),
     ...collectConflictIssues(rootPackage),
     ...collectReleaseCoreLaneIssues(rootPackage)
   ];

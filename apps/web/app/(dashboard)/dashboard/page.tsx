@@ -88,14 +88,14 @@ export default async function DashboardHomePage() {
       ? {
           badge: "Alinhamento de dominio",
           description:
-            "Superficies clinicas, FHIR e privacy avançada foram retiradas do fluxo principal desta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service.",
-          title: "Capacidades nao sustentadas ficaram explicitamente desativadas"
+            "Superficies clinicas, FHIR e privacy avançada permanecem fora do produto ativo nesta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service, enquanto o clinico fica restrito a avaliacao controlada por flag.",
+          title: "Capacidades fora do produto ativo ficaram explicitamente isoladas"
         }
       : {
           badge: "Domain alignment",
           description:
-            "Clinical, FHIR, and advanced privacy surfaces were removed from the main product flow for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active.",
-          title: "Unsupported capabilities were explicitly disabled"
+            "Clinical, FHIR, and advanced privacy surfaces remain outside the active product for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active, while clinical stays restricted to flag-driven controlled evaluation.",
+          title: "Out-of-scope capabilities were explicitly isolated"
         };
 
   return (

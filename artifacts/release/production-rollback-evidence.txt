@@ -1,4 +1,13 @@
 Target: production
-Checked at: 2026-03-24T14:37:26.498Z
-Evidence: JIRA-REL-2026-031-rollback-drill
-Status: PASS
+Checked at: 2026-04-12T21:25:04.389Z
+Mode: automated_release_rehearsal
+PASS artifacts/release/production-preflight-summary.json (json ok=true)
+PASS artifacts/release/smoke-summary.json (json ok=true)
+FAIL artifacts/release/source-manifest.json (missing)
+PASS artifacts/release/checksums-manifest.sha256 (present)
+PASS artifacts/release/release-artifact-catalog.json (present)
+PASS artifacts/sbom/bom.xml (present)
+PASS artifacts/sbom/sbom.spdx.json (present)
+PASS releases/manifests/release_artifact_catalog.md (present)
+PASS releases/notes/v1.0.0.md (present)
+Status: FAIL

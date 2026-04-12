@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 
 import { ClinicalWorkspaceDisabledState } from "../../../components/dashboard/ClinicalWorkspaceDisabledState";
+import { ClinicalWorkspaceNotice } from "../../../components/dashboard/ClinicalWorkspaceNotice";
 import { getProductCapabilities } from "../../../lib/product-capabilities";
 import {
   createPatient,
@@ -105,11 +106,13 @@ function PatientsPageEnabled() {
 
   return (
     <section style={{ display: "grid", gap: "1rem" }}>
+      <ClinicalWorkspaceNotice />
+
       <header className="hero-card">
-        <span className="badge">Nucleo materno-infantil</span>
+        <span className="badge">Workspace clinico preservado</span>
         <h1>Pacientes</h1>
         <p style={{ marginBottom: 0 }}>
-          Cadastro clinico minimo para fluxo real de paciente, gestacao, agenda e nota clinica.
+          Superficie preservada para avaliacao controlada de paciente, gestacao, agenda e nota clinica, sem representar o caminho padrao do produto.
         </p>
       </header>
 
@@ -117,7 +120,7 @@ function PatientsPageEnabled() {
         <div>
           <h2>Novo paciente</h2>
           <p style={{ color: "var(--muted)", marginBottom: 0 }}>
-            O cadastro pode nascer com DUM e classificacao de risco para ativar DPP, alertas e agenda.
+            Use este formulario apenas em validacoes dirigidas da superficie clinica preservada.
           </p>
         </div>
 
@@ -238,7 +241,7 @@ function PatientsPageEnabled() {
           <div className="panel" style={{ padding: "1rem" }}>
             <strong>Nenhum paciente encontrado</strong>
             <p style={{ marginBottom: 0 }}>
-              Ajuste os filtros ou crie o primeiro cadastro para liberar agenda, alertas e notas.
+              Ajuste os filtros ou crie um cadastro de avaliacao para explorar a superficie clinica preservada.
             </p>
           </div>
         ) : null}

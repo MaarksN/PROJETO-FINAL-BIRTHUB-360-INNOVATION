@@ -16,9 +16,8 @@ Fonte única operacional: `docs/service-catalog.md`.
 
 ### Legacy / quarentena (não-default)
 - `apps/legacy/dashboard`
-- `apps/api-gateway`
-- `apps/agent-orchestrator`
-- `packages/db`
+
+`apps/legacy/dashboard` permanece versionado apenas para referência interna e extração controlada. Ele fica fora do workspace ativo e não deve participar do fluxo padrão de build, lint, typecheck, teste ou onboarding.
 
 ### Satélites (apoio)
 - `packages/agent-packs`
@@ -34,9 +33,9 @@ pnpm monorepo:doctor
 pnpm dev
 ```
 
-> Use o setup acima para o core canônico. Superfícies em legacy/quarentena não devem ser usadas como fluxo padrão de desenvolvimento.
+> Use o setup acima para o core canônico. Superfícies em legacy/quarentena ficam preservadas fora do workspace ativo e não devem ser usadas como fluxo padrão de desenvolvimento.
 
-Não use como entrada default: `apps/legacy/dashboard`, `apps/api-gateway`, `apps/agent-orchestrator` ou `packages/db`.
+Não use como entrada default a superfície `apps/legacy/dashboard`. Os módulos históricos `apps/api-gateway`, `apps/agent-orchestrator` e `packages/db` não existem no `HEAD` atual e aparecem apenas como contexto histórico no catálogo canônico.
 
 ## Governança e higiene
 

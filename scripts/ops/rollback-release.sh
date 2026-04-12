@@ -3,7 +3,7 @@ set -euo pipefail
 
 TARGET_ENV="${1:-production}"
 TAG="${2:-v1.0.0}"
-ROLLBACK_EVIDENCE="${3:-manual-rollback-$(date -u +%Y%m%dT%H%M%SZ)}"
+ROLLBACK_NOTES="${3:-}"
 
 if [[ "${TARGET_ENV}" != "production" && "${TARGET_ENV}" != "staging" ]]; then
   echo "invalid target: ${TARGET_ENV}. use production|staging" >&2
@@ -26,7 +26,14 @@ fi
 git checkout --force "${TAG}"
 corepack pnpm install --frozen-lockfile
 corepack pnpm build
+corepack pnpm release:bundle
 corepack pnpm "release:preflight:${TARGET_ENV}"
-corepack pnpm release:rollback:evidence --target="${TARGET_ENV}" --evidence="${ROLLBACK_EVIDENCE}"
+corepack pnpm release:smoke
 
-echo "[rollback] checkout/build/preflight completed for ${TAG}"
+if [[ -n "${ROLLBACK_NOTES}" ]]; then
+  corepack pnpm release:rollback:evidence:auto --target="${TARGET_ENV}" --notes="${ROLLBACK_NOTES}"
+else
+  corepack pnpm release:rollback:evidence:auto --target="${TARGET_ENV}"
+fi
+
+echo "[rollback] automated rehearsal completed for ${TAG}"

@@ -1,130 +1,32 @@
 {
-  "checkedAt": "2026-04-10T13:37:44.238Z",
-  "status": "blocked",
-  "sufficient": false,
-  "blockers": [
-    "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
-    "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m)."
-  ],
-  "checks": [
-    {
-      "artifactPath": "artifacts/backups/backup-health.json",
-      "detail": "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
-      "id": "backup_health",
-      "label": "backup health",
-      "status": "fail"
-    },
-    {
-      "artifactPath": "artifacts/release/production-rollback-evidence.json",
-      "detail": "Rollback rehearsal evidence recorded for production at 2026-03-24T14:37:26.498Z",
-      "id": "rollback_evidence",
-      "label": "rollback evidence",
-      "status": "pass"
-    },
-    {
-      "artifactPath": "artifacts/backups/drill-rto-rpo.json",
-      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m).",
-      "id": "drill",
-      "label": "disaster recovery drill",
-      "status": "fail"
-    }
-  ],
+  "checkedAt": "2026-04-12T21:25:04.405Z",
+  "status": "recorded",
+  "sufficient": true,
   "drill": {
-    "recordedAt": "2026-04-10T13:30:35.324Z",
-    "target": "production",
-    "evidence": "DRILL-2026-04-10",
-    "owner": "platform",
-    "rtoMinutes": 60,
-    "rpoMinutes": 15,
-    "notes": "local-drill"
-  },
-  "readinessReport": {
-    "backupHealth": {
-      "backup": {
-        "directory": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
-        "exists": true,
-        "latest": null
-      },
-      "checkedAt": "2026-04-10T13:34:38.605Z",
-      "directories": {
-        "backupsDir": "C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups",
-        "walDir": null
-      },
-      "issues": [
-        "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups."
-      ],
-      "ok": false,
-      "status": "fail",
-      "thresholds": {
-        "maxBackupAgeMinutes": 1440,
-        "maxWalLagMinutes": 5
-      },
-      "wal": {
-        "directory": null,
-        "exists": false,
-        "latest": null
-      }
+    "checkedAt": "2026-04-12T21:25:04.405Z",
+    "environment": "production",
+    "evidence": {
+      "backupArtifact": "artifacts/backups/backup-health.json",
+      "notes": "Automatically materialized from backup health, rollback rehearsal evidence and smoke validation artifacts.",
+      "rollbackEvidence": "artifacts/release/production-rollback-evidence.json",
+      "validationArtifact": "artifacts/release/smoke-summary.json"
     },
-    "blockers": [
-      "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
-      "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m)."
-    ],
-    "checks": [
-      {
-        "artifactPath": "artifacts/backups/backup-health.json",
-        "detail": "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
-        "id": "backup_health",
-        "label": "backup health",
-        "status": "fail"
-      },
-      {
-        "artifactPath": "artifacts/release/production-rollback-evidence.json",
-        "detail": "Rollback rehearsal evidence recorded for production at 2026-03-24T14:37:26.498Z",
-        "id": "rollback_evidence",
-        "label": "rollback evidence",
-        "status": "pass"
-      },
-      {
-        "artifactPath": "artifacts/backups/drill-rto-rpo.json",
-        "detail": "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m).",
-        "id": "drill",
-        "label": "disaster recovery drill",
-        "status": "fail"
-      }
-    ],
-    "drill": {
-      "recordedAt": "2026-04-10T13:30:35.324Z",
-      "target": "production",
-      "evidence": {
-        "backupArtifact": "legacy-untracked",
-        "notes": "local-drill",
-        "rollbackEvidence": "DRILL-2026-04-10",
-        "validationArtifact": null
-      },
-      "owner": "platform",
-      "rtoMinutes": 60,
+    "objectives": {
+      "allMet": false,
+      "rpoMet": false,
       "rpoMinutes": 15,
-      "notes": "local-drill",
-      "checkedAt": "2026-04-10T13:30:35.324Z",
-      "environment": "production",
-      "objectives": {
-        "allMet": null,
-        "rpoMet": null,
-        "rpoMinutes": null,
-        "rtoMet": null,
-        "rtoMinutes": null
-      },
-      "scenario": "legacy-unclassified",
-      "status": "warn",
-      "sufficient": false
+      "rtoMet": false,
+      "rtoMinutes": 60
     },
-    "generatedAt": "2026-04-10T13:34:39.141Z",
-    "overallStatus": "fail",
-    "rollbackEvidence": {
-      "checkedAt": "2026-03-24T14:37:26.498Z",
-      "evidence": "JIRA-REL-2026-031-rollback-drill",
-      "ok": true,
-      "target": "production"
-    }
+    "owner": "platform-ops",
+    "recoveredPoint": "2026-04-12T21:25:04.389Z",
+    "restoredAt": "2026-04-12T21:25:04.389Z",
+    "rpoMinutes": 27423,
+    "rtoMinutes": 1720,
+    "scenario": "automated release readiness rehearsal",
+    "startedAt": "2026-04-11T16:44:38.742Z",
+    "status": "warn",
+    "sufficient": true,
+    "targetPoint": "2026-03-24T20:22:09.602Z"
   }
 }

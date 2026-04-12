@@ -8,6 +8,7 @@ export const apiProductCapabilityEnvSchema = {
 } as const;
 
 export const webProductCapabilityEnvSchema = {
+  // Clinical remains preserved outside the active product unless explicitly re-enabled for controlled evaluation.
   NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE: envBoolean.default(false),
   NEXT_PUBLIC_ENABLE_FHIR_FACADE: envBoolean.default(false),
   NEXT_PUBLIC_ENABLE_PRIVACY_ADVANCED: envBoolean.default(false),
@@ -15,6 +16,7 @@ export const webProductCapabilityEnvSchema = {
 } as const;
 
 export type ProductCapabilities = {
+  // This flag unlocks a preserved surface for controlled evaluation; it does not make clinical part of the default product path.
   clinicalWorkspaceEnabled: boolean;
   fhirFacadeEnabled: boolean;
   privacyAdvancedEnabled: boolean;

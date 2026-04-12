@@ -1,9 +1,27 @@
 {
-  "recordedAt": "2026-04-10T13:30:35.324Z",
-  "target": "production",
-  "evidence": "DRILL-2026-04-10",
-  "owner": "platform",
-  "rtoMinutes": 60,
-  "rpoMinutes": 15,
-  "notes": "local-drill"
+  "checkedAt": "2026-04-12T21:25:04.405Z",
+  "environment": "production",
+  "evidence": {
+    "backupArtifact": "artifacts/backups/backup-health.json",
+    "notes": "Automatically materialized from backup health, rollback rehearsal evidence and smoke validation artifacts.",
+    "rollbackEvidence": "artifacts/release/production-rollback-evidence.json",
+    "validationArtifact": "artifacts/release/smoke-summary.json"
+  },
+  "objectives": {
+    "allMet": false,
+    "rpoMet": false,
+    "rpoMinutes": 15,
+    "rtoMet": false,
+    "rtoMinutes": 60
+  },
+  "owner": "platform-ops",
+  "recoveredPoint": "2026-04-12T21:25:04.389Z",
+  "restoredAt": "2026-04-12T21:25:04.389Z",
+  "rpoMinutes": 27423,
+  "rtoMinutes": 1720,
+  "scenario": "automated release readiness rehearsal",
+  "startedAt": "2026-04-11T16:44:38.742Z",
+  "status": "warn",
+  "sufficient": true,
+  "targetPoint": "2026-03-24T20:22:09.602Z"
 }

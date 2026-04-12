@@ -17,10 +17,6 @@ on:
         type: choice
         options:
           - production
-      rollback_rehearsal_evidence:
-        description: URL/document path proving latest rollback rehearsal
-        required: true
-        type: string
 
 permissions:
   contents: read
@@ -774,10 +770,32 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Verify rollback rehearsal evidence
-        env:
-          ROLLBACK_REHEARSAL_EVIDENCE: ${{ github.event.inputs.rollback_rehearsal_evidence }}
-        run: pnpm release:rollback:evidence --evidence="${ROLLBACK_REHEARSAL_EVIDENCE}"
+      - name: Download production preflight evidence
+        uses: actions/download-artifact@v6
+        with:
+          name: preflight-report
+          path: artifacts/release
+
+      - name: Download smoke evidence
+        uses: actions/download-artifact@v6
+        with:
+          name: smoke-results
+          path: artifacts/release
+
+      - name: Download release manifests
+        uses: actions/download-artifact@v6
+        with:
+          name: release-manifests
+          path: .
+
+      - name: Download release SBOM
+        uses: actions/download-artifact@v6
+        with:
+          name: release-sbom
+          path: .
+
+      - name: Materialize rollback rehearsal evidence
+        run: pnpm release:rollback:evidence:auto -- --target=production
 
       - name: Upload rollback rehearsal evidence
         uses: actions/upload-artifact@v7
@@ -829,11 +847,18 @@ jobs:
           name: rollback-rehearsal-report
           path: artifacts/release
 
+      - name: Download smoke evidence
+        uses: actions/download-artifact@v6
+        with:
+          name: smoke-results
+          path: artifacts/release
+
       - name: Rebuild backup and DR readiness evidence
         shell: bash
         run: |
           set -euo pipefail
           pnpm ops:backup:health
+          pnpm ops:dr:record:auto -- --environment=production --owner=platform-ops --scenario="automated release readiness rehearsal"
           pnpm ops:dr:report
 
       - name: Upload disaster recovery readiness evidence
@@ -844,6 +869,8 @@ jobs:
           path: |
             artifacts/backups/backup-health.json
             artifacts/backups/backup-health.txt
+            artifacts/backups/drill-rto-rpo.json
+            artifacts/backups/drill-rto-rpo.txt
             artifacts/dr/readiness-report.json
             docs/evidence/disaster-recovery-report.md
 

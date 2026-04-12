@@ -1,0 +1,12 @@
+Checked at: 2026-04-12T21:25:04.405Z
+Status: WARN
+Environment: production
+Owner: platform-ops
+Scenario: automated release readiness rehearsal
+RTO minutes: 1720
+RPO minutes: 27423
+Backup artifact: artifacts/backups/backup-health.json
+Rollback evidence: artifacts/release/production-rollback-evidence.json
+Validation artifact: artifacts/release/smoke-summary.json
+Notes: Automatically materialized from backup health, rollback rehearsal evidence and smoke validation artifacts.
+Objectives: RTO=MISS, RPO=MISS
