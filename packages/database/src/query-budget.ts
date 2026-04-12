@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { AsyncLocalStorage } from "node:async_hooks";
 
 import { resolveDefaultQueryTimeout, type QueryBudgetCategory } from "../f8.config.js";

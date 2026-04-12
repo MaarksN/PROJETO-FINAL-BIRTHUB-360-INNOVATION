@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { AsyncLocalStorage } from "node:async_hooks";
 
 import { TenantRequiredError } from "./errors/tenant-required.error.js";
