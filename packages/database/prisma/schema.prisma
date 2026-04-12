@@ -1284,3 +1284,39 @@ enum WebhookEndpointStatus {
   ACTIVE
   DISABLED
 }
+
+
+enum ConsentPurpose {
+  ANALYTICS
+  HEALTH_DATA_SHARING
+  MARKETING
+}
+
+enum ConsentSource {
+  WEB
+  APP
+}
+
+enum ConsentStatus {
+  GRANTED
+  DENIED
+  PENDING
+}
+
+enum RetentionAction {
+  DELETE
+  ANONYMIZE
+  ARCHIVE
+}
+
+enum RetentionDataCategory {
+  LOGS
+  ANALYTICS
+  PII
+  HEALTH
+}
+
+enum RetentionExecutionMode {
+  DRY_RUN
+  EXECUTE
+}
