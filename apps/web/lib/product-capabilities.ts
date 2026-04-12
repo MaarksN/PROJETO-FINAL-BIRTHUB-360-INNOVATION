@@ -37,7 +37,14 @@ export function isDashboardNavigationItemEnabled(
 }
 
 export function isClinicalWorkspacePath(path: string): boolean {
-  return path === "/patients" || path.startsWith("/patients/") || path === "/appointments" || path.startsWith("/appointments/");
+  const normalizedPath = path.split("?")[0]?.split("#")[0] ?? path;
+
+  return (
+    normalizedPath === "/patients" ||
+    normalizedPath.startsWith("/patients/") ||
+    normalizedPath === "/appointments" ||
+    normalizedPath.startsWith("/appointments/")
+  );
 }
 
 export function sanitizeCapabilityScopedLink(

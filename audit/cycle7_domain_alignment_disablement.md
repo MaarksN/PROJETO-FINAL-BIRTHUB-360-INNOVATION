@@ -63,6 +63,7 @@ Eliminar o estado hibrido em que partes do produto ainda presumiam dominio clini
 - Dashboard sem fetch/render de superficie clinica e de consentimento avancado
 - Pagina de privacidade trocada para modo self-service
 - Rotas clinicas do web agora exibem estado desativado em vez de tentar operar API inexistente
+- Feed de notificacoes agora neutraliza links clinicos quando o workspace esta desligado
 - BFF agora aceita apenas `privacy/export` e `privacy/delete-account` por default
 - Testes HTTP/web atualizados para refletir disablement em vez de feature ativa
 
