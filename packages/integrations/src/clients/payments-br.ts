@@ -125,7 +125,7 @@ export class PagarmeClient implements IPaymentsClient {
       headers: {
         Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
       },
-    );
+    });
 
     const charge = getPrimaryCharge(response);
     const txn = charge.last_transaction ?? {};
@@ -180,7 +180,7 @@ export class PagarmeClient implements IPaymentsClient {
       headers: {
         Authorization: `Basic ${Buffer.from(this.apiKey + ":").toString("base64")}`,
       },
-    );
+    });
 
     const charge = getPrimaryCharge(response);
     const txn = charge.last_transaction ?? {};
