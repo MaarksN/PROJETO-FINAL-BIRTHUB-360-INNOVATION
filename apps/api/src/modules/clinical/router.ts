@@ -48,7 +48,6 @@ function requireClinicalContext(request: {
   };
 }
 
-export function createClinicalRouter(): Router {
 export function createClinicalRouter(
   config?: Pick<ApiConfig, "clinicalWorkspaceEnabled">
 ): Router {

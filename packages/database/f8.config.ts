@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 export type MigrationSeverity = "P0" | "P1" | "P2";
 export type QueryBudgetCategory = "migration" | "oltp" | "report";
 
