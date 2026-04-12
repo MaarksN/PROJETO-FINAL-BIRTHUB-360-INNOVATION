@@ -3,7 +3,9 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
+import type { WorkflowTriggerJobPayload } from "../engine/runner.js";
 import {
+  type AgentMeshExecutionJobPayload,
   buildAgentMeshTriggerExecution,
   dispatchAgentMeshTrigger,
   emitNewLeadEvent,
@@ -41,8 +43,8 @@ void test("buildAgentMeshTriggerExecution normalizes critical support events int
 
 void test("dispatchAgentMeshTrigger queues the mesh execution and any matching event workflows", async () => {
   const originalFindMany = prisma.workflow.findMany.bind(prisma.workflow);
-  const queuedAgents: Array<{ payload: Record<string, unknown>; priority: string }> = [];
-  const queuedWorkflows: Array<Record<string, unknown>> = [];
+  const queuedAgents: Array<{ payload: AgentMeshExecutionJobPayload; priority: string }> = [];
+  const queuedWorkflows: WorkflowTriggerJobPayload[] = [];
 
   (prisma.workflow.findMany as unknown as (args: unknown) => Promise<unknown>) = () =>
     Promise.resolve([
@@ -96,7 +98,7 @@ void test("dispatchAgentMeshTrigger queues the mesh execution and any matching e
 
 void test("initializeAgentMeshIngressBridge reacts to emitted lead events", async () => {
   const originalFindMany = prisma.workflow.findMany.bind(prisma.workflow);
-  const queuedAgents: Array<{ payload: Record<string, unknown>; priority: string }> = [];
+  const queuedAgents: Array<{ payload: AgentMeshExecutionJobPayload; priority: string }> = [];
 
   (prisma.workflow.findMany as unknown as (args: unknown) => Promise<unknown>) = () =>
     Promise.resolve([]);
@@ -125,8 +127,9 @@ void test("initializeAgentMeshIngressBridge reacts to emitted lead events", asyn
 
     assert.equal(queuedAgents.length, 1);
     assert.equal(queuedAgents[0]?.priority, "normal");
+    assert.ok(queuedAgents[0]);
     assert.equal(
-      ((queuedAgents[0]?.payload.input.trigger as Record<string, unknown>).canonicalType),
+      (queuedAgents[0].payload.input.trigger as Record<string, unknown>).canonicalType,
       "sales.new_lead"
     );
   } finally {
