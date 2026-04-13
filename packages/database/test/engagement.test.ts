@@ -14,6 +14,28 @@ import {
   updateUserPreference
 } from "../src/repositories/engagement.js";
 
+function createInjectedClient() {
+  return {
+    auditLog: {
+      create: async (_args: unknown) => ({})
+    },
+    membership: {
+      findMany: async (_args: unknown) => []
+    },
+    notification: {
+      count: async (_args: unknown) => 0,
+      create: async (_args: unknown) => ({}),
+      createMany: async (_args: unknown) => ({ count: 0 }),
+      findMany: async (_args: unknown) => [],
+      updateMany: async (_args: unknown) => ({ count: 0 })
+    },
+    userPreference: {
+      findUnique: async (_args: unknown) => null,
+      upsert: async (_args: unknown) => ({ inAppNotifications: true })
+    }
+  };
+}
+
 void test("ensureUserPreference upserts tenant-scoped preference data", async () => {
   const original = prisma.userPreference.upsert.bind(prisma.userPreference);
   let received: unknown = null;
@@ -50,6 +72,42 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
   }
 });
 
+void test("ensureUserPreference accepts an injected client without relying on global prisma", async () => {
+  const injectedClient = createInjectedClient();
+  let received: unknown = null;
+
+  injectedClient.userPreference.upsert = async (args: unknown) => {
+    received = args;
+    return { inAppNotifications: true } as never;
+  };
+
+  await ensureUserPreference(
+    {
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      userId: "user_1"
+    },
+    {
+      client: injectedClient as never
+    }
+  );
+
+  assert.deepEqual(received, {
+    create: {
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      userId: "user_1"
+    },
+    update: {},
+    where: {
+      organizationId_userId: {
+        organizationId: "org_1",
+        userId: "user_1"
+      }
+    }
+  });
+});
+
 void test("createNotificationForUser skips persistence when in-app notifications are disabled", async () => {
   const originalPreferenceUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
   const originalCreate = prisma.notification.create.bind(prisma.notification);
@@ -79,6 +137,47 @@ void test("createNotificationForUser skips persistence when in-app notifications
     prisma.userPreference.upsert = originalPreferenceUpsert;
     prisma.notification.create = originalCreate;
   }
+});
+
+void test("createNotificationForUser accepts an injected client", async () => {
+  const injectedClient = createInjectedClient();
+  let createArgs: unknown = null;
+
+  injectedClient.userPreference.upsert = async () =>
+    ({
+      inAppNotifications: true
+    }) as never;
+  injectedClient.notification.create = async (args: unknown) => {
+    createArgs = args;
+    return {
+      id: "notification_1"
+    } as never;
+  };
+
+  const result = await createNotificationForUser(
+    {
+      content: "hello",
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      type: NotificationType.INFO,
+      userId: "user_1"
+    },
+    {
+      client: injectedClient as never
+    }
+  );
+
+  assert.equal(result?.id, "notification_1");
+  assert.deepEqual(createArgs, {
+    data: {
+      content: "hello",
+      link: null,
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      type: "INFO",
+      userId: "user_1"
+    }
+  });
 });
 
 void test("updateUserPreference audits cookie consent transitions", async () => {
@@ -132,6 +231,56 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
     prisma.userPreference.upsert = originalUpsert;
     prisma.auditLog.create = originalAuditCreate;
   }
+});
+
+void test("updateUserPreference accepts an injected client", async () => {
+  const injectedClient = createInjectedClient();
+  let auditPayload: unknown = null;
+
+  injectedClient.userPreference.findUnique = async () =>
+    ({
+      cookieConsent: "PENDING"
+    }) as never;
+  injectedClient.userPreference.upsert = async () =>
+    ({
+      cookieConsent: "ACCEPTED",
+      id: "pref_1"
+    }) as never;
+  injectedClient.auditLog.create = async (args: unknown) => {
+    auditPayload = args;
+    return {} as never;
+  };
+
+  const result = await updateUserPreference(
+    {
+      cookieConsent: "ACCEPTED",
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      userId: "user_1"
+    },
+    {
+      client: injectedClient as never
+    }
+  );
+
+  assert.equal(result.cookieConsent, "ACCEPTED");
+  assert.deepEqual(auditPayload, {
+    data: {
+      action: "user.cookie_consent_updated",
+      actorId: "user_1",
+      diff: {
+        after: {
+          cookieConsent: "ACCEPTED"
+        },
+        before: {
+          cookieConsent: "PENDING"
+        }
+      },
+      entityId: "pref_1",
+      entityType: "user_preference",
+      tenantId: "tenant_1"
+    }
+  });
 });
 
 void test("updateUserPreference persists locale preferences", async () => {
@@ -244,6 +393,58 @@ void test("createNotificationForOrganizationRoles only creates notifications for
   }
 });
 
+void test("createNotificationForOrganizationRoles accepts an injected client", async () => {
+  const injectedClient = createInjectedClient();
+  let createManyArgs: unknown = null;
+
+  injectedClient.membership.findMany = async () =>
+    [
+      {
+        role: Role.ADMIN,
+        tenantId: "tenant_1",
+        user: {
+          preferences: [
+            {
+              inAppNotifications: true,
+              organizationId: "org_1"
+            }
+          ]
+        },
+        userId: "user_admin"
+      }
+    ] as never;
+  injectedClient.notification.createMany = async (args: unknown) => {
+    createManyArgs = args;
+    return { count: 1 } as never;
+  };
+
+  const result = await createNotificationForOrganizationRoles(
+    {
+      content: "ops",
+      organizationId: "org_1",
+      tenantId: "tenant_1",
+      type: NotificationType.INFO
+    },
+    {
+      client: injectedClient as never
+    }
+  );
+
+  assert.deepEqual(result, { count: 1 });
+  assert.deepEqual(createManyArgs, {
+    data: [
+      {
+        content: "ops",
+        link: null,
+        organizationId: "org_1",
+        tenantId: "tenant_1",
+        type: "INFO",
+        userId: "user_admin"
+      }
+    ]
+  });
+});
+
 void test("createNotificationForOrganizationRoles caps membership reads", async () => {
   const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
   let received: unknown = null;
@@ -296,4 +497,33 @@ void test("listNotifications returns bounded items, next cursor and unread count
     prisma.notification.findMany = originalFindMany;
     prisma.notification.count = originalCount;
   }
+});
+
+void test("listNotifications accepts an injected client", async () => {
+  const injectedClient = createInjectedClient();
+
+  injectedClient.notification.findMany = async () =>
+    [
+      { id: "n3" },
+      { id: "n2" },
+      { id: "n1" }
+    ] as never;
+  injectedClient.notification.count = async () => 7;
+
+  const result = await listNotifications(
+    {
+      limit: 2,
+      tenantId: "tenant_1",
+      userId: "user_1"
+    },
+    {
+      client: injectedClient as never
+    }
+  );
+
+  assert.deepEqual(result, {
+    items: [{ id: "n3" }, { id: "n2" }],
+    nextCursor: "n2",
+    unreadCount: 7
+  });
 });

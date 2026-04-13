@@ -1,6 +1,13 @@
 // @ts-nocheck
 // 
-import { Prisma, Role, type Membership, type Notification, type NotificationType } from "@prisma/client";
+import {
+  Prisma,
+  Role,
+  type Membership,
+  type Notification,
+  type NotificationType,
+  type PrismaClient
+} from "@prisma/client";
 
 import { prisma } from "../client.js";
 
@@ -8,6 +15,9 @@ type JsonObject = Prisma.InputJsonValue | undefined;
 const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;
 type CookieConsentStatus = "ACCEPTED" | "PENDING" | "REJECTED";
 type SupportedLocalePreference = "en-US" | "pt-BR";
+type EngagementRepositoryOptions = {
+  client?: PrismaClient;
+};
 
 type UserPreferenceInput = {
   cookieConsent?: CookieConsentStatus;
@@ -30,10 +40,23 @@ type UserPreferenceInput = {
   userId: string;
 };
 
+function resolveClient(options?: EngagementRepositoryOptions): PrismaClient {
+  return options?.client ?? prisma;
+}
+
 function normalizeCookieConsent(
   value: CookieConsentStatus | null | undefined
 ): CookieConsentStatus {
   return value ?? "PENDING";
+}
+
+function buildUserPreferenceLookup(input: Pick<UserPreferenceInput, "organizationId" | "userId">) {
+  return {
+    organizationId_userId: {
+      organizationId: input.organizationId,
+      userId: input.userId
+    }
+  };
 }
 
 function buildUserPreferenceCreateData(
@@ -89,81 +112,42 @@ function buildUserPreferenceUpdateData(
   };
 }
 
-export async function ensureUserPreference(input: {
-  organizationId: string;
-  tenantId: string;
-  userId: string;
-}) {
-  return prisma.userPreference.upsert({
-    create: {
-      organizationId: input.organizationId,
-      tenantId: input.tenantId,
-      userId: input.userId
-    },
-    update: {},
-    where: {
-      organizationId_userId: {
-        organizationId: input.organizationId,
-        userId: input.userId
-      }
-    }
-  });
-}
-
-export async function updateUserPreference(input: UserPreferenceInput) {
-  const previousPreference =
-    input.cookieConsent !== undefined
-      ? await prisma.userPreference.findUnique({
-          where: {
-            organizationId_userId: {
-              organizationId: input.organizationId,
-              userId: input.userId
-            }
-          }
-        })
-      : null;
-
-  const updatedPreference = await prisma.userPreference.upsert({
-    create: buildUserPreferenceCreateData(input),
-    update: buildUserPreferenceUpdateData(input),
-    where: {
-      organizationId_userId: {
-        organizationId: input.organizationId,
-        userId: input.userId
-      }
-    }
-  });
-
-  if (input.cookieConsent !== undefined) {
-    const previousCookieConsent = normalizeCookieConsent(
-      previousPreference?.cookieConsent as CookieConsentStatus | null | undefined
-    );
-
-    if (previousCookieConsent !== updatedPreference.cookieConsent) {
-      await prisma.auditLog.create({
-        data: {
-          action: "user.cookie_consent_updated",
-          actorId: input.userId,
-          diff: {
-            after: {
-              cookieConsent: updatedPreference.cookieConsent
-            },
-            before: {
-              cookieConsent: previousCookieConsent
-            }
-          },
-          entityId: updatedPreference.id,
-          entityType: "user_preference",
-          tenantId: input.tenantId
-        }
-      });
-    }
+function shouldAuditCookieConsentChange(
+  input: Pick<UserPreferenceInput, "cookieConsent">,
+  previousPreference: { cookieConsent?: CookieConsentStatus | null } | null,
+  updatedPreference: { cookieConsent: CookieConsentStatus }
+): boolean {
+  if (input.cookieConsent === undefined) {
+    return false;
   }
 
-  return updatedPreference;
+  const previousCookieConsent = normalizeCookieConsent(previousPreference?.cookieConsent);
+  return previousCookieConsent !== updatedPreference.cookieConsent;
 }
 
-export async function createNotificationForUser(input: {
+function buildCookieConsentAuditLogDataFromPrevious(
+  input: UserPreferenceInput,
+  previousPreference: { cookieConsent?: CookieConsentStatus | null } | null,
+  updatedPreference: { cookieConsent: CookieConsentStatus; id: string }
+) {
+  return {
+    action: "user.cookie_consent_updated",
+    actorId: input.userId,
+    diff: {
+      after: {
+        cookieConsent: updatedPreference.cookieConsent
+      },
+      before: {
+        cookieConsent: normalizeCookieConsent(previousPreference?.cookieConsent)
+      }
+    },
+    entityId: updatedPreference.id,
+    entityType: "user_preference",
+    tenantId: input.tenantId
+  };
+}
+
+function buildNotificationCreateData(input: {
   content: string;
   link?: string | null;
   metadata?: JsonObject;
@@ -171,17 +155,7 @@ export async function createNotificationForUser(input: {
   tenantId: string;
   type: NotificationType;
   userId: string;
-}): Promise<Notification | null> {
-  const preference = await ensureUserPreference({
-    organizationId: input.organizationId,
-    tenantId: input.tenantId,
-    userId: input.userId
-  });
-
-  if (!preference.inAppNotifications) {
-    return null;
-  }
-
+}): Prisma.NotificationUncheckedCreateInput {
   const notificationData: Prisma.NotificationUncheckedCreateInput = {
     content: input.content,
     link: input.link ?? null,
@@ -195,8 +169,146 @@ export async function createNotificationForUser(input: {
     notificationData.metadata = input.metadata;
   }
 
-  return prisma.notification.create({
-    data: notificationData
+  return notificationData;
+}
+
+function selectUsersWithEnabledInAppNotifications(
+  memberships: Array<
+    Membership & {
+      user: {
+        preferences: Array<{
+          inAppNotifications: boolean;
+          organizationId: string;
+        }>;
+      };
+    }
+  >,
+  organizationId: string
+): string[] {
+  return memberships
+    .filter((membership) => {
+      const preference = membership.user.preferences.find(
+        (candidate) => candidate.organizationId === organizationId
+      );
+
+      return preference?.inAppNotifications ?? true;
+    })
+    .map((membership) => membership.userId);
+}
+
+function buildBulkNotificationCreateData(
+  input: {
+    content: string;
+    link?: string | null;
+    metadata?: JsonObject;
+    organizationId: string;
+    tenantId: string;
+    type: NotificationType;
+  },
+  userIds: string[]
+): Prisma.NotificationCreateManyInput[] {
+  return userIds.map((userId: string) => {
+    const notificationData: Prisma.NotificationCreateManyInput = {
+      content: input.content,
+      link: input.link ?? null,
+      organizationId: input.organizationId,
+      tenantId: input.tenantId,
+      type: input.type,
+      userId
+    };
+
+    if (input.metadata !== undefined) {
+      notificationData.metadata = input.metadata;
+    }
+
+    return notificationData;
+  });
+}
+
+function resolveNotificationListLimit(limit: number | undefined): number {
+  return Math.min(Math.max(limit ?? 10, 1), 50);
+}
+
+function buildNotificationReadUpdateData() {
+  return {
+    isRead: true,
+    readAt: new Date()
+  };
+}
+
+export async function ensureUserPreference(input: {
+  organizationId: string;
+  tenantId: string;
+  userId: string;
+}, options?: EngagementRepositoryOptions) {
+  const client = resolveClient(options);
+
+  return client.userPreference.upsert({
+    create: {
+      organizationId: input.organizationId,
+      tenantId: input.tenantId,
+      userId: input.userId
+    },
+    update: {},
+    where: buildUserPreferenceLookup(input)
+  });
+}
+
+export async function updateUserPreference(
+  input: UserPreferenceInput,
+  options?: EngagementRepositoryOptions
+) {
+  const client = resolveClient(options);
+  const previousPreference =
+    input.cookieConsent !== undefined
+      ? await client.userPreference.findUnique({
+          where: {
+            ...buildUserPreferenceLookup(input)
+          }
+        })
+      : null;
+
+  const updatedPreference = await client.userPreference.upsert({
+    create: buildUserPreferenceCreateData(input),
+    update: buildUserPreferenceUpdateData(input),
+    where: buildUserPreferenceLookup(input)
+  });
+
+  if (shouldAuditCookieConsentChange(input, previousPreference, updatedPreference)) {
+    await client.auditLog.create({
+      data: buildCookieConsentAuditLogDataFromPrevious(
+        input,
+        previousPreference,
+        updatedPreference
+      )
+    });
+  }
+
+  return updatedPreference;
+}
+
+export async function createNotificationForUser(input: {
+  content: string;
+  link?: string | null;
+  metadata?: JsonObject;
+  organizationId: string;
+  tenantId: string;
+  type: NotificationType;
+  userId: string;
+}, options?: EngagementRepositoryOptions): Promise<Notification | null> {
+  const client = resolveClient(options);
+  const preference = await ensureUserPreference({
+    organizationId: input.organizationId,
+    tenantId: input.tenantId,
+    userId: input.userId
+  }, options);
+
+  if (!preference.inAppNotifications) {
+    return null;
+  }
+
+  return client.notification.create({
+    data: buildNotificationCreateData(input)
   });
 }
 
@@ -208,9 +320,10 @@ export async function createNotificationForOrganizationRoles(input: {
   roles?: Role[];
   tenantId: string;
   type: NotificationType;
-}) {
+}, options?: EngagementRepositoryOptions) {
+  const client = resolveClient(options);
   const roles = input.roles ?? [Role.OWNER, Role.ADMIN];
-  const memberships = await prisma.membership.findMany({
+  const memberships = await client.membership.findMany({
     include: {
       user: {
         select: {
@@ -233,44 +346,26 @@ export async function createNotificationForOrganizationRoles(input: {
     }
   });
 
-  const targetUserIds = memberships
-    .filter((membership: Membership & {
-      user: {
-        preferences: Array<{
-          inAppNotifications: boolean;
-          organizationId: string;
-        }>;
-      };
-    }) => {
-      const preference = membership.user.preferences.find(
-        (candidate) => candidate.organizationId === input.organizationId
-      );
-
-      return preference?.inAppNotifications ?? true;
-    })
-    .map((membership) => membership.userId);
+  const targetUserIds = selectUsersWithEnabledInAppNotifications(
+    memberships as Array<
+      Membership & {
+        user: {
+          preferences: Array<{
+            inAppNotifications: boolean;
+            organizationId: string;
+          }>;
+        };
+      }
+    >,
+    input.organizationId
+  );
 
   if (targetUserIds.length === 0) {
     return { count: 0 };
   }
 
-  const result = await prisma.notification.createMany({
-    data: targetUserIds.map((userId: string) => {
-      const notificationData: Prisma.NotificationCreateManyInput = {
-        content: input.content,
-        link: input.link ?? null,
-        organizationId: input.organizationId,
-        tenantId: input.tenantId,
-        type: input.type,
-        userId
-      };
-
-      if (input.metadata !== undefined) {
-        notificationData.metadata = input.metadata;
-      }
-
-      return notificationData;
-    })
+  const result = await client.notification.createMany({
+    data: buildBulkNotificationCreateData(input, targetUserIds)
   });
 
   return {
@@ -283,9 +378,10 @@ export async function listNotifications(input: {
   limit?: number;
   tenantId: string;
   userId: string;
-}) {
-  const limit = Math.min(Math.max(input.limit ?? 10, 1), 50);
-  const notifications = await prisma.notification.findMany({
+}, options?: EngagementRepositoryOptions) {
+  const client = resolveClient(options);
+  const limit = resolveNotificationListLimit(input.limit);
+  const notifications = await client.notification.findMany({
     orderBy: [
       {
         createdAt: "desc"
@@ -309,7 +405,7 @@ export async function listNotifications(input: {
       : {})
   });
 
-  const unreadCount = await prisma.notification.count({
+  const unreadCount = await client.notification.count({
     where: {
       isRead: false,
       tenantId: input.tenantId,
@@ -328,12 +424,10 @@ export async function markNotificationAsRead(input: {
   id: string;
   tenantId: string;
   userId: string;
-}) {
-  const updated = await prisma.notification.updateMany({
-    data: {
-      isRead: true,
-      readAt: new Date()
-    },
+}, options?: EngagementRepositoryOptions) {
+  const client = resolveClient(options);
+  const updated = await client.notification.updateMany({
+    data: buildNotificationReadUpdateData(),
     where: {
       id: input.id,
       tenantId: input.tenantId,
@@ -349,12 +443,11 @@ export async function markNotificationAsRead(input: {
 export async function markAllNotificationsAsRead(input: {
   tenantId: string;
   userId: string;
-}) {
-  return prisma.notification.updateMany({
-    data: {
-      isRead: true,
-      readAt: new Date()
-    },
+}, options?: EngagementRepositoryOptions) {
+  const client = resolveClient(options);
+
+  return client.notification.updateMany({
+    data: buildNotificationReadUpdateData(),
     where: {
       isRead: false,
       tenantId: input.tenantId,
