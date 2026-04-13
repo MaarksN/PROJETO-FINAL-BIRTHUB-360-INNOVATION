@@ -157,7 +157,9 @@ void test("registerAuthAndCoreRoutes stays compatible without double-mounting ta
 
       mountTasksRoutes(app as never, config, {
         createTasksRouter: () => tasksRouter as never,
-        enqueueTask: receivedDependencies?.enqueueTask
+        ...(receivedDependencies?.enqueueTask === undefined
+          ? {}
+          : { enqueueTask: receivedDependencies.enqueueTask })
       });
     }
   });
