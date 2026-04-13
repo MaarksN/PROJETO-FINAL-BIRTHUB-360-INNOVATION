@@ -82,6 +82,18 @@ function collectBlockedExampleViolations(relativePath, content) {
   return violations;
 }
 
+function referencesCanonicalDoc(relativePath, content) {
+  const docDirectory = path.posix.dirname(relativePath.replace(/\\/g, "/"));
+  const relativeReference = path.posix.relative(docDirectory, canonicalDocPath);
+  const referenceCandidates = [
+    canonicalDocPath,
+    relativeReference,
+    `./${relativeReference}`
+  ];
+
+  return referenceCandidates.some((candidate) => content.includes(candidate));
+}
+
 const violations = [];
 const canonicalDoc = readProjectFile(canonicalDocPath);
 const productCapabilitiesSource = readProjectFile(productCapabilitiesSourcePath);
@@ -100,7 +112,7 @@ for (const { envName, defaultValue } of capabilityDefaults) {
 for (const relativePath of protectedOperationalDocs) {
   const content = readProjectFile(relativePath);
 
-  if (!content.includes(canonicalDocPath)) {
+  if (!referencesCanonicalDoc(relativePath, content)) {
     violations.push(
       `${relativePath} must reference ${canonicalDocPath} as the operational source of truth.`
     );
