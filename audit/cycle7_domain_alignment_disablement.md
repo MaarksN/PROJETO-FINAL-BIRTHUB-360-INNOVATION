@@ -64,9 +64,12 @@ Eliminar o estado hibrido em que partes do produto ainda presumiam dominio clini
 - Dashboard sem fetch/render de superficie clinica e de consentimento avancado
 - Pagina de privacidade trocada para modo self-service
 - Rota ativa de privacidade agora carrega a UI avancada apenas quando a flag correspondente e explicitamente reabilitada
+- Helpers e secoes da experiencia self-service de privacidade foram separados do modulo avancado para que exportacao e exclusao nao dependam mais, nem indiretamente, de consentimentos/retencao
 - Rotas clinicas do web agora exibem estado desativado em vez de tentar operar API inexistente
+- Wrappers das rotas clinicas do web agora importam a implementacao `*.client` apenas quando o workspace clinico esta explicitamente habilitado
 - Feed de notificacoes agora neutraliza links clinicos quando o workspace esta desligado
 - BFF agora aceita apenas `privacy/export` e `privacy/delete-account` por default
+- Documentacao operacional viva de LGPD/delecao foi alinhada para explicitar que apenas o fluxo self-service permanece ativo nesta implantacao
 - Testes HTTP/web atualizados para refletir disablement em vez de feature ativa
 - Routers standalone de clinical e FHIR blindados para negar trafego por default, mesmo fora da app principal
 - Testes unitarios de clinical, FHIR e privacy advanced ficaram explicitamente em `skip` enquanto esses dominios permanecerem fora do produto ativo

@@ -10,11 +10,11 @@ import {
   exportPrivacyData,
   getErrorMessage,
   requestPrivacyAccountDeletion
-} from "./privacy-settings-page.data";
+} from "./privacy-self-service.data";
 import {
   PrivacyDeletionSection,
   PrivacyExportSection
-} from "./privacy-settings-page.sections";
+} from "./privacy-self-service.sections";
 
 export default function PrivacySelfServicePageClient() {
   const session = useMemo(() => getStoredSession(), []);

@@ -1,8 +1,6 @@
-// @ts-nocheck
-// 
 export type SchemaDriftEnvironment = {
-  databaseUrl?: string;
-  shadowDatabaseUrl?: string;
+  databaseUrl: string | undefined;
+  shadowDatabaseUrl: string | undefined;
 };
 
 function readOptionalEnv(env: NodeJS.ProcessEnv, key: string): string | undefined {

@@ -4,14 +4,16 @@ import test from "node:test";
 import { JSDOM } from "jsdom";
 
 import {
-  clearStoredPrivacySession,
-  exportPrivacyData,
   formatConsentStatus,
   formatDate,
   formatExecutionMode,
-  formatRetentionAction,
-  requestPrivacyAccountDeletion
+  formatRetentionAction
 } from "../app/(dashboard)/settings/privacy/privacy-settings-page.data";
+import {
+  clearStoredPrivacySession,
+  exportPrivacyData,
+  requestPrivacyAccountDeletion
+} from "../app/(dashboard)/settings/privacy/privacy-self-service.data";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

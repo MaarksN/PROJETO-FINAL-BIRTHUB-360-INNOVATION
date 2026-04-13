@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { getApiConfig, type ApiConfig } from "@birthub/config";
 
 export function createTestApiConfig(): ApiConfig {
