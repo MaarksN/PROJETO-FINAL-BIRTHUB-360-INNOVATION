@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 
 import { Role } from "@birthub/database";
