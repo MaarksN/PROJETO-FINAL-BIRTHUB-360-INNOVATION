@@ -1,13 +1,18 @@
 // @ts-nocheck
 // 
 import type { ApiConfig } from "@birthub/config";
-import { logoutResponseSchema } from "@birthub/config";
+import {
+  logoutResponseSchema,
+  sessionListResponseSchema
+} from "@birthub/config";
 import { Router } from "express";
 
 import { requireAuthenticatedSession } from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
+  listActiveSessions,
   revokeAllSessions,
+  revokeCurrentSession,
   revokeSessionById
 } from "../auth/auth.service.js";
 import { clearAuthCookies } from "../auth/cookies.js";
@@ -33,6 +38,40 @@ function readSessionId(params: Record<string, string | string[] | undefined>): s
 export function createSessionsRouter(config: ApiConfig): Router {
   const router = Router();
 
+  router.get(
+    "/sessions",
+    requireAuthenticatedSession,
+    asyncHandler(async (request, response) => {
+      const organizationId = request.context.organizationId;
+      const userId = request.context.userId;
+
+      if (!organizationId || !userId) {
+        throw new ProblemDetailsError({
+          detail: "A valid authenticated session is required.",
+          status: 401,
+          title: "Unauthorized"
+        });
+      }
+
+      const sessions = await listActiveSessions({
+        organizationId,
+        userId
+      });
+
+      response.status(200).json(
+        sessionListResponseSchema.parse({
+          items: sessions.map((session) => ({
+            id: session.id,
+            ipAddress: session.ipAddress,
+            lastActivityAt: session.lastActivityAt.toISOString(),
+            userAgent: session.userAgent
+          })),
+          requestId: request.context.requestId
+        })
+      );
+    })
+  );
+
   router.delete(
     "/sessions/:sessionId",
     requireAuthenticatedSession,
@@ -49,15 +88,24 @@ export function createSessionsRouter(config: ApiConfig): Router {
       }
 
       const sessionId = readSessionId(request.params);
+
+      if (request.context.sessionId === sessionId) {
+        await revokeCurrentSession(sessionId);
+        clearAuthCookies(response, config);
+        response.status(200).json(
+          logoutResponseSchema.parse({
+            requestId: request.context.requestId,
+            revokedSessions: 1
+          })
+        );
+        return;
+      }
+
       const revokedSessions = await revokeSessionById({
         organizationId,
         sessionId,
         userId
       });
-
-      if (request.context.sessionId === sessionId && revokedSessions > 0) {
-        clearAuthCookies(response, config);
-      }
 
       response.status(200).json(
         logoutResponseSchema.parse({

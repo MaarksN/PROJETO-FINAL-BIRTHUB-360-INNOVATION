@@ -1,33 +1,33 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
 import express from "express";
 import request from "supertest";
 
-import { registerAuthRoutes } from "../src/app/auth-routes.js";
+import { createSessionsRouter } from "../src/modules/sessions/router.js";
 import { requestContextMiddleware } from "../src/middleware/request-context.js";
 import { createTestApiConfig } from "./test-config.js";
 
-void test("registerAuthRoutes exposes auth lifecycle endpoints with validation/auth guards", async () => {
+void test("createSessionsRouter owns session listing and session mutation routes", async () => {
   const app = express();
   app.use(requestContextMiddleware);
   app.use(express.json());
-  registerAuthRoutes(app, createTestApiConfig());
+  app.use("/api/v1", createSessionsRouter(createTestApiConfig()));
 
   await request(app)
-    .post("/api/v1/auth/login")
-    .send({})
-    .expect(400);
+    .get("/api/v1/sessions")
+    .expect(401);
 
   await request(app)
-    .post("/api/v1/auth/refresh")
-    .send({})
-    .expect(400);
+    .delete("/api/v1/sessions/session_123")
+    .expect(401);
 
   await request(app)
-    .post("/api/v1/auth/logout")
+    .post("/api/v1/sessions/logout-all")
+    .expect(401);
+
+  await request(app)
+    .post("/api/v1/auth/logout-all")
     .expect(401);
 
   assert.ok(app);
