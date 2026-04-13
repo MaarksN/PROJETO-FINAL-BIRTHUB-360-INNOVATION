@@ -23,6 +23,7 @@ import { createPrivacyRouter } from "../modules/privacy/router.js";
 import { createProfileRouter, mountProfileRoutes } from "../modules/profile/router.js";
 import { createSearchRouter } from "../modules/search/index.js";
 import { createSessionsRouter } from "../modules/sessions/router.js";
+import { createTasksRouter, mountTasksRoutes } from "../modules/tasks/router.js";
 import { createUsersRouter } from "../modules/users/router.js";
 import { createWebhooksRouter } from "../modules/webhooks/index.js";
 import { createWorkflowsRouter } from "../modules/workflows/index.js";
@@ -50,6 +51,7 @@ type ModuleRouterDependencies = {
   createProfileRouter: typeof createProfileRouter;
   createSearchRouter: typeof createSearchRouter;
   createSessionsRouter: typeof createSessionsRouter;
+  createTasksRouter: typeof createTasksRouter;
   createUsersRouter: typeof createUsersRouter;
   createWebhooksRouter: typeof createWebhooksRouter;
   createWorkflowsRouter: typeof createWorkflowsRouter;
@@ -78,6 +80,7 @@ const defaultDependencies: ModuleRouterDependencies = {
   createProfileRouter,
   createSearchRouter,
   createSessionsRouter,
+  createTasksRouter,
   createUsersRouter,
   createWebhooksRouter,
   createWorkflowsRouter
@@ -98,6 +101,9 @@ export function mountModuleRouters(
   app.use("/api/v1", dependencies.createSessionsRouter(config));
   mountProfileRoutes(app, config, {
     createProfileRouter: dependencies.createProfileRouter
+  });
+  mountTasksRoutes(app, config, {
+    createTasksRouter: dependencies.createTasksRouter
   });
   app.use("/api/v1/apikeys", dependencies.createApiKeysRouter(config));
   app.use("/api/v1", dependencies.createBreakGlassRouter(config));

@@ -127,3 +127,43 @@ void test("registerCoreBusinessRoutes delegates profile route ownership to the p
 
   assert.equal(response.body.source, "profile-module");
 });
+
+void test("registerCoreBusinessRoutes delegates task route ownership to the tasks module", async () => {
+  const app = express();
+  const config = createTestApiConfig();
+  let delegated = false;
+  const calls: Array<unknown[]> = [];
+
+  app.use(requestContextMiddleware);
+  app.use(express.json());
+
+  registerCoreBusinessRoutes(app, config, {
+    mountTasksRoutes: (target, receivedConfig, receivedDependencies) => {
+      delegated = true;
+      assert.equal(receivedConfig, config);
+      assert.equal(typeof receivedDependencies?.enqueueTask, "function");
+
+      const router = express.Router();
+      router.post("/tasks", (request, response) => {
+        response.status(202).json({
+          jobId: "job_test",
+          requestId: request.context.requestId,
+          source: "tasks-module"
+        });
+      });
+
+      calls.push(["/api/v1", "tasks"]);
+      target.use("/api/v1", router);
+    }
+  });
+
+  assert.equal(delegated, true);
+  assert.deepEqual(calls, [["/api/v1", "tasks"]]);
+
+  const response = await request(app)
+    .post("/api/v1/tasks")
+    .send({})
+    .expect(202);
+
+  assert.equal(response.body.source, "tasks-module");
+});

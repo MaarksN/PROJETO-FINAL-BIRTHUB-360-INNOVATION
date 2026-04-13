@@ -17,6 +17,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
   const authRouter = { id: "auth" };
   const sessionsRouter = { id: "sessions" };
   const profileRouter = { id: "profile" };
+  const tasksRouter = { id: "tasks" };
   const apiKeysRouter = { id: "apikeys" };
   const breakGlassRouter = { id: "break-glass" };
   const installedAgentsRouter = { id: "installed-agents" };
@@ -91,6 +92,10 @@ void test("mountModuleRouters wires module routers in the expected order and reu
       assert.equal(receivedConfig, config);
       return sessionsRouter as never;
     },
+    createTasksRouter: (receivedConfig) => {
+      assert.equal(receivedConfig, config);
+      return tasksRouter as never;
+    },
     createSearchRouter: () => searchRouter as never,
     createUsersRouter: () => usersRouter as never,
     createWebhooksRouter: (receivedConfig) => {
@@ -108,6 +113,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
     ["/api/v1/auth", authRouter],
     ["/api/v1", sessionsRouter],
     ["/api/v1", profileRouter],
+    ["/api/v1", tasksRouter],
     ["/api/v1/apikeys", apiKeysRouter],
     ["/api/v1", breakGlassRouter],
     ["/api/v1/agents", installedAgentsRouter],
