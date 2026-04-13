@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { ProblemDetailsError } from "./problem-details.js";
 
 export function readFirstString(value: unknown): string | undefined {

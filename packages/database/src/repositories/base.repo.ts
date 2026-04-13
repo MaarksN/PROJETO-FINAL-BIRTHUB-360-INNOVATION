@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { TenantRequiredError } from "../errors/tenant-required.error.js";
 import { requireTenantId } from "../tenant-context.js";
 

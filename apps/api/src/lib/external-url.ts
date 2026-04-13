@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { isIP } from "node:net";
 
 const blockedHostnames = new Set([

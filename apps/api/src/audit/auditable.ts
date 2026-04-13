@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { NextFunction, Request, Response } from "express";
 
 import { enqueueAuditEvent } from "./buffer.js";

@@ -63,6 +63,7 @@ Eliminar o estado hibrido em que partes do produto ainda presumiam dominio clini
 - Navbar sem `Patients` e `Appointments` quando o workspace clinico esta desligado
 - Dashboard sem fetch/render de superficie clinica e de consentimento avancado
 - Pagina de privacidade trocada para modo self-service
+- Rota ativa de privacidade agora carrega a UI avancada apenas quando a flag correspondente e explicitamente reabilitada
 - Rotas clinicas do web agora exibem estado desativado em vez de tentar operar API inexistente
 - Feed de notificacoes agora neutraliza links clinicos quando o workspace esta desligado
 - BFF agora aceita apenas `privacy/export` e `privacy/delete-account` por default
