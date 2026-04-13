@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { Redis } from "ioredis";
 import { createLogger } from "@birthub/logger";
 

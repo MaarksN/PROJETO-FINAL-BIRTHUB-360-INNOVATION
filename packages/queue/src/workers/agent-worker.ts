@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { BaseWorker } from "./base-worker";
 
 export interface AgentJobPayload { agentId: string; input: Record<string, unknown>; shouldFail?: boolean }

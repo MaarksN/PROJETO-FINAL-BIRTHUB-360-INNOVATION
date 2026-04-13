@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { BaseWorker } from "./base-worker";
 
 export interface CampaignJobPayload { campaignId: string; channel: "email" | "whatsapp"; retryableError?: boolean }
