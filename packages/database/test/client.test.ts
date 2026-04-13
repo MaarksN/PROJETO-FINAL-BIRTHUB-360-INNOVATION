@@ -4,12 +4,14 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  createPrismaClient,
   getPrismaClient,
   normalizeDatabaseUrl,
   pingDatabase,
   pingDatabaseDeep,
   prisma,
   raceWithTimeout,
+  resetPrismaClientForTests,
   resolveConnectionLimit,
   resolveRuntimeDatabaseUrl,
   withTenantDatabaseContext
@@ -43,7 +45,7 @@ void test("importing client module does not bootstrap Prisma or require DATABASE
       "tsx",
       "--input-type=module",
       "-e",
-      "process.env.NODE_ENV='production'; delete process.env.DATABASE_URL; await import('./src/client.ts'); console.log('client-import-ok');"
+      "process.env.NODE_ENV='production'; delete process.env.DATABASE_URL; await import('./src/client.ts'); console.log(globalThis.birthubPrisma === undefined ? 'client-import-ok' : 'client-import-side-effect');"
     ],
     {
       cwd: packageRoot,
@@ -53,6 +55,10 @@ void test("importing client module does not bootstrap Prisma or require DATABASE
 
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /client-import-ok/);
+});
+
+void test.afterEach(async () => {
+  await resetPrismaClientForTests();
 });
 
 void test("normalizeDatabaseUrl injects pool defaults for postgres URLs", () => {
@@ -76,6 +82,19 @@ void test("getPrismaClient lazily creates and reuses the default client", () => 
   const secondClient = getPrismaClient();
 
   assert.equal(firstClient, secondClient);
+});
+
+void test("createPrismaClient with explicit databaseUrl keeps the explicit factory path functional", async () => {
+  const client = createPrismaClient({
+    databaseUrl: "postgresql://user:pass@db.birthhub.local:5432/app?schema=public"
+  });
+
+  try {
+    assert.equal(typeof client.$disconnect, "function");
+    assert.equal(typeof client.$transaction, "function");
+  } finally {
+    await client.$disconnect();
+  }
 });
 
 void test("resolveConnectionLimit prefers env override, then URL, then fallback", () => {
@@ -198,5 +217,15 @@ void test("pingDatabase and pingDatabaseDeep expose up/down health based on Pris
     for (const restore of failingRestores.reverse()) {
       restore();
     }
+  }
+});
+
+void test("monkeypatching prisma remains compatible with the lazy proxy export", async () => {
+  const restore = stubMethod(prisma, "$disconnect", async () => undefined);
+
+  try {
+    await assert.doesNotReject(async () => prisma.$disconnect());
+  } finally {
+    restore();
   }
 });

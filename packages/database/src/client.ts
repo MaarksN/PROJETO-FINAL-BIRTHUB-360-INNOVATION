@@ -17,7 +17,7 @@ const DEFAULT_SLOW_QUERY_MS = 750;
 const globalForPrisma = globalThis as typeof globalThis & {
   birthubPrisma?: PrismaClient;
 };
-let defaultPrismaClient: PrismaClient | undefined;
+let _client: PrismaClient | undefined;
 type RuntimeEnvironment = NodeJS.ProcessEnv;
 
 export interface CreatePrismaClientOptions {
@@ -417,11 +417,11 @@ export function normalizeDatabaseUrl(
 }
 
 function readStoredPrismaClient(): PrismaClient | undefined {
-  return defaultPrismaClient ?? globalForPrisma.birthubPrisma;
+  return _client ?? globalForPrisma.birthubPrisma;
 }
 
 function storePrismaClient(client: PrismaClient): PrismaClient {
-  defaultPrismaClient = client;
+  _client = client;
 
   if (!isProductionEnvironment()) {
     globalForPrisma.birthubPrisma = client;
@@ -437,6 +437,17 @@ export function getPrismaClient(): PrismaClient {
   }
 
   return storePrismaClient(createPrismaClient());
+}
+
+export async function resetPrismaClientForTests(): Promise<void> {
+  const client = readStoredPrismaClient();
+
+  _client = undefined;
+  delete globalForPrisma.birthubPrisma;
+
+  if (client) {
+    await client.$disconnect();
+  }
 }
 
 export const prisma = new Proxy({} as PrismaClient, {
