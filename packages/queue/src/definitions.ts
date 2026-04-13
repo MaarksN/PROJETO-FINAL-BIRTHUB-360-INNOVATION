@@ -11,6 +11,45 @@ export interface QueueDefinition {
   removeOnFail?: JobsOptions["removeOnFail"];
 }
 
+export const DEFAULT_REMOVE_ON_COMPLETE = { count: 100 } as const;
+export const DEFAULT_REMOVE_ON_FAIL = { count: 500 } as const;
+
+export const AGENT_QUEUE_NAMES = {
+  high: "agent-high",
+  low: "agent-low",
+  normal: "agent-normal"
+} as const;
+
+export type AgentQueuePriority = keyof typeof AGENT_QUEUE_NAMES;
+
+export const WORKFLOW_QUEUE_NAMES = {
+  execution: "workflow-execution",
+  trigger: "workflow-trigger"
+} as const;
+
+export const ENGAGEMENT_QUEUE_NAMES = {
+  crmSync: "engagement.crm-sync",
+  email: "engagement.email",
+  outboundWebhook: "engagement.outbound-webhook"
+} as const;
+
+export const SYSTEM_QUEUE_NAMES = {
+  auditFlush: "system.audit-flush",
+  billingExport: "system.billing-export",
+  failRateAlerts: "system.fail-rate-alerts",
+  healthScore: "system.health-score",
+  inviteCleanup: "system.invite-cleanup",
+  queueMetrics: "system.queue-metrics",
+  quotaReset: "system.quota-reset",
+  suspendedUserCleanup: "system.suspended-user-cleanup",
+  sunsetPolicy: "system.sunset-policy",
+  webhookLogPrune: "system.webhook-log-prune"
+} as const;
+
+export function getAgentQueueName(priority: AgentQueuePriority): string {
+  return AGENT_QUEUE_NAMES[priority];
+}
+
 export const QUEUE_CONFIG: Record<string, QueueDefinition> = {
   // Agent Queues
   [QueueName.SDR_QUEUE]: {
@@ -138,5 +177,117 @@ export const QUEUE_CONFIG: Record<string, QueueDefinition> = {
     priority: 4,
     cron: "0 8 * * 1"
   },
-  [QueueName.DOMAIN_WARMUP]: { attempts: 1, priority: 1, cron: "*/30 * * * *" }
+  [QueueName.DOMAIN_WARMUP]: { attempts: 1, priority: 1, cron: "*/30 * * * *" },
+
+  [AGENT_QUEUE_NAMES.high]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 1000 },
+    priority: 1,
+    removeOnComplete: { count: 500 },
+    removeOnFail: { count: 1000 }
+  },
+  [AGENT_QUEUE_NAMES.normal]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 1000 },
+    priority: 5,
+    removeOnComplete: { count: 500 },
+    removeOnFail: { count: 1000 }
+  },
+  [AGENT_QUEUE_NAMES.low]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 1000 },
+    priority: 10,
+    removeOnComplete: { count: 500 },
+    removeOnFail: { count: 1000 }
+  },
+  [WORKFLOW_QUEUE_NAMES.execution]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 1000 },
+    removeOnComplete: { count: 500 },
+    removeOnFail: { count: 500 }
+  },
+  [WORKFLOW_QUEUE_NAMES.trigger]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 1000 },
+    removeOnComplete: { count: 500 },
+    removeOnFail: { count: 500 }
+  },
+  [ENGAGEMENT_QUEUE_NAMES.crmSync]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 250 }
+  },
+  [ENGAGEMENT_QUEUE_NAMES.email]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 1000 },
+    removeOnComplete: { count: 200 },
+    removeOnFail: { count: 200 }
+  },
+  [ENGAGEMENT_QUEUE_NAMES.outboundWebhook]: {
+    attempts: 5,
+    backoff: { type: "exponential", delay: 1500 },
+    removeOnComplete: { count: 200 },
+    removeOnFail: { count: 300 }
+  },
+  [SYSTEM_QUEUE_NAMES.inviteCleanup]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 1000 },
+    removeOnComplete: { count: 200 },
+    removeOnFail: { count: 400 }
+  },
+  [SYSTEM_QUEUE_NAMES.auditFlush]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 500 },
+    removeOnComplete: { count: 200 },
+    removeOnFail: { count: 400 }
+  },
+  [SYSTEM_QUEUE_NAMES.quotaReset]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.billingExport]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.healthScore]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.webhookLogPrune]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.sunsetPolicy]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.suspendedUserCleanup]: {
+    attempts: 3,
+    backoff: { type: "exponential", delay: 2000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.failRateAlerts]: {
+    attempts: 2,
+    backoff: { type: "exponential", delay: 1000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  },
+  [SYSTEM_QUEUE_NAMES.queueMetrics]: {
+    attempts: 2,
+    backoff: { type: "exponential", delay: 1000 },
+    removeOnComplete: { count: 100 },
+    removeOnFail: { count: 200 }
+  }
 };

@@ -1,9 +1,15 @@
 // @ts-nocheck
-// 
+//
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import { incrementCounter, observeHistogram } from "@birthub/logger";
-import { Queue, Worker, type JobsOptions } from "bullmq";
+import {
+  ENGAGEMENT_QUEUE_NAMES,
+  QueueRuntime,
+  WORKFLOW_QUEUE_NAMES,
+  getAgentQueueName
+} from "@birthub/queue";
+import type { Queue, Worker } from "bullmq";
 import { Redis } from "ioredis";
 
 import { persistAgentHandoff } from "./agents/handoffs.js";
@@ -12,21 +18,17 @@ import { executeManifestAgentRuntime } from "./agents/runtime.orchestration.js";
 import {
   WorkflowRunner,
   type WorkflowExecutionJobPayload,
-  type WorkflowTriggerJobPayload,
-  workflowQueueNames
+  type WorkflowTriggerJobPayload
 } from "./engine/runner.js";
 import { executeConnectorRuntimeAction } from "./integrations/connectors.runtime.js";
 import { syncOrganizationToHubspot } from "./integrations/hubspot.js";
 import { DynamicRateLimiter } from "./lib/rate-limiter.js";
 import {
-  emailQueueName,
   processEmailNotificationJob,
   type EmailNotificationJobPayload
 } from "./notifications/emailQueue.js";
-import { getQueueNameForPriority } from "./queues/agentQueue.js";
-import { WorkerFactory } from "./queues/workerFactory.js";
+import { buildRetryableQueueConfig } from "./queues/workerFactory.js";
 import {
-  outboundWebhookQueueName,
   processOutboundWebhookJob,
   type OutboundWebhookJobPayload
 } from "./webhooks/outbound.js";
@@ -41,14 +43,13 @@ import { createJobProcessor, resolveOrganizationReference } from "./worker.proce
 export { validateLegacyTaskJob } from "./worker.job-validation.js";
 
 const logger = createLogger("worker");
-const crmSyncQueueName = "engagement.crm-sync";
-const WORKER_REDIS_TIMEOUT_MS = 10_000;
 
 export interface WorkerRuntime {
   close: () => Promise<void>;
   connection: Redis;
   dlqQueues: Queue[];
   queues: Queue[];
+  runtime: QueueRuntime;
   workers: Worker[];
 }
 
@@ -89,61 +90,66 @@ function recordWorkerJobMetric(input: {
   }
 }
 
-function buildRetryableJobOptions(input: {
-  attempts: number;
-  delay: number;
-  removeOnCompleteCount: number;
-  removeOnFailCount: number;
-}): JobsOptions {
-  return {
-    attempts: input.attempts,
-    backoff: {
-      delay: input.delay,
-      type: "exponential"
-    },
-    removeOnComplete: {
-      count: input.removeOnCompleteCount
-    },
-    removeOnFail: {
-      count: input.removeOnFailCount
-    }
-  };
-}
-
 export function createBirthHubWorker(): WorkerRuntime {
   const config = getWorkerConfig();
-  const connection = new Redis(config.REDIS_URL, {
-    commandTimeout: WORKER_REDIS_TIMEOUT_MS,
-    connectTimeout: WORKER_REDIS_TIMEOUT_MS,
-    maxRetriesPerRequest: null
+  const runtime = new QueueRuntime({ redisUrl: config.REDIS_URL });
+  const connection = runtime.redis as Redis;
+
+  const legacyTaskQueueConfig = buildRetryableQueueConfig({
+    attempts: 5,
+    backoffDelay: 1_000,
+    concurrency: config.WORKER_CONCURRENCY,
+    name: config.QUEUE_NAME,
+    removeOnCompleteCount: 500,
+    removeOnFailCount: 1_000
   });
-  const workerFactory = new WorkerFactory(connection);
-  const workflowExecutionQueue = workerFactory.getQueue<WorkflowExecutionJobPayload>(
-    workflowQueueNames.execution,
-    buildRetryableJobOptions({
-      attempts: 5,
-      delay: 1_000,
-      removeOnCompleteCount: 500,
-      removeOnFailCount: 500
-    })
+  const workflowExecutionQueueConfig = buildRetryableQueueConfig({
+    attempts: 5,
+    backoffDelay: 1_000,
+    concurrency: config.WORKER_CONCURRENCY,
+    name: WORKFLOW_QUEUE_NAMES.execution,
+    removeOnCompleteCount: 500,
+    removeOnFailCount: 500
+  });
+  const workflowTriggerQueueConfig = buildRetryableQueueConfig({
+    attempts: 5,
+    backoffDelay: 1_000,
+    concurrency: config.WORKER_CONCURRENCY,
+    name: WORKFLOW_QUEUE_NAMES.trigger,
+    removeOnCompleteCount: 500,
+    removeOnFailCount: 500
+  });
+  const emailQueueConfig = buildRetryableQueueConfig({
+    attempts: 3,
+    backoffDelay: 1_000,
+    concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
+    name: ENGAGEMENT_QUEUE_NAMES.email,
+    removeOnCompleteCount: 200,
+    removeOnFailCount: 200
+  });
+  const outboundWebhookQueueConfig = buildRetryableQueueConfig({
+    attempts: 5,
+    backoffDelay: 1_500,
+    concurrency: config.WORKER_CONCURRENCY,
+    name: ENGAGEMENT_QUEUE_NAMES.outboundWebhook,
+    removeOnCompleteCount: 300,
+    removeOnFailCount: 300
+  });
+  const crmSyncQueueConfig = buildRetryableQueueConfig({
+    attempts: 5,
+    backoffDelay: 2_000,
+    concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
+    name: ENGAGEMENT_QUEUE_NAMES.crmSync,
+    removeOnCompleteCount: 200,
+    removeOnFailCount: 400
+  });
+
+  const workflowExecutionQueue = runtime.createQueue<WorkflowExecutionJobPayload>(
+    workflowExecutionQueueConfig
   );
-  const emailQueue = workerFactory.getQueue<EmailNotificationJobPayload>(
-    emailQueueName,
-    buildRetryableJobOptions({
-      attempts: 3,
-      delay: 1_000,
-      removeOnCompleteCount: 200,
-      removeOnFailCount: 200
-    })
-  );
-  const outboundWebhookQueue = workerFactory.getQueue<OutboundWebhookJobPayload>(
-    outboundWebhookQueueName,
-    buildRetryableJobOptions({
-      attempts: 5,
-      delay: 1_500,
-      removeOnCompleteCount: 300,
-      removeOnFailCount: 300
-    })
+  const emailQueue = runtime.createQueue<EmailNotificationJobPayload>(emailQueueConfig);
+  const outboundWebhookQueue = runtime.createQueue<OutboundWebhookJobPayload>(
+    outboundWebhookQueueConfig
   );
   const dynamicRateLimiter = new DynamicRateLimiter(connection);
   const workflowRunner = new WorkflowRunner(workflowExecutionQueue, {
@@ -248,115 +254,91 @@ export function createBirthHubWorker(): WorkerRuntime {
     resolveBillingLock
   });
 
-  const queueNames = [
-    config.QUEUE_NAME,
-    getQueueNameForPriority("high"),
-    getQueueNameForPriority("normal"),
-    getQueueNameForPriority("low")
-  ];
-  const tenantTaskWorkers = queueNames.map((queueName) =>
-    workerFactory.createWorker({
+  const taskQueueConfigs = [
+    legacyTaskQueueConfig,
+    buildRetryableQueueConfig({
+      attempts: 5,
+      backoffDelay: 1_000,
       concurrency: config.WORKER_CONCURRENCY,
-      defaultJobOptions: buildRetryableJobOptions({
-        attempts: 5,
-        delay: 1_000,
-        removeOnCompleteCount: 500,
-        removeOnFailCount: 1_000
-      }),
-      name: queueName,
-      processor: async (job) =>
-        processJob({
-          data: job.data,
-          queueName,
-          ...(job.id !== undefined ? { id: job.id } : {})
-        })
+      name: getAgentQueueName("high"),
+      removeOnCompleteCount: 500,
+      removeOnFailCount: 1_000
+    }),
+    buildRetryableQueueConfig({
+      attempts: 5,
+      backoffDelay: 1_000,
+      concurrency: config.WORKER_CONCURRENCY,
+      name: getAgentQueueName("normal"),
+      removeOnCompleteCount: 500,
+      removeOnFailCount: 1_000
+    }),
+    buildRetryableQueueConfig({
+      attempts: 5,
+      backoffDelay: 1_000,
+      concurrency: config.WORKER_CONCURRENCY,
+      name: getAgentQueueName("low"),
+      removeOnCompleteCount: 500,
+      removeOnFailCount: 1_000
     })
+  ];
+
+  taskQueueConfigs.forEach((queueConfig) => {
+    runtime.createWorker(queueConfig, async (data, ctx) =>
+      processJob({
+        data,
+        id: ctx.jobId,
+        queueName: queueConfig.name
+      })
+    );
+  });
+
+  runtime.createWorker(workflowExecutionQueueConfig, async (data) =>
+    workflowRunner.processExecutionJob(data as WorkflowExecutionJobPayload)
   );
-  const workflowExecutionWorker = workerFactory.createWorker({
-    concurrency: config.WORKER_CONCURRENCY,
-    defaultJobOptions: buildRetryableJobOptions({
-      attempts: 5,
-      delay: 1_000,
-      removeOnCompleteCount: 500,
-      removeOnFailCount: 500
-    }),
-    name: workflowQueueNames.execution,
-    processor: async (job) =>
-      workflowRunner.processExecutionJob(job.data as WorkflowExecutionJobPayload)
+  runtime.createWorker(workflowTriggerQueueConfig, async (data) =>
+    workflowRunner.processTriggerJob(data as WorkflowTriggerJobPayload)
+  );
+  runtime.createWorker(emailQueueConfig, async (data) =>
+    processEmailNotificationJob(data as EmailNotificationJobPayload)
+  );
+  runtime.createWorker(outboundWebhookQueueConfig, async (data) =>
+    processOutboundWebhookJob(data as OutboundWebhookJobPayload, { redis: connection })
+  );
+  runtime.createWorker(crmSyncQueueConfig, async (data) => {
+    const payload = data as CrmSyncJobPayload;
+    await syncOrganizationToHubspot({
+      organizationId: payload.organizationId,
+      tenantId: payload.tenantId
+    });
   });
-  const workflowTriggerWorker = workerFactory.createWorker({
-    concurrency: config.WORKER_CONCURRENCY,
-    defaultJobOptions: buildRetryableJobOptions({
-      attempts: 5,
-      delay: 1_000,
-      removeOnCompleteCount: 500,
-      removeOnFailCount: 500
-    }),
-    name: workflowQueueNames.trigger,
-    processor: async (job) =>
-      workflowRunner.processTriggerJob(job.data as WorkflowTriggerJobPayload)
-  });
-  const emailWorker = workerFactory.createWorker({
-    concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
-    defaultJobOptions: buildRetryableJobOptions({
-      attempts: 3,
-      delay: 1_000,
-      removeOnCompleteCount: 200,
-      removeOnFailCount: 200
-    }),
-    name: emailQueueName,
-    processor: async (job) =>
-      processEmailNotificationJob(job.data as EmailNotificationJobPayload)
-  });
-  const outboundWebhookWorker = workerFactory.createWorker({
-    concurrency: config.WORKER_CONCURRENCY,
-    defaultJobOptions: buildRetryableJobOptions({
-      attempts: 5,
-      delay: 1_500,
-      removeOnCompleteCount: 300,
-      removeOnFailCount: 300
-    }),
-    name: outboundWebhookQueueName,
-    processor: async (job) =>
-      processOutboundWebhookJob(job.data as OutboundWebhookJobPayload, { redis: connection })
-  });
-  const crmSyncWorker = workerFactory.createWorker({
-    concurrency: Math.max(1, Math.floor(config.WORKER_CONCURRENCY / 2)),
-    defaultJobOptions: buildRetryableJobOptions({
-      attempts: 5,
-      delay: 2_000,
-      removeOnCompleteCount: 200,
-      removeOnFailCount: 400
-    }),
-    name: crmSyncQueueName,
-    processor: async (job) => {
-      const payload = job.data as CrmSyncJobPayload;
-      await syncOrganizationToHubspot({
-        organizationId: payload.organizationId,
-        tenantId: payload.tenantId
-      });
-    }
-  });
+
   const agentMeshIngressBridge = initializeAgentMeshIngressBridge({
     enqueueAgentExecution: async ({ payload, priority }) => {
-      const queue = workerFactory.getQueue(
-        getQueueNameForPriority(priority)
-      );
+      const mappedPriority = priority === "high" ? 1 : priority === "low" ? 10 : 5;
 
-      await queue.add("agent-execution", payload, {
-        jobId: `${payload.tenantId}:${payload.executionId}`,
-        priority: priority === "high" ? 1 : 5
+      await runtime.enqueue({
+        data: payload,
+        jobName: "agent-execution",
+        options: {
+          jobId: `${payload.tenantId}:${payload.executionId}`,
+          priority: mappedPriority
+        },
+        queue: getAgentQueueName(priority)
       });
     },
     enqueueWorkflowTrigger: async (payload) => {
-      await workflowTriggerWorker.queue.add("workflow-trigger", payload, {
-        jobId: `${payload.workflowId}:${payload.tenantId}:${Date.now()}`
+      await runtime.enqueue({
+        data: payload,
+        jobName: "workflow-trigger",
+        options: {
+          jobId: `${payload.workflowId}:${payload.tenantId}:${Date.now()}`
+        },
+        queue: WORKFLOW_QUEUE_NAMES.trigger
       });
     }
   });
-  const tenantTaskQueues = tenantTaskWorkers.map((managedWorker) => managedWorker.queue);
-  const workers = workerFactory.getWorkers();
 
+  const workers = runtime.listWorkers();
   workers.forEach((worker) => {
     worker.on("completed", (job) => {
       const startedAt = typeof job?.processedOn === "number" ? job.processedOn : undefined;
@@ -391,22 +373,15 @@ export function createBirthHubWorker(): WorkerRuntime {
 
   const close = async (): Promise<void> => {
     agentMeshIngressBridge.close();
-    await workerFactory.close();
-    await connection.quit();
+    await runtime.close();
   };
 
   return {
     close,
     connection,
-    dlqQueues: workerFactory.getDlqQueues(),
-    queues: [
-      ...tenantTaskQueues,
-      workflowExecutionWorker.queue,
-      workflowTriggerWorker.queue,
-      emailWorker.queue,
-      outboundWebhookWorker.queue,
-      crmSyncWorker.queue
-    ],
+    dlqQueues: runtime.listDlqQueues(),
+    queues: runtime.listQueues(),
+    runtime,
     workers
   };
 }

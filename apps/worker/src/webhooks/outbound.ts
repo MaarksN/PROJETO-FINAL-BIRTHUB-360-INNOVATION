@@ -5,6 +5,7 @@ import { createHmac } from "node:crypto";
 import { getWorkerConfig } from "@birthub/config";
 import { Prisma, prisma, WebhookEndpointStatus } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
+import { ENGAGEMENT_QUEUE_NAMES } from "@birthub/queue";
 import type { Queue } from "bullmq";
 import type { Redis } from "ioredis";
 
@@ -16,7 +17,7 @@ function toJsonValue(value: Record<string, unknown>): Prisma.InputJsonValue {
   return value as Prisma.InputJsonValue;
 }
 
-export const outboundWebhookQueueName = "engagement.outbound-webhook";
+export const outboundWebhookQueueName = ENGAGEMENT_QUEUE_NAMES.outboundWebhook;
 
 export interface OutboundWebhookJobPayload {
   attempt?: number;

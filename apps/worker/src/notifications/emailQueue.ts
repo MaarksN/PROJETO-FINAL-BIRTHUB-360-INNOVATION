@@ -3,13 +3,14 @@
 import { getWorkerConfig } from "@birthub/config";
 import { ensureUserPreference, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
+import { ENGAGEMENT_QUEUE_NAMES } from "@birthub/queue";
 import type { Queue } from "bullmq";
 
 import { fetchWithTimeout } from "../../../../packages/utils/src/fetch.js";
 
 const logger = createLogger("worker-email-queue");
 
-export const emailQueueName = "engagement.email";
+export const emailQueueName = ENGAGEMENT_QUEUE_NAMES.email;
 const SENDGRID_REQUEST_TIMEOUT_MS = 10_000;
 
 export interface EmailNotificationJobPayload {

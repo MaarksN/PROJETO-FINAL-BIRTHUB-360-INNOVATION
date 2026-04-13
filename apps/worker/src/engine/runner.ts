@@ -12,6 +12,7 @@ import {
   type HandoffExecutor,
   type NotificationDispatcher
 } from "@birthub/workflows-core";
+import { WORKFLOW_QUEUE_NAMES } from "@birthub/queue";
 import { Queue } from "bullmq";
 
 import { processWorkflowExecutionJob } from "./runner.execution.js";
@@ -147,5 +148,5 @@ export class WorkflowRunner {
 
 export const workflowQueueNames = {
   execution: WORKFLOW_EXECUTION_QUEUE,
-  trigger: "workflow-trigger"
+  trigger: WORKFLOW_QUEUE_NAMES.trigger
 } as const;

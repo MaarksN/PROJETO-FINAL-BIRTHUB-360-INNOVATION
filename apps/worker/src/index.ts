@@ -1,10 +1,11 @@
 // @ts-nocheck
-// 
+//
 import { createServer } from "node:http";
 
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import { incrementCounter, renderPrometheusMetrics, setGauge } from "@birthub/logger";
+import { SYSTEM_QUEUE_NAMES } from "@birthub/queue";
 
 import {
   evaluateFailRateAlerts,
@@ -12,7 +13,6 @@ import {
   NoopFailRateMetricsSource
 } from "./alerts/failRateAlert.js";
 import { startCycle2Jobs } from "./jobs/scheduler.js";
-import { cleanupSuspendedUsers } from "./jobs/userCleanup.js";
 import { createBirthHubWorker } from "./worker.js";
 import { initializeWorkerOpenTelemetry, shutdownWorkerOpenTelemetry } from "./observability/otel.js";
 import { evaluateWorkerReadiness, type WorkerQueueState } from "./operational/readiness.js";
@@ -21,12 +21,9 @@ const config = getWorkerConfig();
 initializeWorkerOpenTelemetry(config);
 const logger = createLogger("worker-bootstrap");
 const runtime = createBirthHubWorker();
-const cleanupIntervalMs = 24 * 60 * 60 * 1000;
-const failRateIntervalMs = 5 * 60 * 1000;
-const queueMetricsIntervalMs = 15 * 1000;
 const failRateMetricsSource = new NoopFailRateMetricsSource();
 const failRateNotifier = new LoggingFailRateNotifier();
-const cycle2Jobs = startCycle2Jobs();
+const cycle2Jobs = await startCycle2Jobs(runtime.runtime);
 
 async function listQueueStates(): Promise<WorkerQueueState[]> {
   const states = await Promise.all(
@@ -107,6 +104,40 @@ async function collectQueueOperationalMetrics(): Promise<void> {
     "Current total failed jobs (DLQ) across all worker queues."
   );
 }
+
+runtime.runtime.createWorker(SYSTEM_QUEUE_NAMES.failRateAlerts, async () => {
+  await evaluateFailRateAlerts({
+    notifier: failRateNotifier,
+    source: failRateMetricsSource,
+    threshold: 0.2,
+    windowMinutes: 5
+  });
+});
+runtime.runtime.createWorker(SYSTEM_QUEUE_NAMES.queueMetrics, async () => {
+  await collectQueueOperationalMetrics();
+});
+
+await Promise.all([
+  runtime.runtime.upsertRepeatableJob({
+    data: { scheduled: true },
+    jobId: `${SYSTEM_QUEUE_NAMES.failRateAlerts}:repeat`,
+    jobName: "fail-rate-alerts",
+    queue: SYSTEM_QUEUE_NAMES.failRateAlerts,
+    repeat: { pattern: "0 */5 * * * *" }
+  }),
+  runtime.runtime.upsertRepeatableJob({
+    data: { scheduled: true },
+    jobId: `${SYSTEM_QUEUE_NAMES.queueMetrics}:repeat`,
+    jobName: "queue-metrics",
+    queue: SYSTEM_QUEUE_NAMES.queueMetrics,
+    repeat: { pattern: "*/15 * * * * *" }
+  }),
+  runtime.runtime.enqueue({
+    data: { reason: "startup" },
+    jobName: "queue-metrics-startup",
+    queue: SYSTEM_QUEUE_NAMES.queueMetrics
+  })
+]);
 
 const healthServer = createServer((request, response) => {
   const requestUrl = new URL(request.url ?? "/", "http://localhost");
@@ -190,42 +221,6 @@ const healthServer = createServer((request, response) => {
   response.writeHead(404).end();
   return;
 });
-const cleanupTimer = setInterval(() => {
-  void cleanupSuspendedUsers()
-    .then((result) => {
-      logger.info(result, "Suspended users cleanup executed");
-    })
-    .catch((error) => {
-      logger.error({ error }, "Suspended users cleanup failed");
-    });
-}, cleanupIntervalMs);
-const failRateTimer = setInterval(() => {
-  void evaluateFailRateAlerts({
-    notifier: failRateNotifier,
-    source: failRateMetricsSource,
-    threshold: 0.2,
-    windowMinutes: 5
-  }).catch((error) => {
-    logger.error({ error }, "Fail-rate alert evaluation failed");
-  });
-}, failRateIntervalMs);
-const queueMetricsTimer = setInterval(() => {
-  void collectQueueOperationalMetrics().catch((error) => {
-    logger.error({ error }, "Queue metrics collection failed");
-  });
-}, queueMetricsIntervalMs);
-
-void cleanupSuspendedUsers()
-  .then((result) => {
-    logger.info(result, "Initial suspended users cleanup executed");
-  })
-  .catch((error) => {
-    logger.error({ error }, "Initial suspended users cleanup failed");
-  });
-
-void collectQueueOperationalMetrics().catch((error) => {
-  logger.error({ error }, "Initial queue metrics collection failed");
-});
 
 logger.info(
   {
@@ -250,9 +245,6 @@ async function shutdown(signal: string): Promise<void> {
 
   isShuttingDown = true;
   logger.info({ signal }, "Shutting down worker");
-  clearInterval(cleanupTimer);
-  clearInterval(failRateTimer);
-  clearInterval(queueMetricsTimer);
   await new Promise<void>((resolve, reject) => {
     healthServer.close((error) => {
       if (error) {

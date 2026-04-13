@@ -1,14 +1,7 @@
 // @ts-nocheck
-// 
+//
 import type { ApiConfig } from "@birthub/config";
-import { Queue } from "bullmq";
-
-import { getBullConnection } from "../../lib/redis.js";
-
-const engagementQueueNames = {
-  crmSync: "engagement.crm-sync",
-  outboundWebhook: "engagement.outbound-webhook"
-} as const;
+import { ENGAGEMENT_QUEUE_NAMES, queueClient } from "@birthub/queue";
 
 export interface CrmSyncJobPayload {
   kind: "company-upsert" | "health-score-sync";
@@ -25,107 +18,49 @@ export interface OutboundWebhookJobPayload {
   topic: string;
 }
 
-type CrmSyncQueue = Queue<CrmSyncJobPayload, void, CrmSyncJobPayload["kind"]>;
-type OutboundWebhookQueue = Queue<OutboundWebhookJobPayload, void, OutboundWebhookJobPayload["topic"]>;
-
-const crmSyncQueues = new Map<string, CrmSyncQueue>();
-const outboundWebhookQueues = new Map<string, OutboundWebhookQueue>();
-
-function getCrmSyncQueue(config: ApiConfig): CrmSyncQueue {
-  const cacheKey = `${config.REDIS_URL}:${engagementQueueNames.crmSync}`;
-  const existing = crmSyncQueues.get(cacheKey);
-
-  if (existing) {
-    return existing;
-  }
-
-  const queue = new Queue<CrmSyncJobPayload, void, CrmSyncJobPayload["kind"]>(
-    engagementQueueNames.crmSync,
-    {
-      connection: getBullConnection(config),
-      defaultJobOptions: {
-        attempts: 5,
-        backoff: {
-          delay: 2_000,
-          type: "exponential"
-        },
-        removeOnComplete: {
-          count: 100
-        },
-        removeOnFail: {
-          count: 250
-        }
-      }
-    }
-  );
-  crmSyncQueues.set(cacheKey, queue);
-  return queue;
-}
-
-function getOutboundWebhookQueue(config: ApiConfig): OutboundWebhookQueue {
-  const cacheKey = `${config.REDIS_URL}:${engagementQueueNames.outboundWebhook}`;
-  const existing = outboundWebhookQueues.get(cacheKey);
-
-  if (existing) {
-    return existing;
-  }
-
-  const queue = new Queue<OutboundWebhookJobPayload, void, OutboundWebhookJobPayload["topic"]>(
-    engagementQueueNames.outboundWebhook,
-    {
-      connection: getBullConnection(config),
-      defaultJobOptions: {
-        attempts: 5,
-        backoff: {
-          delay: 1_500,
-          type: "exponential"
-        },
-        removeOnComplete: {
-          count: 200
-        },
-        removeOnFail: {
-          count: 300
-        }
-      }
-    }
-  );
-  outboundWebhookQueues.set(cacheKey, queue);
-  return queue;
-}
-
 export async function enqueueCrmSync(
   config: ApiConfig,
   payload: CrmSyncJobPayload
 ): Promise<void> {
-  await getCrmSyncQueue(config).add(
-    payload.kind,
-    payload,
-    {
+  await queueClient.enqueue({
+    data: payload,
+    jobName: payload.kind,
+    options: {
       removeOnComplete: {
         count: 100
       },
       removeOnFail: {
         count: 250
       }
-    }
-  );
+    },
+    queue: ENGAGEMENT_QUEUE_NAMES.crmSync,
+    redisUrl: config.REDIS_URL,
+    tenantId: payload.tenantId
+  });
 }
 
 export async function enqueueOutboundWebhook(
   config: ApiConfig,
   payload: OutboundWebhookJobPayload
 ): Promise<void> {
-  await getOutboundWebhookQueue(config).add(payload.topic, payload, {
-    attempts: 5,
-    backoff: {
-      delay: 1_500,
-      type: "exponential"
+  await queueClient.enqueue({
+    data: payload,
+    jobName: payload.topic,
+    options: {
+      attempts: 5,
+      backoff: {
+        delay: 1_500,
+        type: "exponential"
+      },
+      removeOnComplete: {
+        count: 200
+      },
+      removeOnFail: {
+        count: 300
+      }
     },
-    removeOnComplete: {
-      count: 200
-    },
-    removeOnFail: {
-      count: 300
-    }
+    queue: ENGAGEMENT_QUEUE_NAMES.outboundWebhook,
+    redisUrl: config.REDIS_URL,
+    tenantId: payload.tenantId
   });
 }
