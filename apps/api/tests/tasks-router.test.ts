@@ -48,8 +48,13 @@ void test("createTasksRouter requires an authenticated session for POST /api/v1/
 void test("createTasksRouter enqueues tasks with the same public contract and side effects", async () => {
   const config = createTestApiConfig();
   const app = express();
-  let consumedBudget: ConsumedBudgetPayload | null = null;
-  let queuedPayload: QueuedTaskPayload | null = null;
+  const captured: {
+    consumedBudget: ConsumedBudgetPayload | null;
+    queuedPayload: QueuedTaskPayload | null;
+  } = {
+    consumedBudget: null,
+    queuedPayload: null
+  };
 
   app.use(requestContextMiddleware);
   app.use(express.json());
@@ -68,7 +73,7 @@ void test("createTasksRouter enqueues tasks with the same public contract and si
     createTasksRouter(config, {
       budgetService: {
         consumeBudget: async (input) => {
-          consumedBudget = input as ConsumedBudgetPayload;
+          captured.consumedBudget = input as ConsumedBudgetPayload;
           return {
             agentId: "ceo-pack",
             consumed: 0.5,
@@ -81,7 +86,7 @@ void test("createTasksRouter enqueues tasks with the same public contract and si
         }
       },
       enqueueTask: async (_receivedConfig, payload) => {
-        queuedPayload = payload as QueuedTaskPayload;
+        captured.queuedPayload = payload as QueuedTaskPayload;
         return { jobId: "job_123" };
       }
     })
@@ -106,13 +111,16 @@ void test("createTasksRouter enqueues tasks with the same public contract and si
     jobId: "job_123",
     requestId: "req_task_1"
   });
-  assert.equal(consumedBudget?.actorId, "user_1");
-  assert.equal(consumedBudget?.organizationId, "org_1");
-  assert.equal(consumedBudget?.tenantId, "tenant_1");
-  assert.equal(queuedPayload?.tenantId, "tenant_1");
-  assert.equal(queuedPayload?.userId, "user_1");
-  assert.equal(queuedPayload?.requestId, "req_task_1");
-  assert.equal(queuedPayload?.type, "send-welcome-email");
+  if (!captured.consumedBudget || !captured.queuedPayload) {
+    throw new Error("Expected task submission side effects to be captured.");
+  }
+  assert.equal(captured.consumedBudget.actorId, "user_1");
+  assert.equal(captured.consumedBudget.organizationId, "org_1");
+  assert.equal(captured.consumedBudget.tenantId, "tenant_1");
+  assert.equal(captured.queuedPayload.tenantId, "tenant_1");
+  assert.equal(captured.queuedPayload.userId, "user_1");
+  assert.equal(captured.queuedPayload.requestId, "req_task_1");
+  assert.equal(captured.queuedPayload.type, "send-welcome-email");
 });
 
 void test("createTasksRouter preserves budget exceeded translation", async () => {
