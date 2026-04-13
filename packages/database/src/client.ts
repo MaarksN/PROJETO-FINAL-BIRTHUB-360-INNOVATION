@@ -17,6 +17,21 @@ const DEFAULT_SLOW_QUERY_MS = 750;
 const globalForPrisma = globalThis as typeof globalThis & {
   birthubPrisma?: PrismaClient;
 };
+let defaultPrismaClient: PrismaClient | undefined;
+type RuntimeEnvironment = NodeJS.ProcessEnv;
+
+export interface CreatePrismaClientOptions {
+  databaseUrl?: string;
+  env?: RuntimeEnvironment;
+}
+
+interface ResolvedPrismaClientOptions {
+  connectionLimit: number;
+  databaseUrl: string;
+  nodeEnv: ReturnType<typeof resolveNodeEnvironment>;
+  queryTimeoutMs: number;
+  slowQueryThresholdMs: number;
+}
 
 type MetricLabels = Record<string, string | number | boolean | null | undefined>;
 
@@ -47,17 +62,49 @@ function getMetricsApi(): GlobalMetricsApi | null {
   return globalMetrics.__birthubMetricsApi ?? null;
 }
 
-function resolveQueryTimeoutMs(): number {
-  const raw = Number(process.env.PRISMA_QUERY_TIMEOUT_MS ?? "");
-  return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_QUERY_TIMEOUT_MS;
+function getEnvironmentSource(env: RuntimeEnvironment = process.env): RuntimeEnvironment {
+  return env;
 }
 
-export function raceWithTimeout<T>(
+function readTrimmedEnvironmentValue(
+  key: string,
+  env: RuntimeEnvironment = getEnvironmentSource()
+): string | undefined {
+  const value = env[key]?.trim();
+  return value ? value : undefined;
+}
+
+function resolveNodeEnvironment(
+  env: RuntimeEnvironment = getEnvironmentSource()
+): "development" | "test" | "production" {
+  const nodeEnv = readTrimmedEnvironmentValue("NODE_ENV", env);
+
+  if (nodeEnv === "production" || nodeEnv === "test") {
+    return nodeEnv;
+  }
+
+  return "development";
+}
+
+function isProductionEnvironment(env: RuntimeEnvironment = getEnvironmentSource()): boolean {
+  return resolveNodeEnvironment(env) === "production";
+}
+
+function parsePositiveNumber(rawValue: string | undefined): number | undefined {
+  const value = Number(rawValue ?? "");
+  return Number.isFinite(value) && value > 0 ? value : undefined;
+}
+
+export function resolveQueryTimeoutMs(env: RuntimeEnvironment = getEnvironmentSource()): number {
+  return parsePositiveNumber(readTrimmedEnvironmentValue("PRISMA_QUERY_TIMEOUT_MS", env)) ?? DEFAULT_QUERY_TIMEOUT_MS;
+}
+
+function raceWithConfiguredTimeout<T>(
   promise: Promise<T>,
   operation: string,
+  timeoutMs: number,
   model?: string
 ): Promise<T> {
-  const timeoutMs = resolveQueryTimeoutMs();
   return Promise.race([
     promise,
     new Promise<T>((_, reject) => {
@@ -77,17 +124,29 @@ export function raceWithTimeout<T>(
   ]);
 }
 
-export function resolveConnectionLimit(databaseUrl: string): number {
-  const explicit = Number(process.env.DATABASE_CONNECTION_LIMIT ?? "");
-  if (Number.isFinite(explicit) && explicit > 0) {
+export function raceWithTimeout<T>(
+  promise: Promise<T>,
+  operation: string,
+  model?: string,
+  env: RuntimeEnvironment = getEnvironmentSource()
+): Promise<T> {
+  return raceWithConfiguredTimeout(promise, operation, resolveQueryTimeoutMs(env), model);
+}
+
+export function resolveConnectionLimit(
+  databaseUrl: string,
+  env: RuntimeEnvironment = getEnvironmentSource()
+): number {
+  const explicit = parsePositiveNumber(readTrimmedEnvironmentValue("DATABASE_CONNECTION_LIMIT", env));
+  if (explicit) {
     return explicit;
   }
 
   try {
     const parsed = new URL(databaseUrl);
-    const raw = Number(parsed.searchParams.get("connection_limit") ?? "");
-    if (Number.isFinite(raw) && raw > 0) {
-      return raw;
+    const connectionLimit = parsePositiveNumber(parsed.searchParams.get("connection_limit") ?? undefined);
+    if (connectionLimit) {
+      return connectionLimit;
     }
   } catch {
     // Ignore malformed URLs and fall back to the default.
@@ -96,12 +155,10 @@ export function resolveConnectionLimit(databaseUrl: string): number {
   return DEFAULT_DATABASE_CONNECTION_LIMIT;
 }
 
-function resolveSlowQueryThresholdMs(): number {
-  const raw = Number(process.env.DB_SLOW_QUERY_MS ?? "");
-  return Number.isFinite(raw) && raw > 0 ? raw : DEFAULT_SLOW_QUERY_MS;
+function resolveSlowQueryThresholdMs(env: RuntimeEnvironment = getEnvironmentSource()): number {
+  return parsePositiveNumber(readTrimmedEnvironmentValue("DB_SLOW_QUERY_MS", env)) ?? DEFAULT_SLOW_QUERY_MS;
 }
 
-const slowQueryThresholdMs = resolveSlowQueryThresholdMs();
 let activeQueries = 0;
 
 function updateDatabaseGauges(connectionLimit: number): void {
@@ -124,12 +181,16 @@ function updateDatabaseGauges(connectionLimit: number): void {
   );
 }
 
-export function resolveRuntimeDatabaseUrl(rawUrl: string | undefined): string {
-  if (rawUrl?.trim()) {
-    return rawUrl;
+export function resolveRuntimeDatabaseUrl(
+  rawUrl: string | undefined,
+  env: RuntimeEnvironment = getEnvironmentSource()
+): string {
+  const trimmedDatabaseUrl = rawUrl?.trim();
+  if (trimmedDatabaseUrl) {
+    return trimmedDatabaseUrl;
   }
 
-  const nodeEnv = process.env.NODE_ENV ?? "development";
+  const nodeEnv = resolveNodeEnvironment(env);
   if (nodeEnv === "development" || nodeEnv === "test") {
     return DEFAULT_DEVELOPMENT_DATABASE_URL;
   }
@@ -156,8 +217,10 @@ function createPrismaAdapter(databaseUrl: string, connectionLimit: number): Pris
   );
 }
 
-function shouldFallbackToDatasourceClient(error: unknown): boolean {
-  const nodeEnv = process.env.NODE_ENV ?? "development";
+function shouldFallbackToDatasourceClient(
+  error: unknown,
+  nodeEnv: ReturnType<typeof resolveNodeEnvironment>
+): boolean {
   if (nodeEnv !== "development" && nodeEnv !== "test") {
     return false;
   }
@@ -173,10 +236,10 @@ function shouldFallbackToDatasourceClient(error: unknown): boolean {
 
 function createBasePrismaClient(
   normalizedDatabaseUrl: string,
-  connectionLimit: number
+  connectionLimit: number,
+  nodeEnv: ReturnType<typeof resolveNodeEnvironment>
 ): PrismaClient {
-  const log: Prisma.LogLevel[] =
-    process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"];
+  const log: Prisma.LogLevel[] = nodeEnv === "development" ? ["warn", "error"] : ["error"];
 
   try {
     return new PrismaClient({
@@ -184,7 +247,7 @@ function createBasePrismaClient(
       log
     });
   } catch (error) {
-    if (!shouldFallbackToDatasourceClient(error)) {
+    if (!shouldFallbackToDatasourceClient(error, nodeEnv)) {
       throw error;
     }
 
@@ -199,19 +262,32 @@ function createBasePrismaClient(
   }
 }
 
-export function createPrismaClient(options: { databaseUrl?: string } = {}): PrismaClient {
+function resolvePrismaClientOptions(
+  options: CreatePrismaClientOptions = {}
+): ResolvedPrismaClientOptions {
+  const env = getEnvironmentSource(options.env);
   const runtimeDatabaseUrl = resolveRuntimeDatabaseUrl(
-    options.databaseUrl ?? process.env.DATABASE_URL
+    options.databaseUrl ?? readTrimmedEnvironmentValue("DATABASE_URL", env),
+    env
   );
-  const normalizedDatabaseUrl =
-    normalizeDatabaseUrl(runtimeDatabaseUrl) ?? runtimeDatabaseUrl;
-  const connectionLimit = resolveConnectionLimit(normalizedDatabaseUrl);
+  const normalizedDatabaseUrl = normalizeDatabaseUrl(runtimeDatabaseUrl, env) ?? runtimeDatabaseUrl;
 
-  if (options.databaseUrl === undefined) {
-    process.env.DATABASE_URL = normalizedDatabaseUrl;
-  }
+  return {
+    connectionLimit: resolveConnectionLimit(normalizedDatabaseUrl, env),
+    databaseUrl: normalizedDatabaseUrl,
+    nodeEnv: resolveNodeEnvironment(env),
+    queryTimeoutMs: resolveQueryTimeoutMs(env),
+    slowQueryThresholdMs: resolveSlowQueryThresholdMs(env)
+  };
+}
 
-  const baseClient = createBasePrismaClient(normalizedDatabaseUrl, connectionLimit);
+export function createPrismaClient(options: CreatePrismaClientOptions = {}): PrismaClient {
+  const resolvedOptions = resolvePrismaClientOptions(options);
+  const baseClient = createBasePrismaClient(
+    resolvedOptions.databaseUrl,
+    resolvedOptions.connectionLimit,
+    resolvedOptions.nodeEnv
+  );
 
   return baseClient.$extends({
     name: "birthub-query-observability",
@@ -223,10 +299,15 @@ export function createPrismaClient(options: { databaseUrl?: string } = {}): Pris
           const startedAt = Date.now();
 
           activeQueries += 1;
-          updateDatabaseGauges(connectionLimit);
+          updateDatabaseGauges(resolvedOptions.connectionLimit);
 
           try {
-            const result = await raceWithTimeout(query(args), operation, model);
+            const result = await raceWithConfiguredTimeout(
+              query(args),
+              operation,
+              resolvedOptions.queryTimeoutMs,
+              model
+            );
             const durationMs = Date.now() - startedAt;
 
             if (metrics) {
@@ -251,7 +332,7 @@ export function createPrismaClient(options: { databaseUrl?: string } = {}): Pris
                   help: "Database query latency in milliseconds."
                 }
               );
-              if (durationMs >= slowQueryThresholdMs) {
+              if (durationMs >= resolvedOptions.slowQueryThresholdMs) {
                 metrics.incrementCounter(
                   "birthub_db_slow_queries_total",
                   {
@@ -295,7 +376,7 @@ export function createPrismaClient(options: { databaseUrl?: string } = {}): Pris
             throw error;
           } finally {
             activeQueries = Math.max(0, activeQueries - 1);
-            updateDatabaseGauges(connectionLimit);
+            updateDatabaseGauges(resolvedOptions.connectionLimit);
           }
         }
       }
@@ -303,7 +384,10 @@ export function createPrismaClient(options: { databaseUrl?: string } = {}): Pris
   }) as PrismaClient;
 }
 
-export function normalizeDatabaseUrl(rawUrl: string | undefined): string | undefined {
+export function normalizeDatabaseUrl(
+  rawUrl: string | undefined,
+  env: RuntimeEnvironment = getEnvironmentSource()
+): string | undefined {
   if (!rawUrl?.trim()) {
     return rawUrl;
   }
@@ -322,9 +406,7 @@ export function normalizeDatabaseUrl(rawUrl: string | undefined): string | undef
     if (!parsed.searchParams.has("connection_limit")) {
       parsed.searchParams.set(
         "connection_limit",
-        String(
-          Number(process.env.DATABASE_CONNECTION_LIMIT ?? DEFAULT_DATABASE_CONNECTION_LIMIT)
-        )
+        String(resolveConnectionLimit(parsed.toString(), env))
       );
     }
 
@@ -334,16 +416,44 @@ export function normalizeDatabaseUrl(rawUrl: string | undefined): string | undef
   }
 }
 
-export const prisma = globalForPrisma.birthubPrisma ?? createPrismaClient();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.birthubPrisma = prisma;
+function readStoredPrismaClient(): PrismaClient | undefined {
+  return defaultPrismaClient ?? globalForPrisma.birthubPrisma;
 }
+
+function storePrismaClient(client: PrismaClient): PrismaClient {
+  defaultPrismaClient = client;
+
+  if (!isProductionEnvironment()) {
+    globalForPrisma.birthubPrisma = client;
+  }
+
+  return client;
+}
+
+export function getPrismaClient(): PrismaClient {
+  const existingClient = readStoredPrismaClient();
+  if (existingClient) {
+    return existingClient;
+  }
+
+  return storePrismaClient(createPrismaClient());
+}
+
+export const prisma = new Proxy({} as PrismaClient, {
+  get(_target, property) {
+    const client = getPrismaClient();
+    const value = Reflect.get(client, property, client);
+    return typeof value === "function" ? value.bind(client) : value;
+  },
+  set(_target, property, value) {
+    return Reflect.set(getPrismaClient(), property, value);
+  }
+}) as PrismaClient;
 
 // @see ADR-008
 export async function withTenantDatabaseContext<T>(
   callback: (tx: Prisma.TransactionClient) => Promise<T>,
-  client: PrismaClient = prisma
+  client: PrismaClient = getPrismaClient()
 ): Promise<T> {
   const tenantId = requireTenantId("database transaction");
 
@@ -353,9 +463,11 @@ export async function withTenantDatabaseContext<T>(
   });
 }
 
-export async function pingDatabase(): Promise<{ status: "up" | "down"; message?: string }> {
+export async function pingDatabase(
+  client: Pick<PrismaClient, "$queryRaw"> = getPrismaClient()
+): Promise<{ status: "up" | "down"; message?: string }> {
   try {
-    await raceWithTimeout(prisma.$queryRaw`SELECT 1`, "$queryRaw");
+    await raceWithTimeout(client.$queryRaw`SELECT 1`, "$queryRaw");
     return { status: "up" };
   } catch (error) {
     return {
@@ -365,11 +477,13 @@ export async function pingDatabase(): Promise<{ status: "up" | "down"; message?:
   }
 }
 
-export async function pingDatabaseDeep(): Promise<{ status: "up" | "down"; message?: string }> {
+export async function pingDatabaseDeep(
+  client: Pick<PrismaClient, "billingEvent"> = getPrismaClient()
+): Promise<{ status: "up" | "down"; message?: string }> {
   const startedAt = Date.now();
 
   try {
-    const probe = await prisma.billingEvent.create({
+    const probe = await client.billingEvent.create({
       data: {
         payload: {
           probe: true
@@ -379,7 +493,7 @@ export async function pingDatabaseDeep(): Promise<{ status: "up" | "down"; messa
       }
     });
 
-    await prisma.billingEvent.delete({
+    await client.billingEvent.delete({
       where: {
         id: probe.id
       }

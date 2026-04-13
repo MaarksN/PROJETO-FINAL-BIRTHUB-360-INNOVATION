@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  getPrismaClient,
   normalizeDatabaseUrl,
   pingDatabase,
   pingDatabaseDeep,
@@ -31,6 +34,27 @@ function restoreEnv(key: string, previousValue: string | undefined): void {
   process.env[key] = previousValue;
 }
 
+void test("importing client module does not bootstrap Prisma or require DATABASE_URL", () => {
+  const packageRoot = fileURLToPath(new URL("..", import.meta.url));
+  const result = spawnSync(
+    process.execPath,
+    [
+      "--import",
+      "tsx",
+      "--input-type=module",
+      "-e",
+      "process.env.NODE_ENV='production'; delete process.env.DATABASE_URL; await import('./src/client.ts'); console.log('client-import-ok');"
+    ],
+    {
+      cwd: packageRoot,
+      encoding: "utf8"
+    }
+  );
+
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /client-import-ok/);
+});
+
 void test("normalizeDatabaseUrl injects pool defaults for postgres URLs", () => {
   const previous = process.env.DATABASE_CONNECTION_LIMIT;
   delete process.env.DATABASE_CONNECTION_LIMIT;
@@ -45,6 +69,13 @@ void test("normalizeDatabaseUrl injects pool defaults for postgres URLs", () => 
   } finally {
     restoreEnv("DATABASE_CONNECTION_LIMIT", previous);
   }
+});
+
+void test("getPrismaClient lazily creates and reuses the default client", () => {
+  const firstClient = getPrismaClient();
+  const secondClient = getPrismaClient();
+
+  assert.equal(firstClient, secondClient);
 });
 
 void test("resolveConnectionLimit prefers env override, then URL, then fallback", () => {
