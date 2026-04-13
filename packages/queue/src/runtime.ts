@@ -6,7 +6,7 @@ import {
   type QueueOptions,
   type WorkerOptions
 } from "bullmq";
-import Redis from "ioredis";
+import { Redis } from "ioredis";
 
 import { createLogger } from "@birthub/logger";
 

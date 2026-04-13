@@ -1,4 +1,4 @@
-import { BaseWorker } from "./base-worker";
+import { BaseWorker } from "./base-worker.js";
 
 export interface CampaignJobPayload { campaignId: string; channel: "email" | "whatsapp"; retryableError?: boolean }
 

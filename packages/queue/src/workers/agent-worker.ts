@@ -1,4 +1,4 @@
-import { BaseWorker } from "./base-worker";
+import { BaseWorker } from "./base-worker.js";
 
 export interface AgentJobPayload { agentId: string; input: Record<string, unknown>; shouldFail?: boolean }
 
