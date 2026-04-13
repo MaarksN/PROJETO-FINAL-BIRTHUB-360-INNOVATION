@@ -90,7 +90,7 @@ void test("readiness endpoint returns 503 when deep dependencies are degraded", 
           database: {
             latencyMs: 901,
             message: "latency 901ms exceeded 750ms",
-            status: "down" as const,
+            status: "degraded" as const,
             strict: true,
             thresholdMs: 750
           },
@@ -116,6 +116,6 @@ void test("readiness endpoint returns 503 when deep dependencies are degraded", 
 
   assert.equal(body.mode, "readiness");
   assert.equal(body.status, "degraded");
-  assert.equal(body.services.database.status, "down");
+  assert.equal(body.services.database.status, "degraded");
   assert.equal(body.services.database.latencyMs, 901);
 });

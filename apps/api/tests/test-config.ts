@@ -1,6 +1,6 @@
 import { getApiConfig, type ApiConfig } from "@birthub/config";
 
-export function createTestApiConfig(): ApiConfig {
+export function createTestApiConfig(overrides: NodeJS.ProcessEnv = {}): ApiConfig {
   return getApiConfig({
     API_AUTH_COOKIE_NAME: "bh360_session",
     API_AUTH_IDLE_TIMEOUT_MINUTES: "30",
@@ -60,6 +60,7 @@ export function createTestApiConfig(): ApiConfig {
     STRIPE_WEBHOOK_TOLERANCE_SECONDS: "300",
     STRIPE_WEBHOOK_SECRET: "whsec_birthub360",
     STRIPE_WEBHOOK_SECRET_FALLBACKS: "",
-    WEB_BASE_URL: "http://localhost:3001"
+    WEB_BASE_URL: "http://localhost:3001",
+    ...overrides
   });
 }

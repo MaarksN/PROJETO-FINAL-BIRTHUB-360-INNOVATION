@@ -143,7 +143,7 @@ export const healthResponseSchema = z.object({
     database: z.object({
       latencyMs: z.number().nonnegative().optional(),
       message: z.string().optional(),
-      status: z.enum(["up", "down"]),
+      status: z.enum(["up", "degraded", "down"]),
       strict: z.boolean().optional(),
       thresholdMs: z.number().nonnegative().optional()
     }),
@@ -152,7 +152,7 @@ export const healthResponseSchema = z.object({
         latencyMs: z.number().nonnegative().optional(),
         name: z.string(),
         message: z.string().optional(),
-        status: z.enum(["up", "down"]),
+        status: z.enum(["up", "degraded", "down"]),
         strict: z.boolean().optional(),
         thresholdMs: z.number().nonnegative().optional()
       })
@@ -160,7 +160,7 @@ export const healthResponseSchema = z.object({
     redis: z.object({
       latencyMs: z.number().nonnegative().optional(),
       message: z.string().optional(),
-      status: z.enum(["up", "down"]),
+      status: z.enum(["up", "degraded", "down"]),
       strict: z.boolean().optional(),
       thresholdMs: z.number().nonnegative().optional()
     })
@@ -232,4 +232,3 @@ export const privacyDeleteResponseSchema = z.object({
   billingCancelled: z.boolean(),
   requestId: z.string()
 });
-

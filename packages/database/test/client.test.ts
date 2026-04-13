@@ -180,16 +180,14 @@ void test("withTenantDatabaseContext sets app.current_tenant_id inside the trans
 
 void test("pingDatabase and pingDatabaseDeep expose up/down health based on Prisma operations", async () => {
   const restores = [
-    stubMethod(prisma, "$queryRaw", async () => 1),
-    stubMethod(prisma.billingEvent, "create", async () => ({ id: "billing_event_1" })),
-    stubMethod(prisma.billingEvent, "delete", async () => ({ id: "billing_event_1" }))
+    stubMethod(prisma, "$queryRaw", async () => 1)
   ];
 
   try {
     assert.deepEqual(await pingDatabase(), { status: "up" });
     const deep = await pingDatabaseDeep();
     assert.equal(deep.status, "up");
-    assert.match(deep.message ?? "", /^rw-ok:/);
+    assert.match(deep.message ?? "", /^query-ok:/);
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -199,9 +197,6 @@ void test("pingDatabase and pingDatabaseDeep expose up/down health based on Pris
   const failingRestores = [
     stubMethod(prisma, "$queryRaw", async () => {
       throw new Error("db down");
-    }),
-    stubMethod(prisma.billingEvent, "create", async () => {
-      throw new Error("write failed");
     })
   ];
 
@@ -212,7 +207,7 @@ void test("pingDatabase and pingDatabaseDeep expose up/down health based on Pris
     assert.equal(ping.status, "down");
     assert.equal(ping.message, "db down");
     assert.equal(deep.status, "down");
-    assert.equal(deep.message, "write failed");
+    assert.equal(deep.message, "db down");
   } finally {
     for (const restore of failingRestores.reverse()) {
       restore();

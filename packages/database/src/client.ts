@@ -489,29 +489,23 @@ export async function pingDatabase(
 }
 
 export async function pingDatabaseDeep(
-  client: Pick<PrismaClient, "billingEvent"> = getPrismaClient()
+  client: Pick<PrismaClient, "$queryRaw"> = getPrismaClient()
 ): Promise<{ status: "up" | "down"; message?: string }> {
   const startedAt = Date.now();
 
   try {
-    const probe = await client.billingEvent.create({
-      data: {
-        payload: {
-          probe: true
-        },
-        stripeEventId: `evt_health_${randomUUID()}`,
-        type: "health.deep.probe"
-      }
-    });
-
-    await client.billingEvent.delete({
-      where: {
-        id: probe.id
-      }
-    });
+    await raceWithTimeout(
+      client.$queryRaw`
+        SELECT
+          current_database() AS database_name,
+          current_schema() AS schema_name,
+          now() AS checked_at
+      `,
+      "$queryRaw"
+    );
 
     return {
-      message: `rw-ok:${Date.now() - startedAt}ms`,
+      message: `query-ok:${Date.now() - startedAt}ms`,
       status: "up"
     };
   } catch (error) {
