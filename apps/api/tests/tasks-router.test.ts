@@ -5,16 +5,37 @@ import express from "express";
 import request from "supertest";
 
 import { QueueBackpressureError, TenantQueueRateLimitError } from "../src/lib/queue.js";
+import { errorHandler } from "../src/middleware/error-handler.js";
 import { requestContextMiddleware } from "../src/middleware/request-context.js";
 import { BudgetExceededError } from "../src/modules/budget/budget.types.js";
 import { createTasksRouter } from "../src/modules/tasks/router.js";
 import { createTestApiConfig } from "./test-config.js";
+
+type ConsumedBudgetPayload = {
+  actorId: string;
+  organizationId: string;
+  requestId: string;
+  tenantId: string;
+};
+
+type QueuedTaskPayload = {
+  requestId: string;
+  tenantId: string;
+  type: string;
+  userId: string;
+  context: {
+    actorId: string;
+    organizationId: string;
+    tenantId: string;
+  };
+};
 
 void test("createTasksRouter requires an authenticated session for POST /api/v1/tasks", async () => {
   const app = express();
   app.use(requestContextMiddleware);
   app.use(express.json());
   app.use("/api/v1", createTasksRouter(createTestApiConfig()));
+  app.use(errorHandler);
 
   await request(app)
     .post("/api/v1/tasks")
@@ -27,8 +48,8 @@ void test("createTasksRouter requires an authenticated session for POST /api/v1/
 void test("createTasksRouter enqueues tasks with the same public contract and side effects", async () => {
   const config = createTestApiConfig();
   const app = express();
-  let consumedBudget: Record<string, unknown> | null = null;
-  let queuedPayload: Record<string, unknown> | null = null;
+  let consumedBudget: ConsumedBudgetPayload | null = null;
+  let queuedPayload: QueuedTaskPayload | null = null;
 
   app.use(requestContextMiddleware);
   app.use(express.json());
@@ -47,7 +68,7 @@ void test("createTasksRouter enqueues tasks with the same public contract and si
     createTasksRouter(config, {
       budgetService: {
         consumeBudget: async (input) => {
-          consumedBudget = input as Record<string, unknown>;
+          consumedBudget = input as ConsumedBudgetPayload;
           return {
             agentId: "ceo-pack",
             consumed: 0.5,
@@ -60,11 +81,12 @@ void test("createTasksRouter enqueues tasks with the same public contract and si
         }
       },
       enqueueTask: async (_receivedConfig, payload) => {
-        queuedPayload = payload as Record<string, unknown>;
+        queuedPayload = payload as QueuedTaskPayload;
         return { jobId: "job_123" };
       }
     })
   );
+  app.use(errorHandler);
 
   const response = await request(app)
     .post("/api/v1/tasks")
@@ -123,6 +145,7 @@ void test("createTasksRouter preserves budget exceeded translation", async () =>
       enqueueTask: async () => ({ jobId: "job_unused" })
     })
   );
+  app.use(errorHandler);
 
   const response = await request(app)
     .post("/api/v1/tasks")
@@ -168,6 +191,7 @@ void test("createTasksRouter preserves queue translation for rate limiting and b
         }
       })
     );
+    app.use(errorHandler);
     return app;
   };
 
