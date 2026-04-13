@@ -54,7 +54,7 @@ void test("script runtime writes a success report with executed steps", async ()
 void test("script runtime writes a failure report and sets process exit code on error", async () => {
   const reports: Array<{ path: string; payload: unknown }> = [];
   const previousExitCode = process.exitCode;
-  delete process.exitCode;
+  process.exitCode = undefined;
 
   const runtime = createScriptRuntime(
     {
