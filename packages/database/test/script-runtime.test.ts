@@ -42,13 +42,16 @@ void test("script runtime writes a success report with executed steps", async ()
   );
 
   await runtime.run(async () => {
-    await runtime.recordStep("prepare", async () => undefined);
+    await runtime.recordStep("prepare", async () => undefined, { type: "infra" });
   });
 
   assert.equal(reports.length, 1);
   assert.equal(reports[0]?.path, "scripts/db-runtime-test.json");
-  assert.match(JSON.stringify(reports[0]?.payload), /"status":"passed"/);
+  assert.match(JSON.stringify(reports[0]?.payload), /"status":"success"/);
+  assert.match(JSON.stringify(reports[0]?.payload), /"runId":"db-runtime-test-/);
+  assert.match(JSON.stringify(reports[0]?.payload), /"script":"db-runtime-test"/);
   assert.match(JSON.stringify(reports[0]?.payload), /"name":"prepare"/);
+  assert.match(JSON.stringify(reports[0]?.payload), /"type":"infra"/);
 });
 
 void test("script runtime writes a failure report and sets process exit code on error", async () => {
@@ -75,7 +78,7 @@ void test("script runtime writes a failure report and sets process exit code on 
     await runtime.run(async () => {
       await runtime.recordStep("explode", async () => {
         throw new Error("boom");
-      });
+      }, { type: "check" });
     });
 
     assert.equal(process.exitCode, 1);
@@ -86,4 +89,35 @@ void test("script runtime writes a failure report and sets process exit code on 
   } finally {
     process.exitCode = previousExitCode;
   }
+});
+
+void test("script runtime records skipped steps with mandatory step type", async () => {
+  const reports: Array<{ path: string; payload: unknown }> = [];
+
+  const runtime = createScriptRuntime(
+    {
+      logger: {
+        error: () => undefined
+      },
+      name: "db-runtime-skip"
+    },
+    {
+      writeJsonReport: async (path, payload) => {
+        reports.push({ path, payload });
+        return path;
+      }
+    }
+  );
+
+  await runtime.run(async () => {
+    runtime.skipStep("skip drift", {
+      reason: "DATABASE_URL is not configured.",
+      type: "check"
+    });
+  });
+
+  assert.equal(reports.length, 1);
+  assert.match(JSON.stringify(reports[0]?.payload), /"status":"success"/);
+  assert.match(JSON.stringify(reports[0]?.payload), /"status":"skipped"/);
+  assert.match(JSON.stringify(reports[0]?.payload), /"type":"check"/);
 });

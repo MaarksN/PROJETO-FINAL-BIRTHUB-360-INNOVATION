@@ -35,19 +35,23 @@ void runtime.run(async () => {
   try {
     await runtime.runNodeScriptStep(
       "check migration governance",
-      "check-migration-governance.ts"
+      "check-migration-governance.ts",
+      { type: "check" }
     );
-    await runtime.recordStep("acquire advisory lock", () => acquireLock(prisma));
+    await runtime.recordStep("acquire advisory lock", () => acquireLock(prisma), {
+      type: "infra"
+    });
 
     await runtime.runPrismaStep("prisma migrate deploy", [
       "migrate",
       "deploy",
       "--schema",
       schemaPath
-    ]);
+    ], { type: "migrate" });
     await runtime.runNodeScriptStep(
       "post migration checklist",
-      "post-migration-checklist.ts"
+      "post-migration-checklist.ts",
+      { type: "check" }
     );
   } finally {
     try {

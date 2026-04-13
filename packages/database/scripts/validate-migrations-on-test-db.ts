@@ -1,69 +1,183 @@
 // @ts-nocheck
 // 
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
-import { getPrismaCommand, runCommand } from "./lib/process.js";
-import { databasePackageRoot, schemaPath } from "./lib/paths.js";
 import { createLogger } from "@birthub/logger";
+
+import { databasePackageRoot, schemaPath } from "./lib/paths.js";
+import {
+  createScriptRuntime,
+  type ScriptRuntimeDependencies
+} from "./lib/runtime.js";
 
 const logger = createLogger("db-validate-migrations-on-test-db");
 
-function looksDisposableDatabase(url: string): boolean {
+export type ValidationSeedProfile = "ci" | "safe" | "smoke" | "staging";
+
+type ValidationDependencies = {
+  runtimeDependencies?: Partial<ScriptRuntimeDependencies>;
+};
+
+function readOption(argv: readonly string[], key: string): string | undefined {
+  const prefixed = argv.find((argument) => argument.startsWith(`--${key}=`));
+  if (prefixed) {
+    return prefixed.slice(key.length + 3);
+  }
+
+  const optionIndex = argv.findIndex((argument) => argument === `--${key}`);
+  if (optionIndex >= 0) {
+    return argv[optionIndex + 1];
+  }
+
+  return undefined;
+}
+
+export function looksDisposableDatabase(url: string): boolean {
   return /(localhost|127\.0\.0\.1|shadow|test|validation|staging)/i.test(url);
 }
 
-async function main(): Promise<void> {
-  const databaseUrl = process.env.DATABASE_URL;
+export function assertValidationEnvironment(env: NodeJS.ProcessEnv = process.env): void {
+  const isCi = env.CI === "true";
+  const nodeEnvironment = env.NODE_ENV?.trim().toLowerCase();
 
-  if (!databaseUrl) {
-    throw new Error("DATABASE_URL is required for validation.");
-  }
-
-  if (!looksDisposableDatabase(databaseUrl) && process.env.ALLOW_DESTRUCTIVE_DB_VALIDATION !== "true") {
+  if (!isCi && nodeEnvironment !== "test") {
     throw new Error(
-      "Refusing to reset a non-disposable database. Set ALLOW_DESTRUCTIVE_DB_VALIDATION=true only on dedicated validation databases."
+      "validate-migrations-on-test-db can only run in CI or with NODE_ENV=test."
     );
-  }
-
-  const prisma = getPrismaCommand();
-  const resetResult = await runCommand(prisma.command, [
-    ...prisma.args,
-    "migrate",
-    "reset",
-    "--force",
-    "--skip-seed",
-    "--schema",
-    schemaPath
-  ]);
-  process.stdout.write(resetResult.output);
-
-  if (resetResult.code !== 0) {
-    throw new Error(`prisma migrate reset failed with exit code ${resetResult.code}.`);
-  }
-
-  const seedResult = await runCommand(process.execPath, ["--import", "tsx", resolve(databasePackageRoot, "prisma", "seed.ts")], {
-    cwd: databasePackageRoot,
-    env: {
-      SEED_PROFILE: process.env.SEED_PROFILE ?? "ci"
-    }
-  });
-  process.stdout.write(seedResult.output);
-
-  if (seedResult.code !== 0) {
-    throw new Error(`seed.ts failed with exit code ${seedResult.code}.`);
-  }
-
-  const checklistResult = await runCommand(process.execPath, ["--import", "tsx", resolve(databasePackageRoot, "scripts", "post-migration-checklist.ts")], {
-    cwd: databasePackageRoot
-  });
-  process.stdout.write(checklistResult.output);
-
-  if (checklistResult.code !== 0) {
-    throw new Error(`post-migration-checklist.ts failed with exit code ${checklistResult.code}.`);
   }
 }
 
-void main().catch((error) => {
-  logger.error(error);
-  process.exitCode = 1;
-});
+export function resolveValidationSeedProfile(
+  argv: readonly string[] = process.argv.slice(2),
+  env: NodeJS.ProcessEnv = process.env
+): ValidationSeedProfile {
+  const explicitProfile = readOption(argv, "seed-profile") ?? env.SEED_PROFILE?.trim();
+
+  if (!explicitProfile) {
+    throw new Error(
+      "Validation seed profile must be provided via --seed-profile=<profile> or SEED_PROFILE."
+    );
+  }
+
+  if (
+    explicitProfile !== "ci" &&
+    explicitProfile !== "safe" &&
+    explicitProfile !== "smoke" &&
+    explicitProfile !== "staging"
+  ) {
+    throw new Error(
+      `Unsupported validation seed profile '${explicitProfile}'. Expected one of: safe, ci, smoke, staging.`
+    );
+  }
+
+  return explicitProfile;
+}
+
+export async function main(
+  argv: readonly string[] = process.argv.slice(2),
+  env: NodeJS.ProcessEnv = process.env,
+  dependencies: ValidationDependencies = {}
+): Promise<number> {
+  const runtime = createScriptRuntime(
+    {
+      logger,
+      name: "db-validate-migrations-on-test-db"
+    },
+    {
+      env,
+      ...(dependencies.runtimeDependencies ?? {})
+    }
+  );
+
+  const report = await runtime.run(async () => {
+    const databaseUrl = runtime.requireEnv("DATABASE_URL");
+
+    await runtime.recordStep(
+      "validate execution environment",
+      async () => {
+        assertValidationEnvironment(env);
+      },
+      {
+        type: "infra"
+      }
+    );
+
+    await runtime.recordStep(
+      "validate destructive target",
+      async () => {
+        if (
+          !looksDisposableDatabase(databaseUrl) &&
+          env.ALLOW_DESTRUCTIVE_DB_VALIDATION !== "true"
+        ) {
+          throw new Error(
+            "Refusing to reset a non-disposable database. Set ALLOW_DESTRUCTIVE_DB_VALIDATION=true only on dedicated validation databases."
+          );
+        }
+      },
+      {
+        type: "infra"
+      }
+    );
+
+    const seedProfile = await runtime.recordStep(
+      "resolve validation seed profile",
+      async () => resolveValidationSeedProfile(argv, env),
+      {
+        type: "seed"
+      }
+    );
+
+    await runtime.runPrismaStep(
+      "prisma migrate reset",
+      [
+        "migrate",
+        "reset",
+        "--force",
+        "--skip-seed",
+        "--schema",
+        schemaPath
+      ],
+      {
+        type: "migrate"
+      }
+    );
+
+    await runtime.runProcessStep(
+      "seed validation database",
+      process.execPath,
+      [
+        "--import",
+        "tsx",
+        resolve(databasePackageRoot, "prisma", "seed.ts"),
+        `--profile=${seedProfile}`
+      ],
+      {
+        cwd: databasePackageRoot,
+        script: "prisma/seed.ts",
+        type: "seed"
+      }
+    );
+
+    await runtime.runNodeScriptStep(
+      "post migration checklist",
+      "post-migration-checklist.ts",
+      {
+        type: "check"
+      }
+    );
+  });
+
+  return report.status === "success" ? 0 : 1;
+}
+
+async function runCli(): Promise<void> {
+  process.exitCode = await main();
+}
+
+const isDirectExecution =
+  typeof process.argv[1] === "string" && pathToFileURL(process.argv[1]).href === import.meta.url;
+
+if (isDirectExecution) {
+  void runCli();
+}

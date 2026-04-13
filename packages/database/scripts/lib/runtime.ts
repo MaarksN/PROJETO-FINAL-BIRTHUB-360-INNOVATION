@@ -17,17 +17,22 @@ type RuntimeLogger = {
   info?: (...args: unknown[]) => void;
 };
 
-export type ScriptStepStatus = "failed" | "passed";
+export type ScriptStepStatus = "failed" | "skipped" | "success";
+export type ScriptStepType = "check" | "infra" | "migrate" | "seed";
+export type ScriptRunStatus = "failed" | "skipped" | "success";
 
 export type ScriptStepReport = {
   command?: string;
+  critical: boolean;
   durationMs: number;
   exitCode?: number;
   finishedAt: string;
   name: string;
+  reason?: string;
   script?: string;
   startedAt: string;
   status: ScriptStepStatus;
+  type: ScriptStepType;
 };
 
 export type ScriptRunReport = {
@@ -36,13 +41,15 @@ export type ScriptRunReport = {
     name: string;
   };
   finishedAt: string;
-  name: string;
+  runId: string;
+  script: string;
   startedAt: string;
-  status: "failed" | "passed";
+  status: ScriptRunStatus;
   steps: ScriptStepReport[];
 };
 
 type RuntimeDependencies = {
+  createRunId: (script: string, startedAt: Date) => string;
   env: NodeJS.ProcessEnv;
   getPrismaCommand: () => CommandSpec;
   now: () => Date;
@@ -57,7 +64,10 @@ type RuntimeDependencies = {
   writeJsonReport: <T>(relativePath: string, payload: T) => Promise<string>;
 };
 
+export type ScriptRuntimeDependencies = RuntimeDependencies;
+
 const DEFAULT_DEPENDENCIES: RuntimeDependencies = {
+  createRunId: (script, startedAt) => `${script}-${startedAt.toISOString().replace(/[:.]/g, "-")}`,
   env: process.env,
   getPrismaCommand,
   now: () => new Date(),
@@ -93,134 +103,233 @@ export function createScriptRuntime(
   } satisfies RuntimeDependencies;
 
   const startedAt = resolved.now();
+  const runId = resolved.createRunId(config.name, startedAt);
   const steps: ScriptStepReport[] = [];
 
-  async function recordStep(
+  async function recordStep<T>(
     name: string,
-    runner: () => Promise<void>,
-    metadata?: {
+    runner: () => Promise<T>,
+    metadata: {
       command?: string;
+      critical?: boolean;
       script?: string;
+      type: ScriptStepType;
     }
-  ): Promise<void> {
+  ): Promise<T> {
     const stepStartedAt = resolved.now();
+    const critical = metadata.critical ?? true;
 
     try {
-      await runner();
+      const result = await runner();
 
       steps.push({
-        command: metadata?.command,
+        command: metadata.command,
+        critical,
         durationMs: resolved.now().getTime() - stepStartedAt.getTime(),
         finishedAt: resolved.now().toISOString(),
         name,
-        script: metadata?.script,
+        script: metadata.script,
         startedAt: stepStartedAt.toISOString(),
-        status: "passed"
+        status: "success",
+        type: metadata.type
       });
+
+      return result;
     } catch (error) {
       steps.push({
-        command: metadata?.command,
+        command: metadata.command,
+        critical,
         durationMs: resolved.now().getTime() - stepStartedAt.getTime(),
+        exitCode:
+          typeof (error as { exitCode?: unknown })?.exitCode === "number"
+            ? ((error as { exitCode?: number }).exitCode ?? undefined)
+            : undefined,
         finishedAt: resolved.now().toISOString(),
         name,
-        script: metadata?.script,
+        script: metadata.script,
         startedAt: stepStartedAt.toISOString(),
-        status: "failed"
+        status: "failed",
+        type: metadata.type
       });
 
       throw error;
     }
   }
 
+  function skipStep(
+    name: string,
+    metadata: {
+      command?: string;
+      critical?: boolean;
+      reason: string;
+      script?: string;
+      type: ScriptStepType;
+    }
+  ): void {
+    const stepTimestamp = resolved.now();
+
+    steps.push({
+      command: metadata.command,
+      critical: metadata.critical ?? true,
+      durationMs: 0,
+      finishedAt: stepTimestamp.toISOString(),
+      name,
+      reason: metadata.reason,
+      script: metadata.script,
+      startedAt: stepTimestamp.toISOString(),
+      status: "skipped",
+      type: metadata.type
+    });
+  }
+
   function requireEnv(key: string): string {
     return readRequiredEnv(resolved.env, key, config.name);
+  }
+
+  async function executeProcess(
+    command: string,
+    args: string[],
+    options?: {
+      cwd?: string;
+      env?: NodeJS.ProcessEnv;
+    }
+  ): Promise<CommandResult> {
+    const result = await resolved.runCommand(command, args, options);
+    process.stdout.write(result.output);
+    return result;
   }
 
   async function runProcessStep(
     name: string,
     command: string,
     args: string[],
-    options?: {
+    options: {
+      acceptedExitCodes?: number[];
       cwd?: string;
+      critical?: boolean;
       env?: NodeJS.ProcessEnv;
       script?: string;
+      type: ScriptStepType;
     }
-  ): Promise<void> {
-    await recordStep(
+  ): Promise<CommandResult> {
+    return recordStep(
       name,
       async () => {
-        const result = await resolved.runCommand(command, args, options);
-        process.stdout.write(result.output);
+        const result = await executeProcess(command, args, options);
+        const acceptedExitCodes = options.acceptedExitCodes ?? [0];
 
-        if (result.code !== 0) {
+        if (!acceptedExitCodes.includes(result.code)) {
           const error = new Error(`${name} failed with exit code ${result.code}.`);
           (error as Error & { exitCode?: number }).exitCode = result.code;
           throw error;
         }
+
+        return result;
       },
       {
         command: [command, ...args].join(" "),
-        script: options?.script
+        critical: options.critical,
+        script: options.script,
+        type: options.type
       }
     );
   }
 
-  async function runNodeScriptStep(name: string, scriptName: string): Promise<void> {
+  async function runNodeScriptStep(
+    name: string,
+    scriptName: string,
+    options: {
+      critical?: boolean;
+      env?: NodeJS.ProcessEnv;
+      type: ScriptStepType;
+    }
+  ): Promise<CommandResult> {
     const scriptPath = resolve(databasePackageRoot, "scripts", scriptName);
 
-    await runProcessStep(name, process.execPath, ["--import", "tsx", scriptPath], {
+    return runProcessStep(name, process.execPath, ["--import", "tsx", scriptPath], {
       cwd: databasePackageRoot,
-      script: scriptName
+      critical: options.critical,
+      env: options.env,
+      script: scriptName,
+      type: options.type
     });
   }
 
-  async function runPrismaStep(name: string, args: string[]): Promise<void> {
+  async function runPrismaStep(
+    name: string,
+    args: string[],
+    options: {
+      acceptedExitCodes?: number[];
+      critical?: boolean;
+      env?: NodeJS.ProcessEnv;
+      type: ScriptStepType;
+    }
+  ): Promise<CommandResult> {
     const prisma = resolved.getPrismaCommand();
 
-    await runProcessStep(name, prisma.command, [...prisma.args, ...args], {
-      cwd: databasePackageRoot
+    return runProcessStep(name, prisma.command, [...prisma.args, ...args], {
+      acceptedExitCodes: options.acceptedExitCodes,
+      cwd: databasePackageRoot,
+      critical: options.critical,
+      env: options.env,
+      type: options.type
     });
   }
 
-  async function writeReport(report: ScriptRunReport): Promise<void> {
-    await resolved.writeJsonReport(
-      config.reportPath ?? `scripts/${config.name}.json`,
-      report
-    );
+  function buildReport(
+    status: ScriptRunStatus,
+    options?: {
+      error?: unknown;
+      extra?: Record<string, unknown>;
+    }
+  ): ScriptRunReport & Record<string, unknown> {
+    return {
+      ...(options?.extra ?? {}),
+      ...(options?.error ? { error: serializeError(options.error) } : {}),
+      finishedAt: resolved.now().toISOString(),
+      runId,
+      script: config.name,
+      startedAt: startedAt.toISOString(),
+      status,
+      steps: [...steps]
+    };
   }
 
-  async function run(handler: () => Promise<void>): Promise<void> {
+  async function writeReport(
+    status: ScriptRunStatus,
+    options?: {
+      error?: unknown;
+      extra?: Record<string, unknown>;
+    }
+  ): Promise<ScriptRunReport & Record<string, unknown>> {
+    const report = buildReport(status, options);
+    await resolved.writeJsonReport(config.reportPath ?? `scripts/${config.name}.json`, report);
+    return report;
+  }
+
+  async function run(handler: () => Promise<void>): Promise<ScriptRunReport & Record<string, unknown>> {
     try {
       await handler();
-
-      await writeReport({
-        finishedAt: resolved.now().toISOString(),
-        name: config.name,
-        startedAt: startedAt.toISOString(),
-        status: "passed",
-        steps
-      });
+      return await writeReport("success");
     } catch (error) {
-      await writeReport({
-        error: serializeError(error),
-        finishedAt: resolved.now().toISOString(),
-        name: config.name,
-        startedAt: startedAt.toISOString(),
-        status: "failed",
-        steps
-      });
-
+      const report = await writeReport("failed", { error });
       config.logger.error(error);
       process.exitCode = 1;
+      return report;
     }
   }
 
   return {
+    buildReport,
+    executeProcess,
+    getRunId: () => runId,
     recordStep,
     requireEnv,
     run,
     runNodeScriptStep,
     runPrismaStep,
-    runProcessStep
+    runProcessStep,
+    skipStep,
+    writeReport
   };
 }

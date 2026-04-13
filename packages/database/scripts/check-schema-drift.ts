@@ -1,35 +1,82 @@
 // @ts-nocheck
 // 
-import { getPrismaCommand, runCommand } from "./lib/process.js";
+import { pathToFileURL } from "node:url";
+
+import { createLogger } from "@birthub/logger";
+
 import { getSchemaDriftEnvironment } from "./lib/env.js";
 import { schemaPath } from "./lib/paths.js";
-import { writeJsonReport, writeTextReport } from "./lib/report.js";
-import { createLogger } from "@birthub/logger";
+import { getPrismaCommand } from "./lib/process.js";
+import {
+  createScriptRuntime,
+  type ScriptRuntimeDependencies
+} from "./lib/runtime.js";
+import { writeTextReport } from "./lib/report.js";
 
 const logger = createLogger("db-check-schema-drift");
 
-async function main(): Promise<void> {
-  const environment = getSchemaDriftEnvironment();
+type SchemaDriftDependencies = {
+  getEnvironment: typeof getSchemaDriftEnvironment;
+  getPrismaCommand: typeof getPrismaCommand;
+  runtimeDependencies?: Partial<ScriptRuntimeDependencies>;
+  writeTextReport: typeof writeTextReport;
+};
+
+const DEFAULT_DEPENDENCIES: SchemaDriftDependencies = {
+  getEnvironment: getSchemaDriftEnvironment,
+  getPrismaCommand,
+  runtimeDependencies: undefined,
+  writeTextReport
+};
+
+export async function main(
+  env: NodeJS.ProcessEnv = process.env,
+  dependencies: Partial<SchemaDriftDependencies> = {}
+): Promise<number> {
+  const resolved = {
+    ...DEFAULT_DEPENDENCIES,
+    ...dependencies
+  } satisfies SchemaDriftDependencies;
+
+  const runtime = createScriptRuntime(
+    {
+      logger,
+      name: "db-check-schema-drift",
+      reportPath: "f8/schema-drift-report.json"
+    },
+    {
+      env,
+      ...(resolved.runtimeDependencies ?? {})
+    }
+  );
+
+  const environment = resolved.getEnvironment(env);
 
   if (!environment.databaseUrl) {
-    const report = {
-      checkedAt: new Date().toISOString(),
-      ok: true,
-      skipped: true,
-      reason: "DATABASE_URL is not configured."
-    };
+    runtime.skipStep("schema drift diff", {
+      reason: "DATABASE_URL is not configured.",
+      type: "check"
+    });
 
-    const jsonPath = await writeJsonReport("f8/schema-drift-report.json", report);
-    const txtPath = await writeTextReport(
+    const report = await runtime.writeReport("skipped", {
+      extra: {
+        ok: true,
+        reason: "DATABASE_URL is not configured.",
+        skipped: true
+      }
+    });
+    const textPath = await resolved.writeTextReport(
       "f8/schema-drift-report.txt",
       "Schema drift check skipped because DATABASE_URL is not configured."
     );
 
-    logger.info(`Schema drift check skipped.\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
-    return;
+    logger.info?.(
+      `Schema drift check skipped.\nArtifacts:\n- f8/schema-drift-report.json\n- ${textPath}\nRun ID: ${report.runId}`
+    );
+    return 0;
   }
 
-  const prisma = getPrismaCommand();
+  const prisma = resolved.getPrismaCommand();
   const args = [
     ...prisma.args,
     "migrate",
@@ -45,29 +92,71 @@ async function main(): Promise<void> {
     args.push("--shadow-database-url", environment.shadowDatabaseUrl);
   }
 
-  const result = await runCommand(prisma.command, args);
-  const ok = result.code === 0;
-  const report = {
-    checkedAt: new Date().toISOString(),
-    ok,
-    output: result.output,
-    skipped: false
-  };
+  let result:
+    | {
+        code: number;
+        output: string;
+      }
+    | undefined;
 
-  const text = ok
-    ? "Schema drift check: PASS"
-    : `Schema drift check: FAIL\n\n${result.output.trim()}`;
-  const jsonPath = await writeJsonReport("f8/schema-drift-report.json", report);
-  const txtPath = await writeTextReport("f8/schema-drift-report.txt", text);
+  try {
+    await runtime.recordStep(
+      "schema drift diff",
+      async () => {
+        result = await runtime.executeProcess(prisma.command, args);
 
-  logger.info(`${text}\n\nArtifacts:\n- ${jsonPath}\n- ${txtPath}`);
+        if (result.code !== 0) {
+          const error = new Error(`Schema drift detected with exit code ${result.code}.`);
+          (error as Error & { exitCode?: number }).exitCode = result.code;
+          throw error;
+        }
+      },
+      {
+        command: [prisma.command, ...args].join(" "),
+        type: "check"
+      }
+    );
 
-  if (!ok) {
+    const text = "Schema drift check: PASS";
+    const report = await runtime.writeReport("success", {
+      extra: {
+        ok: true,
+        output: result?.output ?? "",
+        skipped: false
+      }
+    });
+    const textPath = await resolved.writeTextReport("f8/schema-drift-report.txt", text);
+
+    logger.info?.(`${text}\n\nArtifacts:\n- f8/schema-drift-report.json\n- ${textPath}\nRun ID: ${report.runId}`);
+    return 0;
+  } catch (error) {
+    const output = result?.output ?? "";
+    const text = output
+      ? `Schema drift check: FAIL\n\n${output.trim()}`
+      : "Schema drift check: FAIL";
+    const report = await runtime.writeReport("failed", {
+      error,
+      extra: {
+        ok: false,
+        output,
+        skipped: false
+      }
+    });
+    const textPath = await resolved.writeTextReport("f8/schema-drift-report.txt", text);
+
+    logger.info?.(`${text}\n\nArtifacts:\n- f8/schema-drift-report.json\n- ${textPath}\nRun ID: ${report.runId}`);
     process.exitCode = 1;
+    return 1;
   }
 }
 
-void main().catch((error) => {
-  logger.error(error);
-  process.exitCode = 1;
-});
+async function runCli(): Promise<void> {
+  process.exitCode = await main();
+}
+
+const isDirectExecution =
+  typeof process.argv[1] === "string" && pathToFileURL(process.argv[1]).href === import.meta.url;
+
+if (isDirectExecution) {
+  void runCli();
+}

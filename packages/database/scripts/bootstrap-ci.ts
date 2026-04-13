@@ -18,9 +18,10 @@ void runtime.run(async () => {
     "deploy",
     "--schema",
     schemaPath
-  ]);
+  ], { type: "migrate" });
   await runtime.runNodeScriptStep(
     "provision rls runtime role",
-    "provision-rls-runtime-role.ts"
+    "provision-rls-runtime-role.ts",
+    { type: "infra" }
   );
 });

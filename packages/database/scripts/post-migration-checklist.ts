@@ -20,6 +20,6 @@ void runtime.run(async () => {
     "check-referential-integrity.ts",
     "analyze-performance.ts"
   ]) {
-    await runtime.runNodeScriptStep(`run ${script}`, script);
+    await runtime.runNodeScriptStep(`run ${script}`, script, { type: "check" });
   }
 });
