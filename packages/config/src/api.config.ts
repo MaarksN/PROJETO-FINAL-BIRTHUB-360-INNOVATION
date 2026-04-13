@@ -2,6 +2,7 @@
 // 
 import { z } from "zod";
 
+import { getEnvironmentSource } from "./environment.js";
 import {
   apiProductCapabilityEnvSchema,
   mapApiProductCapabilities,
@@ -192,15 +193,16 @@ function validateProductionApiConfig(parsed: z.infer<typeof apiEnvSchema>, corsO
   }
 }
 
-export function getApiConfig(env: NodeJS.ProcessEnv = process.env): ApiConfig {
-  const parsed = parseEnv("api", apiEnvSchema, env);
+export function getApiConfig(env: NodeJS.ProcessEnv = getEnvironmentSource()): ApiConfig {
+  const runtimeEnvironment = getEnvironmentSource(env);
+  const parsed = parseEnv("api", apiEnvSchema, runtimeEnvironment);
   const corsOrigins = commaSeparatedList.parse(parsed.API_CORS_ORIGINS);
   const externalHealthcheckUrls = commaSeparatedList.parse(parsed.EXTERNAL_HEALTHCHECK_URLS);
   const capabilities = mapApiProductCapabilities(parsed);
   const deploymentEnvironment =
-    env.DEPLOYMENT_ENVIRONMENT === "staging"
+    runtimeEnvironment.DEPLOYMENT_ENVIRONMENT === "staging"
       ? "staging"
-      : env.DEPLOYMENT_ENVIRONMENT === "production" || parsed.NODE_ENV === "production"
+      : runtimeEnvironment.DEPLOYMENT_ENVIRONMENT === "production" || parsed.NODE_ENV === "production"
         ? "production"
         : parsed.NODE_ENV;
 

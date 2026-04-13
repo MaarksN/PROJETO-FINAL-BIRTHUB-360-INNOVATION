@@ -2,6 +2,7 @@
 // 
 import type { NextFunction, Request, Response } from "express";
 import type { ApiConfig } from "@birthub/config";
+import { isProductionEnvironment } from "@birthub/config";
 import { updateLogContext } from "@birthub/logger";
 
 import { authenticateRequest } from "../modules/auth/auth.service.js";
@@ -89,7 +90,7 @@ export function authenticationMiddleware(
         userId: authenticated.userId
       });
 
-      if (process.env.NODE_ENV !== "production") {
+      if (!isProductionEnvironment()) {
         response.setHeader("x-organization-id", authenticated.organizationId);
         response.setHeader("x-tenant-id", authenticated.tenantId);
         response.setHeader("x-user-id", authenticated.userId);

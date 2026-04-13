@@ -1,3 +1,9 @@
+import {
+  getEnvironmentSource,
+  readEnvironmentValue,
+  readTrimmedEnvironmentValue
+} from "@birthub/config";
+
 const DEFAULT_DEVELOPMENT_DATABASE_URL =
   "postgresql://postgres:postgres@localhost:5432/birthub?schema=public";
 
@@ -18,14 +24,15 @@ function isImplicitDevelopmentFallback(databaseUrl: string): boolean {
   }
 }
 
-export function hasExplicitDatabaseUrl(env: NodeJS.ProcessEnv = process.env): boolean {
-  const databaseUrl = env.DATABASE_URL?.trim();
+export function hasExplicitDatabaseUrl(env: NodeJS.ProcessEnv = getEnvironmentSource()): boolean {
+  const runtimeEnvironment = getEnvironmentSource(env);
+  const databaseUrl = readTrimmedEnvironmentValue("DATABASE_URL", runtimeEnvironment);
 
   if (!databaseUrl) {
     return false;
   }
 
-  if (env.BIRTHUB_ENABLE_DB_TESTS === "1") {
+  if (readEnvironmentValue("BIRTHUB_ENABLE_DB_TESTS", runtimeEnvironment) === "1") {
     return true;
   }
 

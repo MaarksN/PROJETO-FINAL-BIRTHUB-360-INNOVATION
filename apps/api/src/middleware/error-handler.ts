@@ -1,5 +1,6 @@
 // @ts-nocheck
 // 
+import { isProductionEnvironment } from "@birthub/config";
 import type { NextFunction, Request, Response } from "express";
 
 import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
@@ -80,7 +81,7 @@ export function errorHandler(
     "Unhandled API exception"
   );
 
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = isProductionEnvironment();
   const fallbackDetail = error instanceof Error && !isProduction ? error.message : "Unexpected internal server error.";
 
   const fallback = new ProblemDetailsError({
