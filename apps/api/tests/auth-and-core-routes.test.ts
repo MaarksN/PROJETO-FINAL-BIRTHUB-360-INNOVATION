@@ -5,6 +5,7 @@ import express from "express";
 
 import { registerAuthAndCoreRoutes } from "../src/app/auth-and-core-routes.js";
 import { mountModuleRouters } from "../src/app/module-routes.js";
+import { mountProfileRoutes } from "../src/modules/profile/router.js";
 import { createTestApiConfig } from "./test-config.js";
 
 void test("registerAuthAndCoreRoutes delegates auth and core route registration with shared dependencies", () => {
@@ -65,6 +66,7 @@ void test("registerAuthAndCoreRoutes stays compatible without double-mounting au
     createOutputRouter: () => ({ id: "outputs" }) as never,
     createPackInstallerRouter: () => ({ id: "packs" }) as never,
     createPrivacyRouter: () => ({ id: "privacy" }) as never,
+    createProfileRouter: () => ({ id: "profile" }) as never,
     createSearchRouter: () => ({ id: "search" }) as never,
     createSessionsRouter: () => ({ id: "sessions" }) as never,
     createUsersRouter: () => ({ id: "users" }) as never,
@@ -77,4 +79,60 @@ void test("registerAuthAndCoreRoutes stays compatible without double-mounting au
   );
 
   assert.equal(authMounts.length, 1);
+});
+
+void test("registerAuthAndCoreRoutes stays compatible without double-mounting profile endpoints", () => {
+  const config = createTestApiConfig();
+  const calls: Array<unknown[]> = [];
+  const app = {
+    use: (...args: unknown[]) => {
+      calls.push(args);
+    }
+  };
+  const profileRouter = { id: "profile" };
+
+  registerAuthAndCoreRoutes(app as never, config, {
+    registerCoreBusinessRoutes: (receivedApp, receivedConfig) => {
+      assert.equal(receivedApp, app);
+      assert.equal(receivedConfig, config);
+
+      mountProfileRoutes(app as never, config, {
+        createProfileRouter: () => profileRouter as never
+      });
+    }
+  });
+
+  mountModuleRouters(app as never, config, {
+    createAdminRouter: () => ({ id: "admin" }) as never,
+    createAnalyticsRouter: () => ({ id: "analytics" }) as never,
+    createApiKeysRouter: () => ({ id: "apikeys" }) as never,
+    createAuthRouter: () => ({ id: "auth" }) as never,
+    createBillingRouter: () => ({ id: "billing" }) as never,
+    createBreakGlassRouter: () => ({ id: "break-glass" }) as never,
+    createBudgetRouter: () => ({ id: "budget" }) as never,
+    createConnectorsRouter: () => ({ id: "connectors" }) as never,
+    createConversationsRouter: () => ({ id: "conversations" }) as never,
+    createDashboardRouter: () => ({ id: "dashboard" }) as never,
+    createFeedbackRouter: () => ({ id: "feedback" }) as never,
+    createInstalledAgentsRouter: () => ({ id: "installed-agents" }) as never,
+    createInvitesRouter: () => ({ id: "invites" }) as never,
+    createMarketplaceRouter: () => ({ id: "marketplace" }) as never,
+    createNotificationsRouter: () => ({ id: "notifications" }) as never,
+    createOrganizationsRouter: () => ({ id: "organizations" }) as never,
+    createOutputRouter: () => ({ id: "outputs" }) as never,
+    createPackInstallerRouter: () => ({ id: "packs" }) as never,
+    createPrivacyRouter: () => ({ id: "privacy" }) as never,
+    createProfileRouter: () => profileRouter as never,
+    createSearchRouter: () => ({ id: "search" }) as never,
+    createSessionsRouter: () => ({ id: "sessions" }) as never,
+    createUsersRouter: () => ({ id: "users" }) as never,
+    createWebhooksRouter: () => ({ id: "webhooks" }) as never,
+    createWorkflowsRouter: () => ({ id: "workflows" }) as never
+  });
+
+  const profileMounts = calls.filter(
+    (entry): entry is [string, unknown] => entry[0] === "/api/v1" && entry[1] === profileRouter
+  );
+
+  assert.equal(profileMounts.length, 1);
 });

@@ -90,3 +90,40 @@ void test("registerCoreBusinessRoutes delegates organization creation route owne
   assert.equal(response.body.organizationId, "org_test");
   assert.equal(response.body.tenantId, "tenant_test");
 });
+
+void test("registerCoreBusinessRoutes delegates profile route ownership to the profile module", async () => {
+  const app = express();
+  const config = createTestApiConfig();
+  let delegated = false;
+  const calls: Array<unknown[]> = [];
+
+  app.use(requestContextMiddleware);
+  app.use(express.json());
+
+  registerCoreBusinessRoutes(app, config, {
+    mountProfileRoutes: (target, receivedConfig) => {
+      delegated = true;
+      assert.equal(receivedConfig, config);
+
+      const router = express.Router();
+      router.get("/me", (request, response) => {
+        response.status(200).json({
+          requestId: request.context.requestId,
+          source: "profile-module"
+        });
+      });
+
+      calls.push(["/api/v1", "profile"]);
+      target.use("/api/v1", router);
+    }
+  });
+
+  assert.equal(delegated, true);
+  assert.deepEqual(calls, [["/api/v1", "profile"]]);
+
+  const response = await request(app)
+    .get("/api/v1/me")
+    .expect(200);
+
+  assert.equal(response.body.source, "profile-module");
+});

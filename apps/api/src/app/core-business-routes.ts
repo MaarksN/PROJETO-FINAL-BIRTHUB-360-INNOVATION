@@ -1,9 +1,6 @@
 import type { ApiConfig } from "@birthub/config";
 import type { z } from "zod";
-import {
-  taskEnqueuedResponseSchema,
-  taskRequestSchema
-} from "@birthub/config";
+import { taskEnqueuedResponseSchema, taskRequestSchema } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import type { Express } from "express";
 
@@ -17,10 +14,10 @@ import {
 import { validateBody } from "../middleware/validate-body.js";
 import { budgetService } from "../modules/budget/budget.service.js";
 import { BudgetExceededError } from "../modules/budget/budget.types.js";
-import { getBillingSnapshot } from "../modules/billing/index.js";
 import {
   registerOrganizationCreationRoutes as defaultRegisterOrganizationCreationRoutes
 } from "../modules/organizations/router.js";
+import { mountProfileRoutes as defaultMountProfileRoutes } from "../modules/profile/router.js";
 
 const logger = createLogger("api");
 type EnqueueTaskDependency = typeof enqueueTask;
@@ -30,10 +27,12 @@ export function registerCoreBusinessRoutes(
   config: ApiConfig,
   dependencies: {
     enqueueTask?: EnqueueTaskDependency;
+    mountProfileRoutes?: typeof defaultMountProfileRoutes;
     registerOrganizationCreationRoutes?: typeof defaultRegisterOrganizationCreationRoutes;
   } = {}
 ): void {
   const enqueueTaskDependency = dependencies.enqueueTask ?? enqueueTask;
+  const mountProfileRoutes = dependencies.mountProfileRoutes ?? defaultMountProfileRoutes;
   const registerOrganizationCreationRoutes =
     dependencies.registerOrganizationCreationRoutes ?? defaultRegisterOrganizationCreationRoutes;
 
@@ -47,51 +46,7 @@ export function registerCoreBusinessRoutes(
     paths: ["/api/v1/organizations"]
   });
 
-  app.get(
-    "/api/v1/me",
-    requireAuthenticatedSession,
-    asyncHandler(async (request, response) => {
-      if (!request.context.organizationId || !request.context.tenantId) {
-        throw new ProblemDetailsError({
-          detail: "Tenant context is required to resolve profile.",
-          status: 401,
-          title: "Unauthorized"
-        });
-      }
-
-      const billing = await getBillingSnapshot(
-        request.context.organizationId,
-        config.BILLING_GRACE_PERIOD_DAYS
-      );
-
-      response.status(200).json({
-        plan: {
-          code: billing.plan.code,
-          creditBalanceCents: billing.creditBalanceCents,
-          currentPeriodEnd: billing.currentPeriodEnd,
-          hardLocked: billing.hardLocked,
-          isPaid: billing.isPaid,
-          isWithinGracePeriod: billing.isWithinGracePeriod,
-          name: billing.plan.name,
-          secondsUntilHardLock: billing.secondsUntilHardLock,
-          status: billing.status
-        },
-        plan_status: {
-          code: billing.plan.code,
-          hardLocked: billing.hardLocked,
-          isWithinGracePeriod: billing.isWithinGracePeriod,
-          status: billing.status
-        },
-        requestId: request.context.requestId,
-        user: {
-          id: request.context.userId,
-          organizationId: request.context.organizationId,
-          role: request.context.role,
-          tenantId: request.context.tenantId
-        }
-      });
-    })
-  );
+  mountProfileRoutes(app, config);
 
   app.post(
     "/api/v1/tasks",

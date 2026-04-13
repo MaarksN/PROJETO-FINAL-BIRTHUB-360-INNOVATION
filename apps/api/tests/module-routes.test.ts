@@ -16,6 +16,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
   const adminRouter = { id: "admin" };
   const authRouter = { id: "auth" };
   const sessionsRouter = { id: "sessions" };
+  const profileRouter = { id: "profile" };
   const apiKeysRouter = { id: "apikeys" };
   const breakGlassRouter = { id: "break-glass" };
   const installedAgentsRouter = { id: "installed-agents" };
@@ -82,6 +83,10 @@ void test("mountModuleRouters wires module routers in the expected order and reu
       assert.equal(receivedConfig, config);
       return privacyRouter as never;
     },
+    createProfileRouter: (receivedConfig) => {
+      assert.equal(receivedConfig, config);
+      return profileRouter as never;
+    },
     createSessionsRouter: (receivedConfig) => {
       assert.equal(receivedConfig, config);
       return sessionsRouter as never;
@@ -102,6 +107,7 @@ void test("mountModuleRouters wires module routers in the expected order and reu
     [adminRouter],
     ["/api/v1/auth", authRouter],
     ["/api/v1", sessionsRouter],
+    ["/api/v1", profileRouter],
     ["/api/v1/apikeys", apiKeysRouter],
     ["/api/v1", breakGlassRouter],
     ["/api/v1/agents", installedAgentsRouter],

@@ -20,6 +20,7 @@ import { createOrganizationsRouter } from "../modules/organizations/router.js";
 import { createOutputRouter } from "../modules/outputs/output-routes.js";
 import { createPackInstallerRouter } from "../modules/packs/pack-installer-routes.js";
 import { createPrivacyRouter } from "../modules/privacy/router.js";
+import { createProfileRouter, mountProfileRoutes } from "../modules/profile/router.js";
 import { createSearchRouter } from "../modules/search/index.js";
 import { createSessionsRouter } from "../modules/sessions/router.js";
 import { createUsersRouter } from "../modules/users/router.js";
@@ -46,6 +47,7 @@ type ModuleRouterDependencies = {
   createOutputRouter: typeof createOutputRouter;
   createPackInstallerRouter: typeof createPackInstallerRouter;
   createPrivacyRouter: typeof createPrivacyRouter;
+  createProfileRouter: typeof createProfileRouter;
   createSearchRouter: typeof createSearchRouter;
   createSessionsRouter: typeof createSessionsRouter;
   createUsersRouter: typeof createUsersRouter;
@@ -73,6 +75,7 @@ const defaultDependencies: ModuleRouterDependencies = {
   createOutputRouter,
   createPackInstallerRouter,
   createPrivacyRouter,
+  createProfileRouter,
   createSearchRouter,
   createSessionsRouter,
   createUsersRouter,
@@ -93,6 +96,9 @@ export function mountModuleRouters(
     createAuthRouter: dependencies.createAuthRouter
   });
   app.use("/api/v1", dependencies.createSessionsRouter(config));
+  mountProfileRoutes(app, config, {
+    createProfileRouter: dependencies.createProfileRouter
+  });
   app.use("/api/v1/apikeys", dependencies.createApiKeysRouter(config));
   app.use("/api/v1", dependencies.createBreakGlassRouter(config));
   app.use("/api/v1/agents", installedAgentsRouter);
