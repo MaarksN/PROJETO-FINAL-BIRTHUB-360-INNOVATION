@@ -16,3 +16,17 @@ export function getSchemaDriftEnvironment(
     shadowDatabaseUrl: readOptionalEnv(env, "SHADOW_DATABASE_URL")
   };
 }
+
+export function readRequiredEnv(
+  env: NodeJS.ProcessEnv,
+  key: string,
+  consumerName: string
+): string {
+  const value = readOptionalEnv(env, key);
+
+  if (!value) {
+    throw new Error(`${key} is required for ${consumerName}.`);
+  }
+
+  return value;
+}

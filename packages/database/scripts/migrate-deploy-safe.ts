@@ -4,24 +4,15 @@ import type { PrismaClient } from "@prisma/client";
 
 import { F8_CONFIG } from "../f8.config.js";
 import { createPrismaClient } from "../src/client.js";
-import { getPrismaCommand, runCommand } from "./lib/process.js";
-import { databasePackageRoot, schemaPath } from "./lib/paths.js";
+import { schemaPath } from "./lib/paths.js";
+import { createScriptRuntime } from "./lib/runtime.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-migrate-deploy-safe");
-
-async function runTsScript(scriptName: string): Promise<void> {
-  const scriptPath = `${databasePackageRoot}/scripts/${scriptName}`;
-  const result = await runCommand(process.execPath, ["--import", "tsx", scriptPath], {
-    cwd: databasePackageRoot
-  });
-
-  process.stdout.write(result.output);
-
-  if (result.code !== 0) {
-    throw new Error(`${scriptName} failed with exit code ${result.code}.`);
-  }
-}
+const runtime = createScriptRuntime({
+  logger,
+  name: "db-migrate-deploy-safe"
+});
 
 async function acquireLock(prisma: PrismaClient): Promise<void> {
   const rows = await prisma.$queryRaw<Array<{ locked: boolean }>>`
@@ -37,33 +28,27 @@ async function releaseLock(prisma: PrismaClient): Promise<void> {
   await prisma.$executeRaw`SELECT pg_advisory_unlock(${F8_CONFIG.advisoryLockId})`;
 }
 
-async function main(): Promise<void> {
-  if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL is required for migrate-deploy-safe.");
-  }
-
+void runtime.run(async () => {
+  runtime.requireEnv("DATABASE_URL");
   const prisma = createPrismaClient();
 
   try {
-    await runTsScript("check-migration-governance.ts");
-    await acquireLock(prisma);
+    await runtime.runNodeScriptStep(
+      "check migration governance",
+      "check-migration-governance.ts"
+    );
+    await runtime.recordStep("acquire advisory lock", () => acquireLock(prisma));
 
-    const prismaCli = getPrismaCommand();
-    const migrateResult = await runCommand(prismaCli.command, [
-      ...prismaCli.args,
+    await runtime.runPrismaStep("prisma migrate deploy", [
       "migrate",
       "deploy",
       "--schema",
       schemaPath
     ]);
-
-    process.stdout.write(migrateResult.output);
-
-    if (migrateResult.code !== 0) {
-      throw new Error(`prisma migrate deploy failed with exit code ${migrateResult.code}.`);
-    }
-
-    await runTsScript("post-migration-checklist.ts");
+    await runtime.runNodeScriptStep(
+      "post migration checklist",
+      "post-migration-checklist.ts"
+    );
   } finally {
     try {
       await releaseLock(prisma);
@@ -73,9 +58,4 @@ async function main(): Promise<void> {
 
     await prisma.$disconnect();
   }
-}
-
-void main().catch((error) => {
-  logger.error(error);
-  process.exitCode = 1;
 });
