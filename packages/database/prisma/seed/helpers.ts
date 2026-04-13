@@ -1,13 +1,9 @@
 // @ts-nocheck
 // 
-import { Prisma } from "@prisma/client";
-
-import { createPrismaClient } from "../../src/client.js";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 import { plans } from "./data.js";
 import type { PlanSeed, SeededPlanMap } from "./types.js";
-
-const prisma = createPrismaClient();
 
 function buildPlanPayload(plan: PlanSeed) {
   return {
@@ -23,11 +19,7 @@ function buildPlanPayload(plan: PlanSeed) {
   };
 }
 
-export async function disconnectSeedClient(): Promise<void> {
-  await prisma.$disconnect();
-}
-
-export async function wipeDatabase(): Promise<void> {
+export async function wipeDatabase(prisma: PrismaClient): Promise<void> {
   await prisma.jobSigningSecret.deleteMany();
   await prisma.loginAlert.deleteMany();
   await prisma.mfaChallenge.deleteMany();
@@ -55,7 +47,7 @@ export async function wipeDatabase(): Promise<void> {
   await prisma.plan.deleteMany();
 }
 
-export async function seedPlans(): Promise<SeededPlanMap> {
+export async function seedPlans(prisma: PrismaClient): Promise<SeededPlanMap> {
   const seeded = new Map<string, { id: string; limits: Record<string, unknown> }>();
 
   for (const plan of plans) {

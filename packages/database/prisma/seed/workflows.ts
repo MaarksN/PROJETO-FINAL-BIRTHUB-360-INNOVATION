@@ -2,25 +2,20 @@
 // 
 import {
   Prisma,
+  PrismaClient,
   WorkflowExecutionStatus,
   WorkflowStatus
 } from "@prisma/client";
 
-import { createPrismaClient } from "../../src/client.js";
 import type { SeedWorkflowDefinition } from "./types.js";
-
-const prisma = createPrismaClient();
-
-export async function disconnectWorkflowClient(): Promise<void> {
-  await prisma.$disconnect();
-}
 
 export async function createWorkflowWithGraph(input: {
   organizationId: string;
+  prisma: PrismaClient;
   tenantId: string;
   workflow: SeedWorkflowDefinition;
 }): Promise<{ id: string; status: WorkflowStatus }> {
-  const workflow = await prisma.workflow.upsert({
+  const workflow = await input.prisma.workflow.upsert({
     where: {
       tenantId_name: {
         tenantId: input.tenantId,
@@ -68,7 +63,7 @@ export async function createWorkflowWithGraph(input: {
 
   const stepIdByKey = new Map<string, string>();
   for (const step of input.workflow.steps) {
-    const createdStep = await prisma.workflowStep.upsert({
+    const createdStep = await input.prisma.workflowStep.upsert({
       where: {
         workflowId_key: { workflowId: workflow.id, key: step.key }
       },
@@ -96,7 +91,7 @@ export async function createWorkflowWithGraph(input: {
 
   await Promise.all(
     input.workflow.transitions.map((transition) =>
-      prisma.workflowTransition.create({
+      input.prisma.workflowTransition.create({
         data: {
           organizationId: input.organizationId,
           route: transition.route,
@@ -109,9 +104,9 @@ export async function createWorkflowWithGraph(input: {
     )
   );
 
-  const execCount = await prisma.workflowExecution.count({ where: { workflowId: workflow.id } });
+  const execCount = await input.prisma.workflowExecution.count({ where: { workflowId: workflow.id } });
   if (execCount === 0) {
-    const seededExecution = await prisma.workflowExecution.create({
+    const seededExecution = await input.prisma.workflowExecution.create({
       data: {
         organizationId: input.organizationId,
         status: WorkflowExecutionStatus.SUCCESS,
@@ -126,7 +121,7 @@ export async function createWorkflowWithGraph(input: {
     const triggerStepId = triggerStepKey ? stepIdByKey.get(triggerStepKey) : null;
 
     if (triggerStepId) {
-      await prisma.stepResult.create({
+      await input.prisma.stepResult.create({
         data: {
           attempt: 1,
           executionId: seededExecution.id,

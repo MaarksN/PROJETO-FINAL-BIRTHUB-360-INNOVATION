@@ -5,22 +5,16 @@ import {
   InviteStatus,
   MembershipStatus,
   QuotaResourceType,
+  PrismaClient,
   SessionStatus,
   SubscriptionStatus,
   InvoiceStatus
 } from "@prisma/client";
 import { createHash } from "node:crypto";
 
-import { createPrismaClient } from "../../src/client.js";
 import { buildTenantWorkflows } from "./data.js";
 import type { SeededPlanMap, TenantSeed } from "./types.js";
 import { createWorkflowWithGraph } from "./workflows.js";
-
-const prisma = createPrismaClient();
-
-export async function disconnectTenantClient(): Promise<void> {
-  await prisma.$disconnect();
-}
 
 function buildMonthlyWindow(referenceDate = new Date()) {
   const periodStart = new Date(
@@ -46,7 +40,7 @@ function unlimitedToLargeNumber(value: unknown): number {
   return value < 0 ? 1_000_000 : value;
 }
 
-async function upsertOrganization(seed: TenantSeed, planId: string) {
+async function upsertOrganization(prisma: PrismaClient, seed: TenantSeed, planId: string) {
   const stripeCustomerId = `cus_${seed.slug.replace(/-/g, "_")}`;
   return prisma.organization.upsert({
     where: { stripeCustomerId },
@@ -66,7 +60,7 @@ async function upsertOrganization(seed: TenantSeed, planId: string) {
   });
 }
 
-async function upsertUsers(seed: TenantSeed) {
+async function upsertUsers(prisma: PrismaClient, seed: TenantSeed) {
   const passwordHash = createHash("sha256").update("password123").digest("hex");
   return Promise.all(
     seed.members.map((member) =>
@@ -81,13 +75,14 @@ async function upsertUsers(seed: TenantSeed) {
 
 async function seedMembershipsAndSessions(input: {
   organizationId: string;
+  prisma: PrismaClient;
   seed: TenantSeed;
   tenantId: string;
   users: Awaited<ReturnType<typeof upsertUsers>>;
 }): Promise<void> {
   await Promise.all(
     input.users.map((user, index) =>
-      prisma.membership.upsert({
+      input.prisma.membership.upsert({
         where: {
           organizationId_userId: {
             organizationId: input.organizationId,
@@ -111,7 +106,7 @@ async function seedMembershipsAndSessions(input: {
 
   await Promise.all(
     input.users.map((user, index) =>
-      prisma.session.create({
+      input.prisma.session.create({
         data: {
           csrfToken: `${input.seed.slug}-${index + 1}-csrf`,
           expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
@@ -132,6 +127,7 @@ async function seedMembershipsAndSessions(input: {
 
 async function seedUserPreferences(input: {
   organizationId: string;
+  prisma: PrismaClient;
   tenantId: string;
   users: Awaited<ReturnType<typeof upsertUsers>>;
 }): Promise<void> {
@@ -139,7 +135,7 @@ async function seedUserPreferences(input: {
 
   await Promise.all(
     input.users.map((user, index) =>
-      prisma.userPreference.upsert({
+      input.prisma.userPreference.upsert({
         where: {
           organizationId_userId: {
             organizationId: input.organizationId,
@@ -181,6 +177,7 @@ async function seedUserPreferences(input: {
 async function seedBillingRecords(input: {
   organizationId: string;
   planCode: string;
+  prisma: PrismaClient;
   seed: TenantSeed;
   subscriptionId: string;
   tenantId: string;
@@ -189,8 +186,8 @@ async function seedBillingRecords(input: {
   const invoiceId = `in_${input.seed.slug.replace(/-/g, "_")}_001`;
   const monthlyWindow = buildMonthlyWindow();
 
-  if (await prisma.paymentMethod.count({ where: { stripePaymentMethodId: pmId } }) === 0) {
-    await prisma.paymentMethod.create({
+  if (await input.prisma.paymentMethod.count({ where: { stripePaymentMethodId: pmId } }) === 0) {
+    await input.prisma.paymentMethod.create({
       data: {
         brand: "visa",
         expMonth: 12,
@@ -204,8 +201,8 @@ async function seedBillingRecords(input: {
     });
   }
 
-  if (await prisma.invoice.count({ where: { stripeInvoiceId: invoiceId } }) === 0) {
-    await prisma.invoice.create({
+  if (await input.prisma.invoice.count({ where: { stripeInvoiceId: invoiceId } }) === 0) {
+    await input.prisma.invoice.create({
       data: {
         amountDueCents: input.planCode === "enterprise" ? 0 : 14900,
         amountPaidCents: input.planCode === "enterprise" ? 0 : 14900,
@@ -224,8 +221,8 @@ async function seedBillingRecords(input: {
   }
 
   const billingEventId = `evt_${input.seed.slug.replace(/-/g, "_")}_bootstrap`;
-  if (await prisma.billingEvent.count({ where: { stripeEventId: billingEventId } }) === 0) {
-    await prisma.billingEvent.create({
+  if (await input.prisma.billingEvent.count({ where: { stripeEventId: billingEventId } }) === 0) {
+    await input.prisma.billingEvent.create({
       data: {
         organizationId: input.organizationId,
         payload: { note: "Seeded baseline billing event", status: "processed" },
@@ -240,6 +237,7 @@ async function seedBillingRecords(input: {
 async function seedUsageAndQuota(input: {
   organizationId: string;
   planLimits: Record<string, unknown>;
+  prisma: PrismaClient;
   seed: TenantSeed;
   subscriptionId: string;
   tenantId: string;
@@ -251,7 +249,7 @@ async function seedUsageAndQuota(input: {
       { metric: "tokens.output", quantity: 88_400 },
       { metric: "workflow.runs", quantity: 46 }
     ].map((usage, index) =>
-      prisma.usageRecord.create({
+      input.prisma.usageRecord.create({
         data: {
           eventId: `${input.seed.slug}-usage-${index + 1}`,
           metadata: { source: "seed-script" },
@@ -277,7 +275,7 @@ async function seedUsageAndQuota(input: {
       { limit: Math.max(100, agentsLimit), resourceType: QuotaResourceType.STORAGE_GB },
       { limit: Math.max(10_000, workflowsLimit * 40), resourceType: QuotaResourceType.WORKFLOW_RUNS }
     ].map((quota, index) =>
-      prisma.quotaUsage.create({
+      input.prisma.quotaUsage.create({
         data: {
           count: index * 10,
           limit: quota.limit,
@@ -293,13 +291,14 @@ async function seedUsageAndQuota(input: {
 
 async function seedInviteAndSecret(input: {
   organizationId: string;
+  prisma: PrismaClient;
   seed: TenantSeed;
   tenantId: string;
   userId: string | null;
 }): Promise<void> {
   const inviteToken = `${input.seed.slug}-invite-token`;
-  if (await prisma.invite.count({ where: { token: inviteToken } }) === 0) {
-    await prisma.invite.create({
+  if (await input.prisma.invite.count({ where: { token: inviteToken } }) === 0) {
+    await input.prisma.invite.create({
       data: {
         email: `invite.${input.seed.slug}@birthub.local`,
         expiresAt: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
@@ -314,8 +313,8 @@ async function seedInviteAndSecret(input: {
   }
 
   const secretHash = createHash("sha256").update(`${input.tenantId}-job-secret`).digest("hex");
-  if (await prisma.jobSigningSecret.count({ where: { tenantId: input.tenantId } }) === 0) {
-    await prisma.jobSigningSecret.create({
+  if (await input.prisma.jobSigningSecret.count({ where: { tenantId: input.tenantId } }) === 0) {
+    await input.prisma.jobSigningSecret.create({
       data: {
         organizationId: input.organizationId,
         secret: secretHash,
@@ -325,16 +324,21 @@ async function seedInviteAndSecret(input: {
   }
 }
 
-export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Promise<void> {
+export async function createTenant(
+  prisma: PrismaClient,
+  seed: TenantSeed,
+  planMap: SeededPlanMap
+): Promise<void> {
   const selectedPlan = planMap.get(seed.planCode);
   if (!selectedPlan) {
     throw new Error(`Plan '${seed.planCode}' was not seeded.`);
   }
 
-  const organization = await upsertOrganization(seed, selectedPlan.id);
-  const users = await upsertUsers(seed);
+  const organization = await upsertOrganization(prisma, seed, selectedPlan.id);
+  const users = await upsertUsers(prisma, seed);
   await seedMembershipsAndSessions({
     organizationId: organization.id,
+    prisma,
     seed,
     tenantId: organization.tenantId,
     users
@@ -371,7 +375,12 @@ export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Pr
 
   const workflows = await Promise.all(
     buildTenantWorkflows(organization.tenantId).map((workflow) =>
-      createWorkflowWithGraph({ organizationId: organization.id, tenantId: organization.tenantId, workflow })
+      createWorkflowWithGraph({
+        organizationId: organization.id,
+        prisma,
+        tenantId: organization.tenantId,
+        workflow
+      })
     )
   );
 
@@ -414,6 +423,7 @@ export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Pr
   await seedBillingRecords({
     organizationId: organization.id,
     planCode: seed.planCode,
+    prisma,
     seed,
     subscriptionId: subscription.id,
     tenantId: organization.tenantId
@@ -421,12 +431,14 @@ export async function createTenant(seed: TenantSeed, planMap: SeededPlanMap): Pr
   await seedUsageAndQuota({
     organizationId: organization.id,
     planLimits: selectedPlan.limits,
+    prisma,
     seed,
     subscriptionId: subscription.id,
     tenantId: organization.tenantId
   });
   await seedInviteAndSecret({
     organizationId: organization.id,
+    prisma,
     seed,
     tenantId: organization.tenantId,
     userId: users[0]?.id ?? null
