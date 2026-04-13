@@ -24,9 +24,9 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
   };
 }
 
-function createAuthTestApp() {
+function createAuthTestApp(config = createTestApiConfig()) {
   return createApp({
-    config: createTestApiConfig(),
+    config,
     healthService: () => Promise.resolve({
       checkedAt: new Date("2026-03-13T00:00:00.000Z").toISOString(),
       services: {
@@ -41,6 +41,7 @@ function createAuthTestApp() {
 }
 
 void test("auth login returns 200 and creates a session", async () => {
+  const config = createTestApiConfig();
   const restores = [
     stubMethod(prisma.organization, "findFirst", () => Promise.resolve({ id: "org_1", tenantId: "tenant_1" })),
     stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
@@ -66,7 +67,7 @@ void test("auth login returns 200 and creates a session", async () => {
   ];
 
   try {
-    const app = createAuthTestApp();
+    const app = createAuthTestApp(config);
     const response = await request(app)
       .post("/api/v1/auth/login")
       .send({
@@ -77,9 +78,13 @@ void test("auth login returns 200 and creates a session", async () => {
       .expect(200);
 
     const body = response.body as { mfaRequired: boolean; session: { tenantId: string; userId: string } };
+    const cookies = response.headers["set-cookie"] ?? [];
     assert.equal(body.mfaRequired, false);
     assert.equal(body.session.userId, "user_1");
     assert.equal(body.session.tenantId, "tenant_1");
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_AUTH_COOKIE_NAME}=`)));
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_AUTH_REFRESH_COOKIE_NAME}=`)));
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_CSRF_COOKIE_NAME}=`)));
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -275,6 +280,7 @@ void test("verifyMfaChallenge rejects MFA challenge token reuse after first succ
 });
 
 void test("auth logout returns 200 for a valid session token", async () => {
+  const config = createTestApiConfig();
   const expiresAt = new Date(Date.now() + 60_000);
   const sessionToken = "atk_valid";
 
@@ -299,7 +305,7 @@ void test("auth logout returns 200 for a valid session token", async () => {
   ];
 
   try {
-    const app = createAuthTestApp();
+    const app = createAuthTestApp(config);
     const response = await request(app)
       .post("/api/v1/auth/logout")
       .set("Authorization", `Bearer ${sessionToken}`)
@@ -308,7 +314,69 @@ void test("auth logout returns 200 for a valid session token", async () => {
       .expect(200);
 
     const body = response.body as { revokedSessions: number };
+    const cookies = response.headers["set-cookie"] ?? [];
     assert.equal(body.revokedSessions, 1);
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_AUTH_COOKIE_NAME}=`)));
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_AUTH_REFRESH_COOKIE_NAME}=`)));
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_CSRF_COOKIE_NAME}=`)));
+  } finally {
+    for (const restore of restores.reverse()) {
+      restore();
+    }
+  }
+});
+
+void test("auth refresh route returns 200 and rotates cookies", async () => {
+  const config = createTestApiConfig();
+  let createdSessionId: string | null = null;
+  let revokedReplacementId: string | null = null;
+
+  const restores = [
+    stubMethod(prisma.session, "findUnique", (args: { where?: { refreshTokenHash?: string } }) => {
+      if (args.where?.refreshTokenHash !== sha256("refresh_current")) {
+        return Promise.resolve(null);
+      }
+
+      return Promise.resolve({
+        id: "session_current",
+        organizationId: "org_1",
+        refreshExpiresAt: new Date(Date.now() + 60_000),
+        revokedAt: null,
+        tenantId: "tenant_1",
+        userId: "user_1"
+      });
+    }),
+    stubMethod(prisma.session, "create", (args: { data?: { id?: unknown } }) => {
+      const nextId = typeof args.data?.id === "string" ? args.data.id : "session_next";
+      createdSessionId = nextId;
+      return Promise.resolve({ id: nextId });
+    }),
+    stubMethod(prisma.session, "findMany", () => Promise.resolve([{ id: createdSessionId ?? "session_next" }])),
+    stubMethod(prisma.session, "updateMany", () => Promise.resolve({ count: 0 })),
+    stubMethod(prisma.session, "update", (args: { data?: { replacedBySessionId?: string | null } }) => {
+      revokedReplacementId = args.data?.replacedBySessionId ?? null;
+      return Promise.resolve({ id: "session_current" });
+    })
+  ];
+
+  try {
+    const app = createAuthTestApp(config);
+    const response = await request(app)
+      .post("/api/v1/auth/refresh")
+      .send({
+        refreshToken: "refresh_current"
+      })
+      .expect(200);
+
+    const body = response.body as { session: { id: string; tenantId: string; userId: string } };
+    const cookies = response.headers["set-cookie"] ?? [];
+    assert.equal(body.session.id, createdSessionId);
+    assert.equal(body.session.tenantId, "tenant_1");
+    assert.equal(body.session.userId, "user_1");
+    assert.equal(revokedReplacementId, createdSessionId);
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_AUTH_COOKIE_NAME}=`)));
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_AUTH_REFRESH_COOKIE_NAME}=`)));
+    assert.ok(cookies.some((value: string) => value.startsWith(`${config.API_CSRF_COOKIE_NAME}=`)));
   } finally {
     for (const restore of restores.reverse()) {
       restore();
