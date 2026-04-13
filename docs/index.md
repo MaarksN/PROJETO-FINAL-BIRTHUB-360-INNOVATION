@@ -27,6 +27,7 @@ Bem-vindo à página índice do BirthHub360. Este documento atua como a **Fonte 
 - [Relatorio de Disaster Recovery](evidence/disaster-recovery-report.md)
 
 ## 5. Operações e Resposta a Incidentes
+- [Capacidades ativas do produto](operations/active-product-capabilities.md)
 - [Inventário de Ambientes](operations/environment-inventory.md)
 - [Post-Mortems e Resposta a Incidentes (Outage/Security)](runbooks/incident-response.md)
 - [Incidentes Críticos](runbooks/critical-incidents.md)

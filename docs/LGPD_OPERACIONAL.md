@@ -11,6 +11,7 @@ Status operacional atual em 2026-04-12:
 - execucao manual ou agendada de retention sweep avancado
 
 Referência de serviço: módulos de privacy em `apps/api/src/modules/privacy`.
+Fonte operacional de capabilities ativas: `docs/operations/active-product-capabilities.md`.
 
 Observacao:
 

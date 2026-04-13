@@ -5,6 +5,7 @@
 - [Contribution guide](../CONTRIBUTING.md)
 - [Operational hub](operational/README.md)
 - [Service catalog (core vs legacy vs satellites)](service-catalog.md)
+- [Active product capabilities](operations/active-product-capabilities.md)
 - [Service criticality](service-criticality.md)
 - [Observability alerts](observability-alerts.md)
 - [Repository naming standard](standards/repository-naming.md)

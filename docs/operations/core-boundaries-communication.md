@@ -5,6 +5,7 @@
 Alinhar operação, on-call e planejamento para a taxonomia canônica do repositório, removendo trilhas conflitantes de backlog.
 
 Fonte única operacional: `docs/service-catalog.md`.
+Fonte única para capabilities de produto em runtime: `docs/operations/active-product-capabilities.md`.
 
 ## Resumo da mudança
 
@@ -22,6 +23,7 @@ Fonte única operacional: `docs/service-catalog.md`.
 Referências:
 - `docs/service-criticality.md`
 - `docs/observability-alerts.md`
+- `docs/operations/active-product-capabilities.md`
 
 ## Instrução para planejamento
 

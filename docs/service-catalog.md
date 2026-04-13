@@ -6,6 +6,8 @@
 
 Este documento é a **fonte única** para fronteiras operacionais entre core, legado e satélites.
 
+Fonte única para capabilities ativas do produto: `docs/operations/active-product-capabilities.md`.
+
 - Apenas `apps/web`, `apps/api`, `apps/worker` e `packages/database` são **core canônico**.
 - Superfícies em **legacy/quarentena** não são default de desenvolvimento nem de operação.
 - `apps/legacy/dashboard` permanece fora do grafo ativo do workspace e não participa das lanes canônicas de CI/CD.
@@ -33,3 +35,4 @@ Este documento é a **fonte única** para fronteiras operacionais entre core, le
 2. **Legacy/quarentena:** não define roadmap principal, não recebe classificação P0, fica fora do workspace ativo e não deve aparecer como default em onboarding, runbook ou operação.
 3. **Satélites:** continuam suportados, mas com SLO/alerta e governança proporcionais ao impacto indireto no fluxo principal.
 4. **Qualquer divergência** entre documentos deve ser resolvida em favor deste catálogo.
+5. **Capacidades de produto preservadas/desabilitadas** devem seguir `docs/operations/active-product-capabilities.md`, não exemplos históricos espalhados em relatórios de ciclo.

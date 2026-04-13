@@ -4,6 +4,7 @@ Status de runtime em 2026-04-12:
 
 - O fluxo self-service de exclusao e anonimizacao permanece ativo.
 - A automacao avancada de retention descrita abaixo nao deve ser presumida como capacidade ativa desta implantacao enquanto o dominio de privacidade avancada permanecer desabilitado por flag e sem sustentacao completa de schema.
+- Referencia operacional atual: `docs/operations/active-product-capabilities.md`.
 
 No cenário B2B do BirthHub 360, um Tenant (Cliente da Plataforma) que encerra seu contrato ou solicita ativamente a exclusão de sua conta via LGPD entra em um fluxo rígido de Deleção. Devido à existência de dados contábeis (Faturamento) atrelados à arquitetura base, o comando de "Deletar Conta" na UI não executa um simples `DELETE FROM tenants`.
 
