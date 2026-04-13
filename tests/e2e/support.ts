@@ -1,6 +1,6 @@
 // @ts-nocheck
-// 
-import type { Page } from "@playwright/test";
+//
+import { test, type Page } from "@playwright/test";
 
 const demoWorkflowPayload = {
   workflow: {
@@ -199,6 +199,59 @@ const evidenceWorkflowPayload = {
     status: "PUBLISHED"
   }
 };
+
+function isEnvEnabled(value: string | undefined): boolean {
+  if (!value) {
+    return false;
+  }
+
+  return ["1", "true", "yes", "on"].includes(value.trim().toLowerCase());
+}
+
+export function isClinicalWorkspaceEnabledForE2E(): boolean {
+  return isEnvEnabled(
+    process.env.E2E_ENABLE_CLINICAL_WORKSPACE ??
+      process.env.NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE ??
+      process.env.BIRTHUB_ENABLE_CLINICAL_WORKSPACE
+  );
+}
+
+export function isPrivacyAdvancedEnabledForE2E(): boolean {
+  return isEnvEnabled(
+    process.env.E2E_ENABLE_PRIVACY_ADVANCED ??
+      process.env.NEXT_PUBLIC_ENABLE_PRIVACY_ADVANCED ??
+      process.env.BIRTHUB_ENABLE_PRIVACY_ADVANCED
+  );
+}
+
+export function isFhirFacadeEnabledForE2E(): boolean {
+  return isEnvEnabled(
+    process.env.E2E_ENABLE_FHIR_FACADE ??
+      process.env.NEXT_PUBLIC_ENABLE_FHIR_FACADE ??
+      process.env.BIRTHUB_ENABLE_FHIR_FACADE
+  );
+}
+
+export function skipUnlessClinicalWorkspaceEnabled() {
+  test.skip(
+    !isClinicalWorkspaceEnabledForE2E(),
+    "Clinical workspace e2e remains opt-in while the capability stays outside the default product path."
+  );
+}
+
+export function skipUnlessPrivacyAdvancedEnabled() {
+  test.skip(
+    !isPrivacyAdvancedEnabledForE2E(),
+    "Advanced privacy e2e remains opt-in while the capability stays disabled by default."
+  );
+}
+
+export function skipUnlessFhirFacadeEnabled() {
+  test.skip(
+    !isFhirFacadeEnabledForE2E(),
+    "FHIR e2e remains opt-in while the capability stays disabled by default."
+  );
+}
 
 export async function bootstrapSession(page: Page): Promise<void> {
   await page.addInitScript(() => {

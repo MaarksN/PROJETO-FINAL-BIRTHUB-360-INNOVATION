@@ -20,6 +20,7 @@
     "ci:commitlint": "node scripts/ci/check-commit-messages.mjs",
     "ci:core": "node scripts/ci/full.mjs task core",
     "ci:active-product-capabilities": "node scripts/ci/check-active-product-capabilities-alignment.mjs",
+    "ci:default-e2e-surface-freeze": "node scripts/ci/check-default-e2e-surface-freeze.mjs",
     "ci:dirty-tree": "node scripts/ci/check-dirty-tree.mjs",
     "ci:full": "node scripts/ci/full.mjs full",
     "ci:legacy-db-surface-freeze": "node scripts/ci/check-legacy-db-surface-freeze.mjs",

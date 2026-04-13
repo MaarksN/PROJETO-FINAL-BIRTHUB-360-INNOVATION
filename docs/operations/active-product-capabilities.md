@@ -62,8 +62,10 @@ Provide a single operational reference for which product capabilities are active
 ## Automated governance
 
 - CI check: `pnpm ci:active-product-capabilities`
+- CI check: `pnpm ci:default-e2e-surface-freeze`
 - Protected operational docs must reference this file before describing runtime product boundaries.
 - Protected operational docs must not use clinical, FHIR, or advanced-privacy runtime examples as if they were active by default.
+- Default Playwright lanes must keep preserved domains opt-in through explicit capability gating.
 
 ## Related references
 

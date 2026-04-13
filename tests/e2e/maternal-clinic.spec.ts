@@ -1,7 +1,12 @@
 // @ts-nocheck
 import { expect, test } from "@playwright/test";
 
-import { bootstrapSession } from "./support";
+import {
+  bootstrapSession,
+  skipUnlessClinicalWorkspaceEnabled
+} from "./support";
+
+skipUnlessClinicalWorkspaceEnabled();
 
 test("maternal dashboard flows render patient list and detail with mocked API", async ({ page }) => {
   await bootstrapSession(page);
