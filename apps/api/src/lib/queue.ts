@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import { taskJobSchema } from "@birthub/config";
 import { Queue } from "bullmq";
