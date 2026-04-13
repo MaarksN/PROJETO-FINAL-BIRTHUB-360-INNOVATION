@@ -1,6 +1,6 @@
 # LGPD Operacional
 
-Status operacional atual em 2026-04-12:
+Status operacional atual em 2026-04-13:
 
 - Ativo e suportado:
 - exportar dados por tenant

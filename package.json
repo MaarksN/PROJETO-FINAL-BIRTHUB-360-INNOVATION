@@ -19,6 +19,7 @@
     "bootstrap:node:windows": "powershell -ExecutionPolicy Bypass -File ./scripts/bootstrap/install-node-portable.ps1",
     "ci:commitlint": "node scripts/ci/check-commit-messages.mjs",
     "ci:core": "node scripts/ci/full.mjs task core",
+    "ci:active-product-capabilities": "node scripts/ci/check-active-product-capabilities-alignment.mjs",
     "ci:dirty-tree": "node scripts/ci/check-dirty-tree.mjs",
     "ci:full": "node scripts/ci/full.mjs full",
     "ci:legacy-db-surface-freeze": "node scripts/ci/check-legacy-db-surface-freeze.mjs",

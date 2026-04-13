@@ -1,6 +1,6 @@
 # Política de Retenção e Deleção de Tenant
 
-Status de runtime em 2026-04-12:
+Status de runtime em 2026-04-13:
 
 - O fluxo self-service de exclusao e anonimizacao permanece ativo.
 - A automacao avancada de retention descrita abaixo nao deve ser presumida como capacidade ativa desta implantacao enquanto o dominio de privacidade avancada permanecer desabilitado por flag e sem sustentacao completa de schema.

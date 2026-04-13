@@ -65,6 +65,9 @@ jobs:
       - name: Enforce legacy runtime surface freeze
         run: node scripts/ci/check-legacy-runtime-surface-freeze.mjs
 
+      - name: Enforce active product capability alignment
+        run: pnpm ci:active-product-capabilities
+
       - name: Enforce web inline style freeze
         run: node scripts/ci/check-web-inline-style-freeze.mjs
 

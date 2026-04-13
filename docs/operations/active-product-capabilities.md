@@ -59,6 +59,12 @@ Provide a single operational reference for which product capabilities are active
 3. If a preserved domain is reintroduced, schema support, runtime delegates, navigation, tests, and documentation must be restored together in the same lane.
 4. Historical cycle reports, evidence, and audit artifacts may describe older states and must not override this document for current operational decisions.
 
+## Automated governance
+
+- CI check: `pnpm ci:active-product-capabilities`
+- Protected operational docs must reference this file before describing runtime product boundaries.
+- Protected operational docs must not use clinical, FHIR, or advanced-privacy runtime examples as if they were active by default.
+
 ## Related references
 
 - `docs/service-catalog.md`
