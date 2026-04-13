@@ -37,9 +37,15 @@ import { startPrivacyRetentionScheduler } from "../modules/privacy/retention-sch
 import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router.js";
 import {
+  mainContextPipeline,
   mainErrorPipeline,
-  mainInfrastructurePostWebhookPipeline,
-  mainInfrastructurePreWebhookPipeline,
+  mainPostTransformProtectionPipeline,
+  mainPostValidationObservabilityPipeline,
+  mainPreTransformProtectionPipeline,
+  mainPreWebhookObservabilityPipeline,
+  mainPreWebhookProtectionPipeline,
+  mainTransformPipeline,
+  mainValidationPipeline,
   type ApiPipelineStep
 } from "./pipeline.js";
 
@@ -232,6 +238,66 @@ function createTerminalPipelineRegistrations(): Partial<PipelineRegistrationMap>
   };
 }
 
+function applyContextPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainContextPipeline, registrations);
+}
+
+function applyPreWebhookObservabilityPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainPreWebhookObservabilityPipeline, registrations);
+}
+
+function applyPreWebhookProtectionPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainPreWebhookProtectionPipeline, registrations);
+}
+
+function applyValidationPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainValidationPipeline, registrations);
+}
+
+function applyPreTransformProtectionPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainPreTransformProtectionPipeline, registrations);
+}
+
+function applyPostValidationObservabilityPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainPostValidationObservabilityPipeline, registrations);
+}
+
+function applyTransformPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainTransformPipeline, registrations);
+}
+
+function applyProtectionPipeline(
+  app: Express,
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  applyPipeline(app, mainPostTransformProtectionPipeline, registrations);
+}
+
+function applyErrorPipeline(app: Express): void {
+  applyPipeline(app, mainErrorPipeline, createTerminalPipelineRegistrations());
+}
+
 export function configureAppInfrastructure(app: Express, config: ApiConfig): void {
   configureCacheStore(config.REDIS_URL, config.NODE_ENV);
   if (config.NODE_ENV !== "test") {
@@ -243,11 +309,10 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
   initializeWorkflowInternalEventBridge(config);
 
   app.disable("x-powered-by");
-  applyPipeline(
-    app,
-    mainInfrastructurePreWebhookPipeline,
-    createInfrastructurePipelineRegistrations(config)
-  );
+  const registrations = createInfrastructurePipelineRegistrations(config);
+  applyContextPipeline(app, registrations);
+  applyPreWebhookObservabilityPipeline(app, registrations);
+  applyPreWebhookProtectionPipeline(app, registrations);
 
   const stripeWebhookEnabled = Boolean(config.STRIPE_SECRET_KEY && config.STRIPE_WEBHOOK_SECRET);
   if (stripeWebhookEnabled) {
@@ -258,11 +323,11 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
     );
   }
 
-  applyPipeline(
-    app,
-    mainInfrastructurePostWebhookPipeline,
-    createInfrastructurePipelineRegistrations(config)
-  );
+  applyValidationPipeline(app, registrations);
+  applyPreTransformProtectionPipeline(app, registrations);
+  applyPostValidationObservabilityPipeline(app, registrations);
+  applyTransformPipeline(app, registrations);
+  applyProtectionPipeline(app, registrations);
 }
 
 export function registerOperationalRoutes(
@@ -349,5 +414,5 @@ export function registerOperationalRoutes(
 }
 
 export function registerGlobalErrorHandling(app: Express): void {
-  applyPipeline(app, mainErrorPipeline, createTerminalPipelineRegistrations());
+  applyErrorPipeline(app);
 }

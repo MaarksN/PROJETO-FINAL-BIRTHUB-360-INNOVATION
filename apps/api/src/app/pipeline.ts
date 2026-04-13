@@ -226,6 +226,47 @@ export const mainInfrastructurePreWebhookPipeline: readonly ApiPipelineStep[] = 
   ]
 );
 
+export const mainContextPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(mainApiPipeline, [
+  "requestContext",
+  "authentication",
+  "tenantContext"
+]);
+
+export const mainPreWebhookObservabilityPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["requestLogging", "breakGlassAudit"]
+);
+
+export const mainPreWebhookProtectionPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["helmet", "cors"]
+);
+
+export const mainValidationPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["contentType"]
+);
+
+export const mainPreTransformProtectionPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["requestTimeout"]
+);
+
+export const mainPostValidationObservabilityPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["metrics"]
+);
+
+export const mainTransformPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["jsonParser", "sanitizeInput"]
+);
+
+export const mainPostTransformProtectionPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  ["originCheck", "csrf", "rateLimit"]
+);
+
 export const mainInfrastructurePostWebhookPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
   mainApiPipeline,
   [
