@@ -5,7 +5,7 @@ import { createAdminRouter } from "../modules/admin/router.js";
 import { createInstalledAgentsRouter } from "../modules/agents/router.js";
 import { createAnalyticsRouter } from "../modules/analytics/router.js";
 import { createApiKeysRouter } from "../modules/apikeys/router.js";
-import { createAuthRouter } from "../modules/auth/router.js";
+import { createAuthRouter, mountAuthRoutes } from "../modules/auth/router.js";
 import { createBillingRouter } from "../modules/billing/index.js";
 import { createBreakGlassRouter } from "../modules/break-glass/router.js";
 import { createBudgetRouter } from "../modules/budget/budget-routes.js";
@@ -89,7 +89,9 @@ export function mountModuleRouters(
   const installedAgentsRouter = dependencies.createInstalledAgentsRouter();
 
   app.use(dependencies.createAdminRouter(config));
-  app.use("/api/v1/auth", dependencies.createAuthRouter(config));
+  mountAuthRoutes(app, config, {
+    createAuthRouter: dependencies.createAuthRouter
+  });
   app.use("/api/v1", dependencies.createSessionsRouter(config));
   app.use("/api/v1/apikeys", dependencies.createApiKeysRouter(config));
   app.use("/api/v1", dependencies.createBreakGlassRouter(config));
