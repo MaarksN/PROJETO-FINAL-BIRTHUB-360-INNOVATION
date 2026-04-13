@@ -1,6 +1,8 @@
 import { QueueName } from "@birthub/shared-types";
 
+import { QUEUE_CONFIG } from "./definitions.js";
 import { QueueRuntime } from "./runtime.js";
+import type { JobsOptions } from "bullmq";
 
 export {
   AGENT_QUEUE_NAMES,
@@ -53,6 +55,40 @@ export const QUEUES = {
 } as const;
 
 let defaultRuntime: QueueRuntime | null = null;
+
+export class QueueManager extends QueueRuntime {
+  async addJob(
+    queueName: QueueName | string,
+    jobName: string,
+    data: unknown,
+    options?: JobsOptions
+  ) {
+    return this.enqueue({
+      data,
+      jobName,
+      ...(options ? { options } : {}),
+      queue: String(queueName)
+    });
+  }
+
+  async scheduleRecurringJobs(): Promise<void> {
+    const recurringQueues = Object.entries(QUEUE_CONFIG).filter(([, config]) => Boolean(config.cron));
+
+    await Promise.all(
+      recurringQueues.map(([queueName, config]) =>
+        this.upsertRepeatableJob({
+          data: { queue: queueName, scheduled: true },
+          jobId: `${queueName.toLowerCase()}-cron`,
+          jobName: `${queueName.toLowerCase()}-scheduled`,
+          queue: queueName,
+          repeat: {
+            pattern: config.cron!
+          }
+        })
+      )
+    );
+  }
+}
 
 function getDefaultRuntime(): QueueRuntime {
   if (!defaultRuntime) {

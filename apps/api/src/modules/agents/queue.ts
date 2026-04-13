@@ -1,13 +1,12 @@
 // @ts-nocheck
-// 
+//
 import type { ApiConfig } from "@birthub/config";
-import { Queue } from "bullmq";
-
 import {
   QueueBackpressureError,
-  TenantQueueRateLimitError
-} from "../../lib/queue.js";
-import { getBullConnection, getSharedRedis } from "../../lib/redis.js";
+  TenantQueueRateLimitError,
+  getAgentQueueName,
+  queueClient
+} from "@birthub/queue";
 
 export type AgentExecutionJob = {
   agentId: string;
@@ -19,53 +18,9 @@ export type AgentExecutionJob = {
   userId?: string | null;
 };
 
-type AgentExecutionQueue = Queue<AgentExecutionJob>;
+const queueName = getAgentQueueName("normal");
 
-const queueCache = new Map<string, AgentExecutionQueue>();
-const queueName = "agent-normal";
-
-function getAgentExecutionQueue(config: ApiConfig): AgentExecutionQueue {
-  const cacheKey = `${config.REDIS_URL}:${queueName}`;
-  const existing = queueCache.get(cacheKey);
-
-  if (existing) {
-    return existing;
-  }
-
-  const queue = new Queue<AgentExecutionJob>(queueName, {
-    connection: getBullConnection(config),
-    defaultJobOptions: {
-      attempts: 5,
-      backoff: {
-        delay: 1_000,
-        type: "exponential"
-      },
-      removeOnComplete: {
-        count: 500
-      },
-      removeOnFail: {
-        count: 500
-      }
-    }
-  });
-
-  queueCache.set(cacheKey, queue);
-  return queue;
-}
-
-async function assertTenantQueueRateLimit(config: ApiConfig, tenantId: string): Promise<void> {
-  const redis = getSharedRedis(config);
-  const key = `tenant-agent-queue-rate:${tenantId}`;
-  const current = await redis.incr(key);
-
-  if (current === 1) {
-    await redis.expire(key, config.TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS);
-  }
-
-  if (current > config.TENANT_QUEUE_RATE_LIMIT_MAX) {
-    throw new TenantQueueRateLimitError(tenantId, config.TENANT_QUEUE_RATE_LIMIT_MAX);
-  }
-}
+export { QueueBackpressureError, TenantQueueRateLimitError };
 
 export async function getInstalledAgentQueueStats(config: ApiConfig): Promise<{
   active: number;
@@ -77,26 +32,7 @@ export async function getInstalledAgentQueueStats(config: ApiConfig): Promise<{
   queueName: string;
   waiting: number;
 }> {
-  const queue = getAgentExecutionQueue(config);
-  const [waiting, delayed, prioritized, active, completed, failed] = await Promise.all([
-    queue.getWaitingCount(),
-    queue.getDelayedCount(),
-    queue.getPrioritizedCount(),
-    queue.getActiveCount(),
-    queue.getCompletedCount(),
-    queue.getFailedCount()
-  ]);
-
-  return {
-    active,
-    completed,
-    delayed,
-    failed,
-    pending: waiting + delayed + prioritized,
-    prioritized,
-    queueName,
-    waiting
-  };
+  return queueClient.getQueueStats(queueName, { redisUrl: config.REDIS_URL });
 }
 
 export async function enqueueInstalledAgentExecution(
@@ -106,23 +42,32 @@ export async function enqueueInstalledAgentExecution(
   jobId: string;
   pendingJobs: number;
 }> {
-  await assertTenantQueueRateLimit(config, payload.tenantId);
-  const queue = getAgentExecutionQueue(config);
   const stats = await getInstalledAgentQueueStats(config);
 
   if (stats.pending >= config.QUEUE_BACKPRESSURE_THRESHOLD) {
     throw new QueueBackpressureError(stats.pending, config.QUEUE_BACKPRESSURE_THRESHOLD);
   }
 
-  const job = await queue.add("agent-execution", payload, {
-    jobId: `${payload.tenantId}:${payload.executionId}`,
-    priority: 5
+  const result = await queueClient.enqueue({
+    backpressureThreshold: config.QUEUE_BACKPRESSURE_THRESHOLD,
+    data: payload,
+    jobName: "agent-execution",
+    options: {
+      jobId: `${payload.tenantId}:${payload.executionId}`,
+      priority: 5
+    },
+    queue: queueName,
+    redisUrl: config.REDIS_URL,
+    tenantId: payload.tenantId,
+    tenantRateLimit: {
+      keyPrefix: "tenant-agent-queue-rate",
+      max: config.TENANT_QUEUE_RATE_LIMIT_MAX,
+      windowSeconds: config.TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS
+    }
   });
 
   return {
-    jobId: String(job.id),
-    pendingJobs: stats.pending + 1
+    jobId: result.jobId,
+    pendingJobs: result.pendingJobs
   };
 }
-
-

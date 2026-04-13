@@ -38,22 +38,23 @@ export function extractJobContext<DataType, ResultType>(
   const payload = asRecord(job.data);
   const nestedContext = asRecord(payload?.context);
   const jobId = String(job.id ?? "unknown");
+  const actorId = readString(nestedContext, "actorId") ?? readString(payload, "userId");
+  const organizationId =
+    readString(nestedContext, "organizationId") ?? readString(payload, "organizationId");
+  const requestId = readString(payload, "requestId");
+  const tenantId = readString(payload, "tenantId") ?? readString(nestedContext, "tenantId");
+  const userId = readString(payload, "userId");
 
   return {
-    actorId: readString(nestedContext, "actorId") ?? readString(payload, "userId"),
     attemptsMade: job.attemptsMade,
     jobId,
-    organizationId:
-      readString(nestedContext, "organizationId") ?? readString(payload, "organizationId"),
     queue: queueName,
-    requestId: readString(payload, "requestId"),
-    tenantId: readString(payload, "tenantId") ?? readString(nestedContext, "tenantId"),
-    traceId:
-      readString(payload, "traceId") ??
-      readString(payload, "requestId") ??
-      readString(nestedContext, "jobId") ??
-      jobId,
-    userId: readString(payload, "userId")
+    ...(actorId ? { actorId } : {}),
+    ...(organizationId ? { organizationId } : {}),
+    ...(requestId ? { requestId } : {}),
+    ...(tenantId ? { tenantId } : {}),
+    traceId: readString(payload, "traceId") ?? requestId ?? readString(nestedContext, "jobId") ?? jobId,
+    ...(userId ? { userId } : {})
   };
 }
 
@@ -148,10 +149,10 @@ export function isFinalAttempt(job: Job<unknown, unknown, string>): boolean {
 
 export function toSerializedJobOptions(job: Job<unknown, unknown, string>): SerializedJobOptions {
   return {
-    attempts: typeof job.opts.attempts === "number" ? job.opts.attempts : undefined,
-    backoff: job.opts.backoff,
-    delay: typeof job.opts.delay === "number" ? job.opts.delay : undefined,
-    priority: typeof job.opts.priority === "number" ? job.opts.priority : undefined,
+    ...(typeof job.opts.attempts === "number" ? { attempts: job.opts.attempts } : {}),
+    ...(job.opts.backoff ? { backoff: job.opts.backoff } : {}),
+    ...(typeof job.opts.delay === "number" ? { delay: job.opts.delay } : {}),
+    ...(typeof job.opts.priority === "number" ? { priority: job.opts.priority } : {}),
     removeOnComplete: job.opts.removeOnComplete ?? DEFAULT_REMOVE_ON_COMPLETE,
     removeOnFail: job.opts.removeOnFail ?? DEFAULT_REMOVE_ON_FAIL
   };
@@ -202,8 +203,8 @@ export async function forwardToDlq<DataType>(
   );
 }
 
-export function registerRuntimeWorker<DataType = unknown>(
-  worker: Worker<DataType, unknown, string>,
+export function registerRuntimeWorker<DataType = unknown, ResultType = unknown>(
+  worker: Worker<DataType, ResultType, string>,
   queueConfig: QueueConfig,
   dlqQueue: Queue<DlqJobPayload<DataType>, void, string>
 ): void {

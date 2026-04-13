@@ -6,7 +6,7 @@ import {
   type QueueOptions,
   type WorkerOptions
 } from "bullmq";
-import IORedis from "ioredis";
+import Redis from "ioredis";
 
 import { createLogger } from "@birthub/logger";
 
@@ -34,14 +34,14 @@ import type {
 const logger = createLogger("queue-runtime");
 const DEFAULT_REDIS_URL = process.env.REDIS_URL ?? "redis://localhost:6379";
 
-function createRedisConnection(redisUrl: string): IORedis {
-  const connection = new IORedis(redisUrl, {
+function createRedisConnection(redisUrl: string): Redis {
+  const connection = new Redis(redisUrl, {
     enableReadyCheck: true,
     lazyConnect: false,
     maxRetriesPerRequest: null
   });
 
-  connection.on("error", (error) => {
+  connection.on("error", (error: unknown) => {
     logger.error(
       {
         err: error,
@@ -62,11 +62,11 @@ function resolveQueueConfig(config: QueueConfig | string): QueueConfig {
   if (typeof config !== "string") {
     const defaults = QUEUE_CONFIG[config.name];
     return {
-      attempts: defaults?.attempts ?? 1,
-      backoff: defaults?.backoff,
-      removeOnComplete: defaults?.removeOnComplete ?? DEFAULT_REMOVE_ON_COMPLETE,
-      removeOnFail: defaults?.removeOnFail ?? DEFAULT_REMOVE_ON_FAIL,
       ...defaults,
+      attempts: defaults?.attempts ?? 1,
+      ...(defaults?.backoff ? { backoff: defaults.backoff } : {}),
+      ...(defaults?.removeOnComplete ? { removeOnComplete: defaults.removeOnComplete } : {}),
+      ...(defaults?.removeOnFail ? { removeOnFail: defaults.removeOnFail } : {}),
       ...config
     };
   }
@@ -74,11 +74,11 @@ function resolveQueueConfig(config: QueueConfig | string): QueueConfig {
   const defaults = QUEUE_CONFIG[config];
   return {
     attempts: defaults?.attempts ?? 1,
-    backoff: defaults?.backoff,
+    ...(defaults?.backoff ? { backoff: defaults.backoff } : {}),
     name: config,
-    priority: defaults?.priority,
-    removeOnComplete: defaults?.removeOnComplete ?? DEFAULT_REMOVE_ON_COMPLETE,
-    removeOnFail: defaults?.removeOnFail ?? DEFAULT_REMOVE_ON_FAIL
+    ...(defaults?.priority !== undefined ? { priority: defaults.priority } : {}),
+    ...(defaults?.removeOnComplete ? { removeOnComplete: defaults.removeOnComplete } : {}),
+    ...(defaults?.removeOnFail ? { removeOnFail: defaults.removeOnFail } : {})
   };
 }
 
@@ -111,7 +111,7 @@ export class TenantQueueRateLimitError extends Error {
 }
 
 export class QueueRuntime {
-  private readonly connection: IORedis;
+  private readonly connection: Redis;
   private readonly dlqClient: QueueDlqClient;
   private readonly queueEvents = new Map<string, QueueEvents>();
   private readonly queues = new Map<string, Queue<unknown, unknown, string>>();
@@ -125,7 +125,7 @@ export class QueueRuntime {
     this.dlqClient = new QueueDlqClient(this);
   }
 
-  get redis(): IORedis {
+  get redis(): Redis {
     return this.connection;
   }
 
@@ -281,8 +281,8 @@ export class QueueRuntime {
     }
 
     const job = await queue.add(
-      request.jobName,
-      request.data,
+      request.jobName as never,
+      request.data as never,
       mergeQueueJobOptions(queueConfig, request.options)
     );
 
@@ -307,7 +307,7 @@ export class QueueRuntime {
   ): Promise<void> {
     const queueConfig = resolveQueueConfig(request.queue);
     const queue = this.createQueue<DataType>(queueConfig);
-    await queue.add(request.jobName, request.data, {
+    await queue.add(request.jobName as never, request.data as never, {
       ...mergeQueueJobOptions(queueConfig, request.options),
       ...(request.jobId ? { jobId: request.jobId } : {}),
       repeat: request.repeat

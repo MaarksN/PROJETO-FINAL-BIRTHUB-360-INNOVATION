@@ -19,6 +19,7 @@
     "@birthub/config": "workspace:*",
     "@birthub/database": "workspace:*",
     "@birthub/logger": "workspace:*",
+    "@birthub/queue": "workspace:*",
     "@birthub/testing": "workspace:*",
     "@birthub/workflows-core": "workspace:*",
     "bullmq": "^5.73.0",
