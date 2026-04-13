@@ -12,6 +12,14 @@ export interface ApiPipelineStep {
   sideEffects: string[];
 }
 
+function pickPipelineSteps(
+  pipeline: readonly ApiPipelineStep[],
+  stepNames: readonly string[]
+): readonly ApiPipelineStep[] {
+  const selectedStepNames = new Set(stepNames);
+  return pipeline.filter((step) => selectedStepNames.has(step.name));
+}
+
 export const mainApiPipeline: readonly ApiPipelineStep[] = [
   {
     category: "context",
@@ -204,3 +212,35 @@ export const routeScopedApiPipeline: readonly ApiPipelineStep[] = [
     ]
   }
 ];
+
+export const mainInfrastructurePreWebhookPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  [
+    "requestContext",
+    "requestLogging",
+    "authentication",
+    "tenantContext",
+    "breakGlassAudit",
+    "helmet",
+    "cors"
+  ]
+);
+
+export const mainInfrastructurePostWebhookPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(
+  mainApiPipeline,
+  [
+    "contentType",
+    "requestTimeout",
+    "metrics",
+    "jsonParser",
+    "sanitizeInput",
+    "originCheck",
+    "csrf",
+    "rateLimit"
+  ]
+);
+
+export const mainErrorPipeline: readonly ApiPipelineStep[] = pickPipelineSteps(mainApiPipeline, [
+  "notFound",
+  "errorHandler"
+]);

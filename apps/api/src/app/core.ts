@@ -36,8 +36,15 @@ import { tenantContextMiddleware } from "../middlewares/tenantContext.js";
 import { startPrivacyRetentionScheduler } from "../modules/privacy/retention-scheduler.js";
 import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index.js";
 import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router.js";
+import {
+  mainErrorPipeline,
+  mainInfrastructurePostWebhookPipeline,
+  mainInfrastructurePreWebhookPipeline,
+  type ApiPipelineStep
+} from "./pipeline.js";
 
 const requestLogger = createLogger("api-http");
+type PipelineRegistrationMap = Record<ApiPipelineStep["name"], (app: Express) => void>;
 
 function buildCorsOptions(config: ApiConfig): cors.CorsOptions {
   return {
@@ -134,6 +141,97 @@ function registerTimeoutMiddleware(app: Express, config: ApiConfig): void {
   });
 }
 
+function applyPipeline(
+  app: Express,
+  pipelineDefinition: readonly ApiPipelineStep[],
+  registrations: Partial<PipelineRegistrationMap>
+): void {
+  for (const step of pipelineDefinition) {
+    const register = registrations[step.name];
+
+    if (!register) {
+      throw new Error(`Missing pipeline registration for step '${step.name}'.`);
+    }
+
+    register(app);
+  }
+}
+
+function createInfrastructurePipelineRegistrations(config: ApiConfig): Partial<PipelineRegistrationMap> {
+  return {
+    authentication: (app) => {
+      app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));
+    },
+    breakGlassAudit: (app) => {
+      app.use(breakGlassAuditMiddleware);
+    },
+    contentType: (app) => {
+      app.use(contentTypeMiddleware);
+    },
+    cors: (app) => {
+      app.use(cors(buildCorsOptions(config)));
+    },
+    csrf: (app) => {
+      app.use(
+        csrfProtection({
+          cookieName: config.API_CSRF_COOKIE_NAME,
+          headerName: config.API_CSRF_HEADER_NAME
+        })
+      );
+    },
+    errorHandler: () => {
+      throw new Error("errorHandler is registered via the terminal pipeline.");
+    },
+    helmet: (app) => {
+      app.use(helmet(buildHelmetOptions()));
+    },
+    jsonParser: (app) => {
+      app.use(express.json({ limit: config.API_JSON_BODY_LIMIT }));
+    },
+    metrics: (app) => {
+      app.use(metricsMiddleware);
+    },
+    notFound: () => {
+      throw new Error("notFound is registered via the terminal pipeline.");
+    },
+    originCheck: (app) => {
+      app.use(originValidationMiddleware(config.corsOrigins));
+    },
+    rateLimit: (app) => {
+      app.use(createRateLimitMiddleware(config));
+    },
+    requestContext: (app) => {
+      app.use(requestContextMiddleware);
+    },
+    requestLogging: (app) => {
+      registerRequestLoggingMiddleware(app);
+    },
+    requestTimeout: (app) => {
+      registerTimeoutMiddleware(app, config);
+    },
+    routeHandlers: () => {
+      throw new Error("routeHandlers are registered outside configureAppInfrastructure.");
+    },
+    sanitizeInput: (app) => {
+      app.use(sanitizeMutationInput);
+    },
+    tenantContext: (app) => {
+      app.use(tenantContextMiddleware);
+    }
+  };
+}
+
+function createTerminalPipelineRegistrations(): Partial<PipelineRegistrationMap> {
+  return {
+    errorHandler: (app) => {
+      app.use(errorHandler);
+    },
+    notFound: (app) => {
+      app.use(notFoundMiddleware);
+    }
+  };
+}
+
 export function configureAppInfrastructure(app: Express, config: ApiConfig): void {
   configureCacheStore(config.REDIS_URL, config.NODE_ENV);
   if (config.NODE_ENV !== "test") {
@@ -145,13 +243,11 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
   initializeWorkflowInternalEventBridge(config);
 
   app.disable("x-powered-by");
-  app.use(requestContextMiddleware);
-  registerRequestLoggingMiddleware(app);
-  app.use(authenticationMiddleware(config.API_AUTH_COOKIE_NAME, config));
-  app.use(tenantContextMiddleware);
-  app.use(breakGlassAuditMiddleware);
-  app.use(helmet(buildHelmetOptions()));
-  app.use(cors(buildCorsOptions(config)));
+  applyPipeline(
+    app,
+    mainInfrastructurePreWebhookPipeline,
+    createInfrastructurePipelineRegistrations(config)
+  );
 
   const stripeWebhookEnabled = Boolean(config.STRIPE_SECRET_KEY && config.STRIPE_WEBHOOK_SECRET);
   if (stripeWebhookEnabled) {
@@ -162,19 +258,11 @@ export function configureAppInfrastructure(app: Express, config: ApiConfig): voi
     );
   }
 
-  app.use(contentTypeMiddleware);
-  registerTimeoutMiddleware(app, config);
-  app.use(metricsMiddleware);
-  app.use(express.json({ limit: config.API_JSON_BODY_LIMIT }));
-  app.use(sanitizeMutationInput);
-  app.use(originValidationMiddleware(config.corsOrigins));
-  app.use(
-    csrfProtection({
-      cookieName: config.API_CSRF_COOKIE_NAME,
-      headerName: config.API_CSRF_HEADER_NAME
-    })
+  applyPipeline(
+    app,
+    mainInfrastructurePostWebhookPipeline,
+    createInfrastructurePipelineRegistrations(config)
   );
-  app.use(createRateLimitMiddleware(config));
 }
 
 export function registerOperationalRoutes(
@@ -261,6 +349,5 @@ export function registerOperationalRoutes(
 }
 
 export function registerGlobalErrorHandling(app: Express): void {
-  app.use(notFoundMiddleware);
-  app.use(errorHandler);
+  applyPipeline(app, mainErrorPipeline, createTerminalPipelineRegistrations());
 }
