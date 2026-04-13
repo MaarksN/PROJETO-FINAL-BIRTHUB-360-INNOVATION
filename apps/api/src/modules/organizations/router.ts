@@ -6,6 +6,7 @@ import {
   createOrganizationResponseSchema,
   cursorPaginationQuerySchema
 } from "@birthub/config";
+import { createLogger } from "@birthub/logger";
 import { Router } from "express";
 import { z } from "zod";
 
@@ -25,6 +26,12 @@ import {
   removeMember,
   updateMemberRole
 } from "./service.js";
+
+type OrganizationRouteLogger = {
+  info: (...args: unknown[]) => void;
+};
+
+const logger: OrganizationRouteLogger = createLogger("organizations") as OrganizationRouteLogger;
 
 const memberRoleSchema = z.object({
   role: z.nativeEnum(Role)
@@ -49,10 +56,21 @@ function requireTenantId(tenantId: string | null | undefined): string {
   return tenantId;
 }
 
-export function createOrganizationsRouter(): Router {
-  const router = Router();
+type OrganizationCreationResult = Awaited<ReturnType<typeof createOrganization>>;
 
-  const createOrganizationHandler = Auditable({
+type OrganizationCreationRouteTarget = Pick<Router, "post">;
+
+type OrganizationCreationRouteOptions = {
+  logger?: Pick<typeof logger, "info">;
+  onCreated?: (
+    request: Parameters<Parameters<typeof asyncHandler>[0]>[0],
+    organization: OrganizationCreationResult
+  ) => void;
+  paths: string[];
+};
+
+function createOrganizationRouteHandler(options: OrganizationCreationRouteOptions) {
+  return Auditable({
     action: "organization.created",
     entityType: "organization",
     resolveEntityId: (_request, _response, result) =>
@@ -70,16 +88,38 @@ export function createOrganizationsRouter(): Router {
       })
     );
 
+    options.onCreated?.(request, organization);
+    options.logger?.info?.(
+      {
+        organizationId: organization.organizationId,
+        requestId: request.context.requestId,
+        tenantId: organization.tenantId,
+        userId: organization.ownerUserId
+      },
+      "Provisioned organization"
+    );
+
     response.status(201).json(organization);
     return organization;
   });
+}
 
-  router.post("/orgs", validateBody(createOrganizationRequestSchema), asyncHandler(createOrganizationHandler));
-  router.post(
-    "/organizations",
-    validateBody(createOrganizationRequestSchema),
-    asyncHandler(createOrganizationHandler)
-  );
+export function registerOrganizationCreationRoutes(
+  target: OrganizationCreationRouteTarget,
+  options: OrganizationCreationRouteOptions
+): void {
+  const routeHandler = asyncHandler(createOrganizationRouteHandler(options));
+
+  for (const path of options.paths) {
+    target.post(path, validateBody(createOrganizationRequestSchema), routeHandler);
+  }
+}
+
+export function createOrganizationsRouter(): Router {
+  const router = Router();
+  registerOrganizationCreationRoutes(router, {
+    paths: ["/orgs", "/organizations"]
+  });
 
   router.get(
     "/orgs/:id/members",

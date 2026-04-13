@@ -1,8 +1,6 @@
 import type { ApiConfig } from "@birthub/config";
 import type { z } from "zod";
 import {
-  createOrganizationRequestSchema,
-  createOrganizationResponseSchema,
   taskEnqueuedResponseSchema,
   taskRequestSchema
 } from "@birthub/config";
@@ -20,7 +18,9 @@ import { validateBody } from "../middleware/validate-body.js";
 import { budgetService } from "../modules/budget/budget.service.js";
 import { BudgetExceededError } from "../modules/budget/budget.types.js";
 import { getBillingSnapshot } from "../modules/billing/index.js";
-import { createOrganization } from "../modules/organizations/service.js";
+import {
+  registerOrganizationCreationRoutes as defaultRegisterOrganizationCreationRoutes
+} from "../modules/organizations/router.js";
 
 const logger = createLogger("api");
 type EnqueueTaskDependency = typeof enqueueTask;
@@ -30,41 +30,22 @@ export function registerCoreBusinessRoutes(
   config: ApiConfig,
   dependencies: {
     enqueueTask?: EnqueueTaskDependency;
+    registerOrganizationCreationRoutes?: typeof defaultRegisterOrganizationCreationRoutes;
   } = {}
 ): void {
   const enqueueTaskDependency = dependencies.enqueueTask ?? enqueueTask;
+  const registerOrganizationCreationRoutes =
+    dependencies.registerOrganizationCreationRoutes ?? defaultRegisterOrganizationCreationRoutes;
 
-  app.post(
-    "/api/v1/organizations",
-    validateBody(createOrganizationRequestSchema),
-    asyncHandler(async (request, response) => {
-      const body = request.body as z.infer<typeof createOrganizationRequestSchema>;
-      const organization = await createOrganization({
-        adminEmail: body.adminEmail,
-        adminName: body.adminName,
-        adminPassword: body.adminPassword,
-        name: body.name,
-        requestId: request.context.requestId,
-        ...(body.slug ? { slug: body.slug } : {})
-      });
-
+  registerOrganizationCreationRoutes(app, {
+    logger,
+    onCreated: (request, organization) => {
       request.context.organizationId = organization.organizationId;
       request.context.tenantId = organization.tenantId ?? null;
       request.context.userId = organization.ownerUserId;
-
-      logger.info(
-        {
-          organizationId: organization.organizationId,
-          requestId: request.context.requestId,
-          tenantId: organization.tenantId,
-          userId: organization.ownerUserId
-        },
-        "Provisioned organization"
-      );
-
-      response.status(201).json(createOrganizationResponseSchema.parse(organization));
-    })
-  );
+    },
+    paths: ["/api/v1/organizations"]
+  });
 
   app.get(
     "/api/v1/me",
