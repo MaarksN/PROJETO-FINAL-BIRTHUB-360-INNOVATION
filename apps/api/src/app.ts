@@ -51,9 +51,23 @@ export interface StartedApiServer {
   shutdown: (signal: string) => Promise<void>;
 }
 
-export function createApp(dependencies: AppDependencies = {}): Express {
+interface ResolvedAppDependencies extends AppDependencies {
+  config: ApiConfig;
+  shouldExposeDocs: boolean;
+}
+
+function resolveAppDependencies(dependencies: AppDependencies = {}): ResolvedAppDependencies {
   const config = dependencies.config ?? getApiConfig();
-  const shouldExposeDocs = dependencies.shouldExposeDocs ?? config.NODE_ENV !== "production";
+
+  return {
+    ...dependencies,
+    config,
+    shouldExposeDocs: dependencies.shouldExposeDocs ?? config.NODE_ENV !== "production"
+  };
+}
+
+function composeApp(dependencies: ResolvedAppDependencies): Express {
+  const { config, shouldExposeDocs } = dependencies;
   const app = express();
 
   configureAppInfrastructure(app, config);
@@ -73,6 +87,10 @@ export function createApp(dependencies: AppDependencies = {}): Express {
   return app;
 }
 
+export function createApp(dependencies: AppDependencies = {}): Express {
+  return composeApp(resolveAppDependencies(dependencies));
+}
+
 export function startApiServer(
   dependencies: StartApiServerDependencies = {}
 ): StartedApiServer {
@@ -88,10 +106,10 @@ export function startApiServer(
   initializeApiSentry(config);
   initializeOpenTelemetry(config);
 
-  const app = appFactory({
+  const app = appFactory(resolveAppDependencies({
     ...dependencies,
     config
-  });
+  }));
   const server = app.listen(config.API_PORT, () => {
     logger.info({ port: config.API_PORT }, "BirthHub360 API listening");
   });
