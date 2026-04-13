@@ -19,7 +19,6 @@ import {
   registerGlobalErrorHandling,
   registerOperationalRoutes
 } from "./app/core.js";
-import { registerAuthAndCoreRoutes } from "./app/auth-and-core-routes.js";
 import { mountModuleRouters } from "./app/module-routes.js";
 import {
   initializeOpenTelemetry as defaultInitializeOpenTelemetry,
@@ -76,9 +75,6 @@ function composeApp(dependencies: ResolvedAppDependencies): Express {
     ...(dependencies.healthService ? { healthService: dependencies.healthService } : {}),
     ...(dependencies.readinessService ? { readinessService: dependencies.readinessService } : {}),
     shouldExposeDocs
-  });
-  registerAuthAndCoreRoutes(app, config, {
-    ...(dependencies.enqueueTask ? { enqueueTask: dependencies.enqueueTask } : {})
   });
   mountModuleRouters(app, config);
 
