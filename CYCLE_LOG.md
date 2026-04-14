@@ -303,3 +303,93 @@ BLOQUEIOS
 
 PROXIMO PASSO
 [A-004.6 - tratar apenas os erros confirmados fora do escopo original em `apps/web`; abrir trilha separada para o novo bloqueio de `apps/api` se ele continuar presente.]
+
+---
+
+GOVERNANCA
+[2026-04-14]
+
+LOTE ESTRUTURAL
+[RESOLVIDO PARCIALMENTE]
+
+STATUS CONSOLIDADO
+- [CODE-001] - [RESOLVIDO]
+- [CODE-002] - [PARCIAL]
+- [CODE-003] - [RESOLVIDO]
+- [ARCH-001] - [RESOLVIDO]
+- [ARCH-002] - [PARCIAL]
+- [ARCH-003] - [RESOLVIDO]
+- [CONV-001] - [RESOLVIDO]
+- [INFRA-001] - [RESOLVIDO]
+- [AUTO-001] - [RESOLVIDO]
+- [PROD-001] - [RESOLVIDO]
+
+GATES ACEITOS
+- [`pnpm typecheck`] - [PASS]
+- [`pnpm test`] - [PASS no escopo relevante reportado]
+- [`pnpm lint`] - [FAIL por divida preexistente em `apps/web`]
+
+PROXIMO CICLO APROVADO
+[CODE-002.1]
+
+---
+
+CICLO
+[CODE-002.1]
+
+TRILHA
+[CODE]
+
+OBJETIVO
+[Remover a supressao tipada residual critica de `apps/api/src/modules/clinical/service.ts`, substituindo o bypass global por uma fronteira tipada explicita no seam do Prisma clinico sem abrir refatoracao ampla do dominio.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/modules/clinical/service.ts: remover `@ts-nocheck` e tipar o acesso aos delegates clinicos em runtime]
+- [CYCLE_LOG.md: registrar a governanca e a validacao do ciclo]
+
+DIFF GUARD
+Arquivos estruturais: [1 / max 3]
+Linhas alteradas em hot paths: [NAO VERIFICADO / max 200]
+Excecao justificada: [sim - o fechamento final do workspace nao preservou um diff observavel confiavel para `service.ts`, entao o controle foi feito por arquivo-alvo, typecheck e testes canônicos.]
+
+TD-IDs AFETADOS
+Fechados: [N/A]
+Abertos: [CODE-002 - Supressoes tipadas residuais ainda existem em `apps/api/src/modules/clinical/router.ts` e `apps/api/src/modules/clinical/schemas.ts`]
+Bloqueados: [ARCH-002 - `apps/api/src/modules/clinical/service.ts` segue monolitico apesar da estabilizacao tipada]
+
+GATE DE APROVACAO HUMANA
+Necessario: [nao]
+Se sim: [N/A]
+
+PROBLEMA CONFIRMADO
+[`pnpm --filter @birthub/api typecheck` falhou sem o bypass com erros reais em `apps/api/src/modules/clinical/service.ts`, incluindo `Prisma has no exported member 'PatientWhereInput'`, ausencia de delegates clinicos em `Prisma.TransactionClient` e cascata de `implicit any` derivada dessa perda de contrato.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/modules/clinical/service.ts] - removido `@ts-nocheck`
+- [apps/api/src/modules/clinical/service.ts] - criada fronteira tipada local (`ClinicalModelDelegate` / `ClinicalTransactionClient`) para explicitar o seam entre o runtime clinico e o Prisma gerado
+- [apps/api/src/modules/clinical/service.ts] - substituidas anotacoes Prisma especificas de modelos clinicos por contratos locais e genericos compativeis com o runtime ativo
+- [apps/api/src/modules/clinical/service.ts] - tipados os caminhos de listagem e mutacao clinica para eliminar `implicit any` sem alterar o contrato publico do service
+- [CYCLE_LOG.md] - registrada a governanca do lote estrutural e o fechamento deste subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `Baseline preserved at 581 @ts-nocheck` / `Improvements detected: 150 @ts-nocheck removed from baseline coverage` / `apps/api typecheck: Done`
+- [`pnpm --filter @birthub/api test`] -> `tests 155` / `pass 141` / `fail 0` / `skipped 14`
+
+SECURITY GATE (obrigatorio para Trilha B)
+[N/A - Trilha CODE]
+
+ROLLBACK EXECUTADO
+[nao]
+
+STATUS
+[RESOLVIDO]
+
+RISCO RESIDUAL
+[O `clinical/service.ts` voltou ao typecheck sem bypass global, mas o `CODE-002` agregado permanece parcial porque `apps/api/src/modules/clinical/router.ts` e `apps/api/src/modules/clinical/schemas.ts` ainda carregam `@ts-nocheck`. O `ARCH-002` agregado tambem segue parcial porque o service continua concentrando muitas responsabilidades em um unico arquivo.]
+
+ESCALATION NECESSARIO
+[nao]
+
+PROXIMO PASSO
+[ARCH-002.1 - quebrar o monolito remanescente de `apps/api/src/modules/clinical/service.ts` por agregados/casos de uso, mantendo `apps/web` fora desta trilha.]
