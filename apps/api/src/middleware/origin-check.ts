@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { NextFunction, Request, Response } from "express";
 
 import { ProblemDetailsError } from "../lib/problem-details.js";
