@@ -1,10 +1,13 @@
 import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
-import { RetentionExecutionMode } from "@birthub/database";
 
 import { runRetentionSweep } from "./retention.service.js";
 
 const logger = createLogger("privacy-retention");
+type RetentionSweepMode = Parameters<typeof runRetentionSweep>[0]["mode"];
+
+const AUTOMATED_RETENTION_SWEEP_MODE: RetentionSweepMode = "EXECUTE";
+
 let retentionTimer: NodeJS.Timeout | null = null;
 
 export function startPrivacyRetentionScheduler(
@@ -18,7 +21,7 @@ export function startPrivacyRetentionScheduler(
   retentionTimer = setInterval(() => {
     void runRetentionSweep({
       config,
-      mode: RetentionExecutionMode.AUTOMATED
+      mode: AUTOMATED_RETENTION_SWEEP_MODE
     })
       .then((result) => {
         logger.info({ policiesExecuted: result.length }, "Privacy retention sweep executed");
