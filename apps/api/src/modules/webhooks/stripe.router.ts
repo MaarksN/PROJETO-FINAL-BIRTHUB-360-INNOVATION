@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
 import express, { Router } from "express";

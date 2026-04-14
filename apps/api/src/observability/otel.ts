@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { createRequire } from "node:module";
 
 import type { ApiConfig } from "@birthub/config";
