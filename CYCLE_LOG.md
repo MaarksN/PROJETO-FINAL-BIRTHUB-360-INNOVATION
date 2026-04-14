@@ -268,3 +268,38 @@ JUSTIFICATIVA
 
 PROXIMO PASSO
 [A-004.5 - fechar `apps/web/app/(dashboard)/dashboard/page.tsx` e `apps/web/lib/i18n.ts`, rerodando `pnpm --filter @birthub/web lint`, `pnpm lint` e `pnpm typecheck`.]
+
+---
+
+CICLO
+[A-004.5]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Fechar os dois arquivos restantes do escopo original de `apps/web` (`dashboard/page.tsx` e `lib/i18n.ts`) sem alterar comportamento, revalidando `lint` e `typecheck` canônicos.]
+
+ARQUIVOS-ALVO
+- [apps/web/app/(dashboard)/dashboard/page.tsx: remover `complexity` e `max-lines`]
+- [apps/web/lib/i18n.ts: remover `max-lines`]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+STATUS
+[RESOLVIDO]
+
+RESULTADO
+- [`apps/web/app/(dashboard)/dashboard/page.tsx`] - saiu do lint; o arquivo foi reduzido para 494 linhas e o erro de `complexity` deixou de aparecer
+- [`apps/web/lib/i18n.ts`] - saiu do lint; o arquivo foi reduzido para 463 linhas sem alterar o conteúdo efetivo dos dicionarios
+
+VALIDACAO
+- [`pnpm --filter @birthub/web lint`] -> falha residual fora do escopo original em `apps/web/app/(dashboard)/patients/page.sections.tsx`, `apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts`, `apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx`, `apps/web/components/cookie-consent-banner.tsx` e `apps/web/tests/dashboard-data.test.ts`
+- [`pnpm lint`] -> falha global pelos mesmos erros restantes em `apps/web`; warnings persistem em `packages/workflows-core` e `packages/agents-core`
+- [`pnpm typecheck`] -> novo bloqueio fora de `apps/web` em `apps/api/src/modules/clinical/service.ts` com serie de erros Prisma/`TransactionClient`
+
+BLOQUEIOS
+- [o lint global continua falhando apenas por arquivos fora do escopo original de A-004.5]
+- [o `typecheck` global deixou de estar estabilizado por mudancas reais ja presentes em `apps/api/src/modules/clinical/service.ts`, fora do escopo aprovado]
+
+PROXIMO PASSO
+[A-004.6 - tratar apenas os erros confirmados fora do escopo original em `apps/web`; abrir trilha separada para o novo bloqueio de `apps/api` se ele continuar presente.]
