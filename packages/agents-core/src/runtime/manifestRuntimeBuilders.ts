@@ -1,6 +1,5 @@
 import type { AgentRuntimeOutput, AgentRuntimeOutputInput } from "./manifestRuntime.js";
 import {
-  buildDecisionsToAnticipate,
   buildEmergingRisks,
   buildLeadingIndicators,
   buildOutputConfidence,
