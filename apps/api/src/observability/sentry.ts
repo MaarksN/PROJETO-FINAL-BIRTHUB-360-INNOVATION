@@ -1,6 +1,3 @@
-// @ts-nocheck
-// 
-
 import type { ApiConfig } from "@birthub/config";
 import * as Sentry from "@sentry/node";
 import type { Request } from "express";

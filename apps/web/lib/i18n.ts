@@ -1,5 +1,4 @@
 // @ts-nocheck
-// 
 export const supportedLocales = ["pt-BR", "en-US"] as const;
 export const LOCALE_COOKIE_NAME = "bh360_locale";
 
@@ -7,163 +6,15 @@ export type SupportedLocale = (typeof supportedLocales)[number];
 
 export const defaultLocale: SupportedLocale = "pt-BR";
 
-export type Dictionary = {
-  consentBanner: {
-    accept: string;
-    description: string;
-    reject: string;
-    settings: string;
-    title: string;
-  };
-  dashboardHome: {
-    alertSeverityLabels: Record<string, string>;
-    attributionHeading: string;
-    badge: string;
-    cacColumn: string;
-    clinicalDescription: string;
-    clinicalHeading: string;
-    clinicalRiskLabels: Record<string, string>;
-    clinicalStatusLabels: Record<string, string>;
-    consentAttentionTitle: string;
-    consentBadge: string;
-    consentLegalBasisLabels: Record<string, string>;
-    consentStatusLabels: Record<string, string>;
-    continueLabel: string;
-    continueOnboarding: string;
-    conversionColumn: string;
-    customerColumn: string;
-    customerHealthHeading: string;
-    description: string;
-    executionsLabel: string;
-    gestationalAgeUnknown: string;
-    goLiveAlertsHeading: string;
-    highlightedWorkflowsDescription: string;
-    highlightedWorkflowsHeading: string;
-    leadsColumn: string;
-    noAttributionDescription: string;
-    noAttributionTitle: string;
-    noClinicalAlertsDescription: string;
-    noClinicalAlertsTitle: string;
-    noClinicalNote: string;
-    noClinicalSpotlightDescription: string;
-    noClinicalSpotlightTitle: string;
-    noCustomerHealthDescription: string;
-    noCustomerHealthTitle: string;
-    noRecentContractsDescription: string;
-    noRecentContractsTitle: string;
-    noReturnScheduled: string;
-    noUsageDescription: string;
-    noUsageTitle: string;
-    noWorkflowsDescription: string;
-    noWorkflowsTitle: string;
-    npsColumn: string;
-    onboardingBadge: string;
-    openClinicalModule: string;
-    openEditor: string;
-    openPatient: string;
-    openQueue: string;
-    openWorkflows: string;
-    planStatusLabel: string;
-    recentContractsHeading: string;
-    reviewConsents: string;
-    returnPrefix: string;
-    riskColumn: string;
-    scoreColumn: string;
-    sourceColumn: string;
-    stepsLabel: string;
-    title: string;
-    usageHeading: string;
-    viewExecutions: string;
-    viewFullWorkflowList: string;
-    viewReports: string;
-    viewSchedule: string;
-    workflowStatusLabels: Record<string, string>;
-    workflowTriggerLabels: Record<string, string>;
-  };
-  loading: {
-    badge: string;
-    dashboardDescription: string;
-    dashboardTitle: string;
-    workflowsDescription: string;
-    workflowsTitle: string;
-  };
-  notificationPreferencesPage: {
-    acceptCookies: string;
-    badge: string;
-    cookieConsentDescription: string;
-    cookieConsentHeading: string;
-    cookieStatusLabel: string;
-    description: string;
-    emailNotificationsDescription: string;
-    emailNotificationsLabel: string;
-    emptyFeed: string;
-    feedDescription: string;
-    feedHeading: string;
-    inAppNotificationsDescription: string;
-    inAppNotificationsLabel: string;
-    interfaceLanguageDescription: string;
-    interfaceLanguageHeading: string;
-    interfaceLanguageLabel: string;
-    loadMore: string;
-    loadingMore: string;
-    localeLabels: Record<SupportedLocale, string>;
-    markAllRead: string;
-    markAsRead: string;
-    marketingEmailsDescription: string;
-    marketingEmailsLabel: string;
-    openLink: string;
-    pushNotificationsDescription: string;
-    pushNotificationsLabel: string;
-    rejectCookies: string;
-    signInDescription: string;
-    signInTitle: string;
-    title: string;
-  };
-  navbar: {
-    activateDarkTheme: string;
-    activateLightTheme: string;
-    darkModeLabel: string;
-    emptyDescription: string;
-    emptyTitle: string;
-    feedLabel: string;
-    identityDescription: string;
-    identityTitle: string;
-    items: Array<{
-      href: string;
-      label: string;
-    }>;
-    lightModeLabel: string;
-    markAllRead: string;
-    navigationAriaLabel: string;
-    notificationsDescription: string;
-    notificationsDisabledDescription: string;
-    notificationsDisabledTitle: string;
-    notificationsTitle: string;
-    openDetail: string;
-    openNotifications: string;
-    preferences: string;
-    today: string;
-    viewCenter: string;
-    yesterday: string;
-  };
-  workflowsPage: {
-    backHome: string;
-    badge: string;
-    continueEditing: string;
-    description: string;
-    emptyDescription: string;
-    emptyTitle: string;
-    executionsLabel: string;
-    openEditor: string;
-    revisions: string;
-    statusLabels: Record<string, string>;
-    stepsLabel: string;
-    title: string;
-    triggerLabels: Record<string, string>;
-    updatedAtLabel: string;
-    viewExecutions: string;
-  };
-};
+type LabelMap = Record<string, string>;
+type NavbarItem = { href: string; label: string };
+type ConsentBannerDictionary = { accept: string; description: string; reject: string; settings: string; title: string };
+type DashboardHomeDictionary = { alertSeverityLabels: LabelMap; attributionHeading: string; badge: string; cacColumn: string; clinicalDescription: string; clinicalHeading: string; clinicalRiskLabels: LabelMap; clinicalStatusLabels: LabelMap; consentAttentionTitle: string; consentBadge: string; consentLegalBasisLabels: LabelMap; consentStatusLabels: LabelMap; continueLabel: string; continueOnboarding: string; conversionColumn: string; customerColumn: string; customerHealthHeading: string; description: string; executionsLabel: string; gestationalAgeUnknown: string; goLiveAlertsHeading: string; highlightedWorkflowsDescription: string; highlightedWorkflowsHeading: string; leadsColumn: string; noAttributionDescription: string; noAttributionTitle: string; noClinicalAlertsDescription: string; noClinicalAlertsTitle: string; noClinicalNote: string; noClinicalSpotlightDescription: string; noClinicalSpotlightTitle: string; noCustomerHealthDescription: string; noCustomerHealthTitle: string; noRecentContractsDescription: string; noRecentContractsTitle: string; noReturnScheduled: string; noUsageDescription: string; noUsageTitle: string; noWorkflowsDescription: string; noWorkflowsTitle: string; npsColumn: string; onboardingBadge: string; openClinicalModule: string; openEditor: string; openPatient: string; openQueue: string; openWorkflows: string; planStatusLabel: string; recentContractsHeading: string; reviewConsents: string; returnPrefix: string; riskColumn: string; scoreColumn: string; sourceColumn: string; stepsLabel: string; title: string; usageHeading: string; viewExecutions: string; viewFullWorkflowList: string; viewReports: string; viewSchedule: string; workflowStatusLabels: LabelMap; workflowTriggerLabels: LabelMap };
+type LoadingDictionary = { badge: string; dashboardDescription: string; dashboardTitle: string; workflowsDescription: string; workflowsTitle: string };
+type NotificationPreferencesDictionary = { acceptCookies: string; badge: string; cookieConsentDescription: string; cookieConsentHeading: string; cookieStatusLabel: string; description: string; emailNotificationsDescription: string; emailNotificationsLabel: string; emptyFeed: string; feedDescription: string; feedHeading: string; inAppNotificationsDescription: string; inAppNotificationsLabel: string; interfaceLanguageDescription: string; interfaceLanguageHeading: string; interfaceLanguageLabel: string; loadMore: string; loadingMore: string; localeLabels: Record<SupportedLocale, string>; markAllRead: string; markAsRead: string; marketingEmailsDescription: string; marketingEmailsLabel: string; openLink: string; pushNotificationsDescription: string; pushNotificationsLabel: string; rejectCookies: string; signInDescription: string; signInTitle: string; title: string };
+type NavbarDictionary = { activateDarkTheme: string; activateLightTheme: string; darkModeLabel: string; emptyDescription: string; emptyTitle: string; feedLabel: string; identityDescription: string; identityTitle: string; items: NavbarItem[]; lightModeLabel: string; markAllRead: string; navigationAriaLabel: string; notificationsDescription: string; notificationsDisabledDescription: string; notificationsDisabledTitle: string; notificationsTitle: string; openDetail: string; openNotifications: string; preferences: string; today: string; viewCenter: string; yesterday: string };
+type WorkflowsPageDictionary = { backHome: string; badge: string; continueEditing: string; description: string; emptyDescription: string; emptyTitle: string; executionsLabel: string; openEditor: string; revisions: string; statusLabels: LabelMap; stepsLabel: string; title: string; triggerLabels: LabelMap; updatedAtLabel: string; viewExecutions: string };
+export type Dictionary = { consentBanner: ConsentBannerDictionary; dashboardHome: DashboardHomeDictionary; loading: LoadingDictionary; notificationPreferencesPage: NotificationPreferencesDictionary; navbar: NavbarDictionary; workflowsPage: WorkflowsPageDictionary };
 
 const sharedNavbarItems = [
   { href: "/dashboard", label: { "en-US": "Dashboard", "pt-BR": "Dashboard" } },
