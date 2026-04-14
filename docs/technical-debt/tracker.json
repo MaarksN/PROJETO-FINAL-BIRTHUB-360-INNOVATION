@@ -125,6 +125,25 @@
         "packages/queue/tests/runtime.test.ts",
         "CYCLE_LOG.md"
       ]
+    },
+    {
+      "id": "TD-010",
+      "title": "Agents-core lint was blocked by request payload stringification checks and oversized runtime modules",
+      "domain": "tooling",
+      "status": "closed",
+      "priority": "P1",
+      "owner": "Platform Engineering",
+      "residualRisk": "medium",
+      "evidence": [
+        "packages/agents-core/src/__tests__/slack.tool.test.ts",
+        "packages/agents-core/src/tools/sendEmailTool.test.ts",
+        "packages/agents-core/src/runtime/intelligence.ts",
+        "packages/agents-core/src/runtime/intelligenceRuntime.ts",
+        "packages/agents-core/src/runtime/manifestRuntime.ts",
+        "packages/agents-core/src/runtime/manifestRuntimeCore.ts",
+        "packages/agents-core/src/runtime/manifestRuntimeBuilders.ts",
+        "CYCLE_LOG.md"
+      ]
     }
   ],
   "velocity": [

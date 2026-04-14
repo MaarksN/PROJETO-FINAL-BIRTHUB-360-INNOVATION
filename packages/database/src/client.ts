@@ -267,7 +267,7 @@ function resolvePrismaClientOptions(
   return {
     connectionLimit: config.DATABASE_CONNECTION_LIMIT ?? resolveConnectionLimit(normalizedDatabaseUrl, env),
     databaseUrl: normalizedDatabaseUrl,
-    logger: options.logger ?? createLogger("database-runtime", { env }),
+    logger: options.logger ?? createLogger("database-runtime"),
     nodeEnv: resolveNodeEnvironment(env),
     queryTimeoutMs: config.PRISMA_QUERY_TIMEOUT_MS ?? resolveQueryTimeoutMs(env),
     slowQueryThresholdMs: config.DB_SLOW_QUERY_MS ?? resolveSlowQueryThresholdMs(env)

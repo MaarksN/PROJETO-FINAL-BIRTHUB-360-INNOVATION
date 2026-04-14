@@ -1,6 +1,8 @@
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
+import { createLogger } from "@birthub/logger";
+
 import {
   BoardPrepAIContractSchema,
   type BoardPrepAIContract,
@@ -63,6 +65,7 @@ const DEFAULT_CONTRACT_PATHS = [
   DEFAULT_PACKAGE_CONTRACT_PATH,
   DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE
 ] as const;
+const logger = createLogger("boardprep-ai");
 
 interface BoardPrepAIAgentOptions {
   contractPath?: string;
@@ -426,19 +429,19 @@ export class BoardPrepAIAgent {
         timestamp: event.timestamp ?? this.now().toISOString()
       };
       events.push(normalized);
-      const payload = JSON.stringify({
+      const payload = {
         details: normalized.details,
         level: normalized.level,
         message: normalized.message,
         name: normalized.name,
         requestId: normalized.details.requestId
-      });
+      };
       if (normalized.level === "error") {
-        console.error(payload);
+        logger.error(payload, normalized.message);
       } else if (normalized.level === "warning") {
-        console.warn(payload);
+        logger.warn(payload, normalized.message);
       } else {
-        console.log(payload);
+        logger.info(payload, normalized.message);
       }
     };
 

@@ -1,5 +1,3 @@
-// @ts-nocheck
-//
 import { ClinicalWorkspaceDisabledState } from "../../../components/dashboard/ClinicalWorkspaceDisabledState";
 import { getProductCapabilities } from "../../../lib/product-capabilities";
 

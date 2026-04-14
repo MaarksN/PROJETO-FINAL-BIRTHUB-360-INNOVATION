@@ -153,3 +153,27 @@ void test("logger redacts sensitive fields", async () => {
     process.env.LOG_SAMPLE_RATE = previousSampleRate;
   }
 });
+
+void test("logger accepts injected runtime config without mutating process.env", async () => {
+  const payload = await captureStdout(() => {
+    const logger = createLogger("catalog", {
+      env: {
+        LOG_LEVEL: "info",
+        LOG_SAMPLE_RATE: "1",
+        NODE_ENV: "production"
+      }
+    });
+
+    logger.info(
+      {
+        event: "logger.injected-config"
+      },
+      "Injected config works"
+    );
+  });
+
+  assert.equal(payload.environment, "production");
+  assert.equal(payload.level, "info");
+  assert.equal(payload.service, "catalog");
+  assert.equal(payload.event, "logger.injected-config");
+});
