@@ -69,10 +69,69 @@ function formatHealthRisk(locale: SupportedLocale, risk: string): string {
   return labels[risk.toLowerCase()] ?? risk;
 }
 
+function getDashboardStaticCopy(locale: SupportedLocale) {
+  if (locale === "pt-BR") {
+    return {
+      entryPoints: [
+        "Use BDR, SDR e LDR para mapear contas, enriquecer contexto e preparar outreach.",
+        "Simule gatekeepers, CFOs e cenarios tensos antes de entrar na call real.",
+        "Abra o mentor para transformar contexto disperso em proximo passo comercial."
+      ],
+      entryPointTitles: [
+        "Pesquisa e prospeccao",
+        "Roleplay e negociacao",
+        "Mentoria contextual"
+      ],
+      productAlignmentCopy: {
+        badge: "Alinhamento de dominio",
+        description:
+          "Superficies clinicas, FHIR e privacy avançada permanecem fora do produto ativo nesta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service, enquanto o clinico fica restrito a avaliacao controlada por flag.",
+        title: "Capacidades fora do produto ativo ficaram explicitamente isoladas"
+      },
+      salesOsDescription:
+        "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie.",
+      salesOsMetrics: ["Modulos", "Ferramentas", "Roleplays"],
+      salesOsMetricSubtitles: [
+        "Estruturas operacionais disponiveis",
+        "Protocolos importados do blueprint",
+        "Simulacoes para objecoes e negociacao"
+      ],
+      salesOsTitle: "Cockpit comercial unificado",
+      salesOsCta: "Abrir Sales OS"
+    };
+  }
+
+  return {
+    entryPoints: [
+      "Use BDR, SDR, and LDR to map accounts, enrich context, and prepare outreach.",
+      "Simulate gatekeepers, CFOs, and tense scenarios before the live call.",
+      "Open the mentor to turn scattered context into the next commercial move."
+    ],
+    entryPointTitles: ["Research and prospecting", "Roleplay and negotiation", "Contextual mentoring"],
+    productAlignmentCopy: {
+      badge: "Domain alignment",
+      description:
+        "Clinical, FHIR, and advanced privacy surfaces remain outside the active product for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active, while clinical stays restricted to flag-driven controlled evaluation.",
+      title: "Out-of-scope capabilities were explicitly isolated"
+    },
+    salesOsDescription:
+      "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface.",
+    salesOsMetrics: ["Modules", "Tools", "Roleplays"],
+    salesOsMetricSubtitles: [
+      "Available operating structures",
+      "Protocols imported from the blueprint",
+      "Simulations for objections and negotiation"
+    ],
+    salesOsTitle: "Unified commercial cockpit",
+    salesOsCta: "Open Sales OS"
+  };
+}
+
 export default async function DashboardHomePage() {
   const locale = await getRequestLocale();
   const copy = getDictionary(locale);
   const data = await loadDashboardHomePage();
+  const staticCopy = getDashboardStaticCopy(locale);
   const salesOsModuleCount = SALES_OS_MODULES.length;
   const salesOsToolCount = salesOsTools.length;
   const salesOsRoleplayCount = salesOsTools.filter((tool) => tool.isChat).length;
@@ -83,20 +142,6 @@ export default async function DashboardHomePage() {
   const completedOnboardingSteps = data.onboarding.items.filter((item) => item.complete).length;
   const showProductAlignmentNotice =
     !data.capabilities.clinicalWorkspaceEnabled || !data.capabilities.privacyAdvancedEnabled;
-  const productAlignmentCopy =
-    locale === "pt-BR"
-      ? {
-          badge: "Alinhamento de dominio",
-          description:
-            "Superficies clinicas, FHIR e privacy avançada permanecem fora do produto ativo nesta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service, enquanto o clinico fica restrito a avaliacao controlada por flag.",
-          title: "Capacidades fora do produto ativo ficaram explicitamente isoladas"
-        }
-      : {
-          badge: "Domain alignment",
-          description:
-            "Clinical, FHIR, and advanced privacy surfaces remain outside the active product for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active, while clinical stays restricted to flag-driven controlled evaluation.",
-          title: "Out-of-scope capabilities were explicitly isolated"
-        };
 
   return (
     <main className="dashboard-content">
@@ -118,9 +163,9 @@ export default async function DashboardHomePage() {
       {showProductAlignmentNotice ? (
         <section className="panel dashboard-callout">
           <div className="dashboard-callout__copy">
-            <span className="badge">{productAlignmentCopy.badge}</span>
-            <strong>{productAlignmentCopy.title}</strong>
-            <span className="dashboard-muted">{productAlignmentCopy.description}</span>
+            <span className="badge">{staticCopy.productAlignmentCopy.badge}</span>
+            <strong>{staticCopy.productAlignmentCopy.title}</strong>
+            <span className="dashboard-muted">{staticCopy.productAlignmentCopy.description}</span>
           </div>
         </section>
       ) : null}
@@ -192,38 +237,28 @@ export default async function DashboardHomePage() {
         <article className="hero-card">
           <div className="dashboard-panel__header">
             <div className="dashboard-panel__copy">
-              <span className="badge">{locale === "pt-BR" ? "Sales OS" : "Sales OS"}</span>
-              <h2>{locale === "pt-BR" ? "Cockpit comercial unificado" : "Unified commercial cockpit"}</h2>
-              <p className="dashboard-muted">
-                {locale === "pt-BR"
-                  ? "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie."
-                  : "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface."}
-              </p>
+              <span className="badge">Sales OS</span>
+              <h2>{staticCopy.salesOsTitle}</h2>
+              <p className="dashboard-muted">{staticCopy.salesOsDescription}</p>
             </div>
-            <Link href="/sales-os">{locale === "pt-BR" ? "Abrir Sales OS" : "Open Sales OS"}</Link>
+            <Link href="/sales-os">{staticCopy.salesOsCta}</Link>
           </div>
 
           <section className="stats-grid dashboard-stats-grid">
             <article>
-              <span className="badge">{locale === "pt-BR" ? "Modulos" : "Modules"}</span>
+              <span className="badge">{staticCopy.salesOsMetrics[0]}</span>
               <strong>{formatNumber(locale, salesOsModuleCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact">
-                {locale === "pt-BR" ? "Estruturas operacionais disponiveis" : "Available operating structures"}
-              </p>
+              <p className="dashboard-muted dashboard-muted--compact">{staticCopy.salesOsMetricSubtitles[0]}</p>
             </article>
             <article>
-              <span className="badge">{locale === "pt-BR" ? "Ferramentas" : "Tools"}</span>
+              <span className="badge">{staticCopy.salesOsMetrics[1]}</span>
               <strong>{formatNumber(locale, salesOsToolCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact">
-                {locale === "pt-BR" ? "Protocolos importados do blueprint" : "Protocols imported from the blueprint"}
-              </p>
+              <p className="dashboard-muted dashboard-muted--compact">{staticCopy.salesOsMetricSubtitles[1]}</p>
             </article>
             <article>
-              <span className="badge">{locale === "pt-BR" ? "Roleplays" : "Roleplays"}</span>
+              <span className="badge">{staticCopy.salesOsMetrics[2]}</span>
               <strong>{formatNumber(locale, salesOsRoleplayCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact">
-                {locale === "pt-BR" ? "Simulacoes para objecoes e negociacao" : "Simulations for objections and negotiation"}
-              </p>
+              <p className="dashboard-muted dashboard-muted--compact">{staticCopy.salesOsMetricSubtitles[2]}</p>
             </article>
           </section>
         </article>
@@ -231,30 +266,12 @@ export default async function DashboardHomePage() {
         <article className="panel">
           <h2>{locale === "pt-BR" ? "Entradas mais fortes" : "Best entry points"}</h2>
           <div className="dashboard-card-list">
-            <article className="dashboard-record-card">
-              <strong>{locale === "pt-BR" ? "Pesquisa e prospeccao" : "Research and prospecting"}</strong>
-              <span className="dashboard-record-card__meta">
-                {locale === "pt-BR"
-                  ? "Use BDR, SDR e LDR para mapear contas, enriquecer contexto e preparar outreach."
-                  : "Use BDR, SDR, and LDR to map accounts, enrich context, and prepare outreach."}
-              </span>
-            </article>
-            <article className="dashboard-record-card">
-              <strong>{locale === "pt-BR" ? "Roleplay e negociacao" : "Roleplay and negotiation"}</strong>
-              <span className="dashboard-record-card__meta">
-                {locale === "pt-BR"
-                  ? "Simule gatekeepers, CFOs e cenarios tensos antes de entrar na call real."
-                  : "Simulate gatekeepers, CFOs, and tense scenarios before the live call."}
-              </span>
-            </article>
-            <article className="dashboard-record-card">
-              <strong>{locale === "pt-BR" ? "Mentoria contextual" : "Contextual mentoring"}</strong>
-              <span className="dashboard-record-card__meta">
-                {locale === "pt-BR"
-                  ? "Abra o mentor para transformar contexto disperso em proximo passo comercial."
-                  : "Open the mentor to turn scattered context into the next commercial move."}
-              </span>
-            </article>
+            {staticCopy.entryPoints.map((entryPoint, index) => (
+              <article className="dashboard-record-card" key={staticCopy.entryPointTitles[index]}>
+                <strong>{staticCopy.entryPointTitles[index]}</strong>
+                <span className="dashboard-record-card__meta">{entryPoint}</span>
+              </article>
+            ))}
           </div>
         </article>
       </section>
@@ -281,10 +298,7 @@ export default async function DashboardHomePage() {
             </section>
 
             {data.clinical.spotlight.length === 0 ? (
-              <ProductEmptyState
-                description={copy.dashboardHome.noClinicalSpotlightDescription}
-                title={copy.dashboardHome.noClinicalSpotlightTitle}
-              />
+              <ProductEmptyState description={copy.dashboardHome.noClinicalSpotlightDescription} title={copy.dashboardHome.noClinicalSpotlightTitle} />
             ) : (
               <div className="dashboard-card-list">
                 {data.clinical.spotlight.map((patient) => (
@@ -327,10 +341,7 @@ export default async function DashboardHomePage() {
           <article className="panel">
             <h2>{copy.dashboardHome.goLiveAlertsHeading}</h2>
             {data.clinical.alerts.length === 0 ? (
-              <ProductEmptyState
-                description={copy.dashboardHome.noClinicalAlertsDescription}
-                title={copy.dashboardHome.noClinicalAlertsTitle}
-              />
+              <ProductEmptyState description={copy.dashboardHome.noClinicalAlertsDescription} title={copy.dashboardHome.noClinicalAlertsTitle} />
             ) : (
               <div className="dashboard-card-list">
                 {data.clinical.alerts.map((alert) => (
@@ -362,10 +373,7 @@ export default async function DashboardHomePage() {
           </div>
 
           {data.workflows.items.length === 0 ? (
-            <ProductEmptyState
-              description={copy.dashboardHome.noWorkflowsDescription}
-              title={copy.dashboardHome.noWorkflowsTitle}
-            />
+            <ProductEmptyState description={copy.dashboardHome.noWorkflowsDescription} title={copy.dashboardHome.noWorkflowsTitle} />
           ) : (
             <div className="dashboard-card-list">
               {data.workflows.items.slice(0, 3).map((workflow) => (
@@ -401,10 +409,7 @@ export default async function DashboardHomePage() {
             {data.billing.plan.name} · {copy.dashboardHome.planStatusLabel} {data.billing.status}
           </p>
           {usageEntries.length === 0 ? (
-            <ProductEmptyState
-              description={copy.dashboardHome.noUsageDescription}
-              title={copy.dashboardHome.noUsageTitle}
-            />
+            <ProductEmptyState description={copy.dashboardHome.noUsageDescription} title={copy.dashboardHome.noUsageTitle} />
           ) : (
             <div className="dashboard-usage">
               {usageEntries.map(([metric, value]) => (
@@ -430,10 +435,7 @@ export default async function DashboardHomePage() {
         <article className="panel">
           <h2>{copy.dashboardHome.customerHealthHeading}</h2>
           {data.health.healthScore.length === 0 ? (
-            <ProductEmptyState
-              description={copy.dashboardHome.noCustomerHealthDescription}
-              title={copy.dashboardHome.noCustomerHealthTitle}
-            />
+            <ProductEmptyState description={copy.dashboardHome.noCustomerHealthDescription} title={copy.dashboardHome.noCustomerHealthTitle} />
           ) : (
             <div className="table-wrapper">
               <table className="table">
@@ -463,10 +465,7 @@ export default async function DashboardHomePage() {
         <article className="panel">
           <h2>{copy.dashboardHome.recentContractsHeading}</h2>
           {data.recent.contracts.length === 0 ? (
-            <ProductEmptyState
-              description={copy.dashboardHome.noRecentContractsDescription}
-              title={copy.dashboardHome.noRecentContractsTitle}
-            />
+            <ProductEmptyState description={copy.dashboardHome.noRecentContractsDescription} title={copy.dashboardHome.noRecentContractsTitle} />
           ) : (
             <div className="dashboard-contract-list">
               {data.recent.contracts.map((contract) => (
@@ -486,10 +485,7 @@ export default async function DashboardHomePage() {
       <section className="panel">
         <h2>{copy.dashboardHome.attributionHeading}</h2>
         {data.recent.attribution.length === 0 ? (
-          <ProductEmptyState
-            description={copy.dashboardHome.noAttributionDescription}
-            title={copy.dashboardHome.noAttributionTitle}
-          />
+          <ProductEmptyState description={copy.dashboardHome.noAttributionDescription} title={copy.dashboardHome.noAttributionTitle} />
         ) : (
           <div className="table-wrapper">
             <table className="table">
