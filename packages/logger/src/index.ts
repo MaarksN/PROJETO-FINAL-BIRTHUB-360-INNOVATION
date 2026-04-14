@@ -1,5 +1,10 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 
+import {
+  getEnvironmentSource,
+  getLoggerConfig,
+  type LoggerConfig
+} from "@birthub/config";
 import pino, { transport, type DestinationStream, type Logger, type LoggerOptions } from "pino";
 
 import { getActiveTraceContext } from "./otel.js";
@@ -57,30 +62,41 @@ const sensitivePaths = [
   "token"
 ];
 
-function parseSampleRate(): number {
-  const raw = Number(process.env.LOG_SAMPLE_RATE ?? "1");
-  if (!Number.isFinite(raw)) {
-    return 1;
+export type CreateLoggerOptions = LoggerOptions & {
+  env?: NodeJS.ProcessEnv;
+  runtimeConfig?: Partial<LoggerConfig>;
+};
+
+function resolveLoggerConfig(options?: CreateLoggerOptions): LoggerConfig {
+  const env = getEnvironmentSource(options?.env);
+  const config = getLoggerConfig(env);
+  const overrides = options?.runtimeConfig;
+
+  if (!overrides) {
+    return config;
   }
 
-  return Math.max(0, Math.min(1, raw));
+  return {
+    LOG_LEVEL: overrides.LOG_LEVEL ?? config.LOG_LEVEL,
+    LOG_SAMPLE_RATE: overrides.LOG_SAMPLE_RATE ?? config.LOG_SAMPLE_RATE,
+    NODE_ENV: overrides.NODE_ENV ?? config.NODE_ENV
+  };
 }
 
-function shouldSample(level: number): boolean {
+function shouldSample(level: number, sampleRate: number): boolean {
   if (level >= 50) {
     return false;
   }
 
-  const rate = parseSampleRate();
-  if (rate >= 1) {
+  if (sampleRate >= 1) {
     return false;
   }
 
-  if (rate <= 0) {
+  if (sampleRate <= 0) {
     return true;
   }
 
-  return Math.random() > rate;
+  return Math.random() > sampleRate;
 }
 
 function getPrettyTransport(): DestinationStream {
@@ -125,13 +141,16 @@ export function updateLogContext(context: LogContext): void {
   );
 }
 
-export function createLogger(service: string, options?: LoggerOptions): Logger {
-  const isProduction = process.env.NODE_ENV === "production";
-  const shouldPrettyPrint = !isProduction && process.env.NODE_ENV !== "test";
+export function createLogger(service: string, options?: CreateLoggerOptions): Logger {
+  const runtimeConfig = resolveLoggerConfig(options);
+  const { env: _env, runtimeConfig: _runtimeConfig, ...loggerOptionOverrides } = options ?? {};
+  const isProduction = runtimeConfig.NODE_ENV === "production";
+  const shouldPrettyPrint = !isProduction && runtimeConfig.NODE_ENV !== "test";
   const loggerOptions: LoggerOptions = {
-    ...options,
+    ...loggerOptionOverrides,
     base: {
-      environment: process.env.NODE_ENV ?? "development",
+      ...(loggerOptionOverrides.base ?? {}),
+      environment: runtimeConfig.NODE_ENV,
       service
     },
     formatters: {
@@ -141,14 +160,14 @@ export function createLogger(service: string, options?: LoggerOptions): Logger {
     },
     hooks: {
       logMethod(args, method, level) {
-        if (shouldSample(level)) {
+        if (shouldSample(level, runtimeConfig.LOG_SAMPLE_RATE)) {
           return;
         }
 
         return (method as (...values: unknown[]) => void).apply(this, args as unknown[]);
       }
     },
-    level: process.env.LOG_LEVEL ?? "info",
+    level: loggerOptionOverrides.level ?? runtimeConfig.LOG_LEVEL,
     messageKey: "message",
     mixin: () => {
       const context = getLogContext();
@@ -179,7 +198,7 @@ export function createLogger(service: string, options?: LoggerOptions): Logger {
     timestamp: () => `,"timestamp":"${new Date().toISOString()}"`
   };
 
-  if (options?.transport) {
+  if (loggerOptionOverrides.transport) {
     return pino(loggerOptions);
   }
 

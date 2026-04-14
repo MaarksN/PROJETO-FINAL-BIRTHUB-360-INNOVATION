@@ -4,6 +4,11 @@ import test from "node:test";
 
 import { SendEmailTool } from "./sendEmailTool.js";
 
+function readJsonBody(init?: RequestInit): Record<string, unknown> {
+  assert.equal(typeof init?.body, "string");
+  return JSON.parse(init.body) as Record<string, unknown>;
+}
+
 void test("SendEmailTool requires explicit SendGrid credentials", async () => {
   const tool = new SendEmailTool();
 
@@ -54,7 +59,7 @@ void test("SendEmailTool sends mail with explicit configuration", async () => {
   );
 
   const headers = capturedInit?.headers as Record<string, string>;
-  const payload = JSON.parse(String(capturedInit?.body)) as {
+  const payload = readJsonBody(capturedInit) as {
     from: { email: string };
     personalizations: Array<{ custom_args: { tenant_id: string } }>;
     subject?: string;

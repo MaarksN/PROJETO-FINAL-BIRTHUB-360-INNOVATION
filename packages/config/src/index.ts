@@ -2,7 +2,9 @@
 // 
 export * from "./api.config.js";
 export * from "./contracts.js";
+export * from "./database.config.js";
 export * from "./environment.js";
+export * from "./logger.config.js";
 export * from "./product-capabilities.js";
 export * from "./shared.js";
 export * from "./web.config.js";

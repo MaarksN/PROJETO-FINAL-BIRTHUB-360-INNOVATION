@@ -1,7 +1,14 @@
-// @ts-nocheck
-// 
 import { randomUUID } from "node:crypto";
 
+import {
+  getDatabaseConfig,
+  getEnvironmentSource,
+  isProductionEnvironment,
+  readTrimmedEnvironmentValue,
+  resolveNodeEnvironment,
+  type RuntimeEnvironment
+} from "@birthub/config";
+import { createLogger } from "@birthub/logger";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Prisma, PrismaClient } from "@prisma/client";
 
@@ -18,16 +25,21 @@ const globalForPrisma = globalThis as typeof globalThis & {
   birthubPrisma?: PrismaClient;
 };
 let _client: PrismaClient | undefined;
-type RuntimeEnvironment = NodeJS.ProcessEnv;
+
+type DatabaseBootstrapLogger = {
+  warn: (payload: Record<string, unknown>, message: string) => void;
+};
 
 export interface CreatePrismaClientOptions {
   databaseUrl?: string;
   env?: RuntimeEnvironment;
+  logger?: DatabaseBootstrapLogger;
 }
 
 interface ResolvedPrismaClientOptions {
   connectionLimit: number;
   databaseUrl: string;
+  logger: DatabaseBootstrapLogger;
   nodeEnv: ReturnType<typeof resolveNodeEnvironment>;
   queryTimeoutMs: number;
   slowQueryThresholdMs: number;
@@ -62,41 +74,13 @@ function getMetricsApi(): GlobalMetricsApi | null {
   return globalMetrics.__birthubMetricsApi ?? null;
 }
 
-function getEnvironmentSource(env: RuntimeEnvironment = process.env): RuntimeEnvironment {
-  return env;
-}
-
-function readTrimmedEnvironmentValue(
-  key: string,
-  env: RuntimeEnvironment = getEnvironmentSource()
-): string | undefined {
-  const value = env[key]?.trim();
-  return value ? value : undefined;
-}
-
-function resolveNodeEnvironment(
-  env: RuntimeEnvironment = getEnvironmentSource()
-): "development" | "test" | "production" {
-  const nodeEnv = readTrimmedEnvironmentValue("NODE_ENV", env);
-
-  if (nodeEnv === "production" || nodeEnv === "test") {
-    return nodeEnv;
-  }
-
-  return "development";
-}
-
-function isProductionEnvironment(env: RuntimeEnvironment = getEnvironmentSource()): boolean {
-  return resolveNodeEnvironment(env) === "production";
-}
-
 function parsePositiveNumber(rawValue: string | undefined): number | undefined {
   const value = Number(rawValue ?? "");
   return Number.isFinite(value) && value > 0 ? value : undefined;
 }
 
 export function resolveQueryTimeoutMs(env: RuntimeEnvironment = getEnvironmentSource()): number {
-  return parsePositiveNumber(readTrimmedEnvironmentValue("PRISMA_QUERY_TIMEOUT_MS", env)) ?? DEFAULT_QUERY_TIMEOUT_MS;
+  return getDatabaseConfig(env).PRISMA_QUERY_TIMEOUT_MS ?? DEFAULT_QUERY_TIMEOUT_MS;
 }
 
 function raceWithConfiguredTimeout<T>(
@@ -156,7 +140,7 @@ export function resolveConnectionLimit(
 }
 
 function resolveSlowQueryThresholdMs(env: RuntimeEnvironment = getEnvironmentSource()): number {
-  return parsePositiveNumber(readTrimmedEnvironmentValue("DB_SLOW_QUERY_MS", env)) ?? DEFAULT_SLOW_QUERY_MS;
+  return getDatabaseConfig(env).DB_SLOW_QUERY_MS ?? DEFAULT_SLOW_QUERY_MS;
 }
 
 let activeQueries = 0;
@@ -237,7 +221,8 @@ function shouldFallbackToDatasourceClient(
 function createBasePrismaClient(
   normalizedDatabaseUrl: string,
   connectionLimit: number,
-  nodeEnv: ReturnType<typeof resolveNodeEnvironment>
+  nodeEnv: ReturnType<typeof resolveNodeEnvironment>,
+  logger: DatabaseBootstrapLogger
 ): PrismaClient {
   const log: Prisma.LogLevel[] = nodeEnv === "development" ? ["warn", "error"] : ["error"];
 
@@ -251,8 +236,14 @@ function createBasePrismaClient(
       throw error;
     }
 
-    console.warn(
-      "[birthub/database] Prisma adapter unavailable in local runtime; falling back to datasourceUrl client."
+    logger.warn(
+      {
+        connectionLimit,
+        databaseUrl: normalizedDatabaseUrl,
+        event: "database.prisma.adapter_fallback",
+        nodeEnv
+      },
+      "Prisma adapter unavailable in local runtime; falling back to datasourceUrl client."
     );
 
     return new PrismaClient({
@@ -266,18 +257,20 @@ function resolvePrismaClientOptions(
   options: CreatePrismaClientOptions = {}
 ): ResolvedPrismaClientOptions {
   const env = getEnvironmentSource(options.env);
+  const config = getDatabaseConfig(env);
   const runtimeDatabaseUrl = resolveRuntimeDatabaseUrl(
-    options.databaseUrl ?? readTrimmedEnvironmentValue("DATABASE_URL", env),
+    options.databaseUrl ?? config.DATABASE_URL,
     env
   );
   const normalizedDatabaseUrl = normalizeDatabaseUrl(runtimeDatabaseUrl, env) ?? runtimeDatabaseUrl;
 
   return {
-    connectionLimit: resolveConnectionLimit(normalizedDatabaseUrl, env),
+    connectionLimit: config.DATABASE_CONNECTION_LIMIT ?? resolveConnectionLimit(normalizedDatabaseUrl, env),
     databaseUrl: normalizedDatabaseUrl,
+    logger: options.logger ?? createLogger("database-runtime", { env }),
     nodeEnv: resolveNodeEnvironment(env),
-    queryTimeoutMs: resolveQueryTimeoutMs(env),
-    slowQueryThresholdMs: resolveSlowQueryThresholdMs(env)
+    queryTimeoutMs: config.PRISMA_QUERY_TIMEOUT_MS ?? resolveQueryTimeoutMs(env),
+    slowQueryThresholdMs: config.DB_SLOW_QUERY_MS ?? resolveSlowQueryThresholdMs(env)
   };
 }
 
@@ -286,7 +279,8 @@ export function createPrismaClient(options: CreatePrismaClientOptions = {}): Pri
   const baseClient = createBasePrismaClient(
     resolvedOptions.databaseUrl,
     resolvedOptions.connectionLimit,
-    resolvedOptions.nodeEnv
+    resolvedOptions.nodeEnv,
+    resolvedOptions.logger
   );
 
   return baseClient.$extends({

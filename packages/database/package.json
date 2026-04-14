@@ -43,6 +43,7 @@
     "db:provision:app-role": "node --import tsx scripts/provision-rls-runtime-role.ts"
   },
   "dependencies": {
+    "@birthub/config": "workspace:^",
     "@birthub/logger": "workspace:^",
     "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^6.19.2"

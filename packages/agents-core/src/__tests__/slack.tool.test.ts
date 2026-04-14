@@ -4,6 +4,23 @@ import test from "node:test";
 
 import { postSlackMessage } from "../tools/slack.tool.js";
 
+function readRequestUrl(url: RequestInfo | URL): string {
+  if (typeof url === "string") {
+    return url;
+  }
+
+  if (url instanceof URL) {
+    return url.toString();
+  }
+
+  return url.url;
+}
+
+function readJsonBody(init?: RequestInit): Record<string, unknown> {
+  assert.equal(typeof init?.body, "string");
+  return JSON.parse(init.body) as Record<string, unknown>;
+}
+
 void test("slack tool simulates by default", async () => {
   const result = await postSlackMessage({
     channel: "ops-alerts",
@@ -60,10 +77,10 @@ void test("slack tool posts webhook payload and rejects non-ok webhook responses
     );
 
     assert.equal(calls.length, 1);
-    assert.equal(String(calls[0]?.url), "https://hooks.slack.test/services/abc");
+    assert.equal(readRequestUrl(calls[0]!.url), "https://hooks.slack.test/services/abc");
     assert.equal(calls[0]?.init?.method, "POST");
     assert.equal(calls[0]?.init?.headers?.["content-type"], "application/json");
-    assert.deepEqual(JSON.parse(String(calls[0]?.init?.body)), {
+    assert.deepEqual(readJsonBody(calls[0]?.init), {
       channel: "ops-alerts",
       text: "hello"
     });
@@ -98,10 +115,10 @@ void test("slack tool posts API payload with bearer token and returns success on
     assert.equal(result.ok, true);
     assert.ok(result.ts.length > 0);
     assert.equal(calls.length, 1);
-    assert.equal(String(calls[0]?.url), "https://slack.com/api/chat.postMessage");
+    assert.equal(readRequestUrl(calls[0]!.url), "https://slack.com/api/chat.postMessage");
     assert.equal(calls[0]?.init?.method, "POST");
     assert.equal(calls[0]?.init?.headers?.authorization, "Bearer token-123");
-    assert.deepEqual(JSON.parse(String(calls[0]?.init?.body)), {
+    assert.deepEqual(readJsonBody(calls[0]?.init), {
       channel: "ops-alerts",
       text: "hello"
     });
