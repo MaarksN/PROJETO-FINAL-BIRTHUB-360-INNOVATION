@@ -6,7 +6,10 @@ import {
   withTenantDatabaseContext
 } from "@birthub/database";
 
-import { assertPrismaModelsAvailable } from "../../lib/prisma-runtime.js";
+import {
+  assertPrismaModelsAvailable,
+  readPrismaModel
+} from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   APPOINTMENT_STATUS,
@@ -50,11 +53,61 @@ import {
   type NeonatalOutcome,
   type NeonatalRecordModel,
   type NeonatalSex,
+  type PatientRecord,
   type PatientStatus,
+  type PregnancyStatus,
   type PregnancyRiskLevel,
   type PregnancyOutcome,
   type PregnancyRecordModel
 } from "./service-support.js";
+
+type ClinicalModelQuery = {
+  cursor?: {
+    id: string;
+  };
+  data?: object;
+  include?: object;
+  orderBy?: object | object[];
+  select?: object;
+  skip?: number;
+  take?: number;
+  where?: object;
+};
+
+type ClinicalModelDelegate = {
+  create<TResult extends object>(args: ClinicalModelQuery & { data: object }): Promise<TResult>;
+  findFirst<TResult extends object>(
+    args: Omit<ClinicalModelQuery, "cursor" | "data" | "skip" | "take">
+  ): Promise<TResult | null>;
+  findMany<TResult extends object>(
+    args: Omit<ClinicalModelQuery, "data">
+  ): Promise<TResult[]>;
+  updateMany(args: ClinicalModelQuery & { data: object; where: object }): Promise<Prisma.BatchPayload>;
+};
+
+type ClinicalTransactionClient = Prisma.TransactionClient & {
+  appointment: ClinicalModelDelegate;
+  clinicalNote: ClinicalModelDelegate;
+  neonatalRecord: ClinicalModelDelegate;
+  patient: ClinicalModelDelegate;
+  pregnancyRecord: ClinicalModelDelegate;
+};
+
+type PatientListRecord = {
+  appointments: AppointmentRecord[];
+  clinicalNotes: ClinicalNoteRecord[];
+  pregnancyRecords: PregnancyRecordModel[];
+} & PatientRecord;
+
+function asClinicalTransaction(tx: Prisma.TransactionClient): ClinicalTransactionClient {
+  readPrismaModel<ClinicalModelDelegate>(tx, "appointment", "the clinical module");
+  readPrismaModel<ClinicalModelDelegate>(tx, "clinicalNote", "the clinical module");
+  readPrismaModel<ClinicalModelDelegate>(tx, "neonatalRecord", "the clinical module");
+  readPrismaModel<ClinicalModelDelegate>(tx, "patient", "the clinical module");
+  readPrismaModel<ClinicalModelDelegate>(tx, "pregnancyRecord", "the clinical module");
+
+  return tx as unknown as ClinicalTransactionClient;
+}
 
 function ensureClinicalRuntimeAvailable(): void {
   assertPrismaModelsAvailable(prisma, CLINICAL_RUNTIME_MODELS, "the clinical module");
@@ -66,7 +119,7 @@ function buildPatientWhere(input: {
   search?: string | undefined;
   status?: PatientStatus | undefined;
   tenantId: string;
-}): Prisma.PatientWhereInput {
+}) {
   const normalizedSearch = input.search?.trim();
 
   return {
@@ -135,7 +188,7 @@ function buildPatientSelect() {
     preferredName: true,
     status: true,
     updatedAt: true
-  } satisfies Prisma.PatientSelect;
+  } as const;
 }
 
 function buildPregnancySelect() {
@@ -156,7 +209,7 @@ function buildPregnancySelect() {
     riskLevel: true,
     status: true,
     updatedAt: true
-  } satisfies Prisma.PregnancyRecordSelect;
+  } as const;
 }
 
 function buildAppointmentSelect(includePatient = true) {
@@ -190,7 +243,7 @@ function buildAppointmentSelect(includePatient = true) {
     type: true,
     updatedAt: true,
     weightKg: true
-  } satisfies Prisma.AppointmentSelect;
+  } as const;
 }
 
 function buildClinicalNoteSelect() {
@@ -217,7 +270,7 @@ function buildClinicalNoteSelect() {
     title: true,
     updatedAt: true,
     version: true
-  } satisfies Prisma.ClinicalNoteSelect;
+  } as const;
 }
 
 function buildNeonatalSelect() {
@@ -235,7 +288,7 @@ function buildNeonatalSelect() {
     outcome: true,
     sex: true,
     updatedAt: true
-  } satisfies Prisma.NeonatalRecordSelect;
+  } as const;
 }
 
 function buildPregnancyMutation(data: {
