@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "paths": {},
     "declaration": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",

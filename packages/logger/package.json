@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/logger/index.js",
+  "types": "./dist/logger/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/logger/index.d.ts",
+      "import": "./dist/logger/index.js",
+      "default": "./dist/logger/index.js"
     },
     "./nextjs": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/logger/index.d.ts",
+      "import": "./dist/logger/index.js",
+      "default": "./dist/logger/index.js"
     }
   },
   "scripts": {

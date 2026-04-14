@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 export interface FetchWithTimeoutInit extends RequestInit {
   timeoutMessage?: string;
   timeoutMs?: number;

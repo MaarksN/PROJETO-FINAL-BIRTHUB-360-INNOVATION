@@ -1,5 +1,5 @@
 import { getWebConfig } from "@birthub/config";
-import type { WorkflowCanvas } from "@birthub/workflows-core";
+import type { WorkflowCanvas } from "@birthub/workflows-core/nextjs";
 import { cookies } from "next/headers";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
