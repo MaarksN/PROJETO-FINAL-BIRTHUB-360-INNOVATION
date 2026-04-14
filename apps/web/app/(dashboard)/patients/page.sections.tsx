@@ -4,6 +4,23 @@
 
 import Link from "next/link";
 
+function formatPatientDate(
+  value: unknown,
+  format: "date" | "dateTime",
+  fallback: string
+): string {
+  if (value instanceof Date || typeof value === "number" || typeof value === "string") {
+    const parsed = new Date(value);
+    if (!Number.isNaN(parsed.getTime())) {
+      return format === "date"
+        ? parsed.toLocaleDateString("pt-BR")
+        : parsed.toLocaleString("pt-BR");
+    }
+  }
+
+  return fallback;
+}
+
 function PatientsCreateSection(props: {
   form: Record<string, string>;
   isPending: boolean;
@@ -172,16 +189,20 @@ function PatientsListSection(props: {
                 <span>Risco ativo: {entry.activePregnancy?.riskLevel ?? "Nao informado"}</span>
                 <span>
                   DPP:{" "}
-                  {entry.activePregnancy?.estimatedDeliveryDate
-                    ? new Date(entry.activePregnancy.estimatedDeliveryDate).toLocaleDateString("pt-BR")
-                    : "Nao calculada"}
+                  {formatPatientDate(
+                    entry.activePregnancy?.estimatedDeliveryDate,
+                    "date",
+                    "Nao calculada"
+                  )}
                 </span>
                 <span>Alertas: {entry.alertCount}</span>
                 <span>
                   Proxima consulta:{" "}
-                  {entry.nextAppointment
-                    ? new Date(entry.nextAppointment.scheduledAt).toLocaleString("pt-BR")
-                    : "Nao agendada"}
+                  {formatPatientDate(
+                    entry.nextAppointment?.scheduledAt,
+                    "dateTime",
+                    "Nao agendada"
+                  )}
                 </span>
               </div>
 

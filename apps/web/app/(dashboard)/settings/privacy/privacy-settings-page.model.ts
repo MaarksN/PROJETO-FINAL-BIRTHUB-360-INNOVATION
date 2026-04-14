@@ -4,7 +4,6 @@
 
 import { useCallback, useEffect, useState, useTransition } from "react";
 
-import type { StoredSession } from "../../../../lib/auth-client";
 import { useUserPreferencesStore } from "../../../../stores/user-preferences-store";
 
 import {
@@ -82,7 +81,7 @@ function applyPrivacyState(
   setters.setRetentionPolicies(nextState.retentionPolicies);
 }
 
-export function usePrivacySettingsModel(session: StoredSession | null): PrivacySettingsModel {
+export function usePrivacySettingsModel(session: object | null): PrivacySettingsModel {
   const [confirmation, setConfirmation] = useState("");
   const [consentHistory, setConsentHistory] = useState<PrivacyConsentEvent[]>([]);
   const [consentPreferences, setConsentPreferences] =

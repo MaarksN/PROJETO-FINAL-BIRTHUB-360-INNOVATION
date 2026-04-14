@@ -24,6 +24,10 @@ type WorkflowRevisionGraph = {
   nodes: ReturnType<typeof canvasToFlow>["nodes"];
 };
 
+type WorkflowRevisionsResponse = {
+  items: WorkflowRevisionSnapshot[];
+};
+
 type WorkflowRevisionsModel = {
   error: string | null;
   graph: WorkflowRevisionGraph;
@@ -35,6 +39,30 @@ type WorkflowRevisionsModel = {
   setSelectedRevisionId: (revisionId: string) => void;
   revertRevision: () => void;
 };
+
+function isObjectRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function isWorkflowRevisionSnapshot(value: unknown): value is WorkflowRevisionSnapshot {
+  return (
+    isObjectRecord(value) &&
+    typeof value.createdAt === "string" &&
+    isObjectRecord(value.definition) &&
+    typeof value.id === "string" &&
+    typeof value.version === "number"
+  );
+}
+
+function parseWorkflowRevisionsResponse(value: unknown): WorkflowRevisionsResponse {
+  if (!isObjectRecord(value) || !Array.isArray(value.items) || !value.items.every(isWorkflowRevisionSnapshot)) {
+    throw new Error("Resposta de revisoes invalida.");
+  }
+
+  return {
+    items: value.items
+  };
+}
 
 function StatusBanner(props: {
   color: string;
@@ -218,7 +246,7 @@ function useWorkflowRevisionsModel(workflowId: string): WorkflowRevisionsModel {
           throw new Error("Falha ao carregar historico.");
         }
 
-        const payload = await response.json();
+        const payload = parseWorkflowRevisionsResponse((await response.json()) as unknown);
         if (cancelled) {
           return;
         }
@@ -279,7 +307,7 @@ function useWorkflowRevisionsModel(workflowId: string): WorkflowRevisionsModel {
             throw new Error("Falha ao recarregar historico apos reversao.");
           }
 
-          const payload = await revisionsResponse.json();
+          const payload = parseWorkflowRevisionsResponse((await revisionsResponse.json()) as unknown);
           setRevisions(payload.items);
           setSelectedRevisionId(payload.items[0]?.id ?? "");
           setSaveMessage(

@@ -3,12 +3,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
-import {
-  fetchWithSession,
-  getStoredSession
-} from "../lib/auth-client";
+import { getStoredSession } from "../lib/auth-client";
 import { useI18n } from "../providers/I18nProvider";
 import { useUserPreferencesStore } from "../stores/user-preferences-store";
 

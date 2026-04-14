@@ -22,6 +22,18 @@ function restoreWindow(hadWindow: boolean, value: unknown) {
   Reflect.deleteProperty(globalThis, "window");
 }
 
+function resolveRequestUrl(input: RequestInfo | URL): string {
+  if (input instanceof URL) {
+    return input.toString();
+  }
+
+  if (typeof input === "string") {
+    return input;
+  }
+
+  return input.url;
+}
+
 void test("dashboard lib loads canonical dashboard endpoints with session-aware fetch", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
@@ -35,7 +47,7 @@ void test("dashboard lib loads canonical dashboard endpoints with session-aware 
 
   const calls: Array<{ init?: RequestInit; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url = resolveRequestUrl(input);
     calls.push({
       ...(init ? { init } : {}),
       url
