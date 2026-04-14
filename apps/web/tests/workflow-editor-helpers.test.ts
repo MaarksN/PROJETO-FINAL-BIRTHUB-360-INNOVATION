@@ -48,7 +48,7 @@ function installSessionDom() {
   };
 }
 
-test("workflow editor helpers use the session-aware timeout path for dry run and polling", async () => {
+void test("workflow editor helpers use the session-aware timeout path for dry run and polling", async () => {
   const originalApiUrl = process.env.NEXT_PUBLIC_API_URL;
   const originalEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   const originalFetch = globalThis.fetch;
@@ -59,7 +59,8 @@ test("workflow editor helpers use the session-aware timeout path for dry run and
 
   const requests: Array<{ body: string | null; method: string; url: string }> = [];
   globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
-    const url = input instanceof URL ? input.toString() : String(input);
+    const url =
+      typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
     requests.push({
       body: typeof init?.body === "string" ? init.body : null,
       method: init?.method ?? "GET",

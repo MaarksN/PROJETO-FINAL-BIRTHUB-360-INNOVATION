@@ -89,42 +89,46 @@ const defaultDependencies: ModuleRouterDependencies = {
 export function mountModuleRouters(
   app: Express,
   config: ApiConfig,
-  dependencies: ModuleRouterDependencies = defaultDependencies
+  dependencies: Partial<ModuleRouterDependencies> = {}
 ): void {
-  const marketplaceRouter = dependencies.createMarketplaceRouter();
-  const installedAgentsRouter = dependencies.createInstalledAgentsRouter();
+  const resolvedDependencies: ModuleRouterDependencies = {
+    ...defaultDependencies,
+    ...dependencies
+  };
+  const marketplaceRouter = resolvedDependencies.createMarketplaceRouter();
+  const installedAgentsRouter = resolvedDependencies.createInstalledAgentsRouter();
 
-  app.use(dependencies.createAdminRouter(config));
+  app.use(resolvedDependencies.createAdminRouter(config));
   mountAuthRoutes(app, config, {
-    createAuthRouter: dependencies.createAuthRouter
+    createAuthRouter: resolvedDependencies.createAuthRouter
   });
-  app.use("/api/v1", dependencies.createSessionsRouter(config));
+  app.use("/api/v1", resolvedDependencies.createSessionsRouter(config));
   mountProfileRoutes(app, config, {
-    createProfileRouter: dependencies.createProfileRouter
+    createProfileRouter: resolvedDependencies.createProfileRouter
   });
   mountTasksRoutes(app, config, {
-    createTasksRouter: dependencies.createTasksRouter
+    createTasksRouter: resolvedDependencies.createTasksRouter
   });
-  app.use("/api/v1/apikeys", dependencies.createApiKeysRouter(config));
-  app.use("/api/v1", dependencies.createBreakGlassRouter(config));
+  app.use("/api/v1/apikeys", resolvedDependencies.createApiKeysRouter(config));
+  app.use("/api/v1", resolvedDependencies.createBreakGlassRouter(config));
   app.use("/api/v1/agents", installedAgentsRouter);
   app.use("/api/v1/agents", marketplaceRouter);
-  app.use("/api/v1/analytics", dependencies.createAnalyticsRouter());
-  app.use(dependencies.createDashboardRouter(config));
-  app.use("/api/v1/connectors", dependencies.createConnectorsRouter(config));
-  app.use("/api/v1", dependencies.createConversationsRouter());
+  app.use("/api/v1/analytics", resolvedDependencies.createAnalyticsRouter());
+  app.use(resolvedDependencies.createDashboardRouter(config));
+  app.use("/api/v1/connectors", resolvedDependencies.createConnectorsRouter(config));
+  app.use("/api/v1", resolvedDependencies.createConversationsRouter());
   app.use("/api/v1/marketplace", marketplaceRouter);
-  app.use("/api/v1/billing", dependencies.createBillingRouter(config));
-  app.use("/api/v1/budgets", dependencies.createBudgetRouter());
-  app.use("/api/v1", dependencies.createFeedbackRouter());
-  app.use("/api/v1", dependencies.createInvitesRouter());
-  app.use("/api/v1", dependencies.createNotificationsRouter());
-  app.use("/api/v1", dependencies.createOrganizationsRouter());
-  app.use("/api/v1/packs", dependencies.createPackInstallerRouter());
-  app.use("/api/v1/outputs", dependencies.createOutputRouter());
-  app.use("/api/v1/privacy", dependencies.createPrivacyRouter(config));
-  app.use("/api/v1", dependencies.createSearchRouter());
-  app.use("/api/v1", dependencies.createUsersRouter());
-  app.use(dependencies.createWorkflowsRouter(config));
-  app.use(dependencies.createWebhooksRouter(config));
+  app.use("/api/v1/billing", resolvedDependencies.createBillingRouter(config));
+  app.use("/api/v1/budgets", resolvedDependencies.createBudgetRouter());
+  app.use("/api/v1", resolvedDependencies.createFeedbackRouter());
+  app.use("/api/v1", resolvedDependencies.createInvitesRouter());
+  app.use("/api/v1", resolvedDependencies.createNotificationsRouter());
+  app.use("/api/v1", resolvedDependencies.createOrganizationsRouter());
+  app.use("/api/v1/packs", resolvedDependencies.createPackInstallerRouter());
+  app.use("/api/v1/outputs", resolvedDependencies.createOutputRouter());
+  app.use("/api/v1/privacy", resolvedDependencies.createPrivacyRouter(config));
+  app.use("/api/v1", resolvedDependencies.createSearchRouter());
+  app.use("/api/v1", resolvedDependencies.createUsersRouter());
+  app.use(resolvedDependencies.createWorkflowsRouter(config));
+  app.use(resolvedDependencies.createWebhooksRouter(config));
 }

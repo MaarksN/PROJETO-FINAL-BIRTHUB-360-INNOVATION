@@ -1,5 +1,3 @@
-// @ts-nocheck
-//
 import type { Server } from "node:http";
 
 import type { ApiConfig } from "@birthub/config";
@@ -20,6 +18,7 @@ import {
   registerOperationalRoutes
 } from "./app/core.js";
 import { mountModuleRouters } from "./app/module-routes.js";
+import { createTasksRouter } from "./modules/tasks/router.js";
 import {
   initializeOpenTelemetry as defaultInitializeOpenTelemetry,
   shutdownOpenTelemetry as defaultShutdownOpenTelemetry
@@ -67,6 +66,7 @@ function resolveAppDependencies(dependencies: AppDependencies = {}): ResolvedApp
 
 function composeApp(dependencies: ResolvedAppDependencies): Express {
   const { config, shouldExposeDocs } = dependencies;
+  const enqueueTaskOverride = dependencies.enqueueTask;
   const app = express();
 
   configureAppInfrastructure(app, config);
@@ -76,7 +76,18 @@ function composeApp(dependencies: ResolvedAppDependencies): Express {
     ...(dependencies.readinessService ? { readinessService: dependencies.readinessService } : {}),
     shouldExposeDocs
   });
-  mountModuleRouters(app, config);
+  mountModuleRouters(
+    app,
+    config,
+    enqueueTaskOverride === undefined
+      ? {}
+      : {
+          createTasksRouter: (resolvedConfig) =>
+            createTasksRouter(resolvedConfig, {
+              enqueueTask: enqueueTaskOverride
+            })
+        }
+  );
 
   registerGlobalErrorHandling(app);
 
