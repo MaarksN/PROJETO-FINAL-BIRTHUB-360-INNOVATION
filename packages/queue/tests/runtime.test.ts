@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { QUEUE_CONFIG } from "../src/definitions.js";
 import { QueueManager } from "../src/index.js";
+import type { RepeatableJobRequest } from "../src/types.js";
 import {
   createRuntimeWorkerProcessor,
   extractJobContext,
@@ -152,16 +153,10 @@ void test("final failures are forwarded to DLQ with original payload and context
 });
 
 void test("queue manager schedules recurring jobs from the central configuration", async () => {
-  const scheduled: Array<{ jobId?: string; queue: string; repeat: { pattern: string } }> = [];
-  const manager = Object.create(QueueManager.prototype) as QueueManager & {
-    upsertRepeatableJob: (request: {
-      jobId?: string;
-      queue: string;
-      repeat: { pattern: string };
-    }) => Promise<void>;
-  };
+  const scheduled: RepeatableJobRequest[] = [];
+  const manager = Object.create(QueueManager.prototype) as QueueManager;
 
-  manager.upsertRepeatableJob = async (request) => {
+  manager.upsertRepeatableJob = async <DataType>(request: RepeatableJobRequest<DataType>) => {
     scheduled.push(request);
   };
 
@@ -171,7 +166,9 @@ void test("queue manager schedules recurring jobs from the central configuration
     .filter(([, config]) => Boolean(config.cron))
     .map(([queue]) => queue)
     .sort();
-  const actual = scheduled.map((entry) => entry.queue).sort();
+  const actual = scheduled
+    .map((entry) => (typeof entry.queue === "string" ? entry.queue : entry.queue.name))
+    .sort();
 
   assert.deepEqual(actual, expected);
   assert.ok(scheduled.every((entry) => typeof entry.repeat.pattern === "string"));

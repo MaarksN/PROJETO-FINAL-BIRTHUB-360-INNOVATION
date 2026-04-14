@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { resolve } from "node:path";
 
 import { readRequiredEnv } from "./env.js";
@@ -122,35 +120,56 @@ export function createScriptRuntime(
     try {
       const result = await runner();
 
-      steps.push({
-        command: metadata.command,
+      const successStep: ScriptStepReport = {
         critical,
         durationMs: resolved.now().getTime() - stepStartedAt.getTime(),
         finishedAt: resolved.now().toISOString(),
         name,
-        script: metadata.script,
         startedAt: stepStartedAt.toISOString(),
         status: "success",
         type: metadata.type
-      });
+      };
+
+      if (metadata.command !== undefined) {
+        successStep.command = metadata.command;
+      }
+
+      if (metadata.script !== undefined) {
+        successStep.script = metadata.script;
+      }
+
+      steps.push(successStep);
 
       return result;
     } catch (error) {
-      steps.push({
-        command: metadata.command,
+      const failureStep: ScriptStepReport = {
         critical,
         durationMs: resolved.now().getTime() - stepStartedAt.getTime(),
-        exitCode:
-          typeof (error as { exitCode?: unknown })?.exitCode === "number"
-            ? ((error as { exitCode?: number }).exitCode ?? undefined)
-            : undefined,
         finishedAt: resolved.now().toISOString(),
         name,
-        script: metadata.script,
         startedAt: stepStartedAt.toISOString(),
         status: "failed",
         type: metadata.type
-      });
+      };
+
+      if (metadata.command !== undefined) {
+        failureStep.command = metadata.command;
+      }
+
+      const exitCode =
+        typeof (error as { exitCode?: unknown })?.exitCode === "number"
+          ? (error as { exitCode?: number }).exitCode
+          : undefined;
+
+      if (exitCode !== undefined) {
+        failureStep.exitCode = exitCode;
+      }
+
+      if (metadata.script !== undefined) {
+        failureStep.script = metadata.script;
+      }
+
+      steps.push(failureStep);
 
       throw error;
     }
@@ -168,18 +187,26 @@ export function createScriptRuntime(
   ): void {
     const stepTimestamp = resolved.now();
 
-    steps.push({
-      command: metadata.command,
+    const skippedStep: ScriptStepReport = {
       critical: metadata.critical ?? true,
       durationMs: 0,
       finishedAt: stepTimestamp.toISOString(),
       name,
       reason: metadata.reason,
-      script: metadata.script,
       startedAt: stepTimestamp.toISOString(),
       status: "skipped",
       type: metadata.type
-    });
+    };
+
+    if (metadata.command !== undefined) {
+      skippedStep.command = metadata.command;
+    }
+
+    if (metadata.script !== undefined) {
+      skippedStep.script = metadata.script;
+    }
+
+    steps.push(skippedStep);
   }
 
   function requireEnv(key: string): string {
@@ -228,8 +255,8 @@ export function createScriptRuntime(
       },
       {
         command: [command, ...args].join(" "),
-        critical: options.critical,
-        script: options.script,
+        ...(options.critical !== undefined ? { critical: options.critical } : {}),
+        ...(options.script !== undefined ? { script: options.script } : {}),
         type: options.type
       }
     );
@@ -248,9 +275,9 @@ export function createScriptRuntime(
 
     return runProcessStep(name, process.execPath, ["--import", "tsx", scriptPath], {
       cwd: databasePackageRoot,
-      critical: options.critical,
-      env: options.env,
       script: scriptName,
+      ...(options.critical !== undefined ? { critical: options.critical } : {}),
+      ...(options.env !== undefined ? { env: options.env } : {}),
       type: options.type
     });
   }
@@ -268,10 +295,12 @@ export function createScriptRuntime(
     const prisma = resolved.getPrismaCommand();
 
     return runProcessStep(name, prisma.command, [...prisma.args, ...args], {
-      acceptedExitCodes: options.acceptedExitCodes,
       cwd: databasePackageRoot,
-      critical: options.critical,
-      env: options.env,
+      ...(options.acceptedExitCodes !== undefined
+        ? { acceptedExitCodes: options.acceptedExitCodes }
+        : {}),
+      ...(options.critical !== undefined ? { critical: options.critical } : {}),
+      ...(options.env !== undefined ? { env: options.env } : {}),
       type: options.type
     });
   }

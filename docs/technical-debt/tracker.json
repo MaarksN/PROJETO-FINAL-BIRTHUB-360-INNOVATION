@@ -94,6 +94,37 @@
         "docs/f10/knowledge-transfer.md",
         "docs/f10/continuity-validation.md"
       ]
+    },
+    {
+      "id": "TD-008",
+      "title": "Unauthorized @ts-nocheck directives reappeared in active web and database paths and broke the ts-directives guard",
+      "domain": "tooling",
+      "status": "closed",
+      "priority": "P1",
+      "owner": "Platform Engineering",
+      "residualRisk": "low",
+      "evidence": [
+        "apps/web/app/(dashboard)/appointments/page.client.tsx",
+        "apps/web/app/(dashboard)/patients/[id]/appointments/page.client.tsx",
+        "apps/web/app/(dashboard)/patients/[id]/page.client.tsx",
+        "apps/web/app/(dashboard)/patients/page.client.tsx",
+        "packages/database/scripts/lib/runtime.ts",
+        "CYCLE_LOG.md"
+      ]
+    },
+    {
+      "id": "TD-009",
+      "title": "Canonical typecheck was still blocked by queue and web tests after the ts-directives guard was restored",
+      "domain": "tooling",
+      "status": "closed",
+      "priority": "P1",
+      "owner": "Platform Engineering",
+      "residualRisk": "low",
+      "evidence": [
+        "apps/web/tests/disabled-domain-pages.test.ts",
+        "packages/queue/tests/runtime.test.ts",
+        "CYCLE_LOG.md"
+      ]
     }
   ],
   "velocity": [
