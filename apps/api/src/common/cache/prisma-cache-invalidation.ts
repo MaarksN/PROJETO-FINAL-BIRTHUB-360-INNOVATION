@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { type Prisma, prisma } from "@birthub/database";
 
 import { invalidateTenantCache } from "./tenant-cache.js";

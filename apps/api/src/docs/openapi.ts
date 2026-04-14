@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 export const openApiDocument = {
   info: {
     title: "BirthHub360 API",

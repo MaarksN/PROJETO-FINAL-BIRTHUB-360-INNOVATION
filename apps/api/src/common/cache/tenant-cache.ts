@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { Organization } from "@birthub/database";
 
 import { deleteCacheKeys, readCacheValue, writeCacheValue } from "./cache-store.js";
