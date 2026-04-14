@@ -469,3 +469,71 @@ RISCO RESIDUAL
 
 PROXIMO PASSO
 [A-005.2 - retomar o corredor de bootstrap restante em lote limpo, excluindo `retention-scheduler.ts` do novo recorte.]
+
+---
+
+## Governance Status - 2026-04-14
+
+- `CONSOLIDACAO-PRECHECK` = `RESOLVIDO`
+- Proximo ciclo aprovado = `PRE-LOTE BASELINE - LINT STABILIZATION`
+- `LOTE 1` estrutural = `aguardando baseline minima`
+
+---
+
+CICLO
+[PRE-LOTE BASELINE - LINT STABILIZATION]
+
+TRILHA
+[BASELINE]
+
+OBJETIVO
+[Zerar apenas os errors de lint no recorte autorizado de `apps/web`, sem expandir escopo, sem alterar comportamento e sem iniciar qualquer `STRUCT-*`.]
+
+ARQUIVOS-ALVO
+- [apps/web/app/(dashboard)/patients/page.sections.tsx]
+- [apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts]
+- [apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx]
+- [apps/web/components/cookie-consent-banner.tsx]
+- [apps/web/tests/dashboard-data.test.ts]
+- [CYCLE_LOG.md]
+
+DIFF GUARD
+Arquivos estruturais: [5 / max 5]
+Linhas alteradas em hot paths: [NAO VERIFICADO / max 200]
+Excecao justificada: [nao]
+
+GATE DE APROVACAO HUMANA
+Necessario: [nao]
+Se sim: [N/A]
+
+PROBLEMA CONFIRMADO
+[O recorte autorizado concentrava 9 errors de lint em `apps/web/app/(dashboard)/patients/page.sections.tsx`, `apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts`, `apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx`, `apps/web/components/cookie-consent-banner.tsx` e `apps/web/tests/dashboard-data.test.ts`. Apos a correcao local, esse recorte ficou com 0 errors e 23 warnings, mas `pnpm --filter @birthub/web lint` e `pnpm lint` continuam falhando por errors fora do escopo aprovado em `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`, `apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts` e `apps/web/lib/workflows.ts`.]
+
+ALTERACOES REALIZADAS
+- [apps/web/app/(dashboard)/patients/page.sections.tsx] - adicionada formatacao defensiva de datas para remover os dois `no-unsafe-argument` sem alterar o rendering
+- [apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts] - removida a dependencia do tipo `StoredSession` no contrato do hook, preservando apenas o cheque de presenca da sessao
+- [apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx] - adicionada validacao minima do payload de revisoes antes de popular estado React
+- [apps/web/components/cookie-consent-banner.tsx] - removidos imports mortos que geravam `no-unused-vars`
+- [apps/web/tests/dashboard-data.test.ts] - substituida a stringificacao generica do `RequestInfo` por resolucao explicita de URL
+- [CYCLE_LOG.md] - registrado o fechamento da consolidacao e o bloqueio residual deste ciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web exec eslint 'app/(dashboard)/patients/page.sections.tsx' 'app/(dashboard)/settings/privacy/privacy-settings-page.model.ts' 'app/(dashboard)/workflows/[id]/revisions/page.tsx' 'components/cookie-consent-banner.tsx' 'tests/dashboard-data.test.ts'`] -> `✖ 23 problems (0 errors, 23 warnings)`
+- [`pnpm --filter @birthub/web lint`] -> FAIL fora do escopo aprovado em `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`, `apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts` e `apps/web/lib/workflows.ts`
+- [`pnpm lint`] -> FAIL pelos mesmos errors fora do escopo aprovado em `apps/web`
+- [`pnpm typecheck`] -> FAIL fora do escopo aprovado em `apps/web/lib/workflows.ts(2,37): error TS2307: Cannot find module '@birthub/workflows-core/nextjs' or its corresponding type declarations.`
+
+ROLLBACK EXECUTADO
+[nao]
+
+STATUS
+[BLOQUEADO POR ESCOPO]
+
+RISCO RESIDUAL
+[O recorte autorizado foi estabilizado quanto a errors de lint, mas a baseline minima global nao foi restabelecida porque ainda existem errors e um bloqueio de typecheck em arquivos de workflow fora do escopo liberado. `LOTE 1` estrutural continua aguardando baseline minima.]
+
+ESCALATION NECESSARIO
+[sim - e necessario novo escopo aprovado para os arquivos `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`, `apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts` e `apps/web/lib/workflows.ts` antes de retomar a baseline minima.]
+
+PROXIMO PASSO
+[Aguardando autorizacao governada para estender o PRE-LOTE BASELINE aos erros residuais fora do recorte aprovado. Nao iniciar `LOTE 1` enquanto `pnpm lint` e `pnpm typecheck` permanecerem vermelhos fora de escopo.]
