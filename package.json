@@ -2,10 +2,10 @@
   "name": "birthub-360",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=24 <25",
-    "pnpm": "9.1.0"
+    "pnpm": "9.15.9"
   },
   "scripts": {
     "artifacts:clean": "node scripts/ci/cleanup-artifacts.mjs",
