@@ -1,7 +1,7 @@
 // @ts-nocheck
 // 
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const nextPublicApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
 const cspReportUri = process.env.CSP_REPORT_URI;
@@ -9,6 +9,7 @@ const immutableAssetCache = "public, max-age=31536000, immutable";
 const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 const nextPublicEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT ?? "development";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const repoRoot = path.join(__dirname, "..", "..");
 const isWindows = process.platform === "win32";
 const isDevelopmentLike =
   nextPublicEnvironment === "development" ||
@@ -19,9 +20,13 @@ const cspReportOnly =
   isDevelopmentLike && (process.env.NEXT_PUBLIC_CSP_REPORT_ONLY ?? "true") === "true";
 
 const turbopackAliases = {
-  "@birthub/config": "@birthub/config/nextjs",
-  "@birthub/logger": "@birthub/logger/nextjs",
-  "@birthub/workflows-core": "@birthub/workflows-core/nextjs"
+  "@birthub/config": pathToFileURL(path.join(repoRoot, "packages/config/dist/index.js")).href,
+  "@birthub/logger": pathToFileURL(
+    path.join(repoRoot, "packages/logger/dist/logger/index.js")
+  ).href,
+  "@birthub/workflows-core": pathToFileURL(
+    path.join(repoRoot, "packages/workflows-core/dist/workflows-core/src/nextjs.js")
+  ).href
 };
 
 const contentSecurityPolicy = [
@@ -77,6 +82,7 @@ const nextConfig = {
       algorithm: "sha384"
     }
   },
+  transpilePackages: [],
   turbopack: {
     resolveAlias: turbopackAliases
   },
