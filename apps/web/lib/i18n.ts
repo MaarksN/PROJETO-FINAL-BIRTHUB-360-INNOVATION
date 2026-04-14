@@ -16,29 +16,11 @@ type NavbarDictionary = { activateDarkTheme: string; activateLightTheme: string;
 type WorkflowsPageDictionary = { backHome: string; badge: string; continueEditing: string; description: string; emptyDescription: string; emptyTitle: string; executionsLabel: string; openEditor: string; revisions: string; statusLabels: LabelMap; stepsLabel: string; title: string; triggerLabels: LabelMap; updatedAtLabel: string; viewExecutions: string };
 export type Dictionary = { consentBanner: ConsentBannerDictionary; dashboardHome: DashboardHomeDictionary; loading: LoadingDictionary; notificationPreferencesPage: NotificationPreferencesDictionary; navbar: NavbarDictionary; workflowsPage: WorkflowsPageDictionary };
 
-const sharedNavbarItems = [
-  { href: "/dashboard", label: { "en-US": "Dashboard", "pt-BR": "Dashboard" } },
-  { href: "/patients", label: { "en-US": "Patients", "pt-BR": "Pacientes" } },
-  { href: "/appointments", label: { "en-US": "Appointments", "pt-BR": "Agenda" } },
-  { href: "/workflows", label: { "en-US": "Workflows", "pt-BR": "Workflows" } },
-  { href: "/notifications", label: { "en-US": "Notifications", "pt-BR": "Notificacoes" } },
-  { href: "/analytics", label: { "en-US": "Analytics", "pt-BR": "Analytics" } },
-  { href: "/conversations", label: { "en-US": "Conversations", "pt-BR": "Conversas" } },
-  { href: "/reports", label: { "en-US": "Reports", "pt-BR": "Relatorios" } },
-  { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } },
-  { href: "/sales-os", label: { "en-US": "Sales OS", "pt-BR": "Sales OS" } }
-] as const;
+const sharedNavbarItems = [{ href: "/dashboard", label: { "en-US": "Dashboard", "pt-BR": "Dashboard" } }, { href: "/patients", label: { "en-US": "Patients", "pt-BR": "Pacientes" } }, { href: "/appointments", label: { "en-US": "Appointments", "pt-BR": "Agenda" } }, { href: "/workflows", label: { "en-US": "Workflows", "pt-BR": "Workflows" } }, { href: "/notifications", label: { "en-US": "Notifications", "pt-BR": "Notificacoes" } }, { href: "/analytics", label: { "en-US": "Analytics", "pt-BR": "Analytics" } }, { href: "/conversations", label: { "en-US": "Conversations", "pt-BR": "Conversas" } }, { href: "/reports", label: { "en-US": "Reports", "pt-BR": "Relatorios" } }, { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } }, { href: "/sales-os", label: { "en-US": "Sales OS", "pt-BR": "Sales OS" } }] as const;
 
 const dictionaries: Record<SupportedLocale, Dictionary> = {
   "pt-BR": {
-    consentBanner: {
-      accept: "Aceitar analytics",
-      description:
-        "Usamos telemetria sem PII para medir pageviews, saude do produto e execucao de agentes. Se voce rejeitar, o tracker externo permanece desligado.",
-      reject: "Rejeitar",
-      settings: "Abrir central LGPD",
-      title: "Consentimento de analytics"
-    },
+    consentBanner: { accept: "Aceitar analytics", description: "Usamos telemetria sem PII para medir pageviews, saude do produto e execucao de agentes. Se voce rejeitar, o tracker externo permanece desligado.", reject: "Rejeitar", settings: "Abrir central LGPD", title: "Consentimento de analytics" },
     dashboardHome: {
       alertSeverityLabels: {
         high: "Alta",
@@ -132,25 +114,10 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       viewFullWorkflowList: "Ver lista completa",
       viewReports: "Ver reports",
       viewSchedule: "Ver agenda",
-      workflowStatusLabels: {
-        ARCHIVED: "Arquivado",
-        DRAFT: "Rascunho",
-        PUBLISHED: "Publicado"
-      },
-      workflowTriggerLabels: {
-        EVENT: "Evento",
-        MANUAL: "Manual",
-        SCHEDULE: "Agendado",
-        WEBHOOK: "Webhook"
-      }
+      workflowStatusLabels: { ARCHIVED: "Arquivado", DRAFT: "Rascunho", PUBLISHED: "Publicado" },
+      workflowTriggerLabels: { EVENT: "Evento", MANUAL: "Manual", SCHEDULE: "Agendado", WEBHOOK: "Webhook" }
     },
-    loading: {
-      badge: "Carregando",
-      dashboardDescription: "Montando indicadores, workflows e billing da conta ativa.",
-      dashboardTitle: "Carregando dashboard",
-      workflowsDescription: "Carregando a lista de workflows, status e contagens do backend.",
-      workflowsTitle: "Carregando workflows"
-    },
+    loading: { badge: "Carregando", dashboardDescription: "Montando indicadores, workflows e billing da conta ativa.", dashboardTitle: "Carregando dashboard", workflowsDescription: "Carregando a lista de workflows, status e contagens do backend.", workflowsTitle: "Carregando workflows" },
     notificationPreferencesPage: {
       acceptCookies: "Aceitar",
       badge: "Engajamento do usuario",
@@ -174,10 +141,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       interfaceLanguageLabel: "Idioma",
       loadMore: "Carregar mais",
       loadingMore: "Carregando...",
-      localeLabels: {
-        "en-US": "English (US)",
-        "pt-BR": "Portugues (Brasil)"
-      },
+      localeLabels: { "en-US": "English (US)", "pt-BR": "Portugues (Brasil)" },
       markAllRead: "Marcar todas como lidas",
       markAsRead: "Marcar como lida",
       marketingEmailsDescription: "Exemplo de opt-out para emails promocionais.",
@@ -231,32 +195,16 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       executionsLabel: "execucoes",
       openEditor: "Abrir editor",
       revisions: "Revisoes",
-      statusLabels: {
-        ARCHIVED: "Arquivado",
-        DRAFT: "Rascunho",
-        PUBLISHED: "Publicado"
-      },
+      statusLabels: { ARCHIVED: "Arquivado", DRAFT: "Rascunho", PUBLISHED: "Publicado" },
       stepsLabel: "etapas",
       title: "Operar workflows sem URL manual",
-      triggerLabels: {
-        EVENT: "Evento",
-        MANUAL: "Manual",
-        SCHEDULE: "Agendado",
-        WEBHOOK: "Webhook"
-      },
+      triggerLabels: { EVENT: "Evento", MANUAL: "Manual", SCHEDULE: "Agendado", WEBHOOK: "Webhook" },
       updatedAtLabel: "Atualizado em",
       viewExecutions: "Ver execucoes"
     }
   },
   "en-US": {
-    consentBanner: {
-      accept: "Allow analytics",
-      description:
-        "We use telemetry without PII to measure pageviews, product health, and agent execution. If you reject it, the external tracker stays off.",
-      reject: "Reject",
-      settings: "Open LGPD center",
-      title: "Analytics consent"
-    },
+    consentBanner: { accept: "Allow analytics", description: "We use telemetry without PII to measure pageviews, product health, and agent execution. If you reject it, the external tracker stays off.", reject: "Reject", settings: "Open LGPD center", title: "Analytics consent" },
     dashboardHome: {
       alertSeverityLabels: {
         high: "High",
@@ -348,25 +296,10 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       viewFullWorkflowList: "View full list",
       viewReports: "View reports",
       viewSchedule: "View schedule",
-      workflowStatusLabels: {
-        ARCHIVED: "Archived",
-        DRAFT: "Draft",
-        PUBLISHED: "Published"
-      },
-      workflowTriggerLabels: {
-        EVENT: "Event",
-        MANUAL: "Manual",
-        SCHEDULE: "Scheduled",
-        WEBHOOK: "Webhook"
-      }
+      workflowStatusLabels: { ARCHIVED: "Archived", DRAFT: "Draft", PUBLISHED: "Published" },
+      workflowTriggerLabels: { EVENT: "Event", MANUAL: "Manual", SCHEDULE: "Scheduled", WEBHOOK: "Webhook" }
     },
-    loading: {
-      badge: "Loading",
-      dashboardDescription: "Preparing account indicators, workflows, and billing data.",
-      dashboardTitle: "Loading dashboard",
-      workflowsDescription: "Loading workflows list, statuses, and backend counters.",
-      workflowsTitle: "Loading workflows"
-    },
+    loading: { badge: "Loading", dashboardDescription: "Preparing account indicators, workflows, and billing data.", dashboardTitle: "Loading dashboard", workflowsDescription: "Loading workflows list, statuses, and backend counters.", workflowsTitle: "Loading workflows" },
     notificationPreferencesPage: {
       acceptCookies: "Accept",
       badge: "User engagement",
@@ -390,10 +323,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       interfaceLanguageLabel: "Language",
       loadMore: "Load more",
       loadingMore: "Loading...",
-      localeLabels: {
-        "en-US": "English (US)",
-        "pt-BR": "Portuguese (Brazil)"
-      },
+      localeLabels: { "en-US": "English (US)", "pt-BR": "Portuguese (Brazil)" },
       markAllRead: "Mark all as read",
       markAsRead: "Mark as read",
       marketingEmailsDescription: "Example opt-out for promotional emails.",
@@ -446,19 +376,10 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       executionsLabel: "executions",
       openEditor: "Open editor",
       revisions: "Revisions",
-      statusLabels: {
-        ARCHIVED: "Archived",
-        DRAFT: "Draft",
-        PUBLISHED: "Published"
-      },
+      statusLabels: { ARCHIVED: "Archived", DRAFT: "Draft", PUBLISHED: "Published" },
       stepsLabel: "steps",
       title: "Operate workflows without manual URLs",
-      triggerLabels: {
-        EVENT: "Event",
-        MANUAL: "Manual",
-        SCHEDULE: "Scheduled",
-        WEBHOOK: "Webhook"
-      },
+      triggerLabels: { EVENT: "Event", MANUAL: "Manual", SCHEDULE: "Scheduled", WEBHOOK: "Webhook" },
       updatedAtLabel: "Updated on",
       viewExecutions: "View executions"
     }
