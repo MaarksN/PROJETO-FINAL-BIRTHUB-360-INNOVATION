@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { runWithTenantContext } from "@birthub/database";
 import { updateLogContext } from "@birthub/logger";
 import type { NextFunction, Request, Response } from "express";
