@@ -121,6 +121,9 @@ importers:
       '@birthub/logger':
         specifier: workspace:*
         version: link:../../packages/logger
+      '@birthub/queue':
+        specifier: workspace:*
+        version: link:../../packages/queue
       '@birthub/workflows-core':
         specifier: workspace:*
         version: link:../../packages/workflows-core
@@ -322,6 +325,9 @@ importers:
       '@birthub/logger':
         specifier: workspace:*
         version: link:../../packages/logger
+      '@birthub/queue':
+        specifier: workspace:*
+        version: link:../../packages/queue
       '@birthub/testing':
         specifier: workspace:*
         version: link:../../packages/testing
@@ -457,6 +463,9 @@ importers:
 
   packages/database:
     dependencies:
+      '@birthub/config':
+        specifier: workspace:^
+        version: link:../config
       '@birthub/logger':
         specifier: workspace:^
         version: link:../logger
@@ -532,6 +541,9 @@ importers:
 
   packages/logger:
     dependencies:
+      '@birthub/config':
+        specifier: workspace:*
+        version: link:../config
       '@opentelemetry/api':
         specifier: ^1.9.0
         version: 1.9.1
@@ -7934,7 +7946,7 @@ snapshots:
       '@opentelemetry/core': 2.6.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/otlp-exporter-base': 0.213.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/otlp-transformer': 0.213.0(@opentelemetry/api@1.9.1)
-      '@opentelemetry/resources': 2.6.1(@opentelemetry/api@1.9.1)
+      '@opentelemetry/resources': 2.6.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/sdk-logs': 0.213.0(@opentelemetry/api@1.9.1)
       '@opentelemetry/sdk-trace-base': 2.6.0(@opentelemetry/api@1.9.1)
 
