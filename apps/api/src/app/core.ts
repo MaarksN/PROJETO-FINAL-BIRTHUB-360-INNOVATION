@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import cors from "cors";

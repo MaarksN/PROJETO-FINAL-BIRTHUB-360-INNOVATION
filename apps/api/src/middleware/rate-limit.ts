@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import { MembershipStatus, prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";

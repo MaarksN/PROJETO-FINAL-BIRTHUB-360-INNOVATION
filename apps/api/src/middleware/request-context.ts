@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { randomUUID } from "node:crypto";
 
 import type { Role, SessionAccessMode } from "@birthub/database";

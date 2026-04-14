@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { isProductionEnvironment } from "@birthub/config";
 import type { NextFunction, Request, Response } from "express";
 

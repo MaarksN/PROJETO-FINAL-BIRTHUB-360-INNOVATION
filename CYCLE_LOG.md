@@ -238,3 +238,33 @@ PROXIMO PASSO
 - `A-004` - reduzir `complexity` e `max-lines` em `apps/web/app/(dashboard)/dashboard/page.tsx` e `apps/web/app/(dashboard)/patients/[id]/page.client.tsx`.
 - `A-005` - corrigir os erros de tipagem insegura em `apps/web/app/(dashboard)/patients/[id]/page.sections.tsx`, `apps/web/app/(dashboard)/patients/page.sections.tsx` e `apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx`.
 - `A-006` - fechar o restante do lint de `apps/web` em `settings/privacy/privacy-settings-page.model.ts`, `components/cookie-consent-banner.tsx`, `lib/i18n.ts`, `tests/dashboard-data.test.ts` e `tests/workflow-editor-helpers.test.ts`.
+
+---
+
+CICLO
+[A-004]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Endurecer o lint de `apps/web` sem alterar comportamento funcional, fechando o escopo original confirmado e registrando bloqueios reais fora dele.]
+
+STATUS
+[RESOLVIDO PARCIALMENTE]
+
+SUBCICLOS
+- [A-004.1] - [RESOLVIDO]
+- [A-004.2] - [RESOLVIDO]
+- [A-004.3] - [RESOLVIDO]
+- [A-004.4] - [BLOQUEADO POR ESCOPO]
+
+JUSTIFICATIVA
+- [houve avanço estrutural real dentro do escopo aprovado]
+- [parte do escopo original foi resolvida]
+- [o lint global continua falhando]
+- [ainda restam arquivos do escopo original: `apps/web/app/(dashboard)/dashboard/page.tsx` e `apps/web/lib/i18n.ts`]
+- [existem erros reais adicionais fora do escopo original aprovado]
+
+PROXIMO PASSO
+[A-004.5 - fechar `apps/web/app/(dashboard)/dashboard/page.tsx` e `apps/web/lib/i18n.ts`, rerodando `pnpm --filter @birthub/web lint`, `pnpm lint` e `pnpm typecheck`.]
