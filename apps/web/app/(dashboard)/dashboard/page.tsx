@@ -24,7 +24,6 @@ function formatOnboardingSummary(
   if (locale === "pt-BR") {
     return `${completedSteps} de ${totalSteps} passos fechados.`;
   }
-
   return `${completedSteps} of ${totalSteps} steps completed.`;
 }
 
@@ -42,11 +41,9 @@ function formatConsentSummary(
 ): string {
   const statusLabel = translateLabel(labels.consentStatusLabels, input.status);
   const legalBasisLabel = translateLabel(labels.consentLegalBasisLabels, input.legalBasis);
-
   if (locale === "pt-BR") {
     return `Status atual: ${statusLabel} · base legal ${legalBasisLabel} · versao ${input.version}.`;
   }
-
   return `Current status: ${statusLabel} · legal basis ${legalBasisLabel} · version ${input.version}.`;
 }
 
@@ -58,17 +55,14 @@ function formatHealthRisk(locale: SupportedLocale, risk: string): string {
   if (locale === "pt-BR") {
     return risk;
   }
-
   const labels: Record<string, string> = {
     alto: "High",
     baixo: "Low",
     medio: "Medium",
     moderado: "Moderate"
   };
-
   return labels[risk.toLowerCase()] ?? risk;
 }
-
 function getDashboardStaticCopy(locale: SupportedLocale) {
   if (locale === "pt-BR") {
     return {
@@ -77,11 +71,7 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
         "Simule gatekeepers, CFOs e cenarios tensos antes de entrar na call real.",
         "Abra o mentor para transformar contexto disperso em proximo passo comercial."
       ],
-      entryPointTitles: [
-        "Pesquisa e prospeccao",
-        "Roleplay e negociacao",
-        "Mentoria contextual"
-      ],
+      entryPointTitles: ["Pesquisa e prospeccao", "Roleplay e negociacao", "Mentoria contextual"],
       productAlignmentCopy: {
         badge: "Alinhamento de dominio",
         description:
@@ -91,16 +81,11 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
       salesOsDescription:
         "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie.",
       salesOsMetrics: ["Modulos", "Ferramentas", "Roleplays"],
-      salesOsMetricSubtitles: [
-        "Estruturas operacionais disponiveis",
-        "Protocolos importados do blueprint",
-        "Simulacoes para objecoes e negociacao"
-      ],
+      salesOsMetricSubtitles: ["Estruturas operacionais disponiveis", "Protocolos importados do blueprint", "Simulacoes para objecoes e negociacao"],
       salesOsTitle: "Cockpit comercial unificado",
       salesOsCta: "Abrir Sales OS"
     };
   }
-
   return {
     entryPoints: [
       "Use BDR, SDR, and LDR to map accounts, enrich context, and prepare outreach.",
@@ -117,16 +102,11 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
     salesOsDescription:
       "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface.",
     salesOsMetrics: ["Modules", "Tools", "Roleplays"],
-    salesOsMetricSubtitles: [
-      "Available operating structures",
-      "Protocols imported from the blueprint",
-      "Simulations for objections and negotiation"
-    ],
+    salesOsMetricSubtitles: ["Available operating structures", "Protocols imported from the blueprint", "Simulations for objections and negotiation"],
     salesOsTitle: "Unified commercial cockpit",
     salesOsCta: "Open Sales OS"
   };
 }
-
 export default async function DashboardHomePage() {
   const locale = await getRequestLocale();
   const copy = getDictionary(locale);
@@ -140,9 +120,7 @@ export default async function DashboardHomePage() {
     data.capabilities.privacyAdvancedEnabled &&
     data.consents?.preferences.lgpdConsentStatus === "PENDING";
   const completedOnboardingSteps = data.onboarding.items.filter((item) => item.complete).length;
-  const showProductAlignmentNotice =
-    !data.capabilities.clinicalWorkspaceEnabled || !data.capabilities.privacyAdvancedEnabled;
-
+  const showProductAlignmentNotice = !data.capabilities.clinicalWorkspaceEnabled || !data.capabilities.privacyAdvancedEnabled;
   return (
     <main className="dashboard-content">
       <ProductPageHeader
