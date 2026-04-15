@@ -16,23 +16,14 @@
 .recommendationCard,
 .slotCard {
   backdrop-filter: blur(18px);
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--surface-panel);
   border: 1px solid var(--border);
-  box-shadow: 0 20px 44px rgba(15, 23, 42, 0.08);
-}
-
-:global(html[data-theme="dark"]) .sidebar,
-:global(html[data-theme="dark"]) .workspace,
-:global(html[data-theme="dark"]) .heroCard,
-:global(html[data-theme="dark"]) .metricCard,
-:global(html[data-theme="dark"]) .navItem,
-:global(html[data-theme="dark"]) .userCard,
-:global(html[data-theme="dark"]) .surfaceCard,
-:global(html[data-theme="dark"]) .promptCard,
-:global(html[data-theme="dark"]) .noteBlock,
-:global(html[data-theme="dark"]) .recommendationCard,
-:global(html[data-theme="dark"]) .slotCard {
-  background: rgba(8, 17, 24, 0.84);
+  box-shadow: var(--shadow-glass);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
 }
 
 .sidebar {
@@ -60,7 +51,7 @@
 .navIcon,
 .userAvatar {
   align-items: center;
-  background: linear-gradient(135deg, rgba(19, 93, 102, 0.16), rgba(255, 150, 94, 0.22));
+  background: linear-gradient(135deg, rgba(24, 122, 115, 0.16), rgba(125, 215, 194, 0.22));
   border-radius: 18px;
   color: var(--accent);
   display: inline-flex;
@@ -80,9 +71,9 @@
 
 .heroCard {
   background:
-    radial-gradient(circle at top right, rgba(255, 150, 94, 0.18), transparent 34%),
-    radial-gradient(circle at bottom left, rgba(19, 93, 102, 0.14), transparent 40%),
-    rgba(255, 255, 255, 0.82);
+    radial-gradient(circle at top right, rgba(125, 215, 194, 0.22), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(109, 167, 255, 0.16), transparent 40%),
+    var(--surface-panel-strong);
   border-radius: 28px;
   display: grid;
   gap: 0.8rem;
@@ -136,8 +127,8 @@
 
 .navItem {
   background:
-    radial-gradient(circle at top right, rgba(19, 93, 102, 0.1), transparent 46%),
-    rgba(255, 255, 255, 0.78);
+    radial-gradient(circle at top right, rgba(125, 215, 194, 0.12), transparent 46%),
+    var(--surface-panel);
   border-radius: 24px;
   color: inherit;
   cursor: pointer;
@@ -151,8 +142,8 @@
 
 .navItem:hover,
 .navItem[data-active="true"] {
-  border-color: rgba(19, 93, 102, 0.24);
-  box-shadow: 0 22px 48px rgba(19, 93, 102, 0.12);
+  border-color: rgba(24, 122, 115, 0.24);
+  box-shadow: var(--shadow-grow);
   transform: translateY(-1px);
 }
 
@@ -196,19 +187,13 @@
 .workspaceHeader {
   align-items: flex-start;
   background:
-    radial-gradient(circle at top right, rgba(255, 150, 94, 0.16), transparent 32%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(247, 243, 234, 0.78));
+    radial-gradient(circle at top right, rgba(125, 215, 194, 0.18), transparent 32%),
+    linear-gradient(135deg, var(--surface-panel-strong), rgba(219, 238, 234, 0.72));
   border: 1px solid var(--border);
   border-radius: 26px;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1.1rem 1.15rem;
-}
-
-:global(html[data-theme="dark"]) .workspaceHeader {
-  background:
-    radial-gradient(circle at top right, rgba(255, 150, 94, 0.14), transparent 32%),
-    rgba(8, 17, 24, 0.84);
 }
 
 .workspacePills {
@@ -220,7 +205,7 @@
 .inlineMetrics span,
 .recommendationMeta span,
 .priorityPill {
-  background: rgba(19, 93, 102, 0.1);
+  background: rgba(24, 122, 115, 0.1);
   border-radius: 999px;
   color: var(--accent-strong);
   display: inline-flex;
@@ -348,7 +333,7 @@
 
 .actionButton,
 .primaryCta {
-  background: linear-gradient(135deg, var(--accent), #ff965e);
+  background: linear-gradient(135deg, var(--accent), #42bba8);
 }
 
 .signalList article,
@@ -377,8 +362,8 @@
 
 .promptCard {
   background:
-    radial-gradient(circle at top right, rgba(255, 150, 94, 0.12), transparent 40%),
-    rgba(255, 255, 255, 0.78);
+    radial-gradient(circle at top right, rgba(125, 215, 194, 0.14), transparent 40%),
+    var(--surface-panel);
 }
 
 .promptCard span {
@@ -391,8 +376,8 @@
 
 .recommendationCard {
   background:
-    radial-gradient(circle at top right, rgba(19, 93, 102, 0.14), transparent 36%),
-    rgba(255, 255, 255, 0.8);
+    radial-gradient(circle at top right, rgba(125, 215, 194, 0.16), transparent 36%),
+    var(--surface-panel);
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
@@ -433,8 +418,8 @@
 }
 
 .slotCard[data-recommended="true"] {
-  border-color: rgba(19, 93, 102, 0.22);
-  box-shadow: 0 22px 48px rgba(19, 93, 102, 0.12);
+  border-color: rgba(24, 122, 115, 0.22);
+  box-shadow: var(--shadow-grow);
 }
 
 .slotCard strong {

@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config/web";
 
+import { ExecutivePremiumAgentCallout } from "../../../../../components/agents/ExecutivePremiumAgentCallout";
 import { PolicyManager } from "../../../../../components/agents/PolicyManager";
 import { getInstalledAgentById, getInstalledAgentPolicies } from "../../../../../lib/agents";
+import { isExecutivePremiumPack } from "../../../../../lib/executive-premium";
 
 type ManifestPolicy = {
   actions: string[];
@@ -50,12 +52,21 @@ export default async function AgentPoliciesPage(props: { params: Promise<{ id: s
   const runtimeProvider = policies?.runtimeProvider ?? agent.runtimeProvider;
 
   return (
-    <PolicyManager
-      agentId={agent.id}
-      apiUrl={config.NEXT_PUBLIC_API_URL}
-      initialManagedPolicies={managedPolicies}
-      initialManifestPolicies={manifestPolicies}
-      runtimeProvider={runtimeProvider}
-    />
+    <section style={{ display: "grid", gap: "1rem" }}>
+      {isExecutivePremiumPack(agent.catalogAgentId) ? (
+        <ExecutivePremiumAgentCallout
+          agentId={agent.catalogAgentId}
+          description="As policies deste agente premium governam evidencia, memoria, recomendacao prescritiva e handoff executivo. Revise ajustes com cuidado para preservar a trilha premium."
+          title="Policies premium executivas"
+        />
+      ) : null}
+      <PolicyManager
+        agentId={agent.id}
+        apiUrl={config.NEXT_PUBLIC_API_URL}
+        initialManagedPolicies={managedPolicies}
+        initialManifestPolicies={manifestPolicies}
+        runtimeProvider={runtimeProvider}
+      />
+    </section>
   );
 }

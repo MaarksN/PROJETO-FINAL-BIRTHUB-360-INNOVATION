@@ -1,13 +1,17 @@
 import Link from "next/link";
 
+import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight";
 import { ProductPageHeader } from "../../../components/dashboard/page-fragments";
 import { SalesOsShell } from "../../../components/sales-os/SalesOsShell";
-import { fetchMarketplaceSearch } from "../../../lib/marketplace-api.server";
+import {
+  buildExecutivePremiumAgentHref,
+  EXECUTIVE_PREMIUM_COLLECTION_HREF,
+  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
+  EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE
+} from "../../../lib/executive-premium";
+import { fetchExecutivePremiumCollection } from "../../../lib/marketplace-api.server";
 import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
 import { getRequestLocale } from "../../../lib/i18n.server";
-
-const EXECUTIVE_PREMIUM_TAG = "executive-premium";
-const EXECUTIVE_PREMIUM_PAGE_SIZE = 4;
 
 const toolCount = salesOsTools.length;
 const moduleCount = SALES_OS_MODULES.length;
@@ -105,11 +109,9 @@ const pageCopy = {
 export default async function SalesOsPage() {
   const locale = await getRequestLocale();
   const copy = pageCopy[locale] ?? pageCopy["pt-BR"];
-  const executivePremium = await fetchMarketplaceSearch({
-    page: "1",
-    pageSize: String(EXECUTIVE_PREMIUM_PAGE_SIZE),
-    tags: EXECUTIVE_PREMIUM_TAG
-  }).catch(() => null);
+  const executivePremium = await fetchExecutivePremiumCollection(EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE).catch(
+    () => null
+  );
   const executivePremiumCount = executivePremium?.total ?? 0;
 
   return (
@@ -126,7 +128,7 @@ export default async function SalesOsPage() {
             <Link className="ghost-button" href="/sales-os/sdr-automatico">
               {copy.openSdrPlatform}
             </Link>
-            <Link className="ghost-button" href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}`}>
+            <Link className="ghost-button" href={EXECUTIVE_PREMIUM_COLLECTION_HREF}>
               {copy.premiumViewAll}
             </Link>
             <Link className="ghost-button" href="/dashboard">
@@ -140,73 +142,21 @@ export default async function SalesOsPage() {
       />
 
       {executivePremium?.results?.length ? (
-        <section
-          style={{
-            background: "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,58,138,0.92))",
-            border: "1px solid rgba(148, 163, 184, 0.26)",
-            borderRadius: "1.5rem",
-            color: "#f8fafc",
-            display: "grid",
-            gap: "1rem",
-            marginBottom: "1.25rem",
-            padding: "1.1rem"
+        <ExecutivePremiumSpotlight
+          cardAction={{
+            href: (item) => buildExecutivePremiumAgentHref(item.agent.id),
+            label: copy.premiumViewAll
           }}
-        >
-          <div style={{ display: "grid", gap: "0.35rem" }}>
-            <small style={{ letterSpacing: "0.08em", opacity: 0.8, textTransform: "uppercase" }}>
-              {copy.premiumSpotlight}
-            </small>
-            <strong style={{ fontSize: "1.1rem" }}>{copy.premiumDescription}</strong>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
-              <span
-                style={{
-                  background: "rgba(255,255,255,0.12)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  borderRadius: 999,
-                  padding: "0.35rem 0.75rem"
-                }}
-              >
-                {executivePremiumCount} {copy.premiumAgentsLabel}
-              </span>
-              <span
-                style={{
-                  background: "rgba(255,255,255,0.12)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  borderRadius: 999,
-                  padding: "0.35rem 0.75rem"
-                }}
-              >
-                14 {copy.premiumLayersLabel}
-              </span>
-            </div>
-          </div>
-
-          <div style={{ display: "grid", gap: "0.8rem", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-            {executivePremium.results.map((item) => (
-              <article
-                key={item.agent.id}
-                style={{
-                  background: "rgba(255,255,255,0.12)",
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  borderRadius: 16,
-                  display: "grid",
-                  gap: "0.45rem",
-                  padding: "0.95rem"
-                }}
-              >
-                <strong>{item.agent.name}</strong>
-                <small style={{ opacity: 0.8 }}>{item.tags.domain.join(", ")} / {item.tags.level.join(", ")}</small>
-                <p style={{ margin: 0, opacity: 0.92 }}>{item.agent.description}</p>
-                <Link
-                  href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}&agentId=${encodeURIComponent(item.agent.id)}`}
-                  style={{ color: "#bfdbfe" }}
-                >
-                  {copy.premiumViewAll}
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
+          cardMeta={(item) => `${item.tags.domain.join(", ")} / ${item.tags.level.join(", ")}`}
+          description={copy.premiumDescription}
+          eyebrow={copy.premiumSpotlight}
+          results={executivePremium.results}
+          summaryItems={[
+            `${executivePremiumCount} ${copy.premiumAgentsLabel}`,
+            `${EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} ${copy.premiumLayersLabel}`
+          ]}
+          title="Executive Premium Agents Collection"
+        />
       ) : null}
 
       <SalesOsShell copy={copy} />

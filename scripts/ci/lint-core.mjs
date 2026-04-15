@@ -2,9 +2,14 @@
 
 import path from "node:path";
 
-import { portableNodeExecutable, projectRoot, run } from "./shared.mjs";
+import { projectRoot, run } from "./shared.mjs";
 
-const eslintCli = path.join(projectRoot, "node_modules", "eslint", "bin", "eslint.js");
+const eslintCli = path.join(
+  projectRoot,
+  "node_modules",
+  ".bin",
+  process.platform === "win32" ? "eslint.cmd" : "eslint"
+);
 
 const coreLintWorkspaces = [
   { cwd: "packages/config", args: ["."] },
@@ -23,7 +28,7 @@ const coreLintWorkspaces = [
 ];
 
 for (const workspace of coreLintWorkspaces) {
-  run(portableNodeExecutable, [eslintCli, ...workspace.args], {
+  run(eslintCli, workspace.args, {
     cwd: path.join(projectRoot, workspace.cwd)
   });
 }

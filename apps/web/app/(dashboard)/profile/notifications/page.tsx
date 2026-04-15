@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { getStoredSession } from "../../../../lib/auth-client";
 import { type SupportedLocale } from "../../../../lib/i18n";
 import { useI18n } from "../../../../providers/I18nProvider";
+import { useThemeMode } from "../../../../providers/ThemeProvider";
 import { useNotificationStore } from "../../../../stores/notification-store";
 import { useUserPreferencesStore } from "../../../../stores/user-preferences-store";
 
@@ -21,7 +22,7 @@ function ToggleCard(input: {
   return (
     <label
       style={{
-        background: "rgba(255,255,255,0.76)",
+        background: "var(--surface-panel)",
         border: "1px solid var(--border)",
         borderRadius: 20,
         cursor: "pointer",
@@ -50,10 +51,109 @@ function ToggleCard(input: {
   );
 }
 
+function ThemeOptionCard(input: {
+  active: boolean;
+  description: string;
+  label: string;
+  onClick: () => void;
+  tone: "dark" | "light";
+}) {
+  const previewBackground =
+    input.tone === "dark"
+      ? "linear-gradient(145deg, rgba(6, 18, 25, 0.96), rgba(14, 38, 50, 0.88))"
+      : "linear-gradient(145deg, rgba(255,255,255,0.94), rgba(224, 245, 240, 0.88))";
+  const previewBorder =
+    input.tone === "dark" ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(17,42,57,0.08)";
+
+  return (
+    <button
+      aria-pressed={input.active}
+      onClick={input.onClick}
+      style={{
+        background: "var(--surface-panel-strong)",
+        border: input.active ? "1px solid var(--accent)" : "1px solid var(--border)",
+        borderRadius: 24,
+        cursor: "pointer",
+        display: "grid",
+        gap: "0.75rem",
+        padding: "1rem",
+        textAlign: "left"
+      }}
+      type="button"
+    >
+      <div
+        style={{
+          background: previewBackground,
+          border: previewBorder,
+          borderRadius: 20,
+          display: "grid",
+          gap: "0.5rem",
+          minHeight: 128,
+          padding: "0.9rem"
+        }}
+      >
+        <div
+          style={{
+            background: input.tone === "dark" ? "rgba(255,255,255,0.08)" : "rgba(24,122,115,0.08)",
+            borderRadius: 999,
+            height: 12,
+            width: "46%"
+          }}
+        />
+        <div
+          style={{
+            background: input.tone === "dark" ? "rgba(255,255,255,0.12)" : "rgba(24,122,115,0.14)",
+            borderRadius: 20,
+            flex: 1
+          }}
+        />
+        <div
+          style={{
+            display: "grid",
+            gap: "0.45rem",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))"
+          }}
+        >
+          <span
+            style={{
+              background:
+                input.tone === "dark" ? "rgba(103, 215, 192, 0.14)" : "rgba(24,122,115,0.12)",
+              borderRadius: 16,
+              minHeight: 34
+            }}
+          />
+          <span
+            style={{
+              background:
+                input.tone === "dark" ? "rgba(103, 215, 192, 0.1)" : "rgba(24,122,115,0.08)",
+              borderRadius: 16,
+              minHeight: 34
+            }}
+          />
+          <span
+            style={{
+              background:
+                input.tone === "dark" ? "rgba(103, 215, 192, 0.18)" : "rgba(24,122,115,0.16)",
+              borderRadius: 16,
+              minHeight: 34
+            }}
+          />
+        </div>
+      </div>
+
+      <div style={{ display: "grid", gap: "0.3rem" }}>
+        <strong>{input.label}</strong>
+        <span style={{ color: "var(--muted)" }}>{input.description}</span>
+      </div>
+    </button>
+  );
+}
+
 export default function NotificationPreferencesPage() {
   const router = useRouter();
   const { dictionary, formatDateTime } = useI18n();
   const copy = dictionary.notificationPreferencesPage;
+  const { mode, setMode } = useThemeMode();
   const session = useMemo(() => getStoredSession(), []);
   const preferences = useUserPreferencesStore((state) => state.preferences);
   const prefError = useUserPreferencesStore((state) => state.error);
@@ -96,6 +196,50 @@ export default function NotificationPreferencesPage() {
         <span className="badge">{copy.badge}</span>
         <h1>{copy.title}</h1>
         <p style={{ marginBottom: 0 }}>{copy.description}</p>
+      </section>
+
+      <section className="panel">
+        <div
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.75rem",
+            justifyContent: "space-between",
+            marginBottom: "1rem"
+          }}
+        >
+          <div>
+            <h2 style={{ marginTop: 0 }}>{copy.themeHeading}</h2>
+            <p style={{ color: "var(--muted)", marginBottom: 0 }}>{copy.themeDescription}</p>
+          </div>
+          <span className="badge">
+            {copy.activeThemeLabel}: {mode === "dark" ? copy.darkThemeLabel : copy.lightThemeLabel}
+          </span>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gap: "0.9rem",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))"
+          }}
+        >
+          <ThemeOptionCard
+            active={mode === "light"}
+            description={copy.themeDescription}
+            label={copy.lightThemeLabel}
+            onClick={() => setMode("light")}
+            tone="light"
+          />
+          <ThemeOptionCard
+            active={mode === "dark"}
+            description={copy.themeDescription}
+            label={copy.darkThemeLabel}
+            onClick={() => setMode("dark")}
+            tone="dark"
+          />
+        </div>
       </section>
 
       <section className="panel">
@@ -281,7 +425,7 @@ export default function NotificationPreferencesPage() {
               <article
                 key={item.id}
                 style={{
-                  background: item.isRead ? "rgba(255,255,255,0.7)" : "rgba(30, 58, 138,0.08)",
+                  background: item.isRead ? "var(--surface-panel)" : "rgba(24,122,115,0.08)",
                   border: "1px solid var(--border)",
                   borderRadius: 18,
                   display: "grid",

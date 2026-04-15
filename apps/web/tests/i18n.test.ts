@@ -13,14 +13,16 @@ import {
 
 void test("pt-BR dictionary exposes canonical product navigation and consent copy", () => {
   const copy = getDictionary();
+  const conversationsItem = copy.navbar.items.find((item) => item.href === "/conversations");
 
   assert.equal(copy.navbar.identityTitle, "Central de Operacao");
   assert.equal(copy.navbar.items[0]?.href, "/dashboard");
-  assert.equal(copy.navbar.items[6]?.label, "Conversas");
+  assert.equal(conversationsItem?.label, "Conversas");
   assert.equal(copy.navbar.items.at(-1)?.href, "/sales-os");
   assert.equal(copy.consentBanner.settings, "Abrir central LGPD");
   assert.equal(copy.dashboardHome.badge, "Home do produto");
   assert.equal(copy.notificationPreferencesPage.interfaceLanguageHeading, "Idioma da interface");
+  assert.equal(copy.notificationPreferencesPage.themeHeading, "Tema do dashboard");
 });
 
 void test("formatPtBrDateTime uses the pt-BR locale baseline", () => {
@@ -52,6 +54,7 @@ void test("en-US dictionary exposes translated navigation and dashboard copy", (
   assert.equal(copy.workflowsPage.backHome, "Back to home");
   assert.equal(copy.dashboardHome.noUsageTitle, "No recorded usage");
   assert.equal(copy.notificationPreferencesPage.interfaceLanguageLabel, "Language");
+  assert.equal(copy.notificationPreferencesPage.darkThemeLabel, "Dark");
 });
 
 void test("formatDateTime honors the requested locale", () => {

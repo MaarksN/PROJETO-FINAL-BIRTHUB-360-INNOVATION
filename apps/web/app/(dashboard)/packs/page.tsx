@@ -6,6 +6,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { fetchWithSession } from "../../../lib/auth-client";
+import {
+  EXECUTIVE_PREMIUM_COLLECTION_HREF,
+  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
+  isExecutivePremiumPack
+} from "../../../lib/executive-premium";
 
 type PackStatus = {
   installedVersion: string;
@@ -15,8 +20,6 @@ type PackStatus = {
 };
 
 const PACKS_REQUEST_TIMEOUT_MS = 8_000;
-const EXECUTIVE_PREMIUM_TAG = "executive-premium";
-const EXECUTIVE_PREMIUM_PACK_TOKEN = "-premium-pack";
 
 function buildHeaders() {
   return {
@@ -35,11 +38,6 @@ function badgeTone(status: PackStatus["status"]): string {
 
   return "#9d0208";
 }
-
-function isExecutivePremiumPack(packId: string): boolean {
-  return packId.includes(EXECUTIVE_PREMIUM_PACK_TOKEN);
-}
-
 export default function PacksPage() {
   const [packs, setPacks] = useState<PackStatus[]>([]);
   const [message, setMessage] = useState("");
@@ -111,9 +109,7 @@ export default function PacksPage() {
           Painel para monitorar packs `active`, `degraded`, `failed` e acionar update para v2.0.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
-          <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}`}>
-            Abrir colecao premium executiva
-          </Link>
+          <Link href={EXECUTIVE_PREMIUM_COLLECTION_HREF}>Abrir colecao premium executiva</Link>
           <Link href="/sales-os">Ver no Sales OS</Link>
         </div>
       </header>
@@ -191,7 +187,7 @@ export default function PacksPage() {
               padding: "0.35rem 0.75rem"
             }}
           >
-            14 camadas premium
+            {EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} camadas premium
           </span>
         </div>
       </section>

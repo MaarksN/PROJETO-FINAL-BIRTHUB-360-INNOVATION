@@ -3,10 +3,8 @@ import {
   CalendarPlus,
   Clock3,
   MessageSquareQuote,
-  PhoneCall,
   Send,
-  Sparkles,
-  Target
+  Sparkles
 } from "lucide-react";
 
 import type { SupportedLocale } from "../../lib/i18n";
@@ -15,7 +13,7 @@ import type {
   SdrAutomaticLead,
   SdrAutomaticTimeSlot
 } from "./sdr-automatic-data";
-import { toneForScore } from "./sdr-automatic-data";
+import { SdrLeadScoreWorkspace } from "./SdrLeadScoreWorkspace";
 import styles from "./sdr-automatic-platform.module.css";
 
 function isEnglish(locale: SupportedLocale) {
@@ -27,99 +25,7 @@ export function SdrLeadScoreView(input: {
   leads: SdrAutomaticLead[];
   locale: SupportedLocale;
 }) {
-  const english = isEnglish(input.locale);
-
-  return (
-    <section className={styles.viewGrid}>
-      <article className={styles.surfaceCard}>
-        <div className={styles.cardHeader}>
-          <div>
-            <strong>{input.copy.leadTitle}</strong>
-            <p>{input.copy.leadSubtitle}</p>
-          </div>
-          <div className={styles.inlineMetrics}>
-            {input.leads.slice(0, 2).map((lead) => (
-              <span key={lead.name}>{lead.name.split(" ")[0]} {lead.score}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.tableWrapper}>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>{input.copy.tableLead}</th>
-                <th>{input.copy.tableScore}</th>
-                <th>{input.copy.tableSource}</th>
-                <th>{input.copy.tablePriority}</th>
-                <th>{input.copy.tableAction}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {input.leads.map((lead) => (
-                <tr key={lead.name}>
-                  <td>
-                    <div className={styles.tableLead}>
-                      <strong>{lead.name}</strong>
-                      <span>{lead.role}, {lead.company}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div className={styles.scoreWrap}>
-                      <div className={styles.scoreBar}>
-                        <span
-                          className={styles.scoreFill}
-                          data-tone={toneForScore(lead.score)}
-                          style={{ width: `${lead.score}%` }}
-                        />
-                      </div>
-                      <strong>{lead.score}</strong>
-                    </div>
-                  </td>
-                  <td>{lead.source}</td>
-                  <td>
-                    <span className={styles.priorityPill} data-tone={lead.priorityTone}>
-                      {lead.priority}
-                    </span>
-                  </td>
-                  <td>
-                    <button className={styles.actionButton} type="button">
-                      <PhoneCall size={16} />
-                      <span>{lead.action}</span>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </article>
-
-      <article className={styles.surfaceCard}>
-        <div className={styles.cardHeader}>
-          <div>
-            <strong>{input.copy.quickBrief}</strong>
-            <p>{english ? "Signals that pushed Julia to the top." : "Sinais que levaram Julia para o topo da fila."}</p>
-          </div>
-          <Target size={18} />
-        </div>
-        <div className={styles.signalList}>
-          <article>
-            <strong>{english ? "Urgency spike" : "Pico de urgencia"}</strong>
-            <p>{english ? "Two visits to the pricing page and one request for an implementation deck." : "Duas visitas a pagina de precos e um pedido pelo deck de implantacao."}</p>
-          </article>
-          <article>
-            <strong>{english ? "Persona fit" : "Fit de persona"}</strong>
-            <p>{english ? "Director-level profile with budget influence and active campaign ownership." : "Perfil de diretoria com influencia de budget e ownership de campanhas ativas."}</p>
-          </article>
-          <article>
-            <strong>{input.copy.nextStepLabel}</strong>
-            <p>{english ? "Enter with SPIN discovery and book a focused demo." : "Entrar com discovery SPIN e agendar uma demo focada."}</p>
-          </article>
-        </div>
-      </article>
-    </section>
-  );
+  return <SdrLeadScoreWorkspace copy={input.copy} leads={input.leads} locale={input.locale} />;
 }
 
 export function SdrAssistenteView(input: {

@@ -17,7 +17,12 @@ import {
   useState
 } from "react";
 
+import {
+  EXECUTIVE_PREMIUM_COLLECTION_HREF,
+  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
+} from "../../lib/executive-premium";
 import { fetchSearchResults } from "../../lib/product-api";
+import { useI18n } from "../../providers/I18nProvider";
 
 type SearchGroup = {
   id: string;
@@ -31,16 +36,6 @@ type SearchGroup = {
   label: string;
 };
 
-const localShortcuts = [
-  {
-    href: "/sales-os",
-    id: "shortcut-sales-os",
-    subtitle: "BirthHub Sales OS unificado com modulos, roleplays e mentor contextual.",
-    title: "Sales OS",
-    type: "shortcut"
-  }
-] as const;
-
 const iconByGroup: Record<string, LucideIcon> = {
   conversations: Sparkles,
   notifications: Sparkles,
@@ -50,6 +45,7 @@ const iconByGroup: Record<string, LucideIcon> = {
 };
 
 export function GlobalSearch() {
+  const { locale } = useI18n();
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -59,6 +55,80 @@ export function GlobalSearch() {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const deferredQuery = useDeferredValue(query);
+  const copy = useMemo(
+    () =>
+      locale === "pt-BR"
+        ? {
+            buttonLabel: "Buscar",
+            closeAriaLabel: "Fechar busca global",
+            emptyLabel: "Nenhum resultado encontrado.",
+            loadingLabel: "Buscando resultados...",
+            openAriaLabel: "Abrir busca global",
+            placeholder: "Buscar workflows, premium, reports, notificacoes, conversations e Sales OS",
+            shortcutsLabel: "Atalhos"
+          }
+        : {
+            buttonLabel: "Search",
+            closeAriaLabel: "Close global search",
+            emptyLabel: "No results found.",
+            loadingLabel: "Searching results...",
+            openAriaLabel: "Open global search",
+            placeholder: "Search workflows, premium, reports, notifications, conversations, and Sales OS",
+            shortcutsLabel: "Shortcuts"
+          },
+    [locale]
+  );
+  const localShortcuts = useMemo(
+    () =>
+      locale === "pt-BR"
+        ? [
+            {
+              href: EXECUTIVE_PREMIUM_COLLECTION_HREF,
+              id: "shortcut-executive-premium",
+              subtitle: `${EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} camadas premium para board, C-level, risco e memoria decisoria.`,
+              title: "Executive Premium",
+              type: "shortcut"
+            },
+            {
+              href: "/packs",
+              id: "shortcut-premium-packs",
+              subtitle: "Veja status, ativacao e rollout dos packs premium executivos instalados.",
+              title: "Premium Packs",
+              type: "shortcut"
+            },
+            {
+              href: "/sales-os",
+              id: "shortcut-sales-os",
+              subtitle: "BirthHub Sales OS unificado com modulos, roleplays e mentor contextual.",
+              title: "Sales OS",
+              type: "shortcut"
+            }
+          ]
+        : [
+            {
+              href: EXECUTIVE_PREMIUM_COLLECTION_HREF,
+              id: "shortcut-executive-premium",
+              subtitle: `${EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} premium layers for board, C-level, risk, and decision memory.`,
+              title: "Executive Premium",
+              type: "shortcut"
+            },
+            {
+              href: "/packs",
+              id: "shortcut-premium-packs",
+              subtitle: "Review status, activation, and rollout of installed executive premium packs.",
+              title: "Premium Packs",
+              type: "shortcut"
+            },
+            {
+              href: "/sales-os",
+              id: "shortcut-sales-os",
+              subtitle: "Unified BirthHub Sales OS with modules, roleplays, and contextual mentor.",
+              title: "Sales OS",
+              type: "shortcut"
+            }
+          ],
+    [locale]
+  );
 
   const shortcutHint = useMemo(
     () =>
@@ -150,17 +220,17 @@ export function GlobalSearch() {
       {
         id: "shortcuts",
         items: mergedShortcutItems,
-        label: existingShortcuts?.label ?? "Atalhos"
+        label: existingShortcuts?.label ?? copy.shortcutsLabel
       },
       ...otherGroups
     ];
-  }, [deferredQuery, groups]);
+  }, [copy.shortcutsLabel, deferredQuery, groups, localShortcuts]);
 
   return (
     <>
       <button
         aria-expanded={open}
-        aria-label="Abrir busca global"
+        aria-label={copy.openAriaLabel}
         className="command-button"
         onClick={() => {
           startTransition(() => {
@@ -170,14 +240,14 @@ export function GlobalSearch() {
         type="button"
       >
         <Search size={16} />
-        <span>Buscar</span>
+        <span>{copy.buttonLabel}</span>
         <kbd>{shortcutHint}</kbd>
       </button>
 
       {open ? (
         <div className="search-overlay" role="dialog" aria-modal="true">
           <button
-            aria-label="Fechar busca global"
+            aria-label={copy.closeAriaLabel}
             className="search-overlay__backdrop"
             onClick={() => setOpen(false)}
             type="button"
@@ -191,7 +261,7 @@ export function GlobalSearch() {
                     setQuery(event.target.value);
                   });
                 }}
-                placeholder="Buscar workflows, reports, notificacoes, conversations e Sales OS"
+                placeholder={copy.placeholder}
                 ref={inputRef}
                 value={query}
               />
@@ -199,9 +269,9 @@ export function GlobalSearch() {
 
             <div className="search-dialog__body">
               {error ? <p className="search-error">{error}</p> : null}
-              {isLoading ? <p className="search-muted">Buscando resultados...</p> : null}
+              {isLoading ? <p className="search-muted">{copy.loadingLabel}</p> : null}
               {!isLoading && mergedGroups.length === 0 ? (
-                <p className="search-muted">Nenhum resultado encontrado.</p>
+                <p className="search-muted">{copy.emptyLabel}</p>
               ) : null}
 
               {mergedGroups.map((group) => {
