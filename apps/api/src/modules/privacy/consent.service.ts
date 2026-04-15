@@ -73,10 +73,10 @@ type UserPreferenceRecord = {
   cookieConsent: string | null;
   emailNotifications: boolean;
   inAppNotifications: boolean;
-  lgpdConsentedAt: Date | null;
-  lgpdConsentStatus: string | null;
-  lgpdConsentVersion: string | null;
-  lgpdLegalBasis: string | null;
+  lgpdConsentedAt?: Date | null;
+  lgpdConsentStatus?: string | null;
+  lgpdConsentVersion?: string | null;
+  lgpdLegalBasis?: string | null;
   marketingEmails: boolean;
   pushNotifications: boolean;
 };
@@ -294,7 +294,6 @@ export async function ensurePrivacyConsents(input: {
   organizationReference: string;
   userId: string;
 }) {
-  const privacyConsentModel = readPrivacyModel<PrivacyConsentDelegate>("privacyConsent");
   const organization = await findOrganizationByReference(input.organizationReference);
 
   if (!organization) {
@@ -305,28 +304,36 @@ export async function ensurePrivacyConsents(input: {
     });
   }
 
-  await prisma.$transaction(
-    DEFAULT_CONSENT_PURPOSES.map((purpose) =>
-      privacyConsentModel.upsert({
-        create: {
-          lawfulBasis: LAWFUL_BASIS.CONSENT,
-          organizationId: organization.id,
-          purpose,
-          source: CONSENT_SOURCE.SETTINGS,
-          tenantId: organization.tenantId,
-          userId: input.userId
-        },
-        update: {},
-        where: {
-          organizationId_userId_purpose: {
+  await prisma.$transaction(async (tx) => {
+    const privacyConsentModel = readPrismaModel<PrivacyConsentDelegate>(
+      tx,
+      "privacyConsent",
+      "privacy consent"
+    );
+
+    await Promise.all(
+      DEFAULT_CONSENT_PURPOSES.map((purpose) =>
+        privacyConsentModel.upsert({
+          create: {
+            lawfulBasis: LAWFUL_BASIS.CONSENT,
             organizationId: organization.id,
             purpose,
+            source: CONSENT_SOURCE.SETTINGS,
+            tenantId: organization.tenantId,
             userId: input.userId
+          },
+          update: {},
+          where: {
+            organizationId_userId_purpose: {
+              organizationId: organization.id,
+              purpose,
+              userId: input.userId
+            }
           }
-        }
-      })
-    )
-  );
+        })
+      )
+    );
+  });
 
   return organization;
 }
@@ -373,10 +380,10 @@ export async function listPrivacyConsents(input: {
       cookieConsent: preferences.cookieConsent,
       emailNotifications: preferences.emailNotifications,
       inAppNotifications: preferences.inAppNotifications,
-      lgpdConsentedAt: preferences.lgpdConsentedAt,
-      lgpdConsentStatus: preferences.lgpdConsentStatus,
-      lgpdConsentVersion: preferences.lgpdConsentVersion,
-      lgpdLegalBasis: preferences.lgpdLegalBasis,
+      lgpdConsentedAt: preferences.lgpdConsentedAt ?? null,
+      lgpdConsentStatus: preferences.lgpdConsentStatus ?? null,
+      lgpdConsentVersion: preferences.lgpdConsentVersion ?? null,
+      lgpdLegalBasis: preferences.lgpdLegalBasis ?? null,
       marketingEmails: preferences.marketingEmails,
       pushNotifications: preferences.pushNotifications
     }
