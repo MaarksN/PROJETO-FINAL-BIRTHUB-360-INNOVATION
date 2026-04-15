@@ -11,7 +11,7 @@
 1. `CI` aprova o commit em `main`.
 2. `staging-preflight` valida configuração de staging.
 3. `release-sbom` gera o SBOM (`artifacts/sbom/bom.xml`) e materializa catálogo/checksums.
-4. `production-preflight` valida configuração de produção.
+4. `production-preflight` valida configuração de produção usando `ops/release/sealed/.env.production.sealed` (execução falha se o arquivo não estiver presente ou se variáveis obrigatórias estiverem ausentes).
 5. `release-smoke-gate` executa smoke do core canônico.
 6. `release-e2e-gate` executa E2E de release.
 7. `backup-health-gate` valida frescor e presença do backup operacional.

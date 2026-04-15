@@ -100,6 +100,17 @@ async function resolveBreakGlassTarget(tenantReference: string) {
 export function createBreakGlassRouter(config: ApiConfig): Router {
   const router = Router();
 
+  router.use((_request, _response, next) => {
+    next(
+      new ProblemDetailsError({
+        detail:
+          "The break-glass router is disabled because the canonical session and persistence contracts are not mounted in the active runtime.",
+        status: 404,
+        title: "Not Found"
+      })
+    );
+  });
+
   router.post(
     "/admin/break-glass/grants",
     requireAuthenticatedSession,

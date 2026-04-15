@@ -1,23 +1,38 @@
-<!-- [SOURCE] BirthHub360_Agentes_Parallel_Plan — BoardPrep AI -->
-<!-- [SOURCE] GOV-006 -->
+<!-- [SOURCE] BirthHub360_Agentes_Parallel_Plan — Executive Premium Migration -->
 # BirthHub360 Agents Registry
 
-Escopo deste índice: inventario atual dos agentes em `packages/agents/executivos`, incluindo implementacoes executaveis e casos ainda incompletos.
+Escopo deste índice: registrar a migração dos agentes executivos para o catálogo canônico em `packages/agent-packs`.
 
-| name | domain | cycle | path | status |
+## Estado atual
+
+- Local canônico de publicação: `packages/agent-packs/executive-premium-v1`
+- Fontes migradas: `packages/agent-packs/executive-premium-v1/source`
+- Pacotes instaláveis gerados: `packages/agent-packs/executive-premium-v1/*-premium-pack/manifest.json`
+- Coleção canônica: `packages/agent-packs/executive-premium-v1/manifest.json`
+
+## Mapa de migração
+
+| name | cycle | source_path | manifest_path | status |
 | --- | --- | --- | --- | --- |
-| BoardPrep AI | executivos | 1 | packages/agents/executivos/boardprep-ai | source_present |
-| BrandGuardian | executivos | 1 | packages/agents/executivos/brand-guardian | source_present |
-| BudgetFluid | executivos | 1 | packages/agents/executivos/budget-fluid | source_present |
-| CapitalAllocator | executivos | 1 | packages/agents/executivos/capital-allocator | source_present |
-| ChurnDeflector | executivos | 1 | packages/agents/executivos/churn-deflector | source_present |
-| CompetitorX-Ray | executivos | 1 | packages/agents/executivos/competitor-xray | source_present |
-| CrisisNavigator | executivos | 1 | packages/agents/executivos/crisis-navigator | source_present |
-| CulturePulse | executivos | 1 | packages/agents/executivos/culture-pulse | source_present |
-| ExpansionMapper | executivos | 1 | packages/agents/executivos/expansion-mapper | source_present |
-| MarketSentinel | executivos | 1 | packages/agents/executivos/market-sentinel | source_present |
-| NarrativeWeaver | executivos | 1 | packages/agents/executivos/narrative-weaver | source_present |
-| PipelineOracle | executivos | 1 | packages/agents/executivos/pipeline-oracle | source_present |
-| PricingOptimizer | executivos | 1 | packages/agents/executivos/pricing-optimizer | source_present |
-| QuotaArchitect | executivos | 1 | packages/agents/executivos/quota-architect | source_present |
-| TrendCatcher | executivos | 1 | packages/agents/executivos/trend-catcher | source_present |
+| BoardPrep AI | 1 | `packages/agent-packs/executive-premium-v1/source/boardprep-ai` | `packages/agent-packs/executive-premium-v1/boardprep-ai-premium-pack/manifest.json` | migrated |
+| BrandGuardian | 1 | `packages/agent-packs/executive-premium-v1/source/brand-guardian` | `packages/agent-packs/executive-premium-v1/brand-guardian-premium-pack/manifest.json` | migrated |
+| BudgetFluid | 1 | `packages/agent-packs/executive-premium-v1/source/budget-fluid` | `packages/agent-packs/executive-premium-v1/budget-fluid-premium-pack/manifest.json` | migrated |
+| CapitalAllocator | 1 | `packages/agent-packs/executive-premium-v1/source/capital-allocator` | `packages/agent-packs/executive-premium-v1/capital-allocator-premium-pack/manifest.json` | migrated |
+| ChurnDeflector | 1 | `packages/agent-packs/executive-premium-v1/source/churn-deflector` | `packages/agent-packs/executive-premium-v1/churn-deflector-premium-pack/manifest.json` | migrated |
+| CompetitorX-Ray | 1 | `packages/agent-packs/executive-premium-v1/source/competitor-xray` | `packages/agent-packs/executive-premium-v1/competitor-xray-premium-pack/manifest.json` | migrated |
+| CrisisNavigator | 1 | `packages/agent-packs/executive-premium-v1/source/crisis-navigator` | `packages/agent-packs/executive-premium-v1/crisis-navigator-premium-pack/manifest.json` | migrated |
+| CulturePulse | 1 | `packages/agent-packs/executive-premium-v1/source/culture-pulse` | `packages/agent-packs/executive-premium-v1/culture-pulse-premium-pack/manifest.json` | migrated |
+| ExpansionMapper | 1 | `packages/agent-packs/executive-premium-v1/source/expansion-mapper` | `packages/agent-packs/executive-premium-v1/expansion-mapper-premium-pack/manifest.json` | migrated |
+| MarketSentinel | 1 | `packages/agent-packs/executive-premium-v1/source/market-sentinel` | `packages/agent-packs/executive-premium-v1/market-sentinel-premium-pack/manifest.json` | migrated |
+| NarrativeWeaver | 1 | `packages/agent-packs/executive-premium-v1/source/narrative-weaver` | `packages/agent-packs/executive-premium-v1/narrative-weaver-premium-pack/manifest.json` | migrated |
+| PipelineOracle | 1 | `packages/agent-packs/executive-premium-v1/source/pipeline-oracle` | `packages/agent-packs/executive-premium-v1/pipeline-oracle-premium-pack/manifest.json` | migrated |
+| PricingOptimizer | 1 | `packages/agent-packs/executive-premium-v1/source/pricing-optimizer` | `packages/agent-packs/executive-premium-v1/pricing-optimizer-premium-pack/manifest.json` | migrated |
+| QuotaArchitect | 1 | `packages/agent-packs/executive-premium-v1/source/quota-architect` | `packages/agent-packs/executive-premium-v1/quota-architect-premium-pack/manifest.json` | migrated |
+| TrendCatcher | 1 | `packages/agent-packs/executive-premium-v1/source/trend-catcher` | `packages/agent-packs/executive-premium-v1/trend-catcher-premium-pack/manifest.json` | migrated |
+
+## Recompilação
+
+```bash
+pnpm agents:compile:executive-premium
+pnpm packs:validate
+```

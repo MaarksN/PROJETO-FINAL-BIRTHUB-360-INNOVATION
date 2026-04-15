@@ -179,6 +179,7 @@ function buildSnapshot(generatedAt, scannedFiles, scannedBySection, sections) {
 
 function collectViolations(policy) {
   const sections = createEmptySections();
+  const missingFiles = [];
   const scannedBySection = {
     compatOnly: 0,
     excluded: 0,
@@ -200,6 +201,11 @@ function collectViolations(policy) {
     }
 
     const absolutePath = path.join(projectRoot, relativePath);
+    if (!existsSync(absolutePath)) {
+      missingFiles.push(relativePath);
+      continue;
+    }
+
     const content = readFileSync(absolutePath, "utf8");
     const lines = content.split(/\r?\n/u);
 
@@ -222,7 +228,10 @@ function collectViolations(policy) {
     }
   }
 
-  return buildSnapshot(new Date().toISOString(), sourceFiles.length, scannedBySection, sections);
+  return {
+    missingFiles: normalizeViolations(missingFiles),
+    snapshot: buildSnapshot(new Date().toISOString(), sourceFiles.length, scannedBySection, sections)
+  };
 }
 
 function coerceSection(rawSection) {
@@ -315,7 +324,19 @@ function summarizeSnapshot(snapshot) {
 }
 
 const policy = readPolicy();
-const current = collectViolations(policy);
+const { missingFiles, snapshot: current } = collectViolations(policy);
+
+if (missingFiles.length > 0) {
+  console.error("[ts-directives-guard] FAILED");
+  console.error("- Git-tracked TypeScript files are missing from the working tree:");
+  for (const relativePath of missingFiles) {
+    console.error(`  - ${relativePath}`);
+  }
+  console.error(
+    "- Restore, stage, or remove the tracked paths from git before re-running the guard."
+  );
+  process.exit(1);
+}
 
 if (shouldWriteBaseline) {
   writeBaseline(current);

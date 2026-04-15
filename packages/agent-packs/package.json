@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "compile:executive-premium": "node --import tsx ../../scripts/agent/compile-executive-premium-agents.ts",
     "compile:github": "node --import tsx ../../scripts/agent/compile-github-agents.ts",
     "upgrade:github": "node --import tsx ../../scripts/agent/upgrade-github-agent-manifests.ts",
     "readiness:github": "node --import tsx ../../scripts/agent/check-github-agent-readiness.ts",
@@ -17,7 +18,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@birthub/agents-core": "workspace:*"
+    "@birthub/agents-core": "workspace:*",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
