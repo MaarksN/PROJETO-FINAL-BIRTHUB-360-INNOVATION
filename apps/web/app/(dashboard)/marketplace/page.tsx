@@ -131,8 +131,8 @@ export default async function MarketplacePage({
             <article
               key={item.agent.id}
               style={{
-                background: "rgba(19,93,102,0.08)",
-                border: "1px solid rgba(19,93,102,0.18)",
+                background: "rgba(30, 58, 138,0.08)",
+                border: "1px solid rgba(30, 58, 138,0.18)",
                 borderRadius: 14,
                 padding: "0.85rem"
               }}
@@ -166,7 +166,7 @@ export default async function MarketplacePage({
                 background: "var(--card)",
                 border: "1px solid var(--border)",
                 borderRadius: 16,
-                boxShadow: "0 12px 32px rgba(19,93,102,0.08)",
+                boxShadow: "0 12px 32px rgba(30, 58, 138,0.08)",
                 display: "grid",
                 gap: "0.45rem",
                 padding: "0.95rem"
@@ -229,8 +229,8 @@ export default async function MarketplacePage({
                 <div
                   key={item}
                   style={{
-                    background: "rgba(15,76,92,0.06)",
-                    border: "1px solid rgba(15,76,92,0.12)",
+                    background: "rgba(30, 58, 138,0.06)",
+                    border: "1px solid rgba(30, 58, 138,0.12)",
                     borderRadius: 12,
                     padding: "0.7rem"
                   }}

@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - CrisisNavigator
 import { z } from "zod";
 

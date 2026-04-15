@@ -5,8 +5,8 @@
   --surface-strong: #efe2c3;
   --text: #1f1d17;
   --muted: #6f6757;
-  --accent: #135d66;
-  --accent-strong: #0a3f45;
+  --accent: #1e3a8a;
+  --accent-strong: #172554;
   --card: rgba(255, 255, 255, 0.8);
   --border: rgba(31, 29, 23, 0.1);
   font-family: var(--font-sans), "Segoe UI", sans-serif;
@@ -25,8 +25,8 @@ body {
 
 body {
   background:
-    radial-gradient(circle at top left, rgba(19, 93, 102, 0.18), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(255, 150, 94, 0.18), transparent 35%),
+    radial-gradient(circle at top left, rgba(30, 58, 138, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(107, 33, 168, 0.18), transparent 35%),
     linear-gradient(160deg, #fcfaf5 0%, var(--surface) 48%, #f4efe1 100%);
   color: var(--text);
 }
@@ -88,7 +88,7 @@ a {
 
 .paywall-modal {
   background:
-    radial-gradient(circle at top right, rgba(19, 93, 102, 0.16), transparent 35%),
+    radial-gradient(circle at top right, rgba(30, 58, 138, 0.16), transparent 35%),
     rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(31, 29, 23, 0.12);
   border-radius: 24px;
@@ -106,7 +106,7 @@ a {
 }
 
 .badge {
-  background: rgba(19, 93, 102, 0.08);
+  background: rgba(30, 58, 138, 0.08);
   border-radius: 999px;
   color: var(--accent-strong);
   display: inline-flex;

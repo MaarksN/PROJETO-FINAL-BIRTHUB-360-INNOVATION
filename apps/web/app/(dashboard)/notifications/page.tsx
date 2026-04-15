@@ -135,7 +135,7 @@ export default function NotificationsPage() {
               <article
                 key={item.id}
                 style={{
-                  background: item.isRead ? "transparent" : "rgba(19, 93, 102, 0.08)",
+                  background: item.isRead ? "transparent" : "rgba(30, 58, 138, 0.08)",
                   border: "1px solid var(--border)",
                   borderRadius: 22,
                   display: "grid",
