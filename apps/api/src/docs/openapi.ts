@@ -14,6 +14,22 @@ import {
 import { z } from "zod";
 
 type JsonSchema = Record<string, unknown>;
+type OpenApiDocument = {
+  components: {
+    schemas: Record<string, JsonSchema>;
+  };
+  info: {
+    description: string;
+    title: string;
+    version: string;
+  };
+  jsonSchemaDialect: string;
+  openapi: string;
+  paths: Record<string, JsonSchema>;
+  servers: Array<{
+    url: string;
+  }>;
+};
 
 const problemDetailsSchema = z.object({
   detail: z.string(),
@@ -144,19 +160,7 @@ const componentSchemas = {
   TaskRequest: toOpenApiSchema(taskRequestSchema)
 } satisfies Record<string, JsonSchema>;
 
-export const openApiDocument = {
-  components: {
-    schemas: componentSchemas
-  },
-  info: {
-    description:
-      "Mounted business API baseline for the canonical BirthHub360 runtime. Operational, parked and compatibility-only surfaces are intentionally excluded.",
-    title: "BirthHub360 API",
-    version: "1.1.0"
-  },
-  jsonSchemaDialect: "https://json-schema.org/draft/2020-12/schema",
-  openapi: "3.1.0",
-  paths: {
+const openApiPaths: Record<string, JsonSchema> = {
     "/api/v1/agents/search": {
       get: {
         responses: {
@@ -373,10 +377,24 @@ export const openApiDocument = {
         tags: ["tasks"]
       }
     }
+  };
+
+export const openApiDocument: OpenApiDocument = {
+  components: {
+    schemas: componentSchemas
   },
+  info: {
+    description:
+      "Mounted business API baseline for the canonical BirthHub360 runtime. Operational, parked and compatibility-only surfaces are intentionally excluded.",
+    title: "BirthHub360 API",
+    version: "1.1.0"
+  },
+  jsonSchemaDialect: "https://json-schema.org/draft/2020-12/schema",
+  openapi: "3.1.0",
+  paths: openApiPaths,
   servers: [
     {
       url: "http://localhost:3000"
     }
   ]
-} as const;
+};
