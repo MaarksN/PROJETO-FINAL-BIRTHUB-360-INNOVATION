@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import { createLogger } from "@birthub/logger";
 import express from "express";
 import { createClient } from "redis";
+import twilio from "twilio";
 import { WebSocketServer } from "ws";
 
 export type VoiceEngineEnv = {
@@ -53,6 +54,7 @@ type RedisClientLike = {
 type LoggerLike = {
   error: (...args: unknown[]) => void;
   info: (...args: unknown[]) => void;
+  warn?: (...args: unknown[]) => void;
 };
 
 type DeepgramFactory = (apiKey: string) => unknown;
@@ -134,13 +136,35 @@ export function createVoiceEngineRuntime(options: {
     });
   }
 
+  function buildAbsoluteUrl(req: express.Request): string {
+    const host = req.get("host");
+    const protocol = req.protocol || "https";
+    return host ? `${protocol}://${host}${req.originalUrl}` : "";
+  }
+
+  function isValidTwilioSignature(req: express.Request): boolean {
+    const signature = req.get("X-Twilio-Signature");
+    const url = buildAbsoluteUrl(req);
+    if (!signature || !url) {
+      return false;
+    }
+
+    return twilio.validateRequest(env.TWILIO_AUTH_TOKEN, signature, url, req.body as Record<string, string>);
+  }
+
   function shouldClarify(sttConfidence: number): boolean {
     return sttConfidence < 0.7;
   }
 
+  app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
   app.post("/twilio/inbound", async (req, res) => {
+    if (!isValidTwilioSignature(req)) {
+      logger.warn?.({ path: req.originalUrl }, "Twilio signature validation failed");
+      return res.status(403).json({ error: "invalid_signature" });
+    }
+
     const callId = String(req.body.CallSid || crypto.randomUUID());
     const optedOut = Boolean(req.body.optOut);
     await publish("call.started", { callId, optedOut });

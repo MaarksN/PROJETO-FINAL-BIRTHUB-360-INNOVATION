@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { WebSocket } from "ws";
+import twilio from "twilio";
 
 type MockRedis = {
   connect: () => Promise<void>;
@@ -77,6 +78,77 @@ void test("voice-engine validates required env before boot", async () => {
   assert.throws(() => {
     readVoiceEngineEnv({ REDIS_URL: "redis://localhost:6379" });
   }, /Missing required env: TWILIO_ACCOUNT_SID/);
+});
+
+void test("twilio inbound request rejects missing signature", async () => {
+  process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
+  const { createVoiceEngineRuntime } = await import("./server.js");
+  const redis = createMockRedis();
+  const runtime = createVoiceEngineRuntime({
+    env: createEnv(),
+    logger: {
+      error: () => undefined,
+      info: () => undefined,
+      warn: () => undefined
+    },
+    redisClient: redis
+  });
+
+  const port = await runtime.start();
+
+  try {
+    const response = await fetch(`http://127.0.0.1:${port}/twilio/inbound`, {
+      body: new URLSearchParams({ CallSid: "CA001" }),
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      method: "POST"
+    });
+
+    assert.equal(response.status, 403);
+    assert.equal(redis.events.length, 0);
+  } finally {
+    await runtime.stop();
+  }
+});
+
+void test("twilio inbound validates signature and publishes event", async () => {
+  process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
+  const { createVoiceEngineRuntime } = await import("./server.js");
+  const redis = createMockRedis();
+  const env = createEnv();
+  const runtime = createVoiceEngineRuntime({
+    env,
+    logger: {
+      error: () => undefined,
+      info: () => undefined,
+      warn: () => undefined
+    },
+    redisClient: redis
+  });
+
+  const port = await runtime.start();
+
+  try {
+    const webhookUrl = `http://127.0.0.1:${port}/twilio/inbound`;
+    const params = { CallSid: "CA002" };
+    const signature = twilio.getExpectedTwilioSignature(env.TWILIO_AUTH_TOKEN, webhookUrl, params);
+
+    const response = await fetch(webhookUrl, {
+      body: new URLSearchParams(params),
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+        "x-twilio-signature": signature
+      },
+      method: "POST"
+    });
+
+    const payload = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(payload, /<Response>/);
+    assert.equal(redis.events.length, 1);
+    assert.equal(redis.events[0].event, "call.started");
+  } finally {
+    await runtime.stop();
+  }
 });
 
 void test("voice-engine health and websocket handshake publish runtime events", async () => {

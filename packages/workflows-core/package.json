@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "./dist/workflows-core/src/index.js",
-  "types": "./dist/workflows-core/src/index.d.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/workflows-core/src/index.d.ts",
-      "import": "./dist/workflows-core/src/index.js",
-      "default": "./dist/workflows-core/src/index.js"
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
     },
     "./nextjs": {
-      "types": "./dist/workflows-core/src/nextjs.d.ts",
-      "import": "./dist/workflows-core/src/nextjs.js",
-      "default": "./dist/workflows-core/src/nextjs.js"
+      "types": "./dist/src/nextjs.d.ts",
+      "import": "./dist/src/nextjs.js",
+      "default": "./dist/src/nextjs.js"
     }
   },
   "scripts": {

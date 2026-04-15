@@ -9,6 +9,8 @@ import { createLogger } from "@birthub/logger";
 type PreflightTarget = "production" | "staging";
 type ScopeName = "api" | "web" | "worker";
 
+const DEFAULT_PROD_ENV_FILE = "ops/release/sealed/.env.production.sealed";
+
 type ScopeResult = {
   issues: string[];
   ok: boolean;
@@ -61,14 +63,21 @@ function parseEnvFileContent(content: string): Record<string, string> {
   return env;
 }
 
-async function loadEnvOverrides(): Promise<Record<string, string>> {
-  const envFile = parseFlag("--env-file");
+async function loadEnvOverrides(target: PreflightTarget): Promise<{
+  env: Record<string, string>;
+  envFile: string | null;
+}> {
+  const envFile = parseFlag("--env-file") ?? (target === "production" ? DEFAULT_PROD_ENV_FILE : undefined);
   if (!envFile) {
-    return {};
+    return { env: {}, envFile: null };
   }
 
-  const content = await readFile(resolve(process.cwd(), envFile), "utf8");
-  return parseEnvFileContent(content);
+  const resolvedPath = resolve(process.cwd(), envFile);
+  const content = await readFile(resolvedPath, "utf8").catch((error) => {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to read env file at ${envFile}: ${reason}`);
+  });
+  return { env: parseEnvFileContent(content), envFile };
 }
 
 function buildRuntimeEnv(
@@ -144,8 +153,8 @@ function buildRequiredKeyReport(env: NodeJS.ProcessEnv) {
 
 async function main() {
   const target = resolveTarget();
-  const overrides = await loadEnvOverrides();
-  const runtimeEnv = buildRuntimeEnv(target, overrides);
+  const overrides = await loadEnvOverrides(target);
+  const runtimeEnv = buildRuntimeEnv(target, overrides.env);
   const results = [
     checkScope("api", () => getApiConfig(runtimeEnv)),
     checkScope("web", () => getWebConfig(runtimeEnv)),
@@ -157,7 +166,7 @@ async function main() {
     resolve(process.cwd(), "artifacts", "release", `${target}-preflight-summary.json`);
   const report = {
     checkedAt: new Date().toISOString(),
-    envFile: parseFlag("--env-file") ?? null,
+    envFile: overrides.envFile,
     ok: results.every((result) => result.ok),
     requiredKeys,
     results,
