@@ -43,7 +43,7 @@
 }
 
 .analytics-line span {
-  background: linear-gradient(180deg, rgba(12, 102, 82, 0.94), rgba(245, 102, 72, 0.82));
+  background: linear-gradient(180deg, rgba(30, 58, 138, 0.94), rgba(107, 33, 168, 0.82));
   border-radius: 16px 16px 3px 3px;
   flex: 1;
   min-width: 14px;

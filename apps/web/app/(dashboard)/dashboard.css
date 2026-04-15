@@ -50,7 +50,7 @@
 }
 
 .dashboard-nav a:hover {
-  background: rgba(19, 93, 102, 0.08);
+  background: rgba(30, 58, 138, 0.08);
 }
 
 .dashboard-content {
@@ -200,7 +200,7 @@
 
 .dashboard-meter {
   appearance: none;
-  background: rgba(19, 93, 102, 0.08);
+  background: rgba(30, 58, 138, 0.08);
   border: 0;
   border-radius: 999px;
   height: 12px;
@@ -209,7 +209,7 @@
 }
 
 .dashboard-meter::-webkit-progress-bar {
-  background: rgba(19, 93, 102, 0.08);
+  background: rgba(30, 58, 138, 0.08);
   border-radius: inherit;
 }
 
@@ -266,7 +266,7 @@
 
 .hero-card {
   background:
-    radial-gradient(circle at top right, rgba(19, 93, 102, 0.14), transparent 32%),
+    radial-gradient(circle at top right, rgba(30, 58, 138, 0.14), transparent 32%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 243, 234, 0.88));
 }
 
@@ -353,12 +353,12 @@ select {
 }
 
 .badge {
-  background: rgba(19, 93, 102, 0.08);
+  background: rgba(30, 58, 138, 0.08);
   color: var(--accent-strong);
 }
 
 .status-pill {
-  background: rgba(255, 150, 94, 0.14);
+  background: rgba(107, 33, 168, 0.14);
   color: #9b5723;
 }
 
@@ -375,7 +375,7 @@ select {
 }
 
 .billing-banner {
-  background: linear-gradient(90deg, rgba(255, 185, 70, 0.94), rgba(255, 120, 70, 0.94));
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.94), rgba(184, 134, 11, 0.94));
   border-radius: 20px;
   color: #3b2202;
   font-weight: 600;
@@ -396,7 +396,7 @@ select {
 
 .paywall-modal {
   background:
-    radial-gradient(circle at top right, rgba(19, 93, 102, 0.16), transparent 35%),
+    radial-gradient(circle at top right, rgba(30, 58, 138, 0.16), transparent 35%),
     rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(31, 29, 23, 0.12);
   border-radius: 24px;
@@ -423,7 +423,7 @@ select {
 }
 
 .meter {
-  background: rgba(19, 93, 102, 0.08);
+  background: rgba(30, 58, 138, 0.08);
   border-radius: 999px;
   height: 12px;
   overflow: hidden;
@@ -442,7 +442,7 @@ select {
 }
 
 .trend-bars span {
-  background: linear-gradient(180deg, rgba(19, 93, 102, 0.94), rgba(255, 150, 94, 0.78));
+  background: linear-gradient(180deg, rgba(30, 58, 138, 0.94), rgba(107, 33, 168, 0.78));
   border-radius: 14px 14px 4px 4px;
   flex: 1;
   min-width: 32px;

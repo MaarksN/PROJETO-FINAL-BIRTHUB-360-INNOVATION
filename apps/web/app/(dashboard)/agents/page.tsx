@@ -92,7 +92,7 @@ export default async function AgentsPage() {
         }}
       >
         <table style={{ borderCollapse: "collapse", width: "100%" }}>
-          <thead style={{ background: "rgba(19, 93, 102, 0.09)" }}>
+          <thead style={{ background: "rgba(30, 58, 138, 0.09)" }}>
             <tr>
               <th style={{ padding: "0.75rem", textAlign: "left" }}>Nome</th>
               <th style={{ padding: "0.75rem", textAlign: "left" }}>Versao</th>
