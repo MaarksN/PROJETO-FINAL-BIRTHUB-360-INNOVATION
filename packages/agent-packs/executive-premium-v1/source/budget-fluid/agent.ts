@@ -46,15 +46,12 @@ const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
-  "packages",
-  "agents",
-  "executivos",
+  "packages",`r`n  "agent-packs",`r`n  "executive-premium-v1",`r`n  "source",
   "budget-fluid",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
-  process.cwd(),
-  "executivos",
+  process.cwd(),`r`n  "source",
   "budget-fluid",
   "contract.yaml"
 );
@@ -195,7 +192,7 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
     return "audit_file";
   }
   if (
-    normalized.endsWith(path.join("executivos", "budget-fluid", "contract.yaml").toLowerCase())
+    normalized.endsWith(path.join("source", "budget-fluid", "contract.yaml").toLowerCase())
   ) {
     return "package_file";
   }

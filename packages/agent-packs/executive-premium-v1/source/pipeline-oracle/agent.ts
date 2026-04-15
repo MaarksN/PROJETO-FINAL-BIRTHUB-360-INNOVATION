@@ -47,15 +47,12 @@ const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
-  "packages",
-  "agents",
-  "executivos",
+  "packages",`r`n  "agent-packs",`r`n  "executive-premium-v1",`r`n  "source",
   "pipeline-oracle",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
-  process.cwd(),
-  "executivos",
+  process.cwd(),`r`n  "source",
   "pipeline-oracle",
   "contract.yaml"
 );
@@ -197,7 +194,7 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   }
   if (
     normalized.endsWith(
-      path.join("executivos", "pipeline-oracle", "contract.yaml").toLowerCase()
+      path.join("source", "pipeline-oracle", "contract.yaml").toLowerCase()
     )
   ) {
     return "package_file";

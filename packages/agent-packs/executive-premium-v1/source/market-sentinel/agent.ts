@@ -46,15 +46,12 @@ const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
-  "packages",
-  "agents",
-  "executivos",
+  "packages",`r`n  "agent-packs",`r`n  "executive-premium-v1",`r`n  "source",
   "market-sentinel",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
-  process.cwd(),
-  "executivos",
+  process.cwd(),`r`n  "source",
   "market-sentinel",
   "contract.yaml"
 );
@@ -196,7 +193,7 @@ function classifyContractSource(contractPath: string): LoadedContract["source"] 
   }
   if (
     normalized.endsWith(
-      path.join("executivos", "market-sentinel", "contract.yaml").toLowerCase()
+      path.join("source", "market-sentinel", "contract.yaml").toLowerCase()
     )
   ) {
     return "package_file";
