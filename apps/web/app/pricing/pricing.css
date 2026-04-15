@@ -10,8 +10,8 @@
 .pricing-hero {
   backdrop-filter: blur(18px);
   background:
-    radial-gradient(circle at top right, rgba(12, 102, 82, 0.18), transparent 36%),
-    radial-gradient(circle at left bottom, rgba(245, 102, 72, 0.14), transparent 34%),
+    radial-gradient(circle at top right, rgba(30, 58, 138, 0.18), transparent 36%),
+    radial-gradient(circle at left bottom, rgba(107, 33, 168, 0.14), transparent 34%),
     rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(31, 29, 23, 0.12);
   border-radius: 28px;

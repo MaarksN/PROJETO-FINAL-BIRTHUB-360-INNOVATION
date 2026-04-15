@@ -253,7 +253,7 @@ export default function ConversationsPage() {
                     });
                   }}
                   style={{
-                    background: selectedId === item.id ? "rgba(19, 93, 102, 0.08)" : "transparent",
+                    background: selectedId === item.id ? "rgba(30, 58, 138, 0.08)" : "transparent",
                     border: "1px solid var(--border)",
                     borderRadius: 20,
                     color: "inherit",
@@ -342,7 +342,7 @@ export default function ConversationsPage() {
                       style={{
                         background:
                           message.direction === "internal"
-                            ? "rgba(19, 93, 102, 0.08)"
+                            ? "rgba(30, 58, 138, 0.08)"
                             : "rgba(255,255,255,0.48)",
                         border: "1px solid var(--border)",
                         borderRadius: 18,

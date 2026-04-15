@@ -44,6 +44,6 @@ void test("maestro orchestrator pack is discoverable in the catalog", async () =
   assert.ok(maestro, "Expected maestro-orchestrator-pack in search results");
   assert.match(
     maestro.manifest.agent.prompt,
-    /agent_selected|needs_approval|audit_notes/
+    /agente selecionado|pedido de aprovação/
   );
 });

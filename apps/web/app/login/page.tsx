@@ -33,8 +33,8 @@ export default async function LoginPage() {
           <BrandLogo href="/login" showTagline size="lg" theme="light" />
           <div
             style={{
-              background: "rgba(19, 93, 102, 0.08)",
-              border: "1px solid rgba(19, 93, 102, 0.16)",
+              background: "rgba(30, 58, 138, 0.08)",
+              border: "1px solid rgba(30, 58, 138, 0.16)",
               borderRadius: "1.25rem",
               padding: "1rem"
             }}
