@@ -2,6 +2,12 @@
 
 Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json` ou `agents/*/package.json` for alterado.
 
+## 2026-04-15
+
+### Workflows core dependencies
+
+- `@birthub/workflows-core` agora declara dependência direta de `@birthub/logger` e expõe um `tsconfig.eslint.json` dedicado para lint/typecheck sem incluir testes no build, alinhando o bootstrap de CI das rotas de plataforma.
+
 ## 2026-03-31
 
 ### Database CI bootstrap lane

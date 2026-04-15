@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import styles from "./sdr-automatic-platform.module.css";
 import { SdrLeadScoreView, SdrAssistenteView, SdrAgendadorView, SdrHandoffView } from "./SdrAutomaticViews";
-import { getSdrAutomaticConfig, type SdrAutomaticLead } from "./sdr-automatic-data";
+import { getSdrAutomaticConfig } from "./sdr-automatic-data";
 
 export function SdrAutomaticPlatform({ locale }: { locale: "en-US" | "pt-BR" }) {
   const [activeTab, setActiveTab] = useState("score");
@@ -26,8 +26,6 @@ export function SdrAutomaticPlatform({ locale }: { locale: "en-US" | "pt-BR" }) 
 
   // Usando configuração real
   const { copy, leads, timeSlots } = getSdrAutomaticConfig(locale);
-  // Pega o primeiro lead como amostra
-  const prospect = leads[0];
 
   return (
     <div className={styles.platformContainer}>

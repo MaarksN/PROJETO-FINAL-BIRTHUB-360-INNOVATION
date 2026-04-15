@@ -100,7 +100,7 @@ async function resolveBreakGlassTarget(tenantReference: string) {
 export function createBreakGlassRouter(config: ApiConfig): Router {
   const router = Router();
 
-  router.use((_request, _response, next) => {
+  router.use("/admin/break-glass", (_request, _response, next) => {
     next(
       new ProblemDetailsError({
         detail:

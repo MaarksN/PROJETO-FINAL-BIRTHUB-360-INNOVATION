@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { ProductPageHeader } from "../../../../components/dashboard/page-fragments";
-import { SdrAutomaticPlatform } from "../../../../components/sales-os/SdrAutomaticPlatform";
+import { SdrAutomaticPlatform } from "../../../../components/sales-os/sdr-automatic-platform";
 import { getRequestLocale } from "../../../../lib/i18n.server";
 
 const pageCopy = {
