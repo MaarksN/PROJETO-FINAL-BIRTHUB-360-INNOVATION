@@ -198,20 +198,16 @@ export function SdrLeadScoreWorkspace(input: {
     startTransition(() => {
       setLiveLeads((current) => applyPollingFrameToLeads(current, frame));
       setMetrics((current) => applyPollingFrameToMetrics(current, frame));
-      setTrendPoints((current) => applyPollingFrameToTrend(current, frame));
+      setTrendPoints((current) => applyPollingFrameToTrend(current, frame, input.locale));
       setLastUpdatedAt(Date.now());
       setSecondsSinceUpdate(0);
-      setPollStep((current) => Math.min(current + 1, LEAD_POLLING_FRAMES.length));
+      setPollStep((current) => current + 1);
     });
   });
 
   useEffect(() => {
-    if (pollStep >= LEAD_POLLING_FRAMES.length) {
-      return;
-    }
-
     const intervalId = window.setInterval(() => {
-      runPollingFrame(pollStep);
+      runPollingFrame(pollStep % LEAD_POLLING_FRAMES.length);
     }, 8_000);
 
     return () => {

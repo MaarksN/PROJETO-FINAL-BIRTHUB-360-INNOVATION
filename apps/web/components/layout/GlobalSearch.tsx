@@ -18,23 +18,12 @@ import {
 } from "react";
 
 import {
-  EXECUTIVE_PREMIUM_COLLECTION_HREF,
-  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
-} from "../../lib/executive-premium";
+  getGlobalSearchCopy,
+  mergeGlobalSearchGroups,
+  type GlobalSearchGroup
+} from "../../lib/global-search";
 import { fetchSearchResults } from "../../lib/product-api";
 import { useI18n } from "../../providers/I18nProvider";
-
-type SearchGroup = {
-  id: string;
-  items: Array<{
-    href: string;
-    id: string;
-    subtitle: string;
-    title: string;
-    type: string;
-  }>;
-  label: string;
-};
 
 const iconByGroup: Record<string, LucideIcon> = {
   conversations: Sparkles,
@@ -51,84 +40,11 @@ export function GlobalSearch() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [groups, setGroups] = useState<SearchGroup[]>([]);
+  const [groups, setGroups] = useState<GlobalSearchGroup[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const deferredQuery = useDeferredValue(query);
-  const copy = useMemo(
-    () =>
-      locale === "pt-BR"
-        ? {
-            buttonLabel: "Buscar",
-            closeAriaLabel: "Fechar busca global",
-            emptyLabel: "Nenhum resultado encontrado.",
-            loadingLabel: "Buscando resultados...",
-            openAriaLabel: "Abrir busca global",
-            placeholder: "Buscar workflows, premium, reports, notificacoes, conversations e Sales OS",
-            shortcutsLabel: "Atalhos"
-          }
-        : {
-            buttonLabel: "Search",
-            closeAriaLabel: "Close global search",
-            emptyLabel: "No results found.",
-            loadingLabel: "Searching results...",
-            openAriaLabel: "Open global search",
-            placeholder: "Search workflows, premium, reports, notifications, conversations, and Sales OS",
-            shortcutsLabel: "Shortcuts"
-          },
-    [locale]
-  );
-  const localShortcuts = useMemo(
-    () =>
-      locale === "pt-BR"
-        ? [
-            {
-              href: EXECUTIVE_PREMIUM_COLLECTION_HREF,
-              id: "shortcut-executive-premium",
-              subtitle: `${EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} camadas premium para board, C-level, risco e memoria decisoria.`,
-              title: "Executive Premium",
-              type: "shortcut"
-            },
-            {
-              href: "/packs",
-              id: "shortcut-premium-packs",
-              subtitle: "Veja status, ativacao e rollout dos packs premium executivos instalados.",
-              title: "Premium Packs",
-              type: "shortcut"
-            },
-            {
-              href: "/sales-os",
-              id: "shortcut-sales-os",
-              subtitle: "BirthHub Sales OS unificado com modulos, roleplays e mentor contextual.",
-              title: "Sales OS",
-              type: "shortcut"
-            }
-          ]
-        : [
-            {
-              href: EXECUTIVE_PREMIUM_COLLECTION_HREF,
-              id: "shortcut-executive-premium",
-              subtitle: `${EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} premium layers for board, C-level, risk, and decision memory.`,
-              title: "Executive Premium",
-              type: "shortcut"
-            },
-            {
-              href: "/packs",
-              id: "shortcut-premium-packs",
-              subtitle: "Review status, activation, and rollout of installed executive premium packs.",
-              title: "Premium Packs",
-              type: "shortcut"
-            },
-            {
-              href: "/sales-os",
-              id: "shortcut-sales-os",
-              subtitle: "Unified BirthHub Sales OS with modules, roleplays, and contextual mentor.",
-              title: "Sales OS",
-              type: "shortcut"
-            }
-          ],
-    [locale]
-  );
+  const copy = useMemo(() => getGlobalSearchCopy(locale), [locale]);
 
   const shortcutHint = useMemo(
     () =>
@@ -179,7 +95,7 @@ export function GlobalSearch() {
         })
         .catch((searchError) => {
           setError(
-            searchError instanceof Error ? searchError.message : "Falha ao carregar busca global."
+            searchError instanceof Error ? searchError.message : copy.errorLabel
           );
         })
         .finally(() => {
@@ -190,41 +106,17 @@ export function GlobalSearch() {
     return () => {
       window.clearTimeout(timeout);
     };
-  }, [deferredQuery, open, pathname]);
+  }, [copy.errorLabel, deferredQuery, open, pathname]);
 
-  const mergedGroups = useMemo(() => {
-    const normalizedQuery = deferredQuery.trim().toLowerCase();
-    const matchedShortcuts = localShortcuts.filter((item) => {
-      if (!normalizedQuery) {
-        return true;
-      }
-
-      const haystack = `${item.title} ${item.subtitle} ${item.type}`.toLowerCase();
-      return haystack.includes(normalizedQuery);
-    });
-
-    if (matchedShortcuts.length === 0) {
-      return groups;
-    }
-
-    const existingShortcuts = groups.find((group) => group.id === "shortcuts");
-    const mergedShortcutItems = [
-      ...(existingShortcuts?.items ?? []),
-      ...matchedShortcuts.filter(
-        (shortcut) => !(existingShortcuts?.items ?? []).some((item) => item.href === shortcut.href)
-      )
-    ];
-    const otherGroups = groups.filter((group) => group.id !== "shortcuts");
-
-    return [
-      {
-        id: "shortcuts",
-        items: mergedShortcutItems,
-        label: existingShortcuts?.label ?? copy.shortcutsLabel
-      },
-      ...otherGroups
-    ];
-  }, [copy.shortcutsLabel, deferredQuery, groups, localShortcuts]);
+  const mergedGroups = useMemo(
+    () =>
+      mergeGlobalSearchGroups({
+        groups,
+        locale,
+        query: deferredQuery
+      }),
+    [deferredQuery, groups, locale]
+  );
 
   return (
     <>

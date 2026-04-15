@@ -3,10 +3,13 @@ import test from "node:test";
 
 import { getSdrAutomaticConfig } from "../components/sales-os/sdr-automatic-data";
 import {
+  applyPollingFrameToTrend,
   buildLeadCsv,
   buildSupportReply,
   createInitialMetrics,
+  createInitialTrendSeries,
   filterLeads,
+  LEAD_POLLING_FRAMES,
   paginateLeads
 } from "../components/sales-os/sdr-automatic-dashboard";
 
@@ -61,4 +64,68 @@ void test("support reply summarizes SLA pressure from live metrics", () => {
 
   assert.match(reply, /violacoes de SLA/i);
   assert.match(reply, /Julia Andrade|Rafael Castro/i);
+});
+
+void test("live trend polling keeps a rolling chart window with fresh timestamps", () => {
+  const trend = createInitialTrendSeries("pt-BR");
+  const expectedLabel = new Intl.DateTimeFormat("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(new Date("2026-04-15T13:45:30.000Z"));
+  const updated = applyPollingFrameToTrend(
+    trend,
+    LEAD_POLLING_FRAMES[0],
+    "pt-BR",
+    new Date("2026-04-15T13:45:30.000Z")
+  );
+
+  assert.equal(updated.length, trend.length);
+  assert.equal(updated[0]?.label, trend[1]?.label);
+  assert.equal(updated[updated.length - 1]?.label, expectedLabel);
+  assert.equal(
+    updated[updated.length - 1]?.leads,
+    (trend[trend.length - 1]?.leads ?? 0) + LEAD_POLLING_FRAMES[0]!.activeLeadsDelta
+  );
+});
+
+void test("support reply lists active date, stage, and score filters", () => {
+  const { leads } = getSdrAutomaticConfig("pt-BR");
+  const reply = buildSupportReply({
+    filters: {
+      createdFrom: "2026-04-14",
+      createdTo: "2026-04-15",
+      query: "connecta",
+      scoreBands: ["critical"],
+      stages: ["proposal"]
+    },
+    leads,
+    locale: "pt-BR",
+    metrics: createInitialMetrics(leads),
+    question: "Quais filtros estao ativos?"
+  });
+
+  assert.match(reply, /E-mail: connecta/i);
+  assert.match(reply, /De: 2026-04-14/i);
+  assert.match(reply, /Ate: 2026-04-15/i);
+  assert.match(reply, /Estagios: Proposta/i);
+  assert.match(reply, /Faixas de score: Critico/i);
+});
+
+void test("support reply handles empty score views gracefully", () => {
+  const reply = buildSupportReply({
+    filters: {
+      createdFrom: "2026-04-14",
+      createdTo: "2026-04-15",
+      query: "sem.resultado@birthub.com",
+      scoreBands: [],
+      stages: []
+    },
+    leads: [],
+    locale: "pt-BR",
+    metrics: createInitialMetrics([]),
+    question: "Quem tem maior score?"
+  });
+
+  assert.match(reply, /Nao ha leads na visao filtrada atual/i);
 });

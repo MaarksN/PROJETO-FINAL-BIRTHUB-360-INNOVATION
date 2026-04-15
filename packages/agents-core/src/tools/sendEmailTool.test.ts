@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -34,14 +33,14 @@ void test("SendEmailTool sends mail with explicit configuration", async () => {
 
   const tool = new SendEmailTool({
     apiKey: "sg-test-key",
-    fetchImpl: async (_input, init) => {
+    fetchImpl: (_input, init) => {
       capturedInit = init;
-      return new Response(null, {
+      return Promise.resolve(new Response(null, {
         headers: {
           "x-message-id": "msg-123"
         },
         status: 202
-      });
+      }));
     },
     fromEmail: "noreply@example.com"
   });
@@ -58,20 +57,20 @@ void test("SendEmailTool sends mail with explicit configuration", async () => {
     }
   );
 
-  const headers = capturedInit?.headers as Record<string, string>;
   const payload = readJsonBody(capturedInit) as {
     from: { email: string };
     personalizations: Array<{ custom_args: { tenant_id: string } }>;
     subject?: string;
   };
+  const headers = new Headers(capturedInit?.headers);
 
   assert.deepEqual(output, {
     accepted: true,
     messageId: "msg-123",
     statusCode: 202
   });
-  assert.equal(headers.Authorization, "Bearer sg-test-key");
-  assert.equal(headers["Content-Type"], "application/json");
+  assert.equal(headers.get("Authorization"), "Bearer sg-test-key");
+  assert.equal(headers.get("Content-Type"), "application/json");
   assert.equal(payload.from.email, "noreply@example.com");
   assert.equal(payload.personalizations[0]?.custom_args.tenant_id, "tenant-1");
   assert.equal(payload.subject, "Hello");

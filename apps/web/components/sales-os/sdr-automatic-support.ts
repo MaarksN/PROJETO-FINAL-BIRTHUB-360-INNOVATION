@@ -26,6 +26,12 @@ function buildSlaReply(
   metrics: LiveDashboardMetrics,
   breachedLeads: SdrAutomaticLead[]
 ): string {
+  if (breachedLeads.length === 0) {
+    return isEnglish(locale)
+      ? `There are no active SLA breaches in the current view. The queue is healthy for now, so the next best move is to protect the highest-scoring leads.`
+      : `Nao ha violacoes de SLA ativas na visao atual. A fila esta saudavel por enquanto, entao o melhor proximo passo e proteger os leads com maior score.`;
+  }
+
   const leadNames = breachedLeads.slice(0, 2).map((lead) => lead.name);
   const highlightedQueue = leadNames.join(isEnglish(locale) ? " and " : " e ");
 
@@ -45,6 +51,12 @@ function buildMetricsReply(locale: SupportedLocale, metrics: LiveDashboardMetric
 }
 
 function buildScoreReply(locale: SupportedLocale, leads: SdrAutomaticLead[]): string {
+  if (leads.length === 0) {
+    return isEnglish(locale)
+      ? "There are no leads in the current filtered view yet. Clear a filter or expand the date range to see more pipeline."
+      : "Nao ha leads na visao filtrada atual. Limpe um filtro ou amplie a faixa de datas para ver mais pipeline.";
+  }
+
   const summary = leads
     .slice(0, 3)
     .map((lead) => `${lead.name} (${lead.score})`)
@@ -61,6 +73,8 @@ function buildFilterReply(locale: SupportedLocale, filters: LeadFilters): string
   const copy = getLeadDashboardCopy(locale);
   const activeFilters = [
     filters.query ? `${copy.emailColumn}: ${filters.query}` : null,
+    filters.createdFrom ? `${copy.dateFromLabel}: ${filters.createdFrom}` : null,
+    filters.createdTo ? `${copy.dateToLabel}: ${filters.createdTo}` : null,
     filters.stages.length > 0
       ? `${copy.stageFilterLabel}: ${filters.stages.map((stage) => copy.stageLabels[stage]).join(", ")}`
       : null,

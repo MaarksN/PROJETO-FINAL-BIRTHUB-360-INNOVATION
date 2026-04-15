@@ -13,7 +13,7 @@ import {
 
 void test("runtime worker processor injects normalized job context", async () => {
   const contexts: Array<{ jobId: string; tenantId?: string; traceId?: string }> = [];
-  const processor = createRuntimeWorkerProcessor("tenant-jobs", async (_data, context) => {
+  const processor = createRuntimeWorkerProcessor("tenant-jobs", (_data, context) => {
     contexts.push(context);
     return { ok: true };
   });
@@ -156,8 +156,9 @@ void test("queue manager schedules recurring jobs from the central configuration
   const scheduled: RepeatableJobRequest[] = [];
   const manager = Object.create(QueueManager.prototype) as QueueManager;
 
-  manager.upsertRepeatableJob = async <DataType>(request: RepeatableJobRequest<DataType>) => {
+  manager.upsertRepeatableJob = <DataType>(request: RepeatableJobRequest<DataType>) => {
     scheduled.push(request);
+    return Promise.resolve();
   };
 
   await QueueManager.prototype.scheduleRecurringJobs.call(manager);

@@ -40,6 +40,9 @@ void test("openApiDocument publishes the mounted business API baseline and exclu
 
   assert.deepEqual(publishedPaths, [
     "/api/v1/agents/search",
+    "/api/v1/apikeys",
+    "/api/v1/apikeys/{id}",
+    "/api/v1/apikeys/{id}/rotate",
     "/api/v1/auth/introspect",
     "/api/v1/auth/login",
     "/api/v1/auth/logout",
@@ -49,7 +52,9 @@ void test("openApiDocument publishes the mounted business API baseline and exclu
     "/api/v1/auth/refresh",
     "/api/v1/budgets/usage",
     "/api/v1/me",
+    "/api/v1/organizations",
     "/api/v1/outputs",
+    "/api/v1/privacy/delete-account",
     "/api/v1/sessions",
     "/api/v1/sessions/logout-all",
     "/api/v1/sessions/{sessionId}",
@@ -58,5 +63,6 @@ void test("openApiDocument publishes the mounted business API baseline and exclu
 
   assert.equal(Object.hasOwn(payload.paths, "/api/v1/auth/logout-all"), false);
   assert.equal(Object.hasOwn(payload.paths, "/api/v1/clinical"), false);
+  assert.equal(Object.hasOwn(payload.paths, "/api/v1/orgs"), false);
   assert.deepEqual(payload, openApiDocument);
 });

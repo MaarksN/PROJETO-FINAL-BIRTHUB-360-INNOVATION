@@ -1,9 +1,16 @@
 import {
+  apiKeyCreateRequestSchema,
+  apiKeyCreateResponseSchema,
+  apiKeyListResponseSchema,
   authIntrospectionResponseSchema,
+  createOrganizationRequestSchema,
+  createOrganizationResponseSchema,
   loginRequestSchema,
   loginResponseSchema,
   logoutResponseSchema,
   mfaVerifyRequestSchema,
+  privacyDeleteRequestSchema,
+  privacyDeleteResponseSchema,
   refreshRequestSchema,
   refreshResponseSchema,
   roleSchema,
@@ -82,6 +89,11 @@ const profileResponseSchema = z.object({
   })
 });
 
+const apiKeyRevocationResponseSchema = z.object({
+  requestId: z.string(),
+  revoked: z.literal(true)
+});
+
 function normalizeJsonSchema(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map((item) => normalizeJsonSchema(item));
@@ -143,7 +155,13 @@ function problemResponse(description: string): JsonSchema {
 }
 
 const componentSchemas = {
+  ApiKeyCreateRequest: toOpenApiSchema(apiKeyCreateRequestSchema),
+  ApiKeyCreateResponse: toOpenApiSchema(apiKeyCreateResponseSchema),
+  ApiKeyListResponse: toOpenApiSchema(apiKeyListResponseSchema),
+  ApiKeyRevocationResponse: toOpenApiSchema(apiKeyRevocationResponseSchema),
   AuthIntrospectionResponse: toOpenApiSchema(authIntrospectionResponseSchema),
+  CreateOrganizationRequest: toOpenApiSchema(createOrganizationRequestSchema),
+  CreateOrganizationResponse: toOpenApiSchema(createOrganizationResponseSchema),
   EnableMfaRequest: toOpenApiSchema(enableMfaRequestSchema),
   EnableMfaResponse: toOpenApiSchema(enableMfaResponseSchema),
   LoginRequest: toOpenApiSchema(loginRequestSchema),
@@ -153,6 +171,8 @@ const componentSchemas = {
   MfaVerifyRequest: toOpenApiSchema(mfaVerifyRequestSchema),
   ProblemDetails: toOpenApiSchema(problemDetailsSchema),
   ProfileResponse: toOpenApiSchema(profileResponseSchema),
+  PrivacyDeleteRequest: toOpenApiSchema(privacyDeleteRequestSchema),
+  PrivacyDeleteResponse: toOpenApiSchema(privacyDeleteResponseSchema),
   RefreshRequest: toOpenApiSchema(refreshRequestSchema),
   RefreshResponse: toOpenApiSchema(refreshResponseSchema),
   SessionListResponse: toOpenApiSchema(sessionListResponseSchema),
@@ -170,6 +190,88 @@ const openApiPaths: Record<string, JsonSchema> = {
         },
         summary: "Search agent manifests",
         tags: ["agents"]
+      }
+    },
+    "/api/v1/apikeys": {
+      get: {
+        operationId: "listApiKeys",
+        responses: {
+          "200": jsonResponse(
+            "Lists tenant API keys available to the authenticated administrator.",
+            "ApiKeyListResponse"
+          ),
+          "401": problemResponse("A valid authenticated session is required."),
+          "403": problemResponse("Administrator role is required."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "List tenant API keys",
+        tags: ["apikeys"]
+      },
+      post: {
+        operationId: "createApiKey",
+        requestBody: jsonRequestBody(
+          "ApiKeyCreateRequest",
+          "Label and scopes for the tenant API key."
+        ),
+        responses: {
+          "201": jsonResponse("Creates and returns a new tenant API key.", "ApiKeyCreateResponse"),
+          "400": problemResponse("Request payload is invalid."),
+          "401": problemResponse("A valid authenticated session is required."),
+          "403": problemResponse("Administrator role is required."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Create a tenant API key",
+        tags: ["apikeys"]
+      }
+    },
+    "/api/v1/apikeys/{id}": {
+      delete: {
+        operationId: "revokeApiKey",
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            schema: {
+              minLength: 1,
+              type: "string"
+            }
+          }
+        ],
+        responses: {
+          "200": jsonResponse("Revokes the selected tenant API key.", "ApiKeyRevocationResponse"),
+          "400": problemResponse("A valid API key id is required."),
+          "401": problemResponse("A valid authenticated session is required."),
+          "403": problemResponse("Administrator role is required."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Revoke a tenant API key",
+        tags: ["apikeys"]
+      }
+    },
+    "/api/v1/apikeys/{id}/rotate": {
+      post: {
+        operationId: "rotateApiKey",
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            schema: {
+              minLength: 1,
+              type: "string"
+            }
+          }
+        ],
+        responses: {
+          "200": jsonResponse("Rotates and returns a replacement tenant API key.", "ApiKeyCreateResponse"),
+          "400": problemResponse("A valid API key id is required."),
+          "401": problemResponse("A valid authenticated session is required."),
+          "403": problemResponse("Administrator role is required."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Rotate a tenant API key",
+        tags: ["apikeys"]
       }
     },
     "/api/v1/auth/introspect": {
@@ -301,6 +403,26 @@ const openApiPaths: Record<string, JsonSchema> = {
         tags: ["profile"]
       }
     },
+    "/api/v1/organizations": {
+      post: {
+        operationId: "createOrganization",
+        requestBody: jsonRequestBody(
+          "CreateOrganizationRequest",
+          "Provisioning payload for a new organization and its owner account."
+        ),
+        responses: {
+          "201": jsonResponse(
+            "Creates a new organization and returns its owner bootstrap payload.",
+            "CreateOrganizationResponse"
+          ),
+          "400": problemResponse("Request payload is invalid."),
+          "409": problemResponse("The requested organization slug is already in use."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Create an organization",
+        tags: ["organizations"]
+      }
+    },
     "/api/v1/outputs": {
       get: {
         responses: {
@@ -310,6 +432,27 @@ const openApiPaths: Record<string, JsonSchema> = {
         },
         summary: "List outputs",
         tags: ["outputs"]
+      }
+    },
+    "/api/v1/privacy/delete-account": {
+      post: {
+        operationId: "deleteAccountAndPersonalData",
+        requestBody: jsonRequestBody(
+          "PrivacyDeleteRequest",
+          "Confirmation payload required to delete the authenticated account."
+        ),
+        responses: {
+          "200": jsonResponse(
+            "Deletes the authenticated account and returns the anonymization outcome.",
+            "PrivacyDeleteResponse"
+          ),
+          "400": problemResponse("Request payload or confirmation text is invalid."),
+          "401": problemResponse("A valid authenticated session is required."),
+          "404": problemResponse("Organization or user was not found for privacy deletion."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Delete the authenticated account",
+        tags: ["privacy"]
       }
     },
     "/api/v1/sessions": {
@@ -387,7 +530,7 @@ export const openApiDocument: OpenApiDocument = {
     description:
       "Mounted business API baseline for the canonical BirthHub360 runtime. Operational, parked and compatibility-only surfaces are intentionally excluded.",
     title: "BirthHub360 API",
-    version: "1.1.0"
+    version: "1.2.0"
   },
   jsonSchemaDialect: "https://json-schema.org/draft/2020-12/schema",
   openapi: "3.1.0",

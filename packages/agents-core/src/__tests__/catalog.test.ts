@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
@@ -12,12 +11,22 @@ import {
   isInstallableManifest,
   loadManifestCatalog,
   recommendAgentsForTenant,
-  searchManifestCatalog
+  searchManifestCatalog,
+  type ManifestCatalogEntry
 } from "../manifest/catalog.js";
 import { parseAgentManifest } from "../manifest/parser.js";
-import { MANIFEST_VERSION } from "../manifest/schema.js";
+import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema.js";
 
-function createManifest(overrides = {}) {
+type ManifestOverrides = {
+  agent?: Partial<AgentManifest["agent"]>;
+  keywords?: AgentManifest["keywords"];
+  policies?: AgentManifest["policies"];
+  skills?: AgentManifest["skills"];
+  tags?: Partial<AgentManifest["tags"]>;
+  tools?: AgentManifest["tools"];
+};
+
+function createManifest(overrides: ManifestOverrides = {}): AgentManifest {
   return parseAgentManifest({
     agent: {
       changelog: ["Initial release"],
@@ -107,7 +116,7 @@ const salesManifest = createManifest({
   }
 });
 
-const catalog = [
+const catalog: ManifestCatalogEntry[] = [
   {
     manifest,
     manifestPath: "/tmp/agent-packs/pos-venda/manifest.json"

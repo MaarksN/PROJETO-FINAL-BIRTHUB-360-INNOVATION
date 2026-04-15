@@ -341,6 +341,14 @@ export function createInitialTrendSeries(locale: SupportedLocale): TrendPoint[] 
   ];
 }
 
+function formatTrendWindowLabel(locale: SupportedLocale, date: Date): string {
+  return new Intl.DateTimeFormat(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(date);
+}
+
 export function getStageDistribution(leads: SdrAutomaticLead[], locale: SupportedLocale) {
   const copy = getLeadDashboardCopy(locale);
   const counts = new Map<SdrAutomaticLead["stage"], number>();
@@ -406,21 +414,27 @@ export function applyPollingFrameToMetrics(
 
 export function applyPollingFrameToTrend(
   trend: TrendPoint[],
-  frame: PollingFrame
+  frame: PollingFrame,
+  locale: SupportedLocale,
+  now = new Date()
 ): TrendPoint[] {
-  return trend.map((item, index) => {
-    if (index !== trend.length - 1) {
-      return item;
-    }
+  const lastPoint = trend[trend.length - 1];
 
-    const nextViolations = Math.max(0, item.slaViolations + frame.slaViolationsDelta);
+  if (!lastPoint) {
+    return trend;
+  }
 
-    return {
-      ...item,
-      leads: Math.max(0, item.leads + frame.activeLeadsDelta),
-      mqls: Math.max(0, item.mqls + frame.mqlsGeneratedDelta),
-      slaCompliance: clamp(item.slaCompliance - frame.slaViolationsDelta, 86, 99),
-      slaViolations: nextViolations
-    };
-  });
+  const nextPoint: TrendPoint = {
+    label: formatTrendWindowLabel(locale, now),
+    leads: Math.max(0, lastPoint.leads + frame.activeLeadsDelta),
+    mqls: Math.max(0, lastPoint.mqls + frame.mqlsGeneratedDelta),
+    slaCompliance: clamp(
+      lastPoint.slaCompliance + (frame.slaViolationsDelta === 0 ? 1 : -Math.max(1, frame.slaViolationsDelta * 2)),
+      86,
+      99
+    ),
+    slaViolations: Math.max(0, lastPoint.slaViolations + frame.slaViolationsDelta)
+  };
+
+  return [...trend.slice(Math.max(0, trend.length - 5)), nextPoint];
 }

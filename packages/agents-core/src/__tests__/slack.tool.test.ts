@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -19,6 +18,10 @@ function readRequestUrl(url: RequestInfo | URL): string {
 function readJsonBody(init?: RequestInit): Record<string, unknown> {
   assert.equal(typeof init?.body, "string");
   return JSON.parse(init.body) as Record<string, unknown>;
+}
+
+function readHeader(init: RequestInit | undefined, name: string): string | null {
+  return new Headers(init?.headers).get(name);
 }
 
 void test("slack tool simulates by default", async () => {
@@ -54,9 +57,9 @@ void test("slack tool posts webhook payload and rejects non-ok webhook responses
   const originalFetch = globalThis.fetch;
   const calls: Array<{ init?: RequestInit; url: RequestInfo | URL }> = [];
 
-  globalThis.fetch = (async (url: RequestInfo | URL, init?: RequestInit) => {
+  globalThis.fetch = ((url: RequestInfo | URL, init?: RequestInit) => {
     calls.push({ init, url });
-    return new Response("boom", { status: 500 });
+    return Promise.resolve(new Response("boom", { status: 500 }));
   }) as typeof fetch;
 
   try {
@@ -79,7 +82,7 @@ void test("slack tool posts webhook payload and rejects non-ok webhook responses
     assert.equal(calls.length, 1);
     assert.equal(readRequestUrl(calls[0]!.url), "https://hooks.slack.test/services/abc");
     assert.equal(calls[0]?.init?.method, "POST");
-    assert.equal(calls[0]?.init?.headers?.["content-type"], "application/json");
+    assert.equal(readHeader(calls[0]?.init, "content-type"), "application/json");
     assert.deepEqual(readJsonBody(calls[0]?.init), {
       channel: "ops-alerts",
       text: "hello"
@@ -93,9 +96,9 @@ void test("slack tool posts API payload with bearer token and returns success on
   const originalFetch = globalThis.fetch;
   const calls: Array<{ init?: RequestInit; url: RequestInfo | URL }> = [];
 
-  globalThis.fetch = (async (url: RequestInfo | URL, init?: RequestInit) => {
+  globalThis.fetch = ((url: RequestInfo | URL, init?: RequestInit) => {
     calls.push({ init, url });
-    return new Response("ok", { status: 200 });
+    return Promise.resolve(new Response("ok", { status: 200 }));
   }) as typeof fetch;
 
   try {
@@ -117,7 +120,7 @@ void test("slack tool posts API payload with bearer token and returns success on
     assert.equal(calls.length, 1);
     assert.equal(readRequestUrl(calls[0]!.url), "https://slack.com/api/chat.postMessage");
     assert.equal(calls[0]?.init?.method, "POST");
-    assert.equal(calls[0]?.init?.headers?.authorization, "Bearer token-123");
+    assert.equal(readHeader(calls[0]?.init, "authorization"), "Bearer token-123");
     assert.deepEqual(readJsonBody(calls[0]?.init), {
       channel: "ops-alerts",
       text: "hello"
@@ -145,7 +148,7 @@ void test("slack tool requires API token and rejects non-ok API responses", asyn
 
   const originalFetch = globalThis.fetch;
 
-  globalThis.fetch = (async () => new Response("nope", { status: 401 })) as typeof fetch;
+  globalThis.fetch = (() => Promise.resolve(new Response("nope", { status: 401 }))) as typeof fetch;
 
   try {
     await assert.rejects(
@@ -174,7 +177,7 @@ void test("slack tool propagates timeout through abort signal", async () => {
   globalThis.fetch = ((_: RequestInfo | URL, init?: RequestInit) =>
     new Promise<Response>((_resolve, reject) => {
       const abortHandler = () => {
-        const reason = init?.signal?.reason;
+        const reason: unknown = init?.signal?.reason;
         if (reason instanceof Error) {
           reject(reason);
         } else if (typeof reason === "string") {
@@ -188,7 +191,6 @@ void test("slack tool propagates timeout through abort signal", async () => {
         abortHandler();
       } else {
         init?.signal?.addEventListener("abort", abortHandler, { once: true });
-        // Make sure to manually abort quickly for the test so it doesn't hang waiting for real timeout
         setTimeout(() => reject(new Error("timeout")), 10);
       }
     })) as typeof fetch;
