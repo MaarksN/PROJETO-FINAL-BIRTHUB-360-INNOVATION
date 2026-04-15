@@ -921,6 +921,31 @@ PROXIMO PASSO
 
 ---
 
+GOVERNANCA
+[2026-04-15 - PRE-LOTE BASELINE - LINT STABILIZATION]
+
+STATUS
+[RESOLVIDO]
+
+ESCOPO
+[Baseline minima de lint restabelecida sem iniciar nenhum `STRUCT-*`. O recorte efetivo consolidou os erros reais remanescentes em `apps/web`, estabilizou o pacote `packages/testing` para o runner canonico e removeu os bloqueios de `max-lines` / `complexity` do modulo `sales-os` por extracao de helpers e seccoes, sem alterar comportamento funcional.]
+
+VALIDACAO
+- [`pnpm --filter @birthub/web lint`] - [PASS]
+- [`pnpm lint`] - [PASS]
+- [`pnpm typecheck`] - [PASS]
+
+RISCO RESIDUAL
+[Persistem warnings distribuidos em suites de teste de `packages/agents-core`, `packages/database`, `packages/queue`, `apps/api` e `apps/worker`, alem do warning local de engine (`node v25.9.0` frente a `>=24 <25`), mas nao ha mais errors bloqueantes no gate canonico.]
+
+LOTE 1 ESTRUTURAL
+[AGUARDANDO AUTORIZACAO GOVERNADA]
+
+PROXIMO PASSO
+[Se a governanca mantiver a ordem aprovada, o proximo ciclo pode abrir o LOTE 1 estrutural em `STRUCT-004`, depois `STRUCT-008` e por fim `STRUCT-003`.]
+
+---
+
 CICLO
 [A-006.5]
 
