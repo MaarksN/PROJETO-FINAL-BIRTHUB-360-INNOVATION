@@ -8,6 +8,7 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
+import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { createSession } from "../auth/auth.service.js";
 import { setAuthCookies } from "../auth/cookies.js";
@@ -22,6 +23,38 @@ const breakGlassGrantSchema = z
     ticketId: z.string().trim().min(3)
   })
   .strict();
+
+type BreakGlassGrantRecord = {
+  id: string;
+  sessionId: string | null;
+  tenantId: string;
+};
+
+type BreakGlassGrantDelegate = {
+  create(args: { data: object }): Promise<BreakGlassGrantRecord>;
+  findUnique(args: { where: { id: string } }): Promise<BreakGlassGrantRecord | null>;
+  update(args: { data: object; where: { id: string } }): Promise<BreakGlassGrantRecord>;
+};
+
+type AuditLogDelegate = {
+  create(args: { data: object }): Promise<unknown>;
+};
+
+type SessionDelegate = {
+  updateMany(args: { data: object; where: object }): Promise<unknown>;
+};
+
+function readBreakGlassGrantDelegate(client: object): BreakGlassGrantDelegate {
+  return readPrismaModel<BreakGlassGrantDelegate>(client, "breakGlassGrant", "the break-glass router");
+}
+
+function readAuditLogDelegate(client: object): AuditLogDelegate {
+  return readPrismaModel<AuditLogDelegate>(client, "auditLog", "the break-glass router");
+}
+
+function readSessionDelegate(client: object): SessionDelegate {
+  return readPrismaModel<SessionDelegate>(client, "session", "the break-glass router");
+}
 
 async function resolveBreakGlassTarget(tenantReference: string) {
   const organization = await prisma.organization.findFirst({
@@ -85,8 +118,10 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
       const payload = breakGlassGrantSchema.parse(request.body);
       const target = await resolveBreakGlassTarget(payload.tenantReference);
       const expiresAt = new Date(Date.now() + config.BREAK_GLASS_SESSION_TTL_MINUTES * 60_000);
+      const breakGlassGrantDelegate = readBreakGlassGrantDelegate(prisma);
+      const auditLogDelegate = readAuditLogDelegate(prisma);
 
-      const grant = await prisma.breakGlassGrant.create({
+      const grant = await breakGlassGrantDelegate.create({
         data: {
           actorId: actorUserId,
           expiresAt,
@@ -115,7 +150,7 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
         userId: target.targetUserId
       });
 
-      await prisma.breakGlassGrant.update({
+      await breakGlassGrantDelegate.update({
         data: {
           sessionId: session.sessionId,
           usedAt: new Date()
@@ -125,7 +160,7 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
         }
       });
 
-      await prisma.auditLog.create({
+      await auditLogDelegate.create({
         data: {
           action: "admin.break_glass.granted",
           actorId: actorUserId,
@@ -176,8 +211,9 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
           title: "Unauthorized"
         });
       }
+      const breakGlassGrantDelegate = readBreakGlassGrantDelegate(prisma);
 
-      const grant = await prisma.breakGlassGrant.findUnique({
+      const grant = await breakGlassGrantDelegate.findUnique({
         where: {
           id: String(request.params.id ?? "")
         }
@@ -192,7 +228,11 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
       }
 
       await prisma.$transaction(async (tx) => {
-        await tx.breakGlassGrant.update({
+        const transactionBreakGlassGrantDelegate = readBreakGlassGrantDelegate(tx);
+        const transactionSessionDelegate = readSessionDelegate(tx);
+        const transactionAuditLogDelegate = readAuditLogDelegate(tx);
+
+        await transactionBreakGlassGrantDelegate.update({
           data: {
             revokedAt: new Date()
           },
@@ -202,7 +242,7 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
         });
 
         if (grant.sessionId) {
-          await tx.session.updateMany({
+          await transactionSessionDelegate.updateMany({
             data: {
               revokedAt: new Date(),
               status: SessionStatus.REVOKED
@@ -214,7 +254,7 @@ export function createBreakGlassRouter(config: ApiConfig): Router {
           });
         }
 
-        await tx.auditLog.create({
+        await transactionAuditLogDelegate.create({
           data: {
             action: "admin.break_glass.revoked",
             actorId: actorUserId,

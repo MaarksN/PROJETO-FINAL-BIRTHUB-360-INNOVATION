@@ -1,5 +1,3 @@
-import { randomUUID } from "node:crypto";
-
 import {
   getDatabaseConfig,
   getEnvironmentSource,
@@ -13,6 +11,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error.js";
+import { createPrismaProxy } from "./prisma-proxy.js";
 import { requireTenantId } from "./tenant-context.js";
 
 const DEFAULT_QUERY_TIMEOUT_MS = 5_000;
@@ -429,31 +428,18 @@ export function getPrismaClient(): PrismaClient {
   if (existingClient) {
     return existingClient;
   }
-
   return storePrismaClient(createPrismaClient());
 }
 
 export async function resetPrismaClientForTests(): Promise<void> {
   const client = readStoredPrismaClient();
-
   _client = undefined;
   delete globalForPrisma.birthubPrisma;
-
   if (client) {
     await client.$disconnect();
   }
 }
-
-export const prisma = new Proxy({} as PrismaClient, {
-  get(_target, property) {
-    const client = getPrismaClient();
-    const value = Reflect.get(client, property, client);
-    return typeof value === "function" ? value.bind(client) : value;
-  },
-  set(_target, property, value) {
-    return Reflect.set(getPrismaClient(), property, value);
-  }
-}) as PrismaClient;
+export const prisma = createPrismaProxy(getPrismaClient);
 
 // @see ADR-008
 export async function withTenantDatabaseContext<T>(

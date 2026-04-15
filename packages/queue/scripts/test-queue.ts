@@ -10,9 +10,9 @@ async function main() {
   const queue = manager.createQueue(queueName);
 
   const processed: string[] = [];
-  const worker = manager.createWorker(queueName, async (job: Job) => {
+  const worker = manager.createWorker(queueName, (job: Job) => {
     processed.push(String(job.id));
-    return { ok: true, data: job.data };
+    return { ok: true, data: job.data as Record<string, unknown> };
   });
 
   const job = await queue.add(

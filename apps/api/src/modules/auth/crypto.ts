@@ -356,11 +356,3 @@ export function decryptSensitiveValue(payload: string, secret: string): string {
 
   return decrypted.toString("utf8");
 }
-
-function signPayload(payload: string, secret: string): string {
-  return createHmac("sha256", secret).update(payload).digest("hex");
-}
-
-function verifyPayloadSignature(payload: string, secret: string, signature: string): boolean {
-  return signPayload(payload, secret) === signature;
-}

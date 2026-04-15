@@ -1,8 +1,4 @@
-import type { Organization } from "@birthub/database";
-
-import { deleteCacheKeys, readCacheValue, writeCacheValue } from "./cache-store.js";
-
-const TENANT_CACHE_TTL_SECONDS = 5 * 60;
+import { deleteCacheKeys } from "./cache-store.js";
 
 export interface CachedTenant {
   id: string;
@@ -16,12 +12,6 @@ function normalizeReference(reference: string): string {
 
 function buildTenantCacheKey(reference: string): string {
   return `tenant:${normalizeReference(reference)}`;
-}
-
-function buildCacheKeysFromTenant(tenant: CachedTenant): string[] {
-  return [tenant.id, tenant.slug, tenant.tenantId]
-    .filter((value): value is string => Boolean(value))
-    .map((value) => buildTenantCacheKey(value));
 }
 
 export async function invalidateTenantCache(references: Array<string | null | undefined>): Promise<void> {

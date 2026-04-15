@@ -306,6 +306,46 @@ PROXIMO PASSO
 
 ---
 
+CICLO
+[A-004.6]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Tratar apenas os errors confirmados fora do escopo original de `apps/web`, sem abrir novos warnings nem expandir o recorte aprovado.]
+
+ARQUIVOS-ALVO
+- [apps/web/app/(dashboard)/patients/page.sections.tsx]
+- [apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts]
+- [apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx]
+- [apps/web/components/cookie-consent-banner.tsx]
+- [apps/web/tests/dashboard-data.test.ts]
+- [CYCLE_LOG.md: registrar o resultado do subciclo]
+
+STATUS
+[RESOLVIDO]
+
+RESULTADO
+- [o recorte aprovado deixou de ter errors de lint; a validacao isolada dos cinco arquivos fechou com `0 errors`]
+- [`apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx`] - removido o `no-unsafe-argument` remanescente
+- [os demais arquivos do recorte permaneceram sem errors; restaram apenas warnings em `apps/web/app/(dashboard)/patients/page.sections.tsx`, fora do escopo deste subciclo]
+
+VALIDACAO
+- [`pnpm --filter @birthub/web exec eslint "app/(dashboard)/patients/page.sections.tsx" "app/(dashboard)/settings/privacy/privacy-settings-page.model.ts" "app/(dashboard)/workflows/[id]/revisions/page.tsx" "components/cookie-consent-banner.tsx" "tests/dashboard-data.test.ts"`] -> `0 errors, 23 warnings`, todos concentrados em `apps/web/app/(dashboard)/patients/page.sections.tsx`
+- [`pnpm --filter @birthub/web lint`] -> FAIL fora do recorte aprovado, agora com `38 errors` e `172 warnings` em varios arquivos de `apps/web`, incluindo `app/(dashboard)/agents/[id]/policies/page.tsx`, `app/(dashboard)/agents/[id]/run/page.tsx`, `app/(dashboard)/analytics/page.tsx`, `app/(dashboard)/billing/budgets/page.tsx`, `app/(dashboard)/marketplace/page.tsx`, `app/(dashboard)/outputs/page.tsx`, `app/(dashboard)/reports/page.tsx`, `app/(dashboard)/workflows/[id]/edit/page.tsx`, `app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`, `app/api/bff/[...path]/route.ts`, `instrumentation-client.ts`, `lib/agents.ts`, `lib/auth-client.ts`, `lib/dashboard.ts`, `lib/marketplace-api.server.ts`, `lib/operational-health.ts`, `lib/product-api.server.ts`, `lib/product-capabilities.ts`, `lib/workflows.ts` e `sentry.server.config.ts`
+- [`pnpm lint`] -> FAIL pelos mesmos errors atuais de `apps/web`; `packages/workflows-core` e `packages/agents-core` seguiram apenas com warnings
+- [`pnpm typecheck`] -> FAIL fora do recorte aprovado em `apps/web/.next/types/**/*.ts`, com serie de `TS6053` por arquivos `.next` ausentes no `tsconfig.json`
+
+BLOQUEIOS
+- [o recorte aprovado de `A-004.6` ficou resolvido, mas a baseline global foi reaberta por mudancas paralelas fora do escopo autorizado]
+- [o gate global de `typecheck` tambem voltou a falhar fora do recorte, agora por ausencia de arquivos `apps/web/.next/types/**/*.ts`]
+
+PROXIMO PASSO
+[Aguardando novo recorte governado para os errors atuais fora do escopo aprovado e para o bloqueio de `.next/types` em `apps/web`.]
+
+---
+
 GOVERNANCA
 [2026-04-14]
 

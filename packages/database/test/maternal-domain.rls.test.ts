@@ -4,13 +4,35 @@ import test from "node:test";
 import { randomUUID } from "node:crypto";
 
 import { createPrismaClient } from "../src/client.js";
-import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
+import {
+  ensureDatabaseAvailableOrSkip,
+  requireDatabaseUrlOrSkip,
+  shouldRequireDeterministicIsolationValidation
+} from "./database-availability.js";
 import { parsePrismaSchema } from "../scripts/lib/prisma-schema.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
-const testIfDatabase = databaseUrl ? test : test.skip;
+const requireRlsValidation = shouldRequireDeterministicIsolationValidation();
+type PatientDelegate = {
+  create: (args: {
+    data: {
+      fullName: string;
+      organizationId: string;
+      tenantId: string;
+    };
+  }) => Promise<{ id: string }>;
+};
 
-void testIfDatabase("RLS bloqueia leitura cruzada de patients entre tenants no dominio clinico", async (context) => {
+void test("RLS bloqueia leitura cruzada de patients entre tenants no dominio clinico", async (context) => {
+  if (
+    !requireDatabaseUrlOrSkip(context, databaseUrl, {
+      label: "a suite clinica de isolamento RLS",
+      required: requireRlsValidation
+    })
+  ) {
+    return;
+  }
+
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
@@ -20,12 +42,20 @@ void testIfDatabase("RLS bloqueia leitura cruzada de patients entre tenants no d
       return;
     }
 
-    const databaseAvailable = await ensureDatabaseAvailableOrSkip(context, prisma);
+    const databaseAvailable = await ensureDatabaseAvailableOrSkip(context, prisma, {
+      label: "a suite clinica de isolamento RLS",
+      required: requireRlsValidation
+    });
     if (!databaseAvailable) {
       return;
     }
 
     if (!Reflect.get(prisma, "patient")) {
+      context.skip("O cliente Prisma atual nao expoe o delegate patient; teste clinico de RLS ignorado.");
+      return;
+    }
+    const patientDelegate = Reflect.get(prisma, "patient") as PatientDelegate | undefined;
+    if (!patientDelegate) {
       context.skip("O cliente Prisma atual nao expoe o delegate patient; teste clinico de RLS ignorado.");
       return;
     }
@@ -37,6 +67,9 @@ void testIfDatabase("RLS bloqueia leitura cruzada de patients entre tenants no d
     `;
 
     if ((roleRows[0]?.bypass ?? false) === true) {
+      if (requireRlsValidation) {
+        throw new Error("A role atual ignora RLS e nao permite validar isolamento clinico por tenant.");
+      }
       context.skip("A role atual ignora RLS e nao permite validar isolamento clinico por tenant.");
       return;
     }
@@ -62,7 +95,7 @@ void testIfDatabase("RLS bloqueia leitura cruzada de patients entre tenants no d
       }
     });
 
-    const patientB = await prisma.patient.create({
+    const patientB = await patientDelegate.create({
       data: {
         fullName: "Paciente Tenant B",
         organizationId: organizationB.id,

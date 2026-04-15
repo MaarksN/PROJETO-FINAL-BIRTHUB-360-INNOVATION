@@ -211,7 +211,7 @@ export async function listInvites(input: {
   });
 }
 
-async function cleanupExpiredInvites() {
+export async function cleanupExpiredInvites() {
   return prisma.invite.deleteMany({
     where: {
       expiresAt: {

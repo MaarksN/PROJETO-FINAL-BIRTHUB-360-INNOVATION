@@ -31,6 +31,12 @@ const PREGNANCY_STATUS = {
   ACTIVE: "ACTIVE"
 } as const;
 
+function isTransactionCallback<TClient>(
+  input: unknown
+): input is (client: TClient) => unknown {
+  return typeof input === "function";
+}
+
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];
   target[key] = value;
@@ -127,7 +133,7 @@ void test.skip("getPatientDetail bounds pregnancy and neonatal history reads", a
   const restores = [
     injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
-      if (typeof callback === "function") {
+      if (isTransactionCallback<typeof transactionClient>(callback)) {
         return callback(transactionClient);
       }
 
@@ -222,7 +228,7 @@ void test.skip("listAppointments and getClinicalNoteHistory apply explicit limit
   const restores = [
     injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
-      if (typeof callback === "function") {
+      if (isTransactionCallback<typeof transactionClient>(callback)) {
         return callback(transactionClient);
       }
 
@@ -331,7 +337,7 @@ void test.skip("listPatients and listClinicalNotes respect requested limits", as
   const restores = [
     injectPrismaDelegates(prisma, CLINICAL_RUNTIME_DELEGATES),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (callback: unknown) => {
-      if (typeof callback === "function") {
+      if (isTransactionCallback<typeof transactionClient>(callback)) {
         return callback(transactionClient);
       }
 

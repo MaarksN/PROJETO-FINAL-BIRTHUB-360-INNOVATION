@@ -343,6 +343,12 @@ export async function createTenant(
     tenantId: organization.tenantId,
     users
   });
+  await seedUserPreferences({
+    organizationId: organization.id,
+    prisma,
+    tenantId: organization.tenantId,
+    users
+  });
 
   await Promise.all(
     seed.agents.map((agentName, index) =>

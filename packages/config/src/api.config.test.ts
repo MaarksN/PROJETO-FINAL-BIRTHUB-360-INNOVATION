@@ -66,6 +66,7 @@ void test("api config accepts hardened staging settings with Stripe test credent
 void test("api config accepts hardened production settings", () => {
   const config = getApiConfig({
     ...baseEnv,
+    ALLOW_LEGACY_PLAINTEXT_CONNECTOR_SECRETS: "false",
     AUTH_MFA_ENCRYPTION_KEY: "prod-mfa-encryption-key-123",
     JOB_HMAC_GLOBAL_SECRET: "prod-job-hmac-secret-123",
     SENTRY_DSN: "https://public@example.ingest.sentry.io/123456",
@@ -78,8 +79,26 @@ void test("api config accepts hardened production settings", () => {
   assert.equal(config.STRIPE_SECRET_KEY, "sk_live_birthhub360");
   assert.equal(config.SENTRY_DSN, "https://public@example.ingest.sentry.io/123456");
   assert.equal(config.STRIPE_WEBHOOK_TOLERANCE_SECONDS, 300);
+  assert.equal(config.ALLOW_LEGACY_PLAINTEXT_CONNECTOR_SECRETS, false);
   assert.equal(config.clinicalWorkspaceEnabled, false);
   assert.equal(config.fhirFacadeEnabled, false);
   assert.equal(config.privacyAdvancedEnabled, false);
   assert.equal(config.privacySelfServiceEnabled, true);
+});
+
+void test("api config parses the legacy plaintext connector migration override explicitly", () => {
+  const config = getApiConfig({
+    ...baseEnv,
+    ALLOW_LEGACY_PLAINTEXT_CONNECTOR_SECRETS: "true",
+    AUTH_MFA_ENCRYPTION_KEY: "staging-mfa-encryption-key-123",
+    DEPLOYMENT_ENVIRONMENT: "staging",
+    JOB_HMAC_GLOBAL_SECRET: "staging-job-hmac-secret-123",
+    SENTRY_DSN: "https://public@example.ingest.sentry.io/123456",
+    SESSION_SECRET: "staging-session-secret-123",
+    STRIPE_SECRET_KEY: "sk_test_birthhub360_staging",
+    STRIPE_WEBHOOK_SECRET: "whsec_staging_birthhub360",
+    WEB_BASE_URL: "https://staging.birthhub360.com"
+  });
+
+  assert.equal(config.ALLOW_LEGACY_PLAINTEXT_CONNECTOR_SECRETS, true);
 });

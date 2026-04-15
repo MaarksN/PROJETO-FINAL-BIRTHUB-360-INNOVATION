@@ -27,6 +27,7 @@ import {
 } from "./shared.js";
 
 export const apiEnvSchema = z.object({
+  ALLOW_LEGACY_PLAINTEXT_CONNECTOR_SECRETS: envBoolean.default(false),
   API_AUTH_COOKIE_NAME: nonEmptyString.default("bh360_session"),
   API_AUTH_COOKIE_DOMAIN: optionalNonEmptyString,
   API_AUTH_IDLE_TIMEOUT_MINUTES: z.coerce.number().int().positive().default(30),

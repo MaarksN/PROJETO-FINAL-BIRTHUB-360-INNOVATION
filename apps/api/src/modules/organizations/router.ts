@@ -6,7 +6,6 @@ import {
   createOrganizationResponseSchema,
   cursorPaginationQuerySchema
 } from "@birthub/config";
-import { createLogger } from "@birthub/logger";
 import { Router } from "express";
 import { z } from "zod";
 
@@ -30,8 +29,6 @@ import {
 type OrganizationRouteLogger = {
   info: (...args: unknown[]) => void;
 };
-
-const logger: OrganizationRouteLogger = createLogger("organizations") as OrganizationRouteLogger;
 
 const memberRoleSchema = z.object({
   role: z.nativeEnum(Role)
@@ -61,7 +58,7 @@ type OrganizationCreationResult = Awaited<ReturnType<typeof createOrganization>>
 type OrganizationCreationRouteTarget = Pick<Router, "post">;
 
 type OrganizationCreationRouteOptions = {
-  logger?: Pick<typeof logger, "info">;
+  logger?: OrganizationRouteLogger;
   onCreated?: (
     request: Parameters<Parameters<typeof asyncHandler>[0]>[0],
     organization: OrganizationCreationResult

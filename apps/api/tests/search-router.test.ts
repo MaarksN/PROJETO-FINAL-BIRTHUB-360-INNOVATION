@@ -12,6 +12,17 @@ import {
   stubMethod
 } from "./http-test-helpers.js";
 
+type SearchResponseBody = {
+  groups: Array<{
+    id: string;
+    items?: Array<{
+      href?: string;
+    }>;
+  }>;
+  query: string;
+  requestId: string;
+};
+
 function createSearchTestApp() {
   return createAuthenticatedApiTestApp({
     contextOverrides: {
@@ -87,6 +98,7 @@ void test("search router returns tenant-aware grouped results from real backing 
         q: "onboarding"
       })
       .expect(200);
+    const body = response.body as SearchResponseBody;
 
     assert.deepEqual(workflowWhere, {
       OR: [
@@ -113,14 +125,14 @@ void test("search router returns tenant-aware grouped results from real backing 
       tenantId: "tenant_product",
       userId: "user_product"
     });
-    assert.equal(response.body.query, "onboarding");
-    assert.equal(response.body.requestId, "req_search");
+    assert.equal(body.query, "onboarding");
+    assert.equal(body.requestId, "req_search");
     assert.deepEqual(
-      response.body.groups.map((group: { id: string }) => group.id),
+      body.groups.map((group) => group.id),
       ["shortcuts", "workflows", "conversations", "notifications", "reports"]
     );
-    assert.equal(response.body.groups[1]?.items[0]?.href, "/workflows/wf_1/edit");
-    assert.equal(response.body.groups[2]?.items[0]?.href, "/conversations?thread=thread_1");
+    assert.equal(body.groups[1]?.items?.[0]?.href, "/workflows/wf_1/edit");
+    assert.equal(body.groups[2]?.items?.[0]?.href, "/conversations?thread=thread_1");
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -144,10 +156,11 @@ void test("search router serves shortcut-only results for very short queries", a
         q: "a"
       })
       .expect(200);
+    const body = response.body as SearchResponseBody;
 
     assert.equal(workflowCalls.length, 0);
     assert.deepEqual(
-      response.body.groups.map((group: { id: string }) => group.id),
+      body.groups.map((group) => group.id),
       ["shortcuts"]
     );
   } finally {

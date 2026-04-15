@@ -121,7 +121,7 @@ void test("workflows router reverts a revision using the authenticated tenant sc
         tenantId: "tenant_1"
       });
     }),
-    stubMethod(prisma.workflow, "findFirst", (args: unknown) => {
+    stubMethod(prisma.workflow, "findFirst", (_args: unknown) => {
       workflowFindFirstCount += 1;
 
       if (workflowFindFirstCount === 1) {

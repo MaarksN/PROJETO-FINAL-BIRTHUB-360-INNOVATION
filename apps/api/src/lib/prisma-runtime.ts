@@ -5,7 +5,7 @@ export function readPrismaModel<T = Record<string, unknown>>(
   modelName: string,
   capability: string
 ): T {
-  const model = Reflect.get(client, modelName);
+  const model: unknown = Reflect.get(client, modelName);
 
   if (!model) {
     throw new ProblemDetailsError({

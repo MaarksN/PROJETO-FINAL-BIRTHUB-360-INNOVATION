@@ -12,7 +12,7 @@ import {
 } from "./runtime.shared.js";
 import type { RuntimeAgentResolution } from "./runtime.types.js";
 
-async function resolveRuntimeAgent(input: {
+export async function resolveRuntimeAgent(input: {
   agentId: string;
   catalogAgentId?: string | null;
   tenantId: string;

@@ -1,7 +1,7 @@
 import { createRequire } from "node:module";
 import path from "node:path";
 
-const require = createRequire(path.join(process.cwd(), "package.json"));
+const nodeRequire = createRequire(path.join(process.cwd(), "package.json"));
 
 type TraceContext = {
   spanId: string | null;
@@ -45,7 +45,7 @@ type OtelApi = {
 
 function loadOpenTelemetryApi(): OtelApi | null {
   try {
-    return require("@opentelemetry/api") as OtelApi;
+    return nodeRequire("@opentelemetry/api") as OtelApi;
   } catch {
     return null;
   }

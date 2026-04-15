@@ -51,6 +51,9 @@
       "@birthub/config": [
         "packages/config/src/index.ts"
       ],
+      "@birthub/config/web": [
+        "packages/config/src/web.ts"
+      ],
       "@birthub/config/*": [
         "packages/config/src/*"
       ],
@@ -68,6 +71,9 @@
       ],
       "@birthub/workflows-core": [
         "packages/workflows-core/src/index.ts"
+      ],
+      "@birthub/workflows-core/nextjs": [
+        "packages/workflows-core/src/nextjs.ts"
       ],
       "@birthub/workflows-core/*": [
         "packages/workflows-core/src/*"

@@ -1,15 +1,12 @@
 // @ts-nocheck
 import { Prisma, prisma } from "@birthub/database";
-
 import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
-
 export type FhirContext = {
   organizationId: string;
   tenantId: string;
   userId: string;
 };
-
 const FHIR_PATIENT_SEARCH_LIMIT = 25;
 const APPOINTMENT_STATUS = {
   CANCELLED: "CANCELLED",
@@ -17,10 +14,8 @@ const APPOINTMENT_STATUS = {
   COMPLETED: "COMPLETED",
   NO_SHOW: "NO_SHOW"
 } as const;
-
 type AppointmentStatus = (typeof APPOINTMENT_STATUS)[keyof typeof APPOINTMENT_STATUS];
 type AppointmentType = string;
-
 type PatientRecord = {
   birthDate: Date | null;
   bloodType: string | null;
@@ -35,7 +30,6 @@ type PatientRecord = {
   status: string;
   updatedAt: Date;
 };
-
 type AppointmentRecord = {
   chiefComplaint: string | null;
   durationMinutes: number;
@@ -54,11 +48,13 @@ type AppointmentRecord = {
   type: AppointmentType;
   updatedAt: Date;
 };
-
+type FhirModelDelegate = {
+  findFirst<TResult extends object>(args: object): Promise<TResult | null>;
+  findMany<TResult extends object>(args: object): Promise<TResult[]>;
+};
 function toDateOnly(value: Date | null): string | undefined {
   return value ? value.toISOString().slice(0, 10) : undefined;
 }
-
 function splitHumanName(value: string): {
   family?: string;
   given?: string[];
@@ -68,27 +64,23 @@ function splitHumanName(value: string): {
     .trim()
     .split(/\s+/)
     .filter(Boolean);
-
   if (parts.length === 0) {
     return {
       text: value
     };
   }
-
   if (parts.length === 1) {
     return {
       given: [parts[0]!],
       text: value
     };
   }
-
   return {
     family: parts[parts.length - 1]!,
     given: parts.slice(0, -1),
     text: value
   };
 }
-
 function mapAppointmentStatus(status: AppointmentStatus):
   | "booked"
   | "cancelled"
@@ -108,7 +100,6 @@ function mapAppointmentStatus(status: AppointmentStatus):
       return "booked";
   }
 }
-
 function toPatientResource(record: PatientRecord) {
   const officialName = splitHumanName(record.fullName);
   const telecom = [
@@ -149,7 +140,6 @@ function toPatientResource(record: PatientRecord) {
         ]
       : [])
   ];
-
   return {
     active: record.status === "ACTIVE",
     extension: [
@@ -192,7 +182,6 @@ function toPatientResource(record: PatientRecord) {
     birthDate: toDateOnly(record.birthDate)
   };
 }
-
 function toAppointmentResource(record: AppointmentRecord) {
   return {
     description: record.summary ?? record.chiefComplaint ?? undefined,
@@ -246,7 +235,6 @@ function toAppointmentResource(record: AppointmentRecord) {
       : undefined
   };
 }
-
 function toBundle(baseUrl: string, resourceType: "Appointment" | "Patient", items: object[]) {
   return {
     entry: items.map((resource) => ({
@@ -261,11 +249,9 @@ function toBundle(baseUrl: string, resourceType: "Appointment" | "Patient", item
     type: "searchset"
   };
 }
-
-function readFhirModel(name: "appointment" | "patient") {
-  return readPrismaModel(prisma, name, "the FHIR facade");
+function readFhirModel(name: "appointment" | "patient"): FhirModelDelegate {
+  return readPrismaModel<FhirModelDelegate>(prisma, name, "the FHIR facade");
 }
-
 export const fhirService = {
   metadata(baseUrl: string) {
     return {
@@ -336,10 +322,9 @@ export const fhirService = {
       status: "active"
     };
   },
-
   async getPatient(context: FhirContext, patientId: string) {
     const patientModel = readFhirModel("patient");
-    const patient = await patientModel.findFirst({
+    const patient = await patientModel.findFirst<PatientRecord>({
       select: {
         birthDate: true,
         bloodType: true,
@@ -361,7 +346,6 @@ export const fhirService = {
         tenantId: context.tenantId
       }
     });
-
     if (!patient) {
       throw new ProblemDetailsError({
         detail: "Patient was not found for the active tenant.",
@@ -369,10 +353,8 @@ export const fhirService = {
         title: "Not Found"
       });
     }
-
     return toPatientResource(patient);
   },
-
   async searchPatients(
     context: FhirContext,
     filters: {
@@ -384,7 +366,6 @@ export const fhirService = {
     const normalizedIdentifier = filters.identifier?.trim();
     const normalizedName = filters.name?.trim();
     const searchFilters: Prisma.PatientWhereInput[] = [];
-
     if (!normalizedIdentifier && !normalizedName) {
       throw new ProblemDetailsError({
         detail: "At least one FHIR search parameter is required.",
@@ -392,7 +373,6 @@ export const fhirService = {
         title: "Bad Request"
       });
     }
-
     if (normalizedIdentifier) {
       searchFilters.push(
         {
@@ -403,7 +383,6 @@ export const fhirService = {
         }
       );
     }
-
     if (normalizedName) {
       searchFilters.push(
         {
@@ -420,9 +399,8 @@ export const fhirService = {
         }
       );
     }
-
     const patientModel = readFhirModel("patient");
-    const items = await patientModel.findMany({
+    const items = await patientModel.findMany<PatientRecord>({
       orderBy: {
         updatedAt: "desc"
       },
@@ -448,17 +426,15 @@ export const fhirService = {
         OR: searchFilters
       }
     });
-
     return toBundle(
       baseUrl,
       "Patient",
       items.map((item) => toPatientResource(item))
     );
   },
-
   async getAppointment(context: FhirContext, appointmentId: string) {
     const appointmentModel = readFhirModel("appointment");
-    const appointment = await appointmentModel.findFirst({
+    const appointment = await appointmentModel.findFirst<AppointmentRecord>({
       select: {
         chiefComplaint: true,
         durationMinutes: true,
@@ -489,7 +465,6 @@ export const fhirService = {
         tenantId: context.tenantId
       }
     });
-
     if (!appointment) {
       throw new ProblemDetailsError({
         detail: "Appointment was not found for the active tenant.",
@@ -497,7 +472,6 @@ export const fhirService = {
         title: "Not Found"
       });
     }
-
     return toAppointmentResource(appointment);
   }
 };

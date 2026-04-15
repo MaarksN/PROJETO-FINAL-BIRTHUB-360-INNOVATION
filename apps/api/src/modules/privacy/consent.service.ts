@@ -4,6 +4,7 @@ import {
   prisma
 } from "@birthub/database";
 
+import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { findOrganizationByReference } from "./service.js";
 
@@ -38,20 +39,51 @@ type ConsentPurpose = (typeof CONSENT_PURPOSE)[keyof typeof CONSENT_PURPOSE];
 type ConsentSource = (typeof CONSENT_SOURCE)[keyof typeof CONSENT_SOURCE];
 type ConsentStatus = (typeof CONSENT_STATUS)[keyof typeof CONSENT_STATUS];
 type CookieConsentStatus = (typeof COOKIE_CONSENT_STATUS)[keyof typeof COOKIE_CONSENT_STATUS];
-type LawfulBasis = (typeof LAWFUL_BASIS)[keyof typeof LAWFUL_BASIS];
+type PrivacyConsentRecord = {
+  grantedAt: Date | null;
+  id: string;
+  purpose: ConsentPurpose;
+  source: ConsentSource;
+  status: ConsentStatus;
+};
 
-function readPrivacyModel(name: "privacyConsent" | "privacyConsentEvent") {
-  const model = Reflect.get(prisma, name);
+type PrivacyConsentDelegate = {
+  findMany<TResult extends object>(args: object): Promise<TResult[]>;
+  findUnique(args: { where: object }): Promise<PrivacyConsentRecord | null>;
+  update(args: { data: object; where: { id: string } }): Promise<PrivacyConsentRecord>;
+  upsert(args: { create: object; update: object; where: object }): Promise<PrivacyConsentRecord>;
+};
 
-  if (!model) {
-    throw new ProblemDetailsError({
-      detail: `Privacy storage '${name}' is unavailable in the current Prisma client.`,
-      status: 503,
-      title: "Service Unavailable"
-    });
-  }
+type PrivacyConsentEventDelegate = {
+  create(args: { data: object }): Promise<unknown>;
+  findMany<TResult extends object>(args: object): Promise<TResult[]>;
+};
 
-  return model;
+type AuditLogDelegate = {
+  create(args: { data: object }): Promise<unknown>;
+};
+
+type UserPreferenceDelegate = {
+  findUnique(args: { where: object }): Promise<{
+    lgpdConsentedAt: Date | null;
+  } | null>;
+  upsert(args: { create: object; update: object; where: object }): Promise<unknown>;
+};
+
+type UserPreferenceRecord = {
+  cookieConsent: string | null;
+  emailNotifications: boolean;
+  inAppNotifications: boolean;
+  lgpdConsentedAt: Date | null;
+  lgpdConsentStatus: string | null;
+  lgpdConsentVersion: string | null;
+  lgpdLegalBasis: string | null;
+  marketingEmails: boolean;
+  pushNotifications: boolean;
+};
+
+function readPrivacyModel<T>(name: "privacyConsent" | "privacyConsentEvent"): T {
+  return readPrismaModel<T>(prisma, name, "privacy consent");
 }
 
 const DEFAULT_CONSENT_PURPOSES = [
@@ -124,10 +156,26 @@ async function applyConsentDecision(input: {
     id: string;
     tenantId: string;
   };
-  tx: Parameters<Parameters<typeof prisma.$transaction>[0]>[0];
+  tx: object;
   userId: string;
 }) {
-  const current = await input.tx.privacyConsent.findUnique({
+  const privacyConsentModel = readPrismaModel<PrivacyConsentDelegate>(
+    input.tx,
+    "privacyConsent",
+    "privacy consent"
+  );
+  const privacyConsentEventModel = readPrismaModel<PrivacyConsentEventDelegate>(
+    input.tx,
+    "privacyConsentEvent",
+    "privacy consent"
+  );
+  const auditLogModel = readPrismaModel<AuditLogDelegate>(input.tx, "auditLog", "privacy consent");
+  const userPreferenceModel = readPrismaModel<UserPreferenceDelegate>(
+    input.tx,
+    "userPreference",
+    "privacy consent"
+  );
+  const current = await privacyConsentModel.findUnique({
     where: {
       organizationId_userId_purpose: {
         organizationId: input.organization.id,
@@ -150,7 +198,7 @@ async function applyConsentDecision(input: {
   const nextRevokedAt =
     input.decision.status === CONSENT_STATUS.REVOKED ? new Date() : null;
 
-  const updated = await input.tx.privacyConsent.update({
+  const updated = await privacyConsentModel.update({
     data: {
       grantedAt: input.decision.status === CONSENT_STATUS.GRANTED ? nextGrantedAt : null,
       lastChangedAt: new Date(),
@@ -165,7 +213,7 @@ async function applyConsentDecision(input: {
 
   if (current.status !== input.decision.status || current.source !== input.decision.source) {
     await Promise.all([
-      input.tx.privacyConsentEvent.create({
+      privacyConsentEventModel.create({
         data: {
           lawfulBasis: LAWFUL_BASIS.CONSENT,
           newStatus: input.decision.status,
@@ -177,7 +225,7 @@ async function applyConsentDecision(input: {
           userId: input.userId
         }
       }),
-      input.tx.auditLog.create({
+      auditLogModel.create({
         data: {
           action: "privacy.consent.updated",
           actorId: input.userId,
@@ -201,7 +249,7 @@ async function applyConsentDecision(input: {
   }
 
   if (input.decision.purpose === CONSENT_PURPOSE.ANALYTICS) {
-    await input.tx.userPreference.upsert({
+    await userPreferenceModel.upsert({
       create: {
         cookieConsent: mapAnalyticsConsent(input.decision.status),
         organizationId: input.organization.id,
@@ -221,7 +269,7 @@ async function applyConsentDecision(input: {
   }
 
   if (input.decision.purpose === CONSENT_PURPOSE.MARKETING) {
-    await input.tx.userPreference.upsert({
+    await userPreferenceModel.upsert({
       create: {
         marketingEmails: input.decision.status === CONSENT_STATUS.GRANTED,
         organizationId: input.organization.id,
@@ -247,7 +295,7 @@ export async function ensurePrivacyConsents(input: {
   organizationReference: string;
   userId: string;
 }) {
-  const privacyConsentModel = readPrivacyModel("privacyConsent");
+  const privacyConsentModel = readPrivacyModel<PrivacyConsentDelegate>("privacyConsent");
   const organization = await findOrganizationByReference(input.organizationReference);
 
   if (!organization) {
@@ -288,11 +336,11 @@ export async function listPrivacyConsents(input: {
   organizationReference: string;
   userId: string;
 }) {
-  const privacyConsentModel = readPrivacyModel("privacyConsent");
-  const privacyConsentEventModel = readPrivacyModel("privacyConsentEvent");
+  const privacyConsentModel = readPrivacyModel<PrivacyConsentDelegate>("privacyConsent");
+  const privacyConsentEventModel = readPrivacyModel<PrivacyConsentEventDelegate>("privacyConsentEvent");
   const organization = await ensurePrivacyConsents(input);
-  const [items, history, preferences] = await Promise.all([
-    privacyConsentModel.findMany({
+  const [items, history] = await Promise.all([
+    privacyConsentModel.findMany<PrivacyConsentRecord>({
       orderBy: {
         purpose: "asc"
       },
@@ -302,7 +350,7 @@ export async function listPrivacyConsents(input: {
         userId: input.userId
       }
     }),
-    privacyConsentEventModel.findMany({
+    privacyConsentEventModel.findMany<Record<string, unknown>>({
       orderBy: {
         createdAt: "desc"
       },
@@ -311,13 +359,13 @@ export async function listPrivacyConsents(input: {
         organizationId: organization.id,
         userId: input.userId
       }
-    }),
-    ensureUserPreference({
-      organizationId: organization.id,
-      tenantId: organization.tenantId,
-      userId: input.userId
     })
   ]);
+  const preferences = (await ensureUserPreference({
+    organizationId: organization.id,
+    tenantId: organization.tenantId,
+    userId: input.userId
+  })) as UserPreferenceRecord;
 
   return {
     history,
@@ -351,7 +399,17 @@ export async function savePrivacyConsentDecisions(input: {
   });
 
   const updatedItems = await prisma.$transaction(async (tx) => {
-    const currentPreference = await tx.userPreference.findUnique({
+    const userPreferenceModel = readPrismaModel<UserPreferenceDelegate>(
+      tx,
+      "userPreference",
+      "privacy consent"
+    );
+    const privacyConsentModel = readPrismaModel<PrivacyConsentDelegate>(
+      tx,
+      "privacyConsent",
+      "privacy consent"
+    );
+    const currentPreference = await userPreferenceModel.findUnique({
       where: {
         organizationId_userId: {
           organizationId: organization.id,
@@ -370,7 +428,7 @@ export async function savePrivacyConsentDecisions(input: {
       )
     );
 
-    const currentItems = await tx.privacyConsent.findMany({
+    const currentItems = await privacyConsentModel.findMany<ConsentSnapshot>({
       orderBy: {
         purpose: "asc"
       },
@@ -389,7 +447,7 @@ export async function savePrivacyConsentDecisions(input: {
       currentPreference?.lgpdConsentedAt ?? null
     );
 
-    await tx.userPreference.upsert({
+    await userPreferenceModel.upsert({
       create: {
         lgpdConsentedAt: lgpdState.consentedAt,
         lgpdConsentStatus: lgpdState.status,

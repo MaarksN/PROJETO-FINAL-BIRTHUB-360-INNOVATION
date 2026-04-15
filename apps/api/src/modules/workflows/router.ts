@@ -330,7 +330,7 @@ function registerWorkflowEventRoute(router: Router): void {
     "/api/v1/workflows/events/:topic",
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
-    asyncHandler(async (request, response) => {
+    asyncHandler((request, response) => {
       const tenantId = requireTenantId(request);
       const topic = String(request.params.topic ?? "");
 

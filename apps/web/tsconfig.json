@@ -4,6 +4,7 @@
     "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "incremental": false,
+    "moduleResolution": "bundler",
     "plugins": [
       {
         "name": "next"

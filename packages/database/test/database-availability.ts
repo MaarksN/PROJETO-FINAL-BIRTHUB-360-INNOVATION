@@ -6,6 +6,28 @@ type ConnectivityProbeClient = {
   $queryRaw: (query: TemplateStringsArray, ...values: unknown[]) => Promise<unknown>;
 };
 
+type DatabaseRequirementOptions = {
+  label?: string;
+  required?: boolean;
+};
+
+function envBoolean(value: string | undefined): boolean {
+  if (!value) {
+    return false;
+  }
+
+  return ["1", "true", "yes", "on"].includes(value.trim().toLowerCase());
+}
+
+function failOrSkip(context: TestContext, message: string, required: boolean): false {
+  if (required) {
+    throw new Error(message);
+  }
+
+  context.skip(message);
+  return false;
+}
+
 function isDatabaseUnavailableError(error: unknown): boolean {
   const errorWithCode =
     typeof error === "object" && error !== null ? (error as { code?: unknown; message?: unknown }) : null;
@@ -40,18 +62,47 @@ function isDatabaseUnavailableError(error: unknown): boolean {
 
 export async function ensureDatabaseAvailableOrSkip(
   context: TestContext,
-  client: ConnectivityProbeClient
+  client: ConnectivityProbeClient,
+  options: DatabaseRequirementOptions = {}
 ): Promise<boolean> {
-  // true => database reached; false => test skipped due to unavailable database.
+  const label = options.label ?? "teste de integração";
+  const required = options.required ?? shouldRequireDeterministicIsolationValidation();
+
   try {
     await client.$queryRaw`SELECT 1`;
     return true;
   } catch (error) {
     if (isDatabaseUnavailableError(error)) {
-      context.skip("DATABASE_URL configurado, mas o banco não está acessível para este teste de integração.");
-      return false;
+      return failOrSkip(
+        context,
+        `DATABASE_URL configurado, mas o banco não está acessível para ${label}.`,
+        required
+      );
     }
 
     throw error;
   }
+}
+
+export function requireDatabaseUrlOrSkip(
+  context: TestContext,
+  databaseUrl: string,
+  options: DatabaseRequirementOptions = {}
+): boolean {
+  const label = options.label ?? "teste de integração";
+  const required = options.required ?? shouldRequireDeterministicIsolationValidation();
+
+  if (databaseUrl.trim()) {
+    return true;
+  }
+
+  return failOrSkip(
+    context,
+    `DATABASE_URL é obrigatória para ${label}.`,
+    required
+  );
+}
+
+export function shouldRequireDeterministicIsolationValidation(): boolean {
+  return envBoolean(process.env.BIRTHUB_REQUIRE_RLS_TESTS);
 }

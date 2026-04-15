@@ -141,19 +141,19 @@ async function executeAgentHandoffStep(
   );
 }
 
-async function executeAiTextExtractStep(
+function executeAiTextExtractStep(
   step: StepOf<"AI_TEXT_EXTRACT">,
   context: WorkflowRuntimeContext
 ) {
-  return executeAiTextExtractNode(step.config, context);
+  return Promise.resolve(executeAiTextExtractNode(step.config, context));
 }
 
-async function executeCodeStep(step: StepOf<"CODE">, context: WorkflowRuntimeContext) {
-  return executeCodeNode(step.config, context.steps, context);
+function executeCodeStep(step: StepOf<"CODE">, context: WorkflowRuntimeContext) {
+  return Promise.resolve(executeCodeNode(step.config, context.steps, context));
 }
 
-async function executeConditionStep(step: StepOf<"CONDITION">, context: WorkflowRuntimeContext) {
-  return executeConditionNode(step.config, context);
+function executeConditionStep(step: StepOf<"CONDITION">, context: WorkflowRuntimeContext) {
+  return Promise.resolve(executeConditionNode(step.config, context));
 }
 
 async function executeCrmUpsertStep(
@@ -168,8 +168,8 @@ async function executeCrmUpsertStep(
   );
 }
 
-async function executeDelayStep(step: StepOf<"DELAY">) {
-  return executeDelayNode(step.config);
+function executeDelayStep(step: StepOf<"DELAY">) {
+  return Promise.resolve(executeDelayNode(step.config));
 }
 
 async function executeGoogleEventStep(
@@ -212,18 +212,18 @@ async function executeNotificationStep(
   return executeNotificationNode(step.config, context, dependencies.notificationDispatcher);
 }
 
-async function executeTransformerStep(
+function executeTransformerStep(
   step: StepOf<"TRANSFORMER">,
   context: WorkflowRuntimeContext
 ) {
-  return executeTransformerNode(step.config, context);
+  return Promise.resolve(executeTransformerNode(step.config, context));
 }
 
-async function executeTriggerStep(
+function executeTriggerStep(
   _step: StepOf<"TRIGGER_CRON" | "TRIGGER_EVENT" | "TRIGGER_WEBHOOK">,
   context: WorkflowRuntimeContext
 ) {
-  return context.trigger.output;
+  return Promise.resolve(context.trigger.output);
 }
 
 async function executeWhatsappSendStep(

@@ -40,6 +40,12 @@ type PrivacyConsentUpsertCall = Record<string, unknown> & {
   };
 };
 
+function isTransactionCallback<TClient>(
+  input: unknown
+): input is (client: TClient) => unknown {
+  return typeof input === "function";
+}
+
 void test.skip("ensurePrivacyConsents initializes the canonical consent purposes", async () => {
   const organization = {
     id: "org_alpha",
@@ -148,7 +154,7 @@ void test.skip("savePrivacyConsentDecisions bounds the consent snapshot read for
       Promise.resolve(organization)
     ),
     stubMethod(prisma as unknown as Record<string, unknown>, "$transaction", (input: unknown) => {
-      if (typeof input === "function") {
+      if (isTransactionCallback<typeof transactionClient>(input)) {
         return input(transactionClient);
       }
 

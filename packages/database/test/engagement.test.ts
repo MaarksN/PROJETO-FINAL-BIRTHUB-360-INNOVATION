@@ -2,10 +2,9 @@
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
-
 import { NotificationType, Role } from "@prisma/client";
-
 import { prisma } from "../src/client.js";
+import { createInjectedClient } from "./engagement.test.support.js";
 import {
   createNotificationForOrganizationRoles,
   createNotificationForUser,
@@ -13,28 +12,6 @@ import {
   listNotifications,
   updateUserPreference
 } from "../src/repositories/engagement.js";
-
-function createInjectedClient() {
-  return {
-    auditLog: {
-      create: async (_args: unknown) => ({})
-    },
-    membership: {
-      findMany: async (_args: unknown) => []
-    },
-    notification: {
-      count: async (_args: unknown) => 0,
-      create: async (_args: unknown) => ({}),
-      createMany: async (_args: unknown) => ({ count: 0 }),
-      findMany: async (_args: unknown) => [],
-      updateMany: async (_args: unknown) => ({ count: 0 })
-    },
-    userPreference: {
-      findUnique: async (_args: unknown) => null,
-      upsert: async (_args: unknown) => ({ inAppNotifications: true })
-    }
-  };
-}
 
 void test("ensureUserPreference upserts tenant-scoped preference data", async () => {
   const original = prisma.userPreference.upsert.bind(prisma.userPreference);
@@ -71,7 +48,6 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
     prisma.userPreference.upsert = original;
   }
 });
-
 void test("ensureUserPreference accepts an injected client without relying on global prisma", async () => {
   const injectedClient = createInjectedClient();
   let received: unknown = null;
@@ -107,7 +83,6 @@ void test("ensureUserPreference accepts an injected client without relying on gl
     }
   });
 });
-
 void test("createNotificationForUser skips persistence when in-app notifications are disabled", async () => {
   const originalPreferenceUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
   const originalCreate = prisma.notification.create.bind(prisma.notification);
@@ -138,7 +113,6 @@ void test("createNotificationForUser skips persistence when in-app notifications
     prisma.notification.create = originalCreate;
   }
 });
-
 void test("createNotificationForUser accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
   let createArgs: unknown = null;
@@ -179,7 +153,6 @@ void test("createNotificationForUser accepts an injected client", async () => {
     }
   });
 });
-
 void test("updateUserPreference audits cookie consent transitions", async () => {
   const originalFindUnique = prisma.userPreference.findUnique.bind(prisma.userPreference);
   const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
@@ -232,7 +205,6 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
     prisma.auditLog.create = originalAuditCreate;
   }
 });
-
 void test("updateUserPreference accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
   let auditPayload: unknown = null;
@@ -282,7 +254,6 @@ void test("updateUserPreference accepts an injected client", async () => {
     }
   });
 });
-
 void test("updateUserPreference persists locale preferences", async () => {
   const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
   let upsertPayload: unknown = null;
@@ -325,7 +296,6 @@ void test("updateUserPreference persists locale preferences", async () => {
     prisma.userPreference.upsert = originalUpsert;
   }
 });
-
 void test("createNotificationForOrganizationRoles only creates notifications for users with enabled preference", async () => {
   const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
   const originalCreateMany = prisma.notification.createMany.bind(prisma.notification);
@@ -392,7 +362,6 @@ void test("createNotificationForOrganizationRoles only creates notifications for
     prisma.notification.createMany = originalCreateMany;
   }
 });
-
 void test("createNotificationForOrganizationRoles accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
   let createManyArgs: unknown = null;
@@ -444,7 +413,6 @@ void test("createNotificationForOrganizationRoles accepts an injected client", a
     ]
   });
 });
-
 void test("createNotificationForOrganizationRoles caps membership reads", async () => {
   const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
   let received: unknown = null;
@@ -468,7 +436,6 @@ void test("createNotificationForOrganizationRoles caps membership reads", async 
     prisma.membership.findMany = originalFindMany;
   }
 });
-
 void test("listNotifications returns bounded items, next cursor and unread count", async () => {
   const originalFindMany = prisma.notification.findMany.bind(prisma.notification);
   const originalCount = prisma.notification.count.bind(prisma.notification);
@@ -498,7 +465,6 @@ void test("listNotifications returns bounded items, next cursor and unread count
     prisma.notification.count = originalCount;
   }
 });
-
 void test("listNotifications accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
 

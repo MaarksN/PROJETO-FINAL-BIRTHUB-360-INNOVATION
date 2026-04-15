@@ -41,25 +41,6 @@ export function RequireRole(minimumRole: Role): RequestHandler {
   };
 }
 
-function requireAuthenticated(request: Request, _response: Response, next: NextFunction): void {
-  if (
-    !request.context.userId ||
-    !request.context.organizationId ||
-    !request.context.tenantId
-  ) {
-    next(
-      new ProblemDetailsError({
-        detail: "A valid session or API key is required.",
-        status: 401,
-        title: "Unauthorized"
-      })
-    );
-    return;
-  }
-
-  next();
-}
-
 export function requireAuthenticatedSession(
   request: Request,
   _response: Response,

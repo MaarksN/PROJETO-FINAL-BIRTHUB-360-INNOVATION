@@ -7,16 +7,16 @@ import { enqueueTask } from "../src/lib/queue.js";
 import { createTestApiConfig } from "./test-config.js";
 
 void test("API queue wrapper only enqueues through the shared queue client", async () => {
-  const original = queueClient.enqueue;
+  const original = queueClient.enqueue.bind(queueClient);
   const captured: Array<unknown> = [];
 
-  queueClient.enqueue = (async (request) => {
+  queueClient.enqueue = ((request) => {
     captured.push(request);
-    return {
+    return Promise.resolve({
       jobId: "job_1",
       pendingJobs: 1,
       queue: "legacy-tasks"
-    };
+    });
   }) as typeof queueClient.enqueue;
 
   try {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import {
@@ -7,7 +5,6 @@ import {
   prisma,
   type Prisma
 } from "@birthub/database";
-import Stripe from "stripe";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { createStripeClient } from "./stripe.client.js";
@@ -18,15 +15,17 @@ import {
 
 const logger = createLogger("billing-service");
 
+type CheckoutLocale = "en" | "es" | "fr" | "it" | "pt-BR";
+
 function normalizeStripeLocale(
   locale: string | null | undefined
-): Stripe.Checkout.SessionCreateParams.Locale | undefined {
+): CheckoutLocale | undefined {
   if (!locale) {
     return undefined;
   }
 
   const normalized = locale.toLowerCase();
-  const byPrefix: Record<string, Stripe.Checkout.SessionCreateParams.Locale> = {
+  const byPrefix: Readonly<Record<string, CheckoutLocale>> = {
     en: "en",
     "en-us": "en",
     es: "es",
@@ -36,7 +35,13 @@ function normalizeStripeLocale(
     "pt-br": "pt-BR"
   };
 
-  return byPrefix[normalized] ?? byPrefix[normalized.split("-")[0] ?? ""] ?? undefined;
+  const directMatch = byPrefix[normalized];
+  if (directMatch) {
+    return directMatch;
+  }
+
+  const primaryTag = normalized.split("-")[0] ?? "";
+  return byPrefix[primaryTag];
 }
 
 function readOrganizationSetting(
@@ -57,7 +62,7 @@ export function resolveCheckoutPreferences(input: {
   settings: Prisma.JsonValue | null | undefined;
 }): {
   countryCode: string | null;
-  locale: Stripe.Checkout.SessionCreateParams.Locale | undefined;
+  locale: CheckoutLocale | undefined;
 } {
   const locale =
     normalizeStripeLocale(input.locale) ??

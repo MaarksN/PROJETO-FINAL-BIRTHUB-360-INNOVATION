@@ -21,6 +21,9 @@ const config = getWorkerConfig();
 initializeWorkerOpenTelemetry(config);
 const logger = createLogger("worker-bootstrap");
 const runtime = createBirthHubWorker();
+const redisConnection = runtime.connection as {
+  ping(): Promise<string>;
+};
 const failRateMetricsSource = new NoopFailRateMetricsSource();
 const failRateNotifier = new LoggingFailRateNotifier();
 const cycle2Jobs = await startCycle2Jobs(runtime.runtime);
@@ -170,7 +173,7 @@ const healthServer = createServer((request, response) => {
   if (requestUrl.pathname === "/readiness") {
     void evaluateWorkerReadiness({
       listQueueStates,
-      pingRedis: () => runtime.connection.ping(),
+      pingRedis: () => redisConnection.ping(),
       queueCount: runtime.queues.length,
       workerCount: runtime.workers.length
     })

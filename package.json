@@ -78,7 +78,7 @@
     "test:integration": "pnpm --filter @birthub/api exec node --import tsx --test test/performance.test.ts apps/api/tests/workflow-retry-lineage.integration.test.ts && pnpm --filter @birthub/worker exec node --import tsx --test src/runtime.integration.test.ts src/agents/runtime.db-integration.test.ts src/engine/runner.db-integration.test.ts",
     "test:satellites": "node scripts/ci/run-satellites.mjs test",
     "test:workspace": "turbo run test",
-    "test:isolation": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/api --filter=@birthub/worker run test:isolation",
+    "test:isolation": "node scripts/testing/run-isolation-suite.mjs",
     "test:workflows": "pnpm --filter @birthub/workflows-core test && pnpm --filter @birthub/worker test && pnpm workflow:coverage",
     "workflow:coverage": "node --import tsx scripts/verify-workflow-step-coverage.ts",
     "test:auth": "pnpm --filter @birthub/api test:auth",

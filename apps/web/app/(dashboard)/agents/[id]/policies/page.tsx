@@ -36,10 +36,13 @@ function readPolicies(manifest: Record<string, unknown>): ManifestPolicy[] {
   });
 }
 
-export default async function AgentPoliciesPage({ params }: Readonly<{ params: { id: string } }>) {
+export default async function AgentPoliciesPage({
+  params
+}: Readonly<{ params: Promise<{ id: string }> }>) {
+  const { id } = await params;
   const [agent, policies] = await Promise.all([
-    getInstalledAgentById(params.id),
-    getInstalledAgentPolicies(params.id)
+    getInstalledAgentById(id),
+    getInstalledAgentPolicies(id)
   ]);
 
   if (!agent) {

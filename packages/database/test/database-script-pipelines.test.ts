@@ -83,7 +83,7 @@ void test("validate-migrations-on-test-db runs the reset, seed and checklist pip
   assert.equal(exitCode, 0);
   assert.equal(commands.length, 3);
   assert.match(commands[0]!.args.join(" "), /migrate reset/);
-  assert.match(commands[1]!.args.join(" "), /prisma[\\\/]seed\.ts/);
+  assert.match(commands[1]!.args.join(" "), /prisma[\\/]seed\.ts/);
   assert.match(commands[1]!.args.join(" "), /--profile=ci/);
   assert.match(commands[2]!.args.join(" "), /post-migration-checklist\.ts/);
   assert.equal(reports.length, 1);

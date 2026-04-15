@@ -34,7 +34,9 @@ void test("buildAgentMeshTriggerExecution normalizes critical support events int
     (blueprint?.executionPayload.input.trigger as { canonicalType: string }).canonicalType,
     "support.critical_ticket"
   );
-  assert.match(String(blueprint?.executionPayload.input.objective ?? ""), /ticket critico/i);
+  const objective = blueprint?.executionPayload.input.objective;
+  assert.equal(typeof objective, "string");
+  assert.match(typeof objective === "string" ? objective : "", /ticket critico/i);
   assert.equal(
     blueprint?.workflowTopics.includes("agent.mesh.support.critical_ticket"),
     true

@@ -103,6 +103,11 @@ void test.skip("listRetentionPolicies paginates policy lookups for the organizat
     const result = await listRetentionPolicies({
       organizationReference: organization.id
     });
+    const typedResult = result as {
+      items: Array<{
+        id: string;
+      }>;
+    };
 
     assert.equal(policyCalls.length, 2);
     assert.equal(policyCalls[0]?.take, 25);
@@ -110,9 +115,9 @@ void test.skip("listRetentionPolicies paginates policy lookups for the organizat
       id: "policy_024"
     });
     assert.equal(policyCalls[1]?.skip, 1);
-    assert.equal(result.items.length, 26);
+    assert.equal(typedResult.items.length, 26);
     assert.deepEqual(
-      result.items.map((item) => item.id).slice(-2),
+      typedResult.items.map((item) => item.id).slice(-2),
       ["policy_024", "policy_025"]
     );
   } finally {

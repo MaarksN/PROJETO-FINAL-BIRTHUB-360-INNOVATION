@@ -11,6 +11,12 @@ import { requestContextMiddleware } from "../src/middleware/request-context.js";
 import { createClinicalRouter } from "../src/modules/clinical/router.js";
 import { createTestApiConfig } from "./test-config.js";
 
+type ErrorBody = {
+  detail?: string;
+  status: number;
+  title: string;
+};
+
 function createStandaloneClinicalTestApp(
   config?: Parameters<typeof createClinicalRouter>[0]
 ) {
@@ -30,19 +36,21 @@ void test("clinical routes are not mounted in the main API surface while the cli
   )
     .get("/api/v1/patients")
     .expect(404);
+  const body = response.body as ErrorBody;
 
-  assert.equal(response.body.status, 404);
-  assert.equal(response.body.title, "Not Found");
+  assert.equal(body.status, 404);
+  assert.equal(body.title, "Not Found");
 });
 
 void test("standalone clinical router short-circuits by default while the domain remains orphaned", async () => {
   const response = await request(createStandaloneClinicalTestApp())
     .get("/api/v1/patients")
     .expect(404);
+  const body = response.body as ErrorBody;
 
-  assert.equal(response.body.status, 404);
-  assert.equal(response.body.title, "Not Found");
-  assert.match(response.body.detail, /clinical workspace router is disabled/i);
+  assert.equal(body.status, 404);
+  assert.equal(body.title, "Not Found");
+  assert.match(body.detail ?? "", /clinical workspace router is disabled/i);
 });
 
 void test("standalone clinical router only reaches authentication when the capability is explicitly re-enabled", async () => {
@@ -53,7 +61,8 @@ void test("standalone clinical router only reaches authentication when the capab
   )
     .get("/api/v1/patients")
     .expect(401);
+  const body = response.body as ErrorBody;
 
-  assert.equal(response.body.status, 401);
-  assert.equal(response.body.title, "Unauthorized");
+  assert.equal(body.status, 401);
+  assert.equal(body.title, "Unauthorized");
 });

@@ -120,7 +120,6 @@ export function matchesPattern(candidate: string, pattern: string): boolean {
     return candidate === pattern;
   }
 
-  let position = 0;
   const [firstPart = "", ...rest] = parts;
   const lastPart = parts.at(-1) ?? "";
   const middleParts = rest.slice(0, -1);
@@ -129,7 +128,7 @@ export function matchesPattern(candidate: string, pattern: string): boolean {
     return false;
   }
 
-  position = firstPart.length;
+  let position = firstPart.length;
 
   for (const part of middleParts) {
     if (!part) {
@@ -179,38 +178,6 @@ export function readSessionId(input: Record<string, unknown>): string | null {
   }
 
   return null;
-}
-
-function readNumbers(value: unknown): number[] {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return [value];
-  }
-
-  if (Array.isArray(value)) {
-    return value.flatMap((item) => readNumbers(item));
-  }
-
-  if (value && typeof value === "object") {
-    return Object.values(value).flatMap((item) => readNumbers(item));
-  }
-
-  return [];
-}
-
-function readStrings(value: unknown): string[] {
-  if (typeof value === "string" && value.trim().length > 0) {
-    return [value.trim()];
-  }
-
-  if (Array.isArray(value)) {
-    return value.flatMap((item) => readStrings(item));
-  }
-
-  if (value && typeof value === "object") {
-    return Object.values(value).flatMap((item) => readStrings(item));
-  }
-
-  return [];
 }
 
 export function toJsonValue(value: Record<string, unknown>): Prisma.InputJsonValue {

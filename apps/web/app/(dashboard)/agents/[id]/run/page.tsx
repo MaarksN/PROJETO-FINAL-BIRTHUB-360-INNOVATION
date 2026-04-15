@@ -7,8 +7,11 @@ import { getWebConfig } from "@birthub/config/web";
 import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel";
 import { getInstalledAgentById } from "../../../../../lib/agents";
 
-export default async function AgentRunPage({ params }: Readonly<{ params: { id: string } }>) {
-  const agent = await getInstalledAgentById(params.id);
+export default async function AgentRunPage({
+  params
+}: Readonly<{ params: Promise<{ id: string }> }>) {
+  const { id } = await params;
+  const agent = await getInstalledAgentById(id);
 
   if (!agent) {
     notFound();

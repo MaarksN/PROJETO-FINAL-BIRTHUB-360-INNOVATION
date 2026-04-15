@@ -9,21 +9,23 @@ import {
   assertFound,
   normalizeOptionalString,
   parseRequiredDate,
-  serializeAppointment,
   type AppointmentRecord,
   type AppointmentStatus,
   type AppointmentType,
   type ClinicalContext,
   type DateWindowView
 } from "./service-support.js";
+import { serializeAppointment } from "./service-support.view.js";
 import {
   asClinicalTransaction,
   buildAppointmentSelect,
   buildDateWindow,
-  ensureClinicalRuntimeAvailable,
+  ensureClinicalRuntimeAvailable
+} from "./service-runtime.js";
+import {
   findActivePregnancy,
   listAppointmentsInWindow
-} from "./service-runtime.js";
+} from "./service-runtime.records.js";
 
 type CreateAppointmentPayload = {
   bloodPressureDiastolic?: number;

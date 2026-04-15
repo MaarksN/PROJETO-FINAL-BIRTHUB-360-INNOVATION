@@ -10,7 +10,6 @@ import {
   getAgentQueueName
 } from "@birthub/queue";
 import type { Queue, Worker } from "bullmq";
-import { Redis } from "ioredis";
 
 import { persistAgentHandoff } from "./agents/handoffs.js";
 import { initializeAgentMeshIngressBridge } from "./agents/runtime.ingress.js";
@@ -93,7 +92,7 @@ function recordWorkerJobMetric(input: {
 export function createBirthHubWorker(): WorkerRuntime {
   const config = getWorkerConfig();
   const runtime = new QueueRuntime({ redisUrl: config.REDIS_URL });
-  const connection = runtime.redis as Redis;
+  const connection = runtime.redis;
 
   const legacyTaskQueueConfig = buildRetryableQueueConfig({
     attempts: 5,

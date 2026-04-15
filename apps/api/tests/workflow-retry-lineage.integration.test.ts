@@ -9,7 +9,6 @@ import {
   StepResultStatus,
   UserStatus,
   WorkflowExecutionStatus,
-  WorkflowTriggerType,
   prisma
 } from "@birthub/database";
 import request from "supertest";

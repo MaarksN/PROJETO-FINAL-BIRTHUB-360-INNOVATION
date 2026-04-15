@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/1d7e797b-faea-4380-aa90-3e1589e0351e",
+  "documentNamespace": "https://birthub.local/spdx/77846a9b-fcad-f677-69a4-37fcbbf443d4",
   "creationInfo": {
-    "created": "2026-04-11T16:45:34.231Z",
+    "created": "2026-04-15T02:42:25.606Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -30,24 +30,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-be5829c1c2971067",
-      "name": "@asteasolutions/zod-to-openapi",
-      "versionInfo": "8.5.0",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40asteasolutions%2Fzod-to-openapi@8.5.0"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-0349cd6d3b78ec0f",
+      "SPDXID": "SPDXRef-Package-509581164c3cbab8",
       "name": "@aws-sdk/client-s3",
-      "versionInfo": "3.1019.0",
+      "versionInfo": "3.1029.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -55,7 +40,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40aws-sdk%2Fclient-s3@3.1019.0"
+          "referenceLocator": "pkg:npm/%40aws-sdk%2Fclient-s3@3.1029.0"
         }
       ]
     },
@@ -90,6 +75,21 @@
       ]
     },
     {
+      "SPDXID": "SPDXRef-Package-4060016e2b92f1b7",
+      "name": "@birthub/agents-core",
+      "versionInfo": "link:packages/agents-core",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Fagents-core@link%3Apackages%2Fagents-core"
+        }
+      ]
+    },
+    {
       "SPDXID": "SPDXRef-Package-6b3e90d06e59eb0c",
       "name": "@birthub/config",
       "versionInfo": "link:../../packages/config",
@@ -101,6 +101,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40birthub%2Fconfig@link%3A..%2F..%2Fpackages%2Fconfig"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-2cdadb18dd013689",
+      "name": "@birthub/config",
+      "versionInfo": "link:packages/config",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Fconfig@link%3Apackages%2Fconfig"
         }
       ]
     },
@@ -131,6 +146,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40birthub%2Fdatabase@link%3A..%2Fdatabase"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-e4065ce1cc066dff",
+      "name": "@birthub/database",
+      "versionInfo": "link:packages/database",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Fdatabase@link%3Apackages%2Fdatabase"
         }
       ]
     },
@@ -180,9 +210,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-7946de22d243fa03",
-      "name": "@birthub/security",
-      "versionInfo": "link:../../packages/security",
+      "SPDXID": "SPDXRef-Package-742f56865316799f",
+      "name": "@birthub/logger",
+      "versionInfo": "link:packages/logger",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -190,7 +220,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40birthub%2Fsecurity@link%3A..%2F..%2Fpackages%2Fsecurity"
+          "referenceLocator": "pkg:npm/%40birthub%2Flogger@link%3Apackages%2Flogger"
         }
       ]
     },
@@ -345,6 +375,21 @@
       ]
     },
     {
+      "SPDXID": "SPDXRef-Package-65aff18a9fc4c98f",
+      "name": "@opentelemetry/api",
+      "versionInfo": "1.9.1",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40opentelemetry%2Fapi@1.9.1"
+        }
+      ]
+    },
+    {
       "SPDXID": "SPDXRef-Package-52260fd419beacb1",
       "name": "@opentelemetry/auto-instrumentations-node",
       "versionInfo": "0.71.0",
@@ -405,9 +450,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-1f8d6db634476585",
+      "SPDXID": "SPDXRef-Package-36a51966ca5d1f52",
       "name": "@opentelemetry/sdk-trace-node",
-      "versionInfo": "2.6.0",
+      "versionInfo": "2.6.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -415,14 +460,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40opentelemetry%2Fsdk-trace-node@2.6.0"
+          "referenceLocator": "pkg:npm/%40opentelemetry%2Fsdk-trace-node@2.6.1"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-6858af1dd0233e5d",
+      "SPDXID": "SPDXRef-Package-2a2d4144b524d474",
       "name": "@playwright/test",
-      "versionInfo": "1.58.2",
+      "versionInfo": "1.59.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -430,7 +475,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40playwright%2Ftest@1.58.2"
+          "referenceLocator": "pkg:npm/%40playwright%2Ftest@1.59.1"
         }
       ]
     },
@@ -510,8 +555,8 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-ca8d182240ecaa1b",
-      "name": "@stryker-mutator/core",
+      "SPDXID": "SPDXRef-Package-c613364b0da915f1",
+      "name": "@stryker-mutator/api",
       "versionInfo": "8.7.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
@@ -520,22 +565,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fcore@8.7.1"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-a55cb08bb84f0737",
-      "name": "@stryker-mutator/typescript-checker",
-      "versionInfo": "8.7.1",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40stryker-mutator%2Ftypescript-checker@8.7.1"
+          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fapi@8.7.1"
         }
       ]
     },
@@ -585,9 +615,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-897fe745bdd360c0",
+      "SPDXID": "SPDXRef-Package-fb8f5c8bd483ba1f",
       "name": "@types/node",
-      "versionInfo": "25.5.2",
+      "versionInfo": "25.6.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -595,7 +625,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40types%2Fnode@25.5.2"
+          "referenceLocator": "pkg:npm/%40types%2Fnode@25.6.0"
         }
       ]
     },
@@ -840,21 +870,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-1edd68d10296c5e7",
-      "name": "fast-xml-parser",
-      "versionInfo": "5.5.8",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/fast-xml-parser@5.5.8"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-3c15587d0ad7cb9f",
       "name": "helmet",
       "versionInfo": "8.1.0",
@@ -930,9 +945,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-745e096578ce28c4",
+      "SPDXID": "SPDXRef-Package-e5dc82852653bc99",
       "name": "jsdom",
-      "versionInfo": "29.0.1",
+      "versionInfo": "29.0.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -940,7 +955,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/jsdom@29.0.1"
+          "referenceLocator": "pkg:npm/jsdom@29.0.2"
         }
       ]
     },
@@ -975,9 +990,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-b1f3499bf02b3187",
+      "SPDXID": "SPDXRef-Package-2c80f7ae24854a8a",
       "name": "lru-cache",
-      "versionInfo": "11.2.7",
+      "versionInfo": "11.3.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -985,14 +1000,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/lru-cache@11.2.7"
+          "referenceLocator": "pkg:npm/lru-cache@11.3.3"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-e1228360dca19bda",
+      "SPDXID": "SPDXRef-Package-40d803f28472791a",
       "name": "lucide-react",
-      "versionInfo": "0.541.0",
+      "versionInfo": "1.8.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1000,7 +1015,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/lucide-react@0.541.0"
+          "referenceLocator": "pkg:npm/lucide-react@1.8.0"
         }
       ]
     },
@@ -1290,9 +1305,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-ae152f1b2720def7",
+      "SPDXID": "SPDXRef-Package-700c203092e9bab0",
       "name": "stripe",
-      "versionInfo": "21.0.1",
+      "versionInfo": "22.0.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1300,7 +1315,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/stripe@21.0.1"
+          "referenceLocator": "pkg:npm/stripe@22.0.1"
         }
       ]
     },
@@ -1410,9 +1425,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-c6d213c18200cd6d",
+      "SPDXID": "SPDXRef-Package-c6413c3fbc25007d",
       "name": "typescript-eslint",
-      "versionInfo": "8.58.0",
+      "versionInfo": "8.58.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1420,7 +1435,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/typescript-eslint@8.58.0"
+          "referenceLocator": "pkg:npm/typescript-eslint@8.58.1"
         }
       ]
     },

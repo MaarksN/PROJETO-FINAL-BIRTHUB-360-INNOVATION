@@ -95,8 +95,9 @@ export async function main(
 
     await runtime.recordStep(
       "validate execution environment",
-      async () => {
+      () => {
         assertValidationEnvironment(env);
+        return Promise.resolve();
       },
       {
         type: "infra"
@@ -105,7 +106,7 @@ export async function main(
 
     await runtime.recordStep(
       "validate destructive target",
-      async () => {
+      () => {
         if (
           !looksDisposableDatabase(databaseUrl) &&
           env.ALLOW_DESTRUCTIVE_DB_VALIDATION !== "true"
@@ -114,15 +115,16 @@ export async function main(
             "Refusing to reset a non-disposable database. Set ALLOW_DESTRUCTIVE_DB_VALIDATION=true only on dedicated validation databases."
           );
         }
+        return Promise.resolve();
       },
       {
         type: "infra"
       }
     );
 
-    const seedProfile = await runtime.recordStep(
+    const seedProfile = await runtime.recordStep<ValidationSeedProfile>(
       "resolve validation seed profile",
-      async () => resolveValidationSeedProfile(argv, env),
+      () => Promise.resolve(resolveValidationSeedProfile(argv, env)),
       {
         type: "seed"
       }

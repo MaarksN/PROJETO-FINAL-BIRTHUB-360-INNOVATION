@@ -54,7 +54,7 @@ async function run() {
   const queue = manager.createQueue(queueName);
 
   let processed = 0;
-  const worker = manager.createWorker(queueName, async () => {
+  const worker = manager.createWorker(queueName, () => {
     processed += 1;
     return { ok: true };
   });

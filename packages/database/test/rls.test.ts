@@ -6,16 +6,32 @@ import { randomUUID } from "node:crypto";
 
 import { WorkflowStatus } from "@prisma/client";
 import { createPrismaClient } from "../src/client.js";
-import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
+import {
+  ensureDatabaseAvailableOrSkip,
+  requireDatabaseUrlOrSkip,
+  shouldRequireDeterministicIsolationValidation
+} from "./database-availability.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
-const testIfDatabase = databaseUrl ? test : test.skip;
+const requireRlsValidation = shouldRequireDeterministicIsolationValidation();
 
-void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async (context) => {
+void test("RLS bloqueia SELECT de tenant B quando a sessao esta fixada no tenant A", async (context) => {
+  if (
+    !requireDatabaseUrlOrSkip(context, databaseUrl, {
+      label: "a suite oficial de isolamento RLS",
+      required: requireRlsValidation
+    })
+  ) {
+    return;
+  }
+
   const prisma = createPrismaClient({ databaseUrl });
 
   try {
-    const databaseAvailable = await ensureDatabaseAvailableOrSkip(context, prisma);
+    const databaseAvailable = await ensureDatabaseAvailableOrSkip(context, prisma, {
+      label: "a suite oficial de isolamento RLS",
+      required: requireRlsValidation
+    });
     if (!databaseAvailable) {
       return;
     }
@@ -25,12 +41,22 @@ void testIfDatabase("RLS bloqueia SELECT de tenant B quando a sessao esta fixada
       WHERE r.rolname = current_user
     `;
     if (roleRows.length === 0) {
-      context.skip("Não foi possível determinar flags de RLS da role atual (pg_roles vazio para current_user).");
+      if (requireRlsValidation) {
+        throw new Error(
+          "Nao foi possivel determinar flags de RLS da role atual (pg_roles vazio para current_user)."
+        );
+      }
+      context.skip("Nao foi possivel determinar flags de RLS da role atual (pg_roles vazio para current_user).");
       return;
     }
     const bypass = roleRows[0]?.bypass ?? false;
 
     if (bypass) {
+      if (requireRlsValidation) {
+        throw new Error(
+          "A role atual ignora RLS (superuser/BYPASSRLS), impossibilitando validar isolamento por tenant."
+        );
+      }
       context.skip("A role atual ignora RLS (superuser/BYPASSRLS), impossibilitando validar isolamento por tenant.");
       return;
     }
