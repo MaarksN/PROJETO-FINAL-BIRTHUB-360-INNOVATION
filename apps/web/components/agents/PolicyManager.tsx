@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useState, useTransition } from "react";
@@ -14,6 +12,7 @@ type ManifestPolicy = {
 };
 
 const POLICY_REQUEST_TIMEOUT_MS = 8_000;
+const POLICY_TEMPLATES = ["standard", "readonly", "admin"] as const;
 
 type ManagedPolicy = {
   actions: string[];
@@ -64,27 +63,19 @@ export function PolicyManager({
   }
 
   return (
-    <section style={{ display: "grid", gap: "1rem" }}>
-      <div
-        style={{
-          background: "var(--card)",
-          border: "1px solid var(--border)",
-          borderRadius: "1rem",
-          display: "grid",
-          gap: "0.75rem",
-          padding: "1rem"
-        }}
-      >
+    <section className="agent-stack">
+      <div className="agent-panel">
         <div>
-          <h2 style={{ margin: 0 }}>Policies</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 0 }}>
+          <h2 className="agent-body-copy">Policies</h2>
+          <p className="agent-muted">
             Runtime ativo: <strong>{runtimeProvider}</strong>. Policies do manifesto continuam visiveis e as managed policies abaixo passam a governar o runtime instalado.
           </p>
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-          {(["standard", "readonly", "admin"] as const).map((template) => (
+        <div className="agent-toolbar">
+          {POLICY_TEMPLATES.map((template) => (
             <button
+              className="ghost-button"
               key={template}
               disabled={isPending}
               onClick={() => {
@@ -119,36 +110,19 @@ export function PolicyManager({
         </div>
       </div>
 
-      <div
-        style={{
-          background: "var(--card)",
-          border: "1px solid var(--border)",
-          borderRadius: "1rem",
-          display: "grid",
-          gap: "0.75rem",
-          padding: "1rem"
-        }}
-      >
-        <h3 style={{ margin: 0 }}>Managed Policies</h3>
+      <div className="agent-panel">
+        <h3 className="agent-body-copy">Managed Policies</h3>
         {managedPolicies.length === 0 ? (
-          <p style={{ color: "var(--muted)", margin: 0 }}>
+          <p className="agent-empty-state agent-muted">
             Nenhuma managed policy criada ainda.
           </p>
         ) : null}
         {managedPolicies.map((policy) => (
-          <article
-            key={policy.id}
-            style={{
-              border: "1px solid var(--border)",
-              borderRadius: "0.75rem",
-              display: "grid",
-              gap: "0.45rem",
-              padding: "0.75rem"
-            }}
-          >
-            <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
+          <article className="agent-panel agent-panel--compact" key={policy.id}>
+            <div className="agent-panel__header">
               <strong>{policy.name}</strong>
               <button
+                className="ghost-button"
                 disabled={isPending}
                 onClick={() => {
                   setError(null);
@@ -180,46 +154,55 @@ export function PolicyManager({
                 {(policy.enabled ?? true) ? "Desativar" : "Ativar"}
               </button>
             </div>
-            <small style={{ color: "var(--muted)" }}>{policy.id}</small>
-            <p style={{ margin: 0 }}>
+            <small className="agent-muted">{policy.id}</small>
+            <p className="agent-body-copy">
               <strong>{policy.effect}</strong> · {policy.actions.join(", ")}
             </p>
-            {policy.reason ? <p style={{ margin: 0 }}>{policy.reason}</p> : null}
+            {policy.reason ? <p className="agent-body-copy">{policy.reason}</p> : null}
           </article>
         ))}
       </div>
 
-      <div
-        style={{
-          background: "var(--card)",
-          border: "1px solid var(--border)",
-          borderRadius: "1rem",
-          display: "grid",
-          gap: "0.75rem",
-          padding: "1rem"
-        }}
-      >
-        <h3 style={{ margin: 0 }}>Nova Managed Policy</h3>
-        <label style={{ display: "grid", gap: "0.35rem" }}>
+      <div className="agent-panel">
+        <h3 className="agent-body-copy">Nova Managed Policy</h3>
+        <label className="agent-field">
           <span>Nome</span>
-          <input onChange={(event) => setName(event.target.value)} value={name} />
+          <input
+            className="agent-input"
+            onChange={(event) => setName(event.target.value)}
+            value={name}
+          />
         </label>
-        <label style={{ display: "grid", gap: "0.35rem" }}>
+        <label className="agent-field">
           <span>Acoes (separadas por virgula)</span>
-          <input onChange={(event) => setActions(event.target.value)} value={actions} />
+          <input
+            className="agent-input"
+            onChange={(event) => setActions(event.target.value)}
+            value={actions}
+          />
         </label>
-        <label style={{ display: "grid", gap: "0.35rem" }}>
+        <label className="agent-field">
           <span>Efeito</span>
-          <select onChange={(event) => setEffect(event.target.value as "allow" | "deny")} value={effect}>
+          <select
+            className="agent-select"
+            onChange={(event) => setEffect(event.target.value as "allow" | "deny")}
+            value={effect}
+          >
             <option value="allow">allow</option>
             <option value="deny">deny</option>
           </select>
         </label>
-        <label style={{ display: "grid", gap: "0.35rem" }}>
+        <label className="agent-field">
           <span>Motivo</span>
-          <textarea onChange={(event) => setReason(event.target.value)} rows={4} value={reason} />
+          <textarea
+            className="agent-textarea"
+            onChange={(event) => setReason(event.target.value)}
+            rows={4}
+            value={reason}
+          />
         </label>
         <button
+          className="action-button"
           disabled={isPending || name.trim().length === 0}
           onClick={() => {
             setError(null);
@@ -258,37 +241,19 @@ export function PolicyManager({
         >
           {isPending ? "Salvando..." : "Criar policy"}
         </button>
-        {error ? <small style={{ color: "#9d0208" }}>{error}</small> : null}
+        {error ? <small className="agent-error-text">{error}</small> : null}
       </div>
 
-      <div
-        style={{
-          background: "var(--card)",
-          border: "1px solid var(--border)",
-          borderRadius: "1rem",
-          display: "grid",
-          gap: "0.75rem",
-          padding: "1rem"
-        }}
-      >
-        <h3 style={{ margin: 0 }}>Policies do Manifesto</h3>
+      <div className="agent-panel">
+        <h3 className="agent-body-copy">Policies do Manifesto</h3>
         {initialManifestPolicies.map((policy) => (
-          <article
-            key={policy.id}
-            style={{
-              border: "1px solid var(--border)",
-              borderRadius: "0.75rem",
-              display: "grid",
-              gap: "0.45rem",
-              padding: "0.75rem"
-            }}
-          >
-            <div style={{ alignItems: "center", display: "flex", justifyContent: "space-between" }}>
+          <article className="agent-panel agent-panel--compact" key={policy.id}>
+            <div className="agent-panel__header">
               <strong>{policy.name}</strong>
               <span>{policy.effect}</span>
             </div>
-            <small style={{ color: "var(--muted)" }}>{policy.id}</small>
-            <p style={{ margin: 0 }}>Acoes permitidas: {policy.actions.join(", ")}</p>
+            <small className="agent-muted">{policy.id}</small>
+            <p className="agent-body-copy">Acoes permitidas: {policy.actions.join(", ")}</p>
           </article>
         ))}
       </div>

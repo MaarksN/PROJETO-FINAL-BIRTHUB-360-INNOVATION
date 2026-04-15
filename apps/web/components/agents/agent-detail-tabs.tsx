@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 "use client";
 
 import { useState } from "react";
@@ -42,21 +40,14 @@ export function AgentDetailTabs({ agent }: Readonly<AgentDetailTabsProps>) {
   const manifestAgent = readManifestAgent(agent.manifest);
 
   return (
-    <section style={{ display: "grid", gap: "1rem" }}>
-      <nav style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+    <section className="agent-stack">
+      <nav className="agent-tab-nav">
         {TABS.map((tab) => (
           <button
+            className="agent-tab-button"
+            data-active={activeTab === tab}
             key={tab}
             onClick={() => setActiveTab(tab)}
-            style={{
-              background: activeTab === tab ? "var(--accent)" : "rgba(255,255,255,0.75)",
-              border: "1px solid var(--border)",
-              borderRadius: "999px",
-              color: activeTab === tab ? "white" : "var(--text)",
-              cursor: "pointer",
-              padding: "0.45rem 0.95rem",
-              textTransform: "capitalize"
-            }}
             type="button"
           >
             {tab}
@@ -65,82 +56,50 @@ export function AgentDetailTabs({ agent }: Readonly<AgentDetailTabsProps>) {
       </nav>
 
       {activeTab === "overview" ? (
-        <article style={{ display: "grid", gap: "1rem" }}>
-          <div
-            style={{
-              background: "var(--card)",
-              border: "1px solid var(--border)",
-              borderRadius: "1rem",
-              display: "grid",
-              gap: "0.75rem",
-              padding: "1rem"
-            }}
-          >
-            <h3 style={{ margin: 0 }}>Overview</h3>
-            <p style={{ color: "var(--muted)", margin: 0 }}>{manifestAgent.description}</p>
-            <p style={{ margin: 0 }}>
+        <article className="agent-stack">
+          <div className="agent-panel">
+            <h3 className="agent-body-copy">Overview</h3>
+            <p className="agent-muted agent-body-copy">{manifestAgent.description}</p>
+            <p className="agent-body-copy">
               Status instalado: <strong>{agent.status}</strong> · status fonte: <strong>{agent.sourceStatus}</strong>
             </p>
-            <p style={{ margin: 0 }}>
+            <p className="agent-body-copy">
               Catalogo: <strong>{agent.catalogAgentId}</strong> · versao instalada: <strong>{agent.version}</strong>
             </p>
-            <p style={{ margin: 0 }}>
+            <p className="agent-body-copy">
               Runtime: <strong>{agent.runtimeProvider}</strong>
             </p>
-            <p style={{ margin: 0 }}>Tags: {agent.tags.join(", ")}</p>
-            <p style={{ margin: 0 }}>Keywords: {agent.keywords.join(", ")}</p>
+            <p className="agent-body-copy">Tags: {agent.tags.join(", ")}</p>
+            <p className="agent-body-copy">Keywords: {agent.keywords.join(", ")}</p>
           </div>
 
-          <div
-            style={{
-              background: "var(--card)",
-              border: "1px solid var(--border)",
-              borderRadius: "1rem",
-              display: "grid",
-              gap: "0.5rem",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              padding: "1rem"
-            }}
-          >
+          <div className="agent-stat-grid">
             <div>
-              <small style={{ color: "var(--muted)" }}>execution_count</small>
-              <p style={{ fontSize: "1.4rem", margin: 0 }}>{agent.executionCount}</p>
+              <small className="agent-stat-label">execution_count</small>
+              <p className="agent-stat-value">{agent.executionCount}</p>
             </div>
             <div>
-              <small style={{ color: "var(--muted)" }}>fail_rate</small>
-              <p style={{ fontSize: "1.4rem", margin: 0 }}>{Math.round(agent.failRate * 100)}%</p>
+              <small className="agent-stat-label">fail_rate</small>
+              <p className="agent-stat-value">{Math.round(agent.failRate * 100)}%</p>
             </div>
             <div>
-              <small style={{ color: "var(--muted)" }}>last_run</small>
-              <p style={{ fontSize: "1rem", margin: 0 }}>
+              <small className="agent-stat-label">last_run</small>
+              <p className="agent-stat-value agent-stat-value--compact">
                 {agent.lastRun ? new Date(agent.lastRun).toLocaleString("pt-BR") : "Nunca executado"}
               </p>
             </div>
             <div>
-              <small style={{ color: "var(--muted)" }}>max latency</small>
-              <p style={{ fontSize: "1.4rem", margin: 0 }}>{readLatestLatency(agent)}ms</p>
+              <small className="agent-stat-label">max latency</small>
+              <p className="agent-stat-value">{readLatestLatency(agent)}ms</p>
             </div>
           </div>
 
-          <div
-            style={{
-              background: "var(--card)",
-              border: "1px solid var(--border)",
-              borderRadius: "1rem",
-              padding: "1rem"
-            }}
-          >
-            <h3 style={{ marginTop: 0 }}>Prompt oficial</h3>
+          <div className="agent-panel">
+            <h3 className="agent-body-copy">Prompt oficial</h3>
             <textarea
+              className="agent-textarea agent-textarea--code"
               readOnly
               rows={12}
-              style={{
-                border: "1px solid var(--border)",
-                borderRadius: "0.75rem",
-                fontFamily: "monospace",
-                padding: "0.75rem",
-                width: "100%"
-              }}
               value={manifestAgent.prompt}
             />
           </div>
@@ -148,90 +107,56 @@ export function AgentDetailTabs({ agent }: Readonly<AgentDetailTabsProps>) {
       ) : null}
 
       {activeTab === "executions" ? (
-        <article
-          style={{
-            background: "var(--card)",
-            border: "1px solid var(--border)",
-            borderRadius: "1rem",
-            padding: "1rem"
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Executions</h3>
-          <table style={{ borderCollapse: "collapse", width: "100%" }}>
+        <article className="agent-panel">
+          <h3 className="agent-body-copy">Executions</h3>
+          <table className="agent-table">
             <thead>
               <tr>
-                <th style={{ textAlign: "left" }}>ID</th>
-                <th style={{ textAlign: "left" }}>Status</th>
-                <th style={{ textAlign: "left" }}>Modo</th>
-                <th style={{ textAlign: "left" }}>Inicio</th>
-                <th style={{ textAlign: "left" }}>Duracao</th>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Modo</th>
+                <th>Inicio</th>
+                <th>Duracao</th>
               </tr>
             </thead>
             <tbody>
               {agent.executions.map((execution) => (
                 <tr key={execution.id}>
-                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.45rem 0" }}>{execution.id}</td>
-                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.45rem 0" }}>{execution.status}</td>
-                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.45rem 0" }}>{execution.mode}</td>
-                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.45rem 0" }}>
+                  <td>{execution.id}</td>
+                  <td>{execution.status}</td>
+                  <td>{execution.mode}</td>
+                  <td>
                     {new Date(execution.startedAt).toLocaleString("pt-BR")}
                   </td>
-                  <td style={{ borderTop: "1px solid var(--border)", padding: "0.45rem 0" }}>
-                    {execution.durationMs}ms
-                  </td>
+                  <td>{execution.durationMs}ms</td>
                 </tr>
               ))}
             </tbody>
           </table>
           {agent.executions.length === 0 ? (
-            <p style={{ color: "var(--muted)", marginBottom: 0 }}>Nenhuma execucao persistida ainda.</p>
+            <p className="agent-empty-state agent-muted">Nenhuma execucao persistida ainda.</p>
           ) : null}
         </article>
       ) : null}
 
       {activeTab === "logs" ? (
-        <article
-          style={{
-            background: "var(--card)",
-            border: "1px solid var(--border)",
-            borderRadius: "1rem",
-            padding: "1rem"
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Logs recentes</h3>
-          <ul style={{ marginBottom: 0, marginTop: 0, paddingLeft: "1rem" }}>
+        <article className="agent-panel">
+          <h3 className="agent-body-copy">Logs recentes</h3>
+          <ul className="agent-log-list">
             {agent.logs.map((logLine) => (
               <li key={logLine}>{logLine}</li>
             ))}
           </ul>
           {agent.logs.length === 0 ? (
-            <p style={{ color: "var(--muted)", marginBottom: 0 }}>Nenhum log persistido ainda.</p>
+            <p className="agent-empty-state agent-muted">Nenhum log persistido ainda.</p>
           ) : null}
         </article>
       ) : null}
 
       {activeTab === "manifest" ? (
-        <article
-          style={{
-            background: "var(--card)",
-            border: "1px solid var(--border)",
-            borderRadius: "1rem",
-            padding: "1rem"
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Manifest</h3>
-          <pre
-            style={{
-              background: "#fff",
-              border: "1px solid var(--border)",
-              borderRadius: "0.75rem",
-              overflowX: "auto",
-              padding: "0.75rem",
-              whiteSpace: "pre-wrap"
-            }}
-          >
-            {JSON.stringify(agent.manifest, null, 2)}
-          </pre>
+        <article className="agent-panel">
+          <h3 className="agent-body-copy">Manifest</h3>
+          <pre className="agent-code-block">{JSON.stringify(agent.manifest, null, 2)}</pre>
         </article>
       ) : null}
     </section>
