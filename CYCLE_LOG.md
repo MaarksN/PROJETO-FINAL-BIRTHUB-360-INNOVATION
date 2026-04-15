@@ -868,3 +868,53 @@ ESCALATION NECESSARIO
 
 PROXIMO PASSO
 [Aguardando autorizacao governada para o proximo subciclo de `A-006` focado no guard global fora do recorte.]
+
+---
+
+CICLO
+[A-006.3]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Restabilizar a baseline global apos o desbloqueio de `A-006.2`, corrigindo apenas os novos gates reais de `lint` sem alterar comportamento funcional.]
+
+ARQUIVOS-ALVO
+- [packages/workflows-core/eslint.config.mjs]
+- [packages/workflows-core/tsconfig.eslint.json]
+- [apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [3 / max 5]
+Linhas alteradas em hot paths: [minimas e locais / max 200]
+Excecao justificada: [nao]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[Depois que `A-006.2` removeu o bloqueio de `PageProps`, o primeiro erro global real passou a ser um parsing error de ESLint em `packages/workflows-core/test/*.test.ts` por ausencia de projeto tipado para testes. Ao fechar esse ponto, o proximo erro global real apareceu em `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`, causado pelo subpath `@birthub/workflows-core/nextjs` apontando para artefatos `dist` inexistentes.]
+
+ALTERACOES REALIZADAS
+- [packages/workflows-core/eslint.config.mjs] - override de `test/**/*.ts` passou a usar projeto explicito de lint, desligando `projectService` nesse recorte
+- [packages/workflows-core/tsconfig.eslint.json] - novo projeto tipado apenas para o ESLint cobrir `src/**/*.ts` e `test/**/*.ts` sem alterar o build oficial do pacote
+- [apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx] - trocado import de `@birthub/workflows-core/nextjs` para o export raiz publico `@birthub/workflows-core`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/workflows-core lint`] -> `PASS`
+- [`pnpm --filter @birthub/web exec eslint "app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx"`] -> `PASS`
+- [`pnpm --filter @birthub/web lint`] -> `PASS`
+- [`pnpm lint`] -> `PASS`
+- [`pnpm typecheck`] -> `PASS`
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[Os gates globais de `lint` e `typecheck` voltaram a ficar verdes. Permanecem apenas warnings distribuidos em pacotes fora deste subciclo, sem erro bloqueante.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
