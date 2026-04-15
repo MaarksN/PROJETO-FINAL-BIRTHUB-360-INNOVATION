@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
 
 import { findSalesOsTool, salesOsModuleMap } from "./catalog";

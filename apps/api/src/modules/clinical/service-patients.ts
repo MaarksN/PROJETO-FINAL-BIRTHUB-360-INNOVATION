@@ -41,7 +41,8 @@ import {
   type PatientListRecord
 } from "./service-runtime.js";
 import {
-  getPatientDetailInternal
+  getPatientDetailInternal,
+  type PatientDetailPayload
 } from "./service-runtime.records.js";
 
 export type PregnancyRecordPayload = {
@@ -116,7 +117,10 @@ export type SaveNeonatalRecordInput = {
 };
 
 export function createPatientMethods() {
-  const getPatientDetail = async (context: ClinicalContext, patientId: string) => {
+  const getPatientDetail = async (
+    context: ClinicalContext,
+    patientId: string
+  ): Promise<PatientDetailPayload> => {
     ensureClinicalRuntimeAvailable();
 
     return withTenantDatabaseContext(

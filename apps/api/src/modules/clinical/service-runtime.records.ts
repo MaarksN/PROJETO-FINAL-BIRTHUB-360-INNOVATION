@@ -318,3 +318,7 @@ export async function getPatientDetailInternal(
       .map((item) => serializeAppointment(item))
   };
 }
+
+export type PatientDetailPayload = Awaited<
+  ReturnType<typeof getPatientDetailInternal>
+>;

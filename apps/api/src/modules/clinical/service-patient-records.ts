@@ -17,13 +17,19 @@ import {
   buildPregnancyMutation,
   ensureClinicalRuntimeAvailable
 } from "./service-runtime.js";
-import { findActivePregnancy } from "./service-runtime.records.js";
+import {
+  findActivePregnancy,
+  type PatientDetailPayload
+} from "./service-runtime.records.js";
 import type {
   SaveNeonatalRecordInput,
   SavePregnancyRecordInput
 } from "./service-patients.js";
 
-type PatientDetailGetter = (context: ClinicalContext, patientId: string) => Promise<unknown>;
+type PatientDetailGetter = (
+  context: ClinicalContext,
+  patientId: string
+) => Promise<PatientDetailPayload>;
 
 export function createPatientRecordMethods(getPatientDetail: PatientDetailGetter) {
   const savePregnancyRecord = async (
