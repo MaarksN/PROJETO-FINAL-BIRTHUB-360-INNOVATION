@@ -82,6 +82,7 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
         "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie.",
       salesOsMetrics: ["Modulos", "Ferramentas", "Roleplays"],
       salesOsMetricSubtitles: ["Estruturas operacionais disponiveis", "Protocolos importados do blueprint", "Simulacoes para objecoes e negociacao"],
+      salesOsSecondaryCta: "Abrir plataforma SDR",
       salesOsTitle: "Cockpit comercial unificado",
       salesOsCta: "Abrir Sales OS"
     };
@@ -103,6 +104,7 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
       "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface.",
     salesOsMetrics: ["Modules", "Tools", "Roleplays"],
     salesOsMetricSubtitles: ["Available operating structures", "Protocols imported from the blueprint", "Simulations for objections and negotiation"],
+    salesOsSecondaryCta: "Open SDR platform",
     salesOsTitle: "Unified commercial cockpit",
     salesOsCta: "Open Sales OS"
   };
@@ -219,7 +221,12 @@ export default async function DashboardHomePage() {
               <h2>{staticCopy.salesOsTitle}</h2>
               <p className="dashboard-muted">{staticCopy.salesOsDescription}</p>
             </div>
-            <Link href="/sales-os">{staticCopy.salesOsCta}</Link>
+            <div className="hero-actions">
+              <Link href="/sales-os">{staticCopy.salesOsCta}</Link>
+              <Link className="ghost-button" href="/sales-os/sdr-automatico">
+                {staticCopy.salesOsSecondaryCta}
+              </Link>
+            </div>
           </div>
 
           <section className="stats-grid dashboard-stats-grid">

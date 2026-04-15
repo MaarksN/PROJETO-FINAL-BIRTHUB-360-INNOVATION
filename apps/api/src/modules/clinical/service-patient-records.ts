@@ -35,7 +35,7 @@ export function createPatientRecordMethods(getPatientDetail: PatientDetailGetter
   const savePregnancyRecord = async (
     context: ClinicalContext,
     input: SavePregnancyRecordInput
-  ) => {
+  ): Promise<PatientDetailPayload> => {
     ensureClinicalRuntimeAvailable();
 
     await withTenantDatabaseContext(async (tx) => {
@@ -137,7 +137,7 @@ export function createPatientRecordMethods(getPatientDetail: PatientDetailGetter
   const saveNeonatalRecord = async (
     context: ClinicalContext,
     input: SaveNeonatalRecordInput
-  ) => {
+  ): Promise<PatientDetailPayload> => {
     ensureClinicalRuntimeAvailable();
 
     await withTenantDatabaseContext(async (tx) => {

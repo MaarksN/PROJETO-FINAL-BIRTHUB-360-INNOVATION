@@ -32,6 +32,7 @@ const pageCopy = {
     moduleLabel: "modules",
     moduleSearchPlaceholder: "Search modules by function, team, or description...",
     noImageSelected: "No image attached.",
+    openSdrPlatform: "SDR platform",
     openMentor: "Mentor",
     outputEmpty: "Output will appear here after you run the protocol.",
     outputTitle: "Output",
@@ -68,6 +69,7 @@ const pageCopy = {
     moduleLabel: "modulos",
     moduleSearchPlaceholder: "Buscar modulo por area, funcao ou descricao...",
     noImageSelected: "Nenhuma imagem anexada.",
+    openSdrPlatform: "Plataforma SDR",
     openMentor: "Mentor",
     outputEmpty: "A saida vai aparecer aqui assim que voce rodar o protocolo.",
     outputTitle: "Saida",
@@ -97,6 +99,9 @@ export default async function SalesOsPage() {
             <span className="badge">{moduleCount} {copy.moduleLabel}</span>
             <span className="badge">{toolCount} {copy.toolCountLabel}</span>
             <span className="badge">{roleplayCount} {copy.roleplayCountLabel}</span>
+            <Link className="ghost-button" href="/sales-os/sdr-automatico">
+              {copy.openSdrPlatform}
+            </Link>
             <Link className="ghost-button" href="/dashboard">
               {copy.back}
             </Link>
