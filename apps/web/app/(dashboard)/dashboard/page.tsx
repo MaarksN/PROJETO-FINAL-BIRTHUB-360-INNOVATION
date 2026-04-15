@@ -1,6 +1,5 @@
 // @ts-nocheck
 import Link from "next/link";
-
 import {
   ProductEmptyState,
   ProductPageHeader
