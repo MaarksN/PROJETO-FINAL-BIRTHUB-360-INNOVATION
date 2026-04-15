@@ -1,4 +1,7 @@
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - NarrativeWeaver
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("agent");
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -527,11 +530,11 @@ export class NarrativeWeaverAgent {
         requestId: normalized.details.requestId
       });
       if (normalized.level === "error") {
-        console.error(payload);
+        logger.error(JSON.parse(payload));
       } else if (normalized.level === "warning") {
-        console.warn(payload);
+        logger.warn(JSON.parse(payload));
       } else {
-        console.log(payload);
+        logger.info(JSON.parse(payload));
       }
     };
 
