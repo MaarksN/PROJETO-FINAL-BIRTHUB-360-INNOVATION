@@ -23,3 +23,19 @@
 - Os pontos de entrada ficam abaixo do limite F3 de 400 linhas.
 - O risco de regressão diminui porque middleware, autenticação e seed por domínio agora possuem fronteiras explícitas.
 - O checklist F3 ainda mantém hotspots pendentes em `apps/worker/src/agents/runtime.ts`, `apps/worker/src/worker.ts`, `apps/api/src/modules/agents/service.ts`, `packages/agents/executivos/narrativeweaver/agent.ts` e `apps/api/src/modules/analytics/service.ts`, que seguem como candidatos de próximas extrações.
+
+## Atualização de estado pós-S9/S10
+
+Esta ADR continua válida como registro da decomposição inicial do bootstrap HTTP e do seed. No entanto, o estado atual do runtime evoluiu além da fotografia original:
+
+- `apps/api/src/app/core-business-routes.ts` foi eliminado no S9.3c.
+- o runtime canônico da API passou a ser derivado de:
+  - `apps/api/src/app.ts`
+  - `apps/api/src/app/core.ts`
+  - `apps/api/src/app/module-routes.ts`
+- `apps/api/src/app/auth-routes.ts` e `apps/api/src/app/auth-and-core-routes.ts` permanecem apenas como superfícies de compatibilidade, fora do caminho real de `createApp()`.
+
+Leitura correta desta ADR:
+
+- a decisão histórica de modularização permanece aprovada
+- a composição vigente do runtime deve ser lida a partir do runtime canônico e da política de governança atual, não desta ADR isoladamente

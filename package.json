@@ -164,6 +164,7 @@
     "report:regression-zero": "node scripts/testing/generate-regression-zero-report.mjs",
     "db:check:all": "node scripts/ci/run-pnpm.mjs --filter @birthub/database db:check:all",
     "db:provision:app-role": "node scripts/ci/run-pnpm.mjs --filter @birthub/database db:provision:app-role",
+    "db:check:drift": "node scripts/ci/run-pnpm.mjs --filter @birthub/database db:check:drift",
     "db:seed:ci": "node scripts/ci/run-pnpm.mjs --filter @birthub/database db:seed:ci",
     "db:seed:smoke": "node scripts/ci/run-pnpm.mjs --filter @birthub/database db:seed:smoke",
     "db:seed:staging": "node scripts/ci/run-pnpm.mjs --filter @birthub/database db:seed:staging",

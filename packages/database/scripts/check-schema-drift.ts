@@ -4,7 +4,10 @@ import { pathToFileURL } from "node:url";
 
 import { createLogger } from "@birthub/logger";
 
-import { getSchemaDriftEnvironment } from "./lib/env.js";
+import {
+  getSchemaDriftEnvironment,
+  shouldRequireSchemaDriftEvidence
+} from "./lib/env.js";
 import { schemaPath } from "./lib/paths.js";
 import { getPrismaCommand } from "./lib/process.js";
 import {
@@ -19,6 +22,7 @@ type SchemaDriftDependencies = {
   getEnvironment: typeof getSchemaDriftEnvironment;
   getPrismaCommand: typeof getPrismaCommand;
   runtimeDependencies?: Partial<ScriptRuntimeDependencies>;
+  shouldRequireSchemaDriftEvidence: typeof shouldRequireSchemaDriftEvidence;
   writeTextReport: typeof writeTextReport;
 };
 
@@ -26,6 +30,7 @@ const DEFAULT_DEPENDENCIES: SchemaDriftDependencies = {
   getEnvironment: getSchemaDriftEnvironment,
   getPrismaCommand,
   runtimeDependencies: undefined,
+  shouldRequireSchemaDriftEvidence,
   writeTextReport
 };
 
@@ -51,17 +56,43 @@ export async function main(
   );
 
   const environment = resolved.getEnvironment(env);
+  const requireEvidence = resolved.shouldRequireSchemaDriftEvidence(env);
 
   if (!environment.databaseUrl) {
+    const reason = requireEvidence
+      ? "DATABASE_URL is required for the official schema drift evidence gate."
+      : "DATABASE_URL is not configured.";
+
+    if (requireEvidence) {
+      const report = await runtime.writeReport("failed", {
+        error: new Error(reason),
+        extra: {
+          ok: false,
+          reason,
+          skipped: false
+        }
+      });
+      const textPath = await resolved.writeTextReport(
+        "f8/schema-drift-report.txt",
+        `Schema drift check: FAIL\n\n${reason}`
+      );
+
+      logger.info?.(
+        `Schema drift check failed.\nArtifacts:\n- f8/schema-drift-report.json\n- ${textPath}\nRun ID: ${report.runId}`
+      );
+      process.exitCode = 1;
+      return 1;
+    }
+
     runtime.skipStep("schema drift diff", {
-      reason: "DATABASE_URL is not configured.",
+      reason,
       type: "check"
     });
 
     const report = await runtime.writeReport("skipped", {
       extra: {
         ok: true,
-        reason: "DATABASE_URL is not configured.",
+        reason,
         skipped: true
       }
     });

@@ -54,7 +54,7 @@ Cada etapa roda com defaults compativeis com CI e encerra com dirty-tree check.
 
 ## Lanes canonicos
 
-- `pnpm ci:task core`: preflight Node/pnpm + lint/typecheck/test/test:isolation/build do trio `apps/web`, `apps/api`, `apps/worker`, com a lane oficial de RLS de `@birthub/database` incluída em `test:isolation`.
+- `pnpm ci:task core`: preflight Node/pnpm + lint/typecheck/test/`db:check:drift`/test:isolation/build do trio `apps/web`, `apps/api`, `apps/worker`, com a lane oficial de RLS de `@birthub/database` incluída em `test:isolation`.
 - `pnpm ci:task satellites`: preflight Python + gates suportados dos satelites.
 - `pnpm ci:task workflow-suite`: preflight Python + suite de workflow/billing/seguranca suportada pelo release gate.
 - `pnpm ci:legacy-agents`: preflight Python + `pnpm test:agents` para o legado Python em `agents/*` e `tests/integration`.
@@ -89,6 +89,11 @@ Cada etapa roda com defaults compativeis com CI e encerra com dirty-tree check.
 - `pnpm test:isolation` agora provisiona a role `api_worker` antes da suite de banco quando `DATABASE_URL` estiver configurada.
 - A lane oficial exporta `BIRTHUB_REQUIRE_RLS_TESTS=true`, portanto ausência de `DATABASE_URL`, banco inacessível ou role com `BYPASSRLS` deixam de virar skip silencioso na suite obrigatória de RLS.
 - Para execuções locais fora do gate oficial, os testes continuam podendo ser rodados diretamente no pacote `@birthub/database`, preservando skips somente quando a execução não estiver marcada como obrigatória.
+
+## Drift oficial
+
+- `pnpm ci:task core` agora executa `pnpm db:check:drift` com `BIRTHUB_REQUIRE_SCHEMA_DRIFT_EVIDENCE=true`.
+- Nesse modo oficial, `DATABASE_URL` ausente deixa de gerar artefato `skipped` e passa a falhar a lane com evidência explícita de ausência de banco de referência.
 
 ## Checklist pre-PR
 

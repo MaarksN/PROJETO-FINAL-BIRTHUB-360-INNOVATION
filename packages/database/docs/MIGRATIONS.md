@@ -11,6 +11,7 @@
 
 ## Drift and environment parity
 - Run `pnpm --filter @birthub/database db:check:drift` against a live database.
+- In the official core lane, `BIRTHUB_REQUIRE_SCHEMA_DRIFT_EVIDENCE=true` is exported and missing `DATABASE_URL` becomes a hard failure instead of a skipped report.
 - Run `pnpm --filter @birthub/database db:compare:envs` with `DATABASE_URL_DEV`, `DATABASE_URL_STAGING`, and `DATABASE_URL_PROD` to compare `_prisma_migrations`.
 
 ## Validation before PR

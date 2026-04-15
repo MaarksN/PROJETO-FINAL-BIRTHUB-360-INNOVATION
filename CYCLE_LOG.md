@@ -818,3 +818,53 @@ ESCALATION NECESSARIO
 
 PROXIMO PASSO
 [Aguardando autorizacao governada para o proximo subciclo de `A-006` ou para tratar o bloqueio global fora do recorte.]
+
+---
+
+CICLO
+[A-006.2]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Corrigir a origem do bloqueio global de `PageProps` em `apps/web/.next/types` alinhando apenas as pages-fonte de `apps/web/app/(dashboard)/agents/[id]` ao padrao tipado do App Router.]
+
+ARQUIVOS-ALVO
+- [apps/web/app/(dashboard)/agents/[id]/page.tsx]
+- [apps/web/app/(dashboard)/agents/[id]/policies/page.tsx]
+- [apps/web/app/(dashboard)/agents/[id]/run/page.tsx]
+- [CYCLE_LOG.md: registrar o subciclo e o novo bloqueio global fora do recorte]
+
+DIFF GUARD
+Arquivos estruturais: [3 / max 5]
+Linhas alteradas em hot paths: [24 liquidas observadas no recorte / max 200]
+Excecao justificada: [nao]
+
+STATUS
+[BLOQUEADO POR ESCOPO]
+
+PROBLEMA CONFIRMADO
+[O `pnpm typecheck` global deixou de falhar em `apps/web/.next/types/app/(dashboard)/agents/[id]/*` por `TS2344` quando as três pages-fonte de `agents/[id]` foram alinhadas ao padrao de props usado em outros routes do app.]
+
+ALTERACOES REALIZADAS
+- [apps/web/app/(dashboard)/agents/[id]/page.tsx] - removido `@ts-nocheck` e alinhada a assinatura da page para `props: { params: Promise<{ id: string }> }`
+- [apps/web/app/(dashboard)/agents/[id]/policies/page.tsx] - removido `@ts-nocheck` e alinhada a assinatura da page para `props: { params: Promise<{ id: string }> }`
+- [apps/web/app/(dashboard)/agents/[id]/run/page.tsx] - removido `@ts-nocheck` e alinhada a assinatura da page para `props: { params: Promise<{ id: string }> }`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> FAIL fora do recorte aprovado em `ts-directives-guard`, por novos `@ts-nocheck` em `apps/api/tests/encryption.test.ts`, `packages/database/test/database-availability.test.ts` e `apps/web/lib/sales-os/engine.ts`
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O bloqueio de `PageProps` em `.next/types` foi removido, mas o gate global agora para num guard de baseline acionado por arquivos fora deste subciclo. Esses arquivos nao foram tocados aqui.]
+
+ESCALATION NECESSARIO
+[sim - e necessario decidir se o proximo subciclo abre o guard de baseline nesses tres arquivos fora do recorte ou se essa trilha sera segregada da governanca de `A-006`.]
+
+PROXIMO PASSO
+[Aguardando autorizacao governada para o proximo subciclo de `A-006` focado no guard global fora do recorte.]

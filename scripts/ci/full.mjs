@@ -77,6 +77,13 @@ const stepDefinitions = {
   build: { kind: "pnpm", args: ["build"], env: { NODE_ENV: "production" } },
   "build:core": { kind: "pnpm", args: ["build:core"], env: { NODE_ENV: "production" } },
   "build:satellites": { kind: "pnpm", args: ["build:satellites"], env: { NODE_ENV: "production" } },
+  "db:check:drift": {
+    kind: "pnpm",
+    args: ["db:check:drift"],
+    env: {
+      BIRTHUB_REQUIRE_SCHEMA_DRIFT_EVIDENCE: "true"
+    }
+  },
   "db:generate": { kind: "pnpm", args: ["db:generate"] },
   install: { kind: "pnpm", args: ["install", "--frozen-lockfile"] },
   "lint:workflows": { kind: "pnpm", args: ["lint:workflows"] },
@@ -133,6 +140,7 @@ const taskGroups = {
     "lint:core",
     "typecheck:core",
     "test:core",
+    "db:check:drift",
     "test:isolation",
     "build:core"
   ],

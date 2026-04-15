@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getSchemaDriftEnvironment } from "../scripts/lib/env.js";
+import {
+  getSchemaDriftEnvironment,
+  shouldRequireSchemaDriftEvidence
+} from "../scripts/lib/env.js";
 
 void test("schema drift environment trims configured URLs", () => {
   const environment = getSchemaDriftEnvironment({
@@ -25,4 +28,19 @@ void test("schema drift environment treats blank URLs as undefined", () => {
     databaseUrl: undefined,
     shadowDatabaseUrl: undefined
   });
+});
+
+void test("schema drift environment reads the official evidence gate flag", () => {
+  assert.equal(
+    shouldRequireSchemaDriftEvidence({
+      BIRTHUB_REQUIRE_SCHEMA_DRIFT_EVIDENCE: "true"
+    }),
+    true
+  );
+  assert.equal(
+    shouldRequireSchemaDriftEvidence({
+      BIRTHUB_REQUIRE_SCHEMA_DRIFT_EVIDENCE: "off"
+    }),
+    false
+  );
 });

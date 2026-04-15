@@ -8,7 +8,7 @@ import {
   resolveValidationSeedProfile
 } from "../scripts/validate-migrations-on-test-db.js";
 
-void test("check-schema-drift writes a skipped report with the standardized envelope", async () => {
+void test("check-schema-drift writes a skipped report when evidence is optional", async () => {
   const reports: Array<{ path: string; payload: unknown }> = [];
   const textReports: Array<{ path: string; content: string }> = [];
 
@@ -39,6 +39,45 @@ void test("check-schema-drift writes a skipped report with the standardized enve
   assert.match(JSON.stringify(reports[0]?.payload), /"type":"check"/);
   assert.equal(textReports.length, 1);
   assert.equal(textReports[0]?.path, "f8/schema-drift-report.txt");
+});
+
+void test("check-schema-drift fails when the official evidence gate has no DATABASE_URL", async () => {
+  const reports: Array<{ path: string; payload: unknown }> = [];
+  const textReports: Array<{ path: string; content: string }> = [];
+  const originalExitCode = process.exitCode;
+
+  try {
+    const exitCode = await checkSchemaDriftMain(
+      {
+        BIRTHUB_REQUIRE_SCHEMA_DRIFT_EVIDENCE: "true"
+      },
+      {
+        runtimeDependencies: {
+          createRunId: () => "run-schema-drift-required",
+          writeJsonReport: async (path, payload) => {
+            reports.push({ path, payload });
+            return path;
+          }
+        },
+        writeTextReport: async (path, content) => {
+          textReports.push({ path, content });
+          return path;
+        }
+      }
+    );
+
+    assert.equal(exitCode, 1);
+    assert.equal(reports.length, 1);
+    assert.equal(reports[0]?.path, "f8/schema-drift-report.json");
+    assert.match(JSON.stringify(reports[0]?.payload), /"runId":"run-schema-drift-required"/);
+    assert.match(JSON.stringify(reports[0]?.payload), /"status":"failed"/);
+    assert.match(JSON.stringify(reports[0]?.payload), /official schema drift evidence gate/i);
+    assert.equal(textReports.length, 1);
+    assert.equal(textReports[0]?.path, "f8/schema-drift-report.txt");
+    assert.match(textReports[0]?.content ?? "", /Schema drift check: FAIL/);
+  } finally {
+    process.exitCode = originalExitCode;
+  }
 });
 
 void test("validate-migrations-on-test-db enforces CI or NODE_ENV=test", () => {
