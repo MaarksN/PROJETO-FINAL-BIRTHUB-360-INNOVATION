@@ -1,8 +1,33 @@
-// @ts-nocheck
-// 
 "use client";
 
 import Link from "next/link";
+
+import type { PatientsResponse } from "./clinical-data";
+
+type CreatePatientForm = {
+  birthDate: string;
+  email: string;
+  fullName: string;
+  lastMenstrualPeriod: string;
+  medicalRecordNumber: string;
+  phone: string;
+  preferredName: string;
+  riskLevel: "" | "HIGH" | "LOW" | "MODERATE";
+};
+
+type PatientsPageContentProps = {
+  error: string | null;
+  form: CreatePatientForm;
+  isLoading: boolean;
+  isPending: boolean;
+  onCreateFormChange: (field: keyof CreatePatientForm, value: string) => void;
+  onFilterChange: (field: "riskLevel" | "search" | "status", value: string) => void;
+  onSubmitCreatePatient: () => void;
+  patients: PatientsResponse["items"];
+  riskLevel: string;
+  search: string;
+  status: string;
+};
 
 function formatPatientDate(
   value: unknown,
@@ -22,9 +47,9 @@ function formatPatientDate(
 }
 
 function PatientsCreateSection(props: {
-  form: Record<string, string>;
+  form: CreatePatientForm;
   isPending: boolean;
-  onChangeField: (field: string, value: string) => void;
+  onChangeField: (field: keyof CreatePatientForm, value: string) => void;
   onSubmit: () => void;
 }) {
   return (
@@ -127,8 +152,8 @@ function PatientsCreateSection(props: {
 function PatientsListSection(props: {
   error: string | null;
   isLoading: boolean;
-  onFilterChange: (field: string, value: string) => void;
-  patients: Array<Record<string, unknown>>;
+  onFilterChange: (field: "riskLevel" | "search" | "status", value: string) => void;
+  patients: PatientsResponse["items"];
   riskLevel: string;
   search: string;
   status: string;
@@ -222,7 +247,7 @@ function PatientsListSection(props: {
   );
 }
 
-export function PatientsPageContent(props) {
+export function PatientsPageContent(props: PatientsPageContentProps) {
   return (
     <section style={{ display: "grid", gap: "1rem" }}>
       <header className="hero-card">

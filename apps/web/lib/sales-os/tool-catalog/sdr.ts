@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import type { Tool } from "../types.js";
 
 export const SDR_TOOLS: Tool[] = [

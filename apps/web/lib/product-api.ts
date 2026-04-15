@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { fetchWithSession } from "./auth-client";
 
 const PRODUCT_MUTATION_TIMEOUT_MS = 8_000;
 
-async function ensureOk(response: Response, fallback: string) {
+function ensureOk(response: Response, fallback: string): Response {
   if (!response.ok) {
     throw new Error(`${fallback} (${response.status})`);
   }
@@ -23,7 +22,7 @@ export async function fetchSearchResults(query: string) {
     timeoutMs: PRODUCT_MUTATION_TIMEOUT_MS
   });
 
-  await ensureOk(response, "Falha ao buscar resultados");
+  ensureOk(response, "Falha ao buscar resultados");
   return (await response.json()) as {
     groups: Array<{
       id: string;
@@ -52,7 +51,7 @@ export async function updateOnboardingState(enabled: boolean) {
     timeoutMs: PRODUCT_MUTATION_TIMEOUT_MS
   });
 
-  await ensureOk(response, "Falha ao salvar onboarding");
+  ensureOk(response, "Falha ao salvar onboarding");
   return (await response.json()) as {
     enabled: boolean;
   };
@@ -72,7 +71,7 @@ export async function runWorkflow(workflowId: string) {
     timeoutMs: PRODUCT_MUTATION_TIMEOUT_MS
   });
 
-  await ensureOk(response, "Falha ao disparar workflow");
+  ensureOk(response, "Falha ao disparar workflow");
   return (await response.json()) as {
     executionId: string;
   };
@@ -110,7 +109,7 @@ export async function createStarterWorkflow() {
     timeoutMs: PRODUCT_MUTATION_TIMEOUT_MS
   });
 
-  await ensureOk(response, "Falha ao criar workflow");
+  ensureOk(response, "Falha ao criar workflow");
   return (await response.json()) as {
     workflow: {
       id: string;
@@ -141,7 +140,7 @@ export async function fetchConversationList(params: {
     cache: "no-store"
   });
 
-  await ensureOk(response, "Falha ao carregar conversas");
+  ensureOk(response, "Falha ao carregar conversas");
   return (await response.json()) as {
     items: Array<{
       channel: string;
@@ -164,7 +163,7 @@ export async function fetchConversationDetail(conversationId: string) {
     cache: "no-store"
   });
 
-  await ensureOk(response, "Falha ao carregar conversa");
+  ensureOk(response, "Falha ao carregar conversa");
   return (await response.json()) as {
     conversation: {
       channel: string;
@@ -202,7 +201,7 @@ export async function createConversation(input: {
     method: "POST"
   });
 
-  await ensureOk(response, "Falha ao criar conversa");
+  ensureOk(response, "Falha ao criar conversa");
   return (await response.json()) as {
     conversation: {
       id: string;
@@ -224,7 +223,7 @@ export async function appendConversationNote(conversationId: string, content: st
     }
   );
 
-  await ensureOk(response, "Falha ao publicar nota");
+  ensureOk(response, "Falha ao publicar nota");
   return (await response.json()) as {
     message: {
       id: string;
@@ -246,7 +245,7 @@ export async function updateConversationStatus(conversationId: string, status: s
     }
   );
 
-  await ensureOk(response, "Falha ao atualizar status");
+  ensureOk(response, "Falha ao atualizar status");
   return (await response.json()) as {
     conversation: {
       id: string;

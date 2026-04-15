@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 // @ts-nocheck
 
 import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
