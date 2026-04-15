@@ -44,12 +44,16 @@ const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
-  "packages",`r`n  "agent-packs",`r`n  "executive-premium-v1",`r`n  "source",
+  "packages",
+  "agent-packs",
+  "executive-premium-v1",
+  "source",
   "brand-guardian",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
-  process.cwd(),`r`n  "source",
+  process.cwd(),
+  "source",
   "brand-guardian",
   "contract.yaml"
 );
