@@ -2,7 +2,7 @@
 // 
 import { notFound } from "next/navigation";
 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 
 import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel";
 import { getInstalledAgentById } from "../../../../../lib/agents";

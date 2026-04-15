@@ -1,6 +1,6 @@
 // @ts-nocheck
 // 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import Link from "next/link";
 
 import { PackInstaller } from "../../../components/wizards/PackInstaller";
@@ -247,4 +247,3 @@ export default async function MarketplacePage({
     </main>
   );
 }
-

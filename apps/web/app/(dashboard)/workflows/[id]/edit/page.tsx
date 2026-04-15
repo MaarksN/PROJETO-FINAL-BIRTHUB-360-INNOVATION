@@ -9,7 +9,7 @@ import "reactflow/dist/style.css";
 
 import { use, useEffect, useMemo, useState, useTransition, type ReactNode } from "react";
 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import { Play, Save, Shuffle, Zap } from "lucide-react";
 import { useForm, type UseFormReturn } from "react-hook-form";
 import ReactFlow, {

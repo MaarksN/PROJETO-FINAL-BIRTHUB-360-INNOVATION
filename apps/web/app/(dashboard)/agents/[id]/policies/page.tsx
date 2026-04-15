@@ -2,7 +2,7 @@
 // 
 import { notFound } from "next/navigation";
 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 
 import { PolicyManager } from "../../../../../components/agents/PolicyManager";
 import { getInstalledAgentById, getInstalledAgentPolicies } from "../../../../../lib/agents";

@@ -21,10 +21,14 @@ const cspReportOnly =
 
 const turbopackAliases = {
   "@birthub/config": pathToFileURL(path.join(repoRoot, "packages/config/dist/index.js")).href,
+  "@birthub/config/web": pathToFileURL(path.join(repoRoot, "packages/config/dist/web.js")).href,
   "@birthub/logger": pathToFileURL(
     path.join(repoRoot, "packages/logger/dist/logger/index.js")
   ).href,
   "@birthub/workflows-core": pathToFileURL(
+    path.join(repoRoot, "packages/workflows-core/dist/workflows-core/src/index.js")
+  ).href,
+  "@birthub/workflows-core/nextjs": pathToFileURL(
     path.join(repoRoot, "packages/workflows-core/dist/workflows-core/src/nextjs.js")
   ).href
 };

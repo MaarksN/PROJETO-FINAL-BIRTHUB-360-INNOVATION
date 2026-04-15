@@ -1,6 +1,6 @@
 // @ts-nocheck
 // 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";

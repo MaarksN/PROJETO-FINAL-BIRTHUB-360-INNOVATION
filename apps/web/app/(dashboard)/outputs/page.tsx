@@ -1,6 +1,6 @@
 // @ts-nocheck
 // 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import Link from "next/link";
 
 import { FeedbackWidget } from "../../../components/agents/FeedbackWidget";
@@ -161,4 +161,3 @@ export default async function OutputsPage({
     </main>
   );
 }
-

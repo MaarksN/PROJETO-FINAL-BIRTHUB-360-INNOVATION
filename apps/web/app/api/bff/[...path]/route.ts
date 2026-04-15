@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 
 import { fetchWithTimeout } from "../../../../../../packages/utils/src/fetch";
 

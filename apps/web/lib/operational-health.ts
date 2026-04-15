@@ -1,6 +1,6 @@
 // @ts-nocheck
 // 
-import { getWebConfig, type WebConfig } from "@birthub/config";
+import { getWebConfig, type WebConfig } from "@birthub/config/web";
 
 type DependencyStatus = "up" | "down";
 

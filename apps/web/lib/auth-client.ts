@@ -1,4 +1,4 @@
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import {
   fetchWithTimeout,
   type FetchWithTimeoutInit

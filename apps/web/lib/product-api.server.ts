@@ -1,4 +1,4 @@
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

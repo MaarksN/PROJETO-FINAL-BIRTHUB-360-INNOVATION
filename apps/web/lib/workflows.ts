@@ -1,4 +1,4 @@
-import { getWebConfig } from "@birthub/config";
+import { getWebConfig } from "@birthub/config/web";
 import type { WorkflowCanvas } from "@birthub/workflows-core";
 import { cookies } from "next/headers";
 

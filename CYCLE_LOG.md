@@ -724,3 +724,57 @@ RISCO RESIDUAL
 
 PROXIMO PASSO
 [Aguardando autorizacao governada para `A-006`.]
+
+---
+
+CICLO
+[A-006.1]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Abrir o runtime critico de `webhooks` como primeiro recorte minimo de `A-006`, removendo `@ts-nocheck` apenas do cluster imediato e preservando o contrato publico.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/modules/webhooks/eventBus.ts]
+- [apps/api/src/modules/webhooks/router.ts]
+- [apps/api/src/modules/webhooks/settings.service.ts]
+- [apps/api/src/modules/webhooks/stripe.webhook.processing.ts]
+- [apps/api/src/modules/webhooks/stripe.webhook.shared.ts]
+- [CYCLE_LOG.md: registrar o subciclo e o bloqueio global fora do escopo]
+
+DIFF GUARD
+Arquivos estruturais: [5 / max 5]
+Linhas alteradas em hot paths: [10 delecoes liquidas / max 200]
+Excecao justificada: [nao]
+
+STATUS
+[BLOQUEADO POR ESCOPO]
+
+PROBLEMA CONFIRMADO
+[O cluster `webhooks` ainda carregava cinco arquivos runtime com `@ts-nocheck` e era o recorte mais proximo do corredor ja saneado em `A-005`.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/modules/webhooks/eventBus.ts] - removido `@ts-nocheck`
+- [apps/api/src/modules/webhooks/router.ts] - removido `@ts-nocheck`
+- [apps/api/src/modules/webhooks/settings.service.ts] - removido `@ts-nocheck`
+- [apps/api/src/modules/webhooks/stripe.webhook.processing.ts] - removido `@ts-nocheck`
+- [apps/api/src/modules/webhooks/stripe.webhook.shared.ts] - removido `@ts-nocheck`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> FAIL fora do recorte aprovado em `apps/web/.next/types/app/(dashboard)/agents/[id]/page.ts`, `apps/web/.next/types/app/(dashboard)/agents/[id]/policies/page.ts` e `apps/web/.next/types/app/(dashboard)/agents/[id]/run/page.ts`, todos com `TS2344` sobre `PageProps`
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O cluster `webhooks` do runtime da API ficou saneado localmente e com gate do pacote verde, mas o typecheck global nao pode ser aceito enquanto o bloqueio de `apps/web/.next/types` permanecer fora do escopo liberado.]
+
+ESCALATION NECESSARIO
+[sim - e necessario decidir se o proximo passo abre um subciclo minimo para o bloqueio global de `apps/web/.next/types` ou se o gate global sera temporariamente segregado para a trilha `A-006`.]
+
+PROXIMO PASSO
+[Aguardando autorizacao governada para o proximo subciclo de `A-006` ou para tratar o bloqueio global fora do recorte.]

@@ -1,7 +1,7 @@
 import {
   getWebConfig,
   type ProductCapabilities as SharedProductCapabilities
-} from "@birthub/config";
+} from "@birthub/config/web";
 
 export type ProductCapabilities = SharedProductCapabilities;
 
