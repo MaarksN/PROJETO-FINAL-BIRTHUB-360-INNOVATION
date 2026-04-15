@@ -5,7 +5,7 @@ import type {
   ConversationDetail,
   ConversationFiltersState,
   ConversationListItem
-} from "./conversation-types";
+} from "./conversation.types";
 
 type ConversationListProps = {
   error: string | null;

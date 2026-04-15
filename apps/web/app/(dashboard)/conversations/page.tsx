@@ -1,7 +1,6 @@
-// @ts-nocheck
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import {
@@ -23,7 +22,7 @@ import type {
   ConversationFiltersState,
   ConversationListItem,
   FilterPayload
-} from "./conversation-types";
+} from "./conversation.types";
 
 function buildListFilters(filters: ConversationFiltersState, deferredQuery: string): FilterPayload {
   const nextFilters: FilterPayload = {};
