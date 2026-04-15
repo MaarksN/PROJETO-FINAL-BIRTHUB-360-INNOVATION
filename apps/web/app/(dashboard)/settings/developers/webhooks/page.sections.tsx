@@ -118,7 +118,7 @@ export function WebhookEndpointList({
             key={endpoint.id}
             style={{
               background:
-                selectedId === endpoint.id ? "rgba(19,93,102,0.08)" : "rgba(255,255,255,0.7)",
+                selectedId === endpoint.id ? "rgba(30, 58, 138,0.08)" : "rgba(255,255,255,0.7)",
               border: "1px solid var(--border)",
               borderRadius: 18,
               display: "grid",

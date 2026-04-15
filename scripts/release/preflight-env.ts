@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
@@ -61,16 +59,6 @@ function parseEnvFileContent(content: string): Record<string, string> {
   return env;
 }
 
-async function loadEnvOverrides(): Promise<Record<string, string>> {
-  const envFile = parseFlag("--env-file");
-  if (!envFile) {
-    return {};
-  }
-
-  const content = await readFile(resolve(process.cwd(), envFile), "utf8");
-  return parseEnvFileContent(content);
-}
-
 function buildRuntimeEnv(
   target: PreflightTarget,
   overrides: Record<string, string>
@@ -85,6 +73,32 @@ function buildRuntimeEnv(
   runtimeEnv.NEXT_PUBLIC_ENVIRONMENT = target;
 
   return runtimeEnv;
+}
+
+async function loadEnvOverridesForTarget(target: PreflightTarget): Promise<{
+  envFilePath: string | null;
+  overrides: Record<string, string>;
+}> {
+  const envFile = parseFlag("--env-file");
+  if (!envFile) {
+    if (target === "production") {
+      throw new Error(
+        "Production preflight requires --env-file pointing to the sealed production environment file (e.g. ops/release/sealed/.env.production.sealed)"
+      );
+    }
+    return { envFilePath: null, overrides: {} };
+  }
+
+  const resolvedPath = resolve(process.cwd(), envFile);
+  let content: string;
+  try {
+    content = await readFile(resolvedPath, "utf8");
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to read env file at ${resolvedPath}: ${message}`);
+  }
+
+  return { envFilePath: resolvedPath, overrides: parseEnvFileContent(content) };
 }
 
 function checkScope(
@@ -144,7 +158,7 @@ function buildRequiredKeyReport(env: NodeJS.ProcessEnv) {
 
 async function main() {
   const target = resolveTarget();
-  const overrides = await loadEnvOverrides();
+  const { envFilePath, overrides } = await loadEnvOverridesForTarget(target);
   const runtimeEnv = buildRuntimeEnv(target, overrides);
   const results = [
     checkScope("api", () => getApiConfig(runtimeEnv)),
@@ -152,17 +166,24 @@ async function main() {
     checkScope("worker", () => getWorkerConfig(runtimeEnv))
   ];
   const requiredKeys = buildRequiredKeyReport(runtimeEnv);
+  const missingKeys = requiredKeys.flatMap((entry) =>
+    entry.missing.map((key) => `${entry.scope}.${key}`)
+  );
   const outputPath =
     parseFlag("--output") ??
     resolve(process.cwd(), "artifacts", "release", `${target}-preflight-summary.json`);
   const report = {
     checkedAt: new Date().toISOString(),
-    envFile: parseFlag("--env-file") ?? null,
-    ok: results.every((result) => result.ok),
+    envFile: envFilePath,
+    ok: results.every((result) => result.ok) && missingKeys.length === 0,
     requiredKeys,
     results,
     target
   };
+
+  if (missingKeys.length > 0) {
+    logger.error({ missingKeys }, "Missing required environment variables");
+  }
 
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, JSON.stringify(report, null, 2), "utf8");
