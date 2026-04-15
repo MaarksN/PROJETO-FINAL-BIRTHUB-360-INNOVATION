@@ -14,7 +14,6 @@ import {
 type SearchParams = Record<string, string | string[] | undefined>;
 
 const EXECUTIVE_PREMIUM_TAG = "executive-premium";
-const EXECUTIVE_PREMIUM_PAGE_SIZE = 6;
 const INSTALLER_PACK_LIMIT = 8;
 
 function readParam(value: string | string[] | undefined): string {
@@ -23,22 +22,6 @@ function readParam(value: string | string[] | undefined): string {
   }
 
   return Array.isArray(value) ? value[0] ?? "" : value;
-}
-
-function dedupeByAgentId<T extends { agent: { id: string } }>(items: T[]): T[] {
-  const seen = new Set<string>();
-  const unique: T[] = [];
-
-  for (const item of items) {
-    if (seen.has(item.agent.id)) {
-      continue;
-    }
-
-    seen.add(item.agent.id);
-    unique.push(item);
-  }
-
-  return unique;
 }
 
 export default async function MarketplacePage({

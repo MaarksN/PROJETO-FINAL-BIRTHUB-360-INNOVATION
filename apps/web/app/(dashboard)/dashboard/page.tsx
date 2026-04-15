@@ -1,141 +1,28 @@
 // @ts-nocheck
 import Link from "next/link";
-import {
-  ProductEmptyState,
-  ProductPageHeader
-} from "../../../components/dashboard/page-fragments";
+
+import { ProductPageHeader } from "../../../components/dashboard/page-fragments";
 import { fetchMarketplaceSearch } from "../../../lib/marketplace-api.server";
 import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
-import {
-  formatDateTime,
-  formatNumber,
-  getDictionary,
-  translateLabel,
-  type SupportedLocale
-} from "../../../lib/i18n";
+import { getDictionary } from "../../../lib/i18n";
 import { getRequestLocale } from "../../../lib/i18n.server";
-import { loadDashboardHomePage, formatRiskTone } from "./page.data";
+import { loadDashboardHomePage } from "./page.data";
+import {
+  DashboardExecutivePremiumSection,
+  DashboardNoticeSections,
+  getDashboardStaticCopy
+} from "./page.sections";
+import {
+  DashboardAttributionSection,
+  DashboardClinicalSection,
+  DashboardCustomerHealthSection,
+  DashboardSalesOsSection,
+  DashboardWorkflowUsageSection
+} from "./page.panels";
 
 const EXECUTIVE_PREMIUM_TAG = "executive-premium";
 const EXECUTIVE_PREMIUM_PAGE_SIZE = 4;
 
-function formatOnboardingSummary(
-  locale: SupportedLocale,
-  completedSteps: number,
-  totalSteps: number
-): string {
-  if (locale === "pt-BR") {
-    return `${completedSteps} de ${totalSteps} passos fechados.`;
-  }
-  return `${completedSteps} of ${totalSteps} steps completed.`;
-}
-
-function formatConsentSummary(
-  locale: SupportedLocale,
-  input: {
-    legalBasis: string;
-    status: string;
-    version: string;
-  },
-  labels: {
-    consentLegalBasisLabels: Record<string, string>;
-    consentStatusLabels: Record<string, string>;
-  }
-): string {
-  const statusLabel = translateLabel(labels.consentStatusLabels, input.status);
-  const legalBasisLabel = translateLabel(labels.consentLegalBasisLabels, input.legalBasis);
-  if (locale === "pt-BR") {
-    return `Status atual: ${statusLabel} · base legal ${legalBasisLabel} · versao ${input.version}.`;
-  }
-  return `Current status: ${statusLabel} · legal basis ${legalBasisLabel} · version ${input.version}.`;
-}
-
-function formatOnboardingProgress(locale: SupportedLocale, progress: number): string {
-  return locale === "pt-BR" ? `${progress}% concluido` : `${progress}% complete`;
-}
-
-function formatHealthRisk(locale: SupportedLocale, risk: string): string {
-  if (locale === "pt-BR") {
-    return risk;
-  }
-  const labels: Record<string, string> = {
-    alto: "High",
-    baixo: "Low",
-    medio: "Medium",
-    moderado: "Moderate"
-  };
-  return labels[risk.toLowerCase()] ?? risk;
-}
-function getDashboardStaticCopy(locale: SupportedLocale) {
-  if (locale === "pt-BR") {
-    return {
-      entryPoints: [
-        "Use BDR, SDR e LDR para mapear contas, enriquecer contexto e preparar outreach.",
-        "Simule gatekeepers, CFOs e cenarios tensos antes de entrar na call real.",
-        "Abra o mentor para transformar contexto disperso em proximo passo comercial."
-      ],
-      entryPointTitles: ["Pesquisa e prospeccao", "Roleplay e negociacao", "Mentoria contextual"],
-      productAlignmentCopy: {
-        badge: "Alinhamento de dominio",
-        description:
-          "Superficies clinicas, FHIR e privacy avançada permanecem fora do produto ativo nesta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service, enquanto o clinico fica restrito a avaliacao controlada por flag.",
-        title: "Capacidades fora do produto ativo ficaram explicitamente isoladas"
-      },
-      premiumDashboardBadge: "Colecao premium executiva",
-      premiumDashboardCta: "Abrir colecao premium",
-      premiumDashboardDescription:
-        "Linha oficial para board, C-level e liderancas com score de evidencia, memoria decisoria, radar de risco e handoff governado entre especialistas.",
-      premiumDashboardManage: "Ver packs premium",
-      premiumDashboardMetrics: ["Agentes premium", "Camadas premium", "Entrada padrao"],
-      premiumDashboardMetricSubtitles: [
-        "Agentes destacados por default no dashboard",
-        "Camadas compartilhadas de governanca, memoria e prescricao",
-        "Marketplace, Sales OS e Packs conectados"
-      ],
-      premiumDashboardTitle: "Executive premium agora aparece na home",
-      salesOsDescription:
-        "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie.",
-      salesOsMetrics: ["Modulos", "Ferramentas", "Roleplays"],
-      salesOsMetricSubtitles: ["Estruturas operacionais disponiveis", "Protocolos importados do blueprint", "Simulacoes para objecoes e negociacao"],
-      salesOsSecondaryCta: "Abrir plataforma SDR",
-      salesOsTitle: "Cockpit comercial unificado",
-      salesOsCta: "Abrir Sales OS"
-    };
-  }
-  return {
-    entryPoints: [
-      "Use BDR, SDR, and LDR to map accounts, enrich context, and prepare outreach.",
-      "Simulate gatekeepers, CFOs, and tense scenarios before the live call.",
-      "Open the mentor to turn scattered context into the next commercial move."
-    ],
-    entryPointTitles: ["Research and prospecting", "Roleplay and negotiation", "Contextual mentoring"],
-    productAlignmentCopy: {
-      badge: "Domain alignment",
-      description:
-        "Clinical, FHIR, and advanced privacy surfaces remain outside the active product for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active, while clinical stays restricted to flag-driven controlled evaluation.",
-      title: "Out-of-scope capabilities were explicitly isolated"
-    },
-    premiumDashboardBadge: "Executive premium collection",
-    premiumDashboardCta: "Open premium collection",
-    premiumDashboardDescription:
-      "The official board and C-level lineup now lands on the home dashboard with evidence scorecards, decision memory, risk radar, and governed specialist handoffs.",
-    premiumDashboardManage: "View premium packs",
-    premiumDashboardMetrics: ["Premium agents", "Premium layers", "Default entry"],
-    premiumDashboardMetricSubtitles: [
-      "Agents highlighted by default on the dashboard",
-      "Shared layers for governance, memory, and prescription",
-      "Marketplace, Sales OS, and Packs are now connected"
-    ],
-    premiumDashboardTitle: "Executive premium now lands on home",
-    salesOsDescription:
-      "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface.",
-    salesOsMetrics: ["Modules", "Tools", "Roleplays"],
-    salesOsMetricSubtitles: ["Available operating structures", "Protocols imported from the blueprint", "Simulations for objections and negotiation"],
-    salesOsSecondaryCta: "Open SDR platform",
-    salesOsTitle: "Unified commercial cockpit",
-    salesOsCta: "Open Sales OS"
-  };
-}
 export default async function DashboardHomePage() {
   const locale = await getRequestLocale();
   const copy = getDictionary(locale);
@@ -154,11 +41,7 @@ export default async function DashboardHomePage() {
   const executivePremiumCount = executivePremium?.total ?? 0;
   const executivePremiumResults = executivePremium?.results ?? [];
   const usageEntries = Object.entries(data.billing.usage ?? {});
-  const consentNeedsAttention =
-    data.capabilities.privacyAdvancedEnabled &&
-    data.consents?.preferences.lgpdConsentStatus === "PENDING";
-  const completedOnboardingSteps = data.onboarding.items.filter((item) => item.complete).length;
-  const showProductAlignmentNotice = !data.capabilities.clinicalWorkspaceEnabled || !data.capabilities.privacyAdvancedEnabled;
+
   return (
     <main className="dashboard-content">
       <ProductPageHeader
@@ -176,169 +59,18 @@ export default async function DashboardHomePage() {
         title={copy.dashboardHome.title}
       />
 
-      {showProductAlignmentNotice ? (
-        <section className="panel dashboard-callout">
-          <div className="dashboard-callout__copy">
-            <span className="badge">{staticCopy.productAlignmentCopy.badge}</span>
-            <strong>{staticCopy.productAlignmentCopy.title}</strong>
-            <span className="dashboard-muted">{staticCopy.productAlignmentCopy.description}</span>
-          </div>
-        </section>
-      ) : null}
-
-      {consentNeedsAttention ? (
-        <section className="panel dashboard-callout dashboard-callout--warning">
-          <div className="dashboard-callout__row">
-            <div className="dashboard-callout__copy">
-              <span className="badge">{copy.dashboardHome.consentBadge}</span>
-              <strong>{copy.dashboardHome.consentAttentionTitle}</strong>
-              <span className="dashboard-muted">
-                {formatConsentSummary(
-                  locale,
-                  {
-                    legalBasis: data.consents!.preferences.lgpdLegalBasis,
-                    status: data.consents!.preferences.lgpdConsentStatus,
-                    version: data.consents!.preferences.lgpdConsentVersion
-                  },
-                  copy.dashboardHome
-                )}
-              </span>
-            </div>
-            <Link className="action-button" href="/settings/privacy">
-              {copy.dashboardHome.reviewConsents}
-            </Link>
-          </div>
-        </section>
-      ) : null}
-
-      {data.onboarding.enabled && data.onboarding.progress < 100 ? (
-        <section className="panel dashboard-callout">
-          <div className="dashboard-callout__row">
-            <div className="dashboard-callout__copy">
-              <span className="badge">{copy.dashboardHome.onboardingBadge}</span>
-              <strong>{formatOnboardingProgress(locale, data.onboarding.progress)}</strong>
-              <span className="dashboard-muted">
-                {formatOnboardingSummary(
-                  locale,
-                  completedOnboardingSteps,
-                  data.onboarding.items.length
-                )}
-              </span>
-            </div>
-            <Link className="action-button" href={data.onboarding.nextHref}>
-              {copy.dashboardHome.continueLabel}
-            </Link>
-          </div>
-        </section>
-      ) : null}
-
-      {executivePremiumResults.length > 0 ? (
-        <section
-          className="panel"
-          style={{
-            background: "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,58,138,0.92))",
-            border: "1px solid rgba(148, 163, 184, 0.24)",
-            color: "#f8fafc"
-          }}
-        >
-          <div className="dashboard-panel__header">
-            <div className="dashboard-panel__copy">
-              <span
-                className="badge"
-                style={{
-                  background: "rgba(255,255,255,0.12)",
-                  borderColor: "rgba(255,255,255,0.18)",
-                  color: "#f8fafc"
-                }}
-              >
-                {staticCopy.premiumDashboardBadge}
-              </span>
-              <h2>{staticCopy.premiumDashboardTitle}</h2>
-              <p style={{ color: "rgba(248,250,252,0.86)" }}>{staticCopy.premiumDashboardDescription}</p>
-            </div>
-            <div className="hero-actions">
-              <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}`}>
-                {staticCopy.premiumDashboardCta}
-              </Link>
-              <Link className="ghost-button" href="/packs">
-                {staticCopy.premiumDashboardManage}
-              </Link>
-            </div>
-          </div>
-
-          <section className="stats-grid dashboard-stats-grid">
-            <article>
-              <span className="badge">{staticCopy.premiumDashboardMetrics[0]}</span>
-              <strong>{formatNumber(locale, executivePremiumCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
-                {staticCopy.premiumDashboardMetricSubtitles[0]}
-              </p>
-            </article>
-            <article>
-              <span className="badge">{staticCopy.premiumDashboardMetrics[1]}</span>
-              <strong>14</strong>
-              <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
-                {staticCopy.premiumDashboardMetricSubtitles[1]}
-              </p>
-            </article>
-            <article>
-              <span className="badge">{staticCopy.premiumDashboardMetrics[2]}</span>
-              <strong>3</strong>
-              <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
-                {staticCopy.premiumDashboardMetricSubtitles[2]}
-              </p>
-            </article>
-          </section>
-
-          <div className="dashboard-card-list">
-            {executivePremiumResults.map((item) => (
-              <article
-                className="dashboard-record-card"
-                key={item.agent.id}
-                style={{
-                  background: "rgba(255,255,255,0.1)",
-                  borderColor: "rgba(255,255,255,0.12)",
-                  color: "#f8fafc"
-                }}
-              >
-                <div className="dashboard-card__header">
-                  <strong>{item.agent.name}</strong>
-                  <span
-                    className="status-pill"
-                    style={{
-                      background: "rgba(255,255,255,0.12)",
-                      borderColor: "rgba(255,255,255,0.16)",
-                      color: "#f8fafc"
-                    }}
-                  >
-                    Executive Premium
-                  </span>
-                </div>
-                <span
-                  className="dashboard-record-card__meta"
-                  style={{ color: "rgba(248,250,252,0.72)" }}
-                >
-                  {item.tags.domain.join(", ")} · {item.tags.level.join(", ")}
-                </span>
-                <span
-                  className="dashboard-record-card__meta"
-                  style={{ color: "rgba(248,250,252,0.86)" }}
-                >
-                  {item.agent.description}
-                </span>
-                <div className="hero-actions">
-                  <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}&agentId=${encodeURIComponent(item.agent.id)}`}>
-                    {locale === "pt-BR" ? "Abrir agente" : "Open agent"}
-                  </Link>
-                  <Link className="ghost-button" href="/sales-os">
-                    Sales OS
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <DashboardNoticeSections
+        copy={copy.dashboardHome}
+        data={data}
+        locale={locale}
+        staticCopy={staticCopy}
+      />
+      <DashboardExecutivePremiumSection
+        executivePremiumCount={executivePremiumCount}
+        executivePremiumResults={executivePremiumResults}
+        locale={locale}
+        staticCopy={staticCopy}
+      />
 
       <section className="stats-grid">
         {data.metrics.finance.map((item) => (
@@ -351,295 +83,28 @@ export default async function DashboardHomePage() {
         {data.metrics.pipeline.map((item) => (
           <article key={item.stage}>
             <span className="badge">{item.stage}</span>
-            <strong>{formatNumber(locale, item.value)}</strong>
+            <strong>{item.value}</strong>
             <p className="dashboard-muted dashboard-muted--compact">{item.trend}</p>
           </article>
         ))}
       </section>
 
-      <section className="dashboard-grid dashboard-grid--equal">
-        <article className="hero-card">
-          <div className="dashboard-panel__header">
-            <div className="dashboard-panel__copy">
-              <span className="badge">Sales OS</span>
-              <h2>{staticCopy.salesOsTitle}</h2>
-              <p className="dashboard-muted">{staticCopy.salesOsDescription}</p>
-            </div>
-            <div className="hero-actions">
-              <Link href="/sales-os">{staticCopy.salesOsCta}</Link>
-              <Link className="ghost-button" href="/sales-os/sdr-automatico">
-                {staticCopy.salesOsSecondaryCta}
-              </Link>
-            </div>
-          </div>
-
-          <section className="stats-grid dashboard-stats-grid">
-            <article>
-              <span className="badge">{staticCopy.salesOsMetrics[0]}</span>
-              <strong>{formatNumber(locale, salesOsModuleCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact">{staticCopy.salesOsMetricSubtitles[0]}</p>
-            </article>
-            <article>
-              <span className="badge">{staticCopy.salesOsMetrics[1]}</span>
-              <strong>{formatNumber(locale, salesOsToolCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact">{staticCopy.salesOsMetricSubtitles[1]}</p>
-            </article>
-            <article>
-              <span className="badge">{staticCopy.salesOsMetrics[2]}</span>
-              <strong>{formatNumber(locale, salesOsRoleplayCount)}</strong>
-              <p className="dashboard-muted dashboard-muted--compact">{staticCopy.salesOsMetricSubtitles[2]}</p>
-            </article>
-          </section>
-        </article>
-
-        <article className="panel">
-          <h2>{locale === "pt-BR" ? "Entradas mais fortes" : "Best entry points"}</h2>
-          <div className="dashboard-card-list">
-            {staticCopy.entryPoints.map((entryPoint, index) => (
-              <article className="dashboard-record-card" key={staticCopy.entryPointTitles[index]}>
-                <strong>{staticCopy.entryPointTitles[index]}</strong>
-                <span className="dashboard-record-card__meta">{entryPoint}</span>
-              </article>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      {data.capabilities.clinicalWorkspaceEnabled && data.clinical ? (
-        <section className="dashboard-grid dashboard-grid--primary">
-          <article className="panel">
-            <div className="dashboard-panel__header">
-              <div className="dashboard-panel__copy">
-                <h2>{copy.dashboardHome.clinicalHeading}</h2>
-                <p className="dashboard-muted">{copy.dashboardHome.clinicalDescription}</p>
-              </div>
-              <Link href="/patients">{copy.dashboardHome.openClinicalModule}</Link>
-            </div>
-
-            <section className="stats-grid dashboard-stats-grid">
-              {data.clinical.metrics.map((item) => (
-                <article key={item.label}>
-                  <span className="badge">{item.label}</span>
-                  <strong>{formatNumber(locale, item.value)}</strong>
-                  <p className="dashboard-muted dashboard-muted--compact">{item.delta}</p>
-                </article>
-              ))}
-            </section>
-
-            {data.clinical.spotlight.length === 0 ? (
-              <ProductEmptyState description={copy.dashboardHome.noClinicalSpotlightDescription} title={copy.dashboardHome.noClinicalSpotlightTitle} />
-            ) : (
-              <div className="dashboard-card-list">
-                {data.clinical.spotlight.map((patient) => (
-                  <article className="dashboard-record-card" key={patient.patientId}>
-                    <div className="dashboard-card__header">
-                      <strong>{patient.patientName}</strong>
-                      <span className="status-pill">
-                        {translateLabel(copy.dashboardHome.clinicalRiskLabels, patient.riskLevel)} ·{" "}
-                        {translateLabel(copy.dashboardHome.clinicalStatusLabels, patient.status)}
-                      </span>
-                    </div>
-                    <span className="dashboard-record-card__meta">
-                      {patient.gestationalAgeLabel ?? copy.dashboardHome.gestationalAgeUnknown} ·{" "}
-                      {patient.nextAppointmentAt
-                        ? `${copy.dashboardHome.returnPrefix} ${formatDateTime(
-                            locale,
-                            patient.nextAppointmentAt,
-                            {
-                              dateStyle: "medium",
-                              timeStyle: "short"
-                            }
-                          )}`
-                        : copy.dashboardHome.noReturnScheduled}
-                    </span>
-                    <span className="dashboard-record-card__meta">
-                      {patient.latestNoteTitle ?? copy.dashboardHome.noClinicalNote}
-                    </span>
-                    <div className="hero-actions">
-                      <Link href={`/patients/${patient.patientId}`}>{copy.dashboardHome.openPatient}</Link>
-                      <Link className="ghost-button" href="/appointments">
-                        {copy.dashboardHome.viewSchedule}
-                      </Link>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-          </article>
-
-          <article className="panel">
-            <h2>{copy.dashboardHome.goLiveAlertsHeading}</h2>
-            {data.clinical.alerts.length === 0 ? (
-              <ProductEmptyState description={copy.dashboardHome.noClinicalAlertsDescription} title={copy.dashboardHome.noClinicalAlertsTitle} />
-            ) : (
-              <div className="dashboard-card-list">
-                {data.clinical.alerts.map((alert) => (
-                  <article className="dashboard-alert-card" key={alert.id}>
-                    <div className="dashboard-card__header">
-                      <strong>{alert.title}</strong>
-                      <span className={`status-pill status-${alert.severity === "high" ? "red" : alert.severity === "medium" ? "yellow" : "green"}`}>
-                        {translateLabel(copy.dashboardHome.alertSeverityLabels, alert.severity)}
-                      </span>
-                    </div>
-                    <p className="dashboard-muted dashboard-muted--compact">{alert.description}</p>
-                    <Link href={alert.href}>{copy.dashboardHome.openQueue}</Link>
-                  </article>
-                ))}
-              </div>
-            )}
-          </article>
-        </section>
-      ) : null}
-
-      <section className="dashboard-grid dashboard-grid--secondary">
-        <article className="panel">
-          <div className="dashboard-panel__header">
-            <div className="dashboard-panel__copy">
-              <h2>{copy.dashboardHome.highlightedWorkflowsHeading}</h2>
-              <p className="dashboard-muted">{copy.dashboardHome.highlightedWorkflowsDescription}</p>
-            </div>
-            <Link href="/workflows">{copy.dashboardHome.viewFullWorkflowList}</Link>
-          </div>
-
-          {data.workflows.items.length === 0 ? (
-            <ProductEmptyState description={copy.dashboardHome.noWorkflowsDescription} title={copy.dashboardHome.noWorkflowsTitle} />
-          ) : (
-            <div className="dashboard-card-list">
-              {data.workflows.items.slice(0, 3).map((workflow) => (
-                <article className="dashboard-record-card" key={workflow.id}>
-                  <div className="dashboard-card__header">
-                    <strong>{workflow.name}</strong>
-                    <span className="status-pill">
-                      {translateLabel(copy.dashboardHome.workflowStatusLabels, workflow.status)}
-                    </span>
-                  </div>
-                  <span className="dashboard-record-card__meta">
-                    {translateLabel(copy.dashboardHome.workflowTriggerLabels, workflow.triggerType)} ·{" "}
-                    {workflow._count.steps} {copy.dashboardHome.stepsLabel} ·{" "}
-                    {workflow._count.executions} {copy.dashboardHome.executionsLabel}
-                  </span>
-                  <div className="hero-actions">
-                    <Link href={`/workflows/${workflow.id}/edit`}>
-                      {copy.dashboardHome.openEditor}
-                    </Link>
-                    <Link className="ghost-button" href={`/workflows/${workflow.id}/runs`}>
-                      {copy.dashboardHome.viewExecutions}
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </article>
-
-        <article className="panel">
-          <h2>{copy.dashboardHome.usageHeading}</h2>
-          <p className="dashboard-muted">
-            {data.billing.plan.name} · {copy.dashboardHome.planStatusLabel} {data.billing.status}
-          </p>
-          {usageEntries.length === 0 ? (
-            <ProductEmptyState description={copy.dashboardHome.noUsageDescription} title={copy.dashboardHome.noUsageTitle} />
-          ) : (
-            <div className="dashboard-usage">
-              {usageEntries.map(([metric, value]) => (
-                <div className="dashboard-usage__item" key={metric}>
-                  <div className="dashboard-usage__row">
-                    <strong>{metric.replace(/_/g, " ")}</strong>
-                    <span>{formatNumber(locale, value)}</span>
-                  </div>
-                  <progress
-                    aria-hidden="true"
-                    className="dashboard-meter"
-                    max={100}
-                    value={Math.min(100, Math.max(12, value % 100))}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </article>
-      </section>
-
-      <section className="dashboard-grid dashboard-grid--equal">
-        <article className="panel">
-          <h2>{copy.dashboardHome.customerHealthHeading}</h2>
-          {data.health.healthScore.length === 0 ? (
-            <ProductEmptyState description={copy.dashboardHome.noCustomerHealthDescription} title={copy.dashboardHome.noCustomerHealthTitle} />
-          ) : (
-            <div className="table-wrapper">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>{copy.dashboardHome.customerColumn}</th>
-                    <th>{copy.dashboardHome.scoreColumn}</th>
-                    <th>{copy.dashboardHome.npsColumn}</th>
-                    <th>{copy.dashboardHome.riskColumn}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.health.healthScore.map((item) => (
-                    <tr key={item.client}>
-                      <td>{item.client}</td>
-                      <td>{item.score}</td>
-                      <td>{item.nps}</td>
-                      <td className={formatRiskTone(item.risk)}>{formatHealthRisk(locale, item.risk)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </article>
-
-        <article className="panel">
-          <h2>{copy.dashboardHome.recentContractsHeading}</h2>
-          {data.recent.contracts.length === 0 ? (
-            <ProductEmptyState description={copy.dashboardHome.noRecentContractsDescription} title={copy.dashboardHome.noRecentContractsTitle} />
-          ) : (
-            <div className="dashboard-contract-list">
-              {data.recent.contracts.map((contract) => (
-                <div className="dashboard-contract-card" key={`${contract.customer}-${contract.owner}`}>
-                  <strong>{contract.customer}</strong>
-                  <span className="dashboard-record-card__meta">
-                    {contract.status} · {contract.owner}
-                  </span>
-                  <span>{contract.mrr}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </article>
-      </section>
-
-      <section className="panel">
-        <h2>{copy.dashboardHome.attributionHeading}</h2>
-        {data.recent.attribution.length === 0 ? (
-          <ProductEmptyState description={copy.dashboardHome.noAttributionDescription} title={copy.dashboardHome.noAttributionTitle} />
-        ) : (
-          <div className="table-wrapper">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>{copy.dashboardHome.sourceColumn}</th>
-                  <th>{copy.dashboardHome.leadsColumn}</th>
-                  <th>{copy.dashboardHome.conversionColumn}</th>
-                  <th>{copy.dashboardHome.cacColumn}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.recent.attribution.map((item) => (
-                  <tr key={item.source}>
-                    <td>{item.source}</td>
-                    <td>{item.leads}</td>
-                    <td>{item.conversion}</td>
-                    <td>{item.cac}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
+      <DashboardSalesOsSection
+        locale={locale}
+        salesOsModuleCount={salesOsModuleCount}
+        salesOsRoleplayCount={salesOsRoleplayCount}
+        salesOsToolCount={salesOsToolCount}
+        staticCopy={staticCopy}
+      />
+      <DashboardClinicalSection copy={copy.dashboardHome} data={data} locale={locale} />
+      <DashboardWorkflowUsageSection
+        copy={copy.dashboardHome}
+        data={data}
+        locale={locale}
+        usageEntries={usageEntries}
+      />
+      <DashboardCustomerHealthSection copy={copy.dashboardHome} data={data} locale={locale} />
+      <DashboardAttributionSection copy={copy.dashboardHome} data={data} />
     </main>
   );
 }
