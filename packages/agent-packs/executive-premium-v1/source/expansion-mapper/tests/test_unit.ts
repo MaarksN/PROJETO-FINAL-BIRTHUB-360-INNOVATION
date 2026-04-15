@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - ExpansionMapper
 import assert from "node:assert/strict";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
