@@ -4,6 +4,7 @@ import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+import { EXECUTIVE_PREMIUM_TAG } from "./executive-premium";
 
 export interface MarketplaceSearchResponse {
   facets: {
@@ -81,6 +82,14 @@ export async function fetchMarketplaceSearch(
   return fetchJson<MarketplaceSearchResponse>(
     `${config.NEXT_PUBLIC_API_URL}/api/v1/agents/search?${query.toString()}`
   );
+}
+
+export async function fetchExecutivePremiumCollection(pageSize: number): Promise<MarketplaceSearchResponse> {
+  return fetchMarketplaceSearch({
+    page: "1",
+    pageSize: String(pageSize),
+    useCase: EXECUTIVE_PREMIUM_TAG
+  });
 }
 
 export async function fetchMarketplaceRecommendations(tenantIndustry: string) {

@@ -2,7 +2,8 @@
 import Link from "next/link";
 
 import { ProductPageHeader } from "../../../components/dashboard/page-fragments";
-import { fetchMarketplaceSearch } from "../../../lib/marketplace-api.server";
+import { EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE } from "../../../lib/executive-premium";
+import { fetchExecutivePremiumCollection } from "../../../lib/marketplace-api.server";
 import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
 import { getDictionary } from "../../../lib/i18n";
 import { getRequestLocale } from "../../../lib/i18n.server";
@@ -20,19 +21,12 @@ import {
   DashboardWorkflowUsageSection
 } from "./page.panels";
 
-const EXECUTIVE_PREMIUM_TAG = "executive-premium";
-const EXECUTIVE_PREMIUM_PAGE_SIZE = 4;
-
 export default async function DashboardHomePage() {
   const locale = await getRequestLocale();
   const copy = getDictionary(locale);
   const [data, executivePremium] = await Promise.all([
     loadDashboardHomePage(),
-    fetchMarketplaceSearch({
-      page: "1",
-      pageSize: String(EXECUTIVE_PREMIUM_PAGE_SIZE),
-      tags: EXECUTIVE_PREMIUM_TAG
-    }).catch(() => null)
+    fetchExecutivePremiumCollection(EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE).catch(() => null)
   ]);
   const staticCopy = getDashboardStaticCopy(locale);
   const salesOsModuleCount = SALES_OS_MODULES.length;

@@ -1,11 +1,17 @@
 import Link from "next/link";
 
+import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight";
 import {
   formatNumber,
   translateLabel,
   type Dictionary,
   type SupportedLocale
 } from "../../../lib/i18n";
+import {
+  buildExecutivePremiumAgentHref,
+  EXECUTIVE_PREMIUM_COLLECTION_HREF,
+  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
+} from "../../../lib/executive-premium";
 import { loadDashboardHomePage } from "./page.data";
 
 type DashboardHomeCopy = Dictionary["dashboardHome"];
@@ -232,107 +238,60 @@ export function DashboardExecutivePremiumSection(props: {
     return null;
   }
 
+  const [
+    premiumMetricPrimaryLabel = "",
+    premiumMetricLayersLabel = "",
+    premiumMetricEntryLabel = ""
+  ] = props.staticCopy.premiumDashboardMetrics;
+  const [
+    premiumMetricPrimaryDescription = "",
+    premiumMetricLayersDescription = "",
+    premiumMetricEntryDescription = ""
+  ] = props.staticCopy.premiumDashboardMetricSubtitles;
+
   return (
-    <section
-      className="panel"
-      style={{
-        background: "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,58,138,0.92))",
-        border: "1px solid rgba(148, 163, 184, 0.24)",
-        color: "#f8fafc"
+    <ExecutivePremiumSpotlight
+      badge={props.staticCopy.premiumDashboardBadge}
+      cardAction={{
+        href: (item) => buildExecutivePremiumAgentHref(item.agent.id),
+        label: props.locale === "pt-BR" ? "Abrir agente" : "Open agent"
       }}
-    >
-      <div className="dashboard-panel__header">
-        <div className="dashboard-panel__copy">
-          <span
-            className="badge"
-            style={{
-              background: "rgba(255,255,255,0.12)",
-              borderColor: "rgba(255,255,255,0.18)",
-              color: "#f8fafc"
-            }}
-          >
-            {props.staticCopy.premiumDashboardBadge}
-          </span>
-          <h2>{props.staticCopy.premiumDashboardTitle}</h2>
-          <p style={{ color: "rgba(248,250,252,0.86)" }}>
-            {props.staticCopy.premiumDashboardDescription}
-          </p>
-        </div>
-        <div className="hero-actions">
-          <Link href="/marketplace?tags=executive-premium">
-            {props.staticCopy.premiumDashboardCta}
-          </Link>
-          <Link className="ghost-button" href="/packs">
-            {props.staticCopy.premiumDashboardManage}
-          </Link>
-        </div>
-      </div>
-
-      <section className="stats-grid dashboard-stats-grid">
-        <article>
-          <span className="badge">{props.staticCopy.premiumDashboardMetrics[0]}</span>
-          <strong>{formatNumber(props.locale, props.executivePremiumCount)}</strong>
-          <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
-            {props.staticCopy.premiumDashboardMetricSubtitles[0]}
-          </p>
-        </article>
-        <article>
-          <span className="badge">{props.staticCopy.premiumDashboardMetrics[1]}</span>
-          <strong>14</strong>
-          <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
-            {props.staticCopy.premiumDashboardMetricSubtitles[1]}
-          </p>
-        </article>
-        <article>
-          <span className="badge">{props.staticCopy.premiumDashboardMetrics[2]}</span>
-          <strong>3</strong>
-          <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
-            {props.staticCopy.premiumDashboardMetricSubtitles[2]}
-          </p>
-        </article>
-      </section>
-
-      <div className="dashboard-card-list">
-        {props.executivePremiumResults.map((item) => (
-          <article
-            className="dashboard-record-card"
-            key={item.agent.id}
-            style={{
-              background: "rgba(255,255,255,0.1)",
-              borderColor: "rgba(255,255,255,0.12)",
-              color: "#f8fafc"
-            }}
-          >
-            <div className="dashboard-card__header">
-              <strong>{item.agent.name}</strong>
-              <span
-                className="status-pill"
-                style={{
-                  background: "rgba(255,255,255,0.12)",
-                  borderColor: "rgba(255,255,255,0.16)",
-                  color: "#f8fafc"
-                }}
-              >
-                Executive Premium
-              </span>
-            </div>
-            <span className="dashboard-record-card__meta" style={{ color: "rgba(248,250,252,0.72)" }}>
-              {item.tags.domain.join(", ")} · {item.tags.level.join(", ")}
-            </span>
-            <span className="dashboard-record-card__meta" style={{ color: "rgba(248,250,252,0.86)" }}>
-              {item.agent.description}
-            </span>
-            <div className="hero-actions">
-              <Link href={`/marketplace?tags=executive-premium&agentId=${encodeURIComponent(item.agent.id)}`}>
-                {props.locale === "pt-BR" ? "Abrir agente" : "Open agent"}
-              </Link>
-              <Link className="ghost-button" href="/sales-os">
-                Sales OS
-              </Link>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
+      cardBadge="Executive Premium"
+      cardMeta={(item) => `${item.tags.domain.join(", ")} · ${item.tags.level.join(", ")}`}
+      cardSecondaryAction={{
+        href: () => "/sales-os",
+        label: "Sales OS",
+        tone: "accent"
+      }}
+      description={props.staticCopy.premiumDashboardDescription}
+      metrics={[
+        {
+          description: premiumMetricPrimaryDescription,
+          label: premiumMetricPrimaryLabel,
+          value: formatNumber(props.locale, props.executivePremiumCount)
+        },
+        {
+          description: premiumMetricLayersDescription,
+          label: premiumMetricLayersLabel,
+          value: String(EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT)
+        },
+        {
+          description: premiumMetricEntryDescription,
+          label: premiumMetricEntryLabel,
+          value: "3"
+        }
+      ]}
+      primaryAction={{
+        href: EXECUTIVE_PREMIUM_COLLECTION_HREF,
+        label: props.staticCopy.premiumDashboardCta
+      }}
+      results={props.executivePremiumResults}
+      secondaryAction={{
+        href: "/packs",
+        label: props.staticCopy.premiumDashboardManage,
+        tone: "ghost"
+      }}
+      title={props.staticCopy.premiumDashboardTitle}
+    />
   );
 }
