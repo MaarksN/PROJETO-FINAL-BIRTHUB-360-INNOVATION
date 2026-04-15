@@ -69,7 +69,7 @@
     "typecheck": "pnpm typecheck:policy && pnpm typecheck:core",
     "typecheck:policy": "node scripts/ci/ts-directives-guard.mjs && node scripts/ci/check-runtime-governance.mjs",
     "typecheck:agents": "node scripts/ci/run-pnpm.mjs -r --if-present --filter \"*-agent-worker\" run typecheck",
-    "typecheck:core": "node scripts/ci/run-pnpm.mjs -r --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run typecheck",
+    "typecheck:core": "node scripts/ci/run-pnpm.mjs -r --workspace-concurrency=1 --if-present --filter=@birthub/web... --filter=@birthub/api... --filter=@birthub/worker... --filter=@birthub/testing... --filter=@birthub/auth... --filter=@birthub/utils... run typecheck",
     "typecheck:satellites": "node scripts/ci/run-satellites.mjs typecheck",
     "typecheck:workspace": "turbo run typecheck",
     "test": "pnpm test:core",
