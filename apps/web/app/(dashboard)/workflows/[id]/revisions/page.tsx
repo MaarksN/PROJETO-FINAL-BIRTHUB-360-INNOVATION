@@ -277,7 +277,8 @@ function useWorkflowRevisionsModel(workflowId: string): WorkflowRevisionsModel {
       return { edges: [], nodes: [] };
     }
 
-    return canvasToFlow(selectedRevision.definition, "PUBLISHED");
+    const definition: WorkflowCanvas = selectedRevision.definition;
+    return canvasToFlow(definition, "PUBLISHED");
   }, [selectedRevision]);
 
   const revertRevision = () => {
