@@ -5,6 +5,7 @@ import { createServer } from "node:http";
 import { createLogger } from "@birthub/logger";
 import express from "express";
 import { createClient } from "redis";
+import { validateRequest } from "twilio/lib/webhooks/webhooks";
 import { WebSocketServer } from "ws";
 
 export type VoiceEngineEnv = {
@@ -138,9 +139,30 @@ export function createVoiceEngineRuntime(options: {
     return sttConfidence < 0.7;
   }
 
+  function buildRequestUrl(request: express.Request): string {
+    const host = request.get("host") ?? "";
+    const protocol = request.protocol || "http";
+    return `${protocol}://${host}${request.originalUrl}`;
+  }
+
+  function isValidTwilioRequest(request: express.Request): boolean {
+    const signature = request.get("X-Twilio-Signature");
+    if (!signature) {
+      return false;
+    }
+
+    return validateRequest(env.TWILIO_AUTH_TOKEN, signature, buildRequestUrl(request), request.body ?? {});
+  }
+
+  app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
   app.post("/twilio/inbound", async (req, res) => {
+    if (!isValidTwilioRequest(req)) {
+      logger.error({ path: req.originalUrl }, "Rejected inbound Twilio webhook: invalid signature");
+      return res.status(403).json({ error: "invalid twilio signature" });
+    }
+
     const callId = String(req.body.CallSid || crypto.randomUUID());
     const optedOut = Boolean(req.body.optOut);
     await publish("call.started", { callId, optedOut });

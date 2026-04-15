@@ -109,7 +109,7 @@
     "billing:sync": "pnpm --filter @birthub/api billing:sync",
     "privacy:verify": "tsx scripts/privacy/verify-anonymization.ts",
     "release:migrate": "tsx scripts/release/final-data-migration.ts",
-    "release:preflight:production": "node --import tsx scripts/release/preflight-env.ts --target=production",
+    "release:preflight:production": "node --import tsx scripts/release/preflight-env.ts --target=production --env-file=ops/release/sealed/.env.production.sealed",
     "release:preflight:staging": "node --import tsx scripts/release/preflight-env.ts --target=staging --env-file=ops/release/sealed/.env.staging.sealed",
     "release:smoke": "tsx scripts/release/global-smoke.ts",
     "ops:backup:health": "node --import tsx scripts/ops/check-backup-health.ts",
