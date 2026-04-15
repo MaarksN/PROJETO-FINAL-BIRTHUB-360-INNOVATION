@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { WebSocket } from "ws";
+import { getExpectedTwilioSignature } from "twilio/lib/webhooks/webhooks";
 
 type MockRedis = {
   connect: () => Promise<void>;
@@ -137,6 +138,88 @@ void test("voice-engine health and websocket handshake publish runtime events", 
     assert.ok(redis.events.some((entry) => entry.event === "response.generated"));
   } finally {
     socket?.close();
+    await runtime.stop();
+  }
+});
+
+void test("twilio inbound webhook rejects missing or invalid signature", async () => {
+  process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
+  const { createVoiceEngineRuntime } = await import("./server.js");
+  const redis = createMockRedis();
+  const runtime = createVoiceEngineRuntime({
+    env: createEnv(),
+    logger: {
+      error: () => undefined,
+      info: () => undefined
+    },
+    redisClient: redis
+  });
+
+  const port = await runtime.start();
+  const url = `http://127.0.0.1:${port}/twilio/inbound`;
+
+  try {
+    const missing = await fetch(url, {
+      body: JSON.stringify({ CallSid: "CA123" }),
+      headers: { "Content-Type": "application/json" },
+      method: "POST"
+    });
+
+    assert.equal(missing.status, 403);
+    assert.equal(redis.events.length, 0);
+
+    const invalid = await fetch(url, {
+      body: JSON.stringify({ CallSid: "CA123" }),
+      headers: {
+        "Content-Type": "application/json",
+        "X-Twilio-Signature": "invalid"
+      },
+      method: "POST"
+    });
+
+    assert.equal(invalid.status, 403);
+    assert.equal(redis.events.length, 0);
+  } finally {
+    await runtime.stop();
+  }
+});
+
+void test("twilio inbound webhook accepts valid signature and publishes event", async () => {
+  process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
+  const { createVoiceEngineRuntime } = await import("./server.js");
+  const redis = createMockRedis();
+  const runtime = createVoiceEngineRuntime({
+    env: createEnv(),
+    logger: {
+      error: () => undefined,
+      info: () => undefined
+    },
+    redisClient: redis
+  });
+
+  const port = await runtime.start();
+  const url = `http://127.0.0.1:${port}/twilio/inbound`;
+  const payload = {
+    CallSid: "CA_VALID",
+    optOut: "0"
+  };
+  const signature = getExpectedTwilioSignature(createEnv().TWILIO_AUTH_TOKEN, url, payload);
+
+  try {
+    const response = await fetch(url, {
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+        "X-Twilio-Signature": signature
+      },
+      method: "POST"
+    });
+
+    const responseText = await response.text();
+    assert.equal(response.status, 200);
+    assert.match(responseText, /<Response>/);
+    assert.ok(redis.events.some((entry) => entry.event === "call.started"));
+  } finally {
     await runtime.stop();
   }
 });
