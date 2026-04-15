@@ -1,6 +1,6 @@
 # Runtime Governance Report
 
-Generated at: 2026-04-15T16:50:52.868Z
+Generated at: 2026-04-15T17:33:57.963Z
 
 | Check | Status | Details |
 | --- | --- | --- |
