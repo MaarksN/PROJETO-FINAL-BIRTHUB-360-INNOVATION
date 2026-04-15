@@ -22,4 +22,5 @@ void test("sales os catalog preserves the imported canonical tools", () => {
   assert.equal(findSalesOsTool("gen_persona")?.isImage, true);
   assert.equal(findSalesOsTool("exec_boardprep_ai")?.modules[0], "exec");
   assert.equal(findSalesOsTool("fintech_sardrafter")?.name, "SARDrafter");
+  assert.equal(findSalesOsTool("predictive_lead_scoring")?.modules[0], "presales");
 });

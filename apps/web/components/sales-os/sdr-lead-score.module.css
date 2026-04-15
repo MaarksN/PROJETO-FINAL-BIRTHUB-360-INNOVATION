@@ -1,0 +1,487 @@
+.dashboardStack {
+  display: grid;
+  gap: 1rem;
+}
+
+.summaryCard,
+.chartCard,
+.tableCard,
+.distributionCard,
+.taskCard,
+.supportPanel {
+  box-shadow: var(--shadow-glass);
+}
+
+.summaryHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.summaryHighlights span,
+.liveStatus,
+.stagePill,
+.slaPill,
+.quickQuestionButton {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.summaryHighlights span {
+  background: rgba(24, 122, 115, 0.1);
+  color: var(--accent-strong);
+  padding: 0.35rem 0.7rem;
+}
+
+.metricGrid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.metricCard {
+  align-items: center;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 1rem;
+}
+
+.metricCard small,
+.liveStatus,
+.tableToolbar p,
+.taskCard p,
+.supportHeader p,
+.emptyCopy,
+.leadCell span,
+.aiPopover p,
+.chartCard p,
+.distributionCard p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.metricCard strong {
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 0.2rem;
+}
+
+.metricIcon {
+  align-items: center;
+  background: linear-gradient(135deg, rgba(24, 122, 115, 0.12), rgba(125, 215, 194, 0.2));
+  border-radius: 18px;
+  color: var(--accent);
+  display: inline-flex;
+  height: 2.85rem;
+  justify-content: center;
+  width: 2.85rem;
+}
+
+.liveStatus {
+  gap: 0.45rem;
+}
+
+.liveDot {
+  background: #10b981;
+  border-radius: 999px;
+  box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.14);
+  height: 0.55rem;
+  width: 0.55rem;
+}
+
+.chartGrid,
+.contentGrid {
+  display: grid;
+  gap: 1rem;
+}
+
+.chartGrid {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.contentGrid {
+  align-items: start;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.8fr);
+}
+
+.chartCanvas,
+.distributionChart {
+  height: 260px;
+}
+
+.sideRail {
+  display: grid;
+  gap: 1rem;
+}
+
+.tableToolbar,
+.toolbarActions,
+.filtersRow,
+.paginationRow,
+.paginationActions,
+.taskComposer,
+.supportComposer,
+.supportHeader,
+.actionGroup {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tableToolbar,
+.paginationRow,
+.supportHeader {
+  justify-content: space-between;
+}
+
+.toolbarActions {
+  justify-content: flex-end;
+}
+
+.searchField,
+.dateField div,
+.taskComposer input,
+.supportComposer input,
+.secondaryButton,
+.dropdown summary {
+  align-items: center;
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  display: inline-flex;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0.75rem 0.95rem;
+}
+
+.searchField,
+.taskComposer input,
+.supportComposer input {
+  flex: 1 1 220px;
+}
+
+.searchField input,
+.dateField input,
+.taskComposer input,
+.supportComposer input {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.dropdownBody {
+  background: var(--surface-panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-glass);
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.55rem;
+  min-width: 190px;
+  padding: 0.85rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 20;
+}
+
+.dropdownOption,
+.taskItem {
+  align-items: center;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.dropdownOption input,
+.taskItem input {
+  accent-color: var(--accent);
+}
+
+.dateField {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 150px;
+}
+
+.dateField span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.secondaryButton {
+  cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.secondaryButton:hover,
+.quickQuestionButton:hover,
+.supportFab:hover,
+.dropdown summary:hover {
+  box-shadow: var(--shadow-grow);
+  transform: translateY(-1px);
+}
+
+.secondaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.leadCell {
+  display: grid;
+  gap: 0.18rem;
+  min-width: 210px;
+}
+
+.scoreCell {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  min-width: 150px;
+}
+
+.scoreTrack {
+  background: rgba(15, 23, 42, 0.08);
+  border-radius: 999px;
+  flex: 1;
+  height: 0.68rem;
+  overflow: hidden;
+}
+
+.scoreFill {
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+}
+
+.stagePill {
+  background: color-mix(in srgb, var(--pill-color) 16%, transparent);
+  color: var(--pill-color);
+  padding: 0.35rem 0.7rem;
+}
+
+.slaPill {
+  padding: 0.35rem 0.7rem;
+}
+
+.slaPill[data-tone="healthy"] {
+  background: rgba(34, 197, 94, 0.14);
+  color: #15803d;
+}
+
+.slaPill[data-tone="watch"] {
+  background: rgba(245, 158, 11, 0.14);
+  color: #b45309;
+}
+
+.slaPill[data-tone="breached"] {
+  background: rgba(239, 68, 68, 0.14);
+  color: #b91c1c;
+}
+
+.actionGroup {
+  align-items: flex-start;
+}
+
+.aiWrap {
+  position: relative;
+}
+
+.aiButton {
+  align-items: center;
+  background: rgba(24, 122, 115, 0.08);
+  border: 1px solid rgba(24, 122, 115, 0.18);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.4rem;
+  min-height: 38px;
+  padding: 0.55rem 0.8rem;
+}
+
+.aiPopover {
+  background: var(--surface-panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow-glass);
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.55rem;
+  max-width: 280px;
+  min-width: 240px;
+  padding: 0.9rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 12;
+}
+
+.aiPopover small {
+  color: var(--accent);
+}
+
+.taskComposer {
+  align-items: stretch;
+}
+
+.taskComposer input,
+.supportComposer input {
+  border-radius: 18px;
+}
+
+.taskList {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.taskItem {
+  background: var(--surface-panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0.8rem 0.9rem;
+}
+
+.taskItem[data-completed="true"] span {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.supportFab {
+  align-items: center;
+  background: linear-gradient(135deg, var(--accent) 0%, #42bba8 100%);
+  border: 0;
+  border-radius: 999px;
+  bottom: 1.35rem;
+  box-shadow: var(--shadow-grow);
+  color: var(--accent-contrast);
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.55rem;
+  padding: 0.8rem 1rem;
+  position: fixed;
+  right: 1.35rem;
+  z-index: 50;
+}
+
+.supportPanel {
+  background: var(--surface-panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  bottom: 5rem;
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  position: fixed;
+  right: 1.35rem;
+  width: min(100% - 2rem, 360px);
+  z-index: 55;
+}
+
+.quickQuestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.quickQuestionButton {
+  background: rgba(24, 122, 115, 0.08);
+  border: 1px solid rgba(24, 122, 115, 0.12);
+  color: var(--accent-strong);
+  cursor: pointer;
+  padding: 0.45rem 0.75rem;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.supportTranscript {
+  display: grid;
+  gap: 0.65rem;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.supportBubble {
+  border-radius: 18px;
+  display: grid;
+  gap: 0.28rem;
+  padding: 0.85rem 0.9rem;
+}
+
+.supportBubble[data-role="assistant"] {
+  background: rgba(24, 122, 115, 0.08);
+  border: 1px solid rgba(24, 122, 115, 0.12);
+}
+
+.supportBubble[data-role="user"] {
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.supportBubble p {
+  margin: 0;
+}
+
+@media (max-width: 1120px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .toolbarActions,
+  .filtersRow,
+  .paginationRow,
+  .paginationActions,
+  .supportHeader,
+  .supportComposer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .supportFab,
+  .supportPanel {
+    bottom: 1rem;
+    right: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .supportPanel {
+    bottom: 4.75rem;
+  }
+}

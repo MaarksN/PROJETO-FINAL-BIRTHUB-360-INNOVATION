@@ -5,6 +5,7 @@
 import { Suspense, type ReactNode, useEffect } from "react";
 
 import { CookieConsentBanner } from "../components/cookie-consent-banner";
+import { ToastViewport } from "../components/dashboard/ToastViewport";
 import type { SupportedLocale } from "../lib/i18n";
 import { PaywallProvider } from "../components/paywall-provider";
 import { AnalyticsProvider } from "./AnalyticsProvider";
@@ -41,6 +42,7 @@ export function AppProviders({
                 <ServiceWorkerBootstrap />
                 {children}
                 <CookieConsentBanner />
+                <ToastViewport />
               </AnalyticsProvider>
             </Suspense>
           </EngagementProvider>

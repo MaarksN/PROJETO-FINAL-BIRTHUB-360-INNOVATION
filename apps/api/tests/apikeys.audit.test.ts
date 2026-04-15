@@ -22,11 +22,11 @@ function captureAuditEvents() {
   const restore = stubMethod(
     prisma.auditLog,
     "createMany",
-    async (args: { data: CapturedAuditEvent[] }) => {
+    (args: { data: CapturedAuditEvent[] }) => {
       events.push(...args.data);
-      return {
+      return Promise.resolve({
         count: args.data.length
-      };
+      });
     }
   );
 
