@@ -28,6 +28,8 @@ type ViewDefinition = {
   label: string;
 };
 
+type ViewList = [ViewDefinition, ...ViewDefinition[]];
+
 type LeadItem = {
   action: string;
   company: string;
@@ -142,7 +144,7 @@ export function SdrAutomaticPlatform(input: { locale: SupportedLocale }) {
   const copy = getCopy(input.locale);
   const [activeView, setActiveView] = useState<ViewId>("leadScore");
 
-  const views = useMemo<ViewDefinition[]>(
+  const views = useMemo<ViewList>(
     () => [
       {
         description: copy.leadSubtitle,
