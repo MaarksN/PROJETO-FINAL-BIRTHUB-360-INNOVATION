@@ -13,12 +13,32 @@ import {
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
+const EXECUTIVE_PREMIUM_TAG = "executive-premium";
+const EXECUTIVE_PREMIUM_PAGE_SIZE = 6;
+const INSTALLER_PACK_LIMIT = 8;
+
 function readParam(value: string | string[] | undefined): string {
   if (!value) {
     return "";
   }
 
   return Array.isArray(value) ? value[0] ?? "" : value;
+}
+
+function dedupeByAgentId<T extends { agent: { id: string } }>(items: T[]): T[] {
+  const seen = new Set<string>();
+  const unique: T[] = [];
+
+  for (const item of items) {
+    if (seen.has(item.agent.id)) {
+      continue;
+    }
+
+    seen.add(item.agent.id);
+    unique.push(item);
+  }
+
+  return unique;
 }
 
 export default async function MarketplacePage({
@@ -36,7 +56,7 @@ export default async function MarketplacePage({
   const tenantIndustry = readParam(resolvedParams.tenantIndustry) || "sales";
   const selectedAgentId = readParam(resolvedParams.agentId);
 
-  const [search, recommendations] = await Promise.all([
+  const [search, recommendations, executivePremium] = await Promise.all([
     fetchMarketplaceSearch({
       domain,
       level,
@@ -45,7 +65,12 @@ export default async function MarketplacePage({
       q: query,
       tags: tag
     }),
-    fetchMarketplaceRecommendations(tenantIndustry)
+    fetchMarketplaceRecommendations(tenantIndustry),
+    fetchMarketplaceSearch({
+      page: "1",
+      pageSize: String(EXECUTIVE_PREMIUM_PAGE_SIZE),
+      tags: EXECUTIVE_PREMIUM_TAG
+    })
   ]);
 
   const [docs, changelog] = selectedAgentId
@@ -55,7 +80,12 @@ export default async function MarketplacePage({
       ])
     : [null, null];
 
-  const availablePacks = search.results.map((result) => ({
+  const prioritizedInstallerResults = dedupeByAgentId([
+    ...executivePremium.results,
+    ...search.results
+  ]);
+
+  const availablePacks = prioritizedInstallerResults.map((result) => ({
     description: result.agent.description,
     id: result.agent.id,
     name: result.agent.name
@@ -83,10 +113,97 @@ export default async function MarketplacePage({
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
           <Link href="/packs">Ver packs instalados</Link>
           <Link href="/settings/billing#agent-budget">Gerenciar budget por agente</Link>
+          <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}`}>
+            Ver colecao premium executiva
+          </Link>
         </div>
       </header>
 
-      <PackInstaller apiUrl={config.NEXT_PUBLIC_API_URL} availablePacks={availablePacks.slice(0, 8)} />
+      {executivePremium.results.length > 0 ? (
+        <section
+          style={{
+            background: "linear-gradient(135deg, rgba(15,23,42,0.94), rgba(30,58,138,0.92))",
+            border: "1px solid rgba(148, 163, 184, 0.28)",
+            borderRadius: 20,
+            color: "#f8fafc",
+            display: "grid",
+            gap: "1rem",
+            padding: "1.15rem"
+          }}
+        >
+          <div style={{ display: "grid", gap: "0.35rem" }}>
+            <small style={{ letterSpacing: "0.08em", opacity: 0.8, textTransform: "uppercase" }}>
+              Collection Spotlight
+            </small>
+            <h2 style={{ margin: 0 }}>Executive Premium Agents Collection</h2>
+            <p style={{ margin: 0, maxWidth: 860, opacity: 0.92 }}>
+              Linha oficial com camadas premium de evidencia, memoria decisoria, radar de risco,
+              handoff entre especialistas e governanca reforcada para contexto executivo.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem" }}>
+              <span
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 999,
+                  padding: "0.35rem 0.7rem"
+                }}
+              >
+                {executivePremium.total} agentes premium
+              </span>
+              <span
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  borderRadius: 999,
+                  padding: "0.35rem 0.7rem"
+                }}
+              >
+                14 camadas premium compartilhadas
+              </span>
+            </div>
+          </div>
+
+          <div style={{ display: "grid", gap: "0.8rem", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))" }}>
+            {executivePremium.results.map((item) => (
+              <article
+                key={`spotlight-${item.agent.id}`}
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  border: "1px solid rgba(255,255,255,0.16)",
+                  borderRadius: 16,
+                  display: "grid",
+                  gap: "0.45rem",
+                  padding: "0.95rem"
+                }}
+              >
+                <strong>{item.agent.name}</strong>
+                <small style={{ opacity: 0.82 }}>{item.agent.id}</small>
+                <p style={{ margin: 0, opacity: 0.92 }}>{item.agent.description}</p>
+                <small>
+                  {item.tags.domain.join(", ")} / {item.tags.level.join(", ")}
+                </small>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                  <Link
+                    href={`/marketplace?agentId=${encodeURIComponent(item.agent.id)}`}
+                    style={{ color: "#f8fafc" }}
+                  >
+                    Abrir docs inline
+                  </Link>
+                  <Link
+                    href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}&agentId=${encodeURIComponent(item.agent.id)}`}
+                    style={{ color: "#bfdbfe" }}
+                  >
+                    Ver na busca premium
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <PackInstaller apiUrl={config.NEXT_PUBLIC_API_URL} availablePacks={availablePacks.slice(0, INSTALLER_PACK_LIMIT)} />
 
       <form
         style={{
@@ -174,6 +291,18 @@ export default async function MarketplacePage({
             >
               <strong>{item.agent.name}</strong>
               <small style={{ color: "var(--muted)" }}>{item.agent.id}</small>
+              {item.tags["use-case"].includes(EXECUTIVE_PREMIUM_TAG) ? (
+                <small
+                  style={{
+                    color: "var(--accent-strong)",
+                    fontWeight: 700,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase"
+                  }}
+                >
+                  Executive Premium
+                </small>
+              ) : null}
               <p style={{ margin: 0 }}>{item.agent.description}</p>
               <small>Tags: {item.tags.domain.join(", ")} / {item.tags.level.join(", ")}</small>
               <small>Use-case: {item.tags["use-case"].join(", ")}</small>
