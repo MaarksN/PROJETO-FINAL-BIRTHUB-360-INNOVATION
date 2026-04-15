@@ -76,7 +76,7 @@ void test("theme provider persists the chosen mode and updates document theme st
   const root = createRoot(dom.window.document.getElementById("root") as Element);
 
   try {
-    await act(async () => {
+    await act(() => {
       root.render(createElement(ThemeProvider, null, createElement(ThemeProbe)));
     });
 
@@ -85,7 +85,7 @@ void test("theme provider persists the chosen mode and updates document theme st
     assert.equal(dom.window.document.documentElement.dataset.theme, "dark");
     assert.equal(dom.window.localStorage.getItem("bh_theme_mode"), "dark");
 
-    await act(async () => {
+    await act(() => {
       button?.dispatchEvent(new dom.window.MouseEvent("click", { bubbles: true }));
     });
 
@@ -94,7 +94,7 @@ void test("theme provider persists the chosen mode and updates document theme st
     assert.equal(dom.window.document.documentElement.style.colorScheme, "light");
     assert.equal(dom.window.localStorage.getItem("bh_theme_mode"), "light");
   } finally {
-    await act(async () => {
+    await act(() => {
       root.unmount();
     });
     Object.defineProperty(globalThis, "window", { configurable: true, value: originalWindow });

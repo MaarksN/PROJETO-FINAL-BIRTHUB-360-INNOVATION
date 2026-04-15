@@ -1,15 +1,24 @@
 // @ts-nocheck
 //
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const summaryPath = path.join(repoRoot, "artifacts", "coverage", "summary.json");
+const moduleCoveragePath = path.join(repoRoot, "artifacts", "testing", "module-coverage.json");
 const outputPath = path.join(repoRoot, "docs", "evidence", "test-coverage-dashboard.md");
 
 function loadSummary() {
   return JSON.parse(readFileSync(summaryPath, "utf8"));
+}
+
+function loadModuleCoverageSnapshot() {
+  if (!existsSync(moduleCoveragePath)) {
+    return null;
+  }
+
+  return JSON.parse(readFileSync(moduleCoveragePath, "utf8"));
 }
 
 function formatPercent(value) {
@@ -33,6 +42,40 @@ function renderAlerts(alerts) {
   return Array.isArray(alerts) && alerts.length > 0 ? alerts.join("; ") : "none";
 }
 
+function hasZeroCoverageSurface(summary) {
+  return (summary.surfaces ?? []).some((surface) => {
+    const coverage = surface.coverage ?? surface.metrics ?? {};
+
+    return ["lines", "branches", "functions", "statements"].every(
+      (metric) => Number(coverage[metric] ?? 0) === 0
+    );
+  });
+}
+
+function renderSnapshotSufficiency(snapshot) {
+  if (!snapshot) {
+    return "MISSING";
+  }
+
+  return snapshot.sufficient === false ? "INSUFFICIENT" : "SUFFICIENT";
+}
+
+function resolveCoverageGateStatus(summary, snapshot) {
+  if (summary.ok !== true) {
+    return "FAIL";
+  }
+
+  if (hasZeroCoverageSurface(summary)) {
+    return "FAIL";
+  }
+
+  if (!snapshot || snapshot.sufficient === false) {
+    return "FAIL";
+  }
+
+  return "PASS";
+}
+
 function renderSurface(surface) {
   const coverage = surface.coverage ?? surface.metrics ?? {};
   const alerts = surface.alerts ?? surface.issues;
@@ -51,13 +94,18 @@ function renderSurface(surface) {
   ].join("\n");
 }
 
-export function renderCoverageDashboard(summary) {
+export function renderCoverageDashboard(summary, snapshot = null) {
+  const coverageGateStatus = resolveCoverageGateStatus(summary, snapshot);
   const lines = [
     "# Test Coverage Dashboard",
     "",
     `- Generated at: ${summary.generatedAt}`,
     `- Surfaces: ${summary.surfaces.length}`,
-    `- Status: ${summary.ok ? "PASS" : "FAIL"}`,
+    `- Instrumented coverage status: ${summary.ok ? "PASS" : "FAIL"}`,
+    `- Supplemental traceability mode: ${snapshot?.mode ?? "missing"}`,
+    `- Supplemental traceability sufficiency: ${renderSnapshotSufficiency(snapshot)}`,
+    `- Coverage gate status: ${coverageGateStatus}`,
+    "- Coverage gate rule: FAIL when instrumented thresholds fail, any official surface reports 0.00%, or the supplemental traceability snapshot is insufficient.",
     ""
   ];
 
@@ -70,7 +118,8 @@ export function renderCoverageDashboard(summary) {
 
 function main() {
   const summary = loadSummary();
-  const markdown = renderCoverageDashboard(summary);
+  const moduleCoverageSnapshot = loadModuleCoverageSnapshot();
+  const markdown = renderCoverageDashboard(summary, moduleCoverageSnapshot);
 
   mkdirSync(path.dirname(outputPath), { recursive: true });
   writeFileSync(outputPath, markdown, "utf8");

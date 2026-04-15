@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { notFound } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config/web";
@@ -36,10 +34,8 @@ function readPolicies(manifest: Record<string, unknown>): ManifestPolicy[] {
   });
 }
 
-export default async function AgentPoliciesPage({
-  params
-}: Readonly<{ params: Promise<{ id: string }> }>) {
-  const { id } = await params;
+export default async function AgentPoliciesPage(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
   const [agent, policies] = await Promise.all([
     getInstalledAgentById(id),
     getInstalledAgentPolicies(id)

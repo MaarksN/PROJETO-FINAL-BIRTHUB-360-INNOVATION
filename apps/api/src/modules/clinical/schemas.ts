@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { z } from "zod";
 
 const optionalTrimmedString = z.string().trim().min(1).optional();

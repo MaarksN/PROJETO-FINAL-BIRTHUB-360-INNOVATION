@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { ApiConfig } from "@birthub/config";
 import { Role } from "@birthub/database";
 import { Router } from "express";
@@ -23,6 +22,8 @@ import {
 } from "./schemas.js";
 import { registerClinicalNoteRoutes } from "./router-note-routes.js";
 import { clinicalService } from "./service.js";
+
+type PatientDetailPayload = Awaited<ReturnType<typeof clinicalService.getPatientDetail>>;
 
 function requireClinicalContext(request: {
   context: {
@@ -194,13 +195,16 @@ export function createClinicalRouter(
             : undefined
       })(async (request, response) => {
         const patientId = requireStringValue(request.params.id, "A valid patient id is required.");
-        const payload = await clinicalService.savePregnancyRecord(requireClinicalContext(request), {
-          patientId,
-          payload:
-            pregnancyRecordSchema.parse(request.body) as Parameters<
-              typeof clinicalService.savePregnancyRecord
-            >[1]["payload"]
-        });
+        const payload: PatientDetailPayload = await clinicalService.savePregnancyRecord(
+          requireClinicalContext(request),
+          {
+            patientId,
+            payload:
+              pregnancyRecordSchema.parse(request.body) as Parameters<
+                typeof clinicalService.savePregnancyRecord
+              >[1]["payload"]
+          }
+        );
 
         response.status(200).json({
           ...payload,
@@ -228,14 +232,17 @@ export function createClinicalRouter(
           request.params.recordId,
           "A valid pregnancy record id is required."
         );
-        const payload = await clinicalService.savePregnancyRecord(requireClinicalContext(request), {
-          patientId,
-          payload:
-            pregnancyRecordSchema.parse(request.body) as Parameters<
-              typeof clinicalService.savePregnancyRecord
-            >[1]["payload"],
-          recordId
-        });
+        const payload: PatientDetailPayload = await clinicalService.savePregnancyRecord(
+          requireClinicalContext(request),
+          {
+            patientId,
+            payload:
+              pregnancyRecordSchema.parse(request.body) as Parameters<
+                typeof clinicalService.savePregnancyRecord
+              >[1]["payload"],
+            recordId
+          }
+        );
 
         response.status(200).json({
           ...payload,
@@ -258,13 +265,16 @@ export function createClinicalRouter(
         requireActor: true
       })(async (request, response) => {
         const patientId = requireStringValue(request.params.id, "A valid patient id is required.");
-        const payload = await clinicalService.saveNeonatalRecord(requireClinicalContext(request), {
-          patientId,
-          payload:
-            neonatalRecordSchema.parse(request.body) as Parameters<
-              typeof clinicalService.saveNeonatalRecord
-            >[1]["payload"]
-        });
+        const payload: PatientDetailPayload = await clinicalService.saveNeonatalRecord(
+          requireClinicalContext(request),
+          {
+            patientId,
+            payload:
+              neonatalRecordSchema.parse(request.body) as Parameters<
+                typeof clinicalService.saveNeonatalRecord
+              >[1]["payload"]
+          }
+        );
 
         response.status(200).json({
           ...payload,
@@ -292,14 +302,17 @@ export function createClinicalRouter(
           request.params.recordId,
           "A valid neonatal record id is required."
         );
-        const payload = await clinicalService.saveNeonatalRecord(requireClinicalContext(request), {
-          patientId,
-          payload:
-            neonatalRecordSchema.parse(request.body) as Parameters<
-              typeof clinicalService.saveNeonatalRecord
-            >[1]["payload"],
-          recordId
-        });
+        const payload: PatientDetailPayload = await clinicalService.saveNeonatalRecord(
+          requireClinicalContext(request),
+          {
+            patientId,
+            payload:
+              neonatalRecordSchema.parse(request.body) as Parameters<
+                typeof clinicalService.saveNeonatalRecord
+              >[1]["payload"],
+            recordId
+          }
+        );
 
         response.status(200).json({
           ...payload,

@@ -41,8 +41,8 @@ assertFileExists("module coverage snapshot", moduleCoveragePath);
 
 const coverageSummary = loadCoverageSummary();
 const snapshot = loadModuleCoverageSnapshot();
-const status = snapshot.sufficient === false ? "WARN" : "OK";
-const expectedDashboard = renderCoverageDashboard(coverageSummary);
+const status = snapshot.sufficient === false ? "INSUFFICIENT" : "SUFFICIENT";
+const expectedDashboard = renderCoverageDashboard(coverageSummary, snapshot);
 const actualDashboard = readFileSync(coverageDashboardPath, "utf8");
 const surfacesWithNoCoverage = (coverageSummary.surfaces ?? [])
   .filter((surface) => {
@@ -70,8 +70,14 @@ console.log(`[coverage:check] dashboard ready at ${coverageDashboardPath}`);
 console.log(`[coverage:check] module coverage mode: ${snapshot.mode ?? "unknown"}`);
 console.log(`[coverage:check] module coverage sufficiency: ${status}`);
 
+if (coverageSummary.ok !== true) {
+  throw new Error(
+    "[coverage:check] instrumented coverage summary failed its declared thresholds."
+  );
+}
+
 if (snapshot.sufficient === false) {
-  console.warn(
-    "[coverage:check] module coverage snapshot remains insufficient; use it only as supplemental traceability and prioritize instrumented coverage in release decisions."
+  throw new Error(
+    "[coverage:check] module coverage snapshot remains insufficient; the official coverage gate now fails until supplemental traceability is marked sufficient."
   );
 }

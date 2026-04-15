@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { notFound } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config/web";
@@ -7,10 +5,8 @@ import { getWebConfig } from "@birthub/config/web";
 import { AgentRunPanel } from "../../../../../components/agents/agent-run-panel";
 import { getInstalledAgentById } from "../../../../../lib/agents";
 
-export default async function AgentRunPage({
-  params
-}: Readonly<{ params: Promise<{ id: string }> }>) {
-  const { id } = await params;
+export default async function AgentRunPage(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
   const agent = await getInstalledAgentById(id);
 
   if (!agent) {

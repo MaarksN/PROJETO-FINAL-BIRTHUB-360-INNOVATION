@@ -2,7 +2,11 @@
 
 - Generated at: 2026-04-08T02:11:16.503Z
 - Surfaces: 6
-- Status: PASS
+- Instrumented coverage status: PASS
+- Supplemental traceability mode: static-coverage-proxy
+- Supplemental traceability sufficiency: INSUFFICIENT
+- Coverage gate status: FAIL
+- Coverage gate rule: FAIL when instrumented thresholds fail, any official surface reports 0.00%, or the supplemental traceability snapshot is insufficient.
 
 ## @birthub/api
 
