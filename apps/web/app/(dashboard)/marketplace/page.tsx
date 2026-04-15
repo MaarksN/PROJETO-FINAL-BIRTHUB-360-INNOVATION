@@ -36,7 +36,7 @@ export default async function MarketplacePage({
   const tenantIndustry = readParam(resolvedParams.tenantIndustry) || "sales";
   const selectedAgentId = readParam(resolvedParams.agentId);
 
-  const [search, recommendations] = await Promise.all([
+  const [search, recommendations, executivePremium] = await Promise.all([
     fetchMarketplaceSearch({
       domain,
       level,
@@ -45,7 +45,12 @@ export default async function MarketplacePage({
       q: query,
       tags: tag
     }),
-    fetchMarketplaceRecommendations(tenantIndustry)
+    fetchMarketplaceRecommendations(tenantIndustry),
+    fetchMarketplaceSearch({
+      page: "1",
+      pageSize: "24",
+      useCase: "executive-premium"
+    })
   ]);
 
   const [docs, changelog] = selectedAgentId
@@ -55,11 +60,23 @@ export default async function MarketplacePage({
       ])
     : [null, null];
 
-  const availablePacks = search.results.map((result) => ({
-    description: result.agent.description,
-    id: result.agent.id,
-    name: result.agent.name
-  }));
+  const availablePacks = (() => {
+    const dedupe = new Set<string>();
+    const merged = [...executivePremium.results, ...search.results].map((result) => ({
+      description: result.agent.description,
+      id: result.agent.id,
+      name: result.agent.name
+    }));
+
+    return merged.filter((item) => {
+      if (dedupe.has(item.id)) {
+        return false;
+      }
+
+      dedupe.add(item.id);
+      return true;
+    });
+  })();
 
   return (
     <main
@@ -123,6 +140,40 @@ export default async function MarketplacePage({
           Filtrar
         </button>
       </form>
+
+      {executivePremium.results.length ? (
+        <section style={{ display: "grid", gap: "0.8rem" }}>
+          <div style={{ alignItems: "baseline", display: "flex", gap: "0.6rem" }}>
+            <h2 style={{ margin: 0 }}>Executive Premium v1</h2>
+            <small style={{ color: "var(--muted)" }}>
+              {executivePremium.total} agentes premium governados para suites executivas
+            </small>
+          </div>
+          <div style={{ display: "grid", gap: "0.8rem", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
+            {executivePremium.results.map((item) => (
+              <article
+                key={item.agent.id}
+                style={{
+                  background: "rgba(11, 69, 86, 0.08)",
+                  border: "1px solid rgba(11, 69, 86, 0.18)",
+                  borderRadius: 14,
+                  display: "grid",
+                  gap: "0.45rem",
+                  padding: "0.9rem"
+                }}
+              >
+                <strong>{item.agent.name}</strong>
+                <small style={{ color: "var(--muted)" }}>{item.agent.id}</small>
+                <p style={{ margin: 0 }}>{item.agent.description}</p>
+                <small>Domain: {item.tags.domain.join(", ")}</small>
+                <small>Persona: {item.tags.persona.join(", ")}</small>
+                <small>Use-case: {item.tags["use-case"].join(", ")}</small>
+                <Link href={`/marketplace?agentId=${encodeURIComponent(item.agent.id)}`}>Abrir docs inline</Link>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section style={{ display: "grid", gap: "0.8rem" }}>
         <h2 style={{ margin: 0 }}>Sugestoes para {recommendations.tenantIndustry}</h2>
