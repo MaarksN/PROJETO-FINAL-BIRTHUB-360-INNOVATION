@@ -2,7 +2,7 @@
 // 
 import { Handle, Position, type Edge, type Node, type NodeProps } from "reactflow";
 
-import { stepSchema, validateDag, type WorkflowCanvas } from "@birthub/workflows-core/nextjs";
+import { stepSchema, validateDag, type WorkflowCanvas } from "@birthub/workflows-core";
 
 import { fetchWithSession } from "../../../../../lib/auth-client";
 
