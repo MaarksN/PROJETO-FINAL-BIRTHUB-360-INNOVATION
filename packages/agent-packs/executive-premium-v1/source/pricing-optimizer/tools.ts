@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - PricingOptimizer
 import { createHash } from "node:crypto";
 
@@ -143,3 +142,4 @@ export function createDefaultPricingOptimizerToolAdapters(): PricingOptimizerToo
     }
   };
 }
+

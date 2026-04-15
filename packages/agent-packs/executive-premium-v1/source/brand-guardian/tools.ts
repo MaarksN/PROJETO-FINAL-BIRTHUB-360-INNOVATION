@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - BrandGuardian
 import { createHash } from "node:crypto";
 

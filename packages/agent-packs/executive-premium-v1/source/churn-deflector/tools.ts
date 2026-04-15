@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - ChurnDeflector
 import { createHash } from "node:crypto";
 
@@ -135,3 +134,4 @@ export function createDefaultChurnDeflectorToolAdapters(): ChurnDeflectorToolAda
     }
   };
 }
+

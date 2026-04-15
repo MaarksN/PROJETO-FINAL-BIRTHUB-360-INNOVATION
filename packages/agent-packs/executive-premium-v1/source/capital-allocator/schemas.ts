@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - CapitalAllocator
 import { z } from "zod";
 
@@ -208,4 +207,5 @@ export const CapitalAllocatorOutputSchema = z
   })
   .strict();
 export type CapitalAllocatorOutput = z.infer<typeof CapitalAllocatorOutputSchema>;
+
 

@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - MarketSentinel
 import assert from "node:assert/strict";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -103,3 +102,4 @@ void test("MarketSentinel returns error when contract mode is hard_fail", async 
     await rm(tempDir, { force: true, recursive: true });
   }
 });
+

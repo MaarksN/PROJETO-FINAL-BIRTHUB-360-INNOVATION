@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - PricingOptimizer
 import { z } from "zod";
 
@@ -212,3 +211,4 @@ export const PricingOptimizerOutputSchema = z
   })
   .strict();
 export type PricingOptimizerOutput = z.infer<typeof PricingOptimizerOutputSchema>;
+

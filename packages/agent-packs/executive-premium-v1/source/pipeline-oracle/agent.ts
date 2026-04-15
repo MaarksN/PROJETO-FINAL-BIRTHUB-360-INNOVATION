@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - PipelineOracle
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -877,3 +876,4 @@ export class PipelineOracleAgent {
     };
   }
 }
+

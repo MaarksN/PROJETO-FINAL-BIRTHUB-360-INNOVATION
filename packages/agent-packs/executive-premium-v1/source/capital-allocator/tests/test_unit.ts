@@ -1,4 +1,3 @@
-// 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - CapitalAllocator
 import assert from "node:assert/strict";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
@@ -108,3 +107,4 @@ void test("CapitalAllocator returns error when contract mode is hard_fail", asyn
     await rm(tempDir, { force: true, recursive: true });
   }
 });
+
