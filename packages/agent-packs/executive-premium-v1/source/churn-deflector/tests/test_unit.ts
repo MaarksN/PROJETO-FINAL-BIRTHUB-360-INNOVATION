@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - ChurnDeflector
 import assert from "node:assert/strict";

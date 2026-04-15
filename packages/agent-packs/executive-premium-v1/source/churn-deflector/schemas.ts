@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - ChurnDeflector
 import { z } from "zod";
@@ -213,4 +212,3 @@ export const ChurnDeflectorOutputSchema = z
   })
   .strict();
 export type ChurnDeflectorOutput = z.infer<typeof ChurnDeflectorOutputSchema>;
-

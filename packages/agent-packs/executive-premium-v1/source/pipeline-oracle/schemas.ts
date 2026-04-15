@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - PipelineOracle
 import { z } from "zod";
@@ -214,4 +213,3 @@ export const PipelineOracleOutputSchema = z
   })
   .strict();
 export type PipelineOracleOutput = z.infer<typeof PipelineOracleOutputSchema>;
-

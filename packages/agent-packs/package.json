@@ -18,7 +18,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@birthub/agents-core": "workspace:*"
+    "@birthub/agents-core": "workspace:*",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",

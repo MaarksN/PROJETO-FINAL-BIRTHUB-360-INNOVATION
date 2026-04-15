@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - CapitalAllocator
 import { createHash } from "node:crypto";
@@ -123,4 +122,3 @@ export function createDefaultCapitalAllocatorToolAdapters(): CapitalAllocatorToo
     }
   };
 }
-

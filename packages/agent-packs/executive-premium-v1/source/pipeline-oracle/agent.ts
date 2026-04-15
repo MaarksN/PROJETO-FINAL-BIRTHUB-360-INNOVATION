@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - PipelineOracle
 import { access, readFile } from "node:fs/promises";
@@ -47,12 +46,16 @@ const DEFAULT_AUDIT_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH = path.resolve(
   process.cwd(),
-  "packages",`r`n  "agent-packs",`r`n  "executive-premium-v1",`r`n  "source",
+  "packages",
+  "agent-packs",
+  "executive-premium-v1",
+  "source",
   "pipeline-oracle",
   "contract.yaml"
 );
 const DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE = path.resolve(
-  process.cwd(),`r`n  "source",
+  process.cwd(),
+  "source",
   "pipeline-oracle",
   "contract.yaml"
 );
@@ -874,4 +877,3 @@ export class PipelineOracleAgent {
     };
   }
 }
-

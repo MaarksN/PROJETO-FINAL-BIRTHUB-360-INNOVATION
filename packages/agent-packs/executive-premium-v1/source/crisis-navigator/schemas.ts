@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - CrisisNavigator
 import { z } from "zod";
@@ -213,4 +212,3 @@ export const CrisisNavigatorOutputSchema = z
   })
   .strict();
 export type CrisisNavigatorOutput = z.infer<typeof CrisisNavigatorOutputSchema>;
-

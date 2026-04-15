@@ -1,4 +1,3 @@
-// @ts-nocheck
 // 
 // [SOURCE] BirthHub360_Agentes_Parallel_Plan - MarketSentinel
 import { createHash } from "node:crypto";
@@ -130,4 +129,3 @@ export function createDefaultMarketSentinelToolAdapters(): MarketSentinelToolAda
     }
   };
 }
-
