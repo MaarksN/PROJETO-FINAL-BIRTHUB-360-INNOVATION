@@ -103,7 +103,11 @@ export function SdrAutomaticPlatform(input: { locale: SupportedLocale }) {
     [input.locale]
   );
   const views = useMemo(() => buildViews(copy), [copy]);
-  const currentView = views.find((view) => view.id === activeView) ?? views[0]!;
+  const currentView = views.find((view) => view.id === activeView) ?? views.at(0);
+
+  if (!currentView) {
+    return null;
+  }
 
   return (
     <section className={styles.platformShell}>
