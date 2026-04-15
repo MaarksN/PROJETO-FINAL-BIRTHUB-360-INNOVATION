@@ -4,6 +4,7 @@ import {
   ProductEmptyState,
   ProductPageHeader
 } from "../../../components/dashboard/page-fragments";
+import { fetchMarketplaceSearch } from "../../../lib/marketplace-api.server";
 import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
 import {
   formatDateTime,
@@ -14,6 +15,9 @@ import {
 } from "../../../lib/i18n";
 import { getRequestLocale } from "../../../lib/i18n.server";
 import { loadDashboardHomePage, formatRiskTone } from "./page.data";
+
+const EXECUTIVE_PREMIUM_TAG = "executive-premium";
+const EXECUTIVE_PREMIUM_PAGE_SIZE = 4;
 
 function formatOnboardingSummary(
   locale: SupportedLocale,
@@ -77,6 +81,18 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
           "Superficies clinicas, FHIR e privacy avançada permanecem fora do produto ativo nesta implantacao. O produto segue com dashboard operacional, workflows, billing, analytics, notificacoes e privacidade self-service, enquanto o clinico fica restrito a avaliacao controlada por flag.",
         title: "Capacidades fora do produto ativo ficaram explicitamente isoladas"
       },
+      premiumDashboardBadge: "Colecao premium executiva",
+      premiumDashboardCta: "Abrir colecao premium",
+      premiumDashboardDescription:
+        "Linha oficial para board, C-level e liderancas com score de evidencia, memoria decisoria, radar de risco e handoff governado entre especialistas.",
+      premiumDashboardManage: "Ver packs premium",
+      premiumDashboardMetrics: ["Agentes premium", "Camadas premium", "Entrada padrao"],
+      premiumDashboardMetricSubtitles: [
+        "Agentes destacados por default no dashboard",
+        "Camadas compartilhadas de governanca, memoria e prescricao",
+        "Marketplace, Sales OS e Packs conectados"
+      ],
+      premiumDashboardTitle: "Executive premium agora aparece na home",
       salesOsDescription:
         "Acesse pre-sales, vendas, marketing, CS, revops, financeiro e risco em uma unica superficie.",
       salesOsMetrics: ["Modulos", "Ferramentas", "Roleplays"],
@@ -99,6 +115,18 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
         "Clinical, FHIR, and advanced privacy surfaces remain outside the active product for this deployment. The product keeps the operational dashboard, workflows, billing, analytics, notifications, and self-service privacy active, while clinical stays restricted to flag-driven controlled evaluation.",
       title: "Out-of-scope capabilities were explicitly isolated"
     },
+    premiumDashboardBadge: "Executive premium collection",
+    premiumDashboardCta: "Open premium collection",
+    premiumDashboardDescription:
+      "The official board and C-level lineup now lands on the home dashboard with evidence scorecards, decision memory, risk radar, and governed specialist handoffs.",
+    premiumDashboardManage: "View premium packs",
+    premiumDashboardMetrics: ["Premium agents", "Premium layers", "Default entry"],
+    premiumDashboardMetricSubtitles: [
+      "Agents highlighted by default on the dashboard",
+      "Shared layers for governance, memory, and prescription",
+      "Marketplace, Sales OS, and Packs are now connected"
+    ],
+    premiumDashboardTitle: "Executive premium now lands on home",
     salesOsDescription:
       "Access pre-sales, sales, marketing, CS, revops, finance, and risk in one operating surface.",
     salesOsMetrics: ["Modules", "Tools", "Roleplays"],
@@ -111,11 +139,20 @@ function getDashboardStaticCopy(locale: SupportedLocale) {
 export default async function DashboardHomePage() {
   const locale = await getRequestLocale();
   const copy = getDictionary(locale);
-  const data = await loadDashboardHomePage();
+  const [data, executivePremium] = await Promise.all([
+    loadDashboardHomePage(),
+    fetchMarketplaceSearch({
+      page: "1",
+      pageSize: String(EXECUTIVE_PREMIUM_PAGE_SIZE),
+      tags: EXECUTIVE_PREMIUM_TAG
+    }).catch(() => null)
+  ]);
   const staticCopy = getDashboardStaticCopy(locale);
   const salesOsModuleCount = SALES_OS_MODULES.length;
   const salesOsToolCount = salesOsTools.length;
   const salesOsRoleplayCount = salesOsTools.filter((tool) => tool.isChat).length;
+  const executivePremiumCount = executivePremium?.total ?? 0;
+  const executivePremiumResults = executivePremium?.results ?? [];
   const usageEntries = Object.entries(data.billing.usage ?? {});
   const consentNeedsAttention =
     data.capabilities.privacyAdvancedEnabled &&
@@ -191,6 +228,114 @@ export default async function DashboardHomePage() {
             <Link className="action-button" href={data.onboarding.nextHref}>
               {copy.dashboardHome.continueLabel}
             </Link>
+          </div>
+        </section>
+      ) : null}
+
+      {executivePremiumResults.length > 0 ? (
+        <section
+          className="panel"
+          style={{
+            background: "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,58,138,0.92))",
+            border: "1px solid rgba(148, 163, 184, 0.24)",
+            color: "#f8fafc"
+          }}
+        >
+          <div className="dashboard-panel__header">
+            <div className="dashboard-panel__copy">
+              <span
+                className="badge"
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  borderColor: "rgba(255,255,255,0.18)",
+                  color: "#f8fafc"
+                }}
+              >
+                {staticCopy.premiumDashboardBadge}
+              </span>
+              <h2>{staticCopy.premiumDashboardTitle}</h2>
+              <p style={{ color: "rgba(248,250,252,0.86)" }}>{staticCopy.premiumDashboardDescription}</p>
+            </div>
+            <div className="hero-actions">
+              <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}`}>
+                {staticCopy.premiumDashboardCta}
+              </Link>
+              <Link className="ghost-button" href="/packs">
+                {staticCopy.premiumDashboardManage}
+              </Link>
+            </div>
+          </div>
+
+          <section className="stats-grid dashboard-stats-grid">
+            <article>
+              <span className="badge">{staticCopy.premiumDashboardMetrics[0]}</span>
+              <strong>{formatNumber(locale, executivePremiumCount)}</strong>
+              <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
+                {staticCopy.premiumDashboardMetricSubtitles[0]}
+              </p>
+            </article>
+            <article>
+              <span className="badge">{staticCopy.premiumDashboardMetrics[1]}</span>
+              <strong>14</strong>
+              <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
+                {staticCopy.premiumDashboardMetricSubtitles[1]}
+              </p>
+            </article>
+            <article>
+              <span className="badge">{staticCopy.premiumDashboardMetrics[2]}</span>
+              <strong>3</strong>
+              <p className="dashboard-muted dashboard-muted--compact" style={{ color: "rgba(248,250,252,0.72)" }}>
+                {staticCopy.premiumDashboardMetricSubtitles[2]}
+              </p>
+            </article>
+          </section>
+
+          <div className="dashboard-card-list">
+            {executivePremiumResults.map((item) => (
+              <article
+                className="dashboard-record-card"
+                key={item.agent.id}
+                style={{
+                  background: "rgba(255,255,255,0.1)",
+                  borderColor: "rgba(255,255,255,0.12)",
+                  color: "#f8fafc"
+                }}
+              >
+                <div className="dashboard-card__header">
+                  <strong>{item.agent.name}</strong>
+                  <span
+                    className="status-pill"
+                    style={{
+                      background: "rgba(255,255,255,0.12)",
+                      borderColor: "rgba(255,255,255,0.16)",
+                      color: "#f8fafc"
+                    }}
+                  >
+                    Executive Premium
+                  </span>
+                </div>
+                <span
+                  className="dashboard-record-card__meta"
+                  style={{ color: "rgba(248,250,252,0.72)" }}
+                >
+                  {item.tags.domain.join(", ")} · {item.tags.level.join(", ")}
+                </span>
+                <span
+                  className="dashboard-record-card__meta"
+                  style={{ color: "rgba(248,250,252,0.86)" }}
+                >
+                  {item.agent.description}
+                </span>
+                <div className="hero-actions">
+                  <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}&agentId=${encodeURIComponent(item.agent.id)}`}>
+                    {locale === "pt-BR" ? "Abrir agente" : "Open agent"}
+                  </Link>
+                  <Link className="ghost-button" href="/sales-os">
+                    Sales OS
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
       ) : null}
