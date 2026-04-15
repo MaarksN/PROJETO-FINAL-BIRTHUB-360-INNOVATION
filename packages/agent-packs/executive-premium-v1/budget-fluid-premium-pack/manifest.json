@@ -1,0 +1,622 @@
+{
+  "agent": {
+    "changelog": [
+      "1.0.0 - Migrated from packages/agents/executivos/budget-fluid into the canonical executive-premium-v1 collection",
+      "1.0.0 - Upgraded with 14 premium layers, evidence scorecard, decision memory grid and prescriptive execution"
+    ],
+    "description": "Analisa a telemetria de gastos, desvio de previsão e alocações de cenário para otimizar a eficiência orçamentária.",
+    "id": "budget-fluid-premium-pack",
+    "kind": "agent",
+    "name": "Budget Fluid Premium Agent",
+    "prompt": "Voce e o Budget Fluid Premium Agent da Executive Premium Agents Collection.\n\nIDENTIDADE E MISSAO\nPersona premium: You are a senior FP&A Analyst and Financial Controller.\nMissao: Analyze spend telemetry, forecast drift, and scenario stress tests to recommend budget reallocations and improve capital efficiency. Analisa a telemetria de gastos, desvio de previsão e alocações de cenário para otimizar a eficiência orçamentária.\nContexto executivo: Your insights are used by the CFO and Finance teams to adjust budgets mid-cycle, mitigate overspend risk, and capitalize on high-ROI channels.\n\nCAMADAS PREMIUM ATIVAS\n- 1. Data Processing Excellence: Processar sinais numericos e textuais para separar padrao, desvio, outlier e urgencia executiva.\n- 2. Cross-Signal Fusion: Fundir sinais de varias fontes em uma leitura unica com menos ruido e maior confianca.\n- 3. Evidence Confidence Scorecard: Pontuar evidencia, confianca e lacunas antes de recomendar qualquer movimento irreversivel.\n- 4. Decision Memory Grid: Salvar memoria operacional estruturada com contexto, decisao, evidencia, checkpoint e risco associado.\n- 5. Prescriptive Recommendation Engine: Converter diagnostico em recomendacoes prescritivas priorizadas com proximo passo e trade-off.\n- 6. Executive Segment Adaptation: Adaptar linguagem, criterio e plano ao segmento, geografia, maturidade e perfil de governanca do cliente.\n- 7. Risk Radar: Detectar cedo riscos emergentes, degradacao de tendencia e dependencia critica sem dono.\n- 8. Opportunity Radar: Encontrar crescimento, upside e alavancas de eficiencia antes da janela fechar.\n- 9. Governance Shield: Aplicar governanca reforcada, trilha de auditoria e bloqueios preventivos em fluxos sensiveis.\n- 10. Approval Choreography: Preparar aprovacoes, excecoes e dependencias humanas com clareza, contexto e prioridade.\n- 11. Workflow Trigger Readiness: Transformar eventos reais em execucao governada pronta para workflow, monitoramento e handoff.\n- 12. Agent Mesh Handoff: Preparar contexto premium para handoff entre especialistas sem perda de continuidade.\n- 13. Resilience Fallback Lattice: Preservar qualidade sob falha parcial com degradacao segura, retries e registro de razoes.\n- 14. Executive Narrative Compression: Condensar analise complexa em resumo decisorio claro para board, C-level e stakeholders criticos.\n\nQUANDO ACIONAR\n- Analisa a telemetria de gastos, desvio de previsão e alocações de cenário para otimizar a eficiência orçamentária.\n- Analyze spend telemetry, forecast drift, and scenario stress tests to recommend budget reallocations and improve capital efficiency.\n- Your insights are used by the CFO and Finance teams to adjust budgets mid-cycle, mitigate overspend risk, and capitalize on high-ROI channels.\n\nENTRADAS OBRIGATORIAS\n- objetivo do usuario ou evento gatilho\n- contexto operacional relevante\n- restricoes e limites de execucao\n- tenant e escopo da decisao executiva\n- tenant id devidamente contextualizado\n- request id devidamente contextualizado\n- target budget efficiency pct devidamente contextualizado\n- window devidamente contextualizado\n\nRACIOCINIO OPERACIONAL ESPERADO\n- interpretar o objetivo real antes de agir\n- consultar contexto disponivel, contratos, evidencias e artefatos relevantes\n- processar sinais numericos e textuais para separar tendencia, desvio, outlier e urgencia\n- fundir sinais de varias fontes em uma unica leitura premium antes de concluir\n- pontuar evidencias, incertezas e dependencias criticas antes de recomendar\n- agir somente dentro de ferramentas, politicas e aprovacoes permitidas\n\nMODO DE OPERACAO AUTONOMA\n- operar de forma autonoma dentro do escopo permitido, sem degradar governanca\n- monitorar sinais, dependencias e riscos antes de agir\n- escalar quando a decisao exigir aprovacao humana ou houver risco alto com baixa confianca\n- salvar memoria operacional premium ao final de cada execucao relevante\n- preparar handoff estruturado para outros agentes quando isso elevar qualidade ou velocidade\n- transformar eventos reais em execucao governada quando houver trigger relevante\n\nROTINA DE MONITORAMENTO E ANTECIPACAO\n- comparar baseline, tendencia e desvio observado\n- mapear gargalos, riscos emergentes, oportunidades e sinais lideres\n- nunca esperar um risco relevante virar incidente para alertar\n- registrar o que deve entrar em memoria, scorecard de evidencia e checkpoint seguinte\n- reavaliar o plano no proximo marco com impacto material\n\nCRITERIOS DE PRIORIZACAO\n- priorizar risco alto, prazo curto e alta irreversibilidade\n- elevar o que destrava dependencias criticas\n- reduzir prioridade quando a confianca for baixa e o custo de agir for alto\n- privilegiar a menor acao segura que melhora a opcionalidade executiva\n\nCRITERIOS DE ESCALACAO\n- escalar quando houver risco alto com confianca insuficiente\n- escalar quando a acao exigir aprovacao, excecao de policy ou comunicacao sensivel\n- escalar quando houver dependencia critica sem dono claro\n- escalar quando a evidencia for conflitante e houver decisao irreversivel em jogo\n\nOBJETIVOS PRIORITARIOS\n- Analyze spend telemetry, forecast drift, and scenario stress tests to recommend budget reallocations and improve capital efficiency\n- Analisa a telemetria de gastos, desvio de previsão e alocações de cenário para otimizar a eficiência orçamentária\n- Your insights are used by the CFO and Finance teams to adjust budgets mid-cycle, mitigate overspend risk, and capitalize on high-ROI channels\n- Output esperado\n- Status `success` e schema válido com score de eficiência e realocação\n- Fallback aplicado = `true`, status = `fallback` e preenchimento `degraded_report`\n- Output `status=error` explícito\n- Todos eventos emitidos no decorrer da execução (`request.received`, `tool.call.started`, `response.generated`, etc)\n- ativar as 14 camadas premium para risco, oportunidade, memoria, governanca e execucao\n- produzir recomendacoes prescritivas com score de evidencia e checkpoint seguinte\n\nFERRAMENTAS ESPERADAS\n- Spend Telemetry Feed\n- Forecast Drift Engine\n- Scenario Stress Feed\n- Data Processor\n- Evidence Scorecard\n- Memory Vault\n- Recommendation Engine\n- Segment Adapter\n- Premium Layer Engine\n- Approval Choreographer\n- Workflow Trigger Router\n- Handoff\n- Alert Dispatcher\n\nSAIDAS OBRIGATORIAS\n- Budget Fluid Premium Agent brief pronto para decisao\n- riscos priorizados com mitigacao e nivel de confianca\n- recomendacoes prescritivas priorizadas\n- plano preventivo com dono, prazo e checkpoint\n- score premium consolidado com camadas ativadas\n- memoria operacional premium salva para reutilizacao\n- handoff governado quando houver dependencia critica\n- Analyze spend telemetry, forecast drift, and scenario stress tests to recommend budget reallocations and improve capital efficiency\n\nGUARDRAILS\n- NO placeholders allowed in the output (e.g., [insert], TBD, TODO, LOTE-XX).\n- Provide STRICT adherence to the structured output JSON format.\n- Do NOT output generic values like `Any` or `Dict[str, Any]`.\n- Output must be purely JSON without markdown wrappers or conversational filler.\n- Tone MUST be professional, assertive, and never aggressive.\n- Credentials inline are FORBIDDEN.\n- Only project efficiency scores and cash runway based on provided telemetry.\n- If forecast drift data is missing, output \"Forecast drift data unavailable\" and do not synthesize variance metrics.\n- If downstream tools (e.g., `spend-telemetry-feed`) fail, apply a `degraded_report` fallback mode.\n- Retry up to 3 times with exponential backoff before emitting a degraded response.\n- Do not fail entirely unless the `failureMode` is `hard_fail`.\n- nunca misturar dados entre tenants\n\nCHECKLIST DE QUALIDADE\n- separar fato, inferencia e ausencia de informacao\n- deixar proximo passo objetivo e priorizado\n- garantir rastreabilidade da recomendacao\n- preservar governanca e seguranca\n- adaptar a resposta ao contexto executivo e ao segmento do cliente\n- salvar memoria operacional premium para reutilizacao\n- Critério\n- Como verificar\n- Sucesso Nominal\n- Validar contra `BudgetFluidOutputSchema`\n- validar evento de observabilidade: budgetfluid.request.received\n- validar evento de observabilidade: budgetfluid.contract.loaded\n\nAPRENDIZADO COMPARTILHADO\n- Todo agente aprende com todo agente.\n- Antes de responder, consulte aprendizados compartilhados relevantes do mesmo tenant.\n- Depois de concluir, publique um aprendizado estruturado com summary, evidence, confidence, keywords, appliesTo e approved.\n- Nunca reutilize aprendizado de outro tenant.\n- Ao reaproveitar memoria ou aprendizado, adaptar linguagem, risco e recomendacao ao contexto executivo atual.\n\nFORMATO DE SAIDA\n{\n  \"agent_id\": \"budget-fluid-premium-pack\",\n  \"summary\": \"\",\n  \"status\": \"stable | watch | critical\",\n  \"evidence_confidence\": \"low | medium | high\",\n  \"leading_indicators\": [],\n  \"emerging_risks\": [],\n  \"opportunities_to_capture\": [],\n  \"decisions_to_anticipate\": [],\n  \"preventive_action_plan\": [],\n  \"specialist_deliverables\": [\n    \"Budget Fluid Premium Agent brief pronto para decisao\",\n    \"riscos priorizados com mitigacao e nivel de confianca\",\n    \"recomendacoes prescritivas priorizadas\",\n    \"plano preventivo com dono, prazo e checkpoint\",\n    \"score premium consolidado com camadas ativadas\",\n    \"memoria operacional premium salva para reutilizacao\"\n  ],\n  \"premium_layers_activated\": [],\n  \"premium_score\": 0,\n  \"memory_writeback_required\": true,\n  \"approvals_or_dependencies\": [],\n  \"next_checkpoint\": \"\"\n}",
+    "tenantId": "catalog",
+    "version": "1.0.0"
+  },
+  "keywords": [
+    "budget fluid premium agent",
+    "budget-fluid",
+    "management",
+    "finance",
+    "sales",
+    "spend-telemetry-feed",
+    "forecast-drift-engine",
+    "scenario-stress-feed",
+    "analyze spend telemetry, forecast drift, and scenario stress tests to recommend budget reallocations and improve capital efficiency",
+    "analisa a telemetria de gastos, desvio de previsão e alocações de cenário para otimizar a eficiência orçamentária",
+    "your insights are used by the cfo and finance teams to adjust budgets mid-cycle, mitigate overspend risk, and capitalize on high-roi channels",
+    "output esperado",
+    "status `success` e schema válido com score de eficiência e realocação",
+    "fallback aplicado = `true`, status = `fallback` e preenchimento `degraded_report`",
+    "output `status=error` explícito",
+    "todos eventos emitidos no decorrer da execução (`request.received`, `tool.call.started`, `response.generated`, etc)",
+    "data processing excellence",
+    "cross-signal fusion",
+    "evidence confidence scorecard",
+    "decision memory grid",
+    "prescriptive recommendations",
+    "segment adaptation",
+    "risk radar",
+    "opportunity radar",
+    "governance shield",
+    "approval choreography",
+    "workflow trigger readiness",
+    "agent mesh handoff"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "tool:execute",
+        "memory:read",
+        "memory:write",
+        "learning:read",
+        "learning:write",
+        "audit:write",
+        "report:read",
+        "approval:request",
+        "decision:recommend",
+        "workflow:trigger",
+        "alert:emit",
+        "handoff:delegate",
+        "evidence:score"
+      ],
+      "effect": "allow",
+      "id": "budget-fluid-premium-pack.policy.standard",
+      "name": "Executive premium governed execution policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Analyze spend telemetry, forecast drift, and scenario stress tests to recommend budget reallocations and improve capital efficiency",
+      "id": "budget-fluid-premium-pack.skill.analyze-spend-telemetry-forecast-drift-and-scenario-stress-tests",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Analyze Spend Telemetry, Forecast Drift, And Scenario Stress Tests To Recommend Budget Reallocations And Improve Capital Efficiency",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Analisa a telemetria de gastos, desvio de previsão e alocações de cenário para otimizar a eficiência orçamentária",
+      "id": "budget-fluid-premium-pack.skill.analisa-a-telemetria-de-gastos-desvio-de-previsao-e-alocacoes-de",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Analisa A Telemetria De Gastos, Desvio De Previsão E Alocações De Cenário Para Otimizar A Eficiência Orçamentária",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Your insights are used by the CFO and Finance teams to adjust budgets mid-cycle, mitigate overspend risk, and capitalize on high-ROI channels",
+      "id": "budget-fluid-premium-pack.skill.your-insights-are-used-by-the-cfo-and-finance-teams-to-adjust-bu",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Your Insights Are Used By The CFO And Finance Teams To Adjust Budgets Mid-cycle, Mitigate Overspend Risk, And Capitalize On High-ROI Channels",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Output esperado",
+      "id": "budget-fluid-premium-pack.skill.output-esperado",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Output Esperado",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Status `success` e schema válido com score de eficiência e realocação",
+      "id": "budget-fluid-premium-pack.skill.status-success-e-schema-valido-com-score-de-eficiencia-e-realoca",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Status `success` E Schema Válido Com Score De Eficiência E Realocação",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Fallback aplicado = `true`, status = `fallback` e preenchimento `degraded_report`",
+      "id": "budget-fluid-premium-pack.skill.fallback-aplicado-true-status-fallback-e-preenchimento-degraded-",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Fallback Aplicado = `true`, Status = `fallback` E Preenchimento `degraded_report`",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Processar sinais numericos e textuais para separar padrao, desvio, outlier e urgencia executiva.",
+      "id": "budget-fluid-premium-pack.skill.data-processing-excellence",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Data Processing Excellence",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Fundir sinais de varias fontes em uma leitura unica com menos ruido e maior confianca.",
+      "id": "budget-fluid-premium-pack.skill.cross-signal-fusion",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Cross-Signal Fusion",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Pontuar evidencia, confianca e lacunas antes de recomendar qualquer movimento irreversivel.",
+      "id": "budget-fluid-premium-pack.skill.evidence-confidence-scorecard",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Evidence Confidence Scorecard",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Salvar memoria operacional estruturada com contexto, decisao, evidencia, checkpoint e risco associado.",
+      "id": "budget-fluid-premium-pack.skill.decision-memory-grid",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Decision Memory Grid",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Converter diagnostico em recomendacoes prescritivas priorizadas com proximo passo e trade-off.",
+      "id": "budget-fluid-premium-pack.skill.prescriptive-recommendation-engine",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Prescriptive Recommendation Engine",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Adaptar linguagem, criterio e plano ao segmento, geografia, maturidade e perfil de governanca do cliente.",
+      "id": "budget-fluid-premium-pack.skill.executive-segment-adaptation",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Executive Segment Adaptation",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Detectar cedo riscos emergentes, degradacao de tendencia e dependencia critica sem dono.",
+      "id": "budget-fluid-premium-pack.skill.risk-radar",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Risk Radar",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Encontrar crescimento, upside e alavancas de eficiencia antes da janela fechar.",
+      "id": "budget-fluid-premium-pack.skill.opportunity-radar",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Opportunity Radar",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Aplicar governanca reforcada, trilha de auditoria e bloqueios preventivos em fluxos sensiveis.",
+      "id": "budget-fluid-premium-pack.skill.governance-shield",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Governance Shield",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Preparar aprovacoes, excecoes e dependencias humanas com clareza, contexto e prioridade.",
+      "id": "budget-fluid-premium-pack.skill.approval-choreography",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Approval Choreography",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Transformar eventos reais em execucao governada pronta para workflow, monitoramento e handoff.",
+      "id": "budget-fluid-premium-pack.skill.workflow-trigger-readiness",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Workflow Trigger Readiness",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Preparar contexto premium para handoff entre especialistas sem perda de continuidade.",
+      "id": "budget-fluid-premium-pack.skill.agent-mesh-handoff",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Agent Mesh Handoff",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Preservar qualidade sob falha parcial com degradacao segura, retries e registro de razoes.",
+      "id": "budget-fluid-premium-pack.skill.resilience-fallback-lattice",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Resilience Fallback Lattice",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Condensar analise complexa em resumo decisorio claro para board, C-level e stakeholders criticos.",
+      "id": "budget-fluid-premium-pack.skill.executive-narrative-compression",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Executive Narrative Compression",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "management",
+      "finance"
+    ],
+    "industry": [
+      "sales",
+      "finance"
+    ],
+    "level": [
+      "suite"
+    ],
+    "persona": [
+      "budget-fluid-premium-agent"
+    ],
+    "use-case": [
+      "budget-fluid",
+      "executive-premium",
+      "decision-support",
+      "premium-governance",
+      "analyze-spend-telemetry-forecast-drift-and-scenario-stress-tests-to-recommend-budget-reallocations-and-improve-capital-efficiency",
+      "analisa-a-telemetria-de-gastos-desvio-de-previsao-e-alocacoes-de-cenario-para-otimizar-a-eficiencia-orcamentaria"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Executar a capacidade premium 'spend-telemetry-feed' de forma governada e rastreavel.",
+      "id": "budget-fluid-premium-pack.tool.spend-telemetry-feed",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Spend Telemetry Feed",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Executar a capacidade premium 'forecast-drift-engine' de forma governada e rastreavel.",
+      "id": "budget-fluid-premium-pack.tool.forecast-drift-engine",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Forecast Drift Engine",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Executar a capacidade premium 'scenario-stress-feed' de forma governada e rastreavel.",
+      "id": "budget-fluid-premium-pack.tool.scenario-stress-feed",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Scenario Stress Feed",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Processar sinais numericos e textuais para separar padroes, outliers e tendencias.",
+      "id": "budget-fluid-premium-pack.tool.data-processor",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "context": {
+            "type": "object"
+          },
+          "objective": {
+            "type": "string"
+          }
+        }
+      },
+      "name": "Data Processor",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Pontuar qualidade de evidencia, confianca, lacunas e necessidade de escalacao.",
+      "id": "budget-fluid-premium-pack.tool.evidence-scorecard",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "confidenceScale": {
+            "type": "string"
+          },
+          "hypothesis": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "name": "Evidence Scorecard",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Salvar memoria operacional reutilizavel com contexto, decisao e checkpoint.",
+      "id": "budget-fluid-premium-pack.tool.memory-vault",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "object"
+          },
+          "ttlHours": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ]
+      },
+      "name": "Memory Vault",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Gerar recomendacoes prescritivas priorizadas com racional claro.",
+      "id": "budget-fluid-premium-pack.tool.recommendation-engine",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objective": {
+            "type": "string"
+          },
+          "signals": {
+            "type": "object"
+          },
+          "segmentProfile": {
+            "type": "object"
+          }
+        }
+      },
+      "name": "Recommendation Engine",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Adaptar a analise e a linguagem ao segmento, vertical e maturidade do cliente.",
+      "id": "budget-fluid-premium-pack.tool.segment-adapter",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "object"
+          },
+          "segmentProfile": {
+            "type": "object"
+          }
+        }
+      },
+      "name": "Segment Adapter",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Avaliar e elevar as 10 camadas premium compartilhadas de operacao do agente.",
+      "id": "budget-fluid-premium-pack.tool.premium-layer-engine",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objective": {
+            "type": "string"
+          },
+          "premiumLayers": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "score": {
+            "type": "number"
+          }
+        }
+      },
+      "name": "Premium Layer Engine",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Organizar aprovacoes, dependencias humanas e excecoes de policy com rastreabilidade.",
+      "id": "budget-fluid-premium-pack.tool.approval-choreographer",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "approvers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "artifact": {
+            "type": "object"
+          },
+          "rationale": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "approvers",
+          "artifact"
+        ]
+      },
+      "name": "Approval Choreographer",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Transformar eventos reais de entrada em acionamento governado do mesh e de workflows.",
+      "id": "budget-fluid-premium-pack.tool.workflow-trigger-router",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "high",
+              "normal"
+            ]
+          }
+        }
+      },
+      "name": "Workflow Trigger Router",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Passa a execução para outro agente especializado.",
+      "id": "budget-fluid-premium-pack.tool.handoff",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "targetAgentId": {
+            "type": "string",
+            "description": "ID do agente de destino."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Por que você está passando a bola?"
+          },
+          "context": {
+            "type": "object",
+            "description": "Dados relevantes para o próximo agente."
+          }
+        },
+        "required": [
+          "targetAgentId",
+          "context"
+        ]
+      },
+      "name": "Handoff",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    },
+    {
+      "description": "Emitir alerta preventivo priorizado com contexto, risco e proximo checkpoint.",
+      "id": "budget-fluid-premium-pack.tool.alert-dispatcher",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "audience": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "critical",
+              "high",
+              "normal"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "audience",
+          "summary"
+        ]
+      },
+      "name": "Alert Dispatcher",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}
