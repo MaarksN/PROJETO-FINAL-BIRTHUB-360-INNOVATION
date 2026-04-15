@@ -64,3 +64,15 @@ void test("standalone break-glass router returns an explicit parked-surface mess
   assert.equal(body.title, "Not Found");
   assert.match(body.detail ?? "", /break-glass router is disabled/i);
 });
+
+void test("standalone break-glass router does not swallow unrelated api routes", async () => {
+  const response = await request(createStandaloneBreakGlassTestApp())
+    .get("/api/v1/workflows")
+    .expect(404);
+  const body = response.body as ErrorBody;
+
+  assert.equal(body.status, 404);
+  assert.equal(body.title, "Not Found");
+  assert.doesNotMatch(body.detail ?? "", /break-glass router is disabled/i);
+  assert.match(body.detail ?? "", /No route matched/i);
+});

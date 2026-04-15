@@ -3,6 +3,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import { fetchWithSession } from "../../../lib/auth-client";
 
@@ -14,6 +15,8 @@ type PackStatus = {
 };
 
 const PACKS_REQUEST_TIMEOUT_MS = 8_000;
+const EXECUTIVE_PREMIUM_TAG = "executive-premium";
+const EXECUTIVE_PREMIUM_PACK_TOKEN = "-premium-pack";
 
 function buildHeaders() {
   return {
@@ -33,9 +36,16 @@ function badgeTone(status: PackStatus["status"]): string {
   return "#9d0208";
 }
 
+function isExecutivePremiumPack(packId: string): boolean {
+  return packId.includes(EXECUTIVE_PREMIUM_PACK_TOKEN);
+}
+
 export default function PacksPage() {
   const [packs, setPacks] = useState<PackStatus[]>([]);
   const [message, setMessage] = useState("");
+
+  const executivePremiumPacks = packs.filter((pack) => isExecutivePremiumPack(pack.packId));
+  const executivePremiumActiveCount = executivePremiumPacks.filter((pack) => pack.status === "active").length;
 
   async function refresh(): Promise<void> {
     const response = await fetchWithSession("/api/v1/packs/status", {
@@ -100,7 +110,91 @@ export default function PacksPage() {
         <p style={{ color: "var(--muted)", margin: 0 }}>
           Painel para monitorar packs `active`, `degraded`, `failed` e acionar update para v2.0.
         </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
+          <Link href={`/marketplace?tags=${encodeURIComponent(EXECUTIVE_PREMIUM_TAG)}`}>
+            Abrir colecao premium executiva
+          </Link>
+          <Link href="/sales-os">Ver no Sales OS</Link>
+        </div>
       </header>
+
+      <section
+        style={{
+          background:
+            executivePremiumPacks.length > 0
+              ? "linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,58,138,0.92))"
+              : "rgba(255,255,255,0.9)",
+          border:
+            executivePremiumPacks.length > 0
+              ? "1px solid rgba(148, 163, 184, 0.28)"
+              : "1px solid var(--border)",
+          borderRadius: 18,
+          color: executivePremiumPacks.length > 0 ? "#f8fafc" : "inherit",
+          display: "grid",
+          gap: "0.7rem",
+          padding: "1rem"
+        }}
+      >
+        <div style={{ display: "grid", gap: "0.3rem" }}>
+          <small
+            style={{
+              color: executivePremiumPacks.length > 0 ? "rgba(248,250,252,0.78)" : "var(--muted)",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase"
+            }}
+          >
+            Executive Premium
+          </small>
+          <strong style={{ fontSize: "1.05rem" }}>
+            {executivePremiumPacks.length > 0
+              ? "Colecao premium executiva instalada neste tenant"
+              : "Colecao premium executiva disponivel para instalar"}
+          </strong>
+          <p
+            style={{
+              color: executivePremiumPacks.length > 0 ? "rgba(248,250,252,0.9)" : "var(--muted)",
+              margin: 0
+            }}
+          >
+            {executivePremiumPacks.length > 0
+              ? "Os agentes premium executivos agora aparecem com governanca reforcada, memoria decisoria e camadas premium compartilhadas."
+              : "Instale os agentes executivos premium para trazer score de evidencia, radar de risco, handoff governado e narrativa executiva para board e C-level."}
+          </p>
+        </div>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
+          <span
+            style={{
+              background: executivePremiumPacks.length > 0 ? "rgba(255,255,255,0.12)" : "rgba(30,58,138,0.08)",
+              border: executivePremiumPacks.length > 0 ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(30,58,138,0.14)",
+              borderRadius: 999,
+              padding: "0.35rem 0.75rem"
+            }}
+          >
+            {executivePremiumPacks.length} packs premium
+          </span>
+          <span
+            style={{
+              background: executivePremiumPacks.length > 0 ? "rgba(255,255,255,0.12)" : "rgba(30,58,138,0.08)",
+              border: executivePremiumPacks.length > 0 ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(30,58,138,0.14)",
+              borderRadius: 999,
+              padding: "0.35rem 0.75rem"
+            }}
+          >
+            {executivePremiumActiveCount} ativos
+          </span>
+          <span
+            style={{
+              background: executivePremiumPacks.length > 0 ? "rgba(255,255,255,0.12)" : "rgba(30,58,138,0.08)",
+              border: executivePremiumPacks.length > 0 ? "1px solid rgba(255,255,255,0.18)" : "1px solid rgba(30,58,138,0.14)",
+              borderRadius: 999,
+              padding: "0.35rem 0.75rem"
+            }}
+          >
+            14 camadas premium
+          </span>
+        </div>
+      </section>
 
       <div style={{ display: "grid", gap: "0.8rem", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
         {packs.length === 0 ? (
@@ -119,8 +213,12 @@ export default function PacksPage() {
             <article
               key={pack.packId}
               style={{
-                background: "rgba(255,255,255,0.88)",
-                border: "1px solid var(--border)",
+                background: isExecutivePremiumPack(pack.packId)
+                  ? "linear-gradient(180deg, rgba(30,58,138,0.1), rgba(255,255,255,0.92))"
+                  : "rgba(255,255,255,0.88)",
+                border: isExecutivePremiumPack(pack.packId)
+                  ? "1px solid rgba(30,58,138,0.22)"
+                  : "1px solid var(--border)",
                 borderRadius: 16,
                 display: "grid",
                 gap: "0.6rem",
@@ -133,6 +231,18 @@ export default function PacksPage() {
                   {pack.status}
                 </span>
               </div>
+              {isExecutivePremiumPack(pack.packId) ? (
+                <small
+                  style={{
+                    color: "var(--accent-strong)",
+                    fontWeight: 700,
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase"
+                  }}
+                >
+                  Executive Premium
+                </small>
+              ) : null}
               <small>Instalado: {pack.installedVersion}</small>
               <small>Disponivel: {pack.latestAvailableVersion}</small>
               {pack.latestAvailableVersion !== pack.installedVersion ? (

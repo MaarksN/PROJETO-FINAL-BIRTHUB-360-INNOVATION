@@ -2,7 +2,10 @@
 // 
 import { Handle, Position, type Edge, type Node, type NodeProps } from "reactflow";
 
-import { stepSchema, validateDag, type WorkflowCanvas } from "@birthub/workflows-core/nextjs";
+import {
+  stepSchema as rawStepSchema,
+  validateDag as rawValidateDag
+} from "@birthub/workflows-core/nextjs";
 
 import { fetchWithSession } from "../../../../../lib/auth-client";
 
@@ -29,6 +32,21 @@ export type BuilderNodeData = {
     | "TRIGGER_CRON"
     | "TRIGGER_EVENT";
   status: "draft" | "published";
+};
+
+type WorkflowCanvas = {
+  steps: Array<{
+    config: Record<string, unknown>;
+    isTrigger?: boolean;
+    key: string;
+    name: string;
+    type: BuilderNodeData["stepType"];
+  }>;
+  transitions: Array<{
+    route?: WorkflowRoute;
+    source: string;
+    target: string;
+  }>;
 };
 
 export type WorkflowResponse = {
@@ -81,6 +99,28 @@ export const FALLBACK_CANVAS: WorkflowCanvas = {
 const WORKFLOW_EDITOR_REQUEST_TIMEOUT_MS = 10_000;
 
 type WorkflowRoute = "ALWAYS" | "FALLBACK" | "IF_FALSE" | "IF_TRUE" | "ON_FAILURE" | "ON_SUCCESS";
+
+type StepSchemaLike = {
+  safeParse: (input: unknown) => {
+    success: boolean;
+  };
+};
+
+type DagValidationInput = {
+  edges: Array<{
+    route: WorkflowRoute;
+    source: string;
+    target: string;
+  }>;
+  nodes: Array<{
+    id: string;
+    isTrigger: boolean;
+    type: BuilderNodeData["stepType"];
+  }>;
+};
+
+const stepSchema = rawStepSchema as unknown as StepSchemaLike;
+const validateDag = rawValidateDag as unknown as (input: DagValidationInput) => void;
 
 function stepTypeToCategory(stepType: BuilderNodeData["stepType"]): BuilderNodeData["category"] {
   if (stepType.startsWith("TRIGGER")) {

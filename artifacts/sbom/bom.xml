@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:77846a9b-fcad-f677-69a4-37fcbbf443d4" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:79dd1343-550d-70d4-426e-c86d488389a2" version="1">
   <metadata>
-    <timestamp>2026-04-15T02:42:25.603Z</timestamp>
+    <timestamp>2026-04-15T15:26:52.505Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -16,10 +16,10 @@
     </component>
   </metadata>
   <components>
-    <component type="library" bom-ref="pkg:npm/%40aws-sdk%2Fclient-s3@3.1029.0">
+    <component type="library" bom-ref="pkg:npm/%40aws-sdk%2Fclient-s3@3.1030.0">
       <name>@aws-sdk/client-s3</name>
-      <version>3.1029.0</version>
-      <purl>pkg:npm/%40aws-sdk%2Fclient-s3@3.1029.0</purl>
+      <version>3.1030.0</version>
+      <purl>pkg:npm/%40aws-sdk%2Fclient-s3@3.1030.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fagents-core@link%3A..%2F..%2Fpackages%2Fagents-core">
       <name>@birthub/agents-core</name>
@@ -40,6 +40,11 @@
       <name>@birthub/config</name>
       <version>link:../../packages/config</version>
       <purl>pkg:npm/%40birthub%2Fconfig@link%3A..%2F..%2Fpackages%2Fconfig</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40birthub%2Fconfig@link%3A..%2Fconfig">
+      <name>@birthub/config</name>
+      <version>link:../config</version>
+      <purl>pkg:npm/%40birthub%2Fconfig@link%3A..%2Fconfig</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fconfig@link%3Apackages%2Fconfig">
       <name>@birthub/config</name>
@@ -80,6 +85,11 @@
       <name>@birthub/logger</name>
       <version>link:packages/logger</version>
       <purl>pkg:npm/%40birthub%2Flogger@link%3Apackages%2Flogger</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40birthub%2Fqueue@link%3A..%2F..%2Fpackages%2Fqueue">
+      <name>@birthub/queue</name>
+      <version>link:../../packages/queue</version>
+      <purl>pkg:npm/%40birthub%2Fqueue@link%3A..%2F..%2Fpackages%2Fqueue</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fshared-types@link%3A..%2Fshared-types">
       <name>@birthub/shared-types</name>
@@ -146,10 +156,10 @@
       <version>0.214.0</version>
       <purl>pkg:npm/%40opentelemetry%2Fexporter-trace-otlp-http@0.214.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40opentelemetry%2Fresources@2.6.0">
+    <component type="library" bom-ref="pkg:npm/%40opentelemetry%2Fresources@2.6.1">
       <name>@opentelemetry/resources</name>
-      <version>2.6.0</version>
-      <purl>pkg:npm/%40opentelemetry%2Fresources@2.6.0</purl>
+      <version>2.6.1</version>
+      <purl>pkg:npm/%40opentelemetry%2Fresources@2.6.1</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40opentelemetry%2Fsdk-node@0.214.0">
       <name>@opentelemetry/sdk-node</name>
@@ -166,30 +176,30 @@
       <version>1.59.1</version>
       <purl>pkg:npm/%40playwright%2Ftest@1.59.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40prisma%2Fadapter-pg@7.6.0">
+    <component type="library" bom-ref="pkg:npm/%40prisma%2Fadapter-pg@7.7.0">
       <name>@prisma/adapter-pg</name>
-      <version>7.6.0</version>
-      <purl>pkg:npm/%40prisma%2Fadapter-pg@7.6.0</purl>
+      <version>7.7.0</version>
+      <purl>pkg:npm/%40prisma%2Fadapter-pg@7.7.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40prisma%2Fclient@6.19.2">
+    <component type="library" bom-ref="pkg:npm/%40prisma%2Fclient@6.19.3">
       <name>@prisma/client</name>
-      <version>6.19.2</version>
-      <purl>pkg:npm/%40prisma%2Fclient@6.19.2</purl>
+      <version>6.19.3</version>
+      <purl>pkg:npm/%40prisma%2Fclient@6.19.3</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40prisma%2Finstrumentation@7.6.0">
+    <component type="library" bom-ref="pkg:npm/%40prisma%2Finstrumentation@7.7.0">
       <name>@prisma/instrumentation</name>
-      <version>7.6.0</version>
-      <purl>pkg:npm/%40prisma%2Finstrumentation@7.6.0</purl>
+      <version>7.7.0</version>
+      <purl>pkg:npm/%40prisma%2Finstrumentation@7.7.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40sentry%2Fnextjs@10.45.0">
+    <component type="library" bom-ref="pkg:npm/%40sentry%2Fnextjs@10.48.0">
       <name>@sentry/nextjs</name>
-      <version>10.45.0</version>
-      <purl>pkg:npm/%40sentry%2Fnextjs@10.45.0</purl>
+      <version>10.48.0</version>
+      <purl>pkg:npm/%40sentry%2Fnextjs@10.48.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40sentry%2Fnode@10.43.0">
+    <component type="library" bom-ref="pkg:npm/%40sentry%2Fnode@10.48.0">
       <name>@sentry/node</name>
-      <version>10.43.0</version>
-      <purl>pkg:npm/%40sentry%2Fnode@10.43.0</purl>
+      <version>10.48.0</version>
+      <purl>pkg:npm/%40sentry%2Fnode@10.48.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40stryker-mutator%2Fapi@8.7.1">
       <name>@stryker-mutator/api</name>
@@ -256,10 +266,10 @@
       <version>3.0.3</version>
       <purl>pkg:npm/bcryptjs@3.0.3</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/bullmq@5.73.0">
+    <component type="library" bom-ref="pkg:npm/bullmq@5.73.5">
       <name>bullmq</name>
-      <version>5.73.0</version>
-      <purl>pkg:npm/bullmq@5.73.0</purl>
+      <version>5.73.5</version>
+      <purl>pkg:npm/bullmq@5.73.5</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/c8@10.1.3">
       <name>c8</name>
@@ -271,10 +281,10 @@
       <version>2.8.6</version>
       <purl>pkg:npm/cors@2.8.6</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/eslint@10.0.3">
+    <component type="library" bom-ref="pkg:npm/eslint@10.2.0">
       <name>eslint</name>
-      <version>10.0.3</version>
-      <purl>pkg:npm/eslint@10.0.3</purl>
+      <version>10.2.0</version>
+      <purl>pkg:npm/eslint@10.2.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/eslint-import-resolver-typescript@4.4.4">
       <name>eslint-import-resolver-typescript</name>
@@ -311,10 +321,10 @@
       <version>5.10.1</version>
       <purl>pkg:npm/ioredis@5.10.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/isomorphic-dompurify@3.7.1">
+    <component type="library" bom-ref="pkg:npm/isomorphic-dompurify@3.8.0">
       <name>isomorphic-dompurify</name>
-      <version>3.7.1</version>
-      <purl>pkg:npm/isomorphic-dompurify@3.7.1</purl>
+      <version>3.8.0</version>
+      <purl>pkg:npm/isomorphic-dompurify@3.8.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/jose@6.2.2">
       <name>jose</name>
@@ -336,25 +346,25 @@
       <version>16.4.0</version>
       <purl>pkg:npm/lint-staged@16.4.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/lru-cache@11.3.3">
+    <component type="library" bom-ref="pkg:npm/lru-cache@11.3.5">
       <name>lru-cache</name>
-      <version>11.3.3</version>
-      <purl>pkg:npm/lru-cache@11.3.3</purl>
+      <version>11.3.5</version>
+      <purl>pkg:npm/lru-cache@11.3.5</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/lucide-react@1.8.0">
       <name>lucide-react</name>
       <version>1.8.0</version>
       <purl>pkg:npm/lucide-react@1.8.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/msw@2.12.14">
+    <component type="library" bom-ref="pkg:npm/msw@2.13.3">
       <name>msw</name>
-      <version>2.12.14</version>
-      <purl>pkg:npm/msw@2.12.14</purl>
+      <version>2.13.3</version>
+      <purl>pkg:npm/msw@2.13.3</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/next@16.2.1">
+    <component type="library" bom-ref="pkg:npm/next@16.2.3">
       <name>next</name>
-      <version>16.2.1</version>
-      <purl>pkg:npm/next@16.2.1</purl>
+      <version>16.2.3</version>
+      <purl>pkg:npm/next@16.2.3</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/opossum@9.0.0">
       <name>opossum</name>
@@ -381,15 +391,15 @@
       <version>31.2.1</version>
       <purl>pkg:npm/pipedrive@31.2.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/prettier@3.8.1">
+    <component type="library" bom-ref="pkg:npm/prettier@3.8.2">
       <name>prettier</name>
-      <version>3.8.1</version>
-      <purl>pkg:npm/prettier@3.8.1</purl>
+      <version>3.8.2</version>
+      <purl>pkg:npm/prettier@3.8.2</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/prisma@6.19.2">
+    <component type="library" bom-ref="pkg:npm/prisma@6.19.3">
       <name>prisma</name>
-      <version>6.19.2</version>
-      <purl>pkg:npm/prisma@6.19.2</purl>
+      <version>6.19.3</version>
+      <purl>pkg:npm/prisma@6.19.3</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/rate-limit-redis@4.3.1">
       <name>rate-limit-redis</name>
@@ -431,10 +441,10 @@
       <version>5.0.0-beta.2</version>
       <purl>pkg:npm/redlock@5.0.0-beta.2</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/resend@6.9.4">
+    <component type="library" bom-ref="pkg:npm/resend@6.11.0">
       <name>resend</name>
-      <version>6.9.4</version>
-      <purl>pkg:npm/resend@6.9.4</purl>
+      <version>6.11.0</version>
+      <purl>pkg:npm/resend@6.11.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/semver@7.7.4">
       <name>semver</name>
@@ -461,30 +471,30 @@
       <version>4.21.0</version>
       <purl>pkg:npm/tsx@4.21.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/turbo@2.8.16">
+    <component type="library" bom-ref="pkg:npm/turbo@2.9.6">
       <name>turbo</name>
-      <version>2.8.16</version>
-      <purl>pkg:npm/turbo@2.8.16</purl>
+      <version>2.9.6</version>
+      <purl>pkg:npm/turbo@2.9.6</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/twilio@5.13.0">
+    <component type="library" bom-ref="pkg:npm/twilio@5.13.1">
       <name>twilio</name>
-      <version>5.13.0</version>
-      <purl>pkg:npm/twilio@5.13.0</purl>
+      <version>5.13.1</version>
+      <purl>pkg:npm/twilio@5.13.1</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/typedoc@0.28.17">
+    <component type="library" bom-ref="pkg:npm/typedoc@0.28.19">
       <name>typedoc</name>
-      <version>0.28.17</version>
-      <purl>pkg:npm/typedoc@0.28.17</purl>
+      <version>0.28.19</version>
+      <purl>pkg:npm/typedoc@0.28.19</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/typescript@5.9.3">
       <name>typescript</name>
       <version>5.9.3</version>
       <purl>pkg:npm/typescript@5.9.3</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/typescript-eslint@8.58.1">
+    <component type="library" bom-ref="pkg:npm/typescript-eslint@8.58.2">
       <name>typescript-eslint</name>
-      <version>8.58.1</version>
-      <purl>pkg:npm/typescript-eslint@8.58.1</purl>
+      <version>8.58.2</version>
+      <purl>pkg:npm/typescript-eslint@8.58.2</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/ws@8.20.0">
       <name>ws</name>
