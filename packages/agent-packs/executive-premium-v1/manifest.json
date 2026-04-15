@@ -1,0 +1,94 @@
+{
+  "agent": {
+    "changelog": [
+      "1.0.0 - Introduced the canonical collection for 15 executive premium agents migrated into agent-packs",
+      "1.0.0 - Added 14 shared premium layers, evidence scorecard and decision memory grid"
+    ],
+    "description": "Collection descriptor for the executive premium lineup migrated into the canonical agent-packs catalog with reinforced governance, evidence scoring and multi-layer premium execution.",
+    "id": "executive-premium-v1-catalog",
+    "kind": "catalog",
+    "name": "Executive Premium Agents Collection",
+    "prompt": "Coordinate and expose the Executive Premium Agents Collection, highlighting the canonical migration into agent-packs, the 14 shared premium layers and the governed executive operating model.",
+    "tenantId": "catalog",
+    "version": "1.0.0"
+  },
+  "keywords": [
+    "executive premium agents",
+    "canonical agent-packs",
+    "executive lineup",
+    "premium layers",
+    "decision memory grid",
+    "evidence scorecard",
+    "governed execution"
+  ],
+  "manifestVersion": "1.0.0",
+  "policies": [
+    {
+      "actions": [
+        "report:read",
+        "audit:write"
+      ],
+      "effect": "allow",
+      "id": "executive-premium-v1-catalog.policy.catalog",
+      "name": "Executive premium collection governance policy"
+    }
+  ],
+  "skills": [
+    {
+      "description": "Expose collection metadata, migration context and premium-layer governance.",
+      "id": "executive-premium-v1-catalog.skill.collection-governance",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Collection Governance",
+      "outputSchema": {
+        "type": "object"
+      }
+    },
+    {
+      "description": "Support discovery, segmentation and documentation of the executive premium lineup.",
+      "id": "executive-premium-v1-catalog.skill.collection-discovery",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Collection Discovery",
+      "outputSchema": {
+        "type": "object"
+      }
+    }
+  ],
+  "tags": {
+    "domain": [
+      "management",
+      "strategy"
+    ],
+    "industry": [
+      "cross-industry"
+    ],
+    "level": [
+      "suite"
+    ],
+    "persona": [
+      "catalog-admin"
+    ],
+    "use-case": [
+      "discover",
+      "governance",
+      "executive-premium"
+    ]
+  },
+  "tools": [
+    {
+      "description": "Expose collection metadata for marketplace and documentation surfaces.",
+      "id": "executive-premium-v1-catalog.tool.collection-index",
+      "inputSchema": {
+        "type": "object"
+      },
+      "name": "Collection Index",
+      "outputSchema": {
+        "type": "object"
+      },
+      "timeoutMs": 15000
+    }
+  ]
+}
