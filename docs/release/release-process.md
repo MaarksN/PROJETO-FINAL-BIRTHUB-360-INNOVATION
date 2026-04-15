@@ -19,6 +19,8 @@
 9. `dr-readiness-gate` agrega backup health, rollback evidence e drill de DR.
 10. `deploy-production` dispara o hook de produção.
 
+> O preflight de produção exige um arquivo selado em `ops/release/sealed/.env.production.sealed` passado via `--env-file`. A execução falha quando o arquivo está ausente ou inacessível.
+
 ## Evidências obrigatórias
 
 - `artifacts/release/staging-preflight-summary.json`
