@@ -7,14 +7,14 @@ import ReactFlow from "reactflow";
 import { Background, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
 
+import type { WorkflowCanvas } from "@birthub/workflows-core";
+
 import { fetchWithSession } from "../../../../../lib/auth-client";
 import { canvasToFlow, nodeTypes } from "../edit/workflow-editor-helpers";
 
-type WorkflowCanvasDefinition = Parameters<typeof canvasToFlow>[0];
-
 type WorkflowRevisionSnapshot = {
   createdAt: string;
-  definition: WorkflowCanvasDefinition;
+  definition: WorkflowCanvas;
   id: string;
   version: number;
 };
@@ -277,7 +277,7 @@ function useWorkflowRevisionsModel(workflowId: string): WorkflowRevisionsModel {
       return { edges: [], nodes: [] };
     }
 
-    const definition: WorkflowCanvasDefinition = selectedRevision.definition;
+    const definition: WorkflowCanvas = selectedRevision.definition;
     return canvasToFlow(definition, "PUBLISHED");
   }, [selectedRevision]);
 

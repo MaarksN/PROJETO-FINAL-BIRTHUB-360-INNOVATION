@@ -396,6 +396,90 @@ PROXIMO PASSO
 
 ---
 
+GOVERNANCA
+[2026-04-14 - pos ARCH-002.1]
+
+STATUS CONSOLIDADO
+- [CODE-002] - [PARCIAL]
+- [ARCH-002] - [RESOLVIDO]
+
+GATES ACEITOS
+- [`pnpm --filter @birthub/api typecheck`] - [PASS]
+- [`pnpm typecheck`] - [PASS]
+- [`pnpm --filter @birthub/api test`] - [PASS]
+
+PROXIMO CICLO RECOMENDADO
+[CODE-002.2]
+
+---
+
+CICLO
+[ARCH-002.1]
+
+TRILHA
+[ARCH]
+
+OBJETIVO
+[Quebrar o monolito remanescente de `apps/api/src/modules/clinical/service.ts` por agregados/casos de uso, preservando o contrato publico do modulo clinico e mantendo `apps/web` fora deste fluxo.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/modules/clinical/service.ts: transformar o arquivo em composicao]
+- [apps/api/src/modules/clinical/service-runtime.ts: concentrar runtime/query helpers compartilhados]
+- [apps/api/src/modules/clinical/service-patients.ts: extrair o agregado de pacientes, gestacao e neonatal]
+- [apps/api/src/modules/clinical/service-appointments.ts: extrair o agregado de agenda]
+- [apps/api/src/modules/clinical/service-notes.ts: extrair o agregado de notas clinicas]
+- [CYCLE_LOG.md: registrar o ciclo]
+
+DIFF GUARD
+Arquivos estruturais: [5 / max 6]
+Linhas alteradas em hot paths: [NAO VERIFICADO / max 250]
+Excecao justificada: [sim - o refactor foi distribuido em novos arquivos e o worktree final nao preservou um diff confiavel resumido; o controle foi feito por fronteira de arquivos, contrato publico e validacao canonica.]
+
+TD-IDs AFETADOS
+Fechados: [ARCH-002 - O service clinico deixou de concentrar todas as responsabilidades em um unico arquivo]
+Abertos: [CODE-002 - `apps/api/src/modules/clinical/router.ts` e `apps/api/src/modules/clinical/schemas.ts` ainda mantem `@ts-nocheck`]
+Bloqueados: [N/A]
+
+GATE DE APROVACAO HUMANA
+Necessario: [nao]
+Se sim: [N/A]
+
+PROBLEMA CONFIRMADO
+[Mesmo apos `CODE-002.1`, `apps/api/src/modules/clinical/service.ts` ainda concentrava o runtime compartilhado e todos os casos de uso de pacientes, gestacao, neonatal, agenda e notas em um unico arquivo, mantendo o hotspot arquitetural apontado pelo relatorio 02.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/modules/clinical/service.ts] - reduzido a composicao do contrato publico via spread dos agregados
+- [apps/api/src/modules/clinical/service-runtime.ts] - extraidos seam do Prisma clinico, query builders, paginacao e helpers compartilhados de detalhe
+- [apps/api/src/modules/clinical/service-patients.ts] - extraidos `create/list/get/update/delete patient`, `savePregnancyRecord` e `saveNeonatalRecord`
+- [apps/api/src/modules/clinical/service-appointments.ts] - extraidos `list/get/create/update/delete appointment`
+- [apps/api/src/modules/clinical/service-notes.ts] - extraidos `list/get history/create/update/delete clinical note`
+- [CYCLE_LOG.md] - registrada a governanca pos-ciclo e o fechamento do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `Baseline preserved at 568 @ts-nocheck` / `Improvements detected: 163 @ts-nocheck removed from baseline coverage` / `apps/api typecheck: Done`
+- [`pnpm --filter @birthub/api test`] -> `tests 155` / `pass 141` / `fail 0` / `skipped 14`
+
+SECURITY GATE (obrigatorio para Trilha B)
+[N/A - Trilha ARCH]
+
+ROLLBACK EXECUTADO
+[nao]
+
+STATUS
+[RESOLVIDO]
+
+RISCO RESIDUAL
+[O hotspot principal foi quebrado e `service.ts` deixou de ser monolitico, mas a trilha de tipagem residual segue aberta fora deste ciclo em `apps/api/src/modules/clinical/router.ts` e `apps/api/src/modules/clinical/schemas.ts`.]
+
+ESCALATION NECESSARIO
+[nao]
+
+PROXIMO PASSO
+[CODE-002.2 - remover os `@ts-nocheck` residuais de `apps/api/src/modules/clinical/router.ts` e `apps/api/src/modules/clinical/schemas.ts` sem reabrir `apps/web`.]
+
+---
+
 CICLO
 [A-005]
 
@@ -537,6 +621,60 @@ ESCALATION NECESSARIO
 
 PROXIMO PASSO
 [Aguardando autorizacao governada para estender o PRE-LOTE BASELINE aos erros residuais fora do recorte aprovado. Nao iniciar `LOTE 1` enquanto `pnpm lint` e `pnpm typecheck` permanecerem vermelhos fora de escopo.]
+
+---
+
+CICLO
+[PRE-LOTE BASELINE - LINT STABILIZATION.1]
+
+TRILHA
+[BASELINE]
+
+OBJETIVO
+[Concluir o corredor residual de `apps/web` autorizado pela continuacao do pre-lote, ainda sem tocar em `STRUCT-*` nem expandir para pacotes fora de `apps/web`.]
+
+ARQUIVOS-ALVO
+- [apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx]
+- [apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts]
+- [apps/web/lib/workflows.ts]
+- [apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx]
+- [CYCLE_LOG.md]
+
+DIFF GUARD
+Arquivos estruturais: [4 / max 5]
+Linhas alteradas em hot paths: [NAO VERIFICADO / max 200]
+Excecao justificada: [nao]
+
+PROBLEMA CONFIRMADO
+[Depois que o recorte inicial de `apps/web` deixou de falhar, os errors residuais de lint/typecheck passaram a vir do seam `@birthub/workflows-core/nextjs` em `workflow-editor-helpers.tsx`, `runs/page.data.ts` e `lib/workflows.ts`, mais um `no-unsafe-argument` remanescente em `revisions/page.tsx`.]
+
+ALTERACOES REALIZADAS
+- [apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx] - trocado import de `@birthub/workflows-core/nextjs` para o export raiz publico `@birthub/workflows-core`
+- [apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts] - trocado import de `WorkflowCanvas` para o export raiz publico
+- [apps/web/lib/workflows.ts] - trocado import de `WorkflowCanvas` para o export raiz publico
+- [apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx] - substituido o tipo derivado de `canvasToFlow` por `WorkflowCanvas` direto do pacote publico
+- [CYCLE_LOG.md] - registrada a continuacao do pre-lote
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `PASS`
+- [`pnpm --filter @birthub/web lint`] -> `0 errors, 33 warnings`
+- [`pnpm lint`] -> `FAIL` agora fora do escopo autorizado em `packages/database`, incluindo `prisma/seed/tenant.ts`, `src/client.ts`, `test/database-script-pipelines.test.ts`, `test/engagement.test.ts` e `test/maternal-domain.rls.test.ts`
+
+ROLLBACK EXECUTADO
+[nao]
+
+STATUS
+[BLOQUEADO POR ESCOPO]
+
+RISCO RESIDUAL
+[O baseline de `apps/web` foi estabilizado para errors e o typecheck global ficou verde. O gate global de lint continua vermelho, mas o bloqueio restante mudou para `packages/database`, fora do escopo autorizado deste pre-lote. `LOTE 1` estrutural segue aguardando baseline minima global.]
+
+ESCALATION NECESSARIO
+[sim - e necessario novo recorte governado para os errors residuais de `packages/database` antes de liberar `LOTE 1`.]
+
+PROXIMO PASSO
+[Aguardando autorizacao para um novo PRE-LOTE BASELINE focado em `packages/database` ou outra decisao de governanca equivalente.]
 
 ---
 

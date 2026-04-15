@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { EventEmitter } from "node:events";
 
 import type { ApiConfig } from "@birthub/config";

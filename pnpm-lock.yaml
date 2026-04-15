@@ -7,7 +7,7 @@ settings:
 overrides:
   fast-xml-parser: '>=5.5.7'
   flatted: '>=3.4.2'
-  next: '>=16.1.7'
+  next: 16.2.3
   effect: '>=3.20.0'
   path-to-regexp: 8.4.0
   picomatch: 4.0.4
@@ -265,7 +265,7 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0(react@19.2.4)
       next:
-        specifier: '>=16.1.7'
+        specifier: 16.2.3
         version: 16.2.3(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
         specifier: 19.2.4
@@ -2879,7 +2879,7 @@ packages:
     resolution: {integrity: sha512-SEuRQMd4RskbK/1daw3zdjEadu+T6IxoYDVoA6ladF1VaawT0zF9KscEqHTbBKWyckGbTCfccDOiRRspgcIYvA==}
     engines: {node: '>=18'}
     peerDependencies:
-      next: '>=16.1.7'
+      next: 16.2.3
 
   '@sentry/node-core@10.48.0':
     resolution: {integrity: sha512-D1TnPhN6vhrRqJ+bN+rdXDM+INibI6lNBm0eGx45zz7DBx9ouq2e9gm/DPx+y/hAkYYq0qTd6x84cGxtVZbKLw==}
