@@ -15,9 +15,9 @@ export default function OfflinePage() {
       <section
         style={{
           background: "var(--surface, #ffffff)",
-          border: "1px solid rgba(19, 93, 102, 0.12)",
+          border: "1px solid rgba(30, 58, 138, 0.12)",
           borderRadius: "1.5rem",
-          boxShadow: "0 24px 80px rgba(19, 93, 102, 0.08)",
+          boxShadow: "0 24px 80px rgba(30, 58, 138, 0.08)",
           margin: "0 auto",
           maxWidth: "36rem",
           padding: "2rem"
@@ -64,7 +64,7 @@ export default function OfflinePage() {
           <Link
             href="/health"
             style={{
-              border: "1px solid rgba(19, 93, 102, 0.2)",
+              border: "1px solid rgba(30, 58, 138, 0.2)",
               borderRadius: "999px",
               color: "#135d66",
               padding: "0.85rem 1.4rem",
