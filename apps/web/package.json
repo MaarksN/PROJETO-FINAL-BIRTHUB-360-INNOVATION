@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "TURBOPACK=0 next build",
+    "build": "next build --webpack",
     "dev": "next dev -p 3001",
     "lint": "eslint .",
     "start": "next start -p 3001",
@@ -17,7 +17,7 @@
     "@sentry/nextjs": "^10.45.0",
     "isomorphic-dompurify": "^3.7.1",
     "lucide-react": "^1.8.0",
-    "next": "16.1.6",
+    "next": "16.2.3",
     "react": "19.2.4",
     "react-confetti": "^6.4.0",
     "react-dom": "19.2.4",

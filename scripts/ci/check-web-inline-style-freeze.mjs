@@ -5,6 +5,8 @@ import { execFileSync } from "node:child_process";
 const guardedFiles = [
   "apps/web/app/(dashboard)/dashboard/page.tsx",
   "apps/web/app/(dashboard)/workflows/page.tsx",
+  "apps/web/components/agents/PolicyManager.tsx",
+  "apps/web/components/agents/agent-detail-tabs.tsx",
   "apps/web/components/cookie-consent-banner.tsx",
   "apps/web/components/layout/Navbar.tsx"
 ];

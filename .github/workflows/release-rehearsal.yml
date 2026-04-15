@@ -36,6 +36,15 @@ jobs:
       - name: Run recurring release rehearsal
         run: pnpm release:verify:cycle0
 
+      - name: Rebuild backup and DR readiness evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm ops:backup:health
+          pnpm ops:dr:record:auto -- --environment=production --owner=platform-ops --scenario="scheduled release rehearsal"
+          pnpm ops:dr:report
+
       - name: Upload rehearsal artifacts
         if: always()
         uses: actions/upload-artifact@v7
@@ -46,5 +55,11 @@ jobs:
             artifacts/release/checksums-manifest.sha256
             artifacts/release/release-artifact-catalog.json
             artifacts/release/source-manifest.json
+            artifacts/backups/backup-health.json
+            artifacts/backups/backup-health.txt
+            artifacts/backups/drill-rto-rpo.json
+            artifacts/backups/drill-rto-rpo.txt
+            artifacts/dr/readiness-report.json
+            docs/evidence/disaster-recovery-report.md
             releases/manifests/release_artifact_catalog.md
             releases/notes/v1.0.0.md

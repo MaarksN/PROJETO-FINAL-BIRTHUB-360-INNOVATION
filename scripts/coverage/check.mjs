@@ -44,10 +44,25 @@ const snapshot = loadModuleCoverageSnapshot();
 const status = snapshot.sufficient === false ? "WARN" : "OK";
 const expectedDashboard = renderCoverageDashboard(coverageSummary);
 const actualDashboard = readFileSync(coverageDashboardPath, "utf8");
+const surfacesWithNoCoverage = (coverageSummary.surfaces ?? [])
+  .filter((surface) => {
+    const coverage = surface.coverage ?? surface.metrics ?? {};
+
+    return ["lines", "branches", "functions", "statements"].every(
+      (metric) => Number(coverage[metric] ?? 0) === 0
+    );
+  })
+  .map((surface) => surface.label ?? surface.id ?? "unknown");
 
 if (actualDashboard !== expectedDashboard) {
   throw new Error(
     `[coverage:check] ${coverageDashboardPath} is out of sync with ${coverageSummaryPath}. Run pnpm coverage:dashboard.`
+  );
+}
+
+if (surfacesWithNoCoverage.length > 0) {
+  throw new Error(
+    `[coverage:check] surfaces with zero reported coverage: ${surfacesWithNoCoverage.join(", ")}.`
   );
 }
 
@@ -57,6 +72,6 @@ console.log(`[coverage:check] module coverage sufficiency: ${status}`);
 
 if (snapshot.sufficient === false) {
   console.warn(
-    "[coverage:check] coverage snapshot marked insufficient; update tests or baseline before the next release gate."
+    "[coverage:check] module coverage snapshot remains insufficient; use it only as supplemental traceability and prioritize instrumented coverage in release decisions."
   );
 }

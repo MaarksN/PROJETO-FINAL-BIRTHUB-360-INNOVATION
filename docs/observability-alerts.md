@@ -15,43 +15,59 @@ Referências de política: `docs/operations/f0-sla-severity-policy.md` e `infra/
 
 ## 1) `apps/api` (core)
 
-**Erro HTTP 5xx**
-- **Threshold**: `> 1%` das requisições em 5 min.
+**Indisponibilidade**
+- **Threshold**: `up{job="api"} == 0` por 2 min.
 - **Ação**: `P0`.
 
-**Latência P95**
-- **Threshold**: P95 `> 800ms` por 10 min.
+**Erro HTTP 5xx**
+- **Threshold**: `> 5%` das requisições por 10 min.
 - **Ação**: `P1`.
+
+**Latência P95**
+- **Threshold**: P95 `> 500ms` por 10 min.
+- **Ação**: `P2`.
 
 ## 2) `apps/web` (core)
 
-**Falha de disponibilidade do front-end**
-- **Threshold**: disponibilidade sintética `< 99.5%` em janela de 5 min.
+**Indisponibilidade**
+- **Threshold**: `up{job="web"} == 0` por 2 min.
 - **Ação**: `P0`.
 
-**Erro de carregamento crítico**
-- **Threshold**: aumento sustentado de erro JS crítico (`window.onerror`/chunk load) `> 2%` por 10 min.
+**Disponibilidade degradada**
+- **Threshold**: `> 5%` das verificações de health/readiness com status `degraded` por 10 min.
 - **Ação**: `P1`.
+
+**Latência P95 da readiness**
+- **Threshold**: P95 `> 400ms` por 10 min.
+- **Ação**: `P2`.
 
 ## 3) `apps/worker` (core)
 
+**Indisponibilidade**
+- **Threshold**: `up{job="worker"} == 0` por 2 min.
+- **Ação**: `P0`.
+
 **Backlog de fila**
-- **Threshold**: `> 500` jobs pendentes por mais de 5 min sem tendência de queda.
+- **Threshold**: `> 200` jobs pendentes por 10 min.
+- **Ação**: `P2`.
+
+**DLQ crescendo**
+- **Threshold**: mais de `5` novos jobs em DLQ em 10 min, sustentado por 5 min.
 - **Ação**: `P1`.
 
-**DLQ / Falha de job**
-- **Threshold**: `> 10%` de jobs em DLQ em 15 min.
-- **Ação**: `P0`.
+**Fail-rate de job**
+- **Threshold**: `> 10%` de jobs falhos por 10 min.
+- **Ação**: `P1`.
 
 ## 4) `packages/database` (core)
 
-**Saturação de conexões/CPU**
-- **Threshold**: pool esgotado ou CPU `> 85%` por 10 min.
-- **Ação**: `P0`.
+**Saturação de conexões**
+- **Threshold**: `birthub_db_connection_pool_usage_ratio > 0.9` por 10 min.
+- **Ação**: `P2`.
 
 **Erro de consulta/transação**
-- **Threshold**: taxa de erro de query acima de baseline por 10 min.
-- **Ação**: `P0` se indisponibilizar fluxo principal; `P1` caso degradado.
+- **Threshold**: taxa de erro de query `> 2/s` por 10 min.
+- **Ação**: `P1`.
 
 ## Satélites e legado
 
@@ -61,7 +77,7 @@ Referências de política: `docs/operations/f0-sla-severity-policy.md` e `infra/
 
 ## Pós-alerta
 
-A emissão de alerta inicia o runbook de investigação (`docs/runbooks/incident-investigation.md`).
+A emissão de alerta inicia o runbook de investigação (`docs/runbooks/critical-incidents.md`).
 - `P0`: acionamento imediato de on-call.
 - `P1`: triagem em até 15 min.
 - `P2/P3`: fila operacional e correção programada.

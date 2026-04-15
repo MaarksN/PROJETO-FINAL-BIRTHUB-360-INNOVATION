@@ -537,3 +537,52 @@ ESCALATION NECESSARIO
 
 PROXIMO PASSO
 [Aguardando autorizacao governada para estender o PRE-LOTE BASELINE aos erros residuais fora do recorte aprovado. Nao iniciar `LOTE 1` enquanto `pnpm lint` e `pnpm typecheck` permanecerem vermelhos fora de escopo.]
+
+---
+
+CICLO
+[A-005.2]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Retomar o corredor restante de bootstrap em lote limpo, excluindo `apps/api/src/modules/privacy/retention-scheduler.ts`, para remover os bypasses ainda aprovados sem alterar contratos publicos.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/observability/otel.ts]
+- [apps/api/src/modules/privacy/router.ts]
+- [apps/api/src/modules/webhooks/index.ts]
+- [apps/api/src/modules/webhooks/stripe.router.ts]
+- [CYCLE_LOG.md: registrar a retomada validada do ciclo]
+
+DIFF GUARD
+Arquivos estruturais: [4 / max 4]
+Linhas alteradas em hot paths: [0 liquidas preservadas / max 200]
+Excecao justificada: [sim - os quatro arquivos-fonte ja coincidiam com o estado saneado presente em `HEAD` ao fim da reconciliacao, entao o diff liquido observavel permaneceu apenas no log do ciclo.]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[O corredor restante de bootstrap ainda estava no recorte governado de `A-005`, mas precisava ser retomado sem reabrir `retention-scheduler.ts` e com gate estrito de typecheck no pacote `@birthub/api` antes do typecheck global.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/observability/otel.ts] - confirmado em runtime real e reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/privacy/router.ts] - confirmado em runtime real e reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/webhooks/index.ts] - confirmado em runtime real e reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/webhooks/stripe.router.ts] - confirmado em runtime real e reconciliado no estado saneado sem `@ts-nocheck`
+- [CYCLE_LOG.md] - registrado o fechamento do retake `A-005.2`
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `Baseline preserved at 568 @ts-nocheck` / `apps/api typecheck: Done` / `apps/worker typecheck: Done`
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O corredor de bootstrap aprovado para `A-005` foi retomado e validado. O proximo lote sistêmico permanece fora deste ciclo e depende de nova autorizacao governada para `A-006`.]
+
+PROXIMO PASSO
+[Aguardando autorizacao governada para `A-006`.]

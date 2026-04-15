@@ -17,14 +17,12 @@ graph TD
   worker --> workflows
   worker --> testing["@birthub/testing"]
   queue["@birthub/queue"] --> sharedTypes["@birthub/shared-types"]
-  apiGateway["@birthub/api-gateway"] --> queue
-  apiGateway --> sharedTypes
-  dbCompat["@birthub/db (legacy)"] --> database
 ```
 
 ## Notes
 
 - `@birthub/database` é o schema canônico multi-tenant.
-- `@birthub/db` permanece como camada de compatibilidade legada e não pode ganhar novos consumidores runtime fora da exceção documentada.
+- O grafo acima descreve apenas superfícies presentes no `HEAD` atual e suportadas no workspace ativo.
+- Referências históricas a `@birthub/db` e `@birthub/api-gateway` devem permanecer apenas em documentação de legado/quarentena, não no grafo canônico atual.
 - Dependências internas devem usar `workspace:*` em todos os manifests.
 - Mudanças em `package.json` internos exigem atualização do changelog em `docs/release/internal-packages-changelog.md`.

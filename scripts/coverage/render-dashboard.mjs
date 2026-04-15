@@ -34,16 +34,19 @@ function renderAlerts(alerts) {
 }
 
 function renderSurface(surface) {
+  const coverage = surface.coverage ?? surface.metrics ?? {};
+  const alerts = surface.alerts ?? surface.issues;
+
   return [
     `## ${surface.label}`,
     "",
-    `- Lines: ${formatPercent(surface.coverage?.lines)}`,
-    `- Branches: ${formatPercent(surface.coverage?.branches)}`,
-    `- Functions: ${formatPercent(surface.coverage?.functions)}`,
-    `- Statements: ${formatPercent(surface.coverage?.statements)}`,
+    `- Lines: ${formatPercent(coverage.lines)}`,
+    `- Branches: ${formatPercent(coverage.branches)}`,
+    `- Functions: ${formatPercent(coverage.functions)}`,
+    `- Statements: ${formatPercent(coverage.statements)}`,
     `- Command: \`${surface.command}\``,
     `- Thresholds: ${renderThresholds(surface.thresholds)}`,
-    `- Alerts: ${renderAlerts(surface.alerts)}`,
+    `- Alerts: ${renderAlerts(alerts)}`,
     ""
   ].join("\n");
 }
