@@ -19,8 +19,7 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
 
   prisma.userPreference.upsert = ((args: unknown) => {
     received = args;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
-    return Promise.resolve({ inAppNotifications: true } as any);
+    return Promise.resolve({ inAppNotifications: true } as never);
   }) as unknown as typeof prisma.userPreference.upsert;
 
   try {

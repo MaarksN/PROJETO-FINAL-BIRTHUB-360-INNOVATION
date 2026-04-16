@@ -34,6 +34,22 @@ export type LeadInsightState = {
   status: "error" | "loading" | "ready";
 };
 
+export type LeadSequenceDetail = {
+  cadenceLabel: string;
+  rationale: string[];
+  steps: Array<{
+    label: string;
+    subject: string;
+  }>;
+  summary: string;
+};
+
+export type LeadSequenceState = {
+  detail: LeadSequenceDetail;
+  source: string;
+  status: "error" | "loading" | "ready";
+};
+
 export function buildId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2, 8)}`;
 }
@@ -143,6 +159,92 @@ export function buildLeadInsightDetail(
       {
         label: locale === "en-US" ? "Final predictive score" : "Score preditivo final",
         value: `${lead.score}`
+      }
+    ],
+    summary
+  };
+}
+
+function buildFinalSequenceSubject(lead: SdrAutomaticLead, locale: SupportedLocale): string {
+  if (lead.stage === "proposal" || lead.stage === "negotiation") {
+    return locale === "en-US"
+      ? `Mutual action plan for ${lead.company}`
+      : `Plano mutuo para ${lead.company}`;
+  }
+
+  if (lead.stage === "demo") {
+    return locale === "en-US"
+      ? `Questions before the demo for ${lead.company}`
+      : `Perguntas antes da demo para ${lead.company}`;
+  }
+
+  return locale === "en-US"
+    ? `Proof points for ${lead.company}`
+    : `Provas de valor para ${lead.company}`;
+}
+
+function createLeadSequenceFallback(lead: SdrAutomaticLead, locale: SupportedLocale): string {
+  const copy = getLeadDashboardCopy(locale);
+  const sequencePlan = getSequencePlan(lead, locale);
+  const hotPages = lead.engagement.hotPages.slice(0, 2).join(", ");
+  const hotPageSummary = hotPages.length > 0
+    ? hotPages
+    : locale === "en-US"
+      ? "pricing and integration pages"
+      : "paginas de preco e integracao";
+
+  if (locale === "en-US") {
+    return `${lead.name} should enter a ${sequencePlan.cadenceLabel.toLowerCase()} cadence because ${copy.stageLabels[lead.stage].toLowerCase()} leads at ${lead.score} points are still showing intent through ${lead.engagement.emailClicks} email clicks and ${hotPageSummary}. Start with a direct value recap, follow with proof, and close the loop with one CTA tied to ${lead.action.toLowerCase()}.`;
+  }
+
+  return `${lead.name} deve entrar em uma cadencia de ${sequencePlan.cadenceLabel.toLowerCase()} porque leads em ${copy.stageLabels[lead.stage].toLowerCase()} com ${lead.score} pontos ainda mostram intencao por meio de ${lead.engagement.emailClicks} cliques em e-mail e ${hotPageSummary}. Comece com uma recapitulacao de valor, siga com prova social e feche com um CTA unico ligado a ${lead.action.toLowerCase()}.`;
+}
+
+export function buildLeadSequenceDetail(
+  lead: SdrAutomaticLead,
+  locale: SupportedLocale,
+  agentSummary?: string
+): LeadSequenceDetail {
+  const copy = getLeadDashboardCopy(locale);
+  const sequencePlan = getSequencePlan(lead, locale);
+  const engagementBoost = getLeadEngagementBoost(lead);
+  const supportPenalty = getLeadSupportPenalty(lead);
+  const summary = compactInsight(
+    agentSummary && agentSummary.trim().length > 0
+      ? agentSummary
+      : createLeadSequenceFallback(lead, locale)
+  );
+  const currency = new Intl.NumberFormat(locale, {
+    currency: locale === "en-US" ? "USD" : "BRL",
+    maximumFractionDigits: 0,
+    style: "currency"
+  }).format(lead.crmAnnualValue);
+
+  return {
+    cadenceLabel: sequencePlan.cadenceLabel,
+    rationale: [
+      locale === "en-US"
+        ? `Lead score ${lead.score} in ${copy.stageLabels[lead.stage]} with ${engagementBoost} engagement points.`
+        : `Lead score ${lead.score} em ${copy.stageLabels[lead.stage]} com ${engagementBoost} pontos de engajamento.`,
+      locale === "en-US"
+        ? `Target account in ${copy.regionLabels[lead.region]} with ${currency} of CRM potential.`
+        : `Conta alvo em ${copy.regionLabels[lead.region]} com ${currency} de potencial no CRM.`,
+      locale === "en-US"
+        ? `Support pressure removes ${supportPenalty} points, so the CTA should stay singular and urgent.`
+        : `A pressao de suporte remove ${supportPenalty} pontos, entao o CTA deve continuar unico e urgente.`
+    ],
+    steps: [
+      {
+        label: locale === "en-US" ? "Day 0" : "Dia 0",
+        subject: sequencePlan.primarySubject
+      },
+      {
+        label: locale === "en-US" ? "Day 3" : "Dia 3",
+        subject: sequencePlan.followUpSubject
+      },
+      {
+        label: locale === "en-US" ? "Day 6" : "Dia 6",
+        subject: buildFinalSequenceSubject(lead, locale)
       }
     ],
     summary

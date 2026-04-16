@@ -17,6 +17,7 @@ import {
   LEAD_POLLING_FRAMES,
   paginateLeads
 } from "../components/sales-os/sdr-automatic-dashboard";
+import { buildLeadSequenceDetail } from "../components/sales-os/SdrLeadScoreWorkspace.helpers";
 
 void test("lead dashboard filters by stage, score band, email, region, and creation date", () => {
   const { leads } = getSdrAutomaticConfig("pt-BR");
@@ -198,4 +199,28 @@ void test("fallback churn summary names the top risky account", () => {
 
   assert.match(summary, /Prime Industrial/);
   assert.match(summary, /churn|risco/i);
+});
+
+void test("sequence detail builds a three-touch cadence with localized day labels", () => {
+  const { leads } = getSdrAutomaticConfig("pt-BR");
+  const detail = buildLeadSequenceDetail(leads[0]!, "pt-BR");
+
+  assert.equal(detail.steps.length, 3);
+  assert.equal(detail.steps[0]?.label, "Dia 0");
+  assert.equal(detail.steps[1]?.label, "Dia 3");
+  assert.equal(detail.steps[2]?.label, "Dia 6");
+  assert.match(detail.summary, /cadencia|sequencia/i);
+});
+
+void test("sequence detail preserves agent summary when the sequencer returns custom guidance", () => {
+  const { leads } = getSdrAutomaticConfig("en-US");
+  const lead = leads[0]!;
+  const detail = buildLeadSequenceDetail(
+    lead,
+    "en-US",
+    "Use a tight ROI angle first, then follow with proof and a single CTA."
+  );
+
+  assert.match(detail.summary, /ROI angle/i);
+  assert.match(detail.steps[0]?.subject ?? "", new RegExp(lead.company));
 });

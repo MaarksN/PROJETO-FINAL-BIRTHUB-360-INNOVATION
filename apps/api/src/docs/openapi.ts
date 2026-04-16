@@ -124,6 +124,76 @@ const inviteAcceptanceResponseSchema = z.object({
   userId: z.string()
 });
 
+const notificationTypeSchema = z.enum([
+  "INFO",
+  "SUCCESS",
+  "WARNING",
+  "FAILED",
+  "WORKFLOW_COMPLETED",
+  "CRITICAL_ERROR",
+  "AGENT_FAILED",
+  "CHURN_RISK"
+]);
+
+const cookieConsentStatusSchema = z.enum(["PENDING", "ACCEPTED", "REJECTED"]);
+
+const notificationPreferencesSchema = z
+  .object({
+    cookieConsent: cookieConsentStatusSchema.optional(),
+    emailNotifications: z.boolean().optional(),
+    inAppNotifications: z.boolean().optional(),
+    marketingEmails: z.boolean().optional(),
+    pushNotifications: z.boolean().optional()
+  })
+  .strict();
+
+const notificationItemSchema = z.object({
+  content: z.string(),
+  createdAt: z.string().datetime(),
+  id: z.string(),
+  isRead: z.boolean(),
+  link: z.string().nullable(),
+  metadata: z.unknown().nullable().optional(),
+  organizationId: z.string(),
+  readAt: z.string().datetime().nullable(),
+  tenantId: z.string(),
+  type: notificationTypeSchema,
+  updatedAt: z.string().datetime(),
+  userId: z.string()
+});
+
+const notificationFeedResponseSchema = z.object({
+  items: z.array(notificationItemSchema),
+  nextCursor: z.string().nullable(),
+  requestId: z.string(),
+  unreadCount: z.number().int().nonnegative()
+});
+
+const notificationReadResponseSchema = z.object({
+  readCount: z.number().int().nonnegative(),
+  requestId: z.string()
+});
+
+const userPreferenceSchema = z.object({
+  cookieConsent: cookieConsentStatusSchema,
+  createdAt: z.string().datetime(),
+  emailNotifications: z.boolean(),
+  id: z.string(),
+  inAppNotifications: z.boolean(),
+  locale: z.string(),
+  marketingEmails: z.boolean(),
+  organizationId: z.string(),
+  pushNotifications: z.boolean(),
+  tenantId: z.string(),
+  updatedAt: z.string().datetime(),
+  userId: z.string()
+});
+
+const notificationPreferencesResponseSchema = z.object({
+  preferences: userPreferenceSchema,
+  requestId: z.string()
+});
+
 function normalizeJsonSchema(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map((item) => normalizeJsonSchema(item));
@@ -204,6 +274,11 @@ const componentSchemas = {
   LogoutResponse: toOpenApiSchema(logoutResponseSchema),
   MfaSetupResponse: toOpenApiSchema(mfaSetupResponseSchema),
   MfaVerifyRequest: toOpenApiSchema(mfaVerifyRequestSchema),
+  NotificationFeedResponse: toOpenApiSchema(notificationFeedResponseSchema),
+  NotificationItem: toOpenApiSchema(notificationItemSchema),
+  NotificationPreferencesRequest: toOpenApiSchema(notificationPreferencesSchema),
+  NotificationPreferencesResponse: toOpenApiSchema(notificationPreferencesResponseSchema),
+  NotificationReadResponse: toOpenApiSchema(notificationReadResponseSchema),
   ProblemDetails: toOpenApiSchema(problemDetailsSchema),
   ProfileResponse: toOpenApiSchema(profileResponseSchema),
   PrivacyDeleteRequest: toOpenApiSchema(privacyDeleteRequestSchema),
@@ -519,6 +594,123 @@ const openApiPaths: Record<string, JsonSchema> = {
         tags: ["profile"]
       }
     },
+    "/api/v1/notifications": {
+      get: {
+        operationId: "listNotifications",
+        parameters: [
+          {
+            in: "query",
+            name: "cursor",
+            required: false,
+            schema: {
+              minLength: 1,
+              type: "string"
+            }
+          },
+          {
+            in: "query",
+            name: "limit",
+            required: false,
+            schema: {
+              default: 10,
+              maximum: 50,
+              minimum: 1,
+              type: "integer"
+            }
+          }
+        ],
+        responses: {
+          "200": jsonResponse(
+            "Lists notifications for the authenticated user.",
+            "NotificationFeedResponse"
+          ),
+          "400": problemResponse("Query parameters are invalid."),
+          "401": problemResponse("Authenticated tenant and user context are required."),
+          "404": problemResponse("Organization not found for the active tenant context."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "List user notifications",
+        tags: ["notifications"]
+      }
+    },
+    "/api/v1/notifications/{id}/read": {
+      patch: {
+        operationId: "markNotificationRead",
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            schema: {
+              minLength: 1,
+              type: "string"
+            }
+          }
+        ],
+        responses: {
+          "200": jsonResponse(
+            "Marks a single notification as read and returns the affected count.",
+            "NotificationReadResponse"
+          ),
+          "401": problemResponse("Authenticated tenant and user context are required."),
+          "404": problemResponse("Organization not found for the active tenant context."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Mark one notification as read",
+        tags: ["notifications"]
+      }
+    },
+    "/api/v1/notifications/preferences": {
+      get: {
+        operationId: "getNotificationPreferences",
+        responses: {
+          "200": jsonResponse(
+            "Returns notification preferences for the authenticated user.",
+            "NotificationPreferencesResponse"
+          ),
+          "401": problemResponse("Authenticated tenant and user context are required."),
+          "404": problemResponse("Organization not found for the active tenant context."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Get notification preferences",
+        tags: ["notifications"]
+      },
+      put: {
+        operationId: "updateNotificationPreferences",
+        requestBody: jsonRequestBody(
+          "NotificationPreferencesRequest",
+          "Partial notification preference payload."
+        ),
+        responses: {
+          "200": jsonResponse(
+            "Persists notification preferences for the authenticated user.",
+            "NotificationPreferencesResponse"
+          ),
+          "400": problemResponse("Request payload is invalid."),
+          "401": problemResponse("Authenticated tenant and user context are required."),
+          "404": problemResponse("Organization not found for the active tenant context."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Update notification preferences",
+        tags: ["notifications"]
+      }
+    },
+    "/api/v1/notifications/read-all": {
+      patch: {
+        operationId: "markAllNotificationsRead",
+        responses: {
+          "200": jsonResponse(
+            "Marks all notifications as read and returns the affected count.",
+            "NotificationReadResponse"
+          ),
+          "401": problemResponse("Authenticated tenant and user context are required."),
+          "404": problemResponse("Organization not found for the active tenant context."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Mark all notifications as read",
+        tags: ["notifications"]
+      }
+    },
     "/api/v1/organizations": {
       post: {
         operationId: "createOrganization",
@@ -646,7 +838,7 @@ export const openApiDocument: OpenApiDocument = {
     description:
       "Mounted business API baseline for the canonical BirthHub360 runtime. Operational, parked and compatibility-only surfaces are intentionally excluded.",
     title: "BirthHub360 API",
-    version: "1.3.0"
+    version: "1.4.0"
   },
   jsonSchemaDialect: "https://json-schema.org/draft/2020-12/schema",
   openapi: "3.1.0",

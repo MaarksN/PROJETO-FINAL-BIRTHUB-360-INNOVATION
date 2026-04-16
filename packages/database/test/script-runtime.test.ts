@@ -76,9 +76,9 @@ void test("script runtime writes a failure report and sets process exit code on 
 
   try {
     await runtime.run(async () => {
-      await runtime.recordStep("explode", async () => {
-        throw new Error("boom");
-      }, { type: "check" });
+      await runtime.recordStep("explode", () => Promise.reject(new Error("boom")), {
+        type: "check"
+      });
     });
 
     assert.equal(process.exitCode, 1);
@@ -109,11 +109,12 @@ void test("script runtime records skipped steps with mandatory step type", async
     }
   );
 
-  await runtime.run(async () => {
+  await runtime.run(() => {
     runtime.skipStep("skip drift", {
       reason: "DATABASE_URL is not configured.",
       type: "check"
     });
+    return Promise.resolve();
   });
 
   assert.equal(reports.length, 1);

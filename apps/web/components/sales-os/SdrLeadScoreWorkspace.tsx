@@ -53,8 +53,10 @@ import { SdrLeadScoreWorkspaceAnalytics } from "./SdrLeadScoreWorkspace.analytic
 import {
   buildId,
   buildLeadInsightDetail,
+  buildLeadSequenceDetail,
   compactInsight,
   type LeadInsightState,
+  type LeadSequenceState,
   type SupportMessage
 } from "./SdrLeadScoreWorkspace.helpers";
 import { SdrLeadScoreWorkspaceSide } from "./SdrLeadScoreWorkspace.side";
@@ -89,7 +91,9 @@ export function SdrLeadScoreWorkspace(input: {
     { id: "support_greeting", role: "assistant", text: dashboardCopy.chatbotGreeting }
   ]);
   const [openInsightLeadId, setOpenInsightLeadId] = useState<string | null>(null);
+  const [openSequenceLeadId, setOpenSequenceLeadId] = useState<string | null>(null);
   const [insights, setInsights] = useState<Record<string, LeadInsightState>>({});
+  const [sequenceRuns, setSequenceRuns] = useState<Record<string, LeadSequenceState>>({});
   const [churnSummary, setChurnSummary] = useState(() => buildChurnSummaryFallback(input.leads, input.locale));
   const [churnLoading, setChurnLoading] = useState(false);
   const deferredQuery = useDeferredValue(filters.query);
@@ -408,6 +412,7 @@ export function SdrLeadScoreWorkspace(input: {
   }
 
   async function handleLeadInsight(lead: SdrAutomaticLead) {
+    setOpenSequenceLeadId(null);
     setOpenInsightLeadId((current) => (current === lead.id ? null : lead.id));
 
     if (insights[lead.id]?.status === "ready") {
@@ -493,28 +498,143 @@ export function SdrLeadScoreWorkspace(input: {
     }
   }
 
-  function handleSendSequence(lead: SdrAutomaticLead) {
+  async function handleSendSequence(lead: SdrAutomaticLead) {
+    if (openSequenceLeadId === lead.id) {
+      setOpenSequenceLeadId(null);
+      return;
+    }
+
+    setOpenInsightLeadId(null);
+    setOpenSequenceLeadId(lead.id);
+
+    if (sequenceRuns[lead.id]?.status === "ready" || sequenceRuns[lead.id]?.status === "error") {
+      return;
+    }
+
     const plan = getSequencePlan(lead, input.locale);
+    const toolId = "presales_followupghost";
 
-    setLiveLeads((current) =>
-      current.map((item) =>
-        item.id === lead.id
-          ? {
-              ...item,
-              sequenceStatus: "active"
-            }
-          : item
-      )
-    );
+    setSequenceRuns((current) => ({
+      ...current,
+      [lead.id]: {
+        detail: buildLeadSequenceDetail(
+          lead,
+          input.locale,
+          input.locale === "en-US"
+            ? "Generating a personalized outbound cadence from the CRM context..."
+            : "Gerando uma cadencia personalizada a partir do contexto do CRM..."
+        ),
+        source: toolId,
+        status: "loading"
+      }
+    }));
 
-    pushToast({
-      description:
-        input.locale === "en-US"
-          ? `${lead.name} entered an automated three-touch sequence. First subject: ${plan.primarySubject}.`
-          : `${lead.name} entrou em uma sequencia automatizada de tres toques. Primeiro assunto: ${plan.primarySubject}.`,
-      title: dashboardCopy.sendSequenceLabel,
-      tone: "success"
-    });
+    const context = [
+      `Task: Build a concise 3-email outbound sequence with one CTA per email.`,
+      `Lead: ${lead.name}`,
+      `Email: ${lead.email}`,
+      `Company: ${lead.company}`,
+      `Role: ${lead.role}`,
+      `Owner: ${lead.owner}`,
+      `Region: ${lead.region}`,
+      `Stage: ${lead.stage}`,
+      `Predictive score: ${lead.score}`,
+      `Base score: ${lead.baseScore}`,
+      `Company size: ${lead.companySize}`,
+      `CRM annual value: ${lead.crmAnnualValue}`,
+      `Source: ${lead.source}`,
+      `Sequence cadence: ${plan.cadenceLabel}`,
+      `Primary subject: ${plan.primarySubject}`,
+      `Follow-up subject: ${plan.followUpSubject}`,
+      `Next action: ${lead.action}`,
+      `Engagement: ${lead.engagement.emailClicks} email clicks, ${lead.engagement.pageVisits} page visits`,
+      `Hot pages: ${lead.engagement.hotPages.join(", ")}`,
+      `Support sentiment: ${lead.support.sentiment}`,
+      `Recent tickets: ${lead.support.recentTickets}`,
+      `Support summary: ${lead.support.summary}`,
+      `SLA status: ${lead.slaStatus}`,
+      `Instruction: Tailor the messaging to stage and score, keep it commercially sharp, and answer in short bullets.`
+    ].join("\n");
+
+    try {
+      const response = await fetch("/api/sales-os/execute", {
+        body: JSON.stringify({
+          fields: {
+            context
+          },
+          toolId
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        output?: string;
+        provider?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error ?? "Unable to trigger outbound sequence.");
+      }
+
+      setSequenceRuns((current) => ({
+        ...current,
+        [lead.id]: {
+          detail: buildLeadSequenceDetail(lead, input.locale, payload.output),
+          source: payload.provider ?? toolId,
+          status: "ready"
+        }
+      }));
+      setLiveLeads((current) =>
+        current.map((item) =>
+          item.id === lead.id
+            ? {
+                ...item,
+                sequenceStatus: "active"
+              }
+            : item
+        )
+      );
+
+      pushToast({
+        description:
+          input.locale === "en-US"
+            ? `${lead.name} entered an automated three-touch sequence. First subject: ${plan.primarySubject}.`
+            : `${lead.name} entrou em uma sequencia automatizada de tres toques. Primeiro assunto: ${plan.primarySubject}.`,
+        title: dashboardCopy.sendSequenceLabel,
+        tone: "success"
+      });
+    } catch {
+      setSequenceRuns((current) => ({
+        ...current,
+        [lead.id]: {
+          detail: buildLeadSequenceDetail(lead, input.locale),
+          source: input.locale === "en-US" ? "CRM fallback cadence" : "Cadencia fallback do CRM",
+          status: "error"
+        }
+      }));
+      setLiveLeads((current) =>
+        current.map((item) =>
+          item.id === lead.id
+            ? {
+                ...item,
+                sequenceStatus: "active"
+              }
+            : item
+        )
+      );
+
+      pushToast({
+        description:
+          input.locale === "en-US"
+            ? `${lead.name} entered the CRM fallback sequence because the AI sequencer was unavailable.`
+            : `${lead.name} entrou na sequencia fallback do CRM porque o sequenciador de IA estava indisponivel.`,
+        title: dashboardCopy.sendSequenceLabel,
+        tone: "info"
+      });
+    }
   }
 
   function handleAddTask() {
@@ -604,7 +724,9 @@ export function SdrLeadScoreWorkspace(input: {
           liveLeadsLength={liveLeads.length}
           locale={input.locale}
           openInsightLeadId={openInsightLeadId}
+          openSequenceLeadId={openSequenceLeadId}
           pagination={pagination}
+          sequenceRuns={sequenceRuns}
           setFilters={setFilters}
           setPage={setPage}
           toggleColumn={toggleColumn}

@@ -25,7 +25,10 @@ import {
   type LeadFilters,
   type LeadScoreBandId
 } from "./sdr-automatic-dashboard";
-import { type LeadInsightState } from "./SdrLeadScoreWorkspace.helpers";
+import type {
+  LeadInsightState,
+  LeadSequenceState
+} from "./SdrLeadScoreWorkspace.helpers";
 import {
   InfoTooltip,
   LeadTableCell
@@ -46,12 +49,14 @@ type SdrLeadScoreWorkspaceTableProps = {
   filters: LeadFilters;
   handleExportCsv: () => void;
   handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
-  handleSendSequence: (lead: SdrAutomaticLead) => void;
+  handleSendSequence: (lead: SdrAutomaticLead) => Promise<void>;
   insights: Record<string, LeadInsightState>;
   liveLeadsLength: number;
   locale: SupportedLocale;
   openInsightLeadId: string | null;
+  openSequenceLeadId: string | null;
   pagination: PaginationState;
+  sequenceRuns: Record<string, LeadSequenceState>;
   setFilters: (value: LeadFilters) => void;
   setPage: (value: number | ((current: number) => number)) => void;
   toggleColumn: (column: LeadColumnId) => void;
@@ -75,7 +80,9 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
     liveLeadsLength,
     locale,
     openInsightLeadId,
+    openSequenceLeadId,
     pagination,
+    sequenceRuns,
     setFilters,
     setPage,
     toggleColumn,
@@ -301,6 +308,8 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
                         lead={lead}
                         locale={locale}
                         openInsightLeadId={openInsightLeadId}
+                        openSequenceLeadId={openSequenceLeadId}
+                        sequenceRun={sequenceRuns[lead.id]}
                       />
                     </td>
                   ))}

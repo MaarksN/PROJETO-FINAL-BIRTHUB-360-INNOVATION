@@ -12,9 +12,11 @@ import {
 } from "./sdr-automatic-dashboard";
 import {
   buildScoreFillColor,
+  buildLeadSequenceDetail,
   buildSequenceStatusTone,
   buildStageColor,
-  type LeadInsightState
+  type LeadInsightState,
+  type LeadSequenceState
 } from "./SdrLeadScoreWorkspace.helpers";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
@@ -35,9 +37,11 @@ type StandardCellRendererInput = {
 type LeadTableCellProps = StandardCellRendererInput & {
   column: LeadColumnId;
   handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
-  handleSendSequence: (lead: SdrAutomaticLead) => void;
+  handleSendSequence: (lead: SdrAutomaticLead) => Promise<void>;
   insight: LeadInsightState | undefined;
   openInsightLeadId: string | null;
+  openSequenceLeadId: string | null;
+  sequenceRun: LeadSequenceState | undefined;
 };
 
 type InsightSectionProps = {
@@ -222,14 +226,81 @@ function LeadInsightPopover(props: {
   );
 }
 
+function LeadSequencePopover(props: {
+  dashboardCopy: LeadDashboardCopy;
+  lead: SdrAutomaticLead;
+  locale: SupportedLocale;
+  sequenceRun: LeadSequenceState | undefined;
+}) {
+  const { dashboardCopy, lead, locale, sequenceRun } = props;
+  const fallbackDetail = buildLeadSequenceDetail(lead, locale);
+  const detail = sequenceRun?.detail ?? fallbackDetail;
+  const labels =
+    locale === "en-US"
+      ? {
+          cadence: "Cadence",
+          rationale: "Why this sequence",
+          steps: "Touches",
+          summary: "Sequence summary"
+        }
+      : {
+          cadence: "Cadencia",
+          rationale: "Por que esta sequencia",
+          steps: "Toques",
+          summary: "Resumo da sequencia"
+        };
+
+  return (
+    <div className={styles.aiPopover}>
+      <div className={styles.aiPopoverHeader}>
+        <strong>{sequenceRun?.source ?? "presales_followupghost"}</strong>
+        <small>{dashboardCopy.sendSequenceLabel}</small>
+      </div>
+
+      <div className={styles.aiPopoverSection}>
+        <strong>{labels.summary}</strong>
+        <p>{detail.summary}</p>
+      </div>
+
+      <div className={styles.aiPopoverSection}>
+        <strong>{labels.cadence}</strong>
+        <div className={styles.actionButtonGroup}>
+          <span className={styles.sequencePill} data-tone={buildSequenceStatusTone(lead.sequenceStatus)}>
+            {dashboardCopy.sequenceStatusLabels[lead.sequenceStatus]}
+          </span>
+          <small>{detail.cadenceLabel}</small>
+        </div>
+      </div>
+
+      <InsightSection
+        items={detail.rationale}
+        title={labels.rationale}
+      />
+
+      <div className={styles.aiPopoverSection}>
+        <strong>{labels.steps}</strong>
+        <ul>
+          {detail.steps.map((step) => (
+            <li key={`${step.label}_${step.subject}`}>
+              <strong>{step.label}:</strong> {step.subject}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 function LeadActionCell(props: {
   dashboardCopy: LeadDashboardCopy;
   handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
-  handleSendSequence: (lead: SdrAutomaticLead) => void;
+  handleSendSequence: (lead: SdrAutomaticLead) => Promise<void>;
   insight: LeadInsightState | undefined;
   lead: SdrAutomaticLead;
   locale: SupportedLocale;
   openInsightLeadId: string | null;
+  openSequenceLeadId: string | null;
+  sequenceRun: LeadSequenceState | undefined;
 }) {
   const {
     dashboardCopy,
@@ -238,9 +309,12 @@ function LeadActionCell(props: {
     insight,
     lead,
     locale,
-    openInsightLeadId
+    openInsightLeadId,
+    openSequenceLeadId,
+    sequenceRun
   } = props;
   const isLoading = insight?.status === "loading";
+  const isSequenceLoading = sequenceRun?.status === "loading";
 
   return (
     <div className={styles.actionGroup}>
@@ -250,10 +324,17 @@ function LeadActionCell(props: {
       <div className={styles.actionButtonGroup}>
         <button
           className={styles.secondaryButton}
-          onClick={() => handleSendSequence(lead)}
+          disabled={isSequenceLoading}
+          onClick={() => {
+            void handleSendSequence(lead);
+          }}
           type="button"
         >
-          <Send size={14} />
+          {isSequenceLoading ? (
+            <LoaderCircle className={styles.spinningIcon} size={14} />
+          ) : (
+            <Send size={14} />
+          )}
           <span>{dashboardCopy.sendSequenceLabel}</span>
         </button>
         <div className={styles.aiWrap}>
@@ -289,6 +370,14 @@ function LeadActionCell(props: {
           ) : null}
         </div>
       </div>
+      {openSequenceLeadId === lead.id ? (
+        <LeadSequencePopover
+          dashboardCopy={dashboardCopy}
+          lead={lead}
+          locale={locale}
+          sequenceRun={sequenceRun}
+        />
+      ) : null}
     </div>
   );
 }
@@ -302,7 +391,9 @@ export function LeadTableCell(props: LeadTableCellProps) {
     insight,
     lead,
     locale,
-    openInsightLeadId
+    openInsightLeadId,
+    openSequenceLeadId,
+    sequenceRun
   } = props;
 
   if (column === "action") {
@@ -315,6 +406,8 @@ export function LeadTableCell(props: LeadTableCellProps) {
         lead={lead}
         locale={locale}
         openInsightLeadId={openInsightLeadId}
+        openSequenceLeadId={openSequenceLeadId}
+        sequenceRun={sequenceRun}
       />
     );
   }
