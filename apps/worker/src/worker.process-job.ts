@@ -57,7 +57,7 @@ type JobExecutionPayload = {
   userId: string | null;
 };
 
-export async function resolveOrganizationReference(tenantReference: string) {
+export async function resolveOrganizationReference(tenantReference: string): Promise<{ id: string; tenantId: string } | null> {
   return prisma.organization.findFirst({
     where: {
       OR: [{ id: tenantReference }, { tenantId: tenantReference }]
