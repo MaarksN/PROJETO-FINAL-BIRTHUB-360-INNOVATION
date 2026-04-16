@@ -11,9 +11,11 @@ import {
   CheckCheck,
   ExternalLink,
   MoonStar,
+  Sparkles,
   SunMedium
 } from "lucide-react";
 
+import { EXECUTIVE_PREMIUM_COLLECTION_HREF } from "../../lib/executive-premium";
 import { useThemeMode } from "../../providers/ThemeProvider";
 import {
   type NotificationItem,
@@ -180,6 +182,16 @@ export function Navbar() {
 
         <div className="dashboard-topbar__actions">
           <GlobalSearch />
+
+          <Link
+            aria-label={copy.navbar.premiumLinkTitle}
+            className="ghost-button"
+            href={EXECUTIVE_PREMIUM_COLLECTION_HREF}
+            title={copy.navbar.premiumLinkTitle}
+          >
+            <Sparkles size={16} />
+            <span>{copy.navbar.premiumLinkLabel}</span>
+          </Link>
 
           <button
             aria-label={mode === "dark" ? copy.navbar.activateLightTheme : copy.navbar.activateDarkTheme}

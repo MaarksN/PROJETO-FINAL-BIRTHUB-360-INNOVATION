@@ -5,7 +5,7 @@ import { Handle, Position, type Edge, type Node, type NodeProps } from "reactflo
 import {
   stepSchema as rawStepSchema,
   validateDag as rawValidateDag
-} from "@birthub/workflows-core/nextjs";
+} from "@birthub/workflows-core";
 
 import { fetchWithSession } from "../../../../../lib/auth-client";
 

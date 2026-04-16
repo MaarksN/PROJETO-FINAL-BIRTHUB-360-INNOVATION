@@ -4,7 +4,23 @@ import path from "node:path";
 
 import { portableNodeExecutable, projectRoot, run } from "./shared.mjs";
 
-const eslintCli = path.join(projectRoot, "node_modules", "eslint", "bin", "eslint.js");
+const eslintCli = path.join(
+  projectRoot,
+  "node_modules",
+  "eslint",
+  "bin",
+  "eslint.js"
+);
+
+const REQUIRED_LINT_NODE_OPTION = "--max-old-space-size=8192";
+
+function withLintNodeOptions(existingNodeOptions = process.env.NODE_OPTIONS ?? "") {
+  if (existingNodeOptions.includes("--max-old-space-size")) {
+    return existingNodeOptions;
+  }
+
+  return [existingNodeOptions.trim(), REQUIRED_LINT_NODE_OPTION].filter(Boolean).join(" ");
+}
 
 const coreLintWorkspaces = [
   { cwd: "packages/config", args: ["."] },
@@ -24,6 +40,9 @@ const coreLintWorkspaces = [
 
 for (const workspace of coreLintWorkspaces) {
   run(portableNodeExecutable, [eslintCli, ...workspace.args], {
-    cwd: path.join(projectRoot, workspace.cwd)
+    cwd: path.join(projectRoot, workspace.cwd),
+    env: {
+      NODE_OPTIONS: withLintNodeOptions()
+    }
   });
 }

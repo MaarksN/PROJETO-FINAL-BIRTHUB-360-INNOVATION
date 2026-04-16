@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -9,6 +7,16 @@ import request from "supertest";
 import { registerAuthRoutes } from "../src/app/auth-routes.js";
 import { requestContextMiddleware } from "../src/middleware/request-context.js";
 import { createTestApiConfig } from "./test-config.js";
+
+type IntrospectionBody = {
+  active: boolean;
+};
+
+function assertIntrospectionBody(body: unknown): asserts body is IntrospectionBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+  assert.equal(typeof (body as { active?: unknown }).active, "boolean");
+}
 
 void test("registerAuthRoutes exposes modular auth endpoints through the compat layer", async () => {
   const app = express();
@@ -39,6 +47,7 @@ void test("registerAuthRoutes exposes modular auth endpoints through the compat 
     .get("/api/v1/auth/introspect")
     .expect(200)
     .expect(({ body }) => {
+      assertIntrospectionBody(body);
       assert.equal(body.active, false);
     });
 

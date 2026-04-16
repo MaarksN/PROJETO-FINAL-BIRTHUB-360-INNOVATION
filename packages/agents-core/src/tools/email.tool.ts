@@ -1,4 +1,5 @@
 import { setTimeout as sleep } from "node:timers/promises";
+import { randomUUID } from "node:crypto";
 
 export type EmailProvider = "smtp" | "sendgrid";
 
@@ -27,7 +28,7 @@ class MockSmtpAdapter implements EmailAdapter {
 
     return Promise.resolve({
       bounced,
-      messageId: `smtp_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+      messageId: `smtp_${Date.now()}_${randomUUID().split('-')[0]}`
     });
   }
 }
@@ -38,7 +39,7 @@ class MockSendgridAdapter implements EmailAdapter {
 
     return Promise.resolve({
       bounced,
-      messageId: `sendgrid_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+      messageId: `sendgrid_${Date.now()}_${randomUUID().split('-')[0]}`
     });
   }
 }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -11,6 +10,28 @@ import {
   createAuthenticatedApiTestApp,
   stubMethod
 } from "./http-test-helpers.js";
+
+type ProblemBody = {
+  status: number;
+  title: string;
+};
+
+type DateRangeInput = {
+  from?: Date;
+  to?: Date;
+};
+
+function assertProblemBody(body: unknown): asserts body is ProblemBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+  assert.equal(typeof (body as { status?: unknown }).status, "number");
+  assert.equal(typeof (body as { title?: unknown }).title, "string");
+}
+
+function assertDateRangeInput(value: unknown): asserts value is DateRangeInput {
+  assert.equal(typeof value, "object");
+  assert.notEqual(value, null);
+}
 
 function createAnalyticsTestApp(role: Role = Role.ADMIN) {
   return createAuthenticatedApiTestApp({
@@ -45,6 +66,7 @@ void test("analytics router parses usage date range filters before delegating to
       .expect(200);
 
     assert.ok(received);
+    assertDateRangeInput(received);
     assert.ok(received.from instanceof Date);
     assert.ok(received.to instanceof Date);
     assert.deepEqual(response.body, {
@@ -66,6 +88,7 @@ void test("analytics router blocks super-admin routes for regular admins", async
     .get("/api/v1/analytics/quality-report")
     .expect(403);
 
+  assertProblemBody(response.body);
   assert.equal(response.body.status, 403);
   assert.equal(response.body.title, "Forbidden");
 });
@@ -85,6 +108,7 @@ void test("analytics router exports billing csv for super admins", async () => {
       })
       .expect(200);
 
+    assertDateRangeInput(received);
     assert.ok(received.from instanceof Date);
     assert.match(String(response.headers["content-type"] ?? ""), /text\/csv/i);
     assert.match(String(response.headers["content-disposition"] ?? ""), /billing-export\.csv/i);

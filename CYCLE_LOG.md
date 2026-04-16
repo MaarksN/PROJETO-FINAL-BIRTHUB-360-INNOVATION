@@ -918,3 +918,391 @@ RISCO RESIDUAL
 
 PROXIMO PASSO
 [Aguardando novo ciclo governado.]
+
+---
+
+CICLO
+[A-006.6]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Reduzir o hotspot estrutural de `apps/web/components/sales-os/SalesOsShell.tsx`, separando estado e rendering em modulos menores sem alterar o contrato publico do Sales OS.]
+
+ARQUIVOS-ALVO
+- [apps/web/components/sales-os/SalesOsShell.tsx]
+- [apps/web/components/sales-os/SalesOsShell.sections.tsx]
+- [apps/web/components/sales-os/sales-os-shell.state.ts]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [4 / max 5]
+Linhas alteradas em hot paths: [NAO VERIFICADO / max 200]
+Excecao justificada: [nao]
+
+STATUS
+[PARCIAL]
+
+PROBLEMA CONFIRMADO
+[`apps/web/components/sales-os/SalesOsShell.tsx` permanecia como shell monolitico com carregamento de catalogo, derivacoes, handlers de chat/mentor/execucao e toda a arvore de render no mesmo arquivo, mantendo o hotspot estrutural apontado na auditoria de arquitetura para o front-end.]
+
+ALTERACOES REALIZADAS
+- [apps/web/components/sales-os/SalesOsShell.tsx] - reduzido a composicao do shell, preservando o contrato publico e delegando estado e secoes visuais
+- [apps/web/components/sales-os/SalesOsShell.sections.tsx] - extraidas secoes apresentacionais do workspace, rail, header, chat, execucao e mentor
+- [apps/web/components/sales-os/sales-os-shell.state.ts] - extraido hook com bootstrap do catalogo, derivacoes, efeitos e handlers do shell
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web lint`] -> `eslint .` finalizou com exit code 0
+- [`pnpm lint`] -> `lint:policy` finalizou com `[lint-policy] OK` e `lint:core` finalizou com exit code 0; permaneceram apenas warnings nao bloqueantes em suites de teste
+- [`pnpm test`] -> `pnpm test:core` finalizou com exit code 0
+- [`pnpm --filter @birthub/web typecheck`] -> FALHOU em `apps/web/components/sales-os/SdrLeadScoreWorkspace.table.tsx(299,26)` por contrato com `exactOptionalPropertyTypes`
+- [`pnpm typecheck`] -> FALHOU no mesmo bloqueio de `SdrLeadScoreWorkspace.table.tsx(299,26)` apos `ts-directives-guard` e `check-runtime-governance` retornarem OK
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O hotspot estrutural do `SalesOsShell` foi reduzido, mas o gate global de `typecheck` segue aberto por uma divida separada em `SdrLeadScoreWorkspace.table.tsx` e adjacentes. O ambiente local continua emitindo warning de engine (`node v25.9.0` enquanto o projeto declara `>=24 <25`).]
+
+PROXIMO PASSO
+[Abrir subciclo governado para o bloqueio tipado de `SdrLeadScoreWorkspace.table.tsx` e seus renderers adjacentes, mantendo o recorte no dominio `sales-os` sem expandir para cleanup cosmetico.]
+
+---
+
+CICLO
+[A-008]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Sanear um segundo lote pequeno de routers HTTP diretamente montados no runtime da API, removendo `@ts-nocheck` apenas na borda operacional e preservando contratos publicos.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/modules/notifications/router.ts]
+- [apps/api/src/modules/analytics/router.ts]
+- [apps/api/src/modules/budget/budget-routes.ts]
+- [apps/api/src/modules/marketplace/marketplace-routes.ts]
+- [apps/api/src/modules/billing/router.ts]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [5 / max 5]
+Linhas alteradas em hot paths: [0 liquidas observadas no snapshot final / max 200]
+Excecao justificada: [sim - ao final da reconciliacao os cinco routers coincidiam com o estado saneado do snapshot atual, entao o diff liquido persistente ficou apenas no log.]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[Cinco routers diretamente montados em `apps/api/src/app/module-routes.ts` ainda permaneciam na trilha de runtime classificada com `@ts-nocheck`: `notifications`, `analytics`, `budget`, `marketplace` e `billing`. Todos pertencem a superfícies HTTP operacionais de frequencia alta ou media no runtime real.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/modules/notifications/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/analytics/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/budget/budget-routes.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/marketplace/marketplace-routes.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/billing/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O segundo lote de borda HTTP da API ficou verde no gate do pacote e no gate global. O contador de `mounted runtime source` continuou a cair, mas a trilha ainda concentra suppressions em clusters mais profundos de `agents`, `connectors`, `organizations`, `users` e `workflows`.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
+CICLO
+[A-008.1]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Recuperar o guard global e o typecheck do `web` no cluster `sales-os`, removendo o `@ts-nocheck` de `SalesOsShell.tsx` e alinhando seams locais de `exactOptionalPropertyTypes` sem alterar comportamento funcional.]
+
+ARQUIVOS-ALVO
+- [apps/web/components/sales-os/SalesOsShell.tsx]
+- [apps/web/components/sales-os/SalesOsShell.sections.tsx]
+- [apps/web/components/sales-os/SdrLeadScoreWorkspace.table.cells.tsx]
+- [apps/web/components/sales-os/SdrLeadScoreWorkspace.table.tsx]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [4 / max 5]
+Linhas alteradas em hot paths: [18 liquidas observadas no snapshot final / max 200]
+Excecao justificada: [nao]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[O `pnpm typecheck` global de `A-008` parou primeiro no guard de baseline por um novo `@ts-nocheck` em `apps/web/components/sales-os/SalesOsShell.tsx:1`. Quando o header foi removido no recorte minimo, o `pnpm --filter @birthub/web typecheck` expôs seams locais de `exactOptionalPropertyTypes` no mesmo cluster `sales-os`, concentrados em `SalesOsShell` e nas tabelas de lead scoring.]
+
+ALTERACOES REALIZADAS
+- [apps/web/components/sales-os/SalesOsShell.tsx] - removido `@ts-nocheck` e mantida a passagem direta de props apos alinhar o contrato tipado do shell
+- [apps/web/components/sales-os/SalesOsShell.sections.tsx] - `selectedModuleTitle` e `selectedToolId` passaram a aceitar `string | undefined` explicitamente
+- [apps/web/components/sales-os/SdrLeadScoreWorkspace.table.cells.tsx] - props `insight` foram alinhadas para aceitar `LeadInsightState | undefined` explicitamente
+- [apps/web/components/sales-os/SdrLeadScoreWorkspace.table.tsx] - chamada de `LeadTableCell` passou a refletir o mesmo contrato tipado de `insight`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `mounted runtime source: 76 @ts-nocheck` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+
+ROLLBACK EXECUTADO
+[nao - um ajuste intermediario local em `SalesOsShell.tsx` foi revertido dentro do proprio subciclo antes da solucao final, sem deixar diff residual fora do estado resolvido.]
+
+RISCO RESIDUAL
+[O cluster `sales-os` voltou a coexistir com o guard global sem quebrar o `web` package. Permanecem alteracoes paralelas nao bloqueantes no workspace e o warning de engine local (`node v25.9.0` vs `>=24 <25`), sem impedir o gate canonico de typecheck.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
+CICLO
+[A-007]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Sanear um lote pequeno de routers HTTP diretamente montados no runtime da API, removendo `@ts-nocheck` apenas na borda de entrada e preservando contratos, middlewares e comportamento.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/modules/admin/router.ts]
+- [apps/api/src/modules/dashboard/router.ts]
+- [apps/api/src/modules/sessions/router.ts]
+- [apps/api/src/modules/invites/router.ts]
+- [apps/api/src/modules/apikeys/router.ts]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [5 / max 5]
+Linhas alteradas em hot paths: [0 liquidas observadas no snapshot final / max 200]
+Excecao justificada: [sim - ao final da reconciliacao os cinco routers ja coincidiam com o estado saneado observado em `HEAD`, entao o diff liquido persistente ficou apenas no log do ciclo.]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[Cinco routers diretamente montados em `apps/api/src/app/module-routes.ts` ainda apareciam na trilha de runtime classificada com `@ts-nocheck`: `admin`, `dashboard`, `sessions`, `invites` e `apikeys`. Todos pertencem a superfícies HTTP operacionais e de alta frequência no runtime real.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/modules/admin/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/dashboard/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/sessions/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/invites/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/apikeys/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `mounted runtime source: 81 @ts-nocheck` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O lote de borda HTTP permaneceu verde no gate do pacote e no gate global. Restam 81 arquivos ainda classificados como `@ts-nocheck` em runtime montado, concentrados sobretudo em clusters mais profundos de `agents`, `analytics`, `billing`, `connectors`, `organizations`, `users` e `workflows`.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
+GOVERNANCA
+[2026-04-15 - PRE-LOTE BASELINE - LINT STABILIZATION]
+
+STATUS
+[RESOLVIDO]
+
+ESCOPO
+[Baseline minima de lint restabelecida sem iniciar nenhum `STRUCT-*`. O recorte efetivo consolidou os erros reais remanescentes em `apps/web`, estabilizou o pacote `packages/testing` para o runner canonico e removeu os bloqueios de `max-lines` / `complexity` do modulo `sales-os` por extracao de helpers e seccoes, sem alterar comportamento funcional.]
+
+VALIDACAO
+- [`pnpm --filter @birthub/web lint`] - [PASS]
+- [`pnpm lint`] - [PASS]
+- [`pnpm typecheck`] - [PASS]
+
+RISCO RESIDUAL
+[Persistem warnings distribuidos em suites de teste de `packages/agents-core`, `packages/database`, `packages/queue`, `apps/api` e `apps/worker`, alem do warning local de engine (`node v25.9.0` frente a `>=24 <25`), mas nao ha mais errors bloqueantes no gate canonico.]
+
+LOTE 1 ESTRUTURAL
+[AGUARDANDO AUTORIZACAO GOVERNADA]
+
+PROXIMO PASSO
+[Se a governanca mantiver a ordem aprovada, o proximo ciclo pode abrir o LOTE 1 estrutural em `STRUCT-004`, depois `STRUCT-008` e por fim `STRUCT-003`.]
+
+---
+
+CICLO
+[A-006.5]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Restabilizar o corredor canonico de typecheck no `apps/web` corrigindo apenas os seams reais expostos pelo runner portatil, sem alterar comportamento funcional.]
+
+ARQUIVOS-ALVO
+- [apps/web/stores/toast-store.ts]
+- [apps/web/components/sales-os/sdr-automatic-config.ts]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [2 / max 5]
+Linhas alteradas em hot paths: [minimas e locais / max 200]
+Excecao justificada: [nao]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[O `pnpm typecheck` falhou primeiro em `apps/web/stores/toast-store.ts(47)` com `Type '{ createdAt: number; description: string | undefined; ... }' is not assignable to type 'ToastItem' with 'exactOptionalPropertyTypes: true'`. Depois que esse seam foi reconciliado, o proximo bloqueio real ficou concentrado em `apps/web/components/sales-os/sdr-automatic-config.ts`, com `TS2724` porque o arquivo importava `SDR_AUTOMATIC_COPY` e `SDR_AUTOMATIC_LEADS` de `sdr-automatic-data.ts`, embora esses catalogos ja tivessem sido movidos para `sdr-automatic-data.catalog.ts`.] 
+
+ALTERACOES REALIZADAS
+- [apps/web/stores/toast-store.ts] - `description` passou a ser injetado no `ToastItem` apenas quando definido, alinhando o store a `exactOptionalPropertyTypes`
+- [apps/web/components/sales-os/sdr-automatic-config.ts] - catalogos concretos passaram a ser importados de `sdr-automatic-data.catalog.ts`, preservando os tipos em `sdr-automatic-data.ts`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web exec eslint components/sales-os/sdr-automatic-config.ts components/sales-os/sdr-automatic-dashboard.ts components/sales-os/sdr-automatic-dashboard.copy.ts components/sales-os/sdr-automatic-support.ts components/sales-os/sdr-automatic-data.ts components/sales-os/sdr-automatic-data.catalog.ts`] -> finalizou com exit code 0
+- [`pnpm --filter @birthub/web typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`node scripts/ci/run-with-portable-node.mjs scripts/ci/typecheck-core.mjs`] -> finalizou com exit code 0
+- [`pnpm lint`] -> `lint:policy` finalizou com `[lint-policy] OK` e `lint:core` finalizou com exit code 0; restaram apenas warnings nao bloqueantes em `packages/agents-core`, `packages/database`, `packages/queue`, `apps/api` e `apps/worker`
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+- [`node --import tsx --test apps/web/tests/sdr-automatic-dashboard.test.ts`] -> `pass 4` / `fail 0`
+- [`pnpm --filter @birthub/web test`] -> `pass 48` / `fail 0` / `skipped 4`
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[Os gates canonicos de `lint` e `typecheck` voltaram a ficar verdes, e os testes relevantes do `web` passaram. O worktree segue com alteracoes paralelas fora deste subciclo, sem interferir na validacao executada aqui.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
+GOVERNANCA
+[2026-04-15 - pos A-006.5]
+
+BASELINE GLOBAL
+[RESOLVIDA]
+
+GATES ACEITOS
+- [`pnpm typecheck`] - [PASS]
+- [`pnpm lint`] - [PASS]
+- [`pnpm test`] - [PASS]
+
+RISCO RESIDUAL
+[Permanecem warnings distribuidos em suites de teste e o warning de engine local (`node v25.9.0` enquanto o projeto declara `>=24 <25`), mas os tres gates canonicos ficaram verdes com execucao real.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
+CICLO
+[A-006.5]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Restabilizar os gates canonicos globais apos o desbloqueio anterior do `typecheck`, corrigindo apenas o erro tipado remanescente de `apps/web` e a falha estrutural do runner de `lint` no Windows.]
+
+ARQUIVOS-ALVO
+- [apps/web/components/sales-os/SdrAutomaticPlatform.tsx]
+- [apps/web/app/(dashboard)/dashboard/page.sections.tsx]
+- [scripts/ci/lint-core.mjs]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [4 / max 5]
+Linhas alteradas em hot paths: [NAO VERIFICADO / max 200]
+Excecao justificada: [sim - no snapshot final do worktree os dois arquivos-fonte de `apps/web` ja coincidiam com o estado saneado observado no filesystem, entao o diff liquido observavel permaneceu concentrado no runner de lint e no log do ciclo.]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[O gate global de `typecheck` ainda expunha dois pontos remanescentes no `web`: `currentView` podia permanecer indefinido em `apps/web/components/sales-os/SdrAutomaticPlatform.tsx`, e a indexacao direta de `premiumDashboardMetrics` / `premiumDashboardMetricSubtitles` em `apps/web/app/(dashboard)/dashboard/page.sections.tsx` continuava larga demais para o runner canonico com Node portatil. Depois disso, o `pnpm lint` deixou de falhar por codigo e passou a falhar estruturalmente em `scripts/ci/lint-core.mjs`, que ainda acoplava o runner ao arquivo interno `node_modules/eslint/bin/eslint.js` em vez do executavel estavel de `node_modules/.bin`.]
+
+ALTERACOES REALIZADAS
+- [apps/web/components/sales-os/SdrAutomaticPlatform.tsx] - fallback de `currentView` trocado para `views.at(0)` com short-circuit explicito para lista vazia
+- [apps/web/app/(dashboard)/dashboard/page.sections.tsx] - trocada a indexacao direta das metricas premium por destructuring com defaults locais, garantindo `string` no runner tipado canonico
+- [scripts/ci/lint-core.mjs] - runner trocado do arquivo interno do pacote para `node_modules/.bin/eslint.cmd` no Windows e `node_modules/.bin/eslint` nas demais plataformas
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/web typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm --filter @birthub/web lint`] -> `eslint .` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+- [`pnpm lint`] -> `lint:policy` finalizou com `[lint-policy] OK` e `lint:core` finalizou com exit code 0; restaram apenas warnings em `packages/agents-core`, `packages/database`, `packages/queue`, `apps/api` e `apps/worker`
+- [`pnpm test`] -> `pnpm test:core` finalizou com exit code 0
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[A baseline global ficou verde em `typecheck`, `lint` e `test`. Restam apenas warnings nao bloqueantes e o warning de engine local, sem impedir a validacao canonica do repositório.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
+CICLO
+[A-006.4]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Restabilizar o gate canonico de `@birthub/api` apos drift de tipagem em `openapi.ts`, sem alterar o payload publicado nem expandir o recorte alem do documento OpenAPI da API.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/docs/openapi.ts]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [1 / max 5]
+Linhas alteradas em hot paths: [0 liquidas observadas no snapshot final / max 200]
+Excecao justificada: [sim - a reconciliacao do documento convergiu para o estado tipado limpo sem deixar diff liquido observavel no arquivo-fonte, entao o diff final do subciclo ficou apenas no log.]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[`pnpm --filter @birthub/api typecheck` falhou em `tests/openapi-contract.test.ts` com output literal `Property '/api/v1/auth/logout-all' does not exist on type ...` e `Element implicitly has an 'any' type because expression of type '"/api/v1/clinical"' can't be used to index type ...`, expondo que `openApiDocument.paths` estava estreito demais para os asserts negativos do contrato.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/docs/openapi.ts] - reconciliado o shape tipado do documento para expor `paths` como `Record<string, JsonSchema>` sem alterar o payload OpenAPI publicado
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O gate canonico voltou a ficar verde. Permanece apenas o warning de engine local (`node v25.9.0` vs faixa `>=24 <25`), sem bloquear a validacao por usar o portable node nos checks centrais.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]

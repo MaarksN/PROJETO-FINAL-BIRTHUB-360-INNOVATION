@@ -186,14 +186,14 @@ export function BrandLogo({
           }}
         >
           <span
-            style={{
-              alignItems: "baseline",
-              color: titleColor,
-              display: "inline-flex",
-              fontFamily: '"Outfit", "IBM Plex Sans", "Segoe UI", sans-serif',
-              fontSize: dimensions.title,
-              fontWeight: 800,
-              letterSpacing: "-0.04em"
+              style={{
+                alignItems: "baseline",
+                color: titleColor,
+                display: "inline-flex",
+                fontFamily: 'var(--font-display), "Outfit", "Segoe UI", sans-serif',
+                fontSize: dimensions.title,
+                fontWeight: 800,
+                letterSpacing: "-0.04em"
             }}
           >
             BirthHub
@@ -210,7 +210,7 @@ export function BrandLogo({
             <span
               style={{
                 color: subtitleColor,
-                fontFamily: '"IBM Plex Sans", "Segoe UI", sans-serif',
+                fontFamily: 'var(--font-sans), "Inter", "Segoe UI", sans-serif',
                 fontSize: dimensions.subtitle,
                 fontWeight: 700,
                 letterSpacing: "0.14em",

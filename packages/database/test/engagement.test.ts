@@ -17,10 +17,9 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
   const original = prisma.userPreference.upsert.bind(prisma.userPreference);
   let received: unknown = null;
 
-  prisma.userPreference.upsert = (async (args: unknown) => {
+  prisma.userPreference.upsert = ((args: unknown) => {
     received = args;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
-    return { inAppNotifications: true } as any;
+    return Promise.resolve({ inAppNotifications: true } as never);
   }) as unknown as typeof prisma.userPreference.upsert;
 
   try {
@@ -52,9 +51,9 @@ void test("ensureUserPreference accepts an injected client without relying on gl
   const injectedClient = createInjectedClient();
   let received: unknown = null;
 
-  injectedClient.userPreference.upsert = async (args: unknown) => {
+  injectedClient.userPreference.upsert = (args: unknown) => {
     received = args;
-    return { inAppNotifications: true } as never;
+    return Promise.resolve({ inAppNotifications: true } as never);
   };
 
   await ensureUserPreference(
@@ -88,13 +87,13 @@ void test("createNotificationForUser skips persistence when in-app notifications
   const originalCreate = prisma.notification.create.bind(prisma.notification);
   let createCalled = false;
 
-  prisma.userPreference.upsert = (async () =>
+  prisma.userPreference.upsert = (() =>
     ({
       inAppNotifications: false
     })) as unknown as typeof prisma.userPreference.upsert;
-  prisma.notification.create = (async () => {
+  prisma.notification.create = (() => {
     createCalled = true;
-    return {} as never;
+    return Promise.resolve({} as never);
   }) as unknown as typeof prisma.notification.create;
 
   try {
@@ -117,15 +116,15 @@ void test("createNotificationForUser accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
   let createArgs: unknown = null;
 
-  injectedClient.userPreference.upsert = async () =>
+  injectedClient.userPreference.upsert = () =>
     ({
       inAppNotifications: true
     }) as never;
-  injectedClient.notification.create = async (args: unknown) => {
+  injectedClient.notification.create = (args: unknown) => {
     createArgs = args;
-    return {
+    return Promise.resolve({
       id: "notification_1"
-    } as never;
+    } as never);
   };
 
   const result = await createNotificationForUser(
@@ -159,18 +158,18 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
   const originalAuditCreate = prisma.auditLog.create.bind(prisma.auditLog);
   let auditPayload: unknown = null;
 
-  prisma.userPreference.findUnique = (async () =>
+  prisma.userPreference.findUnique = (() =>
     ({
       cookieConsent: "PENDING"
     })) as unknown as typeof prisma.userPreference.findUnique;
-  prisma.userPreference.upsert = (async () =>
+  prisma.userPreference.upsert = (() =>
     ({
       cookieConsent: "ACCEPTED",
       id: "pref_1"
     })) as unknown as typeof prisma.userPreference.upsert;
-  prisma.auditLog.create = (async (args: unknown) => {
+  prisma.auditLog.create = ((args: unknown) => {
     auditPayload = args;
-    return {} as never;
+    return Promise.resolve({} as never);
   }) as unknown as typeof prisma.auditLog.create;
 
   try {
@@ -209,18 +208,18 @@ void test("updateUserPreference accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
   let auditPayload: unknown = null;
 
-  injectedClient.userPreference.findUnique = async () =>
+  injectedClient.userPreference.findUnique = () =>
     ({
       cookieConsent: "PENDING"
     }) as never;
-  injectedClient.userPreference.upsert = async () =>
+  injectedClient.userPreference.upsert = () =>
     ({
       cookieConsent: "ACCEPTED",
       id: "pref_1"
     }) as never;
-  injectedClient.auditLog.create = async (args: unknown) => {
+  injectedClient.auditLog.create = (args: unknown) => {
     auditPayload = args;
-    return {} as never;
+    return Promise.resolve({} as never);
   };
 
   const result = await updateUserPreference(
@@ -258,12 +257,12 @@ void test("updateUserPreference persists locale preferences", async () => {
   const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
   let upsertPayload: unknown = null;
 
-  prisma.userPreference.upsert = (async (args: unknown) => {
+  prisma.userPreference.upsert = ((args: unknown) => {
     upsertPayload = args;
-    return {
+    return Promise.resolve({
       id: "pref_locale_1",
       locale: "en-US"
-    } as never;
+    } as never);
   }) as unknown as typeof prisma.userPreference.upsert;
 
   try {
@@ -301,7 +300,7 @@ void test("createNotificationForOrganizationRoles only creates notifications for
   const originalCreateMany = prisma.notification.createMany.bind(prisma.notification);
   let createManyArgs: unknown = null;
 
-  prisma.membership.findMany = (async () =>
+  prisma.membership.findMany = (() =>
     [
       {
         role: Role.ADMIN,
@@ -330,9 +329,9 @@ void test("createNotificationForOrganizationRoles only creates notifications for
         userId: "user_owner"
       }
     ]) as unknown as typeof prisma.membership.findMany;
-  prisma.notification.createMany = (async (args: unknown) => {
+  prisma.notification.createMany = ((args: unknown) => {
     createManyArgs = args;
-    return { count: 1 };
+    return Promise.resolve({ count: 1 });
   }) as unknown as typeof prisma.notification.createMany;
 
   try {
@@ -366,7 +365,7 @@ void test("createNotificationForOrganizationRoles accepts an injected client", a
   const injectedClient = createInjectedClient();
   let createManyArgs: unknown = null;
 
-  injectedClient.membership.findMany = async () =>
+  injectedClient.membership.findMany = () =>
     [
       {
         role: Role.ADMIN,
@@ -382,9 +381,9 @@ void test("createNotificationForOrganizationRoles accepts an injected client", a
         userId: "user_admin"
       }
     ] as never;
-  injectedClient.notification.createMany = async (args: unknown) => {
+  injectedClient.notification.createMany = (args: unknown) => {
     createManyArgs = args;
-    return { count: 1 } as never;
+    return Promise.resolve({ count: 1 } as never);
   };
 
   const result = await createNotificationForOrganizationRoles(
@@ -417,9 +416,9 @@ void test("createNotificationForOrganizationRoles caps membership reads", async 
   const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
   let received: unknown = null;
 
-  prisma.membership.findMany = (async (args: unknown) => {
+  prisma.membership.findMany = ((args: unknown) => {
     received = args;
-    return [];
+    return Promise.resolve([]);
   }) as unknown as typeof prisma.membership.findMany;
 
   try {
@@ -440,13 +439,13 @@ void test("listNotifications returns bounded items, next cursor and unread count
   const originalFindMany = prisma.notification.findMany.bind(prisma.notification);
   const originalCount = prisma.notification.count.bind(prisma.notification);
 
-  prisma.notification.findMany = (async () =>
+  prisma.notification.findMany = (() =>
     [
       { id: "n3" },
       { id: "n2" },
       { id: "n1" }
     ]) as unknown as typeof prisma.notification.findMany;
-  prisma.notification.count = (async () => 7) as unknown as typeof prisma.notification.count;
+  prisma.notification.count = (() => Promise.resolve(7)) as unknown as typeof prisma.notification.count;
 
   try {
     const result = await listNotifications({
@@ -468,13 +467,13 @@ void test("listNotifications returns bounded items, next cursor and unread count
 void test("listNotifications accepts an injected client", async () => {
   const injectedClient = createInjectedClient();
 
-  injectedClient.notification.findMany = async () =>
+  injectedClient.notification.findMany = () =>
     [
       { id: "n3" },
       { id: "n2" },
       { id: "n1" }
     ] as never;
-  injectedClient.notification.count = async () => 7;
+  injectedClient.notification.count = () => Promise.resolve(7);
 
   const result = await listNotifications(
     {

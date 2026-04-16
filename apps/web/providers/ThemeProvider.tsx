@@ -15,6 +15,7 @@ type ThemeMode = "dark" | "light";
 
 type ThemeContextValue = {
   mode: ThemeMode;
+  setMode: (mode: ThemeMode) => void;
   toggleMode: () => void;
 };
 
@@ -22,6 +23,7 @@ const STORAGE_KEY = "bh_theme_mode";
 
 const ThemeContext = createContext<ThemeContextValue>({
   mode: "light",
+  setMode: () => undefined,
   toggleMode: () => undefined
 });
 
@@ -56,6 +58,9 @@ export function ThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
   const value = useMemo<ThemeContextValue>(
     () => ({
       mode,
+      setMode(nextMode) {
+        setMode(nextMode);
+      },
       toggleMode() {
         setMode((current) => (current === "dark" ? "light" : "dark"));
       }

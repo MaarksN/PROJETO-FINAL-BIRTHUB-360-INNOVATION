@@ -17,29 +17,13 @@ import {
   useState
 } from "react";
 
+import {
+  getGlobalSearchCopy,
+  mergeGlobalSearchGroups,
+  type GlobalSearchGroup
+} from "../../lib/global-search";
 import { fetchSearchResults } from "../../lib/product-api";
-
-type SearchGroup = {
-  id: string;
-  items: Array<{
-    href: string;
-    id: string;
-    subtitle: string;
-    title: string;
-    type: string;
-  }>;
-  label: string;
-};
-
-const localShortcuts = [
-  {
-    href: "/sales-os",
-    id: "shortcut-sales-os",
-    subtitle: "BirthHub Sales OS unificado com modulos, roleplays e mentor contextual.",
-    title: "Sales OS",
-    type: "shortcut"
-  }
-] as const;
+import { useI18n } from "../../providers/I18nProvider";
 
 const iconByGroup: Record<string, LucideIcon> = {
   conversations: Sparkles,
@@ -50,15 +34,17 @@ const iconByGroup: Record<string, LucideIcon> = {
 };
 
 export function GlobalSearch() {
+  const { locale } = useI18n();
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [groups, setGroups] = useState<SearchGroup[]>([]);
+  const [groups, setGroups] = useState<GlobalSearchGroup[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const deferredQuery = useDeferredValue(query);
+  const copy = useMemo(() => getGlobalSearchCopy(locale), [locale]);
 
   const shortcutHint = useMemo(
     () =>
@@ -109,7 +95,7 @@ export function GlobalSearch() {
         })
         .catch((searchError) => {
           setError(
-            searchError instanceof Error ? searchError.message : "Falha ao carregar busca global."
+            searchError instanceof Error ? searchError.message : copy.errorLabel
           );
         })
         .finally(() => {
@@ -120,47 +106,23 @@ export function GlobalSearch() {
     return () => {
       window.clearTimeout(timeout);
     };
-  }, [deferredQuery, open, pathname]);
+  }, [copy.errorLabel, deferredQuery, open, pathname]);
 
-  const mergedGroups = useMemo(() => {
-    const normalizedQuery = deferredQuery.trim().toLowerCase();
-    const matchedShortcuts = localShortcuts.filter((item) => {
-      if (!normalizedQuery) {
-        return true;
-      }
-
-      const haystack = `${item.title} ${item.subtitle} ${item.type}`.toLowerCase();
-      return haystack.includes(normalizedQuery);
-    });
-
-    if (matchedShortcuts.length === 0) {
-      return groups;
-    }
-
-    const existingShortcuts = groups.find((group) => group.id === "shortcuts");
-    const mergedShortcutItems = [
-      ...(existingShortcuts?.items ?? []),
-      ...matchedShortcuts.filter(
-        (shortcut) => !(existingShortcuts?.items ?? []).some((item) => item.href === shortcut.href)
-      )
-    ];
-    const otherGroups = groups.filter((group) => group.id !== "shortcuts");
-
-    return [
-      {
-        id: "shortcuts",
-        items: mergedShortcutItems,
-        label: existingShortcuts?.label ?? "Atalhos"
-      },
-      ...otherGroups
-    ];
-  }, [deferredQuery, groups]);
+  const mergedGroups = useMemo(
+    () =>
+      mergeGlobalSearchGroups({
+        groups,
+        locale,
+        query: deferredQuery
+      }),
+    [deferredQuery, groups, locale]
+  );
 
   return (
     <>
       <button
         aria-expanded={open}
-        aria-label="Abrir busca global"
+        aria-label={copy.openAriaLabel}
         className="command-button"
         onClick={() => {
           startTransition(() => {
@@ -170,14 +132,14 @@ export function GlobalSearch() {
         type="button"
       >
         <Search size={16} />
-        <span>Buscar</span>
+        <span>{copy.buttonLabel}</span>
         <kbd>{shortcutHint}</kbd>
       </button>
 
       {open ? (
         <div className="search-overlay" role="dialog" aria-modal="true">
           <button
-            aria-label="Fechar busca global"
+            aria-label={copy.closeAriaLabel}
             className="search-overlay__backdrop"
             onClick={() => setOpen(false)}
             type="button"
@@ -191,7 +153,7 @@ export function GlobalSearch() {
                     setQuery(event.target.value);
                   });
                 }}
-                placeholder="Buscar workflows, reports, notificacoes, conversations e Sales OS"
+                placeholder={copy.placeholder}
                 ref={inputRef}
                 value={query}
               />
@@ -199,9 +161,9 @@ export function GlobalSearch() {
 
             <div className="search-dialog__body">
               {error ? <p className="search-error">{error}</p> : null}
-              {isLoading ? <p className="search-muted">Buscando resultados...</p> : null}
+              {isLoading ? <p className="search-muted">{copy.loadingLabel}</p> : null}
               {!isLoading && mergedGroups.length === 0 ? (
-                <p className="search-muted">Nenhum resultado encontrado.</p>
+                <p className="search-muted">{copy.emptyLabel}</p>
               ) : null}
 
               {mergedGroups.map((group) => {

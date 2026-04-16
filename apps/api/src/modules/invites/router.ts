@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { Role } from "@birthub/database";
 import {
   acceptInviteRequestSchema,

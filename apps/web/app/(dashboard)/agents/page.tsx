@@ -3,6 +3,11 @@
 import Link from "next/link";
 
 import { listInstalledAgents } from "../../../lib/agents";
+import {
+  EXECUTIVE_PREMIUM_COLLECTION_HREF,
+  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
+  isExecutivePremiumPack
+} from "../../../lib/executive-premium";
 
 function toPercent(value: number): string {
   return `${Math.round(value * 100)}%`;
@@ -10,6 +15,7 @@ function toPercent(value: number): string {
 
 export default async function AgentsPage() {
   const agents = await listInstalledAgents();
+  const executivePremiumAgents = agents.filter((agent) => isExecutivePremiumPack(agent.catalogAgentId));
   const totalCost = agents.reduce((acc, agent) => acc + agent.executionCount * 0.0015, 0);
   const recentFailures = agents.flatMap((agent) =>
     agent.executions
@@ -24,6 +30,10 @@ export default async function AgentsPage() {
         <p style={{ color: "var(--muted)", marginBottom: 0 }}>
           Linha oficial de agentes instalados com manifesto real, dry-run persistido e aprendizado compartilhado governado.
         </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginTop: "0.75rem" }}>
+          <Link href={EXECUTIVE_PREMIUM_COLLECTION_HREF}>Abrir colecao premium executiva</Link>
+          <Link href="/packs">Ver packs instalados</Link>
+        </div>
       </header>
 
       {agents.length === 0 ? (
@@ -81,6 +91,13 @@ export default async function AgentsPage() {
           <small style={{ color: "var(--muted)" }}>Custo acumulado</small>
           <p style={{ fontSize: "1.4rem", margin: 0 }}>${totalCost.toFixed(3)}</p>
         </div>
+        <div>
+          <small style={{ color: "var(--muted)" }}>Executive Premium</small>
+          <p style={{ fontSize: "1.4rem", margin: 0 }}>{executivePremiumAgents.length}</p>
+          <small style={{ color: "var(--muted)" }}>
+            {EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} camadas premium compartilhadas
+          </small>
+        </div>
       </div>
 
       <div
@@ -105,8 +122,31 @@ export default async function AgentsPage() {
           </thead>
           <tbody>
             {agents.map((agent) => (
-              <tr key={agent.id}>
-                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.name}</td>
+              <tr
+                key={agent.id}
+                style={{
+                  background: isExecutivePremiumPack(agent.catalogAgentId)
+                    ? "rgba(30,58,138,0.05)"
+                    : "transparent"
+                }}
+              >
+                <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>
+                  <div style={{ display: "grid", gap: "0.2rem" }}>
+                    <span>{agent.name}</span>
+                    {isExecutivePremiumPack(agent.catalogAgentId) ? (
+                      <small
+                        style={{
+                          color: "var(--accent-strong)",
+                          fontWeight: 700,
+                          letterSpacing: "0.05em",
+                          textTransform: "uppercase"
+                        }}
+                      >
+                        Executive Premium
+                      </small>
+                    ) : null}
+                  </div>
+                </td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.version}</td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.status}</td>
                 <td style={{ borderTop: "1px solid var(--border)", padding: "0.75rem" }}>{agent.catalogAgentId}</td>

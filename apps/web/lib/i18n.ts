@@ -11,12 +11,12 @@ type NavbarItem = { href: string; label: string };
 type ConsentBannerDictionary = { accept: string; description: string; reject: string; settings: string; title: string };
 type DashboardHomeDictionary = { alertSeverityLabels: LabelMap; attributionHeading: string; badge: string; cacColumn: string; clinicalDescription: string; clinicalHeading: string; clinicalRiskLabels: LabelMap; clinicalStatusLabels: LabelMap; consentAttentionTitle: string; consentBadge: string; consentLegalBasisLabels: LabelMap; consentStatusLabels: LabelMap; continueLabel: string; continueOnboarding: string; conversionColumn: string; customerColumn: string; customerHealthHeading: string; description: string; executionsLabel: string; gestationalAgeUnknown: string; goLiveAlertsHeading: string; highlightedWorkflowsDescription: string; highlightedWorkflowsHeading: string; leadsColumn: string; noAttributionDescription: string; noAttributionTitle: string; noClinicalAlertsDescription: string; noClinicalAlertsTitle: string; noClinicalNote: string; noClinicalSpotlightDescription: string; noClinicalSpotlightTitle: string; noCustomerHealthDescription: string; noCustomerHealthTitle: string; noRecentContractsDescription: string; noRecentContractsTitle: string; noReturnScheduled: string; noUsageDescription: string; noUsageTitle: string; noWorkflowsDescription: string; noWorkflowsTitle: string; npsColumn: string; onboardingBadge: string; openClinicalModule: string; openEditor: string; openPatient: string; openQueue: string; openWorkflows: string; planStatusLabel: string; recentContractsHeading: string; reviewConsents: string; returnPrefix: string; riskColumn: string; scoreColumn: string; sourceColumn: string; stepsLabel: string; title: string; usageHeading: string; viewExecutions: string; viewFullWorkflowList: string; viewReports: string; viewSchedule: string; workflowStatusLabels: LabelMap; workflowTriggerLabels: LabelMap };
 type LoadingDictionary = { badge: string; dashboardDescription: string; dashboardTitle: string; workflowsDescription: string; workflowsTitle: string };
-type NotificationPreferencesDictionary = { acceptCookies: string; badge: string; cookieConsentDescription: string; cookieConsentHeading: string; cookieStatusLabel: string; description: string; emailNotificationsDescription: string; emailNotificationsLabel: string; emptyFeed: string; feedDescription: string; feedHeading: string; inAppNotificationsDescription: string; inAppNotificationsLabel: string; interfaceLanguageDescription: string; interfaceLanguageHeading: string; interfaceLanguageLabel: string; loadMore: string; loadingMore: string; localeLabels: Record<SupportedLocale, string>; markAllRead: string; markAsRead: string; marketingEmailsDescription: string; marketingEmailsLabel: string; openLink: string; pushNotificationsDescription: string; pushNotificationsLabel: string; rejectCookies: string; signInDescription: string; signInTitle: string; title: string };
-type NavbarDictionary = { activateDarkTheme: string; activateLightTheme: string; darkModeLabel: string; emptyDescription: string; emptyTitle: string; feedLabel: string; identityDescription: string; identityTitle: string; items: NavbarItem[]; lightModeLabel: string; markAllRead: string; navigationAriaLabel: string; notificationsDescription: string; notificationsDisabledDescription: string; notificationsDisabledTitle: string; notificationsTitle: string; openDetail: string; openNotifications: string; preferences: string; today: string; viewCenter: string; yesterday: string };
+type NotificationPreferencesDictionary = { acceptCookies: string; activeThemeLabel: string; badge: string; cookieConsentDescription: string; cookieConsentHeading: string; cookieStatusLabel: string; darkThemeLabel: string; description: string; emailNotificationsDescription: string; emailNotificationsLabel: string; emptyFeed: string; feedDescription: string; feedHeading: string; inAppNotificationsDescription: string; inAppNotificationsLabel: string; interfaceLanguageDescription: string; interfaceLanguageHeading: string; interfaceLanguageLabel: string; lightThemeLabel: string; loadMore: string; loadingMore: string; localeLabels: Record<SupportedLocale, string>; markAllRead: string; markAsRead: string; marketingEmailsDescription: string; marketingEmailsLabel: string; openLink: string; pushNotificationsDescription: string; pushNotificationsLabel: string; rejectCookies: string; signInDescription: string; signInTitle: string; themeDescription: string; themeHeading: string; title: string };
+type NavbarDictionary = { activateDarkTheme: string; activateLightTheme: string; darkModeLabel: string; emptyDescription: string; emptyTitle: string; feedLabel: string; identityDescription: string; identityTitle: string; items: NavbarItem[]; lightModeLabel: string; markAllRead: string; navigationAriaLabel: string; notificationsDescription: string; notificationsDisabledDescription: string; notificationsDisabledTitle: string; notificationsTitle: string; openDetail: string; openNotifications: string; preferences: string; premiumLinkLabel: string; premiumLinkTitle: string; today: string; viewCenter: string; yesterday: string };
 type WorkflowsPageDictionary = { backHome: string; badge: string; continueEditing: string; description: string; emptyDescription: string; emptyTitle: string; executionsLabel: string; openEditor: string; revisions: string; statusLabels: LabelMap; stepsLabel: string; title: string; triggerLabels: LabelMap; updatedAtLabel: string; viewExecutions: string };
 export type Dictionary = { consentBanner: ConsentBannerDictionary; dashboardHome: DashboardHomeDictionary; loading: LoadingDictionary; notificationPreferencesPage: NotificationPreferencesDictionary; navbar: NavbarDictionary; workflowsPage: WorkflowsPageDictionary };
 
-const sharedNavbarItems = [{ href: "/dashboard", label: { "en-US": "Dashboard", "pt-BR": "Dashboard" } }, { href: "/patients", label: { "en-US": "Patients", "pt-BR": "Pacientes" } }, { href: "/appointments", label: { "en-US": "Appointments", "pt-BR": "Agenda" } }, { href: "/workflows", label: { "en-US": "Workflows", "pt-BR": "Workflows" } }, { href: "/notifications", label: { "en-US": "Notifications", "pt-BR": "Notificacoes" } }, { href: "/analytics", label: { "en-US": "Analytics", "pt-BR": "Analytics" } }, { href: "/conversations", label: { "en-US": "Conversations", "pt-BR": "Conversas" } }, { href: "/reports", label: { "en-US": "Reports", "pt-BR": "Relatorios" } }, { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } }, { href: "/sales-os", label: { "en-US": "Sales OS", "pt-BR": "Sales OS" } }] as const;
+const sharedNavbarItems = [{ href: "/dashboard", label: { "en-US": "Dashboard", "pt-BR": "Dashboard" } }, { href: "/patients", label: { "en-US": "Patients", "pt-BR": "Pacientes" } }, { href: "/appointments", label: { "en-US": "Appointments", "pt-BR": "Agenda" } }, { href: "/workflows", label: { "en-US": "Workflows", "pt-BR": "Workflows" } }, { href: "/marketplace", label: { "en-US": "Marketplace", "pt-BR": "Marketplace" } }, { href: "/notifications", label: { "en-US": "Notifications", "pt-BR": "Notificacoes" } }, { href: "/analytics", label: { "en-US": "Analytics", "pt-BR": "Analytics" } }, { href: "/conversations", label: { "en-US": "Conversations", "pt-BR": "Conversas" } }, { href: "/reports", label: { "en-US": "Reports", "pt-BR": "Relatorios" } }, { href: "/onboarding", label: { "en-US": "Onboarding", "pt-BR": "Onboarding" } }, { href: "/sales-os", label: { "en-US": "Sales OS", "pt-BR": "Sales OS" } }] as const;
 
 const dictionaries: Record<SupportedLocale, Dictionary> = {
   "pt-BR": {
@@ -120,11 +120,13 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
     loading: { badge: "Carregando", dashboardDescription: "Montando indicadores, workflows e billing da conta ativa.", dashboardTitle: "Carregando dashboard", workflowsDescription: "Carregando a lista de workflows, status e contagens do backend.", workflowsTitle: "Carregando workflows" },
     notificationPreferencesPage: {
       acceptCookies: "Aceitar",
+      activeThemeLabel: "Tema ativo",
       badge: "Engajamento do usuario",
       cookieConsentDescription:
         "O provider de analytics so inicializa quando o consentimento estiver aceito.",
       cookieConsentHeading: "Consentimento de cookies",
       cookieStatusLabel: "Status atual",
+      darkThemeLabel: "Escuro",
       description:
         "Controle email, feed in-app, idioma da interface e consentimento de analytics em um unico lugar.",
       emailNotificationsDescription:
@@ -139,6 +141,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
         "Persiste o idioma por usuario e sincroniza o SSR do app em proximas navegacoes.",
       interfaceLanguageHeading: "Idioma da interface",
       interfaceLanguageLabel: "Idioma",
+      lightThemeLabel: "Claro",
       loadMore: "Carregar mais",
       loadingMore: "Carregando...",
       localeLabels: { "en-US": "English (US)", "pt-BR": "Portugues (Brasil)" },
@@ -153,6 +156,9 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       signInDescription:
         "Realize login para configurar preferencias de email, in-app, idioma e telemetria.",
       signInTitle: "Notificacoes e consentimento",
+      themeDescription:
+        "Escolha o visual do dashboard com contraste, brilho e superficies ajustadas para light e dark mode.",
+      themeHeading: "Tema do dashboard",
       title: "Preferencias de notificacao"
     },
     navbar: {
@@ -179,6 +185,8 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       openDetail: "Abrir detalhe",
       openNotifications: "Abrir central de notificacoes",
       preferences: "Preferencias",
+      premiumLinkLabel: "Premium",
+      premiumLinkTitle: "Abrir colecao premium executiva",
       today: "Hoje",
       viewCenter: "Ver central",
       yesterday: "Ontem"
@@ -302,11 +310,13 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
     loading: { badge: "Loading", dashboardDescription: "Preparing account indicators, workflows, and billing data.", dashboardTitle: "Loading dashboard", workflowsDescription: "Loading workflows list, statuses, and backend counters.", workflowsTitle: "Loading workflows" },
     notificationPreferencesPage: {
       acceptCookies: "Accept",
+      activeThemeLabel: "Active theme",
       badge: "User engagement",
       cookieConsentDescription:
         "The analytics provider only starts when consent is accepted.",
       cookieConsentHeading: "Cookie consent",
       cookieStatusLabel: "Current status",
+      darkThemeLabel: "Dark",
       description:
         "Control email, in-app feed, interface language, and analytics consent in one place.",
       emailNotificationsDescription:
@@ -321,6 +331,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
         "Persists the language per user and syncs app SSR on subsequent navigations.",
       interfaceLanguageHeading: "Interface language",
       interfaceLanguageLabel: "Language",
+      lightThemeLabel: "Light",
       loadMore: "Load more",
       loadingMore: "Loading...",
       localeLabels: { "en-US": "English (US)", "pt-BR": "Portuguese (Brazil)" },
@@ -335,6 +346,9 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       signInDescription:
         "Sign in to configure email, in-app, language, and telemetry preferences.",
       signInTitle: "Notifications and consent",
+      themeDescription:
+        "Choose the dashboard look with customized contrast, glow, and surfaces for light and dark modes.",
+      themeHeading: "Dashboard theme",
       title: "Notification preferences"
     },
     navbar: {
@@ -361,6 +375,8 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       openDetail: "Open detail",
       openNotifications: "Open notifications center",
       preferences: "Preferences",
+      premiumLinkLabel: "Premium",
+      premiumLinkTitle: "Open executive premium collection",
       today: "Today",
       viewCenter: "View center",
       yesterday: "Yesterday"
