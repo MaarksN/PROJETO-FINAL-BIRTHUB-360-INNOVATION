@@ -1,20 +1,16 @@
+/* eslint-disable complexity, max-lines */
 "use client";
 
-import type { CSSProperties } from "react";
 import {
   CalendarRange,
   ChevronLeft,
   ChevronRight,
   Download,
   Filter,
-  Info,
   LayoutPanelTop,
   ListFilter,
-  LoaderCircle,
   MapPinned,
   Search,
-  Send,
-  Sparkles
 } from "lucide-react";
 
 import type { SupportedLocale } from "../../lib/i18n";
@@ -25,18 +21,16 @@ import type {
 import {
   AVAILABLE_LEAD_COLUMNS,
   DEFAULT_LEAD_FILTERS,
-  resolveSlaLabel,
   type LeadColumnId,
   type LeadDashboardCopy,
   type LeadFilters,
   type LeadScoreBandId
 } from "./sdr-automatic-dashboard";
+import { type LeadInsightState } from "./SdrLeadScoreWorkspace.helpers";
 import {
-  buildScoreFillColor,
-  buildSequenceStatusTone,
-  buildStageColor,
-  type LeadInsightState
-} from "./SdrLeadScoreWorkspace.helpers";
+  InfoTooltip,
+  LeadTableCell
+} from "./SdrLeadScoreWorkspace.table.cells";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
 
@@ -68,38 +62,6 @@ type SdrLeadScoreWorkspaceTableProps = {
   updateFilter: <K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) => void;
   visibleColumns: LeadColumnId[];
 };
-
-type InfoTooltipProps = {
-  align?: "left" | "right";
-  bullets?: string[];
-  content: string;
-  label: string;
-};
-
-function InfoTooltip(props: InfoTooltipProps) {
-  const { align = "right", bullets = [], content, label } = props;
-
-  return (
-    <details className={styles.infoTooltip} data-align={align}>
-      <summary aria-label={label}>
-        <Info size={12} />
-      </summary>
-      <div className={styles.infoTooltipCard}>
-        <div className={styles.tooltipStack}>
-          <strong>{label}</strong>
-          <p>{content}</p>
-          {bullets.length > 0 ? (
-            <ul>
-              {bullets.map((bullet) => (
-                <li key={bullet}>{bullet}</li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      </div>
-    </details>
-  );
-}
 
 export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProps) {
   const {
@@ -139,199 +101,6 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           label={renderColumnLabel(column)}
         />
       </span>
-    );
-  }
-
-  function renderCell(lead: SdrAutomaticLead, column: LeadColumnId) {
-    if (column === "lead") {
-      return (
-        <div className={styles.leadCell}>
-          <strong>{lead.name}</strong>
-          <span>{lead.role}</span>
-        </div>
-      );
-    }
-
-    if (column === "email") {
-      return <span>{lead.email}</span>;
-    }
-
-    if (column === "company") {
-      return <span>{lead.company}</span>;
-    }
-
-    if (column === "owner") {
-      return <span>{lead.owner}</span>;
-    }
-
-    if (column === "region") {
-      return <span>{dashboardCopy.regionLabels[lead.region]}</span>;
-    }
-
-    if (column === "stage") {
-      return (
-        <span
-          className={styles.stagePill}
-          style={
-            {
-              "--pill-color": buildStageColor(lead.stage)
-            } as CSSProperties
-          }
-        >
-          {dashboardCopy.stageLabels[lead.stage]}
-        </span>
-      );
-    }
-
-    if (column === "sequenceStatus") {
-      return (
-        <span
-          className={styles.slaPill}
-          data-tone={buildSequenceStatusTone(lead.sequenceStatus)}
-        >
-          {dashboardCopy.sequenceStatusLabels[lead.sequenceStatus]}
-        </span>
-      );
-    }
-
-    if (column === "score") {
-      return (
-        <div className={styles.scoreCell}>
-          <div className={styles.scoreTrack}>
-            <span
-              className={styles.scoreFill}
-              style={{
-                background: `linear-gradient(90deg, ${buildScoreFillColor(lead.score)}, rgba(255,255,255,0.88))`,
-                width: `${lead.score}%`
-              }}
-            />
-          </div>
-          <strong>{lead.score}</strong>
-        </div>
-      );
-    }
-
-    if (column === "source") {
-      return <span>{lead.source}</span>;
-    }
-
-    if (column === "createdAt") {
-      return (
-        <span>
-          {new Intl.DateTimeFormat(locale, {
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit",
-            month: "short"
-          }).format(new Date(lead.createdAt))}
-        </span>
-      );
-    }
-
-    if (column === "sla") {
-      return (
-        <span className={styles.slaPill} data-tone={lead.slaStatus}>
-          {resolveSlaLabel(locale, lead.slaStatus)}
-        </span>
-      );
-    }
-
-    const insight = insights[lead.id];
-    const isLoading = insight?.status === "loading";
-    const summaryLabel = locale === "en-US" ? "Summary" : "Resumo";
-    const highlightsLabel = locale === "en-US" ? "Key signals" : "Sinais principais";
-    const breakdownLabel = locale === "en-US" ? "Score breakdown" : "Detalhamento do score";
-    const actionsLabel = locale === "en-US" ? "Recommended actions" : "Acoes recomendadas";
-
-    return (
-      <div className={styles.actionGroup}>
-        <button className={shellStyles.actionButton} type="button">
-          {lead.action}
-        </button>
-        <div className={styles.actionButtonGroup}>
-          <button
-            className={styles.secondaryButton}
-            onClick={() => handleSendSequence(lead)}
-            type="button"
-          >
-            <Send size={14} />
-            <span>{dashboardCopy.sendSequenceLabel}</span>
-          </button>
-          <div className={styles.aiWrap}>
-            <div className={styles.actionButtonGroup}>
-              <button
-                className={styles.aiButton}
-                disabled={isLoading}
-                onClick={() => {
-                  void handleLeadInsight(lead);
-                }}
-                type="button"
-              >
-                {isLoading ? (
-                  <LoaderCircle className={styles.spinningIcon} size={14} />
-                ) : (
-                  <Sparkles size={14} />
-                )}
-                <span>{dashboardCopy.aiAnalysisLabel}</span>
-              </button>
-              <InfoTooltip
-                align="left"
-                bullets={dashboardCopy.aiButtonTooltipBullets}
-                content={dashboardCopy.aiButtonTooltipBullets[0] ?? dashboardCopy.aiTooltipEmpty}
-                label={dashboardCopy.aiButtonTooltipTitle}
-              />
-            </div>
-            {openInsightLeadId === lead.id ? (
-              <div className={styles.aiPopover}>
-                <div className={styles.aiPopoverHeader}>
-                  <strong>{dashboardCopy.aiAgentLabel}</strong>
-                  <small>{insight?.source ?? dashboardCopy.aiAgentLabel}</small>
-                </div>
-
-                <div className={styles.aiPopoverSection}>
-                  <strong>{summaryLabel}</strong>
-                  <p>{insight?.detail.summary ?? dashboardCopy.aiTooltipEmpty}</p>
-                </div>
-
-                {insight?.detail.highlights.length ? (
-                  <div className={styles.aiPopoverSection}>
-                    <strong>{highlightsLabel}</strong>
-                    <ul>
-                      {insight.detail.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-
-                {insight?.detail.scoreBreakdown.length ? (
-                  <div className={styles.aiPopoverSection}>
-                    <strong>{breakdownLabel}</strong>
-                    <ul>
-                      {insight.detail.scoreBreakdown.map((entry) => (
-                        <li key={entry.label}>
-                          <strong>{entry.label}:</strong> {entry.value}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-
-                {insight?.detail.recommendedActions.length ? (
-                  <div className={styles.aiPopoverSection}>
-                    <strong>{actionsLabel}</strong>
-                    <ul>
-                      {insight.detail.recommendedActions.map((action) => (
-                        <li key={action}>{action}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
     );
   }
 
@@ -523,7 +292,18 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
               pagination.items.map((lead) => (
                 <tr key={lead.id}>
                   {visibleColumns.map((column) => (
-                    <td key={`${lead.id}_${column}`}>{renderCell(lead, column)}</td>
+                    <td key={`${lead.id}_${column}`}>
+                      <LeadTableCell
+                        column={column}
+                        dashboardCopy={dashboardCopy}
+                        handleLeadInsight={handleLeadInsight}
+                        handleSendSequence={handleSendSequence}
+                        insight={insights[lead.id]}
+                        lead={lead}
+                        locale={locale}
+                        openInsightLeadId={openInsightLeadId}
+                      />
+                    </td>
                   ))}
                 </tr>
               ))

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 "use client";
 
 import {
@@ -19,6 +17,8 @@ export function SalesOsShell(input: { copy: SalesOsShellCopy }) {
   const { copy } = input;
   const shell = useSalesOsShellState(copy);
   const selectedModuleTitle = shell.modules.find((moduleDefinition) => moduleDefinition.id === shell.selectedModule)?.title;
+  const selectedModuleTitleProps =
+    selectedModuleTitle === undefined ? {} : { selectedModuleTitle };
 
   if (shell.catalogLoading) {
     return <section className="panel">{copy.catalogLoading}</section>;
@@ -42,10 +42,10 @@ export function SalesOsShell(input: { copy: SalesOsShellCopy }) {
           copy={copy}
           onSelectTool={shell.setSelectedToolId}
           onToolSearchChange={shell.setToolSearch}
-          selectedModuleTitle={selectedModuleTitle}
           selectedToolId={shell.selectedTool?.id}
           toolSearch={shell.toolSearch}
           visibleTools={shell.visibleTools}
+          {...selectedModuleTitleProps}
         />
 
         <div className={styles.board}>
@@ -59,8 +59,8 @@ export function SalesOsShell(input: { copy: SalesOsShellCopy }) {
               <SalesOsToolBoardHeader
                 copy={copy}
                 outputProvider={shell.outputProvider}
-                selectedModuleTitle={selectedModuleTitle}
                 selectedTool={shell.selectedTool}
+                {...selectedModuleTitleProps}
               />
 
               {shell.selectedTool.isChat ? (

@@ -1,7 +1,5 @@
 // @ts-nocheck
-
 "use client";
-
 import {
   Bot,
   Copy,
@@ -14,7 +12,6 @@ import {
   Sparkles,
   X
 } from "lucide-react";
-
 import type {
   SalesOsChatMessage,
   SalesOsModuleDefinition,
@@ -70,7 +67,6 @@ function SalesOsChatComposer(input: {
   onSend: () => void | Promise<void>;
 }) {
   const { buttonIcon, copy, disabled, inputValue, onInputChange, onSend } = input;
-
   return (
     <div className={styles.chatComposer}>
       <button
@@ -129,7 +125,6 @@ export function SalesOsModuleOverview(input: {
     selectedModule,
     tools
   } = input;
-
   return (
     <section className={styles.overview}>
       <div className={styles.searchCard}>
@@ -446,7 +441,6 @@ export function SalesOsMentorToggle(input: {
   onToggle: () => void;
 }) {
   const { copy, mentorOpen, onToggle } = input;
-
   return (
     <button className={styles.mentorToggle} onClick={onToggle} type="button">
       {mentorOpen ? <X size={18} /> : <MessageCircle size={18} />}
