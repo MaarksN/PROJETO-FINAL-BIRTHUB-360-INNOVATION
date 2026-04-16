@@ -7,8 +7,10 @@ import {
   ChevronRight,
   Download,
   Filter,
+  Info,
   LayoutPanelTop,
   ListFilter,
+  LoaderCircle,
   MapPinned,
   Search,
   Send,
@@ -67,6 +69,38 @@ type SdrLeadScoreWorkspaceTableProps = {
   visibleColumns: LeadColumnId[];
 };
 
+type InfoTooltipProps = {
+  align?: "left" | "right";
+  bullets?: string[];
+  content: string;
+  label: string;
+};
+
+function InfoTooltip(props: InfoTooltipProps) {
+  const { align = "right", bullets = [], content, label } = props;
+
+  return (
+    <details className={styles.infoTooltip} data-align={align}>
+      <summary aria-label={label}>
+        <Info size={12} />
+      </summary>
+      <div className={styles.infoTooltipCard}>
+        <div className={styles.tooltipStack}>
+          <strong>{label}</strong>
+          <p>{content}</p>
+          {bullets.length > 0 ? (
+            <ul>
+              {bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </div>
+    </details>
+  );
+}
+
 export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProps) {
   const {
     columnLabels,
@@ -91,8 +125,21 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
     visibleColumns
   } = props;
 
-  function renderColumnHeader(column: LeadColumnId) {
+  function renderColumnLabel(column: LeadColumnId) {
     return columnLabels[column];
+  }
+
+  function renderColumnHeader(column: LeadColumnId) {
+    return (
+      <span className={styles.headerLabel}>
+        <span>{renderColumnLabel(column)}</span>
+        <InfoTooltip
+          align="left"
+          content={dashboardCopy.columnTooltips[column]}
+          label={renderColumnLabel(column)}
+        />
+      </span>
+    );
   }
 
   function renderCell(lead: SdrAutomaticLead, column: LeadColumnId) {
@@ -190,41 +237,99 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
     }
 
     const insight = insights[lead.id];
+    const isLoading = insight?.status === "loading";
+    const summaryLabel = locale === "en-US" ? "Summary" : "Resumo";
+    const highlightsLabel = locale === "en-US" ? "Key signals" : "Sinais principais";
+    const breakdownLabel = locale === "en-US" ? "Score breakdown" : "Detalhamento do score";
+    const actionsLabel = locale === "en-US" ? "Recommended actions" : "Acoes recomendadas";
 
     return (
       <div className={styles.actionGroup}>
         <button className={shellStyles.actionButton} type="button">
           {lead.action}
         </button>
-        <button
-          className={styles.secondaryButton}
-          onClick={() => handleSendSequence(lead)}
-          type="button"
-        >
-          <Send size={14} />
-          <span>{dashboardCopy.sendSequenceLabel}</span>
-        </button>
-        <div className={styles.aiWrap}>
+        <div className={styles.actionButtonGroup}>
           <button
-            className={styles.aiButton}
-            onClick={() => {
-              void handleLeadInsight(lead);
-            }}
+            className={styles.secondaryButton}
+            onClick={() => handleSendSequence(lead)}
             type="button"
           >
-            <Sparkles size={14} />
-            <span>{dashboardCopy.aiAnalysisLabel}</span>
+            <Send size={14} />
+            <span>{dashboardCopy.sendSequenceLabel}</span>
           </button>
-          {openInsightLeadId === lead.id ? (
-            <div className={styles.aiPopover}>
-              <strong>{dashboardCopy.aiAgentLabel}</strong>
-              <p>{insight?.detail.summary ?? dashboardCopy.aiTooltipEmpty}</p>
-              {insight?.detail.recommendedActions?.slice(0, 2).map((action) => (
-                <small key={action}>{action}</small>
-              ))}
-              <small>{insight?.source ?? dashboardCopy.aiAgentLabel}</small>
+          <div className={styles.aiWrap}>
+            <div className={styles.actionButtonGroup}>
+              <button
+                className={styles.aiButton}
+                disabled={isLoading}
+                onClick={() => {
+                  void handleLeadInsight(lead);
+                }}
+                type="button"
+              >
+                {isLoading ? (
+                  <LoaderCircle className={styles.spinningIcon} size={14} />
+                ) : (
+                  <Sparkles size={14} />
+                )}
+                <span>{dashboardCopy.aiAnalysisLabel}</span>
+              </button>
+              <InfoTooltip
+                align="left"
+                bullets={dashboardCopy.aiButtonTooltipBullets}
+                content={dashboardCopy.aiButtonTooltipBullets[0] ?? dashboardCopy.aiTooltipEmpty}
+                label={dashboardCopy.aiButtonTooltipTitle}
+              />
             </div>
-          ) : null}
+            {openInsightLeadId === lead.id ? (
+              <div className={styles.aiPopover}>
+                <div className={styles.aiPopoverHeader}>
+                  <strong>{dashboardCopy.aiAgentLabel}</strong>
+                  <small>{insight?.source ?? dashboardCopy.aiAgentLabel}</small>
+                </div>
+
+                <div className={styles.aiPopoverSection}>
+                  <strong>{summaryLabel}</strong>
+                  <p>{insight?.detail.summary ?? dashboardCopy.aiTooltipEmpty}</p>
+                </div>
+
+                {insight?.detail.highlights.length ? (
+                  <div className={styles.aiPopoverSection}>
+                    <strong>{highlightsLabel}</strong>
+                    <ul>
+                      {insight.detail.highlights.map((highlight) => (
+                        <li key={highlight}>{highlight}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+
+                {insight?.detail.scoreBreakdown.length ? (
+                  <div className={styles.aiPopoverSection}>
+                    <strong>{breakdownLabel}</strong>
+                    <ul>
+                      {insight.detail.scoreBreakdown.map((entry) => (
+                        <li key={entry.label}>
+                          <strong>{entry.label}:</strong> {entry.value}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+
+                {insight?.detail.recommendedActions.length ? (
+                  <div className={styles.aiPopoverSection}>
+                    <strong>{actionsLabel}</strong>
+                    <ul>
+                      {insight.detail.recommendedActions.map((action) => (
+                        <li key={action}>{action}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     );
@@ -248,107 +353,143 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
             />
           </label>
 
-          <details className={styles.dropdown}>
-            <summary title={dashboardCopy.filterTooltips.stage}>
-              <Filter size={16} />
-              <span>{dashboardCopy.stageFilterLabel}</span>
-            </summary>
-            <div className={styles.dropdownBody}>
-              {(Object.keys(dashboardCopy.stageLabels) as SdrAutomaticLead["stage"][]).map((stage) => (
-                <label className={styles.dropdownOption} key={stage}>
-                  <input
-                    checked={filters.stages.includes(stage)}
-                    onChange={() => toggleStage(stage)}
-                    type="checkbox"
-                  />
-                  <span>{dashboardCopy.stageLabels[stage]}</span>
-                </label>
-              ))}
-            </div>
-          </details>
+          <div className={styles.filterControl}>
+            <details className={styles.dropdown}>
+              <summary title={dashboardCopy.filterTooltips.stage}>
+                <Filter size={16} />
+                <span>{dashboardCopy.stageFilterLabel}</span>
+              </summary>
+              <div className={styles.dropdownBody}>
+                {(Object.keys(dashboardCopy.stageLabels) as SdrAutomaticLead["stage"][]).map((stage) => (
+                  <label className={styles.dropdownOption} key={stage}>
+                    <input
+                      checked={filters.stages.includes(stage)}
+                      onChange={() => toggleStage(stage)}
+                      type="checkbox"
+                    />
+                    <span>{dashboardCopy.stageLabels[stage]}</span>
+                  </label>
+                ))}
+              </div>
+            </details>
+            <InfoTooltip
+              content={dashboardCopy.filterTooltips.stage}
+              label={dashboardCopy.stageFilterLabel}
+            />
+          </div>
 
-          <details className={styles.dropdown}>
-            <summary title={dashboardCopy.filterTooltips.region}>
-              <MapPinned size={16} />
-              <span>{dashboardCopy.regionFilterLabel}</span>
-            </summary>
-            <div className={styles.dropdownBody}>
-              {(Object.keys(dashboardCopy.regionLabels) as LeadRegionId[]).map((region) => (
-                <label className={styles.dropdownOption} key={region}>
-                  <input
-                    checked={filters.regions.includes(region)}
-                    onChange={() => toggleRegion(region)}
-                    type="checkbox"
-                  />
-                  <span>{dashboardCopy.regionLabels[region]}</span>
-                </label>
-              ))}
-            </div>
-          </details>
+          <div className={styles.filterControl}>
+            <details className={styles.dropdown}>
+              <summary title={dashboardCopy.filterTooltips.region}>
+                <MapPinned size={16} />
+                <span>{dashboardCopy.regionFilterLabel}</span>
+              </summary>
+              <div className={styles.dropdownBody}>
+                {(Object.keys(dashboardCopy.regionLabels) as LeadRegionId[]).map((region) => (
+                  <label className={styles.dropdownOption} key={region}>
+                    <input
+                      checked={filters.regions.includes(region)}
+                      onChange={() => toggleRegion(region)}
+                      type="checkbox"
+                    />
+                    <span>{dashboardCopy.regionLabels[region]}</span>
+                  </label>
+                ))}
+              </div>
+            </details>
+            <InfoTooltip
+              content={dashboardCopy.filterTooltips.region}
+              label={dashboardCopy.regionFilterLabel}
+            />
+          </div>
 
-          <details className={styles.dropdown}>
-            <summary title={dashboardCopy.filterTooltips.score}>
-              <ListFilter size={16} />
-              <span>{dashboardCopy.scoreFilterLabel}</span>
-            </summary>
-            <div className={styles.dropdownBody}>
-              {(Object.keys(dashboardCopy.scoreBandLabels) as LeadScoreBandId[]).map((band) => (
-                <label className={styles.dropdownOption} key={band}>
-                  <input
-                    checked={filters.scoreBands.includes(band)}
-                    onChange={() => toggleScoreBand(band)}
-                    type="checkbox"
-                  />
-                  <span>{dashboardCopy.scoreBandLabels[band]}</span>
-                </label>
-              ))}
-            </div>
-          </details>
+          <div className={styles.filterControl}>
+            <details className={styles.dropdown}>
+              <summary title={dashboardCopy.filterTooltips.score}>
+                <ListFilter size={16} />
+                <span>{dashboardCopy.scoreFilterLabel}</span>
+              </summary>
+              <div className={styles.dropdownBody}>
+                {(Object.keys(dashboardCopy.scoreBandLabels) as LeadScoreBandId[]).map((band) => (
+                  <label className={styles.dropdownOption} key={band}>
+                    <input
+                      checked={filters.scoreBands.includes(band)}
+                      onChange={() => toggleScoreBand(band)}
+                      type="checkbox"
+                    />
+                    <span>{dashboardCopy.scoreBandLabels[band]}</span>
+                  </label>
+                ))}
+              </div>
+            </details>
+            <InfoTooltip
+              content={dashboardCopy.filterTooltips.score}
+              label={dashboardCopy.scoreFilterLabel}
+            />
+          </div>
 
-          <details className={styles.dropdown}>
-            <summary title={dashboardCopy.filterTooltips.columns}>
-              <LayoutPanelTop size={16} />
-              <span>{dashboardCopy.columnsLabel}</span>
-            </summary>
-            <div className={styles.dropdownBody}>
-              {AVAILABLE_LEAD_COLUMNS.map((column) => (
-                <label className={styles.dropdownOption} key={column}>
-                  <input
-                    checked={visibleColumns.includes(column)}
-                    onChange={() => toggleColumn(column)}
-                    type="checkbox"
-                  />
-                  <span>{renderColumnHeader(column)}</span>
-                </label>
-              ))}
-            </div>
-          </details>
+          <div className={styles.filterControl}>
+            <details className={styles.dropdown}>
+              <summary title={dashboardCopy.filterTooltips.columns}>
+                <LayoutPanelTop size={16} />
+                <span>{dashboardCopy.columnsLabel}</span>
+              </summary>
+              <div className={styles.dropdownBody}>
+                {AVAILABLE_LEAD_COLUMNS.map((column) => (
+                  <label className={styles.dropdownOption} key={column}>
+                    <input
+                      checked={visibleColumns.includes(column)}
+                      onChange={() => toggleColumn(column)}
+                      type="checkbox"
+                    />
+                    <span>{renderColumnLabel(column)}</span>
+                  </label>
+                ))}
+              </div>
+            </details>
+            <InfoTooltip
+              content={dashboardCopy.filterTooltips.columns}
+              label={dashboardCopy.columnsLabel}
+            />
+          </div>
         </div>
       </div>
 
       <div className={styles.filtersRow}>
-        <label className={styles.dateField}>
-          <span>{dashboardCopy.dateFromLabel}</span>
-          <div>
-            <CalendarRange size={14} />
-            <input
-              onChange={(event) => updateFilter("createdFrom", event.target.value)}
-              type="date"
-              value={filters.createdFrom}
+        <div className={styles.dateGroup}>
+          <div className={styles.filterControl}>
+            <strong>{dashboardCopy.dateFilterLabel}</strong>
+            <InfoTooltip
+              align="left"
+              content={dashboardCopy.filterTooltips.date}
+              label={dashboardCopy.dateFilterLabel}
             />
           </div>
-        </label>
-        <label className={styles.dateField}>
-          <span>{dashboardCopy.dateToLabel}</span>
-          <div>
-            <CalendarRange size={14} />
-            <input
-              onChange={(event) => updateFilter("createdTo", event.target.value)}
-              type="date"
-              value={filters.createdTo}
-            />
+          <div className={styles.dateInputs}>
+            <label className={styles.dateField}>
+              <span>{dashboardCopy.dateFromLabel}</span>
+              <div>
+                <CalendarRange size={14} />
+                <input
+                  onChange={(event) => updateFilter("createdFrom", event.target.value)}
+                  type="date"
+                  value={filters.createdFrom}
+                />
+              </div>
+            </label>
+            <label className={styles.dateField}>
+              <span>{dashboardCopy.dateToLabel}</span>
+              <div>
+                <CalendarRange size={14} />
+                <input
+                  onChange={(event) => updateFilter("createdTo", event.target.value)}
+                  type="date"
+                  value={filters.createdTo}
+                />
+              </div>
+            </label>
           </div>
-        </label>
+        </div>
         <button className={styles.secondaryButton} onClick={handleExportCsv} type="button">
           <Download size={16} />
           <span>{dashboardCopy.exportCsvLabel}</span>

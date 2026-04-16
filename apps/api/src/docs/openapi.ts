@@ -3,9 +3,11 @@ import {
   apiKeyCreateRequestSchema,
   apiKeyCreateResponseSchema,
   apiKeyListResponseSchema,
+  acceptInviteRequestSchema,
   authIntrospectionResponseSchema,
   createOrganizationRequestSchema,
   createOrganizationResponseSchema,
+  createInviteRequestSchema,
   loginRequestSchema,
   loginResponseSchema,
   logoutResponseSchema,
@@ -95,6 +97,33 @@ const apiKeyRevocationResponseSchema = z.object({
   revoked: z.literal(true)
 });
 
+const inviteStatusSchema = z.enum(["PENDING", "ACCEPTED", "REVOKED"]);
+
+const inviteResponseSchema = z.object({
+  acceptedAt: z.string().datetime().nullable().optional(),
+  email: z.string().email(),
+  expiresAt: z.string().datetime(),
+  id: z.string(),
+  invitedByUserId: z.string().nullable().optional(),
+  organizationId: z.string(),
+  revokedAt: z.string().datetime().nullable().optional(),
+  role: roleSchema,
+  status: inviteStatusSchema,
+  tenantId: z.string(),
+  token: z.string()
+});
+
+const inviteListResponseSchema = z.object({
+  items: z.array(inviteResponseSchema),
+  nextCursor: z.string().nullable()
+});
+
+const inviteAcceptanceResponseSchema = z.object({
+  membershipId: z.string(),
+  tenantId: z.string(),
+  userId: z.string()
+});
+
 function normalizeJsonSchema(value: unknown): unknown {
   if (Array.isArray(value)) {
     return value.map((item) => normalizeJsonSchema(item));
@@ -160,11 +189,16 @@ const componentSchemas = {
   ApiKeyCreateResponse: toOpenApiSchema(apiKeyCreateResponseSchema),
   ApiKeyListResponse: toOpenApiSchema(apiKeyListResponseSchema),
   ApiKeyRevocationResponse: toOpenApiSchema(apiKeyRevocationResponseSchema),
+  AcceptInviteRequest: toOpenApiSchema(acceptInviteRequestSchema),
   AuthIntrospectionResponse: toOpenApiSchema(authIntrospectionResponseSchema),
   CreateOrganizationRequest: toOpenApiSchema(createOrganizationRequestSchema),
   CreateOrganizationResponse: toOpenApiSchema(createOrganizationResponseSchema),
+  CreateInviteRequest: toOpenApiSchema(createInviteRequestSchema),
   EnableMfaRequest: toOpenApiSchema(enableMfaRequestSchema),
   EnableMfaResponse: toOpenApiSchema(enableMfaResponseSchema),
+  InviteAcceptanceResponse: toOpenApiSchema(inviteAcceptanceResponseSchema),
+  InviteListResponse: toOpenApiSchema(inviteListResponseSchema),
+  InviteResponse: toOpenApiSchema(inviteResponseSchema),
   LoginRequest: toOpenApiSchema(loginRequestSchema),
   LoginResponse: toOpenApiSchema(loginResponseSchema),
   LogoutResponse: toOpenApiSchema(logoutResponseSchema),
@@ -389,6 +423,87 @@ const openApiPaths: Record<string, JsonSchema> = {
         tags: ["budgets"]
       }
     },
+    "/api/v1/invites": {
+      get: {
+        operationId: "listInvites",
+        responses: {
+          "200": jsonResponse(
+            "Lists invites visible to the authenticated administrator.",
+            "InviteListResponse"
+          ),
+          "400": problemResponse("Active tenant context is required."),
+          "401": problemResponse("A valid authenticated session is required."),
+          "403": problemResponse("Administrator role is required."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "List organization invites",
+        tags: ["invites"]
+      },
+      post: {
+        operationId: "createInvite",
+        requestBody: jsonRequestBody(
+          "CreateInviteRequest",
+          "Invite payload used to create a pending organization invite."
+        ),
+        responses: {
+          "201": jsonResponse("Creates and returns a pending invite.", "InviteResponse"),
+          "400": problemResponse("Request payload or tenant context is invalid."),
+          "401": problemResponse("Authenticated organization context is required."),
+          "403": problemResponse("Administrator role is required."),
+          "404": problemResponse("Organization was not found for the active tenant."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Create an organization invite",
+        tags: ["invites"]
+      }
+    },
+    "/api/v1/invites/accept": {
+      post: {
+        operationId: "acceptInvite",
+        requestBody: jsonRequestBody(
+          "AcceptInviteRequest",
+          "Invite token payload used to accept a pending invite."
+        ),
+        responses: {
+          "200": jsonResponse(
+            "Accepts the invite and returns the resulting membership reference.",
+            "InviteAcceptanceResponse"
+          ),
+          "400": problemResponse("Request payload is invalid."),
+          "404": problemResponse("Invite token is invalid or inactive."),
+          "410": problemResponse("Invite token has expired."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Accept an organization invite",
+        tags: ["invites"]
+      }
+    },
+    "/api/v1/invites/{id}/revoke": {
+      post: {
+        operationId: "revokeInvite",
+        parameters: [
+          {
+            in: "path",
+            name: "id",
+            required: true,
+            schema: {
+              minLength: 1,
+              type: "string"
+            }
+          }
+        ],
+        responses: {
+          "200": jsonResponse("Revokes the selected invite.", "InviteResponse"),
+          "400": problemResponse("Active tenant context or invite id is invalid."),
+          "401": problemResponse("A valid authenticated session is required."),
+          "403": problemResponse("Administrator role is required."),
+          "404": problemResponse("Invite was not found for the active tenant."),
+          "500": problemResponse("Unexpected internal server error.")
+        },
+        summary: "Revoke an organization invite",
+        tags: ["invites"]
+      }
+    },
     "/api/v1/me": {
       get: {
         operationId: "getCurrentProfile",
@@ -531,7 +646,7 @@ export const openApiDocument: OpenApiDocument = {
     description:
       "Mounted business API baseline for the canonical BirthHub360 runtime. Operational, parked and compatibility-only surfaces are intentionally excluded.",
     title: "BirthHub360 API",
-    version: "1.2.0"
+    version: "1.3.0"
   },
   jsonSchemaDialect: "https://json-schema.org/draft/2020-12/schema",
   openapi: "3.1.0",
