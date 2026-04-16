@@ -70,7 +70,7 @@ void test("sendEtaggedJson returns 200 with cache headers and serialized JSON", 
   assert.equal(snapshot.contentType, "application/json");
   assert.equal(snapshot.body, JSON.stringify(payload));
   assert.equal(snapshot.headers.get("Cache-Control"), "public, max-age=120");
-  assert.match(snapshot.headers.get("ETag") ?? "", /^"[a-f0-9]{40}"$/);
+  assert.match(snapshot.headers.get("ETag") ?? "", /^"[a-f0-9]{64}"$/);
   assert.equal(snapshot.ended, false);
 });
 
