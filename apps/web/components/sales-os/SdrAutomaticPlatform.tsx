@@ -14,6 +14,7 @@ import {
 import type { SupportedLocale } from "../../lib/i18n";
 import {
   getSdrAutomaticConfig,
+  getSdrAutomaticViewDefinitions,
   type SdrAutomaticCopy,
   type SdrAutomaticLead,
   type SdrAutomaticTimeSlot
@@ -28,40 +29,22 @@ import styles from "./sdr-automatic-platform.module.css";
 
 type ViewId = "agendador" | "assistente" | "handoff" | "leadScore";
 
-type ViewDefinition = {
-  description: string;
+type ViewDefinition = ReturnType<typeof getSdrAutomaticViewDefinitions>[number] & {
   icon: LucideIcon;
-  id: ViewId;
-  label: string;
 };
 
 function buildViews(copy: SdrAutomaticCopy): ViewDefinition[] {
-  return [
-    {
-      description: copy.leadSubtitle,
-      icon: Filter,
-      id: "leadScore",
-      label: copy.leadTitle
-    },
-    {
-      description: copy.assistantSubtitle,
-      icon: MessageSquareQuote,
-      id: "assistente",
-      label: copy.assistantTitle
-    },
-    {
-      description: copy.agendaSubtitle,
-      icon: CalendarPlus,
-      id: "agendador",
-      label: copy.agendaTitle
-    },
-    {
-      description: copy.handoffSubtitle,
-      icon: Send,
-      id: "handoff",
-      label: copy.handoffTitle
-    }
-  ];
+  return getSdrAutomaticViewDefinitions(copy).map((view) => ({
+    ...view,
+    icon:
+      view.id === "leadScore"
+        ? Filter
+        : view.id === "assistente"
+          ? MessageSquareQuote
+          : view.id === "agendador"
+            ? CalendarPlus
+            : Send
+  }));
 }
 
 function renderActiveView(input: {

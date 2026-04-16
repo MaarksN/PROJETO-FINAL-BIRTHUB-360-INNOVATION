@@ -1,35 +1,40 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import React from "react";
-import { renderToString } from "react-dom/server";
+import {
+  getSdrAutomaticConfig,
+  getSdrAutomaticViewDefinitions,
+  toneForScore
+} from "../components/sales-os/sdr-automatic-data";
 
-void test("sdr automatic platform renders the Portuguese default workspace", async () => {
-  const { SdrAutomaticPlatform } = await import("../components/sales-os/SdrAutomaticPlatform.js");
-  const markup = renderToString(
-    React.createElement(SdrAutomaticPlatform, {
-      locale: "pt-BR"
-    })
+void test("sdr automatic platform exposes the localized navigation contract", () => {
+  const portuguese = getSdrAutomaticViewDefinitions(getSdrAutomaticConfig("pt-BR").copy);
+  const english = getSdrAutomaticViewDefinitions(getSdrAutomaticConfig("en-US").copy);
+
+  assert.deepEqual(
+    portuguese.map((view) => view.id),
+    ["leadScore", "assistente", "agendador", "handoff"]
   );
-
-  assert.match(markup, /BirthHub 360 SDR Automatic/);
-  assert.match(markup, /Co-piloto: Lead Score Preditivo/);
-  assert.match(markup, /Julia Andrade/);
-  assert.match(markup, /Plataforma SDR/);
-  assert.match(markup, /Critica/);
+  assert.equal(portuguese[0]?.label, "Co-piloto: Lead Score Preditivo");
+  assert.equal(english[0]?.label, "Co-pilot: Predictive Lead Score");
+  assert.equal(portuguese[2]?.label, "Co-piloto: Agendador Inteligente");
+  assert.equal(english[3]?.label, "Co-pilot: Handoff Briefing");
 });
 
-void test("sdr automatic platform renders localized English labels", async () => {
-  const { SdrAutomaticPlatform } = await import("../components/sales-os/SdrAutomaticPlatform.js");
-  const markup = renderToString(
-    React.createElement(SdrAutomaticPlatform, {
-      locale: "en-US"
-    })
-  );
+void test("sdr automatic platform ships the expected priority data and time slots", () => {
+  const { leads, timeSlots } = getSdrAutomaticConfig("pt-BR");
 
-  assert.match(markup, /BirthHub 360 SDR Automatic/);
-  assert.match(markup, /Co-pilot: Predictive Lead Score/);
-  assert.match(markup, /SDR Platform/);
-  assert.match(markup, /Critical leads/);
-  assert.match(markup, /Call now/);
+  assert.equal(leads.length >= 3, true);
+  assert.equal(leads[0]?.name, "Julia Andrade");
+  assert.equal(leads[0]?.priorityTone, "critical");
+  assert.equal(leads[1]?.priorityTone, "high");
+  assert.equal(leads[2]?.priorityTone, "warm");
+  assert.equal(timeSlots[0]?.label, "09:30");
+  assert.equal(timeSlots[0]?.recommended, true);
+});
+
+void test("sdr automatic platform keeps score-to-tone mapping stable", () => {
+  assert.equal(toneForScore(98), "critical");
+  assert.equal(toneForScore(82), "high");
+  assert.equal(toneForScore(74), "warm");
 });

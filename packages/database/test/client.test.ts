@@ -20,7 +20,7 @@ import { PrismaQueryTimeoutError } from "../src/errors/prisma-query-timeout.erro
 import { runWithTenantContext } from "../src/tenant-context.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
-  const original = Reflect.get(target, key);
+  const original: unknown = Reflect.get(target, key);
   Reflect.set(target, key, value);
   return () => {
     Reflect.set(target, key, original);
@@ -153,14 +153,14 @@ void test("withTenantDatabaseContext sets app.current_tenant_id inside the trans
   const calls: Array<{ kind: string; values?: unknown[] }> = [];
 
   const fakeClient = {
-    $transaction: async (callback: (tx: { $executeRaw: (...args: unknown[]) => Promise<number> }) => Promise<string>) =>
+    $transaction: (callback: (tx: { $executeRaw: (...args: unknown[]) => Promise<number> }) => Promise<string>) =>
       callback({
-        $executeRaw: async (...args: unknown[]) => {
+        $executeRaw: (...args: unknown[]) => {
           calls.push({
             kind: "execute",
             values: args.slice(1)
           });
-          return 1;
+          return Promise.resolve(1);
         }
       })
   };
@@ -170,7 +170,7 @@ void test("withTenantDatabaseContext sets app.current_tenant_id inside the trans
       source: "authenticated",
       tenantId: "tenant-alpha"
     },
-    () => withTenantDatabaseContext(async () => "ok", fakeClient as never)
+    () => withTenantDatabaseContext(() => Promise.resolve("ok"), fakeClient as never)
   );
 
   assert.equal(result, "ok");
@@ -180,7 +180,7 @@ void test("withTenantDatabaseContext sets app.current_tenant_id inside the trans
 
 void test("pingDatabase and pingDatabaseDeep expose up/down health based on Prisma operations", async () => {
   const restores = [
-    stubMethod(prisma, "$queryRaw", async () => 1)
+    stubMethod(prisma, "$queryRaw", () => Promise.resolve(1))
   ];
 
   try {
@@ -195,9 +195,7 @@ void test("pingDatabase and pingDatabaseDeep expose up/down health based on Pris
   }
 
   const failingRestores = [
-    stubMethod(prisma, "$queryRaw", async () => {
-      throw new Error("db down");
-    })
+    stubMethod(prisma, "$queryRaw", () => Promise.reject(new Error("db down")))
   ];
 
   try {
@@ -216,7 +214,7 @@ void test("pingDatabase and pingDatabaseDeep expose up/down health based on Pris
 });
 
 void test("monkeypatching prisma remains compatible with the lazy proxy export", async () => {
-  const restore = stubMethod(prisma, "$disconnect", async () => undefined);
+  const restore = stubMethod(prisma, "$disconnect", () => Promise.resolve(undefined));
 
   try {
     await assert.doesNotReject(async () => prisma.$disconnect());
