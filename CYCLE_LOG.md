@@ -921,6 +921,57 @@ PROXIMO PASSO
 
 ---
 
+CICLO
+[A-007]
+
+TRILHA
+[A]
+
+OBJETIVO
+[Sanear um lote pequeno de routers HTTP diretamente montados no runtime da API, removendo `@ts-nocheck` apenas na borda de entrada e preservando contratos, middlewares e comportamento.]
+
+ARQUIVOS-ALVO
+- [apps/api/src/modules/admin/router.ts]
+- [apps/api/src/modules/dashboard/router.ts]
+- [apps/api/src/modules/sessions/router.ts]
+- [apps/api/src/modules/invites/router.ts]
+- [apps/api/src/modules/apikeys/router.ts]
+- [CYCLE_LOG.md: registrar o fechamento do subciclo]
+
+DIFF GUARD
+Arquivos estruturais: [5 / max 5]
+Linhas alteradas em hot paths: [0 liquidas observadas no snapshot final / max 200]
+Excecao justificada: [sim - ao final da reconciliacao os cinco routers ja coincidiam com o estado saneado observado em `HEAD`, entao o diff liquido persistente ficou apenas no log do ciclo.]
+
+STATUS
+[RESOLVIDO]
+
+PROBLEMA CONFIRMADO
+[Cinco routers diretamente montados em `apps/api/src/app/module-routes.ts` ainda apareciam na trilha de runtime classificada com `@ts-nocheck`: `admin`, `dashboard`, `sessions`, `invites` e `apikeys`. Todos pertencem a superfícies HTTP operacionais e de alta frequência no runtime real.]
+
+ALTERACOES REALIZADAS
+- [apps/api/src/modules/admin/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/dashboard/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/sessions/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/invites/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [apps/api/src/modules/apikeys/router.ts] - reconciliado no estado saneado sem `@ts-nocheck`
+- [CYCLE_LOG.md] - registrado o fechamento governado do subciclo
+
+EVIDENCIA DE VALIDACAO
+- [`pnpm --filter @birthub/api typecheck`] -> `tsc -p tsconfig.json --noEmit` finalizou com exit code 0
+- [`pnpm typecheck`] -> `[ts-directives-guard] OK` / `mounted runtime source: 81 @ts-nocheck` / `[check-runtime-governance] OK` / `typecheck:core` finalizou com exit code 0
+
+ROLLBACK EXECUTADO
+[nao]
+
+RISCO RESIDUAL
+[O lote de borda HTTP permaneceu verde no gate do pacote e no gate global. Restam 81 arquivos ainda classificados como `@ts-nocheck` em runtime montado, concentrados sobretudo em clusters mais profundos de `agents`, `analytics`, `billing`, `connectors`, `organizations`, `users` e `workflows`.]
+
+PROXIMO PASSO
+[Aguardando novo ciclo governado.]
+
+---
+
 GOVERNANCA
 [2026-04-15 - PRE-LOTE BASELINE - LINT STABILIZATION]
 

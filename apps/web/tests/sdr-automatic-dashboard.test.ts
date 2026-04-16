@@ -68,14 +68,18 @@ void test("support reply summarizes SLA pressure from live metrics", () => {
 
 void test("live trend polling keeps a rolling chart window with fresh timestamps", () => {
   const trend = createInitialTrendSeries("pt-BR");
+  const frame = LEAD_POLLING_FRAMES[0];
   const expectedLabel = new Intl.DateTimeFormat("pt-BR", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit"
   }).format(new Date("2026-04-15T13:45:30.000Z"));
+
+  assert.ok(frame);
+
   const updated = applyPollingFrameToTrend(
     trend,
-    LEAD_POLLING_FRAMES[0],
+    frame,
     "pt-BR",
     new Date("2026-04-15T13:45:30.000Z")
   );
@@ -85,7 +89,7 @@ void test("live trend polling keeps a rolling chart window with fresh timestamps
   assert.equal(updated[updated.length - 1]?.label, expectedLabel);
   assert.equal(
     updated[updated.length - 1]?.leads,
-    (trend[trend.length - 1]?.leads ?? 0) + LEAD_POLLING_FRAMES[0]!.activeLeadsDelta
+    (trend[trend.length - 1]?.leads ?? 0) + frame.activeLeadsDelta
   );
 });
 

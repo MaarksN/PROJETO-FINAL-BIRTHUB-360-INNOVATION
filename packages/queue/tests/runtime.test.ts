@@ -75,8 +75,9 @@ void test("final failures are forwarded to DLQ with original payload and context
   await forwardToDlq(
     "workflow-execution",
     {
-      add: async (name: string, payload: unknown, options: unknown) => {
+      add: (name: string, payload: unknown, options: unknown) => {
         added.push({ name, options, payload });
+        return Promise.resolve();
       },
       name: "workflow-execution.dlq"
     } as never,
