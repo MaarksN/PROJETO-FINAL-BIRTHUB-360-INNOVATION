@@ -1,4 +1,3 @@
-/* eslint-disable complexity, max-lines */
 "use client";
 
 import {
