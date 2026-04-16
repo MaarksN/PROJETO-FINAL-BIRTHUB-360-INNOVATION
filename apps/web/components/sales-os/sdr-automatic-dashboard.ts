@@ -50,13 +50,44 @@ export type LeadColumnTooltipId = LeadColumnId | "region" | "sequenceStatus";
 export type LeadScoreBandId = "critical" | "high" | "warm";
 
 export type ChurnWatchEntry = {
+  company: string;
+  owner: string;
+  region: LeadRegionId;
+  riskScore: number;
+  summary: string;
   tone: "critical" | "healthy" | "watch";
+};
+
+export type FunnelPoint = {
+  count: number;
+  fill?: string;
+  id: string;
+  label: string;
+};
+
+export type PipelinePoint = {
+  conversionRate: number;
+  count: number;
+  stage: SdrAutomaticLead["stage"];
+  stageLabel: string;
+};
+
+export type RegionalPerformancePoint = {
+  activeAccounts: number;
+  pipelineCoverage: number;
+  region: LeadRegionId;
+  regionLabel: string;
+  revenuePotential: number;
+  slaCompliance: number;
+  x: number;
+  y: number;
 };
 
 export type LeadFilters = {
   createdFrom: string;
   createdTo: string;
   query: string;
+  regions: LeadRegionId[];
   scoreBands: LeadScoreBandId[];
   stages: SdrAutomaticLead["stage"][];
 };
@@ -189,6 +220,7 @@ export const DEFAULT_LEAD_FILTERS: LeadFilters = {
   createdFrom: "",
   createdTo: "",
   query: "",
+  regions: [],
   scoreBands: [],
   stages: []
 };
@@ -288,8 +320,104 @@ export function getScoreBand(score: number): LeadScoreBandId {
   return "warm";
 }
 
+export function getLeadEngagementBoost(lead: SdrAutomaticLead): number {
+  const engagement = lead.engagement;
+
+  if (!engagement) {
+    return 0;
+  }
+
+  const hotIntentBoost = engagement.hotPages.reduce((total, page) => {
+    const normalizedPage = page.toLowerCase();
+
+    if (
+      normalizedPage.includes("pricing") ||
+      normalizedPage.includes("preco") ||
+      normalizedPage.includes("roi") ||
+      normalizedPage.includes("demo") ||
+      normalizedPage.includes("integr")
+    ) {
+      return total + 2;
+    }
+
+    return total + 1;
+  }, 0);
+
+  return clamp(engagement.emailClicks + Math.floor(engagement.pageVisits / 2) + hotIntentBoost, 0, 14);
+}
+
+export function getLeadSupportPenalty(lead: SdrAutomaticLead): number {
+  const support = lead.support;
+
+  if (!support) {
+    return 0;
+  }
+
+  const sentimentPenalty =
+    support.sentiment === "negative" ? 4 : support.sentiment === "neutral" ? 1 : 0;
+
+  return clamp(sentimentPenalty + Math.max(0, support.recentTickets - 1), 0, 10);
+}
+
+export function calculateChurnRiskScore(lead: SdrAutomaticLead): number {
+  const slaPenalty =
+    lead.slaStatus === "breached" ? 22 : lead.slaStatus === "watch" ? 10 : 0;
+  const sequencePenalty = lead.sequenceStatus === "paused" ? 12 : 0;
+
+  return clamp(
+    28 + getLeadSupportPenalty(lead) * 6 + slaPenalty + sequencePenalty - getLeadEngagementBoost(lead) * 2,
+    6,
+    96
+  );
+}
+
+export function getSequencePlan(
+  lead: SdrAutomaticLead,
+  locale: SupportedLocale
+): {
+  cadenceLabel: string;
+  followUpSubject: string;
+  primarySubject: string;
+} {
+  const english = isEnglish(locale);
+  const company = lead.company;
+
+  if (lead.stage === "proposal" || lead.stage === "negotiation") {
+    return {
+      cadenceLabel: english ? "Decision acceleration" : "Aceleracao de decisao",
+      followUpSubject: english ? `ROI case for ${company}` : `Caso de ROI para ${company}`,
+      primarySubject: english
+        ? `Executive recap for ${company}`
+        : `Resumo executivo para ${company}`
+    };
+  }
+
+  if (lead.stage === "demo") {
+    return {
+      cadenceLabel: english ? "Demo confirmation" : "Confirmacao de demo",
+      followUpSubject: english
+        ? `Agenda and stakeholders for ${company}`
+        : `Agenda e stakeholders de ${company}`,
+      primarySubject: english
+        ? `Demo prep for ${company}`
+        : `Preparacao de demo para ${company}`
+    };
+  }
+
+  return {
+    cadenceLabel: english ? "Qualification nurture" : "Nurture de qualificacao",
+    followUpSubject: english
+      ? `Buying signals from ${company}`
+      : `Sinais de compra de ${company}`,
+    primarySubject: english
+      ? `Next best step for ${company}`
+      : `Proximo melhor passo para ${company}`
+  };
+}
+
 export function filterLeads(leads: SdrAutomaticLead[], filters: LeadFilters): SdrAutomaticLead[] {
   const normalizedQuery = normalizeQuery(filters.query);
+  const hasRegionFilter = filters.regions.length > 0;
   const hasStageFilter = filters.stages.length > 0;
   const hasScoreFilter = filters.scoreBands.length > 0;
   const fromDate = filters.createdFrom ? new Date(`${filters.createdFrom}T00:00:00`) : null;
@@ -301,6 +429,10 @@ export function filterLeads(leads: SdrAutomaticLead[], filters: LeadFilters): Sd
     }
 
     if (hasStageFilter && !filters.stages.includes(lead.stage)) {
+      return false;
+    }
+
+    if (hasRegionFilter && (!lead.region || !filters.regions.includes(lead.region))) {
       return false;
     }
 
