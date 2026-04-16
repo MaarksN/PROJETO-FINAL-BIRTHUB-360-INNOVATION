@@ -9,6 +9,7 @@ import {
 
 import type { SupportedLocale } from "../../lib/i18n";
 import type {
+  CrmRegionSnapshot,
   SdrAutomaticCopy,
   SdrAutomaticLead,
   SdrAutomaticTimeSlot
@@ -22,10 +23,18 @@ function isEnglish(locale: SupportedLocale) {
 
 export function SdrLeadScoreView(input: {
   copy: SdrAutomaticCopy;
+  crmRegions: CrmRegionSnapshot[];
   leads: SdrAutomaticLead[];
   locale: SupportedLocale;
 }) {
-  return <SdrLeadScoreWorkspace copy={input.copy} leads={input.leads} locale={input.locale} />;
+  return (
+    <SdrLeadScoreWorkspace
+      copy={input.copy}
+      crmRegions={input.crmRegions}
+      leads={input.leads}
+      locale={input.locale}
+    />
+  );
 }
 
 export function SdrAssistenteView(input: {

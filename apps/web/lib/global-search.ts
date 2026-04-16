@@ -62,6 +62,13 @@ export function getLocalSearchShortcuts(locale: SupportedLocale): GlobalSearchIt
         type: "shortcut"
       },
       {
+        href: "/marketplace/compare",
+        id: "shortcut-marketplace-compare",
+        subtitle: "Compare dominios, ferramentas e cobertura premium lado a lado antes do rollout.",
+        title: "Comparativo Premium",
+        type: "shortcut"
+      },
+      {
         href: "/packs",
         id: "shortcut-premium-packs",
         subtitle: "Veja status, ativacao e rollout dos packs premium executivos instalados.",
@@ -80,6 +87,13 @@ export function getLocalSearchShortcuts(locale: SupportedLocale): GlobalSearchIt
         id: "shortcut-sales-os",
         subtitle: "BirthHub Sales OS unificado com modulos, roleplays e mentor contextual.",
         title: "Sales OS",
+        type: "shortcut"
+      },
+      {
+        href: "/sales-os/sdr-automatico",
+        id: "shortcut-sdr-automatic",
+        subtitle: "Superficie SDR dedicada com lead score preditivo, agenda inteligente e handoff premium.",
+        title: "SDR Automatic",
         type: "shortcut"
       }
     ];
@@ -101,6 +115,13 @@ export function getLocalSearchShortcuts(locale: SupportedLocale): GlobalSearchIt
       type: "shortcut"
     },
     {
+      href: "/marketplace/compare",
+      id: "shortcut-marketplace-compare",
+      subtitle: "Compare domains, tools, and premium coverage side by side before rollout.",
+      title: "Premium Compare",
+      type: "shortcut"
+    },
+    {
       href: "/packs",
       id: "shortcut-premium-packs",
       subtitle: "Review status, activation, and rollout of installed executive premium packs.",
@@ -119,6 +140,13 @@ export function getLocalSearchShortcuts(locale: SupportedLocale): GlobalSearchIt
       id: "shortcut-sales-os",
       subtitle: "Unified BirthHub Sales OS with modules, roleplays, and contextual mentor.",
       title: "Sales OS",
+      type: "shortcut"
+    },
+    {
+      href: "/sales-os/sdr-automatico",
+      id: "shortcut-sdr-automatic",
+      subtitle: "Dedicated SDR surface with predictive lead score, smart scheduling, and premium handoff.",
+      title: "SDR Automatic",
       type: "shortcut"
     }
   ];

@@ -1,5 +1,16 @@
+import type { SupportedLocale } from "../../lib/i18n";
+
 import type { SdrAutomaticLead } from "./sdr-automatic-data";
-import { getScoreBand } from "./sdr-automatic-dashboard";
+import {
+  calculateChurnRiskScore,
+  getLeadDashboardCopy,
+  getLeadEngagementBoost,
+  getLeadSupportPenalty,
+  getScoreBand,
+  getSequencePlan,
+  resolveSlaLabel
+} from "./sdr-automatic-dashboard";
+import { createLeadInsightFallback } from "./sdr-automatic-support";
 
 export type SupportMessage = {
   id: string;
@@ -7,10 +18,20 @@ export type SupportMessage = {
   text: string;
 };
 
+export type LeadInsightDetail = {
+  highlights: string[];
+  recommendedActions: string[];
+  scoreBreakdown: Array<{
+    label: string;
+    value: string;
+  }>;
+  summary: string;
+};
+
 export type LeadInsightState = {
+  detail: LeadInsightDetail;
   source: string;
   status: "error" | "loading" | "ready";
-  text: string;
 };
 
 export function buildId(prefix: string): string {
@@ -21,14 +42,14 @@ export function buildScoreFillColor(score: number): string {
   const band = getScoreBand(score);
 
   if (band === "critical") {
-    return "#ef4444";
+    return "#f97316";
   }
 
   if (band === "high") {
     return "#f59e0b";
   }
 
-  return "#38bdf8";
+  return "#0ea5e9";
 }
 
 export function buildStageColor(stage: SdrAutomaticLead["stage"]): string {
@@ -43,11 +64,81 @@ export function buildStageColor(stage: SdrAutomaticLead["stage"]): string {
       return "#14b8a6";
     case "new":
     default:
-      return "#8b5cf6";
+      return "#22c55e";
   }
+}
+
+export function buildSequenceStatusTone(status: SdrAutomaticLead["sequenceStatus"]) {
+  if (status === "completed") {
+    return "healthy" as const;
+  }
+
+  if (status === "paused") {
+    return "watch" as const;
+  }
+
+  return "active" as const;
 }
 
 export function compactInsight(text: string): string {
   const compact = text.replace(/\s+/g, " ").trim();
-  return compact.length > 320 ? `${compact.slice(0, 317)}...` : compact;
+  return compact.length > 420 ? `${compact.slice(0, 417)}...` : compact;
+}
+
+export function buildLeadInsightDetail(
+  lead: SdrAutomaticLead,
+  locale: SupportedLocale,
+  agentSummary?: string
+): LeadInsightDetail {
+  const copy = getLeadDashboardCopy(locale);
+  const engagementBoost = getLeadEngagementBoost(lead);
+  const supportPenalty = getLeadSupportPenalty(lead);
+  const sequencePlan = getSequencePlan(lead, locale);
+  const churnRisk = calculateChurnRiskScore(lead);
+  const fallbackSummary = createLeadInsightFallback(lead, locale);
+  const summary = compactInsight(agentSummary && agentSummary.trim().length > 0 ? agentSummary : fallbackSummary);
+
+  return {
+    highlights: [
+      locale === "en-US"
+        ? `${lead.engagement.emailClicks} email clicks and ${lead.engagement.pageVisits} high-intent page visits from ${copy.regionLabels[lead.region]}.`
+        : `${lead.engagement.emailClicks} cliques em e-mail e ${lead.engagement.pageVisits} visitas de alta intencao vindas de ${copy.regionLabels[lead.region]}.`,
+      locale === "en-US"
+        ? `Key pages: ${lead.engagement.hotPages.slice(0, 3).join(", ")}.`
+        : `Paginas-chave: ${lead.engagement.hotPages.slice(0, 3).join(", ")}.`,
+      locale === "en-US"
+        ? `SLA is ${resolveSlaLabel(locale, lead.slaStatus).toLowerCase()} and churn pressure is ${churnRisk}/100.`
+        : `SLA esta ${resolveSlaLabel(locale, lead.slaStatus).toLowerCase()} e a pressao de churn esta em ${churnRisk}/100.`
+    ],
+    recommendedActions: [
+      locale === "en-US"
+        ? `Primary next step: ${lead.action}.`
+        : `Proximo passo principal: ${lead.action}.`,
+      locale === "en-US"
+        ? `Trigger sequence: ${sequencePlan.primarySubject}.`
+        : `Disparar sequencia: ${sequencePlan.primarySubject}.`,
+      locale === "en-US"
+        ? `Owner focus: unblock ${lead.owner} before the score cools down.`
+        : `Foco do owner: destravar ${lead.owner} antes que o score esfrie.`
+    ],
+    scoreBreakdown: [
+      {
+        label: locale === "en-US" ? "Base fit" : "Fit base",
+        value: `${lead.baseScore}`
+      },
+      {
+        label: locale === "en-US" ? "Engagement lift" : "Ganho de engajamento",
+        value: `+${engagementBoost}`
+      },
+      {
+        label: locale === "en-US" ? "Churn drag" : "Arrasto de churn",
+        value: `-${supportPenalty}`
+      },
+      {
+        label: locale === "en-US" ? "Final predictive score" : "Score preditivo final",
+        value: `${lead.score}`
+      }
+    ],
+    summary
+  };
 }

@@ -1,8 +1,9 @@
 import type { SupportedLocale } from "../../lib/i18n";
 
 import type {
+  CrmRegionSnapshot,
   SdrAutomaticCopy,
-  SdrAutomaticLead,
+  SdrAutomaticLeadSeed,
   SdrAutomaticTimeSlot
 } from "./sdr-automatic-data";
 
@@ -32,6 +33,14 @@ export const SDR_AUTOMATIC_COPY: Record<SupportedLocale, SdrAutomaticCopy> = {
     ],
     moduleLabel: "SDR module",
     nextStepLabel: "Next move",
+    premiumDescription:
+      "Connect SDR execution with governance, evidence scorecards, decision memory, and premium handoff for executive reviews.",
+    premiumEyebrow: "Executive Premium",
+    premiumLayersLabel: "shared premium layers",
+    premiumOpenAgents: "Open agents",
+    premiumSummaryLabel: "premium executive agents",
+    premiumTitle: "Board-ready premium overlay",
+    premiumViewAll: "Open premium collection",
     quickBrief: "Account signal",
     salesRepName: "Lucas Mendes",
     salesRepRole: "SDR",
@@ -70,6 +79,14 @@ export const SDR_AUTOMATIC_COPY: Record<SupportedLocale, SdrAutomaticCopy> = {
     ],
     moduleLabel: "Modulo SDR",
     nextStepLabel: "Proximo passo",
+    premiumDescription:
+      "Conecte a execucao SDR com governanca, scorecards de evidencia, memoria decisoria e handoff premium para revisoes executivas.",
+    premiumEyebrow: "Executive Premium",
+    premiumLayersLabel: "camadas premium compartilhadas",
+    premiumOpenAgents: "Abrir agentes",
+    premiumSummaryLabel: "agentes executivos premium",
+    premiumTitle: "Overlay premium pronto para board",
+    premiumViewAll: "Abrir colecao premium",
     quickBrief: "Sinal da conta",
     salesRepName: "Lucas Mendes",
     salesRepRole: "SDR",
@@ -85,352 +102,815 @@ export const SDR_AUTOMATIC_COPY: Record<SupportedLocale, SdrAutomaticCopy> = {
   }
 };
 
-export const SDR_AUTOMATIC_LEADS: Record<SupportedLocale, SdrAutomaticLead[]> = {
+export const SDR_AUTOMATIC_LEADS: Record<SupportedLocale, SdrAutomaticLeadSeed[]> = {
   "en-US": [
     {
       action: "Call now",
+      city: "Sao Paulo",
       company: "Connecta Corp",
+      companySize: "Mid-market",
+      country: "Brazil",
       createdAt: "2026-04-15T08:05:00.000Z",
+      crmAnnualValue: 180000,
       email: "julia.andrade@connectacorp.com",
+      engagement: {
+        emailClicks: 4,
+        hotPages: ["Pricing", "ROI calculator", "Demo request"],
+        lastTouchpointAt: "2026-04-15T08:12:00.000Z",
+        pageVisits: 6
+      },
       id: "lead_julia_andrade",
+      latitude: -23.5505,
+      lifecycleStage: "opportunity",
+      longitude: -46.6333,
       name: "Julia Andrade",
       owner: "Lucas Mendes",
       priority: "Critical",
       priorityTone: "critical",
+      region: "latin-america",
       role: "Marketing Director",
-      score: 98,
+      score: 91,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T09:20:00.000Z",
       slaStatus: "breached",
       source: "Downloaded \"Sales 4.0\" ebook",
-      stage: "proposal"
+      stage: "proposal",
+      support: {
+        recentTickets: 1,
+        sentiment: "neutral",
+        summary: "Asked for a faster pricing turnaround after comparing vendors."
+      }
     },
     {
       action: "Qualify",
+      city: "Lisbon",
       company: "LogiBrasil",
+      companySize: "Enterprise",
+      country: "Portugal",
       createdAt: "2026-04-15T09:12:00.000Z",
+      crmAnnualValue: 215000,
       email: "fernando.costa@logibrasil.com",
+      engagement: {
+        emailClicks: 3,
+        hotPages: ["Integration docs", "Security overview"],
+        lastTouchpointAt: "2026-04-15T09:20:00.000Z",
+        pageVisits: 5
+      },
       id: "lead_fernando_costa",
+      latitude: 38.7223,
+      lifecycleStage: "sql",
+      longitude: -9.1393,
       name: "Fernando Costa",
       owner: "Marina Lopes",
       priority: "High",
       priorityTone: "high",
+      region: "europe",
       role: "IT Manager",
-      score: 82,
+      score: 77,
+      sequenceStatus: "paused",
       slaDueAt: "2026-04-15T13:00:00.000Z",
       slaStatus: "watch",
       source: "Webinar registration",
-      stage: "qualified"
+      stage: "qualified",
+      support: {
+        recentTickets: 2,
+        sentiment: "neutral",
+        summary: "Needs confirmation about SSO and data residency before advancing."
+      }
     },
     {
       action: "Open sequence",
+      city: "Mexico City",
       company: "Midia Sul",
+      companySize: "SMB",
+      country: "Mexico",
       createdAt: "2026-04-14T18:42:00.000Z",
+      crmAnnualValue: 72000,
       email: "patricia.nogueira@midiasul.com.br",
+      engagement: {
+        emailClicks: 2,
+        hotPages: ["Pricing", "Case study"],
+        lastTouchpointAt: "2026-04-14T19:05:00.000Z",
+        pageVisits: 4
+      },
       id: "lead_patricia_nogueira",
+      latitude: 19.4326,
+      lifecycleStage: "lead",
+      longitude: -99.1332,
       name: "Patricia Nogueira",
       owner: "Renato Alves",
       priority: "Warm",
       priorityTone: "warm",
+      region: "latin-america",
       role: "Revenue Ops Lead",
-      score: 74,
+      score: 69,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T16:00:00.000Z",
       slaStatus: "healthy",
       source: "Intent signal on pricing page",
-      stage: "new"
+      stage: "new",
+      support: {
+        recentTickets: 0,
+        sentiment: "positive",
+        summary: "Engaged with content, no support friction detected."
+      }
     },
     {
       action: "Book demo",
+      city: "Austin",
       company: "Nexa Health",
+      companySize: "Enterprise",
+      country: "United States",
       createdAt: "2026-04-14T15:20:00.000Z",
+      crmAnnualValue: 260000,
       email: "carla.souza@nexahealth.io",
+      engagement: {
+        emailClicks: 5,
+        hotPages: ["Demo request", "ROI calculator", "Integration docs"],
+        lastTouchpointAt: "2026-04-14T15:46:00.000Z",
+        pageVisits: 7
+      },
       id: "lead_carla_souza",
+      latitude: 30.2672,
+      lifecycleStage: "mql",
+      longitude: -97.7431,
       name: "Carla Souza",
       owner: "Lucas Mendes",
       priority: "Critical",
       priorityTone: "critical",
+      region: "north-america",
       role: "Revenue Director",
-      score: 94,
+      score: 88,
+      sequenceStatus: "completed",
       slaDueAt: "2026-04-15T11:30:00.000Z",
       slaStatus: "watch",
       source: "Inbound demo request",
-      stage: "demo"
+      stage: "demo",
+      support: {
+        recentTickets: 1,
+        sentiment: "positive",
+        summary: "Champion asked for a faster demo handoff and shared buying committee timing."
+      }
     },
     {
       action: "Send proposal",
+      city: "Toronto",
       company: "Atlas Tech",
+      companySize: "Mid-market",
+      country: "Canada",
       createdAt: "2026-04-13T14:10:00.000Z",
+      crmAnnualValue: 195000,
       email: "marcos.lima@atlastch.com",
+      engagement: {
+        emailClicks: 3,
+        hotPages: ["Pricing", "Security overview"],
+        lastTouchpointAt: "2026-04-13T14:22:00.000Z",
+        pageVisits: 5
+      },
       id: "lead_marcos_lima",
+      latitude: 43.6532,
+      lifecycleStage: "opportunity",
+      longitude: -79.3832,
       name: "Marcos Lima",
       owner: "Marina Lopes",
       priority: "High",
       priorityTone: "high",
+      region: "north-america",
       role: "Commercial Manager",
-      score: 88,
+      score: 82,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-16T10:00:00.000Z",
       slaStatus: "healthy",
       source: "Partner referral",
-      stage: "proposal"
+      stage: "proposal",
+      support: {
+        recentTickets: 2,
+        sentiment: "neutral",
+        summary: "Needs ROI proof for finance and timeline clarity for the rollout."
+      }
     },
     {
       action: "Revive opportunity",
+      city: "Madrid",
       company: "Studio Norte",
+      companySize: "SMB",
+      country: "Spain",
       createdAt: "2026-04-12T11:55:00.000Z",
+      crmAnnualValue: 68000,
       email: "ana.ribeiro@studionorte.com",
+      engagement: {
+        emailClicks: 1,
+        hotPages: ["Case study"],
+        lastTouchpointAt: "2026-04-12T12:10:00.000Z",
+        pageVisits: 3
+      },
       id: "lead_ana_ribeiro",
+      latitude: 40.4168,
+      lifecycleStage: "lead",
+      longitude: -3.7038,
       name: "Ana Ribeiro",
       owner: "Renato Alves",
       priority: "Warm",
       priorityTone: "warm",
+      region: "europe",
       role: "Growth Manager",
-      score: 72,
+      score: 66,
+      sequenceStatus: "paused",
       slaDueAt: "2026-04-15T18:30:00.000Z",
       slaStatus: "healthy",
       source: "Retargeting campaign",
-      stage: "qualified"
+      stage: "qualified",
+      support: {
+        recentTickets: 0,
+        sentiment: "positive",
+        summary: "Silent account with no visible friction, but momentum slowed after the first touch."
+      }
     },
     {
       action: "Negotiate terms",
+      city: "Chicago",
       company: "Prime Industrial",
+      companySize: "Enterprise",
+      country: "United States",
       createdAt: "2026-04-11T16:08:00.000Z",
+      crmAnnualValue: 320000,
       email: "rafael.castro@primeindustrial.com",
+      engagement: {
+        emailClicks: 4,
+        hotPages: ["Pricing", "Integrations", "ROI calculator"],
+        lastTouchpointAt: "2026-04-11T16:42:00.000Z",
+        pageVisits: 6
+      },
       id: "lead_rafael_castro",
+      latitude: 41.8781,
+      lifecycleStage: "customer",
+      longitude: -87.6298,
       name: "Rafael Castro",
       owner: "Lucas Mendes",
       priority: "Critical",
       priorityTone: "critical",
+      region: "north-america",
       role: "Operations VP",
-      score: 91,
+      score: 85,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T10:45:00.000Z",
       slaStatus: "breached",
       source: "Outbound account-based sequence",
-      stage: "negotiation"
+      stage: "negotiation",
+      support: {
+        recentTickets: 5,
+        sentiment: "negative",
+        summary: "Escalated two onboarding blockers and questioned the renewal timeline in the last support thread."
+      }
     },
     {
       action: "Research account",
+      city: "Singapore",
       company: "Orbit Labs",
+      companySize: "Mid-market",
+      country: "Singapore",
       createdAt: "2026-04-10T09:40:00.000Z",
+      crmAnnualValue: 128000,
       email: "bia.ferreira@orbitlabs.ai",
+      engagement: {
+        emailClicks: 3,
+        hotPages: ["Product tour", "Pricing", "AI guide"],
+        lastTouchpointAt: "2026-04-10T09:58:00.000Z",
+        pageVisits: 5
+      },
       id: "lead_bia_ferreira",
+      latitude: 1.3521,
+      lifecycleStage: "mql",
+      longitude: 103.8198,
       name: "Bia Ferreira",
       owner: "Marina Lopes",
       priority: "High",
       priorityTone: "high",
+      region: "asia-pacific",
       role: "Head of Product",
-      score: 84,
+      score: 78,
+      sequenceStatus: "completed",
       slaDueAt: "2026-04-15T15:10:00.000Z",
       slaStatus: "watch",
       source: "Founder referral",
-      stage: "new"
+      stage: "new",
+      support: {
+        recentTickets: 1,
+        sentiment: "neutral",
+        summary: "Requested additional product proof for the technical buyer."
+      }
     },
     {
       action: "Confirm champion",
+      city: "Sydney",
       company: "BluePeak",
+      companySize: "Mid-market",
+      country: "Australia",
       createdAt: "2026-04-09T13:18:00.000Z",
+      crmAnnualValue: 98000,
       email: "diego.silva@bluepeak.co",
+      engagement: {
+        emailClicks: 2,
+        hotPages: ["Customer stories", "Pricing"],
+        lastTouchpointAt: "2026-04-09T13:42:00.000Z",
+        pageVisits: 4
+      },
       id: "lead_diego_silva",
+      latitude: -33.8688,
+      lifecycleStage: "sql",
+      longitude: 151.2093,
       name: "Diego Silva",
       owner: "Renato Alves",
       priority: "Warm",
       priorityTone: "warm",
+      region: "asia-pacific",
       role: "Sales Ops Manager",
-      score: 76,
+      score: 71,
+      sequenceStatus: "paused",
       slaDueAt: "2026-04-16T09:15:00.000Z",
       slaStatus: "healthy",
       source: "Community referral",
-      stage: "qualified"
+      stage: "qualified",
+      support: {
+        recentTickets: 2,
+        sentiment: "negative",
+        summary: "Recent support chat mentioned adoption friction and slower stakeholder buy-in."
+      }
     },
     {
       action: "Advance to demo",
+      city: "Bogota",
       company: "Nova Energia",
+      companySize: "Enterprise",
+      country: "Colombia",
       createdAt: "2026-04-08T17:26:00.000Z",
+      crmAnnualValue: 210000,
       email: "helena.martins@novaenergia.com.br",
+      engagement: {
+        emailClicks: 4,
+        hotPages: ["Comparison page", "Pricing", "Implementation checklist"],
+        lastTouchpointAt: "2026-04-08T17:38:00.000Z",
+        pageVisits: 6
+      },
       id: "lead_helena_martins",
+      latitude: 4.711,
+      lifecycleStage: "sql",
+      longitude: -74.0721,
       name: "Helena Martins",
       owner: "Lucas Mendes",
       priority: "High",
       priorityTone: "high",
+      region: "latin-america",
       role: "Commercial Strategy Lead",
-      score: 86,
+      score: 80,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T19:00:00.000Z",
       slaStatus: "healthy",
       source: "Intent data from comparison page",
-      stage: "demo"
+      stage: "demo",
+      support: {
+        recentTickets: 1,
+        sentiment: "positive",
+        summary: "Healthy account momentum with strong buying committee engagement."
+      }
     }
   ],
   "pt-BR": [
     {
       action: "Ligar agora",
+      city: "Sao Paulo",
       company: "Connecta Corp",
+      companySize: "Mid-market",
+      country: "Brasil",
       createdAt: "2026-04-15T08:05:00.000Z",
+      crmAnnualValue: 180000,
       email: "julia.andrade@connectacorp.com",
+      engagement: {
+        emailClicks: 4,
+        hotPages: ["Precos", "Calculadora de ROI", "Pedido de demo"],
+        lastTouchpointAt: "2026-04-15T08:12:00.000Z",
+        pageVisits: 6
+      },
       id: "lead_julia_andrade",
+      latitude: -23.5505,
+      lifecycleStage: "opportunity",
+      longitude: -46.6333,
       name: "Julia Andrade",
       owner: "Lucas Mendes",
       priority: "Critica",
       priorityTone: "critical",
+      region: "latin-america",
       role: "Diretora de Marketing",
-      score: 98,
+      score: 91,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T09:20:00.000Z",
       slaStatus: "breached",
       source: "Download do ebook \"Vendas 4.0\"",
-      stage: "proposal"
+      stage: "proposal",
+      support: {
+        recentTickets: 1,
+        sentiment: "neutral",
+        summary: "Cobrou uma devolutiva de precos mais rapida depois de comparar fornecedores."
+      }
     },
     {
       action: "Qualificar",
+      city: "Lisboa",
       company: "LogiBrasil",
+      companySize: "Enterprise",
+      country: "Portugal",
       createdAt: "2026-04-15T09:12:00.000Z",
+      crmAnnualValue: 215000,
       email: "fernando.costa@logibrasil.com",
+      engagement: {
+        emailClicks: 3,
+        hotPages: ["Docs de integracao", "Visao de seguranca"],
+        lastTouchpointAt: "2026-04-15T09:20:00.000Z",
+        pageVisits: 5
+      },
       id: "lead_fernando_costa",
+      latitude: 38.7223,
+      lifecycleStage: "sql",
+      longitude: -9.1393,
       name: "Fernando Costa",
       owner: "Marina Lopes",
       priority: "Alta",
       priorityTone: "high",
+      region: "europe",
       role: "Gerente de TI",
-      score: 82,
+      score: 77,
+      sequenceStatus: "paused",
       slaDueAt: "2026-04-15T13:00:00.000Z",
       slaStatus: "watch",
       source: "Inscricao em webinar",
-      stage: "qualified"
+      stage: "qualified",
+      support: {
+        recentTickets: 2,
+        sentiment: "neutral",
+        summary: "Precisa confirmar SSO e residencia de dados antes de avancar."
+      }
     },
     {
       action: "Abrir cadencia",
+      city: "Cidade do Mexico",
       company: "Midia Sul",
+      companySize: "SMB",
+      country: "Mexico",
       createdAt: "2026-04-14T18:42:00.000Z",
+      crmAnnualValue: 72000,
       email: "patricia.nogueira@midiasul.com.br",
+      engagement: {
+        emailClicks: 2,
+        hotPages: ["Precos", "Case de sucesso"],
+        lastTouchpointAt: "2026-04-14T19:05:00.000Z",
+        pageVisits: 4
+      },
       id: "lead_patricia_nogueira",
+      latitude: 19.4326,
+      lifecycleStage: "lead",
+      longitude: -99.1332,
       name: "Patricia Nogueira",
       owner: "Renato Alves",
       priority: "Quente",
       priorityTone: "warm",
+      region: "latin-america",
       role: "Lider de RevOps",
-      score: 74,
+      score: 69,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T16:00:00.000Z",
       slaStatus: "healthy",
       source: "Sinal de intencao na pagina de precos",
-      stage: "new"
+      stage: "new",
+      support: {
+        recentTickets: 0,
+        sentiment: "positive",
+        summary: "Engajou com conteudo e nao apresentou atrito de suporte."
+      }
     },
     {
       action: "Agendar demo",
+      city: "Austin",
       company: "Nexa Health",
+      companySize: "Enterprise",
+      country: "Estados Unidos",
       createdAt: "2026-04-14T15:20:00.000Z",
+      crmAnnualValue: 260000,
       email: "carla.souza@nexahealth.io",
+      engagement: {
+        emailClicks: 5,
+        hotPages: ["Pedido de demo", "Calculadora de ROI", "Docs de integracao"],
+        lastTouchpointAt: "2026-04-14T15:46:00.000Z",
+        pageVisits: 7
+      },
       id: "lead_carla_souza",
+      latitude: 30.2672,
+      lifecycleStage: "mql",
+      longitude: -97.7431,
       name: "Carla Souza",
       owner: "Lucas Mendes",
       priority: "Critica",
       priorityTone: "critical",
+      region: "north-america",
       role: "Diretora de Receita",
-      score: 94,
+      score: 88,
+      sequenceStatus: "completed",
       slaDueAt: "2026-04-15T11:30:00.000Z",
       slaStatus: "watch",
       source: "Pedido inbound de demonstracao",
-      stage: "demo"
+      stage: "demo",
+      support: {
+        recentTickets: 1,
+        sentiment: "positive",
+        summary: "Champion pediu handoff mais rapido e compartilhou o timing do comite."
+      }
     },
     {
       action: "Enviar proposta",
+      city: "Toronto",
       company: "Atlas Tech",
+      companySize: "Mid-market",
+      country: "Canada",
       createdAt: "2026-04-13T14:10:00.000Z",
+      crmAnnualValue: 195000,
       email: "marcos.lima@atlastch.com",
+      engagement: {
+        emailClicks: 3,
+        hotPages: ["Precos", "Visao de seguranca"],
+        lastTouchpointAt: "2026-04-13T14:22:00.000Z",
+        pageVisits: 5
+      },
       id: "lead_marcos_lima",
+      latitude: 43.6532,
+      lifecycleStage: "opportunity",
+      longitude: -79.3832,
       name: "Marcos Lima",
       owner: "Marina Lopes",
       priority: "Alta",
       priorityTone: "high",
+      region: "north-america",
       role: "Gerente Comercial",
-      score: 88,
+      score: 82,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-16T10:00:00.000Z",
       slaStatus: "healthy",
       source: "Indicacao de parceiro",
-      stage: "proposal"
+      stage: "proposal",
+      support: {
+        recentTickets: 2,
+        sentiment: "neutral",
+        summary: "Precisa de prova de ROI para o financeiro e clareza no cronograma."
+      }
     },
     {
       action: "Reativar oportunidade",
+      city: "Madri",
       company: "Studio Norte",
+      companySize: "SMB",
+      country: "Espanha",
       createdAt: "2026-04-12T11:55:00.000Z",
+      crmAnnualValue: 68000,
       email: "ana.ribeiro@studionorte.com",
+      engagement: {
+        emailClicks: 1,
+        hotPages: ["Case de sucesso"],
+        lastTouchpointAt: "2026-04-12T12:10:00.000Z",
+        pageVisits: 3
+      },
       id: "lead_ana_ribeiro",
+      latitude: 40.4168,
+      lifecycleStage: "lead",
+      longitude: -3.7038,
       name: "Ana Ribeiro",
       owner: "Renato Alves",
       priority: "Quente",
       priorityTone: "warm",
+      region: "europe",
       role: "Gerente de Growth",
-      score: 72,
+      score: 66,
+      sequenceStatus: "paused",
       slaDueAt: "2026-04-15T18:30:00.000Z",
       slaStatus: "healthy",
       source: "Campanha de retargeting",
-      stage: "qualified"
+      stage: "qualified",
+      support: {
+        recentTickets: 0,
+        sentiment: "positive",
+        summary: "Conta silenciosa sem atrito visivel, mas com queda de ritmo apos o primeiro toque."
+      }
     },
     {
       action: "Negociar termos",
+      city: "Chicago",
       company: "Prime Industrial",
+      companySize: "Enterprise",
+      country: "Estados Unidos",
       createdAt: "2026-04-11T16:08:00.000Z",
+      crmAnnualValue: 320000,
       email: "rafael.castro@primeindustrial.com",
+      engagement: {
+        emailClicks: 4,
+        hotPages: ["Precos", "Integracoes", "Calculadora de ROI"],
+        lastTouchpointAt: "2026-04-11T16:42:00.000Z",
+        pageVisits: 6
+      },
       id: "lead_rafael_castro",
+      latitude: 41.8781,
+      lifecycleStage: "customer",
+      longitude: -87.6298,
       name: "Rafael Castro",
       owner: "Lucas Mendes",
       priority: "Critica",
       priorityTone: "critical",
+      region: "north-america",
       role: "VP de Operacoes",
-      score: 91,
+      score: 85,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T10:45:00.000Z",
       slaStatus: "breached",
       source: "Cadencia outbound ABM",
-      stage: "negotiation"
+      stage: "negotiation",
+      support: {
+        recentTickets: 5,
+        sentiment: "negative",
+        summary: "Escalou dois bloqueios de onboarding e questionou a renovacao na ultima thread de suporte."
+      }
     },
     {
       action: "Pesquisar conta",
+      city: "Singapura",
       company: "Orbit Labs",
+      companySize: "Mid-market",
+      country: "Singapura",
       createdAt: "2026-04-10T09:40:00.000Z",
+      crmAnnualValue: 128000,
       email: "bia.ferreira@orbitlabs.ai",
+      engagement: {
+        emailClicks: 3,
+        hotPages: ["Tour do produto", "Precos", "Guia de IA"],
+        lastTouchpointAt: "2026-04-10T09:58:00.000Z",
+        pageVisits: 5
+      },
       id: "lead_bia_ferreira",
+      latitude: 1.3521,
+      lifecycleStage: "mql",
+      longitude: 103.8198,
       name: "Bia Ferreira",
       owner: "Marina Lopes",
       priority: "Alta",
       priorityTone: "high",
+      region: "asia-pacific",
       role: "Head de Produto",
-      score: 84,
+      score: 78,
+      sequenceStatus: "completed",
       slaDueAt: "2026-04-15T15:10:00.000Z",
       slaStatus: "watch",
       source: "Indicacao de founder",
-      stage: "new"
+      stage: "new",
+      support: {
+        recentTickets: 1,
+        sentiment: "neutral",
+        summary: "Pediu mais prova de produto para o comprador tecnico."
+      }
     },
     {
       action: "Confirmar champion",
+      city: "Sydney",
       company: "BluePeak",
+      companySize: "Mid-market",
+      country: "Australia",
       createdAt: "2026-04-09T13:18:00.000Z",
+      crmAnnualValue: 98000,
       email: "diego.silva@bluepeak.co",
+      engagement: {
+        emailClicks: 2,
+        hotPages: ["Historias de clientes", "Precos"],
+        lastTouchpointAt: "2026-04-09T13:42:00.000Z",
+        pageVisits: 4
+      },
       id: "lead_diego_silva",
+      latitude: -33.8688,
+      lifecycleStage: "sql",
+      longitude: 151.2093,
       name: "Diego Silva",
       owner: "Renato Alves",
       priority: "Quente",
       priorityTone: "warm",
+      region: "asia-pacific",
       role: "Gerente de Sales Ops",
-      score: 76,
+      score: 71,
+      sequenceStatus: "paused",
       slaDueAt: "2026-04-16T09:15:00.000Z",
       slaStatus: "healthy",
       source: "Indicacao da comunidade",
-      stage: "qualified"
+      stage: "qualified",
+      support: {
+        recentTickets: 2,
+        sentiment: "negative",
+        summary: "Chat recente de suporte citou atrito de adocao e buy-in mais lento dos stakeholders."
+      }
     },
     {
       action: "Avancar para demo",
+      city: "Bogota",
       company: "Nova Energia",
+      companySize: "Enterprise",
+      country: "Colombia",
       createdAt: "2026-04-08T17:26:00.000Z",
+      crmAnnualValue: 210000,
       email: "helena.martins@novaenergia.com.br",
+      engagement: {
+        emailClicks: 4,
+        hotPages: ["Pagina comparativa", "Precos", "Checklist de implantacao"],
+        lastTouchpointAt: "2026-04-08T17:38:00.000Z",
+        pageVisits: 6
+      },
       id: "lead_helena_martins",
+      latitude: 4.711,
+      lifecycleStage: "sql",
+      longitude: -74.0721,
       name: "Helena Martins",
       owner: "Lucas Mendes",
       priority: "Alta",
       priorityTone: "high",
+      region: "latin-america",
       role: "Lider de Estrategia Comercial",
-      score: 86,
+      score: 80,
+      sequenceStatus: "active",
       slaDueAt: "2026-04-15T19:00:00.000Z",
       slaStatus: "healthy",
       source: "Intent data na pagina comparativa",
-      stage: "demo"
+      stage: "demo",
+      support: {
+        recentTickets: 1,
+        sentiment: "positive",
+        summary: "Conta com momentum saudavel e comite de compra bem engajado."
+      }
     }
   ]
 };
+
+export const SDR_AUTOMATIC_CRM_REGIONS: CrmRegionSnapshot[] = [
+  {
+    activeAccounts: 142,
+    lifecycle: {
+      customer: 18,
+      lead: 196,
+      mql: 102,
+      opportunity: 34,
+      sql: 58,
+      subscriber: 412
+    },
+    pipelineCoverage: 3.8,
+    region: "north-america",
+    revenuePotential: 1240000,
+    slaCompliance: 94
+  },
+  {
+    activeAccounts: 189,
+    lifecycle: {
+      customer: 23,
+      lead: 228,
+      mql: 114,
+      opportunity: 39,
+      sql: 67,
+      subscriber: 488
+    },
+    pipelineCoverage: 4.1,
+    region: "latin-america",
+    revenuePotential: 980000,
+    slaCompliance: 92
+  },
+  {
+    activeAccounts: 116,
+    lifecycle: {
+      customer: 14,
+      lead: 154,
+      mql: 81,
+      opportunity: 28,
+      sql: 44,
+      subscriber: 320
+    },
+    pipelineCoverage: 3.4,
+    region: "europe",
+    revenuePotential: 860000,
+    slaCompliance: 95
+  },
+  {
+    activeAccounts: 131,
+    lifecycle: {
+      customer: 16,
+      lead: 168,
+      mql: 89,
+      opportunity: 31,
+      sql: 49,
+      subscriber: 356
+    },
+    pipelineCoverage: 3.6,
+    region: "asia-pacific",
+    revenuePotential: 910000,
+    slaCompliance: 93
+  }
+];
 
 export const SDR_AUTOMATIC_TIME_SLOTS: SdrAutomaticTimeSlot[] = [
   { label: "09:30", recommended: true },

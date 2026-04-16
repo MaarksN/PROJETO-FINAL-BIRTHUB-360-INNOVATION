@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -11,6 +10,18 @@ import {
   createAuthenticatedApiTestApp,
   stubMethod
 } from "./http-test-helpers.js";
+
+type ProblemBody = {
+  status: number;
+  title: string;
+};
+
+function assertProblemBody(body: unknown): asserts body is ProblemBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+  assert.equal(typeof (body as { status?: unknown }).status, "number");
+  assert.equal(typeof (body as { title?: unknown }).title, "string");
+}
 
 function createAnalyticsTestApp(role: Role = Role.ADMIN) {
   return createAuthenticatedApiTestApp({
@@ -66,6 +77,7 @@ void test("analytics router blocks super-admin routes for regular admins", async
     .get("/api/v1/analytics/quality-report")
     .expect(403);
 
+  assertProblemBody(response.body);
   assert.equal(response.body.status, 403);
   assert.equal(response.body.title, "Forbidden");
 });

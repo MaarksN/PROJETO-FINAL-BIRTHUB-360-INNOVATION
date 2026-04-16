@@ -1,6 +1,10 @@
 import type { SupportedLocale } from "../../lib/i18n";
 
-import type { SdrAutomaticLead } from "./sdr-automatic-data";
+import type {
+  LeadRegionId,
+  LeadSequenceStatus,
+  SdrAutomaticLead
+} from "./sdr-automatic-data";
 import {
   getLeadDashboardCopy,
   isEnglish,
@@ -41,7 +45,13 @@ export const DEFAULT_VISIBLE_COLUMNS = [
 
 export type LeadColumnId = (typeof AVAILABLE_LEAD_COLUMNS)[number];
 
+export type LeadColumnTooltipId = LeadColumnId | "region" | "sequenceStatus";
+
 export type LeadScoreBandId = "critical" | "high" | "warm";
+
+export type ChurnWatchEntry = {
+  tone: "critical" | "healthy" | "watch";
+};
 
 export type LeadFilters = {
   createdFrom: string;
@@ -88,10 +98,13 @@ export type PollingFrame = {
 };
 
 export type LeadDashboardCopy = {
+  activeAccountsLabel: string;
   activeLeadsLabel: string;
   addTaskLabel: string;
   aiAgentLabel: string;
   aiAnalysisLabel: string;
+  aiButtonTooltipBullets: string[];
+  aiButtonTooltipTitle: string;
   aiExecutionsLabel: string;
   aiTooltipEmpty: string;
   aiTooltipLoading: string;
@@ -101,30 +114,62 @@ export type LeadDashboardCopy = {
   chatbotQuickPrompts: string[];
   chatbotSend: string;
   chatbotTitle: string;
+  churnAgentLabel: string;
+  churnEmptyLabel: string;
+  churnRefreshLabel: string;
+  churnSubtitle: string;
+  churnTitle: string;
   clearFiltersLabel: string;
+  columnTooltips: Record<LeadColumnTooltipId, string>;
   columnsLabel: string;
+  conversionRateLabel: string;
   createdAtColumn: string;
+  dateFilterLabel: string;
   dateFromLabel: string;
   dateToLabel: string;
   distributionTitle: string;
   emailColumn: string;
   emailSearchPlaceholder: string;
   exportCsvLabel: string;
+  filterTooltips: {
+    columns: string;
+    date: string;
+    region: string;
+    score: string;
+    stage: string;
+  };
   filtersTitle: string;
+  funnelSubtitle: string;
+  funnelTitle: string;
   leadsByStageHint: string;
   leadsTrendTitle: string;
   leadsTrendSubtitle: string;
   leadsVisibleLabel: (visible: number, total: number) => string;
+  mapActiveRegionLabel: string;
+  mapSubtitle: string;
+  mapTitle: string;
   metricsUpdatedLabel: (seconds: number) => string;
   mqlsGeneratedLabel: string;
   nextPageLabel: string;
   noLeadsLabel: string;
   noTasksLabel: string;
   pageLabel: (page: number, totalPages: number) => string;
+  pipelineCoverageLabel: string;
+  pipelineSubtitle: string;
+  pipelineTitle: string;
   previousPageLabel: string;
+  regionColumn: string;
   scoreBandLabels: Record<LeadScoreBandId, string>;
+  regionFilterLabel: string;
+  regionLabels: Record<LeadRegionId, string>;
+  revenuePotentialLabel: string;
+  riskLevelLabels: Record<ChurnWatchEntry["tone"], string>;
   scoreColumn: string;
   scoreFilterLabel: string;
+  sendSequenceLabel: string;
+  sequenceStatusColumn: string;
+  sequenceStatusLabels: Record<LeadSequenceStatus, string>;
+  slaComplianceLabel: string;
   slaBreachedLabel: string;
   slaColumn: string;
   slaHealthyLabel: string;
@@ -221,6 +266,14 @@ function escapeCsv(value: string | number): string {
 
 function normalizeQuery(value: string): string {
   return value.trim().toLowerCase();
+}
+
+function formatTrendWindowLabel(locale: SupportedLocale, date: Date): string {
+  return new Intl.DateTimeFormat(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(date);
 }
 
 export function getScoreBand(score: number): LeadScoreBandId {
@@ -339,14 +392,6 @@ export function createInitialTrendSeries(locale: SupportedLocale): TrendPoint[] 
     { label: labels[4], leads: 25, mqls: 11, slaCompliance: 95, slaViolations: 2 },
     { label: labels[5], leads: 29, mqls: 14, slaCompliance: 93, slaViolations: 4 }
   ];
-}
-
-function formatTrendWindowLabel(locale: SupportedLocale, date: Date): string {
-  return new Intl.DateTimeFormat(locale, {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  }).format(date);
 }
 
 export function getStageDistribution(leads: SdrAutomaticLead[], locale: SupportedLocale) {

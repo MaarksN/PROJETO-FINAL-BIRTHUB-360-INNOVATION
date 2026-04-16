@@ -21,6 +21,16 @@ void test("sdr automatic platform exposes the localized navigation contract", ()
   assert.equal(english[3]?.label, "Co-pilot: Handoff Briefing");
 });
 
+void test("sdr automatic platform exposes premium executive copy in both locales", () => {
+  const portuguese = getSdrAutomaticConfig("pt-BR").copy;
+  const english = getSdrAutomaticConfig("en-US").copy;
+
+  assert.equal(portuguese.premiumTitle, "Overlay premium pronto para board");
+  assert.match(portuguese.premiumDescription, /handoff premium/i);
+  assert.equal(english.premiumTitle, "Board-ready premium overlay");
+  assert.match(english.premiumDescription, /decision memory/i);
+});
+
 void test("sdr automatic platform ships the expected priority data and time slots", () => {
   const { leads, timeSlots } = getSdrAutomaticConfig("pt-BR");
 
