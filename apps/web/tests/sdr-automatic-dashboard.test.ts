@@ -4,11 +4,16 @@ import test from "node:test";
 import { getSdrAutomaticConfig } from "../components/sales-os/sdr-automatic-data";
 import {
   applyPollingFrameToTrend,
+  buildChurnSummaryFallback,
+  buildLifecycleFunnelData,
   buildLeadCsv,
   buildSupportReply,
   createInitialMetrics,
   createInitialTrendSeries,
   filterLeads,
+  getChurnWatchlist,
+  getPipelineData,
+  getRegionalPerformance,
   LEAD_POLLING_FRAMES,
   paginateLeads
 } from "../components/sales-os/sdr-automatic-dashboard";
@@ -137,4 +142,60 @@ void test("support reply handles empty score views gracefully", () => {
   });
 
   assert.match(reply, /Nao ha leads na visao filtrada atual/i);
+});
+
+void test("pipeline data keeps the stage order and conversion math stable", () => {
+  const { leads } = getSdrAutomaticConfig("pt-BR");
+  const pipeline = getPipelineData(leads, "pt-BR");
+
+  assert.deepEqual(
+    pipeline.map((entry) => entry.stage),
+    ["new", "qualified", "demo", "proposal", "negotiation"]
+  );
+  assert.equal(pipeline[0]?.count, 2);
+  assert.equal(pipeline[1]?.count, 3);
+  assert.equal(pipeline[1]?.conversionRate, 150);
+  assert.equal(pipeline[4]?.conversionRate, 50);
+});
+
+void test("lifecycle funnel data narrows the CRM view to the selected region", () => {
+  const { crmRegions } = getSdrAutomaticConfig("pt-BR");
+  const funnel = buildLifecycleFunnelData(crmRegions, "pt-BR", ["north-america"]);
+
+  assert.equal(funnel.length, 6);
+  assert.equal(funnel[0]?.id, "subscriber");
+  assert.equal(funnel[0]?.count, 412);
+  assert.equal(funnel[5]?.id, "customer");
+  assert.equal(funnel[5]?.count, 18);
+});
+
+void test("regional performance localizes labels and folds filtered leads into the snapshot", () => {
+  const { crmRegions, leads } = getSdrAutomaticConfig("pt-BR");
+  const metrics = getRegionalPerformance(crmRegions, leads, "pt-BR");
+  const northAmerica = metrics.find((entry) => entry.region === "north-america");
+
+  assert.ok(northAmerica);
+  assert.equal(northAmerica.regionLabel, "America do Norte");
+  assert.equal(northAmerica.activeAccounts, 145);
+  assert.equal(northAmerica.pipelineCoverage, 3.9);
+  assert.equal(northAmerica.revenuePotential, 1262500);
+});
+
+void test("churn watchlist ranks the highest-risk accounts first", () => {
+  const { leads } = getSdrAutomaticConfig("pt-BR");
+  const watchlist = getChurnWatchlist(leads, "pt-BR");
+
+  assert.equal(watchlist.length, 4);
+  assert.equal(watchlist[0]?.lead.company, "Prime Industrial");
+  assert.equal(watchlist[0]?.tone, "critical");
+  assert.equal(watchlist[0]?.riskLabel, "Alto risco");
+  assert.equal((watchlist[0]?.riskScore ?? 0) >= (watchlist[1]?.riskScore ?? 0), true);
+});
+
+void test("fallback churn summary names the top risky account", () => {
+  const { leads } = getSdrAutomaticConfig("pt-BR");
+  const summary = buildChurnSummaryFallback(leads, "pt-BR");
+
+  assert.match(summary, /Prime Industrial/);
+  assert.match(summary, /churn|risco/i);
 });

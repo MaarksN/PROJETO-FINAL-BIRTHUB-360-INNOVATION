@@ -12,6 +12,55 @@ import {
   stubMethod
 } from "./http-test-helpers.js";
 
+type ConversationsListBody = {
+  items: Array<{
+    id?: string;
+    lastMessagePreview?: string;
+    messageCount?: number;
+  }>;
+  requestId: string;
+};
+
+type ConversationMutationBody = {
+  conversation: {
+    id?: string;
+    messages?: Array<{
+      id?: string;
+    }>;
+  };
+  requestId: string;
+};
+
+type ProblemBody = {
+  detail?: string;
+  status?: number;
+  title?: string;
+};
+
+function assertConversationsListBody(body: unknown): asserts body is ConversationsListBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+
+  const candidate = body as { items?: unknown; requestId?: unknown };
+  assert.ok(Array.isArray(candidate.items));
+  assert.equal(typeof candidate.requestId, "string");
+}
+
+function assertConversationMutationBody(body: unknown): asserts body is ConversationMutationBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+
+  const candidate = body as { conversation?: unknown; requestId?: unknown };
+  assert.equal(typeof candidate.conversation, "object");
+  assert.notEqual(candidate.conversation, null);
+  assert.equal(typeof candidate.requestId, "string");
+}
+
+function assertProblemBody(body: unknown): asserts body is ProblemBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+}
+
 function createConversationsTestApp() {
   return createAuthenticatedApiTestApp({
     contextOverrides: {
@@ -103,10 +152,12 @@ void test("conversations router lists scoped threads with filters and previews",
       status: "open",
       tenantId: "tenant_product"
     });
-    assert.equal(response.body.requestId, "req_conversations");
-    assert.equal(response.body.items[0]?.id, "thread_1");
-    assert.equal(response.body.items[0]?.messageCount, 3);
-    assert.equal(response.body.items[0]?.lastMessagePreview, "Paciente aguardando orientacao");
+    const body: unknown = response.body;
+    assertConversationsListBody(body);
+    assert.equal(body.requestId, "req_conversations");
+    assert.equal(body.items[0]?.id, "thread_1");
+    assert.equal(body.items[0]?.messageCount, 3);
+    assert.equal(body.items[0]?.lastMessagePreview, "Paciente aguardando orientacao");
   } finally {
     restore();
   }
@@ -199,9 +250,11 @@ void test("conversations router creates a thread and reloads the scoped detail",
       tenantId: "tenant_product",
       threadId: "thread_2"
     });
-    assert.equal(response.body.requestId, "req_conversations");
-    assert.equal(response.body.conversation.id, "thread_2");
-    assert.equal(response.body.conversation.messages[0]?.id, "message_1");
+    const body: unknown = response.body;
+    assertConversationMutationBody(body);
+    assert.equal(body.requestId, "req_conversations");
+    assert.equal(body.conversation.id, "thread_2");
+    assert.equal(body.conversation.messages?.[0]?.id, "message_1");
   } finally {
     for (const restore of restores.reverse()) {
       restore();
@@ -217,7 +270,9 @@ void test("conversations router validates subject before creating a thread", asy
     })
     .expect(400);
 
-  assert.match(String(response.body.detail ?? ""), /invalid/i);
+  const body: unknown = response.body;
+  assertProblemBody(body);
+  assert.match(String(body.detail ?? ""), /invalid/i);
 });
 
 void test("conversations router returns not found when the requested thread does not exist", async () => {
@@ -228,8 +283,10 @@ void test("conversations router returns not found when the requested thread does
       .get("/api/v1/conversations/thread_missing")
       .expect(404);
 
-    assert.equal(response.body.status, 404);
-    assert.equal(response.body.title, "Not Found");
+    const body: unknown = response.body;
+    assertProblemBody(body);
+    assert.equal(body.status, 404);
+    assert.equal(body.title, "Not Found");
   } finally {
     restore();
   }
