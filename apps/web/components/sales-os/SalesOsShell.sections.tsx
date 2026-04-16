@@ -1,5 +1,5 @@
-// @ts-nocheck
 "use client";
+import type { ReactNode } from "react";
 import {
   Bot,
   Copy,
@@ -59,7 +59,7 @@ function SalesOsChatTranscript(input: {
 }
 
 function SalesOsChatComposer(input: {
-  buttonIcon: React.ReactNode;
+  buttonIcon: ReactNode;
   copy: SalesOsShellCopy;
   disabled: boolean;
   inputValue: string;
@@ -171,8 +171,8 @@ export function SalesOsToolRail(input: {
   copy: SalesOsShellCopy;
   onSelectTool: (toolId: string) => void;
   onToolSearchChange: (value: string) => void;
-  selectedModuleTitle?: string;
-  selectedToolId?: string;
+  selectedModuleTitle: string | undefined;
+  selectedToolId: string | undefined;
   toolSearch: string;
   visibleTools: SalesOsTool[];
 }) {
@@ -239,7 +239,7 @@ export function SalesOsToolRail(input: {
 export function SalesOsToolBoardHeader(input: {
   copy: SalesOsShellCopy;
   outputProvider: string;
-  selectedModuleTitle?: string;
+  selectedModuleTitle: string | undefined;
   selectedTool: SalesOsTool;
 }) {
   const { copy, outputProvider, selectedModuleTitle, selectedTool } = input;

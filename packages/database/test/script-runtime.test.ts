@@ -34,15 +34,15 @@ void test("script runtime writes a success report with executed steps", async ()
         let tick = 0;
         return () => new Date(Date.UTC(2026, 3, 13, 12, 0, tick++));
       })(),
-      writeJsonReport: async (path, payload) => {
+      writeJsonReport: (path, payload) => {
         reports.push({ path, payload });
-        return path;
+        return Promise.resolve(path);
       }
     }
   );
 
   await runtime.run(async () => {
-    await runtime.recordStep("prepare", async () => undefined, { type: "infra" });
+    await runtime.recordStep("prepare", () => Promise.resolve(undefined), { type: "infra" });
   });
 
   assert.equal(reports.length, 1);
@@ -67,9 +67,9 @@ void test("script runtime writes a failure report and sets process exit code on 
       name: "db-runtime-failure"
     },
     {
-      writeJsonReport: async (path, payload) => {
+      writeJsonReport: (path, payload) => {
         reports.push({ path, payload });
-        return path;
+        return Promise.resolve(path);
       }
     }
   );
@@ -102,9 +102,9 @@ void test("script runtime records skipped steps with mandatory step type", async
       name: "db-runtime-skip"
     },
     {
-      writeJsonReport: async (path, payload) => {
+      writeJsonReport: (path, payload) => {
         reports.push({ path, payload });
-        return path;
+        return Promise.resolve(path);
       }
     }
   );

@@ -36,7 +36,7 @@ type LeadTableCellProps = StandardCellRendererInput & {
   column: LeadColumnId;
   handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
   handleSendSequence: (lead: SdrAutomaticLead) => void;
-  insight?: LeadInsightState;
+  insight: LeadInsightState | undefined;
   openInsightLeadId: string | null;
 };
 
@@ -178,7 +178,7 @@ function InsightBreakdownSection(props: {
 
 function LeadInsightPopover(props: {
   dashboardCopy: LeadDashboardCopy;
-  insight?: LeadInsightState;
+  insight: LeadInsightState | undefined;
   locale: SupportedLocale;
 }) {
   const { dashboardCopy, insight, locale } = props;
@@ -226,7 +226,7 @@ function LeadActionCell(props: {
   dashboardCopy: LeadDashboardCopy;
   handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
   handleSendSequence: (lead: SdrAutomaticLead) => void;
-  insight?: LeadInsightState;
+  insight: LeadInsightState | undefined;
   lead: SdrAutomaticLead;
   locale: SupportedLocale;
   openInsightLeadId: string | null;
