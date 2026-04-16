@@ -7,7 +7,7 @@ import type {
 } from "./sdr-automatic-data";
 import type {
   ChurnWatchEntry,
-  LeadColumnId,
+  LeadColumnTooltipId,
   LeadDashboardCopy,
   LeadScoreBandId
 } from "./sdr-automatic-dashboard";
@@ -78,7 +78,7 @@ function buildStageLabels(locale: SupportedLocale): Record<SdrAutomaticLead["sta
       };
 }
 
-function buildColumnTooltips(locale: SupportedLocale): Record<LeadColumnId, string> {
+function buildColumnTooltips(locale: SupportedLocale): Record<LeadColumnTooltipId, string> {
   return isEnglish(locale)
     ? {
         action: "Run AI scoring or trigger the outbound sequence tailored to this account.",

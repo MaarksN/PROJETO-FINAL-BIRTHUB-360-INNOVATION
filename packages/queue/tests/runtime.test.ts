@@ -15,7 +15,7 @@ void test("runtime worker processor injects normalized job context", async () =>
   const contexts: Array<{ jobId: string; tenantId?: string; traceId?: string }> = [];
   const processor = createRuntimeWorkerProcessor("tenant-jobs", (_data, context) => {
     contexts.push(context);
-    return { ok: true };
+    return Promise.resolve({ ok: true });
   });
 
   const result = await processor({

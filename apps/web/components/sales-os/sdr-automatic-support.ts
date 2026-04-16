@@ -10,8 +10,7 @@ import {
   getLeadDashboardCopy,
   getLeadSupportPenalty,
   getSequencePlan,
-  isEnglish,
-  resolveSlaLabel
+  isEnglish
 } from "./sdr-automatic-dashboard";
 
 function findMatchedLead(leads: SdrAutomaticLead[], normalizedQuestion: string): SdrAutomaticLead | undefined {
@@ -107,13 +106,19 @@ export function createLeadInsightFallback(
   const sequencePlan = getSequencePlan(lead, locale);
   const engagementBoost = getLeadEngagementBoost(lead);
   const supportPenalty = getLeadSupportPenalty(lead);
-  const hotPages = lead.engagement.hotPages.slice(0, 2).join(isEnglish(locale) ? ", " : " e ");
+  const engagement = lead.engagement ?? {
+    emailClicks: 0,
+    hotPages: [],
+    lastTouchpointAt: lead.createdAt,
+    pageVisits: 0
+  };
+  const hotPages = engagement.hotPages.slice(0, 2).join(isEnglish(locale) ? ", " : " e ");
 
   if (isEnglish(locale)) {
-    return `${lead.name} is at ${lead.score} points in ${stageLabel}. Engagement adds ${engagementBoost} points through ${lead.engagement.emailClicks} email clicks and ${hotPages.toLowerCase()}, while support pressure removes ${supportPenalty}. The safest move is ${lead.action.toLowerCase()} with the sequence "${sequencePlan.primarySubject}".`;
+    return `${lead.name} is at ${lead.score} points in ${stageLabel}. Engagement adds ${engagementBoost} points through ${engagement.emailClicks} email clicks and ${hotPages.toLowerCase()}, while support pressure removes ${supportPenalty}. The safest move is ${lead.action.toLowerCase()} with the sequence "${sequencePlan.primarySubject}".`;
   }
 
-  return `${lead.name} esta com ${lead.score} pontos em ${stageLabel}. O engajamento soma ${engagementBoost} pontos com ${lead.engagement.emailClicks} cliques em e-mail e ${hotPages.toLowerCase()}, enquanto o suporte reduz ${supportPenalty}. O movimento mais seguro e ${lead.action.toLowerCase()} com a sequencia "${sequencePlan.primarySubject}".`;
+  return `${lead.name} esta com ${lead.score} pontos em ${stageLabel}. O engajamento soma ${engagementBoost} pontos com ${engagement.emailClicks} cliques em e-mail e ${hotPages.toLowerCase()}, enquanto o suporte reduz ${supportPenalty}. O movimento mais seguro e ${lead.action.toLowerCase()} com a sequencia "${sequencePlan.primarySubject}".`;
 }
 
 export function buildSupportReply(input: {
@@ -124,6 +129,7 @@ export function buildSupportReply(input: {
   question: string;
 }): string {
   const { filters, leads, locale, metrics, question } = input;
+  const copy = getLeadDashboardCopy(locale);
   const normalizedQuestion = question.toLowerCase();
   const orderedLeads = [...leads].sort((left, right) => right.score - left.score);
   const matchedLead = findMatchedLead(orderedLeads, normalizedQuestion);
@@ -161,7 +167,9 @@ export function buildSupportReply(input: {
     normalizedQuestion.includes("region") ||
     normalizedQuestion.includes("territ")
   ) {
-    const regionLabels = [...new Set(orderedLeads.map((lead) => copy.regionLabels[lead.region]))].join(", ");
+    const regionLabels = [
+      ...new Set(orderedLeads.map((lead) => copy.regionLabels[lead.region ?? "latin-america"]))
+    ].join(", ");
 
     return isEnglish(locale)
       ? `The filtered queue is concentrated in ${regionLabels || "all regions"}, with the best urgency sitting on the highest-scored accounts.`

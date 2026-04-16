@@ -13,12 +13,13 @@ import {
   paginateLeads
 } from "../components/sales-os/sdr-automatic-dashboard";
 
-void test("lead dashboard filters by stage, score band, email, and creation date", () => {
+void test("lead dashboard filters by stage, score band, email, region, and creation date", () => {
   const { leads } = getSdrAutomaticConfig("pt-BR");
   const filtered = filterLeads(leads, {
     createdFrom: "2026-04-14",
     createdTo: "2026-04-15",
     query: "connecta",
+    regions: ["latin-america"],
     scoreBands: ["critical"],
     stages: ["proposal"]
   });
@@ -42,6 +43,7 @@ void test("lead dashboard CSV export includes localized headers and row content"
   const csv = buildLeadCsv(leads.slice(0, 1), "pt-BR");
 
   assert.match(csv, /"E-mail"/);
+  assert.match(csv, /"Regiao"/);
   assert.match(csv, /"Julia Andrade"/);
   assert.match(csv, /"Violado"/);
 });
@@ -53,6 +55,7 @@ void test("support reply summarizes SLA pressure from live metrics", () => {
       createdFrom: "",
       createdTo: "",
       query: "",
+      regions: [],
       scoreBands: [],
       stages: []
     },
@@ -100,6 +103,7 @@ void test("support reply lists active date, stage, and score filters", () => {
       createdFrom: "2026-04-14",
       createdTo: "2026-04-15",
       query: "connecta",
+      regions: [],
       scoreBands: ["critical"],
       stages: ["proposal"]
     },
@@ -122,6 +126,7 @@ void test("support reply handles empty score views gracefully", () => {
       createdFrom: "2026-04-14",
       createdTo: "2026-04-15",
       query: "sem.resultado@birthub.com",
+      regions: [],
       scoreBands: [],
       stages: []
     },

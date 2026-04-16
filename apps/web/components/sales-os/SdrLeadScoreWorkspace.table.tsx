@@ -9,12 +9,17 @@ import {
   Filter,
   LayoutPanelTop,
   ListFilter,
+  MapPinned,
   Search,
+  Send,
   Sparkles
 } from "lucide-react";
 
 import type { SupportedLocale } from "../../lib/i18n";
-import type { SdrAutomaticLead } from "./sdr-automatic-data";
+import type {
+  LeadRegionId,
+  SdrAutomaticLead
+} from "./sdr-automatic-data";
 import {
   AVAILABLE_LEAD_COLUMNS,
   DEFAULT_LEAD_FILTERS,
@@ -26,6 +31,7 @@ import {
 } from "./sdr-automatic-dashboard";
 import {
   buildScoreFillColor,
+  buildSequenceStatusTone,
   buildStageColor,
   type LeadInsightState
 } from "./SdrLeadScoreWorkspace.helpers";
@@ -43,20 +49,22 @@ type SdrLeadScoreWorkspaceTableProps = {
   dashboardCopy: LeadDashboardCopy;
   filteredLeadsLength: number;
   filters: LeadFilters;
+  handleExportCsv: () => void;
+  handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
+  handleSendSequence: (lead: SdrAutomaticLead) => void;
   insights: Record<string, LeadInsightState>;
   liveLeadsLength: number;
   locale: SupportedLocale;
   openInsightLeadId: string | null;
   pagination: PaginationState;
   setFilters: (value: LeadFilters) => void;
+  setPage: (value: number | ((current: number) => number)) => void;
   toggleColumn: (column: LeadColumnId) => void;
+  toggleRegion: (region: LeadRegionId) => void;
   toggleScoreBand: (band: LeadScoreBandId) => void;
   toggleStage: (stage: SdrAutomaticLead["stage"]) => void;
   updateFilter: <K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) => void;
   visibleColumns: LeadColumnId[];
-  handleExportCsv: () => void;
-  handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
-  setPage: (value: number | ((current: number) => number)) => void;
 };
 
 export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProps) {
@@ -67,6 +75,7 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
     filters,
     handleExportCsv,
     handleLeadInsight,
+    handleSendSequence,
     insights,
     liveLeadsLength,
     locale,
@@ -75,6 +84,7 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
     setFilters,
     setPage,
     toggleColumn,
+    toggleRegion,
     toggleScoreBand,
     toggleStage,
     updateFilter,
@@ -107,6 +117,10 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
       return <span>{lead.owner}</span>;
     }
 
+    if (column === "region") {
+      return <span>{dashboardCopy.regionLabels[lead.region]}</span>;
+    }
+
     if (column === "stage") {
       return (
         <span
@@ -118,6 +132,17 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           }
         >
           {dashboardCopy.stageLabels[lead.stage]}
+        </span>
+      );
+    }
+
+    if (column === "sequenceStatus") {
+      return (
+        <span
+          className={styles.slaPill}
+          data-tone={buildSequenceStatusTone(lead.sequenceStatus)}
+        >
+          {dashboardCopy.sequenceStatusLabels[lead.sequenceStatus]}
         </span>
       );
     }
@@ -164,10 +189,20 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
       );
     }
 
+    const insight = insights[lead.id];
+
     return (
       <div className={styles.actionGroup}>
         <button className={shellStyles.actionButton} type="button">
           {lead.action}
+        </button>
+        <button
+          className={styles.secondaryButton}
+          onClick={() => handleSendSequence(lead)}
+          type="button"
+        >
+          <Send size={14} />
+          <span>{dashboardCopy.sendSequenceLabel}</span>
         </button>
         <div className={styles.aiWrap}>
           <button
@@ -183,8 +218,11 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           {openInsightLeadId === lead.id ? (
             <div className={styles.aiPopover}>
               <strong>{dashboardCopy.aiAgentLabel}</strong>
-              <p>{insights[lead.id]?.text ?? dashboardCopy.aiTooltipEmpty}</p>
-              <small>{insights[lead.id]?.source ?? dashboardCopy.aiAgentLabel}</small>
+              <p>{insight?.detail.summary ?? dashboardCopy.aiTooltipEmpty}</p>
+              {insight?.detail.recommendedActions?.slice(0, 2).map((action) => (
+                <small key={action}>{action}</small>
+              ))}
+              <small>{insight?.source ?? dashboardCopy.aiAgentLabel}</small>
             </div>
           ) : null}
         </div>
@@ -211,7 +249,7 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           </label>
 
           <details className={styles.dropdown}>
-            <summary>
+            <summary title={dashboardCopy.filterTooltips.stage}>
               <Filter size={16} />
               <span>{dashboardCopy.stageFilterLabel}</span>
             </summary>
@@ -230,7 +268,26 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           </details>
 
           <details className={styles.dropdown}>
-            <summary>
+            <summary title={dashboardCopy.filterTooltips.region}>
+              <MapPinned size={16} />
+              <span>{dashboardCopy.regionFilterLabel}</span>
+            </summary>
+            <div className={styles.dropdownBody}>
+              {(Object.keys(dashboardCopy.regionLabels) as LeadRegionId[]).map((region) => (
+                <label className={styles.dropdownOption} key={region}>
+                  <input
+                    checked={filters.regions.includes(region)}
+                    onChange={() => toggleRegion(region)}
+                    type="checkbox"
+                  />
+                  <span>{dashboardCopy.regionLabels[region]}</span>
+                </label>
+              ))}
+            </div>
+          </details>
+
+          <details className={styles.dropdown}>
+            <summary title={dashboardCopy.filterTooltips.score}>
               <ListFilter size={16} />
               <span>{dashboardCopy.scoreFilterLabel}</span>
             </summary>
@@ -249,7 +306,7 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           </details>
 
           <details className={styles.dropdown}>
-            <summary>
+            <summary title={dashboardCopy.filterTooltips.columns}>
               <LayoutPanelTop size={16} />
               <span>{dashboardCopy.columnsLabel}</span>
             </summary>
@@ -298,9 +355,7 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
         </button>
         <button
           className={styles.secondaryButton}
-          onClick={() => {
-            setFilters(DEFAULT_LEAD_FILTERS);
-          }}
+          onClick={() => setFilters(DEFAULT_LEAD_FILTERS)}
           type="button"
         >
           {dashboardCopy.clearFiltersLabel}
@@ -312,7 +367,9 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           <thead>
             <tr>
               {visibleColumns.map((column) => (
-                <th key={column}>{renderColumnHeader(column)}</th>
+                <th key={column} title={dashboardCopy.columnTooltips[column]}>
+                  {renderColumnHeader(column)}
+                </th>
               ))}
             </tr>
           </thead>

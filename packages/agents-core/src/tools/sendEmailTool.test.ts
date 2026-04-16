@@ -4,8 +4,11 @@ import test from "node:test";
 import { SendEmailTool } from "./sendEmailTool.js";
 
 function readJsonBody(init?: RequestInit): Record<string, unknown> {
-  assert.equal(typeof init?.body, "string");
-  return JSON.parse(init.body) as Record<string, unknown>;
+  const body = init?.body;
+  if (typeof body !== "string") {
+    throw new TypeError("Expected request body to be a JSON string");
+  }
+  return JSON.parse(body) as Record<string, unknown>;
 }
 
 void test("SendEmailTool requires explicit SendGrid credentials", async () => {

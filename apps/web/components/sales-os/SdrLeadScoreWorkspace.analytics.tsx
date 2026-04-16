@@ -21,6 +21,7 @@ import {
   YAxis
 } from "recharts";
 
+import type { SupportedLocale } from "../../lib/i18n";
 import type {
   ChurnWatchEntry,
   FunnelPoint,
@@ -38,6 +39,7 @@ type SdrLeadScoreWorkspaceAnalyticsProps = {
   churnWatchlist: ChurnWatchEntry[];
   dashboardCopy: LeadDashboardCopy;
   funnelData: FunnelPoint[];
+  locale: SupportedLocale;
   onRefreshChurnSummary: () => void;
   pipelineData: PipelinePoint[];
   regionMetrics: RegionalPerformancePoint[];
@@ -58,6 +60,7 @@ export function SdrLeadScoreWorkspaceAnalytics(
     churnWatchlist,
     dashboardCopy,
     funnelData,
+    locale,
     onRefreshChurnSummary,
     pipelineData,
     regionMetrics,
@@ -71,7 +74,9 @@ export function SdrLeadScoreWorkspaceAnalytics(
       : regionMetrics;
   const focusedRegionLabel =
     selectedRegions.length === 0
-      ? dashboardCopy.mapActiveRegionLabel
+      ? locale === "en-US"
+        ? "All regions"
+        : "Todas as regioes"
       : focusedRegions.map((entry) => entry.regionLabel).join(", ");
   const focusedRevenue = sum(focusedRegions.map((entry) => entry.revenuePotential));
   const focusedAccounts = sum(focusedRegions.map((entry) => entry.activeAccounts));
@@ -88,6 +93,11 @@ export function SdrLeadScoreWorkspaceAnalytics(
           focusedRegions.reduce((total, entry) => total + entry.slaCompliance, 0) / focusedRegions.length
         )
       : 0;
+  const revenueLabel = new Intl.NumberFormat(locale, {
+    currency: locale === "en-US" ? "USD" : "BRL",
+    maximumFractionDigits: 0,
+    style: "currency"
+  }).format(focusedRevenue);
 
   return (
     <section className={styles.analyticsGrid}>
@@ -236,7 +246,7 @@ export function SdrLeadScoreWorkspaceAnalytics(
             </article>
             <article className={styles.mapMetricCard}>
               <small>{dashboardCopy.revenuePotentialLabel}</small>
-              <strong>${focusedRevenue.toLocaleString()}</strong>
+              <strong>{revenueLabel}</strong>
             </article>
             <article className={styles.mapMetricCard}>
               <small>{dashboardCopy.pipelineCoverageLabel}</small>

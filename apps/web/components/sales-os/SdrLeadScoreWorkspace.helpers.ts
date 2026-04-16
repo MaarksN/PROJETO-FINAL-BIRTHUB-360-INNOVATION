@@ -91,6 +91,12 @@ export function buildLeadInsightDetail(
   agentSummary?: string
 ): LeadInsightDetail {
   const copy = getLeadDashboardCopy(locale);
+  const engagement = lead.engagement ?? {
+    emailClicks: 0,
+    hotPages: [],
+    lastTouchpointAt: lead.createdAt,
+    pageVisits: 0
+  };
   const engagementBoost = getLeadEngagementBoost(lead);
   const supportPenalty = getLeadSupportPenalty(lead);
   const sequencePlan = getSequencePlan(lead, locale);
@@ -101,11 +107,11 @@ export function buildLeadInsightDetail(
   return {
     highlights: [
       locale === "en-US"
-        ? `${lead.engagement.emailClicks} email clicks and ${lead.engagement.pageVisits} high-intent page visits from ${copy.regionLabels[lead.region]}.`
-        : `${lead.engagement.emailClicks} cliques em e-mail e ${lead.engagement.pageVisits} visitas de alta intencao vindas de ${copy.regionLabels[lead.region]}.`,
+        ? `${engagement.emailClicks} email clicks and ${engagement.pageVisits} high-intent page visits from ${copy.regionLabels[lead.region ?? "latin-america"]}.`
+        : `${engagement.emailClicks} cliques em e-mail e ${engagement.pageVisits} visitas de alta intencao vindas de ${copy.regionLabels[lead.region ?? "latin-america"]}.`,
       locale === "en-US"
-        ? `Key pages: ${lead.engagement.hotPages.slice(0, 3).join(", ")}.`
-        : `Paginas-chave: ${lead.engagement.hotPages.slice(0, 3).join(", ")}.`,
+        ? `Key pages: ${engagement.hotPages.slice(0, 3).join(", ")}.`
+        : `Paginas-chave: ${engagement.hotPages.slice(0, 3).join(", ")}.`,
       locale === "en-US"
         ? `SLA is ${resolveSlaLabel(locale, lead.slaStatus).toLowerCase()} and churn pressure is ${churnRisk}/100.`
         : `SLA esta ${resolveSlaLabel(locale, lead.slaStatus).toLowerCase()} e a pressao de churn esta em ${churnRisk}/100.`
