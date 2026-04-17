@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { ProductPageHeader } from "../../../../components/dashboard/page-fragments";
-import { SdrAutomaticPlatform } from "../../../../components/sales-os/SdrAutomaticPlatform";
+import { SdrAutomaticPlatform } from "../../../../components/sales-os/sdr-automatic-platform";
 import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE
