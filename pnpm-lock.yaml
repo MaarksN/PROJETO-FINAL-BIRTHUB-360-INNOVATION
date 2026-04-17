@@ -365,6 +365,9 @@ importers:
       '@birthub/agents-core':
         specifier: workspace:*
         version: link:../agents-core
+      '@birthub/logger':
+        specifier: workspace:^
+        version: link:../logger
       zod:
         specifier: ^4.3.6
         version: 4.3.6
