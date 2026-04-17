@@ -1,41 +1,123 @@
-type InjectedClient = {
-  auditLog: {
-    create: (_args: unknown) => Promise<unknown>;
-  };
-  membership: {
-    findMany: (_args: unknown) => Promise<unknown[]>;
-  };
-  notification: {
-    count: (_args: unknown) => Promise<number>;
-    create: (_args: unknown) => Promise<unknown>;
-    createMany: (_args: unknown) => Promise<{ count: number }>;
-    findMany: (_args: unknown) => Promise<unknown[]>;
-    updateMany: (_args: unknown) => Promise<{ count: number }>;
-  };
-  userPreference: {
-    findUnique: (_args: unknown) => Promise<Record<string, unknown> | null>;
-    upsert: (_args: unknown) => Promise<{ inAppNotifications: boolean }>;
-  };
-};
+import { mock } from 'node:test';
+import { Prisma } from '@prisma/client';
+import type { EngagementPrismaClient } from '../src/repositories/engagement.js';
 
-export function createInjectedClient(): InjectedClient {
+export function createMockUserPreference(overrides: Partial<Prisma.UserPreferenceGetPayload<{}>> = {}): Prisma.UserPreferenceGetPayload<{}> {
   return {
-    auditLog: {
-      create: (_args: unknown) => Promise.resolve({})
+    cookieConsent: "PENDING",
+    createdAt: new Date(),
+    emailNotifications: true,
+    id: "pref_1",
+    inAppNotifications: true,
+    locale: "en-US",
+    marketingEmails: false,
+    organizationId: "org_1",
+    pushNotifications: false,
+    tenantId: "tenant_1",
+    updatedAt: new Date(),
+    userId: "user_1",
+    ...overrides
+  } as Prisma.UserPreferenceGetPayload<{}>;
+}
+
+export function createMockNotification(overrides: Partial<Prisma.NotificationGetPayload<{}>> = {}): Prisma.NotificationGetPayload<{}> {
+  return {
+    content: "ops",
+    createdAt: new Date(),
+    id: "notification_1",
+    isRead: false,
+    link: null,
+    metadata: null,
+    organizationId: "org_1",
+    readAt: null,
+    tenantId: "tenant_1",
+    type: "INFO",
+    updatedAt: new Date(),
+    userId: "user_admin",
+    ...overrides
+  } as Prisma.NotificationGetPayload<{}>;
+}
+
+export function createMockAuditLog(overrides: Partial<Prisma.AuditLogGetPayload<{}>> = {}): Prisma.AuditLogGetPayload<{}> {
+  return {
+    action: "user.cookie_consent_updated",
+    actorId: "user_1",
+    createdAt: new Date(),
+    diff: {},
+    entityId: "pref_1",
+    entityType: "user_preference",
+    id: "audit_1",
+    ip: null,
+    tenantId: "tenant_1",
+    userAgent: null,
+    ...overrides
+  } as Prisma.AuditLogGetPayload<{}>;
+}
+
+export function createMockMembership(overrides: Partial<Prisma.MembershipGetPayload<{ include: { user: { include: { preferences: true } } } }>> = {}): Prisma.MembershipGetPayload<{ include: { user: { include: { preferences: true } } } }> {
+  return {
+    createdAt: new Date(),
+    id: "membership_1",
+    organizationId: "org_1",
+    role: "ADMIN",
+    status: "ACTIVE",
+    tenantId: "tenant_1",
+    updatedAt: new Date(),
+    user: {
+      createdAt: new Date(),
+      email: "admin@example.com",
+      id: "user_admin",
+      lastLoginAt: null,
+      name: "Admin",
+      preferences: [
+        {
+          cookieConsent: "ACCEPTED",
+          createdAt: new Date(),
+          emailNotifications: true,
+          id: "pref_admin",
+          inAppNotifications: true,
+          locale: "en-US",
+          marketingEmails: false,
+          organizationId: "org_1",
+          pushNotifications: false,
+          tenantId: "tenant_1",
+          updatedAt: new Date(),
+          userId: "user_admin"
+        }
+      ],
+      status: "ACTIVE",
+      tenantId: "tenant_1",
+      updatedAt: new Date()
     },
-    membership: {
-      findMany: (_args: unknown) => Promise.resolve([])
+    userId: "user_admin",
+    ...overrides
+  } as unknown as Prisma.MembershipGetPayload<{ include: { user: { include: { preferences: true } } } }>;
+}
+
+export function createPrismaPromise<T>(value: T): Prisma.PrismaPromise<T> {
+  const promise = Promise.resolve(value);
+  Object.defineProperty(promise, Symbol.toStringTag, { value: 'PrismaPromise', configurable: true });
+  return promise as unknown as Prisma.PrismaPromise<T>;
+}
+
+export function createEngagementPrismaMock(): EngagementPrismaClient {
+  return {
+    userPreference: {
+      upsert: mock.fn(async () => createMockUserPreference()),
+      findUnique: mock.fn(async () => createMockUserPreference())
+    },
+    auditLog: {
+      create: mock.fn(async () => createMockAuditLog())
     },
     notification: {
-      count: (_args: unknown) => Promise.resolve(0),
-      create: (_args: unknown) => Promise.resolve({}),
-      createMany: (_args: unknown) => Promise.resolve({ count: 0 }),
-      findMany: (_args: unknown) => Promise.resolve([]),
-      updateMany: (_args: unknown) => Promise.resolve({ count: 0 })
+      create: mock.fn(async () => createMockNotification()),
+      createMany: mock.fn(async () => createPrismaPromise({ count: 1 } as Prisma.BatchPayload)),
+      findMany: mock.fn(async () => createPrismaPromise([])),
+      count: mock.fn(async () => createPrismaPromise(0)),
+      updateMany: mock.fn(async () => createPrismaPromise({ count: 1 } as Prisma.BatchPayload))
     },
-    userPreference: {
-      findUnique: (_args: unknown) => Promise.resolve(null),
-      upsert: (_args: unknown) => Promise.resolve({ inAppNotifications: true })
+    membership: {
+      findMany: mock.fn(async () => createPrismaPromise([]))
     }
-  };
+  } as unknown as EngagementPrismaClient;
 }
