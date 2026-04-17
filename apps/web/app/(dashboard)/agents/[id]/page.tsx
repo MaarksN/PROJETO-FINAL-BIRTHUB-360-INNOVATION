@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ExecutivePremiumAgentCallout } from "../../../../components/agents/ExecutivePremiumAgentCallout";
 import { AgentDetailTabs } from "../../../../components/agents/agent-detail-tabs";
 import { getInstalledAgentById } from "../../../../lib/agents";
+import { isExecutivePremiumPack } from "../../../../lib/executive-premium";
 
 export default async function AgentDetailPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params;
@@ -26,6 +28,14 @@ export default async function AgentDetailPage(props: { params: Promise<{ id: str
           <Link href={`/agents/${agent.id}/policies`}>Policies</Link>
         </div>
       </header>
+
+      {isExecutivePremiumPack(agent.catalogAgentId) ? (
+        <ExecutivePremiumAgentCallout
+          agentId={agent.catalogAgentId}
+          description="Este agente faz parte da linha executiva premium com memoria decisoria, score de evidencia, governanca e transferencia estruturada entre especialistas."
+          title="Agente premium executivo em operacao"
+        />
+      ) : null}
 
       <AgentDetailTabs agent={agent} />
     </section>

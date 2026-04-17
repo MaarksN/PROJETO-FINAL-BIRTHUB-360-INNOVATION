@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -11,9 +12,14 @@ import {
   UserRound
 } from "lucide-react";
 
+import {
+  EXECUTIVE_PREMIUM_COLLECTION_HREF,
+  EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
+} from "../../lib/executive-premium";
 import type { SupportedLocale } from "../../lib/i18n";
 import {
   getSdrAutomaticConfig,
+  getSdrAutomaticViewDefinitions,
   type SdrAutomaticCopy,
   type SdrAutomaticLead,
   type SdrAutomaticTimeSlot
@@ -28,45 +34,28 @@ import styles from "./sdr-automatic-platform.module.css";
 
 type ViewId = "agendador" | "assistente" | "handoff" | "leadScore";
 
-type ViewDefinition = {
-  description: string;
+type ViewDefinition = ReturnType<typeof getSdrAutomaticViewDefinitions>[number] & {
   icon: LucideIcon;
-  id: ViewId;
-  label: string;
 };
 
 function buildViews(copy: SdrAutomaticCopy): ViewDefinition[] {
-  return [
-    {
-      description: copy.leadSubtitle,
-      icon: Filter,
-      id: "leadScore",
-      label: copy.leadTitle
-    },
-    {
-      description: copy.assistantSubtitle,
-      icon: MessageSquareQuote,
-      id: "assistente",
-      label: copy.assistantTitle
-    },
-    {
-      description: copy.agendaSubtitle,
-      icon: CalendarPlus,
-      id: "agendador",
-      label: copy.agendaTitle
-    },
-    {
-      description: copy.handoffSubtitle,
-      icon: Send,
-      id: "handoff",
-      label: copy.handoffTitle
-    }
-  ];
+  return getSdrAutomaticViewDefinitions(copy).map((view) => ({
+    ...view,
+    icon:
+      view.id === "leadScore"
+        ? Filter
+        : view.id === "assistente"
+          ? MessageSquareQuote
+          : view.id === "agendador"
+            ? CalendarPlus
+            : Send
+  }));
 }
 
 function renderActiveView(input: {
   activeView: ViewId;
   copy: SdrAutomaticCopy;
+  crmRegions: ReturnType<typeof getSdrAutomaticConfig>["crmRegions"];
   leads: SdrAutomaticLead[];
   locale: SupportedLocale;
   timeSlots: SdrAutomaticTimeSlot[];
@@ -89,6 +78,7 @@ function renderActiveView(input: {
       return (
         <SdrLeadScoreView
           copy={input.copy}
+          crmRegions={input.crmRegions}
           leads={input.leads}
           locale={input.locale}
         />
@@ -96,14 +86,21 @@ function renderActiveView(input: {
   }
 }
 
-export function SdrAutomaticPlatform(input: { locale: SupportedLocale }) {
+export function SdrAutomaticPlatform(input: {
+  locale: SupportedLocale;
+  premiumAgentCount: number;
+}) {
   const [activeView, setActiveView] = useState<ViewId>("leadScore");
-  const { copy, leads, timeSlots } = useMemo(
+  const { copy, crmRegions, leads, timeSlots } = useMemo(
     () => getSdrAutomaticConfig(input.locale),
     [input.locale]
   );
   const views = useMemo(() => buildViews(copy), [copy]);
-  const currentView = views.find((view) => view.id === activeView) ?? views[0]!;
+  const currentView = views.find((view) => view.id === activeView) ?? views.at(0);
+
+  if (!currentView) {
+    return null;
+  }
 
   return (
     <section className={styles.platformShell}>
@@ -129,6 +126,24 @@ export function SdrAutomaticPlatform(input: { locale: SupportedLocale }) {
                 <strong>{metric.value}</strong>
               </article>
             ))}
+          </div>
+        </div>
+
+        <div className={styles.premiumCard}>
+          <span className={styles.sectionEyebrow}>{copy.premiumEyebrow}</span>
+          <strong>{copy.premiumTitle}</strong>
+          <p>{copy.premiumDescription}</p>
+          <div className={styles.inlineMetrics}>
+            <span>{input.premiumAgentCount} {copy.premiumSummaryLabel}</span>
+            <span>{EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT} {copy.premiumLayersLabel}</span>
+          </div>
+          <div className={styles.premiumActions}>
+            <Link className={styles.premiumPrimaryLink} href={EXECUTIVE_PREMIUM_COLLECTION_HREF}>
+              {copy.premiumViewAll}
+            </Link>
+            <Link className={styles.premiumSecondaryLink} href="/agents">
+              {copy.premiumOpenAgents}
+            </Link>
           </div>
         </div>
 
@@ -185,6 +200,7 @@ export function SdrAutomaticPlatform(input: { locale: SupportedLocale }) {
         {renderActiveView({
           activeView,
           copy,
+          crmRegions,
           leads,
           locale: input.locale,
           timeSlots

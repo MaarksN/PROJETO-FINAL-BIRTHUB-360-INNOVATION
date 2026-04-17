@@ -19,21 +19,27 @@ export async function cleanupSuspendedUsers(
     }
   });
 
-  for (const user of suspendedUsers) {
-    await prismaClient.user.update({
-      data: {
-        email: `deleted+${user.id}@redacted.local`,
-        mfaEnabled: false,
-        mfaSecret: null,
-        name: "Deleted User",
-        passwordHash: createHash("sha256")
-          .update(`deleted:${user.id}:${now.toISOString()}`)
-          .digest("hex")
-      },
-      where: {
-        id: user.id
-      }
-    });
+  const BATCH_SIZE = 50;
+  for (let i = 0; i < suspendedUsers.length; i += BATCH_SIZE) {
+    const chunk = suspendedUsers.slice(i, i + BATCH_SIZE);
+    await Promise.all(
+      chunk.map((user) =>
+        prismaClient.user.update({
+          data: {
+            email: `deleted+${user.id}@redacted.local`,
+            mfaEnabled: false,
+            mfaSecret: null,
+            name: "Deleted User",
+            passwordHash: createHash("sha256")
+              .update(`deleted:${user.id}:${now.toISOString()}`)
+              .digest("hex")
+          },
+          where: {
+            id: user.id
+          }
+        })
+      )
+    );
   }
 
   return {

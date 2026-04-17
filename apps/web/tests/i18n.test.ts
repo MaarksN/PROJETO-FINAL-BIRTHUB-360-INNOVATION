@@ -13,14 +13,19 @@ import {
 
 void test("pt-BR dictionary exposes canonical product navigation and consent copy", () => {
   const copy = getDictionary();
+  const conversationsItem = copy.navbar.items.find((item) => item.href === "/conversations");
+  const marketplaceItem = copy.navbar.items.find((item) => item.href === "/marketplace");
 
   assert.equal(copy.navbar.identityTitle, "Central de Operacao");
   assert.equal(copy.navbar.items[0]?.href, "/dashboard");
-  assert.equal(copy.navbar.items[6]?.label, "Conversas");
+  assert.equal(conversationsItem?.label, "Conversas");
+  assert.equal(marketplaceItem?.label, "Marketplace");
   assert.equal(copy.navbar.items.at(-1)?.href, "/sales-os");
+  assert.equal(copy.navbar.premiumLinkTitle, "Abrir colecao premium executiva");
   assert.equal(copy.consentBanner.settings, "Abrir central LGPD");
   assert.equal(copy.dashboardHome.badge, "Home do produto");
   assert.equal(copy.notificationPreferencesPage.interfaceLanguageHeading, "Idioma da interface");
+  assert.equal(copy.notificationPreferencesPage.themeHeading, "Tema do dashboard");
 });
 
 void test("formatPtBrDateTime uses the pt-BR locale baseline", () => {
@@ -45,13 +50,17 @@ void test("resolveLocale falls back to pt-BR and accepts accept-language headers
 
 void test("en-US dictionary exposes translated navigation and dashboard copy", () => {
   const copy = getDictionary("en-US");
+  const marketplaceItem = copy.navbar.items.find((item) => item.href === "/marketplace");
 
   assert.equal(copy.navbar.identityTitle, "Operations Hub");
   assert.equal(copy.navbar.items[1]?.label, "Patients");
+  assert.equal(marketplaceItem?.label, "Marketplace");
   assert.equal(copy.navbar.items.at(-1)?.label, "Sales OS");
+  assert.equal(copy.navbar.premiumLinkLabel, "Premium");
   assert.equal(copy.workflowsPage.backHome, "Back to home");
   assert.equal(copy.dashboardHome.noUsageTitle, "No recorded usage");
   assert.equal(copy.notificationPreferencesPage.interfaceLanguageLabel, "Language");
+  assert.equal(copy.notificationPreferencesPage.darkThemeLabel, "Dark");
 });
 
 void test("formatDateTime honors the requested locale", () => {

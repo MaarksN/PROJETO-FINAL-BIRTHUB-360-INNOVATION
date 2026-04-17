@@ -1,4 +1,3 @@
-// @ts-nocheck
 //
 import { getWorkerConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
@@ -10,6 +9,7 @@ import {
   getAgentQueueName
 } from "@birthub/queue";
 import type { Queue, Worker } from "bullmq";
+import type { Redis } from "ioredis";
 
 import { persistAgentHandoff } from "./agents/handoffs.js";
 import { initializeAgentMeshIngressBridge } from "./agents/runtime.ingress.js";
@@ -313,7 +313,7 @@ export function createBirthHubWorker(): WorkerRuntime {
 
   const agentMeshIngressBridge = initializeAgentMeshIngressBridge({
     enqueueAgentExecution: async ({ payload, priority }) => {
-      const mappedPriority = priority === "high" ? 1 : priority === "low" ? 10 : 5;
+      const mappedPriority = priority === "high" ? 1 : (priority as string) === "low" ? 10 : 5;
 
       await runtime.enqueue({
         data: payload,

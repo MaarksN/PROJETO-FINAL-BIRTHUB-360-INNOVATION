@@ -1,6 +1,6 @@
 // @ts-nocheck
-// 
-import { Role, type PrismaClient } from "@birthub/database";
+//
+import { Role, type PrismaClient } from "@prisma/client";
 
 export async function createOrganization(
   prisma: PrismaClient,

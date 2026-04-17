@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import type { ApiConfig } from "@birthub/config";
 import {
   apiKeyCreateRequestSchema,
@@ -9,6 +7,7 @@ import {
 import { Router } from "express";
 import { Role } from "@birthub/database";
 
+import { Auditable } from "../../audit/auditable.js";
 import {
   RequireRole,
   requireAuthenticatedSession
@@ -21,6 +20,11 @@ import {
   revokeTenantApiKey,
   rotateTenantApiKey
 } from "../auth/auth.service.js";
+
+type ApiKeyAuditResult = {
+  id: string;
+  revoked?: boolean;
+};
 
 function requireAuthScope(request: {
   context: { organizationId?: string | null; userId?: string | null };
@@ -60,6 +64,23 @@ function readApiKeyId(params: Record<string, string | string[] | undefined>): st
   });
 }
 
+function createApiKeyMutationAudit(action: string) {
+  return Auditable<ApiKeyAuditResult>({
+    action,
+    entityType: "api_key",
+    requireActor: true,
+    resolveEntityId: (request, _response, result) => {
+      if (typeof result?.id === "string" && result.id.trim().length > 0) {
+        return result.id;
+      }
+
+      return typeof request.params.id === "string" && request.params.id.trim().length > 0
+        ? request.params.id
+        : undefined;
+    }
+  });
+}
+
 export function createApiKeysRouter(config: ApiConfig): Router {
   const router = Router();
 
@@ -90,65 +111,84 @@ export function createApiKeysRouter(config: ApiConfig): Router {
   router.post(
     "/",
     validateBody(apiKeyCreateRequestSchema),
-    asyncHandler(async (request, response) => {
-      const scope = requireAuthScope(request);
-      const body = apiKeyCreateRequestSchema.parse(request.body);
-      const created = await createTenantApiKey({
-        config,
-        label: body.label,
-        organizationId: scope.organizationId,
-        scopes: body.scopes,
-        userId: scope.userId
-      });
-
-      response.status(201).json(
-        apiKeyCreateResponseSchema.parse({
+    asyncHandler(
+      createApiKeyMutationAudit("api_key.created")(async (request, response) => {
+        const scope = requireAuthScope(request);
+        const body = apiKeyCreateRequestSchema.parse(request.body);
+        const created = await createTenantApiKey({
+          config,
+          label: body.label,
+          organizationId: scope.organizationId,
+          scopes: body.scopes,
+          userId: scope.userId
+        });
+        const payload = apiKeyCreateResponseSchema.parse({
           apiKey: created.key,
           id: created.id,
           requestId: request.context.requestId
-        })
-      );
-    })
+        });
+
+        response.status(201).json(payload);
+
+        // Only the identifier is returned to the audit envelope to avoid logging the secret key.
+        return {
+          id: created.id
+        };
+      })
+    )
   );
 
   router.post(
     "/:id/rotate",
-    asyncHandler(async (request, response) => {
-      const scope = requireAuthScope(request);
-      const id = readApiKeyId(request.params);
-      const rotated = await rotateTenantApiKey({
-        config,
-        id,
-        organizationId: scope.organizationId,
-        userId: scope.userId
-      });
-
-      response.status(200).json(
-        apiKeyCreateResponseSchema.parse({
+    asyncHandler(
+      createApiKeyMutationAudit("api_key.rotated")(async (request, response) => {
+        const scope = requireAuthScope(request);
+        const id = readApiKeyId(request.params);
+        const rotated = await rotateTenantApiKey({
+          config,
+          id,
+          organizationId: scope.organizationId,
+          userId: scope.userId
+        });
+        const payload = apiKeyCreateResponseSchema.parse({
           apiKey: rotated.key,
           id: rotated.id,
           requestId: request.context.requestId
-        })
-      );
-    })
+        });
+
+        response.status(200).json(payload);
+
+        // Audit uses the replacement key id only; the materialized secret must never enter the log.
+        return {
+          id: rotated.id
+        };
+      })
+    )
   );
 
   router.delete(
     "/:id",
-    asyncHandler(async (request, response) => {
-      const scope = requireAuthScope(request);
-      const id = readApiKeyId(request.params);
-      await revokeTenantApiKey({
-        id,
-        organizationId: scope.organizationId,
-        userId: scope.userId
-      });
+    asyncHandler(
+      createApiKeyMutationAudit("api_key.revoked")(async (request, response) => {
+        const scope = requireAuthScope(request);
+        const id = readApiKeyId(request.params);
+        await revokeTenantApiKey({
+          id,
+          organizationId: scope.organizationId,
+          userId: scope.userId
+        });
 
-      response.status(200).json({
-        requestId: request.context.requestId,
-        revoked: true
-      });
-    })
+        response.status(200).json({
+          requestId: request.context.requestId,
+          revoked: true
+        });
+
+        return {
+          id,
+          revoked: true
+        };
+      })
+    )
   );
 
   return router;

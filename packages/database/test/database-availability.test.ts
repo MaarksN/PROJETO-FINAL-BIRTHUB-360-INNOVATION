@@ -48,10 +48,10 @@ void test("requireDatabaseUrlOrSkip fails official suites when DATABASE_URL is a
 void test("ensureDatabaseAvailableOrSkip skips optional suites on connectivity errors", async () => {
   const { calls, context } = createTestContext();
   const client = {
-    $queryRaw: async () => {
+    $queryRaw: () => {
       const error = new Error("connect ECONNREFUSED");
       Object.assign(error, { code: "ECONNREFUSED" });
-      throw error;
+      return Promise.reject(error);
     }
   };
 
@@ -68,10 +68,10 @@ void test("ensureDatabaseAvailableOrSkip skips optional suites on connectivity e
 void test("ensureDatabaseAvailableOrSkip fails official suites on connectivity errors", async () => {
   const { context } = createTestContext();
   const client = {
-    $queryRaw: async () => {
+    $queryRaw: () => {
       const error = new Error("connect ECONNREFUSED");
       Object.assign(error, { code: "ECONNREFUSED" });
-      throw error;
+      return Promise.reject(error);
     }
   };
 

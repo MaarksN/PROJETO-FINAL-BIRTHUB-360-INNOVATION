@@ -1,11 +1,12 @@
 // @ts-nocheck
-// 
+//
 import { execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-import { Prisma, type PrismaClient } from "@birthub/database";
+import { Prisma, type PrismaClient } from "@prisma/client";
+import { createPrismaClient } from "@birthub/database/client";
 
 import { seedCoreFixtures } from "./factories.js";
 
@@ -69,9 +70,12 @@ function resolvePnpmCommand(): { args: string[]; command: string } {
   };
 }
 
-async function createPrismaForTest(databaseUrl: string): Promise<PrismaClient> {
-  const { createPrismaClient } = await import("@birthub/database");
-  return createPrismaClient({ databaseUrl });
+type CreatePrismaClientForTest = (options: { databaseUrl: string }) => PrismaClient;
+
+const createPrismaClientForTest = createPrismaClient as CreatePrismaClientForTest;
+
+function createPrismaForTest(databaseUrl: string): PrismaClient {
+  return createPrismaClientForTest({ databaseUrl });
 }
 
 function quoteIdentifier(identifier: string): Prisma.Sql {
@@ -121,7 +125,7 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
     stdio: "inherit"
   });
 
-  const prisma = await createPrismaForTest(databaseUrl);
+  const prisma = createPrismaForTest(databaseUrl);
 
   await seedCoreFixtures(prisma);
 

@@ -224,10 +224,18 @@ void test("updateUserPreference accepts an injected client", async () => {
   });
 });
 void test("updateUserPreference persists locale preferences", async () => {
-    let upsertPayload: unknown = null;
+  const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
+  let upsertPayload: unknown = null;
 
-    // @ts-expect-error mock assignment
-  prisma.userPreference.upsert = mock.fn(async (args: any) => { upsertPayload = args; return createMockUserPreference({ id: "pref_locale_1", locale: "en-US" }); });
+  prisma.userPreference.upsert = ((args: unknown) => {
+    upsertPayload = args;
+    return Promise.resolve({
+      id: "pref_locale_1",
+      locale: "en-US"
+    } as never);
+  }) as unknown as typeof prisma.userPreference.upsert;
+
+  try {
     const result = await updateUserPreference({
       locale: "en-US",
       organizationId: "org_1",

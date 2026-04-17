@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
 
 import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
 import { persistStoredSession } from "../lib/auth-client";
@@ -345,11 +344,14 @@ export function LoginForm({ initialRequestId, navigate }: Readonly<LoginFormProp
     );
   }
 
-  const router = useRouter();
   return (
     <LoginFormContent
       initialRequestId={initialRequestId}
-      navigate={(href) => router.push(href)}
+      navigate={(href) => {
+        if (typeof window !== "undefined") {
+          window.location.assign(href);
+        }
+      }}
     />
   );
 }

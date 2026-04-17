@@ -23,6 +23,26 @@ export const PRESALES_TOOLS: Tool[] = [
     ]
   },
   {
+    "id": "predictive_lead_scoring",
+    "modules": [
+      "presales"
+    ],
+    "name": "PredictiveLeadScoring",
+    "icon": "target",
+    "color": "emerald",
+    "emoji": "🤖",
+    "desc": "Gera uma leitura curta do potencial de conversão, urgência comercial e próximo passo ideal para cada lead.",
+    "prompt": "Você é um PredictiveLeadScoring atuando como SDR estratégico. Analise rapidamente o contexto do lead, estime o potencial de conversão, destaque o principal risco de SLA e recomende o próximo passo comercial mais objetivo.",
+    "fields": [
+      {
+        "id": "context",
+        "label": "Contexto / Dados",
+        "type": "textarea",
+        "placeholder": "Insira os dados ou contexto para análise..."
+      }
+    ]
+  },
+  {
     "id": "presales_objectioncrusher",
     "modules": [
       "presales"

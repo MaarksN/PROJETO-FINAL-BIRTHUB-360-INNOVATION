@@ -1,7 +1,9 @@
 import { access, readFile } from "node:fs/promises";
+import { createLogger } from "@birthub/logger";
+
+const logger = createLogger("agent");
 import path from "node:path";
 
-import { createLogger } from "@birthub/logger";
 
 import {
   BoardPrepAIContractSchema,
@@ -66,7 +68,6 @@ const DEFAULT_CONTRACT_PATHS = [
   DEFAULT_PACKAGE_CONTRACT_PATH,
   DEFAULT_PACKAGE_CONTRACT_PATH_FROM_PACKAGE
 ] as const;
-const logger = createLogger("boardprep-ai");
 
 interface BoardPrepAIAgentOptions {
   contractPath?: string;

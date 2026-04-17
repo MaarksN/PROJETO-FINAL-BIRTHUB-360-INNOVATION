@@ -701,5 +701,25 @@ export const CS_TOOLS: Tool[] = [
         "placeholder": "Insira os dados ou contexto para análise..."
       }
     ]
+  },
+  {
+    "id": "sentiment_analysis_churn_risk",
+    "modules": [
+      "cs"
+    ],
+    "name": "SentimentAnalysisChurnRisk",
+    "icon": "life-buoy",
+    "color": "sky",
+    "emoji": "🤖",
+    "desc": "Analisa chamados recentes, sentimento do suporte e sinais de adocao para apontar risco de cancelamento e a melhor acao de retencao.",
+    "prompt": "Voce e um SentimentAnalysisChurnRisk atuando como especialista de retencao. Leia o contexto de suporte, identifique contas com alto risco de churn, explique os sinais principais e recomende a proxima acao de retencao em bullets curtos.",
+    "fields": [
+      {
+        "id": "context",
+        "label": "Contexto / Dados",
+        "type": "textarea",
+        "placeholder": "Insira os dados ou contexto para análise..."
+      }
+    ]
   }
 ];

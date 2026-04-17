@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -11,6 +10,18 @@ import {
   createAuthenticatedApiTestApp,
   stubMethod
 } from "./http-test-helpers.js";
+
+type ProblemBody = {
+  status: number;
+  title: string;
+};
+
+function assertProblemBody(body: unknown): asserts body is ProblemBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+  assert.equal(typeof (body as { status?: unknown }).status, "number");
+  assert.equal(typeof (body as { title?: unknown }).title, "string");
+}
 
 function createNotificationsTestApp() {
   return createAuthenticatedApiTestApp({
@@ -117,6 +128,7 @@ void test("notifications router rejects invalid preferences payloads", async () 
     })
     .expect(400);
 
+  assertProblemBody(response.body);
   assert.equal(response.body.status, 400);
   assert.equal(response.body.title, "Bad Request");
 });
