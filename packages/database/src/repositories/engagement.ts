@@ -15,8 +15,15 @@ type JsonObject = Prisma.InputJsonValue | undefined;
 const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;
 type CookieConsentStatus = "ACCEPTED" | "PENDING" | "REJECTED";
 type SupportedLocalePreference = "en-US" | "pt-BR";
-type EngagementRepositoryOptions = {
-  client?: PrismaClient;
+export type EngagementPrismaClient = {
+  userPreference: Pick<PrismaClient['userPreference'], 'upsert' | 'findUnique'>;
+  auditLog: Pick<PrismaClient['auditLog'], 'create'>;
+  notification: Pick<PrismaClient['notification'], 'create' | 'createMany' | 'findMany' | 'count' | 'updateMany'>;
+  membership: Pick<PrismaClient['membership'], 'findMany'>;
+};
+
+export type EngagementRepositoryOptions = {
+  client?: EngagementPrismaClient;
 };
 
 type UserPreferenceInput = {
@@ -40,7 +47,7 @@ type UserPreferenceInput = {
   userId: string;
 };
 
-function resolveClient(options?: EngagementRepositoryOptions): PrismaClient {
+function resolveClient(options?: EngagementRepositoryOptions): EngagementPrismaClient {
   return options?.client ?? prisma;
 }
 
