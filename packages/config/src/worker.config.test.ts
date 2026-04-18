@@ -1,10 +1,8 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { EnvValidationError } from "./shared";
-import { getWorkerConfig } from "./worker.config";
+import { EnvValidationError } from "./shared.js";
+import { getWorkerConfig } from "./worker.config.js";
 
 const baseEnv = {
   DATABASE_URL: "postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1",
@@ -25,11 +23,12 @@ void test("worker config fails fast in production when transport or secrets are 
       }),
     (error: unknown) => {
       assert.ok(error instanceof EnvValidationError);
-      assert.match(error.message, /DATABASE_URL must include sslmode=require/i);
-      assert.match(error.message, /REDIS_URL must use TLS/i);
-      assert.match(error.message, /JOB_HMAC_GLOBAL_SECRET cannot use the development default/i);
-      assert.match(error.message, /BILLING_EXPORT_S3_BUCKET must be set/i);
-      assert.match(error.message, /SENTRY_DSN must be configured in production/i);
+      const message = error instanceof Error ? error.message : String(error);
+      assert.match(message, /DATABASE_URL must include sslmode=require/i);
+      assert.match(message, /REDIS_URL must use TLS/i);
+      assert.match(message, /JOB_HMAC_GLOBAL_SECRET cannot use the development default/i);
+      assert.match(message, /BILLING_EXPORT_S3_BUCKET must be set/i);
+      assert.match(message, /SENTRY_DSN must be configured in production/i);
       return true;
     }
   );

@@ -1,10 +1,8 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getApiConfig } from "./api.config";
-import { EnvValidationError } from "./shared";
+import { getApiConfig } from "./api.config.js";
+import { EnvValidationError } from "./shared.js";
 
 const baseEnv = {
   API_CORS_ORIGINS: "https://app.birthhub360.com",
@@ -32,10 +30,11 @@ void test("api config blocks placeholder production secrets and missing telemetr
       }),
     (error: unknown) => {
       assert.ok(error instanceof EnvValidationError);
-      assert.match(error.message, /Production secrets cannot use development defaults/i);
-      assert.match(error.message, /STRIPE_SECRET_KEY must be a live production key/i);
-      assert.match(error.message, /STRIPE_WEBHOOK_SECRET cannot use placeholder values/i);
-      assert.match(error.message, /SENTRY_DSN must be configured in production/i);
+      const message = error instanceof Error ? error.message : String(error);
+      assert.match(message, /Production secrets cannot use development defaults/i);
+      assert.match(message, /STRIPE_SECRET_KEY must be a live production key/i);
+      assert.match(message, /STRIPE_WEBHOOK_SECRET cannot use placeholder values/i);
+      assert.match(message, /SENTRY_DSN must be configured in production/i);
       return true;
     }
   );

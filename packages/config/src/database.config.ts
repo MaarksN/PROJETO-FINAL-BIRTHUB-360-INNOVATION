@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { getEnvironmentSource } from "./environment";
-import { nodeEnvSchema, optionalUrlString, parseEnv } from "./shared";
+import { getEnvironmentSource } from "./environment.js";
+import { nodeEnvSchema, optionalUrlString, parseEnv } from "./shared.js";
 
 const optionalPositiveInt = z.preprocess(
   (value) => {

@@ -1,10 +1,8 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getWebConfig } from "./web.config";
-import { EnvValidationError } from "./shared";
+import { getWebConfig } from "./web.config.js";
+import { EnvValidationError } from "./shared.js";
 
 void test("web config requires production telemetry endpoints", () => {
   assert.throws(
@@ -17,7 +15,8 @@ void test("web config requires production telemetry endpoints", () => {
       }),
     (error: unknown) => {
       assert.ok(error instanceof EnvValidationError);
-      assert.match(error.message, /NEXT_PUBLIC_SENTRY_DSN must be configured in production/i);
+      const message = error instanceof Error ? error.message : String(error);
+      assert.match(message, /NEXT_PUBLIC_SENTRY_DSN must be configured in production/i);
       return true;
     }
   );
@@ -36,7 +35,8 @@ void test("web config rejects placeholder auth secrets in production", () => {
       }),
     (error: unknown) => {
       assert.ok(error instanceof EnvValidationError);
-      assert.match(error.message, /NEXTAUTH_SECRET cannot use placeholder values in production/i);
+      const message = error instanceof Error ? error.message : String(error);
+      assert.match(message, /NEXTAUTH_SECRET cannot use placeholder values in production/i);
       return true;
     }
   );

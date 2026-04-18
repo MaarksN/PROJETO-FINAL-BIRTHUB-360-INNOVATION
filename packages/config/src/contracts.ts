@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { z } from "zod";
 
 export const roleSchema = z.enum(["OWNER", "ADMIN", "MEMBER", "READONLY"]);

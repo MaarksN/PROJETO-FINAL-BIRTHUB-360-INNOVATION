@@ -1,13 +1,11 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { z } from "zod";
 
-import { getEnvironmentSource } from "./environment";
+import { getEnvironmentSource } from "./environment.js";
 import {
   apiProductCapabilityEnvSchema,
   mapApiProductCapabilities,
   type ProductCapabilities
-} from "./product-capabilities";
+} from "./product-capabilities.js";
 import {
   commaSeparatedList,
   envBoolean,
@@ -24,7 +22,7 @@ import {
   optionalUrlString,
   parseEnv,
   urlString
-} from "./shared";
+} from "./shared.js";
 
 export const apiEnvSchema = z.object({
   ALLOW_LEGACY_PLAINTEXT_CONNECTOR_SECRETS: envBoolean.default(false),

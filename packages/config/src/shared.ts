@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { z, type ZodTypeAny } from "zod";
 
 export const nodeEnvSchema = z.enum(["development", "test", "production"]).default("development");

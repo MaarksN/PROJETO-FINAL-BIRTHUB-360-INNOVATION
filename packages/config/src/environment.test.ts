@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getApiConfig } from "./api.config";
-import { isProductionEnvironment, resolveNodeEnvironment } from "./environment";
+import { getApiConfig } from "./api.config.js";
+import { isProductionEnvironment, resolveNodeEnvironment } from "./environment.js";
 
 function withTemporaryEnvironment<T>(
   overrides: Record<string, string | undefined>,
