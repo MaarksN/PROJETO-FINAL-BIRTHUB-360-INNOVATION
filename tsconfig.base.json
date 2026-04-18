@@ -1,8 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-
+    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
     "target": "ES2022",
     "lib": [
       "ES2022",
@@ -10,16 +9,12 @@
     ],
     "module": "commonjs",
     "moduleResolution": "node",
-    "strict": true,
-    "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "noImplicitOverride": true,
     "declaration": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@birthub/agents-core": ["./packages/agents-core/src/index.ts"
