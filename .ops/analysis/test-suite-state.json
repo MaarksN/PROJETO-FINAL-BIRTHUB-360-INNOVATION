@@ -1,0 +1,8 @@
+{
+  "frameworks": [
+    "jest",
+    "vitest",
+    "node:test"
+  ],
+  "ci_active": true
+}

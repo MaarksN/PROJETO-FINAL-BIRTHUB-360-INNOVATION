@@ -1,0 +1,340 @@
+{
+  "apps/api/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "apps/voice-engine/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "module": "esnext"
+    }
+  },
+  "apps/web/tsconfig.json": {
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+      "allowImportingTsExtensions": true,
+      "baseUrl": ".",
+      "incremental": false,
+      "moduleResolution": "bundler",
+      "plugins": [
+        {
+          "name": "next"
+        }
+      ]
+    }
+  },
+  "apps/worker/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/agent-packs/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "target": "ES2022",
+      "types": [
+        "node"
+      ],
+      "resolveJsonModule": true,
+      "noEmit": true,
+      "strict": true
+    }
+  },
+  "packages/agent-runtime/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/agents-core/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "outDir": "dist",
+      "rootDir": "src",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/agents-registry/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "outDir": "dist",
+      "rootDir": "src",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/auth/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/config/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/conversation-core/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/database/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "baseUrl": ".",
+      "outDir": "dist",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "rootDir": ".",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/emails/tsconfig.json": {
+    "compilerOptions": {
+      "strict": true
+    }
+  },
+  "packages/integrations/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/llm-client/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/logger/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/queue/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/security/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/shared/tsconfig.json": {
+    "compilerOptions": {
+      "strict": true
+    }
+  },
+  "packages/shared-types/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/testing/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "packages/utils/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist",
+      "declaration": true,
+      "strict": true
+    }
+  },
+  "packages/workflows-core/tsconfig.eslint.json": {
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "noEmit": true,
+      "rootDir": "."
+    }
+  },
+  "packages/workflows-core/tsconfig.json": {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "dist/src",
+      "rootDir": "src",
+      "declaration": true,
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "baseUrl": ".",
+      "paths": {},
+      "types": [
+        "node"
+      ]
+    }
+  },
+  "tsconfig.base.json": {
+    "compilerOptions": {
+      "target": "ES2022",
+      "lib": [
+        "ES2022",
+        "DOM"
+      ],
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "strict": true,
+      "noImplicitAny": true,
+      "noUncheckedIndexedAccess": true,
+      "exactOptionalPropertyTypes": true,
+      "noImplicitOverride": true,
+      "declaration": false,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": ".",
+      "paths": {
+        "@birthub/agents-core": [
+          "packages/agents-core/src/index.ts"
+        ],
+        "@birthub/agents-core/tools": [
+          "packages/agents-core/src/tools/index.ts"
+        ],
+        "@birthub/agents-core/tools/*": [
+          "packages/agents-core/src/tools/*.ts"
+        ],
+        "@birthub/agents-core/policy/*": [
+          "packages/agents-core/src/policy/*.ts"
+        ],
+        "@birthub/agents-core/*": [
+          "packages/agents-core/src/*"
+        ],
+        "@birthub/agents-registry": [
+          "packages/agents-registry/src/index.ts"
+        ],
+        "@birthub/agents-registry/*": [
+          "packages/agents-registry/src/*"
+        ],
+        "@birthub/database": [
+          "packages/database/src/index.ts"
+        ],
+        "@birthub/database/*": [
+          "packages/database/src/*"
+        ],
+        "@birthub/config": [
+          "packages/config/src/index.ts"
+        ],
+        "@birthub/config/web": [
+          "packages/config/src/web.ts"
+        ],
+        "@birthub/config/*": [
+          "packages/config/src/*"
+        ],
+        "@birthub/logger": [
+          "packages/logger/src/index.ts"
+        ],
+        "@birthub/logger/*": [
+          "packages/logger/src/*"
+        ],
+        "@birthub/testing": [
+          "packages/testing/src/index.ts"
+        ],
+        "@birthub/testing/*": [
+          "packages/testing/src/*"
+        ],
+        "@birthub/workflows-core": [
+          "packages/workflows-core/src/index.ts"
+        ],
+        "@birthub/workflows-core/nextjs": [
+          "packages/workflows-core/src/nextjs.ts"
+        ],
+        "@birthub/workflows-core/*": [
+          "packages/workflows-core/src/*"
+        ],
+        "@birthub/*": [
+          "packages/*/src/index.ts",
+          "packages/*/src",
+          "packages/*"
+        ]
+      }
+    }
+  },
+  "tsconfig.json": {
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+      "allowJs": true,
+      "noEmit": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "isolatedModules": true,
+      "jsx": "preserve",
+      "incremental": true
+    }
+  }
+}

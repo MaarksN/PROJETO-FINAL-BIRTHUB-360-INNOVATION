@@ -1,0 +1,3953 @@
+.
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── CYCLE_LOG.md
+├── README.md
+├── REPORT.md
+├── SECURITY.md
+├── apps
+│   ├── api
+│   │   ├── CHANGELOG.md
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── app
+│   │   │   │   ├── auth-and-core-routes.ts
+│   │   │   │   ├── auth-routes.ts
+│   │   │   │   ├── core.ts
+│   │   │   │   ├── module-routes.ts
+│   │   │   │   └── pipeline.ts
+│   │   │   ├── app.ts
+│   │   │   ├── audit
+│   │   │   │   ├── auditable.ts
+│   │   │   │   └── buffer.ts
+│   │   │   ├── common
+│   │   │   │   ├── cache
+│   │   │   │   │   ├── cache-store.ts
+│   │   │   │   │   ├── http-cache.ts
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── prisma-cache-invalidation.ts
+│   │   │   │   │   └── tenant-cache.ts
+│   │   │   │   └── guards
+│   │   │   │       ├── feature.guard.ts
+│   │   │   │       ├── index.ts
+│   │   │   │       └── require-role.ts
+│   │   │   ├── docs
+│   │   │   │   └── openapi.ts
+│   │   │   ├── lib
+│   │   │   │   ├── cache.ts
+│   │   │   │   ├── database-availability.ts
+│   │   │   │   ├── encryption.ts
+│   │   │   │   ├── external-url.ts
+│   │   │   │   ├── health.ts
+│   │   │   │   ├── prisma-json.ts
+│   │   │   │   ├── prisma-runtime.ts
+│   │   │   │   ├── problem-details.ts
+│   │   │   │   ├── queue.ts
+│   │   │   │   ├── redis.ts
+│   │   │   │   └── request-values.ts
+│   │   │   ├── metrics.ts
+│   │   │   ├── middleware
+│   │   │   │   ├── authentication.ts
+│   │   │   │   ├── break-glass-audit.ts
+│   │   │   │   ├── content-type.ts
+│   │   │   │   ├── csrf.ts
+│   │   │   │   ├── error-handler.ts
+│   │   │   │   ├── origin-check.ts
+│   │   │   │   ├── rate-limit.ts
+│   │   │   │   ├── request-context.ts
+│   │   │   │   ├── sanitize-input.ts
+│   │   │   │   └── validate-body.ts
+│   │   │   ├── middlewares
+│   │   │   │   └── tenantContext.ts
+│   │   │   ├── modules
+│   │   │   │   ├── admin
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── agents
+│   │   │   │   │   ├── metrics.service.ts
+│   │   │   │   │   ├── queue.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── service.config.ts
+│   │   │   │   │   ├── service.execution.ts
+│   │   │   │   │   ├── service.policy.ts
+│   │   │   │   │   ├── service.repository.ts
+│   │   │   │   │   ├── service.snapshot.ts
+│   │   │   │   │   ├── service.ts
+│   │   │   │   │   └── service.types.ts
+│   │   │   │   ├── analytics
+│   │   │   │   │   ├── analytics.types.ts
+│   │   │   │   │   ├── analytics.utils.ts
+│   │   │   │   │   ├── dashboard.service.ts
+│   │   │   │   │   ├── reporting.service.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── service.ts
+│   │   │   │   │   └── usage.service.ts
+│   │   │   │   ├── apikeys
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── auth
+│   │   │   │   │   ├── auth.service.credentials.ts
+│   │   │   │   │   ├── auth.service.keys.ts
+│   │   │   │   │   ├── auth.service.policies.ts
+│   │   │   │   │   ├── auth.service.sessions.ts
+│   │   │   │   │   ├── auth.service.shared.ts
+│   │   │   │   │   ├── auth.service.ts
+│   │   │   │   │   ├── cookies.ts
+│   │   │   │   │   ├── crypto.ts
+│   │   │   │   │   ├── mfa.service.ts
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── billing
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── limit-exceeded.error.ts
+│   │   │   │   │   ├── plan.utils.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── service.checkout.customer.ts
+│   │   │   │   │   ├── service.checkout.ts
+│   │   │   │   │   ├── service.reconciliation.handlers.ts
+│   │   │   │   │   ├── service.reconciliation.shared.ts
+│   │   │   │   │   ├── service.reconciliation.ts
+│   │   │   │   │   ├── service.shared.ts
+│   │   │   │   │   ├── service.snapshot.ts
+│   │   │   │   │   ├── service.ts
+│   │   │   │   │   ├── stripe.client.ts
+│   │   │   │   │   └── sync-plans.ts
+│   │   │   │   ├── break-glass
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── budget
+│   │   │   │   │   ├── budget-routes.ts
+│   │   │   │   │   ├── budget.service.ts
+│   │   │   │   │   └── budget.types.ts
+│   │   │   │   ├── clinical
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── router-note-routes.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── service-appointments.ts
+│   │   │   │   │   ├── service-notes.ts
+│   │   │   │   │   ├── service-patient-records.ts
+│   │   │   │   │   ├── service-patients.ts
+│   │   │   │   │   ├── service-runtime.records.ts
+│   │   │   │   │   ├── service-runtime.ts
+│   │   │   │   │   ├── service-support.ts
+│   │   │   │   │   ├── service-support.view.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── connectors
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── service.oauth.ts
+│   │   │   │   │   ├── service.shared.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── conversations
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── dashboard
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── service.clinical.ts
+│   │   │   │   │   ├── service.shared.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── engagement
+│   │   │   │   │   └── queues.ts
+│   │   │   │   ├── feedback
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── fhir
+│   │   │   │   │   ├── README.md
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── invites
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── marketplace
+│   │   │   │   │   ├── marketplace-routes.ts
+│   │   │   │   │   └── marketplace-service.ts
+│   │   │   │   ├── notifications
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── organizations
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── outputs
+│   │   │   │   │   ├── output-routes.ts
+│   │   │   │   │   └── output.service.ts
+│   │   │   │   ├── packs
+│   │   │   │   │   ├── pack-installer-routes.ts
+│   │   │   │   │   └── pack-installer.service.ts
+│   │   │   │   ├── privacy
+│   │   │   │   │   ├── consent.service.ts
+│   │   │   │   │   ├── retention-scheduler.ts
+│   │   │   │   │   ├── retention.pagination.ts
+│   │   │   │   │   ├── retention.service.ts
+│   │   │   │   │   ├── retention.shared.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── profile
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── search
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   └── service.ts
+│   │   │   │   ├── sessions
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── tasks
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── users
+│   │   │   │   │   └── router.ts
+│   │   │   │   ├── webhooks
+│   │   │   │   │   ├── eventBus.ts
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   ├── router.ts
+│   │   │   │   │   ├── settings.service.ts
+│   │   │   │   │   ├── stripe.router.ts
+│   │   │   │   │   ├── stripe.webhook.processing.ts
+│   │   │   │   │   └── stripe.webhook.shared.ts
+│   │   │   │   └── workflows
+│   │   │   │       ├── index.ts
+│   │   │   │       ├── router.ts
+│   │   │   │       ├── runnerQueue.ts
+│   │   │   │       ├── schemas.ts
+│   │   │   │       ├── service.execution.ts
+│   │   │   │       ├── service.lifecycle.ts
+│   │   │   │       ├── service.shared.ts
+│   │   │   │       └── service.ts
+│   │   │   ├── observability
+│   │   │   │   ├── otel.ts
+│   │   │   │   └── sentry.ts
+│   │   │   ├── server.ts
+│   │   │   └── types
+│   │   │       └── redlock.d.ts
+│   │   ├── test
+│   │   │   ├── __mocks__
+│   │   │   │   └── stripe.ts
+│   │   │   ├── benchmarks
+│   │   │   │   └── pack-installer.benchmark.ts
+│   │   │   ├── cache.isolation.test.ts
+│   │   │   ├── fuzzing.test.ts
+│   │   │   ├── isolation.e2e.test.ts
+│   │   │   ├── performance.test.ts
+│   │   │   └── tenant-cache.hit-miss.test.ts
+│   │   ├── tests
+│   │   │   ├── analytics-router.test.ts
+│   │   │   ├── analytics.utils.test.ts
+│   │   │   ├── apikeys.audit.test.ts
+│   │   │   ├── auditable.test.ts
+│   │   │   ├── auth-and-core-routes.test.ts
+│   │   │   ├── auth-routes.test.ts
+│   │   │   ├── auth.test.support.ts
+│   │   │   ├── auth.test.ts
+│   │   │   ├── billing.cache.test.ts
+│   │   │   ├── billing.checkout.test.ts
+│   │   │   ├── billing.grace-period.test.ts
+│   │   │   ├── billing.idempotency.test.ts
+│   │   │   ├── billing.ip-ban.test.ts
+│   │   │   ├── billing.paywall.test.ts
+│   │   │   ├── billing.proration-credit.test.ts
+│   │   │   ├── billing.snapshot.test.ts
+│   │   │   ├── billing.webhook-audit.test.ts
+│   │   │   ├── billing.webhook-delegation.test.ts
+│   │   │   ├── billing.webhook.test.ts
+│   │   │   ├── break-glass-router.test.ts
+│   │   │   ├── buffer.test.ts
+│   │   │   ├── cache-index.test.ts
+│   │   │   ├── cache-store.test.ts
+│   │   │   ├── clinical-router.test.ts
+│   │   │   ├── clinical.service.pagination.test.ts
+│   │   │   ├── clinical.service.test.ts
+│   │   │   ├── connectors-router.test.ts
+│   │   │   ├── consent.service.test.ts
+│   │   │   ├── conversations-router.test.ts
+│   │   │   ├── core-business-routes.test.ts
+│   │   │   ├── dashboard-router.test.ts
+│   │   │   ├── database-availability.test.ts
+│   │   │   ├── encryption.test.ts
+│   │   │   ├── environment-runtime.test.ts
+│   │   │   ├── external-url.test.ts
+│   │   │   ├── fhir-router.test.ts
+│   │   │   ├── fhir.service.test.ts
+│   │   │   ├── health.service.test.ts
+│   │   │   ├── health.smoke.test.ts
+│   │   │   ├── http-cache.test.ts
+│   │   │   ├── http-test-helpers.ts
+│   │   │   ├── installed-agents-helpers.test.ts
+│   │   │   ├── marketplace-budget.smoke.test.ts
+│   │   │   ├── metrics.service.test.ts
+│   │   │   ├── module-routes.test.ts
+│   │   │   ├── notifications-router.test.ts
+│   │   │   ├── openapi-contract.test.ts
+│   │   │   ├── pack-installer.service.test.ts
+│   │   │   ├── prisma-cache-invalidation.test.ts
+│   │   │   ├── prisma-runtime-test-helpers.ts
+│   │   │   ├── privacy-router.test.ts
+│   │   │   ├── profile-router.test.ts
+│   │   │   ├── queue-backpressure.test.ts
+│   │   │   ├── queue-client.test.ts
+│   │   │   ├── rbac.test.ts
+│   │   │   ├── retention.service.test.ts
+│   │   │   ├── search-router.test.ts
+│   │   │   ├── security.test.ts
+│   │   │   ├── sessions-router.test.ts
+│   │   │   ├── tasks-router.test.ts
+│   │   │   ├── tenant-auth-hardening.test.ts
+│   │   │   ├── test-config.ts
+│   │   │   ├── webhooks.security.test.ts
+│   │   │   ├── workflow-retry-lineage.integration.test.ts
+│   │   │   └── workflows-router.test.ts
+│   │   └── tsconfig.json
+│   ├── legacy
+│   │   └── dashboard
+│   │       └── README.md
+│   ├── voice-engine
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── server.test.ts
+│   │   │   └── server.ts
+│   │   └── tsconfig.json
+│   ├── web
+│   │   ├── CHANGELOG.md
+│   │   ├── Dockerfile
+│   │   ├── README.md
+│   │   ├── app
+│   │   │   ├── (dashboard)
+│   │   │   │   ├── agents
+│   │   │   │   │   ├── [id]
+│   │   │   │   │   │   ├── page.tsx
+│   │   │   │   │   │   ├── policies
+│   │   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   │   └── run
+│   │   │   │   │   │       └── page.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── analytics
+│   │   │   │   │   ├── error.tsx
+│   │   │   │   │   ├── loading.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── appointments
+│   │   │   │   │   ├── page.client.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── billing
+│   │   │   │   │   ├── budgets
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── conversations
+│   │   │   │   │   ├── conversation-panels.tsx
+│   │   │   │   │   ├── conversation.types.ts
+│   │   │   │   │   ├── error.tsx
+│   │   │   │   │   ├── loading.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── dashboard
+│   │   │   │   │   ├── error.tsx
+│   │   │   │   │   ├── loading.tsx
+│   │   │   │   │   ├── page.data.ts
+│   │   │   │   │   ├── page.panels.tsx
+│   │   │   │   │   ├── page.sections.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── dashboard.css
+│   │   │   │   ├── developers
+│   │   │   │   │   └── apikeys
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── layout.tsx
+│   │   │   │   ├── marketplace
+│   │   │   │   │   ├── compare
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── notifications
+│   │   │   │   │   ├── error.tsx
+│   │   │   │   │   ├── loading.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── onboarding
+│   │   │   │   │   ├── error.tsx
+│   │   │   │   │   ├── loading.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── outputs
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── packs
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── patients
+│   │   │   │   │   ├── [id]
+│   │   │   │   │   │   ├── appointments
+│   │   │   │   │   │   │   ├── page.client.tsx
+│   │   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   │   ├── page.client.tsx
+│   │   │   │   │   │   ├── page.parts.tsx
+│   │   │   │   │   │   ├── page.sections.tsx
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   ├── appointments-board.model.ts
+│   │   │   │   │   ├── appointments-board.sections.tsx
+│   │   │   │   │   ├── appointments-board.tsx
+│   │   │   │   │   ├── clinical-data.ts
+│   │   │   │   │   ├── page.client.tsx
+│   │   │   │   │   ├── page.sections.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── profile
+│   │   │   │   │   ├── notifications
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── security
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── reports
+│   │   │   │   │   ├── error.tsx
+│   │   │   │   │   ├── loading.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── sales-os
+│   │   │   │   │   ├── page.tsx
+│   │   │   │   │   └── sdr-automatico
+│   │   │   │   │       └── page.tsx
+│   │   │   │   ├── settings
+│   │   │   │   │   ├── audit
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   ├── billing
+│   │   │   │   │   │   ├── billing-sections.tsx
+│   │   │   │   │   │   ├── billing.types.ts
+│   │   │   │   │   │   ├── page.tsx
+│   │   │   │   │   │   └── use-billing-settings.ts
+│   │   │   │   │   ├── developers
+│   │   │   │   │   │   └── webhooks
+│   │   │   │   │   │       ├── page.data.ts
+│   │   │   │   │   │       ├── page.model.ts
+│   │   │   │   │   │       ├── page.sections.tsx
+│   │   │   │   │   │       └── page.tsx
+│   │   │   │   │   ├── members
+│   │   │   │   │   │   ├── layout.tsx
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   ├── privacy
+│   │   │   │   │   │   ├── page.tsx
+│   │   │   │   │   │   ├── privacy-self-service-page.tsx
+│   │   │   │   │   │   ├── privacy-self-service.data.ts
+│   │   │   │   │   │   ├── privacy-self-service.sections.tsx
+│   │   │   │   │   │   ├── privacy-settings-page.data.ts
+│   │   │   │   │   │   ├── privacy-settings-page.model.ts
+│   │   │   │   │   │   ├── privacy-settings-page.sections.tsx
+│   │   │   │   │   │   └── privacy-settings-page.tsx
+│   │   │   │   │   ├── security
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   ├── team
+│   │   │   │   │   │   ├── layout.tsx
+│   │   │   │   │   │   └── page.tsx
+│   │   │   │   │   └── users
+│   │   │   │   │       ├── layout.tsx
+│   │   │   │   │       └── page.tsx
+│   │   │   │   └── workflows
+│   │   │   │       ├── [id]
+│   │   │   │       │   ├── edit
+│   │   │   │       │   │   ├── page.tsx
+│   │   │   │       │   │   └── workflow-editor-helpers.tsx
+│   │   │   │       │   ├── revisions
+│   │   │   │       │   │   └── page.tsx
+│   │   │   │       │   └── runs
+│   │   │   │       │       ├── page.data.ts
+│   │   │   │       │       └── page.tsx
+│   │   │   │       ├── error.tsx
+│   │   │   │       ├── loading.tsx
+│   │   │   │       └── page.tsx
+│   │   │   ├── admin
+│   │   │   │   ├── analytics
+│   │   │   │   │   ├── analytics.css
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── cs
+│   │   │   │   │   └── page.tsx
+│   │   │   │   ├── dashboard
+│   │   │   │   │   ├── layout.tsx
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── layout.tsx
+│   │   │   ├── api
+│   │   │   │   ├── auth
+│   │   │   │   │   ├── [...session]
+│   │   │   │   │   │   └── route.ts
+│   │   │   │   │   └── session-actions.ts
+│   │   │   │   ├── bff
+│   │   │   │   │   ├── [...path]
+│   │   │   │   │   │   └── route.ts
+│   │   │   │   │   └── policy.ts
+│   │   │   │   └── sales-os
+│   │   │   │       ├── catalog
+│   │   │   │       │   └── route.ts
+│   │   │   │       ├── chat
+│   │   │   │       │   └── route.ts
+│   │   │   │       └── execute
+│   │   │   │           └── route.ts
+│   │   │   ├── billing
+│   │   │   │   ├── cancel
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── success
+│   │   │   │       └── page.tsx
+│   │   │   ├── global-error.tsx
+│   │   │   ├── globals.css
+│   │   │   ├── health
+│   │   │   │   └── route.ts
+│   │   │   ├── invites
+│   │   │   │   └── accept
+│   │   │   │       └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── legal
+│   │   │   │   ├── privacy
+│   │   │   │   │   └── page.tsx
+│   │   │   │   └── terms
+│   │   │   │       └── page.tsx
+│   │   │   ├── login
+│   │   │   │   └── page.tsx
+│   │   │   ├── metrics
+│   │   │   │   └── route.ts
+│   │   │   ├── offline
+│   │   │   │   └── page.tsx
+│   │   │   ├── page.tsx
+│   │   │   ├── pricing
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── pricing.css
+│   │   │   └── readiness
+│   │   │       └── route.ts
+│   │   ├── components
+│   │   │   ├── agents
+│   │   │   │   ├── ExecutivePremiumAgentCallout.tsx
+│   │   │   │   ├── ExecutivePremiumSpotlight.tsx
+│   │   │   │   ├── FeedbackWidget.tsx
+│   │   │   │   ├── PolicyManager.tsx
+│   │   │   │   ├── agent-detail-tabs.tsx
+│   │   │   │   └── agent-run-panel.tsx
+│   │   │   ├── brand
+│   │   │   │   └── BrandLogo.tsx
+│   │   │   ├── cookie-consent-banner.tsx
+│   │   │   ├── dashboard
+│   │   │   │   ├── ClinicalWorkspaceDisabledState.tsx
+│   │   │   │   ├── ClinicalWorkspaceNotice.tsx
+│   │   │   │   ├── ToastViewport.tsx
+│   │   │   │   ├── page-fragments.tsx
+│   │   │   │   └── route-error-view.tsx
+│   │   │   ├── dashboard-billing-gate.tsx
+│   │   │   ├── layout
+│   │   │   │   ├── GlobalSearch.tsx
+│   │   │   │   └── Navbar.tsx
+│   │   │   ├── legal-footer.tsx
+│   │   │   ├── login-form.tsx
+│   │   │   ├── outputs
+│   │   │   │   └── OutputApprovalButton.tsx
+│   │   │   ├── paywall-provider.tsx
+│   │   │   ├── sales-os
+│   │   │   │   ├── SalesOsShell.sections.tsx
+│   │   │   │   ├── SalesOsShell.tsx
+│   │   │   │   ├── SdrAutomaticViews.tsx
+│   │   │   │   ├── SdrLeadScoreWorkspace.analytics.tsx
+│   │   │   │   ├── SdrLeadScoreWorkspace.helpers.ts
+│   │   │   │   ├── SdrLeadScoreWorkspace.side.tsx
+│   │   │   │   ├── SdrLeadScoreWorkspace.table.cells.tsx
+│   │   │   │   ├── SdrLeadScoreWorkspace.table.tsx
+│   │   │   │   ├── SdrLeadScoreWorkspace.top.tsx
+│   │   │   │   ├── SdrLeadScoreWorkspace.tsx
+│   │   │   │   ├── sales-os-shell.state.ts
+│   │   │   │   ├── sales-os.module.css
+│   │   │   │   ├── sdr-automatic-dashboard.copy.ts
+│   │   │   │   ├── sdr-automatic-dashboard.ts
+│   │   │   │   ├── sdr-automatic-data.catalog.ts
+│   │   │   │   ├── sdr-automatic-data.ts
+│   │   │   │   ├── sdr-automatic-platform.module.css
+│   │   │   │   ├── sdr-automatic-platform.tsx
+│   │   │   │   ├── sdr-automatic-support.ts
+│   │   │   │   ├── sdr-lead-score.module.css
+│   │   │   │   └── shell-support.ts
+│   │   │   ├── wizards
+│   │   │   │   └── PackInstaller.tsx
+│   │   │   └── workflows
+│   │   │       ├── CreateWorkflowButton.tsx
+│   │   │       └── RunWorkflowButton.tsx
+│   │   ├── instrumentation-client.ts
+│   │   ├── instrumentation.ts
+│   │   ├── lib
+│   │   │   ├── agents.ts
+│   │   │   ├── auth-client.ts
+│   │   │   ├── bff-policy.ts
+│   │   │   ├── dashboard.ts
+│   │   │   ├── dompurify.ts
+│   │   │   ├── executive-premium.ts
+│   │   │   ├── global-search.ts
+│   │   │   ├── i18n.server.ts
+│   │   │   ├── i18n.ts
+│   │   │   ├── marketplace-api.server.ts
+│   │   │   ├── marketplace-api.ts
+│   │   │   ├── operational-health.ts
+│   │   │   ├── product-api.server.ts
+│   │   │   ├── product-api.ts
+│   │   │   ├── product-capabilities.ts
+│   │   │   ├── request-id.ts
+│   │   │   ├── sales-os
+│   │   │   │   ├── catalog.ts
+│   │   │   │   ├── config.ts
+│   │   │   │   ├── constants.ts
+│   │   │   │   ├── engine.ts
+│   │   │   │   ├── tool-catalog
+│   │   │   │   │   ├── bdr.ts
+│   │   │   │   │   ├── closer.ts
+│   │   │   │   │   ├── cs.ts
+│   │   │   │   │   ├── data.ts
+│   │   │   │   │   ├── exec.ts
+│   │   │   │   │   ├── finance.ts
+│   │   │   │   │   ├── fintech.ts
+│   │   │   │   │   ├── ldr.ts
+│   │   │   │   │   ├── marketing.ts
+│   │   │   │   │   ├── presales.ts
+│   │   │   │   │   ├── revops.ts
+│   │   │   │   │   ├── sales.ts
+│   │   │   │   │   ├── sdr.ts
+│   │   │   │   │   └── shared.ts
+│   │   │   │   └── types.ts
+│   │   │   ├── session-context.ts
+│   │   │   ├── web-session.ts
+│   │   │   └── workflows.ts
+│   │   ├── next-env.d.ts
+│   │   ├── next.config.mjs
+│   │   ├── package.json
+│   │   ├── providers
+│   │   │   ├── AnalyticsProvider.tsx
+│   │   │   ├── AppProviders.tsx
+│   │   │   ├── EngagementProvider.tsx
+│   │   │   ├── I18nProvider.tsx
+│   │   │   └── ThemeProvider.tsx
+│   │   ├── proxy.ts
+│   │   ├── public
+│   │   │   ├── brand
+│   │   │   │   ├── birthhub360-logo.svg
+│   │   │   │   └── birthhub360-mark.svg
+│   │   │   ├── examples
+│   │   │   │   └── agents
+│   │   │   │       ├── cfo-pack.md
+│   │   │   │       ├── cro-pack.md
+│   │   │   │       └── legal-pack.md
+│   │   │   ├── manifest.json
+│   │   │   └── sw.js
+│   │   ├── sentry.server.config.ts
+│   │   ├── stores
+│   │   │   ├── notification-store.ts
+│   │   │   ├── toast-store.ts
+│   │   │   └── user-preferences-store.ts
+│   │   ├── tailwind.config.ts
+│   │   ├── tests
+│   │   │   ├── appointments-board-model.test.ts
+│   │   │   ├── auth-client.test.ts
+│   │   │   ├── auth-session-route.test.ts
+│   │   │   ├── bff-allowlist.test.ts
+│   │   │   ├── bff-route.test.ts
+│   │   │   ├── clinical-data.test.ts
+│   │   │   ├── dashboard-data.test.ts
+│   │   │   ├── developer-webhooks-page.test.ts
+│   │   │   ├── disabled-domain-pages.test.ts
+│   │   │   ├── executive-premium.test.ts
+│   │   │   ├── global-search.test.ts
+│   │   │   ├── health.required-dependency.test.ts
+│   │   │   ├── i18n.test.ts
+│   │   │   ├── login.smoke.test.ts
+│   │   │   ├── notification-store.test.ts
+│   │   │   ├── offline-page.test.ts
+│   │   │   ├── privacy-settings-page.test.ts
+│   │   │   ├── product-api.test.ts
+│   │   │   ├── product-capabilities.test.ts
+│   │   │   ├── sales-os.catalog.test.ts
+│   │   │   ├── sdr-automatic-dashboard.test.ts
+│   │   │   ├── sdr-automatic-platform.test.ts
+│   │   │   ├── sdr-lead-score-helpers.test.ts
+│   │   │   ├── theme-provider.test.ts
+│   │   │   ├── user-preferences-store.test.ts
+│   │   │   ├── workflow-editor-helpers.test.ts
+│   │   │   ├── workflow-runs-page.test.ts
+│   │   │   └── workflows-list.test.ts
+│   │   └── tsconfig.json
+│   ├── webhook-receiver
+│   │   ├── main.py
+│   │   ├── requirements.txt
+│   │   ├── src
+│   │   │   └── server.ts
+│   │   └── tests
+│   │       └── test_main.py
+│   └── worker
+│       ├── CHANGELOG.md
+│       ├── Dockerfile
+│       ├── README.md
+│       ├── package.json
+│       ├── src
+│       │   ├── agents
+│       │   │   ├── conversations.test.ts
+│       │   │   ├── conversations.ts
+│       │   │   ├── handoffs.test.ts
+│       │   │   ├── handoffs.ts
+│       │   │   ├── runtime.artifacts.test.ts
+│       │   │   ├── runtime.artifacts.ts
+│       │   │   ├── runtime.budget.test.ts
+│       │   │   ├── runtime.budget.ts
+│       │   │   ├── runtime.catalog.test.ts
+│       │   │   ├── runtime.catalog.ts
+│       │   │   ├── runtime.db-integration.harness.ts
+│       │   │   ├── runtime.db-integration.test.ts
+│       │   │   ├── runtime.errors.test.ts
+│       │   │   ├── runtime.errors.ts
+│       │   │   ├── runtime.ingress.test.ts
+│       │   │   ├── runtime.ingress.ts
+│       │   │   ├── runtime.memory.test.ts
+│       │   │   ├── runtime.memory.ts
+│       │   │   ├── runtime.mesh.test.ts
+│       │   │   ├── runtime.mesh.ts
+│       │   │   ├── runtime.orchestration.ts
+│       │   │   ├── runtime.resolution.test.ts
+│       │   │   ├── runtime.resolution.ts
+│       │   │   ├── runtime.shared.test.ts
+│       │   │   ├── runtime.shared.ts
+│       │   │   ├── runtime.telemetry.ts
+│       │   │   ├── runtime.tools.test.ts
+│       │   │   ├── runtime.tools.ts
+│       │   │   └── runtime.types.ts
+│       │   ├── alerts
+│       │   │   └── failRateAlert.ts
+│       │   ├── engine
+│       │   │   ├── runner.agent.smoke.test.ts
+│       │   │   ├── runner.cancel.test.ts
+│       │   │   ├── runner.db-integration.config.test.ts
+│       │   │   ├── runner.db-integration.config.ts
+│       │   │   ├── runner.db-integration.harness.ts
+│       │   │   ├── runner.db-integration.test.ts
+│       │   │   ├── runner.execution.outcomes.ts
+│       │   │   ├── runner.execution.ts
+│       │   │   ├── runner.http.msw.test.ts
+│       │   │   ├── runner.shared.ts
+│       │   │   ├── runner.transitions.test.ts
+│       │   │   ├── runner.ts
+│       │   │   └── runner.workflow-chain.test.ts
+│       │   ├── events
+│       │   │   └── internalEventBus.ts
+│       │   ├── executors
+│       │   │   ├── planExecutor.defaults.ts
+│       │   │   └── planExecutor.ts
+│       │   ├── index.ts
+│       │   ├── integrations
+│       │   │   ├── connectors.runtime.ts
+│       │   │   └── hubspot.ts
+│       │   ├── job-security.test.ts
+│       │   ├── jobs
+│       │   │   ├── auditFlush.ts
+│       │   │   ├── billingExport.test.ts
+│       │   │   ├── billingExport.ts
+│       │   │   ├── billingExportStorage.ts
+│       │   │   ├── healthScore.test.ts
+│       │   │   ├── healthScore.ts
+│       │   │   ├── inviteCleanup.ts
+│       │   │   ├── quotaReset.ts
+│       │   │   ├── scheduler.ts
+│       │   │   ├── sunsetPolicy.ts
+│       │   │   └── userCleanup.ts
+│       │   ├── lib
+│       │   │   └── rate-limiter.ts
+│       │   ├── load
+│       │   │   ├── baseline.ts
+│       │   │   ├── benchmark.ts
+│       │   │   ├── parallelLoad.test.ts
+│       │   │   └── parallelLoad.ts
+│       │   ├── notifications
+│       │   │   └── emailQueue.ts
+│       │   ├── observability
+│       │   │   └── otel.ts
+│       │   ├── operational
+│       │   │   └── readiness.ts
+│       │   ├── planExecutor.test.ts
+│       │   ├── queues
+│       │   │   ├── agentQueue.ts
+│       │   │   └── workerFactory.ts
+│       │   ├── runtime.integration.test.ts
+│       │   ├── tenant-execution.ts
+│       │   ├── webhooks
+│       │   │   └── outbound.ts
+│       │   ├── worker.billing.ts
+│       │   ├── worker.execution-state.ts
+│       │   ├── worker.job-validation.test.ts
+│       │   ├── worker.job-validation.ts
+│       │   ├── worker.notifications.ts
+│       │   ├── worker.process-job.ts
+│       │   ├── worker.test.ts
+│       │   └── worker.ts
+│       ├── test
+│       │   ├── benchmarkUserCleanup.ts
+│       │   ├── outbound.webhooks.test.ts
+│       │   ├── queue.isolation.test.ts
+│       │   ├── readiness.required-dependency.test.ts
+│       │   └── userCleanup.test.ts
+│       └── tsconfig.json
+├── audit
+│   ├── 01_forensic_inventory.md
+│   ├── AUDITORIA_CODEX_RESULTADO_2026-03-29.md
+│   ├── AUDITORIA_CODEX_STATUS.md
+│   ├── AUDITORIA_PRIME_BIRTHHUB360.html
+│   ├── CHECKLIST_FINAL_CONSOLIDADO.html
+│   ├── CYCLE_LOG.md
+│   ├── JULES_PARECER_FINAL.md
+│   ├── PLANO_EXECUCAO_CORRECOES.md
+│   ├── README.md
+│   ├── RELATORIO_DIVIDA_TECNICA_MASTER.md
+│   ├── RELATORIO_JULES_CICLO_0_FINAL.md
+│   ├── ROADMAP_FINALIZACAO_PLATAFORMA.md
+│   ├── STATUS_FINAL_PRONTIDAO.md
+│   ├── agents_full_audit.md
+│   ├── agents_gaps.md
+│   ├── agents_kill_list.md
+│   ├── agents_ranking.md
+│   ├── agents_target_architecture.md
+│   ├── auditor-prime-2026-04-05.html
+│   ├── auditor-prime-2026-04-05.json
+│   ├── auditor-prime-2026-04-05.md
+│   ├── auditor-prime-2026-04-06.html
+│   ├── auditor-prime-2026-04-06.json
+│   ├── auditor-prime-2026-04-06.md
+│   ├── auditor-prime-2026-04-07.html
+│   ├── auditor-prime-2026-04-07.json
+│   ├── auditor-prime-2026-04-07.md
+│   ├── auditor-prime-2026-04-08.html
+│   ├── auditor-prime-2026-04-08.json
+│   ├── auditor-prime-2026-04-08.md
+│   ├── auditor-prime-2026-04-09.html
+│   ├── auditor-prime-2026-04-09.json
+│   ├── auditor-prime-2026-04-09.md
+│   ├── auditor-prime-2026-04-10.html
+│   ├── auditor-prime-2026-04-10.json
+│   ├── auditor-prime-2026-04-10.md
+│   ├── auditor-prime-latest.backlog.json
+│   ├── auditor-prime-latest.backlog.md
+│   ├── auditor-prime-latest.html
+│   ├── auditor-prime-latest.json
+│   ├── auditor-prime-latest.md
+│   ├── autofix
+│   │   ├── manifest.json
+│   │   ├── notes
+│   │   │   ├── api-authentication-snapshot.md
+│   │   │   ├── api-error-handler-snapshot.md
+│   │   │   ├── api-rate-limit-snapshot.md
+│   │   │   ├── api-security-suite-listener-stability.md
+│   │   │   ├── logger-transport-stability.md
+│   │   │   ├── metrics-service-snapshot.md
+│   │   │   ├── queue-manager-hardening.md
+│   │   │   ├── utils-logger-alignment.md
+│   │   │   └── worker-runtime-snapshot.md
+│   │   └── snapshots
+│   │       ├── apps
+│   │       │   ├── api
+│   │       │   │   ├── src
+│   │       │   │   │   ├── middleware
+│   │       │   │   │   │   ├── authentication.ts
+│   │       │   │   │   │   ├── error-handler.ts
+│   │       │   │   │   │   └── rate-limit.ts
+│   │       │   │   │   └── modules
+│   │       │   │   │       └── agents
+│   │       │   │   │           └── metrics.service.ts
+│   │       │   │   └── tests
+│   │       │   │       └── security.test.ts
+│   │       │   └── worker
+│   │       │       └── src
+│   │       │           └── worker.ts
+│   │       └── packages
+│   │           ├── logger
+│   │           │   └── src
+│   │           │       └── index.ts
+│   │           ├── queue
+│   │           │   ├── package.json
+│   │           │   └── src
+│   │           │       ├── definitions.ts
+│   │           │       └── index.ts
+│   │           └── utils
+│   │               ├── index.ts
+│   │               ├── package.json
+│   │               └── src
+│   │                   ├── index.ts
+│   │                   └── logger.ts
+│   ├── birthhub360-master-checklist-v3.html
+│   ├── checks.json
+│   ├── ci_hardening_plan.md
+│   ├── ci_test_inventory.md
+│   ├── cycle2_execution_summary.md
+│   ├── cycle2_integrations_hardening.md
+│   ├── cycle2_security_gap_report.md
+│   ├── cycle2_voice_engine_hardening.md
+│   ├── cycle2_workflows_core_hardening.md
+│   ├── cycle4_execution_summary.md
+│   ├── cycle4_multitenant_frontend.md
+│   ├── cycle4_operational_ux_review.md
+│   ├── cycle4_web_auth_review.md
+│   ├── cycle4_web_runtime_hardening.md
+│   ├── cycle5_agents_contracts_review.md
+│   ├── cycle5_agents_observability.md
+│   ├── cycle5_agents_risk_matrix.md
+│   ├── cycle5_agents_runtime_governance.md
+│   ├── cycle5_execution_summary.md
+│   ├── cycle6_billing_architecture_review.md
+│   ├── cycle6_commercial_readiness.md
+│   ├── cycle6_execution_summary.md
+│   ├── cycle6_metering_and_usage.md
+│   ├── cycle6_pricing_vs_implementation.md
+│   ├── cycle7_artifacts_and_evidence.md
+│   ├── cycle7_domain_alignment_disablement.md
+│   ├── cycle7_execution_summary.md
+│   ├── cycle7_go_live_decision.md
+│   ├── cycle7_release_readiness.md
+│   ├── cycle7_reproducibility_review.md
+│   ├── dashboard_finalizacao_plataforma.html
+│   ├── divida_tecnica.json
+│   ├── execution_checklist.md
+│   ├── failed_tests_report.md
+│   ├── failure_clusters.md
+│   ├── final_audit_antigravity.md
+│   ├── final_gaps.md
+│   ├── final_governance_report.md
+│   ├── final_risk_matrix.md
+│   ├── final_validation_report.md
+│   ├── finality-forensic-audit-2026-04-06.html
+│   ├── forensic_inventory.md
+│   ├── gaps.md
+│   ├── github_actions_map.md
+│   ├── governance_audit_master_checklist_2026-03-29.html
+│   ├── governance_audit_master_checklist_2026-03-29.md
+│   ├── governance_dashboard.html
+│   ├── governance_inventory_complete_2026-03-29.html
+│   ├── governance_inventory_complete_2026-03-29.json
+│   ├── governance_inventory_complete_2026-03-29.md
+│   ├── inventory.json
+│   ├── jules_full_audit_prompt_2026-03-29.html
+│   ├── jules_full_audit_prompt_2026-03-29.md
+│   ├── jules_full_audit_prompt_2026-03-29.pdf
+│   ├── master_ci_checklist.md
+│   ├── master_execution_checklist.md
+│   ├── master_governance_checklist.md
+│   ├── pending_review
+│   │   ├── GAP-003_codex.md
+│   │   ├── GAP-004_codex.md
+│   │   ├── GOV-002_jules_reprovacao.md
+│   │   ├── M-001_codex.md
+│   │   ├── M-002_codex.md
+│   │   └── ciclo1_lote01_02_jules.md
+│   ├── phase_2_execution_report.md
+│   ├── prontidao_plataforma.json
+│   ├── relatorio-12-dividas.html
+│   ├── relatorios-dividas-2026-04-12
+│   │   ├── 01_divida_codigo_relatorio.html
+│   │   ├── 02_divida_arquitetura_relatorio.html
+│   │   ├── 03_divida_convergencia_relatorio.html
+│   │   ├── 04_divida_dados_relatorio.html
+│   │   ├── 05_divida_teste_relatorio.html
+│   │   ├── 06_divida_infra_devops_relatorio.html
+│   │   ├── 07_divida_documentacao_relatorio.html
+│   │   ├── 08_divida_seguranca_relatorio.html
+│   │   ├── 09_divida_dependencia_relatorio.html
+│   │   ├── 10_divida_automacao_relatorio.html
+│   │   ├── 11_divida_design_ux_relatorio.html
+│   │   ├── 12_divida_produto_relatorio.html
+│   │   └── index.html
+│   ├── report.html
+│   ├── reproduction_matrix.md
+│   ├── roadmap_finalizacao.json
+│   ├── root_cause_and_fixes.md
+│   ├── saas_maturity_score.md
+│   ├── target_architecture.md
+│   ├── td-catalog-reconciliation.json
+│   ├── td-catalog-reconciliation.md
+│   ├── top-15-vdi-backlog-2026-04-05.json
+│   ├── top-15-vdi-backlog-2026-04-05.md
+│   ├── top-15-vdi-backlog-2026-04-06.json
+│   ├── top-15-vdi-backlog-2026-04-06.md
+│   ├── top-15-vdi-backlog-2026-04-07.json
+│   ├── top-15-vdi-backlog-2026-04-07.md
+│   ├── top-15-vdi-backlog-2026-04-08.json
+│   ├── top-15-vdi-backlog-2026-04-08.md
+│   ├── top-15-vdi-backlog-2026-04-09.json
+│   ├── top-15-vdi-backlog-2026-04-09.md
+│   ├── top-15-vdi-backlog-2026-04-10.json
+│   ├── top-15-vdi-backlog-2026-04-10.md
+│   ├── traceability_matrix.md
+│   └── validation_log.md
+├── auditoria birthub 360.html
+├── ci-local.ps1
+├── commitlint.config.cjs
+├── docker-compose.prod.yml
+├── docker-compose.yml
+├── docs
+│   ├── ADR-011-RBAC-Strategy.md
+│   ├── APRESENTACAO.md
+│   ├── ARCHITECTURE.md
+│   ├── BRANDBOOK.md
+│   ├── CORPORATE_IDENTITY.md
+│   ├── F0
+│   │   ├── diagnostico-operacional-baseline-2026-04-07.md
+│   │   ├── ownership.md
+│   │   └── sla.md
+│   ├── FLUXO_REQUEST_API_QUEUE_WORKER.md
+│   ├── LANDING_PAGE.md
+│   ├── LGPD_OPERACIONAL.md
+│   ├── MONOREPO_DOCTOR.md
+│   ├── NAMING_CONVENTIONS.md
+│   ├── OBSERVABILIDADE_E_SLOS.md
+│   ├── PERMISSIONS.md
+│   ├── PITCH.md
+│   ├── Policy-Concurrent-Sessions.md
+│   ├── README.md
+│   ├── adr
+│   │   └── ADR-012-f3-http-bootstrap-and-seed-modularization.md
+│   ├── adrs
+│   │   ├── 0001-initial-architecture.md
+│   │   ├── 003-observability-strategy.md
+│   │   ├── 004-configuration-strategy.md
+│   │   ├── 005-migrations-strategy.md
+│   │   ├── ADR-001-monorepo-tooling.md
+│   │   ├── ADR-002-cicd-strategy.md
+│   │   ├── ADR-003-observability.md
+│   │   ├── ADR-004-env-management.md
+│   │   ├── ADR-005-cors-headers.md
+│   │   ├── ADR-006-database-orm.md
+│   │   ├── ADR-007-error-handling.md
+│   │   ├── ADR-007-multi-tenancy-strategy.md
+│   │   ├── ADR-008-rls-as-second-layer.md
+│   │   ├── ADR-008-testing-strategy.md
+│   │   ├── ADR-009-legacy-migration-strategy.md
+│   │   ├── ADR-010-auth-provider.md
+│   │   ├── ADR-011-session-storage.md
+│   │   ├── ADR-012-authorization-model.md
+│   │   ├── ADR-013-agent-manifest-design.md
+│   │   ├── ADR-013-mfa-strategy.md
+│   │   ├── ADR-014-agent-engine.md
+│   │   ├── ADR-014-agent-versioning.md
+│   │   ├── ADR-015-sandbox-external-tools.md
+│   │   ├── ADR-017-tools-framework.md
+│   │   ├── ADR-018-policy-engine.md
+│   │   ├── ADR-025-billing-baseado-em-uso.md
+│   │   ├── ADR-028-user-feedback-loop.md
+│   │   ├── ADR-028_Feedback_Prompt_Cycle.md
+│   │   ├── ADR-030-breaking-changes-policy.md
+│   │   ├── ADR-031-monorepo-source-of-truth.md
+│   │   ├── ADR-032-agent-runtime-standardization.md
+│   │   ├── ADR-033-billing-canonical-schema-cutover.md
+│   │   ├── ADR-035-f3-hotspot-modularization.md
+│   │   ├── ADR_TEMPLATE.md
+│   │   ├── INDEX.md
+│   │   └── index.md
+│   ├── agent-packs
+│   │   ├── account-manager-pack.mdx
+│   │   ├── admin-ops-pack.mdx
+│   │   ├── capabilities-and-safety-rails.md
+│   │   ├── ceo-pack.mdx
+│   │   ├── cfo-pack.mdx
+│   │   ├── closer-copilot-pack.mdx
+│   │   ├── closing-forecast-pack.mdx
+│   │   ├── cmo-pack.mdx
+│   │   ├── communication-pack.mdx
+│   │   ├── context-memory-pack.mdx
+│   │   ├── convencao_nomenclatura_skills.md
+│   │   ├── coo-pack.mdx
+│   │   ├── corporate-v1-catalog.mdx
+│   │   ├── crm-sync-pack.mdx
+│   │   ├── cro-pack.mdx
+│   │   ├── cs-pack.mdx
+│   │   ├── cto-pack.mdx
+│   │   ├── customer-health-pack.mdx
+│   │   ├── enablement-coach-pack.mdx
+│   │   ├── exemplos_skill_templates.md
+│   │   ├── finance-pack.mdx
+│   │   ├── follow-up-pack.mdx
+│   │   ├── forecast-intelligence-pack.mdx
+│   │   ├── github-agents-v1-catalog.mdx
+│   │   ├── github-agents-v1-installables.json
+│   │   ├── knowledge-pack.mdx
+│   │   ├── kpi-analyst-pack.mdx
+│   │   ├── lead-enrichment-pack.mdx
+│   │   ├── lead-hunter-pack.mdx
+│   │   ├── legal-pack.mdx
+│   │   ├── maestro-orchestrator-pack.mdx
+│   │   ├── meeting-booker-pack.mdx
+│   │   ├── objection-handling-pack.mdx
+│   │   ├── onboarding-sales-pack.mdx
+│   │   ├── ops-pack.mdx
+│   │   ├── policy-and-approval-guard-pack.mdx
+│   │   ├── politica_atualizacao_packs.md
+│   │   ├── productivity-pack.mdx
+│   │   ├── proposal-pack.mdx
+│   │   ├── qualification-pack.mdx
+│   │   ├── revops-intelligence-pack.mdx
+│   │   ├── rh-pack.mdx
+│   │   ├── roleplay-trainer-pack.mdx
+│   │   ├── sales-manager-pack.mdx
+│   │   ├── sales-pack.mdx
+│   │   ├── sdr-outreach-pack.mdx
+│   │   └── validacao_io_templates.md
+│   ├── api
+│   │   └── operacao-api-gateway.md
+│   ├── api-versioning.md
+│   ├── architecture
+│   │   ├── Agent-Memory-QA.md
+│   │   ├── Agent-Registry-Execution.md
+│   │   ├── AgentManifest-Spec.md
+│   │   ├── Monorepo-Agents-Core.md
+│   │   ├── api-layers.md
+│   │   ├── bounded-contexts.md
+│   │   ├── c4-context.md
+│   │   ├── c4-model.md
+│   │   ├── decisions
+│   │   │   ├── 020-skill-templates-design.md
+│   │   │   └── 021-connectors-pattern.md
+│   │   ├── erd.md
+│   │   ├── folder-structure.md
+│   │   ├── internal-package-graph.md
+│   │   ├── request-context.md
+│   │   └── request-id.md
+│   ├── billing
+│   │   ├── criterios-aceite-ui-billing.md
+│   │   ├── infrastructure-cost-per-run.md
+│   │   ├── kpis-financeiros.md
+│   │   ├── metricas-sucesso-billing.md
+│   │   ├── modelo-projecao-uso.md
+│   │   ├── modelo_custo_agente.md
+│   │   ├── orcamentos_padrao_planos.md
+│   │   ├── politica-dados-financeiros.md
+│   │   ├── politica_budget_overflow.md
+│   │   ├── risco-teste-producao.md
+│   │   ├── risco-under-counting.md
+│   │   ├── sla-billing.md
+│   │   ├── smoke-test-billing.md
+│   │   └── ux-billing.md
+│   ├── canonical-stack-connectors.md
+│   ├── ci
+│   │   └── local-ci.md
+│   ├── compatibility.md
+│   ├── configuration-policy.md
+│   ├── configuration-rotation.md
+│   ├── contracts
+│   │   └── internal-versioned-contracts.md
+│   ├── cs
+│   │   ├── cs-tool-onboarding.md
+│   │   └── health-score-model.md
+│   ├── cycles
+│   │   ├── 2026-04-07-fase-2-nucleo-materno-infantil.md
+│   │   ├── 2026-04-07-fase-4-experiencia-central-de-produto.md
+│   │   ├── 2026-04-07-fase-5-sustentacao-de-producao.md
+│   │   ├── 2026-04-08-fase-5-sustentacao-de-producao.md
+│   │   ├── 2026-04-08-governanca-de-qualidade-core-vs-satelites.md
+│   │   ├── 2026-04-09-fase-5-limpeza-estrutural-dead-code-e-rastreabilidade.md
+│   │   ├── 2026-04-09-governanca-regressiva-dead-code-e-mutation.md
+│   │   └── 2026-04-10-hardening-contratos-api-dashboard-privacy-workflows.md
+│   ├── database
+│   │   ├── migration-rollback-plan.md
+│   │   └── rls-exemptions.md
+│   ├── deprecation.md
+│   ├── dod-por-dominio.md
+│   ├── environment-variables-inventory.md
+│   ├── evidence
+│   │   ├── 2026-03-14-ciclo-estabilizacao-web-build.md
+│   │   ├── 2026-03-15-ciclo-estabilizacao-final-monorepo.md
+│   │   ├── 2026-03-24-core-hardening-execution.md
+│   │   ├── 2026-03-25-go-live-hardening-verification.md
+│   │   ├── agents-runtime.md
+│   │   ├── billing-coverage.md
+│   │   ├── billing.md
+│   │   ├── db-package-fix.md
+│   │   ├── dead-code-report.md
+│   │   ├── disaster-recovery-report.md
+│   │   ├── f3-hotspots-2026-03-22.md
+│   │   ├── lint-cleanup.md
+│   │   ├── monorepo-stability.md
+│   │   ├── multi-tenant.md
+│   │   ├── mutation-report.md
+│   │   ├── next-structure.md
+│   │   ├── observability.md
+│   │   ├── packages-standardization.md
+│   │   ├── pipeline-local.md
+│   │   ├── prompt-v2-full-phases.md
+│   │   ├── regression-zero.md
+│   │   ├── test-coverage-dashboard.md
+│   │   ├── utils-esm-fix.md
+│   │   ├── ux.md
+│   │   ├── web-build.md
+│   │   └── workflow-coverage.md
+│   ├── execution
+│   │   ├── CICLO_10_PLANOS_LOGICOS_2026-04-09.md
+│   │   ├── CICLO_10_PLANOS_LOGICOS_2026-04-10.md
+│   │   ├── CICLO_20_PLANOS_LOGICOS_2026-04-09.md
+│   │   ├── CICLO_30_PLANOS_LOGICOS_2026-04-10.md
+│   │   ├── CICLO_F0_F1_RASTREABILIDADE_2026-04-07.md
+│   │   ├── CICLO_F3_F5_RASTREABILIDADE_2026-04-08.md
+│   │   ├── f0-freeze-communication-2026-03-22.md
+│   │   ├── f0-no-blockers-gate-2026-03-22.md
+│   │   ├── f1-kickoff-2026-03-25.md
+│   │   ├── f1-pipeline-stabilization-2026-03-20.md
+│   │   ├── f1-pipeline-stabilization-2026-03-21.md
+│   │   ├── f2-legacy-quarantine-2026-03-20.md
+│   │   ├── f2-legacy-quarantine-2026-03-21.md
+│   │   ├── f3-auth-split-credentials-mfa-2026-03-21.md
+│   │   ├── f3-auth-split-session-2026-03-21.md
+│   │   ├── f3-hotspots-kickoff-2026-03-21.md
+│   │   └── runtime-legacy-cutover-2026-03-24.md
+│   ├── f10
+│   │   ├── README.md
+│   │   ├── architecture.md
+│   │   ├── dependency-graph.md
+│   │   └── knowledge-transfer.md
+│   ├── guides
+│   │   └── agent-manifest-contribution-guide.md
+│   ├── index.md
+│   ├── integrations
+│   │   └── crm.md
+│   ├── knowledge
+│   │   └── glossary.md
+│   ├── log-fields-and-pii-redaction.md
+│   ├── log-retention-policy.md
+│   ├── migration
+│   │   ├── legacy-api-gateway-strangler.md
+│   │   └── migrate-to-multitenant.md
+│   ├── observability
+│   │   ├── alerts.yml
+│   │   └── dashboard.json
+│   ├── observability-alerts.md
+│   ├── onboarding-configuration.md
+│   ├── operational
+│   │   ├── README.md
+│   │   ├── manuals
+│   │   │   └── operations_guide.md
+│   │   └── runbooks
+│   │       └── production-release-runbook.md
+│   ├── operations
+│   │   ├── active-product-capabilities.md
+│   │   ├── core-boundaries-communication.md
+│   │   ├── environment-inventory.md
+│   │   ├── environment-parity.md
+│   │   ├── f0-evidence-freshness-policy.md
+│   │   ├── f0-ownership-matrix.md
+│   │   ├── f0-sla-adherence-baseline-90d.md
+│   │   ├── f0-sla-severity-policy.md
+│   │   └── sla.md
+│   ├── performance
+│   │   ├── agent-slo.md
+│   │   ├── cycle-08-bottlenecks-and-mitigations.md
+│   │   ├── cycle-08-k6-evidence.md
+│   │   ├── database-sla.md
+│   │   ├── e2e-suite-rerun-policy.md
+│   │   ├── load-test-plan.md
+│   │   ├── queries.md
+│   │   ├── sli-error-budget.md
+│   │   ├── tenant-slos.md
+│   │   ├── worker-autoscaling-thresholds.md
+│   │   ├── workflow-performance-criteria.md
+│   │   └── workflow-slo.md
+│   ├── policies
+│   │   ├── agent-breaking-changes-definition.md
+│   │   ├── agent-deactivation-threshold.md
+│   │   ├── agent-deprecation-policy.md
+│   │   ├── approval-sla.md
+│   │   ├── approvals-policy.md
+│   │   ├── default-plan-policies.md
+│   │   ├── forced-upgrade-policy.md
+│   │   ├── incident-communication-policy.md
+│   │   ├── index-creation-policy.md
+│   │   ├── invitation-expiration-policy.md
+│   │   ├── member-limits-policy.md
+│   │   ├── migration-communication-plan.md
+│   │   ├── negative-feedback-sla.md
+│   │   ├── plan-limits-policy.md
+│   │   ├── prompt-editing-policy.md
+│   │   ├── template-update-policy.md
+│   │   ├── tenant-deletion-policy.md
+│   │   └── third-party-tools.md
+│   ├── processes
+│   │   ├── DEPRECACAO_E_CUTOVER.md
+│   │   ├── MIGRACAO_CANONICA_DB.md
+│   │   ├── ONBOARDING.md
+│   │   ├── OPERATIONS.md
+│   │   ├── RELEASE_SCORECARD.md
+│   │   ├── dependency-approval-register.md
+│   │   ├── dependency-update-security-workflow.md
+│   │   └── documentation-source-of-truth.md
+│   ├── product
+│   │   ├── AUDITORIA_IA_EXECUCAO_CHECKLISTS_2026-04-04.md
+│   │   ├── AUDITORIA_STATUS_CONCLUIDO_2026-04-04.md
+│   │   ├── AUDITORIA_STATUS_NAO_INICIADO_2026-04-04.md
+│   │   ├── AUDITORIA_STATUS_PRECISA_MELHORIAS_2026-04-04.md
+│   │   ├── CHECKLIST_1900_PLUS_COM_PROMPTS_2026-04-04.md
+│   │   ├── CHECKLIST_200_ITENS_LANCAMENTO_2026-04-04.md
+│   │   ├── CHECKLIST_200_PLUS_COM_PROMPTS_2026-04-04.md
+│   │   ├── PACOTE_CHECKLISTS_PROMPTS_2026-04-04.zip
+│   │   ├── PLANO_CANONICO_15_CICLOS_PROMPTS_2026-04-04.md
+│   │   ├── RELATORIO_DIVIDA_TECNICA_ROADMAP_LANCAMENTO_2026-04-04.md
+│   │   ├── north-star-metrics.md
+│   │   ├── nps-churn-correlation.md
+│   │   ├── product-dashboard-metrics.md
+│   │   ├── product-experience-gate-approval.md
+│   │   ├── prompt-improvement-process.md
+│   │   └── telemetry-plan.md
+│   ├── programs
+│   │   └── internal
+│   │       └── prompt_soberano_v13.html
+│   ├── release
+│   │   ├── 2026-03-16-beta-rollout-plan.md
+│   │   ├── 2026-03-17-vps-launch-pack.md
+│   │   ├── 2026-03-20-go-live-runbook.md
+│   │   ├── V1_PRODUCTION_GATE.md
+│   │   ├── f11-closure-minutes-2026-03-22.md
+│   │   ├── f11-executive-summary-2026-03-22.md
+│   │   ├── f11-residual-risk-register-2026-03-22.md
+│   │   ├── internal-packages-changelog.md
+│   │   ├── production-preflight-inventory.md
+│   │   ├── release-process.md
+│   │   ├── reproducible-build.md
+│   │   └── rollback_v1.sql
+│   ├── releases
+│   │   └── f11-sign-off.md
+│   ├── rfc-template.md
+│   ├── runbooks
+│   │   ├── agent-runtime-rollout.md
+│   │   ├── auth-tenant-rollout-canary.md
+│   │   ├── critical-incidents.md
+│   │   ├── db-backup-restore.md
+│   │   ├── deploy-canonical-stack.md
+│   │   ├── disaster-recovery.md
+│   │   ├── dod-sprint-bloco-template.md
+│   │   ├── high-fail-rate-triage.md
+│   │   ├── incident-response-matrix.md
+│   │   ├── incident-response.md
+│   │   ├── onboarding-guide.md
+│   │   ├── p1-alert-response-matrix.md
+│   │   ├── playbook-operacional-agentes-comerciais.md
+│   │   ├── rollback-canonical-stack.md
+│   │   ├── slow-query-investigation.md
+│   │   └── tenant-specific-incident-runbook.md
+│   ├── schema-naming-conventions.md
+│   ├── security
+│   │   ├── abuse-scenarios.md
+│   │   ├── csp.md
+│   │   ├── data-masking.md
+│   │   ├── debug-sensitive-data.md
+│   │   ├── f0-owasp-top10-baseline.md
+│   │   ├── impersonation-policy.md
+│   │   ├── invitation-threat-model.md
+│   │   ├── isolation-proof-scenarios.md
+│   │   ├── pentest-plan-cross-tenant.md
+│   │   ├── politica_credenciais_conectores.md
+│   │   ├── rate-limit.md
+│   │   ├── risco_budget_overflow.md
+│   │   ├── risco_conector_mal_configurado.md
+│   │   ├── risco_escopo_tools_template.md
+│   │   ├── rls.md
+│   │   ├── sast-tools.md
+│   │   ├── security-coverage-report.md
+│   │   ├── tenant-auth-guardrails.md
+│   │   └── vulnerability-matrix.md
+│   ├── security-pr-acceptance.md
+│   ├── service-catalog.md
+│   ├── service-criticality.md
+│   ├── slo.md
+│   ├── standards
+│   │   ├── api-content-type.md
+│   │   ├── artifacts-policy.md
+│   │   ├── ci-performance.md
+│   │   ├── database-modeling.md
+│   │   ├── env-example.md
+│   │   ├── env-public.md
+│   │   ├── env-vars.md
+│   │   ├── flaky-tests.md
+│   │   ├── linting.md
+│   │   ├── logging.md
+│   │   ├── migrations-seed.md
+│   │   ├── naming-conventions.md
+│   │   ├── openapi.md
+│   │   ├── package-script-governance.md
+│   │   ├── package-script-status.md
+│   │   ├── repository-naming.md
+│   │   ├── test-naming.md
+│   │   ├── testing.md
+│   │   └── typescript.md
+│   ├── support
+│   │   ├── client_migration_communication.md
+│   │   └── version_zero_sla.md
+│   ├── taxonomy.md
+│   ├── technical-debt
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── checklist.html
+│   │   ├── dashboard.md
+│   │   ├── debt-feature-ratio.md
+│   │   ├── executive-report.md
+│   │   ├── f11-executive-summary.md
+│   │   ├── retrospective.md
+│   │   ├── td-id-governance.md
+│   │   ├── tracker.json
+│   │   └── velocity.md
+│   ├── templates
+│   │   ├── README.md
+│   │   ├── adr-template.md
+│   │   ├── documentation-template.md
+│   │   ├── postmortem-template.md
+│   │   └── rfc-template.md
+│   ├── tenant-deletion-policy.md
+│   ├── testing
+│   │   ├── F5_TRACEABILITY.md
+│   │   ├── isolation-acceptance-criteria.md
+│   │   ├── isolation-regression-process.md
+│   │   └── provisioning-acceptance-criteria.md
+│   ├── threat-model-configuration.md
+│   ├── threat-model-system.md
+│   ├── ux
+│   │   ├── agent_deactivation_threshold.md
+│   │   ├── criterios_aceite_wizard.md
+│   │   ├── cs_tool_onboarding.md
+│   │   ├── dashboard_acceptance_criteria.md
+│   │   ├── dashboard_data_policy.md
+│   │   ├── health_score_model.md
+│   │   ├── impersonation_policy.md
+│   │   ├── jornada_instalacao_pack.md
+│   │   ├── kb_critical_articles.md
+│   │   ├── kb_escalation_criteria.md
+│   │   ├── kb_structure.md
+│   │   ├── kb_update_policy.md
+│   │   ├── negative_feedback_sla.md
+│   │   ├── notification_acceptance_criteria.md
+│   │   ├── notification_delivery_sla.md
+│   │   ├── notification_policy.md
+│   │   ├── product_dashboard_metrics.md
+│   │   ├── product_north_star_metrics.md
+│   │   ├── prompt_improvement_process.md
+│   │   ├── roi_hours_saved.md
+│   │   ├── roi_value_perception.md
+│   │   ├── sales_demo_script.md
+│   │   ├── telemetry_plan.md
+│   │   ├── template_customization_guide.md
+│   │   ├── template_quality_criteria.md
+│   │   ├── template_use_cases.md
+│   │   ├── teste_usabilidade_wizard.md
+│   │   └── user-journey-map.md
+│   └── workflows
+│       ├── approval-acceptance-criteria.md
+│       ├── complex-flow-evidence.md
+│       ├── template-customization-guide.md
+│       └── template-use-cases.md
+├── eslint.config.mjs
+├── fix-turbopack-root-only.py
+├── fix_file.js
+├── fix_final.mjs
+├── fix_final.ts
+├── infra
+│   ├── cloudrun
+│   │   └── service.yaml
+│   ├── docker
+│   ├── k8s
+│   ├── monitoring
+│   │   ├── alert.rules.yml
+│   │   ├── alertmanager.yml
+│   │   ├── docker-compose.monitoring.yml
+│   │   ├── grafana
+│   │   │   └── provisioning
+│   │   │       └── datasources
+│   │   │           └── prometheus.yml
+│   │   ├── grafana-dashboard.json
+│   │   └── prometheus.yml
+│   └── terraform
+│       ├── main.tf
+│       ├── modules
+│       │   ├── cloudsql.tf
+│       │   ├── iam.tf
+│       │   ├── redis.tf
+│       │   └── secrets.tf
+│       ├── prod.tfvars.example
+│       └── staging.tfvars.example
+├── knip.json
+├── knip.satellites.json
+├── make_factory_properly_finally.mjs
+├── ops
+│   ├── env
+│   ├── governance
+│   │   ├── external-provisioning-status.md
+│   │   ├── ownership-quarterly-review-jira.md
+│   │   └── ownership-quarterly-review.ics
+│   ├── release
+│   │   └── sealed
+│   ├── release-secrets-inventory-2026-03-24.md
+│   └── vps
+│       └── Caddyfile
+├── package.json
+├── package_dev.sh
+├── packages
+│   ├── agent-packs
+│   │   ├── CHANGELOG.md
+│   │   ├── corporate-v1
+│   │   │   ├── account-manager-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── admin-ops-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── agent-mesh-orchestrator-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── call-review-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── ceo-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── cfo-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── closer-copilot-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── closing-forecast-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── cmo-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── communication-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── config
+│   │   │   │   └── default.json
+│   │   │   ├── context-memory-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── coo-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── crm-sync-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── cro-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── cs-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── cto-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── customer-health-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── deal-risk-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── enablement-coach-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── finance-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── follow-up-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── forecast-intelligence-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── knowledge-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── kpi-analyst-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── lead-enrichment-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── lead-hunter-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── legal-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── maestro-orchestrator-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── manifest.json
+│   │   │   ├── meeting-booker-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── objection-handling-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── onboarding-sales-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── ops-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── pipeline-auditor-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── policy-and-approval-guard-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── productivity-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── prompts
+│   │   │   │   └── README.md
+│   │   │   ├── proposal-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── qualification-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── revops-intelligence-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── rh-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── roleplay-trainer-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── sales-manager-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── sales-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── sdr-outreach-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── source
+│   │   │   │   ├── birthhub-html-agents.json
+│   │   │   │   ├── foundation-agent-overrides.ts
+│   │   │   │   └── official-collection.json
+│   │   │   └── tests
+│   │   │       └── catalog.smoke.test.ts
+│   │   ├── executive-premium-v1
+│   │   │   ├── boardprep-ai-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── brand-guardian-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── budget-fluid-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── capital-allocator-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── churn-deflector-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── competitor-xray-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── crisis-navigator-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── culture-pulse-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── expansion-mapper-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── manifest.json
+│   │   │   ├── market-sentinel-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── narrative-weaver-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── pipeline-oracle-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── pricing-optimizer-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── quota-architect-premium-pack
+│   │   │   │   └── manifest.json
+│   │   │   ├── source
+│   │   │   │   ├── boardprep-ai
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── brand-guardian
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── budget-fluid
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── capital-allocator
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── churn-deflector
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── competitor-xray
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── crisis-navigator
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── culture-pulse
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── expansion-mapper
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── market-sentinel
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── narrative-weaver
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── pipeline-oracle
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── pricing-optimizer
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   ├── quota-architect
+│   │   │   │   │   ├── acceptance.md
+│   │   │   │   │   ├── agent.ts
+│   │   │   │   │   ├── contract.yaml
+│   │   │   │   │   ├── schemas.ts
+│   │   │   │   │   ├── seeds
+│   │   │   │   │   │   └── dev_seed.json
+│   │   │   │   │   ├── system_prompt.md
+│   │   │   │   │   ├── tests
+│   │   │   │   │   │   ├── test_schema.ts
+│   │   │   │   │   │   └── test_unit.ts
+│   │   │   │   │   └── tools.ts
+│   │   │   │   └── trend-catcher
+│   │   │   │       ├── acceptance.md
+│   │   │   │       ├── agent.ts
+│   │   │   │       ├── contract.yaml
+│   │   │   │       ├── schemas.ts
+│   │   │   │       ├── seeds
+│   │   │   │       │   └── dev_seed.json
+│   │   │   │       ├── system_prompt.md
+│   │   │   │       ├── tests
+│   │   │   │       │   ├── test_schema.ts
+│   │   │   │       │   └── test_unit.ts
+│   │   │   │       └── tools.ts
+│   │   │   └── trend-catcher-premium-pack
+│   │   │       └── manifest.json
+│   │   ├── github-agents-v1
+│   │   │   ├── ab-test-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ab-test-synthesizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── access-right-auditor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── account-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── accrual-engine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── activation-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── activity-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── acv-growth-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ad-copy-machine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ad-fatigue-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── address-proof-validator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── adoption-metric-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── advocacy-finder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── agency-auditor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── aging-report-sender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── aha-moment-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── alt-data-scorer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── angry-customer-escalator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── annual-report-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── anomaly-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── api-integration-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── api-key-configurator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── approval-workflow-router-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── architecture-diagrammer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── arr-bridge-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── attribution-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── audience-segment-discoverer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── audit-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── audit-prep-engine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── audit-trail-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── auto-decision-engine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── backlink-scouter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── bad-debt-predictor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── bank-reconciliation-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── bankruptcy-risk-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── battlecard-updater-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── best-practice-recommender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── bid-auto-adjuster-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── board-prep-ai-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── board-reporting-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── bottleneck-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── brand-guardian-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── brand-guideline-enforcer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── budget-fluid-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── budget-variance-pinger-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── burn-rate-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cacltv-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── calendar-sniper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── campaign-decay-predictor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── campaign-orchestrator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cannibalization-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cap-table-manager-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── capacity-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── capacity-planner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── capital-adequacy-calculator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── capital-allocator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cash-app-matcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cash-flow-clairvoyant-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── central-bank-xml-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── channel-attrition-predictor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── channel-mixer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── chargeback-dispute-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── churn-cohort-isolator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── churn-deflector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── churn-win-back-sequencer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cloud-spend-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cohort-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cold-call-scripter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── collection-agency-router-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── collection-report.json
+│   │   │   ├── comms-surveillance-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── comp-plan-calculator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── competitor-displacement-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── competitor-financial-scraper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── competitor-intel-broadcaster-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── competitor-x-ray-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── compliance-checklist-enforcer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── compliance-enforcer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── content-repurposer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── content-to-lead-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── contract-drafter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── contract-redliner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── conversion-forecaster-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── creative-asset-tester-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── credit-hold-releaser-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── credit-limit-recommender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── credit-score-fetcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── crisis-comms-drafter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── crisis-navigator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── crm-cleanser-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── cross-sell-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── crypto-tracing-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── csatnps-aggregator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── culture-pulse-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── custom-crm-ui-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── custom-script-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── dashboard-auto-freshener-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── dashboard-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── data-cleaner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── data-cleaning-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── data-enrichment-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── data-hygiene-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── data-migration-validator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── data-silo-bridger-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── deadline-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── deal-at-risk-alerter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── deal-desk-autopilot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── deck-customizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── default-probability-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── delay-escalator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── demo-sandboxer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── demo-scripter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── device-fingerprint-matcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── discount-approver-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── discount-leak-guard-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── discount-waterfall-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── disputed-charge-aggregator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── distribution-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── drip-campaign-trigger-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── dunning-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── duplicate-merger-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── early-adopter-nurturer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── enrichment-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── escalation-predictor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── event-qualifier-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── exec-summary-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── executive-demo-curator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── executive-sponsor-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── executive-summary-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── expansion-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── failed-payment-retrier-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── false-positive-reducer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── faq-auto-responder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── fast-quoter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── feature-heatmapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── financial-ratio-calculator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── follow-up-ghost-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── forecast-rollup-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── forecasting-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── funnel-leak-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── fx-risk-manager-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── gamification-master-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── gatekeeper-bypass-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── geospatial-expansion-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ghosting-preventer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── gl-anomaly-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── global-brand-localizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── gtm-alignment-scorer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── health-score-architect-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── health-score-trigger-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── high-risk-jurisdiction-pinger-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── icp-refiner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── id-verification-matcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── implementer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── inbound-scorer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── incident-post-mortem-drafter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── influencer-vettor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── instance-right-sizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── intent-decoder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── invoice-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ip-infringement-scraper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── journey-architect-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── journey-drop-off-locator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── kb-gap-identifier-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── keyword-opportunity-spotter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── l1-auto-resolver-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── l3-bug-replicator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── landing-page-morpher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── launch-planner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── lead-magnet-creator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── lead-routing-troubleshooter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── lead-scoring-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── leaderboard-broadcaster-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── legal-clause-matcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── limit-decrease-recommender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── liquidity-ratio-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── liveness-check-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ltv-by-channel-calculator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── macro-factor-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── manifest.json
+│   │   │   ├── mapeia-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── mar-tech-sync-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── margin-calculator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── market-expansion-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── market-grade-upgrade-report.json
+│   │   │   ├── market-sentinel-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── market-share-estimator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── marketing-tech-architect-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── media-mix-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── micro-learning-creator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── milestone-chaser-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── money-mule-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── month-end-close-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── multi-cloud-cost-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── multi-threader-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── multi-year-deal-modeller-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── mutual-action-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── narrative-weaver-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── nda-auto-signer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── net-retention-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── newsletter-curator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── niche-explorer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── non-standard-flag-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── objection-crusher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── objection-flashcard-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── on-page-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── onboarding-ramp-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── one-on-one-prep-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── org-nav-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── outage-communicator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── partner-ecosystem-scout-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── patch-update-alerter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── payment-link-sender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── payment-plan-negotiator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pep-screener-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── persona-sync-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── personalization-engine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pipeline-inspector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pipeline-oracle-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pipeline-velocity-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── plagiarism-tone-checker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── planner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── playbook-creator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── playbook-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── playbook-updater-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── poc-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── policy-mapping-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── positioning-tester-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pr-scraper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── price-discount-impact-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pricing-elasticity-tester-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pricing-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pricing-tester-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── pricing-tier-recommender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── process-bottleneck-alerter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── process-flow-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── process-walkthrough-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── procurement-hacker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── procurement-policy-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── product-feedback-looper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── project-plan-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── promise-to-pay-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── proration-calculator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── qbr-deck-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── quota-architect-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── quota-attainment-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── quota-setter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ramp-up-assistant-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── readiness-gate-report.json
+│   │   │   ├── refund-processor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── regulatory-change-alerter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── regulatory-training-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── relationship-matrix-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── release-note-writer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── remediation-plan-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── remittance-extractor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── renewal-contract-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── renewal-forecast-engine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── rep-coach-ai-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── requirements-gatherer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── resource-balancer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── reviewer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── rfp-auto-responder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── risk-exposure-quantifier-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── roas-maximizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── roi-calculator-builder-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── roi-scenario-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── routing-traffic-cop-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── saas-license-auditor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sanctions-screener-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sar-drafter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── scalability-predictor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── scenario-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── schema-markup-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── scope-creep-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── security-questionnaire-filler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── semantic-search-kb-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sentiment-aggregator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sentiment-shift-alerter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── seo-draft-writer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── serp-volatility-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── session-replay-summarizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── shift-scheduler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sla-escalator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sla-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── spend-controller-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── sql-query-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── stakeholder-persona-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── stakeholder-update-automator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── stat-significance-tester-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── stickiness-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── strategic-alliance-scout-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── strategic-kpi-aggregator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── strategic-partner-scout-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── stress-test-modeler-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── subject-line-tester-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── supply-chain-sync-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── synthetic-identity-detector-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── target-scraper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── tax-exemption-verifier-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── tax-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── tech-objection-resolver-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── tech-stack-auditor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── territory-balancer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── territory-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ticket-backlog-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ticket-classifier-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── tiering-optimizer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── tool-roi-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── topic-cluster-planner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── trade-reference-checker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── training-video-recommender-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── transaction-hold-reviewer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── transaction-link-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── transcript-coach-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── trend-catcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── trigger-event-watcher-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── ubo-mapper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── unsubscribe-predictor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── upsell-prompt-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── use-case-generator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── user-story-writer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── utm-builder-bot-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── validation-rule-enforcer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── value-aligner-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── velocity-rule-engine-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── vendor-negotiator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── vertical-translator-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── vip-concierge-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── viral-loop-tracker-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── voice-pitch-grader-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── voicemail-dropper-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── webhook-monitor-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── webinar-nurturer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── webinar-promoter-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── welcome-sequencer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   ├── white-space-analyzer-github-pack
+│   │   │   │   ├── evidence.json
+│   │   │   │   ├── manifest.json
+│   │   │   │   └── readiness.json
+│   │   │   └── win-loss-analyzer-github-pack
+│   │   │       ├── evidence.json
+│   │   │       ├── manifest.json
+│   │   │       └── readiness.json
+│   │   ├── package.json
+│   │   ├── test
+│   │   │   ├── github-collection-compiler.test.ts
+│   │   │   ├── github-collection-readiness.test.ts
+│   │   │   ├── manifest-schema.test.ts
+│   │   │   ├── pack-regression.test.ts
+│   │   │   └── pack-smoke.test.ts
+│   │   └── tsconfig.json
+│   ├── agent-runtime
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   └── __tests__
+│   │   │       └── runtime.test.ts
+│   │   └── tsconfig.json
+│   ├── agents
+│   │   └── REGISTRY.md
+│   ├── agents-core
+│   │   ├── CHANGELOG.md
+│   │   ├── docs
+│   │   │   ├── assets
+│   │   │   │   ├── hierarchy.js
+│   │   │   │   ├── highlight.css
+│   │   │   │   ├── icons.js
+│   │   │   │   ├── icons.svg
+│   │   │   │   ├── main.js
+│   │   │   │   ├── navigation.js
+│   │   │   │   ├── search.js
+│   │   │   │   └── style.css
+│   │   │   ├── classes
+│   │   │   │   ├── AgentApiManifestParseError.html
+│   │   │   │   ├── AgentManifestParseError.html
+│   │   │   │   ├── AgentMemoryService.html
+│   │   │   │   ├── BaseTool.html
+│   │   │   │   ├── DbReadTool.html
+│   │   │   │   ├── DbWriteTool.html
+│   │   │   │   ├── HttpTool.html
+│   │   │   │   ├── InMemoryAgentMemoryBackend.html
+│   │   │   │   ├── InMemoryPolicyAdminStore.html
+│   │   │   │   ├── PolicyDeniedError.html
+│   │   │   │   ├── PolicyEngine.html
+│   │   │   │   └── SendEmailTool.html
+│   │   │   ├── functions
+│   │   │   │   ├── agentIdsMatch.html
+│   │   │   │   ├── buildAgentRuntimeOutput.html
+│   │   │   │   ├── buildAgentRuntimePlan.html
+│   │   │   │   ├── buildRuntimePolicyRules.html
+│   │   │   │   ├── callCalendarTool.html
+│   │   │   │   ├── callCrmTool.html
+│   │   │   │   ├── callStorageTool.html
+│   │   │   │   ├── canonicalizeAgentId.html
+│   │   │   │   ├── compressConversationMessages.html
+│   │   │   │   ├── computeOutputHash.html
+│   │   │   │   ├── createPolicyTemplate.html
+│   │   │   │   ├── estimateTokenCount.html
+│   │   │   │   ├── findManifestCatalogEntryByAgentId.html
+│   │   │   │   ├── inferOutputGovernance.html
+│   │   │   │   ├── isInstallableManifest.html
+│   │   │   │   ├── loadManifestCatalog.html
+│   │   │   │   ├── parseAgentApiManifest.html
+│   │   │   │   ├── parseAgentManifest.html
+│   │   │   │   ├── postSlackMessage.html
+│   │   │   │   ├── recommendAgentsForTenant.html
+│   │   │   │   ├── runAgentDryRun.html
+│   │   │   │   ├── runAnalyzerSkill.html
+│   │   │   │   ├── runGeneratorSkill.html
+│   │   │   │   ├── runMonitorSkill.html
+│   │   │   │   ├── runOrchestratorSkill.html
+│   │   │   │   ├── runReporterSkill.html
+│   │   │   │   ├── searchManifestCatalog.html
+│   │   │   │   └── sendEmail.html
+│   │   │   ├── hierarchy.html
+│   │   │   ├── index.html
+│   │   │   ├── interfaces
+│   │   │   │   ├── AgentDefinition.html
+│   │   │   │   ├── AgentLearningRecord.html
+│   │   │   │   ├── AgentMemoryBackend.html
+│   │   │   │   ├── AgentRestrictionPolicy.html
+│   │   │   │   ├── AgentRuntimeOutput.html
+│   │   │   │   ├── AgentRuntimeOutputInput.html
+│   │   │   │   ├── AgentRuntimePlan.html
+│   │   │   │   ├── AgentRuntimePlanInput.html
+│   │   │   │   ├── AgentSkillReference.html
+│   │   │   │   ├── AgentToolReference.html
+│   │   │   │   ├── BaseToolOptions.html
+│   │   │   │   ├── CalendarInput.html
+│   │   │   │   ├── CalendarResult.html
+│   │   │   │   ├── ConversationContext.html
+│   │   │   │   ├── ConversationMessage.html
+│   │   │   │   ├── CrmInput.html
+│   │   │   │   ├── CrmResult.html
+│   │   │   │   ├── DbReadToolOptions.html
+│   │   │   │   ├── DbWriteAuditEvent.html
+│   │   │   │   ├── DbWriteToolOptions.html
+│   │   │   │   ├── DryRunResult.html
+│   │   │   │   ├── EmailAdapter.html
+│   │   │   │   ├── EmailSendInput.html
+│   │   │   │   ├── EmailSendResult.html
+│   │   │   │   ├── Execution.html
+│   │   │   │   ├── ExecutionPlan.html
+│   │   │   │   ├── ExecutionStep.html
+│   │   │   │   ├── HttpToolOptions.html
+│   │   │   │   ├── ManagedAgentPolicy.html
+│   │   │   │   ├── ManifestCatalogEntry.html
+│   │   │   │   ├── ManifestSearchFilters.html
+│   │   │   │   ├── ManifestSearchResult.html
+│   │   │   │   ├── OutputGovernanceDecision.html
+│   │   │   │   ├── RuntimePlannedToolCall.html
+│   │   │   │   ├── RuntimePolicyRule.html
+│   │   │   │   ├── SendEmailToolOptions.html
+│   │   │   │   ├── SlackMessageInput.html
+│   │   │   │   ├── SlackMessageResult.html
+│   │   │   │   ├── StorageInput.html
+│   │   │   │   ├── StorageResult.html
+│   │   │   │   ├── ToolCall.html
+│   │   │   │   ├── ToolCostMetadata.html
+│   │   │   │   ├── ToolDefinition.html
+│   │   │   │   └── ToolExecutionContext.html
+│   │   │   ├── types
+│   │   │   │   ├── AgentApiManifest.html
+│   │   │   │   ├── AgentLearningLessonType.html
+│   │   │   │   ├── AgentManifest.html
+│   │   │   │   ├── AgentManifestKeywords.html
+│   │   │   │   ├── AgentManifestTags.html
+│   │   │   │   ├── AnalyzerInput.html
+│   │   │   │   ├── AnalyzerOutput.html
+│   │   │   │   ├── CalendarAction.html
+│   │   │   │   ├── CalendarProvider.html
+│   │   │   │   ├── ConversationRole.html
+│   │   │   │   ├── CrmAction.html
+│   │   │   │   ├── CrmProvider.html
+│   │   │   │   ├── DbReadExecutor.html
+│   │   │   │   ├── DbReadInput.html
+│   │   │   │   ├── DbReadOutput.html
+│   │   │   │   ├── DbWriteAuditPublisher.html
+│   │   │   │   ├── DbWriteExecutor.html
+│   │   │   │   ├── DbWriteInput.html
+│   │   │   │   ├── DbWriteOutput.html
+│   │   │   │   ├── EmailProvider.html
+│   │   │   │   ├── ExecutionStatus.html
+│   │   │   │   ├── GeneratorInput.html
+│   │   │   │   ├── GeneratorOutput.html
+│   │   │   │   ├── HttpToolInput.html
+│   │   │   │   ├── HttpToolOutput.html
+│   │   │   │   ├── JsonObject.html
+│   │   │   │   ├── JsonPrimitive.html
+│   │   │   │   ├── JsonValue.html
+│   │   │   │   ├── MonitorInput.html
+│   │   │   │   ├── MonitorOutput.html
+│   │   │   │   ├── OrchestratorInput.html
+│   │   │   │   ├── OrchestratorOutput.html
+│   │   │   │   ├── ReporterInput.html
+│   │   │   │   ├── ReporterOutput.html
+│   │   │   │   ├── SendEmailInput.html
+│   │   │   │   ├── SendEmailOutput.html
+│   │   │   │   ├── SlackMode.html
+│   │   │   │   ├── StorageAction.html
+│   │   │   │   └── StorageProvider.html
+│   │   │   └── variables
+│   │   │       ├── MANIFEST_VERSION.html
+│   │   │       ├── SUPPORTED_AGENT_API_VERSION.html
+│   │   │       ├── agentApiManifestSchema.html
+│   │   │       ├── agentDescriptorSchema.html
+│   │   │       ├── agentManifestSchema.html
+│   │   │       ├── analyzerInputSchema.html
+│   │   │       ├── analyzerOutputSchema.html
+│   │   │       ├── analyzerSkillTemplate.html
+│   │   │       ├── generatorInputSchema.html
+│   │   │       ├── generatorOutputSchema.html
+│   │   │       ├── generatorSkillTemplate.html
+│   │   │       ├── manifestTagsSchema.html
+│   │   │       ├── monitorInputSchema.html
+│   │   │       ├── monitorOutputSchema.html
+│   │   │       ├── monitorSkillTemplate.html
+│   │   │       ├── orchestratorInputSchema.html
+│   │   │       ├── orchestratorOutputSchema.html
+│   │   │       ├── orchestratorSkillTemplate.html
+│   │   │       ├── policyManifestSchema.html
+│   │   │       ├── reporterInputSchema.html
+│   │   │       ├── reporterOutputSchema.html
+│   │   │       ├── reporterSkillTemplate.html
+│   │   │       ├── skillManifestSchema.html
+│   │   │       └── toolManifestSchema.html
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── __tests__
+│   │   │   │   ├── agent-api-manifest-parser.test.ts
+│   │   │   │   ├── catalog.test.ts
+│   │   │   │   ├── manifest-parser.test.ts
+│   │   │   │   ├── manifest-runtime-intelligence.test.ts
+│   │   │   │   └── slack.tool.test.ts
+│   │   │   ├── execution
+│   │   │   │   ├── dry-run.ts
+│   │   │   │   └── index.ts
+│   │   │   ├── index.ts
+│   │   │   ├── manifest
+│   │   │   │   ├── catalog.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── parser.ts
+│   │   │   │   └── schema.ts
+│   │   │   ├── memory
+│   │   │   │   └── memoryService.ts
+│   │   │   ├── parser
+│   │   │   │   └── manifestParser.ts
+│   │   │   ├── policy
+│   │   │   │   └── engine.ts
+│   │   │   ├── runtime
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── intelligence.ts
+│   │   │   │   ├── intelligenceRuntime.ts
+│   │   │   │   ├── manifestRuntime.ts
+│   │   │   │   ├── manifestRuntimeBuilders.ts
+│   │   │   │   └── manifestRuntimeCore.ts
+│   │   │   ├── schemas
+│   │   │   │   └── manifest.schema.ts
+│   │   │   ├── skills
+│   │   │   │   ├── analyzerSkill.ts
+│   │   │   │   ├── generatorSkill.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── monitorSkill.ts
+│   │   │   │   ├── orchestratorSkill.ts
+│   │   │   │   └── reporterSkill.ts
+│   │   │   ├── tools
+│   │   │   │   ├── __mocks__
+│   │   │   │   │   └── connectors.mock.ts
+│   │   │   │   ├── baseTool.ts
+│   │   │   │   ├── calendar.tool.ts
+│   │   │   │   ├── crm.tool.ts
+│   │   │   │   ├── dbReadTool.ts
+│   │   │   │   ├── dbWriteTool.ts
+│   │   │   │   ├── email.tool.ts
+│   │   │   │   ├── httpTool.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── sendEmailTool.test.ts
+│   │   │   │   ├── sendEmailTool.ts
+│   │   │   │   ├── slack.tool.ts
+│   │   │   │   └── storage.tool.ts
+│   │   │   └── types
+│   │   │       └── index.ts
+│   │   ├── test
+│   │   │   ├── parser.test.ts
+│   │   │   ├── policy.test.ts
+│   │   │   └── policyEngine.test.ts
+│   │   └── tsconfig.json
+│   ├── agents-registry
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   └── index.ts
+│   │   ├── test
+│   │   │   └── registry.test.ts
+│   │   └── tsconfig.json
+│   ├── auth
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   └── __tests__
+│   │   │       └── auth.test.ts
+│   │   └── tsconfig.json
+│   ├── billing
+│   │   └── README.md
+│   ├── config
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── prettier
+│   │   │   └── index.cjs
+│   │   ├── src
+│   │   │   ├── api.config.test.ts
+│   │   │   ├── api.config.ts
+│   │   │   ├── contracts.ts
+│   │   │   ├── database.config.ts
+│   │   │   ├── environment.test.ts
+│   │   │   ├── environment.ts
+│   │   │   ├── index.ts
+│   │   │   ├── logger.config.ts
+│   │   │   ├── product-capabilities.ts
+│   │   │   ├── shared.ts
+│   │   │   ├── web.config.test.ts
+│   │   │   ├── web.config.ts
+│   │   │   ├── web.ts
+│   │   │   ├── worker.config.test.ts
+│   │   │   └── worker.config.ts
+│   │   └── tsconfig.json
+│   ├── conversation-core
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── __tests__
+│   │   │   │   └── service.test.ts
+│   │   │   ├── index.ts
+│   │   │   └── service.ts
+│   │   └── tsconfig.json
+│   ├── database
+│   │   ├── CHANGELOG.md
+│   │   ├── README.md
+│   │   ├── docs
+│   │   │   ├── BACKUP_RECOVERY.md
+│   │   │   ├── F8_IMPLEMENTATION.md
+│   │   │   ├── MIGRATIONS.md
+│   │   │   └── SEEDS.md
+│   │   ├── f8.config.ts
+│   │   ├── package.json
+│   │   ├── prisma
+│   │   │   ├── migration-registry.json
+│   │   │   ├── migrations
+│   │   │   │   ├── 20260313000100_cycle1_foundation
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260313000200_cycle2_multitenancy
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260313000200_cycle3_security_foundation
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260313000300_cycle6_workflows_orchestration
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260313000300_cycle7_billing_foundation
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260313000400_cycle9_engagement
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260315000100_cycle7_billing_credits_exports
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260315000200_cycle8_durable_budget_outputs
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260316000100_cycle10_connectors_handoffs
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260317000100_cycle11_billing_webhook_audit
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260322000100_cycle8_data_resilience_controls
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260331000100_cycle12_rls_policy_alignment
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260402000100_cycle12_ci_schema_alignment
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260407000300_phase1_lgpd_user_preferences
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260408000100_phase1_user_preference_locale
+│   │   │   │   │   └── migration.sql
+│   │   │   │   ├── 20260410000100_phase1_workflow_revision_rls
+│   │   │   │   │   └── migration.sql
+│   │   │   │   └── migration_lock.toml
+│   │   │   ├── schema.prisma
+│   │   │   ├── seed
+│   │   │   │   ├── data.ts
+│   │   │   │   ├── helpers.ts
+│   │   │   │   ├── tenant.ts
+│   │   │   │   ├── types.ts
+│   │   │   │   └── workflows.ts
+│   │   │   ├── seed.ts
+│   │   │   └── seeds
+│   │   │       ├── profiles.ts
+│   │   │       ├── seed-agents.ts
+│   │   │       ├── seed-billing.ts
+│   │   │       ├── seed-support.ts
+│   │   │       ├── seed-tenants.ts
+│   │   │       ├── seed-users.ts
+│   │   │       ├── seed-workflows.ts
+│   │   │       ├── shared-foundation.ts
+│   │   │       ├── shared-ops.ts
+│   │   │       ├── shared-runtime.ts
+│   │   │       └── shared.ts
+│   │   ├── prisma.config.ts
+│   │   ├── scripts
+│   │   │   ├── analyze-performance.ts
+│   │   │   ├── bootstrap-ci.ts
+│   │   │   ├── check-fk-indexes.ts
+│   │   │   ├── check-migration-governance.ts
+│   │   │   ├── check-raw-query-joins.ts
+│   │   │   ├── check-referential-integrity.ts
+│   │   │   ├── check-schema-drift.ts
+│   │   │   ├── check-tenancy-controls.ts
+│   │   │   ├── compare-migration-state.ts
+│   │   │   ├── lib
+│   │   │   │   ├── env.ts
+│   │   │   │   ├── migrations.ts
+│   │   │   │   ├── paths.ts
+│   │   │   │   ├── prisma-schema.ts
+│   │   │   │   ├── process.ts
+│   │   │   │   ├── repo-scan.ts
+│   │   │   │   ├── report.ts
+│   │   │   │   └── runtime.ts
+│   │   │   ├── migrate-deploy-safe.ts
+│   │   │   ├── post-migration-checklist.ts
+│   │   │   ├── prisma-runtime-compat.mjs
+│   │   │   ├── provision-rls-runtime-role.ts
+│   │   │   └── validate-migrations-on-test-db.ts
+│   │   ├── src
+│   │   │   ├── client.ts
+│   │   │   ├── errors
+│   │   │   │   ├── cross-tenant-access.error.ts
+│   │   │   │   ├── exceeded-quota.error.ts
+│   │   │   │   ├── prisma-query-timeout.error.ts
+│   │   │   │   └── tenant-required.error.ts
+│   │   │   ├── index.ts
+│   │   │   ├── prisma-proxy.ts
+│   │   │   ├── query-budget.ts
+│   │   │   ├── repositories
+│   │   │   │   ├── access-control.ts
+│   │   │   │   ├── base.repo.ts
+│   │   │   │   ├── engagement.ts
+│   │   │   │   ├── index.ts
+│   │   │   │   └── user-repository.ts
+│   │   │   └── tenant-context.ts
+│   │   ├── test
+│   │   │   ├── access-control.repo.test.ts
+│   │   │   ├── base.repo.test.ts
+│   │   │   ├── client.test.ts
+│   │   │   ├── cross-tenant-access.error.test.ts
+│   │   │   ├── database-availability.test.ts
+│   │   │   ├── database-availability.ts
+│   │   │   ├── database-script-pipelines.test.ts
+│   │   │   ├── engagement.test.support.ts
+│   │   │   ├── engagement.test.ts
+│   │   │   ├── exceeded-quota.error.test.ts
+│   │   │   ├── index.test.ts
+│   │   │   ├── maternal-domain.rls.test.ts
+│   │   │   ├── migration.test.ts
+│   │   │   ├── prisma-query-timeout.error.test.ts
+│   │   │   ├── prisma-schema.test.ts
+│   │   │   ├── query-budget.test.ts
+│   │   │   ├── rls.test.ts
+│   │   │   ├── schema-drift-environment.test.ts
+│   │   │   ├── script-runtime.test.ts
+│   │   │   ├── seed-runtime.test.ts
+│   │   │   ├── tenant-required.error.test.ts
+│   │   │   └── user-repository.test.ts
+│   │   └── tsconfig.json
+│   ├── emails
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── templates
+│   │   │   ├── critical-error.tsx
+│   │   │   ├── org-invite.tsx
+│   │   │   ├── templates.test.ts
+│   │   │   └── workflow-finished.tsx
+│   │   └── tsconfig.json
+│   ├── integrations
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── adapters
+│   │   │   │   ├── cache.ts
+│   │   │   │   ├── crm-adapter-factory.ts
+│   │   │   │   ├── email-adapter-factory.ts
+│   │   │   │   └── webhook-registry.ts
+│   │   │   ├── clients
+│   │   │   │   ├── calendar.ts
+│   │   │   │   ├── circuit-breaker.ts
+│   │   │   │   ├── crm.ts
+│   │   │   │   ├── fiscal.test.ts
+│   │   │   │   ├── fiscal.ts
+│   │   │   │   ├── http.ts
+│   │   │   │   ├── llm.ts
+│   │   │   │   ├── payments-br.test.ts
+│   │   │   │   ├── payments-br.ts
+│   │   │   │   ├── signatures.ts
+│   │   │   │   ├── social-ads.ts
+│   │   │   │   └── svix.ts
+│   │   │   ├── index.test.ts
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── llm-client
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── scripts
+│   │   │   └── test-llm.ts
+│   │   ├── src
+│   │   │   ├── index.test.ts
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── logger
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.test.ts
+│   │   │   ├── index.ts
+│   │   │   ├── metrics.test.ts
+│   │   │   ├── metrics.ts
+│   │   │   └── otel.ts
+│   │   └── tsconfig.json
+│   ├── queue
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── load-test
+│   │   │   └── bullmq-load-test.ts
+│   │   ├── package.json
+│   │   ├── scripts
+│   │   │   ├── schedule-recurring-jobs.ts
+│   │   │   └── test-queue.ts
+│   │   ├── src
+│   │   │   ├── definitions.ts
+│   │   │   ├── dlq.ts
+│   │   │   ├── index.ts
+│   │   │   ├── job-context.ts
+│   │   │   ├── runtime.ts
+│   │   │   ├── types.ts
+│   │   │   ├── worker.ts
+│   │   │   └── workers
+│   │   │       ├── agent-worker.ts
+│   │   │       ├── base-worker.ts
+│   │   │       ├── campaign-worker.ts
+│   │   │       ├── index.ts
+│   │   │       ├── report-worker.ts
+│   │   │       └── webhook-worker.ts
+│   │   ├── test-queue.ts
+│   │   ├── tests
+│   │   │   ├── job-context.test.ts
+│   │   │   ├── runtime.test.ts
+│   │   │   └── workers.test.ts
+│   │   └── tsconfig.json
+│   ├── security
+│   │   ├── CHANGELOG.md
+│   │   ├── index.js
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── __tests__
+│   │   │   │   └── security.test.ts
+│   │   │   └── index.ts
+│   │   └── tsconfig.json
+│   ├── shared
+│   │   ├── CHANGELOG.md
+│   │   ├── errors
+│   │   │   ├── index.test.ts
+│   │   │   └── index.ts
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   ├── shared-types
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── index.test.ts
+│   │   │   ├── index.ts
+│   │   │   └── schemas
+│   │   │       └── leads.ts
+│   │   └── tsconfig.json
+│   ├── testing
+│   │   ├── CHANGELOG.md
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── agent-execution.factory.test.ts
+│   │   │   ├── agent-execution.factory.ts
+│   │   │   ├── factories.ts
+│   │   │   ├── index.ts
+│   │   │   ├── test-db.test.ts
+│   │   │   └── test-db.ts
+│   │   └── tsconfig.json
+│   ├── utils
+│   │   ├── CHANGELOG.md
+│   │   ├── index.ts
+│   │   ├── package.json
+│   │   ├── src
+│   │   │   ├── __tests__
+│   │   │   │   ├── errors.test.ts
+│   │   │   │   ├── fetchWithTimeout.test.ts
+│   │   │   │   └── sleep.test.ts
+│   │   │   ├── errors.ts
+│   │   │   ├── fetch.ts
+│   │   │   ├── index.ts
+│   │   │   ├── logger.ts
+│   │   │   ├── sleep.ts
+│   │   │   └── tracing.ts
+│   │   └── tsconfig.json
+│   └── workflows-core
+│       ├── CHANGELOG.md
+│       ├── eslint.config.mjs
+│       ├── package.json
+│       ├── src
+│       │   ├── catalog
+│       │   │   └── stepCatalog.ts
+│       │   ├── errors.ts
+│       │   ├── index.ts
+│       │   ├── interpolation
+│       │   │   └── interpolate.ts
+│       │   ├── lint
+│       │   │   └── semanticStepLint.ts
+│       │   ├── nextjs.ts
+│       │   ├── nodes
+│       │   │   ├── agentExecute.ts
+│       │   │   ├── agentHandoff.ts
+│       │   │   ├── aiTextExtract.ts
+│       │   │   ├── code.ts
+│       │   │   ├── condition.ts
+│       │   │   ├── connectorAction.ts
+│       │   │   ├── delay.ts
+│       │   │   ├── executeStep.ts
+│       │   │   ├── httpRequest.ts
+│       │   │   ├── notification.ts
+│       │   │   └── transformer.ts
+│       │   ├── parser
+│       │   │   └── dagValidator.ts
+│       │   ├── schemas
+│       │   │   └── step.schema.ts
+│       │   └── types.ts
+│       ├── test
+│       │   ├── dag.test.ts
+│       │   ├── executeStep.test.ts
+│       │   ├── semantic-step-lint.test.ts
+│       │   └── step-types.test.ts
+│       ├── tsconfig.eslint.json
+│       └── tsconfig.json
+├── playwright.config.ts
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── prettier.config.cjs
+├── pytest.ini
+├── releases
+│   ├── README.md
+│   ├── evidence
+│   │   └── README.md
+│   ├── manifests
+│   │   ├── cycle-01-secrets-audit-preflight-equivalence.md
+│   │   ├── release-secrets-inventory-2026-03-24.md
+│   │   └── release_artifact_catalog.md
+│   └── notes
+│       ├── README.md
+│       └── v1.0.0.md
+├── requirements-test.txt
+├── scripts
+│   ├── _generate_forensic_audit.py
+│   ├── agent
+│   │   ├── check-github-agent-readiness.ts
+│   │   ├── compile-executive-premium-agents.ts
+│   │   ├── compile-github-agents.ts
+│   │   ├── generate-github-agent-catalog-doc.mjs
+│   │   ├── generate-snapshot.mjs
+│   │   ├── github-agent-collection.ts
+│   │   └── upgrade-github-agent-manifests.ts
+│   ├── ai
+│   │   └── export-finetune.ts
+│   ├── audit
+│   │   ├── executive-agents-governance.mjs
+│   │   ├── generate-auditor-prime-report.ts
+│   │   ├── generate-governance-suite.mjs
+│   │   ├── generate-report.mjs
+│   │   ├── generate-sovereign-report.ts
+│   │   ├── prepare-history.mjs
+│   │   ├── prime-backlog.mjs
+│   │   ├── prime-catalog.mjs
+│   │   ├── prime-collect.mjs
+│   │   ├── prime-normalize.mjs
+│   │   ├── prime-refresh-evidence.mjs
+│   │   ├── prime-render.mjs
+│   │   ├── prime-score.mjs
+│   │   ├── prime-verify.mjs
+│   │   ├── reconcile-td-catalog.mjs
+│   │   ├── shared-prime.mjs
+│   │   └── shared.mjs
+│   ├── billing
+│   │   └── generate-billing-coverage-report.ts
+│   ├── bootstrap
+│   │   ├── bootstrap-local.ps1
+│   │   └── install-node-portable.ps1
+│   ├── bootstrap-dev-test.sh
+│   ├── ci
+│   │   ├── audit-scripts.mjs
+│   │   ├── build-core.mjs
+│   │   ├── check-active-product-capabilities-alignment.mjs
+│   │   ├── check-agent-surface-freeze.mjs
+│   │   ├── check-branch-name.mjs
+│   │   ├── check-commit-messages.mjs
+│   │   ├── check-default-e2e-surface-freeze.mjs
+│   │   ├── check-dirty-tree.mjs
+│   │   ├── check-doc-links.mjs
+│   │   ├── check-legacy-db-surface-freeze.mjs
+│   │   ├── check-legacy-runtime-surface-freeze.mjs
+│   │   ├── check-python-workflow-hard-fail.py
+│   │   ├── check-runtime-governance.mjs
+│   │   ├── check-type-ignore-allowlist.py
+│   │   ├── check-web-inline-style-freeze.mjs
+│   │   ├── check_links.sh
+│   │   ├── check_naming.sh
+│   │   ├── clean_artifacts.sh
+│   │   ├── cleanup-artifacts.mjs
+│   │   ├── db-generate.mjs
+│   │   ├── f3-hotspot-metrics.mjs
+│   │   ├── full.mjs
+│   │   ├── generate_mock_agents.js
+│   │   ├── lint-core.mjs
+│   │   ├── lint-policy.mjs
+│   │   ├── local-ci.sh
+│   │   ├── lockfile-governance.mjs
+│   │   ├── monorepo-doctor.mjs
+│   │   ├── preflight.mjs
+│   │   ├── release-scorecard.mjs
+│   │   ├── repo-hygiene.mjs
+│   │   ├── run-pnpm.mjs
+│   │   ├── run-satellites.mjs
+│   │   ├── run-with-portable-node.mjs
+│   │   ├── runtime-governance-policy.json
+│   │   ├── script-compliance-audit.mjs
+│   │   ├── script-compliance-policy.json
+│   │   ├── security-guardrails-local.mjs
+│   │   ├── shared.mjs
+│   │   ├── test-core.mjs
+│   │   ├── ts-directives-guard.mjs
+│   │   ├── type-ignore-allowlist.txt
+│   │   ├── typecheck-core.mjs
+│   │   ├── workspace-audit.mjs
+│   │   ├── workspace-contract.json
+│   │   └── write-lockfile-hash.mjs
+│   ├── clean.mjs
+│   ├── diagnostics
+│   │   ├── audit-legacy-db-imports.mjs
+│   │   ├── check-ownership-governance.mjs
+│   │   ├── materialize-doc-only-controls.mjs
+│   │   └── repo_health.sh
+│   ├── docs
+│   │   ├── bootstrap-changelogs.mjs
+│   │   ├── check-doc-links.mjs
+│   │   ├── generate-dependency-graph.mjs
+│   │   └── generate-technical-health-dashboard.mjs
+│   ├── export-checklists-desktop.ps1
+│   ├── f0
+│   │   └── generate-governance-baseline.mjs
+│   ├── fix-internal-package-exports.mjs
+│   ├── forensics
+│   │   ├── generate_governance_audit_checklist.py
+│   │   ├── generate_governance_inventory.py
+│   │   ├── materialize-logical-batch.mjs
+│   │   ├── render_governance_inventory_html.py
+│   │   └── render_jules_audit_prompt_pdf.py
+│   ├── generate-official-collection.ts
+│   ├── generate-pack-docs.ts
+│   ├── legacy
+│   │   └── block-legacy-entrypoint.mjs
+│   ├── load-tests
+│   │   ├── stress.js
+│   │   └── worker-overload.ts
+│   ├── migrate-to-multitenant.ts
+│   ├── notifications
+│   │   └── validate-org-invite-email.ts
+│   ├── ops
+│   │   ├── backup-postgres.sh
+│   │   ├── check-backup-health.test.ts
+│   │   ├── check-backup-health.ts
+│   │   ├── deploy-vps.sh
+│   │   ├── generate-disaster-recovery-report.test.ts
+│   │   ├── generate-disaster-recovery-report.ts
+│   │   ├── generate-vps-env.mjs
+│   │   ├── record-disaster-recovery-drill-auto.ts
+│   │   ├── record-disaster-recovery-drill.test.ts
+│   │   ├── record-disaster-recovery-drill.ts
+│   │   ├── refresh-staging.ts
+│   │   ├── restore-postgres.sh
+│   │   └── rollback-release.sh
+│   ├── pack-qa-report.ts
+│   ├── performance
+│   │   ├── api-latency-baseline.mjs
+│   │   ├── database-baseline.mjs
+│   │   └── web-vitals-baseline.mjs
+│   ├── postinstall-db-generate.mjs
+│   ├── privacy
+│   │   └── verify-anonymization.ts
+│   ├── quality
+│   │   ├── check-dead-code.mjs
+│   │   ├── generate-cyclomatic-baseline.mjs
+│   │   ├── generate-mutation-evidence.mjs
+│   │   ├── generate-web-bundle-baseline.mjs
+│   │   ├── run-mutation-suite.mjs
+│   │   └── run-stryker.mjs
+│   ├── release
+│   │   ├── configure-origin-remote.sh
+│   │   ├── final-data-migration.ts
+│   │   ├── generate-sbom.mjs
+│   │   ├── global-smoke.ts
+│   │   ├── materialize-release.ts
+│   │   ├── materialize-rollback-rehearsal.ts
+│   │   ├── preflight-env.ts
+│   │   ├── verify-cycle0-flow.sh
+│   │   ├── verify-release-evidence.ts
+│   │   └── verify-rollback-evidence.ts
+│   ├── reset-local.sh
+│   ├── security
+│   │   ├── check-auth-guards.test.ts
+│   │   ├── check-auth-guards.ts
+│   │   ├── check-core-auth-boundaries.mjs
+│   │   ├── generate-owasp-baseline.mjs
+│   │   ├── generate-security-report.test.ts
+│   │   ├── generate-security-report.ts
+│   │   ├── scan-inline-credentials.mjs
+│   │   └── verify-dast-governance.mjs
+│   ├── seed
+│   │   └── reset-local.sh
+│   ├── setup
+│   │   └── setup-local.sh
+│   ├── sync-birthhub-html.ts
+│   ├── testing
+│   │   ├── flaky-quarantine.json
+│   │   ├── generate-performance-report.mjs
+│   │   ├── generate-regression-zero-report.mjs
+│   │   ├── generate-traceability-report.mjs
+│   │   ├── run-isolation-suite.mjs
+│   │   ├── run-shard.mjs
+│   │   ├── run-tagged-tests.mjs
+│   │   └── traceability-data.json
+│   ├── validate-packs.ts
+│   ├── verify-tenant-isolation.sh
+│   └── verify-workflow-step-coverage.ts
+├── stryker.config.mjs
+├── tests
+│   ├── e2e
+│   │   ├── agent-studio.spec.ts
+│   │   ├── billing-premium.spec.ts
+│   │   ├── critical-routes.spec.ts
+│   │   ├── maternal-clinic.spec.ts
+│   │   ├── release-master.spec.ts
+│   │   ├── support.ts
+│   │   ├── workflow-agent-output.spec.ts
+│   │   └── workflow-editor-evidence.spec.ts
+│   ├── integration
+│   │   ├── test_agents_expanded_tools_realism.py
+│   │   ├── test_agents_tooling_coverage.py
+│   │   ├── test_internal_service_auth.py
+│   │   ├── test_internal_service_auth_additional_agents.py
+│   │   ├── test_orchestrator_event_reliability.py
+│   │   ├── test_orchestrator_flow_payloads.py
+│   │   ├── test_orchestrator_operational_endpoints.py
+│   │   └── test_security_hardening.py
+│   └── test_sast_scanner.py
+├── tsconfig.base.json
+├── tsconfig.json
+├── turbo.json
+├── use_any.js
+├── very_final.js
+├── very_final.mjs
+└── very_final2.mjs
+
+828 directories, 3123 files

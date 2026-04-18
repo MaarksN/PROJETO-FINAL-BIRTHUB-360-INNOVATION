@@ -1,0 +1,22 @@
+{
+  "files": [
+    ".env.example",
+    ".env.vps.example",
+    "artifacts/audit/files_analysis/_root/.env.example.md",
+    "artifacts/audit/files_analysis/_root/.env.production.mock.md",
+    "artifacts/audit/files_analysis/_root/.env.staging.mock.md",
+    "artifacts/audit/files_analysis/_root/.env.vps.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.production.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.staging.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/release/sealed/.env.production.sealed.md",
+    "artifacts/audit/files_analysis/ops/release/sealed/.env.staging.sealed.md",
+    "ops/env/.env.production.sealed.example",
+    "ops/env/.env.staging.sealed.example",
+    "ops/release/sealed/.env.production.sealed",
+    "ops/release/sealed/.env.staging.sealed",
+    "scripts/release/.env.production.template",
+    "scripts/release/.env.staging.template"
+  ],
+  "example_exists": true,
+  "secrets_committed": false
+}

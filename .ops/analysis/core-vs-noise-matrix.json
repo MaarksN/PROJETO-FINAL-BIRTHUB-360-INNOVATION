@@ -1,0 +1,578 @@
+[
+  {
+    "path": ".dockerignore",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".env.example",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".env.vps.example",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".git-blame-ignore-revs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".gitattributes",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".github",
+    "category": "SATÉLITE ÚTIL",
+    "centrality": "SUPPORT",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": ".gitignore",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".gitleaks.toml",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".lintstagedrc.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".nvmrc",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".ops",
+    "category": "SATÉLITE ÚTIL",
+    "centrality": "SUPPORT",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": ".python-version",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": ".tools",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "CHANGELOG.md",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "CONTRIBUTING.md",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "CYCLE_LOG.md",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "README.md",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "REPORT.md",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "SECURITY.md",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "apps",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": "artifacts",
+    "category": "EVIDÊNCIA / DOCUMENTAÇÃO",
+    "centrality": "PERIPHERAL",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": "audit",
+    "category": "EVIDÊNCIA / DOCUMENTAÇÃO",
+    "centrality": "PERIPHERAL",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": "auditoria birthub 360.html",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "ci-local.ps1",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "commitlint.config.cjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "docker-compose.prod.yml",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "docker-compose.yml",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "docs",
+    "category": "EVIDÊNCIA / DOCUMENTAÇÃO",
+    "centrality": "PERIPHERAL",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": "eslint.config.mjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "fix-turbopack-root-only.py",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "fix_file.js",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "fix_final.mjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "fix_final.ts",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "infra",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "knip.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "knip.satellites.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "make_factory_properly_finally.mjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "ops",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "package.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "package_dev.sh",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "packages",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": "playwright.config.ts",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "pnpm-lock.yaml",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "pnpm-workspace.yaml",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "prettier.config.cjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "pytest.ini",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "releases",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "requirements-test.txt",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "scripts",
+    "category": "SATÉLITE ÚTIL",
+    "centrality": "SUPPORT",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "SOBREVIVE",
+    "notes": ""
+  },
+  {
+    "path": "stryker.config.mjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "tests",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "tsconfig.base.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "tsconfig.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "turbo.json",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "use_any.js",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "very_final.js",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "very_final.mjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "very_final2.mjs",
+    "category": "SUSPEITO ATÉ PROVA",
+    "centrality": "ORPHAN",
+    "evidence": "Top-level directory structural analysis",
+    "risk": "P3",
+    "decision": "INVESTIGAR",
+    "notes": ""
+  },
+  {
+    "path": "apps/api",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Explicitly declared in prompt",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": "Main system component"
+  },
+  {
+    "path": "apps/web",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Explicitly declared in prompt",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": "Main system component"
+  },
+  {
+    "path": "apps/worker",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Explicitly declared in prompt",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": "Main system component"
+  },
+  {
+    "path": "packages/config",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Explicitly declared in prompt",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": "Main system component"
+  },
+  {
+    "path": "packages/database",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Explicitly declared in prompt",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": "Main system component"
+  },
+  {
+    "path": "packages/logger",
+    "category": "CORE CANÔNICO",
+    "centrality": "CORE",
+    "evidence": "Explicitly declared in prompt",
+    "risk": "P0",
+    "decision": "SOBREVIVE",
+    "notes": "Main system component"
+  }
+]
