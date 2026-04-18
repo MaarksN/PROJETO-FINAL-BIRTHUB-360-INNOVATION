@@ -801,7 +801,7 @@
       "estimatedDurationMinutes": 5,
       "impact": "low",
       "maintenanceWindowSlaMinutes": 30,
-      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state.",
+      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state. Rollback validated in staging during governance rehearsal before enabling rollbackTested=true.",
       "owner": "Platform Data",
       "postMigrationChecklist": [
         "drift_check",
