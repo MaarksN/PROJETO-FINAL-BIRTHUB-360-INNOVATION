@@ -28,7 +28,7 @@ class MockSmtpAdapter implements EmailAdapter {
 
     return Promise.resolve({
       bounced,
-      messageId: `smtp_${Date.now()}_${randomUUID().split('-')[0]}`
+      messageId: `smtp_${Date.now()}_${randomUUID()}`
     });
   }
 }
@@ -39,7 +39,7 @@ class MockSendgridAdapter implements EmailAdapter {
 
     return Promise.resolve({
       bounced,
-      messageId: `sendgrid_${Date.now()}_${randomUUID().split('-')[0]}`
+      messageId: `sendgrid_${Date.now()}_${randomUUID()}`
     });
   }
 }
