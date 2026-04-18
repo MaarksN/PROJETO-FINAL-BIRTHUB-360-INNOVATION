@@ -45,8 +45,8 @@ export declare const stepSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
             GET: "GET";
             PATCH: "PATCH";
             POST: "POST";
-            PUT: "PUT";
             DELETE: "DELETE";
+            PUT: "PUT";
         }>>;
         timeout_ms: z.ZodDefault<z.ZodNumber>;
         url: z.ZodString;
@@ -108,8 +108,8 @@ export declare const stepSchema: z.ZodDiscriminatedUnion<[z.ZodObject<{
         agentId: z.ZodString;
         input: z.ZodDefault<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
         onError: z.ZodDefault<z.ZodEnum<{
-            continue: "continue";
             stop: "stop";
+            continue: "continue";
         }>>;
     }, z.core.$strict>;
     key: z.ZodString;
@@ -242,8 +242,8 @@ export declare const workflowCanvasSchema: z.ZodObject<{
                 GET: "GET";
                 PATCH: "PATCH";
                 POST: "POST";
-                PUT: "PUT";
                 DELETE: "DELETE";
+                PUT: "PUT";
             }>>;
             timeout_ms: z.ZodDefault<z.ZodNumber>;
             url: z.ZodString;
@@ -305,8 +305,8 @@ export declare const workflowCanvasSchema: z.ZodObject<{
             agentId: z.ZodString;
             input: z.ZodDefault<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
             onError: z.ZodDefault<z.ZodEnum<{
-                continue: "continue";
                 stop: "stop";
+                continue: "continue";
             }>>;
         }, z.core.$strict>;
         key: z.ZodString;

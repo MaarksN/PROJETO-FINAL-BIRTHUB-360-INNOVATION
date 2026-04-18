@@ -1,27 +1,19 @@
 {
-  "outDir": "./dist",
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-  "outDir": "./dist",
-    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": {
-  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
+    "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "target": "ES2022",
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "resolveJsonModule": true,
-    "noEmit": true,
+    "paths": {},
+    "noEmit": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.json"
+    "corporate-v1/**/*.ts",
+    "executive-premium-v1/**/*.ts",
+    "github-agents-v1/**/*.ts",
+    "test/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "exclude": ["node_modules", "dist"]
 }
-

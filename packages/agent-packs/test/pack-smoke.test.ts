@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import assert from "node:assert/strict";
 import path from "node:path";
 import test from "node:test";

@@ -51,10 +51,10 @@ export function readPrimaryOwner(input) {
     return "tenant-ops";
 }
 export function normalizeJsonValue(value) {
-    if (value === null ||
-        typeof value === "string" ||
-        typeof value === "number" ||
-        typeof value === "boolean") {
+    if (value === null) {
+        return null;
+    }
+    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
         return value;
     }
     if (Array.isArray(value)) {

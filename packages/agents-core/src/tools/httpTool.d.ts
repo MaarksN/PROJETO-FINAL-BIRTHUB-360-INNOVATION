@@ -7,8 +7,8 @@ declare const httpInputSchema: z.ZodObject<{
         GET: "GET";
         PATCH: "PATCH";
         POST: "POST";
-        PUT: "PUT";
         DELETE: "DELETE";
+        PUT: "PUT";
     }>>;
     query: z.ZodDefault<z.ZodRecord<z.ZodString, z.ZodString>>;
     retries: z.ZodDefault<z.ZodNumber>;

@@ -1,6 +1,6 @@
 import { Prisma } from "@birthub/database";
 
-function toPrismaNestedJsonValue(value: unknown): Prisma.InputJsonValue | null {
+export function toPrismaNestedJsonValue(value: unknown): Prisma.InputJsonValue | null {
   if (value === null) {
     return null;
   }
@@ -51,4 +51,3 @@ export function toPrismaJsonValue(value: unknown): Prisma.InputJsonValue | typeo
   const normalized = toPrismaNestedJsonValue(value);
   return normalized === null ? Prisma.JsonNull : normalized;
 }
-

@@ -88,12 +88,11 @@ export function readPrimaryOwner(input: Record<string, unknown>): string {
 }
 
 export function normalizeJsonValue(value: unknown): JsonValue | null {
-  if (
-    value === null ||
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean"
-  ) {
+  if (value === null) {
+    return null;
+  }
+
+  if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
     return value;
   }
 

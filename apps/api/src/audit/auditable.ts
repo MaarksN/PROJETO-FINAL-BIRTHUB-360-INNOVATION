@@ -1,9 +1,13 @@
 import type { NextFunction, Request, Response } from "express";
 
 import { enqueueAuditEvent } from "./buffer.js";
-import { toPrismaJsonValue } from "../lib/prisma-json.js";
+import { toPrismaNestedJsonValue } from "../lib/prisma-json.js";
 import { ProblemDetailsError } from "../lib/problem-details.js";
 import { readTrimmedString } from "../lib/request-values.js";
+
+function toAuditDiffJsonValue(value: unknown) {
+  return toPrismaNestedJsonValue(value);
+}
 
 type AuditableOptions<TResult> = {
   action: string;
@@ -65,8 +69,8 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
         action: options.action,
         actorId: actorId ?? null,
         diff: {
-          payload: toPrismaJsonValue(request.body as unknown),
-          response: toPrismaJsonValue(result ?? null)
+          payload: toAuditDiffJsonValue(request.body as unknown),
+          response: toAuditDiffJsonValue(result ?? null)
         },
         entityId,
         entityType: options.entityType,
