@@ -6,6 +6,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "strict": false,
     "noImplicitAny": false,
     "exactOptionalPropertyTypes": false,
@@ -18,8 +19,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "paths": {
-      "@birthub/*": ["packages/*/src/index.ts", "packages/*/src"],
-      "@birthub/*/*": ["packages/*/src/*", "packages/*/src/*/index.ts"]
+      "@birthub/*": ["packages/*/src/index.ts", "packages/*/src"]
     }
   }
 }

@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { z } from 'zod';
 
 export const LeadSchema = z.object({

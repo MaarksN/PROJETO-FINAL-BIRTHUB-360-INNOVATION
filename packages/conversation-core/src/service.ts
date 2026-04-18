@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 export type Conversation = {
   id: string;
   organizationId: string;

@@ -195,7 +195,7 @@ export class PagarmeClient implements IPaymentsClient {
   }
 
   async confirmPayment(
-    _paymentId: string,
+    paymentId: string,
     _tenantId: string,
   ): Promise<PaymentResponse> {
     const response = await pagarmeGetCb(`${this.baseUrl}/orders/${paymentId}`, {
