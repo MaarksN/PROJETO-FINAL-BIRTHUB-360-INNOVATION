@@ -28,6 +28,7 @@ import type {
 } from "./sdr-automatic-dashboard";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
+import { SdrFunnelChart } from "./SdrFunnelChart";
 
 type SdrLeadScoreWorkspaceTopProps = {
   copy: SdrAutomaticCopy;
@@ -110,7 +111,9 @@ export function SdrLeadScoreWorkspaceTop(props: SdrLeadScoreWorkspaceTopProps) {
         </div>
       </article>
 
-      <section className={styles.chartGrid}>
+      <section className={styles.chartGrid} style={{ gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))" }}>
+        <SdrFunnelChart />
+
         <article className={`${shellStyles.surfaceCard} ${styles.chartCard}`}>
           <div className={shellStyles.cardHeader}>
             <div>

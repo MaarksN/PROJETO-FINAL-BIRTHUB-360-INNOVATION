@@ -20,7 +20,8 @@ void test("lead dashboard filters by stage, score band, email, and creation date
     createdTo: "2026-04-15",
     query: "connecta",
     scoreBands: ["critical"],
-    stages: ["proposal"]
+    stages: ["proposal"],
+    regions: []
   });
 
   assert.equal(filtered.length, 1);
@@ -54,7 +55,8 @@ void test("support reply summarizes SLA pressure from live metrics", () => {
       createdTo: "",
       query: "",
       scoreBands: [],
-      stages: []
+      stages: [],
+      regions: []
     },
     leads,
     locale: "pt-BR",
@@ -75,7 +77,7 @@ void test("live trend polling keeps a rolling chart window with fresh timestamps
   }).format(new Date("2026-04-15T13:45:30.000Z"));
   const updated = applyPollingFrameToTrend(
     trend,
-    LEAD_POLLING_FRAMES[0],
+    LEAD_POLLING_FRAMES[0]!,
     "pt-BR",
     new Date("2026-04-15T13:45:30.000Z")
   );
@@ -97,7 +99,8 @@ void test("support reply lists active date, stage, and score filters", () => {
       createdTo: "2026-04-15",
       query: "connecta",
       scoreBands: ["critical"],
-      stages: ["proposal"]
+      stages: ["proposal"],
+      regions: []
     },
     leads,
     locale: "pt-BR",
@@ -119,7 +122,8 @@ void test("support reply handles empty score views gracefully", () => {
       createdTo: "2026-04-15",
       query: "sem.resultado@birthub.com",
       scoreBands: [],
-      stages: []
+      stages: [],
+      regions: []
     },
     leads: [],
     locale: "pt-BR",

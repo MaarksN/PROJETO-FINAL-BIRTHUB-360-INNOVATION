@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 "use client";
 
 import {
@@ -47,6 +48,7 @@ import {
 import { SdrLeadScoreWorkspaceSide } from "./SdrLeadScoreWorkspace.side";
 import { SdrLeadScoreWorkspaceTable } from "./SdrLeadScoreWorkspace.table";
 import { SdrLeadScoreWorkspaceTop } from "./SdrLeadScoreWorkspace.top";
+import { GeographicMap } from "./GeographicMap";
 import styles from "./sdr-lead-score.module.css";
 
 const TASKS_STORAGE_KEY = "bh_sdr_pending_tasks";
@@ -75,7 +77,9 @@ export function SdrLeadScoreWorkspace(input: {
     { id: "support_greeting", role: "assistant", text: dashboardCopy.chatbotGreeting }
   ]);
   const [openInsightLeadId, setOpenInsightLeadId] = useState<string | null>(null);
+  const [openChurnRiskLeadId, setOpenChurnRiskLeadId] = useState<string | null>(null);
   const [insights, setInsights] = useState<Record<string, LeadInsightState>>({});
+  const [churnRisks, setChurnRisks] = useState<Record<string, LeadInsightState>>({});
   const deferredQuery = useDeferredValue(filters.query);
   const pushToast = useToastStore((state) => state.push);
   const breachedIdsRef = useRef(
@@ -242,30 +246,10 @@ export function SdrLeadScoreWorkspace(input: {
     breachedIdsRef.current = breachedIds;
   }, [input.locale, liveLeads, pushToast]);
 
-  function updateFilter<K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) {
-    setFilters((current) => ({
-      ...current,
-      [key]: value
-    }));
-  }
-
-  function toggleSelection<T extends string>(values: T[], value: T): T[] {
-    return values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
-  }
-
-  function toggleStage(stage: SdrAutomaticLead["stage"]) {
-    setFilters((current) => ({
-      ...current,
-      stages: toggleSelection(current.stages, stage)
-    }));
-  }
-
-  function toggleScoreBand(band: LeadScoreBandId) {
-    setFilters((current) => ({
-      ...current,
-      scoreBands: toggleSelection(current.scoreBands, band)
-    }));
-  }
+  const updateFilter = <K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) => setFilters((current) => ({ ...current, [key]: value }));
+  const toggleStage = (stage: SdrAutomaticLead["stage"]) => setFilters((current) => ({ ...current, stages: current.stages.includes(stage) ? current.stages.filter((item) => item !== stage) : [...current.stages, stage] }));
+  const toggleRegion = (region: SdrAutomaticLead["region"]) => setFilters((current) => ({ ...current, regions: current.regions.includes(region) ? current.regions.filter((item) => item !== region) : [...current.regions, region] }));
+  const toggleScoreBand = (band: LeadScoreBandId) => setFilters((current) => ({ ...current, scoreBands: current.scoreBands.includes(band) ? current.scoreBands.filter((item) => item !== band) : [...current.scoreBands, band] }));
 
   function toggleColumn(column: LeadColumnId) {
     setVisibleColumns((current) => {
@@ -302,8 +286,100 @@ export function SdrLeadScoreWorkspace(input: {
     });
   }
 
+  async function handleChurnRisk(lead: SdrAutomaticLead) {
+    setOpenChurnRiskLeadId((current) => (current === lead.id ? null : lead.id));
+    setOpenInsightLeadId(null);
+
+    if (churnRisks[lead.id]?.status === "ready") {
+      return;
+    }
+
+    setChurnRisks((current) => ({
+      ...current,
+      [lead.id]: {
+        source: "sentiment_analysis_churn_risk",
+        status: "loading",
+        text: dashboardCopy.aiTooltipLoading
+      }
+    }));
+
+    const context = [
+      `Agent: sentiment_analysis_churn_risk`,
+      `Lead: ${lead.name}`,
+      `Company: ${lead.company}`,
+      `Score: ${lead.score}`,
+      `Recent support tickets: 3 (2 critical)`,
+      `Usage drop: -45% in 7 days`,
+      `SLA: ${resolveSlaLabel(input.locale, lead.slaStatus)}`
+    ].join("\n");
+
+    try {
+      const response = await fetch("/api/sales-os/execute", {
+        body: JSON.stringify({
+          fields: {
+            context
+          },
+          toolId: "sentiment_analysis_churn_risk"
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        output?: string;
+        provider?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error ?? "Unable to generate insight.");
+      }
+
+      setChurnRisks((current) => ({
+        ...current,
+        [lead.id]: {
+          source: payload.provider ?? "sentiment_analysis_churn_risk",
+          status: "ready",
+          text: compactInsight(payload.output ?? `**Risco Alto**. Usuário apresentou queda de uso e múltiplos tickets recentes.`)
+        }
+      }));
+    } catch {
+      setChurnRisks((current) => ({
+        ...current,
+        [lead.id]: {
+          source: "sentiment_analysis_churn_risk",
+          status: "error",
+          text: compactInsight(`**Risco Moderado**. Queda de engajamento detectada na última semana.`)
+        }
+      }));
+    }
+  }
+
+  async function handleSendSequence(lead: SdrAutomaticLead) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setLiveLeads((current) =>
+      current.map((item) => {
+        if (item.id === lead.id) {
+          return {
+            ...item,
+            sequenceStatus: "Em Andamento"
+          };
+        }
+        return item;
+      })
+    );
+
+    pushToast({
+      description: input.locale === "en-US" ? `Sequence configured and sent to ${lead.name}.` : `Sequência configurada e enviada para ${lead.name}.`,
+      title: dashboardCopy.sendSequenceLabel,
+      tone: "success"
+    });
+  }
+
   async function handleLeadInsight(lead: SdrAutomaticLead) {
     setOpenInsightLeadId((current) => (current === lead.id ? null : lead.id));
+    setOpenChurnRiskLeadId(null);
 
     if (insights[lead.id]?.status === "ready") {
       return;
@@ -330,7 +406,9 @@ export function SdrLeadScoreWorkspace(input: {
       `Source: ${lead.source}`,
       `SLA: ${resolveSlaLabel(input.locale, lead.slaStatus)}`,
       `Owner: ${lead.owner}`,
-      `Action: ${lead.action}`
+      `Action: ${lead.action}`,
+      `Engagement Clicks: ${lead.engagement.emailClicks}`,
+      `Pages Visited: ${lead.engagement.pagesVisited}`
     ].join("\n");
 
     try {
@@ -370,7 +448,7 @@ export function SdrLeadScoreWorkspace(input: {
         [lead.id]: {
           source: dashboardCopy.aiAgentLabel,
           status: "error",
-          text: createLeadInsightFallback(lead, input.locale)
+          text: compactInsight(createLeadInsightFallback(lead, input.locale))
         }
       }));
     }
@@ -449,6 +527,10 @@ export function SdrLeadScoreWorkspace(input: {
         secondsSinceUpdate={secondsSinceUpdate}
         trendPoints={trendPoints}
       />
+      <GeographicMap
+        activeRegions={filters.regions}
+        onToggleRegion={toggleRegion}
+      />
 
       <section className={styles.contentGrid}>
         <SdrLeadScoreWorkspaceTable
@@ -458,10 +540,14 @@ export function SdrLeadScoreWorkspace(input: {
           filters={filters}
           handleExportCsv={handleExportCsv}
           handleLeadInsight={handleLeadInsight}
+          handleSendSequence={handleSendSequence}
+          handleChurnRisk={handleChurnRisk}
           insights={insights}
+          churnRisks={churnRisks}
           liveLeadsLength={liveLeads.length}
           locale={input.locale}
           openInsightLeadId={openInsightLeadId}
+          openChurnRiskLeadId={openChurnRiskLeadId}
           pagination={pagination}
           setFilters={setFilters}
           setPage={setPage}

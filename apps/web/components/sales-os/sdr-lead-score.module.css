@@ -60,7 +60,7 @@
 .supportHeader p,
 .emptyCopy,
 .leadCell span,
-.aiPopover p,
+.aiPopoverContent p,
 .chartCard p,
 .distributionCard p {
   color: var(--muted);
@@ -339,19 +339,28 @@
   border-radius: 18px;
   box-shadow: var(--shadow-glass);
   display: grid;
-  gap: 0.35rem;
+  gap: 0.5rem;
   margin-top: 0.55rem;
-  max-width: 280px;
-  min-width: 240px;
-  padding: 0.9rem;
+  max-width: 360px;
+  min-width: 280px;
+  padding: 1rem;
   position: absolute;
   right: 0;
   top: 100%;
-  z-index: 12;
+  z-index: 20;
+}
+
+.aiPopoverContent {
+  color: var(--text);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 
 .aiPopover small {
   color: var(--accent);
+  font-weight: 500;
 }
 
 .taskComposer {

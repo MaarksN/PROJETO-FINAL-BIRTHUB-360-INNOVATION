@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react";
 import {
+  AlertTriangle,
   CalendarRange,
   ChevronLeft,
   ChevronRight,
@@ -9,6 +10,7 @@ import {
   Filter,
   LayoutPanelTop,
   ListFilter,
+  Mail,
   Search,
   Sparkles
 } from "lucide-react";
@@ -43,9 +45,11 @@ type SdrLeadScoreWorkspaceTableProps = {
   dashboardCopy: LeadDashboardCopy;
   filteredLeadsLength: number;
   filters: LeadFilters;
+  churnRisks: Record<string, LeadInsightState>;
   insights: Record<string, LeadInsightState>;
   liveLeadsLength: number;
   locale: SupportedLocale;
+  openChurnRiskLeadId: string | null;
   openInsightLeadId: string | null;
   pagination: PaginationState;
   setFilters: (value: LeadFilters) => void;
@@ -54,6 +58,8 @@ type SdrLeadScoreWorkspaceTableProps = {
   toggleStage: (stage: SdrAutomaticLead["stage"]) => void;
   updateFilter: <K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) => void;
   visibleColumns: LeadColumnId[];
+  handleChurnRisk: (lead: SdrAutomaticLead) => Promise<void>;
+  handleSendSequence: (lead: SdrAutomaticLead) => Promise<void>;
   handleExportCsv: () => void;
   handleLeadInsight: (lead: SdrAutomaticLead) => Promise<void>;
   setPage: (value: number | ((current: number) => number)) => void;
@@ -61,15 +67,19 @@ type SdrLeadScoreWorkspaceTableProps = {
 
 export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProps) {
   const {
+    churnRisks,
     columnLabels,
     dashboardCopy,
     filteredLeadsLength,
     filters,
+    handleChurnRisk,
+    handleSendSequence,
     handleExportCsv,
     handleLeadInsight,
     insights,
     liveLeadsLength,
     locale,
+    openChurnRiskLeadId,
     openInsightLeadId,
     pagination,
     setFilters,
@@ -183,11 +193,44 @@ export function SdrLeadScoreWorkspaceTable(props: SdrLeadScoreWorkspaceTableProp
           {openInsightLeadId === lead.id ? (
             <div className={styles.aiPopover}>
               <strong>{dashboardCopy.aiAgentLabel}</strong>
-              <p>{insights[lead.id]?.text ?? dashboardCopy.aiTooltipEmpty}</p>
+              <div className={styles.aiPopoverContent}>
+                {insights[lead.id]?.text ?? dashboardCopy.aiTooltipEmpty}
+              </div>
               <small>{insights[lead.id]?.source ?? dashboardCopy.aiAgentLabel}</small>
             </div>
           ) : null}
         </div>
+        <div className={styles.aiWrap}>
+          <button
+            className={styles.secondaryButton}
+            onClick={() => {
+              void handleChurnRisk(lead);
+            }}
+            type="button"
+          >
+            <AlertTriangle size={14} />
+            <span>Risk</span>
+          </button>
+          {openChurnRiskLeadId === lead.id ? (
+            <div className={styles.aiPopover}>
+              <strong>sentiment_analysis_churn_risk</strong>
+              <div className={styles.aiPopoverContent}>
+                {churnRisks[lead.id]?.text ?? dashboardCopy.aiTooltipEmpty}
+              </div>
+              <small>{churnRisks[lead.id]?.source ?? "sentiment_analysis_churn_risk"}</small>
+            </div>
+          ) : null}
+        </div>
+        <button
+          className={styles.secondaryButton}
+          onClick={() => {
+            void handleSendSequence(lead);
+          }}
+          type="button"
+        >
+          <Mail size={14} />
+          <span>{dashboardCopy.sendSequenceLabel}</span>
+        </button>
       </div>
     );
   }

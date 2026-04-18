@@ -11,15 +11,21 @@ export type SdrAutomaticLead = {
   company: string;
   createdAt: string;
   email: string;
+  engagement: {
+    emailClicks: number;
+    pagesVisited: number;
+  };
   id: string;
   name: string;
   owner: string;
   priority: string;
   priorityTone: "critical" | "high" | "warm";
+  region: "APAC" | "EMEA" | "LATAM" | "NA";
   role: string;
   score: number;
   slaDueAt: string;
   slaStatus: "breached" | "healthy" | "watch";
+  sequenceStatus?: "Em Andamento" | "Concluido" | "Pausado" | "In progress" | "Completed" | "Paused";
   source: string;
   stage: "demo" | "negotiation" | "new" | "proposal" | "qualified";
 };

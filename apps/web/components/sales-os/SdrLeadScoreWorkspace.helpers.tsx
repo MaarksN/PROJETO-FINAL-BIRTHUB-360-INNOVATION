@@ -10,7 +10,7 @@ export type SupportMessage = {
 export type LeadInsightState = {
   source: string;
   status: "error" | "loading" | "ready";
-  text: string;
+  text: React.ReactNode;
 };
 
 export function buildId(prefix: string): string {
@@ -47,7 +47,32 @@ export function buildStageColor(stage: SdrAutomaticLead["stage"]): string {
   }
 }
 
-export function compactInsight(text: string): string {
-  const compact = text.replace(/\s+/g, " ").trim();
-  return compact.length > 320 ? `${compact.slice(0, 317)}...` : compact;
+import React from "react";
+
+export function compactInsight(text: string): React.ReactNode {
+  const lines = text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+
+  if (lines.length <= 1) {
+    const compact = text.replace(/\s+/g, " ").trim();
+    return compact.length > 320 ? `${compact.slice(0, 317)}...` : compact;
+  }
+
+  return (
+    <ul style={{ margin: 0, paddingLeft: "1.25rem", display: "grid", gap: "0.25rem" }}>
+      {lines.slice(0, 5).map((line, index) => {
+        // Simple bold parser for markdown **bold**
+        const parts = line.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+          if (part.startsWith("**") && part.endsWith("**")) {
+            return <strong key={i}>{part.slice(2, -2)}</strong>;
+          }
+          return part;
+        });
+        return <li key={index}>{parts}</li>;
+      })}
+      {lines.length > 5 ? <li>...</li> : null}
+    </ul>
+  );
 }
