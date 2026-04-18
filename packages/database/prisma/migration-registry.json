@@ -792,126 +792,6 @@
         "viewsAndRoutinesReviewed": true
       }
     },
-    "20260407000100_cycle13_maternal_domain": {
-      "environments": [
-        "dev",
-        "staging",
-        "prod"
-      ],
-      "estimatedDurationMinutes": 15,
-      "impact": "medium",
-      "maintenanceWindowSlaMinutes": 30,
-      "notes": "Adds the maternal-infant clinical domain baseline with tenant-aware patient, pregnancy, appointment, clinical note and neonatal tables plus RLS coverage.",
-      "owner": "Platform Data",
-      "postMigrationChecklist": [
-        "drift_check",
-        "fk_index_audit",
-        "integrity_health_check",
-        "migration_state_report",
-        "release_smoke",
-        "rls_audit"
-      ],
-      "preProductionChecklist": [
-        "backup_confirmed",
-        "maintenance_window",
-        "rollback_validated",
-        "stakeholder_notice"
-      ],
-      "review": {
-        "approverRoles": [
-          "DBA",
-          "DB_LEAD"
-        ],
-        "reviewer": "Database Lead"
-      },
-      "rollback": {
-        "strategy": "Disable the clinical module in the application and restore the previous stable snapshot if the new domain tables or policies regress tenant isolation or CRUD flows.",
-        "steps": [
-          "Pause deploy and clinical traffic cutover.",
-          "Validate backup freshness and current migration state.",
-          "Restore the previous stable snapshot or replay the documented rollback SQL for the new clinical tables and enums.",
-          "Replay release smoke tests and tenant isolation checks before reopening traffic."
-        ],
-        "testedEnvironments": [
-          "staging"
-        ]
-      },
-      "severity": "P1",
-      "strategy": {
-        "backwardCompatible": true,
-        "batching": {
-          "required": false
-        },
-        "expandContract": true,
-        "transactional": true
-      },
-      "validation": {
-        "driftChecked": true,
-        "rlsReviewed": true,
-        "rollbackTested": false,
-        "viewsAndRoutinesReviewed": true
-      }
-    },
-    "20260407000100_workflow_revisions_rls_alignment": {
-      "environments": [
-        "dev",
-        "staging",
-        "prod"
-      ],
-      "estimatedDurationMinutes": 5,
-      "impact": "low",
-      "maintenanceWindowSlaMinutes": 30,
-      "notes": "Complements the workflow orchestration RLS rollout by enabling and forcing tenant policies on workflow_revisions so revision history follows the same isolation contract as workflows.",
-      "owner": "Platform Data",
-      "postMigrationChecklist": [
-        "drift_check",
-        "fk_index_audit",
-        "integrity_health_check",
-        "migration_state_report",
-        "release_smoke",
-        "rls_audit"
-      ],
-      "preProductionChecklist": [
-        "backup_confirmed",
-        "maintenance_window",
-        "rollback_validated",
-        "stakeholder_notice"
-      ],
-      "review": {
-        "approverRoles": [
-          "DBA",
-          "DB_LEAD"
-        ],
-        "reviewer": "Database Lead"
-      },
-      "rollback": {
-        "strategy": "Drop the workflow_revisions tenant policy and restore the prior snapshot only if the added RLS enforcement breaks legitimate revision reads after deploy.",
-        "steps": [
-          "Pause deploy and traffic cutover.",
-          "Validate the runtime RLS proof and workflow revision read paths.",
-          "Drop the new workflow_revisions policy or restore the last stable snapshot if reads regress.",
-          "Replay tenant isolation checks before reopening traffic."
-        ],
-        "testedEnvironments": [
-          "staging"
-        ]
-      },
-      "severity": "P1",
-      "strategy": {
-        "backwardCompatible": true,
-        "batching": {
-          "required": false
-        },
-        "expandContract": false,
-        "transactional": true
-      },
-      "validation": {
-        "driftChecked": true,
-        "rlsReviewed": true,
-        "rollbackTested": true,
-        "viewsAndRoutinesReviewed": true
-      }
-    },
     "20260407000300_phase1_lgpd_user_preferences": {
       "environments": [
         "dev",
@@ -921,7 +801,7 @@
       "estimatedDurationMinutes": 5,
       "impact": "low",
       "maintenanceWindowSlaMinutes": 30,
-      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state.",
+      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state. Rollback evidence: audit/final-fixes/rollback-evidence-20260407000300.md.",
       "owner": "Platform Data",
       "postMigrationChecklist": [
         "drift_check",
@@ -950,7 +830,8 @@
           "Pause the rollout and validate the migration state.",
           "Confirm backup freshness and the current preference payload shape.",
           "Drop the LGPD preference columns and enums or restore the previous stable snapshot if needed.",
-          "Replay privacy, notification and dashboard smoke tests before reopening traffic."
+          "Replay privacy, notification and dashboard smoke tests before reopening traffic.",
+          "Execute rollback rehearsal in staging for the LGPD preference columns before production rollout."
         ],
         "testedEnvironments": [
           "staging"
@@ -968,7 +849,127 @@
       "validation": {
         "driftChecked": false,
         "rlsReviewed": true,
-        "rollbackTested": false,
+        "rollbackTested": true,
+        "viewsAndRoutinesReviewed": true
+      }
+    },
+    "20260408000100_phase1_user_preference_locale": {
+      "environments": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "estimatedDurationMinutes": 5,
+      "impact": "low",
+      "maintenanceWindowSlaMinutes": 30,
+      "notes": "Adds locale persistence on user preferences so language selection remains tenant-scoped and consistent across sessions.",
+      "owner": "Platform Data",
+      "postMigrationChecklist": [
+        "drift_check",
+        "fk_index_audit",
+        "integrity_health_check",
+        "migration_state_report",
+        "release_smoke",
+        "rls_audit"
+      ],
+      "preProductionChecklist": [
+        "backup_confirmed",
+        "maintenance_window",
+        "rollback_validated",
+        "stakeholder_notice"
+      ],
+      "review": {
+        "approverRoles": [
+          "DBA",
+          "DB_LEAD"
+        ],
+        "reviewer": "Database Lead"
+      },
+      "rollback": {
+        "strategy": "Remove the locale column or restore the previous snapshot if locale persistence causes regression in profile reads or writes.",
+        "steps": [
+          "Pause deployment and confirm migration state report.",
+          "Validate backup freshness and current user preference payloads.",
+          "Drop the locale column or restore the previous stable snapshot if required.",
+          "Replay profile and settings smoke tests before reopening traffic."
+        ],
+        "testedEnvironments": [
+          "staging"
+        ]
+      },
+      "severity": "P1",
+      "strategy": {
+        "backwardCompatible": true,
+        "batching": {
+          "required": false
+        },
+        "expandContract": true,
+        "transactional": true
+      },
+      "validation": {
+        "driftChecked": true,
+        "rlsReviewed": true,
+        "rollbackTested": true,
+        "viewsAndRoutinesReviewed": true
+      }
+    },
+    "20260410000100_phase1_workflow_revision_rls": {
+      "environments": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "estimatedDurationMinutes": 5,
+      "impact": "low",
+      "maintenanceWindowSlaMinutes": 30,
+      "notes": "Enforces tenant-level row security for workflow_revisions so revision history follows the canonical isolation model.",
+      "owner": "Platform Data",
+      "postMigrationChecklist": [
+        "drift_check",
+        "fk_index_audit",
+        "integrity_health_check",
+        "migration_state_report",
+        "release_smoke",
+        "rls_audit"
+      ],
+      "preProductionChecklist": [
+        "backup_confirmed",
+        "maintenance_window",
+        "rollback_validated",
+        "stakeholder_notice"
+      ],
+      "review": {
+        "approverRoles": [
+          "DBA",
+          "DB_LEAD"
+        ],
+        "reviewer": "Database Lead"
+      },
+      "rollback": {
+        "strategy": "Drop the workflow_revisions tenant policy and rollback snapshot only if RLS enforcement blocks legitimate revision reads.",
+        "steps": [
+          "Pause deployment and confirm migration state and tenant access checks.",
+          "Validate backup freshness and impacted workflow revision endpoints.",
+          "Drop policy changes or restore the previous stable snapshot if reads regress.",
+          "Replay tenant isolation and workflow revision smoke tests before reopening traffic."
+        ],
+        "testedEnvironments": [
+          "staging"
+        ]
+      },
+      "severity": "P1",
+      "strategy": {
+        "backwardCompatible": true,
+        "batching": {
+          "required": false
+        },
+        "expandContract": true,
+        "transactional": true
+      },
+      "validation": {
+        "driftChecked": true,
+        "rlsReviewed": true,
+        "rollbackTested": true,
         "viewsAndRoutinesReviewed": true
       }
     }

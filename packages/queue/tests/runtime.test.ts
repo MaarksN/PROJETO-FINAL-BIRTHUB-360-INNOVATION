@@ -15,7 +15,7 @@ void test("runtime worker processor injects normalized job context", async () =>
   const contexts: Array<{ jobId: string; tenantId?: string; traceId?: string }> = [];
   const processor = createRuntimeWorkerProcessor("tenant-jobs", (_data, context) => {
     contexts.push(context);
-    return { ok: true };
+    return Promise.resolve({ ok: true });
   });
 
   const result = await processor({
@@ -75,8 +75,9 @@ void test("final failures are forwarded to DLQ with original payload and context
   await forwardToDlq(
     "workflow-execution",
     {
-      add: async (name: string, payload: unknown, options: unknown) => {
+      add: (name: string, payload: unknown, options: unknown) => {
         added.push({ name, options, payload });
+        return Promise.resolve();
       },
       name: "workflow-execution.dlq"
     } as never,

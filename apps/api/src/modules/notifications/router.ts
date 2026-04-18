@@ -1,5 +1,3 @@
-// @ts-nocheck
-// 
 import { Router } from "express";
 
 import { requireAuthenticatedSession } from "../../common/guards/index.js";

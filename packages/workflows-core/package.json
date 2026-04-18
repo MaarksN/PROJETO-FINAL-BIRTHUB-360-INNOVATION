@@ -25,6 +25,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@birthub/logger": "workspace:*",
     "zod": "^4.3.6"
   },
   "devDependencies": {

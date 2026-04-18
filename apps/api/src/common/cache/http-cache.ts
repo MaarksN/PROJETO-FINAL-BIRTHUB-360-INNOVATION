@@ -5,7 +5,7 @@ import type { Request, Response } from "express";
 const DEFAULT_CACHE_CONTROL = "public, max-age=60, stale-while-revalidate=300";
 
 function createEtag(payload: string): string {
-  const digest = createHash("sha1").update(payload).digest("hex");
+  const digest = createHash("sha256").update(payload).digest("hex");
   return `"${digest}"`;
 }
 

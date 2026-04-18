@@ -17,20 +17,38 @@ void test("global search copy localizes shortcuts and placeholder text", () => {
   assert.match(en.placeholder, /notifications/i);
 });
 
-void test("global search shortcuts expose executive premium, packs, and sales os in both locales", () => {
+void test("global search shortcuts expose premium compare, packs, and SDR workflows in both locales", () => {
   const pt = getLocalSearchShortcuts("pt-BR");
   const en = getLocalSearchShortcuts("en-US");
 
   assert.deepEqual(
     pt.map((item) => item.href),
-    ["/marketplace", "/marketplace?tags=executive-premium", "/packs", "/agents", "/sales-os"]
+    [
+      "/marketplace",
+      "/marketplace?tags=executive-premium",
+      "/marketplace/compare",
+      "/packs",
+      "/agents",
+      "/sales-os",
+      "/sales-os/sdr-automatico"
+    ]
   );
   assert.deepEqual(
     en.map((item) => item.href),
-    ["/marketplace", "/marketplace?tags=executive-premium", "/packs", "/agents", "/sales-os"]
+    [
+      "/marketplace",
+      "/marketplace?tags=executive-premium",
+      "/marketplace/compare",
+      "/packs",
+      "/agents",
+      "/sales-os",
+      "/sales-os/sdr-automatico"
+    ]
   );
   assert.match(pt[1]?.subtitle ?? "", /14 camadas premium/i);
   assert.match(en[1]?.subtitle ?? "", /14 premium layers/i);
+  assert.match(pt[6]?.subtitle ?? "", /handoff premium/i);
+  assert.match(en[6]?.subtitle ?? "", /premium handoff/i);
 });
 
 void test("global search merge preserves backend shortcuts and appends premium shortcuts without duplicates", () => {
@@ -60,11 +78,13 @@ void test("global search merge preserves backend shortcuts and appends premium s
   });
 
   assert.equal(merged[0]?.id, "shortcuts");
-  assert.equal(merged[0]?.items.length, 5);
+  assert.equal(merged[0]?.items.length, 7);
   assert.equal(merged[0]?.items[0]?.href, "/sales-os");
   assert.equal(merged[0]?.items[1]?.href, "/marketplace");
   assert.equal(merged[0]?.items[2]?.href, "/marketplace?tags=executive-premium");
-  assert.equal(merged[0]?.items[3]?.href, "/packs");
-  assert.equal(merged[0]?.items[4]?.href, "/agents");
+  assert.equal(merged[0]?.items[3]?.href, "/marketplace/compare");
+  assert.equal(merged[0]?.items[4]?.href, "/packs");
+  assert.equal(merged[0]?.items[5]?.href, "/agents");
+  assert.equal(merged[0]?.items[6]?.href, "/sales-os/sdr-automatico");
   assert.equal(merged[1]?.id, "reports");
 });

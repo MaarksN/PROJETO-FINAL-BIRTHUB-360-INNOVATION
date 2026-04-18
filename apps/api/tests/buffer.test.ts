@@ -70,9 +70,9 @@ void test("enqueueAuditEvent flushes once the batch reaches the threshold", asyn
       unref: () => undefined
     }) as unknown as NodeJS.Timeout) as unknown as typeof setInterval);
 
-  prisma.auditLog.createMany = (async (args: { data: unknown[] }) => {
+  prisma.auditLog.createMany = ((args: { data: unknown[] }) => {
     flushedBatches.push(args.data.length);
-    return { count: args.data.length };
+    return Promise.resolve({ count: args.data.length });
   }) as unknown as typeof prisma.auditLog.createMany;
 
   try {

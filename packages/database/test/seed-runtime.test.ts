@@ -21,8 +21,9 @@ function createDependencies(overrides: Partial<SeedRuntimeDependencies> = {}) {
   };
 
   const prisma = {
-    $disconnect: async () => {
+    $disconnect: () => {
       calls.disconnect += 1;
+      return Promise.resolve();
     }
   } as PrismaClient;
 
@@ -31,20 +32,22 @@ function createDependencies(overrides: Partial<SeedRuntimeDependencies> = {}) {
       calls.createClient += 1;
       return prisma;
     },
-    createTenant: async () => {
+    createTenant: () => {
       calls.createTenant += 1;
+      return Promise.resolve();
     },
     logger: {
       error: () => undefined,
       info: () => undefined,
       warn: () => undefined
     },
-    runSafeProfile: async (_prisma, profile) => {
+    runSafeProfile: (_prisma, profile) => {
       calls.runSafeProfile.push(profile);
+      return Promise.resolve();
     },
-    seedPlans: async () => {
+    seedPlans: () => {
       calls.seedPlans += 1;
-      return new Map([["starter", { id: "plan-starter", limits: {} }]]);
+      return Promise.resolve(new Map([["starter", { id: "plan-starter", limits: {} }]]));
     },
     tenants: [
       {
@@ -55,8 +58,9 @@ function createDependencies(overrides: Partial<SeedRuntimeDependencies> = {}) {
         slug: "tenant-alpha"
       }
     ],
-    wipeDatabase: async () => {
+    wipeDatabase: () => {
       calls.wipeDatabase += 1;
+      return Promise.resolve();
     },
     ...overrides
   };
@@ -113,9 +117,7 @@ void test("destructive seed runtime only wipes when both profile and env confirm
 
 void test("main closes PrismaClient even when the seed runtime fails", async () => {
   const { calls, dependencies } = createDependencies({
-    runSafeProfile: async () => {
-      throw new Error("seed failed");
-    }
+    runSafeProfile: () => Promise.reject(new Error("seed failed"))
   });
 
   const exitCode = await main([], {}, dependencies);

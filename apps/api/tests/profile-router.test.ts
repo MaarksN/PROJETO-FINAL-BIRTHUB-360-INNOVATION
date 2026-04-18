@@ -36,11 +36,11 @@ void test("createProfileRouter serves the authenticated profile with an explicit
   app.use(
     "/api/v1",
     createProfileRouter(config, {
-      getBillingSnapshot: async (organizationId, gracePeriodDays) => {
+      getBillingSnapshot: (organizationId, gracePeriodDays) => {
         assert.equal(organizationId, "org_1");
         assert.equal(gracePeriodDays, config.BILLING_GRACE_PERIOD_DAYS);
 
-        return {
+        return Promise.resolve({
           creditBalanceCents: 4200,
           currentPeriodEnd: new Date("2026-05-01T00:00:00.000Z"),
           gracePeriodEndsAt: null,
@@ -59,7 +59,7 @@ void test("createProfileRouter serves the authenticated profile with an explicit
           stripeCustomerId: "cus_profile_test",
           subscriptionId: "sub_profile_test",
           tenantId: "tenant_1"
-        };
+        });
       }
     })
   );

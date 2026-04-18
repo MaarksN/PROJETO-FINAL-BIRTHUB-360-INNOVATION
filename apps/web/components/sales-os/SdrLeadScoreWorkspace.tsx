@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-"use client";
+﻿"use client";
 
 import {
   startTransition,
@@ -11,25 +10,35 @@ import {
   useState
 } from "react";
 
+import type {
+  CrmRegionSnapshot,
+  LeadRegionId,
+  SdrAutomaticCopy,
+  SdrAutomaticLead
+} from "./sdr-automatic-data";
 import type { SupportedLocale } from "../../lib/i18n";
 import { useToastStore } from "../../stores/toast-store";
-import type { SdrAutomaticCopy, SdrAutomaticLead } from "./sdr-automatic-data";
 import {
   applyPollingFrameToLeads,
   applyPollingFrameToMetrics,
   applyPollingFrameToTrend,
   AVAILABLE_LEAD_COLUMNS,
+  buildChurnSummaryFallback,
   buildLeadCsv,
+  buildLifecycleFunnelData,
   buildSupportReply,
   createInitialMetrics,
   createInitialTasks,
   createInitialTrendSeries,
-  createLeadInsightFallback,
   DEFAULT_LEAD_FILTERS,
   DEFAULT_PAGE_SIZE,
   DEFAULT_VISIBLE_COLUMNS,
   filterLeads,
+  getChurnWatchlist,
   getLeadDashboardCopy,
+  getPipelineData,
+  getRegionalPerformance,
+  getSequencePlan,
   getStageDistribution,
   LEAD_POLLING_FRAMES,
   paginateLeads,
@@ -39,16 +48,19 @@ import {
   type LeadScoreBandId,
   type PendingTask
 } from "./sdr-automatic-dashboard";
+import { SdrLeadScoreWorkspaceAnalytics } from "./SdrLeadScoreWorkspace.analytics";
 import {
   buildId,
+  buildLeadInsightDetail,
+  buildLeadSequenceDetail,
   compactInsight,
   type LeadInsightState,
+  type LeadSequenceState,
   type SupportMessage
 } from "./SdrLeadScoreWorkspace.helpers";
 import { SdrLeadScoreWorkspaceSide } from "./SdrLeadScoreWorkspace.side";
 import { SdrLeadScoreWorkspaceTable } from "./SdrLeadScoreWorkspace.table";
 import { SdrLeadScoreWorkspaceTop } from "./SdrLeadScoreWorkspace.top";
-import { GeographicMap } from "./GeographicMap";
 import styles from "./sdr-lead-score.module.css";
 
 const TASKS_STORAGE_KEY = "bh_sdr_pending_tasks";
@@ -56,6 +68,7 @@ const COLUMNS_STORAGE_KEY = "bh_sdr_visible_columns";
 
 export function SdrLeadScoreWorkspace(input: {
   copy: SdrAutomaticCopy;
+  crmRegions: CrmRegionSnapshot[];
   leads: SdrAutomaticLead[];
   locale: SupportedLocale;
 }) {
@@ -77,9 +90,11 @@ export function SdrLeadScoreWorkspace(input: {
     { id: "support_greeting", role: "assistant", text: dashboardCopy.chatbotGreeting }
   ]);
   const [openInsightLeadId, setOpenInsightLeadId] = useState<string | null>(null);
-  const [openChurnRiskLeadId, setOpenChurnRiskLeadId] = useState<string | null>(null);
+  const [openSequenceLeadId, setOpenSequenceLeadId] = useState<string | null>(null);
   const [insights, setInsights] = useState<Record<string, LeadInsightState>>({});
-  const [churnRisks, setChurnRisks] = useState<Record<string, LeadInsightState>>({});
+  const [sequenceRuns, setSequenceRuns] = useState<Record<string, LeadSequenceState>>({});
+  const [churnSummary, setChurnSummary] = useState(() => buildChurnSummaryFallback(input.leads, input.locale));
+  const [churnLoading, setChurnLoading] = useState(false);
   const deferredQuery = useDeferredValue(filters.query);
   const pushToast = useToastStore((state) => state.push);
   const breachedIdsRef = useRef(
@@ -102,6 +117,22 @@ export function SdrLeadScoreWorkspace(input: {
     () => getStageDistribution(filteredLeads, input.locale),
     [filteredLeads, input.locale]
   );
+  const pipelineData = useMemo(
+    () => getPipelineData(filteredLeads, input.locale),
+    [filteredLeads, input.locale]
+  );
+  const funnelData = useMemo(
+    () => buildLifecycleFunnelData(input.crmRegions, input.locale, effectiveFilters.regions),
+    [effectiveFilters.regions, input.crmRegions, input.locale]
+  );
+  const regionMetrics = useMemo(
+    () => getRegionalPerformance(input.crmRegions, filteredLeads, input.locale),
+    [filteredLeads, input.crmRegions, input.locale]
+  );
+  const churnWatchlist = useMemo(
+    () => getChurnWatchlist(filteredLeads, input.locale),
+    [filteredLeads, input.locale]
+  );
   const pagination = useMemo(
     () => paginateLeads(filteredLeads, page, DEFAULT_PAGE_SIZE),
     [filteredLeads, page]
@@ -120,7 +151,9 @@ export function SdrLeadScoreWorkspace(input: {
         email: dashboardCopy.emailColumn,
         lead: input.copy.tableLead,
         owner: input.locale === "en-US" ? "Owner" : "Responsavel",
+        region: dashboardCopy.regionColumn,
         score: dashboardCopy.scoreColumn,
+        sequenceStatus: dashboardCopy.sequenceStatusColumn,
         sla: dashboardCopy.slaColumn,
         source: dashboardCopy.sourceColumn,
         stage: dashboardCopy.stageColumn
@@ -172,6 +205,7 @@ export function SdrLeadScoreWorkspace(input: {
     effectiveFilters.createdFrom,
     effectiveFilters.createdTo,
     effectiveFilters.query,
+    effectiveFilters.regions.join(","),
     effectiveFilters.scoreBands.join(","),
     effectiveFilters.stages.join(",")
   ]);
@@ -246,10 +280,100 @@ export function SdrLeadScoreWorkspace(input: {
     breachedIdsRef.current = breachedIds;
   }, [input.locale, liveLeads, pushToast]);
 
-  const updateFilter = <K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) => setFilters((current) => ({ ...current, [key]: value }));
-  const toggleStage = (stage: SdrAutomaticLead["stage"]) => setFilters((current) => ({ ...current, stages: current.stages.includes(stage) ? current.stages.filter((item) => item !== stage) : [...current.stages, stage] }));
-  const toggleRegion = (region: SdrAutomaticLead["region"]) => setFilters((current) => ({ ...current, regions: current.regions.includes(region) ? current.regions.filter((item) => item !== region) : [...current.regions, region] }));
-  const toggleScoreBand = (band: LeadScoreBandId) => setFilters((current) => ({ ...current, scoreBands: current.scoreBands.includes(band) ? current.scoreBands.filter((item) => item !== band) : [...current.scoreBands, band] }));
+  async function refreshChurnSummary(leadsForAnalysis = filteredLeads) {
+    setChurnLoading(true);
+
+    const prioritizedLeads = getChurnWatchlist(leadsForAnalysis, input.locale)
+      .filter((entry) => entry.tone !== "healthy")
+      .slice(0, 3)
+      .map((entry) => entry.lead);
+
+    if (prioritizedLeads.length === 0) {
+      setChurnSummary(buildChurnSummaryFallback(leadsForAnalysis, input.locale));
+      setChurnLoading(false);
+      return;
+    }
+
+    const context = prioritizedLeads
+      .map((lead) =>
+        [
+          `Account: ${lead.company}`,
+          `Contact: ${lead.name}`,
+          `Lifecycle stage: ${lead.lifecycleStage}`,
+          `Support sentiment: ${lead.support.sentiment}`,
+          `Recent tickets: ${lead.support.recentTickets}`,
+          `Support summary: ${lead.support.summary}`,
+          `SLA: ${resolveSlaLabel(input.locale, lead.slaStatus)}`,
+          `Predictive score: ${lead.score}`
+        ].join("\n")
+      )
+      .join("\n\n");
+
+    try {
+      const response = await fetch("/api/sales-os/execute", {
+        body: JSON.stringify({
+          fields: {
+            context
+          },
+          toolId: "sentiment_analysis_churn_risk"
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        output?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error ?? "Unable to refresh churn summary.");
+      }
+
+      setChurnSummary(compactInsight(payload.output ?? buildChurnSummaryFallback(leadsForAnalysis, input.locale)));
+    } catch {
+      setChurnSummary(buildChurnSummaryFallback(leadsForAnalysis, input.locale));
+    } finally {
+      setChurnLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    void refreshChurnSummary(input.leads);
+  }, [input.locale]);
+
+  function updateFilter<K extends keyof LeadFilters>(key: K, value: LeadFilters[K]) {
+    setFilters((current) => ({
+      ...current,
+      [key]: value
+    }));
+  }
+
+  function toggleSelection<T extends string>(values: T[], value: T): T[] {
+    return values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
+  }
+
+  function toggleStage(stage: SdrAutomaticLead["stage"]) {
+    setFilters((current) => ({
+      ...current,
+      stages: toggleSelection(current.stages, stage)
+    }));
+  }
+
+  function toggleScoreBand(band: LeadScoreBandId) {
+    setFilters((current) => ({
+      ...current,
+      scoreBands: toggleSelection(current.scoreBands, band)
+    }));
+  }
+
+  function toggleRegion(region: LeadRegionId) {
+    setFilters((current) => ({
+      ...current,
+      regions: toggleSelection(current.regions, region)
+    }));
+  }
 
   function toggleColumn(column: LeadColumnId) {
     setVisibleColumns((current) => {
@@ -280,106 +404,15 @@ export function SdrLeadScoreWorkspace(input: {
       description:
         input.locale === "en-US"
           ? "The current filtered lead list was exported successfully."
-          : "A lista atual filtrada de leads foi exportada com sucesso.",
+          : "A lista filtrada atual de leads foi exportada com sucesso.",
       title: dashboardCopy.exportCsvLabel,
       tone: "success"
     });
   }
 
-  async function handleChurnRisk(lead: SdrAutomaticLead) {
-    setOpenChurnRiskLeadId((current) => (current === lead.id ? null : lead.id));
-    setOpenInsightLeadId(null);
-
-    if (churnRisks[lead.id]?.status === "ready") {
-      return;
-    }
-
-    setChurnRisks((current) => ({
-      ...current,
-      [lead.id]: {
-        source: "sentiment_analysis_churn_risk",
-        status: "loading",
-        text: dashboardCopy.aiTooltipLoading
-      }
-    }));
-
-    const context = [
-      `Agent: sentiment_analysis_churn_risk`,
-      `Lead: ${lead.name}`,
-      `Company: ${lead.company}`,
-      `Score: ${lead.score}`,
-      `Recent support tickets: 3 (2 critical)`,
-      `Usage drop: -45% in 7 days`,
-      `SLA: ${resolveSlaLabel(input.locale, lead.slaStatus)}`
-    ].join("\n");
-
-    try {
-      const response = await fetch("/api/sales-os/execute", {
-        body: JSON.stringify({
-          fields: {
-            context
-          },
-          toolId: "sentiment_analysis_churn_risk"
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST"
-      });
-      const payload = (await response.json()) as {
-        error?: string;
-        output?: string;
-        provider?: string;
-      };
-
-      if (!response.ok) {
-        throw new Error(payload.error ?? "Unable to generate insight.");
-      }
-
-      setChurnRisks((current) => ({
-        ...current,
-        [lead.id]: {
-          source: payload.provider ?? "sentiment_analysis_churn_risk",
-          status: "ready",
-          text: compactInsight(payload.output ?? `**Risco Alto**. Usuário apresentou queda de uso e múltiplos tickets recentes.`)
-        }
-      }));
-    } catch {
-      setChurnRisks((current) => ({
-        ...current,
-        [lead.id]: {
-          source: "sentiment_analysis_churn_risk",
-          status: "error",
-          text: compactInsight(`**Risco Moderado**. Queda de engajamento detectada na última semana.`)
-        }
-      }));
-    }
-  }
-
-  async function handleSendSequence(lead: SdrAutomaticLead) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setLiveLeads((current) =>
-      current.map((item) => {
-        if (item.id === lead.id) {
-          return {
-            ...item,
-            sequenceStatus: "Em Andamento"
-          };
-        }
-        return item;
-      })
-    );
-
-    pushToast({
-      description: input.locale === "en-US" ? `Sequence configured and sent to ${lead.name}.` : `Sequência configurada e enviada para ${lead.name}.`,
-      title: dashboardCopy.sendSequenceLabel,
-      tone: "success"
-    });
-  }
-
   async function handleLeadInsight(lead: SdrAutomaticLead) {
+    setOpenSequenceLeadId(null);
     setOpenInsightLeadId((current) => (current === lead.id ? null : lead.id));
-    setOpenChurnRiskLeadId(null);
 
     if (insights[lead.id]?.status === "ready") {
       return;
@@ -388,9 +421,14 @@ export function SdrLeadScoreWorkspace(input: {
     setInsights((current) => ({
       ...current,
       [lead.id]: {
+        detail: {
+          highlights: [],
+          recommendedActions: [],
+          scoreBreakdown: [],
+          summary: dashboardCopy.aiTooltipLoading
+        },
         source: dashboardCopy.aiAgentLabel,
-        status: "loading",
-        text: dashboardCopy.aiTooltipLoading
+        status: "loading"
       }
     }));
 
@@ -402,13 +440,18 @@ export function SdrLeadScoreWorkspace(input: {
       `Role: ${lead.role}`,
       `Stage: ${dashboardCopy.stageLabels[lead.stage]}`,
       `Score: ${lead.score}`,
-      `Priority: ${lead.priority}`,
-      `Source: ${lead.source}`,
+      `Base score: ${lead.baseScore}`,
+      `Region: ${dashboardCopy.regionLabels[lead.region]}`,
+      `Sequence status: ${dashboardCopy.sequenceStatusLabels[lead.sequenceStatus]}`,
+      `Email clicks: ${lead.engagement.emailClicks}`,
+      `Page visits: ${lead.engagement.pageVisits}`,
+      `Hot pages: ${lead.engagement.hotPages.join(", ")}`,
+      `Support sentiment: ${lead.support.sentiment}`,
+      `Recent tickets: ${lead.support.recentTickets}`,
+      `Support summary: ${lead.support.summary}`,
       `SLA: ${resolveSlaLabel(input.locale, lead.slaStatus)}`,
       `Owner: ${lead.owner}`,
-      `Action: ${lead.action}`,
-      `Engagement Clicks: ${lead.engagement.emailClicks}`,
-      `Pages Visited: ${lead.engagement.pagesVisited}`
+      `Action: ${lead.action}`
     ].join("\n");
 
     try {
@@ -437,20 +480,159 @@ export function SdrLeadScoreWorkspace(input: {
       setInsights((current) => ({
         ...current,
         [lead.id]: {
+          detail: buildLeadInsightDetail(lead, input.locale, payload.output),
           source: payload.provider ?? dashboardCopy.aiAgentLabel,
-          status: "ready",
-          text: compactInsight(payload.output ?? createLeadInsightFallback(lead, input.locale))
+          status: "ready"
         }
       }));
     } catch {
       setInsights((current) => ({
         ...current,
         [lead.id]: {
+          detail: buildLeadInsightDetail(lead, input.locale),
           source: dashboardCopy.aiAgentLabel,
-          status: "error",
-          text: compactInsight(createLeadInsightFallback(lead, input.locale))
+          status: "error"
         }
       }));
+    }
+  }
+
+  async function handleSendSequence(lead: SdrAutomaticLead) {
+    if (openSequenceLeadId === lead.id) {
+      setOpenSequenceLeadId(null);
+      return;
+    }
+
+    setOpenInsightLeadId(null);
+    setOpenSequenceLeadId(lead.id);
+
+    if (sequenceRuns[lead.id]?.status === "ready" || sequenceRuns[lead.id]?.status === "error") {
+      return;
+    }
+
+    const plan = getSequencePlan(lead, input.locale);
+    const toolId = "presales_followupghost";
+
+    setSequenceRuns((current) => ({
+      ...current,
+      [lead.id]: {
+        detail: buildLeadSequenceDetail(
+          lead,
+          input.locale,
+          input.locale === "en-US"
+            ? "Generating a personalized outbound cadence from the CRM context..."
+            : "Gerando uma cadencia personalizada a partir do contexto do CRM..."
+        ),
+        source: toolId,
+        status: "loading"
+      }
+    }));
+
+    const context = [
+      `Task: Build a concise 3-email outbound sequence with one CTA per email.`,
+      `Lead: ${lead.name}`,
+      `Email: ${lead.email}`,
+      `Company: ${lead.company}`,
+      `Role: ${lead.role}`,
+      `Owner: ${lead.owner}`,
+      `Region: ${lead.region}`,
+      `Stage: ${lead.stage}`,
+      `Predictive score: ${lead.score}`,
+      `Base score: ${lead.baseScore}`,
+      `Company size: ${lead.companySize}`,
+      `CRM annual value: ${lead.crmAnnualValue}`,
+      `Source: ${lead.source}`,
+      `Sequence cadence: ${plan.cadenceLabel}`,
+      `Primary subject: ${plan.primarySubject}`,
+      `Follow-up subject: ${plan.followUpSubject}`,
+      `Next action: ${lead.action}`,
+      `Engagement: ${lead.engagement.emailClicks} email clicks, ${lead.engagement.pageVisits} page visits`,
+      `Hot pages: ${lead.engagement.hotPages.join(", ")}`,
+      `Support sentiment: ${lead.support.sentiment}`,
+      `Recent tickets: ${lead.support.recentTickets}`,
+      `Support summary: ${lead.support.summary}`,
+      `SLA status: ${lead.slaStatus}`,
+      `Instruction: Tailor the messaging to stage and score, keep it commercially sharp, and answer in short bullets.`
+    ].join("\n");
+
+    try {
+      const response = await fetch("/api/sales-os/execute", {
+        body: JSON.stringify({
+          fields: {
+            context
+          },
+          toolId
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
+      });
+      const payload = (await response.json()) as {
+        error?: string;
+        output?: string;
+        provider?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error ?? "Unable to trigger outbound sequence.");
+      }
+
+      setSequenceRuns((current) => ({
+        ...current,
+        [lead.id]: {
+          detail: buildLeadSequenceDetail(lead, input.locale, payload.output),
+          source: payload.provider ?? toolId,
+          status: "ready"
+        }
+      }));
+      setLiveLeads((current) =>
+        current.map((item) =>
+          item.id === lead.id
+            ? {
+                ...item,
+                sequenceStatus: "active"
+              }
+            : item
+        )
+      );
+
+      pushToast({
+        description:
+          input.locale === "en-US"
+            ? `${lead.name} entered an automated three-touch sequence. First subject: ${plan.primarySubject}.`
+            : `${lead.name} entrou em uma sequencia automatizada de tres toques. Primeiro assunto: ${plan.primarySubject}.`,
+        title: dashboardCopy.sendSequenceLabel,
+        tone: "success"
+      });
+    } catch {
+      setSequenceRuns((current) => ({
+        ...current,
+        [lead.id]: {
+          detail: buildLeadSequenceDetail(lead, input.locale),
+          source: input.locale === "en-US" ? "CRM fallback cadence" : "Cadencia fallback do CRM",
+          status: "error"
+        }
+      }));
+      setLiveLeads((current) =>
+        current.map((item) =>
+          item.id === lead.id
+            ? {
+                ...item,
+                sequenceStatus: "active"
+              }
+            : item
+        )
+      );
+
+      pushToast({
+        description:
+          input.locale === "en-US"
+            ? `${lead.name} entered the CRM fallback sequence because the AI sequencer was unavailable.`
+            : `${lead.name} entrou na sequencia fallback do CRM porque o sequenciador de IA estava indisponivel.`,
+        title: dashboardCopy.sendSequenceLabel,
+        tone: "info"
+      });
     }
   }
 
@@ -527,10 +709,6 @@ export function SdrLeadScoreWorkspace(input: {
         secondsSinceUpdate={secondsSinceUpdate}
         trendPoints={trendPoints}
       />
-      <GeographicMap
-        activeRegions={filters.regions}
-        onToggleRegion={toggleRegion}
-      />
 
       <section className={styles.contentGrid}>
         <SdrLeadScoreWorkspaceTable
@@ -541,17 +719,17 @@ export function SdrLeadScoreWorkspace(input: {
           handleExportCsv={handleExportCsv}
           handleLeadInsight={handleLeadInsight}
           handleSendSequence={handleSendSequence}
-          handleChurnRisk={handleChurnRisk}
           insights={insights}
-          churnRisks={churnRisks}
           liveLeadsLength={liveLeads.length}
           locale={input.locale}
           openInsightLeadId={openInsightLeadId}
-          openChurnRiskLeadId={openChurnRiskLeadId}
+          openSequenceLeadId={openSequenceLeadId}
           pagination={pagination}
+          sequenceRuns={sequenceRuns}
           setFilters={setFilters}
           setPage={setPage}
           toggleColumn={toggleColumn}
+          toggleRegion={toggleRegion}
           toggleScoreBand={toggleScoreBand}
           toggleStage={toggleStage}
           updateFilter={updateFilter}
@@ -575,6 +753,22 @@ export function SdrLeadScoreWorkspace(input: {
           toggleTask={toggleTask}
         />
       </section>
+
+      <SdrLeadScoreWorkspaceAnalytics
+        churnLoading={churnLoading}
+        churnSummary={churnSummary}
+        churnWatchlist={churnWatchlist}
+        dashboardCopy={dashboardCopy}
+        funnelData={funnelData}
+        locale={input.locale}
+        onRefreshChurnSummary={() => {
+          void refreshChurnSummary(filteredLeads);
+        }}
+        pipelineData={pipelineData}
+        regionMetrics={regionMetrics}
+        selectedRegions={filters.regions}
+        toggleRegion={toggleRegion}
+      />
     </section>
   );
 }

@@ -52,7 +52,7 @@ void test.skip("ensurePrivacyConsents initializes the canonical consent purposes
     tenantId: "tenant_alpha"
   };
   const upsertCalls: PrivacyConsentUpsertCall[] = [];
-  const originalPrivacyConsentModel = Reflect.get(prisma, "privacyConsent");
+  const originalPrivacyConsentModel: unknown = Reflect.get(prisma, "privacyConsent");
 
   Reflect.set(prisma, "privacyConsent", {
     upsert: (args: PrivacyConsentUpsertCall) => {
@@ -98,7 +98,7 @@ void test.skip("savePrivacyConsentDecisions bounds the consent snapshot read for
     tenantId: "tenant_alpha"
   };
   const consentSnapshotCalls: Array<Record<string, unknown>> = [];
-  const originalPrivacyConsentModel = Reflect.get(prisma, "privacyConsent");
+  const originalPrivacyConsentModel: unknown = Reflect.get(prisma, "privacyConsent");
 
   Reflect.set(prisma, "privacyConsent", {
     upsert: () => Promise.resolve({})

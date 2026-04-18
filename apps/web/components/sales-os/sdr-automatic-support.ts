@@ -6,10 +6,12 @@ import type {
   LiveDashboardMetrics
 } from "./sdr-automatic-dashboard";
 import {
+  getLeadEngagementBoost,
   getLeadDashboardCopy,
-  isEnglish,
-  resolveSlaLabel
-} from "./sdr-automatic-dashboard.copy";
+  getLeadSupportPenalty,
+  getSequencePlan,
+  isEnglish
+} from "./sdr-automatic-dashboard";
 
 function findMatchedLead(leads: SdrAutomaticLead[], normalizedQuestion: string): SdrAutomaticLead | undefined {
   return leads.find((lead) => {
@@ -75,6 +77,9 @@ function buildFilterReply(locale: SupportedLocale, filters: LeadFilters): string
     filters.query ? `${copy.emailColumn}: ${filters.query}` : null,
     filters.createdFrom ? `${copy.dateFromLabel}: ${filters.createdFrom}` : null,
     filters.createdTo ? `${copy.dateToLabel}: ${filters.createdTo}` : null,
+    filters.regions.length > 0
+      ? `${copy.regionFilterLabel}: ${filters.regions.map((region) => copy.regionLabels[region]).join(", ")}`
+      : null,
     filters.stages.length > 0
       ? `${copy.stageFilterLabel}: ${filters.stages.map((stage) => copy.stageLabels[stage]).join(", ")}`
       : null,
@@ -98,13 +103,22 @@ export function createLeadInsightFallback(
 ): string {
   const copy = getLeadDashboardCopy(locale);
   const stageLabel = copy.stageLabels[lead.stage];
-  const slaLabel = resolveSlaLabel(locale, lead.slaStatus);
+  const sequencePlan = getSequencePlan(lead, locale);
+  const engagementBoost = getLeadEngagementBoost(lead);
+  const supportPenalty = getLeadSupportPenalty(lead);
+  const engagement = lead.engagement ?? {
+    emailClicks: 0,
+    hotPages: [],
+    lastTouchpointAt: lead.createdAt,
+    pageVisits: 0
+  };
+  const hotPages = engagement.hotPages.slice(0, 2).join(isEnglish(locale) ? ", " : " e ");
 
   if (isEnglish(locale)) {
-    return `${lead.name} is at ${lead.score} points in ${stageLabel}. The account shows ${slaLabel.toLowerCase()} SLA pressure, solid intent from ${lead.source.toLowerCase()}, and should move with ${lead.action.toLowerCase()}.`;
+    return `${lead.name} is at ${lead.score} points in ${stageLabel}. Engagement adds ${engagementBoost} points through ${engagement.emailClicks} email clicks and ${hotPages.toLowerCase()}, while support pressure removes ${supportPenalty}. The safest move is ${lead.action.toLowerCase()} with the sequence "${sequencePlan.primarySubject}".`;
   }
 
-  return `${lead.name} esta com ${lead.score} pontos em ${stageLabel}. A conta mostra SLA ${slaLabel.toLowerCase()}, sinal forte vindo de ${lead.source.toLowerCase()} e deve avancar com ${lead.action.toLowerCase()}.`;
+  return `${lead.name} esta com ${lead.score} pontos em ${stageLabel}. O engajamento soma ${engagementBoost} pontos com ${engagement.emailClicks} cliques em e-mail e ${hotPages.toLowerCase()}, enquanto o suporte reduz ${supportPenalty}. O movimento mais seguro e ${lead.action.toLowerCase()} com a sequencia "${sequencePlan.primarySubject}".`;
 }
 
 export function buildSupportReply(input: {
@@ -115,6 +129,7 @@ export function buildSupportReply(input: {
   question: string;
 }): string {
   const { filters, leads, locale, metrics, question } = input;
+  const copy = getLeadDashboardCopy(locale);
   const normalizedQuestion = question.toLowerCase();
   const orderedLeads = [...leads].sort((left, right) => right.score - left.score);
   const matchedLead = findMatchedLead(orderedLeads, normalizedQuestion);
@@ -145,6 +160,20 @@ export function buildSupportReply(input: {
 
   if (normalizedQuestion.includes("filtro") || normalizedQuestion.includes("filter")) {
     return buildFilterReply(locale, filters);
+  }
+
+  if (
+    normalizedQuestion.includes("regiao") ||
+    normalizedQuestion.includes("region") ||
+    normalizedQuestion.includes("territ")
+  ) {
+    const regionLabels = [
+      ...new Set(orderedLeads.map((lead) => copy.regionLabels[lead.region ?? "latin-america"]))
+    ].join(", ");
+
+    return isEnglish(locale)
+      ? `The filtered queue is concentrated in ${regionLabels || "all regions"}, with the best urgency sitting on the highest-scored accounts.`
+      : `A fila filtrada esta concentrada em ${regionLabels || "todas as regioes"}, com a maior urgencia nas contas de maior score.`;
   }
 
   const [topLead] = orderedLeads;

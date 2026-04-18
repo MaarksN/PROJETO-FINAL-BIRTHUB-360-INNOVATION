@@ -16,8 +16,11 @@ function readRequestUrl(url: RequestInfo | URL): string {
 }
 
 function readJsonBody(init?: RequestInit): Record<string, unknown> {
-  assert.equal(typeof init?.body, "string");
-  return JSON.parse(init.body) as Record<string, unknown>;
+  const body = init?.body;
+  if (typeof body !== "string") {
+    throw new TypeError("Expected request body to be a JSON string");
+  }
+  return JSON.parse(body) as Record<string, unknown>;
 }
 
 function readHeader(init: RequestInit | undefined, name: string): string | null {
@@ -55,7 +58,7 @@ void test("slack tool requires webhookUrl for webhook mode when simulation is di
 
 void test("slack tool posts webhook payload and rejects non-ok webhook responses", async () => {
   const originalFetch = globalThis.fetch;
-  const calls: Array<{ init?: RequestInit; url: RequestInfo | URL }> = [];
+  const calls: Array<{ init: RequestInit | undefined; url: RequestInfo | URL }> = [];
 
   globalThis.fetch = ((url: RequestInfo | URL, init?: RequestInit) => {
     calls.push({ init, url });
@@ -94,7 +97,7 @@ void test("slack tool posts webhook payload and rejects non-ok webhook responses
 
 void test("slack tool posts API payload with bearer token and returns success on ok response", async () => {
   const originalFetch = globalThis.fetch;
-  const calls: Array<{ init?: RequestInit; url: RequestInfo | URL }> = [];
+  const calls: Array<{ init: RequestInit | undefined; url: RequestInfo | URL }> = [];
 
   globalThis.fetch = ((url: RequestInfo | URL, init?: RequestInit) => {
     calls.push({ init, url });

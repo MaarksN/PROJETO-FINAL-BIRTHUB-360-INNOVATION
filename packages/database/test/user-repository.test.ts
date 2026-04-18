@@ -10,9 +10,9 @@ void test("listUsersByTenant builds membership, status and search filters", asyn
   const originalFindMany = prisma.user.findMany.bind(prisma.user);
   let received: unknown = null;
 
-  prisma.user.findMany = (async (args: unknown) => {
+  prisma.user.findMany = ((args: unknown) => {
     received = args;
-    return [{ id: "user_1" }] as never;
+    return Promise.resolve([{ id: "user_1" }] as never);
   }) as unknown as typeof prisma.user.findMany;
 
   try {
@@ -68,9 +68,9 @@ void test("updateMembershipRole forwards the compound membership key", async () 
   const originalUpdate = prisma.membership.update.bind(prisma.membership);
   let received: unknown = null;
 
-  prisma.membership.update = (async (args: unknown) => {
+  prisma.membership.update = ((args: unknown) => {
     received = args;
-    return { role: Role.ADMIN } as never;
+    return Promise.resolve({ role: Role.ADMIN } as never);
   }) as unknown as typeof prisma.membership.update;
 
   try {

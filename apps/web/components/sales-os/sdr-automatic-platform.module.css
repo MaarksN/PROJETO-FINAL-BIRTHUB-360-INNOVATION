@@ -7,6 +7,7 @@
 .sidebar,
 .workspace,
 .heroCard,
+.premiumCard,
 .metricCard,
 .navItem,
 .userCard,
@@ -80,12 +81,25 @@
   padding: 1rem;
 }
 
+.premiumCard {
+  background:
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.18), transparent 36%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.88));
+  border-color: rgba(148, 163, 184, 0.24);
+  border-radius: 26px;
+  color: #f8fafc;
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+}
+
 .heroCard h2,
 .workspaceHeader h2 {
   margin: 0.1rem 0 0;
 }
 
 .heroCard p,
+.premiumCard p,
 .workspaceHeader p,
 .cardHeader p,
 .tableLead span,
@@ -99,6 +113,10 @@
 .slotCard span {
   color: var(--muted);
   margin: 0;
+}
+
+.premiumCard .sectionEyebrow {
+  color: rgba(191, 219, 254, 0.88);
 }
 
 .metricStack,
@@ -336,6 +354,39 @@
   background: linear-gradient(135deg, var(--accent), #42bba8);
 }
 
+.premiumActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.premiumPrimaryLink,
+.premiumSecondaryLink {
+  align-items: center;
+  border-radius: 999px;
+  color: inherit;
+  display: inline-flex;
+  font-weight: 600;
+  justify-content: center;
+  padding: 0.7rem 0.95rem;
+  text-decoration: none;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease,
+    border-color 160ms ease;
+}
+
+.premiumPrimaryLink {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+}
+
+.premiumSecondaryLink {
+  border: 1px solid rgba(191, 219, 254, 0.28);
+  color: #bfdbfe;
+}
+
 .signalList article,
 .timelineList article {
   border: 1px solid rgba(31, 29, 23, 0.08);
@@ -420,6 +471,11 @@
 .slotCard[data-recommended="true"] {
   border-color: rgba(24, 122, 115, 0.22);
   box-shadow: var(--shadow-grow);
+}
+
+.premiumPrimaryLink:hover,
+.premiumSecondaryLink:hover {
+  transform: translateY(-1px);
 }
 
 .slotCard strong {

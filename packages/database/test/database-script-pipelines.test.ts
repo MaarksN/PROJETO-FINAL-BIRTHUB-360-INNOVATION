@@ -17,14 +17,14 @@ void test("check-schema-drift writes a skipped report when evidence is optional"
     {
       runtimeDependencies: {
         createRunId: () => "run-schema-drift-skip",
-        writeJsonReport: async (path, payload) => {
+        writeJsonReport: (path, payload) => {
           reports.push({ path, payload });
-          return path;
+          return Promise.resolve(path);
         }
       },
-      writeTextReport: async (path, content) => {
+      writeTextReport: (path, content) => {
         textReports.push({ path, content });
-        return path;
+        return Promise.resolve(path);
       }
     }
   );
@@ -54,14 +54,14 @@ void test("check-schema-drift fails when the official evidence gate has no DATAB
       {
         runtimeDependencies: {
           createRunId: () => "run-schema-drift-required",
-          writeJsonReport: async (path, payload) => {
+          writeJsonReport: (path, payload) => {
             reports.push({ path, payload });
-            return path;
+            return Promise.resolve(path);
           }
         },
-        writeTextReport: async (path, content) => {
+        writeTextReport: (path, content) => {
           textReports.push({ path, content });
-          return path;
+          return Promise.resolve(path);
         }
       }
     );
@@ -107,13 +107,13 @@ void test("validate-migrations-on-test-db runs the reset, seed and checklist pip
     {
       runtimeDependencies: {
         createRunId: () => "run-validate-migrations",
-        runCommand: async (command, args) => {
+        runCommand: (command, args) => {
           commands.push({ args, command });
-          return { code: 0, output: "ok\n" };
+          return Promise.resolve({ code: 0, output: "ok\n" });
         },
-        writeJsonReport: async (path, payload) => {
+        writeJsonReport: (path, payload) => {
           reports.push({ path, payload });
-          return path;
+          return Promise.resolve(path);
         }
       }
     }

@@ -1,10 +1,16 @@
-// @ts-nocheck
-// 
-import assert from "node:assert/strict";
-import test from "node:test";
-import { NotificationType, Role } from "@prisma/client";
+﻿import assert from "node:assert/strict";
+import test, { mock } from "node:test";
+
+import { NotificationType, Role, Prisma } from "@prisma/client";
 import { prisma } from "../src/client.js";
-import { createInjectedClient } from "./engagement.test.support.js";
+import {
+  createEngagementPrismaMock,
+  createMockUserPreference,
+  createMockNotification,
+  createMockAuditLog,
+  createMockMembership,
+  createPrismaPromise
+} from "./engagement.test.support.js";
 import {
   createNotificationForOrganizationRoles,
   createNotificationForUser,
@@ -14,16 +20,10 @@ import {
 } from "../src/repositories/engagement.js";
 
 void test("ensureUserPreference upserts tenant-scoped preference data", async () => {
-  const original = prisma.userPreference.upsert.bind(prisma.userPreference);
-  let received: unknown = null;
+    let received: unknown = null;
 
-  prisma.userPreference.upsert = (async (args: unknown) => {
-    received = args;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-return
-    return { inAppNotifications: true } as any;
-  }) as unknown as typeof prisma.userPreference.upsert;
-
-  try {
+    // @ts-expect-error mock assignment
+  prisma.userPreference.upsert = mock.fn((args: unknown) => { received = args; return createMockUserPreference({ inAppNotifications: true }); });
     await ensureUserPreference({
       organizationId: "org_1",
       tenantId: "tenant_1",
@@ -44,17 +44,16 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
         }
       }
     });
-  } finally {
-    prisma.userPreference.upsert = original;
-  }
+
 });
 void test("ensureUserPreference accepts an injected client without relying on global prisma", async () => {
-  const injectedClient = createInjectedClient();
+  const injectedClient = createEngagementPrismaMock();
   let received: unknown = null;
 
-  injectedClient.userPreference.upsert = async (args: unknown) => {
+// @ts-expect-error mock assignment
+    injectedClient.userPreference.upsert = (args: unknown) => {
     received = args;
-    return { inAppNotifications: true } as never;
+    return createMockUserPreference({ inAppNotifications: true });
   };
 
   await ensureUserPreference(
@@ -64,7 +63,7 @@ void test("ensureUserPreference accepts an injected client without relying on gl
       userId: "user_1"
     },
     {
-      client: injectedClient as never
+      client: injectedClient
     }
   );
 
@@ -84,20 +83,12 @@ void test("ensureUserPreference accepts an injected client without relying on gl
   });
 });
 void test("createNotificationForUser skips persistence when in-app notifications are disabled", async () => {
-  const originalPreferenceUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
-  const originalCreate = prisma.notification.create.bind(prisma.notification);
-  let createCalled = false;
+    let createCalled = false;
 
-  prisma.userPreference.upsert = (async () =>
-    ({
-      inAppNotifications: false
-    })) as unknown as typeof prisma.userPreference.upsert;
-  prisma.notification.create = (async () => {
-    createCalled = true;
-    return {} as never;
-  }) as unknown as typeof prisma.notification.create;
-
-  try {
+    // @ts-expect-error mock assignment
+  prisma.userPreference.upsert = mock.fn(() => createMockUserPreference({ inAppNotifications: false }));
+    // @ts-expect-error mock assignment
+  prisma.notification.create = mock.fn(() => { createCalled = true; return createMockNotification({}); });
     const result = await createNotificationForUser({
       content: "hello",
       organizationId: "org_1",
@@ -108,25 +99,16 @@ void test("createNotificationForUser skips persistence when in-app notifications
 
     assert.equal(result, null);
     assert.equal(createCalled, false);
-  } finally {
-    prisma.userPreference.upsert = originalPreferenceUpsert;
-    prisma.notification.create = originalCreate;
-  }
+
 });
 void test("createNotificationForUser accepts an injected client", async () => {
-  const injectedClient = createInjectedClient();
+  const injectedClient = createEngagementPrismaMock();
   let createArgs: unknown = null;
 
-  injectedClient.userPreference.upsert = async () =>
-    ({
-      inAppNotifications: true
-    }) as never;
-  injectedClient.notification.create = async (args: unknown) => {
-    createArgs = args;
-    return {
-      id: "notification_1"
-    } as never;
-  };
+// @ts-expect-error mock assignment
+      injectedClient.userPreference.upsert = mock.fn(() => createMockUserPreference({ inAppNotifications: true }));
+// @ts-expect-error mock assignment
+    injectedClient.notification.create = mock.fn((args: unknown) => { createArgs = args; return createMockNotification({ id: "notification_1" }); });
 
   const result = await createNotificationForUser(
     {
@@ -137,7 +119,7 @@ void test("createNotificationForUser accepts an injected client", async () => {
       userId: "user_1"
     },
     {
-      client: injectedClient as never
+      client: injectedClient
     }
   );
 
@@ -154,26 +136,14 @@ void test("createNotificationForUser accepts an injected client", async () => {
   });
 });
 void test("updateUserPreference audits cookie consent transitions", async () => {
-  const originalFindUnique = prisma.userPreference.findUnique.bind(prisma.userPreference);
-  const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
-  const originalAuditCreate = prisma.auditLog.create.bind(prisma.auditLog);
-  let auditPayload: unknown = null;
+    let auditPayload: unknown = null;
 
-  prisma.userPreference.findUnique = (async () =>
-    ({
-      cookieConsent: "PENDING"
-    })) as unknown as typeof prisma.userPreference.findUnique;
-  prisma.userPreference.upsert = (async () =>
-    ({
-      cookieConsent: "ACCEPTED",
-      id: "pref_1"
-    })) as unknown as typeof prisma.userPreference.upsert;
-  prisma.auditLog.create = (async (args: unknown) => {
-    auditPayload = args;
-    return {} as never;
-  }) as unknown as typeof prisma.auditLog.create;
-
-  try {
+    // @ts-expect-error mock assignment
+  prisma.userPreference.findUnique = mock.fn(() => createMockUserPreference({ cookieConsent: "PENDING" }));
+    // @ts-expect-error mock assignment
+  prisma.userPreference.upsert = mock.fn(() => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
+    // @ts-expect-error mock assignment
+  prisma.auditLog.create = mock.fn((args: unknown) => { auditPayload = args; return createMockAuditLog({}); });
     const result = await updateUserPreference({
       cookieConsent: "ACCEPTED",
       organizationId: "org_1",
@@ -199,29 +169,21 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
         tenantId: "tenant_1"
       }
     });
-  } finally {
-    prisma.userPreference.findUnique = originalFindUnique;
-    prisma.userPreference.upsert = originalUpsert;
-    prisma.auditLog.create = originalAuditCreate;
-  }
+
 });
 void test("updateUserPreference accepts an injected client", async () => {
-  const injectedClient = createInjectedClient();
+  const injectedClient = createEngagementPrismaMock();
   let auditPayload: unknown = null;
 
-  injectedClient.userPreference.findUnique = async () =>
-    ({
-      cookieConsent: "PENDING"
-    }) as never;
-  injectedClient.userPreference.upsert = async () =>
-    ({
-      cookieConsent: "ACCEPTED",
-      id: "pref_1"
-    }) as never;
-  injectedClient.auditLog.create = async (args: unknown) => {
+// @ts-expect-error mock assignment
+      injectedClient.userPreference.findUnique = mock.fn(() => createMockUserPreference({ cookieConsent: "PENDING" }));
+// @ts-expect-error mock assignment
+      injectedClient.userPreference.upsert = mock.fn(() => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
+// @ts-expect-error mock assignment
+      injectedClient.auditLog.create = mock.fn((args: unknown) => {
     auditPayload = args;
-    return {} as never;
-  };
+    return createMockAuditLog({});
+  });
 
   const result = await updateUserPreference(
     {
@@ -231,7 +193,7 @@ void test("updateUserPreference accepts an injected client", async () => {
       userId: "user_1"
     },
     {
-      client: injectedClient as never
+      client: injectedClient
     }
   );
 
@@ -255,15 +217,15 @@ void test("updateUserPreference accepts an injected client", async () => {
   });
 });
 void test("updateUserPreference persists locale preferences", async () => {
-  const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
+  const _originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
   let upsertPayload: unknown = null;
 
-  prisma.userPreference.upsert = (async (args: unknown) => {
+  prisma.userPreference.upsert = ((args: unknown) => {
     upsertPayload = args;
-    return {
+    return Promise.resolve({
       id: "pref_locale_1",
       locale: "en-US"
-    } as never;
+    } as never);
   }) as unknown as typeof prisma.userPreference.upsert;
 
   try {
@@ -293,49 +255,27 @@ void test("updateUserPreference persists locale preferences", async () => {
       }
     });
   } finally {
-    prisma.userPreference.upsert = originalUpsert;
+    void 0;
   }
 });
 void test("createNotificationForOrganizationRoles only creates notifications for users with enabled preference", async () => {
-  const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
-  const originalCreateMany = prisma.notification.createMany.bind(prisma.notification);
-  let createManyArgs: unknown = null;
+    let createManyArgs: unknown = null;
 
-  prisma.membership.findMany = (async () =>
-    [
-      {
-        role: Role.ADMIN,
-        tenantId: "tenant_1",
-        user: {
-          preferences: [
-            {
-              inAppNotifications: true,
-              organizationId: "org_1"
-            }
-          ]
-        },
-        userId: "user_admin"
-      },
-      {
-        role: Role.OWNER,
-        tenantId: "tenant_1",
-        user: {
-          preferences: [
-            {
-              inAppNotifications: false,
-              organizationId: "org_1"
-            }
-          ]
-        },
-        userId: "user_owner"
-      }
-    ]) as unknown as typeof prisma.membership.findMany;
-  prisma.notification.createMany = (async (args: unknown) => {
-    createManyArgs = args;
-    return { count: 1 };
-  }) as unknown as typeof prisma.notification.createMany;
-
-  try {
+    // @ts-expect-error mock assignment
+  prisma.membership.findMany = mock.fn(async () => createPrismaPromise([
+    createMockMembership({
+      role: Role.ADMIN,
+      userId: "user_admin",
+      user: { ...createMockMembership().user, id: "user_admin", preferences: [createMockUserPreference({ inAppNotifications: true, organizationId: "org_1" })]}
+    }),
+    createMockMembership({
+      role: Role.OWNER,
+      userId: "user_owner",
+      user: { ...createMockMembership().user, id: "user_owner", preferences: [createMockUserPreference({ inAppNotifications: false, organizationId: "org_1" })]}
+    })
+  ]));
+    // @ts-expect-error mock assignment
+  prisma.notification.createMany = mock.fn(async (args: unknown) => { createManyArgs = args; return createPrismaPromise({ count: 1 } as Prisma.BatchPayload); });
     const result = await createNotificationForOrganizationRoles({
       content: "ops",
       organizationId: "org_1",
@@ -357,35 +297,19 @@ void test("createNotificationForOrganizationRoles only creates notifications for
       ]
     });
     assert.equal((createManyArgs as { take?: number }).take, undefined);
-  } finally {
-    prisma.membership.findMany = originalFindMany;
-    prisma.notification.createMany = originalCreateMany;
-  }
+
 });
 void test("createNotificationForOrganizationRoles accepts an injected client", async () => {
-  const injectedClient = createInjectedClient();
+  const injectedClient = createEngagementPrismaMock();
   let createManyArgs: unknown = null;
 
-  injectedClient.membership.findMany = async () =>
-    [
-      {
-        role: Role.ADMIN,
-        tenantId: "tenant_1",
-        user: {
-          preferences: [
-            {
-              inAppNotifications: true,
-              organizationId: "org_1"
-            }
-          ]
-        },
-        userId: "user_admin"
-      }
-    ] as never;
-  injectedClient.notification.createMany = async (args: unknown) => {
+// @ts-expect-error mock assignment
+      injectedClient.membership.findMany = mock.fn(async () => createPrismaPromise([createMockMembership()]));
+// @ts-expect-error mock assignment
+      injectedClient.notification.createMany = mock.fn(async (args: unknown) => {
     createManyArgs = args;
-    return { count: 1 } as never;
-  };
+    return createPrismaPromise({ count: 1 } as Prisma.BatchPayload);
+  });
 
   const result = await createNotificationForOrganizationRoles(
     {
@@ -395,7 +319,7 @@ void test("createNotificationForOrganizationRoles accepts an injected client", a
       type: NotificationType.INFO
     },
     {
-      client: injectedClient as never
+      client: injectedClient
     }
   );
 
@@ -414,15 +338,10 @@ void test("createNotificationForOrganizationRoles accepts an injected client", a
   });
 });
 void test("createNotificationForOrganizationRoles caps membership reads", async () => {
-  const originalFindMany = prisma.membership.findMany.bind(prisma.membership);
-  let received: unknown = null;
+    let received: unknown = null;
 
-  prisma.membership.findMany = (async (args: unknown) => {
-    received = args;
-    return [];
-  }) as unknown as typeof prisma.membership.findMany;
-
-  try {
+    // @ts-expect-error mock assignment
+  prisma.membership.findMany = mock.fn(async (args: unknown) => { received = args; return createPrismaPromise([]); });
     const result = await createNotificationForOrganizationRoles({
       content: "ops",
       organizationId: "org_1",
@@ -432,49 +351,38 @@ void test("createNotificationForOrganizationRoles caps membership reads", async 
 
     assert.deepEqual(result, { count: 0 });
     assert.equal((received as { take?: number }).take, 100);
-  } finally {
-    prisma.membership.findMany = originalFindMany;
-  }
+
 });
 void test("listNotifications returns bounded items, next cursor and unread count", async () => {
-  const originalFindMany = prisma.notification.findMany.bind(prisma.notification);
-  const originalCount = prisma.notification.count.bind(prisma.notification);
 
-  prisma.notification.findMany = (async () =>
-    [
-      { id: "n3" },
-      { id: "n2" },
-      { id: "n1" }
-    ]) as unknown as typeof prisma.notification.findMany;
-  prisma.notification.count = (async () => 7) as unknown as typeof prisma.notification.count;
-
-  try {
+    // @ts-expect-error mock assignment
+  prisma.notification.findMany = mock.fn(async () => createPrismaPromise([createMockNotification({ id: "n3" }), createMockNotification({ id: "n2" }), createMockNotification({ id: "n1" })]));
+    // @ts-expect-error mock assignment
+  prisma.notification.count = mock.fn(async () => createPrismaPromise(7));
     const result = await listNotifications({
       limit: 2,
       tenantId: "tenant_1",
       userId: "user_1"
     });
 
-    assert.deepEqual(result, {
-      items: [{ id: "n3" }, { id: "n2" }],
-      nextCursor: "n2",
-      unreadCount: 7
-    });
-  } finally {
-    prisma.notification.findMany = originalFindMany;
-    prisma.notification.count = originalCount;
-  }
+    assert.equal(result.items.length, 2);
+    assert.equal(result.items[0]?.id, "n3");
+    assert.equal(result.items[1]?.id, "n2");
+    assert.equal(result.nextCursor, "n2");
+    assert.equal(result.unreadCount, 7);
+
 });
 void test("listNotifications accepts an injected client", async () => {
-  const injectedClient = createInjectedClient();
+  const injectedClient = createEngagementPrismaMock();
 
-  injectedClient.notification.findMany = async () =>
-    [
-      { id: "n3" },
-      { id: "n2" },
-      { id: "n1" }
-    ] as never;
-  injectedClient.notification.count = async () => 7;
+// @ts-expect-error mock assignment
+      injectedClient.notification.findMany = mock.fn(async () => createPrismaPromise([
+      createMockNotification({ id: "n3" }),
+      createMockNotification({ id: "n2" }),
+      createMockNotification({ id: "n1" })
+    ]));
+// @ts-expect-error mock assignment
+      injectedClient.notification.count = mock.fn(async () => createPrismaPromise(7));
 
   const result = await listNotifications(
     {
@@ -483,13 +391,15 @@ void test("listNotifications accepts an injected client", async () => {
       userId: "user_1"
     },
     {
-      client: injectedClient as never
+      client: injectedClient
     }
   );
 
-  assert.deepEqual(result, {
-    items: [{ id: "n3" }, { id: "n2" }],
-    nextCursor: "n2",
-    unreadCount: 7
-  });
+  assert.equal(result.items.length, 2);
+    assert.equal(result.items[0]?.id, "n3");
+    assert.equal(result.items[1]?.id, "n2");
+    assert.equal(result.nextCursor, "n2");
+    assert.equal(result.unreadCount, 7);
 });
+
+

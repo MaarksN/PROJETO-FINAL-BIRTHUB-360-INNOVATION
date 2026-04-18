@@ -1,4 +1,3 @@
-// @ts-nocheck
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -8,6 +7,19 @@ import request from "supertest";
 import { createPrivacyRouter } from "../src/modules/privacy/router.js";
 import { createAuthenticatedApiTestApp } from "./http-test-helpers.js";
 import { createTestApiConfig } from "./test-config.js";
+
+type ProblemBody = {
+  detail?: string;
+  status: number;
+  title: string;
+};
+
+function assertProblemBody(body: unknown): asserts body is ProblemBody {
+  assert.equal(typeof body, "object");
+  assert.notEqual(body, null);
+  assert.equal(typeof (body as { status?: unknown }).status, "number");
+  assert.equal(typeof (body as { title?: unknown }).title, "string");
+}
 
 function createPrivacyTestApp() {
   return createAuthenticatedApiTestApp({
@@ -29,6 +41,7 @@ void test("privacy router disables advanced consent and retention surfaces when 
   ]);
 
   for (const response of disabledResponses) {
+    assertProblemBody(response.body);
     assert.equal(response.status, 404);
     assert.equal(response.body.title, "Not Found");
     assert.match(String(response.body.detail ?? ""), /advanced privacy controls are disabled/i);
@@ -43,6 +56,7 @@ void test("privacy router keeps the self-service delete-account route active and
     })
     .expect(400);
 
+  assertProblemBody(response.body);
   assert.equal(response.body.status, 400);
   assert.equal(response.body.title, "Bad Request");
 });
