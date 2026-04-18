@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import test from "node:test";
 
 import { fetchWithTimeout, type FetchWithTimeoutInit } from "../fetch.js";
@@ -7,7 +7,7 @@ const originalFetch = globalThis.fetch;
 
 void test("fetchWithTimeout resolves when the request finishes before the timeout", async () => {
   let callCount = 0;
-  globalThis.fetch = async (_input, init) => {
+  globalThis.fetch = (_input, init) => {
     callCount += 1;
     assert.equal(init?.signal?.aborted, false);
     return new Response("ok", { status: 200 });
@@ -91,7 +91,7 @@ void test("fetchWithTimeout skips timeout wiring when the provided timeout is no
   const init: FetchWithTimeoutInit = { method: "POST", timeoutMs: 0 };
   let receivedInit: FetchWithTimeoutInit | undefined;
 
-  globalThis.fetch = async (_input, providedInit) => {
+  globalThis.fetch = (_input, providedInit) => {
     receivedInit = providedInit as FetchWithTimeoutInit;
     return new Response("ok", { status: 200 });
   };
