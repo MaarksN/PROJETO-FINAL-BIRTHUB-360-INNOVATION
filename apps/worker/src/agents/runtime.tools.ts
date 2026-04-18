@@ -335,9 +335,9 @@ export function createRuntimeTools(
     }) as BaseTool<unknown, unknown>,
     http: new HttpTool({ policyEngine }) as BaseTool<unknown, unknown>,
     "send-email": new SendEmailTool({
-      apiKey: options.sendEmailApiKey,
-      fromEmail: options.sendEmailFromEmail,
-      policyEngine
+      policyEngine,
+      ...(options.sendEmailApiKey !== undefined ? { apiKey: options.sendEmailApiKey } : {}),
+      ...(options.sendEmailFromEmail !== undefined ? { fromEmail: options.sendEmailFromEmail } : {})
     }) as BaseTool<unknown, unknown>,
     handoff: new ManifestCapabilityTool(
       {
