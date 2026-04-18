@@ -9,7 +9,6 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "strict": true,
     "noImplicitAny": true,
     "exactOptionalPropertyTypes": true,
