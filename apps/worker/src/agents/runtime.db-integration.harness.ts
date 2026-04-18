@@ -1,7 +1,6 @@
 import { executeManifestAgentRuntime } from "./runtime.orchestration.js";
 import { Prisma, prisma } from "@birthub/database";
-import { outputService } from "@birthub/api/modules/outputs/output-service";
-import { agentMetricsService } from "@birthub/api/modules/agents/metrics-service";
+import { approveOutput, getAgentMetrics, listOutputsByExecution } from "@birthub/domain-contracts";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("worker-runtime");
@@ -87,10 +86,10 @@ async function main(): Promise<void> {
     }
   });
 
-  const outputs = await outputService.listByExecution(tenantId, executionId);
+  const outputs = await listOutputsByExecution(tenantId, executionId);
   const approvedOutput =
     outputs[0] && outputs[0].status === "WAITING_APPROVAL"
-      ? await outputService.approve(outputs[0].id, tenantId, userId)
+      ? await approveOutput(outputs[0].id, tenantId, userId)
       : outputs[0] ?? null;
 
   if (approvedOutput) {
@@ -105,7 +104,7 @@ async function main(): Promise<void> {
     });
   }
 
-  const metrics = await agentMetricsService.getMetrics({
+  const metrics = await getAgentMetrics({
     agentId,
     tenantId,
     windowMinutes: 60
