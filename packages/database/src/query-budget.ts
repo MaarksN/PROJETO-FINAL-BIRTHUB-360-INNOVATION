@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 
-import { resolveDefaultQueryTimeout, type QueryBudgetCategory } from "../f8.config.js";
+export type QueryBudgetCategory = "migration" | "oltp" | "report";
 
 export interface QueryBudgetContext {
   category: QueryBudgetCategory;
@@ -8,7 +8,16 @@ export interface QueryBudgetContext {
 }
 
 const DEFAULT_QUERY_BUDGET_CATEGORY: QueryBudgetCategory = "oltp";
+const DEFAULT_QUERY_TIMEOUTS_MS: Record<QueryBudgetCategory, number> = {
+  migration: 10 * 60 * 1000,
+  oltp: 1_000,
+  report: 30_000
+};
 const queryBudgetStorage = new AsyncLocalStorage<Readonly<QueryBudgetContext>>();
+
+function resolveDefaultQueryTimeout(category: QueryBudgetCategory): number {
+  return DEFAULT_QUERY_TIMEOUTS_MS[category];
+}
 
 function parseTimeoutOverride(category: QueryBudgetCategory): number {
   const envKey = `PRISMA_QUERY_TIMEOUT_${category.toUpperCase()}_MS`;
