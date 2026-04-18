@@ -1,0 +1,24 @@
+{
+  "error": {
+    "message": "prisma migrate deploy failed with exit code 1.",
+    "name": "Error"
+  },
+  "finishedAt": "2026-04-18T05:07:16.642Z",
+  "runId": "db-bootstrap-ci-2026-04-18T05-07-14-941Z",
+  "script": "db-bootstrap-ci",
+  "startedAt": "2026-04-18T05:07:14.941Z",
+  "status": "failed",
+  "steps": [
+    {
+      "critical": true,
+      "durationMs": 1701,
+      "finishedAt": "2026-04-18T05:07:16.642Z",
+      "name": "prisma migrate deploy",
+      "startedAt": "2026-04-18T05:07:14.941Z",
+      "status": "failed",
+      "type": "migrate",
+      "command": "/opt/hostedtoolcache/node/24.14.1/x64/bin/node /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/packages/database/node_modules/prisma/build/index.js migrate deploy --schema /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/packages/database/prisma/schema.prisma",
+      "exitCode": 1
+    }
+  ]
+}
