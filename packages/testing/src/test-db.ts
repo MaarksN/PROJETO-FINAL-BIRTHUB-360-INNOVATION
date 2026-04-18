@@ -2,9 +2,9 @@ import { execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-import { pathToFileURL } from "node:url";
 
-import { Prisma, type PrismaClient } from "@prisma/client";
+import { Prisma } from "@birthub/database";
+import { createPrismaClient, type PrismaClient } from "@birthub/database/client";
 
 import { seedCoreFixtures } from "./factories.js";
 
@@ -68,8 +68,6 @@ function resolvePnpmCommand(): { args: string[]; command: string } {
   };
 }
 
-type CreatePrismaClientForTest = (options: { databaseUrl: string }) => PrismaClient;
-
 function resolveWorkspaceRoot(startDirectory: string): string {
   let currentDirectory = startDirectory;
 
@@ -87,21 +85,8 @@ function resolveWorkspaceRoot(startDirectory: string): string {
   }
 }
 
-async function loadCreatePrismaClient(): Promise<CreatePrismaClientForTest> {
-  const workspaceRoot = resolveWorkspaceRoot(import.meta.dirname);
-  const databaseClientModuleUrl = pathToFileURL(
-    resolve(workspaceRoot, "packages/database/src/client.js")
-  ).href;
-  const databaseClientModule = (await import(databaseClientModuleUrl)) as {
-    createPrismaClient: CreatePrismaClientForTest;
-  };
-
-  return databaseClientModule.createPrismaClient;
-}
-
-async function createPrismaForTest(databaseUrl: string): Promise<PrismaClient> {
-  const createPrismaClientForTest = await loadCreatePrismaClient();
-  return createPrismaClientForTest({ databaseUrl });
+function createPrismaForTest(databaseUrl: string): PrismaClient {
+  return createPrismaClient({ databaseUrl });
 }
 
 function quoteIdentifier(identifier: string): Prisma.Sql {
@@ -151,7 +136,7 @@ export async function provisionTestDatabase(baseDatabaseUrl: string): Promise<Te
     stdio: "inherit"
   });
 
-  const prisma = await createPrismaForTest(databaseUrl);
+  const prisma = createPrismaForTest(databaseUrl);
 
   await seedCoreFixtures(prisma);
 

@@ -1,4 +1,5 @@
-import { Role, type PrismaClient } from "@prisma/client";
+import { Role } from "@birthub/database";
+import type { PrismaClient } from "@birthub/database/client";
 
 export async function createOrganization(
   prisma: PrismaClient,

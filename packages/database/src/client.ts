@@ -14,6 +14,8 @@ import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error";
 import { createPrismaProxy } from "./prisma-proxy";
 import { requireTenantId } from "./tenant-context";
 
+export { Prisma, PrismaClient } from "@prisma/client";
+
 const DEFAULT_QUERY_TIMEOUT_MS = 5_000;
 const DEFAULT_DATABASE_CONNECTION_LIMIT = 10;
 const DEFAULT_DEVELOPMENT_DATABASE_URL =
