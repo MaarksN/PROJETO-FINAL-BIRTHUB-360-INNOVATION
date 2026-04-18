@@ -161,22 +161,41 @@ export async function getAgentMetrics(input: {
   const to = new Date();
   const from = new Date(to.getTime() - (input.windowMinutes ?? 60) * 60 * 1000);
 
-  const logs = await prisma.auditLog.findMany({
+  const executions = await prisma.agentExecution.findMany({
+    select: {
+      completedAt: true,
+      metadata: true,
+      startedAt: true,
+      status: true
+    },
     where: {
-      action: "AGENT_EXECUTION_COMPLETED",
-      createdAt: {
-        gte: from
+      agentId: input.agentId,
+      startedAt: {
+        gte: from,
+        lte: to
       },
-      tenantId: input.tenantId,
-      targetAgentId: input.agentId
+      tenantId: input.tenantId
     }
   });
 
-  const normalized = logs.map((log) => {
-    const metadata = log.metadata && typeof log.metadata === "object" ? (log.metadata as Record<string, unknown>) : {};
+  const normalized = executions.map((execution) => {
+    const metadata =
+      execution.metadata && typeof execution.metadata === "object"
+        ? (execution.metadata as Record<string, unknown>)
+        : {};
+    const fallbackDurationMs =
+      execution.completedAt instanceof Date
+        ? Math.max(0, execution.completedAt.getTime() - execution.startedAt.getTime())
+        : 0;
+
     return {
-      durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : 0,
-      status: metadata.status === "FAILED" ? "FAILED" : "SUCCESS",
+      durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : fallbackDurationMs,
+      status:
+        execution.status === "FAILED" ||
+        metadata.status === "FAILED" ||
+        metadata.executionStatus === "FAILED"
+          ? "FAILED"
+          : "SUCCESS",
       toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
     };
   });
