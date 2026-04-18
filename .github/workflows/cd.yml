@@ -771,25 +771,25 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download production preflight evidence
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: preflight-report
           path: artifacts/release
 
       - name: Download smoke evidence
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: smoke-results
           path: artifacts/release
 
       - name: Download release manifests
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: release-manifests
           path: .
 
       - name: Download release SBOM
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: release-sbom
           path: .
@@ -842,13 +842,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download rollback rehearsal evidence
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: rollback-rehearsal-report
           path: artifacts/release
 
       - name: Download smoke evidence
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: smoke-results
           path: artifacts/release
