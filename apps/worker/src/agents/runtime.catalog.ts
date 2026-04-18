@@ -76,11 +76,13 @@ export async function searchRuntimeManifestCatalog(input: {
   const catalog = await getManifestCatalog();
   const pageSize = Math.min(Math.max(input.limit ?? 6, 1), 25);
   const search = searchManifestCatalog(catalog, {
-    filters: input.filters,
-    includeCatalogEntries: input.includeCatalogEntries,
     page: 1,
     pageSize,
-    query: input.query
+    ...(input.filters ? { filters: input.filters } : {}),
+    ...(input.includeCatalogEntries !== undefined
+      ? { includeCatalogEntries: input.includeCatalogEntries }
+      : {}),
+    ...(input.query !== undefined ? { query: input.query } : {})
   });
 
   return search.results;
@@ -199,4 +201,3 @@ export async function resolveManagedPolicies(input: {
 
   return parseAgentConfig(agent.config).managedPolicies;
 }
-
