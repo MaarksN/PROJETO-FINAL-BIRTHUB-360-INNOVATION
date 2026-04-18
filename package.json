@@ -189,7 +189,7 @@
     "@eslint/js": "^10.0.1",
     "@stryker-mutator/api": "8.7.1",
     "@playwright/test": "^1.59.1",
-    "@prisma/client": "^6.19.2",
+    "@prisma/client": "^7.7.0",
     "@types/node": "^25.6.0",
     "bullmq": "^5.73.0",
     "c8": "^10.1.3",
