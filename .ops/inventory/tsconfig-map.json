@@ -38,7 +38,6 @@
     {
       "path": "apps/web/tsconfig.json",
       "extends": "../../tsconfig.json",
-      "baseUrl": ".",
       "paths": null,
       "strict": null,
       "skipLibCheck": null,
@@ -187,7 +186,6 @@
     {
       "path": "packages/database/tsconfig.json",
       "extends": "../../tsconfig.base.json",
-      "baseUrl": ".",
       "paths": null,
       "strict": null,
       "skipLibCheck": null,
@@ -377,7 +375,6 @@
     {
       "path": "packages/workflows-core/tsconfig.json",
       "extends": "../../tsconfig.base.json",
-      "baseUrl": ".",
       "paths": null,
       "strict": null,
       "skipLibCheck": null,
@@ -394,7 +391,6 @@
     {
       "path": "tsconfig.base.json",
       "extends": null,
-      "baseUrl": ".",
       "paths": {
         "@birthub/agents-core": [
           "packages/agents-core/src/index.ts"

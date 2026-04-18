@@ -19,7 +19,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
     "paths": {
       "@birthub/agents-core": [
         "packages/agents-core/src/index.ts"

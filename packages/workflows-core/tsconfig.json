@@ -6,7 +6,6 @@
     "declaration": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "baseUrl": ".",
     "types": [
       "node"
     ]
