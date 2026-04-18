@@ -56,6 +56,7 @@ Rerun final (logs `*-final.log`):
 
 ## evidências
 - Root cause: `audit/final-fixes/root-cause.md`
+- Rollback evidence: `audit/final-fixes/rollback-evidence-20260407000300.md`
 - Logs Fase 1: `audit/final-fixes/logs/*.log`
 - Logs rerun incremental: `audit/final-fixes/logs/*-rerun*.log`
 - Logs finais: `audit/final-fixes/logs/*-final.log`

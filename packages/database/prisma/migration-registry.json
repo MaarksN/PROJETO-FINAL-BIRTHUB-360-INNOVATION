@@ -801,7 +801,7 @@
       "estimatedDurationMinutes": 5,
       "impact": "low",
       "maintenanceWindowSlaMinutes": 30,
-      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state.",
+      "notes": "Aligns user preference storage with the LGPD consent center so privacy UI, dashboard warnings and audit trails share the same persisted state. Rollback evidence: audit/final-fixes/rollback-evidence-20260407000300.md.",
       "owner": "Platform Data",
       "postMigrationChecklist": [
         "drift_check",
@@ -831,7 +831,7 @@
           "Confirm backup freshness and the current preference payload shape.",
           "Drop the LGPD preference columns and enums or restore the previous stable snapshot if needed.",
           "Replay privacy, notification and dashboard smoke tests before reopening traffic.",
-          "Record governance rehearsal evidence proving rollback path was validated in staging before production rollout."
+          "Execute rollback rehearsal in staging for the LGPD preference columns before production rollout."
         ],
         "testedEnvironments": [
           "staging"

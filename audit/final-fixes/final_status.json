@@ -7,19 +7,11 @@
   "ci_security_guardrails": "PASS",
   "remaining_blockers": [],
   "changed_files": [
-    "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx",
-    "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx",
-    "apps/web/app/globals.css",
-    "apps/web/app/layout.tsx",
-    "apps/web/components/sales-os/SdrAutomaticPlatform.tsx",
-    "apps/worker/test/benchmarkUserCleanup.ts",
-    "audit/final-fixes/execution_log.md",
+    "audit/final-fixes/changed_files.md",
     "audit/final-fixes/final_report.html",
     "audit/final-fixes/final_report.md",
-    "audit/final-fixes/root-cause.md",
-    "packages/database/prisma/migration-registry.json",
-    "packages/utils/src/__tests__/fetchWithTimeout.test.ts",
-    "scripts/ci/security-guardrails-local.mjs",
-    "scripts/security/check-auth-guards.ts"
+    "audit/final-fixes/final_status.json",
+    "audit/final-fixes/rollback-evidence-20260407000300.md",
+    "packages/database/prisma/migration-registry.json"
   ]
 }
