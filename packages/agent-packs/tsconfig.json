@@ -4,10 +4,16 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "resolveJsonModule": true,
     "paths": {},
-    "noEmit": true
+    "noEmit": true,
+    "outDir": "dist",
+    "declaration": true,
+    "composite": true,
+    "strict": false
   },
   "include": [
     "corporate-v1/**/*.ts",
@@ -15,5 +21,10 @@
     "github-agents-v1/**/*.ts",
     "test/**/*.ts"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ]
 }

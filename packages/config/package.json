@@ -6,23 +6,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./web": {
-      "types": "./dist/web.d.ts",
-      "default": "./dist/web.js"
-    },
-    "./shared": {
-      "types": "./dist/shared.d.ts",
-      "default": "./dist/shared.js"
-    },
-    "./environment": {
-      "types": "./dist/environment.d.ts",
-      "default": "./dist/environment.js"
-    },
-    "./prettier": "./prettier/index.cjs"
+    ".": "./dist/index.js",
+    "./web": "./dist/web.js",
+    "./shared": "./dist/shared.js",
+    "./environment": "./dist/environment.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -37,7 +24,7 @@
   "devDependencies": {
     "@types/node": "^25.6.0",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "files": [
     "dist"
