@@ -187,7 +187,7 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^10.0.1",
-    "@stryker-mutator/api": "8.7.1",
+    "@stryker-mutator/api": "9.6.1",
     "@playwright/test": "^1.59.1",
     "@prisma/client": "^6.19.2",
     "@types/node": "^25.6.0",
