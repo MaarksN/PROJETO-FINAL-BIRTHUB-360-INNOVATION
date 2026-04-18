@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./client": {
-      "types": "./dist/src/client.d.ts",
-      "import": "./dist/src/client.js"
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    },
+    "./repositories": {
+      "types": "./dist/repositories/index.d.ts",
+      "default": "./dist/repositories/index.js"
     }
   },
   "prisma": {
@@ -45,7 +49,8 @@
     "db:seed:smoke": "node --import tsx prisma/seed.ts --profile=smoke",
     "db:seed:staging": "node --import tsx prisma/seed.ts --profile=staging",
     "db:validate:pr": "node --import tsx scripts/validate-migrations-on-test-db.ts",
-    "db:provision:app-role": "node --import tsx scripts/provision-rls-runtime-role.ts"
+    "db:provision:app-role": "node --import tsx scripts/provision-rls-runtime-role.ts",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@birthub/config": "workspace:^",
@@ -59,5 +64,8 @@
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "vitest-mock-extended": "^4.0.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

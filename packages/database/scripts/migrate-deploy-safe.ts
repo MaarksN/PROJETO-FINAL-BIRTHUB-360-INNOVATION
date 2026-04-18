@@ -2,10 +2,10 @@
 // 
 import type { PrismaClient } from "@prisma/client";
 
-import { F8_CONFIG } from "../f8.config";
-import { createPrismaClient } from "../src/client";
-import { schemaPath } from "./lib/paths";
-import { createScriptRuntime } from "./lib/runtime";
+import { F8_CONFIG } from "../f8.config.js";
+import { createPrismaClient } from "../src/client.js";
+import { schemaPath } from "./lib/paths.js";
+import { createScriptRuntime } from "./lib/runtime.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-migrate-deploy-safe");

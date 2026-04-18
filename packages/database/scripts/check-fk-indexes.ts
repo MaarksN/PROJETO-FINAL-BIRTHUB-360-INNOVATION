@@ -1,7 +1,7 @@
 // @ts-expect-error TODO: remover suppressão ampla
 // 
-import { hasIndexCoverage, parsePrismaSchema } from "./lib/prisma-schema";
-import { writeJsonReport, writeTextReport } from "./lib/report";
+import { hasIndexCoverage, parsePrismaSchema } from "./lib/prisma-schema.js";
+import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-check-fk-indexes");

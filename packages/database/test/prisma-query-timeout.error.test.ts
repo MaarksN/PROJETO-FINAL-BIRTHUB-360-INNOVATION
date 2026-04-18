@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { PrismaQueryTimeoutError } from "../src/errors/prisma-query-timeout.error";
+import { PrismaQueryTimeoutError } from "../src/errors/prisma-query-timeout.error.js";
 
 void test("PrismaQueryTimeoutError records timeout metadata for model-bound operations", () => {
   const error = new PrismaQueryTimeoutError("findMany", 2_000, "WorkflowRun");

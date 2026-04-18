@@ -3,8 +3,8 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { F8_CONFIG, type MigrationSeverity } from "../../f8.config";
-import { migrationRegistryPath, migrationsDir } from "./paths";
+import { F8_CONFIG, type MigrationSeverity } from "../../f8.config.js";
+import { migrationRegistryPath, migrationsDir } from "./paths.js";
 
 export interface MigrationRegistryEntry {
   environments: string[];

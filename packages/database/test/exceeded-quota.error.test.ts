@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { ExceededQuotaError } from "../src/errors/exceeded-quota.error";
+import { ExceededQuotaError } from "../src/errors/exceeded-quota.error.js";
 
 void test("ExceededQuotaError stores billing context and applies the default upgrade path", () => {
   const error = new ExceededQuotaError({

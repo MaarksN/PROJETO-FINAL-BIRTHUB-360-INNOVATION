@@ -2,7 +2,7 @@
 // 
 import { Prisma } from "@prisma/client";
 
-import { createPrismaClient } from "../src/client";
+import { createPrismaClient } from "../src/client.js";
 
 const DEFAULT_ROLE_NAME = "api_worker";
 const DEFAULT_SCHEMA_NAME = "public";

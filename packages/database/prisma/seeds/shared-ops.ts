@@ -8,7 +8,7 @@ import {
   SubscriptionStatus
 } from "@prisma/client";
 
-import { passwordHash, type PlanMap, type TenantSeed } from "./shared-foundation";
+import { passwordHash, type PlanMap, type TenantSeed } from "./shared-foundation.js";
 
 export async function ensureBilling(
   prisma: PrismaClient,

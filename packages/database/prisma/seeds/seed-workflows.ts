@@ -2,7 +2,7 @@
 // 
 import { PrismaClient } from "@prisma/client";
 
-import { developmentTenants, ensureOrganization, ensureWorkflows, seedPlanCatalog, type TenantSeed } from "./shared";
+import { developmentTenants, ensureOrganization, ensureWorkflows, seedPlanCatalog, type TenantSeed } from "./shared.js";
 
 export async function seedWorkflows(prisma: PrismaClient, tenants: TenantSeed[] = developmentTenants) {
   const planMap = await seedPlanCatalog(prisma);

@@ -3,13 +3,13 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { randomUUID } from "node:crypto";
 
-import { createPrismaClient } from "../src/client";
+import { createPrismaClient } from "../src/client.js";
 import {
   ensureDatabaseAvailableOrSkip,
   requireDatabaseUrlOrSkip,
   shouldRequireDeterministicIsolationValidation
-} from "./database-availability";
-import { parsePrismaSchema } from "../scripts/lib/prisma-schema";
+} from "./database-availability.js";
+import { parsePrismaSchema } from "../scripts/lib/prisma-schema.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const requireRlsValidation = shouldRequireDeterministicIsolationValidation();

@@ -5,11 +5,11 @@ import { pathToFileURL } from "node:url";
 
 import { createLogger } from "@birthub/logger";
 
-import { databasePackageRoot, schemaPath } from "./lib/paths";
+import { databasePackageRoot, schemaPath } from "./lib/paths.js";
 import {
   createScriptRuntime,
   type ScriptRuntimeDependencies
-} from "./lib/runtime";
+} from "./lib/runtime.js";
 
 const logger = createLogger("db-validate-migrations-on-test-db");
 

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { CrossTenantAccessError } from "../src/errors/cross-tenant-access.error";
+import { CrossTenantAccessError } from "../src/errors/cross-tenant-access.error.js";
 
 void test("CrossTenantAccessError keeps tenant and model context in the message", () => {
   const error = new CrossTenantAccessError({

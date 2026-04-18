@@ -4,7 +4,7 @@ import { Buffer } from "node:buffer";
 import { spawn } from "node:child_process";
 import { resolve } from "node:path";
 
-import { databasePackageRoot } from "./paths";
+import { databasePackageRoot } from "./paths.js";
 
 export type CommandResult = {
   code: number;

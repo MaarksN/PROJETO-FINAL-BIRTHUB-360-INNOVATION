@@ -2,7 +2,7 @@
 // 
 import { readFile } from "node:fs/promises";
 
-import { schemaPath } from "./paths";
+import { schemaPath } from "./paths.js";
 
 export interface ParsedField {
   attributes: string;

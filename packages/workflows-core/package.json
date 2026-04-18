@@ -3,18 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "import": "./dist/src/index.js",
-      "default": "./dist/src/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./nextjs": {
-      "types": "./dist/src/nextjs.d.ts",
-      "import": "./dist/src/nextjs.js",
-      "default": "./dist/src/nextjs.js"
+      "types": "./dist/nextjs.d.ts",
+      "default": "./dist/nextjs.js"
     }
   },
   "scripts": {
@@ -22,7 +20,8 @@
     "lint": "eslint . --config eslint.config.mjs",
     "lint:strict": "eslint . --config eslint.config.mjs --max-warnings=0",
     "test": "node --import tsx --test test/**/*.test.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@birthub/logger": "workspace:*",
@@ -32,5 +31,8 @@
     "@types/node": "^25.6.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

@@ -15,18 +15,23 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "test:load": "tsx load-test/bullmq-load-test.ts",
     "schedule:crons": "tsx scripts/schedule-recurring-jobs.ts",
     "test": "node --import tsx --test \"tests/**/*.test.ts\"",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist"
   },
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     }
-  }
+  },
+  "private": true,
+  "files": [
+    "dist"
+  ]
 }

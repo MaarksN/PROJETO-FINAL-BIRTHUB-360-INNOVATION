@@ -3,8 +3,8 @@ import test from "node:test";
 
 import { Role, UserStatus } from "@prisma/client";
 
-import { prisma } from "../src/client";
-import { listUsersByTenant, updateMembershipRole } from "../src/repositories/user-repository";
+import { prisma } from "../src/client.js";
+import { listUsersByTenant, updateMembershipRole } from "../src/repositories/user-repository.js";
 
 void test("listUsersByTenant builds membership, status and search filters", async () => {
   const originalFindMany = prisma.user.findMany.bind(prisma.user);

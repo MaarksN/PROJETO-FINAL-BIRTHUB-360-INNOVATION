@@ -3,7 +3,7 @@
 import { Role, WorkflowStatus, WorkflowStepType, WorkflowTransitionRoute, WorkflowTriggerType } from "@prisma/client";
 import { createHash } from "node:crypto";
 
-import type { PlanSeed, SeedWorkflowDefinition, TenantSeed } from "./types";
+import type { PlanSeed, SeedWorkflowDefinition, TenantSeed } from "./types.js";
 
 export const plans: PlanSeed[] = [
   {

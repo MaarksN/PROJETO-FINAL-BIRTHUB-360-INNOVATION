@@ -7,7 +7,7 @@ import {
   WorkflowStatus
 } from "@prisma/client";
 
-import type { SeedWorkflowDefinition } from "./types";
+import type { SeedWorkflowDefinition } from "./types.js";
 
 export async function createWorkflowWithGraph(input: {
   organizationId: string;

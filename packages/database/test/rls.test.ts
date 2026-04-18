@@ -5,12 +5,12 @@ import test from "node:test";
 import { randomUUID } from "node:crypto";
 
 import { WorkflowStatus } from "@prisma/client";
-import { createPrismaClient } from "../src/client";
+import { createPrismaClient } from "../src/client.js";
 import {
   ensureDatabaseAvailableOrSkip,
   requireDatabaseUrlOrSkip,
   shouldRequireDeterministicIsolationValidation
-} from "./database-availability";
+} from "./database-availability.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const requireRlsValidation = shouldRequireDeterministicIsolationValidation();

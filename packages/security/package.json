@@ -1,13 +1,14 @@
 {
   "name": "@birthub/security",
   "version": "0.0.0",
-  "main": "./index.js",
-  "types": "./index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "test": "node --experimental-strip-types --test src/__tests__/*.test.ts",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "isomorphic-dompurify": "^3.7.1"
@@ -19,9 +20,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./index.ts",
-      "import": "./index.js",
-      "default": "./index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
-  }
+  },
+  "private": true,
+  "files": [
+    "dist"
+  ]
 }

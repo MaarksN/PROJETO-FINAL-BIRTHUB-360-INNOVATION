@@ -5,7 +5,7 @@ import {
   getCurrentQueryBudget,
   resolveQueryTimeoutMs,
   runWithQueryBudget
-} from "../src/query-budget";
+} from "../src/query-budget.js";
 
 function restoreEnv(key: string, previousValue: string | undefined): void {
   if (previousValue === undefined) {

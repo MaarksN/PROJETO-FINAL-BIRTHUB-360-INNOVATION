@@ -2,8 +2,8 @@
 // 
 import { Prisma, PrismaClient } from "@prisma/client";
 
-import { plans } from "./data";
-import type { PlanSeed, SeededPlanMap } from "./types";
+import { plans } from "./data.js";
+import type { PlanSeed, SeededPlanMap } from "./types.js";
 
 function buildPlanPayload(plan: PlanSeed) {
   return {

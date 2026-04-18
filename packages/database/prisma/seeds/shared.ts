@@ -7,7 +7,7 @@ export {
   plans,
   seedPlanCatalog,
   smokeTenants
-} from "./shared-foundation";
-export type { SeedPlan, TenantSeed } from "./shared-foundation";
-export { ensureAgents, ensureUsers, ensureWorkflows } from "./shared-runtime";
-export { ensureBilling, ensureSupportArtifacts } from "./shared-ops";
+} from "./shared-foundation.js";
+export type { SeedPlan, TenantSeed } from "./shared-foundation.js";
+export { ensureAgents, ensureUsers, ensureWorkflows } from "./shared-runtime.js";
+export { ensureBilling, ensureSupportArtifacts } from "./shared-ops.js";

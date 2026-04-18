@@ -4,10 +4,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "test": "node --import tsx --test src/__tests__/*.test.ts",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "jose": "^6.2.2"
@@ -20,7 +21,11 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     }
-  }
+  },
+  "private": true,
+  "files": [
+    "dist"
+  ]
 }

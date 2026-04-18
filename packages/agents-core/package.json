@@ -5,11 +5,12 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
     "test": "node --import tsx --test \"src/**/*.test.ts\"",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "docs": "typedoc --out docs src/index.ts"
+    "docs": "typedoc --out docs src/index.ts",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "zod": "^4.3.6"
@@ -24,19 +25,30 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./tools": {
       "types": "./dist/tools/index.d.ts",
-      "import": "./dist/tools/index.js"
+      "default": "./dist/tools/index.js"
     },
-    "./tools/*": {
-      "types": "./dist/tools/*.d.ts",
-      "import": "./dist/tools/*.js"
+    "./policy": {
+      "types": "./dist/policy/engine.d.ts",
+      "default": "./dist/policy/engine.js"
     },
-    "./policy/*": {
-      "types": "./dist/policy/*.d.ts",
-      "import": "./dist/policy/*.js"
+    "./manifest": {
+      "types": "./dist/manifest/index.d.ts",
+      "default": "./dist/manifest/index.js"
+    },
+    "./runtime": {
+      "types": "./dist/runtime/index.d.ts",
+      "default": "./dist/runtime/index.js"
+    },
+    "./skills": {
+      "types": "./dist/skills/index.d.ts",
+      "default": "./dist/skills/index.js"
     }
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

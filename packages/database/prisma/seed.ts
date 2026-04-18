@@ -3,15 +3,15 @@ import { pathToFileURL } from "node:url";
 
 import { createLogger } from "@birthub/logger";
 
-import { createPrismaClient } from "../src/client";
-import { tenants as destructiveTenants } from "./seed/data";
-import { seedPlans, wipeDatabase } from "./seed/helpers";
-import { createTenant } from "./seed/tenant";
-import type { SeededPlanMap, TenantSeed } from "./seed/types";
+import { createPrismaClient } from "../src/client.js";
+import { tenants as destructiveTenants } from "./seed/data.js";
+import { seedPlans, wipeDatabase } from "./seed/helpers.js";
+import { createTenant } from "./seed/tenant.js";
+import type { SeededPlanMap, TenantSeed } from "./seed/types.js";
 import {
   runSeedProfile,
   type SeedProfile as SharedSeedProfile
-} from "./seeds/profiles";
+} from "./seeds/profiles.js";
 
 export type SeedMode = "safe" | "destructive";
 export type SeedRuntimeProfile = "ci" | "destructive" | "safe" | "smoke" | "staging";

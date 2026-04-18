@@ -5,13 +5,13 @@ import test from "node:test";
 
 import { WorkflowStatus } from "@prisma/client";
 
-import { ensureDatabaseAvailableOrSkip } from "./database-availability";
+import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("migracao preserva integridade referencial por tenant", async (context) => {
-  const { createPrismaClient } = await import("../src/client");
+  const { createPrismaClient } = await import("../src/client.js");
   const prisma = createPrismaClient({ databaseUrl });
 
   try {

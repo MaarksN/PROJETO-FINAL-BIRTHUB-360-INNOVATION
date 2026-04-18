@@ -1,7 +1,7 @@
 {
   "name": "@birthub/agents-registry",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "publishConfig": {
     "access": "restricted"
   },
@@ -11,7 +11,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -21,7 +21,8 @@
     "build": "tsc -p tsconfig.json",
     "test": "node --import tsx --test \"test/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "semver": "^7.7.4"

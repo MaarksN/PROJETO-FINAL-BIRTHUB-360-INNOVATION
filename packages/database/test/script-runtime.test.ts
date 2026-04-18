@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createScriptRuntime } from "../scripts/lib/runtime";
+import { createScriptRuntime } from "../scripts/lib/runtime.js";
 
 void test("script runtime requires declared environment variables", () => {
   const runtime = createScriptRuntime(

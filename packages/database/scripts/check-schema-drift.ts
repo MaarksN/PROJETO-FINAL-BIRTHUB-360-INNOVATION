@@ -7,14 +7,14 @@ import { createLogger } from "@birthub/logger";
 import {
   getSchemaDriftEnvironment,
   shouldRequireSchemaDriftEvidence
-} from "./lib/env";
-import { schemaPath } from "./lib/paths";
-import { getPrismaCommand } from "./lib/process";
+} from "./lib/env.js";
+import { schemaPath } from "./lib/paths.js";
+import { getPrismaCommand } from "./lib/process.js";
 import {
   createScriptRuntime,
   type ScriptRuntimeDependencies
-} from "./lib/runtime";
-import { writeTextReport } from "./lib/report";
+} from "./lib/runtime.js";
+import { writeTextReport } from "./lib/report.js";
 
 const logger = createLogger("db-check-schema-drift");
 

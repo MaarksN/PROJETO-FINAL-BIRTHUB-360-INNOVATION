@@ -14,7 +14,7 @@ import {
   WorkflowTriggerType
 } from "@prisma/client";
 
-import { asJson, passwordHash, type TenantSeed } from "./shared-foundation";
+import { asJson, passwordHash, type TenantSeed } from "./shared-foundation.js";
 
 type WorkflowSeed = {
   description: string;

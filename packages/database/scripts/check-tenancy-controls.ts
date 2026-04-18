@@ -7,9 +7,9 @@ import {
   containsRlsDisable,
   listMigrationDirectories,
   readMigrationSql
-} from "./lib/migrations";
-import { getTenantScopedModels, hasIndexCoverage, parsePrismaSchema } from "./lib/prisma-schema";
-import { writeJsonReport, writeTextReport } from "./lib/report";
+} from "./lib/migrations.js";
+import { getTenantScopedModels, hasIndexCoverage, parsePrismaSchema } from "./lib/prisma-schema.js";
+import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-check-tenancy-controls");

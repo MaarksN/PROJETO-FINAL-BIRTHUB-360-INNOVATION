@@ -3,25 +3,28 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "./dist/logger/index.js",
-  "types": "./dist/logger/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/logger/index.d.ts",
-      "import": "./dist/logger/index.js",
-      "default": "./dist/logger/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
-    "./nextjs": {
-      "types": "./dist/logger/index.d.ts",
-      "import": "./dist/logger/index.js",
-      "default": "./dist/logger/index.js"
+    "./metrics": {
+      "types": "./dist/metrics.d.ts",
+      "default": "./dist/metrics.js"
+    },
+    "./otel": {
+      "types": "./dist/otel.d.ts",
+      "default": "./dist/otel.js"
     }
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "lint": "eslint .",
     "test": "node --import tsx --test src/**/*.test.ts",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@birthub/config": "workspace:*",
@@ -33,5 +36,8 @@
     "@types/node": "^25.6.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

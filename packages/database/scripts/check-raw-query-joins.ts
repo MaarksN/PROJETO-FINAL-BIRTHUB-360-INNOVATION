@@ -1,8 +1,8 @@
 // @ts-expect-error TODO: remover suppressão ampla
 // 
-import { workspaceRoot } from "./lib/paths";
-import { collectRepoTextFiles } from "./lib/repo-scan";
-import { writeJsonReport, writeTextReport } from "./lib/report";
+import { workspaceRoot } from "./lib/paths.js";
+import { collectRepoTextFiles } from "./lib/repo-scan.js";
+import { writeJsonReport, writeTextReport } from "./lib/report.js";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-check-raw-query-joins");
