@@ -16,6 +16,38 @@ function resolveWorkspaceCli(workspacePath, specifier) {
 const coreBuildWorkspaces = [
   {
     args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/config"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/shared-types"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/logger"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/database"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/queue"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/utils"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/workflows-core"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
+    cwd: "packages/agents-core"
+  },
+  {
+    args: [typescriptCli, "-p", "tsconfig.json"],
     cwd: "packages/testing"
   },
   {
