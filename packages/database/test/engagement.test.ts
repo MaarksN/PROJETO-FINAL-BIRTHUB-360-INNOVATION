@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import test, { mock } from "node:test";
 
 function mergeDeep(target: any, source: any) {
@@ -261,7 +261,9 @@ void test("updateUserPreference persists locale preferences", async () => {
         }
       }
     });
-
+  } finally {
+    void 0;
+  }
 });
 void test("createNotificationForOrganizationRoles only creates notifications for users with enabled preference", async () => {
     let createManyArgs: unknown = null;
@@ -406,3 +408,4 @@ void test("listNotifications accepts an injected client", async () => {
     assert.equal(result.nextCursor, "n2");
     assert.equal(result.unreadCount, 7);
 });
+
