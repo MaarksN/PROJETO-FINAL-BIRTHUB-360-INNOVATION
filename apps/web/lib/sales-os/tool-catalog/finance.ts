@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types.js";
 
 export const FINANCE_TOOLS: Tool[] = [
   {
@@ -10,15 +9,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "ContractRedliner",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Lê minutas recebidas de clientes e realça (com comentários automáticos) todas as cláusulas que ferem a política de riscos da empresa.",
-    "prompt": "Você é um ContractRedliner atuando como General Counsel / Legal Manager. Lê minutas recebidas de clientes e realça (com comentários automáticos) todas as cláusulas que ferem a política de riscos da empresa.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª minutas recebidas de clientes e realÃ§a (com comentÃ¡rios automÃ¡ticos) todas as clÃ¡usulas que ferem a polÃ­tica de riscos da empresa.",
+    "prompt": "VocÃª Ã© um ContractRedliner atuando como General Counsel / Legal Manager. LÃª minutas recebidas de clientes e realÃ§a (com comentÃ¡rios automÃ¡ticos) todas as clÃ¡usulas que ferem a polÃ­tica de riscos da empresa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -30,15 +29,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "IPInfringementScraper",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Monitora a web buscando cópias do software, roubo de logotipos e uso indevido da marca, emitindo notificações extrajudiciais automáticas.",
-    "prompt": "Você é um IPInfringementScraper atuando como General Counsel / Legal Manager. Monitora a web buscando cópias do software, roubo de logotipos e uso indevido da marca, emitindo notificações extrajudiciais automáticas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora a web buscando cÃ³pias do software, roubo de logotipos e uso indevido da marca, emitindo notificaÃ§Ãµes extrajudiciais automÃ¡ticas.",
+    "prompt": "VocÃª Ã© um IPInfringementScraper atuando como General Counsel / Legal Manager. Monitora a web buscando cÃ³pias do software, roubo de logotipos e uso indevido da marca, emitindo notificaÃ§Ãµes extrajudiciais automÃ¡ticas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -50,15 +49,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "RegulatoryChangeAlerter",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Acompanha Diários Oficiais e jornais ao redor do mundo avisando se uma nova lei local afetará o modelo de negócios da empresa.",
-    "prompt": "Você é um RegulatoryChangeAlerter atuando como General Counsel / Legal Manager. Acompanha Diários Oficiais e jornais ao redor do mundo avisando se uma nova lei local afetará o modelo de negócios da empresa.",
+    "emoji": "ðŸ¤–",
+    "desc": "Acompanha DiÃ¡rios Oficiais e jornais ao redor do mundo avisando se uma nova lei local afetarÃ¡ o modelo de negÃ³cios da empresa.",
+    "prompt": "VocÃª Ã© um RegulatoryChangeAlerter atuando como General Counsel / Legal Manager. Acompanha DiÃ¡rios Oficiais e jornais ao redor do mundo avisando se uma nova lei local afetarÃ¡ o modelo de negÃ³cios da empresa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -70,15 +69,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "NDAAutoSigner",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Gerencia a criação, envio e arquivamento em massa de Acordos de Confidencialidade padronizados para parceiros e fornecedores.",
-    "prompt": "Você é um NDAAutoSigner atuando como General Counsel / Legal Manager. Gerencia a criação, envio e arquivamento em massa de Acordos de Confidencialidade padronizados para parceiros e fornecedores.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gerencia a criaÃ§Ã£o, envio e arquivamento em massa de Acordos de Confidencialidade padronizados para parceiros e fornecedores.",
+    "prompt": "VocÃª Ã© um NDAAutoSigner atuando como General Counsel / Legal Manager. Gerencia a criaÃ§Ã£o, envio e arquivamento em massa de Acordos de Confidencialidade padronizados para parceiros e fornecedores.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -90,15 +89,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "RiskExposureQuantifier",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Transforma linguagem jurídica em \"Custo de Risco\" (Ex: \"Essa cláusula de multa tem 5% de chance de ocorrer e custará 2 milhões\").",
-    "prompt": "Você é um RiskExposureQuantifier atuando como General Counsel / Legal Manager. Transforma linguagem jurídica em \"Custo de Risco\" (Ex: \"Essa cláusula de multa tem 5% de chance de ocorrer e custará 2 milhões\").",
+    "emoji": "ðŸ¤–",
+    "desc": "Transforma linguagem jurÃ­dica em \"Custo de Risco\" (Ex: \"Essa clÃ¡usula de multa tem 5% de chance de ocorrer e custarÃ¡ 2 milhÃµes\").",
+    "prompt": "VocÃª Ã© um RiskExposureQuantifier atuando como General Counsel / Legal Manager. Transforma linguagem jurÃ­dica em \"Custo de Risco\" (Ex: \"Essa clÃ¡usula de multa tem 5% de chance de ocorrer e custarÃ¡ 2 milhÃµes\").",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -110,15 +109,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "InvoiceGenerator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Emite notas fiscais, faturas e boletos em massa com cálculos perfeitos de alíquotas de impostos baseadas no CEP do cliente.",
-    "prompt": "Você é um InvoiceGenerator atuando como Billing Specialist / Billing Support Specialist. Emite notas fiscais, faturas e boletos em massa com cálculos perfeitos de alíquotas de impostos baseadas no CEP do cliente.",
+    "emoji": "ðŸ¤–",
+    "desc": "Emite notas fiscais, faturas e boletos em massa com cÃ¡lculos perfeitos de alÃ­quotas de impostos baseadas no CEP do cliente.",
+    "prompt": "VocÃª Ã© um InvoiceGenerator atuando como Billing Specialist / Billing Support Specialist. Emite notas fiscais, faturas e boletos em massa com cÃ¡lculos perfeitos de alÃ­quotas de impostos baseadas no CEP do cliente.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -130,15 +129,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "ProrationCalculator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Calcula matematicamente devoluções e cobranças proporcionais caso o cliente cancele o plano no meio do mês ou adicione usuários extras.",
-    "prompt": "Você é um ProrationCalculator atuando como Billing Specialist / Billing Support Specialist. Calcula matematicamente devoluções e cobranças proporcionais caso o cliente cancele o plano no meio do mês ou adicione usuários extras.",
+    "emoji": "ðŸ¤–",
+    "desc": "Calcula matematicamente devoluÃ§Ãµes e cobranÃ§as proporcionais caso o cliente cancele o plano no meio do mÃªs ou adicione usuÃ¡rios extras.",
+    "prompt": "VocÃª Ã© um ProrationCalculator atuando como Billing Specialist / Billing Support Specialist. Calcula matematicamente devoluÃ§Ãµes e cobranÃ§as proporcionais caso o cliente cancele o plano no meio do mÃªs ou adicione usuÃ¡rios extras.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -150,15 +149,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "FailedPaymentRetrier",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Aciona algoritmos inteligentes para refazer cobranças de cartão de crédito falhas nos melhores dias/horários para aprovação do banco.",
-    "prompt": "Você é um FailedPaymentRetrier atuando como Billing Specialist / Billing Support Specialist. Aciona algoritmos inteligentes para refazer cobranças de cartão de crédito falhas nos melhores dias/horários para aprovação do banco.",
+    "emoji": "ðŸ¤–",
+    "desc": "Aciona algoritmos inteligentes para refazer cobranÃ§as de cartÃ£o de crÃ©dito falhas nos melhores dias/horÃ¡rios para aprovaÃ§Ã£o do banco.",
+    "prompt": "VocÃª Ã© um FailedPaymentRetrier atuando como Billing Specialist / Billing Support Specialist. Aciona algoritmos inteligentes para refazer cobranÃ§as de cartÃ£o de crÃ©dito falhas nos melhores dias/horÃ¡rios para aprovaÃ§Ã£o do banco.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -170,15 +169,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "TaxExemptionVerifier",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Valida documentos de clientes isentos de impostos (como ONGs) mantendo a conformidade para não gerar passivo fiscal.",
-    "prompt": "Você é um TaxExemptionVerifier atuando como Billing Specialist / Billing Support Specialist. Valida documentos de clientes isentos de impostos (como ONGs) mantendo a conformidade para não gerar passivo fiscal.",
+    "emoji": "ðŸ¤–",
+    "desc": "Valida documentos de clientes isentos de impostos (como ONGs) mantendo a conformidade para nÃ£o gerar passivo fiscal.",
+    "prompt": "VocÃª Ã© um TaxExemptionVerifier atuando como Billing Specialist / Billing Support Specialist. Valida documentos de clientes isentos de impostos (como ONGs) mantendo a conformidade para nÃ£o gerar passivo fiscal.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -190,15 +189,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "DisputedChargeAggregator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Junta todas as provas do sistema (logs de acesso, contratos) automaticamente quando um cliente faz chargeback (contesta no cartão).",
-    "prompt": "Você é um DisputedChargeAggregator atuando como Billing Specialist / Billing Support Specialist. Junta todas as provas do sistema (logs de acesso, contratos) automaticamente quando um cliente faz chargeback (contesta no cartão).",
+    "emoji": "ðŸ¤–",
+    "desc": "Junta todas as provas do sistema (logs de acesso, contratos) automaticamente quando um cliente faz chargeback (contesta no cartÃ£o).",
+    "prompt": "VocÃª Ã© um DisputedChargeAggregator atuando como Billing Specialist / Billing Support Specialist. Junta todas as provas do sistema (logs de acesso, contratos) automaticamente quando um cliente faz chargeback (contesta no cartÃ£o).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -210,15 +209,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "DunningAutomator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Cria réguas de cobrança dinâmicas (SMS, WhatsApp, E-mail) adaptando o tom de voz do mais educado ao mais firme, dependendo do atraso.",
-    "prompt": "Você é um DunningAutomator atuando como Collections Analyst / Specialist. Cria réguas de cobrança dinâmicas (SMS, WhatsApp, E-mail) adaptando o tom de voz do mais educado ao mais firme, dependendo do atraso.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria rÃ©guas de cobranÃ§a dinÃ¢micas (SMS, WhatsApp, E-mail) adaptando o tom de voz do mais educado ao mais firme, dependendo do atraso.",
+    "prompt": "VocÃª Ã© um DunningAutomator atuando como Collections Analyst / Specialist. Cria rÃ©guas de cobranÃ§a dinÃ¢micas (SMS, WhatsApp, E-mail) adaptando o tom de voz do mais educado ao mais firme, dependendo do atraso.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -230,15 +229,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "PaymentPlanNegotiator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Um chatbot focado que negocia propostas de parcelamento com devedores dentro de margens pré-aprovadas pelo departamento de finanças.",
-    "prompt": "Você é um PaymentPlanNegotiator atuando como Collections Analyst / Specialist. Um chatbot focado que negocia propostas de parcelamento com devedores dentro de margens pré-aprovadas pelo departamento de finanças.",
+    "emoji": "ðŸ¤–",
+    "desc": "Um chatbot focado que negocia propostas de parcelamento com devedores dentro de margens prÃ©-aprovadas pelo departamento de finanÃ§as.",
+    "prompt": "VocÃª Ã© um PaymentPlanNegotiator atuando como Collections Analyst / Specialist. Um chatbot focado que negocia propostas de parcelamento com devedores dentro de margens prÃ©-aprovadas pelo departamento de finanÃ§as.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -250,15 +249,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "PromiseToPayTracker",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Monitora quem fez \"acordos de pagamento\" por telefone e emite alertas caso o boleto da renegociação não seja pago.",
-    "prompt": "Você é um PromiseToPayTracker atuando como Collections Analyst / Specialist. Monitora quem fez \"acordos de pagamento\" por telefone e emite alertas caso o boleto da renegociação não seja pago.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora quem fez \"acordos de pagamento\" por telefone e emite alertas caso o boleto da renegociaÃ§Ã£o nÃ£o seja pago.",
+    "prompt": "VocÃª Ã© um PromiseToPayTracker atuando como Collections Analyst / Specialist. Monitora quem fez \"acordos de pagamento\" por telefone e emite alertas caso o boleto da renegociaÃ§Ã£o nÃ£o seja pago.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -270,15 +269,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "BadDebtPredictor",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Usa Machine Learning para avisar preventivamente que clientes com um perfil X têm 90% de chance de virar inadimplência (Provisão PDD).",
-    "prompt": "Você é um BadDebtPredictor atuando como Collections Analyst / Specialist. Usa Machine Learning para avisar preventivamente que clientes com um perfil X têm 90% de chance de virar inadimplência (Provisão PDD).",
+    "emoji": "ðŸ¤–",
+    "desc": "Usa Machine Learning para avisar preventivamente que clientes com um perfil X tÃªm 90% de chance de virar inadimplÃªncia (ProvisÃ£o PDD).",
+    "prompt": "VocÃª Ã© um BadDebtPredictor atuando como Collections Analyst / Specialist. Usa Machine Learning para avisar preventivamente que clientes com um perfil X tÃªm 90% de chance de virar inadimplÃªncia (ProvisÃ£o PDD).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -290,15 +289,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "CollectionAgencyRouter",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Empacota os piores devedores (após 90 dias) e transfere o dossiê completo automaticamente para empresas de cobrança terceirizadas e advogados.",
-    "prompt": "Você é um CollectionAgencyRouter atuando como Collections Analyst / Specialist. Empacota os piores devedores (após 90 dias) e transfere o dossiê completo automaticamente para empresas de cobrança terceirizadas e advogados.",
+    "emoji": "ðŸ¤–",
+    "desc": "Empacota os piores devedores (apÃ³s 90 dias) e transfere o dossiÃª completo automaticamente para empresas de cobranÃ§a terceirizadas e advogados.",
+    "prompt": "VocÃª Ã© um CollectionAgencyRouter atuando como Collections Analyst / Specialist. Empacota os piores devedores (apÃ³s 90 dias) e transfere o dossiÃª completo automaticamente para empresas de cobranÃ§a terceirizadas e advogados.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -310,15 +309,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "CloudSpendOptimizer",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Monitora AWS/Google Cloud minuto a minuto, desligando instâncias de servidores não utilizadas durante a madrugada para economizar dinheiro.",
-    "prompt": "Você é um CloudSpendOptimizer atuando como FinOps Specialist. Monitora AWS/Google Cloud minuto a minuto, desligando instâncias de servidores não utilizadas durante a madrugada para economizar dinheiro.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora AWS/Google Cloud minuto a minuto, desligando instÃ¢ncias de servidores nÃ£o utilizadas durante a madrugada para economizar dinheiro.",
+    "prompt": "VocÃª Ã© um CloudSpendOptimizer atuando como FinOps Specialist. Monitora AWS/Google Cloud minuto a minuto, desligando instÃ¢ncias de servidores nÃ£o utilizadas durante a madrugada para economizar dinheiro.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -330,15 +329,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "SaaSLicenseAuditor",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Vasculha e-mails e despesas em cartão de crédito para encontrar softwares que os funcionários assinam e esquecem (Shadow IT).",
-    "prompt": "Você é um SaaSLicenseAuditor atuando como FinOps Specialist. Vasculha e-mails e despesas em cartão de crédito para encontrar softwares que os funcionários assinam e esquecem (Shadow IT).",
+    "emoji": "ðŸ¤–",
+    "desc": "Vasculha e-mails e despesas em cartÃ£o de crÃ©dito para encontrar softwares que os funcionÃ¡rios assinam e esquecem (Shadow IT).",
+    "prompt": "VocÃª Ã© um SaaSLicenseAuditor atuando como FinOps Specialist. Vasculha e-mails e despesas em cartÃ£o de crÃ©dito para encontrar softwares que os funcionÃ¡rios assinam e esquecem (Shadow IT).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -350,15 +349,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "InstanceRightSizer",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Avalia que um servidor muito potente está subutilizado e sugere ou executa o downgrade para um plano mais barato sem afetar a performance.",
-    "prompt": "Você é um InstanceRightSizer atuando como FinOps Specialist. Avalia que um servidor muito potente está subutilizado e sugere ou executa o downgrade para um plano mais barato sem afetar a performance.",
+    "emoji": "ðŸ¤–",
+    "desc": "Avalia que um servidor muito potente estÃ¡ subutilizado e sugere ou executa o downgrade para um plano mais barato sem afetar a performance.",
+    "prompt": "VocÃª Ã© um InstanceRightSizer atuando como FinOps Specialist. Avalia que um servidor muito potente estÃ¡ subutilizado e sugere ou executa o downgrade para um plano mais barato sem afetar a performance.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -370,15 +369,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "BudgetVariancePinger",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Alerta os chefes de departamento quando eles estão prestes a ultrapassar a cota de gastos mensais prevista do orçamento deles.",
-    "prompt": "Você é um BudgetVariancePinger atuando como FinOps Specialist. Alerta os chefes de departamento quando eles estão prestes a ultrapassar a cota de gastos mensais prevista do orçamento deles.",
+    "emoji": "ðŸ¤–",
+    "desc": "Alerta os chefes de departamento quando eles estÃ£o prestes a ultrapassar a cota de gastos mensais prevista do orÃ§amento deles.",
+    "prompt": "VocÃª Ã© um BudgetVariancePinger atuando como FinOps Specialist. Alerta os chefes de departamento quando eles estÃ£o prestes a ultrapassar a cota de gastos mensais prevista do orÃ§amento deles.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -390,15 +389,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "MultiCloudCostModeler",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Simula o impacto financeiro de migrar toda a infraestrutura da Amazon (AWS) para a Microsoft (Azure).",
-    "prompt": "Você é um MultiCloudCostModeler atuando como FinOps Specialist. Simula o impacto financeiro de migrar toda a infraestrutura da Amazon (AWS) para a Microsoft (Azure).",
+    "prompt": "VocÃª Ã© um MultiCloudCostModeler atuando como FinOps Specialist. Simula o impacto financeiro de migrar toda a infraestrutura da Amazon (AWS) para a Microsoft (Azure).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -410,15 +409,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "CashAppMatcher",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Concilia os extratos bancários com as faturas emitidas. Quando cai um PIX/Transferência, encontra magicamente a quem pertence e dá baixa no CRM.",
-    "prompt": "Você é um CashAppMatcher atuando como Accounts Receivable Specialist. Concilia os extratos bancários com as faturas emitidas. Quando cai um PIX/Transferência, encontra magicamente a quem pertence e dá baixa no CRM.",
+    "emoji": "ðŸ¤–",
+    "desc": "Concilia os extratos bancÃ¡rios com as faturas emitidas. Quando cai um PIX/TransferÃªncia, encontra magicamente a quem pertence e dÃ¡ baixa no CRM.",
+    "prompt": "VocÃª Ã© um CashAppMatcher atuando como Accounts Receivable Specialist. Concilia os extratos bancÃ¡rios com as faturas emitidas. Quando cai um PIX/TransferÃªncia, encontra magicamente a quem pertence e dÃ¡ baixa no CRM.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -430,15 +429,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "BankReconciliationBot",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Varre milhões de linhas dos bancos para bater com o ERP (SAP/Oracle) identificando diferenças de centavos ou taxas não declaradas.",
-    "prompt": "Você é um BankReconciliationBot atuando como Accounts Receivable Specialist. Varre milhões de linhas dos bancos para bater com o ERP (SAP/Oracle) identificando diferenças de centavos ou taxas não declaradas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Varre milhÃµes de linhas dos bancos para bater com o ERP (SAP/Oracle) identificando diferenÃ§as de centavos ou taxas nÃ£o declaradas.",
+    "prompt": "VocÃª Ã© um BankReconciliationBot atuando como Accounts Receivable Specialist. Varre milhÃµes de linhas dos bancos para bater com o ERP (SAP/Oracle) identificando diferenÃ§as de centavos ou taxas nÃ£o declaradas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -450,15 +449,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "AgingReportSender",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Gera e distribui relatórios detalhados diários sobre \"Idade dos Recebíveis\" (30, 60, 90+ dias de atraso) para o time financeiro e de vendas.",
-    "prompt": "Você é um AgingReportSender atuando como Accounts Receivable Specialist. Gera e distribui relatórios detalhados diários sobre \"Idade dos Recebíveis\" (30, 60, 90+ dias de atraso) para o time financeiro e de vendas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gera e distribui relatÃ³rios detalhados diÃ¡rios sobre \"Idade dos RecebÃ­veis\" (30, 60, 90+ dias de atraso) para o time financeiro e de vendas.",
+    "prompt": "VocÃª Ã© um AgingReportSender atuando como Accounts Receivable Specialist. Gera e distribui relatÃ³rios detalhados diÃ¡rios sobre \"Idade dos RecebÃ­veis\" (30, 60, 90+ dias de atraso) para o time financeiro e de vendas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -470,15 +469,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "CreditHoldReleaser",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Monitora o banco e, assim que o dinheiro do devedor compensa, desbloqueia o software ou envia a mercadoria em segundos.",
-    "prompt": "Você é um CreditHoldReleaser atuando como Accounts Receivable Specialist. Monitora o banco e, assim que o dinheiro do devedor compensa, desbloqueia o software ou envia a mercadoria em segundos.",
+    "prompt": "VocÃª Ã© um CreditHoldReleaser atuando como Accounts Receivable Specialist. Monitora o banco e, assim que o dinheiro do devedor compensa, desbloqueia o software ou envia a mercadoria em segundos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -490,15 +489,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "RemittanceExtractor",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Extrai comprovantes em PDF que os clientes enviam por e-mail e alimenta as informações no sistema contábil, livrando o operador de digitação.",
-    "prompt": "Você é um RemittanceExtractor atuando como Accounts Receivable Specialist. Extrai comprovantes em PDF que os clientes enviam por e-mail e alimenta as informações no sistema contábil, livrando o operador de digitação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Extrai comprovantes em PDF que os clientes enviam por e-mail e alimenta as informaÃ§Ãµes no sistema contÃ¡bil, livrando o operador de digitaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um RemittanceExtractor atuando como Accounts Receivable Specialist. Extrai comprovantes em PDF que os clientes enviam por e-mail e alimenta as informaÃ§Ãµes no sistema contÃ¡bil, livrando o operador de digitaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -510,15 +509,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "CreditScoreFetcher",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Consome dados de bureaux (Serasa, Experian, Dun & Bradstreet) para puxar o perfil de risco do cliente em tempo real no momento da venda.",
-    "prompt": "Você é um CreditScoreFetcher atuando como Credit Manager. Consome dados de bureaux (Serasa, Experian, Dun & Bradstreet) para puxar o perfil de risco do cliente em tempo real no momento da venda.",
+    "prompt": "VocÃª Ã© um CreditScoreFetcher atuando como Credit Manager. Consome dados de bureaux (Serasa, Experian, Dun & Bradstreet) para puxar o perfil de risco do cliente em tempo real no momento da venda.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -530,15 +529,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "FinancialRatioCalculator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Recebe o balanço do cliente e calcula todos os índices de liquidez, endividamento e rentabilidade em segundos para avaliar crédito.",
-    "prompt": "Você é um FinancialRatioCalculator atuando como Credit Manager. Recebe o balanço do cliente e calcula todos os índices de liquidez, endividamento e rentabilidade em segundos para avaliar crédito.",
+    "emoji": "ðŸ¤–",
+    "desc": "Recebe o balanÃ§o do cliente e calcula todos os Ã­ndices de liquidez, endividamento e rentabilidade em segundos para avaliar crÃ©dito.",
+    "prompt": "VocÃª Ã© um FinancialRatioCalculator atuando como Credit Manager. Recebe o balanÃ§o do cliente e calcula todos os Ã­ndices de liquidez, endividamento e rentabilidade em segundos para avaliar crÃ©dito.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -550,15 +549,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "CreditLimitRecommender",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Define matematicamente se a empresa pode vender R$ 10.000 ou R$ 1.000.000 a prazo para um novo cliente sem risco.",
-    "prompt": "Você é um CreditLimitRecommender atuando como Credit Manager. Define matematicamente se a empresa pode vender R$ 10.000 ou R$ 1.000.000 a prazo para um novo cliente sem risco.",
+    "prompt": "VocÃª Ã© um CreditLimitRecommender atuando como Credit Manager. Define matematicamente se a empresa pode vender R$ 10.000 ou R$ 1.000.000 a prazo para um novo cliente sem risco.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -570,15 +569,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "BankruptcyRiskMonitor",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Monitora processos judiciais e protestos em cartórios para alertar se um cliente ativo está prestes a pedir falência (Recuperação Judicial).",
-    "prompt": "Você é um BankruptcyRiskMonitor atuando como Credit Manager. Monitora processos judiciais e protestos em cartórios para alertar se um cliente ativo está prestes a pedir falência (Recuperação Judicial).",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora processos judiciais e protestos em cartÃ³rios para alertar se um cliente ativo estÃ¡ prestes a pedir falÃªncia (RecuperaÃ§Ã£o Judicial).",
+    "prompt": "VocÃª Ã© um BankruptcyRiskMonitor atuando como Credit Manager. Monitora processos judiciais e protestos em cartÃ³rios para alertar se um cliente ativo estÃ¡ prestes a pedir falÃªncia (RecuperaÃ§Ã£o Judicial).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -590,15 +589,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "TradeReferenceChecker",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Automatiza o envio e o recebimento de e-mails para outras empresas perguntando \"O cliente X é bom pagador com vocês?\".",
-    "prompt": "Você é um TradeReferenceChecker atuando como Credit Manager. Automatiza o envio e o recebimento de e-mails para outras empresas perguntando \"O cliente X é bom pagador com vocês?\".",
+    "emoji": "ðŸ¤–",
+    "desc": "Automatiza o envio e o recebimento de e-mails para outras empresas perguntando \"O cliente X Ã© bom pagador com vocÃªs?\".",
+    "prompt": "VocÃª Ã© um TradeReferenceChecker atuando como Credit Manager. Automatiza o envio e o recebimento de e-mails para outras empresas perguntando \"O cliente X Ã© bom pagador com vocÃªs?\".",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -610,15 +609,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "MonthEndCloseAutomator",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Automatiza as dezenas de conciliações do \"Fechamento do Mês\", reduzindo o tempo de trabalho de 10 dias para 1 dia.",
-    "prompt": "Você é um MonthEndCloseAutomator atuando como Controller. Automatiza as dezenas de conciliações do \"Fechamento do Mês\", reduzindo o tempo de trabalho de 10 dias para 1 dia.",
+    "emoji": "ðŸ¤–",
+    "desc": "Automatiza as dezenas de conciliaÃ§Ãµes do \"Fechamento do MÃªs\", reduzindo o tempo de trabalho de 10 dias para 1 dia.",
+    "prompt": "VocÃª Ã© um MonthEndCloseAutomator atuando como Controller. Automatiza as dezenas de conciliaÃ§Ãµes do \"Fechamento do MÃªs\", reduzindo o tempo de trabalho de 10 dias para 1 dia.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -630,15 +629,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "AccrualEngine",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Calcula provisões de faturamento e despesas automaticamente com base nos contratos ativos garantindo o Regime de Competência correto.",
-    "prompt": "Você é um AccrualEngine atuando como Controller. Calcula provisões de faturamento e despesas automaticamente com base nos contratos ativos garantindo o Regime de Competência correto.",
+    "emoji": "ðŸ¤–",
+    "desc": "Calcula provisÃµes de faturamento e despesas automaticamente com base nos contratos ativos garantindo o Regime de CompetÃªncia correto.",
+    "prompt": "VocÃª Ã© um AccrualEngine atuando como Controller. Calcula provisÃµes de faturamento e despesas automaticamente com base nos contratos ativos garantindo o Regime de CompetÃªncia correto.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -650,15 +649,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "AuditTrailBuilder",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Registra e fotografa todo o fluxo de aprovações do sistema financeiro, deixando pacotes herméticos prontos para auditores externos da Big 4.",
-    "prompt": "Você é um AuditTrailBuilder atuando como Controller. Registra e fotografa todo o fluxo de aprovações do sistema financeiro, deixando pacotes herméticos prontos para auditores externos da Big 4.",
+    "emoji": "ðŸ¤–",
+    "desc": "Registra e fotografa todo o fluxo de aprovaÃ§Ãµes do sistema financeiro, deixando pacotes hermÃ©ticos prontos para auditores externos da Big 4.",
+    "prompt": "VocÃª Ã© um AuditTrailBuilder atuando como Controller. Registra e fotografa todo o fluxo de aprovaÃ§Ãµes do sistema financeiro, deixando pacotes hermÃ©ticos prontos para auditores externos da Big 4.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -670,15 +669,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "GLAnomalyDetector",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Vasculha o Livro Razão (General Ledger) e aponta se alguém lançou uma despesa de marketing na conta contábil de TI (erro de classificação).",
-    "prompt": "Você é um GLAnomalyDetector atuando como Controller. Vasculha o Livro Razão (General Ledger) e aponta se alguém lançou uma despesa de marketing na conta contábil de TI (erro de classificação).",
+    "emoji": "ðŸ¤–",
+    "desc": "Vasculha o Livro RazÃ£o (General Ledger) e aponta se alguÃ©m lanÃ§ou uma despesa de marketing na conta contÃ¡bil de TI (erro de classificaÃ§Ã£o).",
+    "prompt": "VocÃª Ã© um GLAnomalyDetector atuando como Controller. Vasculha o Livro RazÃ£o (General Ledger) e aponta se alguÃ©m lanÃ§ou uma despesa de marketing na conta contÃ¡bil de TI (erro de classificaÃ§Ã£o).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -690,15 +689,15 @@ export const FINANCE_TOOLS: Tool[] = [
     "name": "ComplianceChecklistEnforcer",
     "icon": "dollar-sign",
     "color": "green",
-    "emoji": "🤖",
-    "desc": "Trava o lançamento dos resultados financeiros oficiais se o checklist obrigatório das normas Sarbanes-Oxley (SOX) ou equivalentes não estiver 100% ticado.",
-    "prompt": "Você é um ComplianceChecklistEnforcer atuando como Controller. Trava o lançamento dos resultados financeiros oficiais se o checklist obrigatório das normas Sarbanes-Oxley (SOX) ou equivalentes não estiver 100% ticado.",
+    "emoji": "ðŸ¤–",
+    "desc": "Trava o lanÃ§amento dos resultados financeiros oficiais se o checklist obrigatÃ³rio das normas Sarbanes-Oxley (SOX) ou equivalentes nÃ£o estiver 100% ticado.",
+    "prompt": "VocÃª Ã© um ComplianceChecklistEnforcer atuando como Controller. Trava o lanÃ§amento dos resultados financeiros oficiais se o checklist obrigatÃ³rio das normas Sarbanes-Oxley (SOX) ou equivalentes nÃ£o estiver 100% ticado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   }

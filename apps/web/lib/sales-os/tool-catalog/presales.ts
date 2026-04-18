@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types.js";
 
 export const PRESALES_TOOLS: Tool[] = [
   {
@@ -10,15 +9,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "InboundScorer",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Avalia leads que chegam pelo site em segundos e roteia os mais quentes direto para o telefone, ignorando curiosos.",
-    "prompt": "Você é um InboundScorer atuando como SDR (Sales Development Representative). Avalia leads que chegam pelo site em segundos e roteia os mais quentes direto para o telefone, ignorando curiosos.",
+    "prompt": "VocÃª Ã© um InboundScorer atuando como SDR (Sales Development Representative). Avalia leads que chegam pelo site em segundos e roteia os mais quentes direto para o telefone, ignorando curiosos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -30,15 +29,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "PredictiveLeadScoring",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Gera uma leitura curta do potencial de conversão, urgência comercial e próximo passo ideal para cada lead.",
-    "prompt": "Você é um PredictiveLeadScoring atuando como SDR estratégico. Analise rapidamente o contexto do lead, estime o potencial de conversão, destaque o principal risco de SLA e recomende o próximo passo comercial mais objetivo.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gera uma leitura curta do potencial de conversÃ£o, urgÃªncia comercial e prÃ³ximo passo ideal para cada lead.",
+    "prompt": "VocÃª Ã© um PredictiveLeadScoring atuando como SDR estratÃ©gico. Analise rapidamente o contexto do lead, estime o potencial de conversÃ£o, destaque o principal risco de SLA e recomende o prÃ³ximo passo comercial mais objetivo.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -50,15 +49,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "ObjectionCrusher",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Sugere respostas perfeitas (em texto ou voz) em tempo real enquanto o SDR tenta agendar a reunião com um lead difícil.",
-    "prompt": "Você é um ObjectionCrusher atuando como SDR (Sales Development Representative). Sugere respostas perfeitas (em texto ou voz) em tempo real enquanto o SDR tenta agendar a reunião com um lead difícil.",
+    "emoji": "ðŸ¤–",
+    "desc": "Sugere respostas perfeitas (em texto ou voz) em tempo real enquanto o SDR tenta agendar a reuniÃ£o com um lead difÃ­cil.",
+    "prompt": "VocÃª Ã© um ObjectionCrusher atuando como SDR (Sales Development Representative). Sugere respostas perfeitas (em texto ou voz) em tempo real enquanto o SDR tenta agendar a reuniÃ£o com um lead difÃ­cil.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -70,15 +69,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "PersonalizationEngine",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Varre as redes sociais do lead e gera e-mails de prospecção altamente personalizados focados nos interesses e dores recentes dele.",
-    "prompt": "Você é um PersonalizationEngine atuando como SDR (Sales Development Representative). Varre as redes sociais do lead e gera e-mails de prospecção altamente personalizados focados nos interesses e dores recentes dele.",
+    "emoji": "ðŸ¤–",
+    "desc": "Varre as redes sociais do lead e gera e-mails de prospecÃ§Ã£o altamente personalizados focados nos interesses e dores recentes dele.",
+    "prompt": "VocÃª Ã© um PersonalizationEngine atuando como SDR (Sales Development Representative). Varre as redes sociais do lead e gera e-mails de prospecÃ§Ã£o altamente personalizados focados nos interesses e dores recentes dele.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -90,15 +89,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "FollowUpGhost",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Mantém cadências de acompanhamento infinitas e humanizadas até que o lead responda, parando automaticamente em respostas positivas/negativas.",
-    "prompt": "Você é um FollowUpGhost atuando como SDR (Sales Development Representative). Mantém cadências de acompanhamento infinitas e humanizadas até que o lead responda, parando automaticamente em respostas positivas/negativas.",
+    "emoji": "ðŸ¤–",
+    "desc": "MantÃ©m cadÃªncias de acompanhamento infinitas e humanizadas atÃ© que o lead responda, parando automaticamente em respostas positivas/negativas.",
+    "prompt": "VocÃª Ã© um FollowUpGhost atuando como SDR (Sales Development Representative). MantÃ©m cadÃªncias de acompanhamento infinitas e humanizadas atÃ© que o lead responda, parando automaticamente em respostas positivas/negativas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -110,15 +109,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "CalendarSniper",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Negocia horários de reunião com o lead via e-mail e envia o convite de calendário sem a intervenção do SDR.",
-    "prompt": "Você é um CalendarSniper atuando como SDR (Sales Development Representative). Negocia horários de reunião com o lead via e-mail e envia o convite de calendário sem a intervenção do SDR.",
+    "emoji": "ðŸ¤–",
+    "desc": "Negocia horÃ¡rios de reuniÃ£o com o lead via e-mail e envia o convite de calendÃ¡rio sem a intervenÃ§Ã£o do SDR.",
+    "prompt": "VocÃª Ã© um CalendarSniper atuando como SDR (Sales Development Representative). Negocia horÃ¡rios de reuniÃ£o com o lead via e-mail e envia o convite de calendÃ¡rio sem a intervenÃ§Ã£o do SDR.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -130,15 +129,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "TargetScraper",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Varre diretórios corporativos e LinkedIn para encontrar os tomadores de decisão exatos dentro de contas-alvo específicas (Outbound puro).",
-    "prompt": "Você é um TargetScraper atuando como BDR (Business Development Representative). Varre diretórios corporativos e LinkedIn para encontrar os tomadores de decisão exatos dentro de contas-alvo específicas (Outbound puro).",
+    "emoji": "ðŸ¤–",
+    "desc": "Varre diretÃ³rios corporativos e LinkedIn para encontrar os tomadores de decisÃ£o exatos dentro de contas-alvo especÃ­ficas (Outbound puro).",
+    "prompt": "VocÃª Ã© um TargetScraper atuando como BDR (Business Development Representative). Varre diretÃ³rios corporativos e LinkedIn para encontrar os tomadores de decisÃ£o exatos dentro de contas-alvo especÃ­ficas (Outbound puro).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -150,15 +149,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "ColdCallScripter",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Gera roteiros de ligação fria dinâmicos que mudam na tela do BDR dependendo das respostas do prospect.",
-    "prompt": "Você é um ColdCallScripter atuando como BDR (Business Development Representative). Gera roteiros de ligação fria dinâmicos que mudam na tela do BDR dependendo das respostas do prospect.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gera roteiros de ligaÃ§Ã£o fria dinÃ¢micos que mudam na tela do BDR dependendo das respostas do prospect.",
+    "prompt": "VocÃª Ã© um ColdCallScripter atuando como BDR (Business Development Representative). Gera roteiros de ligaÃ§Ã£o fria dinÃ¢micos que mudam na tela do BDR dependendo das respostas do prospect.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -170,15 +169,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "TriggerEventWatcher",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Alerta o BDR imediatamente se uma conta-alvo recebe investimento, contrata um novo executivo ou lança um produto.",
-    "prompt": "Você é um TriggerEventWatcher atuando como BDR (Business Development Representative). Alerta o BDR imediatamente se uma conta-alvo recebe investimento, contrata um novo executivo ou lança um produto.",
+    "emoji": "ðŸ¤–",
+    "desc": "Alerta o BDR imediatamente se uma conta-alvo recebe investimento, contrata um novo executivo ou lanÃ§a um produto.",
+    "prompt": "VocÃª Ã© um TriggerEventWatcher atuando como BDR (Business Development Representative). Alerta o BDR imediatamente se uma conta-alvo recebe investimento, contrata um novo executivo ou lanÃ§a um produto.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -190,15 +189,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "AccountMapper",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Cria o organograma de empresas-alvo grandes, identificando quem são os influenciadores, bloqueadores e compradores.",
-    "prompt": "Você é um AccountMapper atuando como BDR (Business Development Representative). Cria o organograma de empresas-alvo grandes, identificando quem são os influenciadores, bloqueadores e compradores.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria o organograma de empresas-alvo grandes, identificando quem sÃ£o os influenciadores, bloqueadores e compradores.",
+    "prompt": "VocÃª Ã© um AccountMapper atuando como BDR (Business Development Representative). Cria o organograma de empresas-alvo grandes, identificando quem sÃ£o os influenciadores, bloqueadores e compradores.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -210,15 +209,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "VoicemailDropper",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Deixa mensagens de voz perfeitamente sintetizadas com o tom de voz do BDR caso a ligação caia na caixa postal.",
-    "prompt": "Você é um VoicemailDropper atuando como BDR (Business Development Representative). Deixa mensagens de voz perfeitamente sintetizadas com o tom de voz do BDR caso a ligação caia na caixa postal.",
+    "emoji": "ðŸ¤–",
+    "desc": "Deixa mensagens de voz perfeitamente sintetizadas com o tom de voz do BDR caso a ligaÃ§Ã£o caia na caixa postal.",
+    "prompt": "VocÃª Ã© um VoicemailDropper atuando como BDR (Business Development Representative). Deixa mensagens de voz perfeitamente sintetizadas com o tom de voz do BDR caso a ligaÃ§Ã£o caia na caixa postal.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -230,15 +229,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "DataCleaner",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Corrige automaticamente nomes com erros de digitação, atualiza cargos desatualizados e formata números de telefone no CRM.",
-    "prompt": "Você é um DataCleaner atuando como LDR (Lead Development Representative). Corrige automaticamente nomes com erros de digitação, atualiza cargos desatualizados e formata números de telefone no CRM.",
+    "emoji": "ðŸ¤–",
+    "desc": "Corrige automaticamente nomes com erros de digitaÃ§Ã£o, atualiza cargos desatualizados e formata nÃºmeros de telefone no CRM.",
+    "prompt": "VocÃª Ã© um DataCleaner atuando como LDR (Lead Development Representative). Corrige automaticamente nomes com erros de digitaÃ§Ã£o, atualiza cargos desatualizados e formata nÃºmeros de telefone no CRM.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -250,15 +249,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "IntentDecoder",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Lê sinais de intenção de compra de provedores de dados terceirizados (ex: Bombora) e alerta quais empresas estão pesquisando sobre seu setor.",
-    "prompt": "Você é um IntentDecoder atuando como LDR (Lead Development Representative). Lê sinais de intenção de compra de provedores de dados terceirizados (ex: Bombora) e alerta quais empresas estão pesquisando sobre seu setor.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª sinais de intenÃ§Ã£o de compra de provedores de dados terceirizados (ex: Bombora) e alerta quais empresas estÃ£o pesquisando sobre seu setor.",
+    "prompt": "VocÃª Ã© um IntentDecoder atuando como LDR (Lead Development Representative). LÃª sinais de intenÃ§Ã£o de compra de provedores de dados terceirizados (ex: Bombora) e alerta quais empresas estÃ£o pesquisando sobre seu setor.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -270,15 +269,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "WebinarNurturer",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Entra em contato automaticamente com quem participou de um evento, enviando materiais extras e qualificando-os.",
-    "prompt": "Você é um WebinarNurturer atuando como LDR (Lead Development Representative). Entra em contato automaticamente com quem participou de um evento, enviando materiais extras e qualificando-os.",
+    "prompt": "VocÃª Ã© um WebinarNurturer atuando como LDR (Lead Development Representative). Entra em contato automaticamente com quem participou de um evento, enviando materiais extras e qualificando-os.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -290,15 +289,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "EnrichmentBot",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Pega um simples endereço de e-mail e enriquece o CRM com o tamanho da empresa, faturamento estimado, stack de tecnologia e localização.",
-    "prompt": "Você é um EnrichmentBot atuando como LDR (Lead Development Representative). Pega um simples endereço de e-mail e enriquece o CRM com o tamanho da empresa, faturamento estimado, stack de tecnologia e localização.",
+    "emoji": "ðŸ¤–",
+    "desc": "Pega um simples endereÃ§o de e-mail e enriquece o CRM com o tamanho da empresa, faturamento estimado, stack de tecnologia e localizaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um EnrichmentBot atuando como LDR (Lead Development Representative). Pega um simples endereÃ§o de e-mail e enriquece o CRM com o tamanho da empresa, faturamento estimado, stack de tecnologia e localizaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -310,15 +309,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "RoutingTrafficCop",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Garante que leads de campanhas de marketing não sejam distribuídos para o SDR errado com base em território, fuso horário ou especialização.",
-    "prompt": "Você é um RoutingTrafficCop atuando como LDR (Lead Development Representative). Garante que leads de campanhas de marketing não sejam distribuídos para o SDR errado com base em território, fuso horário ou especialização.",
+    "emoji": "ðŸ¤–",
+    "desc": "Garante que leads de campanhas de marketing nÃ£o sejam distribuÃ­dos para o SDR errado com base em territÃ³rio, fuso horÃ¡rio ou especializaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um RoutingTrafficCop atuando como LDR (Lead Development Representative). Garante que leads de campanhas de marketing nÃ£o sejam distribuÃ­dos para o SDR errado com base em territÃ³rio, fuso horÃ¡rio ou especializaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -330,15 +329,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "MultiThreader",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Inicia conversas simultâneas e correlacionadas com vários executivos da mesma conta para cercar a empresa (Account-Based Marketing/Sales).",
-    "prompt": "Você é um MultiThreader atuando como ADR (Account Development Representative). Inicia conversas simultâneas e correlacionadas com vários executivos da mesma conta para cercar a empresa (Account-Based Marketing/Sales).",
+    "emoji": "ðŸ¤–",
+    "desc": "Inicia conversas simultÃ¢neas e correlacionadas com vÃ¡rios executivos da mesma conta para cercar a empresa (Account-Based Marketing/Sales).",
+    "prompt": "VocÃª Ã© um MultiThreader atuando como ADR (Account Development Representative). Inicia conversas simultÃ¢neas e correlacionadas com vÃ¡rios executivos da mesma conta para cercar a empresa (Account-Based Marketing/Sales).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -350,15 +349,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "AnnualReportAnalyzer",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Lê relatórios anuais (10-K) de grandes empresas abertas e extrai quais são as iniciativas estratégicas para o ADR usar no pitch.",
-    "prompt": "Você é um AnnualReportAnalyzer atuando como ADR (Account Development Representative). Lê relatórios anuais (10-K) de grandes empresas abertas e extrai quais são as iniciativas estratégicas para o ADR usar no pitch.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª relatÃ³rios anuais (10-K) de grandes empresas abertas e extrai quais sÃ£o as iniciativas estratÃ©gicas para o ADR usar no pitch.",
+    "prompt": "VocÃª Ã© um AnnualReportAnalyzer atuando como ADR (Account Development Representative). LÃª relatÃ³rios anuais (10-K) de grandes empresas abertas e extrai quais sÃ£o as iniciativas estratÃ©gicas para o ADR usar no pitch.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -370,15 +369,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "CompetitorDisplacement",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Identifica quando uma conta-alvo está usando o software concorrente e cujo contrato está prestes a expirar.",
-    "prompt": "Você é um CompetitorDisplacement atuando como ADR (Account Development Representative). Identifica quando uma conta-alvo está usando o software concorrente e cujo contrato está prestes a expirar.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica quando uma conta-alvo estÃ¡ usando o software concorrente e cujo contrato estÃ¡ prestes a expirar.",
+    "prompt": "VocÃª Ã© um CompetitorDisplacement atuando como ADR (Account Development Representative). Identifica quando uma conta-alvo estÃ¡ usando o software concorrente e cujo contrato estÃ¡ prestes a expirar.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -390,15 +389,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "GatekeeperBypass",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Analisa os melhores horários e canais para desviar de assistentes e secretárias, chegando direto ao tomador de decisão.",
-    "prompt": "Você é um GatekeeperBypass atuando como ADR (Account Development Representative). Analisa os melhores horários e canais para desviar de assistentes e secretárias, chegando direto ao tomador de decisão.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa os melhores horÃ¡rios e canais para desviar de assistentes e secretÃ¡rias, chegando direto ao tomador de decisÃ£o.",
+    "prompt": "VocÃª Ã© um GatekeeperBypass atuando como ADR (Account Development Representative). Analisa os melhores horÃ¡rios e canais para desviar de assistentes e secretÃ¡rias, chegando direto ao tomador de decisÃ£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -410,15 +409,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "StakeholderPersonaGenerator",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Cria perfis psicológicos dos executivos-alvo para orientar o ADR sobre que tipo de argumento usar com cada um.",
-    "prompt": "Você é um StakeholderPersonaGenerator atuando como ADR (Account Development Representative). Cria perfis psicológicos dos executivos-alvo para orientar o ADR sobre que tipo de argumento usar com cada um.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria perfis psicolÃ³gicos dos executivos-alvo para orientar o ADR sobre que tipo de argumento usar com cada um.",
+    "prompt": "VocÃª Ã© um StakeholderPersonaGenerator atuando como ADR (Account Development Representative). Cria perfis psicolÃ³gicos dos executivos-alvo para orientar o ADR sobre que tipo de argumento usar com cada um.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -430,15 +429,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "NicheExplorer",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Encontra micro-segmentos de mercado inexplorados e gera listas de prospecção altamente nichadas.",
-    "prompt": "Você é um NicheExplorer atuando como MDR (Market Development Representative). Encontra micro-segmentos de mercado inexplorados e gera listas de prospecção altamente nichadas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Encontra micro-segmentos de mercado inexplorados e gera listas de prospecÃ§Ã£o altamente nichadas.",
+    "prompt": "VocÃª Ã© um NicheExplorer atuando como MDR (Market Development Representative). Encontra micro-segmentos de mercado inexplorados e gera listas de prospecÃ§Ã£o altamente nichadas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -450,15 +449,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "PartnerEcosystemScout",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Identifica leads que usam ferramentas parceiras da sua empresa para focar em abordagens do tipo \"Melhor Juntos\" (Better Together).",
-    "prompt": "Você é um PartnerEcosystemScout atuando como MDR (Market Development Representative). Identifica leads que usam ferramentas parceiras da sua empresa para focar em abordagens do tipo \"Melhor Juntos\" (Better Together).",
+    "prompt": "VocÃª Ã© um PartnerEcosystemScout atuando como MDR (Market Development Representative). Identifica leads que usam ferramentas parceiras da sua empresa para focar em abordagens do tipo \"Melhor Juntos\" (Better Together).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -470,15 +469,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "ContentToLead",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Associa o último eBook ou Whitepaper que o lead baixou à dor de mercado exata dele, gerando o roteiro de ligação.",
-    "prompt": "Você é um ContentToLead atuando como MDR (Market Development Representative). Associa o último eBook ou Whitepaper que o lead baixou à dor de mercado exata dele, gerando o roteiro de ligação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Associa o Ãºltimo eBook ou Whitepaper que o lead baixou Ã  dor de mercado exata dele, gerando o roteiro de ligaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um ContentToLead atuando como MDR (Market Development Representative). Associa o Ãºltimo eBook ou Whitepaper que o lead baixou Ã  dor de mercado exata dele, gerando o roteiro de ligaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -490,15 +489,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "EventQualifier",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Escaneia crachás (digitalmente) ou listas de inscritos em eventos da indústria e qualifica instantaneamente quem deve ser abordado.",
-    "prompt": "Você é um EventQualifier atuando como MDR (Market Development Representative). Escaneia crachás (digitalmente) ou listas de inscritos em eventos da indústria e qualifica instantaneamente quem deve ser abordado.",
+    "emoji": "ðŸ¤–",
+    "desc": "Escaneia crachÃ¡s (digitalmente) ou listas de inscritos em eventos da indÃºstria e qualifica instantaneamente quem deve ser abordado.",
+    "prompt": "VocÃª Ã© um EventQualifier atuando como MDR (Market Development Representative). Escaneia crachÃ¡s (digitalmente) ou listas de inscritos em eventos da indÃºstria e qualifica instantaneamente quem deve ser abordado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -510,15 +509,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "VerticalTranslator",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Adapta a linguagem do MDR automaticamente. Se ele fala com uma clínica, usa termos médicos; se fala com uma fábrica, usa jargões industriais.",
-    "prompt": "Você é um VerticalTranslator atuando como MDR (Market Development Representative). Adapta a linguagem do MDR automaticamente. Se ele fala com uma clínica, usa termos médicos; se fala com uma fábrica, usa jargões industriais.",
+    "emoji": "ðŸ¤–",
+    "desc": "Adapta a linguagem do MDR automaticamente. Se ele fala com uma clÃ­nica, usa termos mÃ©dicos; se fala com uma fÃ¡brica, usa jargÃµes industriais.",
+    "prompt": "VocÃª Ã© um VerticalTranslator atuando como MDR (Market Development Representative). Adapta a linguagem do MDR automaticamente. Se ele fala com uma clÃ­nica, usa termos mÃ©dicos; se fala com uma fÃ¡brica, usa jargÃµes industriais.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -530,15 +529,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "ActivityAnalyzer",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Monitora o volume de ligações e e-mails de toda a equipe, alertando se algum representante está abaixo da métrica.",
-    "prompt": "Você é um ActivityAnalyzer atuando como Sales Development Team Lead. Monitora o volume de ligações e e-mails de toda a equipe, alertando se algum representante está abaixo da métrica.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora o volume de ligaÃ§Ãµes e e-mails de toda a equipe, alertando se algum representante estÃ¡ abaixo da mÃ©trica.",
+    "prompt": "VocÃª Ã© um ActivityAnalyzer atuando como Sales Development Team Lead. Monitora o volume de ligaÃ§Ãµes e e-mails de toda a equipe, alertando se algum representante estÃ¡ abaixo da mÃ©trica.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -550,15 +549,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "TranscriptCoach",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Lê as transcrições de 100% das chamadas e destaca as falhas de roteiro e oportunidades de treinamento para cada liderado.",
-    "prompt": "Você é um TranscriptCoach atuando como Sales Development Team Lead. Lê as transcrições de 100% das chamadas e destaca as falhas de roteiro e oportunidades de treinamento para cada liderado.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª as transcriÃ§Ãµes de 100% das chamadas e destaca as falhas de roteiro e oportunidades de treinamento para cada liderado.",
+    "prompt": "VocÃª Ã© um TranscriptCoach atuando como Sales Development Team Lead. LÃª as transcriÃ§Ãµes de 100% das chamadas e destaca as falhas de roteiro e oportunidades de treinamento para cada liderado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -570,15 +569,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "GamificationMaster",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Cria e gerencia competições de vendas dinâmicas (SPIFFs) baseadas nos KPIs que mais precisam melhorar na semana.",
-    "prompt": "Você é um GamificationMaster atuando como Sales Development Team Lead. Cria e gerencia competições de vendas dinâmicas (SPIFFs) baseadas nos KPIs que mais precisam melhorar na semana.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria e gerencia competiÃ§Ãµes de vendas dinÃ¢micas (SPIFFs) baseadas nos KPIs que mais precisam melhorar na semana.",
+    "prompt": "VocÃª Ã© um GamificationMaster atuando como Sales Development Team Lead. Cria e gerencia competiÃ§Ãµes de vendas dinÃ¢micas (SPIFFs) baseadas nos KPIs que mais precisam melhorar na semana.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -590,15 +589,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "RampUpAssistant",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Auxilia novos SDRs nos primeiros 30 dias, criando testes e simulações com clientes virtuais baseados em IA.",
-    "prompt": "Você é um RampUpAssistant atuando como Sales Development Team Lead. Auxilia novos SDRs nos primeiros 30 dias, criando testes e simulações com clientes virtuais baseados em IA.",
+    "emoji": "ðŸ¤–",
+    "desc": "Auxilia novos SDRs nos primeiros 30 dias, criando testes e simulaÃ§Ãµes com clientes virtuais baseados em IA.",
+    "prompt": "VocÃª Ã© um RampUpAssistant atuando como Sales Development Team Lead. Auxilia novos SDRs nos primeiros 30 dias, criando testes e simulaÃ§Ãµes com clientes virtuais baseados em IA.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -610,15 +609,15 @@ export const PRESALES_TOOLS: Tool[] = [
     "name": "ConversionForecaster",
     "icon": "target",
     "color": "emerald",
-    "emoji": "🤖",
-    "desc": "Prevê quantas reuniões a equipe vai agendar na semana baseando-se na taxa de abertura de e-mails de hoje.",
-    "prompt": "Você é um ConversionForecaster atuando como Sales Development Team Lead. Prevê quantas reuniões a equipe vai agendar na semana baseando-se na taxa de abertura de e-mails de hoje.",
+    "emoji": "ðŸ¤–",
+    "desc": "PrevÃª quantas reuniÃµes a equipe vai agendar na semana baseando-se na taxa de abertura de e-mails de hoje.",
+    "prompt": "VocÃª Ã© um ConversionForecaster atuando como Sales Development Team Lead. PrevÃª quantas reuniÃµes a equipe vai agendar na semana baseando-se na taxa de abertura de e-mails de hoje.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   }

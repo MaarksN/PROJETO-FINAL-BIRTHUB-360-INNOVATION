@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types.js";
 
 export const EXEC_TOOLS: Tool[] = [
   {
@@ -10,15 +9,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "BoardPrep AI",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Analisa os resultados da empresa e cria automaticamente apresentações, relatórios e narrativas para reuniões de conselho (Board of Directors).",
-    "prompt": "Você é um BoardPrep AI atuando como CEO (Chief Executive Officer). Analisa os resultados da empresa e cria automaticamente apresentações, relatórios e narrativas para reuniões de conselho (Board of Directors).",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa os resultados da empresa e cria automaticamente apresentaÃ§Ãµes, relatÃ³rios e narrativas para reuniÃµes de conselho (Board of Directors).",
+    "prompt": "VocÃª Ã© um BoardPrep AI atuando como CEO (Chief Executive Officer). Analisa os resultados da empresa e cria automaticamente apresentaÃ§Ãµes, relatÃ³rios e narrativas para reuniÃµes de conselho (Board of Directors).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -30,15 +29,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "MarketSentinel",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Monitora movimentos macroeconômicos, fusões e aquisições (M&A) e notícias de concorrentes para sugerir pivotagens estratégicas em tempo real.",
-    "prompt": "Você é um MarketSentinel atuando como CEO (Chief Executive Officer). Monitora movimentos macroeconômicos, fusões e aquisições (M&A) e notícias de concorrentes para sugerir pivotagens estratégicas em tempo real.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora movimentos macroeconÃ´micos, fusÃµes e aquisiÃ§Ãµes (M&A) e notÃ­cias de concorrentes para sugerir pivotagens estratÃ©gicas em tempo real.",
+    "prompt": "VocÃª Ã© um MarketSentinel atuando como CEO (Chief Executive Officer). Monitora movimentos macroeconÃ´micos, fusÃµes e aquisiÃ§Ãµes (M&A) e notÃ­cias de concorrentes para sugerir pivotagens estratÃ©gicas em tempo real.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -50,15 +49,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CulturePulse",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Analisa comunicações internas (Slack/Teams) de forma anônima para medir o moral da empresa e prever riscos de turnover de talentos-chave.",
-    "prompt": "Você é um CulturePulse atuando como CEO (Chief Executive Officer). Analisa comunicações internas (Slack/Teams) de forma anônima para medir o moral da empresa e prever riscos de turnover de talentos-chave.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa comunicaÃ§Ãµes internas (Slack/Teams) de forma anÃ´nima para medir o moral da empresa e prever riscos de turnover de talentos-chave.",
+    "prompt": "VocÃª Ã© um CulturePulse atuando como CEO (Chief Executive Officer). Analisa comunicaÃ§Ãµes internas (Slack/Teams) de forma anÃ´nima para medir o moral da empresa e prever riscos de turnover de talentos-chave.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -70,15 +69,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CrisisNavigator",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Em caso de crises (PR, vazamento de dados), gera planos de contingência instantâneos, rascunhos de comunicados de imprensa e roteiros de respostas.",
-    "prompt": "Você é um CrisisNavigator atuando como CEO (Chief Executive Officer). Em caso de crises (PR, vazamento de dados), gera planos de contingência instantâneos, rascunhos de comunicados de imprensa e roteiros de respostas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Em caso de crises (PR, vazamento de dados), gera planos de contingÃªncia instantÃ¢neos, rascunhos de comunicados de imprensa e roteiros de respostas.",
+    "prompt": "VocÃª Ã© um CrisisNavigator atuando como CEO (Chief Executive Officer). Em caso de crises (PR, vazamento de dados), gera planos de contingÃªncia instantÃ¢neos, rascunhos de comunicados de imprensa e roteiros de respostas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -90,15 +89,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CapitalAllocator",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Simula cenários de alocação de capital e ROI a longo prazo para ajudar na decisão de onde investir recursos financeiros.",
-    "prompt": "Você é um CapitalAllocator atuando como CEO (Chief Executive Officer). Simula cenários de alocação de capital e ROI a longo prazo para ajudar na decisão de onde investir recursos financeiros.",
+    "emoji": "ðŸ¤–",
+    "desc": "Simula cenÃ¡rios de alocaÃ§Ã£o de capital e ROI a longo prazo para ajudar na decisÃ£o de onde investir recursos financeiros.",
+    "prompt": "VocÃª Ã© um CapitalAllocator atuando como CEO (Chief Executive Officer). Simula cenÃ¡rios de alocaÃ§Ã£o de capital e ROI a longo prazo para ajudar na decisÃ£o de onde investir recursos financeiros.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -110,15 +109,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "PipelineOracle",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Previsão preditiva avançada que cruza dados históricos para estimar o fechamento de receita com 99% de precisão.",
-    "prompt": "Você é um PipelineOracle atuando como CRO (Chief Revenue Officer). Previsão preditiva avançada que cruza dados históricos para estimar o fechamento de receita com 99% de precisão.",
+    "emoji": "ðŸ¤–",
+    "desc": "PrevisÃ£o preditiva avanÃ§ada que cruza dados histÃ³ricos para estimar o fechamento de receita com 99% de precisÃ£o.",
+    "prompt": "VocÃª Ã© um PipelineOracle atuando como CRO (Chief Revenue Officer). PrevisÃ£o preditiva avanÃ§ada que cruza dados histÃ³ricos para estimar o fechamento de receita com 99% de precisÃ£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -130,15 +129,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ChurnDeflector",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Identifica sinais precoces de cancelamento em toda a base de clientes e aciona gatilhos de retenção automáticos.",
-    "prompt": "Você é um ChurnDeflector atuando como CRO (Chief Revenue Officer). Identifica sinais precoces de cancelamento em toda a base de clientes e aciona gatilhos de retenção automáticos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica sinais precoces de cancelamento em toda a base de clientes e aciona gatilhos de retenÃ§Ã£o automÃ¡ticos.",
+    "prompt": "VocÃª Ã© um ChurnDeflector atuando como CRO (Chief Revenue Officer). Identifica sinais precoces de cancelamento em toda a base de clientes e aciona gatilhos de retenÃ§Ã£o automÃ¡ticos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -150,15 +149,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "PricingOptimizer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Analisa a elasticidade de preço, custos e concorrência para sugerir ajustes dinâmicos nas tabelas de preços e maximizar a margem.",
-    "prompt": "Você é um PricingOptimizer atuando como CRO (Chief Revenue Officer). Analisa a elasticidade de preço, custos e concorrência para sugerir ajustes dinâmicos nas tabelas de preços e maximizar a margem.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa a elasticidade de preÃ§o, custos e concorrÃªncia para sugerir ajustes dinÃ¢micos nas tabelas de preÃ§os e maximizar a margem.",
+    "prompt": "VocÃª Ã© um PricingOptimizer atuando como CRO (Chief Revenue Officer). Analisa a elasticidade de preÃ§o, custos e concorrÃªncia para sugerir ajustes dinÃ¢micos nas tabelas de preÃ§os e maximizar a margem.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -170,15 +169,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ExpansionMapper",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Varre a base de clientes atual para encontrar oportunidades ocultas de cross-sell e up-sell, criando o pitch perfeito para cada uma.",
-    "prompt": "Você é um ExpansionMapper atuando como CRO (Chief Revenue Officer). Varre a base de clientes atual para encontrar oportunidades ocultas de cross-sell e up-sell, criando o pitch perfeito para cada uma.",
+    "prompt": "VocÃª Ã© um ExpansionMapper atuando como CRO (Chief Revenue Officer). Varre a base de clientes atual para encontrar oportunidades ocultas de cross-sell e up-sell, criando o pitch perfeito para cada uma.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -190,15 +189,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "QuotaArchitect",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Desenha e simula modelos complexos de comissionamento e metas de vendas para garantir a motivação do time e a saúde financeira.",
-    "prompt": "Você é um QuotaArchitect atuando como CRO (Chief Revenue Officer). Desenha e simula modelos complexos de comissionamento e metas de vendas para garantir a motivação do time e a saúde financeira.",
+    "emoji": "ðŸ¤–",
+    "desc": "Desenha e simula modelos complexos de comissionamento e metas de vendas para garantir a motivaÃ§Ã£o do time e a saÃºde financeira.",
+    "prompt": "VocÃª Ã© um QuotaArchitect atuando como CRO (Chief Revenue Officer). Desenha e simula modelos complexos de comissionamento e metas de vendas para garantir a motivaÃ§Ã£o do time e a saÃºde financeira.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -210,15 +209,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "BrandGuardian",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Monitora todas as campanhas, textos e imagens gerados pela empresa para garantir 100% de aderência ao tom de voz e manual da marca.",
-    "prompt": "Você é um BrandGuardian atuando como CMO (Chief Marketing Officer). Monitora todas as campanhas, textos e imagens gerados pela empresa para garantir 100% de aderência ao tom de voz e manual da marca.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora todas as campanhas, textos e imagens gerados pela empresa para garantir 100% de aderÃªncia ao tom de voz e manual da marca.",
+    "prompt": "VocÃª Ã© um BrandGuardian atuando como CMO (Chief Marketing Officer). Monitora todas as campanhas, textos e imagens gerados pela empresa para garantir 100% de aderÃªncia ao tom de voz e manual da marca.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -230,15 +229,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "TrendCatcher",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Analisa bilhões de pontos de dados sociais para identificar tendências emergentes antes que viralizem, sugerindo campanhas proativas.",
-    "prompt": "Você é um TrendCatcher atuando como CMO (Chief Marketing Officer). Analisa bilhões de pontos de dados sociais para identificar tendências emergentes antes que viralizem, sugerindo campanhas proativas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa bilhÃµes de pontos de dados sociais para identificar tendÃªncias emergentes antes que viralizem, sugerindo campanhas proativas.",
+    "prompt": "VocÃª Ã© um TrendCatcher atuando como CMO (Chief Marketing Officer). Analisa bilhÃµes de pontos de dados sociais para identificar tendÃªncias emergentes antes que viralizem, sugerindo campanhas proativas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -250,15 +249,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "BudgetFluid",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Agente autônomo que realoca o orçamento de marketing entre canais (Meta, Google, LinkedIn) em tempo real, focado no menor CAC.",
-    "prompt": "Você é um BudgetFluid atuando como CMO (Chief Marketing Officer). Agente autônomo que realoca o orçamento de marketing entre canais (Meta, Google, LinkedIn) em tempo real, focado no menor CAC.",
+    "emoji": "ðŸ¤–",
+    "desc": "Agente autÃ´nomo que realoca o orÃ§amento de marketing entre canais (Meta, Google, LinkedIn) em tempo real, focado no menor CAC.",
+    "prompt": "VocÃª Ã© um BudgetFluid atuando como CMO (Chief Marketing Officer). Agente autÃ´nomo que realoca o orÃ§amento de marketing entre canais (Meta, Google, LinkedIn) em tempo real, focado no menor CAC.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -270,15 +269,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "NarrativeWeaver",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Cria a visão de longo prazo de campanhas e posicionamento de produto, gerando os pilares de comunicação anuais.",
-    "prompt": "Você é um NarrativeWeaver atuando como CMO (Chief Marketing Officer). Cria a visão de longo prazo de campanhas e posicionamento de produto, gerando os pilares de comunicação anuais.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria a visÃ£o de longo prazo de campanhas e posicionamento de produto, gerando os pilares de comunicaÃ§Ã£o anuais.",
+    "prompt": "VocÃª Ã© um NarrativeWeaver atuando como CMO (Chief Marketing Officer). Cria a visÃ£o de longo prazo de campanhas e posicionamento de produto, gerando os pilares de comunicaÃ§Ã£o anuais.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -290,15 +289,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CompetitorX-Ray",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Faz engenharia reversa das estratégias de marketing dos concorrentes, estimando os orçamentos e táticas deles.",
-    "prompt": "Você é um CompetitorX-Ray atuando como CMO (Chief Marketing Officer). Faz engenharia reversa das estratégias de marketing dos concorrentes, estimando os orçamentos e táticas deles.",
+    "emoji": "ðŸ¤–",
+    "desc": "Faz engenharia reversa das estratÃ©gias de marketing dos concorrentes, estimando os orÃ§amentos e tÃ¡ticas deles.",
+    "prompt": "VocÃª Ã© um CompetitorX-Ray atuando como CMO (Chief Marketing Officer). Faz engenharia reversa das estratÃ©gias de marketing dos concorrentes, estimando os orÃ§amentos e tÃ¡ticas deles.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -310,15 +309,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CashFlowClairvoyant",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Previsão diária e em tempo real do fluxo de caixa, cruzando contas a pagar, a receber, sazonalidade e risco de inadimplência.",
-    "prompt": "Você é um CashFlowClairvoyant atuando como CFO (Chief Financial Officer). Previsão diária e em tempo real do fluxo de caixa, cruzando contas a pagar, a receber, sazonalidade e risco de inadimplência.",
+    "emoji": "ðŸ¤–",
+    "desc": "PrevisÃ£o diÃ¡ria e em tempo real do fluxo de caixa, cruzando contas a pagar, a receber, sazonalidade e risco de inadimplÃªncia.",
+    "prompt": "VocÃª Ã© um CashFlowClairvoyant atuando como CFO (Chief Financial Officer). PrevisÃ£o diÃ¡ria e em tempo real do fluxo de caixa, cruzando contas a pagar, a receber, sazonalidade e risco de inadimplÃªncia.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -330,15 +329,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "AuditBot",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Varre continuamente 100% das transações financeiras em busca de anomalias, fraudes, ou desvios de compliance antes das auditorias oficiais.",
-    "prompt": "Você é um AuditBot atuando como CFO (Chief Financial Officer). Varre continuamente 100% das transações financeiras em busca de anomalias, fraudes, ou desvios de compliance antes das auditorias oficiais.",
+    "emoji": "ðŸ¤–",
+    "desc": "Varre continuamente 100% das transaÃ§Ãµes financeiras em busca de anomalias, fraudes, ou desvios de compliance antes das auditorias oficiais.",
+    "prompt": "VocÃª Ã© um AuditBot atuando como CFO (Chief Financial Officer). Varre continuamente 100% das transaÃ§Ãµes financeiras em busca de anomalias, fraudes, ou desvios de compliance antes das auditorias oficiais.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -350,15 +349,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "TaxOptimizer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Analisa as leis tributárias globais e sugere rotas e estruturas corporativas para minimização legal de impostos.",
-    "prompt": "Você é um TaxOptimizer atuando como CFO (Chief Financial Officer). Analisa as leis tributárias globais e sugere rotas e estruturas corporativas para minimização legal de impostos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa as leis tributÃ¡rias globais e sugere rotas e estruturas corporativas para minimizaÃ§Ã£o legal de impostos.",
+    "prompt": "VocÃª Ã© um TaxOptimizer atuando como CFO (Chief Financial Officer). Analisa as leis tributÃ¡rias globais e sugere rotas e estruturas corporativas para minimizaÃ§Ã£o legal de impostos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -370,15 +369,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CapTableManager",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Simula rodadas de investimento, diluição de fundadores e funcionários, e modela cenários de valuation para captações.",
-    "prompt": "Você é um CapTableManager atuando como CFO (Chief Financial Officer). Simula rodadas de investimento, diluição de fundadores e funcionários, e modela cenários de valuation para captações.",
+    "emoji": "ðŸ¤–",
+    "desc": "Simula rodadas de investimento, diluiÃ§Ã£o de fundadores e funcionÃ¡rios, e modela cenÃ¡rios de valuation para captaÃ§Ãµes.",
+    "prompt": "VocÃª Ã© um CapTableManager atuando como CFO (Chief Financial Officer). Simula rodadas de investimento, diluiÃ§Ã£o de fundadores e funcionÃ¡rios, e modela cenÃ¡rios de valuation para captaÃ§Ãµes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -390,15 +389,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "SpendController",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Aprova ou bloqueia despesas da empresa automaticamente com base em políticas orçamentárias pré-estabelecidas e ROI esperado.",
-    "prompt": "Você é um SpendController atuando como CFO (Chief Financial Officer). Aprova ou bloqueia despesas da empresa automaticamente com base em políticas orçamentárias pré-estabelecidas e ROI esperado.",
+    "emoji": "ðŸ¤–",
+    "desc": "Aprova ou bloqueia despesas da empresa automaticamente com base em polÃ­ticas orÃ§amentÃ¡rias prÃ©-estabelecidas e ROI esperado.",
+    "prompt": "VocÃª Ã© um SpendController atuando como CFO (Chief Financial Officer). Aprova ou bloqueia despesas da empresa automaticamente com base em polÃ­ticas orÃ§amentÃ¡rias prÃ©-estabelecidas e ROI esperado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -410,15 +409,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "SentimentAggregator",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Lê todas as interações de suporte, e-mails e redes sociais para criar um mapa de calor em tempo real do sentimento do cliente.",
-    "prompt": "Você é um SentimentAggregator atuando como CCO (Chief Customer Officer). Lê todas as interações de suporte, e-mails e redes sociais para criar um mapa de calor em tempo real do sentimento do cliente.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª todas as interaÃ§Ãµes de suporte, e-mails e redes sociais para criar um mapa de calor em tempo real do sentimento do cliente.",
+    "prompt": "VocÃª Ã© um SentimentAggregator atuando como CCO (Chief Customer Officer). LÃª todas as interaÃ§Ãµes de suporte, e-mails e redes sociais para criar um mapa de calor em tempo real do sentimento do cliente.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -430,15 +429,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "JourneyArchitect",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Desenha e ajusta automaticamente a jornada do cliente, sugerindo novos pontos de contato baseados em onde os clientes mais engajam.",
-    "prompt": "Você é um JourneyArchitect atuando como CCO (Chief Customer Officer). Desenha e ajusta automaticamente a jornada do cliente, sugerindo novos pontos de contato baseados em onde os clientes mais engajam.",
+    "prompt": "VocÃª Ã© um JourneyArchitect atuando como CCO (Chief Customer Officer). Desenha e ajusta automaticamente a jornada do cliente, sugerindo novos pontos de contato baseados em onde os clientes mais engajam.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -450,15 +449,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "VIPConcierge",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Um agente dedicado 24/7 a monitorar e resolver preventivamente qualquer pequeno atrito com as contas Enterprise de maior valor.",
-    "prompt": "Você é um VIPConcierge atuando como CCO (Chief Customer Officer). Um agente dedicado 24/7 a monitorar e resolver preventivamente qualquer pequeno atrito com as contas Enterprise de maior valor.",
+    "prompt": "VocÃª Ã© um VIPConcierge atuando como CCO (Chief Customer Officer). Um agente dedicado 24/7 a monitorar e resolver preventivamente qualquer pequeno atrito com as contas Enterprise de maior valor.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -470,15 +469,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "AdvocacyFinder",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Identifica os clientes mais felizes e engajados e automatiza convites para cases de sucesso, reviews no G2/Capterra e indicações.",
-    "prompt": "Você é um AdvocacyFinder atuando como CCO (Chief Customer Officer). Identifica os clientes mais felizes e engajados e automatiza convites para cases de sucesso, reviews no G2/Capterra e indicações.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica os clientes mais felizes e engajados e automatiza convites para cases de sucesso, reviews no G2/Capterra e indicaÃ§Ãµes.",
+    "prompt": "VocÃª Ã© um AdvocacyFinder atuando como CCO (Chief Customer Officer). Identifica os clientes mais felizes e engajados e automatiza convites para cases de sucesso, reviews no G2/Capterra e indicaÃ§Ãµes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -490,15 +489,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "EscalationPredictor",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Prevê quais tickets de suporte ou reclamações têm chance de virar problemas públicos severos e alerta a diretoria.",
-    "prompt": "Você é um EscalationPredictor atuando como CCO (Chief Customer Officer). Prevê quais tickets de suporte ou reclamações têm chance de virar problemas públicos severos e alerta a diretoria.",
+    "emoji": "ðŸ¤–",
+    "desc": "PrevÃª quais tickets de suporte ou reclamaÃ§Ãµes tÃªm chance de virar problemas pÃºblicos severos e alerta a diretoria.",
+    "prompt": "VocÃª Ã© um EscalationPredictor atuando como CCO (Chief Customer Officer). PrevÃª quais tickets de suporte ou reclamaÃ§Ãµes tÃªm chance de virar problemas pÃºblicos severos e alerta a diretoria.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -510,15 +509,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "(Nota",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Dividido para cobrir Produto e Pessoas)",
-    "prompt": "Você é um (Nota atuando como CPO (Chief Product Officer / Chief People Officer). Dividido para cobrir Produto e Pessoas)",
+    "prompt": "VocÃª Ã© um (Nota atuando como CPO (Chief Product Officer / Chief People Officer). Dividido para cobrir Produto e Pessoas)",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -530,15 +529,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "FeatureROI (Produto)",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Calcula o custo de desenvolvimento versus a receita/retenção gerada por cada funcionalidade do produto.",
-    "prompt": "Você é um FeatureROI (Produto) atuando como CPO (Chief Product Officer / Chief People Officer). Calcula o custo de desenvolvimento versus a receita/retenção gerada por cada funcionalidade do produto.",
+    "emoji": "ðŸ¤–",
+    "desc": "Calcula o custo de desenvolvimento versus a receita/retenÃ§Ã£o gerada por cada funcionalidade do produto.",
+    "prompt": "VocÃª Ã© um FeatureROI (Produto) atuando como CPO (Chief Product Officer / Chief People Officer). Calcula o custo de desenvolvimento versus a receita/retenÃ§Ã£o gerada por cada funcionalidade do produto.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -550,15 +549,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "RoadmapAuto-Prioritizer (Produto)",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Reorganiza o backlog de desenvolvimento automaticamente com base no feedback de clientes, bugs críticos e metas de receita.",
-    "prompt": "Você é um RoadmapAuto-Prioritizer (Produto) atuando como CPO (Chief Product Officer / Chief People Officer). Reorganiza o backlog de desenvolvimento automaticamente com base no feedback de clientes, bugs críticos e metas de receita.",
+    "emoji": "ðŸ¤–",
+    "desc": "Reorganiza o backlog de desenvolvimento automaticamente com base no feedback de clientes, bugs crÃ­ticos e metas de receita.",
+    "prompt": "VocÃª Ã© um RoadmapAuto-Prioritizer (Produto) atuando como CPO (Chief Product Officer / Chief People Officer). Reorganiza o backlog de desenvolvimento automaticamente com base no feedback de clientes, bugs crÃ­ticos e metas de receita.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -570,15 +569,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "TalentScout (Pessoas)",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Busca passivamente na internet os melhores talentos para vagas abertas e inicia um engajamento hiper-personalizado.",
-    "prompt": "Você é um TalentScout (Pessoas) atuando como CPO (Chief Product Officer / Chief People Officer). Busca passivamente na internet os melhores talentos para vagas abertas e inicia um engajamento hiper-personalizado.",
+    "prompt": "VocÃª Ã© um TalentScout (Pessoas) atuando como CPO (Chief Product Officer / Chief People Officer). Busca passivamente na internet os melhores talentos para vagas abertas e inicia um engajamento hiper-personalizado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -590,15 +589,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "SkillGapAnalyzer (Pessoas)",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Mapeia as habilidades atuais da equipe e prevê quais skills serão necessárias em 2 anos, criando planos de treinamento.",
-    "prompt": "Você é um SkillGapAnalyzer (Pessoas) atuando como CPO (Chief Product Officer / Chief People Officer). Mapeia as habilidades atuais da equipe e prevê quais skills serão necessárias em 2 anos, criando planos de treinamento.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mapeia as habilidades atuais da equipe e prevÃª quais skills serÃ£o necessÃ¡rias em 2 anos, criando planos de treinamento.",
+    "prompt": "VocÃª Ã© um SkillGapAnalyzer (Pessoas) atuando como CPO (Chief Product Officer / Chief People Officer). Mapeia as habilidades atuais da equipe e prevÃª quais skills serÃ£o necessÃ¡rias em 2 anos, criando planos de treinamento.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -610,15 +609,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CompensationBenchmarker (Pessoas)",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Analisa salários do mercado em tempo real para alertar quando um talento interno corre risco de sair por defasagem salarial.",
-    "prompt": "Você é um CompensationBenchmarker (Pessoas) atuando como CPO (Chief Product Officer / Chief People Officer). Analisa salários do mercado em tempo real para alertar quando um talento interno corre risco de sair por defasagem salarial.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa salÃ¡rios do mercado em tempo real para alertar quando um talento interno corre risco de sair por defasagem salarial.",
+    "prompt": "VocÃª Ã© um CompensationBenchmarker (Pessoas) atuando como CPO (Chief Product Officer / Chief People Officer). Analisa salÃ¡rios do mercado em tempo real para alertar quando um talento interno corre risco de sair por defasagem salarial.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -630,15 +629,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "BottleneckDetector",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Mapeia todos os processos operacionais da empresa e aponta exatamente onde estão os atrasos e desperdícios de tempo.",
-    "prompt": "Você é um BottleneckDetector atuando como COO (Chief Operating Officer). Mapeia todos os processos operacionais da empresa e aponta exatamente onde estão os atrasos e desperdícios de tempo.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mapeia todos os processos operacionais da empresa e aponta exatamente onde estÃ£o os atrasos e desperdÃ­cios de tempo.",
+    "prompt": "VocÃª Ã© um BottleneckDetector atuando como COO (Chief Operating Officer). Mapeia todos os processos operacionais da empresa e aponta exatamente onde estÃ£o os atrasos e desperdÃ­cios de tempo.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -650,15 +649,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "VendorNegotiator",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Agente que negocia automaticamente renovações de contratos de software e fornecedores buscando os melhores descontos.",
-    "prompt": "Você é um VendorNegotiator atuando como COO (Chief Operating Officer). Agente que negocia automaticamente renovações de contratos de software e fornecedores buscando os melhores descontos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Agente que negocia automaticamente renovaÃ§Ãµes de contratos de software e fornecedores buscando os melhores descontos.",
+    "prompt": "VocÃª Ã© um VendorNegotiator atuando como COO (Chief Operating Officer). Agente que negocia automaticamente renovaÃ§Ãµes de contratos de software e fornecedores buscando os melhores descontos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -670,15 +669,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "SupplyChainSync",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Previsão autônoma de necessidades logísticas e de suprimentos, emitindo pedidos de compra antes que falte estoque ou infraestrutura.",
-    "prompt": "Você é um SupplyChainSync atuando como COO (Chief Operating Officer). Previsão autônoma de necessidades logísticas e de suprimentos, emitindo pedidos de compra antes que falte estoque ou infraestrutura.",
+    "emoji": "ðŸ¤–",
+    "desc": "PrevisÃ£o autÃ´noma de necessidades logÃ­sticas e de suprimentos, emitindo pedidos de compra antes que falte estoque ou infraestrutura.",
+    "prompt": "VocÃª Ã© um SupplyChainSync atuando como COO (Chief Operating Officer). PrevisÃ£o autÃ´noma de necessidades logÃ­sticas e de suprimentos, emitindo pedidos de compra antes que falte estoque ou infraestrutura.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -690,15 +689,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ComplianceEnforcer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Garante que todas as operações diárias sigam as normas ISO, LGPD, GDPR, auditando processos em tempo real.",
-    "prompt": "Você é um ComplianceEnforcer atuando como COO (Chief Operating Officer). Garante que todas as operações diárias sigam as normas ISO, LGPD, GDPR, auditando processos em tempo real.",
+    "emoji": "ðŸ¤–",
+    "desc": "Garante que todas as operaÃ§Ãµes diÃ¡rias sigam as normas ISO, LGPD, GDPR, auditando processos em tempo real.",
+    "prompt": "VocÃª Ã© um ComplianceEnforcer atuando como COO (Chief Operating Officer). Garante que todas as operaÃ§Ãµes diÃ¡rias sigam as normas ISO, LGPD, GDPR, auditando processos em tempo real.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -710,15 +709,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ResourceBalancer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Realoca equipes e infraestrutura computacional dinamicamente para projetos que estão atrasados ou com alta demanda.",
-    "prompt": "Você é um ResourceBalancer atuando como COO (Chief Operating Officer). Realoca equipes e infraestrutura computacional dinamicamente para projetos que estão atrasados ou com alta demanda.",
+    "emoji": "ðŸ¤–",
+    "desc": "Realoca equipes e infraestrutura computacional dinamicamente para projetos que estÃ£o atrasados ou com alta demanda.",
+    "prompt": "VocÃª Ã© um ResourceBalancer atuando como COO (Chief Operating Officer). Realoca equipes e infraestrutura computacional dinamicamente para projetos que estÃ£o atrasados ou com alta demanda.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -730,15 +729,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "TerritoryMapper",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Desenha territórios de vendas perfeitamente equilibrados usando dados geoespaciais e potencial de receita.",
-    "prompt": "Você é um TerritoryMapper atuando como VP de Vendas. Desenha territórios de vendas perfeitamente equilibrados usando dados geoespaciais e potencial de receita.",
+    "emoji": "ðŸ¤–",
+    "desc": "Desenha territÃ³rios de vendas perfeitamente equilibrados usando dados geoespaciais e potencial de receita.",
+    "prompt": "VocÃª Ã© um TerritoryMapper atuando como VP de Vendas. Desenha territÃ³rios de vendas perfeitamente equilibrados usando dados geoespaciais e potencial de receita.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -750,15 +749,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "RepCoach AI",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Ouve as ligações da equipe de vendas em tempo real e fornece dicas sussurradas no ouvido do vendedor (ou via chat) sobre como lidar com objeções.",
-    "prompt": "Você é um RepCoach AI atuando como VP de Vendas. Ouve as ligações da equipe de vendas em tempo real e fornece dicas sussurradas no ouvido do vendedor (ou via chat) sobre como lidar com objeções.",
+    "emoji": "ðŸ¤–",
+    "desc": "Ouve as ligaÃ§Ãµes da equipe de vendas em tempo real e fornece dicas sussurradas no ouvido do vendedor (ou via chat) sobre como lidar com objeÃ§Ãµes.",
+    "prompt": "VocÃª Ã© um RepCoach AI atuando como VP de Vendas. Ouve as ligaÃ§Ãµes da equipe de vendas em tempo real e fornece dicas sussurradas no ouvido do vendedor (ou via chat) sobre como lidar com objeÃ§Ãµes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -770,15 +769,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ForecastRollup",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Consolida as previsões de todos os gerentes, eliminando o \"sandbagging\" (esconder jogo) ou otimismo exagerado dos vendedores.",
-    "prompt": "Você é um ForecastRollup atuando como VP de Vendas. Consolida as previsões de todos os gerentes, eliminando o \"sandbagging\" (esconder jogo) ou otimismo exagerado dos vendedores.",
+    "emoji": "ðŸ¤–",
+    "desc": "Consolida as previsÃµes de todos os gerentes, eliminando o \"sandbagging\" (esconder jogo) ou otimismo exagerado dos vendedores.",
+    "prompt": "VocÃª Ã© um ForecastRollup atuando como VP de Vendas. Consolida as previsÃµes de todos os gerentes, eliminando o \"sandbagging\" (esconder jogo) ou otimismo exagerado dos vendedores.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -790,15 +789,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "DealDeskAutopilot",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Aprova ou rejeita solicitações de descontos complexos instantaneamente, visando proteger a margem mínima aceitável.",
-    "prompt": "Você é um DealDeskAutopilot atuando como VP de Vendas. Aprova ou rejeita solicitações de descontos complexos instantaneamente, visando proteger a margem mínima aceitável.",
+    "emoji": "ðŸ¤–",
+    "desc": "Aprova ou rejeita solicitaÃ§Ãµes de descontos complexos instantaneamente, visando proteger a margem mÃ­nima aceitÃ¡vel.",
+    "prompt": "VocÃª Ã© um DealDeskAutopilot atuando como VP de Vendas. Aprova ou rejeita solicitaÃ§Ãµes de descontos complexos instantaneamente, visando proteger a margem mÃ­nima aceitÃ¡vel.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -810,15 +809,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "StrategicPartnerScout",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Identifica empresas não-concorrentes para parcerias de co-marketing e vendas, gerando a abordagem inicial para o VP.",
-    "prompt": "Você é um StrategicPartnerScout atuando como VP de Vendas. Identifica empresas não-concorrentes para parcerias de co-marketing e vendas, gerando a abordagem inicial para o VP.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica empresas nÃ£o-concorrentes para parcerias de co-marketing e vendas, gerando a abordagem inicial para o VP.",
+    "prompt": "VocÃª Ã© um StrategicPartnerScout atuando como VP de Vendas. Identifica empresas nÃ£o-concorrentes para parcerias de co-marketing e vendas, gerando a abordagem inicial para o VP.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -830,15 +829,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ChannelMixer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Define a alocação macro de orçamento de marketing anualmente e ajusta trimestralmente com base na mudança de comportamento do consumidor.",
-    "prompt": "Você é um ChannelMixer atuando como VP de Marketing. Define a alocação macro de orçamento de marketing anualmente e ajusta trimestralmente com base na mudança de comportamento do consumidor.",
+    "emoji": "ðŸ¤–",
+    "desc": "Define a alocaÃ§Ã£o macro de orÃ§amento de marketing anualmente e ajusta trimestralmente com base na mudanÃ§a de comportamento do consumidor.",
+    "prompt": "VocÃª Ã© um ChannelMixer atuando como VP de Marketing. Define a alocaÃ§Ã£o macro de orÃ§amento de marketing anualmente e ajusta trimestralmente com base na mudanÃ§a de comportamento do consumidor.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -850,15 +849,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "AgencyAuditor",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Avalia automaticamente as entregas, métricas e faturamento de agências de marketing terceirizadas para garantir o ROI.",
-    "prompt": "Você é um AgencyAuditor atuando como VP de Marketing. Avalia automaticamente as entregas, métricas e faturamento de agências de marketing terceirizadas para garantir o ROI.",
+    "emoji": "ðŸ¤–",
+    "desc": "Avalia automaticamente as entregas, mÃ©tricas e faturamento de agÃªncias de marketing terceirizadas para garantir o ROI.",
+    "prompt": "VocÃª Ã© um AgencyAuditor atuando como VP de Marketing. Avalia automaticamente as entregas, mÃ©tricas e faturamento de agÃªncias de marketing terceirizadas para garantir o ROI.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -870,15 +869,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "GlobalBrandLocalizer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Adapta automaticamente campanhas globais para contextos, culturas e gírias locais em dezenas de países.",
-    "prompt": "Você é um GlobalBrandLocalizer atuando como VP de Marketing. Adapta automaticamente campanhas globais para contextos, culturas e gírias locais em dezenas de países.",
+    "emoji": "ðŸ¤–",
+    "desc": "Adapta automaticamente campanhas globais para contextos, culturas e gÃ­rias locais em dezenas de paÃ­ses.",
+    "prompt": "VocÃª Ã© um GlobalBrandLocalizer atuando como VP de Marketing. Adapta automaticamente campanhas globais para contextos, culturas e gÃ­rias locais em dezenas de paÃ­ses.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -890,15 +889,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "MarketingTechArchitect",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Monitora o stack de ferramentas de marketing e sugere consolidações ou novas tecnologias para otimizar operações.",
-    "prompt": "Você é um MarketingTechArchitect atuando como VP de Marketing. Monitora o stack de ferramentas de marketing e sugere consolidações ou novas tecnologias para otimizar operações.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora o stack de ferramentas de marketing e sugere consolidaÃ§Ãµes ou novas tecnologias para otimizar operaÃ§Ãµes.",
+    "prompt": "VocÃª Ã© um MarketingTechArchitect atuando como VP de Marketing. Monitora o stack de ferramentas de marketing e sugere consolidaÃ§Ãµes ou novas tecnologias para otimizar operaÃ§Ãµes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -910,15 +909,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ExecutiveSummaryBot",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Transforma dezenas de dashboards complexos de marketing em um parágrafo narrativo simples de \"o que está funcionando e o que não está\".",
-    "prompt": "Você é um ExecutiveSummaryBot atuando como VP de Marketing. Transforma dezenas de dashboards complexos de marketing em um parágrafo narrativo simples de \"o que está funcionando e o que não está\".",
+    "emoji": "ðŸ¤–",
+    "desc": "Transforma dezenas de dashboards complexos de marketing em um parÃ¡grafo narrativo simples de \"o que estÃ¡ funcionando e o que nÃ£o estÃ¡\".",
+    "prompt": "VocÃª Ã© um ExecutiveSummaryBot atuando como VP de Marketing. Transforma dezenas de dashboards complexos de marketing em um parÃ¡grafo narrativo simples de \"o que estÃ¡ funcionando e o que nÃ£o estÃ¡\".",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -930,15 +929,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "RenewalForecastEngine",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Estima com precisão a taxa de Retenção de Receita Líquida (NRR) e Bruta (GRR) para os próximos 12 meses.",
-    "prompt": "Você é um RenewalForecastEngine atuando como VP de Customer Success. Estima com precisão a taxa de Retenção de Receita Líquida (NRR) e Bruta (GRR) para os próximos 12 meses.",
+    "emoji": "ðŸ¤–",
+    "desc": "Estima com precisÃ£o a taxa de RetenÃ§Ã£o de Receita LÃ­quida (NRR) e Bruta (GRR) para os prÃ³ximos 12 meses.",
+    "prompt": "VocÃª Ã© um RenewalForecastEngine atuando como VP de Customer Success. Estima com precisÃ£o a taxa de RetenÃ§Ã£o de Receita LÃ­quida (NRR) e Bruta (GRR) para os prÃ³ximos 12 meses.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -950,15 +949,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "CapacityPlanner",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Calcula exatamente quando a empresa precisa contratar novos CSMs com base no crescimento projetado da base e complexidade de contas.",
-    "prompt": "Você é um CapacityPlanner atuando como VP de Customer Success. Calcula exatamente quando a empresa precisa contratar novos CSMs com base no crescimento projetado da base e complexidade de contas.",
+    "prompt": "VocÃª Ã© um CapacityPlanner atuando como VP de Customer Success. Calcula exatamente quando a empresa precisa contratar novos CSMs com base no crescimento projetado da base e complexidade de contas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -970,15 +969,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "TieringOptimizer",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Classifica automaticamente os clientes em categorias (Tech-touch, Low-touch, High-touch) com base no valor atual e potencial futuro.",
-    "prompt": "Você é um TieringOptimizer atuando como VP de Customer Success. Classifica automaticamente os clientes em categorias (Tech-touch, Low-touch, High-touch) com base no valor atual e potencial futuro.",
+    "prompt": "VocÃª Ã© um TieringOptimizer atuando como VP de Customer Success. Classifica automaticamente os clientes em categorias (Tech-touch, Low-touch, High-touch) com base no valor atual e potencial futuro.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -990,15 +989,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "PlaybookGenerator",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Cria automaticamente novos manuais de ação (playbooks) para o time de CS sempre que um novo produto é lançado.",
-    "prompt": "Você é um PlaybookGenerator atuando como VP de Customer Success. Cria automaticamente novos manuais de ação (playbooks) para o time de CS sempre que um novo produto é lançado.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria automaticamente novos manuais de aÃ§Ã£o (playbooks) para o time de CS sempre que um novo produto Ã© lanÃ§ado.",
+    "prompt": "VocÃª Ã© um PlaybookGenerator atuando como VP de Customer Success. Cria automaticamente novos manuais de aÃ§Ã£o (playbooks) para o time de CS sempre que um novo produto Ã© lanÃ§ado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -1010,15 +1009,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "HealthScoreArchitect",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Ajusta os pesos do \"Score de Saúde\" do cliente dinamicamente usando machine learning para refletir o comportamento real de churn.",
-    "prompt": "Você é um HealthScoreArchitect atuando como VP de Customer Success. Ajusta os pesos do \"Score de Saúde\" do cliente dinamicamente usando machine learning para refletir o comportamento real de churn.",
+    "emoji": "ðŸ¤–",
+    "desc": "Ajusta os pesos do \"Score de SaÃºde\" do cliente dinamicamente usando machine learning para refletir o comportamento real de churn.",
+    "prompt": "VocÃª Ã© um HealthScoreArchitect atuando como VP de Customer Success. Ajusta os pesos do \"Score de SaÃºde\" do cliente dinamicamente usando machine learning para refletir o comportamento real de churn.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -1030,15 +1029,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "BurnRateMonitor",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Acompanha o gasto de caixa da empresa, emitindo alertas imediatos se o \"runway\" (tempo de vida do caixa) cair abaixo do planejado.",
-    "prompt": "Você é um BurnRateMonitor atuando como VP de Finanças. Acompanha o gasto de caixa da empresa, emitindo alertas imediatos se o \"runway\" (tempo de vida do caixa) cair abaixo do planejado.",
+    "prompt": "VocÃª Ã© um BurnRateMonitor atuando como VP de FinanÃ§as. Acompanha o gasto de caixa da empresa, emitindo alertas imediatos se o \"runway\" (tempo de vida do caixa) cair abaixo do planejado.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -1050,15 +1049,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ProcurementPolicyBot",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Audita automaticamente cada pedido de compra para garantir conformidade com as regras de compras e aprovações hierárquicas.",
-    "prompt": "Você é um ProcurementPolicyBot atuando como VP de Finanças. Audita automaticamente cada pedido de compra para garantir conformidade com as regras de compras e aprovações hierárquicas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Audita automaticamente cada pedido de compra para garantir conformidade com as regras de compras e aprovaÃ§Ãµes hierÃ¡rquicas.",
+    "prompt": "VocÃª Ã© um ProcurementPolicyBot atuando como VP de FinanÃ§as. Audita automaticamente cada pedido de compra para garantir conformidade com as regras de compras e aprovaÃ§Ãµes hierÃ¡rquicas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -1070,15 +1069,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "FXRiskManager",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Monitora flutuações de moedas globais e sugere ou executa operações de hedge (proteção cambial) para proteger contratos internacionais.",
-    "prompt": "Você é um FXRiskManager atuando como VP de Finanças. Monitora flutuações de moedas globais e sugere ou executa operações de hedge (proteção cambial) para proteger contratos internacionais.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora flutuaÃ§Ãµes de moedas globais e sugere ou executa operaÃ§Ãµes de hedge (proteÃ§Ã£o cambial) para proteger contratos internacionais.",
+    "prompt": "VocÃª Ã© um FXRiskManager atuando como VP de FinanÃ§as. Monitora flutuaÃ§Ãµes de moedas globais e sugere ou executa operaÃ§Ãµes de hedge (proteÃ§Ã£o cambial) para proteger contratos internacionais.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -1090,15 +1089,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "BoardReportingAutomator",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Gera o DRE, Balanço Patrimonial e Fluxo de Caixa no formato exato exigido pelos investidores no dia 1 do mês.",
-    "prompt": "Você é um BoardReportingAutomator atuando como VP de Finanças. Gera o DRE, Balanço Patrimonial e Fluxo de Caixa no formato exato exigido pelos investidores no dia 1 do mês.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gera o DRE, BalanÃ§o Patrimonial e Fluxo de Caixa no formato exato exigido pelos investidores no dia 1 do mÃªs.",
+    "prompt": "VocÃª Ã© um BoardReportingAutomator atuando como VP de FinanÃ§as. Gera o DRE, BalanÃ§o Patrimonial e Fluxo de Caixa no formato exato exigido pelos investidores no dia 1 do mÃªs.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -1110,15 +1109,15 @@ export const EXEC_TOOLS: Tool[] = [
     "name": "ScenarioModeler",
     "icon": "briefcase",
     "color": "purple",
-    "emoji": "🤖",
-    "desc": "Cria modelos de \"E se?\" (ex: E se a inflação subir 5%? E se perdermos o maior cliente?) para teste de estresse financeiro.",
-    "prompt": "Você é um ScenarioModeler atuando como VP de Finanças. Cria modelos de \"E se?\" (ex: E se a inflação subir 5%? E se perdermos o maior cliente?) para teste de estresse financeiro.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria modelos de \"E se?\" (ex: E se a inflaÃ§Ã£o subir 5%? E se perdermos o maior cliente?) para teste de estresse financeiro.",
+    "prompt": "VocÃª Ã© um ScenarioModeler atuando como VP de FinanÃ§as. Cria modelos de \"E se?\" (ex: E se a inflaÃ§Ã£o subir 5%? E se perdermos o maior cliente?) para teste de estresse financeiro.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   }

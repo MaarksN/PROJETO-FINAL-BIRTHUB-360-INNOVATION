@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import {
+﻿import {
   apiKeyCreateRequestSchema,
   apiKeyCreateResponseSchema,
   apiKeyListResponseSchema,

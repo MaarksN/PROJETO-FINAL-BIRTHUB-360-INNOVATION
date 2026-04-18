@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { SupportedLocale } from "../../lib/i18n";
+﻿import type { SupportedLocale } from "../../lib/i18n";
 
 import type {
   CrmRegionSnapshot,

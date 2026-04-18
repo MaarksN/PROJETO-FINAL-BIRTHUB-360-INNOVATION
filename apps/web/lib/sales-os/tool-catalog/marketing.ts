@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types.js";
 
 export const MARKETING_TOOLS: Tool[] = [
   {
@@ -10,15 +9,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ABTestAutomator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Cria, lança e monitora testes A/B de páginas, e-mails e botões, implementando a versão vencedora automaticamente após significância estatística.",
-    "prompt": "Você é um ABTestAutomator atuando como Growth Marketer / Growth Lead. Cria, lança e monitora testes A/B de páginas, e-mails e botões, implementando a versão vencedora automaticamente após significância estatística.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria, lanÃ§a e monitora testes A/B de pÃ¡ginas, e-mails e botÃµes, implementando a versÃ£o vencedora automaticamente apÃ³s significÃ¢ncia estatÃ­stica.",
+    "prompt": "VocÃª Ã© um ABTestAutomator atuando como Growth Marketer / Growth Lead. Cria, lanÃ§a e monitora testes A/B de pÃ¡ginas, e-mails e botÃµes, implementando a versÃ£o vencedora automaticamente apÃ³s significÃ¢ncia estatÃ­stica.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -30,15 +29,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ViralLoopTracker",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Mapeia o coeficiente de viralidade (K-factor) dos programas de indicação e sugere recompensas para otimizar os compartilhamentos.",
-    "prompt": "Você é um ViralLoopTracker atuando como Growth Marketer / Growth Lead. Mapeia o coeficiente de viralidade (K-factor) dos programas de indicação e sugere recompensas para otimizar os compartilhamentos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mapeia o coeficiente de viralidade (K-factor) dos programas de indicaÃ§Ã£o e sugere recompensas para otimizar os compartilhamentos.",
+    "prompt": "VocÃª Ã© um ViralLoopTracker atuando como Growth Marketer / Growth Lead. Mapeia o coeficiente de viralidade (K-factor) dos programas de indicaÃ§Ã£o e sugere recompensas para otimizar os compartilhamentos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -50,15 +49,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ActivationOptimizer",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Monitora o \"Aha! Moment\" de novos usuários e ajusta tutoriais in-app para levá-los a esse momento mais rápido.",
-    "prompt": "Você é um ActivationOptimizer atuando como Growth Marketer / Growth Lead. Monitora o \"Aha! Moment\" de novos usuários e ajusta tutoriais in-app para levá-los a esse momento mais rápido.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora o \"Aha! Moment\" de novos usuÃ¡rios e ajusta tutoriais in-app para levÃ¡-los a esse momento mais rÃ¡pido.",
+    "prompt": "VocÃª Ã© um ActivationOptimizer atuando como Growth Marketer / Growth Lead. Monitora o \"Aha! Moment\" de novos usuÃ¡rios e ajusta tutoriais in-app para levÃ¡-los a esse momento mais rÃ¡pido.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -70,15 +69,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "CACLTVModeler",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Calcula dinamicamente o Custo de Aquisição (CAC) e o Lifetime Value (LTV) por canal, alertando sobre segmentos não rentáveis.",
-    "prompt": "Você é um CACLTVModeler atuando como Growth Marketer / Growth Lead. Calcula dinamicamente o Custo de Aquisição (CAC) e o Lifetime Value (LTV) por canal, alertando sobre segmentos não rentáveis.",
+    "emoji": "ðŸ¤–",
+    "desc": "Calcula dinamicamente o Custo de AquisiÃ§Ã£o (CAC) e o Lifetime Value (LTV) por canal, alertando sobre segmentos nÃ£o rentÃ¡veis.",
+    "prompt": "VocÃª Ã© um CACLTVModeler atuando como Growth Marketer / Growth Lead. Calcula dinamicamente o Custo de AquisiÃ§Ã£o (CAC) e o Lifetime Value (LTV) por canal, alertando sobre segmentos nÃ£o rentÃ¡veis.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -90,15 +89,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ChurnPredictor (Growth)",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Identifica padrões de uso associados à evasão em produtos freemium e dispara pop-ups de engajamento antes do usuário sair.",
-    "prompt": "Você é um ChurnPredictor (Growth) atuando como Growth Marketer / Growth Lead. Identifica padrões de uso associados à evasão em produtos freemium e dispara pop-ups de engajamento antes do usuário sair.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica padrÃµes de uso associados Ã  evasÃ£o em produtos freemium e dispara pop-ups de engajamento antes do usuÃ¡rio sair.",
+    "prompt": "VocÃª Ã© um ChurnPredictor (Growth) atuando como Growth Marketer / Growth Lead. Identifica padrÃµes de uso associados Ã  evasÃ£o em produtos freemium e dispara pop-ups de engajamento antes do usuÃ¡rio sair.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -110,15 +109,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "AdCopyMachine",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Gera centenas de variações de títulos e descrições para anúncios no Google/Meta perfeitamente otimizados para cliques.",
-    "prompt": "Você é um AdCopyMachine atuando como Demand Generation Manager. Gera centenas de variações de títulos e descrições para anúncios no Google/Meta perfeitamente otimizados para cliques.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gera centenas de variaÃ§Ãµes de tÃ­tulos e descriÃ§Ãµes para anÃºncios no Google/Meta perfeitamente otimizados para cliques.",
+    "prompt": "VocÃª Ã© um AdCopyMachine atuando como Demand Generation Manager. Gera centenas de variaÃ§Ãµes de tÃ­tulos e descriÃ§Ãµes para anÃºncios no Google/Meta perfeitamente otimizados para cliques.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -130,15 +129,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "LandingPageMorpher",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Altera as imagens e o texto da Landing Page em tempo real baseando-se no anúncio específico que o usuário clicou (Personalização Dinâmica).",
-    "prompt": "Você é um LandingPageMorpher atuando como Demand Generation Manager. Altera as imagens e o texto da Landing Page em tempo real baseando-se no anúncio específico que o usuário clicou (Personalização Dinâmica).",
+    "emoji": "ðŸ¤–",
+    "desc": "Altera as imagens e o texto da Landing Page em tempo real baseando-se no anÃºncio especÃ­fico que o usuÃ¡rio clicou (PersonalizaÃ§Ã£o DinÃ¢mica).",
+    "prompt": "VocÃª Ã© um LandingPageMorpher atuando como Demand Generation Manager. Altera as imagens e o texto da Landing Page em tempo real baseando-se no anÃºncio especÃ­fico que o usuÃ¡rio clicou (PersonalizaÃ§Ã£o DinÃ¢mica).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -150,15 +149,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "WebinarPromoter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Cria a sequência inteira de divulgação de um evento: convites, lembretes de calendário e follow-ups pós-evento.",
-    "prompt": "Você é um WebinarPromoter atuando como Demand Generation Manager. Cria a sequência inteira de divulgação de um evento: convites, lembretes de calendário e follow-ups pós-evento.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria a sequÃªncia inteira de divulgaÃ§Ã£o de um evento: convites, lembretes de calendÃ¡rio e follow-ups pÃ³s-evento.",
+    "prompt": "VocÃª Ã© um WebinarPromoter atuando como Demand Generation Manager. Cria a sequÃªncia inteira de divulgaÃ§Ã£o de um evento: convites, lembretes de calendÃ¡rio e follow-ups pÃ³s-evento.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -170,15 +169,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "LeadMagnetCreator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Analisa os termos mais buscados do blog e gera automaticamente eBooks e Checklists baseados nos conteúdos existentes.",
-    "prompt": "Você é um LeadMagnetCreator atuando como Demand Generation Manager. Analisa os termos mais buscados do blog e gera automaticamente eBooks e Checklists baseados nos conteúdos existentes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa os termos mais buscados do blog e gera automaticamente eBooks e Checklists baseados nos conteÃºdos existentes.",
+    "prompt": "VocÃª Ã© um LeadMagnetCreator atuando como Demand Generation Manager. Analisa os termos mais buscados do blog e gera automaticamente eBooks e Checklists baseados nos conteÃºdos existentes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -190,15 +189,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "CampaignOrchestrator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Sincroniza anúncios, e-mails e mensagens de LinkedIn para garantir que o prospect veja a mesma mensagem em todos os canais.",
-    "prompt": "Você é um CampaignOrchestrator atuando como Demand Generation Manager. Sincroniza anúncios, e-mails e mensagens de LinkedIn para garantir que o prospect veja a mesma mensagem em todos os canais.",
+    "emoji": "ðŸ¤–",
+    "desc": "Sincroniza anÃºncios, e-mails e mensagens de LinkedIn para garantir que o prospect veja a mesma mensagem em todos os canais.",
+    "prompt": "VocÃª Ã© um CampaignOrchestrator atuando como Demand Generation Manager. Sincroniza anÃºncios, e-mails e mensagens de LinkedIn para garantir que o prospect veja a mesma mensagem em todos os canais.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -210,15 +209,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "BattlecardUpdater",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Varre o site e as notícias dos concorrentes diariamente e atualiza os manuais de \"como vender contra\" (Battlecards) para o time de vendas.",
-    "prompt": "Você é um BattlecardUpdater atuando como Product Marketing Manager (PMM). Varre o site e as notícias dos concorrentes diariamente e atualiza os manuais de \"como vender contra\" (Battlecards) para o time de vendas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Varre o site e as notÃ­cias dos concorrentes diariamente e atualiza os manuais de \"como vender contra\" (Battlecards) para o time de vendas.",
+    "prompt": "VocÃª Ã© um BattlecardUpdater atuando como Product Marketing Manager (PMM). Varre o site e as notÃ­cias dos concorrentes diariamente e atualiza os manuais de \"como vender contra\" (Battlecards) para o time de vendas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -230,15 +229,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ReleaseNoteWriter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Transforma logs de código (GitHub/Jira) dos desenvolvedores em notas de lançamento (Release Notes) amigáveis e focadas no benefício para o cliente.",
-    "prompt": "Você é um ReleaseNoteWriter atuando como Product Marketing Manager (PMM). Transforma logs de código (GitHub/Jira) dos desenvolvedores em notas de lançamento (Release Notes) amigáveis e focadas no benefício para o cliente.",
+    "emoji": "ðŸ¤–",
+    "desc": "Transforma logs de cÃ³digo (GitHub/Jira) dos desenvolvedores em notas de lanÃ§amento (Release Notes) amigÃ¡veis e focadas no benefÃ­cio para o cliente.",
+    "prompt": "VocÃª Ã© um ReleaseNoteWriter atuando como Product Marketing Manager (PMM). Transforma logs de cÃ³digo (GitHub/Jira) dos desenvolvedores em notas de lanÃ§amento (Release Notes) amigÃ¡veis e focadas no benefÃ­cio para o cliente.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -250,15 +249,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "PositioningTester",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Roda pesquisas em massa com o mercado-alvo para testar se a mensagem (\"messaging\") do produto é clara e atrativa.",
-    "prompt": "Você é um PositioningTester atuando como Product Marketing Manager (PMM). Roda pesquisas em massa com o mercado-alvo para testar se a mensagem (\"messaging\") do produto é clara e atrativa.",
+    "emoji": "ðŸ¤–",
+    "desc": "Roda pesquisas em massa com o mercado-alvo para testar se a mensagem (\"messaging\") do produto Ã© clara e atrativa.",
+    "prompt": "VocÃª Ã© um PositioningTester atuando como Product Marketing Manager (PMM). Roda pesquisas em massa com o mercado-alvo para testar se a mensagem (\"messaging\") do produto Ã© clara e atrativa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -270,15 +269,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "PersonaSync",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Atualiza os perfis das Buyer Personas em tempo real com base nos dados de quem realmente está fechando contratos no CRM.",
-    "prompt": "Você é um PersonaSync atuando como Product Marketing Manager (PMM). Atualiza os perfis das Buyer Personas em tempo real com base nos dados de quem realmente está fechando contratos no CRM.",
+    "emoji": "ðŸ¤–",
+    "desc": "Atualiza os perfis das Buyer Personas em tempo real com base nos dados de quem realmente estÃ¡ fechando contratos no CRM.",
+    "prompt": "VocÃª Ã© um PersonaSync atuando como Product Marketing Manager (PMM). Atualiza os perfis das Buyer Personas em tempo real com base nos dados de quem realmente estÃ¡ fechando contratos no CRM.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -290,15 +289,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "LaunchPlanner",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Cria o cronograma reverso completo de um grande lançamento de produto, delegando tarefas para PR, Vendas e Conteúdo.",
-    "prompt": "Você é um LaunchPlanner atuando como Product Marketing Manager (PMM). Cria o cronograma reverso completo de um grande lançamento de produto, delegando tarefas para PR, Vendas e Conteúdo.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria o cronograma reverso completo de um grande lanÃ§amento de produto, delegando tarefas para PR, Vendas e ConteÃºdo.",
+    "prompt": "VocÃª Ã© um LaunchPlanner atuando como Product Marketing Manager (PMM). Cria o cronograma reverso completo de um grande lanÃ§amento de produto, delegando tarefas para PR, Vendas e ConteÃºdo.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -310,15 +309,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "BidAutoAdjuster",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Controla os lances das palavras-chave a cada minuto nas plataformas de anúncios, garantindo a primeira posição com o menor custo possível.",
-    "prompt": "Você é um BidAutoAdjuster atuando como Performance Marketing Manager. Controla os lances das palavras-chave a cada minuto nas plataformas de anúncios, garantindo a primeira posição com o menor custo possível.",
+    "emoji": "ðŸ¤–",
+    "desc": "Controla os lances das palavras-chave a cada minuto nas plataformas de anÃºncios, garantindo a primeira posiÃ§Ã£o com o menor custo possÃ­vel.",
+    "prompt": "VocÃª Ã© um BidAutoAdjuster atuando como Performance Marketing Manager. Controla os lances das palavras-chave a cada minuto nas plataformas de anÃºncios, garantindo a primeira posiÃ§Ã£o com o menor custo possÃ­vel.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -330,15 +329,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "KeywordOpportunitySpotter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Encontra palavras-chave de cauda longa altamente rentáveis e de baixa concorrência que os concorrentes estão ignorando.",
-    "prompt": "Você é um KeywordOpportunitySpotter atuando como Performance Marketing Manager. Encontra palavras-chave de cauda longa altamente rentáveis e de baixa concorrência que os concorrentes estão ignorando.",
+    "emoji": "ðŸ¤–",
+    "desc": "Encontra palavras-chave de cauda longa altamente rentÃ¡veis e de baixa concorrÃªncia que os concorrentes estÃ£o ignorando.",
+    "prompt": "VocÃª Ã© um KeywordOpportunitySpotter atuando como Performance Marketing Manager. Encontra palavras-chave de cauda longa altamente rentÃ¡veis e de baixa concorrÃªncia que os concorrentes estÃ£o ignorando.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -350,15 +349,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "AdFatigueMonitor",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Detecta quando a taxa de cliques (CTR) de uma imagem ou vídeo começa a cair e a pausa, trocando por um criativo novo.",
-    "prompt": "Você é um AdFatigueMonitor atuando como Performance Marketing Manager. Detecta quando a taxa de cliques (CTR) de uma imagem ou vídeo começa a cair e a pausa, trocando por um criativo novo.",
+    "emoji": "ðŸ¤–",
+    "desc": "Detecta quando a taxa de cliques (CTR) de uma imagem ou vÃ­deo comeÃ§a a cair e a pausa, trocando por um criativo novo.",
+    "prompt": "VocÃª Ã© um AdFatigueMonitor atuando como Performance Marketing Manager. Detecta quando a taxa de cliques (CTR) de uma imagem ou vÃ­deo comeÃ§a a cair e a pausa, trocando por um criativo novo.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -370,15 +369,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "CreativeAssetTester",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Analisa quais elementos dos vídeos de anúncio (cores, rosto, música) geram mais conversão, instruindo o time de design.",
-    "prompt": "Você é um CreativeAssetTester atuando como Performance Marketing Manager. Analisa quais elementos dos vídeos de anúncio (cores, rosto, música) geram mais conversão, instruindo o time de design.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa quais elementos dos vÃ­deos de anÃºncio (cores, rosto, mÃºsica) geram mais conversÃ£o, instruindo o time de design.",
+    "prompt": "VocÃª Ã© um CreativeAssetTester atuando como Performance Marketing Manager. Analisa quais elementos dos vÃ­deos de anÃºncio (cores, rosto, mÃºsica) geram mais conversÃ£o, instruindo o time de design.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -390,15 +389,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ROASMaximizer",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Move o orçamento freneticamente entre campanhas durante a Black Friday ou dias de pico para maximizar o Retorno sobre Gasto com Anúncios.",
-    "prompt": "Você é um ROASMaximizer atuando como Performance Marketing Manager. Move o orçamento freneticamente entre campanhas durante a Black Friday ou dias de pico para maximizar o Retorno sobre Gasto com Anúncios.",
+    "emoji": "ðŸ¤–",
+    "desc": "Move o orÃ§amento freneticamente entre campanhas durante a Black Friday ou dias de pico para maximizar o Retorno sobre Gasto com AnÃºncios.",
+    "prompt": "VocÃª Ã© um ROASMaximizer atuando como Performance Marketing Manager. Move o orÃ§amento freneticamente entre campanhas durante a Black Friday ou dias de pico para maximizar o Retorno sobre Gasto com AnÃºncios.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -410,15 +409,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "TopicClusterPlanner",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Analisa as lacunas de SEO e gera um calendário editorial de 6 meses completo, organizando temas centrais e artigos de suporte.",
-    "prompt": "Você é um TopicClusterPlanner atuando como Content Strategist / Content Marketing Manager. Analisa as lacunas de SEO e gera um calendário editorial de 6 meses completo, organizando temas centrais e artigos de suporte.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa as lacunas de SEO e gera um calendÃ¡rio editorial de 6 meses completo, organizando temas centrais e artigos de suporte.",
+    "prompt": "VocÃª Ã© um TopicClusterPlanner atuando como Content Strategist / Content Marketing Manager. Analisa as lacunas de SEO e gera um calendÃ¡rio editorial de 6 meses completo, organizando temas centrais e artigos de suporte.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -430,15 +429,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "SEODraftWriter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Produz o esqueleto e o primeiro rascunho de artigos com formatação H1/H2 e densidade de palavras-chave perfeitas para rankear no Google.",
-    "prompt": "Você é um SEODraftWriter atuando como Content Strategist / Content Marketing Manager. Produz o esqueleto e o primeiro rascunho de artigos com formatação H1/H2 e densidade de palavras-chave perfeitas para rankear no Google.",
+    "emoji": "ðŸ¤–",
+    "desc": "Produz o esqueleto e o primeiro rascunho de artigos com formataÃ§Ã£o H1/H2 e densidade de palavras-chave perfeitas para rankear no Google.",
+    "prompt": "VocÃª Ã© um SEODraftWriter atuando como Content Strategist / Content Marketing Manager. Produz o esqueleto e o primeiro rascunho de artigos com formataÃ§Ã£o H1/H2 e densidade de palavras-chave perfeitas para rankear no Google.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -450,15 +449,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "PlagiarismToneChecker",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Garante que o conteúdo final gerado por freelancers não seja plágio e corrige o texto para a \"voz da marca\".",
-    "prompt": "Você é um PlagiarismToneChecker atuando como Content Strategist / Content Marketing Manager. Garante que o conteúdo final gerado por freelancers não seja plágio e corrige o texto para a \"voz da marca\".",
+    "emoji": "ðŸ¤–",
+    "desc": "Garante que o conteÃºdo final gerado por freelancers nÃ£o seja plÃ¡gio e corrige o texto para a \"voz da marca\".",
+    "prompt": "VocÃª Ã© um PlagiarismToneChecker atuando como Content Strategist / Content Marketing Manager. Garante que o conteÃºdo final gerado por freelancers nÃ£o seja plÃ¡gio e corrige o texto para a \"voz da marca\".",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -470,15 +469,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ContentRepurposer",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Pega 1 Webinar gravado e o transforma automaticamente em 1 artigo de blog, 10 posts de LinkedIn, 1 thread de Twitter e 1 email.",
-    "prompt": "Você é um ContentRepurposer atuando como Content Strategist / Content Marketing Manager. Pega 1 Webinar gravado e o transforma automaticamente em 1 artigo de blog, 10 posts de LinkedIn, 1 thread de Twitter e 1 email.",
+    "prompt": "VocÃª Ã© um ContentRepurposer atuando como Content Strategist / Content Marketing Manager. Pega 1 Webinar gravado e o transforma automaticamente em 1 artigo de blog, 10 posts de LinkedIn, 1 thread de Twitter e 1 email.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -490,15 +489,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "DistributionAutomator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Publica os conteúdos nas redes sociais nos horários de pico específicos de cada plataforma e marca influenciadores relevantes.",
-    "prompt": "Você é um DistributionAutomator atuando como Content Strategist / Content Marketing Manager. Publica os conteúdos nas redes sociais nos horários de pico específicos de cada plataforma e marca influenciadores relevantes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Publica os conteÃºdos nas redes sociais nos horÃ¡rios de pico especÃ­ficos de cada plataforma e marca influenciadores relevantes.",
+    "prompt": "VocÃª Ã© um DistributionAutomator atuando como Content Strategist / Content Marketing Manager. Publica os conteÃºdos nas redes sociais nos horÃ¡rios de pico especÃ­ficos de cada plataforma e marca influenciadores relevantes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -510,15 +509,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "SubjectLineTester",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Prevê a taxa de abertura de um e-mail antes de enviá-lo, sugerindo emoções, emojis e palavras de urgência para o título.",
-    "prompt": "Você é um SubjectLineTester atuando como Lifecycle / Email Marketing Manager. Prevê a taxa de abertura de um e-mail antes de enviá-lo, sugerindo emoções, emojis e palavras de urgência para o título.",
+    "emoji": "ðŸ¤–",
+    "desc": "PrevÃª a taxa de abertura de um e-mail antes de enviÃ¡-lo, sugerindo emoÃ§Ãµes, emojis e palavras de urgÃªncia para o tÃ­tulo.",
+    "prompt": "VocÃª Ã© um SubjectLineTester atuando como Lifecycle / Email Marketing Manager. PrevÃª a taxa de abertura de um e-mail antes de enviÃ¡-lo, sugerindo emoÃ§Ãµes, emojis e palavras de urgÃªncia para o tÃ­tulo.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -530,15 +529,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "ChurnWinBackSequencer",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Desenha fluxos de e-mail agressivos e personalizados com ofertas exclusivas para reconquistar clientes que cancelaram há 6 meses.",
-    "prompt": "Você é um ChurnWinBackSequencer atuando como Lifecycle / Email Marketing Manager. Desenha fluxos de e-mail agressivos e personalizados com ofertas exclusivas para reconquistar clientes que cancelaram há 6 meses.",
+    "emoji": "ðŸ¤–",
+    "desc": "Desenha fluxos de e-mail agressivos e personalizados com ofertas exclusivas para reconquistar clientes que cancelaram hÃ¡ 6 meses.",
+    "prompt": "VocÃª Ã© um ChurnWinBackSequencer atuando como Lifecycle / Email Marketing Manager. Desenha fluxos de e-mail agressivos e personalizados com ofertas exclusivas para reconquistar clientes que cancelaram hÃ¡ 6 meses.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -550,15 +549,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "DripCampaignTrigger",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Configura a lógica de envio de e-mails baseada nas ações do usuário (ex: se clicou no e-mail 1, envie o 2A; se não clicou, envie o 2B).",
-    "prompt": "Você é um DripCampaignTrigger atuando como Lifecycle / Email Marketing Manager. Configura a lógica de envio de e-mails baseada nas ações do usuário (ex: se clicou no e-mail 1, envie o 2A; se não clicou, envie o 2B).",
+    "emoji": "ðŸ¤–",
+    "desc": "Configura a lÃ³gica de envio de e-mails baseada nas aÃ§Ãµes do usuÃ¡rio (ex: se clicou no e-mail 1, envie o 2A; se nÃ£o clicou, envie o 2B).",
+    "prompt": "VocÃª Ã© um DripCampaignTrigger atuando como Lifecycle / Email Marketing Manager. Configura a lÃ³gica de envio de e-mails baseada nas aÃ§Ãµes do usuÃ¡rio (ex: se clicou no e-mail 1, envie o 2A; se nÃ£o clicou, envie o 2B).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -570,15 +569,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "NewsletterCurator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Vasculha as melhores notícias do setor durante a semana e monta uma newsletter curada pronta para envio na sexta-feira.",
-    "prompt": "Você é um NewsletterCurator atuando como Lifecycle / Email Marketing Manager. Vasculha as melhores notícias do setor durante a semana e monta uma newsletter curada pronta para envio na sexta-feira.",
+    "emoji": "ðŸ¤–",
+    "desc": "Vasculha as melhores notÃ­cias do setor durante a semana e monta uma newsletter curada pronta para envio na sexta-feira.",
+    "prompt": "VocÃª Ã© um NewsletterCurator atuando como Lifecycle / Email Marketing Manager. Vasculha as melhores notÃ­cias do setor durante a semana e monta uma newsletter curada pronta para envio na sexta-feira.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -590,15 +589,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "UnsubscribePredictor",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Evita o envio de campanhas promocionais para usuários com alto risco de clicar em \"descadastrar\", protegendo a reputabilidade do domínio.",
-    "prompt": "Você é um UnsubscribePredictor atuando como Lifecycle / Email Marketing Manager. Evita o envio de campanhas promocionais para usuários com alto risco de clicar em \"descadastrar\", protegendo a reputabilidade do domínio.",
+    "emoji": "ðŸ¤–",
+    "desc": "Evita o envio de campanhas promocionais para usuÃ¡rios com alto risco de clicar em \"descadastrar\", protegendo a reputabilidade do domÃ­nio.",
+    "prompt": "VocÃª Ã© um UnsubscribePredictor atuando como Lifecycle / Email Marketing Manager. Evita o envio de campanhas promocionais para usuÃ¡rios com alto risco de clicar em \"descadastrar\", protegendo a reputabilidade do domÃ­nio.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -610,15 +609,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "MarTechSync",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Monitora as integrações via API entre o CRM (Salesforce/Hubspot) e a automação de marketing (Marketo/Pardot) para evitar perda de dados.",
-    "prompt": "Você é um MarTechSync atuando como Marketing Operations Manager. Monitora as integrações via API entre o CRM (Salesforce/Hubspot) e a automação de marketing (Marketo/Pardot) para evitar perda de dados.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora as integraÃ§Ãµes via API entre o CRM (Salesforce/Hubspot) e a automaÃ§Ã£o de marketing (Marketo/Pardot) para evitar perda de dados.",
+    "prompt": "VocÃª Ã© um MarTechSync atuando como Marketing Operations Manager. Monitora as integraÃ§Ãµes via API entre o CRM (Salesforce/Hubspot) e a automaÃ§Ã£o de marketing (Marketo/Pardot) para evitar perda de dados.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -630,15 +629,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "DataHygieneMonitor",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Encontra e mescla leads duplicados, deleta e-mails inexistentes (hard bounces) e padroniza campos de formulário (ex: EUA para US).",
-    "prompt": "Você é um DataHygieneMonitor atuando como Marketing Operations Manager. Encontra e mescla leads duplicados, deleta e-mails inexistentes (hard bounces) e padroniza campos de formulário (ex: EUA para US).",
+    "emoji": "ðŸ¤–",
+    "desc": "Encontra e mescla leads duplicados, deleta e-mails inexistentes (hard bounces) e padroniza campos de formulÃ¡rio (ex: EUA para US).",
+    "prompt": "VocÃª Ã© um DataHygieneMonitor atuando como Marketing Operations Manager. Encontra e mescla leads duplicados, deleta e-mails inexistentes (hard bounces) e padroniza campos de formulÃ¡rio (ex: EUA para US).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -650,15 +649,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "UTMBuilderBot",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Gera links de rastreamento (UTMs) infalíveis para todas as campanhas e garante que as agências os usem corretamente.",
-    "prompt": "Você é um UTMBuilderBot atuando como Marketing Operations Manager. Gera links de rastreamento (UTMs) infalíveis para todas as campanhas e garante que as agências os usem corretamente.",
+    "emoji": "ðŸ¤–",
+    "desc": "Gera links de rastreamento (UTMs) infalÃ­veis para todas as campanhas e garante que as agÃªncias os usem corretamente.",
+    "prompt": "VocÃª Ã© um UTMBuilderBot atuando como Marketing Operations Manager. Gera links de rastreamento (UTMs) infalÃ­veis para todas as campanhas e garante que as agÃªncias os usem corretamente.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -670,15 +669,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "LeadRoutingTroubleshooter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Identifica por que um lead \"esquentou\" mas não foi parar na caixa de entrada do SDR, consertando as regras de roteamento.",
-    "prompt": "Você é um LeadRoutingTroubleshooter atuando como Marketing Operations Manager. Identifica por que um lead \"esquentou\" mas não foi parar na caixa de entrada do SDR, consertando as regras de roteamento.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica por que um lead \"esquentou\" mas nÃ£o foi parar na caixa de entrada do SDR, consertando as regras de roteamento.",
+    "prompt": "VocÃª Ã© um LeadRoutingTroubleshooter atuando como Marketing Operations Manager. Identifica por que um lead \"esquentou\" mas nÃ£o foi parar na caixa de entrada do SDR, consertando as regras de roteamento.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -690,15 +689,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "DashboardAutomator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Puxa dados de 15 fontes diferentes e atualiza o dashboard de marketing no Tableau/PowerBI em tempo real, sem planilhas intermediárias.",
-    "prompt": "Você é um DashboardAutomator atuando como Marketing Operations Manager. Puxa dados de 15 fontes diferentes e atualiza o dashboard de marketing no Tableau/PowerBI em tempo real, sem planilhas intermediárias.",
+    "emoji": "ðŸ¤–",
+    "desc": "Puxa dados de 15 fontes diferentes e atualiza o dashboard de marketing no Tableau/PowerBI em tempo real, sem planilhas intermediÃ¡rias.",
+    "prompt": "VocÃª Ã© um DashboardAutomator atuando como Marketing Operations Manager. Puxa dados de 15 fontes diferentes e atualiza o dashboard de marketing no Tableau/PowerBI em tempo real, sem planilhas intermediÃ¡rias.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -710,15 +709,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "BacklinkScouter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Identifica sites com alta autoridade de domínio, encontra links quebrados neles e envia um e-mail sugerindo a troca pelo link da sua empresa.",
-    "prompt": "Você é um BacklinkScouter atuando como SEO Manager / SEO Growth Manager. Identifica sites com alta autoridade de domínio, encontra links quebrados neles e envia um e-mail sugerindo a troca pelo link da sua empresa.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica sites com alta autoridade de domÃ­nio, encontra links quebrados neles e envia um e-mail sugerindo a troca pelo link da sua empresa.",
+    "prompt": "VocÃª Ã© um BacklinkScouter atuando como SEO Manager / SEO Growth Manager. Identifica sites com alta autoridade de domÃ­nio, encontra links quebrados neles e envia um e-mail sugerindo a troca pelo link da sua empresa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -730,15 +729,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "OnPageOptimizer",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Analisa as páginas do site sugerindo melhorias em Meta Tags, Alt Text de imagens e velocidade de carregamento (Core Web Vitals).",
-    "prompt": "Você é um OnPageOptimizer atuando como SEO Manager / SEO Growth Manager. Analisa as páginas do site sugerindo melhorias em Meta Tags, Alt Text de imagens e velocidade de carregamento (Core Web Vitals).",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa as pÃ¡ginas do site sugerindo melhorias em Meta Tags, Alt Text de imagens e velocidade de carregamento (Core Web Vitals).",
+    "prompt": "VocÃª Ã© um OnPageOptimizer atuando como SEO Manager / SEO Growth Manager. Analisa as pÃ¡ginas do site sugerindo melhorias em Meta Tags, Alt Text de imagens e velocidade de carregamento (Core Web Vitals).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -750,15 +749,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "CannibalizationDetector",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Alerta quando dois artigos do blog da empresa estão competindo pela mesma palavra-chave no Google e sugere consolidação.",
-    "prompt": "Você é um CannibalizationDetector atuando como SEO Manager / SEO Growth Manager. Alerta quando dois artigos do blog da empresa estão competindo pela mesma palavra-chave no Google e sugere consolidação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Alerta quando dois artigos do blog da empresa estÃ£o competindo pela mesma palavra-chave no Google e sugere consolidaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um CannibalizationDetector atuando como SEO Manager / SEO Growth Manager. Alerta quando dois artigos do blog da empresa estÃ£o competindo pela mesma palavra-chave no Google e sugere consolidaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -770,15 +769,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "SERPVolatilityTracker",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Monitora as atualizações de algoritmo do Google e avisa imediatamente se o site perdeu posições na primeira página.",
-    "prompt": "Você é um SERPVolatilityTracker atuando como SEO Manager / SEO Growth Manager. Monitora as atualizações de algoritmo do Google e avisa imediatamente se o site perdeu posições na primeira página.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora as atualizaÃ§Ãµes de algoritmo do Google e avisa imediatamente se o site perdeu posiÃ§Ãµes na primeira pÃ¡gina.",
+    "prompt": "VocÃª Ã© um SERPVolatilityTracker atuando como SEO Manager / SEO Growth Manager. Monitora as atualizaÃ§Ãµes de algoritmo do Google e avisa imediatamente se o site perdeu posiÃ§Ãµes na primeira pÃ¡gina.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -790,15 +789,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "SchemaMarkupGenerator",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Cria códigos estruturados (Schema) automaticamente para gerar \"Rich Snippets\" (estrelas, FAQs) nos resultados de busca do Google.",
-    "prompt": "Você é um SchemaMarkupGenerator atuando como SEO Manager / SEO Growth Manager. Cria códigos estruturados (Schema) automaticamente para gerar \"Rich Snippets\" (estrelas, FAQs) nos resultados de busca do Google.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria cÃ³digos estruturados (Schema) automaticamente para gerar \"Rich Snippets\" (estrelas, FAQs) nos resultados de busca do Google.",
+    "prompt": "VocÃª Ã© um SchemaMarkupGenerator atuando como SEO Manager / SEO Growth Manager. Cria cÃ³digos estruturados (Schema) automaticamente para gerar \"Rich Snippets\" (estrelas, FAQs) nos resultados de busca do Google.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -810,15 +809,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "BrandGuidelineEnforcer",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Vasculha a internet em busca do logo antigo ou distorcido da empresa sendo usado por parceiros, gerando avisos de correção.",
-    "prompt": "Você é um BrandGuidelineEnforcer atuando como Brand & Integrated Marketing Lead. Vasculha a internet em busca do logo antigo ou distorcido da empresa sendo usado por parceiros, gerando avisos de correção.",
+    "emoji": "ðŸ¤–",
+    "desc": "Vasculha a internet em busca do logo antigo ou distorcido da empresa sendo usado por parceiros, gerando avisos de correÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um BrandGuidelineEnforcer atuando como Brand & Integrated Marketing Lead. Vasculha a internet em busca do logo antigo ou distorcido da empresa sendo usado por parceiros, gerando avisos de correÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -830,15 +829,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "PRScraper",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Lê notícias mundiais para alertar quando a marca ou os executivos da empresa são mencionados, avaliando o sentimento da notícia.",
-    "prompt": "Você é um PRScraper atuando como Brand & Integrated Marketing Lead. Lê notícias mundiais para alertar quando a marca ou os executivos da empresa são mencionados, avaliando o sentimento da notícia.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª notÃ­cias mundiais para alertar quando a marca ou os executivos da empresa sÃ£o mencionados, avaliando o sentimento da notÃ­cia.",
+    "prompt": "VocÃª Ã© um PRScraper atuando como Brand & Integrated Marketing Lead. LÃª notÃ­cias mundiais para alertar quando a marca ou os executivos da empresa sÃ£o mencionados, avaliando o sentimento da notÃ­cia.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -850,15 +849,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "SentimentShiftAlerter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Notifica a diretoria imediatamente se uma campanha de marketing está gerando reações negativas ou \"cancelamento\" nas redes.",
-    "prompt": "Você é um SentimentShiftAlerter atuando como Brand & Integrated Marketing Lead. Notifica a diretoria imediatamente se uma campanha de marketing está gerando reações negativas ou \"cancelamento\" nas redes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Notifica a diretoria imediatamente se uma campanha de marketing estÃ¡ gerando reaÃ§Ãµes negativas ou \"cancelamento\" nas redes.",
+    "prompt": "VocÃª Ã© um SentimentShiftAlerter atuando como Brand & Integrated Marketing Lead. Notifica a diretoria imediatamente se uma campanha de marketing estÃ¡ gerando reaÃ§Ãµes negativas ou \"cancelamento\" nas redes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -870,15 +869,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "InfluencerVettor",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
-    "desc": "Analisa profundamente o histórico de criadores de conteúdo para garantir que não tenham polêmicas passadas antes da empresa patrociná-los.",
-    "prompt": "Você é um InfluencerVettor atuando como Brand & Integrated Marketing Lead. Analisa profundamente o histórico de criadores de conteúdo para garantir que não tenham polêmicas passadas antes da empresa patrociná-los.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa profundamente o histÃ³rico de criadores de conteÃºdo para garantir que nÃ£o tenham polÃªmicas passadas antes da empresa patrocinÃ¡-los.",
+    "prompt": "VocÃª Ã© um InfluencerVettor atuando como Brand & Integrated Marketing Lead. Analisa profundamente o histÃ³rico de criadores de conteÃºdo para garantir que nÃ£o tenham polÃªmicas passadas antes da empresa patrocinÃ¡-los.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -890,15 +889,15 @@ export const MARKETING_TOOLS: Tool[] = [
     "name": "CrisisCommsDrafter",
     "icon": "megaphone",
     "color": "pink",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Em caso de crise de marca, prepara instantaneamente respostas para redes sociais e press releases defensivos.",
-    "prompt": "Você é um CrisisCommsDrafter atuando como Brand & Integrated Marketing Lead. Em caso de crise de marca, prepara instantaneamente respostas para redes sociais e press releases defensivos.",
+    "prompt": "VocÃª Ã© um CrisisCommsDrafter atuando como Brand & Integrated Marketing Lead. Em caso de crise de marca, prepara instantaneamente respostas para redes sociais e press releases defensivos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   }

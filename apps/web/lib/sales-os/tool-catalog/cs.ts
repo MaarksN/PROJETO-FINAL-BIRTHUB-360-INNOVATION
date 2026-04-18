@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types.js";
 
 export const CS_TOOLS: Tool[] = [
   {
@@ -10,15 +9,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "QBRDeckBuilder",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Rascunha a apresentação da \"Revisão Executiva de Negócios\" (QBR) com as métricas de uso e valor entregue ao cliente no trimestre.",
-    "prompt": "Você é um QBRDeckBuilder atuando como Customer Success Manager (CSM). Rascunha a apresentação da \"Revisão Executiva de Negócios\" (QBR) com as métricas de uso e valor entregue ao cliente no trimestre.",
+    "emoji": "ðŸ¤–",
+    "desc": "Rascunha a apresentaÃ§Ã£o da \"RevisÃ£o Executiva de NegÃ³cios\" (QBR) com as mÃ©tricas de uso e valor entregue ao cliente no trimestre.",
+    "prompt": "VocÃª Ã© um QBRDeckBuilder atuando como Customer Success Manager (CSM). Rascunha a apresentaÃ§Ã£o da \"RevisÃ£o Executiva de NegÃ³cios\" (QBR) com as mÃ©tricas de uso e valor entregue ao cliente no trimestre.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -30,15 +29,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "HealthScoreTrigger",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Envia um alerta ao CSM quando a \"Saúde do Cliente\" fica amarela, instruindo exatamente qual a ação corretiva a tomar.",
-    "prompt": "Você é um HealthScoreTrigger atuando como Customer Success Manager (CSM). Envia um alerta ao CSM quando a \"Saúde do Cliente\" fica amarela, instruindo exatamente qual a ação corretiva a tomar.",
+    "emoji": "ðŸ¤–",
+    "desc": "Envia um alerta ao CSM quando a \"SaÃºde do Cliente\" fica amarela, instruindo exatamente qual a aÃ§Ã£o corretiva a tomar.",
+    "prompt": "VocÃª Ã© um HealthScoreTrigger atuando como Customer Success Manager (CSM). Envia um alerta ao CSM quando a \"SaÃºde do Cliente\" fica amarela, instruindo exatamente qual a aÃ§Ã£o corretiva a tomar.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -50,15 +49,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "UpsellPrompt",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Detecta quando o cliente atingiu o limite de licenças e sugere o e-mail exato para oferecer o upgrade para o plano superior.",
-    "prompt": "Você é um UpsellPrompt atuando como Customer Success Manager (CSM). Detecta quando o cliente atingiu o limite de licenças e sugere o e-mail exato para oferecer o upgrade para o plano superior.",
+    "emoji": "ðŸ¤–",
+    "desc": "Detecta quando o cliente atingiu o limite de licenÃ§as e sugere o e-mail exato para oferecer o upgrade para o plano superior.",
+    "prompt": "VocÃª Ã© um UpsellPrompt atuando como Customer Success Manager (CSM). Detecta quando o cliente atingiu o limite de licenÃ§as e sugere o e-mail exato para oferecer o upgrade para o plano superior.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -70,15 +69,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "BestPracticeRecommender",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Cruza dados de empresas similares e envia relatórios automatizados ao cliente sugerindo como usar a plataforma melhor.",
-    "prompt": "Você é um BestPracticeRecommender atuando como Customer Success Manager (CSM). Cruza dados de empresas similares e envia relatórios automatizados ao cliente sugerindo como usar a plataforma melhor.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cruza dados de empresas similares e envia relatÃ³rios automatizados ao cliente sugerindo como usar a plataforma melhor.",
+    "prompt": "VocÃª Ã© um BestPracticeRecommender atuando como Customer Success Manager (CSM). Cruza dados de empresas similares e envia relatÃ³rios automatizados ao cliente sugerindo como usar a plataforma melhor.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -90,15 +89,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "ExecutiveSponsorTracker",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Monitora o LinkedIn do decisor do cliente. Se ele trocar de emprego, aciona o CSM para construir relacionamento com o sucessor.",
-    "prompt": "Você é um ExecutiveSponsorTracker atuando como Customer Success Manager (CSM). Monitora o LinkedIn do decisor do cliente. Se ele trocar de emprego, aciona o CSM para construir relacionamento com o sucessor.",
+    "prompt": "VocÃª Ã© um ExecutiveSponsorTracker atuando como Customer Success Manager (CSM). Monitora o LinkedIn do decisor do cliente. Se ele trocar de emprego, aciona o CSM para construir relacionamento com o sucessor.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -110,15 +109,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "ProjectPlanTracker",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Atualiza o gráfico de Gantt da implementação automaticamente com base nos e-mails e tarefas concluídas pelo cliente.",
-    "prompt": "Você é um ProjectPlanTracker atuando como Implementation Specialist. Atualiza o gráfico de Gantt da implementação automaticamente com base nos e-mails e tarefas concluídas pelo cliente.",
+    "emoji": "ðŸ¤–",
+    "desc": "Atualiza o grÃ¡fico de Gantt da implementaÃ§Ã£o automaticamente com base nos e-mails e tarefas concluÃ­das pelo cliente.",
+    "prompt": "VocÃª Ã© um ProjectPlanTracker atuando como Implementation Specialist. Atualiza o grÃ¡fico de Gantt da implementaÃ§Ã£o automaticamente com base nos e-mails e tarefas concluÃ­das pelo cliente.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -130,15 +129,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "APIKeyConfigurator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Guia o desenvolvedor do cliente através de um chatbot para configurar integrações, testar chaves API e validar payloads sem envolver humanos.",
-    "prompt": "Você é um APIKeyConfigurator atuando como Implementation Specialist. Guia o desenvolvedor do cliente através de um chatbot para configurar integrações, testar chaves API e validar payloads sem envolver humanos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Guia o desenvolvedor do cliente atravÃ©s de um chatbot para configurar integraÃ§Ãµes, testar chaves API e validar payloads sem envolver humanos.",
+    "prompt": "VocÃª Ã© um APIKeyConfigurator atuando como Implementation Specialist. Guia o desenvolvedor do cliente atravÃ©s de um chatbot para configurar integraÃ§Ãµes, testar chaves API e validar payloads sem envolver humanos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -150,15 +149,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "DataMigrationValidator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Audita o banco de dados que o cliente importou (Planilhas/CSVs) apontando erros, células vazias e corrigindo a formatação.",
-    "prompt": "Você é um DataMigrationValidator atuando como Implementation Specialist. Audita o banco de dados que o cliente importou (Planilhas/CSVs) apontando erros, células vazias e corrigindo a formatação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Audita o banco de dados que o cliente importou (Planilhas/CSVs) apontando erros, cÃ©lulas vazias e corrigindo a formataÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um DataMigrationValidator atuando como Implementation Specialist. Audita o banco de dados que o cliente importou (Planilhas/CSVs) apontando erros, cÃ©lulas vazias e corrigindo a formataÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -170,15 +169,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "MilestoneChaser",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Envia lembretes educados e automatizados para o cliente quando ele está atrasando a entrega de materiais necessários para a implantação.",
-    "prompt": "Você é um MilestoneChaser atuando como Implementation Specialist. Envia lembretes educados e automatizados para o cliente quando ele está atrasando a entrega de materiais necessários para a implantação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Envia lembretes educados e automatizados para o cliente quando ele estÃ¡ atrasando a entrega de materiais necessÃ¡rios para a implantaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um MilestoneChaser atuando como Implementation Specialist. Envia lembretes educados e automatizados para o cliente quando ele estÃ¡ atrasando a entrega de materiais necessÃ¡rios para a implantaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -190,15 +189,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "DelayEscalator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Percebe quando um projeto está travado há mais de 15 dias e aciona o gerente de implementações para intervenção executiva.",
-    "prompt": "Você é um DelayEscalator atuando como Implementation Specialist. Percebe quando um projeto está travado há mais de 15 dias e aciona o gerente de implementações para intervenção executiva.",
+    "emoji": "ðŸ¤–",
+    "desc": "Percebe quando um projeto estÃ¡ travado hÃ¡ mais de 15 dias e aciona o gerente de implementaÃ§Ãµes para intervenÃ§Ã£o executiva.",
+    "prompt": "VocÃª Ã© um DelayEscalator atuando como Implementation Specialist. Percebe quando um projeto estÃ¡ travado hÃ¡ mais de 15 dias e aciona o gerente de implementaÃ§Ãµes para intervenÃ§Ã£o executiva.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -210,15 +209,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "WelcomeSequencer",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Adapta a sequência de boas-vindas dependendo da senioridade do usuário (um CEO recebe conteúdo de ROI, um analista recebe tutoriais práticos).",
-    "prompt": "Você é um WelcomeSequencer atuando como Onboarding Manager. Adapta a sequência de boas-vindas dependendo da senioridade do usuário (um CEO recebe conteúdo de ROI, um analista recebe tutoriais práticos).",
+    "emoji": "ðŸ¤–",
+    "desc": "Adapta a sequÃªncia de boas-vindas dependendo da senioridade do usuÃ¡rio (um CEO recebe conteÃºdo de ROI, um analista recebe tutoriais prÃ¡ticos).",
+    "prompt": "VocÃª Ã© um WelcomeSequencer atuando como Onboarding Manager. Adapta a sequÃªncia de boas-vindas dependendo da senioridade do usuÃ¡rio (um CEO recebe conteÃºdo de ROI, um analista recebe tutoriais prÃ¡ticos).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -230,15 +229,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "AhaMomentTracker",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Identifica o momento exato em que o cliente obtém o primeiro valor da ferramenta e dispara uma mensagem de celebração/gamificação.",
-    "prompt": "Você é um AhaMomentTracker atuando como Onboarding Manager. Identifica o momento exato em que o cliente obtém o primeiro valor da ferramenta e dispara uma mensagem de celebração/gamificação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Identifica o momento exato em que o cliente obtÃ©m o primeiro valor da ferramenta e dispara uma mensagem de celebraÃ§Ã£o/gamificaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um AhaMomentTracker atuando como Onboarding Manager. Identifica o momento exato em que o cliente obtÃ©m o primeiro valor da ferramenta e dispara uma mensagem de celebraÃ§Ã£o/gamificaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -250,15 +249,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "TrainingVideoRecommender",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Observa onde o usuário clica e empaca no software, abrindo pop-ups com vídeos curtos exatamente sobre aquela funcionalidade.",
-    "prompt": "Você é um TrainingVideoRecommender atuando como Onboarding Manager. Observa onde o usuário clica e empaca no software, abrindo pop-ups com vídeos curtos exatamente sobre aquela funcionalidade.",
+    "emoji": "ðŸ¤–",
+    "desc": "Observa onde o usuÃ¡rio clica e empaca no software, abrindo pop-ups com vÃ­deos curtos exatamente sobre aquela funcionalidade.",
+    "prompt": "VocÃª Ã© um TrainingVideoRecommender atuando como Onboarding Manager. Observa onde o usuÃ¡rio clica e empaca no software, abrindo pop-ups com vÃ­deos curtos exatamente sobre aquela funcionalidade.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -270,15 +269,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "FAQAutoResponder",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Responde dúvidas repetitivas enviadas por e-mail nos primeiros 30 dias usando o manual de implantação.",
-    "prompt": "Você é um FAQAutoResponder atuando como Onboarding Manager. Responde dúvidas repetitivas enviadas por e-mail nos primeiros 30 dias usando o manual de implantação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Responde dÃºvidas repetitivas enviadas por e-mail nos primeiros 30 dias usando o manual de implantaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um FAQAutoResponder atuando como Onboarding Manager. Responde dÃºvidas repetitivas enviadas por e-mail nos primeiros 30 dias usando o manual de implantaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -290,15 +289,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "AdoptionMetricAnalyzer",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Compara a velocidade de adoção do cliente atual com a média histórica dos clientes bem-sucedidos para prever sucesso.",
-    "prompt": "Você é um AdoptionMetricAnalyzer atuando como Onboarding Manager. Compara a velocidade de adoção do cliente atual com a média histórica dos clientes bem-sucedidos para prever sucesso.",
+    "emoji": "ðŸ¤–",
+    "desc": "Compara a velocidade de adoÃ§Ã£o do cliente atual com a mÃ©dia histÃ³rica dos clientes bem-sucedidos para prever sucesso.",
+    "prompt": "VocÃª Ã© um AdoptionMetricAnalyzer atuando como Onboarding Manager. Compara a velocidade de adoÃ§Ã£o do cliente atual com a mÃ©dia histÃ³rica dos clientes bem-sucedidos para prever sucesso.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -310,15 +309,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "TicketClassifier",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Lê o ticket de suporte, entende a urgência e o categoriza perfeitamente, enviando para o departamento ou nível de suporte correto.",
-    "prompt": "Você é um TicketClassifier atuando como Customer Support Specialist (L1, L2, L3). Lê o ticket de suporte, entende a urgência e o categoriza perfeitamente, enviando para o departamento ou nível de suporte correto.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª o ticket de suporte, entende a urgÃªncia e o categoriza perfeitamente, enviando para o departamento ou nÃ­vel de suporte correto.",
+    "prompt": "VocÃª Ã© um TicketClassifier atuando como Customer Support Specialist (L1, L2, L3). LÃª o ticket de suporte, entende a urgÃªncia e o categoriza perfeitamente, enviando para o departamento ou nÃ­vel de suporte correto.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -330,15 +329,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "SemanticSearchKB",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Transforma a busca da base de conhecimento; ao invés de buscar palavras, entende o problema do cliente e traz a solução em um parágrafo.",
-    "prompt": "Você é um SemanticSearchKB atuando como Customer Support Specialist (L1, L2, L3). Transforma a busca da base de conhecimento; ao invés de buscar palavras, entende o problema do cliente e traz a solução em um parágrafo.",
+    "emoji": "ðŸ¤–",
+    "desc": "Transforma a busca da base de conhecimento; ao invÃ©s de buscar palavras, entende o problema do cliente e traz a soluÃ§Ã£o em um parÃ¡grafo.",
+    "prompt": "VocÃª Ã© um SemanticSearchKB atuando como Customer Support Specialist (L1, L2, L3). Transforma a busca da base de conhecimento; ao invÃ©s de buscar palavras, entende o problema do cliente e traz a soluÃ§Ã£o em um parÃ¡grafo.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -350,15 +349,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "L1AutoResolver",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Resolve sozinho 80% das chamadas comuns (reset de senha, dúvidas de faturamento, onde clicar) comunicando-se de forma humanizada.",
-    "prompt": "Você é um L1AutoResolver atuando como Customer Support Specialist (L1, L2, L3). Resolve sozinho 80% das chamadas comuns (reset de senha, dúvidas de faturamento, onde clicar) comunicando-se de forma humanizada.",
+    "emoji": "ðŸ¤–",
+    "desc": "Resolve sozinho 80% das chamadas comuns (reset de senha, dÃºvidas de faturamento, onde clicar) comunicando-se de forma humanizada.",
+    "prompt": "VocÃª Ã© um L1AutoResolver atuando como Customer Support Specialist (L1, L2, L3). Resolve sozinho 80% das chamadas comuns (reset de senha, dÃºvidas de faturamento, onde clicar) comunicando-se de forma humanizada.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -370,15 +369,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "L3BugReplicator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Traduz o relato vago do cliente (\"deu erro\") em uma série de passos de reprodução, logs do sistema e linhas de código prováveis para o engenheiro.",
-    "prompt": "Você é um L3BugReplicator atuando como Customer Support Specialist (L1, L2, L3). Traduz o relato vago do cliente (\"deu erro\") em uma série de passos de reprodução, logs do sistema e linhas de código prováveis para o engenheiro.",
+    "emoji": "ðŸ¤–",
+    "desc": "Traduz o relato vago do cliente (\"deu erro\") em uma sÃ©rie de passos de reproduÃ§Ã£o, logs do sistema e linhas de cÃ³digo provÃ¡veis para o engenheiro.",
+    "prompt": "VocÃª Ã© um L3BugReplicator atuando como Customer Support Specialist (L1, L2, L3). Traduz o relato vago do cliente (\"deu erro\") em uma sÃ©rie de passos de reproduÃ§Ã£o, logs do sistema e linhas de cÃ³digo provÃ¡veis para o engenheiro.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -390,15 +389,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "AngryCustomerEscalator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Percebe linguagem agressiva, CAIXA ALTA ou histórico de frustração no chat e roteia instantaneamente para um humano sênior.",
-    "prompt": "Você é um AngryCustomerEscalator atuando como Customer Support Specialist (L1, L2, L3). Percebe linguagem agressiva, CAIXA ALTA ou histórico de frustração no chat e roteia instantaneamente para um humano sênior.",
+    "emoji": "ðŸ¤–",
+    "desc": "Percebe linguagem agressiva, CAIXA ALTA ou histÃ³rico de frustraÃ§Ã£o no chat e roteia instantaneamente para um humano sÃªnior.",
+    "prompt": "VocÃª Ã© um AngryCustomerEscalator atuando como Customer Support Specialist (L1, L2, L3). Percebe linguagem agressiva, CAIXA ALTA ou histÃ³rico de frustraÃ§Ã£o no chat e roteia instantaneamente para um humano sÃªnior.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -410,15 +409,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "SLAMonitor",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Fiscaliza os Acordos de Nível de Serviço. Se um ticket técnico está prestes a violar o tempo de resposta, cria alertas vermelhos.",
-    "prompt": "Você é um SLAMonitor atuando como Technical Account Manager (TAM). Fiscaliza os Acordos de Nível de Serviço. Se um ticket técnico está prestes a violar o tempo de resposta, cria alertas vermelhos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Fiscaliza os Acordos de NÃ­vel de ServiÃ§o. Se um ticket tÃ©cnico estÃ¡ prestes a violar o tempo de resposta, cria alertas vermelhos.",
+    "prompt": "VocÃª Ã© um SLAMonitor atuando como Technical Account Manager (TAM). Fiscaliza os Acordos de NÃ­vel de ServiÃ§o. Se um ticket tÃ©cnico estÃ¡ prestes a violar o tempo de resposta, cria alertas vermelhos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -430,15 +429,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "PatchUpdateAlerter",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Avisa o cliente proativamente sobre atualizações e correções de segurança (patches), analisando se a atualização vai quebrar o código deles.",
-    "prompt": "Você é um PatchUpdateAlerter atuando como Technical Account Manager (TAM). Avisa o cliente proativamente sobre atualizações e correções de segurança (patches), analisando se a atualização vai quebrar o código deles.",
+    "emoji": "ðŸ¤–",
+    "desc": "Avisa o cliente proativamente sobre atualizaÃ§Ãµes e correÃ§Ãµes de seguranÃ§a (patches), analisando se a atualizaÃ§Ã£o vai quebrar o cÃ³digo deles.",
+    "prompt": "VocÃª Ã© um PatchUpdateAlerter atuando como Technical Account Manager (TAM). Avisa o cliente proativamente sobre atualizaÃ§Ãµes e correÃ§Ãµes de seguranÃ§a (patches), analisando se a atualizaÃ§Ã£o vai quebrar o cÃ³digo deles.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -450,15 +449,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "ScalabilityPredictor",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Monitora a infraestrutura do cliente e prevê quando eles vão precisar comprar mais servidores ou banda antes que o sistema deles caia.",
-    "prompt": "Você é um ScalabilityPredictor atuando como Technical Account Manager (TAM). Monitora a infraestrutura do cliente e prevê quando eles vão precisar comprar mais servidores ou banda antes que o sistema deles caia.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora a infraestrutura do cliente e prevÃª quando eles vÃ£o precisar comprar mais servidores ou banda antes que o sistema deles caia.",
+    "prompt": "VocÃª Ã© um ScalabilityPredictor atuando como Technical Account Manager (TAM). Monitora a infraestrutura do cliente e prevÃª quando eles vÃ£o precisar comprar mais servidores ou banda antes que o sistema deles caia.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -470,15 +469,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "CustomScriptGenerator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Escreve scripts curtos (Python/Bash) para ajudar o cliente a automatizar rotinas internas ligadas ao produto.",
-    "prompt": "Você é um CustomScriptGenerator atuando como Technical Account Manager (TAM). Escreve scripts curtos (Python/Bash) para ajudar o cliente a automatizar rotinas internas ligadas ao produto.",
+    "prompt": "VocÃª Ã© um CustomScriptGenerator atuando como Technical Account Manager (TAM). Escreve scripts curtos (Python/Bash) para ajudar o cliente a automatizar rotinas internas ligadas ao produto.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -490,15 +489,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "OutageCommunicator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Durante quedas de servidor (Downtime), gera atualizações técnicas em tempo real para acalmar as equipes de TI dos clientes.",
-    "prompt": "Você é um OutageCommunicator atuando como Technical Account Manager (TAM). Durante quedas de servidor (Downtime), gera atualizações técnicas em tempo real para acalmar as equipes de TI dos clientes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Durante quedas de servidor (Downtime), gera atualizaÃ§Ãµes tÃ©cnicas em tempo real para acalmar as equipes de TI dos clientes.",
+    "prompt": "VocÃª Ã© um OutageCommunicator atuando como Technical Account Manager (TAM). Durante quedas de servidor (Downtime), gera atualizaÃ§Ãµes tÃ©cnicas em tempo real para acalmar as equipes de TI dos clientes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -510,15 +509,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "RenewalContractGenerator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Cria o contrato de renovação com o reajuste de inflação ou aumento de preço programado pronto para assinatura digital.",
-    "prompt": "Você é um RenewalContractGenerator atuando como Account Manager (AM). Cria o contrato de renovação com o reajuste de inflação ou aumento de preço programado pronto para assinatura digital.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria o contrato de renovaÃ§Ã£o com o reajuste de inflaÃ§Ã£o ou aumento de preÃ§o programado pronto para assinatura digital.",
+    "prompt": "VocÃª Ã© um RenewalContractGenerator atuando como Account Manager (AM). Cria o contrato de renovaÃ§Ã£o com o reajuste de inflaÃ§Ã£o ou aumento de preÃ§o programado pronto para assinatura digital.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -530,15 +529,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "CrossSellMapper",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Analisa o uso da conta e sugere produtos complementares do portfólio da empresa que se encaixam perfeitamente na dor atual.",
-    "prompt": "Você é um CrossSellMapper atuando como Account Manager (AM). Analisa o uso da conta e sugere produtos complementares do portfólio da empresa que se encaixam perfeitamente na dor atual.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa o uso da conta e sugere produtos complementares do portfÃ³lio da empresa que se encaixam perfeitamente na dor atual.",
+    "prompt": "VocÃª Ã© um CrossSellMapper atuando como Account Manager (AM). Analisa o uso da conta e sugere produtos complementares do portfÃ³lio da empresa que se encaixam perfeitamente na dor atual.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -550,15 +549,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "RelationshipMatrixBuilder",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Mapeia quem são os defensores, detratores e desconhecidos dentro da conta do cliente, orientando quem o AM deve chamar para almoçar.",
-    "prompt": "Você é um RelationshipMatrixBuilder atuando como Account Manager (AM). Mapeia quem são os defensores, detratores e desconhecidos dentro da conta do cliente, orientando quem o AM deve chamar para almoçar.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mapeia quem sÃ£o os defensores, detratores e desconhecidos dentro da conta do cliente, orientando quem o AM deve chamar para almoÃ§ar.",
+    "prompt": "VocÃª Ã© um RelationshipMatrixBuilder atuando como Account Manager (AM). Mapeia quem sÃ£o os defensores, detratores e desconhecidos dentro da conta do cliente, orientando quem o AM deve chamar para almoÃ§ar.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -570,15 +569,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "PricingTierRecommender",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Simula o impacto financeiro para o cliente de mudar de um plano mensal para anual, criando a proposta financeira irresistível.",
-    "prompt": "Você é um PricingTierRecommender atuando como Account Manager (AM). Simula o impacto financeiro para o cliente de mudar de um plano mensal para anual, criando a proposta financeira irresistível.",
+    "emoji": "ðŸ¤–",
+    "desc": "Simula o impacto financeiro para o cliente de mudar de um plano mensal para anual, criando a proposta financeira irresistÃ­vel.",
+    "prompt": "VocÃª Ã© um PricingTierRecommender atuando como Account Manager (AM). Simula o impacto financeiro para o cliente de mudar de um plano mensal para anual, criando a proposta financeira irresistÃ­vel.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -590,15 +589,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "WhiteSpaceAnalyzer",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Mostra quais divisões, subsidiárias ou filiais do cliente atual ainda não usam o produto, criando o plano de expansão.",
-    "prompt": "Você é um WhiteSpaceAnalyzer atuando como Account Manager (AM). Mostra quais divisões, subsidiárias ou filiais do cliente atual ainda não usam o produto, criando o plano de expansão.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mostra quais divisÃµes, subsidiÃ¡rias ou filiais do cliente atual ainda nÃ£o usam o produto, criando o plano de expansÃ£o.",
+    "prompt": "VocÃª Ã© um WhiteSpaceAnalyzer atuando como Account Manager (AM). Mostra quais divisÃµes, subsidiÃ¡rias ou filiais do cliente atual ainda nÃ£o usam o produto, criando o plano de expansÃ£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -610,15 +609,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "CSATNPSAggregator",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Compila todas as notas de NPS (Net Promoter Score) e CSAT do trimestre e gera análises de texto sobre por que a nota subiu ou desceu.",
-    "prompt": "Você é um CSATNPSAggregator atuando como Customer Operations Specialist. Compila todas as notas de NPS (Net Promoter Score) e CSAT do trimestre e gera análises de texto sobre por que a nota subiu ou desceu.",
+    "emoji": "ðŸ¤–",
+    "desc": "Compila todas as notas de NPS (Net Promoter Score) e CSAT do trimestre e gera anÃ¡lises de texto sobre por que a nota subiu ou desceu.",
+    "prompt": "VocÃª Ã© um CSATNPSAggregator atuando como Customer Operations Specialist. Compila todas as notas de NPS (Net Promoter Score) e CSAT do trimestre e gera anÃ¡lises de texto sobre por que a nota subiu ou desceu.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -630,15 +629,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "TicketBacklogAnalyzer",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Monitora a fila de tickets de suporte identificando gargalos na equipe e sugerindo pausas e redistribuição de turnos.",
-    "prompt": "Você é um TicketBacklogAnalyzer atuando como Customer Operations Specialist. Monitora a fila de tickets de suporte identificando gargalos na equipe e sugerindo pausas e redistribuição de turnos.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora a fila de tickets de suporte identificando gargalos na equipe e sugerindo pausas e redistribuiÃ§Ã£o de turnos.",
+    "prompt": "VocÃª Ã© um TicketBacklogAnalyzer atuando como Customer Operations Specialist. Monitora a fila de tickets de suporte identificando gargalos na equipe e sugerindo pausas e redistribuiÃ§Ã£o de turnos.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -650,15 +649,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "KBGapIdentifier",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Analisa as perguntas dos clientes para identificar o que NÃO está na documentação e cria os rascunhos dos novos artigos de ajuda.",
-    "prompt": "Você é um KBGapIdentifier atuando como Customer Operations Specialist. Analisa as perguntas dos clientes para identificar o que NÃO está na documentação e cria os rascunhos dos novos artigos de ajuda.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa as perguntas dos clientes para identificar o que NÃƒO estÃ¡ na documentaÃ§Ã£o e cria os rascunhos dos novos artigos de ajuda.",
+    "prompt": "VocÃª Ã© um KBGapIdentifier atuando como Customer Operations Specialist. Analisa as perguntas dos clientes para identificar o que NÃƒO estÃ¡ na documentaÃ§Ã£o e cria os rascunhos dos novos artigos de ajuda.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -670,15 +669,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "ShiftScheduler",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Organiza a escala de plantão da equipe de suporte global (Follow the sun) para garantir cobertura 24/7 sem estourar o banco de horas.",
-    "prompt": "Você é um ShiftScheduler atuando como Customer Operations Specialist. Organiza a escala de plantão da equipe de suporte global (Follow the sun) para garantir cobertura 24/7 sem estourar o banco de horas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Organiza a escala de plantÃ£o da equipe de suporte global (Follow the sun) para garantir cobertura 24/7 sem estourar o banco de horas.",
+    "prompt": "VocÃª Ã© um ShiftScheduler atuando como Customer Operations Specialist. Organiza a escala de plantÃ£o da equipe de suporte global (Follow the sun) para garantir cobertura 24/7 sem estourar o banco de horas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -690,15 +689,15 @@ export const CS_TOOLS: Tool[] = [
     "name": "RefundProcessor",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
-    "desc": "Audita pedidos de reembolso baseados na política da empresa e aprova ou nega transações sem intervenção humana.",
-    "prompt": "Você é um RefundProcessor atuando como Customer Operations Specialist. Audita pedidos de reembolso baseados na política da empresa e aprova ou nega transações sem intervenção humana.",
+    "emoji": "ðŸ¤–",
+    "desc": "Audita pedidos de reembolso baseados na polÃ­tica da empresa e aprova ou nega transaÃ§Ãµes sem intervenÃ§Ã£o humana.",
+    "prompt": "VocÃª Ã© um RefundProcessor atuando como Customer Operations Specialist. Audita pedidos de reembolso baseados na polÃ­tica da empresa e aprova ou nega transaÃ§Ãµes sem intervenÃ§Ã£o humana.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -710,7 +709,7 @@ export const CS_TOOLS: Tool[] = [
     "name": "SentimentAnalysisChurnRisk",
     "icon": "life-buoy",
     "color": "sky",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Analisa chamados recentes, sentimento do suporte e sinais de adocao para apontar risco de cancelamento e a melhor acao de retencao.",
     "prompt": "Voce e um SentimentAnalysisChurnRisk atuando como especialista de retencao. Leia o contexto de suporte, identifique contas com alto risco de churn, explique os sinais principais e recomende a proxima acao de retencao em bullets curtos.",
     "fields": [
@@ -718,7 +717,7 @@ export const CS_TOOLS: Tool[] = [
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   }

@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-"use client";
+﻿"use client";
 
 import {
   startTransition,

@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types.js";
 
 export const REVOPS_TOOLS: Tool[] = [
   {
@@ -10,15 +9,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "FunnelLeakDetector",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Analisa as taxas de conversão de Marketing -> Vendas -> CS e aponta onde está havendo a maior perda de dinheiro da empresa.",
-    "prompt": "Você é um FunnelLeakDetector atuando como RevOps Manager. Analisa as taxas de conversão de Marketing -> Vendas -> CS e aponta onde está havendo a maior perda de dinheiro da empresa.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa as taxas de conversÃ£o de Marketing -> Vendas -> CS e aponta onde estÃ¡ havendo a maior perda de dinheiro da empresa.",
+    "prompt": "VocÃª Ã© um FunnelLeakDetector atuando como RevOps Manager. Analisa as taxas de conversÃ£o de Marketing -> Vendas -> CS e aponta onde estÃ¡ havendo a maior perda de dinheiro da empresa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -30,15 +29,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "DataSiloBridger",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Sincroniza dados automaticamente garantindo que Vendas, Marketing e Finanças estejam olhando para a mesma receita.",
-    "prompt": "Você é um DataSiloBridger atuando como RevOps Manager. Sincroniza dados automaticamente garantindo que Vendas, Marketing e Finanças estejam olhando para a mesma receita.",
+    "emoji": "ðŸ¤–",
+    "desc": "Sincroniza dados automaticamente garantindo que Vendas, Marketing e FinanÃ§as estejam olhando para a mesma receita.",
+    "prompt": "VocÃª Ã© um DataSiloBridger atuando como RevOps Manager. Sincroniza dados automaticamente garantindo que Vendas, Marketing e FinanÃ§as estejam olhando para a mesma receita.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -50,15 +49,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ToolROIAnalyzer",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Audita o uso de licenças de software pelas equipes; se um vendedor não usa o LinkedIn Premium há 30 dias, cancela a licença.",
-    "prompt": "Você é um ToolROIAnalyzer atuando como RevOps Manager. Audita o uso de licenças de software pelas equipes; se um vendedor não usa o LinkedIn Premium há 30 dias, cancela a licença.",
+    "emoji": "ðŸ¤–",
+    "desc": "Audita o uso de licenÃ§as de software pelas equipes; se um vendedor nÃ£o usa o LinkedIn Premium hÃ¡ 30 dias, cancela a licenÃ§a.",
+    "prompt": "VocÃª Ã© um ToolROIAnalyzer atuando como RevOps Manager. Audita o uso de licenÃ§as de software pelas equipes; se um vendedor nÃ£o usa o LinkedIn Premium hÃ¡ 30 dias, cancela a licenÃ§a.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -70,15 +69,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "GTMAlignmentScorer",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Mede a coerência entre o que o marketing promete e o que o produto entrega, sinalizando desalinhamentos de comunicação.",
-    "prompt": "Você é um GTMAlignmentScorer atuando como RevOps Manager. Mede a coerência entre o que o marketing promete e o que o produto entrega, sinalizando desalinhamentos de comunicação.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mede a coerÃªncia entre o que o marketing promete e o que o produto entrega, sinalizando desalinhamentos de comunicaÃ§Ã£o.",
+    "prompt": "VocÃª Ã© um GTMAlignmentScorer atuando como RevOps Manager. Mede a coerÃªncia entre o que o marketing promete e o que o produto entrega, sinalizando desalinhamentos de comunicaÃ§Ã£o.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -90,15 +89,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ProcessBottleneckAlerter",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Mapeia o ciclo de vendas completo e avisa: \"O setor jurídico está demorando 4 dias a mais que o normal para aprovar contratos\".",
-    "prompt": "Você é um ProcessBottleneckAlerter atuando como RevOps Manager. Mapeia o ciclo de vendas completo e avisa: \"O setor jurídico está demorando 4 dias a mais que o normal para aprovar contratos\".",
+    "emoji": "ðŸ¤–",
+    "desc": "Mapeia o ciclo de vendas completo e avisa: \"O setor jurÃ­dico estÃ¡ demorando 4 dias a mais que o normal para aprovar contratos\".",
+    "prompt": "VocÃª Ã© um ProcessBottleneckAlerter atuando como RevOps Manager. Mapeia o ciclo de vendas completo e avisa: \"O setor jurÃ­dico estÃ¡ demorando 4 dias a mais que o normal para aprovar contratos\".",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -110,15 +109,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "CRMCleanser",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Apaga dados inúteis do Salesforce/HubSpot, formata nomes de empresas e preenche campos vazios buscando informações na web.",
-    "prompt": "Você é um CRMCleanser atuando como Sales Operations Analyst. Apaga dados inúteis do Salesforce/HubSpot, formata nomes de empresas e preenche campos vazios buscando informações na web.",
+    "emoji": "ðŸ¤–",
+    "desc": "Apaga dados inÃºteis do Salesforce/HubSpot, formata nomes de empresas e preenche campos vazios buscando informaÃ§Ãµes na web.",
+    "prompt": "VocÃª Ã© um CRMCleanser atuando como Sales Operations Analyst. Apaga dados inÃºteis do Salesforce/HubSpot, formata nomes de empresas e preenche campos vazios buscando informaÃ§Ãµes na web.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -130,15 +129,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "TerritoryBalancer",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Reajusta as carteiras de clientes caso um vendedor saia de licença ou peça demissão, transferindo oportunidades de forma justa.",
-    "prompt": "Você é um TerritoryBalancer atuando como Sales Operations Analyst. Reajusta as carteiras de clientes caso um vendedor saia de licença ou peça demissão, transferindo oportunidades de forma justa.",
+    "emoji": "ðŸ¤–",
+    "desc": "Reajusta as carteiras de clientes caso um vendedor saia de licenÃ§a ou peÃ§a demissÃ£o, transferindo oportunidades de forma justa.",
+    "prompt": "VocÃª Ã© um TerritoryBalancer atuando como Sales Operations Analyst. Reajusta as carteiras de clientes caso um vendedor saia de licenÃ§a ou peÃ§a demissÃ£o, transferindo oportunidades de forma justa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -150,15 +149,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "QuotaAttainmentTracker",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Atualiza os dashboards diários que mostram o percentual de atingimento de metas e comissionamento esperado de cada representante.",
-    "prompt": "Você é um QuotaAttainmentTracker atuando como Sales Operations Analyst. Atualiza os dashboards diários que mostram o percentual de atingimento de metas e comissionamento esperado de cada representante.",
+    "emoji": "ðŸ¤–",
+    "desc": "Atualiza os dashboards diÃ¡rios que mostram o percentual de atingimento de metas e comissionamento esperado de cada representante.",
+    "prompt": "VocÃª Ã© um QuotaAttainmentTracker atuando como Sales Operations Analyst. Atualiza os dashboards diÃ¡rios que mostram o percentual de atingimento de metas e comissionamento esperado de cada representante.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -170,15 +169,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ValidationRuleEnforcer",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Trava o CRM impedindo que um vendedor mude uma oportunidade para \"Ganho\" se o CNPJ do cliente não foi preenchido.",
-    "prompt": "Você é um ValidationRuleEnforcer atuando como Sales Operations Analyst. Trava o CRM impedindo que um vendedor mude uma oportunidade para \"Ganho\" se o CNPJ do cliente não foi preenchido.",
+    "emoji": "ðŸ¤–",
+    "desc": "Trava o CRM impedindo que um vendedor mude uma oportunidade para \"Ganho\" se o CNPJ do cliente nÃ£o foi preenchido.",
+    "prompt": "VocÃª Ã© um ValidationRuleEnforcer atuando como Sales Operations Analyst. Trava o CRM impedindo que um vendedor mude uma oportunidade para \"Ganho\" se o CNPJ do cliente nÃ£o foi preenchido.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -190,15 +189,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "DuplicateMerger",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Analisa diariamente contas e contatos similares e os funde (Merge), preservando os dados mais recentes e confiáveis.",
-    "prompt": "Você é um DuplicateMerger atuando como Sales Operations Analyst. Analisa diariamente contas e contatos similares e os funde (Merge), preservando os dados mais recentes e confiáveis.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa diariamente contas e contatos similares e os funde (Merge), preservando os dados mais recentes e confiÃ¡veis.",
+    "prompt": "VocÃª Ã© um DuplicateMerger atuando como Sales Operations Analyst. Analisa diariamente contas e contatos similares e os funde (Merge), preservando os dados mais recentes e confiÃ¡veis.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -210,15 +209,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "MicroLearningCreator",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Pega a gravação de 1 hora sobre um novo produto e a transforma em 5 vídeos interativos de 3 minutos para treinamento da equipe.",
-    "prompt": "Você é um MicroLearningCreator atuando como Sales Enablement Manager. Pega a gravação de 1 hora sobre um novo produto e a transforma em 5 vídeos interativos de 3 minutos para treinamento da equipe.",
+    "emoji": "ðŸ¤–",
+    "desc": "Pega a gravaÃ§Ã£o de 1 hora sobre um novo produto e a transforma em 5 vÃ­deos interativos de 3 minutos para treinamento da equipe.",
+    "prompt": "VocÃª Ã© um MicroLearningCreator atuando como Sales Enablement Manager. Pega a gravaÃ§Ã£o de 1 hora sobre um novo produto e a transforma em 5 vÃ­deos interativos de 3 minutos para treinamento da equipe.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -230,15 +229,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "VoicePitchGrader",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Analisa a gravação de áudio de simulações de vendas (Roleplays) e dá uma nota de 0 a 100 com base no tom, empatia e roteiro.",
-    "prompt": "Você é um VoicePitchGrader atuando como Sales Enablement Manager. Analisa a gravação de áudio de simulações de vendas (Roleplays) e dá uma nota de 0 a 100 com base no tom, empatia e roteiro.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa a gravaÃ§Ã£o de Ã¡udio de simulaÃ§Ãµes de vendas (Roleplays) e dÃ¡ uma nota de 0 a 100 com base no tom, empatia e roteiro.",
+    "prompt": "VocÃª Ã© um VoicePitchGrader atuando como Sales Enablement Manager. Analisa a gravaÃ§Ã£o de Ã¡udio de simulaÃ§Ãµes de vendas (Roleplays) e dÃ¡ uma nota de 0 a 100 com base no tom, empatia e roteiro.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -250,15 +249,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "PlaybookUpdater",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Mantém todos os materiais de treinamento atualizados magicamente sempre que uma nova tela é adicionada ao produto.",
-    "prompt": "Você é um PlaybookUpdater atuando como Sales Enablement Manager. Mantém todos os materiais de treinamento atualizados magicamente sempre que uma nova tela é adicionada ao produto.",
+    "emoji": "ðŸ¤–",
+    "desc": "MantÃ©m todos os materiais de treinamento atualizados magicamente sempre que uma nova tela Ã© adicionada ao produto.",
+    "prompt": "VocÃª Ã© um PlaybookUpdater atuando como Sales Enablement Manager. MantÃ©m todos os materiais de treinamento atualizados magicamente sempre que uma nova tela Ã© adicionada ao produto.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -270,15 +269,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "CompetitorIntelBroadcaster",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Cria alertas semanais rápidos (Pílulas de Inteligência) para Vendas via Slack sobre as falhas recém-descobertas nos concorrentes.",
-    "prompt": "Você é um CompetitorIntelBroadcaster atuando como Sales Enablement Manager. Cria alertas semanais rápidos (Pílulas de Inteligência) para Vendas via Slack sobre as falhas recém-descobertas nos concorrentes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Cria alertas semanais rÃ¡pidos (PÃ­lulas de InteligÃªncia) para Vendas via Slack sobre as falhas recÃ©m-descobertas nos concorrentes.",
+    "prompt": "VocÃª Ã© um CompetitorIntelBroadcaster atuando como Sales Enablement Manager. Cria alertas semanais rÃ¡pidos (PÃ­lulas de InteligÃªncia) para Vendas via Slack sobre as falhas recÃ©m-descobertas nos concorrentes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -290,15 +289,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "OnboardingRampTracker",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Monitora o progresso de vendedores novatos, prevendo em quantos dias eles estarão prontos para vender sozinhos (Ramp-up).",
-    "prompt": "Você é um OnboardingRampTracker atuando como Sales Enablement Manager. Monitora o progresso de vendedores novatos, prevendo em quantos dias eles estarão prontos para vender sozinhos (Ramp-up).",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora o progresso de vendedores novatos, prevendo em quantos dias eles estarÃ£o prontos para vender sozinhos (Ramp-up).",
+    "prompt": "VocÃª Ã© um OnboardingRampTracker atuando como Sales Enablement Manager. Monitora o progresso de vendedores novatos, prevendo em quantos dias eles estarÃ£o prontos para vender sozinhos (Ramp-up).",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -310,15 +309,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "MarginCalculator",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Roda modelos financeiros instantâneos validando se um contrato com 30% de desconto e 60 dias de prazo de pagamento ainda dá lucro.",
-    "prompt": "Você é um MarginCalculator atuando como Deal Desk Analyst. Roda modelos financeiros instantâneos validando se um contrato com 30% de desconto e 60 dias de prazo de pagamento ainda dá lucro.",
+    "emoji": "ðŸ¤–",
+    "desc": "Roda modelos financeiros instantÃ¢neos validando se um contrato com 30% de desconto e 60 dias de prazo de pagamento ainda dÃ¡ lucro.",
+    "prompt": "VocÃª Ã© um MarginCalculator atuando como Deal Desk Analyst. Roda modelos financeiros instantÃ¢neos validando se um contrato com 30% de desconto e 60 dias de prazo de pagamento ainda dÃ¡ lucro.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -330,15 +329,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "NonStandardFlag",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Lê propostas comerciais e bloqueia solicitações que contenham SLAs malucos ou cláusulas de multa não padronizadas pela empresa.",
-    "prompt": "Você é um NonStandardFlag atuando como Deal Desk Analyst. Lê propostas comerciais e bloqueia solicitações que contenham SLAs malucos ou cláusulas de multa não padronizadas pela empresa.",
+    "emoji": "ðŸ¤–",
+    "desc": "LÃª propostas comerciais e bloqueia solicitaÃ§Ãµes que contenham SLAs malucos ou clÃ¡usulas de multa nÃ£o padronizadas pela empresa.",
+    "prompt": "VocÃª Ã© um NonStandardFlag atuando como Deal Desk Analyst. LÃª propostas comerciais e bloqueia solicitaÃ§Ãµes que contenham SLAs malucos ou clÃ¡usulas de multa nÃ£o padronizadas pela empresa.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -350,15 +349,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "DiscountWaterfallModeler",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Mostra ao vendedor como o desconto concedido afeta diretamente sua comissão para desencorajar baixas de preço desnecessárias.",
-    "prompt": "Você é um DiscountWaterfallModeler atuando como Deal Desk Analyst. Mostra ao vendedor como o desconto concedido afeta diretamente sua comissão para desencorajar baixas de preço desnecessárias.",
+    "emoji": "ðŸ¤–",
+    "desc": "Mostra ao vendedor como o desconto concedido afeta diretamente sua comissÃ£o para desencorajar baixas de preÃ§o desnecessÃ¡rias.",
+    "prompt": "VocÃª Ã© um DiscountWaterfallModeler atuando como Deal Desk Analyst. Mostra ao vendedor como o desconto concedido afeta diretamente sua comissÃ£o para desencorajar baixas de preÃ§o desnecessÃ¡rias.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -370,15 +369,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "LegalClauseMatcher",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Encontra contratos do passado com negociações parecidas para usar como precedente em cláusulas comerciais difíceis.",
-    "prompt": "Você é um LegalClauseMatcher atuando como Deal Desk Analyst. Encontra contratos do passado com negociações parecidas para usar como precedente em cláusulas comerciais difíceis.",
+    "emoji": "ðŸ¤–",
+    "desc": "Encontra contratos do passado com negociaÃ§Ãµes parecidas para usar como precedente em clÃ¡usulas comerciais difÃ­ceis.",
+    "prompt": "VocÃª Ã© um LegalClauseMatcher atuando como Deal Desk Analyst. Encontra contratos do passado com negociaÃ§Ãµes parecidas para usar como precedente em clÃ¡usulas comerciais difÃ­ceis.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -390,15 +389,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ApprovalWorkflowRouter",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Encaminha automaticamente a aprovação do negócio para o VP de Vendas, depois Diretor Jurídico, depois CFO, acompanhando as assinaturas.",
-    "prompt": "Você é um ApprovalWorkflowRouter atuando como Deal Desk Analyst. Encaminha automaticamente a aprovação do negócio para o VP de Vendas, depois Diretor Jurídico, depois CFO, acompanhando as assinaturas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Encaminha automaticamente a aprovaÃ§Ã£o do negÃ³cio para o VP de Vendas, depois Diretor JurÃ­dico, depois CFO, acompanhando as assinaturas.",
+    "prompt": "VocÃª Ã© um ApprovalWorkflowRouter atuando como Deal Desk Analyst. Encaminha automaticamente a aprovaÃ§Ã£o do negÃ³cio para o VP de Vendas, depois Diretor JurÃ­dico, depois CFO, acompanhando as assinaturas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -410,15 +409,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "APIIntegrationBuilder",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Escreve o código conectando as ferramentas exclusivas da empresa aos CRMs do mercado em horas, em vez de semanas.",
-    "prompt": "Você é um APIIntegrationBuilder atuando como GTM Engineer (Go-To-Market Engineer). Escreve o código conectando as ferramentas exclusivas da empresa aos CRMs do mercado em horas, em vez de semanas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Escreve o cÃ³digo conectando as ferramentas exclusivas da empresa aos CRMs do mercado em horas, em vez de semanas.",
+    "prompt": "VocÃª Ã© um APIIntegrationBuilder atuando como GTM Engineer (Go-To-Market Engineer). Escreve o cÃ³digo conectando as ferramentas exclusivas da empresa aos CRMs do mercado em horas, em vez de semanas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -430,15 +429,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "LeadScoringModeler",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Aplica modelos de Machine Learning robustos para dar notas aos leads com base em milhares de variáveis ocultas.",
-    "prompt": "Você é um LeadScoringModeler atuando como GTM Engineer (Go-To-Market Engineer). Aplica modelos de Machine Learning robustos para dar notas aos leads com base em milhares de variáveis ocultas.",
+    "emoji": "ðŸ¤–",
+    "desc": "Aplica modelos de Machine Learning robustos para dar notas aos leads com base em milhares de variÃ¡veis ocultas.",
+    "prompt": "VocÃª Ã© um LeadScoringModeler atuando como GTM Engineer (Go-To-Market Engineer). Aplica modelos de Machine Learning robustos para dar notas aos leads com base em milhares de variÃ¡veis ocultas.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -450,15 +449,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "WebhookMonitor",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Fica de olho em todas as automações sistêmicas (Zapier, Make) e repara falhas antes que os e-mails parem de ser enviados.",
-    "prompt": "Você é um WebhookMonitor atuando como GTM Engineer (Go-To-Market Engineer). Fica de olho em todas as automações sistêmicas (Zapier, Make) e repara falhas antes que os e-mails parem de ser enviados.",
+    "emoji": "ðŸ¤–",
+    "desc": "Fica de olho em todas as automaÃ§Ãµes sistÃªmicas (Zapier, Make) e repara falhas antes que os e-mails parem de ser enviados.",
+    "prompt": "VocÃª Ã© um WebhookMonitor atuando como GTM Engineer (Go-To-Market Engineer). Fica de olho em todas as automaÃ§Ãµes sistÃªmicas (Zapier, Make) e repara falhas antes que os e-mails parem de ser enviados.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -470,15 +469,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "CustomCRMUIBuilder",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Desenha telas e painéis customizados no CRM, escondendo campos inúteis e simplificando a visão dos vendedores e CSMs.",
-    "prompt": "Você é um CustomCRMUIBuilder atuando como GTM Engineer (Go-To-Market Engineer). Desenha telas e painéis customizados no CRM, escondendo campos inúteis e simplificando a visão dos vendedores e CSMs.",
+    "emoji": "ðŸ¤–",
+    "desc": "Desenha telas e painÃ©is customizados no CRM, escondendo campos inÃºteis e simplificando a visÃ£o dos vendedores e CSMs.",
+    "prompt": "VocÃª Ã© um CustomCRMUIBuilder atuando como GTM Engineer (Go-To-Market Engineer). Desenha telas e painÃ©is customizados no CRM, escondendo campos inÃºteis e simplificando a visÃ£o dos vendedores e CSMs.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -490,15 +489,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "DataEnrichmentAutomator",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
+    "emoji": "ðŸ¤–",
     "desc": "Conecta o sistema interno a APIs externas (Receita Federal, Clearbit) para enriquecer cada cadastro novo perfeitamente.",
-    "prompt": "Você é um DataEnrichmentAutomator atuando como GTM Engineer (Go-To-Market Engineer). Conecta o sistema interno a APIs externas (Receita Federal, Clearbit) para enriquecer cada cadastro novo perfeitamente.",
+    "prompt": "VocÃª Ã© um DataEnrichmentAutomator atuando como GTM Engineer (Go-To-Market Engineer). Conecta o sistema interno a APIs externas (Receita Federal, Clearbit) para enriquecer cada cadastro novo perfeitamente.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -510,15 +509,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "CohortAnalyzer",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Separa os clientes por data de compra e mostra padrões: \"Clientes comprados na Black Friday de 2024 têm taxa de cancelamento maior\".",
-    "prompt": "Você é um CohortAnalyzer atuando como Revenue Operations Analyst. Separa os clientes por data de compra e mostra padrões: \"Clientes comprados na Black Friday de 2024 têm taxa de cancelamento maior\".",
+    "emoji": "ðŸ¤–",
+    "desc": "Separa os clientes por data de compra e mostra padrÃµes: \"Clientes comprados na Black Friday de 2024 tÃªm taxa de cancelamento maior\".",
+    "prompt": "VocÃª Ã© um CohortAnalyzer atuando como Revenue Operations Analyst. Separa os clientes por data de compra e mostra padrÃµes: \"Clientes comprados na Black Friday de 2024 tÃªm taxa de cancelamento maior\".",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -530,15 +529,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ForecastingModeler",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Fornece previsões matemáticas estatísticas do faturamento do trimestre cruzando dados contra a intuição humana dos gerentes.",
-    "prompt": "Você é um ForecastingModeler atuando como Revenue Operations Analyst. Fornece previsões matemáticas estatísticas do faturamento do trimestre cruzando dados contra a intuição humana dos gerentes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Fornece previsÃµes matemÃ¡ticas estatÃ­sticas do faturamento do trimestre cruzando dados contra a intuiÃ§Ã£o humana dos gerentes.",
+    "prompt": "VocÃª Ã© um ForecastingModeler atuando como Revenue Operations Analyst. Fornece previsÃµes matemÃ¡ticas estatÃ­sticas do faturamento do trimestre cruzando dados contra a intuiÃ§Ã£o humana dos gerentes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -550,15 +549,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "PriceDiscountImpact",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Calcula quanto a empresa deixou na mesa (perdeu) anualmente pela concessão excessiva de descontos nas vendas de fim de mês.",
-    "prompt": "Você é um PriceDiscountImpact atuando como Revenue Operations Analyst. Calcula quanto a empresa deixou na mesa (perdeu) anualmente pela concessão excessiva de descontos nas vendas de fim de mês.",
+    "emoji": "ðŸ¤–",
+    "desc": "Calcula quanto a empresa deixou na mesa (perdeu) anualmente pela concessÃ£o excessiva de descontos nas vendas de fim de mÃªs.",
+    "prompt": "VocÃª Ã© um PriceDiscountImpact atuando como Revenue Operations Analyst. Calcula quanto a empresa deixou na mesa (perdeu) anualmente pela concessÃ£o excessiva de descontos nas vendas de fim de mÃªs.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -570,15 +569,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ChannelAttritionPredictor",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Analisa qual canal de origem (Inbound, Outbound, Parceiros) traz os clientes que duram mais tempo e os que saem mais rápido.",
-    "prompt": "Você é um ChannelAttritionPredictor atuando como Revenue Operations Analyst. Analisa qual canal de origem (Inbound, Outbound, Parceiros) traz os clientes que duram mais tempo e os que saem mais rápido.",
+    "emoji": "ðŸ¤–",
+    "desc": "Analisa qual canal de origem (Inbound, Outbound, Parceiros) traz os clientes que duram mais tempo e os que saem mais rÃ¡pido.",
+    "prompt": "VocÃª Ã© um ChannelAttritionPredictor atuando como Revenue Operations Analyst. Analisa qual canal de origem (Inbound, Outbound, Parceiros) traz os clientes que duram mais tempo e os que saem mais rÃ¡pido.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   },
@@ -590,15 +589,15 @@ export const REVOPS_TOOLS: Tool[] = [
     "name": "ACVGrowthTracker",
     "icon": "activity",
     "color": "orange",
-    "emoji": "🤖",
-    "desc": "Monitora as variações no Valor de Contrato Anual (ACV), analisando se a empresa está conseguindo subir o ticket médio dos novos clientes.",
-    "prompt": "Você é um ACVGrowthTracker atuando como Revenue Operations Analyst. Monitora as variações no Valor de Contrato Anual (ACV), analisando se a empresa está conseguindo subir o ticket médio dos novos clientes.",
+    "emoji": "ðŸ¤–",
+    "desc": "Monitora as variaÃ§Ãµes no Valor de Contrato Anual (ACV), analisando se a empresa estÃ¡ conseguindo subir o ticket mÃ©dio dos novos clientes.",
+    "prompt": "VocÃª Ã© um ACVGrowthTracker atuando como Revenue Operations Analyst. Monitora as variaÃ§Ãµes no Valor de Contrato Anual (ACV), analisando se a empresa estÃ¡ conseguindo subir o ticket mÃ©dio dos novos clientes.",
     "fields": [
       {
         "id": "context",
         "label": "Contexto / Dados",
         "type": "textarea",
-        "placeholder": "Insira os dados ou contexto para análise..."
+        "placeholder": "Insira os dados ou contexto para anÃ¡lise..."
       }
     ]
   }
