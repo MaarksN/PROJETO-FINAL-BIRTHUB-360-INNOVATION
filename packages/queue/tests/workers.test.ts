@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { AgentWorker, CampaignWorker, ReportWorker, WebhookWorker } from "../src/workers.js";
+import { AgentWorker, CampaignWorker, ReportWorker, WebhookWorker } from "../src/workers/index.js";
 
 void test("AgentWorker sends failures to DLQ after max attempts", async () => {
   const worker = new AgentWorker(2);
