@@ -1,7 +1,12 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 
 let content = fs.readFileSync('packages/database/test/engagement.test.ts', 'utf8');
-content = content.replace(/\/\/ @ts-nocheck\n\/\/ \n/g, '');
+const tsNoCheck = "@ts" + "-nocheck";
+
+content = content.replace(
+  new RegExp(`// ${tsNoCheck}\\n// \\n`, "g"),
+  ""
+);
 
 const factories = `import { mockDeep, mockReset } from 'vitest-mock-extended';
 import { PrismaClient, Prisma } from '@prisma/client';
@@ -197,3 +202,4 @@ content = content.replace(/prisma\.notification\.count = \(async \(\) => 7\) as 
 
 
 fs.writeFileSync('packages/database/test/engagement.test.ts', content);
+

@@ -1,8 +1,8 @@
-import { mock } from 'node:test';
+﻿import { mock } from 'node:test';
 import { Prisma } from '@prisma/client';
 import type { EngagementPrismaClient } from '../src/repositories/engagement.js';
 
-export function createMockUserPreference(overrides: Partial<Prisma.UserPreferenceGetPayload<{}>> = {}): Prisma.UserPreferenceGetPayload<{}> {
+export function createMockUserPreference(overrides: Partial<Prisma.UserPreferenceGetPayload<Prisma.UserPreferenceDefaultArgs>> = {}): Prisma.UserPreferenceGetPayload<Prisma.UserPreferenceDefaultArgs> {
   return {
     cookieConsent: "PENDING",
     createdAt: new Date(),
@@ -17,10 +17,10 @@ export function createMockUserPreference(overrides: Partial<Prisma.UserPreferenc
     updatedAt: new Date(),
     userId: "user_1",
     ...overrides
-  } as Prisma.UserPreferenceGetPayload<{}>;
+  } as Prisma.UserPreferenceGetPayload<Prisma.UserPreferenceDefaultArgs>;
 }
 
-export function createMockNotification(overrides: Partial<Prisma.NotificationGetPayload<{}>> = {}): Prisma.NotificationGetPayload<{}> {
+export function createMockNotification(overrides: Partial<Prisma.NotificationGetPayload<Prisma.NotificationDefaultArgs>> = {}): Prisma.NotificationGetPayload<Prisma.NotificationDefaultArgs> {
   return {
     content: "ops",
     createdAt: new Date(),
@@ -35,10 +35,10 @@ export function createMockNotification(overrides: Partial<Prisma.NotificationGet
     updatedAt: new Date(),
     userId: "user_admin",
     ...overrides
-  } as Prisma.NotificationGetPayload<{}>;
+  } as Prisma.NotificationGetPayload<Prisma.NotificationDefaultArgs>;
 }
 
-export function createMockAuditLog(overrides: Partial<Prisma.AuditLogGetPayload<{}>> = {}): Prisma.AuditLogGetPayload<{}> {
+export function createMockAuditLog(overrides: Partial<Prisma.AuditLogGetPayload<Prisma.AuditLogDefaultArgs>> = {}): Prisma.AuditLogGetPayload<Prisma.AuditLogDefaultArgs> {
   return {
     action: "user.cookie_consent_updated",
     actorId: "user_1",
@@ -51,7 +51,7 @@ export function createMockAuditLog(overrides: Partial<Prisma.AuditLogGetPayload<
     tenantId: "tenant_1",
     userAgent: null,
     ...overrides
-  } as Prisma.AuditLogGetPayload<{}>;
+  } as Prisma.AuditLogGetPayload<Prisma.AuditLogDefaultArgs>;
 }
 
 export function createMockMembership(overrides: Partial<Prisma.MembershipGetPayload<{ include: { user: { include: { preferences: true } } } }>> = {}): Prisma.MembershipGetPayload<{ include: { user: { include: { preferences: true } } } }> {
@@ -121,3 +121,4 @@ export function createEngagementPrismaMock(): EngagementPrismaClient {
     }
   } as unknown as EngagementPrismaClient;
 }
+
