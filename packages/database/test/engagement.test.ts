@@ -1,12 +1,6 @@
 ﻿import assert from "node:assert/strict";
 import test, { mock } from "node:test";
 
-function mergeDeep(target: any, source: any) {
-  for (const key of Object.keys(source)) {
-    if (source[key] instanceof Object && !Array.isArray(source[key])) Object.assign(source[key], mergeDeep(target[key], source[key]));
-  }
-  Object.assign(target || {}, source);
-  return target;
 }
 import { NotificationType, Role, Prisma } from "@prisma/client";
 import { prisma } from "../src/client.js";
@@ -30,7 +24,7 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
     let received: unknown = null;
 
     // @ts-expect-error mock assignment
-  prisma.userPreference.upsert = mock.fn(async (args: any) => { received = args; return createMockUserPreference({ inAppNotifications: true }); });
+  prisma.userPreference.upsert = mock.fn(async (args: unknown) => { received = args; return createMockUserPreference({ inAppNotifications: true }); });
     await ensureUserPreference({
       organizationId: "org_1",
       tenantId: "tenant_1",
@@ -115,7 +109,7 @@ void test("createNotificationForUser accepts an injected client", async () => {
 // @ts-expect-error mock assignment
       injectedClient.userPreference.upsert = mock.fn(async () => createMockUserPreference({ inAppNotifications: true }));
 // @ts-expect-error mock assignment
-    injectedClient.notification.create = mock.fn(async (args: any) => { createArgs = args; return createMockNotification({ id: "notification_1" }); });
+    injectedClient.notification.create = mock.fn(async (args: unknown) => { createArgs = args; return createMockNotification({ id: "notification_1" }); });
 
   const result = await createNotificationForUser(
     {
@@ -150,7 +144,7 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
     // @ts-expect-error mock assignment
   prisma.userPreference.upsert = mock.fn(async () => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
     // @ts-expect-error mock assignment
-  prisma.auditLog.create = mock.fn(async (args: any) => { auditPayload = args; return createMockAuditLog({}); });
+  prisma.auditLog.create = mock.fn(async (args: unknown) => { auditPayload = args; return createMockAuditLog({}); });
     const result = await updateUserPreference({
       cookieConsent: "ACCEPTED",
       organizationId: "org_1",
@@ -187,7 +181,7 @@ void test("updateUserPreference accepts an injected client", async () => {
 // @ts-expect-error mock assignment
       injectedClient.userPreference.upsert = mock.fn(async () => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
 // @ts-expect-error mock assignment
-      injectedClient.auditLog.create = mock.fn(async (args: any) => {
+      injectedClient.auditLog.create = mock.fn(async (args: unknown) => {
     auditPayload = args;
     return createMockAuditLog({});
   });
@@ -224,7 +218,7 @@ void test("updateUserPreference accepts an injected client", async () => {
   });
 });
 void test("updateUserPreference persists locale preferences", async () => {
-  const originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
+  const _originalUpsert = prisma.userPreference.upsert.bind(prisma.userPreference);
   let upsertPayload: unknown = null;
 
   prisma.userPreference.upsert = ((args: unknown) => {
@@ -282,7 +276,7 @@ void test("createNotificationForOrganizationRoles only creates notifications for
     })
   ]));
     // @ts-expect-error mock assignment
-  prisma.notification.createMany = mock.fn(async (args: any) => { createManyArgs = args; return createPrismaPromise({ count: 1 } as Prisma.BatchPayload); });
+  prisma.notification.createMany = mock.fn(async (args: unknown) => { createManyArgs = args; return createPrismaPromise({ count: 1 } as Prisma.BatchPayload); });
     const result = await createNotificationForOrganizationRoles({
       content: "ops",
       organizationId: "org_1",
@@ -313,7 +307,7 @@ void test("createNotificationForOrganizationRoles accepts an injected client", a
 // @ts-expect-error mock assignment
       injectedClient.membership.findMany = mock.fn(async () => createPrismaPromise([createMockMembership()]));
 // @ts-expect-error mock assignment
-      injectedClient.notification.createMany = mock.fn(async (args: any) => {
+      injectedClient.notification.createMany = mock.fn(async (args: unknown) => {
     createManyArgs = args;
     return createPrismaPromise({ count: 1 } as Prisma.BatchPayload);
   });
@@ -348,7 +342,7 @@ void test("createNotificationForOrganizationRoles caps membership reads", async 
     let received: unknown = null;
 
     // @ts-expect-error mock assignment
-  prisma.membership.findMany = mock.fn(async (args: any) => { received = args; return createPrismaPromise([]); });
+  prisma.membership.findMany = mock.fn(async (args: unknown) => { received = args; return createPrismaPromise([]); });
     const result = await createNotificationForOrganizationRoles({
       content: "ops",
       organizationId: "org_1",

@@ -96,7 +96,7 @@ export function createMockMembership(overrides: Partial<Prisma.MembershipGetPayl
 
 export function createPrismaPromise<T>(value: T): Prisma.PrismaPromise<T> {
   const promise = Promise.resolve(value);
-  Object.defineProperty(promise, Symbol.toStringTag, { value: 'PrismaPromise', configurable: true });
+  void Object.defineProperty(promise, Symbol.toStringTag, { value: 'PrismaPromise', configurable: true });
   return promise as unknown as Prisma.PrismaPromise<T>;
 }
 
