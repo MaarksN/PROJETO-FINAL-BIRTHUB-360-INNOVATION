@@ -6,7 +6,7 @@ import {
   prisma
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 
 export type DatabaseClient = Prisma.TransactionClient | typeof prisma;
 

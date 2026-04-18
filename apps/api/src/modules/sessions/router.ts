@@ -5,15 +5,15 @@ import {
 } from "@birthub/config";
 import { Router } from "express";
 
-import { requireAuthenticatedSession } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { requireAuthenticatedSession } from "../../common/guards/index.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   listActiveSessions,
   revokeAllSessions,
   revokeCurrentSession,
   revokeSessionById
 } from "../auth/auth.service";
-import { clearAuthCookies } from "../auth/cookies";
+import { clearAuthCookies } from "../auth/cookies.js";
 
 function readSessionId(params: Record<string, string | string[] | undefined>): string {
   const value = params.sessionId;

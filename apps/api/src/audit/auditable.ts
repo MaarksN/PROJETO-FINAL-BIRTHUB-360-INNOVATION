@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
 
-import { enqueueAuditEvent } from "./buffer";
-import { ProblemDetailsError } from "../lib/problem-details";
-import { readTrimmedString } from "../lib/request-values";
+import { enqueueAuditEvent } from "./buffer.js";
+import { ProblemDetailsError } from "../lib/problem-details.js";
+import { readTrimmedString } from "../lib/request-values.js";
 
 type AuditableOptions<TResult> = {
   action: string;

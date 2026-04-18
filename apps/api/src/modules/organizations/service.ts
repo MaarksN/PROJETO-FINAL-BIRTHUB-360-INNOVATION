@@ -10,10 +10,10 @@ import {
   withTenantDatabaseContext
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { hashPassword } from "../auth/crypto";
-import { ensurePlanByCode, provisionStripeCustomerForOrganization } from "../billing/service";
-import { enqueueCrmSync } from "../engagement/queues";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { hashPassword } from "../auth/crypto.js";
+import { ensurePlanByCode, provisionStripeCustomerForOrganization } from "../billing/service.js";
+import { enqueueCrmSync } from "../engagement/queues.js";
 
 type DatabaseClient = {
   organization: {

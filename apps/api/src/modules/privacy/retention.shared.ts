@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { prisma, type Prisma } from "@birthub/database";
 
-import { readPrismaModel } from "../../lib/prisma-runtime";
+import { readPrismaModel } from "../../lib/prisma-runtime.js";
 
 const LAWFUL_BASIS = {
   LEGAL_OBLIGATION: "LEGAL_OBLIGATION",

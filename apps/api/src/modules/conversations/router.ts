@@ -1,8 +1,8 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import { Router } from "express";
 
-import { requireAuthenticatedSession } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { requireAuthenticatedSession } from "../../common/guards/index.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   appendMessageSchema,
   conversationQuerySchema,

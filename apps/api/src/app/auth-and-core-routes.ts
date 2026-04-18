@@ -2,13 +2,13 @@ import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import type { Express } from "express";
 
-import { registerAuthRoutes as defaultRegisterAuthRoutes } from "./auth-routes";
-import { enqueueTask } from "../lib/queue";
+import { registerAuthRoutes as defaultRegisterAuthRoutes } from "./auth-routes.js";
+import { enqueueTask } from "../lib/queue.js";
 import {
   registerOrganizationCreationRoutes as defaultRegisterOrganizationCreationRoutes
 } from "../modules/organizations/router";
-import { mountProfileRoutes as defaultMountProfileRoutes } from "../modules/profile/router";
-import { mountTasksRoutes as defaultMountTasksRoutes } from "../modules/tasks/router";
+import { mountProfileRoutes as defaultMountProfileRoutes } from "../modules/profile/router.js";
+import { mountTasksRoutes as defaultMountTasksRoutes } from "../modules/tasks/router.js";
 
 const logger = createLogger("api");
 

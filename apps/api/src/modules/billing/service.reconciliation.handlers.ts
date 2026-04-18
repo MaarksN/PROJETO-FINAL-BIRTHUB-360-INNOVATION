@@ -4,7 +4,7 @@ import type { ApiConfig } from "@birthub/config";
 import { SubscriptionStatus } from "@birthub/database";
 import Stripe from "stripe";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   ensurePlanByCode,
   type DatabaseClient,

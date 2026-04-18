@@ -2,8 +2,8 @@
 // 
 import { prisma, Role } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { assertRole } from "../auth/auth.service";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { assertRole } from "../auth/auth.service.js";
 
 async function resolveOrganization(tenantReference: string) {
   const organization = await prisma.organization.findFirst({

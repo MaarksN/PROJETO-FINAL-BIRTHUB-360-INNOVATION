@@ -10,9 +10,9 @@ import {
 } from "@birthub/database";
 import { validateDag, type WorkflowCanvas } from "@birthub/workflows-core";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { readNumericPlanLimit } from "../billing/plan.utils";
-import { getBillingSnapshot } from "../billing/service";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { readNumericPlanLimit } from "../billing/plan.utils.js";
+import { getBillingSnapshot } from "../billing/service.js";
 import {
   enqueueWorkflowExecution,
   enqueueWorkflowTrigger,

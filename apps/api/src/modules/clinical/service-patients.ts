@@ -28,7 +28,7 @@ import {
   serializePatient,
   serializePregnancyRecord
 } from "./service-support.view";
-import { createPatientRecordMethods } from "./service-patient-records";
+import { createPatientRecordMethods } from "./service-patient-records.js";
 import {
   asClinicalTransaction,
   buildAppointmentSelect,

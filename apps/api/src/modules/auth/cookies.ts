@@ -4,7 +4,7 @@ import type { Response } from "express";
 
 import type { ApiConfig } from "@birthub/config";
 
-import type { SessionTokens } from "./auth.service";
+import type { SessionTokens } from "./auth.service.js";
 
 function secureCookie(config: ApiConfig): boolean {
   return config.REQUIRE_SECURE_COOKIES || config.NODE_ENV === "production";

@@ -3,7 +3,7 @@
 import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   buildAuthorizationUrl,
   buildOauthState,

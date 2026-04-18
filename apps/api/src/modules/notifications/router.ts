@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import { requireAuthenticatedSession } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { requireAuthenticatedSession } from "../../common/guards/index.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   notificationPreferencesSchema,
   notificationQuerySchema
 } from "./schemas";
-import { notificationsRouterService } from "./service";
+import { notificationsRouterService } from "./service.js";
 
 function requireUserContext(input: {
   tenantId: string | null;

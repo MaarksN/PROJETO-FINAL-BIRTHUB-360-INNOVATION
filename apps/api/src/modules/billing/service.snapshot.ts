@@ -12,7 +12,7 @@ import {
   readCacheValue,
   writeCacheValue
 } from "../../common/cache/cache-store";
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   isPlanFeatureEnabled,
   readNumericPlanLimit,

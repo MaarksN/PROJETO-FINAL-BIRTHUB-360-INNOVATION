@@ -1,7 +1,7 @@
 import { prisma } from "@birthub/database";
 
-import { assertPrismaModelsAvailable, readPrismaModel } from "../../lib/prisma-runtime";
-import { type DashboardClinicalSummary } from "./service.shared";
+import { assertPrismaModelsAvailable, readPrismaModel } from "../../lib/prisma-runtime.js";
+import { type DashboardClinicalSummary } from "./service.shared.js";
 
 const ACTIVE_PREGNANCY_STATUS = "ACTIVE";
 const HIGH_PREGNANCY_RISK = "HIGH";

@@ -3,17 +3,17 @@
 import { Router } from "express";
 import { z } from "zod";
 
-import { sendEtaggedJson } from "../../common/cache/index";
+import { sendEtaggedJson } from "../../common/cache/index.js";
 import {
   RequireFeature,
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
 import { Role } from "@birthub/database";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { requireStringValue } from "../../lib/request-values";
-import { agentMetricsService } from "./metrics.service";
-import { installedAgentsService } from "./service";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { requireStringValue } from "../../lib/request-values.js";
+import { agentMetricsService } from "./metrics.service.js";
+import { installedAgentsService } from "./service.js";
 
 const runPayloadSchema = z.record(z.string(), z.unknown()).catch({});
 const policyUpsertSchema = z

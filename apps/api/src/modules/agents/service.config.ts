@@ -2,8 +2,8 @@
 // 
 import type { ManagedAgentPolicy } from "@birthub/agents-core";
 
-import { decryptConnectorsMap } from "../../lib/encryption";
-import type { AgentConfigSnapshot } from "./service.types";
+import { decryptConnectorsMap } from "../../lib/encryption.js";
+import type { AgentConfigSnapshot } from "./service.types.js";
 
 const DEFAULT_AGENT_VERSION = "1.0.0";
 const DEFAULT_AGENT_STATUS = "installed";

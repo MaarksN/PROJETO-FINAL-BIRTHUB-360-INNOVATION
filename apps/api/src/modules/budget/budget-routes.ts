@@ -6,9 +6,9 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { budgetService } from "./budget.service";
-import { BudgetExceededError } from "./budget.types";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { budgetService } from "./budget.service.js";
+import { BudgetExceededError } from "./budget.types.js";
 
 const limitSchema = z.object({
   agentId: z.string().min(1),

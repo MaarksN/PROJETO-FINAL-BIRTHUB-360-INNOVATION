@@ -1,8 +1,8 @@
 import { isProductionEnvironment } from "@birthub/config";
 import type { NextFunction, Request, Response } from "express";
 
-import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details";
-import { captureApiException } from "../observability/sentry";
+import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
+import { captureApiException } from "../observability/sentry.js";
 import { createLogger, recordActiveSpanException } from "@birthub/logger";
 
 const logger = createLogger("api-error-handler");

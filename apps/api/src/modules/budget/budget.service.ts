@@ -3,7 +3,7 @@
 import { createLogger } from "@birthub/logger";
 import { prisma } from "@birthub/database";
 
-import { marketplaceService } from "../marketplace/marketplace-service";
+import { marketplaceService } from "../marketplace/marketplace-service.js";
 import {
   BudgetExceededError,
   type BudgetAlert,

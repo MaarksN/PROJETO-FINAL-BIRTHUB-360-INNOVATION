@@ -1,3 +1,3 @@
-import { startApiServer } from "./app";
+import { startApiServer } from "./app.js";
 
 startApiServer();

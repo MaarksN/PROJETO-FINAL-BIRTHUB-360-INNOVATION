@@ -8,12 +8,12 @@ import {
   readCacheValue,
   writeCacheValue
 } from "../../common/cache/cache-store";
-import { captureWebhookException } from "../../observability/sentry";
+import { captureWebhookException } from "../../observability/sentry.js";
 import {
   invalidateBillingSnapshotCache,
   type StripeBillingEventContext
 } from "../billing/service";
-import { enqueueCrmSync } from "../engagement/queues";
+import { enqueueCrmSync } from "../engagement/queues.js";
 import {
   BILLING_WEBHOOK_IDEMPOTENCY_TTL_SECONDS,
   billingStatusCacheKey,

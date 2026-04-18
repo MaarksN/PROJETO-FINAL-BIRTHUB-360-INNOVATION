@@ -3,9 +3,9 @@ import {
   prisma
 } from "@birthub/database";
 
-import { readPrismaModel } from "../../lib/prisma-runtime";
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { findOrganizationByReference } from "./service";
+import { readPrismaModel } from "../../lib/prisma-runtime.js";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { findOrganizationByReference } from "./service.js";
 
 const CONSENT_PURPOSE = {
   ANALYTICS: "ANALYTICS",

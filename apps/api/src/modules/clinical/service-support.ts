@@ -1,6 +1,6 @@
 import { Prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 export type ClinicalContext = {
   organizationId: string;
   tenantId: string;

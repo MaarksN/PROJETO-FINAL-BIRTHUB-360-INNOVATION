@@ -27,7 +27,7 @@ import {
   hashRecoveryCode,
   verifyTotpCode
 } from "./mfa.service";
-import type { SessionTokens } from "./auth.service.shared";
+import type { SessionTokens } from "./auth.service.shared.js";
 
 export async function loginWithPassword(input: {
   config: ApiConfig;

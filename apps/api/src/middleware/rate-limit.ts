@@ -4,8 +4,8 @@ import { createLogger } from "@birthub/logger";
 import type { Redis } from "ioredis";
 import type { Request, RequestHandler, Response } from "express";
 
-import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details";
-import { getSharedRedis } from "../lib/redis";
+import { ProblemDetailsError, toProblemDetails } from "../lib/problem-details.js";
+import { getSharedRedis } from "../lib/redis.js";
 
 const logger = createLogger("api-rate-limit");
 const memoryRateLimitStore = new Map<string, { count: number; expiresAt: number }>();

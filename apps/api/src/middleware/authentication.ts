@@ -3,7 +3,7 @@ import type { ApiConfig } from "@birthub/config";
 import { isProductionEnvironment } from "@birthub/config";
 import { updateLogContext } from "@birthub/logger";
 
-import { authenticateRequest } from "../modules/auth/auth.service";
+import { authenticateRequest } from "../modules/auth/auth.service.js";
 
 /** @see ADR-010 */
 function parseCookies(cookieHeader: string | undefined): Record<string, string> {

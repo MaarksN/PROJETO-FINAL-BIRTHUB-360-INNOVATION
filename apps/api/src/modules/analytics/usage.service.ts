@@ -2,8 +2,8 @@
 // 
 import { prisma } from "@birthub/database";
 
-import type { DateRange } from "./analytics.types";
-import { resolveDateRange } from "./analytics.utils";
+import type { DateRange } from "./analytics.types.js";
+import { resolveDateRange } from "./analytics.utils.js";
 
 const ACTIVE_TENANT_WINDOW_LIMIT = 2_000;
 

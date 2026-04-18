@@ -3,13 +3,13 @@ import { Prisma, prisma } from "@birthub/database";
 import express, { Router } from "express";
 import Stripe from "stripe";
 
-import { asyncHandler } from "../../lib/problem-details";
+import { asyncHandler } from "../../lib/problem-details.js";
 import {
   processStripeBillingEvent as processStripeBillingDomainEvent,
   type StripeBillingEventContext
 } from "../billing/service";
-import { createStripeClient } from "../billing/stripe.client";
-import { processStripeWebhookRequest } from "./stripe.webhook.processing";
+import { createStripeClient } from "../billing/stripe.client.js";
+import { processStripeWebhookRequest } from "./stripe.webhook.processing.js";
 
 type StripeWebhookEventProcessor = (input: {
   config: ApiConfig;

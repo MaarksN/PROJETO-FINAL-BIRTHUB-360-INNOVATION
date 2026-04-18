@@ -8,8 +8,8 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { validateBody } from "../../middleware/validate-body";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { validateBody } from "../../middleware/validate-body.js";
 import {
   listPrivacyConsents,
   savePrivacyConsentDecisions

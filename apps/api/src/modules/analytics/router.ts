@@ -5,9 +5,9 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler } from "../../lib/problem-details";
-import { dateRangeSchema } from "./schemas";
-import { analyticsRouterService } from "./service";
+import { asyncHandler } from "../../lib/problem-details.js";
+import { dateRangeSchema } from "./schemas.js";
+import { analyticsRouterService } from "./service.js";
 
 export function createAnalyticsRouter(): Router {
   const router = Router();

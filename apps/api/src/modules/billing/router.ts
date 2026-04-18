@@ -4,13 +4,13 @@ import { Role } from "@birthub/database";
 import { Router } from "express";
 import { z } from "zod";
 
-import { sendEtaggedJson } from "../../common/cache/index";
+import { sendEtaggedJson } from "../../common/cache/index.js";
 import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { validateBody } from "../../middleware/validate-body";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { validateBody } from "../../middleware/validate-body.js";
 import {
   clearCheckoutIpBan,
   createCheckoutSessionForOrganization,

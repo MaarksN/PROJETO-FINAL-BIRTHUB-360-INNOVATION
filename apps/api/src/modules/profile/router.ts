@@ -1,9 +1,9 @@
 import type { ApiConfig } from "@birthub/config";
 import { Router } from "express";
 
-import { requireAuthenticatedSession } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { getBillingSnapshot as defaultGetBillingSnapshot } from "../billing/index";
+import { requireAuthenticatedSession } from "../../common/guards/index.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { getBillingSnapshot as defaultGetBillingSnapshot } from "../billing/index.js";
 
 const PROFILE_ROUTES_MOUNT_MARKER = "__birthhubProfileRoutesMounted" as const;
 

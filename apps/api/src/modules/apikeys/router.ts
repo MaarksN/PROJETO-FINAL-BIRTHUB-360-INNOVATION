@@ -8,13 +8,13 @@ import {
 import { Router } from "express";
 import { Role } from "@birthub/database";
 
-import { Auditable } from "../../audit/auditable";
+import { Auditable } from "../../audit/auditable.js";
 import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { validateBody } from "../../middleware/validate-body";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { validateBody } from "../../middleware/validate-body.js";
 import {
   createTenantApiKey,
   listTenantApiKeys,

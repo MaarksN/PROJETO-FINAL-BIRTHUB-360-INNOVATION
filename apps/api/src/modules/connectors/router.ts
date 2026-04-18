@@ -8,7 +8,7 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   callbackSchema,
   connectSchema,

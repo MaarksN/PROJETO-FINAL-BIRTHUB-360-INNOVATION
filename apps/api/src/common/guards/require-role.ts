@@ -2,8 +2,8 @@ import type { NextFunction, Request, RequestHandler, Response } from "express";
 
 import { Role } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { rolePriority } from "../../modules/auth/auth.service.shared";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { rolePriority } from "../../modules/auth/auth.service.shared.js";
 
 /** @see ADR-011 */
 export function RequireRole(minimumRole: Role): RequestHandler {

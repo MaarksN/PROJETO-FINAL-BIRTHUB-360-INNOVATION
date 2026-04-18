@@ -7,7 +7,7 @@ import {
 } from "@birthub/database";
 import type { WorkflowCanvas } from "@birthub/workflows-core";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   assertWorkflowLimit,
   createWebhookSecret,

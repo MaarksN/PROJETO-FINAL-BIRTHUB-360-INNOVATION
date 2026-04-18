@@ -5,16 +5,16 @@ import { taskEnqueuedResponseSchema, taskRequestSchema } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 import { Router } from "express";
 
-import { requireAuthenticatedSession } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { requireAuthenticatedSession } from "../../common/guards/index.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   enqueueTask as defaultEnqueueTask,
   QueueBackpressureError,
   TenantQueueRateLimitError
 } from "../../lib/queue";
-import { validateBody } from "../../middleware/validate-body";
-import { budgetService as defaultBudgetService } from "../budget/budget.service";
-import { BudgetExceededError } from "../budget/budget.types";
+import { validateBody } from "../../middleware/validate-body.js";
+import { budgetService as defaultBudgetService } from "../budget/budget.service.js";
+import { BudgetExceededError } from "../budget/budget.types.js";
 
 const logger = createLogger("api");
 const TASKS_ROUTES_MOUNT_MARKER = "__birthhubTasksRoutesMounted" as const;

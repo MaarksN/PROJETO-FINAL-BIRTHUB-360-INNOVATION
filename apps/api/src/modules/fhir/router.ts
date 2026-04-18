@@ -11,7 +11,7 @@ import {
   asyncHandler,
   ProblemDetailsError
 } from "../../lib/problem-details";
-import { fhirService } from "./service";
+import { fhirService } from "./service.js";
 
 const FHIR_JSON_CONTENT_TYPE = "application/fhir+json; charset=utf-8";
 

@@ -9,10 +9,10 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { validateExternalUrl } from "../../lib/external-url";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { dedupeTriggerPayload } from "../workflows/runnerQueue";
-import { runWorkflowNow } from "../workflows/service";
+import { validateExternalUrl } from "../../lib/external-url.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { dedupeTriggerPayload } from "../workflows/runnerQueue.js";
+import { runWorkflowNow } from "../workflows/service.js";
 import {
   createTenantWebhookEndpoint,
   listTenantWebhookDeliveries,

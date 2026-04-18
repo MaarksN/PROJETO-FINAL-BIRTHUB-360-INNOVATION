@@ -2,7 +2,7 @@ import { getApiConfig } from "@birthub/config";
 import { prisma, Prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 
-import { createStripeClient } from "./stripe.client";
+import { createStripeClient } from "./stripe.client.js";
 
 const logger = createLogger("billing-sync-plans");
 const DEFAULT_PLAN_LIMITS = {

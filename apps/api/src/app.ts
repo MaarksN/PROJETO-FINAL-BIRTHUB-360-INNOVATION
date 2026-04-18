@@ -11,19 +11,19 @@ import {
   createHealthService,
   createReadinessHealthService
 } from "./lib/health";
-import { enqueueTask } from "./lib/queue";
+import { enqueueTask } from "./lib/queue.js";
 import {
   configureAppInfrastructure,
   registerGlobalErrorHandling,
   registerOperationalRoutes
 } from "./app/core";
-import { mountModuleRouters } from "./app/module-routes";
-import { createTasksRouter } from "./modules/tasks/router";
+import { mountModuleRouters } from "./app/module-routes.js";
+import { createTasksRouter } from "./modules/tasks/router.js";
 import {
   initializeOpenTelemetry as defaultInitializeOpenTelemetry,
   shutdownOpenTelemetry as defaultShutdownOpenTelemetry
 } from "./observability/otel";
-import { initializeApiSentry as defaultInitializeApiSentry } from "./observability/sentry";
+import { initializeApiSentry as defaultInitializeApiSentry } from "./observability/sentry.js";
 
 export interface AppDependencies {
   config?: ApiConfig;

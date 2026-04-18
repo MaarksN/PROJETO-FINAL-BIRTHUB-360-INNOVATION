@@ -7,9 +7,9 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { validateBody } from "../../middleware/validate-body";
-import { dashboardOnboardingUpdateSchema } from "./schemas";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { validateBody } from "../../middleware/validate-body.js";
+import { dashboardOnboardingUpdateSchema } from "./schemas.js";
 import {
   getDashboardAgentStatuses,
   getDashboardBillingSummary,
@@ -18,7 +18,7 @@ import {
   getDashboardOnboarding,
   getDashboardRecentTasks
 } from "./service";
-import { setDashboardOnboardingEnabled } from "./service";
+import { setDashboardOnboardingEnabled } from "./service.js";
 
 function requireContext(request: Request): {
   organizationId: string;

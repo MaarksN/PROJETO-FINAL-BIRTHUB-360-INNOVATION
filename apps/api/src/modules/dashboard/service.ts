@@ -17,8 +17,8 @@ import {
   readString,
   riskFromScore
 } from "./service.shared";
-import { ProblemDetailsError } from "../../lib/problem-details";
-export { getDashboardClinicalSummary } from "./service.clinical";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+export { getDashboardClinicalSummary } from "./service.clinical.js";
 
 async function updateOrganizationOnboardingFlag(input: {
   enabled: boolean;

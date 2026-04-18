@@ -7,9 +7,9 @@ import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
-import { createSession } from "../auth/auth.service";
-import { setAuthCookies } from "../auth/cookies";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import { createSession } from "../auth/auth.service.js";
+import { setAuthCookies } from "../auth/cookies.js";
 
 const impersonationSchema = z
   .object({

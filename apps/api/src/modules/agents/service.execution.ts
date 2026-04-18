@@ -5,15 +5,15 @@ import { randomUUID } from "node:crypto";
 import { getApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { toPrismaJsonValue } from "../../lib/prisma-json";
+import { toPrismaJsonValue } from "../../lib/prisma-json.js";
 import {
   QueueBackpressureError,
   TenantQueueRateLimitError
 } from "../../lib/queue";
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { enqueueInstalledAgentExecution } from "./queue";
-import { findReusableRunningExecution } from "./service.repository";
-import { buildPayloadHash } from "./service.snapshot";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { enqueueInstalledAgentExecution } from "./queue.js";
+import { findReusableRunningExecution } from "./service.repository.js";
+import { buildPayloadHash } from "./service.snapshot.js";
 import type {
   InstalledAgentRunResult,
   ResolvedInstalledAgent

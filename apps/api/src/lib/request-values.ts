@@ -1,4 +1,4 @@
-import { ProblemDetailsError } from "./problem-details";
+import { ProblemDetailsError } from "./problem-details.js";
 
 export function readFirstString(value: unknown): string | undefined {
   if (typeof value === "string") {

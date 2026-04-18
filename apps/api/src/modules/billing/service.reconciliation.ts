@@ -4,7 +4,7 @@ import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 import Stripe from "stripe";
 
-import { type DatabaseClient, type StripeBillingEventContext } from "./service.shared";
+import { type DatabaseClient, type StripeBillingEventContext } from "./service.shared.js";
 import {
   handleCheckoutSessionCompleted,
   handleCustomerSubscriptionDeleted,
@@ -12,7 +12,7 @@ import {
   handleInvoicePaymentFailed,
   handleInvoicePaymentSucceeded
 } from "./service.reconciliation.handlers";
-import { reconciliationLogger } from "./service.reconciliation.shared";
+import { reconciliationLogger } from "./service.reconciliation.shared.js";
 
 export async function processStripeBillingEvent(input: {
   config: ApiConfig;

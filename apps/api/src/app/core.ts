@@ -10,30 +10,30 @@ import {
   configureCacheStore,
   registerTenantCacheInvalidationMiddleware
 } from "../common/cache/index";
-import { openApiDocument } from "../docs/openapi";
+import { openApiDocument } from "../docs/openapi.js";
 import {
   createDeepHealthService,
   createHealthService,
   createReadinessHealthService
 } from "../lib/health";
-import { asyncHandler, ProblemDetailsError } from "../lib/problem-details";
-import { contentTypeMiddleware } from "../middleware/content-type";
-import { csrfProtection } from "../middleware/csrf";
-import { breakGlassAuditMiddleware } from "../middleware/break-glass-audit";
-import { errorHandler, notFoundMiddleware } from "../middleware/error-handler";
-import { authenticationMiddleware } from "../middleware/authentication";
-import { originValidationMiddleware } from "../middleware/origin-check";
+import { asyncHandler, ProblemDetailsError } from "../lib/problem-details.js";
+import { contentTypeMiddleware } from "../middleware/content-type.js";
+import { csrfProtection } from "../middleware/csrf.js";
+import { breakGlassAuditMiddleware } from "../middleware/break-glass-audit.js";
+import { errorHandler, notFoundMiddleware } from "../middleware/error-handler.js";
+import { authenticationMiddleware } from "../middleware/authentication.js";
+import { originValidationMiddleware } from "../middleware/origin-check.js";
 import {
   createRateLimitMiddleware,
   createWebhookRateLimitMiddleware
 } from "../middleware/rate-limit";
-import { metricsHandler, metricsMiddleware } from "../metrics";
-import { requestContextMiddleware } from "../middleware/request-context";
-import { sanitizeMutationInput } from "../middleware/sanitize-input";
-import { tenantContextMiddleware } from "../middlewares/tenantContext";
-import { startPrivacyRetentionScheduler } from "../modules/privacy/retention-scheduler";
-import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index";
-import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router";
+import { metricsHandler, metricsMiddleware } from "../metrics.js";
+import { requestContextMiddleware } from "../middleware/request-context.js";
+import { sanitizeMutationInput } from "../middleware/sanitize-input.js";
+import { tenantContextMiddleware } from "../middlewares/tenantContext.js";
+import { startPrivacyRetentionScheduler } from "../modules/privacy/retention-scheduler.js";
+import { initializeWorkflowInternalEventBridge } from "../modules/webhooks/index.js";
+import { createStripeWebhookRouter } from "../modules/webhooks/stripe.router.js";
 import {
   mainContextPipeline,
   mainErrorPipeline,

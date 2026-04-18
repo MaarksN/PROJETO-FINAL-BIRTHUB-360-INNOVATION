@@ -3,8 +3,8 @@ import { randomBytes } from "node:crypto";
 import type { ApiConfig } from "@birthub/config";
 import { prisma, WebhookEndpointStatus } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { enqueueOutboundWebhook } from "../engagement/queues";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { enqueueOutboundWebhook } from "../engagement/queues.js";
 
 const WEBHOOK_ENDPOINT_LIST_LIMIT = 100;
 

@@ -6,7 +6,7 @@ import {
   withTenantDatabaseContext
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   CLINICAL_NOTE_KIND,
   CLINICAL_NOTE_LIST_PAGE_LIMIT,
@@ -18,7 +18,7 @@ import {
   type ClinicalNoteKind,
   type ClinicalNoteRecord
 } from "./service-support";
-import { serializeClinicalNote } from "./service-support.view";
+import { serializeClinicalNote } from "./service-support.view.js";
 import {
   asClinicalTransaction,
   buildClinicalNoteSelect,

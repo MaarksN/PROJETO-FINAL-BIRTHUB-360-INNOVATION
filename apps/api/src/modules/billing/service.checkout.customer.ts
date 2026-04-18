@@ -6,8 +6,8 @@ import {
   type Prisma
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { createStripeClient } from "./stripe.client";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { createStripeClient } from "./stripe.client.js";
 import {
   findOrganizationByReference,
   type DatabaseClient

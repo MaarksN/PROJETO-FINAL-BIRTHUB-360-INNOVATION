@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 
 import type { AgentManifest } from "@birthub/agents-core";
 
-import { parseAgentConfig } from "./service.config";
+import { parseAgentConfig } from "./service.config.js";
 import type {
   AgentExecutionRecord,
   AgentRecord,

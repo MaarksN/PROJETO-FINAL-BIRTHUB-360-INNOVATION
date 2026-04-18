@@ -6,10 +6,10 @@ import type { Request } from "express";
 import Redlock from "redlock";
 import Stripe from "stripe";
 
-import { ProblemDetailsError } from "../../lib/problem-details";
-import { toPrismaJsonValue } from "../../lib/prisma-json";
-import { getSharedRedis } from "../../lib/redis";
-import { type StripeBillingEventContext } from "../billing/service";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { toPrismaJsonValue } from "../../lib/prisma-json.js";
+import { getSharedRedis } from "../../lib/redis.js";
+import { type StripeBillingEventContext } from "../billing/service.js";
 
 export const stripeWebhookLogger: ReturnType<typeof createLogger> =
   createLogger("stripe-webhook");

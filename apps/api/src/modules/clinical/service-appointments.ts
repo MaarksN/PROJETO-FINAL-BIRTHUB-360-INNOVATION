@@ -15,7 +15,7 @@ import {
   type ClinicalContext,
   type DateWindowView
 } from "./service-support";
-import { serializeAppointment } from "./service-support.view";
+import { serializeAppointment } from "./service-support.view.js";
 import {
   asClinicalTransaction,
   buildAppointmentSelect,
