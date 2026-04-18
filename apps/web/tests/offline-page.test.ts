@@ -6,7 +6,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 
 void test("offline page renders contingency messaging", async () => {
-  const { default: OfflinePage } = await import("../app/offline/page.js");
+  const { default: OfflinePage } = await import("../app/offline/page");
   const markup = renderToString(React.createElement(OfflinePage));
 
   assert.match(markup, /Modo offline/);

@@ -16,7 +16,7 @@ import {
   type QuotaEvent,
   type QuotaFailureMode,
   type QuotaMetrics
-} from "./schemas.js";
+} from "./schemas";
 import {
   AttainmentVarianceSnapshotSchema,
   CapacityPlannerSnapshotSchema,
@@ -28,7 +28,7 @@ import {
   type QuotaToolInput,
   QuotaToolInputSchema,
   TerritoryCoverageSnapshotSchema
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

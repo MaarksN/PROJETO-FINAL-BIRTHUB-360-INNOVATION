@@ -3,7 +3,7 @@
 import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 import {
   buildAuthorizationUrl,
   buildOauthState,
@@ -14,7 +14,7 @@ import {
   upsertCredentials,
   type ConnectorCredentialsRecord,
   type ConnectorProvider
-} from "./service.shared.js";
+} from "./service.shared";
 
 export async function createConnectSession(input: {
   accountKey?: string | undefined;

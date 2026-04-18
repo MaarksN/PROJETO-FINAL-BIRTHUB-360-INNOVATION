@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { ManagedAgentPolicy } from "@birthub/agents-core";
 
@@ -146,3 +146,4 @@ export function mergeManagedPolicies(
 
   return Array.from(merged.values()).sort((left, right) => left.name.localeCompare(right.name));
 }
+

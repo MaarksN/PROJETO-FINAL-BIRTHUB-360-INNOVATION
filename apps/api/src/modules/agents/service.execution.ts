@@ -5,19 +5,19 @@ import { randomUUID } from "node:crypto";
 import { getApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { toPrismaJsonValue } from "../../lib/prisma-json.js";
+import { toPrismaJsonValue } from "../../lib/prisma-json";
 import {
   QueueBackpressureError,
   TenantQueueRateLimitError
-} from "../../lib/queue.js";
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { enqueueInstalledAgentExecution } from "./queue.js";
-import { findReusableRunningExecution } from "./service.repository.js";
-import { buildPayloadHash } from "./service.snapshot.js";
+} from "../../lib/queue";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { enqueueInstalledAgentExecution } from "./queue";
+import { findReusableRunningExecution } from "./service.repository";
+import { buildPayloadHash } from "./service.snapshot";
 import type {
   InstalledAgentRunResult,
   ResolvedInstalledAgent
-} from "./service.types.js";
+} from "./service.types";
 
 export async function queueInstalledAgentExecution(input: {
   payload: Record<string, unknown>;

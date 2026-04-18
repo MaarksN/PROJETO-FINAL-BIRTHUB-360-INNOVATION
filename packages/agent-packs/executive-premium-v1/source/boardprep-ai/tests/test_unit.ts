@@ -4,13 +4,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { BoardPrepAIAgent } from "../agent.js";
+import { BoardPrepAIAgent } from "../agent";
 import {
   DEFAULT_BOARDPREPAI_CONTRACT,
   type BoardPrepAIInput,
   type BoardPrepEvent
-} from "../schemas.js";
-import type { BoardPrepAIToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { BoardPrepAIToolAdapters } from "../tools";
 
 const VALID_INPUT: BoardPrepAIInput = {
   constraints: {

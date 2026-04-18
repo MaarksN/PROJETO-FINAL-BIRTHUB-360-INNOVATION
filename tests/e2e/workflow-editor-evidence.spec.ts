@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";

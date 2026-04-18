@@ -1,4 +1,4 @@
-import type { AgentManifest } from "./schema.js";
+import type { AgentManifest } from "./schema";
 export interface ManifestCatalogEntry {
     manifest: AgentManifest;
     manifestPath: string;

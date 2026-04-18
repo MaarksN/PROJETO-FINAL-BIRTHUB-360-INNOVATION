@@ -1,4 +1,4 @@
-﻿import type { Tool } from "../types.js";
+﻿import type { Tool } from "../types";
 
 export const DATA_TOOLS: Tool[] = [
   {

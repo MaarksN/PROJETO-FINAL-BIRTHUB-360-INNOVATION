@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -31,7 +31,7 @@ import {
   toBulletList,
   toPosixPath,
   uniqueStrings
-} from "./github-agent-collection.js";
+} from "./github-agent-collection";
 
 interface CompileGithubAgentsOptions {
   cleanOutput?: boolean;

@@ -1,7 +1,7 @@
 
 // 
-import { interpolateValue } from "../interpolation/interpolate.js";
-import type { WorkflowRuntimeContext } from "../types.js";
+import { interpolateValue } from "../interpolation/interpolate";
+import type { WorkflowRuntimeContext } from "../types";
 
 interface TransformerConfig {
   filter?: string | undefined;

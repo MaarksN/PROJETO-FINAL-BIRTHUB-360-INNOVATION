@@ -7,13 +7,13 @@ import request from "supertest";
 import {
   flushAuditBuffer,
   resetAuditBufferForTests
-} from "../src/audit/buffer.js";
-import { createApiKeysRouter } from "../src/modules/apikeys/router.js";
+} from "../src/audit/buffer";
+import { createApiKeysRouter } from "../src/modules/apikeys/router";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers.js";
-import { createTestApiConfig } from "./test-config.js";
+} from "./http-test-helpers";
+import { createTestApiConfig } from "./test-config";
 
 type CapturedAuditEvent = Prisma.AuditLogCreateManyInput;
 

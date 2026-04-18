@@ -6,7 +6,7 @@ import { BaseTool } from "@birthub/agents-core/tools";
 import pMap from "p-map";
 import { z } from "zod";
 
-import { PlanExecutor, type AgentExecutionRequest } from "../executors/planExecutor.js";
+import { PlanExecutor, type AgentExecutionRequest } from "../executors/planExecutor";
 
 class InMemoryRedis {
   private readonly data = new Map<string, { value: string; expiresAt?: number }>();

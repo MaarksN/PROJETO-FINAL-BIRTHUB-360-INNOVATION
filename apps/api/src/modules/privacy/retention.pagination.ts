@@ -11,7 +11,7 @@ import {
   type RetentionPolicyDelegate,
   type RetentionPolicyRecord,
   type SuspendedUserRecord
-} from "./retention.shared.js";
+} from "./retention.shared";
 
 async function listRetentionPoliciesPage(input: {
   enabled?: boolean | undefined;

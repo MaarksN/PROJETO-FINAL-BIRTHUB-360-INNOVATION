@@ -1,5 +1,5 @@
-import type { AgentManifest } from "../manifest/schema.js";
-import type { AgentLearningRecord, JsonValue } from "../types/index.js";
+import type { AgentManifest } from "../manifest/schema";
+import type { AgentLearningRecord, JsonValue } from "../types/index";
 import {
   buildMemoryKey,
   buildPremiumLayersAssessment,
@@ -14,7 +14,7 @@ import {
   summarizeNumericSignals,
   summarizePremiumLayers,
   type SegmentProfile
-} from "./intelligence.js";
+} from "./intelligence";
 import type {
   AgentRuntimeOutput,
   AgentRuntimePlan,
@@ -22,7 +22,7 @@ import type {
   ManagedAgentPolicy,
   OutputGovernanceDecision,
   RuntimePolicyRule
-} from "./manifestRuntime.js";
+} from "./manifestRuntime";
 
 export function readString(value: unknown): string | null {
   return typeof value === "string" && value.trim().length > 0 ? value.trim() : null;

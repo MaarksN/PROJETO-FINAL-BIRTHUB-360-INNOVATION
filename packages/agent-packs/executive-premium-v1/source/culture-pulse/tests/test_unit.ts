@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { CulturePulseAgent } from "../agent.js";
+import { CulturePulseAgent } from "../agent";
 import {
   type BrandEvent,
   type CulturePulseInput,
   DEFAULT_CULTUREPULSE_CONTRACT
-} from "../schemas.js";
-import type { CulturePulseToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { CulturePulseToolAdapters } from "../tools";
 
 const VALID_INPUT: CulturePulseInput = {
   constraints: {

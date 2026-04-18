@@ -9,7 +9,7 @@ import { ENGAGEMENT_QUEUE_NAMES } from "@birthub/queue";
 import type { Queue } from "bullmq";
 import type { Redis } from "ioredis";
 
-import { DynamicRateLimiter } from "../lib/rate-limiter.js";
+import { DynamicRateLimiter } from "../lib/rate-limiter";
 
 const logger = createLogger("worker-outbound-webhooks");
 

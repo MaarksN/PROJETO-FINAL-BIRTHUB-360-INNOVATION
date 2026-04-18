@@ -2,7 +2,7 @@ import { isIP } from "node:net";
 
 import { z } from "zod";
 
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
 
 const httpInputSchema = z
   .object({

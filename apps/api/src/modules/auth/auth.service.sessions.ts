@@ -15,17 +15,17 @@ import {
   createSecureSessionId,
   randomToken,
   sha256
-} from "./crypto.js";
+} from "./crypto";
 import {
   nowPlusHours,
   nowPlusMinutes,
   resolveConcurrentSessionLimit,
   type SessionTokens
-} from "./auth.service.shared.js";
+} from "./auth.service.shared";
 import {
   hasExplicitDatabaseUrl,
   isDatabaseUnavailableError
-} from "../../lib/database-availability.js";
+} from "../../lib/database-availability";
 
 const logger = createLogger("auth-sessions");
 const ACTIVE_SESSION_ENFORCEMENT_LIMIT = 250;

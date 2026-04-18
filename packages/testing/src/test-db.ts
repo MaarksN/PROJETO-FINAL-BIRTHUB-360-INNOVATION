@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 //
 import { execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
@@ -8,7 +8,7 @@ import { resolve } from "node:path";
 import { Prisma, type PrismaClient } from "@prisma/client";
 import { createPrismaClient } from "@birthub/database/client";
 
-import { seedCoreFixtures } from "./factories.js";
+import { seedCoreFixtures } from "./factories";
 
 const DEFAULT_DEVELOPMENT_DATABASE_URL =
   "postgresql://postgres:postgres@localhost:5432/birthub?schema=public";

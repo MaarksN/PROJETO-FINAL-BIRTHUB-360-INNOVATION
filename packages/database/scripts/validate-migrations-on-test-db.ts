@@ -1,15 +1,15 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { createLogger } from "@birthub/logger";
 
-import { databasePackageRoot, schemaPath } from "./lib/paths.js";
+import { databasePackageRoot, schemaPath } from "./lib/paths";
 import {
   createScriptRuntime,
   type ScriptRuntimeDependencies
-} from "./lib/runtime.js";
+} from "./lib/runtime";
 
 const logger = createLogger("db-validate-migrations-on-test-db");
 

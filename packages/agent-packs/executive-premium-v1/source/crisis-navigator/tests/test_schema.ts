@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { CrisisNavigatorAgent } from "../agent.js";
-import { CrisisNavigatorInputSchema, type CrisisNavigatorInput } from "../schemas.js";
+import { CrisisNavigatorAgent } from "../agent";
+import { CrisisNavigatorInputSchema, type CrisisNavigatorInput } from "../schemas";
 
 void test("CrisisNavigator schema rejects missing required fields", () => {
   const invalidPayload = {

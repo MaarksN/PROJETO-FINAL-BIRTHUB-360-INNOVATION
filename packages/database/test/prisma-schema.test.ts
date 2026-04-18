@@ -1,8 +1,8 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { parsePrismaSchema } from "../scripts/lib/prisma-schema.js";
+import { parsePrismaSchema } from "../scripts/lib/prisma-schema";
 
 void test("parsePrismaSchema captures model-level indexes and uniques without dynamic regex parsing", async () => {
   const models = await parsePrismaSchema();

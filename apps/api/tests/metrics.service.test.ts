@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { AgentMetricsService } from "../src/modules/agents/metrics.service.js";
+import { AgentMetricsService } from "../src/modules/agents/metrics.service";
 
 void test("AgentMetricsService aggregates latency and fail rate", async () => {
   const service = new AgentMetricsService();

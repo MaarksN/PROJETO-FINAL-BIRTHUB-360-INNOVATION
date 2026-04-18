@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWorkerConfig } from "@birthub/config";
 import {
@@ -395,3 +395,4 @@ async function processJob(
 export function createJobProcessor(input: WorkerProcessorInput) {
   return async (job: WorkerQueueJob) => processJob(input, job);
 }
+

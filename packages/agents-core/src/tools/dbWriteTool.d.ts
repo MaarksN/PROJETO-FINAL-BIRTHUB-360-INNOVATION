@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
 declare const dbWriteInputSchema: z.ZodObject<{
     data: z.ZodRecord<z.ZodString, z.ZodUnknown>;
     operation: z.ZodEnum<{

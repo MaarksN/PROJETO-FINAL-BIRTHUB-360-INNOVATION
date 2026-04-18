@@ -3,8 +3,8 @@
 import type { ApiConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
 
-import { encryptConnectorToken } from "../../lib/encryption.js";
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { encryptConnectorToken } from "../../lib/encryption";
+import { ProblemDetailsError } from "../../lib/problem-details";
 
 export type ConnectorProvider =
   | "google-workspace"

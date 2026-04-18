@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { CapitalAllocatorAgent } from "../agent.js";
+import { CapitalAllocatorAgent } from "../agent";
 import {
   type BudgetEvent,
   type CapitalAllocatorInput,
   DEFAULT_CAPITALALLOCATOR_CONTRACT
-} from "../schemas.js";
-import type { CapitalAllocatorToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { CapitalAllocatorToolAdapters } from "../tools";
 
 const VALID_INPUT: CapitalAllocatorInput = {
   constraints: {

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   Prisma,
@@ -150,3 +150,4 @@ export const workflowQueueNames = {
   execution: WORKFLOW_EXECUTION_QUEUE,
   trigger: WORKFLOW_QUEUE_NAMES.trigger
 } as const;
+

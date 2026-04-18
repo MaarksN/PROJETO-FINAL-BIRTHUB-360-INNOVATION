@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   Prisma,
@@ -9,7 +9,7 @@ import {
   type PrismaClient
 } from "@prisma/client";
 
-import { prisma } from "../client.js";
+import { prisma } from "../client";
 
 type JsonObject = Prisma.InputJsonValue | undefined;
 const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;

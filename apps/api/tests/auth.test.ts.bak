@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 // [SOURCE] Checklist-Session-Security.md - GAP-SEC-001
 import assert from "node:assert/strict";
@@ -483,3 +483,4 @@ void test("authenticateRequest rejects idle-expired session", async () => {
     }
   }
 });
+

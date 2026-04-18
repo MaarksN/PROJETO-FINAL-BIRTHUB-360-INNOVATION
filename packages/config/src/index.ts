@@ -1,11 +1,11 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
-export * from "./api.config.js";
-export * from "./contracts.js";
-export * from "./database.config.js";
-export * from "./environment.js";
-export * from "./logger.config.js";
-export * from "./product-capabilities.js";
-export * from "./shared.js";
-export * from "./web.config.js";
-export * from "./worker.config.js";
+export * from "./api.config";
+export * from "./contracts";
+export * from "./database.config";
+export * from "./environment";
+export * from "./logger.config";
+export * from "./product-capabilities";
+export * from "./shared";
+export * from "./web.config";
+export * from "./worker.config";

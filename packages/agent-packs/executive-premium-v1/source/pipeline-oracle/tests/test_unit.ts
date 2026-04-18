@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { PipelineOracleAgent } from "../agent.js";
+import { PipelineOracleAgent } from "../agent";
 import {
   DEFAULT_PIPELINEORACLE_CONTRACT,
   type PipelineOracleInput,
   type QuotaEvent
-} from "../schemas.js";
-import type { PipelineOracleToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { PipelineOracleToolAdapters } from "../tools";
 
 const VALID_INPUT: PipelineOracleInput = {
   constraints: {

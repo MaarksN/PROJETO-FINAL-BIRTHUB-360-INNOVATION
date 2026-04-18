@@ -1,8 +1,8 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { readFile } from "node:fs/promises";
 
-import { schemaPath } from "./paths.js";
+import { schemaPath } from "./paths";
 
 export interface ParsedField {
   attributes: string;

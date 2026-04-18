@@ -2,7 +2,7 @@
 // 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildCspHeader, createRateLimiter, sanitizeHtml, scanSecrets } from "../../index.js";
+import { buildCspHeader, createRateLimiter, sanitizeHtml, scanSecrets } from "../../index";
 
 test("sanitize removes script", () => {
   assert.equal(sanitizeHtml('<p>ok</p><script>alert(1)</script>'), '<p>ok</p>');

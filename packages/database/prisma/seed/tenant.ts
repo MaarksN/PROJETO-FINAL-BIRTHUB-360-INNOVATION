@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   AgentStatus,
@@ -12,9 +12,9 @@ import {
 } from "@prisma/client";
 import { createHash } from "node:crypto";
 
-import { buildTenantWorkflows } from "./data.js";
-import type { SeededPlanMap, TenantSeed } from "./types.js";
-import { createWorkflowWithGraph } from "./workflows.js";
+import { buildTenantWorkflows } from "./data";
+import type { SeededPlanMap, TenantSeed } from "./types";
+import { createWorkflowWithGraph } from "./workflows";
 
 function buildMonthlyWindow(referenceDate = new Date()) {
   const periodStart = new Date(

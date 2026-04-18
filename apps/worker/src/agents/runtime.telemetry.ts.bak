@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { prisma, Prisma } from "@birthub/database";
 import {
@@ -223,3 +223,4 @@ export async function createOutputArtifact(input: {
 
   return output.id;
 }
+

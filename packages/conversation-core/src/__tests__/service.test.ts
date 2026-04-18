@@ -1,8 +1,8 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { ConversationService } from "../../src/service.js";
+import { ConversationService } from "../../src/service";
 
 void test("conversation service lifecycle", () => {
   const events: unknown[] = [];

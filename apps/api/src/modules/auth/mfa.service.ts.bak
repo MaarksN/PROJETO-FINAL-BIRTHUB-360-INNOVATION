@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createHmac, randomBytes } from "node:crypto";
 
@@ -133,3 +133,4 @@ export function generateRecoveryCodes(): string[] {
 export function hashRecoveryCode(code: string): string {
   return sha256(`recovery:${code}`);
 }
+

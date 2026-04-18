@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { cpus } from "node:os";
 
@@ -15,7 +15,7 @@ import {
   optionalUrlString,
   parseEnv,
   urlString
-} from "./shared.js";
+} from "./shared";
 
 export const workerEnvSchema = z.object({
   AGENT_CIRCUIT_BREAKER_COOLDOWN_MS: z.coerce.number().int().positive().default(60_000),

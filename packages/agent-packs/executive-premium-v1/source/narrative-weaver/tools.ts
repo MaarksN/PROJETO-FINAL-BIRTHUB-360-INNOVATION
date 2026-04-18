@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 
 import { z } from "zod";
 
-import { NarrativeAudienceSchema } from "./schemas.js";
+import { NarrativeAudienceSchema } from "./schemas";
 
 const isoDateSchema = z
   .string()

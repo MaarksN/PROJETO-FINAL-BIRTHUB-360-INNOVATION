@@ -7,7 +7,7 @@ import {
   decryptConnectorToken,
   decryptConnectorsMap,
   encryptConnectorToken
-} from "../src/lib/encryption.js";
+} from "../src/lib/encryption";
 
 const ALGORITHM = "aes-256-gcm";
 const AUTH_TAG_LENGTH = 16;

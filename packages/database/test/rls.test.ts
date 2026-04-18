@@ -1,16 +1,16 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
 import { randomUUID } from "node:crypto";
 
 import { WorkflowStatus } from "@prisma/client";
-import { createPrismaClient } from "../src/client.js";
+import { createPrismaClient } from "../src/client";
 import {
   ensureDatabaseAvailableOrSkip,
   requireDatabaseUrlOrSkip,
   shouldRequireDeterministicIsolationValidation
-} from "./database-availability.js";
+} from "./database-availability";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const requireRlsValidation = shouldRequireDeterministicIsolationValidation();

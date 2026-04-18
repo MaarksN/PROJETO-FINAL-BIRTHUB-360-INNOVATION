@@ -7,13 +7,13 @@ import { setMaxListeners } from "node:events";
 setMaxListeners(20);
 import { prisma, Role, UserStatus } from "@birthub/database";
 import request from "supertest";
-import { createApp } from "../src/app.js";
-import { authenticateRequest, createSession, refreshSession, verifyMfaChallenge } from "../src/modules/auth/auth.service.js";
-import { setAuthCookies } from "../src/modules/auth/cookies.js";
-import { encryptTotpSecret, generateCurrentTotp, generateTotpSecret } from "../src/modules/auth/mfa.service.js";
-import { sha256 } from "../src/modules/auth/crypto.js";
-import { assertAuthCookies, createAuthTestApp, readSetCookies, stubMethod } from "./auth.test.support.js";
-import { createTestApiConfig } from "./test-config.js";
+import { createApp } from "../src/app";
+import { authenticateRequest, createSession, refreshSession, verifyMfaChallenge } from "../src/modules/auth/auth.service";
+import { setAuthCookies } from "../src/modules/auth/cookies";
+import { encryptTotpSecret, generateCurrentTotp, generateTotpSecret } from "../src/modules/auth/mfa.service";
+import { sha256 } from "../src/modules/auth/crypto";
+import { assertAuthCookies, createAuthTestApp, readSetCookies, stubMethod } from "./auth.test.support";
+import { createTestApiConfig } from "./test-config";
 void test("auth login returns 200 and creates a session", async () => {
   const config = createTestApiConfig();
   const restores = [

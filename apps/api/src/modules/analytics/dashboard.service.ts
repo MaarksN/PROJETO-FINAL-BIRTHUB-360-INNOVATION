@@ -3,9 +3,9 @@
 import { getApiConfig } from "@birthub/config";
 import { SubscriptionStatus, prisma } from "@birthub/database";
 
-import { agentMetricsService } from "../agents/metrics.service.js";
-import { getInstalledAgentQueueStats } from "../agents/queue.js";
-import { uniqueTenantCount } from "./analytics.utils.js";
+import { agentMetricsService } from "../agents/metrics.service";
+import { getInstalledAgentQueueStats } from "../agents/queue";
+import { uniqueTenantCount } from "./analytics.utils";
 
 const MASTER_DASHBOARD_SUBSCRIPTION_LIMIT = 5_000;
 const DASHBOARD_TENANT_SNAPSHOT_LIMIT = 2_000;

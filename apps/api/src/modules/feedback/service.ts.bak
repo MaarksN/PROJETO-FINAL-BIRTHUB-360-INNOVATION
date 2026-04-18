@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { prisma, Role } from "@birthub/database";
 
@@ -130,3 +130,4 @@ export async function saveExecutionFeedback(input: {
     }
   });
 }
+

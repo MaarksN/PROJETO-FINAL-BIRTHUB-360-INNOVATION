@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWorkerConfig } from "@birthub/config";
 import { ensureUserPreference, prisma } from "@birthub/database";
@@ -270,3 +270,4 @@ export async function processEmailNotificationJob(payload: EmailNotificationJobP
     status: result.status
   };
 }
+

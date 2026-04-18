@@ -1,4 +1,4 @@
-import { envBoolean } from "./shared.js";
+import { envBoolean } from "./shared";
 
 export const apiProductCapabilityEnvSchema = {
   BIRTHUB_ENABLE_CLINICAL_WORKSPACE: envBoolean.default(false),

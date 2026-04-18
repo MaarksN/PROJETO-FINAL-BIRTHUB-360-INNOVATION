@@ -8,7 +8,7 @@ import {
   resolveSeedRuntimeOptions,
   runSeedRuntime,
   type SeedRuntimeDependencies
-} from "../prisma/seed.js";
+} from "../prisma/seed";
 
 function createDependencies(overrides: Partial<SeedRuntimeDependencies> = {}) {
   const calls = {

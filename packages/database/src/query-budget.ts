@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 
-import { resolveDefaultQueryTimeout, type QueryBudgetCategory } from "../f8.config.js";
+import { resolveDefaultQueryTimeout, type QueryBudgetCategory } from "../f8.config";
 
 export interface QueryBudgetContext {
   category: QueryBudgetCategory;

@@ -1,6 +1,6 @@
 import { Role, UserStatus, type Prisma } from "@prisma/client";
 
-import { prisma } from "../client.js";
+import { prisma } from "../client";
 
 const USER_REPOSITORY_LIST_LIMIT = 100;
 

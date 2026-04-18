@@ -3,7 +3,7 @@ import test from "node:test";
 
 import type { Request, Response } from "express";
 
-import { sendEtaggedJson } from "../src/common/cache/http-cache.js";
+import { sendEtaggedJson } from "../src/common/cache/http-cache";
 
 function createResponseDouble() {
   const headers = new Map<string, string>();

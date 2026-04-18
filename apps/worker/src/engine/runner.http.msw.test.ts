@@ -15,7 +15,7 @@ import type { Queue } from "bullmq";
 import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
 
-import { type WorkflowExecutionJobPayload, WorkflowRunner } from "./runner.js";
+import { type WorkflowExecutionJobPayload, WorkflowRunner } from "./runner";
 
 const server = setupServer();
 

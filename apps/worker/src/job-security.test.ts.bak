@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
@@ -78,3 +78,4 @@ void test("worker validates HMAC signature for legacy jobs", () => {
 
   assert.equal(validatedTenant, "tenant_a");
 });
+

@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { CapitalAllocatorAgent } from "../agent.js";
-import { CapitalAllocatorInputSchema, type CapitalAllocatorInput } from "../schemas.js";
+import { CapitalAllocatorAgent } from "../agent";
+import { CapitalAllocatorInputSchema, type CapitalAllocatorInput } from "../schemas";
 
 void test("CapitalAllocator schema rejects missing required fields", () => {
   const invalidPayload = {

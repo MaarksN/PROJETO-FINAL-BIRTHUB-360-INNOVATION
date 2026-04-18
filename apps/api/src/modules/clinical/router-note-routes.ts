@@ -1,17 +1,17 @@
 import { Role } from "@birthub/database";
 import type { Router } from "express";
 
-import { Auditable } from "../../audit/auditable.js";
-import { RequireRole, requireAuthenticatedSession } from "../../common/guards/index.js";
-import { asyncHandler } from "../../lib/problem-details.js";
-import { requireStringValue } from "../../lib/request-values.js";
-import { validateBody } from "../../middleware/validate-body.js";
+import { Auditable } from "../../audit/auditable";
+import { RequireRole, requireAuthenticatedSession } from "../../common/guards/index";
+import { asyncHandler } from "../../lib/problem-details";
+import { requireStringValue } from "../../lib/request-values";
+import { validateBody } from "../../middleware/validate-body";
 import {
   clinicalNoteQuerySchema,
   clinicalNoteSchema,
   clinicalNoteUpdateSchema
-} from "./schemas.js";
-import { clinicalService } from "./service.js";
+} from "./schemas";
+import { clinicalService } from "./service";
 
 type ClinicalContextRequest = {
   context: {

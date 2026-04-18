@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import type { ZodTypeAny } from "zod";
 
-import { fromZodError } from "../lib/problem-details.js";
+import { fromZodError } from "../lib/problem-details";
 
 export function validateBody<TSchema extends ZodTypeAny>(schema: TSchema) {
   return (request: Request, _response: Response, next: NextFunction): void => {

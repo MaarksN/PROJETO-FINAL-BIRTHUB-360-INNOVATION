@@ -1,6 +1,6 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
-import { createScriptRuntime } from "./lib/runtime.js";
+import { createScriptRuntime } from "./lib/runtime";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-post-migration-checklist");

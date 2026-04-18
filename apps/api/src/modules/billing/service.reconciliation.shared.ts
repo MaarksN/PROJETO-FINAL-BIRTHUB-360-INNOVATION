@@ -10,8 +10,8 @@ import {
 } from "@birthub/database";
 import Stripe from "stripe";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { type DatabaseClient } from "./service.shared.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { type DatabaseClient } from "./service.shared";
 
 export const reconciliationLogger: ReturnType<typeof createLogger> =
   createLogger("billing-service");

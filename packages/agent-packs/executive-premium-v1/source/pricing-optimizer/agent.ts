@@ -16,7 +16,7 @@ import {
   type PricingOptimizerOutput,
   PricingOptimizerOutputSchema,
   DEFAULT_PRICINGOPTIMIZER_CONTRACT
-} from "./schemas.js";
+} from "./schemas";
 import {
   PRICINGOPTIMIZER_TOOL_IDS,
   CompetitorIntelSnapshotSchema,
@@ -27,7 +27,7 @@ import {
   type CompetitorToolId,
   type CompetitorToolInput,
   type PricingOptimizerToolAdapters
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

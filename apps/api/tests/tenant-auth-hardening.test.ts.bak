@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -248,3 +248,4 @@ void test("dashboard endpoints reject anonymous and insufficient-role access", a
     }
   }
 });
+

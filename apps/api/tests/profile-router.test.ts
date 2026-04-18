@@ -4,9 +4,9 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { createProfileRouter } from "../src/modules/profile/router.js";
-import { requestContextMiddleware } from "../src/middleware/request-context.js";
-import { createTestApiConfig } from "./test-config.js";
+import { createProfileRouter } from "../src/modules/profile/router";
+import { requestContextMiddleware } from "../src/middleware/request-context";
+import { createTestApiConfig } from "./test-config";
 
 void test("createProfileRouter requires an authenticated session for GET /api/v1/me", async () => {
   const app = express();

@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { lintWorkflowSteps, workflowCanvasSchema } from "../src/index.js";
+import { lintWorkflowSteps, workflowCanvasSchema } from "../src/index";
 
 test("semantic lint reports deprecated/risky/incompatible workflow steps", () => {
   const canvas = workflowCanvasSchema.parse({

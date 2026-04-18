@@ -5,10 +5,10 @@ import { Role } from "@birthub/database";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { budgetService } from "./budget.service.js";
-import { BudgetExceededError } from "./budget.types.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { budgetService } from "./budget.service";
+import { BudgetExceededError } from "./budget.types";
 
 const limitSchema = z.object({
   agentId: z.string().min(1),

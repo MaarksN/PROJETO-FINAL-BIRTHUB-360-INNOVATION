@@ -7,13 +7,13 @@ import {
   deleteCacheKeys,
   readCacheValue,
   writeCacheValue
-} from "../../common/cache/cache-store.js";
-import { captureWebhookException } from "../../observability/sentry.js";
+} from "../../common/cache/cache-store";
+import { captureWebhookException } from "../../observability/sentry";
 import {
   invalidateBillingSnapshotCache,
   type StripeBillingEventContext
-} from "../billing/service.js";
-import { enqueueCrmSync } from "../engagement/queues.js";
+} from "../billing/service";
+import { enqueueCrmSync } from "../engagement/queues";
 import {
   BILLING_WEBHOOK_IDEMPOTENCY_TTL_SECONDS,
   billingStatusCacheKey,
@@ -25,7 +25,7 @@ import {
   toWebhookErrorMessage,
   type StripeWebhookEventProcessor,
   withStripeEventLock
-} from "./stripe.webhook.shared.js";
+} from "./stripe.webhook.shared";
 
 type StripeWebhookProcessResult = {
   idempotent: boolean;

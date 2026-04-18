@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { executeStep, type WorkflowRuntimeContext } from "../src/index.js";
+import { executeStep, type WorkflowRuntimeContext } from "../src/index";
 
 function createContext(): WorkflowRuntimeContext {
   return {

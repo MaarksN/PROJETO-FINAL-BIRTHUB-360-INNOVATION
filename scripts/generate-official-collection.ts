@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -9,7 +9,7 @@ import type { AgentManifest } from "@birthub/agents-core";
 import {
   FOUNDATION_AGENT_OVERRIDES,
   type FoundationAgentOverride
-} from "../packages/agent-packs/corporate-v1/source/foundation-agent-overrides.js";
+} from "../packages/agent-packs/corporate-v1/source/foundation-agent-overrides";
 
 interface HtmlAgentRecord {
   code: string;

@@ -1,8 +1,8 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
-import { parseAgentManifest } from "./parser.js";
-import type { AgentManifest, AgentManifestTags } from "./schema.js";
+import { parseAgentManifest } from "./parser";
+import type { AgentManifest, AgentManifestTags } from "./schema";
 
 export interface ManifestCatalogEntry {
   manifest: AgentManifest;

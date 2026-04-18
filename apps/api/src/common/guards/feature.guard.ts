@@ -1,11 +1,11 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 import {
   isPlanFeatureEnabled,
   type PlanFeature
-} from "../../modules/billing/plan.utils.js";
-import { canUseFeature } from "../../modules/billing/service.js";
+} from "../../modules/billing/plan.utils";
+import { canUseFeature } from "../../modules/billing/service";
 
 const DEFAULT_GRACE_PERIOD_DAYS = 3;
 

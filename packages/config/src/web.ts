@@ -1,6 +1,6 @@
-export { getWebConfig, webEnvSchema, type WebConfig } from "./web.config.js";
+export { getWebConfig, webEnvSchema, type WebConfig } from "./web.config";
 export {
   mapWebProductCapabilities,
   type ProductCapabilities,
   webProductCapabilityEnvSchema
-} from "./product-capabilities.js";
+} from "./product-capabilities";

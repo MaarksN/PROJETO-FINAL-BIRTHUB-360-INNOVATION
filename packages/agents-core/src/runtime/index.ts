@@ -1,2 +1,2 @@
-export * from "./intelligence.js";
-export * from "./manifestRuntime.js";
+export * from "./intelligence";
+export * from "./manifestRuntime";

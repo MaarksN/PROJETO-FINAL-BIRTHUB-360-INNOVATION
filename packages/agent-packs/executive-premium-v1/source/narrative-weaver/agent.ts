@@ -16,7 +16,7 @@ import {
   NarrativeWeaverInputSchema,
   type NarrativeWeaverOutput,
   NarrativeWeaverOutputSchema
-} from "./schemas.js";
+} from "./schemas";
 import {
   createDefaultNarrativeWeaverToolAdapters,
   EarningsSignalSnapshotSchema,
@@ -27,7 +27,7 @@ import {
   type NarrativeWeaverToolAdapters,
   StakeholderSentimentSnapshotSchema,
   StrategyCoherenceSnapshotSchema
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

@@ -3,10 +3,10 @@
 import { isInstallableManifest } from "@birthub/agents-core";
 import { Prisma, prisma } from "@birthub/database";
 
-import { toPrismaJsonValue } from "../../lib/prisma-json.js";
-import { encryptConnectorsMap } from "../../lib/encryption.js";
-import { getAgentLimitForOrganization, LimitExceededError } from "../billing/index.js";
-import { marketplaceService } from "../marketplace/marketplace-service.js";
+import { toPrismaJsonValue } from "../../lib/prisma-json";
+import { encryptConnectorsMap } from "../../lib/encryption";
+import { getAgentLimitForOrganization, LimitExceededError } from "../billing/index";
+import { marketplaceService } from "../marketplace/marketplace-service";
 
 interface InstallPackInput {
   activateAgents: boolean;

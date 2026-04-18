@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { NarrativeWeaverAgent } from "../agent.js";
+import { NarrativeWeaverAgent } from "../agent";
 import {
   DEFAULT_NARRATIVEWEAVER_CONTRACT,
   type NarrativeEvent,
   type NarrativeWeaverInput
-} from "../schemas.js";
-import type { NarrativeWeaverToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { NarrativeWeaverToolAdapters } from "../tools";
 
 const VALID_INPUT: NarrativeWeaverInput = {
   audiences: ["board", "investors", "leadership_team"],

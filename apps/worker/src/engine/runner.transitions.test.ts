@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { WorkflowTransitionRoute } from "@birthub/database";
 
-import { calculateBackoff, shouldFollowTransition } from "./runner.js";
+import { calculateBackoff, shouldFollowTransition } from "./runner";
 
 void test("Runner routes condition branch to THEN path when result=true", () => {
   const output = { result: true };

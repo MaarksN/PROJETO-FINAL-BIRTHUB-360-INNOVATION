@@ -5,10 +5,10 @@ import test from "node:test";
 import { UserStatus, prisma } from "@birthub/database";
 import request from "supertest";
 
-import { createApp } from "../src/app.js";
-import { createTestApiConfig } from "./test-config.js";
-import { sha256 } from "../src/modules/auth/crypto.js";
-import { budgetService } from "../src/modules/budget/budget.service.js";
+import { createApp } from "../src/app";
+import { createTestApiConfig } from "./test-config";
+import { sha256 } from "../src/modules/auth/crypto";
+import { budgetService } from "../src/modules/budget/budget.service";
 
 setMaxListeners(20);
 

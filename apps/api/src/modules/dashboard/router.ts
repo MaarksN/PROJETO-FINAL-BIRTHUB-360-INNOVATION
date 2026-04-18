@@ -6,10 +6,10 @@ import type { Request } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { validateBody } from "../../middleware/validate-body.js";
-import { dashboardOnboardingUpdateSchema } from "./schemas.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { validateBody } from "../../middleware/validate-body";
+import { dashboardOnboardingUpdateSchema } from "./schemas";
 import {
   getDashboardAgentStatuses,
   getDashboardBillingSummary,
@@ -17,8 +17,8 @@ import {
   getDashboardMetrics,
   getDashboardOnboarding,
   getDashboardRecentTasks
-} from "./service.js";
-import { setDashboardOnboardingEnabled } from "./service.js";
+} from "./service";
+import { setDashboardOnboardingEnabled } from "./service";
 
 function requireContext(request: Request): {
   organizationId: string;

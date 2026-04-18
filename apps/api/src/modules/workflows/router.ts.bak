@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { createHmac } from "node:crypto";
 
 import type { ApiConfig } from "@birthub/config";
@@ -387,3 +387,4 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   return router;
 }
+

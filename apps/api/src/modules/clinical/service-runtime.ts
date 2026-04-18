@@ -6,7 +6,7 @@ import {
 import {
   assertPrismaModelsAvailable,
   readPrismaModel
-} from "../../lib/prisma-runtime.js";
+} from "../../lib/prisma-runtime";
 import {
   CLINICAL_RUNTIME_MODELS,
   PREGNANCY_STATUS,
@@ -25,7 +25,7 @@ import {
   type PregnancyRiskLevel,
   type PregnancyOutcome,
   type PregnancyStatus
-} from "./service-support.js";
+} from "./service-support";
 
 export type ClinicalModelQuery = {
   cursor?: {

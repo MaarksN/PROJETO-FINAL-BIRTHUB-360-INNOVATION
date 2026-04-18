@@ -1,9 +1,9 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Prisma } from "@prisma/client";
-import { F8_CONFIG } from "../f8.config.js";
-import { createPrismaClient } from "../src/client.js";
-import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { F8_CONFIG } from "../f8.config";
+import { createPrismaClient } from "../src/client";
+import { writeJsonReport, writeTextReport } from "./lib/report";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-analyze-performance");

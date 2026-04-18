@@ -1,6 +1,6 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
-import { F8_CONFIG } from "../f8.config.js";
+import { F8_CONFIG } from "../f8.config";
 import {
   collectCreatedRoutines,
   collectCreatedViews,
@@ -10,8 +10,8 @@ import {
   readMigrationRegistry,
   readMigrationSql,
   validateRegistryEntryShape
-} from "./lib/migrations.js";
-import { writeJsonReport, writeTextReport } from "./lib/report.js";
+} from "./lib/migrations";
+import { writeJsonReport, writeTextReport } from "./lib/report";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-check-migration-governance");

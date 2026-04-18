@@ -2,7 +2,7 @@
 // 
 import { Prisma, prisma } from "@birthub/database";
 
-import { getBillingSnapshot } from "../billing/service.js";
+import { getBillingSnapshot } from "../billing/service";
 
 type PipelineItem = { stage: string; value: number; trend: string };
 type HealthScoreItem = { client: string; score: number; risk: string; nps: number };

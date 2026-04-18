@@ -14,11 +14,11 @@ import { prisma } from "@birthub/database";
 import { Router } from "express";
 import { z as zod } from "zod";
 
-import { requireAuthenticatedSession } from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import type { RequestContext } from "../../middleware/request-context.js";
-import { createLoginRateLimitMiddleware } from "../../middleware/rate-limit.js";
-import { validateBody } from "../../middleware/validate-body.js";
+import { requireAuthenticatedSession } from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import type { RequestContext } from "../../middleware/request-context";
+import { createLoginRateLimitMiddleware } from "../../middleware/rate-limit";
+import { validateBody } from "../../middleware/validate-body";
 import {
   enableMfaForUser,
   introspectApiKey,
@@ -28,8 +28,8 @@ import {
   revokeCurrentSession,
   setupMfaForUser,
   verifyMfaChallenge
-} from "./auth.service.js";
-import { clearAuthCookies, setAuthCookies } from "./cookies.js";
+} from "./auth.service";
+import { clearAuthCookies, setAuthCookies } from "./cookies";
 
 const AUTH_ROUTES_MOUNT_MARKER = "__birthhubAuthRoutesMounted" as const;
 

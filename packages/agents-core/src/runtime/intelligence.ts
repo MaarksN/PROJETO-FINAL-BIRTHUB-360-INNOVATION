@@ -1,4 +1,4 @@
-import type { AgentManifestTags } from "../manifest/schema.js";
+import type { AgentManifestTags } from "../manifest/schema";
 
 export type CapabilityType =
   | "collaboration"
@@ -457,4 +457,4 @@ export {
   inferCapabilityType,
   inferCollaborationTargets,
   summarizePremiumLayers
-} from "./intelligenceRuntime.js";
+} from "./intelligenceRuntime";

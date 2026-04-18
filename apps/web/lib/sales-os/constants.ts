@@ -1,4 +1,4 @@
-import type { Tool } from "./types.js";
+import type { Tool } from "./types";
 
 import { BDR_TOOLS } from "./tool-catalog/bdr";
 import { CLOSER_TOOLS } from "./tool-catalog/closer";

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -107,3 +107,4 @@ void test("runtime integration executes db-write and db-read with real database"
   assert.equal(result.steps.length, 2);
   assert.ok(result.output.step_2);
 });
+

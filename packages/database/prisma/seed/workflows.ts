@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   Prisma,
@@ -7,7 +7,7 @@ import {
   WorkflowStatus
 } from "@prisma/client";
 
-import type { SeedWorkflowDefinition } from "./types.js";
+import type { SeedWorkflowDefinition } from "./types";
 
 export async function createWorkflowWithGraph(input: {
   organizationId: string;

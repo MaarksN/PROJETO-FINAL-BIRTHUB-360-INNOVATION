@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { getEnvironmentSource } from "./environment.js";
-import { nodeEnvSchema, parseEnv } from "./shared.js";
+import { getEnvironmentSource } from "./environment";
+import { nodeEnvSchema, parseEnv } from "./shared";
 
 const loggerLevelSchema = z.enum(["fatal", "error", "warn", "info", "debug", "trace"]);
 

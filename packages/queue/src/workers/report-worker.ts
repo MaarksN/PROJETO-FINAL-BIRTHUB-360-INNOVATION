@@ -1,4 +1,4 @@
-import { BaseWorker } from "./base-worker.js";
+import { BaseWorker } from "./base-worker";
 
 export interface ReportJobPayload { reportId: string; type: "board" | "financial"; failed?: boolean }
 

@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { main as checkSchemaDriftMain } from "../scripts/check-schema-drift.js";
+import { main as checkSchemaDriftMain } from "../scripts/check-schema-drift";
 import {
   assertValidationEnvironment,
   main as validateMigrationsMain,
   resolveValidationSeedProfile
-} from "../scripts/validate-migrations-on-test-db.js";
+} from "../scripts/validate-migrations-on-test-db";
 
 void test("check-schema-drift writes a skipped report when evidence is optional", async () => {
   const reports: Array<{ path: string; payload: unknown }> = [];

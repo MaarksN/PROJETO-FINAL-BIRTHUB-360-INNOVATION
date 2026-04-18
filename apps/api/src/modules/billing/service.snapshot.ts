@@ -11,18 +11,18 @@ import {
   deleteCacheKeys,
   readCacheValue,
   writeCacheValue
-} from "../../common/cache/cache-store.js";
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+} from "../../common/cache/cache-store";
+import { ProblemDetailsError } from "../../lib/problem-details";
 import {
   isPlanFeatureEnabled,
   readNumericPlanLimit,
   type PlanFeature
-} from "./plan.utils.js";
+} from "./plan.utils";
 import {
   ensurePlanByCode,
   type BillingSnapshot,
   type DatabaseClient
-} from "./service.shared.js";
+} from "./service.shared";
 
 const BILLING_SNAPSHOT_CACHE_TTL_SECONDS = 60;
 

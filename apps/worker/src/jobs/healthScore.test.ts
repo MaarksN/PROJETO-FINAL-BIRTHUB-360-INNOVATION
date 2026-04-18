@@ -6,7 +6,7 @@ import test from "node:test";
 import {
   calculateHealthScore,
   shouldEmitChurnRisk
-} from "./healthScore.js";
+} from "./healthScore";
 
 void test("calculateHealthScore rewards active agent usage", () => {
   const score = calculateHealthScore({

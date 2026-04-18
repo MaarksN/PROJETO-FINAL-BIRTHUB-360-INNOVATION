@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   createNotificationForOrganizationRoles,
@@ -140,3 +140,4 @@ export async function fanOutExecutionOutcome(input: {
           : "agent.failed"
   });
 }
+

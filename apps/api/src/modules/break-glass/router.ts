@@ -7,11 +7,11 @@ import { z } from "zod";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { readPrismaModel } from "../../lib/prisma-runtime.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { createSession } from "../auth/auth.service.js";
-import { setAuthCookies } from "../auth/cookies.js";
+} from "../../common/guards/index";
+import { readPrismaModel } from "../../lib/prisma-runtime";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { createSession } from "../auth/auth.service";
+import { setAuthCookies } from "../auth/cookies";
 
 const breakGlassGrantSchema = z
   .object({

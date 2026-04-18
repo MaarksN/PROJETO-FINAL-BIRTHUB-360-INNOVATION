@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -55,3 +55,4 @@ void test("cache read, write and delete fail closed in production mode", async (
     setCacheStoreForTests(null);
   }
 });
+

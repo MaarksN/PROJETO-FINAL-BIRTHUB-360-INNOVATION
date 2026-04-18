@@ -1,6 +1,6 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
-import type { DateRange } from "./analytics.types.js";
+import type { DateRange } from "./analytics.types";
 
 export function resolveDateRange(range?: Partial<DateRange>, fallbackDays = 30): DateRange {
   return {

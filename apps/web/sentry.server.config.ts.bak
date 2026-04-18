@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWebConfig } from "../../packages/config/dist/web.js";
 import * as Sentry from "@sentry/nextjs";
@@ -12,3 +12,4 @@ if (config.NEXT_PUBLIC_SENTRY_DSN) {
     tracesSampleRate: config.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE
   });
 }
+

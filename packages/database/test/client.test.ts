@@ -15,9 +15,9 @@ import {
   resolveConnectionLimit,
   resolveRuntimeDatabaseUrl,
   withTenantDatabaseContext
-} from "../src/client.js";
-import { PrismaQueryTimeoutError } from "../src/errors/prisma-query-timeout.error.js";
-import { runWithTenantContext } from "../src/tenant-context.js";
+} from "../src/client";
+import { PrismaQueryTimeoutError } from "../src/errors/prisma-query-timeout.error";
+import { runWithTenantContext } from "../src/tenant-context";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key);

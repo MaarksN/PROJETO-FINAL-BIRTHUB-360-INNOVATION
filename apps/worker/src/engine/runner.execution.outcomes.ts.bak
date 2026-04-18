@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   Prisma,
@@ -298,3 +298,4 @@ export async function handleExecutionOutcome(input: {
     error: input.error
   });
 }
+

@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { BrandGuardianAgent } from "../agent.js";
+import { BrandGuardianAgent } from "../agent";
 import {
   type BrandEvent,
   type BrandGuardianInput,
   DEFAULT_BRANDGUARDIAN_CONTRACT
-} from "../schemas.js";
-import type { BrandGuardianToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { BrandGuardianToolAdapters } from "../tools";
 
 const VALID_INPUT: BrandGuardianInput = {
   constraints: {

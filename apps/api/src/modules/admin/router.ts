@@ -6,10 +6,10 @@ import { z } from "zod";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { createSession } from "../auth/auth.service.js";
-import { setAuthCookies } from "../auth/cookies.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { createSession } from "../auth/auth.service";
+import { setAuthCookies } from "../auth/cookies";
 
 const impersonationSchema = z
   .object({

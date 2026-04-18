@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   InvoiceStatus,
@@ -8,7 +8,7 @@ import {
   SubscriptionStatus
 } from "@prisma/client";
 
-import { passwordHash, type PlanMap, type TenantSeed } from "./shared-foundation.js";
+import { passwordHash, type PlanMap, type TenantSeed } from "./shared-foundation";
 
 export async function ensureBilling(
   prisma: PrismaClient,

@@ -6,11 +6,11 @@ import test from "node:test";
 import { Role, UserStatus, prisma } from "@birthub/database";
 import request from "supertest";
 
-import { createApp } from "../src/app.js";
-import { budgetService } from "../src/modules/budget/budget.service.js";
-import { sha256 } from "../src/modules/auth/crypto.js";
-import { marketplaceService } from "../src/modules/marketplace/marketplace-service.js";
-import { createTestApiConfig } from "./test-config.js";
+import { createApp } from "../src/app";
+import { budgetService } from "../src/modules/budget/budget.service";
+import { sha256 } from "../src/modules/auth/crypto";
+import { marketplaceService } from "../src/modules/marketplace/marketplace-service";
+import { createTestApiConfig } from "./test-config";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

@@ -17,9 +17,9 @@ import { BaseTool, DbReadTool, DbWriteTool, HttpTool, SendEmailTool } from "@bir
 import { createLogger } from "@birthub/logger";
 import { z } from "zod";
 
-import { buildToolCostTable } from "./runtime.budget.js";
-import { getRuntimeManifestCatalog } from "./runtime.catalog.js";
-import { AGENT_MESH_ORCHESTRATOR_ID, buildAgentMeshExecutionBlueprint } from "./runtime.mesh.js";
+import { buildToolCostTable } from "./runtime.budget";
+import { getRuntimeManifestCatalog } from "./runtime.catalog";
+import { AGENT_MESH_ORCHESTRATOR_ID, buildAgentMeshExecutionBlueprint } from "./runtime.mesh";
 
 const logger = createLogger("agent-runtime");
 const TENANT_SCOPE_COMMENT_PREFIX = "-- tenant_scope:";

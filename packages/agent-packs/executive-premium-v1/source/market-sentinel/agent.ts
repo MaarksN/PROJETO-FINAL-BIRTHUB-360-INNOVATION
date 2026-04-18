@@ -16,7 +16,7 @@ import {
   type MarketEvent,
   type TrendFailureMode,
   type MarketMetrics
-} from "./schemas.js";
+} from "./schemas";
 import {
   CategoryGrowthSnapshotSchema,
   createDefaultMarketSentinelToolAdapters,
@@ -27,7 +27,7 @@ import {
   type MarketSentinelToolAdapters,
   type TrendToolId,
   type TrendToolInput
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

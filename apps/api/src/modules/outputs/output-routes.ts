@@ -7,10 +7,10 @@ import { Role } from "@birthub/database";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { readFirstString, requireStringValue } from "../../lib/request-values.js";
-import { outputService } from "./output.service.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { readFirstString, requireStringValue } from "../../lib/request-values";
+import { outputService } from "./output.service";
 
 export function createOutputRouter(): Router {
   const router = Router();

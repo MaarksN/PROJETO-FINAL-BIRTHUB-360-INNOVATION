@@ -9,8 +9,8 @@ import {
   type AgentManifest
 } from "@birthub/agents-core";
 import { randomUUID } from "node:crypto";
-import { runtimeMemory } from "./runtime.memory.js";
-import { ensureConversationThread, createConversationMessage } from "./conversations.js";
+import { runtimeMemory } from "./runtime.memory";
+import { ensureConversationThread, createConversationMessage } from "./conversations";
 
 const MINIMUM_APPROVED_LEARNING_CONFIDENCE = 0.7;
 const SHARED_LEARNING_LIMIT = 8;

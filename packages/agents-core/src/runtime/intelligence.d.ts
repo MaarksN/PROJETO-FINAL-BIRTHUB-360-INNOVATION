@@ -1,4 +1,4 @@
-import type { AgentManifestTags } from "../manifest/schema.js";
+import type { AgentManifestTags } from "../manifest/schema";
 export type CapabilityType = "collaboration" | "data-processing" | "execution" | "memory" | "recommendation" | "segment-adaptation";
 export interface NumericSignalSummary {
     average: number;
@@ -55,4 +55,4 @@ export declare function readNumericSignals(value: unknown, limit?: number): numb
 export declare function summarizeNumericSignals(numbers: number[]): NumericSignalSummary;
 export declare function inferSegmentProfile(value: unknown, fallbackTags?: AgentManifestTags): SegmentProfile;
 export declare function buildSegmentKeywords(profile: SegmentProfile): string[];
-export { buildMemoryKey, buildPremiumLayersAssessment, buildRecommendedActions, describeCapabilityIntent, inferCapabilityType, inferCollaborationTargets, summarizePremiumLayers } from "./intelligenceRuntime.js";
+export { buildMemoryKey, buildPremiumLayersAssessment, buildRecommendedActions, describeCapabilityIntent, inferCapabilityType, inferCollaborationTargets, summarizePremiumLayers } from "./intelligenceRuntime";

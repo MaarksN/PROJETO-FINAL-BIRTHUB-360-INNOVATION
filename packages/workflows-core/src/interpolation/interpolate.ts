@@ -1,6 +1,6 @@
 
 // 
-import type { WorkflowRuntimeContext } from "../types.js";
+import type { WorkflowRuntimeContext } from "../types";
 
 const TOKEN_PATTERN = /{{\s*([^{}]+)\s*}}/g;
 

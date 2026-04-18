@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 import type { AgentManifest } from "@birthub/agents-core";
 import {
@@ -372,3 +372,4 @@ export function createRuntimeTools(
     tools
   };
 }
+

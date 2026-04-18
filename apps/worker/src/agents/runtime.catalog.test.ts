@@ -8,7 +8,7 @@ import { prisma } from "@birthub/database";
 import {
   parseAgentConfig,
   resolveManagedPolicies
-} from "./runtime.catalog.js";
+} from "./runtime.catalog";
 
 void test("parseAgentConfig falls back to safe defaults for invalid input", () => {
   assert.deepEqual(parseAgentConfig(null), {

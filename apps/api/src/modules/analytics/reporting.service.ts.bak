@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Prisma, SubscriptionStatus, prisma } from "@birthub/database";
 
@@ -260,3 +260,4 @@ export async function getGlobalAgentPerformance() {
     mostFailed: items.slice().sort((left, right) => right.failed - left.failed).slice(0, 10)
   };
 }
+

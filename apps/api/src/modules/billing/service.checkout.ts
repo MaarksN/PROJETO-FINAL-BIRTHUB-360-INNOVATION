@@ -8,17 +8,17 @@ import {
 } from "@birthub/database";
 import Stripe from "stripe";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { createStripeClient } from "./stripe.client.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { createStripeClient } from "./stripe.client";
 import {
   resolveCheckoutPreferences,
   resolveCustomerForCheckout
-} from "./service.checkout.customer.js";
-import { findOrganizationByReference } from "./service.shared.js";
+} from "./service.checkout.customer";
+import { findOrganizationByReference } from "./service.shared";
 
 const logger = createLogger("billing-service");
 
-export { provisionStripeCustomerForOrganization } from "./service.checkout.customer.js";
+export { provisionStripeCustomerForOrganization } from "./service.checkout.customer";
 
 export async function createCheckoutSessionForOrganization(input: {
   config: ApiConfig;

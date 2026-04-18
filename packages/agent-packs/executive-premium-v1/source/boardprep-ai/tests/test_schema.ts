@@ -4,8 +4,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { BoardPrepAIAgent } from "../agent.js";
-import { BoardPrepAIInputSchema, type BoardPrepAIInput } from "../schemas.js";
+import { BoardPrepAIAgent } from "../agent";
+import { BoardPrepAIInputSchema, type BoardPrepAIInput } from "../schemas";
 
 void test("BoardPrepAI schema rejects missing required fields", () => {
   const invalidPayload = {

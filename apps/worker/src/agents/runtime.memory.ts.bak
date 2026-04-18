@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   AgentMemoryService,
@@ -237,3 +237,4 @@ export async function appendConversationMessage(input: {
     threadId: thread.id
   });
 }
+

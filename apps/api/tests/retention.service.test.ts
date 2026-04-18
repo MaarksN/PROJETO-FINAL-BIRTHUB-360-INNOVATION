@@ -8,7 +8,7 @@ import { prisma } from "@birthub/database";
 import {
   listRetentionPolicies,
   runRetentionSweep
-} from "../src/modules/privacy/retention.service.js";
+} from "../src/modules/privacy/retention.service";
 
 const LAWFUL_BASIS = {
   LEGAL_OBLIGATION: "LEGAL_OBLIGATION",

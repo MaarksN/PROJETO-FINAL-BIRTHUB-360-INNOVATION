@@ -7,13 +7,13 @@ import {
 } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 
-import type { WorkflowTriggerJobPayload } from "../engine/runner.js";
+import type { WorkflowTriggerJobPayload } from "../engine/runner";
 import {
   emitInternalEvent,
   onInternalEvent,
   type InternalEventPayload
-} from "../events/internalEventBus.js";
-import { AGENT_MESH_ORCHESTRATOR_ID } from "./runtime.mesh.js";
+} from "../events/internalEventBus";
+import { AGENT_MESH_ORCHESTRATOR_ID } from "./runtime.mesh";
 
 const logger = createLogger("agent-runtime-ingress");
 

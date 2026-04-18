@@ -1,24 +1,24 @@
-import { executeAgentNode, type AgentExecutor } from "./agentExecute.js";
+import { executeAgentNode, type AgentExecutor } from "./agentExecute";
 import {
   executeAgentHandoffNode,
   type HandoffExecutor
-} from "./agentHandoff.js";
-import { executeAiTextExtractNode } from "./aiTextExtract.js";
-import { executeCodeNode } from "./code.js";
-import { executeConditionNode } from "./condition.js";
+} from "./agentHandoff";
+import { executeAiTextExtractNode } from "./aiTextExtract";
+import { executeCodeNode } from "./code";
+import { executeConditionNode } from "./condition";
 import {
   executeConnectorActionNode,
   type ConnectorExecutor
-} from "./connectorAction.js";
-import { executeDelayNode } from "./delay.js";
-import { executeHttpRequestNode } from "./httpRequest.js";
+} from "./connectorAction";
+import { executeDelayNode } from "./delay";
+import { executeHttpRequestNode } from "./httpRequest";
 import {
   executeNotificationNode,
   type NotificationDispatcher
-} from "./notification.js";
-import { executeTransformerNode } from "./transformer.js";
-import type { StepDefinition } from "../schemas/step.schema.js";
-import type { WorkflowRuntimeContext } from "../types.js";
+} from "./notification";
+import { executeTransformerNode } from "./transformer";
+import type { StepDefinition } from "../schemas/step.schema";
+import type { WorkflowRuntimeContext } from "../types";
 
 export interface StepExecutionDependencies {
   agentExecutor?: AgentExecutor;
@@ -153,7 +153,7 @@ function executeCodeStep(step: StepOf<"CODE">, context: WorkflowRuntimeContext) 
 }
 
 function executeConditionStep(step: StepOf<"CONDITION">, context: WorkflowRuntimeContext) {
-  return Promise.resolve(executeConditionNode(step.config, context));
+  return Promise.resolve(executeConditionNode({ ...step.config, value: step.config.value ?? "" }, context));
 }
 
 async function executeCrmUpsertStep(

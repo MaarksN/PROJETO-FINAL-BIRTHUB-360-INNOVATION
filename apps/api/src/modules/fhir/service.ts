@@ -1,7 +1,7 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import { Prisma, prisma } from "@birthub/database";
-import { readPrismaModel } from "../../lib/prisma-runtime.js";
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { readPrismaModel } from "../../lib/prisma-runtime";
+import { ProblemDetailsError } from "../../lib/problem-details";
 export type FhirContext = {
   organizationId: string;
   tenantId: string;

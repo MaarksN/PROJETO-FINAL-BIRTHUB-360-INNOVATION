@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from "express";
 import type { ApiConfig } from "@birthub/config";
 import { updateLogContext } from "@birthub/logger";
 
-import { authenticateRequest } from "../modules/auth/auth.service.js";
+import { authenticateRequest } from "../modules/auth/auth.service";
 
 /** @see ADR-010 */
 function parseCookies(cookieHeader: string | undefined): Record<string, string> {

@@ -9,7 +9,7 @@ import {
 } from "@birthub/agents-core";
 import { Prisma, prisma } from "@birthub/database";
 
-import { SHARED_LEARNING_LIMIT } from "./runtime.shared.js";
+import { SHARED_LEARNING_LIMIT } from "./runtime.shared";
 
 export function buildLearningRecord(input: {
   agentId: string;

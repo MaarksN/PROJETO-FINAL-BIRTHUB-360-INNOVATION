@@ -4,10 +4,10 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler } from "../../lib/problem-details.js";
-import { dateRangeSchema } from "./schemas.js";
-import { analyticsRouterService } from "./service.js";
+} from "../../common/guards/index";
+import { asyncHandler } from "../../lib/problem-details";
+import { dateRangeSchema } from "./schemas";
+import { analyticsRouterService } from "./service";
 
 export function createAnalyticsRouter(): Router {
   const router = Router();

@@ -1,7 +1,7 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
-import { createPrismaClient } from "../src/client.js";
-import { writeJsonReport, writeTextReport } from "./lib/report.js";
+import { createPrismaClient } from "../src/client";
+import { writeJsonReport, writeTextReport } from "./lib/report";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-check-referential-integrity");

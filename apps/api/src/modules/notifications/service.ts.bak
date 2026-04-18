@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   ensureUserPreference,
@@ -115,3 +115,4 @@ export const notificationsRouterService = {
   markNotificationReadForUser,
   saveNotificationPreferences
 } as const;
+

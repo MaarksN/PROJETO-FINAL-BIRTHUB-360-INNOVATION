@@ -9,7 +9,7 @@ import {
   updateUserPreference
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 
 async function resolveOrganization(tenantReference: string) {
   const organization = await prisma.organization.findFirst({

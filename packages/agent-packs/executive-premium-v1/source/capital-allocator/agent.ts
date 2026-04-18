@@ -16,7 +16,7 @@ import {
   CapitalAllocatorOutputSchema,
   type BudgetMetrics,
   DEFAULT_CAPITALALLOCATOR_CONTRACT
-} from "./schemas.js";
+} from "./schemas";
 import {
   CAPITALALLOCATOR_TOOL_IDS,
   type CapitalAllocatorToolAdapters,
@@ -27,7 +27,7 @@ import {
   normalizeBudgetToolId,
   ScenarioStressSnapshotSchema,
   SpendTelemetrySnapshotSchema
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

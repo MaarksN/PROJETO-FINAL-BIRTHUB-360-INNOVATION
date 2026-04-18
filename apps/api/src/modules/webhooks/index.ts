@@ -1,2 +1,2 @@
-export * from "./eventBus.js";
-export * from "./router.js";
+export * from "./eventBus";
+export * from "./router";

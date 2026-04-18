@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
-import { getBillingSnapshot } from "../src/modules/billing/service.js";
+import { getBillingSnapshot } from "../src/modules/billing/service";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

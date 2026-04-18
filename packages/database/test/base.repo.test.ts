@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { BaseRepository } from "../src/repositories/base.repo.js";
-import { TenantRequiredError } from "../src/errors/tenant-required.error.js";
-import { runWithTenantContext } from "../src/tenant-context.js";
+import { BaseRepository } from "../src/repositories/base.repo";
+import { TenantRequiredError } from "../src/errors/tenant-required.error";
+import { runWithTenantContext } from "../src/tenant-context";
 
 type RecordModel = { id: string; tenantId: string; name: string };
 type Where = { id?: string; tenantId?: string };

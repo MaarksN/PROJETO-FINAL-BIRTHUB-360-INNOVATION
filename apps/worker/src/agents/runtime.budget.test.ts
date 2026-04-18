@@ -12,7 +12,7 @@ import { prisma } from "@birthub/database";
 import {
   buildToolCostTable,
   ensureBudgetHeadroom
-} from "./runtime.budget.js";
+} from "./runtime.budget";
 
 function createManifest(): AgentManifest {
   return {

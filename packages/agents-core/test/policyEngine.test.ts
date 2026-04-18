@@ -1,8 +1,8 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { PolicyEngine } from "../src/policy/engine.js";
+import { PolicyEngine } from "../src/policy/engine";
 
 void test("policy engine grants access when matching allow rule exists", () => {
   const engine = new PolicyEngine([

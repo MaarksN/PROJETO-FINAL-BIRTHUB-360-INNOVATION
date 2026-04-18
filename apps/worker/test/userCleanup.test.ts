@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import type { PrismaClient } from "@birthub/database";
 
-import { cleanupSuspendedUsers } from "../src/jobs/userCleanup.js";
+import { cleanupSuspendedUsers } from "../src/jobs/userCleanup";
 
 void test("cleanupSuspendedUsers anonymizes stale suspended users", async () => {
   const updates: Array<Record<string, unknown>> = [];

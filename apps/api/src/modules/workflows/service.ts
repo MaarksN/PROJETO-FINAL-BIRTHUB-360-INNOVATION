@@ -1,4 +1,4 @@
-export { workflowQueueAdapter, type ScopedIdentity } from "./service.shared.js";
+export { workflowQueueAdapter, type ScopedIdentity } from "./service.shared";
 export {
   archiveWorkflow,
   createWorkflow,
@@ -9,9 +9,9 @@ export {
   updateWorkflow,
   type PersistedWorkflow,
   type WorkflowRecord
-} from "./service.lifecycle.js";
+} from "./service.lifecycle";
 export {
   listWorkflowExecutionLineage,
   runWorkflowNow,
   type WorkflowExecutionLineageNode
-} from "./service.execution.js";
+} from "./service.execution";

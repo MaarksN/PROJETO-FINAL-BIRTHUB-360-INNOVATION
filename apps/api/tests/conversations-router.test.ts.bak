@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -349,3 +349,4 @@ void test("conversations router updates status inside the authenticated tenant s
     }
   }
 });
+

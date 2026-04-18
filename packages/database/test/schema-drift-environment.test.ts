@@ -4,7 +4,7 @@ import test from "node:test";
 import {
   getSchemaDriftEnvironment,
   shouldRequireSchemaDriftEvidence
-} from "../scripts/lib/env.js";
+} from "../scripts/lib/env";
 
 void test("schema drift environment trims configured URLs", () => {
   const environment = getSchemaDriftEnvironment({

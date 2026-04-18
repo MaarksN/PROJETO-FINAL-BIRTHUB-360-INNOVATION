@@ -6,7 +6,7 @@ import test from "node:test";
 import { prisma, WorkflowExecutionStatus, WorkflowTriggerType } from "@birthub/database";
 import type { Queue } from "bullmq";
 
-import { type WorkflowExecutionJobPayload, WorkflowRunner } from "./runner.js";
+import { type WorkflowExecutionJobPayload, WorkflowRunner } from "./runner";
 
 void test("Cancelled execution does not enqueue or process further steps", async () => {
   const originalFindExecution = prisma.workflowExecution.findUnique.bind(prisma.workflowExecution);

@@ -1,7 +1,7 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import { Prisma, prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 
 const DEFAULT_CONVERSATION_LIMIT = 24;
 

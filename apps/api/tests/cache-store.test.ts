@@ -6,7 +6,7 @@ import {
   readCacheValue,
   setCacheStoreForTests,
   writeCacheValue
-} from "../src/common/cache/cache-store.js";
+} from "../src/common/cache/cache-store";
 
 void test("configureCacheStore falls back to in-memory cache outside production when REDIS_URL is absent", async () => {
   configureCacheStore(undefined, "development");

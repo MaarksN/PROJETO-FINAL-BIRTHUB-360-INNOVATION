@@ -3,14 +3,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import type { CacheStore } from "../src/common/cache/cache-store.js";
-import { setCacheStoreForTests } from "../src/common/cache/index.js";
+import type { CacheStore } from "../src/common/cache/cache-store";
+import { setCacheStoreForTests } from "../src/common/cache/index";
 import {
   clearCheckoutIpBan,
   isCheckoutIpTemporarilyBanned,
   registerCheckoutDecline
-} from "../src/modules/billing/service.js";
-import { createTestApiConfig } from "./test-config.js";
+} from "../src/modules/billing/service";
+import { createTestApiConfig } from "./test-config";
 
 class MemoryCacheStore implements CacheStore {
   private readonly entries = new Map<string, { expiresAt: number; value: string }>();

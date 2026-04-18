@@ -7,15 +7,15 @@ import {
   WorkflowTriggerType
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { getWorkflowById } from "./service.lifecycle.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { getWorkflowById } from "./service.lifecycle";
 import {
   listStepResultsForExecution,
   listWorkflowExecutionPages,
   resolveScopedIdentity,
   workflowQueueAdapter
-} from "./service.shared.js";
-import type { WorkflowRunInput } from "./schemas.js";
+} from "./service.shared";
+import type { WorkflowRunInput } from "./schemas";
 
 type ResumeCheckpoint = {
   fromExecutionId: string;

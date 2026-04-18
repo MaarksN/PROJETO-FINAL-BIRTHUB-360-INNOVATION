@@ -1,9 +1,9 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createInvalidMockAgentExecution, createMockAgentExecution } from "./agent-execution.factory.js";
+import { createInvalidMockAgentExecution, createMockAgentExecution } from "./agent-execution.factory";
 
 void test("createMockAgentExecution builds completed execution with output", () => {
   const execution = createMockAgentExecution({ status: "COMPLETED" });

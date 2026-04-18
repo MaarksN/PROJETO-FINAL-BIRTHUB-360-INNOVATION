@@ -4,12 +4,12 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { QueueBackpressureError, TenantQueueRateLimitError } from "../src/lib/queue.js";
-import { errorHandler } from "../src/middleware/error-handler.js";
-import { requestContextMiddleware } from "../src/middleware/request-context.js";
-import { BudgetExceededError } from "../src/modules/budget/budget.types.js";
-import { createTasksRouter } from "../src/modules/tasks/router.js";
-import { createTestApiConfig } from "./test-config.js";
+import { QueueBackpressureError, TenantQueueRateLimitError } from "../src/lib/queue";
+import { errorHandler } from "../src/middleware/error-handler";
+import { requestContextMiddleware } from "../src/middleware/request-context";
+import { BudgetExceededError } from "../src/modules/budget/budget.types";
+import { createTasksRouter } from "../src/modules/tasks/router";
+import { createTestApiConfig } from "./test-config";
 
 type ConsumedBudgetPayload = {
   actorId: string;

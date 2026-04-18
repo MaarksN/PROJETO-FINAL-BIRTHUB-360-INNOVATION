@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 import { expect, test } from "@playwright/test";
 
 import {

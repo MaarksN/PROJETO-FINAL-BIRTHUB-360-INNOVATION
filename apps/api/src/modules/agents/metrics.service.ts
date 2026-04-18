@@ -2,7 +2,7 @@
 // 
 import { prisma } from "@birthub/database";
 
-import { hasExplicitDatabaseUrl, isDatabaseUnavailableError } from "../../lib/database-availability.js";
+import { hasExplicitDatabaseUrl, isDatabaseUnavailableError } from "../../lib/database-availability";
 
 const AGENT_EXECUTION_SNAPSHOT_LIMIT = 1_000;
 

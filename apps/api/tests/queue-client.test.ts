@@ -3,8 +3,8 @@ import test from "node:test";
 
 import { queueClient } from "@birthub/queue";
 
-import { enqueueTask } from "../src/lib/queue.js";
-import { createTestApiConfig } from "./test-config.js";
+import { enqueueTask } from "../src/lib/queue";
+import { createTestApiConfig } from "./test-config";
 
 void test("API queue wrapper only enqueues through the shared queue client", async () => {
   const original = queueClient.enqueue.bind(queueClient);

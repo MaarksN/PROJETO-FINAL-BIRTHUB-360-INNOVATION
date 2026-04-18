@@ -1,13 +1,13 @@
 import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { hashPassword, randomToken } from "../auth/crypto.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { hashPassword, randomToken } from "../auth/crypto";
 import {
   listOrganizationsForRetentionSweep,
   listRetentionPoliciesForOrganization,
   listSuspendedUsersForRetention
-} from "./retention.pagination.js";
+} from "./retention.pagination";
 import {
   DEFAULT_RETENTION_POLICIES,
   RETENTION_DATA_CATEGORY,
@@ -21,8 +21,8 @@ import {
   type RetentionExecutionDelegate,
   type RetentionExecutionMode,
   type RetentionPolicyDelegate,
-} from "./retention.shared.js";
-import { findOrganizationByReference } from "./service.js";
+} from "./retention.shared";
+import { findOrganizationByReference } from "./service";
 
 async function ensureDefaultPolicies(input: {
   organizationId: string;

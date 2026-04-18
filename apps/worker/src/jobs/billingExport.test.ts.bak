@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync } from "node:fs";
@@ -150,3 +150,4 @@ void test("local billing export storage writes JSON artifacts to disk", async ()
     await rm(baseDir, { force: true, recursive: true });
   }
 });
+

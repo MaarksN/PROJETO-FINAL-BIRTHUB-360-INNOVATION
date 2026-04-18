@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWorkerConfig } from "@birthub/config";
 import { prisma, SubscriptionStatus } from "@birthub/database";
@@ -264,3 +264,4 @@ export async function syncOrganizationToHubspot(input: {
     throw error;
   }
 }
+

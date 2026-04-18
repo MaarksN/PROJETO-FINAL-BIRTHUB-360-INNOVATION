@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { randomUUID } from "node:crypto";
 
@@ -327,3 +327,4 @@ class InstalledAgentsService {
 }
 
 export const installedAgentsService = new InstalledAgentsService();
+

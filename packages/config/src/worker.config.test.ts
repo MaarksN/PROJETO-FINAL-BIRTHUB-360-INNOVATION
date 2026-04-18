@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { EnvValidationError } from "./shared.js";
-import { getWorkerConfig } from "./worker.config.js";
+import { EnvValidationError } from "./shared";
+import { getWorkerConfig } from "./worker.config";
 
 const baseEnv = {
   DATABASE_URL: "postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1",

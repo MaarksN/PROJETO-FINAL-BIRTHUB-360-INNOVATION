@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from "node:async_hooks";
 
 import pino, { transport, type DestinationStream, type Logger, type LoggerOptions } from "pino";
 
-import { getActiveTraceContext } from "./otel.js";
+import { getActiveTraceContext } from "./otel";
 
 export interface LogContext {
   jobId?: string | null;
@@ -190,5 +190,5 @@ export function createLogger(service: string, options?: LoggerOptions): Logger {
   return pino(loggerOptions);
 }
 
-export * from "./metrics.js";
-export * from "./otel.js";
+export * from "./metrics";
+export * from "./otel";

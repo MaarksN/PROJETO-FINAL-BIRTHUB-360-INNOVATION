@@ -8,16 +8,16 @@ import {
   WorkflowStepOnError
 } from "@birthub/database";
 
-import type { WorkflowExecutionJobPayload } from "./runner.js";
+import type { WorkflowExecutionJobPayload } from "./runner";
 import type {
   ExecutionContext,
   WorkflowExecutionQueue
-} from "./runner.execution.js";
+} from "./runner.execution";
 import {
   MAX_ATTEMPTS,
   calculateBackoff,
   shouldFollowTransition
-} from "./runner.shared.js";
+} from "./runner.shared";
 
 async function recordSuccessfulStep(
   context: ExecutionContext,

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -50,3 +50,4 @@ void test("AgentMetricsService exports CSV rows", async () => {
   assert.match(csv, /day,agent_id,success,failed,total_cost/);
   assert.match(csv, /agent-2/);
 });
+

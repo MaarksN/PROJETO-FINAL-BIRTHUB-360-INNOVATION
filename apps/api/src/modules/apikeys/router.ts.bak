@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import type { ApiConfig } from "@birthub/config";
 import {
   apiKeyCreateRequestSchema,
@@ -194,3 +194,4 @@ export function createApiKeysRouter(config: ApiConfig): Router {
 
   return router;
 }
+

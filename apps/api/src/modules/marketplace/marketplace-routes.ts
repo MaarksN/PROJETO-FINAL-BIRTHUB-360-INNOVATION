@@ -2,10 +2,10 @@ import { Router } from "express";
 
 import { isInstallableManifest } from "@birthub/agents-core";
 
-import { sendEtaggedJson } from "../../common/cache/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { readTrimmedString, requireStringValue } from "../../lib/request-values.js";
-import { marketplaceService } from "./marketplace-service.js";
+import { sendEtaggedJson } from "../../common/cache/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { readTrimmedString, requireStringValue } from "../../lib/request-values";
+import { marketplaceService } from "./marketplace-service";
 
 function parsePositiveInt(value: unknown, fallback: number): number {
   const parsed = Number(value);

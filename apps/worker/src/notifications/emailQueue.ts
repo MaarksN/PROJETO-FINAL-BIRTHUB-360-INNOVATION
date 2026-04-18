@@ -6,7 +6,7 @@ import { createLogger } from "@birthub/logger";
 import { ENGAGEMENT_QUEUE_NAMES } from "@birthub/queue";
 import type { Queue } from "bullmq";
 
-import { fetchWithTimeout } from "../../../../packages/utils/src/fetch.js";
+import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
 
 const logger = createLogger("worker-email-queue");
 

@@ -4,7 +4,7 @@ import {
   agentManifestSchema,
   type AgentManifest,
   SUPPORTED_AGENT_API_VERSION
-} from "../schemas/manifest.schema.js";
+} from "../schemas/manifest.schema";
 
 export class AgentManifestParseError extends Error {
   readonly issues: string[];

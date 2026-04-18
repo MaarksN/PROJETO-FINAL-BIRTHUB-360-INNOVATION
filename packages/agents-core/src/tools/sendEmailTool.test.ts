@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { SendEmailTool } from "./sendEmailTool.js";
+import { SendEmailTool } from "./sendEmailTool";
 
 function readJsonBody(init?: RequestInit): Record<string, unknown> {
   const body = init?.body;

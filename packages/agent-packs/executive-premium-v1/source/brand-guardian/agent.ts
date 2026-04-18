@@ -16,7 +16,7 @@ import {
   BrandGuardianOutputSchema,
   type BrandMetrics,
   DEFAULT_BRANDGUARDIAN_CONTRACT
-} from "./schemas.js";
+} from "./schemas";
 import {
   BRANDGUARDIAN_TOOL_IDS,
   BrandSentimentSnapshotSchema,
@@ -27,7 +27,7 @@ import {
   GuidelineComplianceSnapshotSchema,
   normalizeBrandToolId,
   PRIncidentSnapshotSchema
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

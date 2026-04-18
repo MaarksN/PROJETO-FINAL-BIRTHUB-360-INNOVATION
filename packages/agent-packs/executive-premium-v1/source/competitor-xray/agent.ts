@@ -16,7 +16,7 @@ import {
   type CompetitorXRayOutput,
   CompetitorXRayOutputSchema,
   DEFAULT_COMPETITORXRAY_CONTRACT
-} from "./schemas.js";
+} from "./schemas";
 import {
   COMPETITORXRAY_TOOL_IDS,
   CompetitorIntelSnapshotSchema,
@@ -27,7 +27,7 @@ import {
   type CompetitorToolId,
   type CompetitorToolInput,
   type CompetitorXRayToolAdapters
-} from "./tools.js";
+} from "./tools";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

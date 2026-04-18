@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { ApiConfig } from "@birthub/config";
 import { Role } from "@birthub/database";
@@ -402,3 +402,4 @@ export function createConnectorsRouter(config: ApiConfig): Router {
 
   return router;
 }
+

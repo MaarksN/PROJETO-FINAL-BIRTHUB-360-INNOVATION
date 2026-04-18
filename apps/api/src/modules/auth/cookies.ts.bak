@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { Response } from "express";
 
@@ -49,3 +49,4 @@ export function clearAuthCookies(response: Response, config: ApiConfig): void {
   response.clearCookie(config.API_AUTH_REFRESH_COOKIE_NAME, cookieOptions);
   response.clearCookie(config.API_CSRF_COOKIE_NAME, cookieOptions);
 }
+

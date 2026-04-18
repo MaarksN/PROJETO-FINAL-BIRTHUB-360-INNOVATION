@@ -4,12 +4,12 @@ import { createHash } from "node:crypto";
 
 import type { AgentManifest } from "@birthub/agents-core";
 
-import { parseAgentConfig } from "./service.config.js";
+import { parseAgentConfig } from "./service.config";
 import type {
   AgentExecutionRecord,
   AgentRecord,
   InstalledAgentSnapshot
-} from "./service.types.js";
+} from "./service.types";
 
 export function buildPayloadHash(payload: Record<string, unknown>): string {
   return createHash("sha256").update(JSON.stringify(payload)).digest("hex");

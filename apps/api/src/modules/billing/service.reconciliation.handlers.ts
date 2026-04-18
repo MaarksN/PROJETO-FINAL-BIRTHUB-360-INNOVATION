@@ -4,12 +4,12 @@ import type { ApiConfig } from "@birthub/config";
 import { SubscriptionStatus } from "@birthub/database";
 import Stripe from "stripe";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 import {
   ensurePlanByCode,
   type DatabaseClient,
   type StripeBillingEventContext
-} from "./service.shared.js";
+} from "./service.shared";
 import {
   buildInvoiceCreateData,
   buildInvoiceUpdateData,
@@ -23,7 +23,7 @@ import {
   resolveProrationCreditCents,
   resolveSubscriptionPeriodEnd,
   unixToDate
-} from "./service.reconciliation.shared.js";
+} from "./service.reconciliation.shared";
 
 export async function handleCheckoutSessionCompleted(
   session: Stripe.Checkout.Session,

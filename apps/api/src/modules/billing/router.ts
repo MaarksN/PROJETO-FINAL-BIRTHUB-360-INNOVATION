@@ -4,13 +4,13 @@ import { Role } from "@birthub/database";
 import { Router } from "express";
 import { z } from "zod";
 
-import { sendEtaggedJson } from "../../common/cache/index.js";
+import { sendEtaggedJson } from "../../common/cache/index";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { validateBody } from "../../middleware/validate-body.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { validateBody } from "../../middleware/validate-body";
 import {
   clearCheckoutIpBan,
   createCheckoutSessionForOrganization,
@@ -21,7 +21,7 @@ import {
   listInvoicesForOrganization,
   listUsageForOrganization,
   registerCheckoutDecline
-} from "./service.js";
+} from "./service";
 
 const checkoutRequestSchema = z.object({
   planId: z.string().min(1)

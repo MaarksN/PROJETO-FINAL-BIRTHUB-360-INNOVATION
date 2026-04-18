@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -12,3 +12,4 @@ void test("createRuntimeError preserves message and code on the error object", (
   assert.equal(error.code, "AGENT_RUNTIME_FAILED");
   assert.equal(error.name, "Error");
 });
+

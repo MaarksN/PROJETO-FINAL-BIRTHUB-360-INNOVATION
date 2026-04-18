@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { performance } from "node:perf_hooks";
 
@@ -125,3 +125,4 @@ export async function runParallelExecutionLoadTest(totalExecutions: number = 50)
     totalMs
   };
 }
+

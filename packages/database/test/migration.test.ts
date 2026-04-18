@@ -1,17 +1,17 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
 
 import { WorkflowStatus } from "@prisma/client";
 
-import { ensureDatabaseAvailableOrSkip } from "./database-availability.js";
+import { ensureDatabaseAvailableOrSkip } from "./database-availability";
 
 const databaseUrl = process.env.DATABASE_URL ?? "";
 const testIfDatabase = databaseUrl ? test : test.skip;
 
 void testIfDatabase("migracao preserva integridade referencial por tenant", async (context) => {
-  const { createPrismaClient } = await import("../src/client.js");
+  const { createPrismaClient } = await import("../src/client");
   const prisma = createPrismaClient({ databaseUrl });
 
   try {

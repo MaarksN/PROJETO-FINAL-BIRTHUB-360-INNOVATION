@@ -12,7 +12,7 @@ import {
   splitSentences,
   titleCase,
   uniqueStrings
-} from "./github-agent-collection.js";
+} from "./github-agent-collection";
 
 const EXECUTIVE_COLLECTION_DIRNAME = "executive-premium-v1";
 const EXECUTIVE_COLLECTION_DESCRIPTOR_ID = "executive-premium-v1-catalog";

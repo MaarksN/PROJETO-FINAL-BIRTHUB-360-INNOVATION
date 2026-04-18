@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getWorkflowRunnerHarnessConfig } from "./runner.db-integration.config.js";
+import { getWorkflowRunnerHarnessConfig } from "./runner.db-integration.config";
 
 void test("workflow runner harness config parses required env and JSON payload", () => {
   const config = getWorkflowRunnerHarnessConfig({

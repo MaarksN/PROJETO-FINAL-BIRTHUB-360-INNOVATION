@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { getTenantContext } from "@birthub/database";
 
-import { executeTenantJob } from "../src/tenant-execution.js";
+import { executeTenantJob } from "../src/tenant-execution";
 
 void test("jobs concorrentes mantem o tenantContext isolado", async () => {
   const [tenantA, tenantB] = await Promise.all([

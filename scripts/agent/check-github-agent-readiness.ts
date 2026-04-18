@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -27,7 +27,7 @@ import {
   parseMarkdownAgentSource,
   sha256,
   toPosixPath
-} from "./github-agent-collection.js";
+} from "./github-agent-collection";
 
 type ReadinessCheckName = "manifest" | "integration" | "policy" | "adapters" | "evidence";
 

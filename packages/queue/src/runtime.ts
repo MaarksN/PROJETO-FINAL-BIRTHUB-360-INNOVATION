@@ -10,17 +10,17 @@ import { Redis } from "ioredis";
 
 import { createLogger } from "@birthub/logger";
 
-import { QueueDlqClient } from "./dlq.js";
+import { QueueDlqClient } from "./dlq";
 import {
   DEFAULT_REMOVE_ON_COMPLETE,
   DEFAULT_REMOVE_ON_FAIL,
   QUEUE_CONFIG
-} from "./definitions.js";
+} from "./definitions";
 import {
   createRuntimeWorkerProcessor,
   mergeQueueJobOptions,
   registerRuntimeWorker
-} from "./worker.js";
+} from "./worker";
 import type {
   DlqJobPayload,
   EnqueueRequest,
@@ -29,7 +29,7 @@ import type {
   QueueProcessor,
   QueueStats,
   RepeatableJobRequest
-} from "./types.js";
+} from "./types";
 
 const logger = createLogger("queue-runtime");
 const DEFAULT_REDIS_URL = process.env.REDIS_URL ?? "redis://localhost:6379";

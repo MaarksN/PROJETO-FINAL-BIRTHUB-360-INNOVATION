@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 function parseFlag(name: string): string | undefined {
   const flag = process.argv.find((item) => item.startsWith(`${name}=`));

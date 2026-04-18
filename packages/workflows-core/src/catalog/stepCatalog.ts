@@ -1,6 +1,6 @@
 
 // 
-import type { WorkflowStepType } from "../types.js";
+import type { WorkflowStepType } from "../types";
 
 export type StepLifecycle = "active" | "deprecated";
 

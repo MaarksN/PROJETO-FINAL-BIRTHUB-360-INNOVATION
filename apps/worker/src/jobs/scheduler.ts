@@ -4,13 +4,13 @@ import { prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import { SYSTEM_QUEUE_NAMES, type QueueRuntime } from "@birthub/queue";
 
-import { flushBufferedAuditEvents } from "./auditFlush.js";
-import { exportDailyBillingInvoices } from "./billingExport.js";
-import { computeAndPersistHealthScores } from "./healthScore.js";
-import { inviteCleanupJob } from "./inviteCleanup.js";
-import { quotaResetJob } from "./quotaReset.js";
-import { sunsetPolicyJob } from "./sunsetPolicy.js";
-import { cleanupSuspendedUsers } from "./userCleanup.js";
+import { flushBufferedAuditEvents } from "./auditFlush";
+import { exportDailyBillingInvoices } from "./billingExport";
+import { computeAndPersistHealthScores } from "./healthScore";
+import { inviteCleanupJob } from "./inviteCleanup";
+import { quotaResetJob } from "./quotaReset";
+import { sunsetPolicyJob } from "./sunsetPolicy";
+import { cleanupSuspendedUsers } from "./userCleanup";
 
 const logger = createLogger("worker-cycle2-jobs");
 

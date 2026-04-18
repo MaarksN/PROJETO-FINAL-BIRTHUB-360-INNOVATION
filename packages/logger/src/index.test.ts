@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createLogger, runWithLogContext } from "./index.js";
+import { createLogger, runWithLogContext } from "./index";
 
 function parseJsonObject(raw: string): Record<string, unknown> {
   const parsed: unknown = JSON.parse(raw);

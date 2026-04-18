@@ -8,11 +8,11 @@ import {
   RequireFeature,
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { requireStringValue } from "../../lib/request-values.js";
-import { LimitExceededError } from "../billing/index.js";
-import { packInstallerService } from "./pack-installer.service.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { requireStringValue } from "../../lib/request-values";
+import { LimitExceededError } from "../billing/index";
+import { packInstallerService } from "./pack-installer.service";
 
 export function createPackInstallerRouter(): Router {
   const router = Router();

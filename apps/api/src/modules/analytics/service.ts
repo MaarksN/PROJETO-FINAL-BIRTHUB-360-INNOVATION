@@ -1,9 +1,9 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
-export * from "./reporting.service.js";
-export * from "./usage.service.js";
+export * from "./reporting.service";
+export * from "./usage.service";
 
-import { analyticsDashboardService } from "./dashboard.service.js";
+import { analyticsDashboardService } from "./dashboard.service";
 import {
   exportBillingCsv,
   getCsRiskAccounts,
@@ -11,11 +11,11 @@ import {
   getGlobalAgentPerformance,
   getQualityReport,
   getCohortMetrics
-} from "./reporting.service.js";
+} from "./reporting.service";
 import {
   getActiveTenantsMetrics,
   getUsageMetrics
-} from "./usage.service.js";
+} from "./usage.service";
 
 export const analyticsRouterService = {
   ...analyticsDashboardService,

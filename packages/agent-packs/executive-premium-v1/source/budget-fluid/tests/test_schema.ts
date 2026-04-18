@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { BudgetFluidAgent } from "../agent.js";
-import { BudgetFluidInputSchema, type BudgetFluidInput } from "../schemas.js";
+import { BudgetFluidAgent } from "../agent";
+import { BudgetFluidInputSchema, type BudgetFluidInput } from "../schemas";
 
 void test("BudgetFluid schema rejects missing required fields", () => {
   const invalidPayload = {

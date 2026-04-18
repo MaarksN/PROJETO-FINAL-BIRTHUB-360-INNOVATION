@@ -5,11 +5,11 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { NarrativeWeaverAgent } from "../agent.js";
+import { NarrativeWeaverAgent } from "../agent";
 import {
   NarrativeWeaverInputSchema,
   type NarrativeWeaverInput
-} from "../schemas.js";
+} from "../schemas";
 
 void test("NarrativeWeaver schema rejects missing required fields", () => {
   const invalidPayload = {

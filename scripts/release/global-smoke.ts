@@ -1,11 +1,11 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { spawn } from "node:child_process";
 
 import { createLogger } from "@birthub/logger";
-import { buildEnv, resolvePnpmInvocation } from "../ci/shared.mjs";
+import { buildEnv, resolvePnpmInvocation } from "../ci/shared";
 
 type SmokeCommand = {
   args: string[];

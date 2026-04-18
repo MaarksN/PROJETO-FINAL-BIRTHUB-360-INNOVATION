@@ -11,20 +11,20 @@ import {
   normalizeOptionalString,
   parseRequiredDate,
   type ClinicalContext
-} from "./service-support.js";
+} from "./service-support";
 import {
   asClinicalTransaction,
   buildPregnancyMutation,
   ensureClinicalRuntimeAvailable
-} from "./service-runtime.js";
+} from "./service-runtime";
 import {
   findActivePregnancy,
   type PatientDetailPayload
-} from "./service-runtime.records.js";
+} from "./service-runtime.records";
 import type {
   SaveNeonatalRecordInput,
   SavePregnancyRecordInput
-} from "./service-patients.js";
+} from "./service-patients";
 
 type PatientDetailGetter = (
   context: ClinicalContext,

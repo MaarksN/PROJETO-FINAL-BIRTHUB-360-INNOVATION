@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { ChurnDeflectorAgent } from "../agent.js";
+import { ChurnDeflectorAgent } from "../agent";
 import {
   type BrandEvent,
   type ChurnDeflectorInput,
   DEFAULT_CHURNDEFLECTOR_CONTRACT
-} from "../schemas.js";
-import type { ChurnDeflectorToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { ChurnDeflectorToolAdapters } from "../tools";
 
 const VALID_INPUT: ChurnDeflectorInput = {
   constraints: {

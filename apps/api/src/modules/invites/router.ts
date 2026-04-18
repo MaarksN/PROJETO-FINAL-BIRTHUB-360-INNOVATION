@@ -6,15 +6,15 @@ import {
 } from "@birthub/config";
 import { Router } from "express";
 
-import { Auditable } from "../../audit/auditable.js";
+import { Auditable } from "../../audit/auditable";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { readTrimmedString, requireStringValue } from "../../lib/request-values.js";
-import { validateBody } from "../../middleware/validate-body.js";
-import { acceptInvite, createInvite, listInvites, revokeInvite } from "./service.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { readTrimmedString, requireStringValue } from "../../lib/request-values";
+import { validateBody } from "../../middleware/validate-body";
+import { acceptInvite, createInvite, listInvites, revokeInvite } from "./service";
 
 function requireTenantId(tenantId: string | null | undefined): string {
   if (!tenantId) {

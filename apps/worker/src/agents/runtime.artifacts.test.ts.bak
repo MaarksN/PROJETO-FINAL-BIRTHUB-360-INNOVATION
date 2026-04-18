@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -104,3 +104,4 @@ void test("createOutputArtifact persists the output and corresponding audit log"
     prisma.auditLog.create = originalCreateAudit;
   }
 });
+

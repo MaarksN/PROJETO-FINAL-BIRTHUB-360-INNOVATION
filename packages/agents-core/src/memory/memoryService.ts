@@ -1,4 +1,4 @@
-import type { AgentLearningRecord } from "../types/index.js";
+import type { AgentLearningRecord } from "../types/index";
 
 const DEFAULT_TOKEN_BUDGET = 8_000;
 

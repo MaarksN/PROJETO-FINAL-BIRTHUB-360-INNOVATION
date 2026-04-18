@@ -3,7 +3,7 @@ import { EventEmitter } from "node:events";
 import type { ApiConfig } from "@birthub/config";
 import { prisma, WorkflowStatus, WorkflowTriggerType } from "@birthub/database";
 
-import { runWorkflowNow } from "../workflows/service.js";
+import { runWorkflowNow } from "../workflows/service";
 
 const eventBus = new EventEmitter();
 const INTERNAL_TOPIC = "workflow-internal-event";

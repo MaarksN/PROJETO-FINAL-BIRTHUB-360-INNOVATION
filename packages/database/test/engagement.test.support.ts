@@ -1,6 +1,6 @@
 ﻿import { mock } from 'node:test';
 import { Prisma } from '@prisma/client';
-import type { EngagementPrismaClient } from '../src/repositories/engagement.js';
+import type { EngagementPrismaClient } from '../src/repositories/engagement';
 
 export function createMockUserPreference(overrides: Partial<Prisma.UserPreferenceGetPayload<Prisma.UserPreferenceDefaultArgs>> = {}): Prisma.UserPreferenceGetPayload<Prisma.UserPreferenceDefaultArgs> {
   return {

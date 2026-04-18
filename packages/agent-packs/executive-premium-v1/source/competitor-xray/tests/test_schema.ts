@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { CompetitorXRayAgent } from "../agent.js";
-import { CompetitorXRayInputSchema, type CompetitorXRayInput } from "../schemas.js";
+import { CompetitorXRayAgent } from "../agent";
+import { CompetitorXRayInputSchema, type CompetitorXRayInput } from "../schemas";
 
 void test("CompetitorXRay schema rejects missing required fields", () => {
   const invalidPayload = {

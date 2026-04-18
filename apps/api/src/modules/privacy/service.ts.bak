@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { ApiConfig } from "@birthub/config";
 import {
@@ -362,3 +362,4 @@ export async function deleteAccountAndPersonalData(input: {
     billingCancelled: billing.canceled
   };
 }
+

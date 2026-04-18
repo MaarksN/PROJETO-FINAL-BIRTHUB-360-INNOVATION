@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 
 import { z } from "zod";
 
-import { BudgetSegmentSchema } from "./schemas.js";
+import { BudgetSegmentSchema } from "./schemas";
 
 const isoDateSchema = z
   .string()

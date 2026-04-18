@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -145,3 +145,4 @@ void test("manifest capability tools emit segment-aware recommendations and memo
   assert.equal(result.premiumLayers.length, 10);
   assert.equal(typeof result.premiumOverallScore, "number");
 });
+

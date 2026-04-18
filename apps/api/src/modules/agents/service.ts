@@ -5,31 +5,31 @@ import { randomUUID } from "node:crypto";
 import type { ManagedAgentPolicy } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 
-import { hasExplicitDatabaseUrl } from "../../lib/database-availability.js";
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { marketplaceService } from "../marketplace/marketplace-service.js";
+import { hasExplicitDatabaseUrl } from "../../lib/database-availability";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { marketplaceService } from "../marketplace/marketplace-service";
 import {
   mergeManagedPolicies,
   parseAgentConfig
-} from "./service.config.js";
-import { queueInstalledAgentExecution } from "./service.execution.js";
+} from "./service.config";
+import { queueInstalledAgentExecution } from "./service.execution";
 import {
   buildTemplatePolicies,
   persistManagedPolicies
-} from "./service.policy.js";
+} from "./service.policy";
 import {
   resolveInstalledAgent,
   resolveOrganization
-} from "./service.repository.js";
+} from "./service.repository";
 import {
   buildSnapshot,
   extractLogs
-} from "./service.snapshot.js";
-import type { InstalledAgentSnapshot } from "./service.types.js";
+} from "./service.snapshot";
+import type { InstalledAgentSnapshot } from "./service.types";
 
 const INSTALLED_AGENT_LIST_LIMIT = 250;
 
-export type { InstalledAgentSnapshot } from "./service.types.js";
+export type { InstalledAgentSnapshot } from "./service.types";
 
 class InstalledAgentsService {
   async listInstalledAgents(tenantReference: string): Promise<InstalledAgentSnapshot[]> {

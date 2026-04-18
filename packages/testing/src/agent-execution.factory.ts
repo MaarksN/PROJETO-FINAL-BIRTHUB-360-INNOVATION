@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 export type MockExecutionStatus = "BLOCKED" | "COMPLETED" | "FAILED" | "RUNNING" | "WAITING";
 

@@ -5,11 +5,11 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { createApp } from "../src/app.js";
-import { errorHandler, notFoundMiddleware } from "../src/middleware/error-handler.js";
-import { requestContextMiddleware } from "../src/middleware/request-context.js";
-import { createClinicalRouter } from "../src/modules/clinical/router.js";
-import { createTestApiConfig } from "./test-config.js";
+import { createApp } from "../src/app";
+import { errorHandler, notFoundMiddleware } from "../src/middleware/error-handler";
+import { requestContextMiddleware } from "../src/middleware/request-context";
+import { createClinicalRouter } from "../src/modules/clinical/router";
+import { createTestApiConfig } from "./test-config";
 
 type ErrorBody = {
   detail?: string;

@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { mountModuleRouters } from "../src/app/module-routes.js";
-import { createTestApiConfig } from "./test-config.js";
+import { mountModuleRouters } from "../src/app/module-routes";
+import { createTestApiConfig } from "./test-config";
 
 void test("mountModuleRouters wires module routers in the expected order and reuses shared router instances", () => {
   const config = createTestApiConfig();

@@ -10,7 +10,7 @@ import {
   setCacheStoreForTests,
   writeCacheValue,
   type CacheStore
-} from "../src/common/cache/cache-store.js";
+} from "../src/common/cache/cache-store";
 
 function createFailingStore(): CacheStore {
   return {

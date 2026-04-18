@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
-import { resolveManagedPolicies } from "./runtime.resolution.js";
+import { resolveManagedPolicies } from "./runtime.resolution";
 
 void test("resolveManagedPolicies returns an empty array when no installed agent id is provided", async () => {
   assert.deepEqual(

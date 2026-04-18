@@ -3,13 +3,13 @@ import test from "node:test";
 
 import { Role, type Membership } from "@prisma/client";
 
-import { prisma } from "../src/client.js";
+import { prisma } from "../src/client";
 import {
   buildTenantMembershipFilter,
   findMembershipForTenant,
   hasRequiredRole,
   requireMembershipForTenant
-} from "../src/repositories/access-control.js";
+} from "../src/repositories/access-control";
 
 function createMembership(): Membership {
   return {

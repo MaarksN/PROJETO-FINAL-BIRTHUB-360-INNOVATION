@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 //
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -9,7 +9,7 @@ import {
   GITHUB_AGENT_COLLECTION_DESCRIPTOR_ID,
   getGithubAgentCollectionRoot,
   getWorkspaceRoot
-} from "./github-agent-collection.js";
+} from "./github-agent-collection";
 
 const MARKET_GRADE_VERSION = "1.2.0";
 

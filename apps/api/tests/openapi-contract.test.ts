@@ -4,9 +4,9 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { registerOperationalRoutes } from "../src/app/core.js";
-import { openApiDocument } from "../src/docs/openapi.js";
-import { createTestApiConfig } from "./test-config.js";
+import { registerOperationalRoutes } from "../src/app/core";
+import { openApiDocument } from "../src/docs/openapi";
+import { createTestApiConfig } from "./test-config";
 
 type OpenApiPayload = {
   openapi: string;

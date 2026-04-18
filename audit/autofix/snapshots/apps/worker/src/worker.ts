@@ -5,38 +5,38 @@ import { incrementCounter, observeHistogram } from "@birthub/logger";
 import { Queue, Worker, type JobsOptions } from "bullmq";
 import { Redis } from "ioredis";
 
-import { persistAgentHandoff } from "./agents/handoffs.js";
-import { executeManifestAgentRuntime } from "./agents/runtime.js";
+import { persistAgentHandoff } from "./agents/handoffs";
+import { executeManifestAgentRuntime } from "./agents/runtime";
 import {
   WorkflowRunner,
   type WorkflowExecutionJobPayload,
   type WorkflowTriggerJobPayload,
   workflowQueueNames
-} from "./engine/runner.js";
-import { executeConnectorRuntimeAction } from "./integrations/connectors.runtime.js";
-import { syncOrganizationToHubspot } from "./integrations/hubspot.js";
-import { DynamicRateLimiter } from "./lib/rate-limiter.js";
+} from "./engine/runner";
+import { executeConnectorRuntimeAction } from "./integrations/connectors.runtime";
+import { syncOrganizationToHubspot } from "./integrations/hubspot";
+import { DynamicRateLimiter } from "./lib/rate-limiter";
 import {
   emailQueueName,
   processEmailNotificationJob,
   type EmailNotificationJobPayload
-} from "./notifications/emailQueue.js";
-import { getQueueNameForPriority } from "./queues/agentQueue.js";
-import { WorkerFactory } from "./queues/workerFactory.js";
+} from "./notifications/emailQueue";
+import { getQueueNameForPriority } from "./queues/agentQueue";
+import { WorkerFactory } from "./queues/workerFactory";
 import {
   outboundWebhookQueueName,
   processOutboundWebhookJob,
   type OutboundWebhookJobPayload
-} from "./webhooks/outbound.js";
-import { createBillingLockResolver } from "./worker.billing.js";
+} from "./webhooks/outbound";
+import { createBillingLockResolver } from "./worker.billing";
 import {
   persistExecutionFinished,
   persistExecutionStarted
-} from "./worker.execution-state.js";
-import type { CrmSyncJobPayload } from "./worker.job-validation.js";
-import { createJobProcessor, resolveOrganizationReference } from "./worker.process-job.js";
+} from "./worker.execution-state";
+import type { CrmSyncJobPayload } from "./worker.job-validation";
+import { createJobProcessor, resolveOrganizationReference } from "./worker.process-job";
 
-export { validateLegacyTaskJob } from "./worker.job-validation.js";
+export { validateLegacyTaskJob } from "./worker.job-validation";
 
 const logger = createLogger("worker");
 const crmSyncQueueName = "engagement.crm-sync";

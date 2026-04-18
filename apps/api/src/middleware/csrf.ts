@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from "express";
 
-import { ProblemDetailsError } from "../lib/problem-details.js";
+import { ProblemDetailsError } from "../lib/problem-details";
 
-import { parseCookies } from "./authentication.js";
+import { parseCookies } from "./authentication";
 
 const mutationMethods = new Set(["PATCH", "POST", "PUT", "DELETE"]);
 

@@ -1,9 +1,9 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Prisma, PrismaClient } from "@prisma/client";
 
-import { plans } from "./data.js";
-import type { PlanSeed, SeededPlanMap } from "./types.js";
+import { plans } from "./data";
+import type { PlanSeed, SeededPlanMap } from "./types";
 
 function buildPlanPayload(plan: PlanSeed) {
   return {

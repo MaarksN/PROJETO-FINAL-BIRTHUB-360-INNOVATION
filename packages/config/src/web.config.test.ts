@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getWebConfig } from "./web.config.js";
-import { EnvValidationError } from "./shared.js";
+import { getWebConfig } from "./web.config";
+import { EnvValidationError } from "./shared";
 
 void test("web config requires production telemetry endpoints", () => {
   assert.throws(

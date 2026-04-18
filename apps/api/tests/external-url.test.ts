@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { validateExternalUrl } from "../src/lib/external-url.js";
+import { validateExternalUrl } from "../src/lib/external-url";
 
 void test("validateExternalUrl rejects loopback and private network targets", () => {
   const cases = [

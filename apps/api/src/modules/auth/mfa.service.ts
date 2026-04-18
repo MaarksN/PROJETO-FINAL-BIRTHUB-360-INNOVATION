@@ -2,7 +2,7 @@
 // 
 import { createHmac, randomBytes } from "node:crypto";
 
-import { decryptSensitiveValue, encryptSensitiveValue, randomToken, sha256 } from "./crypto.js";
+import { decryptSensitiveValue, encryptSensitiveValue, randomToken, sha256 } from "./crypto";
 
 const BASE32_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 const TOTP_PERIOD_SECONDS = 30;

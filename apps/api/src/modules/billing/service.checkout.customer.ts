@@ -6,12 +6,12 @@ import {
   type Prisma
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { createStripeClient } from "./stripe.client.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { createStripeClient } from "./stripe.client";
 import {
   findOrganizationByReference,
   type DatabaseClient
-} from "./service.shared.js";
+} from "./service.shared";
 
 const logger = createLogger("billing-service");
 

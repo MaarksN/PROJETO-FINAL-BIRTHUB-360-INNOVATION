@@ -1,13 +1,13 @@
 
 // 
-import { CyclicDependencyError, InvalidGraphError } from "../errors.js";
+import { CyclicDependencyError, InvalidGraphError } from "../errors";
 import type {
   DagEdge,
   DagNode,
   DagValidationInput,
   DagValidationOptions,
   DagValidationResult
-} from "../types.js";
+} from "../types";
 
 function getCyclePath(
   adjacency: Map<string, string[]>,

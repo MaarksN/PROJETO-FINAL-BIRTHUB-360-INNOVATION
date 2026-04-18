@@ -2,14 +2,14 @@ import type { ApiConfig } from "@birthub/config";
 import { Role } from "@birthub/database";
 import { Router } from "express";
 
-import { Auditable } from "../../audit/auditable.js";
+import { Auditable } from "../../audit/auditable";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { requireStringValue } from "../../lib/request-values.js";
-import { validateBody } from "../../middleware/validate-body.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { requireStringValue } from "../../lib/request-values";
+import { validateBody } from "../../middleware/validate-body";
 import {
   appointmentQuerySchema,
   createAppointmentSchema,
@@ -19,9 +19,9 @@ import {
   pregnancyRecordSchema,
   updateAppointmentSchema,
   updatePatientSchema
-} from "./schemas.js";
-import { registerClinicalNoteRoutes } from "./router-note-routes.js";
-import { clinicalService } from "./service.js";
+} from "./schemas";
+import { registerClinicalNoteRoutes } from "./router-note-routes";
+import { clinicalService } from "./service";
 
 type PatientDetailPayload = Awaited<ReturnType<typeof clinicalService.getPatientDetail>>;
 

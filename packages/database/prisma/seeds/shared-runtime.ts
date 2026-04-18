@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   AgentStatus,
@@ -14,7 +14,7 @@ import {
   WorkflowTriggerType
 } from "@prisma/client";
 
-import { asJson, passwordHash, type TenantSeed } from "./shared-foundation.js";
+import { asJson, passwordHash, type TenantSeed } from "./shared-foundation";
 
 type WorkflowSeed = {
   description: string;

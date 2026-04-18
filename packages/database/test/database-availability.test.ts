@@ -4,7 +4,7 @@ import test from "node:test";
 import {
   ensureDatabaseAvailableOrSkip,
   requireDatabaseUrlOrSkip
-} from "./database-availability.js";
+} from "./database-availability";
 
 function createTestContext() {
   const calls: string[] = [];

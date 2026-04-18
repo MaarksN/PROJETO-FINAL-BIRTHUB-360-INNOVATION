@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -93,3 +93,4 @@ void test("resolveManagedPolicies returns parsed policies for the installed agen
     prisma.agent.findFirst = originalFindFirst;
   }
 });
+

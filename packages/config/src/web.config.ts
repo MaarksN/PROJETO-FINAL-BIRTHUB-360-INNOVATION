@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { z } from "zod";
 
@@ -6,7 +6,7 @@ import {
   mapWebProductCapabilities,
   type ProductCapabilities,
   webProductCapabilityEnvSchema
-} from "./product-capabilities.js";
+} from "./product-capabilities";
 import {
   deploymentEnvironmentSchema,
   envBoolean,
@@ -18,7 +18,7 @@ import {
   optionalUrlString,
   parseEnv,
   urlString
-} from "./shared.js";
+} from "./shared";
 
 export const webEnvSchema = z.object({
   CSP_REPORT_URI: optionalUrlString,

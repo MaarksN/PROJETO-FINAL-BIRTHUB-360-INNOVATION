@@ -3,13 +3,13 @@
 import { createLogger } from "@birthub/logger";
 import { prisma } from "@birthub/database";
 
-import { marketplaceService } from "../marketplace/marketplace-service.js";
+import { marketplaceService } from "../marketplace/marketplace-service";
 import {
   BudgetExceededError,
   type BudgetAlert,
   type BudgetRecord,
   type BudgetUsageEvent
-} from "./budget.types.js";
+} from "./budget.types";
 
 const logger = createLogger("budget-service");
 const DEFAULT_BUDGET_LIMIT_BRL = 100;

@@ -11,7 +11,7 @@ import {
   createExecutorError,
   jitter,
   wait
-} from "./planExecutor.defaults.js";
+} from "./planExecutor.defaults";
 
 const logger = createLogger("plan-executor");
 

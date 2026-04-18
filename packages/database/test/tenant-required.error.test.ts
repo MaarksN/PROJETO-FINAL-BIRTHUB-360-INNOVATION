@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { TenantRequiredError } from "../src/errors/tenant-required.error.js";
+import { TenantRequiredError } from "../src/errors/tenant-required.error";
 
 void test("TenantRequiredError uses the provided operation in the message", () => {
   const error = new TenantRequiredError("listing notifications");

@@ -3,9 +3,9 @@
 import { Router } from "express";
 import { z } from "zod";
 
-import { requireAuthenticatedSession } from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { getExecutionFeedback, saveExecutionFeedback } from "./service.js";
+import { requireAuthenticatedSession } from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { getExecutionFeedback, saveExecutionFeedback } from "./service";
 
 const feedbackSchema = z
   .object({

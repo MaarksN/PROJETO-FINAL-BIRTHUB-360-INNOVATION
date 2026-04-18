@@ -6,11 +6,11 @@ import test from "node:test";
 import { prisma, Role } from "@birthub/database";
 import request from "supertest";
 
-import { createSearchRouter } from "../src/modules/search/router.js";
+import { createSearchRouter } from "../src/modules/search/router";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers.js";
+} from "./http-test-helpers";
 
 type SearchResponseBody = {
   groups: Array<{

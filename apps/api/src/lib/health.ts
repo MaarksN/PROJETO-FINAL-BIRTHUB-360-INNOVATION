@@ -2,7 +2,7 @@ import type { ApiConfig } from "@birthub/config";
 import { healthResponseSchema } from "@birthub/config";
 import { pingDatabase, pingDatabaseDeep } from "@birthub/database";
 
-import { pingRedis } from "./queue.js";
+import { pingRedis } from "./queue";
 
 const READINESS_MAX_LATENCY_MS = 750;
 const DEEP_HEALTH_MAX_LATENCY_MS = 2_000;

@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getApiConfig } from "./api.config.js";
-import { EnvValidationError } from "./shared.js";
+import { getApiConfig } from "./api.config";
+import { EnvValidationError } from "./shared";
 
 const baseEnv = {
   API_CORS_ORIGINS: "https://app.birthhub360.com",

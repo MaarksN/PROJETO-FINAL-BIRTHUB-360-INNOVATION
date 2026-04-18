@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { MarketSentinelAgent } from "../agent.js";
+import { MarketSentinelAgent } from "../agent";
 import {
   DEFAULT_MARKETSENTINEL_CONTRACT,
   type MarketSentinelInput,
   type MarketEvent
-} from "../schemas.js";
-import type { MarketSentinelToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { MarketSentinelToolAdapters } from "../tools";
 
 const VALID_INPUT: MarketSentinelInput = {
   constraints: {

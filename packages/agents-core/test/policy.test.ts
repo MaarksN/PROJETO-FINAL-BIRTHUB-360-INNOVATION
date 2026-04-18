@@ -1,11 +1,11 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
 import { z } from "zod";
 
-import { PolicyDeniedError, PolicyEngine } from "../src/policy/engine.js";
-import { BaseTool } from "../src/tools/baseTool.js";
+import { PolicyDeniedError, PolicyEngine } from "../src/policy/engine";
+import { BaseTool } from "../src/tools/baseTool";
 
 class EchoTool extends BaseTool<{ value: string }, { value: string }> {
   constructor(policyEngine: PolicyEngine) {

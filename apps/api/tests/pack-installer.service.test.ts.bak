@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -171,3 +171,4 @@ void test("updatePackVersion updates every matching agent config and writes an a
     prisma.$transaction = originalTransaction;
   }
 });
+

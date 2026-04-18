@@ -6,7 +6,7 @@ import {
   PrismaQueryTimeoutError,
   TenantRequiredError,
   withTenantDatabaseContext
-} from "../src/index.js";
+} from "../src/index";
 
 void test("database package index exports the public error surfaces and tenant helper", () => {
   assert.equal(typeof ExceededQuotaError, "function");

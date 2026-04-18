@@ -4,9 +4,9 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { createSessionsRouter } from "../src/modules/sessions/router.js";
-import { requestContextMiddleware } from "../src/middleware/request-context.js";
-import { createTestApiConfig } from "./test-config.js";
+import { createSessionsRouter } from "../src/modules/sessions/router";
+import { requestContextMiddleware } from "../src/middleware/request-context";
+import { createTestApiConfig } from "./test-config";
 
 void test("createSessionsRouter owns session listing and session mutation routes", async () => {
   const app = express();

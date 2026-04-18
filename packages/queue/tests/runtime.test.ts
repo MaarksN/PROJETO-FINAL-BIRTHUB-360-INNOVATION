@@ -1,15 +1,15 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { QUEUE_CONFIG } from "../src/definitions.js";
-import { QueueManager } from "../src/index.js";
-import type { RepeatableJobRequest } from "../src/types.js";
+import { QUEUE_CONFIG } from "../src/definitions";
+import { QueueManager } from "../src/index";
+import type { RepeatableJobRequest } from "../src/types";
 import {
   createRuntimeWorkerProcessor,
   extractJobContext,
   forwardToDlq,
   isFinalAttempt
-} from "../src/worker.js";
+} from "../src/worker";
 
 void test("runtime worker processor injects normalized job context", async () => {
   const contexts: Array<{ jobId: string; tenantId?: string; traceId?: string }> = [];

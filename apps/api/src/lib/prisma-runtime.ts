@@ -1,4 +1,4 @@
-import { ProblemDetailsError } from "./problem-details.js";
+import { ProblemDetailsError } from "./problem-details";
 
 export function readPrismaModel<T = Record<string, unknown>>(
   client: object,

@@ -1,6 +1,6 @@
 import type { z } from "zod";
 
-import { deploymentEnvironmentSchema, nodeEnvSchema } from "./shared.js";
+import { deploymentEnvironmentSchema, nodeEnvSchema } from "./shared";
 
 export type RuntimeEnvironment = NodeJS.ProcessEnv;
 export type NodeEnvironment = z.infer<typeof nodeEnvSchema>;

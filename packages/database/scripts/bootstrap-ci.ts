@@ -1,7 +1,7 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
-import { schemaPath } from "./lib/paths.js";
-import { createScriptRuntime } from "./lib/runtime.js";
+import { schemaPath } from "./lib/paths";
+import { createScriptRuntime } from "./lib/runtime";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("db-bootstrap-ci");

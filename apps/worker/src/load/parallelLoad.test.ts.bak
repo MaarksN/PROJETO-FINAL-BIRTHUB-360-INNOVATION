@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -13,3 +13,4 @@ void test("worker handles 50 parallel executions without dropping jobs", async (
   assert.ok(metrics.p95Ms >= metrics.p50Ms);
   assert.ok(metrics.p99Ms >= metrics.p95Ms);
 });
+

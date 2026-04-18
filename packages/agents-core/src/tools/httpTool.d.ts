@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
 declare const httpInputSchema: z.ZodObject<{
     body: z.ZodOptional<z.ZodUnknown>;
     headers: z.ZodDefault<z.ZodRecord<z.ZodString, z.ZodString>>;

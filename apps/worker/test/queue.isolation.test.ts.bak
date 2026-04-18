@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -36,3 +36,4 @@ void test("jobs concorrentes mantem o tenantContext isolado", async () => {
   assert.equal(tenantA, "tenant-a");
   assert.equal(tenantB, "tenant-b");
 });
+

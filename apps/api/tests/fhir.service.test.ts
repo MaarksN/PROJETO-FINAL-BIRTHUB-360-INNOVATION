@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
-import { fhirService } from "../src/modules/fhir/service.js";
-import { injectPrismaDelegates } from "./prisma-runtime-test-helpers.js";
+import { fhirService } from "../src/modules/fhir/service";
+import { injectPrismaDelegates } from "./prisma-runtime-test-helpers";
 
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -42,3 +42,4 @@ void test("workflow runner harness config rejects invalid JSON payloads", () => 
     /WORKFLOW_TEST_TRIGGER_PAYLOAD must be a JSON object/i
   );
 });
+

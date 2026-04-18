@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { ChurnDeflectorAgent } from "../agent.js";
-import { ChurnDeflectorInputSchema, type ChurnDeflectorInput } from "../schemas.js";
+import { ChurnDeflectorAgent } from "../agent";
+import { ChurnDeflectorInputSchema, type ChurnDeflectorInput } from "../schemas";
 
 void test("ChurnDeflector schema rejects missing required fields", () => {
   const invalidPayload = {

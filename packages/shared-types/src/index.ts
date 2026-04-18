@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 export type JsonPrimitive = boolean | number | null | string;
 export type JsonObject = { [key: string]: JsonValue };
 export type JsonValue = JsonObject | JsonPrimitive | JsonValue[];

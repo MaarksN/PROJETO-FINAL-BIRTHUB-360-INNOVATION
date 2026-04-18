@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { CulturePulseAgent } from "../agent.js";
-import { CulturePulseInputSchema, type CulturePulseInput } from "../schemas.js";
+import { CulturePulseAgent } from "../agent";
+import { CulturePulseInputSchema, type CulturePulseInput } from "../schemas";
 
 void test("CulturePulse schema rejects missing required fields", () => {
   const invalidPayload = {

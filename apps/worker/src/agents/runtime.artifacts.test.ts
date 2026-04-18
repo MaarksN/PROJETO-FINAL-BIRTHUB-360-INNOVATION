@@ -9,11 +9,11 @@ import {
 } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 
-import { SHARED_LEARNING_LIMIT } from "./runtime.shared.js";
+import { SHARED_LEARNING_LIMIT } from "./runtime.shared";
 import {
   buildLearningRecord,
   createOutputArtifact
-} from "./runtime.artifacts.js";
+} from "./runtime.artifacts";
 
 function createManifest(): AgentManifest {
   return {

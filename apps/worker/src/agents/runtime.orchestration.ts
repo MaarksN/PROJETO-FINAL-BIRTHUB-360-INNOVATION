@@ -12,17 +12,17 @@ import { PolicyEngine } from "@birthub/agents-core/policy/engine";
 import { getWorkerConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
 
-import { PlanExecutor } from "../executors/planExecutor.js";
-import { runtimeMemory } from "./runtime.memory.js";
+import { PlanExecutor } from "../executors/planExecutor";
+import { runtimeMemory } from "./runtime.memory";
 import type {
   RuntimeExecutionInput,
   RuntimeExecutionResult
-} from "./runtime.types.js";
-import { readSessionId, roundCurrency } from "./runtime.shared.js";
-import { resolveRuntimeAgent, resolveManagedPolicies } from "./runtime.catalog.js";
-import { querySharedLearning, appendConversationMessage, buildLearningRecord, createOutputArtifact } from "./runtime.telemetry.js";
-import { createRuntimeTools } from "./runtime.tools.js";
-import { ensureBudgetHeadroom, consumeBudget } from "./runtime.budget.js";
+} from "./runtime.types";
+import { readSessionId, roundCurrency } from "./runtime.shared";
+import { resolveRuntimeAgent, resolveManagedPolicies } from "./runtime.catalog";
+import { querySharedLearning, appendConversationMessage, buildLearningRecord, createOutputArtifact } from "./runtime.telemetry";
+import { createRuntimeTools } from "./runtime.tools";
+import { ensureBudgetHeadroom, consumeBudget } from "./runtime.budget";
 
 export async function executeManifestAgentRuntime(
   input: RuntimeExecutionInput

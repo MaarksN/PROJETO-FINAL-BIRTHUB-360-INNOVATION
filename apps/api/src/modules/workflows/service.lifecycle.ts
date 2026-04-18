@@ -7,7 +7,7 @@ import {
 } from "@birthub/database";
 import type { WorkflowCanvas } from "@birthub/workflows-core";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 import {
   assertWorkflowLimit,
   createWebhookSecret,
@@ -18,12 +18,12 @@ import {
   resolveScopedIdentity,
   upsertCronTrigger,
   type ScopedIdentity
-} from "./service.shared.js";
+} from "./service.shared";
 import type {
   WorkflowCreateInput,
   WorkflowRevertInput,
   WorkflowUpdateInput
-} from "./schemas.js";
+} from "./schemas";
 
 const WORKFLOW_LIST_LIMIT = 100;
 

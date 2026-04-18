@@ -5,11 +5,11 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { QuotaArchitectAgent } from "../agent.js";
+import { QuotaArchitectAgent } from "../agent";
 import {
   QuotaArchitectInputSchema,
   type QuotaArchitectInput
-} from "../schemas.js";
+} from "../schemas";
 
 void test("QuotaArchitect schema rejects missing required fields", () => {
   const invalidPayload = {

@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Buffer } from "node:buffer";
 import { spawn } from "node:child_process";
 import { resolve } from "node:path";
 
-import { databasePackageRoot } from "./paths.js";
+import { databasePackageRoot } from "./paths";
 
 export type CommandResult = {
   code: number;

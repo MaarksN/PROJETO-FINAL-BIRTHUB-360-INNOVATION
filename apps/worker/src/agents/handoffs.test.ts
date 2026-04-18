@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
-import { persistAgentHandoff } from "./handoffs.js";
+import { persistAgentHandoff } from "./handoffs";
 
 void test("persistAgentHandoff creates thread, handoff and internal conversation message", async () => {
   const originalFindOrganization = prisma.organization.findFirst.bind(prisma.organization);

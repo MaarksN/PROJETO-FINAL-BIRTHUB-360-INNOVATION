@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { pathToFileURL } from "node:url";
 
@@ -7,14 +7,14 @@ import { createLogger } from "@birthub/logger";
 import {
   getSchemaDriftEnvironment,
   shouldRequireSchemaDriftEvidence
-} from "./lib/env.js";
-import { schemaPath } from "./lib/paths.js";
-import { getPrismaCommand } from "./lib/process.js";
+} from "./lib/env";
+import { schemaPath } from "./lib/paths";
+import { getPrismaCommand } from "./lib/process";
 import {
   createScriptRuntime,
   type ScriptRuntimeDependencies
-} from "./lib/runtime.js";
-import { writeTextReport } from "./lib/report.js";
+} from "./lib/runtime";
+import { writeTextReport } from "./lib/report";
 
 const logger = createLogger("db-check-schema-drift");
 

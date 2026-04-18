@@ -2,7 +2,7 @@
 import test, { mock } from "node:test";
 
 import { NotificationType, Role, Prisma } from "@prisma/client";
-import { prisma } from "../src/client.js";
+import { prisma } from "../src/client";
 import {
   createEngagementPrismaMock,
   createMockUserPreference,
@@ -10,14 +10,14 @@ import {
   createMockAuditLog,
   createMockMembership,
   createPrismaPromise
-} from "./engagement.test.support.js";
+} from "./engagement.test.support";
 import {
   createNotificationForOrganizationRoles,
   createNotificationForUser,
   ensureUserPreference,
   listNotifications,
   updateUserPreference
-} from "../src/repositories/engagement.js";
+} from "../src/repositories/engagement";
 
 void test("ensureUserPreference upserts tenant-scoped preference data", async () => {
     let received: unknown = null;

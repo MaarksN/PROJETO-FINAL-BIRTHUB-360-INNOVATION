@@ -3,9 +3,9 @@
 import { createPolicyTemplate, type ManagedAgentPolicy } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 
-import { toPrismaJsonValue } from "../../lib/prisma-json.js";
-import { normalizeConfigObject } from "./service.config.js";
-import type { ResolvedInstalledAgent } from "./service.types.js";
+import { toPrismaJsonValue } from "../../lib/prisma-json";
+import { normalizeConfigObject } from "./service.config";
+import type { ResolvedInstalledAgent } from "./service.types";
 
 export function buildTemplatePolicies(input: {
   resolved: ResolvedInstalledAgent;

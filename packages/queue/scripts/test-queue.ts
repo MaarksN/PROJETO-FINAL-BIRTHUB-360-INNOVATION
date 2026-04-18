@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { QueueManager } from "../src/index";
 import { QueueName } from "@birthub/shared-types";

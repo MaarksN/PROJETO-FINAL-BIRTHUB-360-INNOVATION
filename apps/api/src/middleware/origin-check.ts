@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 
-import { ProblemDetailsError } from "../lib/problem-details.js";
+import { ProblemDetailsError } from "../lib/problem-details";
 
 const mutationMethods = new Set(["PATCH", "POST", "PUT", "DELETE"]);
 

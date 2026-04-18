@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -256,3 +256,4 @@ void test("workflow lineage endpoint returns origin and resumed executions as a 
     }
   }
 });
+

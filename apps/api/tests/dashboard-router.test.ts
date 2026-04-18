@@ -5,12 +5,12 @@ import test from "node:test";
 import { prisma, Role } from "@birthub/database";
 import request from "supertest";
 
-import { createDashboardRouter } from "../src/modules/dashboard/router.js";
+import { createDashboardRouter } from "../src/modules/dashboard/router";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers.js";
-import { createTestApiConfig } from "./test-config.js";
+} from "./http-test-helpers";
+import { createTestApiConfig } from "./test-config";
 
 function createDashboardTestApp(config = createTestApiConfig()) {
   return createAuthenticatedApiTestApp({

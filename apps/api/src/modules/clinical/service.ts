@@ -1,6 +1,6 @@
-import { createAppointmentMethods } from "./service-appointments.js";
-import { createClinicalNoteMethods } from "./service-notes.js";
-import { createPatientMethods } from "./service-patients.js";
+import { createAppointmentMethods } from "./service-appointments";
+import { createClinicalNoteMethods } from "./service-notes";
+import { createPatientMethods } from "./service-patients";
 
 export const clinicalService = {
   ...createPatientMethods(),

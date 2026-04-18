@@ -1,7 +1,7 @@
-import type { AgentManifest } from "../manifest/schema.js";
-import type { AgentLearningRecord, JsonValue } from "../types/index.js";
-import { buildRecommendedActions, type SegmentProfile } from "./intelligence.js";
-import type { AgentRuntimeOutput, AgentRuntimePlan, AgentRuntimePlanInput, ManagedAgentPolicy, OutputGovernanceDecision, RuntimePolicyRule } from "./manifestRuntime.js";
+import type { AgentManifest } from "../manifest/schema";
+import type { AgentLearningRecord, JsonValue } from "../types/index";
+import { buildRecommendedActions, type SegmentProfile } from "./intelligence";
+import type { AgentRuntimeOutput, AgentRuntimePlan, AgentRuntimePlanInput, ManagedAgentPolicy, OutputGovernanceDecision, RuntimePolicyRule } from "./manifestRuntime";
 export declare function readString(value: unknown): string | null;
 export declare function uniqueStrings(values: string[]): string[];
 export declare function isRecord(value: unknown): value is Record<string, unknown>;

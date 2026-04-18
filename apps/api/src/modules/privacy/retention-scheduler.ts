@@ -1,7 +1,7 @@
 import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
 
-import { runRetentionSweep } from "./retention.service.js";
+import { runRetentionSweep } from "./retention.service";
 
 const logger = createLogger("privacy-retention");
 type RetentionSweepMode = Parameters<typeof runRetentionSweep>[0]["mode"];

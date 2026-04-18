@@ -1,8 +1,8 @@
 
 // 
-import type { StepDefinition, WorkflowCanvas } from "../schemas/step.schema.js";
-import type { WorkflowStepType } from "../types.js";
-import { STEP_CATALOG } from "../catalog/stepCatalog.js";
+import type { StepDefinition, WorkflowCanvas } from "../schemas/step.schema";
+import type { WorkflowStepType } from "../types";
+import { STEP_CATALOG } from "../catalog/stepCatalog";
 
 export type StepLintSeverity = "info" | "warning" | "critical";
 export type StepLintCode =

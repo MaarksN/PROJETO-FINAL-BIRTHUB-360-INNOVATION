@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   findManifestCatalogEntryByAgentId,
@@ -64,3 +64,4 @@ export async function resolveManagedPolicies(input: {
 
   return parseAgentConfig(agent.config).managedPolicies;
 }
+

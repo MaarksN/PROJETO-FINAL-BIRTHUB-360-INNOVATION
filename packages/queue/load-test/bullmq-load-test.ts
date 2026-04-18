@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import net from "node:net";
 import { QueueManager } from "../src/index";

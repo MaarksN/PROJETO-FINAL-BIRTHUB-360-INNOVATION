@@ -1,4 +1,4 @@
-import { deleteCacheKeys } from "./cache-store.js";
+import { deleteCacheKeys } from "./cache-store";
 
 export interface CachedTenant {
   id: string;

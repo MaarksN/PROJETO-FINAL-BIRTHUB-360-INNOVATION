@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -65,3 +65,4 @@ void test("matchesPattern supports wildcard segments and tool costs include time
   assert.equal(typeof costs["custom-tool"], "number");
   assert.equal(costs["custom-tool"]! > 0.15, true);
 });
+

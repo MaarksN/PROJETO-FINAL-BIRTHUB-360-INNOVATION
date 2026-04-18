@@ -2,7 +2,7 @@
 // 
 import vm from "node:vm";
 
-import type { WorkflowRuntimeContext } from "../types.js";
+import type { WorkflowRuntimeContext } from "../types";
 
 interface CodeNodeConfig {
   source: string;

@@ -1,14 +1,14 @@
 import { resolve } from "node:path";
 
-import { readRequiredEnv } from "./env.js";
-import { databasePackageRoot } from "./paths.js";
+import { readRequiredEnv } from "./env";
+import { databasePackageRoot } from "./paths";
 import {
   getPrismaCommand,
   type CommandResult,
   type CommandSpec,
   runCommand
-} from "./process.js";
-import { writeJsonReport } from "./report.js";
+} from "./process";
+import { writeJsonReport } from "./report";
 
 type RuntimeLogger = {
   error: (...args: unknown[]) => void;

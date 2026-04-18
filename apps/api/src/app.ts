@@ -10,20 +10,20 @@ import {
   createDeepHealthService,
   createHealthService,
   createReadinessHealthService
-} from "./lib/health.js";
-import { enqueueTask } from "./lib/queue.js";
+} from "./lib/health";
+import { enqueueTask } from "./lib/queue";
 import {
   configureAppInfrastructure,
   registerGlobalErrorHandling,
   registerOperationalRoutes
-} from "./app/core.js";
-import { mountModuleRouters } from "./app/module-routes.js";
-import { createTasksRouter } from "./modules/tasks/router.js";
+} from "./app/core";
+import { mountModuleRouters } from "./app/module-routes";
+import { createTasksRouter } from "./modules/tasks/router";
 import {
   initializeOpenTelemetry as defaultInitializeOpenTelemetry,
   shutdownOpenTelemetry as defaultShutdownOpenTelemetry
-} from "./observability/otel.js";
-import { initializeApiSentry as defaultInitializeApiSentry } from "./observability/sentry.js";
+} from "./observability/otel";
+import { initializeApiSentry as defaultInitializeApiSentry } from "./observability/sentry";
 
 export interface AppDependencies {
   config?: ApiConfig;

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWorkerConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
@@ -162,3 +162,4 @@ export async function exportDailyBillingInvoices(
     }
   };
 }
+

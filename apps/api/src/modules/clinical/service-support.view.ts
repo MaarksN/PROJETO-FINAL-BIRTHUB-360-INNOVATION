@@ -13,7 +13,7 @@ import {
   type NeonatalRecordModel,
   type PatientRecord,
   type PregnancyRecordModel
-} from "./service-support.js";
+} from "./service-support";
 
 export function serializePatient(record: PatientRecord) {
   return {

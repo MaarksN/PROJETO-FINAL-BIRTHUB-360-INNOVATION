@@ -9,10 +9,10 @@ import {
   prisma
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { getRoleForUser } from "../auth/auth.service.js";
-import { hashPassword, randomToken } from "../auth/crypto.js";
-import { cancelBillingForOrganization } from "../billing/service.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { getRoleForUser } from "../auth/auth.service";
+import { hashPassword, randomToken } from "../auth/crypto";
+import { cancelBillingForOrganization } from "../billing/service";
 
 const PRIVACY_DELETE_CONFIRMATION = "EXCLUIR MINHA CONTA";
 

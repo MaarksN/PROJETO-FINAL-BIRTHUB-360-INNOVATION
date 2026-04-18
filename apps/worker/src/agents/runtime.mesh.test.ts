@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { MANIFEST_VERSION, parseAgentManifest } from "@birthub/agents-core";
 
-import { buildAgentMeshExecutionBlueprint } from "./runtime.mesh.js";
+import { buildAgentMeshExecutionBlueprint } from "./runtime.mesh";
 
 function createCatalogEntry(input: {
   description: string;

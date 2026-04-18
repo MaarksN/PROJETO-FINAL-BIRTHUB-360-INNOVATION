@@ -3,8 +3,8 @@
 import type { ApiConfig } from "@birthub/config";
 import { prisma } from "@birthub/database";
 
-import { enqueueCrmSync } from "../engagement/queues.js";
-import { createConnectSession, finalizeConnectSession } from "./service.oauth.js";
+import { enqueueCrmSync } from "../engagement/queues";
+import { createConnectSession, finalizeConnectSession } from "./service.oauth";
 import {
   normalizeCredentials,
   parseConnectorOauthState,
@@ -15,7 +15,7 @@ import {
   type ConnectorCredentialsRecord,
   type ConnectorOauthState,
   type ConnectorProvider
-} from "./service.shared.js";
+} from "./service.shared";
 
 export type { ConnectorOauthState, ConnectorProvider };
 export { parseConnectorOauthState };

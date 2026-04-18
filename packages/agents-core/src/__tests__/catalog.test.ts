@@ -13,9 +13,9 @@ import {
   recommendAgentsForTenant,
   searchManifestCatalog,
   type ManifestCatalogEntry
-} from "../manifest/catalog.js";
-import { parseAgentManifest } from "../manifest/parser.js";
-import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema.js";
+} from "../manifest/catalog";
+import { parseAgentManifest } from "../manifest/parser";
+import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema";
 
 type ManifestOverrides = {
   agent?: Partial<AgentManifest["agent"]>;

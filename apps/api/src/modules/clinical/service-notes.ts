@@ -6,7 +6,7 @@ import {
   withTenantDatabaseContext
 } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
 import {
   CLINICAL_NOTE_KIND,
   CLINICAL_NOTE_LIST_PAGE_LIMIT,
@@ -17,18 +17,18 @@ import {
   type ClinicalContext,
   type ClinicalNoteKind,
   type ClinicalNoteRecord
-} from "./service-support.js";
-import { serializeClinicalNote } from "./service-support.view.js";
+} from "./service-support";
+import { serializeClinicalNote } from "./service-support.view";
 import {
   asClinicalTransaction,
   buildClinicalNoteSelect,
   ensureClinicalRuntimeAvailable
-} from "./service-runtime.js";
+} from "./service-runtime";
 import {
   findActivePregnancy,
   getClinicalNoteRecord,
   listClinicalNoteHistoryRecords
-} from "./service-runtime.records.js";
+} from "./service-runtime.records";
 
 type ClinicalNotePayload = {
   appointmentId?: string | null;

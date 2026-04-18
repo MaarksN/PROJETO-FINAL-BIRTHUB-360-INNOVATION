@@ -7,8 +7,8 @@ import { createHmac, randomBytes } from "node:crypto";
 import {
   hashPayload,
   validateLegacyTaskJob
-} from "./worker.job-validation.js";
-import { calculateGraceBoundary } from "./worker.billing.js";
+} from "./worker.job-validation";
+import { calculateGraceBoundary } from "./worker.billing";
 
 void test("validateLegacyTaskJob accepts signed payloads with matching tenant context", () => {
   const sharedSecret = randomBytes(32).toString("hex");

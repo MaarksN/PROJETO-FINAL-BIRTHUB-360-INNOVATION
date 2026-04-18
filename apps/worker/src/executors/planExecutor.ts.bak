@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { type BaseTool } from "@birthub/agents-core/tools";
 import { createLogger } from "@birthub/logger";
@@ -465,3 +465,4 @@ export class PlanExecutor {
     }
   }
 }
+

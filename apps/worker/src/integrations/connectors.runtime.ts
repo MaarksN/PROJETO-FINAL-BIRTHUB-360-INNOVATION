@@ -6,8 +6,8 @@ import type { ConnectorActionRequest } from "@birthub/workflows-core";
 import {
   createConversationMessage,
   ensureConversationThread
-} from "../agents/conversations.js";
-import { syncOrganizationToHubspot } from "./hubspot.js";
+} from "../agents/conversations";
+import { syncOrganizationToHubspot } from "./hubspot";
 
 function toJsonValue(value: unknown): Prisma.InputJsonValue {
   return value as Prisma.InputJsonValue;

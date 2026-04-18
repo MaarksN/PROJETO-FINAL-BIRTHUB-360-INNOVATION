@@ -1,9 +1,9 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { AgentManifestParseError, parseAgentManifest } from "../src/parser/manifestParser.js";
-import { SUPPORTED_AGENT_API_VERSION } from "../src/schemas/manifest.schema.js";
+import { AgentManifestParseError, parseAgentManifest } from "../src/parser/manifestParser";
+import { SUPPORTED_AGENT_API_VERSION } from "../src/schemas/manifest.schema";
 
 const validManifest = {
   apiVersion: SUPPORTED_AGENT_API_VERSION,

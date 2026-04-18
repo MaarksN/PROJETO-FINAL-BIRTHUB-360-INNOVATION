@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { ExpansionMapperAgent } from "../agent.js";
+import { ExpansionMapperAgent } from "../agent";
 import {
   DEFAULT_EXPANSIONMAPPER_CONTRACT,
   type ExpansionMapperInput,
   type MarketEvent
-} from "../schemas.js";
-import type { ExpansionMapperToolAdapters } from "../tools.js";
+} from "../schemas";
+import type { ExpansionMapperToolAdapters } from "../tools";
 
 const VALID_INPUT: ExpansionMapperInput = {
   constraints: {

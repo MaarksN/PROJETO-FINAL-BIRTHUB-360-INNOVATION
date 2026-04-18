@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 //
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";

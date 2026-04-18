@@ -10,16 +10,16 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { validateBody } from "../../middleware/validate-body.js";
-import { emitWorkflowInternalEvent } from "../webhooks/eventBus.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { validateBody } from "../../middleware/validate-body";
+import { emitWorkflowInternalEvent } from "../webhooks/eventBus";
 import {
   workflowCreateSchema,
   workflowRevertSchema,
   workflowRunSchema,
   workflowUpdateSchema
-} from "./schemas.js";
+} from "./schemas";
 import {
   archiveWorkflow,
   createWorkflow,
@@ -30,7 +30,7 @@ import {
   revertWorkflow,
   runWorkflowNow,
   updateWorkflow
-} from "./service.js";
+} from "./service";
 
 type WorkflowRouteRegistrar = (router: Router, config: ApiConfig) => void;
 

@@ -2,15 +2,15 @@
 // 
 import { prisma } from "@birthub/database";
 
-import { ProblemDetailsError } from "../../lib/problem-details.js";
-import { marketplaceService } from "../marketplace/marketplace-service.js";
-import { parseAgentConfig } from "./service.config.js";
-import { canFallbackDatabase, extractPayloadHash } from "./service.snapshot.js";
+import { ProblemDetailsError } from "../../lib/problem-details";
+import { marketplaceService } from "../marketplace/marketplace-service";
+import { parseAgentConfig } from "./service.config";
+import { canFallbackDatabase, extractPayloadHash } from "./service.snapshot";
 import type {
   AgentExecutionRecord,
   OrganizationRecord,
   ResolvedInstalledAgent
-} from "./service.types.js";
+} from "./service.types";
 
 export async function resolveOrganization(
   tenantReference: string

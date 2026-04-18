@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { isInstallableManifest } from "@birthub/agents-core";
 import { Prisma, prisma } from "@birthub/database";
@@ -451,3 +451,4 @@ export class PackInstallerService {
 }
 
 export const packInstallerService = new PackInstallerService();
+

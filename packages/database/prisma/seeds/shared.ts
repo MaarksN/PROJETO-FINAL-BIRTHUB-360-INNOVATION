@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 export {
   buildStagingTenants,
@@ -7,7 +7,7 @@ export {
   plans,
   seedPlanCatalog,
   smokeTenants
-} from "./shared-foundation.js";
-export type { SeedPlan, TenantSeed } from "./shared-foundation.js";
-export { ensureAgents, ensureUsers, ensureWorkflows } from "./shared-runtime.js";
-export { ensureBilling, ensureSupportArtifacts } from "./shared-ops.js";
+} from "./shared-foundation";
+export type { SeedPlan, TenantSeed } from "./shared-foundation";
+export { ensureAgents, ensureUsers, ensureWorkflows } from "./shared-runtime";
+export { ensureBilling, ensureSupportArtifacts } from "./shared-ops";

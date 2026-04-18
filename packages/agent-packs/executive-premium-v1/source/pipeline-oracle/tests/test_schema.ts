@@ -5,11 +5,11 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { PipelineOracleAgent } from "../agent.js";
+import { PipelineOracleAgent } from "../agent";
 import {
   PipelineOracleInputSchema,
   type PipelineOracleInput
-} from "../schemas.js";
+} from "../schemas";
 
 void test("PipelineOracle schema rejects missing required fields", () => {
   const invalidPayload = {

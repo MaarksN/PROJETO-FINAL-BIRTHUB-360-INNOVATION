@@ -6,7 +6,7 @@ import { prisma } from "@birthub/database";
 import {
   createBillingExportStorage,
   type BillingExportStorage
-} from "./billingExportStorage.js";
+} from "./billingExportStorage";
 
 function startOfUtcDay(date: Date): Date {
   return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));

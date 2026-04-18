@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -51,4 +51,5 @@ void test("Runner retry backoff is exponential and capped", () => {
   assert.equal(calculateBackoff(2), 4000);
   assert.equal(calculateBackoff(8), 60000);
 });
+
 

@@ -1,8 +1,8 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { PrismaClient } from "@prisma/client";
 
-import { developmentTenants, ensureOrganization, ensureWorkflows, seedPlanCatalog, type TenantSeed } from "./shared.js";
+import { developmentTenants, ensureOrganization, ensureWorkflows, seedPlanCatalog, type TenantSeed } from "./shared";
 
 export async function seedWorkflows(prisma: PrismaClient, tenants: TenantSeed[] = developmentTenants) {
   const planMap = await seedPlanCatalog(prisma);

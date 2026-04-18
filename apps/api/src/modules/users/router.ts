@@ -12,16 +12,16 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index.js";
-import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
-import { validateBody } from "../../middleware/validate-body.js";
+} from "../../common/guards/index";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details";
+import { validateBody } from "../../middleware/validate-body";
 import {
   canManageRole,
   getRoleForUser,
   revokeAllSessions,
   suspendUser,
   updateUserRoleWithAudit
-} from "../auth/auth.service.js";
+} from "../auth/auth.service";
 
 type ListedUser = {
   email: string;

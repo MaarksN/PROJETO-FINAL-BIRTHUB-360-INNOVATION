@@ -1,14 +1,14 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { PrismaClient } from "@prisma/client";
 
-import { buildStagingTenants, smokeTenants } from "./shared.js";
-import { seedAgents } from "./seed-agents.js";
-import { seedBilling } from "./seed-billing.js";
-import { seedSupportArtifacts } from "./seed-support.js";
-import { seedTenants } from "./seed-tenants.js";
-import { seedUsers } from "./seed-users.js";
-import { seedWorkflows } from "./seed-workflows.js";
+import { buildStagingTenants, smokeTenants } from "./shared";
+import { seedAgents } from "./seed-agents";
+import { seedBilling } from "./seed-billing";
+import { seedSupportArtifacts } from "./seed-support";
+import { seedTenants } from "./seed-tenants";
+import { seedUsers } from "./seed-users";
+import { seedWorkflows } from "./seed-workflows";
 
 export type SeedProfile = "ci" | "development" | "smoke" | "staging";
 

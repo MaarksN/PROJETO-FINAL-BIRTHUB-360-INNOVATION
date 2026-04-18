@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 
-import { F8_CONFIG, type MigrationSeverity } from "../../f8.config.js";
-import { migrationRegistryPath, migrationsDir } from "./paths.js";
+import { F8_CONFIG, type MigrationSeverity } from "../../f8.config";
+import { migrationRegistryPath, migrationsDir } from "./paths";
 
 export interface MigrationRegistryEntry {
   environments: string[];

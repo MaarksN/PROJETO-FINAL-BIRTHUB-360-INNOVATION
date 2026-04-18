@@ -1,6 +1,6 @@
 import { type Prisma, prisma } from "@birthub/database";
 
-import { invalidateTenantCache } from "./tenant-cache.js";
+import { invalidateTenantCache } from "./tenant-cache";
 
 let middlewareRegistered = false;
 const CACHE_INVALIDATION_LOOKUP_LIMIT = 500;

@@ -1,9 +1,9 @@
-// @ts-nocheck
+// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Role, WorkflowStatus, WorkflowStepType, WorkflowTransitionRoute, WorkflowTriggerType } from "@prisma/client";
 import { createHash } from "node:crypto";
 
-import type { PlanSeed, SeedWorkflowDefinition, TenantSeed } from "./types.js";
+import type { PlanSeed, SeedWorkflowDefinition, TenantSeed } from "./types";
 
 export const plans: PlanSeed[] = [
   {
