@@ -1,4 +1,4 @@
-﻿
+
 "use client";
 
 import "reactflow/dist/style.css";
@@ -203,7 +203,7 @@ function WorkflowEditorCanvas({
             value={workflowName}
           />
           <div style={{ fontSize: 12, opacity: 0.85 }}>
-            Status atual: {workflowStatus} Â· editor persistido no backend real.
+            Status atual: {workflowStatus} · editor persistido no backend real.
           </div>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
@@ -424,7 +424,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
         if (attempts > 10) {
           clearInterval(poll);
           setSimulating(false);
-          setLoadingError("SimulaÃ§Ã£o demorou muito.");
+          setLoadingError("Simulação demorou muito.");
           return;
         }
 
@@ -508,7 +508,7 @@ export default function WorkflowEditPage({ params }: { params: Promise<{ id: str
           <div style={{ background: "#fff", padding: "2rem", borderRadius: 16, width: 400, display: "grid", gap: "1rem" }}>
             <h3 style={{ margin: 0 }}>Simular Dry Run</h3>
             <p style={{ margin: 0, fontSize: 13, color: "#455a64" }}>
-              Insira o payload JSON de entrada. Side-effects (como chamadas HTTP reais) serÃ£o pulados. O resultado serÃ¡ projetado no canvas!
+              Insira o payload JSON de entrada. Side-effects (como chamadas HTTP reais) serão pulados. O resultado será projetado no canvas!
             </p>
             <textarea
               rows={8}
