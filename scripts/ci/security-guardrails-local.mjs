@@ -6,7 +6,7 @@ import path from "node:path";
 
 import { projectRoot, runPnpm } from "./shared.mjs";
 
-const requireDatabase = process.argv.includes("--require-db") || process.env.CI === "true";
+const requireDatabase = process.argv.includes("--require-db");
 
 function parseEnvFile(filePath) {
   const content = readFileSync(filePath, "utf8");

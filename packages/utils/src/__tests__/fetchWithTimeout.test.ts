@@ -10,7 +10,7 @@ void test("fetchWithTimeout resolves when the request finishes before the timeou
   globalThis.fetch = (_input, init) => {
     callCount += 1;
     assert.equal(init?.signal?.aborted, false);
-    return new Response("ok", { status: 200 });
+    return Promise.resolve(new Response("ok", { status: 200 }));
   };
 
   try {
@@ -93,7 +93,7 @@ void test("fetchWithTimeout skips timeout wiring when the provided timeout is no
 
   globalThis.fetch = (_input, providedInit) => {
     receivedInit = providedInit as FetchWithTimeoutInit;
-    return new Response("ok", { status: 200 });
+    return Promise.resolve(new Response("ok", { status: 200 }));
   };
 
   try {
@@ -106,4 +106,3 @@ void test("fetchWithTimeout skips timeout wiring when the provided timeout is no
     globalThis.fetch = originalFetch;
   }
 });
-
