@@ -1,6 +1,10 @@
 {
+  "outDir": "./dist",
   "compilerOptions": {
+  "outDir": "./dist",
     "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": { "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
+    "paths": {
+  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
   }
 }
+

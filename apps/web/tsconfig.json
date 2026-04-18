@@ -1,13 +1,17 @@
 {
+  "outDir": "./dist",
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+  "outDir": "./dist",
     "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": { "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
+    "paths": {
+  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
     "allowImportingTsExtensions": true,
     "incremental": false,
     "moduleResolution": "bundler",
     "plugins": [
       {
+  "outDir": "./dist",
         "name": "next"
       }
     ]
@@ -22,3 +26,4 @@
     "node_modules"
   ]
 }
+

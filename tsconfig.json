@@ -1,8 +1,11 @@
 {
+  "outDir": "./dist",
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+  "outDir": "./dist",
     "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": { "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
+    "paths": {
+  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
     "allowJs": true,
     "noEmit": true,
     "module": "esnext",
@@ -26,3 +29,4 @@
     ".turbo"
   ]
 }
+
