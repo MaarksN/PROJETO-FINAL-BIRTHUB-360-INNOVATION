@@ -1,6 +1,6 @@
 import { Role, type Membership } from "@prisma/client";
 
-import { prisma } from "../client";
+import { prisma } from "../client.js";
 
 const rolePriority: Record<Role, number> = {
   ADMIN: 3,

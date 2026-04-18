@@ -9,7 +9,7 @@ import {
   type PrismaClient
 } from "@prisma/client";
 
-import { prisma } from "../client";
+import { prisma } from "../client.js";
 
 type JsonObject = Prisma.InputJsonValue | undefined;
 const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;

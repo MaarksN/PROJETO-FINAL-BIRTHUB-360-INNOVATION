@@ -68,23 +68,6 @@ function resolvePnpmCommand(): { args: string[]; command: string } {
   };
 }
 
-function resolveWorkspaceRoot(startDirectory: string): string {
-  let currentDirectory = startDirectory;
-
-  while (true) {
-    if (existsSync(resolve(currentDirectory, "pnpm-workspace.yaml"))) {
-      return currentDirectory;
-    }
-
-    const parentDirectory = resolve(currentDirectory, "..");
-    if (parentDirectory === currentDirectory) {
-      throw new Error("Unable to resolve workspace root for testing database helper.");
-    }
-
-    currentDirectory = parentDirectory;
-  }
-}
-
 function createPrismaForTest(databaseUrl: string): PrismaClient {
   return createPrismaClient({ databaseUrl });
 }

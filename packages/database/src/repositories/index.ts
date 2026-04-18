@@ -1,3 +1,3 @@
-export * from "./access-control";
-export * from "./engagement";
-export * from "./user-repository";
+export * from "./access-control.js";
+export * from "./engagement.js";
+export * from "./user-repository.js";

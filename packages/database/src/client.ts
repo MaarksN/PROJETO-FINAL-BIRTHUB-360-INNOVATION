@@ -10,9 +10,9 @@ import { createLogger } from "@birthub/logger";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Prisma, PrismaClient } from "@prisma/client";
 
-import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error";
-import { createPrismaProxy } from "./prisma-proxy";
-import { requireTenantId } from "./tenant-context";
+import { PrismaQueryTimeoutError } from "./errors/prisma-query-timeout.error.js";
+import { createPrismaProxy } from "./prisma-proxy.js";
+import { requireTenantId } from "./tenant-context.js";
 
 export { Prisma, PrismaClient } from "@prisma/client";
 

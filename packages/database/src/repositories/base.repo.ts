@@ -1,5 +1,5 @@
-import { TenantRequiredError } from "../errors/tenant-required.error";
-import { requireTenantId } from "../tenant-context";
+import { TenantRequiredError } from "../errors/tenant-required.error.js";
+import { requireTenantId } from "../tenant-context.js";
 
 type TenantScopedWhere = { tenantId?: string } & Record<string, unknown>;
 type TenantScopedData = { tenantId?: string } & Record<string, unknown>;
