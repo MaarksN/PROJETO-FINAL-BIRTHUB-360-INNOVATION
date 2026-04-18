@@ -1,0 +1,1601 @@
+{
+  "env_files": [
+    ".env.example",
+    ".env.vps.example",
+    "ops/env/.env.staging.sealed.example",
+    "ops/env/.env.production.sealed.example",
+    "ops/release/sealed/.env.production.sealed",
+    "ops/release/sealed/.env.staging.sealed",
+    "scripts/release/.env.staging.template",
+    "scripts/release/.env.production.template",
+    "artifacts/audit/files_analysis/_root/.env.staging.mock.md",
+    "artifacts/audit/files_analysis/_root/.env.production.mock.md",
+    "artifacts/audit/files_analysis/_root/.env.example.md",
+    "artifacts/audit/files_analysis/_root/.env.vps.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.production.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.staging.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/release/sealed/.env.production.sealed.md",
+    "artifacts/audit/files_analysis/ops/release/sealed/.env.staging.sealed.md"
+  ],
+  "example_files": [
+    ".env.example",
+    ".env.vps.example",
+    "ops/env/.env.staging.sealed.example",
+    "ops/env/.env.production.sealed.example",
+    "artifacts/audit/files_analysis/_root/.env.example.md",
+    "artifacts/audit/files_analysis/_root/.env.vps.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.production.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.staging.sealed.example.md"
+  ],
+  "used_vars": [
+    "ALLOW_DESTRUCTIVE_DB_VALIDATION",
+    "ALLOW_DESTRUCTIVE_SEED",
+    "API_HEALTH_URL",
+    "API_PORT",
+    "APPDATA",
+    "BIRTHHUB_HTML_PATH",
+    "BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART",
+    "BIRTHUB_ENABLE_DB_TESTS",
+    "BIRTHUB_REQUIRE_RLS_TESTS",
+    "C",
+    "CI",
+    "COMMIT_CHECK_BASE",
+    "COREPACK_HOME",
+    "CSP_REPORT_URI",
+    "DAST_TARGET_STRATEGY",
+    "DAST_TARGET_URL",
+    "DATABASE_CONNECTION_LIMIT",
+    "DATABASE_URL",
+    "DATABASE_URL_DEV",
+    "DATABASE_URL_PROD",
+    "DATABASE_URL_STAGING",
+    "DATASET_EXPORT_UPLOAD_TOKEN",
+    "DATASET_EXPORT_UPLOAD_URL",
+    "DB_APP_PASSWORD",
+    "DB_APP_ROLE",
+    "DEEPGRAM_API_KEY",
+    "DOC_LINKS_BASE",
+    "GEMINI_API_KEY",
+    "GITHUB_BASE_REF",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_EVENT_PATH",
+    "GITHUB_HEAD_REF",
+    "GITHUB_REF",
+    "GITHUB_REF_NAME",
+    "LEGACY_AUTH_SAMPLE_PASSWORD",
+    "LOCALAPPDATA",
+    "LOCKFILE_SECURITY_LABEL",
+    "LOG_LEVEL",
+    "LOG_SAMPLE_RATE",
+    "MUTATION_INCLUDE_API_AUTH",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_CSP_REPORT_ONLY",
+    "NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE",
+    "NEXT_PUBLIC_ENVIRONMENT",
+    "NEXT_PUBLIC_POSTHOG_HOST",
+    "NEXT_PUBLIC_POSTHOG_KEY",
+    "NEXT_RUNTIME",
+    "NODE_ENV",
+    "NODE_OPTIONS",
+    "OVERLOAD_CHUNK_SIZE",
+    "OVERLOAD_JOBS",
+    "OVERLOAD_MAX_WAIT_MS",
+    "OVERLOAD_POLL_INTERVAL_MS",
+    "P",
+    "PATH",
+    "PORT",
+    "PRISMA_QUERY_TIMEOUT_MIGRATION_MS",
+    "PRISMA_QUERY_TIMEOUT_MS",
+    "PRISMA_QUERY_TIMEOUT_REPORT_MS",
+    "QUEUE_NAME",
+    "REDIS_URL",
+    "RELEASE_SCORECARD_MIN_SCORE",
+    "REPO_HYGIENE_BASE",
+    "REQUIRE_DAST",
+    "RUNTIME_TEST_AGENT_ID",
+    "RUNTIME_TEST_EXECUTION_ID",
+    "RUNTIME_TEST_ORGANIZATION_ID",
+    "RUNTIME_TEST_TENANT_ID",
+    "RUNTIME_TEST_USER_ID",
+    "SEED_PROFILE",
+    "SKIP_WEB_SERVER",
+    "SOURCE_DATE_EPOCH",
+    "TWILIO_AUTH_TOKEN",
+    "USERPROFILE",
+    "WEB_BASE_URL",
+    "WEB_PORT",
+    "ZAP_TARGET_URL"
+  ],
+  "documented_vars": [
+    "AGENT_CIRCUIT_BREAKER_COOLDOWN_MS",
+    "AGENT_CIRCUIT_BREAKER_FAILURES",
+    "AGENT_DEFAULT_TOOL_COST_BRL",
+    "AGENT_EXECUTION_TIMEOUT_MS",
+    "AGENT_MAX_COST_BRL",
+    "AGENT_MAX_PLAN_STEPS",
+    "AGENT_TOOL_RETRY_ATTEMPTS",
+    "API_AUTH_COOKIE_NAME",
+    "API_AUTH_REFRESH_COOKIE_NAME",
+    "API_AUTH_ROTATION_GRACE_HOURS",
+    "API_AUTH_SESSION_TTL_HOURS",
+    "API_AUTH_TOKEN_TTL_MINUTES",
+    "API_CORS_ORIGINS",
+    "API_CSRF_COOKIE_NAME",
+    "API_CSRF_HEADER_NAME",
+    "API_DOMAIN",
+    "API_HANDLER_TIMEOUT_MS",
+    "API_JSON_BODY_LIMIT",
+    "API_KEY_PREFIX",
+    "API_KEY_RATE_LIMIT_MAX",
+    "API_LOGIN_RATE_LIMIT_MAX",
+    "API_LOGIN_RATE_LIMIT_WINDOW_MS",
+    "API_PORT",
+    "API_RATE_LIMIT_MAX",
+    "API_RATE_LIMIT_WINDOW_MS",
+    "API_WEBHOOK_RATE_LIMIT_MAX",
+    "API_WEBHOOK_RATE_LIMIT_TENANT_MULTIPLIER",
+    "API_WEBHOOK_RATE_LIMIT_WINDOW_MS",
+    "APP_DOMAIN",
+    "AUTH_BCRYPT_SALT_ROUNDS",
+    "AUTH_MFA_CHALLENGE_TTL_SECONDS",
+    "AUTH_MFA_CLOCK_SKEW_WINDOWS",
+    "AUTH_MFA_ENCRYPTION_KEY",
+    "AUTH_MFA_ISSUER",
+    "BILLING_EXPORT_LOCAL_DIR",
+    "BILLING_EXPORT_S3_BUCKET",
+    "BILLING_EXPORT_S3_ENDPOINT",
+    "BILLING_EXPORT_S3_PREFIX",
+    "BILLING_EXPORT_S3_REGION",
+    "BILLING_EXPORT_STORAGE_MODE",
+    "BILLING_GRACE_PERIOD_DAYS",
+    "BILLING_STATUS_CACHE_TTL_SECONDS",
+    "BIRTHUB_ENABLE_CLINICAL_WORKSPACE",
+    "BIRTHUB_ENABLE_FHIR_FACADE",
+    "BIRTHUB_ENABLE_PRIVACY_ADVANCED",
+    "BIRTHUB_ENABLE_PRIVACY_SELF_SERVICE",
+    "CADDY_EMAIL",
+    "CSP_REPORT_URI",
+    "DATABASE_CONNECTION_LIMIT",
+    "DATABASE_URL",
+    "DATASET_EXPORT_UPLOAD_TOKEN",
+    "DATASET_EXPORT_UPLOAD_URL",
+    "DEPLOYMENT_ENVIRONMENT",
+    "DIRECT_DATABASE_URL",
+    "EMAIL_FROM_ADDRESS",
+    "EXTERNAL_HEALTHCHECK_URLS",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REDIRECT_URI",
+    "HUBSPOT_ACCESS_TOKEN",
+    "HUBSPOT_BASE_URL",
+    "HUBSPOT_CLIENT_ID",
+    "HUBSPOT_CLIENT_SECRET",
+    "HUBSPOT_REDIRECT_URI",
+    "JOB_HMAC_GLOBAL_SECRET",
+    "LOG_LEVEL",
+    "MICROSOFT_CLIENT_ID",
+    "MICROSOFT_CLIENT_SECRET",
+    "MICROSOFT_REDIRECT_URI",
+    "NEXTAUTH_SECRET",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_CSP_REPORT_ONLY",
+    "NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE",
+    "NEXT_PUBLIC_ENABLE_FHIR_FACADE",
+    "NEXT_PUBLIC_ENABLE_PRIVACY_ADVANCED",
+    "NEXT_PUBLIC_ENABLE_PRIVACY_SELF_SERVICE",
+    "NEXT_PUBLIC_ENVIRONMENT",
+    "NEXT_PUBLIC_POSTHOG_HOST",
+    "NEXT_PUBLIC_POSTHOG_KEY",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE",
+    "NODE_ENV",
+    "OTEL_EXPORTER_OTLP_ENDPOINT",
+    "OTEL_SERVICE_NAME",
+    "QUEUE_BACKPRESSURE_THRESHOLD",
+    "QUEUE_NAME",
+    "REDIS_URL",
+    "RENDER_PRODUCTION_DEPLOY_HOOK_URL",
+    "RENDER_STAGING_DEPLOY_HOOK_URL",
+    "REQUIRE_SECURE_COOKIES",
+    "SENDGRID_API_KEY",
+    "SENTRY_AUTH_TOKEN",
+    "SENTRY_DSN",
+    "SENTRY_ENVIRONMENT",
+    "SESSION_SECRET",
+    "STRIPE_CANCEL_URL",
+    "STRIPE_DECLINE_BAN_THRESHOLD",
+    "STRIPE_PORTAL_RETURN_URL",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_SUCCESS_URL",
+    "STRIPE_TEMP_BAN_SECONDS",
+    "STRIPE_WEBHOOK_SECRET",
+    "TENANT_QUEUE_RATE_LIMIT_MAX",
+    "TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS",
+    "UPTIMEROBOT_API_TOKEN",
+    "WEBHOOK_TIMEOUT_MS",
+    "WEB_BASE_URL",
+    "WEB_PORT",
+    "WORKER_CONCURRENCY"
+  ],
+  "used_not_documented": [
+    "ALLOW_DESTRUCTIVE_DB_VALIDATION",
+    "ALLOW_DESTRUCTIVE_SEED",
+    "API_HEALTH_URL",
+    "APPDATA",
+    "BIRTHHUB_HTML_PATH",
+    "BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART",
+    "BIRTHUB_ENABLE_DB_TESTS",
+    "BIRTHUB_REQUIRE_RLS_TESTS",
+    "C",
+    "CI",
+    "COMMIT_CHECK_BASE",
+    "COREPACK_HOME",
+    "DAST_TARGET_STRATEGY",
+    "DAST_TARGET_URL",
+    "DATABASE_URL_DEV",
+    "DATABASE_URL_PROD",
+    "DATABASE_URL_STAGING",
+    "DB_APP_PASSWORD",
+    "DB_APP_ROLE",
+    "DEEPGRAM_API_KEY",
+    "DOC_LINKS_BASE",
+    "GEMINI_API_KEY",
+    "GITHUB_BASE_REF",
+    "GITHUB_EVENT_NAME",
+    "GITHUB_EVENT_PATH",
+    "GITHUB_HEAD_REF",
+    "GITHUB_REF",
+    "GITHUB_REF_NAME",
+    "LEGACY_AUTH_SAMPLE_PASSWORD",
+    "LOCALAPPDATA",
+    "LOCKFILE_SECURITY_LABEL",
+    "LOG_SAMPLE_RATE",
+    "MUTATION_INCLUDE_API_AUTH",
+    "NEXT_RUNTIME",
+    "NODE_OPTIONS",
+    "OVERLOAD_CHUNK_SIZE",
+    "OVERLOAD_JOBS",
+    "OVERLOAD_MAX_WAIT_MS",
+    "OVERLOAD_POLL_INTERVAL_MS",
+    "P",
+    "PATH",
+    "PORT",
+    "PRISMA_QUERY_TIMEOUT_MIGRATION_MS",
+    "PRISMA_QUERY_TIMEOUT_MS",
+    "PRISMA_QUERY_TIMEOUT_REPORT_MS",
+    "RELEASE_SCORECARD_MIN_SCORE",
+    "REPO_HYGIENE_BASE",
+    "REQUIRE_DAST",
+    "RUNTIME_TEST_AGENT_ID",
+    "RUNTIME_TEST_EXECUTION_ID",
+    "RUNTIME_TEST_ORGANIZATION_ID",
+    "RUNTIME_TEST_TENANT_ID",
+    "RUNTIME_TEST_USER_ID",
+    "SEED_PROFILE",
+    "SKIP_WEB_SERVER",
+    "SOURCE_DATE_EPOCH",
+    "TWILIO_AUTH_TOKEN",
+    "USERPROFILE",
+    "ZAP_TARGET_URL"
+  ],
+  "documented_not_used": [
+    "AGENT_CIRCUIT_BREAKER_COOLDOWN_MS",
+    "AGENT_CIRCUIT_BREAKER_FAILURES",
+    "AGENT_DEFAULT_TOOL_COST_BRL",
+    "AGENT_EXECUTION_TIMEOUT_MS",
+    "AGENT_MAX_COST_BRL",
+    "AGENT_MAX_PLAN_STEPS",
+    "AGENT_TOOL_RETRY_ATTEMPTS",
+    "API_AUTH_COOKIE_NAME",
+    "API_AUTH_REFRESH_COOKIE_NAME",
+    "API_AUTH_ROTATION_GRACE_HOURS",
+    "API_AUTH_SESSION_TTL_HOURS",
+    "API_AUTH_TOKEN_TTL_MINUTES",
+    "API_CORS_ORIGINS",
+    "API_CSRF_COOKIE_NAME",
+    "API_CSRF_HEADER_NAME",
+    "API_DOMAIN",
+    "API_HANDLER_TIMEOUT_MS",
+    "API_JSON_BODY_LIMIT",
+    "API_KEY_PREFIX",
+    "API_KEY_RATE_LIMIT_MAX",
+    "API_LOGIN_RATE_LIMIT_MAX",
+    "API_LOGIN_RATE_LIMIT_WINDOW_MS",
+    "API_RATE_LIMIT_MAX",
+    "API_RATE_LIMIT_WINDOW_MS",
+    "API_WEBHOOK_RATE_LIMIT_MAX",
+    "API_WEBHOOK_RATE_LIMIT_TENANT_MULTIPLIER",
+    "API_WEBHOOK_RATE_LIMIT_WINDOW_MS",
+    "APP_DOMAIN",
+    "AUTH_BCRYPT_SALT_ROUNDS",
+    "AUTH_MFA_CHALLENGE_TTL_SECONDS",
+    "AUTH_MFA_CLOCK_SKEW_WINDOWS",
+    "AUTH_MFA_ENCRYPTION_KEY",
+    "AUTH_MFA_ISSUER",
+    "BILLING_EXPORT_LOCAL_DIR",
+    "BILLING_EXPORT_S3_BUCKET",
+    "BILLING_EXPORT_S3_ENDPOINT",
+    "BILLING_EXPORT_S3_PREFIX",
+    "BILLING_EXPORT_S3_REGION",
+    "BILLING_EXPORT_STORAGE_MODE",
+    "BILLING_GRACE_PERIOD_DAYS",
+    "BILLING_STATUS_CACHE_TTL_SECONDS",
+    "BIRTHUB_ENABLE_CLINICAL_WORKSPACE",
+    "BIRTHUB_ENABLE_FHIR_FACADE",
+    "BIRTHUB_ENABLE_PRIVACY_ADVANCED",
+    "BIRTHUB_ENABLE_PRIVACY_SELF_SERVICE",
+    "CADDY_EMAIL",
+    "DEPLOYMENT_ENVIRONMENT",
+    "DIRECT_DATABASE_URL",
+    "EMAIL_FROM_ADDRESS",
+    "EXTERNAL_HEALTHCHECK_URLS",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REDIRECT_URI",
+    "HUBSPOT_ACCESS_TOKEN",
+    "HUBSPOT_BASE_URL",
+    "HUBSPOT_CLIENT_ID",
+    "HUBSPOT_CLIENT_SECRET",
+    "HUBSPOT_REDIRECT_URI",
+    "JOB_HMAC_GLOBAL_SECRET",
+    "MICROSOFT_CLIENT_ID",
+    "MICROSOFT_CLIENT_SECRET",
+    "MICROSOFT_REDIRECT_URI",
+    "NEXTAUTH_SECRET",
+    "NEXT_PUBLIC_ENABLE_FHIR_FACADE",
+    "NEXT_PUBLIC_ENABLE_PRIVACY_ADVANCED",
+    "NEXT_PUBLIC_ENABLE_PRIVACY_SELF_SERVICE",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE",
+    "OTEL_EXPORTER_OTLP_ENDPOINT",
+    "OTEL_SERVICE_NAME",
+    "QUEUE_BACKPRESSURE_THRESHOLD",
+    "RENDER_PRODUCTION_DEPLOY_HOOK_URL",
+    "RENDER_STAGING_DEPLOY_HOOK_URL",
+    "REQUIRE_SECURE_COOKIES",
+    "SENDGRID_API_KEY",
+    "SENTRY_AUTH_TOKEN",
+    "SENTRY_DSN",
+    "SENTRY_ENVIRONMENT",
+    "SESSION_SECRET",
+    "STRIPE_CANCEL_URL",
+    "STRIPE_DECLINE_BAN_THRESHOLD",
+    "STRIPE_PORTAL_RETURN_URL",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_SUCCESS_URL",
+    "STRIPE_TEMP_BAN_SECONDS",
+    "STRIPE_WEBHOOK_SECRET",
+    "TENANT_QUEUE_RATE_LIMIT_MAX",
+    "TENANT_QUEUE_RATE_LIMIT_WINDOW_SECONDS",
+    "UPTIMEROBOT_API_TOKEN",
+    "WEBHOOK_TIMEOUT_MS",
+    "WORKER_CONCURRENCY"
+  ],
+  "tracked_env_files": [
+    ".env.example",
+    ".env.vps.example",
+    "artifacts/audit/files_analysis/_root/.env.example.md",
+    "artifacts/audit/files_analysis/_root/.env.production.mock.md",
+    "artifacts/audit/files_analysis/_root/.env.staging.mock.md",
+    "artifacts/audit/files_analysis/_root/.env.vps.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.production.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/env/.env.staging.sealed.example.md",
+    "artifacts/audit/files_analysis/ops/release/sealed/.env.production.sealed.md",
+    "artifacts/audit/files_analysis/ops/release/sealed/.env.staging.sealed.md",
+    "ops/env/.env.production.sealed.example",
+    "ops/env/.env.staging.sealed.example",
+    "ops/release/sealed/.env.production.sealed",
+    "ops/release/sealed/.env.staging.sealed",
+    "scripts/release/.env.production.template",
+    "scripts/release/.env.staging.template"
+  ],
+  "gitignore_has_env": true,
+  "secret_hits": [
+    {
+      "file": ".env.example",
+      "line": 103,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1?pgbouncer=true"
+    },
+    {
+      "file": ".env.example",
+      "line": 106,
+      "type": "url_creds",
+      "snippet": "DIRECT_DATABASE_URL=postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".env.example",
+      "line": 121,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=replace-me-in-production"
+    },
+    {
+      "file": ".env.example",
+      "line": 163,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET=replace-me-in-production"
+    },
+    {
+      "file": ".env.example",
+      "line": 175,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET=whsec_replace"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 49,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://birthhub:use-a-real-password@postgres-provider.example.com:5432/birthhub?sslmode=require"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 50,
+      "type": "url_creds",
+      "snippet": "DIRECT_DATABASE_URL=postgresql://birthhub:use-a-real-password@postgres-provider.example.com:5432/birthhub?sslmode=require"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 53,
+      "type": "url_creds",
+      "snippet": "REDIS_URL=rediss://default:use-a-real-password@redis-provider.example.com:6379"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 58,
+      "type": "generic_secret",
+      "snippet": "NEXTAUTH_SECRET=replace-with-64-char-hex"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 59,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=replace-with-64-char-hex"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 61,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET=replace-with-64-char-hex"
+    },
+    {
+      "file": ".env.vps.example",
+      "line": 67,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET=whsec_replace_with_real_value"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 176,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 207,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 214,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 221,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 242,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 291,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 297,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 304,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 311,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 350,
+      "type": "generic_secret",
+      "snippet": "INTERNAL_SERVICE_TOKEN: ci-service-token"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 353,
+      "type": "generic_secret",
+      "snippet": "SVIX_WEBHOOK_SECRET: svix-test-secret"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 364,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 409,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 414,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 421,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 428,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 440,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 480,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 481,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 489,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 490,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 497,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 509,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 559,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 564,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 571,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_coverage"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 578,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 584,
+      "type": "generic_secret",
+      "snippet": "INTERNAL_SERVICE_TOKEN: ci-service-token"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 587,
+      "type": "generic_secret",
+      "snippet": "SVIX_WEBHOOK_SECRET: svix-test-secret"
+    },
+    {
+      "file": ".github/workflows/security-scan.yml",
+      "line": 112,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": ".github/workflows/security-scan.yml",
+      "line": 152,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3"
+    },
+    {
+      "file": ".github/workflows/security-scan.yml",
+      "line": 158,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3"
+    },
+    {
+      "file": ".github/workflows/security-scan.yml",
+      "line": 161,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": "apps/api/src/lib/database-availability.ts",
+      "line": 8,
+      "type": "url_creds",
+      "snippet": "\"postgresql://postgres:postgres@localhost:5432/birthub?schema=public\";"
+    },
+    {
+      "file": "apps/api/src/lib/encryption.ts",
+      "line": 102,
+      "type": "generic_secret",
+      "snippet": "const parsedToken = parseDelimitedEncryptedConnectorToken(rawPayload);"
+    },
+    {
+      "file": "apps/api/src/lib/encryption.ts",
+      "line": 149,
+      "type": "generic_secret",
+      "snippet": "const parsedToken = parseEncryptedConnectorToken(encryptedText);"
+    },
+    {
+      "file": "apps/api/src/middleware/authentication.ts",
+      "line": 43,
+      "type": "generic_secret",
+      "snippet": "return { apiKeyToken: credential };"
+    },
+    {
+      "file": "apps/api/src/middleware/authentication.ts",
+      "line": 51,
+      "type": "generic_secret",
+      "snippet": "return { apiKeyToken: credential };"
+    },
+    {
+      "file": "apps/api/src/middleware/authentication.ts",
+      "line": 54,
+      "type": "generic_secret",
+      "snippet": "return { sessionToken: credential };"
+    },
+    {
+      "file": "apps/api/src/middleware/authentication.ts",
+      "line": 65,
+      "type": "generic_secret",
+      "snippet": "const sessionToken = authorization.sessionToken ?? cookies[sessionCookieName] ?? null;"
+    },
+    {
+      "file": "apps/api/src/middleware/authentication.ts",
+      "line": 66,
+      "type": "generic_secret",
+      "snippet": "const apiKeyToken = authorization.apiKeyToken ?? null;"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 191,
+      "type": "generic_secret",
+      "snippet": "const decryptedSecret = decryptTotpSecret("
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 198,
+      "type": "generic_secret",
+      "snippet": "secret: decryptedSecret"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 282,
+      "type": "generic_secret",
+      "snippet": "const secret = generateTotpSecret();"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 283,
+      "type": "generic_secret",
+      "snippet": "const encryptedSecret = encryptTotpSecret(secret, input.config.AUTH_MFA_ENCRYPTION_KEY);"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 306,
+      "type": "generic_secret",
+      "snippet": "mfaSecret: encryptedSecret"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 348,
+      "type": "generic_secret",
+      "snippet": "const decryptedSecret = decryptTotpSecret("
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.credentials.ts",
+      "line": 356,
+      "type": "generic_secret",
+      "snippet": "secret: decryptedSecret"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.sessions.ts",
+      "line": 93,
+      "type": "generic_secret",
+      "snippet": "const accessToken = createAccessToken({"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.sessions.ts",
+      "line": 102,
+      "type": "generic_secret",
+      "snippet": "const refreshToken = createRefreshToken();"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.sessions.ts",
+      "line": 103,
+      "type": "generic_secret",
+      "snippet": "const csrfToken = randomToken(24);"
+    },
+    {
+      "file": "apps/api/src/modules/auth/auth.service.sessions.ts",
+      "line": 138,
+      "type": "generic_secret",
+      "snippet": "token: accessToken"
+    },
+    {
+      "file": "apps/api/src/modules/auth/mfa.service.ts",
+      "line": 82,
+      "type": "generic_secret",
+      "snippet": "const secret = encodeURIComponent(input.secret);"
+    },
+    {
+      "file": "apps/api/src/modules/auth/router.ts",
+      "line": 115,
+      "type": "generic_secret",
+      "snippet": "challengeToken: challenge.challengeToken,"
+    },
+    {
+      "file": "apps/api/src/modules/auth/router.ts",
+      "line": 168,
+      "type": "generic_secret",
+      "snippet": "password: loginInput.password,"
+    },
+    {
+      "file": "apps/api/src/modules/auth/router.ts",
+      "line": 285,
+      "type": "generic_secret",
+      "snippet": "const token = extractApiKeyToken(request);"
+    },
+    {
+      "file": "apps/api/src/modules/connectors/router.ts",
+      "line": 110,
+      "type": "generic_secret",
+      "snippet": "accessToken: readOptionalString(input.accessToken ?? input.access_token),"
+    },
+    {
+      "file": "apps/api/src/modules/connectors/router.ts",
+      "line": 116,
+      "type": "generic_secret",
+      "snippet": "refreshToken: readOptionalString(input.refreshToken ?? input.refresh_token),"
+    },
+    {
+      "file": "apps/api/src/modules/invites/service.ts",
+      "line": 48,
+      "type": "generic_secret",
+      "snippet": "token: randomBytes(24).toString(\"hex\")"
+    },
+    {
+      "file": "apps/api/src/modules/webhooks/settings.service.ts",
+      "line": 64,
+      "type": "generic_secret",
+      "snippet": "secret: buildWebhookSecret(),"
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 48,
+      "type": "generic_secret",
+      "snippet": "password: \"password123\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 121,
+      "type": "generic_secret",
+      "snippet": "password: \"password123\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 136,
+      "type": "generic_secret",
+      "snippet": "const secret = generateTotpSecret();"
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 150,
+      "type": "generic_secret",
+      "snippet": "mfaSecret: encrypted"
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 166,
+      "type": "generic_secret",
+      "snippet": "challengeToken: \"mfa_token_for_test\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 182,
+      "type": "generic_secret",
+      "snippet": "const secret = generateTotpSecret();"
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 197,
+      "type": "generic_secret",
+      "snippet": "mfaSecret: encrypted"
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 210,
+      "type": "generic_secret",
+      "snippet": "challengeToken: \"mfa_token_for_test\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 219,
+      "type": "generic_secret",
+      "snippet": "challengeToken: \"mfa_token_for_test\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 236,
+      "type": "generic_secret",
+      "snippet": "const sessionToken = \"atk_valid\";"
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 309,
+      "type": "generic_secret",
+      "snippet": "refreshToken: \"refresh_current\""
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 359,
+      "type": "generic_secret",
+      "snippet": "refreshToken: \"refresh_current\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 391,
+      "type": "generic_secret",
+      "snippet": "refreshToken: \"refresh_1\","
+    },
+    {
+      "file": "apps/api/tests/auth.test.ts",
+      "line": 477,
+      "type": "generic_secret",
+      "snippet": "sessionToken: \"atk_idle_expired\""
+    },
+    {
+      "file": "apps/api/tests/connectors-router.test.ts",
+      "line": 177,
+      "type": "generic_secret",
+      "snippet": "access_token: \"access_1\","
+    },
+    {
+      "file": "apps/api/tests/connectors-router.test.ts",
+      "line": 181,
+      "type": "generic_secret",
+      "snippet": "refresh_token: \"refresh_1\","
+    },
+    {
+      "file": "apps/api/tests/connectors-router.test.ts",
+      "line": 188,
+      "type": "generic_secret",
+      "snippet": "accessToken: \"access_1\","
+    },
+    {
+      "file": "apps/api/tests/connectors-router.test.ts",
+      "line": 194,
+      "type": "generic_secret",
+      "snippet": "refreshToken: \"refresh_1\","
+    },
+    {
+      "file": "apps/api/tests/database-availability.test.ts",
+      "line": 13,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: \"postgresql://postgres:postgres@localhost:5432/birthub?schema=public\""
+    },
+    {
+      "file": "apps/api/tests/database-availability.test.ts",
+      "line": 22,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: \"postgresql://birthub:secret@db.example.com:5432/birthub?sslmode=require\""
+    },
+    {
+      "file": "apps/api/tests/database-availability.test.ts",
+      "line": 32,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: \"postgresql://postgres:postgres@localhost:5432/birthub?schema=public\""
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 15,
+      "type": "generic_secret",
+      "snippet": "const TEST_SECRET = \"connector-encryption-test-secret\";"
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 32,
+      "type": "generic_secret",
+      "snippet": "secret: TEST_SECRET"
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 38,
+      "type": "generic_secret",
+      "snippet": "secret: TEST_SECRET"
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 49,
+      "type": "generic_secret",
+      "snippet": "secret: TEST_SECRET"
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 59,
+      "type": "generic_secret",
+      "snippet": "secret: TEST_SECRET"
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 71,
+      "type": "generic_secret",
+      "snippet": "secret: TEST_SECRET"
+    },
+    {
+      "file": "apps/api/tests/encryption.test.ts",
+      "line": 86,
+      "type": "generic_secret",
+      "snippet": "secret: TEST_SECRET"
+    },
+    {
+      "file": "apps/api/tests/environment-runtime.test.ts",
+      "line": 40,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: \"postgresql://postgres:postgres@localhost:5432/birthub?schema=public\""
+    },
+    {
+      "file": "apps/api/tests/security.test.ts",
+      "line": 53,
+      "type": "generic_secret",
+      "snippet": "secret: \"tenant-secret\""
+    },
+    {
+      "file": "apps/api/tests/security.test.ts",
+      "line": 118,
+      "type": "generic_secret",
+      "snippet": "password: \"password123\","
+    },
+    {
+      "file": "apps/api/tests/test-config.ts",
+      "line": 37,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: \"postgresql://postgres:postgres@localhost:5432/birthub_cycle1\","
+    },
+    {
+      "file": "apps/api/tests/test-config.ts",
+      "line": 39,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET: \"test-job-hmac-secret\","
+    },
+    {
+      "file": "apps/api/tests/test-config.ts",
+      "line": 52,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: \"test-session-secret\","
+    },
+    {
+      "file": "apps/api/tests/test-config.ts",
+      "line": 61,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET: \"whsec_birthub360\","
+    },
+    {
+      "file": "apps/voice-engine/src/server.test.ts",
+      "line": 66,
+      "type": "generic_secret",
+      "snippet": "ELEVENLABS_API_KEY: \"eleven_test\","
+    },
+    {
+      "file": "apps/voice-engine/src/server.test.ts",
+      "line": 70,
+      "type": "generic_secret",
+      "snippet": "TWILIO_AUTH_TOKEN: \"twilio_secret\""
+    },
+    {
+      "file": "apps/web/components/login-form.tsx",
+      "line": 89,
+      "type": "generic_secret",
+      "snippet": "challengeToken: challenge.challengeToken,"
+    },
+    {
+      "file": "apps/web/lib/auth-client.ts",
+      "line": 86,
+      "type": "generic_secret",
+      "snippet": "const csrfToken = getCookieValue(API_CSRF_COOKIE_NAME) ?? legacyCsrfToken;"
+    },
+    {
+      "file": "apps/web/lib/auth-client.ts",
+      "line": 179,
+      "type": "generic_secret",
+      "snippet": "const legacyCsrfToken = getBrowserStorage()?.getItem(LEGACY_CSRF_STORAGE_KEY) ?? null;"
+    },
+    {
+      "file": "apps/web/lib/auth-client.ts",
+      "line": 191,
+      "type": "generic_secret",
+      "snippet": "const csrfToken = getClientCsrfToken();"
+    },
+    {
+      "file": "apps/web/tests/developer-webhooks-page.test.ts",
+      "line": 83,
+      "type": "generic_secret",
+      "snippet": "secret: \"secret_a\","
+    },
+    {
+      "file": "apps/web/tests/developer-webhooks-page.test.ts",
+      "line": 91,
+      "type": "generic_secret",
+      "snippet": "secret: \"secret_b\","
+    },
+    {
+      "file": "apps/web/tests/developer-webhooks-page.test.ts",
+      "line": 137,
+      "type": "generic_secret",
+      "snippet": "secret: \"secret_created\","
+    },
+    {
+      "file": "apps/web/tests/developer-webhooks-page.test.ts",
+      "line": 152,
+      "type": "generic_secret",
+      "snippet": "secret: \"secret_listed\","
+    },
+    {
+      "file": "apps/web/tests/developer-webhooks-page.test.ts",
+      "line": 185,
+      "type": "generic_secret",
+      "snippet": "secret: \"secret_listed\","
+    },
+    {
+      "file": "apps/web/tests/notification-store.test.ts",
+      "line": 97,
+      "type": "generic_secret",
+      "snippet": "csrfToken: \"csrf_notification\","
+    },
+    {
+      "file": "apps/web/tests/user-preferences-store.test.ts",
+      "line": 106,
+      "type": "generic_secret",
+      "snippet": "csrfToken: \"csrf_preferences\","
+    },
+    {
+      "file": "apps/web/tests/user-preferences-store.test.ts",
+      "line": 169,
+      "type": "generic_secret",
+      "snippet": "csrfToken: \"csrf_preferences\","
+    },
+    {
+      "file": "apps/worker/src/job-security.test.ts",
+      "line": 17,
+      "type": "generic_secret",
+      "snippet": "fallbackSecret: \"fallback\","
+    },
+    {
+      "file": "apps/worker/src/job-security.test.ts",
+      "line": 39,
+      "type": "generic_secret",
+      "snippet": "tenantSecret: \"tenant-secret\""
+    },
+    {
+      "file": "apps/worker/src/job-security.test.ts",
+      "line": 70,
+      "type": "generic_secret",
+      "snippet": "fallbackSecret: \"fallback\","
+    },
+    {
+      "file": "apps/worker/src/job-security.test.ts",
+      "line": 76,
+      "type": "generic_secret",
+      "snippet": "tenantSecret: \"tenant-secret\""
+    },
+    {
+      "file": "apps/worker/src/worker.job-validation.test.ts",
+      "line": 14,
+      "type": "generic_secret",
+      "snippet": "const sharedSecret = randomBytes(32).toString(\"hex\");"
+    },
+    {
+      "file": "apps/worker/src/worker.job-validation.test.ts",
+      "line": 54,
+      "type": "generic_secret",
+      "snippet": "fallbackSecret: sharedSecret,"
+    },
+    {
+      "file": "apps/worker/src/worker.process-job.ts",
+      "line": 93,
+      "type": "generic_secret",
+      "snippet": "const tenantSecret = organization"
+    },
+    {
+      "file": "apps/worker/test/outbound.webhooks.test.ts",
+      "line": 38,
+      "type": "url_creds",
+      "snippet": "process.env.DATABASE_URL = \"postgresql://postgres:postgres@localhost:5432/test\";"
+    },
+    {
+      "file": "apps/worker/test/outbound.webhooks.test.ts",
+      "line": 118,
+      "type": "generic_secret",
+      "snippet": "secret: \"supersecret\","
+    },
+    {
+      "file": "apps/worker/test/outbound.webhooks.test.ts",
+      "line": 186,
+      "type": "generic_secret",
+      "snippet": "secret: \"supersecret\","
+    },
+    {
+      "file": "apps/worker/test/outbound.webhooks.test.ts",
+      "line": 246,
+      "type": "generic_secret",
+      "snippet": "secret: \"supersecret\","
+    },
+    {
+      "file": "apps/worker/test/outbound.webhooks.test.ts",
+      "line": 293,
+      "type": "generic_secret",
+      "snippet": "secret: \"supersecret\","
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-05/01-raw-evidence.json",
+      "line": 68435,
+      "type": "generic_secret",
+      "snippet": "\"text\": \"\\\"use strict\\\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnP"
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-06/01-raw-evidence.json",
+      "line": 68690,
+      "type": "generic_secret",
+      "snippet": "\"text\": \"\\\"use strict\\\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnP"
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-06/01-raw-evidence.json",
+      "line": 72472,
+      "type": "url_creds",
+      "snippet": "\"runtimeDatabaseUrlRedacted\": \"postgresql://api_worker:********@127.0.0.1:55432/postgres?schema=public&pgbouncer=true&connection_limit=10\","
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-07/01-raw-evidence.json",
+      "line": 70809,
+      "type": "generic_secret",
+      "snippet": "\"text\": \"\\\"use strict\\\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnP"
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-07/01-raw-evidence.json",
+      "line": 75916,
+      "type": "url_creds",
+      "snippet": "\"runtimeDatabaseUrlRedacted\": \"postgresql://REDACTED:postgres@127.0.0.1:5432/postgres?schema=public&pgbouncer=true&connection_limit=10\","
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-08/01-raw-evidence.json",
+      "line": 70856,
+      "type": "generic_secret",
+      "snippet": "\"text\": \"\\\"use strict\\\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnP"
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-09/01-raw-evidence.json",
+      "line": 70569,
+      "type": "generic_secret",
+      "snippet": "\"text\": \"\\\"use strict\\\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnP"
+    },
+    {
+      "file": "audit/.auditor-prime/2026-04-10/01-raw-evidence.json",
+      "line": 70956,
+      "type": "generic_secret",
+      "snippet": "\"text\": \"\\\"use strict\\\";(()=>{var Ke=Object.create;var he=Object.defineProperty;var Ge=Object.getOwnPropertyDescriptor;var Ze=Object.getOwnP"
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/src/middleware/authentication.ts",
+      "line": 42,
+      "type": "generic_secret",
+      "snippet": "return { apiKeyToken: credential };"
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/src/middleware/authentication.ts",
+      "line": 50,
+      "type": "generic_secret",
+      "snippet": "return { apiKeyToken: credential };"
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/src/middleware/authentication.ts",
+      "line": 53,
+      "type": "generic_secret",
+      "snippet": "return { sessionToken: credential };"
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/src/middleware/authentication.ts",
+      "line": 64,
+      "type": "generic_secret",
+      "snippet": "const sessionToken = authorization.sessionToken ?? cookies[sessionCookieName] ?? null;"
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/src/middleware/authentication.ts",
+      "line": 65,
+      "type": "generic_secret",
+      "snippet": "const apiKeyToken = authorization.apiKeyToken ?? null;"
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/tests/security.test.ts",
+      "line": 51,
+      "type": "generic_secret",
+      "snippet": "secret: \"tenant-secret\""
+    },
+    {
+      "file": "audit/autofix/snapshots/apps/api/tests/security.test.ts",
+      "line": 116,
+      "type": "generic_secret",
+      "snippet": "password: \"password123\","
+    },
+    {
+      "file": "audit/ci_hardening_plan.md",
+      "line": 424,
+      "type": "url_creds",
+      "snippet": "export TEST_DATABASE_URL=\"postgresql://postgres:postgrespassword@localhost:5432/birthub_test\""
+    },
+    {
+      "file": "audit/ci_hardening_plan.md",
+      "line": 754,
+      "type": "url_creds",
+      "snippet": "export DATABASE_URL=\"postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1\""
+    },
+    {
+      "file": "audit/ci_hardening_plan.md",
+      "line": 781,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": "audit/ci_test_inventory.md",
+      "line": 202,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/ci_test_inventory.md",
+      "line": 209,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=ci-secret"
+    },
+    {
+      "file": "audit/failure_clusters.md",
+      "line": 170,
+      "type": "url_creds",
+      "snippet": "psql postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1 -c \"SELECT 1\""
+    },
+    {
+      "file": "audit/failure_clusters.md",
+      "line": 201,
+      "type": "generic_secret",
+      "snippet": "docker run -d -e POSTGRES_PASSWORD=postgrespassword -e POSTGRES_DB=birthub_cycle1 -p 5432:5432 postgres:16-alpine"
+    },
+    {
+      "file": "audit/failure_clusters.md",
+      "line": 203,
+      "type": "url_creds",
+      "snippet": "export DATABASE_URL=postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/failure_clusters.md",
+      "line": 370,
+      "type": "url_creds",
+      "snippet": "export DATABASE_URL=postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89724,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://prod_user:prod_password@prod-db.birthhub360.internal:5432/birthub?sslmode=require"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89725,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET=prod-job-hmac-2026-03-24"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89733,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=prod-session-secret-2026-03-24"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89737,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET=whsec_prod_masked_20260324"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89769,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://staging_user:staging_password@staging-db.birthhub360.internal:5432/birthub?sslmode=require"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89770,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET=staging-job-hmac-2026-03-24"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89778,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=staging-session-secret-2026-03-24"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 89782,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET=whsec_staging_masked_20260324"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 91557,
+      "type": "generic_secret",
+      "snippet": "await page.goto(&quot;/invites/accept?token=invite-e2e&quot;);"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99295,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99326,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99333,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99340,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99361,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99410,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99417,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 99424,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 100042,
+      "type": "generic_secret",
+      "snippet": "POSTGRES_PASSWORD: postgrespassword"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 100082,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 100088,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 100091,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: ci-secret"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 197188,
+      "type": "generic_secret",
+      "snippet": "return { apiKeyToken: credential };"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 197196,
+      "type": "generic_secret",
+      "snippet": "return { apiKeyToken: credential };"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 197199,
+      "type": "generic_secret",
+      "snippet": "return { sessionToken: credential };"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 197210,
+      "type": "generic_secret",
+      "snippet": "const sessionToken = authorization.sessionToken ?? cookies[sessionCookieName] ?? null;"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 197211,
+      "type": "generic_secret",
+      "snippet": "const apiKeyToken = authorization.apiKeyToken ?? null;"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210185,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://sealed_user:sealed_password@production-postgres.internal:5432/birthub?sslmode=require"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210187,
+      "type": "url_creds",
+      "snippet": "REDIS_URL=rediss://sealed_user:sealed_password@production-redis.internal:6379"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210191,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=sealed_production_session_secret_64_chars_minimum_value_xxxxxxxx"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210195,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET=sealed_production_job_hmac_secret_64_chars_minimum_value"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210201,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET=whsec_sealed_production_4Rt8mP2qX7nV5kL1cD3h"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210277,
+      "type": "url_creds",
+      "snippet": "DATABASE_URL=postgresql://sealed_user:sealed_password@staging-postgres.internal:5432/birthub?sslmode=require"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210279,
+      "type": "url_creds",
+      "snippet": "REDIS_URL=rediss://sealed_user:sealed_password@staging-redis.internal:6379"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210283,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET=sealed_staging_session_secret_64_chars_minimum_value_xxxxxxxxxx"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210287,
+      "type": "generic_secret",
+      "snippet": "JOB_HMAC_GLOBAL_SECRET=sealed_staging_job_hmac_secret_64_chars_minimum_value_x"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 210293,
+      "type": "generic_secret",
+      "snippet": "STRIPE_WEBHOOK_SECRET=whsec_sealed_staging_3Nw7kL2pQ8rT5vY1mD4c"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 214371,
+      "type": "generic_secret",
+      "snippet": "SESSION_SECRET: envOrDefault(&quot;SESSION_SECRET&quot;, &quot;ci-local-secret&quot;),"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 214378,
+      "type": "url_creds",
+      "snippet": "&quot;postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1&quot;"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 214589,
+      "type": "url_creds",
+      "snippet": ": &quot;${DATABASE_URL:=postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1}&quot;"
+    },
+    {
+      "file": "audit/governance_inventory_complete_2026-03-29.html",
+      "line": 214598,
+      "type": "generic_secret",
+      "snippet": ": &quot;${SESSION_SECRET:=ci-local-secret}&quot;"
+    },
+    {
+      "file": "audit/relatorios-dividas-2026-04-12/06_divida_infra_devops_relatorio.html",
+      "line": 50,
+      "type": "generic_secret",
+      "snippet": "<li><code>docker-compose.yml:8</code> fixa <code>POSTGRES_PASSWORD: postgrespassword</code>.</li>"
+    },
+    {
+      "file": "audit/relatorios-dividas-2026-04-12/08_divida_seguranca_relatorio.html",
+      "line": 64,
+      "type": "generic_secret",
+      "snippet": "<li><code>docker-compose.yml:8</code> fixa <code>POSTGRES_PASSWORD: postgrespassword</code>.</li>"
+    },
+    {
+      "file": "audit/repo-doctor/20260417_224259/findings.json",
+      "line": 252,
+      "type": "generic_secret",
+      "snippet": "\"Details\":  \"C:\\\\Users\\\\Marks\\\\Documents\\\\GitHub\\\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\\\apps\\\\api\\\\src\\\\middleware\\\\authentication.ts:43 =\\u"
+    }
+  ],
+  "tracked_binary_files": [
+    "audit/jules_full_audit_prompt_2026-03-29.pdf",
+    "docs/product/PACOTE_CHECKLISTS_PROMPTS_2026-04-04.zip"
+  ]
+}
