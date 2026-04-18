@@ -7,8 +7,8 @@ import {
   ProblemDetailsError,
   fromZodError,
   toProblemDetails
-} from "../src/lib/problem-details";
-import type { RequestContext } from "../src/middleware/request-context";
+} from "../src/lib/problem-details.js";
+import type { RequestContext } from "../src/middleware/request-context.js";
 
 export function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

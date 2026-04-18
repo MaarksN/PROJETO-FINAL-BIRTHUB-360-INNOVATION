@@ -1,7 +1,7 @@
 
 // 
-import { HubspotClient } from "../clients/crm";
-import { getCached, setCached } from "./cache";
+import { HubspotClient } from "../clients/crm.js";
+import { getCached, setCached } from "./cache.js";
 
 export type CRMProvider = "hubspot" | "salesforce";
 

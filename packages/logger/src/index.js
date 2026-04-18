@@ -1,7 +1,7 @@
 import { AsyncLocalStorage } from "node:async_hooks";
 import { getEnvironmentSource, getLoggerConfig } from "@birthub/config";
 import pino, { transport } from "pino";
-import { getActiveTraceContext } from "./otel";
+import { getActiveTraceContext } from "./otel.js";
 const logContextStore = new AsyncLocalStorage();
 let prettyTransport = null;
 function normalizeContext(context) {
@@ -159,5 +159,5 @@ export function createLogger(service, options) {
     }
     return pino(loggerOptions);
 }
-export * from "./metrics";
-export * from "./otel";
+export * from "./metrics.js";
+export * from "./otel.js";

@@ -8,7 +8,7 @@ import {
   loadWorkflowRuns,
   maskSecrets,
   retryWorkflowRun
-} from "../app/(dashboard)/workflows/[id]/runs/page.data";
+} from "../app/(dashboard)/workflows/[id]/runs/page.data.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

@@ -1,19 +1,19 @@
 import Link from "next/link";
 
-import { ExecutivePremiumSpotlight } from "../../../../components/agents/ExecutivePremiumSpotlight";
-import { ProductPageHeader } from "../../../../components/dashboard/page-fragments";
+import { ExecutivePremiumSpotlight } from "../../../../components/agents/ExecutivePremiumSpotlight.js";
+import { ProductPageHeader } from "../../../../components/dashboard/page-fragments.js";
 import {
   buildExecutivePremiumAgentHref,
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
   EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE,
   isExecutivePremiumPack
-} from "../../../../lib/executive-premium";
-import { getRequestLocale } from "../../../../lib/i18n.server";
+} from "../../../../lib/executive-premium.js";
+import { getRequestLocale } from "../../../../lib/i18n.server.js";
 import {
   fetchComparisonMatrix,
   fetchExecutivePremiumCollection
-} from "../../../../lib/marketplace-api.server";
+} from "../../../../lib/marketplace-api.server.js";
 
 const pageCopy = {
   "en-US": {

@@ -8,9 +8,9 @@ import {
   SalesOsModuleOverview,
   SalesOsToolBoardHeader,
   SalesOsToolRail
-} from "./SalesOsShell.sections";
-import { type SalesOsShellCopy } from "./shell-support";
-import { useSalesOsShellState } from "./sales-os-shell.state";
+} from "./SalesOsShell.sections.js";
+import { type SalesOsShellCopy } from "./shell-support.js";
+import { useSalesOsShellState } from "./sales-os-shell.state.js";
 import styles from "./sales-os.module.css";
 
 export function SalesOsShell(input: { copy: SalesOsShellCopy }) {

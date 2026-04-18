@@ -16,7 +16,7 @@ import type {
   AgentExecutionRequest,
   PlanBuilder,
   PlannedToolCall
-} from "./planExecutor";
+} from "./planExecutor.js";
 
 const logger = createLogger("plan-executor");
 

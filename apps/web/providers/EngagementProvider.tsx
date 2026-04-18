@@ -4,9 +4,9 @@
 
 import { type ReactNode, useEffect } from "react";
 
-import { getStoredSession } from "../lib/auth-client";
-import { useNotificationStore } from "../stores/notification-store";
-import { useUserPreferencesStore } from "../stores/user-preferences-store";
+import { getStoredSession } from "../lib/auth-client.js";
+import { useNotificationStore } from "../stores/notification-store.js";
+import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
 
 export function EngagementProvider({ children }: Readonly<{ children: ReactNode }>) {
   const hydratePreferences = useUserPreferencesStore((state) => state.hydrate);

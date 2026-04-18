@@ -2,8 +2,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { AgentManifestParseError, parseAgentManifest } from "../manifest/parser";
-import { MANIFEST_VERSION } from "../manifest/schema";
+import { AgentManifestParseError, parseAgentManifest } from "../manifest/parser.js";
+import { MANIFEST_VERSION } from "../manifest/schema.js";
 
 const validManifest = {
   agent: {

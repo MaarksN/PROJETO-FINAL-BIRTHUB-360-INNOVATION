@@ -12,8 +12,8 @@ import { prisma } from "@birthub/database";
 import {
   exportDailyBillingInvoices,
   resolveBillingExportWindow
-} from "./billingExport";
-import { LocalBillingExportStorage } from "./billingExportStorage";
+} from "./billingExport.js";
+import { LocalBillingExportStorage } from "./billingExportStorage.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

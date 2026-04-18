@@ -7,8 +7,8 @@ import {
 } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 
-import { emitInternalEvent } from "../events/internalEventBus";
-import { syncOrganizationToHubspot } from "../integrations/hubspot";
+import { emitInternalEvent } from "../events/internalEventBus.js";
+import { syncOrganizationToHubspot } from "../integrations/hubspot.js";
 
 const logger = createLogger("worker-health-score");
 

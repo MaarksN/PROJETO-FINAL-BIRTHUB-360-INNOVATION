@@ -1,4 +1,4 @@
-import type { AgentManifest } from "../manifest/schema";
+import type { AgentManifest } from "../manifest/schema.js";
 export interface DryRunResult {
     logs: string[];
     output: string;

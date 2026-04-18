@@ -1,4 +1,4 @@
-import type { AgentRuntimeOutput, AgentRuntimeOutputInput } from "./manifestRuntime";
+import type { AgentRuntimeOutput, AgentRuntimeOutputInput } from "./manifestRuntime.js";
 import {
   buildEmergingRisks,
   buildLeadingIndicators,
@@ -15,7 +15,7 @@ import {
   readTriggerSource,
   summarizeLearning,
   uniqueStrings
-} from "./manifestRuntimeCore";
+} from "./manifestRuntimeCore.js";
 import {
   buildMemoryKey,
   buildPremiumLayersAssessment,
@@ -27,7 +27,7 @@ import {
   summarizeNumericSignals,
   summarizePremiumLayers,
   type SegmentProfile
-} from "./intelligence";
+} from "./intelligence.js";
 
 type AgentOrchestrationPlan = NonNullable<AgentRuntimeOutput["orchestration_plan"]>;
 type RecommendedAgent = AgentOrchestrationPlan["recommended_agents"][number];

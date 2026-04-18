@@ -1,7 +1,7 @@
 // @ts-expect-error TODO: remover suppressão ampla
 // 
 import net from "node:net";
-import { QueueManager } from "../src/index";
+import { QueueManager } from "../src/index.js";
 
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 

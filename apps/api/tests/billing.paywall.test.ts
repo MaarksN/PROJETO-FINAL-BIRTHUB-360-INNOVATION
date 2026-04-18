@@ -5,9 +5,9 @@ import { prisma } from "@birthub/database";
 import express from "express";
 import request from "supertest";
 
-import { RequireFeature } from "../src/common/guards/feature.guard";
-import { errorHandler } from "../src/middleware/error-handler";
-import { requestContextMiddleware } from "../src/middleware/request-context";
+import { RequireFeature } from "../src/common/guards/feature.guard.js";
+import { errorHandler } from "../src/middleware/error-handler.js";
+import { requestContextMiddleware } from "../src/middleware/request-context.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

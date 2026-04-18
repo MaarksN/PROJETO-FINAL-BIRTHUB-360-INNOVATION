@@ -1,7 +1,7 @@
 
 // 
-import { postJson, type HttpRequestOptions } from "./http";
-import { withCircuitBreaker } from "./circuit-breaker";
+import { postJson, type HttpRequestOptions } from "./http.js";
+import { withCircuitBreaker } from "./circuit-breaker.js";
 
 const geminiCb = withCircuitBreaker("llm:gemini", (url: string, payload: unknown) => postJson<GeminiGenerateResponse>(url, payload));
 const openaiCb = withCircuitBreaker("llm:openai", (url: string, payload: unknown, options: HttpRequestOptions) => postJson<OpenAICompletionResponse>(url, payload, options));

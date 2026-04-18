@@ -8,7 +8,7 @@ import {
   DEFAULT_AGENT_BUDGET_LIMIT_BRL,
   roundCurrency,
   toJsonValue
-} from "./runtime.shared";
+} from "./runtime.shared.js";
 
 export function buildToolCostTable(input: {
   defaultToolCostBrl: number;

@@ -7,7 +7,7 @@ import {
   buildGrowthCurvePath,
   calculateDueDateFromLmp,
   formatGestationalAgeFromDays
-} from "../app/(dashboard)/patients/clinical-data";
+} from "../app/(dashboard)/patients/clinical-data.js";
 
 void test.skip("clinical data helpers calculate DPP and gestational age labels", () => {
   const dueDate = calculateDueDateFromLmp("2026-01-01T00:00:00.000Z");

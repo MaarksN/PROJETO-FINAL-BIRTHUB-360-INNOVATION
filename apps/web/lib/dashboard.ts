@@ -2,7 +2,7 @@
 import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 
-import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
 const DASHBOARD_REQUEST_TIMEOUT_MS = 8_000;
 

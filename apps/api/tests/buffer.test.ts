@@ -9,7 +9,7 @@ import {
   flushAuditBuffer,
   getAuditBufferSize,
   resetAuditBufferForTests
-} from "../src/audit/buffer";
+} from "../src/audit/buffer.js";
 
 function createAuditEvent(index: number): Prisma.AuditLogCreateManyInput {
   return {

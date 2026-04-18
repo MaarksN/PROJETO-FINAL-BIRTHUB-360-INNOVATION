@@ -3,8 +3,8 @@
 import { getWebConfig } from "@birthub/config/web";
 import Link from "next/link";
 
-import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight";
-import { PackInstaller } from "../../../components/wizards/PackInstaller";
+import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight.js";
+import { PackInstaller } from "../../../components/wizards/PackInstaller.js";
 import {
   buildExecutivePremiumAgentHref,
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
@@ -12,14 +12,14 @@ import {
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
   EXECUTIVE_PREMIUM_TAG,
   mergeExecutivePremiumInstallerOptions
-} from "../../../lib/executive-premium";
+} from "../../../lib/executive-premium.js";
 import {
   fetchAgentChangelog,
   fetchAgentDocs,
   fetchExecutivePremiumCollection,
   fetchMarketplaceRecommendations,
   fetchMarketplaceSearch
-} from "../../../lib/marketplace-api.server";
+} from "../../../lib/marketplace-api.server.js";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 

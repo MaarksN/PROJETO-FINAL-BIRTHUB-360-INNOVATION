@@ -1,3 +1,3 @@
-export * from "./catalog";
-export * from "./parser";
-export * from "./schema";
+export * from "./catalog.js";
+export * from "./parser.js";
+export * from "./schema.js";

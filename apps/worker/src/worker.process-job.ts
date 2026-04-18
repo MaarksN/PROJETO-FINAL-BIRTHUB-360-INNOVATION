@@ -9,21 +9,21 @@ import { createLogger } from "@birthub/logger";
 import type { Queue } from "bullmq";
 import type { Redis } from "ioredis";
 
-import { executeManifestAgentRuntime } from "./agents/runtime.orchestration";
-import { executeTenantJob } from "./tenant-execution";
+import { executeManifestAgentRuntime } from "./agents/runtime.orchestration.js";
+import { executeTenantJob } from "./tenant-execution.js";
 import {
   persistExecutionFinished,
   persistExecutionStarted
-} from "./worker.execution-state";
+} from "./worker.execution-state.js";
 import {
   agentExecutionJobSchema,
   hashPayload,
   legacyTaskJobSchema,
   validateLegacyTaskJob
-} from "./worker.job-validation";
-import { fanOutExecutionOutcome } from "./worker.notifications";
-import type { EmailNotificationJobPayload } from "./notifications/emailQueue";
-import type { OutboundWebhookJobPayload } from "./webhooks/outbound";
+} from "./worker.job-validation.js";
+import { fanOutExecutionOutcome } from "./worker.notifications.js";
+import type { EmailNotificationJobPayload } from "./notifications/emailQueue.js";
+import type { OutboundWebhookJobPayload } from "./webhooks/outbound.js";
 
 const logger = createLogger("worker");
 

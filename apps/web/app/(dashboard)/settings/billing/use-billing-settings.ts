@@ -2,7 +2,7 @@
 // 
 import { useEffect, useMemo, useState } from "react";
 
-import { fetchWithSession } from "../../../../lib/auth-client";
+import { fetchWithSession } from "../../../../lib/auth-client.js";
 import type {
   BudgetEstimatePayload,
   BudgetForm,
@@ -10,7 +10,7 @@ import type {
   InvoicesPayload,
   MePayload,
   UsagePayload
-} from "./billing.types";
+} from "./billing.types.js";
 
 export function useBillingSettings() {
   const [me, setMe] = useState<MePayload | null>(null);

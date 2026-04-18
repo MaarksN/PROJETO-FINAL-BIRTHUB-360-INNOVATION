@@ -1,23 +1,16 @@
 {
-  "outDir": "./dist",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-  "outDir": "./dist",
-    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": {
-  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
     "allowJs": true,
     "noEmit": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": [
     "node_modules",
     "**/.next/**",

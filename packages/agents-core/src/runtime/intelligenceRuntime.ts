@@ -1,4 +1,4 @@
-import type { AgentManifest } from "../manifest/schema";
+import type { AgentManifest } from "../manifest/schema.js";
 import type {
   CapabilityType,
   NumericSignalSummary,
@@ -8,7 +8,7 @@ import type {
   PremiumLayerStatus,
   RecommendedAction,
   SegmentProfile
-} from "./intelligence";
+} from "./intelligence.js";
 
 type PremiumLayerContext = {
   collaborationTargets: string[];

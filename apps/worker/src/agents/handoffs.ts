@@ -5,7 +5,7 @@ import { Prisma, prisma } from "@birthub/database";
 import {
   createConversationMessage,
   ensureConversationThread
-} from "./conversations";
+} from "./conversations.js";
 
 function toJsonValue(value: unknown): Prisma.InputJsonValue {
   return value as Prisma.InputJsonValue;

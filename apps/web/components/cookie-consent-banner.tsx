@@ -5,9 +5,9 @@
 import Link from "next/link";
 import { useMemo } from "react";
 
-import { getStoredSession } from "../lib/auth-client";
-import { useI18n } from "../providers/I18nProvider";
-import { useUserPreferencesStore } from "../stores/user-preferences-store";
+import { getStoredSession } from "../lib/auth-client.js";
+import { useI18n } from "../providers/I18nProvider.js";
+import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
 
 export function CookieConsentBanner() {
   const { dictionary: copy } = useI18n();

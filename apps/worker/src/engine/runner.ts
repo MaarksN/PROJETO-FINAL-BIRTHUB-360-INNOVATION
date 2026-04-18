@@ -15,13 +15,13 @@ import {
 import { WORKFLOW_QUEUE_NAMES } from "@birthub/queue";
 import { Queue } from "bullmq";
 
-import { processWorkflowExecutionJob } from "./runner.execution";
+import { processWorkflowExecutionJob } from "./runner.execution.js";
 import {
   WORKFLOW_EXECUTION_QUEUE,
   calculateBackoff,
   logger,
   shouldFollowTransition
-} from "./runner.shared";
+} from "./runner.shared.js";
 
 export interface WorkflowExecutionJobPayload {
   attempt: number;

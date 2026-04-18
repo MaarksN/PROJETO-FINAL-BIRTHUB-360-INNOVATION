@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { Auditable } from "../src/audit/auditable";
-import { ProblemDetailsError } from "../src/lib/problem-details";
+import { Auditable } from "../src/audit/auditable.js";
+import { ProblemDetailsError } from "../src/lib/problem-details.js";
 
 void test("Auditable requireActor blocks sensitive mutations without an authenticated actor", async () => {
   const handler = Auditable({

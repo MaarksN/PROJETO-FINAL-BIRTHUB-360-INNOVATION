@@ -4,8 +4,8 @@ import test from "node:test";
 
 import { MANIFEST_VERSION, PolicyEngine } from "@birthub/agents-core";
 
-import { createRuntimeTools } from "./runtime.tools";
-import { buildDbReadQueryTemplate } from "./runtime.tools";
+import { createRuntimeTools } from "./runtime.tools.js";
+import { buildDbReadQueryTemplate } from "./runtime.tools.js";
 
 void test("buildDbReadQueryTemplate removes the synthetic tenant param when the query does not reference it", () => {
   const template = buildDbReadQueryTemplate(

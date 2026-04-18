@@ -14,7 +14,7 @@ import {
   retryWebhookDelivery,
   updateWebhookEndpointStatus,
   type WebhookEndpoint
-} from "../app/(dashboard)/settings/developers/webhooks/page.data";
+} from "../app/(dashboard)/settings/developers/webhooks/page.data.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

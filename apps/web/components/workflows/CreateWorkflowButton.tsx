@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-import { createStarterWorkflow } from "../../lib/product-api";
+import { createStarterWorkflow } from "../../lib/product-api.js";
 
 export function CreateWorkflowButton() {
   const router = useRouter();

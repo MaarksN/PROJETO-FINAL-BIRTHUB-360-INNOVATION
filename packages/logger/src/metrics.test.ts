@@ -7,7 +7,7 @@ import {
   renderPrometheusMetrics,
   resetMetricsRegistry,
   setGauge
-} from "./metrics";
+} from "./metrics.js";
 
 void test("metrics registry renders counters, gauges and histograms in Prometheus format", () => {
   resetMetricsRegistry();

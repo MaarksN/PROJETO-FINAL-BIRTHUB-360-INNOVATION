@@ -1,11 +1,11 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import Link from "next/link";
 
-import type { AppointmentSnapshot, AppointmentsResponse } from "./clinical-data";
+import type { AppointmentSnapshot, AppointmentsResponse } from "./clinical-data.js";
 import type {
   AppointmentFormState,
   AppointmentsBoardView
-} from "./appointments-board.model";
+} from "./appointments-board.model.js";
 
 const fieldStyle = { display: "grid", gap: "0.35rem" } as const;
 const formGridStyle = {

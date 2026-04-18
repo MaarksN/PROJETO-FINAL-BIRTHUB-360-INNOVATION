@@ -34,7 +34,7 @@ import {
   startWorkflowDryRun,
   type BuilderNodeData,
   type SidebarValues
-} from "./workflow-editor-helpers";
+} from "./workflow-editor-helpers.js";
 
 type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
 

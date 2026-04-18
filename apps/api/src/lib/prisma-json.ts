@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { Prisma } from "@birthub/database";
 
 function toPrismaNestedJsonValue(value: unknown): Prisma.InputJsonValue | null {

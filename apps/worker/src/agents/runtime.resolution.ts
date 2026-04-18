@@ -9,8 +9,8 @@ import { prisma } from "@birthub/database";
 import {
   getManifestCatalog,
   parseAgentConfig
-} from "./runtime.shared";
-import type { RuntimeAgentResolution } from "./runtime.types";
+} from "./runtime.shared.js";
+import type { RuntimeAgentResolution } from "./runtime.types.js";
 
 export async function resolveRuntimeAgent(input: {
   agentId: string;

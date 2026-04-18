@@ -1,3 +1,1 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
-export * from "./src/service";
+export * from "./src/service.js";

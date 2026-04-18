@@ -1,6 +1,6 @@
-import type { AgentManifest } from "../manifest/schema";
-import type { AgentLearningRecord, JsonValue } from "../types/index";
-import type { PremiumLayerAssessment, SegmentProfile } from "./intelligence";
+import type { AgentManifest } from "../manifest/schema.js";
+import type { AgentLearningRecord, JsonValue } from "../types/index.js";
+import type { PremiumLayerAssessment, SegmentProfile } from "./intelligence.js";
 export interface ManagedAgentPolicy {
     actions: string[];
     effect: "allow" | "deny";
@@ -122,5 +122,5 @@ export interface OutputGovernanceDecision {
     requireApproval: boolean;
     type: "executive-report" | "technical-log";
 }
-export { buildAgentRuntimePlan, buildRuntimePolicyRules, inferOutputGovernance } from "./manifestRuntimeCore";
-export { buildAgentRuntimeOutput } from "./manifestRuntimeBuilders";
+export { buildAgentRuntimePlan, buildRuntimePolicyRules, inferOutputGovernance } from "./manifestRuntimeCore.js";
+export { buildAgentRuntimeOutput } from "./manifestRuntimeBuilders.js";

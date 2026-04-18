@@ -21,15 +21,15 @@ import {
   YAxis
 } from "recharts";
 
-import type { SupportedLocale } from "../../lib/i18n";
+import type { SupportedLocale } from "../../lib/i18n.js";
 import type {
   ChurnWatchEntry,
   FunnelPoint,
   LeadDashboardCopy,
   PipelinePoint,
   RegionalPerformancePoint
-} from "./sdr-automatic-dashboard";
-import { buildStageColor } from "./SdrLeadScoreWorkspace.helpers";
+} from "./sdr-automatic-dashboard.js";
+import { buildStageColor } from "./SdrLeadScoreWorkspace.helpers.js";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
 

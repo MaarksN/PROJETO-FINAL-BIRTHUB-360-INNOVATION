@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { MANIFEST_VERSION } from "@birthub/agents-core";
 
-import { buildToolCostTable } from "./runtime.budget";
-import { matchesPattern, readSessionId } from "./runtime.shared";
+import { buildToolCostTable } from "./runtime.budget.js";
+import { matchesPattern, readSessionId } from "./runtime.shared.js";
 
 void test("readSessionId prefers top-level value and falls back to nested context", () => {
   assert.equal(readSessionId({ sessionId: "top-level" }), "top-level");

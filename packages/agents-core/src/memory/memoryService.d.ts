@@ -1,4 +1,4 @@
-import type { AgentLearningRecord } from "../types/index";
+import type { AgentLearningRecord } from "../types/index.js";
 export type ConversationRole = "assistant" | "system" | "tool" | "user";
 export interface ConversationMessage {
     role: ConversationRole;

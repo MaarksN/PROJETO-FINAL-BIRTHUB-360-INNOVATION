@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { TrendCatcherAgent } from "../agent";
-import { TrendCatcherInputSchema, type TrendCatcherInput } from "../schemas";
+import { TrendCatcherAgent } from "../agent.js";
+import { TrendCatcherInputSchema, type TrendCatcherInput } from "../schemas.js";
 
 void test("TrendCatcher schema rejects missing required fields", () => {
   const invalidPayload = {

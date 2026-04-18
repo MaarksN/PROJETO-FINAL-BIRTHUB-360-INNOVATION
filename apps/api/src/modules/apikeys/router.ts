@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import type { ApiConfig } from "@birthub/config";
 import {
   apiKeyCreateRequestSchema,
@@ -71,7 +70,13 @@ function createApiKeyMutationAudit(action: string) {
     entityType: "api_key",
     requireActor: true,
     resolveEntityId: (request, _response, result) => {
-      if (typeof result?.id === "string" && result.id.trim().length > 0) {
+      if (
+        result &&
+        typeof result === "object" &&
+        "id" in result &&
+        typeof result.id === "string" &&
+        result.id.trim().length > 0
+      ) {
         return result.id;
       }
 
@@ -194,4 +199,3 @@ export function createApiKeysRouter(config: ApiConfig): Router {
 
   return router;
 }
-

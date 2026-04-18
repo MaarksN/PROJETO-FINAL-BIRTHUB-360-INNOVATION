@@ -1,7 +1,7 @@
 // @ts-expect-error TODO: remover suppressão ampla
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createAuthService } from "../../index";
+import { createAuthService } from "../../index.js";
 
 const svc = createAuthService({ jwtSecret: "secret", accessTtlSec: 60, refreshTtlSec: 120 });
 const user = { id: "u1", tenantId: "t1", roles: ["ADMIN"], permissions: ["agent:execute"], email: "a@b.com" };

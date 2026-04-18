@@ -3,14 +3,14 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
-import type { WorkflowTriggerJobPayload } from "../engine/runner";
+import type { WorkflowTriggerJobPayload } from "../engine/runner.js";
 import {
   type AgentMeshExecutionJobPayload,
   buildAgentMeshTriggerExecution,
   dispatchAgentMeshTrigger,
   emitNewLeadEvent,
   initializeAgentMeshIngressBridge
-} from "./runtime.ingress";
+} from "./runtime.ingress.js";
 
 void test("buildAgentMeshTriggerExecution normalizes critical support events into a premium mesh payload", () => {
   const blueprint = buildAgentMeshTriggerExecution({

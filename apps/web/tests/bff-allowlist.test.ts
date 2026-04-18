@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { isBffPathAllowed } from "../app/api/bff/policy";
+import { isBffPathAllowed } from "../app/api/bff/policy.js";
 
 void test("BFF allowlist keeps only supported privacy self-service paths active by default", () => {
   assert.equal(isBffPathAllowed("api/v1/admin/users"), true);

@@ -29,7 +29,7 @@ import {
 import type {
   SalesOsModuleDefinition,
   SalesOsTool
-} from "../../lib/sales-os/types";
+} from "../../lib/sales-os/types.js";
 
 export type SalesOsShellCopy = {
   catalogLoading: string;

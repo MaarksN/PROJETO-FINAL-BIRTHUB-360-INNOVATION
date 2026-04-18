@@ -6,7 +6,7 @@ import test from "node:test";
 import { DbReadTool, DbWriteTool, type BaseTool } from "@birthub/agents-core/tools";
 import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "@birthub/testing";
 
-import { PlanExecutor } from "./executors/planExecutor";
+import { PlanExecutor } from "./executors/planExecutor.js";
 
 function readSeedValue(data: Record<string, unknown>, key: string, fallback: string): string {
   const value = data[key];

@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { getWebConfig } from "@birthub/config/web";
 
-import { fetchWithTimeout } from "../../../../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
-import { isBffPathAllowed } from "../policy";
+import { isBffPathAllowed } from "../policy.js";
 
 const webConfig = getWebConfig();
 const BFF_PROXY_TIMEOUT_MS = 8_000;

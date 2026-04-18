@@ -1,6 +1,6 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
-import { TOOLS } from "./constants";
-import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types";
+import { TOOLS } from "./constants.js";
+import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types.js";
 
 export const SALES_OS_MODULES: SalesOsModuleDefinition[] = [
   {

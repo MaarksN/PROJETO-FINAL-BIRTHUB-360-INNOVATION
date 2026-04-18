@@ -8,12 +8,12 @@ import {
   formatDate,
   formatExecutionMode,
   formatRetentionAction
-} from "../app/(dashboard)/settings/privacy/privacy-settings-page.data";
+} from "../app/(dashboard)/settings/privacy/privacy-settings-page.data.js";
 import {
   clearStoredPrivacySession,
   exportPrivacyData,
   requestPrivacyAccountDeletion
-} from "../app/(dashboard)/settings/privacy/privacy-self-service.data";
+} from "../app/(dashboard)/settings/privacy/privacy-self-service.data.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

@@ -7,9 +7,9 @@ import Link from "next/link";
 import {
   ProductEmptyState,
   ProductPageHeader
-} from "../../../components/dashboard/page-fragments";
-import { fetchWithSession } from "../../../lib/auth-client";
-import { updateOnboardingState } from "../../../lib/product-api";
+} from "../../../components/dashboard/page-fragments.js";
+import { fetchWithSession } from "../../../lib/auth-client.js";
+import { updateOnboardingState } from "../../../lib/product-api.js";
 
 type OnboardingPayload = {
   enabled: boolean;

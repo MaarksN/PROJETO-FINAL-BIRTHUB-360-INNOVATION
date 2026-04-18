@@ -1,6 +1,6 @@
 "use client";
 
-import { useI18n } from "../../providers/I18nProvider";
+import { useI18n } from "../../providers/I18nProvider.js";
 
 export function ClinicalWorkspaceNotice() {
   const { locale } = useI18n();

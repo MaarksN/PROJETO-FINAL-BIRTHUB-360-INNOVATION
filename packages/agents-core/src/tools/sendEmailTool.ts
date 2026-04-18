@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
 
 const sendEmailInputSchema = z
   .object({

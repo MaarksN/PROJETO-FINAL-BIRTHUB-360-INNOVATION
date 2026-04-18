@@ -1,5 +1,5 @@
-import { ClinicalWorkspaceDisabledState } from "../../../components/dashboard/ClinicalWorkspaceDisabledState";
-import { getProductCapabilities } from "../../../lib/product-capabilities";
+import { ClinicalWorkspaceDisabledState } from "../../../components/dashboard/ClinicalWorkspaceDisabledState.js";
+import { getProductCapabilities } from "../../../lib/product-capabilities.js";
 
 export default async function PatientsPage() {
   const capabilities = getProductCapabilities();
@@ -8,6 +8,6 @@ export default async function PatientsPage() {
     return <ClinicalWorkspaceDisabledState />;
   }
 
-  const { default: PatientsPageClient } = await import("./page.client");
+  const { default: PatientsPageClient } = await import("./page.client.js");
   return <PatientsPageClient />;
 }

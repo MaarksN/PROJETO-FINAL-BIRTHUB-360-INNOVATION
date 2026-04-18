@@ -1,18 +1,18 @@
 import Link from "next/link";
 
-import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight";
+import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight.js";
 import {
   formatNumber,
   translateLabel,
   type Dictionary,
   type SupportedLocale
-} from "../../../lib/i18n";
+} from "../../../lib/i18n.js";
 import {
   buildExecutivePremiumAgentHref,
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
-} from "../../../lib/executive-premium";
-import { loadDashboardHomePage } from "./page.data";
+} from "../../../lib/executive-premium.js";
+import { loadDashboardHomePage } from "./page.data.js";
 
 type DashboardHomeCopy = Dictionary["dashboardHome"];
 type DashboardHomeData = Awaited<ReturnType<typeof loadDashboardHomePage>>;

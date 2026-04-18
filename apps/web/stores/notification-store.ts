@@ -2,8 +2,8 @@
 
 import { create } from "zustand";
 
-import { fetchWithSession, getStoredSession } from "../lib/auth-client";
-import { sanitizeCapabilityScopedLink } from "../lib/product-capabilities";
+import { fetchWithSession, getStoredSession } from "../lib/auth-client.js";
+import { sanitizeCapabilityScopedLink } from "../lib/product-capabilities.js";
 
 export interface NotificationItem {
   content: string;

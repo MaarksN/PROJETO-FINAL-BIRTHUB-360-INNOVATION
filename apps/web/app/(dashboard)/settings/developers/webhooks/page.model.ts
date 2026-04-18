@@ -18,7 +18,7 @@ import {
   type WebhookDelivery,
   type WebhookEndpoint,
   updateWebhookEndpointStatus
-} from "./page.data";
+} from "./page.data.js";
 
 export interface DeveloperWebhooksModel {
   deliveries: WebhookDelivery[];

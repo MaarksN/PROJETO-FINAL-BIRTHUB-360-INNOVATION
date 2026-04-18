@@ -1,5 +1,5 @@
-import type { AgentManifest } from "../manifest/schema";
-import type { CapabilityType, NumericSignalSummary, PremiumLayerAssessment, PremiumLayerAssessmentInput, PremiumLayerOverview, RecommendedAction, SegmentProfile } from "./intelligence";
+import type { AgentManifest } from "../manifest/schema.js";
+import type { CapabilityType, NumericSignalSummary, PremiumLayerAssessment, PremiumLayerAssessmentInput, PremiumLayerOverview, RecommendedAction, SegmentProfile } from "./intelligence.js";
 export declare function buildPremiumLayersAssessment(input: PremiumLayerAssessmentInput): PremiumLayerAssessment[];
 export declare function summarizePremiumLayers(layers: PremiumLayerAssessment[]): PremiumLayerOverview;
 export declare function inferCapabilityType(input: {

@@ -7,7 +7,7 @@ import {
   fetchWithSession,
   getStoredSession,
   persistStoredSession
-} from "../../../lib/auth-client";
+} from "../../../lib/auth-client.js";
 
 type MasterDashboardMetrics = {
   llmApiCalls: number;

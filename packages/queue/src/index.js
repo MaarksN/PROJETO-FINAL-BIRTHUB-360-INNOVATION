@@ -1,13 +1,13 @@
 import { QueueName } from "@birthub/shared-types";
-import { QUEUE_CONFIG } from "./definitions";
-import { QueueRuntime } from "./runtime";
-export { AGENT_QUEUE_NAMES, DEFAULT_REMOVE_ON_COMPLETE, DEFAULT_REMOVE_ON_FAIL, ENGAGEMENT_QUEUE_NAMES, getAgentQueueName, QUEUE_CONFIG, SYSTEM_QUEUE_NAMES, WORKFLOW_QUEUE_NAMES } from "./definitions";
-export { QueueDlqClient } from "./dlq";
-export { QueueBackpressureError, QueueClient, QueueRuntime, TenantQueueRateLimitError, queueClient } from "./runtime";
-export { buildDlqPayload, createRuntimeWorkerProcessor, extractJobContext, forwardToDlq, isFinalAttempt, mergeQueueJobOptions, registerRuntimeWorker, resolveConfiguredAttempts, toSerializedJobOptions } from "./worker";
-export * from "./workers/index";
-export * from "./job-context";
-export * from "./types";
+import { QUEUE_CONFIG } from "./definitions.js";
+import { QueueRuntime } from "./runtime.js";
+export { AGENT_QUEUE_NAMES, DEFAULT_REMOVE_ON_COMPLETE, DEFAULT_REMOVE_ON_FAIL, ENGAGEMENT_QUEUE_NAMES, getAgentQueueName, QUEUE_CONFIG, SYSTEM_QUEUE_NAMES, WORKFLOW_QUEUE_NAMES } from "./definitions.js";
+export { QueueDlqClient } from "./dlq.js";
+export { QueueBackpressureError, QueueClient, QueueRuntime, TenantQueueRateLimitError, queueClient } from "./runtime.js";
+export { buildDlqPayload, createRuntimeWorkerProcessor, extractJobContext, forwardToDlq, isFinalAttempt, mergeQueueJobOptions, registerRuntimeWorker, resolveConfiguredAttempts, toSerializedJobOptions } from "./worker.js";
+export * from "./workers/index.js";
+export * from "./job-context.js";
+export * from "./types.js";
 export const QUEUES = {
     BANK_RECONCILIATION: QueueName.BANK_RECONCILIATION,
     BOARD_REPORT: QueueName.BOARD_REPORT,

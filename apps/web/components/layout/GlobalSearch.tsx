@@ -21,9 +21,9 @@ import {
   getGlobalSearchCopy,
   mergeGlobalSearchGroups,
   type GlobalSearchGroup
-} from "../../lib/global-search";
-import { fetchSearchResults } from "../../lib/product-api";
-import { useI18n } from "../../providers/I18nProvider";
+} from "../../lib/global-search.js";
+import { fetchSearchResults } from "../../lib/product-api.js";
+import { useI18n } from "../../providers/I18nProvider.js";
 
 const iconByGroup: Record<string, LucideIcon> = {
   conversations: Sparkles,

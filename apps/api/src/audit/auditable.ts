@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 
 import { enqueueAuditEvent } from "./buffer.js";
+import { toPrismaJsonValue } from "../lib/prisma-json.js";
 import { ProblemDetailsError } from "../lib/problem-details.js";
 import { readTrimmedString } from "../lib/request-values.js";
 
@@ -64,8 +65,8 @@ export function Auditable<TResult>(options: AuditableOptions<TResult>) {
         action: options.action,
         actorId: actorId ?? null,
         diff: {
-          payload: (request.body as unknown) ?? null,
-          response: result ?? null
+          payload: toPrismaJsonValue(request.body as unknown),
+          response: toPrismaJsonValue(result ?? null)
         },
         entityId,
         entityType: options.entityType,

@@ -2,9 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import React from "react";
 
-import AppointmentsPage from "../app/(dashboard)/appointments/page";
-import PatientsPage from "../app/(dashboard)/patients/page";
-import { ClinicalWorkspaceDisabledState } from "../components/dashboard/ClinicalWorkspaceDisabledState";
+import AppointmentsPage from "../app/(dashboard)/appointments/page.js";
+import PatientsPage from "../app/(dashboard)/patients/page.js";
+import { ClinicalWorkspaceDisabledState } from "../components/dashboard/ClinicalWorkspaceDisabledState.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

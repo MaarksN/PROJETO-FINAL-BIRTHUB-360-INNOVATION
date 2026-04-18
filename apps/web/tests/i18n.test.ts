@@ -9,7 +9,7 @@ import {
   getDictionary,
   parseSupportedLocale,
   resolveLocale
-} from "../lib/i18n";
+} from "../lib/i18n.js";
 
 void test("pt-BR dictionary exposes canonical product navigation and consent copy", () => {
   const copy = getDictionary();

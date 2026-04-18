@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { QuotaArchitectAgent } from "../agent";
+import { QuotaArchitectAgent } from "../agent.js";
 import {
   DEFAULT_QUOTAARCHITECT_CONTRACT,
   type QuotaArchitectInput,
   type QuotaEvent
-} from "../schemas";
-import type { QuotaArchitectToolAdapters } from "../tools";
+} from "../schemas.js";
+import type { QuotaArchitectToolAdapters } from "../tools.js";
 
 const VALID_INPUT: QuotaArchitectInput = {
   constraints: {

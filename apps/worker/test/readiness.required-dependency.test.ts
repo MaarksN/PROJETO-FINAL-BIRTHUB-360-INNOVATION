@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { evaluateWorkerReadiness } from "../src/operational/readiness";
+import { evaluateWorkerReadiness } from "../src/operational/readiness.js";
 
 void test("worker readiness returns degraded when Redis dependency is unavailable", async () => {
   const payload = await evaluateWorkerReadiness({

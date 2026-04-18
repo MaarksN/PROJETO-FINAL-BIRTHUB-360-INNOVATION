@@ -323,4 +323,4 @@ export interface AgentLog {
     error?: string | null;
     createdAt: Date;
 }
-export * from './schemas/leads';
+export * from './schemas/leads.js';

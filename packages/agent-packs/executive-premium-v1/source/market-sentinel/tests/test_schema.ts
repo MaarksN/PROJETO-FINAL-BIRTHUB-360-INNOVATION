@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { MarketSentinelAgent } from "../agent";
-import { MarketSentinelInputSchema, type MarketSentinelInput } from "../schemas";
+import { MarketSentinelAgent } from "../agent.js";
+import { MarketSentinelInputSchema, type MarketSentinelInput } from "../schemas.js";
 
 void test("MarketSentinel schema rejects missing required fields", () => {
   const invalidPayload = {

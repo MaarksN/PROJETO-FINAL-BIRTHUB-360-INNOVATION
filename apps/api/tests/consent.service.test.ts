@@ -8,7 +8,7 @@ import { prisma } from "@birthub/database";
 import {
   ensurePrivacyConsents,
   savePrivacyConsentDecisions
-} from "../src/modules/privacy/consent.service";
+} from "../src/modules/privacy/consent.service.js";
 
 const CONSENT_PURPOSE = {
   ANALYTICS: "ANALYTICS",

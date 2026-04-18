@@ -1,25 +1,25 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import Link from "next/link";
 
-import { ProductPageHeader } from "../../../components/dashboard/page-fragments";
-import { EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE } from "../../../lib/executive-premium";
-import { fetchExecutivePremiumCollection } from "../../../lib/marketplace-api.server";
-import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
-import { getDictionary } from "../../../lib/i18n";
-import { getRequestLocale } from "../../../lib/i18n.server";
-import { loadDashboardHomePage } from "./page.data";
+import { ProductPageHeader } from "../../../components/dashboard/page-fragments.js";
+import { EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE } from "../../../lib/executive-premium.js";
+import { fetchExecutivePremiumCollection } from "../../../lib/marketplace-api.server.js";
+import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog.js";
+import { getDictionary } from "../../../lib/i18n.js";
+import { getRequestLocale } from "../../../lib/i18n.server.js";
+import { loadDashboardHomePage } from "./page.data.js";
 import {
   DashboardExecutivePremiumSection,
   DashboardNoticeSections,
   getDashboardStaticCopy
-} from "./page.sections";
+} from "./page.sections.js";
 import {
   DashboardAttributionSection,
   DashboardClinicalSection,
   DashboardCustomerHealthSection,
   DashboardSalesOsSection,
   DashboardWorkflowUsageSection
-} from "./page.panels";
+} from "./page.panels.js";
 
 export default async function DashboardHomePage() {
   const locale = await getRequestLocale();

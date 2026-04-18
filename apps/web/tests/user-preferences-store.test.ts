@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { JSDOM } from "jsdom";
 
-import { useUserPreferencesStore } from "../stores/user-preferences-store";
+import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

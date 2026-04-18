@@ -11,7 +11,7 @@ import {
   updateAppointment,
   type AppointmentSnapshot,
   type AppointmentsResponse
-} from "./clinical-data";
+} from "./clinical-data.js";
 
 export type AppointmentsBoardView = "day" | "month" | "week";
 

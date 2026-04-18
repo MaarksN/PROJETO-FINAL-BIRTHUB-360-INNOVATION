@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { PricingOptimizerAgent } from "../agent";
-import { PricingOptimizerInputSchema, type PricingOptimizerInput } from "../schemas";
+import { PricingOptimizerAgent } from "../agent.js";
+import { PricingOptimizerInputSchema, type PricingOptimizerInput } from "../schemas.js";
 
 void test("PricingOptimizer schema rejects missing required fields", () => {
   const invalidPayload = {

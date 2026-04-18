@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { z } from "zod";
 
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
 
 const dbWriteInputSchema = z
   .object({

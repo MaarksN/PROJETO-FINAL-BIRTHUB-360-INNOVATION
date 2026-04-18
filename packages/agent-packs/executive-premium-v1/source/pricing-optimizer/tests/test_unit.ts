@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { PricingOptimizerAgent } from "../agent";
+import { PricingOptimizerAgent } from "../agent.js";
 import {
   type CompetitorEvent,
   type PricingOptimizerInput,
   DEFAULT_PRICINGOPTIMIZER_CONTRACT
-} from "../schemas";
-import type { PricingOptimizerToolAdapters } from "../tools";
+} from "../schemas.js";
+import type { PricingOptimizerToolAdapters } from "../tools.js";
 
 const VALID_INPUT: PricingOptimizerInput = {
   constraints: {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
 declare const sendEmailInputSchema: z.ZodObject<{
     dynamicTemplateData: z.ZodDefault<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
     html: z.ZodOptional<z.ZodString>;

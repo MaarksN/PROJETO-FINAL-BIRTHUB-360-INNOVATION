@@ -1,1 +1,1 @@
-export { ALLOWED_BFF_PREFIXES, isBffPathAllowed } from "../../../lib/bff-policy";
+export { ALLOWED_BFF_PREFIXES, isBffPathAllowed } from "../../../lib/bff-policy.js";

@@ -1,7 +1,7 @@
 import type { ZodIssue } from "zod";
 
-import { agentManifestSchema, MANIFEST_VERSION } from "./schema";
-import type { AgentManifest } from "./schema";
+import { agentManifestSchema, MANIFEST_VERSION } from "./schema.js";
+import type { AgentManifest } from "./schema.js";
 
 export class AgentManifestParseError extends Error {
   readonly issues: string[];

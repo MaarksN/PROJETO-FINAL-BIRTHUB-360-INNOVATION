@@ -15,9 +15,9 @@ import type {
   LeadRegionId,
   SdrAutomaticCopy,
   SdrAutomaticLead
-} from "./sdr-automatic-data";
-import type { SupportedLocale } from "../../lib/i18n";
-import { useToastStore } from "../../stores/toast-store";
+} from "./sdr-automatic-data.js";
+import type { SupportedLocale } from "../../lib/i18n.js";
+import { useToastStore } from "../../stores/toast-store.js";
 import {
   applyPollingFrameToLeads,
   applyPollingFrameToMetrics,
@@ -47,8 +47,8 @@ import {
   type LeadFilters,
   type LeadScoreBandId,
   type PendingTask
-} from "./sdr-automatic-dashboard";
-import { SdrLeadScoreWorkspaceAnalytics } from "./SdrLeadScoreWorkspace.analytics";
+} from "./sdr-automatic-dashboard.js";
+import { SdrLeadScoreWorkspaceAnalytics } from "./SdrLeadScoreWorkspace.analytics.js";
 import {
   buildId,
   buildLeadInsightDetail,
@@ -57,10 +57,10 @@ import {
   type LeadInsightState,
   type LeadSequenceState,
   type SupportMessage
-} from "./SdrLeadScoreWorkspace.helpers";
-import { SdrLeadScoreWorkspaceSide } from "./SdrLeadScoreWorkspace.side";
-import { SdrLeadScoreWorkspaceTable } from "./SdrLeadScoreWorkspace.table";
-import { SdrLeadScoreWorkspaceTop } from "./SdrLeadScoreWorkspace.top";
+} from "./SdrLeadScoreWorkspace.helpers.js";
+import { SdrLeadScoreWorkspaceSide } from "./SdrLeadScoreWorkspace.side.js";
+import { SdrLeadScoreWorkspaceTable } from "./SdrLeadScoreWorkspace.table.js";
+import { SdrLeadScoreWorkspaceTop } from "./SdrLeadScoreWorkspace.top.js";
 import styles from "./sdr-lead-score.module.css";
 
 const TASKS_STORAGE_KEY = "bh_sdr_pending_tasks";

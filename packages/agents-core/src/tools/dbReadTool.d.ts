@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool";
+import { BaseTool, type BaseToolOptions, type ToolExecutionContext } from "./baseTool.js";
 declare const dbReadInputSchema: z.ZodObject<{
     params: z.ZodDefault<z.ZodArray<z.ZodUnknown>>;
     query: z.ZodString;

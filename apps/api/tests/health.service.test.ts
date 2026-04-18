@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { createDeepHealthService, createHealthService, createReadinessHealthService } from "../src/lib/health";
-import { createTestApiConfig } from "./test-config";
+import { createDeepHealthService, createHealthService, createReadinessHealthService } from "../src/lib/health.js";
+import { createTestApiConfig } from "./test-config.js";
 
 void test("liveness keeps overall status ok while exposing dependency degradation", async () => {
   let nowTick = 0;

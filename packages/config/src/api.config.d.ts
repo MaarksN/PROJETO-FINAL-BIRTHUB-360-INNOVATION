@@ -80,6 +80,7 @@ export declare const apiEnvSchema: z.ZodObject<{
     AUTH_MFA_ENCRYPTION_KEY: z.ZodDefault<z.ZodString>;
     AUTH_MFA_ISSUER: z.ZodDefault<z.ZodString>;
     BILLING_GRACE_PERIOD_DAYS: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
+    BREAK_GLASS_SESSION_TTL_MINUTES: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
 }, z.core.$strip>;
 export type ApiConfig = z.infer<typeof apiEnvSchema> & {
     corsOrigins: string[];

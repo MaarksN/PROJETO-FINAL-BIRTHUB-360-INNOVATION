@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { hasExplicitDatabaseUrl } from "../src/lib/database-availability";
+import { hasExplicitDatabaseUrl } from "../src/lib/database-availability.js";
 
 void test("hasExplicitDatabaseUrl returns false when DATABASE_URL is missing", () => {
   assert.equal(hasExplicitDatabaseUrl({}), false);

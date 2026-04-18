@@ -14,7 +14,7 @@ import {
   maskSecrets,
   retryWorkflowRun,
   type WorkflowExecutionSnapshot
-} from "./page.data";
+} from "./page.data.js";
 
 type WorkflowGraph = {
   edges: Edge[];

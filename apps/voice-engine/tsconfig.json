@@ -1,12 +1,14 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": { "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "dist",
-    "module": "esnext"
+    "rootDir": "src",
+    "declaration": true,
+    "types": ["node"]
   },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }
 

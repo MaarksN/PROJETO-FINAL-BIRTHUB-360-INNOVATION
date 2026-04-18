@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { BudgetFluidAgent } from "../agent";
+import { BudgetFluidAgent } from "../agent.js";
 import {
   type BudgetEvent,
   type BudgetFluidInput,
   DEFAULT_BUDGETFLUID_CONTRACT
-} from "../schemas";
-import type { BudgetFluidToolAdapters } from "../tools";
+} from "../schemas.js";
+import type { BudgetFluidToolAdapters } from "../tools.js";
 
 const VALID_INPUT: BudgetFluidInput = {
   constraints: {

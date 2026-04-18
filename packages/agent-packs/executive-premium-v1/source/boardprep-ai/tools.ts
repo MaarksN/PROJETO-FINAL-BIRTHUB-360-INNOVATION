@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { z } from "zod";
 
-import { BoardPrepFocusAreaSchema } from "./schemas";
+import { BoardPrepFocusAreaSchema } from "./schemas.js";
 
 const isoDateSchema = z
   .string()

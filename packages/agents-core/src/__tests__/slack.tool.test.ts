@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { postSlackMessage } from "../tools/slack.tool";
+import { postSlackMessage } from "../tools/slack.tool.js";
 
 function readRequestUrl(url: RequestInfo | URL): string {
   if (typeof url === "string") {

@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { ENotasClient } from "./fiscal";
+import { ENotasClient } from "./fiscal.js";
 
 function createJsonResponse(payload: unknown, status = 200): Response {
   return new Response(JSON.stringify(payload), {

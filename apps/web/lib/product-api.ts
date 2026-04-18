@@ -1,4 +1,4 @@
-import { fetchWithSession } from "./auth-client";
+import { fetchWithSession } from "./auth-client.js";
 
 const PRODUCT_MUTATION_TIMEOUT_MS = 8_000;
 

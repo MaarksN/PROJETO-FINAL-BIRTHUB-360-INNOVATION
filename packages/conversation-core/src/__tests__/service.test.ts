@@ -2,7 +2,7 @@
 // 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { ConversationService } from "../../src/service";
+import { ConversationService } from "../../src/service.js";
 
 void test("conversation service lifecycle", () => {
   const events: unknown[] = [];

@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { Prisma, prisma } from "@birthub/database";
 
 import { getBillingSnapshot } from "../billing/service.js";

@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { CompetitorXRayAgent } from "../agent";
+import { CompetitorXRayAgent } from "../agent.js";
 import {
   type CompetitorEvent,
   type CompetitorXRayInput,
   DEFAULT_COMPETITORXRAY_CONTRACT
-} from "../schemas";
-import type { CompetitorXRayToolAdapters } from "../tools";
+} from "../schemas.js";
+import type { CompetitorXRayToolAdapters } from "../tools.js";
 
 const VALID_INPUT: CompetitorXRayInput = {
   constraints: {

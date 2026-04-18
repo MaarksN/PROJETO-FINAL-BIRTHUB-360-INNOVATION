@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import { Prisma, prisma } from "@birthub/database";
 import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
@@ -365,7 +364,7 @@ export const fhirService = {
   ) {
     const normalizedIdentifier = filters.identifier?.trim();
     const normalizedName = filters.name?.trim();
-    const searchFilters: Prisma.PatientWhereInput[] = [];
+    const searchFilters: object[] = [];
     if (!normalizedIdentifier && !normalizedName) {
       throw new ProblemDetailsError({
         detail: "At least one FHIR search parameter is required.",
@@ -475,4 +474,3 @@ export const fhirService = {
     return toAppointmentResource(appointment);
   }
 };
-

@@ -7,7 +7,7 @@ import {
   executeStep,
   type ConnectorActionRequest,
   type WorkflowRuntimeContext
-} from "../src/index";
+} from "../src/index.js";
 
 function createContext(): WorkflowRuntimeContext {
   return {

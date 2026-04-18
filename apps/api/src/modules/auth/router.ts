@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import type { ApiConfig } from "@birthub/config";
 import type { z } from "zod";
 import {
@@ -170,18 +169,20 @@ function registerLoginRoute(router: ReturnType<typeof Router>, config: ApiConfig
         userAgent: readUserAgent(request)
       });
 
-      if (login.mfaRequired) {
+      if (login.mfaRequired === true) {
         response
           .status(200)
           .json(buildMfaChallengeResponse(request.context.requestId, login));
         return;
       }
 
-      applySessionContext(request, login);
-      setAuthCookies(response, config, login.tokens);
+      const session = login;
+
+      applySessionContext(request, session);
+      setAuthCookies(response, config, session.tokens);
       response
         .status(200)
-        .json(buildSessionResponse(request.context.requestId, login));
+        .json(buildSessionResponse(request.context.requestId, session));
     })
   );
 }
@@ -420,4 +421,3 @@ export function mountAuthRoutes(
   const createRouter = dependencies.createAuthRouter ?? createAuthRouter;
   target.use(AUTH_ROUTER_BASE_PATH, createRouter(config));
 }
-

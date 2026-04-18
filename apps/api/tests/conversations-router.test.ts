@@ -6,11 +6,11 @@ import test from "node:test";
 import { prisma, Role } from "@birthub/database";
 import request from "supertest";
 
-import { createConversationsRouter } from "../src/modules/conversations/router";
+import { createConversationsRouter } from "../src/modules/conversations/router.js";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers";
+} from "./http-test-helpers.js";
 
 type ConversationsListBody = {
   items: Array<{

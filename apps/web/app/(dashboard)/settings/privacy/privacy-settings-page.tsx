@@ -4,17 +4,17 @@
 
 import { useMemo } from "react";
 
-import { getStoredSession } from "../../../../lib/auth-client";
+import { getStoredSession } from "../../../../lib/auth-client.js";
 
-import { DELETE_CONFIRMATION } from "./privacy-settings-page.data";
-import { usePrivacySettingsModel } from "./privacy-settings-page.model";
+import { DELETE_CONFIRMATION } from "./privacy-settings-page.data.js";
+import { usePrivacySettingsModel } from "./privacy-settings-page.model.js";
 import {
   PrivacyConsentSection,
   PrivacyDeletionSection,
   PrivacyExportSection,
   PrivacyPageHeader,
   PrivacyRetentionSection
-} from "./privacy-settings-page.sections";
+} from "./privacy-settings-page.sections.js";
 
 export default function PrivacySettingsPageClient() {
   const session = useMemo(() => getStoredSession(), []);

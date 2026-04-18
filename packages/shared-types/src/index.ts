@@ -359,4 +359,4 @@ export interface AgentLog {
   createdAt: Date;
 }
 
-export * from './schemas/leads';
+export * from './schemas/leads.js';

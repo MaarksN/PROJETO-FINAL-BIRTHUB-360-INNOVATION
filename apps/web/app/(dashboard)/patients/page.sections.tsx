@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import type { PatientsResponse } from "./clinical-data";
+import type { PatientsResponse } from "./clinical-data.js";
 
 type CreatePatientForm = {
   birthDate: string;

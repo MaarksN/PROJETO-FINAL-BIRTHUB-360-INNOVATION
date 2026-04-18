@@ -5,8 +5,8 @@ import Link from "next/link";
 import {
   ProductEmptyState,
   ProductPageHeader
-} from "../../../components/dashboard/page-fragments";
-import { fetchProductJson } from "../../../lib/product-api.server";
+} from "../../../components/dashboard/page-fragments.js";
+import { fetchProductJson } from "../../../lib/product-api.server.js";
 
 type ExecutivePayload = {
   metrics: {

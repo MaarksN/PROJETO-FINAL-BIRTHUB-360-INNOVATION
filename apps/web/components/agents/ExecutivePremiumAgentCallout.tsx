@@ -4,7 +4,7 @@ import {
   buildExecutivePremiumAgentHref,
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
-} from "../../lib/executive-premium";
+} from "../../lib/executive-premium.js";
 
 export function ExecutivePremiumAgentCallout(props: {
   agentId: string;

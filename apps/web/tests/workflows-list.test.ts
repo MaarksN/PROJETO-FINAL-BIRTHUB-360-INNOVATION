@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { listWorkflows } from "../lib/workflows";
+import { listWorkflows } from "../lib/workflows.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

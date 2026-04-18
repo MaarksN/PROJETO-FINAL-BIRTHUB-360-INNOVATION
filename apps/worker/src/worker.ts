@@ -11,35 +11,35 @@ import {
 import type { Queue, Worker } from "bullmq";
 import type { Redis } from "ioredis";
 
-import { persistAgentHandoff } from "./agents/handoffs";
-import { initializeAgentMeshIngressBridge } from "./agents/runtime.ingress";
-import { executeManifestAgentRuntime } from "./agents/runtime.orchestration";
+import { persistAgentHandoff } from "./agents/handoffs.js";
+import { initializeAgentMeshIngressBridge } from "./agents/runtime.ingress.js";
+import { executeManifestAgentRuntime } from "./agents/runtime.orchestration.js";
 import {
   WorkflowRunner,
   type WorkflowExecutionJobPayload,
   type WorkflowTriggerJobPayload
-} from "./engine/runner";
-import { executeConnectorRuntimeAction } from "./integrations/connectors.runtime";
-import { syncOrganizationToHubspot } from "./integrations/hubspot";
-import { DynamicRateLimiter } from "./lib/rate-limiter";
+} from "./engine/runner.js";
+import { executeConnectorRuntimeAction } from "./integrations/connectors.runtime.js";
+import { syncOrganizationToHubspot } from "./integrations/hubspot.js";
+import { DynamicRateLimiter } from "./lib/rate-limiter.js";
 import {
   processEmailNotificationJob,
   type EmailNotificationJobPayload
-} from "./notifications/emailQueue";
-import { buildRetryableQueueConfig } from "./queues/workerFactory";
+} from "./notifications/emailQueue.js";
+import { buildRetryableQueueConfig } from "./queues/workerFactory.js";
 import {
   processOutboundWebhookJob,
   type OutboundWebhookJobPayload
-} from "./webhooks/outbound";
-import { createBillingLockResolver } from "./worker.billing";
+} from "./webhooks/outbound.js";
+import { createBillingLockResolver } from "./worker.billing.js";
 import {
   persistExecutionFinished,
   persistExecutionStarted
-} from "./worker.execution-state";
-import type { CrmSyncJobPayload } from "./worker.job-validation";
-import { createJobProcessor, resolveOrganizationReference } from "./worker.process-job";
+} from "./worker.execution-state.js";
+import type { CrmSyncJobPayload } from "./worker.job-validation.js";
+import { createJobProcessor, resolveOrganizationReference } from "./worker.process-job.js";
 
-export { validateLegacyTaskJob } from "./worker.job-validation";
+export { validateLegacyTaskJob } from "./worker.job-validation.js";
 
 const logger = createLogger("worker");
 

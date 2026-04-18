@@ -4,9 +4,9 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { registerAuthRoutes } from "../src/app/auth-routes";
-import { requestContextMiddleware } from "../src/middleware/request-context";
-import { createTestApiConfig } from "./test-config";
+import { registerAuthRoutes } from "../src/app/auth-routes.js";
+import { requestContextMiddleware } from "../src/middleware/request-context.js";
+import { createTestApiConfig } from "./test-config.js";
 
 type IntrospectionBody = {
   active: boolean;

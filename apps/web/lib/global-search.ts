@@ -1,8 +1,8 @@
 import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
-} from "./executive-premium";
-import type { SupportedLocale } from "./i18n";
+} from "./executive-premium.js";
+import type { SupportedLocale } from "./i18n.js";
 
 export type GlobalSearchItem = {
   href: string;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import type { PatientDetailResponse } from "../clinical-data";
+import type { PatientDetailResponse } from "../clinical-data.js";
 
 export type PatientFormState = {
   allergies: string;

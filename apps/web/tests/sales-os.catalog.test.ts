@@ -7,7 +7,7 @@ import {
   getSalesOsToolsByModule,
   SALES_OS_MODULES,
   salesOsTools
-} from "../lib/sales-os/catalog";
+} from "../lib/sales-os/catalog.js";
 
 void test("sales os catalog exposes every imported module and tool family", () => {
   assert.equal(SALES_OS_MODULES.length, 13);

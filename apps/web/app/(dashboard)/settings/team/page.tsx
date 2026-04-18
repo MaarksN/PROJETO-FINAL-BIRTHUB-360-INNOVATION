@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { fetchWithSession, getStoredSession } from "../../../../lib/auth-client";
+import { fetchWithSession, getStoredSession } from "../../../../lib/auth-client.js";
 
 type Role = "OWNER" | "ADMIN" | "MEMBER" | "READONLY";
 

@@ -5,8 +5,8 @@ import { createHmac } from "node:crypto";
 import CircuitBreaker from "opossum";
 import { LRUCache } from "lru-cache";
 
-import { interpolateValue } from "../interpolation/interpolate";
-import type { WorkflowRuntimeContext } from "../types";
+import { interpolateValue } from "../interpolation/interpolate.js";
+import type { WorkflowRuntimeContext } from "../types.js";
 
 interface HttpRequestNodeConfig {
   auth?:

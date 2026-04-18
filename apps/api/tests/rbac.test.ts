@@ -8,9 +8,9 @@ setMaxListeners(100);
 import { MembershipStatus, Role, UserStatus, prisma } from "@birthub/database";
 import request from "supertest";
 
-import { createApp } from "../src/app";
-import { createTestApiConfig } from "./test-config";
-import { sha256 } from "../src/modules/auth/crypto";
+import { createApp } from "../src/app.js";
+import { createTestApiConfig } from "./test-config.js";
+import { sha256 } from "../src/modules/auth/crypto.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

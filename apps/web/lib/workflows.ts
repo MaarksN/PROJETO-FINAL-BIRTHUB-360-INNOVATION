@@ -2,7 +2,7 @@ import { getWebConfig } from "@birthub/config/web";
 import type { WorkflowCanvas } from "@birthub/workflows-core/nextjs";
 import { cookies } from "next/headers";
 
-import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
 type WorkflowStatus = "ARCHIVED" | "DRAFT" | "PUBLISHED";
 

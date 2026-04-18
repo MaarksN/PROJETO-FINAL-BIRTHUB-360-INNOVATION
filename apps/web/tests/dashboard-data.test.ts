@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { loadDashboardSnapshot } from "../lib/dashboard";
+import { loadDashboardSnapshot } from "../lib/dashboard.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

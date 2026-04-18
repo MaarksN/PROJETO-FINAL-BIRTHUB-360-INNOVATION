@@ -15,21 +15,21 @@ import {
 import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT
-} from "../../lib/executive-premium";
-import type { SupportedLocale } from "../../lib/i18n";
+} from "../../lib/executive-premium.js";
+import type { SupportedLocale } from "../../lib/i18n.js";
 import {
   getSdrAutomaticConfig,
   getSdrAutomaticViewDefinitions,
   type SdrAutomaticCopy,
   type SdrAutomaticLead,
   type SdrAutomaticTimeSlot
-} from "./sdr-automatic-data";
+} from "./sdr-automatic-data.js";
 import {
   SdrAgendadorView,
   SdrAssistenteView,
   SdrHandoffView,
   SdrLeadScoreView
-} from "./SdrAutomaticViews";
+} from "./SdrAutomaticViews.js";
 import styles from "./sdr-automatic-platform.module.css";
 
 type ViewId = "agendador" | "assistente" | "handoff" | "leadScore";

@@ -1,6 +1,6 @@
 import type { ZodType } from "zod";
 
-import { PolicyDeniedError, type PolicyContext, type PolicyEngine } from "../policy/engine";
+import { PolicyDeniedError, type PolicyContext, type PolicyEngine } from "../policy/engine.js";
 
 export interface ToolCostMetadata {
   estimatedCostUsd?: number;

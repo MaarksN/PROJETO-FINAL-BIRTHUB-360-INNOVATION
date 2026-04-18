@@ -3,7 +3,7 @@
 import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 
-import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
 export type ExecutionStatus = "FAILED" | "RUNNING" | "SUCCESS";
 

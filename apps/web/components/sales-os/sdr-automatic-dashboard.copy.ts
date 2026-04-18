@@ -1,16 +1,16 @@
-import type { SupportedLocale } from "../../lib/i18n";
+import type { SupportedLocale } from "../../lib/i18n.js";
 
 import type {
   LeadRegionId,
   LeadSequenceStatus,
   SdrAutomaticLead
-} from "./sdr-automatic-data";
+} from "./sdr-automatic-data.js";
 import type {
   ChurnWatchEntry,
   LeadColumnTooltipId,
   LeadDashboardCopy,
   LeadScoreBandId
-} from "./sdr-automatic-dashboard";
+} from "./sdr-automatic-dashboard.js";
 
 export function isEnglish(locale: SupportedLocale): boolean {
   return locale === "en-US";

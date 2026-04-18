@@ -10,11 +10,11 @@ import type { Queue } from "bullmq";
 import {
   enqueueEmailNotification,
   type EmailNotificationJobPayload
-} from "./notifications/emailQueue";
+} from "./notifications/emailQueue.js";
 import {
   enqueueWebhookTopicDeliveries,
   type OutboundWebhookJobPayload
-} from "./webhooks/outbound";
+} from "./webhooks/outbound.js";
 
 function humanizeAgentId(agentId: string): string {
   return agentId.replace(/[-_]/g, " ").trim().toUpperCase();

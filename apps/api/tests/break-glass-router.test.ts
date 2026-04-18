@@ -4,11 +4,11 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { createApp } from "../src/app";
-import { errorHandler, notFoundMiddleware } from "../src/middleware/error-handler";
-import { requestContextMiddleware } from "../src/middleware/request-context";
-import { createBreakGlassRouter } from "../src/modules/break-glass/router";
-import { createTestApiConfig } from "./test-config";
+import { createApp } from "../src/app.js";
+import { errorHandler, notFoundMiddleware } from "../src/middleware/error-handler.js";
+import { requestContextMiddleware } from "../src/middleware/request-context.js";
+import { createBreakGlassRouter } from "../src/modules/break-glass/router.js";
+import { createTestApiConfig } from "./test-config.js";
 
 type ErrorBody = {
   detail?: string;

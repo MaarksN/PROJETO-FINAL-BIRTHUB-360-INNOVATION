@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 
 import type { ApiConfig } from "@birthub/config";
 
-import { createApp } from "../src/app";
-import { createTestApiConfig } from "./test-config";
+import { createApp } from "../src/app.js";
+import { createTestApiConfig } from "./test-config.js";
 
 export function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

@@ -15,20 +15,20 @@ import {
   SunMedium
 } from "lucide-react";
 
-import { EXECUTIVE_PREMIUM_COLLECTION_HREF } from "../../lib/executive-premium";
-import { useThemeMode } from "../../providers/ThemeProvider";
+import { EXECUTIVE_PREMIUM_COLLECTION_HREF } from "../../lib/executive-premium.js";
+import { useThemeMode } from "../../providers/ThemeProvider.js";
 import {
   type NotificationItem,
   useNotificationStore
-} from "../../stores/notification-store";
-import { useUserPreferencesStore } from "../../stores/user-preferences-store";
-import { useI18n } from "../../providers/I18nProvider";
-import { BrandLogo } from "../brand/BrandLogo";
-import { GlobalSearch } from "./GlobalSearch";
+} from "../../stores/notification-store.js";
+import { useUserPreferencesStore } from "../../stores/user-preferences-store.js";
+import { useI18n } from "../../providers/I18nProvider.js";
+import { BrandLogo } from "../brand/BrandLogo.js";
+import { GlobalSearch } from "./GlobalSearch.js";
 import {
   getProductCapabilities,
   isDashboardNavigationItemEnabled
-} from "../../lib/product-capabilities";
+} from "../../lib/product-capabilities.js";
 
 const productCapabilities = getProductCapabilities();
 

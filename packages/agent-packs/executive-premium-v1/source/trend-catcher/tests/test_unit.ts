@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { TrendCatcherAgent } from "../agent";
+import { TrendCatcherAgent } from "../agent.js";
 import {
   DEFAULT_TRENDCATCHER_CONTRACT,
   type TrendCatcherInput,
   type TrendEvent
-} from "../schemas";
-import type { TrendCatcherToolAdapters } from "../tools";
+} from "../schemas.js";
+import type { TrendCatcherToolAdapters } from "../tools.js";
 
 const VALID_INPUT: TrendCatcherInput = {
   constraints: {

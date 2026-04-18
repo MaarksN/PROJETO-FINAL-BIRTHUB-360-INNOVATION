@@ -1,7 +1,7 @@
 import { QueueName } from "@birthub/shared-types";
 
-import { QUEUE_CONFIG } from "./definitions";
-import { QueueRuntime } from "./runtime";
+import { QUEUE_CONFIG } from "./definitions.js";
+import { QueueRuntime } from "./runtime.js";
 import type { JobsOptions } from "bullmq";
 
 export {
@@ -13,15 +13,15 @@ export {
   QUEUE_CONFIG,
   SYSTEM_QUEUE_NAMES,
   WORKFLOW_QUEUE_NAMES
-} from "./definitions";
-export { QueueDlqClient } from "./dlq";
+} from "./definitions.js";
+export { QueueDlqClient } from "./dlq.js";
 export {
   QueueBackpressureError,
   QueueClient,
   QueueRuntime,
   TenantQueueRateLimitError,
   queueClient
-} from "./runtime";
+} from "./runtime.js";
 export {
   buildDlqPayload,
   createRuntimeWorkerProcessor,
@@ -32,10 +32,10 @@ export {
   registerRuntimeWorker,
   resolveConfiguredAttempts,
   toSerializedJobOptions
-} from "./worker";
-export * from "./workers/index";
-export * from "./job-context";
-export * from "./types";
+} from "./worker.js";
+export * from "./workers/index.js";
+export * from "./job-context.js";
+export * from "./types.js";
 
 export const QUEUES = {
   BANK_RECONCILIATION: QueueName.BANK_RECONCILIATION,
@@ -109,16 +109,16 @@ export function scopedQueueName(baseQueue: QueueName | string, tenantId?: string
 }
 
 export const createQueue = <DataType = unknown, ResultType = unknown>(
-  config: string | import("./types").QueueConfig
+  config: string | import("./types.js").QueueConfig
 ) => getDefaultRuntime().createQueue<DataType, ResultType>(config);
 
 export const createWorker = <DataType = unknown, ResultType = unknown>(
-  config: string | import("./types").QueueConfig,
-  processor: import("./types").QueueProcessor<DataType, ResultType>
+  config: string | import("./types.js").QueueConfig,
+  processor: import("./types.js").QueueProcessor<DataType, ResultType>
 ) => getDefaultRuntime().createWorker<DataType, ResultType>(config, processor);
 
 export const createQueueEvents = (
-  config: string | import("./types").QueueConfig
+  config: string | import("./types.js").QueueConfig
 ) => getDefaultRuntime().createQueueEvents(config);
 
 export const closeRedis = async (): Promise<void> => {

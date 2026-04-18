@@ -7,7 +7,7 @@ import { hydrateRoot } from "react-dom/client";
 import { renderToString } from "react-dom/server";
 
 void test("login page hydrates without mismatch", async () => {
-  const { LoginForm } = await import("../components/login-form");
+  const { LoginForm } = await import("../components/login-form.js");
   const markup = renderToString(
     React.createElement(LoginForm, {
       initialRequestId: "req_test",

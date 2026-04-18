@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { ExpansionMapperAgent } from "../agent";
-import { ExpansionMapperInputSchema, type ExpansionMapperInput } from "../schemas";
+import { ExpansionMapperAgent } from "../agent.js";
+import { ExpansionMapperInputSchema, type ExpansionMapperInput } from "../schemas.js";
 
 void test("ExpansionMapper schema rejects missing required fields", () => {
   const invalidPayload = {

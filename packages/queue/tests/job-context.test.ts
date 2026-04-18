@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { signJobPayload, validateJobContext, verifyJobPayloadSignature } from "../src/job-context";
+import { signJobPayload, validateJobContext, verifyJobPayloadSignature } from "../src/job-context.js";
 
 void test("job context validation requires immutable tracking fields", () => {
   assert.equal(

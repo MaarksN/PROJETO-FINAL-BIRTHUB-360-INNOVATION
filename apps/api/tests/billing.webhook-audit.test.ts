@@ -12,14 +12,14 @@ import Stripe from "stripe";
 import {
   setCacheStoreForTests,
   type CacheStore
-} from "../src/common/cache/cache-store";
-import { errorHandler } from "../src/middleware/error-handler";
-import { STRIPE_API_VERSION } from "../src/modules/billing/stripe.client";
+} from "../src/common/cache/cache-store.js";
+import { errorHandler } from "../src/middleware/error-handler.js";
+import { STRIPE_API_VERSION } from "../src/modules/billing/stripe.client.js";
 import {
   createStripeWebhookRouter,
   type StripeWebhookRouterDependencies
-} from "../src/modules/webhooks/stripe.router";
-import { createTestApiConfig } from "./test-config";
+} from "../src/modules/webhooks/stripe.router.js";
+import { createTestApiConfig } from "./test-config.js";
 
 function stubMethod(target: object, key: string, value: unknown): () => void {
   const original: unknown = Reflect.get(target, key) as unknown;

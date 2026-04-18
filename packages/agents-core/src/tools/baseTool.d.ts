@@ -1,5 +1,5 @@
 import type { ZodType } from "zod";
-import { type PolicyContext, type PolicyEngine } from "../policy/engine";
+import { type PolicyContext, type PolicyEngine } from "../policy/engine.js";
 export interface ToolCostMetadata {
     estimatedCostUsd?: number;
     unit?: "call" | "token";

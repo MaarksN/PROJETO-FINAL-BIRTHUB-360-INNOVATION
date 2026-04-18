@@ -1,7 +1,7 @@
 
 // 
-import { postJson } from "./http";
-import { withCircuitBreaker } from "./circuit-breaker";
+import { postJson } from "./http.js";
+import { withCircuitBreaker } from "./circuit-breaker.js";
 
 const hubspotCb = withCircuitBreaker("hubspot:api", (url: string, token: string, payload: Record<string, unknown>) => {
   return postJson(url, payload, {

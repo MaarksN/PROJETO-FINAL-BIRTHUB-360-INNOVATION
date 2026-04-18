@@ -10,7 +10,7 @@ import {
   WorkflowTriggerType
 } from "@birthub/database";
 
-import { WorkflowRunner } from "./runner";
+import { WorkflowRunner } from "./runner.js";
 
 function createMockWorkflowExecution(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {

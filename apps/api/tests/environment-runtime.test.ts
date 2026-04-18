@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { hasExplicitDatabaseUrl } from "../src/lib/database-availability";
-import { errorHandler } from "../src/middleware/error-handler";
+import { hasExplicitDatabaseUrl } from "../src/lib/database-availability.js";
+import { errorHandler } from "../src/middleware/error-handler.js";
 
 function withTemporaryEnvironment<T>(
   overrides: Record<string, string | undefined>,

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { fetchWithSession } from "../../../lib/auth-client";
+import { fetchWithSession } from "../../../lib/auth-client.js";
 import "./analytics.css";
 
 type ExecutivePayload = {

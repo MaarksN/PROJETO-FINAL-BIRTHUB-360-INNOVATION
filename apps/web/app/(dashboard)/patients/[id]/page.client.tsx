@@ -15,8 +15,8 @@ import {
   updateClinicalNote,
   updatePatient,
   type PatientDetailResponse
-} from "../clinical-data";
-import { PatientDetailContent } from "./page.sections";
+} from "../clinical-data.js";
+import { PatientDetailContent } from "./page.sections.js";
 
 type PatientFormState = {
   allergies: string;

@@ -1,8 +1,8 @@
-import type { CalendarResult } from "../calendar.tool";
-import type { CrmResult } from "../crm.tool";
-import type { EmailSendResult } from "../email.tool";
-import type { SlackMessageResult } from "../slack.tool";
-import type { StorageResult } from "../storage.tool";
+import type { CalendarResult } from "../calendar.tool.js";
+import type { CrmResult } from "../crm.tool.js";
+import type { EmailSendResult } from "../email.tool.js";
+import type { SlackMessageResult } from "../slack.tool.js";
+import type { StorageResult } from "../storage.tool.js";
 
 export const connectorMocks = {
   calendar: {

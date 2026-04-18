@@ -7,7 +7,7 @@ import {
   CyclicDependencyError,
   InvalidGraphError,
   validateDag
-} from "../src/index";
+} from "../src/index.js";
 
 test("DAG validator rejects cyclic graph A->B->A", () => {
   assert.throws(

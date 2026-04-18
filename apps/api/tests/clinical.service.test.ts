@@ -8,8 +8,8 @@ import {
   runWithTenantContext
 } from "@birthub/database";
 
-import { clinicalService } from "../src/modules/clinical/service";
-import { injectPrismaDelegates } from "./prisma-runtime-test-helpers";
+import { clinicalService } from "../src/modules/clinical/service.js";
+import { injectPrismaDelegates } from "./prisma-runtime-test-helpers.js";
 
 const CLINICAL_RUNTIME_DELEGATES = [
   "appointment",

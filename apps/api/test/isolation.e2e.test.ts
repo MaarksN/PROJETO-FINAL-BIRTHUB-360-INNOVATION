@@ -6,8 +6,8 @@ import test from "node:test";
 import express from "express";
 import request from "supertest";
 
-import { requestContextMiddleware } from "../src/middleware/request-context";
-import { tenantContextMiddleware } from "../src/middlewares/tenantContext";
+import { requestContextMiddleware } from "../src/middleware/request-context.js";
+import { tenantContextMiddleware } from "../src/middlewares/tenantContext.js";
 
 void test("contexto de tenant nao e materializado a partir de headers crus", async () => {
   const app = express();

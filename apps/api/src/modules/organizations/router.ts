@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { Role } from "@birthub/database";
 import {
   createOrganizationRequestSchema,
@@ -53,7 +51,7 @@ function requireTenantId(tenantId: string | null | undefined): string {
   return tenantId;
 }
 
-type OrganizationCreationResult = Awaited<ReturnType<typeof createOrganization>>;
+type OrganizationCreationResult = ReturnType<typeof createOrganizationResponseSchema.parse>;
 
 type OrganizationCreationRouteTarget = Pick<Router, "post">;
 
@@ -259,4 +257,3 @@ export function createOrganizationsRouter(): Router {
 
   return router;
 }
-

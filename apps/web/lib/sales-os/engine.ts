@@ -1,8 +1,8 @@
-import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
-import { findSalesOsTool, salesOsModuleMap } from "./catalog";
-import { resolveGeminiVisionConfig, resolveSalesOsProviders } from "./config";
-import type { SalesOsChatMessage, SalesOsModuleId, SalesOsTool } from "./types";
+import { findSalesOsTool, salesOsModuleMap } from "./catalog.js";
+import { resolveGeminiVisionConfig, resolveSalesOsProviders } from "./config.js";
+import type { SalesOsChatMessage, SalesOsModuleId, SalesOsTool } from "./types.js";
 
 type ChatRole = "assistant" | "system" | "user";
 

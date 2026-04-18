@@ -1,7 +1,7 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import { NextResponse } from "next/server";
 
-import { SALES_OS_MODULES, salesOsTools } from "../../../../lib/sales-os/catalog";
+import { SALES_OS_MODULES, salesOsTools } from "../../../../lib/sales-os/catalog.js";
 
 export function GET() {
   return NextResponse.json({

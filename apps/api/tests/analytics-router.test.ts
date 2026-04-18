@@ -4,12 +4,12 @@ import test from "node:test";
 import { Role } from "@birthub/database";
 import request from "supertest";
 
-import { createAnalyticsRouter } from "../src/modules/analytics/router";
-import { analyticsRouterService } from "../src/modules/analytics/service";
+import { createAnalyticsRouter } from "../src/modules/analytics/router.js";
+import { analyticsRouterService } from "../src/modules/analytics/service.js";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers";
+} from "./http-test-helpers.js";
 
 type ProblemBody = {
   status: number;

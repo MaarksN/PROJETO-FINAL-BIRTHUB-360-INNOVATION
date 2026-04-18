@@ -1,17 +1,17 @@
-import type { SupportedLocale } from "../../lib/i18n";
+import type { SupportedLocale } from "../../lib/i18n.js";
 
-import type { SdrAutomaticLead } from "./sdr-automatic-data";
+import type { SdrAutomaticLead } from "./sdr-automatic-data.js";
 import type {
   LeadFilters,
   LiveDashboardMetrics
-} from "./sdr-automatic-dashboard";
+} from "./sdr-automatic-dashboard.js";
 import {
   getLeadEngagementBoost,
   getLeadDashboardCopy,
   getLeadSupportPenalty,
   getSequencePlan,
   isEnglish
-} from "./sdr-automatic-dashboard";
+} from "./sdr-automatic-dashboard.js";
 
 function findMatchedLead(leads: SdrAutomaticLead[], normalizedQuestion: string): SdrAutomaticLead | undefined {
   return leads.find((lead) => {

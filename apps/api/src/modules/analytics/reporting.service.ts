@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { Prisma, SubscriptionStatus, prisma } from "@birthub/database";
 
 import type { DateRange } from "./analytics.types.js";

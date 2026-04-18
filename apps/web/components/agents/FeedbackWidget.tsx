@@ -6,8 +6,8 @@ import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 
-import { fetchWithSession } from "../../lib/auth-client";
-import { useAnalytics } from "../../providers/AnalyticsProvider";
+import { fetchWithSession } from "../../lib/auth-client.js";
+import { useAnalytics } from "../../providers/AnalyticsProvider.js";
 
 interface FeedbackWidgetProps {
   executionId: string;

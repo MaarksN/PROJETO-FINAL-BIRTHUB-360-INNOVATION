@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import { z } from "zod";
 
 export const conversationQuerySchema = z.object({

@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import type { ApiConfig } from "@birthub/config";
 import { ENGAGEMENT_QUEUE_NAMES, queueClient } from "@birthub/queue";
 

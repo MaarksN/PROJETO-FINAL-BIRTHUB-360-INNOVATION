@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 
 import { z } from "zod";
 
-import { MarketSegmentSchema } from "./schemas";
+import { MarketSegmentSchema } from "./schemas.js";
 
 const isoDateSchema = z
   .string()

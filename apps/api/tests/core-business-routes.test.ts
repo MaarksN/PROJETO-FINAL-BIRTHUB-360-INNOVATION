@@ -3,8 +3,8 @@ import test from "node:test";
 
 import request from "supertest";
 
-import { createApp } from "../src/app";
-import { createTestApiConfig } from "./test-config";
+import { createApp } from "../src/app.js";
+import { createTestApiConfig } from "./test-config.js";
 
 void test("createApp exposes organizations, profile and tasks without relying on core-business-routes", async () => {
   const app = createApp({

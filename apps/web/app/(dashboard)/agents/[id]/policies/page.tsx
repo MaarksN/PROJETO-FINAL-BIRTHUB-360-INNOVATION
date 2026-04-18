@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 
 import { getWebConfig } from "@birthub/config/web";
 
-import { ExecutivePremiumAgentCallout } from "../../../../../components/agents/ExecutivePremiumAgentCallout";
-import { PolicyManager } from "../../../../../components/agents/PolicyManager";
-import { getInstalledAgentById, getInstalledAgentPolicies } from "../../../../../lib/agents";
-import { isExecutivePremiumPack } from "../../../../../lib/executive-premium";
+import { ExecutivePremiumAgentCallout } from "../../../../../components/agents/ExecutivePremiumAgentCallout.js";
+import { PolicyManager } from "../../../../../components/agents/PolicyManager.js";
+import { getInstalledAgentById, getInstalledAgentPolicies } from "../../../../../lib/agents.js";
+import { isExecutivePremiumPack } from "../../../../../lib/executive-premium.js";
 
 type ManifestPolicy = {
   actions: string[];

@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { LLMClient } from "../index";
+import { LLMClient } from "../index.js";
 
 void test("llm client fails fast when no providers are configured", async () => {
   const client = new LLMClient({ providers: {} });

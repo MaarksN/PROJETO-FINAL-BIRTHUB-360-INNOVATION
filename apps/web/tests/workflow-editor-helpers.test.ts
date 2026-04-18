@@ -8,7 +8,7 @@ import { JSDOM } from "jsdom";
 import {
   loadWorkflowSimulationResult,
   startWorkflowDryRun
-} from "../app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers";
+} from "../app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.js";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

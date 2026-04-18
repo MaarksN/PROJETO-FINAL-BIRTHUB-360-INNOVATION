@@ -6,7 +6,7 @@ import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   isExecutivePremiumPack,
   mergeExecutivePremiumInstallerOptions
-} from "../lib/executive-premium";
+} from "../lib/executive-premium.js";
 
 void test("executive premium helpers build stable collection links", () => {
   assert.equal(EXECUTIVE_PREMIUM_COLLECTION_HREF, "/marketplace?tags=executive-premium");

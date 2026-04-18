@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { runParallelExecutionLoadTest } from "./parallelLoad";
+import { runParallelExecutionLoadTest } from "./parallelLoad.js";
 
 void test("worker handles 50 parallel executions without dropping jobs", async () => {
   const metrics = await runParallelExecutionLoadTest(50);

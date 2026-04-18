@@ -9,8 +9,8 @@ import "reactflow/dist/style.css";
 
 import type { WorkflowCanvas } from "@birthub/workflows-core/nextjs";
 
-import { fetchWithSession } from "../../../../../lib/auth-client";
-import { canvasToFlow, nodeTypes } from "../edit/workflow-editor-helpers";
+import { fetchWithSession } from "../../../../../lib/auth-client.js";
+import { canvasToFlow, nodeTypes } from "../edit/workflow-editor-helpers.js";
 
 type WorkflowRevisionSnapshot = {
   createdAt: string;

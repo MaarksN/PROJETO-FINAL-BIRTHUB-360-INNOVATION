@@ -7,7 +7,7 @@ import { createLogger, incrementCounter, observeHistogram } from "@birthub/logge
 import {
   DEFAULT_REMOVE_ON_COMPLETE,
   DEFAULT_REMOVE_ON_FAIL
-} from "./definitions";
+} from "./definitions.js";
 import type {
   DlqJobPayload,
   JobContext,
@@ -16,7 +16,7 @@ import type {
   RuntimeTelemetry,
   RuntimeWorkerHandler,
   SerializedJobOptions
-} from "./types";
+} from "./types.js";
 
 const logger = createLogger("queue-runtime-worker");
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { AppointmentsBoard } from "../patients/appointments-board";
+import { AppointmentsBoard } from "../patients/appointments-board.js";
 
 export default function AppointmentsPageClient() {
   return (

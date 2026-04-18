@@ -5,7 +5,7 @@ import {
   suggestedTopics,
   type WebhookDelivery,
   type WebhookEndpoint
-} from "./page.data";
+} from "./page.data.js";
 
 export function UnauthenticatedState() {
   return (

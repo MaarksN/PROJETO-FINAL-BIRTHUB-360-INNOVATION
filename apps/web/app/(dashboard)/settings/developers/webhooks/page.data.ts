@@ -1,6 +1,6 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
-import { fetchWithSession } from "../../../../../lib/auth-client";
+import { fetchWithSession } from "../../../../../lib/auth-client.js";
 
 export type WebhookEndpoint = {
   _count?: {

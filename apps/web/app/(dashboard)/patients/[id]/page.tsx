@@ -1,5 +1,5 @@
-import { ClinicalWorkspaceDisabledState } from "../../../../components/dashboard/ClinicalWorkspaceDisabledState";
-import { getProductCapabilities } from "../../../../lib/product-capabilities";
+import { ClinicalWorkspaceDisabledState } from "../../../../components/dashboard/ClinicalWorkspaceDisabledState.js";
+import { getProductCapabilities } from "../../../../lib/product-capabilities.js";
 
 export default async function PatientDetailPage(props: { params: Promise<{ id: string }> }) {
   const capabilities = getProductCapabilities();
@@ -8,6 +8,6 @@ export default async function PatientDetailPage(props: { params: Promise<{ id: s
     return <ClinicalWorkspaceDisabledState />;
   }
 
-  const { default: PatientDetailPageClient } = await import("./page.client");
+  const { default: PatientDetailPageClient } = await import("./page.client.js");
   return <PatientDetailPageClient {...props} />;
 }

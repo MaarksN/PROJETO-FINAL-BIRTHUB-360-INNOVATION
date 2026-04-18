@@ -1,7 +1,7 @@
 ﻿import assert from "node:assert/strict";
 import test from "node:test";
 
-import { fetchWithTimeout, type FetchWithTimeoutInit } from "../fetch";
+import { fetchWithTimeout, type FetchWithTimeoutInit } from "../fetch.js";
 
 const originalFetch = globalThis.fetch;
 

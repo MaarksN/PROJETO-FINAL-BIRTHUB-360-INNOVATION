@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { fetchWithSession, getStoredSession } from "../../../lib/auth-client";
+import { fetchWithSession, getStoredSession } from "../../../lib/auth-client.js";
 
 type RiskItem = {
   activeUsers30d: number;

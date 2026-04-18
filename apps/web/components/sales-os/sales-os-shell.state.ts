@@ -7,13 +7,13 @@ import type {
   SalesOsModuleDefinition,
   SalesOsModuleId,
   SalesOsTool
-} from "../../lib/sales-os/types";
+} from "../../lib/sales-os/types.js";
 import {
   buildMentorGreeting,
   speakReply,
   type CatalogResponse,
   type SalesOsShellCopy
-} from "./shell-support";
+} from "./shell-support.js";
 
 export type SalesOsSelectedImage = {
   data: string;

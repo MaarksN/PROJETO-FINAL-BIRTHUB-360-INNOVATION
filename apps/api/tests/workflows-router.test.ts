@@ -6,12 +6,12 @@ import { prisma, Role, WorkflowTriggerType } from "@birthub/database";
 import { workflowCanvasSchema } from "@birthub/workflows-core";
 import request from "supertest";
 
-import { createWorkflowsRouter } from "../src/modules/workflows/router";
+import { createWorkflowsRouter } from "../src/modules/workflows/router.js";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers";
-import { createTestApiConfig } from "./test-config";
+} from "./http-test-helpers.js";
+import { createTestApiConfig } from "./test-config.js";
 
 function createWorkflowCanvas() {
   return workflowCanvasSchema.parse({

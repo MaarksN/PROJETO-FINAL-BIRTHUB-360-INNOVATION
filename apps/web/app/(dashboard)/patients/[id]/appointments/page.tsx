@@ -1,7 +1,7 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 //
-import { ClinicalWorkspaceDisabledState } from "../../../../../components/dashboard/ClinicalWorkspaceDisabledState";
-import { getProductCapabilities } from "../../../../../lib/product-capabilities";
+import { ClinicalWorkspaceDisabledState } from "../../../../../components/dashboard/ClinicalWorkspaceDisabledState.js";
+import { getProductCapabilities } from "../../../../../lib/product-capabilities.js";
 
 export default async function PatientAppointmentsPage(props: {
   params: Promise<{ id: string }>;
@@ -12,7 +12,7 @@ export default async function PatientAppointmentsPage(props: {
     return <ClinicalWorkspaceDisabledState />;
   }
 
-  const { default: PatientAppointmentsPageClient } = await import("./page.client");
+  const { default: PatientAppointmentsPageClient } = await import("./page.client.js");
   return <PatientAppointmentsPageClient {...props} />;
 }
 

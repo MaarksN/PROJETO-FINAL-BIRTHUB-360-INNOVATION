@@ -4,7 +4,7 @@ import { getWorkerConfig } from "@birthub/config";
 import { prisma, SubscriptionStatus } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 
-import { fetchWithTimeout } from "../../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
 const logger = createLogger("worker-hubspot");
 const HUBSPOT_REQUEST_TIMEOUT_MS = 10_000;

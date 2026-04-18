@@ -32,6 +32,7 @@ export const apiEnvSchema = z.object({
     AUTH_MFA_ENCRYPTION_KEY: nonEmptyString.default("dev-mfa-encryption-key"),
     AUTH_MFA_ISSUER: nonEmptyString.default("BirthHub360"),
     BILLING_GRACE_PERIOD_DAYS: z.coerce.number().int().min(0).default(3),
+    BREAK_GLASS_SESSION_TTL_MINUTES: z.coerce.number().int().positive().default(30),
     ...apiProductCapabilityEnvSchema,
     DATABASE_URL: urlString,
     EXTERNAL_HEALTHCHECK_URLS: z.string().default(""),

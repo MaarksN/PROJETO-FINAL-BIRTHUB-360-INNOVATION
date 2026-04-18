@@ -2,12 +2,12 @@
 // 
 import Link from "next/link";
 
-import { listInstalledAgents } from "../../../lib/agents";
+import { listInstalledAgents } from "../../../lib/agents.js";
 import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
   isExecutivePremiumPack
-} from "../../../lib/executive-premium";
+} from "../../../lib/executive-premium.js";
 
 function toPercent(value: number): string {
   return `${Math.round(value * 100)}%`;

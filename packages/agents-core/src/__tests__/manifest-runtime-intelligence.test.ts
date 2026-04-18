@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema";
+import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema.js";
 import {
   buildAgentRuntimeOutput,
   buildAgentRuntimePlan,
   inferSegmentProfile,
   summarizeNumericSignals
-} from "../runtime/index";
+} from "../runtime/index.js";
 
 const manifest: AgentManifest = {
   agent: {

@@ -2,7 +2,7 @@
 
 import { AlertTriangle, CheckCircle2, Info, X } from "lucide-react";
 
-import { useToastStore, type ToastTone } from "../../stores/toast-store";
+import { useToastStore, type ToastTone } from "../../stores/toast-store.js";
 
 const toneIconMap: Record<ToastTone, typeof AlertTriangle> = {
   critical: AlertTriangle,

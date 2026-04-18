@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { prisma, Role } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";

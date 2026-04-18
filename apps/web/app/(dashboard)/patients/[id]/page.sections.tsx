@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 
-import { ClinicalWorkspaceNotice } from "../../../../components/dashboard/ClinicalWorkspaceNotice";
+import { ClinicalWorkspaceNotice } from "../../../../components/dashboard/ClinicalWorkspaceNotice.js";
 
-import type { PatientDetailResponse } from "../clinical-data";
+import type { PatientDetailResponse } from "../clinical-data.js";
 import {
   ClinicalNotesSection,
   GrowthCurveSection,
@@ -17,7 +17,7 @@ import {
   type NoteFormState,
   type PatientFormState,
   type PregnancyFormState
-} from "./page.parts";
+} from "./page.parts.js";
 
 type PatientDetailContentProps = {
   detail: PatientDetailResponse | null;

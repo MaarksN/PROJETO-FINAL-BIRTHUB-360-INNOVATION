@@ -1,6 +1,6 @@
 
 // 
-import { postJson } from "./http";
+import { postJson } from "./http.js";
 
 export interface Signer {
   email: string;

@@ -5,8 +5,8 @@ import test from "node:test";
 
 import { ZodError } from "zod";
 
-import { BrandGuardianAgent } from "../agent";
-import { BrandGuardianInputSchema, type BrandGuardianInput } from "../schemas";
+import { BrandGuardianAgent } from "../agent.js";
+import { BrandGuardianInputSchema, type BrandGuardianInput } from "../schemas.js";
 
 void test("BrandGuardian schema rejects missing required fields", () => {
   const invalidPayload = {

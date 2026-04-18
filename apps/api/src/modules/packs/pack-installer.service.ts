@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { isInstallableManifest } from "@birthub/agents-core";
 import { Prisma, prisma } from "@birthub/database";
 
@@ -84,14 +82,16 @@ function resolveRequestedAgentId(input: InstallPackInput): string {
 }
 
 function buildCursorArgs(cursor: string | null) {
-  return cursor
-    ? {
-        cursor: {
-          id: cursor
-        },
-        skip: 1
-      }
-    : {};
+  const cursorArgs: { cursor?: { id: string }; skip?: number } = {};
+
+  if (cursor) {
+    cursorArgs.cursor = {
+      id: cursor
+    };
+    cursorArgs.skip = 1;
+  }
+
+  return cursorArgs;
 }
 
 async function listTenantAgentSummaries(
@@ -451,4 +451,3 @@ export class PackInstallerService {
 }
 
 export const packInstallerService = new PackInstallerService();
-

@@ -5,12 +5,12 @@
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
-import { getStoredSession } from "../../../../lib/auth-client";
-import { type SupportedLocale } from "../../../../lib/i18n";
-import { useI18n } from "../../../../providers/I18nProvider";
-import { useThemeMode } from "../../../../providers/ThemeProvider";
-import { useNotificationStore } from "../../../../stores/notification-store";
-import { useUserPreferencesStore } from "../../../../stores/user-preferences-store";
+import { getStoredSession } from "../../../../lib/auth-client.js";
+import { type SupportedLocale } from "../../../../lib/i18n.js";
+import { useI18n } from "../../../../providers/I18nProvider.js";
+import { useThemeMode } from "../../../../providers/ThemeProvider.js";
+import { useNotificationStore } from "../../../../stores/notification-store.js";
+import { useUserPreferencesStore } from "../../../../stores/user-preferences-store.js";
 
 function ToggleCard(input: {
   checked: boolean;

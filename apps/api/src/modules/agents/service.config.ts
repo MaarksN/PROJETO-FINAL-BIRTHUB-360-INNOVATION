@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import type { ManagedAgentPolicy } from "@birthub/agents-core";
 
 import { decryptConnectorsMap } from "../../lib/encryption.js";

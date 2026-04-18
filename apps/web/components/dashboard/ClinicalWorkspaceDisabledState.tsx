@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 
-import { useI18n } from "../../providers/I18nProvider";
+import { useI18n } from "../../providers/I18nProvider.js";
 import {
   ProductEmptyState,
   ProductPageHeader
-} from "./page-fragments";
+} from "./page-fragments.js";
 
 export function ClinicalWorkspaceDisabledState() {
   const { locale } = useI18n();

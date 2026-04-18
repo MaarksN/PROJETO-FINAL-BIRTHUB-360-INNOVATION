@@ -5,7 +5,7 @@ import test from "node:test";
 
 import { prisma } from "@birthub/database";
 
-import { PackInstallerService } from "../src/modules/packs/pack-installer.service";
+import { PackInstallerService } from "../src/modules/packs/pack-installer.service.js";
 
 function stubMethod(target: Record<string, unknown>, key: string, value: unknown): () => void {
   const original = target[key];

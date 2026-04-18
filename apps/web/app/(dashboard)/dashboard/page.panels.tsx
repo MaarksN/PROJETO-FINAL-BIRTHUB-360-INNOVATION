@@ -1,15 +1,15 @@
 import Link from "next/link";
 
-import { ProductEmptyState } from "../../../components/dashboard/page-fragments";
+import { ProductEmptyState } from "../../../components/dashboard/page-fragments.js";
 import {
   formatDateTime,
   formatNumber,
   translateLabel,
   type Dictionary,
   type SupportedLocale
-} from "../../../lib/i18n";
-import { formatRiskTone, loadDashboardHomePage } from "./page.data";
-import { getDashboardStaticCopy } from "./page.sections";
+} from "../../../lib/i18n.js";
+import { formatRiskTone, loadDashboardHomePage } from "./page.data.js";
+import { getDashboardStaticCopy } from "./page.sections.js";
 
 type DashboardHomeCopy = Dictionary["dashboardHome"];
 type DashboardHomeData = Awaited<ReturnType<typeof loadDashboardHomePage>>;

@@ -17,7 +17,7 @@ import {
   enqueueWebhookTopicDeliveries,
   processOutboundWebhookJob,
   type OutboundWebhookJobPayload
-} from "../src/webhooks/outbound";
+} from "../src/webhooks/outbound.js";
 import type { Queue } from "bullmq";
 
 type MockCall = { arguments: unknown[] };

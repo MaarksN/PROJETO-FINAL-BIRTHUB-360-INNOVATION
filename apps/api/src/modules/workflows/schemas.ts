@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { z } from "zod";
 
 import { workflowCanvasSchema } from "@birthub/workflows-core";

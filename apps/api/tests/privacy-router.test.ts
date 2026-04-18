@@ -4,9 +4,9 @@ import test from "node:test";
 import { Role } from "@birthub/database";
 import request from "supertest";
 
-import { createPrivacyRouter } from "../src/modules/privacy/router";
-import { createAuthenticatedApiTestApp } from "./http-test-helpers";
-import { createTestApiConfig } from "./test-config";
+import { createPrivacyRouter } from "../src/modules/privacy/router.js";
+import { createAuthenticatedApiTestApp } from "./http-test-helpers.js";
+import { createTestApiConfig } from "./test-config.js";
 
 type ProblemBody = {
   detail?: string;

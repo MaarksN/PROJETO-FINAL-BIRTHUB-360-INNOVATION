@@ -17,5 +17,5 @@ export declare function getLogContext(): Required<LogContext>;
 export declare function runWithLogContext<T>(context: LogContext, callback: () => T): T;
 export declare function updateLogContext(context: LogContext): void;
 export declare function createLogger(service: string, options?: CreateLoggerOptions): Logger;
-export * from "./metrics";
-export * from "./otel";
+export * from "./metrics.js";
+export * from "./otel.js";

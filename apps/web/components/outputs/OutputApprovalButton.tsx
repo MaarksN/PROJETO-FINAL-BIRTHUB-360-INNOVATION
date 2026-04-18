@@ -5,7 +5,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-import { approveOutput } from "../../lib/marketplace-api";
+import { approveOutput } from "../../lib/marketplace-api.js";
 
 export function OutputApprovalButton({
   outputId,

@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { tenantCacheInvalidationTestables } from "../src/common/cache/prisma-cache-invalidation";
+import { tenantCacheInvalidationTestables } from "../src/common/cache/prisma-cache-invalidation.js";
 
 void test("collectTenantReferences trims, filters and deduplicates cache references", () => {
   assert.deepEqual(

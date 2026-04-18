@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 
-import { getStoredSession } from "../../../../lib/auth-client";
+import { getStoredSession } from "../../../../lib/auth-client.js";
 
 import {
   DELETE_CONFIRMATION,
@@ -10,11 +10,11 @@ import {
   exportPrivacyData,
   getErrorMessage,
   requestPrivacyAccountDeletion
-} from "./privacy-self-service.data";
+} from "./privacy-self-service.data.js";
 import {
   PrivacyDeletionSection,
   PrivacyExportSection
-} from "./privacy-self-service.sections";
+} from "./privacy-self-service.sections.js";
 
 export default function PrivacySelfServicePageClient() {
   const session = useMemo(() => getStoredSession(), []);

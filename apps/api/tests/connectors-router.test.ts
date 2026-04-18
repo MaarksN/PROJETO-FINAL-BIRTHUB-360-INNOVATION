@@ -6,13 +6,13 @@ import test from "node:test";
 import { Role } from "@birthub/database";
 import request from "supertest";
 
-import { createConnectorsRouter } from "../src/modules/connectors/router";
-import { connectorsService } from "../src/modules/connectors/service";
+import { createConnectorsRouter } from "../src/modules/connectors/router.js";
+import { connectorsService } from "../src/modules/connectors/service.js";
 import {
   createAuthenticatedApiTestApp,
   stubMethod
-} from "./http-test-helpers";
-import { createTestApiConfig } from "./test-config";
+} from "./http-test-helpers.js";
+import { createTestApiConfig } from "./test-config.js";
 
 function createConnectorsTestApp() {
   return createAuthenticatedApiTestApp({

@@ -16,7 +16,7 @@ import {
   type CrisisNavigatorOutput,
   CrisisNavigatorOutputSchema,
   DEFAULT_CRISISNAVIGATOR_CONTRACT
-} from "./schemas";
+} from "./schemas.js";
 import {
   CRISISNAVIGATOR_TOOL_IDS,
   CompetitorIntelSnapshotSchema,
@@ -27,7 +27,7 @@ import {
   type CompetitorToolId,
   type CompetitorToolInput,
   type CrisisNavigatorToolAdapters
-} from "./tools";
+} from "./tools.js";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

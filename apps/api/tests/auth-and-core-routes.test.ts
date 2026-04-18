@@ -3,11 +3,11 @@ import test from "node:test";
 
 import express from "express";
 
-import { registerAuthAndCoreRoutes } from "../src/app/auth-and-core-routes";
-import { mountModuleRouters } from "../src/app/module-routes";
-import { mountProfileRoutes } from "../src/modules/profile/router";
-import { mountTasksRoutes } from "../src/modules/tasks/router";
-import { createTestApiConfig } from "./test-config";
+import { registerAuthAndCoreRoutes } from "../src/app/auth-and-core-routes.js";
+import { mountModuleRouters } from "../src/app/module-routes.js";
+import { mountProfileRoutes } from "../src/modules/profile/router.js";
+import { mountTasksRoutes } from "../src/modules/tasks/router.js";
+import { createTestApiConfig } from "./test-config.js";
 
 void test("registerAuthAndCoreRoutes delegates auth and core route registration with shared dependencies", () => {
   const app = express();

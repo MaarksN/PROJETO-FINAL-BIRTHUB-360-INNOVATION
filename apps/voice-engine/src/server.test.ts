@@ -73,7 +73,7 @@ function createEnv() {
 
 void test("voice-engine validates required env before boot", async () => {
   process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
-  const { readVoiceEngineEnv } = await import("./server");
+  const { readVoiceEngineEnv } = await import("./server.js");
 
   assert.throws(() => {
     readVoiceEngineEnv({ REDIS_URL: "redis://localhost:6379" });
@@ -82,7 +82,7 @@ void test("voice-engine validates required env before boot", async () => {
 
 void test("voice-engine health and websocket handshake publish runtime events", async () => {
   process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
-  const { createVoiceEngineRuntime } = await import("./server");
+  const { createVoiceEngineRuntime } = await import("./server.js");
   const redis = createMockRedis();
   const runtime = createVoiceEngineRuntime({
     deepgramFactory: () => ({ ready: true }),
@@ -144,7 +144,7 @@ void test("voice-engine health and websocket handshake publish runtime events", 
 
 void test("twilio inbound webhook rejects missing or invalid signature", async () => {
   process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
-  const { createVoiceEngineRuntime } = await import("./server");
+  const { createVoiceEngineRuntime } = await import("./server.js");
   const redis = createMockRedis();
   const runtime = createVoiceEngineRuntime({
     env: createEnv(),
@@ -186,7 +186,7 @@ void test("twilio inbound webhook rejects missing or invalid signature", async (
 
 void test("twilio inbound webhook accepts valid signature and publishes event", async () => {
   process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART = "1";
-  const { createVoiceEngineRuntime } = await import("./server");
+  const { createVoiceEngineRuntime } = await import("./server.js");
   const redis = createMockRedis();
   const runtime = createVoiceEngineRuntime({
     env: createEnv(),

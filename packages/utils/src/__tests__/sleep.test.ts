@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { sleep } from '../sleep';
+import { sleep } from '../sleep.js';
 
 void test('sleep resolves after specified time', async () => {
   const start = Date.now();

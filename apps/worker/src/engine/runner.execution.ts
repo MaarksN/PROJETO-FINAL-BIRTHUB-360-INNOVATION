@@ -16,13 +16,13 @@ import { Queue } from "bullmq";
 import type {
   WorkflowExecutionJobPayload,
   WorkflowRunnerDependencies
-} from "./runner";
-import { handleExecutionOutcome } from "./runner.execution.outcomes";
+} from "./runner.js";
+import { handleExecutionOutcome } from "./runner.execution.outcomes.js";
 import {
   consumeSharedAgentBudget,
   logger,
   normalizeOutput
-} from "./runner.shared";
+} from "./runner.shared.js";
 
 type StepExecutionStatus = "FAILED" | "SKIPPED" | "SUCCESS" | "WAITING";
 export type WorkflowExecutionQueue = Queue<WorkflowExecutionJobPayload>;

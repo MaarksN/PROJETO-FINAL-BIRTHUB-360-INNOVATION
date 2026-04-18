@@ -10,7 +10,7 @@ import {
   getDictionary,
   type Dictionary,
   type SupportedLocale
-} from "../lib/i18n";
+} from "../lib/i18n.js";
 
 type I18nContextValue = {
   dictionary: Dictionary;

@@ -16,7 +16,7 @@ import {
   BudgetFluidOutputSchema,
   type BudgetMetrics,
   DEFAULT_BUDGETFLUID_CONTRACT
-} from "./schemas";
+} from "./schemas.js";
 import {
   BUDGETFLUID_TOOL_IDS,
   type BudgetFluidToolAdapters,
@@ -27,7 +27,7 @@ import {
   normalizeBudgetToolId,
   ScenarioStressSnapshotSchema,
   SpendTelemetrySnapshotSchema
-} from "./tools";
+} from "./tools.js";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

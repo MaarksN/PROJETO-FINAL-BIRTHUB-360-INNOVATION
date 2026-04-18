@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { buildTenantCacheKey } from "../src/lib/cache";
+import { buildTenantCacheKey } from "../src/lib/cache.js";
 
 void test("cache keys sempre incluem o tenantId", () => {
   const tenantAKey = buildTenantCacheKey("tenant-a", "members", "page-1");

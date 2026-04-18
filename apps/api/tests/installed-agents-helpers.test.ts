@@ -6,11 +6,11 @@ import test from "node:test";
 import {
   mergeManagedPolicies,
   parseAgentConfig
-} from "../src/modules/agents/service.config";
+} from "../src/modules/agents/service.config.js";
 import {
   extractExecutionMode,
   extractLogs
-} from "../src/modules/agents/service.snapshot";
+} from "../src/modules/agents/service.snapshot.js";
 
 void test("parseAgentConfig falls back to manifest runtime defaults", () => {
   const parsed = parseAgentConfig(null);

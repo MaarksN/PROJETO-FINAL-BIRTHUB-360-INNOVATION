@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import type { ApiConfig } from "@birthub/config";
 import { SubscriptionStatus } from "@birthub/database";
 import Stripe from "stripe";

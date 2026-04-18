@@ -1,29 +1,12 @@
 {
-  "outDir": "./dist",
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-  "outDir": "./dist",
-    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": {
-  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
     "allowImportingTsExtensions": true,
     "incremental": false,
     "moduleResolution": "bundler",
-    "plugins": [
-      {
-  "outDir": "./dist",
-        "name": "next"
-      }
-    ]
+    "plugins": [{ "name": "next" }]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
 

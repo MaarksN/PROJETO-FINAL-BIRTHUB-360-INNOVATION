@@ -7,7 +7,7 @@ import {
   NotFoundError,
   UnauthorizedError,
   ValidationError
-} from "../errors";
+} from "../errors.js";
 
 void test("AppError captures status code and operational flag", () => {
   const error = new AppError("something failed", 503, false);

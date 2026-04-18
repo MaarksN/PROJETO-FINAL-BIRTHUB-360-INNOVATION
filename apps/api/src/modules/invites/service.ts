@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { randomBytes } from "node:crypto";
 
 import { prisma, Role, withTenantDatabaseContext } from "@birthub/database";

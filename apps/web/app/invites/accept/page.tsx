@@ -4,9 +4,9 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { fetchWithTimeout } from "../../../../../packages/utils/src/fetch";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
 
-import { toApiUrl } from "../../../lib/auth-client";
+import { toApiUrl } from "../../../lib/auth-client.js";
 
 const INVITE_ACCEPT_TIMEOUT_MS = 8_000;
 import { useSearchParams } from "next/navigation";

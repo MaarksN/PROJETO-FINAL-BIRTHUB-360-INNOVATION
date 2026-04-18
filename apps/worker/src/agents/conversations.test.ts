@@ -8,7 +8,7 @@ import { prisma } from "@birthub/database";
 import {
   createConversationMessage,
   ensureConversationThread
-} from "./conversations";
+} from "./conversations.js";
 
 void test("ensureConversationThread creates a thread when no existing record matches", async () => {
   const originalFindFirst = prisma.conversationThread.findFirst.bind(prisma.conversationThread);

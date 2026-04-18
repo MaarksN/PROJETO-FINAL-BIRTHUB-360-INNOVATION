@@ -11,11 +11,11 @@ import {
   evaluateFailRateAlerts,
   LoggingFailRateNotifier,
   NoopFailRateMetricsSource
-} from "./alerts/failRateAlert";
-import { startCycle2Jobs } from "./jobs/scheduler";
-import { createBirthHubWorker } from "./worker";
-import { initializeWorkerOpenTelemetry, shutdownWorkerOpenTelemetry } from "./observability/otel";
-import { evaluateWorkerReadiness, type WorkerQueueState } from "./operational/readiness";
+} from "./alerts/failRateAlert.js";
+import { startCycle2Jobs } from "./jobs/scheduler.js";
+import { createBirthHubWorker } from "./worker.js";
+import { initializeWorkerOpenTelemetry, shutdownWorkerOpenTelemetry } from "./observability/otel.js";
+import { evaluateWorkerReadiness, type WorkerQueueState } from "./operational/readiness.js";
 
 const config = getWorkerConfig();
 initializeWorkerOpenTelemetry(config);

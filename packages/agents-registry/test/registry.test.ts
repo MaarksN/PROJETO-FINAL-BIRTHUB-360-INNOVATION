@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { AgentRegistry, hashManifest, InMemoryAgentRegistryStore } from "../src/index";
+import { AgentRegistry, hashManifest, InMemoryAgentRegistryStore } from "../src/index.js";
 
 void test("registry requires changelog for minor and major bumps", async () => {
   const registry = new AgentRegistry(new InMemoryAgentRegistryStore());

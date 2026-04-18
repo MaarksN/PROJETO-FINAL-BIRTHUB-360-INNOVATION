@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 export class LimitExceededError extends Error {
   readonly current: number;
   readonly limit: number;

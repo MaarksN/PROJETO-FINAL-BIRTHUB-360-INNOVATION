@@ -1,11 +1,11 @@
-import type { SupportedLocale } from "../../lib/i18n";
+import type { SupportedLocale } from "../../lib/i18n.js";
 
 import {
   SDR_AUTOMATIC_COPY,
   SDR_AUTOMATIC_CRM_REGIONS,
   SDR_AUTOMATIC_LEADS,
   SDR_AUTOMATIC_TIME_SLOTS
-} from "./sdr-automatic-data.catalog";
+} from "./sdr-automatic-data.catalog.js";
 
 export type LeadRegionId =
   | "north-america"

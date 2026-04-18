@@ -1,6 +1,6 @@
-import type { AgentManifest } from "../manifest/schema";
-import type { AgentLearningRecord, JsonValue } from "../types/index";
-import type { PremiumLayerAssessment, SegmentProfile } from "./intelligence";
+import type { AgentManifest } from "../manifest/schema.js";
+import type { AgentLearningRecord, JsonValue } from "../types/index.js";
+import type { PremiumLayerAssessment, SegmentProfile } from "./intelligence.js";
 
 export interface ManagedAgentPolicy {
   actions: string[];
@@ -135,5 +135,5 @@ export {
   buildAgentRuntimePlan,
   buildRuntimePolicyRules,
   inferOutputGovernance
-} from "./manifestRuntimeCore";
-export { buildAgentRuntimeOutput } from "./manifestRuntimeBuilders";
+} from "./manifestRuntimeCore.js";
+export { buildAgentRuntimeOutput } from "./manifestRuntimeBuilders.js";

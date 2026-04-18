@@ -1,6 +1,6 @@
 // 
-import { postJson, getJson, type HttpRequestOptions } from "./http";
-import { withCircuitBreaker } from "./circuit-breaker";
+import { postJson, getJson, type HttpRequestOptions } from "./http.js";
+import { withCircuitBreaker } from "./circuit-breaker.js";
 
 const pagarmePostCb = withCircuitBreaker("payments:pagarme", (url: string, payload: unknown, options: HttpRequestOptions) => postJson<PagarmeOrderResponse>(url, payload, options));
 const pagarmeGetCb = withCircuitBreaker("payments:pagarme:get", (url: string, options: HttpRequestOptions) => getJson<PagarmeOrderResponse>(url, options));

@@ -17,7 +17,7 @@ import {
   type BoardPrepKpiInput,
   type BoardPrepMetrics,
   DEFAULT_BOARDPREPAI_CONTRACT
-} from "./schemas";
+} from "./schemas.js";
 import {
   BOARDPREPAI_TOOL_IDS,
   BoardPrepToolInputSchema,
@@ -29,7 +29,7 @@ import {
   type BoardPrepAIToolAdapters,
   type BoardPrepToolId,
   type BoardPrepToolInput
-} from "./tools";
+} from "./tools.js";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

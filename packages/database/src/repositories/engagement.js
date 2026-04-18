@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { Role } from "@prisma/client";
 import { prisma } from "../client.js";
 const ORGANIZATION_ROLE_NOTIFICATION_LIMIT = 100;

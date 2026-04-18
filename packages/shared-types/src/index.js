@@ -124,4 +124,4 @@ export var QueueName;
     QueueName["CONTRACT_DEADLINES"] = "CONTRACT_DEADLINES";
     QueueName["DOMAIN_WARMUP"] = "DOMAIN_WARMUP";
 })(QueueName || (QueueName = {}));
-export * from './schemas/leads';
+export * from './schemas/leads.js';

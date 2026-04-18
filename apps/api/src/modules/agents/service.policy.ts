@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { createPolicyTemplate, type ManagedAgentPolicy } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
 

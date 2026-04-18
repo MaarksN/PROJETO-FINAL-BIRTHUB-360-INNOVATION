@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
 import test from "node:test";
 
-import { validateLegacyTaskJob } from "./worker";
+import { validateLegacyTaskJob } from "./worker.js";
 
 function sign(payload: unknown, secret: string): string {
   return createHmac("sha256", secret).update(JSON.stringify(payload)).digest("hex");

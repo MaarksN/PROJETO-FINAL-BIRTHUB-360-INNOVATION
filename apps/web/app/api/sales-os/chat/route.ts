@@ -1,8 +1,8 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 import { NextResponse } from "next/server";
 
-import { executeSalesOsChat } from "../../../../lib/sales-os/engine";
-import type { SalesOsModuleId } from "../../../../lib/sales-os/types";
+import { executeSalesOsChat } from "../../../../lib/sales-os/engine.js";
+import type { SalesOsModuleId } from "../../../../lib/sales-os/types.js";
 
 export async function POST(request: Request) {
   try {

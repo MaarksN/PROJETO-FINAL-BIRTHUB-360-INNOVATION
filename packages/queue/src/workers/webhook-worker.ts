@@ -1,4 +1,4 @@
-import { BaseWorker } from "./base-worker";
+import { BaseWorker } from "./base-worker.js";
 
 export interface WebhookJobPayload { destination: string; eventId: string; failDelivery?: boolean }
 

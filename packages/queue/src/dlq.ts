@@ -2,8 +2,8 @@ import type { Job } from "bullmq";
 
 import { createLogger } from "@birthub/logger";
 
-import type { QueueRuntime } from "./runtime";
-import type { DlqJobPayload, QueueConfig } from "./types";
+import type { QueueRuntime } from "./runtime.js";
+import type { DlqJobPayload, QueueConfig } from "./types.js";
 
 const logger = createLogger("queue-dlq");
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import type { AgentSnapshot } from "../../lib/agents";
+import type { AgentSnapshot } from "../../lib/agents.js";
 
 type TabKey = "executions" | "logs" | "manifest" | "overview";
 

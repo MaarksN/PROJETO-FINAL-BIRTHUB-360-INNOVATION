@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { LeadSchema, Plan, QueueName, UserRole } from "./index";
+import { LeadSchema, Plan, QueueName, UserRole } from "./index.js";
 
 void test("shared types expose stable enums for plans, roles and queues", () => {
   assert.equal(Plan.PRO, "PRO");

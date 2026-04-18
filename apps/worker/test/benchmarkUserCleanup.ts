@@ -1,4 +1,4 @@
-﻿import { cleanupSuspendedUsers } from "../src/jobs/userCleanup";
+﻿import { cleanupSuspendedUsers } from "../src/jobs/userCleanup.js";
 import { performance } from "perf_hooks";
 
 async function runBenchmark() {

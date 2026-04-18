@@ -5,13 +5,13 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { CrisisNavigatorAgent } from "../agent";
+import { CrisisNavigatorAgent } from "../agent.js";
 import {
   type CompetitorEvent,
   type CrisisNavigatorInput,
   DEFAULT_CRISISNAVIGATOR_CONTRACT
-} from "../schemas";
-import type { CrisisNavigatorToolAdapters } from "../tools";
+} from "../schemas.js";
+import type { CrisisNavigatorToolAdapters } from "../tools.js";
 
 const VALID_INPUT: CrisisNavigatorInput = {
   constraints: {

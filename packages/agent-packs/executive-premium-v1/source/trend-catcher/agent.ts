@@ -16,7 +16,7 @@ import {
   type TrendEvent,
   type TrendFailureMode,
   type TrendMetrics
-} from "./schemas";
+} from "./schemas.js";
 import {
   CategoryGrowthSnapshotSchema,
   createDefaultTrendCatcherToolAdapters,
@@ -27,7 +27,7 @@ import {
   type TrendCatcherToolAdapters,
   type TrendToolId,
   type TrendToolInput
-} from "./tools";
+} from "./tools.js";
 
 const DEFAULT_AUDIT_CONTRACT_PATH = path.resolve(
   process.cwd(),

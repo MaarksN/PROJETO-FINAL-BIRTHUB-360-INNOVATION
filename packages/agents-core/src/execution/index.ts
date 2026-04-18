@@ -1,1 +1,1 @@
-export * from "./dry-run";
+export * from "./dry-run.js";

@@ -4,7 +4,7 @@
 
 import { useCallback, useEffect, useState, useTransition } from "react";
 
-import { useUserPreferencesStore } from "../../../../stores/user-preferences-store";
+import { useUserPreferencesStore } from "../../../../stores/user-preferences-store.js";
 
 import {
   clearStoredPrivacySession,
@@ -23,7 +23,7 @@ import {
   type RetentionExecution,
   type RetentionPolicy,
   type RetentionRunResult
-} from "./privacy-settings-page.data";
+} from "./privacy-settings-page.data.js";
 
 export interface PrivacySettingsModel {
   confirmation: string;

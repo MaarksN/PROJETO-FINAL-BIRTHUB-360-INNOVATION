@@ -3,7 +3,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { PagarmeClient } from "./payments-br";
+import { PagarmeClient } from "./payments-br.js";
 
 function createJsonResponse(payload: unknown, status = 200): Response {
   return new Response(JSON.stringify(payload), {

@@ -1,6 +1,6 @@
 // @ts-expect-error TODO: remover suppressão ampla
 // 
-import { createQueue, createWorker } from './src/index';
+import { createQueue, createWorker } from './src/index.js';
 
 console.log('Testing Queue module exports...');
 if (typeof createQueue === 'function' && typeof createWorker === 'function') {

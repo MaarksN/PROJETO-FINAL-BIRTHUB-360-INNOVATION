@@ -9,13 +9,13 @@ import { Prisma, prisma } from "@birthub/database";
 import {
   createConversationMessage,
   ensureConversationThread
-} from "./conversations";
+} from "./conversations.js";
 import {
   matchesPattern,
   MINIMUM_APPROVED_LEARNING_CONFIDENCE,
   readAuditMemoryPayload,
   SHARED_LEARNING_LIMIT
-} from "./runtime.shared";
+} from "./runtime.shared.js";
 
 class PrismaAuditMemoryBackend {
   async set(key: string, value: string, ttlSeconds?: number): Promise<void> {

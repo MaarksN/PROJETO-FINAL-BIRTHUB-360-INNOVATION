@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { requireAuthenticatedWebSession } from "../../../lib/web-session";
+import { requireAuthenticatedWebSession } from "../../../lib/web-session.js";
 
 export default async function AdminDashboardLayout({
   children

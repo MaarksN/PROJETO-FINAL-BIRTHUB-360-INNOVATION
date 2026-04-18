@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState, useTransition, type FormEvent } from "react";
 
-import { fetchWithTimeout } from "../../../packages/utils/src/fetch";
-import { persistStoredSession } from "../lib/auth-client";
-import { useUserPreferencesStore } from "../stores/user-preferences-store";
+import { fetchWithTimeout } from "@birthub/utils/fetch";
+import { persistStoredSession } from "../lib/auth-client.js";
+import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
 
 export interface LoginFormProps {
   initialRequestId: string;

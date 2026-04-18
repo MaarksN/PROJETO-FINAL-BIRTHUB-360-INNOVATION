@@ -1,7 +1,7 @@
 ﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
-import { fetchWithSession } from "../../../lib/auth-client";
+import { fetchWithSession } from "../../../lib/auth-client.js";
 
 export type ClinicalAlert = {
   description: string;

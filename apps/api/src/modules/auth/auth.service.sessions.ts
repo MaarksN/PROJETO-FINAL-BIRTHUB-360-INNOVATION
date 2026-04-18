@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import type { ApiConfig } from "@birthub/config";
 import {
   MembershipStatus,
@@ -81,7 +79,13 @@ async function enforceConcurrentSessionLimit(input: {
 }
 
 export async function createSession(input: {
+  accessMode?: string;
+  breakGlassExpiresAt?: Date;
+  breakGlassGrantId?: string;
+  breakGlassReason?: string;
+  breakGlassTicket?: string;
   config: ApiConfig;
+  impersonatedByUserId?: string;
   ipAddress: string | null;
   organizationId: string;
   role?: Role;
@@ -395,4 +399,3 @@ export async function revokeSessionById(input: {
 
   return result.count;
 }
-

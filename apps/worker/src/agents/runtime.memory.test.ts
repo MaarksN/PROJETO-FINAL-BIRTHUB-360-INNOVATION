@@ -9,7 +9,7 @@ import {
   appendConversationMessage,
   querySharedLearning,
   runtimeMemory
-} from "./runtime.memory";
+} from "./runtime.memory.js";
 
 void test("querySharedLearning merges runtime memory and audit log evidence by keyword", async () => {
   const originalQuerySharedLearning = runtimeMemory.querySharedLearning.bind(runtimeMemory);

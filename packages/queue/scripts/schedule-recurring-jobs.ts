@@ -1,7 +1,7 @@
 // @ts-expect-error TODO: remover suppressão ampla
 // 
-import { QueueManager } from "../src";
-import { QUEUE_CONFIG } from "../src/definitions";
+import { QueueManager } from "../src.js";
+import { QUEUE_CONFIG } from "../src/definitions.js";
 
 async function main() {
   const manager = new QueueManager();

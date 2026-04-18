@@ -13,7 +13,7 @@ import type {
   AgentConfigSnapshot,
   AuditMemoryPayload,
   RuntimeManifestCatalogEntry
-} from "./runtime.types";
+} from "./runtime.types.js";
 
 export const DEFAULT_AGENT_BUDGET_LIMIT_BRL = 100;
 export const MINIMUM_APPROVED_LEARNING_CONFIDENCE = 0.7;

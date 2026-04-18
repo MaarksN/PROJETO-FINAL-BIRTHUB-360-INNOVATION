@@ -4,8 +4,8 @@ import test from "node:test";
 
 import { z } from "zod";
 
-import { PolicyDeniedError, PolicyEngine } from "../src/policy/engine";
-import { BaseTool } from "../src/tools/baseTool";
+import { PolicyDeniedError, PolicyEngine } from "../src/policy/engine.js";
+import { BaseTool } from "../src/tools/baseTool.js";
 
 class EchoTool extends BaseTool<{ value: string }, { value: string }> {
   constructor(policyEngine: PolicyEngine) {

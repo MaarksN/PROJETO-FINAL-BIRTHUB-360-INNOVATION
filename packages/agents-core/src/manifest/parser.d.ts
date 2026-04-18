@@ -1,4 +1,4 @@
-import type { AgentManifest } from "./schema";
+import type { AgentManifest } from "./schema.js";
 export declare class AgentManifestParseError extends Error {
     readonly issues: string[];
     constructor(issues: string[]);

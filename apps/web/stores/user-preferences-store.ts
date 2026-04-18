@@ -7,13 +7,13 @@ import {
   getCookieValue,
   getStoredSession,
   setCookieValue
-} from "../lib/auth-client";
+} from "../lib/auth-client.js";
 import {
   defaultLocale,
   LOCALE_COOKIE_NAME,
   parseSupportedLocale,
   type SupportedLocale
-} from "../lib/i18n";
+} from "../lib/i18n.js";
 
 export type CookieConsentStatus = "ACCEPTED" | "PENDING" | "REJECTED";
 const LOCALE_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 365;
