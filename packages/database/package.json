@@ -47,7 +47,7 @@
     "@birthub/config": "workspace:^",
     "@birthub/logger": "workspace:^",
     "@prisma/adapter-pg": "^7.6.0",
-    "@prisma/client": "^6.19.2"
+    "@prisma/client": "^7.7.0"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
