@@ -34,5 +34,6 @@ async function runBenchmark() {
   console.log(`Time taken: ${(end - start).toFixed(2)} ms`);
 }
 
-void runBenchmark();
+void void runBenchmark();
+
 
