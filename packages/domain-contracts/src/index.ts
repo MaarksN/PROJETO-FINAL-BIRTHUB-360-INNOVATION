@@ -29,6 +29,8 @@ export interface AgentMetricsSnapshot {
   tool_cost: number;
 }
 
+const AGENT_EXECUTION_SNAPSHOT_LIMIT = 1_000;
+
 function percentile(values: number[], factor: number): number {
   if (values.length === 0) {
     return 0;
@@ -37,6 +39,26 @@ function percentile(values: number[], factor: number): number {
   const sorted = [...values].sort((a, b) => a - b);
   const index = Math.min(sorted.length - 1, Math.max(0, Math.ceil(sorted.length * factor) - 1));
   return sorted[index] ?? 0;
+}
+
+function extractDurationMs(input: {
+  completedAt: Date | null;
+  startedAt: Date;
+}): number {
+  if (!input.completedAt) {
+    return 0;
+  }
+
+  return Math.max(0, input.completedAt.getTime() - input.startedAt.getTime());
+}
+
+function extractToolCost(metadata: unknown): number {
+  if (!metadata || typeof metadata !== "object") {
+    return 0;
+  }
+
+  const candidate = (metadata as { toolCost?: unknown }).toolCost;
+  return typeof candidate === "number" && Number.isFinite(candidate) ? candidate : 0;
 }
 
 function mapStatus(status: string): OutputStatus {
@@ -161,25 +183,34 @@ export async function getAgentMetrics(input: {
   const to = new Date();
   const from = new Date(to.getTime() - (input.windowMinutes ?? 60) * 60 * 1000);
 
-  const logs = await prisma.auditLog.findMany({
+  const executions = await prisma.agentExecution.findMany({
+    orderBy: {
+      startedAt: "desc"
+    },
+    take: AGENT_EXECUTION_SNAPSHOT_LIMIT,
     where: {
-      action: "AGENT_EXECUTION_COMPLETED",
-      createdAt: {
+      agentId: input.agentId,
+      startedAt: {
         gte: from
       },
-      tenantId: input.tenantId,
-      targetAgentId: input.agentId
+      tenantId: input.tenantId
     }
   });
 
-  const normalized = logs.map((log) => {
-    const metadata = log.metadata && typeof log.metadata === "object" ? (log.metadata as Record<string, unknown>) : {};
-    return {
-      durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : 0,
-      status: metadata.status === "FAILED" ? "FAILED" : "SUCCESS",
-      toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
-    };
-  });
+  const normalized = executions
+    .filter(
+      (execution): execution is (typeof executions)[number] & {
+        status: "FAILED" | "SUCCESS";
+      } => execution.status === "FAILED" || execution.status === "SUCCESS"
+    )
+    .map((execution) => ({
+      durationMs: extractDurationMs({
+        completedAt: execution.completedAt,
+        startedAt: execution.startedAt
+      }),
+      status: execution.status,
+      toolCost: extractToolCost(execution.metadata)
+    }));
 
   const failures = normalized.filter((log) => log.status === "FAILED").length;
   const latencies = normalized.map((log) => log.durationMs);
