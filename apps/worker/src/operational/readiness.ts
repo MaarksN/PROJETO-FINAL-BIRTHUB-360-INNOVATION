@@ -30,6 +30,7 @@ export async function evaluateWorkerReadiness(input: {
   workerCount: number;
   queueCount: number;
 }): Promise<WorkerReadinessResponse> {
+  const queueStatesPromise: Promise<WorkerQueueState[]> = input.listQueueStates().catch(() => []);
   const [redisStatus, queueStates] = await Promise.all([
     input
       .pingRedis()
@@ -44,11 +45,11 @@ export async function evaluateWorkerReadiness(input: {
         message: error instanceof Error ? error.message : "Redis ping failed",
         status: "down" as const
       })),
-    input.listQueueStates().catch(() => [])
+    queueStatesPromise
   ]);
 
-  const backlog = queueStates.reduce<number>((total, queue) => total + queue.backlog, 0);
-  const dlq = queueStates.reduce<number>((total, queue) => total + queue.dlq, 0);
+  const backlog = queueStates.reduce((total, queue) => total + queue.backlog, 0);
+  const dlq = queueStates.reduce((total, queue) => total + queue.dlq, 0);
   const runtimeReady = input.workerCount > 0 && input.queueCount > 0;
 
   const status = redisStatus.status === "up" && runtimeReady ? "ok" : "degraded";

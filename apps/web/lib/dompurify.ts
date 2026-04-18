@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import isomorphicDompurify from "isomorphic-dompurify";
 
 export const DOMPurify = {

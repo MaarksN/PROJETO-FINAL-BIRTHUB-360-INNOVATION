@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { getWebConfig } from "@birthub/config/web";
 import * as Sentry from "@sentry/nextjs";
 

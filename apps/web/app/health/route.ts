@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { observeHistogram, incrementCounter } from "@birthub/logger";
 import { NextResponse } from "next/server";
 

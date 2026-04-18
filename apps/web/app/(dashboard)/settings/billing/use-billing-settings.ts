@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { useEffect, useMemo, useState } from "react";
 
 import { fetchWithSession } from "../../../../lib/auth-client.js";

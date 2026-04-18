@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import { TOOLS } from "./constants.js";
 import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types.js";
 

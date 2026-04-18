@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { getWebConfig } from "../../packages/config/dist/web.js";
 import * as Sentry from "@sentry/nextjs";
 

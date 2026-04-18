@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { randomUUID } from "node:crypto";
 
 import { cookies } from "next/headers";

@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import Link from "next/link";
 import { Rocket, Sparkles } from "lucide-react";
 

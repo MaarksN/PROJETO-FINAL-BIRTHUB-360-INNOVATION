@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { getWebConfig, type WebConfig } from "@birthub/config/web";
 
 type DependencyStatus = "up" | "down";

@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/773eb246-cf2e-219c-9477-ee8a562fa07d",
+  "documentNamespace": "https://birthub.local/spdx/680662f8-d3c6-ca2b-5c49-00cfc4b9e47c",
   "creationInfo": {
-    "created": "2026-04-18T05:25:36.487Z",
+    "created": "2026-04-18T16:36:37.804Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -30,9 +30,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-41d5446152bbf1c0",
+      "SPDXID": "SPDXRef-Package-0e779b96d81e9f41",
       "name": "@aws-sdk/client-s3",
-      "versionInfo": "3.1030.0",
+      "versionInfo": "3.1032.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -40,7 +40,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40aws-sdk%2Fclient-s3@3.1030.0"
+          "referenceLocator": "pkg:npm/%40aws-sdk%2Fclient-s3@3.1032.0"
         }
       ]
     },
@@ -285,6 +285,21 @@
       ]
     },
     {
+      "SPDXID": "SPDXRef-Package-6e36509cf3350638",
+      "name": "@birthub/utils",
+      "versionInfo": "link:../../packages/utils",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Futils@link%3A..%2F..%2Fpackages%2Futils"
+        }
+      ]
+    },
+    {
       "SPDXID": "SPDXRef-Package-d927c0c1314ad64a",
       "name": "@birthub/utils",
       "versionInfo": "link:../utils",
@@ -450,9 +465,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-a686f982432fae13",
+      "SPDXID": "SPDXRef-Package-57cedf881e85f3a4",
       "name": "@opentelemetry/resources",
-      "versionInfo": "2.6.1",
+      "versionInfo": "2.7.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -460,7 +475,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40opentelemetry%2Fresources@2.6.1"
+          "referenceLocator": "pkg:npm/%40opentelemetry%2Fresources@2.7.0"
         }
       ]
     },
@@ -480,9 +495,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-36a51966ca5d1f52",
+      "SPDXID": "SPDXRef-Package-f3f62a8f8b9ed6c7",
       "name": "@opentelemetry/sdk-trace-node",
-      "versionInfo": "2.6.1",
+      "versionInfo": "2.7.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -490,7 +505,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40opentelemetry%2Fsdk-trace-node@2.6.1"
+          "referenceLocator": "pkg:npm/%40opentelemetry%2Fsdk-trace-node@2.7.0"
         }
       ]
     },
@@ -555,9 +570,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-fd112bba1705011b",
+      "SPDXID": "SPDXRef-Package-ed2ca31cff744193",
       "name": "@sentry/nextjs",
-      "versionInfo": "10.48.0",
+      "versionInfo": "10.49.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -565,14 +580,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40sentry%2Fnextjs@10.48.0"
+          "referenceLocator": "pkg:npm/%40sentry%2Fnextjs@10.49.0"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-7563e9523ea2e801",
+      "SPDXID": "SPDXRef-Package-676a253cee125fe0",
       "name": "@sentry/node",
-      "versionInfo": "10.48.0",
+      "versionInfo": "10.49.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -580,14 +595,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40sentry%2Fnode@10.48.0"
+          "referenceLocator": "pkg:npm/%40sentry%2Fnode@10.49.0"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-c613364b0da915f1",
+      "SPDXID": "SPDXRef-Package-9e1855a8d611e22b",
       "name": "@stryker-mutator/api",
-      "versionInfo": "8.7.1",
+      "versionInfo": "9.6.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -595,7 +610,22 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fapi@8.7.1"
+          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fapi@9.6.1"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-3cc4d81de7be707b",
+      "name": "@stryker-mutator/core",
+      "versionInfo": "9.6.1",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fcore@9.6.1"
         }
       ]
     },
@@ -780,9 +810,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-9dd5b692ce328bcd",
+      "SPDXID": "SPDXRef-Package-dde688498d132af1",
       "name": "bullmq",
-      "versionInfo": "5.73.5",
+      "versionInfo": "5.74.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -790,7 +820,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/bullmq@5.73.5"
+          "referenceLocator": "pkg:npm/bullmq@5.74.1"
         }
       ]
     },
@@ -825,9 +855,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-713312ab787705f5",
+      "SPDXID": "SPDXRef-Package-59a25a058cee926a",
       "name": "eslint",
-      "versionInfo": "10.2.0",
+      "versionInfo": "10.2.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -835,7 +865,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/eslint@10.2.0"
+          "referenceLocator": "pkg:npm/eslint@10.2.1"
         }
       ]
     },
@@ -945,9 +975,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-39fa4999f29deb93",
+      "SPDXID": "SPDXRef-Package-54abcbb8fb6b83e3",
       "name": "isomorphic-dompurify",
-      "versionInfo": "3.8.0",
+      "versionInfo": "3.9.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -955,7 +985,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/isomorphic-dompurify@3.8.0"
+          "referenceLocator": "pkg:npm/isomorphic-dompurify@3.9.0"
         }
       ]
     },
@@ -1050,9 +1080,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-bbdd020718ae6255",
+      "SPDXID": "SPDXRef-Package-04cbc65cd0b5312d",
       "name": "msw",
-      "versionInfo": "2.13.3",
+      "versionInfo": "2.13.4",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1060,7 +1090,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/msw@2.13.3"
+          "referenceLocator": "pkg:npm/msw@2.13.4"
         }
       ]
     },
@@ -1140,9 +1170,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-ca8a1456830a4018",
+      "SPDXID": "SPDXRef-Package-82ef01c1f7e2b041",
       "name": "pipedrive",
-      "versionInfo": "31.2.1",
+      "versionInfo": "32.2.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1150,14 +1180,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/pipedrive@31.2.1"
+          "referenceLocator": "pkg:npm/pipedrive@32.2.0"
         }
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-dac5a750cc84aa25",
+      "SPDXID": "SPDXRef-Package-baf219d277f28f5d",
       "name": "prettier",
-      "versionInfo": "3.8.2",
+      "versionInfo": "3.8.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1165,7 +1195,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/prettier@3.8.2"
+          "referenceLocator": "pkg:npm/prettier@3.8.3"
         }
       ]
     },
@@ -1290,9 +1320,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-82bc3a65ab8194c9",
+      "SPDXID": "SPDXRef-Package-ff21e168fae2f152",
       "name": "redis",
-      "versionInfo": "5.11.0",
+      "versionInfo": "5.12.1",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1300,7 +1330,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/redis@5.11.0"
+          "referenceLocator": "pkg:npm/redis@5.12.1"
         }
       ]
     },
@@ -1320,9 +1350,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-330be6d1e2ce15a1",
+      "SPDXID": "SPDXRef-Package-19db4c1e48ff0aba",
       "name": "resend",
-      "versionInfo": "6.11.0",
+      "versionInfo": "6.12.0",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1330,7 +1360,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/resend@6.11.0"
+          "referenceLocator": "pkg:npm/resend@6.12.0"
         }
       ]
     },
@@ -1350,9 +1380,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-700c203092e9bab0",
+      "SPDXID": "SPDXRef-Package-aaa3b8e44d79fced",
       "name": "stripe",
-      "versionInfo": "22.0.1",
+      "versionInfo": "22.0.2",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1360,7 +1390,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/stripe@22.0.1"
+          "referenceLocator": "pkg:npm/stripe@22.0.2"
         }
       ]
     },
@@ -1455,9 +1485,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-44bd9e04e2c25408",
+      "SPDXID": "SPDXRef-Package-e500ed061b70ae87",
       "name": "typescript",
-      "versionInfo": "5.9.3",
+      "versionInfo": "6.0.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1465,7 +1495,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/typescript@5.9.3"
+          "referenceLocator": "pkg:npm/typescript@6.0.3"
         }
       ]
     },

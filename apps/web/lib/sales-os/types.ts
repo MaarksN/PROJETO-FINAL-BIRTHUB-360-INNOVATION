@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 export type SalesOsModuleId =
   | "exec"
   | "presales"

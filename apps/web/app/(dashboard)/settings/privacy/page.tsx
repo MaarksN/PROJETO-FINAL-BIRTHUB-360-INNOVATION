@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import { getProductCapabilities } from "../../../../lib/product-capabilities.js";
 
 export default async function PrivacySettingsPage() {

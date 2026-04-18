@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { renderPrometheusMetrics } from "@birthub/logger";
 
 export const dynamic = "force-dynamic";

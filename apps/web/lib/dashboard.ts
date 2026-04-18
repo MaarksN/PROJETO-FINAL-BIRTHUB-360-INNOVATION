@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 

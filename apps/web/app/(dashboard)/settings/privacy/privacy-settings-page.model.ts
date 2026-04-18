@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 "use client";
 
 import { useCallback, useEffect, useState, useTransition } from "react";

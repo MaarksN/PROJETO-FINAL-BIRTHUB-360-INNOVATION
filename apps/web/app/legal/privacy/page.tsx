@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 export const dynamic = "force-static";
 
 const sections = [

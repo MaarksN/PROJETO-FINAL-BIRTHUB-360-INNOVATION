@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { fetchWithSession } from "./auth-client.js";
 
 const MARKETPLACE_MUTATION_TIMEOUT_MS = 8_000;

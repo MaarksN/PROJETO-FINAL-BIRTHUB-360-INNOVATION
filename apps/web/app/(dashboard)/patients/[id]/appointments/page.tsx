@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import { ClinicalWorkspaceDisabledState } from "../../../../../components/dashboard/ClinicalWorkspaceDisabledState.js";
 import { getProductCapabilities } from "../../../../../lib/product-capabilities.js";
 

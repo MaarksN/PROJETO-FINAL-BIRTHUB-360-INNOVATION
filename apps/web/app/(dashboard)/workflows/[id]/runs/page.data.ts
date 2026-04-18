@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import type { Edge, Node } from "reactflow";
 
 import type { WorkflowCanvas } from "@birthub/workflows-core/nextjs";

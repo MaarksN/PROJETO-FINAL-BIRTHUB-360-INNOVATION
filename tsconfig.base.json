@@ -20,7 +20,8 @@
     "skipLibCheck": true,
     "paths": {
       "@birthub/agents-core/policy": ["packages/agents-core/src/policy/engine.ts"],
-      "@birthub/utils/*": ["packages/utils/src/*"],
+      "@birthub/agents-core/tools": ["packages/agents-core/src/tools/index.ts"],
+      "@birthub/utils/fetch": ["packages/utils/src/fetch.ts"],
       "@birthub/*": ["packages/*/src/index.ts", "packages/*/src"]
     }
   }

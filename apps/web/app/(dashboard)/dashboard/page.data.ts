@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import { fetchProductJson } from "../../../lib/product-api.server.js";
 import { getProductCapabilities } from "../../../lib/product-capabilities.js";
 

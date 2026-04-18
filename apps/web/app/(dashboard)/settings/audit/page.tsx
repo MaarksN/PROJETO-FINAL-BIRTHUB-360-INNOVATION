@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 const auditRows = [
   {
     action: "invite.created",

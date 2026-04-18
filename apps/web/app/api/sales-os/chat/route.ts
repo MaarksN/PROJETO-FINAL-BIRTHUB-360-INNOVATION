@@ -1,4 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
 import { NextResponse } from "next/server";
 
 import { executeSalesOsChat } from "../../../../lib/sales-os/engine.js";
