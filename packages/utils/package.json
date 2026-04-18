@@ -17,7 +17,7 @@
     "@opentelemetry/sdk-node": "^0.214.0",
     "@opentelemetry/sdk-trace-node": "^2.6.1",
     "@types/node": "^25.5.2",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "type": "module",
   "exports": {
