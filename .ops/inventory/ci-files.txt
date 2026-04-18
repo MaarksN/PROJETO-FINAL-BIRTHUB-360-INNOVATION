@@ -1,0 +1,12 @@
+{"path": ".github/workflows/agents-conformity.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request:", "paths:", "- 'packages/agent-packs/**'", "- 'scripts/agent/**'", "- '.github/workflows/agents-conformity.yml'", "push:", "branches: [ main ]", "paths:", "- 'packages/agent-packs/**'", "- 'scripts/agent/**'"]}
+{"path": ".github/workflows/branch-cleanup.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request:", "types:", "- closed"]}
+{"path": ".github/workflows/cd.yml", "has_continue_on_error": false, "trigger_excerpt": ["workflow_run:", "workflows:", "- CI", "types:", "- completed", "branches:", "- main", "workflow_dispatch:", "inputs:", "deploy_target:"]}
+{"path": ".github/workflows/ci.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request:", "branches:", "- main", "- develop", "push:", "branches:", "- main", "- develop", "- 'codex/**'"]}
+{"path": ".github/workflows/dependabot-auto-merge.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request_target:", "types:", "- opened", "- synchronize", "- reopened", "- labeled"]}
+{"path": ".github/workflows/docker-image.yml", "has_continue_on_error": false, "trigger_excerpt": ["push:", "branches: [ \"main\" ]", "pull_request:", "branches: [ \"main\" ]"]}
+{"path": ".github/workflows/f4-script-compliance.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request:", "push:", "branches:", "- main", "- develop", "- 'codex/**'"]}
+{"path": ".github/workflows/materialize-doc-only.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request:", "push:", "branches:", "- main", "- develop", "- 'codex/**'"]}
+{"path": ".github/workflows/release-rehearsal.yml", "has_continue_on_error": false, "trigger_excerpt": ["schedule:", "- cron: \"0 9 * * 1\"", "workflow_dispatch:"]}
+{"path": ".github/workflows/repository-health.yml", "has_continue_on_error": false, "trigger_excerpt": ["schedule:", "- cron: '0 12 * * 1'", "push:", "branches:", "- 'codex/**'", "workflow_dispatch:"]}
+{"path": ".github/workflows/reusable-node-check.yml", "has_continue_on_error": false, "trigger_excerpt": ["workflow_call:", "inputs:", "command:", "required: true", "type: string", "fetch_depth:", "default: 1", "required: false", "type: number", "timeout_minutes:"]}
+{"path": ".github/workflows/security-scan.yml", "has_continue_on_error": false, "trigger_excerpt": ["pull_request:", "push:", "branches:", "- main", "- develop", "- \"codex/**\""]}
