@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 
 import path from "node:path";
 
@@ -12,6 +12,13 @@ const eslintCli = path.join(
   "eslint.js"
 );
 
+const sharedFlatConfig = path.join(
+  projectRoot,
+  "packages",
+  "workflows-core",
+  "eslint.config.mjs"
+);
+
 const REQUIRED_LINT_NODE_OPTION = "--max-old-space-size=8192";
 
 function withLintNodeOptions(existingNodeOptions = process.env.NODE_OPTIONS ?? "") {
@@ -23,26 +30,27 @@ function withLintNodeOptions(existingNodeOptions = process.env.NODE_OPTIONS ?? "
 }
 
 const coreLintWorkspaces = [
-  { cwd: "packages/config", args: ["."] },
-  { cwd: "packages/workflows-core", args: [".", "--config", "eslint.config.mjs"] },
-  { cwd: "packages/agents-core", args: ["."] },
-  { cwd: "packages/shared-types", args: ["."] },
-  { cwd: "packages/auth", args: ["."] },
-  { cwd: "packages/logger", args: ["."] },
-  { cwd: "apps/web", args: ["."] },
-  { cwd: "packages/database", args: ["."] },
-  { cwd: "packages/queue", args: ["."] },
-  { cwd: "packages/utils", args: ["."] },
-  { cwd: "apps/api", args: ["."] },
-  { cwd: "packages/testing", args: ["."] },
-  { cwd: "apps/worker", args: ["."] }
+  "packages/config",
+  "packages/workflows-core",
+  "packages/agents-core",
+  "packages/shared-types",
+  "packages/auth",
+  "packages/logger",
+  "apps/web",
+  "packages/database",
+  "packages/queue",
+  "packages/utils",
+  "apps/api",
+  "packages/testing",
+  "apps/worker"
 ];
 
 for (const workspace of coreLintWorkspaces) {
-  run(portableNodeExecutable, [eslintCli, ...workspace.args], {
-    cwd: path.join(projectRoot, workspace.cwd),
+  run(portableNodeExecutable, [eslintCli, ".", "--config", sharedFlatConfig], {
+    cwd: path.join(projectRoot, workspace),
     env: {
-      NODE_OPTIONS: withLintNodeOptions()
+      NODE_OPTIONS: withLintNodeOptions(),
+      ESLINT_USE_FLAT_CONFIG: "true"
     }
   });
 }
