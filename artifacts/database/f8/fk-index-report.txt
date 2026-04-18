@@ -25,6 +25,8 @@ PASS WorkflowTransition.organization
 PASS WorkflowTransition.workflow
 PASS WorkflowTransition.sourceStep
 PASS WorkflowTransition.targetStep
+PASS WorkflowRevision.organization
+PASS WorkflowRevision.workflow
 PASS WorkflowExecution.organization
 PASS WorkflowExecution.workflow
 PASS StepResult.organization

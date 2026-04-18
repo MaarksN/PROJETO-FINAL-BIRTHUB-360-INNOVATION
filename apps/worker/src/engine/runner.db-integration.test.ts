@@ -121,7 +121,12 @@ void test("Workflow runner integration persists DB-backed execution and agent ha
       },
       timeout: 30_000
     });
-    const harnessResult = JSON.parse(stdout) as {
+    const harnessJsonLine =
+      stdout
+        .trim()
+        .split(/\r?\n/u)
+        .findLast((line) => line.trim().startsWith("{") && line.trim().endsWith("}")) ?? "";
+    const harnessResult = JSON.parse(harnessJsonLine) as {
       agentCalls: Array<{
         agentId: string;
         contextSummary: string;

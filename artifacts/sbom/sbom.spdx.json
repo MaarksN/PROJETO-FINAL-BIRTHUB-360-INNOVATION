@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/79dd1343-550d-70d4-426e-c86d488389a2",
+  "documentNamespace": "https://birthub.local/spdx/773eb246-cf2e-219c-9477-ee8a562fa07d",
   "creationInfo": {
-    "created": "2026-04-15T15:26:52.506Z",
+    "created": "2026-04-18T05:25:36.487Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -1275,6 +1275,21 @@
       ]
     },
     {
+      "SPDXID": "SPDXRef-Package-3111a937d23ea6c1",
+      "name": "recharts",
+      "versionInfo": "3.8.1",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/recharts@3.8.1"
+        }
+      ]
+    },
+    {
       "SPDXID": "SPDXRef-Package-82bc3a65ab8194c9",
       "name": "redis",
       "versionInfo": "5.11.0",
@@ -1466,6 +1481,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/typescript-eslint@8.58.2"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-22fcb130654a06f9",
+      "name": "vitest-mock-extended",
+      "versionInfo": "4.0.0",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/vitest-mock-extended@4.0.0"
         }
       ]
     },

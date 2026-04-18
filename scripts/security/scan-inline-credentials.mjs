@@ -54,6 +54,13 @@ const PLACEHOLDER_HINTS = [
   "supersecret",
 ];
 
+const SYNTHETIC_TEST_CREDENTIAL_PATTERNS = [
+  /\bsecret[:=]\s*["']secret[_-][a-z0-9_-]{1,64}["']/i,
+  /\btoken[:=]\s*["']token[-_][a-z0-9_-]{1,64}["']/i,
+  /\bpassword[:=]\s*["']password[_-][a-z0-9_-]{1,64}["']/i,
+  /\bapi[_-]?key[:=]\s*["']api[_-]?key[_-][a-z0-9_-]{1,64}["']/i
+];
+
 function shouldSkipFile(filePath) {
   const rel = path.relative(ROOT, filePath);
   const parts = rel.split(path.sep);
@@ -93,6 +100,10 @@ function isPlaceholder(line) {
   return PLACEHOLDER_HINTS.some((hint) => normalized.includes(hint));
 }
 
+function isSyntheticTestCredential(line) {
+  return SYNTHETIC_TEST_CREDENTIAL_PATTERNS.some((pattern) => pattern.test(line));
+}
+
 function scanFile(filePath) {
   let content;
   try {
@@ -104,7 +115,7 @@ function scanFile(filePath) {
   const findings = [];
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
-    if (!line || isPlaceholder(line)) {
+    if (!line || isPlaceholder(line) || isSyntheticTestCredential(line)) {
       continue;
     }
     for (const pattern of CREDENTIAL_PATTERNS) {

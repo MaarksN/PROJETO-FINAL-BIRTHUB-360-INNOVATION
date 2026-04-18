@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-04-11T16:44:36.364Z",
+  "generatedAt": "2026-04-18T05:23:34.997Z",
   "ok": false,
   "totals": {
     "baseline": 0,
-    "current": 21
+    "current": 45
   },
   "counts": {
     "baseline": {
@@ -17,23 +17,23 @@
       "duplicates": 0
     },
     "current": {
-      "files": 1,
-      "dependencies": 2,
-      "devDependencies": 0,
+      "files": 2,
+      "dependencies": 1,
+      "devDependencies": 3,
       "optionalPeerDependencies": 0,
-      "unlisted": 5,
+      "unlisted": 1,
       "binaries": 0,
-      "exports": 13,
+      "exports": 38,
       "duplicates": 0
     },
     "regressions": {
-      "files": 1,
-      "dependencies": 2,
-      "devDependencies": 0,
+      "files": 2,
+      "dependencies": 1,
+      "devDependencies": 3,
       "optionalPeerDependencies": 0,
-      "unlisted": 5,
+      "unlisted": 1,
       "binaries": 0,
-      "exports": 13,
+      "exports": 38,
       "duplicates": 0
     },
     "improvements": {
@@ -59,71 +59,121 @@
   },
   "current": {
     "files": [
-      "apps/web/lib/web-session.ts"
+      "apps/web/components/sales-os/SdrAutomaticPlatform.tsx",
+      "apps/worker/src/queues/agentQueue.ts"
     ],
     "dependencies": [
-      "packages/agents-core/package.json::@birthub/logger",
-      "packages/database/package.json::zod"
+      "packages/logger/package.json::@opentelemetry/api"
     ],
-    "devDependencies": [],
+    "devDependencies": [
+      "apps/worker/package.json::vitest-mock-extended",
+      "package.json::@stryker-mutator/api",
+      "packages/database/package.json::vitest-mock-extended"
+    ],
     "optionalPeerDependencies": [],
     "unlisted": [
-      "packages/emails/templates/critical-error.tsx::react",
-      "packages/emails/templates/org-invite.tsx::react",
-      "packages/emails/templates/workflow-finished.tsx::react",
-      "packages/logger/src/otel.ts::@opentelemetry/api",
-      "stryker.config.mjs::@stryker-mutator/api"
+      "eslint.config.mjs::@typescript-eslint/parser"
     ],
     "binaries": [],
     "exports": [
-      "apps/api/src/modules/analytics/dashboard.service.ts::getMasterAdminDashboard",
-      "apps/api/src/modules/analytics/dashboard.service.ts::getOperationsDashboard",
+      "apps/api/src/app/pipeline.ts::mainApiPipeline",
+      "apps/api/src/app/pipeline.ts::mainInfrastructurePostWebhookPipeline",
+      "apps/api/src/app/pipeline.ts::mainInfrastructurePreWebhookPipeline",
+      "apps/api/src/app/pipeline.ts::routeScopedApiPipeline",
+      "apps/api/src/app/pipeline.ts::webhookApiPipeline",
+      "apps/api/src/modules/agents/queue.ts::QueueBackpressureError",
+      "apps/api/src/modules/agents/queue.ts::TenantQueueRateLimitError",
+      "apps/api/src/modules/auth/router.ts::AUTH_ROUTER_BASE_PATH",
+      "apps/api/src/modules/auth/router.ts::registerAuthRouterRoutes",
+      "apps/api/src/modules/clinical/service-runtime.records.ts::listNeonatalRecords",
+      "apps/api/src/modules/clinical/service-runtime.records.ts::listPregnancyRecords",
+      "apps/api/src/modules/clinical/service-support.ts::FETAL_WEIGHT_REFERENCE_POINTS",
+      "apps/api/src/modules/clinical/service-support.view.ts::createClinicalAlert",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveAppointmentAlerts",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveDueDateAlerts",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveMissingClinicalCoverageAlerts",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveRiskAlerts",
       "apps/api/src/modules/connectors/schemas.ts::credentialSchema",
-      "apps/api/src/modules/notifications/service.ts::getNotificationFeed",
-      "apps/api/src/modules/notifications/service.ts::getNotificationPreferences",
-      "apps/api/src/modules/notifications/service.ts::markAllNotificationsReadForUser",
-      "apps/api/src/modules/notifications/service.ts::markNotificationReadForUser",
-      "apps/api/src/modules/notifications/service.ts::saveNotificationPreferences",
-      "apps/web/lib/auth-client.ts::clearStoredSession",
-      "apps/web/lib/auth-client.ts::persistStoredSession",
-      "apps/web/lib/product-api.server.ts::ProductApiError",
-      "apps/worker/src/agents/runtime.shared.ts::readNumbers",
-      "apps/worker/src/agents/runtime.shared.ts::readStrings"
+      "apps/api/src/modules/invites/service.ts::cleanupExpiredInvites",
+      "apps/api/src/modules/profile/router.ts::registerProfileRoutes",
+      "apps/api/src/modules/tasks/router.ts::registerTaskRoutes",
+      "apps/web/lib/executive-premium.ts::EXECUTIVE_PREMIUM_PACK_IDS",
+      "apps/web/lib/product-capabilities.ts::isClinicalWorkspacePath",
+      "apps/web/lib/web-session.ts::getAuthenticatedWebSession",
+      "apps/web/lib/web-session.ts::hasMinimumRole",
+      "apps/web/lib/workflows.ts::getWorkflowById",
+      "apps/worker/src/agents/runtime.catalog.ts::recommendRuntimeManifestAgents",
+      "apps/worker/src/agents/runtime.catalog.ts::searchRuntimeManifestCatalog",
+      "apps/worker/src/agents/runtime.ingress.ts::emitCriticalTicketEvent",
+      "apps/worker/src/agents/runtime.ingress.ts::emitOperationalIncidentEvent",
+      "apps/worker/src/agents/runtime.ingress.ts::emitRenewalRiskEvent",
+      "apps/worker/src/agents/runtime.resolution.ts::resolveRuntimeAgent",
+      "apps/worker/src/engine/runner.ts::workflowQueueNames",
+      "apps/worker/src/notifications/emailQueue.ts::emailQueueName",
+      "apps/worker/src/webhooks/outbound.ts::outboundWebhookQueueName",
+      "packages/agents-core/src/runtime/manifestRuntimeCore.ts::readString",
+      "packages/agents-core/src/runtime/manifestRuntimeCore.ts::toolIsSensitive",
+      "packages/database/src/client.ts::resolveQueryTimeoutMs"
     ],
     "duplicates": []
   },
   "regressions": {
     "files": [
-      "apps/web/lib/web-session.ts"
+      "apps/web/components/sales-os/SdrAutomaticPlatform.tsx",
+      "apps/worker/src/queues/agentQueue.ts"
     ],
     "dependencies": [
-      "packages/agents-core/package.json::@birthub/logger",
-      "packages/database/package.json::zod"
+      "packages/logger/package.json::@opentelemetry/api"
     ],
-    "devDependencies": [],
+    "devDependencies": [
+      "apps/worker/package.json::vitest-mock-extended",
+      "package.json::@stryker-mutator/api",
+      "packages/database/package.json::vitest-mock-extended"
+    ],
     "optionalPeerDependencies": [],
     "unlisted": [
-      "packages/emails/templates/critical-error.tsx::react",
-      "packages/emails/templates/org-invite.tsx::react",
-      "packages/emails/templates/workflow-finished.tsx::react",
-      "packages/logger/src/otel.ts::@opentelemetry/api",
-      "stryker.config.mjs::@stryker-mutator/api"
+      "eslint.config.mjs::@typescript-eslint/parser"
     ],
     "binaries": [],
     "exports": [
-      "apps/api/src/modules/analytics/dashboard.service.ts::getMasterAdminDashboard",
-      "apps/api/src/modules/analytics/dashboard.service.ts::getOperationsDashboard",
+      "apps/api/src/app/pipeline.ts::mainApiPipeline",
+      "apps/api/src/app/pipeline.ts::mainInfrastructurePostWebhookPipeline",
+      "apps/api/src/app/pipeline.ts::mainInfrastructurePreWebhookPipeline",
+      "apps/api/src/app/pipeline.ts::routeScopedApiPipeline",
+      "apps/api/src/app/pipeline.ts::webhookApiPipeline",
+      "apps/api/src/modules/agents/queue.ts::QueueBackpressureError",
+      "apps/api/src/modules/agents/queue.ts::TenantQueueRateLimitError",
+      "apps/api/src/modules/auth/router.ts::AUTH_ROUTER_BASE_PATH",
+      "apps/api/src/modules/auth/router.ts::registerAuthRouterRoutes",
+      "apps/api/src/modules/clinical/service-runtime.records.ts::listNeonatalRecords",
+      "apps/api/src/modules/clinical/service-runtime.records.ts::listPregnancyRecords",
+      "apps/api/src/modules/clinical/service-support.ts::FETAL_WEIGHT_REFERENCE_POINTS",
+      "apps/api/src/modules/clinical/service-support.view.ts::createClinicalAlert",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveAppointmentAlerts",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveDueDateAlerts",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveMissingClinicalCoverageAlerts",
+      "apps/api/src/modules/clinical/service-support.view.ts::deriveRiskAlerts",
       "apps/api/src/modules/connectors/schemas.ts::credentialSchema",
-      "apps/api/src/modules/notifications/service.ts::getNotificationFeed",
-      "apps/api/src/modules/notifications/service.ts::getNotificationPreferences",
-      "apps/api/src/modules/notifications/service.ts::markAllNotificationsReadForUser",
-      "apps/api/src/modules/notifications/service.ts::markNotificationReadForUser",
-      "apps/api/src/modules/notifications/service.ts::saveNotificationPreferences",
-      "apps/web/lib/auth-client.ts::clearStoredSession",
-      "apps/web/lib/auth-client.ts::persistStoredSession",
-      "apps/web/lib/product-api.server.ts::ProductApiError",
-      "apps/worker/src/agents/runtime.shared.ts::readNumbers",
-      "apps/worker/src/agents/runtime.shared.ts::readStrings"
+      "apps/api/src/modules/invites/service.ts::cleanupExpiredInvites",
+      "apps/api/src/modules/profile/router.ts::registerProfileRoutes",
+      "apps/api/src/modules/tasks/router.ts::registerTaskRoutes",
+      "apps/web/lib/executive-premium.ts::EXECUTIVE_PREMIUM_PACK_IDS",
+      "apps/web/lib/product-capabilities.ts::isClinicalWorkspacePath",
+      "apps/web/lib/web-session.ts::getAuthenticatedWebSession",
+      "apps/web/lib/web-session.ts::hasMinimumRole",
+      "apps/web/lib/workflows.ts::getWorkflowById",
+      "apps/worker/src/agents/runtime.catalog.ts::recommendRuntimeManifestAgents",
+      "apps/worker/src/agents/runtime.catalog.ts::searchRuntimeManifestCatalog",
+      "apps/worker/src/agents/runtime.ingress.ts::emitCriticalTicketEvent",
+      "apps/worker/src/agents/runtime.ingress.ts::emitOperationalIncidentEvent",
+      "apps/worker/src/agents/runtime.ingress.ts::emitRenewalRiskEvent",
+      "apps/worker/src/agents/runtime.resolution.ts::resolveRuntimeAgent",
+      "apps/worker/src/engine/runner.ts::workflowQueueNames",
+      "apps/worker/src/notifications/emailQueue.ts::emailQueueName",
+      "apps/worker/src/webhooks/outbound.ts::outboundWebhookQueueName",
+      "packages/agents-core/src/runtime/manifestRuntimeCore.ts::readString",
+      "packages/agents-core/src/runtime/manifestRuntimeCore.ts::toolIsSensitive",
+      "packages/database/src/client.ts::resolveQueryTimeoutMs"
     ],
     "duplicates": []
   },
