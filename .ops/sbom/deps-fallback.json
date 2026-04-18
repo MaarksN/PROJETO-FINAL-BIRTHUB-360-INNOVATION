@@ -1,0 +1,296 @@
+{
+  "generated_at": "2026-04-18T09:35:12.950792Z",
+  "reason": "syft not available",
+  "packages": [
+    {
+      "path": "apps/api/package.json",
+      "name": "@birthub/api",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "apps/voice-engine/package.json",
+      "name": "@birthub/voice-engine",
+      "version": "0.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "apps/web/package.json",
+      "name": "@birthub/web",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "apps/worker/package.json",
+      "name": "@birthub/worker",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "audit/autofix/snapshots/packages/queue/package.json",
+      "name": "@birthub/queue",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "audit/autofix/snapshots/packages/utils/package.json",
+      "name": "@birthub/utils",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "package.json",
+      "name": "birthub-360",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": [
+        "apps/*",
+        "packages/*"
+      ],
+      "packageManager": "pnpm@9.15.9",
+      "engines": {
+        "node": ">=24 <25",
+        "pnpm": "9.15.9"
+      }
+    },
+    {
+      "path": "packages/agent-packs/package.json",
+      "name": "@birthub/agent-packs",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/agent-runtime/package.json",
+      "name": "@birthub/agent-runtime",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/agents-core/package.json",
+      "name": "@birthub/agents-core",
+      "version": "0.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/agents-registry/package.json",
+      "name": "@birthub/agents-registry",
+      "version": "0.1.0",
+      "private": false,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/auth/package.json",
+      "name": "@birthub/auth",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/config/package.json",
+      "name": "@birthub/config",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/conversation-core/package.json",
+      "name": "@birthub/conversation-core",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/database/package.json",
+      "name": "@birthub/database",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/emails/package.json",
+      "name": "@birthub/emails",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/integrations/package.json",
+      "name": "@birthub/integrations",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/llm-client/package.json",
+      "name": "@birthub/llm-client",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/logger/package.json",
+      "name": "@birthub/logger",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/queue/package.json",
+      "name": "@birthub/queue",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/security/package.json",
+      "name": "@birthub/security",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/shared/package.json",
+      "name": "@birthub/shared",
+      "version": "1.0.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/shared-types/package.json",
+      "name": "@birthub/shared-types",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/testing/package.json",
+      "name": "@birthub/testing",
+      "version": "0.1.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/utils/package.json",
+      "name": "@birthub/utils",
+      "version": "0.0.0",
+      "private": null,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    },
+    {
+      "path": "packages/workflows-core/package.json",
+      "name": "@birthub/workflows-core",
+      "version": "0.1.0",
+      "private": true,
+      "workspaces": null,
+      "packageManager": null,
+      "engines": null
+    }
+  ],
+  "dependencies": {
+    "divergent_versions": [
+      {
+        "dep": "@birthub/config",
+        "versions": [
+          "workspace:*",
+          "workspace:^"
+        ]
+      },
+      {
+        "dep": "@birthub/logger",
+        "versions": [
+          "workspace:*",
+          "workspace:^"
+        ]
+      },
+      {
+        "dep": "@opentelemetry/sdk-node",
+        "versions": [
+          "^0.213.0",
+          "^0.214.0"
+        ]
+      },
+      {
+        "dep": "@types/node",
+        "versions": [
+          "^25.5.0",
+          "^25.5.2",
+          "^25.6.0"
+        ]
+      },
+      {
+        "dep": "bullmq",
+        "versions": [
+          "^5.71.0",
+          "^5.73.0"
+        ]
+      },
+      {
+        "dep": "@opentelemetry/sdk-trace-node",
+        "versions": [
+          "^2.6.0",
+          "^2.6.1"
+        ]
+      }
+    ],
+    "star_latest": [],
+    "patch_link": [],
+    "deprecated_matches": []
+  }
+}
