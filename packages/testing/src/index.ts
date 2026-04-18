@@ -1,5 +1,3 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
-export * from "./agent-execution.factory";
-export * from "./factories";
-export * from "./test-db";
+export * from "./agent-execution.factory.js";
+export * from "./factories.js";
+export * from "./test-db.js";

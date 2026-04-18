@@ -1,9 +1,7 @@
-// @ts-expect-error TODO: remover suppressão ampla
-// 
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "./test-db";
+import { provisionTestDatabase, resolveExplicitTestDatabaseUrl } from "./test-db.js";
 
 void test("testing package exposes isolated database provisioning helper", () => {
   assert.equal(typeof provisionTestDatabase, "function");
