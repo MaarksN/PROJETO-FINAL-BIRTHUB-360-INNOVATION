@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { ApiConfig } from "@birthub/config";
 import {
@@ -316,3 +316,4 @@ export async function getAgentLimitForOrganization(
   const snapshot = await getBillingSnapshot(organizationReference, 3);
   return readNumericPlanLimit(snapshot.plan.limits, "agents", 5);
 }
+

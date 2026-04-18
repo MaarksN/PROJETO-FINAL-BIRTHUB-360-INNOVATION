@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { performance } from "node:perf_hooks";
 import { createPrismaClient } from "@birthub/database";
@@ -56,3 +56,4 @@ runBenchmark().catch((err) => {
     console.error("Benchmark failed:", err);
     process.exit(1);
 });
+

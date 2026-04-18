@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { z } from "zod";
 
@@ -59,3 +59,4 @@ export function getWorkflowRunnerHarnessConfig(
     workflowId: parsed.data.WORKFLOW_TEST_WORKFLOW_ID
   };
 }
+

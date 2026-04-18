@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 import express from "express";
@@ -47,3 +47,4 @@ void test("standalone FHIR router only reaches authentication when the capabilit
     assert.equal(body.status, 401);
     assert.equal(body.title, "Unauthorized");
 });
+

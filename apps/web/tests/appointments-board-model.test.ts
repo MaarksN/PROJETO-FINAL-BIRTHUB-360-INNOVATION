@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -41,3 +41,4 @@ void test.skip("appointments board model builds payloads with numeric coercion a
     type: "ULTRASOUND"
   });
 });
+

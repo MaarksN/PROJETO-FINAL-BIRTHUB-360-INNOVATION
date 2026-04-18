@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -66,3 +66,4 @@ void test("grace period keeps access on day +1 and locks on day +4 for past_due 
     }
   }
 });
+

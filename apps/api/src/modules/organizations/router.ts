@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Role } from "@birthub/database";
 import {
@@ -259,3 +259,4 @@ export function createOrganizationsRouter(): Router {
 
   return router;
 }
+

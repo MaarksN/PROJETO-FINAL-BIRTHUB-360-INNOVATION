@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import type { ApiConfig } from "@birthub/config";
 import { prisma, Role } from "@birthub/database";
 import { Router } from "express";
@@ -198,3 +198,4 @@ export function createFhirRouter(
 
   return router;
 }
+

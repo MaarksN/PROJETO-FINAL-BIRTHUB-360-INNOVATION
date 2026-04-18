@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -29,3 +29,4 @@ void test("worker readiness returns degraded when Redis dependency is unavailabl
   assert.equal(payload.dependencies.redis.status, "down");
   assert.match(payload.dependencies.redis.message ?? "", /ECONNREFUSED/);
 });
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 const quotaCards = [
   { current: 742, label: "AI prompts", limit: 1000 },
@@ -50,3 +50,4 @@ export default function BillingPage() {
     </>
   );
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { z } from "zod";
 
@@ -45,3 +45,4 @@ export type WorkflowCreateInput = z.infer<typeof workflowCreateSchema>;
 export type WorkflowRevertInput = z.infer<typeof workflowRevertSchema>;
 export type WorkflowRunInput = z.infer<typeof workflowRunSchema>;
 export type WorkflowUpdateInput = z.infer<typeof workflowUpdateSchema>;
+

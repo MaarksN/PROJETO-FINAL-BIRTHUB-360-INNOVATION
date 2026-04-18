@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { EventEmitter } from "node:events";
 
@@ -50,3 +50,4 @@ export function onInternalEvent(event: string, handler: InternalEventHandler): (
     bus.off(event, handler);
   };
 }
+

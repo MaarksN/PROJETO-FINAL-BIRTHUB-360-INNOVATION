@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 "use client";
 
@@ -261,3 +261,4 @@ export function PackInstaller({ apiUrl, availablePacks }: Readonly<PackInstaller
     </section>
   );
 }
+

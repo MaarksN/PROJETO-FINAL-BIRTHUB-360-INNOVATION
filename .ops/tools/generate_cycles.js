@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 
@@ -1045,3 +1045,4 @@ console.log(
     2
   )
 );
+

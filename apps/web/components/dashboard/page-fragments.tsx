@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import type { ReactNode } from "react";
 
 export function ProductPageHeader(input: {
@@ -60,3 +60,4 @@ export function ProductLoadingShell(input: {
     </main>
   );
 }
+

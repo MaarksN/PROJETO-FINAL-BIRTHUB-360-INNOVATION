@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 import { prisma, Role, WorkflowTriggerType } from "@birthub/database";
@@ -344,3 +344,4 @@ void test("workflows router rejects invalid revert payloads", async () => {
     assert.equal(response.body.status, 400);
     assert.equal(response.body.title, "Bad Request");
 });
+

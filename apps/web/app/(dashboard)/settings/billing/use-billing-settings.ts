@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { useEffect, useMemo, useState } from "react";
 
@@ -122,3 +122,4 @@ export function useBillingSettings() {
     usageMax
   };
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -12,3 +12,4 @@ module.exports = {
     ]
   }
 };
+

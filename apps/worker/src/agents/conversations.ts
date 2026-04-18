@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Prisma, prisma } from "@birthub/database";
 
@@ -137,3 +137,4 @@ export async function createConversationMessage(input: {
     }
   });
 }
+

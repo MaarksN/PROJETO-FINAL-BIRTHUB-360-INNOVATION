@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -168,3 +168,4 @@ void test("Workflow runner executes HTTP_REQUEST with MSW intercepting external 
     prisma.workflowExecution.update = originalUpdateExecution;
   }
 });
+

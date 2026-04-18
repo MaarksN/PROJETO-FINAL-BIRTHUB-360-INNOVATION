@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { runParallelExecutionLoadTest } from "./parallelLoad.js";
 import { createLogger } from "@birthub/logger";
@@ -12,3 +12,4 @@ async function main() {
 }
 
 main().catch((error) => logger.error({ error }, "Baseline run failed"));
+

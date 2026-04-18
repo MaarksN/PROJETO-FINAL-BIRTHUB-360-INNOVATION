@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 const auditRows = [
   {
@@ -85,3 +85,4 @@ export default function AuditPage() {
     </>
   );
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import {
@@ -74,3 +74,4 @@ export function ThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
 export function useThemeMode() {
   return useContext(ThemeContext);
 }
+

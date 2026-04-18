@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 import { isInstallableManifest, searchManifestCatalog, type ManifestCatalogEntry } from "@birthub/agents-core";
 import type { SegmentProfile } from "@birthub/agents-core";
@@ -261,3 +261,4 @@ export function buildAgentMeshExecutionBlueprint(input: {
     workflowPlan
   };
 }
+

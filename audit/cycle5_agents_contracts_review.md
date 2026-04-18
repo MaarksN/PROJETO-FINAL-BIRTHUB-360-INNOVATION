@@ -1,4 +1,4 @@
-# Cycle 5 - Agents Contracts Review
+﻿# Cycle 5 - Agents Contracts Review
 
 - Data da revisao: 2026-04-11
 - Escopo: 15 agentes executivos em `packages/agents/executivos/*`
@@ -105,3 +105,4 @@ Conclusao: a coerencia F1-F5 e apenas parcial e nao suporta declaracao de pronti
 ## Conclusao honesta
 
 O sistema de contratos dos agentes executivos melhorou de forma verificavel neste ciclo: a correlacao por `requestId` saiu do contrato e entrou na execucao local, e a familia fechou 15/15 testes dedicados de schema. Ainda assim, o portfolio nao esta duro o suficiente para auditoria operacional porque a correlacao nao chega a uma governanca compartilhada e o enforcement declarado continua sem execucao.
+

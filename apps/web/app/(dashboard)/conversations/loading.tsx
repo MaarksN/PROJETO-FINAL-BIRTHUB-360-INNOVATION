@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { ProductLoadingShell } from "../../../components/dashboard/page-fragments";
 
 export default function ConversationsLoading() {
@@ -9,3 +9,4 @@ export default function ConversationsLoading() {
     />
   );
 }
+

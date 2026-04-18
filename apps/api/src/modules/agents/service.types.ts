@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { AgentManifest, ManagedAgentPolicy } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
@@ -59,3 +59,4 @@ export type InstalledAgentRunResult = {
   mode: "LIVE";
   reused: boolean;
 };
+

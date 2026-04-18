@@ -1,4 +1,4 @@
-# Gaps que impedem produção/SaaS
+﻿# Gaps que impedem produção/SaaS
 
 1. **Build quebrado do web**: Next 16 não encontra `@birthub/workflows-core` porque o pacote exporta `dist/src`, mas o build gera `dist/workflows-core/src` (erro em `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:5`).
 2. **Dependências React incompatíveis**: `react` 19.2.4 vs `react-dom` 19.2.5 (`apps/web/package.json:15-18`) derrubam testes e runtime.
@@ -10,3 +10,4 @@
 8. **Billing sem metering**: não há geração de `UsageRecord` nem reconciliação Stripe; `createBillingLockResolver` só cacheia estado e `billingExport` apenas serializa invoices já existentes.
 9. **Release não reproduzível**: build/test falham, SBOM não é produzido (`pnpm build` aborta antes de `release:sbom`).
 10. **Segurança operacional fraca**: ausência de validação de origem em webhooks críticos (Twilio voice), uso de cookies/bearer sem MFA/tenant em auth de API Keys, e logs sem correlação obrigatória de tenant.
+

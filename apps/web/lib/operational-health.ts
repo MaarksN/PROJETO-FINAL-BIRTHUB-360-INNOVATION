@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWebConfig, type WebConfig } from "@birthub/config/web";
 
@@ -81,3 +81,4 @@ export async function evaluateWebOperationalHealth(input?: {
     status: isHealthy ? "ok" : "degraded"
   };
 }
+

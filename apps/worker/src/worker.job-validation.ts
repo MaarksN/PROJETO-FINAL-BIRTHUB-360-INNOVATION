@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { taskJobSchema } from "@birthub/config";
 import { createHash, createHmac } from "node:crypto";
@@ -100,3 +100,4 @@ export function validateLegacyTaskJob(input: {
 
   return input.payload.tenantId;
 }
+

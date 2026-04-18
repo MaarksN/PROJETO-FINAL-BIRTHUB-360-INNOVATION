@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
@@ -74,3 +74,4 @@ export function createBillingExportStorage(config: WorkerConfig): BillingExportS
 
   return new LocalBillingExportStorage(config.BILLING_EXPORT_LOCAL_DIR);
 }
+

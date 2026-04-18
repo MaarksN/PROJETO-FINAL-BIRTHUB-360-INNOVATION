@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { WorkerConfig } from "@birthub/config";
 import { createRequire } from "node:module";
@@ -169,3 +169,4 @@ export async function shutdownWorkerOpenTelemetry(): Promise<void> {
   await sdk.shutdown();
   sdk = undefined;
 }
+

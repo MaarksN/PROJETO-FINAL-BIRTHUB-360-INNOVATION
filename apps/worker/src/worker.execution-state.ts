@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   ExecutionSource,
@@ -66,3 +66,4 @@ export async function persistExecutionFinished(input: {
     }
   });
 }
+

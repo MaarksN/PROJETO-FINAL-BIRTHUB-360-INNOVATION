@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -48,3 +48,4 @@ void test("extractLogs ignores invalid metadata payloads", () => {
     assert.deepEqual(extractLogs(null), []);
     assert.deepEqual(extractLogs({ logs: ["one", 2, "two"] }), ["one", "two"]);
 });
+

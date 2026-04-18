@@ -1,4 +1,4 @@
-# Final Technical Audit — Antigravity
+﻿# Final Technical Audit — Antigravity
 
 ## Método e evidências coletadas
 - Execução de baseline antes de alterações: `pnpm lint` (falhou por `@ts-nocheck` em `packages/workflows-core/src/nodes/agentExecute.ts:1` e `executeStep.ts:1`), `pnpm build` (falhou com `Module not found: @birthub/workflows-core` em `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:5`), `pnpm test` (falhou por mismatch `react`/`react-dom` e ausência de `@birthub/workflows-core/dist/src/index.js` em vários testes de web).  
@@ -53,3 +53,4 @@
 
 ## Conclusão global
 - **Status final:** 🔴 **NÃO APTO** para produção/SaaS. Falhas críticas em build, tipagem, isolamento de tenant, web runtime, voz e billing. Nenhum ciclo cumpre integralmente os entregáveis declarados; evidências concretas mostram regressões e código mockado.
+

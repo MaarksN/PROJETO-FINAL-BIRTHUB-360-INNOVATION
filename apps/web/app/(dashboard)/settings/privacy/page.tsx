@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 import { getProductCapabilities } from "../../../../lib/product-capabilities";
 
@@ -13,3 +13,4 @@ export default async function PrivacySettingsPage() {
   const { default: PrivacySettingsPageClient } = await import("./privacy-settings-page");
   return <PrivacySettingsPageClient />;
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -285,3 +285,4 @@ void test("PlanExecutor opens the circuit breaker after repeated tool failures",
     /circuit breaker/
   );
 });
+

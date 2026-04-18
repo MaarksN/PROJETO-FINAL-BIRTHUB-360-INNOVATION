@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { Edge, Node } from "reactflow";
 
@@ -122,3 +122,4 @@ export async function retryWorkflowRun(input: {
     throw new Error(`Falha ao reenfileirar workflow (${response.status}).`);
   }
 }
+

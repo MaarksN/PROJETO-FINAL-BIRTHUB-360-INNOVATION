@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 export const supportedLocales = ["pt-BR", "en-US"] as const;
 export const LOCALE_COOKIE_NAME = "bh360_locale";
 
@@ -477,3 +477,4 @@ export function formatPtBrDateTime(
 ): string {
   return formatDateTime("pt-BR", value, options);
 }
+

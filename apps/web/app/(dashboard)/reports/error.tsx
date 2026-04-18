@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { RouteErrorView } from "../../../components/dashboard/route-error-view";
@@ -17,3 +17,4 @@ export default function ReportsError({
     />
   );
 }
+

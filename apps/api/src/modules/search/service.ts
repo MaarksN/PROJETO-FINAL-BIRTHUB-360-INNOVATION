@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { prisma } from "@birthub/database";
 
 type SearchItem = {
@@ -280,3 +280,4 @@ export async function searchWorkspace(input: {
     }
   ].filter((group) => group.items.length > 0);
 }
+

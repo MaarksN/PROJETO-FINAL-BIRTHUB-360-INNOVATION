@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -27,3 +27,4 @@ void test("contexto de tenant nao e materializado a partir de headers crus", asy
     assert.equal(bodyB.tenantId, null);
     assert.equal(bodyB.contextTenantId, null);
 });
+

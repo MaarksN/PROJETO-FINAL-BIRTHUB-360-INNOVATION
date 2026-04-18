@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export type PlanFeature =
   | "advancedAnalytics"
@@ -41,3 +41,4 @@ export function isPlanFeatureEnabled(limits: unknown, feature: PlanFeature): boo
 
   return readNumericPlanLimit(limits, feature, 0) > 0;
 }
+

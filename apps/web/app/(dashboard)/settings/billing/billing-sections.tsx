@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type {
   BudgetPanelProps,
@@ -293,3 +293,4 @@ export function BudgetPanel({
     </section>
   );
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { prisma } from "@birthub/database";
 import type { Redis } from "ioredis";
@@ -63,3 +63,4 @@ export function createBillingLockResolver(input: {
     return payload;
   };
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -339,3 +339,4 @@ void test.skip("listPatients and listClinicalNotes respect requested limits", as
         restores.reverse().forEach((restore) => restore());
     }
 });
+

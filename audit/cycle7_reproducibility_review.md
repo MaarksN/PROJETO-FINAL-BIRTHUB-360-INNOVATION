@@ -1,4 +1,4 @@
-# Cycle 7 Reproducibility Review
+﻿# Cycle 7 Reproducibility Review
 
 ## Resultado executivo
 
@@ -125,3 +125,4 @@ O estado atual demonstra:
 - **release completo não reproduzível**
 
 Parecer deste bloco: **o projeto ainda não atende ao padrão de release limpo e reprodutível**.
+

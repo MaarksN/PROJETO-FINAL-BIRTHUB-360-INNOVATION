@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export * from "./reporting.service.js";
 export * from "./usage.service.js";
@@ -28,3 +28,4 @@ export const analyticsRouterService = {
   getQualityReport,
   getUsageMetrics
 } as const;
+

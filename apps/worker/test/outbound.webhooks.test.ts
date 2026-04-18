@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 // [SOURCE] CI-TS-004
 import assert from "node:assert/strict";
@@ -331,3 +331,4 @@ void test("outbound webhooks", async (t) => {
     assert.equal(firstEndpointUpdateArg.data.consecutiveFailures, 1);
   });
 });
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import { setMaxListeners } from "node:events";
@@ -161,3 +161,4 @@ void test("security requires an authenticated session for connector OAuth callba
     })
     .expect(401);
 });
+

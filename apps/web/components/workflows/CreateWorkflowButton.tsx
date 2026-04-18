@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { Plus } from "lucide-react";
@@ -42,3 +42,4 @@ export function CreateWorkflowButton() {
     </div>
   );
 }
+

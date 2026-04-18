@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -142,3 +142,4 @@ void test("dashboard lib loads canonical dashboard endpoints with session-aware 
     restoreEnvValue("NEXT_PUBLIC_ENVIRONMENT", originalEnvironment);
   }
 });
+

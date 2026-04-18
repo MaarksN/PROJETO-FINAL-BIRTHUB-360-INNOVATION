@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { AgentManifest } from "@birthub/agents-core";
 import { prisma } from "@birthub/database";
@@ -193,3 +193,4 @@ export async function consumeBudget(input: {
     };
   });
 }
+

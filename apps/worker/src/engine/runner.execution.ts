@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createHash } from "node:crypto";
 
@@ -331,3 +331,4 @@ export async function processWorkflowExecutionJob(input: {
     });
   }
 }
+

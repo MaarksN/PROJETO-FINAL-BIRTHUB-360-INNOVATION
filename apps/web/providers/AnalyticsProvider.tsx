@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 "use client";
 
@@ -267,3 +267,4 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
 export function useAnalytics(): AnalyticsContextValue {
   return useContext(AnalyticsContext);
 }
+

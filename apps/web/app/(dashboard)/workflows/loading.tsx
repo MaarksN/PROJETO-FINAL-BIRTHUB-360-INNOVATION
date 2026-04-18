@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { ProductLoadingShell } from "../../../components/dashboard/page-fragments";
 import { getDictionary } from "../../../lib/i18n";
 import { getRequestLocale } from "../../../lib/i18n.server";
@@ -15,3 +15,4 @@ export default async function WorkflowsLoading() {
     />
   );
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -124,3 +124,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+

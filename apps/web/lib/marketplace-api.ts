@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { fetchWithSession } from "./auth-client";
 
@@ -24,3 +24,4 @@ export async function approveOutput(outputId: string) {
     };
   };
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 import { prisma, Role } from "@birthub/database";
@@ -126,3 +126,4 @@ void test("dashboard router still returns service unavailable when the clinical 
     assert.equal(response.body.title, "Service Unavailable");
     assert.match(String(response.body.detail ?? ""), /(appointment|patient|pregnancyrecord|neonatalrecord)/i);
 });
+

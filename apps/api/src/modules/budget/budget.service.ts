@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createLogger } from "@birthub/logger";
 import { prisma } from "@birthub/database";
@@ -424,3 +424,4 @@ class BudgetService {
 }
 
 export const budgetService = new BudgetService();
+

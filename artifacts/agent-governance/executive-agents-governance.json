@@ -1,4 +1,4 @@
-{
+﻿{
   "generatedAt": "2026-04-11T23:20:36.155Z",
   "source": "scripts/audit/executive-agents-governance.mjs",
   "summary": {
@@ -1291,3 +1291,4 @@
     }
   ]
 }
+

@@ -1,4 +1,4 @@
-# Ciclo 6 - Execution Summary
+﻿# Ciclo 6 - Execution Summary
 
 ## Entregáveis gerados
 - `audit/cycle6_billing_architecture_review.md`
@@ -93,3 +93,4 @@ O produto não deve ser descrito como comercialmente pronto. A formulação mais
 - Uso por runtime insuficiente para faturamento: `apps/api/src/modules/billing/service.checkout.ts:242`, `apps/worker/src/engine/runner.shared.ts:108`
 - Promessa aspiracional de usage billing: `docs/adrs/ADR-025-billing-baseado-em-uso.md:10`, `docs/adrs/ADR-025-billing-baseado-em-uso.md:18`
 - Promessa comercial acima do código: `docs/CORPORATE_IDENTITY.md:21`, `docs/CORPORATE_IDENTITY.md:80`, `docs/CORPORATE_IDENTITY.md:89`, `docs/CORPORATE_IDENTITY.md:98`, `docs/CORPORATE_IDENTITY.md:107`
+

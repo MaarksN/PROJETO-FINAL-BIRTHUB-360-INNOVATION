@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Prisma, prisma } from "@birthub/database";
 import type { ConnectorActionRequest } from "@birthub/workflows-core";
@@ -339,3 +339,4 @@ export async function executeConnectorRuntimeAction(input: {
       throw new Error(`Unsupported connector runtime action: ${(input.action as { kind: string }).kind}`);
   }
 }
+

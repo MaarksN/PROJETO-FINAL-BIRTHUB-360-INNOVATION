@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Handle, Position, type Edge, type Node, type NodeProps } from "reactflow";
 
@@ -460,3 +460,4 @@ export async function loadWorkflowSimulationResult(
     )
   };
 }
+

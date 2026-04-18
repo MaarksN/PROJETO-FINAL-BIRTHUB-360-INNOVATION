@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWebConfig } from "@birthub/config/web";
 
@@ -115,3 +115,4 @@ export default async function BudgetsPage() {
     </main>
   );
 }
+

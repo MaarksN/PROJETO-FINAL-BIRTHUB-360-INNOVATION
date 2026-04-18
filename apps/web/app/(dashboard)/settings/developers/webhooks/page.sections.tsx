@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   defaultTopics,
@@ -229,3 +229,4 @@ export function WebhookDeliveryHistory({
     </div>
   );
 }
+

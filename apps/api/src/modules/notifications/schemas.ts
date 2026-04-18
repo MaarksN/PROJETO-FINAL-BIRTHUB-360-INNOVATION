@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { z } from "zod";
 
 export const notificationQuerySchema = z.object({
@@ -15,3 +15,4 @@ export const notificationPreferencesSchema = z
     pushNotifications: z.boolean().optional()
   })
   .strict();
+

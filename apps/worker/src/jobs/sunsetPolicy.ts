@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { prisma, NotificationType, Role } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
@@ -118,3 +118,4 @@ export async function sunsetPolicyJob(): Promise<{ notified: number }> {
     return { notified: 0 };
   }
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export interface WorkerQueueState {
   name: string;
@@ -72,3 +72,4 @@ export async function evaluateWorkerReadiness(input: {
     status
   };
 }
+

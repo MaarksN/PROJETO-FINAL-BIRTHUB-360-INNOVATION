@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { roleUpdateRequestSchema, userListQuerySchema } from "@birthub/config";
 import {
@@ -481,3 +481,4 @@ export function createUsersRouter(): Router {
 
   return router;
 }
+

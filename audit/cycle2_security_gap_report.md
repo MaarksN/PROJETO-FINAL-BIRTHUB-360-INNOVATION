@@ -1,4 +1,4 @@
-# Cycle 2 - Security Gap Report
+﻿# Cycle 2 - Security Gap Report
 
 ## Overview
 Security package review identifying structural implementation vulnerabilities vs functional gaps.
@@ -16,3 +16,4 @@ Security package review identifying structural implementation vulnerabilities vs
 - Lint: PASS
 - Build: PASS
 - Test: PASS
+

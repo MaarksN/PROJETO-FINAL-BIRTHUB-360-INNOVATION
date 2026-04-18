@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -22,3 +22,4 @@ void test("resource ids de outro tenant retornam 404 ou 403 sem enumeracao", asy
         .set("x-tenant-id", "tenant-a");
     assert.match(String(response.status), /^(403|404)$/);
 });
+

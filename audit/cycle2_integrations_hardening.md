@@ -1,4 +1,4 @@
-# Cycle 2 - Integrations Hardening
+﻿# Cycle 2 - Integrations Hardening
 
 ## Overview
 Hardening executed for `packages/integrations` focusing on traceability, typing optional params natively, and timeouts/retries.
@@ -18,3 +18,4 @@ Hardening executed for `packages/integrations` focusing on traceability, typing 
 ## Remaining Risks
 1. Pagar.me integration makes assumptions about `last_transaction`.
 2. ENotas integration has a basic timeout and might require robust backoffs under massive batching.
+

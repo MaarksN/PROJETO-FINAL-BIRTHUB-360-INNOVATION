@@ -84,6 +84,7 @@
       - build-runtime-map.json
       - core-vs-noise-matrix.json
       - type-suppressions.json
+      - type-suppressions.json.bak
     [D] evidence
       [D] cycle1
         - README.md
@@ -95,6 +96,10 @@
       - scripts-map.json
       - tsconfig-map.json
     [D] logs
+      - cycle-execution.log
+    [D] out
+      - cycle2-blockers.json
+      - phase1-validation.json
     [D] quarantine
       - manifest.cycle1.json
       - rollback-cycle1.sh
@@ -112,6 +117,7 @@
           - very_final2.mjs
     [D] reports
       - phase0-report.md
+      - phase0-report.md.bak
       - phase1-report.md
     [D] sbom
       - deps-fallback.json
@@ -120,6 +126,7 @@
       - snapshot.json
     [D] tools
       - generate_cycles.js
+      - generate_cycles.js.bak
   - .python-version
   [D] .tools
     [D] corepack-home
@@ -140,8 +147,22 @@
   [D] apps
     [D] api
       - .eslint-api.json
+      - .eslint-api.json.bak
       - CHANGELOG.md
       [D] dist
+        [D] app
+          - auth-and-core-routes.d.ts
+          - auth-and-core-routes.js
+          - auth-routes.d.ts
+          - auth-routes.js
+          - core.d.ts
+          - core.js
+          - module-routes.d.ts
+          - module-routes.js
+          - pipeline.d.ts
+          - pipeline.js
+        - app.d.ts
+        - app.js
         [D] apps
           [D] api
             [D] src
@@ -198,6 +219,7 @@
                 - health.js
                 - prisma-json.d.ts
                 - prisma-json.js
+                - prisma-json.js.bak
                 - prisma-runtime.d.ts
                 - prisma-runtime.js
                 - problem-details.d.ts
@@ -241,22 +263,29 @@
                 [D] agents
                   - metrics.service.d.ts
                   - metrics.service.js
+                  - metrics.service.js.bak
                   - queue.d.ts
                   - queue.js
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                   - service.config.d.ts
                   - service.config.js
                   - service.d.ts
                   - service.execution.d.ts
                   - service.execution.js
+                  - service.execution.js.bak
                   - service.js
+                  - service.js.bak
                   - service.policy.d.ts
                   - service.policy.js
+                  - service.policy.js.bak
                   - service.repository.d.ts
                   - service.repository.js
+                  - service.repository.js.bak
                   - service.snapshot.d.ts
                   - service.snapshot.js
+                  - service.snapshot.js.bak
                   - service.types.d.ts
                   - service.types.js
                 [D] analytics
@@ -266,16 +295,21 @@
                   - analytics.utils.js
                   - dashboard.service.d.ts
                   - dashboard.service.js
+                  - dashboard.service.js.bak
                   - reporting.service.d.ts
                   - reporting.service.js
+                  - reporting.service.js.bak
                   - router.d.ts
                   - router.js
                   - schemas.d.ts
                   - schemas.js
+                  - schemas.js.bak
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                   - usage.service.d.ts
                   - usage.service.js
+                  - usage.service.js.bak
                 [D] apikeys
                   - router.d.ts
                   - router.js
@@ -284,10 +318,12 @@
                   - auth.service.credentials.js
                   - auth.service.d.ts
                   - auth.service.js
+                  - auth.service.js.bak
                   - auth.service.keys.d.ts
                   - auth.service.keys.js
                   - auth.service.policies.d.ts
                   - auth.service.policies.js
+                  - auth.service.policies.js.bak
                   - auth.service.sessions.d.ts
                   - auth.service.sessions.js
                   - auth.service.shared.d.ts
@@ -296,8 +332,10 @@
                   - cookies.js
                   - crypto.d.ts
                   - crypto.js
+                  - crypto.js.bak
                   - mfa.service.d.ts
                   - mfa.service.js
+                  - mfa.service.js.bak
                   - router.d.ts
                   - router.js
                 [D] billing
@@ -305,6 +343,7 @@
                   - index.js
                   - limit-exceeded.error.d.ts
                   - limit-exceeded.error.js
+                  - limit-exceeded.error.js.bak
                   - plan.utils.d.ts
                   - plan.utils.js
                   - router.d.ts
@@ -315,14 +354,17 @@
                   - service.checkout.js
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                   - service.reconciliation.d.ts
                   - service.reconciliation.handlers.d.ts
                   - service.reconciliation.handlers.js
                   - service.reconciliation.js
                   - service.reconciliation.shared.d.ts
                   - service.reconciliation.shared.js
+                  - service.reconciliation.shared.js.bak
                   - service.shared.d.ts
                   - service.shared.js
+                  - service.shared.js.bak
                   - service.snapshot.d.ts
                   - service.snapshot.js
                   - stripe.client.d.ts
@@ -337,8 +379,10 @@
                   - budget-routes.js
                   - budget.service.d.ts
                   - budget.service.js
+                  - budget.service.js.bak
                   - budget.types.d.ts
                   - budget.types.js
+                  - budget.types.js.bak
                 [D] clinical
                   - router-note-routes.d.ts
                   - router-note-routes.js
@@ -367,10 +411,12 @@
                 [D] connectors
                   - index.d.ts
                   - index.js
+                  - index.js.bak
                   - router.d.ts
                   - router.js
                   - schemas.d.ts
                   - schemas.js
+                  - schemas.js.bak
                   - service.d.ts
                   - service.js
                   - service.oauth.d.ts
@@ -382,10 +428,13 @@
                   - index.js
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                   - schemas.d.ts
                   - schemas.js
+                  - schemas.js.bak
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] dashboard
                   - router.d.ts
                   - router.js
@@ -397,6 +446,7 @@
                   - service.js
                   - service.shared.d.ts
                   - service.shared.js
+                  - service.shared.js.bak
                 [D] engagement
                   - queues.d.ts
                   - queues.js
@@ -405,23 +455,28 @@
                   - index.js
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] fhir
                   - router.d.ts
                   - router.js
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] invites
                   - router.d.ts
                   - router.js
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] marketplace
                   - marketplace-routes.d.ts
                   - marketplace-routes.js
                   - marketplace-service.d.ts
                   - marketplace-service.js
+                  - marketplace-service.js.bak
                 [D] notifications
                   - index.d.ts
                   - index.js
@@ -429,23 +484,31 @@
                   - router.js
                   - schemas.d.ts
                   - schemas.js
+                  - schemas.js.bak
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] organizations
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] outputs
                   - output-routes.d.ts
                   - output-routes.js
+                  - output-routes.js.bak
                   - output.service.d.ts
                   - output.service.js
+                  - output.service.js.bak
                 [D] packs
                   - pack-installer-routes.d.ts
                   - pack-installer-routes.js
+                  - pack-installer-routes.js.bak
                   - pack-installer.service.d.ts
                   - pack-installer.service.js
+                  - pack-installer.service.js.bak
                 [D] privacy
                   - consent.service.d.ts
                   - consent.service.js
@@ -471,10 +534,13 @@
                   - index.js
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                   - schemas.d.ts
                   - schemas.js
+                  - schemas.js.bak
                   - service.d.ts
                   - service.js
+                  - service.js.bak
                 [D] sessions
                   - router.d.ts
                   - router.js
@@ -484,6 +550,7 @@
                 [D] users
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                 [D] webhooks
                   - eventBus.d.ts
                   - eventBus.js
@@ -502,12 +569,16 @@
                 [D] workflows
                   - index.d.ts
                   - index.js
+                  - index.js.bak
                   - router.d.ts
                   - router.js
+                  - router.js.bak
                   - runnerQueue.d.ts
                   - runnerQueue.js
+                  - runnerQueue.js.bak
                   - schemas.d.ts
                   - schemas.js
+                  - schemas.js.bak
                   - service.d.ts
                   - service.execution.d.ts
                   - service.execution.js
@@ -530,21 +601,27 @@
               [D] benchmarks
                 - pack-installer.benchmark.d.ts
                 - pack-installer.benchmark.js
+                - pack-installer.benchmark.js.bak
               - cache.isolation.test.d.ts
               - cache.isolation.test.js
               - fuzzing.test.d.ts
               - fuzzing.test.js
+              - fuzzing.test.js.bak
               - isolation.e2e.test.d.ts
               - isolation.e2e.test.js
+              - isolation.e2e.test.js.bak
               - performance.test.d.ts
               - performance.test.js
+              - performance.test.js.bak
               - tenant-cache.hit-miss.test.d.ts
               - tenant-cache.hit-miss.test.js
+              - tenant-cache.hit-miss.test.js.bak
             [D] tests
               - analytics-router.test.d.ts
               - analytics-router.test.js
               - analytics.utils.test.d.ts
               - analytics.utils.test.js
+              - analytics.utils.test.js.bak
               - apikeys.audit.test.d.ts
               - apikeys.audit.test.js
               - auditable.test.d.ts
@@ -555,30 +632,41 @@
               - auth-routes.test.js
               - auth.test.d.ts
               - auth.test.js
+              - auth.test.js.bak
               - auth.test.support.d.ts
               - auth.test.support.js
               - billing.cache.test.d.ts
               - billing.cache.test.js
+              - billing.cache.test.js.bak
               - billing.checkout.test.d.ts
               - billing.checkout.test.js
+              - billing.checkout.test.js.bak
               - billing.grace-period.test.d.ts
               - billing.grace-period.test.js
+              - billing.grace-period.test.js.bak
               - billing.idempotency.test.d.ts
               - billing.idempotency.test.js
+              - billing.idempotency.test.js.bak
               - billing.ip-ban.test.d.ts
               - billing.ip-ban.test.js
+              - billing.ip-ban.test.js.bak
               - billing.paywall.test.d.ts
               - billing.paywall.test.js
               - billing.proration-credit.test.d.ts
               - billing.proration-credit.test.js
+              - billing.proration-credit.test.js.bak
               - billing.snapshot.test.d.ts
               - billing.snapshot.test.js
+              - billing.snapshot.test.js.bak
               - billing.webhook-audit.test.d.ts
               - billing.webhook-audit.test.js
+              - billing.webhook-audit.test.js.bak
               - billing.webhook-delegation.test.d.ts
               - billing.webhook-delegation.test.js
+              - billing.webhook-delegation.test.js.bak
               - billing.webhook.test.d.ts
               - billing.webhook.test.js
+              - billing.webhook.test.js.bak
               - break-glass-router.test.d.ts
               - break-glass-router.test.js
               - buffer.test.d.ts
@@ -589,20 +677,27 @@
               - cache-store.test.js
               - clinical-router.test.d.ts
               - clinical-router.test.js
+              - clinical-router.test.js.bak
               - clinical.service.pagination.test.d.ts
               - clinical.service.pagination.test.js
+              - clinical.service.pagination.test.js.bak
               - clinical.service.test.d.ts
               - clinical.service.test.js
+              - clinical.service.test.js.bak
               - connectors-router.test.d.ts
               - connectors-router.test.js
+              - connectors-router.test.js.bak
               - consent.service.test.d.ts
               - consent.service.test.js
+              - consent.service.test.js.bak
               - conversations-router.test.d.ts
               - conversations-router.test.js
+              - conversations-router.test.js.bak
               - core-business-routes.test.d.ts
               - core-business-routes.test.js
               - dashboard-router.test.d.ts
               - dashboard-router.test.js
+              - dashboard-router.test.js.bak
               - database-availability.test.d.ts
               - database-availability.test.js
               - encryption.test.d.ts
@@ -613,22 +708,28 @@
               - external-url.test.js
               - fhir-router.test.d.ts
               - fhir-router.test.js
+              - fhir-router.test.js.bak
               - fhir.service.test.d.ts
               - fhir.service.test.js
+              - fhir.service.test.js.bak
               - health.service.test.d.ts
               - health.service.test.js
               - health.smoke.test.d.ts
               - health.smoke.test.js
+              - health.smoke.test.js.bak
               - http-cache.test.d.ts
               - http-cache.test.js
               - http-test-helpers.d.ts
               - http-test-helpers.js
               - installed-agents-helpers.test.d.ts
               - installed-agents-helpers.test.js
+              - installed-agents-helpers.test.js.bak
               - marketplace-budget.smoke.test.d.ts
               - marketplace-budget.smoke.test.js
+              - marketplace-budget.smoke.test.js.bak
               - metrics.service.test.d.ts
               - metrics.service.test.js
+              - metrics.service.test.js.bak
               - module-routes.test.d.ts
               - module-routes.test.js
               - notifications-router.test.d.ts
@@ -637,8 +738,10 @@
               - openapi-contract.test.js
               - pack-installer.service.test.d.ts
               - pack-installer.service.test.js
+              - pack-installer.service.test.js.bak
               - prisma-cache-invalidation.test.d.ts
               - prisma-cache-invalidation.test.js
+              - prisma-cache-invalidation.test.js.bak
               - prisma-runtime-test-helpers.d.ts
               - prisma-runtime-test-helpers.js
               - privacy-router.test.d.ts
@@ -653,24 +756,444 @@
               - rbac.test.js
               - retention.service.test.d.ts
               - retention.service.test.js
+              - retention.service.test.js.bak
               - search-router.test.d.ts
               - search-router.test.js
+              - search-router.test.js.bak
               - security.test.d.ts
               - security.test.js
+              - security.test.js.bak
               - sessions-router.test.d.ts
               - sessions-router.test.js
               - tasks-router.test.d.ts
               - tasks-router.test.js
               - tenant-auth-hardening.test.d.ts
               - tenant-auth-hardening.test.js
+              - tenant-auth-hardening.test.js.bak
               - test-config.d.ts
               - test-config.js
               - webhooks.security.test.d.ts
               - webhooks.security.test.js
+              - webhooks.security.test.js.bak
               - workflow-retry-lineage.integration.test.d.ts
               - workflow-retry-lineage.integration.test.js
+              - workflow-retry-lineage.integration.test.js.bak
               - workflows-router.test.d.ts
               - workflows-router.test.js
+              - workflows-router.test.js.bak
+        [D] audit
+          - auditable.d.ts
+          - auditable.js
+          - buffer.d.ts
+          - buffer.js
+        [D] common
+          [D] cache
+            - cache-store.d.ts
+            - cache-store.js
+            - http-cache.d.ts
+            - http-cache.js
+            - index.d.ts
+            - index.js
+            - prisma-cache-invalidation.d.ts
+            - prisma-cache-invalidation.js
+            - tenant-cache.d.ts
+            - tenant-cache.js
+          [D] guards
+            - feature.guard.d.ts
+            - feature.guard.js
+            - index.d.ts
+            - index.js
+            - require-role.d.ts
+            - require-role.js
+        [D] docs
+          - openapi.d.ts
+          - openapi.js
+        [D] lib
+          - cache.d.ts
+          - cache.js
+          - database-availability.d.ts
+          - database-availability.js
+          - encryption.d.ts
+          - encryption.js
+          - external-url.d.ts
+          - external-url.js
+          - health.d.ts
+          - health.js
+          - prisma-json.d.ts
+          - prisma-json.js
+          - prisma-json.js.bak
+          - prisma-runtime.d.ts
+          - prisma-runtime.js
+          - problem-details.d.ts
+          - problem-details.js
+          - queue.d.ts
+          - queue.js
+          - redis.d.ts
+          - redis.js
+          - request-values.d.ts
+          - request-values.js
+        - metrics.d.ts
+        - metrics.js
+        [D] middleware
+          - authentication.d.ts
+          - authentication.js
+          - break-glass-audit.d.ts
+          - break-glass-audit.js
+          - content-type.d.ts
+          - content-type.js
+          - csrf.d.ts
+          - csrf.js
+          - error-handler.d.ts
+          - error-handler.js
+          - origin-check.d.ts
+          - origin-check.js
+          - rate-limit.d.ts
+          - rate-limit.js
+          - request-context.d.ts
+          - request-context.js
+          - sanitize-input.d.ts
+          - sanitize-input.js
+          - validate-body.d.ts
+          - validate-body.js
+        [D] middlewares
+          - tenantContext.d.ts
+          - tenantContext.js
+        [D] modules
+          [D] admin
+            - router.d.ts
+            - router.js
+          [D] agents
+            - metrics.service.d.ts
+            - metrics.service.js
+            - metrics.service.js.bak
+            - queue.d.ts
+            - queue.js
+            - router.d.ts
+            - router.js
+            - router.js.bak
+            - service.config.d.ts
+            - service.config.js
+            - service.d.ts
+            - service.execution.d.ts
+            - service.execution.js
+            - service.execution.js.bak
+            - service.js
+            - service.js.bak
+            - service.policy.d.ts
+            - service.policy.js
+            - service.policy.js.bak
+            - service.repository.d.ts
+            - service.repository.js
+            - service.repository.js.bak
+            - service.snapshot.d.ts
+            - service.snapshot.js
+            - service.snapshot.js.bak
+            - service.types.d.ts
+            - service.types.js
+          [D] analytics
+            - analytics.types.d.ts
+            - analytics.types.js
+            - analytics.utils.d.ts
+            - analytics.utils.js
+            - dashboard.service.d.ts
+            - dashboard.service.js
+            - dashboard.service.js.bak
+            - reporting.service.d.ts
+            - reporting.service.js
+            - reporting.service.js.bak
+            - router.d.ts
+            - router.js
+            - schemas.d.ts
+            - schemas.js
+            - schemas.js.bak
+            - service.d.ts
+            - service.js
+            - service.js.bak
+            - usage.service.d.ts
+            - usage.service.js
+            - usage.service.js.bak
+          [D] apikeys
+            - router.d.ts
+            - router.js
+          [D] auth
+            - auth.service.credentials.d.ts
+            - auth.service.credentials.js
+            - auth.service.d.ts
+            - auth.service.js
+            - auth.service.js.bak
+            - auth.service.keys.d.ts
+            - auth.service.keys.js
+            - auth.service.policies.d.ts
+            - auth.service.policies.js
+            - auth.service.policies.js.bak
+            - auth.service.sessions.d.ts
+            - auth.service.sessions.js
+            - auth.service.shared.d.ts
+            - auth.service.shared.js
+            - cookies.d.ts
+            - cookies.js
+            - crypto.d.ts
+            - crypto.js
+            - crypto.js.bak
+            - mfa.service.d.ts
+            - mfa.service.js
+            - mfa.service.js.bak
+            - router.d.ts
+            - router.js
+          [D] billing
+            - index.d.ts
+            - index.js
+            - limit-exceeded.error.d.ts
+            - limit-exceeded.error.js
+            - limit-exceeded.error.js.bak
+            - plan.utils.d.ts
+            - plan.utils.js
+            - router.d.ts
+            - router.js
+            - service.checkout.customer.d.ts
+            - service.checkout.customer.js
+            - service.checkout.d.ts
+            - service.checkout.js
+            - service.d.ts
+            - service.js
+            - service.js.bak
+            - service.reconciliation.d.ts
+            - service.reconciliation.handlers.d.ts
+            - service.reconciliation.handlers.js
+            - service.reconciliation.js
+            - service.reconciliation.shared.d.ts
+            - service.reconciliation.shared.js
+            - service.reconciliation.shared.js.bak
+            - service.shared.d.ts
+            - service.shared.js
+            - service.shared.js.bak
+            - service.snapshot.d.ts
+            - service.snapshot.js
+            - stripe.client.d.ts
+            - stripe.client.js
+            - sync-plans.d.ts
+            - sync-plans.js
+          [D] break-glass
+            - router.d.ts
+            - router.js
+          [D] budget
+            - budget-routes.d.ts
+            - budget-routes.js
+            - budget.service.d.ts
+            - budget.service.js
+            - budget.service.js.bak
+            - budget.types.d.ts
+            - budget.types.js
+            - budget.types.js.bak
+          [D] clinical
+            - router-note-routes.d.ts
+            - router-note-routes.js
+            - router.d.ts
+            - router.js
+            - schemas.d.ts
+            - schemas.js
+            - service-appointments.d.ts
+            - service-appointments.js
+            - service-notes.d.ts
+            - service-notes.js
+            - service-patient-records.d.ts
+            - service-patient-records.js
+            - service-patients.d.ts
+            - service-patients.js
+            - service-runtime.d.ts
+            - service-runtime.js
+            - service-runtime.records.d.ts
+            - service-runtime.records.js
+            - service-support.d.ts
+            - service-support.js
+            - service-support.view.d.ts
+            - service-support.view.js
+            - service.d.ts
+            - service.js
+          [D] connectors
+            - index.d.ts
+            - index.js
+            - index.js.bak
+            - router.d.ts
+            - router.js
+            - schemas.d.ts
+            - schemas.js
+            - schemas.js.bak
+            - service.d.ts
+            - service.js
+            - service.oauth.d.ts
+            - service.oauth.js
+            - service.shared.d.ts
+            - service.shared.js
+          [D] conversations
+            - index.d.ts
+            - index.js
+            - router.d.ts
+            - router.js
+            - router.js.bak
+            - schemas.d.ts
+            - schemas.js
+            - schemas.js.bak
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] dashboard
+            - router.d.ts
+            - router.js
+            - schemas.d.ts
+            - schemas.js
+            - service.clinical.d.ts
+            - service.clinical.js
+            - service.d.ts
+            - service.js
+            - service.shared.d.ts
+            - service.shared.js
+            - service.shared.js.bak
+          [D] engagement
+            - queues.d.ts
+            - queues.js
+          [D] feedback
+            - index.d.ts
+            - index.js
+            - router.d.ts
+            - router.js
+            - router.js.bak
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] fhir
+            - router.d.ts
+            - router.js
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] invites
+            - router.d.ts
+            - router.js
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] marketplace
+            - marketplace-routes.d.ts
+            - marketplace-routes.js
+            - marketplace-service.d.ts
+            - marketplace-service.js
+            - marketplace-service.js.bak
+          [D] notifications
+            - index.d.ts
+            - index.js
+            - router.d.ts
+            - router.js
+            - schemas.d.ts
+            - schemas.js
+            - schemas.js.bak
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] organizations
+            - router.d.ts
+            - router.js
+            - router.js.bak
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] outputs
+            - output-routes.d.ts
+            - output-routes.js
+            - output-routes.js.bak
+            - output.service.d.ts
+            - output.service.js
+            - output.service.js.bak
+          [D] packs
+            - pack-installer-routes.d.ts
+            - pack-installer-routes.js
+            - pack-installer-routes.js.bak
+            - pack-installer.service.d.ts
+            - pack-installer.service.js
+            - pack-installer.service.js.bak
+          [D] privacy
+            - consent.service.d.ts
+            - consent.service.js
+            - retention-scheduler.d.ts
+            - retention-scheduler.js
+            - retention.pagination.d.ts
+            - retention.pagination.js
+            - retention.service.d.ts
+            - retention.service.js
+            - retention.shared.d.ts
+            - retention.shared.js
+            - router.d.ts
+            - router.js
+            - schemas.d.ts
+            - schemas.js
+            - service.d.ts
+            - service.js
+          [D] profile
+            - router.d.ts
+            - router.js
+          [D] search
+            - index.d.ts
+            - index.js
+            - router.d.ts
+            - router.js
+            - router.js.bak
+            - schemas.d.ts
+            - schemas.js
+            - schemas.js.bak
+            - service.d.ts
+            - service.js
+            - service.js.bak
+          [D] sessions
+            - router.d.ts
+            - router.js
+          [D] tasks
+            - router.d.ts
+            - router.js
+          [D] users
+            - router.d.ts
+            - router.js
+            - router.js.bak
+          [D] webhooks
+            - eventBus.d.ts
+            - eventBus.js
+            - index.d.ts
+            - index.js
+            - router.d.ts
+            - router.js
+            - settings.service.d.ts
+            - settings.service.js
+            - stripe.router.d.ts
+            - stripe.router.js
+            - stripe.webhook.processing.d.ts
+            - stripe.webhook.processing.js
+            - stripe.webhook.shared.d.ts
+            - stripe.webhook.shared.js
+          [D] workflows
+            - index.d.ts
+            - index.js
+            - index.js.bak
+            - router.d.ts
+            - router.js
+            - router.js.bak
+            - runnerQueue.d.ts
+            - runnerQueue.js
+            - runnerQueue.js.bak
+            - schemas.d.ts
+            - schemas.js
+            - schemas.js.bak
+            - service.d.ts
+            - service.execution.d.ts
+            - service.execution.js
+            - service.js
+            - service.lifecycle.d.ts
+            - service.lifecycle.js
+            - service.shared.d.ts
+            - service.shared.js
+        [D] observability
+          - otel.d.ts
+          - otel.js
+          - sentry.d.ts
+          - sentry.js
         [D] packages
           [D] agents-core
             [D] src
@@ -758,24 +1281,30 @@
             [D] src
               - api.config.d.ts
               - api.config.js
+              - api.config.js.bak
               - contracts.d.ts
               - contracts.js
+              - contracts.js.bak
               - database.config.d.ts
               - database.config.js
               - environment.d.ts
               - environment.js
               - index.d.ts
               - index.js
+              - index.js.bak
               - logger.config.d.ts
               - logger.config.js
               - product-capabilities.d.ts
               - product-capabilities.js
               - shared.d.ts
               - shared.js
+              - shared.js.bak
               - web.config.d.ts
               - web.config.js
+              - web.config.js.bak
               - worker.config.d.ts
               - worker.config.js
+              - worker.config.js.bak
           [D] database
             [D] src
               - client.d.ts
@@ -798,6 +1327,7 @@
                 - base.repo.js
                 - engagement.d.ts
                 - engagement.js
+                - engagement.js.bak
                 - index.d.ts
                 - index.js
                 - user-repository.d.ts
@@ -891,6 +1421,624 @@
                 - step.schema.js
               - types.d.ts
               - types.js
+        - server.d.ts
+        - server.js
+        [D] src
+          [D] app
+            - auth-and-core-routes.d.ts
+            - auth-and-core-routes.js
+            - auth-routes.d.ts
+            - auth-routes.js
+            - core.d.ts
+            - core.js
+            - module-routes.d.ts
+            - module-routes.js
+            - pipeline.d.ts
+            - pipeline.js
+          - app.d.ts
+          - app.js
+          [D] audit
+            - auditable.d.ts
+            - auditable.js
+            - buffer.d.ts
+            - buffer.js
+          [D] common
+            [D] cache
+              - cache-store.d.ts
+              - cache-store.js
+              - http-cache.d.ts
+              - http-cache.js
+              - index.d.ts
+              - index.js
+              - prisma-cache-invalidation.d.ts
+              - prisma-cache-invalidation.js
+              - tenant-cache.d.ts
+              - tenant-cache.js
+            [D] guards
+              - feature.guard.d.ts
+              - feature.guard.js
+              - index.d.ts
+              - index.js
+              - require-role.d.ts
+              - require-role.js
+          [D] docs
+            - openapi.d.ts
+            - openapi.js
+          [D] lib
+            - cache.d.ts
+            - cache.js
+            - database-availability.d.ts
+            - database-availability.js
+            - encryption.d.ts
+            - encryption.js
+            - external-url.d.ts
+            - external-url.js
+            - health.d.ts
+            - health.js
+            - prisma-json.d.ts
+            - prisma-json.js
+            - prisma-json.js.bak
+            - prisma-runtime.d.ts
+            - prisma-runtime.js
+            - problem-details.d.ts
+            - problem-details.js
+            - queue.d.ts
+            - queue.js
+            - redis.d.ts
+            - redis.js
+            - request-values.d.ts
+            - request-values.js
+          - metrics.d.ts
+          - metrics.js
+          [D] middleware
+            - authentication.d.ts
+            - authentication.js
+            - break-glass-audit.d.ts
+            - break-glass-audit.js
+            - content-type.d.ts
+            - content-type.js
+            - csrf.d.ts
+            - csrf.js
+            - error-handler.d.ts
+            - error-handler.js
+            - origin-check.d.ts
+            - origin-check.js
+            - rate-limit.d.ts
+            - rate-limit.js
+            - request-context.d.ts
+            - request-context.js
+            - sanitize-input.d.ts
+            - sanitize-input.js
+            - validate-body.d.ts
+            - validate-body.js
+          [D] middlewares
+            - tenantContext.d.ts
+            - tenantContext.js
+          [D] modules
+            [D] admin
+              - router.d.ts
+              - router.js
+            [D] agents
+              - metrics.service.d.ts
+              - metrics.service.js
+              - metrics.service.js.bak
+              - queue.d.ts
+              - queue.js
+              - router.d.ts
+              - router.js
+              - router.js.bak
+              - service.config.d.ts
+              - service.config.js
+              - service.d.ts
+              - service.execution.d.ts
+              - service.execution.js
+              - service.execution.js.bak
+              - service.js
+              - service.js.bak
+              - service.policy.d.ts
+              - service.policy.js
+              - service.policy.js.bak
+              - service.repository.d.ts
+              - service.repository.js
+              - service.repository.js.bak
+              - service.snapshot.d.ts
+              - service.snapshot.js
+              - service.snapshot.js.bak
+              - service.types.d.ts
+              - service.types.js
+            [D] analytics
+              - analytics.types.d.ts
+              - analytics.types.js
+              - analytics.utils.d.ts
+              - analytics.utils.js
+              - dashboard.service.d.ts
+              - dashboard.service.js
+              - dashboard.service.js.bak
+              - reporting.service.d.ts
+              - reporting.service.js
+              - reporting.service.js.bak
+              - router.d.ts
+              - router.js
+              - schemas.d.ts
+              - schemas.js
+              - schemas.js.bak
+              - service.d.ts
+              - service.js
+              - service.js.bak
+              - usage.service.d.ts
+              - usage.service.js
+              - usage.service.js.bak
+            [D] apikeys
+              - router.d.ts
+              - router.js
+            [D] auth
+              - auth.service.credentials.d.ts
+              - auth.service.credentials.js
+              - auth.service.d.ts
+              - auth.service.js
+              - auth.service.js.bak
+              - auth.service.keys.d.ts
+              - auth.service.keys.js
+              - auth.service.policies.d.ts
+              - auth.service.policies.js
+              - auth.service.policies.js.bak
+              - auth.service.sessions.d.ts
+              - auth.service.sessions.js
+              - auth.service.shared.d.ts
+              - auth.service.shared.js
+              - cookies.d.ts
+              - cookies.js
+              - crypto.d.ts
+              - crypto.js
+              - crypto.js.bak
+              - mfa.service.d.ts
+              - mfa.service.js
+              - mfa.service.js.bak
+              - router.d.ts
+              - router.js
+            [D] billing
+              - index.d.ts
+              - index.js
+              - limit-exceeded.error.d.ts
+              - limit-exceeded.error.js
+              - limit-exceeded.error.js.bak
+              - plan.utils.d.ts
+              - plan.utils.js
+              - router.d.ts
+              - router.js
+              - service.checkout.customer.d.ts
+              - service.checkout.customer.js
+              - service.checkout.d.ts
+              - service.checkout.js
+              - service.d.ts
+              - service.js
+              - service.js.bak
+              - service.reconciliation.d.ts
+              - service.reconciliation.handlers.d.ts
+              - service.reconciliation.handlers.js
+              - service.reconciliation.js
+              - service.reconciliation.shared.d.ts
+              - service.reconciliation.shared.js
+              - service.reconciliation.shared.js.bak
+              - service.shared.d.ts
+              - service.shared.js
+              - service.shared.js.bak
+              - service.snapshot.d.ts
+              - service.snapshot.js
+              - stripe.client.d.ts
+              - stripe.client.js
+              - sync-plans.d.ts
+              - sync-plans.js
+            [D] break-glass
+              - router.d.ts
+              - router.js
+            [D] budget
+              - budget-routes.d.ts
+              - budget-routes.js
+              - budget.service.d.ts
+              - budget.service.js
+              - budget.service.js.bak
+              - budget.types.d.ts
+              - budget.types.js
+              - budget.types.js.bak
+            [D] clinical
+              - router-note-routes.d.ts
+              - router-note-routes.js
+              - router.d.ts
+              - router.js
+              - schemas.d.ts
+              - schemas.js
+              - service-appointments.d.ts
+              - service-appointments.js
+              - service-notes.d.ts
+              - service-notes.js
+              - service-patient-records.d.ts
+              - service-patient-records.js
+              - service-patients.d.ts
+              - service-patients.js
+              - service-runtime.d.ts
+              - service-runtime.js
+              - service-runtime.records.d.ts
+              - service-runtime.records.js
+              - service-support.d.ts
+              - service-support.js
+              - service-support.view.d.ts
+              - service-support.view.js
+              - service.d.ts
+              - service.js
+            [D] connectors
+              - index.d.ts
+              - index.js
+              - index.js.bak
+              - router.d.ts
+              - router.js
+              - schemas.d.ts
+              - schemas.js
+              - schemas.js.bak
+              - service.d.ts
+              - service.js
+              - service.oauth.d.ts
+              - service.oauth.js
+              - service.shared.d.ts
+              - service.shared.js
+            [D] conversations
+              - index.d.ts
+              - index.js
+              - router.d.ts
+              - router.js
+              - router.js.bak
+              - schemas.d.ts
+              - schemas.js
+              - schemas.js.bak
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] dashboard
+              - router.d.ts
+              - router.js
+              - schemas.d.ts
+              - schemas.js
+              - service.clinical.d.ts
+              - service.clinical.js
+              - service.d.ts
+              - service.js
+              - service.shared.d.ts
+              - service.shared.js
+              - service.shared.js.bak
+            [D] engagement
+              - queues.d.ts
+              - queues.js
+            [D] feedback
+              - index.d.ts
+              - index.js
+              - router.d.ts
+              - router.js
+              - router.js.bak
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] fhir
+              - router.d.ts
+              - router.js
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] invites
+              - router.d.ts
+              - router.js
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] marketplace
+              - marketplace-routes.d.ts
+              - marketplace-routes.js
+              - marketplace-service.d.ts
+              - marketplace-service.js
+              - marketplace-service.js.bak
+            [D] notifications
+              - index.d.ts
+              - index.js
+              - router.d.ts
+              - router.js
+              - schemas.d.ts
+              - schemas.js
+              - schemas.js.bak
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] organizations
+              - router.d.ts
+              - router.js
+              - router.js.bak
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] outputs
+              - output-routes.d.ts
+              - output-routes.js
+              - output-routes.js.bak
+              - output.service.d.ts
+              - output.service.js
+              - output.service.js.bak
+            [D] packs
+              - pack-installer-routes.d.ts
+              - pack-installer-routes.js
+              - pack-installer-routes.js.bak
+              - pack-installer.service.d.ts
+              - pack-installer.service.js
+              - pack-installer.service.js.bak
+            [D] privacy
+              - consent.service.d.ts
+              - consent.service.js
+              - retention-scheduler.d.ts
+              - retention-scheduler.js
+              - retention.pagination.d.ts
+              - retention.pagination.js
+              - retention.service.d.ts
+              - retention.service.js
+              - retention.shared.d.ts
+              - retention.shared.js
+              - router.d.ts
+              - router.js
+              - schemas.d.ts
+              - schemas.js
+              - service.d.ts
+              - service.js
+            [D] profile
+              - router.d.ts
+              - router.js
+            [D] search
+              - index.d.ts
+              - index.js
+              - router.d.ts
+              - router.js
+              - router.js.bak
+              - schemas.d.ts
+              - schemas.js
+              - schemas.js.bak
+              - service.d.ts
+              - service.js
+              - service.js.bak
+            [D] sessions
+              - router.d.ts
+              - router.js
+            [D] tasks
+              - router.d.ts
+              - router.js
+            [D] users
+              - router.d.ts
+              - router.js
+              - router.js.bak
+            [D] webhooks
+              - eventBus.d.ts
+              - eventBus.js
+              - index.d.ts
+              - index.js
+              - router.d.ts
+              - router.js
+              - settings.service.d.ts
+              - settings.service.js
+              - stripe.router.d.ts
+              - stripe.router.js
+              - stripe.webhook.processing.d.ts
+              - stripe.webhook.processing.js
+              - stripe.webhook.shared.d.ts
+              - stripe.webhook.shared.js
+            [D] workflows
+              - index.d.ts
+              - index.js
+              - index.js.bak
+              - router.d.ts
+              - router.js
+              - router.js.bak
+              - runnerQueue.d.ts
+              - runnerQueue.js
+              - runnerQueue.js.bak
+              - schemas.d.ts
+              - schemas.js
+              - schemas.js.bak
+              - service.d.ts
+              - service.execution.d.ts
+              - service.execution.js
+              - service.js
+              - service.lifecycle.d.ts
+              - service.lifecycle.js
+              - service.shared.d.ts
+              - service.shared.js
+          [D] observability
+            - otel.d.ts
+            - otel.js
+            - sentry.d.ts
+            - sentry.js
+          - server.d.ts
+          - server.js
+        [D] test
+          [D] __mocks__
+            - stripe.d.ts
+            - stripe.js
+          [D] benchmarks
+            - pack-installer.benchmark.d.ts
+            - pack-installer.benchmark.js
+            - pack-installer.benchmark.js.bak
+          - cache.isolation.test.d.ts
+          - cache.isolation.test.js
+          - fuzzing.test.d.ts
+          - fuzzing.test.js
+          - fuzzing.test.js.bak
+          - isolation.e2e.test.d.ts
+          - isolation.e2e.test.js
+          - isolation.e2e.test.js.bak
+          - performance.test.d.ts
+          - performance.test.js
+          - performance.test.js.bak
+          - tenant-cache.hit-miss.test.d.ts
+          - tenant-cache.hit-miss.test.js
+          - tenant-cache.hit-miss.test.js.bak
+        [D] tests
+          - analytics-router.test.d.ts
+          - analytics-router.test.js
+          - analytics.utils.test.d.ts
+          - analytics.utils.test.js
+          - analytics.utils.test.js.bak
+          - apikeys.audit.test.d.ts
+          - apikeys.audit.test.js
+          - auditable.test.d.ts
+          - auditable.test.js
+          - auth-and-core-routes.test.d.ts
+          - auth-and-core-routes.test.js
+          - auth-routes.test.d.ts
+          - auth-routes.test.js
+          - auth.test.d.ts
+          - auth.test.js
+          - auth.test.js.bak
+          - auth.test.support.d.ts
+          - auth.test.support.js
+          - billing.cache.test.d.ts
+          - billing.cache.test.js
+          - billing.cache.test.js.bak
+          - billing.checkout.test.d.ts
+          - billing.checkout.test.js
+          - billing.checkout.test.js.bak
+          - billing.grace-period.test.d.ts
+          - billing.grace-period.test.js
+          - billing.grace-period.test.js.bak
+          - billing.idempotency.test.d.ts
+          - billing.idempotency.test.js
+          - billing.idempotency.test.js.bak
+          - billing.ip-ban.test.d.ts
+          - billing.ip-ban.test.js
+          - billing.ip-ban.test.js.bak
+          - billing.paywall.test.d.ts
+          - billing.paywall.test.js
+          - billing.proration-credit.test.d.ts
+          - billing.proration-credit.test.js
+          - billing.proration-credit.test.js.bak
+          - billing.snapshot.test.d.ts
+          - billing.snapshot.test.js
+          - billing.snapshot.test.js.bak
+          - billing.webhook-audit.test.d.ts
+          - billing.webhook-audit.test.js
+          - billing.webhook-audit.test.js.bak
+          - billing.webhook-delegation.test.d.ts
+          - billing.webhook-delegation.test.js
+          - billing.webhook-delegation.test.js.bak
+          - billing.webhook.test.d.ts
+          - billing.webhook.test.js
+          - billing.webhook.test.js.bak
+          - break-glass-router.test.d.ts
+          - break-glass-router.test.js
+          - buffer.test.d.ts
+          - buffer.test.js
+          - cache-index.test.d.ts
+          - cache-index.test.js
+          - cache-store.test.d.ts
+          - cache-store.test.js
+          - clinical-router.test.d.ts
+          - clinical-router.test.js
+          - clinical-router.test.js.bak
+          - clinical.service.pagination.test.d.ts
+          - clinical.service.pagination.test.js
+          - clinical.service.pagination.test.js.bak
+          - clinical.service.test.d.ts
+          - clinical.service.test.js
+          - clinical.service.test.js.bak
+          - connectors-router.test.d.ts
+          - connectors-router.test.js
+          - connectors-router.test.js.bak
+          - consent.service.test.d.ts
+          - consent.service.test.js
+          - consent.service.test.js.bak
+          - conversations-router.test.d.ts
+          - conversations-router.test.js
+          - conversations-router.test.js.bak
+          - core-business-routes.test.d.ts
+          - core-business-routes.test.js
+          - dashboard-router.test.d.ts
+          - dashboard-router.test.js
+          - dashboard-router.test.js.bak
+          - database-availability.test.d.ts
+          - database-availability.test.js
+          - encryption.test.d.ts
+          - encryption.test.js
+          - environment-runtime.test.d.ts
+          - environment-runtime.test.js
+          - external-url.test.d.ts
+          - external-url.test.js
+          - fhir-router.test.d.ts
+          - fhir-router.test.js
+          - fhir-router.test.js.bak
+          - fhir.service.test.d.ts
+          - fhir.service.test.js
+          - fhir.service.test.js.bak
+          - health.service.test.d.ts
+          - health.service.test.js
+          - health.smoke.test.d.ts
+          - health.smoke.test.js
+          - health.smoke.test.js.bak
+          - http-cache.test.d.ts
+          - http-cache.test.js
+          - http-test-helpers.d.ts
+          - http-test-helpers.js
+          - installed-agents-helpers.test.d.ts
+          - installed-agents-helpers.test.js
+          - installed-agents-helpers.test.js.bak
+          - marketplace-budget.smoke.test.d.ts
+          - marketplace-budget.smoke.test.js
+          - marketplace-budget.smoke.test.js.bak
+          - metrics.service.test.d.ts
+          - metrics.service.test.js
+          - metrics.service.test.js.bak
+          - module-routes.test.d.ts
+          - module-routes.test.js
+          - notifications-router.test.d.ts
+          - notifications-router.test.js
+          - openapi-contract.test.d.ts
+          - openapi-contract.test.js
+          - pack-installer.service.test.d.ts
+          - pack-installer.service.test.js
+          - pack-installer.service.test.js.bak
+          - prisma-cache-invalidation.test.d.ts
+          - prisma-cache-invalidation.test.js
+          - prisma-cache-invalidation.test.js.bak
+          - prisma-runtime-test-helpers.d.ts
+          - prisma-runtime-test-helpers.js
+          - privacy-router.test.d.ts
+          - privacy-router.test.js
+          - profile-router.test.d.ts
+          - profile-router.test.js
+          - queue-backpressure.test.d.ts
+          - queue-backpressure.test.js
+          - queue-client.test.d.ts
+          - queue-client.test.js
+          - rbac.test.d.ts
+          - rbac.test.js
+          - retention.service.test.d.ts
+          - retention.service.test.js
+          - retention.service.test.js.bak
+          - search-router.test.d.ts
+          - search-router.test.js
+          - search-router.test.js.bak
+          - security.test.d.ts
+          - security.test.js
+          - security.test.js.bak
+          - sessions-router.test.d.ts
+          - sessions-router.test.js
+          - tasks-router.test.d.ts
+          - tasks-router.test.js
+          - tenant-auth-hardening.test.d.ts
+          - tenant-auth-hardening.test.js
+          - tenant-auth-hardening.test.js.bak
+          - test-config.d.ts
+          - test-config.js
+          - webhooks.security.test.d.ts
+          - webhooks.security.test.js
+          - webhooks.security.test.js.bak
+          - workflow-retry-lineage.integration.test.d.ts
+          - workflow-retry-lineage.integration.test.js
+          - workflow-retry-lineage.integration.test.js.bak
+          - workflows-router.test.d.ts
+          - workflows-router.test.js
+          - workflows-router.test.js.bak
       - Dockerfile
       - package.json
       - README.md
@@ -925,6 +2073,7 @@
           - external-url.ts
           - health.ts
           - prisma-json.ts
+          - prisma-json.ts.bak
           - prisma-runtime.ts
           - problem-details.ts
           - queue.ts
@@ -949,58 +2098,98 @@
             - router.ts
           [D] agents
             - metrics.service.ts
+            - metrics.service.ts.bak
             - queue.ts
+            - queue.ts.bak
             - router.ts
+            - router.ts.bak
             - service.config.ts
+            - service.config.ts.bak
             - service.execution.ts
+            - service.execution.ts.bak
             - service.policy.ts
+            - service.policy.ts.bak
             - service.repository.ts
+            - service.repository.ts.bak
             - service.snapshot.ts
+            - service.snapshot.ts.bak
             - service.ts
+            - service.ts.bak
             - service.types.ts
+            - service.types.ts.bak
           [D] analytics
             - analytics.types.ts
+            - analytics.types.ts.bak
             - analytics.utils.ts
+            - analytics.utils.ts.bak
             - dashboard.service.ts
+            - dashboard.service.ts.bak
             - reporting.service.ts
+            - reporting.service.ts.bak
             - router.ts
             - schemas.ts
+            - schemas.ts.bak
             - service.ts
+            - service.ts.bak
             - usage.service.ts
+            - usage.service.ts.bak
           [D] apikeys
             - router.ts
+            - router.ts.bak
           [D] auth
             - auth.service.credentials.ts
+            - auth.service.credentials.ts.bak
             - auth.service.keys.ts
+            - auth.service.keys.ts.bak
             - auth.service.policies.ts
+            - auth.service.policies.ts.bak
             - auth.service.sessions.ts
+            - auth.service.sessions.ts.bak
             - auth.service.shared.ts
+            - auth.service.shared.ts.bak
             - auth.service.ts
+            - auth.service.ts.bak
             - cookies.ts
+            - cookies.ts.bak
             - crypto.ts
+            - crypto.ts.bak
             - mfa.service.ts
+            - mfa.service.ts.bak
             - router.ts
+            - router.ts.bak
           [D] billing
             - index.ts
             - limit-exceeded.error.ts
+            - limit-exceeded.error.ts.bak
             - plan.utils.ts
+            - plan.utils.ts.bak
             - router.ts
             - service.checkout.customer.ts
             - service.checkout.ts
+            - service.checkout.ts.bak
             - service.reconciliation.handlers.ts
+            - service.reconciliation.handlers.ts.bak
             - service.reconciliation.shared.ts
+            - service.reconciliation.shared.ts.bak
             - service.reconciliation.ts
+            - service.reconciliation.ts.bak
             - service.shared.ts
+            - service.shared.ts.bak
             - service.snapshot.ts
+            - service.snapshot.ts.bak
             - service.ts
+            - service.ts.bak
             - stripe.client.ts
             - sync-plans.ts
           [D] break-glass
             - router.ts
+            - router.ts.bak
           [D] budget
             - budget-routes.ts
             - budget.service.ts
+            - budget.service.ts.bak
             - budget.types.ts
+            - budget.types.ts.bak
           [D] clinical
             - README.md
             - router-note-routes.ts
@@ -1017,52 +2206,77 @@
             - service.ts
           [D] connectors
             - index.ts
+            - index.ts.bak
             - router.ts
+            - router.ts.bak
             - schemas.ts
+            - schemas.ts.bak
             - service.oauth.ts
+            - service.oauth.ts.bak
             - service.shared.ts
+            - service.shared.ts.bak
             - service.ts
+            - service.ts.bak
           [D] conversations
             - index.ts
             - router.ts
+            - router.ts.bak
             - schemas.ts
+            - schemas.ts.bak
             - service.ts
+            - service.ts.bak
           [D] dashboard
             - router.ts
             - schemas.ts
             - service.clinical.ts
             - service.shared.ts
+            - service.shared.ts.bak
             - service.ts
           [D] engagement
             - queues.ts
+            - queues.ts.bak
           [D] feedback
             - index.ts
             - router.ts
+            - router.ts.bak
             - service.ts
+            - service.ts.bak
           [D] fhir
             - README.md
             - router.ts
+            - router.ts.bak
             - service.ts
+            - service.ts.bak
           [D] invites
             - router.ts
             - service.ts
+            - service.ts.bak
           [D] marketplace
             - marketplace-routes.ts
             - marketplace-service.ts
+            - marketplace-service.ts.bak
           [D] notifications
             - index.ts
             - router.ts
             - schemas.ts
+            - schemas.ts.bak
             - service.ts
+            - service.ts.bak
           [D] organizations
             - router.ts
+            - router.ts.bak
             - service.ts
+            - service.ts.bak
           [D] outputs
             - output-routes.ts
+            - output-routes.ts.bak
             - output.service.ts
+            - output.service.ts.bak
           [D] packs
             - pack-installer-routes.ts
+            - pack-installer-routes.ts.bak
             - pack-installer.service.ts
+            - pack-installer.service.ts.bak
           [D] privacy
             - consent.service.ts
             - retention-scheduler.ts
@@ -1072,19 +2286,25 @@
             - router.ts
             - schemas.ts
             - service.ts
+            - service.ts.bak
           [D] profile
             - router.ts
           [D] search
             - index.ts
             - router.ts
+            - router.ts.bak
             - schemas.ts
+            - schemas.ts.bak
             - service.ts
+            - service.ts.bak
           [D] sessions
             - router.ts
           [D] tasks
             - router.ts
+            - router.ts.bak
           [D] users
             - router.ts
+            - router.ts.bak
           [D] webhooks
             - eventBus.ts
             - index.ts
@@ -1093,11 +2313,16 @@
             - stripe.router.ts
             - stripe.webhook.processing.ts
             - stripe.webhook.shared.ts
+            - stripe.webhook.shared.ts.bak
           [D] workflows
             - index.ts
+            - index.ts.bak
             - router.ts
+            - router.ts.bak
             - runnerQueue.ts
+            - runnerQueue.ts.bak
             - schemas.ts
+            - schemas.ts.bak
             - service.execution.ts
             - service.lifecycle.ts
             - service.shared.ts
@@ -1110,81 +2335,305 @@
           - redlock.d.ts
       [D] test
         [D] __mocks__
+          - stripe.d.ts
+          - stripe.js
           - stripe.ts
+          - stripe.ts.bak
         [D] benchmarks
+          - pack-installer.benchmark.d.ts
+          - pack-installer.benchmark.js
+          - pack-installer.benchmark.js.bak
           - pack-installer.benchmark.ts
+          - pack-installer.benchmark.ts.bak
+        - cache.isolation.test.d.ts
+        - cache.isolation.test.js
         - cache.isolation.test.ts
+        - fuzzing.test.d.ts
+        - fuzzing.test.js
+        - fuzzing.test.js.bak
         - fuzzing.test.ts
+        - fuzzing.test.ts.bak
+        - isolation.e2e.test.d.ts
+        - isolation.e2e.test.js
+        - isolation.e2e.test.js.bak
         - isolation.e2e.test.ts
+        - isolation.e2e.test.ts.bak
+        - performance.test.d.ts
+        - performance.test.js
+        - performance.test.js.bak
         - performance.test.ts
+        - performance.test.ts.bak
+        - tenant-cache.hit-miss.test.d.ts
+        - tenant-cache.hit-miss.test.js
+        - tenant-cache.hit-miss.test.js.bak
         - tenant-cache.hit-miss.test.ts
+        - tenant-cache.hit-miss.test.ts.bak
       [D] tests
+        - analytics-router.test.d.ts
+        - analytics-router.test.js
         - analytics-router.test.ts
+        - analytics.utils.test.d.ts
+        - analytics.utils.test.js
+        - analytics.utils.test.js.bak
         - analytics.utils.test.ts
+        - analytics.utils.test.ts.bak
+        - apikeys.audit.test.d.ts
+        - apikeys.audit.test.js
         - apikeys.audit.test.ts
+        - auditable.test.d.ts
+        - auditable.test.js
         - auditable.test.ts
+        - auth-and-core-routes.test.d.ts
+        - auth-and-core-routes.test.js
         - auth-and-core-routes.test.ts
+        - auth-routes.test.d.ts
+        - auth-routes.test.js
         - auth-routes.test.ts
+        - auth.test.d.ts
+        - auth.test.js
+        - auth.test.js.bak
+        - auth.test.support.d.ts
+        - auth.test.support.js
         - auth.test.support.ts
         - auth.test.ts
+        - auth.test.ts.bak
+        - billing.cache.test.d.ts
+        - billing.cache.test.js
+        - billing.cache.test.js.bak
         - billing.cache.test.ts
+        - billing.cache.test.ts.bak
+        - billing.checkout.test.d.ts
+        - billing.checkout.test.js
+        - billing.checkout.test.js.bak
         - billing.checkout.test.ts
+        - billing.checkout.test.ts.bak
+        - billing.grace-period.test.d.ts
+        - billing.grace-period.test.js
+        - billing.grace-period.test.js.bak
         - billing.grace-period.test.ts
+        - billing.grace-period.test.ts.bak
+        - billing.idempotency.test.d.ts
+        - billing.idempotency.test.js
+        - billing.idempotency.test.js.bak
         - billing.idempotency.test.ts
+        - billing.idempotency.test.ts.bak
+        - billing.ip-ban.test.d.ts
+        - billing.ip-ban.test.js
+        - billing.ip-ban.test.js.bak
         - billing.ip-ban.test.ts
+        - billing.ip-ban.test.ts.bak
+        - billing.paywall.test.d.ts
+        - billing.paywall.test.js
         - billing.paywall.test.ts
+        - billing.proration-credit.test.d.ts
+        - billing.proration-credit.test.js
+        - billing.proration-credit.test.js.bak
         - billing.proration-credit.test.ts
+        - billing.proration-credit.test.ts.bak
+        - billing.snapshot.test.d.ts
+        - billing.snapshot.test.js
+        - billing.snapshot.test.js.bak
         - billing.snapshot.test.ts
+        - billing.snapshot.test.ts.bak
+        - billing.webhook-audit.test.d.ts
+        - billing.webhook-audit.test.js
+        - billing.webhook-audit.test.js.bak
         - billing.webhook-audit.test.ts
+        - billing.webhook-audit.test.ts.bak
+        - billing.webhook-delegation.test.d.ts
+        - billing.webhook-delegation.test.js
+        - billing.webhook-delegation.test.js.bak
         - billing.webhook-delegation.test.ts
+        - billing.webhook-delegation.test.ts.bak
+        - billing.webhook.test.d.ts
+        - billing.webhook.test.js
+        - billing.webhook.test.js.bak
         - billing.webhook.test.ts
+        - billing.webhook.test.ts.bak
+        - break-glass-router.test.d.ts
+        - break-glass-router.test.js
         - break-glass-router.test.ts
+        - buffer.test.d.ts
+        - buffer.test.js
         - buffer.test.ts
+        - cache-index.test.d.ts
+        - cache-index.test.js
         - cache-index.test.ts
+        - cache-store.test.d.ts
+        - cache-store.test.js
         - cache-store.test.ts
+        - clinical-router.test.d.ts
+        - clinical-router.test.js
+        - clinical-router.test.js.bak
         - clinical-router.test.ts
+        - clinical-router.test.ts.bak
+        - clinical.service.pagination.test.d.ts
+        - clinical.service.pagination.test.js
+        - clinical.service.pagination.test.js.bak
         - clinical.service.pagination.test.ts
+        - clinical.service.pagination.test.ts.bak
+        - clinical.service.test.d.ts
+        - clinical.service.test.js
+        - clinical.service.test.js.bak
         - clinical.service.test.ts
+        - clinical.service.test.ts.bak
+        - connectors-router.test.d.ts
+        - connectors-router.test.js
+        - connectors-router.test.js.bak
         - connectors-router.test.ts
+        - connectors-router.test.ts.bak
+        - consent.service.test.d.ts
+        - consent.service.test.js
+        - consent.service.test.js.bak
         - consent.service.test.ts
+        - consent.service.test.ts.bak
+        - conversations-router.test.d.ts
+        - conversations-router.test.js
+        - conversations-router.test.js.bak
         - conversations-router.test.ts
+        - conversations-router.test.ts.bak
+        - core-business-routes.test.d.ts
+        - core-business-routes.test.js
         - core-business-routes.test.ts
+        - dashboard-router.test.d.ts
+        - dashboard-router.test.js
+        - dashboard-router.test.js.bak
         - dashboard-router.test.ts
+        - dashboard-router.test.ts.bak
+        - database-availability.test.d.ts
+        - database-availability.test.js
         - database-availability.test.ts
+        - encryption.test.d.ts
+        - encryption.test.js
         - encryption.test.ts
+        - environment-runtime.test.d.ts
+        - environment-runtime.test.js
         - environment-runtime.test.ts
+        - external-url.test.d.ts
+        - external-url.test.js
         - external-url.test.ts
+        - fhir-router.test.d.ts
+        - fhir-router.test.js
+        - fhir-router.test.js.bak
         - fhir-router.test.ts
+        - fhir-router.test.ts.bak
+        - fhir.service.test.d.ts
+        - fhir.service.test.js
+        - fhir.service.test.js.bak
         - fhir.service.test.ts
+        - fhir.service.test.ts.bak
+        - health.service.test.d.ts
+        - health.service.test.js
         - health.service.test.ts
+        - health.smoke.test.d.ts
+        - health.smoke.test.js
+        - health.smoke.test.js.bak
         - health.smoke.test.ts
+        - health.smoke.test.ts.bak
+        - http-cache.test.d.ts
+        - http-cache.test.js
         - http-cache.test.ts
+        - http-test-helpers.d.ts
+        - http-test-helpers.js
         - http-test-helpers.ts
+        - installed-agents-helpers.test.d.ts
+        - installed-agents-helpers.test.js
+        - installed-agents-helpers.test.js.bak
         - installed-agents-helpers.test.ts
+        - installed-agents-helpers.test.ts.bak
+        - marketplace-budget.smoke.test.d.ts
+        - marketplace-budget.smoke.test.js
+        - marketplace-budget.smoke.test.js.bak
         - marketplace-budget.smoke.test.ts
+        - marketplace-budget.smoke.test.ts.bak
+        - metrics.service.test.d.ts
+        - metrics.service.test.js
+        - metrics.service.test.js.bak
         - metrics.service.test.ts
+        - metrics.service.test.ts.bak
+        - module-routes.test.d.ts
+        - module-routes.test.js
         - module-routes.test.ts
+        - notifications-router.test.d.ts
+        - notifications-router.test.js
         - notifications-router.test.ts
+        - openapi-contract.test.d.ts
+        - openapi-contract.test.js
         - openapi-contract.test.ts
+        - pack-installer.service.test.d.ts
+        - pack-installer.service.test.js
+        - pack-installer.service.test.js.bak
         - pack-installer.service.test.ts
+        - pack-installer.service.test.ts.bak
+        - prisma-cache-invalidation.test.d.ts
+        - prisma-cache-invalidation.test.js
+        - prisma-cache-invalidation.test.js.bak
         - prisma-cache-invalidation.test.ts
+        - prisma-cache-invalidation.test.ts.bak
+        - prisma-runtime-test-helpers.d.ts
+        - prisma-runtime-test-helpers.js
         - prisma-runtime-test-helpers.ts
+        - privacy-router.test.d.ts
+        - privacy-router.test.js
         - privacy-router.test.ts
+        - profile-router.test.d.ts
+        - profile-router.test.js
         - profile-router.test.ts
+        - queue-backpressure.test.d.ts
+        - queue-backpressure.test.js
         - queue-backpressure.test.ts
+        - queue-client.test.d.ts
+        - queue-client.test.js
         - queue-client.test.ts
+        - rbac.test.d.ts
+        - rbac.test.js
         - rbac.test.ts
+        - retention.service.test.d.ts
+        - retention.service.test.js
+        - retention.service.test.js.bak
         - retention.service.test.ts
+        - retention.service.test.ts.bak
+        - search-router.test.d.ts
+        - search-router.test.js
+        - search-router.test.js.bak
         - search-router.test.ts
+        - search-router.test.ts.bak
+        - security.test.d.ts
+        - security.test.js
+        - security.test.js.bak
         - security.test.ts
+        - security.test.ts.bak
+        - sessions-router.test.d.ts
+        - sessions-router.test.js
         - sessions-router.test.ts
+        - tasks-router.test.d.ts
+        - tasks-router.test.js
         - tasks-router.test.ts
+        - tenant-auth-hardening.test.d.ts
+        - tenant-auth-hardening.test.js
+        - tenant-auth-hardening.test.js.bak
         - tenant-auth-hardening.test.ts
+        - tenant-auth-hardening.test.ts.bak
+        - test-config.d.ts
+        - test-config.js
         - test-config.ts
+        - webhooks.security.test.d.ts
+        - webhooks.security.test.js
+        - webhooks.security.test.js.bak
         - webhooks.security.test.ts
+        - webhooks.security.test.ts.bak
+        - workflow-retry-lineage.integration.test.d.ts
+        - workflow-retry-lineage.integration.test.js
+        - workflow-retry-lineage.integration.test.js.bak
         - workflow-retry-lineage.integration.test.ts
+        - workflow-retry-lineage.integration.test.ts.bak
+        - workflows-router.test.d.ts
+        - workflows-router.test.js
+        - workflows-router.test.js.bak
         - workflows-router.test.ts
+        - workflows-router.test.ts.bak
       - tsconfig.json
+      - tsconfig.json.bak
     [D] legacy
       [D] dashboard
         - README.md
@@ -1207,12 +2656,14 @@
           [D] webpack
             [D] client-production
               - 0.pack
+              - 0.pack.bak
               - index.pack
             [D] edge-server-production
               - 0.pack
               - index.pack
             [D] server-production
               - 0.pack
+              - 0.pack.bak
               - index.pack
         [D] diagnostics
           - build-diagnostics.json
@@ -1877,30 +3328,43 @@
               [D] run
                 - page.tsx
             - page.tsx
+            - page.tsx.bak
           [D] analytics
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.tsx
+            - page.tsx.bak
           [D] appointments
             - page.client.tsx
             - page.tsx
+            - page.tsx.bak
           [D] billing
             [D] budgets
               - page.tsx
+              - page.tsx.bak
             - page.tsx
+            - page.tsx.bak
           [D] conversations
             - conversation-panels.tsx
             - conversation.types.ts
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.tsx
           [D] dashboard
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.data.ts
+            - page.data.ts.bak
             - page.panels.tsx
             - page.sections.tsx
             - page.tsx
+            - page.tsx.bak
           - dashboard.css
           [D] developers
             [D] apikeys
@@ -1910,43 +3374,60 @@
             [D] compare
               - page.tsx
             - page.tsx
+            - page.tsx.bak
           [D] notifications
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.tsx
+            - page.tsx.bak
           [D] onboarding
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.tsx
+            - page.tsx.bak
           [D] outputs
             - page.tsx
+            - page.tsx.bak
           [D] packs
             - page.tsx
+            - page.tsx.bak
           [D] patients
             [D] [id]
               [D] appointments
                 - page.client.tsx
                 - page.tsx
+                - page.tsx.bak
               - page.client.tsx
               - page.parts.tsx
               - page.sections.tsx
               - page.tsx
             - appointments-board.model.ts
+            - appointments-board.model.ts.bak
             - appointments-board.sections.tsx
+            - appointments-board.sections.tsx.bak
             - appointments-board.tsx
             - clinical-data.ts
+            - clinical-data.ts.bak
             - page.client.tsx
             - page.sections.tsx
             - page.tsx
           [D] profile
             [D] notifications
               - page.tsx
+              - page.tsx.bak
             [D] security
               - page.tsx
           [D] reports
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.tsx
+            - page.tsx.bak
           [D] sales-os
             - page.tsx
             [D] sdr-automatico
@@ -1954,29 +3435,43 @@
           [D] settings
             [D] audit
               - page.tsx
+              - page.tsx.bak
             [D] billing
               - billing-sections.tsx
+              - billing-sections.tsx.bak
               - billing.types.ts
+              - billing.types.ts.bak
               - page.tsx
+              - page.tsx.bak
               - use-billing-settings.ts
+              - use-billing-settings.ts.bak
             [D] developers
               [D] webhooks
                 - page.data.ts
+                - page.data.ts.bak
                 - page.model.ts
+                - page.model.ts.bak
                 - page.sections.tsx
+                - page.sections.tsx.bak
                 - page.tsx
+                - page.tsx.bak
             [D] members
               - layout.tsx
               - page.tsx
+              - page.tsx.bak
             [D] privacy
               - page.tsx
+              - page.tsx.bak
               - privacy-self-service-page.tsx
               - privacy-self-service.data.ts
               - privacy-self-service.sections.tsx
               - privacy-settings-page.data.ts
               - privacy-settings-page.model.ts
+              - privacy-settings-page.model.ts.bak
               - privacy-settings-page.sections.tsx
+              - privacy-settings-page.sections.tsx.bak
               - privacy-settings-page.tsx
+              - privacy-settings-page.tsx.bak
             [D] security
               - page.tsx
             [D] team
@@ -1990,14 +3485,21 @@
               [D] edit
                 - page.tsx
                 - workflow-editor-helpers.tsx
+                - workflow-editor-helpers.tsx.bak
               [D] revisions
                 - page.tsx
+                - page.tsx.bak
               [D] runs
                 - page.data.ts
+                - page.data.ts.bak
                 - page.tsx
+                - page.tsx.bak
             - error.tsx
+            - error.tsx.bak
             - loading.tsx
+            - loading.tsx.bak
             - page.tsx
+            - page.tsx.bak
         [D] admin
           [D] analytics
             - analytics.css
@@ -2020,67 +3522,92 @@
           [D] sales-os
             [D] catalog
               - route.ts
+              - route.ts.bak
             [D] chat
               - route.ts
+              - route.ts.bak
             [D] execute
               - route.ts
+              - route.ts.bak
         [D] billing
           [D] cancel
             - page.tsx
+            - page.tsx.bak
           [D] success
             - page.tsx
+            - page.tsx.bak
         - global-error.tsx
+        - global-error.tsx.bak
         - globals.css
         [D] health
           - route.ts
+          - route.ts.bak
         [D] invites
           [D] accept
             - page.tsx
+            - page.tsx.bak
         - layout.tsx
+        - layout.tsx.bak
         [D] legal
           [D] privacy
             - page.tsx
+            - page.tsx.bak
           [D] terms
             - page.tsx
+            - page.tsx.bak
         [D] login
           - page.tsx
         [D] metrics
           - route.ts
+          - route.ts.bak
         [D] offline
           - page.tsx
+          - page.tsx.bak
         - page.tsx
         [D] pricing
           - page.tsx
+          - page.tsx.bak
           - pricing.css
         [D] readiness
           - route.ts
+          - route.ts.bak
       - CHANGELOG.md
       [D] components
         [D] agents
           - agent-detail-tabs.tsx
           - agent-run-panel.tsx
+          - agent-run-panel.tsx.bak
           - ExecutivePremiumAgentCallout.tsx
           - ExecutivePremiumSpotlight.tsx
           - FeedbackWidget.tsx
+          - FeedbackWidget.tsx.bak
           - PolicyManager.tsx
         [D] brand
           - BrandLogo.tsx
+          - BrandLogo.tsx.bak
         - cookie-consent-banner.tsx
+        - cookie-consent-banner.tsx.bak
         [D] dashboard
           - ClinicalWorkspaceDisabledState.tsx
           - ClinicalWorkspaceNotice.tsx
           - page-fragments.tsx
+          - page-fragments.tsx.bak
           - route-error-view.tsx
+          - route-error-view.tsx.bak
           - ToastViewport.tsx
         - dashboard-billing-gate.tsx
         [D] layout
           - GlobalSearch.tsx
           - Navbar.tsx
+          - Navbar.tsx.bak
         - legal-footer.tsx
+        - legal-footer.tsx.bak
         - login-form.tsx
         [D] outputs
           - OutputApprovalButton.tsx
+          - OutputApprovalButton.tsx.bak
         - paywall-provider.tsx
+        - paywall-provider.tsx.bak
         [D] sales-os
           - GeographicMap.tsx
           - sales-os-shell.state.ts
@@ -2109,31 +3636,46 @@
           - shell-support.ts
         [D] wizards
           - PackInstaller.tsx
+          - PackInstaller.tsx.bak
         [D] workflows
           - CreateWorkflowButton.tsx
+          - CreateWorkflowButton.tsx.bak
           - RunWorkflowButton.tsx
+          - RunWorkflowButton.tsx.bak
       - Dockerfile
       - instrumentation-client.ts
+      - instrumentation-client.ts.bak
       - instrumentation.ts
+      - instrumentation.ts.bak
       [D] lib
         - agents.ts
+        - agents.ts.bak
         - auth-client.ts
         - bff-policy.ts
         - dashboard.ts
+        - dashboard.ts.bak
         - dompurify.ts
+        - dompurify.ts.bak
         - executive-premium.ts
         - global-search.ts
         - i18n.server.ts
+        - i18n.server.ts.bak
         - i18n.ts
+        - i18n.ts.bak
         - marketplace-api.server.ts
+        - marketplace-api.server.ts.bak
         - marketplace-api.ts
+        - marketplace-api.ts.bak
         - operational-health.ts
+        - operational-health.ts.bak
         - product-api.server.ts
         - product-api.ts
         - product-capabilities.ts
         - request-id.ts
+        - request-id.ts.bak
         [D] sales-os
           - catalog.ts
+          - catalog.ts.bak
           - config.ts
           - constants.ts
           - engine.ts
@@ -2153,18 +3695,25 @@
             - sdr.ts
             - shared.ts
           - types.ts
+          - types.ts.bak
         - session-context.ts
         - web-session.ts
         - workflows.ts
       - next-env.d.ts
       - next.config.mjs
+      - next.config.mjs.bak
       - package.json
       [D] providers
         - AnalyticsProvider.tsx
+        - AnalyticsProvider.tsx.bak
         - AppProviders.tsx
+        - AppProviders.tsx.bak
         - EngagementProvider.tsx
+        - EngagementProvider.tsx.bak
         - I18nProvider.tsx
+        - I18nProvider.tsx.bak
         - ThemeProvider.tsx
+        - ThemeProvider.tsx.bak
       - proxy.ts
       [D] public
         [D] brand
@@ -2177,8 +3726,10 @@
             - legal-pack.md
         - manifest.json
         - sw.js
+        - sw.js.bak
       - README.md
       - sentry.server.config.ts
+      - sentry.server.config.ts.bak
       [D] stores
         - notification-store.ts
         - toast-store.ts
@@ -2186,32 +3737,42 @@
       - tailwind.config.ts
       [D] tests
         - appointments-board-model.test.ts
+        - appointments-board-model.test.ts.bak
         - auth-client.test.ts
         - auth-session-route.test.ts
         - bff-allowlist.test.ts
         - bff-route.test.ts
         - clinical-data.test.ts
+        - clinical-data.test.ts.bak
         - dashboard-data.test.ts
+        - dashboard-data.test.ts.bak
         - developer-webhooks-page.test.ts
         - disabled-domain-pages.test.ts
         - executive-premium.test.ts
         - global-search.test.ts
         - health.required-dependency.test.ts
+        - health.required-dependency.test.ts.bak
         - i18n.test.ts
+        - i18n.test.ts.bak
         - login.smoke.test.ts
         - notification-store.test.ts
         - offline-page.test.ts
+        - offline-page.test.ts.bak
         - privacy-settings-page.test.ts
         - product-api.test.ts
         - product-capabilities.test.ts
         - sales-os.catalog.test.ts
+        - sales-os.catalog.test.ts.bak
         - sdr-automatic-dashboard.test.ts
         - sdr-automatic-platform.test.ts
         - sdr-lead-score-helpers.test.ts
         - theme-provider.test.ts
+        - theme-provider.test.ts.bak
         - user-preferences-store.test.ts
         - workflow-editor-helpers.test.ts
+        - workflow-editor-helpers.test.ts.bak
         - workflow-runs-page.test.ts
+        - workflow-runs-page.test.ts.bak
         - workflows-list.test.ts
       - tsconfig.json
     [D] webhook-receiver
@@ -2220,6 +3781,7 @@
       - requirements.txt
       [D] src
         - server.ts
+        - server.ts.bak
       [D] tests
         - test_main.py
     [D] worker
@@ -2235,155 +3797,214 @@
                 [D] agents
                   - metrics.service.d.ts
                   - metrics.service.js
+                  - metrics.service.js.bak
                 [D] outputs
                   - output.service.d.ts
                   - output.service.js
+                  - output.service.js.bak
           [D] worker
             [D] src
               [D] agents
                 - conversations.d.ts
                 - conversations.js
+                - conversations.js.bak
                 - conversations.test.d.ts
                 - conversations.test.js
+                - conversations.test.js.bak
                 - handoffs.d.ts
                 - handoffs.js
+                - handoffs.js.bak
                 - handoffs.test.d.ts
                 - handoffs.test.js
+                - handoffs.test.js.bak
                 - runtime.artifacts.d.ts
                 - runtime.artifacts.js
+                - runtime.artifacts.js.bak
                 - runtime.artifacts.test.d.ts
                 - runtime.artifacts.test.js
+                - runtime.artifacts.test.js.bak
                 - runtime.budget.d.ts
                 - runtime.budget.js
                 - runtime.budget.test.d.ts
                 - runtime.budget.test.js
+                - runtime.budget.test.js.bak
                 - runtime.catalog.d.ts
                 - runtime.catalog.js
+                - runtime.catalog.js.bak
                 - runtime.catalog.test.d.ts
                 - runtime.catalog.test.js
+                - runtime.catalog.test.js.bak
                 - runtime.db-integration.harness.d.ts
                 - runtime.db-integration.harness.js
                 - runtime.db-integration.test.d.ts
                 - runtime.db-integration.test.js
+                - runtime.db-integration.test.js.bak
                 - runtime.errors.d.ts
                 - runtime.errors.js
+                - runtime.errors.js.bak
                 - runtime.errors.test.d.ts
                 - runtime.errors.test.js
+                - runtime.errors.test.js.bak
                 - runtime.ingress.d.ts
                 - runtime.ingress.js
                 - runtime.ingress.test.d.ts
                 - runtime.ingress.test.js
                 - runtime.memory.d.ts
                 - runtime.memory.js
+                - runtime.memory.js.bak
                 - runtime.memory.test.d.ts
                 - runtime.memory.test.js
+                - runtime.memory.test.js.bak
                 - runtime.mesh.d.ts
                 - runtime.mesh.js
+                - runtime.mesh.js.bak
                 - runtime.mesh.test.d.ts
                 - runtime.mesh.test.js
+                - runtime.mesh.test.js.bak
                 - runtime.orchestration.d.ts
                 - runtime.orchestration.js
+                - runtime.orchestration.js.bak
                 - runtime.resolution.d.ts
                 - runtime.resolution.js
+                - runtime.resolution.js.bak
                 - runtime.resolution.test.d.ts
                 - runtime.resolution.test.js
+                - runtime.resolution.test.js.bak
                 - runtime.shared.d.ts
                 - runtime.shared.js
+                - runtime.shared.js.bak
                 - runtime.shared.test.d.ts
                 - runtime.shared.test.js
+                - runtime.shared.test.js.bak
                 - runtime.telemetry.d.ts
                 - runtime.telemetry.js
+                - runtime.telemetry.js.bak
                 - runtime.tools.d.ts
                 - runtime.tools.js
                 - runtime.tools.test.d.ts
                 - runtime.tools.test.js
+                - runtime.tools.test.js.bak
                 - runtime.types.d.ts
                 - runtime.types.js
               [D] alerts
                 - failRateAlert.d.ts
                 - failRateAlert.js
+                - failRateAlert.js.bak
               [D] engine
                 - runner.agent.smoke.test.d.ts
                 - runner.agent.smoke.test.js
                 - runner.cancel.test.d.ts
                 - runner.cancel.test.js
+                - runner.cancel.test.js.bak
                 - runner.d.ts
                 - runner.db-integration.config.d.ts
                 - runner.db-integration.config.js
+                - runner.db-integration.config.js.bak
                 - runner.db-integration.config.test.d.ts
                 - runner.db-integration.config.test.js
+                - runner.db-integration.config.test.js.bak
                 - runner.db-integration.harness.d.ts
                 - runner.db-integration.harness.js
                 - runner.db-integration.test.d.ts
                 - runner.db-integration.test.js
+                - runner.db-integration.test.js.bak
                 - runner.execution.d.ts
                 - runner.execution.js
+                - runner.execution.js.bak
                 - runner.execution.outcomes.d.ts
                 - runner.execution.outcomes.js
+                - runner.execution.outcomes.js.bak
                 - runner.http.msw.test.d.ts
                 - runner.http.msw.test.js
+                - runner.http.msw.test.js.bak
                 - runner.js
+                - runner.js.bak
                 - runner.shared.d.ts
                 - runner.shared.js
+                - runner.shared.js.bak
                 - runner.transitions.test.d.ts
                 - runner.transitions.test.js
+                - runner.transitions.test.js.bak
                 - runner.workflow-chain.test.d.ts
                 - runner.workflow-chain.test.js
+                - runner.workflow-chain.test.js.bak
               [D] events
                 - internalEventBus.d.ts
                 - internalEventBus.js
+                - internalEventBus.js.bak
               [D] executors
                 - planExecutor.d.ts
                 - planExecutor.defaults.d.ts
                 - planExecutor.defaults.js
+                - planExecutor.defaults.js.bak
                 - planExecutor.js
               - index.d.ts
               - index.js
+              - index.js.bak
               [D] integrations
                 - connectors.runtime.d.ts
                 - connectors.runtime.js
+                - connectors.runtime.js.bak
                 - hubspot.d.ts
                 - hubspot.js
+                - hubspot.js.bak
               - job-security.test.d.ts
               - job-security.test.js
+              - job-security.test.js.bak
               [D] jobs
                 - auditFlush.d.ts
                 - auditFlush.js
+                - auditFlush.js.bak
                 - billingExport.d.ts
                 - billingExport.js
+                - billingExport.js.bak
                 - billingExport.test.d.ts
                 - billingExport.test.js
+                - billingExport.test.js.bak
                 - billingExportStorage.d.ts
                 - billingExportStorage.js
+                - billingExportStorage.js.bak
                 - healthScore.d.ts
                 - healthScore.js
+                - healthScore.js.bak
                 - healthScore.test.d.ts
                 - healthScore.test.js
+                - healthScore.test.js.bak
                 - inviteCleanup.d.ts
                 - inviteCleanup.js
+                - inviteCleanup.js.bak
                 - quotaReset.d.ts
                 - quotaReset.js
+                - quotaReset.js.bak
                 - scheduler.d.ts
                 - scheduler.js
+                - scheduler.js.bak
                 - sunsetPolicy.d.ts
                 - sunsetPolicy.js
+                - sunsetPolicy.js.bak
                 - userCleanup.d.ts
                 - userCleanup.js
+                - userCleanup.js.bak
               [D] lib
                 - rate-limiter.d.ts
                 - rate-limiter.js
               [D] load
                 - baseline.d.ts
                 - baseline.js
+                - baseline.js.bak
                 - benchmark.d.ts
                 - benchmark.js
+                - benchmark.js.bak
                 - parallelLoad.d.ts
                 - parallelLoad.js
+                - parallelLoad.js.bak
                 - parallelLoad.test.d.ts
                 - parallelLoad.test.js
+                - parallelLoad.test.js.bak
               [D] notifications
                 - emailQueue.d.ts
                 - emailQueue.js
+                - emailQueue.js.bak
               [D] observability
                 - otel.d.ts
                 - otel.js
@@ -2392,45 +4013,60 @@
                 - readiness.js
               - planExecutor.test.d.ts
               - planExecutor.test.js
+              - planExecutor.test.js.bak
               [D] queues
                 - agentQueue.d.ts
                 - agentQueue.js
+                - agentQueue.js.bak
                 - workerFactory.d.ts
                 - workerFactory.js
               - runtime.integration.test.d.ts
               - runtime.integration.test.js
+              - runtime.integration.test.js.bak
               - tenant-execution.d.ts
               - tenant-execution.js
+              - tenant-execution.js.bak
               [D] webhooks
                 - outbound.d.ts
                 - outbound.js
+                - outbound.js.bak
               - worker.billing.d.ts
               - worker.billing.js
+              - worker.billing.js.bak
               - worker.d.ts
               - worker.execution-state.d.ts
               - worker.execution-state.js
+              - worker.execution-state.js.bak
               - worker.job-validation.d.ts
               - worker.job-validation.js
+              - worker.job-validation.js.bak
               - worker.job-validation.test.d.ts
               - worker.job-validation.test.js
+              - worker.job-validation.test.js.bak
               - worker.js
               - worker.notifications.d.ts
               - worker.notifications.js
+              - worker.notifications.js.bak
               - worker.process-job.d.ts
               - worker.process-job.js
               - worker.test.d.ts
               - worker.test.js
+              - worker.test.js.bak
             [D] test
               - benchmarkUserCleanup.d.ts
               - benchmarkUserCleanup.js
               - outbound.webhooks.test.d.ts
               - outbound.webhooks.test.js
+              - outbound.webhooks.test.js.bak
               - queue.isolation.test.d.ts
               - queue.isolation.test.js
+              - queue.isolation.test.js.bak
               - readiness.required-dependency.test.d.ts
               - readiness.required-dependency.test.js
+              - readiness.required-dependency.test.js.bak
               - userCleanup.test.d.ts
               - userCleanup.test.js
+              - userCleanup.test.js.bak
         [D] packages
           [D] agents-core
             [D] src
@@ -2518,24 +4154,30 @@
             [D] src
               - api.config.d.ts
               - api.config.js
+              - api.config.js.bak
               - contracts.d.ts
               - contracts.js
+              - contracts.js.bak
               - database.config.d.ts
               - database.config.js
               - environment.d.ts
               - environment.js
               - index.d.ts
               - index.js
+              - index.js.bak
               - logger.config.d.ts
               - logger.config.js
               - product-capabilities.d.ts
               - product-capabilities.js
               - shared.d.ts
               - shared.js
+              - shared.js.bak
               - web.config.d.ts
               - web.config.js
+              - web.config.js.bak
               - worker.config.d.ts
               - worker.config.js
+              - worker.config.js.bak
           [D] database
             [D] src
               - client.d.ts
@@ -2558,6 +4200,7 @@
                 - base.repo.js
                 - engagement.d.ts
                 - engagement.js
+                - engagement.js.bak
                 - index.d.ts
                 - index.js
                 - user-repository.d.ts
@@ -2611,10 +4254,13 @@
               - agent-execution.factory.js
               - factories.d.ts
               - factories.js
+              - factories.js.bak
               - index.d.ts
               - index.js
+              - index.js.bak
               - test-db.d.ts
               - test-db.js
+              - test-db.js.bak
           [D] utils
             [D] src
               - fetch.d.ts
@@ -2671,113 +4317,196 @@
       [D] src
         [D] agents
           - conversations.test.ts
+          - conversations.test.ts.bak
           - conversations.ts
+          - conversations.ts.bak
           - handoffs.test.ts
+          - handoffs.test.ts.bak
           - handoffs.ts
+          - handoffs.ts.bak
           - runtime.artifacts.test.ts
+          - runtime.artifacts.test.ts.bak
           - runtime.artifacts.ts
+          - runtime.artifacts.ts.bak
           - runtime.budget.test.ts
+          - runtime.budget.test.ts.bak
           - runtime.budget.ts
+          - runtime.budget.ts.bak
           - runtime.catalog.test.ts
+          - runtime.catalog.test.ts.bak
           - runtime.catalog.ts
+          - runtime.catalog.ts.bak
           - runtime.db-integration.harness.ts
           - runtime.db-integration.test.ts
+          - runtime.db-integration.test.ts.bak
           - runtime.errors.test.ts
+          - runtime.errors.test.ts.bak
           - runtime.errors.ts
+          - runtime.errors.ts.bak
           - runtime.ingress.test.ts
           - runtime.ingress.ts
           - runtime.memory.test.ts
+          - runtime.memory.test.ts.bak
           - runtime.memory.ts
+          - runtime.memory.ts.bak
           - runtime.mesh.test.ts
+          - runtime.mesh.test.ts.bak
           - runtime.mesh.ts
+          - runtime.mesh.ts.bak
           - runtime.orchestration.ts
+          - runtime.orchestration.ts.bak
           - runtime.resolution.test.ts
+          - runtime.resolution.test.ts.bak
           - runtime.resolution.ts
+          - runtime.resolution.ts.bak
           - runtime.shared.test.ts
+          - runtime.shared.test.ts.bak
           - runtime.shared.ts
+          - runtime.shared.ts.bak
           - runtime.telemetry.ts
+          - runtime.telemetry.ts.bak
           - runtime.tools.test.ts
+          - runtime.tools.test.ts.bak
           - runtime.tools.ts
+          - runtime.tools.ts.bak
           - runtime.types.ts
+          - runtime.types.ts.bak
         [D] alerts
           - failRateAlert.ts
+          - failRateAlert.ts.bak
         [D] engine
           - runner.agent.smoke.test.ts
           - runner.cancel.test.ts
+          - runner.cancel.test.ts.bak
           - runner.db-integration.config.test.ts
+          - runner.db-integration.config.test.ts.bak
           - runner.db-integration.config.ts
+          - runner.db-integration.config.ts.bak
           - runner.db-integration.harness.ts
+          - runner.db-integration.harness.ts.bak
           - runner.db-integration.test.ts
+          - runner.db-integration.test.ts.bak
           - runner.execution.outcomes.ts
+          - runner.execution.outcomes.ts.bak
           - runner.execution.ts
+          - runner.execution.ts.bak
           - runner.http.msw.test.ts
+          - runner.http.msw.test.ts.bak
           - runner.shared.ts
+          - runner.shared.ts.bak
           - runner.transitions.test.ts
+          - runner.transitions.test.ts.bak
           - runner.ts
+          - runner.ts.bak
           - runner.workflow-chain.test.ts
+          - runner.workflow-chain.test.ts.bak
         [D] events
           - internalEventBus.ts
+          - internalEventBus.ts.bak
         [D] executors
           - planExecutor.defaults.ts
+          - planExecutor.defaults.ts.bak
           - planExecutor.ts
+          - planExecutor.ts.bak
         - index.ts
+        - index.ts.bak
         [D] integrations
           - connectors.runtime.ts
+          - connectors.runtime.ts.bak
           - hubspot.ts
+          - hubspot.ts.bak
         - job-security.test.ts
+        - job-security.test.ts.bak
         [D] jobs
           - auditFlush.ts
+          - auditFlush.ts.bak
           - billingExport.test.ts
+          - billingExport.test.ts.bak
           - billingExport.ts
+          - billingExport.ts.bak
           - billingExportStorage.ts
+          - billingExportStorage.ts.bak
           - healthScore.test.ts
+          - healthScore.test.ts.bak
           - healthScore.ts
+          - healthScore.ts.bak
           - inviteCleanup.ts
+          - inviteCleanup.ts.bak
           - quotaReset.ts
+          - quotaReset.ts.bak
           - scheduler.ts
+          - scheduler.ts.bak
           - sunsetPolicy.ts
+          - sunsetPolicy.ts.bak
           - userCleanup.ts
+          - userCleanup.ts.bak
         [D] lib
           - rate-limiter.ts
+          - rate-limiter.ts.bak
         [D] load
           - baseline.ts
+          - baseline.ts.bak
           - benchmark.ts
+          - benchmark.ts.bak
           - parallelLoad.test.ts
+          - parallelLoad.test.ts.bak
           - parallelLoad.ts
+          - parallelLoad.ts.bak
         [D] notifications
           - emailQueue.ts
+          - emailQueue.ts.bak
         [D] observability
           - otel.ts
+          - otel.ts.bak
         [D] operational
           - readiness.ts
+          - readiness.ts.bak
         - planExecutor.test.ts
+        - planExecutor.test.ts.bak
         [D] queues
           - agentQueue.ts
+          - agentQueue.ts.bak
           - workerFactory.ts
+          - workerFactory.ts.bak
         - runtime.integration.test.ts
+        - runtime.integration.test.ts.bak
         - tenant-execution.ts
+        - tenant-execution.ts.bak
         [D] webhooks
           - outbound.ts
+          - outbound.ts.bak
         - worker.billing.ts
+        - worker.billing.ts.bak
         - worker.execution-state.ts
+        - worker.execution-state.ts.bak
         - worker.job-validation.test.ts
+        - worker.job-validation.test.ts.bak
         - worker.job-validation.ts
+        - worker.job-validation.ts.bak
         - worker.notifications.ts
+        - worker.notifications.ts.bak
         - worker.process-job.ts
+        - worker.process-job.ts.bak
         - worker.test.ts
+        - worker.test.ts.bak
         - worker.ts
       [D] test
         - benchmarkUserCleanup.ts
         - outbound.webhooks.test.ts
+        - outbound.webhooks.test.ts.bak
         - queue.isolation.test.ts
+        - queue.isolation.test.ts.bak
         - readiness.required-dependency.test.ts
+        - readiness.required-dependency.test.ts.bak
         - userCleanup.test.ts
+        - userCleanup.test.ts.bak
       - tsconfig.json
   [D] artifacts
     [D] accessibility
       - axe-report.json
     [D] agent-governance
       - executive-agents-governance.json
+      - executive-agents-governance.json.bak
     [D] agent-readiness
       - agent-snapshot-2026-03-24.json
       - github-agents-v1-readiness-report.json
@@ -6908,6 +8637,8 @@
       [D] ci-runs
         [D] 20260322-205239_09c4a36
           - run-manifest.txt
+    [D] coverage
+      - summary.json
     [D] database
       [D] f8
         - fk-index-report.json
@@ -7325,8 +9056,10 @@
   - CHANGELOG.md
   - ci-local.ps1
   - commitlint.config.cjs
+  - commitlint.config.cjs.bak
   - CONTRIBUTING.md
   - CYCLE_LOG.md
+  - CYCLE_LOG.md.bak
   - docker-compose.prod.yml
   - docker-compose.yml
   [D] docs
@@ -9677,52 +11410,122 @@
           - manifest-runtime-intelligence.test.ts
           - slack.tool.test.ts
         [D] execution
+          - dry-run.d.ts
+          - dry-run.js
           - dry-run.ts
+          - index.d.ts
+          - index.js
           - index.ts
+        - index.d.ts
+        - index.js
         - index.ts
         [D] manifest
+          - catalog.d.ts
+          - catalog.js
           - catalog.ts
+          - index.d.ts
+          - index.js
           - index.ts
+          - parser.d.ts
+          - parser.js
           - parser.ts
+          - schema.d.ts
+          - schema.js
           - schema.ts
         [D] memory
+          - memoryService.d.ts
+          - memoryService.js
           - memoryService.ts
         [D] parser
+          - manifestParser.d.ts
+          - manifestParser.js
           - manifestParser.ts
         [D] policy
+          - engine.d.ts
+          - engine.js
           - engine.ts
         [D] runtime
+          - index.d.ts
+          - index.js
           - index.ts
+          - intelligence.d.ts
+          - intelligence.js
           - intelligence.ts
+          - intelligenceRuntime.d.ts
+          - intelligenceRuntime.js
           - intelligenceRuntime.ts
+          - manifestRuntime.d.ts
+          - manifestRuntime.js
           - manifestRuntime.ts
+          - manifestRuntimeBuilders.d.ts
+          - manifestRuntimeBuilders.js
           - manifestRuntimeBuilders.ts
+          - manifestRuntimeCore.d.ts
+          - manifestRuntimeCore.js
           - manifestRuntimeCore.ts
         [D] schemas
+          - manifest.schema.d.ts
+          - manifest.schema.js
           - manifest.schema.ts
         [D] skills
+          - analyzerSkill.d.ts
+          - analyzerSkill.js
           - analyzerSkill.ts
+          - generatorSkill.d.ts
+          - generatorSkill.js
           - generatorSkill.ts
+          - index.d.ts
+          - index.js
           - index.ts
+          - monitorSkill.d.ts
+          - monitorSkill.js
           - monitorSkill.ts
+          - orchestratorSkill.d.ts
+          - orchestratorSkill.js
           - orchestratorSkill.ts
+          - reporterSkill.d.ts
+          - reporterSkill.js
           - reporterSkill.ts
         [D] tools
           [D] __mocks__
             - connectors.mock.ts
+          - baseTool.d.ts
+          - baseTool.js
           - baseTool.ts
+          - calendar.tool.d.ts
+          - calendar.tool.js
           - calendar.tool.ts
+          - crm.tool.d.ts
+          - crm.tool.js
           - crm.tool.ts
+          - dbReadTool.d.ts
+          - dbReadTool.js
           - dbReadTool.ts
+          - dbWriteTool.d.ts
+          - dbWriteTool.js
           - dbWriteTool.ts
+          - email.tool.d.ts
+          - email.tool.js
           - email.tool.ts
+          - httpTool.d.ts
+          - httpTool.js
           - httpTool.ts
+          - index.d.ts
+          - index.js
           - index.ts
+          - sendEmailTool.d.ts
+          - sendEmailTool.js
           - sendEmailTool.test.ts
           - sendEmailTool.ts
+          - slack.tool.d.ts
+          - slack.tool.js
           - slack.tool.ts
+          - storage.tool.d.ts
+          - storage.tool.js
           - storage.tool.ts
         [D] types
+          - index.d.ts
+          - index.js
           - index.ts
       [D] test
         - parser.test.ts
@@ -10140,6 +11943,19 @@
         - factories.js
         - index.d.ts
         - index.js
+        [D] src
+          - agent-execution.factory.d.ts
+          - agent-execution.factory.js
+          - agent-execution.factory.test.d.ts
+          - agent-execution.factory.test.js
+          - factories.d.ts
+          - factories.js
+          - index.d.ts
+          - index.js
+          - test-db.d.ts
+          - test-db.js
+          - test-db.test.d.ts
+          - test-db.test.js
         - test-db.d.ts
         - test-db.js
         - test-db.test.d.ts
@@ -10259,6 +12075,7 @@
   - pnpm-lock.yaml
   - pnpm-workspace.yaml
   - prettier.config.cjs
+  - prettier.config.cjs.bak
   - pytest.ini
   - README.md
   [D] releases

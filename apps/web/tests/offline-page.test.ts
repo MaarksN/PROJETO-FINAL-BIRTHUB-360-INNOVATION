@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -13,3 +13,4 @@ void test("offline page renders contingency messaging", async () => {
   assert.match(markup, /Tentar novamente/);
   assert.match(markup, /Ver healthcheck/);
 });
+

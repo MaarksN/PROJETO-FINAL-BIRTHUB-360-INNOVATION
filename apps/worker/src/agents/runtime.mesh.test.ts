@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -123,3 +123,4 @@ void test("buildAgentMeshExecutionBlueprint ranks specialists by domain and segm
   assert.equal(blueprint.workflowPlan.length > 0, true);
   assert.equal(blueprint.approvalRecommendation.required, true);
 });
+

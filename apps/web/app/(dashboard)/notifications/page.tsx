@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { useEffect, useMemo } from "react";
@@ -187,3 +187,4 @@ export default function NotificationsPage() {
     </main>
   );
 }
+

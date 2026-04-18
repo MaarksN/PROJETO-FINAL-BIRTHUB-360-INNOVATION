@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { ApiConfig } from "@birthub/config";
 import { createLogger } from "@birthub/logger";
@@ -327,3 +327,4 @@ export async function cancelBillingForOrganization(input: {
     stripeSubscriptionId: subscription.stripeSubscriptionId
   };
 }
+

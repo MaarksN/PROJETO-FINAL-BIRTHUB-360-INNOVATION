@@ -1,4 +1,4 @@
-# Cycle 5 - Agents Risk Matrix
+﻿# Cycle 5 - Agents Risk Matrix
 
 - Data da revisao: 2026-04-11
 - Escopo: 15 agentes executivos
@@ -44,3 +44,4 @@ Riscos efetivamente derrubados nesta rodada:
 ## Conclusao honesta
 
 O risco dominante nao e "agente nao roda". O risco dominante continua sendo "agente roda sem governanca suficiente para ser operado com confianca". A diferenca agora e que a familia deixou de ser monoliticamente estrutural: o `boardprep-ai` subiu para `parcial`, mas o portfolio como um todo ainda nao e operacional.
+

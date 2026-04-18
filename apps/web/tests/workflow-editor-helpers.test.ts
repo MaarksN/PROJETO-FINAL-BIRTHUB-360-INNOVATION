@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -138,3 +138,4 @@ void test("workflow editor helpers use the session-aware timeout path for dry ru
     restoreEnvValue("NEXT_PUBLIC_ENVIRONMENT", originalEnvironment);
   }
 });
+

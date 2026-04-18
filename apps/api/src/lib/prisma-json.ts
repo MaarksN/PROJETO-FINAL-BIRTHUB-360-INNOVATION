@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Prisma } from "@birthub/database";
 
@@ -53,3 +53,4 @@ export function toPrismaJsonValue(value: unknown): Prisma.InputJsonValue | typeo
   const normalized = toPrismaNestedJsonValue(value);
   return normalized === null ? Prisma.JsonNull : normalized;
 }
+

@@ -1,4 +1,4 @@
-# Cycle 7 Go-Live Decision
+﻿# Cycle 7 Go-Live Decision
 
 ## Decisão final
 
@@ -154,3 +154,4 @@ Reabrir avaliação de go-live somente quando houver, no mesmo HEAD:
 ## Parecer honesto
 
 O repositório mostra esforço sério de governança, evidência e release engineering, mas isso ainda não se traduz em um go-live tecnicamente defensável. O estado atual é de **não apto**.
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createHash } from "node:crypto";
 
@@ -242,3 +242,4 @@ class OutputService {
 }
 
 export const outputService = new OutputService();
+

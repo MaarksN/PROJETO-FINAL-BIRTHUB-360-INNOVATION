@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { prisma } from "@birthub/database";
 import { existsSync } from "node:fs";
@@ -201,3 +201,4 @@ export async function resolveManagedPolicies(input: {
 
   return parseAgentConfig(agent.config).managedPolicies;
 }
+

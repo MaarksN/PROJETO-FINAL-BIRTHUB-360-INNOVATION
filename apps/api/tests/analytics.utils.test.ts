@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -17,3 +17,4 @@ void test("resolveDateRange preserves explicit range boundaries", () => {
 void test("uniqueTenantCount deduplicates tenant identifiers", () => {
   assert.equal(uniqueTenantCount(["tenant_a", "tenant_b", "tenant_a", "tenant_c"]), 3);
 });
+

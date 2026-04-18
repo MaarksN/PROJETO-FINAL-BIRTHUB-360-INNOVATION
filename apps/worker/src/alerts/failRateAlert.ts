@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createLogger } from "@birthub/logger";
 
@@ -82,3 +82,4 @@ export async function evaluateFailRateAlerts(input: {
 
   return alerts;
 }
+

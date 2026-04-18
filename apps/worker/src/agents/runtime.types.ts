@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type {
   AgentLearningRecord,
@@ -53,3 +53,4 @@ export interface AuditMemoryPayload {
 
 export type RuntimeMemoryBackend = AgentMemoryBackend;
 export type RuntimeManifestCatalogEntry = ManifestCatalogEntry;
+

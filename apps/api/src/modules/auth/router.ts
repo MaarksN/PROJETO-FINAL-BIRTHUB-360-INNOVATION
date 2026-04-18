@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import type { ApiConfig } from "@birthub/config";
 import type { z } from "zod";
 import {
@@ -420,3 +420,4 @@ export function mountAuthRoutes(
   const createRouter = dependencies.createAuthRouter ?? createAuthRouter;
   target.use(AUTH_ROUTER_BASE_PATH, createRouter(config));
 }
+

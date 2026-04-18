@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { z } from "zod";
 
 export const conversationQuerySchema = z.object({
@@ -22,3 +22,4 @@ export const appendMessageSchema = z.object({
 export const updateStatusSchema = z.object({
   status: z.string().trim().min(1).max(40)
 });
+

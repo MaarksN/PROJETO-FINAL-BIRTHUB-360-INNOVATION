@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { getWebConfig } from "@birthub/config/web";
 import Link from "next/link";
 
@@ -168,3 +168,4 @@ export default async function ReportsPage({
     </main>
   );
 }
+

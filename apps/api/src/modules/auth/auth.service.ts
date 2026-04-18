@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   UserStatus,
@@ -215,3 +215,4 @@ export async function authenticateRequest(input: {
 
   return null;
 }
+

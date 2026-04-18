@@ -1,4 +1,4 @@
-# Ciclo 6 - Billing Architecture Review
+﻿# Ciclo 6 - Billing Architecture Review
 
 ## Escopo e base efetiva
 Este ciclo revisa a camada real de monetização do produto com foco em planos, assinaturas, billing, reconciliação Stripe, quotas e prontidão comercial.
@@ -179,3 +179,4 @@ A arquitetura de billing é suficiente para uma operação limitada de assinatur
 - Gate operacional do webhook Stripe: `apps/api/src/app/core.ts:154`, `apps/api/src/app/core.ts:155`, `apps/api/src/app/core.ts:159`
 - Risco de periodo incorreto via checkout: `apps/api/src/modules/billing/service.reconciliation.handlers.ts:79`
 - Grace period e `past_due`: `apps/api/src/modules/billing/service.reconciliation.handlers.ts:228`, `apps/api/src/modules/billing/service.reconciliation.handlers.ts:244`, `apps/api/src/modules/billing/service.reconciliation.handlers.ts:245`
+

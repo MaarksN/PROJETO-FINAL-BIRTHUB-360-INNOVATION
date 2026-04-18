@@ -1,4 +1,4 @@
-# Cycle 4 - Web Auth Review
+﻿# Cycle 4 - Web Auth Review
 
 Date: 2026-04-11
 
@@ -91,3 +91,4 @@ This mismatch remains a documentation/governance gap.
 ## Auth verdict
 
 Cycle 4 materially improved the auth boundary. The web is no longer pretending that client renderability equals authorization. The remaining weak point is not the new guard model; it is the amount of legacy UI still outside that hardened path, plus residual `@ts-nocheck` and missing end-to-end auth regression coverage.
+

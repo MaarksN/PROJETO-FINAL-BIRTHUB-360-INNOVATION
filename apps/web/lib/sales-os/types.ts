@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 export type SalesOsModuleId =
   | "exec"
   | "presales"
@@ -58,3 +58,4 @@ export interface SalesOsChatMessage {
 export type ModuleType = SalesOsModuleId;
 export type ToolField = SalesOsField;
 export type Tool = SalesOsTool;
+

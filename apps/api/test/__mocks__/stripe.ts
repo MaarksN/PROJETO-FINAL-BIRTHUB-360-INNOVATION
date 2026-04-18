@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type Stripe from "stripe";
 
@@ -41,3 +41,4 @@ export function createStripeMock(overrides: StripeOverride = {}): Stripe {
     }
   } as unknown as Stripe;
 }
+

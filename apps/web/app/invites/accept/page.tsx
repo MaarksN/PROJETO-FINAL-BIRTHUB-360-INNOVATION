@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 "use client";
 
@@ -121,3 +121,4 @@ export default function AcceptInvitePage() {
     </main>
   );
 }
+

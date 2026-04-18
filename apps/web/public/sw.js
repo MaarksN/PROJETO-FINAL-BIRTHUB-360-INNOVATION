@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 const CACHE_NAME = "birthhub-pwa-v2";
 const PRECACHE_URLS = ["/", "/offline", "/manifest.json", "/brand/birthhub360-mark.svg"];

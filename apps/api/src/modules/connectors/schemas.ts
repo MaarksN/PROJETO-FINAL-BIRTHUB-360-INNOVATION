@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { z } from "zod";
 
 export const providerSchema = z.enum([
@@ -64,3 +64,4 @@ export type ConnectPayload = z.infer<typeof connectSchema>;
 export type CallbackPayload = z.infer<typeof callbackSchema>;
 export type SyncPayload = z.infer<typeof syncSchema>;
 export type UpsertConnectorPayload = z.infer<typeof upsertConnectorSchema>;
+

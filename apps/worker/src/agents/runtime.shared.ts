@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { existsSync } from "node:fs";
 import path from "node:path";
@@ -193,3 +193,4 @@ export function createRuntimeError(code: string, message: string): Error & { cod
   error.code = code;
   return error;
 }
+

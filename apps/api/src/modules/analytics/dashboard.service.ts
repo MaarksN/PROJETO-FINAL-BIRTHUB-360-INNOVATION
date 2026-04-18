@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getApiConfig } from "@birthub/config";
 import { SubscriptionStatus, prisma } from "@birthub/database";
@@ -211,3 +211,4 @@ export const analyticsDashboardService = {
   getMasterAdminDashboard,
   getOperationsDashboard
 } as const;
+

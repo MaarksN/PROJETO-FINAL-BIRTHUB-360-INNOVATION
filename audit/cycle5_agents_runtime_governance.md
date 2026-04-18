@@ -1,4 +1,4 @@
-# Cycle 5 - Agents Runtime Governance
+﻿# Cycle 5 - Agents Runtime Governance
 
 - Data da revisao: 2026-04-11
 - Escopo: runtime e governanca de 15 agentes executivos
@@ -82,3 +82,4 @@ Familia coberta nos testes desta rodada:
 ## Conclusao honesta
 
 O sistema executivo nao esta quebrado no sentido funcional local. Ele melhorou de forma real neste ciclo e ja tem 1 agente em estado `parcial`, mas o portfolio ainda nao ultrapassa a fronteira da governanca local por agente. Sem enforcement compartilhado e sem sink operacional, a familia continua controlavel mais pelo codigo do agente do que pela plataforma.
+

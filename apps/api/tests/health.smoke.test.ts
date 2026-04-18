@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -119,3 +119,4 @@ void test("readiness endpoint returns 503 when deep dependencies are degraded", 
   assert.equal(body.services.database.status, "degraded");
   assert.equal(body.services.database.latencyMs, 901);
 });
+

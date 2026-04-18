@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 export { getAgentQueueName, type AgentQueuePriority } from "@birthub/queue";
 
@@ -13,3 +13,4 @@ export interface AgentQueuePayload {
     tool: string;
   }>;
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { Router } from "express";
 
 import { requireAuthenticatedSession } from "../../common/guards/index.js";
@@ -225,3 +225,4 @@ export function createConversationsRouter(): Router {
 
   return router;
 }
+

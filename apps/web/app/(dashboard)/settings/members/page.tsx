@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 const members = [
   { name: "Marina Costa", email: "marina@birthub.local", role: "Owner", status: "Ativo" },
@@ -74,3 +74,4 @@ export default function MembersPage() {
     </>
   );
 }
+

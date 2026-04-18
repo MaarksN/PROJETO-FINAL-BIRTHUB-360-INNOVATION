@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createHash } from "node:crypto";
 
@@ -97,3 +97,4 @@ export function createDefaultTools(): Record<string, BaseTool<unknown, unknown>>
     }) as BaseTool<unknown, unknown>
   };
 }
+

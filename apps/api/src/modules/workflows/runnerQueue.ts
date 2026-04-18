@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 import { createHash } from "node:crypto";
 
@@ -91,3 +91,4 @@ export async function dedupeTriggerPayload(
   const key = `workflow:trigger:dedupe:${tenantId}:${hash}`;
   return queueClient.claimDeduplicationKey(key, 5, { redisUrl: config.REDIS_URL });
 }
+

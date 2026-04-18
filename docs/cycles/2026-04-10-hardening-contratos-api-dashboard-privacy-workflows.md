@@ -1,4 +1,4 @@
-# Template de Execucao por Ciclo
+﻿# Template de Execucao por Ciclo
 
 ## Objetivo do ciclo
 Fechar em um unico lote o endurecimento dos contratos HTTP mais adjacentes do `apps/api`: onboarding do dashboard, retention/privacy e reversao de revisoes de workflow, com validacao automatizada e rastreabilidade atualizada.
@@ -113,3 +113,4 @@ C. Plano executavel do ciclo atual
 D. Implementacao
 E. Validacao
 F. Status
+

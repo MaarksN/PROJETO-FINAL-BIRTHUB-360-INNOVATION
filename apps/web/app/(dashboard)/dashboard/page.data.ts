@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { fetchProductJson } from "../../../lib/product-api.server";
 import { getProductCapabilities } from "../../../lib/product-capabilities";
 
@@ -161,3 +161,4 @@ export async function loadDashboardHomePage() {
     workflows
   };
 }
+

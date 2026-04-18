@@ -1,4 +1,4 @@
-# Ciclo 6 - Commercial Readiness
+﻿# Ciclo 6 - Commercial Readiness
 
 ## Classificação final
 Classificação honesta: `operacional limitada`
@@ -82,3 +82,4 @@ O produto está acima de um estágio meramente estrutural porque já cobra assin
 - A UI de pricing deve consumir o catalogo canônico sem aliases improvisados nem calculo local de preco anual.
 - A narrativa comercial precisa ser reduzida ao que o codigo efetivamente controla ou, alternativamente, o enforcement tecnico precisa ser implementado.
 - O dominio de billing e metering precisa passar em lint sem dependencia massiva de `@ts-nocheck`.
+

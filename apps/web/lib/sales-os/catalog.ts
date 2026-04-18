@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { TOOLS } from "./constants";
 import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types";
 
@@ -113,3 +113,4 @@ export function getSalesOsToolsByModule(moduleId: SalesOsModuleId): SalesOsTool[
 export function findSalesOsTool(toolId: string): SalesOsTool | undefined {
   return salesOsTools.find((tool) => tool.id === toolId);
 }
+

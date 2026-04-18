@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -51,3 +51,4 @@ void test("health returns 503 when required API dependency is unavailable", asyn
     }
   }
 });
+

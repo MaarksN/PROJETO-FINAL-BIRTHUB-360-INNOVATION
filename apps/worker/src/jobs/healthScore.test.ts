@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -39,3 +39,4 @@ void test("shouldEmitChurnRisk only triggers on the threshold crossing", () => {
   assert.equal(shouldEmitChurnRisk(39, 20), false);
   assert.equal(shouldEmitChurnRisk(60, 40), false);
 });
+

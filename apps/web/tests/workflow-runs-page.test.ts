@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -139,3 +139,4 @@ void test("workflow runs helpers load and retry through the session-aware timeou
     restoreEnvValue("NEXT_PUBLIC_ENVIRONMENT", originalEnvironment);
   }
 });
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import Link from "next/link";
 
 import {
@@ -103,3 +103,4 @@ export default async function WorkflowsPage() {
     </main>
   );
 }
+

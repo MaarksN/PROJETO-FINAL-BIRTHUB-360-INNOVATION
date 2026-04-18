@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
@@ -41,3 +41,4 @@ void testIfDatabase("query com 10k registros de um tenant unico fica abaixo de 1
         await prisma.$disconnect();
     }
 });
+

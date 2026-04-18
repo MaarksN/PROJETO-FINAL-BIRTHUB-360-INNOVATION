@@ -1,4 +1,4 @@
-# Root Cause — Final Fixes
+﻿# Root Cause — Final Fixes
 
 ## 1) comando
 `pnpm typecheck`
@@ -61,3 +61,4 @@
   - exigir DB apenas com `--require-db`.
   - incluir rotas curtas públicas.
   - sincronizar e corrigir validações no `migration-registry.json`.
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import test from "node:test";
@@ -73,3 +73,4 @@ void test.skip("fhirService.getAppointment maps appointment status without Prism
         restores.reverse().forEach((restore) => restore());
     }
 });
+

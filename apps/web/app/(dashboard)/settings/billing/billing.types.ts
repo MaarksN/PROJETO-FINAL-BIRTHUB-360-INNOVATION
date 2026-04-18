@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export type MePayload = {
   plan?: {
@@ -71,3 +71,4 @@ export type BudgetPanelProps = {
   onLimitChange: (limit: number) => void;
   onSaveBudget: () => void;
 };
+

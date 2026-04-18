@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { prisma } from "@birthub/database";
 
@@ -280,3 +280,4 @@ export class AgentMetricsService {
 }
 
 export const agentMetricsService = new AgentMetricsService();
+

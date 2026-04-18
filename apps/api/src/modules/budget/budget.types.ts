@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export class BudgetExceededError extends Error {
   readonly agentId: string;
@@ -42,3 +42,4 @@ export interface BudgetUsageEvent {
   tenantId: string;
   timestamp: string;
 }
+

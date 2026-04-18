@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 "use client";
 
@@ -448,3 +448,4 @@ export default function WorkflowRunsPage({ params }: { params: Promise<{ id: str
     </section>
   );
 }
+

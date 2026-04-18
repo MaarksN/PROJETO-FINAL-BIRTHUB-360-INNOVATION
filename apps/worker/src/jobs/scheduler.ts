@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 //
 import { prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
@@ -152,3 +152,4 @@ export async function startCycle2Jobs(runtime: QueueRuntime): Promise<Cycle2Jobs
     stop: () => Promise.resolve()
   };
 }
+

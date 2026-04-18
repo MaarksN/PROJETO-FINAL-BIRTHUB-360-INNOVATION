@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
@@ -207,3 +207,4 @@ export async function fetchOutputDetail(outputId: string) {
     };
   }>(`${config.NEXT_PUBLIC_API_URL}/api/v1/outputs/${encodeURIComponent(outputId)}`);
 }
+

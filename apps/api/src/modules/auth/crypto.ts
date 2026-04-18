@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   createCipheriv,
@@ -356,3 +356,4 @@ export function decryptSensitiveValue(payload: string, secret: string): string {
 
   return decrypted.toString("utf8");
 }
+

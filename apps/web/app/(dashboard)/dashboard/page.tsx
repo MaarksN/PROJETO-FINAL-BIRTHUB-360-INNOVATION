@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import Link from "next/link";
 
 import { ProductPageHeader } from "../../../components/dashboard/page-fragments";
@@ -102,3 +102,4 @@ export default async function DashboardHomePage() {
     </main>
   );
 }
+

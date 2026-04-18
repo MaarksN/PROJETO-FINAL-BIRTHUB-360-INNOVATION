@@ -1,4 +1,4 @@
-# Cycle 7 Release Readiness Review
+﻿# Cycle 7 Release Readiness Review
 
 ## Escopo e base efetiva
 
@@ -188,3 +188,4 @@ O projeto possui **estrutura de release**, mas não possui **release comprovavel
 - manifesto de checksums estruturalmente inconsistente
 
 Parecer deste bloco: **release não pronta para go-live**.
+

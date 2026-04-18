@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import React from "react";
 import type { Metadata } from "next";
@@ -36,3 +36,4 @@ export default async function RootLayout({
     </html>
   );
 }
+

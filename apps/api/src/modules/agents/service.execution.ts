@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { randomUUID } from "node:crypto";
 
@@ -219,3 +219,4 @@ export async function queueInstalledAgentExecution(input: {
     reused: false
   };
 }
+

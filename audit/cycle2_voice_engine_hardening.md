@@ -1,4 +1,4 @@
-# Cycle 2 - Voice Engine Hardening
+﻿# Cycle 2 - Voice Engine Hardening
 
 ## Overview
 Deep hardening executed for `apps/voice-engine` focusing on removing unsafe Typescript directives and fundamentally improving runtime types and observability.
@@ -19,3 +19,4 @@ Deep hardening executed for `apps/voice-engine` focusing on removing unsafe Type
 
 ## Remaining Risks
 1. Still somewhat reliant on casting logic in `decodeSocketPayload`.
+

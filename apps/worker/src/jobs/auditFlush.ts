@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { type Prisma, prisma } from "@birthub/database";
 
@@ -17,3 +17,4 @@ export async function flushBufferedAuditEvents(): Promise<number> {
 
   return batch.length;
 }
+

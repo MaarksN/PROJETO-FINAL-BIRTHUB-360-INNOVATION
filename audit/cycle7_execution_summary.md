@@ -1,4 +1,4 @@
-# Cycle 7 Execution Summary
+﻿# Cycle 7 Execution Summary
 
 ## Contexto
 
@@ -118,3 +118,4 @@ Resumo:
 - existe estrutura séria de release;
 - existe materialização parcial de artefatos;
 - não existe ainda evidência suficiente para defender go-live com segurança e rastreabilidade adequadas.
+

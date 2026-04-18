@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -41,3 +41,4 @@ void test.skip("clinical data helpers build svg path and agenda heading", () => 
   assert.match(path, /L /);
   assert.match(buildAgendaHeading("Agenda da semana", "2026-04-07"), /Agenda da semana/);
 });
+

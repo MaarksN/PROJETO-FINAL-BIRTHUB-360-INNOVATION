@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { Router } from "express";
 import { z } from "zod";
@@ -218,3 +218,4 @@ export function createOutputRouter(): Router {
 
   return router;
 }
+

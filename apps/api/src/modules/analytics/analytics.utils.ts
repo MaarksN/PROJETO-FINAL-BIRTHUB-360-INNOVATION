@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { DateRange } from "./analytics.types.js";
 
@@ -12,3 +12,4 @@ export function resolveDateRange(range?: Partial<DateRange>, fallbackDays = 30):
 export function uniqueTenantCount(values: string[]): number {
   return new Set(values).size;
 }
+

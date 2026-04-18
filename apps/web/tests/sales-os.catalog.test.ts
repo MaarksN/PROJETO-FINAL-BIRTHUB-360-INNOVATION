@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import assert from "node:assert/strict";
 import test from "node:test";
 
@@ -24,3 +24,4 @@ void test("sales os catalog preserves the imported canonical tools", () => {
   assert.equal(findSalesOsTool("fintech_sardrafter")?.name, "SARDrafter");
   assert.equal(findSalesOsTool("predictive_lead_scoring")?.modules[0], "presales");
 });
+

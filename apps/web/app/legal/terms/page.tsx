@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export const dynamic = "force-static";
 
@@ -74,3 +74,4 @@ export default function TermsPage() {
     </main>
   );
 }
+

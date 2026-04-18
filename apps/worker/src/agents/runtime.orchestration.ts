@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import {
   buildSegmentKeywords,
@@ -290,3 +290,4 @@ export async function executeManifestAgentRuntime(
     toolCost
   };
 }
+

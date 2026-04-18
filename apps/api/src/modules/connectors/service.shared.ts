@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import type { ApiConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
@@ -332,3 +332,4 @@ export async function upsertCredentials(input: {
     )
   );
 }
+

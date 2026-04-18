@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
@@ -174,3 +174,4 @@ export default function OnboardingPage() {
     </main>
   );
 }
+

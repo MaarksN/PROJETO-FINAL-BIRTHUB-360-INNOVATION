@@ -1,4 +1,4 @@
-# Cycle 4 - Web Runtime Hardening
+﻿# Cycle 4 - Web Runtime Hardening
 
 Date: 2026-04-11
 
@@ -101,3 +101,4 @@ This did not block web typecheck/build/tests, but it does reduce trust in any fa
 ## Runtime verdict
 
 Cycle 4 clearly hardened the runtime boundary. The web now behaves like a sessioned SaaS frontend in the critical auth paths instead of a thin client carrying bearer state in browser storage. The remaining blocker to calling this runtime mature is not correctness of the new pieces; it is the amount of untouched legacy surface still hidden behind `@ts-nocheck` and inconsistent transport patterns.
+

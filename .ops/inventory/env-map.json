@@ -793,12 +793,32 @@
       "match": "postgresql://postgres:postgres@localhost"
     },
     {
+      "file": "apps/api/test/tenant-cache.hit-miss.test.js",
+      "match": "postgresql://cache-test"
+    },
+    {
       "file": "apps/api/test/tenant-cache.hit-miss.test.ts",
       "match": "postgresql://cache-test"
     },
     {
+      "file": "apps/api/tests/billing.cache.test.js",
+      "match": "redis://unit-test:6379"
+    },
+    {
       "file": "apps/api/tests/billing.cache.test.ts",
       "match": "redis://unit-test:6379"
+    },
+    {
+      "file": "apps/api/tests/database-availability.test.js",
+      "match": "postgresql://postgres:postgres@localhost"
+    },
+    {
+      "file": "apps/api/tests/database-availability.test.js",
+      "match": "postgresql://birthub:secret@db.example.c"
+    },
+    {
+      "file": "apps/api/tests/database-availability.test.js",
+      "match": "postgresql://postgres:postgres@localhost"
     },
     {
       "file": "apps/api/tests/database-availability.test.ts",
@@ -813,8 +833,24 @@
       "match": "postgresql://postgres:postgres@localhost"
     },
     {
+      "file": "apps/api/tests/environment-runtime.test.js",
+      "match": "postgresql://postgres:postgres@localhost"
+    },
+    {
       "file": "apps/api/tests/environment-runtime.test.ts",
       "match": "postgresql://postgres:postgres@localhost"
+    },
+    {
+      "file": "apps/api/tests/test-config.js",
+      "match": "whsec_birthub360"
+    },
+    {
+      "file": "apps/api/tests/test-config.js",
+      "match": "postgresql://postgres:postgres@localhost"
+    },
+    {
+      "file": "apps/api/tests/test-config.js",
+      "match": "redis://localhost:6379"
     },
     {
       "file": "apps/api/tests/test-config.ts",

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import React from "react";
 import Link from "next/link";
 
@@ -78,3 +78,4 @@ export default function OfflinePage() {
     </main>
   );
 }
+

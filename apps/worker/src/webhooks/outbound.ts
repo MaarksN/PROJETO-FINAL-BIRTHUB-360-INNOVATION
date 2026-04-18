@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { createHmac } from "node:crypto";
 
@@ -236,3 +236,4 @@ export async function processOutboundWebhookJob(
     throw error;
   }
 }
+

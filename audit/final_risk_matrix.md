@@ -1,4 +1,4 @@
-# Matriz de Riscos
+﻿# Matriz de Riscos
 
 ## 🔴 Crítico
 - Web irbuildável por `Module not found: @birthub/workflows-core` e React mismatch (apps/web/*). Sem build não há release nem rollback.
@@ -22,3 +22,4 @@
 ## 🔵 Baixo
 - HTTP client de integrações sem circuit breaker robusto ou correlação por tenant.
 - Catálogo e schemas extensos sem particionamento elevam custo de mudança e revisão.
+

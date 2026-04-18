@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { randomBytes } from "node:crypto";
 
@@ -220,3 +220,4 @@ export async function cleanupExpiredInvites() {
     }
   });
 }
+

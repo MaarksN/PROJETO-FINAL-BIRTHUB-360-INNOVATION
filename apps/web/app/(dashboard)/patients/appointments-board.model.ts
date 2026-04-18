@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
@@ -223,3 +223,4 @@ export function useAppointmentsBoardModel(input: {
     windowLabel
   };
 }
+

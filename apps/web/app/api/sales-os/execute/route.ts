@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { NextResponse } from "next/server";
 
 import { executeSalesOsTool } from "../../../../lib/sales-os/engine";
@@ -35,3 +35,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

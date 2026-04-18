@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { cookies, headers } from "next/headers";
 
@@ -20,3 +20,4 @@ export async function getRequestLocale(): Promise<SupportedLocale> {
   const requestHeaders = await headers();
   return resolveLocale(requestHeaders.get("accept-language"));
 }
+

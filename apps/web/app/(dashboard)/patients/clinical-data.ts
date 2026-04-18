@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { fetchWithSession } from "../../../lib/auth-client";
@@ -413,3 +413,4 @@ export async function deleteClinicalNote(noteGroupId: string) {
     }
   );
 }
+

@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 export class LimitExceededError extends Error {
   readonly current: number;
@@ -13,3 +13,4 @@ export class LimitExceededError extends Error {
     this.resource = input.resource;
   }
 }
+

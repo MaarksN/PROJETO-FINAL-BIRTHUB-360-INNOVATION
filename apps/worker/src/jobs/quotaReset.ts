@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { QuotaResourceType, prisma } from "@birthub/database";
 
@@ -60,3 +60,4 @@ export async function quotaResetJob(reference = new Date()) {
     upserts
   };
 }
+

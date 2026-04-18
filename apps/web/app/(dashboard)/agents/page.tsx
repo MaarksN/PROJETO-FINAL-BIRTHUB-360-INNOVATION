@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import Link from "next/link";
 
@@ -171,3 +171,4 @@ export default async function AgentsPage() {
     </section>
   );
 }
+

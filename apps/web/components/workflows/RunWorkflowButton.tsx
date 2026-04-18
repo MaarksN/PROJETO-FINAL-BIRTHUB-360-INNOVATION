@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 "use client";
 
 import { Play } from "lucide-react";
@@ -40,3 +40,4 @@ export function RunWorkflowButton({ workflowId }: Readonly<{ workflowId: string 
     </div>
   );
 }
+

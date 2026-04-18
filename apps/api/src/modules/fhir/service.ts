@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 import { Prisma, prisma } from "@birthub/database";
 import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
@@ -475,3 +475,4 @@ export const fhirService = {
     return toAppointmentResource(appointment);
   }
 };
+

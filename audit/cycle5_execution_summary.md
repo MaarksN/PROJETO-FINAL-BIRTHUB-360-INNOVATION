@@ -1,4 +1,4 @@
-# Cycle 5 - Execution Summary
+﻿# Cycle 5 - Execution Summary
 
 - Data: 2026-04-11
 - Tema: agentes executivos, contratos e governanca de execucao
@@ -67,3 +67,4 @@ Em outras palavras: o sistema esta acima de um prototipo, mas abaixo de uma oper
 ## Fechamento
 
 O Ciclo 5 nao encontrou ausencia de arquitetura de agente. Encontrou, sim, um portfolio que ainda depende demais de disciplina local de cada `agent.ts`. O proximo salto de maturidade nao e criar mais contratos; e fazer com que a correlacao ja materializada e a governanca declarada passem a governar a execucao real.
+

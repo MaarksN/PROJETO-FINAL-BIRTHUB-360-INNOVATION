@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import { randomUUID } from "node:crypto";
 
@@ -8,3 +8,4 @@ export async function getServerRequestId(): Promise<string> {
   const cookieStore = await cookies();
   return cookieStore.get("bh_request_id")?.value ?? randomUUID();
 }
+

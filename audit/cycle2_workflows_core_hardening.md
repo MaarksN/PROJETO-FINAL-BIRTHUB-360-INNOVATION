@@ -1,4 +1,4 @@
-# Cycle 2 - Workflows Core Hardening
+﻿# Cycle 2 - Workflows Core Hardening
 
 ## Overview
 Deep observability and typing applied to workflow core loop nodes.
@@ -17,3 +17,4 @@ Deep observability and typing applied to workflow core loop nodes.
 
 ## Remaining Risks
 1. Execution context could still have weak typings on deeply dynamic DAG errors.
+

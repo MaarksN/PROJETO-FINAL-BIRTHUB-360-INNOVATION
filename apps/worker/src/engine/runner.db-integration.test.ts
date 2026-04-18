@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-expect-error TODO: remover suppressão ampla
 // 
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
@@ -173,3 +173,4 @@ void test("Workflow runner integration persists DB-backed execution and agent ha
     await handle.cleanup();
   }
 });
+
