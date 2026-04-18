@@ -23,14 +23,12 @@ const turbopackAliases = {
   "@birthub/config": pathToFileURL(path.join(repoRoot, "packages/config/dist/index.js")).href,
   "@birthub/config/web": pathToFileURL(path.join(repoRoot, "packages/config/dist/web.js")).href,
   "@birthub/config/web.js": pathToFileURL(path.join(repoRoot, "packages/config/dist/web.js")).href,
-  "@birthub/logger": pathToFileURL(
-    path.join(repoRoot, "packages/logger/dist/logger/index.js")
-  ).href,
-  "@birthub/workflows-core": pathToFileURL(
-    path.join(repoRoot, "packages/workflows-core/dist/workflows-core/src/index.js")
-  ).href,
+  "@birthub/logger": pathToFileURL(path.join(repoRoot, "packages/logger/dist/index.js")).href,
+  "@birthub/utils": pathToFileURL(path.join(repoRoot, "packages/utils/dist/index.js")).href,
+  "@birthub/utils/fetch": pathToFileURL(path.join(repoRoot, "packages/utils/dist/fetch.js")).href,
+  "@birthub/workflows-core": pathToFileURL(path.join(repoRoot, "packages/workflows-core/dist/index.js")).href,
   "@birthub/workflows-core/nextjs": pathToFileURL(
-    path.join(repoRoot, "packages/workflows-core/dist/workflows-core/src/nextjs.js")
+    path.join(repoRoot, "packages/workflows-core/dist/nextjs.js")
   ).href
 };
 
@@ -95,6 +93,15 @@ const nextConfig = {
   outputFileTracingRoot: path.join(__dirname, "../.."),
   poweredByHeader: false,
   reactStrictMode: true,
+  webpack(config) {
+    config.resolve.extensionAlias = {
+      ".js": [".ts", ".tsx", ".js"],
+      ".mjs": [".mts", ".mjs"],
+      ".cjs": [".cts", ".cjs"]
+    };
+
+    return config;
+  },
   headers() {
     return Promise.resolve([
       {
