@@ -10,8 +10,7 @@
       "node"
     ]
   },
-  "include": [
-    "src/**/*.ts"
+  "include": ["./src/**/*.ts"
   ],
   "exclude": [
     "dist",

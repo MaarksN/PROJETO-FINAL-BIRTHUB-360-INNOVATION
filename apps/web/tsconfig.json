@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "allowImportingTsExtensions": true,
     "incremental": false,
     "moduleResolution": "bundler",
