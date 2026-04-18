@@ -7,7 +7,7 @@ import ReactFlow from "reactflow";
 import { Background, MiniMap } from "reactflow";
 import "reactflow/dist/style.css";
 
-import type { WorkflowCanvas } from "@birthub/workflows-core";
+import type { WorkflowCanvas } from "@birthub/workflows-core/nextjs";
 
 import { fetchWithSession } from "../../../../../lib/auth-client";
 import { canvasToFlow, nodeTypes } from "../edit/workflow-editor-helpers";

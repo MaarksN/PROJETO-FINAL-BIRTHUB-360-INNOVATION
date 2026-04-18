@@ -98,6 +98,7 @@ export type LeadFilters = {
   regions: LeadRegionId[];
   scoreBands: LeadScoreBandId[];
   stages: SdrAutomaticLead["stage"][];
+  regions: SdrAutomaticLead["region"][];
 };
 
 export type LiveDashboardMetrics = {
@@ -216,6 +217,7 @@ export type LeadDashboardCopy = {
   slaTrendSubtitle: string;
   slaViolationsLabel: string;
   slaWatchLabel: string;
+  sendSequenceLabel: string;
   sourceColumn: string;
   stageColumn: string;
   stageFilterLabel: string;
@@ -230,7 +232,8 @@ export const DEFAULT_LEAD_FILTERS: LeadFilters = {
   query: "",
   regions: [],
   scoreBands: [],
-  stages: []
+  stages: [],
+  regions: []
 };
 
 export const LEAD_POLLING_FRAMES: PollingFrame[] = [
@@ -428,6 +431,7 @@ export function filterLeads(leads: SdrAutomaticLead[], filters: LeadFilters): Sd
   const hasRegionFilter = filters.regions.length > 0;
   const hasStageFilter = filters.stages.length > 0;
   const hasScoreFilter = filters.scoreBands.length > 0;
+  const hasRegionFilter = filters.regions.length > 0;
   const fromDate = filters.createdFrom ? new Date(`${filters.createdFrom}T00:00:00`) : null;
   const toDate = filters.createdTo ? new Date(`${filters.createdTo}T23:59:59`) : null;
 
@@ -445,6 +449,10 @@ export function filterLeads(leads: SdrAutomaticLead[], filters: LeadFilters): Sd
     }
 
     if (hasScoreFilter && !filters.scoreBands.includes(getScoreBand(lead.score))) {
+      return false;
+    }
+
+    if (hasRegionFilter && !filters.regions.includes(lead.region)) {
       return false;
     }
 

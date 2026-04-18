@@ -1,6 +1,6 @@
 // @ts-nocheck
 // 
-import { getWebConfig } from "@birthub/config/web";
+import { getWebConfig } from "../../packages/config/dist/web.js";
 import * as Sentry from "@sentry/nextjs";
 
 const config = getWebConfig();
