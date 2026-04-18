@@ -10,7 +10,7 @@ import type {
   AgentExecutionRecord,
   OrganizationRecord,
   ResolvedInstalledAgent
-} from "./service.types";
+} from "./service.types.js";
 
 export async function resolveOrganization(
   tenantReference: string

@@ -10,7 +10,7 @@ import {
   clinicalNoteQuerySchema,
   clinicalNoteSchema,
   clinicalNoteUpdateSchema
-} from "./schemas";
+} from "./schemas.js";
 import { clinicalService } from "./service.js";
 
 type ClinicalContextRequest = {

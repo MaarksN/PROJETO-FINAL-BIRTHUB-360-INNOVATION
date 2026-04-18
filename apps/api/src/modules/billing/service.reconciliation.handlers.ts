@@ -9,7 +9,7 @@ import {
   ensurePlanByCode,
   type DatabaseClient,
   type StripeBillingEventContext
-} from "./service.shared";
+} from "./service.shared.js";
 import {
   buildInvoiceCreateData,
   buildInvoiceUpdateData,
@@ -23,7 +23,7 @@ import {
   resolveProrationCreditCents,
   resolveSubscriptionPeriodEnd,
   unixToDate
-} from "./service.reconciliation.shared";
+} from "./service.reconciliation.shared.js";
 
 export async function handleCheckoutSessionCompleted(
   session: Stripe.Checkout.Session,

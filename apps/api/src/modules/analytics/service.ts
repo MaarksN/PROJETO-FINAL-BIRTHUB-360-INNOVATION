@@ -11,11 +11,11 @@ import {
   getGlobalAgentPerformance,
   getQualityReport,
   getCohortMetrics
-} from "./reporting.service";
+} from "./reporting.service.js";
 import {
   getActiveTenantsMetrics,
   getUsageMetrics
-} from "./usage.service";
+} from "./usage.service.js";
 
 export const analyticsRouterService = {
   ...analyticsDashboardService,

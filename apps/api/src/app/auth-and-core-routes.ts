@@ -6,7 +6,7 @@ import { registerAuthRoutes as defaultRegisterAuthRoutes } from "./auth-routes.j
 import { enqueueTask } from "../lib/queue.js";
 import {
   registerOrganizationCreationRoutes as defaultRegisterOrganizationCreationRoutes
-} from "../modules/organizations/router";
+} from "../modules/organizations/router.js";
 import { mountProfileRoutes as defaultMountProfileRoutes } from "../modules/profile/router.js";
 import { mountTasksRoutes as defaultMountTasksRoutes } from "../modules/tasks/router.js";
 

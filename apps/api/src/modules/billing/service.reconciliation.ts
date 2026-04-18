@@ -11,7 +11,7 @@ import {
   handleCustomerSubscriptionUpdated,
   handleInvoicePaymentFailed,
   handleInvoicePaymentSucceeded
-} from "./service.reconciliation.handlers";
+} from "./service.reconciliation.handlers.js";
 import { reconciliationLogger } from "./service.reconciliation.shared.js";
 
 export async function processStripeBillingEvent(input: {

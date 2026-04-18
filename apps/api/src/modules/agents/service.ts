@@ -11,20 +11,20 @@ import { marketplaceService } from "../marketplace/marketplace-service.js";
 import {
   mergeManagedPolicies,
   parseAgentConfig
-} from "./service.config";
+} from "./service.config.js";
 import { queueInstalledAgentExecution } from "./service.execution.js";
 import {
   buildTemplatePolicies,
   persistManagedPolicies
-} from "./service.policy";
+} from "./service.policy.js";
 import {
   resolveInstalledAgent,
   resolveOrganization
-} from "./service.repository";
+} from "./service.repository.js";
 import {
   buildSnapshot,
   extractLogs
-} from "./service.snapshot";
+} from "./service.snapshot.js";
 import type { InstalledAgentSnapshot } from "./service.types.js";
 
 const INSTALLED_AGENT_LIST_LIMIT = 250;

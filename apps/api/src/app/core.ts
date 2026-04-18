@@ -9,13 +9,13 @@ import helmet from "helmet";
 import {
   configureCacheStore,
   registerTenantCacheInvalidationMiddleware
-} from "../common/cache/index";
+} from "../common/cache/index.js";
 import { openApiDocument } from "../docs/openapi.js";
 import {
   createDeepHealthService,
   createHealthService,
   createReadinessHealthService
-} from "../lib/health";
+} from "../lib/health.js";
 import { asyncHandler, ProblemDetailsError } from "../lib/problem-details.js";
 import { contentTypeMiddleware } from "../middleware/content-type.js";
 import { csrfProtection } from "../middleware/csrf.js";
@@ -26,7 +26,7 @@ import { originValidationMiddleware } from "../middleware/origin-check.js";
 import {
   createRateLimitMiddleware,
   createWebhookRateLimitMiddleware
-} from "../middleware/rate-limit";
+} from "../middleware/rate-limit.js";
 import { metricsHandler, metricsMiddleware } from "../metrics.js";
 import { requestContextMiddleware } from "../middleware/request-context.js";
 import { sanitizeMutationInput } from "../middleware/sanitize-input.js";
@@ -45,7 +45,7 @@ import {
   mainTransformPipeline,
   mainValidationPipeline,
   type ApiPipelineStep
-} from "./pipeline";
+} from "./pipeline.js";
 
 const requestLogger = createLogger("api-http");
 type PipelineRegistrationMap = Record<ApiPipelineStep["name"], (app: Express) => void>;

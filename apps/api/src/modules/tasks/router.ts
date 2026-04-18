@@ -11,7 +11,7 @@ import {
   enqueueTask as defaultEnqueueTask,
   QueueBackpressureError,
   TenantQueueRateLimitError
-} from "../../lib/queue";
+} from "../../lib/queue.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import { budgetService as defaultBudgetService } from "../budget/budget.service.js";
 import { BudgetExceededError } from "../budget/budget.types.js";

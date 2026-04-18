@@ -4,7 +4,7 @@ import { ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   isPlanFeatureEnabled,
   type PlanFeature
-} from "../../modules/billing/plan.utils";
+} from "../../modules/billing/plan.utils.js";
 import { canUseFeature } from "../../modules/billing/service.js";
 
 const DEFAULT_GRACE_PERIOD_DAYS = 3;

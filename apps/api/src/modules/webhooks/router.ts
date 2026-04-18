@@ -8,7 +8,7 @@ import { z } from "zod";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { validateExternalUrl } from "../../lib/external-url.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { dedupeTriggerPayload } from "../workflows/runnerQueue.js";
@@ -19,7 +19,7 @@ import {
   listTenantWebhookEndpoints,
   retryWebhookDelivery,
   updateTenantWebhookEndpoint
-} from "./settings.service";
+} from "./settings.service.js";
 
 const webhookEndpointSchema = z
   .object({

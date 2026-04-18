@@ -4,7 +4,7 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler } from "../../lib/problem-details.js";
 import { dateRangeSchema } from "./schemas.js";
 import { analyticsRouterService } from "./service.js";

@@ -17,7 +17,7 @@ import {
   enqueueWorkflowExecution,
   enqueueWorkflowTrigger,
   scheduleCronWorkflow
-} from "./runnerQueue";
+} from "./runnerQueue.js";
 
 const STEP_RESULT_PAGE_SIZE = 200;
 const WORKFLOW_EXECUTION_PAGE_SIZE = 200;

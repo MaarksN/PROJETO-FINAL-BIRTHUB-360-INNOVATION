@@ -8,14 +8,14 @@ import {
   conversationQuerySchema,
   createConversationSchema,
   updateStatusSchema
-} from "./schemas";
+} from "./schemas.js";
 import {
   appendConversationMessage,
   createConversation,
   getConversationById,
   listConversations,
   updateConversationStatus
-} from "./service";
+} from "./service.js";
 
 function requireIdentity(input: {
   organizationId: string | null;

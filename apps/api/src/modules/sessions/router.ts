@@ -12,7 +12,7 @@ import {
   revokeAllSessions,
   revokeCurrentSession,
   revokeSessionById
-} from "../auth/auth.service";
+} from "../auth/auth.service.js";
 import { clearAuthCookies } from "../auth/cookies.js";
 
 function readSessionId(params: Record<string, string | string[] | undefined>): string {

@@ -7,7 +7,7 @@ import {
   listOrganizationsForRetentionSweep,
   listRetentionPoliciesForOrganization,
   listSuspendedUsersForRetention
-} from "./retention.pagination";
+} from "./retention.pagination.js";
 import {
   DEFAULT_RETENTION_POLICIES,
   RETENTION_DATA_CATEGORY,
@@ -21,7 +21,7 @@ import {
   type RetentionExecutionDelegate,
   type RetentionExecutionMode,
   type RetentionPolicyDelegate,
-} from "./retention.shared";
+} from "./retention.shared.js";
 import { findOrganizationByReference } from "./service.js";
 
 async function ensureDefaultPolicies(input: {

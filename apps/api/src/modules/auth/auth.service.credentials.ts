@@ -12,11 +12,11 @@ import {
   randomToken,
   sha256,
   verifyPasswordHash
-} from "./crypto";
+} from "./crypto.js";
 import {
   createNewDeviceAlert,
   createSession
-} from "./auth.service.sessions";
+} from "./auth.service.sessions.js";
 import {
   buildOtpauthUrl,
   buildQrCodeDataUrl,
@@ -26,7 +26,7 @@ import {
   generateTotpSecret,
   hashRecoveryCode,
   verifyTotpCode
-} from "./mfa.service";
+} from "./mfa.service.js";
 import type { SessionTokens } from "./auth.service.shared.js";
 
 export async function loginWithPassword(input: {

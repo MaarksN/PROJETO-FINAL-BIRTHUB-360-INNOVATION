@@ -20,14 +20,14 @@ import {
   type PregnancyOutcome,
   type PregnancyRiskLevel,
   type PregnancyStatus
-} from "./service-support";
+} from "./service-support.js";
 import {
   deriveClinicalAlerts,
   findNextAppointment,
   serializeAppointment,
   serializePatient,
   serializePregnancyRecord
-} from "./service-support.view";
+} from "./service-support.view.js";
 import { createPatientRecordMethods } from "./service-patient-records.js";
 import {
   asClinicalTransaction,
@@ -39,11 +39,11 @@ import {
   buildPregnancySelect,
   ensureClinicalRuntimeAvailable,
   type PatientListRecord
-} from "./service-runtime";
+} from "./service-runtime.js";
 import {
   getPatientDetailInternal,
   type PatientDetailPayload
-} from "./service-runtime.records";
+} from "./service-runtime.records.js";
 
 export type PregnancyRecordPayload = {
   abortions?: number;

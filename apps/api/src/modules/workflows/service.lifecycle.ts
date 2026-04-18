@@ -18,12 +18,12 @@ import {
   resolveScopedIdentity,
   upsertCronTrigger,
   type ScopedIdentity
-} from "./service.shared";
+} from "./service.shared.js";
 import type {
   WorkflowCreateInput,
   WorkflowRevertInput,
   WorkflowUpdateInput
-} from "./schemas";
+} from "./schemas.js";
 
 const WORKFLOW_LIST_LIMIT = 100;
 

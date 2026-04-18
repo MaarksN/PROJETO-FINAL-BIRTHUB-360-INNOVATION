@@ -7,31 +7,31 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import {
   listPrivacyConsents,
   savePrivacyConsentDecisions
-} from "./consent.service";
+} from "./consent.service.js";
 import {
   listRetentionPolicies,
   runRetentionSweep,
   updateRetentionPolicies
-} from "./retention.service";
+} from "./retention.service.js";
 import {
   consentUpdateSchema,
   privacyDeleteRequestSchema,
   privacyDeleteResponseSchema,
   retentionRunSchema,
   retentionUpdateSchema
-} from "./schemas";
+} from "./schemas.js";
 import {
   deleteAccountAndPersonalData,
   exportTenantData,
   findOrganizationByReference,
   recordTenantDataExport
-} from "./service";
+} from "./service.js";
 
 function assertPrivacyAdvancedEnabled(config: ApiConfig): void {
   if (config.privacyAdvancedEnabled) {

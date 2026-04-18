@@ -17,18 +17,18 @@ import {
   type ClinicalContext,
   type ClinicalNoteKind,
   type ClinicalNoteRecord
-} from "./service-support";
+} from "./service-support.js";
 import { serializeClinicalNote } from "./service-support.view.js";
 import {
   asClinicalTransaction,
   buildClinicalNoteSelect,
   ensureClinicalRuntimeAvailable
-} from "./service-runtime";
+} from "./service-runtime.js";
 import {
   findActivePregnancy,
   getClinicalNoteRecord,
   listClinicalNoteHistoryRecords
-} from "./service-runtime.records";
+} from "./service-runtime.records.js";
 
 type ClinicalNotePayload = {
   appointmentId?: string | null;

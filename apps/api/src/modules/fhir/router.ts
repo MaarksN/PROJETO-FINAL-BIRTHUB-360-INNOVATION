@@ -6,11 +6,11 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import {
   asyncHandler,
   ProblemDetailsError
-} from "../../lib/problem-details";
+} from "../../lib/problem-details.js";
 import { fhirService } from "./service.js";
 
 const FHIR_JSON_CONTENT_TYPE = "application/fhir+json; charset=utf-8";

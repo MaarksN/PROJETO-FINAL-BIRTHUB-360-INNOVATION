@@ -8,7 +8,7 @@ import { sendEtaggedJson } from "../../common/cache/index.js";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import {
@@ -21,7 +21,7 @@ import {
   listInvoicesForOrganization,
   listUsageForOrganization,
   registerCheckoutDecline
-} from "./service";
+} from "./service.js";
 
 const checkoutRequestSchema = z.object({
   planId: z.string().min(1)

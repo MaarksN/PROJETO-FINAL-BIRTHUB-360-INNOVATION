@@ -10,13 +10,13 @@ import type { ApiConfig } from "@birthub/config";
 import {
   sha256,
   verifyAccessToken
-} from "./crypto";
+} from "./crypto.js";
 import {
   enableMfaForUser,
   loginWithPassword,
   setupMfaForUser,
   verifyMfaChallenge
-} from "./auth.service.credentials";
+} from "./auth.service.credentials.js";
 import {
   createSession,
   listActiveSessions,
@@ -24,20 +24,20 @@ import {
   revokeAllSessions,
   revokeCurrentSession,
   revokeSessionById
-} from "./auth.service.sessions";
+} from "./auth.service.sessions.js";
 import {
   getRoleForUser,
   assertRole,
   suspendUser,
   updateUserRoleWithAudit
-} from "./auth.service.policies";
+} from "./auth.service.policies.js";
 import {
   createTenantApiKey,
   listTenantApiKeys,
   rotateTenantApiKey,
   revokeTenantApiKey,
   introspectApiKey
-} from "./auth.service.keys";
+} from "./auth.service.keys.js";
 import {
   ApiKeyScope,
   AuthenticatedContext,
@@ -45,7 +45,7 @@ import {
   canManageRole,
   resolveOrganizationId,
   resolveAuthorizedTenantContext
-} from "./auth.service.shared";
+} from "./auth.service.shared.js";
 
 export {
   createSession,

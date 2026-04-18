@@ -28,7 +28,7 @@ import {
   revokeCurrentSession,
   setupMfaForUser,
   verifyMfaChallenge
-} from "./auth.service";
+} from "./auth.service.js";
 import { clearAuthCookies, setAuthCookies } from "./cookies.js";
 
 const AUTH_ROUTES_MOUNT_MARKER = "__birthhubAuthRoutesMounted" as const;

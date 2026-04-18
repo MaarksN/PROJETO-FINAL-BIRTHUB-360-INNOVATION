@@ -9,11 +9,11 @@ import {
 import {
   createApiKey,
   sha256
-} from "./crypto";
+} from "./crypto.js";
 import {
   type ApiKeyScope,
   resolveTenantIdForOrganization
-} from "./auth.service.shared";
+} from "./auth.service.shared.js";
 
 const TENANT_API_KEY_LIST_LIMIT = 100;
 

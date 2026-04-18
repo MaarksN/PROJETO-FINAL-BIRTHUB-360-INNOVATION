@@ -7,7 +7,7 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import {
   callbackSchema,
@@ -19,12 +19,12 @@ import {
   type SyncPayload,
   type UpsertConnectorPayload,
   upsertConnectorSchema
-} from "./schemas";
+} from "./schemas.js";
 import {
   connectorsService,
   parseConnectorOauthState,
   type ConnectorProvider
-} from "./service";
+} from "./service.js";
 
 type AuthenticatedConnectorRequest = {
   context: {

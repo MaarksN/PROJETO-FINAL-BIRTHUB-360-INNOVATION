@@ -7,7 +7,7 @@ import { asyncHandler } from "../../lib/problem-details.js";
 import {
   processStripeBillingEvent as processStripeBillingDomainEvent,
   type StripeBillingEventContext
-} from "../billing/service";
+} from "../billing/service.js";
 import { createStripeClient } from "../billing/stripe.client.js";
 import { processStripeWebhookRequest } from "./stripe.webhook.processing.js";
 

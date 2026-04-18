@@ -7,7 +7,7 @@ import { z } from "zod";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { readPrismaModel } from "../../lib/prisma-runtime.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { createSession } from "../auth/auth.service.js";

@@ -6,7 +6,7 @@ import { Auditable } from "../../audit/auditable.js";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { requireStringValue } from "../../lib/request-values.js";
 import { validateBody } from "../../middleware/validate-body.js";
@@ -19,7 +19,7 @@ import {
   pregnancyRecordSchema,
   updateAppointmentSchema,
   updatePatientSchema
-} from "./schemas";
+} from "./schemas.js";
 import { registerClinicalNoteRoutes } from "./router-note-routes.js";
 import { clinicalService } from "./service.js";
 

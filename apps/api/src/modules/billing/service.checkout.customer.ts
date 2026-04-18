@@ -11,7 +11,7 @@ import { createStripeClient } from "./stripe.client.js";
 import {
   findOrganizationByReference,
   type DatabaseClient
-} from "./service.shared";
+} from "./service.shared.js";
 
 const logger = createLogger("billing-service");
 

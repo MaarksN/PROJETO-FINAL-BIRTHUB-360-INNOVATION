@@ -13,7 +13,7 @@ import { createStripeClient } from "./stripe.client.js";
 import {
   resolveCheckoutPreferences,
   resolveCustomerForCheckout
-} from "./service.checkout.customer";
+} from "./service.checkout.customer.js";
 import { findOrganizationByReference } from "./service.shared.js";
 
 const logger = createLogger("billing-service");

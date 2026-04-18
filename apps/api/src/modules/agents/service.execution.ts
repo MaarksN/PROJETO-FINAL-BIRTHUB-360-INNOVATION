@@ -9,7 +9,7 @@ import { toPrismaJsonValue } from "../../lib/prisma-json.js";
 import {
   QueueBackpressureError,
   TenantQueueRateLimitError
-} from "../../lib/queue";
+} from "../../lib/queue.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { enqueueInstalledAgentExecution } from "./queue.js";
 import { findReusableRunningExecution } from "./service.repository.js";
@@ -17,7 +17,7 @@ import { buildPayloadHash } from "./service.snapshot.js";
 import type {
   InstalledAgentRunResult,
   ResolvedInstalledAgent
-} from "./service.types";
+} from "./service.types.js";
 
 export async function queueInstalledAgentExecution(input: {
   payload: Record<string, unknown>;

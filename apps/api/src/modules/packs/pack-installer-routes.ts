@@ -8,7 +8,7 @@ import {
   RequireFeature,
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { requireStringValue } from "../../lib/request-values.js";
 import { LimitExceededError } from "../billing/index.js";

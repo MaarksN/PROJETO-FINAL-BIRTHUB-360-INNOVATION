@@ -12,7 +12,7 @@ import { Router } from "express";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { validateBody } from "../../middleware/validate-body.js";
 import {
@@ -21,7 +21,7 @@ import {
   revokeAllSessions,
   suspendUser,
   updateUserRoleWithAudit
-} from "../auth/auth.service";
+} from "../auth/auth.service.js";
 
 type ListedUser = {
   email: string;

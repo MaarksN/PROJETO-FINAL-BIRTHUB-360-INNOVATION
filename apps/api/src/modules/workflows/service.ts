@@ -9,9 +9,9 @@ export {
   updateWorkflow,
   type PersistedWorkflow,
   type WorkflowRecord
-} from "./service.lifecycle";
+} from "./service.lifecycle.js";
 export {
   listWorkflowExecutionLineage,
   runWorkflowNow,
   type WorkflowExecutionLineageNode
-} from "./service.execution";
+} from "./service.execution.js";

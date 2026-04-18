@@ -18,7 +18,7 @@ import { prisma } from "@birthub/database";
 import {
   hasExplicitDatabaseUrl,
   isDatabaseUnavailableError
-} from "../../lib/database-availability";
+} from "../../lib/database-availability.js";
 
 interface CatalogCache {
   entries: ManifestCatalogEntry[];

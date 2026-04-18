@@ -15,7 +15,7 @@ import {
   type ConnectorCredentialsRecord,
   type ConnectorOauthState,
   type ConnectorProvider
-} from "./service.shared";
+} from "./service.shared.js";
 
 export type { ConnectorOauthState, ConnectorProvider };
 export { parseConnectorOauthState };

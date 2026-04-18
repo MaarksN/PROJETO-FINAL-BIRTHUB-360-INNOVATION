@@ -13,7 +13,7 @@ import {
   type NeonatalRecordModel,
   type PatientRecord,
   type PregnancyRecordModel
-} from "./service-support";
+} from "./service-support.js";
 import {
   buildGrowthCurve,
   deriveClinicalAlerts,
@@ -23,7 +23,7 @@ import {
   serializeNeonatalRecord,
   serializePatient,
   serializePregnancyRecord
-} from "./service-support.view";
+} from "./service-support.view.js";
 import {
   asClinicalTransaction,
   buildAppointmentSelect,
@@ -32,7 +32,7 @@ import {
   buildPatientSelect,
   buildPregnancySelect,
   type ClinicalModelQuery
-} from "./service-runtime";
+} from "./service-runtime.js";
 
 export async function listPregnancyRecords(
   tx: Prisma.TransactionClient,

@@ -9,7 +9,7 @@ import type {
   AgentExecutionRecord,
   AgentRecord,
   InstalledAgentSnapshot
-} from "./service.types";
+} from "./service.types.js";
 
 export function buildPayloadHash(payload: Record<string, unknown>): string {
   return createHash("sha256").update(JSON.stringify(payload)).digest("hex");

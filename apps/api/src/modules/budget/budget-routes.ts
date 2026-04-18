@@ -5,7 +5,7 @@ import { Role } from "@birthub/database";
 import {
   RequireRole,
   requireAuthenticatedSession
-} from "../../common/guards/index";
+} from "../../common/guards/index.js";
 import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
 import { budgetService } from "./budget.service.js";
 import { BudgetExceededError } from "./budget.types.js";

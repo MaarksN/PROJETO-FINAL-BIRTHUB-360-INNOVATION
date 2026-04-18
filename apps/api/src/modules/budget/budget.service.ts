@@ -9,7 +9,7 @@ import {
   type BudgetAlert,
   type BudgetRecord,
   type BudgetUsageEvent
-} from "./budget.types";
+} from "./budget.types.js";
 
 const logger = createLogger("budget-service");
 const DEFAULT_BUDGET_LIMIT_BRL = 100;

@@ -10,7 +10,7 @@ import {
 import {
   resolveTenantIdForOrganization,
   rolePriority
-} from "./auth.service.shared";
+} from "./auth.service.shared.js";
 
 export async function getRoleForUser(input: {
   organizationId: string;

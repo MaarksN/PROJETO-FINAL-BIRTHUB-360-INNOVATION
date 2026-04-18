@@ -14,18 +14,18 @@ import {
   type AppointmentType,
   type ClinicalContext,
   type DateWindowView
-} from "./service-support";
+} from "./service-support.js";
 import { serializeAppointment } from "./service-support.view.js";
 import {
   asClinicalTransaction,
   buildAppointmentSelect,
   buildDateWindow,
   ensureClinicalRuntimeAvailable
-} from "./service-runtime";
+} from "./service-runtime.js";
 import {
   findActivePregnancy,
   listAppointmentsInWindow
-} from "./service-runtime.records";
+} from "./service-runtime.records.js";
 
 type CreateAppointmentPayload = {
   bloodPressureDiastolic?: number;

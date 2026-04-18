@@ -14,7 +14,7 @@ import {
   upsertCredentials,
   type ConnectorCredentialsRecord,
   type ConnectorProvider
-} from "./service.shared";
+} from "./service.shared.js";
 
 export async function createConnectSession(input: {
   accountKey?: string | undefined;

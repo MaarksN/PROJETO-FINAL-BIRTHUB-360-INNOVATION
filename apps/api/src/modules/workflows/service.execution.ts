@@ -14,7 +14,7 @@ import {
   listWorkflowExecutionPages,
   resolveScopedIdentity,
   workflowQueueAdapter
-} from "./service.shared";
+} from "./service.shared.js";
 import type { WorkflowRunInput } from "./schemas.js";
 
 type ResumeCheckpoint = {

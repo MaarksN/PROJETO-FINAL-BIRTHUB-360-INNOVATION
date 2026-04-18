@@ -5,7 +5,7 @@ import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js"
 import {
   notificationPreferencesSchema,
   notificationQuerySchema
-} from "./schemas";
+} from "./schemas.js";
 import { notificationsRouterService } from "./service.js";
 
 function requireUserContext(input: {
