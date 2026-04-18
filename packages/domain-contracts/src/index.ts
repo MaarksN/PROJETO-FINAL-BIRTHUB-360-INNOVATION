@@ -178,22 +178,34 @@ export async function getAgentMetrics(input: {
     }
   });
 
-  const normalized = executions.map((execution) => {
-    const metadata =
-      execution.metadata && typeof execution.metadata === "object"
-        ? (execution.metadata as Record<string, unknown>)
-        : {};
-    const fallbackDurationMs =
-      execution.completedAt instanceof Date && execution.startedAt instanceof Date
-        ? Math.max(0, execution.completedAt.getTime() - execution.startedAt.getTime())
-        : 0;
+  const normalized = executions
+    .map((execution) => {
+      const metadata =
+        execution.metadata && typeof execution.metadata === "object"
+          ? (execution.metadata as Record<string, unknown>)
+          : {};
+      const fallbackDurationMs =
+        execution.completedAt instanceof Date && execution.startedAt instanceof Date
+          ? Math.max(0, execution.completedAt.getTime() - execution.startedAt.getTime())
+          : 0;
+      const status =
+        execution.status === "FAILED"
+          ? "FAILED"
+          : execution.status === "SUCCESS"
+            ? "SUCCESS"
+            : null;
 
-    return {
-      durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : fallbackDurationMs,
-      status: execution.status === "FAILED" ? "FAILED" : "SUCCESS",
-      toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
-    };
-  });
+      if (status === null) {
+        return null;
+      }
+
+      return {
+        durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : fallbackDurationMs,
+        status,
+        toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
+      };
+    })
+    .filter((entry): entry is { durationMs: number; status: "FAILED" | "SUCCESS"; toolCost: number } => entry !== null);
 
   const failures = normalized.filter((log) => log.status === "FAILED").length;
   const latencies = normalized.map((log) => log.durationMs);
