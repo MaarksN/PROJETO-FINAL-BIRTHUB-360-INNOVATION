@@ -28,12 +28,11 @@ async function runBenchmark() {
   };
 
   const start = performance.now();
-  await cleanupSuspendedUsers(prismaMock as Parameters<typeof cleanupSuspendedUsers>[0], new Date());
+  await cleanupSuspendedUsers(prismaMock as unknown as Parameters<typeof cleanupSuspendedUsers>[0], new Date());
   const end = performance.now();
 
   console.log(`Time taken: ${(end - start).toFixed(2)} ms`);
 }
 
 void void runBenchmark();
-
 

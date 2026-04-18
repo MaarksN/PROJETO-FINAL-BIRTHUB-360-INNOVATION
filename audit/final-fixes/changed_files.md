@@ -1,0 +1,16 @@
+# Changed Files
+
+- `apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx`
+- `apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx`
+- `apps/web/app/globals.css`
+- `apps/web/app/layout.tsx`
+- `apps/web/components/sales-os/SdrAutomaticPlatform.tsx`
+- `apps/worker/test/benchmarkUserCleanup.ts`
+- `audit/final-fixes/execution_log.md`
+- `audit/final-fixes/final_report.html`
+- `audit/final-fixes/final_report.md`
+- `audit/final-fixes/root-cause.md`
+- `packages/database/prisma/migration-registry.json`
+- `packages/utils/src/__tests__/fetchWithTimeout.test.ts`
+- `scripts/ci/security-guardrails-local.mjs`
+- `scripts/security/check-auth-guards.ts`
