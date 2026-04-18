@@ -1,7 +1,7 @@
 import { executeManifestAgentRuntime } from "./runtime.orchestration.js";
 import { Prisma, prisma } from "@birthub/database";
-import { outputService } from "../../../api/src/modules/outputs/output.service.js";
-import { agentMetricsService } from "../../../api/src/modules/agents/metrics.service.js";
+import { outputService } from "@birthub/api/modules/outputs/output-service";
+import { agentMetricsService } from "@birthub/api/modules/agents/metrics-service";
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("worker-runtime");

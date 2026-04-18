@@ -19,34 +19,16 @@
     "@types/node": "^25.6.0",
     "tsx": "^4.21.0",
     "typedoc": "^0.28.17",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./tools": {
-      "types": "./dist/tools/index.d.ts",
-      "default": "./dist/tools/index.js"
-    },
-    "./policy": {
-      "types": "./dist/policy/engine.d.ts",
-      "default": "./dist/policy/engine.js"
-    },
-    "./manifest": {
-      "types": "./dist/manifest/index.d.ts",
-      "default": "./dist/manifest/index.js"
-    },
-    "./runtime": {
-      "types": "./dist/runtime/index.d.ts",
-      "default": "./dist/runtime/index.js"
-    },
-    "./skills": {
-      "types": "./dist/skills/index.d.ts",
-      "default": "./dist/skills/index.js"
-    }
+    ".": "./dist/index.js",
+    "./tools": "./dist/tools/index.js",
+    "./policy": "./dist/policy/engine.js",
+    "./manifest": "./dist/manifest/index.js",
+    "./runtime": "./dist/runtime/index.js",
+    "./skills": "./dist/skills/index.js"
   },
   "files": [
     "dist"

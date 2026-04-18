@@ -18,18 +18,12 @@
     "@opentelemetry/sdk-node": "^0.214.0",
     "@opentelemetry/sdk-trace-node": "^2.6.1",
     "@types/node": "^25.5.2",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./fetch": {
-      "types": "./dist/fetch.d.ts",
-      "default": "./dist/fetch.js"
-    }
+    ".": "./dist/index.js",
+    "./fetch": "./dist/fetch.js"
   },
   "private": true,
   "files": [
