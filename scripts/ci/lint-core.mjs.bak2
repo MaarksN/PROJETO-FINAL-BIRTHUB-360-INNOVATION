@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/env node
 
 import path from "node:path";
+
 import { portableNodeExecutable, projectRoot, run } from "./shared.mjs";
 
 const eslintCli = path.join(
@@ -11,7 +12,12 @@ const eslintCli = path.join(
   "eslint.js"
 );
 
-const sharedFlatConfig = path.join(projectRoot, "eslint.config.mjs");
+const sharedFlatConfig = path.join(
+  projectRoot,
+  "packages",
+  "workflows-core",
+  "eslint.config.mjs"
+);
 
 const REQUIRED_LINT_NODE_OPTION = "--max-old-space-size=8192";
 
@@ -20,9 +26,7 @@ function withLintNodeOptions(existingNodeOptions = process.env.NODE_OPTIONS ?? "
     return existingNodeOptions;
   }
 
-  return [existingNodeOptions.trim(), REQUIRED_LINT_NODE_OPTION]
-    .filter(Boolean)
-    .join(" ");
+  return [existingNodeOptions.trim(), REQUIRED_LINT_NODE_OPTION].filter(Boolean).join(" ");
 }
 
 const coreLintWorkspaces = [
