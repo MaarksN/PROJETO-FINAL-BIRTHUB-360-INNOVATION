@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import test, { mock } from "node:test";
 import { Prisma } from "@prisma/client";
 
@@ -12,9 +12,9 @@ import {
 } from "@birthub/database";
 import type { Queue } from "bullmq";
 
-import { type WorkflowExecutionJobPayload, WorkflowRunner } from "./runner.js";
+import { WorkflowRunner } from "./runner.js";
 
-function createMockWorkflowExecution(overrides: any = {}): any {
+function createMockWorkflowExecution(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
     createdAt: new Date(),
     depth: 0,
@@ -29,7 +29,7 @@ function createMockWorkflowExecution(overrides: any = {}): any {
   };
 }
 
-function createMockWorkflow(overrides: any = {}): any {
+function createMockWorkflow(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
     createdAt: new Date(),
     id: "wf_agent",
@@ -68,7 +68,7 @@ function createMockWorkflow(overrides: any = {}): any {
   };
 }
 
-function createMockStepResult(overrides: any = {}): any {
+function createMockStepResult(overrides: Record<string, unknown> = {}): Record<string, unknown> {
   return {
     cacheKey: null,
     createdAt: new Date(),
@@ -146,3 +146,4 @@ void test("Workflow runner smoke test executes CEO agent and persists the result
     });
     assert.ok(executionUpdates.some((update) => update.status === WorkflowExecutionStatus.SUCCESS));
 });
+

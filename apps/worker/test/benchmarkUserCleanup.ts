@@ -1,4 +1,4 @@
-import { cleanupSuspendedUsers } from "../src/jobs/userCleanup.js";
+﻿import { cleanupSuspendedUsers } from "../src/jobs/userCleanup.js";
 import { performance } from "perf_hooks";
 
 async function runBenchmark() {
@@ -8,7 +8,7 @@ async function runBenchmark() {
     status: "SUSPENDED"
   }));
 
-  const prismaMock: any = {
+  const prismaMock = {
     user: {
       findMany: () => Promise.resolve(dummyUsers),
       update: async () => {
@@ -17,7 +17,7 @@ async function runBenchmark() {
         return {};
       }
     },
-    $transaction: async (queries: any[]) => {
+    $transaction: async (queries: Array<Promise<unknown>>) => {
       // Simulate transaction bulk execution
       await new Promise(resolve => setTimeout(resolve, 10));
       for (const q of queries) {
@@ -28,10 +28,11 @@ async function runBenchmark() {
   };
 
   const start = performance.now();
-  await cleanupSuspendedUsers(prismaMock, new Date());
+  await cleanupSuspendedUsers(prismaMock as Parameters<typeof cleanupSuspendedUsers>[0], new Date());
   const end = performance.now();
 
   console.log(`Time taken: ${(end - start).toFixed(2)} ms`);
 }
 
-runBenchmark();
+void runBenchmark();
+
