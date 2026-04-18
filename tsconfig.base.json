@@ -33,6 +33,12 @@
       "@birthub/*": [
         "packages/*/src/index.ts",
         "packages/*/src"
+      ],
+      "@birthub/api/modules/outputs/output-service": [
+        "apps/api/src/modules/outputs/output.service.d.ts"
+      ],
+      "@birthub/api/modules/agents/metrics-service": [
+        "apps/api/src/modules/agents/metrics.service.d.ts"
       ]
     }
   }
