@@ -23,7 +23,7 @@ void test("ensureUserPreference upserts tenant-scoped preference data", async ()
     let received: unknown = null;
 
     // @ts-expect-error mock assignment
-  prisma.userPreference.upsert = mock.fn(async (args: unknown) => { received = args; return createMockUserPreference({ inAppNotifications: true }); });
+  prisma.userPreference.upsert = mock.fn((args: unknown) => { received = args; return createMockUserPreference({ inAppNotifications: true }); });
     await ensureUserPreference({
       organizationId: "org_1",
       tenantId: "tenant_1",
@@ -51,7 +51,7 @@ void test("ensureUserPreference accepts an injected client without relying on gl
   let received: unknown = null;
 
 // @ts-expect-error mock assignment
-    injectedClient.userPreference.upsert = async (args: unknown) => {
+    injectedClient.userPreference.upsert = (args: unknown) => {
     received = args;
     return createMockUserPreference({ inAppNotifications: true });
   };
@@ -86,9 +86,9 @@ void test("createNotificationForUser skips persistence when in-app notifications
     let createCalled = false;
 
     // @ts-expect-error mock assignment
-  prisma.userPreference.upsert = mock.fn(async () => createMockUserPreference({ inAppNotifications: false }));
+  prisma.userPreference.upsert = mock.fn(() => createMockUserPreference({ inAppNotifications: false }));
     // @ts-expect-error mock assignment
-  prisma.notification.create = mock.fn(async () => { createCalled = true; return createMockNotification({}); });
+  prisma.notification.create = mock.fn(() => { createCalled = true; return createMockNotification({}); });
     const result = await createNotificationForUser({
       content: "hello",
       organizationId: "org_1",
@@ -106,9 +106,9 @@ void test("createNotificationForUser accepts an injected client", async () => {
   let createArgs: unknown = null;
 
 // @ts-expect-error mock assignment
-      injectedClient.userPreference.upsert = mock.fn(async () => createMockUserPreference({ inAppNotifications: true }));
+      injectedClient.userPreference.upsert = mock.fn(() => createMockUserPreference({ inAppNotifications: true }));
 // @ts-expect-error mock assignment
-    injectedClient.notification.create = mock.fn(async (args: unknown) => { createArgs = args; return createMockNotification({ id: "notification_1" }); });
+    injectedClient.notification.create = mock.fn((args: unknown) => { createArgs = args; return createMockNotification({ id: "notification_1" }); });
 
   const result = await createNotificationForUser(
     {
@@ -139,11 +139,11 @@ void test("updateUserPreference audits cookie consent transitions", async () => 
     let auditPayload: unknown = null;
 
     // @ts-expect-error mock assignment
-  prisma.userPreference.findUnique = mock.fn(async () => createMockUserPreference({ cookieConsent: "PENDING" }));
+  prisma.userPreference.findUnique = mock.fn(() => createMockUserPreference({ cookieConsent: "PENDING" }));
     // @ts-expect-error mock assignment
-  prisma.userPreference.upsert = mock.fn(async () => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
+  prisma.userPreference.upsert = mock.fn(() => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
     // @ts-expect-error mock assignment
-  prisma.auditLog.create = mock.fn(async (args: unknown) => { auditPayload = args; return createMockAuditLog({}); });
+  prisma.auditLog.create = mock.fn((args: unknown) => { auditPayload = args; return createMockAuditLog({}); });
     const result = await updateUserPreference({
       cookieConsent: "ACCEPTED",
       organizationId: "org_1",
@@ -176,11 +176,11 @@ void test("updateUserPreference accepts an injected client", async () => {
   let auditPayload: unknown = null;
 
 // @ts-expect-error mock assignment
-      injectedClient.userPreference.findUnique = mock.fn(async () => createMockUserPreference({ cookieConsent: "PENDING" }));
+      injectedClient.userPreference.findUnique = mock.fn(() => createMockUserPreference({ cookieConsent: "PENDING" }));
 // @ts-expect-error mock assignment
-      injectedClient.userPreference.upsert = mock.fn(async () => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
+      injectedClient.userPreference.upsert = mock.fn(() => createMockUserPreference({ cookieConsent: "ACCEPTED", id: "pref_1" }));
 // @ts-expect-error mock assignment
-      injectedClient.auditLog.create = mock.fn(async (args: unknown) => {
+      injectedClient.auditLog.create = mock.fn((args: unknown) => {
     auditPayload = args;
     return createMockAuditLog({});
   });

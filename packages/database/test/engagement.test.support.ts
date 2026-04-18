@@ -103,14 +103,14 @@ export function createPrismaPromise<T>(value: T): Prisma.PrismaPromise<T> {
 export function createEngagementPrismaMock(): EngagementPrismaClient {
   return {
     userPreference: {
-      upsert: mock.fn(async () => createMockUserPreference()),
-      findUnique: mock.fn(async () => createMockUserPreference())
+      upsert: mock.fn(() => createMockUserPreference()),
+      findUnique: mock.fn(() => createMockUserPreference())
     },
     auditLog: {
-      create: mock.fn(async () => createMockAuditLog())
+      create: mock.fn(() => createMockAuditLog())
     },
     notification: {
-      create: mock.fn(async () => createMockNotification()),
+      create: mock.fn(() => createMockNotification()),
       createMany: mock.fn(async () => createPrismaPromise({ count: 1 } as Prisma.BatchPayload)),
       findMany: mock.fn(async () => createPrismaPromise([])),
       count: mock.fn(async () => createPrismaPromise(0)),
