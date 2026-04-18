@@ -1,12 +1,12 @@
 ﻿import assert from "node:assert/strict";
 import test, { mock } from "node:test";
 
-function _mergeDeep(target: unknown, source: unknown) {
-  for (const key of Object.keys(source)) {
-    if (source[key] instanceof Object && !Array.isArray(source[key])) Object.assign(source[key], mergeDeep(target[key], source[key]));
-  }
-  Object.assign(target || {}, source);
-  return target;
+// function _mergeDeep(target: unknown, source: unknown) {
+//   for (const key of Object.keys(source)) {
+//     if (source[key] instanceof Object && !Array.isArray(source[key])) Object.assign(source[key], mergeDeep(target[key], source[key]));
+//   }
+//   Object.assign(target || {}, source);
+//   return target;
 }
 import { NotificationType, Role, Prisma } from "@prisma/client";
 import { prisma } from "../src/client.js";
