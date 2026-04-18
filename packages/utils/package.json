@@ -15,7 +15,7 @@
   "devDependencies": {
     "@opentelemetry/auto-instrumentations-node": "^0.71.0",
     "@opentelemetry/sdk-node": "^0.214.0",
-    "@opentelemetry/sdk-trace-node": "^2.6.1",
+    "@opentelemetry/sdk-trace-node": "^2.7.0",
     "@types/node": "^25.5.2",
     "typescript": "^5.9.3"
   },
