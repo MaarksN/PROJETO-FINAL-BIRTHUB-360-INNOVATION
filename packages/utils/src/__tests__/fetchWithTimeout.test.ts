@@ -36,7 +36,7 @@ void test("fetchWithTimeout rejects with a timeout error when the request exceed
       }
 
       signal.addEventListener("abort", () => {
-        reject(signal.reason);
+        reject(signal.reason instanceof Error ? signal.reason : new Error(String(signal.reason ?? "Aborted")));
       });
     });
 
@@ -69,7 +69,7 @@ void test("fetchWithTimeout propagates an existing abort signal and its reason",
       }
 
       signal.addEventListener("abort", () => {
-        reject(signal.reason);
+        reject(signal.reason instanceof Error ? signal.reason : new Error(String(signal.reason ?? "Aborted")));
       });
     });
 
@@ -106,3 +106,4 @@ void test("fetchWithTimeout skips timeout wiring when the provided timeout is no
     globalThis.fetch = originalFetch;
   }
 });
+
