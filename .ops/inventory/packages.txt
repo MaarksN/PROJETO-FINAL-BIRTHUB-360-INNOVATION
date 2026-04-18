@@ -1,74 +1,241 @@
-# package manifests
-{"path": "apps/api/package.json", "name": "@birthub/api", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "apps/voice-engine/package.json", "name": "@birthub/voice-engine", "version": "0.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "apps/web/package.json", "name": "@birthub/web", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "apps/worker/package.json", "name": "@birthub/worker", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "audit/autofix/snapshots/packages/queue/package.json", "name": "@birthub/queue", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "audit/autofix/snapshots/packages/utils/package.json", "name": "@birthub/utils", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "package.json", "name": "birthub-360", "version": "1.0.0", "private": true, "workspaces": ["apps/*", "packages/*"], "packageManager": "pnpm@9.15.9", "engines": {"node": ">=24 <25", "pnpm": "9.15.9"}}
-{"path": "packages/agent-packs/package.json", "name": "@birthub/agent-packs", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/agent-runtime/package.json", "name": "@birthub/agent-runtime", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/agents-core/package.json", "name": "@birthub/agents-core", "version": "0.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/agents-registry/package.json", "name": "@birthub/agents-registry", "version": "0.1.0", "private": false, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/auth/package.json", "name": "@birthub/auth", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/config/package.json", "name": "@birthub/config", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/conversation-core/package.json", "name": "@birthub/conversation-core", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/database/package.json", "name": "@birthub/database", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/emails/package.json", "name": "@birthub/emails", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/integrations/package.json", "name": "@birthub/integrations", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/llm-client/package.json", "name": "@birthub/llm-client", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/logger/package.json", "name": "@birthub/logger", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/queue/package.json", "name": "@birthub/queue", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/security/package.json", "name": "@birthub/security", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/shared/package.json", "name": "@birthub/shared", "version": "1.0.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/shared-types/package.json", "name": "@birthub/shared-types", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/testing/package.json", "name": "@birthub/testing", "version": "0.1.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/utils/package.json", "name": "@birthub/utils", "version": "0.0.0", "private": null, "workspaces": null, "packageManager": null, "engines": null}
-{"path": "packages/workflows-core/package.json", "name": "@birthub/workflows-core", "version": "0.1.0", "private": true, "workspaces": null, "packageManager": null, "engines": null}
+root_package_manager=pnpm@9.15.9
+executables={"pnpm":"9.15.9","npm":"11.11.0"}
+lockfiles=pnpm-lock.yaml
+declared_workspace_globs=apps/*, packages/*
+declared_workspace_count=23
+real_workspace_count=23
+real_workspaces_missing_from_decl=none
 
-# workspace declared
-apps/*
-packages/*
-# workspace actual
-apps/api
-apps/voice-engine
-apps/web
-apps/worker
-audit/autofix/snapshots/packages/queue
-audit/autofix/snapshots/packages/utils
-packages/agent-packs
-packages/agent-runtime
-packages/agents-core
-packages/agents-registry
-packages/auth
-packages/config
-packages/conversation-core
-packages/database
-packages/emails
-packages/integrations
-packages/llm-client
-packages/logger
-packages/queue
-packages/security
-packages/shared
-packages/shared-types
-packages/testing
-packages/utils
-packages/workflows-core
+apps/api/package.json
+  name=@birthub/api
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=11
 
-# dependency divergences
-{"dep": "@birthub/config", "versions": ["workspace:*", "workspace:^"]}
-{"dep": "@birthub/logger", "versions": ["workspace:*", "workspace:^"]}
-{"dep": "@opentelemetry/sdk-node", "versions": ["^0.213.0", "^0.214.0"]}
-{"dep": "@types/node", "versions": ["^25.5.0", "^25.5.2", "^25.6.0"]}
-{"dep": "bullmq", "versions": ["^5.71.0", "^5.73.0"]}
-{"dep": "@opentelemetry/sdk-trace-node", "versions": ["^2.6.0", "^2.6.1"]}
+apps/voice-engine/package.json
+  name=@birthub/voice-engine
+  version=0.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=5
 
-# suspicious dep refs
-{"package": "package.json", "dep": "@types/opossum", "issue": "should-be-devDependency"}
-{"package": "audit/autofix/snapshots/packages/utils/package.json", "dep": "@opentelemetry/auto-instrumentations-node", "issue": "runtime-imported-but-devDependency"}
-{"package": "audit/autofix/snapshots/packages/utils/package.json", "dep": "@opentelemetry/sdk-node", "issue": "runtime-imported-but-devDependency"}
-{"package": "audit/autofix/snapshots/packages/utils/package.json", "dep": "@opentelemetry/sdk-trace-node", "issue": "runtime-imported-but-devDependency"}
-{"package": "packages/utils/package.json", "dep": "@opentelemetry/auto-instrumentations-node", "issue": "runtime-imported-but-devDependency"}
-{"package": "packages/utils/package.json", "dep": "@opentelemetry/sdk-node", "issue": "runtime-imported-but-devDependency"}
-{"package": "packages/utils/package.json", "dep": "@opentelemetry/sdk-trace-node", "issue": "runtime-imported-but-devDependency"}
+apps/web/package.json
+  name=@birthub/web
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=6
+
+apps/worker/package.json
+  name=@birthub/worker
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=8
+
+audit/autofix/snapshots/packages/queue/package.json
+  name=@birthub/queue
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=6
+
+audit/autofix/snapshots/packages/utils/package.json
+  name=@birthub/utils
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+package.json
+  name=birthub-360
+  version=1.0.0
+  private=true
+  packageManager=pnpm@9.15.9
+  engines={"node":">=24 <25","pnpm":"9.15.9"}
+  workspaces=["apps/*","packages/*"]
+  scripts=170
+
+packages/agent-packs/package.json
+  name=@birthub/agent-packs
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=12
+
+packages/agent-runtime/package.json
+  name=@birthub/agent-runtime
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/agents-core/package.json
+  name=@birthub/agents-core
+  version=0.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=5
+
+packages/agents-registry/package.json
+  name=@birthub/agents-registry
+  version=0.1.0
+  private=false
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/auth/package.json
+  name=@birthub/auth
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/config/package.json
+  name=@birthub/config
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/conversation-core/package.json
+  name=@birthub/conversation-core
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/database/package.json
+  name=@birthub/database
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=27
+
+packages/emails/package.json
+  name=@birthub/emails
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/integrations/package.json
+  name=@birthub/integrations
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/llm-client/package.json
+  name=@birthub/llm-client
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/logger/package.json
+  name=@birthub/logger
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/queue/package.json
+  name=@birthub/queue
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=6
+
+packages/security/package.json
+  name=@birthub/security
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/shared-types/package.json
+  name=@birthub/shared-types
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/shared/package.json
+  name=@birthub/shared
+  version=1.0.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/testing/package.json
+  name=@birthub/testing
+  version=0.1.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/utils/package.json
+  name=@birthub/utils
+  version=0.0.0
+  private=null
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=4
+
+packages/workflows-core/package.json
+  name=@birthub/workflows-core
+  version=0.1.0
+  private=true
+  packageManager=null
+  engines=null
+  workspaces=null
+  scripts=5

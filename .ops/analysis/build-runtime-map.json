@@ -14,15 +14,13 @@
         "types": null,
         "exports": null
       },
-      "dist_exists": false,
-      "dist_populated": false,
-      "docker_cmd": "[\"pnpm\", \"start\"]",
+      "dist_exists": true,
+      "dist_populated": true,
+      "docker_cmd": "CMD [\"pnpm\", \"start\"]",
       "docker_entrypoint": null,
       "compose_command": null,
       "ci_command": null,
-      "incoherences": [
-        "Docker start command references runtime without dist present locally"
-      ],
+      "incoherences": [],
       "circular_deps_detected": false
     },
     {
@@ -41,10 +39,10 @@
       },
       "dist_exists": false,
       "dist_populated": false,
-      "docker_cmd": "[\"node\", \"server.js\"]",
+      "docker_cmd": "CMD [\"node\", \"server.js\"]",
       "docker_entrypoint": null,
       "compose_command": null,
-      "ci_command": "run: node scripts/ci/check-web-inline-style-freeze.mjs",
+      "ci_command": ".github/workflows/ci.yml: node scripts/ci/check-web-inline-style-freeze.mjs",
       "incoherences": [],
       "circular_deps_detected": false
     },
@@ -62,15 +60,13 @@
         "types": null,
         "exports": null
       },
-      "dist_exists": false,
-      "dist_populated": false,
-      "docker_cmd": "[\"pnpm\", \"start\"]",
+      "dist_exists": true,
+      "dist_populated": true,
+      "docker_cmd": "CMD [\"pnpm\", \"start\"]",
       "docker_entrypoint": null,
       "compose_command": null,
       "ci_command": null,
-      "incoherences": [
-        "Docker start command references runtime without dist present locally"
-      ],
+      "incoherences": [],
       "circular_deps_detected": false
     },
     {
@@ -104,12 +100,12 @@
           "./prettier": "./prettier/index.cjs"
         }
       },
-      "dist_exists": false,
-      "dist_populated": false,
+      "dist_exists": true,
+      "dist_populated": true,
       "docker_cmd": null,
       "docker_entrypoint": null,
       "compose_command": null,
-      "ci_command": "run: gcloud auth configure-docker \"${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev\" --quiet",
+      "ci_command": ".github/workflows/cd.yml: gcloud auth configure-docker \"${{ vars.GCP_ARTIFACT_REGISTRY_REGION }}-docker.pkg.dev\" --quiet",
       "incoherences": [],
       "circular_deps_detected": false
     },
@@ -166,8 +162,8 @@
           }
         }
       },
-      "dist_exists": false,
-      "dist_populated": false,
+      "dist_exists": true,
+      "dist_populated": true,
       "docker_cmd": null,
       "docker_entrypoint": null,
       "compose_command": null,

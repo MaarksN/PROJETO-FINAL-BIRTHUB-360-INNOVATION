@@ -1,6 +1,8 @@
-{
-  "scripts": {
-    "apps/api/package.json": {
+[
+  {
+    "path": "apps/api/package.json",
+    "name": "@birthub/api",
+    "scripts": {
       "billing:sync": "tsx src/modules/billing/sync-plans.ts",
       "build": "tsc -p tsconfig.json",
       "dev": "tsx watch src/server.ts",
@@ -9,50 +11,74 @@
       "test:auth": "node --import tsx --test tests/auth.test.ts",
       "test:rbac": "node --import tsx --test tests/rbac.test.ts",
       "test:security": "node --import tsx --test tests/security.test.ts",
-      "test": "node --import tsx --test tests/**/*.test.ts test/**/*.test.ts",
-      "test:isolation": "node --import tsx --test test/**/*.test.ts",
+      "test": "node --import tsx --test tests*.test.ts test*.test.ts",
+      "test:isolation": "node --import tsx --test test*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "apps/voice-engine/package.json": {
+    }
+  },
+  {
+    "path": "apps/voice-engine/package.json",
+    "name": "@birthub/voice-engine",
+    "scripts": {
       "dev": "tsx src/server.ts",
       "build": "tsc -p tsconfig.json",
       "lint": "eslint src",
-      "test": "node --import tsx --test src/**/*.test.ts",
+      "test": "node --import tsx --test src*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "apps/web/package.json": {
+    }
+  },
+  {
+    "path": "apps/web/package.json",
+    "name": "@birthub/web",
+    "scripts": {
       "build": "next build --webpack",
       "dev": "next dev -p 3001",
       "lint": "eslint .",
       "start": "next start -p 3001",
-      "test": "node --import tsx --test tests/**/*.test.ts",
+      "test": "node --import tsx --test tests*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "apps/worker/package.json": {
+    }
+  },
+  {
+    "path": "apps/worker/package.json",
+    "name": "@birthub/worker",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
       "dev": "tsx watch src/index.ts",
       "lint": "eslint .",
       "load:test": "node --import tsx src/load/parallelLoad.test.ts",
       "start": "node dist/apps/worker/src/index.js",
-      "test": "node --import tsx --test src/**/*.test.ts test/**/*.test.ts",
-      "test:isolation": "node --import tsx --test test/**/*.test.ts",
+      "test": "node --import tsx --test src*.test.ts test*.test.ts",
+      "test:isolation": "node --import tsx --test test*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "audit/autofix/snapshots/packages/queue/package.json": {
+    }
+  },
+  {
+    "path": "audit/autofix/snapshots/packages/queue/package.json",
+    "name": "@birthub/queue",
+    "scripts": {
       "build": "tsc",
       "test:load": "tsx load-test/bullmq-load-test.ts",
       "schedule:crons": "tsx scripts/schedule-recurring-jobs.ts",
-      "test": "node --import tsx --test \"tests/**/*.test.ts\"",
+      "test": "node --import tsx --test \"tests*.test.ts\"",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "audit/autofix/snapshots/packages/utils/package.json": {
+    }
+  },
+  {
+    "path": "audit/autofix/snapshots/packages/utils/package.json",
+    "name": "@birthub/utils",
+    "scripts": {
       "build": "tsc",
       "test": "node --import tsx --test src/__tests__/*.test.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "package.json": {
+    }
+  },
+  {
+    "path": "package.json",
+    "name": "birthub-360",
+    "scripts": {
       "artifacts:clean": "node scripts/ci/cleanup-artifacts.mjs",
       "branch:check": "node scripts/ci/check-branch-name.mjs",
       "build": "pnpm db:generate && pnpm build:core && pnpm release:sbom",
@@ -223,59 +249,91 @@
       "release:bundle": "pnpm release:sbom && pnpm release:materialize",
       "release:verify:cycle0": "bash ./scripts/release/verify-cycle0-flow.sh",
       "release:origin:ensure": "bash ./scripts/release/configure-origin-remote.sh"
-    },
-    "packages/agent-packs/package.json": {
+    }
+  },
+  {
+    "path": "packages/agent-packs/package.json",
+    "name": "@birthub/agent-packs",
+    "scripts": {
       "compile:executive-premium": "node --import tsx ../../scripts/agent/compile-executive-premium-agents.ts",
       "compile:github": "node --import tsx ../../scripts/agent/compile-github-agents.ts",
       "upgrade:github": "node --import tsx ../../scripts/agent/upgrade-github-agent-manifests.ts",
       "readiness:github": "node --import tsx ../../scripts/agent/check-github-agent-readiness.ts",
       "validate": "node --import tsx ../../scripts/validate-packs.ts",
-      "test": "node --import tsx --test test/**/*.test.ts",
+      "test": "node --import tsx --test test*.test.ts",
       "smoke": "node --import tsx --test test/pack-smoke.test.ts",
       "regression": "node --import tsx --test test/pack-regression.test.ts",
       "docs": "node --import tsx ../../scripts/generate-pack-docs.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit",
       "build": "tsc"
-    },
-    "packages/agent-runtime/package.json": {
+    }
+  },
+  {
+    "path": "packages/agent-runtime/package.json",
+    "name": "@birthub/agent-runtime",
+    "scripts": {
       "build": "tsc",
       "test": "node --experimental-strip-types --test src/__tests__/*.test.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "packages/agents-core/package.json": {
+    }
+  },
+  {
+    "path": "packages/agents-core/package.json",
+    "name": "@birthub/agents-core",
+    "scripts": {
       "build": "tsc",
-      "test": "node --import tsx --test \"src/**/*.test.ts\"",
+      "test": "node --import tsx --test \"src*.test.ts\"",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit",
       "docs": "typedoc --out docs src/index.ts"
-    },
-    "packages/agents-registry/package.json": {
+    }
+  },
+  {
+    "path": "packages/agents-registry/package.json",
+    "name": "@birthub/agents-registry",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
-      "test": "node --import tsx --test \"test/**/*.test.ts\"",
+      "test": "node --import tsx --test \"test*.test.ts\"",
       "typecheck": "tsc -p tsconfig.json --noEmit",
       "lint": "eslint ."
-    },
-    "packages/auth/package.json": {
+    }
+  },
+  {
+    "path": "packages/auth/package.json",
+    "name": "@birthub/auth",
+    "scripts": {
       "build": "tsc",
       "test": "node --import tsx --test src/__tests__/*.test.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "packages/config/package.json": {
+    }
+  },
+  {
+    "path": "packages/config/package.json",
+    "name": "@birthub/config",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
       "lint": "eslint .",
-      "test": "node --import tsx --test src/**/*.test.ts",
+      "test": "node --import tsx --test src*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "packages/conversation-core/package.json": {
+    }
+  },
+  {
+    "path": "packages/conversation-core/package.json",
+    "name": "@birthub/conversation-core",
+    "scripts": {
       "build": "tsc",
       "test": "node --import tsx --test src/__tests__/*.test.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "packages/database/package.json": {
+    }
+  },
+  {
+    "path": "packages/database/package.json",
+    "name": "@birthub/database",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
       "db:bootstrap:ci": "node --import tsx scripts/bootstrap-ci.ts",
       "db:generate": "node scripts/prisma-runtime-compat.mjs && prisma generate --schema prisma/schema.prisma",
@@ -286,7 +344,7 @@
       "db:seed:destructive": "node --import tsx prisma/seed.ts --profile=destructive --mode=destructive",
       "db:seed:safe": "node --import tsx prisma/seed.ts --profile=safe",
       "lint": "eslint .",
-      "test": "node --import tsx --test src/**/*.test.ts test/**/*.test.ts",
+      "test": "node --import tsx --test src*.test.ts test*.test.ts",
       "test:isolation": "node --import tsx --test test/database-availability.test.ts test/rls.test.ts test/maternal-domain.rls.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit",
       "db:check:all": "node --import tsx scripts/post-migration-checklist.ts",
@@ -303,117 +361,119 @@
       "db:seed:staging": "node --import tsx prisma/seed.ts --profile=staging",
       "db:validate:pr": "node --import tsx scripts/validate-migrations-on-test-db.ts",
       "db:provision:app-role": "node --import tsx scripts/provision-rls-runtime-role.ts"
-    },
-    "packages/emails/package.json": {
+    }
+  },
+  {
+    "path": "packages/emails/package.json",
+    "name": "@birthub/emails",
+    "scripts": {
       "lint": "echo 'email templates linted'",
       "typecheck": "tsc --noEmit",
       "test": "node --import tsx --test templates/*.test.ts",
       "build": "echo \"N/A: no build step\""
-    },
-    "packages/integrations/package.json": {
+    }
+  },
+  {
+    "path": "packages/integrations/package.json",
+    "name": "@birthub/integrations",
+    "scripts": {
       "build": "tsc",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit",
-      "test": "node --import tsx --test src/**/*.test.ts"
-    },
-    "packages/llm-client/package.json": {
+      "test": "node --import tsx --test src*.test.ts"
+    }
+  },
+  {
+    "path": "packages/llm-client/package.json",
+    "name": "@birthub/llm-client",
+    "scripts": {
       "build": "tsc",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit",
-      "test": "node --import tsx --test src/**/*.test.ts"
-    },
-    "packages/logger/package.json": {
+      "test": "node --import tsx --test src*.test.ts"
+    }
+  },
+  {
+    "path": "packages/logger/package.json",
+    "name": "@birthub/logger",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
       "lint": "eslint .",
-      "test": "node --import tsx --test src/**/*.test.ts",
+      "test": "node --import tsx --test src*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "packages/queue/package.json": {
+    }
+  },
+  {
+    "path": "packages/queue/package.json",
+    "name": "@birthub/queue",
+    "scripts": {
       "build": "tsc",
       "test:load": "tsx load-test/bullmq-load-test.ts",
       "schedule:crons": "tsx scripts/schedule-recurring-jobs.ts",
-      "test": "node --import tsx --test \"tests/**/*.test.ts\"",
+      "test": "node --import tsx --test \"tests*.test.ts\"",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "packages/security/package.json": {
+    }
+  },
+  {
+    "path": "packages/security/package.json",
+    "name": "@birthub/security",
+    "scripts": {
       "build": "tsc",
       "test": "node --experimental-strip-types --test src/__tests__/*.test.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "packages/shared/package.json": {
+    }
+  },
+  {
+    "path": "packages/shared-types/package.json",
+    "name": "@birthub/shared-types",
+    "scripts": {
+      "build": "tsc",
+      "lint": "eslint .",
+      "typecheck": "tsc --noEmit",
+      "test": "node --import tsx --test src*.test.ts"
+    }
+  },
+  {
+    "path": "packages/shared/package.json",
+    "name": "@birthub/shared",
+    "scripts": {
       "lint": "eslint .",
       "typecheck": "tsc --noEmit",
       "test": "node --import tsx --test errors/*.test.ts",
       "build": "echo \"N/A: no build step\""
-    },
-    "packages/shared-types/package.json": {
-      "build": "tsc",
-      "lint": "eslint .",
-      "typecheck": "tsc --noEmit",
-      "test": "node --import tsx --test src/**/*.test.ts"
-    },
-    "packages/testing/package.json": {
+    }
+  },
+  {
+    "path": "packages/testing/package.json",
+    "name": "@birthub/testing",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
       "lint": "node ../../node_modules/eslint/bin/eslint.js .",
-      "test": "node --import tsx --test src/**/*.test.ts",
+      "test": "node --import tsx --test src*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
-    },
-    "packages/utils/package.json": {
+    }
+  },
+  {
+    "path": "packages/utils/package.json",
+    "name": "@birthub/utils",
+    "scripts": {
       "build": "tsc",
       "test": "node --import tsx --test src/__tests__/*.test.ts",
       "lint": "eslint .",
       "typecheck": "tsc --noEmit"
-    },
-    "packages/workflows-core/package.json": {
+    }
+  },
+  {
+    "path": "packages/workflows-core/package.json",
+    "name": "@birthub/workflows-core",
+    "scripts": {
       "build": "tsc -p tsconfig.json",
       "lint": "eslint . --config eslint.config.mjs",
       "lint:strict": "eslint . --config eslint.config.mjs --max-warnings=0",
-      "test": "node --import tsx --test test/**/*.test.ts",
+      "test": "node --import tsx --test test*.test.ts",
       "typecheck": "tsc -p tsconfig.json --noEmit"
     }
-  },
-  "suspicious": [
-    {
-      "package": "package.json",
-      "script": "ci:legacy-db-surface-freeze",
-      "command": "node scripts/ci/check-legacy-db-surface-freeze.mjs"
-    },
-    {
-      "package": "package.json",
-      "script": "ci:legacy-runtime-surface-freeze",
-      "command": "node scripts/ci/check-legacy-runtime-surface-freeze.mjs"
-    },
-    {
-      "package": "package.json",
-      "script": "dev:legacy",
-      "command": "node scripts/legacy/block-legacy-entrypoint.mjs dev:legacy"
-    },
-    {
-      "package": "package.json",
-      "script": "stack:hybrid",
-      "command": "node scripts/legacy/block-legacy-entrypoint.mjs stack:hybrid"
-    },
-    {
-      "package": "package.json",
-      "script": "audit:f2:db-imports",
-      "command": "node scripts/diagnostics/audit-legacy-db-imports.mjs"
-    },
-    {
-      "package": "package.json",
-      "script": "ops:backup:health",
-      "command": "node --import tsx scripts/ops/check-backup-health.ts"
-    },
-    {
-      "package": "packages/emails/package.json",
-      "script": "lint",
-      "command": "echo 'email templates linted'"
-    },
-    {
-      "package": "packages/emails/package.json",
-      "script": "test",
-      "command": "node --import tsx --test templates/*.test.ts"
-    }
-  ]
-}
+  }
+]

@@ -53,8 +53,8 @@ importers:
         specifier: ^1.59.1
         version: 1.59.1
       '@prisma/client':
-        specifier: ^7.7.0
-        version: 7.7.0(prisma@6.19.3(typescript@6.0.3))(typescript@6.0.3)
+        specifier: ^6.19.3
+        version: 6.19.3(prisma@6.19.3(typescript@6.0.3))(typescript@6.0.3)
       '@stryker-mutator/api':
         specifier: 9.6.1
         version: 9.6.1
@@ -97,6 +97,9 @@ importers:
       prettier:
         specifier: ^3.8.1
         version: 3.8.2
+      prisma:
+        specifier: 6.19.3
+        version: 6.19.3(typescript@6.0.3)
       tsx:
         specifier: ^4.21.0
         version: 4.21.0
@@ -2746,6 +2749,18 @@ packages:
 
   '@prisma/client-runtime-utils@7.7.0':
     resolution: {integrity: sha512-BLyd0UpFYOtyJFTHm7jS9vesHW7P83abibodQMiIofqjBKzDHQ1VAsQkdfvXyYDkPlONPfOTz7/rv3x/+CQqvQ==}
+
+  '@prisma/client@6.19.3':
+    resolution: {integrity: sha512-mKq3jQFhjvko5LTJFHGilsuQs+W+T3Gm451NzuTDGQxwCzwXHYnIu2zGkRoW+Exq3Rob7yp2MfzSrdIiZVhrBg==}
+    engines: {node: '>=18.18'}
+    peerDependencies:
+      prisma: '*'
+      typescript: '>=5.1.0'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+      typescript:
+        optional: true
 
   '@prisma/client@7.7.0':
     resolution: {integrity: sha512-5Ar4OsZpJ54s21sy5oDNNW9gQtd4NuxCaiM7+JDTOU07D6VvlpLjYzAVCMB1+JzokN+08dAVomlx+b7bhJd3ww==}
@@ -9786,6 +9801,11 @@ snapshots:
       - pg-native
 
   '@prisma/client-runtime-utils@7.7.0': {}
+
+  '@prisma/client@6.19.3(prisma@6.19.3(typescript@6.0.3))(typescript@6.0.3)':
+    optionalDependencies:
+      prisma: 6.19.3(typescript@6.0.3)
+      typescript: 6.0.3
 
   '@prisma/client@7.7.0(prisma@6.19.3(typescript@6.0.3))(typescript@6.0.3)':
     dependencies:
