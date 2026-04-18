@@ -103,3 +103,22 @@ Aprimoramento aplicado para próximo ciclo assim que o registry for liberado:
 - Script único de validação ponta a ponta criado em:
   - `scripts/diagnostics/validate-monorepo-runtime.sh`
 - O script executa automaticamente as etapas: limpeza, `pnpm install`, `prisma generate`, `pnpm -r build`, `pnpm typecheck` e `pnpm test`.
+
+## Tentativa de liberação e execução — 2026-04-18 (tentativa 3)
+
+Ação de liberação aplicada:
+- Script `scripts/diagnostics/validate-monorepo-runtime.sh` atualizado com **preflight obrigatório** de conectividade no registry npm e validação de versão do Node.
+
+Comando executado:
+
+```bash
+bash scripts/diagnostics/validate-monorepo-runtime.sh
+```
+
+Resultado real:
+- Aviso de runtime: Node atual `v22.21.1` (workspace requer `>=24 <25`).
+- Preflight de rede falhou antes do install:
+  - `curl: (56) CONNECT tunnel failed, response 403`
+  - `HTTP/1.1 403 Forbidden`
+- Execução interrompida corretamente em fail-fast com mensagem de desbloqueio:
+  - liberar CONNECT HTTPS para `registry.npmjs.org:443`.
