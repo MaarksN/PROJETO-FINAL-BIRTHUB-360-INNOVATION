@@ -188,7 +188,6 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.59.1",
-    "@prisma/client": "^6.19.3",
     "@stryker-mutator/api": "9.6.1",
     "@stryker-mutator/core": "^9.6.1",
     "@types/node": "^25.6.0",
@@ -235,6 +234,7 @@
     ]
   },
   "dependencies": {
+    "@prisma/client": "6.19.3",
     "@types/opossum": "^8.1.9",
     "lru-cache": "^11.3.3",
     "opossum": "^9.0.0"
