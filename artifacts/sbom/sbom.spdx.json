@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/680662f8-d3c6-ca2b-5c49-00cfc4b9e47c",
+  "documentNamespace": "https://birthub.local/spdx/bd66a8d9-892f-06a2-4b49-12303c2d9591",
   "creationInfo": {
-    "created": "2026-04-18T16:36:37.804Z",
+    "created": "2026-04-18T23:02:38.947Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -176,6 +176,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40birthub%2Fdatabase@link%3Apackages%2Fdatabase"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-047f38e6f2e8fc0c",
+      "name": "@birthub/domain-contracts",
+      "versionInfo": "link:../../packages/domain-contracts",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Fdomain-contracts@link%3A..%2F..%2Fpackages%2Fdomain-contracts"
         }
       ]
     },
@@ -1481,6 +1496,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/typedoc@0.28.19"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-44bd9e04e2c25408",
+      "name": "typescript",
+      "versionInfo": "5.9.3",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/typescript@5.9.3"
         }
       ]
     },

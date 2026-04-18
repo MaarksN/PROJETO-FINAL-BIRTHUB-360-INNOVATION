@@ -184,18 +184,13 @@ export async function getAgentMetrics(input: {
         ? (execution.metadata as Record<string, unknown>)
         : {};
     const fallbackDurationMs =
-      execution.completedAt instanceof Date
+      execution.completedAt instanceof Date && execution.startedAt instanceof Date
         ? Math.max(0, execution.completedAt.getTime() - execution.startedAt.getTime())
         : 0;
 
     return {
       durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : fallbackDurationMs,
-      status:
-        execution.status === "FAILED" ||
-        metadata.status === "FAILED" ||
-        metadata.executionStatus === "FAILED"
-          ? "FAILED"
-          : "SUCCESS",
+      status: execution.status === "FAILED" ? "FAILED" : "SUCCESS",
       toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
     };
   });
