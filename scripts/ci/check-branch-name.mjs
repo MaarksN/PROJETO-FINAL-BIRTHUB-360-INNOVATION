@@ -6,7 +6,7 @@ import { execSync } from "node:child_process";
 import { projectRoot } from "./shared.mjs";
 
 const allowedBranchPattern =
-  /^(main|develop|feat\/[a-z0-9._-]+|fix\/[a-z0-9._-]+|fix-[a-z0-9._-]+|refactor\/[a-z0-9._-]+|chore\/[a-z0-9._-]+|release\/[a-z0-9._-]+|hotfix\/[a-z0-9._-]+|codex\/[a-z0-9._-]+|jules\/[a-z0-9._-]+|jules-[a-z0-9._-]+|dependabot\/[a-z0-9._/-]+)$/;
+  /^(main|develop|work|feat\/[a-z0-9._-]+|fix\/[a-z0-9._-]+|fix-[a-z0-9._-]+|refactor\/[a-z0-9._-]+|chore\/[a-z0-9._-]+|release\/[a-z0-9._-]+|hotfix\/[a-z0-9._-]+|codex\/[a-z0-9._-]+|jules\/[a-z0-9._-]+|jules-[a-z0-9._-]+|dependabot\/[a-z0-9._/-]+)$/;
 
 function resolveBranchName() {
   const fromEnv = process.env.GITHUB_HEAD_REF || process.env.GITHUB_REF_NAME;
@@ -26,7 +26,7 @@ try {
   if (!allowedBranchPattern.test(branchName)) {
     console.error("[branch-check] FAILED");
     console.error(
-      `- Branch "${branchName}" must use one of: feat/, fix/, refactor/, chore/, release/, hotfix/, codex/, jules/, dependabot/, main or develop.`
+      `- Branch "${branchName}" must use one of: feat/, fix/, refactor/, chore/, release/, hotfix/, codex/, jules/, dependabot/, work, main or develop.`
     );
     process.exitCode = 1;
   } else {
