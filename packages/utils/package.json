@@ -22,8 +22,14 @@
   },
   "type": "module",
   "exports": {
-    ".": "./dist/index.js",
-    "./fetch": "./dist/fetch.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./fetch": {
+      "types": "./dist/fetch.d.ts",
+      "default": "./dist/fetch.js"
+    }
   },
   "private": true,
   "files": [
