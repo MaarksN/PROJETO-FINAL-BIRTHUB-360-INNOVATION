@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { UserStatus, prisma, type PrismaClient } from "@birthub/database";
 import { createHash } from "node:crypto";
 

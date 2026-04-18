@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { runParallelExecutionLoadTest } from "./parallelLoad.js";
 import { createLogger } from "@birthub/logger";
 

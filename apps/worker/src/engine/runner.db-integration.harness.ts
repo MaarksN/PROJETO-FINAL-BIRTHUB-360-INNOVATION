@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import type { WorkflowExecutionJobPayload } from "./runner.js";
 import { getWorkflowRunnerHarnessConfig } from "./runner.db-integration.config.js";
 import { WorkflowRunner } from "./runner.js";

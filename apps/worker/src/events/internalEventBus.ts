@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { EventEmitter } from "node:events";
 
 import { createLogger } from "@birthub/logger";

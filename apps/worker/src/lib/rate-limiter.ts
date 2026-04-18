@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import type { Redis } from "ioredis";
 
 export class DynamicRateLimiter {

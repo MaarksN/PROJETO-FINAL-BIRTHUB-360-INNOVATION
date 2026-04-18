@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import { createServer } from "node:http";
 
 import { getWorkerConfig } from "@birthub/config";

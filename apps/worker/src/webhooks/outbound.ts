@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { createHmac } from "node:crypto";
 
 import { getWorkerConfig } from "@birthub/config";

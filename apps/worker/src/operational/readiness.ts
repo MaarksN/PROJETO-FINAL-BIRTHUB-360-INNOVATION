@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 export interface WorkerQueueState {
   name: string;
   backlog: number;
@@ -49,8 +47,8 @@ export async function evaluateWorkerReadiness(input: {
     input.listQueueStates().catch(() => [])
   ]);
 
-  const backlog = queueStates.reduce((total, queue) => total + queue.backlog, 0);
-  const dlq = queueStates.reduce((total, queue) => total + queue.dlq, 0);
+  const backlog = queueStates.reduce<number>((total, queue) => total + queue.backlog, 0);
+  const dlq = queueStates.reduce<number>((total, queue) => total + queue.dlq, 0);
   const runtimeReady = input.workerCount > 0 && input.queueCount > 0;
 
   const status = redisStatus.status === "up" && runtimeReady ? "ok" : "degraded";

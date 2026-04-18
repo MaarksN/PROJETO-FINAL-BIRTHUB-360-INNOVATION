@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { getWorkerConfig } from "@birthub/config";
 import { prisma, SubscriptionStatus } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
@@ -181,13 +179,14 @@ async function loadOrganizationSnapshot(organizationId: string) {
 
   const subscription = organization.subscriptions[0] ?? null;
   const owner = organization.memberships[0]?.user ?? null;
+  const ownerDomain =
+    typeof owner?.email === "string" && owner.email.includes("@")
+      ? owner.email.split("@").at(1) ?? null
+      : null;
 
   return {
     arrCents: (subscription?.plan.monthlyPriceCents ?? 0) * 12,
-    domain:
-      organization.primaryDomain ??
-      (owner?.email.includes("@") ? owner.email.split("@")[1] ?? null : null) ??
-      null,
+    domain: organization.primaryDomain ?? ownerDomain,
     healthScore: organization.healthScore,
     hubspotCompanyId: organization.hubspotCompanyId,
     name: organization.name,
@@ -264,4 +263,3 @@ export async function syncOrganizationToHubspot(input: {
     throw error;
   }
 }
-

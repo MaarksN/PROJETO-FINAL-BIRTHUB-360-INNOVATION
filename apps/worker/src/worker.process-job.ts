@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { getWorkerConfig } from "@birthub/config";
 import {
   ExecutionSource,

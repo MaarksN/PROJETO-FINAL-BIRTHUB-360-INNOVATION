@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import { prisma } from "@birthub/database";
 import { createLogger } from "@birthub/logger";
 import { SYSTEM_QUEUE_NAMES, type QueueRuntime } from "@birthub/queue";

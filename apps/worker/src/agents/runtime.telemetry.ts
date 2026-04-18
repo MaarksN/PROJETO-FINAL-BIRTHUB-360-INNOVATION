@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { prisma, Prisma } from "@birthub/database";
 import {
   buildSegmentKeywords,

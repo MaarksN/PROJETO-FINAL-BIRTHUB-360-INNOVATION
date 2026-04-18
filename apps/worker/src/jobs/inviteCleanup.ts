@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { prisma } from "@birthub/database";
 
 export async function inviteCleanupJob() {

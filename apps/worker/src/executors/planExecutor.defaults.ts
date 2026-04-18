@@ -1,8 +1,6 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { createHash } from "node:crypto";
 
-import { PolicyEngine } from "@birthub/agents-core/policy/engine";
+import { PolicyEngine } from "@birthub/agents-core/policy";
 import {
   DbReadTool,
   DbWriteTool,
@@ -97,4 +95,3 @@ export function createDefaultTools(): Record<string, BaseTool<unknown, unknown>>
     }) as BaseTool<unknown, unknown>
   };
 }
-

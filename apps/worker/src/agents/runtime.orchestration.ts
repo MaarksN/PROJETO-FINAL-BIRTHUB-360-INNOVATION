@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import {
   buildSegmentKeywords,
   buildAgentRuntimeOutput,
@@ -8,7 +6,7 @@ import {
   computeOutputHash,
   inferSegmentProfile
 } from "@birthub/agents-core";
-import { PolicyEngine } from "@birthub/agents-core/policy/engine";
+import { PolicyEngine } from "@birthub/agents-core/policy";
 import { getWorkerConfig } from "@birthub/config";
 import { Prisma, prisma } from "@birthub/database";
 
@@ -290,4 +288,3 @@ export async function executeManifestAgentRuntime(
     toolCost
   };
 }
-

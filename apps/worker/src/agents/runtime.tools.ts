@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import type { AgentManifest } from "@birthub/agents-core";
 import {
   buildPremiumLayersAssessment,
@@ -12,7 +10,7 @@ import {
   summarizePremiumLayers,
   summarizeNumericSignals
 } from "@birthub/agents-core";
-import { PolicyEngine } from "@birthub/agents-core/policy/engine";
+import { PolicyEngine } from "@birthub/agents-core/policy";
 import { BaseTool, DbReadTool, DbWriteTool, HttpTool, SendEmailTool } from "@birthub/agents-core/tools";
 import { createLogger } from "@birthub/logger";
 import { z } from "zod";
@@ -372,4 +370,3 @@ export function createRuntimeTools(
     tools
   };
 }
-

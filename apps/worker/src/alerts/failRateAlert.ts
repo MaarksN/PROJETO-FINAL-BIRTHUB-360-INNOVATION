@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { createLogger } from "@birthub/logger";
 
 const logger = createLogger("worker-fail-rate-alert");

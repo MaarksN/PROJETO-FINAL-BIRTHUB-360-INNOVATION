@@ -1,12 +1,12 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
-export { getAgentQueueName, type AgentQueuePriority } from "@birthub/queue";
+export { getAgentQueueName } from "@birthub/queue";
+
+export type AgentQueuePriority = "high" | "normal";
 
 export interface AgentQueuePayload {
   agentId: string;
   executionId: string;
   input: Record<string, unknown>;
-  priority?: import("@birthub/queue").AgentQueuePriority;
+  priority?: AgentQueuePriority;
   tenantId: string;
   toolCalls?: Array<{
     input: unknown;

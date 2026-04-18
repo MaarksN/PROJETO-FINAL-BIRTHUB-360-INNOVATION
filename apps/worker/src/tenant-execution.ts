@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { runWithTenantContext } from "@birthub/database";
 import { runWithLogContext } from "@birthub/logger";
 

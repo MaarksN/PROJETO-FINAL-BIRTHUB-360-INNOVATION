@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-//
 import type { QueueConfig } from "@birthub/queue";
 
 type RetryableQueueConfigInput = {

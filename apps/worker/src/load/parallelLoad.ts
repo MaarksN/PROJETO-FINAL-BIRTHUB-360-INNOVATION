@@ -1,5 +1,3 @@
-﻿// @ts-expect-error TODO: remover suppressão ampla
-// 
 import { performance } from "node:perf_hooks";
 
 import { BaseTool } from "@birthub/agents-core/tools";
