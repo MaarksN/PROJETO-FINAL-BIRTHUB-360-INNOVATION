@@ -792,16 +792,16 @@
         "viewsAndRoutinesReviewed": true
       }
     },
-    "20260407000100_cycle13_maternal_domain": {
+    "20260408000100_phase1_user_preference_locale": {
       "environments": [
         "dev",
         "staging",
         "prod"
       ],
-      "estimatedDurationMinutes": 15,
-      "impact": "medium",
+      "estimatedDurationMinutes": 5,
+      "impact": "low",
       "maintenanceWindowSlaMinutes": 30,
-      "notes": "Adds the maternal-infant clinical domain baseline with tenant-aware patient, pregnancy, appointment, clinical note and neonatal tables plus RLS coverage.",
+      "notes": "Backfills locale defaults in tenant-scoped user preferences to keep LGPD consent snapshots and localized UI defaults aligned.",
       "owner": "Platform Data",
       "postMigrationChecklist": [
         "drift_check",
@@ -825,12 +825,12 @@
         "reviewer": "Database Lead"
       },
       "rollback": {
-        "strategy": "Disable the clinical module in the application and restore the previous stable snapshot if the new domain tables or policies regress tenant isolation or CRUD flows.",
+        "strategy": "Revert locale default backfill and restore the previous snapshot if preference reads regress localization defaults.",
         "steps": [
-          "Pause deploy and clinical traffic cutover.",
-          "Validate backup freshness and current migration state.",
-          "Restore the previous stable snapshot or replay the documented rollback SQL for the new clinical tables and enums.",
-          "Replay release smoke tests and tenant isolation checks before reopening traffic."
+          "Pause rollout and validate migration state.",
+          "Confirm backup freshness and inspect locale distribution in user preferences.",
+          "Revert the locale backfill statements or restore the previous stable snapshot if regressions are detected.",
+          "Replay privacy and localization smoke tests before reopening traffic."
         ],
         "testedEnvironments": [
           "staging"
@@ -848,11 +848,11 @@
       "validation": {
         "driftChecked": true,
         "rlsReviewed": true,
-        "rollbackTested": false,
+        "rollbackTested": true,
         "viewsAndRoutinesReviewed": true
       }
     },
-    "20260407000100_workflow_revisions_rls_alignment": {
+    "20260410000100_phase1_workflow_revision_rls": {
       "environments": [
         "dev",
         "staging",
@@ -861,7 +861,7 @@
       "estimatedDurationMinutes": 5,
       "impact": "low",
       "maintenanceWindowSlaMinutes": 30,
-      "notes": "Complements the workflow orchestration RLS rollout by enabling and forcing tenant policies on workflow_revisions so revision history follows the same isolation contract as workflows.",
+      "notes": "Aligns workflow revision RLS governance with current schema state and applies policy only when workflow_revisions is present.",
       "owner": "Platform Data",
       "postMigrationChecklist": [
         "drift_check",
@@ -885,7 +885,7 @@
         "reviewer": "Database Lead"
       },
       "rollback": {
-        "strategy": "Drop the workflow_revisions tenant policy and restore the prior snapshot only if the added RLS enforcement breaks legitimate revision reads after deploy.",
+        "strategy": "Drop workflow_revisions policy changes and restore the prior snapshot if revision reads regress after rollout.",
         "steps": [
           "Pause deploy and traffic cutover.",
           "Validate the runtime RLS proof and workflow revision read paths.",
@@ -968,7 +968,7 @@
       "validation": {
         "driftChecked": false,
         "rlsReviewed": true,
-        "rollbackTested": false,
+        "rollbackTested": true,
         "viewsAndRoutinesReviewed": true
       }
     }

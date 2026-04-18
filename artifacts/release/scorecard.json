@@ -48,10 +48,10 @@
         "artifacts/stryker/mutation.json"
       ],
       "name": "Mutation lane",
-      "pass": true
+      "pass": false
     },
     {
-      "detail": "Current=21, regressions=21",
+      "detail": "Current=45, regressions=45",
       "evidence": [
         "artifacts/quality/dead-code/knip-report.json",
         "docs/evidence/dead-code-report.md",
@@ -61,7 +61,7 @@
       "pass": false
     },
     {
-      "detail": "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
+      "detail": "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups.",
       "evidence": [
         "artifacts/backups/backup-health.json",
         "artifacts/dr/readiness-report.json"
@@ -70,16 +70,16 @@
       "pass": false
     },
     {
-      "detail": "Rollback rehearsal evidence recorded for production at 2026-03-24T14:37:26.498Z",
+      "detail": "Missing or invalid artifacts/release/production-rollback-evidence.json.",
       "evidence": [
         "artifacts/release/production-rollback-evidence.json",
         "artifacts/dr/readiness-report.json"
       ],
       "name": "Rollback evidence",
-      "pass": true
+      "pass": false
     },
     {
-      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=legacy-unclassified, backupArtifact=legacy-untracked, RTO=60m, RPO=15m).",
+      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=automated release readiness rehearsal, backupArtifact=artifacts/backups/backup-health.json, RTO=1720m, RPO=27423m).",
       "evidence": [
         "artifacts/backups/drill-rto-rpo.json",
         "artifacts/dr/readiness-report.json",
@@ -89,15 +89,15 @@
       "pass": false
     },
     {
-      "detail": "Score 70 is below minimum 100",
+      "detail": "Score 50 is below minimum 100",
       "evidence": [],
       "name": "Score threshold",
       "pass": false
     }
   ],
-  "generatedAt": "2026-04-11T16:44:40.077Z",
+  "generatedAt": "2026-04-18T05:23:35.566Z",
   "minimumScore": 100,
-  "passedGates": 7,
-  "score": 70,
+  "passedGates": 5,
+  "score": 50,
   "totalGates": 10
 }

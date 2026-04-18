@@ -349,7 +349,7 @@
         "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.model.ts:1",
         "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.sections.tsx:1",
         "apps/web/app/(dashboard)/settings/privacy/privacy-settings-page.tsx:1",
-        "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:2",
+        "apps/web/app/(dashboard)/workflows/[id]/edit/page.tsx:1",
         "apps/web/app/(dashboard)/workflows/[id]/edit/workflow-editor-helpers.tsx:1",
         "apps/web/app/(dashboard)/workflows/[id]/revisions/page.tsx:1",
         "apps/web/app/(dashboard)/workflows/[id]/runs/page.data.ts:1",

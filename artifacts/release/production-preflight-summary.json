@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-04-11T16:45:11.580Z",
-  "envFile": "ops/release/sealed/.env.production.sealed",
+  "checkedAt": "2026-04-18T05:25:35.236Z",
+  "envFile": "/home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/ops/release/sealed/.env.production.sealed",
   "ok": true,
   "requiredKeys": [
     {

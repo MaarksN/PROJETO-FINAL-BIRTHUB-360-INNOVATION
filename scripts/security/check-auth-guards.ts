@@ -32,6 +32,9 @@ const workspaceRoot = process.cwd();
 const apiSourceRoot = resolve(workspaceRoot, "apps/api/src");
 const routeFilePattern = /(?:^|[\\/])(app|server|router)\.ts$|(?:^|[\\/]).+-routes\.ts$/;
 const publicRoutes = new Set([
+  "/login",
+  "/mfa/challenge",
+  "/refresh",
   "/health",
   "/health/deep",
   "/api/openapi.json",

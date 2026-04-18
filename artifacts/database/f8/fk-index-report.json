@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-02T13:01:24.776Z",
+  "checkedAt": "2026-04-18T05:11:42.611Z",
   "findings": [
     {
       "fields": [
@@ -208,6 +208,22 @@
       "issues": [],
       "model": "WorkflowTransition",
       "relationField": "targetStep"
+    },
+    {
+      "fields": [
+        "organizationId"
+      ],
+      "issues": [],
+      "model": "WorkflowRevision",
+      "relationField": "organization"
+    },
+    {
+      "fields": [
+        "workflowId"
+      ],
+      "issues": [],
+      "model": "WorkflowRevision",
+      "relationField": "workflow"
     },
     {
       "fields": [

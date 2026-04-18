@@ -7,7 +7,10 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, "../..");
 const e2eRoot = path.join(projectRoot, "tests", "e2e");
-const playwrightConfigPath = path.join(projectRoot, "playwright.config.ts");
+const playwrightConfigCandidates = [
+  path.join(projectRoot, "playwright.config.ts"),
+  path.join(projectRoot, "tests", "e2e", "playwright.config.ts")
+];
 
 const guardedPatterns = [
   {
@@ -95,12 +98,18 @@ for (const specPath of walk(e2eRoot)) {
   violations.push(...collectPatternViolations(relativePath, content));
 }
 
-const playwrightConfig = readFileSync(playwrightConfigPath, "utf8");
-for (const forbiddenDefault of forbiddenPlaywrightDefaults) {
-  if (playwrightConfig.includes(forbiddenDefault)) {
-    violations.push(
-      `playwright.config.ts must not enable preserved capabilities by default (${forbiddenDefault}).`
-    );
+const existingPlaywrightConfigPath = playwrightConfigCandidates.find((candidate) =>
+  statSync(candidate, { throwIfNoEntry: false })?.isFile()
+);
+
+if (existingPlaywrightConfigPath) {
+  const playwrightConfig = readFileSync(existingPlaywrightConfigPath, "utf8");
+  for (const forbiddenDefault of forbiddenPlaywrightDefaults) {
+    if (playwrightConfig.includes(forbiddenDefault)) {
+      violations.push(
+        `${toProjectRelative(existingPlaywrightConfigPath)} must not enable preserved capabilities by default (${forbiddenDefault}).`
+      );
+    }
   }
 }
 

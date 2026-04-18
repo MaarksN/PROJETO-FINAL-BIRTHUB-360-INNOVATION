@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:79dd1343-550d-70d4-426e-c86d488389a2" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:773eb246-cf2e-219c-9477-ee8a562fa07d" version="1">
   <metadata>
-    <timestamp>2026-04-15T15:26:52.505Z</timestamp>
+    <timestamp>2026-04-18T05:25:36.486Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -431,6 +431,11 @@
       <version>11.11.4</version>
       <purl>pkg:npm/reactflow@11.11.4</purl>
     </component>
+    <component type="library" bom-ref="pkg:npm/recharts@3.8.1">
+      <name>recharts</name>
+      <version>3.8.1</version>
+      <purl>pkg:npm/recharts@3.8.1</purl>
+    </component>
     <component type="library" bom-ref="pkg:npm/redis@5.11.0">
       <name>redis</name>
       <version>5.11.0</version>
@@ -495,6 +500,11 @@
       <name>typescript-eslint</name>
       <version>8.58.2</version>
       <purl>pkg:npm/typescript-eslint@8.58.2</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/vitest-mock-extended@4.0.0">
+      <name>vitest-mock-extended</name>
+      <version>4.0.0</version>
+      <purl>pkg:npm/vitest-mock-extended@4.0.0</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/ws@8.20.0">
       <name>ws</name>

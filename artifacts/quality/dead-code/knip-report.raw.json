@@ -1,20 +1,68 @@
 {
   "files": [
-    "apps/web/lib/web-session.ts"
+    "apps/worker/src/queues/agentQueue.ts",
+    "apps/web/components/sales-os/SdrAutomaticPlatform.tsx"
   ],
   "issues": [
     {
-      "file": "packages/agents-core/package.json",
+      "file": "packages/logger/package.json",
       "owners": [],
       "dependencies": [
         {
-          "name": "@birthub/logger",
-          "line": 15,
+          "name": "@opentelemetry/api",
+          "line": 28,
           "col": 6,
-          "pos": 367
+          "pos": 733
         }
       ],
       "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "package.json",
+      "owners": [
+        {
+          "name": "@birthub/core-maintainers"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [
+        {
+          "name": "@stryker-mutator/api",
+          "line": 190,
+          "col": 6,
+          "pos": 14789
+        }
+      ],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/package.json",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [
+        {
+          "name": "vitest-mock-extended",
+          "line": 35,
+          "col": 6,
+          "pos": 1091
+        }
+      ],
       "optionalPeerDependencies": [],
       "unlisted": [],
       "binaries": [],
@@ -28,15 +76,15 @@
           "name": "@birthub/data-engineering"
         }
       ],
-      "dependencies": [
+      "dependencies": [],
+      "devDependencies": [
         {
-          "name": "zod",
-          "line": 47,
+          "name": "vitest-mock-extended",
+          "line": 57,
           "col": 6,
-          "pos": 2251
+          "pos": 2731
         }
       ],
-      "devDependencies": [],
       "optionalPeerDependencies": [],
       "unlisted": [],
       "binaries": [],
@@ -44,7 +92,7 @@
       "duplicates": []
     },
     {
-      "file": "stryker.config.mjs",
+      "file": "eslint.config.mjs",
       "owners": [
         {
           "name": "@birthub/core-maintainers"
@@ -55,10 +103,10 @@
       "optionalPeerDependencies": [],
       "unlisted": [
         {
-          "name": "@stryker-mutator/api",
+          "name": "@typescript-eslint/parser",
           "line": 1,
-          "col": 31,
-          "pos": 29
+          "col": 23,
+          "pos": 21
         }
       ],
       "binaries": [],
@@ -66,79 +114,7 @@
       "duplicates": []
     },
     {
-      "file": "packages/emails/templates/critical-error.tsx",
-      "owners": [],
-      "dependencies": [],
-      "devDependencies": [],
-      "optionalPeerDependencies": [],
-      "unlisted": [
-        {
-          "name": "react",
-          "line": 3,
-          "col": 25,
-          "pos": 42
-        }
-      ],
-      "binaries": [],
-      "exports": [],
-      "duplicates": []
-    },
-    {
-      "file": "packages/emails/templates/org-invite.tsx",
-      "owners": [],
-      "dependencies": [],
-      "devDependencies": [],
-      "optionalPeerDependencies": [],
-      "unlisted": [
-        {
-          "name": "react",
-          "line": 3,
-          "col": 25,
-          "pos": 42
-        }
-      ],
-      "binaries": [],
-      "exports": [],
-      "duplicates": []
-    },
-    {
-      "file": "packages/emails/templates/workflow-finished.tsx",
-      "owners": [],
-      "dependencies": [],
-      "devDependencies": [],
-      "optionalPeerDependencies": [],
-      "unlisted": [
-        {
-          "name": "react",
-          "line": 3,
-          "col": 25,
-          "pos": 42
-        }
-      ],
-      "binaries": [],
-      "exports": [],
-      "duplicates": []
-    },
-    {
-      "file": "packages/logger/src/otel.ts",
-      "owners": [],
-      "dependencies": [],
-      "devDependencies": [],
-      "optionalPeerDependencies": [],
-      "unlisted": [
-        {
-          "name": "@opentelemetry/api",
-          "line": 50,
-          "col": 12,
-          "pos": 1318
-        }
-      ],
-      "binaries": [],
-      "exports": [],
-      "duplicates": []
-    },
-    {
-      "file": "apps/worker/src/agents/runtime.shared.ts",
+      "file": "apps/worker/src/webhooks/outbound.ts",
       "owners": [
         {
           "name": "@platform-worker"
@@ -154,22 +130,181 @@
       "binaries": [],
       "exports": [
         {
-          "name": "readNumbers",
-          "line": 184,
-          "col": 17,
-          "pos": 5118
-        },
-        {
-          "name": "readStrings",
-          "line": 200,
-          "col": 17,
-          "pos": 5485
+          "name": "outboundWebhookQueueName",
+          "line": 20,
+          "col": 14,
+          "pos": 624
         }
       ],
       "duplicates": []
     },
     {
-      "file": "apps/api/src/modules/notifications/service.ts",
+      "file": "apps/worker/src/agents/runtime.catalog.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "searchRuntimeManifestCatalog",
+          "line": 72,
+          "col": 23,
+          "pos": 1811
+        },
+        {
+          "name": "recommendRuntimeManifestAgents",
+          "line": 91,
+          "col": 23,
+          "pos": 2369
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/engine/runner.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "workflowQueueNames",
+          "line": 149,
+          "col": 14,
+          "pos": 3982
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/agents/runtime.ingress.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "emitCriticalTicketEvent",
+          "line": 384,
+          "col": 17,
+          "pos": 11191
+        },
+        {
+          "name": "emitRenewalRiskEvent",
+          "line": 397,
+          "col": 17,
+          "pos": 11473
+        },
+        {
+          "name": "emitOperationalIncidentEvent",
+          "line": 410,
+          "col": 17,
+          "pos": 11753
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/agents/runtime.resolution.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "resolveRuntimeAgent",
+          "line": 15,
+          "col": 23,
+          "pos": 336
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/worker/src/notifications/emailQueue.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "emailQueueName",
+          "line": 13,
+          "col": 14,
+          "pos": 421
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "packages/database/src/client.ts",
+      "owners": [
+        {
+          "name": "@birthub/data-engineering"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "resolveQueryTimeoutMs",
+          "line": 81,
+          "col": 17,
+          "pos": 2293
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/profile/router.ts",
       "owners": [
         {
           "name": "@platform-api"
@@ -185,65 +320,251 @@
       "binaries": [],
       "exports": [
         {
-          "name": "getNotificationFeed",
-          "line": 32,
-          "col": 23,
-          "pos": 738
+          "name": "registerProfileRoutes",
+          "line": 75,
+          "col": 17,
+          "pos": 2431
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/tasks/router.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
         },
         {
-          "name": "markNotificationReadForUser",
-          "line": 53,
-          "col": 23,
-          "pos": 1321
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "registerTaskRoutes",
+          "line": 35,
+          "col": 17,
+          "pos": 1277
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/auth/router.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
         },
         {
-          "name": "markAllNotificationsReadForUser",
-          "line": 66,
-          "col": 23,
-          "pos": 1664
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "AUTH_ROUTER_BASE_PATH",
+          "line": 35,
+          "col": 14,
+          "pos": 1142
         },
         {
-          "name": "getNotificationPreferences",
-          "line": 77,
+          "name": "registerAuthRouterRoutes",
+          "line": 391,
+          "col": 17,
+          "pos": 10723
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/app/pipeline.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "mainApiPipeline",
+          "line": 23,
+          "col": 14,
+          "pos": 520
+        },
+        {
+          "name": "webhookApiPipeline",
+          "line": 168,
+          "col": 14,
+          "pos": 4429
+        },
+        {
+          "name": "routeScopedApiPipeline",
+          "line": 195,
+          "col": 14,
+          "pos": 5137
+        },
+        {
+          "name": "mainInfrastructurePreWebhookPipeline",
+          "line": 216,
+          "col": 14,
+          "pos": 5665
+        },
+        {
+          "name": "mainInfrastructurePostWebhookPipeline",
+          "line": 270,
+          "col": 14,
+          "pos": 7100
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/agents/queue.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "QueueBackpressureError",
+          "line": 23,
+          "col": 10,
+          "pos": 478
+        },
+        {
+          "name": "TenantQueueRateLimitError",
+          "line": 23,
+          "col": 34,
+          "pos": 502
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/clinical/service-support.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "FETAL_WEIGHT_REFERENCE_POINTS",
+          "line": 201,
+          "col": 14,
+          "pos": 4882
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/clinical/service-support.view.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "createClinicalAlert",
+          "line": 132,
+          "col": 17,
+          "pos": 4196
+        },
+        {
+          "name": "deriveRiskAlerts",
+          "line": 136,
+          "col": 17,
+          "pos": 4290
+        },
+        {
+          "name": "deriveDueDateAlerts",
+          "line": 151,
+          "col": 17,
+          "pos": 4730
+        },
+        {
+          "name": "deriveAppointmentAlerts",
+          "line": 187,
+          "col": 17,
+          "pos": 5645
+        },
+        {
+          "name": "deriveMissingClinicalCoverageAlerts",
+          "line": 247,
+          "col": 17,
+          "pos": 7515
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/api/src/modules/clinical/service-runtime.records.ts",
+      "owners": [
+        {
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "listPregnancyRecords",
+          "line": 37,
+          "col": 23,
+          "pos": 873
+        },
+        {
+          "name": "listNeonatalRecords",
+          "line": 80,
           "col": 23,
           "pos": 1959
-        },
-        {
-          "name": "saveNotificationPreferences",
-          "line": 89,
-          "col": 23,
-          "pos": 2280
-        }
-      ],
-      "duplicates": []
-    },
-    {
-      "file": "apps/api/src/modules/analytics/dashboard.service.ts",
-      "owners": [
-        {
-          "name": "@platform-api"
-        },
-        {
-          "name": "@platform-security"
-        }
-      ],
-      "dependencies": [],
-      "devDependencies": [],
-      "optionalPeerDependencies": [],
-      "unlisted": [],
-      "binaries": [],
-      "exports": [
-        {
-          "name": "getMasterAdminDashboard",
-          "line": 14,
-          "col": 23,
-          "pos": 488
-        },
-        {
-          "name": "getOperationsDashboard",
-          "line": 124,
-          "col": 23,
-          "pos": 3527
         }
       ],
       "duplicates": []
@@ -274,10 +595,13 @@
       "duplicates": []
     },
     {
-      "file": "apps/web/lib/auth-client.ts",
+      "file": "apps/api/src/modules/invites/service.ts",
       "owners": [
         {
-          "name": "@birthub/frontend"
+          "name": "@platform-api"
+        },
+        {
+          "name": "@platform-security"
         }
       ],
       "dependencies": [],
@@ -287,22 +611,16 @@
       "binaries": [],
       "exports": [
         {
-          "name": "persistStoredSession",
-          "line": 87,
-          "col": 17,
-          "pos": 2373
-        },
-        {
-          "name": "clearStoredSession",
-          "line": 115,
-          "col": 17,
-          "pos": 3189
+          "name": "cleanupExpiredInvites",
+          "line": 214,
+          "col": 23,
+          "pos": 4821
         }
       ],
       "duplicates": []
     },
     {
-      "file": "apps/web/lib/product-api.server.ts",
+      "file": "apps/web/lib/web-session.ts",
       "owners": [
         {
           "name": "@birthub/frontend"
@@ -315,10 +633,106 @@
       "binaries": [],
       "exports": [
         {
-          "name": "ProductApiError",
-          "line": 10,
+          "name": "hasMinimumRole",
+          "line": 82,
+          "col": 17,
+          "pos": 2013
+        },
+        {
+          "name": "getAuthenticatedWebSession",
+          "line": 90,
+          "col": 23,
+          "pos": 2204
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/web/lib/executive-premium.ts",
+      "owners": [
+        {
+          "name": "@birthub/frontend"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "EXECUTIVE_PREMIUM_PACK_IDS",
+          "line": 7,
           "col": 14,
-          "pos": 319
+          "pos": 330
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/web/lib/product-capabilities.ts",
+      "owners": [
+        {
+          "name": "@birthub/frontend"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "isClinicalWorkspacePath",
+          "line": 39,
+          "col": 17,
+          "pos": 1047
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "apps/web/lib/workflows.ts",
+      "owners": [
+        {
+          "name": "@birthub/frontend"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "getWorkflowById",
+          "line": 113,
+          "col": 23,
+          "pos": 2901
+        }
+      ],
+      "duplicates": []
+    },
+    {
+      "file": "packages/agents-core/src/runtime/manifestRuntimeCore.ts",
+      "owners": [],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "readString",
+          "line": 27,
+          "col": 17,
+          "pos": 689
+        },
+        {
+          "name": "toolIsSensitive",
+          "line": 259,
+          "col": 17,
+          "pos": 6293
         }
       ],
       "duplicates": []

@@ -12,3 +12,6 @@ PASS 20260317000100_cycle11_billing_webhook_audit :: risks=set_not_null,bulk_upd
 PASS 20260322000100_cycle8_data_resilience_controls :: risks=none :: findings=0
 PASS 20260331000100_cycle12_rls_policy_alignment :: risks=none :: findings=0
 PASS 20260402000100_cycle12_ci_schema_alignment :: risks=none :: findings=0
+PASS 20260407000300_phase1_lgpd_user_preferences :: risks=none :: findings=0
+PASS 20260408000100_phase1_user_preference_locale :: risks=none :: findings=0
+PASS 20260410000100_phase1_workflow_revision_rls :: risks=none :: findings=0
