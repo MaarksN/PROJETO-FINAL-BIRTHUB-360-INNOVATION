@@ -25,7 +25,7 @@ export function SdrAutomaticPlatform({ locale }: { locale: "en-US" | "pt-BR" }) 
   const currentLabels = tabLabels[locale] ?? tabLabels["pt-BR"];
 
   // Usando configuração real
-  const { copy, leads, timeSlots } = getSdrAutomaticConfig(locale);
+  const { copy, crmRegions, leads, timeSlots } = getSdrAutomaticConfig(locale);
   // Pega o primeiro lead como amostra
   const prospect = leads[0];
 
@@ -59,7 +59,7 @@ export function SdrAutomaticPlatform({ locale }: { locale: "en-US" | "pt-BR" }) 
       </nav>
 
       <div className={styles.platformContent}>
-        {activeTab === "score" && <SdrLeadScoreView copy={copy} locale={locale} leads={leads} />}
+        {activeTab === "score" && <SdrLeadScoreView copy={copy} crmRegions={crmRegions} locale={locale} leads={leads} />}
         {activeTab === "assistente" && <SdrAssistenteView copy={copy} locale={locale} />}
         {activeTab === "agendador" && <SdrAgendadorView copy={copy} locale={locale} timeSlots={timeSlots} />}
         {activeTab === "handoff" && <SdrHandoffView copy={copy} locale={locale} />}

@@ -1,5 +1,7 @@
 :root {
   color-scheme: light;
+  --font-inter: "Inter";
+  --font-outfit: "Outfit";
   --font-sans: var(--font-inter), "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-outfit), "Outfit", var(--font-sans);
   --surface: #edf5f3;
