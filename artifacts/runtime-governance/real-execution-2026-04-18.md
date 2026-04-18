@@ -86,3 +86,20 @@ Diagnóstico consolidado:
   - Requerido pelo workspace: `node >=24 <25`
   - Atual no ambiente: `node v22.21.1`
 - Mesmo após liberar proxy, recomenda-se alinhar Node para 24.x para evitar falhas posteriores.
+
+## Revalidação adicional — 2026-04-18 (tentativa 2)
+
+Comando executado:
+
+```bash
+pnpm install
+```
+
+Resultado real:
+- Persistência de `ERR_PNPM_FETCH_403` em múltiplos pacotes (`@types/node`, `typescript`, `wrap-ansi`, `string-width`, `strip-ansi`, `undici-types`).
+- O bloqueio de rede/proxy continua impedindo instalação completa.
+
+Aprimoramento aplicado para próximo ciclo assim que o registry for liberado:
+- Script único de validação ponta a ponta criado em:
+  - `scripts/diagnostics/validate-monorepo-runtime.sh`
+- O script executa automaticamente as etapas: limpeza, `pnpm install`, `prisma generate`, `pnpm -r build`, `pnpm typecheck` e `pnpm test`.
