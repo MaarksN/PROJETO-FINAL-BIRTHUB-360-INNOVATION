@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": ".",
+    "paths": { "@birthub/*": ["../../packages/*", "../packages/*", "./packages/*"] },
+    "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
+
     "allowImportingTsExtensions": true,
     "incremental": false,
     "moduleResolution": "bundler",

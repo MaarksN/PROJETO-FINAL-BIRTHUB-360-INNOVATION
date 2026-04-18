@@ -1,8 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "paths": { "@birthub/*": ["../../packages/*", "../packages/*", "./packages/*"] },
+    "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
     "noEmit": true,
-    "rootDir": "."
+
   },
   "include": ["./src/**/*.ts",
     "test/**/*.ts"

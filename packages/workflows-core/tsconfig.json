@@ -1,8 +1,10 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "paths": { "@birthub/*": ["../../packages/*", "../packages/*", "./packages/*"] },
+    "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
     "outDir": "dist/src",
-    "rootDir": "src",
+
     "declaration": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",

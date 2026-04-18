@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "paths": { "@birthub/*": ["../../packages/*", "../packages/*", "./packages/*"] },
+    "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
+
     "strict": true
   }
 }
