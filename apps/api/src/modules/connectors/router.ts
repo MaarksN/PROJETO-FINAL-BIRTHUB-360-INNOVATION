@@ -278,6 +278,23 @@ function registerListRoute(router: Router): void {
   );
 }
 
+function registerCatalogRoute(router: Router): void {
+  router.get(
+    "/catalog",
+    requireAuthenticatedSession,
+    RequireRole(Role.ADMIN),
+    asyncHandler(async (request, response) => {
+      const context = requireConnectorRequestContext(request);
+      const items = connectorsService.listProviderCatalog();
+
+      response.status(200).json({
+        items,
+        requestId: context.requestId
+      });
+    })
+  );
+}
+
 function registerUpsertRoute(router: Router): void {
   router.post(
     "/",
@@ -390,6 +407,7 @@ function registerSyncRoute(router: Router, config: ApiConfig): void {
 
 export function createConnectorsRouter(config: ApiConfig): Router {
   const router = Router();
+  registerCatalogRoute(router);
   registerListRoute(router);
   registerUpsertRoute(router);
   registerConnectRoute(router, config);
@@ -400,4 +418,3 @@ export function createConnectorsRouter(config: ApiConfig): Router {
 
   return router;
 }
-

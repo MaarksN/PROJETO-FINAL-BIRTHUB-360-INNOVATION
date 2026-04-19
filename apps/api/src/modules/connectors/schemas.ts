@@ -1,13 +1,28 @@
 import { z } from "zod";
+import {
+  isConnectorAuthType,
+  isConnectorProviderSlug,
+  type ConnectorAuthType,
+  type ConnectorProviderSlug
+} from "@birthub/integrations";
 
-export const providerSchema = z.enum([
-  "hubspot",
-  "google-workspace",
-  "microsoft-graph",
-  "salesforce",
-  "pipedrive",
-  "twilio-whatsapp"
-]);
+export const providerSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .refine(isConnectorProviderSlug, {
+    message: "Unsupported connector provider."
+  })
+  .transform((value) => value as ConnectorProviderSlug);
+
+export const authTypeSchema = z
+  .string()
+  .trim()
+  .min(1)
+  .refine(isConnectorAuthType, {
+    message: "Unsupported connector auth type."
+  })
+  .transform((value) => value as ConnectorAuthType);
 
 export const credentialSchema = z
   .object({
@@ -19,7 +34,7 @@ export const credentialSchema = z
 export const upsertConnectorSchema = z
   .object({
     accountKey: z.string().min(1).optional(),
-    authType: z.string().min(1).optional(),
+    authType: authTypeSchema.optional(),
     credentials: z.record(z.string(), credentialSchema).optional(),
     displayName: z.string().min(1).optional(),
     externalAccountId: z.string().min(1).optional(),
@@ -63,4 +78,4 @@ export type ConnectPayload = z.infer<typeof connectSchema>;
 export type CallbackPayload = z.infer<typeof callbackSchema>;
 export type SyncPayload = z.infer<typeof syncSchema>;
 export type UpsertConnectorPayload = z.infer<typeof upsertConnectorSchema>;
-
+export type ConnectorAuthPayload = z.infer<typeof authTypeSchema>;

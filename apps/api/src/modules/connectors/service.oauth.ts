@@ -1,4 +1,5 @@
 import type { ApiConfig } from "@birthub/config";
+import { getConnectorProviderDefinition } from "@birthub/integrations";
 import { prisma } from "@birthub/database";
 
 import { ProblemDetailsError } from "../../lib/problem-details.js";
@@ -24,6 +25,23 @@ export async function createConnectSession(input: {
   tenantId: string;
   userId: string;
 }) {
+  const definition = getConnectorProviderDefinition(input.provider);
+  if (definition.implementationStage === "planned") {
+    throw new ProblemDetailsError({
+      detail: `Provider '${input.provider}' is registered in the catalog but its native OAuth runtime has not been implemented yet.`,
+      status: 409,
+      title: "Connector Provider Not Implemented"
+    });
+  }
+
+  if (!definition.authTypes.includes("oauth")) {
+    throw new ProblemDetailsError({
+      detail: `Provider '${input.provider}' does not support OAuth connect sessions.`,
+      status: 409,
+      title: "Connector OAuth Not Supported"
+    });
+  }
+
   const oauth = getProviderOauthConfig(input.config, input.provider);
   if (!oauth) {
     throw new ProblemDetailsError({
@@ -189,4 +207,3 @@ export async function finalizeConnectSession(input: {
     })
   );
 }
-

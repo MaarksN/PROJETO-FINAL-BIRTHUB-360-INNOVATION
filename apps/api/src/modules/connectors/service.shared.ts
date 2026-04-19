@@ -1,16 +1,17 @@
 import type { ApiConfig } from "@birthub/config";
+import {
+  getConnectorProviderDefinition,
+  isConnectorProviderSlug,
+  type ConnectorAuthType,
+  type ConnectorProviderSlug
+} from "@birthub/integrations";
 import { Prisma, prisma } from "@birthub/database";
 
 import { encryptConnectorToken } from "../../lib/encryption.js";
 import { ProblemDetailsError } from "../../lib/problem-details.js";
 
-export type ConnectorProvider =
-  | "google-workspace"
-  | "hubspot"
-  | "microsoft-graph"
-  | "pipedrive"
-  | "salesforce"
-  | "twilio-whatsapp";
+export type ConnectorProvider = ConnectorProviderSlug;
+export type { ConnectorAuthType };
 
 export interface ConnectorOauthState {
   accountKey: string;
@@ -21,15 +22,6 @@ export interface ConnectorOauthState {
   userId: string;
   version: 1;
 }
-
-const connectorProviders = new Set<ConnectorProvider>([
-  "google-workspace",
-  "hubspot",
-  "microsoft-graph",
-  "pipedrive",
-  "salesforce",
-  "twilio-whatsapp"
-]);
 
 type ConnectorCredentialInput = {
   expiresAt?: string | undefined;
@@ -97,7 +89,7 @@ export function parseConnectorOauthState(state: string): ConnectorOauthState {
       throw new Error("State payload is missing required fields.");
     }
 
-    if (!connectorProviders.has(candidate.provider as ConnectorProvider)) {
+    if (!isConnectorProviderSlug(candidate.provider)) {
       throw new Error(`Unsupported provider '${String(candidate.provider)}' in OAuth state.`);
     }
 
@@ -127,6 +119,9 @@ export function getProviderOauthConfig(config: ApiConfig, provider: ConnectorPro
   defaultScopes: string[];
   redirectUri: string;
 } | null {
+  const definition = getConnectorProviderDefinition(provider);
+  const defaultScopes = definition.defaultScopes ? [...definition.defaultScopes] : [];
+
   switch (provider) {
     case "hubspot":
       if (
@@ -140,7 +135,7 @@ export function getProviderOauthConfig(config: ApiConfig, provider: ConnectorPro
       return {
         authorizationUrl: "https://app.hubspot.com/oauth/authorize",
         clientId: config.HUBSPOT_CLIENT_ID,
-        defaultScopes: ["crm.objects.companies.read", "crm.objects.companies.write"],
+        defaultScopes,
         redirectUri: config.HUBSPOT_REDIRECT_URI
       };
     case "google-workspace":
@@ -155,10 +150,7 @@ export function getProviderOauthConfig(config: ApiConfig, provider: ConnectorPro
       return {
         authorizationUrl: "https://accounts.google.com/o/oauth2/v2/auth",
         clientId: config.GOOGLE_CLIENT_ID,
-        defaultScopes: [
-          "https://www.googleapis.com/auth/calendar",
-          "https://www.googleapis.com/auth/gmail.send"
-        ],
+        defaultScopes,
         redirectUri: config.GOOGLE_REDIRECT_URI
       };
     case "microsoft-graph":
@@ -173,7 +165,7 @@ export function getProviderOauthConfig(config: ApiConfig, provider: ConnectorPro
       return {
         authorizationUrl: "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
         clientId: config.MICROSOFT_CLIENT_ID,
-        defaultScopes: ["offline_access", "Calendars.ReadWrite", "Mail.Send", "User.Read"],
+        defaultScopes,
         redirectUri: config.MICROSOFT_REDIRECT_URI
       };
     default:
@@ -331,3 +323,13 @@ export async function upsertCredentials(input: {
   );
 }
 
+export function resolveDefaultConnectorAuthType(provider: ConnectorProvider): ConnectorAuthType {
+  return getConnectorProviderDefinition(provider).defaultAuthType;
+}
+
+export function providerSupportsAuthType(
+  provider: ConnectorProvider,
+  authType: ConnectorAuthType
+): boolean {
+  return getConnectorProviderDefinition(provider).authTypes.includes(authType);
+}

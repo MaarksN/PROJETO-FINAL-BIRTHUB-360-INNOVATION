@@ -53,6 +53,36 @@ void test("connectors router lists connectors for the authenticated organization
   }
 });
 
+void test("connectors router exposes provider catalog for the authenticated organization", async () => {
+  const expectedItems = [
+    {
+      anchor: true,
+      authTypes: ["oauth"],
+      capabilities: ["crm", "webhook", "sync"],
+      defaultAuthType: "oauth",
+      description: "CRM anchor",
+      displayName: "HubSpot",
+      domains: ["crm"],
+      implementationStage: "implemented",
+      slug: "hubspot"
+    }
+  ];
+  const restore = stubMethod(connectorsService, "listProviderCatalog", () => expectedItems);
+
+  try {
+    const response = await request(createConnectorsTestApp())
+      .get("/api/v1/connectors/catalog")
+      .expect(200);
+
+    assert.deepEqual(response.body, {
+      items: expectedItems,
+      requestId: "req_1"
+    });
+  } finally {
+    restore();
+  }
+});
+
 void test("connectors router upserts connector payloads with tenant context", async () => {
   const expectedConnector = {
     id: "conn_1",
@@ -207,6 +237,7 @@ void test("connectors router normalizes GET callback payloads before finalizing 
 
 void test("connectors router queues sync requests with normalized provider context", async () => {
   const expectedSync = {
+    implementationStage: "implemented",
     provider: "hubspot",
     queued: true,
     scope: "hubspot:contacts"
@@ -248,4 +279,3 @@ void test("connectors router queues sync requests with normalized provider conte
     restore();
   }
 });
-
