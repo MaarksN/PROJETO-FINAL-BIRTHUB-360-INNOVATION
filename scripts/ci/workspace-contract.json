@@ -42,6 +42,7 @@
         "apps/web",
         "apps/worker",
         "packages/database",
+        "packages/domain-contracts",
         "packages/testing"
       ],
       "description": "@birthub/database is the multi-tenant SaaS schema and must stay inside the canonical runtime and approved database layers.",

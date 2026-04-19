@@ -1,12 +1,12 @@
 {
   "gates": [
     {
-      "detail": "Workspace contract matches the canonical core lane",
+      "detail": "Workspace audit failed",
       "evidence": [
         "scripts/ci/workspace-audit.mjs"
       ],
       "name": "Workspace audit",
-      "pass": true
+      "pass": false
     },
     {
       "detail": "No critical findings in the canonical go-live scope",
@@ -51,7 +51,7 @@
       "pass": false
     },
     {
-      "detail": "Current=45, regressions=45",
+      "detail": "Current=304, regressions=304",
       "evidence": [
         "artifacts/quality/dead-code/knip-report.json",
         "docs/evidence/dead-code-report.md",
@@ -61,7 +61,7 @@
       "pass": false
     },
     {
-      "detail": "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups.",
+      "detail": "No backup files found in C:\\Users\\Marks\\Documents\\GitHub\\PROJETO-FINAL-BIRTHUB-360-INNOVATION\\artifacts\\backups.",
       "evidence": [
         "artifacts/backups/backup-health.json",
         "artifacts/dr/readiness-report.json"
@@ -79,7 +79,7 @@
       "pass": false
     },
     {
-      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=automated release readiness rehearsal, backupArtifact=artifacts/backups/backup-health.json, RTO=1720m, RPO=27423m).",
+      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=scheduled release rehearsal, backupArtifact=artifacts/backups/backup-health.json, RTO=0m, RPO=27423m).",
       "evidence": [
         "artifacts/backups/drill-rto-rpo.json",
         "artifacts/dr/readiness-report.json",
@@ -89,15 +89,15 @@
       "pass": false
     },
     {
-      "detail": "Score 50 is below minimum 100",
+      "detail": "Score 40 is below minimum 100",
       "evidence": [],
       "name": "Score threshold",
       "pass": false
     }
   ],
-  "generatedAt": "2026-04-18T05:23:35.566Z",
+  "generatedAt": "2026-04-19T02:40:44.177Z",
   "minimumScore": 100,
-  "passedGates": 5,
-  "score": 50,
+  "passedGates": 4,
+  "score": 40,
   "totalGates": 10
 }
