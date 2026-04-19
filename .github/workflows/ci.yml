@@ -169,7 +169,19 @@ jobs:
           gitleaks version
 
       - name: Run Gitleaks
-        run: gitleaks detect --source . --verbose --redact
+        env:
+          GITLEAKS_BASE_SHA: ${{ github.event.before || github.event.pull_request.base.sha || '' }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${GITLEAKS_BASE_SHA}" && "${GITLEAKS_BASE_SHA}" != "0000000000000000000000000000000000000000" ]]; then
+            log_opts="${GITLEAKS_BASE_SHA}..HEAD"
+          else
+            log_opts="HEAD"
+          fi
+
+          echo "Scanning Git range: ${log_opts}"
+          gitleaks detect --source . --verbose --redact --log-opts="${log_opts}"
 
   security-guardrails:
     name: security-guardrails
