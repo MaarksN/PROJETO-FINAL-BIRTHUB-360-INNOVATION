@@ -1,11 +1,7 @@
 name: CD
 
 on:
-  workflow_run:
-    workflows:
-      - CI
-    types:
-      - completed
+  push:
     branches:
       - main
   workflow_dispatch:
@@ -25,20 +21,85 @@ jobs:
   resolve-release-source:
     name: resolve-release-source
     if: >
-      (github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main') ||
+      (github.event_name == 'push' &&
+      github.ref == 'refs/heads/main') ||
       (github.event_name == 'workflow_dispatch' &&
       github.event.inputs.deploy_target == 'production')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
+      actions: read
       contents: read
     outputs:
+      ci_ready: ${{ steps.ci_gate.outputs.ci_ready || steps.dispatch_gate.outputs.ci_ready }}
       source_event: ${{ steps.resolve.outputs.source_event }}
       source_ref: ${{ steps.resolve.outputs.source_ref }}
       source_sha: ${{ steps.resolve.outputs.source_sha }}
     steps:
+      - name: Wait for CI run on pushed SHA
+        id: ci_gate
+        if: github.event_name == 'push'
+        uses: actions/github-script@v8
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+          TARGET_SHA: ${{ github.sha }}
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branch = process.env.TARGET_BRANCH;
+            const headSha = process.env.TARGET_SHA;
+            const pollIntervalMs = 15000;
+            const timeoutMs = 30 * 60 * 1000;
+            const deadline = Date.now() + timeoutMs;
+            let lastSeen = 'not found';
+
+            while (Date.now() < deadline) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id: 'ci.yml',
+                event: 'push',
+                branch,
+                head_sha: headSha,
+                per_page: 10,
+              });
+
+              const ciRun = data.workflow_runs.find((run) =>
+                run.head_sha === headSha &&
+                run.path &&
+                run.path.startsWith('.github/workflows/ci.yml')
+              );
+
+              if (ciRun) {
+                lastSeen = `${ciRun.status}/${ciRun.conclusion ?? 'pending'} (run ${ciRun.id})`;
+                core.info(`Observed CI run ${ciRun.id}: ${ciRun.status}/${ciRun.conclusion ?? 'pending'}`);
+
+                if (ciRun.status === 'completed') {
+                  const ciReady = ciRun.conclusion === 'success' ? 'true' : 'false';
+                  core.setOutput('ci_ready', ciReady);
+
+                  if (ciReady !== 'true') {
+                    core.notice(`CI run ${ciRun.id} concluded with ${ciRun.conclusion}; automatic CD jobs will be skipped.`);
+                  }
+
+                  return;
+                }
+              } else {
+                core.info(`CI run for ${headSha} is not visible yet.`);
+              }
+
+              await new Promise((resolve) => setTimeout(resolve, pollIntervalMs));
+            }
+
+            core.setFailed(`Timed out waiting for CI to complete for ${headSha}. Last observed state: ${lastSeen}.`);
+
+      - name: Mark manual production dispatch as CI-ready
+        id: dispatch_gate
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: echo "ci_ready=true" >> "$GITHUB_OUTPUT"
+
       - name: Resolve immutable release source
         id: resolve
         shell: bash
@@ -48,18 +109,13 @@ jobs:
           event_name="${GITHUB_EVENT_NAME}"
           source_event="${event_name}"
 
-          if [[ "${event_name}" == "workflow_run" ]]; then
-            if [[ "${{ github.event.workflow_run.head_branch }}" != "main" ]]; then
-              echo "::error title=Invalid release branch::workflow_run source must come from main." >&2
+          if [[ "${event_name}" == "push" ]]; then
+            if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
+              echo "::error title=Invalid release branch::push source must come from main." >&2
               exit 1
             fi
 
-            if [[ "${{ github.event.workflow_run.head_repository.full_name }}" != "${{ github.repository }}" ]]; then
-              echo "::error title=Invalid release source::workflow_run source repository must match the current repository." >&2
-              exit 1
-            fi
-
-            source_sha="${{ github.event.workflow_run.head_sha }}"
+            source_sha="${GITHUB_SHA}"
           elif [[ "${event_name}" == "workflow_dispatch" ]]; then
             if [[ "${GITHUB_REF}" != "refs/heads/main" ]]; then
               echo "::error title=Invalid release branch::workflow_dispatch must run from main." >&2
@@ -68,7 +124,7 @@ jobs:
 
             source_sha="${GITHUB_SHA}"
           else
-            echo "::error title=Unsupported release event::Only workflow_run and workflow_dispatch are supported." >&2
+            echo "::error title=Unsupported release event::Only push and workflow_dispatch are supported." >&2
             exit 1
           fi
 
@@ -84,9 +140,9 @@ jobs:
   staging-preflight:
     name: staging-preflight
     if: >
-      github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.resolve-release-source.outputs.ci_ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
@@ -252,7 +308,7 @@ jobs:
 
           echo "configured=true" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout source from CI run
+      - name: Checkout source from pushed commit
         if: steps.staging_config.outputs.configured == 'true'
         uses: actions/checkout@v4
         with:
@@ -291,9 +347,9 @@ jobs:
   release-sbom:
     name: release-sbom
     if: >
-      (github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main') ||
+      (github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.resolve-release-source.outputs.ci_ready == 'true') ||
       (github.event_name == 'workflow_dispatch' &&
       github.event.inputs.deploy_target == 'production')
     runs-on: ubuntu-latest
@@ -506,9 +562,9 @@ jobs:
   build-staging-images:
     name: build-staging-images
     if: >
-      github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main' &&
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.resolve-release-source.outputs.ci_ready == 'true' &&
       needs.staging-preflight.outputs.configured == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -576,9 +632,9 @@ jobs:
   deploy-staging:
     name: deploy-staging
     if: >
-      github.event_name == 'workflow_run' &&
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      needs.resolve-release-source.outputs.ci_ready == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     permissions:
