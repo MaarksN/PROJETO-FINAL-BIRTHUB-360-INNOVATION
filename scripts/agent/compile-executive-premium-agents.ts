@@ -1,7 +1,12 @@
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import type { AgentManifest } from "@birthub/agents-core";
+import {
+  PREMIUM_PILLARS,
+  TOTAL_PREMIUM_LAYER_COUNT,
+  renderGlobalPremiumPromptAppendix,
+  type AgentManifest
+} from "@birthub/agents-core";
 
 import {
   KNOWN_TOOL_DESCRIPTIONS,
@@ -19,93 +24,6 @@ const EXECUTIVE_COLLECTION_DESCRIPTOR_ID = "executive-premium-v1-catalog";
 const EXECUTIVE_COLLECTION_NAME = "Executive Premium Agents Collection";
 const EXECUTIVE_COLLECTION_VERSION = "1.0.0";
 const EXECUTIVE_SOURCE_SUBDIR = "source";
-
-const PREMIUM_LAYERS = [
-  {
-    key: "data-processing-excellence",
-    keyword: "data processing excellence",
-    name: "Data Processing Excellence",
-    description: "Processar sinais numericos e textuais para separar padrao, desvio, outlier e urgencia executiva."
-  },
-  {
-    key: "cross-signal-fusion",
-    keyword: "cross-signal fusion",
-    name: "Cross-Signal Fusion",
-    description: "Fundir sinais de varias fontes em uma leitura unica com menos ruido e maior confianca."
-  },
-  {
-    key: "evidence-confidence-scorecard",
-    keyword: "evidence confidence scorecard",
-    name: "Evidence Confidence Scorecard",
-    description: "Pontuar evidencia, confianca e lacunas antes de recomendar qualquer movimento irreversivel."
-  },
-  {
-    key: "decision-memory-grid",
-    keyword: "decision memory grid",
-    name: "Decision Memory Grid",
-    description: "Salvar memoria operacional estruturada com contexto, decisao, evidencia, checkpoint e risco associado."
-  },
-  {
-    key: "prescriptive-recommendation-engine",
-    keyword: "prescriptive recommendations",
-    name: "Prescriptive Recommendation Engine",
-    description: "Converter diagnostico em recomendacoes prescritivas priorizadas com proximo passo e trade-off."
-  },
-  {
-    key: "executive-segment-adaptation",
-    keyword: "segment adaptation",
-    name: "Executive Segment Adaptation",
-    description: "Adaptar linguagem, criterio e plano ao segmento, geografia, maturidade e perfil de governanca do cliente."
-  },
-  {
-    key: "risk-radar",
-    keyword: "risk radar",
-    name: "Risk Radar",
-    description: "Detectar cedo riscos emergentes, degradacao de tendencia e dependencia critica sem dono."
-  },
-  {
-    key: "opportunity-radar",
-    keyword: "opportunity radar",
-    name: "Opportunity Radar",
-    description: "Encontrar crescimento, upside e alavancas de eficiencia antes da janela fechar."
-  },
-  {
-    key: "governance-shield",
-    keyword: "governance shield",
-    name: "Governance Shield",
-    description: "Aplicar governanca reforcada, trilha de auditoria e bloqueios preventivos em fluxos sensiveis."
-  },
-  {
-    key: "approval-choreography",
-    keyword: "approval choreography",
-    name: "Approval Choreography",
-    description: "Preparar aprovacoes, excecoes e dependencias humanas com clareza, contexto e prioridade."
-  },
-  {
-    key: "workflow-trigger-readiness",
-    keyword: "workflow trigger readiness",
-    name: "Workflow Trigger Readiness",
-    description: "Transformar eventos reais em execucao governada pronta para workflow, monitoramento e handoff."
-  },
-  {
-    key: "agent-mesh-handoff",
-    keyword: "agent mesh handoff",
-    name: "Agent Mesh Handoff",
-    description: "Preparar contexto premium para handoff entre especialistas sem perda de continuidade."
-  },
-  {
-    key: "resilience-fallback-lattice",
-    keyword: "resilience fallback lattice",
-    name: "Resilience Fallback Lattice",
-    description: "Preservar qualidade sob falha parcial com degradacao segura, retries e registro de razoes."
-  },
-  {
-    key: "executive-narrative-compression",
-    keyword: "executive narrative compression",
-    name: "Executive Narrative Compression",
-    description: "Condensar analise complexa em resumo decisorio claro para board, C-level e stakeholders criticos."
-  }
-] as const;
 
 const EXECUTIVE_PREMIUM_TOOL_SCHEMAS: Record<string, object> = {
   "alert-dispatcher": {
