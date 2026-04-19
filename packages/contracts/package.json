@@ -10,7 +10,13 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
+<<<<<<< ours
+<<<<<<< ours
     "lint": "eslint .",
+=======
+>>>>>>> theirs
+=======
+>>>>>>> theirs
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "node --import tsx --test src/**/*.test.ts"
   },
