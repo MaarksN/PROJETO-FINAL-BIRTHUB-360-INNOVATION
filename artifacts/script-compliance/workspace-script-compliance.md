@@ -1,11 +1,11 @@
 # Package Script Status
 
-Generated at: 2026-04-19T01:43:16.730Z
+Generated at: 2026-04-19T01:45:17.797Z
 
 - Workspaces: 24
-- Script slots ok: 93
-- Script slots N/A: 2
-- Script slots missing: 1
+- Script slots ok: 96
+- Script slots N/A: 0
+- Script slots missing: 0
 
 ## Approved N/A criteria
 
@@ -27,14 +27,14 @@ Generated at: 2026-04-19T01:43:16.730Z
 | @birthub/config | packages/config | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/conversation-core | packages/conversation-core | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/database | packages/database | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| @birthub/domain-contracts | packages/domain-contracts | P2 | Platform Engineering | 2026-03-29 | ok | ok | missing | ok | - |
-| @birthub/emails | packages/emails | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | N/A | build: Email templates are rendered in-place by consumers and do not ship a separate library build. |
+| @birthub/domain-contracts | packages/domain-contracts | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
+| @birthub/emails | packages/emails | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/integrations | packages/integrations | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/llm-client | packages/llm-client | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/logger | packages/logger | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/queue | packages/queue | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/security | packages/security | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
-| @birthub/shared | packages/shared | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | N/A | build: Shared error helpers are consumed directly from source and do not require an isolated bundle. |
+| @birthub/shared | packages/shared | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/shared-types | packages/shared-types | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/testing | packages/testing | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/utils | packages/utils | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
