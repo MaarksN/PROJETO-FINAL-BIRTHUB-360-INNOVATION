@@ -9,6 +9,7 @@ node_modules
 **/.next
 .nuxt
 **/.nuxt
+packages/agents-core/docs/
 dist
 **/dist
 build
@@ -52,6 +53,7 @@ artifacts/**/*.zip
 !artifacts/release/logs/
 !artifacts/release/logs/**
 !artifacts/audit/
+artifacts/audit/files_analysis/
 !artifacts/untracked_agents_snapshot/
 
 # F2 cleanup: transient root artifacts and generated audit bundles
@@ -59,6 +61,7 @@ artifacts/**/*.zip
 .lint_output.txt
 .codex-write-probe.txt
 tmp-codex-write-test.txt
+20 DIVIDAS TECNICAS.rar
 rg.exe
 rg.cmd
 logs/ci-runs/

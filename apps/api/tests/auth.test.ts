@@ -137,7 +137,7 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
   const encrypted = encryptTotpSecret(secret, config.AUTH_MFA_ENCRYPTION_KEY);
   const validTotp = generateCurrentTotp(secret);
   const restores = [
-    stubMethod(prisma.mfaChallenge, "findUnique", () => Promise.resolve({
+    stubMethod(prisma.mfaChallenge, "findFirst", () => Promise.resolve({
       consumedAt: null,
       expiresAt: new Date(Date.now() + 60_000),
       id: "challenge_1",
@@ -145,9 +145,10 @@ void test("auth MFA challenge verification accepts valid TOTP", async () => {
       tenantId: "tenant_1",
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
-      id: "user_1",
-      mfaSecret: encrypted
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
+      user: {
+        mfaSecret: encrypted
+      }
     })),
     stubMethod(prisma.mfaChallenge, "updateMany", () => Promise.resolve({ count: 1 })),
     stubMethod(prisma.membership, "findUnique", () => Promise.resolve({ role: Role.OWNER })),
@@ -184,7 +185,7 @@ void test("verifyMfaChallenge rejects MFA challenge token reuse after first succ
   const validTotp = generateCurrentTotp(secret);
   let consumeCount = 0;
   const restores = [
-    stubMethod(prisma.mfaChallenge, "findUnique", () => Promise.resolve({
+    stubMethod(prisma.mfaChallenge, "findFirst", () => Promise.resolve({
       consumedAt: null,
       expiresAt: new Date(Date.now() + 60_000),
       id: "challenge_1",
@@ -192,9 +193,10 @@ void test("verifyMfaChallenge rejects MFA challenge token reuse after first succ
       tenantId: "tenant_1",
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
-      id: "user_1",
-      mfaSecret: encrypted
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
+      user: {
+        mfaSecret: encrypted
+      }
     })),
     stubMethod(prisma.mfaChallenge, "updateMany", () => {
       consumeCount += 1;
@@ -276,7 +278,7 @@ void test("auth refresh route returns 200 and rotates cookies", async () => {
   let createdSessionId: string | null = null;
   let revokedReplacementId: string | null = null;
   const restores = [
-    stubMethod(prisma.session, "findUnique", (args: { where?: { refreshTokenHash?: string } }) => {
+    stubMethod(prisma.session, "findFirst", (args: { where?: { refreshTokenHash?: string } }) => {
       if (args.where?.refreshTokenHash !== sha256("refresh_current")) {
         return Promise.resolve(null);
       }
@@ -289,6 +291,7 @@ void test("auth refresh route returns 200 and rotates cookies", async () => {
         userId: "user_1"
       });
     }),
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({ role: Role.OWNER, status: "ACTIVE" })),
     stubMethod(prisma.session, "create", (args: { data?: { id?: unknown } }) => {
       const nextId = typeof args.data?.id === "string" ? args.data.id : "session_next";
       createdSessionId = nextId;
@@ -327,7 +330,7 @@ void test("refreshSession rotates refresh tokens and revokes the previous sessio
   let createdSessionId: string | null = null;
   let revokedReplacementId: string | null = null;
   const restores = [
-    stubMethod(prisma.session, "findUnique", (args: { where?: { refreshTokenHash?: string } }) => {
+    stubMethod(prisma.session, "findFirst", (args: { where?: { refreshTokenHash?: string } }) => {
       if (args.where?.refreshTokenHash !== sha256("refresh_current")) {
         return Promise.resolve(null);
       }
@@ -340,6 +343,7 @@ void test("refreshSession rotates refresh tokens and revokes the previous sessio
         userId: "user_1"
       });
     }),
+    stubMethod(prisma.membership, "findUnique", () => Promise.resolve({ role: Role.OWNER, status: "ACTIVE" })),
     stubMethod(prisma.session, "create", (args: { data?: { id?: unknown } }) => {
       const nextId = typeof args.data?.id === "string" ? args.data.id : "session_next";
       createdSessionId = nextId;
@@ -483,4 +487,3 @@ void test("authenticateRequest rejects idle-expired session", async () => {
     }
   }
 });
-

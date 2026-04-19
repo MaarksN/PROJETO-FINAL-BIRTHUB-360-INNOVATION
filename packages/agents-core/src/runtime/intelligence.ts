@@ -38,17 +38,7 @@ export interface RecommendedAction {
 export type PremiumLayerStatus = "elite" | "strong" | "watch";
 
 export interface PremiumLayerAssessment {
-  id:
-    | "adaptive-learning-loop"
-    | "collaboration-graph"
-    | "governance-shield"
-    | "memory-grid"
-    | "opportunity-radar"
-    | "recommendation-engine"
-    | "risk-radar"
-    | "segment-modeling"
-    | "signal-fusion"
-    | "workflow-automation";
+  id: string;
   name: string;
   nextAction: string;
   score: number;

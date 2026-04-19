@@ -3,7 +3,6 @@ import { pathToFileURL } from "node:url";
 
 import { createLogger } from "@birthub/logger";
 
-import { createPrismaClient } from "@birthub/database";
 import { tenants as destructiveTenants } from "./seed/data.js";
 import { seedPlans, wipeDatabase } from "./seed/helpers.js";
 import { createTenant } from "./seed/tenant.js";
@@ -12,6 +11,7 @@ import {
   runSeedProfile,
   type SeedProfile as SharedSeedProfile
 } from "./seeds/profiles.js";
+import { createPrismaClient } from "../src/index.js";
 
 export type SeedMode = "safe" | "destructive";
 export type SeedRuntimeProfile = "ci" | "destructive" | "safe" | "smoke" | "staging";

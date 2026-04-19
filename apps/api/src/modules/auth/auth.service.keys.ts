@@ -9,8 +9,7 @@ import {
   sha256
 } from "./crypto.js";
 import {
-  type ApiKeyScope,
-  resolveTenantIdForOrganization
+  type ApiKeyScope
 } from "./auth.service.shared.js";
 
 const TENANT_API_KEY_LIST_LIMIT = 100;
@@ -20,14 +19,9 @@ export async function createTenantApiKey(input: {
   label: string;
   organizationId: string;
   scopes: ApiKeyScope[];
+  tenantId: string;
   userId: string;
 }) {
-  const tenantId = await resolveTenantIdForOrganization(input.organizationId);
-
-  if (!tenantId) {
-    throw new Error("TENANT_NOT_FOUND");
-  }
-
   const generated = createApiKey(input.config.API_KEY_PREFIX);
   const record = await prisma.apiKey.create({
     data: {
@@ -37,7 +31,7 @@ export async function createTenantApiKey(input: {
       organizationId: input.organizationId,
       prefix: generated.prefix,
       scopes: input.scopes,
-      tenantId,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });

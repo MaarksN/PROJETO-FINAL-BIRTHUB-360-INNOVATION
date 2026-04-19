@@ -20,6 +20,7 @@ const write = (p, c) => {
   fs.writeFileSync(absolute, c, "utf8");
 };
 const excludedDirs = new Set([".git", "node_modules"]);
+const excludedPathPrefixes = ["artifacts/audit/files_analysis", "packages/agents-core/docs"];
 const collectFiles = (dir, prefix = "") => {
   const absolute = path.join(root, dir);
   const entries = fs.readdirSync(absolute, { withFileTypes: true });
@@ -27,6 +28,9 @@ const collectFiles = (dir, prefix = "") => {
   for (const entry of entries) {
     if (excludedDirs.has(entry.name)) continue;
     const relative = prefix ? `${prefix}/${entry.name}` : entry.name;
+    if (excludedPathPrefixes.some((excludedPath) => relative === excludedPath || relative.startsWith(`${excludedPath}/`))) {
+      continue;
+    }
     if (entry.isDirectory()) {
       collected.push(...collectFiles(relative, relative));
       continue;
