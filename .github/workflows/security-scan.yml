@@ -151,6 +151,11 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
 
+      - name: Apply Prisma migrations (CI)
+        run: pnpm db:migrate:deploy
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle3
+
       - name: Run RBAC tests
         run: pnpm test:rbac
         env:
