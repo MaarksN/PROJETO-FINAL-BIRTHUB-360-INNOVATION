@@ -4,6 +4,10 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 
 ## 2026-04-19
 
+### Worker manifest recovery
+
+- restaurado o `package.json` canônico de `@birthub/worker` depois que um placeholder JSON inválido chegou ao `main`, realinhando scripts, dependências e governança de lockfile nos jobs de CI.
+
 ### TypeScript NodeNext bootstrap
 
 - forçado `tsc -b --force` em `@birthub/config`, `@birthub/logger`, `@birthub/database`, `@birthub/agents-core` e `@birthub/workflows-core`, evitando que `tsconfig.tsbuildinfo` versionado impeça a emissão de `dist/*.d.ts` em checkouts limpos.

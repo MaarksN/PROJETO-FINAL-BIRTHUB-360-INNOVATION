@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { MANIFEST_VERSION, PolicyEngine } from "@birthub/agents-core";
+import { MANIFEST_VERSION, PolicyEngine, TOTAL_PREMIUM_LAYER_COUNT } from "@birthub/agents-core";
 
 import { createRuntimeTools } from "./runtime.tools.js";
 import { buildDbReadQueryTemplate } from "./runtime.tools.js";
@@ -142,7 +142,6 @@ void test("manifest capability tools emit segment-aware recommendations and memo
   assert.equal(typeof memoryKey, "string");
   assert.equal(typeof memoryKey === "string" && memoryKey.includes("runtime-tools-demo"), true);
   assert.equal(Array.isArray(result.premiumLayers), true);
-  assert.equal(result.premiumLayers.length, 10);
+  assert.equal(result.premiumLayers.length, TOTAL_PREMIUM_LAYER_COUNT);
   assert.equal(typeof result.premiumOverallScore, "number");
 });
-

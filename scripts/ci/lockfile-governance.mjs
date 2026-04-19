@@ -292,13 +292,38 @@ function validateManifestAndLockfileDrift(changedFiles, issues) {
 
   function readManifestFromRef(ref, relativePath) {
     const content = gitCapture(["show", `${ref}:${relativePath}`], true);
-    return content ? JSON.parse(content) : null;
+    if (!content) {
+      return {
+        manifest: null,
+        status: "missing"
+      };
+    }
+
+    try {
+      return {
+        manifest: JSON.parse(content),
+        status: "ok"
+      };
+    } catch {
+      return {
+        manifest: null,
+        status: "invalid"
+      };
+    }
   }
 
   function didLockfileRelevantManifestFieldsChange(relativePath) {
     const currentManifest = pickLockfileRelevantManifestFields(readManifestFromWorkingTree(relativePath));
+    const previousManifestSnapshot = baseRef
+      ? readManifestFromRef(baseRef, relativePath)
+      : readManifestFromRef("HEAD", relativePath);
+
+    if (previousManifestSnapshot.status === "invalid") {
+      return false;
+    }
+
     const previousManifest = pickLockfileRelevantManifestFields(
-      baseRef ? readManifestFromRef(baseRef, relativePath) : readManifestFromRef("HEAD", relativePath)
+      previousManifestSnapshot.manifest
     );
 
     return JSON.stringify(currentManifest) !== JSON.stringify(previousManifest);

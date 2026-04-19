@@ -20,9 +20,16 @@ const coreTestWorkspaces = [
   { cwd: "apps/worker", args: ["src/**/*.test.ts", "test/**/*.test.ts"] }
 ];
 
-// packages/testing exercises the database runtime through the package surface,
-// so we bootstrap the database build once before the workspace test sweep.
-runPnpm(["--filter", "@birthub/database", "build"]);
+// Several workspace tests import package surfaces that resolve through each
+// package's dist/ entrypoint, so we bootstrap the minimal dependency chain once
+// before the workspace test sweep.
+for (const workspacePackage of [
+  "@birthub/shared-types",
+  "@birthub/queue",
+  "@birthub/database"
+]) {
+  runPnpm(["--filter", workspacePackage, "build"]);
+}
 
 for (const workspace of coreTestWorkspaces) {
   run(portableNodeExecutable, ["--import", "tsx", "--test", ...workspace.args], {
