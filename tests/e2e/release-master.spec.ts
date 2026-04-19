@@ -244,23 +244,16 @@ test.describe("Release master smoke flow", () => {
     await expect(page.getByText("Outputs de Agente")).toBeVisible();
     const negativeFeedbackButton = page.getByRole("button", { name: "Polegar para baixo" });
     await expect(negativeFeedbackButton).toBeVisible();
-
-    const disabled = await negativeFeedbackButton.isDisabled();
-    if (disabled) {
-      await expect(page.getByText("Carregando feedback atual...")).toBeVisible();
-    } else {
-      await negativeFeedbackButton.click();
-      await page
-        .getByPlaceholder("Descreva a resposta esperada para fortalecer o dataset RLHF.")
-        .fill("Resposta corrigida");
-      await page
-        .getByPlaceholder("Ex.: alucinou numeros, errou contexto, ignorou ferramenta.")
-        .fill("Corrigir contexto");
-      await page.getByRole("button", { name: "Salvar feedback corretivo" }).click();
-      await expect(
-        page.getByText("O voto alimenta a taxa de aprovacao do marketplace")
-      ).toBeVisible();
-    }
+    await expect(negativeFeedbackButton).toBeEnabled();
+    await negativeFeedbackButton.click();
+    await page
+      .getByPlaceholder("Descreva a resposta esperada para fortalecer o dataset RLHF.")
+      .fill("Resposta corrigida");
+    await page
+      .getByPlaceholder("Ex.: alucinou numeros, errou contexto, ignorou ferramenta.")
+      .fill("Corrigir contexto");
+    await page.getByRole("button", { name: "Salvar feedback corretivo" }).click();
+    await expect(page.getByText("O voto alimenta a taxa de aprovacao do marketplace")).toBeVisible();
 
     await page.evaluate(() => {
       localStorage.clear();
