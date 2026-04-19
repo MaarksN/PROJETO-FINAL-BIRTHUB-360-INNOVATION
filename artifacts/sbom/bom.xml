@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:bd66a8d9-892f-06a2-4b49-12303c2d9591" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:680662f8-d3c6-ca2b-5c49-00cfc4b9e47c" version="1">
   <metadata>
-    <timestamp>2026-04-18T22:59:32.512Z</timestamp>
+    <timestamp>2026-04-19T00:42:33.396Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -65,11 +65,6 @@
       <name>@birthub/database</name>
       <version>link:packages/database</version>
       <purl>pkg:npm/%40birthub%2Fdatabase@link%3Apackages%2Fdatabase</purl>
-    </component>
-    <component type="library" bom-ref="pkg:npm/%40birthub%2Fdomain-contracts@link%3A..%2F..%2Fpackages%2Fdomain-contracts">
-      <name>@birthub/domain-contracts</name>
-      <version>link:../../packages/domain-contracts</version>
-      <purl>pkg:npm/%40birthub%2Fdomain-contracts@link%3A..%2F..%2Fpackages%2Fdomain-contracts</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fintegrations@link%3A..%2Fintegrations">
       <name>@birthub/integrations</name>
@@ -505,11 +500,6 @@
       <name>typedoc</name>
       <version>0.28.19</version>
       <purl>pkg:npm/typedoc@0.28.19</purl>
-    </component>
-    <component type="library" bom-ref="pkg:npm/typescript@5.9.3">
-      <name>typescript</name>
-      <version>5.9.3</version>
-      <purl>pkg:npm/typescript@5.9.3</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/typescript@6.0.3">
       <name>typescript</name>
