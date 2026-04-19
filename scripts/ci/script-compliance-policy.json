@@ -18,15 +18,7 @@
     "@birthub/auth": {
       "priority": "P1"
     },
-    "@birthub/emails": {
-      "scripts": {
-        "build": {
-          "criterion": "template-only",
-          "justification": "Email templates are rendered in-place by consumers and do not ship a separate library build.",
-          "status": "na"
-        }
-      }
-    },
+    "@birthub/emails": {},
     "@birthub/integrations": {
       "priority": "P1"
     },
@@ -39,15 +31,7 @@
     "@birthub/security": {
       "priority": "P1"
     },
-    "@birthub/shared": {
-      "scripts": {
-        "build": {
-          "criterion": "shared-source-only",
-          "justification": "Shared error helpers are consumed directly from source and do not require an isolated bundle.",
-          "status": "na"
-        }
-      }
-    },
+    "@birthub/shared": {},
     "@birthub/shared-types": {},
     "@birthub/utils": {
       "priority": "P1"
