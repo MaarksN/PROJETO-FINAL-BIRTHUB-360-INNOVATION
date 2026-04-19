@@ -8,6 +8,7 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 
 - adicionadas condicoes `types` explicitas aos `exports` de pacotes internos usados como dependencias workspace, estabilizando a resolucao TypeScript no Node 24 durante installs frios do CI.
 - cobertos `@birthub/config`, `@birthub/logger`, `@birthub/database`, `@birthub/agents-core`, `@birthub/workflows-core`, `@birthub/integrations`, `@birthub/shared-types` e `@birthub/utils`.
+- forçado `tsc -b --force` nos pacotes compilados pelo `postinstall`, evitando que `tsconfig.tsbuildinfo` versionado impeça a emissão de `dist/*.d.ts` em checkouts limpos.
 
 ### Database Prisma bootstrap in CI
 

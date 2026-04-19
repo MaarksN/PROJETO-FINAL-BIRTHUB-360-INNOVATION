@@ -10,6 +10,15 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@birthub/config": [
+        "../config/dist/index.d.ts"
+      ],
+      "@birthub/logger": [
+        "../logger/dist/index.d.ts"
+      ]
+    },
     "types": [
       "node"
     ],
