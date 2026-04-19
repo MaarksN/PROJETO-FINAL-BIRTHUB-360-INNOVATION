@@ -167,6 +167,13 @@ async function authenticateSession(
   }
 
   const membership = await prisma.membership.findUnique({
+    include: {
+      user: {
+        select: {
+          status: true
+        }
+      }
+    },
     where: {
       organizationId_userId: {
         organizationId: session.organizationId,
@@ -175,12 +182,23 @@ async function authenticateSession(
     }
   });
 
-  if (!membership || (membership.tenantId && membership.tenantId !== session.tenantId) || membership.status !== MembershipStatus.ACTIVE) {
+  if (!membership) {
     return null;
   }
 
-  const user = await prisma.user.findUnique({ where: { id: session.userId } });
-  if (!user || user.status === UserStatus.SUSPENDED) {
+  if (membership.tenantId && membership.tenantId !== session.tenantId) {
+    return null;
+  }
+
+  if (membership.status !== MembershipStatus.ACTIVE) {
+    return null;
+  }
+
+  const resolvedUserStatus =
+    membership.user?.status ??
+    (await prisma.user.findUnique({ where: { id: session.userId } }))?.status;
+
+  if (!resolvedUserStatus || resolvedUserStatus === UserStatus.SUSPENDED) {
     return null;
   }
 
