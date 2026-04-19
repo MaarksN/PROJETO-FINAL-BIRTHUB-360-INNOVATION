@@ -1,6 +1,6 @@
 # Monorepo Doctor Report
 
-Generated at: 2026-04-19T01:43:27.804Z
+Generated at: 2026-04-19T02:37:43.098Z
 Scope: canonical go-live gate = apps/web + apps/api + apps/worker + packages/database
 
 ## Critical findings

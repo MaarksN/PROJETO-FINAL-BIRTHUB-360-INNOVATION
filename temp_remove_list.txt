@@ -1,4 +1,4 @@
-﻿apps/api/src/lib/database-availability.js
+apps/api/src/lib/database-availability.js
 apps/api/src/modules/agents/metrics.service.js
 apps/api/src/modules/outputs/output.service.js
 apps/api/test/__mocks__/stripe.js
