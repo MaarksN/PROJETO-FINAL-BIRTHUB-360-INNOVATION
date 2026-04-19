@@ -35,14 +35,6 @@
         "packages/*/src"
       ]
     },
-<<<<<<< ours
-<<<<<<< ours
     "ignoreDeprecations": "5.0"
-=======
-    "ignoreDeprecations": "6.0"
->>>>>>> theirs
-=======
-    "ignoreDeprecations": "6.0"
->>>>>>> theirs
   }
 }
