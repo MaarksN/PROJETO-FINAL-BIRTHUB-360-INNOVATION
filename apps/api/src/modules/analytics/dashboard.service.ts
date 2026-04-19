@@ -191,18 +191,13 @@ async function getOperationsDashboard() {
           organizationId: {
             not: ""
           },
-          status: "WAITING_APPROVAL"
-          ,
+          status: "WAITING_APPROVAL",
           tenantId: {
             not: ""
           }
         }
       }),
       prisma.agentBudgetEvent.findMany({
-        orderBy: {
-          createdAt: "desc"
-        },
-        take: 10,
         where: {
           kind: {
             in: ["WARN_80", "BLOCK_100"]
@@ -213,7 +208,11 @@ async function getOperationsDashboard() {
           tenantId: {
             not: ""
           }
-        }
+        },
+        orderBy: {
+          createdAt: "desc"
+        },
+        take: 10
       }),
       prisma.agentBudgetEvent.groupBy({
         _sum: {

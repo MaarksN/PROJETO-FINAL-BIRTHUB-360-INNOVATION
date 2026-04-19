@@ -48,6 +48,11 @@ export async function listTenantApiKeys(input: {
   userId: string;
 }) {
   return prisma.apiKey.findMany({
+    where: {
+      organizationId: input.organizationId,
+      tenantId: input.tenantId,
+      userId: input.userId
+    },
     orderBy: {
       createdAt: "desc"
     },
@@ -59,12 +64,7 @@ export async function listTenantApiKeys(input: {
       scopes: true,
       status: true
     },
-    take: TENANT_API_KEY_LIST_LIMIT,
-    where: {
-      organizationId: input.organizationId,
-      tenantId: input.tenantId,
-      userId: input.userId
-    }
+    take: TENANT_API_KEY_LIST_LIMIT
   });
 }
 

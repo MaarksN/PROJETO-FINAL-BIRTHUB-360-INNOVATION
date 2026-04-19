@@ -39,19 +39,19 @@ async function enforceConcurrentSessionLimit(input: {
   const limit = resolveConcurrentSessionLimit(input.role);
 
   const activeSessions = await prisma.session.findMany({
+    where: {
+      organizationId: input.organizationId,
+      revokedAt: null,
+      tenantId: input.tenantId,
+      userId: input.userId
+    },
     orderBy: {
       createdAt: "desc"
     },
     select: {
       id: true
     },
-    take: ACTIVE_SESSION_ENFORCEMENT_LIMIT,
-    where: {
-      organizationId: input.organizationId,
-      revokedAt: null,
-      tenantId: input.tenantId,
-      userId: input.userId
-    }
+    take: ACTIVE_SESSION_ENFORCEMENT_LIMIT
   });
 
   if (activeSessions.length <= limit) {
@@ -67,16 +67,16 @@ async function enforceConcurrentSessionLimit(input: {
   }
 
   await prisma.session.updateMany({
-    data: {
-      revokedAt: new Date(),
-      status: SessionStatus.REVOKED
-    },
     where: {
       id: {
         in: sessionsToRevoke
       },
       revokedAt: null,
       tenantId: input.tenantId
+    },
+    data: {
+      revokedAt: new Date(),
+      status: SessionStatus.REVOKED
     }
   });
 }
@@ -386,6 +386,12 @@ export async function listActiveSessions(input: {
   userId: string;
 }) {
   return prisma.session.findMany({
+    where: {
+      organizationId: input.organizationId,
+      revokedAt: null,
+      tenantId: input.tenantId,
+      userId: input.userId
+    },
     orderBy: {
       lastActivityAt: "desc"
     },
@@ -395,13 +401,7 @@ export async function listActiveSessions(input: {
       lastActivityAt: true,
       userAgent: true
     },
-    take: ACTIVE_SESSION_LIST_LIMIT,
-    where: {
-      organizationId: input.organizationId,
-      revokedAt: null,
-      tenantId: input.tenantId,
-      userId: input.userId
-    }
+    take: ACTIVE_SESSION_LIST_LIMIT
   });
 }
 

@@ -56,11 +56,20 @@ export async function suspendUser(input: {
   organizationId: string;
   targetUserId: string;
 }) {
-  const before = await prisma.user.findUnique({
+  const tenantId =
+    (await resolveTenantIdForOrganization(input.organizationId)) ?? input.organizationId;
+  const membership = await prisma.membership.findFirst({
+    include: {
+      user: true
+    },
     where: {
-      id: input.targetUserId
+      organizationId: input.organizationId,
+      status: MembershipStatus.ACTIVE,
+      tenantId,
+      userId: input.targetUserId
     }
   });
+  const before = membership?.user ?? null;
 
   if (!before) {
     throw new Error("USER_NOT_FOUND");
@@ -75,8 +84,6 @@ export async function suspendUser(input: {
       id: input.targetUserId
     }
   });
-  const tenantId =
-    (await resolveTenantIdForOrganization(input.organizationId)) ?? input.organizationId;
 
   await prisma.auditLog.create({
     data: {
@@ -150,4 +157,3 @@ export async function updateUserRoleWithAudit(input: {
 
   return updated;
 }
-

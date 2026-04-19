@@ -316,9 +316,11 @@ function registerMfaSetupRoute(router: ReturnType<typeof Router>, config: ApiCon
     "/mfa/setup",
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
+      const organizationId = request.context.organizationId;
+      const tenantId = request.context.tenantId;
       const userId = request.context.userId;
 
-      if (!userId) {
+      if (!organizationId || !tenantId || !userId) {
         throw new ProblemDetailsError({
           detail: "Authenticated user context is required.",
           status: 401,
@@ -370,6 +372,8 @@ function registerMfaEnableRoute(router: ReturnType<typeof Router>, config: ApiCo
       const body = enableMfaRequestSchema.parse(request.body);
       const enabled = await enableMfaForUser({
         config,
+        organizationId,
+        tenantId,
         totpCode: body.totpCode,
         userId
       });

@@ -5,6 +5,7 @@ import path from "node:path";
 import test from "node:test";
 
 import {
+  GLOBAL_PREMIUM_PROTOCOL_MARKER,
   agentIdsMatch,
   canonicalizeAgentId,
   findManifestCatalogEntryByAgentId,
@@ -235,6 +236,16 @@ void test("loadManifestCatalog walks nested directories and only reads manifest.
     assert.deepEqual(loadedIds, ["catalog-root", "sales_copilot"]);
     assert.equal(
       loadedCatalog.every((entry) => entry.manifestPath.endsWith("manifest.json")),
+      true
+    );
+    assert.equal(
+      loadedCatalog.every((entry) =>
+        entry.manifest.agent.prompt.includes(GLOBAL_PREMIUM_PROTOCOL_MARKER)
+      ),
+      true
+    );
+    assert.equal(
+      loadedCatalog.every((entry) => entry.manifest.keywords.includes("premium-100")),
       true
     );
   } finally {

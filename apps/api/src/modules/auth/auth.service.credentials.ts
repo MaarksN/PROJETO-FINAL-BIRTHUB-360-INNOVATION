@@ -348,14 +348,23 @@ export async function setupMfaForUser(input: {
 
 export async function enableMfaForUser(input: {
   config: ApiConfig;
+  organizationId: string;
+  tenantId: string;
   totpCode: string;
   userId: string;
 }): Promise<boolean> {
-  const user = await prisma.user.findUnique({
+  const membership = await prisma.membership.findFirst({
+    include: {
+      user: true
+    },
     where: {
-      id: input.userId
+      organizationId: input.organizationId,
+      status: MembershipStatus.ACTIVE,
+      tenantId: input.tenantId,
+      userId: input.userId
     }
   });
+  const user = membership?.user ?? null;
 
   if (!user?.mfaSecret) {
     throw new Error("MFA_NOT_CONFIGURED");

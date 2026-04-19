@@ -1,4 +1,5 @@
 import {
+  MembershipStatus,
   UserStatus,
   Role,
   prisma
@@ -151,7 +152,17 @@ async function authenticateSession(
   config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
     Partial<Pick<ApiConfig, "SESSION_SECRET">>
 ): Promise<AuthenticatedContext | null> {
-  const session = await prisma.session.findUnique({ where: { token: sha256(token) } });
+  const session = await prisma.session.findFirst({
+    where: {
+      organizationId: {
+        not: ""
+      },
+      tenantId: {
+        not: ""
+      },
+      token: sha256(token)
+    }
+  });
   if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
     return null;
   }
@@ -161,8 +172,23 @@ async function authenticateSession(
     return null;
   }
 
-  const user = await prisma.user.findUnique({ where: { id: session.userId } });
-  if (!user || user.status === UserStatus.SUSPENDED) {
+  const membership = await prisma.membership.findFirst({
+    include: {
+      user: {
+        select: {
+          status: true
+        }
+      }
+    },
+    where: {
+      organizationId: session.organizationId,
+      status: MembershipStatus.ACTIVE,
+      tenantId: session.tenantId,
+      userId: session.userId
+    }
+  });
+
+  if (!membership || membership.user.status === UserStatus.SUSPENDED) {
     return null;
   }
 
@@ -213,4 +239,3 @@ export async function authenticateRequest(input: {
 
   return null;
 }
-
