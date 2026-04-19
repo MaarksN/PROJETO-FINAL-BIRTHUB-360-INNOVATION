@@ -3,6 +3,7 @@ import test from "node:test";
 
 import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema.js";
 import {
+  TOTAL_PREMIUM_LAYER_COUNT,
   buildAgentRuntimeOutput,
   buildAgentRuntimePlan,
   inferSegmentProfile,
@@ -131,6 +132,18 @@ void test("runtime plan and output include segment adaptation, memory and handof
     "fintech"
   );
   assert.equal((firstToolCall.input.dataSummary as { trend: string }).trend, "up");
+  assert.equal(
+    (firstToolCall.input.communicationProtocol as { protocolVersion: string }).protocolVersion,
+    "premium-100"
+  );
+  assert.equal(
+    (firstToolCall.input.decisionProtocol as { protocolVersion: string }).protocolVersion,
+    "premium-100"
+  );
+  assert.equal(
+    (firstToolCall.input.premiumOperatingModel as { tier: string }).tier,
+    "market-premium-100"
+  );
 
   const output = buildAgentRuntimeOutput({
     input,
@@ -202,6 +215,6 @@ void test("runtime plan and output include segment adaptation, memory and handof
   assert.equal(output.leading_indicators.some((item) => item === "industry:fintech"), true);
   assert.equal(output.orchestration_plan?.recommended_agents[0]?.agent_id, "cro-pack");
   assert.equal(output.orchestration_plan?.approval_required, true);
-  assert.equal(output.premium_layers.length, 10);
+  assert.equal(output.premium_layers.length, TOTAL_PREMIUM_LAYER_COUNT);
   assert.equal(output.premium_score > 0, true);
 });

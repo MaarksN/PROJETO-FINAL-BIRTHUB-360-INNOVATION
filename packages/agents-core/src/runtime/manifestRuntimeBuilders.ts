@@ -278,7 +278,7 @@ export function buildAgentRuntimeOutput(input: AgentRuntimeOutputInput): AgentRu
     workflowReady: Boolean(orchestrationPlan?.workflow_steps.length) || hasWorkflowContext(input.input)
   });
   const premiumOverview = summarizePremiumLayers(premiumLayers);
-  const summary = `${input.manifest.agent.name} concluiu a execucao live para ${segmentProfile.industry}/${segmentProfile.clientSegment}, processou ${numericSummary.count} sinal(is) numerico(s), capturou ${combinedTextSignals.length} evidencia(s) textual(is), deixou memoria pronta para reutilizacao e ativou um operating score premium de ${premiumOverview.overallScore}/100.`;
+  const summary = `${input.manifest.agent.name} concluiu a execucao live para ${segmentProfile.industry}/${segmentProfile.clientSegment}, processou ${numericSummary.count} sinal(is) numerico(s), capturou ${combinedTextSignals.length} evidencia(s) textual(is), deixou memoria pronta para reutilizacao e ativou ${premiumLayers.length} camadas premium com operating score de ${premiumOverview.overallScore}/100.`;
 
   return {
     agent_id: input.manifest.agent.id,

@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
+import { enhanceManifestWithPremiumProtocol } from "../runtime/premiumProtocol.js";
 import { parseAgentManifest } from "./parser.js";
 import type { AgentManifest, AgentManifestTags } from "./schema.js";
 
@@ -208,7 +209,7 @@ export async function loadManifestCatalog(baseDir: string): Promise<ManifestCata
   for (const manifestPath of manifestPaths) {
     const manifestRaw = await readFile(manifestPath, "utf8");
     const manifestJson = JSON.parse(manifestRaw) as unknown;
-    const manifest = parseAgentManifest(manifestJson);
+    const manifest = enhanceManifestWithPremiumProtocol(parseAgentManifest(manifestJson));
 
     catalogEntries.push({
       manifest,

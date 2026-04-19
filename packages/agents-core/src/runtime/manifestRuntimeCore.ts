@@ -15,6 +15,7 @@ import {
   summarizePremiumLayers,
   type SegmentProfile
 } from "./intelligence.js";
+import { TOTAL_PREMIUM_LAYER_COUNT } from "./premiumProtocol.js";
 import type {
   AgentRuntimeOutput,
   AgentRuntimePlan,
@@ -234,6 +235,66 @@ export function hasWorkflowContext(input: Record<string, unknown>): boolean {
   );
 }
 
+function buildCommunicationProtocol(input: {
+  objective: string;
+  overallScore: number;
+  segmentProfile: SegmentProfile;
+}): Record<string, unknown> {
+  return {
+    audience: `${input.segmentProfile.industry}/${input.segmentProfile.clientSegment}`,
+    objective: input.objective,
+    premiumLayerCount: TOTAL_PREMIUM_LAYER_COUNT,
+    protocolVersion: "premium-100",
+    responseBlueprint: [
+      "leitura executiva",
+      "evidencias e sinais",
+      "riscos e oportunidades",
+      "decisao recomendada",
+      "proximo passo com dono e checkpoint"
+    ],
+    tone: ["profissional", "claro", "assertivo", "respeitoso", "sem floreio"],
+    rules: [
+      "separar fato, inferencia e lacuna",
+      "adaptar linguagem ao segmento e ao decisor",
+      "explicitar nivel de confianca e trade-off",
+      "encerrar com next step objetivo"
+    ],
+    score: input.overallScore
+  };
+}
+
+function buildDecisionProtocol(input: {
+  numericSummary: ReturnType<typeof summarizeNumericSignals>;
+  objective: string;
+  overallScore: number;
+  segmentProfile: SegmentProfile;
+}): Record<string, unknown> {
+  return {
+    checkpoints: [
+      "irreversibilidade",
+      "urgencia",
+      "confianca",
+      "dependencias criticas",
+      "custo de agir versus esperar"
+    ],
+    escalationTriggers: [
+      "risco alto com confianca baixa",
+      "necessidade de aprovacao humana",
+      "evidencia conflitante em decisao irreversivel"
+    ],
+    objective: input.objective,
+    premiumLayerCount: TOTAL_PREMIUM_LAYER_COUNT,
+    protocolVersion: "premium-100",
+    scoreHints: {
+      outliers: input.numericSummary.outlierCount,
+      overallScore: input.overallScore,
+      segmentConfidence: input.segmentProfile.confidence,
+      trend: input.numericSummary.trend
+    },
+    strategy: "preferir a menor acao segura que aumenta opcionalidade executiva"
+  };
+}
+
 export function buildStatus(input: {
   governance: OutputGovernanceDecision;
   numericOutliers: number;
@@ -287,6 +348,17 @@ function buildToolCalls(input: AgentRuntimePlanInput): AgentRuntimePlan["toolCal
     workflowReady: hasWorkflowContext(input.input)
   });
   const premiumOverview = summarizePremiumLayers(premiumLayers);
+  const communicationProtocol = buildCommunicationProtocol({
+    objective,
+    overallScore: premiumOverview.overallScore,
+    segmentProfile
+  });
+  const decisionProtocol = buildDecisionProtocol({
+    numericSummary,
+    objective,
+    overallScore: premiumOverview.overallScore,
+    segmentProfile
+  });
 
   return input.manifest.tools.map((tool, index) => {
     const capabilityType = inferCapabilityType(tool);
@@ -294,8 +366,10 @@ function buildToolCalls(input: AgentRuntimePlanInput): AgentRuntimePlan["toolCal
     return {
       input: {
         collaborationTargets,
+        communicationProtocol,
         contextSummary: input.contextSummary ?? null,
         dataSummary: numericSummary,
+        decisionProtocol,
         memoryHints: {
           memoryKey: buildMemoryKey(input.manifest.agent.id, segmentProfile, tool.name),
           saveSummary: capabilityType === "memory" || index === input.manifest.tools.length - 1
@@ -306,7 +380,7 @@ function buildToolCalls(input: AgentRuntimePlanInput): AgentRuntimePlan["toolCal
           needsAttention: premiumOverview.needsAttention,
           overallScore: premiumOverview.overallScore,
           standoutLayers: premiumOverview.standoutLayers,
-          tier: "market-premium-10"
+          tier: "market-premium-100"
         },
         segmentProfile,
         sequence: index + 1,
@@ -441,6 +515,7 @@ export function buildAgentRuntimePlan(input: AgentRuntimePlanInput): AgentRuntim
       `Segment profile inferred: ${buildSegmentKeywords(segmentProfile).join(", ")}.`,
       `Prepared ${numericSummary.count} numeric signal(s) and ${textSignals.length} text signal(s) for execution.`,
       `Premium operating model scored ${premiumOverview.overallScore}/100 across ${premiumLayers.length} shared layers.`,
+      `Communication and decision protocol upgraded to premium-100.`,
       `Built ${toolCalls.length} market-grade tool call(s).`
     ],
     toolCalls
