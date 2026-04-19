@@ -3,7 +3,7 @@ import { pathToFileURL } from "node:url";
 
 import { createLogger } from "@birthub/logger";
 
-import { createPrismaClient } from "../src/client.js";
+import { createPrismaClient } from "@birthub/database";
 import { tenants as destructiveTenants } from "./seed/data.js";
 import { seedPlans, wipeDatabase } from "./seed/helpers.js";
 import { createTenant } from "./seed/tenant.js";
