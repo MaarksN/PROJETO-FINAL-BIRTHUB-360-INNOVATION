@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/246ddd08-aede-a352-0d99-88b8002aba36",
+  "documentNamespace": "https://birthub.local/spdx/680662f8-d3c6-ca2b-5c49-00cfc4b9e47c",
   "creationInfo": {
-    "created": "2026-04-19T23:14:53.557Z",
+    "created": "2026-04-19T00:42:33.397Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -131,21 +131,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40birthub%2Fconfig@link%3Apackages%2Fconfig"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-0b70c42328566a1b",
-      "name": "@birthub/contracts",
-      "versionInfo": "link:../../packages/contracts",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40birthub%2Fcontracts@link%3A..%2F..%2Fpackages%2Fcontracts"
         }
       ]
     },
@@ -615,6 +600,21 @@
       ]
     },
     {
+      "SPDXID": "SPDXRef-Package-9e1855a8d611e22b",
+      "name": "@stryker-mutator/api",
+      "versionInfo": "9.6.1",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40stryker-mutator%2Fapi@9.6.1"
+        }
+      ]
+    },
+    {
       "SPDXID": "SPDXRef-Package-3cc4d81de7be707b",
       "name": "@stryker-mutator/core",
       "versionInfo": "9.6.1",
@@ -791,21 +791,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40types%2Fws@8.18.1"
-        }
-      ]
-    },
-    {
-      "SPDXID": "SPDXRef-Package-978f39ad27cd8e15",
-      "name": "@typescript-eslint/parser",
-      "versionInfo": "8.58.2",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/%40typescript-eslint%2Fparser@8.58.2"
         }
       ]
     },
@@ -1200,21 +1185,6 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-ee265378866ff733",
-      "name": "playwright",
-      "versionInfo": "1.59.1",
-      "downloadLocation": "NOASSERTION",
-      "filesAnalyzed": false,
-      "supplier": "NOASSERTION",
-      "externalRefs": [
-        {
-          "referenceCategory": "PACKAGE-MANAGER",
-          "referenceType": "purl",
-          "referenceLocator": "pkg:npm/playwright@1.59.1"
-        }
-      ]
-    },
-    {
       "SPDXID": "SPDXRef-Package-baf219d277f28f5d",
       "name": "prettier",
       "versionInfo": "3.8.3",
@@ -1515,9 +1485,9 @@
       ]
     },
     {
-      "SPDXID": "SPDXRef-Package-44bd9e04e2c25408",
+      "SPDXID": "SPDXRef-Package-e500ed061b70ae87",
       "name": "typescript",
-      "versionInfo": "5.9.3",
+      "versionInfo": "6.0.3",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "supplier": "NOASSERTION",
@@ -1525,7 +1495,7 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/typescript@5.9.3"
+          "referenceLocator": "pkg:npm/typescript@6.0.3"
         }
       ]
     },
