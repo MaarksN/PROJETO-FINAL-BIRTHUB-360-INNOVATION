@@ -10,6 +10,7 @@ import {
 } from "@birthub/agents-core";
 
 const SHARED_LEARNING_CLAUSE = "Todo agente aprende com todo agente.";
+const PREMIUM_PROTOCOL_MARKER = "PROTOCOLO PREMIUM GLOBAL 100";
 
 void test("pack regression: every manifest produces stable dry-run envelope", async () => {
   const currentFile = fileURLToPath(import.meta.url);
@@ -40,9 +41,11 @@ void test("official collection regression: installable manifests keep keywords a
     assert.ok(entry.manifest.agent.prompt.includes("ROTINA DE MONITORAMENTO E ANTECIPACAO"));
     assert.ok(entry.manifest.agent.prompt.includes("CRITERIOS DE ESCALACAO"));
     assert.ok(entry.manifest.agent.prompt.includes("APRENDIZADO COMPARTILHADO"));
+    assert.ok(entry.manifest.agent.prompt.includes(PREMIUM_PROTOCOL_MARKER));
     assert.ok(
       entry.manifest.agent.prompt.includes("nunca esperar um risco relevante virar incidente para alertar")
     );
     assert.ok(entry.manifest.agent.prompt.includes(SHARED_LEARNING_CLAUSE));
+    assert.ok(entry.manifest.keywords.includes("premium-100"));
   }
 });
