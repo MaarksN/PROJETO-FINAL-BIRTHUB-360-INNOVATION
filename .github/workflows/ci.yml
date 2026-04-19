@@ -37,17 +37,17 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -83,15 +83,15 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -155,7 +155,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -184,15 +184,15 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -222,18 +222,9 @@ jobs:
           WEB_BASE_URL: http://localhost:3001
 
   platform:
-    name: platform (${{ matrix.task }})
+    name: platform
     runs-on: ubuntu-latest
-    timeout-minutes: 25
-    strategy:
-      fail-fast: false
-      matrix:
-        task:
-          - lint
-          - typecheck
-          - test
-          - test:isolation
-          - build
+    timeout-minutes: 45
     services:
       postgres:
         image: postgres:16-alpine
@@ -259,27 +250,27 @@ jobs:
           - 6379:6379
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Cache Turbo
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: .turbo
-          key: ${{ runner.os }}-turbo-${{ matrix.task }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
+          key: ${{ runner.os }}-turbo-platform-${{ hashFiles('pnpm-lock.yaml', 'turbo.json') }}
           restore-keys: |
-            ${{ runner.os }}-turbo-${{ matrix.task }}-
+            ${{ runner.os }}-turbo-platform-
             ${{ runner.os }}-turbo-
 
       - name: Install dependencies
@@ -291,13 +282,72 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
       - name: Bootstrap CI database
-        if: ${{ matrix.task == 'test' || matrix.task == 'test:isolation' }}
         run: pnpm db:bootstrap:ci
         env:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
-      - name: Run ${{ matrix.task }}
-        run: pnpm ci:task ${{ matrix.task }}
+      - name: Build
+        run: pnpm ci:task build
+        env:
+          API_CORS_ORIGINS: http://localhost:3001
+          API_PORT: 3000
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ENVIRONMENT: ci
+          NODE_ENV: test
+          QUEUE_NAME: birthub-cycle1
+          REDIS_URL: redis://localhost:6379
+          SESSION_SECRET: ci-secret
+          WEB_BASE_URL: http://localhost:3001
+
+      - name: Typecheck
+        run: pnpm ci:task typecheck
+        env:
+          API_CORS_ORIGINS: http://localhost:3001
+          API_PORT: 3000
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ENVIRONMENT: ci
+          NODE_ENV: test
+          QUEUE_NAME: birthub-cycle1
+          REDIS_URL: redis://localhost:6379
+          SESSION_SECRET: ci-secret
+          WEB_BASE_URL: http://localhost:3001
+
+      - name: Lint
+        run: pnpm ci:task lint
+        env:
+          API_CORS_ORIGINS: http://localhost:3001
+          API_PORT: 3000
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ENVIRONMENT: ci
+          NODE_ENV: test
+          QUEUE_NAME: birthub-cycle1
+          REDIS_URL: redis://localhost:6379
+          SESSION_SECRET: ci-secret
+          WEB_BASE_URL: http://localhost:3001
+
+      - name: Test
+        run: pnpm ci:task test
+        env:
+          API_CORS_ORIGINS: http://localhost:3001
+          API_PORT: 3000
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+          NEXT_PUBLIC_APP_URL: http://localhost:3001
+          NEXT_PUBLIC_ENVIRONMENT: ci
+          NODE_ENV: test
+          QUEUE_NAME: birthub-cycle1
+          REDIS_URL: redis://localhost:6379
+          SESSION_SECRET: ci-secret
+          WEB_BASE_URL: http://localhost:3001
+
+      - name: Test isolation
+        run: pnpm ci:task test:isolation
         env:
           API_CORS_ORIGINS: http://localhost:3001
           API_PORT: 3000
@@ -317,22 +367,22 @@ jobs:
     timeout-minutes: 25
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version-file: .python-version
 
@@ -381,22 +431,22 @@ jobs:
           - 6379:6379
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version-file: .python-version
 
@@ -457,15 +507,15 @@ jobs:
           - 6379:6379
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -526,22 +576,22 @@ jobs:
           - 6379:6379
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version-file: .python-version
 
@@ -591,7 +641,7 @@ jobs:
 
       - name: Upload coverage evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-quality
           path: |
