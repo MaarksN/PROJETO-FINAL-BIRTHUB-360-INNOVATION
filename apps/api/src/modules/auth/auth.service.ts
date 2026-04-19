@@ -166,23 +166,21 @@ async function authenticateSession(
     return null;
   }
 
-  const membership = await prisma.membership.findFirst({
-    include: {
-      user: {
-        select: {
-          status: true
-        }
-      }
-    },
+  const membership = await prisma.membership.findUnique({
     where: {
-      organizationId: session.organizationId,
-      status: MembershipStatus.ACTIVE,
-      tenantId: session.tenantId,
-      userId: session.userId
+      organizationId_userId: {
+        organizationId: session.organizationId,
+        userId: session.userId
+      }
     }
   });
 
-  if (!membership || membership.user.status === UserStatus.SUSPENDED) {
+  if (!membership || (membership.tenantId && membership.tenantId !== session.tenantId) || membership.status !== MembershipStatus.ACTIVE) {
+    return null;
+  }
+
+  const user = await prisma.user.findUnique({ where: { id: session.userId } });
+  if (!user || user.status === UserStatus.SUSPENDED) {
     return null;
   }
 
