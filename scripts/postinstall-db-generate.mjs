@@ -16,4 +16,3 @@ runPnpm([
   '@birthub/database',
   'build'
 ]);
-runPnpm(['--filter', '@birthub/database', 'db:generate']);
