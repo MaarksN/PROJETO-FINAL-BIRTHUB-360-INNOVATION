@@ -11,9 +11,9 @@ function formatErrorMessage(error) {
 }
 
 function isSafeTsbuildinfoPath(absolutePath) {
-  const normalizedProjectRoot = `${projectRoot}${path.sep}`;
+  const projectRootPrefix = `${projectRoot}${path.sep}`;
   return (
-    absolutePath.startsWith(normalizedProjectRoot) &&
+    absolutePath.startsWith(projectRootPrefix) &&
     absolutePath.includes(`${path.sep}packages${path.sep}`) &&
     absolutePath.endsWith('.tsbuildinfo')
   );
