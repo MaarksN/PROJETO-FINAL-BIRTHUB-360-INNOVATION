@@ -4,6 +4,11 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 
 ## 2026-04-19
 
+### TypeScript NodeNext package exports
+
+- adicionadas condicoes `types` explicitas aos `exports` de pacotes internos usados como dependencias workspace, estabilizando a resolucao TypeScript no Node 24 durante installs frios do CI.
+- cobertos `@birthub/config`, `@birthub/logger`, `@birthub/database`, `@birthub/agents-core`, `@birthub/workflows-core`, `@birthub/integrations`, `@birthub/shared-types` e `@birthub/utils`.
+
 ### Database Prisma bootstrap in CI
 
 - `@birthub/database` agora executa `db:generate` no `prebuild`, garantindo que o Prisma Client tipado exista antes do `tsc` em installs frios, Docker builds e workflows reutilizáveis de CI.
