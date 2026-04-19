@@ -1,11 +1,11 @@
 # Package Script Status
 
-Generated at: 2026-04-18T15:22:59.737Z
+Generated at: 2026-04-19T01:43:16.730Z
 
-- Workspaces: 23
-- Script slots ok: 90
+- Workspaces: 24
+- Script slots ok: 93
 - Script slots N/A: 2
-- Script slots missing: 0
+- Script slots missing: 1
 
 ## Approved N/A criteria
 
@@ -27,6 +27,7 @@ Generated at: 2026-04-18T15:22:59.737Z
 | @birthub/config | packages/config | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/conversation-core | packages/conversation-core | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/database | packages/database | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
+| @birthub/domain-contracts | packages/domain-contracts | P2 | Platform Engineering | 2026-03-29 | ok | ok | missing | ok | - |
 | @birthub/emails | packages/emails | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | N/A | build: Email templates are rendered in-place by consumers and do not ship a separate library build. |
 | @birthub/integrations | packages/integrations | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/llm-client | packages/llm-client | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |

@@ -5,7 +5,7 @@
     "template-only": "Package contains runtime-loaded templates and does not publish a standalone distributable artifact.",
     "types-only": "Package exports only types or schemas and is validated transitively by consumer typechecks."
   },
-  "generatedAt": "2026-04-18T15:22:59.737Z",
+  "generatedAt": "2026-04-19T01:43:16.730Z",
   "rows": [
     {
       "approvedBy": "Lead tecnico de plataforma",
@@ -78,7 +78,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -117,7 +117,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -234,7 +234,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -312,7 +312,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -362,6 +362,45 @@
       "approvedBy": "Lead tecnico de plataforma",
       "approvedOn": "2026-03-22",
       "deadline": "2026-03-29",
+      "directory": "packages/domain-contracts",
+      "name": "@birthub/domain-contracts",
+      "notes": "",
+      "owner": "Platform Engineering",
+      "priority": "P2",
+      "relativePath": "packages/domain-contracts/package.json",
+      "reviewer": "Platform Tech Lead",
+      "risk": "low",
+      "scripts": {
+        "lint": {
+          "command": "eslint .",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        },
+        "typecheck": {
+          "command": "tsc -p tsconfig.json --noEmit",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        },
+        "test": {
+          "command": null,
+          "criterion": null,
+          "justification": null,
+          "status": "missing"
+        },
+        "build": {
+          "command": "tsc -p tsconfig.json",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        }
+      }
+    },
+    {
+      "approvedBy": "Lead tecnico de plataforma",
+      "approvedOn": "2026-03-22",
+      "deadline": "2026-03-29",
       "directory": "packages/emails",
       "name": "@birthub/emails",
       "notes": "build: Email templates are rendered in-place by consumers and do not ship a separate library build.",
@@ -390,7 +429,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "echo \"N/A: no build step\"",
+          "command": "tsc -p tsconfig.json",
           "criterion": "template-only",
           "justification": "Email templates are rendered in-place by consumers and do not ship a separate library build.",
           "status": "na"
@@ -429,7 +468,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -468,7 +507,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -546,7 +585,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -585,7 +624,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -624,7 +663,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "echo \"N/A: no build step\"",
+          "command": "tsc -p tsconfig.json",
           "criterion": "shared-source-only",
           "justification": "Shared error helpers are consumed directly from source and do not require an isolated bundle.",
           "status": "na"
@@ -663,7 +702,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -741,7 +780,7 @@
           "status": "ok"
         },
         "build": {
-          "command": "tsc",
+          "command": "tsc -p tsconfig.json",
           "criterion": null,
           "justification": null,
           "status": "ok"
@@ -906,12 +945,12 @@
     }
   ],
   "summary": {
-    "generatedAt": "2026-04-18T15:22:59.737Z",
+    "generatedAt": "2026-04-19T01:43:16.730Z",
     "totals": {
-      "missing": 0,
+      "missing": 1,
       "na": 2,
-      "ok": 90,
-      "workspaces": 23
+      "ok": 93,
+      "workspaces": 24
     }
   }
 }
