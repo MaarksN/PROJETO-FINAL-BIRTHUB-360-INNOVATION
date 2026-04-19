@@ -10,6 +10,10 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 - movido o `tsBuildInfoFile` desses pacotes para `dist/`, evitando dirty-tree em jobs que executam build durante `pnpm install`.
 - mantidos os `exports` em runtime apontando para `dist/*.js`, para que runners com `tsx` não resolvam arquivos `.d.ts` como módulos executáveis.
 
+### Worker dependency hygiene
+
+- removida a dependência workspace não usada de `@birthub/api` em `@birthub/worker`, mantendo o scorecard de dead-code sem regressões e o lockfile governado sincronizado.
+
 ### Database Prisma bootstrap in CI
 
 - `@birthub/database` agora executa `db:generate` no `prebuild`, garantindo que o Prisma Client tipado exista antes do `tsc` em installs frios, Docker builds e workflows reutilizáveis de CI.
