@@ -1,10 +1,1 @@
-{
-  "name": "your-package-name",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "node --import tsx --test --test-reporter=spec --test-reporter-destination=stdout \"src/**/*.test.ts\" \"test/**/*.test.ts\"",
-    "test:isolation": "node --import tsx --test --test-reporter=spec --test-reporter-destination=stdout \"test/**/*.test.ts\""
-  },
-  "dependencies": {},
-  "devDependencies": {}
-}
+{\n  "name": "your-package-name",\n  "version": "1.0.0",\n  "private": true,\n  "type": "module",\n  "dependencies": {\n    // your dependencies here\n  },\n  "devDependencies": {\n    // your devDependencies here\n  },\n  "scripts": {\n    "test": "node --import tsx --test --test-reporter=spec --test-reporter-destination=stdout \"src/**/*.test.ts\" \"test/**/*.test.ts\"",\n    "test:isolation": "node --import tsx --test --test-reporter=spec --test-reporter-destination=stdout \"test/**/*.test.ts\""\n  }\n}
