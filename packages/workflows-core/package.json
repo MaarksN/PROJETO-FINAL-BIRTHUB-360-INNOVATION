@@ -6,16 +6,8 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
-    "./nextjs": {
-      "types": "./dist/nextjs.d.ts",
-      "import": "./dist/nextjs.js",
-      "default": "./dist/nextjs.js"
-    }
+    ".": "./dist/index.js",
+    "./nextjs": "./dist/nextjs.js"
   },
   "scripts": {
     "build": "tsc -b tsconfig.json --force",
