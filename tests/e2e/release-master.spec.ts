@@ -8,6 +8,14 @@ import {
   mockExecutionFeedback
 } from "./support";
 
+test.beforeEach(async ({ baseURL }) => {
+  if (!baseURL) {
+    throw new Error(
+      "E2E misconfigured: missing baseURL. Define WEB_BASE_URL/NEXT_PUBLIC_APP_URL or set Playwright use.baseURL."
+    );
+  }
+});
+
 test.describe("Release master smoke flow", () => {
   test("C1 home redirect, session bootstrap and invite acceptance mock", async ({ page }) => {
     await page.route("**/api/v1/sessions", async (route) => {

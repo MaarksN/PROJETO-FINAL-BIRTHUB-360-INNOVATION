@@ -325,15 +325,15 @@ importers:
       '@birthub/agents-core':
         specifier: workspace:*
         version: link:../../packages/agents-core
+      '@birthub/api':
+        specifier: workspace:*
+        version: link:../api
       '@birthub/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@birthub/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@birthub/domain-contracts':
-        specifier: workspace:*
-        version: link:../../packages/domain-contracts
       '@birthub/logger':
         specifier: workspace:*
         version: link:../../packages/logger
@@ -515,19 +515,6 @@ importers:
       vitest-mock-extended:
         specifier: ^4.0.0
         version: 4.0.0(typescript@5.9.3)(vitest@4.1.4(@opentelemetry/api@1.9.1)(@types/node@25.6.0)(jsdom@29.0.2(@noble/hashes@1.8.0))(msw@2.13.4(@types/node@25.6.0)(typescript@5.9.3))(vite@8.0.8(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
-
-  packages/domain-contracts:
-    dependencies:
-      '@birthub/database':
-        specifier: workspace:*
-        version: link:../database
-    devDependencies:
-      '@types/node':
-        specifier: ^25.6.0
-        version: 25.6.0
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
   packages/emails:
     dependencies:
