@@ -5,7 +5,7 @@ import { dirname, resolve } from "node:path";
 import { spawn } from "node:child_process";
 
 import { createLogger } from "@birthub/logger";
-import { buildEnv, resolvePnpmInvocation } from "../ci/shared";
+import { buildEnv, resolvePnpmInvocation } from "../ci/shared.mjs";
 
 type SmokeCommand = {
   args: string[];
